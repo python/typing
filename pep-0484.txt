@@ -317,6 +317,12 @@ holds a set of classes representing builtin types with generics, namely:
   case the following arguments are considered the same type as the last
   defined type on the tuple.
 
+.. attention::
+   None of these is intended for use in function or method signatures.
+   Unless the function needs methods that ``collections.abc`` does not
+   provide, function signatures should always use the abstract classes
+   ``Sequence``, ``Mapping``, ``AbstractSet`` and so on.
+
 It also introduces factories and helper members needed to express
 generics and union types:
 
