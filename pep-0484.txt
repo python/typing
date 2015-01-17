@@ -270,7 +270,7 @@ Type Hints on Local and Global Variables
 
 No first-class syntax support for explicitly marking variables as being
 of a specific type is added by this PEP.  To help with type inference in
-complex cases, a comment of the following format may be used::
+complex cases, a string literal of the following format may be used::
 
   '''type: List[Employee]'''
   x = []
