@@ -260,9 +260,9 @@ hinting, use the following:
 
 * a ``@no_type_checks`` decorator on classes and functions
 
-* a ``# type: ignore`` comment on arbitrary lines
+* a ``'''type: ignore'''`` string literal on arbitrary lines
 
-.. FIXME: should we have a module-wide comment as well?
+.. FIXME: should we have a module-wide string literals as well?
 
 
 Type Hints on Local and Global Variables
@@ -272,14 +272,16 @@ No first-class syntax support for explicitly marking variables as being
 of a specific type is added by this PEP.  To help with type inference in
 complex cases, a comment of the following format may be used::
 
-  x = []   # type: List[Employee]
+  '''type: List[Employee]'''
+  x = []
 
 In the case where type information for a local variable is needed before
 if was declared, an ``Undefined`` placeholder might be used::
 
   from typing import Undefined
-
-  x = Undefined   # type: List[Employee]
+  
+  '''type: List[Employee]'''
+  x = Undefined
   y = Undefined(int)
 
 If type hinting proves useful in general, a syntax for typing variables
@@ -327,9 +329,12 @@ generics and union types:
 * TypeVar, used as ``X = TypeVar('X', Type1, Type2, Type3)`` or simply
   ``Y = TypeVar('Y')``
 
-* Undefined, used as ``local_variable = Undefined # type: List[int]`` or
-  ``local_variable = Undefined(List[int])`` (the latter being slower
-  during runtime)
+* Undefined, used as ``local_variable = Undefined(List[int])`` or::
+
+    '''type: List[int]'''
+    local_variable = Undefined
+  
+  (the former being slower during runtime)
 
 * Callable, used as ``Callable[[Arg1Type, Arg2Type], ReturnType]``
 
