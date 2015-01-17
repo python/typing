@@ -248,15 +248,56 @@ Compatibility with other uses of function annotations
 -----------------------------------------------------
 
 A number of existing or potential use cases for function annotations
-exist, which are incompatible with type hinting.  These may confuse a
-static type checker.  However, since type hinting annotations have no
-run time behavior (other than evaluation of the annotation expression
-and storing annotations in the ``__annotations__`` attribute of the
-function object), this does not make the program incorrect -- it just
-makes it issue warnings when a static analyzer is used.
+exist, which are incompatible with type hinting.  These must not confuse
+a static type checker.  Instead, these tools must ignore any annotations
+that they do not understand.
+
+Given the precedence that type hints take when it comes to annotations,
+this means that any other uses of annotations must be easily distinguishable
+from type hints.  This PEP proposes a type system that lives partly in the
+builtin namespace and partly in the special "typing" module.  Annotations
+that want to coexist with type hints must therefore use different namespaces
+(i.e. objects that live in other modules), and tools that deal with type hints
+must ignore any annotations that live in namespaces that they do not know. If
+multiple annotations are used on the same argument or return value, they can
+be chained in tuples, as long as each annotation comes from a clearly defined
+namespace.
+
+This namespace separation makes it possible to use annotations for multiple
+purposes, such as documentation and type hinting, for example::
+
+    from documentation import doc
+    from typing import integer
+
+    def func(x: (integer, doc("a number")) -> integer:
+        ...
+
+In this case, "doc()" would create some kind of documentation object that wraps
+a docstring for the function argument.  Type checkers would recognise it as
+coming from a foreign namespace and only consider the "integer" annotation as
+relevant for their own purpose.
+
+Similarly, different type systems can be mixed with the proposed type system,
+such as the type system of the Cython compiler, which supports types from the
+C programming language and compiles Python code to C.  It could allow List
+items to be defined as C types, which would then be checked at runtime by
+compiled code.  This could look as follows::
+
+    from typing import List
+    import cython
+
+    def func(x: List[cython.int]) -> cython.long:
+        ...
+
+Static Python type checkers would understand the "List" type coming from
+the typing module and could check that the type of the input argument is
+always a Python list, but would ignore the unknown "cython.int" item type
+and thus not validate the items type of this list.  The Cython compiler,
+on the other hand, would understand both namespaces and could use it to
+generate corresponding C code.
 
 To mark portions of the program that should not be covered by type
-hinting, use the following:
+hinting at all, use the following:
 
 * a ``@no_type_checks`` decorator on classes and functions
 
