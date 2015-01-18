@@ -326,6 +326,12 @@ are mainly useful for annotating return values.  For arguments, prefer
 the abstract collection types defined below, e.g.  ``Mapping``,
 ``Sequence`` or ``AbstractSet``.
 
+.. attention::
+   None of these is intended for use in function or method signatures.
+   Unless the function needs methods that ``collections.abc`` does not
+   provide, function signatures should always use the abstract classes
+   ``Sequence``, ``Mapping``, ``AbstractSet`` and so on.
+
 It also introduces factories and helper members needed to express
 generics and union types:
 
