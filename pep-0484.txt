@@ -363,7 +363,7 @@ Occasionally the type checker may need a different kind of hint: the
 programmer may know that an expression is of a more constrained type
 than the type checker infers.  For example::
 
-  from typing import List
+  from typing import List, cast
 
   def find_first_str(a: List[object]) -> str:
       index = next(i for i, x in enumerate(a) if isinstance(x, str))
@@ -605,6 +605,12 @@ The following types are provided by the ``typing.re`` module:
 As a convenience measure, types from ``typing.io`` and ``typing.re`` are
 also available in ``typing`` (quoting Guido, "There's a reason those
 modules have two-letter names.").
+
+The library also includes the following utility functions:
+
+* cast
+
+* overload
 
 
 The place of the ``typing`` module in the standard library
