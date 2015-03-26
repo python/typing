@@ -640,6 +640,12 @@ As a convenience measure, types from ``typing.io`` and ``typing.re`` are
 also available in ``typing`` (quoting Guido, "There's a reason those
 modules have two-letter names.").
 
+The library also includes the following utility functions:
+
+* cast
+
+* overload
+
 
 The place of the ``typing`` module in the standard library
 ----------------------------------------------------------
