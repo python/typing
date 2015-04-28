@@ -687,6 +687,10 @@ stub files:
 
 * Extension modules
 
+* Complicated type signatures that, while useful to some tools, 
+  are likely to obscure the intent of the code for human 
+  reviewers.
+
 * Third-party modules whose authors have not yet added type hints
 
 * Standard library modules for which type hints have not yet been
