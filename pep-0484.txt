@@ -96,6 +96,23 @@ typed language, and the authors have no desire to ever make type hints
 mandatory, even by convention.**
 
 
+Roadmap
+=======
+
+Python 3
+--------
+
+The plan is to have volunteers produce stubs for the stdlib, and to
+contribute those to typeshed: https://github.com/JukkaL/typeshed (that's a
+shared resource and will eventually be transferred to the PSF, i.e.
+https://github.com/python/)
+
+Python 2
+--------
+
+Up to now, no offical plan exists.
+
+
 The meaning of annotations
 ==========================
 
