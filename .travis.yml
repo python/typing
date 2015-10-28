@@ -1,10 +1,16 @@
+sudo: false
 language: python
-env:
-  - TOXENV=py27
-  - TOXENV=py32
-  - TOXENV=py33
-  - TOXENV=py34
 install:
   - pip install tox
 script:
   - tox
+matrix:
+  include:
+    - python: "2.7"
+      env: TOXENV=py27
+    - python: "3.2"
+      env: TOXENV=py32
+    - python: "3.3"
+      env: TOXENV=py33
+    - python: "3.4"
+      env: TOXENV=py34
