@@ -1372,7 +1372,7 @@ else:
         __slots__ = ()
 
         @abstractmethod
-        def __reversed__(self) -> 'Iterator[T_co]':
+        def __reversed__(self):
             pass
 
 
