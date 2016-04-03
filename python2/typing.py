@@ -54,6 +54,7 @@ __all__ = [
 
     # Concrete collection types.
     'Dict',
+    'DefaultDict',
     'List',
     'Set',
     'NamedTuple',  # Not really a type.
