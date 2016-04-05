@@ -1,4 +1,6 @@
 from __future__ import absolute_import, unicode_literals
+
+import pickle
 import re
 import sys
 from unittest import TestCase, main
@@ -130,6 +132,7 @@ class TypeVarTests(TestCase):
     def test_constrained_error(self):
         with self.assertRaises(TypeError):
             X = TypeVar('X', int)
+            X
 
     def test_union_unique(self):
         X = TypeVar('X')
@@ -314,6 +317,7 @@ class UnionTests(TestCase):
     def test_union_str_pattern(self):
         # Shouldn't crash; see http://bugs.python.org/issue25390
         A = Union[str, Pattern]
+        A
 
 
 class TypeVarUnionTests(TestCase):
@@ -476,7 +480,7 @@ class SimpleMapping(Generic[XK, XV]):
         pass
 
 
-class MySimpleMapping(SimpleMapping):
+class MySimpleMapping(SimpleMapping[XK, XV]):
 
     def __init__(self):
         self.store = {}
@@ -525,20 +529,23 @@ class ProtocolTests(TestCase):
 
     def test_protocol_instance_type_error(self):
         with self.assertRaises(TypeError):
-            isinstance([], typing.Reversible)
+            isinstance(0, typing.SupportsAbs)
 
 
 class GenericTests(TestCase):
 
     def test_basics(self):
-        X = SimpleMapping[unicode, Any]
+        X = SimpleMapping[str, Any]
+        assert X.__parameters__ == ()
+        with self.assertRaises(TypeError):
+            X[unicode]
+        with self.assertRaises(TypeError):
+            X[unicode, unicode]
         Y = SimpleMapping[XK, unicode]
-        X[unicode, unicode]
-        Y[unicode, unicode]
+        assert Y.__parameters__ == (XK,)
+        Y[unicode]
         with self.assertRaises(TypeError):
-            X[int, unicode]
-        with self.assertRaises(TypeError):
-            Y[unicode, bytes]
+            Y[unicode, unicode]
 
     def test_init(self):
         T = TypeVar('T')
@@ -550,9 +557,70 @@ class GenericTests(TestCase):
 
     def test_repr(self):
         self.assertEqual(repr(SimpleMapping),
-                         __name__ + '.' + 'SimpleMapping[~XK, ~XV]')
+                         __name__ + '.' + 'SimpleMapping<~XK, ~XV>')
         self.assertEqual(repr(MySimpleMapping),
-                         __name__ + '.' + 'MySimpleMapping[~XK, ~XV]')
+                         __name__ + '.' + 'MySimpleMapping<~XK, ~XV>')
+
+    def test_chain_repr(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+
+        class C(Generic[T]):
+            pass
+
+        X = C[Tuple[S, T]]
+        assert X == C[Tuple[S, T]]
+        assert X != C[Tuple[T, S]]
+
+        Y = X[T, int]
+        assert Y == X[T, int]
+        assert Y != X[S, int]
+        assert Y != X[T, str]
+
+        Z = Y[str]
+        assert Z == Y[str]
+        assert Z != Y[int]
+        assert Z != Y[T]
+
+        assert str(Z).endswith(
+            '.C<~T>[typing.Tuple[~S, ~T]]<~S, ~T>[~T, int]<~T>[str]')
+
+    def test_dict(self):
+        T = TypeVar('T')
+
+        class B(Generic[T]):
+            pass
+
+        b = B()
+        b.foo = 42
+        self.assertEqual(b.__dict__, {'foo': 42})
+
+        class C(B[int]):
+            pass
+
+        c = C()
+        c.bar = 'abc'
+        self.assertEqual(c.__dict__, {'bar': 'abc'})
+
+    def test_pickle(self):
+        global C  # pickle wants to reference the class by name
+        T = TypeVar('T')
+
+        class B(Generic[T]):
+            pass
+
+        class C(B[int]):
+            pass
+
+        c = C()
+        c.foo = 42
+        c.bar = 'abc'
+        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            z = pickle.dumps(c, proto)
+            x = pickle.loads(z)
+            self.assertEqual(x.foo, 42)
+            self.assertEqual(x.bar, 'abc')
+            self.assertEqual(x.__dict__, {'foo': 42, 'bar': 'abc'})
 
     def test_errors(self):
         with self.assertRaises(TypeError):
@@ -570,12 +638,12 @@ class GenericTests(TestCase):
         assert C.__module__ == __name__
         if not PY32:
             assert C.__qualname__ == 'GenericTests.test_repr_2.<locals>.C'
-        assert repr(C).split('.')[-1] == 'C[~T]'
+        assert repr(C).split('.')[-1] == 'C<~T>'
         X = C[int]
         assert X.__module__ == __name__
         if not PY32:
             assert X.__qualname__ == 'C'
-        assert repr(X).split('.')[-1] == 'C[int]'
+        assert repr(X).split('.')[-1] == 'C<~T>[int]'
 
         class Y(C[int]):
             pass
@@ -583,7 +651,7 @@ class GenericTests(TestCase):
         assert Y.__module__ == __name__
         if not PY32:
             assert Y.__qualname__ == 'GenericTests.test_repr_2.<locals>.Y'
-        assert repr(Y).split('.')[-1] == 'Y[int]'
+        assert repr(Y).split('.')[-1] == 'Y'
 
     def test_eq_1(self):
         assert Generic == Generic
@@ -611,10 +679,40 @@ class GenericTests(TestCase):
         class B(Generic[KT, T]):
             pass
 
-        class C(A, Generic[KT, VT], B):
+        class C(A[T, VT], Generic[VT, T, KT], B[KT, T]):
             pass
 
-        assert C.__parameters__ == (T, VT, KT)
+        assert C.__parameters__ == (VT, T, KT)
+
+    def test_nested(self):
+
+        G = Generic
+
+        class Visitor(G[T]):
+
+            a = None
+
+            def set(self, a):
+                self.a = a
+
+            def get(self):
+                return self.a
+
+            def visit(self):
+                return self.a
+
+        V = Visitor[typing.List[int]]
+
+        class IntListVisitor(V):
+
+            def append(self, x):
+                self.a.append(x)
+
+        a = IntListVisitor()
+        a.set([])
+        a.append(1)
+        a.append(42)
+        assert a.get() == [1, 42]
 
     def test_type_erasure(self):
         T = TypeVar('T')
@@ -634,8 +732,29 @@ class GenericTests(TestCase):
             assert type(a) is Node
             assert type(b) is Node
             assert type(c) is Node
+            assert a.label == x
+            assert b.label == x
+            assert c.label == x
 
         foo(42)
+
+    def test_implicit_any(self):
+        T = TypeVar('T')
+
+        class C(Generic[T]):
+            pass
+
+        class D(C):
+            pass
+
+        assert D.__parameters__ == ()
+
+        with self.assertRaises(Exception):
+            D[int]
+        with self.assertRaises(Exception):
+            D[Any]
+        with self.assertRaises(Exception):
+            D[T]
 
 
 class VarianceTests(TestCase):
@@ -848,6 +967,22 @@ class CollectionsAbcTests(TestCase):
         d = MyDict()
         assert isinstance(d, MyDict)
 
+    def test_no_defaultdict_instantiation(self):
+        with self.assertRaises(TypeError):
+            typing.DefaultDict()
+        with self.assertRaises(TypeError):
+            typing.DefaultDict[KT, VT]()
+        with self.assertRaises(TypeError):
+            typing.DefaultDict[str, int]()
+
+    def test_defaultdict_subclass_instantiation(self):
+
+        class MyDefDict(typing.DefaultDict[str, int]):
+            pass
+
+        dd = MyDefDict()
+        assert isinstance(dd, MyDefDict)
+
     def test_no_set_instantiation(self):
         with self.assertRaises(TypeError):
             typing.Set()
@@ -946,6 +1081,15 @@ class NamedTupleTests(TestCase):
         assert Emp._fields == ('name', 'id')
         assert Emp._field_types == dict(name=str, id=int)
 
+    def test_pickle(self):
+        global Emp  # pickle wants to reference the class by name
+        Emp = NamedTuple('Emp', [('name', str), ('id', int)])
+        jane = Emp('jane', 37)
+        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            z = pickle.dumps(jane, proto)
+            jane2 = pickle.loads(z)
+            self.assertEqual(jane2, jane)
+
 
 class IOTests(TestCase):
 
@@ -1040,6 +1184,8 @@ class AllTests(TestCase):
         # Spot-check that stdlib modules aren't exported.
         assert 'os' not in a
         assert 'sys' not in a
+        # Check that Text is defined.
+        assert 'Text' in a
 
 
 if __name__ == '__main__':
