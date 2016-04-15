@@ -1,4 +1,5 @@
 import contextlib
+import collections
 import pickle
 import re
 import sys
@@ -1195,13 +1196,17 @@ class CollectionsAbcTests(TestCase):
         with self.assertRaises(TypeError):
             typing.List[int]()
 
-    def test_list_subclass_instantiation(self):
+    def test_list_subclass(self):
 
         class MyList(typing.List[int]):
             pass
 
         a = MyList()
         assert isinstance(a, MyList)
+        assert isinstance(a, typing.Sequence)
+
+        assert issubclass(MyList, list)
+        assert not issubclass(list, MyList)
 
     def test_no_dict_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1211,13 +1216,17 @@ class CollectionsAbcTests(TestCase):
         with self.assertRaises(TypeError):
             typing.Dict[str, int]()
 
-    def test_dict_subclass_instantiation(self):
+    def test_dict_subclass(self):
 
         class MyDict(typing.Dict[str, int]):
             pass
 
         d = MyDict()
         assert isinstance(d, MyDict)
+        assert isinstance(d, typing.MutableMapping)
+
+        assert issubclass(MyDict, dict)
+        assert not issubclass(dict, MyDict)
 
     def test_no_defaultdict_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1227,13 +1236,16 @@ class CollectionsAbcTests(TestCase):
         with self.assertRaises(TypeError):
             typing.DefaultDict[str, int]()
 
-    def test_defaultdict_subclass_instantiation(self):
+    def test_defaultdict_subclass(self):
 
         class MyDefDict(typing.DefaultDict[str, int]):
             pass
 
         dd = MyDefDict()
         assert isinstance(dd, MyDefDict)
+
+        assert issubclass(MyDefDict, collections.defaultdict)
+        assert not issubclass(collections.defaultdict, MyDefDict)
 
     def test_no_set_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1314,6 +1326,13 @@ class CollectionsAbcTests(TestCase):
         assert len(MMB()) == 0
         assert len(MMB[str, str]()) == 0
         assert len(MMB[KT, VT]()) == 0
+
+        assert not issubclass(dict, MMA)
+        assert not issubclass(dict, MMB)
+
+        assert issubclass(MMA, typing.Mapping)
+        assert issubclass(MMB, typing.Mapping)
+        assert issubclass(MMC, typing.Mapping)
 
 
 class OtherABCTests(TestCase):
