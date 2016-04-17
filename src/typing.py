@@ -289,6 +289,28 @@ def _eval_type(t, globalns, localns):
         return t
 
 
+def is_consistent(t1, t2):
+    """Returns a boolean indicating if `t1` is consistent with `t2`."""
+    return t1 is t2 or t1 is Any or t2 is Any
+
+
+def is_compatible(t1, t2):
+    """Returns a boolean indicating if `t1` is compatible with `t2`,
+    i.e., if `t1` is consistent with or a subtype of `t2`.
+
+    This is similar to ``issubclass`` but adds support for the special
+    types ``Any``, ``Union``, etc. as well as parameterized generics
+    and the built-in analogues ``List``, ``Dict``, etc.
+
+    If ``issubclass(D, C)`` is true, then ``is_compatible(D, C)`` is
+    also true, but the reverse doesn't necessarily hold.
+    """
+    if isinstance(t2, GenericMeta):
+        return t2.__is_compatible__(t1)
+    else:
+        return is_consistent(t1, t2) or issubclass(t1, t2)
+
+
 def _type_check(arg, msg):
     """Check that the argument is a type, and return it.
 
@@ -891,12 +913,42 @@ def _next_in_mro(cls):
     return next_in_mro
 
 
+def _make_subclasshook(cls):
+    """Constructs a ``__subclasshook__`` callable that incorporates
+    the associated ``__extra__`` class in subclass checks performed
+    against `cls`.
+    """
+    if isinstance(cls.__extra__, abc.ABCMeta):
+        # The logic mirrors that of ABCMeta.__subclasscheck__.
+        # Registered classes need not be checked here because
+        # cls and its extra share the same _abc_registry.
+        def __extrahook__(subclass):
+            res = cls.__extra__.__subclasshook__(subclass)
+            if res is not NotImplemented:
+                return res
+            if cls.__extra__ in subclass.__mro__:
+                return True
+            for scls in cls.__extra__.__subclasses__():
+                if isinstance(scls, GenericMeta):
+                    continue
+                if issubclass(subclass, scls):
+                    return True
+            return NotImplemented
+    else:
+        # For non-ABC extras we'll just call issubclass().
+        def __extrahook__(subclass):
+            if issubclass(subclass, cls.__extra__):
+                return True
+            return NotImplemented
+
+    return __extrahook__
+
+
 class GenericMeta(TypingMeta, abc.ABCMeta):
     """Metaclass for generic types."""
 
     def __new__(cls, name, bases, namespace,
                 tvars=None, args=None, origin=None, extra=None):
-        self = super().__new__(cls, name, bases, namespace, _root=True)
 
         if tvars is not None:
             # Called from __getitem__() below.
@@ -938,12 +990,29 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                          ", ".join(str(g) for g in gvars)))
                 tvars = gvars
 
+        if extra and extra not in bases and extra.__module__ != 'builtins':
+            bases = (extra,) + bases
+        self = super().__new__(cls, name, bases, namespace, _root=True)
         self.__parameters__ = tvars
         self.__args__ = args
         self.__origin__ = origin
         self.__extra__ = extra
         # Speed hack (https://github.com/python/typing/issues/196).
         self.__next_in_mro__ = _next_in_mro(self)
+
+        if extra and origin is None:
+            # This allows unparameterized generic collections to be used
+            # with issubclass() and isinstance() in the same way as their
+            # collections.abc counterparts (e.g., isinstance([], Iterable)).
+            self.__subclasshook__ = _make_subclasshook(self)
+            if isinstance(extra, abc.ABCMeta):
+                self._abc_registry = extra._abc_registry
+        else:
+            # Prevent parameterized and derived types from inheriting
+            # the __subclasshook__ created above.
+            if self.__subclasshook__.__name__ == '__extrahook__':
+                self.__subclasshook__ = object.__subclasshook__
+
         return self
 
     def _get_type_vars(self, tvars):
@@ -1022,20 +1091,12 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                               origin=self,
                               extra=self.__extra__)
 
-    def __instancecheck__(self, instance):
-        # Since we extend ABC.__subclasscheck__ and
-        # ABC.__instancecheck__ inlines the cache checking done by the
-        # latter, we must extend __instancecheck__ too. For simplicity
-        # we just skip the cache check -- instance checks for generic
-        # classes are supposed to be rare anyways.
-        return self.__subclasscheck__(instance.__class__)
-
-    def __subclasscheck__(self, cls):
-        if cls is Any:
+    def __is_compatible__(self, cls):
+        if is_consistent(cls, self):
             return True
         if isinstance(cls, GenericMeta):
             # For a class C(Generic[T]) where T is co-variant,
-            # C[X] is a subclass of C[Y] iff X is a subclass of Y.
+            # C[X] is compatible with C[Y] iff X is compatible with Y.
             origin = self.__origin__
             if origin is not None and origin is cls.__origin__:
                 assert len(self.__args__) == len(origin.__parameters__)
@@ -1045,30 +1106,28 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                                                    origin.__parameters__):
                     if isinstance(p_origin, TypeVar):
                         if p_origin.__covariant__:
-                            # Covariant -- p_cls must be a subclass of p_self.
-                            if not issubclass(p_cls, p_self):
+                            # Covariant -- p_cls must be compatible with p_self.
+                            if not is_compatible(p_cls, p_self):
                                 break
                         elif p_origin.__contravariant__:
                             # Contravariant.  I think it's the opposite. :-)
-                            if not issubclass(p_self, p_cls):
+                            if not is_compatible(p_self, p_cls):
                                 break
                         else:
-                            # Invariant -- p_cls and p_self must equal.
-                            if p_self != p_cls:
+                            # Invariant -- p_cls and p_self must be consistent.
+                            if not is_consistent(p_self, p_cls):
                                 break
                     else:
                         # If the origin's parameter is not a typevar,
                         # insist on invariance.
-                        if p_self != p_cls:
+                        if not is_consistent(p_self, p_cls):
                             break
                 else:
                     return True
-                # If we break out of the loop, the superclass gets a chance.
-        if super().__subclasscheck__(cls):
-            return True
-        if self.__extra__ is None or isinstance(cls, GenericMeta):
-            return False
-        return issubclass(cls, self.__extra__)
+            return issubclass(cls, self)
+        # When cls is not a GenericMeta instance, we check against
+        # the ultimate origin because that one includes __extra__.
+        return issubclass(cls, _gorg(self))
 
 
 # Prevent checks for Generic to crash when defining Generic.
@@ -1484,22 +1543,7 @@ class Set(set, MutableSet[T], extra=set):
         return set.__new__(cls, *args, **kwds)
 
 
-class _FrozenSetMeta(GenericMeta):
-    """This metaclass ensures set is not a subclass of FrozenSet.
-
-    Without this metaclass, set would be considered a subclass of
-    FrozenSet, because FrozenSet.__extra__ is collections.abc.Set, and
-    set is a subclass of that.
-    """
-
-    def __subclasscheck__(self, cls):
-        if issubclass(cls, Set):
-            return False
-        return super().__subclasscheck__(cls)
-
-
-class FrozenSet(frozenset, AbstractSet[T_co], metaclass=_FrozenSetMeta,
-                extra=frozenset):
+class FrozenSet(frozenset, AbstractSet[T_co], extra=frozenset):
     __slots__ = ()
 
     def __new__(cls, *args, **kwds):

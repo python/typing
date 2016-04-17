@@ -1,3 +1,4 @@
+import abc
 import contextlib
 import collections
 import pickle
@@ -14,6 +15,7 @@ from typing import Callable
 from typing import Generic
 from typing import cast
 from typing import get_type_hints
+from typing import is_compatible
 from typing import no_type_check, no_type_check_decorator
 from typing import NamedTuple
 from typing import IO, TextIO, BinaryIO
@@ -81,15 +83,15 @@ class AnyTests(TestCase):
     def test_any_is_subclass(self):
         # Any should be considered a subclass of everything.
         assert issubclass(Any, Any)
-        assert issubclass(Any, typing.List)
-        assert issubclass(Any, typing.List[int])
-        assert issubclass(Any, typing.List[T])
-        assert issubclass(Any, typing.Mapping)
-        assert issubclass(Any, typing.Mapping[str, int])
-        assert issubclass(Any, typing.Mapping[KT, VT])
-        assert issubclass(Any, Generic)
-        assert issubclass(Any, Generic[T])
-        assert issubclass(Any, Generic[KT, VT])
+        assert is_compatible(Any, typing.List)
+        assert is_compatible(Any, typing.List[int])
+        assert is_compatible(Any, typing.List[T])
+        assert is_compatible(Any, typing.Mapping)
+        assert is_compatible(Any, typing.Mapping[str, int])
+        assert is_compatible(Any, typing.Mapping[KT, VT])
+        assert is_compatible(Any, Generic)
+        assert is_compatible(Any, Generic[T])
+        assert is_compatible(Any, Generic[KT, VT])
         assert issubclass(Any, AnyStr)
         assert issubclass(Any, Union)
         assert issubclass(Any, Union[int, str])
@@ -794,13 +796,13 @@ class VarianceTests(TestCase):
     def test_invariance(self):
         # Because of invariance, List[subclass of X] is not a subclass
         # of List[X], and ditto for MutableSequence.
-        assert not issubclass(typing.List[Manager], typing.List[Employee])
-        assert not issubclass(typing.MutableSequence[Manager],
-                              typing.MutableSequence[Employee])
+        assert not is_compatible(typing.List[Manager], typing.List[Employee])
+        assert not is_compatible(typing.MutableSequence[Manager],
+                                 typing.MutableSequence[Employee])
         # It's still reflexive.
-        assert issubclass(typing.List[Employee], typing.List[Employee])
-        assert issubclass(typing.MutableSequence[Employee],
-                          typing.MutableSequence[Employee])
+        assert is_compatible(typing.List[Employee], typing.List[Employee])
+        assert is_compatible(typing.MutableSequence[Employee],
+                             typing.MutableSequence[Employee])
 
     def test_covariance_tuple(self):
         # Check covariace for Tuple (which are really special cases).
@@ -817,20 +819,20 @@ class VarianceTests(TestCase):
     def test_covariance_sequence(self):
         # Check covariance for Sequence (which is just a generic class
         # for this purpose, but using a covariant type variable).
-        assert issubclass(typing.Sequence[Manager], typing.Sequence[Employee])
-        assert not issubclass(typing.Sequence[Employee],
-                              typing.Sequence[Manager])
+        assert is_compatible(typing.Sequence[Manager], typing.Sequence[Employee])
+        assert not is_compatible(typing.Sequence[Employee],
+                                 typing.Sequence[Manager])
 
     def test_covariance_mapping(self):
         # Ditto for Mapping (covariant in the value, invariant in the key).
-        assert issubclass(typing.Mapping[Employee, Manager],
-                          typing.Mapping[Employee, Employee])
-        assert not issubclass(typing.Mapping[Manager, Employee],
-                              typing.Mapping[Employee, Employee])
-        assert not issubclass(typing.Mapping[Employee, Manager],
-                              typing.Mapping[Manager, Manager])
-        assert not issubclass(typing.Mapping[Manager, Employee],
-                              typing.Mapping[Manager, Manager])
+        assert is_compatible(typing.Mapping[Employee, Manager],
+                             typing.Mapping[Employee, Employee])
+        assert not is_compatible(typing.Mapping[Manager, Employee],
+                                 typing.Mapping[Employee, Employee])
+        assert not is_compatible(typing.Mapping[Employee, Manager],
+                                 typing.Mapping[Manager, Manager])
+        assert not is_compatible(typing.Mapping[Manager, Employee],
+                                 typing.Mapping[Manager, Manager])
 
 
 class CastTests(TestCase):
@@ -1089,17 +1091,28 @@ class CollectionsAbcTests(TestCase):
         # path and could fail.  So call this a few times.
         assert isinstance([], typing.Iterable)
         assert isinstance([], typing.Iterable)
-        assert isinstance([], typing.Iterable[int])
+        assert not isinstance([], typing.Iterable[int])
         assert not isinstance(42, typing.Iterable)
         # Just in case, also test issubclass() a few times.
         assert issubclass(list, typing.Iterable)
         assert issubclass(list, typing.Iterable)
+        assert is_compatible(list, typing.Iterable)
+        assert not issubclass(list, typing.Iterable[int])
+        assert is_compatible(list, typing.Iterable[int])
+        assert not is_compatible(int, typing.Iterable[int])
+        assert issubclass(tuple, typing.Sequence)
+        assert is_compatible(tuple, typing.Sequence)
+        assert not issubclass(tuple, typing.Sequence[int])
+        assert is_compatible(tuple, typing.Sequence[int])
 
     def test_iterator(self):
         it = iter([])
         assert isinstance(it, typing.Iterator)
-        assert isinstance(it, typing.Iterator[int])
+        assert not isinstance(it, typing.Iterator[int])
         assert not isinstance(42, typing.Iterator)
+        assert is_compatible(type(it), typing.Iterator)
+        assert is_compatible(type(it), typing.Iterator[int])
+        assert not is_compatible(int, typing.Iterator[int])
 
     @skipUnless(PY35, 'Python 3.5 required')
     def test_awaitable(self):
@@ -1110,13 +1123,16 @@ class CollectionsAbcTests(TestCase):
             globals(), ns)
         foo = ns['foo']
         g = foo()
-        assert issubclass(type(g), typing.Awaitable[int])
         assert isinstance(g, typing.Awaitable)
         assert not isinstance(foo, typing.Awaitable)
-        assert issubclass(typing.Awaitable[Manager],
-                          typing.Awaitable[Employee])
-        assert not issubclass(typing.Awaitable[Employee],
-                              typing.Awaitable[Manager])
+        assert is_compatible(type(g), typing.Awaitable[int])
+        assert not is_compatible(type(foo), typing.Awaitable[int])
+        assert not issubclass(typing.Awaitable[Manager],
+                              typing.Awaitable[Employee])
+        assert is_compatible(typing.Awaitable[Manager],
+                             typing.Awaitable[Employee])
+        assert not is_compatible(typing.Awaitable[Employee],
+                                 typing.Awaitable[Manager])
         g.send(None)  # Run foo() till completion, to avoid warning.
 
     @skipUnless(PY35, 'Python 3.5 required')
@@ -1125,8 +1141,8 @@ class CollectionsAbcTests(TestCase):
         it = AsyncIteratorWrapper(base_it)
         assert isinstance(it, typing.AsyncIterable)
         assert isinstance(it, typing.AsyncIterable)
-        assert issubclass(typing.AsyncIterable[Manager],
-                          typing.AsyncIterable[Employee])
+        assert is_compatible(typing.AsyncIterable[Manager],
+                             typing.AsyncIterable[Employee])
         assert not isinstance(42, typing.AsyncIterable)
 
     @skipUnless(PY35, 'Python 3.5 required')
@@ -1134,8 +1150,8 @@ class CollectionsAbcTests(TestCase):
         base_it = range(10)  # type: Iterator[int]
         it = AsyncIteratorWrapper(base_it)
         assert isinstance(it, typing.AsyncIterator)
-        assert issubclass(typing.AsyncIterator[Manager],
-                          typing.AsyncIterator[Employee])
+        assert is_compatible(typing.AsyncIterator[Manager],
+                             typing.AsyncIterator[Employee])
         assert not isinstance(42, typing.AsyncIterator)
 
     def test_sized(self):
@@ -1176,14 +1192,17 @@ class CollectionsAbcTests(TestCase):
 
     def test_list(self):
         assert issubclass(list, typing.List)
+        assert is_compatible(list, typing.List)
 
     def test_set(self):
         assert issubclass(set, typing.Set)
         assert not issubclass(frozenset, typing.Set)
+        assert not is_compatible(frozenset, typing.Set)
 
     def test_frozenset(self):
-        assert issubclass(frozenset, typing.FrozenSet)
+        assert is_compatible(frozenset, typing.FrozenSet)
         assert not issubclass(set, typing.FrozenSet)
+        assert not is_compatible(set, typing.FrozenSet)
 
     def test_dict(self):
         assert issubclass(dict, typing.Dict)
@@ -1204,9 +1223,11 @@ class CollectionsAbcTests(TestCase):
         a = MyList()
         assert isinstance(a, MyList)
         assert isinstance(a, typing.Sequence)
+        assert isinstance(a, collections.Sequence)
 
         assert issubclass(MyList, list)
-        assert not issubclass(list, MyList)
+        assert is_compatible(MyList, list)
+        assert not is_compatible(list, MyList)
 
     def test_no_dict_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1224,9 +1245,11 @@ class CollectionsAbcTests(TestCase):
         d = MyDict()
         assert isinstance(d, MyDict)
         assert isinstance(d, typing.MutableMapping)
+        assert isinstance(d, collections.MutableMapping)
 
         assert issubclass(MyDict, dict)
-        assert not issubclass(dict, MyDict)
+        assert is_compatible(MyDict, dict)
+        assert not is_compatible(dict, MyDict)
 
     def test_no_defaultdict_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1245,7 +1268,7 @@ class CollectionsAbcTests(TestCase):
         assert isinstance(dd, MyDefDict)
 
         assert issubclass(MyDefDict, collections.defaultdict)
-        assert not issubclass(collections.defaultdict, MyDefDict)
+        assert not is_compatible(collections.defaultdict, MyDefDict)
 
     def test_no_set_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1292,10 +1315,11 @@ class CollectionsAbcTests(TestCase):
             yield 42
         g = foo()
         assert issubclass(type(g), typing.Generator)
-        assert issubclass(typing.Generator[Manager, Employee, Manager],
-                          typing.Generator[Employee, Manager, Employee])
-        assert not issubclass(typing.Generator[Manager, Manager, Manager],
-                              typing.Generator[Employee, Employee, Employee])
+        assert not issubclass(int, typing.Generator)
+        assert is_compatible(typing.Generator[Manager, Employee, Manager],
+                             typing.Generator[Employee, Manager, Employee])
+        assert not is_compatible(typing.Generator[Manager, Manager, Manager],
+                                 typing.Generator[Employee, Employee, Employee])
 
     def test_no_generator_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1314,25 +1338,115 @@ class CollectionsAbcTests(TestCase):
             MMA()
 
         class MMC(MMA):
-            def __len__(self):
-                return 0
+            def __iter__(self): ...
+            def __len__(self): return 0
+            def __getitem__(self, name): ...
+            def __setitem__(self, name, value): ...
+            def __delitem__(self, name): ...
 
         assert len(MMC()) == 0
+        assert callable(MMC.update)
+        assert isinstance(MMC(), typing.Mapping)
 
         class MMB(typing.MutableMapping[KT, VT]):
-            def __len__(self):
-                return 0
+            def __iter__(self): ...
+            def __len__(self): return 0
+            def __getitem__(self, name): ...
+            def __setitem__(self, name, value): ...
+            def __delitem__(self, name): ...
 
         assert len(MMB()) == 0
         assert len(MMB[str, str]()) == 0
         assert len(MMB[KT, VT]()) == 0
+        assert isinstance(MMB[KT, VT](), typing.Mapping)
+        assert isinstance(MMB[KT, VT](), collections.Mapping)
 
         assert not issubclass(dict, MMA)
         assert not issubclass(dict, MMB)
+        assert not is_compatible(dict, MMA)
+        assert not is_compatible(dict, MMB)
 
         assert issubclass(MMA, typing.Mapping)
         assert issubclass(MMB, typing.Mapping)
         assert issubclass(MMC, typing.Mapping)
+        assert issubclass(MMA, collections.Mapping)
+        assert issubclass(MMB, collections.Mapping)
+        assert issubclass(MMC, collections.Mapping)
+        assert is_compatible(MMC, typing.Mapping)
+        assert is_compatible(MMC, collections.Mapping)
+
+        assert issubclass(MMB[str, str], typing.Mapping)
+        assert is_compatible(MMB[str, str], typing.Mapping)
+
+        assert issubclass(MMC, MMA)
+        assert is_compatible(MMC, MMA)
+
+        assert not issubclass(MMA, typing.Mapping[str, str])
+        assert not issubclass(MMB, typing.Mapping[str, str])
+
+        class I(typing.Iterable): ...
+        assert not issubclass(list, I)
+
+        class G(typing.Generator[int, int, int]): ...
+        def g(): yield 0
+        assert issubclass(G, typing.Generator)
+        assert issubclass(G, typing.Iterable)
+        if hasattr(collections, 'Generator'):
+            assert issubclass(G, collections.Generator)
+        assert issubclass(G, collections.Iterable)
+        assert not issubclass(type(g), G)
+
+    def test_subclassing_subclasshook(self):
+
+        class Base:
+            @classmethod
+            def __subclasshook__(cls, other):
+                if other.__name__ == 'Foo':
+                    return True
+                else:
+                    return False
+
+        class C(Base, typing.Iterable): ...
+        class Foo: ...
+
+        assert issubclass(Foo, C)
+
+    def test_subclassing_register(self):
+
+        class A(typing.Container): ...
+        class B(A): ...
+
+        class C: ...
+        A.register(C)
+        assert is_compatible(C, A)
+        assert not is_compatible(C, B)
+
+        class D: ...
+        B.register(D)
+        assert is_compatible(D, A)
+        assert is_compatible(D, B)
+
+        class M(): ...
+        collections.MutableMapping.register(M)
+        assert issubclass(M, typing.Mapping)
+
+    def test_collections_as_base(self):
+
+        class M(collections.Mapping): ...
+        assert issubclass(M, typing.Mapping)
+        assert issubclass(M, typing.Iterable)
+
+        class S(collections.MutableSequence): ...
+        assert issubclass(S, typing.MutableSequence)
+        assert issubclass(S, typing.Iterable)
+
+        class I(collections.Iterable): ...
+        assert issubclass(I, typing.Iterable)
+
+        class A(collections.Mapping, metaclass=abc.ABCMeta): ...
+        class B: ...
+        A.register(B)
+        assert issubclass(B, typing.Mapping)
 
 
 class OtherABCTests(TestCase):
