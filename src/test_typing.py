@@ -781,9 +781,9 @@ class GenericTests(TestCase):
             a = Node(x)
             b = Node[T](x)
             c = Node[Any](x)
-            assert type(a) is Node
-            assert type(b) is Node
-            assert type(c) is Node
+            self.assertIs(type(a), Node)
+            self.assertIs(type(b), Node)
+            self.assertIs(type(c), Node)
             self.assertEqual(a.label, x)
             self.assertEqual(b.label, x)
             self.assertEqual(c.label, x)
@@ -860,7 +860,7 @@ class CastTests(TestCase):
     def test_basics(self):
         self.assertEqual(cast(int, 42), 42)
         self.assertEqual(cast(float, 42), 42)
-        assert type(cast(float, 42)) is int
+        self.assertIs(type(cast(float, 42)), int)
         self.assertEqual(cast(Any, 42), 42)
         self.assertEqual(cast(list, 42), 42)
         self.assertEqual(cast(Union[str, float], 42), 42)
@@ -1411,9 +1411,9 @@ class IOTests(TestCase):
 
     def test_io_submodule(self):
         from typing.io import IO, TextIO, BinaryIO, __all__, __name__
-        assert IO is typing.IO
-        assert TextIO is typing.TextIO
-        assert BinaryIO is typing.BinaryIO
+        self.assertIs(IO, typing.IO)
+        self.assertIs(TextIO, typing.TextIO)
+        self.assertIs(BinaryIO, typing.BinaryIO)
         self.assertEqual(set(__all__), set(['IO', 'TextIO', 'BinaryIO']))
         self.assertEqual(__name__, 'typing.io')
 
@@ -1470,8 +1470,8 @@ class RETests(TestCase):
 
     def test_re_submodule(self):
         from typing.re import Match, Pattern, __all__, __name__
-        assert Match is typing.Match
-        assert Pattern is typing.Pattern
+        self.assertIs(Match, typing.Match)
+        self.assertIs(Pattern, typing.Pattern)
         self.assertEqual(set(__all__), set(['Match', 'Pattern']))
         self.assertEqual(__name__, 'typing.re')
 
