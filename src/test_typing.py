@@ -131,7 +131,7 @@ class TypeVarTests(TestCase):
         # T is a subclass of itself.
         self.assertIsSubclass(T, T)
         # T is an instance of TypeVar
-        assert isinstance(T, TypeVar)
+        self.assertIsInstance(T, TypeVar)
 
     def test_typevar_instance_type_error(self):
         T = TypeVar('T')
@@ -466,20 +466,20 @@ class CallableTests(TestCase):
     def test_callable_instance_works(self):
         def f():
             pass
-        assert isinstance(f, Callable)
-        assert not isinstance(None, Callable)
+        self.assertIsInstance(f, Callable)
+        self.assertNotIsInstance(None, Callable)
 
     def test_callable_instance_type_error(self):
         def f():
             pass
         with self.assertRaises(TypeError):
-            assert isinstance(f, Callable[[], None])
+            self.assertIsInstance(f, Callable[[], None])
         with self.assertRaises(TypeError):
-            assert isinstance(f, Callable[[], Any])
+            self.assertIsInstance(f, Callable[[], Any])
         with self.assertRaises(TypeError):
-            assert not isinstance(None, Callable[[], None])
+            self.assertNotIsInstance(None, Callable[[], None])
         with self.assertRaises(TypeError):
-            assert not isinstance(None, Callable[[], Any])
+            self.assertNotIsInstance(None, Callable[[], Any])
 
     def test_repr(self):
         ct0 = Callable[[], bool]
@@ -1100,26 +1100,26 @@ if PY35:
 class CollectionsAbcTests(TestCase):
 
     def test_hashable(self):
-        assert isinstance(42, typing.Hashable)
-        assert not isinstance([], typing.Hashable)
+        self.assertIsInstance(42, typing.Hashable)
+        self.assertNotIsInstance([], typing.Hashable)
 
     def test_iterable(self):
-        assert isinstance([], typing.Iterable)
+        self.assertIsInstance([], typing.Iterable)
         # Due to ABC caching, the second time takes a separate code
         # path and could fail.  So call this a few times.
-        assert isinstance([], typing.Iterable)
-        assert isinstance([], typing.Iterable)
-        assert isinstance([], typing.Iterable[int])
-        assert not isinstance(42, typing.Iterable)
+        self.assertIsInstance([], typing.Iterable)
+        self.assertIsInstance([], typing.Iterable)
+        self.assertIsInstance([], typing.Iterable[int])
+        self.assertNotIsInstance(42, typing.Iterable)
         # Just in case, also test issubclass() a few times.
         self.assertIsSubclass(list, typing.Iterable)
         self.assertIsSubclass(list, typing.Iterable)
 
     def test_iterator(self):
         it = iter([])
-        assert isinstance(it, typing.Iterator)
-        assert isinstance(it, typing.Iterator[int])
-        assert not isinstance(42, typing.Iterator)
+        self.assertIsInstance(it, typing.Iterator)
+        self.assertIsInstance(it, typing.Iterator[int])
+        self.assertNotIsInstance(42, typing.Iterator)
 
     @skipUnless(PY35, 'Python 3.5 required')
     def test_awaitable(self):
@@ -1131,8 +1131,8 @@ class CollectionsAbcTests(TestCase):
         foo = ns['foo']
         g = foo()
         self.assertIsSubclass(type(g), typing.Awaitable[int])
-        assert isinstance(g, typing.Awaitable)
-        assert not isinstance(foo, typing.Awaitable)
+        self.assertIsInstance(g, typing.Awaitable)
+        self.assertNotIsInstance(foo, typing.Awaitable)
         self.assertIsSubclass(typing.Awaitable[Manager],
                           typing.Awaitable[Employee])
         self.assertNotIsSubclass(typing.Awaitable[Employee],
@@ -1143,56 +1143,56 @@ class CollectionsAbcTests(TestCase):
     def test_async_iterable(self):
         base_it = range(10)  # type: Iterator[int]
         it = AsyncIteratorWrapper(base_it)
-        assert isinstance(it, typing.AsyncIterable)
-        assert isinstance(it, typing.AsyncIterable)
+        self.assertIsInstance(it, typing.AsyncIterable)
+        self.assertIsInstance(it, typing.AsyncIterable)
         self.assertIsSubclass(typing.AsyncIterable[Manager],
                           typing.AsyncIterable[Employee])
-        assert not isinstance(42, typing.AsyncIterable)
+        self.assertNotIsInstance(42, typing.AsyncIterable)
 
     @skipUnless(PY35, 'Python 3.5 required')
     def test_async_iterator(self):
         base_it = range(10)  # type: Iterator[int]
         it = AsyncIteratorWrapper(base_it)
-        assert isinstance(it, typing.AsyncIterator)
+        self.assertIsInstance(it, typing.AsyncIterator)
         self.assertIsSubclass(typing.AsyncIterator[Manager],
                           typing.AsyncIterator[Employee])
-        assert not isinstance(42, typing.AsyncIterator)
+        self.assertNotIsInstance(42, typing.AsyncIterator)
 
     def test_sized(self):
-        assert isinstance([], typing.Sized)
-        assert not isinstance(42, typing.Sized)
+        self.assertIsInstance([], typing.Sized)
+        self.assertNotIsInstance(42, typing.Sized)
 
     def test_container(self):
-        assert isinstance([], typing.Container)
-        assert not isinstance(42, typing.Container)
+        self.assertIsInstance([], typing.Container)
+        self.assertNotIsInstance(42, typing.Container)
 
     def test_abstractset(self):
-        assert isinstance(set(), typing.AbstractSet)
-        assert not isinstance(42, typing.AbstractSet)
+        self.assertIsInstance(set(), typing.AbstractSet)
+        self.assertNotIsInstance(42, typing.AbstractSet)
 
     def test_mutableset(self):
-        assert isinstance(set(), typing.MutableSet)
-        assert not isinstance(frozenset(), typing.MutableSet)
+        self.assertIsInstance(set(), typing.MutableSet)
+        self.assertNotIsInstance(frozenset(), typing.MutableSet)
 
     def test_mapping(self):
-        assert isinstance({}, typing.Mapping)
-        assert not isinstance(42, typing.Mapping)
+        self.assertIsInstance({}, typing.Mapping)
+        self.assertNotIsInstance(42, typing.Mapping)
 
     def test_mutablemapping(self):
-        assert isinstance({}, typing.MutableMapping)
-        assert not isinstance(42, typing.MutableMapping)
+        self.assertIsInstance({}, typing.MutableMapping)
+        self.assertNotIsInstance(42, typing.MutableMapping)
 
     def test_sequence(self):
-        assert isinstance([], typing.Sequence)
-        assert not isinstance(42, typing.Sequence)
+        self.assertIsInstance([], typing.Sequence)
+        self.assertNotIsInstance(42, typing.Sequence)
 
     def test_mutablesequence(self):
-        assert isinstance([], typing.MutableSequence)
-        assert not isinstance((), typing.MutableSequence)
+        self.assertIsInstance([], typing.MutableSequence)
+        self.assertNotIsInstance((), typing.MutableSequence)
 
     def test_bytestring(self):
-        assert isinstance(b'', typing.ByteString)
-        assert isinstance(bytearray(b''), typing.ByteString)
+        self.assertIsInstance(b'', typing.ByteString)
+        self.assertIsInstance(bytearray(b''), typing.ByteString)
 
     def test_list(self):
         self.assertIsSubclass(list, typing.List)
@@ -1222,7 +1222,7 @@ class CollectionsAbcTests(TestCase):
             pass
 
         a = MyList()
-        assert isinstance(a, MyList)
+        self.assertIsInstance(a, MyList)
 
     def test_no_dict_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1238,7 +1238,7 @@ class CollectionsAbcTests(TestCase):
             pass
 
         d = MyDict()
-        assert isinstance(d, MyDict)
+        self.assertIsInstance(d, MyDict)
 
     def test_no_defaultdict_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1254,7 +1254,7 @@ class CollectionsAbcTests(TestCase):
             pass
 
         dd = MyDefDict()
-        assert isinstance(dd, MyDefDict)
+        self.assertIsInstance(dd, MyDefDict)
 
     def test_no_set_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1270,7 +1270,7 @@ class CollectionsAbcTests(TestCase):
             pass
 
         d = MySet()
-        assert isinstance(d, MySet)
+        self.assertIsInstance(d, MySet)
 
     def test_no_frozenset_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1286,7 +1286,7 @@ class CollectionsAbcTests(TestCase):
             pass
 
         d = MyFrozenSet()
-        assert isinstance(d, MyFrozenSet)
+        self.assertIsInstance(d, MyFrozenSet)
 
     def test_no_tuple_instantiation(self):
         with self.assertRaises(TypeError):
@@ -1347,9 +1347,9 @@ class OtherABCTests(TestCase):
             yield 42
 
         cm = manager()
-        assert isinstance(cm, typing.ContextManager)
-        assert isinstance(cm, typing.ContextManager[int])
-        assert not isinstance(42, typing.ContextManager)
+        self.assertIsInstance(cm, typing.ContextManager)
+        self.assertIsInstance(cm, typing.ContextManager[int])
+        self.assertNotIsInstance(42, typing.ContextManager)
 
 
 class NamedTupleTests(TestCase):
@@ -1359,8 +1359,8 @@ class NamedTupleTests(TestCase):
         self.assertIsSubclass(Emp, tuple)
         joe = Emp('Joe', 42)
         jim = Emp(name='Jim', id=1)
-        assert isinstance(joe, Emp)
-        assert isinstance(joe, tuple)
+        self.assertIsInstance(joe, Emp)
+        self.assertIsInstance(joe, tuple)
         assert joe.name == 'Joe'
         assert joe.id == 42
         assert jim.name == 'Jim'
