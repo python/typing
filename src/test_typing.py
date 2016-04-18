@@ -157,18 +157,18 @@ class TypeVarTests(TestCase):
     def test_union_unique(self):
         X = TypeVar('X')
         Y = TypeVar('Y')
-        assert X != Y
+        self.assertNotEqual(X, Y)
         self.assertEqual(Union[X], X)
-        assert Union[X] != Union[X, Y]
+        self.assertNotEqual(Union[X], Union[X, Y])
         self.assertEqual(Union[X, X], X)
-        assert Union[X, int] != Union[X]
-        assert Union[X, int] != Union[int]
+        self.assertNotEqual(Union[X, int], Union[X])
+        self.assertNotEqual(Union[X, int], Union[int])
         self.assertEqual(Union[X, int].__union_params__, (X, int))
         self.assertEqual(Union[X, int].__union_set_params__, {X, int})
 
     def test_union_constrained(self):
         A = TypeVar('A', str, bytes)
-        assert Union[A, str] != Union[A]
+        self.assertNotEqual(Union[A, str], Union[A])
 
     def test_repr(self):
         self.assertEqual(repr(T), '~T')
@@ -381,8 +381,8 @@ class TupleTests(TestCase):
     def test_equality(self):
         self.assertEqual(Tuple[int], Tuple[int])
         self.assertEqual(Tuple[int, ...], Tuple[int, ...])
-        assert Tuple[int] != Tuple[int, int]
-        assert Tuple[int] != Tuple[int, ...]
+        self.assertNotEqual(Tuple[int], Tuple[int, int])
+        self.assertNotEqual(Tuple[int], Tuple[int, ...])
 
     def test_tuple_subclass(self):
         class MyTuple(tuple):
@@ -620,17 +620,17 @@ class GenericTests(TestCase):
 
         X = C[Tuple[S, T]]
         self.assertEqual(X, C[Tuple[S, T]])
-        assert X != C[Tuple[T, S]]
+        self.assertNotEqual(X, C[Tuple[T, S]])
 
         Y = X[T, int]
         self.assertEqual(Y, X[T, int])
-        assert Y != X[S, int]
-        assert Y != X[T, str]
+        self.assertNotEqual(Y, X[S, int])
+        self.assertNotEqual(Y, X[T, str])
 
         Z = Y[str]
         self.assertEqual(Z, Y[str])
-        assert Z != Y[int]
-        assert Z != Y[T]
+        self.assertNotEqual(Z, Y[int])
+        self.assertNotEqual(Z, Y[T])
 
         assert str(Z).endswith(
             '.C<~T>[typing.Tuple[~S, ~T]]<~S, ~T>[~T, int]<~T>[str]')
@@ -708,7 +708,7 @@ class GenericTests(TestCase):
     def test_eq_1(self):
         self.assertEqual(Generic, Generic)
         self.assertEqual(Generic[T], Generic[T])
-        assert Generic[KT] != Generic[VT]
+        self.assertNotEqual(Generic[KT], Generic[VT])
 
     def test_eq_2(self):
 
@@ -719,9 +719,9 @@ class GenericTests(TestCase):
             pass
 
         self.assertEqual(A, A)
-        assert A != B
+        self.assertNotEqual(A, B)
         self.assertEqual(A[T], A[T])
-        assert A[T] != B[T]
+        self.assertNotEqual(A[T], B[T])
 
     def test_multiple_inheritance(self):
 
