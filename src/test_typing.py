@@ -903,7 +903,7 @@ class ForwardRefTests(TestCase):
         self.assertEqual(both_hints['right'], Optional[Node[T]])
         self.assertEqual(both_hints['left'], both_hints['right'])
         self.assertEqual(both_hints['stuff'], Optional[int])
-        assert 'blah' not in both_hints
+        self.assertNotIn('blah', both_hints)
 
         left_hints = get_type_hints(t.add_left, globals(), locals())
         self.assertEqual(left_hints['node'], Optional[Node[T]])
@@ -1491,20 +1491,20 @@ class AllTests(TestCase):
     def test_all(self):
         from typing import __all__ as a
         # Just spot-check the first and last of every category.
-        assert 'AbstractSet' in a
-        assert 'ValuesView' in a
-        assert 'cast' in a
-        assert 'overload' in a
+        self.assertIn('AbstractSet', a)
+        self.assertIn('ValuesView', a)
+        self.assertIn('cast', a)
+        self.assertIn('overload', a)
         if hasattr(contextlib, 'AbstractContextManager'):
-            assert 'ContextManager' in a
+            self.assertIn('ContextManager', a)
         # Check that io and re are not exported.
-        assert 'io' not in a
-        assert 're' not in a
+        self.assertNotIn('io', a)
+        self.assertNotIn('re', a)
         # Spot-check that stdlib modules aren't exported.
-        assert 'os' not in a
-        assert 'sys' not in a
+        self.assertNotIn('os', a)
+        self.assertNotIn('sys', a)
         # Check that Text is defined.
-        assert 'Text' in a
+        self.assertIn('Text', a)
 
 
 if __name__ == '__main__':
