@@ -632,8 +632,8 @@ class GenericTests(TestCase):
         self.assertNotEqual(Z, Y[int])
         self.assertNotEqual(Z, Y[T])
 
-        assert str(Z).endswith(
-            '.C<~T>[typing.Tuple[~S, ~T]]<~S, ~T>[~T, int]<~T>[str]')
+        self.assertTrue(str(Z).endswith(
+            '.C<~T>[typing.Tuple[~S, ~T]]<~S, ~T>[~T, int]<~T>[str]'))
 
     def test_dict(self):
         T = TypeVar('T')
