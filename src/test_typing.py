@@ -127,7 +127,7 @@ class TypeVarTests(TestCase):
         self.assertIsSubclass(int, T)
         self.assertIsSubclass(str, T)
         # T equals itself.
-        assert T == T
+        self.assertEqual(T, T)
         # T is a subclass of itself.
         self.assertIsSubclass(T, T)
         # T is an instance of TypeVar
@@ -145,7 +145,7 @@ class TypeVarTests(TestCase):
         self.assertIsSubclass(bytes, A)
         self.assertNotIsSubclass(int, A)
         # A equals itself.
-        assert A == A
+        self.assertEqual(A, A)
         # A is a subclass of itself.
         self.assertIsSubclass(A, A)
 
@@ -158,13 +158,13 @@ class TypeVarTests(TestCase):
         X = TypeVar('X')
         Y = TypeVar('Y')
         assert X != Y
-        assert Union[X] == X
+        self.assertEqual(Union[X], X)
         assert Union[X] != Union[X, Y]
-        assert Union[X, X] == X
+        self.assertEqual(Union[X, X], X)
         assert Union[X, int] != Union[X]
         assert Union[X, int] != Union[int]
-        assert Union[X, int].__union_params__ == (X, int)
-        assert Union[X, int].__union_set_params__ == {X, int}
+        self.assertEqual(Union[X, int].__union_params__, (X, int))
+        self.assertEqual(Union[X, int].__union_set_params__, {X, int})
 
     def test_union_constrained(self):
         A = TypeVar('A', str, bytes)
@@ -379,8 +379,8 @@ class TupleTests(TestCase):
         self.assertFalse(issubclass(Tuple, tuple))  # Can't have it both ways.
 
     def test_equality(self):
-        assert Tuple[int] == Tuple[int]
-        assert Tuple[int, ...] == Tuple[int, ...]
+        self.assertEqual(Tuple[int], Tuple[int])
+        self.assertEqual(Tuple[int, ...], Tuple[int, ...])
         assert Tuple[int] != Tuple[int, int]
         assert Tuple[int] != Tuple[int, ...]
 
@@ -586,13 +586,13 @@ class GenericTests(TestCase):
 
     def test_basics(self):
         X = SimpleMapping[str, Any]
-        assert X.__parameters__ == ()
+        self.assertEqual(X.__parameters__, ())
         with self.assertRaises(TypeError):
             X[str]
         with self.assertRaises(TypeError):
             X[str, str]
         Y = SimpleMapping[XK, str]
-        assert Y.__parameters__ == (XK,)
+        self.assertEqual(Y.__parameters__, (XK,))
         Y[str]
         with self.assertRaises(TypeError):
             Y[str, str]
@@ -619,16 +619,16 @@ class GenericTests(TestCase):
             pass
 
         X = C[Tuple[S, T]]
-        assert X == C[Tuple[S, T]]
+        self.assertEqual(X, C[Tuple[S, T]])
         assert X != C[Tuple[T, S]]
 
         Y = X[T, int]
-        assert Y == X[T, int]
+        self.assertEqual(Y, X[T, int])
         assert Y != X[S, int]
         assert Y != X[T, str]
 
         Z = Y[str]
-        assert Z == Y[str]
+        self.assertEqual(Z, Y[str])
         assert Z != Y[int]
         assert Z != Y[T]
 
@@ -685,27 +685,29 @@ class GenericTests(TestCase):
         class C(Generic[T]):
             pass
 
-        assert C.__module__ == __name__
+        self.assertEqual(C.__module__, __name__)
         if not PY32:
-            assert C.__qualname__ == 'GenericTests.test_repr_2.<locals>.C'
-        assert repr(C).split('.')[-1] == 'C<~T>'
+            self.assertEqual(C.__qualname__,
+                             'GenericTests.test_repr_2.<locals>.C')
+        self.assertEqual(repr(C).split('.')[-1], 'C<~T>')
         X = C[int]
-        assert X.__module__ == __name__
+        self.assertEqual(X.__module__, __name__)
         if not PY32:
-            assert X.__qualname__ == 'C'
-        assert repr(X).split('.')[-1] == 'C<~T>[int]'
+            self.assertEqual(X.__qualname__, 'C')
+        self.assertEqual(repr(X).split('.')[-1], 'C<~T>[int]')
 
         class Y(C[int]):
             pass
 
-        assert Y.__module__ == __name__
+        self.assertEqual(Y.__module__, __name__)
         if not PY32:
-            assert Y.__qualname__ == 'GenericTests.test_repr_2.<locals>.Y'
-        assert repr(Y).split('.')[-1] == 'Y'
+            self.assertEqual(Y.__qualname__,
+                             'GenericTests.test_repr_2.<locals>.Y')
+        self.assertEqual(repr(Y).split('.')[-1], 'Y')
 
     def test_eq_1(self):
-        assert Generic == Generic
-        assert Generic[T] == Generic[T]
+        self.assertEqual(Generic, Generic)
+        self.assertEqual(Generic[T], Generic[T])
         assert Generic[KT] != Generic[VT]
 
     def test_eq_2(self):
@@ -716,9 +718,9 @@ class GenericTests(TestCase):
         class B(Generic[T]):
             pass
 
-        assert A == A
+        self.assertEqual(A, A)
         assert A != B
-        assert A[T] == A[T]
+        self.assertEqual(A[T], A[T])
         assert A[T] != B[T]
 
     def test_multiple_inheritance(self):
@@ -732,7 +734,7 @@ class GenericTests(TestCase):
         class C(A[T, VT], Generic[VT, T, KT], B[KT, T]):
             pass
 
-        assert C.__parameters__ == (VT, T, KT)
+        self.assertEqual(C.__parameters__, (VT, T, KT))
 
     def test_nested(self):
 
@@ -762,7 +764,7 @@ class GenericTests(TestCase):
         a.set([])
         a.append(1)
         a.append(42)
-        assert a.get() == [1, 42]
+        self.assertEqual(a.get(), [1, 42])
 
     def test_type_erasure(self):
         T = TypeVar('T')
@@ -782,9 +784,9 @@ class GenericTests(TestCase):
             assert type(a) is Node
             assert type(b) is Node
             assert type(c) is Node
-            assert a.label == x
-            assert b.label == x
-            assert c.label == x
+            self.assertEqual(a.label, x)
+            self.assertEqual(b.label, x)
+            self.assertEqual(c.label, x)
 
         foo(42)
 
@@ -797,7 +799,7 @@ class GenericTests(TestCase):
         class D(C):
             pass
 
-        assert D.__parameters__ == ()
+        self.assertEqual(D.__parameters__, ())
 
         with self.assertRaises(Exception):
             D[int]
@@ -856,14 +858,14 @@ class VarianceTests(TestCase):
 class CastTests(TestCase):
 
     def test_basics(self):
-        assert cast(int, 42) == 42
-        assert cast(float, 42) == 42
+        self.assertEqual(cast(int, 42), 42)
+        self.assertEqual(cast(float, 42), 42)
         assert type(cast(float, 42)) is int
-        assert cast(Any, 42) == 42
-        assert cast(list, 42) == 42
-        assert cast(Union[str, float], 42) == 42
-        assert cast(AnyStr, 42) == 42
-        assert cast(None, 42) == 42
+        self.assertEqual(cast(Any, 42), 42)
+        self.assertEqual(cast(list, 42), 42)
+        self.assertEqual(cast(Union[str, float], 42), 42)
+        self.assertEqual(cast(AnyStr, 42), 42)
+        self.assertEqual(cast(None, 42), 42)
 
     def test_errors(self):
         # Bogus calls are not expected to fail.
@@ -897,15 +899,17 @@ class ForwardRefTests(TestCase):
 
         t = Node[int]
         both_hints = get_type_hints(t.add_both, globals(), locals())
-        assert both_hints['left'] == both_hints['right'] == Optional[Node[T]]
-        assert both_hints['stuff'] == Optional[int]
+        self.assertEqual(both_hints['left'], Optional[Node[T]])
+        self.assertEqual(both_hints['right'], Optional[Node[T]])
+        self.assertEqual(both_hints['left'], both_hints['right'])
+        self.assertEqual(both_hints['stuff'], Optional[int])
         assert 'blah' not in both_hints
 
         left_hints = get_type_hints(t.add_left, globals(), locals())
-        assert left_hints['node'] == Optional[Node[T]]
+        self.assertEqual(left_hints['node'], Optional[Node[T]])
 
         right_hints = get_type_hints(t.add_right, globals(), locals())
-        assert right_hints['node'] == Optional[Node[T]]
+        self.assertEqual(right_hints['node'], Optional[Node[T]])
 
     def test_forwardref_instance_type_error(self):
         fr = typing._ForwardRef('int')
@@ -1028,7 +1032,7 @@ class ForwardRefTests(TestCase):
         ns = {}
         exec(code, ns)
         hints = get_type_hints(ns['C'].foo)
-        assert hints == {'a': ns['C'], 'return': ns['D']}
+        self.assertEqual(hints, {'a': ns['C'], 'return': ns['D']})
 
 
 class OverloadTests(TestCase):
@@ -1326,15 +1330,15 @@ class CollectionsAbcTests(TestCase):
             def __len__(self):
                 return 0
 
-        assert len(MMC()) == 0
+        self.assertEqual(len(MMC()), 0)
 
         class MMB(typing.MutableMapping[KT, VT]):
             def __len__(self):
                 return 0
 
-        assert len(MMB()) == 0
-        assert len(MMB[str, str]()) == 0
-        assert len(MMB[KT, VT]()) == 0
+        self.assertEqual(len(MMB()), 0)
+        self.assertEqual(len(MMB[str, str]()), 0)
+        self.assertEqual(len(MMB[KT, VT]()), 0)
 
 
 class OtherABCTests(TestCase):
@@ -1361,13 +1365,13 @@ class NamedTupleTests(TestCase):
         jim = Emp(name='Jim', id=1)
         self.assertIsInstance(joe, Emp)
         self.assertIsInstance(joe, tuple)
-        assert joe.name == 'Joe'
-        assert joe.id == 42
-        assert jim.name == 'Jim'
-        assert jim.id == 1
-        assert Emp.__name__ == 'Emp'
-        assert Emp._fields == ('name', 'id')
-        assert Emp._field_types == dict(name=str, id=int)
+        self.assertEqual(joe.name, 'Joe')
+        self.assertEqual(joe.id, 42)
+        self.assertEqual(jim.name, 'Jim')
+        self.assertEqual(jim.id, 1)
+        self.assertEqual(Emp.__name__, 'Emp')
+        self.assertEqual(Emp._fields, ('name', 'id'))
+        self.assertEqual(Emp._field_types, dict(name=str, id=int))
 
     def test_pickle(self):
         global Emp  # pickle wants to reference the class by name
@@ -1387,7 +1391,7 @@ class IOTests(TestCase):
             return a.readline()
 
         a = stuff.__annotations__['a']
-        assert a.__parameters__ == (AnyStr,)
+        self.assertEqual(a.__parameters__, (AnyStr,))
 
     def test_textio(self):
 
@@ -1395,7 +1399,7 @@ class IOTests(TestCase):
             return a.readline()
 
         a = stuff.__annotations__['a']
-        assert a.__parameters__ == ()
+        self.assertEqual(a.__parameters__, ())
 
     def test_binaryio(self):
 
@@ -1403,15 +1407,15 @@ class IOTests(TestCase):
             return a.readline()
 
         a = stuff.__annotations__['a']
-        assert a.__parameters__ == ()
+        self.assertEqual(a.__parameters__, ())
 
     def test_io_submodule(self):
         from typing.io import IO, TextIO, BinaryIO, __all__, __name__
         assert IO is typing.IO
         assert TextIO is typing.TextIO
         assert BinaryIO is typing.BinaryIO
-        assert set(__all__) == set(['IO', 'TextIO', 'BinaryIO'])
-        assert __name__ == 'typing.io'
+        self.assertEqual(set(__all__), set(['IO', 'TextIO', 'BinaryIO']))
+        self.assertEqual(__name__, 'typing.io')
 
 
 class RETests(TestCase):
@@ -1457,19 +1461,19 @@ class RETests(TestCase):
             isinstance(42, Pattern[str])
 
     def test_repr(self):
-        assert repr(Pattern) == 'Pattern[~AnyStr]'
-        assert repr(Pattern[str]) == 'Pattern[str]'
-        assert repr(Pattern[bytes]) == 'Pattern[bytes]'
-        assert repr(Match) == 'Match[~AnyStr]'
-        assert repr(Match[str]) == 'Match[str]'
-        assert repr(Match[bytes]) == 'Match[bytes]'
+        self.assertEqual(repr(Pattern), 'Pattern[~AnyStr]')
+        self.assertEqual(repr(Pattern[str]), 'Pattern[str]')
+        self.assertEqual(repr(Pattern[bytes]), 'Pattern[bytes]')
+        self.assertEqual(repr(Match), 'Match[~AnyStr]')
+        self.assertEqual(repr(Match[str]), 'Match[str]')
+        self.assertEqual(repr(Match[bytes]), 'Match[bytes]')
 
     def test_re_submodule(self):
         from typing.re import Match, Pattern, __all__, __name__
         assert Match is typing.Match
         assert Pattern is typing.Pattern
-        assert set(__all__) == set(['Match', 'Pattern'])
-        assert __name__ == 'typing.re'
+        self.assertEqual(set(__all__), set(['Match', 'Pattern']))
+        self.assertEqual(__name__, 'typing.re')
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError) as ex:
@@ -1477,7 +1481,8 @@ class RETests(TestCase):
             class A(typing.Match):
                 pass
 
-        assert str(ex.exception) == "A type alias cannot be subclassed"
+        self.assertEqual(str(ex.exception),
+                         "A type alias cannot be subclassed")
 
 
 class AllTests(TestCase):
