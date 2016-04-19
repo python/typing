@@ -41,20 +41,28 @@ class ManagingFounder(Manager, Founder):
 
 class AnyTests(TestCase):
 
-    def test_any_instance_type_error(self):
+    def test_any_type_errors(self):
         with self.assertRaises(TypeError):
             isinstance(42, Any)
+        with self.assertRaises(TypeError):
+            issubclass(Employee, Any)
 
-    def test_any_subclass(self):
-        self.assertTrue(issubclass(Employee, Any))
-        self.assertTrue(issubclass(int, Any))
-        self.assertTrue(issubclass(type(None), Any))
-        self.assertTrue(issubclass(object, Any))
+    def test_compatible_with_classes(self):
+        self.assertTrue(is_compatible(Employee, Any))
+        self.assertTrue(is_compatible(int, Any))
+        self.assertTrue(is_compatible(type(None), Any))
+        self.assertTrue(is_compatible(object, Any))
+        self.assertTrue(is_compatible(Any, Employee))
+        self.assertTrue(is_compatible(Any, int))
+        self.assertTrue(is_compatible(Any, type(None)))
+        self.assertTrue(is_compatible(Any, object))
 
-    def test_others_any(self):
+    def test_not_a_subclass(self):
         self.assertFalse(issubclass(Any, Employee))
         self.assertFalse(issubclass(Any, int))
         self.assertFalse(issubclass(Any, type(None)))
+        self.assertFalse(issubclass(Any, typing.Generic))
+        self.assertFalse(issubclass(Any, typing.Iterable))
         # However, Any is a subclass of object (this can't be helped).
         self.assertTrue(issubclass(Any, object))
 
@@ -80,9 +88,9 @@ class AnyTests(TestCase):
         with self.assertRaises(TypeError):
             Any[int]
 
-    def test_any_is_subclass(self):
-        # Any should be considered a subclass of everything.
-        assert issubclass(Any, Any)
+    def test_compatible_with_types(self):
+        # Any should be considered compatible with everything.
+        assert is_compatible(Any, Any)
         assert is_compatible(Any, typing.List)
         assert is_compatible(Any, typing.List[int])
         assert is_compatible(Any, typing.List[T])
@@ -92,11 +100,14 @@ class AnyTests(TestCase):
         assert is_compatible(Any, Generic)
         assert is_compatible(Any, Generic[T])
         assert is_compatible(Any, Generic[KT, VT])
-        assert issubclass(Any, AnyStr)
-        assert issubclass(Any, Union)
-        assert issubclass(Any, Union[int, str])
-        assert issubclass(Any, typing.Match)
-        assert issubclass(Any, typing.Match[str])
+        assert is_compatible(Any, AnyStr)
+        assert is_compatible(Any, Union)
+        assert is_compatible(Any, Union[int, str])
+        assert is_compatible(Any, typing.Match)
+        assert is_compatible(Any, typing.Match[str])
+        assert is_compatible(Generic, Any)
+        assert is_compatible(Union, Any)
+        assert is_compatible(Match, Any)
         # These expressions must simply not fail.
         typing.Match[Any]
         typing.Pattern[Any]
@@ -107,31 +118,33 @@ class TypeVarTests(TestCase):
 
     def test_basic_plain(self):
         T = TypeVar('T')
-        # Every class is a subclass of T.
-        assert issubclass(int, T)
-        assert issubclass(str, T)
+        # Every class is a subtype of T.
+        assert is_compatible(int, T)
+        assert is_compatible(str, T)
         # T equals itself.
         assert T == T
-        # T is a subclass of itself.
-        assert issubclass(T, T)
+        # T is a subtype of itself.
+        assert is_compatible(T, T)
         # T is an instance of TypeVar
         assert isinstance(T, TypeVar)
 
-    def test_typevar_instance_type_error(self):
+    def test_typevar_type_errors(self):
         T = TypeVar('T')
         with self.assertRaises(TypeError):
             isinstance(42, T)
+        with self.assertRaises(TypeError):
+            issubclass(int, T)
 
     def test_basic_constrained(self):
         A = TypeVar('A', str, bytes)
-        # Only str and bytes are subclasses of A.
-        assert issubclass(str, A)
-        assert issubclass(bytes, A)
-        assert not issubclass(int, A)
+        # Only str and bytes are subtypes of A.
+        assert is_compatible(str, A)
+        assert is_compatible(bytes, A)
+        assert not is_compatible(int, A)
         # A equals itself.
         assert A == A
-        # A is a subclass of itself.
-        assert issubclass(A, A)
+        # A is a subtype of itself.
+        assert is_compatible(A, A)
 
     def test_constrained_error(self):
         with self.assertRaises(TypeError):
@@ -170,16 +183,16 @@ class TypeVarTests(TestCase):
 
     def test_subclass_as_unions(self):
         # None of these are true -- each type var is its own world.
-        self.assertFalse(issubclass(TypeVar('T', int, str),
-                                    TypeVar('T', int, str)))
-        self.assertFalse(issubclass(TypeVar('T', int, float),
-                                    TypeVar('T', int, float, str)))
-        self.assertFalse(issubclass(TypeVar('T', int, str),
-                                    TypeVar('T', str, int)))
+        self.assertFalse(is_compatible(TypeVar('T', int, str),
+                                       TypeVar('T', int, str)))
+        self.assertFalse(is_compatible(TypeVar('T', int, float),
+                                       TypeVar('T', int, float, str)))
+        self.assertFalse(is_compatible(TypeVar('T', int, str),
+                                       TypeVar('T', str, int)))
         A = TypeVar('A', int, str)
         B = TypeVar('B', int, str, float)
-        self.assertFalse(issubclass(A, B))
-        self.assertFalse(issubclass(B, A))
+        self.assertFalse(is_compatible(A, B))
+        self.assertFalse(is_compatible(B, A))
 
     def test_cannot_subclass_vars(self):
         with self.assertRaises(TypeError):
@@ -197,9 +210,9 @@ class TypeVarTests(TestCase):
 
     def test_bound(self):
         X = TypeVar('X', bound=Employee)
-        assert issubclass(Employee, X)
-        assert issubclass(Manager, X)
-        assert not issubclass(int, X)
+        assert is_compatible(Employee, X)
+        assert is_compatible(Manager, X)
+        assert not is_compatible(int, X)
 
     def test_bound_errors(self):
         with self.assertRaises(TypeError):
@@ -213,8 +226,8 @@ class UnionTests(TestCase):
     def test_basics(self):
         u = Union[int, float]
         self.assertNotEqual(u, Union)
-        self.assertTrue(issubclass(int, u))
-        self.assertTrue(issubclass(float, u))
+        self.assertTrue(is_compatible(int, u))
+        self.assertTrue(is_compatible(float, u))
 
     def test_union_any(self):
         u = Union[Any]
@@ -245,15 +258,15 @@ class UnionTests(TestCase):
 
     def test_subclass(self):
         u = Union[int, Employee]
-        self.assertTrue(issubclass(Manager, u))
+        self.assertTrue(is_compatible(Manager, u))
 
     def test_self_subclass(self):
-        self.assertTrue(issubclass(Union[KT, VT], Union))
-        self.assertFalse(issubclass(Union, Union[KT, VT]))
+        self.assertTrue(is_compatible(Union[KT, VT], Union))
+        self.assertFalse(is_compatible(Union, Union[KT, VT]))
 
     def test_multiple_inheritance(self):
         u = Union[int, Employee]
-        self.assertTrue(issubclass(ManagingFounder, u))
+        self.assertTrue(is_compatible(ManagingFounder, u))
 
     def test_single_class_disappears(self):
         t = Union[Employee]
@@ -270,9 +283,9 @@ class UnionTests(TestCase):
     def test_weird_subclasses(self):
         u = Union[Employee, int, float]
         v = Union[int, float]
-        self.assertTrue(issubclass(v, u))
+        self.assertTrue(is_compatible(v, u))
         w = Union[int, Manager]
-        self.assertTrue(issubclass(w, u))
+        self.assertTrue(is_compatible(w, u))
 
     def test_union_union(self):
         u = Union[int, float]
@@ -310,13 +323,15 @@ class UnionTests(TestCase):
         with self.assertRaises(TypeError):
             Union[()]
 
-    def test_issubclass_union(self):
-        assert issubclass(Union[int, str], Union)
-        assert not issubclass(int, Union)
+    def test_is_compatible(self):
+        assert is_compatible(Union[int, str], Union)
+        assert not is_compatible(int, Union)
 
-    def test_union_instance_type_error(self):
+    def test_union_type_errors(self):
         with self.assertRaises(TypeError):
             isinstance(42, Union[int, str])
+        with self.assertRaises(TypeError):
+            issubclass(int, Union[int, str])
 
     def test_union_str_pattern(self):
         # Shouldn't crash; see http://bugs.python.org/issue25390
@@ -329,38 +344,38 @@ class TypeVarUnionTests(TestCase):
     def test_simpler(self):
         A = TypeVar('A', int, str, float)
         B = TypeVar('B', int, str)
-        assert issubclass(A, A)
-        assert issubclass(B, B)
-        assert not issubclass(B, A)
-        assert issubclass(A, Union[int, str, float])
-        assert not issubclass(Union[int, str, float], A)
-        assert not issubclass(Union[int, str], B)
-        assert issubclass(B, Union[int, str])
-        assert not issubclass(A, B)
-        assert not issubclass(Union[int, str, float], B)
-        assert not issubclass(A, Union[int, str])
+        assert is_compatible(A, A)
+        assert is_compatible(B, B)
+        assert not is_compatible(B, A)
+        assert is_compatible(A, Union[int, str, float])
+        assert not is_compatible(Union[int, str, float], A)
+        assert not is_compatible(Union[int, str], B)
+        assert is_compatible(B, Union[int, str])
+        assert not is_compatible(A, B)
+        assert not is_compatible(Union[int, str, float], B)
+        assert not is_compatible(A, Union[int, str])
 
-    def test_var_union_subclass(self):
-        self.assertTrue(issubclass(T, Union[int, T]))
-        self.assertTrue(issubclass(KT, Union[KT, VT]))
+    def test_var_union_subtype(self):
+        self.assertTrue(is_compatible(T, Union[int, T]))
+        self.assertTrue(is_compatible(KT, Union[KT, VT]))
 
     def test_var_union(self):
         TU = TypeVar('TU', Union[int, float], None)
-        assert issubclass(int, TU)
-        assert issubclass(float, TU)
+        assert is_compatible(int, TU)
+        assert is_compatible(float, TU)
 
 
 class TupleTests(TestCase):
 
     def test_basics(self):
-        self.assertTrue(issubclass(Tuple[int, str], Tuple))
-        self.assertTrue(issubclass(Tuple[int, str], Tuple[int, str]))
-        self.assertFalse(issubclass(int, Tuple))
-        self.assertFalse(issubclass(Tuple[float, str], Tuple[int, str]))
-        self.assertFalse(issubclass(Tuple[int, str, int], Tuple[int, str]))
-        self.assertFalse(issubclass(Tuple[int, str], Tuple[int, str, int]))
-        self.assertTrue(issubclass(tuple, Tuple))
-        self.assertFalse(issubclass(Tuple, tuple))  # Can't have it both ways.
+        self.assertTrue(is_compatible(Tuple[int, str], Tuple))
+        self.assertTrue(is_compatible(Tuple[int, str], Tuple[int, str]))
+        self.assertFalse(is_compatible(int, Tuple))
+        self.assertFalse(is_compatible(Tuple[float, str], Tuple[int, str]))
+        self.assertFalse(is_compatible(Tuple[int, str, int], Tuple[int, str]))
+        self.assertFalse(is_compatible(Tuple[int, str], Tuple[int, str, int]))
+        self.assertTrue(is_compatible(tuple, Tuple))
+        self.assertFalse(is_compatible(Tuple, tuple))  # Can't have it both ways.
 
     def test_equality(self):
         assert Tuple[int] == Tuple[int]
@@ -371,13 +386,15 @@ class TupleTests(TestCase):
     def test_tuple_subclass(self):
         class MyTuple(tuple):
             pass
-        self.assertTrue(issubclass(MyTuple, Tuple))
+        self.assertTrue(is_compatible(MyTuple, Tuple))
 
-    def test_tuple_instance_type_error(self):
+    def test_tuple_type_errors(self):
         with self.assertRaises(TypeError):
             isinstance((0, 0), Tuple[int, int])
         with self.assertRaises(TypeError):
             isinstance((0, 0), Tuple)
+        with self.assertRaises(TypeError):
+            issubclass(tuple, Tuple)
 
     def test_tuple_ellipsis_subclass(self):
 
@@ -387,10 +404,10 @@ class TupleTests(TestCase):
         class C(B):
             pass
 
-        assert not issubclass(Tuple[B], Tuple[B, ...])
-        assert issubclass(Tuple[C, ...], Tuple[B, ...])
-        assert not issubclass(Tuple[C, ...], Tuple[B])
-        assert not issubclass(Tuple[C], Tuple[B, ...])
+        assert not is_compatible(Tuple[B], Tuple[B, ...])
+        assert is_compatible(Tuple[C, ...], Tuple[B, ...])
+        assert not is_compatible(Tuple[C, ...], Tuple[B])
+        assert not is_compatible(Tuple[C], Tuple[B, ...])
 
     def test_repr(self):
         self.assertEqual(repr(Tuple), 'typing.Tuple')
@@ -398,27 +415,21 @@ class TupleTests(TestCase):
         self.assertEqual(repr(Tuple[int, float]), 'typing.Tuple[int, float]')
         self.assertEqual(repr(Tuple[int, ...]), 'typing.Tuple[int, ...]')
 
-    def test_errors(self):
-        with self.assertRaises(TypeError):
-            issubclass(42, Tuple)
-        with self.assertRaises(TypeError):
-            issubclass(42, Tuple[int])
-
 
 class CallableTests(TestCase):
 
     def test_self_subclass(self):
-        self.assertTrue(issubclass(Callable[[int], int], Callable))
-        self.assertFalse(issubclass(Callable, Callable[[int], int]))
-        self.assertTrue(issubclass(Callable[[int], int], Callable[[int], int]))
-        self.assertFalse(issubclass(Callable[[Employee], int],
-                                    Callable[[Manager], int]))
-        self.assertFalse(issubclass(Callable[[Manager], int],
-                                    Callable[[Employee], int]))
-        self.assertFalse(issubclass(Callable[[int], Employee],
-                                    Callable[[int], Manager]))
-        self.assertFalse(issubclass(Callable[[int], Manager],
-                                    Callable[[int], Employee]))
+        self.assertTrue(is_compatible(Callable[[int], int], Callable))
+        self.assertFalse(is_compatible(Callable, Callable[[int], int]))
+        self.assertTrue(is_compatible(Callable[[int], int], Callable[[int], int]))
+        self.assertFalse(is_compatible(Callable[[Employee], int],
+                                       Callable[[Manager], int]))
+        self.assertFalse(is_compatible(Callable[[Manager], int],
+                                       Callable[[Employee], int]))
+        self.assertFalse(is_compatible(Callable[[int], Employee],
+                                       Callable[[int], Manager]))
+        self.assertFalse(is_compatible(Callable[[int], Manager],
+                                       Callable[[int], Employee]))
 
     def test_eq_hash(self):
         self.assertEqual(Callable[[int], int], Callable[[int], int])
@@ -447,23 +458,33 @@ class CallableTests(TestCase):
         with self.assertRaises(TypeError):
             c()
 
-    def test_callable_instance_works(self):
+    def test_callable_isinstance_works(self):
         def f():
             pass
         assert isinstance(f, Callable)
         assert not isinstance(None, Callable)
 
-    def test_callable_instance_type_error(self):
+    def test_callable_issubclass_works(self):
+        def f():
+            pass
+        assert issubclass(type(f), Callable)
+        assert not issubclass(type(None), Callable)
+
+    def test_callable_type_errora(self):
         def f():
             pass
         with self.assertRaises(TypeError):
-            assert isinstance(f, Callable[[], None])
+            isinstance(f, Callable[[], None])
         with self.assertRaises(TypeError):
-            assert isinstance(f, Callable[[], Any])
+            isinstance(f, Callable[[], Any])
         with self.assertRaises(TypeError):
-            assert not isinstance(None, Callable[[], None])
+            isinstance(None, Callable[[], None])
         with self.assertRaises(TypeError):
-            assert not isinstance(None, Callable[[], Any])
+            isinstance(None, Callable[[], Any])
+        with self.assertRaises(TypeError):
+            issubclass(type(f), Callable[[], None])
+        with self.assertRaises(TypeError):
+            issubclass(type(f), Callable[[], Any])
 
     def test_repr(self):
         ct0 = Callable[[], bool]
@@ -519,12 +540,13 @@ class MySimpleMapping(SimpleMapping[XK, XV]):
 class ProtocolTests(TestCase):
 
     def test_supports_int(self):
-        assert issubclass(int, typing.SupportsInt)
-        assert not issubclass(str, typing.SupportsInt)
+        assert is_compatible(int, typing.SupportsInt)
+        assert not issubclass(int, typing.SupportsInt)
+        assert not is_compatible(str, typing.SupportsInt)
 
     def test_supports_float(self):
-        assert issubclass(float, typing.SupportsFloat)
-        assert not issubclass(str, typing.SupportsFloat)
+        assert is_compatible(float, typing.SupportsFloat)
+        assert not is_compatible(str, typing.SupportsFloat)
 
     def test_supports_complex(self):
 
@@ -533,8 +555,8 @@ class ProtocolTests(TestCase):
             def __complex__(self):
                 return 0j
 
-        assert issubclass(C, typing.SupportsComplex)
-        assert not issubclass(str, typing.SupportsComplex)
+        assert is_compatible(C, typing.SupportsComplex)
+        assert not is_compatible(str, typing.SupportsComplex)
 
     def test_supports_bytes(self):
 
@@ -543,23 +565,23 @@ class ProtocolTests(TestCase):
             def __bytes__(self):
                 return b''
 
-        assert issubclass(B, typing.SupportsBytes)
-        assert not issubclass(str, typing.SupportsBytes)
+        assert is_compatible(B, typing.SupportsBytes)
+        assert not is_compatible(str, typing.SupportsBytes)
 
     def test_supports_abs(self):
-        assert issubclass(float, typing.SupportsAbs)
-        assert issubclass(int, typing.SupportsAbs)
-        assert not issubclass(str, typing.SupportsAbs)
+        assert is_compatible(float, typing.SupportsAbs)
+        assert is_compatible(int, typing.SupportsAbs)
+        assert not is_compatible(str, typing.SupportsAbs)
 
     def test_supports_round(self):
-        issubclass(float, typing.SupportsRound)
-        assert issubclass(float, typing.SupportsRound)
-        assert issubclass(int, typing.SupportsRound)
-        assert not issubclass(str, typing.SupportsRound)
+        is_compatible(float, typing.SupportsRound)
+        assert is_compatible(float, typing.SupportsRound)
+        assert is_compatible(int, typing.SupportsRound)
+        assert not is_compatible(str, typing.SupportsRound)
 
     def test_reversible(self):
-        assert issubclass(list, typing.Reversible)
-        assert not issubclass(int, typing.Reversible)
+        assert is_compatible(list, typing.Reversible)
+        assert not is_compatible(int, typing.Reversible)
 
     def test_protocol_instance_type_error(self):
         with self.assertRaises(TypeError):
@@ -806,15 +828,15 @@ class VarianceTests(TestCase):
 
     def test_covariance_tuple(self):
         # Check covariace for Tuple (which are really special cases).
-        assert issubclass(Tuple[Manager], Tuple[Employee])
-        assert not issubclass(Tuple[Employee], Tuple[Manager])
+        assert is_compatible(Tuple[Manager], Tuple[Employee])
+        assert not is_compatible(Tuple[Employee], Tuple[Manager])
         # And pairwise.
-        assert issubclass(Tuple[Manager, Manager], Tuple[Employee, Employee])
-        assert not issubclass(Tuple[Employee, Employee],
-                              Tuple[Manager, Employee])
+        assert is_compatible(Tuple[Manager, Manager], Tuple[Employee, Employee])
+        assert not is_compatible(Tuple[Employee, Employee],
+                                 Tuple[Manager, Employee])
         # And using ellipsis.
-        assert issubclass(Tuple[Manager, ...], Tuple[Employee, ...])
-        assert not issubclass(Tuple[Employee, ...], Tuple[Manager, ...])
+        assert is_compatible(Tuple[Manager, ...], Tuple[Employee, ...])
+        assert not is_compatible(Tuple[Employee, ...], Tuple[Manager, ...])
 
     def test_covariance_sequence(self):
         # Check covariance for Sequence (which is just a generic class
@@ -1531,24 +1553,24 @@ class RETests(TestCase):
 
     def test_basics(self):
         pat = re.compile('[a-z]+', re.I)
-        assert issubclass(pat.__class__, Pattern)
-        assert issubclass(type(pat), Pattern)
-        assert issubclass(type(pat), Pattern[str])
+        assert is_compatible(pat.__class__, Pattern)
+        assert is_compatible(type(pat), Pattern)
+        assert is_compatible(type(pat), Pattern[str])
 
         mat = pat.search('12345abcde.....')
-        assert issubclass(mat.__class__, Match)
-        assert issubclass(mat.__class__, Match[str])
-        assert issubclass(mat.__class__, Match[bytes])  # Sad but true.
-        assert issubclass(type(mat), Match)
-        assert issubclass(type(mat), Match[str])
+        assert is_compatible(mat.__class__, Match)
+        assert is_compatible(mat.__class__, Match[str])
+        assert is_compatible(mat.__class__, Match[bytes])  # Sad but true.
+        assert is_compatible(type(mat), Match)
+        assert is_compatible(type(mat), Match[str])
 
         p = Pattern[Union[str, bytes]]
-        assert issubclass(Pattern[str], Pattern)
-        assert issubclass(Pattern[str], p)
+        assert is_compatible(Pattern[str], Pattern)
+        assert is_compatible(Pattern[str], p)
 
         m = Match[Union[bytes, str]]
-        assert issubclass(Match[bytes], Match)
-        assert issubclass(Match[bytes], m)
+        assert is_compatible(Match[bytes], Match)
+        assert is_compatible(Match[bytes], m)
 
     def test_errors(self):
         with self.assertRaises(TypeError):

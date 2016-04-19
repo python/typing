@@ -180,6 +180,9 @@ class _ForwardRef(TypingMeta):
         raise TypeError("Forward references cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
+        raise TypeError("Forward references cannot be used with issubclass().")
+
+    def __is_compatible__(self, cls):
         if not self.__forward_evaluated__:
             globalns = self.__forward_frame__.f_globals
             localns = self.__forward_frame__.f_locals
@@ -187,7 +190,7 @@ class _ForwardRef(TypingMeta):
                 self._eval_type(globalns, localns)
             except NameError:
                 return False  # Too early.
-        return issubclass(cls, self.__forward_value__)
+        return is_compatible(cls, self.__forward_value__)
 
     def __repr__(self):
         return '_ForwardRef(%r)' % (self.__forward_arg__,)
@@ -196,11 +199,10 @@ class _ForwardRef(TypingMeta):
 class _TypeAlias:
     """Internal helper class for defining generic variants of concrete types.
 
-    Note that this is not a type; let's call it a pseudo-type.  It can
-    be used in instance and subclass checks, e.g. isinstance(m, Match)
-    or issubclass(type(m), Match).  However, it cannot be itself the
-    target of an issubclass() call; e.g. issubclass(Match, C) (for
-    some arbitrary class C) raises TypeError rather than returning
+    Note that this is not a type; let's call it a pseudo-type. It can be
+    used in subtype checks, e.g., is_compatible(type(m), Match). However,
+    it cannot be itself the subject of such a check; is_compatible(Match, C)
+    (for some arbitrary class C) raises TypeError rather than returning
     False.
     """
 
@@ -247,7 +249,7 @@ class _TypeAlias:
         if not isinstance(self.type_var, TypeVar):
             raise TypeError("%s cannot be further parameterized." % self)
         if self.type_var.__constraints__:
-            if not issubclass(parameter, Union[self.type_var.__constraints__]):
+            if not is_compatible(parameter, Union[self.type_var.__constraints__]):
                 raise TypeError("%s is not a valid substitution for %s." %
                                 (parameter, self.type_var))
         return self.__class__(self.name, parameter,
@@ -257,17 +259,20 @@ class _TypeAlias:
         raise TypeError("Type aliases cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if cls is Any:
+        raise TypeError("Type aliases cannot be used with issubclass().")
+
+    def __is_compatible__(self, cls):
+        if is_consistent(cls, self):
             return True
         if isinstance(cls, _TypeAlias):
             # Covariance.  For now, we compare by name.
             return (cls.name == self.name and
-                    issubclass(cls.type_var, self.type_var))
+                    is_compatible(cls.type_var, self.type_var))
         else:
             # Note that this is too lenient, because the
             # implementation type doesn't carry information about
             # whether it is about bytes or str (for example).
-            return issubclass(cls, self.impl_type)
+            return is_compatible(cls, self.impl_type)
 
 
 def _get_type_vars(types, tvars):
@@ -305,7 +310,7 @@ def is_compatible(t1, t2):
     If ``issubclass(D, C)`` is true, then ``is_compatible(D, C)`` is
     also true, but the reverse doesn't necessarily hold.
     """
-    if isinstance(t2, GenericMeta):
+    if isinstance(t2, (TypingMeta, _TypeAlias)):
         return t2.__is_compatible__(t1)
     else:
         return is_consistent(t1, t2) or issubclass(t1, t2)
@@ -360,17 +365,17 @@ class AnyMeta(TypingMeta):
         raise TypeError("Any cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if not isinstance(cls, type):
+        raise TypeError("Any cannot be used with issubclass().")
+
+    def __is_compatible__(self, cls):
+        if not isinstance(cls, (type, _TypeAlias)):
             return super().__subclasscheck__(cls)  # To TypeError.
         return True
 
 
 class Any(Final, metaclass=AnyMeta, _root=True):
-    """Special type indicating an unconstrained type.
-
-    - Any object is an instance of Any.
-    - Any class is a subclass of Any.
-    - As a special case, Any and object are subclasses of each other.
+    """Special type indicating an unconstrained type. Any type is
+    consistent with Any.
     """
 
     __slots__ = ()
@@ -402,10 +407,10 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
     that if the arguments are instances of some subclass of str,
     the return type is still plain str.
 
-    At runtime, isinstance(x, T) will raise TypeError.  However,
-    issubclass(C, T) is true for any class C, and issubclass(str, A)
-    and issubclass(bytes, A) are true, and issubclass(int, A) is
-    false.  (TODO: Why is this needed?  This may change.  See #136.)
+    At runtime, issubclass(x, T) will raise TypeError.  However,
+    - is_compatible(C, T) is true for any class C
+    - is_compatible(str, A) and is_compatible(bytes, A) are true
+    - is_compatible(int, A) is false.
 
     Type variables may be marked covariant or contravariant by passing
     covariant=True or contravariant=True.  See PEP 484 for more
@@ -456,15 +461,15 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
         raise TypeError("Type variables cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
-        # TODO: Make this raise TypeError too?
-        if cls is self:
-            return True
-        if cls is Any:
+        raise TypeError("Type variables cannot be used with issubclass().")
+
+    def __is_compatible__(self, cls):
+        if is_consistent(cls, self):
             return True
         if self.__bound__ is not None:
-            return issubclass(cls, self.__bound__)
+            return is_compatible(cls, self.__bound__)
         if self.__constraints__:
-            return any(issubclass(cls, c) for c in self.__constraints__)
+            return any(is_compatible(cls, c) for c in self.__constraints__)
         return True
 
 
@@ -522,7 +527,7 @@ class UnionMeta(TypingMeta):
             if isinstance(t1, _TypeAlias):
                 # _TypeAlias is not a real class.
                 continue
-            if any(issubclass(t1, t2)
+            if any(is_compatible(t1, t2)
                    for t2 in all_params - {t1} if not isinstance(t2, TypeVar)):
                 all_params.remove(t1)
         # It's not a union if there's only one type left.
@@ -577,22 +582,25 @@ class UnionMeta(TypingMeta):
         raise TypeError("Unions cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if cls is Any:
+        raise TypeError("Unions cannot be used with issubclass().")
+
+    def __is_compatible__(self, cls):
+        if is_consistent(cls, self):
             return True
         if self.__union_params__ is None:
             return isinstance(cls, UnionMeta)
         elif isinstance(cls, UnionMeta):
             if cls.__union_params__ is None:
                 return False
-            return all(issubclass(c, self) for c in (cls.__union_params__))
+            return all(is_compatible(c, self) for c in (cls.__union_params__))
         elif isinstance(cls, TypeVar):
             if cls in self.__union_params__:
                 return True
             if cls.__constraints__:
-                return issubclass(Union[cls.__constraints__], self)
+                return is_compatible(Union[cls.__constraints__], self)
             return False
         else:
-            return any(issubclass(cls, t) for t in self.__union_params__)
+            return any(is_compatible(cls, t) for t in self.__union_params__)
 
 
 class Union(Final, metaclass=UnionMeta, _root=True):
@@ -621,7 +629,7 @@ class Union(Final, metaclass=UnionMeta, _root=True):
 
         Union[int, str] == Union[str, int]
 
-    - When two arguments have a subclass relationship, the least
+    - When two arguments have a subtype relationship, the least
       derived argument is kept, e.g.::
 
         class Employee: pass
@@ -737,14 +745,17 @@ class TupleMeta(TypingMeta):
         raise TypeError("Tuples cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if cls is Any:
+        raise TypeError("Tuples cannot be used with issubclass().")
+
+    def __is_compatible__(self, cls):
+        if is_consistent(cls, self):
             return True
         if not isinstance(cls, type):
             return super().__subclasscheck__(cls)  # To TypeError.
         if issubclass(cls, tuple):
             return True  # Special case.
         if not isinstance(cls, TupleMeta):
-            return super().__subclasscheck__(cls)  # False.
+            return False
         if self.__tuple_params__ is None:
             return True
         if cls.__tuple_params__ is None:
@@ -753,7 +764,7 @@ class TupleMeta(TypingMeta):
             return False
         # Covariance.
         return (len(self.__tuple_params__) == len(cls.__tuple_params__) and
-                all(issubclass(x, p)
+                all(is_compatible(x, p)
                     for x, p in zip(cls.__tuple_params__,
                                     self.__tuple_params__)))
 
@@ -849,10 +860,16 @@ class CallableMeta(TypingMeta):
         if self.__args__ is None and self.__result__ is None:
             return isinstance(obj, collections_abc.Callable)
         else:
-            raise TypeError("Callable[] cannot be used with isinstance().")
+            raise TypeError("Callable[...] cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if cls is Any:
+        if self.__args__ is None and self.__result__ is None:
+            return issubclass(cls, collections_abc.Callable)
+        else:
+            raise TypeError("Callable[...] cannot be used with issubclass().")
+
+    def __is_compatible__(self, cls):
+        if is_consistent(cls, self):
             return True
         if not isinstance(cls, CallableMeta):
             return super().__subclasscheck__(cls)
@@ -1317,10 +1334,10 @@ class _ProtocolMeta(GenericMeta):
     def __instancecheck__(self, obj):
         raise TypeError("Protocols cannot be used with isinstance().")
 
-    def __subclasscheck__(self, cls):
+    def __is_compatible__(self, cls):
         if not self._is_protocol:
             # No structural checks since this isn't a protocol.
-            return NotImplemented
+            return super().__is_compatible__(cls)
 
         if self is _Protocol:
             # Every class is a subclass of the empty protocol.
@@ -1371,7 +1388,7 @@ class _ProtocolMeta(GenericMeta):
 class _Protocol(metaclass=_ProtocolMeta):
     """Internal base class for protocol classes.
 
-    This implements a simple-minded structural isinstance check
+    This implements a simple-minded structural type check
     (similar but more general than the one-offs in collections.abc
     such as Hashable).
     """
