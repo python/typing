@@ -2,7 +2,7 @@ import contextlib
 import pickle
 import re
 import sys
-from unittest import TestCase as _TestCase, main, skipUnless
+from unittest import TestCase, main, skipUnless
 
 from typing import Any
 from typing import TypeVar, AnyStr
@@ -20,9 +20,7 @@ from typing import Pattern, Match
 import typing
 
 
-class TestCase(_TestCase):
-
-    # vanilla TestCase doesn't have assert*Subclass, see bugs.python.org/14819
+class BaseTestCase(TestCase):
 
     def assertIsSubclass(self, cls, class_or_tuple, msg=None):
         if not issubclass(cls, class_or_tuple):
@@ -55,7 +53,7 @@ class ManagingFounder(Manager, Founder):
     pass
 
 
-class AnyTests(TestCase):
+class AnyTests(BaseTestCase):
 
     def test_any_instance_type_error(self):
         with self.assertRaises(TypeError):
@@ -119,7 +117,7 @@ class AnyTests(TestCase):
         typing.IO[Any]
 
 
-class TypeVarTests(TestCase):
+class TypeVarTests(BaseTestCase):
 
     def test_basic_plain(self):
         T = TypeVar('T')
@@ -224,7 +222,7 @@ class TypeVarTests(TestCase):
             TypeVar('X', str, float, bound=Employee)
 
 
-class UnionTests(TestCase):
+class UnionTests(BaseTestCase):
 
     def test_basics(self):
         u = Union[int, float]
@@ -340,7 +338,7 @@ class UnionTests(TestCase):
         A
 
 
-class TypeVarUnionTests(TestCase):
+class TypeVarUnionTests(BaseTestCase):
 
     def test_simpler(self):
         A = TypeVar('A', int, str, float)
@@ -366,7 +364,7 @@ class TypeVarUnionTests(TestCase):
         self.assertIsSubclass(float, TU)
 
 
-class TupleTests(TestCase):
+class TupleTests(BaseTestCase):
 
     def test_basics(self):
         self.assertTrue(issubclass(Tuple[int, str], Tuple))
@@ -421,7 +419,7 @@ class TupleTests(TestCase):
             issubclass(42, Tuple[int])
 
 
-class CallableTests(TestCase):
+class CallableTests(BaseTestCase):
 
     def test_self_subclass(self):
         self.assertTrue(issubclass(Callable[[int], int], Callable))
@@ -532,7 +530,7 @@ class MySimpleMapping(SimpleMapping[XK, XV]):
             return default
 
 
-class ProtocolTests(TestCase):
+class ProtocolTests(BaseTestCase):
 
     def test_supports_int(self):
         self.assertIsSubclass(int, typing.SupportsInt)
@@ -582,7 +580,7 @@ class ProtocolTests(TestCase):
             isinstance(0, typing.SupportsAbs)
 
 
-class GenericTests(TestCase):
+class GenericTests(BaseTestCase):
 
     def test_basics(self):
         X = SimpleMapping[str, Any]
@@ -809,7 +807,7 @@ class GenericTests(TestCase):
             D[T]
 
 
-class VarianceTests(TestCase):
+class VarianceTests(BaseTestCase):
 
     def test_invariance(self):
         # Because of invariance, List[subclass of X] is not a subclass
@@ -855,7 +853,7 @@ class VarianceTests(TestCase):
                               typing.Mapping[Manager, Manager])
 
 
-class CastTests(TestCase):
+class CastTests(BaseTestCase):
 
     def test_basics(self):
         self.assertEqual(cast(int, 42), 42)
@@ -873,7 +871,7 @@ class CastTests(TestCase):
         cast('hello', 42)
 
 
-class ForwardRefTests(TestCase):
+class ForwardRefTests(BaseTestCase):
 
     def test_basics(self):
 
@@ -1035,7 +1033,7 @@ class ForwardRefTests(TestCase):
         self.assertEqual(hints, {'a': ns['C'], 'return': ns['D']})
 
 
-class OverloadTests(TestCase):
+class OverloadTests(BaseTestCase):
 
     def test_overload_exists(self):
         from typing import overload
@@ -1101,7 +1099,7 @@ if PY35:
     exec(PY35_TESTS)
 
 
-class CollectionsAbcTests(TestCase):
+class CollectionsAbcTests(BaseTestCase):
 
     def test_hashable(self):
         self.assertIsInstance(42, typing.Hashable)
@@ -1341,7 +1339,7 @@ class CollectionsAbcTests(TestCase):
         self.assertEqual(len(MMB[KT, VT]()), 0)
 
 
-class OtherABCTests(TestCase):
+class OtherABCTests(BaseTestCase):
 
     @skipUnless(hasattr(typing, 'ContextManager'),
                 'requires typing.ContextManager')
@@ -1356,7 +1354,7 @@ class OtherABCTests(TestCase):
         self.assertNotIsInstance(42, typing.ContextManager)
 
 
-class NamedTupleTests(TestCase):
+class NamedTupleTests(BaseTestCase):
 
     def test_basics(self):
         Emp = NamedTuple('Emp', [('name', str), ('id', int)])
@@ -1383,7 +1381,7 @@ class NamedTupleTests(TestCase):
             self.assertEqual(jane2, jane)
 
 
-class IOTests(TestCase):
+class IOTests(BaseTestCase):
 
     def test_io(self):
 
@@ -1418,7 +1416,7 @@ class IOTests(TestCase):
         self.assertEqual(__name__, 'typing.io')
 
 
-class RETests(TestCase):
+class RETests(BaseTestCase):
     # Much of this is really testing _TypeAlias.
 
     def test_basics(self):
@@ -1485,7 +1483,7 @@ class RETests(TestCase):
                          "A type alias cannot be subclassed")
 
 
-class AllTests(TestCase):
+class AllTests(BaseTestCase):
     """Tests for __all__."""
 
     def test_all(self):
