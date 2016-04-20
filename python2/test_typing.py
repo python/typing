@@ -1221,7 +1221,7 @@ class AllTests(BaseTestCase):
             # type: (int) -> int
             return x + 1
 
-        assert typing.get_type_hints(foo) is None
+        self.assertIsNone(typing.get_type_hints(foo))
 
 
 if __name__ == '__main__':
