@@ -35,10 +35,10 @@ Notational conventions
 
 -  t1, t2 etc. and u1, u2 etc. are types. Sometimes we write
    ti or tj to refer to "any of t1, t2, etc."
--  X, Y etc. are type variables (defined with TypeVar(), see below).
--  C, D etc. are classes defined with a class statement.
--  x, y etc. are objects or instances.
--  the symbol ``==`` in the type context means that two expressions
+-  T, U etc. are type variables (defined with TypeVar(), see below).
+-  Objects, classes defined with a class statement, and instances are
+   denoted using standard PEP 8 conventions.
+-  the symbol ``==`` in the context of this PEP means that two expressions
    represent the same type.
 
 -  Note that PEP 484 makes a distinction between types and classes
@@ -102,32 +102,32 @@ Say we have an Employee class, and a subclass Manager:
 -  class Employee: ...
 -  class Manager(Employee): ...
 
-Let's say variable e is declared with type Employee:
+Let's say variable worker is declared with type Employee:
 
--  e = Employee()  # type: Employee
+-  worker = Employee()  # type: Employee
 
-Now it's okay to assign a Manager instance to e (rule 1):
+Now it's okay to assign a Manager instance to worker (rule 1):
 
--  e = Manager()
+-  worker = Manager()
 
 It's not okay to assign an Employee instance to a variable declared with
 type Manager:
 
--  m = Manager()  # type: Manager
--  m = Employee()  # Fails static check
+-  boss = Manager()  # type: Manager
+-  boss = Employee()  # Fails static check
 
 However, suppose we have a variable whose type is **Any**:
 
--  a = some\_func()  # type: Any
+-  something = some\_func()  # type: Any
 
-Now it's okay to assign a to e (rule 2):
+Now it's okay to assign something to worker (rule 2):
 
--  e = a  # OK
+-  worker = something  # OK
 
-Of course it's also okay to assign e to a (rule 3), but we didn't need
-the concept of consistency for that:
+Of course it's also okay to assign worker to something (rule 3),
+but we didn't need the concept of consistency for that:
 
--  a = e  # OK
+-  something = worker  # OK
 
 
 General rules for using types
@@ -236,13 +236,13 @@ generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
 
   * AnyStr = TypeVar('AnyStr', str, bytes)
 
-  * def longest(a: AnyStr, b: AnyStr) -> AnyStr:
+  * def longest(first: AnyStr, second: AnyStr) -> AnyStr:
 
-    -  return a if len(a) >= len(b) else b
+    -  return first if len(first) >= len(second) else second
 
-  * x = longest('a', 'abc')  # The inferred type for x is str
+  * result = longest('a', 'abc')  # The inferred type for result is str
 
-  * y = longest('a', b'abc')  # Fails static type check
+  * result = longest('a', b'abc')  # Fails static type check
 
   * In this example, both arguments to longest() must have the same type
     (str or bytes), and moreover, even if the arguments are instances of a
@@ -254,15 +254,15 @@ generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
 
   * S = TypeVar('S')
 
-  * def longest(a: S, b: S) -> S:
+  * def longest(first: S, second: S) -> S:
 
-    -  return a if len(a) >= b else b
+    -  return first if len(first) >= len(second) else second
 
   * class MyStr(str): ...
 
-  * x = longest(MyStr('a'), MyStr('abc'))
+  * result = longest(MyStr('a'), MyStr('abc'))
 
-  * The inferred type of x is MyStr (whereas in the AnyStr example it would
+  * The inferred type of result is MyStr (whereas in the AnyStr example it would
     be str).
 
 - Also for comparison, if a Union is used, the return type also has to be
@@ -270,13 +270,13 @@ generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
 
   * U = Union[str, bytes]
 
-  * def longest(a: U, b: U) -> U:
+  * def longest(first: U, second: U) -> U:
 
-    -  return a if len(a) >= b else b
+    -  return first if len(first) >= len(second) else second
 
-  * x = longest('a', 'abc')
+  * result = longest('a', 'abc')
 
-  * The inferred type of x is still Union[str, bytes], even though both
+  * The inferred type of result is still Union[str, bytes], even though both
     arguments are str.
 
 
@@ -315,13 +315,13 @@ are still controversial or not fully specified.)
 - Type aliases, e.g.
 
   *  Point = Tuple[float, float]
-  *  def distance(p: Point) -> float: ...
+  *  def distance(point: Point) -> float: ...
 
 - Forward references via strings, e.g.
 
-  * class C:
+  * class MyComparable:
 
-    + def compare(self, other: 'C') -> int: ...
+    + def compare(self, other: 'MyComparable') -> int: ...
 
 - If a default of None is specified, the type is implicitly Optional, e.g.
 
@@ -329,11 +329,11 @@ are still controversial or not fully specified.)
 
 - Type declaration in comments, e.g.
 
-  *  x = []  # type: Sequence[int]
+  *  lst = []  # type: Sequence[int]
 
-- Casts using cast(T, x), e.g.
+- Casts using cast(T, obj), e.g.
 
-  * x = cast(Any, frobozz())
+  * zork = cast(Any, frobozz())
 
 - Other things, e.g. overloading and stub modules, see PEP 484.
 
