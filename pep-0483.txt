@@ -333,7 +333,7 @@ are still controversial or not fully specified.)
 
     def get(key: KT, default: VT = None) -> VT: ...
 
-- Type variables could be declared in unconstrained, constrained,
+- Type variables can be declared in unconstrained, constrained,
   or bounded form. The variance of a generic type could also
   be indicaded using a type variable declared with special keyword
   arguments, thus avoiding any special syntax, e.g.::
