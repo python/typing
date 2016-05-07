@@ -48,6 +48,20 @@ Notational conventions
    flexibility in type checkers implementation.
 
 
+Background
+==========
+
+TODO: Explaint types as sets, subtyping, nominal and structural subtyping.
+Many examples.
+
+
+Types vs Classes
+----------------
+
+TODO: Explain the relation, examples, note that typing interface
+is implemented with classes.
+
+
 Specification
 =============
 
@@ -116,19 +130,23 @@ the concept of consistency for that:
 -  a = e  # OK
 
 
-General rules
--------------
+General rules for using types
+-----------------------------
 
--  No types defined below (i.e. Any, Union etc.) can be instantiated.
+Although all types are implemented using classes, the following
+general rules apply to emphasize the distiction between types and classes:
+
+-  No types defined below (i.e. Any, Union etc.) can be instantiated,
+   an attempt to do so will raise ``TypeError``.
    (But non-abstract subclasses of Generic can be.)
 -  No types defined below can be subclassed, except for Generic and
    classes derived from it.
--  Where a type is expected, None can be substituted for type(None);
-   e.g. Union[t1, None] == Union[t1, type(None)].
+-  All of these will raise ``TypeError`` if appear
+   in ``isinstance`` or ``issubclass``.
 
 
-Types
------
+Fundamental building blocks
+---------------------------
 
 -  **Any**. Every type is a subtype of Any; however, to the static
    type checker it is also consistent with every type (see above).
@@ -192,41 +210,16 @@ We might add:
    size, since there is no limit on the number of new subclasses).
 
 
-Pragmatics
-----------
-
-Some things are irrelevant to the theory but make practical use more
-convenient. (This is not a full list; I probably missed a few and some
-are still controversial or not fully specified.)
-
-- Type aliases, e.g.
-
-  *  Point = Tuple[float, float]
-  *  def distance(p: Point) -> float: ...
-
-- Forward references via strings, e.g.
-
-  * class C:
-
-    + def compare(self, other: 'C') -> int: ...
-
-- If a default of None is specified, the type is implicitly Optional, e.g.
-
-  *  def get(key: KT, default: VT = None) -> VT: ...
-
-- Type declaration in comments, e.g.
-
-  *  x = []  # type: Sequence[int]
-
-- Casts using cast(T, x), e.g.
-
-  * x = cast(Any, frobozz())
-
-- Other things, e.g. overloading and stub modules, see PEP 484.
-
-
 Generic types
--------------
+=============
+
+TODO: Explain motivation, generics as functors (but avoid this word),
+examples, necessity of type variables and declaration syntax that
+described below.
+
+
+Type variables
+--------------
 
 (TODO: Explain more. See also the `mypy docs on
 generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
@@ -286,6 +279,10 @@ generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
   * The inferred type of x is still Union[str, bytes], even though both
     arguments are str.
 
+
+Defining and using generic types
+--------------------------------
+
 - **class C(Generic[X, Y, ...]):** ... Define a generic type C over type
   variables X etc. C itself becomes parameterizable, e.g. C[int, str, ...]
   is a specific type with substitutions X->int etc.
@@ -294,6 +291,51 @@ generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
   Sequence[X], Sequence[int], Sequence[Tuple[X, Y, Z]], and mixtures.
   Think about co\*variance. No gimmicks like deriving from
   Sequence[Union[int, str]] or Sequence[Union[int, X]].
+  Add notes on indexed generics
+
+
+Covariance and Contravariance
+-----------------------------
+
+TODO: Definition, declaring variance, example with functions,
+covatiant example with ``Tuple``, contravariant example with ``Callable``,
+mutable types, why ``List`` is invariant.
+
+
+Pragmatics
+==========
+
+Some things are irrelevant to the theory but make practical use more
+convenient. (This is not a full list; I probably missed a few and some
+are still controversial or not fully specified.)
+
+-  Where a type is expected, None can be substituted for type(None);
+   e.g. Union[t1, None] == Union[t1, type(None)].
+
+- Type aliases, e.g.
+
+  *  Point = Tuple[float, float]
+  *  def distance(p: Point) -> float: ...
+
+- Forward references via strings, e.g.
+
+  * class C:
+
+    + def compare(self, other: 'C') -> int: ...
+
+- If a default of None is specified, the type is implicitly Optional, e.g.
+
+  *  def get(key: KT, default: VT = None) -> VT: ...
+
+- Type declaration in comments, e.g.
+
+  *  x = []  # type: Sequence[int]
+
+- Casts using cast(T, x), e.g.
+
+  * x = cast(Any, frobozz())
+
+- Other things, e.g. overloading and stub modules, see PEP 484.
 
 
 Predefined generic types and Protocols in typing.py
