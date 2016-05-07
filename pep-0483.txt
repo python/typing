@@ -333,6 +333,20 @@ are still controversial or not fully specified.)
 
     def get(key: KT, default: VT = None) -> VT: ...
 
+- Type variables could be declared in unconstrained, constrained,
+  or bounded form. The variance of a generic type could also
+  be indicaded using a type variable declared with special keyword
+  arguments, thus avoiding any special syntax, e.g.::
+
+    T = TypeVar('T', bound=complex)
+
+    def add(x: T, y: T) -> T:
+        return x + y
+
+    T_co = TypeVar('T_co', covariant=True)
+
+    class ImmutableList(Generic[T_co]): ...
+
 - Type declaration in comments, e.g.::
 
     lst = []  # type: Sequence[int]
