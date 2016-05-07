@@ -119,7 +119,7 @@ type ``Manager``::
 
 However, suppose we have a variable whose type is ``Any``::
 
-  something = some\_func()  # type: Any
+  something = some_func()  # type: Any
 
 Now it's okay to assign ``something`` to ``worker`` (rule 2)::
 
