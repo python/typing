@@ -44,7 +44,7 @@ Notational conventions
 -  Note that PEP 484 makes a distinction between types and classes
    (a type is a concept for the type checker,
    while a class is a runtime concept).  In this PEP we clarify
-   this distinction but awoid unnecessary stricter to allow more
+   this distinction but avoid unnecessary strictness to allow more
    flexibility in type checkers implementation.
 
 
@@ -168,7 +168,7 @@ Types
    only in the type of one argument, the subtype relationship for the
    callable types goes in the opposite direction as for the argument
    types. (Example: Callable[[Employee], None] is a subtype of
-   Callable[[Mananger], None]. Yes, you read that right.)
+   Callable[[Manager], None]. Yes, you read that right.)
 
 We might add:
 
@@ -214,11 +214,6 @@ are still controversial or not fully specified.)
 
   *  def get(key: KT, default: VT = None) -> VT: ...
 
-- Don't use dynamic type expressions; use builtins and imported types
-  only. No 'if'.
-
-  *  def display(message: str if WINDOWS else bytes):  # NOT OK
-
 - Type declaration in comments, e.g.
 
   *  x = []  # type: Sequence[int]
@@ -227,15 +222,14 @@ are still controversial or not fully specified.)
 
   * x = cast(Any, frobozz())
 
-- Other things, e.g. overloading and stub modules; best left to an
-  actual PEP.
+- Other things, e.g. overloading and stub modules, see PEP 484.
 
 
 Generic types
 -------------
 
 (TODO: Explain more. See also the `mypy docs on
-generics <http://mypy.readthedocs.org/en/latest/generics.html>`_.)
+generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
 
 - **X = TypeVar('X')**. Declares a unique type variable. The name must match
   the variable name.
@@ -306,7 +300,7 @@ Predefined generic types and Protocols in typing.py
 ---------------------------------------------------
 
 (See also the `typing.py module
-<https://github.com/ambv/typehinting/blob/master/prototyping/typing.py>`_.)
+<https://github.com/python/typing/blob/master/src/typing.py>`_.)
 
 -  Everything from collections.abc (but Set renamed to AbstractSet).
 -  Dict, List, Set, FrozenSet, a few more.
