@@ -118,11 +118,11 @@ one can only append ``Integral`` to an ``IntegralList``, while both
 ``Integral`` and ``Real`` can be appended to ``RealList``. Clearly,
 ``RealList`` is also not a subtype of ``InegralList``.
 
-There are two widespread approaches to subtyping.
+There are two widespread approaches to declare subtype information.
 In nominal subtyping, type tree is based on the declared class tree,
 i.e., ``UserID`` is considered a subtype of ``int``.
-This approach should be used with care, because in Python
-one can override attributes in incompatible way::
+This approach should be used uder control of the type checker,
+because in Python one can override attributes in an incompatible way::
 
   class Base:
       answer = '42' # type: str
@@ -130,35 +130,45 @@ one can override attributes in incompatible way::
   class Derived(Base):
       answer = 5 # should be marked as error by type checker
 
-In structural subtyping only set of methods is important,
-i.e., ``UserID`` and ``int`` considered the same type.
-accidental type confusion.
-We strive to provide a support for both.
+In purely structural subtyping the subtype relation is deduced from set of
+declared methods, i.e., ``UserID`` and ``int`` considered the same type.
+Although, such accidental type confusions might happen,
+structural subtyping is also more flexible.
+We strive to provide a support for both approaches, so that
+structural information can be used in addition to nominal subtyping.
 
 
 Types vs Classes
 ----------------
 
-Class is object factory, a runtime concept. Types have been defined above.
+In Python, classes are object factories, and class is a dynamic, runtime concept.
+Type concept is defined above, types appear in variable and function
+type annotations, and are used by static type chechkers.
 
-Every class represents a type via ``isinstane``, but vice versa is
-quite difficult, e.g. the example with list above could be implemented
-by a class with runtime instance checks in constructor, but most importantly
-we do not need this.
+Every class represents a type via ``isinstance`` as shown above.
+But it is quite tricky to implement a class that exactly represents semantics
+of a given type, and it is *not a goal of PEP 484*.
+For instance, the above example with lists mixing
+``int`` and ``str`` could be implemented by a class with runtime instance
+checks in constructor, but it would be error prone an will have
+unnecessary runtime overhead.
 
-The static type API for type checkers described here should be used in
-addition to existing class system where wanted.
+*The standard static type declaration API for type checkers,
+described in PEP 484, should not be confused with
+the existing runtime class system.*
+The goal of PEP 484 is to propose a type system that allows
+to type annotate only part of a program thus allowing to leverage
+positive aspects of both dynamic and static typing.
+This is done by gradual typing described in the next section.
 
-We want to have good points from both worlds (dynamic and static),
-below we describe how to type annotate only part of a program.
-
+**Important implementation detail:**
 Typing interface is implemented with classes, i.e., at runtime it is possible
-to ask ``Generic[T].__bases__``, but to emphasize the distiction between
-classes (runtime types, defined by ``class`` statement,
+to evaluate, e.g., ``Generic[T].__bases__``. But to emphasize the distiction
+between classes (runtime types, defined by ``class`` statement,
 and returned by ``type(obj)``) and types (static types constructed
 using fundamental building blocks and used by a type checker)
-special rules (see below) apply that indicate misunderstandings
-by raising ``TypeError``.
+general rules (see below) apply. These rules indicate possible
+confusions by raising ``TypeError``.
 
 
 Summary of gradual typing
@@ -188,8 +198,9 @@ at the root of the type graph. This makes it very similar to
 most types (e.g. you can't use an ``object()`` instance where an
 ``int`` is expected). IOW both ``Any`` and ``object`` mean
 "any type is allowed" when used to annotate an argument, but only ``Any``
-can be passed no matter what type is expected (in essence, ``Any`` shuts
-up complaints from the static checker).
+can be passed no matter what type is expected (in essence, ``Any``
+declares a fallback to dynamic typing and shuts up complaints
+from the static checker).
 
 Here's an example showing how these rules work out in practice:
 
@@ -401,7 +412,7 @@ Covariance and Contravariance
 
 TODO: Definition, declaring variance, example with functions,
 covariant example with ``Tuple``, contravariant example with ``Callable``,
-mutable types, why ``List`` is invariant.
+mutable types, why ``List`` is invariant, type erasure and ``MyGeneric[Any]``.
 
 One of the best examples to illustrate contravariance is callable type.
 It is covariant in the return type, but contravariant in the
