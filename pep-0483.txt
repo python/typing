@@ -40,9 +40,8 @@ Notational conventions
 -  ``T``, ``U`` etc. are type variables (defined with ``TypeVar()``, see below).
 -  Objects, classes defined with a class statement, and instances are
    denoted using standard PEP 8 conventions.
--  the symbol ``==`` in the context of this PEP means that two expressions
-   represent the same type.
-
+-  the symbol ``==`` applyed to types in the context of this PEP means that
+   two expressions represent the same type.
 -  Note that PEP 484 makes a distinction between types and classes
    (a type is a concept for the type checker,
    while a class is a runtime concept).  In this PEP we clarify
@@ -64,7 +63,7 @@ There are several ways to define a particular type:
 
 - By explicitely listing all values, e.g., ``{True, False}`` and logical
   operations on them represent a type ``bool``.
-- By explicitely listing actions that cam be applied to variables of
+- By listing possible functions that can be applied to variables of
   given type, e.g., all objects that have an ``__int__`` method form a type.
 - By special constructs such as class definitions, for example::
 
@@ -81,7 +80,7 @@ It is imortant to be able to systematically express types. If all types
 could be represented by finite sets of values, one could do this
 using set comprehensions::
 
-  a_subset = {element in a_set if condition(element)}
+  subset = {element in a_set if condition(element)}
 
 and other regular set constructs. But sets of type values could be infinite,
 and a special mechanism, often called a type system, for expressing types
@@ -102,14 +101,20 @@ An example: less ints that floats but ints has e.g. bitwise shift.
 Second example: IntList is not a subtype of FloatList, smaller value set, but
 also smaller functions set (you can only append ``int`` to an ``IntList``).
 
-There are two popular way of subtyping.
-In nominal subtyping type tree is based on the declared class tree,
-i.e., ``UserID`` is a subtype of ``int``. Should be used with care
-because Python is very dynamic and can override methods in incompatible way.
+There are two popular approaches to subtyping.
+In nominal subtyping, type tree is based on the declared class tree,
+i.e., ``UserID`` is considered a subtype of ``int``.
+This approach should be used with care, because in Python
+one can override attributes in incompatible way::
 
-While in structural subtyping
-only set of methods is important, i.e., ``UserID`` and ``int`` considered
-the same type (accidental type confusion).
+  class Base:
+      answer = '42' # type: str
+  class Derived(Base):
+      answer = 5 # should be marked as error by type checker
+
+In structural subtyping only set of methods is important,
+i.e., ``UserID`` and ``int`` considered the same type.
+accidental type confusion.
 We strive to provide a support for both.
 
 
@@ -224,29 +229,38 @@ Fundamental building blocks
 -  **Any**. Every type is a subtype of ``Any``; however, to the static
    type checker it is also consistent with every type (see above).
 -  **Union[t1, t2, ...]**. Types that are subtype of at least one of
-   ``t1`` etc. are subtypes of this. So are unions whose components are
-   all subtypes of ``t1`` etc. (Example: ``Union[int, str]`` is a subtype of
-   ``Union[int, float, str]``.) The order of the arguments doesn't matter.
-   (Example: ``Union[int, str] == Union[str, int]``.) If ``ti`` is itself a
-   ``Union`` the result is flattened. (Example: ``Union[int, Union[float,
-   str]] == Union[int, float, str]``.) If ``ti`` and ``tj`` have a subtype
-   relationship, the less specific type survives. (Example:
-   ``Union[Employee, Manager] == Union[Employee]``.) ``Union[t1]`` returns just
-   ``t1``. ``Union[]`` is illegal, so is ``Union[()]``. Corollary:
-   ``Union[..., Any, ...]`` returns ``Any``; ``Union[..., object, ...]``
-   returns ``object``; to cut a
-   tie, ``Union[Any, object] == Union[object, Any] == Any``.
+   ``t1`` etc. are subtypes of this.
+
+   *  Unions whose components are all subtypes of ``t1`` etc. are subtypes
+      of this.
+      Example: ``Union[int, str]`` is a subtype of ``Union[int, float, str]``.
+   *  The order of the arguments doesn't matter.
+      Example: ``Union[int, str] == Union[str, int]``.
+   *  If ``ti`` is itself a ``Union`` the result is flattened.
+      Example: ``Union[int, Union[float, str]] == Union[int, float, str]``.
+   *  If ``ti`` and ``tj`` have a subtype relationship,
+      the less specific type survives.
+      Example: ``Union[Employee, Manager] == Union[Employee]``.
+   *  ``Union[t1]`` returns just ``t1``. ``Union[]`` is illegal,
+      so is ``Union[()]``
+   *  Corollary: ``Union[..., Any, ...]`` returns ``Any``;
+      ``Union[..., object, ...]`` returns ``object``; to cut a
+      tie, ``Union[Any, object] == Union[object, Any] == Any``.
+
 -  **Optional[t1]**. Alias for ``Union[t1, None]``, i.e. ``Union[t1,
    type(None)]``.
 -  **Tuple[t1, t2, ..., tn]**. A tuple whose items are instances of ``t1``,
-   etc.. Example: ``Tuple[int, float]`` means a tuple of two items, the
-   first is an ``int``, the second a ``float``; e.g., ``(42, 3.14)``.
-   ``Tuple[u1, u2, ..., um]`` is a subtype of ``Tuple[t1, t2, ..., tn]``
-   if they have the same length ``n==m`` and each ``ui`` is a subtype of
-   ``ti``.To spell the type
-   of the empty tuple, use ``Tuple[()]``. A variadic homogeneous tuple type
-   can be written ``Tuple[t1, ...]``. (That's three dots, a literal ellipsis;
-   and yes, that's a valid token in Python's syntax.)
+   etc. Example: ``Tuple[int, float]`` means a tuple of two items, the
+   first is an ``int``, the second is a ``float``; e.g., ``(42, 3.14)``.
+
+   *  ``Tuple[u1, u2, ..., um]`` is a subtype of ``Tuple[t1, t2, ..., tn]``
+      if they have the same length ``n==m`` and each ``ui``
+      is a subtype of ``ti``.
+   *  To spell the type of the empty tuple, use ``Tuple[()]``.
+   *  A variadic homogeneous tuple type can be written ``Tuple[t1, ...]``.
+      (That's three dots, a literal ellipsis;
+      and yes, that's a valid token in Python's syntax.)
+
 -  **Callable[[t1, t2, ..., tn], tr]**. A function with positional
    argument types ``t1`` etc., and return type ``tr``. The argument list may be
    empty ``n==0``. There is no way to indicate optional or keyword
@@ -256,24 +270,29 @@ Fundamental building blocks
 We might add:
 
 -  **Intersection[t1, t2, ...]**. Types that are subtype of *each* of
-   ``t1``, etc are subtypes of this. (Compare to Union, which has *at
-   least one* instead of *each* in its definition.) The order of the
-   arguments doesn't matter. Nested intersections are flattened, e.g.
-   ``Intersection[int, Intersection[float, str]] == Intersection[int,
-   float, str]``. An intersection of fewer types is a supertype of an
-   intersection of more types, e.g. ``Intersection[int, str]`` is a supertype
-   of ``Intersection[int, float, str]``. An intersection of one argument is
-   just that argument, e.g. ``Intersection[int]`` is ``int``.
-   When argument have a subtype relationship, the more specific type
-   survives, e.g. ``Intersection[str, Employee, Manager]`` is
-   ``Intersection[str, Manager]``. ``Intersection[]`` is illegal,
-   so is ``Intersection[()]``. Corollary: ``Any``
-   disappears from the argument list, e.g. ``Intersection[int, str, Any]
-   == Intersection[int, str]``. ``Intersection[Any, object]`` is ``object``.
-   The interaction between ``Intersection`` and ``Union`` is complex but
-   should be no surprise if you understand the interaction between
-   intersections and unions in set theory (note that sets of types can be
-   infinite in size, since there is no limit on the number of new subclasses).
+   ``t1``, etc are subtypes of this. (Compare to ``Union``, which has *at
+   least one* instead of *each* in its definition.)
+
+   *  The order of the arguments doesn't matter. Nested intersections
+      are flattened, e.g. ``Intersection[int, Intersection[float, str]]
+      == Intersection[int, float, str]``.
+   *  An intersection of fewer types is a supertype of an intersection of
+      more types, e.g. ``Intersection[int, str]`` is a supertype
+      of ``Intersection[int, float, str]``.
+   *  An intersection of one argument is just that argument,
+      e.g. ``Intersection[int]`` is ``int``.
+   *  When argument have a subtype relationship, the more specific type
+      survives, e.g. ``Intersection[str, Employee, Manager]`` is
+      ``Intersection[str, Manager]``.
+   *  ``Intersection[]`` is illegal, so is ``Intersection[()]``.
+   *  Corollary: ``Any`` disappears from the argument list, e.g.
+      ``Intersection[int, str, Any] == Intersection[int, str]``.
+      ``Intersection[Any, object]`` is ``object``.
+   *  The interaction between ``Intersection`` and ``Union`` is complex but
+      should be no surprise if you understand the interaction between
+      intersections and unions in set theory (note that sets of types can be
+      infinite in size, since there is no limit on the number
+      of new subclasses).
 
 
 Generic types
