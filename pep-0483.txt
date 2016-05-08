@@ -52,19 +52,20 @@ Notational conventions
 Background
 ==========
 
-There are many definions of the concept of *type* in the literature.
+There are many definions of the concept of type in the literature.
 Here we assume that type is a set of values and a set of functions that
 one can apply to these values. Note that such definotion
-could have mathematical problems such as Russel's paradox
+could have mathematical problems such as `Russel's paradox
+<https://en.wikipedia.org/wiki/Russell's_paradox>`_
 because the two above sets could be "too infinite".
-Nevertheless it is a good practical mental model.
+Nevertheless it is a good practical mental model for semantics of types.
 
 There are several ways to define a particular type:
 
 - By explicitely listing all values, e.g., ``{True, False}`` and logical
   operations on them represent a type ``bool``.
 - By listing possible functions that can be applied to variables of
-  given type, e.g., all objects that have an ``__int__`` method form a type.
+  given type, e.g., all objects that have an ``__hash__`` method form a type.
 - By special constructs such as class definitions, for example::
 
     class UserID(int):
@@ -78,30 +79,46 @@ There are several ways to define a particular type:
 
 It is imortant to be able to systematically express types. If all types
 could be represented by finite sets of values, one could do this
-using set comprehensions::
+using, e.g., set comprehensions::
 
-  subset = {element in a_set if condition(element)}
+  other_set = {element in a_set if condition(element)}
 
-and other regular set constructs. But sets of type values could be infinite,
-and a special mechanism, often called a type system, for expressing types
-is needed. The goal of this PEP is to describe a possible
-type system for Python.
+and other regular set constructs. But sets of type values are typically
+infinite, and a special mechanism, often called a type system,
+for expressing types is needed.
+The goal of this PEP is to describe such mechanism for Python.
+Type system can be potentially used to increase speed of program execution,
+to avoid many kind of bugs, and even as a documentation.
+Here we focus on avoiding bugs by using a static type checker.
 
-Type systems are needed for speed up, avoiding bugs, and even documentation
-Here we focus on avoiding bugs. The crucial notion for this is a subtype.
-Example ``first_var`` is ``firrts_type``, ``second_var`` is ``second_type``
-when it is safe to assign ``first_var = second_var``?
 
-There are many runtime cases when this *could* work, but a criteria when it
+Subtypes
+--------
+
+A crucial notion for static type checker is the notion of subtype.
+It arises from the question if ``first_var`` has ``firrts_type``, and
+``second_var`` has ``second_type``, then when it is safe to assign
+``first_var = second_var``? Of course such assigment *could* be safe in many
+runtime situations, but a criteria when it
 *should* work is when every value from ``second_type`` is also a member
-of ``first_type``, this is called a subtype and is very close to subset.
+of ``first_type`` and every function on ``first_type`` is also a member
+of ``second_type``. Such relation is called a subtype relation.
+By such definition
 
-Subtype is smaller but the set of actions is larger.
-An example: less ints that floats but ints has e.g. bitwise shift.
-Second example: IntList is not a subtype of FloatList, smaller value set, but
-also smaller functions set (you can only append ``int`` to an ``IntList``).
+-  every type is a subtype of itself.
+-  set of values becomes smaller in the process of subtyping,
+   while the set of functions becomes larger.
 
-There are two popular approaches to subtyping.
+For example, there are less interger numbers than real nubers, but integers
+support more operations, such as, e.g., bitwise shifts ``<<`` and ``>>``.
+Therefore, integers are subtype of real numbers.
+On the other hand, if define a type ``IntegralList`` as all lists that
+contain integer numbers, then it is not a subtype of ``RealList``, since
+one can only append ``Integral`` to an ``IntegralList``, while both
+``Integral`` and ``Real`` can be appended to ``RealList``. Clearly,
+``RealList`` is also not a subtype of ``InegralList``.
+
+There are two widespread approaches to subtyping.
 In nominal subtyping, type tree is based on the declared class tree,
 i.e., ``UserID`` is considered a subtype of ``int``.
 This approach should be used with care, because in Python
@@ -109,6 +126,7 @@ one can override attributes in incompatible way::
 
   class Base:
       answer = '42' # type: str
+
   class Derived(Base):
       answer = 5 # should be marked as error by type checker
 
@@ -290,7 +308,7 @@ We might add:
       ``Intersection[Any, object]`` is ``object``.
    *  The interaction between ``Intersection`` and ``Union`` is complex but
       should be no surprise if you understand the interaction between
-      intersections and unions in set theory (note that sets of types can be
+      intersections and unions of regular sets (note that sets of types can be
       infinite in size, since there is no limit on the number
       of new subclasses).
 
@@ -455,10 +473,10 @@ Predefined generic types and Protocols in typing.py
 (See also the `typing.py module
 <https://github.com/python/typing/blob/master/src/typing.py>`_.)
 
--  Everything from collections.abc (but Set renamed to AbstractSet).
--  Dict, List, Set, FrozenSet, a few more.
--  re.Pattern[AnyStr], re.Match[AnyStr].
--  re.IO[AnyStr], re.TextIO ~ re.IO[str], re.BinaryIO ~ re.IO[bytes].
+-  Everything from ``collections.abc`` (but ``Set`` renamed to ``AbstractSet``).
+-  ``Dict``, ``List``, ``Set``, ``FrozenSet``, a few more.
+-  ``re.Pattern[AnyStr]``, ``re.Match[AnyStr]``.
+-  ``io.IO[AnyStr]``, ``io.TextIO ~ io.IO[str]``, ``io.BinaryIO ~ io.IO[bytes]``.
 
 
 Copyright
