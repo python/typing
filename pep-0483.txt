@@ -24,10 +24,12 @@ This document lays out the theory of the new type hinting proposal for
 Python 3.5. It's not quite a full proposal or specification because
 there are many details that need to be worked out, but it lays out the
 theory without which it is hard to discuss more detailed specifications.
-We start by explaining gradual typing; then we state some conventions
-and general rules; then we define the new special types (such as Union)
-that can be used in annotations; and finally we define the approach to
-generic types. (TODO: The latter section needs more fleshing out; sorry!)
+We start by recalling basic concepts of type theory; then we explain
+gradual typing; then we state some general rules and
+define the new special types (such as ``Union``) that can be used
+in annotations; and finally we define the approach to generic types
+and pragmatic aspects of type hinting.
+(TODO: The section on generics needs more fleshing out; sorry!)
 
 
 Notational conventions
@@ -51,23 +53,93 @@ Notational conventions
 Background
 ==========
 
-TODO: Explaint types as sets, subtyping, nominal and structural subtyping.
-Many examples.
+There are many definions of the concept of *type* in the literature.
+Here we assume that type is a set of values and a set of functions that
+one can apply to these values. Note that such definotion
+could have mathematical problems such as Russel's paradox
+because the two above sets could be "too infinite".
+Nevertheless it is a good practical mental model.
+
+There are several ways to define a particular type:
+
+- By explicitely listing all values, e.g., ``{True, False}`` and logical
+  operations on them represent a type ``bool``.
+- By explicitely listing actions that cam be applied to variables of
+  given type, e.g., all objects that have an ``__int__`` method form a type.
+- By special constructs such as class definitions, for example::
+
+    class UserID(int):
+        pass
+
+  and a type is defined as the set of all objects that have
+  ``isinstance(obj, UserID) == True``.
+- There are more complex types, e.g., a type defined as
+  all lists containing only ``int``, ``str`` or their subclasses,
+  so that ``[1, 'abc', UserID(42)]`` has such type.
+
+It is imortant to be able to systematically express types. If all types
+could be represented by finite sets of values, one could do this
+using set comprehensions::
+
+  a_subset = {element in a_set if condition(element)}
+
+and other regular set constructs. But sets of type values could be infinite,
+and a special mechanism, often called a type system, for expressing types
+is needed. The goal of this PEP is to describe a possible
+type system for Python.
+
+Type systems are needed for speed up, avoiding bugs, and even documentation
+Here we focus on avoiding bugs. The crucial notion for this is a subtype.
+Example ``first_var`` is ``firrts_type``, ``second_var`` is ``second_type``
+when it is safe to assign ``first_var = second_var``?
+
+There are many runtime cases when this *could* work, but a criteria when it
+*should* work is when every value from ``second_type`` is also a member
+of ``first_type``, this is called a subtype and is very close to subset.
+
+Subtype is smaller but the set of actions is larger.
+An example: less ints that floats but ints has e.g. bitwise shift.
+Second example: IntList is not a subtype of FloatList, smaller value set, but
+also smaller functions set (you can only append ``int`` to an ``IntList``).
+
+There are two popular way of subtyping.
+In nominal subtyping type tree is based on the declared class tree,
+i.e., ``UserID`` is a subtype of ``int``. Should be used with care
+because Python is very dynamic and can override methods in incompatible way.
+
+While in structural subtyping
+only set of methods is important, i.e., ``UserID`` and ``int`` considered
+the same type (accidental type confusion).
+We strive to provide a support for both.
 
 
 Types vs Classes
 ----------------
 
-TODO: Explain the relation, examples, note that typing interface
-is implemented with classes.
+Class is object factory, a runtime concept. Types have been defined above.
 
+Every class represents a type via ``isinstane``, but vice versa is
+quite difficult, e.g. the example with list above could be implemented
+by a class with runtime instance checks in constructor, but most importantly
+we do not need this.
 
-Specification
-=============
+The static type API for type checkers described here should be used in
+addition to existing class system where wanted.
+
+We want to have good points from both worlds (dynamic and static),
+below we describe how to type annotate only part of a program.
+
+Typing interface is implemented with classes, i.e., at runtime it is possible
+to ask ``Generic[T].__bases__``, but to emphasize the distiction between
+classes (runtime types, defined by ``class`` statement,
+and returned by ``type(obj)``) and types (static types constructed
+using fundamental building blocks and used by a type checker)
+special rules (see below) apply that indicate misunderstandings
+by raising ``TypeError``.
 
 
 Summary of gradual typing
--------------------------
+=========================
 
 We define a new relationship, is-consistent-with, which is similar to
 is-subtype-of, except it is not transitive when the new type ``Any`` is
@@ -208,8 +280,8 @@ Generic types
 =============
 
 TODO: Explain motivation, generics as functors (but avoid this word),
-examples, necessity of type variables and declaration syntax that
-described below.
+examples, necessity of type variables, generic functions and declaration
+syntax that described below.
 
 
 Type variables
