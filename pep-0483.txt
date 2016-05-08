@@ -40,7 +40,7 @@ Notational conventions
 -  ``T``, ``U`` etc. are type variables (defined with ``TypeVar()``, see below).
 -  Objects, classes defined with a class statement, and instances are
    denoted using standard PEP 8 conventions.
--  the symbol ``==`` applyed to types in the context of this PEP means that
+-  the symbol ``==`` applied to types in the context of this PEP means that
    two expressions represent the same type.
 -  Note that PEP 484 makes a distinction between types and classes
    (a type is a concept for the type checker,
@@ -52,9 +52,9 @@ Notational conventions
 Background
 ==========
 
-There are many definions of the concept of type in the literature.
+There are many definitions of the concept of type in the literature.
 Here we assume that type is a set of values and a set of functions that
-one can apply to these values. Note that such definotion
+one can apply to these values. Note that such definition
 could have mathematical problems such as `Russel's paradox
 <https://en.wikipedia.org/wiki/Russell's_paradox>`_
 because the two above sets could be "too infinite".
@@ -62,7 +62,7 @@ Nevertheless it is a good practical mental model for semantics of types.
 
 There are several ways to define a particular type:
 
-- By explicitely listing all values, e.g., ``{True, False}`` and logical
+- By explicitly listing all values, e.g., ``{True, False}`` and logical
   operations on them represent a type ``bool``.
 - By listing possible functions that can be applied to variables of
   given type, e.g., all objects that have an ``__hash__`` method form a type.
@@ -77,7 +77,7 @@ There are several ways to define a particular type:
   all lists containing only ``int``, ``str`` or their subclasses,
   so that ``[1, 'abc', UserID(42)]`` has such type.
 
-It is imortant to be able to systematically express types. If all types
+It is important to be able to systematically express types. If all types
 could be represented by finite sets of values, one could do this
 using, e.g., set comprehensions::
 
@@ -96,9 +96,9 @@ Subtypes
 --------
 
 A crucial notion for static type checker is the notion of subtype.
-It arises from the question if ``first_var`` has ``firrts_type``, and
+It arises from the question if ``first_var`` has ``first_type``, and
 ``second_var`` has ``second_type``, then when it is safe to assign
-``first_var = second_var``? Of course such assigment *could* be safe in many
+``first_var = second_var``? Of course such assignment *could* be safe in many
 runtime situations, but a criteria when it
 *should* work is when every value from ``second_type`` is also a member
 of ``first_type`` and every function on ``first_type`` is also a member
@@ -109,19 +109,19 @@ By such definition
 -  set of values becomes smaller in the process of subtyping,
    while the set of functions becomes larger.
 
-For example, there are less interger numbers than real nubers, but integers
+For example, there are less integer numbers than real numbers, but integers
 support more operations, such as, e.g., bitwise shifts ``<<`` and ``>>``.
 Therefore, integers are subtype of real numbers.
-On the other hand, if define a type ``IntegralList`` as all lists that
+On the other hand, if we define a type ``IntegralList`` as all lists that
 contain integer numbers, then it is not a subtype of ``RealList``, since
 one can only append ``Integral`` to an ``IntegralList``, while both
 ``Integral`` and ``Real`` can be appended to ``RealList``. Clearly,
-``RealList`` is also not a subtype of ``InegralList``.
+``RealList`` is also not a subtype of ``IntegralList``.
 
 There are two widespread approaches to declare subtype information.
 In nominal subtyping, type tree is based on the declared class tree,
 i.e., ``UserID`` is considered a subtype of ``int``.
-This approach should be used uder control of the type checker,
+This approach should be used under control of the type checker,
 because in Python one can override attributes in an incompatible way::
 
   class Base:
@@ -143,7 +143,7 @@ Types vs Classes
 
 In Python, classes are object factories, and class is a dynamic, runtime concept.
 Type concept is defined above, types appear in variable and function
-type annotations, and are used by static type chechkers.
+type annotations, and are used by static type checkers.
 
 Every class represents a type via ``isinstance`` as shown above.
 But it is quite tricky to implement a class that exactly represents semantics
@@ -163,7 +163,7 @@ This is done by gradual typing described in the next section.
 
 **Important implementation detail:**
 Typing interface is implemented with classes, i.e., at runtime it is possible
-to evaluate, e.g., ``Generic[T].__bases__``. But to emphasize the distiction
+to evaluate, e.g., ``Generic[T].__bases__``. But to emphasize the distinction
 between classes (runtime types, defined by ``class`` statement,
 and returned by ``type(obj)``) and types (static types constructed
 using fundamental building blocks and used by a type checker)
@@ -241,7 +241,7 @@ General rules for using types
 -----------------------------
 
 Although all types are implemented using classes, the following
-general rules apply to emphasize the distiction between types and classes:
+general rules apply to emphasize the distinction between types and classes:
 
 -  No types defined below (i.e. ``Any``, ``Union``, etc.) can be instantiated,
    an attempt to do so will raise ``TypeError``.
@@ -455,7 +455,7 @@ are still controversial or not fully specified.)
 
 - Type variables can be declared in unconstrained, constrained,
   or bounded form. The variance of a generic type can also
-  be indicaded using a type variable declared with special keyword
+  be indicated using a type variable declared with special keyword
   arguments, thus avoiding any special syntax, e.g.::
 
     T = TypeVar('T', bound=complex)
