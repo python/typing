@@ -54,12 +54,7 @@ Background
 
 There are many definitions of the concept of type in the literature.
 Here we assume that type is a set of values and a set of functions that
-one can apply to these values. Note that such definition
-could have mathematical problems such as `Russel's paradox
-<https://en.wikipedia.org/wiki/Russell's_paradox>`_
-because the two above sets could be "too infinite".
-Nevertheless it is a good practical mental model for semantics of types.
-
+one can apply to these values.
 There are several ways to define a particular type:
 
 - By explicitly listing all values, e.g., ``{True, False}`` and logical
