@@ -861,6 +861,72 @@ allow all operations on it, and a value of type ``Any`` can be assigned
 to a variable (or used as a return value) of a more constrained type.
 
 
+Meta-types
+----------
+
+A meta-type can be used to indicate a value that is itself a class
+object that is a subclass of a given class.  It is spelled as
+``Type[C]`` where ``C`` is a class.  To clarify: while ``C`` (when
+used as an annotation) refers to instances of class ``C``, ``Type[C]``
+refers to *subclasses* of ``C``.  (This is a similar distinction as
+between ``object`` and ``type``.)
+
+For example, suppose we have the following classes::
+
+  class User: ...  # Abstract base for User classes
+  class BasicUser(User): ...
+  class ProUser(User): ...
+  class TeamUser(User): ...
+
+And suppose we have a function that creates an instance of one of
+these classes if you pass it a class object::
+
+  def new_user(user_class):
+      user = user_class()
+      # (Here we could write the user object to a database)
+      return user
+
+Without ``Type[]`` the best we could do to annotate ``new_user()``
+would be::
+
+  def new_user(user_class: type) -> User:
+      ...
+
+However using ``Type[]`` and a type variable with an upper bound we
+can do much better::
+
+  U = TypeVar('U', bound=User)
+  def new_user(user_class: Type[U]) -> U:
+      ...
+
+Now when we call ``new_user()`` with a specific subclass of ``User`` a
+type checker will infer the correct type of the result::
+
+  joe = new_user(BasicUser)  # Inferred type is BasicUser
+
+At runtime the value corresponding to ``Type[C]`` must be an actual
+class object that's a subtype of ``C``, not a special form.  IOW, in
+the above example calling e.g. ``new_user(Union[BasicUser, ProUser])``
+is not allowed.
+
+There are some concerns with this feature: for example when
+``new_user()`` calls ``user_class()`` this implies that all subclasses
+of ``User`` must support this in their constructor signature.  However
+this is not unique to ``Type[]``: class methods have similar concerns.
+A type checker ought to flag violations of such assumptions, but by
+default constructor calls that match the constructor signature in the
+indicated base class (``User`` in the example above) should be
+allowed.  A program containing a complex or extensible class hierarchy
+might also handle this by using a factory class method.
+
+Plain ``Type`` without brackets is equivalent to using ``type`` (the
+root of Python's metaclass hierarchy).  This equivalence also
+motivates the name, ``Type``, as opposed to alternatives like
+``Class`` or ``SubType``, which were proposed while this feature was
+under discussion; this is similar to the relationship between
+e.g. ``List`` and ``list``.
+
+
 Version and platform checking
 -----------------------------
 
