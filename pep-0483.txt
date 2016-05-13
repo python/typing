@@ -86,10 +86,10 @@ purposes, or maybe even to increase speed of program execution.
 Here we only focus on avoiding bugs by using a static type checker.
 
 
-Subtypes
---------
+Subtype relationship
+--------------------
 
-A crucial notion for static type checker is the notion of subtype.
+A crucial notion for static type checker is the subtype relationship.
 It arises from the question if ``first_var`` has ``first_type``, and
 ``second_var`` has ``second_type``, then is it safe to assign
 ``first_var = second_var``?
@@ -160,37 +160,11 @@ We strive to provide a support for both approaches, so that
 structural information can be used in addition to nominal subtyping.
 
 
-Types vs Classes
-----------------
-
-In Python, classes are object factories defined by ``class`` statement,
-and and returned by ``type(obj)`` built-in function. Class is a dynamic,
-runtime concept.
-
-Type concept is defined above, types appear in variable
-and function type annotations, can be constructed
-from building blocks described below, and are used by static type checkers.
-
-Every class is a type as shown above.
-But it is tricky and error prone to implement a class that exactly represents
-semantics of a given type, and it is not a goal of PEP 484.
-*The static types described in PEP 484, should not be confused with
-the runtime classes.*
-
-The goal of PEP 484 is to propose a type system that allows
-to type annotate only part of a program thus allowing to leverage
-positive aspects of both dynamic and static typing.
-This is done by gradual typing described in the next section.
-
-**Implementation detail:**
-Typing interface is implemented with classes, i.e., at runtime it is possible
-to evaluate, e.g., ``Generic[T].__bases__``. But to emphasize the distinction
-between classes and types general rules (see below) apply. These rules indicate
-possible confusions by raising ``TypeError``.
-
-
 Summary of gradual typing
 =========================
+
+Gradual typing allows to type annotate only part of a program
+thus allowing to leverage positive aspects of both dynamic and static typing.
 
 We define a new relationship, is-consistent-with, which is similar to
 is-subtype-of, except it is not transitive when the new type ``Any`` is
@@ -255,11 +229,34 @@ but we didn't need the concept of consistency for that::
   something = worker  # OK
 
 
-General rules for using types
------------------------------
+Types vs Classes
+----------------
 
-Although all types are implemented using classes, the following
-general rules apply to emphasize the distinction between types and classes:
+In Python, classes are object factories defined by ``class`` statement,
+and and returned by ``type(obj)`` built-in function. Class is a dynamic,
+runtime concept.
+
+Type concept is described above, types appear in variable
+and function type annotations, can be constructed
+from building blocks described below, and are used by static type checkers.
+
+Every class is a type as discussed above.
+But it is tricky and error prone to implement a class that exactly represents
+semantics of a given type, and it is not a goal of PEP 484.
+*The static types described in PEP 484, should not be confused with
+the runtime classes.* Examples:
+
+- ``int`` is a class and a type.
+- ``UserID`` is a class and a type.
+- ``Union[str, int]`` is a type but not a proper class::
+
+      class MyUnion(Union[str, int]): ...  # raises TypeError
+
+      Union[str, int]()  # raises TypeError
+
+Typing interface is implemented with classes, i.e., at runtime it is possible
+to evaluate, e.g., ``Generic[T].__bases__``. But to emphasize the distinction
+between classes and types the following general rules:
 
 -  No types defined below (i.e. ``Any``, ``Union``, etc.) can be instantiated,
    an attempt to do so will raise ``TypeError``.
