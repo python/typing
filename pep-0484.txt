@@ -919,6 +919,7 @@ indicated base class (``User`` in the example above) should be
 allowed.  A program containing a complex or extensible class hierarchy
 might also handle this by using a factory class method.
 
+When ``Type`` is parameterized it requires exactly one parameter.
 Plain ``Type`` without brackets is equivalent to using ``type`` (the
 root of Python's metaclass hierarchy).  This equivalence also
 motivates the name, ``Type``, as opposed to alternatives like
