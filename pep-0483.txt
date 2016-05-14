@@ -580,42 +580,121 @@ Examples::
 Covariance and Contravariance
 -----------------------------
 
-formal definition
+If ``t2`` is a subtype of ``t1``, then a generic
+type constructor ``GenType`` is called:
 
-example with functions
+- Covariant, if ``GenType[t2]`` is a subtype of ``GenType[t1]``
+  for all such ``t1`` and ``t2``.
+- Contravariant,  if ``GenType[t1]`` is a subtype of ``GenType[t2]``
+  for all such ``t1`` and ``t2``.
+- Invariant, if nothing of the above is true.
 
-this is a general notion (``Union[T, t1]``)
+To better understand this definition, let us make an anology with
+ordinary functions. Assume that we have::
 
-this is *declared* property for generics (difficult for a typechecker to infer)
+  def cov(x: float) -> float:
+      return 2*x
 
-three examples with generics: ``FrozenSet`` is simple
+  def contra(x: float) -> float:
+      return -x
 
-``List`` is trickier, invariant, because mutable
+  def inv(x: float) -> float:
+      return x*x
 
-One of the best examples to illustrate contravariance is callable type.
+If ``x1 < x2``, then *always* ``cov(x1) < cov(x2)``, and
+``contra(x2) < contra(x1)``, while nothing could be said about ``inv``.
+Replacing ``<`` with is-subtype-of, and functions with generic type
+constructor we get examples of covariant, contravarian,
+and invariant beavior. Let us now consider practical examples:
+
+- ``Union`` behaves covariantrly in all its arguments,
+  indeed, as discussed above, ``Union[t1, t2, ...]`` is a subtype of
+  ``Union[u1, u2, ...]``, if ``t1`` is a subtype of ``u1``, etc.
+- ``FrozenSet[T]`` is also covariant. Let us consider ``int`` and
+  ``float`` in place of ``T``. First, ``int`` is a subtype of ``float``.
+  Second, set of values of ``FrozenSet[int]`` is
+  clearly a subset of values of ``FrozenSet[float]``, while set of functions
+  with ``FrozenSet[float]`` is a subset of set of functions
+  with ``FrozenSet[int]``. Therefore, by definition ``FrozenSet[int]``
+  is a subtype of ``FrozenSet[float]``.
+- ``List[T]`` is invariant. Indeed, although set of values of ``List[int]``
+  is a subset of ``List[float]``, only ``int`` could be appended
+  to a ``List[int]``, as discussed in section "Background". Therefore,
+  ``List[int]`` is not a subtype of ``List[float]``. This is a typical
+  situation with mutable types, they are typically invariant.
+
+One of the best examples to illustrate (somewhat counterintuitive)
+contravariant behavior is callable type.
 It is covariant in the return type, but contravariant in the
-arguments. "Covariant" here means that for two callable types that
+arguments. For two callable types that
 differ only in the return type, the subtype relationship for the
-callable types follows that of the return types. (Example:
-``Callable[[], Manager]`` is a subtype of ``Callable[[], Employee]``.)
-"Contravariant" here means that for two callable types that differ
-only in the type of one argument, the subtype relationship for the
-callable types goes in the opposite direction as for the argument
-types. (Example: ``Callable[[Employee], None]`` is a subtype of
-``Callable[[Manager], None]``. Yes, you read that right.) Example::
+callable types follows that of the return types. Examples:
 
-  def calc_all(lst: List[Manager], salary: Callable[[Manager], Decimal]):
+- ``Callable[[], int]`` is a subtype of ``Callable[[], float]``.
+- ``Callable[[], Manager]`` is a subtype of ``Callable[[], Employee]``.
+
+While for two callable types that differ
+only in the type of one argument, the subtype relationship for the
+callable types goes *in the opposite direction* as for the argument
+types. Examples:
+
+- ``Callable[[float], None]`` is a subtype of ``Callable[[int], None]``.
+- ``Callable[[Employee], None]`` is a subtype of ``Callable[[Manager], None]``.
+
+Yes, you read that right. Indeed, if
+a fucntion that can calcullate the salary for a manager is expected::
+
+  def calcullate_all(lst: List[Manager], salary: Callable[[Manager], Decimal]):
       ...
 
-example with Callable shows how to make preciser type annotations for
-your functions: most large type for argument, most tight type for
-a return function.
+then ``Callable[[Employee], Decimal]`` that can calculate a salary for any
+employee is also acceptable.
+
+The example with ``Callable`` shows how to make more precise type annotations
+for functions: chose the most general type for argument, and the most tight
+type for the return value.
+
+It is possible to *declare* variance for user defined generic type by
+using special keywords ``covariant`` and ``contravariant`` in the
+definition of type variables used as parameters.
+Types are invariant by default. Examples::
+
+  T = TypeVar('T')
+  T_co = TypeVar('T_co', covariant=True)
+  T_contra = TypeVar('T_contra', contravariant=True)
+
+  class LinkedList(Generic[T]):  # invariant by default
+      ...
+      def append(self, element: T) -> None:
+          ...
+
+  class Box(Generic[T_co]):  #  this type is declared covariant
+      def __init__(self, content: T_co) -> None:
+          self._content = content
+      def get_content(self) -> T_co:
+          return self._content
+
+  class Sink(Generic[T_contra]):  # this type is declared contravariant
+      def send_to_nowhere(self, data: T_contra) -> None:
+          print(data, file=os.devnull)
+
+Note, that although variance is defined via type variables, it is not
+a property of type variables, but a property of generic types.
+In complex definitions of derived generics, variance *only*
+determined from type variables used. Example::
+
+  class Base(Generic[T_contra]):
+      ...
+
+  class Derived(Base[T_co]):  # type checker assumes that Derived[int]
+      ...                     # is a subtype of Derived[float],
+                              # and Derived[str] is a subtype of Base[str]
 
 For more information on type variables, generic types, and variance,
 see PEP 484 , the `mypy docs on
 generics <http://mypy.readthedocs.io/en/latest/generics.html>`_,
-and `Wikipedia
-<http://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29>`_.
+and `Wikipedia <http://en.wikipedia.org/wiki/
+Covariance_and_contravariance_%28computer_science%29>`_.
 
 
 Pragmatics
