@@ -404,7 +404,7 @@ Type annotation of generic functions is allowed by *type valiables*.
 Their semantics with respect to generic types is somewhat similar
 to semantics of parameters in functions. But one does not assign
 concrete types to type variables, it is the task of a statis type checker
-to find thier possible values and warn the user if it cannot.
+to find their possible values and warn the user if it cannot.
 Example::
 
   def take_first(seq: Sequence[T]) -> T: # a generic function
@@ -494,22 +494,87 @@ replaced by the most-derived base class among ``t1``, etc. Examples:
 Defining and using generic types
 --------------------------------
 
-type constructors (more general notion, ``Union``) as
-functors (avoid this word),
-
-generics are type constructors based on classes,
-declaration syntax(two examples, deriving from ``Generic[T]``
-and from ``Iterable[T]``, more formal rules, use existing)
-
-``class MyGeneric(Generic[X, Y, ...]):`` ... defines a generic type
+Users can declare their classes as generic types using
+a special building block ``Generic``.
+``class MyGeneric(Generic[X, Y, ...]): ... `` defines a generic type
 ``MyGeneric`` over type variables ``X``, etc. ``MyGeneric`` itself becomes
 parameterizable, e.g. ``MyGeneric[int, str, ...]`` is a specific type with
-substitutions ``X->int``, etc.
+substitutions ``X -> int``, etc. Example::
 
-partial specialization, indexed generics
+  class CustomQueue(Generic[T]):
 
-List[Any], fallback from types to classes,
-type erasure at runtime.
+      def put(self, task: T) -> None:
+          ...
+      def get(self) -> T:
+          ...
+
+  def communicate(queue: CustomQueue[str]) -> Optional[str]:
+      ...
+
+Classes that derive from generic types become generic. However,
+classes derived from specific types returned by generics are
+not generic. Example::
+
+  class TodoList(Iterable[T], Container[T]):
+      def check(self, item: T) -> None:
+          ...
+
+  def check_all(todo: TodoList[T]) -> None:  # TodoList is generic
+      ...
+
+  class URLList(Iterable[bytes]):
+      def scrape_all(self) -> None:
+          ...
+
+  def search(urls: URLList) -> Optional[bytes]  # URLList is not generic
+      ...
+
+A class can subclass multiple generic types.
+Generic types can be specialized (indexed) in several steps.
+Every type variable could be substituted by a specific type
+or by another generic type. If ``Generic`` appears in the base class list,
+then it should contain all type variables, and the order of type parameters is
+determined by the order in which they appear in ``Generic``. Examples::
+
+  Table = Dict[int, T]     # Table is generic
+  Messages = Table[bytes]  # Same as Dict[int, bytes]
+
+  class BaseGeneric(Generic[T, S]):
+      ...
+
+  class DerivedGeneric(BaseGeneric[int, T]):  # DerivedGeneric has one parameter
+      ...
+
+  SpecificType = DerivedGeneric[int]  # OK
+
+  class MyDictView(Generic[S, T, U], Iterable[Tuple[U, T]]):
+      ...
+
+  Example = MyDictView[list, int, str]  # S -> list, T -> int, U -> str
+
+If a generic type appears in type annotation with type variable ommited,
+it assumed to be ``Any``. Such form could be used as a fallback
+to dynamic typing and is allowed for use with ``issubclass``
+and ``isinstance``. All type information in instances is erased at runtime.
+Examples::
+
+  def count(seq: Sequence) -> int:  # Same as Sequence[Any]
+      ...
+
+  class FrameworkBase(Generic[S, T]):
+      ...
+
+  class UserClass:
+      ...
+
+  issubclass(UserClass, FrameworkBase)  # This is OK
+
+  class Node(Generic[T]):
+     ...
+
+  IntNode = Node[int]
+  my_node = IntNode()  # at runtime my_node.__class__ is Node
+                       # inferred static type of my_node is Node[int]
 
 
 Covariance and Contravariance
@@ -521,7 +586,7 @@ example with functions
 
 this is a general notion (``Union[T, t1]``)
 
-this is declared property for generics (difficult for a typechecker to infer)
+this is *declared* property for generics (difficult for a typechecker to infer)
 
 three examples with generics: ``FrozenSet`` is simple
 
@@ -537,16 +602,20 @@ callable types follows that of the return types. (Example:
 only in the type of one argument, the subtype relationship for the
 callable types goes in the opposite direction as for the argument
 types. (Example: ``Callable[[Employee], None]`` is a subtype of
-``Callable[[Manager], None]``. Yes, you read that right.)
+``Callable[[Manager], None]``. Yes, you read that right.) Example::
+
+  def calc_all(lst: List[Manager], salary: Callable[[Manager], Decimal]):
+      ...
 
 example with Callable shows how to make preciser type annotations for
 your functions: most large type for argument, most tight type for
 a return function.
 
 For more information on type variables, generic types, and variance,
-see the `mypy docs on
+see PEP 484 , the `mypy docs on
 generics <http://mypy.readthedocs.io/en/latest/generics.html>`_,
-PEP 484 and wikivariance.
+and `Wikipedia
+<http://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29>`_.
 
 
 Pragmatics
