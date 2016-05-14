@@ -347,16 +347,77 @@ We might add:
 Generic types
 =============
 
-The neccesity of generic types stems from practics:
-generic collections, List[UserID], Dict[str, Any]
-and how to annotate first = lambda x: x[0]
+The fundamental building blocks defined above allow to construct new types
+in a generic manner. For example, ``Tuple`` can take a concrete type ``float``
+and make another concrete type ``Vector = Tuple[float, ...]``, or it can take
+another type ``UserID`` and make another concrete type
+``Registry = Tuple[UserID, ...]``. Such semantics is known as generic type
+constructor, it is similar to semantics of fucntions, but a function takes
+a value and returns a value, while generic type contructor takes a type and
+"returns" a type.
 
-type variables semantics, not like normal variables, tell typecheker
-some limits: something must be of the same type.
+It is common when a particular class or function behaves in such a type generic
+manner. Consider two examples:
 
-they are used extensively, also internal machinery of type inference
-in typeckers is build on them so this will allow to understand how they work,
-so let us show several examples how they work:
+- Container classes, such as ``list`` or ``dict``, typically contain only
+  values of a particular type. Therefore, a user might want to type annotate
+  them as such::
+
+    users = [] # type: List[UserID]
+    users.append(UserID(42)) # OK
+    users.append('Some guy') # Should be rejected by type checker
+
+    examples = {} # type: Dict[str, Any]
+    examples['first example'] = object() # OK
+    examples[2] = None                   # rejected by type checker
+
+- Addition function can take two arguments of type ``int`` and return an ``int``,
+  of take two arguments of type ``float`` and return a ``float``, etc.::
+
+    def add(x, y):
+        return x + y
+
+    add(1, 2) == 3
+    add('1', '2') == '12'
+    add(2.7, 3.5) == 6.2
+
+To allow type annotations in situations from the first example, built-in
+containers and container abstract base classes are extended with type
+parameters, so that they behave as generic type constructors.
+Classes, that behave as generic type constructors are called *generic types*.
+Example::
+
+  from typing import Iterable
+
+  class Task:
+      ...
+
+  def work(todo_list: Iterable[Task]) -> None:
+      ...
+
+Here ``Iterable`` is a generic type that takes a concrete type ``Task``
+and makes a concrete type ``Iterable[Task]``.
+
+Functions that behave in type generic manner (as in second example) are
+called *generic functions*.
+Type annotation of generic functions is allowed by *type valiables*.
+Their semantics with respect to generic types is somewhat similar
+to semantics of parameters in functions. But one does not assign
+concrete types to type variables, it is the task of a statis type checker
+to find thier possible values and warn the user if it cannot.
+Example::
+
+  def take_first(seq: Sequence[T]) -> T: # a generic function
+      return seq[0]
+
+  accumulator = 0 # type: int
+
+  accumulator += take_first([1, 2, 3])   # Safe, T deduced to be int
+  accumulator += take_first((2.7, 3.5))  # Unsafe
+
+Type variables are used extensively in type annotations, also internal
+machinery of type inference in type checkers is typically build on
+type variables. Therefore, let us consider them in detail.
 
 
 Type variables
@@ -364,11 +425,17 @@ Type variables
 
 ``X = TypeVar('X')`` declares a unique type variable. The name must match
 the variable name. By default, a type variable ranges
-over all possible types.
+over all possible types. Example::
+
+  def do_nothing(one_arg: T, other_arg: T) -> None:
+      pass
+
+  do_nothing(1, 2)               # OK, T is int
+  do_nothing('abc', UserID(42))  # also OK, T is object
 
 ``Y = TypeVar('Y', t1, t2, ...)``. Ditto, constrained to ``t1``, etc. Behaves
 similar to ``Union[t1, t2, ...]``. A constrained type variable ranges only
-over constains ``t1``, etc. *exactly*, subclasses of the constrains are
+over constrains ``t1``, etc. *exactly*, subclasses of the constrains are
 replaced by the most-derived base class among ``t1``, etc. Examples:
 
 - Function type annotation with a constrained type variable::
