@@ -29,7 +29,6 @@ gradual typing; then we state some general rules and
 define the new special types (such as ``Union``) that can be used
 in annotations; and finally we define the approach to generic types
 and pragmatic aspects of type hinting.
-(TODO: The section on generics needs more fleshing out; sorry!)
 
 
 Notational conventions
@@ -348,26 +347,31 @@ We might add:
 Generic types
 =============
 
-TODO: Explain motivation, generics as functors (but avoid this word),
-examples, necessity of type variables, generic functions and declaration
-syntax that described below.
+The neccesity of generic types stems from practics:
+generic collections, List[UserID], Dict[str, Any]
+and how to annotate first = lambda x: x[0]
+
+type variables semantics, not like normal variables, tell typecheker
+some limits: something must be of the same type.
+
+they are used extensively, also internal machinery of type inference
+in typeckers is build on them so this will allow to understand how they work,
+so let us show several examples how they work:
 
 
 Type variables
 --------------
 
-(TODO: Explain more. See also the `mypy docs on
-generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
+``X = TypeVar('X')`` declares a unique type variable. The name must match
+the variable name. By default, a type variable ranges
+over all possible types.
 
-- ``X = TypeVar('X')``. Declares a unique type variable. The name must match
-  the variable name.
+``Y = TypeVar('Y', t1, t2, ...)``. Ditto, constrained to ``t1``, etc. Behaves
+similar to ``Union[t1, t2, ...]``. A constrained type variable ranges only
+over constains ``t1``, etc. *exactly*, subclasses of the constrains are
+replaced by the most-derived base class among ``t1``, etc. Examples:
 
-- ``Y = TypeVar('Y', t1, t2, ...)``. Ditto, constrained to ``t1``, etc. Behaves
-  like ``Union[t1, t2, ...]`` for most purposes, but when used as a type
-  variable, subclasses of ``t1``, etc. are replaced by the most-derived base
-  class among ``t1``, etc. (TODO: reformulate this)
-
-- Example of constrained type variables::
+- Function type annotation with a constrained type variable::
 
     S = TypeVar('S', str, bytes)
 
@@ -411,29 +415,50 @@ generics <http://mypy.readthedocs.io/en/latest/generics.html>`_.)
   The inferred type of ``result`` is still ``Union[str, bytes]``, even though
   both arguments are ``str``.
 
+  Note that the type checker will reject this function::
+
+    def concat(first: U, second: U) -> U:
+        return x + y  # Error: can't concatenate str and bytes
+
+  For such cases where parameters could change their types only simultaneously
+  one should use constrained type variables.
+
 
 Defining and using generic types
 --------------------------------
 
-- ``class MyGeneric(Generic[X, Y, ...]):`` ... Define a generic type
-  ``MyGeneric`` over type variables ``X``, etc. ``MyGeneric`` itself becomes
-  parameterizable, e.g. ``MyGeneric[int, str, ...]`` is a specific type with
-  substitutions ``X->int``, etc.
+type constructors (more general notion, ``Union``) as
+functors (avoid this word),
 
-- TODO: Explain use of generic types in function signatures. E.g.
-  ``Sequence[X]``, ``Sequence[int]``, ``Sequence[Tuple[X, Y, Z]]``,
-  and mixtures.
-  Think about co\*variance. No gimmicks like deriving from
-  ``Sequence[Union[int, str]]`` or ``Sequence[Union[int, X]]``.
-  Add notes on indexed generics
+generics are type constructors based on classes,
+declaration syntax(two examples, deriving from ``Generic[T]``
+and from ``Iterable[T]``, more formal rules, use existing)
+
+``class MyGeneric(Generic[X, Y, ...]):`` ... defines a generic type
+``MyGeneric`` over type variables ``X``, etc. ``MyGeneric`` itself becomes
+parameterizable, e.g. ``MyGeneric[int, str, ...]`` is a specific type with
+substitutions ``X->int``, etc.
+
+partial specialization, indexed generics
+
+List[Any], fallback from types to classes,
+type erasure at runtime.
 
 
 Covariance and Contravariance
 -----------------------------
 
-TODO: Definition, declaring variance, example with functions,
-covariant example with ``Tuple``, contravariant example with ``Callable``,
-mutable types, why ``List`` is invariant, type erasure and ``MyGeneric[Any]``.
+formal definition
+
+example with functions
+
+this is a general notion (``Union[T, t1]``)
+
+this is declared property for generics (difficult for a typechecker to infer)
+
+three examples with generics: ``FrozenSet`` is simple
+
+``List`` is trickier, invariant, because mutable
 
 One of the best examples to illustrate contravariance is callable type.
 It is covariant in the return type, but contravariant in the
@@ -447,6 +472,14 @@ callable types goes in the opposite direction as for the argument
 types. (Example: ``Callable[[Employee], None]`` is a subtype of
 ``Callable[[Manager], None]``. Yes, you read that right.)
 
+example with Callable shows how to make preciser type annotations for
+your functions: most large type for argument, most tight type for
+a return function.
+
+For more information on type variables, generic types, and variance,
+see the `mypy docs on
+generics <http://mypy.readthedocs.io/en/latest/generics.html>`_,
+PEP 484 and wikivariance.
 
 
 Pragmatics
