@@ -1382,7 +1382,7 @@ class TypeTests(BaseTestCase):
         class BasicUser(User): pass
         class ProUser(User): pass
 
-        def new_user(user_class: Type[User]):
+        def new_user(user_class: Type[User]) -> User:
             return user_class()
 
         joe = new_user(BasicUser)
