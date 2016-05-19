@@ -1521,7 +1521,7 @@ class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co]):
 
 
 # Internal type variable used for Type[].
-CT = TypeVar('CT', bound=type)
+CT = TypeVar('CT', covariant=True, bound=type)
 
 
 class Type(type, Generic[CT]):
