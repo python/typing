@@ -19,10 +19,12 @@ __all__ = [
     'Any',
     'Callable',
     'Generic',
+    'NewType',
     'Optional',
+    'Tuple',
+    'Type',
     'TypeVar',
     'Union',
-    'Tuple',
 
     # ABCs (from collections.abc).
     'AbstractSet',  # collections.abc.Set.

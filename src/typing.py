@@ -18,6 +18,7 @@ __all__ = [
     'Any',
     'Callable',
     'Generic',
+    'NewType',
     'Optional',
     'Tuple',
     'Type',
