@@ -19,7 +19,6 @@ __all__ = [
     'Any',
     'Callable',
     'Generic',
-    'NewType',
     'Optional',
     'Tuple',
     'Type',
@@ -62,6 +61,7 @@ __all__ = [
     'AnyStr',
     'cast',
     'get_type_hints',
+    'NewType',
     'no_type_check',
     'no_type_check_decorator',
     'overload',
@@ -1602,7 +1602,8 @@ def NewType(name, tp):
     def new_type(x):
         return x
 
-    new_type.__name__ = name
+    # Some versions of Python 2 complain because of making all strings unicode
+    new_type.__name__ = str(name)
     new_type.__supertype__ = tp
     return new_type
 

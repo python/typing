@@ -1148,7 +1148,7 @@ class NewTypeTests(BaseTestCase):
         UserId = NewType('UserId', int)
         UserName = NewType('UserName', str)
         self.assertIsInstance(UserId(5), int)
-        self.assertIsInstance(UserName('Joe'), str)
+        self.assertIsInstance(UserName('Joe'), type('Joe'))
         self.assertEqual(UserId(5) + 1, 6)
 
     def test_errors(self):

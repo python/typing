@@ -1173,6 +1173,46 @@ checker should blindly believe the programmer.  Also, casts can be used
 in expressions, while type comments only apply to assignments.
 
 
+NewType helper function
+-----------------------
+
+There are also situations, where a programmer might want to avoid logical
+errors by creating simple classes. For example::
+
+  class UserId(int):
+      pass
+
+  get_by_user_id(user_id: UserId):
+      ...
+
+However, this approach introduces a runtime overhead. To avoid this,
+``typing.py`` provides a helper function ``NewType`` that creates
+simple unique types with almost zero runtime overhead. For a static type
+checker ``Derived = NewType('Derived', Base)`` is roughly equivalent
+to a definition::
+
+class Derived(Base):
+    def __init__(self, _x: Base) -> None:
+        ...
+
+While at runtime, ``NewType('Derived', Base)`` returns a dummy function
+that simply returns its argument. Type checkers require explicit casts
+from ``int`` where ``UserId`` is expected, while implicitly casting
+from ``UserId`` where ``int`` is expected. Examples::
+
+        UserId = NewType('UserId', int)
+
+        def name_by_id(user_id: UserId) -> str:
+            ...
+
+        UserId('user')          # Fails type check
+
+        name_by_id(42)          # Fails type check
+        name_by_id(UserId(42))  # OK
+
+        num = UserId(5) + 1     # type: int
+
+
 Stub Files
 ==========
 
@@ -1454,6 +1494,8 @@ Fundamental building blocks:
 
 * Generic, used to create user-defined generic classes
 
+* Type, used to annotate class objects
+
 Generic variants of builtin collections:
 
 * Dict, used as ``Dict[key_type, value_type]``
@@ -1486,6 +1528,8 @@ Generic variants of container ABCs (and a few non-containers):
 * Callable (see above, listed here for completeness)
 
 * Container
+
+* ContextManager
 
 * Generator, used as ``Generator[yield_type, send_type,
   return_type]``.  This represents the return value of generator
@@ -1557,6 +1601,9 @@ Convenience definitions:
   ``collections.namedtuple(type_name, [field_name, ...])``.
   This is useful to declare the types of the fields of a named tuple
   type.
+
+* NewType, used to create unique types with little runtime overhead
+  ``UserId = NewType('UserId', int)``
 
 * cast(), described earlier
 
