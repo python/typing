@@ -17,7 +17,7 @@ BDFL-Delegate
 -------------
 
 The BDFL-Delegate is Mark Shannon.  This means he gets to be the final
-reviewer of the PEP 484 and ultimately gets to accept or reject it -- see
+reviewer of PEP 484 and ultimately gets to accept or reject it -- see
 PEP 1 (https://www.python.org/dev/peps/pep-0001/).
 
 Important dates
@@ -38,7 +38,7 @@ from the Python 3.5 release schedule as documented in PEP 478
 Important URLs
 --------------
 
-The python.org rendering of the PEP 484 lives at
+The python.org rendering of PEP 484 lives at
 https://www.python.org/dev/peps/pep-0484/.
 
 Two related informational PEPs exist:
@@ -65,7 +65,7 @@ Workflow
   TO DO items for PEPs 484, 483, and 482 as well as for typing.py.
 
 * Accumulate changes in the GitHub repo, closing issues as they are
-  either decided and described in the PEP 484, or implemented in
+  either decided and described in PEP 484, or implemented in
   typing.py, or both, as befits the issue.  (Some issues will be
   closed as "won't fix" after a decision is reached not to take
   action.)
@@ -90,7 +90,7 @@ Tracker labels
 
 * bug: Needs to be fixed in typing.py.
 
-* to do: Editing task for the PEP 484.
+* to do: Editing task for PEP 484 or for this repo.
 
 * enhancement: Proposed new feature.
 
