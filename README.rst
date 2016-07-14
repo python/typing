@@ -115,8 +115,3 @@ Workflow for CPython changes
 
 * TBD: Workflow for copying typing.py and test_typing.py into the
   CPython repo.
-
-
-State of the art: should we list decorator-based approaches
-(PyContracts?) and docstring-based approaches?  **TODO:** Łukasz to
-update PEP 482.
