@@ -56,7 +56,7 @@ Workflow
 --------
 
 * The typing.py module and its unittests are edited in the src
-  subdirectory of this repo. The python2 subdirectory conatins the Python2
+  subdirectory of this repo. The python2 subdirectory contains the Python2
   backport.
 
 * The PEPs 484, 483, and 482 are edited in the GitHub python/peps repo.
