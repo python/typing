@@ -852,7 +852,7 @@ class VarianceTests(BaseTestCase):
 
     def test_covariance_sequence(self):
         # Check covariance for Sequence (which is just a generic class
-        # for this purpose, but using a covariant type variable).
+        # for this purpose, but using a type variable with covariant=True).
         self.assertIsSubclass(typing.Sequence[Manager],
                               typing.Sequence[Employee])
         self.assertNotIsSubclass(typing.Sequence[Employee],
