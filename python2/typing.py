@@ -385,9 +385,10 @@ class TypeVar(TypingMeta):
     and issubclass(bytes, A) are true, and issubclass(int, A) is
     false.  (TODO: Why is this needed?  This may change.  See #136.)
 
-    Type variables may be marked covariant or contravariant by passing
-    covariant=True or contravariant=True.  See PEP 484 for more
-    details.  By default type variables are invariant.
+    Type variables defined with covariant=True or contravariant=True
+    can be used do declare covariant or contravariant generic types.
+    See PEP 484 for more details. By default generic types are invariant
+    in all type variables.
 
     Type variables can be introspected. e.g.:
 
@@ -406,7 +407,7 @@ class TypeVar(TypingMeta):
         contravariant = kwargs.get('contravariant', False)
         self = super(TypeVar, cls).__new__(cls, name, (Final,), {})
         if covariant and contravariant:
-            raise ValueError("Bivariant type variables are not supported.")
+            raise ValueError("Bivariant types are not supported.")
         self.__covariant__ = bool(covariant)
         self.__contravariant__ = bool(contravariant)
         if constraints and bound is not None:
@@ -1055,7 +1056,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if cls is Any:
             return True
         if isinstance(cls, GenericMeta):
-            # For a class C(Generic[T]) where T is co-variant,
+            # For a covariant class C(Generic[T]),
             # C[X] is a subclass of C[Y] iff X is a subclass of Y.
             origin = self.__origin__
             if origin is not None and origin is cls.__origin__:
@@ -1389,7 +1390,7 @@ class MutableSet(AbstractSet[T]):
     __extra__ = collections_abc.MutableSet
 
 
-# NOTE: Only the value type is covariant.
+# NOTE: It is only covariant in the value type.
 class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT_co]):
     __extra__ = collections_abc.Mapping
 
@@ -1523,11 +1524,11 @@ class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co]):
 
 
 # Internal type variable used for Type[].
-CT = TypeVar('CT', covariant=True, bound=type)
+CT_co = TypeVar('CT_co', covariant=True, bound=type)
 
 
 # This is not a real generic class.  Don't use outside annotations.
-class Type(type, Generic[CT]):
+class Type(type, Generic[CT_co]):
     """A special construct usable to annotate class objects.
 
     For example, suppose we have the following classes::
