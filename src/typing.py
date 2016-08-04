@@ -777,7 +777,7 @@ class CallableMeta(TypingMeta):
         return self
 
     def _get_type_vars(self, tvars):
-        if self.__args__:
+        if self.__args__ and self.__args__ is not Ellipsis:
             _get_type_vars(self.__args__, tvars)
 
     def _eval_type(self, globalns, localns):

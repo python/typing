@@ -503,6 +503,10 @@ class CallableTests(BaseTestCase):
         ctv = Callable[..., str]
         self.assertEqual(repr(ctv), 'typing.Callable[..., str]')
 
+    def test_ellipsis_in_generic(self):
+        # Shouldn't crash; see https://github.com/python/typing/issues/259
+        typing.List[Callable[..., str]]
+
 
 XK = TypeVar('XK', unicode, bytes)
 XV = TypeVar('XV')
