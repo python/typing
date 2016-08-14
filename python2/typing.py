@@ -54,6 +54,7 @@ __all__ = [
     'DefaultDict',
     'List',
     'Set',
+    'FrozenSet',
     'NamedTuple',  # Not really a type.
     'Generator',
 
