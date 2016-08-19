@@ -1469,7 +1469,7 @@ class MutableMapping(Mapping[KT, VT], extra=collections_abc.MutableMapping):
     pass
 
 if hasattr(collections_abc, 'Reversible'):
-    if hassatt(collections_abc, 'Collection'):
+    if hasattr(collections_abc, 'Collection'):
         class Sequence(Reversible[T_co], Collection[T_co],
                    extra=collections_abc.Sequence):
             pass
