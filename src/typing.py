@@ -1440,10 +1440,14 @@ if hasattr(collections_abc, 'Collection'):
 
 # Callable was defined earlier.
 
-
-class AbstractSet(Sized, Iterable[T_co], Container[T_co],
-                  extra=collections_abc.Set):
-    pass
+if hasattr(collections_abc, 'Collection'):
+    class AbstractSet(Collection[T_co],
+                      extra=collections_abc.Set):
+        pass
+else:
+    class AbstractSet(Sized, Iterable[T_co], Container[T_co],
+                      extra=collections_abc.Set):
+        pass
 
 
 class MutableSet(AbstractSet[T], extra=collections_abc.MutableSet):
@@ -1451,18 +1455,28 @@ class MutableSet(AbstractSet[T], extra=collections_abc.MutableSet):
 
 
 # NOTE: It is only covariant in the value type.
-class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT_co],
-              extra=collections_abc.Mapping):
-    pass
+if hasattr(collections_abc, 'Collection'):
+    class Mapping(Collection[KT], Generic[KT, VT_co],
+                  extra=collections_abc.Mapping):
+        pass
+else:
+    class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT_co],
+                  extra=collections_abc.Mapping):
+        pass
 
 
 class MutableMapping(Mapping[KT, VT], extra=collections_abc.MutableMapping):
     pass
 
 if hasattr(collections_abc, 'Reversible'):
-    class Sequence(Sized, Reversible[T_co], Container[T_co],
-               extra=collections_abc.Sequence):
-        pass
+    if hassatt(collections_abc, 'Collection'):
+        class Sequence(Reversible[T_co], Collection[T_co],
+                   extra=collections_abc.Sequence):
+            pass
+    else:
+        class Sequence(Sized, Reversible[T_co], Container[T_co],
+                   extra=collections_abc.Sequence):
+            pass
 else:
     class Sequence(Sized, Iterable[T_co], Container[T_co],
                    extra=collections_abc.Sequence):
