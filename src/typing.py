@@ -1430,6 +1430,14 @@ class Container(Generic[T_co], extra=collections_abc.Container):
     __slots__ = ()
 
 
+if hasattr(collections_abc, 'Collection'):
+    class Collection(Sized, Iterable[T_co], Container[T_co],
+                     extra=collections_abc.Collection):
+        __slots__ = ()
+
+    __all__.append('Collection')
+
+
 # Callable was defined earlier.
 
 
