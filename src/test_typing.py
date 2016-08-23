@@ -1189,6 +1189,13 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance([], typing.Container)
         self.assertNotIsInstance(42, typing.Container)
 
+    def test_collection(self):
+        if hasattr(typing, 'Collection'):
+            self.assertIsInstance(tuple(), typing.Collection)
+            self.assertIsInstance(frozenset(), typing.Collection)
+            self.assertIsSubclass(dict, typing.Collection)
+            self.assertNotIsInstance(42, typing.Collection)
+
     def test_abstractset(self):
         self.assertIsInstance(set(), typing.AbstractSet)
         self.assertNotIsInstance(42, typing.AbstractSet)
