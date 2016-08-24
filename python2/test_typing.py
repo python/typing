@@ -1159,6 +1159,19 @@ class TypeTests(BaseTestCase):
 
         joe = new_user(BasicUser)
 
+    def test_type_optional(self):
+        A = Optional[Type[BaseException]]
+
+        def foo(a):
+            # type: (A) -> Optional[BaseException]
+            if a is None:
+                return None
+            else:
+                return a()
+
+        assert isinstance(foo(KeyboardInterrupt), KeyboardInterrupt)
+        assert foo(None) is None
+
 
 class NewTypeTests(BaseTestCase):
 
