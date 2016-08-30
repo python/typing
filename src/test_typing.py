@@ -863,15 +863,15 @@ class VarianceTests(BaseTestCase):
                               typing.Sequence[Manager])
 
     def test_covariance_mapping(self):
-        # Ditto for Mapping (covariant in the value, invariant in the key).
+        # Ditto for Mapping (covariant in key and value).
         self.assertIsSubclass(typing.Mapping[Employee, Manager],
-                          typing.Mapping[Employee, Employee])
-        self.assertNotIsSubclass(typing.Mapping[Manager, Employee],
+                              typing.Mapping[Employee, Employee])
+        self.assertIsSubclass(typing.Mapping[Manager, Employee],
                               typing.Mapping[Employee, Employee])
         self.assertNotIsSubclass(typing.Mapping[Employee, Manager],
-                              typing.Mapping[Manager, Manager])
+                                 typing.Mapping[Manager, Manager])
         self.assertNotIsSubclass(typing.Mapping[Manager, Employee],
-                              typing.Mapping[Manager, Manager])
+                                 typing.Mapping[Manager, Manager])
 
 
 class CastTests(BaseTestCase):
