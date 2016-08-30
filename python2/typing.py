@@ -459,6 +459,7 @@ KT = TypeVar('KT')  # Key type.
 VT = TypeVar('VT')  # Value type.
 T_co = TypeVar('T_co', covariant=True)  # Any type covariant containers.
 V_co = TypeVar('V_co', covariant=True)  # Any type covariant containers.
+KT_co = TypeVar('KT', covariant=True)  # Key type covariant containers.
 VT_co = TypeVar('VT_co', covariant=True)  # Value type covariant containers.
 T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 
@@ -1391,8 +1392,10 @@ class MutableSet(AbstractSet[T]):
     __extra__ = collections_abc.MutableSet
 
 
-# NOTE: It is only covariant in the value type.
-class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT_co]):
+# NOTE: Covariance in the key type is theoretically problematic because
+# there are methods with KT parameters, but in this case it's okay.
+# See https://github.com/python/typeshed/issues/510.
+class Mapping(Sized, Iterable[KT_co], Container[KT_co], Generic[KT_co, VT_co]):
     __extra__ = collections_abc.Mapping
 
 
