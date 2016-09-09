@@ -321,6 +321,15 @@ def _type_repr(obj):
         return repr(obj)
 
 
+class ClassVarMeta(TypingMeta):
+    """Metaclass for _ClassVar"""
+
+    def __new__(cls, name, bases, namespace):
+        cls.assert_no_subclassing(bases)
+        self = super(ClassVarMeta, cls).__new__(cls, name, bases, namespace)
+        return self
+
+
 class _ClassVar(object):
     """Special type construct to mark class variables.
 
@@ -338,7 +347,7 @@ class _ClassVar(object):
     be used with isinstance() or issubclass().
     """
 
-    __metaclass__ = TypingMeta
+    __metaclass__ = ClassVarMeta
 
     def __init__(self, tp=None, _root=False):
         cls = type(self)
