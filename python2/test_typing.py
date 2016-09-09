@@ -12,7 +12,7 @@ from typing import T, KT, VT  # Not in __all__.
 from typing import Union, Optional
 from typing import Tuple
 from typing import Callable
-from typing import Generic
+from typing import Generic, ClassVar
 from typing import cast
 from typing import Type
 from typing import NewType
@@ -801,6 +801,43 @@ class GenericTests(BaseTestCase):
             D[Any]
         with self.assertRaises(Exception):
             D[T]
+
+class ClassVarTests(BaseTestCase):
+
+    def test_basics(self):
+        with self.assertRaises(TypeError):
+            ClassVar[1]
+        with self.assertRaises(TypeError):
+            ClassVar[int, str]
+        with self.assertRaises(TypeError):
+            ClassVar[int][str]
+
+    def test_repr(self):
+        self.assertEqual(repr(ClassVar), 'typing.ClassVar')
+        cv = ClassVar[int]
+        self.assertEqual(repr(cv), 'typing.ClassVar[int]')
+        cv = ClassVar[Employee]
+        self.assertEqual(repr(cv), 'typing.ClassVar[%s.Employee]' % __name__)
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(ClassVar)):
+                pass
+        with self.assertRaises(TypeError):
+            class C(type(ClassVar[int])):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            type(ClassVar)()
+        with self.assertRaises(TypeError):
+            type(ClassVar[Optional[int]])()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, ClassVar[int])
+        with self.assertRaises(TypeError):
+            issubclass(int, ClassVar)
 
 
 class VarianceTests(BaseTestCase):
