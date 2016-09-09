@@ -5,7 +5,7 @@ import re
 import sys
 from unittest import TestCase, main, skipUnless, SkipTest
 if sys.version_info[:2] >= (3, 6):
-    from test import ann_module, ann_module2, ann_module3
+    import ann_module, ann_module2, ann_module3
     from collections import ChainMap
 from textwrap import dedent
 
