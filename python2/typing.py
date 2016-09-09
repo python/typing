@@ -1133,7 +1133,7 @@ class Generic(object):
             return obj
 
 
-class _ClassVar(metaclass=TypingMeta, _root=True):
+class _ClassVar(object):
     """Special type construct to mark class variables.
 
     An annotation wrapped in ClassVar indicates that a given
@@ -1149,6 +1149,8 @@ class _ClassVar(metaclass=TypingMeta, _root=True):
     Note that ClassVar is not a class itself, and should not
     be used with isinstance() or issubclass().
     """
+
+    __metaclass__ = TypingMeta
 
     def __init__(self, tp=None, _root=False):
         cls = type(self)
