@@ -10,6 +10,8 @@ try:
     import collections.abc as collections_abc
 except ImportError:
     import collections as collections_abc  # Fallback for PY3.2.
+if sys.version_info[:2] >= (3, 3):
+    from collections import ChainMap
 
 
 # Please keep __all__ alphabetized within each category.
@@ -1203,45 +1205,142 @@ def _get_defaults(func):
     return res
 
 
-def get_type_hints(obj, globalns=None, localns=None):
-    """Return type hints for a function or method object.
+if sys.version_info[:2] >= (3, 3):
+    def get_type_hints(obj, globalns=None, localns=None):
+        """Return type hints for an object.
 
-    This is often the same as obj.__annotations__, but it handles
-    forward references encoded as string literals, and if necessary
-    adds Optional[t] if a default value equal to None is set.
+        This is often the same as obj.__annotations__, but it handles
+        forward references encoded as string literals, and if necessary
+        adds Optional[t] if a default value equal to None is set.
 
-    BEWARE -- the behavior of globalns and localns is counterintuitive
-    (unless you are familiar with how eval() and exec() work).  The
-    search order is locals first, then globals.
+        The argument may be a module, class, method, or function. The annotations
+        are returned as a dictionary, or in the case of a class, a ChainMap of
+        dictionaries.
 
-    - If no dict arguments are passed, an attempt is made to use the
-      globals from obj, and these are also used as the locals.  If the
-      object does not appear to have globals, an exception is raised.
+        TypeError is raised if the argument is not of a type that can contain
+        annotations, and an empty dictionary is returned if no annotations are
+        present.
 
-    - If one dict argument is passed, it is used for both globals and
-      locals.
+        BEWARE -- the behavior of globalns and localns is counterintuitive
+        (unless you are familiar with how eval() and exec() work).  The
+        search order is locals first, then globals.
 
-    - If two dict arguments are passed, they specify globals and
-      locals, respectively.
-    """
-    if getattr(obj, '__no_type_check__', None):
-        return {}
-    if globalns is None:
-        globalns = getattr(obj, '__globals__', {})
-        if localns is None:
+        - If no dict arguments are passed, an attempt is made to use the
+          globals from obj, and these are also used as the locals.  If the
+          object does not appear to have globals, an exception is raised.
+
+        - If one dict argument is passed, it is used for both globals and
+          locals.
+
+        - If two dict arguments are passed, they specify globals and
+          locals, respectively.
+        """
+
+        if getattr(obj, '__no_type_check__', None):
+            return {}
+        if globalns is None:
+            globalns = getattr(obj, '__globals__', {})
+            if localns is None:
+                localns = globalns
+        elif localns is None:
             localns = globalns
-    elif localns is None:
-        localns = globalns
-    defaults = _get_defaults(obj)
-    hints = dict(obj.__annotations__)
-    for name, value in hints.items():
-        if isinstance(value, str):
-            value = _ForwardRef(value)
-        value = _eval_type(value, globalns, localns)
-        if name in defaults and defaults[name] is None:
-            value = Optional[value]
-        hints[name] = value
-    return hints
+
+        if (isinstance(obj, types.FunctionType) or
+            isinstance(obj, types.BuiltinFunctionType) or
+            isinstance(obj, types.MethodType)):
+            defaults = _get_defaults(obj)
+            hints = obj.__annotations__
+            for name, value in hints.items():
+                if value is None:
+                    value = type(None)
+                if isinstance(value, str):
+                    value = _ForwardRef(value)
+                value = _eval_type(value, globalns, localns)
+                if name in defaults and defaults[name] is None:
+                    value = Optional[value]
+                hints[name] = value
+            return hints
+
+        if isinstance(obj, types.ModuleType):
+            try:
+                hints = obj.__annotations__
+            except AttributeError:
+                return {}
+            # we keep only those annotations that can be accessed on module
+            members = obj.__dict__
+            hints = {name: value for name, value in hints.items()
+                                              if name in members}
+            for name, value in hints.items():
+                if value is None:
+                    value = type(None)
+                if isinstance(value, str):
+                    value = _ForwardRef(value)
+                value = _eval_type(value, globalns, localns)
+                hints[name] = value
+            return hints
+
+        if isinstance(object, type):
+            cmap = None
+            for base in reversed(obj.__mro__):
+                new_map = collections.ChainMap if cmap is None else cmap.new_child
+                try:
+                    hints = base.__dict__['__annotations__']
+                except KeyError:
+                    cmap = new_map()
+                else:
+                    for name, value in hints.items():
+                        if value is None:
+                            value = type(None)
+                        if isinstance(value, str):
+                            value = _ForwardRef(value)
+                        value = _eval_type(value, globalns, localns)
+                        hints[name] = value
+                    cmap = new_map(hints)
+            return cmap
+
+        raise TypeError('{!r} is not a module, class, method, '
+                        'or function.'.format(obj))
+
+else:
+    def get_type_hints(obj, globalns=None, localns=None):
+        """Return type hints for a function or method object.
+
+        This is often the same as obj.__annotations__, but it handles
+        forward references encoded as string literals, and if necessary
+        adds Optional[t] if a default value equal to None is set.
+
+        BEWARE -- the behavior of globalns and localns is counterintuitive
+        (unless you are familiar with how eval() and exec() work).  The
+        search order is locals first, then globals.
+
+        - If no dict arguments are passed, an attempt is made to use the
+          globals from obj, and these are also used as the locals.  If the
+          object does not appear to have globals, an exception is raised.
+
+        - If one dict argument is passed, it is used for both globals and
+          locals.
+
+        - If two dict arguments are passed, they specify globals and
+          locals, respectively.
+        """
+        if getattr(obj, '__no_type_check__', None):
+            return {}
+        if globalns is None:
+            globalns = getattr(obj, '__globals__', {})
+            if localns is None:
+                localns = globalns
+        elif localns is None:
+            localns = globalns
+        defaults = _get_defaults(obj)
+        hints = dict(obj.__annotations__)
+        for name, value in hints.items():
+            if isinstance(value, str):
+                value = _ForwardRef(value)
+            value = _eval_type(value, globalns, localns)
+            if name in defaults and defaults[name] is None:
+                value = Optional[value]
+            hints[name] = value
+        return hints
 
 
 def no_type_check(arg):
