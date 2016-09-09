@@ -1141,8 +1141,8 @@ class _ClassVar(metaclass=TypingMeta, _root=True):
     should not be set on instances of that class. Usage::
 
       class Starship:
-          stats: ClassVar[Dict[str, int]] = {} # class variable
-          damage: int = 10                     # instance variable
+          stats = {}  # type: ClassVar[Dict[str, int]] # class variable
+          damage = 10 # type: int                      # instance variable
 
     ClassVar accepts only types and cannot be further subscribed.
 
