@@ -1165,8 +1165,8 @@ from collections import ChainMap
 class B:
     x: ClassVar[Optional['B']] = None
     y: int
-class C(B):
-    z: ClassVar['C'] = B()
+class CSub(B):
+    z: ClassVar['CSub'] = B()
 class G(Generic[T]):
     lst: ClassVar[List[T]] = []
 """
@@ -1211,10 +1211,10 @@ class GetTypeHintTests(BaseTestCase):
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_ClassVar(self):
-        self.assertEqual(gth(B, locals()),
+        self.assertEqual(gth(B, globals()),
                          ChainMap({'y': int, 'x': ClassVar[Optional[B]]}, {}))
-        self.assertEqual(gth(C, locals()),
-                         ChainMap({'z': ClassVar[C]},
+        self.assertEqual(gth(CSub, globals()),
+                         ChainMap({'z': ClassVar[CSub]},
                                   {'y': int, 'x': ClassVar[Optional[B]]}, {}))
         self.assertEqual(gth(G), ChainMap({'lst': ClassVar[List[T]]},{},{}))
 
