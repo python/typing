@@ -5,7 +5,9 @@ import re
 import sys
 from unittest import TestCase, main, skipUnless, SkipTest
 from collections import ChainMap
-from test import ann_module, ann_module2, ann_module3
+if sys.version_info[:2] >= (3, 6):
+    from test import ann_module, ann_module2, ann_module3
+from textwrap import dedent
 
 from typing import Any
 from typing import TypeVar, AnyStr
@@ -971,30 +973,32 @@ class ForwardRefTests(BaseTestCase):
 
     def test_get_type_hints(self):
         gth = get_type_hints
-        self.assertEqual(gth(ann_module), {'x': int, 'y': str})
-        self.assertEqual(gth(ann_module.C, ann_module.__dict__),
-                         ChainMap({'y': Optional[ann_module.C]}, {}))
-        self.assertEqual(gth(ann_module2), {})
-        self.assertEqual(gth(ann_module3), {})
-        self.assertEqual(repr(gth(ann_module.j_class)), 'ChainMap({}, {})')
-        self.assertEqual(gth(ann_module.M), ChainMap({'123': 123, 'o': type},
-                                                     {}, {}))
-        self.assertEqual(gth(ann_module.D),
-                         ChainMap({'j': str, 'k': str,
-                                   'y': Optional[ann_module.C]}, {}))
-        self.assertEqual(gth(ann_module.Y), ChainMap({'z': int}, {}))
-        self.assertEqual(gth(ann_module.h_class),
-                         ChainMap({}, {'y': Optional[ann_module.C]}, {}))
-        self.assertEqual(gth(ann_module.S), ChainMap({'x': str, 'y': str},
-                                                    {}))
-        self.assertEqual(gth(ann_module.foo), {'x': int})
+        if sys.version_info[:2] >= (3, 6):
+            self.assertEqual(gth(ann_module), {'x': int, 'y': str})
+            self.assertEqual(gth(ann_module.C, ann_module.__dict__),
+                             ChainMap({'y': Optional[ann_module.C]}, {}))
+            self.assertEqual(gth(ann_module2), {})
+            self.assertEqual(gth(ann_module3), {})
+            self.assertEqual(repr(gth(ann_module.j_class)), 'ChainMap({}, {})')
+            self.assertEqual(gth(ann_module.M), ChainMap({'123': 123, 'o': type},
+                                                         {}, {}))
+            self.assertEqual(gth(ann_module.D),
+                             ChainMap({'j': str, 'k': str,
+                                       'y': Optional[ann_module.C]}, {}))
+            self.assertEqual(gth(ann_module.Y), ChainMap({'z': int}, {}))
+            self.assertEqual(gth(ann_module.h_class),
+                             ChainMap({}, {'y': Optional[ann_module.C]}, {}))
+            self.assertEqual(gth(ann_module.S), ChainMap({'x': str, 'y': str},
+                                                         {}))
+            self.assertEqual(gth(ann_module.foo), {'x': int})
+            self.assertEqual(gth(ann_module2.NTC.meth), {})
 
         def testf(x, y): ...
         testf.__annotations__['x'] = 'int'
         self.assertEqual(gth(testf), {'x': int})
-        self.assertEqual(gth(ann_module2.NTC.meth), {})
 
         # interactions with ClassVar
+        stmt = dedent("""\
         class B:
             x: ClassVar[Optional['B']] = None
             y: int
@@ -1002,12 +1006,15 @@ class ForwardRefTests(BaseTestCase):
             z: ClassVar['C'] = B()
         class G(Generic[T]):
             lst: ClassVar[List[T]] = []
-        self.assertEqual(gth(B, locals()),
-                         ChainMap({'y': int, 'x': ClassVar[Optional[B]]}, {}))
-        self.assertEqual(gth(C, locals()),
-                        ChainMap({'z': ClassVar[C]},
-                                 {'y': int, 'x': ClassVar[Optional[B]]}, {}))
-        self.assertEqual(gth(G), ChainMap({'lst': ClassVar[List[T]]},{},{}))
+        """)
+        if sys.version_info[:2] >= (3, 6):
+            exec(stmt)
+            self.assertEqual(gth(B, locals()),
+                             ChainMap({'y': int, 'x': ClassVar[Optional[B]]}, {}))
+            self.assertEqual(gth(C, locals()),
+                             ChainMap({'z': ClassVar[C]},
+                                      {'y': int, 'x': ClassVar[Optional[B]]}, {}))
+            self.assertEqual(gth(G), ChainMap({'lst': ClassVar[List[T]]},{},{}))
 
     def test_forwardref_instance_type_error(self):
         fr = typing._ForwardRef('int')
