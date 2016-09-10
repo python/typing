@@ -18,6 +18,7 @@ __all__ = [
     # Super-special typing primitives.
     'Any',
     'Callable',
+    'ClassVar',
     'Generic',
     'Optional',
     'Tuple',
@@ -265,7 +266,7 @@ class _TypeAlias(object):
 
 def _get_type_vars(types, tvars):
     for t in types:
-        if isinstance(t, TypingMeta):
+        if isinstance(t, TypingMeta) or isinstance(t, _ClassVar):
             t._get_type_vars(tvars)
 
 
@@ -276,7 +277,7 @@ def _type_vars(types):
 
 
 def _eval_type(t, globalns, localns):
-    if isinstance(t, TypingMeta):
+    if isinstance(t, TypingMeta) or isinstance(t, _ClassVar):
         return t._eval_type(globalns, localns)
     else:
         return t
@@ -318,6 +319,78 @@ def _type_repr(obj):
             return '%s.%s' % (obj.__module__, _qualname(obj))
     else:
         return repr(obj)
+
+
+class ClassVarMeta(TypingMeta):
+    """Metaclass for _ClassVar"""
+
+    def __new__(cls, name, bases, namespace):
+        cls.assert_no_subclassing(bases)
+        self = super(ClassVarMeta, cls).__new__(cls, name, bases, namespace)
+        return self
+
+
+class _ClassVar(object):
+    """Special type construct to mark class variables.
+
+    An annotation wrapped in ClassVar indicates that a given
+    attribute is intended to be used as a class variable and
+    should not be set on instances of that class. Usage::
+
+      class Starship:
+          stats = {}  # type: ClassVar[Dict[str, int]] # class variable
+          damage = 10 # type: int                      # instance variable
+
+    ClassVar accepts only types and cannot be further subscribed.
+
+    Note that ClassVar is not a class itself, and should not
+    be used with isinstance() or issubclass().
+    """
+
+    __metaclass__ = ClassVarMeta
+
+    def __init__(self, tp=None, _root=False):
+        cls = type(self)
+        if _root:
+            self.__type__ = tp
+        else:
+            raise TypeError('Cannot initialize {}'.format(cls.__name__[1:]))
+
+    def __getitem__(self, item):
+        cls = type(self)
+        if self.__type__ is None:
+            return cls(_type_check(item,
+                       '{} accepts only types.'.format(cls.__name__[1:])),
+                       _root=True)
+        raise TypeError('{} cannot be further subscripted'
+                        .format(cls.__name__[1:]))
+
+    def _eval_type(self, globalns, localns):
+        return type(self)(_eval_type(self.__type__, globalns, localns),
+                          _root=True)
+
+    def _get_type_vars(self, tvars):
+        if self.__type__:
+            _get_type_vars(self.__type__, tvars)
+
+    def __repr__(self):
+        cls = type(self)
+        if not self.__type__:
+            return '{}.{}'.format(cls.__module__, cls.__name__[1:])
+        return '{}.{}[{}]'.format(cls.__module__, cls.__name__[1:],
+                                  _type_repr(self.__type__))
+
+    def __hash__(self):
+        return hash((type(self).__name__, self.__type__))
+
+    def __eq__(self, other):
+        if not isinstance(other, _ClassVar):
+            return NotImplemented
+        if self.__type__ is not None:
+            return self.__type__ == other.__type__
+        return self is other
+
+ClassVar = _ClassVar(_root=True)
 
 
 class AnyMeta(TypingMeta):
