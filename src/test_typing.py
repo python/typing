@@ -1213,7 +1213,7 @@ class GetTypeHintTests(BaseTestCase):
             def meth(x: int): ...
         @no_type_check
         class Der(ABase): ...
-        self.assertEqual(gth(ABase.meth), {'x':int})
+        self.assertEqual(gth(ABase.meth), {'x': int})
 
 
     def test_previous_behavior(self):
