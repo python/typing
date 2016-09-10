@@ -1354,7 +1354,7 @@ class AllTests(BaseTestCase):
         self.assertIn('Text', a)
 
     def test_respect_no_type_check(self):
-        @no_type_check
+        @typing.no_type_check
         class NoTpCheck(object):
             class Inn(object):
                 def __init__(self, x): pass
