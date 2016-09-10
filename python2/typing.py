@@ -1241,17 +1241,25 @@ def no_type_check(arg):
     """Decorator to indicate that annotations are not type hints.
 
     The argument must be a class or function; if it is a class, it
-    applies recursively to all methods defined in that class (but not
-    to methods defined in its superclasses or subclasses).
+    applies recursively to all methods and classes defined in that class
+    (but not to methods defined in its superclasses or subclasses).
 
-    This mutates the function(s) in place.
+    This mutates the function(s) or class(es) in place.
     """
     if isinstance(arg, type):
-        for obj in arg.__dict__.values():
+        arg_attrs = arg.__dict__.copy()
+        for attr, val in arg.__dict__.items():
+            if val in arg.__bases__:
+                arg_attrs.pop(attr)
+        for obj in arg_attrs.values():
             if isinstance(obj, types.FunctionType):
                 obj.__no_type_check__ = True
-    else:
+            if isinstance(obj, type):
+                no_type_check(obj)
+    try:
         arg.__no_type_check__ = True
+    except TypeError: # built-in classes
+        pass
     return arg
 
 

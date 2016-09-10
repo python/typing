@@ -1353,6 +1353,15 @@ class AllTests(BaseTestCase):
         # Check that Text is defined.
         self.assertIn('Text', a)
 
+    def test_respect_no_type_check(self):
+        @no_type_check
+        class NoTpCheck(object):
+            class Inn(object):
+                def __init__(self, x): pass
+                    # type: (this is not actualy a type) -> None
+        self.assertTrue(NoTpCheck.__no_type_check__)
+        self.assertTrue(NoTpCheck.Inn.__init__.__no_type_check__)
+
     def test_get_type_hints_dummy(self):
 
         def foo(x):
