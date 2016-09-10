@@ -1209,6 +1209,12 @@ class GetTypeHintTests(BaseTestCase):
         self.assertTrue(NoTpCheck.__no_type_check__)
         self.assertTrue(NoTpCheck.Inn.__init__.__no_type_check__)
         self.assertEqual(gth(ann_module2.NTC.meth), {})
+        class ABase(Generic[T]):
+            def meth(x: int): ...
+        @no_type_check
+        class Der(ABase): ...
+        self.assertEqual(gth(ABase.meth), {'x':int})
+
 
     def test_previous_behavior(self):
         def testf(x, y): ...

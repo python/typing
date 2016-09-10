@@ -1353,12 +1353,19 @@ def no_type_check(arg):
     This mutates the function(s) or class(es) in place.
     """
     if isinstance(arg, type):
-        for obj in arg.__dict__.values():
+        arg_attrs = arg.__dict__.copy()
+        for attr, val in arg.__dict__.items():
+            if val in arg.__bases__:
+                arg_attrs.pop(attr)
+        for obj in arg_attrs.values():
             if isinstance(obj, types.FunctionType):
                 obj.__no_type_check__ = True
             if isinstance(obj, type):
                 no_type_check(obj)
-    arg.__no_type_check__ = True
+    try:
+        arg.__no_type_check__ = True
+    except TypeError: # built-in classes
+        pass
     return arg
 
 
