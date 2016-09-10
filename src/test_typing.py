@@ -1202,6 +1202,12 @@ class GetTypeHintTests(BaseTestCase):
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_respect_no_type_check(self):
+        @no_type_check
+        class NoTpCheck:
+            class Inn:
+                def __init__(self, x: 'not a type'): ...
+        self.assertTrue(NoTpCheck.__no_type_check__)
+        self.assertTrue(NoTpCheck.Inn.__init__.__no_type_check__)
         self.assertEqual(gth(ann_module2.NTC.meth), {})
 
     def test_previous_behavior(self):
