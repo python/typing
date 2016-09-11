@@ -1169,6 +1169,7 @@ class CSub(B):
     z: ClassVar['CSub'] = B()
 class G(Generic[T]):
     lst: ClassVar[List[T]] = []
+
 class CoolEmployee(NamedTuple):
     name: str
     cool: int
