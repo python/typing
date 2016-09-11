@@ -1811,39 +1811,57 @@ def _make_nmtuple(name, types):
     return nm_tpl
 
 
-class NamedTupleMeta(type):
+if sys.version[:2] >= (3, 6):
+    class NamedTupleMeta(type):
 
-    def __new__(cls, typename, bases, ns, *, _root=False):
-        if _root:
-            return super().__new__(cls, typename, bases, ns)
-        types = ns.get('__annotations__', {})
-        return _make_nmtuple(typename, types)
+        def __new__(cls, typename, bases, ns, *, _root=False):
+            if _root:
+                return super().__new__(cls, typename, bases, ns)
+            types = ns.get('__annotations__', {})
+            return _make_nmtuple(typename, types)
 
+    class NamedTuple(metaclass=NamedTupleMeta, _root=True):
+        """Typed version of namedtuple.
 
-class NamedTuple(metaclass=NamedTupleMeta, _root=True):
-    """Typed version of namedtuple.
+        Usage::
 
-    Usage::
+            class Employee(NamedTuple):
+                name: str
+                id: int
 
-        class Employee(NamedTuple):
-            name: str
-            id: int
+        This is equivalent to::
 
-    This is equivalent to::
+            Employee = collections.namedtuple('Employee', ['name', 'id'])
 
-        Employee = collections.namedtuple('Employee', ['name', 'id'])
+        The resulting class has one extra attribute: _field_types,
+        giving a dict mapping field names to types.  (The field names
+        are in the _fields attribute, which is part of the namedtuple
+        API.) Backward-compatible usage::
 
-    The resulting class has one extra attribute: _field_types,
-    giving a dict mapping field names to types.  (The field names
-    are in the _fields attribute, which is part of the namedtuple
-    API.) Backward-compatible usage::
+            Employee = NamedTuple('Employee', [('name', str), ('id', int)])
+        """
 
-        Employee = NamedTuple('Employee', [('name', str), ('id', int)])
-    """
+        def __new__(self, typename, fields):
+            types = dict(fields)
+            return _make_nmtuple(typename, types)
+else:
+    def NamedTuple(typename, fields):
+        """Typed version of namedtuple.
 
-    def __new__(self, typename, fields):
-        types = dict(fields)
-        return _make_nmtuple(typename, types)
+        Usage::
+
+            Employee = typing.NamedTuple('Employee', [('name', str), 'id', int)])
+
+        This is equivalent to::
+
+            Employee = collections.namedtuple('Employee', ['name', 'id'])
+
+        The resulting class has one extra attribute: _field_types,
+        giving a dict mapping field names to types.  (The field names
+        are in the _fields attribute, which is part of the namedtuple
+        API.)
+        """
+        return _make_nmtuple(typename, dict(fields))
 
 
 def NewType(name, tp):
