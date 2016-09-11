@@ -1802,7 +1802,7 @@ class Type(Generic[CT_co], extra=type):
 
 
 def _make_nmtuple(name, types):
-    nm_tpl = collections.namedtuple(name, [n for n in types])
+    nm_tpl = collections.namedtuple(name, [n for n, t in types])
     nm_tpl._field_types = types
     try:
         nm_tpl.__module__ = sys._getframe(2).f_globals.get('__name__', '__main__')
@@ -1818,7 +1818,7 @@ if sys.version_info[:2] >= (3, 6):
             if _root:
                 return super().__new__(cls, typename, bases, ns)
             types = ns.get('__annotations__', {})
-            return _make_nmtuple(typename, types)
+            return _make_nmtuple(typename, types.items())
 
     class NamedTuple(metaclass=NamedTupleMeta, _root=True):
         """Typed version of namedtuple.
@@ -1842,8 +1842,7 @@ if sys.version_info[:2] >= (3, 6):
         """
 
         def __new__(self, typename, fields):
-            types = dict(fields)
-            return _make_nmtuple(typename, types)
+            return _make_nmtuple(typename, fileds)
 else:
     def NamedTuple(typename, fields):
         """Typed version of namedtuple.
@@ -1861,7 +1860,7 @@ else:
         are in the _fields attribute, which is part of the namedtuple
         API.)
         """
-        return _make_nmtuple(typename, dict(fields))
+        return _make_nmtuple(typename, fields)
 
 
 def NewType(name, tp):
