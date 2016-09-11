@@ -1811,7 +1811,7 @@ def _make_nmtuple(name, types):
     return nm_tpl
 
 
-if sys.version[:2] >= (3, 6):
+if sys.version_info[:2] >= (3, 6):
     class NamedTupleMeta(type):
 
         def __new__(cls, typename, bases, ns, *, _root=False):
