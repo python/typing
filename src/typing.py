@@ -1801,12 +1801,29 @@ class Type(Generic[CT_co], extra=type):
     """
 
 
-def NamedTuple(typename, fields):
+class NamedTupleMeta(type):
+
+    def __new__(cls, name, bases, ns, *, _root=False):
+        if _root:
+            return super().__new__(cls, name, bases, ns)
+        types = ns.get('__annotations__', {})
+        nm_tpl = collections.namedtuple(name, [n for n in types])
+        nm_tpl._field_types = types
+        try:
+            nm_tpl.__module__ = sys._getframe(1).f_globals.get('__name__', '__main__')
+        except (AttributeError, ValueError):
+            pass
+        return nm_tpl
+
+
+class NamedTuple(metaclass=NamedTupleMeta, _root=True):
     """Typed version of namedtuple.
 
     Usage::
 
-        Employee = typing.NamedTuple('Employee', [('name', str), 'id', int)])
+        class Employee(NamedTuple):
+            name: str
+            id: int
 
     This is equivalent to::
 
@@ -1815,17 +1832,20 @@ def NamedTuple(typename, fields):
     The resulting class has one extra attribute: _field_types,
     giving a dict mapping field names to types.  (The field names
     are in the _fields attribute, which is part of the namedtuple
-    API.)
+    API.) Backward-compatible usage::
+
+        Employee = NamedTuple('Employee', [('name', str), ('id', int)])
     """
-    fields = [(n, t) for n, t in fields]
-    cls = collections.namedtuple(typename, [n for n, t in fields])
-    cls._field_types = dict(fields)
-    # Set the module to the caller's module (otherwise it'd be 'typing').
-    try:
-        cls.__module__ = sys._getframe(1).f_globals.get('__name__', '__main__')
-    except (AttributeError, ValueError):
-        pass
-    return cls
+
+    def __new__(self, typename, fields):
+        cls = collections.namedtuple(typename, [n for n, t in fields])
+        cls._field_types = dict(fields)
+        # Set the module to the caller's module (otherwise it'd be 'typing').
+        try:
+            cls.__module__ = sys._getframe(1).f_globals.get('__name__', '__main__')
+        except (AttributeError, ValueError):
+            pass
+        return cls
 
 
 def NewType(name, tp):

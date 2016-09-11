@@ -1169,6 +1169,9 @@ class CSub(B):
     z: ClassVar['CSub'] = B()
 class G(Generic[T]):
     lst: ClassVar[List[T]] = []
+class CoolEmployee(NamedTuple):
+    name: str
+    cool: int
 """
 
 if PY36:
@@ -1585,6 +1588,17 @@ class NamedTupleTests(BaseTestCase):
         self.assertEqual(Emp.__name__, 'Emp')
         self.assertEqual(Emp._fields, ('name', 'id'))
         self.assertEqual(Emp._field_types, dict(name=str, id=int))
+
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_annotation_usage(self):
+        tim = CoolEmployee('Tim', 9000)
+        self.assertIsInstance(tim, CoolEmployee)
+        self.assertIsInstance(tim, tuple)
+        self.assertEqual(tim.name, 'Tim')
+        self.assertEqual(tim.cool, 9000)
+        self.assertEqual(CoolEmployee.__name__, 'CoolEmployee')
+        self.assertEqual(CoolEmployee._fields, ('name', 'cool'))
+        self.assertEqual(CoolEmployee._field_types, dict(name=str, cool=int))
 
     def test_pickle(self):
         global Emp  # pickle wants to reference the class by name
