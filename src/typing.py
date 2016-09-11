@@ -1803,7 +1803,7 @@ class Type(Generic[CT_co], extra=type):
 
 def _make_nmtuple(name, types):
     nm_tpl = collections.namedtuple(name, [n for n, t in types])
-    nm_tpl._field_types = types
+    nm_tpl._field_types = dict(types)
     try:
         nm_tpl.__module__ = sys._getframe(2).f_globals.get('__name__', '__main__')
     except (AttributeError, ValueError):
