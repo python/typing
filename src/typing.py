@@ -1842,7 +1842,7 @@ if sys.version_info[:2] >= (3, 6):
         """
 
         def __new__(self, typename, fields):
-            return _make_nmtuple(typename, fileds)
+            return _make_nmtuple(typename, fields)
 else:
     def NamedTuple(typename, fields):
         """Typed version of namedtuple.
