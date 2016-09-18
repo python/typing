@@ -1,5 +1,6 @@
 import abc
 from abc import abstractmethod, abstractproperty
+from functools import lru_cache
 import collections
 import contextlib
 import functools
@@ -910,6 +911,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def __hash__(self):
         return hash((self.__name__, self.__parameters__))
 
+    @lru_cache(maxsize=25)
     def __getitem__(self, params):
         if not isinstance(params, tuple):
             params = (params,)
