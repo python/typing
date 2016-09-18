@@ -1114,13 +1114,8 @@ class CollectionsAbcTests(BaseTestCase):
             globals(), ns)
         foo = ns['foo']
         g = foo()
-        self.assertIsSubclass(type(g), typing.Awaitable[int])
         self.assertIsInstance(g, typing.Awaitable)
         self.assertNotIsInstance(foo, typing.Awaitable)
-        self.assertIsSubclass(typing.Awaitable[Manager],
-                          typing.Awaitable[Employee])
-        self.assertNotIsSubclass(typing.Awaitable[Employee],
-                              typing.Awaitable[Manager])
         g.send(None)  # Run foo() till completion, to avoid warning.
 
     @skipUnless(PY35, 'Python 3.5 required')
@@ -1129,8 +1124,6 @@ class CollectionsAbcTests(BaseTestCase):
         it = AsyncIteratorWrapper(base_it)
         self.assertIsInstance(it, typing.AsyncIterable)
         self.assertIsInstance(it, typing.AsyncIterable)
-        self.assertIsSubclass(typing.AsyncIterable[Manager],
-                          typing.AsyncIterable[Employee])
         self.assertNotIsInstance(42, typing.AsyncIterable)
 
     @skipUnless(PY35, 'Python 3.5 required')
@@ -1138,8 +1131,6 @@ class CollectionsAbcTests(BaseTestCase):
         base_it = range(10)  # type: Iterator[int]
         it = AsyncIteratorWrapper(base_it)
         self.assertIsInstance(it, typing.AsyncIterator)
-        self.assertIsSubclass(typing.AsyncIterator[Manager],
-                          typing.AsyncIterator[Employee])
         self.assertNotIsInstance(42, typing.AsyncIterator)
 
     def test_sized(self):
