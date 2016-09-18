@@ -538,7 +538,7 @@ class _Union(Final, metaclass=TypingMeta, _root=True):
             if not isinstance(t1, type):
                 continue
             if any(isinstance(t2, type) and issubclass(t1, t2)
-                   for t2 in all_params - {t1} if not isinstance(t2, TypeVar)):
+                   for t2 in all_params - {t1} if not (isinstance(t2, GenericMeta) and t2.__origin__ is not None)):
                 all_params.remove(t1)
         # It's not a union if there's only one type left.
         if len(all_params) == 1:
@@ -965,44 +965,13 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         return self.__subclasscheck__(instance.__class__)
 
     def __subclasscheck__(self, cls):
-        if cls is Any:
-            return True
-        if isinstance(cls, GenericMeta):
-            # For a covariant class C(Generic[T]),
-            # C[X] is a subclass of C[Y] iff X is a subclass of Y.
-            origin = self.__origin__
-            if origin is not None and origin is cls.__origin__:
-                assert len(self.__args__) == len(origin.__parameters__)
-                assert len(cls.__args__) == len(origin.__parameters__)
-                for p_self, p_cls, p_origin in zip(self.__args__,
-                                                   cls.__args__,
-                                                   origin.__parameters__):
-                    if isinstance(p_origin, TypeVar):
-                        if p_origin.__covariant__:
-                            # Covariant -- p_cls must be a subclass of p_self.
-                            if not issubclass(p_cls, p_self):
-                                break
-                        elif p_origin.__contravariant__:
-                            # Contravariant.  I think it's the opposite. :-)
-                            if not issubclass(p_self, p_cls):
-                                break
-                        else:
-                            # Invariant -- p_cls and p_self must equal.
-                            if p_self != p_cls:
-                                break
-                    else:
-                        # If the origin's parameter is not a typevar,
-                        # insist on invariance.
-                        if p_self != p_cls:
-                            break
-                else:
-                    return True
-                # If we break out of the loop, the superclass gets a chance.
+        if self.__origin__ is not None and sys._getframe(1).f_globals['__name__'] != 'abc':
+            raise TypeError('Parameterized Generic could not be used with class or instance checks')
         if super().__subclasscheck__(cls):
             return True
-        if self.__extra__ is None or isinstance(cls, GenericMeta):
-            return False
-        return issubclass(cls, self.__extra__)
+        if self.__extra__ is not None:
+            return issubclass(cls, self.__extra__)
+        return False
 
 
 # Prevent checks for Generic to crash when defining Generic.

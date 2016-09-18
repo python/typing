@@ -504,6 +504,12 @@ class GenericTests(BaseTestCase):
         with self.assertRaises(TypeError):
             Y[str, str]
 
+    def test_generic_errors(self):
+        with self.assertRaises(TypeError):
+            isinstance([], List[int])
+        with self.assertRaises(TypeError):
+            issubclass(list, List[int])
+
     def test_init(self):
         T = TypeVar('T')
         S = TypeVar('S')
@@ -751,39 +757,6 @@ class ClassVarTests(BaseTestCase):
             isinstance(1, ClassVar[int])
         with self.assertRaises(TypeError):
             issubclass(int, ClassVar)
-
-
-class VarianceTests(BaseTestCase):
-
-    def test_invariance(self):
-        # Because of invariance, List[subclass of X] is not a subclass
-        # of List[X], and ditto for MutableSequence.
-        self.assertNotIsSubclass(typing.List[Manager], typing.List[Employee])
-        self.assertNotIsSubclass(typing.MutableSequence[Manager],
-                              typing.MutableSequence[Employee])
-        # It's still reflexive.
-        self.assertIsSubclass(typing.List[Employee], typing.List[Employee])
-        self.assertIsSubclass(typing.MutableSequence[Employee],
-                          typing.MutableSequence[Employee])
-
-    def test_covariance_sequence(self):
-        # Check covariance for Sequence (which is just a generic class
-        # for this purpose, but using a type variable with covariant=True).
-        self.assertIsSubclass(typing.Sequence[Manager],
-                              typing.Sequence[Employee])
-        self.assertNotIsSubclass(typing.Sequence[Employee],
-                              typing.Sequence[Manager])
-
-    def test_covariance_mapping(self):
-        # Ditto for Mapping (covariant in the value, invariant in the key).
-        self.assertIsSubclass(typing.Mapping[Employee, Manager],
-                          typing.Mapping[Employee, Employee])
-        self.assertNotIsSubclass(typing.Mapping[Manager, Employee],
-                              typing.Mapping[Employee, Employee])
-        self.assertNotIsSubclass(typing.Mapping[Employee, Manager],
-                              typing.Mapping[Manager, Manager])
-        self.assertNotIsSubclass(typing.Mapping[Manager, Employee],
-                              typing.Mapping[Manager, Manager])
 
 
 class CastTests(BaseTestCase):
@@ -1122,7 +1095,6 @@ class CollectionsAbcTests(BaseTestCase):
         # path and could fail.  So call this a few times.
         self.assertIsInstance([], typing.Iterable)
         self.assertIsInstance([], typing.Iterable)
-        self.assertIsInstance([], typing.Iterable[int])
         self.assertNotIsInstance(42, typing.Iterable)
         # Just in case, also test issubclass() a few times.
         self.assertIsSubclass(list, typing.Iterable)
@@ -1131,7 +1103,6 @@ class CollectionsAbcTests(BaseTestCase):
     def test_iterator(self):
         it = iter([])
         self.assertIsInstance(it, typing.Iterator)
-        self.assertIsInstance(it, typing.Iterator[int])
         self.assertNotIsInstance(42, typing.Iterator)
 
     @skipUnless(PY35, 'Python 3.5 required')
@@ -1332,10 +1303,6 @@ class CollectionsAbcTests(BaseTestCase):
             yield 42
         g = foo()
         self.assertIsSubclass(type(g), typing.Generator)
-        self.assertIsSubclass(typing.Generator[Manager, Employee, Manager],
-                          typing.Generator[Employee, Manager, Employee])
-        self.assertNotIsSubclass(typing.Generator[Manager, Manager, Manager],
-                              typing.Generator[Employee, Employee, Employee])
 
     def test_no_generator_instantiation(self):
         with self.assertRaises(TypeError):
