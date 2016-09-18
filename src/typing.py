@@ -844,6 +844,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def __new__(cls, name, bases, namespace,
                 tvars=None, args=None, origin=None, extra=None):
         self = super().__new__(cls, name, bases, namespace, _root=True)
+
         if tvars is not None:
             # Called from __getitem__() below.
             assert origin is not None
@@ -1599,7 +1600,7 @@ class _FrozenSetMeta(GenericMeta):
     def __subclasscheck__(self, cls):
         if issubclass(cls, Set):
             return False
-        return abc.ABCMeta.__subclasscheck__(self, cls)
+        return super().__subclasscheck__(cls)
 
 
 class FrozenSet(frozenset, AbstractSet[T_co], metaclass=_FrozenSetMeta,
