@@ -179,8 +179,16 @@ class UnionTests(BaseTestCase):
     def test_basics(self):
         u = Union[int, float]
         self.assertNotEqual(u, Union)
-        self.assertTrue(issubclass(int, u))
-        self.assertTrue(issubclass(float, u))
+
+    def test_subclass_error(self):
+        with self.assertRaises(TypeError):
+            issubclass(int, Union)
+        with self.assertRaises(TypeError):
+            issubclass(Union, int)
+        with self.assertRaises(TypeError):
+            issubclass(int, Union[int, str])
+        with self.assertRaises(TypeError):
+            issubclass(Union[int, str], int)
 
     def test_union_any(self):
         u = Union[Any]
@@ -209,18 +217,6 @@ class UnionTests(BaseTestCase):
         u2 = Union[float, int]
         self.assertEqual(u1, u2)
 
-    def test_subclass(self):
-        u = Union[int, Employee]
-        self.assertTrue(issubclass(Manager, u))
-
-    def test_self_subclass(self):
-        self.assertTrue(issubclass(Union[KT, VT], Union))
-        self.assertFalse(issubclass(Union, Union[KT, VT]))
-
-    def test_multiple_inheritance(self):
-        u = Union[int, Employee]
-        self.assertTrue(issubclass(ManagingFounder, u))
-
     def test_single_class_disappears(self):
         t = Union[Employee]
         self.assertIs(t, Employee)
@@ -232,13 +228,6 @@ class UnionTests(BaseTestCase):
         self.assertEqual(u, Union[int, Employee])
         u = Union[Employee, Manager]
         self.assertIs(u, Employee)
-
-    def test_weird_subclasses(self):
-        u = Union[Employee, int, float]
-        v = Union[int, float]
-        self.assertTrue(issubclass(v, u))
-        w = Union[int, Manager]
-        self.assertTrue(issubclass(w, u))
 
     def test_union_union(self):
         u = Union[int, float]
@@ -276,10 +265,6 @@ class UnionTests(BaseTestCase):
         with self.assertRaises(TypeError):
             Union[()]
 
-    def test_issubclass_union(self):
-        self.assertIsSubclass(Union[int, str], Union)
-        self.assertNotIsSubclass(int, Union)
-
     def test_union_instance_type_error(self):
         with self.assertRaises(TypeError):
             isinstance(42, Union[int, str])
@@ -304,24 +289,19 @@ class UnionTests(BaseTestCase):
         Union[Elem, str]  # Nor should this
 
 
-class TypeVarUnionTests(BaseTestCase):
-
-    def test_var_union_subclass(self):
-        self.assertTrue(issubclass(T, Union[int, T]))
-        self.assertTrue(issubclass(KT, Union[KT, VT]))
-
-
 class TupleTests(BaseTestCase):
 
     def test_basics(self):
-        self.assertTrue(issubclass(Tuple[int, str], Tuple))
-        self.assertTrue(issubclass(Tuple[int, str], Tuple[int, str]))
-        self.assertFalse(issubclass(int, Tuple))
-        self.assertFalse(issubclass(Tuple[float, str], Tuple[int, str]))
-        self.assertFalse(issubclass(Tuple[int, str, int], Tuple[int, str]))
-        self.assertFalse(issubclass(Tuple[int, str], Tuple[int, str, int]))
+        with self.assertRaises(TypeError):
+            issubclass(Tuple[int, str], Tuple)
+        with self.assertRaises(TypeError):
+            issubclass(Tuple, Tuple[int, str])
+        with self.assertRaises(TypeError):
+            issubclass(tuple, Tuple[int, str])
+
+        class TP(tuple): ...
         self.assertTrue(issubclass(tuple, Tuple))
-        self.assertFalse(issubclass(Tuple, tuple))  # Can't have it both ways.
+        self.assertTrue(issubclass(TP, Tuple))
 
     def test_equality(self):
         self.assertEqual(Tuple[int], Tuple[int])
@@ -337,21 +317,7 @@ class TupleTests(BaseTestCase):
     def test_tuple_instance_type_error(self):
         with self.assertRaises(TypeError):
             isinstance((0, 0), Tuple[int, int])
-        with self.assertRaises(TypeError):
-            isinstance((0, 0), Tuple)
-
-    def test_tuple_ellipsis_subclass(self):
-
-        class B:
-            pass
-
-        class C(B):
-            pass
-
-        self.assertNotIsSubclass(Tuple[B], Tuple[B, ...])
-        self.assertIsSubclass(Tuple[C, ...], Tuple[B, ...])
-        self.assertNotIsSubclass(Tuple[C, ...], Tuple[B])
-        self.assertNotIsSubclass(Tuple[C], Tuple[B, ...])
+        self.assertIsInstance((0, 0), Tuple)
 
     def test_repr(self):
         self.assertEqual(repr(Tuple), 'typing.Tuple')
@@ -369,17 +335,9 @@ class TupleTests(BaseTestCase):
 class CallableTests(BaseTestCase):
 
     def test_self_subclass(self):
-        self.assertTrue(issubclass(Callable[[int], int], Callable))
-        self.assertFalse(issubclass(Callable, Callable[[int], int]))
-        self.assertTrue(issubclass(Callable[[int], int], Callable[[int], int]))
-        self.assertFalse(issubclass(Callable[[Employee], int],
-                                    Callable[[Manager], int]))
-        self.assertFalse(issubclass(Callable[[Manager], int],
-                                    Callable[[Employee], int]))
-        self.assertFalse(issubclass(Callable[[int], Employee],
-                                    Callable[[int], Manager]))
-        self.assertFalse(issubclass(Callable[[int], Manager],
-                                    Callable[[int], Employee]))
+        with self.assertRaises(TypeError):
+            self.assertTrue(issubclass(type(lambda x: x), Callable[[int], int]))
+        self.assertTrue(issubclass(type(lambda x: x), Callable))
 
     def test_eq_hash(self):
         self.assertEqual(Callable[[int], int], Callable[[int], int])
@@ -807,19 +765,6 @@ class VarianceTests(BaseTestCase):
         self.assertIsSubclass(typing.List[Employee], typing.List[Employee])
         self.assertIsSubclass(typing.MutableSequence[Employee],
                           typing.MutableSequence[Employee])
-
-    def test_covariance_tuple(self):
-        # Check covariace for Tuple (which are really special cases).
-        self.assertIsSubclass(Tuple[Manager], Tuple[Employee])
-        self.assertNotIsSubclass(Tuple[Employee], Tuple[Manager])
-        # And pairwise.
-        self.assertIsSubclass(Tuple[Manager, Manager],
-                              Tuple[Employee, Employee])
-        self.assertNotIsSubclass(Tuple[Employee, Employee],
-                              Tuple[Manager, Employee])
-        # And using ellipsis.
-        self.assertIsSubclass(Tuple[Manager, ...], Tuple[Employee, ...])
-        self.assertNotIsSubclass(Tuple[Employee, ...], Tuple[Manager, ...])
 
     def test_covariance_sequence(self):
         # Check covariance for Sequence (which is just a generic class
