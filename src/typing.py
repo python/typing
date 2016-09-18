@@ -1589,22 +1589,7 @@ class Set(set, MutableSet[T], extra=set):
         return set.__new__(cls, *args, **kwds)
 
 
-class _FrozenSetMeta(GenericMeta):
-    """This metaclass ensures set is not a subclass of FrozenSet.
-
-    Without this metaclass, set would be considered a subclass of
-    FrozenSet, because FrozenSet.__extra__ is collections.abc.Set, and
-    set is a subclass of that.
-    """
-
-    def __subclasscheck__(self, cls):
-        if issubclass(cls, Set):
-            return False
-        return super().__subclasscheck__(cls)
-
-
-class FrozenSet(frozenset, AbstractSet[T_co], metaclass=_FrozenSetMeta,
-                extra=frozenset):
+class FrozenSet(frozenset, AbstractSet[T_co], extra=frozenset):
     __slots__ = ()
 
     def __new__(cls, *args, **kwds):
