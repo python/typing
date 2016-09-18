@@ -539,7 +539,9 @@ class _Union(Final, metaclass=TypingMeta, _root=True):
             if not isinstance(t1, type):
                 continue
             if any(isinstance(t2, type) and issubclass(t1, t2)
-                   for t2 in all_params - {t1} if not (isinstance(t2, GenericMeta) and t2.__origin__ is not None)):
+                   for t2 in all_params - {t1}
+                   if not (isinstance(t2, GenericMeta) and
+                           t2.__origin__ is not None)):
                 all_params.remove(t1)
         # It's not a union if there's only one type left.
         if len(all_params) == 1:
@@ -685,12 +687,14 @@ class _Tuple(Final, metaclass=TypingMeta, _root=True):
     def __instancecheck__(self, obj):
         if self.__tuple_params__ == None:
             return isinstance(obj, tuple)
-        raise TypeError("Parameterized Tuple cannot be used with isinstance().")
+        raise TypeError("Parameterized Tuple cannot be used "
+                        "with isinstance().")
 
     def __subclasscheck__(self, cls):
         if self.__tuple_params__ == None:
             return issubclass(cls, tuple)
-        raise TypeError("Parameterized Tuple cannot be used with issubclass().")
+        raise TypeError("Parameterized Tuple cannot be used "
+                        "with issubclass().")
 
 
 Tuple = _Tuple(_root=True)
@@ -777,13 +781,15 @@ class _Callable(Final, metaclass=TypingMeta, _root=True):
         if self.__args__ is None and self.__result__ is None:
             return isinstance(obj, collections_abc.Callable)
         else:
-            raise TypeError("Parameterized Callable cannot be used with isinstance().")
+            raise TypeError("Parameterized Callable cannot be used "
+                            "with isinstance().")
 
     def __subclasscheck__(self, cls):
         if self.__args__ is None and self.__result__ is None:
             return issubclass(cls, collections_abc.Callable)
         else:
-            raise TypeError("Parameterized Callable cannot be used with issubclass().")
+            raise TypeError("Parameterized Callable cannot be used "
+                            "with issubclass().")
 
 
 Callable = _Callable(_root=True)
@@ -980,9 +986,12 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 
     def __subclasscheck__(self, cls):
         if self is Generic:
-            raise TypeError("Class %r can't be used with class or instance checks" % self)
-        if self.__origin__ is not None and sys._getframe(1).f_globals['__name__'] != 'abc':
-            raise TypeError("Parameterized generics can't be used with class or instance checks")
+            raise TypeError("Class %r cannot be used with class "
+                            "or instance checks" % self)
+        if (self.__origin__ is not None and
+            sys._getframe(1).f_globals['__name__'] != 'abc'):
+            raise TypeError("Parameterized generics cannot be used with class "
+                            "or instance checks")
         if super().__subclasscheck__(cls):
             return True
         if self.__extra__ is not None:
