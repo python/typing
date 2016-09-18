@@ -965,8 +965,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         return self.__subclasscheck__(instance.__class__)
 
     def __subclasscheck__(self, cls):
+        if self is Generic:
+            raise TypeError("Class %r can't be used with class or instance checks" % self)
         if self.__origin__ is not None and sys._getframe(1).f_globals['__name__'] != 'abc':
-            raise TypeError('Parameterized Generic could not be used with class or instance checks')
+            raise TypeError("Parameterized generics can't be used with class or instance checks")
         if super().__subclasscheck__(cls):
             return True
         if self.__extra__ is not None:
