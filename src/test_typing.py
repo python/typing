@@ -1507,9 +1507,6 @@ class RETests(BaseTestCase):
             m[str]
         with self.assertRaises(TypeError):
             # We don't support isinstance().
-            isinstance(42, Pattern)
-        with self.assertRaises(TypeError):
-            # We don't support isinstance().
             isinstance(42, Pattern[str])
 
     def test_repr(self):

@@ -195,12 +195,10 @@ class _ForwardRef(TypingBase):
 class _TypeAlias(TypingBase, metaclass=TypingMeta, _root=True):
     """Internal helper class for defining generic variants of concrete types.
 
-    Note that this is not a type; let's call it a pseudo-type.  It can
-    be used in instance and subclass checks, e.g. isinstance(m, Match)
-    or issubclass(type(m), Match).  However, it cannot be itself the
-    target of an issubclass() call; e.g. issubclass(Match, C) (for
-    some arbitrary class C) raises TypeError rather than returning
-    False.
+    Note that this is not a type; let's call it a pseudo-type.  It cannot
+    be used in instance and subclass checks in parameterized form, i.e.
+    ``isinstance(42, Match[str])`` raises ``TypeError`` instead of returning
+    ``False``.
     """
 
     __slots__ = ('name', 'type_var', 'impl_type', 'type_checker')
@@ -247,18 +245,21 @@ class _TypeAlias(TypingBase, metaclass=TypingMeta, _root=True):
             if not issubclass(parameter, self.type_var.__constraints__):
                 raise TypeError("%s is not a valid substitution for %s." %
                                 (parameter, self.type_var))
-        if isinstance(parameter, TypeVar) and parameter != self.type_var:
-            raise TypeError("%s is not a valid substitution for %s." %
-                                (parameter, self.type_var))
+        if isinstance(parameter, TypeVar):
+            raise TypeError("%s cannot be re-parameterized." % self.type_var)
         return self.__class__(self.name, parameter,
                               self.impl_type, self.type_checker)
 
     def __instancecheck__(self, obj):
-        raise TypeError("Type aliases cannot be used with isinstance().")
+        if not isinstance(self.type_var, TypeVar):
+            raise TypeError("Parameterized type aliases cannot be used "
+                            "with isinstance().")
+        return isinstance(obj, self.impl_type)
 
     def __subclasscheck__(self, cls):
         if not isinstance(self.type_var, TypeVar):
-            raise TypeError("Type aliases cannot be used with issubclass().")
+            raise TypeError("Parameterized type aliases cannot be used "
+                            "with issubclass().")
         return issubclass(cls, self.impl_type)
 
 
