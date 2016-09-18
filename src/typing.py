@@ -1,6 +1,6 @@
 import abc
 from abc import abstractmethod, abstractproperty
-from functools import lru_cache
+from functools import lru_cache, wraps
 import collections
 import contextlib
 import functools
@@ -826,6 +826,18 @@ def _next_in_mro(cls):
     return next_in_mro
 
 
+def tp_cache(func):
+    cached = lru_cache(maxsize=25)(func)
+    wraps(func)
+    def inner(*args, **kwargs):
+        if any(not isinstance(arg, collections_abc.Hashable) for arg in args):
+            print("Not Hashable")
+            return func(*args, **kwargs)
+        else:
+            return cached(*args, **kwargs)
+    return inner
+
+
 class GenericMeta(TypingMeta, abc.ABCMeta):
     """Metaclass for generic types."""
 
@@ -911,7 +923,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def __hash__(self):
         return hash((self.__name__, self.__parameters__))
 
-    @lru_cache(maxsize=25)
+    @tp_cache
     def __getitem__(self, params):
         if not isinstance(params, tuple):
             params = (params,)
