@@ -130,19 +130,25 @@ class TypingMeta(type):
         return '%s.%s' % (self.__module__, _qualname(self))
 
 
-class Final:
+class TypingBase:
+    """Indicator of special typing constructs."""
+
+
+class Final(TypingBase):
     """Mix-in class to prevent instantiation."""
 
     __slots__ = ()
 
-    def __new__(self, *args, **kwds):
+    def __new__(self, *args, _root=False, **kwds):
+        if _root:
+            return object.__new__(self)
         raise TypeError("Cannot instantiate %r" % self.__class__)
 
 
-class _ForwardRef(TypingMeta):
+class _ForwardRef(TypingBase):
     """Wrapper to hold a forward reference."""
 
-    def __new__(cls, arg):
+    def __init__(self, arg):
         if not isinstance(arg, str):
             raise TypeError('ForwardRef must be a string -- got %r' % (arg,))
         try:
@@ -150,7 +156,6 @@ class _ForwardRef(TypingMeta):
         except SyntaxError:
             raise SyntaxError('ForwardRef must be an expression -- got %r' %
                               (arg,))
-        self = super().__new__(cls, arg, (), {}, _root=True)
         self.__forward_arg__ = arg
         self.__forward_code__ = code
         self.__forward_evaluated__ = False
@@ -161,7 +166,6 @@ class _ForwardRef(TypingMeta):
             frame = frame.f_back
         assert frame is not None
         self.__forward_frame__ = frame
-        return self
 
     def _eval_type(self, globalns, localns):
         if not self.__forward_evaluated__:
@@ -181,20 +185,13 @@ class _ForwardRef(TypingMeta):
         raise TypeError("Forward references cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if not self.__forward_evaluated__:
-            globalns = self.__forward_frame__.f_globals
-            localns = self.__forward_frame__.f_locals
-            try:
-                self._eval_type(globalns, localns)
-            except NameError:
-                return False  # Too early.
-        return issubclass(cls, self.__forward_value__)
+        raise TypeError("Forward references cannot be used with issubclass().")
 
     def __repr__(self):
         return '_ForwardRef(%r)' % (self.__forward_arg__,)
 
 
-class _TypeAlias:
+class _TypeAlias(TypingBase, metaclass=TypingMeta, _root=True):
     """Internal helper class for defining generic variants of concrete types.
 
     Note that this is not a type; let's call it a pseudo-type.  It can
@@ -232,11 +229,10 @@ class _TypeAlias:
                 and returns a value that should be a type_var instance.
         """
         assert isinstance(name, str), repr(name)
-        assert isinstance(type_var, type), repr(type_var)
         assert isinstance(impl_type, type), repr(impl_type)
         assert not isinstance(impl_type, TypingMeta), repr(impl_type)
         self.name = name
-        self.type_var = type_var
+        self.type_var = _type_check(type_var, "Type alias accepts only types")
         self.impl_type = impl_type
         self.type_checker = type_checker
 
@@ -244,7 +240,6 @@ class _TypeAlias:
         return "%s[%s]" % (self.name, _type_repr(self.type_var))
 
     def __getitem__(self, parameter):
-        assert isinstance(parameter, type), repr(parameter)
         if not isinstance(self.type_var, TypeVar):
             raise TypeError("%s cannot be further parameterized." % self)
         if self.type_var.__constraints__:
@@ -258,22 +253,14 @@ class _TypeAlias:
         raise TypeError("Type aliases cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if cls is Any:
-            return True
-        if isinstance(cls, _TypeAlias):
-            # Covariance.  For now, we compare by name.
-            return (cls.name == self.name and
-                    issubclass(cls.type_var, self.type_var))
-        else:
-            # Note that this is too lenient, because the
-            # implementation type doesn't carry information about
-            # whether it is about bytes or str (for example).
-            return issubclass(cls, self.impl_type)
+        if not isinstance(self.type_var, TypeVar):
+            raise TypeError("Type aliases cannot be used with issubclass().")
+        return issubclass(cls, self.impl_type)
 
 
 def _get_type_vars(types, tvars):
     for t in types:
-        if isinstance(t, TypingMeta) or isinstance(t, _ClassVar):
+        if isinstance(t, TypingMeta) or isinstance(t, TypingBase):
             t._get_type_vars(tvars)
 
 
@@ -284,7 +271,7 @@ def _type_vars(types):
 
 
 def _eval_type(t, globalns, localns):
-    if isinstance(t, TypingMeta) or isinstance(t, _ClassVar):
+    if isinstance(t, TypingMeta) or isinstance(t, TypingBase):
         return t._eval_type(globalns, localns)
     else:
         return t
@@ -306,7 +293,7 @@ def _type_check(arg, msg):
         return type(None)
     if isinstance(arg, str):
         arg = _ForwardRef(arg)
-    if not isinstance(arg, (type, _TypeAlias)) and not callable(arg):
+    if not isinstance(arg, (type, TypingBase)) and not callable(arg):
         raise TypeError(msg + " Got %.100r." % (arg,))
     return arg
 
@@ -328,34 +315,29 @@ def _type_repr(obj):
         return repr(obj)
 
 
-class AnyMeta(TypingMeta):
-    """Metaclass for Any."""
-
-    def __new__(cls, name, bases, namespace, _root=False):
-        self = super().__new__(cls, name, bases, namespace, _root=_root)
-        return self
+class _Any(Final, metaclass=TypingMeta, _root=True):
 
     def __instancecheck__(self, obj):
         raise TypeError("Any cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if not isinstance(cls, type):
-            return super().__subclasscheck__(cls)  # To TypeError.
-        return True
+        raise TypeError("Any cannot be used with issubclass().")
+
+    def _eval_type(self, globalns, localns):
+        return self
+
+    def _get_type_vars(self, tvars):
+        pass
+
+    def __repr__(self):
+        cls = type(self)
+        return '{}.{}'.format(cls.__module__, cls.__name__[1:])
 
 
-class Any(Final, metaclass=AnyMeta, _root=True):
-    """Special type indicating an unconstrained type.
-
-    - Any object is an instance of Any.
-    - Any class is a subclass of Any.
-    - As a special case, Any and object are subclasses of each other.
-    """
-
-    __slots__ = ()
+Any = _Any(_root=True)
 
 
-class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
+class TypeVar(TypingBase, metaclass=TypingMeta, _root=True):
     """Type variable.
 
     Usage::
@@ -400,9 +382,9 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
       A.__constraints__ == (str, bytes)
     """
 
-    def __new__(cls, name, *constraints, bound=None,
+    def __init__(self, name, *constraints, bound=None,
                 covariant=False, contravariant=False):
-        self = super().__new__(cls, name, (Final,), {}, _root=True)
+        self.__name__ = name
         if covariant and contravariant:
             raise ValueError("Bivariant types are not supported.")
         self.__covariant__ = bool(covariant)
@@ -417,11 +399,13 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
             self.__bound__ = _type_check(bound, "Bound must be a type.")
         else:
             self.__bound__ = None
-        return self
 
     def _get_type_vars(self, tvars):
         if self not in tvars:
             tvars.append(self)
+
+    def _eval_type(self, globalns, localns):
+        return self
 
     def __repr__(self):
         if self.__covariant__:
@@ -436,16 +420,7 @@ class TypeVar(TypingMeta, metaclass=TypingMeta, _root=True):
         raise TypeError("Type variables cannot be used with isinstance().")
 
     def __subclasscheck__(self, cls):
-        # TODO: Make this raise TypeError too?
-        if cls is self:
-            return True
-        if cls is Any:
-            return True
-        if self.__bound__ is not None:
-            return issubclass(cls, self.__bound__)
-        if self.__constraints__:
-            return any(issubclass(cls, c) for c in self.__constraints__)
-        return True
+        raise TypeError("Type variables cannot be used with issubclass().")
 
 
 # Some unconstrained type variables.  These are used by the container types.
@@ -505,7 +480,6 @@ class UnionMeta(TypingMeta):
                 # _TypeAlias is not a real class.
                 continue
             if not isinstance(t1, type):
-                assert callable(t1)  # A callable might sneak through.
                 continue
             if any(isinstance(t2, type) and issubclass(t1, t2)
                    for t2 in all_params - {t1} if not isinstance(t2, TypeVar)):
@@ -1117,7 +1091,7 @@ class Generic(metaclass=GenericMeta):
             return obj
 
 
-class _ClassVar(metaclass=TypingMeta, _root=True):
+class _ClassVar(Final, metaclass=TypingMeta, _root=True):
     """Special type construct to mark class variables.
 
     An annotation wrapped in ClassVar indicates that a given
@@ -1134,12 +1108,8 @@ class _ClassVar(metaclass=TypingMeta, _root=True):
     be used with isinstance() or issubclass().
     """
 
-    def __init__(self, tp=None, _root=False):
-        cls = type(self)
-        if _root:
-            self.__type__ = tp
-        else:
-            raise TypeError('Cannot initialize {}'.format(cls.__name__[1:]))
+    def __init__(self, tp=None, **kwds):
+        self.__type__ = tp
 
     def __getitem__(self, item):
         cls = type(self)
