@@ -1344,7 +1344,6 @@ class OtherABCTests(BaseTestCase):
 
         cm = manager()
         self.assertIsInstance(cm, typing.ContextManager)
-        self.assertIsInstance(cm, typing.ContextManager[int])
         self.assertNotIsInstance(42, typing.ContextManager)
 
 
