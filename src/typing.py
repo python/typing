@@ -838,7 +838,6 @@ def tp_cache(func):
     wraps(func)
     def inner(*args, **kwargs):
         if any(not isinstance(arg, collections_abc.Hashable) for arg in args):
-            print("Not Hashable")
             return func(*args, **kwargs)
         else:
             return cached(*args, **kwargs)
