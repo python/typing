@@ -131,11 +131,18 @@ class TypingMeta(type):
         return '%s.%s' % (self.__module__, _qualname(self))
 
 
-class TypingBase:
+class TypingBase(metaclass=TypingMeta, _root=True):
     """Indicator of special typing constructs."""
 
+    # things that are not classes also need these
+    def _eval_type(self, globalns, localns):
+        return self
 
-class Final(TypingBase):
+    def _get_type_vars(self, tvars):
+        pass
+
+
+class Final(TypingBase, _root=True):
     """Mix-in class to prevent instantiation."""
 
     __slots__ = ()
@@ -146,7 +153,7 @@ class Final(TypingBase):
         raise TypeError("Cannot instantiate %r" % self)
 
 
-class _ForwardRef(TypingBase):
+class _ForwardRef(TypingBase, _root=True):
     """Wrapper to hold a forward reference."""
 
     def __init__(self, arg):
@@ -192,7 +199,7 @@ class _ForwardRef(TypingBase):
         return '_ForwardRef(%r)' % (self.__forward_arg__,)
 
 
-class _TypeAlias(TypingBase, metaclass=TypingMeta, _root=True):
+class _TypeAlias(TypingBase, _root=True):
     """Internal helper class for defining generic variants of concrete types.
 
     Note that this is not a type; let's call it a pseudo-type.  It cannot
@@ -320,7 +327,7 @@ def _type_repr(obj):
         return repr(obj)
 
 
-class _Any(Final, metaclass=TypingMeta, _root=True):
+class _Any(Final, _root=True):
     """Special type indicating an unconstrained type.
 
     - Any object is an instance of Any.
@@ -334,12 +341,6 @@ class _Any(Final, metaclass=TypingMeta, _root=True):
     def __subclasscheck__(self, cls):
         raise TypeError("Any cannot be used with issubclass().")
 
-    def _eval_type(self, globalns, localns):
-        return self
-
-    def _get_type_vars(self, tvars):
-        pass
-
     def __repr__(self):
         cls = type(self)
         return '{}.{}'.format(cls.__module__, cls.__name__[1:])
@@ -348,7 +349,7 @@ class _Any(Final, metaclass=TypingMeta, _root=True):
 Any = _Any(_root=True)
 
 
-class TypeVar(TypingBase, metaclass=TypingMeta, _root=True):
+class TypeVar(TypingBase, _root=True):
     """Type variable.
 
     Usage::
@@ -415,9 +416,6 @@ class TypeVar(TypingBase, metaclass=TypingMeta, _root=True):
         if self not in tvars:
             tvars.append(self)
 
-    def _eval_type(self, globalns, localns):
-        return self
-
     def __repr__(self):
         if self.__covariant__:
             prefix = '+'
@@ -449,7 +447,7 @@ T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 AnyStr = TypeVar('AnyStr', bytes, str)
 
 
-class _Union(Final, metaclass=TypingMeta, _root=True):
+class _Union(Final, _root=True):
     """Union type; Union[X, Y] means either X or Y.
 
     To define a union, use e.g. Union[int, str].  Details:
@@ -600,7 +598,7 @@ class _Union(Final, metaclass=TypingMeta, _root=True):
 Union = _Union(_root=True)
 
 
-class _Optional(Final, metaclass=TypingMeta, _root=True):
+class _Optional(Final, _root=True):
     """Optional type.
 
     Optional[X] is equivalent to Union[X, type(None)].
@@ -618,7 +616,7 @@ class _Optional(Final, metaclass=TypingMeta, _root=True):
 Optional = _Optional(_root=True)
 
 
-class _Tuple(Final, metaclass=TypingMeta, _root=True):
+class _Tuple(Final, _root=True):
     """Tuple type; Tuple[X, Y] is the cross-product type of X and Y.
 
     Example: Tuple[T1, T2] is a tuple of two elements corresponding
@@ -701,7 +699,7 @@ class _Tuple(Final, metaclass=TypingMeta, _root=True):
 Tuple = _Tuple(_root=True)
 
 
-class _Callable(Final, metaclass=TypingMeta, _root=True):
+class _Callable(Final, _root=True):
     """Callable type; Callable[[int], str] is a function of (int) -> str.
 
     The subscription syntax must always be used with exactly two
@@ -1036,7 +1034,7 @@ class Generic(metaclass=GenericMeta):
             return obj
 
 
-class _ClassVar(Final, metaclass=TypingMeta, _root=True):
+class _ClassVar(Final, _root=True):
     """Special type construct to mark class variables.
 
     An annotation wrapped in ClassVar indicates that a given
