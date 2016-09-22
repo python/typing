@@ -64,9 +64,9 @@ class AnyTests(BaseTestCase):
 
     def test_any_subclass_type_error(self):
         with self.assertRaises(TypeError):
-            self.assertTrue(issubclass(Employee, Any))
+            issubclass(Employee, Any)
         with self.assertRaises(TypeError):
-            self.assertFalse(issubclass(Any, Employee))
+            issubclass(Any, Employee)
 
     def test_repr(self):
         self.assertEqual(repr(Any), 'typing.Any')

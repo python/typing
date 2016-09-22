@@ -832,7 +832,7 @@ def _next_in_mro(cls):
 
 
 def tp_cache(func):
-    cached = lru_cache(maxsize=25)(func)
+    cached = lru_cache(maxsize=50)(func)
     wraps(func)
     def inner(*args, **kwargs):
         if any(not isinstance(arg, collections_abc.Hashable) for arg in args):

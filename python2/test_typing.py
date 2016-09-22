@@ -61,18 +61,11 @@ class AnyTests(BaseTestCase):
         with self.assertRaises(TypeError):
             isinstance(42, Any)
 
-    def test_any_subclass(self):
-        self.assertTrue(issubclass(Employee, Any))
-        self.assertTrue(issubclass(int, Any))
-        self.assertTrue(issubclass(type(None), Any))
-        self.assertTrue(issubclass(object, Any))
-
-    def test_others_any(self):
-        self.assertFalse(issubclass(Any, Employee))
-        self.assertFalse(issubclass(Any, int))
-        self.assertFalse(issubclass(Any, type(None)))
-        # However, Any is a subclass of object (this can't be helped).
-        self.assertTrue(issubclass(Any, object))
+    def test_any_subclass_type_error(self):
+        with self.assertRaises(TypeError):
+            issubclass(Employee, Any)
+        with self.assertRaises(TypeError):
+            issubclass(Any, Employee)
 
     def test_repr(self):
         self.assertEqual(repr(Any), 'typing.Any')
@@ -97,22 +90,6 @@ class AnyTests(BaseTestCase):
             Any[int]
 
     def test_any_is_subclass(self):
-        # Any should be considered a subclass of everything.
-        self.assertIsSubclass(Any, Any)
-        self.assertIsSubclass(Any, typing.List)
-        self.assertIsSubclass(Any, typing.List[int])
-        self.assertIsSubclass(Any, typing.List[T])
-        self.assertIsSubclass(Any, typing.Mapping)
-        self.assertIsSubclass(Any, typing.Mapping[str, int])
-        self.assertIsSubclass(Any, typing.Mapping[KT, VT])
-        self.assertIsSubclass(Any, Generic)
-        self.assertIsSubclass(Any, Generic[T])
-        self.assertIsSubclass(Any, Generic[KT, VT])
-        self.assertIsSubclass(Any, AnyStr)
-        self.assertIsSubclass(Any, Union)
-        self.assertIsSubclass(Any, Union[int, str])
-        self.assertIsSubclass(Any, typing.Match)
-        self.assertIsSubclass(Any, typing.Match[str])
         # These expressions must simply not fail.
         typing.Match[Any]
         typing.Pattern[Any]
@@ -123,13 +100,8 @@ class TypeVarTests(BaseTestCase):
 
     def test_basic_plain(self):
         T = TypeVar('T')
-        # Every class is a subclass of T.
-        self.assertIsSubclass(int, T)
-        self.assertIsSubclass(str, T)
         # T equals itself.
         self.assertEqual(T, T)
-        # T is a subclass of itself.
-        self.assertIsSubclass(T, T)
         # T is an instance of TypeVar
         self.assertIsInstance(T, TypeVar)
 
@@ -138,16 +110,12 @@ class TypeVarTests(BaseTestCase):
         with self.assertRaises(TypeError):
             isinstance(42, T)
 
-    def test_basic_constrained(self):
-        A = TypeVar('A', str, bytes)
-        # Only str and bytes are subclasses of A.
-        self.assertIsSubclass(str, A)
-        self.assertIsSubclass(bytes, A)
-        self.assertNotIsSubclass(int, A)
-        # A equals itself.
-        self.assertEqual(A, A)
-        # A is a subclass of itself.
-        self.assertIsSubclass(A, A)
+    def test_typevar_subclass_type_error(self):
+        T = TypeVar('T')
+        with self.assertRaises(TypeError):
+            issubclass(int, T)
+        with self.assertRaises(TypeError):
+            issubclass(T, int)
 
     def test_constrained_error(self):
         with self.assertRaises(TypeError):
@@ -184,19 +152,6 @@ class TypeVarTests(BaseTestCase):
         self.assertNotEqual(TypeVar('T'), TypeVar('T'))
         self.assertNotEqual(TypeVar('T', int, str), TypeVar('T', int, str))
 
-    def test_subclass_as_unions(self):
-        # None of these are true -- each type var is its own world.
-        self.assertFalse(issubclass(TypeVar('T', int, str),
-                                    TypeVar('T', int, str)))
-        self.assertFalse(issubclass(TypeVar('T', int, float),
-                                    TypeVar('T', int, float, str)))
-        self.assertFalse(issubclass(TypeVar('T', int, str),
-                                    TypeVar('T', str, int)))
-        A = TypeVar('A', int, str)
-        B = TypeVar('B', int, str, float)
-        self.assertFalse(issubclass(A, B))
-        self.assertFalse(issubclass(B, A))
-
     def test_cannot_subclass_vars(self):
         with self.assertRaises(TypeError):
             class V(TypeVar('T')):
@@ -210,12 +165,6 @@ class TypeVarTests(BaseTestCase):
     def test_cannot_instantiate_vars(self):
         with self.assertRaises(TypeError):
             TypeVar('A')()
-
-    def test_bound(self):
-        X = TypeVar('X', bound=Employee)
-        self.assertIsSubclass(Employee, X)
-        self.assertIsSubclass(Manager, X)
-        self.assertNotIsSubclass(int, X)
 
     def test_bound_errors(self):
         with self.assertRaises(TypeError):
@@ -352,32 +301,6 @@ class UnionTests(BaseTestCase):
             return Element(*args)
 
         Union[Elem, str]  # Nor should this
-
-
-class TypeVarUnionTests(BaseTestCase):
-
-    def test_simpler(self):
-        A = TypeVar('A', int, str, float)
-        B = TypeVar('B', int, str)
-        self.assertIsSubclass(A, A)
-        self.assertIsSubclass(B, B)
-        self.assertNotIsSubclass(B, A)
-        self.assertIsSubclass(A, Union[int, str, float])
-        self.assertNotIsSubclass(Union[int, str, float], A)
-        self.assertNotIsSubclass(Union[int, str], B)
-        self.assertIsSubclass(B, Union[int, str])
-        self.assertNotIsSubclass(A, B)
-        self.assertNotIsSubclass(Union[int, str, float], B)
-        self.assertNotIsSubclass(A, Union[int, str])
-
-    def test_var_union_subclass(self):
-        self.assertTrue(issubclass(T, Union[int, T]))
-        self.assertTrue(issubclass(KT, Union[KT, VT]))
-
-    def test_var_union(self):
-        TU = TypeVar('TU', Union[int, float], None)
-        self.assertIsSubclass(int, TU)
-        self.assertIsSubclass(float, TU)
 
 
 class TupleTests(BaseTestCase):
@@ -1274,22 +1197,14 @@ class RETests(BaseTestCase):
         pat = re.compile('[a-z]+', re.I)
         self.assertIsSubclass(pat.__class__, Pattern)
         self.assertIsSubclass(type(pat), Pattern)
-        self.assertIsSubclass(type(pat), Pattern[str])
 
         mat = pat.search('12345abcde.....')
         self.assertIsSubclass(mat.__class__, Match)
-        self.assertIsSubclass(mat.__class__, Match[str])
-        self.assertIsSubclass(mat.__class__, Match[bytes])  # Sad but true.
         self.assertIsSubclass(type(mat), Match)
-        self.assertIsSubclass(type(mat), Match[str])
 
+        # these should just work
         p = Pattern[Union[str, bytes]]
-        self.assertIsSubclass(Pattern[str], Pattern)
-        self.assertIsSubclass(Pattern[str], p)
-
         m = Match[Union[bytes, str]]
-        self.assertIsSubclass(Match[bytes], Match)
-        self.assertIsSubclass(Match[bytes], m)
 
     def test_errors(self):
         with self.assertRaises(TypeError):
@@ -1302,9 +1217,6 @@ class RETests(BaseTestCase):
         with self.assertRaises(TypeError):
             # Too complicated?
             m[str]
-        with self.assertRaises(TypeError):
-            # We don't support isinstance().
-            isinstance(42, Pattern)
         with self.assertRaises(TypeError):
             # We don't support isinstance().
             isinstance(42, Pattern[str])
