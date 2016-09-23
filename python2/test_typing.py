@@ -178,8 +178,16 @@ class UnionTests(BaseTestCase):
     def test_basics(self):
         u = Union[int, float]
         self.assertNotEqual(u, Union)
-        self.assertTrue(issubclass(int, u))
-        self.assertTrue(issubclass(float, u))
+
+    def test_subclass_error(self):
+        with self.assertRaises(TypeError):
+            issubclass(int, Union)
+        with self.assertRaises(TypeError):
+            issubclass(Union, int)
+        with self.assertRaises(TypeError):
+            issubclass(int, Union[int, str])
+        with self.assertRaises(TypeError):
+            issubclass(Union[int, str], int)
 
     def test_union_any(self):
         u = Union[Any]
@@ -208,18 +216,6 @@ class UnionTests(BaseTestCase):
         u2 = Union[float, int]
         self.assertEqual(u1, u2)
 
-    def test_subclass(self):
-        u = Union[int, Employee]
-        self.assertTrue(issubclass(Manager, u))
-
-    def test_self_subclass(self):
-        self.assertTrue(issubclass(Union[KT, VT], Union))
-        self.assertFalse(issubclass(Union, Union[KT, VT]))
-
-    def test_multiple_inheritance(self):
-        u = Union[int, Employee]
-        self.assertTrue(issubclass(ManagingFounder, u))
-
     def test_single_class_disappears(self):
         t = Union[Employee]
         self.assertIs(t, Employee)
@@ -231,13 +227,6 @@ class UnionTests(BaseTestCase):
         self.assertEqual(u, Union[int, Employee])
         u = Union[Employee, Manager]
         self.assertIs(u, Employee)
-
-    def test_weird_subclasses(self):
-        u = Union[Employee, int, float]
-        v = Union[int, float]
-        self.assertTrue(issubclass(v, u))
-        w = Union[int, Manager]
-        self.assertTrue(issubclass(w, u))
 
     def test_union_union(self):
         u = Union[int, float]
@@ -274,10 +263,6 @@ class UnionTests(BaseTestCase):
     def test_empty(self):
         with self.assertRaises(TypeError):
             Union[()]
-
-    def test_issubclass_union(self):
-        self.assertIsSubclass(Union[int, str], Union)
-        self.assertNotIsSubclass(int, Union)
 
     def test_union_instance_type_error(self):
         with self.assertRaises(TypeError):

@@ -545,7 +545,6 @@ class _Union(Final, _root=True):
         # It's not a union if there's only one type left.
         if len(all_params) == 1:
             return all_params.pop()
-        # Create a new class with these params.
         self.__union_params__ = tuple(t for t in params if t in all_params)
         self.__union_set_params__ = frozenset(self.__union_params__)
         return self

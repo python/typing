@@ -410,6 +410,7 @@ class _Any(TypingBase):
     __slots__ = ()
 
     def __init__(self, _root=False):
+        cls = type(self)
         if not _root:
             raise TypeError('Cannot instantiate {}'.format(cls.__name__[1:]))
 
@@ -536,124 +537,12 @@ AnyStr = TypeVar('AnyStr', bytes, unicode)
 
 
 class UnionMeta(TypingMeta):
-    """Metaclass for Union."""
-
-    def __new__(cls, name, bases, namespace, parameters=None):
+    def __new__(cls, name, bases, namespace):
         cls.assert_no_subclassing(bases)
-        if parameters is None:
-            return super(UnionMeta, cls).__new__(cls, name, bases, namespace)
-        if not isinstance(parameters, tuple):
-            raise TypeError("Expected parameters=<tuple>")
-        # Flatten out Union[Union[...], ...] and type-check non-Union args.
-        params = []
-        msg = "Union[arg, ...]: each arg must be a type."
-        for p in parameters:
-            if isinstance(p, UnionMeta):
-                params.extend(p.__union_params__)
-            else:
-                params.append(_type_check(p, msg))
-        # Weed out strict duplicates, preserving the first of each occurrence.
-        all_params = set(params)
-        if len(all_params) < len(params):
-            new_params = []
-            for t in params:
-                if t in all_params:
-                    new_params.append(t)
-                    all_params.remove(t)
-            params = new_params
-            assert not all_params, all_params
-        # Weed out subclasses.
-        # E.g. Union[int, Employee, Manager] == Union[int, Employee].
-        # If Any or object is present it will be the sole survivor.
-        # If both Any and object are present, Any wins.
-        # Never discard type variables, except against Any.
-        # (In particular, Union[str, AnyStr] != AnyStr.)
-        all_params = set(params)
-        for t1 in params:
-            if t1 is Any:
-                return Any
-            if isinstance(t1, TypeVar):
-                continue
-            if isinstance(t1, _TypeAlias):
-                # _TypeAlias is not a real class.
-                continue
-            if not isinstance(t1, type):
-                assert callable(t1)  # A callable might sneak through.
-                continue
-            if any(isinstance(t2, type) and issubclass(t1, t2)
-                   for t2 in all_params - {t1} if not isinstance(t2, TypeVar)):
-                all_params.remove(t1)
-        # It's not a union if there's only one type left.
-        if len(all_params) == 1:
-            return all_params.pop()
-        # Create a new class with these params.
-        self = super(UnionMeta, cls).__new__(cls, name, bases, {})
-        self.__union_params__ = tuple(t for t in params if t in all_params)
-        self.__union_set_params__ = frozenset(self.__union_params__)
-        return self
-
-    def _eval_type(self, globalns, localns):
-        p = tuple(_eval_type(t, globalns, localns)
-                  for t in self.__union_params__)
-        if p == self.__union_params__:
-            return self
-        else:
-            return self.__class__(self.__name__, self.__bases__, {},
-                                  p)
-
-    def _get_type_vars(self, tvars):
-        if self.__union_params__:
-            _get_type_vars(self.__union_params__, tvars)
-
-    def __repr__(self):
-        r = super(UnionMeta, self).__repr__()
-        if self.__union_params__:
-            r += '[%s]' % (', '.join(_type_repr(t)
-                                     for t in self.__union_params__))
-        return r
-
-    def __getitem__(self, parameters):
-        if self.__union_params__ is not None:
-            raise TypeError(
-                "Cannot subscript an existing Union. Use Union[u, t] instead.")
-        if parameters == ():
-            raise TypeError("Cannot take a Union of no types.")
-        if not isinstance(parameters, tuple):
-            parameters = (parameters,)
-        return self.__class__(self.__name__, self.__bases__,
-                              dict(self.__dict__), parameters)
-
-    def __eq__(self, other):
-        if not isinstance(other, UnionMeta):
-            return NotImplemented
-        return self.__union_set_params__ == other.__union_set_params__
-
-    def __hash__(self):
-        return hash(self.__union_set_params__)
-
-    def __instancecheck__(self, obj):
-        raise TypeError("Unions cannot be used with isinstance().")
-
-    def __subclasscheck__(self, cls):
-        if cls is Any:
-            return True
-        if self.__union_params__ is None:
-            return isinstance(cls, UnionMeta)
-        elif isinstance(cls, UnionMeta):
-            if cls.__union_params__ is None:
-                return False
-            return all(issubclass(c, self) for c in (cls.__union_params__))
-        elif isinstance(cls, TypeVar):
-            if cls in self.__union_params__:
-                return True
-            if cls.__constraints__:
-                return issubclass(Union[cls.__constraints__], self)
-            return False
-        else:
-            return any(issubclass(cls, t) for t in self.__union_params__)
+        return super(UnionMeta, cls).__new__(cls, name, bases, namespace)
 
 
-class Union(Final):
+class _Union(TypingBase):
     """Union type; Union[X, Y] means either X or Y.
 
     To define a union, use e.g. Union[int, str].  Details:
@@ -707,9 +596,104 @@ class Union(Final):
 
     __metaclass__ = UnionMeta
 
-    # Unsubscripted Union type has params set to None.
-    __union_params__ = None
-    __union_set_params__ = None
+    def __new__(cls, parameters=None, _root=False):
+        if not _root:
+            raise TypeError('Cannot instantiate {}'.format(cls.__name__[1:]))
+        self = super(_Union, cls).__new__(cls)
+        if parameters is None:
+            self.__union_params__ = None
+            self.__union_set_params__ = None
+            return self
+        if not isinstance(parameters, tuple):
+            raise TypeError("Expected parameters=<tuple>")
+        # Flatten out Union[Union[...], ...] and type-check non-Union args.
+        params = []
+        msg = "Union[arg, ...]: each arg must be a type."
+        for p in parameters:
+            if isinstance(p, _Union):
+                params.extend(p.__union_params__)
+            else:
+                params.append(_type_check(p, msg))
+        # Weed out strict duplicates, preserving the first of each occurrence.
+        all_params = set(params)
+        if len(all_params) < len(params):
+            new_params = []
+            for t in params:
+                if t in all_params:
+                    new_params.append(t)
+                    all_params.remove(t)
+            params = new_params
+            assert not all_params, all_params
+        # Weed out subclasses.
+        # E.g. Union[int, Employee, Manager] == Union[int, Employee].
+        # If Any or object is present it will be the sole survivor.
+        # If both Any and object are present, Any wins.
+        # Never discard type variables, except against Any.
+        # (In particular, Union[str, AnyStr] != AnyStr.)
+        all_params = set(params)
+        for t1 in params:
+            if t1 is Any:
+                return Any
+            if not isinstance(t1, type):
+                continue
+            if any(isinstance(t2, type) and issubclass(t1, t2)
+                   for t2 in all_params - {t1}
+                   if not (isinstance(t2, GenericMeta) and
+                           t2.__origin__ is not None)):
+                all_params.remove(t1)
+        # It's not a union if there's only one type left.
+        if len(all_params) == 1:
+            return all_params.pop()
+        self.__union_params__ = tuple(t for t in params if t in all_params)
+        self.__union_set_params__ = frozenset(self.__union_params__)
+        return self
+
+    def _eval_type(self, globalns, localns):
+        p = tuple(_eval_type(t, globalns, localns)
+                  for t in self.__union_params__)
+        if p == self.__union_params__:
+            return self
+        else:
+            return self.__class__(p, _root=True)
+
+    def _get_type_vars(self, tvars):
+        if self.__union_params__:
+            _get_type_vars(self.__union_params__, tvars)
+
+    def __repr__(self):
+        cls = type(self)
+        r = '{}.{}'.format(cls.__module__, cls.__name__[1:])
+        if self.__union_params__:
+            r += '[%s]' % (', '.join(_type_repr(t)
+                                     for t in self.__union_params__))
+        return r
+
+    def __getitem__(self, parameters):
+        if self.__union_params__ is not None:
+            raise TypeError(
+                "Cannot subscript an existing Union. Use Union[u, t] instead.")
+        if parameters == ():
+            raise TypeError("Cannot take a Union of no types.")
+        if not isinstance(parameters, tuple):
+            parameters = (parameters,)
+        return self.__class__(parameters, _root=True)
+
+    def __eq__(self, other):
+        if not isinstance(other, _Union):
+            return NotImplemented
+        return self.__union_set_params__ == other.__union_set_params__
+
+    def __hash__(self):
+        return hash(self.__union_set_params__)
+
+    def __instancecheck__(self, obj):
+        raise TypeError("Unions cannot be used with isinstance().")
+
+    def __subclasscheck__(self, cls):
+        raise TypeError("Unions cannot be used with issubclass().")
+
+
+Union = _Union(_root=True)
 
 
 class OptionalMeta(TypingMeta):
@@ -719,12 +703,8 @@ class OptionalMeta(TypingMeta):
         cls.assert_no_subclassing(bases)
         return super(OptionalMeta, cls).__new__(cls, name, bases, namespace)
 
-    def __getitem__(self, arg):
-        arg = _type_check(arg, "Optional[t] requires a single type.")
-        return Union[arg, type(None)]
 
-
-class Optional(Final):
+class _Optional(TypingBase):
     """Optional type.
 
     Optional[X] is equivalent to Union[X, type(None)].
@@ -732,6 +712,18 @@ class Optional(Final):
 
     __metaclass__ = OptionalMeta
     __slots__ = ()
+
+    def __init__(self, _root=False):
+        cls = type(self)
+        if not _root:
+            raise TypeError('Cannot instantiate {}'.format(cls.__name__[1:]))
+
+    def __getitem__(self, arg):
+        arg = _type_check(arg, "Optional[t] requires a single type.")
+        return Union[arg, type(None)]
+
+
+Optional = _Optional(_root=True)
 
 
 class TupleMeta(TypingMeta):
