@@ -134,14 +134,20 @@ class TypingBase(object):
     def _get_type_vars(self, tvars):
         pass
 
+    def __repr__(self):
+        cls = type(self)
+        return '{}.{}'.format(cls.__module__, cls.__name__[1:])
 
-class Final(object):
+
+class Final(TypingBase):
     """Mix-in class to prevent instantiation."""
 
     __slots__ = ()
 
-    def __new__(self, *args, **kwds):
-        raise TypeError("Cannot instantiate %r" % self.__class__)
+    def __init__(self, _root=False):
+        cls = type(self)
+        if _root is not True:
+            raise TypeError('Cannot instantiate {}'.format(cls.__name__[1:]))
 
 
 class _ForwardRef(TypingBase):
@@ -327,7 +333,7 @@ class ClassVarMeta(TypingMeta):
         return self
 
 
-class _ClassVar(TypingBase):
+class _ClassVar(Final):
     """Special type construct to mark class variables.
 
     An annotation wrapped in ClassVar indicates that a given
@@ -347,11 +353,8 @@ class _ClassVar(TypingBase):
     __metaclass__ = ClassVarMeta
 
     def __init__(self, tp=None, _root=False):
-        cls = type(self)
-        if _root:
-            self.__type__ = tp
-        else:
-            raise TypeError('Cannot instantiate {}'.format(cls.__name__[1:]))
+        super(_ClassVar, self).__init__(_root)
+        self.__type__ = tp
 
     def __getitem__(self, item):
         cls = type(self)
@@ -371,11 +374,10 @@ class _ClassVar(TypingBase):
             _get_type_vars(self.__type__, tvars)
 
     def __repr__(self):
-        cls = type(self)
-        if not self.__type__:
-            return '{}.{}'.format(cls.__module__, cls.__name__[1:])
-        return '{}.{}[{}]'.format(cls.__module__, cls.__name__[1:],
-                                  _type_repr(self.__type__))
+        r = super(_ClassVar, self).__repr__()
+        if self.__type__ is not None:
+            r += '[{}]'.format(_type_repr(self.__type__))
+        return r
 
     def __hash__(self):
         return hash((type(self).__name__, self.__type__))
@@ -399,7 +401,7 @@ class AnyMeta(TypingMeta):
         return self
 
 
-class _Any(TypingBase):
+class _Any(Final):
     """Special type indicating an unconstrained type.
 
     - Any object is an instance of Any.
@@ -408,15 +410,6 @@ class _Any(TypingBase):
     """
     __metaclass__ = AnyMeta
     __slots__ = ()
-
-    def __init__(self, _root=False):
-        cls = type(self)
-        if not _root:
-            raise TypeError('Cannot instantiate {}'.format(cls.__name__[1:]))
-
-    def __repr__(self):
-        cls = type(self)
-        return '{}.{}'.format(cls.__module__, cls.__name__[1:])
 
     def __instancecheck__(self, obj):
         raise TypeError("Any cannot be used with isinstance().")
@@ -537,12 +530,14 @@ AnyStr = TypeVar('AnyStr', bytes, unicode)
 
 
 class UnionMeta(TypingMeta):
+    """Metaclass for Union."""
+
     def __new__(cls, name, bases, namespace):
         cls.assert_no_subclassing(bases)
         return super(UnionMeta, cls).__new__(cls, name, bases, namespace)
 
 
-class _Union(TypingBase):
+class _Union(Final):
     """Union type; Union[X, Y] means either X or Y.
 
     To define a union, use e.g. Union[int, str].  Details:
@@ -596,9 +591,10 @@ class _Union(TypingBase):
 
     __metaclass__ = UnionMeta
 
+    def __init__(self, parameters=None, _root=False):
+        super(_Union, self).__init__(_root)
+
     def __new__(cls, parameters=None, _root=False):
-        if not _root:
-            raise TypeError('Cannot instantiate {}'.format(cls.__name__[1:]))
         self = super(_Union, cls).__new__(cls)
         if parameters is None:
             self.__union_params__ = None
@@ -661,8 +657,7 @@ class _Union(TypingBase):
             _get_type_vars(self.__union_params__, tvars)
 
     def __repr__(self):
-        cls = type(self)
-        r = '{}.{}'.format(cls.__module__, cls.__name__[1:])
+        r = super(_Union, self).__repr__()
         if self.__union_params__:
             r += '[%s]' % (', '.join(_type_repr(t)
                                      for t in self.__union_params__))
@@ -704,7 +699,7 @@ class OptionalMeta(TypingMeta):
         return super(OptionalMeta, cls).__new__(cls, name, bases, namespace)
 
 
-class _Optional(TypingBase):
+class _Optional(Final):
     """Optional type.
 
     Optional[X] is equivalent to Union[X, type(None)].
@@ -712,11 +707,6 @@ class _Optional(TypingBase):
 
     __metaclass__ = OptionalMeta
     __slots__ = ()
-
-    def __init__(self, _root=False):
-        cls = type(self)
-        if not _root:
-            raise TypeError('Cannot instantiate {}'.format(cls.__name__[1:]))
 
     def __getitem__(self, arg):
         arg = _type_check(arg, "Optional[t] requires a single type.")
@@ -729,13 +719,28 @@ Optional = _Optional(_root=True)
 class TupleMeta(TypingMeta):
     """Metaclass for Tuple."""
 
-    def __new__(cls, name, bases, namespace, parameters=None,
-                use_ellipsis=False):
+    def __new__(cls, name, bases, namespace):
         cls.assert_no_subclassing(bases)
-        self = super(TupleMeta, cls).__new__(cls, name, bases, namespace)
+        return super(TupleMeta, cls).__new__(cls, name, bases, namespace)
+
+
+class _Tuple(Final):
+    """Tuple type; Tuple[X, Y] is the cross-product type of X and Y.
+
+    Example: Tuple[T1, T2] is a tuple of two elements corresponding
+    to type variables T1 and T2.  Tuple[int, float, str] is a tuple
+    of an int, a float and a string.
+
+    To specify a variable-length tuple of homogeneous type, use Sequence[T].
+    """
+
+    __metaclass__ = TupleMeta
+
+    def __init__(self, parameters=None,
+                use_ellipsis=False, _root=False):
+        super(_Tuple, self).__init__(_root)
         self.__tuple_params__ = parameters
         self.__tuple_use_ellipsis__ = use_ellipsis
-        return self
 
     def _get_type_vars(self, tvars):
         if self.__tuple_params__:
@@ -749,11 +754,10 @@ class TupleMeta(TypingMeta):
         if p == self.__tuple_params__:
             return self
         else:
-            return self.__class__(self.__name__, self.__bases__, {},
-                                  p)
+            return self.__class__(p, _root=True)
 
     def __repr__(self):
-        r = super(TupleMeta, self).__repr__()
+        r = super(_Tuple, self).__repr__()
         if self.__tuple_params__ is not None:
             params = [_type_repr(p) for p in self.__tuple_params__]
             if self.__tuple_use_ellipsis__:
@@ -777,12 +781,10 @@ class TupleMeta(TypingMeta):
             use_ellipsis = False
             msg = "Tuple[t0, t1, ...]: each t must be a type."
         parameters = tuple(_type_check(p, msg) for p in parameters)
-        return self.__class__(self.__name__, self.__bases__,
-                              dict(self.__dict__), parameters,
-                              use_ellipsis=use_ellipsis)
+        return self.__class__(parameters, use_ellipsis=use_ellipsis, _root=True)
 
     def __eq__(self, other):
-        if not isinstance(other, TupleMeta):
+        if not isinstance(other, _Tuple):
             return NotImplemented
         return (self.__tuple_params__ == other.__tuple_params__ and
                 self.__tuple_use_ellipsis__ == other.__tuple_use_ellipsis__)
@@ -791,51 +793,46 @@ class TupleMeta(TypingMeta):
         return hash(self.__tuple_params__)
 
     def __instancecheck__(self, obj):
-        raise TypeError("Tuples cannot be used with isinstance().")
+        if self.__tuple_params__ == None:
+            return isinstance(obj, tuple)
+        raise TypeError("Parameterized Tuple cannot be used "
+                        "with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if cls is Any:
-            return True
-        if not isinstance(cls, type):
-            # To TypeError.
-            return super(TupleMeta, self).__subclasscheck__(cls)
-        if issubclass(cls, tuple):
-            return True  # Special case.
-        if not isinstance(cls, TupleMeta):
-            return super(TupleMeta, self).__subclasscheck__(cls)  # False.
-        if self.__tuple_params__ is None:
-            return True
-        if cls.__tuple_params__ is None:
-            return False  # ???
-        if cls.__tuple_use_ellipsis__ != self.__tuple_use_ellipsis__:
-            return False
-        # Covariance.
-        return (len(self.__tuple_params__) == len(cls.__tuple_params__) and
-                all(issubclass(x, p)
-                    for x, p in zip(cls.__tuple_params__,
-                                    self.__tuple_params__)))
+        if self.__tuple_params__ == None:
+            return issubclass(cls, tuple)
+        raise TypeError("Parameterized Tuple cannot be used "
+                        "with issubclass().")
 
 
-class Tuple(Final):
-    """Tuple type; Tuple[X, Y] is the cross-product type of X and Y.
-
-    Example: Tuple[T1, T2] is a tuple of two elements corresponding
-    to type variables T1 and T2.  Tuple[int, float, str] is a tuple
-    of an int, a float and a string.
-
-    To specify a variable-length tuple of homogeneous type, use Sequence[T].
-    """
-
-    __metaclass__ = TupleMeta
-    __slots__ = ()
+Tuple = _Tuple(_root=True)
 
 
 class CallableMeta(TypingMeta):
     """Metaclass for Callable."""
 
-    def __new__(cls, name, bases, namespace,
-                args=None, result=None):
+    def __new__(cls, name, bases, namespace):
         cls.assert_no_subclassing(bases)
+        return super(CallableMeta, cls).__new__(cls, name, bases, namespace)
+
+
+class _Callable(Final):
+    """Callable type; Callable[[int], str] is a function of (int) -> str.
+
+    The subscription syntax must always be used with exactly two
+    values: the argument list and the return type.  The argument list
+    must be a list of types; the return type must be a single type.
+
+    There is no syntax to indicate optional or keyword arguments,
+    such function types are rarely used as callback types.
+    """
+
+    __metaclass__ = CallableMeta
+
+    def __init__(self, args=None, result=None, _root=False):
+        super(_Callable, self).__init__(_root)
+
+    def __new__(cls, args=None, result=None, _root=False):
         if args is None and result is None:
             pass  # Must be 'class Callable'.
         else:
@@ -848,7 +845,7 @@ class CallableMeta(TypingMeta):
                 args = tuple(_type_check(arg, msg) for arg in args)
             msg = "Callable[args, result]: result must be a type."
             result = _type_check(result, msg)
-        self = super(CallableMeta, cls).__new__(cls, name, bases, namespace)
+        self = super(_Callable, cls).__new__(cls)
         self.__args__ = args
         self.__result__ = result
         return self
@@ -868,11 +865,10 @@ class CallableMeta(TypingMeta):
         if args == self.__args__ and result == self.__result__:
             return self
         else:
-            return self.__class__(self.__name__, self.__bases__, {},
-                                  args=args, result=result)
+            return self.__class__(args=args, result=result, _root=True)
 
     def __repr__(self):
-        r = super(CallableMeta, self).__repr__()
+        r = super(_Callable, self).__repr__()
         if self.__args__ is not None or self.__result__ is not None:
             if self.__args__ is Ellipsis:
                 args_r = '...'
@@ -889,12 +885,10 @@ class CallableMeta(TypingMeta):
             raise TypeError(
                 "Callable must be used as Callable[[arg, ...], result].")
         args, result = parameters
-        return self.__class__(self.__name__, self.__bases__,
-                              dict(self.__dict__),
-                              args=args, result=result)
+        return self.__class__(args=args, result=result, _root=True)
 
     def __eq__(self, other):
-        if not isinstance(other, CallableMeta):
+        if not isinstance(other, _Callable):
             return NotImplemented
         return (self.__args__ == other.__args__ and
                 self.__result__ == other.__result__)
@@ -909,32 +903,18 @@ class CallableMeta(TypingMeta):
         if self.__args__ is None and self.__result__ is None:
             return isinstance(obj, collections_abc.Callable)
         else:
-            raise TypeError("Callable[] cannot be used with isinstance().")
+            raise TypeError("Parameterized Callable cannot be used "
+                            "with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if cls is Any:
-            return True
-        if not isinstance(cls, CallableMeta):
-            return super(CallableMeta, self).__subclasscheck__(cls)
         if self.__args__ is None and self.__result__ is None:
-            return True
-        # We're not doing covariance or contravariance -- this is *invariance*.
-        return self == cls
+            return issubclass(cls, collections_abc.Callable)
+        else:
+            raise TypeError("Parameterized Callable cannot be used "
+                            "with issubclass().")
 
 
-class Callable(Final):
-    """Callable type; Callable[[int], str] is a function of (int) -> str.
-
-    The subscription syntax must always be used with exactly two
-    values: the argument list and the return type.  The argument list
-    must be a list of types; the return type must be a single type.
-
-    There is no syntax to indicate optional or keyword arguments,
-    such function types are rarely used as callback types.
-    """
-
-    __metaclass__ = CallableMeta
-    __slots__ = ()
+Callable = _Callable(_root=True)
 
 
 def _gorg(a):
@@ -1114,44 +1094,18 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         return self.__subclasscheck__(instance.__class__)
 
     def __subclasscheck__(self, cls):
-        if cls is Any:
-            return True
-        if isinstance(cls, GenericMeta):
-            # For a covariant class C(Generic[T]),
-            # C[X] is a subclass of C[Y] iff X is a subclass of Y.
-            origin = self.__origin__
-            if origin is not None and origin is cls.__origin__:
-                assert len(self.__args__) == len(origin.__parameters__)
-                assert len(cls.__args__) == len(origin.__parameters__)
-                for p_self, p_cls, p_origin in zip(self.__args__,
-                                                   cls.__args__,
-                                                   origin.__parameters__):
-                    if isinstance(p_origin, TypeVar):
-                        if p_origin.__covariant__:
-                            # Covariant -- p_cls must be a subclass of p_self.
-                            if not issubclass(p_cls, p_self):
-                                break
-                        elif p_origin.__contravariant__:
-                            # Contravariant.  I think it's the opposite. :-)
-                            if not issubclass(p_self, p_cls):
-                                break
-                        else:
-                            # Invariant -- p_cls and p_self must equal.
-                            if p_self != p_cls:
-                                break
-                    else:
-                        # If the origin's parameter is not a typevar,
-                        # insist on invariance.
-                        if p_self != p_cls:
-                            break
-                else:
-                    return True
-                # If we break out of the loop, the superclass gets a chance.
+        if self is Generic:
+            raise TypeError("Class %r cannot be used with class "
+                            "or instance checks" % self)
+        if (self.__origin__ is not None and
+            sys._getframe(1).f_globals['__name__'] != 'abc'):
+            raise TypeError("Parameterized generics cannot be used with class "
+                            "or instance checks")
         if super(GenericMeta, self).__subclasscheck__(cls):
             return True
-        if self.__extra__ is None or isinstance(cls, GenericMeta):
-            return False
-        return issubclass(cls, self.__extra__)
+        if self.__extra__ is not None:
+            return issubclass(cls, self.__extra__)
+        return False
 
 
 # Prevent checks for Generic to crash when defining Generic.

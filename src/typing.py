@@ -141,6 +141,10 @@ class TypingBase(metaclass=TypingMeta, _root=True):
     def _get_type_vars(self, tvars):
         pass
 
+    def __repr__(self):
+        cls = type(self)
+        return '{}.{}'.format(cls.__module__, cls.__name__[1:])
+
 
 class Final(TypingBase, _root=True):
     """Mix-in class to prevent instantiation."""
@@ -150,7 +154,7 @@ class Final(TypingBase, _root=True):
     def __new__(self, *args, _root=False, **kwds):
         if _root:
             return object.__new__(self)
-        raise TypeError("Cannot instantiate %r" % self)
+        raise TypeError("Cannot instantiate or subclass %r" % self)
 
 
 class _ForwardRef(TypingBase, _root=True):
@@ -340,10 +344,6 @@ class _Any(Final, _root=True):
 
     def __subclasscheck__(self, cls):
         raise TypeError("Any cannot be used with issubclass().")
-
-    def __repr__(self):
-        cls = type(self)
-        return '{}.{}'.format(cls.__module__, cls.__name__[1:])
 
 
 Any = _Any(_root=True)
@@ -562,8 +562,7 @@ class _Union(Final, _root=True):
             _get_type_vars(self.__union_params__, tvars)
 
     def __repr__(self):
-        cls = type(self)
-        r = '{}.{}'.format(cls.__module__, cls.__name__[1:])
+        r = super().__repr__()
         if self.__union_params__:
             r += '[%s]' % (', '.join(_type_repr(t)
                                      for t in self.__union_params__))
@@ -603,10 +602,6 @@ class _Optional(Final, _root=True):
     Optional[X] is equivalent to Union[X, type(None)].
     """
 
-    def __repr__(self):
-        cls = type(self)
-        return '{}.{}'.format(cls.__module__, cls.__name__[1:])
-
     def __getitem__(self, arg):
         arg = _type_check(arg, "Optional[t] requires a single type.")
         return Union[arg, type(None)]
@@ -645,8 +640,7 @@ class _Tuple(Final, _root=True):
             return self.__class__(p, _root=True)
 
     def __repr__(self):
-        cls = type(self)
-        r = '{}.{}'.format(cls.__module__, cls.__name__[1:])
+        r = super().__repr__()
         if self.__tuple_params__ is not None:
             params = [_type_repr(p) for p in self.__tuple_params__]
             if self.__tuple_use_ellipsis__:
@@ -743,8 +737,7 @@ class _Callable(Final, _root=True):
             return self.__class__(args, result, _root=True)
 
     def __repr__(self):
-        cls = type(self)
-        r = '{}.{}'.format(cls.__module__, cls.__name__[1:])
+        r = super().__repr__()
         if self.__args__ is not None or self.__result__ is not None:
             if self.__args__ is Ellipsis:
                 args_r = '...'
@@ -1071,11 +1064,10 @@ class _ClassVar(Final, _root=True):
             _get_type_vars(self.__type__, tvars)
 
     def __repr__(self):
-        cls = type(self)
-        if not self.__type__:
-            return '{}.{}'.format(cls.__module__, cls.__name__[1:])
-        return '{}.{}[{}]'.format(cls.__module__, cls.__name__[1:],
-                                  _type_repr(self.__type__))
+        r = super().__repr__()
+        if self.__type__ is not None:
+            r += '[{}]'.format(_type_repr(self.__type__))
+        return r
 
     def __hash__(self):
         return hash((type(self).__name__, self.__type__))

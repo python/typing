@@ -10,7 +10,7 @@ from typing import Any
 from typing import TypeVar, AnyStr
 from typing import T, KT, VT  # Not in __all__.
 from typing import Union, Optional
-from typing import Tuple
+from typing import Tuple, List
 from typing import Callable
 from typing import Generic, ClassVar
 from typing import cast
@@ -291,14 +291,16 @@ class UnionTests(BaseTestCase):
 class TupleTests(BaseTestCase):
 
     def test_basics(self):
-        self.assertTrue(issubclass(Tuple[int, str], Tuple))
-        self.assertTrue(issubclass(Tuple[int, str], Tuple[int, str]))
-        self.assertFalse(issubclass(int, Tuple))
-        self.assertFalse(issubclass(Tuple[float, str], Tuple[int, str]))
-        self.assertFalse(issubclass(Tuple[int, str, int], Tuple[int, str]))
-        self.assertFalse(issubclass(Tuple[int, str], Tuple[int, str, int]))
+        with self.assertRaises(TypeError):
+            issubclass(Tuple[int, str], Tuple)
+        with self.assertRaises(TypeError):
+            issubclass(Tuple, Tuple[int, str])
+        with self.assertRaises(TypeError):
+            issubclass(tuple, Tuple[int, str])
+
+        class TP(tuple): pass
         self.assertTrue(issubclass(tuple, Tuple))
-        self.assertFalse(issubclass(Tuple, tuple))  # Can't have it both ways.
+        self.assertTrue(issubclass(TP, Tuple))
 
     def test_equality(self):
         self.assertEqual(Tuple[int], Tuple[int])
@@ -314,21 +316,7 @@ class TupleTests(BaseTestCase):
     def test_tuple_instance_type_error(self):
         with self.assertRaises(TypeError):
             isinstance((0, 0), Tuple[int, int])
-        with self.assertRaises(TypeError):
-            isinstance((0, 0), Tuple)
-
-    def test_tuple_ellipsis_subclass(self):
-
-        class B(object):
-            pass
-
-        class C(B):
-            pass
-
-        self.assertNotIsSubclass(Tuple[B], Tuple[B, ...])
-        self.assertIsSubclass(Tuple[C, ...], Tuple[B, ...])
-        self.assertNotIsSubclass(Tuple[C, ...], Tuple[B])
-        self.assertNotIsSubclass(Tuple[C], Tuple[B, ...])
+        isinstance((0, 0), Tuple)
 
     def test_repr(self):
         self.assertEqual(repr(Tuple), 'typing.Tuple')
@@ -346,17 +334,9 @@ class TupleTests(BaseTestCase):
 class CallableTests(BaseTestCase):
 
     def test_self_subclass(self):
-        self.assertTrue(issubclass(Callable[[int], int], Callable))
-        self.assertFalse(issubclass(Callable, Callable[[int], int]))
-        self.assertTrue(issubclass(Callable[[int], int], Callable[[int], int]))
-        self.assertFalse(issubclass(Callable[[Employee], int],
-                                    Callable[[Manager], int]))
-        self.assertFalse(issubclass(Callable[[Manager], int],
-                                    Callable[[Employee], int]))
-        self.assertFalse(issubclass(Callable[[int], Employee],
-                                    Callable[[int], Manager]))
-        self.assertFalse(issubclass(Callable[[int], Manager],
-                                    Callable[[int], Employee]))
+        with self.assertRaises(TypeError):
+            self.assertTrue(issubclass(type(lambda x: x), Callable[[int], int]))
+        self.assertTrue(issubclass(type(lambda x: x), Callable))
 
     def test_eq_hash(self):
         self.assertEqual(Callable[[int], int], Callable[[int], int])
@@ -498,6 +478,12 @@ class GenericTests(BaseTestCase):
         Y[unicode]
         with self.assertRaises(TypeError):
             Y[unicode, unicode]
+
+    def test_generic_errors(self):
+        with self.assertRaises(TypeError):
+            isinstance([], List[int])
+        with self.assertRaises(TypeError):
+            issubclass(list, List[int])
 
     def test_init(self):
         T = TypeVar('T')
@@ -748,52 +734,6 @@ class ClassVarTests(BaseTestCase):
             issubclass(int, ClassVar)
 
 
-class VarianceTests(BaseTestCase):
-
-    def test_invariance(self):
-        # Because of invariance, List[subclass of X] is not a subclass
-        # of List[X], and ditto for MutableSequence.
-        self.assertNotIsSubclass(typing.List[Manager], typing.List[Employee])
-        self.assertNotIsSubclass(typing.MutableSequence[Manager],
-                              typing.MutableSequence[Employee])
-        # It's still reflexive.
-        self.assertIsSubclass(typing.List[Employee], typing.List[Employee])
-        self.assertIsSubclass(typing.MutableSequence[Employee],
-                          typing.MutableSequence[Employee])
-
-    def test_covariance_tuple(self):
-        # Check covariace for Tuple (which are really special cases).
-        self.assertIsSubclass(Tuple[Manager], Tuple[Employee])
-        self.assertNotIsSubclass(Tuple[Employee], Tuple[Manager])
-        # And pairwise.
-        self.assertIsSubclass(Tuple[Manager, Manager],
-                              Tuple[Employee, Employee])
-        self.assertNotIsSubclass(Tuple[Employee, Employee],
-                              Tuple[Manager, Employee])
-        # And using ellipsis.
-        self.assertIsSubclass(Tuple[Manager, ...], Tuple[Employee, ...])
-        self.assertNotIsSubclass(Tuple[Employee, ...], Tuple[Manager, ...])
-
-    def test_covariance_sequence(self):
-        # Check covariance for Sequence (which is just a generic class
-        # for this purpose, but using a type variable with covariant=True).
-        self.assertIsSubclass(typing.Sequence[Manager],
-                              typing.Sequence[Employee])
-        self.assertNotIsSubclass(typing.Sequence[Employee],
-                              typing.Sequence[Manager])
-
-    def test_covariance_mapping(self):
-        # Ditto for Mapping (covariant in the value, invariant in the key).
-        self.assertIsSubclass(typing.Mapping[Employee, Manager],
-                          typing.Mapping[Employee, Employee])
-        self.assertNotIsSubclass(typing.Mapping[Manager, Employee],
-                              typing.Mapping[Employee, Employee])
-        self.assertNotIsSubclass(typing.Mapping[Employee, Manager],
-                              typing.Mapping[Manager, Manager])
-        self.assertNotIsSubclass(typing.Mapping[Manager, Employee],
-                              typing.Mapping[Manager, Manager])
-
-
 class CastTests(BaseTestCase):
 
     def test_basics(self):
@@ -866,7 +806,6 @@ class CollectionsAbcTests(BaseTestCase):
         # path and could fail.  So call this a few times.
         self.assertIsInstance([], typing.Iterable)
         self.assertIsInstance([], typing.Iterable)
-        self.assertIsInstance([], typing.Iterable[int])
         self.assertNotIsInstance(42, typing.Iterable)
         # Just in case, also test issubclass() a few times.
         self.assertIsSubclass(list, typing.Iterable)
@@ -875,7 +814,6 @@ class CollectionsAbcTests(BaseTestCase):
     def test_iterator(self):
         it = iter([])
         self.assertIsInstance(it, typing.Iterator)
-        self.assertIsInstance(it, typing.Iterator[int])
         self.assertNotIsInstance(42, typing.Iterator)
 
     def test_sized(self):
@@ -1032,10 +970,6 @@ class CollectionsAbcTests(BaseTestCase):
             yield 42
         g = foo()
         self.assertIsSubclass(type(g), typing.Generator)
-        self.assertIsSubclass(typing.Generator[Manager, Employee, Manager],
-                          typing.Generator[Employee, Manager, Employee])
-        self.assertNotIsSubclass(typing.Generator[Manager, Manager, Manager],
-                              typing.Generator[Employee, Employee, Employee])
 
     def test_no_generator_instantiation(self):
         with self.assertRaises(TypeError):
