@@ -10,7 +10,7 @@ from typing import Any
 from typing import TypeVar, AnyStr
 from typing import T, KT, VT  # Not in __all__.
 from typing import Union, Optional
-from typing import Tuple, List
+from typing import Tuple, List, MutableMapping
 from typing import Callable
 from typing import Generic, ClassVar
 from typing import cast
@@ -20,6 +20,10 @@ from typing import NamedTuple
 from typing import IO, TextIO, BinaryIO
 from typing import Pattern, Match
 import typing
+try:
+    import collections.abc as collections_abc
+except ImportError:
+    import collections as collections_abc  # Fallback for PY3.2.
 
 
 class BaseTestCase(TestCase):
@@ -80,10 +84,15 @@ class AnyTests(BaseTestCase):
         with self.assertRaises(TypeError):
             class A(Any):
                 pass
+        with self.assertRaises(TypeError):
+            class A(type(Any)):
+                pass
 
     def test_cannot_instantiate(self):
         with self.assertRaises(TypeError):
             Any()
+        with self.assertRaises(TypeError):
+            type(Any)()
 
     def test_cannot_subscript(self):
         with self.assertRaises(TypeError):
@@ -245,6 +254,9 @@ class UnionTests(BaseTestCase):
             class C(Union):
                 pass
         with self.assertRaises(TypeError):
+            class C(type(Union)):
+                pass
+        with self.assertRaises(TypeError):
             class C(Union[int, str]):
                 pass
 
@@ -254,6 +266,13 @@ class UnionTests(BaseTestCase):
         u = Union[int, float]
         with self.assertRaises(TypeError):
             u()
+        with self.assertRaises(TypeError):
+            type(u)()
+
+    def test_union_generalization(self):
+        self.assertFalse(Union[str, typing.Iterable[int]] == str)
+        self.assertFalse(Union[str, typing.Iterable[int]] == typing.Iterable[int])
+        self.assertTrue(Union[str, typing.Iterable] == typing.Iterable)
 
     def test_optional(self):
         o = Optional[int]
@@ -355,15 +374,24 @@ class CallableTests(BaseTestCase):
 
         with self.assertRaises(TypeError):
 
+            class C(type(Callable)):
+                pass
+
+        with self.assertRaises(TypeError):
+
             class C(Callable[[int], int]):
                 pass
 
     def test_cannot_instantiate(self):
         with self.assertRaises(TypeError):
             Callable()
+        with self.assertRaises(TypeError):
+            type(Callable)()
         c = Callable[[int], str]
         with self.assertRaises(TypeError):
             c()
+        with self.assertRaises(TypeError):
+            type(c)()
 
     def test_callable_instance_works(self):
         def f():
@@ -539,6 +567,42 @@ class GenericTests(BaseTestCase):
         c = C()
         c.bar = 'abc'
         self.assertEqual(c.__dict__, {'bar': 'abc'})
+
+    def test_false_subclasses(self):
+        class MyMapping(MutableMapping[str, str]): pass
+        self.assertNotIsInstance({}, MyMapping)
+        self.assertNotIsSubclass(dict, MyMapping)
+
+    def test_multiple_abc_bases(self):
+        class MM1(MutableMapping[str, str], collections_abc.MutableMapping):
+            def __getitem__(self, k):
+                return None
+            def __setitem__(self, k, v):
+                pass
+            def __delitem__(self, k):
+                pass
+            def __iter__(self):
+                return iter(())
+            def __len__(self):
+                return 0
+        class MM2(collections_abc.MutableMapping, MutableMapping[str, str]):
+            def __getitem__(self, k):
+                return None
+            def __setitem__(self, k, v):
+                pass
+            def __delitem__(self, k):
+                pass
+            def __iter__(self):
+                return iter(())
+            def __len__(self):
+                return 0
+        # these two should just work
+        MM1().update()
+        MM2().update()
+        self.assertIsInstance(MM1(), collections_abc.MutableMapping)
+        self.assertIsInstance(MM1(), MutableMapping)
+        self.assertIsInstance(MM2(), collections_abc.MutableMapping)
+        self.assertIsInstance(MM2(), MutableMapping)
 
     def test_pickle(self):
         global C  # pickle wants to reference the class by name
@@ -722,6 +786,8 @@ class ClassVarTests(BaseTestCase):
                 pass
 
     def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            ClassVar()
         with self.assertRaises(TypeError):
             type(ClassVar)()
         with self.assertRaises(TypeError):
@@ -1116,10 +1182,12 @@ class RETests(BaseTestCase):
         pat = re.compile('[a-z]+', re.I)
         self.assertIsSubclass(pat.__class__, Pattern)
         self.assertIsSubclass(type(pat), Pattern)
+        self.assertIsInstance(pat, Pattern)
 
         mat = pat.search('12345abcde.....')
         self.assertIsSubclass(mat.__class__, Match)
         self.assertIsSubclass(type(mat), Match)
+        self.assertIsInstance(mat, Match)
 
         # these should just work
         p = Pattern[Union[str, bytes]]
