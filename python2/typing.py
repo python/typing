@@ -145,9 +145,8 @@ class Final(TypingBase):
     __slots__ = ()
 
     def __init__(self, _root=False):
-        cls = type(self)
         if _root is not True:
-            raise TypeError('Cannot instantiate {}'.format(cls.__name__[1:]))
+            raise TypeError('Cannot instantiate or subclass %r' % self)
 
 
 class _ForwardRef(TypingBase):
@@ -353,8 +352,8 @@ class _ClassVar(Final):
     __metaclass__ = ClassVarMeta
 
     def __init__(self, tp=None, _root=False):
-        super(_ClassVar, self).__init__(_root)
         self.__type__ = tp
+        super(_ClassVar, self).__init__(_root)
 
     def __getitem__(self, item):
         cls = type(self)
@@ -731,16 +730,16 @@ class _Tuple(Final):
     to type variables T1 and T2.  Tuple[int, float, str] is a tuple
     of an int, a float and a string.
 
-    To specify a variable-length tuple of homogeneous type, use Sequence[T].
+    To specify a variable-length tuple of homogeneous type, use Tuple[T, ...].
     """
 
     __metaclass__ = TupleMeta
 
     def __init__(self, parameters=None,
                 use_ellipsis=False, _root=False):
-        super(_Tuple, self).__init__(_root)
         self.__tuple_params__ = parameters
         self.__tuple_use_ellipsis__ = use_ellipsis
+        super(_Tuple, self).__init__(_root)
 
     def _get_type_vars(self, tvars):
         if self.__tuple_params__:
