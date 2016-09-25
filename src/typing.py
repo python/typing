@@ -1,6 +1,5 @@
 import abc
 from abc import abstractmethod, abstractproperty
-from functools import lru_cache, wraps
 import collections
 import contextlib
 import functools
@@ -90,6 +89,13 @@ def _qualname(x):
         return x.__name__
 
 
+def _trim_name(nm):
+    if nm.startswith('_') and nm not in ('_TypeAlias',
+                    '_ForwardRef', '_TypingBase', '_FinalTypingBase'):
+        nm = nm[1:]
+    return nm
+
+
 class TypingMeta(type):
     """Metaclass for every type defined below.
 
@@ -128,11 +134,25 @@ class TypingMeta(type):
         pass
 
     def __repr__(self):
-        return '%s.%s' % (self.__module__, _qualname(self))
+        qname = _trim_name(_qualname(self))
+        return '%s.%s' % (self.__module__, qname)
 
 
 class TypingBase(metaclass=TypingMeta, _root=True):
     """Indicator of special typing constructs."""
+
+    def __new__(cls, *args, **kwds):
+        """Constructor.
+
+        This only exists to give a better error message in case
+        someone tries to subclass a special typing object (not a good idea).
+        """
+        if (len(args) == 3 and
+                isinstance(args[0], str) and
+                isinstance(args[1], tuple)):
+            # Close enough.
+            raise TypeError("Cannot subclass %r" % cls)
+        return object.__new__(cls)
 
     # things that are not classes also need these
     def _eval_type(self, globalns, localns):
@@ -143,7 +163,11 @@ class TypingBase(metaclass=TypingMeta, _root=True):
 
     def __repr__(self):
         cls = type(self)
-        return '{}.{}'.format(cls.__module__, cls.__name__[1:])
+        qname = _trim_name(_qualname(cls))
+        return '%s.%s' % (cls.__module__, qname)
+
+    def __call__(self, *args, **kwds):
+        raise TypeError("Cannot instantiate %r" % type(self))
 
 
 class Final(TypingBase, _root=True):
@@ -151,10 +175,11 @@ class Final(TypingBase, _root=True):
 
     __slots__ = ()
 
-    def __new__(self, *args, _root=False, **kwds):
-        if _root:
-            return object.__new__(self)
-        raise TypeError("Cannot instantiate or subclass %r" % self)
+    def __new__(cls, *args, _root=False, **kwds):
+        self = super().__new__(cls, *args, **kwds)
+        if _root is True:
+            return self
+        raise TypeError("Cannot instantiate %r" % cls)
 
 
 class _ForwardRef(TypingBase, _root=True):
@@ -193,6 +218,14 @@ class _ForwardRef(TypingBase, _root=True):
             self.__forward_evaluated__ = True
         return self.__forward_value__
 
+    def __eq__(self, other):
+        if not isinstance(other, _ForwardRef):
+            return NotImplemented
+        return self.__forward_arg__ == other.__forward_arg__
+
+    def __hash__(self):
+        return hash(self.__forward_arg__)
+
     def __instancecheck__(self, obj):
         raise TypeError("Forward references cannot be used with isinstance().")
 
@@ -213,19 +246,6 @@ class _TypeAlias(TypingBase, _root=True):
     """
 
     __slots__ = ('name', 'type_var', 'impl_type', 'type_checker')
-
-    def __new__(cls, *args, **kwds):
-        """Constructor.
-
-        This only exists to give a better error message in case
-        someone tries to subclass a type alias (not a good idea).
-        """
-        if (len(args) == 3 and
-                isinstance(args[0], str) and
-                isinstance(args[1], tuple)):
-            # Close enough.
-            raise TypeError("A type alias cannot be subclassed")
-        return object.__new__(cls)
 
     def __init__(self, name, type_var, impl_type, type_checker):
         """Initializer.
@@ -260,6 +280,14 @@ class _TypeAlias(TypingBase, _root=True):
             raise TypeError("%s cannot be re-parameterized." % self.type_var)
         return self.__class__(self.name, parameter,
                               self.impl_type, self.type_checker)
+
+    def __eq__(self, other):
+        if not isinstance(other, _TypeAlias):
+            return NotImplemented
+        return self.name == other.name and self.type_var == other.type_var
+
+    def __hash__(self):
+        return hash((self.name, self.type_var))
 
     def __instancecheck__(self, obj):
         if not isinstance(self.type_var, TypeVar):
@@ -447,6 +475,17 @@ T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 AnyStr = TypeVar('AnyStr', bytes, str)
 
 
+def _tp_cache(func):
+    cached = functools.lru_cache()(func)
+    @functools.wraps(func)
+    def inner(*args, **kwargs):
+        if any(not isinstance(arg, collections_abc.Hashable) for arg in args):
+            return func(*args, **kwargs)
+        else:
+            return cached(*args, **kwargs)
+    return inner
+
+
 class _Union(Final, _root=True):
     """Union type; Union[X, Y] means either X or Y.
 
@@ -499,8 +538,8 @@ class _Union(Final, _root=True):
     - You can use Optional[X] as a shorthand for Union[X, None].
     """
 
-    def __new__(cls, parameters=None, _root=False):
-        self = super().__new__(cls, _root=_root)
+    def __new__(cls, parameters=None, *args, _root=False):
+        self = super().__new__(cls, parameters, *args, _root=_root)
         if parameters is None:
             self.__union_params__ = None
             self.__union_set_params__ = None
@@ -568,6 +607,7 @@ class _Union(Final, _root=True):
                                      for t in self.__union_params__))
         return r
 
+    @_tp_cache
     def __getitem__(self, parameters):
         if self.__union_params__ is not None:
             raise TypeError(
@@ -674,7 +714,7 @@ class _Tuple(Final, _root=True):
                 self.__tuple_use_ellipsis__ == other.__tuple_use_ellipsis__)
 
     def __hash__(self):
-        return hash(self.__tuple_params__)
+        return hash((self.__tuple_params__, self.__tuple_use_ellipsis__))
 
     def __instancecheck__(self, obj):
         if self.__tuple_params__ == None:
@@ -823,17 +863,6 @@ def _next_in_mro(cls):
     return next_in_mro
 
 
-def tp_cache(func):
-    cached = lru_cache(maxsize=50)(func)
-    wraps(func)
-    def inner(*args, **kwargs):
-        if any(not isinstance(arg, collections_abc.Hashable) for arg in args):
-            return func(*args, **kwargs)
-        else:
-            return cached(*args, **kwargs)
-    return inner
-
-
 class GenericMeta(TypingMeta, abc.ABCMeta):
     """Metaclass for generic types."""
 
@@ -919,7 +948,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def __hash__(self):
         return hash((self.__name__, self.__parameters__))
 
-    @tp_cache
+    @_tp_cache
     def __getitem__(self, params):
         if not isinstance(params, tuple):
             params = (params,)
