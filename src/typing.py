@@ -502,7 +502,8 @@ def _tp_cache(func):
         try:
             return cached(*args, **kwds)
         except TypeError:
-            return func(*args, **kwds)
+            pass  # Do not duplicate real errors.
+        return func(*args, **kwds)
     return inner
 
 
