@@ -123,7 +123,7 @@ class TypingMeta(type):
         return '%s.%s' % (self.__module__, _qualname(self))
 
 
-class TypingBase(object):
+class _TypingBase(object):
     """Indicator of special typing constructs."""
     __metaclass__ = TypingMeta
 
@@ -139,7 +139,7 @@ class TypingBase(object):
         return '{}.{}'.format(cls.__module__, cls.__name__[1:])
 
 
-class Final(TypingBase):
+class _FinalTypingBase(_TypingBase):
     """Mix-in class to prevent instantiation."""
 
     __slots__ = ()
@@ -149,7 +149,7 @@ class Final(TypingBase):
             raise TypeError('Cannot instantiate or subclass %r' % self)
 
 
-class _ForwardRef(TypingBase):
+class _ForwardRef(_TypingBase):
     """Wrapper to hold a forward reference."""
 
     def __init__(self, arg):
@@ -195,7 +195,7 @@ class _ForwardRef(TypingBase):
         return '_ForwardRef(%r)' % (self.__forward_arg__,)
 
 
-class _TypeAlias(TypingBase):
+class _TypeAlias(_TypingBase):
     """Internal helper class for defining generic variants of concrete types.
 
     Note that this is not a type; let's call it a pseudo-type.  It cannot
@@ -268,7 +268,7 @@ class _TypeAlias(TypingBase):
 
 def _get_type_vars(types, tvars):
     for t in types:
-        if isinstance(t, TypingMeta) or isinstance(t, TypingBase):
+        if isinstance(t, TypingMeta) or isinstance(t, _TypingBase):
             t._get_type_vars(tvars)
 
 
@@ -279,7 +279,7 @@ def _type_vars(types):
 
 
 def _eval_type(t, globalns, localns):
-    if isinstance(t, TypingMeta) or isinstance(t, TypingBase):
+    if isinstance(t, TypingMeta) or isinstance(t, _TypingBase):
         return t._eval_type(globalns, localns)
     else:
         return t
@@ -301,7 +301,7 @@ def _type_check(arg, msg):
         return type(None)
     if isinstance(arg, basestring):
         arg = _ForwardRef(arg)
-    if not isinstance(arg, (type, TypingBase)) and not callable(arg):
+    if not isinstance(arg, (type, _TypingBase)) and not callable(arg):
         raise TypeError(msg + " Got %.100r." % (arg,))
     return arg
 
@@ -332,7 +332,7 @@ class ClassVarMeta(TypingMeta):
         return self
 
 
-class _ClassVar(Final):
+class _ClassVar(_FinalTypingBase):
     """Special type construct to mark class variables.
 
     An annotation wrapped in ClassVar indicates that a given
@@ -400,7 +400,7 @@ class AnyMeta(TypingMeta):
         return self
 
 
-class _Any(Final):
+class _Any(_FinalTypingBase):
     """Special type indicating an unconstrained type.
 
     - Any object is an instance of Any.
@@ -426,7 +426,7 @@ class TypeVarMeta(TypingMeta):
         return super(TypeVarMeta, cls).__new__(cls, name, bases, namespace)
 
 
-class TypeVar(TypingBase):
+class TypeVar(_TypingBase):
     """Type variable.
 
     Usage::
@@ -536,7 +536,7 @@ class UnionMeta(TypingMeta):
         return super(UnionMeta, cls).__new__(cls, name, bases, namespace)
 
 
-class _Union(Final):
+class _Union(_FinalTypingBase):
     """Union type; Union[X, Y] means either X or Y.
 
     To define a union, use e.g. Union[int, str].  Details:
@@ -698,7 +698,7 @@ class OptionalMeta(TypingMeta):
         return super(OptionalMeta, cls).__new__(cls, name, bases, namespace)
 
 
-class _Optional(Final):
+class _Optional(_FinalTypingBase):
     """Optional type.
 
     Optional[X] is equivalent to Union[X, type(None)].
@@ -723,7 +723,7 @@ class TupleMeta(TypingMeta):
         return super(TupleMeta, cls).__new__(cls, name, bases, namespace)
 
 
-class _Tuple(Final):
+class _Tuple(_FinalTypingBase):
     """Tuple type; Tuple[X, Y] is the cross-product type of X and Y.
 
     Example: Tuple[T1, T2] is a tuple of two elements corresponding
@@ -815,7 +815,7 @@ class CallableMeta(TypingMeta):
         return super(CallableMeta, cls).__new__(cls, name, bases, namespace)
 
 
-class _Callable(Final):
+class _Callable(_FinalTypingBase):
     """Callable type; Callable[[int], str] is a function of (int) -> str.
 
     The subscription syntax must always be used with exactly two

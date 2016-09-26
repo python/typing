@@ -498,11 +498,11 @@ AnyStr = TypeVar('AnyStr', bytes, str)
 def _tp_cache(func):
     cached = functools.lru_cache()(func)
     @functools.wraps(func)
-    def inner(*args, **kwargs):
-        if any(not isinstance(arg, collections_abc.Hashable) for arg in args):
-            return func(*args, **kwargs)
-        else:
-            return cached(*args, **kwargs)
+    def inner(*args, **kwds):
+        try:
+            return cached(*args, **kwds)
+        except TypeError:
+            return func(*args, **kwds)
     return inner
 
 
@@ -666,6 +666,7 @@ class _Optional(_FinalTypingBase, _root=True):
 
     __slots__ = ()
 
+    @_tp_cache
     def __getitem__(self, arg):
         arg = _type_check(arg, "Optional[t] requires a single type.")
         return Union[arg, type(None)]
@@ -717,6 +718,7 @@ class _Tuple(_FinalTypingBase, _root=True):
                 ', '.join(params))
         return r
 
+    @_tp_cache
     def __getitem__(self, parameters):
         if self.__tuple_params__ is not None:
             raise TypeError("Cannot re-parameterize %r" % (self,))
