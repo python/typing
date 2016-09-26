@@ -83,6 +83,12 @@ def _qualname(x):
         # Fall back to just name.
         return x.__name__
 
+def _trim_name(nm):
+    if nm.startswith('_') and nm not in ('_TypeAlias',
+                    '_ForwardRef', '_TypingBase', '_FinalTypingBase'):
+        nm = nm[1:]
+    return nm
+
 
 class TypingMeta(type):
     """Metaclass for every type defined below.
@@ -120,14 +126,32 @@ class TypingMeta(type):
         pass
 
     def __repr__(self):
-        return '%s.%s' % (self.__module__, _qualname(self))
+        qname = _trim_name(_qualname(self))
+        return '%s.%s' % (self.__module__, qname)
 
 
 class _TypingBase(object):
     """Indicator of special typing constructs."""
     __metaclass__ = TypingMeta
+    __slots__ = ()
 
-    # things that are not classes also need these
+    def __init__(self, *args, **kwds):
+        pass
+
+    def __new__(cls, *args, **kwds):
+        """Constructor.
+
+        This only exists to give a better error message in case
+        someone tries to subclass a special typing object (not a good idea).
+        """
+        if (len(args) == 3 and
+                isinstance(args[0], str) and
+                isinstance(args[1], tuple)):
+            # Close enough.
+            raise TypeError("Cannot subclass %r" % cls)
+        return object.__new__(cls)
+
+    # Things that are not classes also need these.
     def _eval_type(self, globalns, localns):
         return self
 
@@ -136,7 +160,11 @@ class _TypingBase(object):
 
     def __repr__(self):
         cls = type(self)
-        return '{}.{}'.format(cls.__module__, cls.__name__[1:])
+        qname = _trim_name(_qualname(cls))
+        return '%s.%s' % (cls.__module__, qname)
+
+    def __call__(self, *args, **kwds):
+        raise TypeError("Cannot instantiate %r" % type(self))
 
 
 class _FinalTypingBase(_TypingBase):
@@ -144,15 +172,22 @@ class _FinalTypingBase(_TypingBase):
 
     __slots__ = ()
 
-    def __init__(self, _root=False):
-        if _root is not True:
-            raise TypeError('Cannot instantiate or subclass %r' % self)
+    def __new__(cls, *args, **kwds):
+        self = super(_FinalTypingBase, cls).__new__(cls, *args, **kwds)
+        if '_root' in kwds and kwds['_root'] is True:
+            return self
+        raise TypeError("Cannot instantiate %r" % cls)
 
 
 class _ForwardRef(_TypingBase):
     """Wrapper to hold a forward reference."""
 
+    __slots__ = ('__forward_arg__', '__forward_code__',
+                 '__forward_evaluated__', '__forward_value__',
+                 '__forward_frame__')
+
     def __init__(self, arg):
+        super(_ForwardRef, self).__init__(arg)
         if not isinstance(arg, basestring):
             raise TypeError('ForwardRef must be a string -- got %r' % (arg,))
         try:
@@ -206,18 +241,6 @@ class _TypeAlias(_TypingBase):
 
     __slots__ = ('name', 'type_var', 'impl_type', 'type_checker')
 
-    def __new__(cls, *args, **kwds):
-        """Constructor.
-
-        This only exists to give a better error message in case
-        someone tries to subclass a type alias (not a good idea).
-        """
-        if (len(args) == 3 and
-                isinstance(args[0], basestring) and
-                isinstance(args[1], tuple)):
-            # Close enough.
-            raise TypeError("A type alias cannot be subclassed")
-        return object.__new__(cls)
 
     def __init__(self, name, type_var, impl_type, type_checker):
         """Initializer.
@@ -233,8 +256,9 @@ class _TypeAlias(_TypingBase):
         assert isinstance(name, basestring), repr(name)
         assert isinstance(impl_type, type), repr(impl_type)
         assert not isinstance(impl_type, TypingMeta), repr(impl_type)
+        assert isinstance(type_var, (type, _TypingBase))
         self.name = name
-        self.type_var = _type_check(type_var, "Type alias accepts only types")
+        self.type_var = type_var
         self.impl_type = impl_type
         self.type_checker = type_checker
 
@@ -350,10 +374,10 @@ class _ClassVar(_FinalTypingBase):
     """
 
     __metaclass__ = ClassVarMeta
+    __slots__ = ('__type__',)
 
     def __init__(self, tp=None, _root=False):
         self.__type__ = tp
-        super(_ClassVar, self).__init__(_root)
 
     def __getitem__(self, item):
         cls = type(self)
@@ -472,8 +496,11 @@ class TypeVar(_TypingBase):
     """
 
     __metaclass__ = TypeVarMeta
+    __slots__ = ('__name__', '__bound__', '__constraints__',
+                 '__covariant__', '__contravariant__')
 
     def __init__(self, name, *constraints, **kwargs):
+        super(TypeVar, self).__init__(name, *constraints, **kwargs)
         bound = kwargs.get('bound', None)
         covariant = kwargs.get('covariant', False)
         contravariant = kwargs.get('contravariant', False)
@@ -589,12 +616,10 @@ class _Union(_FinalTypingBase):
     """
 
     __metaclass__ = UnionMeta
+    __slots__ = ('__union_params__', '__union_set_params__')
 
-    def __init__(self, parameters=None, _root=False):
-        super(_Union, self).__init__(_root)
-
-    def __new__(cls, parameters=None, _root=False):
-        self = super(_Union, cls).__new__(cls)
+    def __new__(cls, parameters=None, *args, **kwds):
+        self = super(_Union, cls).__new__(cls, parameters, *args, **kwds)
         if parameters is None:
             self.__union_params__ = None
             self.__union_set_params__ = None
@@ -734,12 +759,12 @@ class _Tuple(_FinalTypingBase):
     """
 
     __metaclass__ = TupleMeta
+    __slots__ = ('__tuple_params__', '__tuple_use_ellipsis__')
 
     def __init__(self, parameters=None,
                 use_ellipsis=False, _root=False):
         self.__tuple_params__ = parameters
         self.__tuple_use_ellipsis__ = use_ellipsis
-        super(_Tuple, self).__init__(_root)
 
     def _get_type_vars(self, tvars):
         if self.__tuple_params__:
@@ -827,11 +852,9 @@ class _Callable(_FinalTypingBase):
     """
 
     __metaclass__ = CallableMeta
+    __slots__ = ('__args__', '__result__')
 
     def __init__(self, args=None, result=None, _root=False):
-        super(_Callable, self).__init__(_root)
-
-    def __new__(cls, args=None, result=None, _root=False):
         if args is None and result is None:
             pass  # Must be 'class Callable'.
         else:
@@ -844,10 +867,8 @@ class _Callable(_FinalTypingBase):
                 args = tuple(_type_check(arg, msg) for arg in args)
             msg = "Callable[args, result]: result must be a type."
             result = _type_check(result, msg)
-        self = super(_Callable, cls).__new__(cls)
         self.__args__ = args
         self.__result__ = result
-        return self
 
     def _get_type_vars(self, tvars):
         if self.__args__ and self.__args__ is not Ellipsis:
@@ -1405,31 +1426,38 @@ class Container(Generic[T_co]):
 
 
 class AbstractSet(Sized, Iterable[T_co], Container[T_co]):
+    __slots__ = ()
     __extra__ = collections_abc.Set
 
 
 class MutableSet(AbstractSet[T]):
+    __slots__ = ()
     __extra__ = collections_abc.MutableSet
 
 
 # NOTE: It is only covariant in the value type.
 class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT_co]):
+    __slots__ = ()
     __extra__ = collections_abc.Mapping
 
 
 class MutableMapping(Mapping[KT, VT]):
+    __slots__ = ()
     __extra__ = collections_abc.MutableMapping
 
 
 if hasattr(collections_abc, 'Reversible'):
     class Sequence(Sized, Reversible[T_co], Container[T_co]):
+        __slots__ = ()
         __extra__ = collections_abc.Sequence
 else:
     class Sequence(Sized, Iterable[T_co], Container[T_co]):
+        __slots__ = ()
         __extra__ = collections_abc.Sequence
 
 
 class MutableSequence(Sequence[T]):
+    __slots__ = ()
     __extra__ = collections_abc.MutableSequence
 
 
@@ -1442,6 +1470,7 @@ ByteString.register(bytearray)
 
 
 class List(list, MutableSequence[T]):
+    __slots__ = ()
     __extra__ = list
 
     def __new__(cls, *args, **kwds):
@@ -1452,6 +1481,7 @@ class List(list, MutableSequence[T]):
 
 
 class Set(set, MutableSet[T]):
+    __slots__ = ()
     __extra__ = set
 
     def __new__(cls, *args, **kwds):
@@ -1461,22 +1491,7 @@ class Set(set, MutableSet[T]):
         return set.__new__(cls, *args, **kwds)
 
 
-class _FrozenSetMeta(GenericMeta):
-    """This metaclass ensures set is not a subclass of FrozenSet.
-
-    Without this metaclass, set would be considered a subclass of
-    FrozenSet, because FrozenSet.__extra__ is collections.abc.Set, and
-    set is a subclass of that.
-    """
-
-    def __subclasscheck__(self, cls):
-        if issubclass(cls, Set):
-            return False
-        return super(_FrozenSetMeta, self).__subclasscheck__(cls)
-
-
 class FrozenSet(frozenset, AbstractSet[T_co]):
-    __metaclass__ = _FrozenSetMeta
     __slots__ = ()
     __extra__ = frozenset
 
@@ -1488,24 +1503,29 @@ class FrozenSet(frozenset, AbstractSet[T_co]):
 
 
 class MappingView(Sized, Iterable[T_co]):
+    __slots__ = ()
     __extra__ = collections_abc.MappingView
 
 
 class KeysView(MappingView[KT], AbstractSet[KT]):
+    __slots__ = ()
     __extra__ = collections_abc.KeysView
 
 
 class ItemsView(MappingView[Tuple[KT, VT_co]],
                 AbstractSet[Tuple[KT, VT_co]],
                 Generic[KT, VT_co]):
+    __slots__ = ()
     __extra__ = collections_abc.ItemsView
 
 
 class ValuesView(MappingView[VT_co]):
+    __slots__ = ()
     __extra__ = collections_abc.ValuesView
 
 
 class Dict(dict, MutableMapping[KT, VT]):
+    __slots__ = ()
     __extra__ = dict
 
     def __new__(cls, *args, **kwds):
@@ -1516,6 +1536,7 @@ class Dict(dict, MutableMapping[KT, VT]):
 
 
 class DefaultDict(collections.defaultdict, MutableMapping[KT, VT]):
+    __slots__ = ()
     __extra__ = collections.defaultdict
 
     def __new__(cls, *args, **kwds):
@@ -1573,6 +1594,7 @@ class Type(Generic[CT_co]):
 
     At this point the type checker knows that joe has type BasicUser.
     """
+    __slots__ = ()
     __extra__ = type
 
 

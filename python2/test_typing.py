@@ -1230,7 +1230,7 @@ class RETests(BaseTestCase):
                 pass
 
         self.assertEqual(str(ex.exception),
-                         "A type alias cannot be subclassed")
+                         "Cannot subclass typing._TypeAlias")
 
 
 class AllTests(BaseTestCase):
