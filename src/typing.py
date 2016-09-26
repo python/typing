@@ -138,8 +138,14 @@ class TypingMeta(type):
         return '%s.%s' % (self.__module__, qname)
 
 
-class TypingBase(metaclass=TypingMeta, _root=True):
+class _TypingBase(metaclass=TypingMeta, _root=True):
     """Indicator of special typing constructs."""
+
+    __slots__ = ()
+
+
+    def __init__(self, *args, **kwds):
+        pass
 
     def __new__(cls, *args, **kwds):
         """Constructor.
@@ -154,7 +160,7 @@ class TypingBase(metaclass=TypingMeta, _root=True):
             raise TypeError("Cannot subclass %r" % cls)
         return object.__new__(cls)
 
-    # things that are not classes also need these
+    # Things that are not classes also need these.
     def _eval_type(self, globalns, localns):
         return self
 
@@ -170,7 +176,7 @@ class TypingBase(metaclass=TypingMeta, _root=True):
         raise TypeError("Cannot instantiate %r" % type(self))
 
 
-class Final(TypingBase, _root=True):
+class _FinalTypingBase(_TypingBase, _root=True):
     """Mix-in class to prevent instantiation."""
 
     __slots__ = ()
@@ -182,10 +188,15 @@ class Final(TypingBase, _root=True):
         raise TypeError("Cannot instantiate %r" % cls)
 
 
-class _ForwardRef(TypingBase, _root=True):
+class _ForwardRef(_TypingBase, _root=True):
     """Wrapper to hold a forward reference."""
 
+    __slots__ = ('__forward_arg__', '__forward_code__',
+                 '__forward_evaluated__', '__forward_value__',
+                 '__forward_frame__')
+
     def __init__(self, arg):
+        super().__init__(arg)
         if not isinstance(arg, str):
             raise TypeError('ForwardRef must be a string -- got %r' % (arg,))
         try:
@@ -221,10 +232,11 @@ class _ForwardRef(TypingBase, _root=True):
     def __eq__(self, other):
         if not isinstance(other, _ForwardRef):
             return NotImplemented
-        return self.__forward_arg__ == other.__forward_arg__
+        return (self.__forward_arg__ == other.__forward_arg__ and
+                self.__forward_frame__ == other.__forward_frame__)
 
     def __hash__(self):
-        return hash(self.__forward_arg__)
+        return hash((self.__forward_arg__, self.__forward_frame__))
 
     def __instancecheck__(self, obj):
         raise TypeError("Forward references cannot be used with isinstance().")
@@ -236,7 +248,7 @@ class _ForwardRef(TypingBase, _root=True):
         return '_ForwardRef(%r)' % (self.__forward_arg__,)
 
 
-class _TypeAlias(TypingBase, _root=True):
+class _TypeAlias(_TypingBase, _root=True):
     """Internal helper class for defining generic variants of concrete types.
 
     Note that this is not a type; let's call it a pseudo-type.  It cannot
@@ -261,8 +273,9 @@ class _TypeAlias(TypingBase, _root=True):
         assert isinstance(name, str), repr(name)
         assert isinstance(impl_type, type), repr(impl_type)
         assert not isinstance(impl_type, TypingMeta), repr(impl_type)
+        assert isinstance(type_var, (type, _TypingBase))
         self.name = name
-        self.type_var = _type_check(type_var, "Type alias accepts only types")
+        self.type_var = type_var
         self.impl_type = impl_type
         self.type_checker = type_checker
 
@@ -304,7 +317,7 @@ class _TypeAlias(TypingBase, _root=True):
 
 def _get_type_vars(types, tvars):
     for t in types:
-        if isinstance(t, TypingMeta) or isinstance(t, TypingBase):
+        if isinstance(t, TypingMeta) or isinstance(t, _TypingBase):
             t._get_type_vars(tvars)
 
 
@@ -315,7 +328,7 @@ def _type_vars(types):
 
 
 def _eval_type(t, globalns, localns):
-    if isinstance(t, TypingMeta) or isinstance(t, TypingBase):
+    if isinstance(t, TypingMeta) or isinstance(t, _TypingBase):
         return t._eval_type(globalns, localns)
     else:
         return t
@@ -337,7 +350,7 @@ def _type_check(arg, msg):
         return type(None)
     if isinstance(arg, str):
         arg = _ForwardRef(arg)
-    if not isinstance(arg, (type, TypingBase)) and not callable(arg):
+    if not isinstance(arg, (type, _TypingBase)) and not callable(arg):
         raise TypeError(msg + " Got %.100r." % (arg,))
     return arg
 
@@ -359,13 +372,15 @@ def _type_repr(obj):
         return repr(obj)
 
 
-class _Any(Final, _root=True):
+class _Any(_FinalTypingBase, _root=True):
     """Special type indicating an unconstrained type.
 
     - Any object is an instance of Any.
     - Any class is a subclass of Any.
     - As a special case, Any and object are subclasses of each other.
     """
+
+    __slots__ = ()
 
     def __instancecheck__(self, obj):
         raise TypeError("Any cannot be used with isinstance().")
@@ -377,7 +392,7 @@ class _Any(Final, _root=True):
 Any = _Any(_root=True)
 
 
-class TypeVar(TypingBase, _root=True):
+class TypeVar(_TypingBase, _root=True):
     """Type variable.
 
     Usage::
@@ -422,8 +437,13 @@ class TypeVar(TypingBase, _root=True):
       A.__constraints__ == (str, bytes)
     """
 
+    __slots__ = ('__name__', '__bound__', '__constraints__',
+                 '__covariant__', '__contravariant__')
+
     def __init__(self, name, *constraints, bound=None,
                 covariant=False, contravariant=False):
+        super().__init__(name, *constraints, bound=bound,
+                         covariant=covariant, contravariant=contravariant)
         self.__name__ = name
         if covariant and contravariant:
             raise ValueError("Bivariant types are not supported.")
@@ -486,7 +506,7 @@ def _tp_cache(func):
     return inner
 
 
-class _Union(Final, _root=True):
+class _Union(_FinalTypingBase, _root=True):
     """Union type; Union[X, Y] means either X or Y.
 
     To define a union, use e.g. Union[int, str].  Details:
@@ -537,6 +557,8 @@ class _Union(Final, _root=True):
 
     - You can use Optional[X] as a shorthand for Union[X, None].
     """
+
+    __slots__ = ('__union_params__', '__union_set_params__')
 
     def __new__(cls, parameters=None, *args, _root=False):
         self = super().__new__(cls, parameters, *args, _root=_root)
@@ -636,11 +658,13 @@ class _Union(Final, _root=True):
 Union = _Union(_root=True)
 
 
-class _Optional(Final, _root=True):
+class _Optional(_FinalTypingBase, _root=True):
     """Optional type.
 
     Optional[X] is equivalent to Union[X, type(None)].
     """
+
+    __slots__ = ()
 
     def __getitem__(self, arg):
         arg = _type_check(arg, "Optional[t] requires a single type.")
@@ -650,7 +674,7 @@ class _Optional(Final, _root=True):
 Optional = _Optional(_root=True)
 
 
-class _Tuple(Final, _root=True):
+class _Tuple(_FinalTypingBase, _root=True):
     """Tuple type; Tuple[X, Y] is the cross-product type of X and Y.
 
     Example: Tuple[T1, T2] is a tuple of two elements corresponding
@@ -659,6 +683,8 @@ class _Tuple(Final, _root=True):
 
     To specify a variable-length tuple of homogeneous type, use Tuple[T, ...].
     """
+
+    __slots__ = ('__tuple_params__', '__tuple_use_ellipsis__')
 
     def __init__(self, parameters=None,
                 use_ellipsis=False, _root=False):
@@ -732,7 +758,7 @@ class _Tuple(Final, _root=True):
 Tuple = _Tuple(_root=True)
 
 
-class _Callable(Final, _root=True):
+class _Callable(_FinalTypingBase, _root=True):
     """Callable type; Callable[[int], str] is a function of (int) -> str.
 
     The subscription syntax must always be used with exactly two
@@ -742,6 +768,8 @@ class _Callable(Final, _root=True):
     There is no syntax to indicate optional or keyword arguments,
     such function types are rarely used as callback types.
     """
+
+    __slots__ = ('__args__', '__result__')
 
     def __init__(self, args=None, result=None, _root=False):
         if args is None and result is None:
@@ -1055,7 +1083,7 @@ class Generic(metaclass=GenericMeta):
             return obj
 
 
-class _ClassVar(Final, _root=True):
+class _ClassVar(_FinalTypingBase, _root=True):
     """Special type construct to mark class variables.
 
     An annotation wrapped in ClassVar indicates that a given
@@ -1072,6 +1100,8 @@ class _ClassVar(Final, _root=True):
     be used with isinstance() or issubclass().
     """
 
+    __slots__ = ('__type__',)
+
     def __init__(self, tp=None, **kwds):
         self.__type__ = tp
 
@@ -1079,14 +1109,16 @@ class _ClassVar(Final, _root=True):
         cls = type(self)
         if self.__type__ is None:
             return cls(_type_check(item,
-                       '{} accepts only types.'.format(cls.__name__[1:])),
+                       '{} accepts only single type.'.format(cls.__name__[1:])),
                        _root=True)
         raise TypeError('{} cannot be further subscripted'
                         .format(cls.__name__[1:]))
 
     def _eval_type(self, globalns, localns):
-        return type(self)(_eval_type(self.__type__, globalns, localns),
-                          _root=True)
+        new_tp = _eval_type(self.__type__, globalns, localns)
+        if new_tp == self.__type__:
+            return self
+        return type(self)(new_tp, _root=True)
 
     def _get_type_vars(self, tvars):
         if self.__type__:
@@ -1547,58 +1579,60 @@ if hasattr(collections_abc, 'Collection'):
 if hasattr(collections_abc, 'Collection'):
     class AbstractSet(Collection[T_co],
                       extra=collections_abc.Set):
-        pass
+        __slots__ = ()
 else:
     class AbstractSet(Sized, Iterable[T_co], Container[T_co],
                       extra=collections_abc.Set):
-        pass
+        __slots__ = ()
 
 
 class MutableSet(AbstractSet[T], extra=collections_abc.MutableSet):
-    pass
+    __slots__ = ()
 
 
 # NOTE: It is only covariant in the value type.
 if hasattr(collections_abc, 'Collection'):
     class Mapping(Collection[KT], Generic[KT, VT_co],
                   extra=collections_abc.Mapping):
-        pass
+        __slots__ = ()
 else:
     class Mapping(Sized, Iterable[KT], Container[KT], Generic[KT, VT_co],
                   extra=collections_abc.Mapping):
-        pass
+        __slots__ = ()
 
 
 class MutableMapping(Mapping[KT, VT], extra=collections_abc.MutableMapping):
-    pass
+    __slots__ = ()
 
 if hasattr(collections_abc, 'Reversible'):
     if hasattr(collections_abc, 'Collection'):
         class Sequence(Reversible[T_co], Collection[T_co],
                    extra=collections_abc.Sequence):
-            pass
+            __slots__ = ()
     else:
         class Sequence(Sized, Reversible[T_co], Container[T_co],
                    extra=collections_abc.Sequence):
-            pass
+            __slots__ = ()
 else:
     class Sequence(Sized, Iterable[T_co], Container[T_co],
                    extra=collections_abc.Sequence):
-        pass
+        __slots__ = ()
 
 
 class MutableSequence(Sequence[T], extra=collections_abc.MutableSequence):
-    pass
+    __slots__ = ()
 
 
 class ByteString(Sequence[int], extra=collections_abc.ByteString):
-    pass
+    __slots__ = ()
 
 
 ByteString.register(type(memoryview(b'')))
 
 
 class List(list, MutableSequence[T], extra=list):
+
+    __slots__ = ()
 
     def __new__(cls, *args, **kwds):
         if _geqv(cls, List):
@@ -1608,6 +1642,8 @@ class List(list, MutableSequence[T], extra=list):
 
 
 class Set(set, MutableSet[T], extra=set):
+
+    __slots__ = ()
 
     def __new__(cls, *args, **kwds):
         if _geqv(cls, Set):
@@ -1642,23 +1678,23 @@ class FrozenSet(frozenset, AbstractSet[T_co], metaclass=_FrozenSetMeta,
 
 
 class MappingView(Sized, Iterable[T_co], extra=collections_abc.MappingView):
-    pass
+    __slots__ = ()
 
 
 class KeysView(MappingView[KT], AbstractSet[KT],
                extra=collections_abc.KeysView):
-    pass
+    __slots__ = ()
 
 
 class ItemsView(MappingView[Tuple[KT, VT_co]],
                 AbstractSet[Tuple[KT, VT_co]],
                 Generic[KT, VT_co],
                 extra=collections_abc.ItemsView):
-    pass
+    __slots__ = ()
 
 
 class ValuesView(MappingView[VT_co], extra=collections_abc.ValuesView):
-    pass
+    __slots__ = ()
 
 
 if hasattr(contextlib, 'AbstractContextManager'):
@@ -1669,6 +1705,8 @@ if hasattr(contextlib, 'AbstractContextManager'):
 
 class Dict(dict, MutableMapping[KT, VT], extra=dict):
 
+    __slots__ = ()
+
     def __new__(cls, *args, **kwds):
         if _geqv(cls, Dict):
             raise TypeError("Type Dict cannot be instantiated; "
@@ -1677,6 +1715,8 @@ class Dict(dict, MutableMapping[KT, VT], extra=dict):
 
 class DefaultDict(collections.defaultdict, MutableMapping[KT, VT],
                   extra=collections.defaultdict):
+
+    __slots__ = ()
 
     def __new__(cls, *args, **kwds):
         if _geqv(cls, DefaultDict):
@@ -1732,6 +1772,8 @@ class Type(Generic[CT_co], extra=type):
 
     At this point the type checker knows that joe has type BasicUser.
     """
+
+    __slots__ = ()
 
 
 def _make_nmtuple(name, types):
