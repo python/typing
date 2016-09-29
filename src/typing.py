@@ -894,11 +894,55 @@ def _next_in_mro(cls):
     return next_in_mro
 
 
+def _valid_for_check(cls):
+    if cls is Generic:
+        raise TypeError("Class %r cannot be used with class "
+                        "or instance checks" % cls)
+    if (cls.__origin__ is not None and
+        sys._getframe(3).f_globals['__name__'] != 'abc'):
+        raise TypeError("Parameterized generics cannot be used with class "
+                        "or instance checks")
+
+
+def _make_subclasshook(cls):
+    """Construct a __subclasshook__ callable that incorporates
+    the associated __extra__ class in subclass checks performed
+    against cls.
+    """
+    if isinstance(cls.__extra__, abc.ABCMeta):
+        # The logic mirrors that of ABCMeta.__subclasscheck__.
+        # Registered classes need not be checked here because
+        # cls and its extra share the same _abc_registry.
+        def __extrahook__(subclass):
+            _valid_for_check(cls)
+            res = cls.__extra__.__subclasshook__(subclass)
+            if res is not NotImplemented:
+                return res
+            if cls.__extra__ in subclass.__mro__:
+                return True
+            for scls in cls.__extra__.__subclasses__():
+                if isinstance(scls, GenericMeta):
+                    continue
+                if issubclass(subclass, scls):
+                    return True
+            return NotImplemented
+    else:
+        # For non-ABC extras we'll just call issubclass().
+        def __extrahook__(subclass):
+            _valid_for_check(cls)
+            if cls.__extra__ and issubclass(subclass, cls.__extra__):
+                return True
+            return NotImplemented
+    return __extrahook__
+
+
 class GenericMeta(TypingMeta, abc.ABCMeta):
     """Metaclass for generic types."""
 
     def __new__(cls, name, bases, namespace,
                 tvars=None, args=None, origin=None, extra=None):
+        if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
+            bases = (extra,) + bases
         self = super().__new__(cls, name, bases, namespace, _root=True)
 
         if tvars is not None:
@@ -947,6 +991,13 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         self.__extra__ = extra
         # Speed hack (https://github.com/python/typing/issues/196).
         self.__next_in_mro__ = _next_in_mro(self)
+
+        # This allows unparameterized generic collections to be used
+        # with issubclass() and isinstance() in the same way as their
+        # collections.abc counterparts (e.g., isinstance([], Iterable)).
+        self.__subclasshook__ = _make_subclasshook(self)
+        if isinstance(extra, abc.ABCMeta):
+            self._abc_registry = extra._abc_registry
         return self
 
     def _get_type_vars(self, tvars):
@@ -1032,21 +1083,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # latter, we must extend __instancecheck__ too. For simplicity
         # we just skip the cache check -- instance checks for generic
         # classes are supposed to be rare anyways.
-        return self.__subclasscheck__(instance.__class__)
-
-    def __subclasscheck__(self, cls):
-        if self is Generic:
-            raise TypeError("Class %r cannot be used with class "
-                            "or instance checks" % self)
-        if (self.__origin__ is not None and
-            sys._getframe(1).f_globals['__name__'] != 'abc'):
-            raise TypeError("Parameterized generics cannot be used with class "
-                            "or instance checks")
-        if super().__subclasscheck__(cls):
-            return True
-        if self.__extra__ is not None:
-            return issubclass(cls, self.__extra__)
-        return False
+        return issubclass(instance.__class__, self)
 
 
 # Prevent checks for Generic to crash when defining Generic.
