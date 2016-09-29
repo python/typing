@@ -143,7 +143,6 @@ class _TypingBase(metaclass=TypingMeta, _root=True):
 
     __slots__ = ()
 
-
     def __init__(self, *args, **kwds):
         pass
 
@@ -158,7 +157,7 @@ class _TypingBase(metaclass=TypingMeta, _root=True):
                 isinstance(args[1], tuple)):
             # Close enough.
             raise TypeError("Cannot subclass %r" % cls)
-        return object.__new__(cls)
+        return super().__new__(cls)
 
     # Things that are not classes also need these.
     def _eval_type(self, globalns, localns):
@@ -177,7 +176,11 @@ class _TypingBase(metaclass=TypingMeta, _root=True):
 
 
 class _FinalTypingBase(_TypingBase, _root=True):
-    """Mix-in class to prevent instantiation."""
+    """Mix-in class to prevent instantiation.
+
+    Prevents instantiation unless _root=True is given in class call.
+    It is used to create pseudo-singleton instances Any, Union, Tuple, etc.
+    """
 
     __slots__ = ()
 
@@ -273,7 +276,7 @@ class _TypeAlias(_TypingBase, _root=True):
         assert isinstance(name, str), repr(name)
         assert isinstance(impl_type, type), repr(impl_type)
         assert not isinstance(impl_type, TypingMeta), repr(impl_type)
-        assert isinstance(type_var, (type, _TypingBase))
+        assert isinstance(type_var, (type, _TypingBase)), repr(type_var)
         self.name = name
         self.type_var = type_var
         self.impl_type = impl_type
@@ -502,7 +505,7 @@ def _tp_cache(func):
         try:
             return cached(*args, **kwds)
         except TypeError:
-            pass  # Do not duplicate real errors.
+            pass  # All real errors (not unhashable args) are raised below.
         return func(*args, **kwds)
     return inner
 

@@ -149,7 +149,7 @@ class _TypingBase(object):
                 isinstance(args[1], tuple)):
             # Close enough.
             raise TypeError("Cannot subclass %r" % cls)
-        return object.__new__(cls)
+        return super(_TypingBase, cls).__new__(cls)
 
     # Things that are not classes also need these.
     def _eval_type(self, globalns, localns):
@@ -168,7 +168,11 @@ class _TypingBase(object):
 
 
 class _FinalTypingBase(_TypingBase):
-    """Mix-in class to prevent instantiation."""
+    """Mix-in class to prevent instantiation.
+
+    Prevents instantiation unless _root=True is given in class call.
+    It is used to create pseudo-singleton instances Any, Union, Tuple, etc.
+    """
 
     __slots__ = ()
 
@@ -256,7 +260,7 @@ class _TypeAlias(_TypingBase):
         assert isinstance(name, basestring), repr(name)
         assert isinstance(impl_type, type), repr(impl_type)
         assert not isinstance(impl_type, TypingMeta), repr(impl_type)
-        assert isinstance(type_var, (type, _TypingBase))
+        assert isinstance(type_var, (type, _TypingBase)), repr(type_var)
         self.name = name
         self.type_var = type_var
         self.impl_type = impl_type
