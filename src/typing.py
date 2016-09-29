@@ -378,9 +378,13 @@ def _type_repr(obj):
 class _Any(_FinalTypingBase, _root=True):
     """Special type indicating an unconstrained type.
 
-    - Any object is an instance of Any.
-    - Any class is a subclass of Any.
-    - As a special case, Any and object are subclasses of each other.
+    - Any is compatible with every type.
+    - Any assumed to have all methods.
+    - All values assumed to be instances of Any.
+
+    Note that all the above statements are true from the point of view of
+    static type checkers. At runtime, Any should not be used with instance
+    or class checks.
     """
 
     __slots__ = ()
@@ -545,16 +549,6 @@ class _Union(_FinalTypingBase, _root=True):
         Union[Manager, int, Employee] == Union[int, Employee]
         Union[Employee, Manager] == Employee
 
-    - Corollary: if Any is present it is the sole survivor, e.g.::
-
-        Union[int, Any] == Any
-
-    - Similar for object::
-
-        Union[int, object] == object
-
-    - To cut a tie: Union[object, Any] == Union[Any, object] == Any.
-
     - You cannot subclass or instantiate a union.
 
     - You cannot write Union[X][Y] (what would it mean?).
@@ -592,14 +586,11 @@ class _Union(_FinalTypingBase, _root=True):
             assert not all_params, all_params
         # Weed out subclasses.
         # E.g. Union[int, Employee, Manager] == Union[int, Employee].
-        # If Any or object is present it will be the sole survivor.
-        # If both Any and object are present, Any wins.
-        # Never discard type variables, except against Any.
+        # If object is present it will be sole survivor among proper classes.
+        # Never discard type variables.
         # (In particular, Union[str, AnyStr] != AnyStr.)
         all_params = set(params)
         for t1 in params:
-            if t1 is Any:
-                return Any
             if not isinstance(t1, type):
                 continue
             if any(isinstance(t2, type) and issubclass(t1, t2)
@@ -665,7 +656,7 @@ Union = _Union(_root=True)
 class _Optional(_FinalTypingBase, _root=True):
     """Optional type.
 
-    Optional[X] is equivalent to Union[X, type(None)].
+    Optional[X] is equivalent to Union[X, None].
     """
 
     __slots__ = ()
