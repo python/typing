@@ -619,6 +619,14 @@ class GenericTests(BaseTestCase):
         self.assertNotIsInstance(MM(), List)
         self.assertNotIsInstance({}, MM)
 
+    def test_multiple_bases(self):
+        class MM1(MutableMapping[str, str], collections_abc.MutableMapping):
+            pass
+        with self.assertRaises(TypeError):
+            # consistent MRO not possible
+            class MM2(collections_abc.MutableMapping, MutableMapping[str, str]):
+                pass
+
     def test_pickle(self):
         global C  # pickle wants to reference the class by name
         T = TypeVar('T')
