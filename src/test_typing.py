@@ -202,10 +202,13 @@ class UnionTests(BaseTestCase):
     def test_union_any(self):
         u = Union[Any]
         self.assertEqual(u, Any)
-        u = Union[int, Any]
-        self.assertEqual(u, Any)
-        u = Union[Any, int]
-        self.assertEqual(u, Any)
+        u1 = Union[int, Any]
+        u2 = Union[Any, int]
+        u3 = Union[Any, object]
+        self.assertEqual(u1, u2)
+        self.assertNotEqual(u1, Any)
+        self.assertNotEqual(u2, Any)
+        self.assertNotEqual(u3, Any)
 
     def test_union_object(self):
         u = Union[object]
@@ -214,12 +217,6 @@ class UnionTests(BaseTestCase):
         self.assertEqual(u, object)
         u = Union[object, int]
         self.assertEqual(u, object)
-
-    def test_union_any_object(self):
-        u = Union[object, Any]
-        self.assertEqual(u, Any)
-        u = Union[Any, object]
-        self.assertEqual(u, Any)
 
     def test_unordered(self):
         u1 = Union[int, float]

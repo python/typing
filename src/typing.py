@@ -143,7 +143,6 @@ class _TypingBase(metaclass=TypingMeta, _root=True):
 
     __slots__ = ()
 
-
     def __init__(self, *args, **kwds):
         pass
 
@@ -158,7 +157,7 @@ class _TypingBase(metaclass=TypingMeta, _root=True):
                 isinstance(args[1], tuple)):
             # Close enough.
             raise TypeError("Cannot subclass %r" % cls)
-        return object.__new__(cls)
+        return super().__new__(cls)
 
     # Things that are not classes also need these.
     def _eval_type(self, globalns, localns):
@@ -177,7 +176,11 @@ class _TypingBase(metaclass=TypingMeta, _root=True):
 
 
 class _FinalTypingBase(_TypingBase, _root=True):
-    """Mix-in class to prevent instantiation."""
+    """Mix-in class to prevent instantiation.
+
+    Prevents instantiation unless _root=True is given in class call.
+    It is used to create pseudo-singleton instances Any, Union, Tuple, etc.
+    """
 
     __slots__ = ()
 
@@ -273,7 +276,7 @@ class _TypeAlias(_TypingBase, _root=True):
         assert isinstance(name, str), repr(name)
         assert isinstance(impl_type, type), repr(impl_type)
         assert not isinstance(impl_type, TypingMeta), repr(impl_type)
-        assert isinstance(type_var, (type, _TypingBase))
+        assert isinstance(type_var, (type, _TypingBase)), repr(type_var)
         self.name = name
         self.type_var = type_var
         self.impl_type = impl_type
@@ -375,9 +378,13 @@ def _type_repr(obj):
 class _Any(_FinalTypingBase, _root=True):
     """Special type indicating an unconstrained type.
 
-    - Any object is an instance of Any.
-    - Any class is a subclass of Any.
-    - As a special case, Any and object are subclasses of each other.
+    - Any is compatible with every type.
+    - Any assumed to have all methods.
+    - All values assumed to be instances of Any.
+
+    Note that all the above statements are true from the point of view of
+    static type checkers. At runtime, Any should not be used with instance
+    or class checks.
     """
 
     __slots__ = ()
@@ -502,7 +509,7 @@ def _tp_cache(func):
         try:
             return cached(*args, **kwds)
         except TypeError:
-            pass  # Do not duplicate real errors.
+            pass  # All real errors (not unhashable args) are raised below.
         return func(*args, **kwds)
     return inner
 
@@ -542,15 +549,9 @@ class _Union(_FinalTypingBase, _root=True):
         Union[Manager, int, Employee] == Union[int, Employee]
         Union[Employee, Manager] == Employee
 
-    - Corollary: if Any is present it is the sole survivor, e.g.::
-
-        Union[int, Any] == Any
-
     - Similar for object::
 
         Union[int, object] == object
-
-    - To cut a tie: Union[object, Any] == Union[Any, object] == Any.
 
     - You cannot subclass or instantiate a union.
 
@@ -589,14 +590,11 @@ class _Union(_FinalTypingBase, _root=True):
             assert not all_params, all_params
         # Weed out subclasses.
         # E.g. Union[int, Employee, Manager] == Union[int, Employee].
-        # If Any or object is present it will be the sole survivor.
-        # If both Any and object are present, Any wins.
-        # Never discard type variables, except against Any.
+        # If object is present it will be sole survivor among proper classes.
+        # Never discard type variables.
         # (In particular, Union[str, AnyStr] != AnyStr.)
         all_params = set(params)
         for t1 in params:
-            if t1 is Any:
-                return Any
             if not isinstance(t1, type):
                 continue
             if any(isinstance(t2, type) and issubclass(t1, t2)
@@ -662,7 +660,7 @@ Union = _Union(_root=True)
 class _Optional(_FinalTypingBase, _root=True):
     """Optional type.
 
-    Optional[X] is equivalent to Union[X, type(None)].
+    Optional[X] is equivalent to Union[X, None].
     """
 
     __slots__ = ()
