@@ -549,6 +549,10 @@ class _Union(_FinalTypingBase, _root=True):
         Union[Manager, int, Employee] == Union[int, Employee]
         Union[Employee, Manager] == Employee
 
+    - Similar for object::
+
+        Union[int, object] == object
+
     - You cannot subclass or instantiate a union.
 
     - You cannot write Union[X][Y] (what would it mean?).
