@@ -978,7 +978,7 @@ def _valid_for_check(cls):
         raise TypeError("Class %r cannot be used with class "
                         "or instance checks" % cls)
     if (cls.__origin__ is not None and
-        sys._getframe(3).f_globals['__name__'] != 'abc'):
+        sys._getframe(3).f_globals['__name__'] not in ['abc', 'functools']):
         raise TypeError("Parameterized generics cannot be used with class "
                         "or instance checks")
 
