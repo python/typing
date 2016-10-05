@@ -563,7 +563,8 @@ T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 AnyStr = TypeVar('AnyStr', bytes, unicode)
 
 
-def _tp_cache(func, maxsize=128):
+def _tp_cache(func):
+    maxsize = 128
     cache = {}
 
     @functools.wraps(func)
