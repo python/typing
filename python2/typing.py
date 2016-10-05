@@ -563,6 +563,29 @@ T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 AnyStr = TypeVar('AnyStr', bytes, unicode)
 
 
+def _tp_cache(func):
+    maxsize = 128
+    cache = {}
+
+    @functools.wraps(func)
+    def inner(*args):
+        key = args
+        try:
+            return cache[key]
+        except TypeError:
+            # Assume it's an unhashable argument.
+            return func(*args)
+        except KeyError:
+            value = func(*args)
+            if len(cache) >= maxsize:
+                # If the cache grows too much, just start over.
+                cache.clear()
+            cache[key] = value
+            return value
+
+    return inner
+
+
 class UnionMeta(TypingMeta):
     """Metaclass for Union."""
 
@@ -686,6 +709,7 @@ class _Union(_FinalTypingBase):
                                      for t in self.__union_params__))
         return r
 
+    @_tp_cache
     def __getitem__(self, parameters):
         if self.__union_params__ is not None:
             raise TypeError(
@@ -731,6 +755,7 @@ class _Optional(_FinalTypingBase):
     __metaclass__ = OptionalMeta
     __slots__ = ()
 
+    @_tp_cache
     def __getitem__(self, arg):
         arg = _type_check(arg, "Optional[t] requires a single type.")
         return Union[arg, type(None)]
@@ -791,6 +816,7 @@ class _Tuple(_FinalTypingBase):
                 ', '.join(params))
         return r
 
+    @_tp_cache
     def __getitem__(self, parameters):
         if self.__tuple_params__ is not None:
             raise TypeError("Cannot re-parameterize %r" % (self,))
@@ -1109,6 +1135,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def __hash__(self):
         return hash((self.__name__, self.__parameters__))
 
+    @_tp_cache
     def __getitem__(self, params):
         if not isinstance(params, tuple):
             params = (params,)
