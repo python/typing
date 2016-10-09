@@ -1023,7 +1023,7 @@ def _make_subclasshook(cls):
             res = cls.__extra__.__subclasshook__(subclass)
             if res is not NotImplemented:
                 return res
-            if cls.__extra__ in subclass.__mro__:
+            if cls.__extra__ in getattr(subclass, '__mro__', ()):
                 return True
             for scls in cls.__extra__.__subclasses__():
                 if isinstance(scls, GenericMeta):
@@ -1046,6 +1046,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 
     def __new__(cls, name, bases, namespace,
                 tvars=None, args=None, origin=None, extra=None):
+        if extra is None:
+            extra = namespace.get('__extra__')
         if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
             bases = (extra,) + bases
         self = super(GenericMeta, cls).__new__(cls, name, bases, namespace)
@@ -1093,14 +1095,17 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         self.__parameters__ = tvars
         self.__args__ = args
         self.__origin__ = origin
-        self.__extra__ = namespace.get('__extra__')
+        self.__extra__ = extra
         # Speed hack (https://github.com/python/typing/issues/196).
         self.__next_in_mro__ = _next_in_mro(self)
 
         # This allows unparameterized generic collections to be used
         # with issubclass() and isinstance() in the same way as their
         # collections.abc counterparts (e.g., isinstance([], Iterable)).
-        self.__subclasshook__ = _make_subclasshook(self)
+        if ('__subclasshook__' not in namespace and extra  # allow overriding
+            or hasattr(self.__subclasshook__, '__name__') and
+            self.__subclasshook__.__name__ == '__extrahook__'):
+            self.__subclasshook__ = _make_subclasshook(self)
         if isinstance(extra, abc.ABCMeta):
             self._abc_registry = extra._abc_registry
         return self
