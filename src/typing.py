@@ -982,8 +982,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
             bases = (extra,) + bases
         bases = tuple(_gorg(b) if isinstance(b, GenericMeta) else b for b in bases)
-        if any(isinstance(b, GenericMeta) and b is not Generic
-               for b in bases):
+        if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
             bases = tuple(b for b in bases if b is not Generic)
         self = super().__new__(cls, name, bases, namespace, _root=True)
 
