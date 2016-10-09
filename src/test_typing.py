@@ -1446,8 +1446,10 @@ class CollectionsAbcTests(BaseTestCase):
 
         class C(Base): ...
         class Foo: ...
+        class Bar: ...
         self.assertIsSubclass(Foo, Base)
-        self.assertNotIsSubclass(Foo, C)
+        self.assertIsSubclass(Foo, C)
+        self.assertNotIsSubclass(Bar, C)
 
     def test_subclassing_register(self):
 
