@@ -939,10 +939,6 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 
     def __new__(cls, name, bases, namespace,
                 tvars=None, args=None, origin=None, extra=None):
-        if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
-            bases = (extra,) + bases
-        self = super().__new__(cls, name, bases, namespace, _root=True)
-
         if tvars is not None:
             # Called from __getitem__() below.
             assert origin is not None
@@ -982,6 +978,15 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                         (", ".join(str(t) for t in tvars if t not in gvarset),
                          ", ".join(str(g) for g in gvars)))
                 tvars = gvars
+
+        if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
+            bases = (extra,) + bases
+        bases = tuple(b.__origin__ if hasattr(b, '__origin__')
+                      and b.__origin__ is not None else b for b in bases)
+        if any(isinstance(b, GenericMeta) and b is not Generic
+               for b in bases):
+            bases = tuple(b for b in bases if b is not Generic)
+        self = super().__new__(cls, name, bases, namespace, _root=True)
 
         self.__parameters__ = tvars
         self.__args__ = args
@@ -1071,7 +1076,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             tvars = _type_vars(params)
             args = params
         return self.__class__(self.__name__,
-                              (self,) + self.__bases__,
+                              self.__bases__,
                               dict(self.__dict__),
                               tvars=tvars,
                               args=args,
