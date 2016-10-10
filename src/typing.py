@@ -1006,17 +1006,18 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             _get_type_vars(self.__parameters__, tvars)
 
     def __repr__(self):
-        if self.__origin__ is not None:
-            r = repr(self.__origin__)
-        else:
-            r = super().__repr__()
-        if self.__args__:
-            r += '[%s]' % (
-                ', '.join(_type_repr(p) for p in self.__args__))
-        if self.__parameters__:
-            r += '<%s>' % (
+        return super().__repr__() + self._argrepr()
+
+    def _argrepr(self):
+        if self.__origin__ is None:
+            return '[%s]' % (
                 ', '.join(_type_repr(p) for p in self.__parameters__))
-        return r
+        r = self.__origin__._argrepr()
+        for i, arg in enumerate(self.__args__):
+            r = stdlib_re.sub(stdlib_re.escape(
+                              _type_repr(self.__origin__.__parameters__[i]))
+                              + '(?=[,\]])', '{%r}' % i, r)
+        return r.format(*(_type_repr(arg) for arg in self.__args__))
 
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
