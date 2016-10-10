@@ -1019,7 +1019,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             r = stdlib_re.sub(stdlib_re.escape(
                               _type_repr(self.__origin__.__parameters__[i]))
                               + '(?=[,\]])', '{%r}' % i, r)
-        return r.format(*(_type_repr(arg) for arg in self.__args__))
+        return r.format(*map(_type_repr, self.__args__))
 
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
