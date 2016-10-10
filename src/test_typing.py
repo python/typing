@@ -625,6 +625,19 @@ class GenericTests(BaseTestCase):
             class MM2(collections_abc.MutableMapping, MutableMapping[str, str]):
                 pass
 
+    def test_orig_bases(self):
+        T = TypeVar('T')
+        class C(typing.Dict[str, T]): ...
+        self.assertEqual(C.__orig_bases__, (typing.Dict[str, T],))
+
+    def test_multi_subscr_base(self):
+        T = TypeVar('T')
+        U = TypeVar('U')
+        V = TypeVar('V')
+        # these should just work
+        class C(List[T][U][V]): ...
+        class D(C, List[T][U][V]): ...
+
     def test_pickle(self):
         global C  # pickle wants to reference the class by name
         T = TypeVar('T')

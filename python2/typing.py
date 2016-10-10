@@ -1086,11 +1086,14 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                          ", ".join(str(g) for g in gvars)))
                 tvars = gvars
 
+        orig_bases = bases
         if extra is None:
             extra = namespace.get('__extra__')
         if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
             bases = (extra,) + bases
         bases = tuple(_gorg(b) if isinstance(b, GenericMeta) else b for b in bases)
+
+        # remove bare Generic from bases if there are other generic bases
         if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
             bases = tuple(b for b in bases if b is not Generic)
         self = super(GenericMeta, cls).__new__(cls, name, bases, namespace)
@@ -1101,6 +1104,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         self.__extra__ = extra
         # Speed hack (https://github.com/python/typing/issues/196).
         self.__next_in_mro__ = _next_in_mro(self)
+        if origin is None:
+            self.__orig_bases__ = orig_bases
 
         # This allows unparameterized generic collections to be used
         # with issubclass() and isinstance() in the same way as their
@@ -1405,6 +1410,7 @@ class _ProtocolMeta(GenericMeta):
                             attr != '__next_in_mro__' and
                             attr != '__parameters__' and
                             attr != '__origin__' and
+                            attr != '__orig_bases__' and
                             attr != '__extra__' and
                             attr != '__module__'):
                         attrs.add(attr)
