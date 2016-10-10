@@ -1119,8 +1119,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 
     def _argrepr(self):
         if self.__origin__ is None:
-            return '[%s]' % (
-                ', '.join(_type_repr(p) for p in self.__parameters__))
+            if self.__parameters__:
+                return '[%s]' % (
+                    ', '.join(_type_repr(p) for p in self.__parameters__))
+            return ''
         r = self.__origin__._argrepr()
         for i, arg in enumerate(self.__args__):
             r = stdlib_re.sub(stdlib_re.escape(
