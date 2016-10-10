@@ -1119,15 +1119,13 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 
     def _argrepr(self):
         if self.__origin__ is None:
-            if self.__parameters__:
-                return '[%s]' % (
-                    ', '.join(_type_repr(p) for p in self.__parameters__))
-            return ''
+            if not self.__parameters__:
+                return ''
+            return '[%s]' % (', '.join(map(_type_repr, self.__parameters__)))
         r = self.__origin__._argrepr()
-        for i, arg in enumerate(self.__args__):
-            r = stdlib_re.sub(stdlib_re.escape(
-                              _type_repr(self.__origin__.__parameters__[i]))
-                              + '(?=[,\]])', '{%r}' % i, r)
+        for i in range(len(self.__args__)):  # replace free parameters with args
+            par = stdlib_re.escape(_type_repr(self.__origin__.__parameters__[i]))
+            r = stdlib_re.sub(par + '(?=[,\]])', '{%r}' % i, r)
         return r.format(*map(_type_repr, self.__args__))
 
     def __eq__(self, other):
