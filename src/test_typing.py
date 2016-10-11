@@ -597,6 +597,14 @@ class GenericTests(BaseTestCase):
         self.assertEqual(repr(List[Tuple[T, T]][List[int]]),
                  'typing.List[typing.Tuple[typing.List[int], typing.List[int]]]')
 
+    def test_new_repr_bare(self):
+        T = TypeVar('T')
+        self.assertEqual(repr(Generic[T]), 'typing.Generic[~T]')
+        self.assertEqual(repr(typing._Protocol[T]), 'typing.Protocol[~T]')
+        class C(typing.Dict[Any, Any]): ...
+        # this line should just work
+        repr(C.__mro__)
+
     def test_dict(self):
         T = TypeVar('T')
 

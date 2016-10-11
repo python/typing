@@ -1115,14 +1115,17 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             _get_type_vars(self.__parameters__, tvars)
 
     def __repr__(self):
-        return super(GenericMeta, self).__repr__() + self._argrepr()
+        return super(GenericMeta, self).__repr__() + self._arg_repr()
 
-    def _argrepr(self):
+    def _arg_repr(self):
+        par_repr = '[%s]' % (', '.join(map(_type_repr, self.__parameters__)))
+        if self.__origin__ in [Generic, _Protocol]:
+            return par_repr
         if self.__origin__ is None:
             if not self.__parameters__:
                 return ''
-            return '[%s]' % (', '.join(map(_type_repr, self.__parameters__)))
-        r = self.__origin__._argrepr()
+            return par_repr
+        r = self.__origin__._arg_repr()
         for i in range(len(self.__args__)):  # replace free parameters with args
             par = stdlib_re.escape(_type_repr(self.__origin__.__parameters__[i]))
             r = stdlib_re.sub(par + '(?=[,\]])', '{%r}' % i, r)
