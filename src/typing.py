@@ -878,10 +878,6 @@ def _geqv(a, b):
     return _gorg(a) is _gorg(b)
 
 
-def _arg_repr(cls):
-    return '[%s]' % (', '.join(map(_type_repr, cls.__parameters__)))
-
-
 def _next_in_mro(cls):
     """Helper for Generic.__new__.
 
@@ -1009,26 +1005,33 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if self.__origin__ and self.__parameters__:
             _get_type_vars(self.__parameters__, tvars)
 
+    def _subs_repr(self, tvars, args):
+        assert len(tvars) == len(args)
+        # Construct the chain of __origin__'s.
+        current = self.__origin__
+        orig_chain = []
+        while current.__origin__ is not None:
+            orig_chain.append(current)
+            current = current.__origin__
+        # Replace type variables in __args__ if asked ...
+        str_args = []
+        for arg in self.__args__:
+            str_args.append(_replace_arg(arg, tvars, args))
+        # ... then continue replacing down the origin chain.
+        for cls in orig_chain:
+            new_str_args = []
+            for i, arg in enumerate(cls.__args__):
+                new_str_args.append(_replace_arg(arg, cls.__parameters__, str_args))
+            str_args = new_str_args
+        return super().__repr__() + '[%s]' % ', '.join(str_args)
+
     def __repr__(self):
         r = super().__repr__()
         if self.__origin__ is None:
             return r
         if self.__origin__ in [Generic, _Protocol]:
-            return r + _arg_repr(self)
-
-        current = self
-        orig_chain = []
-        while current is not None:
-            orig_chain.append(current)
-            current = current.__origin__
-
-        ar = _arg_repr(orig_chain.pop())
-        for cls in reversed(orig_chain):
-            for i in range(len(cls.__args__)):  # replace free parameters with args
-                par = stdlib_re.escape(_type_repr(cls.__origin__.__parameters__[i]))
-                ar = stdlib_re.sub(par + '(?=[,\]])', '{%r}' % i, ar)
-            ar = ar.format(*map(_type_repr, cls.__args__))
-        return r + ar
+            return r + '[%s]' % ', '.join(map(_type_repr, self.__parameters__))
+        return self._subs_repr([], [])  # Not necessary to replace anything
 
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
@@ -1097,6 +1100,16 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # we just skip the cache check -- instance checks for generic
         # classes are supposed to be rare anyways.
         return issubclass(instance.__class__, self)
+
+
+def _replace_arg(arg, tvars, args):
+    if isinstance(arg, GenericMeta):
+        return arg._subs_repr(tvars, args)
+    if isinstance(arg, TypeVar):
+       for i, tvar in enumerate(tvars):
+           if arg.__name__ == tvar.__name__:
+               return args[i]
+    return _type_repr(arg)
 
 
 # Prevent checks for Generic to crash when defining Generic.
