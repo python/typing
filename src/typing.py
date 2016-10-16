@@ -878,6 +878,10 @@ def _geqv(a, b):
     return _gorg(a) is _gorg(b)
 
 
+def _arg_repr(cls):
+    return '[%s]' % (', '.join(map(_type_repr, cls.__parameters__)))
+
+
 def _next_in_mro(cls):
     """Helper for Generic.__new__.
 
@@ -1006,21 +1010,25 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             _get_type_vars(self.__parameters__, tvars)
 
     def __repr__(self):
-        return super().__repr__() + self._arg_repr()
-
-    def _arg_repr(self):
-        par_repr = '[%s]' % (', '.join(map(_type_repr, self.__parameters__)))
-        if self.__origin__ in [Generic, _Protocol]:
-            return par_repr
+        r = super().__repr__()
         if self.__origin__ is None:
-            if not self.__parameters__:
-                return ''
-            return par_repr
-        r = self.__origin__._arg_repr()
-        for i in range(len(self.__args__)):  # replace free parameters with args
-            par = stdlib_re.escape(_type_repr(self.__origin__.__parameters__[i]))
-            r = stdlib_re.sub(par + '(?=[,\]])', '{%r}' % i, r)
-        return r.format(*map(_type_repr, self.__args__))
+            return r
+        if self.__origin__ in [Generic, _Protocol]:
+            return r + _arg_repr(self)
+
+        current = self
+        orig_chain = []
+        while current is not None:
+            orig_chain.append(current)
+            current = current.__origin__
+
+        ar = _arg_repr(orig_chain.pop())
+        for cls in reversed(orig_chain):
+            for i in range(len(cls.__args__)):  # replace free parameters with args
+                par = stdlib_re.escape(_type_repr(cls.__origin__.__parameters__[i]))
+                ar = stdlib_re.sub(par + '(?=[,\]])', '{%r}' % i, ar)
+            ar = ar.format(*map(_type_repr, cls.__args__))
+        return r + ar
 
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):

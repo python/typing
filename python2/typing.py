@@ -1125,11 +1125,19 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             if not self.__parameters__:
                 return ''
             return par_repr
-        r = self.__origin__._arg_repr()
-        for i in range(len(self.__args__)):  # replace free parameters with args
-            par = stdlib_re.escape(_type_repr(self.__origin__.__parameters__[i]))
-            r = stdlib_re.sub(par + '(?=[,\]])', '{%r}' % i, r)
-        return r.format(*map(_type_repr, self.__args__))
+
+        current = self
+        orig_chain = []
+        while current.__origin__ is not None:
+            orig_chain.append(current)
+            current = current.__origin__
+        r = '[%s]' % (', '.join(map(_type_repr, orig_chain[-1].__origin__.__parameters__)))
+        for tp in reversed(orig_chain):
+            for i in range(len(tp.__args__)):  # replace free parameters with args
+                par = stdlib_re.escape(_type_repr(tp.__origin__.__parameters__[i]))
+                r = stdlib_re.sub(par + '(?=[,\]])', '{%r}' % i, r)
+            r = r.format(*map(_type_repr, tp.__args__))
+        return r
 
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
