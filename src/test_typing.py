@@ -548,9 +548,9 @@ class GenericTests(BaseTestCase):
 
     def test_repr(self):
         self.assertEqual(repr(SimpleMapping),
-                         __name__ + '.' + 'SimpleMapping[~XK, ~XV]')
+                         __name__ + '.' + 'SimpleMapping')
         self.assertEqual(repr(MySimpleMapping),
-                         __name__ + '.' + 'MySimpleMapping[~XK, ~XV]')
+                         __name__ + '.' + 'MySimpleMapping')
 
     def test_chain_repr(self):
         T = TypeVar('T')
@@ -581,7 +581,7 @@ class GenericTests(BaseTestCase):
         U = TypeVar('U', covariant=True)
         S = TypeVar('S')
 
-        self.assertEqual(repr(List), 'typing.List[~T]')
+        self.assertEqual(repr(List), 'typing.List')
         self.assertEqual(repr(List[T]), 'typing.List[~T]')
         self.assertEqual(repr(List[U]), 'typing.List[+U]')
         self.assertEqual(repr(List[S][T][int]), 'typing.List[int]')
@@ -691,7 +691,7 @@ class GenericTests(BaseTestCase):
         if not PY32:
             self.assertEqual(C.__qualname__,
                              'GenericTests.test_repr_2.<locals>.C')
-        self.assertEqual(repr(C).split('.')[-1], 'C[~T]')
+        self.assertEqual(repr(C).split('.')[-1], 'C')
         X = C[int]
         self.assertEqual(X.__module__, __name__)
         if not PY32:
