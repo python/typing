@@ -630,13 +630,55 @@ class GenericTests(BaseTestCase):
         class C(typing.Dict[str, T]): ...
         self.assertEqual(C.__orig_bases__, (typing.Dict[str, T],))
 
+    def test_naive_runtime_checks(self):
+        def naive_dict_check(obj, tp):
+            # Check if a dictionary conforms to Dict type
+            if len(tp.__parameters__) > 0:
+                return NotImplemented
+            if tp.__args__:
+                KT, VT = tp.__args__
+                return all(isinstance(k, KT) and isinstance(v, VT)
+                   for k, v in obj.items())
+        self.assertTrue(naive_dict_check({'x': 1}, typing.Dict[str, int]))
+        self.assertFalse(naive_dict_check({1: 'x'}, typing.Dict[str, int]))
+        self.assertIs(naive_dict_check({1: 'x'}, typing.Dict[str, T]), NotImplemented)
+
+        def naive_generic_check(obj, tp):
+            # Check if an instance conforms to the generic class
+            if not hasattr(obj, '__orig_class__'):
+                return NotImplemented
+            return obj.__orig_class__ == tp
+        class Node(Generic[T]): ...
+        self.assertTrue(naive_generic_check(Node[int](), Node[int]))
+        self.assertFalse(naive_generic_check(Node[str](), Node[int]))
+        self.assertFalse(naive_generic_check(Node[str](), List))
+        self.assertIs(naive_generic_check([1,2,3], Node[int]), NotImplemented)
+
+        def naive_list_base_check(obj, tp):
+            # Check if list conforms to a List subclass
+            return all(isinstance(x, tp.__orig_bases__[0].__args__[0])
+                       for x in obj)
+        class C(List[int]): ...
+        self.assertTrue(naive_list_base_check([1, 2, 3], C))
+        self.assertFalse(naive_list_base_check(['a', 'b'], C))
+
     def test_multi_subscr_base(self):
         T = TypeVar('T')
         U = TypeVar('U')
         V = TypeVar('V')
-        # these should just work
         class C(List[T][U][V]): ...
         class D(C, List[T][U][V]): ...
+        self.assertEqual(C.__parameters__, (V,))
+        self.assertEqual(D.__parameters__, (V,))
+        self.assertEqual(C[int].__parameters__, ())
+        self.assertEqual(D[int].__parameters__, ())
+        self.assertEqual(C[int].__args__, (int,))
+        self.assertEqual(D[int].__args__, (int,))
+        self.assertEqual(C.__bases__, (List,))
+        self.assertEqual(D.__bases__, (C, List))
+        self.assertEqual(C.__orig_bases__, (List[T][U][V],))
+        self.assertEqual(D.__orig_bases__, (C, List[T][U][V]))
+
 
     def test_pickle(self):
         global C  # pickle wants to reference the class by name

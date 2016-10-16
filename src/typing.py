@@ -938,7 +938,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     """Metaclass for generic types."""
 
     def __new__(cls, name, bases, namespace,
-                tvars=None, args=None, origin=None, extra=None):
+                tvars=None, args=None, origin=None, extra=None, orig_bases=None):
         if tvars is not None:
             # Called from __getitem__() below.
             assert origin is not None
@@ -979,7 +979,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                          ", ".join(str(g) for g in gvars)))
                 tvars = gvars
 
-        orig_bases = bases
+        initial_bases = bases
         if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
             bases = (extra,) + bases
         bases = tuple(_gorg(b) if isinstance(b, GenericMeta) else b for b in bases)
@@ -995,8 +995,9 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         self.__extra__ = extra
         # Speed hack (https://github.com/python/typing/issues/196).
         self.__next_in_mro__ = _next_in_mro(self)
-        if origin is None:
-            self.__orig_bases__ = orig_bases
+        # Preserve base classes on subclassing (__bases__ are type erased now).
+        if orig_bases is None:
+            self.__orig_bases__ = initial_bases
 
         # This allows unparameterized generic collections to be used
         # with issubclass() and isinstance() in the same way as their
@@ -1084,7 +1085,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                               tvars=tvars,
                               args=args,
                               origin=self,
-                              extra=self.__extra__)
+                              extra=self.__extra__,
+                              orig_bases=self.__orig_bases__)
 
     def __instancecheck__(self, instance):
         # Since we extend ABC.__subclasscheck__ and
@@ -1128,6 +1130,8 @@ class Generic(metaclass=GenericMeta):
         else:
             origin = _gorg(cls)
             obj = cls.__next_in_mro__.__new__(origin)
+            if '__dict__' in cls.__dict__:
+                obj.__orig_class__ = cls
             obj.__init__(*args, **kwds)
             return obj
 
