@@ -1130,8 +1130,10 @@ class Generic(metaclass=GenericMeta):
         else:
             origin = _gorg(cls)
             obj = cls.__next_in_mro__.__new__(origin)
-            if '__dict__' in cls.__dict__:
+            try:
                 obj.__orig_class__ = cls
+            except AttributeError:
+                pass
             obj.__init__(*args, **kwds)
             return obj
 
