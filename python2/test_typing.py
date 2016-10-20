@@ -521,9 +521,9 @@ class GenericTests(BaseTestCase):
 
     def test_repr(self):
         self.assertEqual(repr(SimpleMapping),
-                         __name__ + '.' + 'SimpleMapping<~XK, ~XV>')
+                         __name__ + '.' + 'SimpleMapping')
         self.assertEqual(repr(MySimpleMapping),
-                         __name__ + '.' + 'MySimpleMapping<~XK, ~XV>')
+                         __name__ + '.' + 'MySimpleMapping')
 
     def test_chain_repr(self):
         T = TypeVar('T')
@@ -547,7 +547,36 @@ class GenericTests(BaseTestCase):
         self.assertNotEqual(Z, Y[T])
 
         self.assertTrue(str(Z).endswith(
-            '.C<~T>[typing.Tuple[~S, ~T]]<~S, ~T>[~T, int]<~T>[str]'))
+            '.C[typing.Tuple[str, int]]'))
+
+    def test_new_repr(self):
+        T = TypeVar('T')
+        U = TypeVar('U', covariant=True)
+        S = TypeVar('S')
+
+        self.assertEqual(repr(List), 'typing.List')
+        self.assertEqual(repr(List[T]), 'typing.List[~T]')
+        self.assertEqual(repr(List[U]), 'typing.List[+U]')
+        self.assertEqual(repr(List[S][T][int]), 'typing.List[int]')
+        self.assertEqual(repr(List[int]), 'typing.List[int]')
+
+    def test_new_repr_complex(self):
+        T = TypeVar('T')
+        TS = TypeVar('TS')
+
+        self.assertEqual(repr(typing.Mapping[T, TS][TS, T]), 'typing.Mapping[~TS, ~T]')
+        self.assertEqual(repr(List[Tuple[T, TS]][int, T]),
+                         'typing.List[typing.Tuple[int, ~T]]')
+        self.assertEqual(repr(List[Tuple[T, T]][List[int]]),
+                 'typing.List[typing.Tuple[typing.List[int], typing.List[int]]]')
+
+    def test_new_repr_bare(self):
+        T = TypeVar('T')
+        self.assertEqual(repr(Generic[T]), 'typing.Generic[~T]')
+        self.assertEqual(repr(typing._Protocol[T]), 'typing.Protocol[~T]')
+        class C(typing.Dict[Any, Any]): pass
+        # this line should just work
+        repr(C.__mro__)
 
     def test_dict(self):
         T = TypeVar('T')
@@ -635,12 +664,12 @@ class GenericTests(BaseTestCase):
         if not PY32:
             self.assertEqual(C.__qualname__,
                              'GenericTests.test_repr_2.<locals>.C')
-        self.assertEqual(repr(C).split('.')[-1], 'C<~T>')
+        self.assertEqual(repr(C).split('.')[-1], 'C')
         X = C[int]
         self.assertEqual(X.__module__, __name__)
         if not PY32:
             self.assertEqual(X.__qualname__, 'C')
-        self.assertEqual(repr(X).split('.')[-1], 'C<~T>[int]')
+        self.assertEqual(repr(X).split('.')[-1], 'C[int]')
 
         class Y(C[int]):
             pass
