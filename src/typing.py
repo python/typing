@@ -959,11 +959,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     """Metaclass for generic types."""
 
     def __new__(cls, name, bases, namespace,
-                tvars=None, args=None, origin=None, extra=None):
-        if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
-            bases = (extra,) + bases
-        self = super().__new__(cls, name, bases, namespace, _root=True)
-
+                tvars=None, args=None, origin=None, extra=None, orig_bases=None):
         if tvars is not None:
             # Called from __getitem__() below.
             assert origin is not None
@@ -1004,12 +1000,25 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                          ", ".join(str(g) for g in gvars)))
                 tvars = gvars
 
+        initial_bases = bases
+        if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
+            bases = (extra,) + bases
+        bases = tuple(_gorg(b) if isinstance(b, GenericMeta) else b for b in bases)
+
+        # remove bare Generic from bases if there are other generic bases
+        if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
+            bases = tuple(b for b in bases if b is not Generic)
+        self = super().__new__(cls, name, bases, namespace, _root=True)
+
         self.__parameters__ = tvars
         self.__args__ = args
         self.__origin__ = origin
         self.__extra__ = extra
         # Speed hack (https://github.com/python/typing/issues/196).
         self.__next_in_mro__ = _next_in_mro(self)
+        # Preserve base classes on subclassing (__bases__ are type erased now).
+        if orig_bases is None:
+            self.__orig_bases__ = initial_bases
 
         # This allows unparameterized generic collections to be used
         # with issubclass() and isinstance() in the same way as their
@@ -1104,12 +1113,13 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             tvars = _type_vars(params)
             args = params
         return self.__class__(self.__name__,
-                              (self,) + self.__bases__,
+                              self.__bases__,
                               dict(self.__dict__),
                               tvars=tvars,
                               args=args,
                               origin=self,
-                              extra=self.__extra__)
+                              extra=self.__extra__,
+                              orig_bases=self.__orig_bases__)
 
     def __instancecheck__(self, instance):
         # Since we extend ABC.__subclasscheck__ and
@@ -1153,6 +1163,10 @@ class Generic(metaclass=GenericMeta):
         else:
             origin = _gorg(cls)
             obj = cls.__next_in_mro__.__new__(origin)
+            try:
+                obj.__orig_class__ = cls
+            except AttributeError:
+                pass
             obj.__init__(*args, **kwds)
             return obj
 
@@ -1521,6 +1535,7 @@ class _ProtocolMeta(GenericMeta):
                             attr != '__next_in_mro__' and
                             attr != '__parameters__' and
                             attr != '__origin__' and
+                            attr != '__orig_bases__' and
                             attr != '__extra__' and
                             attr != '__module__'):
                         attrs.add(attr)
