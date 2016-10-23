@@ -1165,6 +1165,8 @@ class CallableMeta(GenericMeta):
         return self._tree_repr(self._subs_tree())
 
     def _tree_repr(self, tree):
+        if _gorg(self) is not Callable:
+            return super()._tree_repr(tree)
         arg_list = []
         for arg in tree[1:]:
             if not isinstance(arg, tuple) or len(arg) == 0:
