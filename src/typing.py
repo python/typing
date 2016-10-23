@@ -506,8 +506,18 @@ T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 # (This one *is* for export!)
 AnyStr = TypeVar('AnyStr', bytes, str)
 
+def flat_union(parameters):
+    # Flatten out Union[Union[...], ...] and type-check non-Union args.
+    params = []
+    for p in parameters:
+        if isinstance(p, _Union) and p.__origin__ is Union:
+            params.extend(p.__args__)
+        else:
+            params.append(p)
+    return params
 
 def remove_dups(params):
+    # Weed out strict duplicates, preserving the first of each occurrence.
     all_params = set(params)
     if len(all_params) < len(params):
         new_params = []
@@ -596,14 +606,7 @@ class _Union(_FinalTypingBase, _root=True):
             return self
         if not isinstance(parameters, tuple):
             raise TypeError("Expected parameters=<tuple>")
-        # Flatten out Union[Union[...], ...] and type-check non-Union args.
-        params = []
-        for p in parameters:
-            if isinstance(p, _Union) and p.__origin__ is Union:
-                params.extend(p.__args__)
-            else:
-                params.append(p)
-        # Weed out strict duplicates, preserving the first of each occurrence.
+        params = flat_union(parameters)
         params = remove_dups(params)
         # Weed out subclasses.
         # E.g. Union[int, Employee, Manager] == Union[int, Employee].
@@ -647,6 +650,8 @@ class _Union(_FinalTypingBase, _root=True):
         tree = self._subs_tree()
         if not isinstance(tree, tuple):
             return repr(tree)
+        if tree[0] is not Union:
+            return tree[0]._tree_repr(tree)
         return self._tree_repr(tree)
 
     def _tree_repr(self, tree):
@@ -690,13 +695,13 @@ class _Union(_FinalTypingBase, _root=True):
         tree_args = []
         for arg in self.__args__:
             tree_args.append(_replace_arg(arg, tvars, args))
-        tree_args = remove_dups(tree_args)
         for cls in orig_chain:
             new_tree_args = []
             for i, arg in enumerate(cls.__args__):
                 new_tree_args.append(_replace_arg(arg, cls.__parameters__,
-                                                      tree_args))
-            tree_args = remove_dups(new_tree_args)
+                                                  tree_args))
+            tree_args = new_tree_args
+        tree_args = remove_dups(flat_union(tree_args))
         res = ((orig_chain[-1].__origin__ if orig_chain
                else self.__origin__),) + tuple(tree_args)
         if len(res) == 2:
