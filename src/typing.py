@@ -333,8 +333,7 @@ def _type_vars(types):
 def _eval_type(t, globalns, localns):
     if isinstance(t, TypingMeta) or isinstance(t, _TypingBase):
         return t._eval_type(globalns, localns)
-    else:
-        return t
+    return t
 
 
 def _type_check(arg, msg):
@@ -353,7 +352,8 @@ def _type_check(arg, msg):
         return type(None)
     if isinstance(arg, str):
         arg = _ForwardRef(arg)
-    if not isinstance(arg, (type, _TypingBase)) and not callable(arg):
+    if (isinstance(arg, _ClassVar) or
+        not isinstance(arg, (type, _TypingBase)) and not callable(arg)):
         raise TypeError(msg + " Got %.100r." % (arg,))
     return arg
 
@@ -369,12 +369,69 @@ def _type_repr(obj):
     if isinstance(obj, type) and not isinstance(obj, TypingMeta):
         if obj.__module__ == 'builtins':
             return _qualname(obj)
-        else:
-            return '%s.%s' % (obj.__module__, _qualname(obj))
-    elif obj is Ellipsis:
+        return '%s.%s' % (obj.__module__, _qualname(obj))
+    if obj is Ellipsis:
         return('...')
-    else:
-        return repr(obj)
+    if isinstance(obj, types.FunctionType):
+        return obj.__name__
+    return repr(obj)
+
+
+class _ClassVar(_FinalTypingBase, _root=True):
+    """Special type construct to mark class variables.
+
+    An annotation wrapped in ClassVar indicates that a given
+    attribute is intended to be used as a class variable and
+    should not be set on instances of that class. Usage::
+
+      class Starship:
+          stats: ClassVar[Dict[str, int]] = {} # class variable
+          damage: int = 10                     # instance variable
+
+    ClassVar accepts only types and cannot be further subscribed.
+
+    Note that ClassVar is not a class itself, and should not
+    be used with isinstance() or issubclass().
+    """
+
+    __slots__ = ('__type__',)
+
+    def __init__(self, tp=None, **kwds):
+        self.__type__ = tp
+
+    def __getitem__(self, item):
+        cls = type(self)
+        if self.__type__ is None:
+            return cls(_type_check(item,
+                       '{} accepts only single type.'.format(cls.__name__[1:])),
+                       _root=True)
+        raise TypeError('{} cannot be further subscripted'
+                        .format(cls.__name__[1:]))
+
+    def _eval_type(self, globalns, localns):
+        new_tp = _eval_type(self.__type__, globalns, localns)
+        if new_tp == self.__type__:
+            return self
+        return type(self)(new_tp, _root=True)
+
+    def __repr__(self):
+        r = super().__repr__()
+        if self.__type__ is not None:
+            r += '[{}]'.format(_type_repr(self.__type__))
+        return r
+
+    def __hash__(self):
+        return hash((type(self).__name__, self.__type__))
+
+    def __eq__(self, other):
+        if not isinstance(other, _ClassVar):
+            return NotImplemented
+        if self.__type__ is not None:
+            return self.__type__ == other.__type__
+        return self is other
+
+
+ClassVar = _ClassVar(_root=True)
 
 
 class _Any(_FinalTypingBase, _root=True):
@@ -865,7 +922,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             return super().__repr__()
         return self._subs_repr([], [])
 
-    def _subs_repr(self, tvars, args):
+    def _subs_repr(self, tvars, args, *, for_callable=False):
         assert len(tvars) == len(args)
         # Construct the chain of __origin__'s.
         current = self.__origin__
@@ -883,7 +940,16 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             for i, arg in enumerate(cls.__args__):
                 new_str_args.append(_replace_arg(arg, cls.__parameters__, str_args))
             str_args = new_str_args
-        return super().__repr__() + '[%s]' % ', '.join(str_args)
+        if not for_callable:
+            return super().__repr__() + '[%s]' % ', '.join(str_args)
+        else:
+            if str_args[0] == '...':
+                return super().__repr__() + '[..., %s]' % str_args[1]
+            elif str_args[0] == '()':
+                return super().__repr__() + '[[], %s]' % str_args[1]
+            else:
+                return (super().__repr__() +
+                        '[[%s], %s]' % (', '.join(str_args[:-1]), str_args[-1]))
 
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
@@ -917,7 +983,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                     "Parameters to Generic[...] must all be unique")
             tvars = params
             args = params
-        elif self is Tuple:
+        elif self in (Tuple, Callable):
             tvars = _type_vars(params)
             args = params
         elif self is _Protocol:
@@ -999,29 +1065,40 @@ class Generic(metaclass=GenericMeta):
             return obj
 
 
+class _TypingEllipsis:
+    """Placeholder for ..."""
+
+
+class _TypingEmpty:
+    """Placeholder for ()"""
+
+
 class TupleMeta(GenericMeta):
     """Metaclass for Tuple"""
 
     @_tp_cache
     def __getitem__(self, parameters):
+        if self.__origin__ is not None or not _geqv(self, Tuple):
+            return super().__getitem__(parameters)
         if not isinstance(parameters, tuple):
             parameters = (parameters,)
         if len(parameters) == 2 and parameters[1] == Ellipsis:
-            if self.__origin__ is not None:
-                raise TypeError("Cannot use Ellipsis for already subscripted Tuple")
             use_ellipsis = True
-            parameters = parameters[:1]
+            parameters = parameters[:1] + (_TypingEllipsis,)
             msg = "Tuple[t, ...]: t must be a type."
         else:
             use_ellipsis = False
             msg = "Tuple[t0, t1, ...]: each t must be a type."
         parameters = tuple(_type_check(p, msg) for p in parameters)
-        if len(parameters) == 0 and self.__origin__ is not None:
-            raise TypeError("Cannot use () for already subscripted Tuple")
+        if parameters == ():
+            empty = True
+            parameters = (_TypingEmpty,)
+        else:
+            empty = False
         result = super().__getitem__(parameters)
         if use_ellipsis:
-            result.__args__ = result.__args__ + (...,)
-        if parameters == ():
+            result.__args__ = result.__args__[:-1] + (...,)
+        elif empty:
             result.__args__ = ((),)
         return result
 
@@ -1039,11 +1116,11 @@ class TupleMeta(GenericMeta):
 
     def __repr__(self):
         if self.__args__ == ((),):
-            return repr(self.__origin__) + '[()]'
+            return repr(Tuple) + '[()]'
         return super().__repr__()
 
 
-class Tuple(tuple, metaclass=TupleMeta):
+class Tuple(tuple, extra=tuple, metaclass=TupleMeta):
     """Tuple type; Tuple[X, Y] is the cross-product type of X and Y.
 
     Example: Tuple[T1, T2] is a tuple of two elements corresponding
@@ -1062,7 +1139,61 @@ class Tuple(tuple, metaclass=TupleMeta):
         return super().__new__(cls, *args, **kwds)
 
 
-class _Callable(_FinalTypingBase, _root=True):
+class CallableMeta(GenericMeta):
+
+    def __repr__(self):
+        if self.__origin__ is None:
+            return super().__repr__()
+        return super()._subs_repr([], [], for_callable=True)
+
+    def __getitem__(self, parameters):
+        if  self.__origin__ is not None or not _geqv(self, Callable):
+            return super().__getitem__(parameters)
+        if not isinstance(parameters, tuple) or len(parameters) != 2:
+            raise TypeError("Callable must be used as "
+                            "Callable[[arg, ...], result].")
+        args, result = parameters
+        if args is not Ellipsis:
+            if not isinstance(args, list):
+                raise TypeError("Callable[args, result]: "
+                                "args must be a list."
+                                " Got %.100r." % (args,))
+        if args is Ellipsis:
+            parameters = (Ellipsis, result)
+        elif args == []:
+            parameters = ((), result)
+        else:
+            parameters = tuple(args) + (result,)
+        return self.__getitem_inner__(parameters)
+
+    @_tp_cache
+    def __getitem_inner__(self, parameters):
+        args = parameters[:-1]
+        result = parameters[-1]
+        msg = "Callable[args, result]: result must be a type."
+        result = _type_check(result, msg)
+        if args != (Ellipsis,):
+            use_ellipsis = False
+            if args != ((),):
+                empty_args = False
+                msg = "Callable[[arg, ...], result]: each arg must be a type."
+                args = tuple(_type_check(arg, msg) for arg in args)
+            else:
+                empty_args = True
+                args = (_TypingEmpty,)
+        else:
+            use_ellipsis = True
+            args = (_TypingEllipsis,)
+        parameters = args + (result,)
+        result = super().__getitem__(parameters)
+        if use_ellipsis:
+            result.__args__ = (...,) + result.__args__[1:]
+        elif empty_args:
+            result.__args__ = ((),) + result.__args__[1:]
+        return result
+
+
+class Callable(extra=collections_abc.Callable, metaclass = CallableMeta):
     """Callable type; Callable[[int], str] is a function of (int) -> str.
 
     The subscription syntax must always be used with exactly two
@@ -1073,157 +1204,13 @@ class _Callable(_FinalTypingBase, _root=True):
     such function types are rarely used as callback types.
     """
 
-    __slots__ = ('__args__', '__result__')
+    __slots__ = ()
 
-    def __init__(self, args=None, result=None, _root=False):
-        if args is None and result is None:
-            pass
-        else:
-            if args is not Ellipsis:
-                if not isinstance(args, list):
-                    raise TypeError("Callable[args, result]: "
-                                    "args must be a list."
-                                    " Got %.100r." % (args,))
-                msg = "Callable[[arg, ...], result]: each arg must be a type."
-                args = tuple(_type_check(arg, msg) for arg in args)
-            msg = "Callable[args, result]: result must be a type."
-            result = _type_check(result, msg)
-        self.__args__ = args
-        self.__result__ = result
-
-    def _get_type_vars(self, tvars):
-        if self.__args__ and self.__args__ is not Ellipsis:
-            _get_type_vars(self.__args__, tvars)
-        if self.__result__:
-            _get_type_vars([self.__result__], tvars)
-
-    def _eval_type(self, globalns, localns):
-        if self.__args__ is None and self.__result__ is None:
-            return self
-        if self.__args__ is Ellipsis:
-            args = self.__args__
-        else:
-            args = [_eval_type(t, globalns, localns) for t in self.__args__]
-        result = _eval_type(self.__result__, globalns, localns)
-        if args == self.__args__ and result == self.__result__:
-            return self
-        else:
-            return self.__class__(args, result, _root=True)
-
-    def __repr__(self):
-        return self._subs_repr([], [])
-
-    def _subs_repr(self, tvars, args):
-        r = super().__repr__()
-        if self.__args__ is not None or self.__result__ is not None:
-            if self.__args__ is Ellipsis:
-                args_r = '...'
-            else:
-                args_r = '[%s]' % ', '.join(_replace_arg(t, tvars, args)
-                                            for t in self.__args__)
-            r += '[%s, %s]' % (args_r, _replace_arg(self.__result__, tvars, args))
-        return r
-
-    def __getitem__(self, parameters):
-        if self.__args__ is not None or self.__result__ is not None:
-            raise TypeError("This Callable type is already parameterized.")
-        if not isinstance(parameters, tuple) or len(parameters) != 2:
-            raise TypeError(
-                "Callable must be used as Callable[[arg, ...], result].")
-        args, result = parameters
-        return self.__class__(args, result, _root=True)
-
-    def __eq__(self, other):
-        if not isinstance(other, _Callable):
-            return NotImplemented
-        return (self.__args__ == other.__args__ and
-                self.__result__ == other.__result__)
-
-    def __hash__(self):
-        return hash(self.__args__) ^ hash(self.__result__)
-
-    def __instancecheck__(self, obj):
-        # For unparametrized Callable we allow this, because
-        # typing.Callable should be equivalent to
-        # collections.abc.Callable.
-        if self.__args__ is None and self.__result__ is None:
-            return isinstance(obj, collections_abc.Callable)
-        else:
-            raise TypeError("Parameterized Callable cannot be used "
-                            "with isinstance().")
-
-    def __subclasscheck__(self, cls):
-        if self.__args__ is None and self.__result__ is None:
-            return issubclass(cls, collections_abc.Callable)
-        else:
-            raise TypeError("Parameterized Callable cannot be used "
-                            "with issubclass().")
-
-
-Callable = _Callable(_root=True)
-
-
-class _ClassVar(_FinalTypingBase, _root=True):
-    """Special type construct to mark class variables.
-
-    An annotation wrapped in ClassVar indicates that a given
-    attribute is intended to be used as a class variable and
-    should not be set on instances of that class. Usage::
-
-      class Starship:
-          stats: ClassVar[Dict[str, int]] = {} # class variable
-          damage: int = 10                     # instance variable
-
-    ClassVar accepts only types and cannot be further subscribed.
-
-    Note that ClassVar is not a class itself, and should not
-    be used with isinstance() or issubclass().
-    """
-
-    __slots__ = ('__type__',)
-
-    def __init__(self, tp=None, **kwds):
-        self.__type__ = tp
-
-    def __getitem__(self, item):
-        cls = type(self)
-        if self.__type__ is None:
-            return cls(_type_check(item,
-                       '{} accepts only single type.'.format(cls.__name__[1:])),
-                       _root=True)
-        raise TypeError('{} cannot be further subscripted'
-                        .format(cls.__name__[1:]))
-
-    def _eval_type(self, globalns, localns):
-        new_tp = _eval_type(self.__type__, globalns, localns)
-        if new_tp == self.__type__:
-            return self
-        return type(self)(new_tp, _root=True)
-
-    def _get_type_vars(self, tvars):
-        if self.__type__:
-            _get_type_vars([self.__type__], tvars)
-
-    def __repr__(self):
-        return self._subs_repr([], [])
-
-    def _subs_repr(self, tvars, args):
-        r = super().__repr__()
-        if self.__type__ is not None:
-            r += '[{}]'.format(_replace_arg(self.__type__, tvars, args))
-        return r
-
-    def __hash__(self):
-        return hash((type(self).__name__, self.__type__))
-
-    def __eq__(self, other):
-        if not isinstance(other, _ClassVar):
-            return NotImplemented
-        if self.__type__ is not None:
-            return self.__type__ == other.__type__
-        return self is other
-
-ClassVar = _ClassVar(_root=True)
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Callable):
+            raise TypeError("Type Callable cannot be instantiated; "
+                            "use a non-abstract subclass instead")
+        return super().__new__(cls, *args, **kwds)
 
 
 def cast(typ, val):
