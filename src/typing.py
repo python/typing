@@ -619,13 +619,19 @@ class _Union(_FinalTypingBase, _root=True):
     - You can use Optional[X] as a shorthand for Union[X, None].
     """
 
-    __slots__ = ('__union_params__', '__union_set_params__')
+    __slots__ = ('__parameters__', '__args__', '__origin__')
 
-    def __new__(cls, parameters=None, *args, _root=False):
-        self = super().__new__(cls, parameters, *args, _root=_root)
-        if parameters is None:
-            self.__union_params__ = None
-            self.__union_set_params__ = None
+    def __new__(cls, parameters=None, origin=None, *args, _root=False):
+        self = super().__new__(cls, parameters, origin, *args, _root=_root)
+        if origin is None:
+            self.__parameters__ = None
+            self.__args__ = None
+            self.__origin__ = None
+            return self
+        if origin is not Union:
+            self.__parameters__ = _type_vars(parameters)
+            self.__args__ = parameters
+            self.__origin__ = origin
             return self
         if not isinstance(parameters, tuple):
             raise TypeError("Expected parameters=<tuple>")
@@ -634,7 +640,7 @@ class _Union(_FinalTypingBase, _root=True):
         msg = "Union[arg, ...]: each arg must be a type."
         for p in parameters:
             if isinstance(p, _Union):
-                params.extend(p.__union_params__)
+                params.extend(p.__args__)
             else:
                 params.append(_type_check(p, msg))
         # Weed out strict duplicates, preserving the first of each occurrence.
@@ -664,50 +670,76 @@ class _Union(_FinalTypingBase, _root=True):
         # It's not a union if there's only one type left.
         if len(all_params) == 1:
             return all_params.pop()
-        self.__union_params__ = tuple(t for t in params if t in all_params)
-        self.__union_set_params__ = frozenset(self.__union_params__)
+        self.__origin__ = origin
+        self.__args__ = tuple(t for t in params if t in all_params)
+        self.__parameters__ = _type_vars(self.__args__)
         return self
 
     def _eval_type(self, globalns, localns):
-        p = tuple(_eval_type(t, globalns, localns)
-                  for t in self.__union_params__)
-        if p == self.__union_params__:
+        if self.__args__ is None:
             return self
-        else:
-            return self.__class__(p, _root=True)
+        p = tuple(_eval_type(t, globalns, localns)
+                  for t in self.__args__)
+        return self.__class__(p,
+                              _eval_type(self.__origin__, globalns, localns)
+                              if self.__origin__ is not None else None,
+                              _root=True)
 
     def _get_type_vars(self, tvars):
-        if self.__union_params__:
-            _get_type_vars(self.__union_params__, tvars)
+        if self.__origin__ and self.__parameters__:
+            _get_type_vars(self.__parameters__, tvars)
 
     def __repr__(self):
+        if self.__origin__ is None:
+            return super().__repr__()
         return self._subs_repr([], [])
 
     def _subs_repr(self, tvars, args):
-        r = super().__repr__()
-        if self.__union_params__:
-            r += '[%s]' % (', '.join(_replace_arg(t, tvars, args)
-                                     for t in self.__union_params__))
-        return r
+        assert len(tvars) == len(args)
+        # Construct the chain of __origin__'s.
+        if not self.__args__:
+            return super().__repr__()
+        current = self.__origin__
+        orig_chain = []
+        while current.__origin__ is not None:
+            orig_chain.append(current)
+            current = current.__origin__
+        # Replace type variables in __args__ if asked ...
+        str_args = []
+        for arg in self.__args__:
+            str_args.append(_replace_arg(arg, tvars, args))
+        # ... then continue replacing down the origin chain.
+        for cls in orig_chain:
+            new_str_args = []
+            for i, arg in enumerate(cls.__args__):
+                new_str_args.append(_replace_arg(arg, cls.__parameters__, str_args))
+            str_args = new_str_args
+        return super().__repr__() + '[%s]' % ', '.join(str_args)
 
     @_tp_cache
     def __getitem__(self, parameters):
-        if self.__union_params__ is not None:
-            raise TypeError(
-                "Cannot subscript an existing Union. Use Union[u, t] instead.")
         if parameters == ():
             raise TypeError("Cannot take a Union of no types.")
         if not isinstance(parameters, tuple):
             parameters = (parameters,)
-        return self.__class__(parameters, _root=True)
+        if self is not Union:
+            if not self.__parameters__:
+                raise TypeError("%s is not a generic class" % repr(self))
+            alen = len(parameters)
+            elen = len(self.__parameters__)
+            if alen != elen:
+                raise TypeError(
+                    "Too %s parameters for %s; actual %s, expected %s" %
+                    ("many" if alen > elen else "few", repr(self), alen, elen))
+        return self.__class__(parameters, origin=self, _root=True)
 
     def __eq__(self, other):
         if not isinstance(other, _Union):
             return NotImplemented
-        return self.__union_set_params__ == other.__union_set_params__
+        return frozenset(self.__args__) == frozenset(other.__args__)
 
     def __hash__(self):
-        return hash(self.__union_set_params__)
+        return hash(frozenset(self.__args__))
 
     def __instancecheck__(self, obj):
         raise TypeError("Unions cannot be used with isinstance().")
@@ -942,14 +974,14 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             str_args = new_str_args
         if not for_callable:
             return super().__repr__() + '[%s]' % ', '.join(str_args)
+        # Special format fot Callable
+        if str_args[0] == '...':
+            return super().__repr__() + '[..., %s]' % str_args[1]
+        if str_args[0] == '()':
+            return super().__repr__() + '[[], %s]' % str_args[1]
         else:
-            if str_args[0] == '...':
-                return super().__repr__() + '[..., %s]' % str_args[1]
-            elif str_args[0] == '()':
-                return super().__repr__() + '[[], %s]' % str_args[1]
-            else:
-                return (super().__repr__() +
-                        '[[%s], %s]' % (', '.join(str_args[:-1]), str_args[-1]))
+            return (super().__repr__() +
+                    '[[%s], %s]' % (', '.join(str_args[:-1]), str_args[-1]))
 
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
