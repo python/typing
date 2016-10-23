@@ -643,12 +643,12 @@ class _Union(_FinalTypingBase, _root=True):
     def _eval_type(self, globalns, localns):
         if self.__args__ is None:
             return self
-        p = tuple(_eval_type(t, globalns, localns)
-                  for t in self.__args__)
-        return self.__class__(p,
-                              _eval_type(self.__origin__, globalns, localns)
-                              if self.__origin__ is not None else None,
-                              _root=True)
+        ev_args = tuple(_eval_type(t, globalns, localns)
+                        for t in self.__args__)
+        ev_origin = _eval_type(self.__origin__, globalns, localns)
+        if ev_args == self.__args__ and ev_origin == self.__origin__:
+            return self
+        return self.__class__(ev_args, ev_origin, _root=True)
 
     def _get_type_vars(self, tvars):
         if self.__origin__ and self.__parameters__:

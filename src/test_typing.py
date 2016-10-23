@@ -142,8 +142,7 @@ class TypeVarTests(BaseTestCase):
         self.assertEqual(Union[X, X], X)
         self.assertNotEqual(Union[X, int], Union[X])
         self.assertNotEqual(Union[X, int], Union[int])
-        self.assertEqual(Union[X, int].__union_params__, (X, int))
-        self.assertEqual(Union[X, int].__union_set_params__, {X, int})
+        self.assertEqual(Union[X, int].__args__, (X, int))
 
     def test_union_constrained(self):
         A = TypeVar('A', str, bytes)
@@ -312,8 +311,6 @@ class TupleTests(BaseTestCase):
 
     def test_basics(self):
         with self.assertRaises(TypeError):
-            issubclass(Tuple[int, str], Tuple)
-        with self.assertRaises(TypeError):
             issubclass(Tuple, Tuple[int, str])
         with self.assertRaises(TypeError):
             issubclass(tuple, Tuple[int, str])
@@ -366,22 +363,6 @@ class CallableTests(BaseTestCase):
         self.assertNotEqual(Callable[[int], int], Callable[[int, int], int])
         self.assertNotEqual(Callable[[int], int], Callable[[], int])
         self.assertNotEqual(Callable[[int], int], Callable)
-
-    def test_cannot_subclass(self):
-        with self.assertRaises(TypeError):
-
-            class C(Callable):
-                pass
-
-        with self.assertRaises(TypeError):
-
-            class C(type(Callable)):
-                pass
-
-        with self.assertRaises(TypeError):
-
-            class C(Callable[[int], int]):
-                pass
 
     def test_cannot_instantiate(self):
         with self.assertRaises(TypeError):
