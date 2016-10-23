@@ -614,8 +614,6 @@ class _Union(_FinalTypingBase, _root=True):
             self.__args__ = parameters
             self.__origin__ = origin
             return self
-        if not isinstance(parameters, tuple):
-            raise TypeError("Expected parameters=<tuple>")
         params = flat_union(parameters)
         params = remove_dups(params)
         # Weed out subclasses.
@@ -777,7 +775,7 @@ def _geqv(a, b):
 
 def _replace_arg(arg, tvars, args):
     if tvars is None:
-        return arg
+        tvars = []
     if hasattr(arg, '_subs_tree'):
         return arg._subs_tree(tvars, args)
     if isinstance(arg, TypeVar):

@@ -691,6 +691,52 @@ class GenericTests(BaseTestCase):
         self.assertEqual(C.__orig_bases__, (List[T][U][V],))
         self.assertEqual(D.__orig_bases__, (C, List[T][U][V]))
 
+    def test_extended_generic_rules_eq(self):
+        self.assertEqual(Tuple[T, T][int], Tuple[int, int])
+        self.assertEqual(Union[T, int][int], int)
+        self.assertEqual(Callable[[T], T][KT], Callable[[KT], KT])
+        self.assertEqual(Callable[..., List[T]][int], Callable[..., List[int]])
+
+    def test_extended_generic_rules_repr(self):
+        self.assertEqual(repr(Union[Tuple, Callable]).replace('typing.', ''),
+                         'Union[Tuple, Callable]')
+        self.assertEqual(repr(Union[Tuple, Tuple[int]]).replace('typing.', ''),
+                         'Tuple')
+        self.assertEqual(repr(Callable[..., Optional[T]][int]).replace('typing.', ''),
+                         'Callable[..., Union[int, NoneType]]')
+
+    def test_extended_generic_rules_subclassing(self):
+        class T1(Tuple[T, KT]): ...
+        class T2(Tuple[T, ...]): ...
+        class C1(Callable[[T], T]): ...
+        class C2(Callable[..., int]):
+            def __call__(self):
+                return None
+
+        self.assertEqual(T1.__parameters__, (T, KT))
+        self.assertEqual(T1[int, str].__args__, (int, str))
+        self.assertEqual(T1[int, T].__origin__, T1)
+
+        self.assertEqual(T2.__parameters__, (T,))
+        with self.assertRaises(TypeError):
+            T1[int]
+        with self.assertRaises(TypeError):
+            T2[int, str]
+
+        self.assertEqual(repr(C1[int]).split('.')[-1], 'C1[int]')
+        self.assertEqual(C2.__parameters__, ())
+        self.assertIsInstance(C2(), collections_abc.Callable)
+        self.assertIsSubclass(C2, collections_abc.Callable)
+        self.assertIsSubclass(C1, collections_abc.Callable)
+        self.assertIsInstance(T1(), tuple)
+
+    def test_fail_with_bare_union(self):
+        with self.assertRaises(TypeError):
+            List[Union]
+        with self.assertRaises(TypeError):
+            Tuple[Optional]
+        with self.assertRaises(TypeError):
+            ClassVar[ClassVar]
 
     def test_pickle(self):
         global C  # pickle wants to reference the class by name
