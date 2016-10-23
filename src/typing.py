@@ -644,7 +644,7 @@ class _Union(_FinalTypingBase, _root=True):
     def __repr__(self):
         if self.__origin__ is None:
             return super().__repr__()
-        tree = self._subs_tree([], [])
+        tree = self._subs_tree()
         if not isinstance(tree, tuple):
             return repr(tree)
         return self._tree_repr(tree)
@@ -680,7 +680,7 @@ class _Union(_FinalTypingBase, _root=True):
                     ("many" if alen > elen else "few", repr(self), alen, elen))
         return self.__class__(parameters, origin=self, _root=True)
 
-    def _subs_tree(self, tvars, args):
+    def _subs_tree(self, tvars=None, args=None):
         # This is an adapted equivalent of code in GenericMeta (removing duplicates).
         current = self.__origin__
         orig_chain = []
@@ -689,12 +689,12 @@ class _Union(_FinalTypingBase, _root=True):
             current = current.__origin__
         tree_args = []
         for arg in self.__args__:
-            tree_args.append(_replace_arg_nos(arg, tvars, args))
+            tree_args.append(_replace_arg(arg, tvars, args))
         tree_args = remove_dups(tree_args)
         for cls in orig_chain:
             new_tree_args = []
             for i, arg in enumerate(cls.__args__):
-                new_tree_args.append(_replace_arg_nos(arg, cls.__parameters__,
+                new_tree_args.append(_replace_arg(arg, cls.__parameters__,
                                                       tree_args))
             tree_args = remove_dups(new_tree_args)
         res = ((orig_chain[-1].__origin__ if orig_chain
@@ -706,16 +706,15 @@ class _Union(_FinalTypingBase, _root=True):
     def __eq__(self, other):
         if isinstance(other, _Union):
             if self.__origin__ and other.__origin__:
-                return (frozenset(self._subs_tree([], []))
-                        == frozenset(other._subs_tree([], [])))
+                return frozenset(self._subs_tree()) == frozenset(other._subs_tree())
             return self is other
         if self.__origin__:
-            return self._subs_tree([], []) is other
+            return self._subs_tree() is other
         return NotImplemented
 
     def __hash__(self):
         return hash((type(self).__name__,
-                     frozenset(self._subs_tree([], [])) if self.__origin__ else ()))
+                     frozenset(self._subs_tree()) if self.__origin__ else ()))
 
     def __instancecheck__(self, obj):
         raise TypeError("Unions cannot be used with isinstance().")
@@ -768,16 +767,8 @@ def _geqv(a, b):
 
 
 def _replace_arg(arg, tvars, args):
-    if hasattr(arg, '_subs_repr'):
-        return arg._subs_repr(tvars, args)
-    if isinstance(arg, TypeVar):
-        for i, tvar in enumerate(tvars):
-            if arg == tvar:
-                return args[i]
-    return _type_repr(arg)
-
-
-def _replace_arg_nos(arg, tvars, args):
+    if tvars is None:
+        return arg
     if hasattr(arg, '_subs_tree'):
         return arg._subs_tree(tvars, args)
     if isinstance(arg, TypeVar):
@@ -946,7 +937,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def __repr__(self):
         if self.__origin__ is None:
             return super().__repr__()
-        return self._tree_repr(self._subs_tree([], []))
+        return self._tree_repr(self._subs_tree())
 
     def _tree_repr(self, tree):
         arg_list = []
@@ -959,7 +950,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 arg_list.append(arg[0]._tree_repr(arg))
         return super().__repr__() + '[%s]' % ', '.join(arg_list)
 
-    def _subs_tree(self, tvars, args):
+    def _subs_tree(self, tvars=None, args=None):
         # Construct the chain of __origin__'s.
         current = self.__origin__
         if current is None:
@@ -971,12 +962,12 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # Replace type variables in __args__ if asked ...
         tree_args = ()
         for arg in self.__args__:
-            tree_args += (_replace_arg_nos(arg, tvars, args),)
+            tree_args += (_replace_arg(arg, tvars, args),)
         # ... then continue replacing down the origin chain.
         for cls in orig_chain:
             new_tree_args = ()
             for i, arg in enumerate(cls.__args__):
-                new_tree_args += (_replace_arg_nos(arg, cls.__parameters__, tree_args),)
+                new_tree_args += (_replace_arg(arg, cls.__parameters__, tree_args),)
             tree_args = new_tree_args
         return ((orig_chain[-1].__origin__ if orig_chain else self.__origin__),) + tree_args
 
@@ -984,12 +975,12 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if not isinstance(other, GenericMeta):
             return NotImplemented
         if self.__origin__ is not None and other.__origin__ is not None:
-            return self._subs_tree([], []) == other._subs_tree([], [])
+            return self._subs_tree() == other._subs_tree()
         else:
             return self is other
 
     def __hash__(self):
-        return hash((self.__name__, self._subs_tree([], []) if self.__origin__ else ()))
+        return hash((self.__name__, self._subs_tree() if self.__origin__ else ()))
 
     @_tp_cache
     def __getitem__(self, params):
@@ -1166,7 +1157,7 @@ class CallableMeta(GenericMeta):
     def __repr__(self):
         if self.__origin__ is None:
             return super().__repr__()
-        return self._tree_repr(self._subs_tree([], []))
+        return self._tree_repr(self._subs_tree())
 
     def _tree_repr(self, tree):
         arg_list = []
