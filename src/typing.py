@@ -926,10 +926,6 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                         in self.__args__) if self.__args__ else None
         if ev_origin == self.__origin__ and ev_args == self.__args__:
             return self
-        if ev_origin == self.__origin__:
-            ev_origin = self.__origin__
-        if ev_args == self.__args__:
-            ev_args = self.__args__
         return self.__class__(self.__name__,
                               self.__bases__,
                               dict(self.__dict__),
