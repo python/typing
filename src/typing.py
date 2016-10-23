@@ -585,7 +585,7 @@ class _Union(_FinalTypingBase, _root=True):
         params = []
         msg = "Union[arg, ...]: each arg must be a type."
         for p in parameters:
-            if isinstance(p, _Union):
+            if isinstance(p, _Union) and p.__origin__ is Union:
                 params.extend(p.__args__)
             else:
                 params.append(_type_check(p, msg))
@@ -641,8 +641,8 @@ class _Union(_FinalTypingBase, _root=True):
         return self._subs_repr([], [])
 
     def _subs_repr(self, tvars, args):
-        assert len(tvars) == len(args)
-        # Construct the chain of __origin__'s.
+        # This is an adapted equivalent of code in GenericMeta.
+        # Look there for detailed explanations.
         if not self.__args__:
             return super().__repr__()
         current = self.__origin__
@@ -650,11 +650,9 @@ class _Union(_FinalTypingBase, _root=True):
         while current.__origin__ is not None:
             orig_chain.append(current)
             current = current.__origin__
-        # Replace type variables in __args__ if asked ...
         str_args = []
         for arg in self.__args__:
             str_args.append(_replace_arg(arg, tvars, args))
-        # ... then continue replacing down the origin chain.
         for cls in orig_chain:
             new_str_args = []
             for i, arg in enumerate(cls.__args__):
@@ -745,6 +743,16 @@ def _replace_arg(arg, tvars, args):
             if arg == tvar:
                 return args[i]
     return _type_repr(arg)
+
+
+def _replace_arg_nos(arg, tvars, args):
+    if hasattr(arg, '_subs_tree'):
+        return arg._subs_tree(tvars, args)
+    if isinstance(arg, TypeVar):
+        for i, tvar in enumerate(tvars):
+            if arg == tvar:
+                return args[i]
+    return arg
 
 
 def _next_in_mro(cls):
@@ -884,14 +892,22 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             _get_type_vars(self.__parameters__, tvars)
 
     def _eval_type(self, globalns, localns):
+        ev_origin = (self.__origin__._eval_type(globalns, localns)
+                     if self.__origin__ else None)
+        ev_args = tuple(_eval_type(a, globalns, localns) for a
+                        in self.__args__) if self.__args__ else None
+        if ev_origin == self.__origin__ and ev_args == self.__args__:
+            return self
+        if ev_origin == self.__origin__:
+            ev_origin = self.__origin__
+        if ev_args == self.__args__:
+            ev_args = self.__args__
         return self.__class__(self.__name__,
                               self.__bases__,
                               dict(self.__dict__),
                               tvars=self.__parameters__ if self.__origin__ else None,
-                              args=tuple(_eval_type(a, globalns, localns) for a
-                                         in self.__args__) if self.__args__ else None,
-                              origin=(self.__origin__._eval_type(globalns, localns)
-                                      if self.__origin__ else None),
+                              args=ev_args,
+                              origin=ev_origin,
                               extra=self.__extra__,
                               orig_bases=self.__orig_bases__)
 
@@ -929,18 +945,34 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             return (super().__repr__() +
                     '[[%s], %s]' % (', '.join(str_args[:-1]), str_args[-1]))
 
+    def _subs_tree(self, tvars, args):
+        current = self.__origin__
+        orig_chain = []
+        while current.__origin__ is not None:
+            orig_chain.append(current)
+            current = current.__origin__
+        # Replace type variables in __args__ if asked ...
+        tree_args = ()
+        for arg in self.__args__:
+            tree_args += (_replace_arg_nos(arg, tvars, args),)
+        # ... then continue replacing down the origin chain.
+        for cls in orig_chain:
+            new_tree_args = ()
+            for i, arg in enumerate(cls.__args__):
+                new_tree_args += (_replace_arg_nos(arg, cls.__parameters__, tree_args),)
+            tree_args = new_tree_args
+        return ((orig_chain[-1].__origin__ if orig_chain else self.__origin__),) + tree_args
+
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
             return NotImplemented
-        if self.__origin__ is not None:
-            return (self.__origin__ is other.__origin__ and
-                    self.__args__ == other.__args__ and
-                    self.__parameters__ == other.__parameters__)
+        if self.__origin__ is not None and other.__origin__ is not None:
+            return self._subs_tree([], []) == other._subs_tree([], [])
         else:
             return self is other
 
     def __hash__(self):
-        return hash((self.__name__, self.__parameters__))
+        return hash((self.__name__, self._subs_tree([], []) if self.__origin__ else ()))
 
     @_tp_cache
     def __getitem__(self, params):
@@ -1054,6 +1086,16 @@ class _TypingEmpty:
 class TupleMeta(GenericMeta):
     """Metaclass for Tuple"""
 
+    def __repr__(self):
+        if self.__args__ == ((),):
+            return repr(Tuple) + '[()]'
+        return super().__repr__()
+
+    def _subs_repr(self, tvars, args):
+        if not self.__args__:
+            return super().__repr__()
+        return super()._subs_repr(tvars, args)
+
     @_tp_cache
     def __getitem__(self, parameters):
         if self.__origin__ is not None or not _geqv(self, Tuple):
@@ -1092,11 +1134,6 @@ class TupleMeta(GenericMeta):
         raise TypeError("Parameterized Tuple cannot be used "
                         "with issubclass().")
 
-    def __repr__(self):
-        if self.__args__ == ((),):
-            return repr(Tuple) + '[()]'
-        return super().__repr__()
-
 
 class Tuple(tuple, extra=tuple, metaclass=TupleMeta):
     """Tuple type; Tuple[X, Y] is the cross-product type of X and Y.
@@ -1123,6 +1160,11 @@ class CallableMeta(GenericMeta):
         if self.__origin__ is None:
             return super().__repr__()
         return super()._subs_repr([], [], for_callable=True)
+
+    def _subs_repr(self, tvars, args):
+        if not self.__args__:
+            return super().__repr__()
+        return super()._subs_repr(tvars, args)
 
     def __getitem__(self, parameters):
         if  self.__origin__ is not None or not _geqv(self, Callable):
