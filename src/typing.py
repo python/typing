@@ -507,6 +507,19 @@ T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 AnyStr = TypeVar('AnyStr', bytes, str)
 
 
+def remove_dups(params):
+    all_params = set(params)
+    if len(all_params) < len(params):
+        new_params = []
+        for t in params:
+            if t in all_params:
+                new_params.append(t)
+                all_params.remove(t)
+        params = new_params
+        assert not all_params, all_params
+    return params
+
+
 def _tp_cache(func):
     cached = functools.lru_cache()(func)
     @functools.wraps(func)
@@ -590,15 +603,7 @@ class _Union(_FinalTypingBase, _root=True):
             else:
                 params.append(_type_check(p, msg))
         # Weed out strict duplicates, preserving the first of each occurrence.
-        all_params = set(params)
-        if len(all_params) < len(params):
-            new_params = []
-            for t in params:
-                if t in all_params:
-                    new_params.append(t)
-                    all_params.remove(t)
-            params = new_params
-            assert not all_params, all_params
+        params = remove_dups(params)
         # Weed out subclasses.
         # E.g. Union[int, Employee, Manager] == Union[int, Employee].
         # If object is present it will be sole survivor among proper classes.
@@ -677,13 +682,42 @@ class _Union(_FinalTypingBase, _root=True):
                     ("many" if alen > elen else "few", repr(self), alen, elen))
         return self.__class__(parameters, origin=self, _root=True)
 
+    def _subs_tree(self, tvars, args):
+        # This is an adapted equivalent of code in GenericMeta (removing duplicates).
+        current = self.__origin__
+        orig_chain = []
+        while current.__origin__ is not None:
+            orig_chain.append(current)
+            current = current.__origin__
+        tree_args = []
+        for arg in self.__args__:
+            tree_args.append(_replace_arg_nos(arg, tvars, args))
+        tree_args = remove_dups(tree_args)
+        for cls in orig_chain:
+            new_tree_args = []
+            for i, arg in enumerate(cls.__args__):
+                new_tree_args.append(_replace_arg_nos(arg, cls.__parameters__,
+                                                      tree_args))
+            tree_args = remove_dups(new_tree_args)
+        res = ((orig_chain[-1].__origin__ if orig_chain
+               else self.__origin__),) + tuple(tree_args)
+        if len(res) == 2:
+            return res[1]
+        return res
+
     def __eq__(self, other):
-        if not isinstance(other, _Union):
-            return NotImplemented
-        return frozenset(self.__args__) == frozenset(other.__args__)
+        if isinstance(other, _Union):
+            if self.__origin__ and other.__origin__:
+                return (frozenset(self._subs_tree([], []))
+                        == frozenset(other._subs_tree([], [])))
+            return self is other
+        if self.__origin__:
+            return self._subs_tree([], []) is other
+        return NotImplemented
 
     def __hash__(self):
-        return hash(frozenset(self.__args__))
+        return hash((type(self).__name__,
+                     frozenset(self._subs_tree([], [])) if self.__origin__ else ()))
 
     def __instancecheck__(self, obj):
         raise TypeError("Unions cannot be used with isinstance().")
@@ -946,6 +980,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                     '[[%s], %s]' % (', '.join(str_args[:-1]), str_args[-1]))
 
     def _subs_tree(self, tvars, args):
+        # Construct the chain of __origin__'s.
         current = self.__origin__
         orig_chain = []
         while current.__origin__ is not None:
