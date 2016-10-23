@@ -352,9 +352,12 @@ def _type_check(arg, msg):
         return type(None)
     if isinstance(arg, str):
         arg = _ForwardRef(arg)
-    if (isinstance(arg, _ClassVar) or
+    if (isinstance(arg, _TypingBase) and type(arg).__name__ == '_ClassVar' or
         not isinstance(arg, (type, _TypingBase)) and not callable(arg)):
         raise TypeError(msg + " Got %.100r." % (arg,))
+    if (type(arg).__name__ in ('_Union', '_Optional') 
+        and not getattr(arg, '__origin__', None)):
+        raise TypeError("Plain %s is not valid as type argument" % arg)
     return arg
 
 
@@ -375,63 +378,6 @@ def _type_repr(obj):
     if isinstance(obj, types.FunctionType):
         return obj.__name__
     return repr(obj)
-
-
-class _ClassVar(_FinalTypingBase, _root=True):
-    """Special type construct to mark class variables.
-
-    An annotation wrapped in ClassVar indicates that a given
-    attribute is intended to be used as a class variable and
-    should not be set on instances of that class. Usage::
-
-      class Starship:
-          stats: ClassVar[Dict[str, int]] = {} # class variable
-          damage: int = 10                     # instance variable
-
-    ClassVar accepts only types and cannot be further subscribed.
-
-    Note that ClassVar is not a class itself, and should not
-    be used with isinstance() or issubclass().
-    """
-
-    __slots__ = ('__type__',)
-
-    def __init__(self, tp=None, **kwds):
-        self.__type__ = tp
-
-    def __getitem__(self, item):
-        cls = type(self)
-        if self.__type__ is None:
-            return cls(_type_check(item,
-                       '{} accepts only single type.'.format(cls.__name__[1:])),
-                       _root=True)
-        raise TypeError('{} cannot be further subscripted'
-                        .format(cls.__name__[1:]))
-
-    def _eval_type(self, globalns, localns):
-        new_tp = _eval_type(self.__type__, globalns, localns)
-        if new_tp == self.__type__:
-            return self
-        return type(self)(new_tp, _root=True)
-
-    def __repr__(self):
-        r = super().__repr__()
-        if self.__type__ is not None:
-            r += '[{}]'.format(_type_repr(self.__type__))
-        return r
-
-    def __hash__(self):
-        return hash((type(self).__name__, self.__type__))
-
-    def __eq__(self, other):
-        if not isinstance(other, _ClassVar):
-            return NotImplemented
-        if self.__type__ is not None:
-            return self.__type__ == other.__type__
-        return self is other
-
-
-ClassVar = _ClassVar(_root=True)
 
 
 class _Any(_FinalTypingBase, _root=True):
@@ -1243,6 +1189,63 @@ class Callable(extra=collections_abc.Callable, metaclass = CallableMeta):
             raise TypeError("Type Callable cannot be instantiated; "
                             "use a non-abstract subclass instead")
         return super().__new__(cls, *args, **kwds)
+
+
+class _ClassVar(_FinalTypingBase, _root=True):
+    """Special type construct to mark class variables.
+
+    An annotation wrapped in ClassVar indicates that a given
+    attribute is intended to be used as a class variable and
+    should not be set on instances of that class. Usage::
+
+      class Starship:
+          stats: ClassVar[Dict[str, int]] = {} # class variable
+          damage: int = 10                     # instance variable
+
+    ClassVar accepts only types and cannot be further subscribed.
+
+    Note that ClassVar is not a class itself, and should not
+    be used with isinstance() or issubclass().
+    """
+
+    __slots__ = ('__type__',)
+
+    def __init__(self, tp=None, **kwds):
+        self.__type__ = tp
+
+    def __getitem__(self, item):
+        cls = type(self)
+        if self.__type__ is None:
+            return cls(_type_check(item,
+                       '{} accepts only single type.'.format(cls.__name__[1:])),
+                       _root=True)
+        raise TypeError('{} cannot be further subscripted'
+                        .format(cls.__name__[1:]))
+
+    def _eval_type(self, globalns, localns):
+        new_tp = _eval_type(self.__type__, globalns, localns)
+        if new_tp == self.__type__:
+            return self
+        return type(self)(new_tp, _root=True)
+
+    def __repr__(self):
+        r = super().__repr__()
+        if self.__type__ is not None:
+            r += '[{}]'.format(_type_repr(self.__type__))
+        return r
+
+    def __hash__(self):
+        return hash((type(self).__name__, self.__type__))
+
+    def __eq__(self, other):
+        if not isinstance(other, _ClassVar):
+            return NotImplemented
+        if self.__type__ is not None:
+            return self.__type__ == other.__type__
+        return self is other
+
+
+ClassVar = _ClassVar(_root=True)
 
 
 def cast(typ, val):
