@@ -796,10 +796,10 @@ def _next_in_mro(cls):
     Generic[...] in cls.__mro__.
     """
     next_in_mro = object
-    # Look for the last occurrence of Generic or Generic[...].
-    for i, c in enumerate(cls.__mro__[:-1]):
-        if isinstance(c, GenericMeta) and _gorg(c) is Generic:
-            next_in_mro = cls.__mro__[i+1]
+    # Look for the first occurrence of non-generic class.
+    for c in cls.__mro__[:-1]:
+        if not isinstance(c, GenericMeta):
+            return c
     return next_in_mro
 
 
@@ -1146,7 +1146,7 @@ class Tuple(tuple, extra=tuple, metaclass=TupleMeta):
         if _geqv(cls, Tuple):
             raise TypeError("Type Tuple cannot be instantiated; "
                             "use tuple() instead")
-        return super().__new__(cls, *args, **kwds)
+        return _generic_new(cls, *args, **kwds)
 
 
 class CallableMeta(GenericMeta):
@@ -1789,7 +1789,7 @@ class List(list, MutableSequence[T], extra=list):
         if _geqv(cls, List):
             raise TypeError("Type List cannot be instantiated; "
                             "use list() instead")
-        return list.__new__(cls, *args, **kwds)
+        return _generic_new(cls, *args, **kwds)
 
 
 class Set(set, MutableSet[T], extra=set):
@@ -1800,7 +1800,7 @@ class Set(set, MutableSet[T], extra=set):
         if _geqv(cls, Set):
             raise TypeError("Type Set cannot be instantiated; "
                             "use set() instead")
-        return set.__new__(cls, *args, **kwds)
+        return _generic_new(cls, *args, **kwds)
 
 
 class FrozenSet(frozenset, AbstractSet[T_co], extra=frozenset):
@@ -1810,7 +1810,7 @@ class FrozenSet(frozenset, AbstractSet[T_co], extra=frozenset):
         if _geqv(cls, FrozenSet):
             raise TypeError("Type FrozenSet cannot be instantiated; "
                             "use frozenset() instead")
-        return frozenset.__new__(cls, *args, **kwds)
+        return _generic_new(cls, *args, **kwds)
 
 
 class MappingView(Sized, Iterable[T_co], extra=collections_abc.MappingView):
@@ -1847,7 +1847,7 @@ class Dict(dict, MutableMapping[KT, VT], extra=dict):
         if _geqv(cls, Dict):
             raise TypeError("Type Dict cannot be instantiated; "
                             "use dict() instead")
-        return dict.__new__(cls, *args, **kwds)
+        return _generic_new(cls, *args, **kwds)
 
 class DefaultDict(collections.defaultdict, MutableMapping[KT, VT],
                   extra=collections.defaultdict):
@@ -1858,7 +1858,7 @@ class DefaultDict(collections.defaultdict, MutableMapping[KT, VT],
         if _geqv(cls, DefaultDict):
             raise TypeError("Type DefaultDict cannot be instantiated; "
                             "use collections.defaultdict() instead")
-        return collections.defaultdict.__new__(cls, *args, **kwds)
+        return _generic_new(cls, *args, **kwds)
 
 # Determine what base class to use for Generator.
 if hasattr(collections_abc, 'Generator'):
@@ -1877,7 +1877,7 @@ class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co],
         if _geqv(cls, Generator):
             raise TypeError("Type Generator cannot be instantiated; "
                             "create a subclass instead")
-        return super().__new__(cls, *args, **kwds)
+        return _generic_new(cls, *args, **kwds)
 
 
 # Internal type variable used for Type[].
