@@ -509,7 +509,7 @@ AnyStr = TypeVar('AnyStr', bytes, str)
 
 
 def flat_union(parameters):
-    # Flatten out Union[Union[...], ...] and type-check non-Union args.
+    # Flatten out Union[Union[...], ...].
     params = []
     for p in parameters:
         if isinstance(p, _Union) and p.__origin__ is Union:
