@@ -356,7 +356,8 @@ def _type_check(arg, msg):
         not isinstance(arg, (type, _TypingBase)) and not callable(arg)):
         raise TypeError(msg + " Got %.100r." % (arg,))
     if (type(arg).__name__ in ('_Union', '_Optional') 
-        and not getattr(arg, '__origin__', None)):
+        and not getattr(arg, '__origin__', None)
+        or isinstance(arg, TypingMeta) and _gorg(arg) in (Generic, _Protocol)):
         raise TypeError("Plain %s is not valid as type argument" % arg)
     return arg
 
