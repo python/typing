@@ -143,6 +143,8 @@ class TypeVarTests(BaseTestCase):
         self.assertNotEqual(Union[X, int], Union[X])
         self.assertNotEqual(Union[X, int], Union[int])
         self.assertEqual(Union[X, int].__args__, (X, int))
+        self.assertEqual(Union[X, int].__parameters__, (X,))
+        self.assertIs(Union[X, int].__origin__, Union)
 
     def test_union_constrained(self):
         A = TypeVar('A', str, bytes)
@@ -692,18 +694,27 @@ class GenericTests(BaseTestCase):
         self.assertEqual(D.__orig_bases__, (C, List[T][U][V]))
 
     def test_extended_generic_rules_eq(self):
+        T = TypeVar('T')
+        U = TypeVar('U')
         self.assertEqual(Tuple[T, T][int], Tuple[int, int])
         self.assertEqual(Union[T, int][int], int)
+        self.assertEqual(Union[T, U][int, Union[int, str]], Union[int, str])
+        class Base: ...
+        class Derived(Base): ...
+        self.assertEqual(Union[T, Base][Derived], Base)
         self.assertEqual(Callable[[T], T][KT], Callable[[KT], KT])
         self.assertEqual(Callable[..., List[T]][int], Callable[..., List[int]])
 
     def test_extended_generic_rules_repr(self):
+        T = TypeVar('T')
         self.assertEqual(repr(Union[Tuple, Callable]).replace('typing.', ''),
                          'Union[Tuple, Callable]')
         self.assertEqual(repr(Union[Tuple, Tuple[int]]).replace('typing.', ''),
                          'Tuple')
         self.assertEqual(repr(Callable[..., Optional[T]][int]).replace('typing.', ''),
                          'Callable[..., Union[int, NoneType]]')
+        self.assertEqual(repr(Callable[[], List[T]][int]).replace('typing.', ''),
+                         'Callable[[], List[int]]')
 
     def test_extended_generic_rules_subclassing(self):
         class T1(Tuple[T, KT]): ...
@@ -737,6 +748,17 @@ class GenericTests(BaseTestCase):
             Tuple[Optional]
         with self.assertRaises(TypeError):
             ClassVar[ClassVar]
+        with self.assertRaises(TypeError):
+            List[ClassVar[int]]
+
+    def test_fail_with_bare_generic(self):
+        T = TypeVar('T')
+        with self.assertRaises(TypeError):
+            List[Generic]
+        with self.assertRaises(TypeError):
+            Tuple[Generic[T]]
+        with self.assertRaises(TypeError):
+            List[typing._Protocol]
 
     def test_pickle(self):
         global C  # pickle wants to reference the class by name

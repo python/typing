@@ -508,18 +508,16 @@ T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 AnyStr = TypeVar('AnyStr', bytes, str)
 
 
-def flat_union(parameters):
+def _remove_dups_flatten(parameters):
     # Flatten out Union[Union[...], ...].
     params = []
     for p in parameters:
         if isinstance(p, _Union) and p.__origin__ is Union:
             params.extend(p.__args__)
+        elif isinstance(p, tuple) and len(p) > 0 and p[0] is Union:
+            params.extend(p[1:])
         else:
             params.append(p)
-    return params
-
-
-def remove_dups(params):
     # Weed out strict duplicates, preserving the first of each occurrence.
     all_params = set(params)
     if len(all_params) < len(params):
@@ -530,7 +528,32 @@ def remove_dups(params):
                 all_params.remove(t)
         params = new_params
         assert not all_params, all_params
-    return params
+    # Weed out subclasses.
+    # E.g. Union[int, Employee, Manager] == Union[int, Employee].
+    # If object is present it will be sole survivor among proper classes.
+    # Never discard type variables.
+    # (In particular, Union[str, AnyStr] != AnyStr.)
+    all_params = set(params)
+    for t1 in params:
+        if not isinstance(t1, type):
+            continue
+        if any(isinstance(t2, type) and issubclass(t1, t2)
+               for t2 in all_params - {t1}
+               if not (isinstance(t2, GenericMeta) and
+                       t2.__origin__ is not None)):
+            all_params.remove(t1)
+    return tuple(t for t in params if t in all_params)
+
+
+def _check_generic(cls, parameters):
+    # Check correct count for generic parameters for a cls
+    if not cls.__parameters__:
+        raise TypeError("%s is not a generic class" % repr(cls))
+    alen = len(parameters)
+    elen = len(cls.__parameters__)
+    if alen != elen:
+        raise TypeError("Too %s parameters for %s; actual %s, expected %s" %
+                        ("many" if alen > elen else "few", repr(cls), alen, elen))
 
 
 def _tp_cache(func):
@@ -607,27 +630,12 @@ class _Union(_FinalTypingBase, _root=True):
             self.__args__ = parameters
             self.__origin__ = origin
             return self
-        params = flat_union(parameters)
-        params = remove_dups(params)
-        # Weed out subclasses.
-        # E.g. Union[int, Employee, Manager] == Union[int, Employee].
-        # If object is present it will be sole survivor among proper classes.
-        # Never discard type variables.
-        # (In particular, Union[str, AnyStr] != AnyStr.)
-        all_params = set(params)
-        for t1 in params:
-            if not isinstance(t1, type):
-                continue
-            if any(isinstance(t2, type) and issubclass(t1, t2)
-                   for t2 in all_params - {t1}
-                   if not (isinstance(t2, GenericMeta) and
-                           t2.__origin__ is not None)):
-                all_params.remove(t1)
+        params = _remove_dups_flatten(parameters)
         # It's not a union if there's only one type left.
-        if len(all_params) == 1:
-            return all_params.pop()
+        if len(params) == 1:
+            return params[0]
         self.__origin__ = origin
-        self.__args__ = tuple(t for t in params if t in all_params)
+        self.__args__ = params
         self.__parameters__ = _type_vars(self.__args__)
         return self
 
@@ -676,21 +684,14 @@ class _Union(_FinalTypingBase, _root=True):
             msg = "Parameters to generic types must be types."
         parameters = tuple(_type_check(p, msg) for p in parameters)
         if self is not Union:
-            if not self.__parameters__:
-                raise TypeError("%s is not a generic class" % repr(self))
-            alen = len(parameters)
-            elen = len(self.__parameters__)
-            if alen != elen:
-                raise TypeError(
-                    "Too %s parameters for %s; actual %s, expected %s" %
-                    ("many" if alen > elen else "few", repr(self), alen, elen))
+            _check_generic(self, parameters)
         return self.__class__(parameters, origin=self, _root=True)
 
     def _subs_tree(self, tvars=None, args=None):
         tree_args = _subs_tree(self, tvars, args)
         if tree_args is Union:
             return (Union,)
-        tree_args = tuple(remove_dups(flat_union(tree_args)))
+        tree_args = _remove_dups_flatten(tree_args)
         if len(tree_args) == 1:
             return tree_args[0]  # Union of a single type is that type
         return (Union,) + tree_args
@@ -1010,14 +1011,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                             repr(self))
         else:
             # Subscripting a regular Generic subclass.
-            if not self.__parameters__:
-                raise TypeError("%s is not a generic class" % repr(self))
-            alen = len(params)
-            elen = len(self.__parameters__)
-            if alen != elen:
-                raise TypeError(
-                    "Too %s parameters for %s; actual %s, expected %s" %
-                    ("many" if alen > elen else "few", repr(self), alen, elen))
+            _check_generic(self, params)
             tvars = _type_vars(params)
             args = params
         return self.__class__(self.__name__,
