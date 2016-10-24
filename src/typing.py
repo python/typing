@@ -1158,12 +1158,10 @@ class CallableMeta(GenericMeta):
             return super()._tree_repr(tree)
         arg_list = []
         for arg in tree[1:]:
-            if not isinstance(arg, tuple) or len(arg) == 0:
-                if arg == ():
-                    r = '[]'
-                else:
-                    r = _type_repr(arg)
-                arg_list.append(r)
+            if arg == ():
+                arg_list.append('[]')
+            elif not isinstance(arg, tuple):
+                arg_list.append(_type_repr(arg))
             else:
                 arg_list.append(arg[0]._tree_repr(arg))
         if len(arg_list) == 2:
