@@ -1039,6 +1039,20 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 Generic = None
 
 
+def _generic_new(cls, *args, **kwds):
+    if cls.__origin__ is None:
+        return cls.__next_in_mro__.__new__(cls)
+    else:
+        origin = _gorg(cls)
+        obj = cls.__next_in_mro__.__new__(origin)
+        try:
+            obj.__orig_class__ = cls
+        except AttributeError:
+            pass
+        obj.__init__(*args, **kwds)
+        return obj
+
+
 class Generic(metaclass=GenericMeta):
     """Abstract base class for generic types.
 
@@ -1063,17 +1077,7 @@ class Generic(metaclass=GenericMeta):
     __slots__ = ()
 
     def __new__(cls, *args, **kwds):
-        if cls.__origin__ is None:
-            return cls.__next_in_mro__.__new__(cls)
-        else:
-            origin = _gorg(cls)
-            obj = cls.__next_in_mro__.__new__(origin)
-            try:
-                obj.__orig_class__ = cls
-            except AttributeError:
-                pass
-            obj.__init__(*args, **kwds)
-            return obj
+        return _generic_new(cls, *args, **kwds)
 
 
 class _TypingEllipsis:
@@ -1236,7 +1240,7 @@ class Callable(extra=collections_abc.Callable, metaclass = CallableMeta):
         if _geqv(cls, Callable):
             raise TypeError("Type Callable cannot be instantiated; "
                             "use a non-abstract subclass instead")
-        return super().__new__(cls, *args, **kwds)
+        return _generic_new(cls, *args, **kwds)
 
 
 class _ClassVar(_FinalTypingBase, _root=True):
