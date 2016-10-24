@@ -919,6 +919,9 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             self.__subclasshook__ = _make_subclasshook(self)
         if isinstance(extra, abc.ABCMeta):
             self._abc_registry = extra._abc_registry
+
+        if origin:
+            self.__qualname__ = origin.__qualname__
         return self
 
     def _get_type_vars(self, tvars):
