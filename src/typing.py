@@ -506,6 +506,7 @@ T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 # (This one *is* for export!)
 AnyStr = TypeVar('AnyStr', bytes, str)
 
+
 def flat_union(parameters):
     # Flatten out Union[Union[...], ...] and type-check non-Union args.
     params = []
@@ -515,6 +516,7 @@ def flat_union(parameters):
         else:
             params.append(p)
     return params
+
 
 def remove_dups(params):
     # Weed out strict duplicates, preserving the first of each occurrence.
@@ -528,16 +530,6 @@ def remove_dups(params):
         params = new_params
         assert not all_params, all_params
     return params
-
-
-def _orig_chain(cls):
-    # Make of chain of origins (i.e. cls -> cls.__origin__)
-    current = cls.__origin__
-    orig_chain = []
-    while current.__origin__ is not None:
-        orig_chain.append(current)
-        current = current.__origin__
-    return orig_chain
 
 
 def _tp_cache(func):
@@ -694,29 +686,18 @@ class _Union(_FinalTypingBase, _root=True):
         return self.__class__(parameters, origin=self, _root=True)
 
     def _subs_tree(self, tvars=None, args=None):
-        # This is an adapted equivalent of code in GenericMeta,
-        # but removing duplicate args and flattens Union's.
-        if self is Union:
+        tree_args = _subs_tree(self, tvars, args)
+        if tree_args is Union:
             return (Union,)
-        orig_chain = _orig_chain(self)
-        tree_args = []
-        for arg in self.__args__:
-            tree_args.append(_replace_arg(arg, tvars, args))
-        for cls in orig_chain:
-            new_tree_args = []
-            for i, arg in enumerate(cls.__args__):
-                new_tree_args.append(_replace_arg(arg, cls.__parameters__,
-                                                  tree_args))
-            tree_args = new_tree_args
         tree_args = tuple(remove_dups(flat_union(tree_args)))
         if len(tree_args) == 1:
             return tree_args[0]  # Union of a single type is that type
         return (Union,) + tree_args
 
     def __eq__(self, other):
-        if isinstance(other, _Union):
-            return frozenset(self._subs_tree()) == frozenset(other._subs_tree())
-        return self._subs_tree() == other
+        if not isinstance(other, _Union):
+            return self._subs_tree() == other
+        return frozenset(self._subs_tree()) == frozenset(other._subs_tree())
 
     def __hash__(self):
         if self is Union:
@@ -783,6 +764,28 @@ def _replace_arg(arg, tvars, args):
             if arg == tvar:
                 return args[i]
     return arg
+
+
+def _subs_tree(cls, tvars, args):
+    if cls.__origin__ is None:
+        return cls
+    # Make of chain of origins (i.e. cls -> cls.__origin__)
+    current = cls.__origin__
+    orig_chain = []
+    while current.__origin__ is not None:
+        orig_chain.append(current)
+        current = current.__origin__
+    # Replace type variables in __args__ if asked ...
+    tree_args = []
+    for arg in cls.__args__:
+        tree_args.append(_replace_arg(arg, tvars, args))
+    # ... then continue replacing down the origin chain.
+    for ocls in orig_chain:
+        new_tree_args = []
+        for i, arg in enumerate(ocls.__args__):
+            new_tree_args.append(_replace_arg(arg, ocls.__parameters__, tree_args))
+        tree_args = new_tree_args
+    return tree_args
 
 
 def _next_in_mro(cls):
@@ -954,20 +957,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         return super().__repr__() + '[%s]' % ', '.join(arg_list)
 
     def _subs_tree(self, tvars=None, args=None):
-        if self.__origin__ is None:
+        tree_args = _subs_tree(self, tvars, args)
+        if tree_args is self:
             return self
-        orig_chain = _orig_chain(self)
-        # Replace type variables in __args__ if asked ...
-        tree_args = ()
-        for arg in self.__args__:
-            tree_args += (_replace_arg(arg, tvars, args),)
-        # ... then continue replacing down the origin chain.
-        for cls in orig_chain:
-            new_tree_args = ()
-            for i, arg in enumerate(cls.__args__):
-                new_tree_args += (_replace_arg(arg, cls.__parameters__, tree_args),)
-            tree_args = new_tree_args
-        return (_gorg(self),) + tree_args
+        return (_gorg(self),) + tuple(tree_args)
 
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
