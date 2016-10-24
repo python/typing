@@ -1161,8 +1161,6 @@ class CallableMeta(GenericMeta):
             if not isinstance(arg, tuple) or len(arg) == 0:
                 if arg == ():
                     r = '[]'
-                elif arg == Ellipsis:
-                    r = '...'
                 else:
                     r = _type_repr(arg)
                 arg_list.append(r)

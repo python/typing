@@ -716,6 +716,11 @@ class GenericTests(BaseTestCase):
         self.assertEqual(repr(Callable[[], List[T]][int]).replace('typing.', ''),
                          'Callable[[], List[int]]')
 
+    def test_generic_forvard_ref(self):
+        def foobar(x: List[List['T']]): ...
+        T = TypeVar('T')
+        self.assertEqual(get_type_hints(foobar, globals(), locals()), {'x': List[List[T]]})
+
     def test_extended_generic_rules_subclassing(self):
         class T1(Tuple[T, KT]): ...
         class T2(Tuple[T, ...]): ...
@@ -760,6 +765,22 @@ class GenericTests(BaseTestCase):
         with self.assertRaises(TypeError):
             List[typing._Protocol]
 
+    def test_type_erasure_special(self):
+        T = TypeVar('T')
+        class MyTup(Tuple[T, T]): ...
+        self.assertIs(MyTup[int]().__class__, MyTup)
+        self.assertIs(MyTup[int]().__orig_class__, MyTup[int])
+        class MyCall(Callable[..., T]):
+            def __call__(self): return None
+        self.assertIs(MyCall[T]().__class__, MyCall)
+        self.assertIs(MyCall[T]().__orig_class__, MyCall[T])
+        class MyDict(typing.Dict[T, T]): ...
+        self.assertIs(MyDict[int]().__class__, MyDict)
+        self.assertIs(MyDict[int]().__orig_class__, MyDict[int])
+        class MyDef(typing.DefaultDict[str, T]): ...
+        self.assertIs(MyDef[int]().__class__, MyDef)
+        self.assertIs(MyDef[int]().__orig_class__, MyDef[int])
+
     def test_pickle(self):
         global C  # pickle wants to reference the class by name
         T = TypeVar('T')
@@ -801,7 +822,7 @@ class GenericTests(BaseTestCase):
         X = C[int]
         self.assertEqual(X.__module__, __name__)
         if not PY32:
-            self.assertEqual(X.__qualname__, 'C')
+            self.assertTrue(X.__qualname__.endswith('.<locals>.C'))
         self.assertEqual(repr(X).split('.')[-1], 'C[int]')
 
         class Y(C[int]):
