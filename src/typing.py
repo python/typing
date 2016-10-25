@@ -1077,12 +1077,8 @@ class Generic(metaclass=GenericMeta):
         return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
 
 
-class _TypingEllipsis:
-    """Placeholder for ..."""
-
-
-class _TypingEmpty:
-    """Placeholder for ()"""
+class _TypingDummy:
+    """Placeholder for ... or ()"""
 
 
 class TupleMeta(GenericMeta):
@@ -1092,27 +1088,21 @@ class TupleMeta(GenericMeta):
     def __getitem__(self, parameters):
         if self.__origin__ is not None or not _geqv(self, Tuple):
             return super().__getitem__(parameters)
+        if parameters == ():
+            result = super().__getitem__((_TypingDummy,))
+            result.__args__ = ((),)
+            return result
         if not isinstance(parameters, tuple):
             parameters = (parameters,)
         if len(parameters) == 2 and parameters[1] == Ellipsis:
-            use_ellipsis = True
-            parameters = parameters[:1] + (_TypingEllipsis,)
             msg = "Tuple[t, ...]: t must be a type."
-        else:
-            use_ellipsis = False
-            msg = "Tuple[t0, t1, ...]: each t must be a type."
+            p = _type_check(parameters[0], msg)
+            result = super().__getitem__((p, _TypingDummy))
+            result.__args__ = (result.__args__[0], ...)
+            return result
+        msg = "Tuple[t0, t1, ...]: each t must be a type."
         parameters = tuple(_type_check(p, msg) for p in parameters)
-        if parameters == ():
-            empty = True
-            parameters = (_TypingEmpty,)
-        else:
-            empty = False
-        result = super().__getitem__(parameters)
-        if use_ellipsis:
-            result.__args__ = result.__args__[:-1] + (...,)
-        elif empty:
-            result.__args__ = ((),)
-        return result
+        return super().__getitem__(parameters)
 
     def __instancecheck__(self, obj):
         if self.__args__ == None:
@@ -1176,16 +1166,15 @@ class CallableMeta(GenericMeta):
             raise TypeError("Callable must be used as "
                             "Callable[[arg, ...], result].")
         args, result = parameters
-        if args is not Ellipsis:
-            if not isinstance(args, list):
-                raise TypeError("Callable[args, result]: "
-                                "args must be a list."
-                                " Got %.100r." % (args,))
         if args is Ellipsis:
             parameters = (Ellipsis, result)
         elif args == []:
             parameters = ((), result)
         else:
+            if not isinstance(args, list):
+                raise TypeError("Callable[args, result]: "
+                                "args must be a list."
+                                " Got %.100r." % (args,))
             parameters = tuple(args) + (result,)
         return self.__getitem_inner__(parameters)
 
@@ -1195,25 +1184,18 @@ class CallableMeta(GenericMeta):
         result = parameters[-1]
         msg = "Callable[args, result]: result must be a type."
         result = _type_check(result, msg)
-        if args != (Ellipsis,):
-            use_ellipsis = False
-            if args != ((),):
-                empty_args = False
-                msg = "Callable[[arg, ...], result]: each arg must be a type."
-                args = tuple(_type_check(arg, msg) for arg in args)
-            else:
-                empty_args = True
-                args = (_TypingEmpty,)
-        else:
-            use_ellipsis = True
-            args = (_TypingEllipsis,)
+        if args == (Ellipsis,):
+            res = super().__getitem__((_TypingDummy, result))
+            res.__args__ = (..., res.__args__[1])
+            return res
+        if args == ((),):
+            res = super().__getitem__((_TypingDummy, result))
+            res.__args__ = ((), res.__args__[1])
+            return res
+        msg = "Callable[[arg, ...], result]: each arg must be a type."
+        args = tuple(_type_check(arg, msg) for arg in args)
         parameters = args + (result,)
-        result = super().__getitem__(parameters)
-        if use_ellipsis:
-            result.__args__ = (...,) + result.__args__[1:]
-        elif empty_args:
-            result.__args__ = ((),) + result.__args__[1:]
-        return result
+        return super().__getitem__(parameters)
 
 
 class Callable(extra=collections_abc.Callable, metaclass = CallableMeta):
