@@ -609,8 +609,6 @@ class _Union(_FinalTypingBase, _root=True):
 
     - You cannot subclass or instantiate a union.
 
-    - You cannot write Union[X][Y] (what would it mean?).
-
     - You can use Optional[X] as a shorthand for Union[X, None].
     """
 
@@ -642,8 +640,7 @@ class _Union(_FinalTypingBase, _root=True):
     def _eval_type(self, globalns, localns):
         if self.__args__ is None:
             return self
-        ev_args = tuple(_eval_type(t, globalns, localns)
-                        for t in self.__args__)
+        ev_args = tuple(_eval_type(t, globalns, localns) for t in self.__args__)
         ev_origin = _eval_type(self.__origin__, globalns, localns)
         if ev_args == self.__args__ and ev_origin == self.__origin__:
             return self
@@ -939,7 +936,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         return self.__class__(self.__name__,
                               self.__bases__,
                               dict(self.__dict__),
-                              tvars=self.__parameters__ if self.__origin__ else None,
+                              tvars=_type_vars(ev_args) if ev_args else None,
                               args=ev_args,
                               origin=ev_origin,
                               extra=self.__extra__,
