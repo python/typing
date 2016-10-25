@@ -1023,13 +1023,15 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             or hasattr(self.__subclasshook__, '__name__') and
             self.__subclasshook__.__name__ == '__extrahook__'):
             self.__subclasshook__ = _make_subclasshook(self)
-        if isinstance(extra, abc.ABCMeta):
-            self._abc_registry = extra._abc_registry
 
         if origin and hasattr(origin, '__qualname__'):  # Fix for Python 3.2.
             self.__qualname__ = origin.__qualname__
         self.__tree_hash__ = hash(self._subs_tree()) if origin else hash((self.__name__,))
         return self
+
+    def __init__(self, *args, **kwargs):
+        if isinstance(self.__extra__, abc.ABCMeta):
+            self._abc_registry = self.__extra__._abc_registry
 
     def _get_type_vars(self, tvars):
         if self.__origin__ and self.__parameters__:
