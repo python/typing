@@ -520,7 +520,7 @@ def _replace_arg(arg, tvars, args):
     return arg
 
 
-def _subs_tree(cls, tvars, args):
+def _subs_tree(cls, tvars=None, args=None):
     if cls.__origin__ is None:
         return cls
     # Make of chain of origins (i.e. cls -> cls.__origin__)

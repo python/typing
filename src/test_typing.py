@@ -811,6 +811,20 @@ class GenericTests(BaseTestCase):
                     self.assertNotEqual(repr(base), '')
                     self.assertEqual(base, base)
 
+    def test_substitution_helper(self):
+        KT = TypeVar('KT')
+        VT = TypeVar('VT')
+        class Map(Generic[KT, VT]):
+            def meth(self, k: KT, v: VT): ...
+        Alias = Map[T, int]
+        obj = Alias[str]()
+
+        new_args = typing._subs_tree(obj.__orig_class__)
+        new_annots = {k: typing._replace_arg(v, type(obj).__parameters__, new_args)
+                      for k, v in obj.meth.__annotations__.items()}
+
+        self.assertEqual(new_annots, {'k': str, 'v': int})
+
     def test_pickle(self):
         global C  # pickle wants to reference the class by name
         T = TypeVar('T')
