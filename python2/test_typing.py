@@ -840,7 +840,7 @@ class GenericTests(BaseTestCase):
         X = C[int]
         self.assertEqual(X.__module__, __name__)
         if not PY32:
-            self.assertEqual(X.__qualname__, 'C')
+            self.assertTrue(X.__qualname__.endswith('.<locals>.C'))
         self.assertEqual(repr(X).split('.')[-1], 'C[int]')
 
         class Y(C[int]):

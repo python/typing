@@ -309,8 +309,7 @@ def _type_vars(types):
 def _eval_type(t, globalns, localns):
     if isinstance(t, TypingMeta) or isinstance(t, _TypingBase):
         return t._eval_type(globalns, localns)
-    else:
-        return t
+    return t
 
 
 def _type_check(arg, msg):
@@ -327,10 +326,16 @@ def _type_check(arg, msg):
     """
     if arg is None:
         return type(None)
-    if isinstance(arg, basestring):
+    if isinstance(arg, str):
         arg = _ForwardRef(arg)
-    if not isinstance(arg, (type, _TypingBase)) and not callable(arg):
+    if (isinstance(arg, _TypingBase) and type(arg).__name__ == '_ClassVar' or
+        not isinstance(arg, (type, _TypingBase)) and not callable(arg)):
         raise TypeError(msg + " Got %.100r." % (arg,))
+    # Bare Union etc. are not valid as type arguments
+    if (type(arg).__name__ in ('_Union', '_Optional')
+        and not getattr(arg, '__origin__', None)
+        or isinstance(arg, TypingMeta) and _gorg(arg) in (Generic, _Protocol)):
+        raise TypeError("Plain %s is not valid as type argument" % arg)
     return arg
 
 
@@ -345,10 +350,12 @@ def _type_repr(obj):
     if isinstance(obj, type) and not isinstance(obj, TypingMeta):
         if obj.__module__ == '__builtin__':
             return _qualname(obj)
-        else:
-            return '%s.%s' % (obj.__module__, _qualname(obj))
-    else:
-        return repr(obj)
+        return '%s.%s' % (obj.__module__, _qualname(obj))
+    if obj is Ellipsis:
+        return('...')
+    if isinstance(obj, types.FunctionType):
+        return obj.__name__
+    return repr(obj)
 
 
 class ClassVarMeta(TypingMeta):
@@ -396,17 +403,10 @@ class _ClassVar(_FinalTypingBase):
         return type(self)(_eval_type(self.__type__, globalns, localns),
                           _root=True)
 
-    def _get_type_vars(self, tvars):
-        if self.__type__:
-            _get_type_vars([self.__type__], tvars)
-
     def __repr__(self):
-        return self._subs_repr([], [])
-
-    def _subs_repr(self, tvars, args):
         r = super(_ClassVar, self).__repr__()
         if self.__type__ is not None:
-            r += '[{}]'.format(_replace_arg(self.__type__, tvars, args))
+            r += '[{}]'.format(_type_repr(self.__type__))
         return r
 
     def __hash__(self):
@@ -566,6 +566,102 @@ T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 AnyStr = TypeVar('AnyStr', bytes, unicode)
 
 
+def _replace_arg(arg, tvars, args):
+    """ A helper fuunction: replace arg if it is a type variable
+    found in tvars with corresponding substitution from args or
+    with corresponding substitution sub-tree if arg is a generic type.
+    """
+
+    if tvars is None:
+        tvars = []
+    if hasattr(arg, '_subs_tree'):
+        return arg._subs_tree(tvars, args)
+    if isinstance(arg, TypeVar):
+        for i, tvar in enumerate(tvars):
+            if arg == tvar:
+                return args[i]
+    return arg
+
+
+def _subs_tree(cls, tvars=None, args=None):
+    """ Calculate substitution tree for generic cls after
+    replacing its type parameters with substitutions in tvars -> args (if any).
+    Repeat the same cyclicaly following __origin__'s.
+    """
+
+    if cls.__origin__ is None:
+        return cls
+    # Make of chain of origins (i.e. cls -> cls.__origin__)
+    current = cls.__origin__
+    orig_chain = []
+    while current.__origin__ is not None:
+        orig_chain.append(current)
+        current = current.__origin__
+    # Replace type variables in __args__ if asked ...
+    tree_args = []
+    for arg in cls.__args__:
+        tree_args.append(_replace_arg(arg, tvars, args))
+    # ... then continue replacing down the origin chain.
+    for ocls in orig_chain:
+        new_tree_args = []
+        for i, arg in enumerate(ocls.__args__):
+            new_tree_args.append(_replace_arg(arg, ocls.__parameters__, tree_args))
+        tree_args = new_tree_args
+    return tree_args
+
+
+def _remove_dups_flatten(parameters):
+    """ A helper for Union creation and substitution: flatten Union's
+    among parameters, then remove duplicates and strict subclasses.
+    """
+
+    # Flatten out Union[Union[...], ...].
+    params = []
+    for p in parameters:
+        if isinstance(p, _Union) and p.__origin__ is Union:
+            params.extend(p.__args__)
+        elif isinstance(p, tuple) and len(p) > 0 and p[0] is Union:
+            params.extend(p[1:])
+        else:
+            params.append(p)
+    # Weed out strict duplicates, preserving the first of each occurrence.
+    all_params = set(params)
+    if len(all_params) < len(params):
+        new_params = []
+        for t in params:
+            if t in all_params:
+                new_params.append(t)
+                all_params.remove(t)
+        params = new_params
+        assert not all_params, all_params
+    # Weed out subclasses.
+    # E.g. Union[int, Employee, Manager] == Union[int, Employee].
+    # If object is present it will be sole survivor among proper classes.
+    # Never discard type variables.
+    # (In particular, Union[str, AnyStr] != AnyStr.)
+    all_params = set(params)
+    for t1 in params:
+        if not isinstance(t1, type):
+            continue
+        if any(isinstance(t2, type) and issubclass(t1, t2)
+               for t2 in all_params - {t1}
+               if not (isinstance(t2, GenericMeta) and
+                       t2.__origin__ is not None)):
+            all_params.remove(t1)
+    return tuple(t for t in params if t in all_params)
+
+
+def _check_generic(cls, parameters):
+    # Check correct count for parameters of a generic cls.
+    if not cls.__parameters__:
+        raise TypeError("%s is not a generic class" % repr(cls))
+    alen = len(parameters)
+    elen = len(cls.__parameters__)
+    if alen != elen:
+        raise TypeError("Too %s parameters for %s; actual %s, expected %s" %
+                        ("many" if alen > elen else "few", repr(cls), alen, elen))
+
+
 def _tp_cache(func):
     maxsize = 128
     cache = {}
@@ -638,101 +734,101 @@ class _Union(_FinalTypingBase):
 
     - You cannot subclass or instantiate a union.
 
-    - You cannot write Union[X][Y] (what would it mean?).
-
     - You can use Optional[X] as a shorthand for Union[X, None].
     """
 
     __metaclass__ = UnionMeta
-    __slots__ = ('__union_params__', '__union_set_params__')
+    __slots__ = ('__parameters__', '__args__', '__origin__', '__tree_hash__')
 
-    def __new__(cls, parameters=None, *args, **kwds):
-        self = super(_Union, cls).__new__(cls, parameters, *args, **kwds)
-        if parameters is None:
-            self.__union_params__ = None
-            self.__union_set_params__ = None
+    def __new__(cls, parameters=None, origin=None, *args, _root=False):
+        self = super(_Union, cls).__new__(cls, parameters, origin, *args, _root=_root)
+        if origin is None:
+            self.__parameters__ = None
+            self.__args__ = None
+            self.__origin__ = None
+            self.__tree_hash__ = hash(frozenset(('Union',)))
             return self
         if not isinstance(parameters, tuple):
             raise TypeError("Expected parameters=<tuple>")
-        # Flatten out Union[Union[...], ...] and type-check non-Union args.
-        params = []
-        msg = "Union[arg, ...]: each arg must be a type."
-        for p in parameters:
-            if isinstance(p, _Union):
-                params.extend(p.__union_params__)
-            else:
-                params.append(_type_check(p, msg))
-        # Weed out strict duplicates, preserving the first of each occurrence.
-        all_params = set(params)
-        if len(all_params) < len(params):
-            new_params = []
-            for t in params:
-                if t in all_params:
-                    new_params.append(t)
-                    all_params.remove(t)
-            params = new_params
-            assert not all_params, all_params
-        # Weed out subclasses.
-        # E.g. Union[int, Employee, Manager] == Union[int, Employee].
-        # If object is present it will be sole survivor among proper classes.
-        # Never discard type variables.
-        # (In particular, Union[str, AnyStr] != AnyStr.)
-        all_params = set(params)
-        for t1 in params:
-            if not isinstance(t1, type):
-                continue
-            if any(isinstance(t2, type) and issubclass(t1, t2)
-                   for t2 in all_params - {t1}
-                   if not (isinstance(t2, GenericMeta) and
-                           t2.__origin__ is not None)):
-                all_params.remove(t1)
-        # It's not a union if there's only one type left.
-        if len(all_params) == 1:
-            return all_params.pop()
-        self.__union_params__ = tuple(t for t in params if t in all_params)
-        self.__union_set_params__ = frozenset(self.__union_params__)
+        if origin is Union:
+            parameters = _remove_dups_flatten(parameters)
+            # It's not a union if there's only one type left.
+            if len(parameters) == 1:
+                return parameters[0]
+        self.__parameters__ = _type_vars(parameters)
+        self.__args__ = parameters
+        self.__origin__ = origin
+        # Pre-calculate the __hash__ on instantiation.
+        # This improves speed for complex substitutions.
+        subs_tree = self._subs_tree()
+        if isinstance(subs_tree, tuple):
+            self.__tree_hash__ = hash(frozenset(subs_tree))
+        else:
+            self.__tree_hash__ = hash(subs_tree)
         return self
 
     def _eval_type(self, globalns, localns):
-        p = tuple(_eval_type(t, globalns, localns)
-                  for t in self.__union_params__)
-        if p == self.__union_params__:
+        if self.__args__ is None:
             return self
-        else:
-            return self.__class__(p, _root=True)
+        ev_args = tuple(_eval_type(t, globalns, localns) for t in self.__args__)
+        ev_origin = _eval_type(self.__origin__, globalns, localns)
+        if ev_args == self.__args__ and ev_origin == self.__origin__:
+            # Everything is already evaluated.
+            return self
+        return self.__class__(ev_args, ev_origin, _root=True)
 
     def _get_type_vars(self, tvars):
-        if self.__union_params__:
-            _get_type_vars(self.__union_params__, tvars)
+        if self.__origin__ and self.__parameters__:
+            _get_type_vars(self.__parameters__, tvars)
 
     def __repr__(self):
-        return self._subs_repr([], [])
+        if self.__origin__ is None:
+            return super(_Union, self).__repr__()
+        tree = self._subs_tree()
+        if not isinstance(tree, tuple):
+            return repr(tree)
+        return tree[0]._tree_repr(tree)
 
-    def _subs_repr(self, tvars, args):
-        r = super(_Union, self).__repr__()
-        if self.__union_params__:
-            r += '[%s]' % (', '.join(_replace_arg(t, tvars, args)
-                                     for t in self.__union_params__))
-        return r
+    def _tree_repr(self, tree):
+        arg_list = []
+        for arg in tree[1:]:
+            if not isinstance(arg, tuple):
+                arg_list.append(_type_repr(arg))
+            else:
+                arg_list.append(arg[0]._tree_repr(arg))
+        return super(_Union, self).__repr__() + '[%s]' % ', '.join(arg_list)
 
     @_tp_cache
     def __getitem__(self, parameters):
-        if self.__union_params__ is not None:
-            raise TypeError(
-                "Cannot subscript an existing Union. Use Union[u, t] instead.")
         if parameters == ():
             raise TypeError("Cannot take a Union of no types.")
         if not isinstance(parameters, tuple):
             parameters = (parameters,)
-        return self.__class__(parameters, _root=True)
+        if self.__origin__ is None:
+            msg = "Union[arg, ...]: each arg must be a type."
+        else:
+            msg = "Parameters to generic types must be types."
+        parameters = tuple(_type_check(p, msg) for p in parameters)
+        if self is not Union:
+            _check_generic(self, parameters)
+        return self.__class__(parameters, origin=self, _root=True)
+
+    def _subs_tree(self, tvars=None, args=None):
+        if self is Union:
+            return Union  # Nothing to substitute
+        tree_args = _subs_tree(self, tvars, args)
+        tree_args = _remove_dups_flatten(tree_args)
+        if len(tree_args) == 1:
+            return tree_args[0]  # Union of a single type is that type
+        return (Union,) + tree_args
 
     def __eq__(self, other):
         if not isinstance(other, _Union):
-            return NotImplemented
-        return self.__union_set_params__ == other.__union_set_params__
+            return self._subs_tree() == other
+        return self.__tree_hash__ == other.__tree_hash__
 
     def __hash__(self):
-        return hash(self.__union_set_params__)
+        return self.__tree_hash__
 
     def __instancecheck__(self, obj):
         raise TypeError("Unions cannot be used with isinstance().")
