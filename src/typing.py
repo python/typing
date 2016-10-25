@@ -355,6 +355,7 @@ def _type_check(arg, msg):
     if (isinstance(arg, _TypingBase) and type(arg).__name__ == '_ClassVar' or
         not isinstance(arg, (type, _TypingBase)) and not callable(arg)):
         raise TypeError(msg + " Got %.100r." % (arg,))
+    # Bare Union etc. are not valid as type arguments
     if (type(arg).__name__ in ('_Union', '_Optional') 
         and not getattr(arg, '__origin__', None)
         or isinstance(arg, TypingMeta) and _gorg(arg) in (Generic, _Protocol)):
@@ -374,7 +375,7 @@ def _type_repr(obj):
         if obj.__module__ == 'builtins':
             return _qualname(obj)
         return '%s.%s' % (obj.__module__, _qualname(obj))
-    if obj is Ellipsis:
+    if obj is ...:
         return('...')
     if isinstance(obj, types.FunctionType):
         return obj.__name__
@@ -509,6 +510,11 @@ AnyStr = TypeVar('AnyStr', bytes, str)
 
 
 def _replace_arg(arg, tvars, args):
+    """ A helper fuunction: replace arg if it is a type variable
+    found in tvars with corresponding substitution from args or
+    with corresponding substitution sub-tree if arg is a generic type.
+    """
+
     if tvars is None:
         tvars = []
     if hasattr(arg, '_subs_tree'):
@@ -521,6 +527,11 @@ def _replace_arg(arg, tvars, args):
 
 
 def _subs_tree(cls, tvars=None, args=None):
+    """ Calculate substitution tree for generic cls after
+    replacing its type parameters with substitutions in tvars -> args (if any).
+    Repeat the same cyclicaly following __origin__'s.
+    """
+
     if cls.__origin__ is None:
         return cls
     # Make of chain of origins (i.e. cls -> cls.__origin__)
@@ -543,6 +554,10 @@ def _subs_tree(cls, tvars=None, args=None):
 
 
 def _remove_dups_flatten(parameters):
+    """ A helper for Union creation and substitution: flatten Union's
+    among parameters, then remove duplicates and strict subclasses.
+    """
+
     # Flatten out Union[Union[...], ...].
     params = []
     for p in parameters:
@@ -580,7 +595,7 @@ def _remove_dups_flatten(parameters):
 
 
 def _check_generic(cls, parameters):
-    # Check correct count for generic parameters for a cls
+    # Check correct count for parameters of a generic cls.
     if not cls.__parameters__:
         raise TypeError("%s is not a generic class" % repr(cls))
     alen = len(parameters)
@@ -591,6 +606,10 @@ def _check_generic(cls, parameters):
 
 
 def _tp_cache(func):
+    """ Caching for __getitem__ of generic types with a fallback to
+    original function for non-hashable arguments.
+    """
+
     cached = functools.lru_cache()(func)
     @functools.wraps(func)
     def inner(*args, **kwds):
@@ -666,6 +685,8 @@ class _Union(_FinalTypingBase, _root=True):
         self.__parameters__ = _type_vars(parameters)
         self.__args__ = parameters
         self.__origin__ = origin
+        # Pre-calculate the __hash__ on instantiation.
+        # This improves speed for complex substitutions.
         subs_tree = self._subs_tree()
         if isinstance(subs_tree, tuple):
             self.__tree_hash__ = hash(frozenset(subs_tree))
@@ -679,6 +700,7 @@ class _Union(_FinalTypingBase, _root=True):
         ev_args = tuple(_eval_type(t, globalns, localns) for t in self.__args__)
         ev_origin = _eval_type(self.__origin__, globalns, localns)
         if ev_args == self.__args__ and ev_origin == self.__origin__:
+            # Everything is already evaluated.
             return self
         return self.__class__(ev_args, ev_origin, _root=True)
 
@@ -720,7 +742,7 @@ class _Union(_FinalTypingBase, _root=True):
 
     def _subs_tree(self, tvars=None, args=None):
         if self is Union:
-            return Union
+            return Union  # Nothing to substitute
         tree_args = _subs_tree(self, tvars, args)
         tree_args = _remove_dups_flatten(tree_args)
         if len(tree_args) == 1:
@@ -897,6 +919,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         self = super().__new__(cls, name, bases, namespace, _root=True)
 
         self.__parameters__ = tvars
+        # Be prepared that GenericMeta will be subclassed by TupleMeta
+        # and CallableMeta, those two allow ..., (), or [] in __args___.
         self.__args__ = tuple(... if a is _TypingEllipsis else
                               () if a is _TypingEmpty else
                               a for a in args) if args else None
@@ -1033,6 +1057,8 @@ Generic = None
 
 
 def _generic_new(base_cls, cls, *args, **kwds):
+    # Assure type is erased on instantiation,
+    # but attempt to store it in __orig_class__
     if cls.__origin__ is None:
         return base_cls.__new__(cls)
     else:
@@ -1074,11 +1100,14 @@ class Generic(metaclass=GenericMeta):
 
 
 class _TypingEmpty:
-    """Placeholder for ()"""
+    """Placeholder for () or []. Used by TupleMeta and CallableMeta
+    to allow empy list/tuple in specific places, without allowing them
+    to sneak in where prohibited.
+    """
 
 
 class _TypingEllipsis:
-    """Placeholder for ..."""
+    """Ditto for ..."""
 
 
 class TupleMeta(GenericMeta):
@@ -1087,12 +1116,14 @@ class TupleMeta(GenericMeta):
     @_tp_cache
     def __getitem__(self, parameters):
         if self.__origin__ is not None or not _geqv(self, Tuple):
+            # Normal generic rules apply if this is not the first subscription
+            # or a subscription of a subclass.
             return super().__getitem__(parameters)
         if parameters == ():
             return super().__getitem__((_TypingEmpty,))
         if not isinstance(parameters, tuple):
             parameters = (parameters,)
-        if len(parameters) == 2 and parameters[1] == Ellipsis:
+        if len(parameters) == 2 and parameters[1] == ...:
             msg = "Tuple[t, ...]: t must be a type."
             p = _type_check(parameters[0], msg)
             return super().__getitem__((p, _TypingEllipsis))
@@ -1133,6 +1164,7 @@ class Tuple(tuple, extra=tuple, metaclass=TupleMeta):
 
 
 class CallableMeta(GenericMeta):
+    """ Metaclass for Callable."""
 
     def __repr__(self):
         if self.__origin__ is None:
@@ -1142,6 +1174,8 @@ class CallableMeta(GenericMeta):
     def _tree_repr(self, tree):
         if _gorg(self) is not Callable:
             return super()._tree_repr(tree)
+        # For actual Callable (not its subclass) we override
+        # super()._tree_repr() for nice formatting.
         arg_list = []
         for arg in tree[1:]:
             if arg == ():
@@ -1156,33 +1190,35 @@ class CallableMeta(GenericMeta):
                 '[[%s], %s]' % (', '.join(arg_list[:-1]), arg_list[-1]))
 
     def __getitem__(self, parameters):
+        """ A thin wrapper around __getitem_inner__ to provide the latter
+        with hashable arguments to improve speed.
+        """
+
         if  self.__origin__ is not None or not _geqv(self, Callable):
             return super().__getitem__(parameters)
         if not isinstance(parameters, tuple) or len(parameters) != 2:
             raise TypeError("Callable must be used as "
                             "Callable[[arg, ...], result].")
         args, result = parameters
-        if args is Ellipsis:
-            parameters = (Ellipsis, result)
+        if args is ...:
+            parameters = (..., result)
         elif args == []:
             parameters = ((), result)
         else:
             if not isinstance(args, list):
-                raise TypeError("Callable[args, result]: "
-                                "args must be a list."
+                raise TypeError("Callable[args, result]: args must be a list."
                                 " Got %.100r." % (args,))
             parameters = tuple(args) + (result,)
         return self.__getitem_inner__(parameters)
 
     @_tp_cache
     def __getitem_inner__(self, parameters):
-        args = parameters[:-1]
-        result = parameters[-1]
+        *args, result = parameters
         msg = "Callable[args, result]: result must be a type."
         result = _type_check(result, msg)
-        if args == (Ellipsis,):
+        if args == [...,]:
             return super().__getitem__((_TypingEllipsis, result))
-        if args == ((),):
+        if args == [(),]:
             return super().__getitem__((_TypingEmpty, result))
         msg = "Callable[[arg, ...], result]: each arg must be a type."
         args = tuple(_type_check(arg, msg) for arg in args)
