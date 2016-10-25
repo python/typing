@@ -508,6 +508,40 @@ T_contra = TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 AnyStr = TypeVar('AnyStr', bytes, str)
 
 
+def _replace_arg(arg, tvars, args):
+    if tvars is None:
+        tvars = []
+    if hasattr(arg, '_subs_tree'):
+        return arg._subs_tree(tvars, args)
+    if isinstance(arg, TypeVar):
+        for i, tvar in enumerate(tvars):
+            if arg == tvar:
+                return args[i]
+    return arg
+
+
+def _subs_tree(cls, tvars, args):
+    if cls.__origin__ is None:
+        return cls
+    # Make of chain of origins (i.e. cls -> cls.__origin__)
+    current = cls.__origin__
+    orig_chain = []
+    while current.__origin__ is not None:
+        orig_chain.append(current)
+        current = current.__origin__
+    # Replace type variables in __args__ if asked ...
+    tree_args = []
+    for arg in cls.__args__:
+        tree_args.append(_replace_arg(arg, tvars, args))
+    # ... then continue replacing down the origin chain.
+    for ocls in orig_chain:
+        new_tree_args = []
+        for i, arg in enumerate(ocls.__args__):
+            new_tree_args.append(_replace_arg(arg, ocls.__parameters__, tree_args))
+        tree_args = new_tree_args
+    return tree_args
+
+
 def _remove_dups_flatten(parameters):
     # Flatten out Union[Union[...], ...].
     params = []
@@ -612,7 +646,7 @@ class _Union(_FinalTypingBase, _root=True):
     - You can use Optional[X] as a shorthand for Union[X, None].
     """
 
-    __slots__ = ('__parameters__', '__args__', '__origin__')
+    __slots__ = ('__parameters__', '__args__', '__origin__', '__tree_hash__')
 
     def __new__(cls, parameters=None, origin=None, *args, _root=False):
         self = super().__new__(cls, parameters, origin, *args, _root=_root)
@@ -620,21 +654,23 @@ class _Union(_FinalTypingBase, _root=True):
             self.__parameters__ = None
             self.__args__ = None
             self.__origin__ = None
+            self.__tree_hash__ = hash(frozenset(('Union',)))
             return self
         if not isinstance(parameters, tuple):
             raise TypeError("Expected parameters=<tuple>")
-        if origin is not Union:
-            self.__parameters__ = _type_vars(parameters)
-            self.__args__ = parameters
-            self.__origin__ = origin
-            return self
-        params = _remove_dups_flatten(parameters)
-        # It's not a union if there's only one type left.
-        if len(params) == 1:
-            return params[0]
+        if origin is Union:
+            parameters = _remove_dups_flatten(parameters)
+            # It's not a union if there's only one type left.
+            if len(parameters) == 1:
+                return parameters[0]
+        self.__parameters__ = _type_vars(parameters)
+        self.__args__ = parameters
         self.__origin__ = origin
-        self.__args__ = params
-        self.__parameters__ = _type_vars(self.__args__)
+        subs_tree = self._subs_tree()
+        if isinstance(subs_tree, tuple):
+            self.__tree_hash__ = hash(frozenset(subs_tree))
+        else:
+            self.__tree_hash__ = hash(subs_tree)
         return self
 
     def _eval_type(self, globalns, localns):
@@ -685,9 +721,9 @@ class _Union(_FinalTypingBase, _root=True):
         return self.__class__(parameters, origin=self, _root=True)
 
     def _subs_tree(self, tvars=None, args=None):
+        if self is Union:
+            return Union
         tree_args = _subs_tree(self, tvars, args)
-        if tree_args is Union:
-            return (Union,)
         tree_args = _remove_dups_flatten(tree_args)
         if len(tree_args) == 1:
             return tree_args[0]  # Union of a single type is that type
@@ -696,12 +732,10 @@ class _Union(_FinalTypingBase, _root=True):
     def __eq__(self, other):
         if not isinstance(other, _Union):
             return self._subs_tree() == other
-        return frozenset(self._subs_tree()) == frozenset(other._subs_tree())
+        return self.__tree_hash__ == other.__tree_hash__
 
     def __hash__(self):
-        if self is Union:
-            return hash(frozenset((_Union,)))
-        return hash(frozenset(self._subs_tree()))
+        return self.__tree_hash__
 
     def __instancecheck__(self, obj):
         raise TypeError("Unions cannot be used with isinstance().")
@@ -751,40 +785,6 @@ def _geqv(a, b):
     assert isinstance(a, GenericMeta) and isinstance(b, GenericMeta)
     # Reduce each to its origin.
     return _gorg(a) is _gorg(b)
-
-
-def _replace_arg(arg, tvars, args):
-    if tvars is None:
-        tvars = []
-    if hasattr(arg, '_subs_tree'):
-        return arg._subs_tree(tvars, args)
-    if isinstance(arg, TypeVar):
-        for i, tvar in enumerate(tvars):
-            if arg == tvar:
-                return args[i]
-    return arg
-
-
-def _subs_tree(cls, tvars, args):
-    if cls.__origin__ is None:
-        return cls
-    # Make of chain of origins (i.e. cls -> cls.__origin__)
-    current = cls.__origin__
-    orig_chain = []
-    while current.__origin__ is not None:
-        orig_chain.append(current)
-        current = current.__origin__
-    # Replace type variables in __args__ if asked ...
-    tree_args = []
-    for arg in cls.__args__:
-        tree_args.append(_replace_arg(arg, tvars, args))
-    # ... then continue replacing down the origin chain.
-    for ocls in orig_chain:
-        new_tree_args = []
-        for i, arg in enumerate(ocls.__args__):
-            new_tree_args.append(_replace_arg(arg, ocls.__parameters__, tree_args))
-        tree_args = new_tree_args
-    return tree_args
 
 
 def _next_in_mro(cls):
@@ -899,7 +899,9 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         self = super().__new__(cls, name, bases, namespace, _root=True)
 
         self.__parameters__ = tvars
-        self.__args__ = args
+        self.__args__ = tuple(... if a is _TypingEllipsis else
+                              () if a is _TypingEmpty else
+                              a for a in args) if args else None
         self.__origin__ = origin
         self.__extra__ = extra
         # Speed hack (https://github.com/python/typing/issues/196).
@@ -920,6 +922,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 
         if origin:
             self.__qualname__ = origin.__qualname__
+        self.__tree_hash__ = hash(self._subs_tree()) if origin else hash((self.__name__,))
         return self
 
     def _get_type_vars(self, tvars):
@@ -959,9 +962,9 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         return super().__repr__() + '[%s]' % ', '.join(arg_list)
 
     def _subs_tree(self, tvars=None, args=None):
-        tree_args = _subs_tree(self, tvars, args)
-        if tree_args is self:
+        if self.__origin__ is None:
             return self
+        tree_args = _subs_tree(self, tvars, args)
         return (_gorg(self),) + tuple(tree_args)
 
     def __eq__(self, other):
@@ -969,12 +972,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             return NotImplemented
         if self.__origin__ is None or other.__origin__ is None:
             return self is other
-        return self._subs_tree() == other._subs_tree()
+        return self.__tree_hash__ == other.__tree_hash__
 
     def __hash__(self):
-        if self.__origin__ is None:
-            return hash((self.__name__,))
-        return hash(self._subs_tree())
+        return self.__tree_hash__
 
     @_tp_cache
     def __getitem__(self, params):
@@ -1074,8 +1075,12 @@ class Generic(metaclass=GenericMeta):
         return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
 
 
-class _TypingDummy:
-    """Placeholder for ... or ()"""
+class _TypingEmpty:
+    """Placeholder for ()"""
+
+
+class _TypingEllipsis:
+    """Placeholder for ..."""
 
 
 class TupleMeta(GenericMeta):
@@ -1086,17 +1091,13 @@ class TupleMeta(GenericMeta):
         if self.__origin__ is not None or not _geqv(self, Tuple):
             return super().__getitem__(parameters)
         if parameters == ():
-            result = super().__getitem__((_TypingDummy,))
-            result.__args__ = ((),)
-            return result
+            return super().__getitem__((_TypingEmpty,))
         if not isinstance(parameters, tuple):
             parameters = (parameters,)
         if len(parameters) == 2 and parameters[1] == Ellipsis:
             msg = "Tuple[t, ...]: t must be a type."
             p = _type_check(parameters[0], msg)
-            result = super().__getitem__((p, _TypingDummy))
-            result.__args__ = (result.__args__[0], ...)
-            return result
+            return super().__getitem__((p, _TypingEllipsis))
         msg = "Tuple[t0, t1, ...]: each t must be a type."
         parameters = tuple(_type_check(p, msg) for p in parameters)
         return super().__getitem__(parameters)
@@ -1182,13 +1183,9 @@ class CallableMeta(GenericMeta):
         msg = "Callable[args, result]: result must be a type."
         result = _type_check(result, msg)
         if args == (Ellipsis,):
-            res = super().__getitem__((_TypingDummy, result))
-            res.__args__ = (..., res.__args__[1])
-            return res
+            return super().__getitem__((_TypingEllipsis, result))
         if args == ((),):
-            res = super().__getitem__((_TypingDummy, result))
-            res.__args__ = ((), res.__args__[1])
-            return res
+            return super().__getitem__((_TypingEmpty, result))
         msg = "Callable[[arg, ...], result]: each arg must be a type."
         args = tuple(_type_check(arg, msg) for arg in args)
         parameters = args + (result,)
@@ -1571,6 +1568,7 @@ class _ProtocolMeta(GenericMeta):
                             attr != '__origin__' and
                             attr != '__orig_bases__' and
                             attr != '__extra__' and
+                            attr != '__tree_hash__' and
                             attr != '__module__'):
                         attrs.add(attr)
 

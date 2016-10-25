@@ -697,13 +697,26 @@ class GenericTests(BaseTestCase):
         T = TypeVar('T')
         U = TypeVar('U')
         self.assertEqual(Tuple[T, T][int], Tuple[int, int])
+        self.assertEqual(typing.Iterable[Tuple[T, T]][T], typing.Iterable[Tuple[T, T]])
+        with self.assertRaises(TypeError):
+            Tuple[T, int][()]
+        with self.assertRaises(TypeError):
+            Tuple[T, U][T, ...]
+
         self.assertEqual(Union[T, int][int], int)
         self.assertEqual(Union[T, U][int, Union[int, str]], Union[int, str])
         class Base: ...
         class Derived(Base): ...
         self.assertEqual(Union[T, Base][Derived], Base)
+        with self.assertRaises(TypeError):
+            Union[T, int][1]
+
         self.assertEqual(Callable[[T], T][KT], Callable[[KT], KT])
         self.assertEqual(Callable[..., List[T]][int], Callable[..., List[int]])
+        with self.assertRaises(TypeError):
+            Callable[[T], U][..., int]
+        with self.assertRaises(TypeError):
+            Callable[[T], U][[], int]
 
     def test_extended_generic_rules_repr(self):
         T = TypeVar('T')
@@ -747,6 +760,9 @@ class GenericTests(BaseTestCase):
         self.assertIsSubclass(C2, collections_abc.Callable)
         self.assertIsSubclass(C1, collections_abc.Callable)
         self.assertIsInstance(T1(), tuple)
+        self.assertIsSubclass(T2, tuple)
+        self.assertIsSubclass(Tuple[int, ...], typing.Sequence)
+        self.assertIsSubclass(Tuple[int, ...], typing.Iterable)
 
     def test_fail_with_bare_union(self):
         with self.assertRaises(TypeError):
