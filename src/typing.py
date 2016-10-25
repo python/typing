@@ -692,9 +692,7 @@ class _Union(_FinalTypingBase, _root=True):
         tree = self._subs_tree()
         if not isinstance(tree, tuple):
             return repr(tree)
-        if tree[0] is not Union:
-            return tree[0]._tree_repr(tree)
-        return self._tree_repr(tree)
+        return tree[0]._tree_repr(tree)
 
     def _tree_repr(self, tree):
         arg_list = []
