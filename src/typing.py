@@ -942,7 +942,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if isinstance(extra, abc.ABCMeta):
             self._abc_registry = extra._abc_registry
 
-        if origin:
+        if origin and hasattr(origin, '__qualname__'):  # Fix for Python 3.2.
             self.__qualname__ = origin.__qualname__
         self.__tree_hash__ = hash(self._subs_tree()) if origin else hash((self.__name__,))
         return self
