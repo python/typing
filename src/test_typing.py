@@ -799,6 +799,18 @@ class GenericTests(BaseTestCase):
         self.assertIs(MyDef[int]().__class__, MyDef)
         self.assertIs(MyDef[int]().__orig_class__, MyDef[int])
 
+    def test_all_repr_eq_any(self):
+        objs = (getattr(typing, el) for el in typing.__all__)
+        for obj in objs:
+            self.assertNotEqual(repr(obj), '')
+            self.assertEqual(obj, obj)
+            if getattr(obj, '__parameters__', None) and len(obj.__parameters__) == 1:
+                self.assertEqual(obj[Any].__args__, (Any,))
+            if isinstance(obj, type):
+                for base in obj.__mro__:
+                    self.assertNotEqual(repr(base), '')
+                    self.assertEqual(base, base)
+
     def test_pickle(self):
         global C  # pickle wants to reference the class by name
         T = TypeVar('T')
