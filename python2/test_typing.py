@@ -678,7 +678,7 @@ class GenericTests(BaseTestCase):
 
         self.assertEqual(Union[T, int][int], int)
         self.assertEqual(Union[T, U][int, Union[int, str]], Union[int, str])
-        class Base: pass
+        class Base(object): pass
         class Derived(Base): pass
         self.assertEqual(Union[T, Base][Derived], Base)
         with self.assertRaises(TypeError):

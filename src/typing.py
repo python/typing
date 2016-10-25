@@ -1123,7 +1123,7 @@ class TupleMeta(GenericMeta):
             return super().__getitem__((_TypingEmpty,))
         if not isinstance(parameters, tuple):
             parameters = (parameters,)
-        if len(parameters) == 2 and parameters[1] == ...:
+        if len(parameters) == 2 and parameters[1] is ...:
             msg = "Tuple[t, ...]: t must be a type."
             p = _type_check(parameters[0], msg)
             return super().__getitem__((p, _TypingEllipsis))
