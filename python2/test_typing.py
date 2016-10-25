@@ -703,11 +703,11 @@ class GenericTests(BaseTestCase):
                          'Callable[[], List[int]]')
 
     def test_generic_forvard_ref(self):
-        def foobar(x: List[List['T']]): pass
+        LLT = List[List['T']]
         T = TypeVar('T')
-        self.assertEqual(get_type_hints(foobar, globals(), locals()), {'x': List[List[T]]})
-        def barfoo(x: Tuple[T, ...]): pass
-        self.assertIs(get_type_hints(barfoo, globals(), locals())['x'], Tuple[T, ...])
+        self.assertEqual(typing._eval_type(LLT, globals(), locals()), List[List[T]])
+        TTE = Tuple[T, ...]
+        self.assertIs(typing._eval_type(TTE, globals(), locals()), Tuple[T, ...])
 
     def test_extended_generic_rules_subclassing(self):
         class T1(Tuple[T, KT]): pass
@@ -783,21 +783,6 @@ class GenericTests(BaseTestCase):
                 for base in obj.__mro__:
                     self.assertNotEqual(repr(base), '')
                     self.assertEqual(base, base)
-
-    def test_substitution_helper(self):
-        T = TypeVar('T')
-        KT = TypeVar('KT')
-        VT = TypeVar('VT')
-        class Map(Generic[KT, VT]):
-            def meth(self, k: KT, v: VT): pass
-        StrMap = Map[str, T]
-        obj = StrMap[int]()
-
-        new_args = typing._subs_tree(obj.__orig_class__)
-        new_annots = {k: typing._replace_arg(v, type(obj).__parameters__, new_args)
-                      for k, v in obj.meth.__annotations__.items()}
-
-        self.assertEqual(new_annots, {'k': str, 'v': int})
 
     def test_pickle(self):
         global C  # pickle wants to reference the class by name

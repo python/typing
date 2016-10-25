@@ -740,8 +740,8 @@ class _Union(_FinalTypingBase):
     __metaclass__ = UnionMeta
     __slots__ = ('__parameters__', '__args__', '__origin__', '__tree_hash__')
 
-    def __new__(cls, parameters=None, origin=None, *args, _root=False):
-        self = super(_Union, cls).__new__(cls, parameters, origin, *args, _root=_root)
+    def __new__(cls, parameters=None, origin=None, *args, **kwds):
+        self = super(_Union, cls).__new__(cls, parameters, origin, *args, **kwds)
         if origin is None:
             self.__parameters__ = None
             self.__args__ = None
