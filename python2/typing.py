@@ -1030,6 +1030,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         return self
 
     def __init__(self, *args, **kwargs):
+        super(GenericMeta, self).__init__(*args, **kwargs)
         if isinstance(self.__extra__, abc.ABCMeta):
             self._abc_registry = self.__extra__._abc_registry
 
