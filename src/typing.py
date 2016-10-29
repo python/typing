@@ -190,6 +190,9 @@ class _FinalTypingBase(_TypingBase, _root=True):
             return self
         raise TypeError("Cannot instantiate %r" % cls)
 
+    def __reduce__(self):
+        return _trim_name(type(self).__name__)
+
 
 class _ForwardRef(_TypingBase, _root=True):
     """Wrapper to hold a forward reference."""
