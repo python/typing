@@ -1194,6 +1194,9 @@ class Generic(object):
     __slots__ = ()
 
     def __new__(cls, *args, **kwds):
+        if _geqv(cls, Generic):
+            raise TypeError("Type Generic cannot be instantiated; "
+                            "it can be used only as a base class")
         return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
 
 
