@@ -490,6 +490,9 @@ class GenericTests(BaseTestCase):
             Y[unicode, unicode]
 
     def test_generic_errors(self):
+        T = TypeVar('T')
+        with self.assertRaises(TypeError):
+            Generic[T]()
         with self.assertRaises(TypeError):
             isinstance([], List[int])
         with self.assertRaises(TypeError):
