@@ -1054,6 +1054,11 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # classes are supposed to be rare anyways.
         return issubclass(instance.__class__, self)
 
+    def __copy__(self):
+        return self.__class__(self.__name__, self.__bases__, dict(self.__dict__),
+                              self.__parameters__, self.__args__, self.__origin__,
+                              self.__extra__, self.__orig_bases__)
+
 
 # Prevent checks for Generic to crash when defining Generic.
 Generic = None
