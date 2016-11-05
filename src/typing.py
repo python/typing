@@ -1460,13 +1460,6 @@ else:
         - If two dict arguments are passed, they specify globals and
           locals, respectively.
         """
-        if not (isinstance(obj, types.FunctionType) or
-                isinstance(obj, types.BuiltinFunctionType) or
-                isinstance(obj, types.MethodType) or
-                isinstance(obj, types.ModuleType) or
-                isinstance(obj, type)):
-            raise TypeError('{!r} is not a module, class, method, '
-                            'or function.'.format(obj))
         if getattr(obj, '__no_type_check__', None):
             return {}
         if globalns is None:
@@ -1475,6 +1468,13 @@ else:
                 localns = globalns
         elif localns is None:
             localns = globalns
+        if not (isinstance(obj, types.FunctionType) or
+                isinstance(obj, types.BuiltinFunctionType) or
+                isinstance(obj, types.MethodType) or
+                isinstance(obj, types.ModuleType) or
+                isinstance(obj, type)):
+            raise TypeError('{!r} is not a module, class, method, '
+                            'or function.'.format(obj))
         defaults = _get_defaults(obj)
         hints = dict(obj.__annotations__)
         for name, value in hints.items():
