@@ -2160,7 +2160,7 @@ class TextIO(IO[str]):
         pass
 
     @abstractproperty
-    def errors(self) -> str:
+    def errors(self) -> Optional[str]:
         pass
 
     @abstractproperty
