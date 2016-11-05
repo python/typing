@@ -2001,6 +2001,20 @@ else:
         return _make_nmtuple(typename, fields)
 
 
+class TypedDictMeta(type):
+    def __new__(cls, typename, bases, ns):
+        if ns.get('_root') is True:
+            del ns['_root']
+            return super().__new__(cls, typename, bases, ns)
+        return make_typed_dict
+
+
+class TypedDict(metaclass=TypedDictMeta):
+    _root = True
+    def __new__(cls, *args, **kwargs):
+        return dict(*args, **kwargs)
+
+
 def NewType(name, tp):
     """NewType creates simple unique types with almost zero
     runtime overhead. NewType(name, tp) is considered a subtype of tp
