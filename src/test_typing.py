@@ -1317,6 +1317,20 @@ if PY36:
 gth = get_type_hints
 
 class GetTypeHintTests(BaseTestCase):
+    def test_get_type_hints_from_various_objects(self):
+        # Should not fail for buil-in classes and functions.
+        self.assertEqual(gth(int), {})
+        self.assertEqual(gth(type), {})
+        self.assertEqual(gth(dir), {})
+        self.assertEqual(gth(len), {})
+        # For invalid objects should fail with TypeError (not AttributeError etc).
+        with self.assertRaises(TypeError):
+            gth(123)
+        with self.assertRaises(TypeError):
+            gth('abc')
+        with self.assertRaises(TypeError):
+            gth(None)
+
     @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_modules(self):
         self.assertEqual(gth(ann_module), {1: 2, 'f': Tuple[int, int], 'x': int, 'y': str})
