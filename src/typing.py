@@ -1476,7 +1476,7 @@ else:
         elif localns is None:
             localns = globalns
         defaults = _get_defaults(obj)
-        hints = obj.__annotations__
+        hints = dict(obj.__annotations__)
         for name, value in hints.items():
             if isinstance(value, str):
                 value = _ForwardRef(value)
