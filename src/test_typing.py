@@ -1355,6 +1355,12 @@ class GetTypeHintTests(BaseTestCase):
         class Der(ABase): ...
         self.assertEqual(gth(ABase.meth), {'x': int})
 
+    def test_get_type_hints_for_builins(self):
+        # Should not fail for buil-in classes and functions.
+        self.assertEqual(gth(int), {})
+        self.assertEqual(gth(type), {})
+        self.assertEqual(gth(dir), {})
+        self.assertEqual(gth(len), {})
 
     def test_previous_behavior(self):
         def testf(x, y): ...
