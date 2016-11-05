@@ -1318,11 +1318,6 @@ gth = get_type_hints
 
 class GetTypeHintTests(BaseTestCase):
     def test_get_type_hints_from_various_objects(self):
-        # Should not fail for buil-in classes and functions.
-        self.assertEqual(gth(int), {})
-        self.assertEqual(gth(type), {})
-        self.assertEqual(gth(dir), {})
-        self.assertEqual(gth(len), {})
         # For invalid objects should fail with TypeError (not AttributeError etc).
         with self.assertRaises(TypeError):
             gth(123)

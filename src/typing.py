@@ -1332,11 +1332,7 @@ def cast(typ, val):
 
 def _get_defaults(func):
     """Internal helper to extract the default arguments, by name."""
-    try:
-        code = func.__code__
-    except AttributeError:
-        # Some built-in functions don't have __code__, __defaults__, etc.
-        return {}
+    code = func.__code__
     pos_count = code.co_argcount
     arg_names = code.co_varnames
     arg_names = arg_names[:pos_count]
@@ -1394,7 +1390,7 @@ if sys.version_info[:2] >= (3, 3):
             isinstance(obj, types.BuiltinFunctionType) or
             isinstance(obj, types.MethodType)):
             defaults = _get_defaults(obj)
-            hints = dict(getattr(obj, '__annotations__', {}))
+            hints = obj.__annotations__
             for name, value in hints.items():
                 if value is None:
                     value = type(None)
@@ -1480,7 +1476,7 @@ else:
         elif localns is None:
             localns = globalns
         defaults = _get_defaults(obj)
-        hints = dict(getattr(obj, '__annotations__', {}))
+        hints = obj.__annotations__
         for name, value in hints.items():
             if isinstance(value, str):
                 value = _ForwardRef(value)
