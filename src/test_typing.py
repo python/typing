@@ -1865,7 +1865,7 @@ class TypedDictTests(BaseTestCase):
             z = pickle.dumps(jane, proto)
             jane2 = pickle.loads(z)
             self.assertEqual(jane2, jane)
-
+            self.assertEqual(jane2, {'name': 'jane', 'id': 37})
 
 class NamedTupleTests(BaseTestCase):
 

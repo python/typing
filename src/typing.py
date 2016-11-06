@@ -2005,8 +2005,6 @@ else:
 class TypedDictMeta(type):
 
     def __new__(cls, name, bases, ns):
-        if ns.get('_root', False):
-            return super().__new__(cls, name, bases, ns)
         tp_dict = super().__new__(cls, name, (dict,), ns)
         try:
             tp_dict.__module__ = sys._getframe(2).f_globals.get('__name__', '__main__')
@@ -2029,7 +2027,7 @@ class TypedDict(metaclass=TypedDictMeta):
         assert Point2D(x=1, y=2, label='first') == dict(x=1, y=2, label='first')
 
     The type info could be accessed via Point2D.__annotations__. TypedDict supports
-    two equivalent forms::
+    two additional equivalent forms::
 
         Point2D = TypedDict('Point2D', x=int, y=int, label=str)
 
@@ -2040,7 +2038,6 @@ class TypedDict(metaclass=TypedDictMeta):
 
     The latter syntax is only supported in Python 3.6+
     """
-    _root = True
 
     def __new__(cls, _typename, fields=None, **kwargs):
         if fields is None:

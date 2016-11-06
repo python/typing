@@ -17,7 +17,7 @@ from typing import Generic, ClassVar
 from typing import cast
 from typing import Type
 from typing import NewType
-from typing import NamedTuple
+from typing import NamedTuple, TypedDict
 from typing import IO, TextIO, BinaryIO
 from typing import Pattern, Match
 import abc
@@ -1430,6 +1430,51 @@ class NewTypeTests(BaseTestCase):
         with self.assertRaises(TypeError):
             class D(UserName):
                 pass
+
+
+class TypedDictTests(BaseTestCase):
+
+    def test_basics_fields_syntax(self):
+        Emp = TypedDict('Emp', [('name', str), ('id', int)])
+        self.assertIsSubclass(Emp, dict)
+        jim = Emp(name='Jim', id=1)
+        self.assertIsInstance(jim, Emp)
+        self.assertIsInstance(jim, dict)
+        self.assertEqual(jim['name'], 'Jim')
+        self.assertEqual(jim['id'], 1)
+        self.assertEqual(Emp.__name__, 'Emp')
+        self.assertEqual(Emp.__bases__, (dict,))
+        self.assertEqual(Emp.__annotations__, {'name': str, 'id': int})
+
+    def test_basics_keywords_syntax(self):
+        Emp = TypedDict('Emp', name=str, id=int)
+        self.assertIsSubclass(Emp, dict)
+        jim = Emp(name='Jim', id=1)
+        self.assertIsInstance(jim, Emp)
+        self.assertIsInstance(jim, dict)
+        self.assertEqual(jim['name'], 'Jim')
+        self.assertEqual(jim['id'], 1)
+        self.assertEqual(Emp.__name__, 'Emp')
+        self.assertEqual(Emp.__bases__, (dict,))
+        self.assertEqual(Emp.__annotations__, {'name': str, 'id': int})
+
+    def test_typeddict_errors(self):
+        with self.assertRaises(TypeError):
+            TypedDict('Hi', x=1)
+        with self.assertRaises(TypeError):
+            TypedDict('Hi', [('x', int), ('y', 1)])
+        with self.assertRaises(TypeError):
+            TypedDict('Hi', [('x', int)], y=int)
+
+    def test_pickle(self):
+        global EmpD  # pickle wants to reference the class by name
+        EmpD = TypedDict('EmpD', name=str, id=int)
+        jane = EmpD({'name': 'jane', 'id': 37})
+        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            z = pickle.dumps(jane, proto)
+            jane2 = pickle.loads(z)
+            self.assertEqual(jane2, jane)
+            self.assertEqual(jane2, {'name': 'jane', 'id': 37})
 
 
 class NamedTupleTests(BaseTestCase):
