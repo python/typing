@@ -1376,6 +1376,13 @@ class GetTypeHintTests(BaseTestCase):
         testf.__annotations__['x'] = 'int'
         self.assertEqual(gth(testf), {'x': int})
 
+    def test_get_type_hints_for_object_with_annotations(self):
+        class A: ...
+        class B: ...
+        b = B()
+        b.__annotations__ = {'x': 'A'}
+        self.assertEqual(gth(b, locals()), {'x': A})
+
     @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_ClassVar(self):
         self.assertEqual(gth(B, globals()),
