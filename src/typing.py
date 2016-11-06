@@ -1221,9 +1221,9 @@ class CallableMeta(GenericMeta):
         elif args == []:
             parameters = ((), result)
         else:
-            if not isinstance(args, list):
-                raise TypeError("Callable[args, result]: args must be a list."
-                                " Got %.100r." % (args,))
+            if not isinstance(args, list) or ... in args or () in args:
+                raise TypeError("Callable[args, result]: args must be"
+                                " a list of types. Got %.100r." % (args,))
             parameters = tuple(args) + (result,)
         return self.__getitem_inner__(parameters)
 
