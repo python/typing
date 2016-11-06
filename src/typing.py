@@ -1951,6 +1951,8 @@ class Type(Generic[CT_co], extra=type):
 
 
 def _make_nmtuple(name, types):
+    msg = "NamedTuple('Name', [(f0, t0), (f1, t1), ...]); each t must be a type"
+    types = [(n, _type_check(t, msg)) for n, t in types]
     nm_tpl = collections.namedtuple(name, [n for n, t in types])
     nm_tpl._field_types = dict(types)
     try:
@@ -1990,7 +1992,12 @@ if sys.version_info[:2] >= (3, 6):
             Employee = NamedTuple('Employee', [('name', str), ('id', int)])
         """
 
-        def __new__(self, typename, fields):
+        def __new__(self, typename, fields=None, **kwargs):
+            if fields is None:
+                fields = kwargs.items()
+            elif kwargs:
+                raise TypeError("Either list of fields or keywords"
+                                " can be provided to NamedTuple, not both")
             return _make_nmtuple(typename, fields)
 else:
     def NamedTuple(typename, fields):
@@ -1998,7 +2005,7 @@ else:
 
         Usage::
 
-            Employee = typing.NamedTuple('Employee', [('name', str), 'id', int)])
+            Employee = typing.NamedTuple('Employee', [('name', str), ('id', int)])
 
         This is equivalent to::
 
