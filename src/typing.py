@@ -1386,28 +1386,19 @@ def get_type_hints(obj, globalns=None, localns=None):
             localns = globalns
     elif localns is None:
         localns = globalns
-
     # Classes require a special treatment.
     if isinstance(obj, type):
-        cmap = None
+        hints = {}
         for base in reversed(obj.__mro__):
-            new_map = collections.ChainMap if cmap is None else cmap.new_child
-            try:
-                hints = base.__dict__['__annotations__']
-            except KeyError:
-                cmap = new_map()
-            else:
-                for name, value in hints.items():
-                    if value is None:
-                        value = type(None)
-                    if isinstance(value, str):
-                        value = _ForwardRef(value)
-                    value = _eval_type(value, globalns, localns)
-                    hints[name] = value
-                cmap = new_map(hints)
-        return cmap
-
-
+            ann = base.__dict__.get('__annotations__', {})
+            for name, value in ann.items():
+                if value is None:
+                    value = type(None)
+                if isinstance(value, str):
+                    value = _ForwardRef(value)
+                value = _eval_type(value, globalns, localns)
+                hints[name] = value
+        return hints
     hints = getattr(obj, '__annotations__', None)
     if hints is None:
         # Return empty annotations for something that _could_ have them.

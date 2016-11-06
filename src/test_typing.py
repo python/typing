@@ -1296,9 +1296,10 @@ PY36 = sys.version_info[:2] >= (3, 6)
 
 PY36_TESTS = """
 from test import ann_module, ann_module2, ann_module3
-from collections import ChainMap
 
-class B:
+class A:
+    y: float
+class B(A):
     x: ClassVar[Optional['B']] = None
     y: int
 class CSub(B):
@@ -1335,18 +1336,15 @@ class GetTypeHintTests(BaseTestCase):
     @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_classes(self):
         self.assertEqual(gth(ann_module.C, ann_module.__dict__),
-                         ChainMap({'y': Optional[ann_module.C]}, {}))
-        self.assertEqual(repr(gth(ann_module.j_class)), 'ChainMap({}, {})')
-        self.assertEqual(gth(ann_module.M), ChainMap({'123': 123, 'o': type},
-                                                     {}, {}))
+                         {'y': Optional[ann_module.C]})
+        self.assertIsInstance(gth(ann_module.j_class), dict)
+        self.assertEqual(gth(ann_module.M), {'123': 123, 'o': type})
         self.assertEqual(gth(ann_module.D),
-                         ChainMap({'j': str, 'k': str,
-                                   'y': Optional[ann_module.C]}, {}))
-        self.assertEqual(gth(ann_module.Y), ChainMap({'z': int}, {}))
+                         {'j': str, 'k': str, 'y': Optional[ann_module.C]})
+        self.assertEqual(gth(ann_module.Y), {'z': int})
         self.assertEqual(gth(ann_module.h_class),
-                         ChainMap({}, {'y': Optional[ann_module.C]}, {}))
-        self.assertEqual(gth(ann_module.S), ChainMap({'x': str, 'y': str},
-                                                     {}))
+                         {'y': Optional[ann_module.C]})
+        self.assertEqual(gth(ann_module.S), {'x': str, 'y': str})
         self.assertEqual(gth(ann_module.foo), {'x': int})
 
     @skipUnless(PY36, 'Python 3.6 required')
@@ -1365,7 +1363,7 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(gth(ABase.meth), {'x': int})
 
     def test_get_type_hints_for_builins(self):
-        # Should not fail for buil-in classes and functions.
+        # Should not fail for built-in classes and functions.
         self.assertEqual(gth(int), {})
         self.assertEqual(gth(type), {})
         self.assertEqual(gth(dir), {})
@@ -1386,11 +1384,10 @@ class GetTypeHintTests(BaseTestCase):
     @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_ClassVar(self):
         self.assertEqual(gth(B, globals()),
-                         ChainMap({'y': int, 'x': ClassVar[Optional[B]]}, {}))
+                         {'y': int, 'x': ClassVar[Optional[B]]})
         self.assertEqual(gth(CSub, globals()),
-                         ChainMap({'z': ClassVar[CSub]},
-                                  {'y': int, 'x': ClassVar[Optional[B]]}, {}))
-        self.assertEqual(gth(G), ChainMap({'lst': ClassVar[List[T]]},{},{}))
+                         {'z': ClassVar[CSub], 'y': int, 'x': ClassVar[Optional[B]]})
+        self.assertEqual(gth(G), {'lst': ClassVar[List[T]]})
 
 
 class CollectionsAbcTests(BaseTestCase):
