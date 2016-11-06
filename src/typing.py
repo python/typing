@@ -1416,7 +1416,7 @@ if sys.version_info[:2] >= (3, 3):
                 hints[name] = value
             return hints
 
-        if isinstance(object, type):
+        if isinstance(obj, type):
             cmap = None
             for base in reversed(obj.__mro__):
                 new_map = collections.ChainMap if cmap is None else cmap.new_child
@@ -1468,6 +1468,13 @@ else:
                 localns = globalns
         elif localns is None:
             localns = globalns
+        if not (isinstance(obj, types.FunctionType) or
+                isinstance(obj, types.BuiltinFunctionType) or
+                isinstance(obj, types.MethodType) or
+                isinstance(obj, types.ModuleType) or
+                isinstance(obj, type)):
+            raise TypeError('{!r} is not a module, class, method, '
+                            'or function.'.format(obj))
         defaults = _get_defaults(obj)
         hints = dict(obj.__annotations__)
         for name, value in hints.items():
