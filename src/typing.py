@@ -1987,7 +1987,11 @@ if sys.version_info[:2] >= (3, 6):
         The resulting class has one extra attribute: _field_types,
         giving a dict mapping field names to types.  (The field names
         are in the _fields attribute, which is part of the namedtuple
-        API.) Backward-compatible usage::
+        API.) Alternative equivalent keyword syntax is also accepted::
+
+            Employee = NamedTuple('Employee', name=str, id=int)
+
+        Backward-compatible usage::
 
             Employee = NamedTuple('Employee', [('name', str), ('id', int)])
         """
