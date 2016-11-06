@@ -1383,6 +1383,8 @@ class GetTypeHintTests(BaseTestCase):
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_ClassVar(self):
+        self.assertEqual(gth(ann_module2.CV, ann_module2.__dict__),
+                         {'var': typing.ClassVar[ann_module2.CV]})
         self.assertEqual(gth(B, globals()),
                          {'y': int, 'x': ClassVar[Optional[B]]})
         self.assertEqual(gth(CSub, globals()),
