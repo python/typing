@@ -1855,7 +1855,7 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(not_origin['x'], 0)
         self.assertEqual(not_origin['y'], 1)
         other = LabelPoint2D(x=0, y=1, label='hi')
-        self.assertEqual(not_origin['label'], 'hi')
+        self.assertEqual(other['label'], 'hi')
 
     def test_pickle(self):
         global EmpD  # pickle wants to reference the class by name
