@@ -1815,8 +1815,10 @@ class NewTypeTests(BaseTestCase):
 
 class TypedDictTests(BaseTestCase):
 
-    def test_basics_fields_syntax(self):
+    def test_basics_iterable_syntax(self):
+        # Check that two iterables allowed
         Emp = TypedDict('Emp', [('name', str), ('id', int)])
+        Emp = TypedDict('Emp', {'name': str, 'id': int})
         self.assertIsSubclass(Emp, dict)
         jim = Emp(name='Jim', id=1)
         self.assertIsInstance(jim, Emp)

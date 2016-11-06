@@ -57,6 +57,7 @@ __all__ = [
     'Set',
     'FrozenSet',
     'NamedTuple',  # Not really a type.
+    'TypedDict',
     'Generator',
 
     # One-off things.
@@ -1822,7 +1823,7 @@ class TypedDictMeta(type):
         except (AttributeError, ValueError):
             pass
         anns = ns.get('__annotations__', {})
-        msg = "TypedDict('Name', [(f0, t0), (f1, t1), ...]); each t must be a type"
+        msg = "TypedDict('Name', {f0: t0, f1: t1, ...}); each t must be a type"
         anns = {n: _type_check(tp, msg) for n, tp in anns.items()}
         for base in bases:
             anns.update(base.__dict__.get('__annotations__', {}))
@@ -1834,7 +1835,7 @@ class TypedDict(object):
     """A simple typed name space. At runtime it is equivalent to a plain dict.
     Usage::
 
-        Point2D = TypedDict('Point2D', [('x', int), ('y', int), ('label', str)])
+        Point2D = TypedDict('Point2D', {'x': int, 'y': int, 'label': str})
         assert Point2D(x=1, y=2, label='first') == dict(x=1, y=2, label='first')
 
     The type info could be accessed via Point2D.__annotations__. TypedDict supports
