@@ -1307,7 +1307,7 @@ class CallableMeta(GenericMeta):
             if not isinstance(args, list):
                 raise TypeError("Callable[args, result]: args must be a list."
                                 " Got %.100r." % (args,))
-            parameters = tuple(args), result
+            parameters = (tuple(args), result)
         return self.__getitem_inner__(parameters)
 
     @_tp_cache
@@ -1315,7 +1315,7 @@ class CallableMeta(GenericMeta):
         args, result = parameters
         msg = "Callable[args, result]: result must be a type."
         result = _type_check(result, msg)
-        if args == Ellipsis:
+        if args is Ellipsis:
             return super(CallableMeta, self).__getitem__((_TypingEllipsis, result))
         msg = "Callable[[arg, ...], result]: each arg must be a type."
         args = tuple(_type_check(arg, msg) for arg in args)
