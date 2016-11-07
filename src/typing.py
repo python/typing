@@ -1218,23 +1218,21 @@ class CallableMeta(GenericMeta):
         args, result = parameters
         if args is ...:
             parameters = (..., result)
-        elif args == []:
-            parameters = ((), result)
         else:
-            if not isinstance(args, list) or ... in args or () in args:
+            if not isinstance(args, list):
                 raise TypeError("Callable[args, result]: args must be"
                                 " a list of types. Got %.100r." % (args,))
-            parameters = tuple(args) + (result,)
+            parameters = tuple(args), result
         return self.__getitem_inner__(parameters)
 
     @_tp_cache
     def __getitem_inner__(self, parameters):
-        *args, result = parameters
+        args, result = parameters
         msg = "Callable[args, result]: result must be a type."
         result = _type_check(result, msg)
-        if args == [...,]:
+        if args == ...:
             return super().__getitem__((_TypingEllipsis, result))
-        if args == [(),]:
+        if args == ():
             return super().__getitem__((_TypingEmpty, result))
         msg = "Callable[[arg, ...], result]: each arg must be a type."
         args = tuple(_type_check(arg, msg) for arg in args)
