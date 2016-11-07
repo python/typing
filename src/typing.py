@@ -1194,14 +1194,12 @@ class CallableMeta(GenericMeta):
         # super()._tree_repr() for nice formatting.
         arg_list = []
         for arg in tree[1:]:
-            if arg == ():
-                arg_list.append('[]')
-            elif not isinstance(arg, tuple):
+            if not isinstance(arg, tuple):
                 arg_list.append(_type_repr(arg))
             else:
                 arg_list.append(arg[0]._tree_repr(arg))
-        if len(arg_list) == 2:
-            return repr(tree[0]) + '[%s]' % ', '.join(arg_list)
+        if arg_list[0] == '...':
+            return repr(tree[0]) + '[..., %s]' % arg_list[1]
         return (repr(tree[0]) +
                 '[[%s], %s]' % (', '.join(arg_list[:-1]), arg_list[-1]))
 
@@ -1220,8 +1218,8 @@ class CallableMeta(GenericMeta):
             parameters = (..., result)
         else:
             if not isinstance(args, list):
-                raise TypeError("Callable[args, result]: args must be"
-                                " a list of types. Got %.100r." % (args,))
+                raise TypeError("Callable[args, result]: args must be a list."
+                                " Got %.100r." % (args,))
             parameters = tuple(args), result
         return self.__getitem_inner__(parameters)
 
@@ -1232,8 +1230,6 @@ class CallableMeta(GenericMeta):
         result = _type_check(result, msg)
         if args == ...:
             return super().__getitem__((_TypingEllipsis, result))
-        if args == ():
-            return super().__getitem__((_TypingEmpty, result))
         msg = "Callable[[arg, ...], result]: each arg must be a type."
         args = tuple(_type_check(arg, msg) for arg in args)
         parameters = args + (result,)
