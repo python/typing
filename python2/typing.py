@@ -1304,7 +1304,7 @@ class CallableMeta(GenericMeta):
         if args is Ellipsis:
             parameters = (Ellipsis, result)
         else:
-            if not isinstance(args, list) or Ellipsis in args or () in args:
+            if not isinstance(args, list):
                 raise TypeError("Callable[args, result]: args must be a list."
                                 " Got %.100r." % (args,))
             parameters = tuple(args), result
