@@ -1991,7 +1991,8 @@ if sys.version_info[:2] >= (3, 6):
 
             Employee = NamedTuple('Employee', name=str, id=int)
 
-        Backward-compatible usage::
+        The above two forms are only supported in Python 3.6+, in other
+        versions use::
 
             Employee = NamedTuple('Employee', [('name', str), ('id', int)])
         """
