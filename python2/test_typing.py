@@ -715,9 +715,10 @@ class GenericTests(BaseTestCase):
                          'Callable[[], List[int]]')
 
     def test_generic_forvard_ref(self):
-        LLT = List[List['T']]
+        LLT = List[List['CC']]
+        class CC: pass
+        self.assertEqual(typing._eval_type(LLT, globals(), locals()), List[List[CC]])
         T = TypeVar('T')
-        self.assertEqual(typing._eval_type(LLT, globals(), locals()), List[List[T]])
         TTE = Tuple[T, ...]
         self.assertIs(typing._eval_type(TTE, globals(), locals()), Tuple[T, ...])
 
