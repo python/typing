@@ -1962,65 +1962,55 @@ def _make_nmtuple(name, types):
     return nm_tpl
 
 
-if sys.version_info[:2] >= (3, 6):
-    class NamedTupleMeta(type):
+_PY36 = sys.version_info[:2] >= (3, 6)
 
-        def __new__(cls, typename, bases, ns, *, _root=False):
-            if _root:
-                return super().__new__(cls, typename, bases, ns)
-            types = ns.get('__annotations__', {})
-            return _make_nmtuple(typename, types.items())
 
-    class NamedTuple(metaclass=NamedTupleMeta, _root=True):
-        """Typed version of namedtuple.
+class NamedTupleMeta(type):
 
-        Usage::
+    def __new__(cls, typename, bases, ns):
+        if ns.get('_root', False):
+            return super().__new__(cls, typename, bases, ns)
+        if not _PY36:
+            raise TypeError("Class syntax for NamedTuple is only supported"
+                            " in Python 3.6+")
+        types = ns.get('__annotations__', {})
+        return _make_nmtuple(typename, types.items())
 
-            class Employee(NamedTuple):
-                name: str
-                id: int
+class NamedTuple(metaclass=NamedTupleMeta):
+    """Typed version of namedtuple.
 
-        This is equivalent to::
+    Usage in Python versions >= 3.6::
 
-            Employee = collections.namedtuple('Employee', ['name', 'id'])
+        class Employee(NamedTuple):
+            name: str
+            id: int
 
-        The resulting class has one extra attribute: _field_types,
-        giving a dict mapping field names to types.  (The field names
-        are in the _fields attribute, which is part of the namedtuple
-        API.) Alternative equivalent keyword syntax is also accepted::
+    This is equivalent to::
 
-            Employee = NamedTuple('Employee', name=str, id=int)
+        Employee = collections.namedtuple('Employee', ['name', 'id'])
 
-        The above two forms are only supported in Python 3.6+, in other
-        versions use::
+    The resulting class has one extra attribute: _field_types,
+    giving a dict mapping field names to types.  (The field names
+    are in the _fields attribute, which is part of the namedtuple
+    API.) Alternative equivalent keyword syntax is also accepted::
 
-            Employee = NamedTuple('Employee', [('name', str), ('id', int)])
-        """
+        Employee = NamedTuple('Employee', name=str, id=int)
 
-        def __new__(self, typename, fields=None, **kwargs):
-            if fields is None:
-                fields = kwargs.items()
-            elif kwargs:
-                raise TypeError("Either list of fields or keywords"
-                                " can be provided to NamedTuple, not both")
-            return _make_nmtuple(typename, fields)
-else:
-    def NamedTuple(typename, fields):
-        """Typed version of namedtuple.
+    In Python versions <= 3.5 use::
 
-        Usage::
+        Employee = NamedTuple('Employee', [('name', str), ('id', int)])
+    """
+    _root = True
 
-            Employee = typing.NamedTuple('Employee', [('name', str), ('id', int)])
-
-        This is equivalent to::
-
-            Employee = collections.namedtuple('Employee', ['name', 'id'])
-
-        The resulting class has one extra attribute: _field_types,
-        giving a dict mapping field names to types.  (The field names
-        are in the _fields attribute, which is part of the namedtuple
-        API.)
-        """
+    def __new__(self, typename, fields=None, **kwargs):
+        if kwargs and not _PY36:
+            raise TypeError("Keyword syntax for NamedTuple is only supported"
+                            " in Python 3.6+")
+        if fields is None:
+            fields = kwargs.items()
+        elif kwargs:
+            raise TypeError("Either list of fields or keywords"
+                            " can be provided to NamedTuple, not both")
         return _make_nmtuple(typename, fields)
 
 
