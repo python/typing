@@ -214,7 +214,7 @@ class _ForwardRef(_TypingBase):
         self.__forward_frame__ = frame
 
     def _eval_type(self, globalns, localns):
-        if not self.__forward_evaluated__:
+        if not self.__forward_evaluated__ or localns is not globalns:
             if globalns is None and localns is None:
                 globalns = localns = {}
             elif globalns is None:
