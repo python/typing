@@ -1461,6 +1461,11 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(Emp.__annotations__, {'name': str, 'id': int})
 
     def test_typeddict_errors(self):
+        Emp = TypedDict('Emp', {'name': str, 'id': int})
+        with self.assertRaises(TypeError):
+            isinstance({}, Emp)
+        with self.assertRaises(TypeError):
+            issubclass(dict, Emp)
         with self.assertRaises(TypeError):
             TypedDict('Hi', x=1)
         with self.assertRaises(TypeError):

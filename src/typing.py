@@ -2002,6 +2002,11 @@ else:
         return _make_nmtuple(typename, fields)
 
 
+def _check_fails(cls, other):
+    if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools']:
+        raise TypeError('TypedDict does not support instance and class checks')
+
+
 class TypedDictMeta(type):
 
     def __new__(cls, name, bases, ns):
@@ -2017,6 +2022,8 @@ class TypedDictMeta(type):
             anns.update(base.__dict__.get('__annotations__', {}))
         tp_dict.__annotations__ = anns
         return tp_dict
+
+    __instancecheck__ = __subclasscheck__ = _check_fails
 
 
 class TypedDict(metaclass=TypedDictMeta):
