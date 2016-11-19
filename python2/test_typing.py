@@ -480,7 +480,13 @@ class ProtocolTests(BaseTestCase):
     def test_protocol_instance_type_error(self):
         with self.assertRaises(TypeError):
             isinstance(0, typing.SupportsAbs)
-
+        class C1(typing.SupportsInt):
+            def __int__(self):
+                return 42
+        class C2(C1):
+            pass
+        c = C2()
+        self.assertIsInstance(c, C1)
 
 class GenericTests(BaseTestCase):
 
