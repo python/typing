@@ -44,6 +44,10 @@ class BaseTestCase(TestCase):
                 message += ' : %s' % msg
             raise self.failureException(message)
 
+    def clear_caches(self):
+        for f in typing._cleanups:
+            f()
+
 
 class Employee(object):
     pass
@@ -719,8 +723,10 @@ class GenericTests(BaseTestCase):
         class CC: pass
         self.assertEqual(typing._eval_type(LLT, globals(), locals()), List[List[CC]])
         T = TypeVar('T')
-        TTE = Tuple[T, ...]
-        self.assertIs(typing._eval_type(TTE, globals(), locals()), Tuple[T, ...])
+        AT = Tuple[T, ...]
+        self.assertIs(typing._eval_type(AT, globals(), locals()), AT)
+        CT = Callable[..., List[T]]
+        self.assertIs(typing._eval_type(CT, globals(), locals()), CT)
 
     def test_extended_generic_rules_subclassing(self):
         class T1(Tuple[T, KT]): pass
@@ -771,6 +777,7 @@ class GenericTests(BaseTestCase):
 
     def test_type_erasure_special(self):
         T = TypeVar('T')
+        self.clear_caches()
         class MyTup(Tuple[T, T]): pass
         self.assertIs(MyTup[int]().__class__, MyTup)
         self.assertIs(MyTup[int]().__orig_class__, MyTup[int])
