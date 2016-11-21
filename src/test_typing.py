@@ -1032,6 +1032,23 @@ class GenericTests(BaseTestCase):
         with self.assertRaises(Exception):
             D[T]
 
+    def test_slots(self):
+        T = TypeVar('T')
+
+        class C(Generic[T]):
+            __slots__ = ('slot_1',)
+
+        c_bare = C()
+        c_int = C[int]()
+
+        c_bare.slot_1 = 0
+        c_int.slot_1 = 0
+
+        with self.assertRaises(AttributeError):
+            c_bare.slot_2 = 0
+        with self.assertRaises(AttributeError):
+            c_int.slot_2 = 0
+
 class ClassVarTests(BaseTestCase):
 
     def test_basics(self):
