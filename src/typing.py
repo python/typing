@@ -247,7 +247,7 @@ class _ForwardRef(_TypingBase, _root=True):
         raise TypeError("Forward references cannot be used with issubclass().")
 
     def __repr__(self):
-        return repr(self.__forward_arg__)
+        return '_ForwardRef(%r)' % (self.__forward_arg__,)
 
 
 class _TypeAlias(_TypingBase, _root=True):
