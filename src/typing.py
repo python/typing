@@ -1041,9 +1041,12 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             _check_generic(self, params)
             tvars = _type_vars(params)
             args = params
+        dict_copy = dict(self.__dict__)
+        if dict_copy.get('__slots__'):
+                del dict_copy['__slots__']
         return self.__class__(self.__name__,
                               self.__bases__,
-                              dict(self.__dict__),
+                              dict_copy,
                               tvars=tvars,
                               args=args,
                               origin=self,
