@@ -870,7 +870,7 @@ def _make_subclasshook(cls):
     return __extrahook__
 
 
-def _safe_copy(dct):
+def _no_slots_copy(dct):
     """Internal helper: copy class __dict__ and clean slots class variables.
     (They will be re-created if necessary by normal class machinery.)
     """
@@ -978,7 +978,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             return self
         return self.__class__(self.__name__,
                               self.__bases__,
-                              _safe_copy(self.__dict__),
+                              _no_slots_copy(self.__dict__),
                               tvars=_type_vars(ev_args) if ev_args else None,
                               args=ev_args,
                               origin=ev_origin,
@@ -1054,7 +1054,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             args = params
         return self.__class__(self.__name__,
                               self.__bases__,
-                              _safe_copy(self.__dict__),
+                              _no_slots_copy(self.__dict__),
                               tvars=tvars,
                               args=args,
                               origin=self,
@@ -1071,7 +1071,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 
     def __copy__(self):
         return self.__class__(self.__name__, self.__bases__,
-                              _safe_copy(self.__dict__),
+                              _no_slots_copy(self.__dict__),
                               self.__parameters__, self.__args__, self.__origin__,
                               self.__extra__, self.__orig_bases__)
 

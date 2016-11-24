@@ -918,6 +918,22 @@ class GenericTests(BaseTestCase):
                          C.__slots__)
         self.assertEqual(copy(C[int]), deepcopy(C[int]))
 
+    def test_parameterized_slots_dict(self):
+        T = TypeVar('T')
+        class D(Generic[T]):
+            __slots__ = {'banana': 42}
+
+        d = D()
+        d_int = D[int]()
+        self.assertEqual(D.__slots__, D[str].__slots__)
+
+        d.banana = 'yes'
+        d_int.banana = 'yes'
+        with self.assertRaises(AttributeError):
+            d.foobar = 'no'
+        with self.assertRaises(AttributeError):
+            d_int.foobar = 'no'
+
     def test_errors(self):
         with self.assertRaises(TypeError):
             B = SimpleMapping[XK, Any]
