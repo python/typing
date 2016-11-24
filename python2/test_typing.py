@@ -866,6 +866,8 @@ class GenericTests(BaseTestCase):
             c_int.tomato = 0
 
         self.assertEqual(typing._eval_type(C['C'], globals(), locals()), C[C])
+        self.assertEqual(typing._eval_type(C['C'], globals(), locals()).__slots__,
+                         C.__slots__)
         self.assertEqual(copy(C[int]), deepcopy(C[int]))
 
     def test_errors(self):

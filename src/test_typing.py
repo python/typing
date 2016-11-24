@@ -914,6 +914,8 @@ class GenericTests(BaseTestCase):
 
         def foo(x: C['C']): ...
         self.assertEqual(get_type_hints(foo, globals(), locals())['x'], C[C])
+        self.assertEqual(get_type_hints(foo, globals(), locals())['x'].__slots__,
+                         C.__slots__)
         self.assertEqual(copy(C[int]), deepcopy(C[int]))
 
     def test_errors(self):
