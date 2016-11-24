@@ -912,6 +912,10 @@ class GenericTests(BaseTestCase):
         with self.assertRaises(AttributeError):
             c_int.tomato = 0
 
+        def foo(x: C['C']): ...
+        self.assertEqual(get_type_hints(foo, globals(), locals())['x'], C[C])
+        self.assertEqual(copy(C[int]), deepcopy(C[int]))
+
     def test_errors(self):
         with self.assertRaises(TypeError):
             B = SimpleMapping[XK, Any]
