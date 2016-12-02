@@ -1916,7 +1916,21 @@ class NamedTupleMeta(type):
             raise TypeError("Class syntax for NamedTuple is only supported"
                             " in Python 3.6+")
         types = ns.get('__annotations__', {})
-        return _make_nmtuple(typename, types.items())
+        nm_tpl = _make_nmtuple(typename, types.items())
+        saw_default = False
+        defaults = []
+        defaults_dict = {}
+        for field_name in types:
+            if field_name in ns:
+                saw_default = True
+                default_value = ns[field_name]
+                defaults.append(default_value)
+                defaults_dict[field_name] = default_value
+            elif saw_default:
+                raise TypeError('Non-default namedtuple field cannot follow default field')
+        nm_tpl.__new__.__defaults__ = tuple(defaults)
+        nm_tpl._field_defaults = defaults_dict
+        return nm_tpl
 
 class NamedTuple(metaclass=NamedTupleMeta):
     """Typed version of namedtuple.

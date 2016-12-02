@@ -1376,6 +1376,10 @@ class G(Generic[T]):
 class CoolEmployee(NamedTuple):
     name: str
     cool: int
+
+class CoolEmployeeWithDefault(NamedTuple):
+    name: str
+    cool: int = 0
 """
 
 if PY36:
@@ -1919,6 +1923,28 @@ class NamedTupleTests(BaseTestCase):
         self.assertEqual(CoolEmployee.__name__, 'CoolEmployee')
         self.assertEqual(CoolEmployee._fields, ('name', 'cool'))
         self.assertEqual(CoolEmployee._field_types, dict(name=str, cool=int))
+
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_annotation_usage_with_default(self):
+        jelle = CoolEmployeeWithDefault('Jelle')
+        self.assertIsInstance(jelle, CoolEmployeeWithDefault)
+        self.assertIsInstance(jelle, tuple)
+        self.assertEqual(jelle.name, 'Jelle')
+        self.assertEqual(jelle.cool, 0)
+        cooler_employee = CoolEmployeeWithDefault('Sjoerd', 1)
+        self.assertEqual(cooler_employee.cool, 1)
+
+        self.assertEqual(CoolEmployeeWithDefault.__name__, 'CoolEmployeeWithDefault')
+        self.assertEqual(CoolEmployeeWithDefault._fields, ('name', 'cool'))
+        self.assertEqual(CoolEmployeeWithDefault._field_types, dict(name=str, cool=int))
+        self.assertEqual(CoolEmployeeWithDefault._field_defaults, dict(cool=0))
+
+        with self.assertRaises(TypeError):
+            exec("""
+class NonDefaultAfterDefault(NamedTuple):
+    x: int = 3
+    y: int
+""")
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_namedtuple_keyword_usage(self):
