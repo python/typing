@@ -1907,7 +1907,9 @@ class NamedTupleTests(BaseTestCase):
         self.assertEqual(jim.id, 1)
         self.assertEqual(Emp.__name__, 'Emp')
         self.assertEqual(Emp._fields, ('name', 'id'))
-        self.assertEqual(Emp._field_types, dict(name=str, id=int))
+        self.assertEqual(Emp.__annotations__,
+                         collections.OrderedDict([('name', str), ('id', int)]))
+        self.assertIs(Emp._field_types, Emp.__annotations__)
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_annotation_usage(self):
@@ -1918,7 +1920,9 @@ class NamedTupleTests(BaseTestCase):
         self.assertEqual(tim.cool, 9000)
         self.assertEqual(CoolEmployee.__name__, 'CoolEmployee')
         self.assertEqual(CoolEmployee._fields, ('name', 'cool'))
-        self.assertEqual(CoolEmployee._field_types, dict(name=str, cool=int))
+        self.assertEqual(CoolEmployee.__annotations__,
+                         collections.OrderedDict(name=str, cool=int))
+        self.assertIs(CoolEmployee._field_types, CoolEmployee.__annotations__)
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_namedtuple_keyword_usage(self):
@@ -1928,7 +1932,8 @@ class NamedTupleTests(BaseTestCase):
         self.assertEqual(nick.name, 'Nick')
         self.assertEqual(LocalEmployee.__name__, 'LocalEmployee')
         self.assertEqual(LocalEmployee._fields, ('name', 'age'))
-        self.assertEqual(LocalEmployee._field_types, dict(name=str, age=int))
+        self.assertEqual(LocalEmployee.__annotations__, dict(name=str, age=int))
+        self.assertIs(LocalEmployee._field_types, LocalEmployee.__annotations__)
         with self.assertRaises(TypeError):
             NamedTuple('Name', [('x', int)], y=str)
         with self.assertRaises(TypeError):
