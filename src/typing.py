@@ -51,7 +51,8 @@ __all__ = [
     # AsyncIterable,
     # Coroutine,
     # Collection,
-    # ContextManager
+    # ContextManager,
+    # AsyncGenerator,
 
     # Structural checks, a.k.a. protocols.
     'Reversible',
@@ -1899,6 +1900,21 @@ class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co],
             raise TypeError("Type Generator cannot be instantiated; "
                             "create a subclass instead")
         return _generic_new(_G_base, cls, *args, **kwds)
+
+if hasattr(collections_abc, 'AsyncGenerator'):
+    _AG_base = collections_abc.AsyncGenerator
+
+    class AsyncGenerator(AsyncIterator[T_co], Generic[T_co, T_contra],
+                         extra=_AG_base):
+        __slots__ = ()
+
+        def __new__(cls, *args, **kwds):
+            if _geqv(cls, AsyncGenerator):
+                raise TypeError("Type AsyncGenerator cannot be instantiated; "
+                                "create a subclass instead")
+            return _generic_new(_AG_base, cls, *args, **kwds)
+
+    __all__.append('AsyncGenerator')
 
 
 # Internal type variable used for Type[].

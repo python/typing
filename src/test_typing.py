@@ -1344,6 +1344,7 @@ class OverloadTests(BaseTestCase):
 
 
 ASYNCIO = sys.version_info[:2] >= (3, 5)
+ASYNC_GENERATOR = sys.version_info[:2] >= (3, 6)
 
 ASYNCIO_TESTS = """
 import asyncio
@@ -1731,6 +1732,23 @@ class CollectionsAbcTests(BaseTestCase):
         with self.assertRaises(TypeError):
             typing.Generator[int, int, int]()
 
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_async_generator(self):
+        ns = {}
+        exec("async def f():\n"
+            "    yield 42\n", globals(), ns)
+        g = ns['f']()
+        self.assertIsSubclass(type(g), typing.AsyncGenerator)
+
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_no_async_generator_instantiation(self):
+        with self.assertRaises(TypeError):
+            typing.AsyncGenerator()
+        with self.assertRaises(TypeError):
+            typing.AsyncGenerator[T, T]()
+        with self.assertRaises(TypeError):
+            typing.AsyncGenerator[int, int]()
+
     def test_subclassing(self):
 
         class MMA(typing.MutableMapping):
@@ -1798,6 +1816,18 @@ class CollectionsAbcTests(BaseTestCase):
         if hasattr(collections, 'Generator'):
             self.assertIsSubclass(G, collections.Generator)
         self.assertIsSubclass(G, collections.Iterable)
+        self.assertNotIsSubclass(type(g), G)
+
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_subclassing_async_generator(self):
+        class G(typing.AsyncGenerator[int, int]): ...
+        ns = {}
+        exec('async def g(): yield 0', globals(), ns)
+        g = ns['g']
+        self.assertIsSubclass(G, typing.AsyncGenerator)
+        self.assertIsSubclass(G, typing.AsyncIterable)
+        self.assertIsSubclass(G, collections.AsyncGenerator)
+        self.assertIsSubclass(G, collections.AsyncIterable)
         self.assertNotIsSubclass(type(g), G)
 
     def test_subclassing_subclasshook(self):
