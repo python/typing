@@ -13,7 +13,7 @@ from typing import T, KT, VT  # Not in __all__.
 from typing import Union, Optional
 from typing import Tuple, List, MutableMapping
 from typing import Callable
-from typing import Generic, ClassVar
+from typing import Generic, ClassVar, GenericMeta
 from typing import cast
 from typing import Type
 from typing import NewType
@@ -687,6 +687,12 @@ class GenericTests(BaseTestCase):
         self.assertEqual(D.__bases__, (C, List))
         self.assertEqual(C.__orig_bases__, (List[T][U][V],))
         self.assertEqual(D.__orig_bases__, (C, List[T][U][V]))
+
+    def test_subscript_meta(self):
+        T = TypeVar('T')
+        self.assertEqual(Type[GenericMeta], Type[GenericMeta])
+        self.assertEqual(Union[T, int][GenericMeta], Union[GenericMeta, int])
+        self.assertEqual(Callable[..., GenericMeta].__args__, (Ellipsis, GenericMeta))
 
     def test_extended_generic_rules_eq(self):
         T = TypeVar('T')
