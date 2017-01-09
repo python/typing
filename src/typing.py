@@ -1908,12 +1908,6 @@ if hasattr(collections_abc, 'AsyncGenerator'):
                          extra=_AG_base):
         __slots__ = ()
 
-        def __new__(cls, *args, **kwds):
-            if _geqv(cls, AsyncGenerator):
-                raise TypeError("Type AsyncGenerator cannot be instantiated; "
-                                "create a subclass instead")
-            return _generic_new(_AG_base, cls, *args, **kwds)
-
     __all__.append('AsyncGenerator')
 
 

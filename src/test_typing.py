@@ -1820,7 +1820,12 @@ class CollectionsAbcTests(BaseTestCase):
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_subclassing_async_generator(self):
-        class G(typing.AsyncGenerator[int, int]): ...
+        class G(typing.AsyncGenerator[int, int]):
+            def asend(self, value):
+                pass
+            def athrow(self, typ, val=None, tb=None):
+                pass
+
         ns = {}
         exec('async def g(): yield 0', globals(), ns)
         g = ns['g']
@@ -1829,6 +1834,13 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(G, collections.AsyncGenerator)
         self.assertIsSubclass(G, collections.AsyncIterable)
         self.assertNotIsSubclass(type(g), G)
+
+        instance = G()
+        self.assertIsInstance(instance, typing.AsyncGenerator)
+        self.assertIsInstance(instance, typing.AsyncIterable)
+        self.assertIsInstance(instance, collections.AsyncGenerator)
+        self.assertIsInstance(instance, collections.AsyncIterable)
+        self.assertNotIsInstance(type(g), G)
 
     def test_subclassing_subclasshook(self):
 
