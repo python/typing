@@ -1272,14 +1272,6 @@ class CollectionsAbcTests(BaseTestCase):
         with self.assertRaises(TypeError):
             typing.Set[int]()
 
-    def test_no_set_instantiation(self):
-        with self.assertRaises(TypeError):
-            typing.Set()
-        with self.assertRaises(TypeError):
-            typing.Set[T]()
-        with self.assertRaises(TypeError):
-            typing.Set[int]()
-
     def test_set_subclass_instantiation(self):
 
         class MySet(typing.Set[int]):
