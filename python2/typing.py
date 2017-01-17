@@ -1665,9 +1665,9 @@ class List(list, MutableSequence[T]):
                             "use list() instead")
         return _generic_new(list, cls, *args, **kwds)
 
-class Deque(collections.deque, MutableSequence[T], extra=collections.deque):
-
+class Deque(collections.deque, MutableSequence[T]):
     __slots__ = ()
+    __extra__ = collections.deque
 
     def __new__(cls, *args, **kwds):
         if _geqv(cls, Deque):
