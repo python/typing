@@ -47,7 +47,7 @@ setup(name='typing',
       long_description=long_description,
       author='Guido van Rossum, Jukka Lehtosalo, Łukasz Langa',
       author_email='jukka.lehtosalo@iki.fi',
-      url='https://docs.python.org/3.5/library/typing.html',
+      url='https://docs.python.org/3/library/typing.html',
       license='PSF',
       keywords='typing function annotations type hints hinting checking '
                'checker typehints typehinting typechecking backport',
