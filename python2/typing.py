@@ -28,6 +28,8 @@ __all__ = [
 
     # ABCs (from collections.abc).
     'AbstractSet',  # collections.abc.Set.
+    'GenericMeta',  # subclass of abc.ABCMeta and a metaclass
+                    # for 'Generic' and ABCs below.
     'ByteString',
     'Container',
     'Hashable',
@@ -578,6 +580,16 @@ def _replace_arg(arg, tvars, args):
     return arg
 
 
+# Special typing constructs Union, Optional, Generic, Callable and Tuple
+# use three special attributes for internal bookkeeping of generic types:
+# * __parameters__ is a tuple of unique free type parameters of a generic
+#   type, for example, Dict[T, T].__parameters__ == (T,);
+# * __origin__ keeps a reference to a type that was subscripted,
+#   e.g., Union[T, int].__origin__ == Union;
+# * __args__ is a tuple of all arguments used in subscripting,
+#   e.g., Dict[T, int].__args__ == (T, int).
+
+
 def _subs_tree(cls, tvars=None, args=None):
     """An internal helper function: calculate substitution tree
     for generic cls after replacing its type parameters with
@@ -952,10 +964,26 @@ def _make_subclasshook(cls):
 
 
 class GenericMeta(TypingMeta, abc.ABCMeta):
-    """Metaclass for generic types."""
+    """Metaclass for generic types.
+
+    This is a metaclass for typing.Generic and generic ABCs defined in
+    typing module. User defined subclasses of GenericMeta can override
+    __new__ and invoke super().__new__. Note that GenericMeta.__new__
+    has strict rules on what is allowed in its bases argument:
+    * plain Generic is disallowed in bases;
+    * Generic[...] should appear in bases at most once;
+    * if Generic[...] is present, then it should list all type variables
+      that appear in other bases.
+    In addition, type of all generic bases is erased, e.g., C[int] is
+    stripped to plain C.
+    """
 
     def __new__(cls, name, bases, namespace,
                 tvars=None, args=None, origin=None, extra=None, orig_bases=None):
+        """Create a new generic class. GenericMeta.__new__ accepts
+        keyword arguments that are used for internal bookkeeping, therefore
+        an override should pass unused keyword arguments to super().
+        """
         if tvars is not None:
             # Called from __getitem__() below.
             assert origin is not None
