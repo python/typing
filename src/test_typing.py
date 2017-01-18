@@ -1344,7 +1344,6 @@ class OverloadTests(BaseTestCase):
 
 
 ASYNCIO = sys.version_info[:2] >= (3, 5)
-ASYNC_GENERATOR = sys.version_info[:2] >= (3, 6)
 
 ASYNCIO_TESTS = """
 import asyncio
