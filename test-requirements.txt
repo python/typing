@@ -1,6 +1,6 @@
 flake8; python_version >= '3.6'
 flake8-bugbear; python_version >= '3.6'
 flake8-pyi; python_version >= '3.6'
-pytest>=2.8
-pytest-xdist>=1.13
-pytest-cov>=2.4.0
+pytest>=2.8; python_version >= '3.3'
+pytest-xdist>=1.13; python_version >= '3.3'
+pytest-cov>=2.4.0; python_version >= '3.3'
