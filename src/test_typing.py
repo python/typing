@@ -23,6 +23,7 @@ from typing import IO, TextIO, BinaryIO
 from typing import Pattern, Match
 import abc
 import typing
+import weakref
 try:
     import collections.abc as collections_abc
 except ImportError:
@@ -895,6 +896,14 @@ class GenericTests(BaseTestCase):
         for t in things + [Any]:
             self.assertEqual(t, copy(t))
             self.assertEqual(t, deepcopy(t))
+
+    def test_weakref_all(self):
+        T = TypeVar('T')
+        things = [Any, Union[T, int], Callable[..., T], Tuple[Any, Any],
+                  Optional[List[int]], typing.Mapping[int, str],
+                  typing.re.Match[bytes], typing.Iterable['whatever']]
+        for t in things:
+            self.assertEqual(weakref.ref(t)(), t)
 
     def test_parameterized_slots(self):
         T = TypeVar('T')

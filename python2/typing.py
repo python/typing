@@ -137,7 +137,7 @@ class TypingMeta(type):
 class _TypingBase(object):
     """Internal indicator of special typing constructs."""
     __metaclass__ = TypingMeta
-    __slots__ = ()
+    __slots__ = ('__weakref__',)
 
     def __init__(self, *args, **kwds):
         pass
