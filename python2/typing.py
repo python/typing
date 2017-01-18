@@ -571,7 +571,7 @@ def _replace_arg(arg, tvars, args):
 
     if tvars is None:
         tvars = []
-    if hasattr(arg, '_subs_tree'):
+    if hasattr(arg, '_subs_tree') and isinstance(arg, (GenericMeta, _TypingBase)):
         return arg._subs_tree(tvars, args)
     if isinstance(arg, TypeVar):
         for i, tvar in enumerate(tvars):
