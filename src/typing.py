@@ -1902,10 +1902,8 @@ class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co],
         return _generic_new(_G_base, cls, *args, **kwds)
 
 if hasattr(collections_abc, 'AsyncGenerator'):
-    _AG_base = collections_abc.AsyncGenerator
-
     class AsyncGenerator(AsyncIterator[T_co], Generic[T_co, T_contra],
-                         extra=_AG_base):
+                         extra=collections_abc.AsyncGenerator):
         __slots__ = ()
 
     __all__.append('AsyncGenerator')
