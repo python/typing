@@ -18,7 +18,7 @@ from typing import get_type_hints
 from typing import no_type_check, no_type_check_decorator
 from typing import Type
 from typing import NewType
-from typing import NamedTuple
+from typing import NamedTuple, TypedDict
 from typing import IO, TextIO, BinaryIO
 from typing import Pattern, Match
 import abc
@@ -1400,6 +1400,14 @@ class G(Generic[T]):
 class CoolEmployee(NamedTuple):
     name: str
     cool: int
+
+Label = TypedDict('Label', [('label', str)])
+
+class Point2D(TypedDict):
+    x: int
+    y: int
+
+class LabelPoint2D(Point2D, Label): ...
 """
 
 if PY36:
@@ -1926,6 +1934,67 @@ class NewTypeTests(BaseTestCase):
             class D(UserName):
                 pass
 
+
+class TypedDictTests(BaseTestCase):
+
+    def test_basics_iterable_syntax(self):
+        # Check that two iterables allowed
+        Emp = TypedDict('Emp', [('name', str), ('id', int)])
+        Emp = TypedDict('Emp', {'name': str, 'id': int})
+        self.assertIsSubclass(Emp, dict)
+        jim = Emp(name='Jim', id=1)
+        self.assertIsInstance(jim, Emp)
+        self.assertIsInstance(jim, dict)
+        self.assertEqual(jim['name'], 'Jim')
+        self.assertEqual(jim['id'], 1)
+        self.assertEqual(Emp.__name__, 'Emp')
+        self.assertEqual(Emp.__bases__, (dict,))
+        self.assertEqual(Emp.__annotations__, {'name': str, 'id': int})
+
+    def test_basics_keywords_syntax(self):
+        Emp = TypedDict('Emp', name=str, id=int)
+        self.assertIsSubclass(Emp, dict)
+        jim = Emp(name='Jim', id=1)
+        self.assertIsInstance(jim, Emp)
+        self.assertIsInstance(jim, dict)
+        self.assertEqual(jim['name'], 'Jim')
+        self.assertEqual(jim['id'], 1)
+        self.assertEqual(Emp.__name__, 'Emp')
+        self.assertEqual(Emp.__bases__, (dict,))
+        self.assertEqual(Emp.__annotations__, {'name': str, 'id': int})
+
+    def test_typeddict_errors(self):
+        Emp = TypedDict('Emp', {'name': str, 'id': int})
+        with self.assertRaises(TypeError):
+            isinstance({}, Emp)
+        with self.assertRaises(TypeError):
+            issubclass(dict, Emp)
+        with self.assertRaises(TypeError):
+            TypedDict('Hi', x=1)
+        with self.assertRaises(TypeError):
+            TypedDict('Hi', [('x', int), ('y', 1)])
+        with self.assertRaises(TypeError):
+            TypedDict('Hi', [('x', int)], y=int)
+
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_class_syntax_usage(self):
+        self.assertEqual(LabelPoint2D.__annotations__, {'x': int, 'y': int, 'label': str})
+        self.assertEqual(LabelPoint2D.__bases__, (dict,))
+        not_origin = Point2D(x=0, y=1)
+        self.assertEqual(not_origin['x'], 0)
+        self.assertEqual(not_origin['y'], 1)
+        other = LabelPoint2D(x=0, y=1, label='hi')
+        self.assertEqual(other['label'], 'hi')
+
+    def test_pickle(self):
+        global EmpD  # pickle wants to reference the class by name
+        EmpD = TypedDict('EmpD', name=str, id=int)
+        jane = EmpD({'name': 'jane', 'id': 37})
+        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            z = pickle.dumps(jane, proto)
+            jane2 = pickle.loads(z)
+            self.assertEqual(jane2, jane)
+            self.assertEqual(jane2, {'name': 'jane', 'id': 37})
 
 class NamedTupleTests(BaseTestCase):
 
