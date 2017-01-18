@@ -86,6 +86,7 @@ def _qualname(x):
         # Fall back to just name.
         return x.__name__
 
+
 def _trim_name(nm):
     if nm.startswith('_') and nm not in ('_TypeAlias',
                     '_ForwardRef', '_TypingBase', '_FinalTypingBase'):
@@ -244,7 +245,6 @@ class _TypeAlias(_TypingBase):
     """
 
     __slots__ = ('name', 'type_var', 'impl_type', 'type_checker')
-
 
     def __init__(self, name, type_var, impl_type, type_checker):
         """Initializer.
@@ -418,6 +418,7 @@ class _ClassVar(_FinalTypingBase):
         if self.__type__ is not None:
             return self.__type__ == other.__type__
         return self is other
+
 
 ClassVar = _ClassVar(_root=True)
 
@@ -919,7 +920,7 @@ def _next_in_mro(cls):
     # Look for the last occurrence of Generic or Generic[...].
     for i, c in enumerate(cls.__mro__[:-1]):
         if isinstance(c, GenericMeta) and _gorg(c) is Generic:
-            next_in_mro = cls.__mro__[i+1]
+            next_in_mro = cls.__mro__[i + 1]
     return next_in_mro
 
 
@@ -1329,7 +1330,7 @@ class CallableMeta(GenericMeta):
         with hashable arguments to improve speed.
         """
 
-        if  self.__origin__ is not None or not _geqv(self, Callable):
+        if self.__origin__ is not None or not _geqv(self, Callable):
             return super(CallableMeta, self).__getitem__(parameters)
         if not isinstance(parameters, tuple) or len(parameters) != 2:
             raise TypeError("Callable must be used as "
@@ -1432,7 +1433,7 @@ def no_type_check(arg):
                 no_type_check(obj)
     try:
         arg.__no_type_check__ = True
-    except TypeError: # built-in classes
+    except TypeError:  # built-in classes
         pass
     return arg
 
@@ -1696,6 +1697,7 @@ class List(list, MutableSequence[T]):
                             "use list() instead")
         return _generic_new(list, cls, *args, **kwds)
 
+
 class Deque(collections.deque, MutableSequence[T]):
     __slots__ = ()
     __extra__ = collections.deque
@@ -1705,6 +1707,7 @@ class Deque(collections.deque, MutableSequence[T]):
             raise TypeError("Type Deque cannot be instantiated; "
                             "use deque() instead")
         return _generic_new(collections.deque, cls, *args, **kwds)
+
 
 class Set(set, MutableSet[T]):
     __slots__ = ()
@@ -1932,7 +1935,7 @@ class IO(Generic[AnyStr]):
         pass
 
     @abstractmethod
-    def read(self, n = -1):
+    def read(self, n=-1):
         pass
 
     @abstractmethod
@@ -1940,15 +1943,15 @@ class IO(Generic[AnyStr]):
         pass
 
     @abstractmethod
-    def readline(self, limit = -1):
+    def readline(self, limit=-1):
         pass
 
     @abstractmethod
-    def readlines(self, hint = -1):
+    def readlines(self, hint=-1):
         pass
 
     @abstractmethod
-    def seek(self, offset, whence = 0):
+    def seek(self, offset, whence=0):
         pass
 
     @abstractmethod
@@ -1960,7 +1963,7 @@ class IO(Generic[AnyStr]):
         pass
 
     @abstractmethod
-    def truncate(self, size = None):
+    def truncate(self, size=None):
         pass
 
     @abstractmethod
@@ -2036,6 +2039,7 @@ class io(object):
     TextIO = TextIO
     BinaryIO = BinaryIO
 
+
 io.__name__ = __name__ + b'.io'
 sys.modules[io.__name__] = io
 
@@ -2052,6 +2056,7 @@ class re(object):
     __all__ = ['Pattern', 'Match']
     Pattern = Pattern
     Match = Match
+
 
 re.__name__ = __name__ + b'.re'
 sys.modules[re.__name__] = re

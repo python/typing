@@ -631,6 +631,7 @@ def _tp_cache(func):
 
     cached = functools.lru_cache()(func)
     _cleanups.append(cached.cache_clear)
+
     @functools.wraps(func)
     def inner(*args, **kwds):
         try:
@@ -840,7 +841,7 @@ def _next_in_mro(cls):
     # Look for the last occurrence of Generic or Generic[...].
     for i, c in enumerate(cls.__mro__[:-1]):
         if isinstance(c, GenericMeta) and _gorg(c) is Generic:
-            next_in_mro = cls.__mro__[i+1]
+            next_in_mro = cls.__mro__[i + 1]
     return next_in_mro
 
 
@@ -1252,7 +1253,7 @@ class CallableMeta(GenericMeta):
         with hashable arguments to improve speed.
         """
 
-        if  self.__origin__ is not None or not _geqv(self, Callable):
+        if self.__origin__ is not None or not _geqv(self, Callable):
             return super().__getitem__(parameters)
         if not isinstance(parameters, tuple) or len(parameters) != 2:
             raise TypeError("Callable must be used as "
@@ -1280,7 +1281,7 @@ class CallableMeta(GenericMeta):
         return super().__getitem__(parameters)
 
 
-class Callable(extra=collections_abc.Callable, metaclass = CallableMeta):
+class Callable(extra=collections_abc.Callable, metaclass=CallableMeta):
     """Callable type; Callable[[int], str] is a function of (int) -> str.
 
     The subscription syntax must always be used with exactly two
@@ -1485,7 +1486,7 @@ def no_type_check(arg):
                 no_type_check(obj)
     try:
         arg.__no_type_check__ = True
-    except TypeError: # built-in classes
+    except TypeError:  # built-in classes
         pass
     return arg
 
@@ -1771,6 +1772,7 @@ else:
 class MutableMapping(Mapping[KT, VT], extra=collections_abc.MutableMapping):
     __slots__ = ()
 
+
 if hasattr(collections_abc, 'Reversible'):
     if hasattr(collections_abc, 'Collection'):
         class Sequence(Reversible[T_co], Collection[T_co],
@@ -1804,6 +1806,7 @@ class List(list, MutableSequence[T], extra=list):
                             "use list() instead")
         return _generic_new(list, cls, *args, **kwds)
 
+
 class Deque(collections.deque, MutableSequence[T], extra=collections.deque):
 
     __slots__ = ()
@@ -1813,6 +1816,7 @@ class Deque(collections.deque, MutableSequence[T], extra=collections.deque):
             raise TypeError("Type Deque cannot be instantiated; "
                             "use deque() instead")
         return _generic_new(collections.deque, cls, *args, **kwds)
+
 
 class Set(set, MutableSet[T], extra=set):
 
@@ -1871,6 +1875,7 @@ class Dict(dict, MutableMapping[KT, VT], extra=dict):
                             "use dict() instead")
         return _generic_new(dict, cls, *args, **kwds)
 
+
 class DefaultDict(collections.defaultdict, MutableMapping[KT, VT],
                   extra=collections.defaultdict):
 
@@ -1881,6 +1886,7 @@ class DefaultDict(collections.defaultdict, MutableMapping[KT, VT],
             raise TypeError("Type DefaultDict cannot be instantiated; "
                             "use collections.defaultdict() instead")
         return _generic_new(collections.defaultdict, cls, *args, **kwds)
+
 
 # Determine what base class to use for Generator.
 if hasattr(collections_abc, 'Generator'):
@@ -1900,6 +1906,7 @@ class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co],
             raise TypeError("Type Generator cannot be instantiated; "
                             "create a subclass instead")
         return _generic_new(_G_base, cls, *args, **kwds)
+
 
 if hasattr(collections_abc, 'AsyncGenerator'):
     class AsyncGenerator(AsyncIterator[T_co], Generic[T_co, T_contra],
@@ -1983,6 +1990,7 @@ class NamedTupleMeta(type):
         nm_tpl.__new__.__defaults__ = tuple(defaults)
         nm_tpl._field_defaults = defaults_dict
         return nm_tpl
+
 
 class NamedTuple(metaclass=NamedTupleMeta):
     """Typed version of namedtuple.
@@ -2207,6 +2215,7 @@ class io:
     TextIO = TextIO
     BinaryIO = BinaryIO
 
+
 io.__name__ = __name__ + '.io'
 sys.modules[io.__name__] = io
 
@@ -2223,6 +2232,7 @@ class re:
     __all__ = ['Pattern', 'Match']
     Pattern = Pattern
     Match = Match
+
 
 re.__name__ = __name__ + '.re'
 sys.modules[re.__name__] = re
