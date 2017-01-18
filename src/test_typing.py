@@ -1844,6 +1844,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(instance, collections.AsyncGenerator)
         self.assertIsInstance(instance, collections.AsyncIterable)
         self.assertNotIsInstance(type(g), G)
+        self.assertNotIsInstance(g, G)
 
     def test_subclassing_subclasshook(self):
 
