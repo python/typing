@@ -769,9 +769,12 @@ class _Union(_FinalTypingBase, _root=True):
         return (Union,) + tree_args
 
     def __eq__(self, other):
-        if not isinstance(other, _Union):
+        if isinstance(other, _Union):
+            return self.__tree_hash__ == other.__tree_hash__
+        elif self is not Union:
             return self._subs_tree() == other
-        return self.__tree_hash__ == other.__tree_hash__
+        else:
+            return self is other
 
     def __hash__(self):
         return self.__tree_hash__

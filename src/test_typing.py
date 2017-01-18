@@ -282,6 +282,15 @@ class UnionTests(BaseTestCase):
         self.assertFalse(Union[str, typing.Iterable[int]] == typing.Iterable[int])
         self.assertTrue(Union[str, typing.Iterable] == typing.Iterable)
 
+    def test_union_compare_other(self):
+        self.assertNotEqual(Union, object)
+        self.assertNotEqual(Union, Any)
+        self.assertNotEqual(ClassVar, Union)
+        self.assertNotEqual(Optional, Union)
+        self.assertNotEqual([None], Optional)
+        self.assertNotEqual(Optional, typing.Mapping)
+        self.assertNotEqual(Optional[typing.MutableMapping], Union)
+
     def test_optional(self):
         o = Optional[int]
         u = Union[int, None]
