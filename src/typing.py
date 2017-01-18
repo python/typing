@@ -355,13 +355,17 @@ def _type_check(arg, msg):
         return type(None)
     if isinstance(arg, str):
         arg = _ForwardRef(arg)
-    if (isinstance(arg, _TypingBase) and type(arg).__name__ == '_ClassVar' or
-        not isinstance(arg, (type, _TypingBase)) and not callable(arg)):
+    if (
+        isinstance(arg, _TypingBase) and type(arg).__name__ == '_ClassVar' or
+        not isinstance(arg, (type, _TypingBase)) and not callable(arg)
+    ):
         raise TypeError(msg + " Got %.100r." % (arg,))
     # Bare Union etc. are not valid as type arguments
-    if (type(arg).__name__ in ('_Union', '_Optional')
-        and not getattr(arg, '__origin__', None)
-        or isinstance(arg, TypingMeta) and _gorg(arg) in (Generic, _Protocol)):
+    if (
+        type(arg).__name__ in ('_Union', '_Optional') and
+        not getattr(arg, '__origin__', None) or
+        isinstance(arg, TypingMeta) and _gorg(arg) in (Generic, _Protocol)
+    ):
         raise TypeError("Plain %s is not valid as type argument" % arg)
     return arg
 
@@ -850,8 +854,10 @@ def _valid_for_check(cls):
     if cls is Generic:
         raise TypeError("Class %r cannot be used with class "
                         "or instance checks" % cls)
-    if (cls.__origin__ is not None and
-        sys._getframe(3).f_globals['__name__'] not in ['abc', 'functools']):
+    if (
+        cls.__origin__ is not None and
+        sys._getframe(3).f_globals['__name__'] not in ['abc', 'functools']
+    ):
         raise TypeError("Parameterized generics cannot be used with class "
                         "or instance checks")
 
@@ -987,9 +993,12 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # This allows unparameterized generic collections to be used
         # with issubclass() and isinstance() in the same way as their
         # collections.abc counterparts (e.g., isinstance([], Iterable)).
-        if ('__subclasshook__' not in namespace and extra  # allow overriding
-            or hasattr(self.__subclasshook__, '__name__') and
-            self.__subclasshook__.__name__ == '__extrahook__'):
+        if (
+            # allow overriding
+            '__subclasshook__' not in namespace and extra or
+            hasattr(self.__subclasshook__, '__name__') and
+            self.__subclasshook__.__name__ == '__extrahook__'
+        ):
             self.__subclasshook__ = _make_subclasshook(self)
         if isinstance(extra, abc.ABCMeta):
             self._abc_registry = extra._abc_registry
@@ -1443,10 +1452,12 @@ def get_type_hints(obj, globalns=None, localns=None):
     hints = getattr(obj, '__annotations__', None)
     if hints is None:
         # Return empty annotations for something that _could_ have them.
-        if (isinstance(obj, types.FunctionType) or
+        if (
+            isinstance(obj, types.FunctionType) or
             isinstance(obj, types.BuiltinFunctionType) or
             isinstance(obj, types.MethodType) or
-            isinstance(obj, types.ModuleType)):
+            isinstance(obj, types.ModuleType)
+        ):
             return {}
         else:
             raise TypeError('{!r} is not a module, class, method, '
