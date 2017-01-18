@@ -88,8 +88,8 @@ def _qualname(x):
 
 
 def _trim_name(nm):
-    if nm.startswith('_') and nm not in ('_TypeAlias',
-                    '_ForwardRef', '_TypingBase', '_FinalTypingBase'):
+    whitelist = ('_TypeAlias', '_ForwardRef', '_TypingBase', '_FinalTypingBase')
+    if nm.startswith('_') and nm not in whitelist:
         nm = nm[1:]
     return nm
 
