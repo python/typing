@@ -1193,13 +1193,13 @@ class TupleMeta(GenericMeta):
         return super().__getitem__(parameters)
 
     def __instancecheck__(self, obj):
-        if self.__args__ == None:
+        if self.__args__ is None:
             return isinstance(obj, tuple)
         raise TypeError("Parameterized Tuple cannot be used "
                         "with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if self.__args__ == None:
+        if self.__args__ is None:
             return issubclass(cls, tuple)
         raise TypeError("Parameterized Tuple cannot be used "
                         "with issubclass().")
