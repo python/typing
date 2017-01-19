@@ -97,8 +97,8 @@ def _qualname(x):
 
 
 def _trim_name(nm):
-    if nm.startswith('_') and nm not in ('_TypeAlias',
-                    '_ForwardRef', '_TypingBase', '_FinalTypingBase'):
+    whitelist = ('_TypeAlias', '_ForwardRef', '_TypingBase', '_FinalTypingBase')
+    if nm.startswith('_') and nm not in whitelist:
         nm = nm[1:]
     return nm
 
@@ -459,7 +459,7 @@ class TypeVar(_TypingBase, _root=True):
                  '__covariant__', '__contravariant__')
 
     def __init__(self, name, *constraints, bound=None,
-                covariant=False, contravariant=False):
+                 covariant=False, contravariant=False):
         super().__init__(name, *constraints, bound=bound,
                          covariant=covariant, contravariant=contravariant)
         self.__name__ = name
@@ -567,7 +567,7 @@ def _subs_tree(cls, tvars=None, args=None):
     # ... then continue replacing down the origin chain.
     for ocls in orig_chain:
         new_tree_args = []
-        for i, arg in enumerate(ocls.__args__):
+        for arg in ocls.__args__:
             new_tree_args.append(_replace_arg(arg, ocls.__parameters__, tree_args))
         tree_args = new_tree_args
     return tree_args
@@ -1202,13 +1202,13 @@ class TupleMeta(GenericMeta):
         return super().__getitem__(parameters)
 
     def __instancecheck__(self, obj):
-        if self.__args__ == None:
+        if self.__args__ is None:
             return isinstance(obj, tuple)
         raise TypeError("Parameterized Tuple cannot be used "
                         "with isinstance().")
 
     def __subclasscheck__(self, cls):
-        if self.__args__ == None:
+        if self.__args__ is None:
             return issubclass(cls, tuple)
         raise TypeError("Parameterized Tuple cannot be used "
                         "with issubclass().")
@@ -1787,11 +1787,11 @@ class MutableMapping(Mapping[KT, VT], extra=collections_abc.MutableMapping):
 if hasattr(collections_abc, 'Reversible'):
     if hasattr(collections_abc, 'Collection'):
         class Sequence(Reversible[T_co], Collection[T_co],
-                   extra=collections_abc.Sequence):
+                       extra=collections_abc.Sequence):
             __slots__ = ()
     else:
         class Sequence(Sized, Reversible[T_co], Container[T_co],
-                   extra=collections_abc.Sequence):
+                       extra=collections_abc.Sequence):
             __slots__ = ()
 else:
     class Sequence(Sized, Iterable[T_co], Container[T_co],
