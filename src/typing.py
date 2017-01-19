@@ -563,7 +563,7 @@ def _subs_tree(cls, tvars=None, args=None):
     # ... then continue replacing down the origin chain.
     for ocls in orig_chain:
         new_tree_args = []
-        for i, arg in enumerate(ocls.__args__):
+        for arg in ocls.__args__:
             new_tree_args.append(_replace_arg(arg, ocls.__parameters__, tree_args))
         tree_args = new_tree_args
     return tree_args
