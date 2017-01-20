@@ -1933,7 +1933,7 @@ class TypeTests(BaseTestCase):
         def new_user(user_class: Type[User]) -> User:
             return user_class()
 
-        joe = new_user(BasicUser)
+        new_user(BasicUser)
 
     def test_type_typevar(self):
 
@@ -1946,7 +1946,7 @@ class TypeTests(BaseTestCase):
         def new_user(user_class: Type[U]) -> U:
             return user_class()
 
-        joe = new_user(BasicUser)
+        new_user(BasicUser)
 
     def test_type_optional(self):
         A = Optional[Type[BaseException]]
@@ -2109,8 +2109,8 @@ class RETests(BaseTestCase):
         self.assertIsInstance(mat, Match)
 
         # these should just work
-        p = Pattern[Union[str, bytes]]
-        m = Match[Union[bytes, str]]
+        Pattern[Union[str, bytes]]
+        Match[Union[bytes, str]]
 
     def test_errors(self):
         with self.assertRaises(TypeError):

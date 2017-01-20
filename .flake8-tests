@@ -16,7 +16,6 @@ ignore =
   E701,
   E704,
   F811,
-  F841,
   # irrelevant plugins
   B3,
   DW12
