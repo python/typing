@@ -1381,6 +1381,9 @@ if ASYNCIO:
         exec(ASYNCIO_TESTS)
     except ImportError:
         ASYNCIO = False
+else:
+    # fake names for the sake of static analysis
+    AwaitableWrapper = AsyncIteratorWrapper = object
 
 PY36 = sys.version_info[:2] >= (3, 6)
 
@@ -1408,6 +1411,10 @@ class CoolEmployeeWithDefault(NamedTuple):
 
 if PY36:
     exec(PY36_TESTS)
+else:
+    # fake names for the sake of static analysis
+    ann_module = ann_module2 = ann_module3 = None
+    A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
 
 gth = get_type_hints
 
