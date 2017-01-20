@@ -2,7 +2,9 @@
 PEP 484: Type Hints
 ===================
 
-This GitHub repo is used for development of typing module defined by PEP 484.
+This GitHub repo is used for development of the ``typing`` module
+defined by PEP 484.  The module is available in Python since version
+3.5.0 on a provisional basis until Python 3.7.0.
 
 Authors
 -------
@@ -16,24 +18,28 @@ Authors
 BDFL-Delegate
 -------------
 
-The BDFL-Delegate is Mark Shannon.  This means he gets to be the final
-reviewer of PEP 484 and ultimately gets to accept or reject it -- see
-PEP 1 (https://www.python.org/dev/peps/pep-0001/).
+The BDFL-Delegate is Mark Shannon.  He was the final reviewer of PEP 484
+and ultimately accepted it on May 22, 2014.
 
 Important dates
 ---------------
 
-The dates for inclusion of typing.py in Python 3.5 are derived
-from the Python 3.5 release schedule as documented in PEP 478
-(https://www.python.org/dev/peps/pep-0478/):
+* May 24, 2015: Python 3.5.0 beta 1 -- PEP 484 accepted, ``typing``
+  checked into the CPython repo
 
-* May 24, 2015: Python 3.5.0 beta 1 -- PEP 484 accepted, typing.py
-  feature complete and checked into CPython repo
+* September 13, 2015: Python 3.5.0 final release; ``typing`` is
+  available on a provisional basis
 
-* August 9, 2015: Python 3.5.0 release candidate 1 -- Last chance for
-  fixes to typing.py barring emergencies:
+* December 23, 2016: Python 3.6.0 final release; ``typing`` stays
+  provisional for the course of the 3.6 releases
 
-* September 13, 2015: Python 3.5.0 final release
+* January 29, 2018: Python 3.7.0 beta 1, feature freeze for the release,
+  including the ``typing`` module
+
+* June 15, 2018: Python 3.7.0 final release, the ``typing`` module is no
+  longer provisional
+
+The dates for Python 3.7 are based on PEP 537 and may still change.
 
 Important URLs
 --------------
@@ -56,8 +62,8 @@ Workflow
 --------
 
 * The typing.py module and its unittests are edited in the src
-  subdirectory of this repo. The python2 subdirectory contains the Python2
-  backport.
+  subdirectory of this repo. The python2 subdirectory contains the
+  Python 2 backport.
 
 * The PEPs 484, 483, and 482 are edited in the GitHub python/peps repo.
 
@@ -101,17 +107,24 @@ Tracker labels
 Workflow for mypy changes
 -------------------------
 
-* Use the GitHub issue tracker for the mypy repo (python/mypy). Jukka
-  accepts GitHub Pull Requests at his discretion.
+* Use the GitHub issue tracker for the mypy repo (python/mypy). The mypy
+  core developers accept pull requests at their discretion.
 
-* At Jukka's discretion, he will from time to time copy typing.py and
-  test_typing.py from the python/typing GitHub repo to the mypy repo.
+* mypy uses ``typing.py`` from the available standard library when ran
+  on Python 3.5+ and uses the `PyPI version
+  <https://pypi.python.org/pypi/typing>`_ for older Python versions
 
-* The full list of mypy issues marked as PEP 484 compatibility issues
-  is here: https://github.com/python/mypy/labels/pep484
+* The full list of mypy issues marked as PEP 484 compatibility issues is
+  here: https://github.com/python/mypy/labels/topic-pep-484
 
 Workflow for CPython changes
 ----------------------------
 
-* TBD: Workflow for copying typing.py and test_typing.py into the
-  CPython repo.
+* At Guido's discretion, he will from time to time copy typing.py and
+  test_typing.py from the python/typing GitHub repo to the cpython repo.
+
+* This process includes merging changes made directly in the cpython
+  repo by other core developers.
+
+* The changes are merged in three branches (3.5, 3.6, default) due to
+  the module's provisional status.
