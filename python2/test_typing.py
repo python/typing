@@ -1008,8 +1008,8 @@ class GenericTests(BaseTestCase):
 
         class Node(Generic[T]):
             def __init__(self, label,
-                         left = None,
-                         right = None):
+                         left=None,
+                         right=None):
                 self.label = label  # type: T
                 self.left = left  # type: Optional[Node[T]]
                 self.right = right  # type: Optional[Node[T]]
