@@ -18,9 +18,7 @@ from typing import cast
 from typing import Type
 from typing import NewType
 from typing import NamedTuple
-from typing import IO, TextIO, BinaryIO
 from typing import Pattern, Match
-import abc
 import typing
 import weakref
 try:
@@ -1120,9 +1118,6 @@ class ForwardRefTests(BaseTestCase):
 
 
 class OverloadTests(BaseTestCase):
-
-    def test_overload_exists(self):
-        from typing import overload
 
     def test_overload_fails(self):
         from typing import overload

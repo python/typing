@@ -17,7 +17,6 @@ ignore =
   E501,
   E701,
   E704,
-  F401,
   F811,
   F841,
   # irrelevant plugins

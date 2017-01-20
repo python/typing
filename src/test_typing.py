@@ -1317,9 +1317,6 @@ class ForwardRefTests(BaseTestCase):
 
 class OverloadTests(BaseTestCase):
 
-    def test_overload_exists(self):
-        from typing import overload
-
     def test_overload_fails(self):
         from typing import overload
 
