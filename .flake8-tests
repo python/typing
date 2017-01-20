@@ -11,7 +11,6 @@ builtins = basestring, unicode
 ignore =
   # temporary ignores until we sort it out
   E128,
-  E231,
   E306,
   E501,
   E701,

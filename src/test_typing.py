@@ -701,7 +701,7 @@ class GenericTests(BaseTestCase):
         self.assertFalse(naive_generic_check(Node[str](), Node[int]))
         self.assertFalse(naive_generic_check(Node[str](), List))
         with self.assertRaises(NotImplementedError):
-            naive_generic_check([1,2,3], Node[int])
+            naive_generic_check([1, 2, 3], Node[int])
 
         def naive_list_base_check(obj, tp):
             # Check if list conforms to a List subclass
