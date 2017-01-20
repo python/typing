@@ -1649,8 +1649,9 @@ class AllTests(BaseTestCase):
         @typing.no_type_check
         class NoTpCheck(object):
             class Inn(object):
-                def __init__(self, x): pass
-                    # type: (this is not actualy a type) -> None
+                def __init__(self, x):
+                    # type: (this is not actually a type) -> None
+                    pass
         self.assertTrue(NoTpCheck.__no_type_check__)
         self.assertTrue(NoTpCheck.Inn.__init__.__no_type_check__)
 
