@@ -612,8 +612,10 @@ class GenericTests(BaseTestCase):
         self.assertEqual(repr(typing.Mapping[T, TS][TS, T]), 'typing.Mapping[~TS, ~T]')
         self.assertEqual(repr(List[Tuple[T, TS]][int, T]),
                          'typing.List[typing.Tuple[int, ~T]]')
-        self.assertEqual(repr(List[Tuple[T, T]][List[int]]),
-                 'typing.List[typing.Tuple[typing.List[int], typing.List[int]]]')
+        self.assertEqual(
+            repr(List[Tuple[T, T]][List[int]]),
+            'typing.List[typing.Tuple[typing.List[int], typing.List[int]]]'
+        )
 
     def test_new_repr_bare(self):
         T = TypeVar('T')
@@ -684,8 +686,10 @@ class GenericTests(BaseTestCase):
                 raise NotImplementedError
             if tp.__args__:
                 KT, VT = tp.__args__
-                return all(isinstance(k, KT) and isinstance(v, VT)
-                   for k, v in obj.items())
+                return all(
+                    isinstance(k, KT) and isinstance(v, VT)
+                    for k, v in obj.items()
+                )
         self.assertTrue(naive_dict_check({'x': 1}, typing.Dict[str, int]))
         self.assertFalse(naive_dict_check({1: 'x'}, typing.Dict[str, int]))
         with self.assertRaises(NotImplementedError):
@@ -1750,7 +1754,7 @@ class CollectionsAbcTests(BaseTestCase):
     def test_async_generator(self):
         ns = {}
         exec("async def f():\n"
-            "    yield 42\n", globals(), ns)
+             "    yield 42\n", globals(), ns)
         g = ns['f']()
         self.assertIsSubclass(type(g), typing.AsyncGenerator)
 

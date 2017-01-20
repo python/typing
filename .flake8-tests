@@ -11,7 +11,6 @@ builtins = basestring, unicode
 max-line-length = 90
 ignore =
   # temporary ignores until we sort it out
-  E128,
   E306,
   E701,
   E704,
