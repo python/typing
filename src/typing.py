@@ -1994,8 +1994,8 @@ class NamedTupleMeta(type):
                 defaults.append(default_value)
                 defaults_dict[field_name] = default_value
             elif defaults:
-                raise TypeError("Non-default namedtuple field {field_name} cannot follow default"
-                                " field(s) {default_names}"
+                raise TypeError("Non-default namedtuple field {field_name} cannot "
+                                "follow default field(s) {default_names}"
                                 .format(field_name=field_name,
                                         default_names=', '.join(defaults_dict.keys())))
         nm_tpl.__new__.__defaults__ = tuple(defaults)

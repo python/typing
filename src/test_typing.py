@@ -773,7 +773,10 @@ class GenericTests(BaseTestCase):
     def test_generic_forward_ref(self):
         def foobar(x: List[List['CC']]): ...
         class CC: ...
-        self.assertEqual(get_type_hints(foobar, globals(), locals()), {'x': List[List[CC]]})
+        self.assertEqual(
+            get_type_hints(foobar, globals(), locals()),
+            {'x': List[List[CC]]}
+        )
         T = TypeVar('T')
         AT = Tuple[T, ...]
         def barfoo(x: AT): ...
@@ -1430,7 +1433,8 @@ class GetTypeHintTests(BaseTestCase):
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_modules(self):
-        self.assertEqual(gth(ann_module), {1: 2, 'f': Tuple[int, int], 'x': int, 'y': str})
+        ann_module_type_hints = {1: 2, 'f': Tuple[int, int], 'x': int, 'y': str}
+        self.assertEqual(gth(ann_module), ann_module_type_hints)
         self.assertEqual(gth(ann_module2), {})
         self.assertEqual(gth(ann_module3), {})
 

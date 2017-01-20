@@ -855,11 +855,28 @@ class GenericTests(BaseTestCase):
     def test_copy_and_deepcopy(self):
         T = TypeVar('T')
         class Node(Generic[T]): pass
-        things = [Any, Union[T, int], Tuple[T, int], Callable[..., T], Callable[[int], int],
-                  Tuple[Any, Any], Node[T], Node[int], Node[Any], typing.Iterable[T],
-                  typing.Iterable[Any], typing.Iterable[int], typing.Dict[int, str],
-                  typing.Dict[T, Any], ClassVar[int], ClassVar[List[T]], Tuple['T', 'T'],
-                  Union['T', int], List['T'], typing.Mapping['T', int]]
+        things = [
+            Any,
+            Callable[..., T],
+            Callable[[int], int],
+            ClassVar[List[T]],
+            ClassVar[int],
+            List['T'],
+            Node[Any],
+            Node[T],
+            Node[int],
+            Tuple['T', 'T'],
+            Tuple[Any, Any],
+            Tuple[T, int],
+            Union['T', int],
+            Union[T, int],
+            typing.Dict[T, Any],
+            typing.Dict[int, str],
+            typing.Iterable[Any],
+            typing.Iterable[T],
+            typing.Iterable[int],
+            typing.Mapping['T', int]
+        ]
         for t in things:
             self.assertEqual(t, deepcopy(t))
             self.assertEqual(t, copy(t))
