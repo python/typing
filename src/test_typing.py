@@ -2046,19 +2046,19 @@ class NamedTupleTests(BaseTestCase):
         self.assertEqual(CoolEmployeeWithDefault._field_types, dict(name=str, cool=int))
         self.assertEqual(CoolEmployeeWithDefault._field_defaults, dict(cool=0))
 
-    @skipUnless(PY36, 'Python 3.6 required')
-    def test_annotation_usage_with_methods(self):
-        self.assertEquals(XMeth(1).double(), 2)
-        self.assertEquals(XMeth(42).x, XMeth(42)[0])
-        self.assertEquals(XMethBad(1)._fields, ('x',))
-        self.assertEquals(XMethBad(1).__annotations__, {'x': int})
-
         with self.assertRaises(TypeError):
             exec("""
 class NonDefaultAfterDefault(NamedTuple):
     x: int = 3
     y: int
 """)
+
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_annotation_usage_with_methods(self):
+        self.assertEquals(XMeth(1).double(), 2)
+        self.assertEquals(XMeth(42).x, XMeth(42)[0])
+        self.assertEquals(XMethBad(1)._fields, ('x',))
+        self.assertEquals(XMethBad(1).__annotations__, {'x': int})
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_namedtuple_keyword_usage(self):
