@@ -502,6 +502,7 @@ class ProtocolTests(BaseTestCase):
         c = C2()
         self.assertIsInstance(c, C1)
 
+
 class GenericTests(BaseTestCase):
 
     def test_basics(self):
@@ -1046,6 +1047,7 @@ class GenericTests(BaseTestCase):
         with self.assertRaises(Exception):
             D[T]
 
+
 class ClassVarTests(BaseTestCase):
 
     def test_basics(self):
@@ -1464,6 +1466,7 @@ class CollectionsAbcTests(BaseTestCase):
         class B: pass
         A.register(B)
         self.assertIsSubclass(B, typing.Mapping)
+
 
 class TypeTests(BaseTestCase):
 

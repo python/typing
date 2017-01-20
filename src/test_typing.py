@@ -1094,6 +1094,7 @@ class GenericTests(BaseTestCase):
         with self.assertRaises(Exception):
             D[T]
 
+
 class ClassVarTests(BaseTestCase):
 
     def test_basics(self):
@@ -1383,6 +1384,7 @@ if ASYNCIO:
         ASYNCIO = False
 else:
     # fake names for the sake of static analysis
+    asyncio = None
     AwaitableWrapper = AsyncIteratorWrapper = object
 
 PY36 = sys.version_info[:2] >= (3, 6)
@@ -1417,6 +1419,7 @@ else:
     A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
 
 gth = get_type_hints
+
 
 class GetTypeHintTests(BaseTestCase):
     def test_get_type_hints_from_various_objects(self):
