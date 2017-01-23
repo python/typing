@@ -1418,11 +1418,6 @@ class XMeth(NamedTuple):
     x: int
     def double(self):
         return 2 * self.x
-
-class XMethBad(NamedTuple):
-    x: int
-    def _fields(self):
-        return 'no chance for this'
 """
 
 if PY36:
@@ -2057,8 +2052,14 @@ class NonDefaultAfterDefault(NamedTuple):
     def test_annotation_usage_with_methods(self):
         self.assertEquals(XMeth(1).double(), 2)
         self.assertEquals(XMeth(42).x, XMeth(42)[0])
-        self.assertEquals(XMethBad(1)._fields, ('x',))
-        self.assertEquals(XMethBad(1).__annotations__, {'x': int})
+
+        with self.assertRaises(AttributeError):
+            exec("""
+class XMethBad(NamedTuple):
+    x: int
+    def _fields(self):
+        return 'no chance for this'
+""")
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_namedtuple_keyword_usage(self):
