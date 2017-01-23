@@ -2004,6 +2004,11 @@ class NamedTupleMeta(type):
         for key in ns:
             if not hasattr(nm_tpl, key):
                 setattr(nm_tpl, key, ns[key])
+            elif (
+                key not in ['__module__', '__qualname__', '__annotations__'] and
+                key not in nm_tpl._field_defaults
+            ):
+                raise AttributeError("Cannot overwrite NamedTuple attribute " + key)
         return nm_tpl
 
 
