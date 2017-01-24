@@ -2049,8 +2049,8 @@ class NonDefaultAfterDefault(NamedTuple):
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_annotation_usage_with_methods(self):
-        self.assertEquals(XMeth(1).double(), 2)
-        self.assertEquals(XMeth(42).x, XMeth(42)[0])
+        self.assertEqual(XMeth(1).double(), 2)
+        self.assertEqual(XMeth(42).x, XMeth(42)[0])
 
         with self.assertRaises(AttributeError):
             exec("""
