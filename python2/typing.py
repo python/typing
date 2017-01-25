@@ -1718,6 +1718,7 @@ class Deque(collections.deque, MutableSequence[T]):
             return collections.deque(*args, **kwds)
         return _generic_new(collections.deque, cls, *args, **kwds)
 
+
 class Counter(collections.Counter, MutableSequence[T]):
     __slots__ = ()
     __extra__ = collections.Counter
@@ -1727,6 +1728,7 @@ class Counter(collections.Counter, MutableSequence[T]):
             raise TypeError("Type Counter cannot be instantiated; "
                             "use Counter() instead")
         return _generic_new(collections.Counter, cls, *args, **kwds)
+
 
 class Set(set, MutableSet[T]):
     __slots__ = ()

@@ -1829,6 +1829,7 @@ class Deque(collections.deque, MutableSequence[T], extra=collections.deque):
             return collections.deque(*args, **kwds)
         return _generic_new(collections.deque, cls, *args, **kwds)
 
+
 class Counter(collections.Counter, MutableSequence[T], extra=collections.Counter):
 
     __slots__ = ()
@@ -1838,6 +1839,7 @@ class Counter(collections.Counter, MutableSequence[T], extra=collections.Counter
             raise TypeError("Type Counter cannot be instantiated; "
                             "use Counter() instead")
         return _generic_new(collections.Counter, cls, *args, **kwds)
+
 
 class Set(set, MutableSet[T], extra=set):
 
@@ -1907,6 +1909,7 @@ class DefaultDict(collections.defaultdict, MutableMapping[KT, VT],
             return collections.defaultdict(*args, **kwds)
         return _generic_new(collections.defaultdict, cls, *args, **kwds)
 
+
 if hasattr(collections, 'ChainMap'):
     # ChainMap only exists in 3.3+
     __all__.append('ChainMap')
@@ -1921,6 +1924,7 @@ if hasattr(collections, 'ChainMap'):
                 raise TypeError("Type ChainMap cannot be instantiated; "
                                 "use collections.ChainMap() instead")
             return _generic_new(collections.ChainMap, cls, *args, **kwds)
+
 
 # Determine what base class to use for Generator.
 if hasattr(collections_abc, 'Generator'):
