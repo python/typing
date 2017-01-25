@@ -53,6 +53,7 @@ __all__ = [
     'SupportsInt',
 
     # Concrete collection types.
+    'Counter',
     'Deque',
     'Dict',
     'DefaultDict',
@@ -1717,6 +1718,15 @@ class Deque(collections.deque, MutableSequence[T]):
             return collections.deque(*args, **kwds)
         return _generic_new(collections.deque, cls, *args, **kwds)
 
+class Counter(collections.Counter, MutableSequence[T]):
+    __slots__ = ()
+    __extra__ = collections.Counter
+
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Counter):
+            raise TypeError("Type Counter cannot be instantiated; "
+                            "use Counter() instead")
+        return _generic_new(collections.Counter, cls, *args, **kwds)
 
 class Set(set, MutableSet[T]):
     __slots__ = ()
