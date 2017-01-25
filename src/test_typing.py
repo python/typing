@@ -892,6 +892,9 @@ class GenericTests(BaseTestCase):
         class MyDef(typing.DefaultDict[str, T]): ...
         self.assertIs(MyDef[int]().__class__, MyDef)
         self.assertIs(MyDef[int]().__orig_class__, MyDef[int])
+
+    @skipUnless(sys.version_info >= (3, 3), 'ChainMap was added in 3.3')
+    def test_chainmap_type_erasure_special(self):
         class MyChain(typing.ChainMap[str, T]): ...
         self.assertIs(MyChain[int]().__class__, MyChain)
         self.assertIs(MyChain[int]().__orig_class__, MyChain[int])
@@ -1735,6 +1738,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(MyDefDict, collections.defaultdict)
         self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
 
+    @skipUnless(sys.version_info >= (3, 3), 'ChainMap was added in 3.3')
     def test_no_chainmap_instantiation(self):
         with self.assertRaises(TypeError):
             typing.ChainMap()
@@ -1743,6 +1747,7 @@ class CollectionsAbcTests(BaseTestCase):
         with self.assertRaises(TypeError):
             typing.ChainMap[str, int]()
 
+    @skipUnless(sys.version_info >= (3, 3), 'ChainMap was added in 3.3')
     def test_chainmap_subclass(self):
 
         class MyChainMap(typing.ChainMap[str, int]):
