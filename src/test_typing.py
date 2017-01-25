@@ -892,6 +892,9 @@ class GenericTests(BaseTestCase):
         class MyDef(typing.DefaultDict[str, T]): ...
         self.assertIs(MyDef[int]().__class__, MyDef)
         self.assertIs(MyDef[int]().__orig_class__, MyDef[int])
+        class MyChain(typing.ChainMap[str, T]): ...
+        self.assertIs(MyChain[int]().__class__, MyChain)
+        self.assertIs(MyChain[int]().__orig_class__, MyChain[int])
 
     def test_all_repr_eq_any(self):
         objs = (getattr(typing, el) for el in typing.__all__)
@@ -1731,6 +1734,25 @@ class CollectionsAbcTests(BaseTestCase):
 
         self.assertIsSubclass(MyDefDict, collections.defaultdict)
         self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
+
+    def test_no_chainmap_instantiation(self):
+        with self.assertRaises(TypeError):
+            typing.ChainMap()
+        with self.assertRaises(TypeError):
+            typing.ChainMap[KT, VT]()
+        with self.assertRaises(TypeError):
+            typing.ChainMap[str, int]()
+
+    def test_chainmap_subclass(self):
+
+        class MyChainMap(typing.ChainMap[str, int]):
+            pass
+
+        cm = MyChainMap()
+        self.assertIsInstance(cm, MyChainMap)
+
+        self.assertIsSubclass(MyChainMap, collections.ChainMap)
+        self.assertNotIsSubclass(collections.ChainMap, MyChainMap)
 
     def test_deque_instantiation(self):
         self.assertIs(type(typing.Deque()), collections.deque)

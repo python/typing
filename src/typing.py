@@ -62,6 +62,7 @@ __all__ = [
     'SupportsRound',
 
     # Concrete collection types.
+    'ChainMap',
     'Counter',
     'Deque',
     'Dict',
@@ -1907,6 +1908,16 @@ class DefaultDict(collections.defaultdict, MutableMapping[KT, VT],
             return collections.defaultdict(*args, **kwds)
         return _generic_new(collections.defaultdict, cls, *args, **kwds)
 
+class ChainMap(collections.ChainMap, MutableMapping[KT, VT],
+               extra=collections.ChainMap):
+
+    __slots__ = ()
+
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, ChainMap):
+            raise TypeError("Type ChainMap cannot be instantiated; "
+                            "use collections.ChainMap() instead")
+        return _generic_new(collections.ChainMap, cls, *args, **kwds)
 
 # Determine what base class to use for Generator.
 if hasattr(collections_abc, 'Generator'):
