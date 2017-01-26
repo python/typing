@@ -1461,8 +1461,8 @@ def get_type_hints(obj, globalns=None, localns=None):
             isinstance(obj, types.BuiltinFunctionType) or
             isinstance(obj, types.MethodType) or
             isinstance(obj, types.ModuleType) or
-			isinstance(obj, _wrapper_descriptor_type) or
-			isinstance(obj, _method_wrapper_type)
+            isinstance(obj, _wrapper_descriptor_type) or
+            isinstance(obj, _method_wrapper_type)
         ):
             return {}
         else:
