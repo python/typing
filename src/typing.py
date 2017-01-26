@@ -1398,6 +1398,10 @@ def _get_defaults(func):
     return res
 
 
+# Types of builtin C methods
+_wrapper_descriptor_type = type(object.__init__)
+_method_wrapper_type = type(object().__str__)
+
 def get_type_hints(obj, globalns=None, localns=None):
     """Return type hints for an object.
 
@@ -1456,7 +1460,9 @@ def get_type_hints(obj, globalns=None, localns=None):
             isinstance(obj, types.FunctionType) or
             isinstance(obj, types.BuiltinFunctionType) or
             isinstance(obj, types.MethodType) or
-            isinstance(obj, types.ModuleType)
+            isinstance(obj, types.ModuleType) or
+			isinstance(obj, _wrapper_descriptor_type) or
+			isinstance(obj, _method_wrapper_type)
         ):
             return {}
         else:

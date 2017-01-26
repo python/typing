@@ -1482,6 +1482,8 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(gth(type), {})
         self.assertEqual(gth(dir), {})
         self.assertEqual(gth(len), {})
+        self.assertEqual(gth(object.__str__), {})
+        self.assertEqual(gth(object().__str__), {})
 
     def test_previous_behavior(self):
         def testf(x, y): ...
