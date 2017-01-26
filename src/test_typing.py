@@ -771,10 +771,11 @@ class GenericTests(BaseTestCase):
         self.assertNotEqual(Union[A[str], A[str]], Union[A[str], mod.A[str]])
         self.assertNotEqual(typing.FrozenSet[A[str]], typing.FrozenSet[mod.B.A[str]])
 
-        self.assertTrue(repr(Tuple[A[str]]).endswith('<locals>.A[str]]'))
-        self.assertTrue(repr(Tuple[B.A[str]]).endswith('<locals>.B.A[str]]'))
-        self.assertTrue(repr(Tuple[mod.A[str]]).endswith('mod.A[str]]'))
-        self.assertTrue(repr(Tuple[mod.B.A[str]]).endswith('mod.B.A[str]]'))
+        if sys.version_info[:2] > (3, 2):
+            self.assertTrue(repr(Tuple[A[str]]).endswith('<locals>.A[str]]'))
+            self.assertTrue(repr(Tuple[B.A[str]]).endswith('<locals>.B.A[str]]'))
+            self.assertTrue(repr(Tuple[mod.A[str]]).endswith('mod.A[str]]'))
+            self.assertTrue(repr(Tuple[mod.B.A[str]]).endswith('mod.B.A[str]]'))
 
     def test_extended_generic_rules_eq(self):
         T = TypeVar('T')
