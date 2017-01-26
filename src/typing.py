@@ -1975,6 +1975,12 @@ def _make_nmtuple(name, types):
 
 _PY36 = sys.version_info[:2] >= (3, 6)
 
+# attributes prohibited to set in NamedTuple class syntax
+_prohibited = ('__new__', '__init__', '__slots__', '__getnewargs__',
+               '_fields', '_field_defaults', '_field_types',
+               '_make', '_replace', '_asdict')
+
+_special = ('__module__', '__name__', '__qualname__', '__annotations__')
 
 class NamedTupleMeta(type):
 
@@ -2002,12 +2008,9 @@ class NamedTupleMeta(type):
         nm_tpl._field_defaults = defaults_dict
         # update from user namespace without overriding special namedtuple attributes
         for key in ns:
-            if not hasattr(nm_tpl, key):
+            if key not in _prohibited + _special + nm_tpl._fields:
                 setattr(nm_tpl, key, ns[key])
-            elif (
-                key not in ['__module__', '__qualname__', '__annotations__'] and
-                key not in nm_tpl._field_defaults
-            ):
+            elif key in _prohibited:
                 raise AttributeError("Cannot overwrite NamedTuple attribute " + key)
         return nm_tpl
 
