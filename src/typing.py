@@ -1982,6 +1982,7 @@ _prohibited = ('__new__', '__init__', '__slots__', '__getnewargs__',
 
 _special = ('__module__', '__name__', '__qualname__', '__annotations__')
 
+
 class NamedTupleMeta(type):
 
     def __new__(cls, typename, bases, ns):
