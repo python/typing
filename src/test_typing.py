@@ -192,7 +192,7 @@ class TypeVarTests(BaseTestCase):
 
     def test_no_bivariant(self):
         with self.assertRaises(ValueError):
-            T = TypeVar('T', covariant=True, contravariant=True)
+            TypeVar('T', covariant=True, contravariant=True)
 
 
 class UnionTests(BaseTestCase):
