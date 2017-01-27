@@ -1005,7 +1005,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 
         if origin and hasattr(origin, '__qualname__'):  # Fix for Python 3.2.
             self.__qualname__ = origin.__qualname__
-        self.__tree_hash__ = hash(self._subs_tree()) if origin else hash((self.__name__,))
+        self.__tree_hash__ = (hash(self._subs_tree()) if origin else
+                              super(GenericMeta, self).__hash__())
         return self
 
     def _get_type_vars(self, tvars):
