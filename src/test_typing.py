@@ -1774,6 +1774,16 @@ class CollectionsAbcTests(BaseTestCase):
         with self.assertRaises(TypeError):
             typing.Counter[int]()
 
+    def test_counter_subclass_instantiation(self):
+
+        class MyCounter(typing.Counter[int]):
+            pass
+
+        d = MyCounter()
+        self.assertIsInstance(d, MyCounter)
+        self.assertIsInstance(d, typing.Counter)
+        self.assertIsInstance(d, collections.Counter)
+
     def test_no_set_instantiation(self):
         with self.assertRaises(TypeError):
             typing.Set()

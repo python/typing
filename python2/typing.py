@@ -1791,7 +1791,7 @@ class Counter(collections.Counter, Dict[T, int]):
     def __new__(cls, *args, **kwds):
         if _geqv(cls, Counter):
             raise TypeError("Type Counter cannot be instantiated; "
-                            "use Counter() instead")
+                            "use collections.Counter() instead")
         return _generic_new(collections.Counter, cls, *args, **kwds)
 
 
