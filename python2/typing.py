@@ -1719,7 +1719,7 @@ class Deque(collections.deque, MutableSequence[T]):
         return _generic_new(collections.deque, cls, *args, **kwds)
 
 
-class Counter(collections.Counter, MutableSequence[T]):
+class Counter(collections.Counter, Dict[T, int]):
     __slots__ = ()
     __extra__ = collections.Counter
 
