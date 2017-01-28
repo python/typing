@@ -261,7 +261,6 @@ class UnionTests(BaseTestCase):
         u = Union[List[int], int]
         self.assertEqual(repr(u), 'typing.Union[typing.List[int], int]')
 
-
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(Union):
