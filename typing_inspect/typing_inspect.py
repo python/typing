@@ -29,7 +29,8 @@ def is_generic_type(tp):
         is_generic_type(Sequence[Union[str, bytes]]) == True
     """
 
-    return type(tp) is type(Generic)
+    return (isinstance(tp, type(Generic)) and not
+            isinstance(tp, (type(Callable), type(Tuple))))
 
 
 def is_callable_type(tp):
@@ -104,14 +105,10 @@ def get_origin(tp):
         get_origin(List[Tuple[T, T]][int]) == List
     """
 
-    if is_generic_type(tp):
+    if isinstance(tp, type(Generic)):
         return _gorg(tp)
     if is_union_type(tp):
         return Union
-    if is_callable_type(tp):
-        return Callable
-    if is_tuple_type(tp):
-        return Tuple
 
     return None
 
