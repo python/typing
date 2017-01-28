@@ -83,6 +83,5 @@ def get_args(tp, evaluate=False):
         if isinstance(tree, tuple) and len(tree) > 1:
             if not evaluate:
                 return tree[1:]
-            return _eval_args(tree[1:]) 
+            return _eval_args(tree[1:])
     return ()
-
