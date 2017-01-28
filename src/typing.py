@@ -1830,17 +1830,6 @@ class Deque(collections.deque, MutableSequence[T], extra=collections.deque):
         return _generic_new(collections.deque, cls, *args, **kwds)
 
 
-class Counter(collections.Counter, Dict[T, int], extra=collections.Counter):
-
-    __slots__ = ()
-
-    def __new__(cls, *args, **kwds):
-        if _geqv(cls, Counter):
-            raise TypeError("Type Counter cannot be instantiated; "
-                            "use Counter() instead")
-        return _generic_new(collections.Counter, cls, *args, **kwds)
-
-
 class Set(set, MutableSet[T], extra=set):
 
     __slots__ = ()
@@ -1908,6 +1897,17 @@ class DefaultDict(collections.defaultdict, MutableMapping[KT, VT],
         if _geqv(cls, DefaultDict):
             return collections.defaultdict(*args, **kwds)
         return _generic_new(collections.defaultdict, cls, *args, **kwds)
+
+
+class Counter(collections.Counter, Dict[T, int], extra=collections.Counter):
+
+    __slots__ = ()
+
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Counter):
+            raise TypeError("Type Counter cannot be instantiated; "
+                            "use Counter() instead")
+        return _generic_new(collections.Counter, cls, *args, **kwds)
 
 
 if hasattr(collections, 'ChainMap'):

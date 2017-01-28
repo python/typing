@@ -1719,17 +1719,6 @@ class Deque(collections.deque, MutableSequence[T]):
         return _generic_new(collections.deque, cls, *args, **kwds)
 
 
-class Counter(collections.Counter, Dict[T, int]):
-    __slots__ = ()
-    __extra__ = collections.Counter
-
-    def __new__(cls, *args, **kwds):
-        if _geqv(cls, Counter):
-            raise TypeError("Type Counter cannot be instantiated; "
-                            "use Counter() instead")
-        return _generic_new(collections.Counter, cls, *args, **kwds)
-
-
 class Set(set, MutableSet[T]):
     __slots__ = ()
     __extra__ = set
@@ -1793,6 +1782,17 @@ class DefaultDict(collections.defaultdict, MutableMapping[KT, VT]):
         if _geqv(cls, DefaultDict):
             return collections.defaultdict(*args, **kwds)
         return _generic_new(collections.defaultdict, cls, *args, **kwds)
+
+
+class Counter(collections.Counter, Dict[T, int]):
+    __slots__ = ()
+    __extra__ = collections.Counter
+
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Counter):
+            raise TypeError("Type Counter cannot be instantiated; "
+                            "use Counter() instead")
+        return _generic_new(collections.Counter, cls, *args, **kwds)
 
 
 # Determine what base class to use for Generator.
