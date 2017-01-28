@@ -225,6 +225,15 @@ class _ForwardRef(_TypingBase):
             self.__forward_evaluated__ = True
         return self.__forward_value__
 
+    def __eq__(self, other):
+        if not isinstance(other, _ForwardRef):
+            return NotImplemented
+        return (self.__forward_arg__ == other.__forward_arg__ and
+                self.__forward_value__ == other.__forward_value__)
+
+    def __hash__(self):
+        return hash((self.__forward_arg__, self.__forward_value__))
+
     def __instancecheck__(self, obj):
         raise TypeError("Forward references cannot be used with isinstance().")
 
@@ -280,6 +289,14 @@ class _TypeAlias(_TypingBase):
             raise TypeError("%s cannot be re-parameterized." % self)
         return self.__class__(self.name, parameter,
                               self.impl_type, self.type_checker)
+
+    def __eq__(self, other):
+        if not isinstance(other, _TypeAlias):
+            return NotImplemented
+        return self.name == other.name and self.type_var == other.type_var
+
+    def __hash__(self):
+        return hash((self.name, self.type_var))
 
     def __instancecheck__(self, obj):
         if not isinstance(self.type_var, TypeVar):
@@ -1064,10 +1081,9 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # with issubclass() and isinstance() in the same way as their
         # collections.abc counterparts (e.g., isinstance([], Iterable)).
         if (
-            # allow overriding
             '__subclasshook__' not in namespace and extra or
-            hasattr(self.__subclasshook__, '__name__') and
-            self.__subclasshook__.__name__ == '__extrahook__'
+            # allow overriding
+            getattr(self.__subclasshook__, '__name__', '') == '__extrahook__'
         ):
             self.__subclasshook__ = _make_subclasshook(self)
 
@@ -1245,6 +1261,10 @@ class Generic(object):
             raise TypeError("Type Generic cannot be instantiated; "
                             "it can be used only as a base class")
         return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
+
+
+# prevent class and instance checks against plain Generic
+Generic.__subclasshook__ = _make_subclasshook(Generic)
 
 
 class _TypingEmpty(object):

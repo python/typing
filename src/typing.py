@@ -994,10 +994,9 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # with issubclass() and isinstance() in the same way as their
         # collections.abc counterparts (e.g., isinstance([], Iterable)).
         if (
-            # allow overriding
             '__subclasshook__' not in namespace and extra or
-            hasattr(self.__subclasshook__, '__name__') and
-            self.__subclasshook__.__name__ == '__extrahook__'
+            # allow overriding
+            getattr(self.__subclasshook__, '__name__', '') == '__extrahook__'
         ):
             self.__subclasshook__ = _make_subclasshook(self)
         if isinstance(extra, abc.ABCMeta):
@@ -1170,6 +1169,10 @@ class Generic(metaclass=GenericMeta):
             raise TypeError("Type Generic cannot be instantiated; "
                             "it can be used only as a base class")
         return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
+
+
+# prevent class and instance checks against plain Generic
+Generic.__subclasshook__ = _make_subclasshook(Generic)
 
 
 class _TypingEmpty:
