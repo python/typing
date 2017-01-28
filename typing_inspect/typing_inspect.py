@@ -7,26 +7,7 @@ Example usage::
 
 # NOTE: This module must support Python 2.7 in addition to Python 3.x
 
-from typing import (
-    Callable, Union, Tuple, TypeVar, GenericMeta, _gorg, _Union, _ClassVar,
-)
-
-
-def _eval_args(args):
-    res = []
-    for arg in args:
-        if not isinstance(arg, tuple):
-            res.append(arg)
-        elif is_callable_type(arg[0]):
-            if len(arg) == 2:
-                res.append(Callable[[], arg[1]])
-            elif arg[1] is Ellipsis:
-                res.append(Callable[..., arg[2]])
-            else:
-                res.append(Callable[list(arg[1:-1]), arg[-1]])
-        else:
-            res.append(type(arg[0]).__getitem__(arg[0], _eval_args(arg[1:])))
-    return tuple(res)
+from typing import Callable, Union, Tuple, TypeVar, _gorg, ClassVar, Generic
 
 
 def is_generic_type(tp):
@@ -48,26 +29,7 @@ def is_generic_type(tp):
         is_generic_type(Sequence[Union[str, bytes]]) == True
     """
 
-    return type(tp) is GenericMeta
-
-
-def get_origin(tp):
-    """Get the unsubscripted version of a type. Supports generic types, Union,
-    Callable, and Tuple. Returns None for unsupported types. Examples::
-
-        get_origin(int) == None
-        get_origin(ClassVar[int]) == None
-        get_origin(Generic) == Generic
-        get_origin(Generic[T]) == Generic
-        get_origin(Union[T, int]) == Union
-        get_origin(List[Tuple[T, T]][int]) == List
-    """
-
-    if is_generic_type(tp):
-        return _gorg(tp)
-    if is_union_type(tp):
-        return Union
-    return None
+    return type(tp) is type(Generic)
 
 
 def is_callable_type(tp):
@@ -80,7 +42,7 @@ def is_callable_type(tp):
         is_callable_type(Callable[[int, int], Iterable[str]]) == True
     """
 
-    return get_origin(tp) is Callable
+    return type(tp) is type(Callable)
 
 
 def is_tuple_type(tp):
@@ -92,7 +54,7 @@ def is_tuple_type(tp):
         is_tuple_type(Tuple[str, int]) == True
     """
 
-    return get_origin(tp) is Tuple
+    return type(tp) is type(Tuple)
 
 
 def is_union_type(tp):
@@ -104,7 +66,7 @@ def is_union_type(tp):
         is_union_type(Union[T, int]) == True
     """
 
-    return type(tp) is _Union
+    return type(tp) is type(Union)
 
 
 def is_typevar(tp):
@@ -127,7 +89,31 @@ def is_classvar(tp):
         is_classvar(ClassVar[List[T]]) == True
     """
 
-    return type(tp) is _ClassVar
+    return type(tp) is type(ClassVar)
+
+
+def get_origin(tp):
+    """Get the unsubscripted version of a type. Supports generic types, Union,
+    Callable, and Tuple. Returns None for unsupported types. Examples::
+
+        get_origin(int) == None
+        get_origin(ClassVar[int]) == None
+        get_origin(Generic) == Generic
+        get_origin(Generic[T]) == Generic
+        get_origin(Union[T, int]) == Union
+        get_origin(List[Tuple[T, T]][int]) == List
+    """
+
+    if is_generic_type(tp):
+        return _gorg(tp)
+    if is_union_type(tp):
+        return Union
+    if is_callable_type(tp):
+        return Callable
+    if is_tuple_type(tp):
+        return Tuple
+
+    return None
 
 
 def get_parameters(tp):
@@ -169,6 +155,24 @@ def get_last_args(tp):
     if is_generic_type(tp) or is_union_type(tp):
         return tp.__args__
     return ()
+
+
+def _eval_args(args):
+    """Internal helper for get_args."""
+    res = []
+    for arg in args:
+        if not isinstance(arg, tuple):
+            res.append(arg)
+        elif is_callable_type(arg[0]):
+            if len(arg) == 2:
+                res.append(Callable[[], arg[1]])
+            elif arg[1] is Ellipsis:
+                res.append(Callable[..., arg[2]])
+            else:
+                res.append(Callable[list(arg[1:-1]), arg[-1]])
+        else:
+            res.append(type(arg[0]).__getitem__(arg[0], _eval_args(arg[1:])))
+    return tuple(res)
 
 
 def get_args(tp, evaluate=False):
