@@ -1714,8 +1714,7 @@ class Deque(collections.deque, MutableSequence[T]):
 
     def __new__(cls, *args, **kwds):
         if _geqv(cls, Deque):
-            raise TypeError("Type Deque cannot be instantiated; "
-                            "use deque() instead")
+            return collections.deque(*args, **kwds)
         return _generic_new(collections.deque, cls, *args, **kwds)
 
 
@@ -1780,8 +1779,7 @@ class DefaultDict(collections.defaultdict, MutableMapping[KT, VT]):
 
     def __new__(cls, *args, **kwds):
         if _geqv(cls, DefaultDict):
-            raise TypeError("Type DefaultDict cannot be instantiated; "
-                            "use collections.defaultdict() instead")
+            return collections.defaultdict(*args, **kwds)
         return _generic_new(collections.defaultdict, cls, *args, **kwds)
 
 

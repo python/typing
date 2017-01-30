@@ -1713,13 +1713,10 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(MyDict, dict)
         self.assertNotIsSubclass(dict, MyDict)
 
-    def test_no_defaultdict_instantiation(self):
-        with self.assertRaises(TypeError):
-            typing.DefaultDict()
-        with self.assertRaises(TypeError):
-            typing.DefaultDict[KT, VT]()
-        with self.assertRaises(TypeError):
-            typing.DefaultDict[str, int]()
+    def test_defaultdict_instantiation(self):
+        self.assertIs(type(typing.DefaultDict()), collections.defaultdict)
+        self.assertIs(type(typing.DefaultDict[KT, VT]()), collections.defaultdict)
+        self.assertIs(type(typing.DefaultDict[str, int]()), collections.defaultdict)
 
     def test_defaultdict_subclass(self):
 
@@ -1732,13 +1729,12 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(MyDefDict, collections.defaultdict)
         self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
 
-    def test_no_deque_instantiation(self):
-        with self.assertRaises(TypeError):
-            typing.Deque()
-        with self.assertRaises(TypeError):
-            typing.Deque[T]()
-        with self.assertRaises(TypeError):
-            typing.Deque[int]()
+    def test_deque_instantiation(self):
+        self.assertIs(type(typing.Deque()), collections.deque)
+        self.assertIs(type(typing.Deque[T]()), collections.deque)
+        self.assertIs(type(typing.Deque[int]()), collections.deque)
+        class D(typing.Deque[T]): ...
+        self.assertIs(type(D[int]()), D)
 
     def test_no_set_instantiation(self):
         with self.assertRaises(TypeError):
