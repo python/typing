@@ -34,25 +34,43 @@ def is_generic_type(tp):
 
 
 def is_callable_type(tp):
-    """Test if the type is a generic callable type. Examples::
+    """Test if the type is a generic callable type, including subclasses
+    excluding non-generic types and callables.
+    Examples::
 
         is_callable_type(int) == False
         is_callable_type(type) == False
         is_callable_type(Callable) == True
         is_callable_type(Callable[..., int]) == True
         is_callable_type(Callable[[int, int], Iterable[str]]) == True
+        class MyClass(Callable[[int], int]):
+            ...
+        is_callable_type(MyClass) == True
+
+    For more general tests use callable(), for more precise test use::
+
+        get_origin(tp) is Callable
     """
 
     return type(tp) is type(Callable)
 
 
 def is_tuple_type(tp):
-    """Test if the type is a generic tuple type. Examples::
+    """Test if the type is a generic tuple type, including subclasses excluding
+    non-generic classes.
+    Examples::
 
         is_tuple_type(int) == False
         is_tuple_type(tuple) == False
         is_tuple_type(Tuple) == True
         is_tuple_type(Tuple[str, int]) == True
+        class MyClass(Tuple[str, int]):
+            ...
+        is_tuple_type(MyClass) == True
+
+    For more general tests use issubclass(..., tuple), for more precise test use::
+
+        get_origin(tp) is Tuple
     """
 
     return type(tp) is type(Tuple)
@@ -124,16 +142,16 @@ def get_parameters(tp):
         get_parameters(List[int]) == ()
 
         get_parameters(Generic[T]) == (T,)
-        get_parameters(Tuple[List[T], List[S]]) == (T, S)
-        get_parameters(Union[S, Tuple[T, T]][int, U]) == (U,)
-        get_parameters(Mapping[T, Tuple[S, T]]) == (T, S)
+        get_parameters(Tuple[List[T], List[S_co]]) == (T, S_co)
+        get_parameters(Union[S_co, Tuple[T, T]][int, U]) == (U,)
+        get_parameters(Mapping[T, Tuple[S_co, T]]) == (T, S_co)
     """
 
     if (
         is_generic_type(tp) or is_union_type(tp) or
         is_callable_type(tp) or is_tuple_type(tp)
     ):
-        return tp.__parameters__
+        return tp.__parameters__ if tp.__parameters__ is not None else ()
     return ()
 
 
@@ -143,14 +161,14 @@ def get_last_args(tp):
         get_last_args(int) == ()
         get_last_args(Union) == ()
         get_last_args(ClassVar[int]) == (int,)
-        get_last_args(Union[T, int]) == (int,)
+        get_last_args(Union[T, int]) == (T, int)
         get_last_args(Iterable[Tuple[T, S]][int, T]) == (int, T)
     """
 
     if is_classvar(tp):
-        return (tp.__type__,)
+        return (tp.__type__,) if tp.__type__ is not None else ()
     if is_generic_type(tp) or is_union_type(tp):
-        return tp.__args__
+        return tp.__args__ if tp.__args__ is not None else ()
     return ()
 
 
@@ -196,3 +214,32 @@ def get_args(tp, evaluate=False):
                 return tree[1:]
             return _eval_args(tree[1:])
     return ()
+
+
+def get_generic_type(obj):
+    """Get the generic type of an object if possible, or runtime class otherwise.
+    Examples::
+
+        class Node(Generic[T]):
+            ...
+        type(Node[int]()) == Node
+        get_generic_type(Node[int]()) == Node[int]
+        get_generic_type(Node[T]()) == Node[T]
+        get_generic_type(1) == int
+    """
+
+    gen_type = getattr(obj, '__orig_class__', None)
+    return gen_type if gen_type is not None else type(obj)
+
+
+def get_generic_bases(tp):
+    """Get generic base types of a type or empty tuple if not possible.
+    Example::
+
+        class MyClass(List[int], Mapping[str, List[int]]):
+            ...
+        MyClass.__bases__ == (List, Mapping)
+        get_generic_bases(MyClass) == (List[int], Mapping[str, List[int]])
+    """
+
+    return getattr(tp, '__orig_bases__', ())
