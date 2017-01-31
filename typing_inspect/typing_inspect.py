@@ -195,12 +195,15 @@ def get_args(tp, evaluate=False):
     basic simplifications used by Union constructor are performed.
     If `evaluate` is False (default), report result as nested tuple, this matches
     the internal representation of types. If `evaluate` is True, then all
-    type parameters are applied (this could be expensive). Examples::
+    type parameters are applied (this could be time and memory expensive).
+    Examples::
 
-        get_args(Union[int, Tuple[T, int]][str]) == (int, (Tuple, str, int))
-        get_args(Union[int, Union[T, int], str][int]) == (int, str)
         get_args(int) == ()
+        get_args(Union[int, Union[T, int], str][int]) == (int, str)
+        get_args(Union[int, Tuple[T, int]][str]) == (int, (Tuple, str, int))
 
+        get_args(Union[int, Tuple[T, int]][str], evaluate=True) == \
+                 (int, Tuple[str, int])
         get_args(Dict[int, Tuple[T, T]][Optional[int]], evaluate=True) == \
                  (int, Tuple[Optional[int], Optional[int]])
     """
