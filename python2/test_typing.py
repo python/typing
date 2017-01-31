@@ -710,7 +710,7 @@ class GenericTests(BaseTestCase):
     def test_generic_hashes(self):
         import mod
         class A(Generic[T]):
-            pass
+            __module__ = 'typing'
 
         class B(Generic[T]):
             class A(Generic[T]):
