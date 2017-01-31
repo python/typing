@@ -1905,8 +1905,7 @@ class Counter(collections.Counter, Dict[T, int], extra=collections.Counter):
 
     def __new__(cls, *args, **kwds):
         if _geqv(cls, Counter):
-            raise TypeError("Type Counter cannot be instantiated; "
-                            "use collections.Counter() instead")
+            return collections.Counter(*args, **kwds)
         return _generic_new(collections.Counter, cls, *args, **kwds)
 
 
@@ -1921,8 +1920,7 @@ if hasattr(collections, 'ChainMap'):
 
         def __new__(cls, *args, **kwds):
             if _geqv(cls, ChainMap):
-                raise TypeError("Type ChainMap cannot be instantiated; "
-                                "use collections.ChainMap() instead")
+                return collections.ChainMap(*args, **kwds)
             return _generic_new(collections.ChainMap, cls, *args, **kwds)
 
 

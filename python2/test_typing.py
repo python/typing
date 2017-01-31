@@ -1341,13 +1341,12 @@ class CollectionsAbcTests(BaseTestCase):
         class D(typing.Deque[T]): pass
         self.assertIs(type(D[int]()), D)
 
-    def test_no_counter_instantiation(self):
-        with self.assertRaises(TypeError):
-            typing.Counter()
-        with self.assertRaises(TypeError):
-            typing.Counter[T]()
-        with self.assertRaises(TypeError):
-            typing.Counter[int]()
+    def test_counter_instantiation(self):
+        self.assertIs(type(typing.Counter()), collections.Counter)
+        self.assertIs(type(typing.Counter[T]()), collections.Counter)
+        self.assertIs(type(typing.Counter[int]()), collections.Counter)
+        class C(typing.Counter[T]): pass
+        self.assertIs(type(C[int]()), C)
 
     def test_counter_subclass_instantiation(self):
 

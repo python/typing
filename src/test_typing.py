@@ -1739,13 +1739,12 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
 
     @skipUnless(sys.version_info >= (3, 3), 'ChainMap was added in 3.3')
-    def test_no_chainmap_instantiation(self):
-        with self.assertRaises(TypeError):
-            typing.ChainMap()
-        with self.assertRaises(TypeError):
-            typing.ChainMap[KT, VT]()
-        with self.assertRaises(TypeError):
-            typing.ChainMap[str, int]()
+    def test_chainmap_instantiation(self):
+        self.assertIs(type(typing.ChainMap()), collections.ChainMap)
+        self.assertIs(type(typing.ChainMap[KT, VT]()), collections.ChainMap)
+        self.assertIs(type(typing.ChainMap[str, int]()), collections.ChainMap)
+        class CM(typing.ChainMap[KT, VT]): ...
+        self.assertIs(type(CM[int, str]()), CM)
 
     @skipUnless(sys.version_info >= (3, 3), 'ChainMap was added in 3.3')
     def test_chainmap_subclass(self):
@@ -1766,13 +1765,12 @@ class CollectionsAbcTests(BaseTestCase):
         class D(typing.Deque[T]): ...
         self.assertIs(type(D[int]()), D)
 
-    def test_no_counter_instantiation(self):
-        with self.assertRaises(TypeError):
-            typing.Counter()
-        with self.assertRaises(TypeError):
-            typing.Counter[T]()
-        with self.assertRaises(TypeError):
-            typing.Counter[int]()
+    def test_counter_instantiation(self):
+        self.assertIs(type(typing.Counter()), collections.Counter)
+        self.assertIs(type(typing.Counter[T]()), collections.Counter)
+        self.assertIs(type(typing.Counter[int]()), collections.Counter)
+        class C(typing.Counter[T]): ...
+        self.assertIs(type(C[int]()), C)
 
     def test_counter_subclass_instantiation(self):
 
