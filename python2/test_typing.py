@@ -710,7 +710,7 @@ class GenericTests(BaseTestCase):
     def test_generic_hashes(self):
         import mod
         class A(Generic[T]):
-            __module__ = 'typing'
+            __module__ = 'test_typing'
 
         class B(Generic[T]):
             class A(Generic[T]):
@@ -740,7 +740,7 @@ class GenericTests(BaseTestCase):
         self.assertNotEqual(Union[A[str], A[str]], Union[A[str], mod.A[str]])
         self.assertNotEqual(typing.FrozenSet[A[str]], typing.FrozenSet[mod.B.A[str]])
 
-        self.assertTrue(repr(Tuple[A[str]]).endswith('typing.A[str]]'))
+        self.assertTrue(repr(Tuple[A[str]]).endswith('test_typing.A[str]]'))
         self.assertTrue(repr(Tuple[mod.A[str]]).endswith('mod.A[str]]'))
 
     def test_extended_generic_rules_eq(self):
