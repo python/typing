@@ -187,6 +187,10 @@ class TypeVarTests(BaseTestCase):
         with self.assertRaises(TypeError):
             TypeVar('X', str, float, bound=Employee)
 
+    def test_no_bivariant(self):
+        with self.assertRaises(ValueError):
+            TypeVar('T', covariant=True, contravariant=True)
+
 
 class UnionTests(BaseTestCase):
 
@@ -394,6 +398,8 @@ class CallableTests(BaseTestCase):
             Callable[[()], int]
         with self.assertRaises(TypeError):
             Callable[[int, 1], 2]
+        with self.assertRaises(TypeError):
+            Callable[int]
 
     def test_callable_instance_works(self):
         def f():
@@ -518,12 +524,23 @@ class GenericTests(BaseTestCase):
 
     def test_generic_errors(self):
         T = TypeVar('T')
+        S = TypeVar('S')
         with self.assertRaises(TypeError):
             Generic[T]()
+        with self.assertRaises(TypeError):
+            Generic[T][T]
+        with self.assertRaises(TypeError):
+            Generic[T][S]
         with self.assertRaises(TypeError):
             isinstance([], List[int])
         with self.assertRaises(TypeError):
             issubclass(list, List[int])
+        with self.assertRaises(TypeError):
+            class NewGeneric(Generic): pass
+        with self.assertRaises(TypeError):
+            class MyGeneric(Generic[T], Generic[S]): pass
+        with self.assertRaises(TypeError):
+            class MyGeneric(List[T], Generic[S]): pass
 
     def test_init(self):
         T = TypeVar('T')
@@ -1263,6 +1280,8 @@ class CollectionsAbcTests(BaseTestCase):
 
     def test_deque(self):
         self.assertIsSubclass(collections.deque, typing.Deque)
+        class MyDeque(typing.Deque[int]): pass
+        self.assertIsInstance(MyDeque(), collections.deque)
 
     def test_set(self):
         self.assertIsSubclass(set, typing.Set)

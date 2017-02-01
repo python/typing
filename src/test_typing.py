@@ -190,6 +190,10 @@ class TypeVarTests(BaseTestCase):
         with self.assertRaises(TypeError):
             TypeVar('X', str, float, bound=Employee)
 
+    def test_no_bivariant(self):
+        with self.assertRaises(ValueError):
+            TypeVar('T', covariant=True, contravariant=True)
+
 
 class UnionTests(BaseTestCase):
 
@@ -401,6 +405,8 @@ class CallableTests(BaseTestCase):
             Callable[[()], int]
         with self.assertRaises(TypeError):
             Callable[[int, 1], 2]
+        with self.assertRaises(TypeError):
+            Callable[int]
 
     def test_callable_instance_works(self):
         def f():
@@ -549,12 +555,23 @@ class GenericTests(BaseTestCase):
 
     def test_generic_errors(self):
         T = TypeVar('T')
+        S = TypeVar('S')
         with self.assertRaises(TypeError):
             Generic[T]()
+        with self.assertRaises(TypeError):
+            Generic[T][T]
+        with self.assertRaises(TypeError):
+            Generic[T][S]
         with self.assertRaises(TypeError):
             isinstance([], List[int])
         with self.assertRaises(TypeError):
             issubclass(list, List[int])
+        with self.assertRaises(TypeError):
+            class NewGeneric(Generic): ...
+        with self.assertRaises(TypeError):
+            class MyGeneric(Generic[T], Generic[S]): ...
+        with self.assertRaises(TypeError):
+            class MyGeneric(List[T], Generic[S]): ...
 
     def test_init(self):
         T = TypeVar('T')
@@ -1324,6 +1341,15 @@ class ForwardRefTests(BaseTestCase):
         ith = get_type_hints(C().foo)
         self.assertEqual(ith, {})
 
+    def test_no_type_check_no_bases(self):
+        class C:
+            def meth(self, x: int): ...
+        @no_type_check
+        class D(C):
+            c = C
+        # verify that @no_type_check never affects bases
+        self.assertEqual(get_type_hints(C.meth), {'x': int})
+
     def test_meta_no_type_check(self):
 
         @no_type_check_decorator
@@ -1526,6 +1552,8 @@ class GetTypeHintTests(BaseTestCase):
         def testf(x, y): ...
         testf.__annotations__['x'] = 'int'
         self.assertEqual(gth(testf), {'x': int})
+        def testg(x: None): ...
+        self.assertEqual(gth(testg), {'x': type(None)})
 
     def test_get_type_hints_for_object_with_annotations(self):
         class A: ...
@@ -1661,6 +1689,8 @@ class CollectionsAbcTests(BaseTestCase):
 
     def test_deque(self):
         self.assertIsSubclass(collections.deque, typing.Deque)
+        class MyDeque(typing.Deque[int]): ...
+        self.assertIsInstance(MyDeque(), collections.deque)
 
     def test_set(self):
         self.assertIsSubclass(set, typing.Set)
@@ -2046,6 +2076,14 @@ class NamedTupleTests(BaseTestCase):
         self.assertEqual(Emp.__annotations__,
                          collections.OrderedDict([('name', str), ('id', int)]))
         self.assertIs(Emp._field_types, Emp.__annotations__)
+
+    def test_namedtuple_pyversion(self):
+        if sys.version_info[:2] < (3, 6):
+            with self.assertRaises(TypeError):
+                NamedTuple('Name', one=int, other=str)
+            with self.assertRaises(TypeError):
+                class NotYet(NamedTuple):
+                    whatever = 0
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_annotation_usage(self):
