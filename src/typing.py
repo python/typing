@@ -1000,6 +1000,9 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if isinstance(extra, abc.ABCMeta):
             self._abc_registry = extra._abc_registry
             self._abc_cache = extra._abc_cache
+        elif origin is not None:
+            self._abc_registry = _gorg(self)._abc_registry
+            self._abc_cache = _gorg(self)._abc_cache
 
         if origin and hasattr(origin, '__qualname__'):  # Fix for Python 3.2.
             self.__qualname__ = origin.__qualname__
