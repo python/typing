@@ -928,19 +928,6 @@ def _next_in_mro(cls):
     return next_in_mro
 
 
-def _valid_for_check(cls):
-    """An internal helper to prohibit isinstance([1], List[str]) etc."""
-    if cls is Generic:
-        raise TypeError("Class %r cannot be used with class "
-                        "or instance checks" % cls)
-    if (
-        cls.__origin__ is not None and
-        sys._getframe(2).f_globals['__name__'] not in ['abc', 'functools']
-    ):
-        raise TypeError("Parameterized generics cannot be used with class "
-                        "or instance checks")
-
-
 def _make_subclasshook(cls):
     """Construct a __subclasshook__ callable that incorporates
     the associated __extra__ class in subclass checks performed
@@ -1210,7 +1197,14 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                               orig_bases=self.__orig_bases__)
 
     def __subclasscheck__(self, cls):
-        _valid_for_check(self)
+        if self.__origin__ is not None:
+            if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools']:
+                raise TypeError("Parameterized generics cannot be used with class "
+                                "or instance checks")
+            return False
+        if self is Generic:
+            raise TypeError("Class %r cannot be used with class "
+                            "or instance checks" % self)
         return super(GenericMeta, self).__subclasscheck__(cls)
 
     def __instancecheck__(self, instance):
