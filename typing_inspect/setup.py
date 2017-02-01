@@ -15,11 +15,11 @@ inspection of types defined in the standard "typing" module.
 '''.lstrip()
 
 classifiers = [
-    'Development Status :: 2 - Pre-Alpha',
+    'Development Status :: 3 - Alpha',
     'Environment :: Console',
     'Intended Audience :: Developers',
-    'License :: OSI Approved :: MIT License',
-    'Operating System :: POSIX',
+    'License :: OSI Approved :: Python Software Foundation License',
+    'Operating System :: OS Independent',
     'Programming Language :: Python :: 2',
     'Programming Language :: Python :: 2.7',
     'Programming Language :: Python :: 3',
@@ -38,8 +38,9 @@ setup(
     author='Ivan Levkivskyi',
     author_email='levkivskyi@gmail.com',
     url='https://github.com/python/typing',
-    license='MIT License',
-    platforms=['POSIX'],
+    license='PSF',
+    keywords='typing function annotations type hints hinting checking '
+             'checker typehints typehinting typechecking inspect reflection',
     py_modules=['typing_inspect'],
     classifiers=classifiers,
 )
