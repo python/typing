@@ -856,7 +856,7 @@ def _valid_for_check(cls):
                         "or instance checks" % cls)
     if (
         cls.__origin__ is not None and
-        sys._getframe(3).f_globals['__name__'] not in ['abc', 'functools']
+        sys._getframe(2).f_globals['__name__'] not in ['abc', 'functools']
     ):
         raise TypeError("Parameterized generics cannot be used with class "
                         "or instance checks")
@@ -872,7 +872,6 @@ def _make_subclasshook(cls):
         # Registered classes need not be checked here because
         # cls and its extra share the same _abc_registry.
         def __extrahook__(subclass):
-            _valid_for_check(cls)
             res = cls.__extra__.__subclasshook__(subclass)
             if res is not NotImplemented:
                 return res
@@ -887,7 +886,6 @@ def _make_subclasshook(cls):
     else:
         # For non-ABC extras we'll just call issubclass().
         def __extrahook__(subclass):
-            _valid_for_check(cls)
             if cls.__extra__ and issubclass(subclass, cls.__extra__):
                 return True
             return NotImplemented
@@ -974,6 +972,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # remove bare Generic from bases if there are other generic bases
         if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
             bases = tuple(b for b in bases if b is not Generic)
+        namespace.update({'__origin__': origin, '__extra__': extra})
         self = super().__new__(cls, name, bases, namespace, _root=True)
 
         self.__parameters__ = tvars
@@ -982,8 +981,6 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         self.__args__ = tuple(... if a is _TypingEllipsis else
                               () if a is _TypingEmpty else
                               a for a in args) if args else None
-        self.__origin__ = origin
-        self.__extra__ = extra
         # Speed hack (https://github.com/python/typing/issues/196).
         self.__next_in_mro__ = _next_in_mro(self)
         # Preserve base classes on subclassing (__bases__ are type erased now).
@@ -1002,12 +999,43 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             self.__subclasshook__ = _make_subclasshook(self)
         if isinstance(extra, abc.ABCMeta):
             self._abc_registry = extra._abc_registry
+            self._abc_cache = extra._abc_cache
 
         if origin and hasattr(origin, '__qualname__'):  # Fix for Python 3.2.
             self.__qualname__ = origin.__qualname__
         self.__tree_hash__ = (hash(self._subs_tree()) if origin else
                               super(GenericMeta, self).__hash__())
         return self
+
+    # _abc_negative_cache and _abc_negative_cache_version
+    # realised as descriptors, since GenClass[t1, t2, ...] always
+    # share subclass info with GenClass.
+    # This is an important memory optimization.
+    @property
+    def _abc_negative_cache(self):
+        if isinstance(self.__extra__, abc.ABCMeta):
+            return self.__extra__._abc_negative_cache
+        return _gorg(self)._abc_generic_negative_cache
+    @_abc_negative_cache.setter
+    def _abc_negative_cache(self, value):
+        if isinstance(self.__extra__, abc.ABCMeta):
+            self.__extra__._abc_negative_cache = value
+        _gorg(self)._abc_generic_negative_cache = value
+
+    @property
+    def _abc_negative_cache_version(self):
+        if isinstance(self.__extra__, abc.ABCMeta):
+            return self.__extra__._abc_negative_cache_version
+        return _gorg(self)._abc_generic_negative_cache_version
+    @_abc_negative_cache_version.setter
+    def _abc_negative_cache_version(self, value):
+        if isinstance(self.__extra__, abc.ABCMeta):
+            self.__extra__._abc_negative_cache_version = value
+        _gorg(self)._abc_generic_negative_cache_version = value
+
+    def __subclasscheck__(self, cls):
+        _valid_for_check(self)
+        return super().__subclasscheck__(cls)
 
     def _get_type_vars(self, tvars):
         if self.__origin__ and self.__parameters__:
