@@ -1019,6 +1019,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if isinstance(self.__extra__, abc.ABCMeta):
             return self.__extra__._abc_negative_cache
         return _gorg(self)._abc_generic_negative_cache
+
     @_abc_negative_cache.setter
     def _abc_negative_cache(self, value):
         if isinstance(self.__extra__, abc.ABCMeta):
@@ -1030,15 +1031,12 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if isinstance(self.__extra__, abc.ABCMeta):
             return self.__extra__._abc_negative_cache_version
         return _gorg(self)._abc_generic_negative_cache_version
+
     @_abc_negative_cache_version.setter
     def _abc_negative_cache_version(self, value):
         if isinstance(self.__extra__, abc.ABCMeta):
             self.__extra__._abc_negative_cache_version = value
         _gorg(self)._abc_generic_negative_cache_version = value
-
-    def __subclasscheck__(self, cls):
-        _valid_for_check(self)
-        return super().__subclasscheck__(cls)
 
     def _get_type_vars(self, tvars):
         if self.__origin__ and self.__parameters__:
@@ -1137,6 +1135,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                               origin=self,
                               extra=self.__extra__,
                               orig_bases=self.__orig_bases__)
+
+    def __subclasscheck__(self, cls):
+        _valid_for_check(self)
+        return super().__subclasscheck__(cls)
 
     def __instancecheck__(self, instance):
         # Since we extend ABC.__subclasscheck__ and
