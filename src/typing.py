@@ -1011,7 +1011,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def _abc_negative_cache(self, value):
         if isinstance(self.__extra__, abc.ABCMeta):
             self.__extra__._abc_negative_cache = value
-        _gorg(self)._abc_generic_negative_cache = value
+        else:
+            _gorg(self)._abc_generic_negative_cache = value
 
     @property
     def _abc_negative_cache_version(self):
@@ -1023,7 +1024,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def _abc_negative_cache_version(self, value):
         if isinstance(self.__extra__, abc.ABCMeta):
             self.__extra__._abc_negative_cache_version = value
-        _gorg(self)._abc_generic_negative_cache_version = value
+        else:
+            _gorg(self)._abc_generic_negative_cache_version = value
 
     def _get_type_vars(self, tvars):
         if self.__origin__ and self.__parameters__:
