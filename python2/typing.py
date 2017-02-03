@@ -1169,8 +1169,11 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             _check_generic(self, params)
             tvars = _type_vars(params)
             args = params
+
+        gorg = _gorg(self)
+        prepend = (gorg,) if gorg not in self.__bases__ else ()
         return self.__class__(self.__name__,
-                              self.__bases__,
+                              prepend + self.__bases__,
                               dict(self.__dict__),
                               tvars=tvars,
                               args=args,
