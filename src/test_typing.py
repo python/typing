@@ -552,6 +552,7 @@ class GenericTests(BaseTestCase):
         Y[str]
         with self.assertRaises(TypeError):
             Y[str, str]
+        self.assertIsSubclass(SimpleMapping[str, int], SimpleMapping)
 
     def test_generic_errors(self):
         T = TypeVar('T')
