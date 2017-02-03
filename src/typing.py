@@ -1171,10 +1171,6 @@ class Generic(metaclass=GenericMeta):
         return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
 
 
-# prevent class and instance checks against plain Generic
-Generic.__subclasshook__ = _make_subclasshook(Generic)
-
-
 class _TypingEmpty:
     """Internal placeholder for () or []. Used by TupleMeta and CallableMeta
     to allow empty list/tuple in specific places, without allowing them

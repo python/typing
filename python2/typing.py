@@ -1212,10 +1212,6 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                               self.__extra__, self.__orig_bases__)
 
 
-# Prevent checks for Generic to crash when defining Generic.
-Generic = None
-
-
 def _generic_new(base_cls, cls, *args, **kwds):
     # Assure type is erased on instantiation,
     # but attempt to store it in __orig_class__
