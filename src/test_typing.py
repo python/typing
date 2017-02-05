@@ -892,12 +892,11 @@ class GenericTests(BaseTestCase):
         class MyDef(typing.DefaultDict[str, T]): ...
         self.assertIs(MyDef[int]().__class__, MyDef)
         self.assertIs(MyDef[int]().__orig_class__, MyDef[int])
-
-    @skipUnless(sys.version_info >= (3, 3), 'ChainMap was added in 3.3')
-    def test_chainmap_type_erasure_special(self):
-        class MyChain(typing.ChainMap[str, T]): ...
-        self.assertIs(MyChain[int]().__class__, MyChain)
-        self.assertIs(MyChain[int]().__orig_class__, MyChain[int])
+        # ChainMap was added in 3.3
+        if sys.version_info >= (3, 3):
+            class MyChain(typing.ChainMap[str, T]): ...
+            self.assertIs(MyChain[int]().__class__, MyChain)
+            self.assertIs(MyChain[int]().__orig_class__, MyChain[int])
 
     def test_all_repr_eq_any(self):
         objs = (getattr(typing, el) for el in typing.__all__)
