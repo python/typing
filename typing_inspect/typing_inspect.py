@@ -2,7 +2,7 @@
 in the standard "typing" module.
 
 Example usage::
-    from typing_inspect import is_generic
+    from typing_inspect import is_generic_type
 """
 
 # NOTE: This module must support Python 2.7 in addition to Python 3.x
@@ -47,7 +47,8 @@ def is_callable_type(tp):
             ...
         is_callable_type(MyClass) == True
 
-    For more general tests use callable(), for more precise test use::
+    For more general tests use callable(), for more precise test
+    (excluding subclasses) use::
 
         get_origin(tp) is Callable
     """
@@ -68,7 +69,8 @@ def is_tuple_type(tp):
             ...
         is_tuple_type(MyClass) == True
 
-    For more general tests use issubclass(..., tuple), for more precise test use::
+    For more general tests use issubclass(..., tuple), for more precise test
+    (excluding subclasses) use::
 
         get_origin(tp) is Tuple
     """
@@ -156,18 +158,24 @@ def get_parameters(tp):
 
 
 def get_last_args(tp):
-    """Get last arguments of (multiply) subscripted type. Examples::
+    """Get last arguments of (multiply) subscripted type.
+       Parameters for Callable are flattened. Examples::
 
         get_last_args(int) == ()
         get_last_args(Union) == ()
         get_last_args(ClassVar[int]) == (int,)
         get_last_args(Union[T, int]) == (T, int)
         get_last_args(Iterable[Tuple[T, S]][int, T]) == (int, T)
+        get_last_args(Callable[[T], int]) == (T, int)
+        get_last_args(Callable[[], int]) == (int,)
     """
 
     if is_classvar(tp):
         return (tp.__type__,) if tp.__type__ is not None else ()
-    if is_generic_type(tp) or is_union_type(tp):
+    if (
+        is_generic_type(tp) or is_union_type(tp) or
+        is_callable_type(tp) or is_tuple_type(tp)
+    ):
         return tp.__args__ if tp.__args__ is not None else ()
     return ()
 
@@ -206,16 +214,23 @@ def get_args(tp, evaluate=False):
                  (int, Tuple[str, int])
         get_args(Dict[int, Tuple[T, T]][Optional[int]], evaluate=True) == \
                  (int, Tuple[Optional[int], Optional[int]])
+        get_args(Callable[[], T][int], evaluate=True) == ([], int,)
     """
 
     if is_classvar(tp):
         return (tp.__type__,)
-    if is_generic_type(tp) or is_union_type(tp):
+    if (
+        is_generic_type(tp) or is_union_type(tp) or
+        is_callable_type(tp) or is_tuple_type(tp)
+    ):
         tree = tp._subs_tree()
         if isinstance(tree, tuple) and len(tree) > 1:
             if not evaluate:
                 return tree[1:]
-            return _eval_args(tree[1:])
+            res = _eval_args(tree[1:])
+            if get_origin(tp) is Callable and res[0] is not Ellipsis:
+                res = (list(res[:-1]), res[-1])
+            return res
     return ()
 
 

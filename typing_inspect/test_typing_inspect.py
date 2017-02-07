@@ -6,7 +6,7 @@ from typing_inspect import (
 from unittest import TestCase, main
 from typing import (
     Union, ClassVar, Callable, Optional, TypeVar, Sequence, Mapping,
-    MutableMapping, Iterable, Generic, List, Any, Dict, Tuple,
+    MutableMapping, Iterable, Generic, List, Any, Dict, Tuple, NamedTuple,
 )
 
 
@@ -37,7 +37,7 @@ class IsUtilityTestCase(TestCase):
 
     def test_tuple(self):
         samples = [Tuple, Tuple[str, int], Tuple[Iterable, ...]]
-        nonsamples = [int, tuple, 42, List[int]]
+        nonsamples = [int, tuple, 42, List[int], NamedTuple('N', [('x', int)])]
         self.sample_test(is_tuple_type, samples, nonsamples)
         class MyClass(Tuple[str, int]):
             pass
@@ -94,6 +94,8 @@ class GetUtilityTestCase(TestCase):
         self.assertEqual(get_last_args(ClassVar[int]), (int,))
         self.assertEqual(get_last_args(Union[T, int]), (T, int))
         self.assertEqual(get_last_args(Iterable[Tuple[T, S]][int, T]), (int, T))
+        self.assertEqual(get_last_args(Callable[[T, S], int]), (T, S, int))
+        self.assertEqual(get_last_args(Callable[[], int]), (int,))
 
     def test_args(self):
         T = TypeVar('T')
@@ -102,8 +104,11 @@ class GetUtilityTestCase(TestCase):
         self.assertEqual(get_args(Union[int, Union[T, int], str][int]),
                          (int, str))
         self.assertEqual(get_args(int), ())
+        self.assertEqual(get_args(Union[int, Tuple[T, int]][str], evaluate=True),
+                         (int, Tuple[str, int]))
         self.assertEqual(get_args(Dict[int, Tuple[T, T]][Optional[int]], evaluate=True),
                          (int, Tuple[Optional[int], Optional[int]]))
+        self.assertEqual(get_args(Callable[[], T][int], evaluate=True), ([], int,))
 
     def test_generic_type(self):
         T = TypeVar('T')
