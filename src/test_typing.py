@@ -1484,6 +1484,14 @@ class XMeth(NamedTuple):
     x: int
     def double(self):
         return 2 * self.x
+
+class XRepr(NamedTuple):
+    x: int
+    y: int = 1
+    def __str__(self):
+        return f'{self.x} -> {self.y}'
+    def __add__(self, other):
+        return 0
 """
 
 if PY36:
@@ -1491,7 +1499,8 @@ if PY36:
 else:
     # fake names for the sake of static analysis
     ann_module = ann_module2 = ann_module3 = None
-    A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = XMeth = object
+    A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
+    XMeth = XRepr = object
 
 gth = get_type_hints
 
@@ -2128,6 +2137,8 @@ class NonDefaultAfterDefault(NamedTuple):
     def test_annotation_usage_with_methods(self):
         self.assertEqual(XMeth(1).double(), 2)
         self.assertEqual(XMeth(42).x, XMeth(42)[0])
+        self.assertEqual(str(XRepr(42)), '42 -> 1')
+        self.assertEqual(XRepr(1, 2) + XRepr(3), 0)
 
         with self.assertRaises(AttributeError):
             exec("""
