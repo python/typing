@@ -985,10 +985,9 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # with issubclass() and isinstance() in the same way as their
         # collections.abc counterparts (e.g., isinstance([], Iterable)).
         if (
-            # allow overriding
             '__subclasshook__' not in namespace and extra or
-            hasattr(self.__subclasshook__, '__name__') and
-            self.__subclasshook__.__name__ == '__extrahook__'
+            # allow overriding
+            getattr(self.__subclasshook__, '__name__', '') == '__extrahook__'
         ):
             self.__subclasshook__ = _make_subclasshook(self)
         if isinstance(extra, abc.ABCMeta):

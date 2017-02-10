@@ -258,6 +258,11 @@ class UnionTests(BaseTestCase):
         self.assertEqual(repr(u), 'typing.Union[%s.Employee, int]' % __name__)
         u = Union[int, Employee]
         self.assertEqual(repr(u), 'typing.Union[int, %s.Employee]' % __name__)
+        T = TypeVar('T')
+        u = Union[T, int][int]
+        self.assertEqual(repr(u), repr(int))
+        u = Union[List[int], int]
+        self.assertEqual(repr(u), 'typing.Union[typing.List[int], int]')
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
@@ -307,6 +312,15 @@ class UnionTests(BaseTestCase):
     def test_union_instance_type_error(self):
         with self.assertRaises(TypeError):
             isinstance(42, Union[int, str])
+
+    def test_no_eval_union(self):
+        u = Union[int, str]
+        def f(x: u): ...
+        self.assertIs(get_type_hints(f)['x'], u)
+
+    def test_function_repr_union(self):
+        def fun() -> int: ...
+        self.assertEqual(repr(Union[fun, int]), 'typing.Union[fun, int]')
 
     def test_union_str_pattern(self):
         # Shouldn't crash; see http://bugs.python.org/issue25390
@@ -892,6 +906,8 @@ class GenericTests(BaseTestCase):
             Tuple[Generic[T]]
         with self.assertRaises(TypeError):
             List[typing._Protocol]
+        with self.assertRaises(TypeError):
+            isinstance(1, Generic)
 
     def test_type_erasure_special(self):
         T = TypeVar('T')
@@ -1265,6 +1281,19 @@ class ForwardRefTests(BaseTestCase):
         with self.assertRaises(TypeError):
             isinstance(42, fr)
 
+    def test_forwardref_subclass_type_error(self):
+        fr = typing._ForwardRef('int')
+        with self.assertRaises(TypeError):
+            issubclass(int, fr)
+
+    def test_forward_equality(self):
+        fr = typing._ForwardRef('int')
+        self.assertEqual(fr, typing._ForwardRef('int'))
+        self.assertNotEqual(List['int'], List[int])
+
+    def test_forward_repr(self):
+        self.assertEqual(repr(List['int']), "typing.List[_ForwardRef('int')]")
+
     def test_union_forward(self):
 
         def foo(a: Union['T']):
@@ -1472,10 +1501,15 @@ class A:
 class B(A):
     x: ClassVar[Optional['B']] = None
     y: int
+    b: int
 class CSub(B):
     z: ClassVar['CSub'] = B()
 class G(Generic[T]):
     lst: ClassVar[List[T]] = []
+
+class NoneAndForward:
+    parent: 'NoneAndForward'
+    meaning: None
 
 class CoolEmployee(NamedTuple):
     name: str
@@ -1505,7 +1539,7 @@ else:
     # fake names for the sake of static analysis
     ann_module = ann_module2 = ann_module3 = None
     A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
-    XMeth = XRepr = object
+    XMeth = XRepr = NoneAndForward = object
 
 gth = get_type_hints
 
@@ -1540,6 +1574,8 @@ class GetTypeHintTests(BaseTestCase):
                          {'y': Optional[ann_module.C]})
         self.assertEqual(gth(ann_module.S), {'x': str, 'y': str})
         self.assertEqual(gth(ann_module.foo), {'x': int})
+        self.assertEqual(gth(NoneAndForward, globals()),
+                         {'parent': NoneAndForward, 'meaning': type(None)})
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_respect_no_type_check(self):
@@ -1585,9 +1621,10 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(gth(ann_module2.CV, ann_module2.__dict__),
                          {'var': typing.ClassVar[ann_module2.CV]})
         self.assertEqual(gth(B, globals()),
-                         {'y': int, 'x': ClassVar[Optional[B]]})
+                         {'y': int, 'x': ClassVar[Optional[B]], 'b': int})
         self.assertEqual(gth(CSub, globals()),
-                         {'z': ClassVar[CSub], 'y': int, 'x': ClassVar[Optional[B]]})
+                         {'z': ClassVar[CSub], 'y': int, 'b': int,
+                          'x': ClassVar[Optional[B]]})
         self.assertEqual(gth(G), {'lst': ClassVar[List[T]]})
 
 
@@ -2271,6 +2308,12 @@ class RETests(BaseTestCase):
         Pattern[Union[str, bytes]]
         Match[Union[bytes, str]]
 
+    def test_alias_equality(self):
+        self.assertEqual(Pattern[str], Pattern[str])
+        self.assertNotEqual(Pattern[str], Pattern[bytes])
+        self.assertNotEqual(Pattern[str], Match[str])
+        self.assertNotEqual(Pattern[str], str)
+
     def test_errors(self):
         with self.assertRaises(TypeError):
             # Doesn't fit AnyStr.
@@ -2285,6 +2328,9 @@ class RETests(BaseTestCase):
         with self.assertRaises(TypeError):
             # We don't support isinstance().
             isinstance(42, Pattern[str])
+        with self.assertRaises(TypeError):
+            # We don't support issubclass().
+            issubclass(Pattern[bytes], Pattern[str])
 
     def test_repr(self):
         self.assertEqual(repr(Pattern), 'Pattern[~AnyStr]')
