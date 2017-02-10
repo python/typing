@@ -926,6 +926,11 @@ class GenericTests(BaseTestCase):
         class MyDef(typing.DefaultDict[str, T]): ...
         self.assertIs(MyDef[int]().__class__, MyDef)
         self.assertIs(MyDef[int]().__orig_class__, MyDef[int])
+        # ChainMap was added in 3.3
+        if sys.version_info >= (3, 3):
+            class MyChain(typing.ChainMap[str, T]): ...
+            self.assertIs(MyChain[int]().__class__, MyChain)
+            self.assertIs(MyChain[int]().__orig_class__, MyChain[int])
 
     def test_all_repr_eq_any(self):
         objs = (getattr(typing, el) for el in typing.__all__)
@@ -1518,6 +1523,14 @@ class XMeth(NamedTuple):
     x: int
     def double(self):
         return 2 * self.x
+
+class XRepr(NamedTuple):
+    x: int
+    y: int = 1
+    def __str__(self):
+        return f'{self.x} -> {self.y}'
+    def __add__(self, other):
+        return 0
 """
 
 if PY36:
@@ -1525,8 +1538,8 @@ if PY36:
 else:
     # fake names for the sake of static analysis
     ann_module = ann_module2 = ann_module3 = None
-    A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = XMeth = object
-    NoneAndForward = object
+    A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
+    XMeth = XRepr = NoneAndForward = object
 
 gth = get_type_hints
 
@@ -1579,12 +1592,15 @@ class GetTypeHintTests(BaseTestCase):
         class Der(ABase): ...
         self.assertEqual(gth(ABase.meth), {'x': int})
 
-    def test_get_type_hints_for_builins(self):
+    def test_get_type_hints_for_builtins(self):
         # Should not fail for built-in classes and functions.
         self.assertEqual(gth(int), {})
         self.assertEqual(gth(type), {})
         self.assertEqual(gth(dir), {})
         self.assertEqual(gth(len), {})
+        self.assertEqual(gth(object.__str__), {})
+        self.assertEqual(gth(object().__str__), {})
+        self.assertEqual(gth(str.join), {})
 
     def test_previous_behavior(self):
         def testf(x, y): ...
@@ -1731,6 +1747,9 @@ class CollectionsAbcTests(BaseTestCase):
         class MyDeque(typing.Deque[int]): ...
         self.assertIsInstance(MyDeque(), collections.deque)
 
+    def test_counter(self):
+        self.assertIsSubclass(collections.Counter, typing.Counter)
+
     def test_set(self):
         self.assertIsSubclass(set, typing.Set)
         self.assertNotIsSubclass(frozenset, typing.Set)
@@ -1798,12 +1817,49 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(MyDefDict, collections.defaultdict)
         self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
 
+    @skipUnless(sys.version_info >= (3, 3), 'ChainMap was added in 3.3')
+    def test_chainmap_instantiation(self):
+        self.assertIs(type(typing.ChainMap()), collections.ChainMap)
+        self.assertIs(type(typing.ChainMap[KT, VT]()), collections.ChainMap)
+        self.assertIs(type(typing.ChainMap[str, int]()), collections.ChainMap)
+        class CM(typing.ChainMap[KT, VT]): ...
+        self.assertIs(type(CM[int, str]()), CM)
+
+    @skipUnless(sys.version_info >= (3, 3), 'ChainMap was added in 3.3')
+    def test_chainmap_subclass(self):
+
+        class MyChainMap(typing.ChainMap[str, int]):
+            pass
+
+        cm = MyChainMap()
+        self.assertIsInstance(cm, MyChainMap)
+
+        self.assertIsSubclass(MyChainMap, collections.ChainMap)
+        self.assertNotIsSubclass(collections.ChainMap, MyChainMap)
+
     def test_deque_instantiation(self):
         self.assertIs(type(typing.Deque()), collections.deque)
         self.assertIs(type(typing.Deque[T]()), collections.deque)
         self.assertIs(type(typing.Deque[int]()), collections.deque)
         class D(typing.Deque[T]): ...
         self.assertIs(type(D[int]()), D)
+
+    def test_counter_instantiation(self):
+        self.assertIs(type(typing.Counter()), collections.Counter)
+        self.assertIs(type(typing.Counter[T]()), collections.Counter)
+        self.assertIs(type(typing.Counter[int]()), collections.Counter)
+        class C(typing.Counter[T]): ...
+        self.assertIs(type(C[int]()), C)
+
+    def test_counter_subclass_instantiation(self):
+
+        class MyCounter(typing.Counter[int]):
+            pass
+
+        d = MyCounter()
+        self.assertIsInstance(d, MyCounter)
+        self.assertIsInstance(d, typing.Counter)
+        self.assertIsInstance(d, collections.Counter)
 
     def test_no_set_instantiation(self):
         with self.assertRaises(TypeError):
@@ -2163,6 +2219,8 @@ class NonDefaultAfterDefault(NamedTuple):
     def test_annotation_usage_with_methods(self):
         self.assertEqual(XMeth(1).double(), 2)
         self.assertEqual(XMeth(42).x, XMeth(42)[0])
+        self.assertEqual(str(XRepr(42)), '42 -> 1')
+        self.assertEqual(XRepr(1, 2) + XRepr(3), 0)
 
         with self.assertRaises(AttributeError):
             exec("""
