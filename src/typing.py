@@ -10,6 +10,12 @@ try:
     import collections.abc as collections_abc
 except ImportError:
     import collections as collections_abc  # Fallback for PY3.2.
+try:
+    from types import SlotWrapperType, MethodWrapperType, MethodDescriptorType
+except ImportError:
+    SlotWrapperType = type(object.__init__)
+    MethodWrapperType = type(object().__str__)
+    MethodDescriptorType = type(str.join)
 
 
 # Please keep __all__ alphabetized within each category.
@@ -1398,10 +1404,6 @@ def _get_defaults(func):
     return res
 
 
-# Types of builtin C methods
-_wrapper_descriptor_type = type(object.__init__)
-_method_wrapper_type = type(object().__str__)
-
 def get_type_hints(obj, globalns=None, localns=None):
     """Return type hints for an object.
 
@@ -1461,8 +1463,9 @@ def get_type_hints(obj, globalns=None, localns=None):
             isinstance(obj, types.BuiltinFunctionType) or
             isinstance(obj, types.MethodType) or
             isinstance(obj, types.ModuleType) or
-            isinstance(obj, _wrapper_descriptor_type) or
-            isinstance(obj, _method_wrapper_type)
+            isinstance(obj, SlotWrapperType) or
+            isinstance(obj, MethodWrapperType) or
+            isinstance(obj, MethodDescriptorType)
         ):
             return {}
         else:
