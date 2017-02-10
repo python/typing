@@ -1407,6 +1407,11 @@ def _get_defaults(func):
     return res
 
 
+_allowed_types = (types.FunctionType, types.BuiltinFunctionType,
+                  types.MethodType, types.ModuleType,
+                  SlotWrapperType, MethodWrapperType, MethodDescriptorType)
+
+
 def get_type_hints(obj, globalns=None, localns=None):
     """Return type hints for an object.
 
@@ -1461,15 +1466,7 @@ def get_type_hints(obj, globalns=None, localns=None):
     hints = getattr(obj, '__annotations__', None)
     if hints is None:
         # Return empty annotations for something that _could_ have them.
-        if (
-            isinstance(obj, types.FunctionType) or
-            isinstance(obj, types.BuiltinFunctionType) or
-            isinstance(obj, types.MethodType) or
-            isinstance(obj, types.ModuleType) or
-            isinstance(obj, SlotWrapperType) or
-            isinstance(obj, MethodWrapperType) or
-            isinstance(obj, MethodDescriptorType)
-        ):
+        if isinstance(obj, _allowed_types):
             return {}
         else:
             raise TypeError('{!r} is not a module, class, method, '
