@@ -10,6 +10,12 @@ try:
     import collections.abc as collections_abc
 except ImportError:
     import collections as collections_abc  # Fallback for PY3.2.
+try:
+    from types import SlotWrapperType, MethodWrapperType, MethodDescriptorType
+except ImportError:
+    SlotWrapperType = type(object.__init__)
+    MethodWrapperType = type(object().__str__)
+    MethodDescriptorType = type(str.join)
 
 
 # Please keep __all__ alphabetized within each category.
@@ -1459,7 +1465,10 @@ def get_type_hints(obj, globalns=None, localns=None):
             isinstance(obj, types.FunctionType) or
             isinstance(obj, types.BuiltinFunctionType) or
             isinstance(obj, types.MethodType) or
-            isinstance(obj, types.ModuleType)
+            isinstance(obj, types.ModuleType) or
+            isinstance(obj, SlotWrapperType) or
+            isinstance(obj, MethodWrapperType) or
+            isinstance(obj, MethodDescriptorType)
         ):
             return {}
         else:
