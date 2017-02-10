@@ -2009,10 +2009,10 @@ class NamedTupleMeta(type):
         nm_tpl._field_defaults = defaults_dict
         # update from user namespace without overriding special namedtuple attributes
         for key in ns:
-            if key not in _prohibited + _special + nm_tpl._fields:
-                setattr(nm_tpl, key, ns[key])
-            elif key in _prohibited:
+            if key in _prohibited:
                 raise AttributeError("Cannot overwrite NamedTuple attribute " + key)
+            elif key not in _special and key not in nm_tpl._fields:
+                setattr(nm_tpl, key, ns[key])
         return nm_tpl
 
 
