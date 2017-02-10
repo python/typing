@@ -53,6 +53,7 @@ __all__ = [
     'SupportsInt',
 
     # Concrete collection types.
+    'Counter',
     'Deque',
     'Dict',
     'DefaultDict',
@@ -1783,6 +1784,16 @@ class DefaultDict(collections.defaultdict, MutableMapping[KT, VT]):
         if _geqv(cls, DefaultDict):
             return collections.defaultdict(*args, **kwds)
         return _generic_new(collections.defaultdict, cls, *args, **kwds)
+
+
+class Counter(collections.Counter, Dict[T, int]):
+    __slots__ = ()
+    __extra__ = collections.Counter
+
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Counter):
+            return collections.Counter(*args, **kwds)
+        return _generic_new(collections.Counter, cls, *args, **kwds)
 
 
 # Determine what base class to use for Generator.

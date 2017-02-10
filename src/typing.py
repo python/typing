@@ -68,6 +68,7 @@ __all__ = [
     'SupportsRound',
 
     # Concrete collection types.
+    'Counter',
     'Deque',
     'Dict',
     'DefaultDict',
@@ -1904,6 +1905,31 @@ class DefaultDict(collections.defaultdict, MutableMapping[KT, VT],
         if _geqv(cls, DefaultDict):
             return collections.defaultdict(*args, **kwds)
         return _generic_new(collections.defaultdict, cls, *args, **kwds)
+
+
+class Counter(collections.Counter, Dict[T, int], extra=collections.Counter):
+
+    __slots__ = ()
+
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Counter):
+            return collections.Counter(*args, **kwds)
+        return _generic_new(collections.Counter, cls, *args, **kwds)
+
+
+if hasattr(collections, 'ChainMap'):
+    # ChainMap only exists in 3.3+
+    __all__.append('ChainMap')
+
+    class ChainMap(collections.ChainMap, MutableMapping[KT, VT],
+                   extra=collections.ChainMap):
+
+        __slots__ = ()
+
+        def __new__(cls, *args, **kwds):
+            if _geqv(cls, ChainMap):
+                return collections.ChainMap(*args, **kwds)
+            return _generic_new(collections.ChainMap, cls, *args, **kwds)
 
 
 # Determine what base class to use for Generator.

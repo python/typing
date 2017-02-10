@@ -910,6 +910,11 @@ class GenericTests(BaseTestCase):
         class MyDef(typing.DefaultDict[str, T]): ...
         self.assertIs(MyDef[int]().__class__, MyDef)
         self.assertIs(MyDef[int]().__orig_class__, MyDef[int])
+        # ChainMap was added in 3.3
+        if sys.version_info >= (3, 3):
+            class MyChain(typing.ChainMap[str, T]): ...
+            self.assertIs(MyChain[int]().__class__, MyChain)
+            self.assertIs(MyChain[int]().__orig_class__, MyChain[int])
 
     def test_all_repr_eq_any(self):
         objs = (getattr(typing, el) for el in typing.__all__)
@@ -1705,6 +1710,9 @@ class CollectionsAbcTests(BaseTestCase):
         class MyDeque(typing.Deque[int]): ...
         self.assertIsInstance(MyDeque(), collections.deque)
 
+    def test_counter(self):
+        self.assertIsSubclass(collections.Counter, typing.Counter)
+
     def test_set(self):
         self.assertIsSubclass(set, typing.Set)
         self.assertNotIsSubclass(frozenset, typing.Set)
@@ -1772,12 +1780,49 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(MyDefDict, collections.defaultdict)
         self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
 
+    @skipUnless(sys.version_info >= (3, 3), 'ChainMap was added in 3.3')
+    def test_chainmap_instantiation(self):
+        self.assertIs(type(typing.ChainMap()), collections.ChainMap)
+        self.assertIs(type(typing.ChainMap[KT, VT]()), collections.ChainMap)
+        self.assertIs(type(typing.ChainMap[str, int]()), collections.ChainMap)
+        class CM(typing.ChainMap[KT, VT]): ...
+        self.assertIs(type(CM[int, str]()), CM)
+
+    @skipUnless(sys.version_info >= (3, 3), 'ChainMap was added in 3.3')
+    def test_chainmap_subclass(self):
+
+        class MyChainMap(typing.ChainMap[str, int]):
+            pass
+
+        cm = MyChainMap()
+        self.assertIsInstance(cm, MyChainMap)
+
+        self.assertIsSubclass(MyChainMap, collections.ChainMap)
+        self.assertNotIsSubclass(collections.ChainMap, MyChainMap)
+
     def test_deque_instantiation(self):
         self.assertIs(type(typing.Deque()), collections.deque)
         self.assertIs(type(typing.Deque[T]()), collections.deque)
         self.assertIs(type(typing.Deque[int]()), collections.deque)
         class D(typing.Deque[T]): ...
         self.assertIs(type(D[int]()), D)
+
+    def test_counter_instantiation(self):
+        self.assertIs(type(typing.Counter()), collections.Counter)
+        self.assertIs(type(typing.Counter[T]()), collections.Counter)
+        self.assertIs(type(typing.Counter[int]()), collections.Counter)
+        class C(typing.Counter[T]): ...
+        self.assertIs(type(C[int]()), C)
+
+    def test_counter_subclass_instantiation(self):
+
+        class MyCounter(typing.Counter[int]):
+            pass
+
+        d = MyCounter()
+        self.assertIsInstance(d, MyCounter)
+        self.assertIsInstance(d, typing.Counter)
+        self.assertIsInstance(d, collections.Counter)
 
     def test_no_set_instantiation(self):
         with self.assertRaises(TypeError):
