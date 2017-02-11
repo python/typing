@@ -750,7 +750,8 @@ class GenericTests(BaseTestCase):
         self.assertEqual(A, A)
         self.assertEqual(mod_generics_cache.A[str], mod_generics_cache.A[str])
         self.assertEqual(B.A, B.A)
-        self.assertEqual(mod_generics_cache.B.A[B.A[str]], mod_generics_cache.B.A[B.A[str]])
+        self.assertEqual(mod_generics_cache.B.A[B.A[str]],
+                         mod_generics_cache.B.A[B.A[str]])
 
         self.assertNotEqual(A, B.A)
         self.assertNotEqual(A, mod_generics_cache.A)
@@ -768,7 +769,8 @@ class GenericTests(BaseTestCase):
         self.assertNotEqual(Tuple[A[str]], Tuple[B.A[str]])
         self.assertNotEqual(Tuple[A[List[Any]]], Tuple[B.A[List[Any]]])
         self.assertNotEqual(Union[str, A[str]], Union[str, mod_generics_cache.A[str]])
-        self.assertNotEqual(Union[A[str], A[str]], Union[A[str], mod_generics_cache.A[str]])
+        self.assertNotEqual(Union[A[str], A[str]],
+                            Union[A[str], mod_generics_cache.A[str]])
         self.assertNotEqual(typing.FrozenSet[A[str]],
                             typing.FrozenSet[mod_generics_cache.B.A[str]])
 
