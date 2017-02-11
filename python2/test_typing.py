@@ -739,7 +739,7 @@ class GenericTests(BaseTestCase):
         self.assertEqual(Callable[..., GenericMeta].__args__, (Ellipsis, GenericMeta))
 
     def test_generic_hashes(self):
-        import mod
+        import mod_generics_cache
         class A(Generic[T]):
             __module__ = 'test_typing'
 
@@ -748,31 +748,33 @@ class GenericTests(BaseTestCase):
                 pass
 
         self.assertEqual(A, A)
-        self.assertEqual(mod.A[str], mod.A[str])
+        self.assertEqual(mod_generics_cache.A[str], mod_generics_cache.A[str])
         self.assertEqual(B.A, B.A)
-        self.assertEqual(mod.B.A[B.A[str]], mod.B.A[B.A[str]])
+        self.assertEqual(mod_generics_cache.B.A[B.A[str]], mod_generics_cache.B.A[B.A[str]])
 
         self.assertNotEqual(A, B.A)
-        self.assertNotEqual(A, mod.A)
-        self.assertNotEqual(A, mod.B.A)
-        self.assertNotEqual(B.A, mod.A)
-        self.assertNotEqual(B.A, mod.B.A)
+        self.assertNotEqual(A, mod_generics_cache.A)
+        self.assertNotEqual(A, mod_generics_cache.B.A)
+        self.assertNotEqual(B.A, mod_generics_cache.A)
+        self.assertNotEqual(B.A, mod_generics_cache.B.A)
 
         self.assertNotEqual(A[str], B.A[str])
         self.assertNotEqual(A[List[Any]], B.A[List[Any]])
-        self.assertNotEqual(A[str], mod.A[str])
-        self.assertNotEqual(A[str], mod.B.A[str])
-        self.assertNotEqual(B.A[int], mod.A[int])
-        self.assertNotEqual(B.A[List[Any]], mod.B.A[List[Any]])
+        self.assertNotEqual(A[str], mod_generics_cache.A[str])
+        self.assertNotEqual(A[str], mod_generics_cache.B.A[str])
+        self.assertNotEqual(B.A[int], mod_generics_cache.A[int])
+        self.assertNotEqual(B.A[List[Any]], mod_generics_cache.B.A[List[Any]])
 
         self.assertNotEqual(Tuple[A[str]], Tuple[B.A[str]])
         self.assertNotEqual(Tuple[A[List[Any]]], Tuple[B.A[List[Any]]])
-        self.assertNotEqual(Union[str, A[str]], Union[str, mod.A[str]])
-        self.assertNotEqual(Union[A[str], A[str]], Union[A[str], mod.A[str]])
-        self.assertNotEqual(typing.FrozenSet[A[str]], typing.FrozenSet[mod.B.A[str]])
+        self.assertNotEqual(Union[str, A[str]], Union[str, mod_generics_cache.A[str]])
+        self.assertNotEqual(Union[A[str], A[str]], Union[A[str], mod_generics_cache.A[str]])
+        self.assertNotEqual(typing.FrozenSet[A[str]],
+                            typing.FrozenSet[mod_generics_cache.B.A[str]])
 
         self.assertTrue(repr(Tuple[A[str]]).endswith('test_typing.A[str]]'))
-        self.assertTrue(repr(Tuple[mod.A[str]]).endswith('mod.A[str]]'))
+        self.assertTrue(repr(Tuple[mod_generics_cache.A[str]])
+                        .endswith('mod_generics_cache.A[str]]'))
 
     def test_extended_generic_rules_eq(self):
         T = TypeVar('T')
