@@ -1243,6 +1243,13 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                               self.__parameters__, self.__args__, self.__origin__,
                               self.__extra__, self.__orig_bases__)
 
+    def __setattr__(self, attr, value):
+        # We consider all the subscripted genrics as proxies for original class
+        if attr.startswith('__') and attr.endswith('__'):
+            type.__setattr__(self, attr, value)
+        else:
+            type.__setattr__(_gorg(self), attr, value)
+
 
 # Prevent checks for Generic to crash when defining Generic.
 Generic = None
