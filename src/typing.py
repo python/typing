@@ -363,8 +363,7 @@ def _type_check(arg, msg):
     if isinstance(arg, str):
         arg = _ForwardRef(arg)
     if (
-        isinstance(arg, _TypingBase) and
-        type(arg).__name__ in ('_ClassVar', '_NoReturn') or
+        isinstance(arg, _TypingBase) and type(arg).__name__ == '_ClassVar' or
         not isinstance(arg, (type, _TypingBase)) and not callable(arg)
     ):
         raise TypeError(msg + " Got %.100r." % (arg,))
@@ -431,7 +430,7 @@ class _NoReturn(_FinalTypingBase, _root=True):
           raise Exception('no way')
 
     This type is invalid in other positions, e.g., ``List[NoReturn]``
-    will fail at runtime.
+    will fail in static type checkers.
     """
 
     __slots__ = ()

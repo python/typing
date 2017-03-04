@@ -128,15 +128,9 @@ class NoReturnTests(BaseTestCase):
     def test_repr(self):
         self.assertEqual(repr(NoReturn), 'typing.NoReturn')
 
-    def test_errors(self):
+    def test_not_generic(self):
         with self.assertRaises(TypeError):
             NoReturn[int]
-        with self.assertRaises(TypeError):
-            List[NoReturn]
-        with self.assertRaises(TypeError):
-            Union[int, NoReturn]
-        with self.assertRaises(TypeError):
-            Callable[..., NoReturn]
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
