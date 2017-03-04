@@ -1910,7 +1910,7 @@ def NamedTuple(typename, fields):
 
     Usage::
 
-        Employee = typing.NamedTuple('Employee', [('name', str), 'id', int)])
+        Employee = typing.NamedTuple('Employee', [('name', str), ('id', int)])
 
     This is equivalent to::
 
