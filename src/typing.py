@@ -363,7 +363,8 @@ def _type_check(arg, msg):
     if isinstance(arg, str):
         arg = _ForwardRef(arg)
     if (
-        isinstance(arg, _TypingBase) and type(arg).__name__ == '_ClassVar' or
+        isinstance(arg, _TypingBase) and
+        type(arg).__name__ in ('_ClassVar', '_NoReturn') or
         not isinstance(arg, (type, _TypingBase)) and not callable(arg)
     ):
         raise TypeError(msg + " Got %.100r." % (arg,))
@@ -418,6 +419,31 @@ class _Any(_FinalTypingBase, _root=True):
 
 
 Any = _Any(_root=True)
+
+
+class _NoReturn(_FinalTypingBase, _root=True):
+    """Special type indicating functions that never return.
+    Example::
+
+      from typing import NoReturn
+
+      def stop() -> NoReturn:
+          raise Exception('no way')
+
+    This type is invalid in other positions, e.g., ``List[NoReturn]``
+    will fail at runtime.
+    """
+
+    __slots__ = ()
+
+    def __instancecheck__(self, obj):
+        raise TypeError("NoReturn cannot be used with isinstance().")
+
+    def __subclasscheck__(self, cls):
+        raise TypeError("NoReturn cannot be used with issubclass().")
+
+
+NoReturn = _NoReturn(_root=True)
 
 
 class TypeVar(_TypingBase, _root=True):
