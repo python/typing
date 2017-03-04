@@ -99,10 +99,6 @@ class AnyTests(BaseTestCase):
         with self.assertRaises(TypeError):
             type(Any)()
 
-    def test_cannot_subscript(self):
-        with self.assertRaises(TypeError):
-            Any[int]
-
     def test_any_is_subclass(self):
         # These expressions must simply not fail.
         typing.Match[Any]
