@@ -1,7 +1,7 @@
 from typing_inspect import (
     is_generic_type, is_callable_type, is_tuple_type, is_union_type,
     is_typevar, is_classvar, get_origin, get_parameters, get_last_args, get_args,
-    get_generic_type, get_generic_bases,
+    get_generic_type, get_generic_bases, get_last_origin,
 )
 from unittest import TestCase, main
 from typing import (
@@ -65,6 +65,15 @@ class IsUtilityTestCase(TestCase):
 
 
 class GetUtilityTestCase(TestCase):
+
+    def test_last_origin(self):
+        T = TypeVar('T')
+        self.assertEqual(get_last_origin(int), None)
+        self.assertEqual(get_last_origin(ClassVar[int]), None)
+        self.assertEqual(get_last_origin(Generic[T]), Generic)
+        self.assertEqual(get_last_origin(Union[T, int][str]), Union[T, int])
+        self.assertEqual(get_last_origin(List[Tuple[T, T]][int]), List[Tuple[T, T]])
+
     def test_origin(self):
         T = TypeVar('T')
         self.assertEqual(get_origin(int), None)

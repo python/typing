@@ -7,7 +7,10 @@ Example usage::
 
 # NOTE: This module must support Python 2.7 in addition to Python 3.x
 
-from typing import Callable, Union, Tuple, TypeVar, _gorg, ClassVar, Generic
+from typing import (
+    Callable, CallableMeta, Union, _Union, TupleMeta, TypeVar,
+    _gorg, _ClassVar, GenericMeta,
+)
 
 
 def is_generic_type(tp):
@@ -29,8 +32,8 @@ def is_generic_type(tp):
         is_generic_type(Sequence[Union[str, bytes]]) == True
     """
 
-    return (isinstance(tp, type(Generic)) and not
-            isinstance(tp, (type(Callable), type(Tuple))))
+    return (isinstance(tp, GenericMeta) and not
+            isinstance(tp, (CallableMeta, TupleMeta)))
 
 
 def is_callable_type(tp):
@@ -53,7 +56,7 @@ def is_callable_type(tp):
         get_origin(tp) is Callable
     """
 
-    return type(tp) is type(Callable)
+    return type(tp) is CallableMeta
 
 
 def is_tuple_type(tp):
@@ -75,7 +78,7 @@ def is_tuple_type(tp):
         get_origin(tp) is Tuple
     """
 
-    return type(tp) is type(Tuple)
+    return type(tp) is TupleMeta
 
 
 def is_union_type(tp):
@@ -87,7 +90,7 @@ def is_union_type(tp):
         is_union_type(Union[T, int]) == True
     """
 
-    return type(tp) is type(Union)
+    return type(tp) is _Union
 
 
 def is_typevar(tp):
@@ -110,7 +113,22 @@ def is_classvar(tp):
         is_classvar(ClassVar[List[T]]) == True
     """
 
-    return type(tp) is type(ClassVar)
+    return type(tp) is _ClassVar
+
+
+def get_last_origin(tp):
+    """Get the last base of (multiply) subscripted type. Supports generic types,
+        Union, Callable, and Tuple. Returns None for unsupported types.
+        Examples::
+
+        get_last_origin(int) == None
+        get_last_origin(ClassVar[int]) == None
+        get_last_origin(Generic[T]) == Generic
+        get_last_origin(Union[T, int][str]) == Union[T, int]
+        get_last_origin(List[Tuple[T, T]][int]) == List[Tuple[T, T]]
+        """
+
+    return getattr(tp, '__origin__', None)
 
 
 def get_origin(tp):
@@ -125,7 +143,7 @@ def get_origin(tp):
         get_origin(List[Tuple[T, T]][int]) == List
     """
 
-    if isinstance(tp, type(Generic)):
+    if isinstance(tp, GenericMeta):
         return _gorg(tp)
     if is_union_type(tp):
         return Union
