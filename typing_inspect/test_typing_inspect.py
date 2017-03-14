@@ -73,6 +73,7 @@ class GetUtilityTestCase(TestCase):
         self.assertEqual(get_last_origin(Generic[T]), Generic)
         self.assertEqual(get_last_origin(Union[T, int][str]), Union[T, int])
         self.assertEqual(get_last_origin(List[Tuple[T, T]][int]), List[Tuple[T, T]])
+        self.assertEqual(get_last_origin(List), List)
 
     def test_origin(self):
         T = TypeVar('T')

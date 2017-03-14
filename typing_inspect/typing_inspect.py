@@ -126,9 +126,16 @@ def get_last_origin(tp):
         get_last_origin(Generic[T]) == Generic
         get_last_origin(Union[T, int][str]) == Union[T, int]
         get_last_origin(List[Tuple[T, T]][int]) == List[Tuple[T, T]]
+        get_last_origin(List) == List
         """
 
-    return getattr(tp, '__origin__', None)
+    sentinel = object()
+    origin = getattr(tp, '__origin__', sentinel)
+    if origin is sentinel:
+        return None
+    if origin is None:
+        return tp
+    return origin
 
 
 def get_origin(tp):
