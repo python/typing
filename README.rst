@@ -133,7 +133,7 @@ Workflow for PyPI releases
 --------------------------
 
 * Run tests under all supported versions. As of March 2017 this includes
-  2.7, 3.2, 3.3, 3.4, 3.5, 3.6.
+  2.7, 3.3, 3.4, 3.5, 3.6.
 
 * On macOS, you can use [pyenv](https://github.com/pyenv/pyenv) to manage
   multiple Python installations. Long story short:
@@ -145,20 +145,10 @@ Workflow for PyPI releases
   * `pyenv install 3.5.3`
   * `pyenv install 3.4.6`
   * `pyenv install 3.3.6`
-  * `pyenv install 3.2.6`
   * (assuming you already have 2.7.13 and 3.6.1 from Homebrew)
-  * `pyenv global system 3.5.3 3.4.6 3.3.6 3.2.6`
+  * `pyenv global system 3.5.3 3.4.6 3.3.6`
 
-* You can use `tox` to automate running tests. Note: `tox` no longer
-  supports Python 3.2 because modern versions of `virtualenv` bundle
-  `pip` versions newer than 7.1.2  which dropped Python 3.2
-  compatibility. You need a new `virtualenv` version to support 3.6.
-  So, you'll have to test on 3.2 separately:
-
-  * `pip3.2 install virtualenv==13.1.2`
-  * `python3.2 -m virtualenv .venv32`
-  * `. .venv32/bin/activate`
-  * `cd src/ && python -m unittest discover`
+* You can use `tox` to automate running tests.
 
 * Update the version number in `setup.py`.
 

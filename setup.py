@@ -4,18 +4,18 @@
 import sys
 from distutils.core import setup
 
-if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 2, 0):
-    sys.stderr.write('ERROR: You need Python 2.7 or 3.2-3.4 '
+if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 3, 0):
+    sys.stderr.write('ERROR: You need Python 2.7 or 3.3+ '
                      'to install the typing package.\n')
     exit(1)
 
-version = '3.5.3.0'
+version = '3.6.1'
 description = 'Type Hints for Python'
 long_description = '''\
 Typing -- Type Hints for Python
 
 This is a backport of the standard library typing module to Python
-versions older than 3.5.
+versions older than 3.6.
 
 Typing defines a standard notation for Python function and variable
 type annotations. The notation can be used for documenting code in a
@@ -33,7 +33,6 @@ classifiers = [
     'License :: OSI Approved :: Python Software Foundation License',
     'Operating System :: OS Independent',
     'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3.2',
     'Programming Language :: Python :: 3.3',
     'Programming Language :: Python :: 3.4',
     'Programming Language :: Python :: 3.5',
