@@ -478,6 +478,40 @@ class _Any(_FinalTypingBase):
 Any = _Any(_root=True)
 
 
+class NoReturnMeta(TypingMeta):
+    """Metaclass for NoReturn."""
+
+    def __new__(cls, name, bases, namespace):
+        cls.assert_no_subclassing(bases)
+        self = super(NoReturnMeta, cls).__new__(cls, name, bases, namespace)
+        return self
+
+
+class _NoReturn(_FinalTypingBase):
+    """Special type indicating functions that never return.
+    Example::
+
+      from typing import NoReturn
+
+      def stop() -> NoReturn:
+          raise Exception('no way')
+
+    This type is invalid in other positions, e.g., ``List[NoReturn]``
+    will fail in static type checkers.
+    """
+    __metaclass__ = NoReturnMeta
+    __slots__ = ()
+
+    def __instancecheck__(self, obj):
+        raise TypeError("NoReturn cannot be used with isinstance().")
+
+    def __subclasscheck__(self, cls):
+        raise TypeError("NoReturn cannot be used with issubclass().")
+
+
+NoReturn = _NoReturn(_root=True)
+
+
 class TypeVarMeta(TypingMeta):
     def __new__(cls, name, bases, namespace):
         cls.assert_no_subclassing(bases)
