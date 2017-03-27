@@ -135,24 +135,24 @@ Workflow for PyPI releases
 * Run tests under all supported versions. As of March 2017 this includes
   2.7, 3.3, 3.4, 3.5, 3.6.
 
-* On macOS, you can use [pyenv](https://github.com/pyenv/pyenv) to manage
-  multiple Python installations. Long story short:
+* On macOS, you can use `pyenv <https://github.com/pyenv/pyenv>`_ to
+  manage multiple Python installations. Long story short:
 
-  * `xcode-select --install`
-  * `brew install pyenv`
-  * `echo 'eval "$(pyenv init -)"' >> ~/.bash_profile`
+  * ``xcode-select --install``
+  * ``brew install pyenv``
+  * ``echo 'eval "$(pyenv init -)"' >> ~/.bash_profile``
   * Open a new shell
-  * `pyenv install 3.5.3`
-  * `pyenv install 3.4.6`
-  * `pyenv install 3.3.6`
+  * ``pyenv install 3.5.3``
+  * ``pyenv install 3.4.6``
+  * ``pyenv install 3.3.6``
   * (assuming you already have 2.7.13 and 3.6.1 from Homebrew)
-  * `pyenv global system 3.5.3 3.4.6 3.3.6`
+  * ``pyenv global system 3.5.3 3.4.6 3.3.6``
 
-* You can use `tox` to automate running tests.
+* You can use ``tox`` to automate running tests.
 
-* Update the version number in `setup.py`.
+* Update the version number in ``setup.py``.
 
 * Build a source distribution. Install it locally and test (if you
-  were using `tox`, you already tested source distributions).
+  were using ``tox``, you already tested source distributions).
 
-* Run `twine upload dist/typing-3.x.y.tar.gz`.
+* Run ``twine upload dist/typing-3.x.y.tar.gz``.
