@@ -2303,6 +2303,14 @@ class XMethBad(NamedTuple):
         return 'no chance for this'
 """)
 
+        with self.assertRaises(AttributeError):
+            exec("""
+class XMethBad2(NamedTuple):
+    x: int
+    def _source(self):
+        return 'no chance for this as well'
+""")
+
     @skipUnless(PY36, 'Python 3.6 required')
     def test_namedtuple_keyword_usage(self):
         LocalEmployee = NamedTuple("LocalEmployee", name=str, age=int)
