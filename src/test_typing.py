@@ -2458,6 +2458,9 @@ class AllTests(BaseTestCase):
         self.assertNotIn('sys', a)
         # Check that Text is defined.
         self.assertIn('Text', a)
+        # Check previously missing classes.
+        self.assertIn('SupportsBytes', a)
+        self.assertIn('SupportsComplex', a)
 
 
 if __name__ == '__main__':

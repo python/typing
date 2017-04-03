@@ -1838,6 +1838,8 @@ class AllTests(BaseTestCase):
         self.assertNotIn('sys', a)
         # Check that Text is defined.
         self.assertIn('Text', a)
+        # Check previously missing class.
+        self.assertIn('SupportsComplex', a)
 
     def test_respect_no_type_check(self):
         @typing.no_type_check
