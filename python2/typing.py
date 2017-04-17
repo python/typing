@@ -1887,6 +1887,15 @@ class Counter(collections.Counter, Dict[T, int]):
         return _generic_new(collections.Counter, cls, *args, **kwds)
 
 
+class DefaultDict(collections.defaultdict, MutableMapping[KT, VT]):
+
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, DefaultDict):
+            raise TypeError("Type DefaultDict cannot be instantiated; "
+                            "use collections.defaultdict() instead")
+        return collections.defaultdict.__new__(cls, *args, **kwds)
+
+
 # Determine what base class to use for Generator.
 if hasattr(collections_abc, 'Generator'):
     # Sufficiently recent versions of 3.5 have a Generator ABC.
