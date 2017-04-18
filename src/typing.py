@@ -63,6 +63,8 @@ __all__ = [
     # Structural checks, a.k.a. protocols.
     'Reversible',
     'SupportsAbs',
+    'SupportsBytes',
+    'SupportsComplex',
     'SupportsFloat',
     'SupportsInt',
     'SupportsRound',
