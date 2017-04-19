@@ -26,6 +26,7 @@ __all__ = [
     'ClassVar',
     'Generic',
     'Optional',
+    'Protocol',
     'Tuple',
     'Type',
     'TypeVar',
@@ -88,6 +89,7 @@ __all__ = [
     'no_type_check',
     'no_type_check_decorator',
     'overload',
+    'runtime',
     'Text',
     'TYPE_CHECKING',
 ]
@@ -373,7 +375,7 @@ def _type_check(arg, msg):
     if (
         type(arg).__name__ in ('_Union', '_Optional') and
         not getattr(arg, '__origin__', None) or
-        isinstance(arg, TypingMeta) and _gorg(arg) in (Generic, _Protocol)
+        isinstance(arg, TypingMeta) and _gorg(arg) in (Generic, Protocol)
     ):
         raise TypeError("Plain %s is not valid as type argument" % arg)
     return arg
@@ -924,6 +926,9 @@ def _no_slots_copy(dct):
     return dict_copy
 
 
+Protocol = object()
+
+
 class GenericMeta(TypingMeta, abc.ABCMeta):
     """Metaclass for generic types.
 
@@ -967,10 +972,11 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 if base is Generic:
                     raise TypeError("Cannot inherit from plain Generic")
                 if (isinstance(base, GenericMeta) and
-                        base.__origin__ is Generic):
+                        base.__origin__ in (Generic, Protocol)):
                     if gvars is not None:
                         raise TypeError(
-                            "Cannot inherit from Generic[...] multiple types.")
+                            "Cannot inherit from Generic[...] or"
+                            " Protocol[...] multiple types.")
                     gvars = base.__parameters__
             if gvars is None:
                 gvars = tvars
@@ -980,8 +986,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 if not tvarset <= gvarset:
                     raise TypeError(
                         "Some type variables (%s) "
-                        "are not listed in Generic[%s]" %
+                        "are not listed in %s[%s]" %
                         (", ".join(str(t) for t in tvars if t not in gvarset),
+                         "Generic" if any(b.__origin__ is Generic
+                                          for b in bases) else "Protocol",
                          ", ".join(str(g) for g in gvars)))
                 tvars = gvars
 
@@ -1123,25 +1131,21 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 "Parameter list to %s[...] cannot be empty" % _qualname(self))
         msg = "Parameters to generic types must be types."
         params = tuple(_type_check(p, msg) for p in params)
-        if self is Generic:
+        if self in (Generic, Protocol):
             # Generic can only be subscripted with unique type variables.
             if not all(isinstance(p, TypeVar) for p in params):
                 raise TypeError(
-                    "Parameters to Generic[...] must all be type variables")
+                    "Parameters to %r[...] must all be type variables" % self)
             if len(set(params)) != len(params):
                 raise TypeError(
-                    "Parameters to Generic[...] must all be unique")
+                    "Parameters to %r[...] must all be unique" % self)
             tvars = params
             args = params
         elif self in (Tuple, Callable):
             tvars = _type_vars(params)
             args = params
-        elif self is _Protocol:
-            # _Protocol is internal, don't check anything.
-            tvars = params
-            args = params
-        elif self.__origin__ in (Generic, _Protocol):
-            # Can't subscript Generic[...] or _Protocol[...].
+        elif self.__origin__ in (Generic, Protocol):
+            # Can't subscript Generic[...] or Protocol[...].
             raise TypeError("Cannot subscript already-subscripted %s" %
                             repr(self))
         else:
@@ -1634,25 +1638,39 @@ def overload(func):
 
 
 class _ProtocolMeta(GenericMeta):
-    """Internal metaclass for _Protocol.
+    """Internal metaclass for Protocol.
 
-    This exists so _Protocol classes can be generic without deriving
+    This exists so Protocol classes can be generic without deriving
     from Generic.
     """
 
+    def __init__(cls, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not cls.__dict__.get('_is_protocol', None):
+            cls._is_protocol = any(b is Protocol or
+                                   getattr(b, '__origin__', None) is Protocol
+                                   for b in cls.__bases__)
+        if cls._is_protocol:
+            for base in cls.__mro__[1:]:
+                if not (base in (type, object) or base._is_protocol):
+                    raise TypeError('Protocols can only inherit from other protocols,'
+                                    ' got %r' % base)
+
     def __instancecheck__(self, obj):
-        if _Protocol not in self.__bases__:
-            return super().__instancecheck__(obj)
-        raise TypeError("Protocols cannot be used with isinstance().")
+        return issubclass(obj.__class__, self)
 
     def __subclasscheck__(self, cls):
         if not self._is_protocol:
             # No structural checks since this isn't a protocol.
             return NotImplemented
-
-        if self is _Protocol:
-            # Every class is a subclass of the empty protocol.
-            return True
+        if not getattr(self, '_is_runtime_protocol', None):
+            raise TypeError('Instance and class checks can only be used with'
+                            ' @runtime protocols')
+        if self.__origin__ is not None:
+            if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools']:
+                raise TypeError("Parameterized generics cannot be used with class "
+                                "or instance checks")
+            return False
 
         # Find all attributes defined in the protocol.
         attrs = self._get_protocol_attrs()
@@ -1666,7 +1684,7 @@ class _ProtocolMeta(GenericMeta):
         # Get all Protocol base classes.
         protocol_bases = []
         for c in self.__mro__:
-            if getattr(c, '_is_protocol', False) and c.__name__ != '_Protocol':
+            if getattr(c, '_is_protocol', False) and c.__name__ != 'Protocol':
                 protocol_bases.append(c)
 
         # Get attributes included in protocol.
@@ -1684,6 +1702,7 @@ class _ProtocolMeta(GenericMeta):
                             attr != '__annotations__' and
                             attr != '__weakref__' and
                             attr != '_is_protocol' and
+                            attr != '_is_runtime_protocol' and
                             attr != '__dict__' and
                             attr != '__args__' and
                             attr != '__slots__' and
@@ -1700,8 +1719,8 @@ class _ProtocolMeta(GenericMeta):
         return attrs
 
 
-class _Protocol(metaclass=_ProtocolMeta):
-    """Internal base class for protocol classes.
+class Protocol(metaclass=_ProtocolMeta):
+    """Base class for protocol classes.
 
     This implements a simple-minded structural issubclass check
     (similar but more general than the one-offs in collections.abc
@@ -1711,6 +1730,24 @@ class _Protocol(metaclass=_ProtocolMeta):
     __slots__ = ()
 
     _is_protocol = True
+
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Protocol):
+            raise TypeError("Type Protocol cannot be instantiated; "
+                            "it can be used only as a base class")
+        return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
+
+
+def runtime(cls):
+    """Mark a protocol class as a runtime protocol, so that it
+    can be used with isinstance() and issubclass(). Raise TypeError
+    if applied to a non-protocol class.
+    """
+    if not getattr(cls, '_is_protocol', None):
+        raise TypeError('@runtime can be only applied to protocol classes,'
+                        ' got %r' % cls)
+    cls._is_runtime_protocol = True
+    return cls
 
 
 # Various ABCs mimicking those in collections.abc.
@@ -1755,7 +1792,8 @@ class Iterator(Iterable[T_co], extra=collections_abc.Iterator):
     __slots__ = ()
 
 
-class SupportsInt(_Protocol):
+@runtime
+class SupportsInt(Protocol):
     __slots__ = ()
 
     @abstractmethod
@@ -1763,7 +1801,8 @@ class SupportsInt(_Protocol):
         pass
 
 
-class SupportsFloat(_Protocol):
+@runtime
+class SupportsFloat(Protocol):
     __slots__ = ()
 
     @abstractmethod
@@ -1771,7 +1810,8 @@ class SupportsFloat(_Protocol):
         pass
 
 
-class SupportsComplex(_Protocol):
+@runtime
+class SupportsComplex(Protocol):
     __slots__ = ()
 
     @abstractmethod
@@ -1779,7 +1819,8 @@ class SupportsComplex(_Protocol):
         pass
 
 
-class SupportsBytes(_Protocol):
+@runtime
+class SupportsBytes(Protocol):
     __slots__ = ()
 
     @abstractmethod
@@ -1787,7 +1828,8 @@ class SupportsBytes(_Protocol):
         pass
 
 
-class SupportsAbs(_Protocol[T_co]):
+@runtime
+class SupportsAbs(Protocol[T_co]):
     __slots__ = ()
 
     @abstractmethod
@@ -1795,7 +1837,8 @@ class SupportsAbs(_Protocol[T_co]):
         pass
 
 
-class SupportsRound(_Protocol[T_co]):
+@runtime
+class SupportsRound(Protocol[T_co]):
     __slots__ = ()
 
     @abstractmethod
@@ -1807,7 +1850,8 @@ if hasattr(collections_abc, 'Reversible'):
     class Reversible(Iterable[T_co], extra=collections_abc.Reversible):
         __slots__ = ()
 else:
-    class Reversible(_Protocol[T_co]):
+    @runtime
+    class Reversible(Protocol[T_co]):
         __slots__ = ()
 
         @abstractmethod

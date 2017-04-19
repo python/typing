@@ -570,9 +570,8 @@ class ProtocolTests(BaseTestCase):
         self.assertIsSubclass(list, typing.Reversible)
         self.assertNotIsSubclass(int, typing.Reversible)
 
-    def test_protocol_instance_type_error(self):
-        with self.assertRaises(TypeError):
-            isinstance(0, typing.SupportsAbs)
+    def test_protocol_instance(self):
+        self.assertIsInstance(0, typing.SupportsAbs)
         class C1(typing.SupportsInt):
             def __int__(self) -> int:
                 return 42
@@ -580,6 +579,13 @@ class ProtocolTests(BaseTestCase):
             pass
         c = C2()
         self.assertIsInstance(c, C1)
+        class C3:
+            def __int__(self) -> int:
+                return 42
+        class C4(C3):
+            pass
+        c = C4()
+        self.assertIsInstance(c, typing.SupportsInt)
 
 
 class GenericTests(BaseTestCase):
@@ -682,7 +688,7 @@ class GenericTests(BaseTestCase):
     def test_new_repr_bare(self):
         T = TypeVar('T')
         self.assertEqual(repr(Generic[T]), 'typing.Generic[~T]')
-        self.assertEqual(repr(typing._Protocol[T]), 'typing.Protocol[~T]')
+        self.assertEqual(repr(typing.Protocol[T]), 'typing.Protocol[~T]')
         class C(typing.Dict[Any, Any]): ...
         # this line should just work
         repr(C.__mro__)
@@ -978,7 +984,7 @@ class GenericTests(BaseTestCase):
         with self.assertRaises(TypeError):
             Tuple[Generic[T]]
         with self.assertRaises(TypeError):
-            List[typing._Protocol]
+            List[typing.Protocol]
         with self.assertRaises(TypeError):
             isinstance(1, Generic)
 
