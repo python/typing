@@ -1653,7 +1653,7 @@ class _ProtocolMeta(GenericMeta):
                                    for b in cls.__bases__)
         if cls._is_protocol:
             for base in cls.__mro__[1:]:
-                if not (base in (type, object) or base._is_protocol or
+                if not (base is object or base._is_protocol or
                         isinstance(base, GenericMeta) and base.__origin__ is Generic):
                     raise TypeError('Protocols can only inherit from other protocols,'
                                     ' got %r' % base)
@@ -1679,41 +1679,26 @@ class _ProtocolMeta(GenericMeta):
             cls.__subclasshook__ = _proto_hook
 
     def _get_protocol_attrs(self):
-        # Get all Protocol base classes.
-        protocol_bases = []
-        for c in self.__mro__:
-            if getattr(c, '_is_protocol', False) and c.__name__ != 'Protocol':
-                protocol_bases.append(c)
-
-        # Get attributes included in protocol.
         attrs = set()
-        for base in protocol_bases:
-            for attr in base.__dict__.keys():
+        for base in self.__mro__[:-1]:  # without object
+            if base.__name__ == 'Protocol':
+                continue
+            annotations = getattr(base, '__annotations__', {})
+            for attr in list(base.__dict__.keys()) + list(annotations.keys()):
                 # Include attributes not defined in any non-protocol bases.
                 for c in self.__mro__:
                     if (c is not base and attr in c.__dict__ and
                             not getattr(c, '_is_protocol', False)):
                         break
                 else:
-                    if (not attr.startswith('_abc_') and
-                            attr != '__abstractmethods__' and
-                            attr != '__annotations__' and
-                            attr != '__weakref__' and
-                            attr != '_is_protocol' and
-                            attr != '_is_runtime_protocol' and
-                            attr != '__dict__' and
-                            attr != '__args__' and
-                            attr != '__slots__' and
-                            attr != '_get_protocol_attrs' and
-                            attr != '__next_in_mro__' and
-                            attr != '__parameters__' and
-                            attr != '__origin__' and
-                            attr != '__orig_bases__' and
-                            attr != '__extra__' and
-                            attr != '__tree_hash__' and
-                            attr != '__module__'):
+                    if (not attr.startswith('_abc_') and attr not in (
+                            '__abstractmethods__', '__annotations__', '__weakref__',
+                            '_is_protocol', '_is_runtime_protocol', '__dict__',
+                            '__args__', '__slots__', '_get_protocol_attrs',
+                            '__next_in_mro__', '__parameters__', '__origin__',
+                            '__orig_bases__', '__extra__',  '__tree_hash__',
+                            '__module__')):
                         attrs.add(attr)
-
         return attrs
 
 
