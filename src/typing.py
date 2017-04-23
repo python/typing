@@ -1648,37 +1648,33 @@ class _ProtocolMeta(GenericMeta):
         super().__init__(*args, **kwargs)
         if not cls.__dict__.get('_is_protocol', None):
             cls._is_protocol = any(b is Protocol or
-                                   getattr(b, '__origin__', None) is Protocol
+                                   isinstance(b, _ProtocolMeta) and b.__origin__ is Protocol
                                    for b in cls.__bases__)
         if cls._is_protocol:
             for base in cls.__mro__[1:]:
-                if not (base in (type, object) or base._is_protocol):
+                if not (base in (type, object) or base._is_protocol or
+                        isinstance(base, GenericMeta) and base.__origin__ is Generic):
                     raise TypeError('Protocols can only inherit from other protocols,'
                                     ' got %r' % base)
+            def _no_init(self, *args, **kwargs):
+                if type(self)._is_protocol:
+                    raise TypeError('Protocols cannot be instantiated')
+            cls.__init__ = _no_init
 
-    def __instancecheck__(self, obj):
-        return issubclass(obj.__class__, self)
-
-    def __subclasscheck__(self, cls):
-        if not self._is_protocol:
-            # No structural checks since this isn't a protocol.
-            return NotImplemented
-        if not getattr(self, '_is_runtime_protocol', None):
-            raise TypeError('Instance and class checks can only be used with'
-                            ' @runtime protocols')
-        if self.__origin__ is not None:
-            if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools']:
-                raise TypeError("Parameterized generics cannot be used with class "
-                                "or instance checks")
-            return False
-
-        # Find all attributes defined in the protocol.
-        attrs = self._get_protocol_attrs()
-
-        for attr in attrs:
-            if not any(attr in d.__dict__ for d in cls.__mro__):
-                return False
-        return True
+            def __protohook__(other):
+                if not getattr(cls, '_is_runtime_protocol', None):
+                    raise TypeError('Instance and class checks can only be used with'
+                                    ' @runtime protocols')
+                for attr in cls._get_protocol_attrs():
+                    for base in other.__mro__:
+                        if attr in base.__dict__:
+                            if base.__dict__[attr] is None:
+                                return NotImplemented
+                            break
+                    else:
+                        return NotImplemented
+                return True
+            cls.__subclasshook__ = __protohook__
 
     def _get_protocol_attrs(self):
         # Get all Protocol base classes.
