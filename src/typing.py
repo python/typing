@@ -1648,7 +1648,8 @@ class _ProtocolMeta(GenericMeta):
         super().__init__(*args, **kwargs)
         if not cls.__dict__.get('_is_protocol', None):
             cls._is_protocol = any(b is Protocol or
-                                   isinstance(b, _ProtocolMeta) and b.__origin__ is Protocol
+                                   isinstance(b, _ProtocolMeta) and
+                                   b.__origin__ is Protocol
                                    for b in cls.__bases__)
         if cls._is_protocol:
             for base in cls.__mro__[1:]:
@@ -1656,12 +1657,13 @@ class _ProtocolMeta(GenericMeta):
                         isinstance(base, GenericMeta) and base.__origin__ is Generic):
                     raise TypeError('Protocols can only inherit from other protocols,'
                                     ' got %r' % base)
+
             def _no_init(self, *args, **kwargs):
                 if type(self)._is_protocol:
                     raise TypeError('Protocols cannot be instantiated')
             cls.__init__ = _no_init
 
-            def __protohook__(other):
+            def _proto_hook(other):
                 if not getattr(cls, '_is_runtime_protocol', None):
                     raise TypeError('Instance and class checks can only be used with'
                                     ' @runtime protocols')
@@ -1674,7 +1676,7 @@ class _ProtocolMeta(GenericMeta):
                     else:
                         return NotImplemented
                 return True
-            cls.__subclasshook__ = __protohook__
+            cls.__subclasshook__ = _proto_hook
 
     def _get_protocol_attrs(self):
         # Get all Protocol base classes.
