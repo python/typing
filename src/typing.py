@@ -1653,7 +1653,8 @@ class _ProtocolMeta(GenericMeta):
                                    for b in cls.__bases__)
         if cls._is_protocol:
             for base in cls.__mro__[1:]:
-                if not (base is object or base._is_protocol or
+                if not (base is object or
+                        isinstance(base, _ProtocolMeta) and base._is_protocol or
                         isinstance(base, GenericMeta) and base.__origin__ is Generic):
                     raise TypeError('Protocols can only inherit from other protocols,'
                                     ' got %r' % base)
@@ -1663,20 +1664,33 @@ class _ProtocolMeta(GenericMeta):
                     raise TypeError('Protocols cannot be instantiated')
             cls.__init__ = _no_init
 
-            def _proto_hook(other):
-                if not getattr(cls, '_is_runtime_protocol', None):
-                    raise TypeError('Instance and class checks can only be used with'
-                                    ' @runtime protocols')
-                for attr in cls._get_protocol_attrs():
-                    for base in other.__mro__:
-                        if attr in base.__dict__:
-                            if base.__dict__[attr] is None:
-                                return NotImplemented
-                            break
-                    else:
-                        return NotImplemented
-                return True
+        def _proto_hook(other):
+            if not cls.__dict__.get('_is_protocol', None):
+                return NotImplemented
+            if not cls.__dict__.get('_is_runtime_protocol', None):
+                print(cls)
+                raise TypeError('Instance and class checks can only be used with'
+                                ' @runtime protocols')
+            for attr in cls._get_protocol_attrs():
+                for base in other.__mro__:
+                    if attr in base.__dict__:
+                        if base.__dict__[attr] is None:
+                            return NotImplemented
+                        break
+                else:
+                    return NotImplemented
+            return True
+        if '__subclasshook__' not in cls.__dict__:
             cls.__subclasshook__ = _proto_hook
+
+    def __instancecheck__(self, instance):
+        # We need this function for situations where attributes are assigned in __init__
+        if issubclass(instance.__class__, self):
+            return True
+        if self._is_protocol:
+            return all(hasattr(instance, attr) and getattr(instance, attr) is not None
+                       for attr in self._get_protocol_attrs())
+        return False
 
     def _get_protocol_attrs(self):
         attrs = set()
@@ -1726,7 +1740,7 @@ def runtime(cls):
     can be used with isinstance() and issubclass(). Raise TypeError
     if applied to a non-protocol class.
     """
-    if not getattr(cls, '_is_protocol', None):
+    if not isinstance(cls, _ProtocolMeta) or not cls._is_protocol:
         raise TypeError('@runtime can be only applied to protocol classes,'
                         ' got %r' % cls)
     cls._is_runtime_protocol = True

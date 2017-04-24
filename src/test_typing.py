@@ -13,6 +13,7 @@ from typing import Union, Optional
 from typing import Tuple, List, MutableMapping
 from typing import Callable
 from typing import Generic, ClassVar, GenericMeta
+from typing import Protocol, runtime
 from typing import cast
 from typing import get_type_hints
 from typing import no_type_check, no_type_check_decorator
@@ -525,7 +526,283 @@ class MySimpleMapping(SimpleMapping[XK, XV]):
             return default
 
 
+PY36 = sys.version_info[:2] >= (3, 6)
+
+PY36_PROTOCOL_TESTS = """
+class Coordinate(Protocol):
+    x: int
+    y: int
+
+@runtime
+class Point(Coordinate, Protocol):
+    label: str
+
+class MyPoint:
+    x: int
+    y: int
+    label: str
+
+class BadPoint:
+    z: str
+
+class XAxis(Protocol):
+    x: int
+
+class YAxis(Protocol):
+    y: int
+
+@runtime
+class Position(XAxis, YAxis, Position):
+    pass
+
+@runtime
+class Proto(Protocol):
+    attr: int
+    def meth(self, arg: str) -> int:
+        ...
+
+class Concrete(Proto):
+    pass
+
+class Other:
+    attr: int
+    def meth(self, arg: str) -> int:
+        if arg == 'this':
+            return 1
+        return 0
+"""
+
+if PY36:
+    exec(PY36_PROTOCOL_TESTS)
+else:
+    # fake names for the sake of static analysis
+    Coordinate = Point = MyPoint = BadPoint = object
+    XAxis = YAxis = Position = Proto = Concrete = Other = object
+
+
 class ProtocolTests(BaseTestCase):
+
+    def test_basic_protocol(self):
+        @runtime
+        class P(Protocol):
+            def meth(self):
+                pass
+        class C: pass
+        class D:
+            def meth(self):
+                pass
+        self.assertIsSubclass(D, P)
+        self.assertIsInstance(D(), P)
+        self.assertNotIsSubclass(C, P)
+        self.assertNotIsInstance(C(), P)
+
+    def test_everything_implements_empty_protocol(self):
+        @runtime
+        class Empty(Protocol): pass
+        class C: pass
+        for thing in (object, type, tuple, C):
+            self.assertIsSubclass(thing, Empty)
+        for thing in (object(), 1, (), typing):
+            self.assertIsInstance(thing, Empty)
+
+    def test_no_inheritance_from_nominal(self):
+        class C: pass
+        class BP(Protocol): pass
+        with self.assertRaises(TypeError):
+            class P(C, Protocol):
+                pass
+        with self.assertRaises(TypeError):
+            class P(Protocol, C):
+                pass
+        with self.assertRaises(TypeError):
+            class P(BP, C, Protocol):
+                pass
+        class D(BP, C): pass
+        class E(C, BP): pass
+        self.assertNotIsInstance(D(), E)
+        self.assertNotIsInstance(E(), D)
+
+    def test_no_instantiation(self):
+        class P(Protocol): pass
+        with self.assertRaises(TypeError):
+            P()
+        class C(P): pass
+        self.assertIsInstance(C(), C)
+        T = TypeVar('T')
+        class PG(Protocol[T]): pass
+        with self.assertRaises(TypeError):
+            PG()
+        with self.assertRaises(TypeError):
+            PG[int]()
+        with self.assertRaises(TypeError):
+            PG[T]()
+        class CG(PG[T]): pass
+        self.assertIsInstance(CG[int](), CG)
+
+    def test_subprotocols_extending(self):
+        class P1(Protocol):
+            def meth1(self):
+                pass
+        @runtime
+        class P2(P1, Protocol):
+            def meth2(self):
+                pass
+        class C:
+            def meth1(self):
+                pass
+            def meth2(self):
+                pass
+        class C1:
+            def meth1(self):
+                pass
+        class C2:
+            def meth2(self):
+                pass
+        self.assertNotIsInstance(C1(), P2)
+        self.assertNotIsInstance(C2(), P2)
+        self.assertNotIsSubclass(C1, P2)
+        self.assertNotIsSubclass(C2, P2)
+        self.assertIsInstance(C(), P2)
+        self.assertIsSubclass(C, P2)
+
+    def test_subprotocols_merging(self):
+        class P1(Protocol):
+            def meth1(self):
+                pass
+        class P2(Protocol):
+            def meth2(self):
+                pass
+        @runtime
+        class P(P1, P2, Protocol):
+            pass
+        class C:
+            def meth1(self):
+                pass
+            def meth2(self):
+                pass
+        class C1:
+            def meth1(self):
+                pass
+        class C2:
+            def meth2(self):
+                pass
+        self.assertNotIsInstance(C1(), P)
+        self.assertNotIsInstance(C2(), P)
+        self.assertNotIsSubclass(C1, P)
+        self.assertNotIsSubclass(C2, P)
+        self.assertIsInstance(C(), P)
+        self.assertIsSubclass(C, P)
+
+    def test_protocols_issubclass(self):
+        T = TypeVar('T')
+        @runtime
+        class P(Protocol):
+            x = 1
+        @runtime
+        class PG(Protocol[T]):
+            x = 1
+        class BadP(Protocol):
+            x = 1
+        class BadPG(Protocol[T]):
+            x = 1
+        class C:
+            x = 1
+        self.assertIsSubclass(C, P)
+        self.assertIsSubclass(C, PG)
+        self.assertIsSubclass(BadP, PG)
+        self.assertIsSubclass(PG[int], PG)
+        self.assertIsSubclass(BadPG[int], P)
+        self.assertIsSubclass(BadPG[T], PG)
+        with self.assertRaises(TypeError):
+            issubclass(C, PG[T])
+        with self.assertRaises(TypeError):
+            issubclass(C, PG[C])
+        with self.assertRaises(TypeError):
+            issubclass(C, BadP)
+        with self.assertRaises(TypeError):
+            issubclass(C, BadPG)
+        with self.assertRaises(TypeError):
+            issubclass(P, PG[T])
+        with self.assertRaises(TypeError):
+            issubclass(PG, PG[int])
+
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_protocols_issubclass_py36(self):
+        pass
+
+    def test_protocols_isinstance(self):
+        T = TypeVar('T')
+        @runtime
+        class P(Protocol):
+            def meth(x): ...
+        @runtime
+        class PG(Protocol[T]):
+            def meth(x): ...
+        class BadP(Protocol):
+            def meth(x): ...
+        class BadPG(Protocol[T]):
+            def meth(x): ...
+        class C:
+            def meth(x): ...
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(C(), PG)
+        with self.assertRaises(TypeError):
+            isinstance(C(), PG[T])
+        with self.assertRaises(TypeError):
+            isinstance(C(), PG[C])
+        with self.assertRaises(TypeError):
+            isinstance(C(), BadP)
+        with self.assertRaises(TypeError):
+            isinstance(C(), BadPG)
+
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_protocols_isinstance_py36(self):
+        pass
+
+    def test_protocols_isinstance_init(self):
+        T = TypeVar('T')
+        @runtime
+        class P(Protocol):
+            x = 1
+        @runtime
+        class PG(Protocol[T]):
+            x = 1
+        class C:
+            def __init__(self, x):
+                self.x = x
+        self.assertIsInstance(C(1), P)
+        self.assertIsInstance(C(1), PG)
+
+    def test_protocols_support_register(self):
+        pass
+
+    def test_none_blocks_implementation(self):
+        pass
+
+    def test_custom_subclasshook(self):
+        pass
+
+    def test_non_protocol_subclasses(self):
+        # check both runtime and non-runtime
+        pass
+
+    def test_defining_generic_protocols(self):
+        pass
+
+    def test_protocols_bad_subscripts(self):
+        pass
+
+    def test_generic_protocols_repr(self):
+        pass
+
+    def test_generic_protocols_special_from_generic(self):
+        pass
+
+    def test_generic_protocols_special_from_protocol(self):
+        pass
+
+    def test_runtime_deco(self):
+        pass
 
     def test_supports_int(self):
         self.assertIsSubclass(int, typing.SupportsInt)
@@ -1569,8 +1846,6 @@ else:
     # fake names for the sake of static analysis
     asyncio = None
     AwaitableWrapper = AsyncIteratorWrapper = object
-
-PY36 = sys.version_info[:2] >= (3, 6)
 
 PY36_TESTS = """
 from test import ann_module, ann_module2, ann_module3
