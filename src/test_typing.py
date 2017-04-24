@@ -1062,7 +1062,7 @@ class ProtocolTests(BaseTestCase):
         # We use superset, since some versions also have '__ne__'
         self.assertTrue(frozenset(C[int]._get_protocol_attrs()) >=
                         frozenset({'__len__', '__getitem__', '__iter__', '__contains__',
-                                   '__eq__', '__setitem__',  '__delitem__', 'items',
+                                   '__eq__', '__setitem__', '__delitem__', 'items',
                                    'keys', 'values', 'get', 'clear', 'pop', 'popitem',
                                    'update', 'setdefault', 'x'}))
         if hasattr(typing, 'ContextManager'):

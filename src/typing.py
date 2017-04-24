@@ -1569,7 +1569,7 @@ def _collection_protocol(cls):
                      'AbstractContextManager', 'ContextManager',
                      'AbstractAsyncContextManager', 'AsyncContextManager',) and
             cls.__module__ in ('collections.abc', 'typing', 'contextlib',
-                               '_abcol', 'abc'))
+                               '_abcoll', 'abc'))
 
 
 class _ProtocolMeta(GenericMeta):
