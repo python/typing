@@ -1038,7 +1038,7 @@ class ProtocolTests(BaseTestCase):
         if hasattr(collections_abc, 'Reversible'):
             class C(typing.Reversible[T], Protocol[T]): x = 1
             self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
-                             frozenset({'__reversed__', 'x'}))
+                             frozenset({'__reversed__', '__iter__', 'x'}))
         if hasattr(typing, 'Collection'):
             class C(typing.Collection[T], Protocol[T]): x = 1
             self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
@@ -1054,15 +1054,17 @@ class ProtocolTests(BaseTestCase):
                                     '__iadd__', 'count', 'index', 'extend', 'clear',
                                     'insert', 'append', 'remove', 'pop', 'reverse', 'x'}))
         class C(typing.Mapping[T, int], Protocol[T]): x = 1
-        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
-                         frozenset({'__len__', '__getitem__', '__iter__', '__contains__',
-                                    '__eq__', 'items', 'keys', 'values', 'get', 'x'}))
+        # We use superset, since some versions also have '__ne__'
+        self.assertTrue(frozenset(C[int]._get_protocol_attrs()) >=
+                        frozenset({'__len__', '__getitem__', '__iter__', '__contains__',
+                                   '__eq__', 'items', 'keys', 'values', 'get', 'x'}))
         class C(typing.MutableMapping[int, T], Protocol[T]): x = 1
-        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
-                         frozenset({'__len__', '__getitem__', '__iter__', '__contains__',
-                                    '__eq__', '__setitem__',  '__delitem__', 'items',
-                                    'keys', 'values', 'get', 'clear', 'pop', 'popitem',
-                                    'update', 'setdefault', 'x'}))
+        # We use superset, since some versions also have '__ne__'
+        self.assertTrue(frozenset(C[int]._get_protocol_attrs()) >=
+                        frozenset({'__len__', '__getitem__', '__iter__', '__contains__',
+                                   '__eq__', '__setitem__',  '__delitem__', 'items',
+                                   'keys', 'values', 'get', 'clear', 'pop', 'popitem',
+                                   'update', 'setdefault', 'x'}))
         if hasattr(typing, 'ContextManager'):
             class C(typing.ContextManager[T], Protocol[T]): x = 1
             self.assertEqual(frozenset(C[int]._get_protocol_attrs()),

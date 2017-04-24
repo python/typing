@@ -1561,13 +1561,13 @@ def overload(func):
 
 def _collection_protocol(cls):
     # Selected set of collections ABCs that are considered protocols.
-    qname = cls.__qualname__
-    return (qname in ('Callable', 'Awaitable',
-                      'Iterable', 'Iterator', 'AsyncIterable', 'AsyncIterator',
-                      'Hashable', 'Sized', 'Container', 'Collection', 'Reversible',
-                      'Sequence', 'MutableSequence', 'Mapping', 'MutableMapping',
-                      'AbstractContextManager', 'ContextManager',
-                      'AbstractAsyncContextManager', 'AsyncContextManager',) and
+    name = cls.__name__
+    return (name in ('Callable', 'Awaitable',
+                     'Iterable', 'Iterator', 'AsyncIterable', 'AsyncIterator',
+                     'Hashable', 'Sized', 'Container', 'Collection', 'Reversible',
+                     'Sequence', 'MutableSequence', 'Mapping', 'MutableMapping',
+                     'AbstractContextManager', 'ContextManager',
+                     'AbstractAsyncContextManager', 'AsyncContextManager',) and
             cls.__module__ in ('collections.abc', 'typing', 'contextlib'))
 
 
