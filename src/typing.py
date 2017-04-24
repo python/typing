@@ -1805,7 +1805,6 @@ if hasattr(collections_abc, 'AsyncIterable'):
     class AsyncIterator(AsyncIterable[T_co],
                         extra=collections_abc.AsyncIterator):
         __slots__ = ()
-        _is_protocol = True
 
     __all__.append('AsyncIterable')
     __all__.append('AsyncIterator')

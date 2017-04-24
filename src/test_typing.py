@@ -1047,12 +1047,13 @@ class ProtocolTests(BaseTestCase):
         self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
                          frozenset({'__reversed__', '__contains__', '__getitem__',
                                     '__len__', '__iter__', 'count', 'index', 'x'}))
+        # We use superset, since Python 3.2 does not have 'clear'
         class C(typing.MutableSequence[T], Protocol[T]): x = 1
-        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
-                         frozenset({'__reversed__', '__contains__', '__getitem__',
-                                    '__len__', '__iter__', '__setitem__', '__delitem__',
-                                    '__iadd__', 'count', 'index', 'extend', 'clear',
-                                    'insert', 'append', 'remove', 'pop', 'reverse', 'x'}))
+        self.assertTrue(frozenset(C[int]._get_protocol_attrs()) >=
+                        frozenset({'__reversed__', '__contains__', '__getitem__',
+                                   '__len__', '__iter__', '__setitem__', '__delitem__',
+                                   '__iadd__', 'count', 'index', 'extend', 'insert',
+                                   'append', 'remove', 'pop', 'reverse', 'x'}))
         class C(typing.Mapping[T, int], Protocol[T]): x = 1
         # We use superset, since some versions also have '__ne__'
         self.assertTrue(frozenset(C[int]._get_protocol_attrs()) >=
