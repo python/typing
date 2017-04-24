@@ -926,9 +926,6 @@ def _no_slots_copy(dct):
     return dict_copy
 
 
-Protocol = object()
-
-
 class GenericMeta(TypingMeta, abc.ABCMeta):
     """Metaclass for generic types.
 
@@ -1200,8 +1197,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             super(GenericMeta, _gorg(self)).__setattr__(attr, value)
 
 
-# Prevent checks for Generic to crash when defining Generic.
+# Prevent checks for Generic, etc. to crash when defining Generic.
 Generic = None
+Protocol = object()
+Callable = object()
 
 
 def _generic_new(base_cls, cls, *args, **kwds):
@@ -1312,83 +1311,6 @@ class Tuple(tuple, extra=tuple, metaclass=TupleMeta):
             raise TypeError("Type Tuple cannot be instantiated; "
                             "use tuple() instead")
         return _generic_new(tuple, cls, *args, **kwds)
-
-
-class CallableMeta(GenericMeta):
-    """Metaclass for Callable (internal)."""
-
-    def __repr__(self):
-        if self.__origin__ is None:
-            return super().__repr__()
-        return self._tree_repr(self._subs_tree())
-
-    def _tree_repr(self, tree):
-        if _gorg(self) is not Callable:
-            return super()._tree_repr(tree)
-        # For actual Callable (not its subclass) we override
-        # super()._tree_repr() for nice formatting.
-        arg_list = []
-        for arg in tree[1:]:
-            if not isinstance(arg, tuple):
-                arg_list.append(_type_repr(arg))
-            else:
-                arg_list.append(arg[0]._tree_repr(arg))
-        if arg_list[0] == '...':
-            return repr(tree[0]) + '[..., %s]' % arg_list[1]
-        return (repr(tree[0]) +
-                '[[%s], %s]' % (', '.join(arg_list[:-1]), arg_list[-1]))
-
-    def __getitem__(self, parameters):
-        """A thin wrapper around __getitem_inner__ to provide the latter
-        with hashable arguments to improve speed.
-        """
-
-        if self.__origin__ is not None or not _geqv(self, Callable):
-            return super().__getitem__(parameters)
-        if not isinstance(parameters, tuple) or len(parameters) != 2:
-            raise TypeError("Callable must be used as "
-                            "Callable[[arg, ...], result].")
-        args, result = parameters
-        if args is Ellipsis:
-            parameters = (Ellipsis, result)
-        else:
-            if not isinstance(args, list):
-                raise TypeError("Callable[args, result]: args must be a list."
-                                " Got %.100r." % (args,))
-            parameters = (tuple(args), result)
-        return self.__getitem_inner__(parameters)
-
-    @_tp_cache
-    def __getitem_inner__(self, parameters):
-        args, result = parameters
-        msg = "Callable[args, result]: result must be a type."
-        result = _type_check(result, msg)
-        if args is Ellipsis:
-            return super().__getitem__((_TypingEllipsis, result))
-        msg = "Callable[[arg, ...], result]: each arg must be a type."
-        args = tuple(_type_check(arg, msg) for arg in args)
-        parameters = args + (result,)
-        return super().__getitem__(parameters)
-
-
-class Callable(extra=collections_abc.Callable, metaclass=CallableMeta):
-    """Callable type; Callable[[int], str] is a function of (int) -> str.
-
-    The subscription syntax must always be used with exactly two
-    values: the argument list and the return type.  The argument list
-    must be a list of types or ellipsis; the return type must be a single type.
-
-    There is no syntax to indicate optional or keyword arguments,
-    such function types are rarely used as callback types.
-    """
-
-    __slots__ = ()
-
-    def __new__(cls, *args, **kwds):
-        if _geqv(cls, Callable):
-            raise TypeError("Type Callable cannot be instantiated; "
-                            "use a non-abstract subclass instead")
-        return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
 
 
 class _ClassVar(_FinalTypingBase, _root=True):
@@ -1637,6 +1559,18 @@ def overload(func):
     return _overload_dummy
 
 
+def _collection_protocol(cls):
+    # Selected set of collections ABCs that are considered protocols.
+    qname = cls.__qualname__
+    return (qname in ('Callable', 'Awaitable',
+                      'Iterable', 'Iterator', 'AsyncIterable', 'AsyncIterator',
+                      'Hashable', 'Sized', 'Container', 'Collection', 'Reversible',
+                      'Sequence', 'MutableSequence', 'Mapping', 'MutableMapping',
+                      'AbstractContextManager', 'ContextManager',
+                      'AbstractAsyncContextManager', 'AsyncContextManager',) and
+            cls.__module__ in ('collections.abc', 'typing', 'contextlib'))
+
+
 class _ProtocolMeta(GenericMeta):
     """Internal metaclass for Protocol.
 
@@ -1653,9 +1587,10 @@ class _ProtocolMeta(GenericMeta):
                                    for b in cls.__bases__)
         if cls._is_protocol:
             for base in cls.__mro__[1:]:
-                if not (base is object or
-                        isinstance(base, _ProtocolMeta) and base._is_protocol or
-                        isinstance(base, GenericMeta) and base.__origin__ is Generic):
+                if not (base in (object, Generic, Callable) or
+                        isinstance(base, TypingMeta) and base._is_protocol or
+                        isinstance(base, GenericMeta) and base.__origin__ is Generic or
+                        _collection_protocol(base)):
                     raise TypeError('Protocols can only inherit from other protocols,'
                                     ' got %r' % base)
 
@@ -1668,6 +1603,8 @@ class _ProtocolMeta(GenericMeta):
             if not cls.__dict__.get('_is_protocol', None):
                 return NotImplemented
             if not cls.__dict__.get('_is_runtime_protocol', None):
+                if sys._getframe(3).f_globals['__name__'] in ['abc', 'functools']:
+                    return NotImplemented
                 raise TypeError('Instance and class checks can only be used with'
                                 ' @runtime protocols')
             for attr in cls._get_protocol_attrs():
@@ -1683,7 +1620,7 @@ class _ProtocolMeta(GenericMeta):
             cls.__subclasshook__ = _proto_hook
 
     def __instancecheck__(self, instance):
-        # We need this function for situations where attributes are assigned in __init__
+        # We need this method for situations where attributes are assigned in __init__
         if issubclass(instance.__class__, self):
             return True
         if self._is_protocol:
@@ -1694,24 +1631,20 @@ class _ProtocolMeta(GenericMeta):
     def _get_protocol_attrs(self):
         attrs = set()
         for base in self.__mro__[:-1]:  # without object
-            if base.__name__ == 'Protocol':
+            if base.__name__ in ('Protocol', 'Generic'):
                 continue
             annotations = getattr(base, '__annotations__', {})
             for attr in list(base.__dict__.keys()) + list(annotations.keys()):
-                # Include attributes not defined in any non-protocol bases.
-                for c in self.__mro__:
-                    if (c is not base and attr in c.__dict__ and
-                            not getattr(c, '_is_protocol', False)):
-                        break
-                else:
-                    if (not attr.startswith('_abc_') and attr not in (
-                            '__abstractmethods__', '__annotations__', '__weakref__',
-                            '_is_protocol', '_is_runtime_protocol', '__dict__',
-                            '__args__', '__slots__', '_get_protocol_attrs',
-                            '__next_in_mro__', '__parameters__', '__origin__',
-                            '__orig_bases__', '__extra__', '__tree_hash__',
-                            '__module__')):
-                        attrs.add(attr)
+                if (not attr.startswith('_abc_') and attr not in (
+                        '__abstractmethods__', '__annotations__', '__weakref__',
+                        '_is_protocol', '_is_runtime_protocol', '__dict__',
+                        '__args__', '__slots__', '_get_protocol_attrs',
+                        '__next_in_mro__', '__parameters__', '__origin__',
+                        '__orig_bases__', '__extra__', '__tree_hash__',
+                        '__doc__', '__subclasshook__', '__init__', '__new__',
+                        '__module__', '_MutableMapping__marker') and
+                        getattr(base, attr, object()) is not None):
+                    attrs.add(attr)
         return attrs
 
 
@@ -1765,6 +1698,83 @@ def runtime(cls):
     return cls
 
 
+class CallableMeta(_ProtocolMeta):
+    """Metaclass for Callable (internal)."""
+
+    def __repr__(self):
+        if self.__origin__ is None:
+            return super().__repr__()
+        return self._tree_repr(self._subs_tree())
+
+    def _tree_repr(self, tree):
+        if _gorg(self) is not Callable:
+            return super()._tree_repr(tree)
+        # For actual Callable (not its subclass) we override
+        # super()._tree_repr() for nice formatting.
+        arg_list = []
+        for arg in tree[1:]:
+            if not isinstance(arg, tuple):
+                arg_list.append(_type_repr(arg))
+            else:
+                arg_list.append(arg[0]._tree_repr(arg))
+        if arg_list[0] == '...':
+            return repr(tree[0]) + '[..., %s]' % arg_list[1]
+        return (repr(tree[0]) +
+                '[[%s], %s]' % (', '.join(arg_list[:-1]), arg_list[-1]))
+
+    def __getitem__(self, parameters):
+        """A thin wrapper around __getitem_inner__ to provide the latter
+        with hashable arguments to improve speed.
+        """
+
+        if self.__origin__ is not None or not _geqv(self, Callable):
+            return super().__getitem__(parameters)
+        if not isinstance(parameters, tuple) or len(parameters) != 2:
+            raise TypeError("Callable must be used as "
+                            "Callable[[arg, ...], result].")
+        args, result = parameters
+        if args is Ellipsis:
+            parameters = (Ellipsis, result)
+        else:
+            if not isinstance(args, list):
+                raise TypeError("Callable[args, result]: args must be a list."
+                                " Got %.100r." % (args,))
+            parameters = (tuple(args), result)
+        return self.__getitem_inner__(parameters)
+
+    @_tp_cache
+    def __getitem_inner__(self, parameters):
+        args, result = parameters
+        msg = "Callable[args, result]: result must be a type."
+        result = _type_check(result, msg)
+        if args is Ellipsis:
+            return super().__getitem__((_TypingEllipsis, result))
+        msg = "Callable[[arg, ...], result]: each arg must be a type."
+        args = tuple(_type_check(arg, msg) for arg in args)
+        parameters = args + (result,)
+        return super().__getitem__(parameters)
+
+
+class Callable(extra=collections_abc.Callable, metaclass=CallableMeta):
+    """Callable type; Callable[[int], str] is a function of (int) -> str.
+
+    The subscription syntax must always be used with exactly two
+    values: the argument list and the return type.  The argument list
+    must be a list of types or ellipsis; the return type must be a single type.
+
+    There is no syntax to indicate optional or keyword arguments,
+    such function types are rarely used as callback types.
+    """
+
+    __slots__ = ()
+
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Callable):
+            raise TypeError("Type Callable cannot be instantiated; "
+                            "use a non-abstract subclass instead")
+        return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
+
+
 # Various ABCs mimicking those in collections.abc.
 # A few are simply re-exported for completeness.
 
@@ -1794,6 +1804,7 @@ if hasattr(collections_abc, 'AsyncIterable'):
     class AsyncIterator(AsyncIterable[T_co],
                         extra=collections_abc.AsyncIterator):
         __slots__ = ()
+        _is_protocol = True
 
     __all__.append('AsyncIterable')
     __all__.append('AsyncIterator')

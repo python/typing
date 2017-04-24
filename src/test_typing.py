@@ -1003,6 +1003,75 @@ class ProtocolTests(BaseTestCase):
         self.assertIsSubclass(list, typing.Reversible)
         self.assertNotIsSubclass(int, typing.Reversible)
 
+    def test_collection_protocols(self):
+        T = TypeVar('T')
+        class C(typing.Callable[[T], T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__call__', 'x'}))
+        if hasattr(typing, 'Awaitable'):
+            class C(typing.Awaitable[T], Protocol[T]): x = 1
+            self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                             frozenset({'__await__', 'x'}))
+        class C(typing.Iterable[T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__iter__', 'x'}))
+        class C(typing.Iterator[T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__iter__', '__next__', 'x'}))
+        if hasattr(typing, 'AsyncIterable'):
+            class C(typing.AsyncIterable[T], Protocol[T]): x = 1
+            self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                             frozenset({'__aiter__', 'x'}))
+        if hasattr(typing, 'AsyncIterator'):
+            class C(typing.AsyncIterator[T], Protocol[T]): x = 1
+            self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                             frozenset({'__aiter__', '__anext__', 'x'}))
+        class C(typing.Hashable, Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__hash__', 'x'}))
+        class C(typing.Sized, Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__len__', 'x'}))
+        class C(typing.Container[T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__contains__', 'x'}))
+        if hasattr(collections_abc, 'Reversible'):
+            class C(typing.Reversible[T], Protocol[T]): x = 1
+            self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                             frozenset({'__reversed__', 'x'}))
+        if hasattr(typing, 'Collection'):
+            class C(typing.Collection[T], Protocol[T]): x = 1
+            self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                             frozenset({'__len__', '__iter__', '__contains__', 'x'}))
+        class C(typing.Sequence[T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__reversed__', '__contains__', '__getitem__',
+                                    '__len__', '__iter__', 'count', 'index', 'x'}))
+        class C(typing.MutableSequence[T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__reversed__', '__contains__', '__getitem__',
+                                    '__len__', '__iter__', '__setitem__', '__delitem__',
+                                    '__iadd__', 'count', 'index', 'extend', 'clear',
+                                    'insert', 'append', 'remove', 'pop', 'reverse', 'x'}))
+        class C(typing.Mapping[T, int], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__len__', '__getitem__', '__iter__', '__contains__',
+                                    '__eq__', 'items', 'keys', 'values', 'get', 'x'}))
+        class C(typing.MutableMapping[int, T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__len__', '__getitem__', '__iter__', '__contains__',
+                                    '__eq__', '__setitem__',  '__delitem__', 'items',
+                                    'keys', 'values', 'get', 'clear', 'pop', 'popitem',
+                                    'update', 'setdefault', 'x'}))
+        if hasattr(typing, 'ContextManager'):
+            class C(typing.ContextManager[T], Protocol[T]): x = 1
+            self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                             frozenset({'__enter__', '__exit__', 'x'}))
+        if hasattr(typing, 'AsyncContextManager'):
+            class C(typing.AsyncContextManager[T], Protocol[T]): x = 1
+            self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                             frozenset({'__aenter__', '__aexit__', 'x'}))
+
     def test_protocol_instance(self):
         self.assertIsInstance(0, typing.SupportsAbs)
         class C1(typing.SupportsInt):
