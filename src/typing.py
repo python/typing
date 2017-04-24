@@ -1668,7 +1668,6 @@ class _ProtocolMeta(GenericMeta):
             if not cls.__dict__.get('_is_protocol', None):
                 return NotImplemented
             if not cls.__dict__.get('_is_runtime_protocol', None):
-                print(cls)
                 raise TypeError('Instance and class checks can only be used with'
                                 ' @runtime protocols')
             for attr in cls._get_protocol_attrs():
@@ -1717,11 +1716,27 @@ class _ProtocolMeta(GenericMeta):
 
 
 class Protocol(metaclass=_ProtocolMeta):
-    """Base class for protocol classes.
+    """Base class for protocol classes. Protocol classes are defined as::
 
-    This implements a simple-minded structural issubclass check
-    (similar but more general than the one-offs in collections.abc
-    such as Hashable).
+      class Proto(Protocol[T]):
+          def meth(self) -> T:
+              ...
+
+    Such classes are primarily used with static type checkers that recognize
+    structural subtyping (static duck-typing), for example::
+
+      class C:
+        def meth(self) -> int:
+            return 0
+
+      def func(x: Proto[int]) -> int:
+          return x.meth()
+
+      func(C())  # Passes static type check
+
+    See PEP 544 for details. Protocol classes decorated with @typing.runtime
+    act as simple-minded runtime protocols that checks only the presence of
+    given attributes, ignoring their type signatures.
     """
 
     __slots__ = ()
@@ -1739,6 +1754,9 @@ def runtime(cls):
     """Mark a protocol class as a runtime protocol, so that it
     can be used with isinstance() and issubclass(). Raise TypeError
     if applied to a non-protocol class.
+
+    This allows a simple-minded structural check very similar to the
+    one-offs in collections.abc such as Hashable.
     """
     if not isinstance(cls, _ProtocolMeta) or not cls._is_protocol:
         raise TypeError('@runtime can be only applied to protocol classes,'

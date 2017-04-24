@@ -774,35 +774,191 @@ class ProtocolTests(BaseTestCase):
         self.assertIsInstance(C(1), PG)
 
     def test_protocols_support_register(self):
-        pass
+        @runtime
+        class P(Protocol):
+            x = 1
+        class PM(Protocol):
+            def meth(self): pass
+        class D(PM): pass
+        class C: pass
+        D.register(C)
+        P.register(C)
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(C(), D)
 
     def test_none_blocks_implementation(self):
-        pass
-
-    def test_custom_subclasshook(self):
-        pass
+        @runtime
+        class P(Protocol):
+            x = 1
+        class A:
+            x = 1
+        class B(A):
+            x = None
+        class C:
+            def __init__(self):
+                self.x = None
+        self.assertNotIsInstance(B(), P)
+        self.assertNotIsInstance(C(), P)
 
     def test_non_protocol_subclasses(self):
-        # check both runtime and non-runtime
-        pass
+        class P(Protocol):
+            x = 1
+        @runtime
+        class PR(Protocol):
+            def meth(self): pass
+        class NonP(P):
+            x = 1
+        class NonPR(PR): pass
+        class C:
+            x = 1
+        class D:
+            def meth(self): pass
+        self.assertNotIsInstance(C(), NonP)
+        self.assertNotIsInstance(D(), NonPR)
+        self.assertNotIsSubclass(C, NonP)
+        self.assertNotIsSubclass(D, NonPR)
+        self.assertIsInstance(NonPR(), PR)
+        self.assertIsSubclass(NonPR, PR)
+
+    def test_custom_subclasshook(self):
+        class P(Protocol):
+            x = 1
+        class OKClass: pass
+        class BadClass:
+            x = 1
+        class C(P):
+            @classmethod
+            def __subclasshook__(cls, other):
+                return other.__name__.startswith("OK")
+        self.assertIsInstance(OKClass(), C)
+        self.assertNotIsInstance(BadClass(), C)
+        self.assertIsSubclass(OKClass, C)
+        self.assertNotIsSubclass(BadClass, C)
 
     def test_defining_generic_protocols(self):
-        pass
+        T = TypeVar('T')
+        S = TypeVar('S')
+        @runtime
+        class PR(Protocol[T, S]):
+            def meth(self): pass
+        class P(PR[int, T], Protocol[T]):
+            y = 1
+        self.assertIsSubclass(PR[int, T], PR)
+        self.assertIsSubclass(P[str], PR)
+        with self.assertRaises(TypeError):
+            PR[int]
+        with self.assertRaises(TypeError):
+            P[int, str]
+        with self.assertRaises(TypeError):
+            PR[int, 1]
+        with self.assertRaises(TypeError):
+            PR[int, ClassVar]
+        class C(PR[int, T]): pass
+        self.assertIsInstance(C[str](), C)
+
+    def test_init_called(self):
+        T = TypeVar('T')
+        class P(Protocol[T]): pass
+        class C(P[T]):
+            def __init__(self):
+                self.test = 'OK'
+        self.assertEqual(C[int]().test, 'OK')
 
     def test_protocols_bad_subscripts(self):
-        pass
+        T = TypeVar('T')
+        S = TypeVar('S')
+        with self.assertRaises(TypeError):
+            class P(Protocol[T, T]): pass
+        with self.assertRaises(TypeError):
+            class P(Protocol[int]): pass
+        with self.assertRaises(TypeError):
+            class P(Protocol[T], Protocol[S]): pass
+        with self.assertRaises(TypeError):
+            class P(typing.Mapping[T, S], Protocol[T]): pass
 
     def test_generic_protocols_repr(self):
-        pass
+        T = TypeVar('T')
+        S = TypeVar('S')
+        class P(Protocol[T, S]): pass
+        self.assertTrue(repr(P).endswith('P'))
+        self.assertTrue(repr(P[T, S]).endswith('P[~T, ~S]'))
+        self.assertTrue(repr(P[int, str]).endswith('P[int, str]'))
+
+    def test_generic_protocols_eq(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+        class P(Protocol[T, S]): pass
+        self.assertEqual(P, P)
+        self.assertEqual(P[int, T], P[int, T])
+        self.assertEqual(P[T, T][Tuple[T, S]][int, str],
+                         P[Tuple[int, str], Tuple[int, str]])
 
     def test_generic_protocols_special_from_generic(self):
-        pass
+        T = TypeVar('T')
+        class P(Protocol[T]): pass
+        self.assertEqual(P.__parameters__, (T,))
+        self.assertIs(P.__args__, None)
+        self.assertIs(P.__origin__, None)
+        self.assertEqual(P[int].__parameters__, ())
+        self.assertEqual(P[int].__args__, (int,))
+        self.assertIs(P[int].__origin__, P)
 
     def test_generic_protocols_special_from_protocol(self):
-        pass
+        @runtime
+        class PR(Protocol):
+            x = 1
+        class P(Protocol):
+            def meth(self):
+                pass
+        T = TypeVar('T')
+        class PG(Protocol[T]):
+            x = 1
+            def meth(self):
+                pass
+        self.assertTrue(P._is_protocol)
+        self.assertTrue(PR._is_protocol)
+        self.assertTrue(PG._is_protocol)
+        with self.assertRaises(AttributeError):
+            self.assertFalse(P._is_runtime_protocol)
+        self.assertTrue(PR._is_runtime_protocol)
+        self.assertTrue(PG[int]._is_protocol)
+        self.assertEqual(P._get_protocol_attrs(), {'meth'})
+        self.assertEqual(PR._get_protocol_attrs(), {'x'})
+        self.assertEqual(frozenset(PG._get_protocol_attrs()),
+                         frozenset({'x', 'meth'}))
+        self.assertEqual(frozenset(PG[int]._get_protocol_attrs()),
+                         frozenset({'x', 'meth'}))
 
-    def test_runtime_deco(self):
-        pass
+    def test_no_runtime_deco_on_nominal(self):
+        with self.assertRaises(TypeError):
+            @runtime
+            class C: pass
+
+    def test_protocols_pickleable(self):
+        global P, CP  # pickle wants to reference the class by name
+        T = TypeVar('T')
+
+        @runtime
+        class P(Protocol[T]):
+            x = 1
+        class CP(P[int]):
+            pass
+
+        c = CP()
+        c.foo = 42
+        c.bar = 'abc'
+        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            z = pickle.dumps(c, proto)
+            x = pickle.loads(z)
+            self.assertEqual(x.foo, 42)
+            self.assertEqual(x.bar, 'abc')
+            self.assertEqual(x.x, 1)
+            self.assertEqual(x.__dict__, {'foo': 42, 'bar': 'abc'})
+            s = pickle.dumps(P)
+            D = pickle.loads(s)
+            class E:
+                x = 1
+            self.assertIsInstance(E(), D)
 
     def test_supports_int(self):
         self.assertIsSubclass(int, typing.SupportsInt)
