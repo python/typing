@@ -1710,7 +1710,7 @@ class _ProtocolMeta(GenericMeta):
                             '_is_protocol', '_is_runtime_protocol', '__dict__',
                             '__args__', '__slots__', '_get_protocol_attrs',
                             '__next_in_mro__', '__parameters__', '__origin__',
-                            '__orig_bases__', '__extra__',  '__tree_hash__',
+                            '__orig_bases__', '__extra__', '__tree_hash__',
                             '__module__')):
                         attrs.add(attr)
         return attrs

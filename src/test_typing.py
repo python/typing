@@ -552,7 +552,7 @@ class YAxis(Protocol):
     y: int
 
 @runtime
-class Position(XAxis, YAxis, Position):
+class Position(XAxis, YAxis, Protocol):
     pass
 
 @runtime
