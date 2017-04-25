@@ -783,15 +783,15 @@ class ProtocolTests(BaseTestCase):
     @skipUnless(PY36, 'Python 3.6 required')
     def test_protocols_isinstance_py36(self):
         class APoint:
-             def __init__(self, x, y, label):
-                 self.x = x
-                 self.y = y
-                 self.label = label
+            def __init__(self, x, y, label):
+                self.x = x
+                self.y = y
+                self.label = label
         class BPoint:
-             label = 'B'
-             def __init__(self, x, y):
-                 self.x = x
-                 self.y = y
+            label = 'B'
+            def __init__(self, x, y):
+                self.x = x
+                self.y = y
         class C:
             def __init__(self, attr):
                 self.attr = attr

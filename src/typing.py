@@ -1332,7 +1332,7 @@ def _collection_protocol(cls):
                                '_abcoll', 'abc'))
 
 
-class _ProtocolMeta(GenericMeta):
+class ProtocolMeta(GenericMeta):
     """Internal metaclass for Protocol.
 
     This exists so Protocol classes can be generic without deriving
@@ -1343,7 +1343,7 @@ class _ProtocolMeta(GenericMeta):
         super().__init__(*args, **kwargs)
         if not cls.__dict__.get('_is_protocol', None):
             cls._is_protocol = any(b is Protocol or
-                                   isinstance(b, _ProtocolMeta) and
+                                   isinstance(b, ProtocolMeta) and
                                    b.__origin__ is Protocol
                                    for b in cls.__bases__)
         if cls._is_protocol:
@@ -1404,7 +1404,7 @@ class _ProtocolMeta(GenericMeta):
         return attrs
 
 
-class Protocol(metaclass=_ProtocolMeta):
+class Protocol(metaclass=ProtocolMeta):
     """Base class for protocol classes. Protocol classes are defined as::
 
       class Proto(Protocol[T]):
@@ -1415,8 +1415,8 @@ class Protocol(metaclass=_ProtocolMeta):
     structural subtyping (static duck-typing), for example::
 
       class C:
-        def meth(self) -> int:
-            return 0
+          def meth(self) -> int:
+              return 0
 
       def func(x: Proto[int]) -> int:
           return x.meth()
@@ -1446,14 +1446,14 @@ def runtime(cls):
     This allows a simple-minded structural check very similar to the
     one-offs in collections.abc such as Hashable.
     """
-    if not isinstance(cls, _ProtocolMeta) or not cls._is_protocol:
+    if not isinstance(cls, ProtocolMeta) or not cls._is_protocol:
         raise TypeError('@runtime can be only applied to protocol classes,'
                         ' got %r' % cls)
     cls._is_runtime_protocol = True
     return cls
 
 
-class CallableMeta(_ProtocolMeta):
+class CallableMeta(ProtocolMeta):
     """Metaclass for Callable (internal)."""
 
     def __repr__(self):

@@ -21,6 +21,7 @@ __all__ = [
     'ClassVar',
     'Generic',
     'Optional',
+    'Protocol',
     'Tuple',
     'Type',
     'TypeVar',
@@ -72,6 +73,7 @@ __all__ = [
     'no_type_check',
     'no_type_check_decorator',
     'overload',
+    'runtime',
     'Text',
     'TYPE_CHECKING',
 ]
@@ -356,7 +358,7 @@ def _type_check(arg, msg):
     if (
         type(arg).__name__ in ('_Union', '_Optional') and
         not getattr(arg, '__origin__', None) or
-        isinstance(arg, TypingMeta) and _gorg(arg) in (Generic, _Protocol)
+        isinstance(arg, TypingMeta) and _gorg(arg) in (Generic, Protocol)
     ):
         raise TypeError("Plain %s is not valid as type argument" % arg)
     return arg
@@ -1054,10 +1056,11 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 if base is Generic:
                     raise TypeError("Cannot inherit from plain Generic")
                 if (isinstance(base, GenericMeta) and
-                        base.__origin__ is Generic):
+                        base.__origin__ in (Generic, Protocol)):
                     if gvars is not None:
                         raise TypeError(
-                            "Cannot inherit from Generic[...] multiple types.")
+                            "Cannot inherit from Generic[...] or"
+                            " Protocol[...] multiple types.")
                     gvars = base.__parameters__
             if gvars is None:
                 gvars = tvars
@@ -1067,8 +1070,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 if not tvarset <= gvarset:
                     raise TypeError(
                         "Some type variables (%s) "
-                        "are not listed in Generic[%s]" %
+                        "are not listed in %s[%s]" %
                         (", ".join(str(t) for t in tvars if t not in gvarset),
+                         "Generic" if any(b.__origin__ is Generic
+                                          for b in bases) else "Protocol",
                          ", ".join(str(g) for g in gvars)))
                 tvars = gvars
 
@@ -1215,25 +1220,21 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 "Parameter list to %s[...] cannot be empty" % _qualname(self))
         msg = "Parameters to generic types must be types."
         params = tuple(_type_check(p, msg) for p in params)
-        if self is Generic:
+        if self in (Generic, Protocol):
             # Generic can only be subscripted with unique type variables.
             if not all(isinstance(p, TypeVar) for p in params):
                 raise TypeError(
-                    "Parameters to Generic[...] must all be type variables")
+                    "Parameters to %r[...] must all be type variables", self)
             if len(set(params)) != len(params):
                 raise TypeError(
-                    "Parameters to Generic[...] must all be unique")
+                    "Parameters to %r[...] must all be unique", self)
             tvars = params
             args = params
         elif self in (Tuple, Callable):
             tvars = _type_vars(params)
             args = params
-        elif self is _Protocol:
-            # _Protocol is internal, don't check anything.
-            tvars = params
-            args = params
-        elif self.__origin__ in (Generic, _Protocol):
-            # Can't subscript Generic[...] or _Protocol[...].
+        elif self.__origin__ in (Generic, Protocol):
+            # Can't subscript Generic[...] or Protocol[...].
             raise TypeError("Cannot subscript already-subscripted %s" %
                             repr(self))
         else:
@@ -1261,6 +1262,12 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if self is Generic:
             raise TypeError("Class %r cannot be used with class "
                             "or instance checks" % self)
+        if (self.__dict__.get('_is_protocol', None) and
+                not self.__dict__.get('_is_runtime_protocol', None)):
+            if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools']:
+                return False
+            raise TypeError("Instance and class checks can only be used with"
+                            " @runtime protocols")
         return super(GenericMeta, self).__subclasscheck__(cls)
 
     def __instancecheck__(self, instance):
@@ -1289,8 +1296,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             super(GenericMeta, _gorg(self)).__setattr__(attr, value)
 
 
-# Prevent checks for Generic to crash when defining Generic.
+# Prevent checks for Generic, etc. to crash when defining Generic.
 Generic = None
+Protocol = object()
+Callable = object()
 
 
 def _generic_new(base_cls, cls, *args, **kwds):
@@ -1406,7 +1415,150 @@ class Tuple(tuple):
         return _generic_new(tuple, cls, *args, **kwds)
 
 
-class CallableMeta(GenericMeta):
+def _collection_protocol(cls):
+    # Selected set of collections ABCs that are considered protocols.
+    name = cls.__name__
+    return (name in ('ABC', 'Callable', 'Awaitable',
+                     'Iterable', 'Iterator', 'AsyncIterable', 'AsyncIterator',
+                     'Hashable', 'Sized', 'Container', 'Collection', 'Reversible',
+                     'Sequence', 'MutableSequence', 'Mapping', 'MutableMapping',
+                     'AbstractContextManager', 'ContextManager',
+                     'AbstractAsyncContextManager', 'AsyncContextManager',) and
+            cls.__module__ in ('collections.abc', 'typing', 'contextlib',
+                               '_abcoll', 'abc'))
+
+
+class ProtocolMeta(GenericMeta):
+    """Internal metaclass for Protocol.
+
+    This exists so Protocol classes can be generic without deriving
+    from Generic.
+    """
+
+    def __init__(cls, *args, **kwargs):
+        super(ProtocolMeta, cls).__init__(*args, **kwargs)
+        if not cls.__dict__.get('_is_protocol', None):
+            cls._is_protocol = any(b is Protocol or
+                                   isinstance(b, ProtocolMeta) and
+                                   b.__origin__ is Protocol
+                                   for b in cls.__bases__)
+        if cls._is_protocol:
+            for base in cls.__mro__[1:]:
+                if not (base in (object, Generic, Callable) or
+                        isinstance(base, TypingMeta) and base._is_protocol or
+                        isinstance(base, GenericMeta) and base.__origin__ is Generic or
+                        _collection_protocol(base)):
+                    raise TypeError('Protocols can only inherit from other protocols,'
+                                    ' got %r' % base)
+
+            def _no_init(self, *args, **kwargs):
+                if type(self)._is_protocol:
+                    raise TypeError('Protocols cannot be instantiated')
+            cls.__init__ = _no_init
+
+        def _proto_hook(cls, other):
+            if not cls.__dict__.get('_is_protocol', None):
+                return NotImplemented
+            for attr in cls._get_protocol_attrs():
+                for base in other.__mro__:
+                    if attr in base.__dict__:
+                        if base.__dict__[attr] is None:
+                            return NotImplemented
+                        break
+                else:
+                    return NotImplemented
+            return True
+        if '__subclasshook__' not in cls.__dict__:
+            cls.__subclasshook__ = classmethod(_proto_hook)
+
+    def __instancecheck__(self, instance):
+        # We need this method for situations where attributes are assigned in __init__
+        if isinstance(instance, type):
+            # This looks like a fundamental limitation of Python 2.
+            # It cannot support runtime protocol metaclasses
+            return False
+        if issubclass(instance.__class__, self):
+            return True
+        if self._is_protocol:
+            return all(hasattr(instance, attr) and getattr(instance, attr) is not None
+                       for attr in self._get_protocol_attrs())
+        return False
+
+    def _get_protocol_attrs(self):
+        attrs = set()
+        for base in self.__mro__[:-1]:  # without object
+            if base.__name__ in ('Protocol', 'Generic'):
+                continue
+            annotations = getattr(base, '__annotations__', {})
+            for attr in list(base.__dict__.keys()) + list(annotations.keys()):
+                if (not attr.startswith('_abc_') and attr not in (
+                        '__abstractmethods__', '__annotations__', '__weakref__',
+                        '_is_protocol', '_is_runtime_protocol', '__dict__',
+                        '__args__', '__slots__', '_get_protocol_attrs',
+                        '__next_in_mro__', '__parameters__', '__origin__',
+                        '__orig_bases__', '__extra__', '__tree_hash__',
+                        '__doc__', '__subclasshook__', '__init__', '__new__',
+                        '__module__', '_MutableMapping__marker',
+                        '__metaclass__') and
+                        getattr(base, attr, object()) is not None):
+                    attrs.add(attr)
+        return attrs
+
+
+class Protocol(object):
+    """Base class for protocol classes. Protocol classes are defined as::
+
+      class Proto(Protocol[T]):
+          def meth(self):
+              # type: () -> int
+              ...
+
+    Such classes are primarily used with static type checkers that recognize
+    structural subtyping (static duck-typing), for example::
+
+      class C:
+          def meth(self):
+              # type: () -> int
+              return 0
+
+      def func(x):
+          # type: (Proto[int]) -> int
+          return x.meth()
+
+      func(C())  # Passes static type check
+
+    See PEP 544 for details. Protocol classes decorated with @typing.runtime
+    act as simple-minded runtime protocols that checks only the presence of
+    given attributes, ignoring their type signatures.
+    """
+
+    __metaclass__ = ProtocolMeta
+    __slots__ = ()
+    _is_protocol = True
+
+    def __new__(cls, *args, **kwds):
+        if _geqv(cls, Protocol):
+            raise TypeError("Type Protocol cannot be instantiated; "
+                            "it can be used only as a base class")
+        return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
+
+
+def runtime(cls):
+    """Mark a protocol class as a runtime protocol, so that it
+    can be used with isinstance() and issubclass(). Raise TypeError
+    if applied to a non-protocol class.
+
+    This allows a simple-minded structural check very similar to the
+    one-offs in collections.abc such as Hashable.
+    """
+    if not isinstance(cls, ProtocolMeta) or not cls._is_protocol:
+        raise TypeError('@runtime can be only applied to protocol classes,'
+                        ' got %r' % cls)
+    cls._is_runtime_protocol = True
+    return cls
+
+
+class CallableMeta(ProtocolMeta):
     """ Metaclass for Callable."""
 
     def __repr__(self):
@@ -1597,85 +1749,6 @@ def overload(func):
     return _overload_dummy
 
 
-class _ProtocolMeta(GenericMeta):
-    """Internal metaclass for _Protocol.
-
-    This exists so _Protocol classes can be generic without deriving
-    from Generic.
-    """
-
-    def __instancecheck__(self, obj):
-        if _Protocol not in self.__bases__:
-            return super(_ProtocolMeta, self).__instancecheck__(obj)
-        raise TypeError("Protocols cannot be used with isinstance().")
-
-    def __subclasscheck__(self, cls):
-        if not self._is_protocol:
-            # No structural checks since this isn't a protocol.
-            return NotImplemented
-
-        if self is _Protocol:
-            # Every class is a subclass of the empty protocol.
-            return True
-
-        # Find all attributes defined in the protocol.
-        attrs = self._get_protocol_attrs()
-
-        for attr in attrs:
-            if not any(attr in d.__dict__ for d in cls.__mro__):
-                return False
-        return True
-
-    def _get_protocol_attrs(self):
-        # Get all Protocol base classes.
-        protocol_bases = []
-        for c in self.__mro__:
-            if getattr(c, '_is_protocol', False) and c.__name__ != '_Protocol':
-                protocol_bases.append(c)
-
-        # Get attributes included in protocol.
-        attrs = set()
-        for base in protocol_bases:
-            for attr in base.__dict__.keys():
-                # Include attributes not defined in any non-protocol bases.
-                for c in self.__mro__:
-                    if (c is not base and attr in c.__dict__ and
-                            not getattr(c, '_is_protocol', False)):
-                        break
-                else:
-                    if (not attr.startswith('_abc_') and
-                            attr != '__abstractmethods__' and
-                            attr != '_is_protocol' and
-                            attr != '__dict__' and
-                            attr != '__args__' and
-                            attr != '__slots__' and
-                            attr != '_get_protocol_attrs' and
-                            attr != '__next_in_mro__' and
-                            attr != '__parameters__' and
-                            attr != '__origin__' and
-                            attr != '__orig_bases__' and
-                            attr != '__extra__' and
-                            attr != '__tree_hash__' and
-                            attr != '__module__'):
-                        attrs.add(attr)
-
-        return attrs
-
-
-class _Protocol(object):
-    """Internal base class for protocol classes.
-
-    This implements a simple-minded structural issubclass check
-    (similar but more general than the one-offs in collections.abc
-    such as Hashable).
-    """
-
-    __metaclass__ = _ProtocolMeta
-    __slots__ = ()
-
-    _is_protocol = True
-
-
 # Various ABCs mimicking those in collections.abc.
 # A few are simply re-exported for completeness.
 
@@ -1692,7 +1765,8 @@ class Iterator(Iterable[T_co]):
     __extra__ = collections_abc.Iterator
 
 
-class SupportsInt(_Protocol):
+@runtime
+class SupportsInt(Protocol):
     __slots__ = ()
 
     @abstractmethod
@@ -1700,7 +1774,8 @@ class SupportsInt(_Protocol):
         pass
 
 
-class SupportsFloat(_Protocol):
+@runtime
+class SupportsFloat(Protocol):
     __slots__ = ()
 
     @abstractmethod
@@ -1708,7 +1783,8 @@ class SupportsFloat(_Protocol):
         pass
 
 
-class SupportsComplex(_Protocol):
+@runtime
+class SupportsComplex(Protocol):
     __slots__ = ()
 
     @abstractmethod
@@ -1716,7 +1792,8 @@ class SupportsComplex(_Protocol):
         pass
 
 
-class SupportsAbs(_Protocol[T_co]):
+@runtime
+class SupportsAbs(Protocol[T_co]):
     __slots__ = ()
 
     @abstractmethod
@@ -1729,7 +1806,8 @@ if hasattr(collections_abc, 'Reversible'):
         __slots__ = ()
         __extra__ = collections_abc.Reversible
 else:
-    class Reversible(_Protocol[T_co]):
+    @runtime
+    class Reversible(Protocol[T_co]):
         __slots__ = ()
 
         @abstractmethod

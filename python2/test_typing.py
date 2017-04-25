@@ -14,11 +14,13 @@ from typing import Union, Optional
 from typing import Tuple, List, MutableMapping
 from typing import Callable
 from typing import Generic, ClassVar, GenericMeta
+from typing import Protocol, runtime
 from typing import cast
 from typing import Type
 from typing import NewType
 from typing import NamedTuple
 from typing import Pattern, Match
+import abc
 import typing
 import weakref
 try:
@@ -511,6 +513,391 @@ class MySimpleMapping(SimpleMapping[XK, XV]):
 
 class ProtocolTests(BaseTestCase):
 
+    def test_basic_protocol(self):
+        @runtime
+        class P(Protocol):
+            def meth(self):
+                pass
+        class C(object): pass
+        class D(object):
+            def meth(self):
+                pass
+        self.assertIsSubclass(D, P)
+        self.assertIsInstance(D(), P)
+        self.assertNotIsSubclass(C, P)
+        self.assertNotIsInstance(C(), P)
+
+    def test_everything_implements_empty_protocol(self):
+        @runtime
+        class Empty(Protocol): pass
+        class C(object): pass
+        for thing in (object, type, tuple, C):
+            self.assertIsSubclass(thing, Empty)
+        for thing in (object(), 1, (), typing):
+            self.assertIsInstance(thing, Empty)
+
+    def test_no_inheritance_from_nominal(self):
+        class C(object): pass
+        class BP(Protocol): pass
+        with self.assertRaises(TypeError):
+            class P(C, Protocol):
+                pass
+        with self.assertRaises(TypeError):
+            class P(Protocol, C):
+                pass
+        with self.assertRaises(TypeError):
+            class P(BP, C, Protocol):
+                pass
+        class D(BP, C): pass
+        class E(C, BP): pass
+        self.assertNotIsInstance(D(), E)
+        self.assertNotIsInstance(E(), D)
+
+    def test_no_instantiation(self):
+        class P(Protocol): pass
+        with self.assertRaises(TypeError):
+            P()
+        class C(P): pass
+        self.assertIsInstance(C(), C)
+        T = TypeVar('T')
+        class PG(Protocol[T]): pass
+        with self.assertRaises(TypeError):
+            PG()
+        with self.assertRaises(TypeError):
+            PG[int]()
+        with self.assertRaises(TypeError):
+            PG[T]()
+        class CG(PG[T]): pass
+        self.assertIsInstance(CG[int](), CG)
+
+    def test_cannot_instantiate_abstract(self):
+        @runtime
+        class P(Protocol):
+            @abc.abstractmethod
+            def ameth(self):
+                raise NotImplementedError
+        class B(P):
+            pass
+        class C(B):
+            def ameth(self):
+                return 26
+        with self.assertRaises(TypeError):
+            B()
+        self.assertIsInstance(C(), P)
+
+    def test_subprotocols_extending(self):
+        class P1(Protocol):
+            def meth1(self):
+                pass
+        @runtime
+        class P2(P1, Protocol):
+            def meth2(self):
+                pass
+        class C(object):
+            def meth1(self):
+                pass
+            def meth2(self):
+                pass
+        class C1(object):
+            def meth1(self):
+                pass
+        class C2(object):
+            def meth2(self):
+                pass
+        self.assertNotIsInstance(C1(), P2)
+        self.assertNotIsInstance(C2(), P2)
+        self.assertNotIsSubclass(C1, P2)
+        self.assertNotIsSubclass(C2, P2)
+        self.assertIsInstance(C(), P2)
+        self.assertIsSubclass(C, P2)
+
+    def test_subprotocols_merging(self):
+        class P1(Protocol):
+            def meth1(self):
+                pass
+        class P2(Protocol):
+            def meth2(self):
+                pass
+        @runtime
+        class P(P1, P2, Protocol):
+            pass
+        class C(object):
+            def meth1(self):
+                pass
+            def meth2(self):
+                pass
+        class C1(object):
+            def meth1(self):
+                pass
+        class C2(object):
+            def meth2(self):
+                pass
+        self.assertNotIsInstance(C1(), P)
+        self.assertNotIsInstance(C2(), P)
+        self.assertNotIsSubclass(C1, P)
+        self.assertNotIsSubclass(C2, P)
+        self.assertIsInstance(C(), P)
+        self.assertIsSubclass(C, P)
+
+    def test_protocols_issubclass(self):
+        T = TypeVar('T')
+        @runtime
+        class P(Protocol):
+            x = 1
+        @runtime
+        class PG(Protocol[T]):
+            x = 1
+        class BadP(Protocol):
+            x = 1
+        class BadPG(Protocol[T]):
+            x = 1
+        class C(object):
+            x = 1
+        self.assertIsSubclass(C, P)
+        self.assertIsSubclass(C, PG)
+        self.assertIsSubclass(BadP, PG)
+        self.assertIsSubclass(PG[int], PG)
+        self.assertIsSubclass(BadPG[int], P)
+        self.assertIsSubclass(BadPG[T], PG)
+        with self.assertRaises(TypeError):
+            issubclass(C, PG[T])
+        with self.assertRaises(TypeError):
+            issubclass(C, PG[C])
+        with self.assertRaises(TypeError):
+            issubclass(C, BadP)
+        with self.assertRaises(TypeError):
+            issubclass(C, BadPG)
+        with self.assertRaises(TypeError):
+            issubclass(P, PG[T])
+        with self.assertRaises(TypeError):
+            issubclass(PG, PG[int])
+
+    def test_protocols_isinstance(self):
+        T = TypeVar('T')
+        @runtime
+        class P(Protocol):
+            def meth(x): pass
+        @runtime
+        class PG(Protocol[T]):
+            def meth(x): pass
+        class BadP(Protocol):
+            def meth(x): pass
+        class BadPG(Protocol[T]):
+            def meth(x): pass
+        class C(object):
+            def meth(x): pass
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(C(), PG)
+        with self.assertRaises(TypeError):
+            isinstance(C(), PG[T])
+        with self.assertRaises(TypeError):
+            isinstance(C(), PG[C])
+        with self.assertRaises(TypeError):
+            isinstance(C(), BadP)
+        with self.assertRaises(TypeError):
+            isinstance(C(), BadPG)
+
+    def test_protocols_isinstance_init(self):
+        T = TypeVar('T')
+        @runtime
+        class P(Protocol):
+            x = 1
+        @runtime
+        class PG(Protocol[T]):
+            x = 1
+        class C(object):
+            def __init__(self, x):
+                self.x = x
+        self.assertIsInstance(C(1), P)
+        self.assertIsInstance(C(1), PG)
+
+    def test_protocols_support_register(self):
+        @runtime
+        class P(Protocol):
+            x = 1
+        class PM(Protocol):
+            def meth(self): pass
+        class D(PM): pass
+        class C(object): pass
+        D.register(C)
+        P.register(C)
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(C(), D)
+
+    def test_none_blocks_implementation(self):
+        @runtime
+        class P(Protocol):
+            x = 1
+        class A(object):
+            x = 1
+        class B(A):
+            x = None
+        class C(object):
+            def __init__(self):
+                self.x = None
+        self.assertNotIsInstance(B(), P)
+        self.assertNotIsInstance(C(), P)
+
+    def test_non_protocol_subclasses(self):
+        class P(Protocol):
+            x = 1
+        @runtime
+        class PR(Protocol):
+            def meth(self): pass
+        class NonP(P):
+            x = 1
+        class NonPR(PR): pass
+        class C(object):
+            x = 1
+        class D(object):
+            def meth(self): pass
+        self.assertNotIsInstance(C(), NonP)
+        self.assertNotIsInstance(D(), NonPR)
+        self.assertNotIsSubclass(C, NonP)
+        self.assertNotIsSubclass(D, NonPR)
+        self.assertIsInstance(NonPR(), PR)
+        self.assertIsSubclass(NonPR, PR)
+
+    def test_custom_subclasshook(self):
+        class P(Protocol):
+            x = 1
+        class OKClass(object): pass
+        class BadClass(object):
+            x = 1
+        class C(P):
+            @classmethod
+            def __subclasshook__(cls, other):
+                return other.__name__.startswith("OK")
+        self.assertIsInstance(OKClass(), C)
+        self.assertNotIsInstance(BadClass(), C)
+        self.assertIsSubclass(OKClass, C)
+        self.assertNotIsSubclass(BadClass, C)
+
+    def test_defining_generic_protocols(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+        @runtime
+        class PR(Protocol[T, S]):
+            def meth(self): pass
+        class P(PR[int, T], Protocol[T]):
+            y = 1
+        self.assertIsSubclass(PR[int, T], PR)
+        self.assertIsSubclass(P[str], PR)
+        with self.assertRaises(TypeError):
+            PR[int]
+        with self.assertRaises(TypeError):
+            P[int, str]
+        with self.assertRaises(TypeError):
+            PR[int, 1]
+        with self.assertRaises(TypeError):
+            PR[int, ClassVar]
+        class C(PR[int, T]): pass
+        self.assertIsInstance(C[str](), C)
+
+    def test_init_called(self):
+        T = TypeVar('T')
+        class P(Protocol[T]): pass
+        class C(P[T]):
+            def __init__(self):
+                self.test = 'OK'
+        self.assertEqual(C[int]().test, 'OK')
+
+    def test_protocols_bad_subscripts(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+        with self.assertRaises(TypeError):
+            class P(Protocol[T, T]): pass
+        with self.assertRaises(TypeError):
+            class P(Protocol[int]): pass
+        with self.assertRaises(TypeError):
+            class P(Protocol[T], Protocol[S]): pass
+        with self.assertRaises(TypeError):
+            class P(typing.Mapping[T, S], Protocol[T]): pass
+
+    def test_generic_protocols_repr(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+        class P(Protocol[T, S]): pass
+        self.assertTrue(repr(P).endswith('P'))
+        self.assertTrue(repr(P[T, S]).endswith('P[~T, ~S]'))
+        self.assertTrue(repr(P[int, str]).endswith('P[int, str]'))
+
+    def test_generic_protocols_eq(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+        class P(Protocol[T, S]): pass
+        self.assertEqual(P, P)
+        self.assertEqual(P[int, T], P[int, T])
+        self.assertEqual(P[T, T][Tuple[T, S]][int, str],
+                         P[Tuple[int, str], Tuple[int, str]])
+
+    def test_generic_protocols_special_from_generic(self):
+        T = TypeVar('T')
+        class P(Protocol[T]): pass
+        self.assertEqual(P.__parameters__, (T,))
+        self.assertIs(P.__args__, None)
+        self.assertIs(P.__origin__, None)
+        self.assertEqual(P[int].__parameters__, ())
+        self.assertEqual(P[int].__args__, (int,))
+        self.assertIs(P[int].__origin__, P)
+
+    def test_generic_protocols_special_from_protocol(self):
+        @runtime
+        class PR(Protocol):
+            x = 1
+        class P(Protocol):
+            def meth(self):
+                pass
+        T = TypeVar('T')
+        class PG(Protocol[T]):
+            x = 1
+            def meth(self):
+                pass
+        self.assertTrue(P._is_protocol)
+        self.assertTrue(PR._is_protocol)
+        self.assertTrue(PG._is_protocol)
+        with self.assertRaises(AttributeError):
+            self.assertFalse(P._is_runtime_protocol)
+        self.assertTrue(PR._is_runtime_protocol)
+        self.assertTrue(PG[int]._is_protocol)
+        self.assertEqual(P._get_protocol_attrs(), {'meth'})
+        self.assertEqual(PR._get_protocol_attrs(), {'x'})
+        self.assertEqual(frozenset(PG._get_protocol_attrs()),
+                         frozenset({'x', 'meth'}))
+        self.assertEqual(frozenset(PG[int]._get_protocol_attrs()),
+                         frozenset({'x', 'meth'}))
+
+    def test_no_runtime_deco_on_nominal(self):
+        with self.assertRaises(TypeError):
+            @runtime
+            class C(object): pass
+
+    def test_protocols_pickleable(self):
+        global P, CP  # pickle wants to reference the class by name
+        T = TypeVar('T')
+
+        @runtime
+        class P(Protocol[T]):
+            x = 1
+        class CP(P[int]):
+            pass
+
+        c = CP()
+        c.foo = 42
+        c.bar = 'abc'
+        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            z = pickle.dumps(c, proto)
+            x = pickle.loads(z)
+            self.assertEqual(x.foo, 42)
+            self.assertEqual(x.bar, 'abc')
+            self.assertEqual(x.x, 1)
+            self.assertEqual(x.__dict__, {'foo': 42, 'bar': 'abc'})
+            s = pickle.dumps(P)
+            D = pickle.loads(s)
+            class E(object):
+                x = 1
+            self.assertIsInstance(E(), D)
+
     def test_supports_int(self):
         self.assertIsSubclass(int, typing.SupportsInt)
         self.assertNotIsSubclass(str, typing.SupportsInt)
@@ -538,9 +925,64 @@ class ProtocolTests(BaseTestCase):
         self.assertIsSubclass(list, typing.Reversible)
         self.assertNotIsSubclass(int, typing.Reversible)
 
+    def test_collection_protocols(self):
+        T = TypeVar('T')
+        class C(typing.Callable[[T], T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__call__', 'x'}))
+        class C(typing.Iterable[T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__iter__', 'x'}))
+        class C(typing.Iterator[T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__iter__', 'next', 'x'}))
+        class C(typing.Hashable, Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__hash__', 'x'}))
+        class C(typing.Sized, Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__len__', 'x'}))
+        class C(typing.Container[T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__contains__', 'x'}))
+        if hasattr(collections_abc, 'Reversible'):
+            class C(typing.Reversible[T], Protocol[T]): x = 1
+            self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                             frozenset({'__reversed__', '__iter__', 'x'}))
+        if hasattr(typing, 'Collection'):
+            class C(typing.Collection[T], Protocol[T]): x = 1
+            self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                             frozenset({'__len__', '__iter__', '__contains__', 'x'}))
+        class C(typing.Sequence[T], Protocol[T]): x = 1
+        self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                         frozenset({'__reversed__', '__contains__', '__getitem__',
+                                    '__len__', '__iter__', 'count', 'index', 'x'}))
+        # We use superset, since Python 3.2 does not have 'clear'
+        class C(typing.MutableSequence[T], Protocol[T]): x = 1
+        self.assertTrue(frozenset(C[int]._get_protocol_attrs()) >=
+                        frozenset({'__reversed__', '__contains__', '__getitem__',
+                                   '__len__', '__iter__', '__setitem__', '__delitem__',
+                                   '__iadd__', 'count', 'index', 'extend', 'insert',
+                                   'append', 'remove', 'pop', 'reverse', 'x'}))
+        class C(typing.Mapping[T, int], Protocol[T]): x = 1
+        # We use superset, since some versions also have '__ne__'
+        self.assertTrue(frozenset(C[int]._get_protocol_attrs()) >=
+                        frozenset({'__len__', '__getitem__', '__iter__', '__contains__',
+                                   '__eq__', 'items', 'keys', 'values', 'get', 'x'}))
+        class C(typing.MutableMapping[int, T], Protocol[T]): x = 1
+        # We use superset, since some versions also have '__ne__'
+        self.assertTrue(frozenset(C[int]._get_protocol_attrs()) >=
+                        frozenset({'__len__', '__getitem__', '__iter__', '__contains__',
+                                   '__eq__', '__setitem__', '__delitem__', 'items',
+                                   'keys', 'values', 'get', 'clear', 'pop', 'popitem',
+                                   'update', 'setdefault', 'x'}))
+        if hasattr(typing, 'ContextManager'):
+            class C(typing.ContextManager[T], Protocol[T]): x = 1
+            self.assertEqual(frozenset(C[int]._get_protocol_attrs()),
+                             frozenset({'__enter__', '__exit__', 'x'}))
+
     def test_protocol_instance_type_error(self):
-        with self.assertRaises(TypeError):
-            isinstance(0, typing.SupportsAbs)
+        isinstance(0, typing.SupportsAbs)
         class C1(typing.SupportsInt):
             def __int__(self):
                 return 42
@@ -548,6 +990,13 @@ class ProtocolTests(BaseTestCase):
             pass
         c = C2()
         self.assertIsInstance(c, C1)
+        class C3(object):
+            def __int__(self):
+                return 42
+        class C4(C3):
+            pass
+        c = C4()
+        self.assertIsInstance(c, typing.SupportsInt)
 
 
 class GenericTests(BaseTestCase):
@@ -650,7 +1099,7 @@ class GenericTests(BaseTestCase):
     def test_new_repr_bare(self):
         T = TypeVar('T')
         self.assertEqual(repr(Generic[T]), 'typing.Generic[~T]')
-        self.assertEqual(repr(typing._Protocol[T]), 'typing.Protocol[~T]')
+        self.assertEqual(repr(typing.Protocol[T]), 'typing.Protocol[~T]')
         class C(typing.Dict[Any, Any]): pass
         # this line should just work
         repr(C.__mro__)
@@ -934,7 +1383,7 @@ class GenericTests(BaseTestCase):
         with self.assertRaises(TypeError):
             Tuple[Generic[T]]
         with self.assertRaises(TypeError):
-            List[typing._Protocol]
+            List[typing.Protocol]
         with self.assertRaises(TypeError):
             isinstance(1, Generic)
 
