@@ -542,9 +542,6 @@ class MyPoint:
     y: int
     label: str
 
-class BadPoint:
-    z: str
-
 class XAxis(Protocol):
     x: int
 
@@ -565,7 +562,7 @@ class Concrete(Proto):
     pass
 
 class Other:
-    attr: int
+    attr: int = 1
     def meth(self, arg: str) -> int:
         if arg == 'this':
             return 1
@@ -638,6 +635,21 @@ class ProtocolTests(BaseTestCase):
             PG[T]()
         class CG(PG[T]): pass
         self.assertIsInstance(CG[int](), CG)
+
+    def test_cannot_instantiate_abstract(self):
+        @runtime
+        class P(Protocol):
+            @abc.abstractmethod
+            def ameth(self) -> int:
+                raise NotImplementedError
+        class B(P):
+            pass
+        class C(B):
+            def ameth(self) -> int:
+                return 26
+        with self.assertRaises(TypeError):
+            B()
+        self.assertIsInstance(C(), P)
 
     def test_subprotocols_extending(self):
         class P1(Protocol):
@@ -728,7 +740,20 @@ class ProtocolTests(BaseTestCase):
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_protocols_issubclass_py36(self):
-        pass
+        class OtherPoint:
+            x = 1
+            y = 2
+            label = 'other'
+        class Bad: pass
+        self.assertNotIsSubclass(MyPoint, Point)
+        self.assertIsSubclass(OtherPoint, Point)
+        self.assertNotIsSubclass(Bad, Point)
+        self.assertNotIsSubclass(MyPoint, Position)
+        self.assertIsSubclass(OtherPoint, Position)
+        self.assertIsSubclass(Concrete, Proto)
+        self.assertIsSubclass(Other, Proto)
+        self.assertNotIsSubclass(Concrete, Other)
+        self.assertNotIsSubclass(Other, Concrete)
 
     def test_protocols_isinstance(self):
         T = TypeVar('T')
@@ -757,7 +782,34 @@ class ProtocolTests(BaseTestCase):
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_protocols_isinstance_py36(self):
-        pass
+        class APoint:
+             def __init__(self, x, y, label):
+                 self.x = x
+                 self.y = y
+                 self.label = label
+        class BPoint:
+             label = 'B'
+             def __init__(self, x, y):
+                 self.x = x
+                 self.y = y
+        class C:
+            def __init__(self, attr):
+                self.attr = attr
+            def meth(self, arg):
+                return 0
+        class Bad: pass
+        self.assertIsInstance(APoint(1, 2, 'A'), Point)
+        self.assertIsInstance(BPoint(1, 2), Point)
+        self.assertNotIsInstance(MyPoint(), Point)
+        self.assertIsInstance(BPoint(1, 2), Position)
+        self.assertIsInstance(Other(), Proto)
+        self.assertIsInstance(Concrete(), Proto)
+        self.assertIsInstance(C(42), Proto)
+        self.assertNotIsInstance(Bad(), Proto)
+        self.assertNotIsInstance(Bad(), Point)
+        self.assertNotIsInstance(Bad(), Position)
+        self.assertNotIsInstance(Bad(), Concrete)
+        self.assertNotIsInstance(Other(), Concrete)
 
     def test_protocols_isinstance_init(self):
         T = TypeVar('T')
