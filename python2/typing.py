@@ -1973,12 +1973,11 @@ def NewType(name, tp, construct=None):
     by static type checkers. At runtime, NewType(name, tp) returns
     a dummy function that simply returns its argument. If the optional
     'construct' argument is passed, it must be a function that takes one
-    argument and returns a value of type parent type tp. In this case, the
-    dummy function instead calls the construct function and returns its return
-    value. This allows users to provide explicit runtime validation checks on
-    their type, or to clean the input with some additional overhead. To avoid
-    the additional runtime overhead after validation has taken place, use
-    the cast function. Usage::
+    argument and returns a value of type tp. In this case, the dummy function
+    instead calls the construct function and returns its return value. This
+    enables explicit runtime validation checks on a type, or additional input
+    cleaning with some additional overhead. To avoid additional overhead
+    after validation has taken place, use the cast function. Usage::
 
         UserId = NewType('UserId', int)
 
