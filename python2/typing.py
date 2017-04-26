@@ -1976,7 +1976,9 @@ def NewType(name, tp, construct=None):
     argument and returns a value of type parent type tp. In this case, the
     dummy function instead calls the construct function and returns its return
     value. This allows users to provide explicit runtime validation checks on
-    their type, or to clean the input with some additional overhead. Usage::
+    their type, or to clean the input with some additional overhead. To avoid
+    the additional runtime overhead after validation has taken place, use
+    the cast function. Usage::
 
         UserId = NewType('UserId', int)
 
