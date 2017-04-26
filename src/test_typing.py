@@ -2241,7 +2241,6 @@ class NewTypeTests(BaseTestCase):
         with self.assertRaises(ValueError):
             SingleChar('1235')
 
-
     def test_errors(self):
         UserId = NewType('UserId', int)
         UserName = NewType('UserName', str)
