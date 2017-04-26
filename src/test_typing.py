@@ -754,6 +754,7 @@ class ProtocolTests(BaseTestCase):
         self.assertIsSubclass(Other, Proto)
         self.assertNotIsSubclass(Concrete, Other)
         self.assertNotIsSubclass(Other, Concrete)
+        self.assertIsSubclass(Point, Position)
 
     def test_protocols_isinstance(self):
         T = TypeVar('T')

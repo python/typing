@@ -1369,6 +1369,9 @@ class ProtocolMeta(GenericMeta):
                         if base.__dict__[attr] is None:
                             return NotImplemented
                         break
+                    if (attr in getattr(base, '__annotations__', {}) and
+                            isinstance(other, ProtocolMeta) and other._is_protocol):
+                        break
                 else:
                     return NotImplemented
             return True
