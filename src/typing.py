@@ -2156,7 +2156,7 @@ class NamedTuple(metaclass=NamedTupleMeta):
         return _make_nmtuple(typename, fields)
 
 
-def NewType(name, tp):
+def NewType(name, tp, construct=None):
     """NewType creates simple unique types with almost zero
     runtime overhead. NewType(name, tp) is considered a subtype of tp
     by static type checkers. At runtime, NewType(name, tp) returns
@@ -2175,8 +2175,12 @@ def NewType(name, tp):
         num = UserId(5) + 1     # type: int
     """
 
-    def new_type(x):
-        return x
+    if construct is None:
+        def new_type(x):
+            return x
+    else:
+        def new_type(x):
+            return construct(x)
 
     new_type.__name__ = name
     new_type.__supertype__ = tp
