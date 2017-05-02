@@ -90,6 +90,7 @@ __all__ = [
     'overload',
     'Text',
     'TYPE_CHECKING',
+    'WSGIApplication',
 ]
 
 # The pseudo-submodules 're' and 'io' are part of the public
@@ -2348,6 +2349,19 @@ Pattern = _TypeAlias('Pattern', AnyStr, type(stdlib_re.compile('')),
                      lambda p: p.pattern)
 Match = _TypeAlias('Match', AnyStr, type(stdlib_re.match('', '')),
                    lambda m: m.re.pattern)
+
+
+exc_info = Tuple[Optional[Type[BaseException]],
+                 Optional[BaseException],
+                 Optional[types.TracebackType]]
+
+WSGIApplication = Callable[
+    [Dict[str, str],
+     Union[Callable[[Text, List[Tuple[Text, Text]]],
+                    Callable[[Union[bytes, str]], None]],
+           Callable[[Text, List[Tuple[str, str]], exc_info],
+                    Callable[[Union[bytes, str]], None]]]
+     ], Iterable[Union[bytes, str]]]
 
 
 class re:

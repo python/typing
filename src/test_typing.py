@@ -2438,6 +2438,13 @@ class RETests(BaseTestCase):
                          "Cannot subclass typing._TypeAlias")
 
 
+class WSGIApplicationTests(BaseTestCase):
+
+    def test_wsgi_application(self):
+        from typing import Callable, WSGIApplication
+        self.assertIsSubclass(WSGIApplication, Callable)
+
+
 class AllTests(BaseTestCase):
     """Tests for __all__."""
 
