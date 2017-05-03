@@ -37,6 +37,7 @@ __all__ = [
                     # for 'Generic' and ABCs below.
     'ByteString',
     'Container',
+    'ContextManager',
     'Hashable',
     'ItemsView',
     'Iterable',
@@ -57,7 +58,6 @@ __all__ = [
     # AsyncIterable,
     # Coroutine,
     # Collection,
-    # ContextManager,
     # AsyncGenerator,
 
     # Structural checks, a.k.a. protocols.
@@ -1949,7 +1949,25 @@ class ValuesView(MappingView[VT_co], extra=collections_abc.ValuesView):
 if hasattr(contextlib, 'AbstractContextManager'):
     class ContextManager(Generic[T_co], extra=contextlib.AbstractContextManager):
         __slots__ = ()
-    __all__.append('ContextManager')
+else:
+    class ContextManager(Generic[T_co]):
+        __slots__ = ()
+
+        def __enter__(self):
+            return self
+
+        @abc.abstractmethod
+        def __exit__(self, exc_type, exc_value, traceback):
+            """Raise any exception triggered within the runtime context."""
+            return None
+
+        @classmethod
+        def __subclasshook__(cls, C):
+            if cls is ContextManager:
+                if (any("__enter__" in B.__dict__ for B in C.__mro__) and
+                    any("__exit__" in B.__dict__ for B in C.__mro__)):
+                    return True
+            return NotImplemented
 
 
 class Dict(dict, MutableMapping[KT, VT], extra=dict):
