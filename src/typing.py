@@ -1965,7 +1965,7 @@ else:
         def __subclasshook__(cls, C):
             if cls is ContextManager:
                 if (any("__enter__" in B.__dict__ for B in C.__mro__) and
-                    any("__exit__" in B.__dict__ for B in C.__mro__)):
+                        any("__exit__" in B.__dict__ for B in C.__mro__)):
                     return True
             return NotImplemented
 
