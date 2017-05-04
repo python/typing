@@ -1,8 +1,20 @@
 [flake8]
 # fake builtins for python2/*
+builtins = basestring, unicode
 max-line-length = 90
 ignore =
-  # the code is sometimes better off without this
-  E129
-  # irrelevant to us
-  B303
+  # code may look better without this
+  E129,
+  # temporary ignores until we sort it out
+  E306,
+  E701,
+  E704,
+  F811,
+  # irrelevant plugins
+  B3,
+  DW12
+exclude =
+  # This config is NOT for the main module.
+  setup.py
+  python2/typing.py,
+  src/typing.py
