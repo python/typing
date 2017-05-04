@@ -4,3 +4,5 @@ max-line-length = 90
 ignore =
   # the code is sometimes better off without this
   E129
+  # irrelevant to us
+  B303
