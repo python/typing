@@ -15,5 +15,5 @@ install:
 
 script:
   - export PYTHONPATH=`python -c "import sys; print('python2' if sys.version.startswith('2') else 'src')"`; py.test $PYTHONPATH
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then flake8; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then flake8 --config=.flake8; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then flake8 --config=.flake8-tests src/test_typing.py python2/test_typing.py; fi
