@@ -1992,11 +1992,17 @@ def NamedTuple(typename, fields):
     return cls
 
 
-def NewType(name, tp):
+def NewType(name, tp, construct=None):
     """NewType creates simple unique types with almost zero
     runtime overhead. NewType(name, tp) is considered a subtype of tp
     by static type checkers. At runtime, NewType(name, tp) returns
-    a dummy function that simply returns its argument. Usage::
+    a dummy function that simply returns its argument. If the optional
+    'construct' argument is passed, it must be a function that takes one
+    argument and returns a value of type tp. In this case, the dummy function
+    instead calls the construct function and returns its return value. This
+    enables explicit runtime validation checks on a type, or additional input
+    cleaning with some additional overhead. To avoid additional overhead
+    after validation has taken place, use the cast function. Usage::
 
         UserId = NewType('UserId', int)
 
@@ -2010,10 +2016,34 @@ def NewType(name, tp):
         name_by_id(UserId(42))  # OK
 
         num = UserId(5) + 1     # type: int
+
+
+        # Optional construct argument
+
+        def name_by_val_id(val_user_id: ValidUserId):
+            ...
+
+        def construct_id(input_id):
+            # type: (int) -> int
+            '''constructor to attach - must be greater than 0'''
+            if input_id <= 0:
+                raise ValueError('Must be greater than 0')
+            return input_id
+        ValidUserId = NewType('ValidUserId', int, construct=construct_id)
+
+        name_by_val_id(42)               # Still fails type check
+        name_by_val_id(ValidUserId(42))  # OK
+
+        ValidUserId(-1)                  # ValueError
+
     """
 
-    def new_type(x):
-        return x
+    if construct is None:
+        def new_type(x):
+            return x
+    else:
+        def new_type(x):
+            return construct(x)
 
     # Some versions of Python 2 complain because of making all strings unicode
     new_type.__name__ = str(name)

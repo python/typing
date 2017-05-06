@@ -2214,6 +2214,31 @@ class NewTypeTests(BaseTestCase):
         self.assertIsInstance(UserName('Joe'), str)
         self.assertEqual(UserId(5) + 1, 6)
 
+    def test_construct(self):
+        def validate_user_id(user_id):
+            if user_id <= 0:
+                raise ValueError('user_id must be a positive int')
+            return user_id
+
+        def validate_singlechar(s):
+            if len(s) != 1:
+                raise ValueError('String must be of length one')
+            return s
+
+        UserId = NewType('UserId', int, construct=validate_user_id)
+        SingleChar = NewType('SingleChar', str, construct=validate_singlechar)
+        self.assertIsInstance(UserId(5), int)
+        self.assertIsInstance(SingleChar('s'), str)
+        self.assertEqual(UserId(5) + 1, 6)
+        with self.assertRaises(ValueError):
+            UserId(0)
+        with self.assertRaises(ValueError):
+            UserId(-1)
+        with self.assertRaises(ValueError):
+            SingleChar('')
+        with self.assertRaises(ValueError):
+            SingleChar('1235')
+
     def test_errors(self):
         UserId = NewType('UserId', int)
         UserName = NewType('UserName', str)
