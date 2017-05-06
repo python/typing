@@ -1,6 +1,0 @@
-[flake8]
-# fake builtins for python2/*
-max-line-length = 90
-ignore =
-  # the code is sometimes better off without this
-  E129
