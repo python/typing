@@ -2156,8 +2156,6 @@ class CollectionsAbcTests(BaseTestCase):
 
 class OtherABCTests(BaseTestCase):
 
-    @skipUnless(hasattr(typing, 'ContextManager'),
-                'requires typing.ContextManager')
     def test_contextmanager(self):
         @contextlib.contextmanager
         def manager():

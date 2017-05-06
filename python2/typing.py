@@ -32,6 +32,7 @@ __all__ = [
                     # for 'Generic' and ABCs below.
     'ByteString',
     'Container',
+    'ContextManager',
     'Hashable',
     'ItemsView',
     'Iterable',
@@ -1855,6 +1856,30 @@ class ItemsView(MappingView[Tuple[KT, VT_co]],
 class ValuesView(MappingView[VT_co]):
     __slots__ = ()
     __extra__ = collections_abc.ValuesView
+
+
+class ContextManager(Generic[T_co]):
+    __slots__ = ()
+
+    def __enter__(self):
+        return self
+
+    @abc.abstractmethod
+    def __exit__(self, exc_type, exc_value, traceback):
+        return None
+
+    @classmethod
+    def __subclasshook__(cls, C):
+        if cls is ContextManager:
+            # In Python 3.6+, it is possible to set a method to None to
+            # explicitly indicate that the class does not implement an ABC
+            # (https://bugs.python.org/issue25958), but we do not support
+            # that pattern here because this fallback class is only used
+            # in Python 3.5 and earlier.
+            if (any("__enter__" in B.__dict__ for B in C.__mro__) and
+                any("__exit__" in B.__dict__ for B in C.__mro__)):
+                return True
+        return NotImplemented
 
 
 class Dict(dict, MutableMapping[KT, VT]):

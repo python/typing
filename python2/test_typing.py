@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import collections
+import contextlib
 import pickle
 import re
 import sys
@@ -1651,6 +1652,18 @@ class CollectionsAbcTests(BaseTestCase):
         class B: pass
         A.register(B)
         self.assertIsSubclass(B, typing.Mapping)
+
+
+class OtherABCTests(BaseTestCase):
+
+    def test_contextmanager(self):
+        @contextlib.contextmanager
+        def manager():
+            yield 42
+
+        cm = manager()
+        self.assertIsInstance(cm, typing.ContextManager)
+        self.assertNotIsInstance(42, typing.ContextManager)
 
 
 class TypeTests(BaseTestCase):
