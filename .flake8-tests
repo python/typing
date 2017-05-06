@@ -1,0 +1,25 @@
+# This configuration is specific to test_*.py; you need to invoke it
+# by specifically naming this config, like this:
+#
+# $ flake8 --config=.flake8-tests src/test_typing.py python2/test_typing.py
+#
+# This will be possibly merged in the future.
+
+[flake8]
+# fake builtins for python2/*
+builtins = basestring, unicode
+max-line-length = 90
+ignore =
+  # temporary ignores until we sort it out
+  E306,
+  E701,
+  E704,
+  F811,
+  # irrelevant plugins
+  B3,
+  DW12
+exclude =
+  # This config is NOT for the main module.
+  setup.py
+  python2/typing.py,
+  src/typing.py
