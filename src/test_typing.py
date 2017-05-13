@@ -567,13 +567,17 @@ class Other:
         if arg == 'this':
             return 1
         return 0
+
+class NT(NamedTuple):
+    x: int
+    y: int
 """
 
 if PY36:
     exec(PY36_PROTOCOL_TESTS)
 else:
     # fake names for the sake of static analysis
-    Coordinate = Point = MyPoint = BadPoint = object
+    Coordinate = Point = MyPoint = BadPoint = NT = object
     XAxis = YAxis = Position = Proto = Concrete = Other = object
 
 
@@ -755,6 +759,7 @@ class ProtocolTests(BaseTestCase):
         self.assertNotIsSubclass(Concrete, Other)
         self.assertNotIsSubclass(Other, Concrete)
         self.assertIsSubclass(Point, Position)
+        self.assertIsSubclass(NT, Position)
 
     def test_protocols_isinstance(self):
         T = TypeVar('T')
@@ -811,6 +816,7 @@ class ProtocolTests(BaseTestCase):
         self.assertNotIsInstance(Bad(), Position)
         self.assertNotIsInstance(Bad(), Concrete)
         self.assertNotIsInstance(Other(), Concrete)
+        self.assertIsInstance(NT(1, 2), Position)
 
     def test_protocols_isinstance_init(self):
         T = TypeVar('T')
