@@ -1,0 +1,34 @@
+# Basic tests.
+
+- case: Empty file
+  files:
+    - content: |
+
+- case: Assignment and var def
+  files:
+    - content: |
+        a = None # type: A
+        b = None # type: B
+        a = a
+        a = b # E: Incompatible types in assignment (expression has type "B", variable has type "A")
+        class A: pass
+        class B: pass
+
+- case: Constructor and assignment
+  files:
+    - content: |
+        class A:
+            def __init__(self): pass
+        class B:
+            def __init__(self): pass
+        x = None # type: A
+        x = A()
+        x = B() # E: Incompatible types in assignment (expression has type "B", variable has type "A")
+
+- case: Invalid argument count
+  files:
+    - content: |
+        import typing
+        def f(x, y) -> None: pass
+        f(object()) # E: Too few arguments for "f"
+        f(object(), object(), object()) # E: Too many arguments for "f"
