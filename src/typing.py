@@ -1976,7 +1976,8 @@ else:
 
 
 if hasattr(contextlib, 'AbstractAsyncContextManager'):
-    class AsyncContextManager(Generic[T_co], extra=contextlib.AbstractAsyncContextManager):
+    class AsyncContextManager(Generic[T_co],
+                              extra=contextlib.AbstractAsyncContextManager):
         __slots__ = ()
 
     __all__.append('AsyncContextManager')
@@ -1995,8 +1996,7 @@ class AsyncContextManager(Generic[T_co]):
     @classmethod
     def __subclasshook__(cls, C):
         if cls is AsyncContextManager:
-            return _collections_abc._check_methods(C, "__aenter__",
-                                                   "__aexit__")
+            return collections_abc._check_methods(C, "__aenter__", "__aexit__")
         return NotImplemented
 
 __all__.append('AsyncContextManager')
