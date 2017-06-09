@@ -1994,7 +1994,7 @@ class AsyncContextManager(Generic[T_co]):
     @abc.abstractmethod
     async def __aexit__(self, exc_type, exc_value, traceback):
         return None
-    
+
     @classmethod
     def __subclasshook__(cls, C):
         if cls is AsyncContextManager:
