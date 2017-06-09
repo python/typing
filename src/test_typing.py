@@ -1616,11 +1616,11 @@ class Base2(NamedTuple):
     def method2(self):
         return self.z
 
-class Derived1(Base1):
+class Derived1(Base1, NamedTuple):
     '''Named tuples can have doctrings.'''
     label: str
 
-class Derived2(Base2, Base1):
+class Derived2(Base2, Base1, NamedTuple):
     pass
 
 class TwoDefaults(NamedTuple):
@@ -2317,12 +2317,12 @@ class NonDefaultAfterDefault(NamedTuple):
 """)
         with self.assertRaises(TypeError):
             exec("""
-class BadMerged(Base1, Base2):
+class BadMerged(Base1, Base2, NamedTuple):
     pass
 """)
         with self.assertRaises(TypeError):
             exec("""
-class BadExtended(Base2):
+class BadExtended(Base2, NamedTuple):
     label: str
 """)
 
