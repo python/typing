@@ -10,7 +10,8 @@ try:
     import collections.abc as collections_abc
 except ImportError:
     import collections as collections_abc  # Fallback for PY3.2.
-import _collections_abc  # Needed for private function _check_methods
+if sys.version_info[:2] >= (3, 5):
+    import _collections_abc  # Needed for private function _check_methods # noqa
 try:
     from types import WrapperDescriptorType, MethodWrapperType, MethodDescriptorType
 except ImportError:
