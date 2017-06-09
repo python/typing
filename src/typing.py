@@ -2113,21 +2113,26 @@ class NamedTupleMeta(type):
         if not _PY36:
             raise TypeError("Class syntax for NamedTuple is only supported"
                             " in Python 3.6+")
-        types = ns.get('__annotations__', {})
+        types = {}
+        defaults_ns = {}
+        # merge field types and defaults in reversed order (matches how MRO works)
+        for base in reversed(bases):
+            if isinstance(base, NamedTupleMeta):
+                types.update(getattr(base, '__annotations__', {}))
+                defaults_ns.update(base.__dict__)
+        types.update(ns.get('__annotations__', {}))
+        defaults_ns.update(ns)
         nm_tpl = _make_nmtuple(typename, types.items())
-        defaults = []
         defaults_dict = {}
         for field_name in types:
-            if field_name in ns:
-                default_value = ns[field_name]
-                defaults.append(default_value)
-                defaults_dict[field_name] = default_value
-            elif defaults:
+            if field_name in defaults_ns:
+                defaults_dict[field_name] = defaults_ns[field_name]
+            elif defaults_dict:
                 raise TypeError("Non-default namedtuple field {field_name} cannot "
                                 "follow default field(s) {default_names}"
                                 .format(field_name=field_name,
                                         default_names=', '.join(defaults_dict.keys())))
-        nm_tpl.__new__.__defaults__ = tuple(defaults)
+        nm_tpl.__new__.__defaults__ = tuple(defaults_dict.values())
         nm_tpl._field_defaults = defaults_dict
         # update from user namespace without overriding special namedtuple attributes
         for key in ns:
