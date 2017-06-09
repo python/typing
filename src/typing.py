@@ -59,6 +59,7 @@ __all__ = [
     # Coroutine,
     # Collection,
     # AsyncGenerator,
+    # AsyncContextManager
 
     # Structural checks, a.k.a. protocols.
     'Reversible',
@@ -1972,6 +1973,34 @@ else:
                     any("__exit__" in B.__dict__ for B in C.__mro__)):
                     return True
             return NotImplemented
+
+
+if hasattr(contextlib, 'AbstractAsyncContextManager'):
+    class AsyncContextManager(Generic[T_co], extra=contextlib.AbstractAsyncContextManager):
+        __slots__ = ()
+
+    __all__.append('AsyncContextManager')
+elif sys.version_info[:2] >= (3, 5):
+    exec("""
+class AsyncContextManager(Generic[T_co]):
+    __slots__ = ()
+
+    async def __aenter__(self):
+        return self
+
+    @abc.abstractmethod
+    async def __aexit__(self, exc_type, exc_value, traceback):
+        return None
+
+    @classmethod
+    def __subclasshook__(cls, C):
+        if cls is AsyncContextManager:
+            return _collections_abc._check_methods(C, "__aenter__",
+                                                   "__aexit__")
+        return NotImplemented
+
+__all__.append('AsyncContextManager')
+""")
 
 
 class Dict(dict, MutableMapping[KT, VT], extra=dict):

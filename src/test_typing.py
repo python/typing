@@ -1552,6 +1552,12 @@ class AsyncIteratorWrapper(typing.AsyncIterator[T_a]):
             return data
         else:
             raise StopAsyncIteration
+
+class ACM:
+    async def __aenter__(self):
+        return self
+    async def __aexit__(self, etype, eval, tb):
+        return None
 """
 
 if ASYNCIO:
@@ -1562,7 +1568,7 @@ if ASYNCIO:
 else:
     # fake names for the sake of static analysis
     asyncio = None
-    AwaitableWrapper = AsyncIteratorWrapper = object
+    AwaitableWrapper = AsyncIteratorWrapper = ACM = object
 
 PY36 = sys.version_info[:2] >= (3, 6)
 
@@ -2164,6 +2170,19 @@ class OtherABCTests(BaseTestCase):
         cm = manager()
         self.assertIsInstance(cm, typing.ContextManager)
         self.assertNotIsInstance(42, typing.ContextManager)
+
+    @skipUnless(ASYNCIO, 'Python 3.5 required')
+    def test_async_contextmanager(self):
+        class NotACM:
+            pass
+        self.assertIsInstance(ACM(), typing.AsyncContextManager)
+        self.assertNotIsInstance(NotACM(), typing.AsyncContextManager)
+        @contextlib.contextmanager
+        def manager():
+            yield 42
+
+        cm = manager()
+        self.assertNotIsInstance(cm, typing.AsyncContextManager)
 
 
 class TypeTests(BaseTestCase):
