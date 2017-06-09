@@ -2118,8 +2118,8 @@ class NamedTupleMeta(type):
         # merge field types and defaults in reversed order (matches how MRO works)
         for base in reversed(bases):
             if hasattr(base, '_field_types'):  # New style named tuple
-                types.update(getattr(base, '__annotations__', {}))
-                defaults_ns.update(base.__dict__)
+                types.update(base._field_types)
+                defaults_ns.update(base._field_defaults)
         types.update(ns.get('__annotations__', {}))
         defaults_ns.update(ns)
         nm_tpl = _make_nmtuple(typename, types.items())
