@@ -10,6 +10,7 @@ try:
     import collections.abc as collections_abc
 except ImportError:
     import collections as collections_abc  # Fallback for PY3.2.
+import _collections_abc  # Needed for private function _check_methods
 try:
     from types import WrapperDescriptorType, MethodWrapperType, MethodDescriptorType
 except ImportError:
@@ -1996,7 +1997,7 @@ class AsyncContextManager(Generic[T_co]):
     @classmethod
     def __subclasshook__(cls, C):
         if cls is AsyncContextManager:
-            return collections_abc._check_methods(C, "__aenter__", "__aexit__")
+            return _collections_abc._check_methods(C, "__aenter__", "__aexit__")
         return NotImplemented
 
 __all__.append('AsyncContextManager')
