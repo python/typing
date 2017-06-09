@@ -1604,6 +1604,28 @@ class XRepr(NamedTuple):
         return f'{self.x} -> {self.y}'
     def __add__(self, other):
         return 0
+
+class Base1(NamedTuple):
+    x: int
+    y: int
+    def method1(self):
+        return self.x + self.y
+
+class Base2(NamedTuple):
+    z: int = 0
+    def method2(self):
+        return self.z
+
+class Derived1(Base1):
+    '''Named tuples can have doctrings.'''
+    label: str
+
+class Derived2(Base2, Base1):
+    pass
+
+class TwoDefaults(NamedTuple):
+    x: int = 0
+    other: str = ''
 """
 
 if PY36:
@@ -2278,12 +2300,30 @@ class NamedTupleTests(BaseTestCase):
         self.assertEqual(CoolEmployeeWithDefault._fields, ('name', 'cool'))
         self.assertEqual(CoolEmployeeWithDefault._field_types, dict(name=str, cool=int))
         self.assertEqual(CoolEmployeeWithDefault._field_defaults, dict(cool=0))
+        self.assertEqual(TwoDefaults.__new__.__defaults__, (0, ''))
+        self.assertEqual(TwoDefaults().x, 0)
+        self.assertEqual(TwoDefaults().other, '')
+        self.assertEqual(TwoDefaults()[0], 0)
+        self.assertEqual(TwoDefaults()[1], '')
+        self.assertEqual(Derived2._fields, ('x', 'y', 'z'))
+        self.assertEqual(Derived2._field_types, dict(x=int, y=int, z=int))
+        self.assertEqual(Derived2._field_defaults, dict(z=0))
 
         with self.assertRaises(TypeError):
             exec("""
 class NonDefaultAfterDefault(NamedTuple):
     x: int = 3
     y: int
+""")
+        with self.assertRaises(TypeError):
+            exec("""
+class BadMerged(Base1, Base2):
+    pass
+""")
+        with self.assertRaises(TypeError):
+            exec("""
+class BadExtended(Base2):
+    label: str
 """)
 
     @skipUnless(PY36, 'Python 3.6 required')
@@ -2292,6 +2332,9 @@ class NonDefaultAfterDefault(NamedTuple):
         self.assertEqual(XMeth(42).x, XMeth(42)[0])
         self.assertEqual(str(XRepr(42)), '42 -> 1')
         self.assertEqual(XRepr(1, 2) + XRepr(3), 0)
+        self.assertEqual(Derived1(1, 2, 'test').meth1(), 3)
+        self.assertEqual(Derived2(3, 4).meth1(), 7)
+        self.assertEqual(Derived2(3, 4, 5).meth2(), 5)
 
         with self.assertRaises(AttributeError):
             exec("""
@@ -2308,6 +2351,42 @@ class XMethBad2(NamedTuple):
     def _source(self):
         return 'no chance for this as well'
 """)
+
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_namedtuple_extending(self):
+        example = Derived1(1, 2, 'test')
+        with self.assertRaises(TypeError):
+            Derived1('test')
+        self.assertIsInstance(example, Derived1)
+        self.assertIsInstance(example, tuple)
+        self.assertEqual(example.x, 1)
+        self.assertEqual(example.y, 2)
+        self.assertEqual(example.label, 'test')
+        self.assertEqual(Derived1.__name__, 'Derived1')
+        self.assertEqual(Derived1._fields, ('x', 'y', 'label'))
+        self.assertEqual(Derived1.__annotations__,
+                         collections.OrderedDict(x=int, y=int, label=str))
+        self.assertIs(Derived1._field_types, Derived1.__annotations__)
+
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_namedtuple_merging(self):
+        example = Derived2(1, 2)
+        example2 = Derived2(1, 2, 3)
+        with self.assertRaises(TypeError):
+            Derived2(1)
+        with self.assertRaises(TypeError):
+            Derived2(1, 2, 3, 4)
+        self.assertIsInstance(example, Derived2)
+        self.assertIsInstance(example, tuple)
+        self.assertEqual(example.x, 1)
+        self.assertEqual(example.y, 2)
+        self.assertEqual(example.z, 0)
+        self.assertEqual(example2.z, 3)
+        self.assertEqual(Derived2.__name__, 'Derived2')
+        self.assertEqual(Derived2._fields, ('x', 'y', 'z'))
+        self.assertEqual(Derived2.__annotations__,
+                         collections.OrderedDict(x=int, y=int, z=int))
+        self.assertIs(Derived2._field_types, Derived2.__annotations__)
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_namedtuple_keyword_usage(self):

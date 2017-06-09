@@ -2113,7 +2113,7 @@ class NamedTupleMeta(type):
         if not _PY36:
             raise TypeError("Class syntax for NamedTuple is only supported"
                             " in Python 3.6+")
-        types = {}
+        types = collections.OrderedDict()
         defaults_ns = {}
         # merge field types and defaults in reversed order (matches how MRO works)
         for base in reversed(bases):
@@ -2123,7 +2123,7 @@ class NamedTupleMeta(type):
         types.update(ns.get('__annotations__', {}))
         defaults_ns.update(ns)
         nm_tpl = _make_nmtuple(typename, types.items())
-        defaults_dict = {}
+        defaults_dict = collections.OrderedDict()
         for field_name in types:
             if field_name in defaults_ns:
                 defaults_dict[field_name] = defaults_ns[field_name]
