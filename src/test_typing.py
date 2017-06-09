@@ -1608,20 +1608,17 @@ class XRepr(NamedTuple):
 class Base1(NamedTuple):
     x: int
     y: int
-    def method1(self):
-        return self.x + self.y
 
 class Base2(NamedTuple):
     z: int = 0
-    def method2(self):
-        return self.z
 
 class Derived1(Base1, NamedTuple):
     '''Named tuples can have doctrings.'''
     label: str
 
 class Derived2(Base2, Base1, NamedTuple):
-    pass
+    def method(self):
+        return self.x + self.y
 
 class TwoDefaults(NamedTuple):
     x: int = 0
@@ -2332,9 +2329,8 @@ class BadExtended(Base2, NamedTuple):
         self.assertEqual(XMeth(42).x, XMeth(42)[0])
         self.assertEqual(str(XRepr(42)), '42 -> 1')
         self.assertEqual(XRepr(1, 2) + XRepr(3), 0)
-        self.assertEqual(Derived1(1, 2, 'test').method1(), 3)
-        self.assertEqual(Derived2(3, 4).method1(), 7)
-        self.assertEqual(Derived2(3, 4, 5).method2(), 5)
+        self.assertEqual(Derived2(1, 2).method(), 3)
+        self.assertEqual(Derived2(3, 4, 5).method(), 7)
 
         with self.assertRaises(AttributeError):
             exec("""

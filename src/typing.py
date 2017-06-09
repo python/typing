@@ -2115,9 +2115,9 @@ class NamedTupleMeta(type):
                             " in Python 3.6+")
         types = collections.OrderedDict()
         defaults_ns = {}
-        # merge field types and defaults in reversed order (matches how MRO works)
+        # Merge field types and defaults in reverse order (similar to how MRO works).
         for base in reversed(bases):
-            if hasattr(base, '_field_types'):  # New style named tuple
+            if hasattr(base, '_field_types'):  # new style named tuple
                 types.update(base._field_types)
                 defaults_ns.update(base._field_defaults)
         types.update(ns.get('__annotations__', {}))
@@ -2134,7 +2134,7 @@ class NamedTupleMeta(type):
                                         default_names=', '.join(defaults_dict.keys())))
         nm_tpl.__new__.__defaults__ = tuple(defaults_dict.values())
         nm_tpl._field_defaults = defaults_dict
-        # update from user namespace without overriding special namedtuple attributes
+        # Update from user namespace without overriding special namedtuple attributes.
         for key in ns:
             if key in _prohibited:
                 raise AttributeError("Cannot overwrite NamedTuple attribute " + key)
