@@ -2332,9 +2332,9 @@ class BadExtended(Base2, NamedTuple):
         self.assertEqual(XMeth(42).x, XMeth(42)[0])
         self.assertEqual(str(XRepr(42)), '42 -> 1')
         self.assertEqual(XRepr(1, 2) + XRepr(3), 0)
-        self.assertEqual(Derived1(1, 2, 'test').meth1(), 3)
-        self.assertEqual(Derived2(3, 4).meth1(), 7)
-        self.assertEqual(Derived2(3, 4, 5).meth2(), 5)
+        self.assertEqual(Derived1(1, 2, 'test').method1(), 3)
+        self.assertEqual(Derived2(3, 4).method1(), 7)
+        self.assertEqual(Derived2(3, 4, 5).method2(), 5)
 
         with self.assertRaises(AttributeError):
             exec("""
