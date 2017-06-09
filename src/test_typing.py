@@ -1634,7 +1634,7 @@ else:
     # fake names for the sake of static analysis
     ann_module = ann_module2 = ann_module3 = None
     A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
-    XMeth = XRepr = NoneAndForward = object
+    XMeth = XRepr = NoneAndForward = Derived1 = Derived2 = TwoDefaults = object
 
 gth = get_type_hints
 
