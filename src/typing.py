@@ -972,8 +972,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         for base in bases:
             if isinstance(base, GenericMeta):
                 bextra = getattr(base, '__extra__', None)
-                if (extra and bextra and not origin and bextra not in bases
-                        and type(bextra) is abc.ABCMeta):
+                if (extra and bextra and not origin and bextra not in bases and
+                        type(bextra) is abc.ABCMeta):
                     new_bases.append(bextra)
                 else:
                     new_bases.append(base._gorg)
@@ -986,8 +986,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             bases = tuple(b for b in bases if b is not Generic)
         namespace.update({'__origin__': origin, '__extra__': extra})
         self = super().__new__(cls, name, bases, namespace, _root=True)
-        super(GenericMeta, self).__setattr__('_gorg', self if not origin else origin._gorg)
-
+        super(GenericMeta, self).__setattr__('_gorg', self if not origin
+                                                           else origin._gorg)
         self.__parameters__ = tvars
         # Be prepared that GenericMeta will be subclassed by TupleMeta
         # and CallableMeta, those two allow ..., (), or [] in __args___.
