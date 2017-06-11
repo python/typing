@@ -1167,7 +1167,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                               self.__extra__, self.__orig_bases__)
 
     def __setattr__(self, attr, value):
-        # We consider all the subscripted genrics as proxies for original class
+        # We consider all the subscripted generics as proxies for original class
         if (
             attr.startswith('__') and attr.endswith('__') or
             attr.startswith('_abc_')
