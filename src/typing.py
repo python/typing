@@ -968,7 +968,18 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         initial_bases = bases
         if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
             bases = (extra,) + bases
-        bases = tuple(b._gorg if isinstance(b, GenericMeta) else b for b in bases)
+        new_bases = []
+        for base in bases:
+            if isinstance(base, GenericMeta):
+                bextra = getattr(base, '__extra__', None)
+                if (extra and bextra and not origin and bextra not in bases
+                        and type(bextra) is abc.ABCMeta):
+                    new_bases.append(bextra)
+                else:
+                    new_bases.append(base._gorg)
+            else:
+                new_bases.append(base)
+        bases = tuple(new_bases)
 
         # remove bare Generic from bases if there are other generic bases
         if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
