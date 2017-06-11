@@ -1557,7 +1557,7 @@ def no_type_check(arg):
     if isinstance(arg, type):
         arg_attrs = arg.__dict__.copy()
         for attr, val in arg.__dict__.items():
-            if val in arg.__bases__:
+            if val in arg.__bases__ + (arg,):
                 arg_attrs.pop(attr)
         for obj in arg_attrs.values():
             if isinstance(obj, types.FunctionType):
