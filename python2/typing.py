@@ -1051,25 +1051,15 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 tvars = gvars
 
         initial_bases = bases
-        if not origin:
-            # Erase base classes
-            new_bases = []
-            for base in bases:
-                erased = base
-                if isinstance(base, GenericMeta):
-                    erased = base._gorg
-                    if extra:  # Even stronger erasure for generic ABCs in typing
-                        bextra = getattr(base, '__extra__', None)
-                        erased = bextra if bextra else erased
-                new_bases.append(erased)
+        if extra is None:
+            extra = namespace.get('__extra__')
+        if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
+            bases = (extra,) + bases
+        bases = tuple(b._gorg if isinstance(b, GenericMeta) else b for b in bases)
 
-            bases = tuple(new_bases)
-            if type(extra) is abc.ABCMeta and extra not in bases:
-                bases = (extra,) + bases
-
-            # Remove bare Generic from bases if there are other generic bases
-            if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
-                bases = tuple(b for b in bases if b is not Generic)
+        # remove bare Generic from bases if there are other generic bases
+        if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
+            bases = tuple(b for b in bases if b is not Generic)
         namespace.update({'__origin__': origin, '__extra__': extra})
         self = super(GenericMeta, cls).__new__(cls, name, bases, namespace)
         super(GenericMeta, self).__setattr__('_gorg', self if not origin
