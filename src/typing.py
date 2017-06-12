@@ -966,24 +966,26 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 tvars = gvars
 
         initial_bases = bases
-        if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
-            bases = (extra,) + bases
-        new_bases = []
-        for base in bases:
-            if isinstance(base, GenericMeta):
-                bextra = getattr(base, '__extra__', None)
-                if (extra and bextra and not origin and bextra not in bases and
-                        type(bextra) is abc.ABCMeta):
-                    new_bases.append(bextra)
-                else:
-                    new_bases.append(base._gorg)
-            else:
-                new_bases.append(base)
-        bases = tuple(new_bases)
+        if not origin:
+            # Erase base classes
+            new_bases = []
+            for base in bases:
+                erased = base
+                if isinstance(base, GenericMeta):
+                    erased = base._gorg
+                    if extra:  # Even stronger erasure for generic ABCs in typing
+                        bextra = getattr(base, '__extra__', None)
+                        erased = bextra if bextra else erased
+                if erased not in new_bases:
+                    new_bases.append(erased)
 
-        # remove bare Generic from bases if there are other generic bases
-        if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
-            bases = tuple(b for b in bases if b is not Generic)
+            bases = tuple(new_bases)
+            if type(extra) is abc.ABCMeta and extra not in bases:
+                bases = (extra,) + bases
+
+            # Remove bare Generic from bases if there are other generic bases
+            if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
+                bases = tuple(b for b in bases if b is not Generic)
         namespace.update({'__origin__': origin, '__extra__': extra})
         self = super().__new__(cls, name, bases, namespace, _root=True)
         super(GenericMeta, self).__setattr__('_gorg', self if not origin
