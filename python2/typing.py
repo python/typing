@@ -1062,8 +1062,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             bases = tuple(b for b in bases if b is not Generic)
         namespace.update({'__origin__': origin, '__extra__': extra})
         self = super(GenericMeta, cls).__new__(cls, name, bases, namespace)
-        super(GenericMeta, self).__setattr__('_gorg', self if not origin
-                                             else origin._gorg)
+        super(GenericMeta, self).__setattr__('_gorg',
+                                             self if not origin else origin._gorg)
 
         self.__parameters__ = tvars
         # Be prepared that GenericMeta will be subclassed by TupleMeta
@@ -1509,7 +1509,7 @@ def no_type_check(arg):
     if isinstance(arg, type):
         arg_attrs = arg.__dict__.copy()
         for attr, val in arg.__dict__.items():
-            if val in arg.__bases__:
+            if val in arg.__bases__ + (arg,):
                 arg_attrs.pop(attr)
         for obj in arg_attrs.values():
             if isinstance(obj, types.FunctionType):

@@ -975,8 +975,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             bases = tuple(b for b in bases if b is not Generic)
         namespace.update({'__origin__': origin, '__extra__': extra})
         self = super().__new__(cls, name, bases, namespace, _root=True)
-        super(GenericMeta, self).__setattr__('_gorg', self if not origin
-                                             else origin._gorg)
+        super(GenericMeta, self).__setattr__('_gorg',
+                                             self if not origin else origin._gorg)
         self.__parameters__ = tvars
         # Be prepared that GenericMeta will be subclassed by TupleMeta
         # and CallableMeta, those two allow ..., (), or [] in __args___.
