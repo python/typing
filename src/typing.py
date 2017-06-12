@@ -976,8 +976,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                     if extra:  # Even stronger erasure for generic ABCs in typing
                         bextra = getattr(base, '__extra__', None)
                         erased = bextra if bextra else erased
-                if erased not in new_bases:
-                    new_bases.append(erased)
+                #if erased not in new_bases:
+                new_bases.append(erased)
 
             bases = tuple(new_bases)
             if type(extra) is abc.ABCMeta and extra not in bases:
