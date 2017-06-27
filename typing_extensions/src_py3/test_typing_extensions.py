@@ -572,7 +572,7 @@ class TypeTests(BaseTestCase):
 
         new_user(BasicUser)
 
-    @skipUnless(sys.version_info != (3, 5, 2),
+    @skipUnless(sys.version_info[:3] != (3, 5, 2),
                 'Python 3.5.2 has a somewhat buggy Type impl')
     def test_type_optional(self):
         A = Optional[Type[BaseException]]

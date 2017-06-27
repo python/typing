@@ -512,7 +512,7 @@ else:
 
 if hasattr(typing, 'Counter'):
     Counter = typing.Counter
-elif (3, 5, 0) <= sys.version_info <= (3, 5, 1):
+elif (3, 5, 0) <= sys.version_info[:3] <= (3, 5, 1):
     _TInt = typing.TypeVar('_TInt')
 
     class CounterMeta(typing.GenericMeta):
