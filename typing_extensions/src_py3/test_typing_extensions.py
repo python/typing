@@ -24,7 +24,10 @@ from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Type, NewType
 import typing
 import typing_extensions
-import collections.abc as collections_abc
+try:
+    import collections.abc as collections_abc
+except ImportError:
+    import collections as collections_abc  # Fallback for PY3.2.
 import _collections_abc
 
 TYPING_V2 = sys.version_info >= (3, 5, 1)
