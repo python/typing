@@ -15,8 +15,6 @@ ignore =
   E701,
   E704,
   F811,
-  # Included to allow sys.version_info hack
-  E402,
   # irrelevant plugins
   B3,
   DW12

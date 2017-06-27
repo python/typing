@@ -1,15 +1,4 @@
 import sys
-
-# Override version info
-#ORIGINAL_VERSION = sys.version_info
-#if len(sys.argv) >= 2 and sys.argv[-1].startswith("PYVERSION"):
-#    PYTHON_VERSION = tuple(map(int, sys.argv[-1].split('.')[1:]))
-#    sys.version_info = PYTHON_VERSION
-#    OVERRIDING_VERSION = True
-#else:
-#    PYTHON_VERSION = ORIGINAL_VERSION
-#    OVERRIDING_VERSION = False
-
 import os
 import abc
 import contextlib
