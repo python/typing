@@ -11,12 +11,12 @@ import sys
 import textwrap
 
 CORE_FILES_2 = [
-        "./src_py2/typing_extensions.py", 
-        "./src_py2/test_typing_extensions.py"
+    "./src_py2/typing_extensions.py",
+    "./src_py2/test_typing_extensions.py"
 ]
 CORE_FILES_3 = [
-        "./src_py3/typing_extensions.py", 
-        "./src_py3/test_typing_extensions.py"
+    "./src_py3/typing_extensions.py",
+    "./src_py3/test_typing_extensions.py"
 ]
 TEST_DIR = "test_data"
 
@@ -71,11 +71,11 @@ def run_shell(command: str) -> Tuple[bool, str]:
     env = os.environ.copy()
     env["PYTHONPATH"] = ":".join([os.getcwd(), env["PYTHONPATH"], env["PATH"]])
     out = subprocess.run(
-            command,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            shell=True,
-            env=env)
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        shell=True,
+        env=env)
     success = out.returncode == 0
     stdout = '' if out.stdout is None else out.stdout.decode('utf-8')
     return (success, stdout)
@@ -91,12 +91,12 @@ def main() -> int:
 
         core_files = CORE_FILES_2 if py2 else CORE_FILES_3
         python_exe = PYTHON2 if py2 else PYTHON3
-        
+
         with temp_copy(core_files, test_dir), change_directory(test_dir):
             success, output = run_shell("{} {} {}".format(
-                python_exe, 
+                python_exe,
                 "test_typing_extensions.py",
-                version_number))
+                "PYVERSION.{}".format(version_number)))
             if success:
                 print("   All tests passed!")
             else:
@@ -107,4 +107,3 @@ def main() -> int:
 
 if __name__ == '__main__':
     sys.exit(main())
-

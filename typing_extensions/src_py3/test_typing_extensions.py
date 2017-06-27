@@ -1,27 +1,16 @@
-# Override version info
-import sys
-ORIGINAL_VERSION = sys.version_info
-if len(sys.argv) >= 2:
-    PYTHON_VERSION = tuple(map(int, sys.argv[1].split('.')))
-    sys.version_info = PYTHON_VERSION
-    OVERRIDING_VERSION = True
-else:
-    PYTHON_VERSION = ORIGINAL_VERSION
-    OVERRIDING_VERSION = False
-
 import os
+import sys
 import abc
 import contextlib
 import collections
-from unittest import TestCase, main, skipUnless, SkipTest
 
+from unittest import TestCase, main, skipUnless
 from typing import TypeVar, Optional
 from typing import T, KT, VT  # Not in __all__.
-from typing import Tuple, List, MutableMapping
+from typing import Tuple, List
 from typing import Generic
 from typing import get_type_hints
-from typing import no_type_check, no_type_check_decorator
-from typing import NamedTuple
+from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Type, NewType
 import typing
 import typing_extensions
@@ -31,6 +20,16 @@ import _collections_abc
 TYPING_V2 = sys.version_info >= (3, 5, 1)
 TYPING_V3 = sys.version_info >= (3, 5, 3)
 TYPING_V4 = sys.version_info >= (3, 6, 1)
+
+# Override version info
+ORIGINAL_VERSION = sys.version_info
+if len(sys.argv) >= 2 and sys.argv[-1].startswith("PYVERSION"):
+    PYTHON_VERSION = tuple(map(int, sys.argv[-1].split('.')[1:]))
+    sys.version_info = PYTHON_VERSION
+    OVERRIDING_VERSION = True
+else:
+    PYTHON_VERSION = ORIGINAL_VERSION
+    OVERRIDING_VERSION = False
 
 
 class BaseTestCase(TestCase):
@@ -248,6 +247,7 @@ PY36 = sys.version_info[:2] >= (3, 6)
 PY36_TESTS = """
 from test import ann_module, ann_module2, ann_module3
 from typing_extensions import AsyncContextManager
+from typing import NamedTuple
 
 class A:
     y: float
@@ -394,7 +394,6 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertNotIsInstance(42, typing_extensions.AsyncIterator)
 
     def test_collection(self):
-        #if hasattr(collections_abc, 'Collection'):
         self.assertIsInstance(tuple(), typing_extensions.Collection)
         self.assertIsInstance(frozenset(), typing_extensions.Collection)
         self.assertIsSubclass(dict, typing_extensions.Collection)
@@ -408,11 +407,11 @@ class CollectionsAbcTests(BaseTestCase):
             def __len__(self): ...
 
         self.assertIsSubclass(
-                type(MyCollection()),
-                typing_extensions.Collection)
+            type(MyCollection()),
+            typing_extensions.Collection)
         self.assertIsSubclass(
-                MyCollection,
-                typing_extensions.Collection)
+            MyCollection,
+            typing_extensions.Collection)
 
     def test_deque(self):
         self.assertIsSubclass(collections.deque, typing_extensions.Deque)
@@ -425,14 +424,14 @@ class CollectionsAbcTests(BaseTestCase):
     @skipUnless(TYPING_V4, "Behavior added in typing v4")
     def test_defaultdict_instantiation(self):
         self.assertIs(
-                type(typing_extensions.DefaultDict()), 
-                collections.defaultdict)
+            type(typing_extensions.DefaultDict()),
+            collections.defaultdict)
         self.assertIs(
-                type(typing_extensions.DefaultDict[KT, VT]()), 
-                collections.defaultdict)
+            type(typing_extensions.DefaultDict[KT, VT]()),
+            collections.defaultdict)
         self.assertIs(
-                type(typing_extensions.DefaultDict[str, int]()), 
-                collections.defaultdict)
+            type(typing_extensions.DefaultDict[str, int]()),
+            collections.defaultdict)
 
     def test_defaultdict_subclass(self):
 
@@ -509,7 +508,6 @@ class CollectionsAbcTests(BaseTestCase):
             typing_extensions.AsyncGenerator[T, T]()
         with self.assertRaises(TypeError):
             typing_extensions.AsyncGenerator[int, int]()
-
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_subclassing_async_generator(self):
@@ -595,7 +593,8 @@ class TypeTests(BaseTestCase):
 
         new_user(BasicUser)
 
-    @skipUnless(sys.version_info != (3, 5, 2), 'Python 3.5.2 has a somewhat buggy Type impl')
+    @skipUnless(sys.version_info != (3, 5, 2),
+                'Python 3.5.2 has a somewhat buggy Type impl')
     def test_type_optional(self):
         A = Optional[Type[BaseException]]
 
@@ -626,6 +625,7 @@ class NewTypeTests(BaseTestCase):
         with self.assertRaises(TypeError):
             class D(UserName):
                 pass
+
 
 class AllTests(BaseTestCase):
     def test_typing_extensions_includes_standard(self):
@@ -659,8 +659,9 @@ class AllTests(BaseTestCase):
         for item in typing_extensions.__all__:
             if item not in exclude and hasattr(typing, item):
                 self.assertIs(
-                        getattr(typing_extensions, item),
-                        getattr(typing, item))
+                    getattr(typing_extensions, item),
+                    getattr(typing, item))
+
 
 if __name__ == '__main__':
     main(argv=[sys.argv[0]] + sys.argv[2:])

@@ -67,5 +67,4 @@ setup(name='typing_extensions',
       package_dir={'': package_dir},
       py_modules=['typing_extensions'],
       classifiers=classifiers,
-      install_requires=install_requires,
-)
+      install_requires=install_requires)

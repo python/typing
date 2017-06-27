@@ -1,5 +1,4 @@
 import abc
-from abc import abstractmethod, abstractproperty
 import collections
 import contextlib
 import sys
@@ -16,7 +15,7 @@ else:
         return base_cls.__new__(cls, *args, **kwargs)
 
 if sys.version_info[:2] >= (3, 6):
-    import _collections_abc 
+    import _collections_abc
     _check_methods_in_mro = _collections_abc._check_methods
 else:
     def _check_methods_in_mro(C, *methods):
@@ -41,13 +40,13 @@ __all__ = [
     # ABCs (from collections.abc).
     # The following are added depending on presence
     # of their non-generic counterparts in stdlib:
-    #'Awaitable',
-    #'AsyncIterator',
-    #'AsyncIterable',
-    #'Coroutine',
-    #'AsyncGenerator',
-    #'AsyncContextManager',
-    #'ChainMap',
+    # 'Awaitable',
+    # 'AsyncIterator',
+    # 'AsyncIterable',
+    # 'Coroutine',
+    # 'AsyncGenerator',
+    # 'AsyncContextManager',
+    # 'ChainMap',
 
     # Concrete collection types.
     'Collection',
@@ -68,7 +67,7 @@ __all__ = [
 if hasattr(typing, 'NoReturn'):
     NoReturn = typing.NoReturn
 elif hasattr(typing, '_FinalTypingBase'):
-    class _NoReturn(typing._FinalTypingBase, _root=True): 
+    class _NoReturn(typing._FinalTypingBase, _root=True):
         """Special type indicating functions that never return.
         Example::
 
@@ -178,14 +177,14 @@ elif hasattr(typing, '_FinalTypingBase'):
         def __getitem__(self, item):
             cls = type(self)
             if self.__type__ is None:
-                return cls(_type_check(item,
+                return cls(typing._type_check(item,
                            '{} accepts only single type.'.format(cls.__name__[1:])),
                            _root=True)
             raise TypeError('{} cannot be further subscripted'
                             .format(cls.__name__[1:]))
 
         def _eval_type(self, globalns, localns):
-            new_tp = _eval_type(self.__type__, globalns, localns)
+            new_tp = typing._eval_type(self.__type__, globalns, localns)
             if new_tp == self.__type__:
                 return self
             return type(self)(new_tp, _root=True)
@@ -205,7 +204,6 @@ elif hasattr(typing, '_FinalTypingBase'):
             if self.__type__ is not None:
                 return self.__type__ == other.__type__
             return self is other
-
 
     ClassVar = _ClassVar(_root=True)
 else:
@@ -237,7 +235,7 @@ else:
                        dict(self.__dict__), tp=param, _root=True)
 
         def _eval_type(self, globalns, localns):
-            new_tp = _eval_type(self.__type__, globalns, localns)
+            new_tp = typing._eval_type(self.__type__, globalns, localns)
             if new_tp == self.__type__:
                 return self
             return type(self)(self.__name__, self.__bases__,
@@ -259,7 +257,6 @@ else:
             if self.__type__ is not None:
                 return self.__type__ == other.__type__
             return self is other
-
 
     class ClassVar(typing.Final, metaclass=ClassVarMeta, _root=True):
         """Special type construct to mark class variables.
@@ -319,8 +316,6 @@ def overload(func):
     return _overload_dummy
 
 
-
-
 # This is not a real generic class.  Don't use outside annotations.
 if hasattr(typing, 'Type'):
     Type = typing.Type
@@ -368,7 +363,7 @@ def _define_guard(type_name):
     if hasattr(typing, type_name):
         __all__.append(type_name)
         globals()[type_name] = getattr(typing, type_name)
-        return False 
+        return False
     elif hasattr(collections_abc, type_name):
         __all__.append(type_name)
         return True
@@ -405,8 +400,8 @@ else:
     __all__.append('Collection')
 
     # Backport collections.abc.Collections
-    class _CollectionAbc(collections.Sized, 
-                         collections.Iterable, 
+    class _CollectionAbc(collections.Sized,
+                         collections.Iterable,
                          collections.Container):
         __slots__ = ()
 
@@ -414,7 +409,7 @@ else:
         def __subclasshook__(cls, C):
             if cls is _CollectionAbc:
                 return _check_methods_in_mro(
-                        C,  "__len__", "__iter__", "__contains__")
+                    C, "__len__", "__iter__", "__contains__")
             return NotImplemented
 
     extra = getattr(collections_abc, 'Collection', _CollectionAbc)
@@ -615,4 +610,3 @@ if hasattr(typing, 'TYPE_CHECKING'):
 else:
     # Constant that's True when type checking, but False here.
     TYPE_CHECKING = False
-

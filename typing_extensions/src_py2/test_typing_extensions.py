@@ -1,23 +1,23 @@
-# Override version info
 import sys
+import os
+import abc
+import contextlib
+import collections
+from unittest import TestCase, main, skipUnless
+
+from typing_extensions import NoReturn
+import typing
+import typing_extensions
+
+# Override version info
 ORIGINAL_VERSION = sys.version_info
-if len(sys.argv) >= 2:
-    PYTHON_VERSION = tuple(map(int, sys.argv[1].split('.')))
+if len(sys.argv) >= 2 and sys.argv[-1].startswith("PYVERSION"):
+    PYTHON_VERSION = tuple(map(int, sys.argv[-1].split('.')[1:]))
     sys.version_info = PYTHON_VERSION
     OVERRIDING_VERSION = True
 else:
     PYTHON_VERSION = ORIGINAL_VERSION
     OVERRIDING_VERSION = False
-
-import os
-import abc
-import contextlib
-import collections
-from unittest import TestCase, main, skipUnless, SkipTest
-
-from typing_extensions import NoReturn, ClassVar, Type, NewType
-import typing
-import typing_extensions
 
 
 class BaseTestCase(TestCase):
@@ -106,7 +106,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertNotIsInstance(42, typing_extensions.Collection)
 
     def test_collection_instantiation(self):
-        class MyAbstractCollection(typing_extensions.Collection[int]): 
+        class MyAbstractCollection(typing_extensions.Collection[int]):
             pass
         class MyCollection(typing_extensions.Collection[int]):
             def __contains__(self, item): pass
@@ -114,11 +114,11 @@ class CollectionsAbcTests(BaseTestCase):
             def __len__(self): pass
 
         self.assertIsSubclass(
-                type(MyCollection()),
-                typing_extensions.Collection)
+            type(MyCollection()),
+            typing_extensions.Collection)
         self.assertIsSubclass(
-                MyCollection,
-                typing_extensions.Collection)
+            MyCollection,
+            typing_extensions.Collection)
         with self.assertRaises(TypeError):
             MyAbstractCollection()
 
@@ -152,8 +152,9 @@ class AllTests(BaseTestCase):
         for item in typing_extensions.__all__:
             if item not in exclude and hasattr(typing, item):
                 self.assertIs(
-                        getattr(typing_extensions, item),
-                        getattr(typing, item))
+                    getattr(typing_extensions, item),
+                    getattr(typing, item))
+
 
 if __name__ == '__main__':
     main(argv=[sys.argv[0]] + sys.argv[2:])

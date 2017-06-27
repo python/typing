@@ -1,11 +1,10 @@
 import abc
-from abc import abstractmethod, abstractproperty
 import collections
 import typing
 from typing import (
-        ClassVar, Type,
-        Counter, DefaultDict, Deque,
-        NewType, overload, Text, Type, TYPE_CHECKING,
+    ClassVar, Type,
+    Counter, DefaultDict, Deque,
+    NewType, overload, Text, TYPE_CHECKING,
 )
 
 # Please keep __all__ alphabetized within each category.
@@ -41,7 +40,6 @@ else:
             self = super(NoReturnMeta, cls).__new__(cls, name, bases, namespace)
             return self
 
-
     class _NoReturn(typing._FinalTypingBase):
         """Special type indicating functions that never return.
         Example::
@@ -59,7 +57,6 @@ else:
 
         def __subclasscheck__(self, cls):
             raise TypeError("NoReturn cannot be used with issubclass().")
-
 
     NoReturn = _NoReturn(_root=True)
 
@@ -95,17 +92,17 @@ else:
 
 
 # Backport collections.Collection
-class _CollectionAbc(collections.Sized, 
-                          collections.Iterable, 
-                          collections.Container):
+class _CollectionAbc(collections.Sized,
+                     collections.Iterable,
+                     collections.Container):
     pass
+
 
 _CollectionAbc.register(list)
 _CollectionAbc.register(tuple)
 _CollectionAbc.register(set)
 _CollectionAbc.register(frozenset)
 _CollectionAbc.register(basestring)
-_CollectionAbc.register(buffer)
 _CollectionAbc.register(dict)
 
 
@@ -114,5 +111,3 @@ class Collection(typing.Sized,
                  typing.Container[T_co]):
     __slots__ = ()
     __extra__ = _CollectionAbc
-
-
