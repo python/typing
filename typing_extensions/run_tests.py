@@ -10,22 +10,11 @@ import subprocess
 import sys
 import textwrap
 
-CORE_FILES_2 = [
-    "./src_py2/typing_extensions.py",
-    "./src_py2/test_typing_extensions.py"
-]
-CORE_FILES_3 = [
+CORE_FILES = [
     "./src_py3/typing_extensions.py",
     "./src_py3/test_typing_extensions.py"
 ]
 TEST_DIR = "test_data"
-
-if sys.platform.startswith('win32'):
-    PYTHON2 = "py -2.7"
-    PYTHON3 = "py -3.6"
-else:
-    PYTHON2 = "python"
-    PYTHON3 = "python3"
 
 
 def get_test_dirs() -> List[str]:
@@ -86,15 +75,17 @@ def main() -> int:
     exit_code = 0
     for test_dir in test_dirs:
         _, version_number = test_dir.split('-')
-        py2 = version_number.startswith("2")
-        print("Testing Python {}".format(version_number))
+        test_version = tuple(map(int, version_number.split('.')))
 
-        core_files = CORE_FILES_2 if py2 else CORE_FILES_3
-        python_exe = PYTHON2 if py2 else PYTHON3
+        if sys.version_info[0] != test_version[0]:
+            print("Skipping Python {}".format(version_number))
+            continue
+        else:
+            print("Testing Python {}".format(version_number))
 
-        with temp_copy(core_files, test_dir), change_directory(test_dir):
+        with temp_copy(CORE_FILES, test_dir), change_directory(test_dir):
             success, output = run_shell("{} {} {}".format(
-                python_exe,
+                sys.executable,
                 "test_typing_extensions.py",
                 "PYVERSION.{}".format(version_number)))
             if success:

@@ -9,16 +9,6 @@ from typing_extensions import NoReturn
 import typing
 import typing_extensions
 
-# Override version info
-ORIGINAL_VERSION = sys.version_info
-if len(sys.argv) >= 2 and sys.argv[-1].startswith("PYVERSION"):
-    PYTHON_VERSION = tuple(map(int, sys.argv[-1].split('.')[1:]))
-    sys.version_info = PYTHON_VERSION
-    OVERRIDING_VERSION = True
-else:
-    PYTHON_VERSION = ORIGINAL_VERSION
-    OVERRIDING_VERSION = False
-
 
 class BaseTestCase(TestCase):
     def assertIsSubclass(self, cls, class_or_tuple, msg=None):
@@ -38,22 +28,6 @@ class BaseTestCase(TestCase):
     def clear_caches(self):
         for f in typing._cleanups:
             f()
-
-
-class EnvironmentTest(BaseTestCase):
-    @skipUnless(OVERRIDING_VERSION, "Environment tests apply only when overriding")
-    def test_environment_is_ok(self):
-        cwd = os.path.abspath(os.getcwd())
-        def correct_dir(module):
-            return os.path.abspath(module.__file__).startswith(cwd)
-
-        self.assertTrue(correct_dir(abc))
-        self.assertTrue(correct_dir(collections))
-        self.assertTrue(correct_dir(typing_extensions))
-
-    def test_python_version_is_ok(self):
-        self.assertTrue(sys.version_info == PYTHON_VERSION)
-        self.assertTrue(ORIGINAL_VERSION[0] == 2)
 
 
 class Employee:

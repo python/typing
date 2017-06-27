@@ -1,9 +1,19 @@
-import os
 import sys
+
+# Override version info
+ORIGINAL_VERSION = sys.version_info
+if len(sys.argv) >= 2 and sys.argv[-1].startswith("PYVERSION"):
+    PYTHON_VERSION = tuple(map(int, sys.argv[-1].split('.')[1:]))
+    sys.version_info = PYTHON_VERSION
+    OVERRIDING_VERSION = True
+else:
+    PYTHON_VERSION = ORIGINAL_VERSION
+    OVERRIDING_VERSION = False
+
+import os
 import abc
 import contextlib
 import collections
-
 from unittest import TestCase, main, skipUnless
 from typing import TypeVar, Optional
 from typing import T, KT, VT  # Not in __all__.
@@ -20,16 +30,6 @@ import _collections_abc
 TYPING_V2 = sys.version_info >= (3, 5, 1)
 TYPING_V3 = sys.version_info >= (3, 5, 3)
 TYPING_V4 = sys.version_info >= (3, 6, 1)
-
-# Override version info
-ORIGINAL_VERSION = sys.version_info
-if len(sys.argv) >= 2 and sys.argv[-1].startswith("PYVERSION"):
-    PYTHON_VERSION = tuple(map(int, sys.argv[-1].split('.')[1:]))
-    sys.version_info = PYTHON_VERSION
-    OVERRIDING_VERSION = True
-else:
-    PYTHON_VERSION = ORIGINAL_VERSION
-    OVERRIDING_VERSION = False
 
 
 class BaseTestCase(TestCase):

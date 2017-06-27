@@ -59,21 +59,33 @@ issues when mixing the differing implementations of modified classes.
 
 ## Running tests
 
-There are two different ways to test this module. The first is to simply run
-each individual Python interpreter against `test_typing_extensions.py` in the 
-`src_py2` and `src_py3` folders.
+### Python 2 tests
 
-However, because multiple versions of Python for each individual release
-can be onerous, you can instead run `run_tests.py` using a single Python
-interpreter. The `run_tests.py` file will essentially "modify" the standard
-library by changing `PYTHONPATH` to point to individual folders in the 
-`test_data` repo.
+To test Python 2, you should:
+
+1. Install the latest version of typing
+2. Navigate into `src_py2` and run `test_typing_extensions.py`
+
+### Python 3 tests
+
+Similarly, to test Python 3, you can:
+
+1. Install the latest version of typing (for Python 3.4 or under)
+2. Navigate into `src_py3` and run `test_typing_extensions.py`
+
+However, you would need to repeat this test for each version of Python 3
+that has been released since Python 3.5.0 for full coverage.
+
+Since installing 7+ different versions of Python 3 is an onerous requirement,
+this module provides a second way of running tests that requires you to only
+have the latest version of Python 3 installed on your system:
+
+- Run `py -3 run_tests.py` (for Windows)
+- Run `python3 run_tests.py` (for Linux)
+
+The `run_tests.py` file will essentially "modify" the standard library by
+changing `PYTHONPATH` to point to individual folders in the `test_data` repo.
 
 Each individual folder contains a snapshot of the source code for the 
 `collections`, `typing,` and `abc` modules for that given release, letting us
 test `typing` against those particular implementations.
-
-`run_tests.py` will assume that you have Python 3.6.1 and a reasonably
-modern version of Python 2.7 installed on your system, aliased to 
-`py -2.7` and `py -3.6` on Windows, and `python` and `python3` on Linux and
-Mac.
