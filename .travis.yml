@@ -15,11 +15,11 @@ install:
 script:
   - export PYTHONPATH=`python -c "import sys; print('python2' if sys.version.startswith('2') else 'src')"`; py.test $PYTHONPATH
   - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then 
-      cd typing_extensions
-      python run_tests.py 
+      cd typing_extensions;
+      python run_tests.py;
     fi
-  - pip setup.py install
-    export PYTHONPATH=`python -c "import sys; print('typing_extensions/src_py2' if sys.version.startswith('2') else 'typing_extensions/src_py3')"`
-    py.test $PYTHONPATH
+  - python setup.py install;
+    export PYTHONPATH=`python -c "import sys; print('typing_extensions/src_py2' if sys.version.startswith('2') else 'typing_extensions/src_py3')"`;
+    py.test $PYTHONPATH;
   - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then flake8; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then flake8 --config=.flake8-tests src/test_typing.py python2/test_typing.py typing_extensions/src_py2/test_typing_extensions.py typing_extensions/src_py3/test_typing_extensions.py; fi
