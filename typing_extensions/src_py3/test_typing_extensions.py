@@ -34,10 +34,10 @@ SUBCLASS_CHECK_FORBIDDEN = TYPING_V3
 CAN_INSTANTIATE_COLLECTIONS = TYPING_V4
 
 # For Python versions supporting async/await and friends.
-ASYNCIO = sys.version_info[:3] >= (3, 5, 0)
+ASYNCIO = sys.version_info[:2] >= (3, 5)
 
 # For checks reliant on Python 3.6 syntax changes (e.g. classvar)
-PY36 = sys.version_info[:3] >= (3, 6, 0)
+PY36 = sys.version_info[:2] >= (3, 6)
 
 
 class BaseTestCase(TestCase):
