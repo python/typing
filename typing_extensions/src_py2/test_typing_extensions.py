@@ -81,11 +81,15 @@ class ClassVarTests(BaseTestCase):
             ClassVar[int][str]
 
     def test_repr(self):
-        self.assertEqual(repr(ClassVar), 'typing.ClassVar')
+        if hasattr(typing, 'ClassVar'):
+            mod_name = 'typing'
+        else:
+            mod_name = 'typing_extensions'
+        self.assertEqual(repr(ClassVar), mod_name + '.ClassVar')
         cv = ClassVar[int]
-        self.assertEqual(repr(cv), 'typing.ClassVar[int]')
+        self.assertEqual(repr(cv), mod_name + '.ClassVar[int]')
         cv = ClassVar[Employee]
-        self.assertEqual(repr(cv), 'typing.ClassVar[%s.Employee]' % __name__)
+        self.assertEqual(repr(cv), mod_name + '.ClassVar[%s.Employee]' % __name__)
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
@@ -108,6 +112,11 @@ class ClassVarTests(BaseTestCase):
             isinstance(1, ClassVar[int])
         with self.assertRaises(TypeError):
             issubclass(int, ClassVar)
+
+
+T = typing.TypeVar('T')
+KT = typing.TypeVar('KT')
+VT = typing.TypeVar('VT')
 
 
 class CollectionsAbcTests(BaseTestCase):
