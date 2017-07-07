@@ -10,21 +10,26 @@ if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 3, 0):
     exit(1)
 
 version = '3.6.1'
-description = 'Type Hint backports for Python 3.5+'
+description = 'Backported and Experimental Type Hints for Python 3.5+'
 long_description = '''\
-Typing -- Type Hints for Python
+Typing Extensions -- Backported and Experimental Type Hints for Python
 
-This is a backport of the 'typing' module, which was provisionally added
-to the standard library in Python 3.5. The provisional status will be
-liftend in Python 3.7, but people who are using Python 3.5 - 3.6 and are
-unable to upgrade cannot take advantage of some new additions to the typing
-library, such as typing.Text or typing.Coroutine.
+This module contains both backports of changes made to the ``typing``
+module since Python 3.5.0 as well as experimental types that will be
+eventually added to the ``typing`` module once stabilized.
 
-This module allows those users to use the latest additions to the typing
-module without worrying about naming conflicts with the standard library.
-Users of Python 2.7, 3.3, and 3.4 should install the typing module
-from PyPi and use that directly, except when writing code that needs to
-be compatible across multiple versions of Python.
+This module is intended to be used by people who:
+
+1. Are using Python 3.5+ and cannot upgrade to newer versions of Python.
+   Since the ``typing`` module was (provisionally) added to the Python standard
+   library in 3.5, users who are unable to upgrade cannot take advantage of
+   new additions to typing such as ``typing.Text`` or ``typing.Coroutine``.
+2. Are interested in using experimental additions to the ``typing`` module.
+
+Users of other Python versions should continue to install and use
+use the ``typing`` module from PyPi instead of using this one unless
+specifically writing code that must be compatible with multiple Python
+versions or requires experimental types.
 '''
 
 classifiers = [
