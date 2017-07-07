@@ -15,9 +15,29 @@ import typing
 import typing_extensions
 import collections.abc as collections_abc
 
-TYPING_V2 = sys.version_info >= (3, 5, 1)
-TYPING_V3 = sys.version_info >= (3, 5, 3)
-TYPING_V4 = sys.version_info >= (3, 6, 1)
+TYPING_LATEST = sys.version_info[:3] < (3, 5, 0)
+TYPING_V2 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 1)
+TYPING_V3 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 3)
+TYPING_V4 = TYPING_LATEST or sys.version_info[:3] >= (3, 6, 1)
+
+# For typing versions where issubclass(...) and
+# isinstance(...) checks are forbidden.
+#
+# See https://github.com/python/typing/issues/136
+# and https://github.com/python/typing/pull/283
+SUBCLASS_CHECK_FORBIDDEN = TYPING_V3
+
+# For typing versions where instantiating collection
+# types are allowed.
+#
+# See https://github.com/python/typing/issues/367
+CAN_INSTANTIATE_COLLECTIONS = TYPING_V4
+
+# For Python versions supporting async/await and friends.
+ASYNCIO = sys.version_info[:3] >= (3, 5, 0)
+
+# For checks reliant on Python 3.6 syntax changes (e.g. classvar)
+PY36 = sys.version_info[:3] >= (3, 6, 0)
 
 
 class BaseTestCase(TestCase):
@@ -50,7 +70,7 @@ class NoReturnTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(Employee, NoReturn)
 
-    @skipUnless(TYPING_V3, "Behavior added in typing v3")
+    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing v3")
     def test_noreturn_subclass_type_error_2(self):
         with self.assertRaises(TypeError):
             issubclass(NoReturn, Employee)
@@ -69,7 +89,7 @@ class NoReturnTests(BaseTestCase):
         with self.assertRaises(TypeError):
             class A(NoReturn):
                 pass
-        if TYPING_V3:
+        if SUBCLASS_CHECK_FORBIDDEN:
             with self.assertRaises(TypeError):
                 class A(type(NoReturn)):
                     pass
@@ -102,7 +122,7 @@ class ClassVarTests(BaseTestCase):
         cv = ClassVar[Employee]
         self.assertEqual(repr(cv), mod_name + '.ClassVar[%s.Employee]' % __name__)
 
-    @skipUnless(TYPING_V3, "Behavior added in typing v3")
+    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing v3")
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(type(ClassVar)):
@@ -152,8 +172,6 @@ class OverloadTests(BaseTestCase):
         blah()
 
 
-ASYNCIO = sys.version_info[:2] >= (3, 5, 0)
-
 ASYNCIO_TESTS = """
 import asyncio
 from typing import Iterable
@@ -202,8 +220,6 @@ else:
     # fake names for the sake of static analysis
     asyncio = None
     AwaitableWrapper = AsyncIteratorWrapper = ACM = object
-
-PY36 = sys.version_info[:2] >= (3, 6)
 
 PY36_TESTS = """
 from test import ann_module, ann_module2, ann_module3
@@ -382,7 +398,7 @@ class CollectionsAbcTests(BaseTestCase):
     def test_counter(self):
         self.assertIsSubclass(collections.Counter, typing_extensions.Counter)
 
-    @skipUnless(TYPING_V4, "Behavior added in typing v4")
+    @skipUnless(CAN_INSTANTIATE_COLLECTIONS, "Behavior added in typing v4")
     def test_defaultdict_instantiation(self):
         self.assertIs(
             type(typing_extensions.DefaultDict()),
@@ -441,8 +457,7 @@ class CollectionsAbcTests(BaseTestCase):
         class C(typing_extensions.Counter[T]): ...
         if TYPING_V3:
             self.assertIs(type(C[int]()), C)
-
-        self.assertEqual(C.__bases__, (typing_extensions.Counter,))
+            self.assertEqual(C.__bases__, (typing_extensions.Counter,))
 
     def test_counter_subclass_instantiation(self):
 
