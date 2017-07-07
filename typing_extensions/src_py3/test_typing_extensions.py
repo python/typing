@@ -16,22 +16,22 @@ import typing_extensions
 import collections.abc as collections_abc
 
 TYPING_LATEST = sys.version_info[:3] < (3, 5, 0)
-TYPING_V2 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 1)
-TYPING_V3 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 3)
-TYPING_V4 = TYPING_LATEST or sys.version_info[:3] >= (3, 6, 1)
+TYPING_3_5_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 1)
+TYPING_3_5_3 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 3)
+TYPING_3_6_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 6, 1)
 
 # For typing versions where issubclass(...) and
 # isinstance(...) checks are forbidden.
 #
 # See https://github.com/python/typing/issues/136
 # and https://github.com/python/typing/pull/283
-SUBCLASS_CHECK_FORBIDDEN = TYPING_V3
+SUBCLASS_CHECK_FORBIDDEN = TYPING_3_5_3
 
 # For typing versions where instantiating collection
 # types are allowed.
 #
 # See https://github.com/python/typing/issues/367
-CAN_INSTANTIATE_COLLECTIONS = TYPING_V4
+CAN_INSTANTIATE_COLLECTIONS = TYPING_3_6_1
 
 # For Python versions supporting async/await and friends.
 ASYNCIO = sys.version_info[:2] >= (3, 5)
@@ -70,7 +70,7 @@ class NoReturnTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(Employee, NoReturn)
 
-    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing v3")
+    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_noreturn_subclass_type_error_2(self):
         with self.assertRaises(TypeError):
             issubclass(NoReturn, Employee)
@@ -122,7 +122,7 @@ class ClassVarTests(BaseTestCase):
         cv = ClassVar[Employee]
         self.assertEqual(repr(cv), mod_name + '.ClassVar[%s.Employee]' % __name__)
 
-    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing v3")
+    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(type(ClassVar)):
@@ -367,7 +367,8 @@ class CollectionsAbcTests(BaseTestCase):
     def test_async_iterator(self):
         base_it = range(10)  # type: Iterator[int]
         it = AsyncIteratorWrapper(base_it)
-        self.assertIsInstance(it, typing_extensions.AsyncIterator)
+        if TYPING_3_5_1:
+            self.assertIsInstance(it, typing_extensions.AsyncIterator)
         self.assertNotIsInstance(42, typing_extensions.AsyncIterator)
 
     def test_collection(self):
@@ -376,7 +377,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(dict, typing_extensions.Collection)
         self.assertNotIsInstance(42, typing_extensions.Collection)
 
-    @skipUnless(TYPING_V2, "Behavior added in typing v2")
+    @skipUnless(TYPING_3_5_1, "Behavior added in typing 3.5.1+")
     def test_collection_instantiation(self):
         class MyCollection(typing_extensions.Collection[int]):
             def __contains__(self, item): ...
@@ -398,7 +399,7 @@ class CollectionsAbcTests(BaseTestCase):
     def test_counter(self):
         self.assertIsSubclass(collections.Counter, typing_extensions.Counter)
 
-    @skipUnless(CAN_INSTANTIATE_COLLECTIONS, "Behavior added in typing v4")
+    @skipUnless(CAN_INSTANTIATE_COLLECTIONS, "Behavior added in typing 3.6.1")
     def test_defaultdict_instantiation(self):
         self.assertIs(
             type(typing_extensions.DefaultDict()),
@@ -419,7 +420,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(dd, MyDefDict)
 
         self.assertIsSubclass(MyDefDict, collections.defaultdict)
-        if TYPING_V3:
+        if TYPING_3_5_3:
             self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
 
     def test_chainmap_instantiation(self):
@@ -427,7 +428,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIs(type(typing_extensions.ChainMap[KT, VT]()), collections.ChainMap)
         self.assertIs(type(typing_extensions.ChainMap[str, int]()), collections.ChainMap)
         class CM(typing_extensions.ChainMap[KT, VT]): ...
-        if TYPING_V3:
+        if TYPING_3_5_3:
             self.assertIs(type(CM[int, str]()), CM)
 
     def test_chainmap_subclass(self):
@@ -439,7 +440,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(cm, MyChainMap)
 
         self.assertIsSubclass(MyChainMap, collections.ChainMap)
-        if TYPING_V3:
+        if TYPING_3_5_3:
             self.assertNotIsSubclass(collections.ChainMap, MyChainMap)
 
     def test_deque_instantiation(self):
@@ -447,7 +448,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIs(type(typing_extensions.Deque[T]()), collections.deque)
         self.assertIs(type(typing_extensions.Deque[int]()), collections.deque)
         class D(typing_extensions.Deque[T]): ...
-        if TYPING_V3:
+        if TYPING_3_5_3:
             self.assertIs(type(D[int]()), D)
 
     def test_counter_instantiation(self):
@@ -455,7 +456,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIs(type(typing_extensions.Counter[T]()), collections.Counter)
         self.assertIs(type(typing_extensions.Counter[int]()), collections.Counter)
         class C(typing_extensions.Counter[T]): ...
-        if TYPING_V3:
+        if TYPING_3_5_3:
             self.assertIs(type(C[int]()), C)
             self.assertEqual(C.__bases__, (typing_extensions.Counter,))
 
@@ -467,7 +468,7 @@ class CollectionsAbcTests(BaseTestCase):
         d = MyCounter()
         self.assertIsInstance(d, MyCounter)
         self.assertIsInstance(d, collections.Counter)
-        if TYPING_V2:
+        if TYPING_3_5_1:
             self.assertIsInstance(d, typing_extensions.Counter)
 
     @skipUnless(PY36, 'Python 3.6 required')
@@ -536,9 +537,9 @@ class OtherABCTests(BaseTestCase):
 
         cm = manager()
         self.assertNotIsInstance(cm, typing_extensions.AsyncContextManager)
-        if TYPING_V3:
+        if TYPING_3_5_3:
             self.assertEqual(typing_extensions.AsyncContextManager[int].__args__, (int,))
-        if TYPING_V4:
+        if TYPING_3_6_1:
             with self.assertRaises(TypeError):
                 isinstance(42, typing_extensions.AsyncContextManager[int])
         with self.assertRaises(TypeError):
