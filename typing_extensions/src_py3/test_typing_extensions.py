@@ -442,7 +442,7 @@ class CollectionsAbcTests(BaseTestCase):
         if TYPING_V3:
             self.assertIs(type(C[int]()), C)
 
-        self.assertEqual(C.__bases__, (typing.Counter,))
+        self.assertEqual(C.__bases__, (typing_extensions.Counter,))
 
     def test_counter_subclass_instantiation(self):
 

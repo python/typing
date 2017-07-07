@@ -1,7 +1,7 @@
 # Typing Extensions
 
 The `typing_extensions` module contains backports of recent changes
-to the `typing` module that were not present in older versions of
+to the `typing` module that are not present in older versions of
 `typing`.
 
 This module is intended to be used mainly by people who are using
