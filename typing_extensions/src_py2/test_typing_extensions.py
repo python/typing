@@ -12,6 +12,11 @@ import typing
 import typing_extensions
 
 
+T = typing.TypeVar('T')
+KT = typing.TypeVar('KT')
+VT = typing.TypeVar('VT')
+
+
 class BaseTestCase(TestCase):
 
     def assertIsSubclass(self, cls, class_or_tuple, msg=None):
@@ -105,18 +110,13 @@ class ClassVarTests(BaseTestCase):
         with self.assertRaises(TypeError):
             type(ClassVar)()
         with self.assertRaises(TypeError):
-            type(ClassVar[Optional[int]])()
+            type(ClassVar[typing.Optional[int]])()
 
     def test_no_isinstance(self):
         with self.assertRaises(TypeError):
             isinstance(1, ClassVar[int])
         with self.assertRaises(TypeError):
             issubclass(int, ClassVar)
-
-
-T = typing.TypeVar('T')
-KT = typing.TypeVar('KT')
-VT = typing.TypeVar('VT')
 
 
 class CollectionsAbcTests(BaseTestCase):
@@ -165,8 +165,8 @@ class CollectionsAbcTests(BaseTestCase):
         class A(Counter[int]): pass
         class B(Counter[T]): pass
 
-        self.assertIsInstance(A(), collections.deque)
-        self.assertIs(type(B[int]()), GenericSubclass)
+        self.assertIsInstance(A(), collections.Counter)
+        self.assertIs(type(B[int]()), B)
 
     def test_deque(self):
         self.assertIsSubclass(collections.deque, Deque)
@@ -178,7 +178,7 @@ class CollectionsAbcTests(BaseTestCase):
         class B(Deque[T]): pass
 
         self.assertIsInstance(A(), collections.deque)
-        self.assertIs(type(B[int]()), GenericSubclass)
+        self.assertIs(type(B[int]()), B)
 
     def test_defaultdict_instantiation(self):
         self.assertIsSubclass(collections.defaultdict, DefaultDict)
@@ -190,7 +190,7 @@ class CollectionsAbcTests(BaseTestCase):
         class B(DefaultDict[KT, VT]): pass
 
         self.assertIsInstance(A(), collections.defaultdict)
-        self.assertIs(type(B[str, int]()), collections.defaultdict)
+        self.assertIs(type(B[str, int]()), B)
 
 
 class NewTypeTests(BaseTestCase):
