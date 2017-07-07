@@ -15,11 +15,10 @@ long_description = '''\
 Typing -- Type Hints for Python
 
 This is a backport of the 'typing' module, which was provisionally added
-to the standard library in Python 3.5. The typing module has seen
-several changes since it was first added in Python 3.5.0, which means
-people who are using 3.5+ but are unable to upgrade to the latest
-version of Python cannot take advantage of some new features of the
-typing library, such as typing.Type or typing.Coroutine.
+to the standard library in Python 3.5. The provisional status will be
+liftend in Python 3.7, but people who are using Python 3.5 - 3.6 and are
+unable to upgrade cannot take advantage of some new additions to the typing
+library, such as typing.Text or typing.Coroutine.
 
 This module allows those users to use the latest additions to the typing
 module without worrying about naming conflicts with the standard library.

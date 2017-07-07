@@ -178,7 +178,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIs(type(DefaultDict[str, int]()), collections.defaultdict)
 
         class A(DefaultDict[str, int]): pass
-        class B(DefaultDict[KT, VT])): pass
+        class B(DefaultDict[KT, VT]): pass
 
         self.assertIsInstance(A(), collections.defaultdict)
         self.assertIs(type(B[str, int]()), collections.defaultdict)
