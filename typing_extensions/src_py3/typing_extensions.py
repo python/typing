@@ -3,10 +3,7 @@ import collections
 import contextlib
 import sys
 import typing
-try:
-    import collections.abc as collections_abc
-except ImportError:
-    import collections as collections_abc  # Fallback for PY3.2.
+import collections.abc as collections_abc
 
 if hasattr(typing, '_generic_new'):
     _generic_new = typing._generic_new

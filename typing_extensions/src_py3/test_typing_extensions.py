@@ -13,10 +13,7 @@ from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Type, NewType
 import typing
 import typing_extensions
-try:
-    import collections.abc as collections_abc
-except ImportError:
-    import collections as collections_abc  # Fallback for PY3.2.
+import collections.abc as collections_abc
 
 TYPING_V2 = sys.version_info >= (3, 5, 1)
 TYPING_V3 = sys.version_info >= (3, 5, 3)
@@ -37,10 +34,6 @@ class BaseTestCase(TestCase):
             if msg is not None:
                 message += ' : %s' % msg
             raise self.failureException(message)
-
-    def clear_caches(self):
-        for f in typing._cleanups:
-            f()
 
 
 class Employee:
@@ -632,5 +625,4 @@ class AllTests(BaseTestCase):
 
 
 if __name__ == '__main__':
-   # main(argv=[sys.argv[0]] + sys.argv[2:])
    main()

@@ -14,22 +14,22 @@ description = 'Type Hint backports for Python 3.5+'
 long_description = '''\
 Typing -- Type Hints for Python
 
-This is a backport of the standard library typing module to Python
-versions 3.5+. The typing module has seen several changes since it was
-first added in Python 3.5.0, which means people who are using 3.5.0+
-but are unable to upgrade to the latest version of Python are unable
-to take advantage of some new features of the typing library, such as
-typing.Type or typing.Coroutine.
+This is a backport of the 'typing' module, which was provisionally added
+to the standard library in Python 3.5. The typing module has seen
+several changes since it was first added in Python 3.5.0, which means
+people who are using 3.5+ but are unable to upgrade to the latest
+version of Python cannot take advantage of some new features of the
+typing library, such as typing.Type or typing.Coroutine.
 
 This module allows those users to use the latest additions to the typing
 module without worrying about naming conflicts with the standard library.
 Users of Python 2.7, 3.3, and 3.4 should install the typing module
-from pypi and use that directly, except when writing code that needs to
+from PyPi and use that directly, except when writing code that needs to
 be compatible across multiple versions of Python.
 '''
 
 classifiers = [
-    'Development Status :: 5 - Production/Stable',
+    'Development Status :: 3 - Alpha',
     'Environment :: Console',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: Python Software Foundation License',
@@ -59,8 +59,7 @@ setup(name='typing_extensions',
       long_description=long_description,
       author='Guido van Rossum, Jukka Lehtosalo, Lukasz Langa, Michael Lee',
       author_email='jukka.lehtosalo@iki.fi',
-      # TODO: Change URL
-      url='https://github.com/michael0x2a/typing_extensions',
+      url='https://github.com/python/typing',
       license='PSF',
       keywords='typing function annotations type hints hinting checking '
                'checker typehints typehinting typechecking backport',
