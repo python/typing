@@ -6,7 +6,7 @@ import collections
 from unittest import TestCase, main, skipUnless
 
 from typing_extensions import NoReturn, ClassVar
-from typing_extensions import Collection, ContextManager, Counter, Deque, DefaultDict
+from typing_extensions import ContextManager, Counter, Deque, DefaultDict
 from typing_extensions import NewType, overload
 import typing
 import typing_extensions
@@ -117,25 +117,6 @@ class ClassVarTests(BaseTestCase):
 
 class CollectionsAbcTests(BaseTestCase):
 
-    def test_collection(self):
-        self.assertIsInstance(tuple(), Collection)
-        self.assertIsInstance(frozenset(), Collection)
-        self.assertIsSubclass(dict, Collection)
-        self.assertNotIsInstance(42, Collection)
-
-    def test_collection_instantiation(self):
-        class MyAbstractCollection(Collection[int]):
-            pass
-        class MyCollection(Collection[int]):
-            def __contains__(self, item): pass
-            def __iter__(self): pass
-            def __len__(self): pass
-
-        self.assertIsSubclass(type(MyCollection()), Collection)
-        self.assertIsSubclass(MyCollection, Collection)
-        with self.assertRaises(TypeError):
-            MyAbstractCollection()
-
     def test_contextmanager(self):
         @contextlib.contextmanager
         def manager():
@@ -242,7 +223,6 @@ class AllTests(BaseTestCase):
         self.assertIn('overload', a)
         self.assertIn('Text', a)
         self.assertIn('TYPE_CHECKING', a)
-        self.assertIn('Collection', a)
 
     def test_typing_extensions_defers_when_possible(self):
         exclude = {'overload', 'Text', 'TYPE_CHECKING'}

@@ -35,7 +35,6 @@ All Python versions:
 --------------------
 
 - ``ClassVar``
-- ``Collection``
 - ``ContextManager``
 - ``Counter``
 - ``DefaultDict``

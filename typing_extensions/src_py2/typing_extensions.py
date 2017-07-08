@@ -14,7 +14,6 @@ __all__ = [
     'Type',
 
     # Concrete collection types.
-    'Collection',
     'ContextManager',
     'Counter',
     'Deque',
@@ -90,24 +89,3 @@ else:
                     return True
             return NotImplemented
 
-
-# Backport collections.Collection
-class _CollectionAbc(collections.Sized,
-                     collections.Iterable,
-                     collections.Container):
-    pass
-
-
-_CollectionAbc.register(list)
-_CollectionAbc.register(tuple)
-_CollectionAbc.register(set)
-_CollectionAbc.register(frozenset)
-_CollectionAbc.register(basestring)
-_CollectionAbc.register(dict)
-
-
-class Collection(typing.Sized,
-                 typing.Iterable[T_co],
-                 typing.Container[T_co]):
-    __slots__ = ()
-    __extra__ = _CollectionAbc

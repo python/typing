@@ -371,26 +371,6 @@ class CollectionsAbcTests(BaseTestCase):
             self.assertIsInstance(it, typing_extensions.AsyncIterator)
         self.assertNotIsInstance(42, typing_extensions.AsyncIterator)
 
-    def test_collection(self):
-        self.assertIsInstance(tuple(), typing_extensions.Collection)
-        self.assertIsInstance(frozenset(), typing_extensions.Collection)
-        self.assertIsSubclass(dict, typing_extensions.Collection)
-        self.assertNotIsInstance(42, typing_extensions.Collection)
-
-    @skipUnless(TYPING_3_5_1, "Behavior added in typing 3.5.1+")
-    def test_collection_instantiation(self):
-        class MyCollection(typing_extensions.Collection[int]):
-            def __contains__(self, item): ...
-            def __iter__(self): ...
-            def __len__(self): ...
-
-        self.assertIsSubclass(
-            type(MyCollection()),
-            typing_extensions.Collection)
-        self.assertIsSubclass(
-            MyCollection,
-            typing_extensions.Collection)
-
     def test_deque(self):
         self.assertIsSubclass(collections.deque, typing_extensions.Deque)
         class MyDeque(typing_extensions.Deque[int]): ...
@@ -630,8 +610,6 @@ class AllTests(BaseTestCase):
 
         if PY36:
             self.assertIn('AsyncGenerator', a)
-        if hasattr(collections_abc, 'Collection'):
-            self.assertIn('Collection', a)
 
     def test_typing_extensions_defers_when_possible(self):
         exclude = {'overload', 'Text', 'TYPE_CHECKING'}

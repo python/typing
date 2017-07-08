@@ -46,7 +46,6 @@ __all__ = [
     # 'ChainMap',
 
     # Concrete collection types.
-    'Collection',
     'ContextManager',
     'Counter',
     'Deque',
@@ -388,33 +387,6 @@ if _define_guard('AsyncIterable'):
 if _define_guard('AsyncIterator'):
     class AsyncIterator(AsyncIterable[T_co],
                         extra=collections_abc.AsyncIterator):
-        __slots__ = ()
-
-
-if hasattr(typing, 'Collection'):
-    Collection = typing.Collection
-else:
-    __all__.append('Collection')
-
-    # Backport collections.abc.Collections
-    class _CollectionAbc(collections.Sized,
-                         collections.Iterable,
-                         collections.Container):
-        __slots__ = ()
-
-        @classmethod
-        def __subclasshook__(cls, C):
-            if cls is _CollectionAbc:
-                return _check_methods_in_mro(
-                    C, "__len__", "__iter__", "__contains__")
-            return NotImplemented
-
-    extra = getattr(collections_abc, 'Collection', _CollectionAbc)
-
-    class Collection(typing.Sized,
-                     typing.Iterable[T_co],
-                     typing.Container[T_co],
-                     extra=extra):
         __slots__ = ()
 
 
