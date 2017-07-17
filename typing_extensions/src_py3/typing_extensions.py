@@ -11,6 +11,14 @@ else:
     def _generic_new(base_cls, cls, *args, **kwargs):
         return base_cls.__new__(cls, *args, **kwargs)
 
+# See https://github.com/python/typing/pull/439
+if hasattr(typing, '_geqv'):
+    from typing import _geqv
+    _geqv_defined = True
+else:
+    _geqv = None
+    _geqv_defined = False
+
 if sys.version_info[:2] >= (3, 6):
     import _collections_abc
     _check_methods_in_mro = _collections_abc._check_methods
@@ -120,29 +128,6 @@ T_co = typing.TypeVar('T_co', covariant=True)  # Any type covariant containers.
 V_co = typing.TypeVar('V_co', covariant=True)  # Any type covariant containers.
 VT_co = typing.TypeVar('VT_co', covariant=True)  # Value type covariant containers.
 T_contra = typing.TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
-
-
-def _gorg(a):
-    """Return the farthest origin of a generic class (internal helper)."""
-    assert isinstance(a, typing.GenericMeta)
-    while a.__origin__ is not None:
-        a = a.__origin__
-    return a
-
-
-def _geqv(a, b):
-    """Return whether two generic classes are equivalent (internal helper).
-
-    The intention is to consider generic class X and any of its
-    parameterized forms (X[T], X[int], etc.) as equivalent.
-
-    However, X is not equivalent to a subclass of X.
-
-    The relation is reflexive, symmetric and transitive.
-    """
-    assert isinstance(a, typing.GenericMeta) and isinstance(b, typing.GenericMeta)
-    # Reduce each to its origin.
-    return _gorg(a) is _gorg(b)
 
 
 if hasattr(typing, 'ClassVar'):
@@ -392,13 +377,22 @@ if _define_guard('AsyncIterator'):
 
 if hasattr(typing, 'Deque'):
     Deque = typing.Deque
-else:
+elif _geqv_defined:
     class Deque(collections.deque, typing.MutableSequence[T],
                 extra=collections.deque):
         __slots__ = ()
 
         def __new__(cls, *args, **kwds):
             if _geqv(cls, Deque):
+                return collections.deque(*args, **kwds)
+            return _generic_new(collections.deque, cls, *args, **kwds)
+else:
+    class Deque(collections.deque, typing.MutableSequence[T],
+                extra=collections.deque):
+        __slots__ = ()
+
+        def __new__(cls, *args, **kwds):
+            if cls._gorg is Deque:
                 return collections.deque(*args, **kwds)
             return _generic_new(collections.deque, cls, *args, **kwds)
 
@@ -467,7 +461,7 @@ __all__.append('AsyncContextManager')
 
 if hasattr(typing, 'DefaultDict'):
     DefaultDict = typing.DefaultDict
-else:
+elif _geqv_defined:
     class DefaultDict(collections.defaultdict, typing.MutableMapping[KT, VT],
                       extra=collections.defaultdict):
 
@@ -477,11 +471,22 @@ else:
             if _geqv(cls, DefaultDict):
                 return collections.defaultdict(*args, **kwds)
             return _generic_new(collections.defaultdict, cls, *args, **kwds)
+else:
+    class DefaultDict(collections.defaultdict, typing.MutableMapping[KT, VT],
+                      extra=collections.defaultdict):
+
+        __slots__ = ()
+
+        def __new__(cls, *args, **kwds):
+            if cls._gorg is DefaultDict:
+                return collections.defaultdict(*args, **kwds)
+            return _generic_new(collections.defaultdict, cls, *args, **kwds)
 
 
 if hasattr(typing, 'Counter'):
     Counter = typing.Counter
 elif (3, 5, 0) <= sys.version_info[:3] <= (3, 5, 1):
+    assert _geqv_defined
     _TInt = typing.TypeVar('_TInt')
 
     class CounterMeta(typing.GenericMeta):
@@ -501,7 +506,7 @@ elif (3, 5, 0) <= sys.version_info[:3] <= (3, 5, 1):
                 return collections.Counter(*args, **kwds)
             return _generic_new(collections.Counter, cls, *args, **kwds)
 
-else:
+elif _geqv_defined:
     class Counter(collections.Counter,
                   typing.Dict[T, int],
                   extra=collections.Counter):
@@ -513,21 +518,44 @@ else:
                 return collections.Counter(*args, **kwds)
             return _generic_new(collections.Counter, cls, *args, **kwds)
 
+else:
+    class Counter(collections.Counter,
+                  typing.Dict[T, int],
+                  extra=collections.Counter):
+
+        __slots__ = ()
+
+        def __new__(cls, *args, **kwds):
+            if cls._gorg is Counter:
+                return collections.Counter(*args, **kwds)
+            return _generic_new(collections.Counter, cls, *args, **kwds)
+
 
 if hasattr(typing, 'ChainMap'):
     ChainMap = typing.ChainMap
     __all__.append('ChainMap')
 elif hasattr(collections, 'ChainMap'):
     # ChainMap only exists in 3.3+
-    class ChainMap(collections.ChainMap, typing.MutableMapping[KT, VT],
-                   extra=collections.ChainMap):
+    if _geqv_defined:
+        class ChainMap(collections.ChainMap, typing.MutableMapping[KT, VT],
+                       extra=collections.ChainMap):
 
-        __slots__ = ()
+            __slots__ = ()
 
-        def __new__(cls, *args, **kwds):
-            if _geqv(cls, ChainMap):
-                return collections.ChainMap(*args, **kwds)
-            return _generic_new(collections.ChainMap, cls, *args, **kwds)
+            def __new__(cls, *args, **kwds):
+                if _geqv(cls, ChainMap):
+                    return collections.ChainMap(*args, **kwds)
+                return _generic_new(collections.ChainMap, cls, *args, **kwds)
+    else:
+        class ChainMap(collections.ChainMap, typing.MutableMapping[KT, VT],
+                       extra=collections.ChainMap):
+
+            __slots__ = ()
+
+            def __new__(cls, *args, **kwds):
+                if cls._gorg is ChainMap:
+                    return collections.ChainMap(*args, **kwds)
+                return _generic_new(collections.ChainMap, cls, *args, **kwds)
 
     __all__.append('ChainMap')
 
