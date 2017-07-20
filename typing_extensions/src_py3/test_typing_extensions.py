@@ -15,7 +15,15 @@ import typing
 import typing_extensions
 import collections.abc as collections_abc
 
+# We assume Python versions *below* 3.5.0 will have the most
+# up-to-date version of the typing module installed. Since
+# the typing module isn't a part of the standard library in older 
+# versions of Python, those users are likely to have a reasonably
+# modern version of `typing` installed from PyPi.
 TYPING_LATEST = sys.version_info[:3] < (3, 5, 0)
+
+# Flags used to mark tests that only apply after a specific
+# version of the typing module.
 TYPING_3_5_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 1)
 TYPING_3_5_3 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 3)
 TYPING_3_6_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 6, 1)

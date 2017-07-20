@@ -9,17 +9,15 @@ Typing Extensions
 Overview
 ========
 
-The ``typing_extensions`` module contains both backports of changes made to
-the ``typing`` module since Python 3.5.0 as well as experimental types that
-will be eventually added to the ``typing`` module once stabilized.
+The ``typing`` module was added to the standard library in Python 3.5 on
+a provisional basis and will no longer be provisional in Python 3.7. However,
+this means users of Python 3.5 - 3.6 who are unable to upgrade will not be
+able to take advantage of new types added to the ``typing`` module, such as
+``typing.Text`` or ``typing.Coroutine``.
 
-This module is intended to be used by people who:
-
-1. Are using Python 3.5+ and cannot upgrade to newer versions of Python.
-   Since the ``typing`` module was (provisionally) added to the Python standard
-   library in 3.5, users who are unable to upgrade cannot take advantage of
-   new additions to typing such as ``typing.Text`` or ``typing.Coroutine``.
-2. Are interested in using experimental additions to the ``typing`` module.
+The ``typing_extensions`` module contains both backports of these changes
+as well as experimental types that will eventually be added to the ``typing``
+module.
 
 Users of other Python versions should continue to install and use
 use the ``typing`` module from PyPi instead of using this one unless

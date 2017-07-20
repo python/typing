@@ -144,6 +144,7 @@ class CollectionsAbcTests(BaseTestCase):
 
         self.assertIsInstance(A(), collections.Counter)
         self.assertIs(type(B[int]()), B)
+        self.assertEqual(B.__bases__, (typing_extensions.Counter,))
 
     def test_deque(self):
         self.assertIsSubclass(collections.deque, Deque)

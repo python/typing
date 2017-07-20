@@ -8,6 +8,19 @@ import collections.abc as collections_abc
 if hasattr(typing, '_generic_new'):
     _generic_new = typing._generic_new
 else:
+    # Note: The '_generic_new(...)' function is used as a part of the
+    # process of creating a generic type and was added to the typing module
+    # as of Python 3.5.3.
+    #
+    # We've defined '_generic_new(...)' below to exactly match the behavior
+    # implemented in older versions of 'typing' bundled with Python 3.5.0 to
+    # 3.5.2. This helps eliminate redundancy when defining collection types
+    # like 'Deque' later.
+    #
+    # See https://github.com/python/typing/pull/308 for more details -- in
+    # particular, compare and contrast the definition of types like
+    # 'typing.List' before and after the merge.
+
     def _generic_new(base_cls, cls, *args, **kwargs):
         return base_cls.__new__(cls, *args, **kwargs)
 
