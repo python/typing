@@ -1479,7 +1479,7 @@ class ProtocolMeta(GenericMeta):
                         '__orig_bases__', '__extra__', '__tree_hash__',
                         '__doc__', '__subclasshook__', '__init__', '__new__',
                         '__module__', '_MutableMapping__marker',
-                        '__metaclass__') and
+                        '__metaclass__', '_gorg') and
                         getattr(base, attr, object()) is not None):
                     attrs.add(attr)
         return attrs
@@ -1517,7 +1517,7 @@ class Protocol(object):
     _is_protocol = True
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, Protocol):
+        if cls._gorg is Protocol:
             raise TypeError("Type Protocol cannot be instantiated; "
                             "it can be used only as a base class")
         return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
