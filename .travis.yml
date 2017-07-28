@@ -3,11 +3,14 @@ language: python
 python:
   - "nightly"
   - "3.7-dev"
-  - "3.6"
-  - "3.5"
+  - "3.6.1"
+  - "3.6.0"
+  - "3.5.3"
+  - "3.5.2"
+  - "3.5.1"
+  - "3.5.0"
   - "3.4"
   - "3.3"
-  - "3.2"
   - "2.7"
 
 install:
@@ -15,5 +18,8 @@ install:
 
 script:
   - export PYTHONPATH=`python -c "import sys; print('python2' if sys.version.startswith('2') else 'src')"`; py.test $PYTHONPATH
+  - if [[ $TRAVIS_PYTHON_VERSION < '3.5' ]]; then python setup.py install; fi
+  - export PYTHONPATH=`python -c "import sys; print('typing_extensions/src_py2' if sys.version.startswith('2') else 'typing_extensions/src_py3')"`;
+    py.test $PYTHONPATH;
   - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then flake8; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then flake8 --config=.flake8-tests src/test_typing.py python2/test_typing.py; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then flake8 --config=.flake8-tests src/test_typing.py python2/test_typing.py typing_extensions/src_py2/test_typing_extensions.py typing_extensions/src_py3/test_typing_extensions.py; fi

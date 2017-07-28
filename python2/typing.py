@@ -33,6 +33,7 @@ __all__ = [
                     # for 'Generic' and ABCs below.
     'ByteString',
     'Container',
+    'ContextManager',
     'Hashable',
     'ItemsView',
     'Iterable',
@@ -358,7 +359,7 @@ def _type_check(arg, msg):
     if (
         type(arg).__name__ in ('_Union', '_Optional') and
         not getattr(arg, '__origin__', None) or
-        isinstance(arg, TypingMeta) and _gorg(arg) in (Generic, Protocol)
+        isinstance(arg, TypingMeta) and arg._gorg in (Generic, Protocol)
     ):
         raise TypeError("Plain %s is not valid as type argument" % arg)
     return arg
@@ -946,29 +947,6 @@ class _Optional(_FinalTypingBase):
 Optional = _Optional(_root=True)
 
 
-def _gorg(a):
-    """Return the farthest origin of a generic class (internal helper)."""
-    assert isinstance(a, GenericMeta)
-    while a.__origin__ is not None:
-        a = a.__origin__
-    return a
-
-
-def _geqv(a, b):
-    """Return whether two generic classes are equivalent (internal helper).
-
-    The intention is to consider generic class X and any of its
-    parameterized forms (X[T], X[int], etc.) as equivalent.
-
-    However, X is not equivalent to a subclass of X.
-
-    The relation is reflexive, symmetric and transitive.
-    """
-    assert isinstance(a, GenericMeta) and isinstance(b, GenericMeta)
-    # Reduce each to its origin.
-    return _gorg(a) is _gorg(b)
-
-
 def _next_in_mro(cls):
     """Helper for Generic.__new__.
 
@@ -978,7 +956,7 @@ def _next_in_mro(cls):
     next_in_mro = object
     # Look for the last occurrence of Generic or Generic[...].
     for i, c in enumerate(cls.__mro__[:-1]):
-        if isinstance(c, GenericMeta) and _gorg(c) is Generic:
+        if isinstance(c, GenericMeta) and c._gorg is Generic:
             next_in_mro = cls.__mro__[i + 1]
     return next_in_mro
 
@@ -1082,13 +1060,15 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             extra = namespace.get('__extra__')
         if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
             bases = (extra,) + bases
-        bases = tuple(_gorg(b) if isinstance(b, GenericMeta) else b for b in bases)
+        bases = tuple(b._gorg if isinstance(b, GenericMeta) else b for b in bases)
 
         # remove bare Generic from bases if there are other generic bases
         if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
             bases = tuple(b for b in bases if b is not Generic)
         namespace.update({'__origin__': origin, '__extra__': extra})
         self = super(GenericMeta, cls).__new__(cls, name, bases, namespace)
+        super(GenericMeta, self).__setattr__('_gorg',
+                                             self if not origin else origin._gorg)
 
         self.__parameters__ = tvars
         # Be prepared that GenericMeta will be subclassed by TupleMeta
@@ -1135,7 +1115,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def _abc_negative_cache(self):
         if isinstance(self.__extra__, abc.ABCMeta):
             return self.__extra__._abc_negative_cache
-        return _gorg(self)._abc_generic_negative_cache
+        return self._gorg._abc_generic_negative_cache
 
     @_abc_negative_cache.setter
     def _abc_negative_cache(self, value):
@@ -1149,7 +1129,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def _abc_negative_cache_version(self):
         if isinstance(self.__extra__, abc.ABCMeta):
             return self.__extra__._abc_negative_cache_version
-        return _gorg(self)._abc_generic_negative_cache_version
+        return self._gorg._abc_generic_negative_cache_version
 
     @_abc_negative_cache_version.setter
     def _abc_negative_cache_version(self, value):
@@ -1199,7 +1179,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         if self.__origin__ is None:
             return self
         tree_args = _subs_tree(self, tvars, args)
-        return (_gorg(self),) + tuple(tree_args)
+        return (self._gorg,) + tuple(tree_args)
 
     def __eq__(self, other):
         if not isinstance(other, GenericMeta):
@@ -1215,7 +1195,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def __getitem__(self, params):
         if not isinstance(params, tuple):
             params = (params,)
-        if not params and not _gorg(self) is Tuple:
+        if not params and self._gorg is not Tuple:
             raise TypeError(
                 "Parameter list to %s[...] cannot be empty" % _qualname(self))
         msg = "Parameters to generic types must be types."
@@ -1293,7 +1273,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         ):
             super(GenericMeta, self).__setattr__(attr, value)
         else:
-            super(GenericMeta, _gorg(self)).__setattr__(attr, value)
+            super(GenericMeta, self._gorg).__setattr__(attr, value)
 
 
 # Prevent checks for Generic, etc. to crash when defining Generic.
@@ -1308,7 +1288,7 @@ def _generic_new(base_cls, cls, *args, **kwds):
     if cls.__origin__ is None:
         return base_cls.__new__(cls)
     else:
-        origin = _gorg(cls)
+        origin = cls._gorg
         obj = base_cls.__new__(origin)
         try:
             obj.__orig_class__ = cls
@@ -1343,7 +1323,7 @@ class Generic(object):
     __slots__ = ()
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, Generic):
+        if cls._gorg is Generic:
             raise TypeError("Type Generic cannot be instantiated; "
                             "it can be used only as a base class")
         return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
@@ -1365,7 +1345,7 @@ class TupleMeta(GenericMeta):
 
     @_tp_cache
     def __getitem__(self, parameters):
-        if self.__origin__ is not None or not _geqv(self, Tuple):
+        if self.__origin__ is not None or self._gorg is not Tuple:
             # Normal generic rules apply if this is not the first subscription
             # or a subscription of a subclass.
             return super(TupleMeta, self).__getitem__(parameters)
@@ -1409,7 +1389,7 @@ class Tuple(tuple):
     __slots__ = ()
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, Tuple):
+        if cls._gorg is Tuple:
             raise TypeError("Type Tuple cannot be instantiated; "
                             "use tuple() instead")
         return _generic_new(tuple, cls, *args, **kwds)
@@ -1567,7 +1547,7 @@ class CallableMeta(ProtocolMeta):
         return self._tree_repr(self._subs_tree())
 
     def _tree_repr(self, tree):
-        if _gorg(self) is not Callable:
+        if self._gorg is not Callable:
             return super(CallableMeta, self)._tree_repr(tree)
         # For actual Callable (not its subclass) we override
         # super(CallableMeta, self)._tree_repr() for nice formatting.
@@ -1587,7 +1567,7 @@ class CallableMeta(ProtocolMeta):
         with hashable arguments to improve speed.
         """
 
-        if self.__origin__ is not None or not _geqv(self, Callable):
+        if self.__origin__ is not None or self._gorg is not Callable:
             return super(CallableMeta, self).__getitem__(parameters)
         if not isinstance(parameters, tuple) or len(parameters) != 2:
             raise TypeError("Callable must be used as "
@@ -1631,7 +1611,7 @@ class Callable(object):
     __slots__ = ()
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, Callable):
+        if cls._gorg is Callable:
             raise TypeError("Type Callable cannot be instantiated; "
                             "use a non-abstract subclass instead")
         return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
@@ -1681,7 +1661,7 @@ def no_type_check(arg):
     if isinstance(arg, type):
         arg_attrs = arg.__dict__.copy()
         for attr, val in arg.__dict__.items():
-            if val in arg.__bases__:
+            if val in arg.__bases__ + (arg,):
                 arg_attrs.pop(attr)
         for obj in arg_attrs.values():
             if isinstance(obj, types.FunctionType):
@@ -1875,7 +1855,7 @@ class List(list, MutableSequence[T]):
     __extra__ = list
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, List):
+        if cls._gorg is List:
             raise TypeError("Type List cannot be instantiated; "
                             "use list() instead")
         return _generic_new(list, cls, *args, **kwds)
@@ -1886,7 +1866,7 @@ class Deque(collections.deque, MutableSequence[T]):
     __extra__ = collections.deque
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, Deque):
+        if cls._gorg is Deque:
             return collections.deque(*args, **kwds)
         return _generic_new(collections.deque, cls, *args, **kwds)
 
@@ -1896,7 +1876,7 @@ class Set(set, MutableSet[T]):
     __extra__ = set
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, Set):
+        if cls._gorg is Set:
             raise TypeError("Type Set cannot be instantiated; "
                             "use set() instead")
         return _generic_new(set, cls, *args, **kwds)
@@ -1907,7 +1887,7 @@ class FrozenSet(frozenset, AbstractSet[T_co]):
     __extra__ = frozenset
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, FrozenSet):
+        if cls._gorg is FrozenSet:
             raise TypeError("Type FrozenSet cannot be instantiated; "
                             "use frozenset() instead")
         return _generic_new(frozenset, cls, *args, **kwds)
@@ -1935,12 +1915,36 @@ class ValuesView(MappingView[VT_co]):
     __extra__ = collections_abc.ValuesView
 
 
+class ContextManager(Generic[T_co]):
+    __slots__ = ()
+
+    def __enter__(self):
+        return self
+
+    @abc.abstractmethod
+    def __exit__(self, exc_type, exc_value, traceback):
+        return None
+
+    @classmethod
+    def __subclasshook__(cls, C):
+        if cls is ContextManager:
+            # In Python 3.6+, it is possible to set a method to None to
+            # explicitly indicate that the class does not implement an ABC
+            # (https://bugs.python.org/issue25958), but we do not support
+            # that pattern here because this fallback class is only used
+            # in Python 3.5 and earlier.
+            if (any("__enter__" in B.__dict__ for B in C.__mro__) and
+                any("__exit__" in B.__dict__ for B in C.__mro__)):
+                return True
+        return NotImplemented
+
+
 class Dict(dict, MutableMapping[KT, VT]):
     __slots__ = ()
     __extra__ = dict
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, Dict):
+        if cls._gorg is Dict:
             raise TypeError("Type Dict cannot be instantiated; "
                             "use dict() instead")
         return _generic_new(dict, cls, *args, **kwds)
@@ -1951,7 +1955,7 @@ class DefaultDict(collections.defaultdict, MutableMapping[KT, VT]):
     __extra__ = collections.defaultdict
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, DefaultDict):
+        if cls._gorg is DefaultDict:
             return collections.defaultdict(*args, **kwds)
         return _generic_new(collections.defaultdict, cls, *args, **kwds)
 
@@ -1961,7 +1965,7 @@ class Counter(collections.Counter, Dict[T, int]):
     __extra__ = collections.Counter
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, Counter):
+        if cls._gorg is Counter:
             return collections.Counter(*args, **kwds)
         return _generic_new(collections.Counter, cls, *args, **kwds)
 
@@ -1980,7 +1984,7 @@ class Generator(Iterator[T_co], Generic[T_co, T_contra, V_co]):
     __extra__ = _G_base
 
     def __new__(cls, *args, **kwds):
-        if _geqv(cls, Generator):
+        if cls._gorg is Generator:
             raise TypeError("Type Generator cannot be instantiated; "
                             "create a subclass instead")
         return _generic_new(_G_base, cls, *args, **kwds)

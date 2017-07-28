@@ -2,6 +2,10 @@
 PEP 484: Type Hints
 ===================
 
+.. image:: https://badges.gitter.im/python/typing.svg
+ :alt: Chat at https://gitter.im/python/typing
+ :target: https://gitter.im/python/typing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 This GitHub repo is used for development of the ``typing`` module
 defined by PEP 484.  The module is available in Python since version
 3.5.0 on a provisional basis until Python 3.7.0.
