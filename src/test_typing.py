@@ -1069,6 +1069,9 @@ class GenericTests(BaseTestCase):
         for t in things + [Any]:
             self.assertEqual(t, copy(t))
             self.assertEqual(t, deepcopy(t))
+            if sys.version_info >= (3, 3):
+                self.assertTrue(t is copy(t))
+                self.assertTrue(t is deepcopy(t))
 
     def test_weakref_all(self):
         T = TypeVar('T')
