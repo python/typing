@@ -1264,7 +1264,7 @@ class TupleMeta(GenericMeta):
         if not isinstance(obj, tuple):
             return False
         # Check if the instance and type have the same number of elements.
-        if len(obj) != len(self.__args__):
+        if len(obj) != (0 if self.__args__ is None else len(self.__args__)):
             return False
         # Check each element's type.
         for type, element in zip(self.__args__, obj):
