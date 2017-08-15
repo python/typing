@@ -395,10 +395,37 @@ class TupleTests(BaseTestCase):
             pass
         self.assertTrue(issubclass(MyTuple, Tuple))
 
+    @skipUnless(sys.version_info < (3, 7), 'Tuples could not be used with '
+                                           'isinstance() until 3.7.')
     def test_tuple_instance_type_error(self):
         with self.assertRaises(TypeError):
             isinstance((0, 0), Tuple[int, int])
         self.assertIsInstance((0, 0), Tuple)
+
+    @skipUnless(sys.version_info >= (3, 7), 'Tuples can be used with '
+                                            'isinstance() since 3.7.')
+    def test_tuple_instance_type(self):
+        # Unparameterized tuples.
+        self.assertIsInstance((), Tuple)
+        self.assertIsInstance((1, 3, 3, 7), Tuple)
+
+        # Instances of parameterized tuples.
+        self.assertIsInstance((3), Tuple[int])
+        self.assertIsInstance(('foo', 'bar'), Tuple[str, Any])
+
+        # Not tuples at all.
+        self.assertNotIsInstance('foo', Tuple)
+        self.assertNotIsInstance(123, Tuple)
+
+        # Element count mismatch.
+        self.assertNotIsInstance((1,), Tuple[int, int])
+        self.assertNotIsInstance((1,2), Tuple[int])
+
+        # Element type mismatch.
+        self.assertNotIsInstance(('foo',), Tuple[int])
+        self.assertNotIsInstance((1, 'foo'), Tuple[int, int])
+        self.assertNotIsInstance((1, 'foo'), Tuple[Any, int])
+
 
     def test_repr(self):
         self.assertEqual(repr(Tuple), 'typing.Tuple')

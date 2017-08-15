@@ -1260,10 +1260,17 @@ class TupleMeta(GenericMeta):
         return super().__getitem__(parameters)
 
     def __instancecheck__(self, obj):
-        if self.__args__ is None:
-            return isinstance(obj, tuple)
-        raise TypeError("Parameterized Tuple cannot be used "
-                        "with isinstance().")
+        # Check if the instance is a tuple.
+        if not isinstance(obj, tuple):
+            return False
+        # Check if the instance and type have the same number of elements.
+        if len(obj) != len(self.__args__):
+            return False
+        # Check each element's type.
+        for type, element in zip(self.__args__, obj):
+            if not isinstance(element, type):
+                return False
+        return True
 
     def __subclasscheck__(self, cls):
         if self.__args__ is None:
