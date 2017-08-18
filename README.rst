@@ -156,7 +156,16 @@ Workflow for PyPI releases
 
 * Update the version number in ``setup.py``.
 
-* Build a source distribution. Install it locally and test (if you
-  were using ``tox``, you already tested source distributions).
+* Build the source and wheel distributions:
 
-* Run ``twine upload dist/typing-3.x.y.tar.gz``.
+  * ``pip3 install -U setuptools wheel``
+  * ``pip2 install -U setuptools wheel``
+  * ``rm -rf dist/ build/``
+  * ``python3 setup.py sdist bdist_wheel``
+  * ``rm -rf build/`` (Works around `a Wheel bug <https://bitbucket.org/pypa/wheel/issues/147/bdist_wheel-should-start-by-cleaning-up>`_)
+  * ``python2 setup.py bdist_wheel``
+
+* Install the built distributions locally and test (if you
+  were using ``tox``, you already tested the source distribution).
+
+* Make sure twine is up to date, then run ``twine upload dist/*``.
