@@ -11,7 +11,7 @@ import collections.abc as collections_abc
 from typing import GenericMeta, TypingMeta, Generic, Callable, TypeVar, Tuple
 NO_PROTOCOL = False
 try:
-    from typing import _type_vars, _next_in_mro, _type_check, _check_generic
+    from typing import _type_vars, _next_in_mro, _type_check
 except ImportError:
     NO_PROTOCOL = True
 try:
@@ -36,6 +36,17 @@ try:
     from typing import _make_subclasshook
 except ImportError:
     _make_subclasshook = None
+try:
+    from typing import _check_generic
+except ImportError:
+    def _check_generic(cls, parameters):
+        if not cls.__parameters__:
+            raise TypeError("%s is not a generic class" % repr(cls))
+        alen = len(parameters)
+        elen = len(cls.__parameters__)
+        if alen != elen:
+            raise TypeError("Too %s parameters for %s; actual %s, expected %s" %
+                            ("many" if alen > elen else "few", repr(cls), alen, elen))
 
 if hasattr(typing, '_generic_new'):
     _generic_new = typing._generic_new
@@ -865,39 +876,41 @@ class ProtocolMeta(GenericMeta):
                               extra=self.__extra__,
                               orig_bases=self.__orig_bases__)
 
+if NO_PROTOCOL:
+    del ProtocolMeta
+else:
+    class Protocol(metaclass=ProtocolMeta):
+        """Base class for protocol classes. Protocol classes are defined as::
 
-class Protocol(metaclass=ProtocolMeta):
-    """Base class for protocol classes. Protocol classes are defined as::
+          class Proto(Protocol[T]):
+              def meth(self) -> T:
+                  ...
 
-      class Proto(Protocol[T]):
-          def meth(self) -> T:
-              ...
+        Such classes are primarily used with static type checkers that recognize
+        structural subtyping (static duck-typing), for example::
 
-    Such classes are primarily used with static type checkers that recognize
-    structural subtyping (static duck-typing), for example::
+          class C:
+              def meth(self) -> int:
+                  return 0
 
-      class C:
-          def meth(self) -> int:
-              return 0
+          def func(x: Proto[int]) -> int:
+              return x.meth()
 
-      def func(x: Proto[int]) -> int:
-          return x.meth()
+          func(C())  # Passes static type check
 
-      func(C())  # Passes static type check
+        See PEP 544 for details. Protocol classes decorated with @typing_extensions.runtime
+        act as simple-minded runtime protocols that checks only the presence of
+        given attributes, ignoring their type signatures.
+        """
 
-    See PEP 544 for details. Protocol classes decorated with @typing_extensions.runtime
-    act as simple-minded runtime protocols that checks only the presence of
-    given attributes, ignoring their type signatures.
-    """
+        __slots__ = ()
+        _is_protocol = True
 
-    __slots__ = ()
-    _is_protocol = True
-
-    def __new__(cls, *args, **kwds):
-        if cls._gorg is Protocol:
-            raise TypeError("Type Protocol cannot be instantiated; "
-                            "it can be used only as a base class")
-        return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
+        def __new__(cls, *args, **kwds):
+            if cls._gorg is Protocol:
+                raise TypeError("Type Protocol cannot be instantiated; "
+                                "it can be used only as a base class")
+            return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
 
 
 def runtime(cls):
@@ -916,4 +929,4 @@ def runtime(cls):
 
 
 if NO_PROTOCOL:
-    del Protocol, runtime
+    del runtime
