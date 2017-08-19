@@ -8,11 +8,12 @@ import collections.abc as collections_abc
 # These are used by Protocol implementation
 # We use internal typing helpers here, but this significantly reduces
 # code duplication. (Also this is only until Protocol is in typing.)
-from typing import (
-    GenericMeta, TypingMeta, Generic, Callable, TypeVar, Tuple,
-    _type_vars, _next_in_mro, _type_check,
-    _make_subclasshook, _check_generic
-)
+from typing import GenericMeta, TypingMeta, Generic, Callable, TypeVar, Tuple
+NO_PROTOCOL = False
+try:
+    from typing import _type_vars, _next_in_mro, _type_check, _check_generic
+except ImportError:
+    NO_PROTOCOL = True
 try:
     from typing import _no_slots_copy
 except ImportError:
@@ -31,6 +32,10 @@ try:
 except ImportError:
     class _TypingEllipsis: pass
     class _TypingEmpty: pass
+try:
+    from typing import _make_subclasshook
+except ImportError:
+    _make_subclasshook = None
 
 if hasattr(typing, '_generic_new'):
     _generic_new = typing._generic_new
@@ -908,3 +913,7 @@ def runtime(cls):
                         ' got %r' % cls)
     cls._is_runtime_protocol = True
     return cls
+
+
+if NO_PROTOCOL:
+    del Protocol, runtime

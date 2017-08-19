@@ -11,7 +11,11 @@ from typing import Tuple, List
 from typing import Generic
 from typing import get_type_hints
 from typing import no_type_check
-from typing_extensions import NoReturn, ClassVar, Type, NewType, Protocol, runtime
+from typing_extensions import NoReturn, ClassVar, Type, NewType
+try:
+    from typing_extensions import Protocol, runtime
+except ImportError:
+    pass
 import typing
 import typing_extensions
 import collections.abc as collections_abc
@@ -47,6 +51,10 @@ ASYNCIO = sys.version_info[:2] >= (3, 5)
 
 # For checks reliant on Python 3.6 syntax changes (e.g. classvar)
 PY36 = sys.version_info[:2] >= (3, 6)
+
+# It is very difficult to backport Protocols to these versions due to
+# different generics system. See https://github.com/python/typing/pull/195
+NO_PROTOCOL = sys.version_info[:3] in [(3, 5, 0), (3, 5, 1)]
 
 
 class BaseTestCase(TestCase):
@@ -1085,6 +1093,10 @@ class ProtocolTests(BaseTestCase):
             class E:
                 x = 1
             self.assertIsInstance(E(), D)
+
+
+if NO_PROTOCOL:
+    ProtocolTests = None
 
 
 class AllTests(BaseTestCase):
