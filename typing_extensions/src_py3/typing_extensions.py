@@ -10,9 +10,18 @@ import collections.abc as collections_abc
 # code duplication. (Also this is only until Protocol is in typing.)
 from typing import (
     GenericMeta, TypingMeta, Generic, Callable, TypeVar, Tuple,
-    _no_slots_copy, _type_vars, _next_in_mro, _tp_cache, _type_check,
+    _type_vars, _next_in_mro, _tp_cache, _type_check,
     _TypingEllipsis, _TypingEmpty, _make_subclasshook, _check_generic
 )
+try:
+    from typing import _no_slots_copy
+except ImportError:
+    def _no_slots_copy(dct):
+        dict_copy = dict(dct)
+        if '__slots__' in dict_copy:
+            for slot in dict_copy['__slots__']:
+                dict_copy.pop(slot, None)
+        return dict_copy
 
 if hasattr(typing, '_generic_new'):
     _generic_new = typing._generic_new
