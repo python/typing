@@ -97,7 +97,6 @@ __all__ = [
     # Super-special typing primitives.
     'ClassVar',
     'Type',
-    'Protocol',
 
     # ABCs (from collections.abc).
     # The following are added depending on presence
@@ -119,11 +118,12 @@ __all__ = [
     # One-off things.
     'NewType',
     'overload',
-    'runtime',
     'Text',
     'TYPE_CHECKING',
 ]
 
+if not NO_PROTOCOL:
+    __all__.extend(['Protocol', 'runtime'])
 
 # TODO
 if hasattr(typing, 'NoReturn'):

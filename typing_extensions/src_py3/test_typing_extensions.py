@@ -1127,6 +1127,10 @@ class AllTests(BaseTestCase):
         if PY36:
             self.assertIn('AsyncGenerator', a)
 
+        if TYPING_3_5_3:
+            self.assertIn('Protocol', a)
+            self.assertIn('runtime', a)
+
     def test_typing_extensions_defers_when_possible(self):
         exclude = {'overload', 'Text', 'TYPE_CHECKING'}
         for item in typing_extensions.__all__:
