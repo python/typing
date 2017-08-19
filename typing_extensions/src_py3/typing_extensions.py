@@ -768,13 +768,18 @@ class ProtocolMeta(GenericMeta):
         return False
 
     def __subclasscheck__(self, cls):
+        if self.__origin__ is not None:
+            if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools']:
+                raise TypeError("Parameterized generics cannot be used with class "
+                                "or instance checks")
+            return False
         if (self.__dict__.get('_is_protocol', None) and
                 not self.__dict__.get('_is_runtime_protocol', None)):
             if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools']:
                 return False
             raise TypeError("Instance and class checks can only be used with"
                             " @runtime protocols")
-        return super().__subclasscheck__(cls)
+        return super(GenericMeta, self).__subclasscheck__(cls)
 
     def _get_protocol_attrs(self):
         attrs = set()
