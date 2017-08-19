@@ -10,7 +10,7 @@ import collections.abc as collections_abc
 # code duplication. (Also this is only until Protocol is in typing.)
 from typing import (
     GenericMeta, TypingMeta, Generic, Callable, TypeVar, Tuple,
-    _type_vars, _next_in_mro, _type_check, _TypingEllipsis, _TypingEmpty,
+    _type_vars, _next_in_mro, _type_check,
     _make_subclasshook, _check_generic
 )
 try:
@@ -26,6 +26,11 @@ try:
     from typing import _tp_cache
 except ImportError:
     _tp_cache = lambda x: x
+try:
+    from typing import _TypingEllipsis, _TypingEmpty
+except ImportError:
+    class _TypingEllipsis: pass
+    class _TypingEmpty: pass
 
 if hasattr(typing, '_generic_new'):
     _generic_new = typing._generic_new
@@ -721,7 +726,8 @@ class ProtocolMeta(GenericMeta):
             '__subclasshook__' not in namespace and extra or
             getattr(self.__subclasshook__, '__name__', '') == '__extrahook__'
         ):
-            self.__subclasshook__ = _make_subclasshook(self)
+            if _make_subclasshook:
+                self.__subclasshook__ = _make_subclasshook(self)
         if isinstance(extra, abc.ABCMeta):
             self._abc_registry = extra._abc_registry
             self._abc_cache = extra._abc_cache
