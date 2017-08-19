@@ -985,8 +985,9 @@ class ProtocolTests(BaseTestCase):
             P[int, str]
         with self.assertRaises(TypeError):
             PR[int, 1]
-        with self.assertRaises(TypeError):
-            PR[int, ClassVar]
+        if TYPING_3_5_3:
+            with self.assertRaises(TypeError):
+                PR[int, ClassVar]
         class C(PR[int, T]): pass
         self.assertIsInstance(C[str](), C)
 
@@ -1010,6 +1011,7 @@ class ProtocolTests(BaseTestCase):
         with self.assertRaises(TypeError):
             class P(typing.Mapping[T, S], Protocol[T]): pass
 
+    @skipUnless(TYPING_3_5_3, 'New style __repr__ and __eq__ only')
     def test_generic_protocols_repr(self):
         T = TypeVar('T')
         S = TypeVar('S')
@@ -1018,6 +1020,7 @@ class ProtocolTests(BaseTestCase):
         self.assertTrue(repr(P[T, S]).endswith('P[~T, ~S]'))
         self.assertTrue(repr(P[int, str]).endswith('P[int, str]'))
 
+    @skipUnless(TYPING_3_5_3, 'New style __repr__ and __eq__ only')
     def test_generic_protocols_eq(self):
         T = TypeVar('T')
         S = TypeVar('S')
