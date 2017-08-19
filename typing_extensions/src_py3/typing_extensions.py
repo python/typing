@@ -750,8 +750,9 @@ class ProtocolMeta(GenericMeta):
         elif origin is not None:
             self._abc_registry = origin._abc_registry
             self._abc_cache = origin._abc_cache
-        self.__tree_hash__ = (hash(self._subs_tree()) if origin else
-                              super(GenericMeta, self).__hash__())
+        if hasattr(self, '_subs_tree'):
+            self.__tree_hash__ = (hash(self._subs_tree()) if origin else
+                                  super(GenericMeta, self).__hash__())
         return self
 
     def __init__(cls, *args, **kwargs):
