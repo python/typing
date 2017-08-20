@@ -680,7 +680,7 @@ def _collection_protocol(cls):
                                '_abcoll', 'abc'))
 
 
-class ProtocolMeta(GenericMeta):
+class _ProtocolMeta(GenericMeta):
     """Internal metaclass for Protocol.
 
     This exists so Protocol classes can be generic without deriving
@@ -704,7 +704,7 @@ class ProtocolMeta(GenericMeta):
                     if gvars is not None:
                         raise TypeError(
                             "Cannot inherit from Generic[...] or"
-                            " Protocol[...] multiple types.")
+                            " Protocol[...] multiple times.")
                     gvars = base.__parameters__
             if gvars is None:
                 gvars = tvars
@@ -759,7 +759,7 @@ class ProtocolMeta(GenericMeta):
         super().__init__(*args, **kwargs)
         if not cls.__dict__.get('_is_protocol', None):
             cls._is_protocol = any(b is Protocol or
-                                   isinstance(b, ProtocolMeta) and
+                                   isinstance(b, _ProtocolMeta) and
                                    b.__origin__ is Protocol
                                    for b in cls.__bases__)
         if cls._is_protocol:
@@ -786,7 +786,7 @@ class ProtocolMeta(GenericMeta):
                             return NotImplemented
                         break
                     if (attr in getattr(base, '__annotations__', {}) and
-                            isinstance(other, ProtocolMeta) and other._is_protocol):
+                            isinstance(other, _ProtocolMeta) and other._is_protocol):
                         break
                 else:
                     return NotImplemented
@@ -878,9 +878,9 @@ class ProtocolMeta(GenericMeta):
                               orig_bases=self.__orig_bases__)
 
 if NO_PROTOCOL:
-    del ProtocolMeta
+    del _ProtocolMeta
 else:
-    class Protocol(metaclass=ProtocolMeta):
+    class Protocol(metaclass=_ProtocolMeta):
         """Base class for protocol classes. Protocol classes are defined as::
 
           class Proto(Protocol[T]):
@@ -922,7 +922,7 @@ def runtime(cls):
     This allows a simple-minded structural check very similar to the
     one-offs in collections.abc such as Hashable.
     """
-    if not isinstance(cls, ProtocolMeta) or not cls._is_protocol:
+    if not isinstance(cls, _ProtocolMeta) or not cls._is_protocol:
         raise TypeError('@runtime can be only applied to protocol classes,'
                         ' got %r' % cls)
     cls._is_runtime_protocol = True

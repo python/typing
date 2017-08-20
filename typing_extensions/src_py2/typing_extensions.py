@@ -109,7 +109,7 @@ def _collection_protocol(cls):
                                '_abcoll', 'abc'))
 
 
-class ProtocolMeta(GenericMeta):
+class _ProtocolMeta(GenericMeta):
     """Internal metaclass for Protocol.
 
     This exists so Protocol classes can be generic without deriving
@@ -134,7 +134,7 @@ class ProtocolMeta(GenericMeta):
                     if gvars is not None:
                         raise TypeError(
                             "Cannot inherit from Generic[...] or"
-                            " Protocol[...] multiple types.")
+                            " Protocol[...] multiple times.")
                     gvars = base.__parameters__
             if gvars is None:
                 gvars = tvars
@@ -181,10 +181,10 @@ class ProtocolMeta(GenericMeta):
         return self
 
     def __init__(cls, *args, **kwargs):
-        super(ProtocolMeta, cls).__init__(*args, **kwargs)
+        super(_ProtocolMeta, cls).__init__(*args, **kwargs)
         if not cls.__dict__.get('_is_protocol', None):
             cls._is_protocol = any(b is Protocol or
-                                   isinstance(b, ProtocolMeta) and
+                                   isinstance(b, _ProtocolMeta) and
                                    b.__origin__ is Protocol
                                    for b in cls.__bases__)
         if cls._is_protocol:
@@ -236,7 +236,7 @@ class ProtocolMeta(GenericMeta):
                 return False
             raise TypeError("Instance and class checks can only be used with"
                             " @runtime protocols")
-        return super(ProtocolMeta, self).__subclasscheck__(cls)
+        return super(_ProtocolMeta, self).__subclasscheck__(cls)
 
     def _get_protocol_attrs(self):
         attrs = set()
@@ -327,7 +327,7 @@ class Protocol(object):
     given attributes, ignoring their type signatures.
     """
 
-    __metaclass__ = ProtocolMeta
+    __metaclass__ = _ProtocolMeta
     __slots__ = ()
     _is_protocol = True
 
@@ -346,7 +346,7 @@ def runtime(cls):
     This allows a simple-minded structural check very similar to the
     one-offs in collections.abc such as Hashable.
     """
-    if not isinstance(cls, ProtocolMeta) or not cls._is_protocol:
+    if not isinstance(cls, _ProtocolMeta) or not cls._is_protocol:
         raise TypeError('@runtime can be only applied to protocol classes,'
                         ' got %r' % cls)
     cls._is_runtime_protocol = True
