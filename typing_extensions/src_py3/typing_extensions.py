@@ -757,8 +757,8 @@ class _ProtocolMeta(GenericMeta):
                                   super(GenericMeta, self).__hash__())
         return self
     if OLD_GENERICS:
-        def __new__(*args, **kwargs):
-            return super().__new__(*args, **kwars)
+        def __new__(self, *args, **kwargs):
+            return super(self).__new__(*args, **kwars)
 
     def __init__(cls, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -883,8 +883,8 @@ class _ProtocolMeta(GenericMeta):
                               orig_bases=self.__orig_bases__)
 
     if OLD_GENERICS:
-        def __getitem__(*args, **kwargs):
-            return super().__getitem__(*args, **kwars)
+        def __getitem__(self, *args, **kwargs):
+            return super(self).__getitem__(*args, **kwars)
 
 
 if NO_PROTOCOL:
