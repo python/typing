@@ -1011,6 +1011,18 @@ class ProtocolTests(BaseTestCase):
             PR[int]
         with self.assertRaises(TypeError):
             PR[int, 1]
+        class P1(Protocol, Generic[T]):
+            def bar(self, x: T) -> str: ...
+        class P2(Generic[T], Protocol):
+            def bar(self, x: T) -> str: ...
+        @runtime
+        class PSub(P1[str], Protocol):
+            x = 1
+        class Test:
+            x = 1
+            def bar(self, x: str) -> str:
+                return x
+        self.assertIsInstance(Test(), PSub)
         if TYPING_3_5_3:
             with self.assertRaises(TypeError):
                 PR[int, ClassVar]
