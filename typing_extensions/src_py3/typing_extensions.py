@@ -675,6 +675,15 @@ def _gorg(cls):
     return cls
 
 
+if OLD_GENERICS:
+    def _next_in_mro(cls):
+        next_in_mro = object
+        for i, c in enumerate(cls.__mro__[:-1]):
+            if isinstance(c, GenericMeta) and _gorg(c) is Generic:
+                next_in_mro = cls.__mro__[i + 1]
+        return next_in_mro
+
+
 def _collection_protocol(cls):
     # Selected set of collections ABCs that are considered protocols.
     name = cls.__name__
@@ -917,6 +926,8 @@ else:
             if _gorg(cls) is Protocol:
                 raise TypeError("Type Protocol cannot be instantiated; "
                                 "it can be used only as a base class")
+            if OLD_GENERICS:
+                return _generic_new(_next_in_mro(cls), cls, *args, **kwds)
             return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
 
 

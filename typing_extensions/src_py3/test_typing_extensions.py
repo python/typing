@@ -19,6 +19,11 @@ except ImportError:
 import typing
 import typing_extensions
 import collections.abc as collections_abc
+OLD_GENERICS = False
+try:
+    from typing import _type_vars, _next_in_mro, _type_check
+except ImportError:
+    OLD_GENERICS = True
 
 # We assume Python versions *below* 3.5.0 will have the most
 # up-to-date version of the typing module installed. Since
@@ -969,6 +974,7 @@ class ProtocolTests(BaseTestCase):
         self.assertIsSubclass(OKClass, C)
         self.assertNotIsSubclass(BadClass, C)
 
+    @skipUnless(not OLD_GENERICS, "New style generics required")
     def test_defining_generic_protocols(self):
         T = TypeVar('T')
         S = TypeVar('S')
@@ -991,6 +997,24 @@ class ProtocolTests(BaseTestCase):
         class C(PR[int, T]): pass
         self.assertIsInstance(C[str](), C)
 
+    def test_defining_generic_protocols_old_style(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+        @runtime
+        class PR(Protocol, Generic[T, S]):
+            def meth(self): pass
+        class P(PR[int, str], Protocol):
+            y = 1
+        self.assertIsSubclass(PR[int, str], PR)
+        self.assertIsSubclass(P, PR)
+        with self.assertRaises(TypeError):
+            PR[int]
+        with self.assertRaises(TypeError):
+            PR[int, 1]
+        if TYPING_3_5_3:
+            with self.assertRaises(TypeError):
+                PR[int, ClassVar]
+
     def test_init_called(self):
         T = TypeVar('T')
         class P(Protocol[T]): pass
@@ -999,6 +1023,7 @@ class ProtocolTests(BaseTestCase):
                 self.test = 'OK'
         self.assertEqual(C[int]().test, 'OK')
 
+    @skipUnless(not OLD_GENERICS, "New style generics required")
     def test_protocols_bad_subscripts(self):
         T = TypeVar('T')
         S = TypeVar('S')
@@ -1030,6 +1055,7 @@ class ProtocolTests(BaseTestCase):
         self.assertEqual(P[T, T][Tuple[T, S]][int, str],
                          P[Tuple[int, str], Tuple[int, str]])
 
+    @skipUnless(not OLD_GENERICS, "New style generics required")
     def test_generic_protocols_special_from_generic(self):
         T = TypeVar('T')
         class P(Protocol[T]): pass
