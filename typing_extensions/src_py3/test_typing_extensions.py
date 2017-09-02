@@ -974,6 +974,14 @@ class ProtocolTests(BaseTestCase):
         self.assertIsSubclass(OKClass, C)
         self.assertNotIsSubclass(BadClass, C)
 
+    def test_issubclass_fails_correctly(self):
+        @runtime
+        class P(Protocol):
+            x = 1
+        class C: pass
+        with self.assertRaises(TypeError):
+            issubclass(C(), P)
+
     @skipUnless(not OLD_GENERICS, "New style generics required")
     def test_defining_generic_protocols(self):
         T = TypeVar('T')
@@ -1108,6 +1116,12 @@ class ProtocolTests(BaseTestCase):
         with self.assertRaises(TypeError):
             @runtime
             class C: pass
+        class Proto(Protocol):
+            x = 1
+        with self.assertRaises(TypeError):
+            @runtime
+            class Concrete(Proto):
+                pass
 
     def test_protocols_pickleable(self):
         global P, CP  # pickle wants to reference the class by name

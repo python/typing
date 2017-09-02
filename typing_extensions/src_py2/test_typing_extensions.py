@@ -474,6 +474,14 @@ class ProtocolTests(BaseTestCase):
         self.assertIsSubclass(OKClass, C)
         self.assertNotIsSubclass(BadClass, C)
 
+    def test_issubclass_fails_correctly(self):
+        @runtime
+        class P(Protocol):
+            x = 1
+        class C: pass
+        with self.assertRaises(TypeError):
+            issubclass(C(), P)
+
     def test_defining_generic_protocols(self):
         T = typing.TypeVar('T')
         S = typing.TypeVar('S')
@@ -494,6 +502,35 @@ class ProtocolTests(BaseTestCase):
             PR[int, ClassVar]
         class C(PR[int, T]): pass
         self.assertIsInstance(C[str](), C)
+
+    def test_defining_generic_protocols_old_style(self):
+        T = typing.TypeVar('T')
+        S = typing.TypeVar('S')
+        @runtime
+        class PR(Protocol, typing.Generic[T, S]):
+            def meth(self): pass
+        class P(PR[int, str], Protocol):
+            y = 1
+        self.assertIsSubclass(PR[int, str], PR)
+        self.assertIsSubclass(P, PR)
+        with self.assertRaises(TypeError):
+            PR[int]
+        with self.assertRaises(TypeError):
+            PR[int, 1]
+        class P1(Protocol, typing.Generic[T]):
+            def bar(self, x): pass
+        class P2(typing.Generic[T], Protocol):
+            def bar(self, x): pass
+        @runtime
+        class PSub(P1[str], Protocol):
+            x = 1
+        class Test(object):
+            x = 1
+            def bar(self, x):
+                return x
+        self.assertIsInstance(Test(), PSub)
+        with self.assertRaises(TypeError):
+            PR[int, ClassVar]
 
     def test_init_called(self):
         T = typing.TypeVar('T')
@@ -572,6 +609,12 @@ class ProtocolTests(BaseTestCase):
         with self.assertRaises(TypeError):
             @runtime
             class C(object): pass
+        class Proto(Protocol):
+            x = 1
+        with self.assertRaises(TypeError):
+            @runtime
+            class Concrete(Proto):
+                pass
 
     def test_protocols_pickleable(self):
         global P, CP  # pickle wants to reference the class by name

@@ -8,7 +8,7 @@ from typing import (
     # We use internal typing helpers here, but this significantly reduces
     # code duplication. (Also this is only until Protocol is in typing.)
     _generic_new, _type_vars, _next_in_mro, _tp_cache, _type_check,
-    _TypingEllipsis, _TypingEmpty, _make_subclasshook, _check_generic
+    _TypingEllipsis, _TypingEmpty, _check_generic
 )
 
 # Please keep __all__ alphabetized within each category.
@@ -120,6 +120,7 @@ class _ProtocolMeta(GenericMeta):
                 tvars=None, args=None, origin=None, extra=None, orig_bases=None):
         # This is just a version copied from GenericMeta.__new__ that
         # includes "Protocol" special treatment. (Comments removed for brevity.)
+        assert extra is None  # Protocols should not have extra
         if tvars is not None:
             assert origin is not None
             assert all(isinstance(t, TypeVar) for t in tvars), tvars
@@ -171,11 +172,6 @@ class _ProtocolMeta(GenericMeta):
         self.__next_in_mro__ = _next_in_mro(self)
         if orig_bases is None:
             self.__orig_bases__ = initial_bases
-        if (
-            '__subclasshook__' not in namespace and extra or
-            getattr(self.__subclasshook__, '__name__', '') == '__extrahook__'
-        ):
-            self.__subclasshook__ = _make_subclasshook(self)
         self.__tree_hash__ = (hash(self._subs_tree()) if origin else
                               abc.ABCMeta.__hash__(self))
         return self
@@ -204,6 +200,9 @@ class _ProtocolMeta(GenericMeta):
         def _proto_hook(cls, other):
             if not cls.__dict__.get('_is_protocol', None):
                 return NotImplemented
+            if not isinstance(other, type):
+                # Same error as for issubclass(1, int)
+                raise TypeError('issubclass() arg 1 must be a new-style class')
             for attr in cls._get_protocol_attrs():
                 for base in other.__mro__:
                     if attr in base.__dict__:

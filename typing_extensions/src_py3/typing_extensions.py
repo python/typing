@@ -790,6 +790,9 @@ class _ProtocolMeta(GenericMeta):
         def _proto_hook(other):
             if not cls.__dict__.get('_is_protocol', None):
                 return NotImplemented
+            if not isinstance(other, type):
+                # Same error as for issubclass(1, int)
+                raise TypeError('issubclass() arg 1 must be a class')
             for attr in cls._get_protocol_attrs():
                 for base in other.__mro__:
                     if attr in base.__dict__:
