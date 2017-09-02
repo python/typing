@@ -96,6 +96,16 @@ else:
             return NotImplemented
 
 
+def _gorg(cls):
+    """This function exists for compatibility with old typing versions"""
+    assert isinstance(cls, GenericMeta)
+    if hasattr(cls, '_gorg'):
+        return cls._gorg
+    while cls.__origin__ is not None:
+        cls = cls.__origin__
+    return cls
+
+
 def _collection_protocol(cls):
     # Selected set of collections ABCs that are considered protocols.
     name = cls.__name__
@@ -157,13 +167,13 @@ class _ProtocolMeta(GenericMeta):
             extra = namespace.get('__extra__')
         if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
             bases = (extra,) + bases
-        bases = tuple(b._gorg if isinstance(b, GenericMeta) else b for b in bases)
+        bases = tuple(_gorg(b) if isinstance(b, GenericMeta) else b for b in bases)
 
         if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
             bases = tuple(b for b in bases if b is not Generic)
         namespace.update({'__origin__': origin, '__extra__': extra})
         self = abc.ABCMeta.__new__(cls, name, bases, namespace)
-        abc.ABCMeta.__setattr__(self, '_gorg', self if not origin else origin._gorg)
+        abc.ABCMeta.__setattr__(self, '_gorg', self if not origin else _gorg(origin))
 
         self.__parameters__ = tvars
         self.__args__ = tuple(Ellipsis if a is _TypingEllipsis else
@@ -263,7 +273,7 @@ class _ProtocolMeta(GenericMeta):
         # special treatment of "Protocol". (Comments removed for brevity.)
         if not isinstance(params, tuple):
             params = (params,)
-        if not params and self._gorg is not Tuple:
+        if not params and _gorg(self) is not Tuple:
             raise TypeError(
                 "Parameter list to %s[...] cannot be empty" % self.__qualname__)
         msg = "Parameters to generic types must be types."
@@ -331,7 +341,7 @@ class Protocol(object):
     _is_protocol = True
 
     def __new__(cls, *args, **kwds):
-        if cls._gorg is Protocol:
+        if _gorg(cls) is Protocol:
             raise TypeError("Type Protocol cannot be instantiated; "
                             "it can be used only as a base class")
         return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
