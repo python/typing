@@ -216,7 +216,8 @@ class _ProtocolMeta(GenericMeta):
         # We need this method for situations where attributes are assigned in __init__
         if isinstance(instance, type):
             # This looks like a fundamental limitation of Python 2.
-            # It cannot support runtime protocol metaclasses
+            # It cannot support runtime protocol metaclasses, On Python 2 classes
+            # cannot be correctly inspected as instances of protocols.
             return False
         if issubclass(instance.__class__, self):
             return True
@@ -298,10 +299,10 @@ class _ProtocolMeta(GenericMeta):
 class Protocol(object):
     """Base class for protocol classes. Protocol classes are defined as::
 
-      class Proto(Protocol[T]):
+      class Proto(Protocol):
           def meth(self):
               # type: () -> int
-              ...
+              pass
 
     Such classes are primarily used with static type checkers that recognize
     structural subtyping (static duck-typing), for example::
@@ -312,7 +313,7 @@ class Protocol(object):
               return 0
 
       def func(x):
-          # type: (Proto[int]) -> int
+          # type: (Proto) -> int
           return x.meth()
 
       func(C())  # Passes static type check
@@ -320,6 +321,13 @@ class Protocol(object):
     See PEP 544 for details. Protocol classes decorated with @typing_extensions.runtime
     act as simple-minded runtime protocols that checks only the presence of
     given attributes, ignoring their type signatures.
+
+    Protocol classes can be generic, they are defined as::
+
+      class GenProto(Protocol[T]):
+          def meth(self):
+              # type: () -> T
+              pass
     """
 
     __metaclass__ = _ProtocolMeta

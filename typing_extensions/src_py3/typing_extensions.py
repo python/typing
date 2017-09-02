@@ -118,6 +118,7 @@ __all__ = [
     'TYPE_CHECKING',
 ]
 
+# Protocols are hard to backport to the original version of typing 3.5.0
 NO_PROTOCOL = sys.version_info[:3] == (3, 5, 0)
 
 if not NO_PROTOCOL:
@@ -887,8 +888,8 @@ else:
     class Protocol(metaclass=_ProtocolMeta):
         """Base class for protocol classes. Protocol classes are defined as::
 
-          class Proto(Protocol[T]):
-              def meth(self) -> T:
+          class Proto(Protocol):
+              def meth(self) -> int:
                   ...
 
         Such classes are primarily used with static type checkers that recognize
@@ -898,7 +899,7 @@ else:
               def meth(self) -> int:
                   return 0
 
-          def func(x: Proto[int]) -> int:
+          def func(x: Proto) -> int:
               return x.meth()
 
           func(C())  # Passes static type check
@@ -906,6 +907,12 @@ else:
         See PEP 544 for details. Protocol classes decorated with @typing_extensions.runtime
         act as simple-minded runtime protocols that checks only the presence of
         given attributes, ignoring their type signatures.
+
+        Protocol classes can be generic, they are defined as::
+
+          class GenProto({bases}):
+              def meth(self) -> T:
+                  ...
         """
 
         __slots__ = ()
@@ -918,6 +925,9 @@ else:
             if OLD_GENERICS:
                 return _generic_new(_next_in_mro(cls), cls, *args, **kwds)
             return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
+
+    Protocol.__doc__ = Protocol.__doc__.format(bases="Protocol, Generic[T]" if
+                                               OLD_GENERICS else "Protocol[T]")
 
 
 def runtime(cls):
