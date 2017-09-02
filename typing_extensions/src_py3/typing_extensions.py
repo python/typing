@@ -666,7 +666,7 @@ else:
 
 
 def _gorg(cls):
-    """This function exists for compatibility with old typing versions"""
+    """This function exists for compatibility with old typing versions."""
     assert isinstance(cls, GenericMeta)
     if hasattr(cls, '_gorg'):
         return cls._gorg
@@ -677,24 +677,12 @@ def _gorg(cls):
 
 if OLD_GENERICS:
     def _next_in_mro(cls):
+        """This function exists for compatibility with old typing versions."""
         next_in_mro = object
         for i, c in enumerate(cls.__mro__[:-1]):
             if isinstance(c, GenericMeta) and _gorg(c) is Generic:
                 next_in_mro = cls.__mro__[i + 1]
         return next_in_mro
-
-
-def _collection_protocol(cls):
-    # Selected set of collections ABCs that are considered protocols.
-    name = cls.__name__
-    return (name in ('ABC', 'Callable', 'Awaitable',
-                     'Iterable', 'Iterator', 'AsyncIterable', 'AsyncIterator',
-                     'Hashable', 'Sized', 'Container', 'Collection', 'Reversible',
-                     'Sequence', 'MutableSequence', 'Mapping', 'MutableMapping',
-                     'AbstractContextManager', 'ContextManager',
-                     'AbstractAsyncContextManager', 'AsyncContextManager',) and
-            cls.__module__ in ('collections.abc', 'typing', 'contextlib',
-                               '_abcoll', 'abc'))
 
 
 class _ProtocolMeta(GenericMeta):
@@ -777,8 +765,7 @@ class _ProtocolMeta(GenericMeta):
             for base in cls.__mro__[1:]:
                 if not (base in (object, Generic, Callable) or
                         isinstance(base, TypingMeta) and base._is_protocol or
-                        isinstance(base, GenericMeta) and base.__origin__ is Generic or
-                        _collection_protocol(base)):
+                        isinstance(base, GenericMeta) and base.__origin__ is Generic):
                     raise TypeError('Protocols can only inherit from other protocols,'
                                     ' got %r' % base)
 
@@ -845,8 +832,7 @@ class _ProtocolMeta(GenericMeta):
                         '__next_in_mro__', '__parameters__', '__origin__',
                         '__orig_bases__', '__extra__', '__tree_hash__',
                         '__doc__', '__subclasshook__', '__init__', '__new__',
-                        '__module__', '_MutableMapping__marker', '_gorg') and
-                        getattr(base, attr, object()) is not None):
+                        '__module__', '_MutableMapping__marker', '_gorg')):
                     attrs.add(attr)
         return attrs
 

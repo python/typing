@@ -15,8 +15,8 @@ from typing import (
 __all__ = [
     # Super-special typing primitives.
     'ClassVar',
-    'Type',
     'Protocol',
+    'Type',
 
     # Concrete collection types.
     'ContextManager',
@@ -97,26 +97,13 @@ else:
 
 
 def _gorg(cls):
-    """This function exists for compatibility with old typing versions"""
+    """This function exists for compatibility with old typing versions."""
     assert isinstance(cls, GenericMeta)
     if hasattr(cls, '_gorg'):
         return cls._gorg
     while cls.__origin__ is not None:
         cls = cls.__origin__
     return cls
-
-
-def _collection_protocol(cls):
-    # Selected set of collections ABCs that are considered protocols.
-    name = cls.__name__
-    return (name in ('ABC', 'Callable', 'Awaitable',
-                     'Iterable', 'Iterator', 'AsyncIterable', 'AsyncIterator',
-                     'Hashable', 'Sized', 'Container', 'Collection', 'Reversible',
-                     'Sequence', 'MutableSequence', 'Mapping', 'MutableMapping',
-                     'AbstractContextManager', 'ContextManager',
-                     'AbstractAsyncContextManager', 'AsyncContextManager',) and
-            cls.__module__ in ('collections.abc', 'typing', 'contextlib',
-                               '_abcoll', 'abc'))
 
 
 class _ProtocolMeta(GenericMeta):
@@ -197,8 +184,7 @@ class _ProtocolMeta(GenericMeta):
             for base in cls.__mro__[1:]:
                 if not (base in (object, Generic, Callable) or
                         isinstance(base, TypingMeta) and base._is_protocol or
-                        isinstance(base, GenericMeta) and base.__origin__ is Generic or
-                        _collection_protocol(base)):
+                        isinstance(base, GenericMeta) and base.__origin__ is Generic):
                     raise TypeError('Protocols can only inherit from other protocols,'
                                     ' got %r' % base)
 
@@ -211,7 +197,8 @@ class _ProtocolMeta(GenericMeta):
             if not cls.__dict__.get('_is_protocol', None):
                 return NotImplemented
             if not isinstance(other, type):
-                # Same error as for issubclass(1, int)
+                # Similar error as for issubclass(1, int)
+                # (also not a chance for old-style classes)
                 raise TypeError('issubclass() arg 1 must be a new-style class')
             for attr in cls._get_protocol_attrs():
                 for base in other.__mro__:
@@ -262,8 +249,7 @@ class _ProtocolMeta(GenericMeta):
                         '__orig_bases__', '__extra__', '__tree_hash__',
                         '__doc__', '__subclasshook__', '__init__', '__new__',
                         '__module__', '_MutableMapping__marker',
-                        '__metaclass__', '_gorg') and
-                        getattr(base, attr, object()) is not None):
+                        '__metaclass__', '_gorg')):
                     attrs.add(attr)
         return attrs
 

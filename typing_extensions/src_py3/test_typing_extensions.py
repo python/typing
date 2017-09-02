@@ -1123,6 +1123,13 @@ class ProtocolTests(BaseTestCase):
             class Concrete(Proto):
                 pass
 
+    def test_none_treated_correctly(self):
+        @runtime
+        class P(Protocol):
+            x = None  # type: int
+        class B(object): pass
+        self.assertNotIsInstance(B(), P)
+
     def test_protocols_pickleable(self):
         global P, CP  # pickle wants to reference the class by name
         T = TypeVar('T')
