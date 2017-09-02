@@ -9,11 +9,11 @@ import collections.abc as collections_abc
 # We use internal typing helpers here, but this significantly reduces
 # code duplication. (Also this is only until Protocol is in typing.)
 from typing import GenericMeta, TypingMeta, Generic, Callable, TypeVar, Tuple
-NO_PROTOCOL = False
+OLD_GENERICS = False
 try:
     from typing import _type_vars, _next_in_mro, _type_check
 except ImportError:
-    NO_PROTOCOL = True
+    OLD_GENERICS = True
 try:
     from typing import _no_slots_copy
 except ImportError:
@@ -754,6 +754,9 @@ class _ProtocolMeta(GenericMeta):
             self.__tree_hash__ = (hash(self._subs_tree()) if origin else
                                   super(GenericMeta, self).__hash__())
         return self
+    if OLD_GENERICS:
+        def __new__(*args, **kwargs):
+            return super().__new__(*args, **kwars)
 
     def __init__(cls, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -876,6 +879,13 @@ class _ProtocolMeta(GenericMeta):
                               origin=self,
                               extra=self.__extra__,
                               orig_bases=self.__orig_bases__)
+
+    if OLD_GENERICS:
+        def __getitem__(*args, **kwargs):
+            return super().__getitem__(*args, **kwars)
+
+
+NO_PROTOCOL = sys.version_info[:3] == (3, 5, 0)
 
 if NO_PROTOCOL:
     del _ProtocolMeta

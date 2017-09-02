@@ -54,7 +54,7 @@ PY36 = sys.version_info[:2] >= (3, 6)
 
 # It is very difficult to backport Protocols to these versions due to
 # different generics system. See https://github.com/python/typing/pull/195
-NO_PROTOCOL = sys.version_info[:3] in [(3, 5, 0), (3, 5, 1)]
+NO_PROTOCOL = sys.version_info[:3] == (3, 5, 0)
 
 
 class BaseTestCase(TestCase):
