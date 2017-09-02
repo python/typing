@@ -122,6 +122,8 @@ __all__ = [
     'TYPE_CHECKING',
 ]
 
+NO_PROTOCOL = sys.version_info[:3] == (3, 5, 0)
+
 if not NO_PROTOCOL:
     __all__.extend(['Protocol', 'runtime'])
 
@@ -884,8 +886,6 @@ class _ProtocolMeta(GenericMeta):
         def __getitem__(*args, **kwargs):
             return super().__getitem__(*args, **kwars)
 
-
-NO_PROTOCOL = sys.version_info[:3] == (3, 5, 0)
 
 if NO_PROTOCOL:
     del _ProtocolMeta
