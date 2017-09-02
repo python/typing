@@ -33,10 +33,6 @@ except ImportError:
     class _TypingEllipsis: pass
     class _TypingEmpty: pass
 try:
-    from typing import _make_subclasshook
-except ImportError:
-    _make_subclasshook = None
-try:
     from typing import _check_generic
 except ImportError:
     def _check_generic(cls, parameters):
@@ -669,6 +665,16 @@ else:
     TYPE_CHECKING = False
 
 
+def _gorg(cls):
+    """This function exists for compatibility with old typing versions"""
+    assert isinstance(cls, GenericMeta)
+    if hasattr(cls, '_gorg'):
+        return cls._gorg
+    while cls.__origin__ is not None:
+        cls = cls.__origin__
+    return cls
+
+
 def _collection_protocol(cls):
     # Selected set of collections ABCs that are considered protocols.
     name = cls.__name__
@@ -692,6 +698,7 @@ class _ProtocolMeta(GenericMeta):
                 tvars=None, args=None, origin=None, extra=None, orig_bases=None):
         # This is just a version copied from GenericMeta.__new__ that
         # includes "Protocol" special treatment. (Comments removed for brevity.)
+        assert extra is None  # Protocols should not have extra
         if tvars is not None:
             assert origin is not None
             assert all(isinstance(t, TypeVar) for t in tvars), tvars
@@ -726,13 +733,13 @@ class _ProtocolMeta(GenericMeta):
         initial_bases = bases
         if extra is not None and type(extra) is abc.ABCMeta and extra not in bases:
             bases = (extra,) + bases
-        bases = tuple(b._gorg if isinstance(b, GenericMeta) else b for b in bases)
+        bases = tuple(_gorg(b) if isinstance(b, GenericMeta) else b for b in bases)
         if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
             bases = tuple(b for b in bases if b is not Generic)
         namespace.update({'__origin__': origin, '__extra__': extra})
         self = super(GenericMeta, cls).__new__(cls, name, bases, namespace, _root=True)
         super(GenericMeta, self).__setattr__('_gorg',
-                                             self if not origin else origin._gorg)
+                                             self if not origin else _gorg(origin))
         self.__parameters__ = tvars
         self.__args__ = tuple(... if a is _TypingEllipsis else
                               () if a is _TypingEmpty else
@@ -740,15 +747,6 @@ class _ProtocolMeta(GenericMeta):
         self.__next_in_mro__ = _next_in_mro(self)
         if orig_bases is None:
             self.__orig_bases__ = initial_bases
-        if (
-            '__subclasshook__' not in namespace and extra or
-            getattr(self.__subclasshook__, '__name__', '') == '__extrahook__'
-        ):
-            if _make_subclasshook:
-                self.__subclasshook__ = _make_subclasshook(self)
-        if isinstance(extra, abc.ABCMeta):
-            self._abc_registry = extra._abc_registry
-            self._abc_cache = extra._abc_cache
         elif origin is not None:
             self._abc_registry = origin._abc_registry
             self._abc_cache = origin._abc_cache
@@ -846,7 +844,7 @@ class _ProtocolMeta(GenericMeta):
         # special treatment of "Protocol". (Comments removed for brevity.)
         if not isinstance(params, tuple):
             params = (params,)
-        if not params and self._gorg is not Tuple:
+        if not params and _gorg(self) is not Tuple:
             raise TypeError(
                 "Parameter list to %s[...] cannot be empty" % self.__qualname__)
         msg = "Parameters to generic types must be types."
@@ -916,7 +914,7 @@ else:
         _is_protocol = True
 
         def __new__(cls, *args, **kwds):
-            if cls._gorg is Protocol:
+            if _gorg(cls) is Protocol:
                 raise TypeError("Type Protocol cannot be instantiated; "
                                 "it can be used only as a base class")
             return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
