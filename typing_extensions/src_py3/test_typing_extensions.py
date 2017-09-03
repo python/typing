@@ -57,8 +57,7 @@ ASYNCIO = sys.version_info[:2] >= (3, 5)
 # For checks reliant on Python 3.6 syntax changes (e.g. classvar)
 PY36 = sys.version_info[:2] >= (3, 6)
 
-# It is very difficult to backport Protocols to these versions due to
-# different generics system. See https://github.com/python/typing/pull/195
+# Protocols are hard to backport to the original version of typing 3.5.0
 NO_PROTOCOL = sys.version_info[:3] == (3, 5, 0)
 
 
