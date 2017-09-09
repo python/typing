@@ -189,6 +189,7 @@ class _ProtocolMeta(GenericMeta):
                                     ' got %r' % base)
             cls._callable_members_only = all(callable(getattr(cls, attr))
                                              for attr in cls._get_protocol_attrs())
+
             def _no_init(self, *args, **kwargs):
                 if type(self)._is_protocol:
                     raise TypeError('Protocols cannot be instantiated')
@@ -226,7 +227,8 @@ class _ProtocolMeta(GenericMeta):
             return True
         if self._is_protocol:
             if all(hasattr(instance, attr) and
-                    (not callable(getattr(self, attr)) or getattr(instance, attr) is not None)
+                    (not callable(getattr(self, attr)) or
+                     getattr(instance, attr) is not None)
                     for attr in self._get_protocol_attrs()):
                 return True
         return super(GenericMeta, self).__instancecheck__(instance)
@@ -242,7 +244,8 @@ class _ProtocolMeta(GenericMeta):
                 not self._callable_members_only):
             if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools']:
                 return super(GenericMeta, self).__subclasscheck__(cls)
-            raise TypeError("Protocols with non-method members don't support issubclass()")
+            raise TypeError("Protocols with non-method members"
+                            " don't support issubclass()")
         return super(_ProtocolMeta, self).__subclasscheck__(cls)
 
     def _get_protocol_attrs(self):
