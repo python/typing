@@ -806,7 +806,7 @@ class _ProtocolMeta(GenericMeta):
             return True
         if self._is_protocol:
             if all(hasattr(instance, attr) and
-                    (not callable(getattr(self, attr)) or
+                    (not callable(getattr(self, attr, None)) or
                      getattr(instance, attr) is not None)
                     for attr in self._get_protocol_attrs()):
                 return True
