@@ -344,16 +344,16 @@ class ProtocolTests(BaseTestCase):
         T = typing.TypeVar('T')
         @runtime
         class P(Protocol):
-            x = 1
+            def x(self): pass
         @runtime
         class PG(Protocol[T]):
-            x = 1
+            def x(self): pass
         class BadP(Protocol):
-            x = 1
+            def x(self): pass
         class BadPG(Protocol[T]):
-            x = 1
+            def x(self): pass
         class C(object):
-            x = 1
+            def x(self): pass
         self.assertIsSubclass(C, P)
         self.assertIsSubclass(C, PG)
         self.assertIsSubclass(BadP, PG)
@@ -372,6 +372,29 @@ class ProtocolTests(BaseTestCase):
             issubclass(P, PG[T])
         with self.assertRaises(TypeError):
             issubclass(PG, PG[int])
+
+    def test_protocols_issubclass_non_callable(self):
+        class C(object):
+            x = 1
+        @runtime
+        class PNonCall(Protocol):
+            x = 1
+        with self.assertRaises(TypeError):
+            issubclass(C, PNonCall)
+        self.assertIsInstance(C(), PNonCall)
+        PNonCall.register(C)
+        with self.assertRaises(TypeError):
+            issubclass(C, PNonCall)
+        self.assertIsInstance(C(), PNonCall)
+        # check that non-protocol subclasses are not affected
+        class D(PNonCall): pass
+        self.assertNotIsSubclass(C, D)
+        self.assertNotIsInstance(C(), D)
+        D.register(C)
+        self.assertIsSubclass(C, D)
+        self.assertIsInstance(C(), D)
+        with self.assertRaises(TypeError):
+            issubclass(D, PNonCall)
 
     def test_protocols_isinstance(self):
         T = typing.TypeVar('T')
@@ -425,12 +448,26 @@ class ProtocolTests(BaseTestCase):
         self.assertIsInstance(C(), P)
         self.assertIsInstance(C(), D)
 
-    def test_none_blocks_implementation(self):
+    def test_none_on_non_callable_doesnt_block_implementation(self):
         @runtime
         class P(Protocol):
             x = 1
         class A(object):
             x = 1
+        class B(A):
+            x = None
+        class C(object):
+            def __init__(self):
+                self.x = None
+        self.assertIsInstance(B(), P)
+        self.assertIsInstance(C(), P)
+
+    def test_none_on_callable_blocks_implementation(self):
+        @runtime
+        class P(Protocol):
+            def x(self): pass
+        class A(object):
+            def x(self): pass
         class B(A):
             x = None
         class C(object):
@@ -622,6 +659,20 @@ class ProtocolTests(BaseTestCase):
             x = None  # type: int
         class B(object): pass
         self.assertNotIsInstance(B(), P)
+        class C(object):
+            x = 1
+        class D(object):
+            x = None
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(D(), P)
+        class CI(object):
+            def __init__(self):
+                self.x = 1
+        class DI(object):
+            def __init__(self):
+                self.x = None
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(D(), P)
 
     def test_protocols_pickleable(self):
         global P, CP  # pickle wants to reference the class by name

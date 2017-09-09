@@ -187,7 +187,8 @@ class _ProtocolMeta(GenericMeta):
                         isinstance(base, GenericMeta) and base.__origin__ is Generic):
                     raise TypeError('Protocols can only inherit from other protocols,'
                                     ' got %r' % base)
-
+            cls._callable_members_only = all(callable(getattr(cls, attr))
+                                             for attr in cls._get_protocol_attrs())
             def _no_init(self, *args, **kwargs):
                 if type(self)._is_protocol:
                     raise TypeError('Protocols cannot be instantiated')
@@ -219,12 +220,16 @@ class _ProtocolMeta(GenericMeta):
             # It cannot support runtime protocol metaclasses, On Python 2 classes
             # cannot be correctly inspected as instances of protocols.
             return False
-        if issubclass(instance.__class__, self):
+        if ((not getattr(self, '_is_protocol', False) or
+                self._callable_members_only) and
+                issubclass(instance.__class__, self)):
             return True
         if self._is_protocol:
-            return all(hasattr(instance, attr) and getattr(instance, attr) is not None
-                       for attr in self._get_protocol_attrs())
-        return False
+            if all(hasattr(instance, attr) and
+                    (not callable(getattr(self, attr)) or getattr(instance, attr) is not None)
+                    for attr in self._get_protocol_attrs()):
+                return True
+        return super(GenericMeta, self).__instancecheck__(instance)
 
     def __subclasscheck__(self, cls):
         if (self.__dict__.get('_is_protocol', None) and
@@ -233,6 +238,11 @@ class _ProtocolMeta(GenericMeta):
                 return False
             raise TypeError("Instance and class checks can only be used with"
                             " @runtime protocols")
+        if (self.__dict__.get('_is_runtime_protocol', None) and
+                not self._callable_members_only):
+            if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools']:
+                return super(GenericMeta, self).__subclasscheck__(cls)
+            raise TypeError("Protocols with non-method members don't support issubclass()")
         return super(_ProtocolMeta, self).__subclasscheck__(cls)
 
     def _get_protocol_attrs(self):
@@ -250,7 +260,7 @@ class _ProtocolMeta(GenericMeta):
                         '__orig_bases__', '__extra__', '__tree_hash__',
                         '__doc__', '__subclasshook__', '__init__', '__new__',
                         '__module__', '_MutableMapping__marker',
-                        '__metaclass__', '_gorg')):
+                        '__metaclass__', '_gorg', '_callable_members_only')):
                     attrs.add(attr)
         return attrs
 
