@@ -769,7 +769,7 @@ class _ProtocolMeta(GenericMeta):
                         isinstance(base, GenericMeta) and base.__origin__ is Generic):
                     raise TypeError('Protocols can only inherit from other protocols,'
                                     ' got %r' % base)
-            cls._callable_members_only = all(callable(getattr(cls, attr))
+            cls._callable_members_only = all(callable(getattr(cls, attr, None))
                                              for attr in cls._get_protocol_attrs())
 
             def _no_init(self, *args, **kwargs):
