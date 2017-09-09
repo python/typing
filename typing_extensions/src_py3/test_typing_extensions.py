@@ -928,7 +928,7 @@ class ProtocolTests(BaseTestCase):
         self.assertIsInstance(C(), P)
         self.assertIsInstance(C(), D)
 
-    def test_none_blocks_implementation(self):
+    def test_none_on_class_blocks_implementation(self):
         @runtime
         class P(Protocol):
             x = 1
@@ -939,8 +939,8 @@ class ProtocolTests(BaseTestCase):
         class C:
             def __init__(self):
                 self.x = None
-        self.assertNotIsInstance(B(), P)
-        self.assertNotIsInstance(C(), P)
+        self.assertIsInstance(B(), P)
+        self.assertIsInstance(C(), P)
 
     def test_non_protocol_subclasses(self):
         class P(Protocol):

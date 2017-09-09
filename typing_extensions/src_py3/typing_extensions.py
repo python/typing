@@ -804,7 +804,8 @@ class _ProtocolMeta(GenericMeta):
                 issubclass(instance.__class__, self)):
             return True
         if self._is_protocol:
-            if all(hasattr(instance, attr) and getattr(instance, attr) is not None
+            if all(hasattr(instance, attr) and
+                    (not callable(getattr(self, attr)) or getattr(instance, attr) is not None)
                     for attr in self._get_protocol_attrs()):
                 return True
         return super(GenericMeta, self).__instancecheck__(instance)
