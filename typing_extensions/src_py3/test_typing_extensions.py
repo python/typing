@@ -834,6 +834,15 @@ class ProtocolTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(C, PNonCall)
         self.assertIsInstance(C(), PNonCall)
+        # check that non-protocol subclasses are not affected
+        class D(PNonCall): ...
+        self.assertNotIsSubclass(C, D)
+        self.assertNotIsInstance(C(), D)
+        D.register(C)
+        self.assertIsSubclass(C, D)
+        self.assertIsInstance(C(), D)
+        with self.assertRaises(TypeError):
+            issubclass(D, PNonCall)
 
     def test_protocols_isinstance(self):
         T = TypeVar('T')
