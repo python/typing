@@ -792,16 +792,16 @@ class ProtocolTests(BaseTestCase):
         T = TypeVar('T')
         @runtime
         class P(Protocol):
-            x = 1
+            def x(self): ...
         @runtime
         class PG(Protocol[T]):
-            x = 1
+            def x(self): ...
         class BadP(Protocol):
-            x = 1
+            def x(self): ...
         class BadPG(Protocol[T]):
-            x = 1
+            def x(self): ...
         class C:
-            x = 1
+            def x(self): ...
         self.assertIsSubclass(C, P)
         self.assertIsSubclass(C, PG)
         self.assertIsSubclass(BadP, PG)
@@ -821,24 +821,19 @@ class ProtocolTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(PG, PG[int])
 
-    @skipUnless(PY36, 'Python 3.6 required')
-    def test_protocols_issubclass_py36(self):
-        class OtherPoint:
+    def test_protocols_issubclass_non_callable(self):
+        class C:
             x = 1
-            y = 2
-            label = 'other'
-        class Bad: pass
-        self.assertNotIsSubclass(MyPoint, Point)
-        self.assertIsSubclass(OtherPoint, Point)
-        self.assertNotIsSubclass(Bad, Point)
-        self.assertNotIsSubclass(MyPoint, Position)
-        self.assertIsSubclass(OtherPoint, Position)
-        self.assertIsSubclass(Concrete, Proto)
-        self.assertIsSubclass(Other, Proto)
-        self.assertNotIsSubclass(Concrete, Other)
-        self.assertNotIsSubclass(Other, Concrete)
-        self.assertIsSubclass(Point, Position)
-        self.assertIsSubclass(NT, Position)
+        @runtime
+        class PNonCall(Protocol):
+            x = 1
+        with self.assertRaises(TypeError):
+            issubclass(C, PNonCall)
+        self.assertIsInstance(C(), PNonCall)
+        PNonCall.register(C)
+        with self.assertRaises(TypeError):
+            issubclass(C, PNonCall)
+        self.assertIsInstance(C(), PNonCall)
 
     def test_protocols_isinstance(self):
         T = TypeVar('T')
