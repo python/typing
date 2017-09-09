@@ -928,7 +928,7 @@ class ProtocolTests(BaseTestCase):
         self.assertIsInstance(C(), P)
         self.assertIsInstance(C(), D)
 
-    def test_none_on_class_blocks_implementation(self):
+    def test_none_on_non_callable_doesnt_block_implementation(self):
         @runtime
         class P(Protocol):
             x = 1
@@ -941,6 +941,20 @@ class ProtocolTests(BaseTestCase):
                 self.x = None
         self.assertIsInstance(B(), P)
         self.assertIsInstance(C(), P)
+
+    def test_none_on_callable_blocks_implementation(self):
+        @runtime
+        class P(Protocol):
+            def x(self): ...
+        class A:
+            def x(self): ...
+        class B(A):
+            x = None
+        class C:
+            def __init__(self):
+                self.x = None
+        self.assertNotIsInstance(B(), P)
+        self.assertNotIsInstance(C(), P)
 
     def test_non_protocol_subclasses(self):
         class P(Protocol):
@@ -1132,6 +1146,20 @@ class ProtocolTests(BaseTestCase):
             x = None  # type: int
         class B(object): pass
         self.assertNotIsInstance(B(), P)
+        class C:
+            x = 1
+        class D:
+            x = None
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(D(), P)
+        class CI:
+            def __init__(self):
+                self.x = 1
+        class DI:
+            def __init__(self):
+                self.x = None
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(D(), P)
 
     def test_protocols_pickleable(self):
         global P, CP  # pickle wants to reference the class by name
