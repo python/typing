@@ -17,7 +17,8 @@ able to take advantage of new types added to the ``typing`` module, such as
 
 The ``typing_extensions`` module contains both backports of these changes
 as well as experimental types that will eventually be added to the ``typing``
-module.
+module, such as ``Protocol`` (see PEP 544 for details about protocols and
+static duck typing).
 
 Users of other Python versions should continue to install and use
 use the ``typing`` module from PyPi instead of using this one unless
@@ -40,6 +41,8 @@ All Python versions:
 - ``NewType``
 - ``NoReturn``
 - ``overload`` (note that older versions of ``typing`` only let you use ``overload`` in stubs)
+- ``Protocol`` (except on Python 3.5.0)
+- ``runtime`` (except on Python 3.5.0)
 - ``Text``
 - ``Type``
 - ``TYPE_CHECKING``
