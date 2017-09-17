@@ -2,7 +2,7 @@
 # coding: utf-8
 
 import sys
-from distutils.core import setup
+from setuptools import setup
 
 if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 3, 0):
     sys.stderr.write('ERROR: You need Python 2.7 or 3.3+ '
