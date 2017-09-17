@@ -660,7 +660,7 @@ else:
     XAxis = YAxis = Position = Proto = Concrete = Other = object
 
 
-if not HAVE_PROTOCOLS:
+if HAVE_PROTOCOLS:
     class ProtocolTests(BaseTestCase):
 
         def test_basic_protocol(self):
