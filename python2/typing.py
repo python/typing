@@ -1234,7 +1234,11 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 
     def __subclasscheck__(self, cls):
         if self.__origin__ is not None:
-            if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools']:
+            # This should only be modules within the standard
+            # library. singledispatch is the only exception, because
+            # it's a Python 2 backport of functools.singledispatch.
+            if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools',
+                                                              'singledispatch']:
                 raise TypeError("Parameterized generics cannot be used with class "
                                 "or instance checks")
             return False
