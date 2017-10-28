@@ -13,7 +13,7 @@ from typing import Union, Optional
 from typing import Tuple, List, MutableMapping
 from typing import Callable
 from typing import Generic, ClassVar, GenericMeta
-from typing import cast
+from typing import cast, castto
 from typing import get_type_hints
 from typing import no_type_check, no_type_check_decorator
 from typing import Type
@@ -1319,6 +1319,61 @@ class CastTests(BaseTestCase):
         # Bogus calls are not expected to fail.
         cast(42, 42)
         cast('hello', 42)
+
+
+class CasttoTests(BaseTestCase):
+
+    def test_basics(self):
+
+        @castto(int)
+        def send_to_float(x: int):
+            return float(x)
+
+        @castto(float)
+        def send_to_int(x: float):
+            return int(x)
+
+        @castto(Any)
+        def send_to_any(x: T) -> T:
+            return x
+
+        @castto(list)
+        def send_to_list(x: int) -> int:
+            return x
+
+        @castto(Union[str, float])
+        def send_to_Union_str_float(x: int) -> int:
+            return x
+
+        @castto(AnyStr)
+        def send_to_AnyStr(x: int) -> int:
+            return x
+
+        @castto(None)
+        def send_to_None(x: int) -> int:
+            return x
+
+        self.assertEqual(send_to_float(42), 42)
+        self.assertEqual(send_to_int(42.0), 42)
+        self.assertIs(type(send_to_int(42.0)), int)
+        self.assertEqual(send_to_any(42), 42)
+        self.assertEqual(send_to_list(42), 42)
+        self.assertEqual(send_to_Union_str_float(42), 42)
+        self.assertEqual(send_to_AnyStr(42), 42)
+        self.assertEqual(send_to_None(42), 42)
+
+    def test_errors(self):
+
+        @castto(42)
+        def bogus_one(x: int) -> int:
+            return x
+
+        @castto('hello')
+        def bogus_two(x: int) -> int:
+            return x
+
+        bogus_one(42)
+        bogus_two(42)
 
 
 class ForwardRefTests(BaseTestCase):
