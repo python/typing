@@ -345,6 +345,9 @@ class GetTypeHintTests(BaseTestCase):
 
 class CollectionsAbcTests(BaseTestCase):
 
+    def test_isinstance_collections(self):
+        isinstance(1, collections_abc.Mapping)
+
     @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_awaitable(self):
         ns = {}
