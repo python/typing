@@ -120,6 +120,9 @@ class CollectionsAbcTests(BaseTestCase):
 
     def test_isinstance_collections(self):
         self.assertNotIsInstance(1, collections.Mapping)
+        self.assertNotIsInstance(1, collections.Iterable)
+        self.assertNotIsInstance(1, collections.Container)
+        self.assertNotIsInstance(1, collections.Sized)
 
     def test_contextmanager(self):
         @contextlib.contextmanager

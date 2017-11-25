@@ -347,6 +347,9 @@ class CollectionsAbcTests(BaseTestCase):
 
     def test_isinstance_collections(self):
         self.assertNotIsInstance(1, collections_abc.Mapping)
+        self.assertNotIsInstance(1, collections_abc.Iterable)
+        self.assertNotIsInstance(1, collections_abc.Container)
+        self.assertNotIsInstance(1, collections_abc.Sized)
 
     @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_awaitable(self):
