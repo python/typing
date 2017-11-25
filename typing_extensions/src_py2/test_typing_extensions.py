@@ -119,7 +119,7 @@ class ClassVarTests(BaseTestCase):
 class CollectionsAbcTests(BaseTestCase):
 
     def test_isinstance_collections(self):
-        self.assertNotIsInstance(1, collections_abc.Mapping)
+        self.assertNotIsInstance(1, collections.Mapping)
 
     def test_contextmanager(self):
         @contextlib.contextmanager
