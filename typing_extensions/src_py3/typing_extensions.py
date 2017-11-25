@@ -413,7 +413,7 @@ def _define_guard(type_name):
 
 class _ExtensionsGenericMeta(GenericMeta):
     def __subclasscheck__(self, subclass):
-        res = self.__extra__.__subclasshook__(sublcass)
+        res = self.__extra__.__subclasshook__(subclass)
         if res is not NotImplemented:
             return res
         if self.__extra__ in subclass.__mro__:
@@ -452,7 +452,7 @@ if hasattr(typing, 'Deque'):
     Deque = typing.Deque
 elif _geqv_defined:
     class Deque(collections.deque, typing.MutableSequence[T],
-                extra=collections.deque):
+                metaclass=_ExtensionsGenericMeta, extra=collections.deque):
         __slots__ = ()
 
         def __new__(cls, *args, **kwds):
@@ -461,7 +461,7 @@ elif _geqv_defined:
             return _generic_new(collections.deque, cls, *args, **kwds)
 else:
     class Deque(collections.deque, typing.MutableSequence[T],
-                extra=collections.deque):
+                metaclass=_ExtensionsGenericMeta, extra=collections.deque):
         __slots__ = ()
 
         def __new__(cls, *args, **kwds):
@@ -536,7 +536,7 @@ if hasattr(typing, 'DefaultDict'):
     DefaultDict = typing.DefaultDict
 elif _geqv_defined:
     class DefaultDict(collections.defaultdict, typing.MutableMapping[KT, VT],
-                      extra=collections.defaultdict):
+                      metaclass=_ExtensionsGenericMeta, extra=collections.defaultdict):
 
         __slots__ = ()
 
@@ -546,7 +546,7 @@ elif _geqv_defined:
             return _generic_new(collections.defaultdict, cls, *args, **kwds)
 else:
     class DefaultDict(collections.defaultdict, typing.MutableMapping[KT, VT],
-                      extra=collections.defaultdict):
+                      metaclass=_ExtensionsGenericMeta, extra=collections.defaultdict):
 
         __slots__ = ()
 
@@ -582,7 +582,7 @@ elif (3, 5, 0) <= sys.version_info[:3] <= (3, 5, 1):
 elif _geqv_defined:
     class Counter(collections.Counter,
                   typing.Dict[T, int],
-                  extra=collections.Counter):
+                  metaclass=_ExtensionsGenericMeta, extra=collections.Counter):
 
         __slots__ = ()
 
@@ -594,7 +594,7 @@ elif _geqv_defined:
 else:
     class Counter(collections.Counter,
                   typing.Dict[T, int],
-                  extra=collections.Counter):
+                  metaclass=_ExtensionsGenericMeta, extra=collections.Counter):
 
         __slots__ = ()
 
@@ -611,7 +611,7 @@ elif hasattr(collections, 'ChainMap'):
     # ChainMap only exists in 3.3+
     if _geqv_defined:
         class ChainMap(collections.ChainMap, typing.MutableMapping[KT, VT],
-                       extra=collections.ChainMap):
+                       metaclass=_ExtensionsGenericMeta, extra=collections.ChainMap):
 
             __slots__ = ()
 
@@ -621,7 +621,7 @@ elif hasattr(collections, 'ChainMap'):
                 return _generic_new(collections.ChainMap, cls, *args, **kwds)
     else:
         class ChainMap(collections.ChainMap, typing.MutableMapping[KT, VT],
-                       extra=collections.ChainMap):
+                       metaclass=_ExtensionsGenericMeta, extra=collections.ChainMap):
 
             __slots__ = ()
 
