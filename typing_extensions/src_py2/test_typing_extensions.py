@@ -123,6 +123,10 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertNotIsInstance(1, collections.Iterable)
         self.assertNotIsInstance(1, collections.Container)
         self.assertNotIsInstance(1, collections.Sized)
+        with self.assertRaises(TypeError):
+            isinstance(collections.deque(), typing_extensions.Deque[int])
+        with self.assertRaises(TypeError):
+            issubclass(collections.Counter, typing_extensions.Counter[str])
 
     def test_contextmanager(self):
         @contextlib.contextmanager
