@@ -610,47 +610,6 @@ def _subs_tree(cls, tvars=None, args=None):
     return tree_args
 
 
-def _remove_dups_flatten(parameters):
-    """An internal helper for Union creation and substitution: flatten Union's
-    among parameters, then remove duplicates and strict subclasses.
-    """
-
-    # Flatten out Union[Union[...], ...].
-    params = []
-    for p in parameters:
-        if isinstance(p, _Union) and p.__origin__ is Union:
-            params.extend(p.__args__)
-        elif isinstance(p, tuple) and len(p) > 0 and p[0] is Union:
-            params.extend(p[1:])
-        else:
-            params.append(p)
-    # Weed out strict duplicates, preserving the first of each occurrence.
-    all_params = set(params)
-    if len(all_params) < len(params):
-        new_params = []
-        for t in params:
-            if t in all_params:
-                new_params.append(t)
-                all_params.remove(t)
-        params = new_params
-        assert not all_params, all_params
-    # Weed out subclasses.
-    # E.g. Union[int, Employee, Manager] == Union[int, Employee].
-    # If object is present it will be sole survivor among proper classes.
-    # Never discard type variables.
-    # (In particular, Union[str, AnyStr] != AnyStr.)
-    all_params = set(params)
-    for t1 in params:
-        if not isinstance(t1, type):
-            continue
-        if any(isinstance(t2, type) and issubclass(t1, t2)
-               for t2 in all_params - {t1}
-               if not (isinstance(t2, GenericMeta) and
-                       t2.__origin__ is not None)):
-            all_params.remove(t1)
-    return tuple(t for t in params if t in all_params)
-
-
 def _check_generic(cls, parameters):
     # Check correct count for parameters of a generic cls (internal helper).
     if not cls.__parameters__:
@@ -693,34 +652,13 @@ class _Union(_FinalTypingBase, _root=True):
     - None as an argument is a special case and is replaced by
       type(None).
 
-    - Unions of unions are flattened, e.g.::
-
-        Union[Union[int, str], float] == Union[int, str, float]
-
     - Unions of a single argument vanish, e.g.::
 
         Union[int] == int  # The constructor actually returns int
 
-    - Redundant arguments are skipped, e.g.::
-
-        Union[int, str, int] == Union[int, str]
-
     - When comparing unions, the argument order is ignored, e.g.::
 
         Union[int, str] == Union[str, int]
-
-    - When two arguments have a subclass relationship, the least
-      derived argument is kept, e.g.::
-
-        class Employee: pass
-        class Manager(Employee): pass
-        Union[int, Employee, Manager] == Union[int, Employee]
-        Union[Manager, int, Employee] == Union[int, Employee]
-        Union[Employee, Manager] == Employee
-
-    - Similar for object::
-
-        Union[int, object] == object
 
     - You cannot subclass or instantiate a union.
 
@@ -740,8 +678,7 @@ class _Union(_FinalTypingBase, _root=True):
         if not isinstance(parameters, tuple):
             raise TypeError("Expected parameters=<tuple>")
         if origin is Union:
-            parameters = _remove_dups_flatten(parameters)
-            # It's not a union if there's only one type left.
+            # It's not a union if there's only one type.
             if len(parameters) == 1:
                 return parameters[0]
         self.__parameters__ = _type_vars(parameters)
@@ -806,10 +743,7 @@ class _Union(_FinalTypingBase, _root=True):
         if self is Union:
             return Union  # Nothing to substitute
         tree_args = _subs_tree(self, tvars, args)
-        tree_args = _remove_dups_flatten(tree_args)
-        if len(tree_args) == 1:
-            return tree_args[0]  # Union of a single type is that type
-        return (Union,) + tree_args
+        return (Union,) + tuple(tree_args)
 
     def __eq__(self, other):
         if isinstance(other, _Union):
