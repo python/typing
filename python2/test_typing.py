@@ -1024,6 +1024,30 @@ class GenericTests(BaseTestCase):
             self.assertEqual(t, deepcopy(t))
             self.assertEqual(t, copy(t))
 
+    def test_copy_generic_instances(self):
+        T = TypeVar('T')
+        class C(Generic[T]):
+            def __init__(self, attr):
+                self.attr = attr
+
+        c = C(42)
+        self.assertEqual(copy(c).attr, 42)
+        self.assertEqual(deepcopy(c).attr, 42)
+        self.assertIsNot(copy(c), c)
+        self.assertIsNot(deepcopy(c), c)
+        c.attr = 1
+        self.assertEqual(copy(c).attr, 1)
+        self.assertEqual(deepcopy(c).attr, 1)
+        ci = C[int](42)
+        self.assertEqual(copy(ci).attr, 42)
+        self.assertEqual(deepcopy(ci).attr, 42)
+        self.assertIsNot(copy(ci), ci)
+        self.assertIsNot(deepcopy(ci), ci)
+        ci.attr = 1
+        self.assertEqual(copy(ci).attr, 1)
+        self.assertEqual(deepcopy(ci).attr, 1)
+        self.assertEqual(ci.__orig_class__, C[int])
+
     def test_weakref_all(self):
         T = TypeVar('T')
         things = [Any, Union[T, int], Callable[..., T], Tuple[Any, Any],

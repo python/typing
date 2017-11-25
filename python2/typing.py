@@ -7,6 +7,7 @@ import functools
 import re as stdlib_re  # Avoid confusion with the re we export.
 import sys
 import types
+import copy
 try:
     import collections.abc as collections_abc
 except ImportError:
@@ -1253,11 +1254,6 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             return issubclass(instance.__class__, self)
         return False
 
-    def __copy__(self):
-        return self.__class__(self.__name__, self.__bases__, dict(self.__dict__),
-                              self.__parameters__, self.__args__, self.__origin__,
-                              self.__extra__, self.__orig_bases__)
-
     def __setattr__(self, attr, value):
         # We consider all the subscripted genrics as proxies for original class
         if (
@@ -1267,6 +1263,16 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             super(GenericMeta, self).__setattr__(attr, value)
         else:
             super(GenericMeta, self._gorg).__setattr__(attr, value)
+
+
+def _copy_generic(self):
+    """Hack to work around https://bugs.python.org/issue11480 on Python 2"""
+    return self.__class__(self.__name__, self.__bases__, dict(self.__dict__),
+                          self.__parameters__, self.__args__, self.__origin__,
+                          self.__extra__, self.__orig_bases__)
+
+
+copy._copy_dispatch[GenericMeta] = _copy_generic
 
 
 # Prevent checks for Generic to crash when defining Generic.
@@ -1365,6 +1371,9 @@ class TupleMeta(GenericMeta):
                         "with issubclass().")
 
 
+copy._copy_dispatch[TupleMeta] = _copy_generic
+
+
 class Tuple(tuple):
     """Tuple type; Tuple[X, Y] is the cross-product type of X and Y.
 
@@ -1441,6 +1450,9 @@ class CallableMeta(GenericMeta):
         args = tuple(_type_check(arg, msg) for arg in args)
         parameters = args + (result,)
         return super(CallableMeta, self).__getitem__(parameters)
+
+
+copy._copy_dispatch[CallableMeta] = _copy_generic
 
 
 class Callable(object):
