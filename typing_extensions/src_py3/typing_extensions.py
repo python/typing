@@ -419,7 +419,9 @@ class _ExtensionsGenericMeta(GenericMeta):
         between collections, typing, and typing_extensions on older
         versions of Python, see https://github.com/python/typing/issues/501.
         """
-        if not self.__extra__:
+        if (sys.version_info[:3] >= (3, 5, 3) or
+                sys.version_info[:3] < (3, 5, 0) or
+                not self.__extra__):
             return super().__subclasscheck__(subclass)
         res = self.__extra__.__subclasshook__(subclass)
         if res is not NotImplemented:
