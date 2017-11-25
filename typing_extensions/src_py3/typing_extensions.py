@@ -411,27 +411,40 @@ def _define_guard(type_name):
     else:
         return False
 
+class _ExtensionsGenericMeta(GenericMeta):
+    def __subclasscheck__(self, subclass):
+        res = self.__extra__.__subclasshook__(sublcass)
+        if res is not NotImplemented:
+            return res
+        if self.__extra__ in subclass.__mro__:
+            return True
+        for scls in self.__extra__.__subclasses__():
+            if isinstance(scls, GenericMeta):
+                continue
+            if issubclass(subclass, scls):
+                return True
+        return False
 
 if _define_guard('Awaitable'):
-    class Awaitable(typing.Generic[T_co], extra=collections_abc.Awaitable):
+    class Awaitable(typing.Generic[T_co], metaclass=_ExtensionsGenericMeta, extra=collections_abc.Awaitable):
         __slots__ = ()
 
 
 if _define_guard('Coroutine'):
     class Coroutine(Awaitable[V_co], typing.Generic[T_co, T_contra, V_co],
-                    extra=collections_abc.Coroutine):
+                    metaclass=_ExtensionsGenericMeta, extra=collections_abc.Coroutine):
         __slots__ = ()
 
 
 if _define_guard('AsyncIterable'):
     class AsyncIterable(typing.Generic[T_co],
-                        extra=collections_abc.AsyncIterable):
+                        metaclass=_ExtensionsGenericMeta, extra=collections_abc.AsyncIterable):
         __slots__ = ()
 
 
 if _define_guard('AsyncIterator'):
     class AsyncIterator(AsyncIterable[T_co],
-                        extra=collections_abc.AsyncIterator):
+                        metaclass=_ExtensionsGenericMeta, extra=collections_abc.AsyncIterator):
         __slots__ = ()
 
 
@@ -461,7 +474,7 @@ if hasattr(typing, 'ContextManager'):
     ContextManager = typing.ContextManager
 elif hasattr(contextlib, 'AbstractContextManager'):
     class ContextManager(typing.Generic[T_co],
-                         extra=contextlib.AbstractContextManager):
+                         metaclass=_ExtensionsGenericMeta, extra=contextlib.AbstractContextManager):
         __slots__ = ()
 else:
     class ContextManager(typing.Generic[T_co]):
@@ -493,7 +506,7 @@ if hasattr(typing, 'AsyncContextManager'):
     __all__.append('AsyncContextManager')
 elif hasattr(contextlib, 'AbstractAsyncContextManager'):
     class AsyncContextManager(typing.Generic[T_co],
-                              extra=contextlib.AbstractAsyncContextManager):
+                              metaclass=_ExtensionsGenericMeta, extra=contextlib.AbstractAsyncContextManager):
         __slots__ = ()
 
     __all__.append('AsyncContextManager')
@@ -622,7 +635,7 @@ elif hasattr(collections, 'ChainMap'):
 
 if _define_guard('AsyncGenerator'):
     class AsyncGenerator(AsyncIterator[T_co], typing.Generic[T_co, T_contra],
-                         extra=collections_abc.AsyncGenerator):
+                         metaclass=_ExtensionsGenericMeta, extra=collections_abc.AsyncGenerator):
         __slots__ = ()
 
 
