@@ -677,8 +677,8 @@ class ProtocolTests(BaseTestCase):
         def test_protocols_in_unions(self):
             class P(Protocol):
                 x = None  # type: int
-            Alias = Union[typing.Iterable, P]
-            Alias2 = Union[P, typing.Iterable]
+            Alias = typing.Union[typing.Iterable, P]
+            Alias2 = typing.Union[P, typing.Iterable]
             self.assertEqual(Alias, Alias2)
 
     def test_protocols_pickleable(self):
