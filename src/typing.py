@@ -1160,12 +1160,6 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # classes are supposed to be rare anyways.
         return issubclass(instance.__class__, self)
 
-    def __copy__(self):
-        return self.__class__(self.__name__, self.__bases__,
-                              _no_slots_copy(self.__dict__),
-                              self.__parameters__, self.__args__, self.__origin__,
-                              self.__extra__, self.__orig_bases__)
-
     def __setattr__(self, attr, value):
         # We consider all the subscripted generics as proxies for original class
         if (
