@@ -411,8 +411,16 @@ def _define_guard(type_name):
     else:
         return False
 
+
 class _ExtensionsGenericMeta(GenericMeta):
     def __subclasscheck__(self, subclass):
+        """This mimics a more modern GenericMeta.__subclasscheck__() logic
+        (that does not have problems with recursion) to work around interactions
+        between collections, typing, and typing_extensions on older
+        versions of Python, see https://github.com/python/typing/issues/501.
+        """
+        if not self.__extra__:
+            return super().__subclasscheck__(subclass)
         res = self.__extra__.__subclasshook__(subclass)
         if res is not NotImplemented:
             return res
@@ -425,26 +433,31 @@ class _ExtensionsGenericMeta(GenericMeta):
                 return True
         return False
 
+
 if _define_guard('Awaitable'):
-    class Awaitable(typing.Generic[T_co], metaclass=_ExtensionsGenericMeta, extra=collections_abc.Awaitable):
+    class Awaitable(typing.Generic[T_co], metaclass=_ExtensionsGenericMeta,
+                    extra=collections_abc.Awaitable):
         __slots__ = ()
 
 
 if _define_guard('Coroutine'):
     class Coroutine(Awaitable[V_co], typing.Generic[T_co, T_contra, V_co],
-                    metaclass=_ExtensionsGenericMeta, extra=collections_abc.Coroutine):
+                    metaclass=_ExtensionsGenericMeta,
+                    extra=collections_abc.Coroutine):
         __slots__ = ()
 
 
 if _define_guard('AsyncIterable'):
     class AsyncIterable(typing.Generic[T_co],
-                        metaclass=_ExtensionsGenericMeta, extra=collections_abc.AsyncIterable):
+                        metaclass=_ExtensionsGenericMeta,
+                        extra=collections_abc.AsyncIterable):
         __slots__ = ()
 
 
 if _define_guard('AsyncIterator'):
     class AsyncIterator(AsyncIterable[T_co],
-                        metaclass=_ExtensionsGenericMeta, extra=collections_abc.AsyncIterator):
+                        metaclass=_ExtensionsGenericMeta,
+                        extra=collections_abc.AsyncIterator):
         __slots__ = ()
 
 
@@ -452,7 +465,8 @@ if hasattr(typing, 'Deque'):
     Deque = typing.Deque
 elif _geqv_defined:
     class Deque(collections.deque, typing.MutableSequence[T],
-                metaclass=_ExtensionsGenericMeta, extra=collections.deque):
+                metaclass=_ExtensionsGenericMeta,
+                extra=collections.deque):
         __slots__ = ()
 
         def __new__(cls, *args, **kwds):
@@ -461,7 +475,8 @@ elif _geqv_defined:
             return _generic_new(collections.deque, cls, *args, **kwds)
 else:
     class Deque(collections.deque, typing.MutableSequence[T],
-                metaclass=_ExtensionsGenericMeta, extra=collections.deque):
+                metaclass=_ExtensionsGenericMeta,
+                extra=collections.deque):
         __slots__ = ()
 
         def __new__(cls, *args, **kwds):
@@ -474,7 +489,8 @@ if hasattr(typing, 'ContextManager'):
     ContextManager = typing.ContextManager
 elif hasattr(contextlib, 'AbstractContextManager'):
     class ContextManager(typing.Generic[T_co],
-                         metaclass=_ExtensionsGenericMeta, extra=contextlib.AbstractContextManager):
+                         metaclass=_ExtensionsGenericMeta,
+                         extra=contextlib.AbstractContextManager):
         __slots__ = ()
 else:
     class ContextManager(typing.Generic[T_co]):
@@ -506,7 +522,8 @@ if hasattr(typing, 'AsyncContextManager'):
     __all__.append('AsyncContextManager')
 elif hasattr(contextlib, 'AbstractAsyncContextManager'):
     class AsyncContextManager(typing.Generic[T_co],
-                              metaclass=_ExtensionsGenericMeta, extra=contextlib.AbstractAsyncContextManager):
+                              metaclass=_ExtensionsGenericMeta,
+                              extra=contextlib.AbstractAsyncContextManager):
         __slots__ = ()
 
     __all__.append('AsyncContextManager')
@@ -536,7 +553,8 @@ if hasattr(typing, 'DefaultDict'):
     DefaultDict = typing.DefaultDict
 elif _geqv_defined:
     class DefaultDict(collections.defaultdict, typing.MutableMapping[KT, VT],
-                      metaclass=_ExtensionsGenericMeta, extra=collections.defaultdict):
+                      metaclass=_ExtensionsGenericMeta,
+                      extra=collections.defaultdict):
 
         __slots__ = ()
 
@@ -546,7 +564,8 @@ elif _geqv_defined:
             return _generic_new(collections.defaultdict, cls, *args, **kwds)
 else:
     class DefaultDict(collections.defaultdict, typing.MutableMapping[KT, VT],
-                      metaclass=_ExtensionsGenericMeta, extra=collections.defaultdict):
+                      metaclass=_ExtensionsGenericMeta,
+                      extra=collections.defaultdict):
 
         __slots__ = ()
 
@@ -611,7 +630,8 @@ elif hasattr(collections, 'ChainMap'):
     # ChainMap only exists in 3.3+
     if _geqv_defined:
         class ChainMap(collections.ChainMap, typing.MutableMapping[KT, VT],
-                       metaclass=_ExtensionsGenericMeta, extra=collections.ChainMap):
+                       metaclass=_ExtensionsGenericMeta,
+                       extra=collections.ChainMap):
 
             __slots__ = ()
 
@@ -621,7 +641,8 @@ elif hasattr(collections, 'ChainMap'):
                 return _generic_new(collections.ChainMap, cls, *args, **kwds)
     else:
         class ChainMap(collections.ChainMap, typing.MutableMapping[KT, VT],
-                       metaclass=_ExtensionsGenericMeta, extra=collections.ChainMap):
+                       metaclass=_ExtensionsGenericMeta,
+                       extra=collections.ChainMap):
 
             __slots__ = ()
 
@@ -635,7 +656,8 @@ elif hasattr(collections, 'ChainMap'):
 
 if _define_guard('AsyncGenerator'):
     class AsyncGenerator(AsyncIterator[T_co], typing.Generic[T_co, T_contra],
-                         metaclass=_ExtensionsGenericMeta, extra=collections_abc.AsyncGenerator):
+                         metaclass=_ExtensionsGenericMeta,
+                         extra=collections_abc.AsyncGenerator):
         __slots__ = ()
 
 
