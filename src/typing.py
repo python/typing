@@ -86,6 +86,7 @@ __all__ = [
     # One-off things.
     'AnyStr',
     'cast',
+    'castto',
     'get_type_hints',
     'NewType',
     'no_type_check',
@@ -1428,6 +1429,17 @@ def cast(typ, val):
     to be as fast as possible).
     """
     return val
+
+
+def castto(typ):
+    """ Type cast decorator.
+
+    Same as cast, except written as a decorator. For use in decorators
+    with functools.wraps.
+    """
+    def _cast(val):
+        return cast(typ, val)
+    return _cast
 
 
 def _get_defaults(func):
