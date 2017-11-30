@@ -973,7 +973,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # remove bare Generic from bases if there are other generic bases
         if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
             bases = tuple(b for b in bases if b is not Generic)
-        namespace.update({'__origin__': origin, '__extra__': extra})
+        namespace.update({'__origin__': origin, '__extra__': extra, '_gorg': None})
         self = super().__new__(cls, name, bases, namespace, _root=True)
         super(GenericMeta, self).__setattr__('_gorg',
                                              self if not origin else origin._gorg)
