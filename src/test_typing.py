@@ -653,7 +653,6 @@ class GenericTests(BaseTestCase):
             pass
         class W(X[int]):
             pass
-        self.assertEqual(X.attr, 1)
         self.assertEqual(Y.attr, 2)
         self.assertEqual(Z.attr, 42)
         self.assertEqual(W.attr, 42)
