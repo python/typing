@@ -345,6 +345,17 @@ class GetTypeHintTests(BaseTestCase):
 
 class CollectionsAbcTests(BaseTestCase):
 
+    def test_isinstance_collections(self):
+        self.assertNotIsInstance(1, collections_abc.Mapping)
+        self.assertNotIsInstance(1, collections_abc.Iterable)
+        self.assertNotIsInstance(1, collections_abc.Container)
+        self.assertNotIsInstance(1, collections_abc.Sized)
+        if SUBCLASS_CHECK_FORBIDDEN:
+            with self.assertRaises(TypeError):
+                isinstance(collections.deque(), typing_extensions.Deque[int])
+            with self.assertRaises(TypeError):
+                issubclass(collections.Counter, typing_extensions.Counter[str])
+
     @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_awaitable(self):
         ns = {}
