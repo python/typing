@@ -1173,6 +1173,13 @@ if HAVE_PROTOCOLS:
             self.assertIsInstance(C(), P)
             self.assertIsInstance(D(), P)
 
+        def test_protocols_in_unions(self):
+            class P(Protocol):
+                x = None  # type: int
+            Alias = typing.Union[typing.Iterable, P]
+            Alias2 = typing.Union[P, typing.Iterable]
+            self.assertEqual(Alias, Alias2)
+
         def test_protocols_pickleable(self):
             global P, CP  # pickle wants to reference the class by name
             T = TypeVar('T')
