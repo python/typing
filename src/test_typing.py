@@ -182,6 +182,7 @@ class TypeVarTests(BaseTestCase):
         self.assertNotEqual(X, Y)
         self.assertEqual(Union[X], X)
         self.assertNotEqual(Union[X], Union[X, Y])
+        self.assertEqual(Union[X, X], X)
         self.assertNotEqual(Union[X, int], Union[X])
         self.assertNotEqual(Union[X, int], Union[int])
         self.assertEqual(Union[X, int].__args__, (X, int))
@@ -258,6 +259,14 @@ class UnionTests(BaseTestCase):
         self.assertNotEqual(u2, Any)
         self.assertNotEqual(u3, Any)
 
+    def test_union_object(self):
+        u = Union[object]
+        self.assertEqual(u, object)
+        u = Union[int, object]
+        self.assertEqual(u, object)
+        u = Union[object, int]
+        self.assertEqual(u, object)
+
     def test_unordered(self):
         u1 = Union[int, float]
         u2 = Union[float, int]
@@ -267,6 +276,19 @@ class UnionTests(BaseTestCase):
         t = Union[Employee]
         self.assertIs(t, Employee)
 
+    def test_base_class_disappears(self):
+        u = Union[Employee, Manager, int]
+        self.assertEqual(u, Union[int, Employee])
+        u = Union[Manager, int, Employee]
+        self.assertEqual(u, Union[int, Employee])
+        u = Union[Employee, Manager]
+        self.assertIs(u, Employee)
+
+    def test_union_union(self):
+        u = Union[int, float]
+        v = Union[u, Employee]
+        self.assertEqual(v, Union[int, float, Employee])
+
     def test_repr(self):
         self.assertEqual(repr(Union), 'typing.Union')
         u = Union[Employee, int]
@@ -275,7 +297,7 @@ class UnionTests(BaseTestCase):
         self.assertEqual(repr(u), 'typing.Union[int, %s.Employee]' % __name__)
         T = TypeVar('T')
         u = Union[T, int][int]
-        self.assertEqual(repr(u), repr(Union[int, int]))
+        self.assertEqual(repr(u), repr(int))
         u = Union[List[int], int]
         self.assertEqual(repr(u), 'typing.Union[typing.List[int], int]')
 
@@ -304,6 +326,7 @@ class UnionTests(BaseTestCase):
     def test_union_generalization(self):
         self.assertFalse(Union[str, typing.Iterable[int]] == str)
         self.assertFalse(Union[str, typing.Iterable[int]] == typing.Iterable[int])
+        self.assertTrue(Union[str, typing.Iterable] == typing.Iterable)
 
     def test_union_compare_other(self):
         self.assertNotEqual(Union, object)
@@ -872,11 +895,11 @@ class GenericTests(BaseTestCase):
         with self.assertRaises(TypeError):
             Tuple[T, U][T, ...]
 
-        self.assertEqual(Union[T, int][int], Union[int, int])
-        self.assertEqual(Union[T, U][int, Union[int, str]], Union[int, Union[int, str]])
+        self.assertEqual(Union[T, int][int], int)
+        self.assertEqual(Union[T, U][int, Union[int, str]], Union[int, str])
         class Base: ...
         class Derived(Base): ...
-        self.assertEqual(Union[T, Base][Derived], Union[Derived, Base])
+        self.assertEqual(Union[T, Base][Derived], Base)
         with self.assertRaises(TypeError):
             Union[T, int][1]
 
@@ -892,7 +915,7 @@ class GenericTests(BaseTestCase):
         self.assertEqual(repr(Union[Tuple, Callable]).replace('typing.', ''),
                          'Union[Tuple, Callable]')
         self.assertEqual(repr(Union[Tuple, Tuple[int]]).replace('typing.', ''),
-                         'Union[Tuple, Tuple[int]]')
+                         'Tuple')
         self.assertEqual(repr(Callable[..., Optional[T]][int]).replace('typing.', ''),
                          'Callable[..., Union[int, NoneType]]')
         self.assertEqual(repr(Callable[[], List[T]][int]).replace('typing.', ''),
