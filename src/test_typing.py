@@ -37,6 +37,9 @@ except ImportError:
     from test import mod_generics_cache
 
 
+PY36 = sys.version_info[:2] >= (3, 6)
+
+
 class BaseTestCase(TestCase):
 
     def assertIsSubclass(self, cls, class_or_tuple, msg=None):
@@ -632,6 +635,27 @@ class GenericTests(BaseTestCase):
             Generic[T, T]
         with self.assertRaises(TypeError):
             Generic[T, S, T]
+
+    @skipUnless(PY36, "__init_subclass__ support required")
+    def test_init_subclass(self):
+        class X(typing.Generic[T]):
+            def __init_subclass__(cls, **kwargs):
+                super().__init_subclass__(**kwargs)
+                cls.attr = 42
+        class Y(X):
+            pass
+        self.assertEqual(Y.attr, 42)
+        with self.assertRaises(AttributeError):
+            X.attr
+        X.attr = 1
+        Y.attr = 2
+        class Z(Y):
+            pass
+        class W(X[int]):
+            pass
+        self.assertEqual(Y.attr, 2)
+        self.assertEqual(Z.attr, 42)
+        self.assertEqual(W.attr, 42)
 
     def test_repr(self):
         self.assertEqual(repr(SimpleMapping),
@@ -1603,8 +1627,6 @@ else:
     # fake names for the sake of static analysis
     asyncio = None
     AwaitableWrapper = AsyncIteratorWrapper = ACM = object
-
-PY36 = sys.version_info[:2] >= (3, 6)
 
 PY36_TESTS = """
 from test import ann_module, ann_module2, ann_module3

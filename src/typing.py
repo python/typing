@@ -973,7 +973,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # remove bare Generic from bases if there are other generic bases
         if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
             bases = tuple(b for b in bases if b is not Generic)
-        namespace.update({'__origin__': origin, '__extra__': extra})
+        namespace.update({'__origin__': origin, '__extra__': extra,
+                          '_gorg': None if not origin else origin._gorg})
         self = super().__new__(cls, name, bases, namespace, _root=True)
         super(GenericMeta, self).__setattr__('_gorg',
                                              self if not origin else origin._gorg)
@@ -1164,7 +1165,8 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # We consider all the subscripted generics as proxies for original class
         if (
             attr.startswith('__') and attr.endswith('__') or
-            attr.startswith('_abc_')
+            attr.startswith('_abc_') or
+            self._gorg is None  # The class is not fully created, see #typing/506
         ):
             super(GenericMeta, self).__setattr__(attr, value)
         else:
