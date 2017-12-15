@@ -1317,7 +1317,7 @@ class GenericTests(BaseTestCase):
 
         class B:
             def __new__(cls, arg):
-                # call object.__new__
+                # call object
                 obj = super().__new__(cls)
                 obj.arg = arg
                 return obj
@@ -1329,6 +1329,25 @@ class GenericTests(BaseTestCase):
         c = C('foo')
         self.assertEqual(c.arg, 'foo')
 
+    def test_new_with_args2(self):
+
+        class A:
+            def __init__(self, arg):
+                self.from_a = arg
+                # call object
+                super().__init__()
+
+        # mro: C, Generic, A, object
+        class C(Generic[T], A):
+            def __init__(self, arg):
+                self.from_c = arg
+                # call Generic
+                super().__init__(arg)
+
+        c = C('foo')
+        self.assertEqual(c.from_a, 'foo')
+        self.assertEqual(c.from_c, 'foo')
+
     def test_new_no_args(self):
 
         class A(Generic[T]):
@@ -1336,7 +1355,7 @@ class GenericTests(BaseTestCase):
 
         class B:
             def __new__(cls):
-                # call object.__new__
+                # call object
                 obj = super().__new__(cls)
                 obj.from_b = 'b'
                 return obj
@@ -1347,7 +1366,7 @@ class GenericTests(BaseTestCase):
                 self.arg = arg
 
             def __new__(cls, arg):
-                # call A.__new__
+                # call A
                 obj = super().__new__(cls)
                 obj.from_c = 'c'
                 return obj
