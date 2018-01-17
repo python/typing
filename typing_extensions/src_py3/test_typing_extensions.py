@@ -1117,8 +1117,8 @@ if HAVE_PROTOCOLS:
 
         def test_generic_protocols_special_from_protocol(self):
             @runtime
-            class PR(Protocol):             
-                x = 1
+            class PR(Protocol):
+            x = 1
             class P(Protocol):
                 def meth(self):
                     pass
