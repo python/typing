@@ -1117,7 +1117,7 @@ if HAVE_PROTOCOLS:
 
         def test_generic_protocols_special_from_protocol(self):
             @runtime
-            class PR(Protocol):
+            class PR(Protocol):             
                 x = 1
             class P(Protocol):
                 def meth(self):
@@ -1205,6 +1205,15 @@ if HAVE_PROTOCOLS:
                 class E:
                     x = 1
                 self.assertIsInstance(E(), D)
+                
+        def test_compiles_with_opt(self):
+            with open('typing_extensions.py', 'r') as fo:
+                test_module = compile(fo.read(), 'test_opt', 'exec', optimize=2)
+
+            try:
+                exec(test_module, {})
+            except AttributeError:
+                self.fail('Attribute Error found when attempting to compile module with -OO flag.')
 
 
 class AllTests(BaseTestCase):
