@@ -2,8 +2,10 @@ from __future__ import absolute_import, unicode_literals
 
 import collections
 import contextlib
+import os
 import pickle
 import re
+import subprocess
 import sys
 from unittest import TestCase, main, SkipTest
 from copy import copy, deepcopy
@@ -1895,6 +1897,13 @@ class AllTests(BaseTestCase):
             return x + 1
 
         self.assertIsNone(typing.get_type_hints(foo))
+
+    def test_typing_extensions_compiles_with_opt(self):
+        file_path = os.path.join(os.getcwd(), 'python2', 'typing.py')
+        try:
+        a = subprocess.check_output('python -OO {}'.format(file_path), stderr=subprocess.STDOUT, shell=True)
+        except subprocess.CalledProcessError as e:
+            self.fail('Module does not compile with optimize=2 (-OO flag).')
 
 
 if __name__ == '__main__':
