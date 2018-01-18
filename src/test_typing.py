@@ -1,5 +1,6 @@
 import contextlib
 import collections
+import inspect
 import pickle
 import re
 import sys
@@ -2571,6 +2572,15 @@ class AllTests(BaseTestCase):
         # Check previously missing classes.
         self.assertIn('SupportsBytes', a)
         self.assertIn('SupportsComplex', a)
+
+    def test_compiles_with_opt(self):
+        raw_source = inspect.getsource(typing)
+        test_module = compile(raw_source, 'test_opt', 'exec', optimize=2)
+
+        try:
+            exec(test_module, {})
+        except:
+            self.fail('Module does not compile with optimize=2 (-OO flag).')
 
 
 if __name__ == '__main__':
