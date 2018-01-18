@@ -4,6 +4,7 @@ import abc
 import contextlib
 import collections
 import pickle
+import inspect
 from unittest import TestCase, main, skipUnless
 from typing import TypeVar, Optional
 from typing import T, KT, VT  # Not in __all__.
@@ -1205,18 +1206,10 @@ if HAVE_PROTOCOLS:
                 class E:
                     x = 1
                 self.assertIsInstance(E(), D)
-                
-        def test_compiles_with_opt(self):
-            with open('typing_extensions.py', 'r') as fo:
-                test_module = compile(fo.read(), 'test_opt', 'exec', optimize=2)
-
-            try:
-                exec(test_module, {})
-            except AttributeError:
-                self.fail('Attribute Error found when attempting to compile module with -OO flag.')
 
 
 class AllTests(BaseTestCase):
+
     def test_typing_extensions_includes_standard(self):
         a = typing_extensions.__all__
         self.assertIn('ClassVar', a)
@@ -1252,6 +1245,15 @@ class AllTests(BaseTestCase):
                 self.assertIs(
                     getattr(typing_extensions, item),
                     getattr(typing, item))
+
+    def test_typing_extensions_compiles_with_opt(self):
+        raw_source = inspect.getsource(typing_extensions)
+        test_module = compile(raw_source, 'test_opt', 'exec', optimize=2)
+
+        try:
+            exec(test_module, {})
+        except:
+            self.fail('Module does not compile with optimize=2 (-OO flag).')
 
 
 if __name__ == '__main__':
