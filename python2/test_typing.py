@@ -1898,7 +1898,7 @@ class AllTests(BaseTestCase):
 
         self.assertIsNone(typing.get_type_hints(foo))
 
-    def test_typing_extensions_compiles_with_opt(self):
+    def test_typing_compiles_with_opt(self):
         file_path = os.path.join(os.getcwd(), 'python2', 'typing.py')
         try:
             a = subprocess.check_output('python -OO {}'.format(file_path), stderr=subprocess.STDOUT, shell=True)
