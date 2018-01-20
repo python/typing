@@ -4,7 +4,7 @@ import abc
 import contextlib
 import collections
 import pickle
-import inspect
+import subprocess
 from unittest import TestCase, main, skipUnless
 from typing import TypeVar, Optional
 from typing import T, KT, VT  # Not in __all__.
@@ -1247,12 +1247,13 @@ class AllTests(BaseTestCase):
                     getattr(typing, item))
 
     def test_typing_extensions_compiles_with_opt(self):
-        raw_source = inspect.getsource(typing_extensions)
-        test_module = compile(raw_source, 'test_opt', 'exec', optimize=2)
-
+        file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                 'typing_extensions.py')
         try:
-            exec(test_module, {})
-        except:
+            subprocess.check_output('python -OO {}'.format(file_path),
+                                    stderr=subprocess.STDOUT,
+                                    shell=True)
+        except subprocess.CalledProcessError as e:
             self.fail('Module does not compile with optimize=2 (-OO flag).')
 
 
