@@ -742,9 +742,12 @@ class AllTests(BaseTestCase):
                     getattr(typing, item))
 
     def test_typing_extensions_compiles_with_opt(self):
-        file_path = os.path.join(os.getcwd(), 'typing_extensions', 'src_py2', 'typing_extensions.py')
+        file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                 'typing_extensions.py')
         try:
-            a = subprocess.check_output('python -OO {}'.format(file_path), stderr=subprocess.STDOUT, shell=True)
+            subprocess.check_output('python -OO {}'.format(file_path),
+                                    stderr=subprocess.STDOUT,
+                                    shell=True)
         except subprocess.CalledProcessError as e:
             self.fail('Module does not compile with optimize=2 (-OO flag).')
 
