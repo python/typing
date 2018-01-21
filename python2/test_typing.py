@@ -1905,7 +1905,7 @@ class AllTests(BaseTestCase):
             subprocess.check_output('python -OO {}'.format(file_path),
                                     stderr=subprocess.STDOUT,
                                     shell=True)
-        except subprocess.CalledProcessError as e:
+        except:
             self.fail('Module does not compile with optimize=2 (-OO flag).')
 
 
