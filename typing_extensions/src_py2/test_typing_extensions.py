@@ -4,6 +4,7 @@ import abc
 import contextlib
 import collections
 import pickle
+import subprocess
 from unittest import TestCase, main, skipUnless
 
 from typing_extensions import NoReturn, ClassVar
@@ -739,6 +740,16 @@ class AllTests(BaseTestCase):
                 self.assertIs(
                     getattr(typing_extensions, item),
                     getattr(typing, item))
+
+    def test_typing_extensions_compiles_with_opt(self):
+        file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                 'typing_extensions.py')
+        try:
+            subprocess.check_output('python -OO {}'.format(file_path),
+                                    stderr=subprocess.STDOUT,
+                                    shell=True)
+        except subprocess.CalledProcessError:
+            self.fail('Module does not compile with optimize=2 (-OO flag).')
 
 
 if __name__ == '__main__':

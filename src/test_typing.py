@@ -1,7 +1,9 @@
 import contextlib
 import collections
+import os
 import pickle
 import re
+import subprocess
 import sys
 from unittest import TestCase, main, skipUnless, SkipTest, expectedFailure
 from copy import copy, deepcopy
@@ -2637,6 +2639,16 @@ class AllTests(BaseTestCase):
         # Check previously missing classes.
         self.assertIn('SupportsBytes', a)
         self.assertIn('SupportsComplex', a)
+
+    def test_typing_compiles_with_opt(self):
+        file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                 'typing.py')
+        try:
+            subprocess.check_output('python -OO {}'.format(file_path),
+                                    stderr=subprocess.STDOUT,
+                                    shell=True)
+        except subprocess.CalledProcessError:
+            self.fail('Module does not compile with optimize=2 (-OO flag).')
 
 
 if __name__ == '__main__':

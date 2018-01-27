@@ -981,9 +981,9 @@ if HAVE_PROTOCOLS:
             if OLD_GENERICS:
                 return _generic_new(_next_in_mro(cls), cls, *args, **kwds)
             return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
-
-    Protocol.__doc__ = Protocol.__doc__.format(bases="Protocol, Generic[T]" if
-                                               OLD_GENERICS else "Protocol[T]")
+    if Protocol.__doc__ is not None:
+        Protocol.__doc__ = Protocol.__doc__.format(bases="Protocol, Generic[T]" if
+                                                   OLD_GENERICS else "Protocol[T]")
 
     def runtime(cls):
         """Mark a protocol class as a runtime protocol, so that it
