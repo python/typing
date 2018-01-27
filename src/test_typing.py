@@ -1310,6 +1310,72 @@ class GenericTests(BaseTestCase):
         with self.assertRaises(Exception):
             D[T]
 
+    def test_new_with_args(self):
+
+        class A(Generic[T]):
+            pass
+
+        class B:
+            def __new__(cls, arg):
+                # call object
+                obj = super().__new__(cls)
+                obj.arg = arg
+                return obj
+
+        # mro: C, A, Generic, B, object
+        class C(A, B):
+            pass
+
+        c = C('foo')
+        self.assertEqual(c.arg, 'foo')
+
+    def test_new_with_args2(self):
+
+        class A:
+            def __init__(self, arg):
+                self.from_a = arg
+                # call object
+                super().__init__()
+
+        # mro: C, Generic, A, object
+        class C(Generic[T], A):
+            def __init__(self, arg):
+                self.from_c = arg
+                # call Generic
+                super().__init__(arg)
+
+        c = C('foo')
+        self.assertEqual(c.from_a, 'foo')
+        self.assertEqual(c.from_c, 'foo')
+
+    def test_new_no_args(self):
+
+        class A(Generic[T]):
+            pass
+
+        class B:
+            def __new__(cls):
+                # call object
+                obj = super().__new__(cls)
+                obj.from_b = 'b'
+                return obj
+
+        # mro: C, A, Generic, B, object
+        class C(A, B):
+            def __init__(self, arg):
+                self.arg = arg
+
+            def __new__(cls, arg):
+                # call A
+                obj = super().__new__(cls)
+                obj.from_c = 'c'
+                return obj
+
+        c = C('foo')
+        self.assertEqual(c.arg, 'foo')
+        self.assertEqual(c.from_b, 'b')
+        self.assertEqual(c.from_c, 'c')
+
 
 class ClassVarTests(BaseTestCase):
 
