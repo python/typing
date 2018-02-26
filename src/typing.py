@@ -534,6 +534,12 @@ class TypeVar(_TypingBase, _root=True):
     def __subclasscheck__(self, cls):
         raise TypeError("Type variables cannot be used with issubclass().")
 
+    def __neg__(self):
+        return TypeVar(self.__name__, *self.__constraints__, bound=self.__bound__, covariant=False, contravariant=True)
+
+    def __pos__(self):
+        return TypeVar(self.__name__, *self.__constraints__, bound=self.__bound__, covariant=True, contravariant=False)
+
 
 # Some unconstrained type variables.  These are used by the container types.
 # (These are not for export.)

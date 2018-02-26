@@ -236,6 +236,17 @@ class TypeVarTests(BaseTestCase):
         with self.assertRaises(ValueError):
             TypeVar('T', covariant=True, contravariant=True)
 
+    def test_typevar_unary_operators(self):
+        A = TypeVar('A')
+        self.assertFalse(A.__covariant__)
+        self.assertFalse(A.__contravariant__)
+        A_co = +A
+        self.assertTrue(A_co.__covariant__)
+        self.assertFalse(A_co.__contravariant__)
+        A_contra = -A
+        self.assertFalse(A_contra.__covariant__)
+        self.assertTrue(A_contra.__contravariant__)
+
 
 class UnionTests(BaseTestCase):
 
