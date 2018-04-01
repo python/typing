@@ -1080,7 +1080,7 @@ if PEP_560:
                 params = (params,)
             if not params and cls is not Tuple:
                 raise TypeError(
-                    "Parameter list to {[...] cannot be empty".format(cls.__qualname__}))
+                    "Parameter list to {}[...] cannot be empty".format(cls.__qualname__))
             msg = "Parameters to generic types must be types."
             params = tuple(_type_check(p, msg) for p in params)
             if cls is Protocol:
