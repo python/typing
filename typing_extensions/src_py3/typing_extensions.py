@@ -1080,7 +1080,7 @@ if PEP_560:
                 params = (params,)
             if not params and cls is not Tuple:
                 raise TypeError(
-                    f"Parameter list to {cls.__qualname__}[...] cannot be empty")
+                    "Parameter list to {[...] cannot be empty".format(cls.__qualname__}))
             msg = "Parameters to generic types must be types."
             params = tuple(_type_check(p, msg) for p in params)
             if cls is Protocol:
@@ -1130,8 +1130,8 @@ if PEP_560:
                     if not tvarset <= gvarset:
                         s_vars = ', '.join(str(t) for t in tvars if t not in gvarset)
                         s_args = ', '.join(str(g) for g in gvars)
-                        raise TypeError(f"Some type variables ({s_vars}) are"
-                                        f" not listed in {the_base}[{s_args}]")
+                        raise TypeError("Some type variables ({}) are"
+                                        " not listed in {}[{}]".format(s_vars, the_base, s_args))
                     tvars = gvars
             cls.__parameters__ = tuple(tvars)
 
