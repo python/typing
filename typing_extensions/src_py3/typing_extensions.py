@@ -1019,7 +1019,8 @@ if PEP_560:
     from typing import _type_check, _GenericAlias, _collect_type_vars
 
     class _ProtocolMeta(abc.ABCMeta):
-        # This is a bit unfortunate and exists only because of lack of __instancehook__.
+        # This metaclass is a bit unfortunate and exists only because of the lack
+        # of __instancehook__.
         def __instancecheck__(cls, instance):
             # We need this method for situations where attributes are
             # assigned in __init__.
