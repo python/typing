@@ -997,24 +997,10 @@ if HAVE_PROTOCOLS:
         Protocol.__doc__ = Protocol.__doc__.format(bases="Protocol, Generic[T]" if
                                                    OLD_GENERICS else "Protocol[T]")
 
-    def runtime(cls):
-        """Mark a protocol class as a runtime protocol, so that it
-        can be used with isinstance() and issubclass(). Raise TypeError
-        if applied to a non-protocol class.
-
-        This allows a simple-minded structural check very similar to the
-        one-offs in collections.abc such as Hashable.
-        """
-        if not isinstance(cls, _ProtocolMeta) or not cls._is_protocol:
-            raise TypeError('@runtime can be only applied to protocol classes,'
-                            ' got %r' % cls)
-        cls._is_runtime_protocol = True
-        return cls
-
 
 if PEP_560:
     # We need to rewrite these from scratch.
-    del _ProtocolMeta, Protocol, runtime
+    del _ProtocolMeta, Protocol
 
     from typing import _type_check, _GenericAlias, _collect_type_vars
 
