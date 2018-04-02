@@ -1017,20 +1017,20 @@ if PEP_560:
 
     class _ProtocolMeta(abc.ABCMeta):
         # This is a bit unfortunate and exists only because of lack of __instancehook__.
-            def __instancecheck__(cls, instance):
-                # We need this method for situations where attributes are
-                # assigned in __init__.
-                if ((not getattr(cls, '_is_protocol', False) or
-                        cls._callable_members_only) and
-                        issubclass(instance.__class__, cls)):
+        def __instancecheck__(cls, instance):
+            # We need this method for situations where attributes are
+            # assigned in __init__.
+            if ((not getattr(cls, '_is_protocol', False) or
+                    cls._callable_members_only) and
+                    issubclass(instance.__class__, cls)):
+                return True
+            if cls._is_protocol:
+                if all(hasattr(instance, attr) and
+                        (not callable(getattr(cls, attr, None)) or
+                         getattr(instance, attr) is not None)
+                        for attr in cls._protocol_attrs):
                     return True
-                if cls._is_protocol:
-                    if all(hasattr(instance, attr) and
-                            (not callable(getattr(cls, attr, None)) or
-                             getattr(instance, attr) is not None)
-                            for attr in cls._protocol_attrs):
-                        return True
-                return super().__instancecheck__(instance)
+            return super().__instancecheck__(instance)
 
 
     class Protocol(metaclass=_ProtocolMeta):
@@ -1144,12 +1144,12 @@ if PEP_560:
                 if not cls.__dict__.get('_is_protocol', None):
                     return NotImplemented
                 if not getattr(cls, '_is_runtime_protocol', False):
-                    if sys._getframe(2).f_globals['__name__'] in ['abc', 'functools', 'typing']:
+                    if sys._getframe(2).f_globals['__name__'] in ['abc', 'functools']:
                         return NotImplemented
                     raise TypeError("Instance and class checks can only be used with"
                                     " @runtime protocols")
                 if not cls._callable_members_only:
-                    if sys._getframe(2).f_globals['__name__'] in ['abc', 'functools', 'typing']:
+                    if sys._getframe(2).f_globals['__name__'] in ['abc', 'functools']:
                         return NotImplemented
                     raise TypeError("Protocols with non-method members"
                                     " don't support issubclass()")
