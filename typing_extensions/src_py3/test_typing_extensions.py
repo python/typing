@@ -1148,19 +1148,9 @@ if HAVE_PROTOCOLS:
                 self.assertFalse(P._is_runtime_protocol)
             self.assertTrue(PR._is_runtime_protocol)
             self.assertTrue(PG[int]._is_protocol)
-            if not PEP_560:
-                self.assertEqual(P._get_protocol_attrs(), {'meth'})
-                self.assertEqual(PR._get_protocol_attrs(), {'x'})
-                self.assertEqual(frozenset(PG._get_protocol_attrs()),
-                                 frozenset({'x', 'meth'}))
-                self.assertEqual(frozenset(PG[int]._get_protocol_attrs()),
-                                 frozenset({'x', 'meth'}))
-            else:
-                self.assertEqual(P._protocol_attrs, {'meth'})
-                self.assertEqual(PR._protocol_attrs, {'x'})
-                self.assertEqual(frozenset(PG._protocol_attrs),
-                                 frozenset({'x', 'meth'}))
-                self.assertEqual(frozenset(PG[int]._protocol_attrs),
+            self.assertEqual(typing_extensions._get_protocol_attrs(P), {'meth'})
+            self.assertEqual(typing_extensions._get_protocol_attrs(PR), {'x'})
+            self.assertEqual(frozenset(typing_extensions._get_protocol_attrs(PG)),
                                  frozenset({'x', 'meth'}))
 
         def test_no_runtime_deco_on_nominal(self):

@@ -738,6 +738,30 @@ if OLD_GENERICS:
                 next_in_mro = cls.__mro__[i + 1]
         return next_in_mro
 
+
+def _get_protocol_attrs(cls):
+    attrs = set()
+    for base in cls.__mro__[:-1]:  # without object
+        if base.__name__ in ('Protocol', 'Generic'):
+            continue
+        annotations = getattr(base, '__annotations__', {})
+        for attr in list(base.__dict__.keys()) + list(annotations.keys()):
+            if (not attr.startswith('_abc_') and attr not in (
+                    '__abstractmethods__', '__annotations__', '__weakref__',
+                    '_is_protocol', '_is_runtime_protocol', '__dict__',
+                    '__args__', '__slots__',
+                    '__next_in_mro__', '__parameters__', '__origin__',
+                    '__orig_bases__', '__extra__', '__tree_hash__',
+                    '__doc__', '__subclasshook__', '__init__', '__new__',
+                    '__module__', '_MutableMapping__marker', '_gorg')):
+                attrs.add(attr)
+    return attrs
+
+
+def _callable_members_only(cls):
+    return all(callable(getattr(cls, attr, None)) for attr in _get_protocol_attrs(cls))
+
+
 if HAVE_PROTOCOLS:
     class _ProtocolMeta(GenericMeta):
         """Internal metaclass for Protocol.
@@ -826,8 +850,6 @@ if HAVE_PROTOCOLS:
                             base.__origin__ is Generic):
                         raise TypeError('Protocols can only inherit from other'
                                         ' protocols, got %r' % base)
-                cls._callable_members_only = all(callable(getattr(cls, attr, None))
-                                                 for attr in cls._get_protocol_attrs())
 
                 def _no_init(self, *args, **kwargs):
                     if type(self)._is_protocol:
@@ -840,7 +862,7 @@ if HAVE_PROTOCOLS:
                 if not isinstance(other, type):
                     # Same error as for issubclass(1, int)
                     raise TypeError('issubclass() arg 1 must be a class')
-                for attr in cls._get_protocol_attrs():
+                for attr in _get_protocol_attrs(cls):
                     for base in other.__mro__:
                         if attr in base.__dict__:
                             if base.__dict__[attr] is None:
@@ -859,14 +881,14 @@ if HAVE_PROTOCOLS:
             # We need this method for situations where attributes are
             # assigned in __init__.
             if ((not getattr(self, '_is_protocol', False) or
-                    self._callable_members_only) and
+                    _callable_members_only(self)) and
                     issubclass(instance.__class__, self)):
                 return True
             if self._is_protocol:
                 if all(hasattr(instance, attr) and
                         (not callable(getattr(self, attr, None)) or
                          getattr(instance, attr) is not None)
-                        for attr in self._get_protocol_attrs()):
+                        for attr in _get_protocol_attrs(self)):
                     return True
             return super(GenericMeta, self).__instancecheck__(instance)
 
@@ -883,31 +905,12 @@ if HAVE_PROTOCOLS:
                 raise TypeError("Instance and class checks can only be used with"
                                 " @runtime protocols")
             if (self.__dict__.get('_is_runtime_protocol', None) and
-                    not self._callable_members_only):
+                    not _callable_members_only(self)):
                 if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools', 'typing']:
                     return super(GenericMeta, self).__subclasscheck__(cls)
                 raise TypeError("Protocols with non-method members"
                                 " don't support issubclass()")
             return super(GenericMeta, self).__subclasscheck__(cls)
-
-        def _get_protocol_attrs(self):
-            attrs = set()
-            for base in self.__mro__[:-1]:  # without object
-                if base.__name__ in ('Protocol', 'Generic'):
-                    continue
-                annotations = getattr(base, '__annotations__', {})
-                for attr in list(base.__dict__.keys()) + list(annotations.keys()):
-                    if (not attr.startswith('_abc_') and attr not in (
-                            '__abstractmethods__', '__annotations__', '__weakref__',
-                            '_is_protocol', '_is_runtime_protocol', '__dict__',
-                            '__args__', '__slots__', '_get_protocol_attrs',
-                            '__next_in_mro__', '__parameters__', '__origin__',
-                            '__orig_bases__', '__extra__', '__tree_hash__',
-                            '__doc__', '__subclasshook__', '__init__', '__new__',
-                            '__module__', '_MutableMapping__marker', '_gorg',
-                            '_callable_members_only')):
-                        attrs.add(attr)
-            return attrs
 
         if not OLD_GENERICS:
             @_tp_cache
@@ -1021,14 +1024,14 @@ if PEP_560:
             # We need this method for situations where attributes are
             # assigned in __init__.
             if ((not getattr(cls, '_is_protocol', False) or
-                    cls._callable_members_only) and
+                    _callable_members_only(cls)) and
                     issubclass(instance.__class__, cls)):
                 return True
             if cls._is_protocol:
                 if all(hasattr(instance, attr) and
                         (not callable(getattr(cls, attr, None)) or
                          getattr(instance, attr) is not None)
-                        for attr in cls._protocol_attrs):
+                        for attr in _get_protocol_attrs(cls)):
                     return True
             return super().__instancecheck__(instance)
 
@@ -1148,7 +1151,7 @@ if PEP_560:
                         return NotImplemented
                     raise TypeError("Instance and class checks can only be used with"
                                     " @runtime protocols")
-                if not cls._callable_members_only:
+                if not _callable_members_only(cls):
                     if sys._getframe(2).f_globals['__name__'] in ['abc', 'functools']:
                         return NotImplemented
                     raise TypeError("Protocols with non-method members"
@@ -1156,13 +1159,14 @@ if PEP_560:
                 if not isinstance(other, type):
                     # Same error as for issubclass(1, int)
                     raise TypeError('issubclass() arg 1 must be a class')
-                if getattr(other, '_is_protocol', False):
-                    return other._protocol_attrs >= cls._protocol_attrs
-                for attr in cls._protocol_attrs:
+                for attr in _get_protocol_attrs(cls):
                     for base in other.__mro__:
                         if attr in base.__dict__:
                             if base.__dict__[attr] is None:
                                 return NotImplemented
+                            break
+                        if (attr in getattr(base, '__annotations__', {}) and
+                                isinstance(other, _ProtocolMeta) and other._is_protocol):
                             break
                     else:
                         return NotImplemented
@@ -1185,31 +1189,6 @@ if PEP_560:
                 if type(self)._is_protocol:
                     raise TypeError('Protocols cannot be instantiated')
             cls.__init__ = _no_init
-
-            # Caculate protocol members, and the all callable flag.
-            attrs = set()
-            for base in cls.__bases__:
-                if base.__name__ in ('Protocol', 'Generic'):
-                    continue
-                attrs.update(base._protocol_attrs)
-            own_attrs = set()
-            annotations = getattr(cls, '__annotations__', {})
-            for attr in list(cls.__dict__.keys()) + list(annotations.keys()):
-                if (not attr.startswith('_abc_') and attr not in (
-                        '__abstractmethods__', '__annotations__', '__weakref__',
-                        '_is_protocol', '_is_runtime_protocol', '__dict__',
-                        '__args__', '__slots__', '_get_protocol_attrs',
-                        '__next_in_mro__', '__parameters__', '__origin__',
-                        '__orig_bases__', '__extra__', '__tree_hash__',
-                        '__doc__', '__subclasshook__', '__init__', '__new__',
-                        '__module__', '_MutableMapping__marker', '_gorg',
-                        '_callable_members_only')):
-                    own_attrs.add(attr)
-            cls._protocol_attrs = attrs | own_attrs
-            cls._callable_members_only = (all(callable(getattr(cls, attr, None))
-                                                     for attr in own_attrs) and
-                                          all(base._callable_members_only for base in cls.__bases__
-                                              if base.__name__ not in ('Protocol', 'Generic')))
 
 
 if HAVE_PROTOCOLS:
