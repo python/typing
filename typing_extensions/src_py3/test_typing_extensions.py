@@ -1102,7 +1102,7 @@ if HAVE_PROTOCOLS:
             T = TypeVar('T')
             S = TypeVar('S')
             class P(Protocol[T, S]): pass
-            # After PEP 560 unsubscripted generics have standard repr.
+            # After PEP 560 unsubscripted generics have a standard repr.
             if not PEP_560:
                 self.assertTrue(repr(P).endswith('P'))
             self.assertTrue(repr(P[T, S]).endswith('P[~T, ~S]'))
@@ -1151,6 +1151,9 @@ if HAVE_PROTOCOLS:
             self.assertEqual(typing_extensions._get_protocol_attrs(P), {'meth'})
             self.assertEqual(typing_extensions._get_protocol_attrs(PR), {'x'})
             self.assertEqual(frozenset(typing_extensions._get_protocol_attrs(PG)),
+                             frozenset({'x', 'meth'}))
+            if not PEP_560:
+                self.assertEqual(frozenset(typing_extensions._get_protocol_attrs(PG[int])),
                                  frozenset({'x', 'meth'}))
 
         def test_no_runtime_deco_on_nominal(self):

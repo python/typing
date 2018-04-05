@@ -758,11 +758,11 @@ def _get_protocol_attrs(cls):
     return attrs
 
 
-def _callable_members_only(cls):
+def _is_callable_members_only(cls):
     return all(callable(getattr(cls, attr, None)) for attr in _get_protocol_attrs(cls))
 
 
-if HAVE_PROTOCOLS:
+if HAVE_PROTOCOLS and not PEP_560:
     class _ProtocolMeta(GenericMeta):
         """Internal metaclass for Protocol.
 
@@ -881,7 +881,7 @@ if HAVE_PROTOCOLS:
             # We need this method for situations where attributes are
             # assigned in __init__.
             if ((not getattr(self, '_is_protocol', False) or
-                    _callable_members_only(self)) and
+                    _is_callable_members_only(self)) and
                     issubclass(instance.__class__, self)):
                 return True
             if self._is_protocol:
@@ -905,7 +905,7 @@ if HAVE_PROTOCOLS:
                 raise TypeError("Instance and class checks can only be used with"
                                 " @runtime protocols")
             if (self.__dict__.get('_is_runtime_protocol', None) and
-                    not _callable_members_only(self)):
+                    not _is_callable_members_only(self)):
                 if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools', 'typing']:
                     return super(GenericMeta, self).__subclasscheck__(cls)
                 raise TypeError("Protocols with non-method members"
@@ -998,10 +998,7 @@ if HAVE_PROTOCOLS:
                                                    OLD_GENERICS else "Protocol[T]")
 
 
-if PEP_560:
-    # We need to rewrite these from scratch.
-    del _ProtocolMeta, Protocol
-
+elif PEP_560:
     from typing import _type_check, _GenericAlias, _collect_type_vars
 
     class _ProtocolMeta(abc.ABCMeta):
@@ -1011,7 +1008,7 @@ if PEP_560:
             # We need this method for situations where attributes are
             # assigned in __init__.
             if ((not getattr(cls, '_is_protocol', False) or
-                    _callable_members_only(cls)) and
+                    _is_callable_members_only(cls)) and
                     issubclass(instance.__class__, cls)):
                 return True
             if cls._is_protocol:
@@ -1024,8 +1021,8 @@ if PEP_560:
 
 
     class Protocol(metaclass=_ProtocolMeta):
-        # There is quite a few overlapping code with typing.Generic.
-        # Unfortunarely it is hard to avoid this while these live in two different modules.
+        # There is quite a lot of overlapping code with typing.Generic.
+        # Unfortunately it is hard to avoid this while these live in two different modules.
         # The duplicated code will be removed when Protocol is moved to typing.
         """Base class for protocol classes. Protocol classes are defined as::
 
@@ -1061,7 +1058,7 @@ if PEP_560:
         def __new__(cls, *args, **kwds):
             if cls is Protocol:
                 raise TypeError("Type Protocol cannot be instantiated; "
-                                "it can be used only as a base class")
+                                "it can only be used as a base class")
             return super().__new__(cls)
 
         @_tp_cache
@@ -1076,8 +1073,12 @@ if PEP_560:
             if cls is Protocol:
                 # Generic can only be subscripted with unique type variables.
                 if not all(isinstance(p, TypeVar) for p in params):
+                    i = 0
+                    while isinstance(params[i], TypeVar):
+                        i += 1
                     raise TypeError(
-                        "Parameters to Protocol[...] must all be type variables")
+                        "Parameters to Protocol[...] must all be type variables."
+                        " Parameter {} is {}".format(i + 1, params[i]))
                 if len(set(params)) != len(params):
                     raise TypeError(
                         "Parameters to Protocol[...] must all be unique")
@@ -1138,7 +1139,7 @@ if PEP_560:
                         return NotImplemented
                     raise TypeError("Instance and class checks can only be used with"
                                     " @runtime protocols")
-                if not _callable_members_only(cls):
+                if not _is_callable_members_only(cls):
                     if sys._getframe(2).f_globals['__name__'] in ['abc', 'functools']:
                         return NotImplemented
                     raise TypeError("Protocols with non-method members"
