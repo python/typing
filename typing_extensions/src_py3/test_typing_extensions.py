@@ -20,6 +20,9 @@ except ImportError:
 import typing
 import typing_extensions
 import collections.abc as collections_abc
+
+PEP_560 = sys.version_info[:3] >= (3, 7, 0)
+
 OLD_GENERICS = False
 try:
     from typing import _type_vars, _next_in_mro, _type_check
@@ -471,7 +474,10 @@ class CollectionsAbcTests(BaseTestCase):
         class C(typing_extensions.Counter[T]): ...
         if TYPING_3_5_3:
             self.assertIs(type(C[int]()), C)
-            self.assertEqual(C.__bases__, (typing_extensions.Counter,))
+            if not PEP_560:
+                self.assertEqual(C.__bases__, (typing_extensions.Counter,))
+            else:
+                self.assertEqual(C.__bases__, (collections.Counter, typing.Generic))
 
     def test_counter_subclass_instantiation(self):
 
@@ -818,9 +824,10 @@ if HAVE_PROTOCOLS:
             self.assertIsSubclass(C, P)
             self.assertIsSubclass(C, PG)
             self.assertIsSubclass(BadP, PG)
-            self.assertIsSubclass(PG[int], PG)
-            self.assertIsSubclass(BadPG[int], P)
-            self.assertIsSubclass(BadPG[T], PG)
+            if not PEP_560:
+                self.assertIsSubclass(PG[int], PG)
+                self.assertIsSubclass(BadPG[int], P)
+                self.assertIsSubclass(BadPG[T], PG)
             with self.assertRaises(TypeError):
                 issubclass(C, PG[T])
             with self.assertRaises(TypeError):
@@ -1043,7 +1050,11 @@ if HAVE_PROTOCOLS:
                 def meth(self): pass
             class P(PR[int, str], Protocol):
                 y = 1
-            self.assertIsSubclass(PR[int, str], PR)
+            if not PEP_560:
+                self.assertIsSubclass(PR[int, str], PR)
+            else:
+                with self.assertRaises(TypeError):
+                    self.assertIsSubclass(PR[int, str], PR)
             self.assertIsSubclass(P, PR)
             with self.assertRaises(TypeError):
                 PR[int]
@@ -1091,7 +1102,9 @@ if HAVE_PROTOCOLS:
             T = TypeVar('T')
             S = TypeVar('S')
             class P(Protocol[T, S]): pass
-            self.assertTrue(repr(P).endswith('P'))
+            # After PEP 560 unsubscripted generics have a standard repr.
+            if not PEP_560:
+                self.assertTrue(repr(P).endswith('P'))
             self.assertTrue(repr(P[T, S]).endswith('P[~T, ~S]'))
             self.assertTrue(repr(P[int, str]).endswith('P[int, str]'))
 
@@ -1135,12 +1148,13 @@ if HAVE_PROTOCOLS:
                 self.assertFalse(P._is_runtime_protocol)
             self.assertTrue(PR._is_runtime_protocol)
             self.assertTrue(PG[int]._is_protocol)
-            self.assertEqual(P._get_protocol_attrs(), {'meth'})
-            self.assertEqual(PR._get_protocol_attrs(), {'x'})
-            self.assertEqual(frozenset(PG._get_protocol_attrs()),
+            self.assertEqual(typing_extensions._get_protocol_attrs(P), {'meth'})
+            self.assertEqual(typing_extensions._get_protocol_attrs(PR), {'x'})
+            self.assertEqual(frozenset(typing_extensions._get_protocol_attrs(PG)),
                              frozenset({'x', 'meth'}))
-            self.assertEqual(frozenset(PG[int]._get_protocol_attrs()),
-                             frozenset({'x', 'meth'}))
+            if not PEP_560:
+                self.assertEqual(frozenset(typing_extensions._get_protocol_attrs(PG[int])),
+                                 frozenset({'x', 'meth'}))
 
         def test_no_runtime_deco_on_nominal(self):
             with self.assertRaises(TypeError):
