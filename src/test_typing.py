@@ -1378,6 +1378,30 @@ class GenericTests(BaseTestCase):
         self.assertEqual(c.from_b, 'b')
         self.assertEqual(c.from_c, 'c')
 
+    def test_instantiate_typevar(self):
+        T = TypeVar('T')
+
+        class C(Generic[T]):
+            def __init__(self):
+                self.inner = T()
+
+        c = C[int]
+        x = c()
+        self.assertEqual(x.inner, int())
+
+        U = TypeVar('U')
+        V = TypeVar('V')
+
+        class P(Generic[U, V]):
+            def __init__(self):
+                self.left = U()
+                self.right = V()
+
+        p = P[int, str]
+        y = p()
+        self.assertEqual(y.left, int())
+        self.assertEqual(y.right, str())
+
 
 class ClassVarTests(BaseTestCase):
 

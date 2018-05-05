@@ -494,7 +494,7 @@ class TypeVar(_TypingBase, _root=True):
     """
 
     __slots__ = ('__name__', '__bound__', '__constraints__',
-                 '__covariant__', '__contravariant__')
+                 '__covariant__', '__contravariant__', '__value__')
 
     def __init__(self, name, *constraints, bound=None,
                  covariant=False, contravariant=False):
@@ -515,6 +515,7 @@ class TypeVar(_TypingBase, _root=True):
             self.__bound__ = _type_check(bound, "Bound must be a type.")
         else:
             self.__bound__ = None
+        self.__value__ = None
 
     def _get_type_vars(self, tvars):
         if self not in tvars:
@@ -534,6 +535,11 @@ class TypeVar(_TypingBase, _root=True):
 
     def __subclasscheck__(self, cls):
         raise TypeError("Type variables cannot be used with issubclass().")
+
+    def __call__(self, *args, **kwargs):
+        if self.__value__ is not None:
+            return self.__value__(*args, **kwargs)
+        super().__call__(*args, **kwargs)
 
 
 # Some unconstrained type variables.  These are used by the container types.
@@ -1132,6 +1138,11 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
             _check_generic(self, params)
             tvars = _type_vars(params)
             args = params
+            if len(params) != len(self.__parameters__):
+                raise TypeError(
+                    "Wrong number of type parameters")
+            for c, p in zip(params, self.__parameters__):
+                p.__value__ = c
 
         prepend = (self,) if self.__origin__ is None else ()
         return self.__class__(self.__name__,
