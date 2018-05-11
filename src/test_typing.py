@@ -1355,6 +1355,9 @@ class GenericTests(BaseTestCase):
         class A(Generic[T]):
             pass
 
+        with self.assertRaises(TypeError):
+            A('foo')
+
         class B:
             def __new__(cls):
                 # call object
