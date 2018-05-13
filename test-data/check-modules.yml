@@ -1,0 +1,17 @@
+# Type checker test cases dealing with modules and imports.
+
+- case: Access imported definitions
+  files:
+    - content: |
+        import m
+        import typing
+        m.f()           # E: Too few arguments for "f"
+        m.f(object())   # E: Argument 1 to "f" has incompatible type "object"; expected "A"
+        m.x = object()  # E: Incompatible types in assignment (expression has type "object", variable has type "A")
+        m.f(m.A())
+        m.x = m.A()
+    - path: m.py
+      content: |
+        class A: pass
+        def f(a: A) -> None: pass
+        x = A()
