@@ -2061,7 +2061,7 @@ class IO(Generic[AnyStr]):
     def close(self):
         pass
 
-    @abstractmethod
+    @abstractproperty
     def closed(self):
         pass
 
