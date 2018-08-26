@@ -5,6 +5,7 @@ import contextlib
 import collections
 import pickle
 import subprocess
+import types
 from unittest import TestCase, main, skipUnless
 from typing import TypeVar, Optional
 from typing import T, KT, VT  # Not in __all__.
@@ -690,19 +691,33 @@ if HAVE_PROTOCOLS:
             class D:
                 def meth(self):
                     pass
+            def f():
+                pass
             self.assertIsSubclass(D, P)
             self.assertIsInstance(D(), P)
             self.assertNotIsSubclass(C, P)
             self.assertNotIsInstance(C(), P)
+            self.assertNotIsSubclass(types.FunctionType, P)
+            self.assertNotIsInstance(f, P)
 
         def test_everything_implements_empty_protocol(self):
             @runtime
             class Empty(Protocol): pass
             class C: pass
-            for thing in (object, type, tuple, C):
+            def f():
+                pass
+            for thing in (object, type, tuple, C, types.FunctionType):
                 self.assertIsSubclass(thing, Empty)
-            for thing in (object(), 1, (), typing):
+            for thing in (object(), 1, (), typing, f):
                 self.assertIsInstance(thing, Empty)
+
+        def test_function_implements_protocol(self):
+            @runtime
+            class Function(Protocol):
+                __call__: typing.Callable
+            def f():
+                pass
+            self.assertIsInstance(f, Function)
 
         def test_no_inheritance_from_nominal(self):
             class C: pass
