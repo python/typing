@@ -9,7 +9,7 @@ if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 3, 0):
                      'to install the typing package.\n')
     exit(1)
 
-version = '3.6.4'
+version = '3.6.6'
 description = 'Type Hints for Python'
 long_description = '''\
 Typing -- Type Hints for Python
