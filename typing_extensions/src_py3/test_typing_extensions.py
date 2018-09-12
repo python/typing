@@ -12,7 +12,7 @@ from typing import Tuple, List
 from typing import Generic
 from typing import get_type_hints
 from typing import no_type_check
-from typing_extensions import NoReturn, ClassVar, Type, NewType
+from typing_extensions import NoReturn, ClassVar, Final, Type, NewType
 try:
     from typing_extensions import Protocol, runtime
 except ImportError:

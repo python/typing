@@ -108,7 +108,16 @@ def _gorg(cls):
     return cls
 
 
-class _Final(typing._FinalTypingBase, _root=True):
+class FinalMeta(TypingMeta):
+    """Metaclass for _Final"""
+
+    def __new__(cls, name, bases, namespace):
+        cls.assert_no_subclassing(bases)
+        self = super(FinalMeta, cls).__new__(cls, name, bases, namespace)
+        return self
+
+
+class _Final(typing._FinalTypingBase):
     """A special typing construct to indicate that a name
     cannot be re-assigned or overridden in a subclass.
     For example:
@@ -124,6 +133,7 @@ class _Final(typing._FinalTypingBase, _root=True):
     There is no runtime checking of these properties.
     """
 
+    __metaclass__ = FinalMeta
     __slots__ = ('__type__',)
 
     def __init__(self, tp=None, **kwds):
