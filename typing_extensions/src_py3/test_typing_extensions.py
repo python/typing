@@ -392,9 +392,9 @@ class GetTypeHintTests(BaseTestCase):
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_final_forward_ref(self):
-        self.assertEqual(gth(Loop), Final[Loop])
-        self.assertNotEqual(gth(Loop), Final[int])
-        self.assertNotEqual(gth(Loop), Final)
+        self.assertEqual(gth(Loop)['attr'], Final[Loop])
+        self.assertNotEqual(gth(Loop)['attr'], Final[int])
+        self.assertNotEqual(gth(Loop)['attr'], Final)
 
 class CollectionsAbcTests(BaseTestCase):
 

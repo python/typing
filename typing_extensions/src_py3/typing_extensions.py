@@ -331,6 +331,10 @@ else:
 
 if sys.version_info[:2] >= (3, 7):
     class _FinalForm(typing._SpecialForm, _root=True):
+
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
         def __getitem__(self, parameters):
             item = _type_check(parameters,
                                '{} accepts only single type'.format(self._name))
