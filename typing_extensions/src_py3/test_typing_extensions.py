@@ -171,6 +171,51 @@ class ClassVarTests(BaseTestCase):
             issubclass(int, ClassVar)
 
 
+class FinalTests(BaseTestCase):
+
+    def test_basics(self):
+        with self.assertRaises(TypeError):
+            Final[1]
+        with self.assertRaises(TypeError):
+            Final[int, str]
+        with self.assertRaises(TypeError):
+            Final[int][str]
+
+    def test_repr(self):
+        if hasattr(typing, 'Final'):
+            mod_name = 'typing'
+        else:
+            mod_name = 'typing_extensions'
+        self.assertEqual(repr(Final), mod_name + '.Final')
+        cv = Final[int]
+        self.assertEqual(repr(cv), mod_name + '.Final[int]')
+        cv = Final[Employee]
+        self.assertEqual(repr(cv), mod_name + '.Final[%s.Employee]' % __name__)
+
+    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(Final)):
+                pass
+        with self.assertRaises(TypeError):
+            class C(type(Final[int])):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            Final()
+        with self.assertRaises(TypeError):
+            type(Final)()
+        with self.assertRaises(TypeError):
+            type(Final[Optional[int]])()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, Final[int])
+        with self.assertRaises(TypeError):
+            issubclass(int, Final)
+
+
 class OverloadTests(BaseTestCase):
 
     def test_overload_fails(self):
@@ -262,6 +307,9 @@ class CSub(B):
 class G(Generic[T]):
     lst: ClassVar[List[T]] = []
 
+class Loop:
+    attr: Final['Loop']
+
 class NoneAndForward:
     parent: 'NoneAndForward'
     meaning: None
@@ -346,6 +394,11 @@ class GetTypeHintTests(BaseTestCase):
                           'x': ClassVar[Optional[B]]})
         self.assertEqual(gth(G), {'lst': ClassVar[List[T]]})
 
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_final_forward_ref(self):
+        self.assertEqual(gth(Loop), Final[Loop])
+        self.assertNotEqual(gth(Loop), Final[int])
+        self.assertNotEqual(gth(Loop), Final)
 
 class CollectionsAbcTests(BaseTestCase):
 

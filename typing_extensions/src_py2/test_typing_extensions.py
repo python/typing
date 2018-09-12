@@ -7,7 +7,7 @@ import pickle
 import subprocess
 from unittest import TestCase, main, skipUnless
 
-from typing_extensions import NoReturn, ClassVar
+from typing_extensions import NoReturn, ClassVar, Final
 from typing_extensions import ContextManager, Counter, Deque, DefaultDict
 from typing_extensions import NewType, overload, Protocol, runtime
 import typing
@@ -115,6 +115,46 @@ class ClassVarTests(BaseTestCase):
             isinstance(1, ClassVar[int])
         with self.assertRaises(TypeError):
             issubclass(int, ClassVar)
+
+
+class FinalTests(BaseTestCase):
+
+    def test_basics(self):
+        with self.assertRaises(TypeError):
+            Final[1]
+        with self.assertRaises(TypeError):
+            Final[int, str]
+        with self.assertRaises(TypeError):
+            Final[int][str]
+
+    def test_repr(self):
+        self.assertEqual(repr(Final), 'typing.Final')
+        cv = Final[int]
+        self.assertEqual(repr(cv), 'typing.Final[int]')
+        cv = Final[Employee]
+        self.assertEqual(repr(cv), 'typing.Final[%s.Employee]' % __name__)
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(Final)):
+                pass
+        with self.assertRaises(TypeError):
+            class C(type(Final[int])):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            Final()
+        with self.assertRaises(TypeError):
+            type(Final)()
+        with self.assertRaises(TypeError):
+            type(Final[typing.Optional[int]])()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, Final[int])
+        with self.assertRaises(TypeError):
+            issubclass(int, Final)
 
 
 class CollectionsAbcTests(BaseTestCase):
