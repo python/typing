@@ -155,7 +155,7 @@ class _Final(typing._FinalTypingBase):
         return type(self)(new_tp, _root=True)
 
     def __repr__(self):
-        r = super().__repr__()
+        r = super(_Final, self).__repr__()
         if self.__type__ is not None:
             r += '[{}]'.format(typing._type_repr(self.__type__))
         return r

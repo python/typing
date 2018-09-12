@@ -128,11 +128,11 @@ class FinalTests(BaseTestCase):
             Final[int][str]
 
     def test_repr(self):
-        self.assertEqual(repr(Final), 'typing.Final')
+        self.assertEqual(repr(Final), 'typing_extensions.Final')
         cv = Final[int]
-        self.assertEqual(repr(cv), 'typing.Final[int]')
+        self.assertEqual(repr(cv), 'typing_extensions.Final[int]')
         cv = Final[Employee]
-        self.assertEqual(repr(cv), 'typing.Final[%s.Employee]' % __name__)
+        self.assertEqual(repr(cv), 'typing_extensions.Final[%s.Employee]' % __name__)
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
@@ -774,7 +774,7 @@ class AllTests(BaseTestCase):
         self.assertIn('TYPE_CHECKING', a)
 
     def test_typing_extensions_defers_when_possible(self):
-        exclude = {'overload', 'Text', 'TYPE_CHECKING'}
+        exclude = {'overload', 'Text', 'TYPE_CHECKING', 'Final'}
         for item in typing_extensions.__all__:
             if item not in exclude and hasattr(typing, item):
                 self.assertIs(

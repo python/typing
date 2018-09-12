@@ -182,15 +182,11 @@ class FinalTests(BaseTestCase):
             Final[int][str]
 
     def test_repr(self):
-        if hasattr(typing, 'Final'):
-            mod_name = 'typing'
-        else:
-            mod_name = 'typing_extensions'
-        self.assertEqual(repr(Final), mod_name + '.Final')
+        self.assertEqual(repr(Final), 'typing_extensions.Final')
         cv = Final[int]
-        self.assertEqual(repr(cv), mod_name + '.Final[int]')
+        self.assertEqual(repr(cv), 'typing_extensions.Final[int]')
         cv = Final[Employee]
-        self.assertEqual(repr(cv), mod_name + '.Final[%s.Employee]' % __name__)
+        self.assertEqual(repr(cv), 'typing_extensions.Final[%s.Employee]' % __name__)
 
     @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_cannot_subclass(self):
@@ -339,7 +335,7 @@ else:
     # fake names for the sake of static analysis
     ann_module = ann_module2 = ann_module3 = None
     A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
-    XMeth = XRepr = NoneAndForward = object
+    XMeth = XRepr = NoneAndForward = Loop = object
 
 gth = get_type_hints
 
@@ -1306,7 +1302,7 @@ class AllTests(BaseTestCase):
             self.assertIn('runtime', a)
 
     def test_typing_extensions_defers_when_possible(self):
-        exclude = {'overload', 'Text', 'TYPE_CHECKING'}
+        exclude = {'overload', 'Text', 'TYPE_CHECKING', 'Final'}
         for item in typing_extensions.__all__:
             if item not in exclude and hasattr(typing, item):
                 self.assertIs(
