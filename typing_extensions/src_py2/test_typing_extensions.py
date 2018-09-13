@@ -7,7 +7,7 @@ import pickle
 import subprocess
 from unittest import TestCase, main, skipUnless
 
-from typing_extensions import NoReturn, ClassVar
+from typing_extensions import NoReturn, ClassVar, Final
 from typing_extensions import ContextManager, Counter, Deque, DefaultDict
 from typing_extensions import NewType, overload, Protocol, runtime
 import typing
@@ -115,6 +115,46 @@ class ClassVarTests(BaseTestCase):
             isinstance(1, ClassVar[int])
         with self.assertRaises(TypeError):
             issubclass(int, ClassVar)
+
+
+class FinalTests(BaseTestCase):
+
+    def test_basics(self):
+        with self.assertRaises(TypeError):
+            Final[1]
+        with self.assertRaises(TypeError):
+            Final[int, str]
+        with self.assertRaises(TypeError):
+            Final[int][str]
+
+    def test_repr(self):
+        self.assertEqual(repr(Final), 'typing_extensions.Final')
+        cv = Final[int]
+        self.assertEqual(repr(cv), 'typing_extensions.Final[int]')
+        cv = Final[Employee]
+        self.assertEqual(repr(cv), 'typing_extensions.Final[%s.Employee]' % __name__)
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(Final)):
+                pass
+        with self.assertRaises(TypeError):
+            class C(type(Final[int])):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            Final()
+        with self.assertRaises(TypeError):
+            type(Final)()
+        with self.assertRaises(TypeError):
+            type(Final[typing.Optional[int]])()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, Final[int])
+        with self.assertRaises(TypeError):
+            issubclass(int, Final)
 
 
 class CollectionsAbcTests(BaseTestCase):
@@ -734,7 +774,7 @@ class AllTests(BaseTestCase):
         self.assertIn('TYPE_CHECKING', a)
 
     def test_typing_extensions_defers_when_possible(self):
-        exclude = {'overload', 'Text', 'TYPE_CHECKING'}
+        exclude = {'overload', 'Text', 'TYPE_CHECKING', 'Final'}
         for item in typing_extensions.__all__:
             if item not in exclude and hasattr(typing, item):
                 self.assertIs(

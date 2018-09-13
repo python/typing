@@ -12,7 +12,7 @@ from typing import Tuple, List
 from typing import Generic
 from typing import get_type_hints
 from typing import no_type_check
-from typing_extensions import NoReturn, ClassVar, Type, NewType
+from typing_extensions import NoReturn, ClassVar, Final, Type, NewType
 try:
     from typing_extensions import Protocol, runtime
 except ImportError:
@@ -171,6 +171,47 @@ class ClassVarTests(BaseTestCase):
             issubclass(int, ClassVar)
 
 
+class FinalTests(BaseTestCase):
+
+    def test_basics(self):
+        with self.assertRaises(TypeError):
+            Final[1]
+        with self.assertRaises(TypeError):
+            Final[int, str]
+        with self.assertRaises(TypeError):
+            Final[int][str]
+
+    def test_repr(self):
+        self.assertEqual(repr(Final), 'typing_extensions.Final')
+        cv = Final[int]
+        self.assertEqual(repr(cv), 'typing_extensions.Final[int]')
+        cv = Final[Employee]
+        self.assertEqual(repr(cv), 'typing_extensions.Final[%s.Employee]' % __name__)
+
+    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(Final)):
+                pass
+        with self.assertRaises(TypeError):
+            class C(type(Final[int])):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            Final()
+        with self.assertRaises(TypeError):
+            type(Final)()
+        with self.assertRaises(TypeError):
+            type(Final[Optional[int]])()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, Final[int])
+        with self.assertRaises(TypeError):
+            issubclass(int, Final)
+
+
 class OverloadTests(BaseTestCase):
 
     def test_overload_fails(self):
@@ -262,6 +303,9 @@ class CSub(B):
 class G(Generic[T]):
     lst: ClassVar[List[T]] = []
 
+class Loop:
+    attr: Final['Loop']
+
 class NoneAndForward:
     parent: 'NoneAndForward'
     meaning: None
@@ -291,7 +335,7 @@ else:
     # fake names for the sake of static analysis
     ann_module = ann_module2 = ann_module3 = None
     A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
-    XMeth = XRepr = NoneAndForward = object
+    XMeth = XRepr = NoneAndForward = Loop = object
 
 gth = get_type_hints
 
@@ -346,6 +390,11 @@ class GetTypeHintTests(BaseTestCase):
                           'x': ClassVar[Optional[B]]})
         self.assertEqual(gth(G), {'lst': ClassVar[List[T]]})
 
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_final_forward_ref(self):
+        self.assertEqual(gth(Loop, globals())['attr'], Final[Loop])
+        self.assertNotEqual(gth(Loop, globals())['attr'], Final[int])
+        self.assertNotEqual(gth(Loop, globals())['attr'], Final)
 
 class CollectionsAbcTests(BaseTestCase):
 
@@ -1253,7 +1302,7 @@ class AllTests(BaseTestCase):
             self.assertIn('runtime', a)
 
     def test_typing_extensions_defers_when_possible(self):
-        exclude = {'overload', 'Text', 'TYPE_CHECKING'}
+        exclude = {'overload', 'Text', 'TYPE_CHECKING', 'Final'}
         for item in typing_extensions.__all__:
             if item not in exclude and hasattr(typing, item):
                 self.assertIs(
