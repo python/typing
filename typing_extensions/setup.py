@@ -61,7 +61,7 @@ setup(name='typing_extensions',
       long_description=long_description,
       author='Guido van Rossum, Jukka Lehtosalo, Lukasz Langa, Michael Lee',
       author_email='levkivskyi@gmail.com',
-      url='https://github.com/python/typing',
+      url='https://github.com/python/typing/blob/master/typing_extensions/README.rst',
       license='PSF',
       keywords='typing function annotations type hints hinting checking '
                'checker typehints typehinting typechecking backport',
