@@ -9,7 +9,7 @@ if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 3, 0):
                      'to install the typing package.\n')
     exit(1)
 
-version = '3.6.5'
+version = '3.6.6'
 description = 'Backported and Experimental Type Hints for Python 3.5+'
 long_description = '''\
 Typing Extensions -- Backported and Experimental Type Hints for Python
@@ -61,7 +61,7 @@ setup(name='typing_extensions',
       long_description=long_description,
       author='Guido van Rossum, Jukka Lehtosalo, Lukasz Langa, Michael Lee',
       author_email='levkivskyi@gmail.com',
-      url='https://github.com/python/typing',
+      url='https://github.com/python/typing/blob/master/typing_extensions/README.rst',
       license='PSF',
       keywords='typing function annotations type hints hinting checking '
                'checker typehints typehinting typechecking backport',

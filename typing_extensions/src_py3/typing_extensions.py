@@ -104,6 +104,7 @@ else:
 __all__ = [
     # Super-special typing primitives.
     'ClassVar',
+    'Final',
     'Type',
 
     # ABCs (from collections.abc).
@@ -124,6 +125,7 @@ __all__ = [
     'DefaultDict',
 
     # One-off things.
+    'final',
     'NewType',
     'overload',
     'Text',
@@ -326,6 +328,179 @@ else:
         """
 
         __type__ = None
+
+if sys.version_info[:2] >= (3, 7):
+    class _FinalForm(typing._SpecialForm, _root=True):
+
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+        def __getitem__(self, parameters):
+            item = _type_check(parameters,
+                               '{} accepts only single type'.format(self._name))
+            return _GenericAlias(self, (item,))
+
+    Final = _FinalForm('Final', doc=
+        """A special typing construct to indicate that a name
+        cannot be re-assigned or overridden in a subclass.
+        For example:
+
+            MAX_SIZE: Final = 9000
+            MAX_SIZE += 1  # Error reported by type checker
+
+            class Connection:
+                TIMEOUT: Final[int] = 10
+            class FastConnector(Connection):
+                TIMEOUT = 1  # Error reported by type checker
+
+        There is no runtime checking of these properties.
+        """)
+elif hasattr(typing, '_FinalTypingBase'):
+    class _Final(typing._FinalTypingBase, _root=True):
+        """A special typing construct to indicate that a name
+        cannot be re-assigned or overridden in a subclass.
+        For example:
+
+            MAX_SIZE: Final = 9000
+            MAX_SIZE += 1  # Error reported by type checker
+
+            class Connection:
+                TIMEOUT: Final[int] = 10
+            class FastConnector(Connection):
+                TIMEOUT = 1  # Error reported by type checker
+
+        There is no runtime checking of these properties.
+        """
+
+        __slots__ = ('__type__',)
+
+        def __init__(self, tp=None, **kwds):
+            self.__type__ = tp
+
+        def __getitem__(self, item):
+            cls = type(self)
+            if self.__type__ is None:
+                return cls(typing._type_check(item,
+                           '{} accepts only single type.'.format(cls.__name__[1:])),
+                           _root=True)
+            raise TypeError('{} cannot be further subscripted'
+                            .format(cls.__name__[1:]))
+
+        def _eval_type(self, globalns, localns):
+            new_tp = typing._eval_type(self.__type__, globalns, localns)
+            if new_tp == self.__type__:
+                return self
+            return type(self)(new_tp, _root=True)
+
+        def __repr__(self):
+            r = super().__repr__()
+            if self.__type__ is not None:
+                r += '[{}]'.format(typing._type_repr(self.__type__))
+            return r
+
+        def __hash__(self):
+            return hash((type(self).__name__, self.__type__))
+
+        def __eq__(self, other):
+            if not isinstance(other, _Final):
+                return NotImplemented
+            if self.__type__ is not None:
+                return self.__type__ == other.__type__
+            return self is other
+
+    Final = _Final(_root=True)
+else:
+    class FinalMeta(typing.TypingMeta):
+        """Metaclass for Final"""
+
+        def __new__(cls, name, bases, namespace, tp=None, _root=False):
+            self = super().__new__(cls, name, bases, namespace, _root=_root)
+            if tp is not None:
+                self.__type__ = tp
+            return self
+
+        def __instancecheck__(self, obj):
+            raise TypeError("Final cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError("Final cannot be used with issubclass().")
+
+        def __getitem__(self, item):
+            cls = type(self)
+            if self.__type__ is not None:
+                raise TypeError('{} cannot be further subscripted'
+                                .format(cls.__name__[1:]))
+
+            param = typing._type_check(
+                item,
+                '{} accepts only single type.'.format(cls.__name__[1:]))
+            return cls(self.__name__, self.__bases__,
+                       dict(self.__dict__), tp=param, _root=True)
+
+        def _eval_type(self, globalns, localns):
+            new_tp = typing._eval_type(self.__type__, globalns, localns)
+            if new_tp == self.__type__:
+                return self
+            return type(self)(self.__name__, self.__bases__,
+                              dict(self.__dict__), tp=self.__type__,
+                              _root=True)
+
+        def __repr__(self):
+            r = super().__repr__()
+            if self.__type__ is not None:
+                r += '[{}]'.format(typing._type_repr(self.__type__))
+            return r
+
+        def __hash__(self):
+            return hash((type(self).__name__, self.__type__))
+
+        def __eq__(self, other):
+            if not isinstance(other, Final):
+                return NotImplemented
+            if self.__type__ is not None:
+                return self.__type__ == other.__type__
+            return self is other
+
+    class Final(typing.Final, metaclass=FinalMeta, _root=True):
+        """A special typing construct to indicate that a name
+        cannot be re-assigned or overridden in a subclass.
+        For example:
+
+            MAX_SIZE: Final = 9000
+            MAX_SIZE += 1  # Error reported by type checker
+
+            class Connection:
+                TIMEOUT: Final[int] = 10
+            class FastConnector(Connection):
+                TIMEOUT = 1  # Error reported by type checker
+
+        There is no runtime checking of these properties.
+        """
+
+        __type__ = None
+
+
+def final(f):
+    """This decorator can be used to indicate to type checkers that
+    the decorated method cannot be overridden, and decorated class
+    cannot be subclassed. For example:
+
+        class Base:
+            @final
+            def done(self) -> None:
+                ...
+        class Sub(Base):
+            def done(self) -> None:  # Error reported by type checker
+                ...
+        @final
+        class Leaf:
+            ...
+        class Other(Leaf):  # Error reported by type checker
+            ...
+
+    There is no runtime checking of these properties.
+    """
+    return f
 
 
 def _overload_dummy(*args, **kwds):
