@@ -319,6 +319,11 @@ class XRepr(NamedTuple):
     def __add__(self, other):
         return 0
 
+@runtime
+class FunctionProtocol(Protocol):
+    __call__: typing.Callable
+
+
 async def g_with(am: AsyncContextManager[int]):
     x: int
     async with am as x:
@@ -761,12 +766,9 @@ if HAVE_PROTOCOLS:
                 self.assertIsInstance(thing, Empty)
 
         def test_function_implements_protocol(self):
-            @runtime
-            class Function(Protocol):
-                __call__: typing.Callable
             def f():
                 pass
-            self.assertIsInstance(f, Function)
+            self.assertIsInstance(f, FunctionProtocol)
 
         def test_no_inheritance_from_nominal(self):
             class C: pass
