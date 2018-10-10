@@ -320,7 +320,7 @@ class XRepr(NamedTuple):
         return 0
 
 @runtime
-class FunctionProtocol(Protocol):
+class HasCallProtocol(Protocol):
     __call__: typing.Callable
 
 
@@ -341,7 +341,7 @@ else:
     # fake names for the sake of static analysis
     ann_module = ann_module2 = ann_module3 = None
     A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
-    XMeth = XRepr = NoneAndForward = Loop = object
+    XMeth = XRepr = HasCallProtocol = NoneAndForward = Loop = object
 
 gth = get_type_hints
 
@@ -765,10 +765,11 @@ if HAVE_PROTOCOLS:
             for thing in (object(), 1, (), typing, f):
                 self.assertIsInstance(thing, Empty)
 
+        @skipUnless(PY36, 'Python 3.6 required')
         def test_function_implements_protocol(self):
             def f():
                 pass
-            self.assertIsInstance(f, FunctionProtocol)
+            self.assertIsInstance(f, HasCallProtocol)
 
         def test_no_inheritance_from_nominal(self):
             class C: pass
