@@ -5,6 +5,7 @@ import contextlib
 import collections
 import pickle
 import subprocess
+import types
 from unittest import TestCase, main, skipUnless
 from typing import TypeVar, Optional
 from typing import T, KT, VT  # Not in __all__.
@@ -318,6 +319,11 @@ class XRepr(NamedTuple):
     def __add__(self, other):
         return 0
 
+@runtime
+class HasCallProtocol(Protocol):
+    __call__: typing.Callable
+
+
 async def g_with(am: AsyncContextManager[int]):
     x: int
     async with am as x:
@@ -335,7 +341,7 @@ else:
     # fake names for the sake of static analysis
     ann_module = ann_module2 = ann_module3 = None
     A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
-    XMeth = XRepr = NoneAndForward = Loop = object
+    XMeth = XRepr = HasCallProtocol = NoneAndForward = Loop = object
 
 gth = get_type_hints
 
@@ -739,19 +745,31 @@ if HAVE_PROTOCOLS:
             class D:
                 def meth(self):
                     pass
+            def f():
+                pass
             self.assertIsSubclass(D, P)
             self.assertIsInstance(D(), P)
             self.assertNotIsSubclass(C, P)
             self.assertNotIsInstance(C(), P)
+            self.assertNotIsSubclass(types.FunctionType, P)
+            self.assertNotIsInstance(f, P)
 
         def test_everything_implements_empty_protocol(self):
             @runtime
             class Empty(Protocol): pass
             class C: pass
-            for thing in (object, type, tuple, C):
+            def f():
+                pass
+            for thing in (object, type, tuple, C, types.FunctionType):
                 self.assertIsSubclass(thing, Empty)
-            for thing in (object(), 1, (), typing):
+            for thing in (object(), 1, (), typing, f):
                 self.assertIsInstance(thing, Empty)
+
+        @skipUnless(PY36, 'Python 3.6 required')
+        def test_function_implements_protocol(self):
+            def f():
+                pass
+            self.assertIsInstance(f, HasCallProtocol)
 
         def test_no_inheritance_from_nominal(self):
             class C: pass

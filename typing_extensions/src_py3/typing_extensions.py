@@ -1043,7 +1043,8 @@ if HAVE_PROTOCOLS and not PEP_560:
                             if base.__dict__[attr] is None:
                                 return NotImplemented
                             break
-                        if (attr in getattr(base, '__annotations__', {}) and
+                        annotations = getattr(base, '__annotations__', {})
+                        if (isinstance(annotations, typing.Mapping) and attr in annotations and
                                 isinstance(other, _ProtocolMeta) and other._is_protocol):
                             break
                     else:
@@ -1328,7 +1329,8 @@ elif PEP_560:
                             if base.__dict__[attr] is None:
                                 return NotImplemented
                             break
-                        if (attr in getattr(base, '__annotations__', {}) and
+                        annotations = getattr(base, '__annotations__', {})
+                        if (isinstance(annotations, typing.Mapping) and attr in annotations and
                                 isinstance(other, _ProtocolMeta) and other._is_protocol):
                             break
                     else:
