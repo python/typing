@@ -40,12 +40,12 @@ if hasattr(typing, 'NoReturn'):
     NoReturn = typing.NoReturn
 else:
     # TODO: Remove once typing.py has been updated
-    class NoReturnMeta(typing.TypingMeta):
+    class _NoReturnMeta(typing.TypingMeta):
         """Metaclass for NoReturn."""
 
         def __new__(cls, name, bases, namespace):
             cls.assert_no_subclassing(bases)
-            self = super(NoReturnMeta, cls).__new__(cls, name, bases, namespace)
+            self = super(_NoReturnMeta, cls).__new__(cls, name, bases, namespace)
             return self
 
     class _NoReturn(typing._FinalTypingBase):
@@ -57,7 +57,7 @@ else:
         This type is invalid in other positions, e.g., ``List[NoReturn]``
         will fail in static type checkers.
         """
-        __metaclass__ = NoReturnMeta
+        __metaclass__ = _NoReturnMeta
         __slots__ = ()
 
         def __instancecheck__(self, obj):
@@ -109,12 +109,12 @@ def _gorg(cls):
     return cls
 
 
-class FinalMeta(TypingMeta):
+class _FinalMeta(TypingMeta):
     """Metaclass for _Final"""
 
     def __new__(cls, name, bases, namespace):
         cls.assert_no_subclassing(bases)
-        self = super(FinalMeta, cls).__new__(cls, name, bases, namespace)
+        self = super(_FinalMeta, cls).__new__(cls, name, bases, namespace)
         return self
 
 
@@ -134,7 +134,7 @@ class _Final(typing._FinalTypingBase):
     There is no runtime checking of these properties.
     """
 
-    __metaclass__ = FinalMeta
+    __metaclass__ = _FinalMeta
     __slots__ = ('__type__',)
 
     def __init__(self, tp=None, **kwds):
@@ -197,12 +197,12 @@ def final(f):
     return f
 
 
-class LiteralMeta(TypingMeta):
+class _LiteralMeta(TypingMeta):
     """Metaclass for _Literal"""
 
     def __new__(cls, name, bases, namespace):
         cls.assert_no_subclassing(bases)
-        self = super(LiteralMeta, cls).__new__(cls, name, bases, namespace)
+        self = super(_LiteralMeta, cls).__new__(cls, name, bases, namespace)
         return self
 
 
@@ -220,7 +220,7 @@ class _Literal(typing._FinalTypingBase):
     verifying that the parameter is actually a value instead of a type.
     """
 
-    __metaclass__ = LiteralMeta
+    __metaclass__ = _LiteralMeta
     __slots__ = ('__values__',)
 
     def __init__(self, values=None, **kwds):

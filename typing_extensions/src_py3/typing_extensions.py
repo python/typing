@@ -165,7 +165,7 @@ elif hasattr(typing, '_FinalTypingBase'):
 
     NoReturn = _NoReturn(_root=True)
 else:
-    class NoReturnMeta(typing.TypingMeta):
+    class _NoReturnMeta(typing.TypingMeta):
         """Metaclass for NoReturn"""
         def __new__(cls, name, bases, namespace, _root=False):
             return super().__new__(cls, name, bases, namespace, _root=_root)
@@ -176,7 +176,7 @@ else:
         def __subclasscheck__(self, cls):
             raise TypeError("NoReturn cannot be used with issubclass().")
 
-    class NoReturn(typing.Final, metaclass=NoReturnMeta, _root=True):
+    class NoReturn(typing.Final, metaclass=_NoReturnMeta, _root=True):
         """Special type indicating functions that never return.
         Example::
 
@@ -260,7 +260,7 @@ elif hasattr(typing, '_FinalTypingBase'):
 
     ClassVar = _ClassVar(_root=True)
 else:
-    class ClassVarMeta(typing.TypingMeta):
+    class _ClassVarMeta(typing.TypingMeta):
         """Metaclass for ClassVar"""
 
         def __new__(cls, name, bases, namespace, tp=None, _root=False):
@@ -311,7 +311,7 @@ else:
                 return self.__type__ == other.__type__
             return self is other
 
-    class ClassVar(typing.Final, metaclass=ClassVarMeta, _root=True):
+    class ClassVar(typing.Final, metaclass=_ClassVarMeta, _root=True):
         """Special type construct to mark class variables.
 
         An annotation wrapped in ClassVar indicates that a given
@@ -411,7 +411,7 @@ elif hasattr(typing, '_FinalTypingBase'):
 
     Final = _Final(_root=True)
 else:
-    class FinalMeta(typing.TypingMeta):
+    class _FinalMeta(typing.TypingMeta):
         """Metaclass for Final"""
 
         def __new__(cls, name, bases, namespace, tp=None, _root=False):
@@ -462,7 +462,7 @@ else:
                 return self.__type__ == other.__type__
             return self is other
 
-    class Final(typing.Final, metaclass=FinalMeta, _root=True):
+    class Final(typing.Final, metaclass=_FinalMeta, _root=True):
         """A special typing construct to indicate that a name
         cannot be re-assigned or overridden in a subclass.
         For example:
@@ -578,7 +578,7 @@ elif hasattr(typing, '_FinalTypingBase'):
 
     Literal = _Literal(_root=True)
 else:
-    class LiteralMeta(typing.TypingMeta):
+    class _LiteralMeta(typing.TypingMeta):
         """Metaclass for Literal"""
 
         def __new__(cls, name, bases, namespace, values=None, _root=False):
@@ -623,7 +623,7 @@ else:
                 return self.__values__ == other.__values__
             return self is other
 
-    class Literal(typing.Final, metaclass=LiteralMeta, _root=True):
+    class Literal(typing.Final, metaclass=_LiteralMeta, _root=True):
         """A type that can be used to indicate to type checkers that the
         corresponding value has a value literally equivalent to the
         provided parameter. For example:
@@ -908,14 +908,14 @@ elif (3, 5, 0) <= sys.version_info[:3] <= (3, 5, 1):
     assert _geqv_defined
     _TInt = typing.TypeVar('_TInt')
 
-    class CounterMeta(typing.GenericMeta):
+    class _CounterMeta(typing.GenericMeta):
         """Metaclass for Counter"""
         def __getitem__(self, item):
             return super().__getitem__((item, int))
 
     class Counter(collections.Counter,
                   typing.Dict[T, int],
-                  metaclass=CounterMeta,
+                  metaclass=_CounterMeta,
                   extra=collections.Counter):
 
         __slots__ = ()
