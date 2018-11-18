@@ -216,7 +216,7 @@ class _Literal(typing._FinalTypingBase):
     The type checker understands that 'var' is literally equal to the
     value 4 and no other value.
 
-    Literal[..] cannot be subclassed. There is no runtime checking
+    Literal[...] cannot be subclassed. There is no runtime checking
     verifying that the parameter is actually a value instead of a type.
     """
 

@@ -525,7 +525,7 @@ elif sys.version_info[:2] >= (3, 7):
         The type checker understands that 'var' is literally equal to the
         value 4 and no other value.
 
-        Literal[..] cannot be subclassed. There is no runtime checking
+        Literal[...] cannot be subclassed. There is no runtime checking
         verifying that the parameter is actually a value instead of a type.
         """)
 elif hasattr(typing, '_FinalTypingBase'):
@@ -539,7 +539,7 @@ elif hasattr(typing, '_FinalTypingBase'):
         The type checker understands that 'var' is literally equal to the
         value 4 and no other value.
 
-        Literal[..] cannot be subclassed. There is no runtime checking
+        Literal[...] cannot be subclassed. There is no runtime checking
         verifying that the parameter is actually a value instead of a type.
         """
 
@@ -633,7 +633,7 @@ else:
         The type checker understands that 'var' is literally equal to the
         value 4 and no other value.
 
-        Literal[..] cannot be subclassed. There is no runtime checking
+        Literal[...] cannot be subclassed. There is no runtime checking
         verifying that the parameter is actually a value instead of a type.
         """
 
