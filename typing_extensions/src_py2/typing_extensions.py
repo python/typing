@@ -27,6 +27,7 @@ __all__ = [
 
     # One-off things.
     'final',
+    'Literal',
     'NewType',
     'overload',
     'runtime',
@@ -39,12 +40,12 @@ if hasattr(typing, 'NoReturn'):
     NoReturn = typing.NoReturn
 else:
     # TODO: Remove once typing.py has been updated
-    class NoReturnMeta(typing.TypingMeta):
+    class _NoReturnMeta(typing.TypingMeta):
         """Metaclass for NoReturn."""
 
         def __new__(cls, name, bases, namespace):
             cls.assert_no_subclassing(bases)
-            self = super(NoReturnMeta, cls).__new__(cls, name, bases, namespace)
+            self = super(_NoReturnMeta, cls).__new__(cls, name, bases, namespace)
             return self
 
     class _NoReturn(typing._FinalTypingBase):
@@ -56,7 +57,7 @@ else:
         This type is invalid in other positions, e.g., ``List[NoReturn]``
         will fail in static type checkers.
         """
-        __metaclass__ = NoReturnMeta
+        __metaclass__ = _NoReturnMeta
         __slots__ = ()
 
         def __instancecheck__(self, obj):
@@ -108,12 +109,12 @@ def _gorg(cls):
     return cls
 
 
-class FinalMeta(TypingMeta):
+class _FinalMeta(TypingMeta):
     """Metaclass for _Final"""
 
     def __new__(cls, name, bases, namespace):
         cls.assert_no_subclassing(bases)
-        self = super(FinalMeta, cls).__new__(cls, name, bases, namespace)
+        self = super(_FinalMeta, cls).__new__(cls, name, bases, namespace)
         return self
 
 
@@ -133,7 +134,7 @@ class _Final(typing._FinalTypingBase):
     There is no runtime checking of these properties.
     """
 
-    __metaclass__ = FinalMeta
+    __metaclass__ = _FinalMeta
     __slots__ = ('__type__',)
 
     def __init__(self, tp=None, **kwds):
@@ -194,6 +195,67 @@ def final(f):
     There is no runtime checking of these properties.
     """
     return f
+
+
+class _LiteralMeta(TypingMeta):
+    """Metaclass for _Literal"""
+
+    def __new__(cls, name, bases, namespace):
+        cls.assert_no_subclassing(bases)
+        self = super(_LiteralMeta, cls).__new__(cls, name, bases, namespace)
+        return self
+
+
+class _Literal(typing._FinalTypingBase):
+    """A type that can be used to indicate to type checkers that the
+    corresponding value has a value literally equivalent to the
+    provided parameter. For example:
+
+        var: Literal[4] = 4
+    
+    The type checker understands that 'var' is literally equal to the
+    value 4 and no other value.
+
+    Literal[...] cannot be subclassed. There is no runtime checking
+    verifying that the parameter is actually a value instead of a type.
+    """
+
+    __metaclass__ = _LiteralMeta
+    __slots__ = ('__values__',)
+
+    def __init__(self, values=None, **kwds):
+        self.__values__ = values
+
+    def __getitem__(self, item):
+        cls = type(self)
+        if self.__values__ is None:
+            if not isinstance(item, tuple):
+                item = (item,)
+            return cls(values=item,
+                       _root=True)
+        raise TypeError('{} cannot be further subscripted'
+                        .format(cls.__name__[1:]))
+
+    def _eval_type(self, globalns, localns):
+        return self
+
+    def __repr__(self):
+        r = super(_Literal, self).__repr__()
+        if self.__values__ is not None:
+            r += '[{}]'.format(', '.join(map(typing._type_repr, self.__values__)))
+        return r
+
+    def __hash__(self):
+        return hash((type(self).__name__, self.__values__))
+
+    def __eq__(self, other):
+        if not isinstance(other, _Literal):
+            return NotImplemented
+        if self.__values__ is not None:
+            return self.__values__ == other.__values__
+        return self is other
+
+Literal = _Literal(_root=True)
 
 
 class _ProtocolMeta(GenericMeta):
