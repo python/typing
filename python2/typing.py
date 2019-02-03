@@ -1255,7 +1255,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
         # latter, we must extend __instancecheck__ too. For simplicity
         # we just skip the cache check -- instance checks for generic
         # classes are supposed to be rare anyways.
-        if not isinstance(instance, type):
+        if hasattr(instance, "__class__"):
             return issubclass(instance.__class__, self)
         return False
 
