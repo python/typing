@@ -1389,7 +1389,8 @@ class AllTests(BaseTestCase):
         file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                  'typing_extensions.py')
         try:
-            subprocess.check_output('python -OO {}'.format(file_path),
+            subprocess.check_output('{} -OO {}'.format(sys.executable,
+                                                       file_path),
                                     stderr=subprocess.STDOUT,
                                     shell=True)
         except subprocess.CalledProcessError:
