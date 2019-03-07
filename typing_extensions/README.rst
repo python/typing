@@ -38,6 +38,7 @@ All Python versions:
 - ``Counter``
 - ``DefaultDict``
 - ``Deque``
+- ``Final``
 - ``NewType``
 - ``NoReturn``
 - ``overload`` (note that older versions of ``typing`` only let you use ``overload`` in stubs)
