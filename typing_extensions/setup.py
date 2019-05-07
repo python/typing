@@ -22,7 +22,7 @@ able to take advantage of new types added to the ``typing`` module, such as
 
 The ``typing_extensions`` module contains both backports of these changes
 as well as experimental types that will eventually be added to the ``typing``
-module, such as ``Protocol``.
+module, such as ``Protocol`` or ``TypedDict``.
 
 Users of other Python versions should continue to install and use
 the ``typing`` module from PyPi instead of using this one unless specifically
