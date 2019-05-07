@@ -581,22 +581,22 @@ TypedDict = _TypedDictMeta('TypedDict', (dict,), {})
 TypedDict.__module__ = __name__
 TypedDict.__doc__ = \
     """A simple typed name space. At runtime it is equivalent to a plain dict.
+
     TypedDict creates a dictionary type that expects all of its
     instances to have a certain set of keys, with each key
     associated with a value of a consistent type. This expectation
-    is not checked at runtime but is only enforced by typecheckers.
+    is not checked at runtime but is only enforced by type checkers.
     Usage::
+
         Point2D = TypedDict('Point2D', {'x': int, 'y': int, 'label': str})
+
         a: Point2D = {'x': 1, 'y': 2, 'label': 'good'}  # OK
         b: Point2D = {'z': 3, 'label': 'bad'}           # Fails type check
+
         assert Point2D(x=1, y=2, label='first') == dict(x=1, y=2, label='first')
+
     The type info could be accessed via Point2D.__annotations__. TypedDict
-    supports two additional equivalent forms::
+    supports an additional equivalent form::
+
         Point2D = TypedDict('Point2D', x=int, y=int, label=str)
-        class Point2D(TypedDict):
-            x: int
-            y: int
-            label: str
-    The latter syntax is only supported in Python 3.6+, while two other
-    syntax forms work for Python 2.7 and 3.2+
     """
