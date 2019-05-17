@@ -69,6 +69,7 @@ __all__ = [
     'SupportsBytes',
     'SupportsComplex',
     'SupportsFloat',
+    'SupportsIndex',
     'SupportsInt',
     'SupportsRound',
 
@@ -1780,6 +1781,14 @@ class SupportsBytes(_Protocol):
 
     @abstractmethod
     def __bytes__(self) -> bytes:
+        pass
+
+
+class SupportsIndex(_Protocol):
+    __slots__ = ()
+
+    @abstractmethod
+    def __index__(self) -> int:
         pass
 
 

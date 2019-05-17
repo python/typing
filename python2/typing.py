@@ -53,6 +53,7 @@ __all__ = [
     'SupportsAbs',
     'SupportsComplex',
     'SupportsFloat',
+    'SupportsIndex',
     'SupportsInt',
 
     # Concrete collection types.
@@ -1719,6 +1720,14 @@ class SupportsComplex(_Protocol):
 
     @abstractmethod
     def __complex__(self):
+        pass
+
+
+class SupportsIndex(_Protocol):
+    __slots__ = ()
+
+    @abstractmethod
+    def __index__(self):
         pass
 
 
