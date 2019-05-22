@@ -126,6 +126,7 @@ __all__ = [
 
     # One-off things.
     'final',
+    'IntVar',
     'Literal',
     'NewType',
     'overload',
@@ -502,6 +503,10 @@ def final(f):
     There is no runtime checking of these properties.
     """
     return f
+
+
+def IntVar(name):
+    return TypeVar(name)
 
 
 if hasattr(typing, 'Literal'):

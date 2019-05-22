@@ -8,7 +8,7 @@ import subprocess
 import types
 from unittest import TestCase, main, skipUnless
 
-from typing_extensions import NoReturn, ClassVar, Final, Literal, TypedDict
+from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, TypedDict
 from typing_extensions import ContextManager, Counter, Deque, DefaultDict
 from typing_extensions import NewType, overload, Protocol, runtime
 import typing
@@ -156,6 +156,19 @@ class FinalTests(BaseTestCase):
             isinstance(1, Final[int])
         with self.assertRaises(TypeError):
             issubclass(int, Final)
+
+
+class IntVarTests(BaseTestCase):
+    def test_valid(self):
+        T_ints = IntVar("T_ints")
+
+    def test_invalid(self):
+        with self.assertRaises(TypeError):
+            T_ints = IntVar("T_ints", int)
+        with self.assertRaises(TypeError):
+            T_ints = IntVar("T_ints", bound=int)
+        with self.assertRaises(TypeError):
+            T_ints = IntVar("T_ints", covariant=True)
 
 
 class LiteralTests(BaseTestCase):
