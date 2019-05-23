@@ -4,6 +4,7 @@ import contextlib
 import sys
 import typing
 import collections.abc as collections_abc
+import operator
 
 # After PEP 560, internal typing API was substantially reworked.
 # This is especially important for Protocol class which uses internal APIs
@@ -138,6 +139,14 @@ HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
 
 if HAVE_PROTOCOLS:
     __all__.extend(['Protocol', 'runtime'])
+
+# Annotations were implemented under tight time constraints; this keeps the
+# implementation simple for now
+HAVE_ANNOTATED = PEP_560
+
+if HAVE_ANNOTATED:
+    __all__.append('Annotated')
+
 
 # TODO
 if hasattr(typing, 'NoReturn'):
@@ -1595,3 +1604,93 @@ TypedDict.__doc__ = \
     The class syntax is only supported in Python 3.6+, while two other
     syntax forms work for Python 2.7 and 3.2+
     """
+
+
+if HAVE_ANNOTATED:
+    class _Annotated(typing._GenericAlias, _root=True):
+        """Runtime representation of an annotated type.
+
+        At its core 'Annoted[t, dec1, dec2...]' is an alias for the type 't'
+        with extra annotations. The alias behaves like a normal typing alias,
+        instantiating is the same as instantiating the underlying type, binding
+        it to types is also the same...
+        """
+
+        def __init__(self, origin, extras):
+            if isinstance(origin, _Annotated):
+                extras = origin.__extras__ + extras
+                origin = origin.__origin__
+            super().__init__(origin, origin)
+            self.__extras__ = extras
+
+        def copy_with(self, params):
+            new_type, = params
+            return _Annotated(new_type, self.__extras__)
+
+        def __repr__(self):
+            return "typing_extensions.Annotated[{}, {}]".format(
+                typing._type_repr(self.__origin__),
+                ", ".join(repr(a) for a in self.__extras__)
+            )
+
+        def __reduce__(self):
+            return operator.getitem, (
+                Annotated, (self.__origin__,) + self.__extras__
+            )
+
+        def __eq__(self, other):
+            if not isinstance(other, _Annotated):
+                return NotImplemented
+            if self.__origin__ != other.__origin__:
+                return False
+            return self.__extras__ == other.__extras__
+
+        def __hash__(self):
+            return hash((self.__origin__, self.__extras__))
+
+
+    class Annotated:
+        """Add context specific metadata to a type.
+
+        Example: Annotated[int, runtime_check.Unsigned] indicates to the
+        hypothetical runtime_check module that this type is an unsigned int.
+        Every other consumer of this type can ignore this metadata and treat
+        this type as int.
+
+        The first argument to Annotated must be a valid type (and will be in
+        the __origin__ field), the remaining arguments are kept as a tuple in
+        the __extra__ field.
+
+        Details:
+
+        - It's an error to call `Annotated` with less than two arguments.
+        - Nested Annotated are flattened::
+
+            Annotated[Annotated[int, Ann1, Ann2], Ann3] == Annotated[int, Ann1, Ann2, Ann3]
+
+        - Instantiating an annotated type is equivalent to instantiating the
+        underlying type::
+
+            Annotated[C, Ann1](5) == C(5)
+        """
+
+        __slots__ = ()
+
+        def __new__(cls, *args, **kwargs):
+            raise TypeError("Type Annotated cannot be instantiated.")
+
+
+        @typing._tp_cache
+        def __class_getitem__(cls, params):
+            if not isinstance(params, tuple) or len(params) < 2:
+                raise TypeError("Annotated[...] should be instantiated "
+                                "with at least two arguments (a type and an "
+                                "annotation).")
+            msg = "Annotated[t, ...]: t must be a type."
+            origin = typing._type_check(params[0], msg)
+            extras = tuple(params[1:])
+            return _Annotated(origin, extras)
+
+
+        def __init_subclass__(cls, *args, **kwargs):
+            raise TypeError("Cannot inherit from Annotated")

@@ -9,7 +9,7 @@ import types
 from unittest import TestCase, main, skipUnless
 from typing import TypeVar, Optional
 from typing import T, KT, VT  # Not in __all__.
-from typing import Tuple, List
+from typing import Tuple, List, Dict
 from typing import Generic
 from typing import get_type_hints
 from typing import no_type_check
@@ -65,6 +65,8 @@ PY36 = sys.version_info[:2] >= (3, 6)
 # Protocols are hard to backport to the original version of typing 3.5.0
 HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
 
+# Not backported to older versions yet
+HAVE_ANNOTATED = PEP_560
 
 class BaseTestCase(TestCase):
     def assertIsSubclass(self, cls, class_or_tuple, msg=None):
@@ -1458,6 +1460,87 @@ class TypedDictTests(BaseTestCase):
             self.assertEqual(Options.__total__, False)
 
 
+if HAVE_ANNOTATED:
+    from typing_extensions import Annotated
+
+    class AnnotatedTests(BaseTestCase):
+
+        def test_repr(self):
+            self.assertEqual(
+                repr(Annotated[int, 4, 5]),
+                "typing_extensions.Annotated[int, 4, 5]"
+            )
+
+        def test_flatten(self):
+            A = Annotated[Annotated[int, 4], 5]
+            self.assertEqual(A, Annotated[int, 4, 5])
+            self.assertEqual(A.__extras__, (4, 5))
+            self.assertEqual(A.__origin__, int)
+
+        def test_hash_eq(self):
+            self.assertEqual(len({Annotated[int, 4, 5], Annotated[int, 4, 5]}), 1)
+            self.assertNotEqual(Annotated[int, 4, 5], Annotated[int, 5, 4])
+            self.assertNotEqual(Annotated[int, 4, 5], Annotated[str, 4, 5])
+            self.assertNotEqual(Annotated[int, 4], Annotated[int, 4, 4])
+            self.assertEqual(
+                {Annotated[int, 4, 5], Annotated[int, 4, 5], Annotated[T, 4, 5]},
+                {Annotated[int, 4, 5], Annotated[T, 4, 5]}
+            )
+
+        def test_instantiate(self):
+            class C:
+                def __init__(self, x):
+                    self.x = x
+
+                def __eq__(self, other):
+                    if not isinstance(other, C):
+                        return NotImplemented
+                    return other.x == self.x
+
+            self.assertEqual(C(5), Annotated[C, "a decoration"](5))
+
+        def test_cannot_subclass(self):
+            with self.assertRaises(TypeError):
+                class C(Annotated):
+                    pass
+
+        def test_pickle(self):
+            x = Annotated[List[int], "a"]
+            for prot in range(pickle.HIGHEST_PROTOCOL + 1):
+                with self.subTest(protocol=prot):
+                    pickled = pickle.dumps(x, prot)
+                    restored = pickle.loads(pickled)
+                    self.assertEqual(x, restored)
+
+        def test_subst(self):
+            dec = "a decoration"
+
+            S = Annotated[T, dec]
+            self.assertEqual(S[int], Annotated[int, dec])
+
+            L = Annotated[List[T], dec]
+            self.assertEqual(L[int], Annotated[List[int], dec])
+            with self.assertRaises(TypeError):
+                L[int, int]
+
+            D = Annotated[Dict[KT, VT], dec]
+            self.assertEqual(D[str, int], Annotated[Dict[str, int], dec])
+            with self.assertRaises(TypeError):
+                D[int]
+
+            I = Annotated[int, dec]
+            with self.assertRaises(TypeError):
+                I[None]
+
+            LI = L[int]
+            with self.assertRaises(TypeError):
+                LI[None]
+
+        def test_annotated_in_other_types(self):
+            X = List[Annotated[T, 5]]
+            self.assertEqual(X[int], List[Annotated[int, 5]])
+
+
 class AllTests(BaseTestCase):
 
     def test_typing_extensions_includes_standard(self):
@@ -1487,6 +1570,9 @@ class AllTests(BaseTestCase):
         if TYPING_3_5_3:
             self.assertIn('Protocol', a)
             self.assertIn('runtime', a)
+
+        if HAVE_ANNOTATED:
+            self.assertIn('Annotated', a)
 
     def test_typing_extensions_defers_when_possible(self):
         exclude = {'overload', 'Text', 'TYPE_CHECKING', 'Final'}
