@@ -1610,32 +1610,32 @@ if HAVE_ANNOTATED:
     class _Annotated(typing._GenericAlias, _root=True):
         """Runtime representation of an annotated type.
 
-        At its core 'Annoted[t, dec1, dec2, ...]' is an alias for the type 't'
+        At its core 'Annotated[t, dec1, dec2, ...]' is an alias for the type 't'
         with extra annotations. The alias behaves like a normal typing alias,
         instantiating is the same as instantiating the underlying type, binding
         it to types is also the same.
         """
-
-        def __init__(self, origin, extras):
+        def __init__(self, origin, metadata):
             if isinstance(origin, _Annotated):
-                extras = origin.__extras__ + extras
+                metadata = origin.__metadata__ + metadata
                 origin = origin.__origin__
             super().__init__(origin, origin)
-            self.__extras__ = extras
+            self.__metadata__ = metadata
 
         def copy_with(self, params):
-            new_type, = params
-            return _Annotated(new_type, self.__extras__)
+            assert len(params) == 1
+            new_type = params[0]
+            return _Annotated(new_type, self.__metadata__)
 
         def __repr__(self):
             return "typing_extensions.Annotated[{}, {}]".format(
                 typing._type_repr(self.__origin__),
-                ", ".join(repr(a) for a in self.__extras__)
+                ", ".join(repr(a) for a in self.__metadata__)
             )
 
         def __reduce__(self):
             return operator.getitem, (
-                Annotated, (self.__origin__,) + self.__extras__
+                Annotated, (self.__origin__,) + self.__metadata__
             )
 
         def __eq__(self, other):
@@ -1643,10 +1643,10 @@ if HAVE_ANNOTATED:
                 return NotImplemented
             if self.__origin__ != other.__origin__:
                 return False
-            return self.__extras__ == other.__extras__
+            return self.__metadata__ == other.__metadata__
 
         def __hash__(self):
-            return hash((self.__origin__, self.__extras__))
+            return hash((self.__origin__, self.__metadata__))
 
 
     class Annotated:
@@ -1672,13 +1672,20 @@ if HAVE_ANNOTATED:
         underlying type::
 
             Annotated[C, Ann1](5) == C(5)
+
+        - Annotated can be used as a generic type alias::
+
+            Optimized = Annotated[T, runtime.Optimize]
+            Optimized[int] == Annotated[int, runtime.Optimize]
+
+            OptimizedList = Annotated[List[T], runtime.Optimize]
+            OptimizedList[int] == Annotated[List[int], runtime.Optimize]
         """
 
         __slots__ = ()
 
         def __new__(cls, *args, **kwargs):
             raise TypeError("Type Annotated cannot be instantiated.")
-
 
         @typing._tp_cache
         def __class_getitem__(cls, params):
@@ -1688,9 +1695,8 @@ if HAVE_ANNOTATED:
                                 "annotation).")
             msg = "Annotated[t, ...]: t must be a type."
             origin = typing._type_check(params[0], msg)
-            extras = tuple(params[1:])
-            return _Annotated(origin, extras)
-
+            metadata = tuple(params[1:])
+            return _Annotated(origin, metadata)
 
         def __init_subclass__(cls, *args, **kwargs):
             raise TypeError("Cannot inherit from Annotated")

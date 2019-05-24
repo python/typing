@@ -1474,7 +1474,7 @@ if HAVE_ANNOTATED:
         def test_flatten(self):
             A = Annotated[Annotated[int, 4], 5]
             self.assertEqual(A, Annotated[int, 4, 5])
-            self.assertEqual(A.__extras__, (4, 5))
+            self.assertEqual(A.__metadata__, (4, 5))
             self.assertEqual(A.__origin__, int)
 
         def test_hash_eq(self):
@@ -1489,6 +1489,8 @@ if HAVE_ANNOTATED:
 
         def test_instantiate(self):
             class C:
+                classvar = 4
+
                 def __init__(self, x):
                     self.x = x
 
@@ -1497,7 +1499,17 @@ if HAVE_ANNOTATED:
                         return NotImplemented
                     return other.x == self.x
 
-            self.assertEqual(C(5), Annotated[C, "a decoration"](5))
+            A = Annotated[C, "a decoration"]
+            a = A(5)
+            c = C(5)
+            self.assertEqual(a, c)
+            self.assertEqual(a.x, c.x)
+            self.assertEqual(A.classvar, C.classvar)
+
+            MyCount = Annotated[typing_extensions.Counter[T], "my decoration"]
+            self.assertEqual(MyCount([4, 4, 5]), {4: 2, 5: 1})
+            self.assertEqual(MyCount[int]([4, 4, 5]), {4: 2, 5: 1})
+
 
         def test_cannot_subclass(self):
             with self.assertRaises(TypeError):
@@ -1505,12 +1517,35 @@ if HAVE_ANNOTATED:
                     pass
 
         def test_pickle(self):
-            x = Annotated[List[int], "a"]
-            for prot in range(pickle.HIGHEST_PROTOCOL + 1):
-                with self.subTest(protocol=prot):
-                    pickled = pickle.dumps(x, prot)
-                    restored = pickle.loads(pickled)
-                    self.assertEqual(x, restored)
+            samples = [typing.Any, typing.Union[int, str],
+                       typing.Optional[str], Tuple[int, ...],
+                       typing.Callable[[str], bytes]]
+
+            for t in samples:
+                x = Annotated[t, "a"]
+
+                for prot in range(pickle.HIGHEST_PROTOCOL + 1):
+                    with self.subTest(protocol=prot, type=t):
+                        pickled = pickle.dumps(x, prot)
+                        restored = pickle.loads(pickled)
+                        self.assertEqual(x, restored)
+
+            global _Annotated_test_G
+
+            class _Annotated_test_G(Generic[T]):
+                x = 1
+
+            G = Annotated[_Annotated_test_G[int], "A decoration"]
+
+            c = G()
+            c.foo = 42
+            c.bar = 'abc'
+            for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+                z = pickle.dumps(c, proto)
+                x = pickle.loads(z)
+                self.assertEqual(x.foo, 42)
+                self.assertEqual(x.bar, 'abc')
+                self.assertEqual(x.x, 1)
 
         def test_subst(self):
             dec = "a decoration"
