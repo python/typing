@@ -1683,7 +1683,7 @@ if HAVE_ANNOTATED:
         @typing._tp_cache
         def __class_getitem__(cls, params):
             if not isinstance(params, tuple) or len(params) < 2:
-                raise TypeError("Annotated[...] should be instantiated "
+                raise TypeError("Annotated[...] should be used "
                                 "with at least two arguments (a type and an "
                                 "annotation).")
             msg = "Annotated[t, ...]: t must be a type."
