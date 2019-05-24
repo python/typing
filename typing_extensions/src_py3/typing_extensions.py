@@ -1613,7 +1613,7 @@ if HAVE_ANNOTATED:
         At its core 'Annoted[t, dec1, dec2...]' is an alias for the type 't'
         with extra annotations. The alias behaves like a normal typing alias,
         instantiating is the same as instantiating the underlying type, binding
-        it to types is also the same...
+        it to types is also the same.
         """
 
         def __init__(self, origin, extras):
