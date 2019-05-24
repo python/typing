@@ -1610,7 +1610,7 @@ if HAVE_ANNOTATED:
     class _Annotated(typing._GenericAlias, _root=True):
         """Runtime representation of an annotated type.
 
-        At its core 'Annoted[t, dec1, dec2...]' is an alias for the type 't'
+        At its core 'Annoted[t, dec1, dec2, ...]' is an alias for the type 't'
         with extra annotations. The alias behaves like a normal typing alias,
         instantiating is the same as instantiating the underlying type, binding
         it to types is also the same.
