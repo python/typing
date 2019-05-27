@@ -9,7 +9,7 @@ import types
 from unittest import TestCase, main, skipUnless
 from typing import TypeVar, Optional
 from typing import T, KT, VT  # Not in __all__.
-from typing import Tuple, List
+from typing import Tuple, List, Dict
 from typing import Generic
 from typing import get_type_hints
 from typing import no_type_check
@@ -65,6 +65,8 @@ PY36 = sys.version_info[:2] >= (3, 6)
 # Protocols are hard to backport to the original version of typing 3.5.0
 HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
 
+# Not backported to older versions yet
+HAVE_ANNOTATED = PEP_560
 
 class BaseTestCase(TestCase):
     def assertIsSubclass(self, cls, class_or_tuple, msg=None):
@@ -1458,6 +1460,182 @@ class TypedDictTests(BaseTestCase):
             self.assertEqual(Options.__total__, False)
 
 
+if HAVE_ANNOTATED:
+    from typing_extensions import Annotated, get_type_hints
+
+    class AnnotatedTests(BaseTestCase):
+
+        def test_repr(self):
+            self.assertEqual(
+                repr(Annotated[int, 4, 5]),
+                "typing_extensions.Annotated[int, 4, 5]"
+            )
+
+        def test_flatten(self):
+            A = Annotated[Annotated[int, 4], 5]
+            self.assertEqual(A, Annotated[int, 4, 5])
+            self.assertEqual(A.__metadata__, (4, 5))
+            self.assertEqual(A.__origin__, int)
+
+        def test_hash_eq(self):
+            self.assertEqual(len({Annotated[int, 4, 5], Annotated[int, 4, 5]}), 1)
+            self.assertNotEqual(Annotated[int, 4, 5], Annotated[int, 5, 4])
+            self.assertNotEqual(Annotated[int, 4, 5], Annotated[str, 4, 5])
+            self.assertNotEqual(Annotated[int, 4], Annotated[int, 4, 4])
+            self.assertEqual(
+                {Annotated[int, 4, 5], Annotated[int, 4, 5], Annotated[T, 4, 5]},
+                {Annotated[int, 4, 5], Annotated[T, 4, 5]}
+            )
+
+        def test_instantiate(self):
+            class C:
+                classvar = 4
+
+                def __init__(self, x):
+                    self.x = x
+
+                def __eq__(self, other):
+                    if not isinstance(other, C):
+                        return NotImplemented
+                    return other.x == self.x
+
+            A = Annotated[C, "a decoration"]
+            a = A(5)
+            c = C(5)
+            self.assertEqual(a, c)
+            self.assertEqual(a.x, c.x)
+            self.assertEqual(A.classvar, C.classvar)
+
+            MyCount = Annotated[typing_extensions.Counter[T], "my decoration"]
+            self.assertEqual(MyCount([4, 4, 5]), {4: 2, 5: 1})
+            self.assertEqual(MyCount[int]([4, 4, 5]), {4: 2, 5: 1})
+
+
+        def test_cannot_subclass(self):
+            with self.assertRaises(TypeError):
+                class C(Annotated):
+                    pass
+
+        def test_pickle(self):
+            samples = [typing.Any, typing.Union[int, str],
+                       typing.Optional[str], Tuple[int, ...],
+                       typing.Callable[[str], bytes]]
+
+            for t in samples:
+                x = Annotated[t, "a"]
+
+                for prot in range(pickle.HIGHEST_PROTOCOL + 1):
+                    with self.subTest(protocol=prot, type=t):
+                        pickled = pickle.dumps(x, prot)
+                        restored = pickle.loads(pickled)
+                        self.assertEqual(x, restored)
+
+            global _Annotated_test_G
+
+            class _Annotated_test_G(Generic[T]):
+                x = 1
+
+            G = Annotated[_Annotated_test_G[int], "A decoration"]
+            G.foo = 42
+            G.bar = 'abc'
+
+            for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+                z = pickle.dumps(G, proto)
+                x = pickle.loads(z)
+                self.assertEqual(x.foo, 42)
+                self.assertEqual(x.bar, 'abc')
+                self.assertEqual(x.x, 1)
+
+        def test_subst(self):
+            dec = "a decoration"
+
+            S = Annotated[T, dec]
+            self.assertEqual(S[int], Annotated[int, dec])
+
+            L = Annotated[List[T], dec]
+            self.assertEqual(L[int], Annotated[List[int], dec])
+            with self.assertRaises(TypeError):
+                L[int, int]
+
+            D = Annotated[Dict[KT, VT], dec]
+            self.assertEqual(D[str, int], Annotated[Dict[str, int], dec])
+            with self.assertRaises(TypeError):
+                D[int]
+
+            I = Annotated[int, dec]
+            with self.assertRaises(TypeError):
+                I[None]
+
+            LI = L[int]
+            with self.assertRaises(TypeError):
+                LI[None]
+
+        def test_annotated_in_other_types(self):
+            X = List[Annotated[T, 5]]
+            self.assertEqual(X[int], List[Annotated[int, 5]])
+
+
+    class GetTypeHintsTests(BaseTestCase):
+        def test_get_type_hints(self):
+            def foobar(x: List['X']): ...
+            X = Annotated[int, (1, 10)]
+            self.assertEqual(
+                get_type_hints(foobar, globals(), locals()),
+                {'x': List[int]}
+            )
+            self.assertEqual(
+                get_type_hints(foobar, globals(), locals(), include_extras=True),
+                {'x': List[Annotated[int, (1, 10)]]}
+            )
+            BA = Tuple[Annotated[T, (1, 0)], ...]
+            def barfoo(x: BA): ...
+            self.assertEqual(get_type_hints(barfoo, globals(), locals())['x'], Tuple[T, ...])
+            self.assertIs(
+                get_type_hints(barfoo, globals(), locals(), include_extras=True)['x'],
+                BA
+            )
+            def barfoo2(x: typing.Callable[..., Annotated[List[T], "const"]],
+                        y: typing.Union[int, Annotated[T, "mutable"]]): ...
+            self.assertEqual(
+                get_type_hints(barfoo2, globals(), locals()),
+                {'x': typing.Callable[..., List[T]], 'y': typing.Union[int, T]}
+            )
+            BA2 = typing.Callable[..., List[T]]
+            def barfoo3(x: BA2): ...
+            self.assertIs(
+                get_type_hints(barfoo3, globals(), locals(), include_extras=True)["x"],
+                BA2
+            )
+
+        def test_get_type_hints_refs(self):
+
+            Const = Annotated[T, "Const"]
+
+            class MySet(Generic[T]):
+
+                def __ior__(self, other: "Const[MySet[T]]") -> "MySet[T]":
+                    ...
+
+                def __iand__(self, other: Const["MySet[T]"]) -> "MySet[T]":
+                    ...
+
+            self.assertEqual(
+                get_type_hints(MySet.__iand__, globals(), locals()),
+                {'other': MySet[T], 'return': MySet[T]}
+            )
+
+            self.assertEqual(
+                get_type_hints(MySet.__iand__, globals(), locals(), include_extras=True),
+                {'other': Const[MySet[T]], 'return': MySet[T]}
+            )
+
+            self.assertEqual(
+                get_type_hints(MySet.__ior__, globals(), locals()),
+                {'other': MySet[T], 'return': MySet[T]}
+            )
+
+
+
 class AllTests(BaseTestCase):
 
     def test_typing_extensions_includes_standard(self):
@@ -1488,8 +1666,12 @@ class AllTests(BaseTestCase):
             self.assertIn('Protocol', a)
             self.assertIn('runtime', a)
 
+        if HAVE_ANNOTATED:
+            self.assertIn('Annotated', a)
+            self.assertIn('get_type_hints', a)
+
     def test_typing_extensions_defers_when_possible(self):
-        exclude = {'overload', 'Text', 'TYPE_CHECKING', 'Final'}
+        exclude = {'overload', 'Text', 'TYPE_CHECKING', 'Final', 'get_type_hints'}
         for item in typing_extensions.__all__:
             if item not in exclude and hasattr(typing, item):
                 self.assertIs(
