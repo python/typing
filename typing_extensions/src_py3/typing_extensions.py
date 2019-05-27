@@ -145,7 +145,7 @@ if HAVE_PROTOCOLS:
 HAVE_ANNOTATED = PEP_560
 
 if HAVE_ANNOTATED:
-    __all__.append('Annotated')
+    __all__.extend(['Annotated', 'get_type_hints'])
 
 
 # TODO
@@ -1700,3 +1700,53 @@ if HAVE_ANNOTATED:
 
         def __init_subclass__(cls, *args, **kwargs):
             raise TypeError("Cannot inherit from Annotated")
+
+    def _strip_annotations(t):
+        """Strips the annotations from a given type.
+        """
+        if isinstance(t, _Annotated):
+            return _strip_annotations(t.__origin__)
+        if isinstance(t, typing._GenericAlias):
+            stripped_args = tuple(_strip_annotations(a) for a in t.__args__)
+            if stripped_args == t.__args__:
+                return t
+            res = t.copy_with(stripped_args)
+            res._special = t._special
+            return res
+        return t
+
+    def get_type_hints(obj, globalns=None, localns=None, include_extras=False):
+        """Return type hints for an object.
+
+        This is often the same as obj.__annotations__, but it handles
+        forward references encoded as string literals, adds Optional[t] if a
+        default value equal to None is set and recursively replaces all
+        'Annotated[T, ...]' with 'T' (unless 'include_extras=True').
+
+        The argument may be a module, class, method, or function. The annotations
+        are returned as a dictionary. For classes, annotations include also
+        inherited members.
+
+        TypeError is raised if the argument is not of a type that can contain
+        annotations, and an empty dictionary is returned if no annotations are
+        present.
+
+        BEWARE -- the behavior of globalns and localns is counterintuitive
+        (unless you are familiar with how eval() and exec() work).  The
+        search order is locals first, then globals.
+
+        - If no dict arguments are passed, an attempt is made to use the
+          globals from obj (or the respective module's globals for classes),
+          and these are also used as the locals.  If the object does not appear
+          to have globals, an empty dictionary is used.
+
+        - If one dict argument is passed, it is used for both globals and
+          locals.
+
+        - If two dict arguments are passed, they specify globals and
+          locals, respectively.
+        """
+        hint = typing.get_type_hints(obj, globalns=globalns, localns=localns)
+        if include_extras:
+            return hint
+        return {k: _strip_annotations(t) for k, t in hint.items()}

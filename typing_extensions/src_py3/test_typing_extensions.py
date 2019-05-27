@@ -1461,7 +1461,7 @@ class TypedDictTests(BaseTestCase):
 
 
 if HAVE_ANNOTATED:
-    from typing_extensions import Annotated
+    from typing_extensions import Annotated, get_type_hints
 
     class AnnotatedTests(BaseTestCase):
 
@@ -1576,6 +1576,67 @@ if HAVE_ANNOTATED:
             self.assertEqual(X[int], List[Annotated[int, 5]])
 
 
+    class GetTypeHintsTests(BaseTestCase):
+        def test_get_type_hints(self):
+            def foobar(x: List['X']): ...
+            X = Annotated[int, (1, 10)]
+            self.assertEqual(
+                get_type_hints(foobar, globals(), locals()),
+                {'x': List[int]}
+            )
+            self.assertEqual(
+                get_type_hints(foobar, globals(), locals(), include_extras=True),
+                {'x': List[Annotated[int, (1, 10)]]}
+            )
+            BA = Tuple[Annotated[T, (1, 0)], ...]
+            def barfoo(x: BA): ...
+            self.assertEqual(get_type_hints(barfoo, globals(), locals())['x'], Tuple[T, ...])
+            self.assertIs(
+                get_type_hints(barfoo, globals(), locals(), include_extras=True)['x'],
+                BA
+            )
+            def barfoo2(x: typing.Callable[..., Annotated[List[T], "const"]],
+                        y: typing.Union[int, Annotated[T, "mutable"]]): ...
+            self.assertEqual(
+                get_type_hints(barfoo2, globals(), locals()),
+                {'x': typing.Callable[..., List[T]], 'y': typing.Union[int, T]}
+            )
+            BA2 = typing.Callable[..., List[T]]
+            def barfoo3(x: BA2): ...
+            self.assertIs(
+                get_type_hints(barfoo3, globals(), locals(), include_extras=True)["x"],
+                BA2
+            )
+
+        def test_get_type_hints_refs(self):
+
+            Const = Annotated[T, "Const"]
+
+            class MySet(Generic[T]):
+
+                def __ior__(self, other: "Const[MySet[T]]") -> "MySet[T]":
+                    ...
+
+                def __iand__(self, other: Const["MySet[T]"]) -> "MySet[T]":
+                    ...
+
+            self.assertEqual(
+                get_type_hints(MySet.__iand__, globals(), locals()),
+                {'other': MySet[T], 'return': MySet[T]}
+            )
+
+            self.assertEqual(
+                get_type_hints(MySet.__iand__, globals(), locals(), include_extras=True),
+                {'other': Const[MySet[T]], 'return': MySet[T]}
+            )
+
+            self.assertEqual(
+                get_type_hints(MySet.__ior__, globals(), locals()),
+                {'other': MySet[T], 'return': MySet[T]}
+            )
+
+
+
 class AllTests(BaseTestCase):
 
     def test_typing_extensions_includes_standard(self):
@@ -1608,9 +1669,10 @@ class AllTests(BaseTestCase):
 
         if HAVE_ANNOTATED:
             self.assertIn('Annotated', a)
+            self.assertIn('get_type_hints', a)
 
     def test_typing_extensions_defers_when_possible(self):
-        exclude = {'overload', 'Text', 'TYPE_CHECKING', 'Final'}
+        exclude = {'overload', 'Text', 'TYPE_CHECKING', 'Final', 'get_type_hints'}
         for item in typing_extensions.__all__:
             if item not in exclude and hasattr(typing, item):
                 self.assertIs(
