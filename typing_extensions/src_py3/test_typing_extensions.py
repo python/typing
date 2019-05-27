@@ -1536,12 +1536,11 @@ if HAVE_ANNOTATED:
                 x = 1
 
             G = Annotated[_Annotated_test_G[int], "A decoration"]
+            G.foo = 42
+            G.bar = 'abc'
 
-            c = G()
-            c.foo = 42
-            c.bar = 'abc'
             for proto in range(pickle.HIGHEST_PROTOCOL + 1):
-                z = pickle.dumps(c, proto)
+                z = pickle.dumps(G, proto)
                 x = pickle.loads(z)
                 self.assertEqual(x.foo, 42)
                 self.assertEqual(x.bar, 'abc')
