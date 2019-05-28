@@ -1489,7 +1489,8 @@ if HAVE_ANNOTATED:
             A = Annotated[Annotated[int, 4], 5]
             self.assertEqual(A, Annotated[int, 4, 5])
             self.assertEqual(A.__metadata__, (4, 5))
-            self.assertEqual(A.__origin__, int)
+            self.assertEqual(A.__type__, int)
+            self.assertEqual(A.__origin__, Annotated)
 
         def test_hash_eq(self):
             self.assertEqual(len({Annotated[int, 4, 5], Annotated[int, 4, 5]}), 1)
