@@ -4,8 +4,8 @@
 import sys
 from setuptools import setup
 
-if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 3, 0):
-    sys.stderr.write('ERROR: You need Python 2.7 or 3.3+ '
+if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 4, 0):
+    sys.stderr.write('ERROR: You need Python 2.7 or 3.4+ '
                      'to install the typing package.\n')
     exit(1)
 
@@ -37,10 +37,10 @@ classifiers = [
     'License :: OSI Approved :: Python Software Foundation License',
     'Operating System :: OS Independent',
     'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3.3',
     'Programming Language :: Python :: 3.4',
     'Programming Language :: Python :: 3.5',
     'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
     'Topic :: Software Development',
 ]
 

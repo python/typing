@@ -48,7 +48,7 @@ All Python versions:
 - ``Type``
 - ``TYPE_CHECKING``
 
-Python 3.3+ only:
+Python 3.4+ only:
 -----------------
 
 - ``ChainMap``
