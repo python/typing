@@ -13,7 +13,7 @@ from typing import Tuple, List, Dict
 from typing import Generic
 from typing import get_type_hints
 from typing import no_type_check
-from typing_extensions import NoReturn, ClassVar, Final, Literal, Type, NewType, TypedDict
+from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
 try:
     from typing_extensions import Protocol, runtime
 except ImportError:
@@ -213,6 +213,20 @@ class FinalTests(BaseTestCase):
             isinstance(1, Final[int])
         with self.assertRaises(TypeError):
             issubclass(int, Final)
+
+
+class IntVarTests(BaseTestCase):
+    def test_valid(self):
+        T_ints = IntVar("T_ints")
+
+    def test_invalid(self):
+        with self.assertRaises(TypeError):
+            T_ints = IntVar("T_ints", int)
+        with self.assertRaises(TypeError):
+            T_ints = IntVar("T_ints", bound=int)
+        with self.assertRaises(TypeError):
+            T_ints = IntVar("T_ints", covariant=True)
+
 
 class LiteralTests(BaseTestCase):
     def test_basics(self):
