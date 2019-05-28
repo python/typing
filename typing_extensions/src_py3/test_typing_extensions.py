@@ -1489,7 +1489,7 @@ if HAVE_ANNOTATED:
             A = Annotated[Annotated[int, 4], 5]
             self.assertEqual(A, Annotated[int, 4, 5])
             self.assertEqual(A.__metadata__, (4, 5))
-            self.assertEqual(A.__origin__, int)
+            self.assertEqual(A.__type__, int)
 
         def test_hash_eq(self):
             self.assertEqual(len({Annotated[int, 4, 5], Annotated[int, 4, 5]}), 1)
@@ -1558,7 +1558,7 @@ if HAVE_ANNOTATED:
                 x = pickle.loads(z)
                 self.assertEqual(x.foo, 42)
                 self.assertEqual(x.bar, 'abc')
-                self.assertEqual(x.x, 1)
+                self.assertEqual(x.__type__.x, 1)
 
         def test_subst(self):
             dec = "a decoration"
