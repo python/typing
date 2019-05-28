@@ -136,8 +136,8 @@ Workflow for CPython changes
 Workflow for PyPI releases
 --------------------------
 
-* Run tests under all supported versions. As of March 2017 this includes
-  2.7, 3.3, 3.4, 3.5, 3.6.
+* Run tests under all supported versions. As of May 2019 this includes
+  2.7, 3.4, 3.5, 3.6, 3.7.
 
 * On macOS, you can use `pyenv <https://github.com/pyenv/pyenv>`_ to
   manage multiple Python installations. Long story short:
@@ -148,9 +148,8 @@ Workflow for PyPI releases
   * Open a new shell
   * ``pyenv install 3.5.3``
   * ``pyenv install 3.4.6``
-  * ``pyenv install 3.3.6``
   * (assuming you already have 2.7.13 and 3.6.1 from Homebrew)
-  * ``pyenv global system 3.5.3 3.4.6 3.3.6``
+  * ``pyenv global system 3.5.3 3.4.6``
 
 * You can use ``tox`` to automate running tests.
 
