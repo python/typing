@@ -13,7 +13,7 @@ from typing import Tuple, List, Dict
 from typing import Generic
 from typing import get_type_hints
 from typing import no_type_check
-from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
+from typing_extensions import NoReturn, CallableParameterTypeVariable, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
 try:
     from typing_extensions import Protocol, runtime
 except ImportError:
@@ -127,6 +127,20 @@ class NoReturnTests(BaseTestCase):
             NoReturn()
         with self.assertRaises(TypeError):
             type(NoReturn)()
+
+
+class CallableParameterTypeVariableTests(BaseTestCase):
+    def test_valid(self):
+        T_params = CallableParameterTypeVariable("T_params")
+        f: typing.Callable[T_params, int]
+
+    def test_invalid(self):
+        with self.assertRaises(TypeError):
+            T_params = CallableParameterTypeVariable("T_params", int)
+        with self.assertRaises(TypeError):
+            T_params = CallableParameterTypeVariable("T_params", bound=int)
+        with self.assertRaises(TypeError):
+            T_params = CallableParameterTypeVariable("T_params", covariant=True)
 
 
 class ClassVarTests(BaseTestCase):

@@ -8,7 +8,7 @@ import subprocess
 import types
 from unittest import TestCase, main, skipUnless
 
-from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, TypedDict
+from typing_extensions import NoReturn, CallableParameterTypeVariable, ClassVar, Final, IntVar, Literal, TypedDict
 from typing_extensions import ContextManager, Counter, Deque, DefaultDict
 from typing_extensions import NewType, overload, Protocol, runtime
 import typing
@@ -76,6 +76,20 @@ class NoReturnTests(BaseTestCase):
             NoReturn()
         with self.assertRaises(TypeError):
             type(NoReturn)()
+
+
+class CallableParameterTypeVariableTests(BaseTestCase):
+    def test_valid(self):
+        T_params = CallableParameterTypeVariable("T_params")
+        f: typing.Callable[T_params, int]
+
+    def test_invalid(self):
+        with self.assertRaises(TypeError):
+            T_params = CallableParameterTypeVariable("T_params", int)
+        with self.assertRaises(TypeError):
+            T_params = CallableParameterTypeVariable("T_params", bound=int)
+        with self.assertRaises(TypeError):
+            T_params = CallableParameterTypeVariable("T_params", covariant=True)
 
 
 class ClassVarTests(BaseTestCase):

@@ -126,6 +126,7 @@ __all__ = [
     'DefaultDict',
 
     # One-off things.
+    'CallableParameterTypeVariable'
     'final',
     'IntVar',
     'Literal',
@@ -210,6 +211,34 @@ T_co = typing.TypeVar('T_co', covariant=True)  # Any type covariant containers.
 V_co = typing.TypeVar('V_co', covariant=True)  # Any type covariant containers.
 VT_co = typing.TypeVar('VT_co', covariant=True)  # Value type covariant containers.
 T_contra = typing.TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
+
+
+def CallableParameterTypeVariable(name):
+    """This kind of type variable captures callable parameter specifications
+    instead of types, allowing the typing of decorators which transform the 
+    return type of the given callable.  For example:
+
+        from typing import TypeVar, Callable, List
+        from typing_extensions import CallableParameterTypeVariable
+        Tparams = CallableParameterTypeVariable("Tparams")
+        Treturn = TypeVar("Treturn")
+
+        def unwrap(
+            f: Callable[Tparams, List[Treturn],
+        ) -> Callable[Tparams, Treturn]: ...
+
+        @unwrap
+        def foo(x: int, y: str, z: bool = False) -> List[int]:
+            return [1, 2, 3]
+
+    decorates foo into a callable that returns int, but still has the same 
+    parameters, including their names and whether they are required.
+    
+    The empty list is required for backwards compatibility with the runtime 
+    implementation for callables, which requires the first argument to be 
+    a list of types
+    """
+    return []
 
 
 if hasattr(typing, 'ClassVar'):
