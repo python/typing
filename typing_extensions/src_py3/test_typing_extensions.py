@@ -132,7 +132,7 @@ class NoReturnTests(BaseTestCase):
 class CallableParametersVariableTests(BaseTestCase):
     def test_valid(self):
         T_params = CallableParametersVariable("T_params")
-        f: typing.Callable[T_params, int]
+        f_type = typing.Callable[T_params, int]
 
     def test_invalid(self):
         with self.assertRaises(TypeError):
