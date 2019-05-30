@@ -126,7 +126,9 @@ __all__ = [
     'DefaultDict',
 
     # One-off things.
+    'Annotated',
     'final',
+    'get_type_hints',
     'IntVar',
     'Literal',
     'NewType',
@@ -140,13 +142,6 @@ HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
 
 if HAVE_PROTOCOLS:
     __all__.extend(['Protocol', 'runtime'])
-
-# Annotations were implemented under tight time constraints; this keeps the
-# implementation simple for now
-HAVE_ANNOTATED = PEP_560
-
-if HAVE_ANNOTATED:
-    __all__.extend(['Annotated', 'get_type_hints'])
 
 
 # TODO
@@ -1611,7 +1606,7 @@ TypedDict.__doc__ = \
     """
 
 
-if HAVE_ANNOTATED:
+if PEP_560:
     class _AnnotatedAlias(typing._GenericAlias, _root=True):
         """Runtime representation of an annotated type.
 
@@ -1631,8 +1626,26 @@ if HAVE_ANNOTATED:
         def __type__(self):
             return self.__args__[0]
 
+        def _check_cons(self, msg):
+            cons = self.__args__[0]
+            type_error = None
+            if isinstance(cons, typing.ForwardRef):
+                type_error = "a forward reference."
+            elif isinstance(cons, typing.TypeVar):
+                type_error = "a type variable."
+
+            if type_error:
+                raise TypeError(
+                    "{} {}: the annotated type is {}".format(
+                        msg,
+                        self,
+                        type_error
+                    )
+                )
+
         def __getattr__(self, attr):
             if not typing._is_dunder(attr):
+                self._check_cons("Cannot access properties on")
                 return getattr(self.__type__, attr)
             raise AttributeError(attr)
 
@@ -1641,6 +1654,7 @@ if HAVE_ANNOTATED:
             if typing._is_dunder(attr) or attr in ('_name', '_inst', '_special'):
                 object.__setattr__(self, attr, val)
             else:
+                self._check_cons("Cannot set properties on")
                 setattr(self.__type__, attr, val)
 
         def copy_with(self, params):
@@ -1660,6 +1674,7 @@ if HAVE_ANNOTATED:
             )
 
         def __call__(self, *args, **kwargs):
+            self._check_cons("Cannot create an instance of")
             result = self.__type__(*args, **kwargs)
             try:
                 result.__orig_class__ = self
@@ -1677,6 +1692,11 @@ if HAVE_ANNOTATED:
         def __hash__(self):
             return hash((self.__origin__, self.__type__, self.__metadata__))
 
+        def __instancecheck__(self, obj):
+            raise TypeError("Annotated cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError("Annotated cannot be used with issubclass().")
 
     class Annotated:
         """Add context specific metadata to a type.
@@ -1709,6 +1729,8 @@ if HAVE_ANNOTATED:
 
             OptimizedList = Annotated[List[T], runtime.Optimize()]
             OptimizedList[int] == Annotated[List[int], runtime.Optimize()]
+
+        NOTE: the __type__ field is only available in python 3.7+.
         """
 
         __slots__ = ()
@@ -1752,6 +1774,8 @@ if HAVE_ANNOTATED:
         default value equal to None is set and recursively replaces all
         'Annotated[T, ...]' with 'T' (unless 'include_extras=True').
 
+        NOTE: 'include_extras' is only available in python 3.7+.
+
         The argument may be a module, class, method, or function. The annotations
         are returned as a dictionary. For classes, annotations include also
         inherited members.
@@ -1779,3 +1803,171 @@ if HAVE_ANNOTATED:
         if include_extras:
             return hint
         return {k: _strip_annotations(t) for k, t in hint.items()}
+
+else:
+
+    # Prior to python 3.7 types did not have `copy_with`. A lot of the equality
+    # checks, argument expansion etc.. are done on the _subs_tree.
+    #
+    # >> U = Union[Optional[float], int]
+    # >> U1 = Union[T, int]
+    # >> U2 = U1[Optional[float]]
+    # >> U == U2
+    # True
+    # >> U2.__args__, U.__args__
+    # (typing.Union[float, NoneType],) (<class 'float'>, <class 'NoneType'>, <class 'int'>)
+    #
+    # Here U and U2 have different shapes but have the same _subs_tree.
+    #
+    # As a result we can't provide a get_type_hints function that strips out
+    # annotations or a '__type__' field on the Annotated class.
+
+
+    class AnnotatedMeta(typing.GenericMeta):
+        """Metaclass for Annotated"""
+
+        def __new__(cls, name, bases, namespace, **kwargs):
+            if name != "Annotated":
+                raise TypeError("Cannot inherit from Annotated")
+            return super().__new__(cls, name, bases, namespace, **kwargs)
+
+        @property
+        def __metadata__(self):
+            return self._subs_tree()[2]
+
+        def _tree_repr(self, tree):
+            assert len(tree) == 3
+            # First argument is this class, second is __type__, 3rd is __metadata__
+            tp_tree = tree[1]
+            if not isinstance(tp_tree, tuple):
+                tp_repr = typing._type_repr(tp_tree)
+            else:
+                tp_repr = tp_tree[0]._tree_repr(tp_tree)
+            metadata_reprs = ", ".join(repr(arg) for arg in tree[2])
+            return repr(tree[0]) + '[%s, %s]' % (tp_repr, metadata_reprs)
+
+        def _subs_tree(self, tvars=None, args=None):
+            if self is Annotated:
+                return Annotated
+            res = super()._subs_tree(tvars=tvars, args=args)
+            # Flatten nested Annotated
+            if isinstance(res[1], tuple) and res[1][0] is Annotated:
+                sub_tp = res[1][1]
+                sub_annot = res[1][2]
+                return (Annotated, sub_tp, sub_annot + res[2])
+            return res
+
+
+        @typing._tp_cache
+        def __getitem__(self, params):
+            if not isinstance(params, tuple):
+                params = (params,)
+            if self.__origin__ is not None:  # specializing an instantiated type
+                return super().__getitem__(params)
+            elif not isinstance(params, tuple) or len(params) < 2:
+                raise TypeError("Annotated[...] should be instantiated "
+                                "with at least two arguments (a type and an "
+                                "annotation).")
+            else:
+                msg = "Annotated[t, ...]: t must be a type."
+                tp = typing._type_check(params[0], msg)
+                metadata = tuple(params[1:])
+            return self.__class__(
+                self.__name__,
+                self.__bases__,
+                typing._no_slots_copy(self.__dict__),
+                tvars=_type_vars((tp,)),
+                # Metadata is a tuple so it won't be touched by _replace_args et al.
+                args=(tp, metadata),
+                origin=self,
+                # tp=tp,
+                # metadata=metadata,
+            )
+
+        def _get_cons(self, msg):
+            if self.__origin__ is None:
+                raise TypeError("Annotated cannot be called")
+            tree = self._subs_tree()
+            while isinstance(tree, tuple) and tree[0] is Annotated:
+                tree = tree[1]
+            if isinstance(tree, tuple):
+                cons = tree[0]
+            else:
+                cons = tree
+            type_error = None
+            if isinstance(cons, typing._ForwardRef):
+                type_error = "a forward reference."
+            elif isinstance(cons, typing.TypeVar):
+                type_error = "a type variable."
+
+            if type_error:
+                raise TypeError(
+                    "{} {}: the annotated type is {}".format(
+                        msg,
+                        self,
+                        type_error
+                    )
+                )
+
+            return cons
+
+        def __call__(self, *args, **kwargs):
+            cons = self._get_cons("Cannot create an instance of")
+            result = cons(*args, **kwargs)
+            try:
+                result.__orig_class__ = self
+            except AttributeError:
+                pass
+            return result
+
+        def __getattr__(self, attr):
+            # We are careful for copy and pickle.
+            # Also for simplicity we just don't relay all dunder names
+            if self.__origin__ is not None and not (
+                    attr.startswith('__') and attr.endswith('__')
+            ):
+                return getattr(self._get_cons("Cannot access properties on"), attr)
+            raise AttributeError(attr)
+
+        def __instancecheck__(self, obj):
+            raise TypeError("Annotated cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError("Annotated cannot be used with issubclass().")
+
+
+
+    class Annotated(metaclass=AnnotatedMeta):
+        """Add context specific metadata to a type.
+
+        Example: Annotated[int, runtime_check.Unsigned] indicates to the
+        hypothetical runtime_check module that this type is an unsigned int.
+        Every other consumer of this type can ignore this metadata and treat
+        this type as int.
+
+        The first argument to Annotated must be a valid type, the remaining
+        arguments are kept as a tuple in the __metadata__ field.
+
+        Details:
+
+        - It's an error to call `Annotated` with less than two arguments.
+        - Nested Annotated are flattened::
+
+            Annotated[Annotated[int, Ann1, Ann2], Ann3] == Annotated[int, Ann1, Ann2, Ann3]
+
+        - Instantiating an annotated type is equivalent to instantiating the
+        underlying type::
+
+            Annotated[C, Ann1](5) == C(5)
+
+        - Annotated can be used as a generic type alias::
+
+            Optimized = Annotated[T, runtime.Optimize()]
+            Optimized[int] == Annotated[int, runtime.Optimize()]
+
+            OptimizedList = Annotated[List[T], runtime.Optimize()]
+            OptimizedList[int] == Annotated[List[int], runtime.Optimize()]
+        """
+
+
+    get_type_hints = typing.get_type_hints
