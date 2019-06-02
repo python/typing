@@ -1612,7 +1612,7 @@ TypedDict.__doc__ = \
 
 
 if HAVE_ANNOTATED:
-    class _Annotated(typing._GenericAlias, _root=True):
+    class _AnnotatedAlias(typing._GenericAlias, _root=True):
         """Runtime representation of an annotated type.
 
         At its core 'Annotated[t, dec1, dec2, ...]' is an alias for the type 't'
@@ -1621,7 +1621,7 @@ if HAVE_ANNOTATED:
         it to types is also the same.
         """
         def __init__(self, origin, metadata):
-            if isinstance(origin, _Annotated):
+            if isinstance(origin, _AnnotatedAlias):
                 metadata = origin.__metadata__ + metadata
                 origin = origin.__origin__
             super().__init__(origin, origin)
@@ -1630,7 +1630,7 @@ if HAVE_ANNOTATED:
         def copy_with(self, params):
             assert len(params) == 1
             new_type = params[0]
-            return _Annotated(new_type, self.__metadata__)
+            return _AnnotatedAlias(new_type, self.__metadata__)
 
         def __repr__(self):
             return "typing_extensions.Annotated[{}, {}]".format(
@@ -1644,7 +1644,7 @@ if HAVE_ANNOTATED:
             )
 
         def __eq__(self, other):
-            if not isinstance(other, _Annotated):
+            if not isinstance(other, _AnnotatedAlias):
                 return NotImplemented
             if self.__origin__ != other.__origin__:
                 return False
@@ -1680,11 +1680,11 @@ if HAVE_ANNOTATED:
 
         - Annotated can be used as a generic type alias::
 
-            Optimized = Annotated[T, runtime.Optimize]
-            Optimized[int] == Annotated[int, runtime.Optimize]
+            Optimized = Annotated[T, runtime.Optimize()]
+            Optimized[int] == Annotated[int, runtime.Optimize()]
 
-            OptimizedList = Annotated[List[T], runtime.Optimize]
-            OptimizedList[int] == Annotated[List[int], runtime.Optimize]
+            OptimizedList = Annotated[List[T], runtime.Optimize()]
+            OptimizedList[int] == Annotated[List[int], runtime.Optimize()]
         """
 
         __slots__ = ()
@@ -1701,7 +1701,7 @@ if HAVE_ANNOTATED:
             msg = "Annotated[t, ...]: t must be a type."
             origin = typing._type_check(params[0], msg)
             metadata = tuple(params[1:])
-            return _Annotated(origin, metadata)
+            return _AnnotatedAlias(origin, metadata)
 
         def __init_subclass__(cls, *args, **kwargs):
             raise TypeError("Cannot inherit from Annotated")
@@ -1709,7 +1709,7 @@ if HAVE_ANNOTATED:
     def _strip_annotations(t):
         """Strips the annotations from a given type.
         """
-        if isinstance(t, _Annotated):
+        if isinstance(t, _AnnotatedAlias):
             return _strip_annotations(t.__origin__)
         if isinstance(t, typing._GenericAlias):
             stripped_args = tuple(_strip_annotations(a) for a in t.__args__)
