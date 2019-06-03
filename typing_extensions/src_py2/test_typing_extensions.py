@@ -8,9 +8,10 @@ import subprocess
 import types
 from unittest import TestCase, main, skipUnless
 
-from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, TypedDict
+from typing_extensions import Annotated, NoReturn, ClassVar, Final, IntVar, Literal, TypedDict
 from typing_extensions import ContextManager, Counter, Deque, DefaultDict
 from typing_extensions import NewType, overload, Protocol, runtime
+from typing import Dict, List
 import typing
 import typing_extensions
 
@@ -925,6 +926,147 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(D(x=1), {'x': 1})
         self.assertEqual(D.__total__, False)
 
+
+class AnnotatedTests(BaseTestCase):
+
+    def test_repr(self):
+        self.assertEqual(
+            repr(Annotated[int, 4, 5]),
+            "typing_extensions.Annotated[int, 4, 5]"
+        )
+        self.assertEqual(
+            repr(Annotated[List[int], 4, 5]),
+            "typing_extensions.Annotated[typing.List[int], 4, 5]"
+        )
+        self.assertEqual(repr(Annotated), "typing_extensions.Annotated")
+
+    def test_flatten(self):
+        A = Annotated[Annotated[int, 4], 5]
+        self.assertEqual(A, Annotated[int, 4, 5])
+        self.assertEqual(A.__metadata__, (4, 5))
+
+    def test_specialize(self):
+        L = Annotated[List[T], "my decoration"]
+        LI = Annotated[List[int], "my decoration"]
+        self.assertEqual(L[int], Annotated[List[int], "my decoration"])
+        self.assertEqual(L[int].__metadata__, ("my decoration",))
+        with self.assertRaises(TypeError):
+            LI[int]
+        with self.assertRaises(TypeError):
+            L[int, float]
+
+    def test_hash_eq(self):
+        self.assertEqual(len({Annotated[int, 4, 5], Annotated[int, 4, 5]}), 1)
+        self.assertNotEqual(Annotated[int, 4, 5], Annotated[int, 5, 4])
+        self.assertNotEqual(Annotated[int, 4, 5], Annotated[str, 4, 5])
+        self.assertNotEqual(Annotated[int, 4], Annotated[int, 4, 4])
+        self.assertEqual(
+            {Annotated[int, 4, 5], Annotated[int, 4, 5], Annotated[T, 4, 5]},
+            {Annotated[int, 4, 5], Annotated[T, 4, 5]}
+        )
+
+    def test_instantiate(self):
+        class C:
+            classvar = 4
+
+            def __init__(self, x):
+                self.x = x
+
+            def __eq__(self, other):
+                if not isinstance(other, C):
+                    return NotImplemented
+                return other.x == self.x
+
+        A = Annotated[C, "a decoration"]
+        a = A(5)
+        c = C(5)
+        self.assertEqual(a, c)
+        self.assertEqual(a.x, c.x)
+        self.assertEqual(a.classvar, c.classvar)
+
+    def test_instantiate_generic(self):
+        MyCount = Annotated[typing_extensions.Counter[T], "my decoration"]
+        self.assertEqual(MyCount([4, 4, 5]), {4: 2, 5: 1})
+        self.assertEqual(MyCount[int]([4, 4, 5]), {4: 2, 5: 1})
+
+    def test_cannot_instantiate_forward(self):
+        A = Annotated["int", (5, 6)]
+        with self.assertRaises(TypeError):
+            A(5)
+
+    def test_cannot_instantiate_type_var(self):
+        A = Annotated[T, (5, 6)]
+        with self.assertRaises(TypeError):
+            A(5)
+
+    def test_cannot_getattr_typevar(self):
+        with self.assertRaises(AttributeError):
+            Annotated[T, (5, 7)].x
+
+    def test_attr_passthrough(self):
+        class C:
+            classvar = 4
+
+        A = Annotated[C, "a decoration"]
+        self.assertEqual(A.classvar, 4)
+        A.x = 5
+        self.assertEqual(C.x, 5)
+
+    def test_hash_eq(self):
+        self.assertEqual(len({Annotated[int, 4, 5], Annotated[int, 4, 5]}), 1)
+        self.assertNotEqual(Annotated[int, 4, 5], Annotated[int, 5, 4])
+        self.assertNotEqual(Annotated[int, 4, 5], Annotated[str, 4, 5])
+        self.assertNotEqual(Annotated[int, 4], Annotated[int, 4, 4])
+        self.assertEqual(
+            {Annotated[int, 4, 5], Annotated[int, 4, 5], Annotated[T, 4, 5]},
+            {Annotated[int, 4, 5], Annotated[T, 4, 5]}
+        )
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+           class C(Annotated):
+               pass
+
+    def test_cannot_check_instance(self):
+        with self.assertRaises(TypeError):
+            isinstance(5, Annotated[int, "positive"])
+
+    def test_cannot_check_subclass(self):
+        with self.assertRaises(TypeError):
+            issubclass(int, Annotated[int, "positive"])
+
+    def test_subst(self):
+        dec = "a decoration"
+        dec2 = "another decoration"
+
+        S = Annotated[T, dec2]
+        self.assertEqual(S[int], Annotated[int, dec2])
+
+        self.assertEqual(S[Annotated[int, dec]], Annotated[int, dec, dec2])
+        L = Annotated[List[T], dec]
+
+        self.assertEqual(L[int], Annotated[List[int], dec])
+        with self.assertRaises(TypeError):
+            L[int, int]
+
+        self.assertEqual(S[L[int]], Annotated[List[int], dec, dec2])
+
+        D = Annotated[Dict[KT, VT], dec]
+        self.assertEqual(D[str, int], Annotated[Dict[str, int], dec])
+        with self.assertRaises(TypeError):
+            D[int]
+
+        I = Annotated[int, dec]
+        with self.assertRaises(TypeError):
+            I[None]
+
+        LI = L[int]
+        with self.assertRaises(TypeError):
+            LI[None]
+
+    def test_annotated_in_other_types(self):
+        X = List[Annotated[T, 5]]
+        self.assertEqual(X[int], List[Annotated[int, 5]])
 
 class AllTests(BaseTestCase):
 
