@@ -1698,8 +1698,6 @@ if PEP_560:
 
             OptimizedList = Annotated[List[T], runtime.Optimize()]
             OptimizedList[int] == Annotated[List[int], runtime.Optimize()]
-
-        NOTE: the __type__ field is only available in python 3.7+.
         """
 
         __slots__ = ()
@@ -1775,21 +1773,9 @@ if PEP_560:
 
 elif HAVE_ANNOTATED:
 
-    # Prior to python 3.7 types did not have `copy_with`. A lot of the equality
-    # checks, argument expansion etc.. are done on the _subs_tree.
-    #
-    # >> U = Union[Optional[float], int]
-    # >> U1 = Union[T, int]
-    # >> U2 = U1[Optional[float]]
-    # >> U == U2
-    # True
-    # >> U2.__args__, U.__args__
-    # (typing.Union[float, NoneType],) (<class 'float'>, <class 'NoneType'>, <class 'int'>)
-    #
-    # Here U and U2 have different shapes but have the same _subs_tree.
-    #
-    # As a result we can't provide a get_type_hints function that strips out
-    # annotations or a '__type__' field on the Annotated class.
+    # Prior to Python 3.7 types did not have `copy_with`. A lot of the equality
+    # checks, argument expansion etc. are done on the _subs_tre. As a result we
+    # can't provide a get_type_hints function that strips out annotations.
 
     class AnnotatedMeta(typing.GenericMeta):
         """Metaclass for Annotated"""
@@ -1805,7 +1791,7 @@ elif HAVE_ANNOTATED:
 
         def _tree_repr(self, tree):
             assert len(tree) == 3
-            # First argument is this class, second is __type__, 3rd is __metadata__
+            # First argument is this class, second is __origin__, 3rd is __metadata__
             tp_tree = tree[1]
             if not isinstance(tp_tree, tuple):
                 tp_repr = typing._type_repr(tp_tree)
@@ -1825,8 +1811,13 @@ elif HAVE_ANNOTATED:
                 return (Annotated, sub_tp, sub_annot + res[2])
             return res
 
+        def _get_cons(self, msg, exc_type):
+            """ Return the class used to create instance of this type.
 
-        def _get_cons(self, msg):
+            The msg and exc_type argument are used to control the exceptions
+            that get raised when there's no underlying constructor available (
+            e.g.: we're in an unspecialized class).
+            """
             if self.__origin__ is None:
                 raise TypeError(msg + " a non specialized Annotated type")
             tree = self._subs_tree()
@@ -1843,13 +1834,8 @@ elif HAVE_ANNOTATED:
                 type_error = "a type variable."
 
             if type_error:
-                raise TypeError(
-                    "{} {}: the annotated type is {}".format(
-                        msg,
-                        self,
-                        type_error
-                    )
-                )
+                error = "{} {}: the annotated type is {}".format(msg, self, type_error)
+                raise exc_type(error)
 
             return cons
 
@@ -1878,7 +1864,7 @@ elif HAVE_ANNOTATED:
             )
 
         def __call__(self, *args, **kwargs):
-            cons = self._get_cons("Cannot create an instance of")
+            cons = self._get_cons("Cannot create an instance of", TypeError)
             result = cons(*args, **kwargs)
             try:
                 result.__orig_class__ = self
@@ -1887,21 +1873,38 @@ elif HAVE_ANNOTATED:
             return result
 
         def __getattr__(self, attr):
-            # We are careful for copy and pickle.
-            # Also for simplicity we just don't relay all dunder names
+            # For simplicity we just don't relay all dunder names
             if self.__origin__ is not None and not (
                     attr.startswith('__') and attr.endswith('__')
             ):
-                return getattr(self._get_cons("Cannot access properties on"), attr)
+                return getattr(
+                    self._get_cons("Cannot access properties on", AttributeError),
+                    attr
+                )
             raise AttributeError(attr)
 
+        def __setattr__(self, attr, value):
+            if (
+                attr.startswith('__') and attr.endswith('__')
+                or attr.startswith('_abc_')
+            ):
+                super().__setattr__(attr, value)
+            elif self.__origin__ is None:
+                raise AttributeError(attr)
+            else:
+                setattr(
+                    self._get_cons("Cannot set properties on", AttributeError),
+                    attr,
+                    value
+                )
+
+        # We overload this because the super() error message is confusing:
+        # Parametrized generics cannot be used ...
         def __instancecheck__(self, obj):
             raise TypeError("Annotated cannot be used with isinstance().")
 
         def __subclasscheck__(self, cls):
             raise TypeError("Annotated cannot be used with issubclass().")
-
-
 
     class Annotated(metaclass=AnnotatedMeta):
         """Add context specific metadata to a type.

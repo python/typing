@@ -1556,7 +1556,7 @@ class AnnotatedTests(BaseTestCase):
             A(5)
 
     def test_cannot_getattr_typevar(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(AttributeError):
             Annotated[T, (5, 7)].x
 
 
@@ -1566,6 +1566,8 @@ class AnnotatedTests(BaseTestCase):
 
         A = Annotated[C, "a decoration"]
         self.assertEqual(A.classvar, 4)
+        A.x = 5
+        self.assertEqual(C.x, 5)
 
     def test_hash_eq(self):
         self.assertEqual(len({Annotated[int, 4, 5], Annotated[int, 4, 5]}), 1)
@@ -1591,7 +1593,7 @@ class AnnotatedTests(BaseTestCase):
             issubclass(int, Annotated[int, "positive"])
 
 
-    @skipUnless(PEP_560, "pickle support was added with pep_560")
+    @skipUnless(PEP_560, "pickle support was added with PEP 560")
     def test_pickle(self):
         samples = [typing.Any, typing.Union[int, str],
                    typing.Optional[str], Tuple[int, ...],
@@ -1658,7 +1660,7 @@ class AnnotatedTests(BaseTestCase):
         self.assertEqual(X[int], List[Annotated[int, 5]])
 
 
-@skipUnless(PEP_560, "python 3.7 required")
+@skipUnless(PEP_560, "Python 3.7 required")
 class GetTypeHintsTests(BaseTestCase):
     def test_get_type_hints(self):
         def foobar(x: List['X']): ...
