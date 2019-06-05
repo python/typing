@@ -1661,12 +1661,6 @@ if PEP_560:
         def __hash__(self):
             return hash((self.__origin__, self.__metadata__))
 
-        def __instancecheck__(self, obj):
-            raise TypeError("Annotated cannot be used with isinstance().")
-
-        def __subclasscheck__(self, cls):
-            raise TypeError("Annotated cannot be used with issubclass().")
-
     class Annotated:
         """Add context specific metadata to a type.
 
@@ -1811,33 +1805,18 @@ elif HAVE_ANNOTATED:
                 return (Annotated, sub_tp, sub_annot + res[2])
             return res
 
-        def _get_cons(self, msg, exc_type):
-            """ Return the class used to create instance of this type.
-
-            The msg and exc_type argument are used to control the exceptions
-            that get raised when there's no underlying constructor available (
-            e.g.: we're in an unspecialized class).
-            """
+        def _get_cons(self):
+            """Return the class used to create instance of this type."""
             if self.__origin__ is None:
-                raise TypeError(msg + " a non specialized Annotated type")
+                raise TypeError("Cannot get the underlying type of a "
+                                "non-specialized Annotated type.")
             tree = self._subs_tree()
             while isinstance(tree, tuple) and tree[0] is Annotated:
                 tree = tree[1]
             if isinstance(tree, tuple):
-                cons = tree[0]
+                return tree[0]
             else:
-                cons = tree
-            type_error = None
-            if isinstance(cons, typing._ForwardRef):
-                type_error = "a forward reference."
-            elif isinstance(cons, typing.TypeVar):
-                type_error = "a type variable."
-
-            if type_error:
-                error = "{} {}: the annotated type is {}".format(msg, self, type_error)
-                raise exc_type(error)
-
-            return cons
+                return tree
 
         @_tp_cache
         def __getitem__(self, params):
@@ -1864,7 +1843,7 @@ elif HAVE_ANNOTATED:
             )
 
         def __call__(self, *args, **kwargs):
-            cons = self._get_cons("Cannot create an instance of", TypeError)
+            cons = self._get_cons()
             result = cons(*args, **kwargs)
             try:
                 result.__orig_class__ = self
@@ -1877,10 +1856,7 @@ elif HAVE_ANNOTATED:
             if self.__origin__ is not None and not (
                     attr.startswith('__') and attr.endswith('__')
             ):
-                return getattr(
-                    self._get_cons("Cannot access properties on", AttributeError),
-                    attr
-                )
+                return getattr(self._get_cons(), attr)
             raise AttributeError(attr)
 
         def __setattr__(self, attr, value):
@@ -1892,11 +1868,7 @@ elif HAVE_ANNOTATED:
             elif self.__origin__ is None:
                 raise AttributeError(attr)
             else:
-                setattr(
-                    self._get_cons("Cannot set properties on", AttributeError),
-                    attr,
-                    value
-                )
+                setattr(self._get_cons(), attr, value)
 
         # We overload this because the super() error message is confusing:
         # Parametrized generics cannot be used ...

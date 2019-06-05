@@ -1559,7 +1559,6 @@ class AnnotatedTests(BaseTestCase):
         with self.assertRaises(AttributeError):
             Annotated[T, (5, 7)].x
 
-
     def test_attr_passthrough(self):
         class C:
             classvar = 4
@@ -1585,11 +1584,11 @@ class AnnotatedTests(BaseTestCase):
                pass
 
     def test_cannot_check_instance(self):
-        with self.assertRaisesRegex(TypeError, "Annotated cannot be used with isinstance()"):
+        with self.assertRaises(TypeError):
             isinstance(5, Annotated[int, "positive"])
 
     def test_cannot_check_subclass(self):
-        with self.assertRaisesRegex(TypeError, "Annotated cannot be used with issubclass()"):
+        with self.assertRaises(TypeError):
             issubclass(int, Annotated[int, "positive"])
 
 
@@ -1639,8 +1638,6 @@ class AnnotatedTests(BaseTestCase):
             L[int, int]
 
         self.assertEqual(S[L[int]], Annotated[List[int], dec, dec2])
-
-
 
         D = Annotated[Dict[KT, VT], dec]
         self.assertEqual(D[str, int], Annotated[Dict[str, int], dec])
