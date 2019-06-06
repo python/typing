@@ -623,7 +623,6 @@ class AnnotatedMeta(GenericMeta):
         return self._subs_tree()[2]
 
     def _tree_repr(self, tree):
-        assert len(tree) == 3
         cls, origin, metadata = tree
         if not isinstance(origin, tuple):
             tp_repr = typing._type_repr(origin)
