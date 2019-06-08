@@ -1767,6 +1767,10 @@ if PEP_560:
 
 elif HAVE_ANNOTATED:
 
+    def _is_dunder(name):
+        """Returns True if name is a __dunder_variable_name__."""
+        return len(name) > 4 and name.startswith('__') and name.endswith('__')
+
     # Prior to Python 3.7 types did not have `copy_with`. A lot of the equality
     # checks, argument expansion etc. are done on the _subs_tre. As a result we
     # can't provide a get_type_hints function that strips out annotations.
@@ -1784,15 +1788,13 @@ elif HAVE_ANNOTATED:
             return self._subs_tree()[2]
 
         def _tree_repr(self, tree):
-            assert len(tree) == 3
-            # First argument is this class, second is __origin__, 3rd is __metadata__
-            tp_tree = tree[1]
-            if not isinstance(tp_tree, tuple):
-                tp_repr = typing._type_repr(tp_tree)
+            cls, origin, metadata = tree
+            if not isinstance(origin, tuple):
+                tp_repr = typing._type_repr(origin)
             else:
-                tp_repr = tp_tree[0]._tree_repr(tp_tree)
-            metadata_reprs = ", ".join(repr(arg) for arg in tree[2])
-            return repr(tree[0]) + '[%s, %s]' % (tp_repr, metadata_reprs)
+                tp_repr = origin[0]._tree_repr(origin)
+            metadata_reprs = ", ".join(repr(arg) for arg in metadata)
+            return '%s[%s, %s]' % (cls, tp_repr, metadata_reprs)
 
         def _subs_tree(self, tvars=None, args=None):
             if self is Annotated:
@@ -1853,30 +1855,24 @@ elif HAVE_ANNOTATED:
 
         def __getattr__(self, attr):
             # For simplicity we just don't relay all dunder names
-            if self.__origin__ is not None and not (
-                    attr.startswith('__') and attr.endswith('__')
-            ):
+            if self.__origin__ is not None and not _is_dunder(attr):
                 return getattr(self._get_cons(), attr)
             raise AttributeError(attr)
 
         def __setattr__(self, attr, value):
-            if (
-                attr.startswith('__') and attr.endswith('__')
-                or attr.startswith('_abc_')
-            ):
+            if _is_dunder(attr) or attr.startswith('_abc_'):
                 super().__setattr__(attr, value)
             elif self.__origin__ is None:
                 raise AttributeError(attr)
             else:
                 setattr(self._get_cons(), attr, value)
 
-        # We overload this because the super() error message is confusing:
-        # Parametrized generics cannot be used ...
         def __instancecheck__(self, obj):
             raise TypeError("Annotated cannot be used with isinstance().")
 
         def __subclasscheck__(self, cls):
             raise TypeError("Annotated cannot be used with issubclass().")
+
 
     class Annotated(metaclass=AnnotatedMeta):
         """Add context specific metadata to a type.
