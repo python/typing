@@ -1867,6 +1867,13 @@ elif HAVE_ANNOTATED:
             else:
                 setattr(self._get_cons(), attr, value)
 
+        def __instancecheck__(self, obj):
+            raise TypeError("Annotated cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError("Annotated cannot be used with issubclass().")
+
+
     class Annotated(metaclass=AnnotatedMeta):
         """Add context specific metadata to a type.
 
