@@ -1525,7 +1525,7 @@ elif PEP_560:
 
 if hasattr(typing, 'runtime_checkable'):
     runtime_checkable = typing.runtime_checkable
-if HAVE_PROTOCOLS:
+elif HAVE_PROTOCOLS:
     def runtime_checkable(cls):
         """Mark a protocol class as a runtime protocol, so that it
         can be used with isinstance() and issubclass(). Raise TypeError
@@ -1541,8 +1541,9 @@ if HAVE_PROTOCOLS:
         return cls
 
 
-# Exists for backwards compatibility.
-runtime = runtime_checkable
+if HAVE_PROTOCOLS:
+    # Exists for backwards compatibility.
+    runtime = runtime_checkable
 
 
 if hasattr(typing, 'TypedDict'):
