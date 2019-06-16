@@ -349,7 +349,8 @@ else:
 
         __type__ = None
 
-if hasattr(typing, 'Final'):
+# On older versions of typing there is an internal class named "Final".
+if hasattr(typing, 'Final') and sys.version_info[:2] >= (3, 7):
     Final = typing.Final
 elif sys.version_info[:2] >= (3, 7):
     class _FinalForm(typing._SpecialForm, _root=True):
