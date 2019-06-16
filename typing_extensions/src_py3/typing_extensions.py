@@ -1536,6 +1536,8 @@ if HAVE_PROTOCOLS:
 
 
 if hasattr(typing, 'TypedDict'):
+    TypedDict = typing.TypedDict
+else:
     def _check_fails(cls, other):
         try:
             if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools', 'typing']:
