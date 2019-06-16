@@ -5,9 +5,20 @@ jobs:
     - name: "3.8-dev"
       dist: xenial
       python: 3.8-dev
-    - name: "3.7"
+    - name: "3.7.3"
       dist: xenial
-      python: 3.7
+      python: 3.7.3
+    - name: "3.7.2"
+      dist: xenial
+      python: 3.7.2
+    - name: "3.7.1"
+      dist: xenial
+      python: 3.7.1
+    - name: "3.7.0"
+      dist: xenial
+      python: 3.7.0
+    - name: "3.6.3"
+      python: 3.6.3
     - name: "3.6.2"
       python: 3.6.2
     - name: "3.6.1"
