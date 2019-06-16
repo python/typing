@@ -155,7 +155,7 @@ if HAVE_ANNOTATED:
 HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
 
 if HAVE_PROTOCOLS:
-    __all__.extend(['Protocol', 'runtime'])
+    __all__.extend(['Protocol', 'runtime', 'runtime_checkable'])
 
 
 # TODO
@@ -349,7 +349,9 @@ else:
 
         __type__ = None
 
-if sys.version_info[:2] >= (3, 7):
+if hasattr(typing, 'Final'):
+    Final = typing.Final
+elif sys.version_info[:2] >= (3, 7):
     class _FinalForm(typing._SpecialForm, _root=True):
 
         def __repr__(self):
@@ -1521,8 +1523,10 @@ elif PEP_560:
             cls.__init__ = _no_init
 
 
+if hasattr(typing, 'runtime_checkable'):
+    runtime_checkable = typing.runtime_checkable
 if HAVE_PROTOCOLS:
-    def runtime(cls):
+    def runtime_checkable(cls):
         """Mark a protocol class as a runtime protocol, so that it
         can be used with isinstance() and issubclass(). Raise TypeError
         if applied to a non-protocol class.
@@ -1531,10 +1535,14 @@ if HAVE_PROTOCOLS:
         one-offs in collections.abc such as Hashable.
         """
         if not isinstance(cls, _ProtocolMeta) or not cls._is_protocol:
-            raise TypeError('@runtime can be only applied to protocol classes,'
+            raise TypeError('@runtime_checkable can be only applied to protocol classes,'
                             ' got %r' % cls)
         cls._is_runtime_protocol = True
         return cls
+
+
+# Exists for backwards compatibility.
+runtime = runtime_checkable
 
 
 if hasattr(typing, 'TypedDict'):
