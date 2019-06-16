@@ -1311,8 +1311,11 @@ if HAVE_PROTOCOLS:
             self.assertTrue(P._is_protocol)
             self.assertTrue(PR._is_protocol)
             self.assertTrue(PG._is_protocol)
-            with self.assertRaises(AttributeError):
+            if hasattr(typing, 'Protocol'):
                 self.assertFalse(P._is_runtime_protocol)
+            else:
+                with self.assertRaises(AttributeError):
+                    self.assertFalse(P._is_runtime_protocol)
             self.assertTrue(PR._is_runtime_protocol)
             self.assertTrue(PG[int]._is_protocol)
             self.assertEqual(typing_extensions._get_protocol_attrs(P), {'meth'})

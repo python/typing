@@ -359,8 +359,8 @@ elif sys.version_info[:2] >= (3, 7):
             return 'typing_extensions.' + self._name
 
         def __getitem__(self, parameters):
-            item = _type_check(parameters,
-                               '{} accepts only single type'.format(self._name))
+            item = typing._type_check(parameters,
+                                      '{} accepts only single type'.format(self._name))
             return _GenericAlias(self, (item,))
 
     Final = _FinalForm('Final', doc=
