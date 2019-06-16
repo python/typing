@@ -1100,7 +1100,9 @@ def _is_callable_members_only(cls):
     return all(callable(getattr(cls, attr, None)) for attr in _get_protocol_attrs(cls))
 
 
-if HAVE_PROTOCOLS and not PEP_560:
+if hasattr(typing, 'Protocol'):
+    Protocol = typing.Protocol
+elif HAVE_PROTOCOLS and not PEP_560:
     class _ProtocolMeta(GenericMeta):
         """Internal metaclass for Protocol.
 

@@ -190,7 +190,7 @@ class FinalTests(BaseTestCase):
             Final[int][str]
 
     def test_repr(self):
-        if hasattr(typing, 'Final') and sys.version_info >= (3, 8, 0):
+        if hasattr(typing, 'Final') and sys.version_info[:2] >= (3, 7):
             mod_name = 'typing'
         else:
             mod_name = 'typing_extensions'
@@ -1427,7 +1427,10 @@ class TypedDictTests(BaseTestCase):
 
     def test_typeddict_errors(self):
         Emp = TypedDict('Emp', {'name': str, 'id': int})
-        self.assertEqual(TypedDict.__module__, 'typing_extensions')
+        if hasattr(typing, 'TypedDict'):
+            self.assertEqual(TypedDict.__module__, 'typing')
+        else:
+            self.assertEqual(TypedDict.__module__, 'typing_extensions')
         jim = Emp(name='Jim', id=1)
         with self.assertRaises(TypeError):
             isinstance({}, Emp)
