@@ -129,6 +129,7 @@ __all__ = [
     'Counter',
     'Deque',
     'DefaultDict',
+    'TypedDict',
 
     # One-off things.
     'final',
@@ -154,7 +155,7 @@ if HAVE_ANNOTATED:
 HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
 
 if HAVE_PROTOCOLS:
-    __all__.extend(['Protocol', 'runtime'])
+    __all__.extend(['Protocol', 'runtime', 'runtime_checkable'])
 
 
 # TODO
@@ -348,15 +349,18 @@ else:
 
         __type__ = None
 
-if sys.version_info[:2] >= (3, 7):
+# On older versions of typing there is an internal class named "Final".
+if hasattr(typing, 'Final') and sys.version_info[:2] >= (3, 7):
+    Final = typing.Final
+elif sys.version_info[:2] >= (3, 7):
     class _FinalForm(typing._SpecialForm, _root=True):
 
         def __repr__(self):
             return 'typing_extensions.' + self._name
 
         def __getitem__(self, parameters):
-            item = _type_check(parameters,
-                               '{} accepts only single type'.format(self._name))
+            item = typing._type_check(parameters,
+                                      '{} accepts only single type'.format(self._name))
             return _GenericAlias(self, (item,))
 
     Final = _FinalForm('Final', doc=
@@ -499,27 +503,30 @@ else:
         __type__ = None
 
 
-def final(f):
-    """This decorator can be used to indicate to type checkers that
-    the decorated method cannot be overridden, and decorated class
-    cannot be subclassed. For example:
+if hasattr(typing, 'final'):
+    final = typing.final
+else:
+    def final(f):
+        """This decorator can be used to indicate to type checkers that
+        the decorated method cannot be overridden, and decorated class
+        cannot be subclassed. For example:
 
-        class Base:
+            class Base:
+                @final
+                def done(self) -> None:
+                    ...
+            class Sub(Base):
+                def done(self) -> None:  # Error reported by type checker
+                    ...
             @final
-            def done(self) -> None:
+            class Leaf:
                 ...
-        class Sub(Base):
-            def done(self) -> None:  # Error reported by type checker
+            class Other(Leaf):  # Error reported by type checker
                 ...
-        @final
-        class Leaf:
-            ...
-        class Other(Leaf):  # Error reported by type checker
-            ...
 
-    There is no runtime checking of these properties.
-    """
-    return f
+        There is no runtime checking of these properties.
+        """
+        return f
 
 
 def IntVar(name):
@@ -1096,7 +1103,9 @@ def _is_callable_members_only(cls):
     return all(callable(getattr(cls, attr, None)) for attr in _get_protocol_attrs(cls))
 
 
-if HAVE_PROTOCOLS and not PEP_560:
+if hasattr(typing, 'Protocol'):
+    Protocol = typing.Protocol
+elif HAVE_PROTOCOLS and not PEP_560:
     class _ProtocolMeta(GenericMeta):
         """Internal metaclass for Protocol.
 
@@ -1515,8 +1524,10 @@ elif PEP_560:
             cls.__init__ = _no_init
 
 
-if HAVE_PROTOCOLS:
-    def runtime(cls):
+if hasattr(typing, 'runtime_checkable'):
+    runtime_checkable = typing.runtime_checkable
+elif HAVE_PROTOCOLS:
+    def runtime_checkable(cls):
         """Mark a protocol class as a runtime protocol, so that it
         can be used with isinstance() and issubclass(). Raise TypeError
         if applied to a non-protocol class.
@@ -1525,98 +1536,106 @@ if HAVE_PROTOCOLS:
         one-offs in collections.abc such as Hashable.
         """
         if not isinstance(cls, _ProtocolMeta) or not cls._is_protocol:
-            raise TypeError('@runtime can be only applied to protocol classes,'
+            raise TypeError('@runtime_checkable can be only applied to protocol classes,'
                             ' got %r' % cls)
         cls._is_runtime_protocol = True
         return cls
 
 
-def _check_fails(cls, other):
-    try:
-        if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools', 'typing']:
-            # Typed dicts are only for static structural subtyping.
-            raise TypeError('TypedDict does not support instance and class checks')
-    except (AttributeError, ValueError):
-        pass
-    return False
+if HAVE_PROTOCOLS:
+    # Exists for backwards compatibility.
+    runtime = runtime_checkable
 
 
-def _dict_new(cls, *args, **kwargs):
-    return dict(*args, **kwargs)
+if hasattr(typing, 'TypedDict'):
+    TypedDict = typing.TypedDict
+else:
+    def _check_fails(cls, other):
+        try:
+            if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools', 'typing']:
+                # Typed dicts are only for static structural subtyping.
+                raise TypeError('TypedDict does not support instance and class checks')
+        except (AttributeError, ValueError):
+            pass
+        return False
 
 
-def _typeddict_new(cls, _typename, _fields=None, **kwargs):
-    total = kwargs.pop('total', True)
-    if _fields is None:
-        _fields = kwargs
-    elif kwargs:
-        raise TypeError("TypedDict takes either a dict or keyword arguments,"
-                        " but not both")
-
-    ns = {'__annotations__': dict(_fields), '__total__': total}
-    try:
-        # Setting correct module is necessary to make typed dict classes pickleable.
-        ns['__module__'] = sys._getframe(1).f_globals.get('__name__', '__main__')
-    except (AttributeError, ValueError):
-        pass
-
-    return _TypedDictMeta(_typename, (), ns)
+    def _dict_new(cls, *args, **kwargs):
+        return dict(*args, **kwargs)
 
 
-class _TypedDictMeta(type):
-    def __new__(cls, name, bases, ns, total=True):
-        # Create new typed dict class object.
-        # This method is called directly when TypedDict is subclassed,
-        # or via _typeddict_new when TypedDict is instantiated. This way
-        # TypedDict supports all three syntaxes described in its docstring.
-        # Subclasses and instances of TypedDict return actual dictionaries
-        # via _dict_new.
-        ns['__new__'] = _typeddict_new if name == 'TypedDict' else _dict_new
-        tp_dict = super(_TypedDictMeta, cls).__new__(cls, name, (dict,), ns)
+    def _typeddict_new(cls, _typename, _fields=None, **kwargs):
+        total = kwargs.pop('total', True)
+        if _fields is None:
+            _fields = kwargs
+        elif kwargs:
+            raise TypeError("TypedDict takes either a dict or keyword arguments,"
+                            " but not both")
 
-        anns = ns.get('__annotations__', {})
-        msg = "TypedDict('Name', {f0: t0, f1: t1, ...}); each t must be a type"
-        anns = {n: typing._type_check(tp, msg) for n, tp in anns.items()}
-        for base in bases:
-            anns.update(base.__dict__.get('__annotations__', {}))
-        tp_dict.__annotations__ = anns
-        if not hasattr(tp_dict, '__total__'):
-            tp_dict.__total__ = total
-        return tp_dict
+        ns = {'__annotations__': dict(_fields), '__total__': total}
+        try:
+            # Setting correct module is necessary to make typed dict classes pickleable.
+            ns['__module__'] = sys._getframe(1).f_globals.get('__name__', '__main__')
+        except (AttributeError, ValueError):
+            pass
 
-    __instancecheck__ = __subclasscheck__ = _check_fails
+        return _TypedDictMeta(_typename, (), ns)
 
 
-TypedDict = _TypedDictMeta('TypedDict', (dict,), {})
-TypedDict.__module__ = __name__
-TypedDict.__doc__ = \
-    """A simple typed name space. At runtime it is equivalent to a plain dict.
+    class _TypedDictMeta(type):
+        def __new__(cls, name, bases, ns, total=True):
+            # Create new typed dict class object.
+            # This method is called directly when TypedDict is subclassed,
+            # or via _typeddict_new when TypedDict is instantiated. This way
+            # TypedDict supports all three syntaxes described in its docstring.
+            # Subclasses and instances of TypedDict return actual dictionaries
+            # via _dict_new.
+            ns['__new__'] = _typeddict_new if name == 'TypedDict' else _dict_new
+            tp_dict = super(_TypedDictMeta, cls).__new__(cls, name, (dict,), ns)
 
-    TypedDict creates a dictionary type that expects all of its
-    instances to have a certain set of keys, with each key
-    associated with a value of a consistent type. This expectation
-    is not checked at runtime but is only enforced by type checkers.
-    Usage::
+            anns = ns.get('__annotations__', {})
+            msg = "TypedDict('Name', {f0: t0, f1: t1, ...}); each t must be a type"
+            anns = {n: typing._type_check(tp, msg) for n, tp in anns.items()}
+            for base in bases:
+                anns.update(base.__dict__.get('__annotations__', {}))
+            tp_dict.__annotations__ = anns
+            if not hasattr(tp_dict, '__total__'):
+                tp_dict.__total__ = total
+            return tp_dict
 
-        class Point2D(TypedDict):
-            x: int
-            y: int
-            label: str
+        __instancecheck__ = __subclasscheck__ = _check_fails
 
-        a: Point2D = {'x': 1, 'y': 2, 'label': 'good'}  # OK
-        b: Point2D = {'z': 3, 'label': 'bad'}           # Fails type check
 
-        assert Point2D(x=1, y=2, label='first') == dict(x=1, y=2, label='first')
+    TypedDict = _TypedDictMeta('TypedDict', (dict,), {})
+    TypedDict.__module__ = __name__
+    TypedDict.__doc__ = \
+        """A simple typed name space. At runtime it is equivalent to a plain dict.
 
-    The type info could be accessed via Point2D.__annotations__. TypedDict
-    supports two additional equivalent forms::
+        TypedDict creates a dictionary type that expects all of its
+        instances to have a certain set of keys, with each key
+        associated with a value of a consistent type. This expectation
+        is not checked at runtime but is only enforced by type checkers.
+        Usage::
 
-        Point2D = TypedDict('Point2D', x=int, y=int, label=str)
-        Point2D = TypedDict('Point2D', {'x': int, 'y': int, 'label': str})
+            class Point2D(TypedDict):
+                x: int
+                y: int
+                label: str
 
-    The class syntax is only supported in Python 3.6+, while two other
-    syntax forms work for Python 2.7 and 3.2+
-    """
+            a: Point2D = {'x': 1, 'y': 2, 'label': 'good'}  # OK
+            b: Point2D = {'z': 3, 'label': 'bad'}           # Fails type check
+
+            assert Point2D(x=1, y=2, label='first') == dict(x=1, y=2, label='first')
+
+        The type info could be accessed via Point2D.__annotations__. TypedDict
+        supports two additional equivalent forms::
+
+            Point2D = TypedDict('Point2D', x=int, y=int, label=str)
+            Point2D = TypedDict('Point2D', {'x': int, 'y': int, 'label': str})
+
+        The class syntax is only supported in Python 3.6+, while two other
+        syntax forms work for Python 2.7 and 3.2+
+        """
 
 
 if PEP_560:

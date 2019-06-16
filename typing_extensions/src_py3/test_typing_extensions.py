@@ -190,11 +190,15 @@ class FinalTests(BaseTestCase):
             Final[int][str]
 
     def test_repr(self):
-        self.assertEqual(repr(Final), 'typing_extensions.Final')
+        if hasattr(typing, 'Final') and sys.version_info[:2] >= (3, 7):
+            mod_name = 'typing'
+        else:
+            mod_name = 'typing_extensions'
+        self.assertEqual(repr(Final), mod_name + '.Final')
         cv = Final[int]
-        self.assertEqual(repr(cv), 'typing_extensions.Final[int]')
+        self.assertEqual(repr(cv), mod_name + '.Final[int]')
         cv = Final[Employee]
-        self.assertEqual(repr(cv), 'typing_extensions.Final[%s.Employee]' % __name__)
+        self.assertEqual(repr(cv), mod_name + '.Final[%s.Employee]' % __name__)
 
     @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_cannot_subclass(self):
@@ -242,7 +246,7 @@ class LiteralTests(BaseTestCase):
 
     def test_illegal_parameters_do_not_raise_runtime_errors(self):
         # Type checkers should reject these types, but we do not
-        # raise errors at runtime to maintain maximium flexibility
+        # raise errors at runtime to maintain maximum flexibility
         Literal[int]
         Literal[Literal[1, 2], Literal[4, 5]]
         Literal[3j + 2, ..., ()]
@@ -255,11 +259,15 @@ class LiteralTests(BaseTestCase):
         List[Literal[("foo", "bar", "baz")]]
 
     def test_repr(self):
-        self.assertEqual(repr(Literal[1]), "typing_extensions.Literal[1]")
-        self.assertEqual(repr(Literal[1, True, "foo"]), "typing_extensions.Literal[1, True, 'foo']")
-        self.assertEqual(repr(Literal[int]), "typing_extensions.Literal[int]")
-        self.assertEqual(repr(Literal), "typing_extensions.Literal")
-        self.assertEqual(repr(Literal[None]), "typing_extensions.Literal[None]")
+        if hasattr(typing, 'Literal'):
+            mod_name = 'typing'
+        else:
+            mod_name = 'typing_extensions'
+        self.assertEqual(repr(Literal[1]), mod_name + ".Literal[1]")
+        self.assertEqual(repr(Literal[1, True, "foo"]), mod_name + ".Literal[1, True, 'foo']")
+        self.assertEqual(repr(Literal[int]), mod_name + ".Literal[int]")
+        self.assertEqual(repr(Literal), mod_name + ".Literal")
+        self.assertEqual(repr(Literal[None]), mod_name + ".Literal[None]")
 
     def test_cannot_init(self):
         with self.assertRaises(TypeError):
@@ -1303,8 +1311,11 @@ if HAVE_PROTOCOLS:
             self.assertTrue(P._is_protocol)
             self.assertTrue(PR._is_protocol)
             self.assertTrue(PG._is_protocol)
-            with self.assertRaises(AttributeError):
+            if hasattr(typing, 'Protocol'):
                 self.assertFalse(P._is_runtime_protocol)
+            else:
+                with self.assertRaises(AttributeError):
+                    self.assertFalse(P._is_runtime_protocol)
             self.assertTrue(PR._is_runtime_protocol)
             self.assertTrue(PG[int]._is_protocol)
             self.assertEqual(typing_extensions._get_protocol_attrs(P), {'meth'})
@@ -1419,7 +1430,10 @@ class TypedDictTests(BaseTestCase):
 
     def test_typeddict_errors(self):
         Emp = TypedDict('Emp', {'name': str, 'id': int})
-        self.assertEqual(TypedDict.__module__, 'typing_extensions')
+        if hasattr(typing, 'TypedDict'):
+            self.assertEqual(TypedDict.__module__, 'typing')
+        else:
+            self.assertEqual(TypedDict.__module__, 'typing_extensions')
         jim = Emp(name='Jim', id=1)
         with self.assertRaises(TypeError):
             isinstance({}, Emp)
