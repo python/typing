@@ -16,7 +16,7 @@ from typing import T, KT, VT  # Not in __all__.
 from typing import Union, Optional
 from typing import Tuple, List, MutableMapping
 from typing import Callable
-from typing import Generic, ClassVar, GenericMeta
+from typing import Generic, ClassVar, GenericMeta, Final
 from typing import cast
 from typing import Type
 from typing import NewType
@@ -1344,6 +1344,46 @@ class ClassVarTests(BaseTestCase):
             isinstance(1, ClassVar[int])
         with self.assertRaises(TypeError):
             issubclass(int, ClassVar)
+
+
+class FinalTests(BaseTestCase):
+
+    def test_basics(self):
+        with self.assertRaises(TypeError):
+            Final[1]
+        with self.assertRaises(TypeError):
+            Final[int, str]
+        with self.assertRaises(TypeError):
+            Final[int][str]
+
+    def test_repr(self):
+        self.assertEqual(repr(Final), 'typing.Final')
+        cv = Final[int]
+        self.assertEqual(repr(cv), 'typing.Final[int]')
+        cv = Final[Employee]
+        self.assertEqual(repr(cv), 'typing.Final[%s.Employee]' % __name__)
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(Final)):
+                pass
+        with self.assertRaises(TypeError):
+            class C(type(Final[int])):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            Final()
+        with self.assertRaises(TypeError):
+            type(Final)()
+        with self.assertRaises(TypeError):
+            type(Final[typing.Optional[int]])()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, Final[int])
+        with self.assertRaises(TypeError):
+            issubclass(int, Final)
 
 
 class CastTests(BaseTestCase):

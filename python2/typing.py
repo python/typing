@@ -450,6 +450,95 @@ class _ClassVar(_FinalTypingBase):
 ClassVar = _ClassVar(_root=True)
 
 
+class _FinalMeta(TypingMeta):
+    """Metaclass for _Final"""
+
+    def __new__(cls, name, bases, namespace):
+        cls.assert_no_subclassing(bases)
+        self = super(_FinalMeta, cls).__new__(cls, name, bases, namespace)
+        return self
+
+
+class _Final(_FinalTypingBase):
+    """A special typing construct to indicate that a name
+    cannot be re-assigned or overridden in a subclass.
+    For example:
+
+        MAX_SIZE: Final = 9000
+        MAX_SIZE += 1  # Error reported by type checker
+
+        class Connection:
+            TIMEOUT: Final[int] = 10
+        class FastConnector(Connection):
+            TIMEOUT = 1  # Error reported by type checker
+
+    There is no runtime checking of these properties.
+    """
+
+    __metaclass__ = _FinalMeta
+    __slots__ = ('__type__',)
+
+    def __init__(self, tp=None, **kwds):
+        self.__type__ = tp
+
+    def __getitem__(self, item):
+        cls = type(self)
+        if self.__type__ is None:
+            return cls(_type_check(item,
+                       '{} accepts only single type.'.format(cls.__name__[1:])),
+                       _root=True)
+        raise TypeError('{} cannot be further subscripted'
+                        .format(cls.__name__[1:]))
+
+    def _eval_type(self, globalns, localns):
+        new_tp = _eval_type(self.__type__, globalns, localns)
+        if new_tp == self.__type__:
+            return self
+        return type(self)(new_tp, _root=True)
+
+    def __repr__(self):
+        r = super(_Final, self).__repr__()
+        if self.__type__ is not None:
+            r += '[{}]'.format(_type_repr(self.__type__))
+        return r
+
+    def __hash__(self):
+        return hash((type(self).__name__, self.__type__))
+
+    def __eq__(self, other):
+        if not isinstance(other, _Final):
+            return NotImplemented
+        if self.__type__ is not None:
+            return self.__type__ == other.__type__
+        return self is other
+
+
+Final = _Final(_root=True)
+
+
+def final(f):
+    """This decorator can be used to indicate to type checkers that
+    the decorated method cannot be overridden, and decorated class
+    cannot be subclassed. For example:
+
+        class Base:
+            @final
+            def done(self) -> None:
+                ...
+        class Sub(Base):
+            def done(self) -> None:  # Error reported by type checker
+                ...
+        @final
+        class Leaf:
+            ...
+        class Other(Leaf):  # Error reported by type checker
+            ...
+
+    There is no runtime checking of these properties.
+    """
+    return f
+
+
 class AnyMeta(TypingMeta):
     """Metaclass for Any."""
 
