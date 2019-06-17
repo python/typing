@@ -20,8 +20,11 @@ __all__ = [
     'Any',
     'Callable',
     'ClassVar',
+    'Final',
     'Generic',
+    'Literal',
     'Optional',
+    'Protocol',
     'Tuple',
     'Type',
     'TypeVar',
@@ -65,17 +68,20 @@ __all__ = [
     'Set',
     'FrozenSet',
     'NamedTuple',  # Not really a type.
+    'TypedDict',  # Not really a type.
     'Generator',
 
     # One-off things.
     'AnyStr',
     'cast',
+    'final',
     'get_type_hints',
     'NewType',
     'no_type_check',
     'no_type_check_decorator',
     'NoReturn',
     'overload',
+    'runtime_checkable',
     'Text',
     'TYPE_CHECKING',
 ]
@@ -360,7 +366,7 @@ def _type_check(arg, msg):
     if (
         type(arg).__name__ in ('_Union', '_Optional') and
         not getattr(arg, '__origin__', None) or
-        isinstance(arg, TypingMeta) and arg._gorg in (Generic, _Protocol)
+        isinstance(arg, TypingMeta) and arg._gorg in (Generic, Protocol)
     ):
         raise TypeError("Plain %s is not valid as type argument" % arg)
     return arg
@@ -379,7 +385,7 @@ def _type_repr(obj):
             return _qualname(obj)
         return '%s.%s' % (obj.__module__, _qualname(obj))
     if obj is Ellipsis:
-        return('...')
+        return '...'
     if isinstance(obj, types.FunctionType):
         return obj.__name__
     return repr(obj)
@@ -448,6 +454,157 @@ class _ClassVar(_FinalTypingBase):
 
 
 ClassVar = _ClassVar(_root=True)
+
+
+class _FinalMeta(TypingMeta):
+    """Metaclass for _Final"""
+
+    def __new__(cls, name, bases, namespace):
+        cls.assert_no_subclassing(bases)
+        self = super(_FinalMeta, cls).__new__(cls, name, bases, namespace)
+        return self
+
+
+class _Final(_FinalTypingBase):
+    """A special typing construct to indicate that a name
+    cannot be re-assigned or overridden in a subclass.
+    For example:
+
+        MAX_SIZE: Final = 9000
+        MAX_SIZE += 1  # Error reported by type checker
+
+        class Connection:
+            TIMEOUT: Final[int] = 10
+        class FastConnector(Connection):
+            TIMEOUT = 1  # Error reported by type checker
+
+    There is no runtime checking of these properties.
+    """
+
+    __metaclass__ = _FinalMeta
+    __slots__ = ('__type__',)
+
+    def __init__(self, tp=None, **kwds):
+        self.__type__ = tp
+
+    def __getitem__(self, item):
+        cls = type(self)
+        if self.__type__ is None:
+            return cls(_type_check(item,
+                       '{} accepts only single type.'.format(cls.__name__[1:])),
+                       _root=True)
+        raise TypeError('{} cannot be further subscripted'
+                        .format(cls.__name__[1:]))
+
+    def _eval_type(self, globalns, localns):
+        new_tp = _eval_type(self.__type__, globalns, localns)
+        if new_tp == self.__type__:
+            return self
+        return type(self)(new_tp, _root=True)
+
+    def __repr__(self):
+        r = super(_Final, self).__repr__()
+        if self.__type__ is not None:
+            r += '[{}]'.format(_type_repr(self.__type__))
+        return r
+
+    def __hash__(self):
+        return hash((type(self).__name__, self.__type__))
+
+    def __eq__(self, other):
+        if not isinstance(other, _Final):
+            return NotImplemented
+        if self.__type__ is not None:
+            return self.__type__ == other.__type__
+        return self is other
+
+
+Final = _Final(_root=True)
+
+
+def final(f):
+    """This decorator can be used to indicate to type checkers that
+    the decorated method cannot be overridden, and decorated class
+    cannot be subclassed. For example:
+
+        class Base:
+            @final
+            def done(self) -> None:
+                ...
+        class Sub(Base):
+            def done(self) -> None:  # Error reported by type checker
+                ...
+        @final
+        class Leaf:
+            ...
+        class Other(Leaf):  # Error reported by type checker
+            ...
+
+    There is no runtime checking of these properties.
+    """
+    return f
+
+
+class _LiteralMeta(TypingMeta):
+    """Metaclass for _Literal"""
+
+    def __new__(cls, name, bases, namespace):
+        cls.assert_no_subclassing(bases)
+        self = super(_LiteralMeta, cls).__new__(cls, name, bases, namespace)
+        return self
+
+
+class _Literal(_FinalTypingBase):
+    """A type that can be used to indicate to type checkers that the
+    corresponding value has a value literally equivalent to the
+    provided parameter. For example:
+
+        var: Literal[4] = 4
+
+    The type checker understands that 'var' is literally equal to the
+    value 4 and no other value.
+
+    Literal[...] cannot be subclassed. There is no runtime checking
+    verifying that the parameter is actually a value instead of a type.
+    """
+
+    __metaclass__ = _LiteralMeta
+    __slots__ = ('__values__',)
+
+    def __init__(self, values=None, **kwds):
+        self.__values__ = values
+
+    def __getitem__(self, item):
+        cls = type(self)
+        if self.__values__ is None:
+            if not isinstance(item, tuple):
+                item = (item,)
+            return cls(values=item,
+                       _root=True)
+        raise TypeError('{} cannot be further subscripted'
+                        .format(cls.__name__[1:]))
+
+    def _eval_type(self, globalns, localns):
+        return self
+
+    def __repr__(self):
+        r = super(_Literal, self).__repr__()
+        if self.__values__ is not None:
+            r += '[{}]'.format(', '.join(map(_type_repr, self.__values__)))
+        return r
+
+    def __hash__(self):
+        return hash((type(self).__name__, self.__values__))
+
+    def __eq__(self, other):
+        if not isinstance(other, _Literal):
+            return NotImplemented
+        if self.__values__ is not None:
+            return self.__values__ == other.__values__
+        return self is other
+
+
+Literal = _Literal(_root=True)
 
 
 class AnyMeta(TypingMeta):
@@ -1035,10 +1192,11 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 if base is Generic:
                     raise TypeError("Cannot inherit from plain Generic")
                 if (isinstance(base, GenericMeta) and
-                        base.__origin__ is Generic):
+                        base.__origin__ in (Generic, Protocol)):
                     if gvars is not None:
                         raise TypeError(
-                            "Cannot inherit from Generic[...] multiple types.")
+                            "Cannot inherit from Generic[...] or"
+                            " Protocol[...] multiple times.")
                     gvars = base.__parameters__
             if gvars is None:
                 gvars = tvars
@@ -1048,8 +1206,10 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 if not tvarset <= gvarset:
                     raise TypeError(
                         "Some type variables (%s) "
-                        "are not listed in Generic[%s]" %
+                        "are not listed in %s[%s]" %
                         (", ".join(str(t) for t in tvars if t not in gvarset),
+                         "Generic" if any(b.__origin__ is Generic
+                                          for b in bases) else "Protocol",
                          ", ".join(str(g) for g in gvars)))
                 tvars = gvars
 
@@ -1198,25 +1358,21 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
                 "Parameter list to %s[...] cannot be empty" % _qualname(self))
         msg = "Parameters to generic types must be types."
         params = tuple(_type_check(p, msg) for p in params)
-        if self is Generic:
+        if self in (Generic, Protocol):
             # Generic can only be subscripted with unique type variables.
             if not all(isinstance(p, TypeVar) for p in params):
                 raise TypeError(
-                    "Parameters to Generic[...] must all be type variables")
+                    "Parameters to %s[...] must all be type variables" % self.__name__)
             if len(set(params)) != len(params):
                 raise TypeError(
-                    "Parameters to Generic[...] must all be unique")
+                    "Parameters to %s[...] must all be unique" % self.__name__)
             tvars = params
             args = params
         elif self in (Tuple, Callable):
             tvars = _type_vars(params)
             args = params
-        elif self is _Protocol:
-            # _Protocol is internal, don't check anything.
-            tvars = params
-            args = params
-        elif self.__origin__ in (Generic, _Protocol):
-            # Can't subscript Generic[...] or _Protocol[...].
+        elif self.__origin__ in (Generic, Protocol):
+            # Can't subscript Generic[...] or Protocol[...].
             raise TypeError("Cannot subscript already-subscripted %s" %
                             repr(self))
         else:
@@ -1604,83 +1760,164 @@ def overload(func):
 
 
 class _ProtocolMeta(GenericMeta):
-    """Internal metaclass for _Protocol.
+    """Internal metaclass for Protocol.
 
-    This exists so _Protocol classes can be generic without deriving
+    This exists so Protocol classes can be generic without deriving
     from Generic.
     """
+    def __init__(cls, *args, **kwargs):
+        super(_ProtocolMeta, cls).__init__(*args, **kwargs)
+        if not cls.__dict__.get('_is_protocol', None):
+            cls._is_protocol = any(b is Protocol or
+                                   isinstance(b, _ProtocolMeta) and
+                                   b.__origin__ is Protocol
+                                   for b in cls.__bases__)
+        if cls._is_protocol:
+            for base in cls.__mro__[1:]:
+                if not (base in (object, Generic, Callable) or
+                        isinstance(base, TypingMeta) and base._is_protocol or
+                        isinstance(base, GenericMeta) and base.__origin__ is Generic):
+                    raise TypeError('Protocols can only inherit from other protocols,'
+                                    ' got %r' % base)
+            cls._callable_members_only = all(callable(getattr(cls, attr))
+                                             for attr in cls._get_protocol_attrs())
 
-    def __instancecheck__(self, obj):
-        if _Protocol not in self.__bases__:
-            return super(_ProtocolMeta, self).__instancecheck__(obj)
-        raise TypeError("Protocols cannot be used with isinstance().")
+            def _no_init(self, *args, **kwargs):
+                if type(self)._is_protocol:
+                    raise TypeError('Protocols cannot be instantiated')
+            cls.__init__ = _no_init
 
-    def __subclasscheck__(self, cls):
-        if not self._is_protocol:
-            # No structural checks since this isn't a protocol.
-            return NotImplemented
-
-        if self is _Protocol:
-            # Every class is a subclass of the empty protocol.
-            return True
-
-        # Find all attributes defined in the protocol.
-        attrs = self._get_protocol_attrs()
-
-        for attr in attrs:
-            if not any(attr in d.__dict__ for d in cls.__mro__):
-                return False
-        return True
-
-    def _get_protocol_attrs(self):
-        # Get all Protocol base classes.
-        protocol_bases = []
-        for c in self.__mro__:
-            if getattr(c, '_is_protocol', False) and c.__name__ != '_Protocol':
-                protocol_bases.append(c)
-
-        # Get attributes included in protocol.
-        attrs = set()
-        for base in protocol_bases:
-            for attr in base.__dict__.keys():
-                # Include attributes not defined in any non-protocol bases.
-                for c in self.__mro__:
-                    if (c is not base and attr in c.__dict__ and
-                            not getattr(c, '_is_protocol', False)):
+        def _proto_hook(cls, other):
+            if not cls.__dict__.get('_is_protocol', None):
+                return NotImplemented
+            if not isinstance(other, type):
+                # Similar error as for issubclass(1, int)
+                # (also not a chance for old-style classes)
+                raise TypeError('issubclass() arg 1 must be a new-style class')
+            for attr in cls._get_protocol_attrs():
+                for base in other.__mro__:
+                    if attr in base.__dict__:
+                        if base.__dict__[attr] is None:
+                            return NotImplemented
                         break
                 else:
-                    if (not attr.startswith('_abc_') and
-                            attr != '__abstractmethods__' and
-                            attr != '_is_protocol' and
-                            attr != '_gorg' and
-                            attr != '__dict__' and
-                            attr != '__args__' and
-                            attr != '__slots__' and
-                            attr != '_get_protocol_attrs' and
-                            attr != '__next_in_mro__' and
-                            attr != '__parameters__' and
-                            attr != '__origin__' and
-                            attr != '__orig_bases__' and
-                            attr != '__extra__' and
-                            attr != '__tree_hash__' and
-                            attr != '__module__'):
-                        attrs.add(attr)
+                    return NotImplemented
+            return True
+        if '__subclasshook__' not in cls.__dict__:
+            cls.__subclasshook__ = classmethod(_proto_hook)
 
+    def __instancecheck__(self, instance):
+        # We need this method for situations where attributes are assigned in __init__
+        if isinstance(instance, type):
+            # This looks like a fundamental limitation of Python 2.
+            # It cannot support runtime protocol metaclasses, On Python 2 classes
+            # cannot be correctly inspected as instances of protocols.
+            return False
+        if ((not getattr(self, '_is_protocol', False) or
+                self._callable_members_only) and
+                issubclass(instance.__class__, self)):
+            return True
+        if self._is_protocol:
+            if all(hasattr(instance, attr) and
+                    (not callable(getattr(self, attr)) or
+                     getattr(instance, attr) is not None)
+                    for attr in self._get_protocol_attrs()):
+                return True
+        return super(GenericMeta, self).__instancecheck__(instance)
+
+    def __subclasscheck__(self, cls):
+        if (self.__dict__.get('_is_protocol', None) and
+                not self.__dict__.get('_is_runtime_protocol', None)):
+            if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools']:
+                return False
+            raise TypeError("Instance and class checks can only be used with"
+                            " @runtime_checkable protocols")
+        if (self.__dict__.get('_is_runtime_protocol', None) and
+                not self._callable_members_only):
+            if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools']:
+                return super(GenericMeta, self).__subclasscheck__(cls)
+            raise TypeError("Protocols with non-method members"
+                            " don't support issubclass()")
+        return super(_ProtocolMeta, self).__subclasscheck__(cls)
+
+    def _get_protocol_attrs(self):
+        attrs = set()
+        for base in self.__mro__[:-1]:  # without object
+            if base.__name__ in ('Protocol', 'Generic'):
+                continue
+            annotations = getattr(base, '__annotations__', {})
+            for attr in list(base.__dict__.keys()) + list(annotations.keys()):
+                if (not attr.startswith('_abc_') and attr not in (
+                        '__abstractmethods__', '__annotations__', '__weakref__',
+                        '_is_protocol', '_is_runtime_protocol', '__dict__',
+                        '__args__', '__slots__', '_get_protocol_attrs',
+                        '__next_in_mro__', '__parameters__', '__origin__',
+                        '__orig_bases__', '__extra__', '__tree_hash__',
+                        '__doc__', '__subclasshook__', '__init__', '__new__',
+                        '__module__', '_MutableMapping__marker',
+                        '__metaclass__', '_gorg', '_callable_members_only')):
+                    attrs.add(attr)
         return attrs
 
 
-class _Protocol(object):
-    """Internal base class for protocol classes.
+class Protocol(object):
+    """Base class for protocol classes. Protocol classes are defined as::
 
-    This implements a simple-minded structural issubclass check
-    (similar but more general than the one-offs in collections.abc
-    such as Hashable).
+      class Proto(Protocol):
+          def meth(self):
+              # type: () -> int
+              pass
+
+    Such classes are primarily used with static type checkers that recognize
+    structural subtyping (static duck-typing), for example::
+
+      class C:
+          def meth(self):
+              # type: () -> int
+              return 0
+
+      def func(x):
+          # type: (Proto) -> int
+          return x.meth()
+
+      func(C())  # Passes static type check
+
+    See PEP 544 for details. Protocol classes decorated with @typing.runtime_checkable
+    act as simple-minded runtime protocols that checks only the presence of
+    given attributes, ignoring their type signatures.
+
+    Protocol classes can be generic, they are defined as::
+
+      class GenProto(Protocol[T]):
+          def meth(self):
+              # type: () -> T
+              pass
     """
 
     __metaclass__ = _ProtocolMeta
     __slots__ = ()
-
     _is_protocol = True
+
+    def __new__(cls, *args, **kwds):
+        if cls._gorg is Protocol:
+            raise TypeError("Type Protocol cannot be instantiated; "
+                            "it can be used only as a base class")
+        return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
+
+
+def runtime_checkable(cls):
+    """Mark a protocol class as a runtime protocol, so that it
+    can be used with isinstance() and issubclass(). Raise TypeError
+    if applied to a non-protocol class.
+
+    This allows a simple-minded structural check very similar to the
+    one-offs in collections.abc such as Hashable.
+    """
+    if not isinstance(cls, _ProtocolMeta) or not cls._is_protocol:
+        raise TypeError('@runtime_checkable can be only applied to protocol classes,'
+                        ' got %r' % cls)
+    cls._is_runtime_protocol = True
+    return cls
 
 
 # Various ABCs mimicking those in collections.abc.
@@ -1699,7 +1936,8 @@ class Iterator(Iterable[T_co]):
     __extra__ = collections_abc.Iterator
 
 
-class SupportsInt(_Protocol):
+@runtime_checkable
+class SupportsInt(Protocol):
     __slots__ = ()
 
     @abstractmethod
@@ -1707,7 +1945,8 @@ class SupportsInt(_Protocol):
         pass
 
 
-class SupportsFloat(_Protocol):
+@runtime_checkable
+class SupportsFloat(Protocol):
     __slots__ = ()
 
     @abstractmethod
@@ -1715,7 +1954,8 @@ class SupportsFloat(_Protocol):
         pass
 
 
-class SupportsComplex(_Protocol):
+@runtime_checkable
+class SupportsComplex(Protocol):
     __slots__ = ()
 
     @abstractmethod
@@ -1723,7 +1963,8 @@ class SupportsComplex(_Protocol):
         pass
 
 
-class SupportsIndex(_Protocol):
+@runtime_checkable
+class SupportsIndex(Protocol):
     __slots__ = ()
 
     @abstractmethod
@@ -1731,7 +1972,8 @@ class SupportsIndex(_Protocol):
         pass
 
 
-class SupportsAbs(_Protocol[T_co]):
+@runtime_checkable
+class SupportsAbs(Protocol[T_co]):
     __slots__ = ()
 
     @abstractmethod
@@ -1744,7 +1986,8 @@ if hasattr(collections_abc, 'Reversible'):
         __slots__ = ()
         __extra__ = collections_abc.Reversible
 else:
-    class Reversible(_Protocol[T_co]):
+    @runtime_checkable
+    class Reversible(Protocol[T_co]):
         __slots__ = ()
 
         @abstractmethod
@@ -2004,6 +2247,87 @@ def NamedTuple(typename, fields):
     except (AttributeError, ValueError):
         pass
     return cls
+
+
+def _check_fails(cls, other):
+    try:
+        if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools', 'typing']:
+            # Typed dicts are only for static structural subtyping.
+            raise TypeError('TypedDict does not support instance and class checks')
+    except (AttributeError, ValueError):
+        pass
+    return False
+
+
+def _dict_new(cls, *args, **kwargs):
+    return dict(*args, **kwargs)
+
+
+def _typeddict_new(cls, _typename, _fields=None, **kwargs):
+    total = kwargs.pop('total', True)
+    if _fields is None:
+        _fields = kwargs
+    elif kwargs:
+        raise TypeError("TypedDict takes either a dict or keyword arguments,"
+                        " but not both")
+
+    ns = {'__annotations__': dict(_fields), '__total__': total}
+    try:
+        # Setting correct module is necessary to make typed dict classes pickleable.
+        ns['__module__'] = sys._getframe(1).f_globals.get('__name__', '__main__')
+    except (AttributeError, ValueError):
+        pass
+
+    return _TypedDictMeta(_typename, (), ns)
+
+
+class _TypedDictMeta(type):
+    def __new__(cls, name, bases, ns, total=True):
+        # Create new typed dict class object.
+        # This method is called directly when TypedDict is subclassed,
+        # or via _typeddict_new when TypedDict is instantiated. This way
+        # TypedDict supports all three syntaxes described in its docstring.
+        # Subclasses and instances of TypedDict return actual dictionaries
+        # via _dict_new.
+        ns['__new__'] = _typeddict_new if name == b'TypedDict' else _dict_new
+        tp_dict = super(_TypedDictMeta, cls).__new__(cls, name, (dict,), ns)
+
+        anns = ns.get('__annotations__', {})
+        msg = "TypedDict('Name', {f0: t0, f1: t1, ...}); each t must be a type"
+        anns = {n: _type_check(tp, msg) for n, tp in anns.items()}
+        for base in bases:
+            anns.update(base.__dict__.get('__annotations__', {}))
+        tp_dict.__annotations__ = anns
+        if not hasattr(tp_dict, '__total__'):
+            tp_dict.__total__ = total
+        return tp_dict
+
+    __instancecheck__ = __subclasscheck__ = _check_fails
+
+
+TypedDict = _TypedDictMeta(b'TypedDict', (dict,), {})
+TypedDict.__module__ = __name__
+TypedDict.__doc__ = \
+    """A simple typed name space. At runtime it is equivalent to a plain dict.
+
+    TypedDict creates a dictionary type that expects all of its
+    instances to have a certain set of keys, with each key
+    associated with a value of a consistent type. This expectation
+    is not checked at runtime but is only enforced by type checkers.
+    Usage::
+
+        Point2D = TypedDict('Point2D', {'x': int, 'y': int, 'label': str})
+
+        a: Point2D = {'x': 1, 'y': 2, 'label': 'good'}  # OK
+        b: Point2D = {'z': 3, 'label': 'bad'}           # Fails type check
+
+        assert Point2D(x=1, y=2, label='first') == dict(x=1, y=2, label='first')
+
+    The type info could be accessed via Point2D.__annotations__. TypedDict
+    supports an additional equivalent form::
+
+        Point2D = TypedDict('Point2D', x=int, y=int, label=str)
+    """
 
 
 def NewType(name, tp):
