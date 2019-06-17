@@ -26,10 +26,7 @@ from typing import NamedTuple, TypedDict
 from typing import Pattern, Match
 import typing
 import weakref
-try:
-    import collections.abc as collections_abc
-except ImportError:
-    import collections as collections_abc  # Fallback for PY3.2.
+import collections
 
 
 class BaseTestCase(TestCase):
@@ -1055,7 +1052,7 @@ class ProtocolTests(BaseTestCase):
         self.assertIsSubclass(int, typing.SupportsIndex)
         self.assertNotIsSubclass(str, typing.SupportsIndex)
 
-    def test_protocol_instance_type_error(self):
+    def test_protocol_instance_works(self):
         self.assertIsInstance(0, typing.SupportsAbs)
         self.assertNotIsInstance('no', typing.SupportsAbs)
         class C1(typing.SupportsInt):
@@ -1065,6 +1062,21 @@ class ProtocolTests(BaseTestCase):
             pass
         c = C2()
         self.assertIsInstance(c, C1)
+
+    def test_collections_protocols_allowed(self):
+        @runtime_checkable
+        class Custom(collections.Iterable, Protocol):
+            def close(self): pass
+
+        class A(object): pass
+        class B(object):
+            def __iter__(self):
+                return []
+            def close(self):
+                return 0
+
+        self.assertIsSubclass(B, Custom)
+        self.assertNotIsSubclass(A, Custom)
 
 
 class GenericTests(BaseTestCase):
@@ -1243,17 +1255,17 @@ class GenericTests(BaseTestCase):
                 return 0
         # this should just work
         MM().update()
-        self.assertIsInstance(MM(), collections_abc.MutableMapping)
+        self.assertIsInstance(MM(), collections.MutableMapping)
         self.assertIsInstance(MM(), MutableMapping)
         self.assertNotIsInstance(MM(), List)
         self.assertNotIsInstance({}, MM)
 
     def test_multiple_bases(self):
-        class MM1(MutableMapping[str, str], collections_abc.MutableMapping):
+        class MM1(MutableMapping[str, str], collections.MutableMapping):
             pass
         with self.assertRaises(TypeError):
             # consistent MRO not possible
-            class MM2(collections_abc.MutableMapping, MutableMapping[str, str]):
+            class MM2(collections.MutableMapping, MutableMapping[str, str]):
                 pass
 
     def test_orig_bases(self):
@@ -1426,9 +1438,9 @@ class GenericTests(BaseTestCase):
 
         self.assertEqual(repr(C1[int]).split('.')[-1], 'C1[int]')
         self.assertEqual(C2.__parameters__, ())
-        self.assertIsInstance(C2(), collections_abc.Callable)
-        self.assertIsSubclass(C2, collections_abc.Callable)
-        self.assertIsSubclass(C1, collections_abc.Callable)
+        self.assertIsInstance(C2(), collections.Callable)
+        self.assertIsSubclass(C2, collections.Callable)
+        self.assertIsSubclass(C1, collections.Callable)
         self.assertIsInstance(T1(), tuple)
         self.assertIsSubclass(T2, tuple)
         self.assertIsSubclass(Tuple[int, ...], typing.Sequence)
@@ -2287,11 +2299,11 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(MMC, typing.Mapping)
 
         self.assertIsInstance(MMB[KT, VT](), typing.Mapping)
-        self.assertIsInstance(MMB[KT, VT](), collections_abc.Mapping)
+        self.assertIsInstance(MMB[KT, VT](), collections.Mapping)
 
-        self.assertIsSubclass(MMA, collections_abc.Mapping)
-        self.assertIsSubclass(MMB, collections_abc.Mapping)
-        self.assertIsSubclass(MMC, collections_abc.Mapping)
+        self.assertIsSubclass(MMA, collections.Mapping)
+        self.assertIsSubclass(MMB, collections.Mapping)
+        self.assertIsSubclass(MMC, collections.Mapping)
 
         self.assertIsSubclass(MMB[str, str], typing.Mapping)
         self.assertIsSubclass(MMC, MMA)
@@ -2303,9 +2315,9 @@ class CollectionsAbcTests(BaseTestCase):
         def g(): yield 0
         self.assertIsSubclass(G, typing.Generator)
         self.assertIsSubclass(G, typing.Iterable)
-        if hasattr(collections_abc, 'Generator'):
-            self.assertIsSubclass(G, collections_abc.Generator)
-        self.assertIsSubclass(G, collections_abc.Iterable)
+        if hasattr(collections, 'Generator'):
+            self.assertIsSubclass(G, collections.Generator)
+        self.assertIsSubclass(G, collections.Iterable)
         self.assertNotIsSubclass(type(g), G)
 
     def test_subclassing_subclasshook(self):
@@ -2341,23 +2353,23 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(D, B)
 
         class M(): pass
-        collections_abc.MutableMapping.register(M)
+        collections.MutableMapping.register(M)
         self.assertIsSubclass(M, typing.Mapping)
 
     def test_collections_as_base(self):
 
-        class M(collections_abc.Mapping): pass
+        class M(collections.Mapping): pass
         self.assertIsSubclass(M, typing.Mapping)
         self.assertIsSubclass(M, typing.Iterable)
 
-        class S(collections_abc.MutableSequence): pass
+        class S(collections.MutableSequence): pass
         self.assertIsSubclass(S, typing.MutableSequence)
         self.assertIsSubclass(S, typing.Iterable)
 
-        class I(collections_abc.Iterable): pass
+        class I(collections.Iterable): pass
         self.assertIsSubclass(I, typing.Iterable)
 
-        class A(collections_abc.Mapping): pass
+        class A(collections.Mapping): pass
         class B: pass
         A.register(B)
         self.assertIsSubclass(B, typing.Mapping)
