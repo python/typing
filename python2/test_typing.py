@@ -1408,11 +1408,11 @@ class LiteralTests(BaseTestCase):
         typing.List[Literal[("foo", "bar", "baz")]]
 
     def test_repr(self):
-        self.assertEqual(repr(Literal[1]), "typing_extensions.Literal[1]")
-        self.assertEqual(repr(Literal[1, True, "foo"]), "typing_extensions.Literal[1, True, 'foo']")
-        self.assertEqual(repr(Literal[int]), "typing_extensions.Literal[int]")
-        self.assertEqual(repr(Literal), "typing_extensions.Literal")
-        self.assertEqual(repr(Literal[None]), "typing_extensions.Literal[None]")
+        self.assertEqual(repr(Literal[1]), "typing.Literal[1]")
+        self.assertEqual(repr(Literal[1, True, "foo"]), "typing.Literal[1, True, 'foo']")
+        self.assertEqual(repr(Literal[int]), "typing.Literal[int]")
+        self.assertEqual(repr(Literal), "typing.Literal")
+        self.assertEqual(repr(Literal[None]), "typing.Literal[None]")
 
     def test_cannot_init(self):
         with self.assertRaises(TypeError):
