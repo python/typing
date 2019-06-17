@@ -2304,7 +2304,7 @@ class _TypedDictMeta(type):
     __instancecheck__ = __subclasscheck__ = _check_fails
 
 
-TypedDict = _TypedDictMeta('TypedDict', (dict,), {})
+TypedDict = _TypedDictMeta(b'TypedDict', (dict,), {})
 TypedDict.__module__ = __name__
 TypedDict.__doc__ = \
     """A simple typed name space. At runtime it is equivalent to a plain dict.
