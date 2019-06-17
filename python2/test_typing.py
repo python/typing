@@ -7,6 +7,7 @@ import pickle
 import re
 import subprocess
 import sys
+import abc
 import types
 from unittest import TestCase, main, SkipTest
 from copy import copy, deepcopy
@@ -1055,8 +1056,8 @@ class ProtocolTests(BaseTestCase):
         self.assertNotIsSubclass(str, typing.SupportsIndex)
 
     def test_protocol_instance_type_error(self):
-        with self.assertRaises(TypeError):
-            isinstance(0, typing.SupportsAbs)
+        self.assertIsInstance(0, typing.SupportsAbs)
+        self.assertNotIsInstance('no', typing.SupportsAbs)
         class C1(typing.SupportsInt):
             def __int__(self):
                 return 42
@@ -1166,7 +1167,7 @@ class GenericTests(BaseTestCase):
     def test_new_repr_bare(self):
         T = TypeVar('T')
         self.assertEqual(repr(Generic[T]), 'typing.Generic[~T]')
-        self.assertEqual(repr(typing._Protocol[T]), 'typing.Protocol[~T]')
+        self.assertEqual(repr(typing.Protocol[T]), 'typing.Protocol[~T]')
         class C(typing.Dict[Any, Any]): pass
         # this line should just work
         repr(C.__mro__)
@@ -1450,7 +1451,7 @@ class GenericTests(BaseTestCase):
         with self.assertRaises(TypeError):
             Tuple[Generic[T]]
         with self.assertRaises(TypeError):
-            List[typing._Protocol]
+            List[typing.Protocol]
         with self.assertRaises(TypeError):
             isinstance(1, Generic)
 
@@ -1918,7 +1919,7 @@ class LiteralTests(BaseTestCase):
 
     def test_repr(self):
         self.assertEqual(repr(Literal[1]), "typing.Literal[1]")
-        self.assertEqual(repr(Literal[1, True, "foo"]), "typing.Literal[1, True, 'foo']")
+        self.assertEqual(repr(Literal[1, True, "foo"]), "typing.Literal[1, True, u'foo']")
         self.assertEqual(repr(Literal[int]), "typing.Literal[int]")
         self.assertEqual(repr(Literal), "typing.Literal")
         self.assertEqual(repr(Literal[None]), "typing.Literal[None]")
@@ -2466,7 +2467,7 @@ class NamedTupleTests(BaseTestCase):
 class TypedDictTests(BaseTestCase):
 
     def test_basics_iterable_syntax(self):
-        Emp = TypedDict('Emp', {'name': str, 'id': int})
+        Emp = TypedDict(b'Emp', {'name': str, 'id': int})
         self.assertIsSubclass(Emp, dict)
         self.assertIsSubclass(Emp, typing.MutableMapping)
         if sys.version_info[0] >= 3:
@@ -2483,7 +2484,7 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(Emp.__total__, True)
 
     def test_basics_keywords_syntax(self):
-        Emp = TypedDict('Emp', name=str, id=int)
+        Emp = TypedDict(b'Emp', name=str, id=int)
         self.assertIsSubclass(Emp, dict)
         self.assertIsSubclass(Emp, typing.MutableMapping)
         if sys.version_info[0] >= 3:
@@ -2500,7 +2501,7 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(Emp.__total__, True)
 
     def test_typeddict_errors(self):
-        Emp = TypedDict('Emp', {'name': str, 'id': int})
+        Emp = TypedDict(b'Emp', {'name': str, 'id': int})
         self.assertEqual(TypedDict.__module__, 'typing')
         jim = Emp(name='Jim', id=1)
         with self.assertRaises(TypeError):
@@ -2518,7 +2519,7 @@ class TypedDictTests(BaseTestCase):
 
     def test_pickle(self):
         global EmpD  # pickle wants to reference the class by name
-        EmpD = TypedDict('EmpD', name=str, id=int)
+        EmpD = TypedDict(b'EmpD', name=str, id=int)
         jane = EmpD({'name': 'jane', 'id': 37})
         for proto in range(pickle.HIGHEST_PROTOCOL + 1):
             z = pickle.dumps(jane, proto)
@@ -2530,13 +2531,13 @@ class TypedDictTests(BaseTestCase):
             self.assertEqual(EmpDnew({'name': 'jane', 'id': 37}), jane)
 
     def test_optional(self):
-        EmpD = TypedDict('EmpD', name=str, id=int)
+        EmpD = TypedDict(b'EmpD', name=str, id=int)
 
         self.assertEqual(typing.Optional[EmpD], typing.Union[None, EmpD])
         self.assertNotEqual(typing.List[EmpD], typing.Tuple[EmpD])
 
     def test_total(self):
-        D = TypedDict('D', {'x': int}, total=False)
+        D = TypedDict(b'D', {'x': int}, total=False)
         self.assertEqual(D(), {})
         self.assertEqual(D(x=1), {'x': 1})
         self.assertEqual(D.__total__, False)

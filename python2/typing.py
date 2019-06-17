@@ -1828,13 +1828,13 @@ class _ProtocolMeta(GenericMeta):
     def __subclasscheck__(self, cls):
         if (self.__dict__.get('_is_protocol', None) and
                 not self.__dict__.get('_is_runtime_protocol', None)):
-            if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools', 'typing']:
+            if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools']:
                 return False
             raise TypeError("Instance and class checks can only be used with"
-                            " @runtime protocols")
+                            " @runtime_checkable protocols")
         if (self.__dict__.get('_is_runtime_protocol', None) and
                 not self._callable_members_only):
-            if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools', 'typing']:
+            if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools']:
                 return super(GenericMeta, self).__subclasscheck__(cls)
             raise TypeError("Protocols with non-method members"
                             " don't support issubclass()")
@@ -1882,7 +1882,7 @@ class Protocol(object):
 
       func(C())  # Passes static type check
 
-    See PEP 544 for details. Protocol classes decorated with @typing_extensions.runtime
+    See PEP 544 for details. Protocol classes decorated with @typing.runtime_checkable
     act as simple-minded runtime protocols that checks only the presence of
     given attributes, ignoring their type signatures.
 
@@ -1899,7 +1899,7 @@ class Protocol(object):
     _is_protocol = True
 
     def __new__(cls, *args, **kwds):
-        if _gorg(cls) is Protocol:
+        if cls._gorg is Protocol:
             raise TypeError("Type Protocol cannot be instantiated; "
                             "it can be used only as a base class")
         return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
@@ -1986,6 +1986,7 @@ if hasattr(collections_abc, 'Reversible'):
         __slots__ = ()
         __extra__ = collections_abc.Reversible
 else:
+    @runtime_checkable
     class Reversible(Protocol[T_co]):
         __slots__ = ()
 
@@ -2288,7 +2289,7 @@ class _TypedDictMeta(type):
         # TypedDict supports all three syntaxes described in its docstring.
         # Subclasses and instances of TypedDict return actual dictionaries
         # via _dict_new.
-        ns['__new__'] = _typeddict_new if name == 'TypedDict' else _dict_new
+        ns['__new__'] = _typeddict_new if name == b'TypedDict' else _dict_new
         tp_dict = super(_TypedDictMeta, cls).__new__(cls, name, (dict,), ns)
 
         anns = ns.get('__annotations__', {})
