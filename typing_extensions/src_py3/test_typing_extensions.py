@@ -1391,6 +1391,21 @@ if HAVE_PROTOCOLS:
                     x = 1
                 self.assertIsInstance(E(), D)
 
+        def test_collections_protocols_allowed(self):
+            @runtime
+            class Custom(collections.abc.Iterable, Protocol):
+                def close(self): pass
+
+            class A: ...
+            class B:
+                def __iter__(self):
+                    return []
+                def close(self):
+                    return 0
+
+            self.assertIsSubclass(B, Custom)
+            self.assertNotIsSubclass(A, Custom)
+
 
 class TypedDictTests(BaseTestCase):
 
