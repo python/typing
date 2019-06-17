@@ -24,6 +24,7 @@ __all__ = [
     'Generic',
     'Literal',
     'Optional',
+    'Protocol',
     'Tuple',
     'Type',
     'TypeVar',
@@ -80,6 +81,7 @@ __all__ = [
     'no_type_check_decorator',
     'NoReturn',
     'overload',
+    'runtime_checkable',
     'Text',
     'TYPE_CHECKING',
 ]
