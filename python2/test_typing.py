@@ -16,7 +16,7 @@ from typing import T, KT, VT  # Not in __all__.
 from typing import Union, Optional
 from typing import Tuple, List, MutableMapping
 from typing import Callable
-from typing import Generic, ClassVar, GenericMeta, Final
+from typing import Generic, ClassVar, GenericMeta, Final, Literal
 from typing import cast
 from typing import Type
 from typing import NewType
@@ -1384,6 +1384,65 @@ class FinalTests(BaseTestCase):
             isinstance(1, Final[int])
         with self.assertRaises(TypeError):
             issubclass(int, Final)
+
+
+class LiteralTests(BaseTestCase):
+    def test_basics(self):
+        Literal[1]
+        Literal[1, 2, 3]
+        Literal["x", "y", "z"]
+        Literal[None]
+
+    def test_illegal_parameters_do_not_raise_runtime_errors(self):
+        # Type checkers should reject these types, but we do not
+        # raise errors at runtime to maintain maximium flexibility
+        Literal[int]
+        Literal[Literal[1, 2], Literal[4, 5]]
+        Literal[3j + 2, ..., ()]
+        Literal[b"foo", u"bar"]
+        Literal[{"foo": 3, "bar": 4}]
+        Literal[T]
+
+    def test_literals_inside_other_types(self):
+        typing.List[Literal[1, 2, 3]]
+        typing.List[Literal[("foo", "bar", "baz")]]
+
+    def test_repr(self):
+        self.assertEqual(repr(Literal[1]), "typing_extensions.Literal[1]")
+        self.assertEqual(repr(Literal[1, True, "foo"]), "typing_extensions.Literal[1, True, 'foo']")
+        self.assertEqual(repr(Literal[int]), "typing_extensions.Literal[int]")
+        self.assertEqual(repr(Literal), "typing_extensions.Literal")
+        self.assertEqual(repr(Literal[None]), "typing_extensions.Literal[None]")
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            Literal()
+        with self.assertRaises(TypeError):
+            Literal[1]()
+        with self.assertRaises(TypeError):
+            type(Literal)()
+        with self.assertRaises(TypeError):
+            type(Literal[1])()
+
+    def test_no_isinstance_or_issubclass(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, Literal[1])
+        with self.assertRaises(TypeError):
+            isinstance(int, Literal[1])
+        with self.assertRaises(TypeError):
+            issubclass(1, Literal[1])
+        with self.assertRaises(TypeError):
+            issubclass(int, Literal[1])
+
+    def test_no_subclassing(self):
+        with self.assertRaises(TypeError):
+            class Foo(Literal[1]): pass
+        with self.assertRaises(TypeError):
+            class Bar(Literal): pass
+
+    def test_no_multiple_subscripts(self):
+        with self.assertRaises(TypeError):
+            Literal[1][1]
 
 
 class CastTests(BaseTestCase):

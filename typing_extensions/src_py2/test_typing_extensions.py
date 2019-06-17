@@ -119,46 +119,6 @@ class ClassVarTests(BaseTestCase):
             issubclass(int, ClassVar)
 
 
-class FinalTests(BaseTestCase):
-
-    def test_basics(self):
-        with self.assertRaises(TypeError):
-            Final[1]
-        with self.assertRaises(TypeError):
-            Final[int, str]
-        with self.assertRaises(TypeError):
-            Final[int][str]
-
-    def test_repr(self):
-        self.assertEqual(repr(Final), 'typing_extensions.Final')
-        cv = Final[int]
-        self.assertEqual(repr(cv), 'typing_extensions.Final[int]')
-        cv = Final[Employee]
-        self.assertEqual(repr(cv), 'typing_extensions.Final[%s.Employee]' % __name__)
-
-    def test_cannot_subclass(self):
-        with self.assertRaises(TypeError):
-            class C(type(Final)):
-                pass
-        with self.assertRaises(TypeError):
-            class C(type(Final[int])):
-                pass
-
-    def test_cannot_init(self):
-        with self.assertRaises(TypeError):
-            Final()
-        with self.assertRaises(TypeError):
-            type(Final)()
-        with self.assertRaises(TypeError):
-            type(Final[typing.Optional[int]])()
-
-    def test_no_isinstance(self):
-        with self.assertRaises(TypeError):
-            isinstance(1, Final[int])
-        with self.assertRaises(TypeError):
-            issubclass(int, Final)
-
-
 class IntVarTests(BaseTestCase):
     def test_valid(self):
         T_ints = IntVar("T_ints")
@@ -170,65 +130,6 @@ class IntVarTests(BaseTestCase):
             T_ints = IntVar("T_ints", bound=int)
         with self.assertRaises(TypeError):
             T_ints = IntVar("T_ints", covariant=True)
-
-
-class LiteralTests(BaseTestCase):
-    def test_basics(self):
-        Literal[1]
-        Literal[1, 2, 3]
-        Literal["x", "y", "z"]
-        Literal[None]
-
-    def test_illegal_parameters_do_not_raise_runtime_errors(self):
-        # Type checkers should reject these types, but we do not
-        # raise errors at runtime to maintain maximium flexibility
-        Literal[int]
-        Literal[Literal[1, 2], Literal[4, 5]]
-        Literal[3j + 2, ..., ()]
-        Literal[b"foo", u"bar"]
-        Literal[{"foo": 3, "bar": 4}]
-        Literal[T]
-
-    def test_literals_inside_other_types(self):
-        typing.List[Literal[1, 2, 3]]
-        typing.List[Literal[("foo", "bar", "baz")]]
-
-    def test_repr(self):
-        self.assertEqual(repr(Literal[1]), "typing_extensions.Literal[1]")
-        self.assertEqual(repr(Literal[1, True, "foo"]), "typing_extensions.Literal[1, True, 'foo']")
-        self.assertEqual(repr(Literal[int]), "typing_extensions.Literal[int]")
-        self.assertEqual(repr(Literal), "typing_extensions.Literal")
-        self.assertEqual(repr(Literal[None]), "typing_extensions.Literal[None]")
-
-    def test_cannot_init(self):
-        with self.assertRaises(TypeError):
-            Literal()
-        with self.assertRaises(TypeError):
-            Literal[1]()
-        with self.assertRaises(TypeError):
-            type(Literal)()
-        with self.assertRaises(TypeError):
-            type(Literal[1])()
-
-    def test_no_isinstance_or_issubclass(self):
-        with self.assertRaises(TypeError):
-            isinstance(1, Literal[1])
-        with self.assertRaises(TypeError):
-            isinstance(int, Literal[1])
-        with self.assertRaises(TypeError):
-            issubclass(1, Literal[1])
-        with self.assertRaises(TypeError):
-            issubclass(int, Literal[1])
-
-    def test_no_subclassing(self):
-        with self.assertRaises(TypeError):
-            class Foo(Literal[1]): pass
-        with self.assertRaises(TypeError):
-            class Bar(Literal): pass
-
-    def test_no_multiple_subscripts(self):
-        with self.assertRaises(TypeError):
-            Literal[1][1]
 
 
 class CollectionsAbcTests(BaseTestCase):
