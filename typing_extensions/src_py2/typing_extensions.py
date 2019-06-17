@@ -8,8 +8,7 @@ from typing import (
     runtime_checkable,
     # We use internal typing helpers here, but this significantly reduces
     # code duplication. (Also this is only until Protocol is in typing.)
-    _generic_new, _type_vars, _next_in_mro, _tp_cache, _type_check,
-    _TypingEllipsis, _TypingEmpty, _check_generic
+    _type_vars, _tp_cache, _type_check,
 )
 
 # Please keep __all__ alphabetized within each category.
