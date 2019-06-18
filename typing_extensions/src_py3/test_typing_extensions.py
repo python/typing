@@ -14,7 +14,7 @@ from typing import Generic
 from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
 try:
-    from typing_extensions import Protocol, runtime
+    from typing_extensions import Protocol, runtime, runtime_checkable
 except ImportError:
     pass
 try:
@@ -1390,6 +1390,21 @@ if HAVE_PROTOCOLS:
                 class E:
                     x = 1
                 self.assertIsInstance(E(), D)
+
+        def test_collections_protocols_allowed(self):
+            @runtime_checkable
+            class Custom(collections.abc.Iterable, Protocol):
+                def close(self): pass
+
+            class A: ...
+            class B:
+                def __iter__(self):
+                    return []
+                def close(self):
+                    return 0
+
+            self.assertIsSubclass(B, Custom)
+            self.assertNotIsSubclass(A, Custom)
 
 
 class TypedDictTests(BaseTestCase):

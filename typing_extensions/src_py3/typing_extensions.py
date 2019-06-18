@@ -1080,6 +1080,12 @@ if OLD_GENERICS:
         return next_in_mro
 
 
+_PROTO_WHITELIST = ['Callable', 'Awaitable',
+                    'Iterable', 'Iterator', 'AsyncIterable', 'AsyncIterator',
+                    'Hashable', 'Sized', 'Container', 'Collection', 'Reversible',
+                    'ContextManager', 'AsyncContextManager']
+
+
 def _get_protocol_attrs(cls):
     attrs = set()
     for base in cls.__mro__[:-1]:  # without object
@@ -1187,7 +1193,9 @@ elif HAVE_PROTOCOLS and not PEP_560:
                                        for b in cls.__bases__)
             if cls._is_protocol:
                 for base in cls.__mro__[1:]:
-                    if not (base in (object, Generic, Callable) or
+                    if not (base in (object, Generic) or
+                            base.__module__ == 'collections.abc' and
+                            base.__name__ in _PROTO_WHITELIST or
                             isinstance(base, TypingMeta) and base._is_protocol or
                             isinstance(base, GenericMeta) and
                             base.__origin__ is Generic):
@@ -1513,7 +1521,9 @@ elif PEP_560:
 
             # Check consistency of bases.
             for base in cls.__bases__:
-                if not (base in (object, Generic, Callable) or
+                if not (base in (object, Generic) or
+                        base.__module__ == 'collections.abc' and
+                        base.__name__ in _PROTO_WHITELIST or
                         isinstance(base, _ProtocolMeta) and base._is_protocol):
                     raise TypeError('Protocols can only inherit from other'
                                     ' protocols, got %r' % base)

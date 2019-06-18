@@ -1759,6 +1759,11 @@ def overload(func):
     return _overload_dummy
 
 
+_PROTO_WHITELIST = ['Callable', 'Iterable', 'Iterator',
+                    'Hashable', 'Sized', 'Container', 'Collection',
+                    'Reversible', 'ContextManager']
+
+
 class _ProtocolMeta(GenericMeta):
     """Internal metaclass for Protocol.
 
@@ -1774,7 +1779,8 @@ class _ProtocolMeta(GenericMeta):
                                    for b in cls.__bases__)
         if cls._is_protocol:
             for base in cls.__mro__[1:]:
-                if not (base in (object, Generic, Callable) or
+                if not (base in (object, Generic) or
+                        base.__module__ == '_abcoll' and base.__name__ in _PROTO_WHITELIST or
                         isinstance(base, TypingMeta) and base._is_protocol or
                         isinstance(base, GenericMeta) and base.__origin__ is Generic):
                     raise TypeError('Protocols can only inherit from other protocols,'
