@@ -9,7 +9,7 @@ if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 4, 0):
                      'to install the typing package.\n')
     exit(1)
 
-version = '3.7.2'
+version = '3.7.4'
 description = 'Backported and Experimental Type Hints for Python 3.5+'
 long_description = '''\
 Typing Extensions -- Backported and Experimental Type Hints for Python
@@ -53,7 +53,7 @@ else:
 
 install_requires = []
 if sys.version_info < (3, 5):
-    install_requires.append('typing >= 3.6.2')
+    install_requires.append('typing >= 3.7.4')
 
 setup(name='typing_extensions',
       version=version,
