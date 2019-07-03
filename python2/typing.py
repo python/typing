@@ -1835,6 +1835,7 @@ class _ProtocolMeta(GenericMeta):
         if (self.__dict__.get('_is_protocol', None) and
                 not self.__dict__.get('_is_runtime_protocol', None)):
             if (sys._getframe(1).f_globals['__name__'] in ['abc', 'functools'] or
+                    # This is needed because we remove subclasses from unions on Python 2.
                     sys._getframe(2).f_globals['__name__'] == 'typing'):
                 return False
             raise TypeError("Instance and class checks can only be used with"
