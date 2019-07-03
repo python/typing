@@ -1,16 +1,13 @@
 import sys
 import os
-import abc
 import contextlib
 import collections
-import pickle
 import subprocess
-import types
-from unittest import TestCase, main, skipUnless
+from unittest import TestCase, main
 
 from typing_extensions import Annotated, NoReturn, ClassVar, Final, IntVar, Literal, TypedDict
 from typing_extensions import ContextManager, Counter, Deque, DefaultDict
-from typing_extensions import NewType, overload, Protocol, runtime
+from typing_extensions import NewType, overload
 from typing import Dict, List
 import typing
 import typing_extensions
