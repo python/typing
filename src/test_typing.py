@@ -2653,9 +2653,8 @@ class AllTests(BaseTestCase):
         file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                  'typing.py')
         try:
-            subprocess.check_output('python -OO {}'.format(file_path),
-                                    stderr=subprocess.STDOUT,
-                                    shell=True)
+            subprocess.check_output([sys.executable, '-OO', file_path],
+                                    stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError:
             self.fail('Module does not compile with optimize=2 (-OO flag).')
 
