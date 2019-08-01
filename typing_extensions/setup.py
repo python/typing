@@ -51,10 +51,6 @@ elif sys.version_info.major == 3:
 else:
     raise AssertionError()
 
-install_requires = []
-if sys.version_info < (3, 5):
-    install_requires.append('typing >= 3.7.4')
-
 setup(name='typing_extensions',
       version=version,
       description=description,
@@ -68,4 +64,4 @@ setup(name='typing_extensions',
       package_dir={'': package_dir},
       py_modules=['typing_extensions'],
       classifiers=classifiers,
-      install_requires=install_requires)
+      install_requires=["typing >= 3.7.4; python_version < '3.5'"])
