@@ -9,7 +9,7 @@ import types
 from unittest import TestCase, main, skipUnless
 from typing import TypeVar, Optional
 from typing import T, KT, VT  # Not in __all__.
-from typing import Tuple, List, Dict
+from typing import Tuple, List, Dict, Iterator
 from typing import Generic
 from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
@@ -34,13 +34,13 @@ PEP_560 = sys.version_info[:3] >= (3, 7, 0)
 
 OLD_GENERICS = False
 try:
-    from typing import _type_vars, _next_in_mro, _type_check
+    from typing import _type_vars, _next_in_mro, _type_check  # noqa
 except ImportError:
     OLD_GENERICS = True
 
 # We assume Python versions *below* 3.5.0 will have the most
 # up-to-date version of the typing module installed. Since
-# the typing module isn't a part of the standard library in older 
+# the typing module isn't a part of the standard library in older
 # versions of Python, those users are likely to have a reasonably
 # modern version of `typing` installed from PyPi.
 TYPING_LATEST = sys.version_info[:3] < (3, 5, 0)
@@ -72,6 +72,7 @@ PY36 = sys.version_info[:2] >= (3, 6)
 
 # Protocols are hard to backport to the original version of typing 3.5.0
 HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
+
 
 class BaseTestCase(TestCase):
     def assertIsSubclass(self, cls, class_or_tuple, msg=None):
@@ -226,7 +227,7 @@ class FinalTests(BaseTestCase):
 
 class IntVarTests(BaseTestCase):
     def test_valid(self):
-        T_ints = IntVar("T_ints")
+        T_ints = IntVar("T_ints")  # noqa
 
     def test_invalid(self):
         with self.assertRaises(TypeError):
@@ -234,7 +235,7 @@ class IntVarTests(BaseTestCase):
         with self.assertRaises(TypeError):
             T_ints = IntVar("T_ints", bound=int)
         with self.assertRaises(TypeError):
-            T_ints = IntVar("T_ints", covariant=True)
+            T_ints = IntVar("T_ints", covariant=True)  # noqa
 
 
 class LiteralTests(BaseTestCase):
@@ -475,7 +476,7 @@ class GetTypeHintTests(BaseTestCase):
         @no_type_check
         class NoTpCheck:
             class Inn:
-                def __init__(self, x: 'not a type'): ...
+                def __init__(self, x: 'not a type'): ...  # noqa
         self.assertTrue(NoTpCheck.__no_type_check__)
         self.assertTrue(NoTpCheck.Inn.__init__.__no_type_check__)
         self.assertEqual(gth(ann_module2.NTC.meth), {})
@@ -501,6 +502,7 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(gth(Loop, globals())['attr'], Final[Loop])
         self.assertNotEqual(gth(Loop, globals())['attr'], Final[int])
         self.assertNotEqual(gth(Loop, globals())['attr'], Final)
+
 
 class CollectionsAbcTests(BaseTestCase):
 
@@ -1609,8 +1611,8 @@ class AnnotatedTests(BaseTestCase):
 
     def test_cannot_subclass(self):
         with self.assertRaisesRegex(TypeError, "Cannot subclass .*Annotated"):
-           class C(Annotated):
-               pass
+            class C(Annotated):
+                pass
 
     def test_cannot_check_instance(self):
         with self.assertRaises(TypeError):
@@ -1619,7 +1621,6 @@ class AnnotatedTests(BaseTestCase):
     def test_cannot_check_subclass(self):
         with self.assertRaises(TypeError):
             issubclass(int, Annotated[int, "positive"])
-
 
     @skipUnless(PEP_560, "pickle support was added with PEP 560")
     def test_pickle(self):
@@ -1673,9 +1674,9 @@ class AnnotatedTests(BaseTestCase):
         with self.assertRaises(TypeError):
             D[int]
 
-        I = Annotated[int, dec]
+        It = Annotated[int, dec]
         with self.assertRaises(TypeError):
-            I[None]
+            It[None]
 
         LI = L[int]
         with self.assertRaises(TypeError):
@@ -1747,7 +1748,6 @@ class GetTypeHintsTests(BaseTestCase):
         )
 
 
-
 class AllTests(BaseTestCase):
 
     def test_typing_extensions_includes_standard(self):
@@ -1782,7 +1782,6 @@ class AllTests(BaseTestCase):
             self.assertIn('Protocol', a)
             self.assertIn('runtime', a)
 
-
     def test_typing_extensions_defers_when_possible(self):
         exclude = {'overload', 'Text', 'TYPE_CHECKING', 'Final', 'get_type_hints'}
         for item in typing_extensions.__all__:
@@ -1804,4 +1803,4 @@ class AllTests(BaseTestCase):
 
 
 if __name__ == '__main__':
-   main()
+    main()
