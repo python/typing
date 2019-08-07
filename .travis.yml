@@ -21,16 +21,17 @@ jobs:
       python: 3.6.2
     - name: "3.6.1"
       python: 3.6.1
-    - name: "3.6.0"
-      python: 3.6.0
+    - name: "3.6"
+      python: 3.6
     - name: "3.5.3"
       python: 3.5.3
     - name: "3.5.2"
       python: 3.5.2
     - name: "3.5.1"
+      dist: xenial
       python: 3.5.1
-    - name: "3.5.0"
-      python: 3.5.0
+    - name: "3.5"
+      python: 3.5
     - name: "3.4"
       python: 3.4
     - name: "2.7"
