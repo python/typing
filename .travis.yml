@@ -28,7 +28,7 @@ jobs:
     - name: "3.5.2"
       python: 3.5.2
     - name: "3.5.1"
-      dist: xenial
+      dist: trusty
       python: 3.5.1
     - name: "3.5"
       python: 3.5
