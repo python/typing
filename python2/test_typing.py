@@ -1827,7 +1827,6 @@ class GenericTests(BaseTestCase):
         self.assertEqual(c.from_c, 'c')
 
 
-
 class ClassVarTests(BaseTestCase):
 
     def test_basics(self):
@@ -2308,8 +2307,8 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(MMB[str, str], typing.Mapping)
         self.assertIsSubclass(MMC, MMA)
 
-        class I(typing.Iterable): pass
-        self.assertNotIsSubclass(list, I)
+        class It(typing.Iterable): pass
+        self.assertNotIsSubclass(list, It)
 
         class G(typing.Generator[int, int, int]): pass
         def g(): yield 0
@@ -2366,8 +2365,8 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(S, typing.MutableSequence)
         self.assertIsSubclass(S, typing.Iterable)
 
-        class I(collections.Iterable): pass
-        self.assertIsSubclass(I, typing.Iterable)
+        class It(collections.Iterable): pass
+        self.assertIsSubclass(It, typing.Iterable)
 
         class A(collections.Mapping): pass
         class B: pass
@@ -2659,7 +2658,7 @@ class AllTests(BaseTestCase):
         class NoTpCheck(object):
             class Inn(object):
                 def __init__(self, x):
-                    # type: (this is not actually a type) -> None
+                    # type: (this is not actually a type) -> None  # noqa
                     pass
         self.assertTrue(NoTpCheck.__no_type_check__)
         self.assertTrue(NoTpCheck.Inn.__init__.__no_type_check__)

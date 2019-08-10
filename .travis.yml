@@ -21,16 +21,17 @@ jobs:
       python: 3.6.2
     - name: "3.6.1"
       python: 3.6.1
-    - name: "3.6.0"
-      python: 3.6.0
+    - name: "3.6"
+      python: 3.6
     - name: "3.5.3"
       python: 3.5.3
     - name: "3.5.2"
       python: 3.5.2
     - name: "3.5.1"
+      dist: trusty
       python: 3.5.1
-    - name: "3.5.0"
-      python: 3.5.0
+    - name: "3.5"
+      python: 3.5
     - name: "3.4"
       python: 3.4
     - name: "2.7"
@@ -42,7 +43,7 @@ install:
 script:
   - export PYTHONPATH=`python -c "import sys; print('python2' if sys.version.startswith('2') else 'src')"`;
     if [[ $TRAVIS_PYTHON_VERSION < '3.7' ]]; then py.test $PYTHONPATH; fi
-  - if [[ $TRAVIS_PYTHON_VERSION < '3.5' ]]; then python setup.py install; fi
+  - if [[ $TRAVIS_PYTHON_VERSION < '3.5' ]]; then pip install -U .; fi
   - export PYTHONPATH=`python -c "import sys; print('typing_extensions/src_py2' if sys.version.startswith('2') else 'typing_extensions/src_py3')"`;
     py.test $PYTHONPATH;
   - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then flake8; fi

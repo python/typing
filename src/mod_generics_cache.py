@@ -12,10 +12,8 @@ if sys.version_info[:2] >= (3, 6):
 
     T = TypeVar('T')
 
-
     class A(Generic[T]):
         some_b: 'B'
-
 
     class B(Generic[T]):
         class A(Generic[T]):
@@ -35,12 +33,10 @@ else:  # This should stay in sync with the syntax above.
 
     T = TypeVar('T')
 
-
     class A(Generic[T]):
         __annotations__ = dict(
             some_b='B'
         )
-
 
     class B(Generic[T]):
         class A(Generic[T]):

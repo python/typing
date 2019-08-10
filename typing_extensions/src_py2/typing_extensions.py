@@ -1,7 +1,7 @@
 import abc
-import sys
 import typing
-from typing import (
+from typing import (  # noqa
+    # These are imported for re-export.
     ClassVar, Type, Generic, Callable, GenericMeta, TypingMeta,
     Counter, DefaultDict, Deque, TypeVar, Tuple, Final, final,
     NewType, overload, Text, TYPE_CHECKING, Literal, TypedDict, Protocol,

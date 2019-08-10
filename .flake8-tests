@@ -8,7 +8,7 @@
 [flake8]
 # fake builtins for python2/*
 builtins = basestring, unicode
-max-line-length = 90
+max-line-length = 100
 ignore =
   # temporary ignores until we sort it out
   E306,
@@ -18,6 +18,8 @@ ignore =
   # irrelevant plugins
   B3,
   DW12
+  # consistency with mypy
+  W504
 exclude =
   # This config is NOT for the main module.
   setup.py

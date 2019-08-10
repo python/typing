@@ -1780,7 +1780,8 @@ class _ProtocolMeta(GenericMeta):
         if cls._is_protocol:
             for base in cls.__mro__[1:]:
                 if not (base in (object, Generic) or
-                        base.__module__ == '_abcoll' and base.__name__ in _PROTO_WHITELIST or
+                        base.__module__ == '_abcoll' and
+                        base.__name__ in _PROTO_WHITELIST or
                         isinstance(base, TypingMeta) and base._is_protocol or
                         isinstance(base, GenericMeta) and base.__origin__ is Generic):
                     raise TypeError('Protocols can only inherit from other protocols,'

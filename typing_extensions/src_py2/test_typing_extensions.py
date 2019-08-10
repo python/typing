@@ -5,7 +5,7 @@ import collections
 import subprocess
 from unittest import TestCase, main
 
-from typing_extensions import Annotated, NoReturn, ClassVar, Final, IntVar, Literal, TypedDict
+from typing_extensions import Annotated, NoReturn, ClassVar, IntVar
 from typing_extensions import ContextManager, Counter, Deque, DefaultDict
 from typing_extensions import NewType, overload
 from typing import Dict, List
@@ -118,7 +118,7 @@ class ClassVarTests(BaseTestCase):
 
 class IntVarTests(BaseTestCase):
     def test_valid(self):
-        T_ints = IntVar("T_ints")
+        T_ints = IntVar("T_ints")  # noqa
 
     def test_invalid(self):
         with self.assertRaises(TypeError):
@@ -126,7 +126,7 @@ class IntVarTests(BaseTestCase):
         with self.assertRaises(TypeError):
             T_ints = IntVar("T_ints", bound=int)
         with self.assertRaises(TypeError):
-            T_ints = IntVar("T_ints", covariant=True)
+            T_ints = IntVar("T_ints", covariant=True)  # noqa
 
 
 class CollectionsAbcTests(BaseTestCase):
@@ -332,8 +332,8 @@ class AnnotatedTests(BaseTestCase):
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
-           class C(Annotated):
-               pass
+            class C(Annotated):
+                pass
 
     def test_cannot_check_instance(self):
         with self.assertRaises(TypeError):
@@ -364,9 +364,9 @@ class AnnotatedTests(BaseTestCase):
         with self.assertRaises(TypeError):
             D[int]
 
-        I = Annotated[int, dec]
+        It = Annotated[int, dec]
         with self.assertRaises(TypeError):
-            I[None]
+            It[None]
 
         LI = L[int]
         with self.assertRaises(TypeError):
@@ -375,6 +375,7 @@ class AnnotatedTests(BaseTestCase):
     def test_annotated_in_other_types(self):
         X = List[Annotated[T, 5]]
         self.assertEqual(X[int], List[Annotated[int, 5]])
+
 
 class AllTests(BaseTestCase):
 

@@ -12,7 +12,7 @@ from typing import Any, NoReturn
 from typing import TypeVar, AnyStr
 from typing import T, KT, VT  # Not in __all__.
 from typing import Union, Optional
-from typing import Tuple, List, MutableMapping
+from typing import Tuple, List, MutableMapping, Iterator
 from typing import Callable
 from typing import Generic, ClassVar, GenericMeta
 from typing import cast
@@ -1539,7 +1539,7 @@ class ForwardRefTests(BaseTestCase):
 
     def test_delayed_syntax_error(self):
 
-        def foo(a: 'Node[T'):
+        def foo(a: 'Node[T'):  # noqa
             pass
 
         with self.assertRaises(SyntaxError):
@@ -1555,7 +1555,7 @@ class ForwardRefTests(BaseTestCase):
 
     def test_name_error(self):
 
-        def foo(a: 'Noode[T]'):
+        def foo(a: 'Noode[T]'):  # noqa
             pass
 
         with self.assertRaises(NameError):
@@ -1564,7 +1564,7 @@ class ForwardRefTests(BaseTestCase):
     def test_no_type_check(self):
 
         @no_type_check
-        def foo(a: 'whatevers') -> {}:
+        def foo(a: 'whatevers') -> {}:  # noqa
             pass
 
         th = get_type_hints(foo)
@@ -1574,7 +1574,7 @@ class ForwardRefTests(BaseTestCase):
 
         @no_type_check
         class C:
-            def foo(a: 'whatevers') -> {}:
+            def foo(a: 'whatevers') -> {}:  # noqa
                 pass
 
         cth = get_type_hints(C.foo)
@@ -1600,12 +1600,12 @@ class ForwardRefTests(BaseTestCase):
         self.assertEqual(magic_decorator.__name__, 'magic_decorator')
 
         @magic_decorator
-        def foo(a: 'whatevers') -> {}:
+        def foo(a: 'whatevers') -> {}:  # noqa
             pass
 
         @magic_decorator
         class C:
-            def foo(a: 'whatevers') -> {}:
+            def foo(a: 'whatevers') -> {}:  # noqa
                 pass
 
         self.assertEqual(foo.__name__, 'foo')
@@ -1764,7 +1764,7 @@ else:
     # fake names for the sake of static analysis
     ann_module = ann_module2 = ann_module3 = None
     A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
-    XMeth = XRepr = NoneAndForward = object
+    XMeth = XRepr = NoneAndForward = HasForeignBaseClass = object
 
 gth = get_type_hints
 
@@ -1826,7 +1826,7 @@ class GetTypeHintTests(BaseTestCase):
         @no_type_check
         class NoTpCheck:
             class Inn:
-                def __init__(self, x: 'not a type'): ...
+                def __init__(self, x: 'not a type'): ...  # noqa
         self.assertTrue(NoTpCheck.__no_type_check__)
         self.assertTrue(NoTpCheck.Inn.__init__.__no_type_check__)
         self.assertEqual(gth(ann_module2.NTC.meth), {})
@@ -2233,8 +2233,8 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(MMB[str, str], typing.Mapping)
         self.assertIsSubclass(MMC, MMA)
 
-        class I(typing.Iterable): ...
-        self.assertNotIsSubclass(list, I)
+        class It(typing.Iterable): ...
+        self.assertNotIsSubclass(list, It)
 
         class G(typing.Generator[int, int, int]): ...
         def g(): yield 0
@@ -2316,8 +2316,8 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(S, typing.MutableSequence)
         self.assertIsSubclass(S, typing.Iterable)
 
-        class I(collections_abc.Iterable): ...
-        self.assertIsSubclass(I, typing.Iterable)
+        class It(collections_abc.Iterable): ...
+        self.assertIsSubclass(It, typing.Iterable)
 
         class A(collections_abc.Mapping, metaclass=abc.ABCMeta): ...
         class B: ...

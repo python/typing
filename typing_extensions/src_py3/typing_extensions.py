@@ -6,15 +6,16 @@ import typing
 import collections.abc as collections_abc
 import operator
 
+# These are used by Protocol implementation
+# We use internal typing helpers here, but this significantly reduces
+# code duplication. (Also this is only until Protocol is in typing.)
+from typing import Generic, Callable, TypeVar, Tuple
+
 # After PEP 560, internal typing API was substantially reworked.
 # This is especially important for Protocol class which uses internal APIs
 # quite extensivelly.
 PEP_560 = sys.version_info[:3] >= (3, 7, 0)
 
-# These are used by Protocol implementation
-# We use internal typing helpers here, but this significantly reduces
-# code duplication. (Also this is only until Protocol is in typing.)
-from typing import Generic, Callable, TypeVar, Tuple
 if PEP_560:
     GenericMeta = TypingMeta = type
 else:
@@ -25,19 +26,23 @@ try:
 except ImportError:
     OLD_GENERICS = True
 try:
-    from typing import _subs_tree
+    from typing import _subs_tree  # noqa
     SUBS_TREE = True
 except ImportError:
     SUBS_TREE = False
 try:
     from typing import _tp_cache
 except ImportError:
-    _tp_cache = lambda x: x
+    def _tp_cache(x):
+        return x
 try:
     from typing import _TypingEllipsis, _TypingEmpty
 except ImportError:
-    class _TypingEllipsis: pass
-    class _TypingEmpty: pass
+    class _TypingEllipsis:
+        pass
+
+    class _TypingEmpty:
+        pass
 
 
 # The two functions below are copies of typing internal helpers.
@@ -363,21 +368,20 @@ elif sys.version_info[:2] >= (3, 7):
                                       '{} accepts only single type'.format(self._name))
             return _GenericAlias(self, (item,))
 
-    Final = _FinalForm('Final', doc=
-        """A special typing construct to indicate that a name
-        cannot be re-assigned or overridden in a subclass.
-        For example:
+    Final = _FinalForm('Final',
+                       doc="""A special typing construct to indicate that a name
+                       cannot be re-assigned or overridden in a subclass.
+                       For example:
 
-            MAX_SIZE: Final = 9000
-            MAX_SIZE += 1  # Error reported by type checker
+                           MAX_SIZE: Final = 9000
+                           MAX_SIZE += 1  # Error reported by type checker
 
-            class Connection:
-                TIMEOUT: Final[int] = 10
-            class FastConnector(Connection):
-                TIMEOUT = 1  # Error reported by type checker
+                           class Connection:
+                               TIMEOUT: Final[int] = 10
+                           class FastConnector(Connection):
+                               TIMEOUT = 1  # Error reported by type checker
 
-        There is no runtime checking of these properties.
-        """)
+                       There is no runtime checking of these properties.""")
 elif hasattr(typing, '_FinalTypingBase'):
     class _Final(typing._FinalTypingBase, _root=True):
         """A special typing construct to indicate that a name
@@ -534,7 +538,7 @@ def IntVar(name):
 
 
 if hasattr(typing, 'Literal'):
-    Literal = typing.Literal 
+    Literal = typing.Literal
 elif sys.version_info[:2] >= (3, 7):
     class _LiteralForm(typing._SpecialForm, _root=True):
 
@@ -544,19 +548,19 @@ elif sys.version_info[:2] >= (3, 7):
         def __getitem__(self, parameters):
             return _GenericAlias(self, parameters)
 
-    Literal = _LiteralForm('Literal', doc=
-        """A type that can be used to indicate to type checkers that the
-        corresponding value has a value literally equivalent to the
-        provided parameter. For example:
+    Literal = _LiteralForm('Literal',
+                           doc="""A type that can be used to indicate to type checkers
+                           that the corresponding value has a value literally equivalent
+                           to the provided parameter. For example:
 
-            var: Literal[4] = 4
-        
-        The type checker understands that 'var' is literally equal to the
-        value 4 and no other value.
+                               var: Literal[4] = 4
 
-        Literal[...] cannot be subclassed. There is no runtime checking
-        verifying that the parameter is actually a value instead of a type.
-        """)
+                           The type checker understands that 'var' is literally equal to
+                           the value 4 and no other value.
+
+                           Literal[...] cannot be subclassed. There is no runtime
+                           checking verifying that the parameter is actually a value
+                           instead of a type.""")
 elif hasattr(typing, '_FinalTypingBase'):
     class _Literal(typing._FinalTypingBase, _root=True):
         """A type that can be used to indicate to type checkers that the
@@ -564,7 +568,7 @@ elif hasattr(typing, '_FinalTypingBase'):
         provided parameter. For example:
 
             var: Literal[4] = 4
-        
+
         The type checker understands that 'var' is literally equal to the
         value 4 and no other value.
 
@@ -658,7 +662,7 @@ else:
         provided parameter. For example:
 
             var: Literal[4] = 4
-        
+
         The type checker understands that 'var' is literally equal to the
         value 4 and no other value.
 
@@ -1071,7 +1075,7 @@ def _gorg(cls):
 
 
 if OLD_GENERICS:
-    def _next_in_mro(cls):
+    def _next_in_mro(cls):  # noqa
         """This function exists for compatibility with old typing versions."""
         next_in_mro = object
         for i, c in enumerate(cls.__mro__[:-1]):
@@ -1220,8 +1224,10 @@ elif HAVE_PROTOCOLS and not PEP_560:
                                 return NotImplemented
                             break
                         annotations = getattr(base, '__annotations__', {})
-                        if (isinstance(annotations, typing.Mapping) and attr in annotations and
-                                isinstance(other, _ProtocolMeta) and other._is_protocol):
+                        if (isinstance(annotations, typing.Mapping) and
+                                attr in annotations and
+                                isinstance(other, _ProtocolMeta) and
+                                other._is_protocol):
                             break
                     else:
                         return NotImplemented
@@ -1252,13 +1258,17 @@ elif HAVE_PROTOCOLS and not PEP_560:
                 return False
             if (self.__dict__.get('_is_protocol', None) and
                     not self.__dict__.get('_is_runtime_protocol', None)):
-                if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools', 'typing']:
+                if sys._getframe(1).f_globals['__name__'] in ['abc',
+                                                              'functools',
+                                                              'typing']:
                     return False
                 raise TypeError("Instance and class checks can only be used with"
                                 " @runtime protocols")
             if (self.__dict__.get('_is_runtime_protocol', None) and
                     not _is_callable_members_only(self)):
-                if sys._getframe(1).f_globals['__name__'] in ['abc', 'functools', 'typing']:
+                if sys._getframe(1).f_globals['__name__'] in ['abc',
+                                                              'functools',
+                                                              'typing']:
                     return super(GenericMeta, self).__subclasscheck__(cls)
                 raise TypeError("Protocols with non-method members"
                                 " don't support issubclass()")
@@ -1351,7 +1361,7 @@ elif HAVE_PROTOCOLS and not PEP_560:
 
 
 elif PEP_560:
-    from typing import _type_check, _GenericAlias, _collect_type_vars
+    from typing import _type_check, _GenericAlias, _collect_type_vars  # noqa
 
     class _ProtocolMeta(abc.ABCMeta):
         # This metaclass is a bit unfortunate and exists only because of the lack
@@ -1371,11 +1381,10 @@ elif PEP_560:
                     return True
             return super().__instancecheck__(instance)
 
-
     class Protocol(metaclass=_ProtocolMeta):
         # There is quite a lot of overlapping code with typing.Generic.
-        # Unfortunately it is hard to avoid this while these live in two different modules.
-        # The duplicated code will be removed when Protocol is moved to typing.
+        # Unfortunately it is hard to avoid this while these live in two different
+        # modules. The duplicated code will be removed when Protocol is moved to typing.
         """Base class for protocol classes. Protocol classes are defined as::
 
             class Proto(Protocol):
@@ -1474,7 +1483,8 @@ elif PEP_560:
                         s_vars = ', '.join(str(t) for t in tvars if t not in gvarset)
                         s_args = ', '.join(str(g) for g in gvars)
                         raise TypeError("Some type variables ({}) are"
-                                        " not listed in {}[{}]".format(s_vars, the_base, s_args))
+                                        " not listed in {}[{}]".format(s_vars,
+                                                                       the_base, s_args))
                     tvars = gvars
             cls.__parameters__ = tuple(tvars)
 
@@ -1506,8 +1516,10 @@ elif PEP_560:
                                 return NotImplemented
                             break
                         annotations = getattr(base, '__annotations__', {})
-                        if (isinstance(annotations, typing.Mapping) and attr in annotations and
-                                isinstance(other, _ProtocolMeta) and other._is_protocol):
+                        if (isinstance(annotations, typing.Mapping) and
+                                attr in annotations and
+                                isinstance(other, _ProtocolMeta) and
+                                other._is_protocol):
                             break
                     else:
                         return NotImplemented
@@ -1562,17 +1574,17 @@ if hasattr(typing, 'TypedDict'):
 else:
     def _check_fails(cls, other):
         try:
-            if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools', 'typing']:
+            if sys._getframe(1).f_globals['__name__'] not in ['abc',
+                                                              'functools',
+                                                              'typing']:
                 # Typed dicts are only for static structural subtyping.
                 raise TypeError('TypedDict does not support instance and class checks')
         except (AttributeError, ValueError):
             pass
         return False
 
-
     def _dict_new(cls, *args, **kwargs):
         return dict(*args, **kwargs)
-
 
     def _typeddict_new(cls, _typename, _fields=None, **kwargs):
         total = kwargs.pop('total', True)
@@ -1590,7 +1602,6 @@ else:
             pass
 
         return _TypedDictMeta(_typename, (), ns)
-
 
     class _TypedDictMeta(type):
         def __new__(cls, name, bases, ns, total=True):
@@ -1614,7 +1625,6 @@ else:
             return tp_dict
 
         __instancecheck__ = __subclasscheck__ = _check_fails
-
 
     TypedDict = _TypedDictMeta('TypedDict', (dict,), {})
     TypedDict.__module__ = __name__
@@ -1707,7 +1717,7 @@ if PEP_560:
         - It's an error to call `Annotated` with less than two arguments.
         - Nested Annotated are flattened::
 
-            Annotated[Annotated[int, Ann1, Ann2], Ann3] == Annotated[int, Ann1, Ann2, Ann3]
+            Annotated[Annotated[T, Ann1, Ann2], Ann3] == Annotated[T, Ann1, Ann2, Ann3]
 
         - Instantiating an annotated type is equivalent to instantiating the
         underlying type::
@@ -1825,7 +1835,7 @@ elif HAVE_ANNOTATED:
             metadata_reprs = ", ".join(repr(arg) for arg in metadata)
             return '%s[%s, %s]' % (cls, tp_repr, metadata_reprs)
 
-        def _subs_tree(self, tvars=None, args=None):
+        def _subs_tree(self, tvars=None, args=None):  # noqa
             if self is Annotated:
                 return Annotated
             res = super()._subs_tree(tvars=tvars, args=args)
@@ -1902,7 +1912,6 @@ elif HAVE_ANNOTATED:
         def __subclasscheck__(self, cls):
             raise TypeError("Annotated cannot be used with issubclass().")
 
-
     class Annotated(metaclass=AnnotatedMeta):
         """Add context specific metadata to a type.
 
@@ -1919,7 +1928,7 @@ elif HAVE_ANNOTATED:
         - It's an error to call `Annotated` with less than two arguments.
         - Nested Annotated are flattened::
 
-            Annotated[Annotated[int, Ann1, Ann2], Ann3] == Annotated[int, Ann1, Ann2, Ann3]
+            Annotated[Annotated[T, Ann1, Ann2], Ann3] == Annotated[T, Ann1, Ann2, Ann3]
 
         - Instantiating an annotated type is equivalent to instantiating the
         underlying type::
