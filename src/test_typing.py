@@ -1564,7 +1564,7 @@ class ForwardRefTests(BaseTestCase):
     def test_no_type_check(self):
 
         @no_type_check
-        def foo(a: 'int') -> {}:
+        def foo(a: 'whatevers') -> {}:  # noqa
             pass
 
         th = get_type_hints(foo)
@@ -1574,7 +1574,7 @@ class ForwardRefTests(BaseTestCase):
 
         @no_type_check
         class C:
-            def foo(a: 'int') -> {}:
+            def foo(a: 'whatevers') -> {}:  # noqa
                 pass
 
         cth = get_type_hints(C.foo)
@@ -1600,12 +1600,12 @@ class ForwardRefTests(BaseTestCase):
         self.assertEqual(magic_decorator.__name__, 'magic_decorator')
 
         @magic_decorator
-        def foo(a: 'int') -> {}:
+        def foo(a: 'whatevers') -> {}:  # noqa
             pass
 
         @magic_decorator
         class C:
-            def foo(a: 'int') -> {}:
+            def foo(a: 'whatevers') -> {}:  # noqa
                 pass
 
         self.assertEqual(foo.__name__, 'foo')
