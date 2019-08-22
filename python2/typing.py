@@ -1393,14 +1393,17 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
 
     def __subclasscheck__(self, cls):
         if self.__origin__ is not None:
-            # This should only be modules within the standard
-            # library. singledispatch is the only exception, because
-            # it's a Python 2 backport of functools.singledispatch.
-            if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools',
-                                                              'singledispatch']:
-                raise TypeError("Parameterized generics cannot be used with class "
-                                "or instance checks")
-            return False
+            # These should only be modules within the standard library.
+            # singledispatch is an exception, because it's a Python 2 backport
+            # of functools.singledispatch.
+            whitelist = ['abc', 'functools', 'singledispatch']
+            if (sys._getframe(1).f_globals['__name__'] in whitelist or
+                    # The second frame is needed for the case where we came
+                    # from _ProtocolMeta.__subclasscheck__.
+                    sys._getframe(2).f_globals['__name__'] in whitelist):
+                return False
+            raise TypeError("Parameterized generics cannot be used with class "
+                            "or instance checks")
         if self is Generic:
             raise TypeError("Class %r cannot be used with class "
                             "or instance checks" % self)

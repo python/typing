@@ -749,6 +749,27 @@ class ProtocolTests(BaseTestCase):
         self.assertIsInstance(C(1), P)
         self.assertIsInstance(C(1), PG)
 
+    def test_protocol_checks_after_subscript(self):
+        class P(Protocol[T]): pass
+        class C(P[T]): pass
+        class Old1: pass
+        class New1(object): pass
+        class Old2: pass
+        class New2(object): pass
+        CA = C[Any]  # noqa
+
+        self.assertNotIsInstance(Old1(), C)
+        self.assertNotIsInstance(New1(), C)
+        self.assertNotIsSubclass(Old2, C)
+        self.assertNotIsSubclass(New2, C)
+
+        class D1(C[Any]): pass
+        class D2(C[Any]): pass
+        CI = C[int]  # noqa
+
+        self.assertIsInstance(D1(), C)
+        self.assertIsSubclass(D2, C)
+
     def test_protocols_support_register(self):
         @runtime_checkable
         class P(Protocol):
