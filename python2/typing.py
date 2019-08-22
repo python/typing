@@ -1394,7 +1394,7 @@ class GenericMeta(TypingMeta, abc.ABCMeta):
     def __subclasscheck__(self, cls):
         if self.__origin__ is not None:
             # These should only be modules within the standard library.
-            # singledispatch is the only exception, because it's a Python 2 backport
+            # singledispatch is an exception, because it's a Python 2 backport
             # of functools.singledispatch.
             whitelist = ['abc', 'functools', 'singledispatch']
             if (sys._getframe(1).f_globals['__name__'] in whitelist or
