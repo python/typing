@@ -52,7 +52,6 @@ All Python versions:
 - ``TypedDict``
 - ``TYPE_CHECKING``
 
-
 Python 3.4+ only:
 -----------------
 
