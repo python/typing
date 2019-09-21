@@ -38,7 +38,9 @@ All Python versions:
 - ``Counter``
 - ``DefaultDict``
 - ``Deque``
+- ``final``
 - ``Final``
+- ``Literal``
 - ``NewType``
 - ``NoReturn``
 - ``overload`` (note that older versions of ``typing`` only let you use ``overload`` in stubs)
@@ -46,6 +48,7 @@ All Python versions:
 - ``runtime`` (except on Python 3.5.0)
 - ``Text``
 - ``Type``
+- ``TypedDict``
 - ``TYPE_CHECKING``
 
 Python 3.4+ only:
