@@ -40,7 +40,6 @@ All Python versions:
 - ``Deque``
 - ``final``
 - ``Final``
-- ``IntVar``
 - ``Literal``
 - ``NewType``
 - ``NoReturn``
