@@ -2513,6 +2513,7 @@ class XMethBad2(NamedTuple):
         with self.assertRaises(TypeError):
             NamedTuple('Name', x=1, y='a')
 
+    @skipUnless(PY36, 'Python 3.6 required')
     def test_namedtuple_special_keyword_names(self):
         NT = NamedTuple("NT", cls=type, self=object, typename=str, fields=list)
         self.assertEqual(NT.__name__, 'NT')
@@ -2523,6 +2524,7 @@ class XMethBad2(NamedTuple):
         self.assertEqual(a.typename, 'foo')
         self.assertEqual(a.fields, [('bar', tuple)])
 
+    @skipUnless(PY36, 'Python 3.6 required')
     def test_namedtuple_errors(self):
         with self.assertRaises(TypeError):
             NamedTuple.__new__()

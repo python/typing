@@ -2204,7 +2204,7 @@ class NamedTuple(metaclass=NamedTupleMeta):
     """
     _root = True
 
-    def __new__(self, *args, **kwargs):
+    def __new__(*args, **kwargs):
         if kwargs and not _PY36:
             raise TypeError("Keyword syntax for NamedTuple is only supported"
                             " in Python 3.6+")

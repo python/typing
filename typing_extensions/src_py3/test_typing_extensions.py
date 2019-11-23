@@ -6,7 +6,7 @@ import collections
 import pickle
 import subprocess
 import types
-from unittest import TestCase, main, skipUnless
+from unittest import TestCase, main, skipUnless, skipIf
 from typing import TypeVar, Optional
 from typing import T, KT, VT  # Not in __all__.
 from typing import Tuple, List, Dict, Iterator
@@ -1457,6 +1457,7 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(a['fields'], [('bar', tuple)])
         self.assertEqual(a['_fields'], {'baz', set})
 
+    @skipIf(hasattr(typing, 'TypedDict'), "Should be tested by upstream")
     def test_typeddict_create_errors(self):
         with self.assertRaises(TypeError):
             TypedDict.__new__()
