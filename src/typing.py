@@ -2204,16 +2204,46 @@ class NamedTuple(metaclass=NamedTupleMeta):
     """
     _root = True
 
-    def __new__(self, typename, fields=None, **kwargs):
+    def __new__(self, *args, **kwargs):
         if kwargs and not _PY36:
             raise TypeError("Keyword syntax for NamedTuple is only supported"
                             " in Python 3.6+")
+        if not args:
+            raise TypeError('NamedTuple.__new__(): not enough arguments')
+        cls, args = args[0], args[1:]  # allow the "cls" keyword be passed
+        if args:
+            typename, args = args[0], args[1:]  # allow the "typename" keyword be passed
+        elif 'typename' in kwargs:
+            typename = kwargs.pop('typename')
+            import warnings
+            warnings.warn("Passing 'typename' as keyword argument is deprecated",
+                          DeprecationWarning, stacklevel=2)
+        else:
+            raise TypeError("NamedTuple.__new__() missing 1 required positional "
+                            "argument: 'typename'")
+        if args:
+            try:
+                fields, = args  # allow the "fields" keyword be passed
+            except ValueError:
+                raise TypeError('NamedTuple.__new__() takes from 2 to 3 '
+                                'positional arguments but {} '
+                                'were given'.format(len(args) + 2))
+        elif 'fields' in kwargs and len(kwargs) == 1:
+            fields = kwargs.pop('fields')
+            import warnings
+            warnings.warn("Passing 'fields' as keyword argument is deprecated",
+                          DeprecationWarning, stacklevel=2)
+        else:
+            fields = None
+
         if fields is None:
             fields = kwargs.items()
         elif kwargs:
             raise TypeError("Either list of fields or keywords"
                             " can be provided to NamedTuple, not both")
         return _make_nmtuple(typename, fields)
+
+    __new__.__text_signature__ = '($cls, typename, fields=None, /, **kwargs)'
 
 
 def NewType(name, tp):

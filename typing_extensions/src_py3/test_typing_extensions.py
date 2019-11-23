@@ -1445,6 +1445,36 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(Emp.__annotations__, {'name': str, 'id': int})
         self.assertEqual(Emp.__total__, True)
 
+    def test_typeddict_special_keyword_names(self):
+        TD = TypedDict("TD", cls=type, self=object, typename=str, _typename=int, fields=list, _fields=dict)
+        self.assertEqual(TD.__name__, 'TD')
+        self.assertEqual(TD.__annotations__, {'cls': type, 'self': object, 'typename': str, '_typename': int, 'fields': list, '_fields': dict})
+        a = TD(cls=str, self=42, typename='foo', _typename=53, fields=[('bar', tuple)], _fields={'baz', set})
+        self.assertEqual(a['cls'], str)
+        self.assertEqual(a['self'], 42)
+        self.assertEqual(a['typename'], 'foo')
+        self.assertEqual(a['_typename'], 53)
+        self.assertEqual(a['fields'], [('bar', tuple)])
+        self.assertEqual(a['_fields'], {'baz', set})
+
+    def test_typeddict_create_errors(self):
+        with self.assertRaises(TypeError):
+            TypedDict.__new__()
+        with self.assertRaises(TypeError):
+            TypedDict()
+        with self.assertRaises(TypeError):
+            TypedDict('Emp', [('name', str)], None)
+
+        with self.assertWarns(DeprecationWarning):
+            Emp = TypedDict(_typename='Emp', name=str, id=int)
+        self.assertEqual(Emp.__name__, 'Emp')
+        self.assertEqual(Emp.__annotations__, {'name': str, 'id': int})
+
+        with self.assertWarns(DeprecationWarning):
+            Emp = TypedDict('Emp', _fields={'name': str, 'id': int})
+        self.assertEqual(Emp.__name__, 'Emp')
+        self.assertEqual(Emp.__annotations__, {'name': str, 'id': int})
+
     def test_typeddict_errors(self):
         Emp = TypedDict('Emp', {'name': str, 'id': int})
         if hasattr(typing, 'TypedDict'):
