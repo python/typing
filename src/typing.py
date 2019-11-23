@@ -2210,7 +2210,7 @@ class NamedTuple(metaclass=NamedTupleMeta):
                             " in Python 3.6+")
         if not args:
             raise TypeError('NamedTuple.__new__(): not enough arguments')
-        cls, args = args[0], args[1:]  # allow the "cls" keyword be passed
+        _, args = args[0], args[1:]  # allow the "cls" keyword be passed
         if args:
             typename, args = args[0], args[1:]  # allow the "typename" keyword be passed
         elif 'typename' in kwargs:

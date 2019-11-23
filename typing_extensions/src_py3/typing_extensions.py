@@ -1586,7 +1586,7 @@ else:
     def _dict_new(*args, **kwargs):
         if not args:
             raise TypeError('TypedDict.__new__(): not enough arguments')
-        cls, args = args[0], args[1:]  # allow the "cls" keyword be passed
+        _, args = args[0], args[1:]  # allow the "cls" keyword be passed
         return dict(*args, **kwargs)
 
     _dict_new.__text_signature__ = '($cls, _typename, _fields=None, /, **kwargs)'
@@ -1594,7 +1594,7 @@ else:
     def _typeddict_new(*args, total=True, **kwargs):
         if not args:
             raise TypeError('TypedDict.__new__(): not enough arguments')
-        cls, args = args[0], args[1:]  # allow the "cls" keyword be passed
+        _, args = args[0], args[1:]  # allow the "cls" keyword be passed
         if args:
             typename, args = args[0], args[1:]  # allow the "_typename" keyword be passed
         elif '_typename' in kwargs:
@@ -1635,7 +1635,8 @@ else:
 
         return _TypedDictMeta(typename, (), ns)
 
-    _typeddict_new.__text_signature__ = '($cls, _typename, _fields=None, /, *, total=True, **kwargs)'
+    _typeddict_new.__text_signature__ = ('($cls, _typename, _fields=None,'
+                                         ' /, *, total=True, **kwargs)')
 
     class _TypedDictMeta(type):
         def __new__(cls, name, bases, ns, total=True):
