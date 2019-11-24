@@ -1583,25 +1583,60 @@ else:
             pass
         return False
 
-    def _dict_new(cls, *args, **kwargs):
+    def _dict_new(*args, **kwargs):
+        if not args:
+            raise TypeError('TypedDict.__new__(): not enough arguments')
+        _, args = args[0], args[1:]  # allow the "cls" keyword be passed
         return dict(*args, **kwargs)
 
-    def _typeddict_new(cls, _typename, _fields=None, **kwargs):
-        total = kwargs.pop('total', True)
-        if _fields is None:
-            _fields = kwargs
+    _dict_new.__text_signature__ = '($cls, _typename, _fields=None, /, **kwargs)'
+
+    def _typeddict_new(*args, total=True, **kwargs):
+        if not args:
+            raise TypeError('TypedDict.__new__(): not enough arguments')
+        _, args = args[0], args[1:]  # allow the "cls" keyword be passed
+        if args:
+            typename, args = args[0], args[1:]  # allow the "_typename" keyword be passed
+        elif '_typename' in kwargs:
+            typename = kwargs.pop('_typename')
+            import warnings
+            warnings.warn("Passing '_typename' as keyword argument is deprecated",
+                          DeprecationWarning, stacklevel=2)
+        else:
+            raise TypeError("TypedDict.__new__() missing 1 required positional "
+                            "argument: '_typename'")
+        if args:
+            try:
+                fields, = args  # allow the "_fields" keyword be passed
+            except ValueError:
+                raise TypeError('TypedDict.__new__() takes from 2 to 3 '
+                                'positional arguments but {} '
+                                'were given'.format(len(args) + 2))
+        elif '_fields' in kwargs and len(kwargs) == 1:
+            fields = kwargs.pop('_fields')
+            import warnings
+            warnings.warn("Passing '_fields' as keyword argument is deprecated",
+                          DeprecationWarning, stacklevel=2)
+        else:
+            fields = None
+
+        if fields is None:
+            fields = kwargs
         elif kwargs:
             raise TypeError("TypedDict takes either a dict or keyword arguments,"
                             " but not both")
 
-        ns = {'__annotations__': dict(_fields), '__total__': total}
+        ns = {'__annotations__': dict(fields), '__total__': total}
         try:
             # Setting correct module is necessary to make typed dict classes pickleable.
             ns['__module__'] = sys._getframe(1).f_globals.get('__name__', '__main__')
         except (AttributeError, ValueError):
             pass
 
-        return _TypedDictMeta(_typename, (), ns)
+        return _TypedDictMeta(typename, (), ns)
+
+    _typeddict_new.__text_signature__ = ('($cls, _typename, _fields=None,'
+                                         ' /, *, total=True, **kwargs)')
 
     class _TypedDictMeta(type):
         def __new__(cls, name, bases, ns, total=True):
