@@ -428,6 +428,9 @@ class Point2D(TypedDict):
     x: int
     y: int
 
+class Point2Dor3D(Point2D, total=False):
+    z: int
+
 class LabelPoint2D(Point2D, Label): ...
 
 class Options(TypedDict, total=False):
@@ -442,7 +445,7 @@ else:
     ann_module = ann_module2 = ann_module3 = None
     A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
     XMeth = XRepr = HasCallProtocol = NoneAndForward = Loop = object
-    Point2D = LabelPoint2D = Options = object
+    Point2D = Point2Dor3D = LabelPoint2D = Options = object
 
 gth = get_type_hints
 
@@ -1481,7 +1484,7 @@ class TypedDictTests(BaseTestCase):
 
     def test_typeddict_errors(self):
         Emp = TypedDict('Emp', {'name': str, 'id': int})
-        if hasattr(typing, 'TypedDict'):
+        if sys.version_info[:2] >= (3, 9):
             self.assertEqual(TypedDict.__module__, 'typing')
         else:
             self.assertEqual(TypedDict.__module__, 'typing_extensions')
@@ -1542,6 +1545,11 @@ class TypedDictTests(BaseTestCase):
             self.assertEqual(Options(), {})
             self.assertEqual(Options(log_level=2), {'log_level': 2})
             self.assertEqual(Options.__total__, False)
+
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_optional_keys(self):
+        assert Point2Dor3D.__required_keys__ == frozenset(['x', 'y'])
+        assert Point2Dor3D.__optional_keys__ == frozenset(['z'])
 
 
 @skipUnless(TYPING_3_5_3, "Python >= 3.5.3 required")
@@ -1817,7 +1825,14 @@ class AllTests(BaseTestCase):
             self.assertIn('runtime', a)
 
     def test_typing_extensions_defers_when_possible(self):
-        exclude = {'overload', 'Text', 'TYPE_CHECKING', 'Final', 'get_type_hints'}
+        exclude = {
+            'overload',
+            'Text',
+            'TypedDict',
+            'TYPE_CHECKING',
+            'Final',
+            'get_type_hints'
+        }
         for item in typing_extensions.__all__:
             if item not in exclude and hasattr(typing, item):
                 self.assertIs(
