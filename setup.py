@@ -24,7 +24,8 @@ static and runtime type checkers, static analyzers, IDEs and other
 tools.
 
 NOTE: in Python 3.5 and later, the typing module lives in the stdlib,
-and installing this package has NO EFFECT.  To get a newer version of
+and installing this package has NO EFFECT, because stdlib takes higher
+precedence than the installation directory. To get a newer version of
 the typing module in Python 3.5 or later, you have to upgrade to a
 newer Python (bugfix) version.  For example, typing in Python 3.6.0 is
 missing the definition of 'Type' -- upgrading to 3.6.2 will fix this.
@@ -32,6 +33,12 @@ missing the definition of 'Type' -- upgrading to 3.6.2 will fix this.
 Also note that most improvements to the typing module in Python 3.7
 will not be included in this package, since Python 3.7 has some
 built-in support that is not present in older versions (See PEP 560.)
+
+For package maintainers, it is preferred to use
+``typing;python_version<"3.5"`` if your package requires it to support
+earlier Python versions. This will avoid shadowing the stdlib typing
+module when your package is installed via ``pip install -t .`` on
+Python 3.5 or later.
 '''
 
 package_dir = {2: 'python2', 3: 'src'}[sys.version_info.major]
