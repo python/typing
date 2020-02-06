@@ -1995,7 +1995,7 @@ elif HAVE_ANNOTATED:
 
 # Python 3.8 has get_origin() and get_args() but those implementations aren't
 # Annotated-aware, so we can't use those, only Python 3.9 versions will do.
-if sys.version_info[:3] >= (3, 9, 0)
+if sys.version_info[:3] >= (3, 9, 0):
     get_origin = typing.get_origin
     get_args = typing.get_args
 elif PEP_560:
