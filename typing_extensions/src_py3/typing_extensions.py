@@ -1707,7 +1707,14 @@ else:
         """
 
 
-if PEP_560:
+# Python 3.9+ has PEP 593 (Annotated and modified get_type_hints)
+if hasattr(typing, 'Annotated'):
+    Annotated = typing.Annotated
+    get_type_hints = typing.get_type_hints
+    # Not exported and not a public API, but needed for get_origin() and get_args()
+    # to work.
+    _AnnotatedAlias = typing._AnnotatedAlias
+elif PEP_560:
     class _AnnotatedAlias(typing._GenericAlias, _root=True):
         """Runtime representation of an annotated type.
 
