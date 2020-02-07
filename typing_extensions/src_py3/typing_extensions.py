@@ -1653,7 +1653,7 @@ else:
 
             annotations = {}
             own_annotations = ns.get('__annotations__', {})
-            own_annotation_keys = set(annotations.keys())
+            own_annotation_keys = set(own_annotations.keys())
             msg = "TypedDict('Name', {f0: t0, f1: t1, ...}); each t must be a type"
             own_annotations = {
                 n: typing._type_check(tp, msg) for n, tp in own_annotations.items()
