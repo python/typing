@@ -436,6 +436,17 @@ class LabelPoint2D(Point2D, Label): ...
 class Options(TypedDict, total=False):
     log_level: int
     log_path: str
+
+class _Animal(TypedDict):
+    name: str
+
+class Animal(_Animal, total=False):
+    voice: str
+    tail: bool
+
+class Cat(Animal):
+    fur_color: str
+    tail: int
 """
 
 if PY36:
@@ -1553,17 +1564,6 @@ class TypedDictTests(BaseTestCase):
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_keys_inheritance(self):
-        class _Animal(TypedDict):
-            name: str
-
-        class Animal(_Animal, total=False):
-            voice: str
-            tail: bool
-
-        class Cat(Animal):
-            fur_color: str
-            tail: int
-
         assert _Animal.__required_keys__ == frozenset(['name'])
         assert _Animal.__optional_keys__ == frozenset([])
         assert _Animal.__annotations__ == {'name': str}
