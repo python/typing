@@ -2,9 +2,11 @@ MANIFEST
 build/
 dist/
 .tox/
+.vscode/
 .idea/
 .cache/
 __pycache__/
 tmp/
 *.swp
 *.pyc
+*.egg-info/
