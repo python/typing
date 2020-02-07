@@ -1551,6 +1551,32 @@ class TypedDictTests(BaseTestCase):
         assert Point2Dor3D.__required_keys__ == frozenset(['x', 'y'])
         assert Point2Dor3D.__optional_keys__ == frozenset(['z'])
 
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_keys_inheritance(self):
+        class _Animal(TypedDict):
+            name: str
+
+        class Animal(_Animal, total=False):
+            voice: str
+            tail: bool
+
+        class Cat(Animal):
+            fur_color: str
+            tail: int
+
+        assert _Animal.__required_keys__ == frozenset(['name'])
+        assert _Animal.__optional_keys__ == frozenset([])
+        assert Animal.__required_keys__ == frozenset(['name'])
+        assert Animal.__optional_keys__ == frozenset(['tail', 'voice'])
+        assert Cat.__required_keys__ == frozenset(['name', 'fur_color', 'tail'])
+        assert Cat.__optional_keys__ == frozenset(['voice'])
+        assert Cat.__annotations__ == {
+            'fur_color': str,
+            'name': str,
+            'tail': int,
+            'voice': str,
+        }
+
 
 @skipUnless(TYPING_3_5_3, "Python >= 3.5.3 required")
 class AnnotatedTests(BaseTestCase):
