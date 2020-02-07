@@ -1833,6 +1833,8 @@ class AllTests(BaseTestCase):
             'Final',
             'get_type_hints'
         }
+        if sys.version_info[:2] == (3, 8):
+            exclude |= {'get_args', 'get_origin'}
         for item in typing_extensions.__all__:
             if item not in exclude and hasattr(typing, item):
                 self.assertIs(
