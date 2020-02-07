@@ -457,6 +457,7 @@ else:
     A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
     XMeth = XRepr = HasCallProtocol = NoneAndForward = Loop = object
     Point2D = Point2Dor3D = LabelPoint2D = Options = object
+    _Animal = Animal = Cat = object
 
 gth = get_type_hints
 
