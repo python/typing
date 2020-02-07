@@ -1566,8 +1566,16 @@ class TypedDictTests(BaseTestCase):
 
         assert _Animal.__required_keys__ == frozenset(['name'])
         assert _Animal.__optional_keys__ == frozenset([])
+        assert _Animal.__annotations__ == {'name': str}
+
         assert Animal.__required_keys__ == frozenset(['name'])
         assert Animal.__optional_keys__ == frozenset(['tail', 'voice'])
+        assert Animal.__annotations__ == {
+            'name': str,
+            'tail': bool,
+            'voice': str,
+        }
+
         assert Cat.__required_keys__ == frozenset(['name', 'fur_color', 'tail'])
         assert Cat.__optional_keys__ == frozenset(['voice'])
         assert Cat.__annotations__ == {
