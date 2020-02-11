@@ -1669,10 +1669,8 @@ else:
             annotations.update(own_annotations)
             if total:
                 required_keys.update(own_annotation_keys)
-                optional_keys.difference_update(own_annotation_keys)
             else:
                 optional_keys.update(own_annotation_keys)
-                required_keys.difference_update(own_annotation_keys)
 
             tp_dict.__annotations__ = annotations
             tp_dict.__required_keys__ = frozenset(required_keys)

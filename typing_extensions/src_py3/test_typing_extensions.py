@@ -437,16 +437,15 @@ class Options(TypedDict, total=False):
     log_level: int
     log_path: str
 
-class _Animal(TypedDict):
+class BaseAnimal(TypedDict):
     name: str
 
-class Animal(_Animal, total=False):
+class Animal(BaseAnimal, total=False):
     voice: str
     tail: bool
 
 class Cat(Animal):
     fur_color: str
-    tail: int
 """
 
 if PY36:
@@ -457,7 +456,7 @@ else:
     A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
     XMeth = XRepr = HasCallProtocol = NoneAndForward = Loop = object
     Point2D = Point2Dor3D = LabelPoint2D = Options = object
-    _Animal = Animal = Cat = object
+    BaseAnimal = Animal = Cat = object
 
 gth = get_type_hints
 
@@ -1565,9 +1564,9 @@ class TypedDictTests(BaseTestCase):
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_keys_inheritance(self):
-        assert _Animal.__required_keys__ == frozenset(['name'])
-        assert _Animal.__optional_keys__ == frozenset([])
-        assert _Animal.__annotations__ == {'name': str}
+        assert BaseAnimal.__required_keys__ == frozenset(['name'])
+        assert BaseAnimal.__optional_keys__ == frozenset([])
+        assert BaseAnimal.__annotations__ == {'name': str}
 
         assert Animal.__required_keys__ == frozenset(['name'])
         assert Animal.__optional_keys__ == frozenset(['tail', 'voice'])
@@ -1577,12 +1576,12 @@ class TypedDictTests(BaseTestCase):
             'voice': str,
         }
 
-        assert Cat.__required_keys__ == frozenset(['name', 'fur_color', 'tail'])
-        assert Cat.__optional_keys__ == frozenset(['voice'])
+        assert Cat.__required_keys__ == frozenset(['name', 'fur_color'])
+        assert Cat.__optional_keys__ == frozenset(['tail', 'voice'])
         assert Cat.__annotations__ == {
             'fur_color': str,
             'name': str,
-            'tail': int,
+            'tail': bool,
             'voice': str,
         }
 
