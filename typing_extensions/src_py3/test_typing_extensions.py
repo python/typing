@@ -328,7 +328,6 @@ class OverloadTests(BaseTestCase):
 
 
 ASYNCIO_TESTS = """
-import asyncio
 from typing import Iterable
 from typing_extensions import Awaitable, AsyncIterator
 
@@ -351,9 +350,8 @@ class AsyncIteratorWrapper(AsyncIterator[T_a]):
     def __aiter__(self) -> AsyncIterator[T_a]:
         return self
 
-    @asyncio.coroutine
-    def __anext__(self) -> T_a:
-        data = yield from self.value
+    async def __anext__(self) -> T_a:
+        data = await self.value
         if data:
             return data
         else:
