@@ -61,6 +61,7 @@ setup(name='typing',
       author='Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Ivan Levkivskyi',
       author_email='jukka.lehtosalo@iki.fi',
       url='https://docs.python.org/3/library/typing.html',
+      project_urls={'Source': 'https://github.com/python/typing'},
       license='PSF',
       keywords='typing function annotations type hints hinting checking '
                'checker typehints typehinting typechecking backport',
