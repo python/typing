@@ -61,9 +61,11 @@ setup(name='typing',
       author='Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Ivan Levkivskyi',
       author_email='jukka.lehtosalo@iki.fi',
       url='https://docs.python.org/3/library/typing.html',
+      project_urls={'Source': 'https://github.com/python/typing'},
       license='PSF',
       keywords='typing function annotations type hints hinting checking '
                'checker typehints typehinting typechecking backport',
       package_dir={'': package_dir},
       py_modules=['typing'],
+      python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
       classifiers=classifiers)
