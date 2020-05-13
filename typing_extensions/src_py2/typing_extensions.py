@@ -5,6 +5,7 @@ from typing import (  # noqa
     ClassVar, Type, Generic, Callable, GenericMeta, TypingMeta,
     Counter, DefaultDict, Deque, TypeVar, Tuple, Final, final,
     NewType, overload, Text, TYPE_CHECKING, Literal, TypedDict, Protocol,
+    SupportsIndex,
     runtime_checkable,
     # We use internal typing helpers here, but this significantly reduces
     # code duplication. (Also this is only until Protocol is in typing.)
@@ -25,6 +26,9 @@ __all__ = [
     'Counter',
     'Deque',
     'DefaultDict',
+
+    # Structural checks, a.k.a. protocols.
+    'SupportsIndex',
 
     # One-off things.
     'final',
