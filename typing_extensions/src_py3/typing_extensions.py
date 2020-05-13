@@ -1579,7 +1579,7 @@ elif HAVE_PROTOCOLS:
     class SupportsIndex(Protocol):
         __slots__ = ()
 
-        @abstractmethod
+        @abc.abstractmethod
         def __index__(self) -> int:
             pass
 
