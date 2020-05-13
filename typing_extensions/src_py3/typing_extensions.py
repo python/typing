@@ -136,6 +136,9 @@ __all__ = [
     'DefaultDict',
     'TypedDict',
 
+    # Structural checks, a.k.a. protocols.
+    'SupportsIndex',
+
     # One-off things.
     'final',
     'IntVar',
@@ -1567,6 +1570,18 @@ elif HAVE_PROTOCOLS:
 if HAVE_PROTOCOLS:
     # Exists for backwards compatibility.
     runtime = runtime_checkable
+
+
+if hasattr(typing, 'SupportsIndex'):
+    SupportsIndex = typing.SupportsIndex
+elif HAVE_PROTOCOLS:
+    @runtime_checkable
+    class SupportsIndex(Protocol):
+        __slots__ = ()
+
+        @abc.abstractmethod
+        def __index__(self) -> int:
+            pass
 
 
 if sys.version_info[:2] >= (3, 9):
