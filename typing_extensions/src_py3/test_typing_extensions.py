@@ -1588,13 +1588,13 @@ class TypedDictTests(BaseTestCase):
 class AnnotatedTests(BaseTestCase):
 
     def test_repr(self):
-        self.assertEqual(
+        self.assertRegex(
             repr(Annotated[int, 4, 5]),
-            "typing_extensions.Annotated[int, 4, 5]"
+            r"typing(?:_extensions|)\.Annotated\[int, 4, 5\]"
         )
-        self.assertEqual(
+        self.assertRegex(
             repr(Annotated[List[int], 4, 5]),
-            "typing_extensions.Annotated[typing.List[int], 4, 5]"
+            r"typing(?:_extensions|)\.Annotated\[typing\.List\[int\], 4, 5\]"
         )
 
     def test_flatten(self):
