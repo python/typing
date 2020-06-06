@@ -1588,13 +1588,17 @@ class TypedDictTests(BaseTestCase):
 class AnnotatedTests(BaseTestCase):
 
     def test_repr(self):
+        if hasattr(typing, 'Annotated'):
+            mod_name = 'typing'
+        else:
+            mod_name = "typing_extensions"
         self.assertEqual(
             repr(Annotated[int, 4, 5]),
-            "typing_extensions.Annotated[int, 4, 5]"
+            mod_name + ".Annotated[int, 4, 5]"
         )
         self.assertEqual(
             repr(Annotated[List[int], 4, 5]),
-            "typing_extensions.Annotated[typing.List[int], 4, 5]"
+            mod_name + ".Annotated[typing.List[int], 4, 5]"
         )
 
     def test_flatten(self):
