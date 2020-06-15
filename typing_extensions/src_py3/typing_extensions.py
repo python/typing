@@ -2090,7 +2090,7 @@ elif sys.version_info[:2] >= (3, 9):
 
             Predicate: TypeAlias = Callable[..., bool]
 
-        It's invalid when used anyhow but as in the example above.
+        It's invalid when used anywhere except as in the example above.
         """
         raise TypeError("{} is not subscriptable".format(self))
 
@@ -2109,7 +2109,7 @@ elif sys.version_info[:2] >= (3, 7):
                                
                                    Predicate: TypeAlias = Callable[..., bool]
                                
-                               It's invalid when used anyhow but as in the example above.
+                               It's invalid when used anywhere except as in the example above.
                                """)
 
 elif hasattr(typing, '_FinalTypingBase'):
@@ -2128,7 +2128,7 @@ elif hasattr(typing, '_FinalTypingBase'):
 
             Predicate: TypeAlias = Callable[..., bool]
 
-        It's invalid when used anyhow but as in the example above.
+        It's invalid when used anywhere except as in the example above.
         """
         __slots__ = ()
 
@@ -2165,6 +2165,6 @@ else:
 
             Predicate: TypeAlias = Callable[..., bool]
 
-        It's invalid when used anyhow but as in the example above.
+        It's invalid when used anywhere except as in the example above.
         """
         __slots__ = ()

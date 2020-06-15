@@ -262,7 +262,7 @@ class _TypeAliasBase(typing._FinalTypingBase):
 
         Predicate = Callable[..., bool]  # type: TypeAlias
 
-    It's invalid when used anyhow but as in the example above.
+    It's invalid when used anywhere except as in the example above.
     """
     __metaclass__ = _TypeAliasMeta
     __slots__ = ()
