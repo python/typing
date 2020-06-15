@@ -2099,18 +2099,17 @@ elif sys.version_info[:2] >= (3, 7):
         def __repr__(self):
             return 'typing_extensions.' + self._name
 
-
-    TypeAlias = _TypeAliasForm('TypeAlias', doc=
-                               """Special marker indicating that an assignment should
+    TypeAlias = _TypeAliasForm('TypeAlias',
+                               doc="""Special marker indicating that an assignment should
                                be recognized as a proper type alias definition by type
                                checkers.
-                               
+
                                For example::
-                               
+
                                    Predicate: TypeAlias = Callable[..., bool]
-                               
-                               It's invalid when used anywhere except as in the example above.
-                               """)
+
+                               It's invalid when used anywhere except as in the example
+                               above.""")
 
 elif hasattr(typing, '_FinalTypingBase'):
     class _TypeAliasMeta(typing.TypingMeta):
@@ -2154,7 +2153,6 @@ else:
 
         def __call__(self, *args, **kwargs):
             raise TypeError("Cannot instantiate TypeAlias")
-
 
     class TypeAlias(metaclass=_TypeAliasMeta, _root=True):
         """Special marker indicating that an assignment should
