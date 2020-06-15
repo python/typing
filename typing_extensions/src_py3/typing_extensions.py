@@ -2088,7 +2088,7 @@ elif sys.version_info[:2] >= (3, 9):
 
         For example::
 
-            Predicate: TypeAlias = Callable[[...], bool]
+            Predicate: TypeAlias = Callable[..., bool]
 
         It's invalid when used anyhow but as in the example above.
         """
@@ -2107,7 +2107,7 @@ elif sys.version_info[:2] >= (3, 7):
                                
                                For example::
                                
-                                   Predicate: TypeAlias = Callable[[...], bool]
+                                   Predicate: TypeAlias = Callable[..., bool]
                                
                                It's invalid when used anyhow but as in the example above.
                                """)
@@ -2126,7 +2126,7 @@ elif hasattr(typing, '_FinalTypingBase'):
 
         For example::
 
-            Predicate: TypeAlias = Callable[[...], bool]
+            Predicate: TypeAlias = Callable[..., bool]
 
         It's invalid when used anyhow but as in the example above.
         """
@@ -2163,7 +2163,7 @@ else:
 
         For example::
 
-            Predicate: TypeAlias = Callable[[...], bool]
+            Predicate: TypeAlias = Callable[..., bool]
 
         It's invalid when used anyhow but as in the example above.
         """

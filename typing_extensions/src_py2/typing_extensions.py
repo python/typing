@@ -260,7 +260,7 @@ class _TypeAliasBase(typing._FinalTypingBase):
 
     For example::
 
-        Predicate = Callable[[...], bool]  # type: TypeAlias
+        Predicate = Callable[..., bool]  # type: TypeAlias
 
     It's invalid when used anyhow but as in the example above.
     """
