@@ -378,6 +378,9 @@ class AnnotatedTests(BaseTestCase):
 
 
 class TypeAliasTests(BaseTestCase):
+    def test_canonical_usage(self):
+        Alias = Employee  # type: TypeAlias
+
     def test_cannot_instantiate(self):
         with self.assertRaises(TypeError):
             TypeAlias()

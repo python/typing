@@ -1824,6 +1824,14 @@ class GetTypeHintsTests(BaseTestCase):
 
 
 class TypeAliasTests(BaseTestCase):
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_canonical_usage_with_variable_annotation(self):
+        ns = {}
+        exec('Alias: TypeAlias = Employee', globals(), ns)
+
+    def test_canonical_usage_with_type_comment(self):
+        Alias = Employee  # type: TypeAlias
+
     def test_cannot_instantiate(self):
         with self.assertRaises(TypeError):
             TypeAlias()
