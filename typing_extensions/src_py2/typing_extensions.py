@@ -241,5 +241,43 @@ class Annotated(object):
     __slots__ = ()
 
 
+class _TypeAliasMeta(typing.TypingMeta):
+    """Metaclass for TypeAlias"""
+
+    def __new__(cls, name, bases, namespace):
+        cls.assert_no_subclassing(bases)
+        self = super(_TypeAliasMeta, cls).__new__(cls, name, bases, namespace)
+        return self
+
+    def __repr__(self):
+        return 'typing_extensions.TypeAlias'
+
+
+class _TypeAliasBase(typing._FinalTypingBase):
+    """Special marker indicating that an assignment should
+    be recognized as a proper type alias definition by type
+    checkers.
+
+    For example::
+
+        Predicate = Callable[..., bool]  # type: TypeAlias
+
+    It's invalid when used anywhere except as in the example above.
+    """
+    __metaclass__ = _TypeAliasMeta
+    __slots__ = ()
+
+    def __instancecheck__(self, obj):
+        raise TypeError("TypeAlias cannot be used with isinstance().")
+
+    def __subclasscheck__(self, cls):
+        raise TypeError("TypeAlias cannot be used with issubclass().")
+
+    def __repr__(self):
+        return 'typing_extensions.TypeAlias'
+
+
+TypeAlias = _TypeAliasBase(_root=True)
+
 # This alias exists for backwards compatibility.
 runtime = runtime_checkable

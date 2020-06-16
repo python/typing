@@ -7,7 +7,7 @@ from unittest import TestCase, main
 
 from typing_extensions import Annotated, NoReturn, ClassVar, IntVar
 from typing_extensions import ContextManager, Counter, Deque, DefaultDict
-from typing_extensions import NewType, overload
+from typing_extensions import NewType, TypeAlias, overload
 from typing import Dict, List
 import typing
 import typing_extensions
@@ -375,6 +375,47 @@ class AnnotatedTests(BaseTestCase):
     def test_annotated_in_other_types(self):
         X = List[Annotated[T, 5]]
         self.assertEqual(X[int], List[Annotated[int, 5]])
+
+
+class TypeAliasTests(BaseTestCase):
+    def test_canonical_usage(self):
+        Alias = Employee  # type: TypeAlias
+
+    def test_cannot_instantiate(self):
+        with self.assertRaises(TypeError):
+            TypeAlias()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(42, TypeAlias)
+
+    def test_no_issubclass(self):
+        with self.assertRaises(TypeError):
+            issubclass(Employee, TypeAlias)
+
+        with self.assertRaises(TypeError):
+            issubclass(TypeAlias, Employee)
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(TypeAlias):
+                pass
+
+        with self.assertRaises(TypeError):
+            class C(type(TypeAlias)):
+                pass
+
+    def test_repr(self):
+        if hasattr(typing, 'TypeAlias'):
+            self.assertEqual(repr(TypeAlias), 'typing.TypeAlias')
+            self.assertEqual(repr(type(TypeAlias)), 'typing.TypeAlias')
+        else:
+            self.assertEqual(repr(TypeAlias), 'typing_extensions.TypeAlias')
+            self.assertEqual(repr(type(TypeAlias)), 'typing_extensions.TypeAlias')
+
+    def test_cannot_subscript(self):
+        with self.assertRaises(TypeError):
+            TypeAlias[int]
 
 
 class AllTests(BaseTestCase):

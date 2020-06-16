@@ -2071,3 +2071,98 @@ elif PEP_560:
                 res = (list(res[:-1]), res[-1])
             return res
         return ()
+
+
+if hasattr(typing, 'TypeAlias'):
+    TypeAlias = typing.TypeAlias
+elif sys.version_info[:2] >= (3, 9):
+    class _TypeAliasForm(typing._SpecialForm, _root=True):
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+    @_TypeAliasForm
+    def TypeAlias(self, parameters):
+        """Special marker indicating that an assignment should
+        be recognized as a proper type alias definition by type
+        checkers.
+
+        For example::
+
+            Predicate: TypeAlias = Callable[..., bool]
+
+        It's invalid when used anywhere except as in the example above.
+        """
+        raise TypeError("{} is not subscriptable".format(self))
+
+elif sys.version_info[:2] >= (3, 7):
+    class _TypeAliasForm(typing._SpecialForm, _root=True):
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+    TypeAlias = _TypeAliasForm('TypeAlias',
+                               doc="""Special marker indicating that an assignment should
+                               be recognized as a proper type alias definition by type
+                               checkers.
+
+                               For example::
+
+                                   Predicate: TypeAlias = Callable[..., bool]
+
+                               It's invalid when used anywhere except as in the example
+                               above.""")
+
+elif hasattr(typing, '_FinalTypingBase'):
+    class _TypeAliasMeta(typing.TypingMeta):
+        """Metaclass for TypeAlias"""
+
+        def __repr__(self):
+            return 'typing_extensions.TypeAlias'
+
+    class _TypeAliasBase(typing._FinalTypingBase, metaclass=_TypeAliasMeta, _root=True):
+        """Special marker indicating that an assignment should
+        be recognized as a proper type alias definition by type
+        checkers.
+
+        For example::
+
+            Predicate: TypeAlias = Callable[..., bool]
+
+        It's invalid when used anywhere except as in the example above.
+        """
+        __slots__ = ()
+
+        def __instancecheck__(self, obj):
+            raise TypeError("TypeAlias cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError("TypeAlias cannot be used with issubclass().")
+
+        def __repr__(self):
+            return 'typing_extensions.TypeAlias'
+
+    TypeAlias = _TypeAliasBase(_root=True)
+else:
+    class _TypeAliasMeta(typing.TypingMeta):
+        """Metaclass for TypeAlias"""
+
+        def __instancecheck__(self, obj):
+            raise TypeError("TypeAlias cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError("TypeAlias cannot be used with issubclass().")
+
+        def __call__(self, *args, **kwargs):
+            raise TypeError("Cannot instantiate TypeAlias")
+
+    class TypeAlias(metaclass=_TypeAliasMeta, _root=True):
+        """Special marker indicating that an assignment should
+        be recognized as a proper type alias definition by type
+        checkers.
+
+        For example::
+
+            Predicate: TypeAlias = Callable[..., bool]
+
+        It's invalid when used anywhere except as in the example above.
+        """
+        __slots__ = ()

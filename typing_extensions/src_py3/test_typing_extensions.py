@@ -13,6 +13,7 @@ from typing import Tuple, List, Dict, Iterator
 from typing import Generic
 from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
+from typing_extensions import TypeAlias
 try:
     from typing_extensions import Protocol, runtime, runtime_checkable
 except ImportError:
@@ -1824,6 +1825,52 @@ class GetTypeHintsTests(BaseTestCase):
             get_type_hints(MySet.__ior__, globals(), locals()),
             {'other': MySet[T], 'return': MySet[T]}
         )
+
+
+class TypeAliasTests(BaseTestCase):
+    @skipUnless(PY36, 'Python 3.6 required')
+    def test_canonical_usage_with_variable_annotation(self):
+        ns = {}
+        exec('Alias: TypeAlias = Employee', globals(), ns)
+
+    def test_canonical_usage_with_type_comment(self):
+        Alias = Employee  # type: TypeAlias
+
+    def test_cannot_instantiate(self):
+        with self.assertRaises(TypeError):
+            TypeAlias()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(42, TypeAlias)
+
+    def test_no_issubclass(self):
+        with self.assertRaises(TypeError):
+            issubclass(Employee, TypeAlias)
+
+        if SUBCLASS_CHECK_FORBIDDEN:
+            with self.assertRaises(TypeError):
+                issubclass(TypeAlias, Employee)
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(TypeAlias):
+                pass
+
+        if SUBCLASS_CHECK_FORBIDDEN:
+            with self.assertRaises(TypeError):
+                class C(type(TypeAlias)):
+                    pass
+
+    def test_repr(self):
+        if hasattr(typing, 'TypeAlias'):
+            self.assertEqual(repr(TypeAlias), 'typing.TypeAlias')
+        else:
+            self.assertEqual(repr(TypeAlias), 'typing_extensions.TypeAlias')
+
+    def test_cannot_subscript(self):
+        with self.assertRaises(TypeError):
+            TypeAlias[int]
 
 
 class AllTests(BaseTestCase):
