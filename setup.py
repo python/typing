@@ -4,12 +4,12 @@
 import sys
 from setuptools import setup
 
-if sys.version_info[:2] not in ((2, 7), (3, 4)):
-    sys.stderr.write('ERROR: You need Python 2.7 or 3.4 '
+if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 4, 0):
+    sys.stderr.write('ERROR: You need Python 2.7 or 3.4+ '
                      'to install the typing package.\n')
     exit(1)
 
-version = '3.7.4.2'
+version = '3.7.4.3'
 description = 'Type Hints for Python'
 long_description = '''\
 Typing -- Type Hints for Python
@@ -67,5 +67,5 @@ setup(name='typing',
                'checker typehints typehinting typechecking backport',
       package_dir={'': package_dir},
       py_modules=['typing'],
-      python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <3.5',
+      python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
       classifiers=classifiers)
