@@ -21,7 +21,7 @@ module, such as ``Protocol`` (see PEP 544 for details about protocols and
 static duck typing) or ``TypedDict`` (see PEP 589).
 
 Users of other Python versions should continue to install and use
-use the ``typing`` module from PyPi instead of using this one unless
+the ``typing`` module from PyPi instead of using this one unless
 specifically writing code that must be compatible with multiple Python
 versions or requires experimental types.
 
