@@ -8,7 +8,7 @@ This GitHub repo is used for three separate things:
 - The issue tracker is used to discuss PEP-level type system issues.
   However,
   [typing-sig](https://mail.python.org/mailman3/lists/typing-sig.python.org/)
-  is more appropriate these days).
+  is more appropriate these days.
 
 - A copy of the `typing` module for older Python versions (2.7 and
   3.4) is maintained here.  Note that the canonical source lives
