@@ -35,7 +35,7 @@ PEP_560 = sys.version_info[:3] >= (3, 7, 0)
 
 OLD_GENERICS = False
 try:
-    from typing import _type_vars, _next_in_mro, _type_check # noqa
+    from typing import _type_vars, _next_in_mro, _type_check  # noqa
 except ImportError:
     OLD_GENERICS = True
 
@@ -70,9 +70,6 @@ ASYNCIO = sys.version_info[:2] >= (3, 5)
 
 # For checks reliant on Python 3.6 syntax changes (e.g. classvar)
 PY36 = sys.version_info[:2] >= (3, 6)
-
-# For checks reliant on Python 3.10
-PY3_10 = sys.version_info[:2] >= (3, 10)
 
 # Protocols are hard to backport to the original version of typing 3.5.0
 HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
@@ -1519,6 +1516,7 @@ class TypedDictTests(BaseTestCase):
     def test_py36_class_syntax_usage(self):
         self.assertEqual(LabelPoint2D.__name__, 'LabelPoint2D')
         self.assertEqual(LabelPoint2D.__module__, __name__)
+        self.assertEqual(get_type_hints(LabelPoint2D), {'x': int, 'y': int, 'label': str})
         self.assertEqual(LabelPoint2D.__bases__, (dict,))
         self.assertEqual(LabelPoint2D.__total__, True)
         self.assertNotIsSubclass(LabelPoint2D, typing.Sequence)
@@ -1527,13 +1525,6 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(not_origin['y'], 1)
         other = LabelPoint2D(x=0, y=1, label='hi')
         self.assertEqual(other['label'], 'hi')
-        if PY3_10:
-            self.assertEqual(LabelPoint2D.__annotations__, {
-                'x': typing.ForwardRef('int'),
-                'y': typing.ForwardRef('int'),
-                'label': str})
-        else:
-            self.assertEqual(LabelPoint2D.__annotations__, {'x': int, 'y': int, 'label': str})
 
     def test_pickle(self):
         global EmpD  # pickle wants to reference the class by name
@@ -1574,41 +1565,23 @@ class TypedDictTests(BaseTestCase):
     def test_keys_inheritance(self):
         assert BaseAnimal.__required_keys__ == frozenset(['name'])
         assert BaseAnimal.__optional_keys__ == frozenset([])
+        assert get_type_hints(BaseAnimal) == {'name': str}
 
         assert Animal.__required_keys__ == frozenset(['name'])
         assert Animal.__optional_keys__ == frozenset(['tail', 'voice'])
-
-        assert Cat.__required_keys__ == frozenset(['name', 'fur_color'])
-        assert Cat.__optional_keys__ == frozenset(['tail', 'voice'])
-
-    @skipUnless(PY36 and not PY3_10, 'Python 3.6 and < 3.10 required')
-    def test_keys_inheritance_before_postponed_annotation_eval(self):
-        assert BaseAnimal.__annotations__ == {'name': str}
-        assert Animal.__annotations__ == {
+        assert get_type_hints(Animal) == {
             'name': str,
             'tail': bool,
             'voice': str,
         }
-        assert Cat.__annotations__ == {
+
+        assert Cat.__required_keys__ == frozenset(['name', 'fur_color'])
+        assert Cat.__optional_keys__ == frozenset(['tail', 'voice'])
+        assert get_type_hints(Cat) == {
             'fur_color': str,
             'name': str,
             'tail': bool,
             'voice': str,
-        }
-
-    @skipUnless(PY3_10, 'Python 3.10 required')
-    def test_keys_inheritance_with_postponed_annotation_eval(self):
-        assert BaseAnimal.__annotations__ == {'name': typing.ForwardRef('str')}
-        assert Animal.__annotations__ == {
-            'name': typing.ForwardRef('str'),
-            'tail': typing.ForwardRef('bool'),
-            'voice': typing.ForwardRef('str'),
-        }
-        assert Cat.__annotations__ == {
-            'fur_color': typing.ForwardRef('str'),
-            'name': typing.ForwardRef('str'),
-            'tail': typing.ForwardRef('bool'),
-            'voice': typing.ForwardRef('str'),
         }
 
 
