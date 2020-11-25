@@ -9,7 +9,7 @@ import types
 from unittest import TestCase, main, skipUnless, skipIf
 from typing import TypeVar, Optional
 from typing import T, KT, VT  # Not in __all__.
-from typing import ForwardRef, Tuple, List, Dict, Iterator
+from typing import Tuple, List, Dict, Iterator
 from typing import Generic
 from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
@@ -35,7 +35,7 @@ PEP_560 = sys.version_info[:3] >= (3, 7, 0)
 
 OLD_GENERICS = False
 try:
-    from typing import _type_vars, _next_in_mro, _type_check  # noqa
+    from typing import _type_vars, _next_in_mro, _type_check # noqa
 except ImportError:
     OLD_GENERICS = True
 
@@ -1529,8 +1529,8 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(other['label'], 'hi')
         if PY3_10:
             self.assertEqual(LabelPoint2D.__annotations__, {
-                'x': ForwardRef('int'),
-                'y': ForwardRef('int'),
+                'x': typing.ForwardRef('int'),
+                'y': typing.ForwardRef('int'),
                 'label': str})
         else:
             self.assertEqual(LabelPoint2D.__annotations__, {'x': int, 'y': int, 'label': str})
@@ -1598,17 +1598,17 @@ class TypedDictTests(BaseTestCase):
 
     @skipUnless(PY3_10, 'Python 3.10 required')
     def test_keys_inheritance_with_postponed_annotation_eval(self):
-        assert BaseAnimal.__annotations__ == {'name': ForwardRef('str')}
+        assert BaseAnimal.__annotations__ == {'name': typing.ForwardRef('str')}
         assert Animal.__annotations__ == {
-            'name': ForwardRef('str'),
-            'tail': ForwardRef('bool'),
-            'voice': ForwardRef('str'),
+            'name': typing.ForwardRef('str'),
+            'tail': typing.ForwardRef('bool'),
+            'voice': typing.ForwardRef('str'),
         }
         assert Cat.__annotations__ == {
-            'fur_color': ForwardRef('str'),
-            'name': ForwardRef('str'),
-            'tail': ForwardRef('bool'),
-            'voice': ForwardRef('str'),
+            'fur_color': typing.ForwardRef('str'),
+            'name': typing.ForwardRef('str'),
+            'tail': typing.ForwardRef('bool'),
+            'voice': typing.ForwardRef('str'),
         }
 
 
