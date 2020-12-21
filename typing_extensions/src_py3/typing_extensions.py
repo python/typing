@@ -2065,7 +2065,7 @@ elif PEP_560:
         """
         if isinstance(tp, _AnnotatedAlias):
             return (tp.__origin__,) + tp.__metadata__
-        if isinstance(tp, _GenericAlias):
+        if isinstance(tp, _GenericAlias) and not tp._special:
             res = tp.__args__
             if get_origin(tp) is collections.abc.Callable and res[0] is not Ellipsis:
                 res = (list(res[:-1]), res[-1])
