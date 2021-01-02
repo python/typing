@@ -51,6 +51,7 @@ TYPING_LATEST = sys.version_info[:3] < (3, 5, 0)
 TYPING_3_5_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 1)
 TYPING_3_5_3 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 3)
 TYPING_3_6_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 6, 1)
+TYPING_3_10_0 = TYPING_LATEST or sys.version_info[:3] >= (3, 10, 0)
 
 # For typing versions where issubclass(...) and
 # isinstance(...) checks are forbidden.
@@ -1240,8 +1241,9 @@ if HAVE_PROTOCOLS:
             self.assertIsSubclass(P, PR)
             with self.assertRaises(TypeError):
                 PR[int]
-            with self.assertRaises(TypeError):
-                PR[int, 1]
+            if not TYPING_3_10_0:
+                with self.assertRaises(TypeError):
+                    PR[int, 1]
             class P1(Protocol, Generic[T]):
                 def bar(self, x: T) -> str: ...
             class P2(Generic[T], Protocol):
@@ -1254,7 +1256,7 @@ if HAVE_PROTOCOLS:
                 def bar(self, x: str) -> str:
                     return x
             self.assertIsInstance(Test(), PSub)
-            if TYPING_3_5_3:
+            if TYPING_3_5_3 and not TYPING_3_10_0:
                 with self.assertRaises(TypeError):
                     PR[int, ClassVar]
 
