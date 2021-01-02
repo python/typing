@@ -13,7 +13,8 @@ from typing import Tuple, List, Dict, Iterator
 from typing import Generic
 from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, ParamSpec, Concatenate
+
 try:
     from typing_extensions import Protocol, runtime, runtime_checkable
 except ImportError:
@@ -1875,6 +1876,52 @@ class TypeAliasTests(BaseTestCase):
             TypeAlias[int]
 
 
+class ParamSpecTests(BaseTestCase):
+
+    def test_basic_plain(self):
+        P = ParamSpec('P')
+        self.assertEqual(P, P)
+        self.assertIsInstance(P, ParamSpec)
+
+    def test_valid_uses(self):
+        P = ParamSpec('P')
+        T = TypeVar('T')
+        C1 = typing.Callable[P, int]
+        C2 = typing.Callable[P, T]
+
+        # Test collections.abc.Callable too.
+        if sys.version_info[:2] >= (3, 9):
+            C3 = collections.abc.Callable[P, int]
+            C4 = collections.abc.Callable[P, T]
+
+        # ParamSpec instances should also have args and kwargs attributes.
+        self.assertIn('args', dir(P))
+        self.assertIn('kwargs', dir(P))
+        P.args
+        P.kwargs
+
+
+class ConcatenateTests(BaseTestCase):
+    def test_basics(self):
+        P = ParamSpec('P')
+
+        class MyClass: ...
+
+        c = Concatenate[MyClass, P]
+        self.assertNotEqual(c, Concatenate)
+
+    def test_valid_uses(self):
+        P = ParamSpec('P')
+        T = TypeVar('T')
+        C1 = typing.Callable[Concatenate[int, P], int]
+        C2 = typing.Callable[Concatenate[int, T, P], T]
+
+        # Test collections.abc.Callable too.
+        if sys.version_info[:2] >= (3, 9):
+            C3 = collections.abc.Callable[Concatenate[int, P], int]
+            C4 = collections.abc.Callable[Concatenate[int, T, P], T]
+
+
 class AllTests(BaseTestCase):
 
     def test_typing_extensions_includes_standard(self):
@@ -1890,6 +1937,10 @@ class AllTests(BaseTestCase):
         self.assertIn('overload', a)
         self.assertIn('Text', a)
         self.assertIn('TYPE_CHECKING', a)
+        self.assertIn('TypeAlias', a)
+        self.assertIn('ParamSpec', a)
+        self.assertIn("Concatenate", a)
+
         if TYPING_3_5_3:
             self.assertIn('Annotated', a)
         if PEP_560:
