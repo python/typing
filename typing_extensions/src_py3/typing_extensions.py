@@ -2233,7 +2233,7 @@ class _ConcatenateGenericAlias(list):
     def __init__(self, *args, **kwargs):
         pass
 
-
+@_tp_cache
 def _concatenate_getitem(self, parameters):
     if parameters == ():
         raise TypeError("Cannot take a Concatenate of no types.")
