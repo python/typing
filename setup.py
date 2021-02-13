@@ -67,5 +67,5 @@ setup(name='typing',
                'checker typehints typehinting typechecking backport',
       package_dir={'': package_dir},
       py_modules=['typing'],
-      python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <3.7',
+      python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <3.5',
       classifiers=classifiers)
