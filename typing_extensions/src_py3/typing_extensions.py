@@ -134,6 +134,7 @@ __all__ = [
     'Counter',
     'Deque',
     'DefaultDict',
+    'OrderedDict'
     'TypedDict',
 
     # Structural checks, a.k.a. protocols.
@@ -936,6 +937,32 @@ else:
             if cls._gorg is DefaultDict:
                 return collections.defaultdict(*args, **kwds)
             return _generic_new(collections.defaultdict, cls, *args, **kwds)
+
+
+if hasattr(typing, 'OrderedDict'):
+    OrderedDict = typing.OrderedDict
+elif _geqv_defined:
+    class OrderedDict(collections.OrderedDict, typing.MutableMapping[KT, VT],
+                      metaclass=_ExtensionsGenericMeta,
+                      extra=collections.OrderedDict):
+
+        __slots__ = ()
+
+        def __new__(cls, *args, **kwds):
+            if _geqv(cls, OrderedDict):
+                return collections.OrderedDict(*args, **kwds)
+            return _generic_new(collections.OrderedDict, cls, *args, **kwds)
+else:
+    class OrderedDict(collections.OrderedDict, typing.MutableMapping[KT, VT],
+                      metaclass=_ExtensionsGenericMeta,
+                      extra=collections.OrderedDict):
+
+        __slots__ = ()
+
+        def __new__(cls, *args, **kwds):
+            if cls._gorg is OrderedDict:
+                return collections.OrderedDict(*args, **kwds)
+            return _generic_new(collections.OrderedDict, cls, *args, **kwds)
 
 
 if hasattr(typing, 'Counter'):
