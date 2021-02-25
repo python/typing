@@ -59,6 +59,7 @@ Python 3.4+ only:
 Python 3.5+ only:
 -----------------
 
+- ``Annotated`` (except on Python 3.5.0-3.5.2)
 - ``AsyncIterable``
 - ``AsyncIterator``
 - ``AsyncContextManager``
