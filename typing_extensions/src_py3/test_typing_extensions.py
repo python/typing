@@ -610,6 +610,30 @@ class CollectionsAbcTests(BaseTestCase):
         if TYPING_3_5_3:
             self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
 
+    @skipUnless(CAN_INSTANTIATE_COLLECTIONS, "Behavior added in typing 3.6.1")
+    def test_ordereddict_instantiation(self):
+        self.assertIs(
+            type(typing_extensions.OrderedDict()),
+            collections.OrderedDict)
+        self.assertIs(
+            type(typing_extensions.OrderedDict[KT, VT]()),
+            collections.OrderedDict)
+        self.assertIs(
+            type(typing_extensions.OrderedDict[str, int]()),
+            collections.OrderedDict)
+
+    def test_ordereddict_subclass(self):
+
+        class MyOrdDict(typing_extensions.OrderedDict[str, int]):
+            pass
+
+        od = MyOrdDict()
+        self.assertIsInstance(od, MyOrdDict)
+
+        self.assertIsSubclass(MyOrdDict, collections.OrderedDict)
+        if TYPING_3_5_3:
+            self.assertNotIsSubclass(collections.OrderedDict, MyOrdDict)
+
     def test_chainmap_instantiation(self):
         self.assertIs(type(typing_extensions.ChainMap()), collections.ChainMap)
         self.assertIs(type(typing_extensions.ChainMap[KT, VT]()), collections.ChainMap)
