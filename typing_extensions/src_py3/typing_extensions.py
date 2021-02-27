@@ -941,6 +941,8 @@ else:
 
 if hasattr(typing, 'OrderedDict'):
     OrderedDict = typing.OrderedDict
+elif (3, 7, 0) <= sys.version_info[:3] < (3, 7, 2):
+    OrderedDict = typing._alias(collections.OrderedDict, (KT, VT))
 elif _geqv_defined:
     class OrderedDict(collections.OrderedDict, typing.MutableMapping[KT, VT],
                       metaclass=_ExtensionsGenericMeta,
