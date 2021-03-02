@@ -44,6 +44,7 @@ All Python versions:
 - ``NewType``
 - ``NoReturn``
 - ``overload`` (note that older versions of ``typing`` only let you use ``overload`` in stubs)
+- ``OrderedDict``
 - ``Protocol`` (except on Python 3.5.0)
 - ``runtime`` (except on Python 3.5.0)
 - ``Text``
