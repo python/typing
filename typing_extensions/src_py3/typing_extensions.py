@@ -2233,6 +2233,14 @@ else:
             else:
                 self.__bound__ = None
 
+            # for pickling:
+            try:
+                def_mod = sys._getframe(1).f_globals.get('__name__', '__main__')
+            except (AttributeError, ValueError):
+                def_mod = None
+            if def_mod != 'typing_extensions':
+                self.__module__ = def_mod
+
         def __repr__(self):
             if self.__covariant__:
                 prefix = '+'
@@ -2242,6 +2250,8 @@ else:
                 prefix = '~'
             return prefix + self.__name__
 
+        def __reduce__(self):
+            return self.__name__
 
 # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
 class _ConcatenateGenericAlias(list):

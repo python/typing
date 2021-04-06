@@ -1875,13 +1875,26 @@ class TypeAliasTests(BaseTestCase):
         with self.assertRaises(TypeError):
             TypeAlias[int]
 
-
+P = ParamSpec('P')
+P_co = ParamSpec('P_co', covariant=True)
+P_contra = ParamSpec('P_contra', contravariant=True)
 class ParamSpecTests(BaseTestCase):
 
     def test_basic_plain(self):
-        P = ParamSpec('P')
+        global P
         self.assertEqual(P, P)
         self.assertIsInstance(P, ParamSpec)
+
+    def test_repr(self):
+        global P, P_co, P_contra
+        P_2 = ParamSpec('P_2')
+        self.assertEqual(repr(P), '~P')
+        self.assertEqual(repr(P_2), '~P_2')
+
+        # Note: PEP 612 doesn't require these to be repr-ed correctly, but
+        # just follow CPython.
+        self.assertEqual(repr(P_co), '+P_co')
+        self.assertEqual(repr(P_contra), '-P_contra')
 
     def test_valid_uses(self):
         P = ParamSpec('P')
@@ -1904,8 +1917,20 @@ class ParamSpecTests(BaseTestCase):
         P.args
         P.kwargs
 
-        # Note: ParamSpec doesn't work for pre-3.10 user-defined Generics due
-        # to type checks inside Generic.
+    # Note: ParamSpec doesn't work for pre-3.10 user-defined Generics due
+    # to type checks inside Generic.
+
+    def test_pickle(self):
+        global P, P_co, P_contra
+        for proto in range(pickle.HIGHEST_PROTOCOL):
+            with self.subTest(f"Pickle protocol {proto}"):
+                for paramspec in (P, P_co, P_contra):
+                    z = pickle.loads(pickle.dumps(paramspec, proto))
+                    self.assertEqual(z.__name__, paramspec.__name__)
+                    self.assertEqual(z.__covariant__, paramspec.__covariant__)
+                    self.assertEqual(z.__contravariant__, paramspec.__contravariant__)
+                    self.assertEqual(z.__bound__, paramspec.__bound__)
+
 
 class ConcatenateTests(BaseTestCase):
     def test_basics(self):
