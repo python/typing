@@ -4,7 +4,7 @@ jobs:
   include:
     - name: "3.9"
       dist: xenial
-      python: 3.9.4
+      python: 3.9.0
     - name: "3.8"
       dist: xenial
       python: 3.8.0
