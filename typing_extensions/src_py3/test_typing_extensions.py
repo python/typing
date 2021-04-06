@@ -1875,18 +1875,17 @@ class TypeAliasTests(BaseTestCase):
         with self.assertRaises(TypeError):
             TypeAlias[int]
 
-P = ParamSpec('P')
-P_co = ParamSpec('P_co', covariant=True)
-P_contra = ParamSpec('P_contra', contravariant=True)
 class ParamSpecTests(BaseTestCase):
 
     def test_basic_plain(self):
-        global P
+        P = ParamSpec('P')
         self.assertEqual(P, P)
         self.assertIsInstance(P, ParamSpec)
 
     def test_repr(self):
-        global P, P_co, P_contra
+        P = ParamSpec('P')
+        P_co = ParamSpec('P_co', covariant=True)
+        P_contra = ParamSpec('P_contra', contravariant=True)
         P_2 = ParamSpec('P_2')
         self.assertEqual(repr(P), '~P')
         self.assertEqual(repr(P_2), '~P_2')
@@ -1922,6 +1921,9 @@ class ParamSpecTests(BaseTestCase):
 
     def test_pickle(self):
         global P, P_co, P_contra
+        P = ParamSpec('P')
+        P_co = ParamSpec('P_co', covariant=True)
+        P_contra = ParamSpec('P_contra', contravariant=True)
         for proto in range(pickle.HIGHEST_PROTOCOL):
             with self.subTest('Pickle protocol {proto}'.format(proto=proto)):
                 for paramspec in (P, P_co, P_contra):
@@ -1953,6 +1955,7 @@ class ConcatenateTests(BaseTestCase):
             C4 = collections.abc.Callable[Concatenate[int, T, P], T]
 
     def test_basic_introspection(self):
+        P = ParamSpec('P')
         C1 = Concatenate[int, P]
         C2 = Concatenate[int, T, P]
         self.assertEqual(C1.__origin__, Concatenate)

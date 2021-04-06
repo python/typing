@@ -2363,7 +2363,7 @@ elif hasattr(typing, '_FinalTypingBase'):
             return _concatenate_getitem(self, parameters)
 
     Concatenate = _ConcatenateAliasBase(_root=True)
-
+# For 3.5.0 - 3.5.2
 else:
     class _ConcatenateAliasMeta(typing.TypingMeta):
         """Metaclass for Concatenate."""
