@@ -1889,6 +1889,10 @@ class ParamSpecTests(BaseTestCase):
         C1 = typing.Callable[P, int]
         C2 = typing.Callable[P, T]
 
+        # Note: no tests for Callable.__args__ and Callable.__parameters__ here
+        # because pre-3.10 Callable sees ParamSpec as a plain list, not a
+        # TypeVar.
+
         # Test collections.abc.Callable too.
         if sys.version_info[:2] >= (3, 9):
             C3 = collections.abc.Callable[P, int]
@@ -1900,6 +1904,8 @@ class ParamSpecTests(BaseTestCase):
         P.args
         P.kwargs
 
+        # Note: ParamSpec doesn't work for pre-3.10 user-defined Generics due
+        # to type checks inside Generic.
 
 class ConcatenateTests(BaseTestCase):
     def test_basics(self):

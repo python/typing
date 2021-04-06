@@ -2224,8 +2224,23 @@ else:
         args = object()
         kwargs = object()
 
-        def __init__(self, *args, **kwargs):
-            pass
+        def __init__(self, name, *, bound=None, covariant=False, contravariant=False):
+            self.__name__ = name
+            self.__covariant__ = bool(covariant)
+            self.__contravariant__ = bool(contravariant)
+            if bound:
+                self.__bound__ = typing._type_check(bound, "Bound must be a type.")
+            else:
+                self.__bound__ = None
+
+        def __repr__(self):
+            if self.__covariant__:
+                prefix = '+'
+            elif self.__contravariant__:
+                prefix = '-'
+            else:
+                prefix = '~'
+            return prefix + self.__name__
 
 
 # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
