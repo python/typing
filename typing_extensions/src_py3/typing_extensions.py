@@ -2187,8 +2187,9 @@ else:
         type checkers.  They are used to forward the parameter types of one
         callable to another callable, a pattern commonly found in higher order
         functions and decorators.  They are only valid when used in ``Concatenate``,
-        or s the first argument to ``Callable``, or as parameters for user-defined
-        Generics.  See class Generic for more information on generic types.  An
+        or s the first argument to ``Callable``. In Python 3.10 and higher,
+        they are also supported in user-defined Generics at runtime.
+        See class Generic for more information on generic types.  An
         example for annotating a decorator::
 
            T = TypeVar('T')
@@ -2229,7 +2230,7 @@ else:
             self.__covariant__ = bool(covariant)
             self.__contravariant__ = bool(contravariant)
             if bound:
-                self.__bound__ = typing._type_check(bound, "Bound must be a type.")
+                self.__bound__ = typing._type_check(bound, 'Bound must be a type.')
             else:
                 self.__bound__ = None
 
@@ -2253,10 +2254,27 @@ else:
         def __reduce__(self):
             return self.__name__
 
+        # Hack to get typing._type_check to pass.
+        def __call__(self, *args, **kwargs):
+            pass
+
+        # Note: Can't fake ParamSpec as a TypeVar to get it to work
+        # with Generics. ParamSpec isn't an instance of TypeVar in 3.10.
+        # So encouraging code like isinstance(ParamSpec('P'), TypeVar))
+        # will lead to breakage in 3.10.
+        # This also means no accurate __parameters__ for GenericAliases.
+
 # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
 class _ConcatenateGenericAlias(list):
-    def __init__(self, *args, **kwargs):
-        pass
+    def __init__(self, origin, args):
+        self.__origin__ = origin
+        self.__args__ = args
+
+    def __repr__(self):
+        _type_repr = typing._type_repr
+        return '{origin}[{args}]' \
+               .format(origin=_type_repr(self.__origin__),
+                       args=', '.join(_type_repr(arg) for arg in self.__args__))
 
 @_tp_cache
 def _concatenate_getitem(self, parameters):
@@ -2267,6 +2285,8 @@ def _concatenate_getitem(self, parameters):
     if not isinstance(parameters[-1], ParamSpec):
         raise TypeError("The last parameter to Concatenate should be a "
                         "ParamSpec variable.")
+    msg = "Concatenate[arg, ...]: each arg must be a type."
+    parameters = tuple(typing._type_check(p, msg) for p in parameters)
     return _ConcatenateGenericAlias(self, parameters)
 
 

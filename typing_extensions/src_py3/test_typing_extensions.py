@@ -1923,7 +1923,7 @@ class ParamSpecTests(BaseTestCase):
     def test_pickle(self):
         global P, P_co, P_contra
         for proto in range(pickle.HIGHEST_PROTOCOL):
-            with self.subTest(f"Pickle protocol {proto}"):
+            with self.subTest('Pickle protocol {proto}'.format(proto=proto)):
                 for paramspec in (P, P_co, P_contra):
                     z = pickle.loads(pickle.dumps(paramspec, proto))
                     self.assertEqual(z.__name__, paramspec.__name__)
@@ -1952,6 +1952,13 @@ class ConcatenateTests(BaseTestCase):
             C3 = collections.abc.Callable[Concatenate[int, P], int]
             C4 = collections.abc.Callable[Concatenate[int, T, P], T]
 
+    def test_basic_introspection(self):
+        C1 = Concatenate[int, P]
+        C2 = Concatenate[int, T, P]
+        self.assertEqual(C1.__origin__, Concatenate)
+        self.assertEqual(C1.__args__, (int, P))
+        self.assertEqual(C2.__origin__, Concatenate)
+        self.assertEqual(C2.__args__, (int, T, P))
 
 class AllTests(BaseTestCase):
 
