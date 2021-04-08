@@ -2226,6 +2226,7 @@ else:
         kwargs = object()
 
         def __init__(self, name, *, bound=None, covariant=False, contravariant=False):
+            super().__init__([self])
             self.__name__ = name
             self.__covariant__ = bool(covariant)
             self.__contravariant__ = bool(contravariant)
@@ -2267,6 +2268,7 @@ else:
 # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
 class _ConcatenateGenericAlias(list):
     def __init__(self, origin, args):
+        super().__init___(args)
         self.__origin__ = origin
         self.__args__ = args
 
