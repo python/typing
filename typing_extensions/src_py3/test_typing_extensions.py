@@ -1881,6 +1881,8 @@ class ParamSpecTests(BaseTestCase):
         P = ParamSpec('P')
         self.assertEqual(P, P)
         self.assertIsInstance(P, ParamSpec)
+        # Should be hashable
+        hash(P)
 
     def test_repr(self):
         P = ParamSpec('P')

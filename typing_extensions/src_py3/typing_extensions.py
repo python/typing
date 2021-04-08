@@ -2252,6 +2252,12 @@ else:
                 prefix = '~'
             return prefix + self.__name__
 
+        def __hash__(self):
+            return hash((self.__name__,
+                         self.__covariant__,
+                         self.__contravariant__,
+                         self.__bound__))
+
         def __reduce__(self):
             return self.__name__
 
