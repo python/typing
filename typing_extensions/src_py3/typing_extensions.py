@@ -2283,6 +2283,7 @@ class _ConcatenateGenericAlias(list):
         return '{origin}[{args}]' \
                .format(origin=_type_repr(self.__origin__),
                        args=', '.join(_type_repr(arg) for arg in self.__args__))
+
     def __hash__(self):
         return hash((self.__origin__, self.__args__))
 

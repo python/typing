@@ -1935,6 +1935,18 @@ class ParamSpecTests(BaseTestCase):
                     self.assertEqual(z.__contravariant__, paramspec.__contravariant__)
                     self.assertEqual(z.__bound__, paramspec.__bound__)
 
+    def test_eq(self):
+        P = ParamSpec('P')
+        self.assertEqual(P, P)
+        self.assertEqual(hash(P), hash(P))
+        # ParamSpec should compare by id similar to TypeVar in CPython
+        self.assertNotEqual(ParamSpec('P'), P)
+        self.assertIsNot(ParamSpec('P'), P)
+        # Note: normally you don't test this as it breaks when there's
+        # a hash collision. However, ParamSpec *must* guarantee that
+        # as long as two objects don't have the same ID, their hashes
+        # won't be the same.
+        self.assertNotEqual(hash(ParamSpec('P')), hash(P))
 
 class ConcatenateTests(BaseTestCase):
     def test_basics(self):
@@ -1964,6 +1976,13 @@ class ConcatenateTests(BaseTestCase):
         self.assertEqual(C1.__args__, (int, P))
         self.assertEqual(C2.__origin__, Concatenate)
         self.assertEqual(C2.__args__, (int, T, P))
+
+    def test_eq(self):
+        P = ParamSpec('P')
+        C1 = Concatenate[int, P]
+        C2 = Concatenate[int, P]
+        self.assertEqual(C1, C2)
+        self.assertEqual(hash(C1), hash(C2))
 
 class AllTests(BaseTestCase):
 
