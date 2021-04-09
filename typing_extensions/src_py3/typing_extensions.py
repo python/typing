@@ -2253,10 +2253,10 @@ else:
             return prefix + self.__name__
 
         def __hash__(self):
-            return hash((self.__name__,
-                         self.__covariant__,
-                         self.__contravariant__,
-                         self.__bound__))
+            return object.__hash__(self)
+
+        def __eq__(self, other):
+            return self is other
 
         def __reduce__(self):
             return self.__name__
@@ -2283,6 +2283,8 @@ class _ConcatenateGenericAlias(list):
         return '{origin}[{args}]' \
                .format(origin=_type_repr(self.__origin__),
                        args=', '.join(_type_repr(arg) for arg in self.__args__))
+    def __hash__(self):
+        return hash((self.__origin__, self.__args__))
 
 @_tp_cache
 def _concatenate_getitem(self, parameters):
