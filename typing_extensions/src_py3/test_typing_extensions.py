@@ -1948,6 +1948,7 @@ class ParamSpecTests(BaseTestCase):
         # won't be the same.
         self.assertNotEqual(hash(ParamSpec('P')), hash(P))
 
+
 class ConcatenateTests(BaseTestCase):
     def test_basics(self):
         P = ParamSpec('P')
@@ -1981,8 +1982,11 @@ class ConcatenateTests(BaseTestCase):
         P = ParamSpec('P')
         C1 = Concatenate[int, P]
         C2 = Concatenate[int, P]
+        C3 = Concatenate[int, T, P]
         self.assertEqual(C1, C2)
         self.assertEqual(hash(C1), hash(C2))
+        self.assertNotEqual(C1, C3)
+
 
 class AllTests(BaseTestCase):
 
