@@ -1151,6 +1151,11 @@ def _is_callable_members_only(cls):
 if hasattr(typing, 'Protocol'):
     Protocol = typing.Protocol
 elif HAVE_PROTOCOLS and not PEP_560:
+
+    def _no_init(self, *args, **kwargs):
+        if type(self)._is_protocol:
+            raise TypeError('Protocols cannot be instantiated')
+
     class _ProtocolMeta(GenericMeta):
         """Internal metaclass for Protocol.
 
@@ -1241,9 +1246,6 @@ elif HAVE_PROTOCOLS and not PEP_560:
                         raise TypeError('Protocols can only inherit from other'
                                         ' protocols, got %r' % base)
 
-                def _no_init(self, *args, **kwargs):
-                    if type(self)._is_protocol:
-                        raise TypeError('Protocols cannot be instantiated')
                 cls.__init__ = _no_init
 
             def _proto_hook(other):
@@ -1397,6 +1399,10 @@ elif HAVE_PROTOCOLS and not PEP_560:
 
 elif PEP_560:
     from typing import _type_check, _GenericAlias, _collect_type_vars  # noqa
+
+    def _no_init(self, *args, **kwargs):
+        if type(self)._is_protocol:
+            raise TypeError('Protocols cannot be instantiated')
 
     class _ProtocolMeta(abc.ABCMeta):
         # This metaclass is a bit unfortunate and exists only because of the lack
@@ -1574,10 +1580,6 @@ elif PEP_560:
                         isinstance(base, _ProtocolMeta) and base._is_protocol):
                     raise TypeError('Protocols can only inherit from other'
                                     ' protocols, got %r' % base)
-
-            def _no_init(self, *args, **kwargs):
-                if type(self)._is_protocol:
-                    raise TypeError('Protocols cannot be instantiated')
             cls.__init__ = _no_init
 
 

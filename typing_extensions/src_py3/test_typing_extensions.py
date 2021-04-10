@@ -1448,6 +1448,15 @@ if HAVE_PROTOCOLS:
             self.assertIsSubclass(B, Custom)
             self.assertNotIsSubclass(A, Custom)
 
+        def test_no_init_same_for_different_protocol_implementations(self):
+            class CustomProtocolWithoutInitA(Protocol):
+                pass
+
+            class CustomProtocolWithoutInitB(Protocol):
+                pass
+
+            self.assertEqual(CustomProtocolWithoutInitA.__init__, CustomProtocolWithoutInitB.__init__)
+
 
 class TypedDictTests(BaseTestCase):
 
