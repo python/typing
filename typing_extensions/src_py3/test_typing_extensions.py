@@ -13,7 +13,8 @@ from typing import Tuple, List, Dict, Iterator
 from typing import Generic
 from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, ParamSpec, Concatenate
+
 try:
     from typing_extensions import Protocol, runtime, runtime_checkable
 except ImportError:
@@ -1898,6 +1899,118 @@ class TypeAliasTests(BaseTestCase):
         with self.assertRaises(TypeError):
             TypeAlias[int]
 
+class ParamSpecTests(BaseTestCase):
+
+    def test_basic_plain(self):
+        P = ParamSpec('P')
+        self.assertEqual(P, P)
+        self.assertIsInstance(P, ParamSpec)
+        # Should be hashable
+        hash(P)
+
+    def test_repr(self):
+        P = ParamSpec('P')
+        P_co = ParamSpec('P_co', covariant=True)
+        P_contra = ParamSpec('P_contra', contravariant=True)
+        P_2 = ParamSpec('P_2')
+        self.assertEqual(repr(P), '~P')
+        self.assertEqual(repr(P_2), '~P_2')
+
+        # Note: PEP 612 doesn't require these to be repr-ed correctly, but
+        # just follow CPython.
+        self.assertEqual(repr(P_co), '+P_co')
+        self.assertEqual(repr(P_contra), '-P_contra')
+
+    def test_valid_uses(self):
+        P = ParamSpec('P')
+        T = TypeVar('T')
+        C1 = typing.Callable[P, int]
+        C2 = typing.Callable[P, T]
+
+        # Note: no tests for Callable.__args__ and Callable.__parameters__ here
+        # because pre-3.10 Callable sees ParamSpec as a plain list, not a
+        # TypeVar.
+
+        # Test collections.abc.Callable too.
+        if sys.version_info[:2] >= (3, 9):
+            C3 = collections.abc.Callable[P, int]
+            C4 = collections.abc.Callable[P, T]
+
+        # ParamSpec instances should also have args and kwargs attributes.
+        self.assertIn('args', dir(P))
+        self.assertIn('kwargs', dir(P))
+        P.args
+        P.kwargs
+
+    # Note: ParamSpec doesn't work for pre-3.10 user-defined Generics due
+    # to type checks inside Generic.
+
+    def test_pickle(self):
+        global P, P_co, P_contra
+        P = ParamSpec('P')
+        P_co = ParamSpec('P_co', covariant=True)
+        P_contra = ParamSpec('P_contra', contravariant=True)
+        for proto in range(pickle.HIGHEST_PROTOCOL):
+            with self.subTest('Pickle protocol {proto}'.format(proto=proto)):
+                for paramspec in (P, P_co, P_contra):
+                    z = pickle.loads(pickle.dumps(paramspec, proto))
+                    self.assertEqual(z.__name__, paramspec.__name__)
+                    self.assertEqual(z.__covariant__, paramspec.__covariant__)
+                    self.assertEqual(z.__contravariant__, paramspec.__contravariant__)
+                    self.assertEqual(z.__bound__, paramspec.__bound__)
+
+    def test_eq(self):
+        P = ParamSpec('P')
+        self.assertEqual(P, P)
+        self.assertEqual(hash(P), hash(P))
+        # ParamSpec should compare by id similar to TypeVar in CPython
+        self.assertNotEqual(ParamSpec('P'), P)
+        self.assertIsNot(ParamSpec('P'), P)
+        # Note: normally you don't test this as it breaks when there's
+        # a hash collision. However, ParamSpec *must* guarantee that
+        # as long as two objects don't have the same ID, their hashes
+        # won't be the same.
+        self.assertNotEqual(hash(ParamSpec('P')), hash(P))
+
+
+class ConcatenateTests(BaseTestCase):
+    def test_basics(self):
+        P = ParamSpec('P')
+
+        class MyClass: ...
+
+        c = Concatenate[MyClass, P]
+        self.assertNotEqual(c, Concatenate)
+
+    def test_valid_uses(self):
+        P = ParamSpec('P')
+        T = TypeVar('T')
+        C1 = typing.Callable[Concatenate[int, P], int]
+        C2 = typing.Callable[Concatenate[int, T, P], T]
+
+        # Test collections.abc.Callable too.
+        if sys.version_info[:2] >= (3, 9):
+            C3 = collections.abc.Callable[Concatenate[int, P], int]
+            C4 = collections.abc.Callable[Concatenate[int, T, P], T]
+
+    def test_basic_introspection(self):
+        P = ParamSpec('P')
+        C1 = Concatenate[int, P]
+        C2 = Concatenate[int, T, P]
+        self.assertEqual(C1.__origin__, Concatenate)
+        self.assertEqual(C1.__args__, (int, P))
+        self.assertEqual(C2.__origin__, Concatenate)
+        self.assertEqual(C2.__args__, (int, T, P))
+
+    def test_eq(self):
+        P = ParamSpec('P')
+        C1 = Concatenate[int, P]
+        C2 = Concatenate[int, P]
+        C3 = Concatenate[int, T, P]
+        self.assertEqual(C1, C2)
+        self.assertEqual(hash(C1), hash(C2))
+        self.assertNotEqual(C1, C3)
+
 
 class AllTests(BaseTestCase):
 
@@ -1914,6 +2027,10 @@ class AllTests(BaseTestCase):
         self.assertIn('overload', a)
         self.assertIn('Text', a)
         self.assertIn('TYPE_CHECKING', a)
+        self.assertIn('TypeAlias', a)
+        self.assertIn('ParamSpec', a)
+        self.assertIn("Concatenate", a)
+
         if TYPING_3_5_3:
             self.assertIn('Annotated', a)
         if PEP_560:

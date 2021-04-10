@@ -115,7 +115,9 @@ else:
 __all__ = [
     # Super-special typing primitives.
     'ClassVar',
+    'Concatenate',
     'Final',
+    'ParamSpec',
     'Type',
 
     # ABCs (from collections.abc).
@@ -147,6 +149,7 @@ __all__ = [
     'NewType',
     'overload',
     'Text',
+    'TypeAlias',
     'TYPE_CHECKING',
 ]
 
@@ -2193,5 +2196,239 @@ else:
             Predicate: TypeAlias = Callable[..., bool]
 
         It's invalid when used anywhere except as in the example above.
+        """
+        __slots__ = ()
+
+
+# Python 3.10+ has PEP 612
+if hasattr(typing, 'ParamSpec'):
+    ParamSpec = typing.ParamSpec
+else:
+    # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
+    class ParamSpec(list):
+        """Parameter specification variable.
+
+        Usage::
+
+           P = ParamSpec('P')
+
+        Parameter specification variables exist primarily for the benefit of static
+        type checkers.  They are used to forward the parameter types of one
+        callable to another callable, a pattern commonly found in higher order
+        functions and decorators.  They are only valid when used in ``Concatenate``,
+        or s the first argument to ``Callable``. In Python 3.10 and higher,
+        they are also supported in user-defined Generics at runtime.
+        See class Generic for more information on generic types.  An
+        example for annotating a decorator::
+
+           T = TypeVar('T')
+           P = ParamSpec('P')
+
+           def add_logging(f: Callable[P, T]) -> Callable[P, T]:
+               '''A type-safe decorator to add logging to a function.'''
+               def inner(*args: P.args, **kwargs: P.kwargs) -> T:
+                   logging.info(f'{f.__name__} was called')
+                   return f(*args, **kwargs)
+               return inner
+
+           @add_logging
+           def add_two(x: float, y: float) -> float:
+               '''Add two numbers together.'''
+               return x + y
+
+        Parameter specification variables defined with covariant=True or
+        contravariant=True can be used to declare covariant or contravariant
+        generic types.  These keyword arguments are valid, but their actual semantics
+        are yet to be decided.  See PEP 612 for details.
+
+        Parameter specification variables can be introspected. e.g.:
+
+           P.__name__ == 'T'
+           P.__bound__ == None
+           P.__covariant__ == False
+           P.__contravariant__ == False
+
+        Note that only parameter specification variables defined in global scope can
+        be pickled.
+        """
+        args = object()
+        kwargs = object()
+
+        def __init__(self, name, *, bound=None, covariant=False, contravariant=False):
+            super().__init__([self])
+            self.__name__ = name
+            self.__covariant__ = bool(covariant)
+            self.__contravariant__ = bool(contravariant)
+            if bound:
+                self.__bound__ = typing._type_check(bound, 'Bound must be a type.')
+            else:
+                self.__bound__ = None
+
+            # for pickling:
+            try:
+                def_mod = sys._getframe(1).f_globals.get('__name__', '__main__')
+            except (AttributeError, ValueError):
+                def_mod = None
+            if def_mod != 'typing_extensions':
+                self.__module__ = def_mod
+
+        def __repr__(self):
+            if self.__covariant__:
+                prefix = '+'
+            elif self.__contravariant__:
+                prefix = '-'
+            else:
+                prefix = '~'
+            return prefix + self.__name__
+
+        def __hash__(self):
+            return object.__hash__(self)
+
+        def __eq__(self, other):
+            return self is other
+
+        def __reduce__(self):
+            return self.__name__
+
+        # Hack to get typing._type_check to pass.
+        def __call__(self, *args, **kwargs):
+            pass
+
+        # Note: Can't fake ParamSpec as a TypeVar to get it to work
+        # with Generics. ParamSpec isn't an instance of TypeVar in 3.10.
+        # So encouraging code like isinstance(ParamSpec('P'), TypeVar))
+        # will lead to breakage in 3.10.
+        # This also means no accurate __parameters__ for GenericAliases.
+
+# Inherits from list as a workaround for Callable checks in Python < 3.9.2.
+class _ConcatenateGenericAlias(list):
+    def __init__(self, origin, args):
+        super().__init__(args)
+        self.__origin__ = origin
+        self.__args__ = args
+
+    def __repr__(self):
+        _type_repr = typing._type_repr
+        return '{origin}[{args}]' \
+               .format(origin=_type_repr(self.__origin__),
+                       args=', '.join(_type_repr(arg) for arg in self.__args__))
+
+    def __hash__(self):
+        return hash((self.__origin__, self.__args__))
+
+@_tp_cache
+def _concatenate_getitem(self, parameters):
+    if parameters == ():
+        raise TypeError("Cannot take a Concatenate of no types.")
+    if not isinstance(parameters, tuple):
+        parameters = (parameters,)
+    if not isinstance(parameters[-1], ParamSpec):
+        raise TypeError("The last parameter to Concatenate should be a "
+                        "ParamSpec variable.")
+    msg = "Concatenate[arg, ...]: each arg must be a type."
+    parameters = tuple(typing._type_check(p, msg) for p in parameters)
+    return _ConcatenateGenericAlias(self, parameters)
+
+
+if hasattr(typing, 'Concatenate'):
+    Concatenate = typing.Concatenate
+    _ConcatenateGenericAlias = typing._ConcatenateGenericAlias # noqa
+elif sys.version_info[:2] >= (3, 9):
+    @_TypeAliasForm
+    def Concatenate(self, parameters):
+        """Used in conjunction with ``ParamSpec`` and ``Callable`` to represent a
+        higher order function which adds, removes or transforms parameters of a
+        callable.
+
+        For example::
+
+           Callable[Concatenate[int, P], int]
+
+        See PEP 612 for detailed information.
+        """
+        return _concatenate_getitem(self, parameters)
+
+elif sys.version_info[:2] >= (3, 7):
+    class _ConcatenateForm(typing._SpecialForm, _root=True):
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+        def __getitem__(self, parameters):
+            return _concatenate_getitem(self, parameters)
+
+    Concatenate = _ConcatenateForm('Concatenate',
+        doc="""Used in conjunction with ``ParamSpec`` and ``Callable`` to represent a
+        higher order function which adds, removes or transforms parameters of a
+        callable.
+
+        For example::
+
+           Callable[Concatenate[int, P], int]
+
+        See PEP 612 for detailed information.
+        """)
+
+elif hasattr(typing, '_FinalTypingBase'):
+    class _ConcatenateAliasMeta(typing.TypingMeta):
+        """Metaclass for Concatenate."""
+
+        def __repr__(self):
+            return 'typing_extensions.Concatenate'
+
+    class _ConcatenateAliasBase(typing._FinalTypingBase,
+                                metaclass=_ConcatenateAliasMeta,
+                                _root=True):
+        """Used in conjunction with ``ParamSpec`` and ``Callable`` to represent a
+        higher order function which adds, removes or transforms parameters of a
+        callable.
+
+        For example::
+
+           Callable[Concatenate[int, P], int]
+
+        See PEP 612 for detailed information.
+        """
+        __slots__ = ()
+
+        def __instancecheck__(self, obj):
+            raise TypeError("Concatenate cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError("Concatenate cannot be used with issubclass().")
+
+        def __repr__(self):
+            return 'typing_extensions.Concatenate'
+
+        def __getitem__(self, parameters):
+            return _concatenate_getitem(self, parameters)
+
+    Concatenate = _ConcatenateAliasBase(_root=True)
+# For 3.5.0 - 3.5.2
+else:
+    class _ConcatenateAliasMeta(typing.TypingMeta):
+        """Metaclass for Concatenate."""
+
+        def __instancecheck__(self, obj):
+            raise TypeError("TypeAlias cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError("TypeAlias cannot be used with issubclass().")
+
+        def __call__(self, *args, **kwargs):
+            raise TypeError("Cannot instantiate TypeAlias")
+
+        def __getitem__(self, parameters):
+            return _concatenate_getitem(self, parameters)
+
+    class Concatenate(metaclass=_ConcatenateAliasMeta, _root=True):
+        """Used in conjunction with ``ParamSpec`` and ``Callable`` to represent a
+        higher order function which adds, removes or transforms parameters of a
+        callable.
+
+        For example::
+
+           Callable[Concatenate[int, P], int]
+
+        See PEP 612 for detailed information.
         """
         __slots__ = ()

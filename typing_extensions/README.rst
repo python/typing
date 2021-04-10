@@ -50,6 +50,7 @@ All Python versions:
 - ``Text``
 - ``Type``
 - ``TypedDict``
+- ``TypeAlias``
 - ``TYPE_CHECKING``
 
 Python 3.4+ only:
@@ -81,6 +82,12 @@ subclass ``typing.Reversible`` as of Python 3.5.3.
 
 These changes are _not_ backported to prevent subtle compatibility
 issues when mixing the differing implementations of modified classes.
+
+Certain types have incorrect runtime behavior due to limitations of older
+versions of the typing module.  For example, ``ParamSpec`` and ``Concatenate``
+will not work with ``get_args``, ``get_origin`` or user-defined ``Generic``\ s
+because they need to be lists to work with older versions of ``Callable``.
+These types are only guaranteed to work for static type checking.
 
 Running tests
 =============
