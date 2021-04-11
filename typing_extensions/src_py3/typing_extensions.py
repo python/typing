@@ -2064,12 +2064,17 @@ if sys.version_info[:2] >= (3, 10):
     get_origin = typing.get_origin
     get_args = typing.get_args
 elif PEP_560:
+    from typing import _GenericAlias
     try:
         # 3.9+
         from typing import _BaseGenericAlias
     except ImportError:
-        _BaseGenericAlias = None
-    from typing import _GenericAlias, GenericAlias
+        _BaseGenericAlias = _GenericAlias
+    try:
+        # 3.9+
+        from typing import GenericAlias
+    except ImportError:
+        GenericAlias = _GenericAlias
 
     def get_origin(tp):
         """Get the unsubscripted version of a type.
@@ -2088,10 +2093,8 @@ elif PEP_560:
         """
         if isinstance(tp, _AnnotatedAlias):
             return Annotated
-        if isinstance(tp, (_GenericAlias, GenericAlias,
+        if isinstance(tp, (_GenericAlias, GenericAlias, _BaseGenericAlias
                            ParamSpecArgs, ParamSpecKwargs)):
-            return tp.__origin__
-        if _BaseGenericAlias is not None and isinstance(tp, _BaseGenericAlias):
             return tp.__origin__
         if tp is Generic:
             return Generic
@@ -2253,7 +2256,7 @@ else:
             self.__origin__ = origin
 
         def __repr__(self):
-            return f"{self.__origin__.__name__}.args"
+            return "{}.args".format(self.__origin__.__name__)
 
     class ParamSpecKwargs(_Final, _Immutable, _root=True):
         """The kwargs for a ParamSpec object.
@@ -2271,7 +2274,7 @@ else:
             self.__origin__ = origin
 
         def __repr__(self):
-            return f"{self.__origin__.__name__}.kwargs"
+            return "{}.kwargs".format(self.__origin__.__name__)
 
 if hasattr(typing, 'ParamSpec'):
     ParamSpec = typing.ParamSpec

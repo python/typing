@@ -14,7 +14,6 @@ from typing import Generic
 from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs
-from typing_extensions import get_origin, get_args
 
 try:
     from typing_extensions import Protocol, runtime, runtime_checkable
@@ -523,6 +522,8 @@ class GetTypeHintTests(BaseTestCase):
 @skipUnless(PEP_560, "Python 3.7+ required")
 class GetUtilitiesTestCase(TestCase):
     def test_get_origin(self):
+        from typing_extensions import get_origin
+
         T = TypeVar('T')
         P = ParamSpec('P')
         class C(Generic[T]): pass
@@ -546,6 +547,8 @@ class GetUtilitiesTestCase(TestCase):
         self.assertIs(get_origin(P.kwargs), P)
 
     def test_get_args(self):
+        from typing_extensions import get_args
+
         T = TypeVar('T')
         class C(Generic[T]): pass
         self.assertEqual(get_args(C[int]), (int,))
@@ -574,10 +577,10 @@ class GetUtilitiesTestCase(TestCase):
         # Support Python versions with and without the fix for
         # https://bugs.python.org/issue42195
         self.assertIn(get_args(collections.abc.Callable[[int], str]),
-                      (([int], str), (int, str)))
+                      (([int], str), ([[int]], str)))
         self.assertEqual(get_args(collections.abc.Callable[..., str]), (..., str))
         self.assertIn(get_args(collections.abc.Callable[[], str]),
-                      (([], str), (str,)))
+                      (([], str), ([[]], str)))
         P = ParamSpec('P')
         self.assertIn(get_args(Callable[P, int]), [(P, int), ([P], int)])
         self.assertEqual(get_args(Callable[Concatenate[int, P], int]),
