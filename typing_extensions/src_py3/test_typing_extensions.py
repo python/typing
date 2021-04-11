@@ -541,7 +541,8 @@ class GetUtilitiesTestCase(TestCase):
         self.assertIs(get_origin(List), list)
         self.assertIs(get_origin(Tuple), tuple)
         self.assertIs(get_origin(Callable), collections.abc.Callable)
-        self.assertIs(get_origin(list[int]), list)
+        if sys.version_info >= (3, 9):
+            self.assertIs(get_origin(list[int]), list)
         self.assertIs(get_origin(list), None)
         self.assertIs(get_origin(P.args), P)
         self.assertIs(get_origin(P.kwargs), P)
@@ -572,7 +573,8 @@ class GetUtilitiesTestCase(TestCase):
         self.assertEqual(get_args(List), ())
         self.assertEqual(get_args(Tuple), ())
         self.assertEqual(get_args(Callable), ())
-        self.assertEqual(get_args(list[int]), (int,))
+        if sys.version_info >= (3, 9):
+            self.assertEqual(get_args(list[int]), (int,))
         self.assertEqual(get_args(list), ())
         # Support Python versions with and without the fix for
         # https://bugs.python.org/issue42195

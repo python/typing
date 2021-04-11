@@ -2114,6 +2114,8 @@ elif PEP_560:
         if isinstance(tp, _AnnotatedAlias):
             return (tp.__origin__,) + tp.__metadata__
         if isinstance(tp, (_GenericAlias, GenericAlias)):
+            if getattr(tp, "_special", False):
+                return ()
             res = tp.__args__
             if get_origin(tp) is collections.abc.Callable and res[0] is not Ellipsis:
                 res = (list(res[:-1]), res[-1])
@@ -2221,15 +2223,6 @@ if hasattr(typing, 'ParamSpecArgs'):
     ParamSpecArgs = typing.ParamSpecArgs
     ParamSpecKwargs = typing.ParamSpecKwargs
 else:
-    class _Final:
-        """Mixin to prohibit subclassing"""
-
-        __slots__ = ('__weakref__',)
-
-        def __init_subclass__(self, *args, **kwds):
-            if '_root' not in kwds:
-                raise TypeError("Cannot subclass special typing classes")
-
     class _Immutable:
         """Mixin to indicate that object should not be copied."""
         __slots__ = ()
@@ -2240,7 +2233,7 @@ else:
         def __deepcopy__(self, memo):
             return self
 
-    class ParamSpecArgs(_Final, _Immutable, _root=True):
+    class ParamSpecArgs(_Immutable):
         """The args for a ParamSpec object.
 
         Given a ParamSpec object P, P.args is an instance of ParamSpecArgs.
@@ -2258,7 +2251,7 @@ else:
         def __repr__(self):
             return "{}.args".format(self.__origin__.__name__)
 
-    class ParamSpecKwargs(_Final, _Immutable, _root=True):
+    class ParamSpecKwargs(_Immutable):
         """The kwargs for a ParamSpec object.
 
         Given a ParamSpec object P, P.kwargs is an instance of ParamSpecKwargs.
