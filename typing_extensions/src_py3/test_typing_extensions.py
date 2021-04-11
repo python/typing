@@ -571,11 +571,13 @@ class GetUtilitiesTestCase(TestCase):
         self.assertEqual(get_args(Callable), ())
         self.assertEqual(get_args(list[int]), (int,))
         self.assertEqual(get_args(list), ())
-        self.assertEqual(get_args(collections.abc.Callable[[int], str]), ([int], str))
+        # Support Python versions with and without the fix for
+        # https://bugs.python.org/issue42195
+        self.assertIn(get_args(collections.abc.Callable[[int], str]),
+                      (([int], str), (int, str)))
         self.assertEqual(get_args(collections.abc.Callable[..., str]), (..., str))
-        self.assertEqual(get_args(collections.abc.Callable[[], str]), ([], str))
-        self.assertEqual(get_args(collections.abc.Callable[[int], str]),
-                         get_args(Callable[[int], str]))
+        self.assertIn(get_args(collections.abc.Callable[[], str]),
+                      (([], str), (str,)))
         P = ParamSpec('P')
         self.assertIn(get_args(Callable[P, int]), [(P, int), ([P], int)])
         self.assertEqual(get_args(Callable[Concatenate[int, P], int]),
