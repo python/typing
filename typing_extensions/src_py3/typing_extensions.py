@@ -1618,9 +1618,11 @@ elif HAVE_PROTOCOLS:
             pass
 
 
-if sys.version_info[:2] >= (3, 9):
+if sys.version_info >= (3, 9, 2):
     # The standard library TypedDict in Python 3.8 does not store runtime information
     # about which (if any) keys are optional.  See https://bugs.python.org/issue38834
+    # The standard library TypedDict in Python 3.9.0/1 does not honour the "total"
+    # keyword with old-style TypedDict().  See https://bugs.python.org/issue42059
     TypedDict = typing.TypedDict
 else:
     def _check_fails(cls, other):
@@ -1677,19 +1679,24 @@ else:
             raise TypeError("TypedDict takes either a dict or keyword arguments,"
                             " but not both")
 
-        ns = {'__annotations__': dict(fields), '__total__': total}
+        ns = {'__annotations__': dict(fields)}
         try:
             # Setting correct module is necessary to make typed dict classes pickleable.
             ns['__module__'] = sys._getframe(1).f_globals.get('__name__', '__main__')
         except (AttributeError, ValueError):
             pass
 
-        return _TypedDictMeta(typename, (), ns)
+        return _TypedDictMeta(typename, (), ns, total=total)
 
     _typeddict_new.__text_signature__ = ('($cls, _typename, _fields=None,'
                                          ' /, *, total=True, **kwargs)')
 
     class _TypedDictMeta(type):
+        def __init__(cls, name, bases, ns, total=True):
+            # In Python 3.4 and 3.5 the __init__ method also needs to support the keyword arguments.
+            # See https://www.python.org/dev/peps/pep-0487/#implementation-details
+            super(_TypedDictMeta, cls).__init__(name, bases, ns)
+
         def __new__(cls, name, bases, ns, total=True):
             # Create new typed dict class object.
             # This method is called directly when TypedDict is subclassed,
