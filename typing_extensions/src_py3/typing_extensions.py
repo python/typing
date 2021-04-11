@@ -1692,6 +1692,11 @@ else:
                                          ' /, *, total=True, **kwargs)')
 
     class _TypedDictMeta(type):
+        def __init__(cls, name, bases, ns, total=True):
+            # In Python 3.4 and 3.5 the __init__ method also needs to support the keyword arguments.
+            # See https://www.python.org/dev/peps/pep-0487/#implementation-details
+            super(_TypedDictMeta, cls).__init__(name, bases, ns)
+
         def __new__(cls, name, bases, ns, total=True):
             # Create new typed dict class object.
             # This method is called directly when TypedDict is subclassed,
