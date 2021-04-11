@@ -1530,7 +1530,7 @@ class TypedDictTests(BaseTestCase):
 
     def test_typeddict_errors(self):
         Emp = TypedDict('Emp', {'name': str, 'id': int})
-        if sys.version_info[:2] >= (3, 9):
+        if sys.version_info >= (3, 9, 2):
             self.assertEqual(TypedDict.__module__, 'typing')
         else:
             self.assertEqual(TypedDict.__module__, 'typing_extensions')

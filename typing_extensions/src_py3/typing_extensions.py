@@ -1618,9 +1618,11 @@ elif HAVE_PROTOCOLS:
             pass
 
 
-if sys.version_info[:2] >= (3, 9):
+if sys.version_info >= (3, 9, 2):
     # The standard library TypedDict in Python 3.8 does not store runtime information
     # about which (if any) keys are optional.  See https://bugs.python.org/issue38834
+    # The standard library TypedDict in Python 3.9.0/1 does not honour the "total"
+    # keyword with old-style TypedDict().  See https://bugs.python.org/issue42059
     TypedDict = typing.TypedDict
 else:
     def _check_fails(cls, other):
