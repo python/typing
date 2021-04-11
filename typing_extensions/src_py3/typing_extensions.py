@@ -2093,7 +2093,7 @@ elif PEP_560:
         """
         if isinstance(tp, _AnnotatedAlias):
             return Annotated
-        if isinstance(tp, (_GenericAlias, GenericAlias, _BaseGenericAlias
+        if isinstance(tp, (_GenericAlias, GenericAlias, _BaseGenericAlias,
                            ParamSpecArgs, ParamSpecKwargs)):
             return tp.__origin__
         if tp is Generic:
