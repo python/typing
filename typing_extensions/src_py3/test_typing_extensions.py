@@ -579,12 +579,15 @@ class GetUtilitiesTestCase(TestCase):
         if sys.version_info >= (3, 9):
             # Support Python versions with and without the fix for
             # https://bugs.python.org/issue42195
+            # The first variant is for 3.9.2+, the second for 3.9.0 and 1
             self.assertIn(get_args(collections.abc.Callable[[int], str]),
                           (([int], str), ([[int]], str)))
-            self.assertEqual(get_args(collections.abc.Callable[..., str]), (..., str))
             self.assertIn(get_args(collections.abc.Callable[[], str]),
                           (([], str), ([[]], str)))
+            self.assertEqual(get_args(collections.abc.Callable[..., str]), (..., str))
         P = ParamSpec('P')
+        # In 3.9 and lower we use typing_extensions's hacky implementation
+        # of ParamSpec, which gets incorrectly wrapped in a list
         self.assertIn(get_args(Callable[P, int]), [(P, int), ([P], int)])
         self.assertEqual(get_args(Callable[Concatenate[int, P], int]),
                          (Concatenate[int, P], int))
