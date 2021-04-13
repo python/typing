@@ -2065,11 +2065,23 @@ elif HAVE_ANNOTATED:
 
 # Python 3.8 has get_origin() and get_args() but those implementations aren't
 # Annotated-aware, so we can't use those, only Python 3.9 versions will do.
-if sys.version_info[:2] >= (3, 9):
+# Similarly, Python 3.9's implementation doesn't support ParamSpecArgs and
+# ParamSpecKwargs.
+if sys.version_info[:2] >= (3, 10):
     get_origin = typing.get_origin
     get_args = typing.get_args
 elif PEP_560:
-    from typing import _GenericAlias  # noqa
+    from typing import _GenericAlias
+    try:
+        # 3.9+
+        from typing import _BaseGenericAlias
+    except ImportError:
+        _BaseGenericAlias = _GenericAlias
+    try:
+        # 3.9+
+        from typing import GenericAlias
+    except ImportError:
+        GenericAlias = _GenericAlias
 
     def get_origin(tp):
         """Get the unsubscripted version of a type.
@@ -2084,10 +2096,12 @@ elif PEP_560:
             get_origin(Generic[T]) is Generic
             get_origin(Union[T, int]) is Union
             get_origin(List[Tuple[T, T]][int]) == list
+            get_origin(P.args) is P
         """
         if isinstance(tp, _AnnotatedAlias):
             return Annotated
-        if isinstance(tp, _GenericAlias):
+        if isinstance(tp, (_GenericAlias, GenericAlias, _BaseGenericAlias,
+                           ParamSpecArgs, ParamSpecKwargs)):
             return tp.__origin__
         if tp is Generic:
             return Generic
@@ -2106,7 +2120,9 @@ elif PEP_560:
         """
         if isinstance(tp, _AnnotatedAlias):
             return (tp.__origin__,) + tp.__metadata__
-        if isinstance(tp, _GenericAlias) and not tp._special:
+        if isinstance(tp, (_GenericAlias, GenericAlias)):
+            if getattr(tp, "_special", False):
+                return ()
             res = tp.__args__
             if get_origin(tp) is collections.abc.Callable and res[0] is not Ellipsis:
                 res = (list(res[:-1]), res[-1])
@@ -2210,9 +2226,60 @@ else:
 
 
 # Python 3.10+ has PEP 612
+if hasattr(typing, 'ParamSpecArgs'):
+    ParamSpecArgs = typing.ParamSpecArgs
+    ParamSpecKwargs = typing.ParamSpecKwargs
+else:
+    class _Immutable:
+        """Mixin to indicate that object should not be copied."""
+        __slots__ = ()
+
+        def __copy__(self):
+            return self
+
+        def __deepcopy__(self, memo):
+            return self
+
+    class ParamSpecArgs(_Immutable):
+        """The args for a ParamSpec object.
+
+        Given a ParamSpec object P, P.args is an instance of ParamSpecArgs.
+
+        ParamSpecArgs objects have a reference back to their ParamSpec:
+
+        P.args.__origin__ is P
+
+        This type is meant for runtime introspection and has no special meaning to
+        static type checkers.
+        """
+        def __init__(self, origin):
+            self.__origin__ = origin
+
+        def __repr__(self):
+            return "{}.args".format(self.__origin__.__name__)
+
+    class ParamSpecKwargs(_Immutable):
+        """The kwargs for a ParamSpec object.
+
+        Given a ParamSpec object P, P.kwargs is an instance of ParamSpecKwargs.
+
+        ParamSpecKwargs objects have a reference back to their ParamSpec:
+
+        P.kwargs.__origin__ is P
+
+        This type is meant for runtime introspection and has no special meaning to
+        static type checkers.
+        """
+        def __init__(self, origin):
+            self.__origin__ = origin
+
+        def __repr__(self):
+            return "{}.kwargs".format(self.__origin__.__name__)
+
 if hasattr(typing, 'ParamSpec'):
     ParamSpec = typing.ParamSpec
 else:
+
     # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
     class ParamSpec(list):
         """Parameter specification variable.
@@ -2260,8 +2327,14 @@ else:
         Note that only parameter specification variables defined in global scope can
         be pickled.
         """
-        args = object()
-        kwargs = object()
+
+        @property
+        def args(self):
+            return ParamSpecArgs(self)
+
+        @property
+        def kwargs(self):
+            return ParamSpecKwargs(self)
 
         def __init__(self, name, *, bound=None, covariant=False, contravariant=False):
             super().__init__([self])

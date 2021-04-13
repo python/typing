@@ -27,8 +27,8 @@ Workflow
 Workflow for PyPI releases
 --------------------------
 
-* Run tests under all supported versions. As of May 2019 this includes
-  2.7, 3.4, 3.5, 3.6, 3.7.
+* Run tests under all supported versions. As of April 2021 this includes
+  2.7, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9.
 
 * On macOS, you can use `pyenv <https://github.com/pyenv/pyenv>`_ to
   manage multiple Python installations. Long story short:

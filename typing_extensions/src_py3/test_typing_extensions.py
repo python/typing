@@ -7,13 +7,13 @@ import pickle
 import subprocess
 import types
 from unittest import TestCase, main, skipUnless, skipIf
-from typing import TypeVar, Optional
+from typing import TypeVar, Optional, Union
 from typing import T, KT, VT  # Not in __all__.
-from typing import Tuple, List, Dict, Iterator
+from typing import Tuple, List, Dict, Iterator, Callable
 from typing import Generic
 from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
-from typing_extensions import TypeAlias, ParamSpec, Concatenate
+from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs
 
 try:
     from typing_extensions import Protocol, runtime, runtime_checkable
@@ -517,6 +517,80 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(gth(Loop, globals())['attr'], Final[Loop])
         self.assertNotEqual(gth(Loop, globals())['attr'], Final[int])
         self.assertNotEqual(gth(Loop, globals())['attr'], Final)
+
+
+@skipUnless(PEP_560, "Python 3.7+ required")
+class GetUtilitiesTestCase(TestCase):
+    def test_get_origin(self):
+        from typing_extensions import get_origin
+
+        T = TypeVar('T')
+        P = ParamSpec('P')
+        class C(Generic[T]): pass
+        self.assertIs(get_origin(C[int]), C)
+        self.assertIs(get_origin(C[T]), C)
+        self.assertIs(get_origin(int), None)
+        self.assertIs(get_origin(ClassVar[int]), ClassVar)
+        self.assertIs(get_origin(Union[int, str]), Union)
+        self.assertIs(get_origin(Literal[42, 43]), Literal)
+        self.assertIs(get_origin(Final[List[int]]), Final)
+        self.assertIs(get_origin(Generic), Generic)
+        self.assertIs(get_origin(Generic[T]), Generic)
+        self.assertIs(get_origin(List[Tuple[T, T]][int]), list)
+        self.assertIs(get_origin(Annotated[T, 'thing']), Annotated)
+        self.assertIs(get_origin(List), list)
+        self.assertIs(get_origin(Tuple), tuple)
+        self.assertIs(get_origin(Callable), collections.abc.Callable)
+        if sys.version_info >= (3, 9):
+            self.assertIs(get_origin(list[int]), list)
+        self.assertIs(get_origin(list), None)
+        self.assertIs(get_origin(P.args), P)
+        self.assertIs(get_origin(P.kwargs), P)
+
+    def test_get_args(self):
+        from typing_extensions import get_args
+
+        T = TypeVar('T')
+        class C(Generic[T]): pass
+        self.assertEqual(get_args(C[int]), (int,))
+        self.assertEqual(get_args(C[T]), (T,))
+        self.assertEqual(get_args(int), ())
+        self.assertEqual(get_args(ClassVar[int]), (int,))
+        self.assertEqual(get_args(Union[int, str]), (int, str))
+        self.assertEqual(get_args(Literal[42, 43]), (42, 43))
+        self.assertEqual(get_args(Final[List[int]]), (List[int],))
+        self.assertEqual(get_args(Union[int, Tuple[T, int]][str]),
+                         (int, Tuple[str, int]))
+        self.assertEqual(get_args(typing.Dict[int, Tuple[T, T]][Optional[int]]),
+                         (int, Tuple[Optional[int], Optional[int]]))
+        self.assertEqual(get_args(Callable[[], T][int]), ([], int))
+        self.assertEqual(get_args(Callable[..., int]), (..., int))
+        self.assertEqual(get_args(Union[int, Callable[[Tuple[T, ...]], str]]),
+                         (int, Callable[[Tuple[T, ...]], str]))
+        self.assertEqual(get_args(Tuple[int, ...]), (int, ...))
+        self.assertEqual(get_args(Tuple[()]), ((),))
+        self.assertEqual(get_args(Annotated[T, 'one', 2, ['three']]), (T, 'one', 2, ['three']))
+        self.assertEqual(get_args(List), ())
+        self.assertEqual(get_args(Tuple), ())
+        self.assertEqual(get_args(Callable), ())
+        if sys.version_info >= (3, 9):
+            self.assertEqual(get_args(list[int]), (int,))
+        self.assertEqual(get_args(list), ())
+        if sys.version_info >= (3, 9):
+            # Support Python versions with and without the fix for
+            # https://bugs.python.org/issue42195
+            # The first variant is for 3.9.2+, the second for 3.9.0 and 1
+            self.assertIn(get_args(collections.abc.Callable[[int], str]),
+                          (([int], str), ([[int]], str)))
+            self.assertIn(get_args(collections.abc.Callable[[], str]),
+                          (([], str), ([[]], str)))
+            self.assertEqual(get_args(collections.abc.Callable[..., str]), (..., str))
+        P = ParamSpec('P')
+        # In 3.9 and lower we use typing_extensions's hacky implementation
+        # of ParamSpec, which gets incorrectly wrapped in a list
+        self.assertIn(get_args(Callable[P, int]), [(P, int), ([P], int)])
+        self.assertEqual(get_args(Callable[Concatenate[int, P], int]),
+                         (Concatenate[int, P], int))
 
 
 class CollectionsAbcTests(BaseTestCase):
@@ -1952,8 +2026,17 @@ class ParamSpecTests(BaseTestCase):
         # ParamSpec instances should also have args and kwargs attributes.
         self.assertIn('args', dir(P))
         self.assertIn('kwargs', dir(P))
-        P.args
-        P.kwargs
+
+    def test_args_kwargs(self):
+        P = ParamSpec('P')
+        self.assertIn('args', dir(P))
+        self.assertIn('kwargs', dir(P))
+        self.assertIsInstance(P.args, ParamSpecArgs)
+        self.assertIsInstance(P.kwargs, ParamSpecKwargs)
+        self.assertIs(P.args.__origin__, P)
+        self.assertIs(P.kwargs.__origin__, P)
+        self.assertEqual(repr(P.args), "P.args")
+        self.assertEqual(repr(P.kwargs), "P.kwargs")
 
     # Note: ParamSpec doesn't work for pre-3.10 user-defined Generics due
     # to type checks inside Generic.
@@ -2072,7 +2155,7 @@ class AllTests(BaseTestCase):
             'Final',
             'get_type_hints'
         }
-        if sys.version_info[:2] == (3, 8):
+        if sys.version_info < (3, 10):
             exclude |= {'get_args', 'get_origin'}
         for item in typing_extensions.__all__:
             if item not in exclude and hasattr(typing, item):
