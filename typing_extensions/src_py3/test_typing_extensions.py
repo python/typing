@@ -2116,13 +2116,13 @@ class TypeGuardTests(BaseTestCase):
         self.assertEqual(gth(foo), {'return': TypeGuard[int]})
 
     def test_repr(self):
-        self.assertEqual(repr(TypeGuard), 'typing.TypeGuard')
+        self.assertEqual(repr(TypeGuard), 'typing_extensions.TypeGuard')
         cv = TypeGuard[int]
-        self.assertEqual(repr(cv), 'typing.TypeGuard[int]')
+        self.assertEqual(repr(cv), 'typing_extensions.TypeGuard[int]')
         cv = TypeGuard[Employee]
-        self.assertEqual(repr(cv), 'typing.TypeGuard[%s.Employee]' % __name__)
-        cv = TypeGuard[tuple[int]]
-        self.assertEqual(repr(cv), 'typing.TypeGuard[tuple[int]]')
+        self.assertEqual(repr(cv), 'typing_extensions.TypeGuard[%s.Employee]' % __name__)
+        cv = TypeGuard[Tuple[int]]
+        self.assertEqual(repr(cv), 'typing_extensions.TypeGuard[typing.Tuple[int]]')
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
