@@ -2111,18 +2111,23 @@ class ConcatenateTests(BaseTestCase):
 class TypeGuardTests(BaseTestCase):
     def test_basics(self):
         TypeGuard[int]  # OK
+        self.assertEqual(TypeGuard[int], TypeGuard[int])
 
         def foo(arg) -> TypeGuard[int]: ...
         self.assertEqual(gth(foo), {'return': TypeGuard[int]})
 
     def test_repr(self):
-        self.assertEqual(repr(TypeGuard), 'typing_extensions.TypeGuard')
+        if hasattr(typing, 'TypeGuard'):
+            mod_name = 'typing'
+        else:
+            mod_name = 'typing_extensions'
+        self.assertEqual(repr(TypeGuard), '{}.TypeGuard'.format(mod_name))
         cv = TypeGuard[int]
-        self.assertEqual(repr(cv), 'typing_extensions.TypeGuard[int]')
+        self.assertEqual(repr(cv), '{}.TypeGuard[int]'.format(mod_name))
         cv = TypeGuard[Employee]
-        self.assertEqual(repr(cv), 'typing_extensions.TypeGuard[%s.Employee]' % __name__)
+        self.assertEqual(repr(cv), '{}.TypeGuard[{}.Employee]'.format(mod_name, __name__))
         cv = TypeGuard[Tuple[int]]
-        self.assertEqual(repr(cv), 'typing_extensions.TypeGuard[typing.Tuple[int]]')
+        self.assertEqual(repr(cv), '{}.TypeGuard[typing.Tuple[int]]'.format(mod_name))
 
     @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_cannot_subclass(self):
