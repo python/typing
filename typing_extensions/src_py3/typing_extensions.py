@@ -2567,7 +2567,7 @@ elif sys.version_info[:2] >= (3, 9):
         ``TypeGuard`` also works with type variables.  For more information, see
         PEP 647 (User-Defined Type Guards).
         """
-        item = typing._type_check(parameters, f'{self} accepts only single type.')
+        item = typing._type_check(parameters, '{} accepts only single type.'.format(self))
         return _GenericAlias(self, (item,))
 
 elif sys.version_info[:2] >= (3, 7):
