@@ -2753,7 +2753,7 @@ else:
             return hash((type(self).__name__, self.__type__))
 
         def __eq__(self, other):
-            if not isinstance(other, TypeGuard):
+            if type(other) is not TypeGuard:
                 return NotImplemented
             if self.__type__ is not None:
                 return self.__type__ == other.__type__

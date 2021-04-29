@@ -2124,6 +2124,7 @@ class TypeGuardTests(BaseTestCase):
         cv = TypeGuard[Tuple[int]]
         self.assertEqual(repr(cv), 'typing_extensions.TypeGuard[typing.Tuple[int]]')
 
+    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(type(TypeGuard)):
