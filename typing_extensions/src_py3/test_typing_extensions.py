@@ -2146,6 +2146,7 @@ class TypeGuardTests(BaseTestCase):
         with self.assertRaises(TypeError):
             type(TypeGuard[Optional[int]])()
 
+    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_no_isinstance(self):
         with self.assertRaises(TypeError):
             isinstance(1, TypeGuard[int])

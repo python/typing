@@ -2717,12 +2717,6 @@ else:
                 self.__type__ = tp
             return self
 
-        def __instancecheck__(self, obj):
-            raise TypeError("TypeGuard cannot be used with isinstance().")
-
-        def __subclasscheck__(self, cls):
-            raise TypeError("TypeGuard cannot be used with issubclass().")
-
         def __getitem__(self, item):
             cls = type(self)
             if self.__type__ is not None:
@@ -2753,7 +2747,7 @@ else:
             return hash((type(self).__name__, self.__type__))
 
         def __eq__(self, other):
-            if type(other) is not TypeGuard:
+            if not isinstance(other, TypeGuard):
                 return NotImplemented
             if self.__type__ is not None:
                 return self.__type__ == other.__type__
