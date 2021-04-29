@@ -150,6 +150,7 @@ __all__ = [
     'overload',
     'Text',
     'TypeAlias',
+    'TypeGuard',
     'TYPE_CHECKING',
 ]
 
@@ -2514,3 +2515,118 @@ else:
         See PEP 612 for detailed information.
         """
         __slots__ = ()
+
+if hasattr(typing, 'TypeGuard'):
+    TypeGuard = typing.TypeGuard
+elif sys.version_info[:2] >= (3, 7):
+    class _TypeGuardForm(typing._SpecialForm, _root=True):
+
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+        def __getitem__(self, parameters):
+            item = typing._type_check(parameters,
+                                      '{} accepts only a single type'.format(self._name))
+            return _GenericAlias(self, (item,))
+
+    TypeGuard = _TypeGuardForm('TypeGuard',
+                       doc="""TODO.""")
+elif hasattr(typing, '_FinalTypingBase'):
+    class _TypeGuard(typing._FinalTypingBase, _root=True):
+        """TODO
+        """
+
+        __slots__ = ('__type__',)
+
+        def __init__(self, tp=None, **kwds):
+            self.__type__ = tp
+
+        def __getitem__(self, item):
+            cls = type(self)
+            if self.__type__ is None:
+                return cls(typing._type_check(item,
+                           '{} accepts only a single type.'.format(cls.__name__[1:])),
+                           _root=True)
+            raise TypeError('{} cannot be further subscripted'
+                            .format(cls.__name__[1:]))
+
+        def _eval_type(self, globalns, localns):
+            new_tp = typing._eval_type(self.__type__, globalns, localns)
+            if new_tp == self.__type__:
+                return self
+            return type(self)(new_tp, _root=True)
+
+        def __repr__(self):
+            r = super().__repr__()
+            if self.__type__ is not None:
+                r += '[{}]'.format(typing._type_repr(self.__type__))
+            return r
+
+        def __hash__(self):
+            return hash((type(self).__name__, self.__type__))
+
+        def __eq__(self, other):
+            if not isinstance(other, _TypeGuard):
+                return NotImplemented
+            if self.__type__ is not None:
+                return self.__type__ == other.__type__
+            return self is other
+
+    TypeGuard = _TypeGuard(_root=True)
+else:
+    class _TypeGuardMeta(typing.TypingMeta):
+        """Metaclass for TypeGuard"""
+
+        def __new__(cls, name, bases, namespace, tp=None, _root=False):
+            self = super().__new__(cls, name, bases, namespace, _root=_root)
+            if tp is not None:
+                self.__type__ = tp
+            return self
+
+        def __instancecheck__(self, obj):
+            raise TypeError("TypeGuard cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError("TypeGuard cannot be used with issubclass().")
+
+        def __getitem__(self, item):
+            cls = type(self)
+            if self.__type__ is not None:
+                raise TypeError('{} cannot be further subscripted'
+                                .format(cls.__name__[1:]))
+
+            param = typing._type_check(
+                item,
+                '{} accepts only single type.'.format(cls.__name__[1:]))
+            return cls(self.__name__, self.__bases__,
+                       dict(self.__dict__), tp=param, _root=True)
+
+        def _eval_type(self, globalns, localns):
+            new_tp = typing._eval_type(self.__type__, globalns, localns)
+            if new_tp == self.__type__:
+                return self
+            return type(self)(self.__name__, self.__bases__,
+                              dict(self.__dict__), tp=self.__type__,
+                              _root=True)
+
+        def __repr__(self):
+            r = super().__repr__()
+            if self.__type__ is not None:
+                r += '[{}]'.format(typing._type_repr(self.__type__))
+            return r
+
+        def __hash__(self):
+            return hash((type(self).__name__, self.__type__))
+
+        def __eq__(self, other):
+            if not isinstance(other, TypeGuard):
+                return NotImplemented
+            if self.__type__ is not None:
+                return self.__type__ == other.__type__
+            return self is other
+
+    class TypeGuard(typing.Final, metaclass=_TypeGuardMeta, _root=True):
+        """TODO
+        """
+
+        __type__ = None
