@@ -9,23 +9,24 @@ if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 4, 0):
                      'to install the typing package.\n')
     exit(1)
 
-version = '3.7.4.3'
+version = '3.10.0.0'
 description = 'Backported and Experimental Type Hints for Python 3.5+'
 long_description = '''\
 Typing Extensions -- Backported and Experimental Type Hints for Python
 
-The ``typing`` module was added to the standard library in Python 3.5 on
-a provisional basis and will no longer be provisional in Python 3.7. However,
-this means users of Python 3.5 - 3.6 who are unable to upgrade will not be
+The ``typing`` module was added to the standard library in Python 3.5, but
+many new features have been added to the module since then.
+This means users of Python 3.5 - 3.6 who are unable to upgrade will not be
 able to take advantage of new types added to the ``typing`` module, such as
-``typing.Text`` or ``typing.Coroutine``.
+``typing.Protocol`` or ``typing.TypedDict``.
 
-The ``typing_extensions`` module contains both backports of these changes
-as well as experimental types that will eventually be added to the ``typing``
-module, such as ``Protocol`` or ``TypedDict``.
+The ``typing_extensions`` module contains backports of these changes.
+Experimental types that will eventually be added to the ``typing``
+module are also included in ``typing_extensions``, such as
+``typing.ParamSpec`` and ``typing.TypeGuard``.
 
-Users of other Python versions should continue to install and use
-the ``typing`` module from PyPi instead of using this one unless specifically
+Users of Python versions before 3.5 should install and use
+the ``typing`` module from PyPI instead of using this one, unless specifically
 writing code that must be compatible with multiple Python versions or requires
 experimental types.
 '''
@@ -43,6 +44,7 @@ classifiers = [
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
     'Topic :: Software Development',
 ]
 
@@ -57,7 +59,7 @@ setup(name='typing_extensions',
       version=version,
       description=description,
       long_description=long_description,
-      author='Guido van Rossum, Jukka Lehtosalo, Lukasz Langa, Michael Lee',
+      author='Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee',
       author_email='levkivskyi@gmail.com',
       url='https://github.com/python/typing/blob/master/typing_extensions/README.rst',
       license='PSF',
