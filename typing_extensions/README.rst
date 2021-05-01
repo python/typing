@@ -46,7 +46,7 @@ All Python versions:
 - ``overload`` (note that older versions of ``typing`` only let you use ``overload`` in stubs)
 - ``OrderedDict``
 - ``Protocol`` (except on Python 3.5.0)
-- ``runtime`` (except on Python 3.5.0)
+- ``runtime_checkable`` (except on Python 3.5.0)
 - ``Text``
 - ``Type``
 - ``TypedDict``
@@ -61,6 +61,7 @@ Python 3.4+ only:
 - ``Concatenate``
 - ``ParamSpecArgs``
 - ``ParamSpecKwargs``
+- ``TypeGuard``
 
 Python 3.5+ only:
 -----------------

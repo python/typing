@@ -150,6 +150,7 @@ __all__ = [
     'overload',
     'Text',
     'TypeAlias',
+    'TypeGuard',
     'TYPE_CHECKING',
 ]
 
@@ -2514,3 +2515,291 @@ else:
         See PEP 612 for detailed information.
         """
         __slots__ = ()
+
+if hasattr(typing, 'TypeGuard'):
+    TypeGuard = typing.TypeGuard
+elif sys.version_info[:2] >= (3, 9):
+    class _TypeGuardForm(typing._SpecialForm, _root=True):
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+    @_TypeGuardForm
+    def TypeGuard(self, parameters):
+        """Special typing form used to annotate the return type of a user-defined
+        type guard function.  ``TypeGuard`` only accepts a single type argument.
+        At runtime, functions marked this way should return a boolean.
+
+        ``TypeGuard`` aims to benefit *type narrowing* -- a technique used by static
+        type checkers to determine a more precise type of an expression within a
+        program's code flow.  Usually type narrowing is done by analyzing
+        conditional code flow and applying the narrowing to a block of code.  The
+        conditional expression here is sometimes referred to as a "type guard".
+
+        Sometimes it would be convenient to use a user-defined boolean function
+        as a type guard.  Such a function should use ``TypeGuard[...]`` as its
+        return type to alert static type checkers to this intention.
+
+        Using  ``-> TypeGuard`` tells the static type checker that for a given
+        function:
+
+        1. The return value is a boolean.
+        2. If the return value is ``True``, the type of its argument
+        is the type inside ``TypeGuard``.
+
+        For example::
+
+            def is_str(val: Union[str, float]):
+                # "isinstance" type guard
+                if isinstance(val, str):
+                    # Type of ``val`` is narrowed to ``str``
+                    ...
+                else:
+                    # Else, type of ``val`` is narrowed to ``float``.
+                    ...
+
+        Strict type narrowing is not enforced -- ``TypeB`` need not be a narrower
+        form of ``TypeA`` (it can even be a wider form) and this may lead to
+        type-unsafe results.  The main reason is to allow for things like
+        narrowing ``List[object]`` to ``List[str]`` even though the latter is not
+        a subtype of the former, since ``List`` is invariant.  The responsibility of
+        writing type-safe type guards is left to the user.
+
+        ``TypeGuard`` also works with type variables.  For more information, see
+        PEP 647 (User-Defined Type Guards).
+        """
+        item = typing._type_check(parameters, '{} accepts only single type.'.format(self))
+        return _GenericAlias(self, (item,))
+
+elif sys.version_info[:2] >= (3, 7):
+    class _TypeGuardForm(typing._SpecialForm, _root=True):
+
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+        def __getitem__(self, parameters):
+            item = typing._type_check(parameters,
+                                      '{} accepts only a single type'.format(self._name))
+            return _GenericAlias(self, (item,))
+
+    TypeGuard = _TypeGuardForm(
+            'TypeGuard',
+            doc="""Special typing form used to annotate the return type of a user-defined
+        type guard function.  ``TypeGuard`` only accepts a single type argument.
+        At runtime, functions marked this way should return a boolean.
+
+        ``TypeGuard`` aims to benefit *type narrowing* -- a technique used by static
+        type checkers to determine a more precise type of an expression within a
+        program's code flow.  Usually type narrowing is done by analyzing
+        conditional code flow and applying the narrowing to a block of code.  The
+        conditional expression here is sometimes referred to as a "type guard".
+
+        Sometimes it would be convenient to use a user-defined boolean function
+        as a type guard.  Such a function should use ``TypeGuard[...]`` as its
+        return type to alert static type checkers to this intention.
+
+        Using  ``-> TypeGuard`` tells the static type checker that for a given
+        function:
+
+        1. The return value is a boolean.
+        2. If the return value is ``True``, the type of its argument
+        is the type inside ``TypeGuard``.
+
+        For example::
+
+            def is_str(val: Union[str, float]):
+                # "isinstance" type guard
+                if isinstance(val, str):
+                    # Type of ``val`` is narrowed to ``str``
+                    ...
+                else:
+                    # Else, type of ``val`` is narrowed to ``float``.
+                    ...
+
+        Strict type narrowing is not enforced -- ``TypeB`` need not be a narrower
+        form of ``TypeA`` (it can even be a wider form) and this may lead to
+        type-unsafe results.  The main reason is to allow for things like
+        narrowing ``List[object]`` to ``List[str]`` even though the latter is not
+        a subtype of the former, since ``List`` is invariant.  The responsibility of
+        writing type-safe type guards is left to the user.
+
+        ``TypeGuard`` also works with type variables.  For more information, see
+        PEP 647 (User-Defined Type Guards).
+        """)
+elif hasattr(typing, '_FinalTypingBase'):
+    class _TypeGuard(typing._FinalTypingBase, _root=True):
+        """Special typing form used to annotate the return type of a user-defined
+        type guard function.  ``TypeGuard`` only accepts a single type argument.
+        At runtime, functions marked this way should return a boolean.
+
+        ``TypeGuard`` aims to benefit *type narrowing* -- a technique used by static
+        type checkers to determine a more precise type of an expression within a
+        program's code flow.  Usually type narrowing is done by analyzing
+        conditional code flow and applying the narrowing to a block of code.  The
+        conditional expression here is sometimes referred to as a "type guard".
+
+        Sometimes it would be convenient to use a user-defined boolean function
+        as a type guard.  Such a function should use ``TypeGuard[...]`` as its
+        return type to alert static type checkers to this intention.
+
+        Using  ``-> TypeGuard`` tells the static type checker that for a given
+        function:
+
+        1. The return value is a boolean.
+        2. If the return value is ``True``, the type of its argument
+        is the type inside ``TypeGuard``.
+
+        For example::
+
+            def is_str(val: Union[str, float]):
+                # "isinstance" type guard
+                if isinstance(val, str):
+                    # Type of ``val`` is narrowed to ``str``
+                    ...
+                else:
+                    # Else, type of ``val`` is narrowed to ``float``.
+                    ...
+
+        Strict type narrowing is not enforced -- ``TypeB`` need not be a narrower
+        form of ``TypeA`` (it can even be a wider form) and this may lead to
+        type-unsafe results.  The main reason is to allow for things like
+        narrowing ``List[object]`` to ``List[str]`` even though the latter is not
+        a subtype of the former, since ``List`` is invariant.  The responsibility of
+        writing type-safe type guards is left to the user.
+
+        ``TypeGuard`` also works with type variables.  For more information, see
+        PEP 647 (User-Defined Type Guards).
+        """
+
+        __slots__ = ('__type__',)
+
+        def __init__(self, tp=None, **kwds):
+            self.__type__ = tp
+
+        def __getitem__(self, item):
+            cls = type(self)
+            if self.__type__ is None:
+                return cls(typing._type_check(item,
+                           '{} accepts only a single type.'.format(cls.__name__[1:])),
+                           _root=True)
+            raise TypeError('{} cannot be further subscripted'
+                            .format(cls.__name__[1:]))
+
+        def _eval_type(self, globalns, localns):
+            new_tp = typing._eval_type(self.__type__, globalns, localns)
+            if new_tp == self.__type__:
+                return self
+            return type(self)(new_tp, _root=True)
+
+        def __repr__(self):
+            r = super().__repr__()
+            if self.__type__ is not None:
+                r += '[{}]'.format(typing._type_repr(self.__type__))
+            return r
+
+        def __hash__(self):
+            return hash((type(self).__name__, self.__type__))
+
+        def __eq__(self, other):
+            if not isinstance(other, _TypeGuard):
+                return NotImplemented
+            if self.__type__ is not None:
+                return self.__type__ == other.__type__
+            return self is other
+
+    TypeGuard = _TypeGuard(_root=True)
+else:
+    class _TypeGuardMeta(typing.TypingMeta):
+        """Metaclass for TypeGuard"""
+
+        def __new__(cls, name, bases, namespace, tp=None, _root=False):
+            self = super().__new__(cls, name, bases, namespace, _root=_root)
+            if tp is not None:
+                self.__type__ = tp
+            return self
+
+        def __instancecheck__(self, obj):
+            raise TypeError("TypeGuard cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError("TypeGuard cannot be used with issubclass().")
+
+        def __getitem__(self, item):
+            cls = type(self)
+            if self.__type__ is not None:
+                raise TypeError('{} cannot be further subscripted'
+                                .format(cls.__name__[1:]))
+
+            param = typing._type_check(
+                item,
+                '{} accepts only single type.'.format(cls.__name__[1:]))
+            return cls(self.__name__, self.__bases__,
+                       dict(self.__dict__), tp=param, _root=True)
+
+        def _eval_type(self, globalns, localns):
+            new_tp = typing._eval_type(self.__type__, globalns, localns)
+            if new_tp == self.__type__:
+                return self
+            return type(self)(self.__name__, self.__bases__,
+                              dict(self.__dict__), tp=self.__type__,
+                              _root=True)
+
+        def __repr__(self):
+            r = super().__repr__()
+            if self.__type__ is not None:
+                r += '[{}]'.format(typing._type_repr(self.__type__))
+            return r
+
+        def __hash__(self):
+            return hash((type(self).__name__, self.__type__))
+
+        def __eq__(self, other):
+            if not hasattr(other, "__type__"):
+                return NotImplemented
+            if self.__type__ is not None:
+                return self.__type__ == other.__type__
+            return self is other
+
+    class TypeGuard(typing.Final, metaclass=_TypeGuardMeta, _root=True):
+        """Special typing form used to annotate the return type of a user-defined
+        type guard function.  ``TypeGuard`` only accepts a single type argument.
+        At runtime, functions marked this way should return a boolean.
+
+        ``TypeGuard`` aims to benefit *type narrowing* -- a technique used by static
+        type checkers to determine a more precise type of an expression within a
+        program's code flow.  Usually type narrowing is done by analyzing
+        conditional code flow and applying the narrowing to a block of code.  The
+        conditional expression here is sometimes referred to as a "type guard".
+
+        Sometimes it would be convenient to use a user-defined boolean function
+        as a type guard.  Such a function should use ``TypeGuard[...]`` as its
+        return type to alert static type checkers to this intention.
+
+        Using  ``-> TypeGuard`` tells the static type checker that for a given
+        function:
+
+        1. The return value is a boolean.
+        2. If the return value is ``True``, the type of its argument
+        is the type inside ``TypeGuard``.
+
+        For example::
+
+            def is_str(val: Union[str, float]):
+                # "isinstance" type guard
+                if isinstance(val, str):
+                    # Type of ``val`` is narrowed to ``str``
+                    ...
+                else:
+                    # Else, type of ``val`` is narrowed to ``float``.
+                    ...
+
+        Strict type narrowing is not enforced -- ``TypeB`` need not be a narrower
+        form of ``TypeA`` (it can even be a wider form) and this may lead to
+        type-unsafe results.  The main reason is to allow for things like
+        narrowing ``List[object]`` to ``List[str]`` even though the latter is not
+        a subtype of the former, since ``List`` is invariant.  The responsibility of
+        writing type-safe type guards is left to the user.
+
+        ``TypeGuard`` also works with type variables.  For more information, see
+        PEP 647 (User-Defined Type Guards).
+        """
+        __type__ = None
