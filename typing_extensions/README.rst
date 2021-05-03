@@ -58,11 +58,11 @@ Python 3.4+ only:
 
 - ``ChainMap``
 - ``Concatenate``
-- ``NotRequired``
+- ``NotRequired`` (except on Python 3.5.0-3.5.2)
 - ``ParamSpec``
 - ``ParamSpecArgs``
 - ``ParamSpecKwargs``
-- ``Required``
+- ``Required`` (except on Python 3.5.0-3.5.2)
 - ``TypeGuard``
 
 Python 3.5+ only:

@@ -2961,5 +2961,5 @@ elif hasattr(typing, '_FinalTypingBase'):
     Required = _Required(_root=True)
     NotRequired = _NotRequired(_root=True)
 else:
-    # Unreachable?
+    # Python 3.5.0 - 3.5.2: Unsupported
     pass
