@@ -1,6 +1,6 @@
 This repository contains backports of the CPython `typing` module to earlier versions of
-Python. As such, follow CPython's contribution guidelines as much as possible when
-contributing code here.
+Python. Therefore, code in this repo should follow CPython's style guidelines and
+contributors need to sign the PSF Contributor Agreement.
 
 # typing
 
