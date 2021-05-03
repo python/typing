@@ -12,7 +12,10 @@ from typing import T, KT, VT  # Not in __all__.
 from typing import Tuple, List, Dict, Iterator, Callable
 from typing import Generic
 from typing import no_type_check
-from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
+from typing_extensions import (
+    NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict,
+    Required
+)
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 
 try:
@@ -226,6 +229,50 @@ class FinalTests(BaseTestCase):
             isinstance(1, Final[int])
         with self.assertRaises(TypeError):
             issubclass(int, Final)
+
+
+class RequiredTests(BaseTestCase):
+
+    def test_basics(self):
+        with self.assertRaises(TypeError):
+            Required[1]
+        with self.assertRaises(TypeError):
+            Required[int, str]
+        with self.assertRaises(TypeError):
+            Required[int][str]
+
+    def test_repr(self):
+        if hasattr(typing, 'Required'):
+            mod_name = 'typing'
+        else:
+            mod_name = 'typing_extensions'
+        self.assertEqual(repr(Required), mod_name + '.Required')
+        cv = Required[int]
+        self.assertEqual(repr(cv), mod_name + '.Required[int]')
+        cv = Required[Employee]
+        self.assertEqual(repr(cv), mod_name + '.Required[%s.Employee]' % __name__)
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(Required)):
+                pass
+        with self.assertRaises(TypeError):
+            class C(type(Required[int])):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            Required()
+        with self.assertRaises(TypeError):
+            type(Required)()
+        with self.assertRaises(TypeError):
+            type(Required[Optional[int]])()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, Required[int])
+        with self.assertRaises(TypeError):
+            issubclass(int, Required)
 
 
 class IntVarTests(BaseTestCase):
