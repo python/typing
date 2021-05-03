@@ -12,10 +12,7 @@ from typing import T, KT, VT  # Not in __all__.
 from typing import Tuple, List, Dict, Iterator, Callable
 from typing import Generic
 from typing import no_type_check
-from typing_extensions import (
-    NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict,
-    Required, NotRequired,
-)
+from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 
 try:
@@ -78,6 +75,9 @@ PY36 = sys.version_info[:2] >= (3, 6)
 
 # Protocols are hard to backport to the original version of typing 3.5.0
 HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
+
+if TYPING_3_5_3:
+    from typing_extensions import Required, NotRequired
 
 
 class BaseTestCase(TestCase):
