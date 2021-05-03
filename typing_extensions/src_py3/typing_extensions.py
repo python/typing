@@ -2845,13 +2845,13 @@ elif sys.version_info[:2] >= (3, 9):
     @_ExtensionsSpecialForm
     def Required(self, parameters):
         _REQUIRED_DOC
-        item = typing._type_check(parameters, f'{self} accepts only single type.')
+        item = typing._type_check(parameters, '{} accepts only single type'.format(self._name))
         return typing._GenericAlias(self, (item,))
 
     @_ExtensionsSpecialForm
     def NotRequired(self, parameters):
         _NOT_REQUIRED_DOC
-        item = typing._type_check(parameters, f'{self} accepts only single type.')
+        item = typing._type_check(parameters, '{} accepts only single type'.format(self._name))
         return typing._GenericAlias(self, (item,))
 elif sys.version_info[:2] >= (3, 7):
     class _RequiredForm(typing._SpecialForm, _root=True):
