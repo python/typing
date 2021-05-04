@@ -2191,6 +2191,10 @@ class AllTests(BaseTestCase):
             self.assertIn('Protocol', a)
             self.assertIn('runtime', a)
 
+        # Check that all objects in `__all__` are present in the module
+        for name in a:
+            self.assertTrue(hasattr(typing_extensions, name))
+
     def test_typing_extensions_defers_when_possible(self):
         exclude = {
             'overload',

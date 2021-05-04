@@ -136,7 +136,7 @@ __all__ = [
     'Counter',
     'Deque',
     'DefaultDict',
-    'OrderedDict'
+    'OrderedDict',
     'TypedDict',
 
     # Structural checks, a.k.a. protocols.
