@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'typing'
-copyright = '2021, shannonzhu'
-author = 'shannonzhu'
+copyright = '2021, The Python Typing Team'
+author = 'The Python Typing Team'
 
 
 # -- General configuration ---------------------------------------------------
