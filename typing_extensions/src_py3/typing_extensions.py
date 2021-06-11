@@ -2385,7 +2385,13 @@ else:
 class _ConcatenateGenericAlias(list):
 
     # Trick Generic into looking into this for __parameters__.
-    __class__ = _GenericAlias
+    if OLD_GENERICS:
+        __class__ = _GenericAlias
+    else:
+        __class__ = GenericMeta
+
+    # Flag in 3.8.
+    _special = False
 
     def __init__(self, origin, args):
         super().__init__(args)
@@ -2409,6 +2415,10 @@ class _ConcatenateGenericAlias(list):
     def __parameters__(self):
         return tuple(tp for tp in self.__args__ if isinstance(tp, (TypeVar, ParamSpec)))
 
+    # Only needed in 3.6 and lower.
+    def _get_type_vars(self, tvars):
+        if self not in tvars:
+            tvars.append(self)
 
 @_tp_cache
 def _concatenate_getitem(self, parameters):
