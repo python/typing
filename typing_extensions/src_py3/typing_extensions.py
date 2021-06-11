@@ -2393,12 +2393,12 @@ class _ConcatenateGenericAlias(list):
     if PEP_560:
         __class__ = _GenericAlias
     else:
-        __class__ = typing._TypingBase
+        __class__ = typing.TypingMeta
 
     # Flag in 3.8.
     _special = False
-    # Flag in 3.6
-    _gorg = Generic
+    # Attribute in 3.6
+    _gorg = GenericMeta
 
     def __init__(self, origin, args):
         super().__init__(args)
