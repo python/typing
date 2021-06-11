@@ -2380,18 +2380,25 @@ else:
         def __call__(self, *args, **kwargs):
             pass
 
+        if not PEP_560:
+            # Only needed in 3.6 and lower.
+            def _get_type_vars(self, tvars):
+                if self not in tvars:
+                    tvars.append(self)
 
 # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
 class _ConcatenateGenericAlias(list):
 
     # Trick Generic into looking into this for __parameters__.
-    if OLD_GENERICS:
+    if PEP_560:
         __class__ = _GenericAlias
     else:
-        __class__ = GenericMeta
+        __class__ = typing._TypingBase
 
     # Flag in 3.8.
     _special = False
+    # Flag in 3.6
+    _gorg = Generic
 
     def __init__(self, origin, args):
         super().__init__(args)
@@ -2415,10 +2422,11 @@ class _ConcatenateGenericAlias(list):
     def __parameters__(self):
         return tuple(tp for tp in self.__args__ if isinstance(tp, (TypeVar, ParamSpec)))
 
-    # Only needed in 3.6 and lower.
-    def _get_type_vars(self, tvars):
-        if self not in tvars:
-            tvars.append(self)
+    if not PEP_560:
+        # Only required in 3.6 and lower.
+        def _get_type_vars(self, tvars):
+            if self.__origin__ and self.__parameters__:
+                typing._get_type_vars(self.__parameters__, tvars)
 
 @_tp_cache
 def _concatenate_getitem(self, parameters):
