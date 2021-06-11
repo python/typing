@@ -2052,8 +2052,7 @@ class ParamSpecTests(BaseTestCase):
         P_2 = ParamSpec("P_2")
 
         class X(Generic[T, P]):
-            f: Callable[P, int]
-            x: T
+            pass
 
         G1 = X[int, P_2]
         self.assertEqual(G1.__args__, (int, P_2))
@@ -2072,7 +2071,7 @@ class ParamSpecTests(BaseTestCase):
         # G6 = Z[int, str, bool]
 
         class Z(Generic[P]):
-            f: Callable[P, int]
+            pass
 
     def test_pickle(self):
         global P, P_co, P_contra
