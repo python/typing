@@ -2392,13 +2392,18 @@ class _ConcatenateGenericAlias(list):
     # Trick Generic into looking into this for __parameters__.
     if PEP_560:
         __class__ = _GenericAlias
-    else:
+    elif sys.version_info[:3] == (3, 5, 2):
         __class__ = typing.TypingMeta
+    else:
+        __class__ = typing._TypingBase
 
     # Flag in 3.8.
     _special = False
-    # Attribute in 3.6
-    _gorg = GenericMeta
+    # Attribute in 3.6 and earlier.
+    if sys.version_info[:3] == (3, 5, 2):
+        _gorg = typing.GenericMeta
+    else:
+        _gorg = typing.Generic
 
     def __init__(self, origin, args):
         super().__init__(args)
