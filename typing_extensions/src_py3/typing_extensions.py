@@ -2329,6 +2329,9 @@ else:
         be pickled.
         """
 
+        # Trick Generic __parameters__.
+        __class__ = TypeVar
+
         @property
         def args(self):
             return ParamSpecArgs(self)
@@ -2377,14 +2380,13 @@ else:
         def __call__(self, *args, **kwargs):
             pass
 
-        # Note: Can't fake ParamSpec as a TypeVar to get it to work
-        # with Generics. ParamSpec isn't an instance of TypeVar in 3.10.
-        # So encouraging code like isinstance(ParamSpec('P'), TypeVar))
-        # will lead to breakage in 3.10.
-        # This also means no accurate __parameters__ for GenericAliases.
 
 # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
 class _ConcatenateGenericAlias(list):
+
+    # Trick Generic into looking into this for __parameters__.
+    __class__ = _GenericAlias
+
     def __init__(self, origin, args):
         super().__init__(args)
         self.__origin__ = origin
@@ -2398,6 +2400,15 @@ class _ConcatenateGenericAlias(list):
 
     def __hash__(self):
         return hash((self.__origin__, self.__args__))
+
+    # Hack to get typing._type_check to pass in Generic.
+    def __call__(self, *args, **kwargs):
+        pass
+
+    @property
+    def __parameters__(self):
+        return tuple(tp for tp in self.__args__ if isinstance(tp, (TypeVar, ParamSpec)))
+
 
 @_tp_cache
 def _concatenate_getitem(self, parameters):
