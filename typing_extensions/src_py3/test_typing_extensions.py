@@ -2014,12 +2014,14 @@ class ParamSpecTests(BaseTestCase):
         C1 = typing.Callable[P, int]
         # Callable in Python 3.5.2 might be bugged when collecting __args__.
         # https://github.com/python/cpython/blob/91185fe0284a04162e0b3425b53be49bdbfad67d/Lib/typing.py#L1026
-        if not sys.version_info[:3] == (3, 5, 2):
+        PY_3_5_2 = sys.version_info[:3] == (3, 5, 2)
+        if not PY_3_5_2:
             self.assertEqual(C1.__args__, (P, int))
-        self.assertEqual(C1.__parameters__, (P,))
+            self.assertEqual(C1.__parameters__, (P,))
         C2 = typing.Callable[P, T]
-        self.assertEqual(C2.__args__, (P, T))
-        self.assertEqual(C2.__parameters__, (P, T))
+        if not PY_3_5_2:
+            self.assertEqual(C2.__args__, (P, T))
+            self.assertEqual(C2.__parameters__, (P, T))
 
 
         # Test collections.abc.Callable too.
