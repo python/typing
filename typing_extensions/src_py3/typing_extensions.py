@@ -2329,6 +2329,9 @@ else:
         be pickled.
         """
 
+        # Trick Generic __parameters__.
+        __class__ = TypeVar
+
         @property
         def args(self):
             return ParamSpecArgs(self)
@@ -2377,14 +2380,31 @@ else:
         def __call__(self, *args, **kwargs):
             pass
 
-        # Note: Can't fake ParamSpec as a TypeVar to get it to work
-        # with Generics. ParamSpec isn't an instance of TypeVar in 3.10.
-        # So encouraging code like isinstance(ParamSpec('P'), TypeVar))
-        # will lead to breakage in 3.10.
-        # This also means no accurate __parameters__ for GenericAliases.
+        if not PEP_560:
+            # Only needed in 3.6 and lower.
+            def _get_type_vars(self, tvars):
+                if self not in tvars:
+                    tvars.append(self)
 
 # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
 class _ConcatenateGenericAlias(list):
+
+    # Trick Generic into looking into this for __parameters__.
+    if PEP_560:
+        __class__ = _GenericAlias
+    elif sys.version_info[:3] == (3, 5, 2):
+        __class__ = typing.TypingMeta
+    else:
+        __class__ = typing._TypingBase
+
+    # Flag in 3.8.
+    _special = False
+    # Attribute in 3.6 and earlier.
+    if sys.version_info[:3] == (3, 5, 2):
+        _gorg = typing.GenericMeta
+    else:
+        _gorg = typing.Generic
+
     def __init__(self, origin, args):
         super().__init__(args)
         self.__origin__ = origin
@@ -2398,6 +2418,20 @@ class _ConcatenateGenericAlias(list):
 
     def __hash__(self):
         return hash((self.__origin__, self.__args__))
+
+    # Hack to get typing._type_check to pass in Generic.
+    def __call__(self, *args, **kwargs):
+        pass
+
+    @property
+    def __parameters__(self):
+        return tuple(tp for tp in self.__args__ if isinstance(tp, (TypeVar, ParamSpec)))
+
+    if not PEP_560:
+        # Only required in 3.6 and lower.
+        def _get_type_vars(self, tvars):
+            if self.__origin__ and self.__parameters__:
+                typing._get_type_vars(self.__parameters__, tvars)
 
 @_tp_cache
 def _concatenate_getitem(self, parameters):

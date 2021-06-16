@@ -90,8 +90,8 @@ issues when mixing the differing implementations of modified classes.
 
 Certain types have incorrect runtime behavior due to limitations of older
 versions of the typing module.  For example, ``ParamSpec`` and ``Concatenate``
-will not work with ``get_args``, ``get_origin`` or user-defined ``Generic``\ s
-because they need to be lists to work with older versions of ``Callable``.
+will not work with ``get_args``, ``get_origin``. Certain PEP 612 special cases
+in user-defined ``Generic``\ s are also not available.
 These types are only guaranteed to work for static type checking.
 
 Running tests
