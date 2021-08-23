@@ -4,18 +4,11 @@
 Type Stubs
 **********
 
-Abstract
-========
+Introduction
+============
 
-Optional type hints were introduced to the Python language in PEP 484
-[#pep484]_, based on the function annotation syntax from PEP 3107
-[#pep3107]_. Static type checkers can use type hints to prevent bugs,
-documentation tools can automatically add type information,
-and IDEs can offer improved autocompletion and support safer refactorings.
-
-PEP 484 also introduced *type stubs*, also called *stub files*,
-that provide type information for untyped Python packages and modules. Type
-stubs serve multiple purposes:
+*type stubs*, also called *stub files*, provide type information for untyped
+Python packages and modules. Type stubs serve multiple purposes:
 
 * They are the only way to add type information to extension modules.
 * They can provide type information for packages that do not wish to
@@ -28,26 +21,23 @@ stubs serve multiple purposes:
   API of a package, without including the implementation or private
   members.
 
-This PEP aims to give guidance to both authors of type stubs and developers
+This document aims to give guidance to both authors of type stubs and developers
 of type checkers and other tools. It describes the constructs that can be used safely in type stubs,
 suggests a style guide for them, and lists constructs that type
 checkers are expected to support.
 
-Type stubs that only use constructs described in this PEP should work with
-all type checkers that also follow this PEP.
+Type stubs that only use constructs described in this document should work with
+all type checkers that also follow this document.
 Type stub authors can elect to use additional constructs, but
 must be prepared that some type checkers will not parse them as expected.
 
-A type checker that conforms to this PEP will parse a type stub that only uses
+A type checker that conforms to this document will parse a type stub that only uses
 constructs described here without error and will not interpret any
 construct in a contradictory manner. However, type checkers are not
 required to implement checks for all these constructs, and
 can elect to ignore unsupported ones. Additionally type checkers
-can support constructs not described in this PEP and tool authors are
+can support constructs not described in this document and tool authors are
 encouraged to experiment with additional features.
-
-This PEP is intended as a living document and will be updated as new
-features are supported or best practices evolve.
 
 Syntax
 ======
@@ -82,8 +72,10 @@ Distribution
 Type stubs can be distributed with or separately from the implementation;
 see PEP 561 [#pep561]_ for more information. The typeshed_ project
 includes stubs for Python's standard library and several third-party
-packages. These are usually distributed with type checkers and do not
-require separate installation.
+packages. The stubs for the standard library are usually distributed with type checkers and do not
+require separate installation. Stubs for third-party libraries are
+available on the `Python Package Index <https://pypi.org>`_. A stub package for
+a library called ``widget`` will be called ``types-widget``.
 
 Supported Constructs
 ====================
@@ -119,7 +111,9 @@ Two kinds of structured comments are accepted:
   declaring that the variable has type ``X``. However, PEP 526-style [#pep526]_
   variable annotations are preferred over type comments.
 * A ``# type: ignore`` comment at the end of any line, which suppresses all type
-  errors in that line.
+  errors in that line. The type checker mypy supports suppressing certain
+  type errors by using ``# type: ignore[error-type]``. This is not supported
+  by other type checkers and should not be used in stubs.
 
 Imports
 -------
@@ -166,13 +160,13 @@ By default, ``from foo import *`` imports all names in ``foo`` that
 do not begin with an underscore. When ``__all__`` is defined, only those names
 specified in ``__all__`` are imported::
 
-  __all__ = ['public_attr', '_private_looking_public_attr']
+    __all__ = ['public_attr', '_private_looking_public_attr']
 
     public_attr: int
     _private_looking_public_attr: int
     private_attr: int
 
-Type checkers can handle cyclic imports in stub files.
+Type checkers support cyclic imports in stub files.
 
 Module Level Attributes
 -----------------------
@@ -267,7 +261,7 @@ Alternatively, ``...`` can be used in place of any default value::
     def invalid(a: int = "", b: Foo = Foo()): ...
 
 For a class ``C``, the type of the first argument to a classmethod is
-assumed to be ``Type[C]``, if unannotated. For other non-static methods,
+assumed to be ``type[C]``, if unannotated. For other non-static methods,
 its type is assumed to be ``C``::
 
     class Foo:
@@ -282,9 +276,9 @@ But::
     _T = TypeVar("_T")
 
     class Foo:
-        def do_things(self: _T): ...  # self has type _T
+        def do_things(self: _T) -> _T: ...  # self has type _T
         @classmethod
-        def create_it(cls: _T): ...  # cls has type _T
+        def create_it(cls: _T) -> _T: ...  # cls has type _T
 
 Using a function or method body other than the ellipsis literal is currently
 unspecified. Stub authors may experiment with other bodies, but it is up to
@@ -308,7 +302,7 @@ type stubs::
     def foo(x: str) -> str: ...
     @overload
     def foo(x: float) -> int: ...
-    def foo(x: Union[str, float]) -> Any: ...
+    def foo(x: str | float) -> Any: ...
 
 Aliases and NewType
 -------------------
@@ -510,8 +504,8 @@ Such undocumented objects are allowed because omitting objects can confuse
 users. Users who see an error like "module X has no attribute Y" will
 not know whether the error appeared because their code had a bug or
 because the stub is wrong. Although it may also be helpful for a type
-checker to point out usage of private objects, we usually prefer false
-negatives (no errors for wrong code) over false positives (type errors
+checker to point out usage of private objects, false negatives (no errors for
+wrong code) are preferable over false positives (type errors
 for correct code). In addition, even for private objects a type checker
 can be helpful in pointing out that an incorrect type was used.
 
@@ -577,6 +571,9 @@ annotated function ``bar()``::
         y: str
 
     def bar(x: str, y, *, z=...): ...
+
+The ``# incomplete`` comment is mainly intended as a reminder for stub
+authors, but can be used by tools to flag such items.
 
 Attribute Access
 ----------------
@@ -897,10 +894,10 @@ Types
 Generally, use ``Any`` when a type cannot be expressed appropriately
 with the current type system or using the correct type is unergonomic.
 
-Use ``float`` instead of ``Union[int, float]``.
+Use ``float`` instead of ``int | float``.
 Use ``None`` instead of ``Literal[None]``.
 For argument types,
-use ``bytes`` instead of ``Union[bytes, memoryview, bytearray]``.
+use ``bytes`` instead of ``bytes | memoryview | bytearray``.
 
 Use ``Text`` in stubs that support Python 2 when something accepts both
 ``str`` and ``unicode``. Avoid using ``Text`` in stubs or branches for
@@ -947,8 +944,8 @@ Maybe::
         def foo(self) -> list[int]: ...
         def bar(self) -> Mapping[str]: ...
 
-Avoid ``Union`` return types, since they require ``isinstance()`` checks.
-Use ``Any`` if necessary.
+Avoid union return types, since they require ``isinstance()`` checks.
+Use ``Any`` or ``X | Any`` if necessary.
 
 Use built-in generics instead of the aliases from ``typing``.
 
