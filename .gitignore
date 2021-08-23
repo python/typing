@@ -1,6 +1,7 @@
 MANIFEST
 build/
 dist/
+docs/venv/
 .tox/
 .vscode/
 .idea/
