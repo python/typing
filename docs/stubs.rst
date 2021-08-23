@@ -71,16 +71,18 @@ Python 3.8, although type checker authors are encouraged to support it.
 Stubs are treated as if ``from __future__ import annotations`` is enabled.
 In particular, built-in generics and forward references can be used.
 
-Starting with Python 3.8, the ast_ module from the standard library supports
+Starting with Python 3.8, the :py:mod:`ast` module from the standard library supports
 all syntax features required by this PEP. Older Python versions can use the
-typed_ast_ package, which also supports Python 3.7 syntax and ``# type``
+`typed_ast <https://pypi.org/project/typed-ast/>`_ package from the
+Python Package Index, which also supports Python 3.7 syntax and ``# type``
 comments.
 
 Distribution
 ============
 
 Type stubs can be distributed with or separately from the implementation;
-see PEP 561 [#pep561]_ for more information. The typeshed_ project
+see PEP 561 [#pep561]_ for more information. The
+`typeshed <https://github.com/python/typeshed>`_ project
 includes stubs for Python's standard library and several third-party
 packages. These are usually distributed with type checkers and do not
 require separate installation.
@@ -989,36 +991,6 @@ No::
     Point = NamedTuple("Point", [('x', float), ('y', float)])
     Thing = TypedDict("Thing", {'stuff': str, 'index': int})
 
-Existing Tools
-==============
-
-Type Checkers
--------------
-
-* mypy [#mypy]_, the reference implementation for type checkers.
-  Supports Python 2 and 3.
-* pyre [#pyre]_, written in OCaml and optimized for performance.
-  Supports Python 3 only.
-* pyright [#pyright]_, a type checker that emphasizes speed. Supports Python 3
-  only.
-* pytype [#pytype]_, checks and infers types for unannotated code.
-  Supports Python 2 and 3.
-
-Development Environments
-------------------------
-
-* PyCharm [#pycharm]_, an IDE that supports type stubs both for type
-  checking and code completion.
-* Visual Studio Code [#vscode]_, a code editor that supports type
-  checking using mypy, pyright, or the Pylance [#pylance]_ extension.
-
-Linters and Formatters
-----------------------
-
-* black [#black]_, a code formatter with support for type stub files.
-* flake8-pyi [#flake8-pyi]_, a plugin for the flake8 linter [#flake8]_ that adds support for
-  type stubs.
-
 References
 ==========
 
@@ -1037,31 +1009,6 @@ PEPs
 .. [#pep612] PEP 612 -- Parameter Specification Variables, Mendoza (https://www.python.org/dev/peps/pep-0612)
 .. [#pep613] PEP 613 -- Explicit Type Aliases, Zhu (https://www.python.org/dev/peps/pep-0613)
 .. [#pep3107] PEP 3107 -- Function Annotations, Winter and Lownds (https://www.python.org/dev/peps/pep-3107)
-
-Type Checkers
--------------
-
-.. [#mypy] mypy -- Optional Static Typing for Python (http://www.mypy-lang.org/)
-.. [#pyre] Pyre -- A performant type-checker for Python 3 (https://pyre-check.org/)
-.. [#pyright] pyright -- Static type checker for Python (https://github.com/microsoft/pyright)
-.. [#pytype] pytype -- A static analyzer for Python code (https://github.com/google/pytype)
-
-IDEs with Typing Support
-------------------------
-
-.. [#pycharm] PyCharm -- The Python IDE for Professional Developers (https://www.jetbrains.com/pycharm/)
-.. [#pylance] Pylance -- Fast, feature-rich language support for Python (https://github.com/microsoft/pylance-release)
-.. [#vscode] Visual Studio Code -- Code Editing. Redefined (https://code.visualstudio.com/)
-
-Other Resources
----------------
-
-.. [#black] black -- The uncompromising code formatter (https://black.readthedocs.io/)
-.. [#flake8] Flake8 -- Your Tool For Style Guide Enforcement (http://flake8.pycqa.org/)
-.. [#flake8-pyi] flake8-pyi -- A plugin for Flake8 that provides specializations for type hinting stub files (https://github.com/ambv/flake8-pyi)
-.. [#typeshed] typeshed -- Collection of library stubs for Python, with static types (https://github.com/python/typeshed)
-.. [#ast] ast -- Abstract Syntax Trees, Python standard library module (https://docs.python.org/3/library/ast.html)
-.. [#typed_ast] typed_ast -- Fork of CPython's ast module (https://pypi.org/project/typed-ast/)
 
 Copyright
 =========
