@@ -10,11 +10,11 @@ Welcome to the Python Type System documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   stubs
 
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
