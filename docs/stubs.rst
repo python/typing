@@ -59,7 +59,8 @@ not use the positional-only syntax from PEP 570 [#pep570]_, introduced in
 Python 3.8, although type checker authors are encouraged to support it.
 
 Stubs are treated as if ``from __future__ import annotations`` is enabled.
-In particular, built-in generics and forward references can be used.
+In particular, built-in generics, pipe union syntax (``X | Y``), and forward
+references can be used.
 
 Starting with Python 3.8, the :py:mod:`ast` module from the standard library supports
 all syntax features required by this PEP. Older Python versions can use the
@@ -169,6 +170,22 @@ specified in ``__all__`` are imported::
     private_attr: int
 
 Type checkers support cyclic imports in stub files.
+
+Built-in Generics
+-----------------
+
+PEP 585 [#pep585]_ built-in generics are generally supported, with
+the following exceptions:
+
+* Built-in generics don't work in type aliases.
+* Built-in generics don't work in base classes.
+* ``type`` is not supported.
+* Variable length tuples (``tuple[X, ...]``) are not supported.
+
+In these cases, the appropriate types from ``typing`` must be used.
+
+Using imports from ``collections.abc`` instead of ``typing`` is
+generally possible and recommended.
 
 Unions
 ------
@@ -309,7 +326,7 @@ PEP 647 [#pep647]_ type guards are supported.
 
 Using a function or method body other than the ellipsis literal is currently
 unspecified. Stub authors may experiment with other bodies, but it is up to
-individual type checkers how to interpret them.
+individual type checkers how to interpret them::
 
     def foo(): ...  # compatible
     def bar(): pass  # behavior undefined
@@ -996,7 +1013,9 @@ Maybe::
 Avoid union return types, since they require ``isinstance()`` checks.
 Use ``Any`` or ``X | Any`` if necessary.
 
-Use built-in generics instead of the aliases from ``typing``.
+Use built-in generics instead of the aliases from ``typing``,
+where possible. See the section `Built-in Generics`_ for cases,
+where it's not possible to use them.
 
 Yes::
 
