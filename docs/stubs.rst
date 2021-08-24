@@ -295,6 +295,16 @@ But::
         @classmethod
         def create_it(cls: _T) -> _T: ...  # cls has type _T
 
+PEP 612 [#pep612]_ parameter specification variables (``ParamSpec``)
+are supported in argument and return types, although
+they need to be marked with ``# type: ignore`` to work with all
+type checkers::
+
+    _P = ParamSpec("_P")
+    _T = TypeVar("_T")
+
+    def foo(cb: Callable[_P, _T]) -> Callable[_P, _T]: ...  # type: ignore
+
 PEP 647 [#pep647]_ type guards are supported.
 
 Using a function or method body other than the ellipsis literal is currently
@@ -480,8 +490,8 @@ No::
 Unsupported Features
 --------------------
 
-Currently, positional-only argument syntax (PEP 570 [#pep570]_),
-``ParamSpec`` (PEP 612 [#pep612]_), and ``TypeAlias`` (PEP 613 [#pep613]_)
+Currently, positional-only argument syntax (PEP 570 [#pep570]_)
+and ``TypeAlias`` (PEP 613 [#pep613]_)
 are not supported by all type
 checkers and should not be used in stubs.
 
