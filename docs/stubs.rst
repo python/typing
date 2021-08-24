@@ -295,6 +295,8 @@ But::
         @classmethod
         def create_it(cls: _T) -> _T: ...  # cls has type _T
 
+PEP 647 [#pep647]_ type guards are supported.
+
 Using a function or method body other than the ellipsis literal is currently
 unspecified. Stub authors may experiment with other bodies, but it is up to
 individual type checkers how to interpret them.
@@ -1040,6 +1042,7 @@ PEPs
 .. [#pep604] PEP 604 -- Allow writing union types as X | Y, Prados and Moss (https://www.python.org/dev/peps/pep-0604)
 .. [#pep612] PEP 612 -- Parameter Specification Variables, Mendoza (https://www.python.org/dev/peps/pep-0612)
 .. [#pep613] PEP 613 -- Explicit Type Aliases, Zhu (https://www.python.org/dev/peps/pep-0613)
+.. [#pep647] PEP 647 -- User-Defined Type Guards, Traut (https://www.python.org/dev/peps/pep-0647)
 .. [#pep3107] PEP 3107 -- Function Annotations, Winter and Lownds (https://www.python.org/dev/peps/pep-3107)
 
 Copyright
