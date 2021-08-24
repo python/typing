@@ -16,6 +16,13 @@ Indices and tables
 * :ref:`search`
 
 
+Discussions and Support
+=======================
+
+* `User help forum <https://github.com/python/typing/discussions>`_
+* `User chat on Gitter <http://gitter.im/python/typing>`_
+* `Developer mailing list <https://mail.python.org/archives/list/typing-sig@python.org/>`_
+
 Typing-related Tools
 ====================
 
