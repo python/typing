@@ -1,5 +1,6 @@
-Welcome to the Python Type System documentation!
-================================================
+*************************
+Static Typing with Python
+*************************
 
 .. toctree::
    :maxdepth: 2
