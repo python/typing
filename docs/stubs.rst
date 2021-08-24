@@ -170,6 +170,19 @@ specified in ``__all__`` are imported::
 
 Type checkers support cyclic imports in stub files.
 
+Unions
+------
+
+Declaring unions with ``Union`` and ``Optional`` is supported by all
+type checkers. With the exception of type aliases, the shorthand syntax
+is also supported::
+
+    def foo(x: int | str) -> int | None: ...  # recommended
+    def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
+
+    TYPE_ALIAS = Union[int, str]  # ok
+    TYPE_ALIAS = int | str  # does not work with all type checkers
+
 Module Level Attributes
 -----------------------
 
@@ -466,7 +479,6 @@ Unsupported Features
 --------------------
 
 Currently, positional-only argument syntax (PEP 570 [#pep570]_),
-unions using the pipe operator (``|``) (PEP 604 [#pep604]_),
 ``ParamSpec`` (PEP 612 [#pep612]_), and ``TypeAlias`` (PEP 613 [#pep613]_)
 are not supported by all type
 checkers and should not be used in stubs.
@@ -594,9 +606,9 @@ the following class::
 
 An appropriate stub definition is::
 
-  from typing import Any, Optional
+  from typing import Any
   class Foo:
-      def __getattr__(self, name: str) -> Optional[Any]: ...
+      def __getattr__(self, name: str) -> Any | None: ...
 
 Note that only ``__getattr__``, not ``__getattribute__``, is guaranteed to be
 supported in stubs.
@@ -741,6 +753,29 @@ No::
         x: int
     class MyError(Exception): ...  # leave an empty line between the classes
 
+Shorthand Syntax
+----------------
+
+Where possible, use shorthand syntax for unions instead of
+``Union`` or ``Optional``. ``None`` should be the last
+element of an union. See the Unions_ section for cases where
+using the shorthand syntax is not possible.
+
+Yes::
+
+    def foo(x: str | int) -> None: ...
+    def bar(x: str | None) -> int | None: ...
+
+No::
+
+    def foo(x: Union[str, int]) -> None: ...
+    def bar(x: Optional[str]) -> Optional[int]: ...
+    def baz(x: None | str) -> None: ...
+
+But the following is still necessary::
+
+    TYPE_ALIAS = Optional[Union[str, int]]
+
 Module Level Attributes
 -----------------------
 
@@ -801,19 +836,19 @@ does not apply to positional-only arguments, which are marked with a double
 underscore.
 
 Use the ellipsis literal ``...`` in place of actual default argument
-values. Use an explicit ``Optional`` annotation instead of
+values. Use an explicit ``X | None`` annotation instead of
 a ``None`` default.
 
 Yes::
 
     def foo(x: int = ...) -> None: ...
-    def bar(y: Optional[str] = ...) -> None: ...
+    def bar(y: str | None = ...) -> None: ...
 
 No::
 
     def foo(x: int = 0) -> None: ...
     def bar(y: str = None) -> None: ...
-    def baz(z: Optional[str] = None) -> None: ...
+    def baz(z: str | None = None) -> None: ...
 
 Do not annotate ``self`` and ``cls`` in method definitions, except when
 referencing a type variable.
@@ -861,12 +896,12 @@ with an underscore.
 Yes::
 
     _T = TypeVar("_T")
-    _DictList = dict[str, list[Optional[int]]]
+    _DictList = Dict[str, List[Optional[int]]
 
 No::
 
     T = TypeVar("T")
-    DictList = dict[str, list[Optional[int]]]
+    DictList = Dict[str, List[Optional[int]]]
 
 Language Features
 -----------------
