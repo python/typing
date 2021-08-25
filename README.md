@@ -8,12 +8,12 @@ Documentation and Support
 
 The documentation for Python's static typing can be found at
 [typing.readthedocs.io](https://typing.readthedocs.io/). You can get
-help either in our [support forum](/python/typing/discussions) or
-chat with us on (Gitter)[https://gitter.im/python/typing].
+help either in our [support forum](https://github.com/python/typing/discussions) or
+chat with us on [Gitter](https://gitter.im/python/typing).
 
 Improvements to the type system should be discussed on the
 [typing-sig](https://mail.python.org/mailman3/lists/typing-sig.python.org/)
-mailing list, although the [issues](/python/typing/issues) in this
+mailing list, although the [issues](https://github.com/python/typing/issues) in this
 repository contain some historic discussions.
 
 Repository Content
@@ -33,7 +33,7 @@ This GitHub repo is used for several things:
 - The documentation at [typing.readthedocs.io](https://typing.readthedocs.io/)
   is maintained in the [docs directory](./docs).
 
-- A [discussion forum](/python/typing/discussions) for typing-related user
+- A [discussion forum](https://github.com/python/typing/discussions) for typing-related user
   help is hosted here.
 
 Workflow
