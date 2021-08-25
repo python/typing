@@ -175,7 +175,7 @@ Built-in Generics
 -----------------
 
 PEP 585 [#pep585]_ built-in generics are generally supported, with
-the following exceptions:
+the following exceptions [#ts-4820]_:
 
 * Built-in generics don't work in type aliases.
 * Built-in generics don't work in base classes.
@@ -191,7 +191,7 @@ Unions
 ------
 
 Declaring unions with ``Union`` and ``Optional`` is supported by all
-type checkers. With the exception of type aliases, the shorthand syntax
+type checkers. With the exception of type aliases [#ts-4819]_, the shorthand syntax
 is also supported::
 
     def foo(x: int | str) -> int | None: ...  # recommended
@@ -261,6 +261,8 @@ The class must match the class in which it is declared. Using other classes,
 including sub or super classes, will not work. In addition, the ``self``
 annotation cannot contain type variables.
 
+.. _supported-functions:
+
 Functions and Methods
 ---------------------
 
@@ -315,7 +317,7 @@ But::
 PEP 612 [#pep612]_ parameter specification variables (``ParamSpec``)
 are supported in argument and return types, although
 they need to be marked with ``# type: ignore`` to work with all
-type checkers::
+type checkers [#ts-4827]_::
 
     _P = ParamSpec("_P")
     _T = TypeVar("_T")
@@ -507,10 +509,14 @@ No::
 Unsupported Features
 --------------------
 
-Currently, positional-only argument syntax (PEP 570 [#pep570]_)
-and ``TypeAlias`` (PEP 613 [#pep613]_)
-are not supported by all type
-checkers and should not be used in stubs.
+Currently, the following features are not supported by all type checkers
+and should not be used in stubs:
+
+* Positional-only argument syntax (PEP 570 [#pep570]_). Instead, use
+  the syntax described in the section :ref:`supported-functions`.
+  [#ts-4972]_
+* ``TypeAlias`` (PEP 613 [#pep613]_). Instead, use a simple
+  assigment to define a type alias. [#ts-4913]_
 
 Type Stub Content
 =================
@@ -1073,6 +1079,15 @@ PEPs
 .. [#pep613] PEP 613 -- Explicit Type Aliases, Zhu (https://www.python.org/dev/peps/pep-0613)
 .. [#pep647] PEP 647 -- User-Defined Type Guards, Traut (https://www.python.org/dev/peps/pep-0647)
 .. [#pep3107] PEP 3107 -- Function Annotations, Winter and Lownds (https://www.python.org/dev/peps/pep-3107)
+
+Bugs
+----
+
+.. [#ts-4819] typeshed issue #4819 -- PEP 604 tracker (https://github.com/python/typeshed/issues/4819)
+.. [#ts-4820] typeshed issue #4820 -- PEP 585 tracker (https://github.com/python/typeshed/issues/4820)
+.. [#ts-4827] typeshed issue #4827 -- PEP 612 tracker (https://github.com/python/typeshed/issues/4827)
+.. [#ts-4913] typeshed issue #4913 -- PEP 613 tracker (https://github.com/python/typeshed/issues/4913)
+.. [#ts-4972] typeshed issue #4972 -- PEP 570 tracker (https://github.com/python/typeshed/issues/4972)
 
 Copyright
 =========
