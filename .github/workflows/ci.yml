@@ -1,6 +1,7 @@
-name: Build the documentation
+name: Run tests and linting
 
 on:
+  push:
   pull_request:
 
 permissions:
@@ -32,12 +33,34 @@ jobs:
 
       - name: Run tests
         env:
-          PYTHON_VERSION: ${matrix.python-version}
+          PYTHON_VERSION: ${{ matrix.python-version }}
         run: |
-          export PYTHONPATH=`python -c "import sys; print('python2' if sys.version.startswith('2') else 'src')"`;
+          export PYTHONPATH=`python -c "import sys; print('python2' if sys.version.startswith('2') else 'src')"`
           if [[ $PYTHON_VERSION < '3.7' ]]; then py.test $PYTHONPATH; fi
+
           if [[ $PYTHON_VERSION < '3.5' ]]; then pip install -U .; fi
-          export PYTHONPATH=`python -c "import sys; print('typing_extensions/src_py2' if sys.version.startswith('2') else 'typing_extensions/src_py3')"`;
-          py.test $PYTHONPATH;
-          if [[ $PYTHON_VERSION == '3.8' ]]; then flake8; fi
-          if [[ $PYTHON_VERSION == '3.8' ]]; then flake8 --config=.flake8-tests src/test_typing.py python2/test_typing.py typing_extensions/src_py2/test_typing_extensions.py typing_extensions/src_py3/test_typing_extensions.py; fi
+          export PYTHONPATH=`python -c "import sys; print('typing_extensions/src_py2' if sys.version.startswith('2') else 'typing_extensions/src_py3')"`
+          py.test $PYTHONPATH
+
+  linting:
+    name: Run linting
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r test-requirements.txt
+
+      - name: Run linting
+        run: |
+          flake8
+          flake8 --config=.flake8-tests src/test_typing.py python2/test_typing.py typing_extensions/src_py2/test_typing_extensions.py typing_extensions/src_py3/test_typing_extensions.py
