@@ -59,7 +59,8 @@ not use the positional-only syntax from PEP 570 [#pep570]_, introduced in
 Python 3.8, although type checker authors are encouraged to support it.
 
 Stubs are treated as if ``from __future__ import annotations`` is enabled.
-In particular, built-in generics and forward references can be used.
+In particular, built-in generics, pipe union syntax (``X | Y``), and forward
+references can be used.
 
 Starting with Python 3.8, the :py:mod:`ast` module from the standard library supports
 all syntax features required by this PEP. Older Python versions can use the
@@ -170,6 +171,35 @@ specified in ``__all__`` are imported::
 
 Type checkers support cyclic imports in stub files.
 
+Built-in Generics
+-----------------
+
+PEP 585 [#pep585]_ built-in generics are generally supported, with
+the following exceptions [#ts-4820]_:
+
+* Built-in generics don't work in type aliases.
+* Built-in generics don't work in base classes.
+* ``type`` is not supported.
+* Variable length tuples (``tuple[X, ...]``) are not supported.
+
+In these cases, the appropriate types from ``typing`` must be used.
+
+Using imports from ``collections.abc`` instead of ``typing`` is
+generally possible and recommended.
+
+Unions
+------
+
+Declaring unions with ``Union`` and ``Optional`` is supported by all
+type checkers. With the exception of type aliases [#ts-4819]_, the shorthand syntax
+is also supported::
+
+    def foo(x: int | str) -> int | None: ...  # recommended
+    def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
+
+    TYPE_ALIAS = Union[int, str]  # ok
+    TYPE_ALIAS = int | str  # does not work with all type checkers
+
 Module Level Attributes
 -----------------------
 
@@ -231,6 +261,8 @@ The class must match the class in which it is declared. Using other classes,
 including sub or super classes, will not work. In addition, the ``self``
 annotation cannot contain type variables.
 
+.. _supported-functions:
+
 Functions and Methods
 ---------------------
 
@@ -282,9 +314,21 @@ But::
         @classmethod
         def create_it(cls: _T) -> _T: ...  # cls has type _T
 
+PEP 612 [#pep612]_ parameter specification variables (``ParamSpec``)
+are supported in argument and return types, although
+they need to be marked with ``# type: ignore`` to work with all
+type checkers [#ts-4827]_::
+
+    _P = ParamSpec("_P")
+    _T = TypeVar("_T")
+
+    def foo(cb: Callable[_P, _T]) -> Callable[_P, _T]: ...  # type: ignore
+
+PEP 647 [#pep647]_ type guards are supported.
+
 Using a function or method body other than the ellipsis literal is currently
 unspecified. Stub authors may experiment with other bodies, but it is up to
-individual type checkers how to interpret them.
+individual type checkers how to interpret them::
 
     def foo(): ...  # compatible
     def bar(): pass  # behavior undefined
@@ -465,11 +509,14 @@ No::
 Unsupported Features
 --------------------
 
-Currently, positional-only argument syntax (PEP 570 [#pep570]_),
-unions using the pipe operator (``|``) (PEP 604 [#pep604]_),
-``ParamSpec`` (PEP 612 [#pep612]_), and ``TypeAlias`` (PEP 613 [#pep613]_)
-are not supported by all type
-checkers and should not be used in stubs.
+Currently, the following features are not supported by all type checkers
+and should not be used in stubs:
+
+* Positional-only argument syntax (PEP 570 [#pep570]_). Instead, use
+  the syntax described in the section :ref:`supported-functions`.
+  [#ts-4972]_
+* ``TypeAlias`` (PEP 613 [#pep613]_). Instead, use a simple
+  assigment to define a type alias. [#ts-4913]_
 
 Type Stub Content
 =================
@@ -594,9 +641,9 @@ the following class::
 
 An appropriate stub definition is::
 
-  from typing import Any, Optional
+  from typing import Any
   class Foo:
-      def __getattr__(self, name: str) -> Optional[Any]: ...
+      def __getattr__(self, name: str) -> Any | None: ...
 
 Note that only ``__getattr__``, not ``__getattribute__``, is guaranteed to be
 supported in stubs.
@@ -741,6 +788,29 @@ No::
         x: int
     class MyError(Exception): ...  # leave an empty line between the classes
 
+Shorthand Syntax
+----------------
+
+Where possible, use shorthand syntax for unions instead of
+``Union`` or ``Optional``. ``None`` should be the last
+element of an union. See the Unions_ section for cases where
+using the shorthand syntax is not possible.
+
+Yes::
+
+    def foo(x: str | int) -> None: ...
+    def bar(x: str | None) -> int | None: ...
+
+No::
+
+    def foo(x: Union[str, int]) -> None: ...
+    def bar(x: Optional[str]) -> Optional[int]: ...
+    def baz(x: None | str) -> None: ...
+
+But the following is still necessary::
+
+    TYPE_ALIAS = Optional[Union[str, int]]
+
 Module Level Attributes
 -----------------------
 
@@ -801,19 +871,19 @@ does not apply to positional-only arguments, which are marked with a double
 underscore.
 
 Use the ellipsis literal ``...`` in place of actual default argument
-values. Use an explicit ``Optional`` annotation instead of
+values. Use an explicit ``X | None`` annotation instead of
 a ``None`` default.
 
 Yes::
 
     def foo(x: int = ...) -> None: ...
-    def bar(y: Optional[str] = ...) -> None: ...
+    def bar(y: str | None = ...) -> None: ...
 
 No::
 
     def foo(x: int = 0) -> None: ...
     def bar(y: str = None) -> None: ...
-    def baz(z: Optional[str] = None) -> None: ...
+    def baz(z: str | None = None) -> None: ...
 
 Do not annotate ``self`` and ``cls`` in method definitions, except when
 referencing a type variable.
@@ -861,12 +931,12 @@ with an underscore.
 Yes::
 
     _T = TypeVar("_T")
-    _DictList = dict[str, list[Optional[int]]]
+    _DictList = Dict[str, List[Optional[int]]
 
 No::
 
     T = TypeVar("T")
-    DictList = dict[str, list[Optional[int]]]
+    DictList = Dict[str, List[Optional[int]]]
 
 Language Features
 -----------------
@@ -949,7 +1019,9 @@ Maybe::
 Avoid union return types, since they require ``isinstance()`` checks.
 Use ``Any`` or ``X | Any`` if necessary.
 
-Use built-in generics instead of the aliases from ``typing``.
+Use built-in generics instead of the aliases from ``typing``,
+where possible. See the section `Built-in Generics`_ for cases,
+where it's not possible to use them.
 
 Yes::
 
@@ -1005,7 +1077,17 @@ PEPs
 .. [#pep604] PEP 604 -- Allow writing union types as X | Y, Prados and Moss (https://www.python.org/dev/peps/pep-0604)
 .. [#pep612] PEP 612 -- Parameter Specification Variables, Mendoza (https://www.python.org/dev/peps/pep-0612)
 .. [#pep613] PEP 613 -- Explicit Type Aliases, Zhu (https://www.python.org/dev/peps/pep-0613)
+.. [#pep647] PEP 647 -- User-Defined Type Guards, Traut (https://www.python.org/dev/peps/pep-0647)
 .. [#pep3107] PEP 3107 -- Function Annotations, Winter and Lownds (https://www.python.org/dev/peps/pep-3107)
+
+Bugs
+----
+
+.. [#ts-4819] typeshed issue #4819 -- PEP 604 tracker (https://github.com/python/typeshed/issues/4819)
+.. [#ts-4820] typeshed issue #4820 -- PEP 585 tracker (https://github.com/python/typeshed/issues/4820)
+.. [#ts-4827] typeshed issue #4827 -- PEP 612 tracker (https://github.com/python/typeshed/issues/4827)
+.. [#ts-4913] typeshed issue #4913 -- PEP 613 tracker (https://github.com/python/typeshed/issues/4913)
+.. [#ts-4972] typeshed issue #4972 -- PEP 570 tracker (https://github.com/python/typeshed/issues/4972)
 
 Copyright
 =========
