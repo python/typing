@@ -53,6 +53,7 @@ TYPING_3_5_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 1)
 TYPING_3_5_3 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 3)
 TYPING_3_6_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 6, 1)
 TYPING_3_10_0 = TYPING_LATEST or sys.version_info[:3] >= (3, 10, 0)
+TYPING_3_11_0 = TYPING_LATEST or sys.version_info[:3] >= (3, 11, 0)
 
 # For typing versions where issubclass(...) and
 # isinstance(...) checks are forbidden.
@@ -466,6 +467,10 @@ class GetTypeHintTests(BaseTestCase):
     @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_modules(self):
         ann_module_type_hints = {1: 2, 'f': Tuple[int, int], 'x': int, 'y': str}
+        if (TYPING_3_11_0
+                or (TYPING_3_10_0 and sys.version_info.releaselevel in {'candidate', 'final'})):
+            # More tests were added in 3.10rc1.
+            ann_module_type_hints['u'] = int | float
         self.assertEqual(gth(ann_module), ann_module_type_hints)
         self.assertEqual(gth(ann_module2), {})
         self.assertEqual(gth(ann_module3), {})
