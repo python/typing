@@ -44,7 +44,7 @@ jobs:
           pytest $PYTHONPATH
 
   linting:
-    name: Run linting
+    name: Lint
 
     runs-on: ubuntu-latest
 
