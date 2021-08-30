@@ -59,6 +59,8 @@ jobs:
 
       - name: Test typing
         if: matrix.python-version < '3.7'
+        env:
+          PYTHONPATH=src
         run: pytest src
 
       - name: Test typing_extensions
