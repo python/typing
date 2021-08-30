@@ -2428,7 +2428,9 @@ if not hasattr(typing, 'Concatenate'):
 
         @property
         def __parameters__(self):
-            return tuple(tp for tp in self.__args__ if isinstance(tp, (TypeVar, ParamSpec)))
+            return tuple(
+                tp for tp in self.__args__ if isinstance(tp, (TypeVar, ParamSpec))
+            )
 
         if not PEP_560:
             # Only required in 3.6 and lower.
