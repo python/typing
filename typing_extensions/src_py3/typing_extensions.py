@@ -1694,7 +1694,8 @@ else:
 
     class _TypedDictMeta(type):
         def __init__(cls, name, bases, ns, total=True):
-            # In Python 3.4 and 3.5 the __init__ method also needs to support the keyword arguments.
+            # In Python 3.4 and 3.5 the __init__ method also needs to support the
+            # keyword arguments.
             # See https://www.python.org/dev/peps/pep-0487/#implementation-details
             super(_TypedDictMeta, cls).__init__(name, bases, ns)
 
@@ -2072,7 +2073,6 @@ if sys.version_info[:2] >= (3, 10):
     get_origin = typing.get_origin
     get_args = typing.get_args
 elif PEP_560:
-    from typing import _GenericAlias
     try:
         # 3.9+
         from typing import _BaseGenericAlias
@@ -2386,6 +2386,7 @@ else:
                 if self not in tvars:
                     tvars.append(self)
 
+
 # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
 class _ConcatenateGenericAlias(list):
 
@@ -2433,6 +2434,7 @@ class _ConcatenateGenericAlias(list):
             if self.__origin__ and self.__parameters__:
                 typing._get_type_vars(self.__parameters__, tvars)
 
+
 @_tp_cache
 def _concatenate_getitem(self, parameters):
     if parameters == ():
@@ -2473,7 +2475,8 @@ elif sys.version_info[:2] >= (3, 7):
         def __getitem__(self, parameters):
             return _concatenate_getitem(self, parameters)
 
-    Concatenate = _ConcatenateForm('Concatenate',
+    Concatenate = _ConcatenateForm(
+        'Concatenate',
         doc="""Used in conjunction with ``ParamSpec`` and ``Callable`` to represent a
         higher order function which adds, removes or transforms parameters of a
         callable.
@@ -2616,8 +2619,8 @@ elif sys.version_info[:2] >= (3, 7):
             return _GenericAlias(self, (item,))
 
     TypeGuard = _TypeGuardForm(
-            'TypeGuard',
-            doc="""Special typing form used to annotate the return type of a user-defined
+        'TypeGuard',
+        doc="""Special typing form used to annotate the return type of a user-defined
         type guard function.  ``TypeGuard`` only accepts a single type argument.
         At runtime, functions marked this way should return a boolean.
 
