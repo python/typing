@@ -2392,7 +2392,7 @@ class _ConcatenateGenericAlias(list):
 
     # Trick Generic into looking into this for __parameters__.
     if PEP_560:
-        __class__ = _GenericAlias
+        __class__ = typing._GenericAlias
     elif sys.version_info[:3] == (3, 5, 2):
         __class__ = typing.TypingMeta
     else:
