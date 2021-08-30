@@ -2388,52 +2388,53 @@ else:
                     tvars.append(self)
 
 
-# Inherits from list as a workaround for Callable checks in Python < 3.9.2.
-class _ConcatenateGenericAlias(list):
+if not hasattr(typing, 'Concatenate'):
+    # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
+    class _ConcatenateGenericAlias(list):
 
-    # Trick Generic into looking into this for __parameters__.
-    if PEP_560:
-        __class__ = typing._GenericAlias
-    elif sys.version_info[:3] == (3, 5, 2):
-        __class__ = typing.TypingMeta
-    else:
-        __class__ = typing._TypingBase
+        # Trick Generic into looking into this for __parameters__.
+        if PEP_560:
+            __class__ = typing._GenericAlias
+        elif sys.version_info[:3] == (3, 5, 2):
+            __class__ = typing.TypingMeta
+        else:
+            __class__ = typing._TypingBase
 
-    # Flag in 3.8.
-    _special = False
-    # Attribute in 3.6 and earlier.
-    if sys.version_info[:3] == (3, 5, 2):
-        _gorg = typing.GenericMeta
-    else:
-        _gorg = typing.Generic
+        # Flag in 3.8.
+        _special = False
+        # Attribute in 3.6 and earlier.
+        if sys.version_info[:3] == (3, 5, 2):
+            _gorg = typing.GenericMeta
+        else:
+            _gorg = typing.Generic
 
-    def __init__(self, origin, args):
-        super().__init__(args)
-        self.__origin__ = origin
-        self.__args__ = args
+        def __init__(self, origin, args):
+            super().__init__(args)
+            self.__origin__ = origin
+            self.__args__ = args
 
-    def __repr__(self):
-        _type_repr = typing._type_repr
-        return '{origin}[{args}]' \
-               .format(origin=_type_repr(self.__origin__),
-                       args=', '.join(_type_repr(arg) for arg in self.__args__))
+        def __repr__(self):
+            _type_repr = typing._type_repr
+            return '{origin}[{args}]' \
+                   .format(origin=_type_repr(self.__origin__),
+                           args=', '.join(_type_repr(arg) for arg in self.__args__))
 
-    def __hash__(self):
-        return hash((self.__origin__, self.__args__))
+        def __hash__(self):
+            return hash((self.__origin__, self.__args__))
 
-    # Hack to get typing._type_check to pass in Generic.
-    def __call__(self, *args, **kwargs):
-        pass
+        # Hack to get typing._type_check to pass in Generic.
+        def __call__(self, *args, **kwargs):
+            pass
 
-    @property
-    def __parameters__(self):
-        return tuple(tp for tp in self.__args__ if isinstance(tp, (TypeVar, ParamSpec)))
+        @property
+        def __parameters__(self):
+            return tuple(tp for tp in self.__args__ if isinstance(tp, (TypeVar, ParamSpec)))
 
-    if not PEP_560:
-        # Only required in 3.6 and lower.
-        def _get_type_vars(self, tvars):
-            if self.__origin__ and self.__parameters__:
-                typing._get_type_vars(self.__parameters__, tvars)
+        if not PEP_560:
+            # Only required in 3.6 and lower.
+            def _get_type_vars(self, tvars):
+                if self.__origin__ and self.__parameters__:
+                    typing._get_type_vars(self.__parameters__, tvars)
 
 
 @_tp_cache
