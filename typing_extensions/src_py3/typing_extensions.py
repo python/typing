@@ -18,6 +18,7 @@ PEP_560 = sys.version_info[:3] >= (3, 7, 0)
 
 if PEP_560:
     GenericMeta = TypingMeta = type
+    from typing import _GenericAlias
 else:
     from typing import GenericMeta, TypingMeta
 OLD_GENERICS = False
@@ -1399,7 +1400,7 @@ elif HAVE_PROTOCOLS and not PEP_560:
 
 
 elif PEP_560:
-    from typing import _type_check, _GenericAlias, _collect_type_vars  # noqa
+    from typing import _type_check, _collect_type_vars  # noqa
 
     def _no_init(self, *args, **kwargs):
         if type(self)._is_protocol:
