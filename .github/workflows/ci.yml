@@ -57,12 +57,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r test-requirements.txt
 
-      - name: Test typing
-        if: matrix.python-version >= '3.4' && matrix.python-version < '3.7'
-        env:
-          PYTHONPATH: src
-        run: pytest src
-
       - name: Test typing_extensions
         run: pytest typing_extensions/src_py3
 
