@@ -1,0 +1,67 @@
+name: Test and lint
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Run tests
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # Python 3.4 disabled, due to problems with GitHub Actions.
+        python-version: [3.10-dev, 3.9, 3.8, 3.7, 3.6, 3.5, 2.7]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r test-requirements.txt
+
+      - name: Run tests
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+        run: |
+          export PYTHONPATH=`python -c "import sys; print('python2' if sys.version.startswith('2') else 'src')"`
+          if [[ $PYTHON_VERSION < '3.7' ]]; then pytest $PYTHONPATH; fi
+
+          if [[ $PYTHON_VERSION < '3.5' ]]; then pip install -U .; fi
+          export PYTHONPATH=`python -c "import sys; print('typing_extensions/src_py2' if sys.version.startswith('2') else 'typing_extensions/src_py3')"`
+          pytest $PYTHONPATH
+
+  linting:
+    name: Run linting
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r test-requirements.txt
+
+      - name: Run linting
+        run: |
+          flake8
+          flake8 --config=.flake8-tests src/test_typing.py python2/test_typing.py typing_extensions/src_py2/test_typing_extensions.py typing_extensions/src_py3/test_typing_extensions.py
