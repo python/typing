@@ -30,7 +30,7 @@ jobs:
 
       - name: Test typing_extensions
         run: |
-          pip install -U .
+          pip install typing
           pytest typing_extensions/src_py2
 
   tests:
