@@ -64,10 +64,18 @@ jobs:
         with:
           python-version: 3.9
 
+      - name: Load pip cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/test-requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install flake8
+          pip install -r test-requirements.txt
 
       - name: Lint implementation
         run: flake8
