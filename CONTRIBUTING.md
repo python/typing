@@ -1,15 +1,5 @@
-This repository contains backports of the CPython `typing` module to earlier versions of
-Python. Therefore, code in this repo should follow CPython's style guidelines and
+Code in this repository should follow CPython's style guidelines and
 contributors need to sign the PSF Contributor Agreement.
-
-# typing
-
-The `typing` module provided by this repository is a backport for Python versions that
-do not have `typing` in the standard library: Python 2.7 and 3.4. These versions are no
-longer officially supported by CPython, so there is little remaining interest in keeping
-the backport up to date. We will accept contributions backporting new features to
-`typing`, but we are no longer actively requiring Python 2 support for all
-contributions.
 
 # typing_extensions
 
@@ -36,8 +26,7 @@ because async generators were added to the language in 3.6.
 
 # Versioning scheme
 
-`typing_extensions` and `typing` are usually released together using the same version
-numbers. The version number indicates the version of the standard library `typing`
+The version number of `typing_extensions` indicates the version of the standard library `typing`
 module that is reflected in the backport. For example, `typing_extensions` version
 3.10.0.0 includes features from the Python 3.10.0 standard library's `typing` module. A
 new release that doesn't include any new standard library features would be called
@@ -45,25 +34,7 @@ new release that doesn't include any new standard library features would be call
 
 # Workflow for PyPI releases
 
-- Do this for both `typing` and `typing_extensions`
-
-- Run tests under all supported versions. As of April 2021 this includes 2.7, 3.4, 3.5,
-  3.6, 3.7, 3.8, 3.9.
-
-- On macOS, you can use `pyenv <https://github.com/pyenv/pyenv>`\_ to manage multiple
-  Python installations. Long story short:
-
-  - `xcode-select --install`
-  - `brew install pyenv`
-  - `echo 'eval "$(pyenv init -)"' >> ~/.bash_profile`
-  - Open a new shell
-  - `pyenv install 3.5.3`
-  - `pyenv install 3.4.6`
-  - (assuming you already have 2.7.13 and 3.6.1 from Homebrew)
-  - `pyenv global system 3.5.3 3.4.6`
-  - (or some more recent versions)
-
-- You can use `tox` to automate running tests.
+- Ensure that GitHub Actions reports no errors.
 
 - Update the version number in `setup.py`.
 

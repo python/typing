@@ -3,6 +3,7 @@ build/
 dist/
 docs/venv/
 .tox/
+.venv*
 .vscode/
 .idea/
 .cache/

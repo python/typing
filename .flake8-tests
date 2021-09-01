@@ -1,7 +1,7 @@
 # This configuration is specific to test_*.py; you need to invoke it
 # by specifically naming this config, like this:
 #
-# $ flake8 --config=.flake8-tests src/test_typing.py python2/test_typing.py
+# $ flake8 --config=.flake8-tests [SOURCES]
 #
 # This will be possibly merged in the future.
 
@@ -28,8 +28,3 @@ ignore =
   DW12,
   # consistency with mypy
   W504
-exclude =
-  # This config is NOT for the main module.
-  setup.py,
-  python2/typing.py,
-  src/typing.py
