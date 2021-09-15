@@ -18,8 +18,7 @@ standard library, so that users can experiment with them before they are added t
 standard library. Such features should ideally already be specified in a PEP or draft
 PEP.
 
-`typing_extensions` still supports all Python versions supported by `typing`, down to
-Python 2.7 and 3.4. However, it is OK to omit support for Python versions that have
+`typing_extensions` supports Python 3.6+. However, it is OK to omit support for Python versions that have
 reached end of life if doing so is too difficult or otherwise does not make sense. For
 example, `typing_extensions.AsyncGenerator` only exists on Python 3.6 and higher,
 because async generators were added to the language in 3.6.
@@ -41,12 +40,8 @@ new release that doesn't include any new standard library features would be call
 - Build the source and wheel distributions:
 
   - `pip3 install -U setuptools wheel`
-  - `pip2 install -U setuptools wheel`
   - `rm -rf dist/ build/`
   - `python3 setup.py sdist bdist_wheel`
-  - `rm -rf build/` (Works around
-    `a Wheel bug <https://bitbucket.org/pypa/wheel/issues/147/bdist_wheel-should-start-by-cleaning-up>`\_)
-  - `python2 setup.py bdist_wheel`
 
 - Install the built distributions locally and test (if you were using `tox`, you already
   tested the source distribution).
