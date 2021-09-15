@@ -40,27 +40,18 @@ try:
 except ImportError:
     OLD_GENERICS = True
 
-# We assume Python versions *below* 3.5.0 will have the most
-# up-to-date version of the typing module installed. Since
-# the typing module isn't a part of the standard library in older
-# versions of Python, those users are likely to have a reasonably
-# modern version of `typing` installed from PyPi.
-TYPING_LATEST = sys.version_info[:3] < (3, 5, 0)
-
 # Flags used to mark tests that only apply after a specific
 # version of the typing module.
-TYPING_3_5_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 1)
-TYPING_3_5_3 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 3)
-TYPING_3_6_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 6, 1)
-TYPING_3_10_0 = TYPING_LATEST or sys.version_info[:3] >= (3, 10, 0)
-TYPING_3_11_0 = TYPING_LATEST or sys.version_info[:3] >= (3, 11, 0)
+TYPING_3_6_1 = sys.version_info[:3] >= (3, 6, 1)
+TYPING_3_10_0 = sys.version_info[:3] >= (3, 10, 0)
+TYPING_3_11_0 = sys.version_info[:3] >= (3, 11, 0)
 
 # For typing versions where issubclass(...) and
 # isinstance(...) checks are forbidden.
 #
 # See https://github.com/python/typing/issues/136
 # and https://github.com/python/typing/pull/283
-SUBCLASS_CHECK_FORBIDDEN = TYPING_3_5_3
+SUBCLASS_CHECK_FORBIDDEN = True
 
 # For typing versions where instantiating collection
 # types are allowed.
@@ -654,8 +645,7 @@ class CollectionsAbcTests(BaseTestCase):
     def test_async_iterator(self):
         base_it = range(10)  # type: Iterator[int]
         it = AsyncIteratorWrapper(base_it)
-        if TYPING_3_5_1:
-            self.assertIsInstance(it, typing_extensions.AsyncIterator)
+        self.assertIsInstance(it, typing_extensions.AsyncIterator)
         self.assertNotIsInstance(42, typing_extensions.AsyncIterator)
 
     def test_deque(self):
@@ -687,8 +677,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(dd, MyDefDict)
 
         self.assertIsSubclass(MyDefDict, collections.defaultdict)
-        if TYPING_3_5_3:
-            self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
+        self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
 
     @skipUnless(CAN_INSTANTIATE_COLLECTIONS, "Behavior added in typing 3.6.1")
     def test_ordereddict_instantiation(self):
@@ -711,16 +700,14 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(od, MyOrdDict)
 
         self.assertIsSubclass(MyOrdDict, collections.OrderedDict)
-        if TYPING_3_5_3:
-            self.assertNotIsSubclass(collections.OrderedDict, MyOrdDict)
+        self.assertNotIsSubclass(collections.OrderedDict, MyOrdDict)
 
     def test_chainmap_instantiation(self):
         self.assertIs(type(typing_extensions.ChainMap()), collections.ChainMap)
         self.assertIs(type(typing_extensions.ChainMap[KT, VT]()), collections.ChainMap)
         self.assertIs(type(typing_extensions.ChainMap[str, int]()), collections.ChainMap)
         class CM(typing_extensions.ChainMap[KT, VT]): ...
-        if TYPING_3_5_3:
-            self.assertIs(type(CM[int, str]()), CM)
+        self.assertIs(type(CM[int, str]()), CM)
 
     def test_chainmap_subclass(self):
 
@@ -731,28 +718,25 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(cm, MyChainMap)
 
         self.assertIsSubclass(MyChainMap, collections.ChainMap)
-        if TYPING_3_5_3:
-            self.assertNotIsSubclass(collections.ChainMap, MyChainMap)
+        self.assertNotIsSubclass(collections.ChainMap, MyChainMap)
 
     def test_deque_instantiation(self):
         self.assertIs(type(typing_extensions.Deque()), collections.deque)
         self.assertIs(type(typing_extensions.Deque[T]()), collections.deque)
         self.assertIs(type(typing_extensions.Deque[int]()), collections.deque)
         class D(typing_extensions.Deque[T]): ...
-        if TYPING_3_5_3:
-            self.assertIs(type(D[int]()), D)
+        self.assertIs(type(D[int]()), D)
 
     def test_counter_instantiation(self):
         self.assertIs(type(typing_extensions.Counter()), collections.Counter)
         self.assertIs(type(typing_extensions.Counter[T]()), collections.Counter)
         self.assertIs(type(typing_extensions.Counter[int]()), collections.Counter)
         class C(typing_extensions.Counter[T]): ...
-        if TYPING_3_5_3:
-            self.assertIs(type(C[int]()), C)
-            if not PEP_560:
-                self.assertEqual(C.__bases__, (typing_extensions.Counter,))
-            else:
-                self.assertEqual(C.__bases__, (collections.Counter, typing.Generic))
+        self.assertIs(type(C[int]()), C)
+        if not PEP_560:
+            self.assertEqual(C.__bases__, (typing_extensions.Counter,))
+        else:
+            self.assertEqual(C.__bases__, (collections.Counter, typing.Generic))
 
     def test_counter_subclass_instantiation(self):
 
@@ -762,8 +746,7 @@ class CollectionsAbcTests(BaseTestCase):
         d = MyCounter()
         self.assertIsInstance(d, MyCounter)
         self.assertIsInstance(d, collections.Counter)
-        if TYPING_3_5_1:
-            self.assertIsInstance(d, typing_extensions.Counter)
+        self.assertIsInstance(d, typing_extensions.Counter)
 
     @skipUnless(PY36, 'Python 3.6 required')
     def test_async_generator(self):
@@ -831,8 +814,7 @@ class OtherABCTests(BaseTestCase):
 
         cm = manager()
         self.assertNotIsInstance(cm, typing_extensions.AsyncContextManager)
-        if TYPING_3_5_3:
-            self.assertEqual(typing_extensions.AsyncContextManager[int].__args__, (int,))
+        self.assertEqual(typing_extensions.AsyncContextManager[int].__args__, (int,))
         if TYPING_3_6_1:
             with self.assertRaises(TypeError):
                 isinstance(42, typing_extensions.AsyncContextManager[int])
@@ -1323,9 +1305,8 @@ if HAVE_PROTOCOLS:
                 P[int, str]
             with self.assertRaises(TypeError):
                 PR[int, 1]
-            if TYPING_3_5_3:
-                with self.assertRaises(TypeError):
-                    PR[int, ClassVar]
+            with self.assertRaises(TypeError):
+                PR[int, ClassVar]
             class C(PR[int, T]): pass
             self.assertIsInstance(C[str](), C)
 
@@ -1360,7 +1341,7 @@ if HAVE_PROTOCOLS:
                 def bar(self, x: str) -> str:
                     return x
             self.assertIsInstance(Test(), PSub)
-            if TYPING_3_5_3 and not TYPING_3_10_0:
+            if not TYPING_3_10_0:
                 with self.assertRaises(TypeError):
                     PR[int, ClassVar]
 
@@ -1385,7 +1366,6 @@ if HAVE_PROTOCOLS:
             with self.assertRaises(TypeError):
                 class P(typing.Mapping[T, S], Protocol[T]): pass
 
-        @skipUnless(TYPING_3_5_3, 'New style __repr__ and __eq__ only')
         def test_generic_protocols_repr(self):
             T = TypeVar('T')
             S = TypeVar('S')
@@ -1396,7 +1376,6 @@ if HAVE_PROTOCOLS:
             self.assertTrue(repr(P[T, S]).endswith('P[~T, ~S]'))
             self.assertTrue(repr(P[int, str]).endswith('P[int, str]'))
 
-        @skipUnless(TYPING_3_5_3, 'New style __repr__ and __eq__ only')
         def test_generic_protocols_eq(self):
             T = TypeVar('T')
             S = TypeVar('S')
@@ -1704,7 +1683,6 @@ class TypedDictTests(BaseTestCase):
         }
 
 
-@skipUnless(TYPING_3_5_3, "Python >= 3.5.3 required")
 class AnnotatedTests(BaseTestCase):
 
     def test_repr(self):
@@ -2214,8 +2192,7 @@ class AllTests(BaseTestCase):
         self.assertIn('ParamSpec', a)
         self.assertIn("Concatenate", a)
 
-        if TYPING_3_5_3:
-            self.assertIn('Annotated', a)
+        self.assertIn('Annotated', a)
         if PEP_560:
             self.assertIn('get_type_hints', a)
 
@@ -2229,9 +2206,8 @@ class AllTests(BaseTestCase):
         if PY36:
             self.assertIn('AsyncGenerator', a)
 
-        if TYPING_3_5_3:
-            self.assertIn('Protocol', a)
-            self.assertIn('runtime', a)
+        self.assertIn('Protocol', a)
+        self.assertIn('runtime', a)
 
         # Check that all objects in `__all__` are present in the module
         for name in a:
