@@ -363,24 +363,6 @@ Type = typing.Type
 # Various ABCs mimicking those in collections.abc.
 # A few are simply re-exported for completeness.
 
-def _define_guard(type_name):
-    """
-    Returns True if the given type isn't defined in typing but
-    is defined in collections_abc.
-
-    Adds the type to __all__ if the collection is found in either
-    typing or collection_abc.
-    """
-    if hasattr(typing, type_name):
-        __all__.append(type_name)
-        globals()[type_name] = getattr(typing, type_name)
-        return False
-    elif hasattr(collections_abc, type_name):
-        __all__.append(type_name)
-        return True
-    else:
-        return False
-
 
 class _ExtensionsGenericMeta(GenericMeta):
     def __subclasscheck__(self, subclass):
