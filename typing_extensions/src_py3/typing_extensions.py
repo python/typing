@@ -1,9 +1,10 @@
-from _collections_abc import _check_methods as _check_methods_in_mro
+from _collections_abc import _check_methods as _check_methods_in_mro  # noqa
 import abc
 import collections
 import contextlib
 import sys
 import typing
+from typing import _tp_cache, _TypingEllipsis, _TypingEmpty  # noqa
 import collections.abc as collections_abc
 import operator
 
@@ -27,25 +28,8 @@ try:
     from typing import _type_vars, _next_in_mro, _type_check
 except ImportError:
     OLD_GENERICS = True
-try:
+if sys.version_info[:2] == (3, 6):
     from typing import _subs_tree  # noqa
-    SUBS_TREE = True
-except ImportError:
-    SUBS_TREE = False
-try:
-    from typing import _tp_cache
-except ImportError:
-    def _tp_cache(x):
-        return x
-try:
-    from typing import _TypingEllipsis, _TypingEmpty
-except ImportError:
-    class _TypingEllipsis:
-        pass
-
-    class _TypingEmpty:
-        pass
-
 
 # The two functions below are copies of typing internal helpers.
 # They are needed by _ProtocolMeta
@@ -139,17 +123,10 @@ __all__ = [
     'TYPE_CHECKING',
 ]
 
-# Annotated relies on substitution trees of pep 560. It will not work for
-# versions of typing older than 3.5.3
-HAVE_ANNOTATED = PEP_560 or SUBS_TREE
-
 if PEP_560:
     __all__.extend(["get_args", "get_origin", "get_type_hints"])
 
-if HAVE_ANNOTATED:
-    __all__.append("Annotated")
-
-__all__.extend(['Protocol', 'runtime', 'runtime_checkable'])
+__all__.extend(['Annotated', 'Protocol', 'runtime', 'runtime_checkable'])
 
 
 # TODO
@@ -1882,7 +1859,7 @@ elif PEP_560:
             return hint
         return {k: _strip_annotations(t) for k, t in hint.items()}
 
-elif HAVE_ANNOTATED:
+else:
 
     def _is_dunder(name):
         """Returns True if name is a __dunder_variable_name__."""
