@@ -49,16 +49,16 @@ CAN_INSTANTIATE_COLLECTIONS = TYPING_3_6_1
 class BaseTestCase(TestCase):
     def assertIsSubclass(self, cls, class_or_tuple, msg=None):
         if not issubclass(cls, class_or_tuple):
-            message = '%r is not a subclass of %r' % (cls, class_or_tuple)
+            message = f'{repr(cls)} is not a subclass of {repr(class_or_tuple)}'
             if msg is not None:
-                message += ' : %s' % msg
+                message += f' : {msg}'
             raise self.failureException(message)
 
     def assertNotIsSubclass(self, cls, class_or_tuple, msg=None):
         if issubclass(cls, class_or_tuple):
-            message = '%r is a subclass of %r' % (cls, class_or_tuple)
+            message = f'{repr(cls)} is a subclass of {repr(class_or_tuple)}'
             if msg is not None:
-                message += ' : %s' % msg
+                message += f' : {msg}'
             raise self.failureException(message)
 
 
@@ -124,7 +124,7 @@ class ClassVarTests(BaseTestCase):
         cv = ClassVar[int]
         self.assertEqual(repr(cv), mod_name + '.ClassVar[int]')
         cv = ClassVar[Employee]
-        self.assertEqual(repr(cv), mod_name + '.ClassVar[%s.Employee]' % __name__)
+        self.assertEqual(repr(cv), mod_name + f'.ClassVar[{__name__}.Employee]')
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
@@ -168,7 +168,7 @@ class FinalTests(BaseTestCase):
         cv = Final[int]
         self.assertEqual(repr(cv), mod_name + '.Final[int]')
         cv = Final[Employee]
-        self.assertEqual(repr(cv), mod_name + '.Final[%s.Employee]' % __name__)
+        self.assertEqual(repr(cv), mod_name + f'.Final[{__name__}.Employee]')
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
