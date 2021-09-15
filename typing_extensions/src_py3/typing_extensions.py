@@ -149,11 +149,7 @@ if PEP_560:
 if HAVE_ANNOTATED:
     __all__.append("Annotated")
 
-# Protocols are hard to backport to the original version of typing 3.5.0
-HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
-
-if HAVE_PROTOCOLS:
-    __all__.extend(['Protocol', 'runtime', 'runtime_checkable'])
+__all__.extend(['Protocol', 'runtime', 'runtime_checkable'])
 
 
 # TODO
@@ -1136,7 +1132,7 @@ def _is_callable_members_only(cls):
 
 if hasattr(typing, 'Protocol'):
     Protocol = typing.Protocol
-elif HAVE_PROTOCOLS and not PEP_560:
+elif not PEP_560:
 
     def _no_init(self, *args, **kwargs):
         if type(self)._is_protocol:
@@ -1571,7 +1567,7 @@ elif PEP_560:
 
 if hasattr(typing, 'runtime_checkable'):
     runtime_checkable = typing.runtime_checkable
-elif HAVE_PROTOCOLS:
+else:
     def runtime_checkable(cls):
         """Mark a protocol class as a runtime protocol, so that it
         can be used with isinstance() and issubclass(). Raise TypeError
@@ -1587,14 +1583,13 @@ elif HAVE_PROTOCOLS:
         return cls
 
 
-if HAVE_PROTOCOLS:
-    # Exists for backwards compatibility.
-    runtime = runtime_checkable
+# Exists for backwards compatibility.
+runtime = runtime_checkable
 
 
 if hasattr(typing, 'SupportsIndex'):
     SupportsIndex = typing.SupportsIndex
-elif HAVE_PROTOCOLS:
+else:
     @runtime_checkable
     class SupportsIndex(Protocol):
         __slots__ = ()
