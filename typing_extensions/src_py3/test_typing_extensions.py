@@ -791,8 +791,6 @@ class TypeTests(BaseTestCase):
 
         new_user(BasicUser)
 
-    @skipUnless(sys.version_info[:3] != (3, 5, 2),
-                'Python 3.5.2 has a somewhat buggy Type impl')
     def test_type_optional(self):
         A = Optional[Type[BaseException]]
 
@@ -1453,9 +1451,7 @@ class TypedDictTests(BaseTestCase):
         Emp = TypedDict('Emp', {'name': str, 'id': int})
         self.assertIsSubclass(Emp, dict)
         self.assertIsSubclass(Emp, typing.MutableMapping)
-        if sys.version_info[0] >= 3:
-            import collections.abc
-            self.assertNotIsSubclass(Emp, collections.abc.Sequence)
+        self.assertNotIsSubclass(Emp, collections.abc.Sequence)
         jim = Emp(name='Jim', id=1)
         self.assertIs(type(jim), dict)
         self.assertEqual(jim['name'], 'Jim')
@@ -1470,9 +1466,7 @@ class TypedDictTests(BaseTestCase):
         Emp = TypedDict('Emp', name=str, id=int)
         self.assertIsSubclass(Emp, dict)
         self.assertIsSubclass(Emp, typing.MutableMapping)
-        if sys.version_info[0] >= 3:
-            import collections.abc
-            self.assertNotIsSubclass(Emp, collections.abc.Sequence)
+        self.assertNotIsSubclass(Emp, collections.abc.Sequence)
         jim = Emp(name='Jim', id=1)
         self.assertIs(type(jim), dict)
         self.assertEqual(jim['name'], 'Jim')
@@ -1919,16 +1913,11 @@ class ParamSpecTests(BaseTestCase):
         P = ParamSpec('P')
         T = TypeVar('T')
         C1 = typing.Callable[P, int]
-        # Callable in Python 3.5.2 might be bugged when collecting __args__.
-        # https://github.com/python/cpython/blob/91185fe0284a04162e0b3425b53be49bdbfad67d/Lib/typing.py#L1026
-        PY_3_5_2 = sys.version_info[:3] == (3, 5, 2)
-        if not PY_3_5_2:
-            self.assertEqual(C1.__args__, (P, int))
-            self.assertEqual(C1.__parameters__, (P,))
+        self.assertEqual(C1.__args__, (P, int))
+        self.assertEqual(C1.__parameters__, (P,))
         C2 = typing.Callable[P, T]
-        if not PY_3_5_2:
-            self.assertEqual(C2.__args__, (P, T))
-            self.assertEqual(C2.__parameters__, (P, T))
+        self.assertEqual(C2.__args__, (P, T))
+        self.assertEqual(C2.__parameters__, (P, T))
 
 
         # Test collections.abc.Callable too.
