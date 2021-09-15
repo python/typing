@@ -3,36 +3,27 @@ import os
 import abc
 import contextlib
 import collections
+import collections.abc
 import pickle
 import subprocess
 import types
 from unittest import TestCase, main, skipUnless, skipIf
 from test import ann_module, ann_module2, ann_module3
+import typing
 from typing import TypeVar, Optional, Union
 from typing import T, KT, VT  # Not in __all__.
 from typing import Tuple, List, Dict, Iterable, Iterator, Callable
 from typing import Generic, NamedTuple
 from typing import no_type_check
+import typing_extensions
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager
-
-try:
-    from typing_extensions import Protocol, runtime, runtime_checkable
-except ImportError:
-    pass
-try:
-    from typing_extensions import Annotated
-except ImportError:
-    pass
+from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload
 try:
     from typing_extensions import get_type_hints
 except ImportError:
     from typing import get_type_hints
-
-import typing
-import typing_extensions
-import collections.abc as collections_abc
 
 PEP_560 = sys.version_info[:3] >= (3, 7, 0)
 
@@ -281,8 +272,6 @@ class LiteralTests(BaseTestCase):
 class OverloadTests(BaseTestCase):
 
     def test_overload_fails(self):
-        from typing_extensions import overload
-
         with self.assertRaises(RuntimeError):
 
             @overload
@@ -292,8 +281,6 @@ class OverloadTests(BaseTestCase):
             blah()
 
     def test_overload_succeeds(self):
-        from typing_extensions import overload
-
         @overload
         def blah():
             pass
@@ -545,10 +532,10 @@ class GetUtilitiesTestCase(TestCase):
 class CollectionsAbcTests(BaseTestCase):
 
     def test_isinstance_collections(self):
-        self.assertNotIsInstance(1, collections_abc.Mapping)
-        self.assertNotIsInstance(1, collections_abc.Iterable)
-        self.assertNotIsInstance(1, collections_abc.Container)
-        self.assertNotIsInstance(1, collections_abc.Sized)
+        self.assertNotIsInstance(1, collections.abc.Mapping)
+        self.assertNotIsInstance(1, collections.abc.Iterable)
+        self.assertNotIsInstance(1, collections.abc.Container)
+        self.assertNotIsInstance(1, collections.abc.Sized)
         with self.assertRaises(TypeError):
             isinstance(collections.deque(), typing_extensions.Deque[int])
         with self.assertRaises(TypeError):
@@ -723,15 +710,15 @@ class CollectionsAbcTests(BaseTestCase):
         g = ns['g']
         self.assertIsSubclass(G, typing_extensions.AsyncGenerator)
         self.assertIsSubclass(G, typing_extensions.AsyncIterable)
-        self.assertIsSubclass(G, collections_abc.AsyncGenerator)
-        self.assertIsSubclass(G, collections_abc.AsyncIterable)
+        self.assertIsSubclass(G, collections.abc.AsyncGenerator)
+        self.assertIsSubclass(G, collections.abc.AsyncIterable)
         self.assertNotIsSubclass(type(g), G)
 
         instance = G()
         self.assertIsInstance(instance, typing_extensions.AsyncGenerator)
         self.assertIsInstance(instance, typing_extensions.AsyncIterable)
-        self.assertIsInstance(instance, collections_abc.AsyncGenerator)
-        self.assertIsInstance(instance, collections_abc.AsyncIterable)
+        self.assertIsInstance(instance, collections.abc.AsyncGenerator)
+        self.assertIsInstance(instance, collections.abc.AsyncIterable)
         self.assertNotIsInstance(type(g), G)
         self.assertNotIsInstance(g, G)
 
