@@ -52,9 +52,6 @@ TYPING_3_11_0 = sys.version_info[:3] >= (3, 11, 0)
 # See https://github.com/python/typing/issues/367
 CAN_INSTANTIATE_COLLECTIONS = TYPING_3_6_1
 
-# For Python versions supporting async/await and friends.
-ASYNCIO = sys.version_info[:2] >= (3, 5)
-
 # For checks reliant on Python 3.6 syntax changes (e.g. classvar)
 PY36 = sys.version_info[:2] >= (3, 6)
 
@@ -311,7 +308,6 @@ class OverloadTests(BaseTestCase):
         blah()
 
 
-ASYNCIO_TESTS = """
 from typing import Iterable
 from typing_extensions import Awaitable, AsyncIterator
 
@@ -346,17 +342,7 @@ class ACM:
         return 42
     async def __aexit__(self, etype, eval, tb):
         return None
-"""
 
-if ASYNCIO:
-    try:
-        exec(ASYNCIO_TESTS)
-    except ImportError:
-        ASYNCIO = False
-else:
-    # fake names for the sake of static analysis
-    asyncio = None
-    AwaitableWrapper = AsyncIteratorWrapper = ACM = object
 
 PY36_TESTS = """
 from test import ann_module, ann_module2, ann_module3
@@ -590,7 +576,6 @@ class CollectionsAbcTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(collections.Counter, typing_extensions.Counter[str])
 
-    @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_awaitable(self):
         ns = {}
         exec(
@@ -603,7 +588,6 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertNotIsInstance(foo, typing_extensions.Awaitable)
         g.send(None)  # Run foo() till completion, to avoid warning.
 
-    @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_coroutine(self):
         ns = {}
         exec(
@@ -621,7 +605,6 @@ class CollectionsAbcTests(BaseTestCase):
         except StopIteration:
             pass
 
-    @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_async_iterable(self):
         base_it = range(10)  # type: Iterator[int]
         it = AsyncIteratorWrapper(base_it)
@@ -629,7 +612,6 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(it, typing_extensions.AsyncIterable)
         self.assertNotIsInstance(42, typing_extensions.AsyncIterable)
 
-    @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_async_iterator(self):
         base_it = range(10)  # type: Iterator[int]
         it = AsyncIteratorWrapper(base_it)
@@ -790,7 +772,6 @@ class OtherABCTests(BaseTestCase):
         self.assertIsInstance(cm, typing_extensions.ContextManager)
         self.assertNotIsInstance(42, typing_extensions.ContextManager)
 
-    @skipUnless(ASYNCIO, 'Python 3.5 required')
     def test_async_contextmanager(self):
         class NotACM:
             pass
@@ -2181,12 +2162,11 @@ class AllTests(BaseTestCase):
         if PEP_560:
             self.assertIn('get_type_hints', a)
 
-        if ASYNCIO:
-            self.assertIn('Awaitable', a)
-            self.assertIn('AsyncIterator', a)
-            self.assertIn('AsyncIterable', a)
-            self.assertIn('Coroutine', a)
-            self.assertIn('AsyncContextManager', a)
+        self.assertIn('Awaitable', a)
+        self.assertIn('AsyncIterator', a)
+        self.assertIn('AsyncIterable', a)
+        self.assertIn('Coroutine', a)
+        self.assertIn('AsyncContextManager', a)
 
         if PY36:
             self.assertIn('AsyncGenerator', a)
