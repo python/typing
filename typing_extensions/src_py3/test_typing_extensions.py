@@ -52,9 +52,6 @@ TYPING_3_11_0 = sys.version_info[:3] >= (3, 11, 0)
 # See https://github.com/python/typing/issues/367
 CAN_INSTANTIATE_COLLECTIONS = TYPING_3_6_1
 
-# For checks reliant on Python 3.6 syntax changes (e.g. classvar)
-PY36 = sys.version_info[:2] >= (3, 6)
-
 # Protocols are hard to backport to the original version of typing 3.5.0
 HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
 
@@ -344,7 +341,6 @@ class ACM:
         return None
 
 
-PY36_TESTS = """
 from test import ann_module, ann_module2, ann_module3
 from typing_extensions import AsyncContextManager
 from typing import NamedTuple
@@ -414,23 +410,11 @@ class Animal(BaseAnimal, total=False):
 
 class Cat(Animal):
     fur_color: str
-"""
-
-if PY36:
-    exec(PY36_TESTS)
-else:
-    # fake names for the sake of static analysis
-    ann_module = ann_module2 = ann_module3 = None
-    A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
-    XMeth = XRepr = HasCallProtocol = NoneAndForward = Loop = object
-    Point2D = Point2Dor3D = LabelPoint2D = Options = object
-    BaseAnimal = Animal = Cat = object
 
 gth = get_type_hints
 
 
 class GetTypeHintTests(BaseTestCase):
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_modules(self):
         ann_module_type_hints = {1: 2, 'f': Tuple[int, int], 'x': int, 'y': str}
         if (TYPING_3_11_0
@@ -441,7 +425,6 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(gth(ann_module2), {})
         self.assertEqual(gth(ann_module3), {})
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_classes(self):
         self.assertEqual(gth(ann_module.C, ann_module.__dict__),
                          {'y': Optional[ann_module.C]})
@@ -457,7 +440,6 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(gth(NoneAndForward, globals()),
                          {'parent': NoneAndForward, 'meaning': type(None)})
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_respect_no_type_check(self):
         @no_type_check
         class NoTpCheck:
@@ -472,7 +454,6 @@ class GetTypeHintTests(BaseTestCase):
         class Der(ABase): ...
         self.assertEqual(gth(ABase.meth), {'x': int})
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_ClassVar(self):
         self.assertEqual(gth(ann_module2.CV, ann_module2.__dict__),
                          {'var': ClassVar[ann_module2.CV]})
@@ -483,7 +464,6 @@ class GetTypeHintTests(BaseTestCase):
                           'x': ClassVar[Optional[B]]})
         self.assertEqual(gth(G), {'lst': ClassVar[List[T]]})
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_final_forward_ref(self):
         self.assertEqual(gth(Loop, globals())['attr'], Final[Loop])
         self.assertNotEqual(gth(Loop, globals())['attr'], Final[int])
@@ -718,7 +698,6 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(d, collections.Counter)
         self.assertIsInstance(d, typing_extensions.Counter)
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_async_generator(self):
         ns = {}
         exec("async def f():\n"
@@ -726,7 +705,6 @@ class CollectionsAbcTests(BaseTestCase):
         g = ns['f']()
         self.assertIsSubclass(type(g), typing_extensions.AsyncGenerator)
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_no_async_generator_instantiation(self):
         with self.assertRaises(TypeError):
             typing_extensions.AsyncGenerator()
@@ -735,7 +713,6 @@ class CollectionsAbcTests(BaseTestCase):
         with self.assertRaises(TypeError):
             typing_extensions.AsyncGenerator[int, int]()
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_subclassing_async_generator(self):
         class G(typing_extensions.AsyncGenerator[int, int]):
             def asend(self, value):
@@ -851,7 +828,6 @@ class NewTypeTests(BaseTestCase):
                 pass
 
 
-PY36_PROTOCOL_TESTS = """
 class Coordinate(Protocol):
     x: int
     y: int
@@ -894,14 +870,6 @@ class Other:
 class NT(NamedTuple):
     x: int
     y: int
-"""
-
-if PY36:
-    exec(PY36_PROTOCOL_TESTS)
-else:
-    # fake names for the sake of static analysis
-    Coordinate = Point = MyPoint = BadPoint = NT = object
-    XAxis = YAxis = Position = Proto = Concrete = Other = object
 
 
 if HAVE_PROTOCOLS:
@@ -936,7 +904,6 @@ if HAVE_PROTOCOLS:
             for thing in (object(), 1, (), typing, f):
                 self.assertIsInstance(thing, Empty)
 
-        @skipUnless(PY36, 'Python 3.6 required')
         def test_function_implements_protocol(self):
             def f():
                 pass
@@ -1127,7 +1094,6 @@ if HAVE_PROTOCOLS:
             with self.assertRaises(TypeError):
                 isinstance(C(), BadPG)
 
-        @skipUnless(PY36, 'Python 3.6 required')
         def test_protocols_isinstance_py36(self):
             class APoint:
                 def __init__(self, x, y, label):
@@ -1575,7 +1541,6 @@ class TypedDictTests(BaseTestCase):
         with self.assertRaises(TypeError):
             TypedDict('Hi', [('x', int)], y=int)
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_py36_class_syntax_usage(self):
         self.assertEqual(LabelPoint2D.__name__, 'LabelPoint2D')
         self.assertEqual(LabelPoint2D.__module__, __name__)
@@ -1616,19 +1581,16 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(D.__required_keys__, frozenset())
         self.assertEqual(D.__optional_keys__, {'x'})
 
-        if PY36:
-            self.assertEqual(Options(), {})
-            self.assertEqual(Options(log_level=2), {'log_level': 2})
-            self.assertEqual(Options.__total__, False)
-            self.assertEqual(Options.__required_keys__, frozenset())
-            self.assertEqual(Options.__optional_keys__, {'log_level', 'log_path'})
+        self.assertEqual(Options(), {})
+        self.assertEqual(Options(log_level=2), {'log_level': 2})
+        self.assertEqual(Options.__total__, False)
+        self.assertEqual(Options.__required_keys__, frozenset())
+        self.assertEqual(Options.__optional_keys__, {'log_level', 'log_path'})
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_optional_keys(self):
         assert Point2Dor3D.__required_keys__ == frozenset(['x', 'y'])
         assert Point2Dor3D.__optional_keys__ == frozenset(['z'])
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_keys_inheritance(self):
         assert BaseAnimal.__required_keys__ == frozenset(['name'])
         assert BaseAnimal.__optional_keys__ == frozenset([])
@@ -1894,7 +1856,6 @@ class GetTypeHintsTests(BaseTestCase):
 
 
 class TypeAliasTests(BaseTestCase):
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_canonical_usage_with_variable_annotation(self):
         ns = {}
         exec('Alias: TypeAlias = Employee', globals(), ns)
@@ -2168,8 +2129,7 @@ class AllTests(BaseTestCase):
         self.assertIn('Coroutine', a)
         self.assertIn('AsyncContextManager', a)
 
-        if PY36:
-            self.assertIn('AsyncGenerator', a)
+        self.assertIn('AsyncGenerator', a)
 
         self.assertIn('Protocol', a)
         self.assertIn('runtime', a)
