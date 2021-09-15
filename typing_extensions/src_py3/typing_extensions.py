@@ -1079,7 +1079,7 @@ else:
             # In Python 3.4 and 3.5 the __init__ method also needs to support the
             # keyword arguments.
             # See https://www.python.org/dev/peps/pep-0487/#implementation-details
-            super(_TypedDictMeta, cls).__init__(name, bases, ns)
+            super().__init__(name, bases, ns)
 
         def __new__(cls, name, bases, ns, total=True):
             # Create new typed dict class object.
@@ -1089,7 +1089,7 @@ else:
             # Subclasses and instances of TypedDict return actual dictionaries
             # via _dict_new.
             ns['__new__'] = _typeddict_new if name == 'TypedDict' else _dict_new
-            tp_dict = super(_TypedDictMeta, cls).__new__(cls, name, (dict,), ns)
+            tp_dict = super().__new__(cls, name, (dict,), ns)
 
             annotations = {}
             own_annotations = ns.get('__annotations__', {})
