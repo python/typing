@@ -19,13 +19,7 @@ repository contain some historic discussions.
 Repository Content
 ------------------
 
-This GitHub repo is used for several things:
-
-- A backport of the `typing` module for older Python versions (2.7 and
-  3.4) is maintained in the [src directory](./src).
-  Note that the canonical source lives
-  [upstream](https://github.com/python/cpython/blob/master/Lib/typing.py)
-  in the CPython repo.
+This GitHub repository is used for several things:
 
 - The `typing_extensions` module lives in the
   [typing\_extensions](./typing_extensions) directory.
@@ -36,11 +30,12 @@ This GitHub repo is used for several things:
 - A [discussion forum](https://github.com/python/typing/discussions) for typing-related user
   help is hosted here.
 
+Historically, this repository hosted a backport of the
+[`typing` module](https://docs.python.org/3/library/typing.html) for older
+Python versions. The last released version, supporting Python 2.7 and 3.4,
+is [available at PyPI](https://pypi.org/project/typing/).
+
 Workflow
 --------
 
-* See [CONTRIBUTING.md](/CONTRIBUTING.md) for more.
-
-* The typing.py module and its unittests are edited in the `src`
-  subdirectory of this repo. The `python2` subdirectory contains the
-  Python 2 backport.
+See [CONTRIBUTING.md](/CONTRIBUTING.md) for more.

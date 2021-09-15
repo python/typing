@@ -25,9 +25,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r test-requirements.txt
 
-      - name: Test typing
-        run: pytest python2
-
       - name: Test typing_extensions
         run: |
           pip install typing
@@ -97,4 +94,4 @@ jobs:
         run: flake8
 
       - name: Lint tests
-        run: flake8 --config=.flake8-tests src/test_typing.py python2/test_typing.py typing_extensions/src_py2/test_typing_extensions.py typing_extensions/src_py3/test_typing_extensions.py
+        run: flake8 --config=.flake8-tests typing_extensions/src_py2/test_typing_extensions.py typing_extensions/src_py3/test_typing_extensions.py
