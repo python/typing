@@ -22,13 +22,8 @@ if PEP_560:
     from typing import _GenericAlias
 else:
     from typing import GenericMeta, TypingMeta
-OLD_GENERICS = False
-try:
-    from typing import _type_vars, _next_in_mro, _type_check
-except ImportError:
-    OLD_GENERICS = True
 if sys.version_info[:2] == (3, 6):
-    from typing import _subs_tree  # noqa
+    from typing import _type_vars, _next_in_mro, _type_check, _subs_tree  # noqa
 
 # The two functions below are copies of typing internal helpers.
 # They are needed by _ProtocolMeta
@@ -510,16 +505,6 @@ def _gorg(cls):
     return cls
 
 
-if OLD_GENERICS:
-    def _next_in_mro(cls):  # noqa
-        """This function exists for compatibility with old typing versions."""
-        next_in_mro = object
-        for i, c in enumerate(cls.__mro__[:-1]):
-            if isinstance(c, GenericMeta) and _gorg(c) is Generic:
-                next_in_mro = cls.__mro__[i + 1]
-        return next_in_mro
-
-
 _PROTO_WHITELIST = ['Callable', 'Awaitable',
                     'Iterable', 'Iterator', 'AsyncIterable', 'AsyncIterator',
                     'Hashable', 'Sized', 'Container', 'Collection', 'Reversible',
@@ -565,71 +550,70 @@ elif not PEP_560:
         This exists so Protocol classes can be generic without deriving
         from Generic.
         """
-        if not OLD_GENERICS:
-            def __new__(cls, name, bases, namespace,
-                        tvars=None, args=None, origin=None, extra=None, orig_bases=None):
-                # This is just a version copied from GenericMeta.__new__ that
-                # includes "Protocol" special treatment. (Comments removed for brevity.)
-                assert extra is None  # Protocols should not have extra
-                if tvars is not None:
-                    assert origin is not None
-                    assert all(isinstance(t, TypeVar) for t in tvars), tvars
-                else:
-                    tvars = _type_vars(bases)
-                    gvars = None
-                    for base in bases:
-                        if base is Generic:
-                            raise TypeError("Cannot inherit from plain Generic")
-                        if (isinstance(base, GenericMeta) and
-                                base.__origin__ in (Generic, Protocol)):
-                            if gvars is not None:
-                                raise TypeError(
-                                    "Cannot inherit from Generic[...] or"
-                                    " Protocol[...] multiple times.")
-                            gvars = base.__parameters__
-                    if gvars is None:
-                        gvars = tvars
-                    else:
-                        tvarset = set(tvars)
-                        gvarset = set(gvars)
-                        if not tvarset <= gvarset:
+        def __new__(cls, name, bases, namespace,
+                    tvars=None, args=None, origin=None, extra=None, orig_bases=None):
+            # This is just a version copied from GenericMeta.__new__ that
+            # includes "Protocol" special treatment. (Comments removed for brevity.)
+            assert extra is None  # Protocols should not have extra
+            if tvars is not None:
+                assert origin is not None
+                assert all(isinstance(t, TypeVar) for t in tvars), tvars
+            else:
+                tvars = _type_vars(bases)
+                gvars = None
+                for base in bases:
+                    if base is Generic:
+                        raise TypeError("Cannot inherit from plain Generic")
+                    if (isinstance(base, GenericMeta) and
+                            base.__origin__ in (Generic, Protocol)):
+                        if gvars is not None:
                             raise TypeError(
-                                "Some type variables (%s) "
-                                "are not listed in %s[%s]" %
-                                (", ".join(str(t) for t in tvars if t not in gvarset),
-                                 "Generic" if any(b.__origin__ is Generic
-                                                  for b in bases) else "Protocol",
-                                 ", ".join(str(g) for g in gvars)))
-                        tvars = gvars
+                                "Cannot inherit from Generic[...] or"
+                                " Protocol[...] multiple times.")
+                        gvars = base.__parameters__
+                if gvars is None:
+                    gvars = tvars
+                else:
+                    tvarset = set(tvars)
+                    gvarset = set(gvars)
+                    if not tvarset <= gvarset:
+                        raise TypeError(
+                            "Some type variables (%s) "
+                            "are not listed in %s[%s]" %
+                            (", ".join(str(t) for t in tvars if t not in gvarset),
+                             "Generic" if any(b.__origin__ is Generic
+                                              for b in bases) else "Protocol",
+                             ", ".join(str(g) for g in gvars)))
+                    tvars = gvars
 
-                initial_bases = bases
-                if (extra is not None and type(extra) is abc.ABCMeta and
-                        extra not in bases):
-                    bases = (extra,) + bases
-                bases = tuple(_gorg(b) if isinstance(b, GenericMeta) else b
-                              for b in bases)
-                if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
-                    bases = tuple(b for b in bases if b is not Generic)
-                namespace.update({'__origin__': origin, '__extra__': extra})
-                self = super(GenericMeta, cls).__new__(cls, name, bases, namespace,
-                                                       _root=True)
-                super(GenericMeta, self).__setattr__('_gorg',
-                                                     self if not origin else
-                                                     _gorg(origin))
-                self.__parameters__ = tvars
-                self.__args__ = tuple(... if a is _TypingEllipsis else
-                                      () if a is _TypingEmpty else
-                                      a for a in args) if args else None
-                self.__next_in_mro__ = _next_in_mro(self)
-                if orig_bases is None:
-                    self.__orig_bases__ = initial_bases
-                elif origin is not None:
-                    self._abc_registry = origin._abc_registry
-                    self._abc_cache = origin._abc_cache
-                if hasattr(self, '_subs_tree'):
-                    self.__tree_hash__ = (hash(self._subs_tree()) if origin else
-                                          super(GenericMeta, self).__hash__())
-                return self
+            initial_bases = bases
+            if (extra is not None and type(extra) is abc.ABCMeta and
+                    extra not in bases):
+                bases = (extra,) + bases
+            bases = tuple(_gorg(b) if isinstance(b, GenericMeta) else b
+                          for b in bases)
+            if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
+                bases = tuple(b for b in bases if b is not Generic)
+            namespace.update({'__origin__': origin, '__extra__': extra})
+            self = super(GenericMeta, cls).__new__(cls, name, bases, namespace,
+                                                   _root=True)
+            super(GenericMeta, self).__setattr__('_gorg',
+                                                 self if not origin else
+                                                 _gorg(origin))
+            self.__parameters__ = tvars
+            self.__args__ = tuple(... if a is _TypingEllipsis else
+                                  () if a is _TypingEmpty else
+                                  a for a in args) if args else None
+            self.__next_in_mro__ = _next_in_mro(self)
+            if orig_bases is None:
+                self.__orig_bases__ = initial_bases
+            elif origin is not None:
+                self._abc_registry = origin._abc_registry
+                self._abc_cache = origin._abc_cache
+            if hasattr(self, '_subs_tree'):
+                self.__tree_hash__ = (hash(self._subs_tree()) if origin else
+                                      super(GenericMeta, self).__hash__())
+            return self
 
         def __init__(cls, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -714,47 +698,46 @@ elif not PEP_560:
                                 " don't support issubclass()")
             return super(GenericMeta, self).__subclasscheck__(cls)
 
-        if not OLD_GENERICS:
-            @_tp_cache
-            def __getitem__(self, params):
-                # We also need to copy this from GenericMeta.__getitem__ to get
-                # special treatment of "Protocol". (Comments removed for brevity.)
-                if not isinstance(params, tuple):
-                    params = (params,)
-                if not params and _gorg(self) is not Tuple:
+        @_tp_cache
+        def __getitem__(self, params):
+            # We also need to copy this from GenericMeta.__getitem__ to get
+            # special treatment of "Protocol". (Comments removed for brevity.)
+            if not isinstance(params, tuple):
+                params = (params,)
+            if not params and _gorg(self) is not Tuple:
+                raise TypeError(
+                    "Parameter list to %s[...] cannot be empty" % self.__qualname__)
+            msg = "Parameters to generic types must be types."
+            params = tuple(_type_check(p, msg) for p in params)
+            if self in (Generic, Protocol):
+                if not all(isinstance(p, TypeVar) for p in params):
                     raise TypeError(
-                        "Parameter list to %s[...] cannot be empty" % self.__qualname__)
-                msg = "Parameters to generic types must be types."
-                params = tuple(_type_check(p, msg) for p in params)
-                if self in (Generic, Protocol):
-                    if not all(isinstance(p, TypeVar) for p in params):
-                        raise TypeError(
-                            "Parameters to %r[...] must all be type variables" % self)
-                    if len(set(params)) != len(params):
-                        raise TypeError(
-                            "Parameters to %r[...] must all be unique" % self)
-                    tvars = params
-                    args = params
-                elif self in (Tuple, Callable):
-                    tvars = _type_vars(params)
-                    args = params
-                elif self.__origin__ in (Generic, Protocol):
-                    raise TypeError("Cannot subscript already-subscripted %s" %
-                                    repr(self))
-                else:
-                    _check_generic(self, params)
-                    tvars = _type_vars(params)
-                    args = params
+                        "Parameters to %r[...] must all be type variables" % self)
+                if len(set(params)) != len(params):
+                    raise TypeError(
+                        "Parameters to %r[...] must all be unique" % self)
+                tvars = params
+                args = params
+            elif self in (Tuple, Callable):
+                tvars = _type_vars(params)
+                args = params
+            elif self.__origin__ in (Generic, Protocol):
+                raise TypeError("Cannot subscript already-subscripted %s" %
+                                repr(self))
+            else:
+                _check_generic(self, params)
+                tvars = _type_vars(params)
+                args = params
 
-                prepend = (self,) if self.__origin__ is None else ()
-                return self.__class__(self.__name__,
-                                      prepend + self.__bases__,
-                                      _no_slots_copy(self.__dict__),
-                                      tvars=tvars,
-                                      args=args,
-                                      origin=self,
-                                      extra=self.__extra__,
-                                      orig_bases=self.__orig_bases__)
+            prepend = (self,) if self.__origin__ is None else ()
+            return self.__class__(self.__name__,
+                                  prepend + self.__bases__,
+                                  _no_slots_copy(self.__dict__),
+                                  tvars=tvars,
+                                  args=args,
+                                  origin=self,
+                                  extra=self.__extra__,
+                                  orig_bases=self.__orig_bases__)
 
     class Protocol(metaclass=_ProtocolMeta):
         """Base class for protocol classes. Protocol classes are defined as::
@@ -792,15 +775,12 @@ elif not PEP_560:
             if _gorg(cls) is Protocol:
                 raise TypeError("Type Protocol cannot be instantiated; "
                                 "it can be used only as a base class")
-            if OLD_GENERICS:
-                return _generic_new(_next_in_mro(cls), cls, *args, **kwds)
             return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
     if Protocol.__doc__ is not None:
-        Protocol.__doc__ = Protocol.__doc__.format(bases="Protocol, Generic[T]" if
-                                                   OLD_GENERICS else "Protocol[T]")
+        Protocol.__doc__ = Protocol.__doc__.format(bases="Protocol[T]")
 # 3.7
 else:
-    from typing import _type_check, _collect_type_vars  # noqa
+    from typing import _collect_type_vars  # noqa
 
     def _no_init(self, *args, **kwargs):
         if type(self)._is_protocol:
@@ -873,7 +853,7 @@ else:
                 raise TypeError(
                     "Parameter list to {}[...] cannot be empty".format(cls.__qualname__))
             msg = "Parameters to generic types must be types."
-            params = tuple(_type_check(p, msg) for p in params)
+            params = tuple(typing._type_check(p, msg) for p in params)  # noqa
             if cls is Protocol:
                 # Generic can only be subscripted with unique type variables.
                 if not all(isinstance(p, TypeVar) for p in params):
@@ -1766,7 +1746,7 @@ else:
             pass
 
         if not PEP_560:
-            # Only needed in 3.6 and lower.
+            # Only needed in 3.6.
             def _get_type_vars(self, tvars):
                 if self not in tvars:
                     tvars.append(self)
@@ -1813,7 +1793,7 @@ if not hasattr(typing, 'Concatenate'):
             )
 
         if not PEP_560:
-            # Only required in 3.6 and lower.
+            # Only required in 3.6.
             def _get_type_vars(self, tvars):
                 if self.__origin__ and self.__parameters__:
                     typing._get_type_vars(self.__parameters__, tvars)
