@@ -39,12 +39,12 @@ def _no_slots_copy(dct):
 
 def _check_generic(cls, parameters):
     if not cls.__parameters__:
-        raise TypeError("%s is not a generic class" % repr(cls))
+        raise TypeError(f"{cls} is not a generic class")
     alen = len(parameters)
     elen = len(cls.__parameters__)
     if alen != elen:
-        raise TypeError("Too %s parameters for %s; actual %s, expected %s" %
-                        ("many" if alen > elen else "few", repr(cls), alen, elen))
+        raise TypeError(f"Too {'many' if alen > elen else 'few'} arguments for {cls};"
+                        f" actual {alen}, expected {elen}")
 
 
 if hasattr(typing, '_generic_new'):
@@ -164,7 +164,7 @@ elif sys.version_info[:2] >= (3, 7):
 
         def __getitem__(self, parameters):
             item = typing._type_check(parameters,
-                                      '{} accepts only single type'.format(self._name))
+                                      f'{self._name} accepts only single type')
             return _GenericAlias(self, (item,))
 
     Final = _FinalForm('Final',
@@ -208,7 +208,7 @@ else:
             cls = type(self)
             if self.__type__ is None:
                 return cls(typing._type_check(item,
-                           '{} accepts only single type.'.format(cls.__name__[1:])),
+                           f'{cls.__name__[1:]} accepts only single type.'),
                            _root=True)
             raise TypeError('{} cannot be further subscripted'
                             .format(cls.__name__[1:]))
@@ -222,7 +222,7 @@ else:
         def __repr__(self):
             r = super().__repr__()
             if self.__type__ is not None:
-                r += '[{}]'.format(typing._type_repr(self.__type__))
+                r += f'[{typing._type_repr(self.__type__)}]'
             return r
 
         def __hash__(self):
@@ -577,13 +577,12 @@ elif not PEP_560:
                     tvarset = set(tvars)
                     gvarset = set(gvars)
                     if not tvarset <= gvarset:
-                        raise TypeError(
-                            "Some type variables (%s) "
-                            "are not listed in %s[%s]" %
-                            (", ".join(str(t) for t in tvars if t not in gvarset),
-                             "Generic" if any(b.__origin__ is Generic
-                                              for b in bases) else "Protocol",
-                             ", ".join(str(g) for g in gvars)))
+                        s_vars = ", ".join(str(t) for t in tvars if t not in gvarset)
+                        s_args = ", ".join(str(g) for g in gvars)
+                        cls_name = "Generic" if any(b.__origin__ is Generic
+                                                    for b in bases) else "Protocol"
+                        raise TypeError(f"Some type variables ({s_vars}) are"
+                                        f" not listed in {cls_name}[{s_args}]")
                     tvars = gvars
 
             initial_bases = bases
@@ -630,8 +629,8 @@ elif not PEP_560:
                             isinstance(base, TypingMeta) and base._is_protocol or
                             isinstance(base, GenericMeta) and
                             base.__origin__ is Generic):
-                        raise TypeError('Protocols can only inherit from other'
-                                        ' protocols, got %r' % base)
+                        raise TypeError(f'Protocols can only inherit from other'
+                                        f' protocols, got {repr(base)}')
 
                 cls.__init__ = _no_init
 
@@ -706,24 +705,23 @@ elif not PEP_560:
                 params = (params,)
             if not params and _gorg(self) is not Tuple:
                 raise TypeError(
-                    "Parameter list to %s[...] cannot be empty" % self.__qualname__)
+                    f"Parameter list to {self.__qualname__}[...] cannot be empty")
             msg = "Parameters to generic types must be types."
             params = tuple(_type_check(p, msg) for p in params)
             if self in (Generic, Protocol):
                 if not all(isinstance(p, TypeVar) for p in params):
                     raise TypeError(
-                        "Parameters to %r[...] must all be type variables" % self)
+                        f"Parameters to {repr(self)}[...] must all be type variables")
                 if len(set(params)) != len(params):
                     raise TypeError(
-                        "Parameters to %r[...] must all be unique" % self)
+                        f"Parameters to {repr(self)}[...] must all be unique")
                 tvars = params
                 args = params
             elif self in (Tuple, Callable):
                 tvars = _type_vars(params)
                 args = params
             elif self.__origin__ in (Generic, Protocol):
-                raise TypeError("Cannot subscript already-subscripted %s" %
-                                repr(self))
+                raise TypeError(f"Cannot subscript already-subscripted {repr(self)}")
             else:
                 _check_generic(self, params)
                 tvars = _type_vars(params)
@@ -851,7 +849,7 @@ else:
                 params = (params,)
             if not params and cls is not Tuple:
                 raise TypeError(
-                    "Parameter list to {}[...] cannot be empty".format(cls.__qualname__))
+                    f"Parameter list to {cls.__qualname__}[...] cannot be empty")
             msg = "Parameters to generic types must be types."
             params = tuple(typing._type_check(p, msg) for p in params)  # noqa
             if cls is Protocol:
@@ -961,7 +959,7 @@ else:
                         base.__name__ in _PROTO_WHITELIST or
                         isinstance(base, _ProtocolMeta) and base._is_protocol):
                     raise TypeError('Protocols can only inherit from other'
-                                    ' protocols, got %r' % base)
+                                    f' protocols, got {repr(base)}')
             cls.__init__ = _no_init
 
 
@@ -980,7 +978,7 @@ else:
         """
         if not isinstance(cls, _ProtocolMeta) or not cls._is_protocol:
             raise TypeError('@runtime_checkable can be only applied to protocol classes,'
-                            ' got %r' % cls)
+                            f' got {repr(cls)}')
         cls._is_runtime_protocol = True
         return cls
 
@@ -1257,7 +1255,7 @@ elif PEP_560:
 
         def __init_subclass__(cls, *args, **kwargs):
             raise TypeError(
-                "Cannot subclass {}.Annotated".format(cls.__module__)
+                f"Cannot subclass {cls.__module__}.Annotated"
             )
 
     def _strip_annotations(t):
@@ -1339,7 +1337,7 @@ else:
             else:
                 tp_repr = origin[0]._tree_repr(origin)
             metadata_reprs = ", ".join(repr(arg) for arg in metadata)
-            return '%s[%s, %s]' % (cls, tp_repr, metadata_reprs)
+            return f'{cls}[{tp_repr}, {metadata_reprs}]'
 
         def _subs_tree(self, tvars=None, args=None):  # noqa
             if self is Annotated:
@@ -1537,7 +1535,7 @@ elif sys.version_info[:2] >= (3, 9):
 
         It's invalid when used anywhere except as in the example above.
         """
-        raise TypeError("{} is not subscriptable".format(self))
+        raise TypeError(f"{self} is not subscriptable")
 # 3.7-3.8
 elif sys.version_info[:2] >= (3, 7):
     class _TypeAliasForm(typing._SpecialForm, _root=True):
@@ -1620,7 +1618,7 @@ else:
             self.__origin__ = origin
 
         def __repr__(self):
-            return "{}.args".format(self.__origin__.__name__)
+            return f"{self.__origin__.__name__}.args"
 
     class ParamSpecKwargs(_Immutable):
         """The kwargs for a ParamSpec object.
@@ -1638,7 +1636,7 @@ else:
             self.__origin__ = origin
 
         def __repr__(self):
-            return "{}.kwargs".format(self.__origin__.__name__)
+            return f"{self.__origin__.__name__}.kwargs"
 
 # 3.10+
 if hasattr(typing, 'ParamSpec'):
@@ -1944,7 +1942,7 @@ elif sys.version_info[:2] >= (3, 9):
         ``TypeGuard`` also works with type variables.  For more information, see
         PEP 647 (User-Defined Type Guards).
         """
-        item = typing._type_check(parameters, '{} accepts only single type.'.format(self))
+        item = typing._type_check(parameters, f'{self} accepts only single type.')
         return _GenericAlias(self, (item,))
 # 3.7-3.8
 elif sys.version_info[:2] >= (3, 7):
@@ -1955,7 +1953,7 @@ elif sys.version_info[:2] >= (3, 7):
 
         def __getitem__(self, parameters):
             item = typing._type_check(parameters,
-                                      '{} accepts only a single type'.format(self._name))
+                                      f'{self._name} accepts only a single type')
             return _GenericAlias(self, (item,))
 
     TypeGuard = _TypeGuardForm(
@@ -2057,7 +2055,7 @@ else:
             cls = type(self)
             if self.__type__ is None:
                 return cls(typing._type_check(item,
-                           '{} accepts only a single type.'.format(cls.__name__[1:])),
+                           f'{cls.__name__[1:]} accepts only a single type.'),
                            _root=True)
             raise TypeError('{} cannot be further subscripted'
                             .format(cls.__name__[1:]))
@@ -2071,7 +2069,7 @@ else:
         def __repr__(self):
             r = super().__repr__()
             if self.__type__ is not None:
-                r += '[{}]'.format(typing._type_repr(self.__type__))
+                r += f'[{typing._type_repr(self.__type__)}]'
             return r
 
         def __hash__(self):
