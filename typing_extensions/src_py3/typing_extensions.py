@@ -72,14 +72,6 @@ else:
     def _generic_new(base_cls, cls, *args, **kwargs):
         return base_cls.__new__(cls, *args, **kwargs)
 
-# See https://github.com/python/typing/pull/439
-if hasattr(typing, '_geqv'):
-    from typing import _geqv
-    _geqv_defined = True
-else:
-    _geqv = None
-    _geqv_defined = False
-
 # Please keep __all__ alphabetized within each category.
 __all__ = [
     # Super-special typing primitives.
@@ -788,16 +780,6 @@ if _define_guard('AsyncIterator'):
 
 if hasattr(typing, 'Deque'):
     Deque = typing.Deque
-elif _geqv_defined:
-    class Deque(collections.deque, typing.MutableSequence[T],
-                metaclass=_ExtensionsGenericMeta,
-                extra=collections.deque):
-        __slots__ = ()
-
-        def __new__(cls, *args, **kwds):
-            if _geqv(cls, Deque):
-                return collections.deque(*args, **kwds)
-            return _generic_new(collections.deque, cls, *args, **kwds)
 else:
     class Deque(collections.deque, typing.MutableSequence[T],
                 metaclass=_ExtensionsGenericMeta,
@@ -874,17 +856,6 @@ else:
 
 if hasattr(typing, 'DefaultDict'):
     DefaultDict = typing.DefaultDict
-elif _geqv_defined:
-    class DefaultDict(collections.defaultdict, typing.MutableMapping[KT, VT],
-                      metaclass=_ExtensionsGenericMeta,
-                      extra=collections.defaultdict):
-
-        __slots__ = ()
-
-        def __new__(cls, *args, **kwds):
-            if _geqv(cls, DefaultDict):
-                return collections.defaultdict(*args, **kwds)
-            return _generic_new(collections.defaultdict, cls, *args, **kwds)
 else:
     class DefaultDict(collections.defaultdict, typing.MutableMapping[KT, VT],
                       metaclass=_ExtensionsGenericMeta,
@@ -902,17 +873,6 @@ if hasattr(typing, 'OrderedDict'):
     OrderedDict = typing.OrderedDict
 elif (3, 7, 0) <= sys.version_info[:3] < (3, 7, 2):
     OrderedDict = typing._alias(collections.OrderedDict, (KT, VT))
-elif _geqv_defined:
-    class OrderedDict(collections.OrderedDict, typing.MutableMapping[KT, VT],
-                      metaclass=_ExtensionsGenericMeta,
-                      extra=collections.OrderedDict):
-
-        __slots__ = ()
-
-        def __new__(cls, *args, **kwds):
-            if _geqv(cls, OrderedDict):
-                return collections.OrderedDict(*args, **kwds)
-            return _generic_new(collections.OrderedDict, cls, *args, **kwds)
 else:
     class OrderedDict(collections.OrderedDict, typing.MutableMapping[KT, VT],
                       metaclass=_ExtensionsGenericMeta,
@@ -928,19 +888,6 @@ else:
 
 if hasattr(typing, 'Counter'):
     Counter = typing.Counter
-
-elif _geqv_defined:
-    class Counter(collections.Counter,
-                  typing.Dict[T, int],
-                  metaclass=_ExtensionsGenericMeta, extra=collections.Counter):
-
-        __slots__ = ()
-
-        def __new__(cls, *args, **kwds):
-            if _geqv(cls, Counter):
-                return collections.Counter(*args, **kwds)
-            return _generic_new(collections.Counter, cls, *args, **kwds)
-
 else:
     class Counter(collections.Counter,
                   typing.Dict[T, int],
@@ -959,28 +906,16 @@ if hasattr(typing, 'ChainMap'):
     __all__.append('ChainMap')
 elif hasattr(collections, 'ChainMap'):
     # ChainMap only exists in 3.3+
-    if _geqv_defined:
-        class ChainMap(collections.ChainMap, typing.MutableMapping[KT, VT],
-                       metaclass=_ExtensionsGenericMeta,
-                       extra=collections.ChainMap):
+    class ChainMap(collections.ChainMap, typing.MutableMapping[KT, VT],
+                   metaclass=_ExtensionsGenericMeta,
+                   extra=collections.ChainMap):
 
-            __slots__ = ()
+        __slots__ = ()
 
-            def __new__(cls, *args, **kwds):
-                if _geqv(cls, ChainMap):
-                    return collections.ChainMap(*args, **kwds)
-                return _generic_new(collections.ChainMap, cls, *args, **kwds)
-    else:
-        class ChainMap(collections.ChainMap, typing.MutableMapping[KT, VT],
-                       metaclass=_ExtensionsGenericMeta,
-                       extra=collections.ChainMap):
-
-            __slots__ = ()
-
-            def __new__(cls, *args, **kwds):
-                if cls._gorg is ChainMap:
-                    return collections.ChainMap(*args, **kwds)
-                return _generic_new(collections.ChainMap, cls, *args, **kwds)
+        def __new__(cls, *args, **kwds):
+            if cls._gorg is ChainMap:
+                return collections.ChainMap(*args, **kwds)
+            return _generic_new(collections.ChainMap, cls, *args, **kwds)
 
     __all__.append('ChainMap')
 
