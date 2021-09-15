@@ -762,12 +762,11 @@ class _ExtensionsGenericMeta(GenericMeta):
         between collections, typing, and typing_extensions on older
         versions of Python, see https://github.com/python/typing/issues/501.
         """
-        if sys.version_info[:3] >= (3, 5, 3) or sys.version_info[:3] < (3, 5, 0):
-            if self.__origin__ is not None:
-                if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools']:
-                    raise TypeError("Parameterized generics cannot be used with class "
-                                    "or instance checks")
-                return False
+        if self.__origin__ is not None:
+            if sys._getframe(1).f_globals['__name__'] not in ['abc', 'functools']:
+                raise TypeError("Parameterized generics cannot be used with class "
+                                "or instance checks")
+            return False
         if not self.__extra__:
             return super().__subclasscheck__(subclass)
         res = self.__extra__.__subclasshook__(subclass)
@@ -876,26 +875,24 @@ elif hasattr(contextlib, 'AbstractAsyncContextManager'):
         __slots__ = ()
 
     __all__.append('AsyncContextManager')
-elif sys.version_info[:2] >= (3, 5):
-    exec("""
-class AsyncContextManager(typing.Generic[T_co]):
-    __slots__ = ()
+else:
+    class AsyncContextManager(typing.Generic[T_co]):
+        __slots__ = ()
 
-    async def __aenter__(self):
-        return self
+        async def __aenter__(self):
+            return self
 
-    @abc.abstractmethod
-    async def __aexit__(self, exc_type, exc_value, traceback):
-        return None
+        @abc.abstractmethod
+        async def __aexit__(self, exc_type, exc_value, traceback):
+            return None
 
-    @classmethod
-    def __subclasshook__(cls, C):
-        if cls is AsyncContextManager:
-            return _check_methods_in_mro(C, "__aenter__", "__aexit__")
-        return NotImplemented
+        @classmethod
+        def __subclasshook__(cls, C):
+            if cls is AsyncContextManager:
+                return _check_methods_in_mro(C, "__aenter__", "__aexit__")
+            return NotImplemented
 
-__all__.append('AsyncContextManager')
-""")
+    __all__.append('AsyncContextManager')
 
 
 if hasattr(typing, 'DefaultDict'):
@@ -954,26 +951,6 @@ else:
 
 if hasattr(typing, 'Counter'):
     Counter = typing.Counter
-elif (3, 5, 0) <= sys.version_info[:3] <= (3, 5, 1):
-    assert _geqv_defined
-    _TInt = typing.TypeVar('_TInt')
-
-    class _CounterMeta(typing.GenericMeta):
-        """Metaclass for Counter"""
-        def __getitem__(self, item):
-            return super().__getitem__((item, int))
-
-    class Counter(collections.Counter,
-                  typing.Dict[T, int],
-                  metaclass=_CounterMeta,
-                  extra=collections.Counter):
-
-        __slots__ = ()
-
-        def __new__(cls, *args, **kwds):
-            if _geqv(cls, Counter):
-                return collections.Counter(*args, **kwds)
-            return _generic_new(collections.Counter, cls, *args, **kwds)
 
 elif _geqv_defined:
     class Counter(collections.Counter,
@@ -2374,18 +2351,13 @@ if not hasattr(typing, 'Concatenate'):
         # Trick Generic into looking into this for __parameters__.
         if PEP_560:
             __class__ = typing._GenericAlias
-        elif sys.version_info[:3] == (3, 5, 2):
-            __class__ = typing.TypingMeta
         else:
             __class__ = typing._TypingBase
 
         # Flag in 3.8.
         _special = False
         # Attribute in 3.6 and earlier.
-        if sys.version_info[:3] == (3, 5, 2):
-            _gorg = typing.GenericMeta
-        else:
-            _gorg = typing.Generic
+        _gorg = typing.Generic
 
         def __init__(self, origin, args):
             super().__init__(args)
