@@ -6,7 +6,7 @@ from setuptools import setup
 
 if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 6, 0):
     sys.stderr.write('ERROR: You need Python 2.7 or 3.6+ '
-                     'to install the typing package.\n')
+                     'to install typing_extensions.\n')
     exit(1)
 
 version = '3.10.0.2'
