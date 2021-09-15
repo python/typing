@@ -1,3 +1,4 @@
+from _collections_abc import _check_methods as _check_methods_in_mro
 import abc
 import collections
 import contextlib
@@ -94,23 +95,6 @@ if hasattr(typing, '_geqv'):
 else:
     _geqv = None
     _geqv_defined = False
-
-if sys.version_info[:2] >= (3, 6):
-    import _collections_abc
-    _check_methods_in_mro = _collections_abc._check_methods
-else:
-    def _check_methods_in_mro(C, *methods):
-        mro = C.__mro__
-        for method in methods:
-            for B in mro:
-                if method in B.__dict__:
-                    if B.__dict__[method] is None:
-                        return NotImplemented
-                    break
-            else:
-                return NotImplemented
-        return True
-
 
 # Please keep __all__ alphabetized within each category.
 __all__ = [
