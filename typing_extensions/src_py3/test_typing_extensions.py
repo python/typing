@@ -7,13 +7,15 @@ import pickle
 import subprocess
 import types
 from unittest import TestCase, main, skipUnless, skipIf
+from test import ann_module, ann_module2, ann_module3
 from typing import TypeVar, Optional, Union
 from typing import T, KT, VT  # Not in __all__.
-from typing import Tuple, List, Dict, Iterator, Callable
-from typing import Generic
+from typing import Tuple, List, Dict, Iterable, Iterator, Callable
+from typing import Generic, NamedTuple
 from typing import no_type_check
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
+from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager
 
 try:
     from typing_extensions import Protocol, runtime, runtime_checkable
@@ -302,8 +304,6 @@ class OverloadTests(BaseTestCase):
         blah()
 
 
-from typing import Iterable
-from typing_extensions import Awaitable, AsyncIterator
 
 T_a = TypeVar('T_a')
 
@@ -334,13 +334,11 @@ class AsyncIteratorWrapper(AsyncIterator[T_a]):
 class ACM:
     async def __aenter__(self) -> int:
         return 42
+
     async def __aexit__(self, etype, eval, tb):
         return None
 
 
-from test import ann_module, ann_module2, ann_module3
-from typing_extensions import AsyncContextManager
-from typing import NamedTuple
 
 class A:
     y: float
@@ -363,8 +361,10 @@ class NoneAndForward:
 class XRepr(NamedTuple):
     x: int
     y: int = 1
+
     def __str__(self):
         return f'{self.x} -> {self.y}'
+
     def __add__(self, other):
         return 0
 
@@ -407,6 +407,7 @@ class Animal(BaseAnimal, total=False):
 
 class Cat(Animal):
     fur_color: str
+
 
 gth = get_type_hints
 
@@ -849,6 +850,7 @@ class Position(XAxis, YAxis, Protocol):
 @runtime
 class Proto(Protocol):
     attr: int
+
     def meth(self, arg: str) -> int:
         ...
 
@@ -857,6 +859,7 @@ class Concrete(Proto):
 
 class Other:
     attr: int = 1
+
     def meth(self, arg: str) -> int:
         if arg == 'this':
             return 1
