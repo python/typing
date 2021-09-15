@@ -46,13 +46,6 @@ TYPING_3_6_1 = sys.version_info[:3] >= (3, 6, 1)
 TYPING_3_10_0 = sys.version_info[:3] >= (3, 10, 0)
 TYPING_3_11_0 = sys.version_info[:3] >= (3, 11, 0)
 
-# For typing versions where issubclass(...) and
-# isinstance(...) checks are forbidden.
-#
-# See https://github.com/python/typing/issues/136
-# and https://github.com/python/typing/pull/283
-SUBCLASS_CHECK_FORBIDDEN = True
-
 # For typing versions where instantiating collection
 # types are allowed.
 #
@@ -99,7 +92,6 @@ class NoReturnTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(Employee, NoReturn)
 
-    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_noreturn_subclass_type_error_2(self):
         with self.assertRaises(TypeError):
             issubclass(NoReturn, Employee)
@@ -118,10 +110,9 @@ class NoReturnTests(BaseTestCase):
         with self.assertRaises(TypeError):
             class A(NoReturn):
                 pass
-        if SUBCLASS_CHECK_FORBIDDEN:
-            with self.assertRaises(TypeError):
-                class A(type(NoReturn)):
-                    pass
+        with self.assertRaises(TypeError):
+            class A(type(NoReturn)):
+                pass
 
     def test_cannot_instantiate(self):
         with self.assertRaises(TypeError):
@@ -151,7 +142,6 @@ class ClassVarTests(BaseTestCase):
         cv = ClassVar[Employee]
         self.assertEqual(repr(cv), mod_name + '.ClassVar[%s.Employee]' % __name__)
 
-    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(type(ClassVar)):
@@ -196,7 +186,6 @@ class FinalTests(BaseTestCase):
         cv = Final[Employee]
         self.assertEqual(repr(cv), mod_name + '.Final[%s.Employee]' % __name__)
 
-    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(type(Final)):
@@ -596,11 +585,10 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertNotIsInstance(1, collections_abc.Iterable)
         self.assertNotIsInstance(1, collections_abc.Container)
         self.assertNotIsInstance(1, collections_abc.Sized)
-        if SUBCLASS_CHECK_FORBIDDEN:
-            with self.assertRaises(TypeError):
-                isinstance(collections.deque(), typing_extensions.Deque[int])
-            with self.assertRaises(TypeError):
-                issubclass(collections.Counter, typing_extensions.Counter[str])
+        with self.assertRaises(TypeError):
+            isinstance(collections.deque(), typing_extensions.Deque[int])
+        with self.assertRaises(TypeError):
+            issubclass(collections.Counter, typing_extensions.Counter[str])
 
     @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_awaitable(self):
@@ -1945,19 +1933,17 @@ class TypeAliasTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(Employee, TypeAlias)
 
-        if SUBCLASS_CHECK_FORBIDDEN:
-            with self.assertRaises(TypeError):
-                issubclass(TypeAlias, Employee)
+        with self.assertRaises(TypeError):
+            issubclass(TypeAlias, Employee)
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(TypeAlias):
                 pass
 
-        if SUBCLASS_CHECK_FORBIDDEN:
-            with self.assertRaises(TypeError):
-                class C(type(TypeAlias)):
-                    pass
+        with self.assertRaises(TypeError):
+            class C(type(TypeAlias)):
+                pass
 
     def test_repr(self):
         if hasattr(typing, 'TypeAlias'):
@@ -2149,7 +2135,6 @@ class TypeGuardTests(BaseTestCase):
         cv = TypeGuard[Tuple[int]]
         self.assertEqual(repr(cv), '{}.TypeGuard[typing.Tuple[int]]'.format(mod_name))
 
-    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(type(TypeGuard)):
