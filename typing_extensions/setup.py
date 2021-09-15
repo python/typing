@@ -1,13 +1,10 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 import sys
 from setuptools import setup
 
 if sys.version_info < (3, 6, 0):
-    sys.stderr.write('ERROR: You need Python 3.6+ '
-                     'to install typing_extensions.\n')
-    exit(1)
+    sys.exit('ERROR: You need Python 3.6+ to install typing_extensions.\n')
 
 version = '3.10.0.2'
 description = 'Backported and Experimental Type Hints for Python 3.6+'
@@ -47,9 +44,11 @@ setup(name='typing_extensions',
       author_email='levkivskyi@gmail.com',
       url='https://github.com/python/typing/blob/master/typing_extensions/README.rst',
       license='PSF',
+      license_files=["LICENSE"],
       keywords='typing function annotations type hints hinting checking '
                'checker typehints typehinting typechecking backport',
       package_dir={'': 'src_py3'},
       py_modules=['typing_extensions'],
+      python_requires=">=3.6",
       classifiers=classifiers,
       )
