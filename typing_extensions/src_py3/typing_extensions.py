@@ -47,25 +47,6 @@ def _check_generic(cls, parameters):
                         f" actual {alen}, expected {elen}")
 
 
-if hasattr(typing, '_generic_new'):
-    _generic_new = typing._generic_new
-else:
-    # Note: The '_generic_new(...)' function is used as a part of the
-    # process of creating a generic type and was added to the typing module
-    # as of Python 3.5.3.
-    #
-    # We've defined '_generic_new(...)' below to exactly match the behavior
-    # implemented in older versions of 'typing' bundled with Python 3.5.0 to
-    # 3.5.2. This helps eliminate redundancy when defining collection types
-    # like 'Deque' later.
-    #
-    # See https://github.com/python/typing/pull/308 for more details -- in
-    # particular, compare and contrast the definition of types like
-    # 'typing.List' before and after the merge.
-
-    def _generic_new(base_cls, cls, *args, **kwargs):
-        return base_cls.__new__(cls, *args, **kwargs)
-
 # Please keep __all__ alphabetized within each category.
 __all__ = [
     # Super-special typing primitives.
@@ -404,7 +385,7 @@ else:
         def __new__(cls, *args, **kwds):
             if cls._gorg is Deque:
                 return collections.deque(*args, **kwds)
-            return _generic_new(collections.deque, cls, *args, **kwds)
+            return typing._generic_new(collections.deque, cls, *args, **kwds)
 
 ContextManager = typing.ContextManager
 # 3.6.2+
@@ -447,7 +428,7 @@ else:
         def __new__(cls, *args, **kwds):
             if cls._gorg is OrderedDict:
                 return collections.OrderedDict(*args, **kwds)
-            return _generic_new(collections.OrderedDict, cls, *args, **kwds)
+            return typing._generic_new(collections.OrderedDict, cls, *args, **kwds)
 
 # 3.6.2+
 if hasattr(typing, 'Counter'):
@@ -463,7 +444,7 @@ else:
         def __new__(cls, *args, **kwds):
             if cls._gorg is Counter:
                 return collections.Counter(*args, **kwds)
-            return _generic_new(collections.Counter, cls, *args, **kwds)
+            return typing._generic_new(collections.Counter, cls, *args, **kwds)
 
 # 3.6.1+
 if hasattr(typing, 'ChainMap'):
@@ -478,7 +459,7 @@ elif hasattr(collections, 'ChainMap'):
         def __new__(cls, *args, **kwds):
             if cls._gorg is ChainMap:
                 return collections.ChainMap(*args, **kwds)
-            return _generic_new(collections.ChainMap, cls, *args, **kwds)
+            return typing._generic_new(collections.ChainMap, cls, *args, **kwds)
 
 # 3.6.1+
 if hasattr(typing, 'AsyncGenerator'):
@@ -773,7 +754,7 @@ elif not PEP_560:
             if _gorg(cls) is Protocol:
                 raise TypeError("Type Protocol cannot be instantiated; "
                                 "it can be used only as a base class")
-            return _generic_new(cls.__next_in_mro__, cls, *args, **kwds)
+            return typing._generic_new(cls.__next_in_mro__, cls, *args, **kwds)
     if Protocol.__doc__ is not None:
         Protocol.__doc__ = Protocol.__doc__.format(bases="Protocol[T]")
 # 3.7
