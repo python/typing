@@ -11,7 +11,6 @@ PEP_560 = sys.version_info[:3] >= (3, 7, 0)
 
 if PEP_560:
     GenericMeta = type
-    from typing import _GenericAlias
 else:
     # 3.6
     from typing import GenericMeta, _type_vars  # noqa
@@ -135,7 +134,7 @@ elif sys.version_info[:2] >= (3, 7):
         def __getitem__(self, parameters):
             item = typing._type_check(parameters,
                                       f'{self._name} accepts only single type')
-            return _GenericAlias(self, (item,))
+            return typing._GenericAlias(self, (item,))
 
     Final = _FinalForm('Final',
                        doc="""A special typing construct to indicate that a name
@@ -250,7 +249,7 @@ elif sys.version_info[:2] >= (3, 7):
             return 'typing_extensions.' + self._name
 
         def __getitem__(self, parameters):
-            return _GenericAlias(self, parameters)
+            return typing._GenericAlias(self, parameters)
 
     Literal = _LiteralForm('Literal',
                            doc="""A type that can be used to indicate to type checkers
@@ -598,7 +597,7 @@ elif PEP_560:
             else:
                 # Subscripting a regular Generic subclass.
                 _check_generic(cls, params)
-            return _GenericAlias(cls, params)
+            return typing._GenericAlias(cls, params)
 
         def __init_subclass__(cls, *args, **kwargs):
             tvars = []
@@ -617,7 +616,7 @@ elif PEP_560:
                 # and reject multiple Generic[...] and/or Protocol[...].
                 gvars = None
                 for base in cls.__orig_bases__:
-                    if (isinstance(base, _GenericAlias) and
+                    if (isinstance(base, typing._GenericAlias) and
                             base.__origin__ in (typing.Generic, Protocol)):
                         # for error messages
                         the_base = base.__origin__.__name__
@@ -1428,12 +1427,12 @@ elif PEP_560:
         # 3.9+
         from typing import _BaseGenericAlias
     except ImportError:
-        _BaseGenericAlias = _GenericAlias
+        _BaseGenericAlias = typing._GenericAlias
     try:
         # 3.9+
         from typing import GenericAlias
     except ImportError:
-        GenericAlias = _GenericAlias
+        GenericAlias = typing._GenericAlias
 
     def get_origin(tp):
         """Get the unsubscripted version of a type.
@@ -1452,7 +1451,7 @@ elif PEP_560:
         """
         if isinstance(tp, _AnnotatedAlias):
             return Annotated
-        if isinstance(tp, (_GenericAlias, GenericAlias, _BaseGenericAlias,
+        if isinstance(tp, (typing._GenericAlias, GenericAlias, _BaseGenericAlias,
                            ParamSpecArgs, ParamSpecKwargs)):
             return tp.__origin__
         if tp is typing.Generic:
@@ -1472,7 +1471,7 @@ elif PEP_560:
         """
         if isinstance(tp, _AnnotatedAlias):
             return (tp.__origin__,) + tp.__metadata__
-        if isinstance(tp, (_GenericAlias, GenericAlias)):
+        if isinstance(tp, (typing._GenericAlias, GenericAlias)):
             if getattr(tp, "_special", False):
                 return ()
             res = tp.__args__
@@ -1910,7 +1909,7 @@ elif sys.version_info[:2] >= (3, 9):
         PEP 647 (User-Defined Type Guards).
         """
         item = typing._type_check(parameters, f'{self} accepts only single type.')
-        return _GenericAlias(self, (item,))
+        return typing._GenericAlias(self, (item,))
 # 3.7-3.8
 elif sys.version_info[:2] >= (3, 7):
     class _TypeGuardForm(typing._SpecialForm, _root=True):
@@ -1921,7 +1920,7 @@ elif sys.version_info[:2] >= (3, 7):
         def __getitem__(self, parameters):
             item = typing._type_check(parameters,
                                       f'{self._name} accepts only a single type')
-            return _GenericAlias(self, (item,))
+            return typing._GenericAlias(self, (item,))
 
     TypeGuard = _TypeGuardForm(
         'TypeGuard',
