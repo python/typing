@@ -13,12 +13,11 @@ import operator
 PEP_560 = sys.version_info[:3] >= (3, 7, 0)
 
 if PEP_560:
-    GenericMeta = TypingMeta = type
+    GenericMeta = type
     from typing import _GenericAlias
 else:
-    from typing import GenericMeta, TypingMeta
-if sys.version_info[:2] == (3, 6):
-    from typing import _type_vars  # noqa
+    # 3.6
+    from typing import GenericMeta, _type_vars  # noqa
 
 # The two functions below are copies of typing internal helpers.
 # They are needed by _ProtocolMeta
@@ -599,7 +598,7 @@ elif not PEP_560:
                     if not (base in (object, typing.Generic) or
                             base.__module__ == 'collections.abc' and
                             base.__name__ in _PROTO_WHITELIST or
-                            isinstance(base, TypingMeta) and base._is_protocol or
+                            isinstance(base, typing.TypingMeta) and base._is_protocol or
                             isinstance(base, GenericMeta) and
                             base.__origin__ is typing.Generic):
                         raise TypeError(f'Protocols can only inherit from other'
