@@ -121,8 +121,6 @@ T = typing.TypeVar('T')  # Any type.
 KT = typing.TypeVar('KT')  # Key type.
 VT = typing.TypeVar('VT')  # Value type.
 T_co = typing.TypeVar('T_co', covariant=True)  # Any type covariant containers.
-V_co = typing.TypeVar('V_co', covariant=True)  # Any type covariant containers.
-VT_co = typing.TypeVar('VT_co', covariant=True)  # Value type covariant containers.
 T_contra = typing.TypeVar('T_contra', contravariant=True)  # Ditto contravariant.
 
 ClassVar = typing.ClassVar
