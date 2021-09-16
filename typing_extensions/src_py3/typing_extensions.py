@@ -4,7 +4,6 @@ import collections
 import collections.abc
 import sys
 import typing
-from typing import _tp_cache, _TypingEllipsis, _TypingEmpty  # noqa
 import operator
 
 # After PEP 560, internal typing API was substantially reworked.
@@ -575,7 +574,7 @@ elif PEP_560:
                                 "it can only be used as a base class")
             return super().__new__(cls)
 
-        @_tp_cache
+        @typing._tp_cache
         def __class_getitem__(cls, params):
             if not isinstance(params, tuple):
                 params = (params,)
@@ -756,8 +755,8 @@ else:
                                                  self if not origin else
                                                  _gorg(origin))
             self.__parameters__ = tvars
-            self.__args__ = tuple(... if a is _TypingEllipsis else
-                                  () if a is _TypingEmpty else
+            self.__args__ = tuple(... if a is typing._TypingEllipsis else
+                                  () if a is typing._TypingEmpty else
                                   a for a in args) if args else None
             self.__next_in_mro__ = _next_in_mro(self)
             if orig_bases is None:
@@ -853,7 +852,7 @@ else:
                                 " don't support issubclass()")
             return super(GenericMeta, self).__subclasscheck__(cls)
 
-        @_tp_cache
+        @typing._tp_cache
         def __getitem__(self, params):
             # We also need to copy this from GenericMeta.__getitem__ to get
             # special treatment of "Protocol". (Comments removed for brevity.)
@@ -1209,7 +1208,7 @@ elif PEP_560:
         def __new__(cls, *args, **kwargs):
             raise TypeError("Type Annotated cannot be instantiated.")
 
-        @_tp_cache
+        @typing._tp_cache
         def __class_getitem__(cls, params):
             if not isinstance(params, tuple) or len(params) < 2:
                 raise TypeError("Annotated[...] should be used "
@@ -1330,7 +1329,7 @@ else:
             else:
                 return tree
 
-        @_tp_cache
+        @typing._tp_cache
         def __getitem__(self, params):
             if not isinstance(params, tuple):
                 params = (params,)
@@ -1764,7 +1763,7 @@ if not hasattr(typing, 'Concatenate'):
 
 
 # 3.6-3.9
-@_tp_cache
+@typing._tp_cache
 def _concatenate_getitem(self, parameters):
     if parameters == ():
         raise TypeError("Cannot take a Concatenate of no types.")
