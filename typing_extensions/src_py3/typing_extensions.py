@@ -7,11 +7,6 @@ import typing
 from typing import _tp_cache, _TypingEllipsis, _TypingEmpty  # noqa
 import operator
 
-# These are used by Protocol implementation
-# We use internal typing helpers here, but this significantly reduces
-# code duplication. (Also this is only until Protocol is in typing.)
-from typing import Generic, Callable, TypeVar, Tuple
-
 # After PEP 560, internal typing API was substantially reworked.
 # This is especially important for Protocol class which uses internal APIs
 # quite extensivelly.
@@ -248,7 +243,7 @@ else:
 
 
 def IntVar(name):
-    return TypeVar(name)
+    return typing.TypeVar(name)
 
 
 # 3.8+:
@@ -538,15 +533,15 @@ elif not PEP_560:
             assert extra is None  # Protocols should not have extra
             if tvars is not None:
                 assert origin is not None
-                assert all(isinstance(t, TypeVar) for t in tvars), tvars
+                assert all(isinstance(t, typing.TypeVar) for t in tvars), tvars
             else:
                 tvars = _type_vars(bases)
                 gvars = None
                 for base in bases:
-                    if base is Generic:
+                    if base is typing.Generic:
                         raise TypeError("Cannot inherit from plain Generic")
                     if (isinstance(base, GenericMeta) and
-                            base.__origin__ in (Generic, Protocol)):
+                            base.__origin__ in (typing.Generic, Protocol)):
                         if gvars is not None:
                             raise TypeError(
                                 "Cannot inherit from Generic[...] or"
@@ -560,7 +555,7 @@ elif not PEP_560:
                     if not tvarset <= gvarset:
                         s_vars = ", ".join(str(t) for t in tvars if t not in gvarset)
                         s_args = ", ".join(str(g) for g in gvars)
-                        cls_name = "Generic" if any(b.__origin__ is Generic
+                        cls_name = "Generic" if any(b.__origin__ is typing.Generic
                                                     for b in bases) else "Protocol"
                         raise TypeError(f"Some type variables ({s_vars}) are"
                                         f" not listed in {cls_name}[{s_args}]")
@@ -572,8 +567,8 @@ elif not PEP_560:
                 bases = (extra,) + bases
             bases = tuple(_gorg(b) if isinstance(b, GenericMeta) else b
                           for b in bases)
-            if any(isinstance(b, GenericMeta) and b is not Generic for b in bases):
-                bases = tuple(b for b in bases if b is not Generic)
+            if any(isinstance(b, GenericMeta) and b is not typing.Generic for b in bases):
+                bases = tuple(b for b in bases if b is not typing.Generic)
             namespace.update({'__origin__': origin, '__extra__': extra})
             self = super(GenericMeta, cls).__new__(cls, name, bases, namespace,
                                                    _root=True)
@@ -604,12 +599,12 @@ elif not PEP_560:
                                        for b in cls.__bases__)
             if cls._is_protocol:
                 for base in cls.__mro__[1:]:
-                    if not (base in (object, Generic) or
+                    if not (base in (object, typing.Generic) or
                             base.__module__ == 'collections.abc' and
                             base.__name__ in _PROTO_WHITELIST or
                             isinstance(base, TypingMeta) and base._is_protocol or
                             isinstance(base, GenericMeta) and
-                            base.__origin__ is Generic):
+                            base.__origin__ is typing.Generic):
                         raise TypeError(f'Protocols can only inherit from other'
                                         f' protocols, got {repr(base)}')
 
@@ -684,13 +679,13 @@ elif not PEP_560:
             # special treatment of "Protocol". (Comments removed for brevity.)
             if not isinstance(params, tuple):
                 params = (params,)
-            if not params and _gorg(self) is not Tuple:
+            if not params and _gorg(self) is not typing.Tuple:
                 raise TypeError(
                     f"Parameter list to {self.__qualname__}[...] cannot be empty")
             msg = "Parameters to generic types must be types."
             params = tuple(_type_check(p, msg) for p in params)
-            if self in (Generic, Protocol):
-                if not all(isinstance(p, TypeVar) for p in params):
+            if self in (typing.Generic, Protocol):
+                if not all(isinstance(p, typing.TypeVar) for p in params):
                     raise TypeError(
                         f"Parameters to {repr(self)}[...] must all be type variables")
                 if len(set(params)) != len(params):
@@ -698,10 +693,10 @@ elif not PEP_560:
                         f"Parameters to {repr(self)}[...] must all be unique")
                 tvars = params
                 args = params
-            elif self in (Tuple, Callable):
+            elif self in (typing.Tuple, typing.Callable):
                 tvars = _type_vars(params)
                 args = params
-            elif self.__origin__ in (Generic, Protocol):
+            elif self.__origin__ in (typing.Generic, Protocol):
                 raise TypeError(f"Cannot subscript already-subscripted {repr(self)}")
             else:
                 _check_generic(self, params)
@@ -828,16 +823,16 @@ else:
         def __class_getitem__(cls, params):
             if not isinstance(params, tuple):
                 params = (params,)
-            if not params and cls is not Tuple:
+            if not params and cls is not typing.Tuple:
                 raise TypeError(
                     f"Parameter list to {cls.__qualname__}[...] cannot be empty")
             msg = "Parameters to generic types must be types."
             params = tuple(typing._type_check(p, msg) for p in params)  # noqa
             if cls is Protocol:
                 # Generic can only be subscripted with unique type variables.
-                if not all(isinstance(p, TypeVar) for p in params):
+                if not all(isinstance(p, typing.TypeVar) for p in params):
                     i = 0
-                    while isinstance(params[i], TypeVar):
+                    while isinstance(params[i], typing.TypeVar):
                         i += 1
                     raise TypeError(
                         "Parameters to Protocol[...] must all be type variables."
@@ -853,9 +848,9 @@ else:
         def __init_subclass__(cls, *args, **kwargs):
             tvars = []
             if '__orig_bases__' in cls.__dict__:
-                error = Generic in cls.__orig_bases__
+                error = typing.Generic in cls.__orig_bases__
             else:
-                error = Generic in cls.__bases__
+                error = typing.Generic in cls.__bases__
             if error:
                 raise TypeError("Cannot inherit from plain Generic")
             if '__orig_bases__' in cls.__dict__:
@@ -868,9 +863,9 @@ else:
                 gvars = None
                 for base in cls.__orig_bases__:
                     if (isinstance(base, _GenericAlias) and
-                            base.__origin__ in (Generic, Protocol)):
+                            base.__origin__ in (typing.Generic, Protocol)):
                         # for error messages
-                        the_base = 'Generic' if base.__origin__ is Generic else 'Protocol'
+                        the_base = 'Generic' if base.__origin__ is typing.Generic else 'Protocol'
                         if gvars is not None:
                             raise TypeError(
                                 "Cannot inherit from Generic[...]"
@@ -935,7 +930,7 @@ else:
 
             # Check consistency of bases.
             for base in cls.__bases__:
-                if not (base in (object, Generic) or
+                if not (base in (object, typing.Generic) or
                         base.__module__ == 'collections.abc' and
                         base.__name__ in _PROTO_WHITELIST or
                         isinstance(base, _ProtocolMeta) and base._is_protocol):
@@ -1468,8 +1463,8 @@ elif PEP_560:
         if isinstance(tp, (_GenericAlias, GenericAlias, _BaseGenericAlias,
                            ParamSpecArgs, ParamSpecKwargs)):
             return tp.__origin__
-        if tp is Generic:
-            return Generic
+        if tp is typing.Generic:
+            return typing.Generic
         return None
 
     def get_args(tp):
@@ -1674,7 +1669,7 @@ else:
         """
 
         # Trick Generic __parameters__.
-        __class__ = TypeVar
+        __class__ = typing.TypeVar
 
         @property
         def args(self):
@@ -1768,7 +1763,7 @@ if not hasattr(typing, 'Concatenate'):
         @property
         def __parameters__(self):
             return tuple(
-                tp for tp in self.__args__ if isinstance(tp, (TypeVar, ParamSpec))
+                tp for tp in self.__args__ if isinstance(tp, (typing.TypeVar, ParamSpec))
             )
 
         if not PEP_560:
