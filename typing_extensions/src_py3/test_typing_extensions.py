@@ -49,14 +49,14 @@ CAN_INSTANTIATE_COLLECTIONS = TYPING_3_6_1
 class BaseTestCase(TestCase):
     def assertIsSubclass(self, cls, class_or_tuple, msg=None):
         if not issubclass(cls, class_or_tuple):
-            message = f'{repr(cls)} is not a subclass of {repr(class_or_tuple)}'
+            message = f'{cls!r} is not a subclass of {repr(class_or_tuple)}'
             if msg is not None:
                 message += f' : {msg}'
             raise self.failureException(message)
 
     def assertNotIsSubclass(self, cls, class_or_tuple, msg=None):
         if issubclass(cls, class_or_tuple):
-            message = f'{repr(cls)} is a subclass of {repr(class_or_tuple)}'
+            message = f'{cls!r} is a subclass of {repr(class_or_tuple)}'
             if msg is not None:
                 message += f' : {msg}'
             raise self.failureException(message)

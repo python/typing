@@ -978,7 +978,7 @@ else:
         """
         if not isinstance(cls, _ProtocolMeta) or not cls._is_protocol:
             raise TypeError('@runtime_checkable can be only applied to protocol classes,'
-                            f' got {repr(cls)}')
+                            f' got {cls!r}')
         cls._is_runtime_protocol = True
         return cls
 
