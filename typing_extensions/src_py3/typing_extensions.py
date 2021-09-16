@@ -18,7 +18,7 @@ if PEP_560:
 else:
     from typing import GenericMeta, TypingMeta
 if sys.version_info[:2] == (3, 6):
-    from typing import _type_vars, _next_in_mro, _type_check, _subs_tree  # noqa
+    from typing import _type_vars  # noqa
 
 # The two functions below are copies of typing internal helpers.
 # They are needed by _ProtocolMeta
@@ -513,6 +513,7 @@ if hasattr(typing, 'Protocol'):
     Protocol = typing.Protocol
 # 3.6
 elif not PEP_560:
+    from typing import _next_in_mro, _type_check  # noqa
 
     def _no_init(self, *args, **kwargs):
         if type(self)._is_protocol:
