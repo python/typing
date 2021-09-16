@@ -6,7 +6,7 @@ import typing
 
 # After PEP 560, internal typing API was substantially reworked.
 # This is especially important for Protocol class which uses internal APIs
-# quite extensivelly.
+# quite extensively.
 PEP_560 = sys.version_info[:3] >= (3, 7, 0)
 
 if PEP_560:
