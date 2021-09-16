@@ -4,8 +4,8 @@
 import sys
 from setuptools import setup
 
-if sys.version_info < (2, 7, 0) or (3, 0, 0) <= sys.version_info < (3, 6, 0):
-    sys.stderr.write('ERROR: You need Python 2.7 or 3.6+ '
+if sys.version_info < (3, 6, 0):
+    sys.stderr.write('ERROR: You need Python 3.6+ '
                      'to install typing_extensions.\n')
     exit(1)
 
@@ -31,7 +31,6 @@ classifiers = [
     'Intended Audience :: Developers',
     'License :: OSI Approved :: Python Software Foundation License',
     'Operating System :: OS Independent',
-    'Programming Language :: Python :: 2.7',
     'Programming Language :: Python :: 3.6',
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
@@ -39,13 +38,6 @@ classifiers = [
     'Programming Language :: Python :: 3.10',
     'Topic :: Software Development',
 ]
-
-if sys.version_info.major == 2:
-    package_dir = 'src_py2'
-elif sys.version_info.major == 3:
-    package_dir = 'src_py3'
-else:
-    raise AssertionError()
 
 setup(name='typing_extensions',
       version=version,
@@ -57,7 +49,7 @@ setup(name='typing_extensions',
       license='PSF',
       keywords='typing function annotations type hints hinting checking '
                'checker typehints typehinting typechecking backport',
-      package_dir={'': package_dir},
+      package_dir={'': 'src_py3'},
       py_modules=['typing_extensions'],
       classifiers=classifiers,
-      install_requires=["typing >= 3.7.4; python_version < '3.5'"])
+      )

@@ -8,28 +8,6 @@ permissions:
   contents: read
 
 jobs:
-  tests-27:
-    name: Run tests (2.7)
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 2.7
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r test-requirements.txt
-
-      - name: Test typing_extensions
-        run: |
-          pip install typing
-          pytest typing_extensions/src_py2
-
   tests:
     name: Run tests
 
@@ -94,4 +72,4 @@ jobs:
         run: flake8
 
       - name: Lint tests
-        run: flake8 --config=.flake8-tests typing_extensions/src_py2/test_typing_extensions.py typing_extensions/src_py3/test_typing_extensions.py
+        run: flake8 --config=.flake8-tests typing_extensions/src_py3/test_typing_extensions.py
