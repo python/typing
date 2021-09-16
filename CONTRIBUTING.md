@@ -20,8 +20,8 @@ PEP.
 
 `typing_extensions` supports Python 3.6+. However, it is OK to omit support for Python versions that have
 reached end of life if doing so is too difficult or otherwise does not make sense. For
-example, `typing_extensions.AsyncGenerator` only exists on Python 3.6 and higher,
-because async generators were added to the language in 3.6.
+example, `typing_extensions.AsyncGenerator` was only supported in Python 3.6 and newer, because async 
+generators were not part of the language before then.
 
 # Versioning scheme
 
