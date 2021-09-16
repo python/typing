@@ -1,10 +1,8 @@
-from _collections_abc import _check_methods as _check_methods_in_mro  # noqa
 import abc
 import collections
 import collections.abc
 import sys
 import typing
-import operator
 
 # After PEP 560, internal typing API was substantially reworked.
 # This is especially important for Protocol class which uses internal APIs
@@ -382,6 +380,8 @@ if hasattr(typing, 'AsyncContextManager'):
     AsyncContextManager = typing.AsyncContextManager
 # 3.6.0-3.6.1
 else:
+    from _collections_abc import _check_methods as _check_methods_in_mro  # noqa
+
     class AsyncContextManager(typing.Generic[T_co]):
         __slots__ = ()
 
@@ -1131,6 +1131,8 @@ if hasattr(typing, 'Annotated'):
     _AnnotatedAlias = typing._AnnotatedAlias
 # 3.7-3.8
 elif PEP_560:
+    import operator
+
     class _AnnotatedAlias(typing._GenericAlias, _root=True):
         """Runtime representation of an annotated type.
 
