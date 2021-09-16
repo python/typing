@@ -1970,7 +1970,7 @@ class ParamSpecTests(BaseTestCase):
         P_co = ParamSpec('P_co', covariant=True)
         P_contra = ParamSpec('P_contra', contravariant=True)
         for proto in range(pickle.HIGHEST_PROTOCOL):
-            with self.subTest('Pickle protocol {proto}'.format(proto=proto)):
+            with self.subTest(f'Pickle protocol {proto}'):
                 for paramspec in (P, P_co, P_contra):
                     z = pickle.loads(pickle.dumps(paramspec, proto))
                     self.assertEqual(z.__name__, paramspec.__name__)
@@ -2044,13 +2044,13 @@ class TypeGuardTests(BaseTestCase):
             mod_name = 'typing'
         else:
             mod_name = 'typing_extensions'
-        self.assertEqual(repr(TypeGuard), '{}.TypeGuard'.format(mod_name))
+        self.assertEqual(repr(TypeGuard), f'{mod_name}.TypeGuard')
         cv = TypeGuard[int]
-        self.assertEqual(repr(cv), '{}.TypeGuard[int]'.format(mod_name))
+        self.assertEqual(repr(cv), f'{mod_name}.TypeGuard[int]')
         cv = TypeGuard[Employee]
-        self.assertEqual(repr(cv), '{}.TypeGuard[{}.Employee]'.format(mod_name, __name__))
+        self.assertEqual(repr(cv), f'{mod_name}.TypeGuard[{__name__}.Employee]')
         cv = TypeGuard[Tuple[int]]
-        self.assertEqual(repr(cv), '{}.TypeGuard[typing.Tuple[int]]'.format(mod_name))
+        self.assertEqual(repr(cv), f'{mod_name}.TypeGuard[typing.Tuple[int]]')
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
@@ -2134,8 +2134,7 @@ class AllTests(BaseTestCase):
         file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                  'typing_extensions.py')
         try:
-            subprocess.check_output('{} -OO {}'.format(sys.executable,
-                                                       file_path),
+            subprocess.check_output(f'{sys.executable} -OO {file_path}',
                                     stderr=subprocess.STDOUT,
                                     shell=True)
         except subprocess.CalledProcessError:

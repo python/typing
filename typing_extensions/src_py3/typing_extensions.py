@@ -184,8 +184,7 @@ else:
                 return cls(typing._type_check(item,
                            f'{cls.__name__[1:]} accepts only single type.'),
                            _root=True)
-            raise TypeError('{} cannot be further subscripted'
-                            .format(cls.__name__[1:]))
+            raise TypeError(f'{cls.__name__[1:]} cannot be further subscripted')
 
         def _eval_type(self, globalns, localns):
             new_tp = typing._eval_type(self.__type__, globalns, localns)
@@ -297,8 +296,7 @@ else:
                 if not isinstance(values, tuple):
                     values = (values,)
                 return cls(values, _root=True)
-            raise TypeError('{} cannot be further subscripted'
-                            .format(cls.__name__[1:]))
+            raise TypeError(f'{cls.__name__[1:]} cannot be further subscripted')
 
         def _eval_type(self, globalns, localns):
             return self
@@ -306,7 +304,7 @@ else:
         def __repr__(self):
             r = super().__repr__()
             if self.__values__ is not None:
-                r += '[{}]'.format(', '.join(map(typing._type_repr, self.__values__)))
+                r += f'[{", ".join(map(typing._type_repr, self.__values__))}]'
             return r
 
         def __hash__(self):
@@ -737,7 +735,7 @@ elif not PEP_560:
 
         Protocol classes can be generic, they are defined as::
 
-          class GenProto({bases}):
+          class GenProto(Protocol[T]):
               def meth(self) -> T:
                   ...
         """
@@ -749,8 +747,6 @@ elif not PEP_560:
                 raise TypeError("Type Protocol cannot be instantiated; "
                                 "it can be used only as a base class")
             return typing._generic_new(cls.__next_in_mro__, cls, *args, **kwds)
-    if Protocol.__doc__ is not None:
-        Protocol.__doc__ = Protocol.__doc__.format(bases="Protocol[T]")
 # 3.7
 else:
     from typing import _collect_type_vars  # noqa
@@ -835,7 +831,7 @@ else:
                         i += 1
                     raise TypeError(
                         "Parameters to Protocol[...] must all be type variables."
-                        " Parameter {} is {}".format(i + 1, params[i]))
+                        f" Parameter {i + 1} is {params[i]}")
                 if len(set(params)) != len(params):
                     raise TypeError(
                         "Parameters to Protocol[...] must all be unique")
@@ -864,7 +860,7 @@ else:
                     if (isinstance(base, _GenericAlias) and
                             base.__origin__ in (typing.Generic, Protocol)):
                         # for error messages
-                        the_base = 'Generic' if base.__origin__ is typing.Generic else 'Protocol'
+                        the_base = base.__origin__.__name__
                         if gvars is not None:
                             raise TypeError(
                                 "Cannot inherit from Generic[...]"
@@ -878,9 +874,8 @@ else:
                     if not tvarset <= gvarset:
                         s_vars = ', '.join(str(t) for t in tvars if t not in gvarset)
                         s_args = ', '.join(str(g) for g in gvars)
-                        raise TypeError("Some type variables ({}) are"
-                                        " not listed in {}[{}]".format(s_vars,
-                                                                       the_base, s_args))
+                        raise TypeError(f"Some type variables ({s_vars}) are"
+                                        f" not listed in {the_base}[{s_args}]")
                     tvars = gvars
             cls.__parameters__ = tuple(tvars)
 
@@ -1021,8 +1016,8 @@ else:
                 fields, = args  # allow the "_fields" keyword be passed
             except ValueError:
                 raise TypeError('TypedDict.__new__() takes from 2 to 3 '
-                                'positional arguments but {} '
-                                'were given'.format(len(args) + 2))
+                                f'positional arguments but {len(args) + 2} '
+                                'were given')
         elif '_fields' in kwargs and len(kwargs) == 1:
             fields = kwargs.pop('_fields')
             import warnings
@@ -1159,10 +1154,8 @@ elif PEP_560:
             return _AnnotatedAlias(new_type, self.__metadata__)
 
         def __repr__(self):
-            return "typing_extensions.Annotated[{}, {}]".format(
-                typing._type_repr(self.__origin__),
-                ", ".join(repr(a) for a in self.__metadata__)
-            )
+            return (f"typing_extensions.Annotated[{typing._type_repr(self.__origin__)}, "
+                    f"{', '.join(repr(a) for a in self.__metadata__)}]")
 
         def __reduce__(self):
             return operator.getitem, (
@@ -1748,9 +1741,8 @@ if not hasattr(typing, 'Concatenate'):
 
         def __repr__(self):
             _type_repr = typing._type_repr
-            return '{origin}[{args}]' \
-                   .format(origin=_type_repr(self.__origin__),
-                           args=', '.join(_type_repr(arg) for arg in self.__args__))
+            return (f'{_type_repr(self.__origin__)}'
+                    f'[{", ".join(_type_repr(arg) for arg in self.__args__)}]')
 
         def __hash__(self):
             return hash((self.__origin__, self.__args__))
@@ -2032,8 +2024,7 @@ else:
                 return cls(typing._type_check(item,
                            f'{cls.__name__[1:]} accepts only a single type.'),
                            _root=True)
-            raise TypeError('{} cannot be further subscripted'
-                            .format(cls.__name__[1:]))
+            raise TypeError(f'{cls.__name__[1:]} cannot be further subscripted')
 
         def _eval_type(self, globalns, localns):
             new_tp = typing._eval_type(self.__type__, globalns, localns)
