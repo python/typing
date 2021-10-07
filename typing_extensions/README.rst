@@ -9,13 +9,7 @@ Typing Extensions
 Overview
 ========
 
-The ``typing`` module was added to the standard library in Python 3.5 on
-a provisional basis and will no longer be provisional in Python 3.7. However,
-this means users of Python 3.5 - 3.6 who are unable to upgrade will not be
-able to take advantage of new types added to the ``typing`` module, such as
-``typing.Text`` or ``typing.Coroutine``.
-
-The ``typing_extensions`` module contains both backports of these changes
+The ``typing_extensions`` module contains both backports of ``typing`` features
 as well as experimental types that will eventually be added to the ``typing``
 module, such as ``Protocol`` (see PEP 544 for details about protocols and
 static duck typing) or ``TypedDict`` (see PEP 589).
@@ -30,11 +24,17 @@ Included items
 
 This module currently contains the following:
 
-All Python versions:
---------------------
-
+- ``Annotated``
+- ``AsyncContextManager``
+- ``AsyncGenerator``
+- ``AsyncIterable``
+- ``AsyncIterator``
+- ``Awaitable``
+- ``ChainMap``
 - ``ClassVar``
+- ``Concatenate``
 - ``ContextManager``
+- ``Coroutine``
 - ``Counter``
 - ``DefaultDict``
 - ``Deque``
@@ -43,42 +43,21 @@ All Python versions:
 - ``Literal``
 - ``NewType``
 - ``NoReturn``
+- ``NotRequired``
 - ``overload`` (note that older versions of ``typing`` only let you use ``overload`` in stubs)
 - ``OrderedDict``
-- ``Protocol`` (except on Python 3.5.0)
-- ``runtime_checkable`` (except on Python 3.5.0)
+- ``ParamSpec``
+- ``ParamSpecArgs``
+- ``ParamSpecKwargs``
+- ``Protocol``
+- ``Required``
+- ``runtime_checkable``
 - ``Text``
 - ``Type``
 - ``TypedDict``
 - ``TypeAlias``
-- ``TYPE_CHECKING``
-
-Python 3.4+ only:
------------------
-
-- ``ChainMap``
-- ``Concatenate``
-- ``NotRequired`` (except on Python 3.5.0-3.5.2)
-- ``ParamSpec``
-- ``ParamSpecArgs``
-- ``ParamSpecKwargs``
-- ``Required`` (except on Python 3.5.0-3.5.2)
 - ``TypeGuard``
-
-Python 3.5+ only:
------------------
-
-- ``Annotated`` (except on Python 3.5.0-3.5.2)
-- ``AsyncIterable``
-- ``AsyncIterator``
-- ``AsyncContextManager``
-- ``Awaitable``
-- ``Coroutine``
-
-Python 3.6+ only:
------------------
-
-- ``AsyncGenerator``
+- ``TYPE_CHECKING``
 
 Other Notes and Limitations
 ===========================
@@ -92,8 +71,8 @@ issues when mixing the differing implementations of modified classes.
 
 Certain types have incorrect runtime behavior due to limitations of older
 versions of the typing module.  For example, ``ParamSpec`` and ``Concatenate``
-will not work with ``get_args``, ``get_origin`` or user-defined ``Generic``\ s
-because they need to be lists to work with older versions of ``Callable``.
+will not work with ``get_args``, ``get_origin``. Certain PEP 612 special cases
+in user-defined ``Generic``\ s are also not available.
 These types are only guaranteed to work for static type checking.
 
 Running tests
@@ -103,4 +82,3 @@ To run tests, navigate into the appropriate source directory and run
 ``test_typing_extensions.py``. You will also need to install the latest
 version of ``typing`` if you are using a version of Python that does not
 include ``typing`` as a part of the standard library.
-

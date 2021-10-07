@@ -1,14 +1,5 @@
-[tox]
-envlist = py27, py34
-
-[testenv]
-changedir = src
-commands = python -m unittest discover
-
-[testenv:py27]
-changedir = python2
-
 [flake8]
+
 # fake builtins for python2/*
 builtins = basestring, unicode
 max-line-length = 90
@@ -23,7 +14,4 @@ ignore =
 exclude =
   # tests have more relaxed formatting rules
   # and its own specific config in .flake8-tests
-  python2/test_typing.py,
-  src/test_typing.py,
-  typing_extensions/src_py2/test_typing_extensions.py,
   typing_extensions/src_py3/test_typing_extensions.py,

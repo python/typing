@@ -1,7 +1,7 @@
 # This configuration is specific to test_*.py; you need to invoke it
 # by specifically naming this config, like this:
 #
-# $ flake8 --config=.flake8-tests src/test_typing.py python2/test_typing.py
+# $ flake8 --config=.flake8-tests [SOURCES]
 #
 # This will be possibly merged in the future.
 
@@ -11,17 +11,20 @@ builtins = basestring, unicode
 max-line-length = 100
 ignore =
   # temporary ignores until we sort it out
+  B017,
+  E302,
+  E303,
   E306,
+  E501,
   E701,
   E704,
+  F722,
   F811,
+  F821,
+  F841,
+  W503,
   # irrelevant plugins
   B3,
-  DW12
+  DW12,
   # consistency with mypy
   W504
-exclude =
-  # This config is NOT for the main module.
-  setup.py
-  python2/typing.py,
-  src/typing.py

@@ -53,6 +53,7 @@ TYPING_3_5_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 1)
 TYPING_3_5_3 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 3)
 TYPING_3_6_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 6, 1)
 TYPING_3_10_0 = TYPING_LATEST or sys.version_info[:3] >= (3, 10, 0)
+TYPING_3_11_0 = TYPING_LATEST or sys.version_info[:3] >= (3, 11, 0)
 
 # For typing versions where issubclass(...) and
 # isinstance(...) checks are forbidden.
@@ -557,6 +558,10 @@ class GetTypeHintTests(BaseTestCase):
     @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_modules(self):
         ann_module_type_hints = {1: 2, 'f': Tuple[int, int], 'x': int, 'y': str}
+        if (TYPING_3_11_0
+                or (TYPING_3_10_0 and sys.version_info.releaselevel in {'candidate', 'final'})):
+            # More tests were added in 3.10rc1.
+            ann_module_type_hints['u'] = int | float
         self.assertEqual(gth(ann_module), ann_module_type_hints)
         self.assertEqual(gth(ann_module2), {})
         self.assertEqual(gth(ann_module3), {})
@@ -2103,25 +2108,38 @@ class ParamSpecTests(BaseTestCase):
         P = ParamSpec('P')
         T = TypeVar('T')
         C1 = typing.Callable[P, int]
+        # Callable in Python 3.5.2 might be bugged when collecting __args__.
+        # https://github.com/python/cpython/blob/91185fe0284a04162e0b3425b53be49bdbfad67d/Lib/typing.py#L1026
+        PY_3_5_2 = sys.version_info[:3] == (3, 5, 2)
+        if not PY_3_5_2:
+            self.assertEqual(C1.__args__, (P, int))
+            self.assertEqual(C1.__parameters__, (P,))
         C2 = typing.Callable[P, T]
+        if not PY_3_5_2:
+            self.assertEqual(C2.__args__, (P, T))
+            self.assertEqual(C2.__parameters__, (P, T))
 
-        # Note: no tests for Callable.__args__ and Callable.__parameters__ here
-        # because pre-3.10 Callable sees ParamSpec as a plain list, not a
-        # TypeVar.
 
         # Test collections.abc.Callable too.
         if sys.version_info[:2] >= (3, 9):
+            # Note: no tests for Callable.__parameters__ here
+            # because types.GenericAlias Callable is hardcoded to search
+            # for tp_name "TypeVar" in C.  This was changed in 3.10.
             C3 = collections.abc.Callable[P, int]
+            self.assertEqual(C3.__args__, (P, int))
             C4 = collections.abc.Callable[P, T]
+            self.assertEqual(C4.__args__, (P, T))
 
         # ParamSpec instances should also have args and kwargs attributes.
-        self.assertIn('args', dir(P))
-        self.assertIn('kwargs', dir(P))
+        # Note: not in dir(P) because of __class__ hacks
+        self.assertTrue(hasattr(P, 'args'))
+        self.assertTrue(hasattr(P, 'kwargs'))
 
     def test_args_kwargs(self):
         P = ParamSpec('P')
-        self.assertIn('args', dir(P))
-        self.assertIn('kwargs', dir(P))
+        # Note: not in dir(P) because of __class__ hacks
+        self.assertTrue(hasattr(P, 'args'))
+        self.assertTrue(hasattr(P, 'kwargs'))
         self.assertIsInstance(P.args, ParamSpecArgs)
         self.assertIsInstance(P.kwargs, ParamSpecKwargs)
         self.assertIs(P.args.__origin__, P)
@@ -2129,8 +2147,32 @@ class ParamSpecTests(BaseTestCase):
         self.assertEqual(repr(P.args), "P.args")
         self.assertEqual(repr(P.kwargs), "P.kwargs")
 
-    # Note: ParamSpec doesn't work for pre-3.10 user-defined Generics due
-    # to type checks inside Generic.
+    def test_user_generics(self):
+        T = TypeVar("T")
+        P = ParamSpec("P")
+        P_2 = ParamSpec("P_2")
+
+        class X(Generic[T, P]):
+            pass
+
+        G1 = X[int, P_2]
+        self.assertEqual(G1.__args__, (int, P_2))
+        self.assertEqual(G1.__parameters__, (P_2,))
+
+        G2 = X[int, Concatenate[int, P_2]]
+        self.assertEqual(G2.__args__, (int, Concatenate[int, P_2]))
+        self.assertEqual(G2.__parameters__, (P_2,))
+
+        # The following are some valid uses cases in PEP 612 that don't work:
+        # These do not work in 3.9, _type_check blocks the list and ellipsis.
+        # G3 = X[int, [int, bool]]
+        # G4 = X[int, ...]
+        # G5 = Z[[int, str, bool]]
+        # Not working because this is special-cased in 3.10.
+        # G6 = Z[int, str, bool]
+
+        class Z(Generic[P]):
+            pass
 
     def test_pickle(self):
         global P, P_co, P_contra
@@ -2281,6 +2323,10 @@ class AllTests(BaseTestCase):
         if TYPING_3_5_3:
             self.assertIn('Protocol', a)
             self.assertIn('runtime', a)
+
+        # Check that all objects in `__all__` are present in the module
+        for name in a:
+            self.assertTrue(hasattr(typing_extensions, name))
 
     def test_typing_extensions_defers_when_possible(self):
         exclude = {
