@@ -19,6 +19,13 @@ the ``typing`` module from PyPi instead of using this one unless
 specifically writing code that must be compatible with multiple Python
 versions or requires experimental types.
 
+Starting with version 4.0.0, ``typing_extensions`` uses
+`Semantic Versioning <https://semver.org/>`_. The
+major version is incremented for all backwards-incompatible changes, including
+dropping support for older Python versions. Therefore, it's safe to depend
+on ``typing_extensions`` like this: ``typing_extensions >=x.y, <(x+1)``,
+where ``x.y`` is the first version that includes all features you need.
+
 Included items
 ==============
 
