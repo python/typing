@@ -128,7 +128,10 @@ A “known type” is defined as follows:
 Classes:
 
 -  All class variables, instance variables, and methods that are
-   “visible” (not overridden) are annotated and refer to known types
+   “visible” (not overridden) are annotated and refer to known types.
+-  Class and instance variables may alternatively be unannotated, if they
+   are assigned a value within the ``__init__`` or ``__new__`` method whose
+   type is either known or can be inferred
 -  If a class is a subclass of a generic class, type arguments are
    provided for each generic type parameter, and these type arguments
    are known types
@@ -234,7 +237,9 @@ Examples of known and unknown types
    class MyClass:
        height: float = 2.0
 
-       def __init__(self, name: str, age: int):
+       def __init__(self, name: str, age: int, first_name: str = None):
+           # Value can be inferred to be of type str
+           self.first_name = 'Unknown' if first_name is None else first_name
            self.age: int = age
 
        @property
@@ -247,9 +252,10 @@ Examples of known and unknown types
        height = 2.0
 
        # Missing input parameter annotations
-       def __init__(self, name, age):
+       def __init__(self, name: str, age: int, first_name: str = None):
+           self.first_name = 'Unknown' if first_name is None else first_name
            # Missing type annotation for instance variable
-           self.age = age
+           self.age = parser_without_return_type_annotation(age)
 
        # Missing return type annotation
        @property
