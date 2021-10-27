@@ -83,7 +83,7 @@ comprise the supported interface for the library.
 
 Each module exposes a set of symbols. Some of these symbols are
 considered "private” — implementation details that are not part of the
-library’s interface. Type checkers like pyright use the following rules
+library’s interface. Type checkers can use the following rules
 to determine which symbols are visible outside of the package.
 
 -  Symbols whose names begin with an underscore (but are not dunder
@@ -278,37 +278,6 @@ Examples of known and unknown types
    class DictSubclass(dict):
        pass
 
-Verifying Type Completeness
-===========================
-
-Pyright provides a feature that allows library authors to verify type
-completeness for a “py.typed” package. To use this feature, create a
-clean Python environment and install your package along with all of the
-other dependent packages. Run the CLI version of pyright with the
-``--verifytypes`` option.
-
-``pyright --verifytypes <lib>``
-
-Pyright will analyze the library, identify all symbols that comprise the
-interface to the library and emit errors for any symbols whose types are
-unknown. It also produces a “type completeness score” which is the
-percentage of symbols with known types.
-
-To see additional details (including a full list of symbols in the
-library), append the ``--verbose`` option.
-
-The ``--verifytypes`` option can be combined with ``--outputjson`` to
-emit the results in a form that can be consumed by other tools.
-
-The ``--verifytypes`` feature can be integrated into a continuous
-integration (CI) system to verify that a library remains “type
-complete”.
-
-If the ``--verifytypes`` option is combined with ``--ignoreexternal``,
-any incomplete types that are imported from other external packages are
-ignored. This allows library authors to focus on adding type annotations
-for the code that is directly under their control.
-
 Improving Type Completeness
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -436,8 +405,7 @@ Type Aliases
 
 Type aliases are symbols that refer to other types. Generic type aliases
 (those that refer to unspecialized generic classes) are supported by
-most type checkers. Pyright also provides support for recursive type
-aliases.
+most type checkers.
 
 `PEP 613 <https://www.python.org/dev/peps/pep-0613/>`__ provides a way
 to explicitly designate a symbol as a type alias using the new TypeAlias
