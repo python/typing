@@ -1,6 +1,12 @@
 Python Typing Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Reading the docs
+=================
+
+The live documentation for Python's static typing can be found at
+[typing.readthedocs.io](https://typing.readthedocs.io/).
+
 Building the docs
 =================
 
