@@ -5,7 +5,7 @@ Reading the docs
 =================
 
 The live documentation for Python's static typing can be found at
-[typing.readthedocs.io](https://typing.readthedocs.io/).
+`typing.readthedocs.io <https://typing.readthedocs.io/>`_.
 
 Building the docs
 =================
