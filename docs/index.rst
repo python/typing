@@ -7,8 +7,8 @@ Static Typing with Python
    :caption: Contents:
 
    typing Module Documentation <https://docs.python.org/3/library/typing.html>
-   libraries
-   stubs
+   source/libraries
+   source/stubs
 
 
 Indices and tables
