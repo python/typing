@@ -6,9 +6,12 @@ Static Typing with Python
    :maxdepth: 2
    :caption: Contents:
 
-   typing Module Documentation <https://docs.python.org/3/library/typing.html>
-   source/libraries
-   source/stubs
+   source/introduction
+
+.. toctree::
+   :maxdepth: 3
+
+   source/reference
 
 
 Indices and tables
