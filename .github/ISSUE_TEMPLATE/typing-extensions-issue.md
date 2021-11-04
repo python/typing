@@ -1,6 +1,6 @@
 ---
 name: typing-extensions issue
-about: Report a problem or suggest changes for the typing-extension library
+about: Report a problem or suggest changes for the typing-extensions library
 title: ''
 labels: 'topic: typing-extensions'
 assignees: ''
