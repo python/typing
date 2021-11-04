@@ -9,7 +9,6 @@ if sys.version_info < (3, 6, 0):
                      'to install typing_extensions.\n')
     exit(1)
 
-version = '3.10.0.2'
 description = 'Backported and Experimental Type Hints for Python 3.6+'
 long_description = '''\
 Typing Extensions -- Backported and Experimental Type Hints for Python
@@ -40,7 +39,6 @@ classifiers = [
 ]
 
 setup(name='typing_extensions',
-      version=version,
       description=description,
       long_description=long_description,
       author='Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee',

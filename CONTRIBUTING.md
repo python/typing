@@ -1,7 +1,7 @@
 Code in this repository should follow CPython's style guidelines and
 contributors need to sign the PSF Contributor Agreement.
 
-# typing_extensions
+# typing\_extensions
 
 The `typing_extensions` module provides a way to access new features from the standard
 library `typing` module in older versions of Python. For example, Python 3.10 adds
@@ -18,19 +18,13 @@ standard library, so that users can experiment with them before they are added t
 standard library. Such features should ideally already be specified in a PEP or draft
 PEP.
 
-`typing_extensions` still supports all Python versions supported by `typing`, down to
-Python 2.7 and 3.4. However, it is OK to omit support for Python versions that have
-reached end of life if doing so is too difficult or otherwise does not make sense. For
-example, `typing_extensions.AsyncGenerator` only exists on Python 3.6 and higher,
-because async generators were added to the language in 3.6.
+`typing_extensions` supports Python versions 3.6 an up.
 
 # Versioning scheme
 
-The version number of `typing_extensions` indicates the version of the standard library `typing`
-module that is reflected in the backport. For example, `typing_extensions` version
-3.10.0.0 includes features from the Python 3.10.0 standard library's `typing` module. A
-new release that doesn't include any new standard library features would be called
-3.10.0.1.
+Starting with version 4.0.0, `typing_extensions` uses
+[Semantic Versioning](https://semver.org/). The major version is incremented for all
+backwards-incompatible changes.
 
 # Workflow for PyPI releases
 
