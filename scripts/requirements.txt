@@ -1,0 +1,2 @@
+requests>=2.25.0,<3
+types-requests>=2.25.0,<3
