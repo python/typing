@@ -25,9 +25,8 @@ class Issue:
 def main() -> None:
     since = previous_week_start()
     issues = fetch_issues(since)
-    if len(issues) > 0:
-        new, updated = split_issues(issues, since)
-        print_summary(since, new, updated)
+    new, updated = split_issues(issues, since)
+    print_summary(since, new, updated)
 
 
 def previous_week_start() -> datetime.date:
@@ -91,12 +90,18 @@ def print_summary(
 
 
 def generate_mail(new: Sequence[Issue], changed: Sequence[Issue]) -> str:
-    s = (
-        "The following is an overview of all issues and pull requests in the\n"
-        "typing repository on GitHub with the label 'topic: feature'\n"
-        "that were opened or updated last week, exluding closed issues.\n\n"
-        "---------------------------------------------------\n\n"
-    )
+    if len(new) == 0 and len(changed) == 0:
+        s = (
+            "No issues or pull requests with the label 'topic: feature' were opened\n"
+            "or updated last week in the typing repository on GitHub.\n\n"
+        )
+    else:
+        s = (
+            "The following is an overview of all issues and pull requests in the\n"
+            "typing repository on GitHub with the label 'topic: feature'\n"
+            "that were opened or updated last week, exluding closed issues.\n\n"
+            "---------------------------------------------------\n\n"
+        )
     if len(new) >= 0:
         s += "The following issues and pull requests were opened last week: \n\n"
         s += "".join(generate_issue_text(issue) for issue in new)
