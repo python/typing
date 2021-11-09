@@ -2844,3 +2844,50 @@ else:
         PEP 647 (User-Defined Type Guards).
         """
         __type__ = None
+
+
+if hasattr(typing, "Self"):
+    Self = typing.Self
+
+elif hasattr(typing, "_SpecialForm"):
+    @typing._SpecialForm
+    def Self(self, params):
+        """Used to spell the type of "self" in classes.
+
+        Example::
+
+          from typing import Self
+
+          class ReturnsSelf:
+              def parse(self, data: bytes) -> Self:
+                  ...
+                  return self
+
+        """
+
+        raise TypeError(f"{self} is not subscriptable")
+
+else:
+    class _Self(typing._FinalTypingBase, _root=True):
+        """Used to spell the type of "self" in classes.
+
+        Example::
+
+          from typing import Self
+
+          class ReturnsSelf:
+              def parse(self, data: bytes) -> Self:
+                  ...
+                  return self
+
+        """
+
+        __slots__ = ()
+
+        def __instancecheck__(self, obj):
+            raise TypeError(f"{self} cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError(f"{self} cannot be used with issubclass().")
+
+    Self = _Self(_root=True)
