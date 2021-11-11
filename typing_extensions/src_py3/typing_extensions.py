@@ -1,6 +1,7 @@
 import abc
 import collections
 import collections.abc
+import operator
 import sys
 import typing
 
@@ -67,11 +68,15 @@ __all__ = [
     'SupportsIndex',
 
     # One-off things.
+    'Annotated',
     'final',
     'IntVar',
     'Literal',
     'NewType',
     'overload',
+    'Protocol',
+    'runtime',
+    'runtime_checkable',
     'Text',
     'TypeAlias',
     'TypeGuard',
@@ -80,8 +85,6 @@ __all__ = [
 
 if PEP_560:
     __all__.extend(["get_args", "get_origin", "get_type_hints"])
-
-__all__.extend(['Annotated', 'Protocol', 'runtime', 'runtime_checkable'])
 
 # 3.6.2+
 if hasattr(typing, 'NoReturn'):
@@ -1043,9 +1046,6 @@ else:
 
     class _TypedDictMeta(type):
         def __init__(cls, name, bases, ns, total=True):
-            # In Python 3.4 and 3.5 the __init__ method also needs to support the
-            # keyword arguments.
-            # See https://www.python.org/dev/peps/pep-0487/#implementation-details
             super().__init__(name, bases, ns)
 
         def __new__(cls, name, bases, ns, total=True):
@@ -1130,8 +1130,6 @@ if hasattr(typing, 'Annotated'):
     _AnnotatedAlias = typing._AnnotatedAlias
 # 3.7-3.8
 elif PEP_560:
-    import operator
-
     class _AnnotatedAlias(typing._GenericAlias, _root=True):
         """Runtime representation of an annotated type.
 
