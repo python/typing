@@ -38,8 +38,6 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r test-requirements.txt
-          pip uninstall -y typing-extensions 
-        # other libraries in the requirements can depend on typing-extensions so we need to unistall it before testing
 
       - name: Test typing_extensions
         run: pytest typing_extensions/src_py3
