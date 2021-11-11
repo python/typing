@@ -27,6 +27,10 @@ TYPING_3_10_0 = sys.version_info[:3] >= (3, 10, 0)
 TYPING_3_11_0 = sys.version_info[:3] >= (3, 11, 0)
 
 
+class Employee:
+    pass
+
+
 class BaseTestCase(TestCase):
     def assertIsSubclass(self, cls, class_or_tuple, msg=None):
         if not issubclass(cls, class_or_tuple):
@@ -41,10 +45,6 @@ class BaseTestCase(TestCase):
             if msg is not None:
                 message += f' : {msg}'
             raise self.failureException(message)
-
-
-class Employee:
-    pass
 
 
 class FinalTests(BaseTestCase):
@@ -254,88 +254,6 @@ class LiteralTests(BaseTestCase):
         with self.assertRaises(TypeError):
             te.Literal[1][1]
 
-class Loop:
-    attr: te.Final['Loop']
-
-class NoneAndForward:
-    parent: 'NoneAndForward'
-    meaning: None
-
-@te.runtime_checkable
-class HasCallProtocol(te.Protocol):
-    __call__: typing.Callable
-
-Label = te.TypedDict('Label', [('label', str)])
-
-class Point2D(te.TypedDict):
-    x: int
-    y: int
-
-class Point2Dor3D(Point2D, total=False):
-    z: int
-
-class LabelPoint2D(Point2D, Label): ...
-
-class Options(te.TypedDict, total=False):
-    log_level: int
-    log_path: str
-
-class BaseAnimal(te.TypedDict):
-    name: str
-
-class Animal(BaseAnimal, total=False):
-    voice: str
-    tail: bool
-
-class Cat(Animal):
-    fur_color: str
-
-
-class GetTypeHintTests(BaseTestCase):
-    def test_get_type_hints_modules(self):
-        ann_module_type_hints = {1: 2, 'f': typing.Tuple[int, int], 'x': int, 'y': str}
-        if (TYPING_3_11_0
-                or (TYPING_3_10_0 and sys.version_info.releaselevel in {'candidate', 'final'})):
-            # More tests were added in 3.10rc1.
-            ann_module_type_hints['u'] = int | float
-        self.assertEqual(gth(ann_module), ann_module_type_hints)
-        self.assertEqual(gth(ann_module2), {})
-        self.assertEqual(gth(ann_module3), {})
-
-    def test_get_type_hints_classes(self):
-        self.assertEqual(gth(ann_module.C, ann_module.__dict__),
-                         {'y': typing.Optional[ann_module.C]})
-        self.assertIsInstance(gth(ann_module.j_class), dict)
-        self.assertEqual(gth(ann_module.M), {'123': 123, 'o': type})
-        self.assertEqual(gth(ann_module.D),
-                         {'j': str, 'k': str, 'y': typing.Optional[ann_module.C]})
-        self.assertEqual(gth(ann_module.Y), {'z': int})
-        self.assertEqual(gth(ann_module.h_class),
-                         {'y': typing.Optional[ann_module.C]})
-        self.assertEqual(gth(ann_module.S), {'x': str, 'y': str})
-        self.assertEqual(gth(ann_module.foo), {'x': int})
-        self.assertEqual(gth(NoneAndForward, globals()),
-                         {'parent': NoneAndForward, 'meaning': type(None)})
-
-    def test_respect_no_type_check(self):
-        @typing.no_type_check
-        class NoTpCheck:
-            class Inn:
-                def __init__(self, x: 'not a type'): ...  # noqa
-        self.assertTrue(NoTpCheck.__no_type_check__)
-        self.assertTrue(NoTpCheck.Inn.__init__.__no_type_check__)
-        self.assertEqual(gth(ann_module2.NTC.meth), {})
-        class ABase(typing.Generic[T]):
-            def meth(x: int): ...
-        @typing.no_type_check
-        class Der(ABase): ...
-        self.assertEqual(gth(ABase.meth), {'x': int})
-
-    def test_final_forward_ref(self):
-        self.assertEqual(gth(Loop, globals())['attr'], te.Final[Loop])
-        self.assertNotEqual(gth(Loop, globals())['attr'], te.Final[int])
-        self.assertNotEqual(gth(Loop, globals())['attr'], te.Final)
-
 
 class GetUtilitiesTestCase(TestCase):
     def test_get_origin(self):
@@ -430,52 +348,6 @@ class OrderedDictTests(BaseTestCase):
         self.assertNotIsSubclass(collections.OrderedDict, MyOrdDict)
 
 
-class Coordinate(te.Protocol):
-    x: int
-    y: int
-
-@te.runtime_checkable
-class Point(Coordinate, te.Protocol):
-    label: str
-
-class MyPoint:
-    x: int
-    y: int
-    label: str
-
-class XAxis(te.Protocol):
-    x: int
-
-class YAxis(te.Protocol):
-    y: int
-
-@te.runtime_checkable
-class Position(XAxis, YAxis, te.Protocol):
-    pass
-
-@te.runtime_checkable
-class Proto(te.Protocol):
-    attr: int
-
-    def meth(self, arg: str) -> int:
-        ...
-
-class Concrete(Proto):
-    pass
-
-class Other:
-    attr: int = 1
-
-    def meth(self, arg: str) -> int:
-        if arg == 'this':
-            return 1
-        return 0
-
-class NT(typing.NamedTuple):
-    x: int
-    y: int
-
-
 class ProtocolTests(BaseTestCase):
 
     def test_basic_protocol(self):
@@ -508,6 +380,9 @@ class ProtocolTests(BaseTestCase):
             self.assertIsInstance(thing, Empty)
 
     def test_function_implements_protocol(self):
+        @te.runtime_checkable
+        class HasCallProtocol(te.Protocol):
+            __call__: typing.Callable
         def f():
             pass
         self.assertIsInstance(f, HasCallProtocol)
@@ -694,6 +569,24 @@ class ProtocolTests(BaseTestCase):
             isinstance(C(), BadPG)
 
     def test_protocols_isinstance_py36(self):
+        class Coordinate(te.Protocol):
+            x: int
+            y: int
+        @te.runtime_checkable
+        class Point(Coordinate, te.Protocol):
+            label: str
+        class XAxis(te.Protocol):
+            x: int
+        class YAxis(te.Protocol):
+            y: int
+        @te.runtime_checkable
+        class Position(XAxis, YAxis, te.Protocol):
+            pass
+        @te.runtime_checkable
+        class Proto(te.Protocol):
+            attr: int
+            def meth(self, arg: str) -> int: ...
+
         class APoint:
             def __init__(self, x, y, label):
                 self.x = x
@@ -704,12 +597,26 @@ class ProtocolTests(BaseTestCase):
             def __init__(self, x, y):
                 self.x = x
                 self.y = y
+        class MyPoint:
+            x: int
+            y: int
+            label: str
+        class Other:
+            attr: int = 1
+            def meth(self, arg: str) -> int:
+                if arg == 'this':
+                    return 1
+                return 0
+        class Concrete(Proto): pass
         class C:
             def __init__(self, attr):
                 self.attr = attr
             def meth(self, arg):
                 return 0
         class Bad: pass
+        class NT(typing.NamedTuple):
+            x: int
+            y: int
         self.assertIsInstance(APoint(1, 2, 'A'), Point)
         self.assertIsInstance(BPoint(1, 2), Point)
         self.assertNotIsInstance(MyPoint(), Point)
@@ -1094,6 +1001,11 @@ class TypedDictTests(BaseTestCase):
             te.TypedDict('Hi', [('x', int)], y=int)
 
     def test_py36_class_syntax_usage(self):
+        class Point2D(te.TypedDict):
+            x: int
+            y: int
+        Label = te.TypedDict('Label', [('label', str)])
+        class LabelPoint2D(Point2D, Label): ...
         self.assertEqual(LabelPoint2D.__name__, 'LabelPoint2D')
         self.assertEqual(LabelPoint2D.__module__, __name__)
         self.assertEqual(gth(LabelPoint2D), {'x': int, 'y': int, 'label': str})
@@ -1133,6 +1045,9 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(D.__required_keys__, frozenset())
         self.assertEqual(D.__optional_keys__, {'x'})
 
+        class Options(te.TypedDict, total=False):
+            log_level: int
+            log_path: str
         self.assertEqual(Options(), {})
         self.assertEqual(Options(log_level=2), {'log_level': 2})
         self.assertEqual(Options.__total__, False)
@@ -1140,10 +1055,25 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(Options.__optional_keys__, {'log_level', 'log_path'})
 
     def test_optional_keys(self):
+        class Point2D(te.TypedDict):
+            x: int
+            y: int
+        class Point2Dor3D(Point2D, total=False):
+            z: int
         assert Point2Dor3D.__required_keys__ == frozenset(['x', 'y'])
         assert Point2Dor3D.__optional_keys__ == frozenset(['z'])
 
     def test_keys_inheritance(self):
+        class BaseAnimal(te.TypedDict):
+            name: str
+
+        class Animal(BaseAnimal, total=False):
+            voice: str
+            tail: bool
+
+        class Cat(Animal):
+            fur_color: str
+
         assert BaseAnimal.__required_keys__ == frozenset(['name'])
         assert BaseAnimal.__optional_keys__ == frozenset([])
         assert gth(BaseAnimal) == {'name': str}
@@ -1344,7 +1274,34 @@ class AnnotatedTests(BaseTestCase):
 
 
 class GetTypeHintsTests(BaseTestCase):
-    def test_get_type_hints(self):
+    def test_get_type_hints_modules(self):
+        ann_module_type_hints = {1: 2, 'f': typing.Tuple[int, int], 'x': int, 'y': str}
+        if TYPING_3_10_0:
+            ann_module_type_hints['u'] = int | float
+        self.assertEqual(gth(ann_module), ann_module_type_hints)
+        self.assertEqual(gth(ann_module2), {})
+        self.assertEqual(gth(ann_module3), {})
+
+    def test_get_type_hints_classes(self):
+        class NoneAndForward:
+            parent: 'NoneAndForward'
+            meaning: None
+
+        self.assertEqual(gth(ann_module.C, ann_module.__dict__),
+                         {'y': typing.Optional[ann_module.C]})
+        self.assertIsInstance(gth(ann_module.j_class), dict)
+        self.assertEqual(gth(ann_module.M), {'123': 123, 'o': type})
+        self.assertEqual(gth(ann_module.D),
+                         {'j': str, 'k': str, 'y': typing.Optional[ann_module.C]})
+        self.assertEqual(gth(ann_module.Y), {'z': int})
+        self.assertEqual(gth(ann_module.h_class),
+                         {'y': typing.Optional[ann_module.C]})
+        self.assertEqual(gth(ann_module.S), {'x': str, 'y': str})
+        self.assertEqual(gth(ann_module.foo), {'x': int})
+        self.assertEqual(gth(NoneAndForward, locals()),
+                         {'parent': NoneAndForward, 'meaning': type(None)})
+
+    def test_get_type_hints_functions(self):
         def foobar(x: typing.List['X']): ...
         X = te.Annotated[int, (1, 10)]
         self.assertEqual(
@@ -1374,6 +1331,27 @@ class GetTypeHintsTests(BaseTestCase):
             gth(barfoo3, globals(), locals(), include_extras=True)["x"],
             BA2
         )
+
+    def test_respect_no_type_check(self):
+        @typing.no_type_check
+        class NoTpCheck:
+            class Inn:
+                def __init__(self, x: 'not a type'): ...  # noqa
+        self.assertTrue(NoTpCheck.__no_type_check__)
+        self.assertTrue(NoTpCheck.Inn.__init__.__no_type_check__)
+        self.assertEqual(gth(ann_module2.NTC.meth), {})
+        class ABase(typing.Generic[T]):
+            def meth(x: int): ...
+        @typing.no_type_check
+        class Der(ABase): ...
+        self.assertEqual(gth(ABase.meth), {'x': int})
+
+    def test_final_forward_ref(self):
+        class Loop:
+            attr: te.Final['Loop']
+        self.assertEqual(gth(Loop, locals())['attr'], te.Final[Loop])
+        self.assertNotEqual(gth(Loop, locals())['attr'], te.Final[int])
+        self.assertNotEqual(gth(Loop, locals())['attr'], te.Final)
 
     def test_get_type_hints_refs(self):
 
@@ -1405,8 +1383,7 @@ class GetTypeHintsTests(BaseTestCase):
 
 class TypeAliasTests(BaseTestCase):
     def test_canonical_usage_with_variable_annotation(self):
-        ns = {}
-        exec('Alias: TypeAlias = Employee', globals(), ns)
+        Alias: te.TypeAlias = Employee
 
     def test_canonical_usage_with_type_comment(self):
         Alias = Employee  # type: TypeAlias
@@ -1444,6 +1421,7 @@ class TypeAliasTests(BaseTestCase):
     def test_cannot_subscript(self):
         with self.assertRaises(TypeError):
             te.TypeAlias[int]
+
 
 class ParamSpecTests(BaseTestCase):
 
@@ -1679,7 +1657,7 @@ class SelfTests(BaseTestCase):
             issubclass(int, te.Self)
 
     def test_alias(self):
-        TupleSelf = Tuple[Self, Self]
+        TupleSelf = typing.Tuple[te.Self, te.Self]
         class Alias:
             def return_tuple(self) -> TupleSelf:
                 return (self, self)
