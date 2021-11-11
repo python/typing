@@ -29,7 +29,7 @@ except ImportError:
     from .typing import get_type_hints
 
 import typing
-from src_py3. import typing_extensions
+from src_py3 import typing_extensions
 import collections.abc as collections_abc
 
 PEP_560 = sys.version_info[:3] >= (3, 7, 0)
