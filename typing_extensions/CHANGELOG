@@ -1,3 +1,19 @@
+# Changes in version 5.0.0
+
+Dropped support for Python 3.6 and simplified backports for Python 3.7.0 and
+newer. Patch by Adam Turner (@AA-Turner).
+
+## Removed in version 5.0.0
+
+The following non-exported but non-private names have been removed as they are
+unneeded for supporting Python 3.7 and newer.
+
+- PEP_560
+- GenericMeta
+- T
+- T_co
+- T_contra
+
 # Release 4.0.1 (November 30, 2021)
 
 - Fix broken sdist in release 4.0.0. Patch by Adam Turner (@AA-Turner).

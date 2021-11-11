@@ -6,8 +6,8 @@ build-backend = "flit_core.buildapi"
 # Project metadata
 [project]
 name = "typing_extensions"
-version = "4.0.1"
-description = "Backported and Experimental Type Hints for Python 3.6+"
+version = "5.0.0"
+description = "Backported and Experimental Type Hints for Python 3.7+"
 readme.text = """\
 Typing Extensions -- Backported and Experimental Type Hints for Python
 
@@ -22,7 +22,7 @@ Experimental types that may eventually be added to the ``typing``
 module are also included in ``typing_extensions``.
 """
 readme.content-type = "text/x-rst"
-requires-python = ">=3.6"
+requires-python = ">=3.7"
 urls.Home = "https://github.com/python/typing/blob/master/typing_extensions/README.rst"
 license.file = "LICENSE"
 keywords = [
@@ -48,7 +48,6 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
