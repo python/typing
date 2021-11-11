@@ -12,24 +12,24 @@ from typing import T, KT, VT  # Not in __all__.
 from typing import Tuple, List, Dict, Iterator, Callable
 from typing import Generic
 from typing import no_type_check
-from src_py3.typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict, Self
-from src_py3.typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
+from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict, Self
+from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 
 try:
-    from src_py3.typing_extensions import Protocol, runtime, runtime_checkable
+    from typing_extensions import Protocol, runtime, runtime_checkable
 except ImportError:
     pass
 try:
-    from src_py3.typing_extensions import Annotated
+    from typing_extensions import Annotated
 except ImportError:
     pass
 try:
-    from src_py3.typing_extensions import get_type_hints
+    from typing_extensions import get_type_hints
 except ImportError:
     from typing import get_type_hints
 
 import typing
-from src_py3 import typing_extensions
+import typing_extensions
 import collections.abc as collections_abc
 
 PEP_560 = sys.version_info[:3] >= (3, 7, 0)
