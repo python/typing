@@ -1,5 +1,4 @@
-flake8; python_version >= '3.6'
-flake8-bugbear; python_version >= '3.6'
-flake8-pyi; python_version >= '3.6'
-pytest==4.6.11; python_version < '3.0'
-pytest; python_version >= '3.0'
+flake8
+flake8-bugbear
+flake8-pyi
+pytest

@@ -50,7 +50,7 @@ This module currently contains the following:
 - ``Literal``
 - ``NewType``
 - ``NoReturn``
-- ``overload`` (note that older versions of ``typing`` only let you use ``overload`` in stubs)
+- ``overload``
 - ``OrderedDict``
 - ``ParamSpec``
 - ``ParamSpecArgs``
@@ -63,6 +63,14 @@ This module currently contains the following:
 - ``TypeAlias``
 - ``TypeGuard``
 - ``TYPE_CHECKING``
+
+Python 3.7+
+-----------
+
+- ``get_origin``
+- ``get_args``
+- ``get_type_hints``
+
 
 Other Notes and Limitations
 ===========================
