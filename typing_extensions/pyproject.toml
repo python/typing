@@ -18,7 +18,7 @@ able to take advantage of new types added to the ``typing`` module, such as
 ``typing.Protocol`` or ``typing.TypedDict``.
 
 The ``typing_extensions`` module contains backports of these changes.
-Experimental types that will eventually be added to the ``typing``
+Experimental types that may eventually be added to the ``typing``
 module are also included in ``typing_extensions``.
 """
 readme.content-type = "text/x-rst"
