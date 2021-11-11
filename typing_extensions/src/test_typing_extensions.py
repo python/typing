@@ -7,7 +7,7 @@ import collections.abc
 import pickle
 import subprocess
 import types
-from unittest import TestCase, main, skipUnless, skipIf
+from unittest import TestCase, main, skipIf
 from test import ann_module, ann_module2, ann_module3
 import typing
 from typing import TypeVar, Optional, Union
@@ -20,30 +20,12 @@ from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, 
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
 from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload
-try:
-    from typing_extensions import get_type_hints
-except ImportError:
-    from typing import get_type_hints
-
-PEP_560 = sys.version_info[:3] >= (3, 7, 0)
-
-OLD_GENERICS = False
-try:
-    from typing import _type_vars, _next_in_mro, _type_check  # noqa
-except ImportError:
-    OLD_GENERICS = True
+from typing_extensions import get_type_hints
 
 # Flags used to mark tests that only apply after a specific
 # version of the typing module.
-TYPING_3_6_1 = sys.version_info[:3] >= (3, 6, 1)
 TYPING_3_10_0 = sys.version_info[:3] >= (3, 10, 0)
 TYPING_3_11_0 = sys.version_info[:3] >= (3, 11, 0)
-
-# For typing versions where instantiating collection
-# types are allowed.
-#
-# See https://github.com/python/typing/issues/367
-CAN_INSTANTIATE_COLLECTIONS = TYPING_3_6_1
 
 
 class BaseTestCase(TestCase):
@@ -160,7 +142,7 @@ class FinalTests(BaseTestCase):
             Final[int][str]
 
     def test_repr(self):
-        if hasattr(typing, 'Final') and sys.version_info[:2] >= (3, 7):
+        if hasattr(typing, 'Final'):
             mod_name = 'typing'
         else:
             mod_name = 'typing_extensions'
@@ -543,7 +525,6 @@ class GetTypeHintTests(BaseTestCase):
         self.assertNotEqual(gth(Loop, globals())['attr'], Final)
 
 
-@skipUnless(PEP_560, "Python 3.7+ required")
 class GetUtilitiesTestCase(TestCase):
     def test_get_origin(self):
         from typing_extensions import get_origin
@@ -679,7 +660,6 @@ class CollectionsAbcTests(BaseTestCase):
     def test_counter(self):
         self.assertIsSubclass(collections.Counter, typing_extensions.Counter)
 
-    @skipUnless(CAN_INSTANTIATE_COLLECTIONS, "Behavior added in typing 3.6.1")
     def test_defaultdict_instantiation(self):
         self.assertIs(
             type(typing_extensions.DefaultDict()),
@@ -702,7 +682,6 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsSubclass(MyDefDict, collections.defaultdict)
         self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
 
-    @skipUnless(CAN_INSTANTIATE_COLLECTIONS, "Behavior added in typing 3.6.1")
     def test_ordereddict_instantiation(self):
         self.assertIs(
             type(typing_extensions.OrderedDict()),
@@ -756,10 +735,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIs(type(typing_extensions.Counter[int]()), collections.Counter)
         class C(typing_extensions.Counter[T]): ...
         self.assertIs(type(C[int]()), C)
-        if not PEP_560:
-            self.assertEqual(C.__bases__, (typing_extensions.Counter,))
-        else:
-            self.assertEqual(C.__bases__, (collections.Counter, typing.Generic))
+        self.assertEqual(C.__bases__, (collections.Counter, typing.Generic))
 
     def test_counter_subclass_instantiation(self):
 
@@ -834,9 +810,8 @@ class OtherABCTests(BaseTestCase):
         cm = manager()
         self.assertNotIsInstance(cm, typing_extensions.AsyncContextManager)
         self.assertEqual(typing_extensions.AsyncContextManager[int].__args__, (int,))
-        if TYPING_3_6_1:
-            with self.assertRaises(TypeError):
-                isinstance(42, typing_extensions.AsyncContextManager[int])
+        with self.assertRaises(TypeError):
+            isinstance(42, typing_extensions.AsyncContextManager[int])
         with self.assertRaises(TypeError):
             typing_extensions.AsyncContextManager[int, str]
 
@@ -1101,10 +1076,6 @@ class ProtocolTests(BaseTestCase):
         self.assertIsSubclass(C, P)
         self.assertIsSubclass(C, PG)
         self.assertIsSubclass(BadP, PG)
-        if not PEP_560:
-            self.assertIsSubclass(PG[int], PG)
-            self.assertIsSubclass(BadPG[int], P)
-            self.assertIsSubclass(BadPG[T], PG)
         with self.assertRaises(TypeError):
             issubclass(C, PG[T])
         with self.assertRaises(TypeError):
@@ -1295,28 +1266,6 @@ class ProtocolTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(C(), P)
 
-    @skipUnless(not OLD_GENERICS, "New style generics required")
-    def test_defining_generic_protocols(self):
-        T = TypeVar('T')
-        S = TypeVar('S')
-        @runtime
-        class PR(Protocol[T, S]):
-            def meth(self): pass
-        class P(PR[int, T], Protocol[T]):
-            y = 1
-        self.assertIsSubclass(PR[int, T], PR)
-        self.assertIsSubclass(P[str], PR)
-        with self.assertRaises(TypeError):
-            PR[int]
-        with self.assertRaises(TypeError):
-            P[int, str]
-        with self.assertRaises(TypeError):
-            PR[int, 1]
-        with self.assertRaises(TypeError):
-            PR[int, ClassVar]
-        class C(PR[int, T]): pass
-        self.assertIsInstance(C[str](), C)
-
     def test_defining_generic_protocols_old_style(self):
         T = TypeVar('T')
         S = TypeVar('S')
@@ -1325,11 +1274,8 @@ class ProtocolTests(BaseTestCase):
             def meth(self): pass
         class P(PR[int, str], Protocol):
             y = 1
-        if not PEP_560:
+        with self.assertRaises(TypeError):
             self.assertIsSubclass(PR[int, str], PR)
-        else:
-            with self.assertRaises(TypeError):
-                self.assertIsSubclass(PR[int, str], PR)
         self.assertIsSubclass(P, PR)
         with self.assertRaises(TypeError):
             PR[int]
@@ -1360,7 +1306,6 @@ class ProtocolTests(BaseTestCase):
                 self.test = 'OK'
         self.assertEqual(C[int]().test, 'OK')
 
-    @skipUnless(not OLD_GENERICS, "New style generics required")
     def test_protocols_bad_subscripts(self):
         T = TypeVar('T')
         S = TypeVar('S')
@@ -1377,9 +1322,6 @@ class ProtocolTests(BaseTestCase):
         T = TypeVar('T')
         S = TypeVar('S')
         class P(Protocol[T, S]): pass
-        # After PEP 560 unsubscripted generics have a standard repr.
-        if not PEP_560:
-            self.assertTrue(repr(P).endswith('P'))
         self.assertTrue(repr(P[T, S]).endswith('P[~T, ~S]'))
         self.assertTrue(repr(P[int, str]).endswith('P[int, str]'))
 
@@ -1391,17 +1333,6 @@ class ProtocolTests(BaseTestCase):
         self.assertEqual(P[int, T], P[int, T])
         self.assertEqual(P[T, T][Tuple[T, S]][int, str],
                          P[Tuple[int, str], Tuple[int, str]])
-
-    @skipUnless(not OLD_GENERICS, "New style generics required")
-    def test_generic_protocols_special_from_generic(self):
-        T = TypeVar('T')
-        class P(Protocol[T]): pass
-        self.assertEqual(P.__parameters__, (T,))
-        self.assertIs(P.__args__, None)
-        self.assertIs(P.__origin__, None)
-        self.assertEqual(P[int].__parameters__, ())
-        self.assertEqual(P[int].__args__, (int,))
-        self.assertIs(P[int].__origin__, P)
 
     def test_generic_protocols_special_from_protocol(self):
         @runtime
@@ -1429,9 +1360,6 @@ class ProtocolTests(BaseTestCase):
         self.assertEqual(typing_extensions._get_protocol_attrs(PR), {'x'})
         self.assertEqual(frozenset(typing_extensions._get_protocol_attrs(PG)),
                          frozenset({'x', 'meth'}))
-        if not PEP_560:
-            self.assertEqual(frozenset(typing_extensions._get_protocol_attrs(PG[int])),
-                             frozenset({'x', 'meth'}))
 
     def test_no_runtime_deco_on_nominal(self):
         with self.assertRaises(TypeError):
@@ -1702,16 +1630,14 @@ class AnnotatedTests(BaseTestCase):
         A = Annotated[Annotated[int, 4], 5]
         self.assertEqual(A, Annotated[int, 4, 5])
         self.assertEqual(A.__metadata__, (4, 5))
-        if PEP_560:
-            self.assertEqual(A.__origin__, int)
+        self.assertEqual(A.__origin__, int)
 
     def test_specialize(self):
         L = Annotated[List[T], "my decoration"]
         LI = Annotated[List[int], "my decoration"]
         self.assertEqual(L[int], Annotated[List[int], "my decoration"])
         self.assertEqual(L[int].__metadata__, ("my decoration",))
-        if PEP_560:
-            self.assertEqual(L[int].__origin__, List[int])
+        self.assertEqual(L[int].__origin__, List[int])
         with self.assertRaises(TypeError):
             LI[int]
         with self.assertRaises(TypeError):
@@ -1797,7 +1723,6 @@ class AnnotatedTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(int, Annotated[int, "positive"])
 
-    @skipUnless(PEP_560, "pickle support was added with PEP 560")
     def test_pickle(self):
         samples = [typing.Any, typing.Union[int, str],
                    typing.Optional[str], Tuple[int, ...],
@@ -1862,7 +1787,6 @@ class AnnotatedTests(BaseTestCase):
         self.assertEqual(X[int], List[Annotated[int, 5]])
 
 
-@skipUnless(PEP_560, "Python 3.7 required")
 class GetTypeHintsTests(BaseTestCase):
     def test_get_type_hints(self):
         def foobar(x: List['X']): ...
@@ -2225,8 +2149,7 @@ class AllTests(BaseTestCase):
         self.assertIn("Concatenate", a)
 
         self.assertIn('Annotated', a)
-        if PEP_560:
-            self.assertIn('get_type_hints', a)
+        self.assertIn('get_type_hints', a)
 
         self.assertIn('Awaitable', a)
         self.assertIn('AsyncIterator', a)
