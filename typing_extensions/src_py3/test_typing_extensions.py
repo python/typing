@@ -26,7 +26,7 @@ except ImportError:
 try:
     from src_py3.typing_extensions import get_type_hints
 except ImportError:
-    from .typing import get_type_hints
+    from typing import get_type_hints
 
 import typing
 from src_py3 import typing_extensions
