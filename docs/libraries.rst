@@ -278,6 +278,13 @@ Examples of known and unknown types
    class DictSubclass(dict):
        pass
 
+Verifying Type Completeness
+===========================
+
+Some type checkers provide features that allows library authors to verify type
+completeness for a “py.typed” package. E.g. Pyright has a special
+`command line flag <https://git.io/JPueJ>`_ for this.
+
 Improving Type Completeness
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
