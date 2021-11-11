@@ -119,6 +119,7 @@ __all__ = [
     'Concatenate',
     'Final',
     'ParamSpec',
+    'Self',
     'Type',
 
     # ABCs (from collections.abc).
