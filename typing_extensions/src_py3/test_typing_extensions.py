@@ -3,34 +3,27 @@ import os
 import abc
 import contextlib
 import collections
+import collections.abc
 import pickle
 import subprocess
 import types
 from unittest import TestCase, main, skipUnless, skipIf
+from test import ann_module, ann_module2, ann_module3
+import typing
 from typing import TypeVar, Optional, Union
 from typing import T, KT, VT  # Not in __all__.
-from typing import Tuple, List, Dict, Iterator, Callable
-from typing import Generic
+from typing import Tuple, List, Dict, Iterable, Iterator, Callable
+from typing import Generic, NamedTuple
 from typing import no_type_check
+import typing_extensions
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
-
-try:
-    from typing_extensions import Protocol, runtime, runtime_checkable
-except ImportError:
-    pass
-try:
-    from typing_extensions import Annotated
-except ImportError:
-    pass
+from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager
+from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload
 try:
     from typing_extensions import get_type_hints
 except ImportError:
     from typing import get_type_hints
-
-import typing
-import typing_extensions
-import collections.abc as collections_abc
 
 PEP_560 = sys.version_info[:3] >= (3, 7, 0)
 
@@ -40,27 +33,11 @@ try:
 except ImportError:
     OLD_GENERICS = True
 
-# We assume Python versions *below* 3.5.0 will have the most
-# up-to-date version of the typing module installed. Since
-# the typing module isn't a part of the standard library in older
-# versions of Python, those users are likely to have a reasonably
-# modern version of `typing` installed from PyPi.
-TYPING_LATEST = sys.version_info[:3] < (3, 5, 0)
-
 # Flags used to mark tests that only apply after a specific
 # version of the typing module.
-TYPING_3_5_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 1)
-TYPING_3_5_3 = TYPING_LATEST or sys.version_info[:3] >= (3, 5, 3)
-TYPING_3_6_1 = TYPING_LATEST or sys.version_info[:3] >= (3, 6, 1)
-TYPING_3_10_0 = TYPING_LATEST or sys.version_info[:3] >= (3, 10, 0)
-TYPING_3_11_0 = TYPING_LATEST or sys.version_info[:3] >= (3, 11, 0)
-
-# For typing versions where issubclass(...) and
-# isinstance(...) checks are forbidden.
-#
-# See https://github.com/python/typing/issues/136
-# and https://github.com/python/typing/pull/283
-SUBCLASS_CHECK_FORBIDDEN = TYPING_3_5_3
+TYPING_3_6_1 = sys.version_info[:3] >= (3, 6, 1)
+TYPING_3_10_0 = sys.version_info[:3] >= (3, 10, 0)
+TYPING_3_11_0 = sys.version_info[:3] >= (3, 11, 0)
 
 # For typing versions where instantiating collection
 # types are allowed.
@@ -68,29 +45,20 @@ SUBCLASS_CHECK_FORBIDDEN = TYPING_3_5_3
 # See https://github.com/python/typing/issues/367
 CAN_INSTANTIATE_COLLECTIONS = TYPING_3_6_1
 
-# For Python versions supporting async/await and friends.
-ASYNCIO = sys.version_info[:2] >= (3, 5)
-
-# For checks reliant on Python 3.6 syntax changes (e.g. classvar)
-PY36 = sys.version_info[:2] >= (3, 6)
-
-# Protocols are hard to backport to the original version of typing 3.5.0
-HAVE_PROTOCOLS = sys.version_info[:3] != (3, 5, 0)
-
 
 class BaseTestCase(TestCase):
     def assertIsSubclass(self, cls, class_or_tuple, msg=None):
         if not issubclass(cls, class_or_tuple):
-            message = '%r is not a subclass of %r' % (cls, class_or_tuple)
+            message = f'{cls!r} is not a subclass of {repr(class_or_tuple)}'
             if msg is not None:
-                message += ' : %s' % msg
+                message += f' : {msg}'
             raise self.failureException(message)
 
     def assertNotIsSubclass(self, cls, class_or_tuple, msg=None):
         if issubclass(cls, class_or_tuple):
-            message = '%r is a subclass of %r' % (cls, class_or_tuple)
+            message = f'{cls!r} is a subclass of {repr(class_or_tuple)}'
             if msg is not None:
-                message += ' : %s' % msg
+                message += f' : {msg}'
             raise self.failureException(message)
 
 
@@ -108,7 +76,6 @@ class NoReturnTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(Employee, NoReturn)
 
-    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_noreturn_subclass_type_error_2(self):
         with self.assertRaises(TypeError):
             issubclass(NoReturn, Employee)
@@ -127,10 +94,9 @@ class NoReturnTests(BaseTestCase):
         with self.assertRaises(TypeError):
             class A(NoReturn):
                 pass
-        if SUBCLASS_CHECK_FORBIDDEN:
-            with self.assertRaises(TypeError):
-                class A(type(NoReturn)):
-                    pass
+        with self.assertRaises(TypeError):
+            class A(type(NoReturn)):
+                pass
 
     def test_cannot_instantiate(self):
         with self.assertRaises(TypeError):
@@ -158,9 +124,8 @@ class ClassVarTests(BaseTestCase):
         cv = ClassVar[int]
         self.assertEqual(repr(cv), mod_name + '.ClassVar[int]')
         cv = ClassVar[Employee]
-        self.assertEqual(repr(cv), mod_name + '.ClassVar[%s.Employee]' % __name__)
+        self.assertEqual(repr(cv), mod_name + f'.ClassVar[{__name__}.Employee]')
 
-    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(type(ClassVar)):
@@ -203,9 +168,8 @@ class FinalTests(BaseTestCase):
         cv = Final[int]
         self.assertEqual(repr(cv), mod_name + '.Final[int]')
         cv = Final[Employee]
-        self.assertEqual(repr(cv), mod_name + '.Final[%s.Employee]' % __name__)
+        self.assertEqual(repr(cv), mod_name + f'.Final[{__name__}.Employee]')
 
-    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(type(Final)):
@@ -308,8 +272,6 @@ class LiteralTests(BaseTestCase):
 class OverloadTests(BaseTestCase):
 
     def test_overload_fails(self):
-        from typing_extensions import overload
-
         with self.assertRaises(RuntimeError):
 
             @overload
@@ -319,8 +281,6 @@ class OverloadTests(BaseTestCase):
             blah()
 
     def test_overload_succeeds(self):
-        from typing_extensions import overload
-
         @overload
         def blah():
             pass
@@ -331,9 +291,6 @@ class OverloadTests(BaseTestCase):
         blah()
 
 
-ASYNCIO_TESTS = """
-from typing import Iterable
-from typing_extensions import Awaitable, AsyncIterator
 
 T_a = TypeVar('T_a')
 
@@ -364,24 +321,11 @@ class AsyncIteratorWrapper(AsyncIterator[T_a]):
 class ACM:
     async def __aenter__(self) -> int:
         return 42
+
     async def __aexit__(self, etype, eval, tb):
         return None
-"""
 
-if ASYNCIO:
-    try:
-        exec(ASYNCIO_TESTS)
-    except ImportError:
-        ASYNCIO = False
-else:
-    # fake names for the sake of static analysis
-    asyncio = None
-    AwaitableWrapper = AsyncIteratorWrapper = ACM = object
 
-PY36_TESTS = """
-from test import ann_module, ann_module2, ann_module3
-from typing_extensions import AsyncContextManager
-from typing import NamedTuple
 
 class A:
     y: float
@@ -404,8 +348,10 @@ class NoneAndForward:
 class XRepr(NamedTuple):
     x: int
     y: int = 1
+
     def __str__(self):
         return f'{self.x} -> {self.y}'
+
     def __add__(self, other):
         return 0
 
@@ -448,23 +394,12 @@ class Animal(BaseAnimal, total=False):
 
 class Cat(Animal):
     fur_color: str
-"""
 
-if PY36:
-    exec(PY36_TESTS)
-else:
-    # fake names for the sake of static analysis
-    ann_module = ann_module2 = ann_module3 = None
-    A = B = CSub = G = CoolEmployee = CoolEmployeeWithDefault = object
-    XMeth = XRepr = HasCallProtocol = NoneAndForward = Loop = object
-    Point2D = Point2Dor3D = LabelPoint2D = Options = object
-    BaseAnimal = Animal = Cat = object
 
 gth = get_type_hints
 
 
 class GetTypeHintTests(BaseTestCase):
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_modules(self):
         ann_module_type_hints = {1: 2, 'f': Tuple[int, int], 'x': int, 'y': str}
         if (TYPING_3_11_0
@@ -475,7 +410,6 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(gth(ann_module2), {})
         self.assertEqual(gth(ann_module3), {})
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_classes(self):
         self.assertEqual(gth(ann_module.C, ann_module.__dict__),
                          {'y': Optional[ann_module.C]})
@@ -491,7 +425,6 @@ class GetTypeHintTests(BaseTestCase):
         self.assertEqual(gth(NoneAndForward, globals()),
                          {'parent': NoneAndForward, 'meaning': type(None)})
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_respect_no_type_check(self):
         @no_type_check
         class NoTpCheck:
@@ -506,7 +439,6 @@ class GetTypeHintTests(BaseTestCase):
         class Der(ABase): ...
         self.assertEqual(gth(ABase.meth), {'x': int})
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_get_type_hints_ClassVar(self):
         self.assertEqual(gth(ann_module2.CV, ann_module2.__dict__),
                          {'var': ClassVar[ann_module2.CV]})
@@ -517,7 +449,6 @@ class GetTypeHintTests(BaseTestCase):
                           'x': ClassVar[Optional[B]]})
         self.assertEqual(gth(G), {'lst': ClassVar[List[T]]})
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_final_forward_ref(self):
         self.assertEqual(gth(Loop, globals())['attr'], Final[Loop])
         self.assertNotEqual(gth(Loop, globals())['attr'], Final[int])
@@ -601,17 +532,15 @@ class GetUtilitiesTestCase(TestCase):
 class CollectionsAbcTests(BaseTestCase):
 
     def test_isinstance_collections(self):
-        self.assertNotIsInstance(1, collections_abc.Mapping)
-        self.assertNotIsInstance(1, collections_abc.Iterable)
-        self.assertNotIsInstance(1, collections_abc.Container)
-        self.assertNotIsInstance(1, collections_abc.Sized)
-        if SUBCLASS_CHECK_FORBIDDEN:
-            with self.assertRaises(TypeError):
-                isinstance(collections.deque(), typing_extensions.Deque[int])
-            with self.assertRaises(TypeError):
-                issubclass(collections.Counter, typing_extensions.Counter[str])
+        self.assertNotIsInstance(1, collections.abc.Mapping)
+        self.assertNotIsInstance(1, collections.abc.Iterable)
+        self.assertNotIsInstance(1, collections.abc.Container)
+        self.assertNotIsInstance(1, collections.abc.Sized)
+        with self.assertRaises(TypeError):
+            isinstance(collections.deque(), typing_extensions.Deque[int])
+        with self.assertRaises(TypeError):
+            issubclass(collections.Counter, typing_extensions.Counter[str])
 
-    @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_awaitable(self):
         ns = {}
         exec(
@@ -624,7 +553,6 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertNotIsInstance(foo, typing_extensions.Awaitable)
         g.send(None)  # Run foo() till completion, to avoid warning.
 
-    @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_coroutine(self):
         ns = {}
         exec(
@@ -642,7 +570,6 @@ class CollectionsAbcTests(BaseTestCase):
         except StopIteration:
             pass
 
-    @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_async_iterable(self):
         base_it = range(10)  # type: Iterator[int]
         it = AsyncIteratorWrapper(base_it)
@@ -650,12 +577,10 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(it, typing_extensions.AsyncIterable)
         self.assertNotIsInstance(42, typing_extensions.AsyncIterable)
 
-    @skipUnless(ASYNCIO, 'Python 3.5 and multithreading required')
     def test_async_iterator(self):
         base_it = range(10)  # type: Iterator[int]
         it = AsyncIteratorWrapper(base_it)
-        if TYPING_3_5_1:
-            self.assertIsInstance(it, typing_extensions.AsyncIterator)
+        self.assertIsInstance(it, typing_extensions.AsyncIterator)
         self.assertNotIsInstance(42, typing_extensions.AsyncIterator)
 
     def test_deque(self):
@@ -687,8 +612,7 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(dd, MyDefDict)
 
         self.assertIsSubclass(MyDefDict, collections.defaultdict)
-        if TYPING_3_5_3:
-            self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
+        self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
 
     @skipUnless(CAN_INSTANTIATE_COLLECTIONS, "Behavior added in typing 3.6.1")
     def test_ordereddict_instantiation(self):
@@ -711,16 +635,14 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(od, MyOrdDict)
 
         self.assertIsSubclass(MyOrdDict, collections.OrderedDict)
-        if TYPING_3_5_3:
-            self.assertNotIsSubclass(collections.OrderedDict, MyOrdDict)
+        self.assertNotIsSubclass(collections.OrderedDict, MyOrdDict)
 
     def test_chainmap_instantiation(self):
         self.assertIs(type(typing_extensions.ChainMap()), collections.ChainMap)
         self.assertIs(type(typing_extensions.ChainMap[KT, VT]()), collections.ChainMap)
         self.assertIs(type(typing_extensions.ChainMap[str, int]()), collections.ChainMap)
         class CM(typing_extensions.ChainMap[KT, VT]): ...
-        if TYPING_3_5_3:
-            self.assertIs(type(CM[int, str]()), CM)
+        self.assertIs(type(CM[int, str]()), CM)
 
     def test_chainmap_subclass(self):
 
@@ -731,28 +653,25 @@ class CollectionsAbcTests(BaseTestCase):
         self.assertIsInstance(cm, MyChainMap)
 
         self.assertIsSubclass(MyChainMap, collections.ChainMap)
-        if TYPING_3_5_3:
-            self.assertNotIsSubclass(collections.ChainMap, MyChainMap)
+        self.assertNotIsSubclass(collections.ChainMap, MyChainMap)
 
     def test_deque_instantiation(self):
         self.assertIs(type(typing_extensions.Deque()), collections.deque)
         self.assertIs(type(typing_extensions.Deque[T]()), collections.deque)
         self.assertIs(type(typing_extensions.Deque[int]()), collections.deque)
         class D(typing_extensions.Deque[T]): ...
-        if TYPING_3_5_3:
-            self.assertIs(type(D[int]()), D)
+        self.assertIs(type(D[int]()), D)
 
     def test_counter_instantiation(self):
         self.assertIs(type(typing_extensions.Counter()), collections.Counter)
         self.assertIs(type(typing_extensions.Counter[T]()), collections.Counter)
         self.assertIs(type(typing_extensions.Counter[int]()), collections.Counter)
         class C(typing_extensions.Counter[T]): ...
-        if TYPING_3_5_3:
-            self.assertIs(type(C[int]()), C)
-            if not PEP_560:
-                self.assertEqual(C.__bases__, (typing_extensions.Counter,))
-            else:
-                self.assertEqual(C.__bases__, (collections.Counter, typing.Generic))
+        self.assertIs(type(C[int]()), C)
+        if not PEP_560:
+            self.assertEqual(C.__bases__, (typing_extensions.Counter,))
+        else:
+            self.assertEqual(C.__bases__, (collections.Counter, typing.Generic))
 
     def test_counter_subclass_instantiation(self):
 
@@ -762,10 +681,8 @@ class CollectionsAbcTests(BaseTestCase):
         d = MyCounter()
         self.assertIsInstance(d, MyCounter)
         self.assertIsInstance(d, collections.Counter)
-        if TYPING_3_5_1:
-            self.assertIsInstance(d, typing_extensions.Counter)
+        self.assertIsInstance(d, typing_extensions.Counter)
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_async_generator(self):
         ns = {}
         exec("async def f():\n"
@@ -773,7 +690,6 @@ class CollectionsAbcTests(BaseTestCase):
         g = ns['f']()
         self.assertIsSubclass(type(g), typing_extensions.AsyncGenerator)
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_no_async_generator_instantiation(self):
         with self.assertRaises(TypeError):
             typing_extensions.AsyncGenerator()
@@ -782,7 +698,6 @@ class CollectionsAbcTests(BaseTestCase):
         with self.assertRaises(TypeError):
             typing_extensions.AsyncGenerator[int, int]()
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_subclassing_async_generator(self):
         class G(typing_extensions.AsyncGenerator[int, int]):
             def asend(self, value):
@@ -795,15 +710,15 @@ class CollectionsAbcTests(BaseTestCase):
         g = ns['g']
         self.assertIsSubclass(G, typing_extensions.AsyncGenerator)
         self.assertIsSubclass(G, typing_extensions.AsyncIterable)
-        self.assertIsSubclass(G, collections_abc.AsyncGenerator)
-        self.assertIsSubclass(G, collections_abc.AsyncIterable)
+        self.assertIsSubclass(G, collections.abc.AsyncGenerator)
+        self.assertIsSubclass(G, collections.abc.AsyncIterable)
         self.assertNotIsSubclass(type(g), G)
 
         instance = G()
         self.assertIsInstance(instance, typing_extensions.AsyncGenerator)
         self.assertIsInstance(instance, typing_extensions.AsyncIterable)
-        self.assertIsInstance(instance, collections_abc.AsyncGenerator)
-        self.assertIsInstance(instance, collections_abc.AsyncIterable)
+        self.assertIsInstance(instance, collections.abc.AsyncGenerator)
+        self.assertIsInstance(instance, collections.abc.AsyncIterable)
         self.assertNotIsInstance(type(g), G)
         self.assertNotIsInstance(g, G)
 
@@ -819,7 +734,6 @@ class OtherABCTests(BaseTestCase):
         self.assertIsInstance(cm, typing_extensions.ContextManager)
         self.assertNotIsInstance(42, typing_extensions.ContextManager)
 
-    @skipUnless(ASYNCIO, 'Python 3.5 required')
     def test_async_contextmanager(self):
         class NotACM:
             pass
@@ -831,8 +745,7 @@ class OtherABCTests(BaseTestCase):
 
         cm = manager()
         self.assertNotIsInstance(cm, typing_extensions.AsyncContextManager)
-        if TYPING_3_5_3:
-            self.assertEqual(typing_extensions.AsyncContextManager[int].__args__, (int,))
+        self.assertEqual(typing_extensions.AsyncContextManager[int].__args__, (int,))
         if TYPING_3_6_1:
             with self.assertRaises(TypeError):
                 isinstance(42, typing_extensions.AsyncContextManager[int])
@@ -866,8 +779,6 @@ class TypeTests(BaseTestCase):
 
         new_user(BasicUser)
 
-    @skipUnless(sys.version_info[:3] != (3, 5, 2),
-                'Python 3.5.2 has a somewhat buggy Type impl')
     def test_type_optional(self):
         A = Optional[Type[BaseException]]
 
@@ -900,7 +811,6 @@ class NewTypeTests(BaseTestCase):
                 pass
 
 
-PY36_PROTOCOL_TESTS = """
 class Coordinate(Protocol):
     x: int
     y: int
@@ -927,6 +837,7 @@ class Position(XAxis, YAxis, Protocol):
 @runtime
 class Proto(Protocol):
     attr: int
+
     def meth(self, arg: str) -> int:
         ...
 
@@ -935,6 +846,7 @@ class Concrete(Proto):
 
 class Other:
     attr: int = 1
+
     def meth(self, arg: str) -> int:
         if arg == 'this':
             return 1
@@ -943,598 +855,584 @@ class Other:
 class NT(NamedTuple):
     x: int
     y: int
-"""
-
-if PY36:
-    exec(PY36_PROTOCOL_TESTS)
-else:
-    # fake names for the sake of static analysis
-    Coordinate = Point = MyPoint = BadPoint = NT = object
-    XAxis = YAxis = Position = Proto = Concrete = Other = object
 
 
-if HAVE_PROTOCOLS:
-    class ProtocolTests(BaseTestCase):
+class ProtocolTests(BaseTestCase):
 
-        def test_basic_protocol(self):
-            @runtime
-            class P(Protocol):
-                def meth(self):
-                    pass
-            class C: pass
-            class D:
-                def meth(self):
-                    pass
-            def f():
+    def test_basic_protocol(self):
+        @runtime
+        class P(Protocol):
+            def meth(self):
                 pass
-            self.assertIsSubclass(D, P)
-            self.assertIsInstance(D(), P)
-            self.assertNotIsSubclass(C, P)
-            self.assertNotIsInstance(C(), P)
-            self.assertNotIsSubclass(types.FunctionType, P)
-            self.assertNotIsInstance(f, P)
-
-        def test_everything_implements_empty_protocol(self):
-            @runtime
-            class Empty(Protocol): pass
-            class C: pass
-            def f():
+        class C: pass
+        class D:
+            def meth(self):
                 pass
-            for thing in (object, type, tuple, C, types.FunctionType):
-                self.assertIsSubclass(thing, Empty)
-            for thing in (object(), 1, (), typing, f):
-                self.assertIsInstance(thing, Empty)
+        def f():
+            pass
+        self.assertIsSubclass(D, P)
+        self.assertIsInstance(D(), P)
+        self.assertNotIsSubclass(C, P)
+        self.assertNotIsInstance(C(), P)
+        self.assertNotIsSubclass(types.FunctionType, P)
+        self.assertNotIsInstance(f, P)
 
-        @skipUnless(PY36, 'Python 3.6 required')
-        def test_function_implements_protocol(self):
-            def f():
+    def test_everything_implements_empty_protocol(self):
+        @runtime
+        class Empty(Protocol): pass
+        class C: pass
+        def f():
+            pass
+        for thing in (object, type, tuple, C, types.FunctionType):
+            self.assertIsSubclass(thing, Empty)
+        for thing in (object(), 1, (), typing, f):
+            self.assertIsInstance(thing, Empty)
+
+    def test_function_implements_protocol(self):
+        def f():
+            pass
+        self.assertIsInstance(f, HasCallProtocol)
+
+    def test_no_inheritance_from_nominal(self):
+        class C: pass
+        class BP(Protocol): pass
+        with self.assertRaises(TypeError):
+            class P(C, Protocol):
                 pass
-            self.assertIsInstance(f, HasCallProtocol)
-
-        def test_no_inheritance_from_nominal(self):
-            class C: pass
-            class BP(Protocol): pass
-            with self.assertRaises(TypeError):
-                class P(C, Protocol):
-                    pass
-            with self.assertRaises(TypeError):
-                class P(Protocol, C):
-                    pass
-            with self.assertRaises(TypeError):
-                class P(BP, C, Protocol):
-                    pass
-            class D(BP, C): pass
-            class E(C, BP): pass
-            self.assertNotIsInstance(D(), E)
-            self.assertNotIsInstance(E(), D)
-
-        def test_no_instantiation(self):
-            class P(Protocol): pass
-            with self.assertRaises(TypeError):
-                P()
-            class C(P): pass
-            self.assertIsInstance(C(), C)
-            T = TypeVar('T')
-            class PG(Protocol[T]): pass
-            with self.assertRaises(TypeError):
-                PG()
-            with self.assertRaises(TypeError):
-                PG[int]()
-            with self.assertRaises(TypeError):
-                PG[T]()
-            class CG(PG[T]): pass
-            self.assertIsInstance(CG[int](), CG)
-
-        def test_cannot_instantiate_abstract(self):
-            @runtime
-            class P(Protocol):
-                @abc.abstractmethod
-                def ameth(self) -> int:
-                    raise NotImplementedError
-            class B(P):
+        with self.assertRaises(TypeError):
+            class P(Protocol, C):
                 pass
-            class C(B):
-                def ameth(self) -> int:
-                    return 26
-            with self.assertRaises(TypeError):
-                B()
-            self.assertIsInstance(C(), P)
-
-        def test_subprotocols_extending(self):
-            class P1(Protocol):
-                def meth1(self):
-                    pass
-            @runtime
-            class P2(P1, Protocol):
-                def meth2(self):
-                    pass
-            class C:
-                def meth1(self):
-                    pass
-                def meth2(self):
-                    pass
-            class C1:
-                def meth1(self):
-                    pass
-            class C2:
-                def meth2(self):
-                    pass
-            self.assertNotIsInstance(C1(), P2)
-            self.assertNotIsInstance(C2(), P2)
-            self.assertNotIsSubclass(C1, P2)
-            self.assertNotIsSubclass(C2, P2)
-            self.assertIsInstance(C(), P2)
-            self.assertIsSubclass(C, P2)
-
-        def test_subprotocols_merging(self):
-            class P1(Protocol):
-                def meth1(self):
-                    pass
-            class P2(Protocol):
-                def meth2(self):
-                    pass
-            @runtime
-            class P(P1, P2, Protocol):
+        with self.assertRaises(TypeError):
+            class P(BP, C, Protocol):
                 pass
-            class C:
-                def meth1(self):
-                    pass
-                def meth2(self):
-                    pass
-            class C1:
-                def meth1(self):
-                    pass
-            class C2:
-                def meth2(self):
-                    pass
-            self.assertNotIsInstance(C1(), P)
-            self.assertNotIsInstance(C2(), P)
-            self.assertNotIsSubclass(C1, P)
-            self.assertNotIsSubclass(C2, P)
-            self.assertIsInstance(C(), P)
-            self.assertIsSubclass(C, P)
+        class D(BP, C): pass
+        class E(C, BP): pass
+        self.assertNotIsInstance(D(), E)
+        self.assertNotIsInstance(E(), D)
 
-        def test_protocols_issubclass(self):
-            T = TypeVar('T')
-            @runtime
-            class P(Protocol):
-                def x(self): ...
-            @runtime
-            class PG(Protocol[T]):
-                def x(self): ...
-            class BadP(Protocol):
-                def x(self): ...
-            class BadPG(Protocol[T]):
-                def x(self): ...
-            class C:
-                def x(self): ...
-            self.assertIsSubclass(C, P)
-            self.assertIsSubclass(C, PG)
-            self.assertIsSubclass(BadP, PG)
-            if not PEP_560:
-                self.assertIsSubclass(PG[int], PG)
-                self.assertIsSubclass(BadPG[int], P)
-                self.assertIsSubclass(BadPG[T], PG)
-            with self.assertRaises(TypeError):
-                issubclass(C, PG[T])
-            with self.assertRaises(TypeError):
-                issubclass(C, PG[C])
-            with self.assertRaises(TypeError):
-                issubclass(C, BadP)
-            with self.assertRaises(TypeError):
-                issubclass(C, BadPG)
-            with self.assertRaises(TypeError):
-                issubclass(P, PG[T])
-            with self.assertRaises(TypeError):
-                issubclass(PG, PG[int])
+    def test_no_instantiation(self):
+        class P(Protocol): pass
+        with self.assertRaises(TypeError):
+            P()
+        class C(P): pass
+        self.assertIsInstance(C(), C)
+        T = TypeVar('T')
+        class PG(Protocol[T]): pass
+        with self.assertRaises(TypeError):
+            PG()
+        with self.assertRaises(TypeError):
+            PG[int]()
+        with self.assertRaises(TypeError):
+            PG[T]()
+        class CG(PG[T]): pass
+        self.assertIsInstance(CG[int](), CG)
 
-        def test_protocols_issubclass_non_callable(self):
-            class C:
-                x = 1
-            @runtime
-            class PNonCall(Protocol):
-                x = 1
-            with self.assertRaises(TypeError):
-                issubclass(C, PNonCall)
-            self.assertIsInstance(C(), PNonCall)
-            PNonCall.register(C)
-            with self.assertRaises(TypeError):
-                issubclass(C, PNonCall)
-            self.assertIsInstance(C(), PNonCall)
-            # check that non-protocol subclasses are not affected
-            class D(PNonCall): ...
-            self.assertNotIsSubclass(C, D)
-            self.assertNotIsInstance(C(), D)
-            D.register(C)
-            self.assertIsSubclass(C, D)
-            self.assertIsInstance(C(), D)
-            with self.assertRaises(TypeError):
-                issubclass(D, PNonCall)
+    def test_cannot_instantiate_abstract(self):
+        @runtime
+        class P(Protocol):
+            @abc.abstractmethod
+            def ameth(self) -> int:
+                raise NotImplementedError
+        class B(P):
+            pass
+        class C(B):
+            def ameth(self) -> int:
+                return 26
+        with self.assertRaises(TypeError):
+            B()
+        self.assertIsInstance(C(), P)
 
-        def test_protocols_isinstance(self):
-            T = TypeVar('T')
-            @runtime
-            class P(Protocol):
-                def meth(x): ...
-            @runtime
-            class PG(Protocol[T]):
-                def meth(x): ...
-            class BadP(Protocol):
-                def meth(x): ...
-            class BadPG(Protocol[T]):
-                def meth(x): ...
-            class C:
-                def meth(x): ...
-            self.assertIsInstance(C(), P)
-            self.assertIsInstance(C(), PG)
+    def test_subprotocols_extending(self):
+        class P1(Protocol):
+            def meth1(self):
+                pass
+        @runtime
+        class P2(P1, Protocol):
+            def meth2(self):
+                pass
+        class C:
+            def meth1(self):
+                pass
+            def meth2(self):
+                pass
+        class C1:
+            def meth1(self):
+                pass
+        class C2:
+            def meth2(self):
+                pass
+        self.assertNotIsInstance(C1(), P2)
+        self.assertNotIsInstance(C2(), P2)
+        self.assertNotIsSubclass(C1, P2)
+        self.assertNotIsSubclass(C2, P2)
+        self.assertIsInstance(C(), P2)
+        self.assertIsSubclass(C, P2)
+
+    def test_subprotocols_merging(self):
+        class P1(Protocol):
+            def meth1(self):
+                pass
+        class P2(Protocol):
+            def meth2(self):
+                pass
+        @runtime
+        class P(P1, P2, Protocol):
+            pass
+        class C:
+            def meth1(self):
+                pass
+            def meth2(self):
+                pass
+        class C1:
+            def meth1(self):
+                pass
+        class C2:
+            def meth2(self):
+                pass
+        self.assertNotIsInstance(C1(), P)
+        self.assertNotIsInstance(C2(), P)
+        self.assertNotIsSubclass(C1, P)
+        self.assertNotIsSubclass(C2, P)
+        self.assertIsInstance(C(), P)
+        self.assertIsSubclass(C, P)
+
+    def test_protocols_issubclass(self):
+        T = TypeVar('T')
+        @runtime
+        class P(Protocol):
+            def x(self): ...
+        @runtime
+        class PG(Protocol[T]):
+            def x(self): ...
+        class BadP(Protocol):
+            def x(self): ...
+        class BadPG(Protocol[T]):
+            def x(self): ...
+        class C:
+            def x(self): ...
+        self.assertIsSubclass(C, P)
+        self.assertIsSubclass(C, PG)
+        self.assertIsSubclass(BadP, PG)
+        if not PEP_560:
+            self.assertIsSubclass(PG[int], PG)
+            self.assertIsSubclass(BadPG[int], P)
+            self.assertIsSubclass(BadPG[T], PG)
+        with self.assertRaises(TypeError):
+            issubclass(C, PG[T])
+        with self.assertRaises(TypeError):
+            issubclass(C, PG[C])
+        with self.assertRaises(TypeError):
+            issubclass(C, BadP)
+        with self.assertRaises(TypeError):
+            issubclass(C, BadPG)
+        with self.assertRaises(TypeError):
+            issubclass(P, PG[T])
+        with self.assertRaises(TypeError):
+            issubclass(PG, PG[int])
+
+    def test_protocols_issubclass_non_callable(self):
+        class C:
+            x = 1
+        @runtime
+        class PNonCall(Protocol):
+            x = 1
+        with self.assertRaises(TypeError):
+            issubclass(C, PNonCall)
+        self.assertIsInstance(C(), PNonCall)
+        PNonCall.register(C)
+        with self.assertRaises(TypeError):
+            issubclass(C, PNonCall)
+        self.assertIsInstance(C(), PNonCall)
+        # check that non-protocol subclasses are not affected
+        class D(PNonCall): ...
+        self.assertNotIsSubclass(C, D)
+        self.assertNotIsInstance(C(), D)
+        D.register(C)
+        self.assertIsSubclass(C, D)
+        self.assertIsInstance(C(), D)
+        with self.assertRaises(TypeError):
+            issubclass(D, PNonCall)
+
+    def test_protocols_isinstance(self):
+        T = TypeVar('T')
+        @runtime
+        class P(Protocol):
+            def meth(x): ...
+        @runtime
+        class PG(Protocol[T]):
+            def meth(x): ...
+        class BadP(Protocol):
+            def meth(x): ...
+        class BadPG(Protocol[T]):
+            def meth(x): ...
+        class C:
+            def meth(x): ...
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(C(), PG)
+        with self.assertRaises(TypeError):
+            isinstance(C(), PG[T])
+        with self.assertRaises(TypeError):
+            isinstance(C(), PG[C])
+        with self.assertRaises(TypeError):
+            isinstance(C(), BadP)
+        with self.assertRaises(TypeError):
+            isinstance(C(), BadPG)
+
+    def test_protocols_isinstance_py36(self):
+        class APoint:
+            def __init__(self, x, y, label):
+                self.x = x
+                self.y = y
+                self.label = label
+        class BPoint:
+            label = 'B'
+            def __init__(self, x, y):
+                self.x = x
+                self.y = y
+        class C:
+            def __init__(self, attr):
+                self.attr = attr
+            def meth(self, arg):
+                return 0
+        class Bad: pass
+        self.assertIsInstance(APoint(1, 2, 'A'), Point)
+        self.assertIsInstance(BPoint(1, 2), Point)
+        self.assertNotIsInstance(MyPoint(), Point)
+        self.assertIsInstance(BPoint(1, 2), Position)
+        self.assertIsInstance(Other(), Proto)
+        self.assertIsInstance(Concrete(), Proto)
+        self.assertIsInstance(C(42), Proto)
+        self.assertNotIsInstance(Bad(), Proto)
+        self.assertNotIsInstance(Bad(), Point)
+        self.assertNotIsInstance(Bad(), Position)
+        self.assertNotIsInstance(Bad(), Concrete)
+        self.assertNotIsInstance(Other(), Concrete)
+        self.assertIsInstance(NT(1, 2), Position)
+
+    def test_protocols_isinstance_init(self):
+        T = TypeVar('T')
+        @runtime
+        class P(Protocol):
+            x = 1
+        @runtime
+        class PG(Protocol[T]):
+            x = 1
+        class C:
+            def __init__(self, x):
+                self.x = x
+        self.assertIsInstance(C(1), P)
+        self.assertIsInstance(C(1), PG)
+
+    def test_protocols_support_register(self):
+        @runtime
+        class P(Protocol):
+            x = 1
+        class PM(Protocol):
+            def meth(self): pass
+        class D(PM): pass
+        class C: pass
+        D.register(C)
+        P.register(C)
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(C(), D)
+
+    def test_none_on_non_callable_doesnt_block_implementation(self):
+        @runtime
+        class P(Protocol):
+            x = 1
+        class A:
+            x = 1
+        class B(A):
+            x = None
+        class C:
+            def __init__(self):
+                self.x = None
+        self.assertIsInstance(B(), P)
+        self.assertIsInstance(C(), P)
+
+    def test_none_on_callable_blocks_implementation(self):
+        @runtime
+        class P(Protocol):
+            def x(self): ...
+        class A:
+            def x(self): ...
+        class B(A):
+            x = None
+        class C:
+            def __init__(self):
+                self.x = None
+        self.assertNotIsInstance(B(), P)
+        self.assertNotIsInstance(C(), P)
+
+    def test_non_protocol_subclasses(self):
+        class P(Protocol):
+            x = 1
+        @runtime
+        class PR(Protocol):
+            def meth(self): pass
+        class NonP(P):
+            x = 1
+        class NonPR(PR): pass
+        class C:
+            x = 1
+        class D:
+            def meth(self): pass
+        self.assertNotIsInstance(C(), NonP)
+        self.assertNotIsInstance(D(), NonPR)
+        self.assertNotIsSubclass(C, NonP)
+        self.assertNotIsSubclass(D, NonPR)
+        self.assertIsInstance(NonPR(), PR)
+        self.assertIsSubclass(NonPR, PR)
+
+    def test_custom_subclasshook(self):
+        class P(Protocol):
+            x = 1
+        class OKClass: pass
+        class BadClass:
+            x = 1
+        class C(P):
+            @classmethod
+            def __subclasshook__(cls, other):
+                return other.__name__.startswith("OK")
+        self.assertIsInstance(OKClass(), C)
+        self.assertNotIsInstance(BadClass(), C)
+        self.assertIsSubclass(OKClass, C)
+        self.assertNotIsSubclass(BadClass, C)
+
+    def test_issubclass_fails_correctly(self):
+        @runtime
+        class P(Protocol):
+            x = 1
+        class C: pass
+        with self.assertRaises(TypeError):
+            issubclass(C(), P)
+
+    @skipUnless(not OLD_GENERICS, "New style generics required")
+    def test_defining_generic_protocols(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+        @runtime
+        class PR(Protocol[T, S]):
+            def meth(self): pass
+        class P(PR[int, T], Protocol[T]):
+            y = 1
+        self.assertIsSubclass(PR[int, T], PR)
+        self.assertIsSubclass(P[str], PR)
+        with self.assertRaises(TypeError):
+            PR[int]
+        with self.assertRaises(TypeError):
+            P[int, str]
+        with self.assertRaises(TypeError):
+            PR[int, 1]
+        with self.assertRaises(TypeError):
+            PR[int, ClassVar]
+        class C(PR[int, T]): pass
+        self.assertIsInstance(C[str](), C)
+
+    def test_defining_generic_protocols_old_style(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+        @runtime
+        class PR(Protocol, Generic[T, S]):
+            def meth(self): pass
+        class P(PR[int, str], Protocol):
+            y = 1
+        if not PEP_560:
+            self.assertIsSubclass(PR[int, str], PR)
+        else:
             with self.assertRaises(TypeError):
-                isinstance(C(), PG[T])
-            with self.assertRaises(TypeError):
-                isinstance(C(), PG[C])
-            with self.assertRaises(TypeError):
-                isinstance(C(), BadP)
-            with self.assertRaises(TypeError):
-                isinstance(C(), BadPG)
-
-        @skipUnless(PY36, 'Python 3.6 required')
-        def test_protocols_isinstance_py36(self):
-            class APoint:
-                def __init__(self, x, y, label):
-                    self.x = x
-                    self.y = y
-                    self.label = label
-            class BPoint:
-                label = 'B'
-                def __init__(self, x, y):
-                    self.x = x
-                    self.y = y
-            class C:
-                def __init__(self, attr):
-                    self.attr = attr
-                def meth(self, arg):
-                    return 0
-            class Bad: pass
-            self.assertIsInstance(APoint(1, 2, 'A'), Point)
-            self.assertIsInstance(BPoint(1, 2), Point)
-            self.assertNotIsInstance(MyPoint(), Point)
-            self.assertIsInstance(BPoint(1, 2), Position)
-            self.assertIsInstance(Other(), Proto)
-            self.assertIsInstance(Concrete(), Proto)
-            self.assertIsInstance(C(42), Proto)
-            self.assertNotIsInstance(Bad(), Proto)
-            self.assertNotIsInstance(Bad(), Point)
-            self.assertNotIsInstance(Bad(), Position)
-            self.assertNotIsInstance(Bad(), Concrete)
-            self.assertNotIsInstance(Other(), Concrete)
-            self.assertIsInstance(NT(1, 2), Position)
-
-        def test_protocols_isinstance_init(self):
-            T = TypeVar('T')
-            @runtime
-            class P(Protocol):
-                x = 1
-            @runtime
-            class PG(Protocol[T]):
-                x = 1
-            class C:
-                def __init__(self, x):
-                    self.x = x
-            self.assertIsInstance(C(1), P)
-            self.assertIsInstance(C(1), PG)
-
-        def test_protocols_support_register(self):
-            @runtime
-            class P(Protocol):
-                x = 1
-            class PM(Protocol):
-                def meth(self): pass
-            class D(PM): pass
-            class C: pass
-            D.register(C)
-            P.register(C)
-            self.assertIsInstance(C(), P)
-            self.assertIsInstance(C(), D)
-
-        def test_none_on_non_callable_doesnt_block_implementation(self):
-            @runtime
-            class P(Protocol):
-                x = 1
-            class A:
-                x = 1
-            class B(A):
-                x = None
-            class C:
-                def __init__(self):
-                    self.x = None
-            self.assertIsInstance(B(), P)
-            self.assertIsInstance(C(), P)
-
-        def test_none_on_callable_blocks_implementation(self):
-            @runtime
-            class P(Protocol):
-                def x(self): ...
-            class A:
-                def x(self): ...
-            class B(A):
-                x = None
-            class C:
-                def __init__(self):
-                    self.x = None
-            self.assertNotIsInstance(B(), P)
-            self.assertNotIsInstance(C(), P)
-
-        def test_non_protocol_subclasses(self):
-            class P(Protocol):
-                x = 1
-            @runtime
-            class PR(Protocol):
-                def meth(self): pass
-            class NonP(P):
-                x = 1
-            class NonPR(PR): pass
-            class C:
-                x = 1
-            class D:
-                def meth(self): pass
-            self.assertNotIsInstance(C(), NonP)
-            self.assertNotIsInstance(D(), NonPR)
-            self.assertNotIsSubclass(C, NonP)
-            self.assertNotIsSubclass(D, NonPR)
-            self.assertIsInstance(NonPR(), PR)
-            self.assertIsSubclass(NonPR, PR)
-
-        def test_custom_subclasshook(self):
-            class P(Protocol):
-                x = 1
-            class OKClass: pass
-            class BadClass:
-                x = 1
-            class C(P):
-                @classmethod
-                def __subclasshook__(cls, other):
-                    return other.__name__.startswith("OK")
-            self.assertIsInstance(OKClass(), C)
-            self.assertNotIsInstance(BadClass(), C)
-            self.assertIsSubclass(OKClass, C)
-            self.assertNotIsSubclass(BadClass, C)
-
-        def test_issubclass_fails_correctly(self):
-            @runtime
-            class P(Protocol):
-                x = 1
-            class C: pass
-            with self.assertRaises(TypeError):
-                issubclass(C(), P)
-
-        @skipUnless(not OLD_GENERICS, "New style generics required")
-        def test_defining_generic_protocols(self):
-            T = TypeVar('T')
-            S = TypeVar('S')
-            @runtime
-            class PR(Protocol[T, S]):
-                def meth(self): pass
-            class P(PR[int, T], Protocol[T]):
-                y = 1
-            self.assertIsSubclass(PR[int, T], PR)
-            self.assertIsSubclass(P[str], PR)
-            with self.assertRaises(TypeError):
-                PR[int]
-            with self.assertRaises(TypeError):
-                P[int, str]
+                self.assertIsSubclass(PR[int, str], PR)
+        self.assertIsSubclass(P, PR)
+        with self.assertRaises(TypeError):
+            PR[int]
+        if not TYPING_3_10_0:
             with self.assertRaises(TypeError):
                 PR[int, 1]
-            if TYPING_3_5_3:
-                with self.assertRaises(TypeError):
-                    PR[int, ClassVar]
-            class C(PR[int, T]): pass
-            self.assertIsInstance(C[str](), C)
-
-        def test_defining_generic_protocols_old_style(self):
-            T = TypeVar('T')
-            S = TypeVar('S')
-            @runtime
-            class PR(Protocol, Generic[T, S]):
-                def meth(self): pass
-            class P(PR[int, str], Protocol):
-                y = 1
-            if not PEP_560:
-                self.assertIsSubclass(PR[int, str], PR)
-            else:
-                with self.assertRaises(TypeError):
-                    self.assertIsSubclass(PR[int, str], PR)
-            self.assertIsSubclass(P, PR)
+        class P1(Protocol, Generic[T]):
+            def bar(self, x: T) -> str: ...
+        class P2(Generic[T], Protocol):
+            def bar(self, x: T) -> str: ...
+        @runtime
+        class PSub(P1[str], Protocol):
+            x = 1
+        class Test:
+            x = 1
+            def bar(self, x: str) -> str:
+                return x
+        self.assertIsInstance(Test(), PSub)
+        if not TYPING_3_10_0:
             with self.assertRaises(TypeError):
-                PR[int]
-            if not TYPING_3_10_0:
-                with self.assertRaises(TypeError):
-                    PR[int, 1]
-            class P1(Protocol, Generic[T]):
-                def bar(self, x: T) -> str: ...
-            class P2(Generic[T], Protocol):
-                def bar(self, x: T) -> str: ...
-            @runtime
-            class PSub(P1[str], Protocol):
-                x = 1
-            class Test:
-                x = 1
-                def bar(self, x: str) -> str:
-                    return x
-            self.assertIsInstance(Test(), PSub)
-            if TYPING_3_5_3 and not TYPING_3_10_0:
-                with self.assertRaises(TypeError):
-                    PR[int, ClassVar]
+                PR[int, ClassVar]
 
-        def test_init_called(self):
-            T = TypeVar('T')
-            class P(Protocol[T]): pass
-            class C(P[T]):
-                def __init__(self):
-                    self.test = 'OK'
-            self.assertEqual(C[int]().test, 'OK')
+    def test_init_called(self):
+        T = TypeVar('T')
+        class P(Protocol[T]): pass
+        class C(P[T]):
+            def __init__(self):
+                self.test = 'OK'
+        self.assertEqual(C[int]().test, 'OK')
 
-        @skipUnless(not OLD_GENERICS, "New style generics required")
-        def test_protocols_bad_subscripts(self):
-            T = TypeVar('T')
-            S = TypeVar('S')
-            with self.assertRaises(TypeError):
-                class P(Protocol[T, T]): pass
-            with self.assertRaises(TypeError):
-                class P(Protocol[int]): pass
-            with self.assertRaises(TypeError):
-                class P(Protocol[T], Protocol[S]): pass
-            with self.assertRaises(TypeError):
-                class P(typing.Mapping[T, S], Protocol[T]): pass
+    @skipUnless(not OLD_GENERICS, "New style generics required")
+    def test_protocols_bad_subscripts(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+        with self.assertRaises(TypeError):
+            class P(Protocol[T, T]): pass
+        with self.assertRaises(TypeError):
+            class P(Protocol[int]): pass
+        with self.assertRaises(TypeError):
+            class P(Protocol[T], Protocol[S]): pass
+        with self.assertRaises(TypeError):
+            class P(typing.Mapping[T, S], Protocol[T]): pass
 
-        @skipUnless(TYPING_3_5_3, 'New style __repr__ and __eq__ only')
-        def test_generic_protocols_repr(self):
-            T = TypeVar('T')
-            S = TypeVar('S')
-            class P(Protocol[T, S]): pass
-            # After PEP 560 unsubscripted generics have a standard repr.
-            if not PEP_560:
-                self.assertTrue(repr(P).endswith('P'))
-            self.assertTrue(repr(P[T, S]).endswith('P[~T, ~S]'))
-            self.assertTrue(repr(P[int, str]).endswith('P[int, str]'))
+    def test_generic_protocols_repr(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+        class P(Protocol[T, S]): pass
+        # After PEP 560 unsubscripted generics have a standard repr.
+        if not PEP_560:
+            self.assertTrue(repr(P).endswith('P'))
+        self.assertTrue(repr(P[T, S]).endswith('P[~T, ~S]'))
+        self.assertTrue(repr(P[int, str]).endswith('P[int, str]'))
 
-        @skipUnless(TYPING_3_5_3, 'New style __repr__ and __eq__ only')
-        def test_generic_protocols_eq(self):
-            T = TypeVar('T')
-            S = TypeVar('S')
-            class P(Protocol[T, S]): pass
-            self.assertEqual(P, P)
-            self.assertEqual(P[int, T], P[int, T])
-            self.assertEqual(P[T, T][Tuple[T, S]][int, str],
-                             P[Tuple[int, str], Tuple[int, str]])
+    def test_generic_protocols_eq(self):
+        T = TypeVar('T')
+        S = TypeVar('S')
+        class P(Protocol[T, S]): pass
+        self.assertEqual(P, P)
+        self.assertEqual(P[int, T], P[int, T])
+        self.assertEqual(P[T, T][Tuple[T, S]][int, str],
+                         P[Tuple[int, str], Tuple[int, str]])
 
-        @skipUnless(not OLD_GENERICS, "New style generics required")
-        def test_generic_protocols_special_from_generic(self):
-            T = TypeVar('T')
-            class P(Protocol[T]): pass
-            self.assertEqual(P.__parameters__, (T,))
-            self.assertIs(P.__args__, None)
-            self.assertIs(P.__origin__, None)
-            self.assertEqual(P[int].__parameters__, ())
-            self.assertEqual(P[int].__args__, (int,))
-            self.assertIs(P[int].__origin__, P)
+    @skipUnless(not OLD_GENERICS, "New style generics required")
+    def test_generic_protocols_special_from_generic(self):
+        T = TypeVar('T')
+        class P(Protocol[T]): pass
+        self.assertEqual(P.__parameters__, (T,))
+        self.assertIs(P.__args__, None)
+        self.assertIs(P.__origin__, None)
+        self.assertEqual(P[int].__parameters__, ())
+        self.assertEqual(P[int].__args__, (int,))
+        self.assertIs(P[int].__origin__, P)
 
-        def test_generic_protocols_special_from_protocol(self):
-            @runtime
-            class PR(Protocol):
-                x = 1
-            class P(Protocol):
-                def meth(self):
-                    pass
-            T = TypeVar('T')
-            class PG(Protocol[T]):
-                x = 1
-                def meth(self):
-                    pass
-            self.assertTrue(P._is_protocol)
-            self.assertTrue(PR._is_protocol)
-            self.assertTrue(PG._is_protocol)
-            if hasattr(typing, 'Protocol'):
+    def test_generic_protocols_special_from_protocol(self):
+        @runtime
+        class PR(Protocol):
+            x = 1
+        class P(Protocol):
+            def meth(self):
+                pass
+        T = TypeVar('T')
+        class PG(Protocol[T]):
+            x = 1
+            def meth(self):
+                pass
+        self.assertTrue(P._is_protocol)
+        self.assertTrue(PR._is_protocol)
+        self.assertTrue(PG._is_protocol)
+        if hasattr(typing, 'Protocol'):
+            self.assertFalse(P._is_runtime_protocol)
+        else:
+            with self.assertRaises(AttributeError):
                 self.assertFalse(P._is_runtime_protocol)
-            else:
-                with self.assertRaises(AttributeError):
-                    self.assertFalse(P._is_runtime_protocol)
-            self.assertTrue(PR._is_runtime_protocol)
-            self.assertTrue(PG[int]._is_protocol)
-            self.assertEqual(typing_extensions._get_protocol_attrs(P), {'meth'})
-            self.assertEqual(typing_extensions._get_protocol_attrs(PR), {'x'})
-            self.assertEqual(frozenset(typing_extensions._get_protocol_attrs(PG)),
+        self.assertTrue(PR._is_runtime_protocol)
+        self.assertTrue(PG[int]._is_protocol)
+        self.assertEqual(typing_extensions._get_protocol_attrs(P), {'meth'})
+        self.assertEqual(typing_extensions._get_protocol_attrs(PR), {'x'})
+        self.assertEqual(frozenset(typing_extensions._get_protocol_attrs(PG)),
+                         frozenset({'x', 'meth'}))
+        if not PEP_560:
+            self.assertEqual(frozenset(typing_extensions._get_protocol_attrs(PG[int])),
                              frozenset({'x', 'meth'}))
-            if not PEP_560:
-                self.assertEqual(frozenset(typing_extensions._get_protocol_attrs(PG[int])),
-                                 frozenset({'x', 'meth'}))
 
-        def test_no_runtime_deco_on_nominal(self):
-            with self.assertRaises(TypeError):
-                @runtime
-                class C: pass
-            class Proto(Protocol):
-                x = 1
-            with self.assertRaises(TypeError):
-                @runtime
-                class Concrete(Proto):
-                    pass
-
-        def test_none_treated_correctly(self):
+    def test_no_runtime_deco_on_nominal(self):
+        with self.assertRaises(TypeError):
             @runtime
-            class P(Protocol):
-                x = None  # type: int
-            class B(object): pass
-            self.assertNotIsInstance(B(), P)
-            class C:
-                x = 1
-            class D:
-                x = None
-            self.assertIsInstance(C(), P)
-            self.assertIsInstance(D(), P)
-            class CI:
-                def __init__(self):
-                    self.x = 1
-            class DI:
-                def __init__(self):
-                    self.x = None
-            self.assertIsInstance(C(), P)
-            self.assertIsInstance(D(), P)
-
-        def test_protocols_in_unions(self):
-            class P(Protocol):
-                x = None  # type: int
-            Alias = typing.Union[typing.Iterable, P]
-            Alias2 = typing.Union[P, typing.Iterable]
-            self.assertEqual(Alias, Alias2)
-
-        def test_protocols_pickleable(self):
-            global P, CP  # pickle wants to reference the class by name
-            T = TypeVar('T')
-
+            class C: pass
+        class Proto(Protocol):
+            x = 1
+        with self.assertRaises(TypeError):
             @runtime
-            class P(Protocol[T]):
+            class Concrete(Proto):
+                pass
+
+    def test_none_treated_correctly(self):
+        @runtime
+        class P(Protocol):
+            x = None  # type: int
+        class B(object): pass
+        self.assertNotIsInstance(B(), P)
+        class C:
+            x = 1
+        class D:
+            x = None
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(D(), P)
+        class CI:
+            def __init__(self):
+                self.x = 1
+        class DI:
+            def __init__(self):
+                self.x = None
+        self.assertIsInstance(C(), P)
+        self.assertIsInstance(D(), P)
+
+    def test_protocols_in_unions(self):
+        class P(Protocol):
+            x = None  # type: int
+        Alias = typing.Union[typing.Iterable, P]
+        Alias2 = typing.Union[P, typing.Iterable]
+        self.assertEqual(Alias, Alias2)
+
+    def test_protocols_pickleable(self):
+        global P, CP  # pickle wants to reference the class by name
+        T = TypeVar('T')
+
+        @runtime
+        class P(Protocol[T]):
+            x = 1
+        class CP(P[int]):
+            pass
+
+        c = CP()
+        c.foo = 42
+        c.bar = 'abc'
+        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            z = pickle.dumps(c, proto)
+            x = pickle.loads(z)
+            self.assertEqual(x.foo, 42)
+            self.assertEqual(x.bar, 'abc')
+            self.assertEqual(x.x, 1)
+            self.assertEqual(x.__dict__, {'foo': 42, 'bar': 'abc'})
+            s = pickle.dumps(P)
+            D = pickle.loads(s)
+            class E:
                 x = 1
-            class CP(P[int]):
-                pass
+            self.assertIsInstance(E(), D)
 
-            c = CP()
-            c.foo = 42
-            c.bar = 'abc'
-            for proto in range(pickle.HIGHEST_PROTOCOL + 1):
-                z = pickle.dumps(c, proto)
-                x = pickle.loads(z)
-                self.assertEqual(x.foo, 42)
-                self.assertEqual(x.bar, 'abc')
-                self.assertEqual(x.x, 1)
-                self.assertEqual(x.__dict__, {'foo': 42, 'bar': 'abc'})
-                s = pickle.dumps(P)
-                D = pickle.loads(s)
-                class E:
-                    x = 1
-                self.assertIsInstance(E(), D)
+    def test_collections_protocols_allowed(self):
+        @runtime_checkable
+        class Custom(collections.abc.Iterable, Protocol):
+            def close(self): pass
 
-        def test_collections_protocols_allowed(self):
-            @runtime_checkable
-            class Custom(collections.abc.Iterable, Protocol):
-                def close(self): pass
+        class A: ...
+        class B:
+            def __iter__(self):
+                return []
+            def close(self):
+                return 0
 
-            class A: ...
-            class B:
-                def __iter__(self):
-                    return []
-                def close(self):
-                    return 0
+        self.assertIsSubclass(B, Custom)
+        self.assertNotIsSubclass(A, Custom)
 
-            self.assertIsSubclass(B, Custom)
-            self.assertNotIsSubclass(A, Custom)
+    def test_no_init_same_for_different_protocol_implementations(self):
+        class CustomProtocolWithoutInitA(Protocol):
+            pass
 
-        def test_no_init_same_for_different_protocol_implementations(self):
-            class CustomProtocolWithoutInitA(Protocol):
-                pass
+        class CustomProtocolWithoutInitB(Protocol):
+            pass
 
-            class CustomProtocolWithoutInitB(Protocol):
-                pass
-
-            self.assertEqual(CustomProtocolWithoutInitA.__init__, CustomProtocolWithoutInitB.__init__)
+        self.assertEqual(CustomProtocolWithoutInitA.__init__, CustomProtocolWithoutInitB.__init__)
 
 
 class TypedDictTests(BaseTestCase):
@@ -1543,9 +1441,7 @@ class TypedDictTests(BaseTestCase):
         Emp = TypedDict('Emp', {'name': str, 'id': int})
         self.assertIsSubclass(Emp, dict)
         self.assertIsSubclass(Emp, typing.MutableMapping)
-        if sys.version_info[0] >= 3:
-            import collections.abc
-            self.assertNotIsSubclass(Emp, collections.abc.Sequence)
+        self.assertNotIsSubclass(Emp, collections.abc.Sequence)
         jim = Emp(name='Jim', id=1)
         self.assertIs(type(jim), dict)
         self.assertEqual(jim['name'], 'Jim')
@@ -1560,9 +1456,7 @@ class TypedDictTests(BaseTestCase):
         Emp = TypedDict('Emp', name=str, id=int)
         self.assertIsSubclass(Emp, dict)
         self.assertIsSubclass(Emp, typing.MutableMapping)
-        if sys.version_info[0] >= 3:
-            import collections.abc
-            self.assertNotIsSubclass(Emp, collections.abc.Sequence)
+        self.assertNotIsSubclass(Emp, collections.abc.Sequence)
         jim = Emp(name='Jim', id=1)
         self.assertIs(type(jim), dict)
         self.assertEqual(jim['name'], 'Jim')
@@ -1627,7 +1521,6 @@ class TypedDictTests(BaseTestCase):
         with self.assertRaises(TypeError):
             TypedDict('Hi', [('x', int)], y=int)
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_py36_class_syntax_usage(self):
         self.assertEqual(LabelPoint2D.__name__, 'LabelPoint2D')
         self.assertEqual(LabelPoint2D.__module__, __name__)
@@ -1668,19 +1561,16 @@ class TypedDictTests(BaseTestCase):
         self.assertEqual(D.__required_keys__, frozenset())
         self.assertEqual(D.__optional_keys__, {'x'})
 
-        if PY36:
-            self.assertEqual(Options(), {})
-            self.assertEqual(Options(log_level=2), {'log_level': 2})
-            self.assertEqual(Options.__total__, False)
-            self.assertEqual(Options.__required_keys__, frozenset())
-            self.assertEqual(Options.__optional_keys__, {'log_level', 'log_path'})
+        self.assertEqual(Options(), {})
+        self.assertEqual(Options(log_level=2), {'log_level': 2})
+        self.assertEqual(Options.__total__, False)
+        self.assertEqual(Options.__required_keys__, frozenset())
+        self.assertEqual(Options.__optional_keys__, {'log_level', 'log_path'})
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_optional_keys(self):
         assert Point2Dor3D.__required_keys__ == frozenset(['x', 'y'])
         assert Point2Dor3D.__optional_keys__ == frozenset(['z'])
 
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_keys_inheritance(self):
         assert BaseAnimal.__required_keys__ == frozenset(['name'])
         assert BaseAnimal.__optional_keys__ == frozenset([])
@@ -1704,7 +1594,6 @@ class TypedDictTests(BaseTestCase):
         }
 
 
-@skipUnless(TYPING_3_5_3, "Python >= 3.5.3 required")
 class AnnotatedTests(BaseTestCase):
 
     def test_repr(self):
@@ -1947,7 +1836,6 @@ class GetTypeHintsTests(BaseTestCase):
 
 
 class TypeAliasTests(BaseTestCase):
-    @skipUnless(PY36, 'Python 3.6 required')
     def test_canonical_usage_with_variable_annotation(self):
         ns = {}
         exec('Alias: TypeAlias = Employee', globals(), ns)
@@ -1967,19 +1855,17 @@ class TypeAliasTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(Employee, TypeAlias)
 
-        if SUBCLASS_CHECK_FORBIDDEN:
-            with self.assertRaises(TypeError):
-                issubclass(TypeAlias, Employee)
+        with self.assertRaises(TypeError):
+            issubclass(TypeAlias, Employee)
 
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(TypeAlias):
                 pass
 
-        if SUBCLASS_CHECK_FORBIDDEN:
-            with self.assertRaises(TypeError):
-                class C(type(TypeAlias)):
-                    pass
+        with self.assertRaises(TypeError):
+            class C(type(TypeAlias)):
+                pass
 
     def test_repr(self):
         if hasattr(typing, 'TypeAlias'):
@@ -2017,16 +1903,11 @@ class ParamSpecTests(BaseTestCase):
         P = ParamSpec('P')
         T = TypeVar('T')
         C1 = typing.Callable[P, int]
-        # Callable in Python 3.5.2 might be bugged when collecting __args__.
-        # https://github.com/python/cpython/blob/91185fe0284a04162e0b3425b53be49bdbfad67d/Lib/typing.py#L1026
-        PY_3_5_2 = sys.version_info[:3] == (3, 5, 2)
-        if not PY_3_5_2:
-            self.assertEqual(C1.__args__, (P, int))
-            self.assertEqual(C1.__parameters__, (P,))
+        self.assertEqual(C1.__args__, (P, int))
+        self.assertEqual(C1.__parameters__, (P,))
         C2 = typing.Callable[P, T]
-        if not PY_3_5_2:
-            self.assertEqual(C2.__args__, (P, T))
-            self.assertEqual(C2.__parameters__, (P, T))
+        self.assertEqual(C2.__args__, (P, T))
+        self.assertEqual(C2.__parameters__, (P, T))
 
 
         # Test collections.abc.Callable too.
@@ -2089,7 +1970,7 @@ class ParamSpecTests(BaseTestCase):
         P_co = ParamSpec('P_co', covariant=True)
         P_contra = ParamSpec('P_contra', contravariant=True)
         for proto in range(pickle.HIGHEST_PROTOCOL):
-            with self.subTest('Pickle protocol {proto}'.format(proto=proto)):
+            with self.subTest(f'Pickle protocol {proto}'):
                 for paramspec in (P, P_co, P_contra):
                     z = pickle.loads(pickle.dumps(paramspec, proto))
                     self.assertEqual(z.__name__, paramspec.__name__)
@@ -2163,15 +2044,14 @@ class TypeGuardTests(BaseTestCase):
             mod_name = 'typing'
         else:
             mod_name = 'typing_extensions'
-        self.assertEqual(repr(TypeGuard), '{}.TypeGuard'.format(mod_name))
+        self.assertEqual(repr(TypeGuard), f'{mod_name}.TypeGuard')
         cv = TypeGuard[int]
-        self.assertEqual(repr(cv), '{}.TypeGuard[int]'.format(mod_name))
+        self.assertEqual(repr(cv), f'{mod_name}.TypeGuard[int]')
         cv = TypeGuard[Employee]
-        self.assertEqual(repr(cv), '{}.TypeGuard[{}.Employee]'.format(mod_name, __name__))
+        self.assertEqual(repr(cv), f'{mod_name}.TypeGuard[{__name__}.Employee]')
         cv = TypeGuard[Tuple[int]]
-        self.assertEqual(repr(cv), '{}.TypeGuard[typing.Tuple[int]]'.format(mod_name))
+        self.assertEqual(repr(cv), f'{mod_name}.TypeGuard[typing.Tuple[int]]')
 
-    @skipUnless(SUBCLASS_CHECK_FORBIDDEN, "Behavior added in typing 3.5.3")
     def test_cannot_subclass(self):
         with self.assertRaises(TypeError):
             class C(type(TypeGuard)):
@@ -2214,24 +2094,20 @@ class AllTests(BaseTestCase):
         self.assertIn('ParamSpec', a)
         self.assertIn("Concatenate", a)
 
-        if TYPING_3_5_3:
-            self.assertIn('Annotated', a)
+        self.assertIn('Annotated', a)
         if PEP_560:
             self.assertIn('get_type_hints', a)
 
-        if ASYNCIO:
-            self.assertIn('Awaitable', a)
-            self.assertIn('AsyncIterator', a)
-            self.assertIn('AsyncIterable', a)
-            self.assertIn('Coroutine', a)
-            self.assertIn('AsyncContextManager', a)
+        self.assertIn('Awaitable', a)
+        self.assertIn('AsyncIterator', a)
+        self.assertIn('AsyncIterable', a)
+        self.assertIn('Coroutine', a)
+        self.assertIn('AsyncContextManager', a)
 
-        if PY36:
-            self.assertIn('AsyncGenerator', a)
+        self.assertIn('AsyncGenerator', a)
 
-        if TYPING_3_5_3:
-            self.assertIn('Protocol', a)
-            self.assertIn('runtime', a)
+        self.assertIn('Protocol', a)
+        self.assertIn('runtime', a)
 
         # Check that all objects in `__all__` are present in the module
         for name in a:
@@ -2258,8 +2134,7 @@ class AllTests(BaseTestCase):
         file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                  'typing_extensions.py')
         try:
-            subprocess.check_output('{} -OO {}'.format(sys.executable,
-                                                       file_path),
+            subprocess.check_output(f'{sys.executable} -OO {file_path}',
                                     stderr=subprocess.STDOUT,
                                     shell=True)
         except subprocess.CalledProcessError:
