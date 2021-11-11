@@ -120,7 +120,7 @@ Type Completeness
 =================
 
 A “py.typed” library should aim to be type complete so that type
-checking and inspection can work to their full extend. Here we say that a
+checking and inspection can work to their full extent. Here we say that a
 library is “type complete” if all of the symbols
 that comprise its interface have type annotations that refer to types
 that are fully known. Private symbols are exempt.
