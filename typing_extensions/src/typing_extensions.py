@@ -5,19 +5,6 @@ import operator
 import sys
 import typing
 
-
-# The function below is a copy of typing internal helpers.
-# It is needed by _ProtocolMeta
-def _check_generic(cls, parameters):
-    if not cls.__parameters__:
-        raise TypeError(f"{cls} is not a generic class")
-    alen = len(parameters)
-    elen = len(cls.__parameters__)
-    if alen != elen:
-        raise TypeError(f"Too {'many' if alen > elen else 'few'} arguments for {cls};"
-                        f" actual {alen}, expected {elen}")
-
-
 # Please keep __all__ alphabetized within each category.
 __all__ = [
     # Super-special typing primitives.
@@ -203,36 +190,46 @@ _PROTO_WHITELIST = ['Callable', 'Awaitable',
                     'Hashable', 'Sized', 'Container', 'Collection', 'Reversible',
                     'ContextManager', 'AsyncContextManager']
 
-
-def _get_protocol_attrs(cls):
-    attrs = set()
-    for base in cls.__mro__[:-1]:  # without object
-        if base.__name__ in ('Protocol', 'Generic'):
-            continue
-        annotations = getattr(base, '__annotations__', {})
-        for attr in list(base.__dict__.keys()) + list(annotations.keys()):
-            if (not attr.startswith('_abc_') and attr not in (
-                    '__abstractmethods__', '__annotations__', '__weakref__',
-                    '_is_protocol', '_is_runtime_protocol', '__dict__',
-                    '__args__', '__slots__',
-                    '__next_in_mro__', '__parameters__', '__origin__',
-                    '__orig_bases__', '__extra__', '__tree_hash__',
-                    '__doc__', '__subclasshook__', '__init__', '__new__',
-                    '__module__', '_MutableMapping__marker', '_gorg')):
-                attrs.add(attr)
-    return attrs
-
-
-def _is_callable_members_only(cls):
-    return all(callable(getattr(cls, attr, None)) for attr in _get_protocol_attrs(cls))
-
-
 # 3.8+
 if hasattr(typing, 'Protocol'):
     Protocol = typing.Protocol
 # 3.7
 else:
     from typing import _collect_type_vars  # noqa
+
+    # The function below is a copy of an internal typing helper.
+    # It is needed by Protocol.__class_getitem__
+    def _check_generic(cls, parameters):
+        if not cls.__parameters__:
+            raise TypeError(f"{cls} is not a generic class")
+        alen = len(parameters)
+        elen = len(cls.__parameters__)
+        if alen != elen:
+            raise TypeError(f"Too {'many' if alen > elen else 'few'} arguments for {cls};"
+                            f" actual {alen}, expected {elen}")
+
+    def _get_protocol_attrs(cls):
+        attrs = set()
+        for base in cls.__mro__[:-1]:  # without object
+            if base.__name__ in ('Protocol', 'Generic'):
+                continue
+            annotations = getattr(base, '__annotations__', {})
+            for attr in list(base.__dict__.keys()) + list(annotations.keys()):
+                if (not attr.startswith('_abc_') and attr not in (
+                        '__abstractmethods__', '__annotations__', '__weakref__',
+                        '_is_protocol', '_is_runtime_protocol', '__dict__',
+                        '__args__', '__slots__',
+                        '__next_in_mro__', '__parameters__', '__origin__',
+                        '__orig_bases__', '__extra__', '__tree_hash__',
+                        '__doc__', '__subclasshook__', '__init__', '__new__',
+                        '__module__', '_MutableMapping__marker', '_gorg')):
+                    attrs.add(attr)
+        return attrs
+
+    def _is_callable_members_only(cls):
+        return all(
+            callable(getattr(cls, attr, None)) for attr in _get_protocol_attrs(cls)
+        )
 
     def _no_init(self, *args, **kwargs):
         if type(self)._is_protocol:
@@ -763,15 +760,9 @@ if sys.version_info[:2] >= (3, 10):
 # 3.7-3.9
 else:
     try:
-        # 3.9+
-        from typing import _BaseGenericAlias
+        from typing import _BaseGenericAlias, GenericAlias  # 3.9+
     except ImportError:
-        _BaseGenericAlias = typing._GenericAlias
-    try:
-        # 3.9+
-        from typing import GenericAlias
-    except ImportError:
-        GenericAlias = typing._GenericAlias
+        _BaseGenericAlias = GenericAlias = typing._GenericAlias  # 3.7-3.8
 
     def get_origin(tp):
         """Get the unsubscripted version of a type.
@@ -1051,20 +1042,18 @@ if not hasattr(typing, 'Concatenate'):
                 tp for tp in self.__args__ if isinstance(tp, (typing.TypeVar, ParamSpec))
             )
 
-
-# 3.7-3.9
-@typing._tp_cache
-def _concatenate_getitem(self, parameters):
-    if parameters == ():
-        raise TypeError("Cannot take a Concatenate of no types.")
-    if not isinstance(parameters, tuple):
-        parameters = (parameters,)
-    if not isinstance(parameters[-1], ParamSpec):
-        raise TypeError("The last parameter to Concatenate should be a "
-                        "ParamSpec variable.")
-    msg = "Concatenate[arg, ...]: each arg must be a type."
-    parameters = tuple(typing._type_check(p, msg) for p in parameters)
-    return _ConcatenateGenericAlias(self, parameters)
+    @typing._tp_cache
+    def _concatenate_getitem(self, parameters):
+        if parameters == ():
+            raise TypeError("Cannot take a Concatenate of no types.")
+        if not isinstance(parameters, tuple):
+            parameters = (parameters,)
+        if not isinstance(parameters[-1], ParamSpec):
+            raise TypeError("The last parameter to Concatenate should be a "
+                            "ParamSpec variable.")
+        msg = "Concatenate[arg, ...]: each arg must be a type."
+        parameters = tuple(typing._type_check(p, msg) for p in parameters)
+        return _ConcatenateGenericAlias(self, parameters)
 
 
 # 3.10+
