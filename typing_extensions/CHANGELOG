@@ -3,4 +3,24 @@
 Starting with version 4.0.0, typing_extensions uses Semantic Versioning.
 See the README for more information.
 
-- Add runtime support for PEP 673 and `typing_extensions.Self`.
+Dropped support for Python versions 3.5 and older.
+
+Simplified backports for Python 3.6.0 and newer.
+Patch by Adam Turner (@AA-Turner).
+
+## Added in version 4.0.0
+
+- Runtime support for PEP 673 and `typing_extensions.Self`.
+
+## Removed in version 4.0.0
+
+The following non-exported but non-private names have been removed as they are
+unneeded for supporting Python 3.6 and newer.
+
+- TypingMeta
+- OLD_GENERICS
+- SUBS_TREE
+- HAVE_ANNOTATED
+- HAVE_PROTOCOLS
+- V_co
+- VT_co
