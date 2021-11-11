@@ -26,21 +26,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Load pip cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/test-requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install -r test-requirements.txt
-
       - name: Test typing_extensions
-        run: pytest typing_extensions/src_py3
+        run: |
+          # Be wary of running `pip install` here, since it becomes easy for us to
+          # accidentally pick up typing_extensions as installed by a dependency 
+          cd typing_extensions/src_py3
+          python -m unittest test_typing_extensions.py
 
   linting:
     name: Lint
