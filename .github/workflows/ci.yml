@@ -28,6 +28,8 @@ jobs:
 
       - name: Test typing_extensions
         run: |
+          # Be wary of running `pip install` here, since it becomes easy for us to
+          # accidentally pick up typing_extensions as installed by a dependency 
           cd typing_extensions/src_py3
           python -m unittest test_typing_extensions.py
 
