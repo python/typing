@@ -2851,7 +2851,11 @@ if hasattr(typing, "Self"):
     Self = typing.Self
 
 elif sys.version_info[:2] >= (3, 9):
-    @typing._SpecialForm
+    class _SelfForm(typing._SpecialForm, _root=True):
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+    @_SelfForm
     def Self(self, params):
         """Used to spell the type of "self" in classes.
 
