@@ -53,7 +53,7 @@ def fetch_issues(since: datetime.date) -> list[Issue]:
 def parse_issue(j: Any) -> Issue:
     number = j["number"]
     title = j["title"]
-    url = j["url"]
+    url = j["html_url"]
     created_at = datetime.datetime.fromisoformat(j["created_at"][:-1])
     user = j["user"]["login"]
     pull_request = "pull_request" in j
