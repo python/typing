@@ -2145,7 +2145,7 @@ elif sys.version_info[:2] >= (3, 9):
         There is no runtime checking that a required key is actually provided
         when instantiating a related TypedDict.
         """
-        item = typing._type_check(parameters, '{} accepts only single type'.format(self._name))
+        item = typing._type_check(parameters, f'{self._name} accepts only single type')
         return typing._GenericAlias(self, (item,))
 
     @_ExtensionsSpecialForm
@@ -2162,7 +2162,7 @@ elif sys.version_info[:2] >= (3, 9):
                 year=1999,
             )
         """
-        item = typing._type_check(parameters, '{} accepts only single type'.format(self._name))
+        item = typing._type_check(parameters, f'{self._name} accepts only single type')
         return typing._GenericAlias(self, (item,))
 
 elif sys.version_info[:2] >= (3, 7):
@@ -2175,8 +2175,9 @@ elif sys.version_info[:2] >= (3, 7):
                                       '{} accepts only single type'.format(self._name))
             return typing._GenericAlias(self, (item,))
 
-    Required = _RequiredForm('Required', doc=
-        """A special typing construct to mark a key of a total=False TypedDict
+    Required = _RequiredForm(
+        'Required',
+        doc="""A special typing construct to mark a key of a total=False TypedDict
         as required. For example:
 
             class Movie(TypedDict, total=False):
@@ -2191,8 +2192,9 @@ elif sys.version_info[:2] >= (3, 7):
         There is no runtime checking that a required key is actually provided
         when instantiating a related TypedDict.
         """)
-    NotRequired = _RequiredForm('NotRequired', doc=
-        """A special typing construct to mark a key of a TypedDict as
+    NotRequired = _RequiredForm(
+        'NotRequired',
+        doc="""A special typing construct to mark a key of a TypedDict as
         potentially missing. For example:
 
             class Movie(TypedDict):
