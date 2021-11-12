@@ -8,51 +8,51 @@ import typing
 # Please keep __all__ alphabetized within each category.
 __all__ = [
     # Super-special typing primitives.
+    'Annotated',
     'ClassVar',
     'Concatenate',
     'Final',
+    'Literal',
     'ParamSpec',
+    'Protocol',
     'Self',
     'Type',
 
     # ABCs (from collections.abc).
-    'Awaitable',
-    'AsyncIterator',
-    'AsyncIterable',
-    'Coroutine',
-    'AsyncGenerator',
     'AsyncContextManager',
-    'ChainMap',
-
-    # Concrete collection types.
+    'AsyncGenerator',
+    'AsyncIterable',
+    'AsyncIterator',
+    'Awaitable',
     'ContextManager',
-    'Counter',
-    'Deque',
-    'DefaultDict',
-    'OrderedDict',
-    'TypedDict',
+    'Coroutine',
 
     # Structural checks, a.k.a. protocols.
     'SupportsIndex',
 
+    # Concrete collection types.
+    'ChainMap',
+    'Counter',
+    'Deque',
+    'DefaultDict',
+    'OrderedDict',
+    'TypedDict',  # Not really a type.
+
     # One-off things.
-    'Annotated',
     'final',
     'get_args',
     'get_origin',
     'get_type_hints',
     'IntVar',
-    'Literal',
     'NewType',
+    'NoReturn',
     'overload',
-    'Protocol',
     'runtime',
     'runtime_checkable',
     'Text',
     'TypeAlias',
     'TypeGuard',
     'TYPE_CHECKING',
-    'NoReturn',
 ]
 
 NoReturn = typing.NoReturn
