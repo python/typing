@@ -8,6 +8,10 @@ Dropped support for Python versions 3.5 and older.
 Simplified backports for Python 3.6.0 and newer.
 Patch by Adam Turner (@AA-Turner).
 
+## Added in version 4.0.0
+
+- Runtime support for PEP 673 and `typing_extensions.Self`.
+
 ## Removed in version 4.0.0
 
 The following non-exported but non-private names have been removed as they are

@@ -16,7 +16,7 @@ from typing import Tuple, List, Dict, Iterable, Iterator, Callable
 from typing import Generic, NamedTuple
 from typing import no_type_check
 import typing_extensions
-from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict
+from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict, Self
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager
 from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload
@@ -2074,6 +2074,42 @@ class TypeGuardTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(int, TypeGuard)
 
+
+
+class SelfTests(BaseTestCase):
+    def test_basics(self):
+        class Foo:
+            def bar(self) -> Self: ...
+
+        self.assertEqual(gth(Foo.bar), {'return': Self})
+
+    def test_repr(self):
+        if hasattr(typing, 'Self'):
+            mod_name = 'typing'
+        else:
+            mod_name = 'typing_extensions'
+        self.assertEqual(repr(Self), '{}.Self'.format(mod_name))
+
+    def test_cannot_subscript(self):
+        with self.assertRaises(TypeError):
+            Self[int]
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(Self)):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            Self()
+        with self.assertRaises(TypeError):
+            type(Self)()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, Self)
+        with self.assertRaises(TypeError):
+            issubclass(int, Self)
 
 class AllTests(BaseTestCase):
 

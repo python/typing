@@ -45,6 +45,7 @@ __all__ = [
     'Concatenate',
     'Final',
     'ParamSpec',
+    'Self',
     'Type',
 
     # ABCs (from collections.abc).
@@ -2046,3 +2047,74 @@ else:
             return self is other
 
     TypeGuard = _TypeGuard(_root=True)
+
+
+if hasattr(typing, "Self"):
+    Self = typing.Self
+
+elif sys.version_info[:2] >= (3, 9):
+    class _SelfForm(typing._SpecialForm, _root=True):
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+    @_SelfForm
+    def Self(self, params):
+        """Used to spell the type of "self" in classes.
+
+        Example::
+
+          from typing import Self
+
+          class ReturnsSelf:
+              def parse(self, data: bytes) -> Self:
+                  ...
+                  return self
+
+        """
+
+        raise TypeError(f"{self} is not subscriptable")
+
+elif sys.version_info[:2] >= (3, 7):
+    class _SelfForm(typing._SpecialForm, _root=True):
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+    Self = _SelfForm(
+        "Self",
+        doc="""Used to spell the type of "self" in classes.
+
+        Example::
+
+          from typing import Self
+
+          class ReturnsSelf:
+              def parse(self, data: bytes) -> Self:
+                  ...
+                  return self
+
+        """
+    )
+else:
+    class _Self(typing._FinalTypingBase, _root=True):
+        """Used to spell the type of "self" in classes.
+
+        Example::
+
+          from typing import Self
+
+          class ReturnsSelf:
+              def parse(self, data: bytes) -> Self:
+                  ...
+                  return self
+
+        """
+
+        __slots__ = ()
+
+        def __instancecheck__(self, obj):
+            raise TypeError(f"{self} cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError(f"{self} cannot be used with issubclass().")
+
+    Self = _Self(_root=True)
