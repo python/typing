@@ -2164,6 +2164,7 @@ elif sys.version_info[:2] >= (3, 9):
         """
         item = typing._type_check(parameters, '{} accepts only single type'.format(self._name))
         return typing._GenericAlias(self, (item,))
+
 elif sys.version_info[:2] >= (3, 7):
     class _RequiredForm(typing._SpecialForm, _root=True):
         def __repr__(self):
@@ -2172,7 +2173,7 @@ elif sys.version_info[:2] >= (3, 7):
         def __getitem__(self, parameters):
             item = typing._type_check(parameters,
                                       '{} accepts only single type'.format(self._name))
-            return _GenericAlias(self, (item,))
+            return typing._GenericAlias(self, (item,))
 
     Required = _RequiredForm('Required', doc=
         """A special typing construct to mark a key of a total=False TypedDict
