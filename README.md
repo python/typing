@@ -32,7 +32,7 @@ This GitHub repository is used for several things:
 
 Historically, this repository hosted a backport of the
 [`typing` module](https://docs.python.org/3/library/typing.html) for older
-Python versions. The last released version, supporting Python 2.7 and 3.4,
+Python versions. The last released version (4.0.0), supporting Python 3.6+,
 is [available at PyPI](https://pypi.org/project/typing/).
 
 Workflow
