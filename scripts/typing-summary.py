@@ -101,7 +101,7 @@ def generate_mail(new: Sequence[Issue], changed: Sequence[Issue]) -> str:
         s = (
             "The following is an overview of all issues and pull requests in the\n"
             "typing repository on GitHub with the label 'topic: feature'\n"
-            "that were opened or updated last week, exluding closed issues.\n\n"
+            "that were opened or updated last week, excluding closed issues.\n\n"
             "---------------------------------------------------\n\n"
         )
     if len(new) >= 0:
