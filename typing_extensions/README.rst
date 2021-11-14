@@ -59,6 +59,7 @@ This module currently contains the following:
 - ``Protocol``
 - ``Required``
 - ``runtime_checkable``
+- ``Self``
 - ``Text``
 - ``Type``
 - ``TypedDict``
