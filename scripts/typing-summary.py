@@ -10,6 +10,8 @@ import requests
 
 ISSUES_API_URL = "https://api.github.com/repos/python/typing/issues"
 ISSUES_URL = "https://github.com/python/typing/issues?q=label%3A%22topic%3A+feature%22"
+SENDER_EMAIL = "Typing Bot <noreply@python.org>"
+RECEIVER_EMAIL = "typing-sig@python.org"
 
 
 @dataclass
@@ -82,8 +84,8 @@ def split_issues(
 def print_summary(
     since: datetime.date, new: Sequence[Issue], changed: Sequence[Issue]
 ) -> None:
-    print("From: Typing Bot <noreply@python.org>")
-    print("To: typing-sig@python.org")
+    print(f"From: {SENDER_EMAIL}")
+    print(f"To: {RECEIVER_EMAIL}")
     print(f"Subject: Opened and changed typing issues week {since:%G-W%V}")
     print()
     print(generate_mail(new, changed))
