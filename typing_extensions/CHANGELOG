@@ -1,8 +1,8 @@
-# Changes in version 4.0.0
+# Release 4.0.0 (November 14, 2021)
 
 - Starting with version 4.0.0, typing_extensions uses Semantic Versioning.
   See the README for more information.
-- Dropped support for Python versions 3.5 and older.
+- Dropped support for Python versions 3.5 and older, including Python 2.7.
 - Simplified backports for Python 3.6.0 and newer. Patch by Adam Turner (@AA-Turner).
 
 ## Added in version 4.0.0
@@ -24,3 +24,8 @@ unneeded for supporting Python 3.6 and newer.
 - HAVE_PROTOCOLS
 - V_co
 - VT_co
+
+# Previous releases
+
+Prior to release 4.0.0 we did not provide a changelog. Please check
+the Git history for details.
