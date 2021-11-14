@@ -1,16 +1,16 @@
 # Changes in version 4.0.0
 
-Starting with version 4.0.0, typing_extensions uses Semantic Versioning.
-See the README for more information.
-
-Dropped support for Python versions 3.5 and older.
-
-Simplified backports for Python 3.6.0 and newer.
-Patch by Adam Turner (@AA-Turner).
+- Starting with version 4.0.0, typing_extensions uses Semantic Versioning.
+  See the README for more information.
+- Dropped support for Python versions 3.5 and older.
+- Simplified backports for Python 3.6.0 and newer. Patch by Adam Turner (@AA-Turner).
 
 ## Added in version 4.0.0
 
-- Runtime support for PEP 673 and `typing_extensions.Self`.
+- Runtime support for PEP 673 and `typing_extensions.Self`. Patch by
+  James Hilton-Balfe (@Gobot1234).
+- Runtime support for PEP 655 and `typing_extensions.Required` and `NotRequired`.
+  Patch by David Foster (@davidfstr).
 
 ## Removed in version 4.0.0
 

@@ -18,7 +18,7 @@ from typing import no_type_check
 import typing_extensions
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict, Self
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
-from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager
+from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
 from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload
 try:
     from typing_extensions import get_type_hints
@@ -191,6 +191,94 @@ class FinalTests(BaseTestCase):
             isinstance(1, Final[int])
         with self.assertRaises(TypeError):
             issubclass(int, Final)
+
+
+class RequiredTests(BaseTestCase):
+
+    def test_basics(self):
+        with self.assertRaises(TypeError):
+            Required[1]
+        with self.assertRaises(TypeError):
+            Required[int, str]
+        with self.assertRaises(TypeError):
+            Required[int][str]
+
+    def test_repr(self):
+        if hasattr(typing, 'Required'):
+            mod_name = 'typing'
+        else:
+            mod_name = 'typing_extensions'
+        self.assertEqual(repr(Required), mod_name + '.Required')
+        cv = Required[int]
+        self.assertEqual(repr(cv), mod_name + '.Required[int]')
+        cv = Required[Employee]
+        self.assertEqual(repr(cv), mod_name + '.Required[%s.Employee]' % __name__)
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(Required)):
+                pass
+        with self.assertRaises(TypeError):
+            class C(type(Required[int])):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            Required()
+        with self.assertRaises(TypeError):
+            type(Required)()
+        with self.assertRaises(TypeError):
+            type(Required[Optional[int]])()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, Required[int])
+        with self.assertRaises(TypeError):
+            issubclass(int, Required)
+
+
+class NotRequiredTests(BaseTestCase):
+
+    def test_basics(self):
+        with self.assertRaises(TypeError):
+            NotRequired[1]
+        with self.assertRaises(TypeError):
+            NotRequired[int, str]
+        with self.assertRaises(TypeError):
+            NotRequired[int][str]
+
+    def test_repr(self):
+        if hasattr(typing, 'NotRequired'):
+            mod_name = 'typing'
+        else:
+            mod_name = 'typing_extensions'
+        self.assertEqual(repr(NotRequired), mod_name + '.NotRequired')
+        cv = NotRequired[int]
+        self.assertEqual(repr(cv), mod_name + '.NotRequired[int]')
+        cv = NotRequired[Employee]
+        self.assertEqual(repr(cv), mod_name + '.NotRequired[%s.Employee]' % __name__)
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(NotRequired)):
+                pass
+        with self.assertRaises(TypeError):
+            class C(type(NotRequired[int])):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            NotRequired()
+        with self.assertRaises(TypeError):
+            type(NotRequired)()
+        with self.assertRaises(TypeError):
+            type(NotRequired[Optional[int]])()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, NotRequired[int])
+        with self.assertRaises(TypeError):
+            issubclass(int, NotRequired)
 
 
 class IntVarTests(BaseTestCase):

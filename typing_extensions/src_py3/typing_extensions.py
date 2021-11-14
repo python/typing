@@ -2118,3 +2118,163 @@ else:
             raise TypeError(f"{self} cannot be used with issubclass().")
 
     Self = _Self(_root=True)
+
+
+if hasattr(typing, 'Required'):
+    Required = typing.Required
+    NotRequired = typing.NotRequired
+elif sys.version_info[:2] >= (3, 9):
+    class _ExtensionsSpecialForm(typing._SpecialForm, _root=True):
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+    @_ExtensionsSpecialForm
+    def Required(self, parameters):
+        """A special typing construct to mark a key of a total=False TypedDict
+        as required. For example:
+
+            class Movie(TypedDict, total=False):
+                title: Required[str]
+                year: int
+
+            m = Movie(
+                title='The Matrix',  # typechecker error if key is omitted
+                year=1999,
+            )
+
+        There is no runtime checking that a required key is actually provided
+        when instantiating a related TypedDict.
+        """
+        item = typing._type_check(parameters, f'{self._name} accepts only single type')
+        return typing._GenericAlias(self, (item,))
+
+    @_ExtensionsSpecialForm
+    def NotRequired(self, parameters):
+        """A special typing construct to mark a key of a TypedDict as
+        potentially missing. For example:
+
+            class Movie(TypedDict):
+                title: str
+                year: NotRequired[int]
+
+            m = Movie(
+                title='The Matrix',  # typechecker error if key is omitted
+                year=1999,
+            )
+        """
+        item = typing._type_check(parameters, f'{self._name} accepts only single type')
+        return typing._GenericAlias(self, (item,))
+
+elif sys.version_info[:2] >= (3, 7):
+    class _RequiredForm(typing._SpecialForm, _root=True):
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+        def __getitem__(self, parameters):
+            item = typing._type_check(parameters,
+                                      '{} accepts only single type'.format(self._name))
+            return typing._GenericAlias(self, (item,))
+
+    Required = _RequiredForm(
+        'Required',
+        doc="""A special typing construct to mark a key of a total=False TypedDict
+        as required. For example:
+
+            class Movie(TypedDict, total=False):
+                title: Required[str]
+                year: int
+
+            m = Movie(
+                title='The Matrix',  # typechecker error if key is omitted
+                year=1999,
+            )
+
+        There is no runtime checking that a required key is actually provided
+        when instantiating a related TypedDict.
+        """)
+    NotRequired = _RequiredForm(
+        'NotRequired',
+        doc="""A special typing construct to mark a key of a TypedDict as
+        potentially missing. For example:
+
+            class Movie(TypedDict):
+                title: str
+                year: NotRequired[int]
+
+            m = Movie(
+                title='The Matrix',  # typechecker error if key is omitted
+                year=1999,
+            )
+        """)
+else:
+    # NOTE: Modeled after _Final's implementation when _FinalTypingBase available
+    class _MaybeRequired(typing._FinalTypingBase, _root=True):
+        __slots__ = ('__type__',)
+
+        def __init__(self, tp=None, **kwds):
+            self.__type__ = tp
+
+        def __getitem__(self, item):
+            cls = type(self)
+            if self.__type__ is None:
+                return cls(typing._type_check(item,
+                           '{} accepts only single type.'.format(cls.__name__[1:])),
+                           _root=True)
+            raise TypeError('{} cannot be further subscripted'
+                            .format(cls.__name__[1:]))
+
+        def _eval_type(self, globalns, localns):
+            new_tp = typing._eval_type(self.__type__, globalns, localns)
+            if new_tp == self.__type__:
+                return self
+            return type(self)(new_tp, _root=True)
+
+        def __repr__(self):
+            r = super().__repr__()
+            if self.__type__ is not None:
+                r += '[{}]'.format(typing._type_repr(self.__type__))
+            return r
+
+        def __hash__(self):
+            return hash((type(self).__name__, self.__type__))
+
+        def __eq__(self, other):
+            if not isinstance(other, _Final):
+                return NotImplemented
+            if self.__type__ is not None:
+                return self.__type__ == other.__type__
+            return self is other
+
+    class _Required(_MaybeRequired, _root=True):
+        """A special typing construct to mark a key of a total=False TypedDict
+        as required. For example:
+
+            class Movie(TypedDict, total=False):
+                title: Required[str]
+                year: int
+
+            m = Movie(
+                title='The Matrix',  # typechecker error if key is omitted
+                year=1999,
+            )
+
+        There is no runtime checking that a required key is actually provided
+        when instantiating a related TypedDict.
+        """
+
+    class _NotRequired(_MaybeRequired, _root=True):
+        """A special typing construct to mark a key of a TypedDict as
+        potentially missing. For example:
+
+            class Movie(TypedDict):
+                title: str
+                year: NotRequired[int]
+
+            m = Movie(
+                title='The Matrix',  # typechecker error if key is omitted
+                year=1999,
+            )
+        """
+
+    Required = _Required(_root=True)
+    NotRequired = _NotRequired(_root=True)

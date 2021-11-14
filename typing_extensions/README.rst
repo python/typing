@@ -50,12 +50,14 @@ This module currently contains the following:
 - ``Literal``
 - ``NewType``
 - ``NoReturn``
+- ``NotRequired``
 - ``overload``
 - ``OrderedDict``
 - ``ParamSpec``
 - ``ParamSpecArgs``
 - ``ParamSpecKwargs``
 - ``Protocol``
+- ``Required``
 - ``runtime_checkable``
 - ``Text``
 - ``Type``
