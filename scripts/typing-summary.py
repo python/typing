@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
 
+"""
+Generate a summary of last week's issues tagged with "topic: feature".
+
+The summary will include a list of new and changed issues and is sent each
+Monday at 0200 CE(S)T to the typing-sig mailing list. Due to limitation
+with GitHub Actions, the mail is sent from a private server, currently
+maintained by @srittau.
+"""
+
 from __future__ import annotations
 
 import datetime
@@ -10,6 +19,7 @@ import requests
 
 ISSUES_API_URL = "https://api.github.com/repos/python/typing/issues"
 ISSUES_URL = "https://github.com/python/typing/issues?q=label%3A%22topic%3A+feature%22"
+ISSUES_LABEL = "topic: feature"
 SENDER_EMAIL = "Typing Bot <noreply@python.org>"
 RECEIVER_EMAIL = "typing-sig@python.org"
 
@@ -41,7 +51,7 @@ def fetch_issues(since: datetime.date) -> list[Issue]:
     j = requests.get(
         ISSUES_API_URL,
         params={
-            "labels": "topic: feature",
+            "labels": ISSUES_LABEL,
             "since": f"{since:%Y-%m-%d}T00:00:00Z",
             "per_page": "100",
             "state": "open",
