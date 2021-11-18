@@ -58,3 +58,25 @@ Linters and Formatters
 * `flake8-pyi <https://github.com/ambv/flake8-pyi>`_, a plugin for the
   `flake8 <https://flake8.pycqa.org/>`_ linter that adds support for type
   stubs.
+
+Typing PEPs
+===========
+
+* `PEP 483 <https://www.python.org/dev/peps/pep-0483/>`, background on type hints
+* `PEP 484 <https://www.python.org/dev/peps/pep-0484/>`, type hints
+* `PEP 526 <https://www.python.org/dev/peps/pep-0526/>`, variable annotations and ``ClassVar``
+* `PEP 544 <https://www.python.org/dev/peps/pep-0544/>`, ``Protocol``
+* `PEP 561 <https://www.python.org/dev/peps/pep-0561/>`, distributing typed packages
+* `PEP 563 <https://www.python.org/dev/peps/pep-0563/>`, ``from __future__ import annotations``
+* `PEP 585 <https://www.python.org/dev/peps/pep-0585/>`, subscriptable generics in the standard library
+* `PEP 586 <https://www.python.org/dev/peps/pep-0586/>`, ``Literal``
+* `PEP 589 <https://www.python.org/dev/peps/pep-0589/>`, ``TypedDict``
+* `PEP 591 <https://www.python.org/dev/peps/pep-0591/>`, ``Final``
+* `PEP 593 <https://www.python.org/dev/peps/pep-0593/>`, ``Annotated``
+* `PEP 604 <https://www.python.org/dev/peps/pep-0604/>`, union syntax with ``|``
+* `PEP 612 <https://www.python.org/dev/peps/pep-0612/>`, ``ParamSpec``
+* `PEP 613 <https://www.python.org/dev/peps/pep-0613/>`, ``TypeAlias``
+* `PEP 646 <https://www.python.org/dev/peps/pep-0646/>`, variadic generics and ``TypeVarTuple``
+* `PEP 647 <https://www.python.org/dev/peps/pep-0647/>`, ``TypeGuard``
+* `PEP 655 <https://www.python.org/dev/peps/pep-0655/>` (draft), ``Required`` and ``NotRequired``
+* `PEP 673 <https://www.python.org/dev/peps/pep-0673/>` (draft), ``Self``
