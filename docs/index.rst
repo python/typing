@@ -62,21 +62,21 @@ Linters and Formatters
 Typing PEPs
 ===========
 
-* `PEP 483 <https://www.python.org/dev/peps/pep-0483/>`, background on type hints
-* `PEP 484 <https://www.python.org/dev/peps/pep-0484/>`, type hints
-* `PEP 526 <https://www.python.org/dev/peps/pep-0526/>`, variable annotations and ``ClassVar``
-* `PEP 544 <https://www.python.org/dev/peps/pep-0544/>`, ``Protocol``
-* `PEP 561 <https://www.python.org/dev/peps/pep-0561/>`, distributing typed packages
-* `PEP 563 <https://www.python.org/dev/peps/pep-0563/>`, ``from __future__ import annotations``
-* `PEP 585 <https://www.python.org/dev/peps/pep-0585/>`, subscriptable generics in the standard library
-* `PEP 586 <https://www.python.org/dev/peps/pep-0586/>`, ``Literal``
-* `PEP 589 <https://www.python.org/dev/peps/pep-0589/>`, ``TypedDict``
-* `PEP 591 <https://www.python.org/dev/peps/pep-0591/>`, ``Final``
-* `PEP 593 <https://www.python.org/dev/peps/pep-0593/>`, ``Annotated``
-* `PEP 604 <https://www.python.org/dev/peps/pep-0604/>`, union syntax with ``|``
-* `PEP 612 <https://www.python.org/dev/peps/pep-0612/>`, ``ParamSpec``
-* `PEP 613 <https://www.python.org/dev/peps/pep-0613/>`, ``TypeAlias``
-* `PEP 646 <https://www.python.org/dev/peps/pep-0646/>`, variadic generics and ``TypeVarTuple``
-* `PEP 647 <https://www.python.org/dev/peps/pep-0647/>`, ``TypeGuard``
-* `PEP 655 <https://www.python.org/dev/peps/pep-0655/>` (draft), ``Required`` and ``NotRequired``
-* `PEP 673 <https://www.python.org/dev/peps/pep-0673/>` (draft), ``Self``
+* `PEP 483 <https://www.python.org/dev/peps/pep-0483/>`_, background on type hints
+* `PEP 484 <https://www.python.org/dev/peps/pep-0484/>`_, type hints
+* `PEP 526 <https://www.python.org/dev/peps/pep-0526/>`_, variable annotations and ``ClassVar``
+* `PEP 544 <https://www.python.org/dev/peps/pep-0544/>`_, ``Protocol``
+* `PEP 561 <https://www.python.org/dev/peps/pep-0561/>`_, distributing typed packages
+* `PEP 563 <https://www.python.org/dev/peps/pep-0563/>`_, ``from __future__ import annotations``
+* `PEP 585 <https://www.python.org/dev/peps/pep-0585/>`_, subscriptable generics in the standard library
+* `PEP 586 <https://www.python.org/dev/peps/pep-0586/>`_, ``Literal``
+* `PEP 589 <https://www.python.org/dev/peps/pep-0589/>`_, ``TypedDict``
+* `PEP 591 <https://www.python.org/dev/peps/pep-0591/>`_, ``Final``
+* `PEP 593 <https://www.python.org/dev/peps/pep-0593/>`_, ``Annotated``
+* `PEP 604 <https://www.python.org/dev/peps/pep-0604/>`_, union syntax with ``|``
+* `PEP 612 <https://www.python.org/dev/peps/pep-0612/>`_, ``ParamSpec``
+* `PEP 613 <https://www.python.org/dev/peps/pep-0613/>`_, ``TypeAlias``
+* `PEP 646 <https://www.python.org/dev/peps/pep-0646/>`_, variadic generics and ``TypeVarTuple``
+* `PEP 647 <https://www.python.org/dev/peps/pep-0647/>`_, ``TypeGuard``
+* `PEP 655 <https://www.python.org/dev/peps/pep-0655/>`_ (draft), ``Required`` and ``NotRequired``
+* `PEP 673 <https://www.python.org/dev/peps/pep-0673/>`_ (draft), ``Self``
