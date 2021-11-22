@@ -114,11 +114,11 @@ def generate_mail(new: Sequence[Issue], changed: Sequence[Issue]) -> str:
             "that were opened or updated last week, excluding closed issues.\n\n"
             "---------------------------------------------------\n\n"
         )
-    if len(new) >= 0:
+    if len(new) > 0:
         s += "The following issues and pull requests were opened last week: \n\n"
         s += "".join(generate_issue_text(issue) for issue in new)
         s += "\n---------------------------------------------------\n\n"
-    if len(changed) >= 0:
+    if len(changed) > 0:
         s += "The following issues and pull requests were updated last week: \n\n"
         s += "".join(generate_issue_text(issue) for issue in changed)
         s += "\n---------------------------------------------------\n\n"
