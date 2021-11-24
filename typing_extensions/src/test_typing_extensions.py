@@ -20,6 +20,7 @@ from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, 
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
 from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload
+from typing_extensions import TypeVarTuple, Unpack
 try:
     from typing_extensions import get_type_hints
 except ImportError:
@@ -2204,6 +2205,125 @@ class SelfTests(BaseTestCase):
         class Alias:
             def return_tuple(self) -> TupleSelf:
                 return (self, self)
+
+class TypeVarTupleTests(BaseTestCase):
+
+    def test_basic_plain(self):
+        Ts = TypeVarTuple('Ts')
+        self.assertEqual(Ts, Ts)
+        self.assertEqual(Unpack[Ts], Unpack[Ts])
+        self.assertIsInstance(Ts, TypeVarTuple)
+
+    def test_repr(self):
+        Ts = TypeVarTuple('Ts')
+        self.assertEqual(repr(Ts), 'Ts')
+        self.assertEqual(repr(Unpack[Ts]), 'typing_extensions.Unpack[Ts]')
+
+    def test_no_redefinition(self):
+        self.assertNotEqual(TypeVarTuple('Ts'), TypeVarTuple('Ts'))
+
+    def test_cannot_subclass_vars(self):
+        with self.assertRaises(TypeError):
+            class V(TypeVarTuple('Ts')):
+                pass
+        with self.assertRaises(TypeError):
+            class V(Unpack[TypeVarTuple('Ts')]):
+                pass
+
+    def test_cannot_subclass_var_itself(self):
+        with self.assertRaises(TypeError):
+            class V(TypeVarTuple):
+                pass
+
+    def test_cannot_instantiate_vars(self):
+        Ts = TypeVarTuple('Ts')
+        with self.assertRaises(TypeError):
+            Ts()
+
+    def test_unpack(self):
+        Ts = TypeVarTuple('Ts')
+        self.assertEqual(Unpack[Ts], Unpack[Ts])
+        with self.assertRaises(TypeError):
+            Unpack()
+
+    def test_tuple(self):
+        Ts = TypeVarTuple('Ts')
+        Tuple[Unpack[Ts]]
+        # Not legal at type checking time but we can't really check against it.
+        Tuple[Ts]
+
+    def test_union(self):
+        Xs = TypeVarTuple('Xs')
+        Ys = TypeVarTuple('Ys')
+        self.assertNotEqual(Xs, Ys)
+        self.assertEqual(
+            Union[Unpack[Xs]],
+            Unpack[Xs]
+        )
+        self.assertNotEqual(
+            Union[Unpack[Xs]],
+            Union[Unpack[Xs], Unpack[Ys]]
+        )
+        self.assertEqual(
+            Union[Unpack[Xs], Unpack[Xs]],
+            Unpack[Xs]
+        )
+        self.assertNotEqual(
+            Union[Unpack[Xs], int],
+            Union[Unpack[Xs]]
+        )
+        self.assertNotEqual(
+            Union[Unpack[Xs], int],
+            Union[int]
+        )
+        self.assertEqual(
+            Union[Unpack[Xs], int].__args__,
+            (Unpack[Xs], int)
+        )
+        self.assertEqual(
+            Union[Unpack[Xs], int].__parameters__,
+            (Xs,)
+        )
+        self.assertIs(
+            Union[Unpack[Xs], int].__origin__,
+            Union
+        )
+
+    def test_concatenation(self):
+        Xs = TypeVarTuple('Xs')
+        Tuple[int, Unpack[Xs]]
+        Tuple[Unpack[Xs], int]
+        Tuple[int, Unpack[Xs], str]
+        class C(Generic[Unpack[Xs]]): pass
+        C[int, Unpack[Xs]]
+        C[Unpack[Xs], int]
+        C[int, Unpack[Xs], str]
+
+    def test_class(self):
+        Ts = TypeVarTuple('Ts')
+
+        class C(Generic[Unpack[Ts]]): pass
+        C[int]
+        C[int, str]
+
+        with self.assertRaises(TypeError):
+            class C(Generic[Unpack[Ts], int]): pass
+
+        T1 = TypeVar('T')
+        T2 = TypeVar('T')
+        class C(Generic[T1, T2, Unpack[Ts]]): pass
+        C[int, str]
+        C[int, str, float]
+        with self.assertRaises(TypeError):
+            C[int]
+
+    def test_args_and_parameters(self):
+        Ts = TypeVarTuple('Ts')
+
+        t = Tuple[tuple(Ts)]
+        self.assertEqual(t.__args__, (Ts.__unpacked__,))
+        self.assertEqual(t.__parameters__, (Ts,))
+
 
 class AllTests(BaseTestCase):
 

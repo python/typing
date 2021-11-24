@@ -3,6 +3,7 @@ import collections
 import collections.abc
 import operator
 import sys
+import types as _types
 import typing
 
 # After PEP 560, internal typing API was substantially reworked.
@@ -47,6 +48,8 @@ __all__ = [
     'ParamSpec',
     'Self',
     'Type',
+    'TypeVarTuple',
+    'Unpack',
 
     # ABCs (from collections.abc).
     'Awaitable',
@@ -512,7 +515,6 @@ if hasattr(typing, 'Protocol'):
     Protocol = typing.Protocol
 # 3.7
 elif PEP_560:
-    from typing import _collect_type_vars  # noqa
 
     def _no_init(self, *args, **kwargs):
         if type(self)._is_protocol:
@@ -612,7 +614,7 @@ elif PEP_560:
             if error:
                 raise TypeError("Cannot inherit from plain Generic")
             if '__orig_bases__' in cls.__dict__:
-                tvars = _collect_type_vars(cls.__orig_bases__)
+                tvars = typing._collect_type_vars(cls.__orig_bases__)
                 # Look for Generic[T1, ..., Tn] or Protocol[T1, ..., Tn].
                 # If found, tvars must be a subset of it.
                 # If not found, tvars is it.
@@ -2294,3 +2296,194 @@ else:
 
     Required = _Required(_root=True)
     NotRequired = _NotRequired(_root=True)
+
+if sys.version_info[:2] >= (3, 9):
+    class _UnpackSpecialForm(typing._SpecialForm, _root=True):
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+    class _UnpackAlias(typing._GenericAlias, _root=True):
+        __class__ = typing.TypeVar
+
+    @_UnpackSpecialForm
+    def Unpack(self, parameters):
+        """A special typing construct to unpack a variadic type. For example:
+
+            Shape = TypeVarTuple('Shape')
+            Batch = NewType('Batch', int)
+
+            def add_batch_axis(x: Array[Unpack[Shape]]) -> Array[Batch, Unpack[Shape]]: ...
+
+        """
+        item = typing._type_check(parameters, f'{self._name} accepts only single type')
+        return _UnpackAlias(self, (item,))
+
+    def _collect_type_vars(types):
+        """Collect all type variable contained in types in order of
+        first appearance (lexicographic order). For example::
+
+            _collect_type_vars((T, List[S, T])) == (T, S)
+        """
+        tvars = []
+        for t in types:
+            if isinstance(t, typing.TypeVar) and t not in tvars and not isinstance(t, _UnpackAlias):
+                tvars.append(t)
+            if isinstance(t, (typing._GenericAlias, _types.GenericAlias)):
+                tvars.extend([t for t in t.__parameters__ if t not in tvars])
+        return tuple(tvars)
+
+    typing._collect_type_vars = _collect_type_vars
+
+    def _check_generic(cls, parameters, elen):
+        """Check correct count for parameters of a generic cls (internal helper).
+        This gives a nice error message in case of count mismatch.
+        """
+        if not elen:
+            raise TypeError(f"{cls} is not a generic class")
+        alen = len(parameters)
+        if alen != elen:
+            if hasattr(cls, "__parameters__"):
+                num_tv_tuples = sum(isinstance(p, TypeVarTuple) for p in cls.__parameters__)
+                if num_tv_tuples > 0 and alen >= elen - num_tv_tuples:
+                    return
+            raise TypeError(f"Too {'many' if alen > elen else 'few'} parameters for {cls};"
+                            f" actual {alen}, expected {elen}")
+
+    typing._check_generic = _check_generic
+
+elif sys.version_info[:2] >= (3, 7):
+    class _UnpackAlias(typing._GenericAlias, _root=True):
+        __class__ = typing.TypeVar
+
+    class _UnpackForm(typing._SpecialForm, _root=True):
+        def __repr__(self):
+            return 'typing_extensions.' + self._name
+
+        def __getitem__(self, parameters):
+            item = typing._type_check(parameters,
+                                      f'{self._name} accepts only single type')
+            return _UnpackAlias(self, (item,))
+
+    Unpack = _UnpackForm(
+        'Required',
+        doc="""A special typing construct to unpack a variadic type. For example:
+
+            Shape = TypeVarTuple('Shape')
+            Batch = NewType('Batch', int)
+
+            def add_batch_axis(x: Array[Unpack[Shape]]) -> Array[Batch, Unpack[Shape]]: ...
+
+        """)
+else:
+    # NOTE: Modeled after _Final's implementation when _FinalTypingBase available
+    class _Unpack(typing._FinalTypingBase, _root=True):
+        """A special typing construct to unpack a variadic type. For example:
+
+            Shape = TypeVarTuple('Shape')
+            Batch = NewType('Batch', int)
+
+            def add_batch_axis(x: Array[Unpack[Shape]]) -> Array[Batch, Unpack[Shape]]: ...
+
+        """
+        __slots__ = ('__type__',)
+
+        def __init__(self, tp=None, **kwds):
+            self.__type__ = tp
+
+        def __getitem__(self, item):
+            cls = type(self)
+            if self.__type__ is None:
+                return cls(typing._type_check(item,
+                           'Unpack accepts only single type.'),
+                           _root=True)
+            raise TypeError('Unpack cannot be further subscripted')
+
+        def _eval_type(self, globalns, localns):
+            new_tp = typing._eval_type(self.__type__, globalns, localns)
+            if new_tp == self.__type__:
+                return self
+            return type(self)(new_tp, _root=True)
+
+        def __repr__(self):
+            r = super().__repr__()
+            if self.__type__ is not None:
+                r += '[{}]'.format(typing._type_repr(self.__type__))
+            return r
+
+        def __hash__(self):
+            return hash((type(self).__name__, self.__type__))
+
+        def __eq__(self, other):
+            if not isinstance(other, _Unpack):
+                return NotImplemented
+            if self.__type__ is not None:
+                return self.__type__ == other.__type__
+            return self is other
+
+    Unpack = _Unpack(_root=True)
+
+
+    # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
+class TypeVarTuple(typing._Final, _root=True):
+    """Type variable tuple.
+
+    Usage::
+
+        Ts = TypeVarTuple('Ts')
+
+    TODO docs
+
+    """
+
+    # Trick Generic __parameters__.
+    __class__ = typing.TypeVar
+
+    def __iter__(self):
+        yield self.__unpacked__
+
+    def __init__(self, name, *, bound=None, covariant=False, contravariant=False):
+        self.__name__ = name
+        self.__covariant__ = bool(covariant)
+        self.__contravariant__ = bool(contravariant)
+        if bound:
+            self.__bound__ = typing._type_check(bound, 'Bound must be a type.')
+        else:
+            self.__bound__ = None
+
+        # for pickling:
+        try:
+            def_mod = sys._getframe(1).f_globals.get('__name__', '__main__')
+        except (AttributeError, ValueError):
+            def_mod = None
+        if def_mod != 'typing_extensions':
+            self.__module__ = def_mod
+
+        self.__unpacked__ = Unpack[self]
+
+    def __repr__(self):
+        if self.__covariant__:
+            prefix = '+'
+        elif self.__contravariant__:
+            prefix = '-'
+        else:
+            prefix = ''
+        return prefix + self.__name__
+
+    def __hash__(self):
+        return object.__hash__(self)
+
+    def __eq__(self, other):
+        return self is other
+
+    def __reduce__(self):
+        return self.__name__
+
+    # # Hack to get typing._type_check to pass.
+    # def __call__(self, *args, **kwargs):
+    #     pass
+
+    if not PEP_560:
+        # Only needed in 3.6.
+        def _get_type_vars(self, tvars):
+            if self not in tvars:
+                tvars.append(self)
