@@ -2328,16 +2328,25 @@ if sys.version_info[:2] >= (3, 9):
         item = typing._type_check(parameters, f'{self._name} accepts only single type')
         return _UnpackAlias(self, (item,))
 
-    def _collect_type_vars(types):
+    # We have to do some monkey patching to deal with the dual nature of
+    # Unpack/TypeVarTuple:
+    # - We want Unpack to be a kind of TypeVar so it gets accepted in
+    #   Generic[Unpack[Ts]]
+    # - We want it to *not* be treated as a TypeVar for the purposes of
+    #   counting generic parameters, so that when we subscript a generic,
+    #   the runtime doesn't try to substitute the Unpack with the subscripted type.
+    def _collect_type_vars(types, typevar_types=None):
         """Collect all type variable contained in types in order of
         first appearance (lexicographic order). For example::
 
             _collect_type_vars((T, List[S, T])) == (T, S)
         """
+        if typevar_types is None:
+            typevar_types = typing.TypeVar
         tvars = []
         for t in types:
             if (
-                isinstance(t, typing.TypeVar)
+                isinstance(t, typevar_types)
                 and t not in tvars
                 and not isinstance(t, _UnpackAlias)
             ):
