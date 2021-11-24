@@ -28,14 +28,21 @@ def _no_slots_copy(dct):
             dict_copy.pop(slot, None)
     return dict_copy
 
-
-def _check_generic(cls, parameters):
-    if not cls.__parameters__:
+def _check_generic(cls, parameters, elen):
+    """Check correct count for parameters of a generic cls (internal helper).
+    This gives a nice error message in case of count mismatch.
+    """
+    if not elen:
         raise TypeError(f"{cls} is not a generic class")
     alen = len(parameters)
-    elen = len(cls.__parameters__)
     if alen != elen:
-        raise TypeError(f"Too {'many' if alen > elen else 'few'} arguments for {cls};"
+        if hasattr(cls, "__parameters__"):
+            num_tv_tuples = sum(
+                isinstance(p, TypeVarTuple) for p in cls.__parameters__
+            )
+            if num_tv_tuples > 0 and alen >= elen - num_tv_tuples:
+                return
+        raise TypeError(f"Too {'many' if alen > elen else 'few'} parameters for {cls};"
                         f" actual {alen}, expected {elen}")
 
 
@@ -602,7 +609,7 @@ elif PEP_560:
                         "Parameters to Protocol[...] must all be unique")
             else:
                 # Subscripting a regular Generic subclass.
-                _check_generic(cls, params)
+                _check_generic(cls, params, len(cls.__parameters__))
             return typing._GenericAlias(cls, params)
 
         def __init_subclass__(cls, *args, **kwargs):
@@ -883,7 +890,7 @@ else:
             elif self.__origin__ in (typing.Generic, Protocol):
                 raise TypeError(f"Cannot subscript already-subscripted {repr(self)}")
             else:
-                _check_generic(self, params)
+                _check_generic(self, params, len(self.__parameters__))
                 tvars = _type_vars(params)
                 args = params
 
@@ -2312,7 +2319,9 @@ if sys.version_info[:2] >= (3, 9):
             Shape = TypeVarTuple('Shape')
             Batch = NewType('Batch', int)
 
-            def add_batch_axis(x: Array[Unpack[Shape]]) -> Array[Batch, Unpack[Shape]]: ...
+            def add_batch_axis(
+                x: Array[Unpack[Shape]]
+            ) -> Array[Batch, Unpack[Shape]]: ...
 
         """
         item = typing._type_check(parameters, f'{self._name} accepts only single type')
@@ -2333,22 +2342,6 @@ if sys.version_info[:2] >= (3, 9):
         return tuple(tvars)
 
     typing._collect_type_vars = _collect_type_vars
-
-    def _check_generic(cls, parameters, elen):
-        """Check correct count for parameters of a generic cls (internal helper).
-        This gives a nice error message in case of count mismatch.
-        """
-        if not elen:
-            raise TypeError(f"{cls} is not a generic class")
-        alen = len(parameters)
-        if alen != elen:
-            if hasattr(cls, "__parameters__"):
-                num_tv_tuples = sum(isinstance(p, TypeVarTuple) for p in cls.__parameters__)
-                if num_tv_tuples > 0 and alen >= elen - num_tv_tuples:
-                    return
-            raise TypeError(f"Too {'many' if alen > elen else 'few'} parameters for {cls};"
-                            f" actual {alen}, expected {elen}")
-
     typing._check_generic = _check_generic
 
 elif sys.version_info[:2] >= (3, 7):
@@ -2371,7 +2364,9 @@ elif sys.version_info[:2] >= (3, 7):
             Shape = TypeVarTuple('Shape')
             Batch = NewType('Batch', int)
 
-            def add_batch_axis(x: Array[Unpack[Shape]]) -> Array[Batch, Unpack[Shape]]: ...
+            def add_batch_axis(
+                x: Array[Unpack[Shape]]
+            ) -> Array[Batch, Unpack[Shape]]: ...
 
         """)
 else:
@@ -2382,7 +2377,9 @@ else:
             Shape = TypeVarTuple('Shape')
             Batch = NewType('Batch', int)
 
-            def add_batch_axis(x: Array[Unpack[Shape]]) -> Array[Batch, Unpack[Shape]]: ...
+            def add_batch_axis(
+                x: Array[Unpack[Shape]]
+            ) -> Array[Batch, Unpack[Shape]]: ...
 
         """
         __slots__ = ('__type__',)
@@ -2423,7 +2420,6 @@ else:
     Unpack = _Unpack(_root=True)
 
 
-    # Inherits from list as a workaround for Callable checks in Python < 3.9.2.
 class TypeVarTuple(typing._Final, _root=True):
     """Type variable tuple.
 
