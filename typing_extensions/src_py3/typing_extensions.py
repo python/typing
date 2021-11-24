@@ -2239,7 +2239,7 @@ else:
             return hash((type(self).__name__, self.__type__))
 
         def __eq__(self, other):
-            if not isinstance(other, _Final):
+            if not isinstance(other, type(self)):
                 return NotImplemented
             if self.__type__ is not None:
                 return self.__type__ == other.__type__
