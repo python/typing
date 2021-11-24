@@ -28,6 +28,7 @@ def _no_slots_copy(dct):
             dict_copy.pop(slot, None)
     return dict_copy
 
+
 def _check_generic(cls, parameters, elen):
     """Check correct count for parameters of a generic cls (internal helper).
     This gives a nice error message in case of count mismatch.
@@ -2335,7 +2336,11 @@ if sys.version_info[:2] >= (3, 9):
         """
         tvars = []
         for t in types:
-            if isinstance(t, typing.TypeVar) and t not in tvars and not isinstance(t, _UnpackAlias):
+            if (
+                isinstance(t, typing.TypeVar)
+                and t not in tvars
+                and not isinstance(t, _UnpackAlias)
+            ):
                 tvars.append(t)
             if isinstance(t, (typing._GenericAlias, _types.GenericAlias)):
                 tvars.extend([t for t in t.__parameters__ if t not in tvars])
