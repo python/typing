@@ -1,0 +1,71 @@
+name: Test packaging
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  wheel:
+    name: Test wheel install
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3
+
+      - name: Install pypa/build
+        run: |
+          # Be wary of running `pip install` here, since it becomes easy for us to
+          # accidentally pick up typing_extensions as installed by a dependency 
+          python -m pip install --upgrade build
+          python -m pip list
+
+      - name: Build and install wheel
+        run: |
+          cd typing_extensions
+          python -m build .
+          export path_to_file=$(find dist -type f -name "typing_extensions-*.whl")
+          echo "::notice::Installing wheel: $path_to_file"
+          pip install -vvv $path_to_file
+          python -m pip list
+
+      - name: Attempt to import typing_extensions
+        run: python -c "import typing_extensions; print(typing_extensions.__all__)"
+
+  sdist:
+    name: Test sdist install
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3
+
+      - name: Install pypa/build
+        run: |
+          # Be wary of running `pip install` here, since it becomes easy for us to
+          # accidentally pick up typing_extensions as installed by a dependency 
+          python -m pip install --upgrade build
+          python -m pip list
+
+      - name: Build and install sdist
+        run: |
+          cd typing_extensions
+          python -m build .
+          export path_to_file=$(find dist -type f -name "typing_extensions-*.tar.gz")
+          echo "::notice::Installing sdist: $path_to_file"
+          pip install -vvv $path_to_file
+          python -m pip list
+
+      - name: Attempt to import typing_extensions
+        run: python -c "import typing_extensions; print(typing_extensions.__all__)"
