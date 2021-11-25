@@ -61,7 +61,3 @@ classifiers = [
 [[project.authors]]
 name = "Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee"
 email = "levkivskyi@gmail.com"
-
-# This tells Flit that the module is stored in the src_py3 directory.
-[tool.flit.module]
-name = "src_py3/typing_extensions"
