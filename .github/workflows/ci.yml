@@ -30,7 +30,7 @@ jobs:
         run: |
           # Be wary of running `pip install` here, since it becomes easy for us to
           # accidentally pick up typing_extensions as installed by a dependency 
-          cd typing_extensions/src_py3
+          cd typing_extensions/src
           python -m unittest test_typing_extensions.py
 
   linting:
@@ -63,4 +63,4 @@ jobs:
         run: flake8
 
       - name: Lint tests
-        run: flake8 --config=.flake8-tests typing_extensions/src_py3/test_typing_extensions.py
+        run: flake8 --config=.flake8-tests typing_extensions/src/test_typing_extensions.py

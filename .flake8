@@ -12,4 +12,4 @@ ignore =
 exclude =
   # tests have more relaxed formatting rules
   # and its own specific config in .flake8-tests
-  typing_extensions/src_py3/test_typing_extensions.py,
+  typing_extensions/src/test_typing_extensions.py,

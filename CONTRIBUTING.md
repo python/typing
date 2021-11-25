@@ -34,10 +34,10 @@ backwards-incompatible changes.
 
 - Build the source and wheel distributions:
 
-  - `pip3 install -U flit`
+  - `python -m pip install --upgrade build`
   - `cd typing_extensions`
   - `rm -rf dist/`
-  - `flit build --no-setup-py`
+  - `python -m build .`
 
 - Install the built distributions locally and test (if you were using `tox`, you already
   tested the source distribution).
