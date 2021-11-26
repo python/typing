@@ -2077,10 +2077,10 @@ if not hasattr(typing, "Self") and sys.version_info[:2] >= (3, 7):
             raise TypeError(f"Cannot instantiate {self!r}")
 
         def __or__(self, other):
-            return Union[self, other]
+            return typing.Union[self, other]
 
         def __ror__(self, other):
-            return Union[other, self]
+            return typing.Union[other, self]
 
         def __instancecheck__(self, obj):
             raise TypeError(f"{self} cannot be used with isinstance()")
