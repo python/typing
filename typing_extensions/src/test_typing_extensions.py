@@ -2199,6 +2199,12 @@ class SelfTests(BaseTestCase):
         with self.assertRaises(TypeError):
             issubclass(int, Self)
 
+    def test_alias(self):
+        TupleSelf = Tuple[Self, Self]
+        class Alias:
+            def return_tuple(self) -> TupleSelf:
+                return (self, self)
+
 class AllTests(BaseTestCase):
 
     def test_typing_extensions_includes_standard(self):
