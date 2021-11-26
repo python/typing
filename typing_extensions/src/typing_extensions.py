@@ -2068,7 +2068,7 @@ if not hasattr(typing, "Self") and sys.version_info[:2] >= (3, 7):
             raise TypeError(f"Cannot subclass {self!r}")
 
         def __repr__(self):
-            return 'typing.' + self._name
+            return f'typing_extensions.{self._name}'
 
         def __reduce__(self):
             return self._name
