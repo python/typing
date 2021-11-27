@@ -1,3 +1,9 @@
+# Unreleased
+
+- Fix broken sdist in release 4.0.0. Patch by Adam Turner (@AA-Turner).
+- Fix equality comparison for `Required` and `NotRequired`. Patch by
+  Jelle Zijlstra (@jellezijlstra).
+
 # Release 4.0.0 (November 14, 2021)
 
 - Starting with version 4.0.0, typing_extensions uses Semantic Versioning.
