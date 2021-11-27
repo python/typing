@@ -43,7 +43,7 @@ Type Checkers
 Development Environments
 ------------------------
 
-* `PyCharm <https://www.jetbrains.com/de-de/pycharm/>`_, an IDE that supports
+* `PyCharm <https://www.jetbrains.com/pycharm/>`_, an IDE that supports
   type stubs both for type checking and code completion.
 * `Visual Studio Code <https://code.visualstudio.com/>`_, a code editor that
   supports type checking using mypy, pyright, or the
