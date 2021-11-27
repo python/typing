@@ -1,7 +1,6 @@
 import sys
 import os
 import abc
-import contextlib
 import collections
 import collections.abc
 import pickle
@@ -46,89 +45,6 @@ class BaseTestCase(TestCase):
 
 class Employee:
     pass
-
-
-class NoReturnTests(BaseTestCase):
-
-    def test_noreturn_instance_type_error(self):
-        with self.assertRaises(TypeError):
-            isinstance(42, NoReturn)
-
-    def test_noreturn_subclass_type_error_1(self):
-        with self.assertRaises(TypeError):
-            issubclass(Employee, NoReturn)
-
-    def test_noreturn_subclass_type_error_2(self):
-        with self.assertRaises(TypeError):
-            issubclass(NoReturn, Employee)
-
-    def test_repr(self):
-        if hasattr(typing, 'NoReturn'):
-            self.assertEqual(repr(NoReturn), 'typing.NoReturn')
-        else:
-            self.assertEqual(repr(NoReturn), 'typing_extensions.NoReturn')
-
-    def test_not_generic(self):
-        with self.assertRaises(TypeError):
-            NoReturn[int]
-
-    def test_cannot_subclass(self):
-        with self.assertRaises(TypeError):
-            class A(NoReturn):
-                pass
-        with self.assertRaises(TypeError):
-            class A(type(NoReturn)):
-                pass
-
-    def test_cannot_instantiate(self):
-        with self.assertRaises(TypeError):
-            NoReturn()
-        with self.assertRaises(TypeError):
-            type(NoReturn)()
-
-
-class ClassVarTests(BaseTestCase):
-
-    def test_basics(self):
-        with self.assertRaises(TypeError):
-            ClassVar[1]
-        with self.assertRaises(TypeError):
-            ClassVar[int, str]
-        with self.assertRaises(TypeError):
-            ClassVar[int][str]
-
-    def test_repr(self):
-        if hasattr(typing, 'ClassVar'):
-            mod_name = 'typing'
-        else:
-            mod_name = 'typing_extensions'
-        self.assertEqual(repr(ClassVar), mod_name + '.ClassVar')
-        cv = ClassVar[int]
-        self.assertEqual(repr(cv), mod_name + '.ClassVar[int]')
-        cv = ClassVar[Employee]
-        self.assertEqual(repr(cv), mod_name + f'.ClassVar[{__name__}.Employee]')
-
-    def test_cannot_subclass(self):
-        with self.assertRaises(TypeError):
-            class C(type(ClassVar)):
-                pass
-        with self.assertRaises(TypeError):
-            class C(type(ClassVar[int])):
-                pass
-
-    def test_cannot_init(self):
-        with self.assertRaises(TypeError):
-            ClassVar()
-        with self.assertRaises(TypeError):
-            type(ClassVar)()
-        with self.assertRaises(TypeError):
-            type(ClassVar[Optional[int]])()
-
-    def test_no_isinstance(self):
-        with self.assertRaises(TypeError):
-            isinstance(1, ClassVar[int])
-        with self.assertRaises(TypeError):
-            issubclass(int, ClassVar)
 
 
 class FinalTests(BaseTestCase):
@@ -338,76 +254,6 @@ class LiteralTests(BaseTestCase):
         with self.assertRaises(TypeError):
             Literal[1][1]
 
-
-class OverloadTests(BaseTestCase):
-
-    def test_overload_fails(self):
-        with self.assertRaises(RuntimeError):
-
-            @overload
-            def blah():
-                pass
-
-            blah()
-
-    def test_overload_succeeds(self):
-        @overload
-        def blah():
-            pass
-
-        def blah():
-            pass
-
-        blah()
-
-
-
-T_a = TypeVar('T_a')
-
-class AwaitableWrapper(Awaitable[T_a]):
-
-    def __init__(self, value):
-        self.value = value
-
-    def __await__(self) -> typing.Iterator[T_a]:
-        yield
-        return self.value
-
-class AsyncIteratorWrapper(AsyncIterator[T_a]):
-
-    def __init__(self, value: Iterable[T_a]):
-        self.value = value
-
-    def __aiter__(self) -> AsyncIterator[T_a]:
-        return self
-
-    async def __anext__(self) -> T_a:
-        data = await self.value
-        if data:
-            return data
-        else:
-            raise StopAsyncIteration
-
-class ACM:
-    async def __aenter__(self) -> int:
-        return 42
-
-    async def __aexit__(self, etype, eval, tb):
-        return None
-
-
-
-class A:
-    y: float
-class B(A):
-    x: ClassVar[Optional['B']] = None
-    y: int
-    b: int
-class CSub(B):
-    z: ClassVar['CSub'] = B()
-class G(Generic[T]):
-    lst: ClassVar[List[T]] = []
-
 class Loop:
     attr: Final['Loop']
 
@@ -415,30 +261,9 @@ class NoneAndForward:
     parent: 'NoneAndForward'
     meaning: None
 
-class XRepr(NamedTuple):
-    x: int
-    y: int = 1
-
-    def __str__(self):
-        return f'{self.x} -> {self.y}'
-
-    def __add__(self, other):
-        return 0
-
 @runtime
 class HasCallProtocol(Protocol):
     __call__: typing.Callable
-
-
-async def g_with(am: AsyncContextManager[int]):
-    x: int
-    async with am as x:
-        return x
-
-try:
-    g_with(ACM()).send(None)
-except StopIteration as e:
-    assert e.args[0] == 42
 
 Label = TypedDict('Label', [('label', str)])
 
@@ -508,16 +333,6 @@ class GetTypeHintTests(BaseTestCase):
         @no_type_check
         class Der(ABase): ...
         self.assertEqual(gth(ABase.meth), {'x': int})
-
-    def test_get_type_hints_ClassVar(self):
-        self.assertEqual(gth(ann_module2.CV, ann_module2.__dict__),
-                         {'var': ClassVar[ann_module2.CV]})
-        self.assertEqual(gth(B, globals()),
-                         {'y': int, 'x': ClassVar[Optional[B]], 'b': int})
-        self.assertEqual(gth(CSub, globals()),
-                         {'z': ClassVar[CSub], 'y': int, 'b': int,
-                          'x': ClassVar[Optional[B]]})
-        self.assertEqual(gth(G), {'lst': ClassVar[List[T]]})
 
     def test_final_forward_ref(self):
         self.assertEqual(gth(Loop, globals())['attr'], Final[Loop])
@@ -598,90 +413,7 @@ class GetUtilitiesTestCase(TestCase):
                          (Concatenate[int, P], int))
 
 
-class CollectionsAbcTests(BaseTestCase):
-
-    def test_isinstance_collections(self):
-        self.assertNotIsInstance(1, collections.abc.Mapping)
-        self.assertNotIsInstance(1, collections.abc.Iterable)
-        self.assertNotIsInstance(1, collections.abc.Container)
-        self.assertNotIsInstance(1, collections.abc.Sized)
-        with self.assertRaises(TypeError):
-            isinstance(collections.deque(), typing_extensions.Deque[int])
-        with self.assertRaises(TypeError):
-            issubclass(collections.Counter, typing_extensions.Counter[str])
-
-    def test_awaitable(self):
-        ns = {}
-        exec(
-            "async def foo() -> typing_extensions.Awaitable[int]:\n"
-            "    return await AwaitableWrapper(42)\n",
-            globals(), ns)
-        foo = ns['foo']
-        g = foo()
-        self.assertIsInstance(g, typing_extensions.Awaitable)
-        self.assertNotIsInstance(foo, typing_extensions.Awaitable)
-        g.send(None)  # Run foo() till completion, to avoid warning.
-
-    def test_coroutine(self):
-        ns = {}
-        exec(
-            "async def foo():\n"
-            "    return\n",
-            globals(), ns)
-        foo = ns['foo']
-        g = foo()
-        self.assertIsInstance(g, typing_extensions.Coroutine)
-        with self.assertRaises(TypeError):
-            isinstance(g, typing_extensions.Coroutine[int])
-        self.assertNotIsInstance(foo, typing_extensions.Coroutine)
-        try:
-            g.send(None)
-        except StopIteration:
-            pass
-
-    def test_async_iterable(self):
-        base_it = range(10)  # type: Iterator[int]
-        it = AsyncIteratorWrapper(base_it)
-        self.assertIsInstance(it, typing_extensions.AsyncIterable)
-        self.assertIsInstance(it, typing_extensions.AsyncIterable)
-        self.assertNotIsInstance(42, typing_extensions.AsyncIterable)
-
-    def test_async_iterator(self):
-        base_it = range(10)  # type: Iterator[int]
-        it = AsyncIteratorWrapper(base_it)
-        self.assertIsInstance(it, typing_extensions.AsyncIterator)
-        self.assertNotIsInstance(42, typing_extensions.AsyncIterator)
-
-    def test_deque(self):
-        self.assertIsSubclass(collections.deque, typing_extensions.Deque)
-        class MyDeque(typing_extensions.Deque[int]): ...
-        self.assertIsInstance(MyDeque(), collections.deque)
-
-    def test_counter(self):
-        self.assertIsSubclass(collections.Counter, typing_extensions.Counter)
-
-    def test_defaultdict_instantiation(self):
-        self.assertIs(
-            type(typing_extensions.DefaultDict()),
-            collections.defaultdict)
-        self.assertIs(
-            type(typing_extensions.DefaultDict[KT, VT]()),
-            collections.defaultdict)
-        self.assertIs(
-            type(typing_extensions.DefaultDict[str, int]()),
-            collections.defaultdict)
-
-    def test_defaultdict_subclass(self):
-
-        class MyDefDict(typing_extensions.DefaultDict[str, int]):
-            pass
-
-        dd = MyDefDict()
-        self.assertIsInstance(dd, MyDefDict)
-
-        self.assertIsSubclass(MyDefDict, collections.defaultdict)
-        self.assertNotIsSubclass(collections.defaultdict, MyDefDict)
-
+class OrderedDictTests(BaseTestCase):
     def test_ordereddict_instantiation(self):
         self.assertIs(
             type(typing_extensions.OrderedDict()),
@@ -703,175 +435,6 @@ class CollectionsAbcTests(BaseTestCase):
 
         self.assertIsSubclass(MyOrdDict, collections.OrderedDict)
         self.assertNotIsSubclass(collections.OrderedDict, MyOrdDict)
-
-    def test_chainmap_instantiation(self):
-        self.assertIs(type(typing_extensions.ChainMap()), collections.ChainMap)
-        self.assertIs(type(typing_extensions.ChainMap[KT, VT]()), collections.ChainMap)
-        self.assertIs(type(typing_extensions.ChainMap[str, int]()), collections.ChainMap)
-        class CM(typing_extensions.ChainMap[KT, VT]): ...
-        self.assertIs(type(CM[int, str]()), CM)
-
-    def test_chainmap_subclass(self):
-
-        class MyChainMap(typing_extensions.ChainMap[str, int]):
-            pass
-
-        cm = MyChainMap()
-        self.assertIsInstance(cm, MyChainMap)
-
-        self.assertIsSubclass(MyChainMap, collections.ChainMap)
-        self.assertNotIsSubclass(collections.ChainMap, MyChainMap)
-
-    def test_deque_instantiation(self):
-        self.assertIs(type(typing_extensions.Deque()), collections.deque)
-        self.assertIs(type(typing_extensions.Deque[T]()), collections.deque)
-        self.assertIs(type(typing_extensions.Deque[int]()), collections.deque)
-        class D(typing_extensions.Deque[T]): ...
-        self.assertIs(type(D[int]()), D)
-
-    def test_counter_instantiation(self):
-        self.assertIs(type(typing_extensions.Counter()), collections.Counter)
-        self.assertIs(type(typing_extensions.Counter[T]()), collections.Counter)
-        self.assertIs(type(typing_extensions.Counter[int]()), collections.Counter)
-        class C(typing_extensions.Counter[T]): ...
-        self.assertIs(type(C[int]()), C)
-        self.assertEqual(C.__bases__, (collections.Counter, typing.Generic))
-
-    def test_counter_subclass_instantiation(self):
-
-        class MyCounter(typing_extensions.Counter[int]):
-            pass
-
-        d = MyCounter()
-        self.assertIsInstance(d, MyCounter)
-        self.assertIsInstance(d, collections.Counter)
-        self.assertIsInstance(d, typing_extensions.Counter)
-
-    def test_async_generator(self):
-        ns = {}
-        exec("async def f():\n"
-             "    yield 42\n", globals(), ns)
-        g = ns['f']()
-        self.assertIsSubclass(type(g), typing_extensions.AsyncGenerator)
-
-    def test_no_async_generator_instantiation(self):
-        with self.assertRaises(TypeError):
-            typing_extensions.AsyncGenerator()
-        with self.assertRaises(TypeError):
-            typing_extensions.AsyncGenerator[T, T]()
-        with self.assertRaises(TypeError):
-            typing_extensions.AsyncGenerator[int, int]()
-
-    def test_subclassing_async_generator(self):
-        class G(typing_extensions.AsyncGenerator[int, int]):
-            def asend(self, value):
-                pass
-            def athrow(self, typ, val=None, tb=None):
-                pass
-
-        ns = {}
-        exec('async def g(): yield 0', globals(), ns)
-        g = ns['g']
-        self.assertIsSubclass(G, typing_extensions.AsyncGenerator)
-        self.assertIsSubclass(G, typing_extensions.AsyncIterable)
-        self.assertIsSubclass(G, collections.abc.AsyncGenerator)
-        self.assertIsSubclass(G, collections.abc.AsyncIterable)
-        self.assertNotIsSubclass(type(g), G)
-
-        instance = G()
-        self.assertIsInstance(instance, typing_extensions.AsyncGenerator)
-        self.assertIsInstance(instance, typing_extensions.AsyncIterable)
-        self.assertIsInstance(instance, collections.abc.AsyncGenerator)
-        self.assertIsInstance(instance, collections.abc.AsyncIterable)
-        self.assertNotIsInstance(type(g), G)
-        self.assertNotIsInstance(g, G)
-
-
-class OtherABCTests(BaseTestCase):
-
-    def test_contextmanager(self):
-        @contextlib.contextmanager
-        def manager():
-            yield 42
-
-        cm = manager()
-        self.assertIsInstance(cm, typing_extensions.ContextManager)
-        self.assertNotIsInstance(42, typing_extensions.ContextManager)
-
-    def test_async_contextmanager(self):
-        class NotACM:
-            pass
-        self.assertIsInstance(ACM(), typing_extensions.AsyncContextManager)
-        self.assertNotIsInstance(NotACM(), typing_extensions.AsyncContextManager)
-        @contextlib.contextmanager
-        def manager():
-            yield 42
-
-        cm = manager()
-        self.assertNotIsInstance(cm, typing_extensions.AsyncContextManager)
-        self.assertEqual(typing_extensions.AsyncContextManager[int].__args__, (int,))
-        with self.assertRaises(TypeError):
-            isinstance(42, typing_extensions.AsyncContextManager[int])
-        with self.assertRaises(TypeError):
-            typing_extensions.AsyncContextManager[int, str]
-
-
-class TypeTests(BaseTestCase):
-
-    def test_type_basic(self):
-
-        class User: pass
-        class BasicUser(User): pass
-        class ProUser(User): pass
-
-        def new_user(user_class: Type[User]) -> User:
-            return user_class()
-
-        new_user(BasicUser)
-
-    def test_type_typevar(self):
-
-        class User: pass
-        class BasicUser(User): pass
-        class ProUser(User): pass
-
-        U = TypeVar('U', bound=User)
-
-        def new_user(user_class: Type[U]) -> U:
-            return user_class()
-
-        new_user(BasicUser)
-
-    def test_type_optional(self):
-        A = Optional[Type[BaseException]]
-
-        def foo(a: A) -> Optional[BaseException]:
-            if a is None:
-                return None
-            else:
-                return a()
-
-        assert isinstance(foo(KeyboardInterrupt), KeyboardInterrupt)
-        assert foo(None) is None
-
-
-class NewTypeTests(BaseTestCase):
-
-    def test_basic(self):
-        UserId = NewType('UserId', int)
-        UserName = NewType('UserName', str)
-        self.assertIsInstance(UserId(5), int)
-        self.assertIsInstance(UserName('Joe'), str)
-        self.assertEqual(UserId(5) + 1, 6)
-
-    def test_errors(self):
-        UserId = NewType('UserId', int)
-        UserName = NewType('UserName', str)
-        with self.assertRaises(TypeError):
-            issubclass(UserId, int)
-        with self.assertRaises(TypeError):
-            class D(UserName):
-                pass
 
 
 class Coordinate(Protocol):
