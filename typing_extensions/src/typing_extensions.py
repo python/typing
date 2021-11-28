@@ -55,7 +55,28 @@ __all__ = [
     'TYPE_CHECKING',
 ]
 
+# Unconditionally re-exported names from typing
+ClassVar = typing.ClassVar
+Type = typing.Type  # This is not a real generic class.  Don't use outside annotations.
+
+NewType = typing.NewType
 NoReturn = typing.NoReturn
+overload = typing.overload
+Text = typing.Text
+TYPE_CHECKING = typing.TYPE_CHECKING
+
+AsyncContextManager = typing.AsyncContextManager
+AsyncGenerator = typing.AsyncGenerator
+AsyncIterable = typing.AsyncIterable
+AsyncIterator = typing.AsyncIterator
+Awaitable = typing.Awaitable
+ContextManager = typing.ContextManager
+Coroutine = typing.Coroutine
+
+ChainMap = typing.ChainMap
+Counter = typing.Counter
+Deque = typing.Deque
+DefaultDict = typing.DefaultDict
 
 # Some unconstrained type variables.  These are used by the container types.
 # (These are not for export.)
@@ -67,8 +88,6 @@ class _ReprForm(typing._SpecialForm, _root=True):
     def __repr__(self):
         return 'typing_extensions.' + self._name
 
-
-ClassVar = typing.ClassVar
 
 # On older versions of typing there is an internal class named "Final".
 # 3.8+
@@ -152,36 +171,12 @@ else:
                            checking verifying that the parameter is actually a value
                            instead of a type.""")
 
-overload = typing.overload
-
-# This is not a real generic class.  Don't use outside annotations.
-Type = typing.Type
-
-# Various ABCs mimicking those in collections.abc.
-# A few are simply re-exported for completeness.
-Awaitable = typing.Awaitable
-Coroutine = typing.Coroutine
-AsyncIterable = typing.AsyncIterable
-AsyncIterator = typing.AsyncIterator
-Deque = typing.Deque
-ContextManager = typing.ContextManager
-AsyncContextManager = typing.AsyncContextManager
-DefaultDict = typing.DefaultDict
-
 # 3.7.2+
 if hasattr(typing, 'OrderedDict'):
     OrderedDict = typing.OrderedDict
 # 3.7.0-3.7.2
 else:
     OrderedDict = typing._alias(collections.OrderedDict, (KT, VT))
-
-Counter = typing.Counter
-ChainMap = typing.ChainMap
-AsyncGenerator = typing.AsyncGenerator
-
-NewType = typing.NewType
-Text = typing.Text
-TYPE_CHECKING = typing.TYPE_CHECKING
 
 _PROTO_WHITELIST = ['Callable', 'Awaitable',
                     'Iterable', 'Iterator', 'AsyncIterable', 'AsyncIterator',
