@@ -2048,7 +2048,9 @@ else:
 
     TypeGuard = _TypeGuard(_root=True)
 
-if not hasattr(typing, "Self") and sys.version_info[:2] >= (3, 7):
+if hasattr(typing, "Self"):
+    Self = typing.Self
+elif sys.version_info[:2] >= (3, 7):
     # Vendored from cpython typing._SpecialFrom
     class _SpecialForm(typing._Final, _root=True):
         __slots__ = ('_name', '__doc__', '_getitem')
@@ -2092,15 +2094,7 @@ if not hasattr(typing, "Self") and sys.version_info[:2] >= (3, 7):
         def __getitem__(self, parameters):
             return self._getitem(self, parameters)
 
-if hasattr(typing, "Self"):
-    Self = typing.Self
-
-elif sys.version_info[:2] >= (3, 7):
-    class _SelfForm(_SpecialForm, _root=True):
-        def __repr__(self):
-            return 'typing_extensions.' + self._name
-
-    @_SelfForm
+    @_SpecialForm
     def Self(self, params):
         """Used to spell the type of "self" in classes.
 
