@@ -62,6 +62,12 @@ NoReturn = typing.NoReturn
 KT = typing.TypeVar('KT')  # Key type.
 VT = typing.TypeVar('VT')  # Value type.
 
+
+class _ReprForm(typing._SpecialForm, _root=True):
+    def __repr__(self):
+        return 'typing_extensions.' + self._name
+
+
 ClassVar = typing.ClassVar
 
 # On older versions of typing there is an internal class named "Final".
@@ -70,11 +76,7 @@ if hasattr(typing, 'Final'):
     Final = typing.Final
 # 3.7
 else:
-    class _FinalForm(typing._SpecialForm, _root=True):
-
-        def __repr__(self):
-            return 'typing_extensions.' + self._name
-
+    class _FinalForm(_ReprForm, _root=True):
         def __getitem__(self, parameters):
             item = typing._type_check(parameters,
                                       f'{self._name} accepts only single type')
@@ -132,11 +134,7 @@ if hasattr(typing, 'Literal'):
     Literal = typing.Literal
 # 3.7:
 else:
-    class _LiteralForm(typing._SpecialForm, _root=True):
-
-        def __repr__(self):
-            return 'typing_extensions.' + self._name
-
+    class _LiteralForm(_ReprForm, _root=True):
         def __getitem__(self, parameters):
             return typing._GenericAlias(self, parameters)
 
@@ -816,11 +814,7 @@ if hasattr(typing, 'TypeAlias'):
     TypeAlias = typing.TypeAlias
 # 3.9
 elif sys.version_info[:2] >= (3, 9):
-    class _TypeAliasForm(typing._SpecialForm, _root=True):
-        def __repr__(self):
-            return 'typing_extensions.' + self._name
-
-    @_TypeAliasForm
+    @_ReprForm
     def TypeAlias(self, parameters):
         """Special marker indicating that an assignment should
         be recognized as a proper type alias definition by type
@@ -835,21 +829,17 @@ elif sys.version_info[:2] >= (3, 9):
         raise TypeError(f"{self} is not subscriptable")
 # 3.7-3.8
 else:
-    class _TypeAliasForm(typing._SpecialForm, _root=True):
-        def __repr__(self):
-            return 'typing_extensions.' + self._name
+    TypeAlias = _ReprForm('TypeAlias',
+                          doc="""Special marker indicating that an assignment should
+                          be recognized as a proper type alias definition by type
+                          checkers.
 
-    TypeAlias = _TypeAliasForm('TypeAlias',
-                               doc="""Special marker indicating that an assignment should
-                               be recognized as a proper type alias definition by type
-                               checkers.
+                          For example::
 
-                               For example::
+                              Predicate: TypeAlias = Callable[..., bool]
 
-                                   Predicate: TypeAlias = Callable[..., bool]
-
-                               It's invalid when used anywhere except as in the example
-                               above.""")
+                          It's invalid when used anywhere except as in the example
+                          above.""")
 
 # Python 3.10+ has PEP 612
 if hasattr(typing, 'ParamSpecArgs'):
@@ -1062,7 +1052,7 @@ if hasattr(typing, 'Concatenate'):
     _ConcatenateGenericAlias = typing._ConcatenateGenericAlias # noqa
 # 3.9
 elif sys.version_info[:2] >= (3, 9):
-    @_TypeAliasForm
+    @_ReprForm
     def Concatenate(self, parameters):
         """Used in conjunction with ``ParamSpec`` and ``Callable`` to represent a
         higher order function which adds, removes or transforms parameters of a
@@ -1077,10 +1067,7 @@ elif sys.version_info[:2] >= (3, 9):
         return _concatenate_getitem(self, parameters)
 # 3.7-8
 else:
-    class _ConcatenateForm(typing._SpecialForm, _root=True):
-        def __repr__(self):
-            return 'typing_extensions.' + self._name
-
+    class _ConcatenateForm(_ReprForm, _root=True):
         def __getitem__(self, parameters):
             return _concatenate_getitem(self, parameters)
 
@@ -1102,11 +1089,7 @@ if hasattr(typing, 'TypeGuard'):
     TypeGuard = typing.TypeGuard
 # 3.9
 elif sys.version_info[:2] >= (3, 9):
-    class _TypeGuardForm(typing._SpecialForm, _root=True):
-        def __repr__(self):
-            return 'typing_extensions.' + self._name
-
-    @_TypeGuardForm
+    @_ReprForm
     def TypeGuard(self, parameters):
         """Special typing form used to annotate the return type of a user-defined
         type guard function.  ``TypeGuard`` only accepts a single type argument.
@@ -1154,11 +1137,7 @@ elif sys.version_info[:2] >= (3, 9):
         return typing._GenericAlias(self, (item,))
 # 3.7-3.8
 else:
-    class _TypeGuardForm(typing._SpecialForm, _root=True):
-
-        def __repr__(self):
-            return 'typing_extensions.' + self._name
-
+    class _TypeGuardForm(_ReprForm, _root=True):
         def __getitem__(self, parameters):
             item = typing._type_check(parameters,
                                       f'{self._name} accepts only a single type')
@@ -1282,11 +1261,7 @@ if hasattr(typing, 'Required'):
     NotRequired = typing.NotRequired
 # 3.9+
 elif sys.version_info[:2] >= (3, 9):
-    class _ExtensionsSpecialForm(typing._SpecialForm, _root=True):
-        def __repr__(self):
-            return 'typing_extensions.' + self._name
-
-    @_ExtensionsSpecialForm
+    @_ReprForm
     def Required(self, parameters):
         """A special typing construct to mark a key of a total=False TypedDict
         as required. For example:
@@ -1306,7 +1281,7 @@ elif sys.version_info[:2] >= (3, 9):
         item = typing._type_check(parameters, f'{self._name} accepts only single type')
         return typing._GenericAlias(self, (item,))
 
-    @_ExtensionsSpecialForm
+    @_ReprForm
     def NotRequired(self, parameters):
         """A special typing construct to mark a key of a TypedDict as
         potentially missing. For example:
@@ -1324,10 +1299,7 @@ elif sys.version_info[:2] >= (3, 9):
         return typing._GenericAlias(self, (item,))
 # 3.7-3.8
 else:
-    class _RequiredForm(typing._SpecialForm, _root=True):
-        def __repr__(self):
-            return 'typing_extensions.' + self._name
-
+    class _RequiredForm(_ReprForm, _root=True):
         def __getitem__(self, parameters):
             item = typing._type_check(parameters,
                                       f'{self._name} accepts only single type')
