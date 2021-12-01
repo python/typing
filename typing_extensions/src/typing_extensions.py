@@ -2346,9 +2346,9 @@ if sys.version_info[:2] >= (3, 9):
         tvars = []
         for t in types:
             if (
-                isinstance(t, typevar_types)
-                and t not in tvars
-                and not isinstance(t, _UnpackAlias)
+                isinstance(t, typevar_types) and
+                t not in tvars and
+                not isinstance(t, _UnpackAlias)
             ):
                 tvars.append(t)
             if isinstance(t, (typing._GenericAlias, _types.GenericAlias)):
