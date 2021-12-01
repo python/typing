@@ -551,6 +551,7 @@ class GetUtilitiesTestCase(TestCase):
 
         T = TypeVar('T')
         P = ParamSpec('P')
+        Ts = TypeVarTuple('Ts')
         class C(Generic[T]): pass
         self.assertIs(get_origin(C[int]), C)
         self.assertIs(get_origin(C[T]), C)
@@ -571,11 +572,16 @@ class GetUtilitiesTestCase(TestCase):
         self.assertIs(get_origin(list), None)
         self.assertIs(get_origin(P.args), P)
         self.assertIs(get_origin(P.kwargs), P)
+        self.assertIs(get_origin(Required[int]), Required)
+        self.assertIs(get_origin(NotRequired[int]), NotRequired)
+        self.assertIs(get_origin(Unpack[Ts]), Unpack)
+        self.assertIs(get_origin(Unpack), None)
 
     def test_get_args(self):
         from typing_extensions import get_args
 
         T = TypeVar('T')
+        Ts = TypeVarTuple('Ts')
         class C(Generic[T]): pass
         self.assertEqual(get_args(C[int]), (int,))
         self.assertEqual(get_args(C[T]), (T,))
@@ -616,6 +622,10 @@ class GetUtilitiesTestCase(TestCase):
         self.assertIn(get_args(Callable[P, int]), [(P, int), ([P], int)])
         self.assertEqual(get_args(Callable[Concatenate[int, P], int]),
                          (Concatenate[int, P], int))
+        self.assertEqual(get_args(Required[int]), (int,))
+        self.assertEqual(get_args(NotRequired[int]), (int,))
+        self.assertEqual(get_args(Unpack[Ts]), (Ts,))
+        self.assertEqual(get_args(Unpack), ())
 
 
 class CollectionsAbcTests(BaseTestCase):
@@ -2305,7 +2315,6 @@ class TypeVarTupleTests(BaseTestCase):
     def test_repr(self):
         Ts = TypeVarTuple('Ts')
         self.assertEqual(repr(Ts), 'Ts')
-        self.assertEqual(repr(Unpack[Ts]), 'typing_extensions.Unpack[Ts]')
 
     def test_no_redefinition(self):
         self.assertNotEqual(TypeVarTuple('Ts'), TypeVarTuple('Ts'))
