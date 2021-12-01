@@ -2434,7 +2434,7 @@ else:
     Unpack = _Unpack(_root=True)
 
 
-class TypeVarTuple(typing._Final, _root=True):
+class TypeVarTuple:
     """Type variable tuple.
 
     Usage::
@@ -2488,9 +2488,9 @@ class TypeVarTuple(typing._Final, _root=True):
     def __reduce__(self):
         return self.__name__
 
-    # # Hack to get typing._type_check to pass.
-    # def __call__(self, *args, **kwargs):
-    #     pass
+    def __init_subclass__(self, /, *args, **kwds):
+        if '_root' not in kwds:
+            raise TypeError("Cannot subclass special typing classes")
 
     if not PEP_560:
         # Only needed in 3.6.
