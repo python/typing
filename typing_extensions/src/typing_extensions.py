@@ -2372,7 +2372,7 @@ elif sys.version_info[:2] >= (3, 7):
             return _UnpackAlias(self, (item,))
 
     Unpack = _UnpackForm(
-        'Required',
+        'Unpack',
         doc="""A special typing construct to unpack a variadic type. For example:
 
             Shape = TypeVarTuple('Shape')
