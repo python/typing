@@ -83,6 +83,7 @@ def _no_slots_copy(dct):
 
 _marker = object()
 
+
 def _check_generic(cls, parameters, elen=_marker):
     """Check correct count for parameters of a generic cls (internal helper).
     This gives a nice error message in case of count mismatch.
@@ -106,7 +107,9 @@ def _check_generic(cls, parameters, elen=_marker):
 
 if sys.version_info >= (3, 10):
     def _should_collect_from_parameters(t):
-        return isinstance(t, (typing._GenericAlias, _types.GenericAlias, _types.UnionType))
+        return isinstance(
+            t, (typing._GenericAlias, _types.GenericAlias, _types.UnionType)
+        )
 elif sys.version_info >= (3, 9):
     def _should_collect_from_parameters(t):
         return isinstance(t, (typing._GenericAlias, _types.GenericAlias))
