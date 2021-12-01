@@ -2206,56 +2206,30 @@ class SelfTests(BaseTestCase):
             def return_tuple(self) -> TupleSelf:
                 return (self, self)
 
-class TypeVarTupleTests(BaseTestCase):
 
+class UnpackTests(BaseTestCase):
     def test_basic_plain(self):
-        Ts = TypeVarTuple('Ts')
-        self.assertEqual(Ts, Ts)
-        self.assertEqual(Unpack[Ts], Unpack[Ts])
-        self.assertIsInstance(Ts, TypeVarTuple)
-
-    def test_repr(self):
-        Ts = TypeVarTuple('Ts')
-        self.assertEqual(repr(Ts), 'Ts')
-        self.assertEqual(repr(Unpack[Ts]), 'typing_extensions.Unpack[Ts]')
-
-    def test_no_redefinition(self):
-        self.assertNotEqual(TypeVarTuple('Ts'), TypeVarTuple('Ts'))
-
-    def test_cannot_subclass_vars(self):
-        with self.assertRaises(TypeError):
-            class V(TypeVarTuple('Ts')):
-                pass
-        with self.assertRaises(TypeError):
-            class V(Unpack[TypeVarTuple('Ts')]):
-                pass
-
-    def test_cannot_subclass_var_itself(self):
-        with self.assertRaises(TypeError):
-            class V(TypeVarTuple):
-                pass
-
-    def test_cannot_instantiate_vars(self):
-        Ts = TypeVarTuple('Ts')
-        with self.assertRaises(TypeError):
-            Ts()
-
-    def test_unpack(self):
         Ts = TypeVarTuple('Ts')
         self.assertEqual(Unpack[Ts], Unpack[Ts])
         with self.assertRaises(TypeError):
             Unpack()
 
+    def test_repr(self):
+        Ts = TypeVarTuple('Ts')
+        self.assertEqual(repr(Unpack[Ts]), 'typing_extensions.Unpack[Ts]')
+
+    def test_cannot_subclass_vars(self):
+        with self.assertRaises(TypeError):
+            class V(Unpack[TypeVarTuple('Ts')]):
+                pass
+
     def test_tuple(self):
         Ts = TypeVarTuple('Ts')
         Tuple[Unpack[Ts]]
-        # Not legal at type checking time but we can't really check against it.
-        Tuple[Ts]
 
     def test_union(self):
         Xs = TypeVarTuple('Xs')
         Ys = TypeVarTuple('Ys')
-        self.assertNotEqual(Xs, Ys)
         self.assertEqual(
             Union[Unpack[Xs]],
             Unpack[Xs]
@@ -2316,6 +2290,45 @@ class TypeVarTupleTests(BaseTestCase):
         C[int, str, float]
         with self.assertRaises(TypeError):
             C[int]
+
+
+class TypeVarTupleTests(BaseTestCase):
+
+    def test_basic_plain(self):
+        Ts = TypeVarTuple('Ts')
+        self.assertEqual(Ts, Ts)
+        self.assertIsInstance(Ts, TypeVarTuple)
+        Xs = TypeVarTuple('Xs')
+        Ys = TypeVarTuple('Ys')
+        self.assertNotEqual(Xs, Ys)
+
+    def test_repr(self):
+        Ts = TypeVarTuple('Ts')
+        self.assertEqual(repr(Ts), 'Ts')
+        self.assertEqual(repr(Unpack[Ts]), 'typing_extensions.Unpack[Ts]')
+
+    def test_no_redefinition(self):
+        self.assertNotEqual(TypeVarTuple('Ts'), TypeVarTuple('Ts'))
+
+    def test_cannot_subclass_vars(self):
+        with self.assertRaises(TypeError):
+            class V(TypeVarTuple('Ts')):
+                pass
+
+    def test_cannot_subclass_var_itself(self):
+        with self.assertRaises(TypeError):
+            class V(TypeVarTuple):
+                pass
+
+    def test_cannot_instantiate_vars(self):
+        Ts = TypeVarTuple('Ts')
+        with self.assertRaises(TypeError):
+            Ts()
+
+    def test_tuple(self):
+        Ts = TypeVarTuple('Ts')
+        # Not legal at type checking time but we can't really check against it.
+        Tuple[Ts]
 
     def test_args_and_parameters(self):
         Ts = TypeVarTuple('Ts')
