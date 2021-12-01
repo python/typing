@@ -17,35 +17,6 @@ else:
     # 3.6
     from typing import GenericMeta, _type_vars  # noqa
 
-# The two functions below are copies of typing internal helpers.
-# They are needed by _ProtocolMeta
-
-
-def _no_slots_copy(dct):
-    dict_copy = dict(dct)
-    if '__slots__' in dict_copy:
-        for slot in dict_copy['__slots__']:
-            dict_copy.pop(slot, None)
-    return dict_copy
-
-
-def _check_generic(cls, parameters, elen):
-    """Check correct count for parameters of a generic cls (internal helper).
-    This gives a nice error message in case of count mismatch.
-    """
-    if not elen:
-        raise TypeError(f"{cls} is not a generic class")
-    alen = len(parameters)
-    if alen != elen:
-        if hasattr(cls, "__parameters__"):
-            num_tv_tuples = sum(
-                isinstance(p, TypeVarTuple) for p in cls.__parameters__
-            )
-            if num_tv_tuples > 0 and alen >= elen - num_tv_tuples:
-                return
-        raise TypeError(f"Too {'many' if alen > elen else 'few'} parameters for {cls};"
-                        f" actual {alen}, expected {elen}")
-
 
 # Please keep __all__ alphabetized within each category.
 __all__ = [
@@ -97,6 +68,85 @@ __all__ = [
 
 if PEP_560:
     __all__.extend(["get_args", "get_origin", "get_type_hints"])
+
+# The functions below are modified copies of typing internal helpers.
+# They are needed by _ProtocolMeta and they provide support for PEP 646.
+
+
+def _no_slots_copy(dct):
+    dict_copy = dict(dct)
+    if '__slots__' in dict_copy:
+        for slot in dict_copy['__slots__']:
+            dict_copy.pop(slot, None)
+    return dict_copy
+
+
+_marker = object()
+
+def _check_generic(cls, parameters, elen=_marker):
+    """Check correct count for parameters of a generic cls (internal helper).
+    This gives a nice error message in case of count mismatch.
+    """
+    if not elen:
+        raise TypeError(f"{cls} is not a generic class")
+    if elen is _marker:
+        if not hasattr(cls, "__parameters__") or not cls.__parameters__:
+            raise TypeError(f"{cls} is not a generic class")
+        elen = len(cls.__parameters__)
+    alen = len(parameters)
+    if alen != elen:
+        if hasattr(cls, "__parameters__"):
+            parameters = [p for p in cls.__parameters__ if not _is_unpack(p)]
+            num_tv_tuples = sum(isinstance(p, TypeVarTuple) for p in parameters)
+            if num_tv_tuples > 0 and alen >= elen - num_tv_tuples:
+                return
+        raise TypeError(f"Too {'many' if alen > elen else 'few'} parameters for {cls};"
+                        f" actual {alen}, expected {elen}")
+
+
+if sys.version_info >= (3, 10):
+    def _should_collect_from_parameters(t):
+        return isinstance(t, (typing._GenericAlias, _types.GenericAlias, _types.UnionType))
+elif sys.version_info >= (3, 9):
+    def _should_collect_from_parameters(t):
+        return isinstance(t, (typing._GenericAlias, _types.GenericAlias))
+else:
+    def _should_collect_from_parameters(t):
+        return isinstance(t, typing._GenericAlias) and not t._special
+
+
+def _collect_type_vars(types, typevar_types=None):
+    """Collect all type variable contained in types in order of
+    first appearance (lexicographic order). For example::
+
+        _collect_type_vars((T, List[S, T])) == (T, S)
+    """
+    if typevar_types is None:
+        typevar_types = typing.TypeVar
+    tvars = []
+    for t in types:
+        if (
+            isinstance(t, typevar_types) and
+            t not in tvars and
+            not isinstance(t, _UnpackAlias)
+        ):
+            tvars.append(t)
+        if _should_collect_from_parameters(t):
+            tvars.extend([t for t in t.__parameters__ if t not in tvars])
+    return tuple(tvars)
+
+
+# We have to do some monkey patching to deal with the dual nature of
+# Unpack/TypeVarTuple:
+# - We want Unpack to be a kind of TypeVar so it gets accepted in
+#   Generic[Unpack[Ts]]
+# - We want it to *not* be treated as a TypeVar for the purposes of
+#   counting generic parameters, so that when we subscript a generic,
+#   the runtime doesn't try to substitute the Unpack with the subscripted type.
+if not hasattr(typing, "TypeVarTuple"):
+    typing._collect_type_vars = _collect_type_vars
+    typing._check_generic = _check_generic
+
 
 # 3.6.2+
 if hasattr(typing, 'NoReturn'):
@@ -2328,35 +2378,8 @@ if sys.version_info[:2] >= (3, 9):
         item = typing._type_check(parameters, f'{self._name} accepts only single type')
         return _UnpackAlias(self, (item,))
 
-    # We have to do some monkey patching to deal with the dual nature of
-    # Unpack/TypeVarTuple:
-    # - We want Unpack to be a kind of TypeVar so it gets accepted in
-    #   Generic[Unpack[Ts]]
-    # - We want it to *not* be treated as a TypeVar for the purposes of
-    #   counting generic parameters, so that when we subscript a generic,
-    #   the runtime doesn't try to substitute the Unpack with the subscripted type.
-    def _collect_type_vars(types, typevar_types=None):
-        """Collect all type variable contained in types in order of
-        first appearance (lexicographic order). For example::
-
-            _collect_type_vars((T, List[S, T])) == (T, S)
-        """
-        if typevar_types is None:
-            typevar_types = typing.TypeVar
-        tvars = []
-        for t in types:
-            if (
-                isinstance(t, typevar_types) and
-                t not in tvars and
-                not isinstance(t, _UnpackAlias)
-            ):
-                tvars.append(t)
-            if isinstance(t, (typing._GenericAlias, _types.GenericAlias)):
-                tvars.extend([t for t in t.__parameters__ if t not in tvars])
-        return tuple(tvars)
-
-    typing._collect_type_vars = _collect_type_vars
-    typing._check_generic = _check_generic
+    def _is_unpack(obj):
+        return isinstance(obj, _UnpackAlias)
 
 elif sys.version_info[:2] >= (3, 7):
     class _UnpackAlias(typing._GenericAlias, _root=True):
@@ -2383,6 +2406,10 @@ elif sys.version_info[:2] >= (3, 7):
             ) -> Array[Batch, Unpack[Shape]]: ...
 
         """)
+
+    def _is_unpack(obj):
+        return isinstance(obj, _UnpackAlias)
+
 else:
     # NOTE: Modeled after _Final's implementation when _FinalTypingBase available
     class _Unpack(typing._FinalTypingBase, _root=True):
@@ -2432,6 +2459,9 @@ else:
             return self is other
 
     Unpack = _Unpack(_root=True)
+
+    def _is_unpack(obj):
+        return isinstance(obj, _Unpack)
 
 
 class TypeVarTuple:
