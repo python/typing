@@ -2427,6 +2427,7 @@ else:
 
         """
         __slots__ = ('__type__',)
+        __class__ = typing.TypeVar
 
         def __init__(self, tp=None, **kwds):
             self.__type__ = tp
@@ -2460,6 +2461,10 @@ else:
             if self.__type__ is not None:
                 return self.__type__ == other.__type__
             return self is other
+
+        # For 3.6 only
+        def _get_type_vars(self, tvars):
+            self.__type__._get_type_vars(tvars)
 
     Unpack = _Unpack(_root=True)
 
