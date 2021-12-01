@@ -2488,7 +2488,7 @@ class TypeVarTuple:
     def __reduce__(self):
         return self.__name__
 
-    def __init_subclass__(self, /, *args, **kwds):
+    def __init_subclass__(self, *args, **kwds):
         if '_root' not in kwds:
             raise TypeError("Cannot subclass special typing classes")
 
