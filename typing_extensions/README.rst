@@ -40,6 +40,8 @@ This module currently contains the following:
   - ``NotRequired`` (see PEP 655)
   - ``Required`` (see PEP 655)
   - ``Self`` (see PEP 673)
+  - ``TypeVarTuple`` (see PEP 646)
+  - ``Unpack`` (see PEP 646)
 
 - In ``typing`` since Python 3.10
   
