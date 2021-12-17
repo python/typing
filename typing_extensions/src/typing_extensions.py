@@ -74,6 +74,7 @@ __all__ = [
     'IntVar',
     'Literal',
     'NewType',
+    'NoReturn',
     'overload',
     'Protocol',
     'runtime',
