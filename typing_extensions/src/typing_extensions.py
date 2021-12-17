@@ -82,6 +82,7 @@ __all__ = [
     'TypeAlias',
     'TypeGuard',
     'TYPE_CHECKING',
+    'NoReturn',
 ]
 
 if PEP_560:
