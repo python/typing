@@ -1,3 +1,5 @@
+.. _libraries:
+
 ***********************
 Typing Python Libraries
 ***********************
