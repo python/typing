@@ -240,7 +240,8 @@ else:
 
 
 def IntVar(name):
-    return typing.TypeVar(name)
+    # ignoring pylance error not a mypy error
+    return typing.TypeVar(name)  # type: ignore[no-error-code,unused-ignore]
 
 
 # 3.8+:
@@ -384,7 +385,8 @@ if hasattr(typing, 'AsyncContextManager'):
     AsyncContextManager = typing.AsyncContextManager
 # 3.6.0-3.6.1
 else:
-    from _collections_abc import _check_methods as _check_methods_in_mro  # noqa
+    from _collections_abc import \
+        _check_methods as _check_methods_in_mro  # noqa
 
     class AsyncContextManager(typing.Generic[T_co]):
         __slots__ = ()
