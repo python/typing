@@ -64,3 +64,7 @@ jobs:
 
       - name: Lint tests
         run: flake8 --config=.flake8-tests typing_extensions/src/test_typing_extensions.py
+
+      - name: type check implementation
+        # TODO: change this to mypy . when https://github.com/KotlinIsland/basedmypy/issues/110 is fixed
+        run: mypy typing_extensions/src/typing_extensions.py
