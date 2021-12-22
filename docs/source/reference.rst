@@ -6,9 +6,8 @@ Type System Reference
    :maxdepth: 2
    :caption: Contents:
 
-   libraries
    stubs
-
+   typing Module Documentation <https://docs.python.org/3/library/typing.html>
 
 .. The following pages are desired in a new TOC which will cover multiple
 .. topics. For now, they are not linked because the pages are empty.
