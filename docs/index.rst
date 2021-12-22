@@ -1,12 +1,12 @@
 *************************
 Static Typing with Python
 *************************
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-   source/introduction
+.. 
+.. .. toctree::
+..    :maxdepth: 2
+..    :caption: Contents:
+.. 
+..    source/introduction
 
 .. toctree::
    :maxdepth: 3
@@ -20,6 +20,10 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`search`
 
+Python Language Documentation
+=============================
+
+* `typing Module Documentation <https://docs.python.org/3/library/typing.html>`_
 
 Discussions and Support
 =======================
