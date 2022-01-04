@@ -590,7 +590,7 @@ of stub-only objects is to model types that are best described by their
 structure. These objects are called protocols [#pep544]_, and it is encouraged
 to use them freely to describe simple structural types.
 
-It is recommended to prefix stubs-only objects with ``_``.
+It is `recommended <private-definitions>`_ to prefix stubs-only objects with ``_``.
 
 Incomplete Stubs
 ----------------
@@ -922,6 +922,8 @@ No::
     def to_int2(x: str) -> int:
         ...
     def to_int3(x: str) -> int: pass
+
+.. _private-definitions:
 
 Private Definitions
 -------------------
