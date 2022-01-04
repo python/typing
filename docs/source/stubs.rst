@@ -577,18 +577,20 @@ public method for which a library does not provided a usable runtime type::
 
   from typing import Protocol
 
-  class Readable(Protocol):
+  class _Readable(Protocol):
       def read(self) -> str: ...
 
-  def get_reader() -> Readable: ...
+  def get_reader() -> _Readable: ...
 
 Structural Types
 ----------------
 
-As seen in the example with ``Readable`` in the previous section, a common use
+As seen in the example with ``_Readable`` in the previous section, a common use
 of stub-only objects is to model types that are best described by their
 structure. These objects are called protocols [#pep544]_, and it is encouraged
 to use them freely to describe simple structural types.
+
+It is recommended to use ``_`` prefix for stubs-only objects.
 
 Incomplete Stubs
 ----------------
