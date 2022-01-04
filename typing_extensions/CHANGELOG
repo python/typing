@@ -10,9 +10,11 @@ unneeded for supporting Python 3.7 and newer.
 
 - PEP_560
 - GenericMeta
+- KT
 - T
 - T_co
 - T_contra
+- VT
 
 # Release 4.0.1 (November 30, 2021)
 

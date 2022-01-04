@@ -78,11 +78,6 @@ Counter = typing.Counter
 Deque = typing.Deque
 DefaultDict = typing.DefaultDict
 
-# Some unconstrained type variables.  These are used by the container types.
-# (These are not for export.)
-KT = typing.TypeVar('KT')  # Key type.
-VT = typing.TypeVar('VT')  # Value type.
-
 
 class _ReprForm(typing._SpecialForm, _root=True):
     def __repr__(self):
@@ -176,7 +171,11 @@ if hasattr(typing, 'OrderedDict'):
     OrderedDict = typing.OrderedDict
 # 3.7.0-3.7.2
 else:
-    OrderedDict = typing._alias(collections.OrderedDict, (KT, VT))
+    # Some unconstrained type variables.
+    # (These are not for export.)
+    _KT = typing.TypeVar('_KT')  # Key type.
+    _VT = typing.TypeVar('_VT')  # Value type.
+    OrderedDict = typing._alias(collections.OrderedDict, (_KT, _VT))
 
 _PROTO_WHITELIST = ['Callable', 'Awaitable',
                     'Iterable', 'Iterator', 'AsyncIterable', 'AsyncIterator',
