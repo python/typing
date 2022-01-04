@@ -40,19 +40,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set up Python
+      - name: Set up Python 3
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
-
-      - name: Load pip cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/test-requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          python-version: 3
+          cache: "pip"
+          cache-dependency-path: "test-requirements.txt"
 
       - name: Install dependencies
         run: |
