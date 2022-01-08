@@ -19,7 +19,7 @@ import typing_extensions
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict, Self
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
-from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload
+from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload, is_typeddict
 try:
     from typing_extensions import get_type_hints
 except ImportError:
@@ -1680,6 +1680,13 @@ class TypedDictTests(BaseTestCase):
             'tail': bool,
             'voice': str,
         }
+
+    def test_is_typeddict(self):
+        assert is_typeddict(Point2D) is True
+        assert is_typeddict(Union[str, int]) is False
+        # classes, not instances
+        assert is_typeddict(Point2D()) is False
+
 
 
 class AnnotatedTests(BaseTestCase):
