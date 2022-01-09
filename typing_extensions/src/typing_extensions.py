@@ -1125,16 +1125,24 @@ else:
         """
 
 
-def is_typeddict(tp):
-    """Check if an annotation is a TypedDict class
-    For example::
-        class Film(TypedDict):
-            title: str
-            year: int
-        is_typeddict(Film)  # => True
-        is_typeddict(Union[list, str])  # => False
-    """
-    return isinstance(tp, _TypedDictMeta)
+if hasattr(typing, "is_typeddict"):
+    is_typeddict = typing.is_typeddict
+else:
+    def is_typeddict(tp):
+        """Check if an annotation is a TypedDict class
+        For example::
+            class Film(TypedDict):
+                title: str
+                year: int
+            is_typeddict(Film)  # => True
+            is_typeddict(Union[list, str])  # => False
+        """
+        typeddict_types = [_TypedDictMeta]
+        try:
+            typeddict_types.append(typing._TypedDictMeta)
+        except AttributeError:
+            pass
+        return isinstance(tp, tuple(typeddict_types))
 
 
 # Python 3.9+ has PEP 593 (Annotated and modified get_type_hints)
