@@ -47,7 +47,7 @@ This module currently contains the following:
   - ``ParamSpec`` (see PEP 612)
   - ``ParamSpecArgs`` (see PEP 612)
   - ``ParamSpecKwargs`` (see PEP 612)
-  - ``TypeAlias`` (see PEP 610)
+  - ``TypeAlias`` (see PEP 613)
   - ``TypeGuard`` (see PEP 647)
 
 - In ``typing`` since Python 3.9
