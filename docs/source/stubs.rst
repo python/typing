@@ -80,6 +80,17 @@ require separate installation. Stubs for third-party libraries are
 available on the `Python Package Index <https://pypi.org>`_. A stub package for
 a library called ``widget`` will be called ``types-widget``.
 
+Modules included in stubs
+=========================
+
+Not all modules should be included into stubs.
+
+It is recommended to exclude:
+
+1. Protected modules that start with a single ``_`` char
+2. Implementation details, with `multiprocessing/popen_spawn_win32.py <https://github.com/python/cpython/blob/main/Lib/multiprocessing/popen_spawn_win32.py>`_ as a notable example
+3. Modules that are not supposed to be imported, such as ``__main__.py``
+
 Supported Constructs
 ====================
 
