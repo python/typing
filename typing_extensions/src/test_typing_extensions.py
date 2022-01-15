@@ -1684,6 +1684,7 @@ class TypedDictTests(BaseTestCase):
 
     def test_is_typeddict(self):
         assert is_typeddict(Point2D) is True
+        assert is_typeddict(Point2Dor3D) is True
         assert is_typeddict(Union[str, int]) is False
         # classes, not instances
         assert is_typeddict(Point2D()) is False
@@ -1691,7 +1692,17 @@ class TypedDictTests(BaseTestCase):
     @skipUnless(TYPING_3_8_0, "Python 3.8+ required")
     def test_is_typeddict_against_typeddict_from_typing(self):
         Point = typing.TypedDict('Point', {'x': int, 'y': int})
+
+        class PointDict2D(typing.TypedDict):
+            x: int
+            y: int
+
+        class PointDict3D(PointDict2D, total=False):
+            z: int
+
         assert is_typeddict(Point) is True
+        assert is_typeddict(PointDict2D) is True
+        assert is_typeddict(PointDict3D) is True
 
 
 class AnnotatedTests(BaseTestCase):
