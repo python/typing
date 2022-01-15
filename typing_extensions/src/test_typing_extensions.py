@@ -2273,6 +2273,7 @@ class UnpackTests(BaseTestCase):
             Union
         )
 
+    @skipUnless(PEP_560, "Unimplemented for 3.6")
     def test_concatenation(self):
         Xs = TypeVarTuple('Xs')
         Tuple[int, Unpack[Xs]]
@@ -2283,6 +2284,7 @@ class UnpackTests(BaseTestCase):
         C[Unpack[Xs], int]
         C[int, Unpack[Xs], str]
 
+    @skipUnless(PEP_560, "Unimplemented for 3.6")
     def test_class(self):
         Ts = TypeVarTuple('Ts')
 
