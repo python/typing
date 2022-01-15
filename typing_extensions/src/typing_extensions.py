@@ -2479,7 +2479,40 @@ class TypeVarTuple:
 
         Ts = TypeVarTuple('Ts')
 
-    TODO docs
+    In the same way that a normal type variable is a stand-in for a single
+    type such as ``int``, a type variable *tuple* is a stand-in for a *tuple* type such as
+    ``Tuple[int, str]``.
+
+    Type variable tuples can be used in ``Generic`` declarations.
+    Consider the following example::
+
+        class Array(Generic[*Ts]): ...
+
+    The ``Ts`` type variable tuple here behaves like ``tuple[T1, T2]``,
+    where ``T1`` and ``T2`` are type variables. To use these type variables
+    as type parameters of ``Array``, we must *unpack* the type variable tuple using
+    the star operator: ``*Ts``. The signature of ``Array`` then behaves
+    as if we had simply written ``class Array(Generic[T1, T2]): ...``.
+    In contrast to ``Generic[T1, T2]``, however, ``Generic[*Shape]`` allows
+    us to parameterise the class with an *arbitrary* number of type parameters.
+
+    Type variable tuples can be used anywhere a normal ``TypeVar`` can.
+    This includes class definitions, as shown above, as well as function
+    signatures and variable annotations::
+
+        class Array(Generic[*Ts]):
+
+            def __init__(self, shape: Tuple[*Ts]):
+                self._shape: Tuple[*Ts] = shape
+
+            def get_shape(self) -> Tuple[*Ts]:
+                return self._shape
+
+        shape = (Height(480), Width(640))
+        x: Array[Height, Width] = Array(shape)
+        y = abs(x)  # Inferred type is Array[Height, Width]
+        z = x + x   #        ...    is Array[Height, Width]
+        x.get_shape()  #     ...    is tuple[Height, Width]
 
     """
 
