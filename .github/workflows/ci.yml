@@ -27,19 +27,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Test typing_extensions
-        if: matrix.python-version != "3.11-dev"
+        continue-on-error: ${{ matrix.python-version == '3.11-dev' }}
         run: |
           # Be wary of running `pip install` here, since it becomes easy for us to
           # accidentally pick up typing_extensions as installed by a dependency
           cd typing_extensions/src
           python -m unittest test_typing_extensions.py
-
-      - name: Test typing_extensions
-        if: matrix.python-version == "3.11-dev"
-        run: |
-          cd typing_extensions/src
-          # Allow failure
-          python -m unittest test_typing_extensions.py || true
 
   linting:
     name: Lint
