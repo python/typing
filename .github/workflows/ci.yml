@@ -31,7 +31,6 @@ jobs:
           # Be wary of running `pip install` here, since it becomes easy for us to
           # accidentally pick up typing_extensions as installed by a dependency
           cd typing_extensions/src
-          python -c 'import typing_extensions; print(typing_extensions)'
           python -m unittest test_typing_extensions.py
 
   linting:
