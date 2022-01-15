@@ -1,3 +1,8 @@
+# Release 4.x.x
+
+- Add `is_typeddict`. Patch by Chris Moradi (@chrismoradi) and James
+  Hilton-Balfe (@Gobot1234).
+
 # Release 4.0.1 (November 30, 2021)
 
 - Fix broken sdist in release 4.0.0. Patch by Adam Turner (@AA-Turner).

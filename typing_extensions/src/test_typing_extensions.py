@@ -19,7 +19,7 @@ import typing_extensions
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict, Self
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
-from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload
+from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload, is_typeddict
 try:
     from typing_extensions import get_type_hints
 except ImportError:
@@ -36,6 +36,7 @@ except ImportError:
 # Flags used to mark tests that only apply after a specific
 # version of the typing module.
 TYPING_3_6_1 = sys.version_info[:3] >= (3, 6, 1)
+TYPING_3_8_0 = sys.version_info[:3] >= (3, 8, 0)
 TYPING_3_10_0 = sys.version_info[:3] >= (3, 10, 0)
 TYPING_3_11_0 = sys.version_info[:3] >= (3, 11, 0)
 
@@ -1680,6 +1681,28 @@ class TypedDictTests(BaseTestCase):
             'tail': bool,
             'voice': str,
         }
+
+    def test_is_typeddict(self):
+        assert is_typeddict(Point2D) is True
+        assert is_typeddict(Point2Dor3D) is True
+        assert is_typeddict(Union[str, int]) is False
+        # classes, not instances
+        assert is_typeddict(Point2D()) is False
+
+    @skipUnless(TYPING_3_8_0, "Python 3.8+ required")
+    def test_is_typeddict_against_typeddict_from_typing(self):
+        Point = typing.TypedDict('Point', {'x': int, 'y': int})
+
+        class PointDict2D(typing.TypedDict):
+            x: int
+            y: int
+
+        class PointDict3D(PointDict2D, total=False):
+            z: int
+
+        assert is_typeddict(Point) is True
+        assert is_typeddict(PointDict2D) is True
+        assert is_typeddict(PointDict3D) is True
 
 
 class AnnotatedTests(BaseTestCase):

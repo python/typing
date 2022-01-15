@@ -72,6 +72,7 @@ __all__ = [
     'Annotated',
     'final',
     'IntVar',
+    'is_typeddict',
     'Literal',
     'NewType',
     'overload',
@@ -979,6 +980,7 @@ if sys.version_info >= (3, 9, 2):
     # The standard library TypedDict in Python 3.9.0/1 does not honour the "total"
     # keyword with old-style TypedDict().  See https://bugs.python.org/issue42059
     TypedDict = typing.TypedDict
+    _TypedDictMeta = typing._TypedDictMeta
 else:
     def _check_fails(cls, other):
         try:
@@ -1121,6 +1123,28 @@ else:
         The class syntax is only supported in Python 3.6+, while two other
         syntax forms work for Python 2.7 and 3.2+
         """
+
+
+if hasattr(typing, "is_typeddict"):
+    is_typeddict = typing.is_typeddict
+else:
+    if hasattr(typing, "_TypedDictMeta"):
+        _TYPEDDICT_TYPES = (typing._TypedDictMeta, _TypedDictMeta)
+    else:
+        _TYPEDDICT_TYPES = (_TypedDictMeta,)
+
+    def is_typeddict(tp):
+        """Check if an annotation is a TypedDict class
+
+        For example::
+            class Film(TypedDict):
+                title: str
+                year: int
+
+            is_typeddict(Film)  # => True
+            is_typeddict(Union[list, str])  # => False
+        """
+        return isinstance(tp, tuple(_TYPEDDICT_TYPES))
 
 
 # Python 3.9+ has PEP 593 (Annotated and modified get_type_hints)

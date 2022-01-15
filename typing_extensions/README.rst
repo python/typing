@@ -49,6 +49,7 @@ This module currently contains the following:
   - ``ParamSpecKwargs`` (see PEP 612)
   - ``TypeAlias`` (see PEP 613)
   - ``TypeGuard`` (see PEP 647)
+  - ``is_typeddict``
 
 - In ``typing`` since Python 3.9
 
