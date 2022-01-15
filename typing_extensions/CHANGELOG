@@ -1,3 +1,8 @@
+# Unreleased
+
+- Runtime support for PEP 646, adding `typing_extensions.TypeVarTuple`
+  and `typing_extensions.Unpack`.
+
 # Release 4.0.1 (November 30, 2021)
 
 - Fix broken sdist in release 4.0.0. Patch by Adam Turner (@AA-Turner).
