@@ -1132,10 +1132,12 @@ else:
 
     def is_typeddict(tp):
         """Check if an annotation is a TypedDict class
+
         For example::
             class Film(TypedDict):
                 title: str
                 year: int
+
             is_typeddict(Film)  # => True
             is_typeddict(Union[list, str])  # => False
         """
