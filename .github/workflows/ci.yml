@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11-dev"]
 
     runs-on: ubuntu-latest
 
@@ -29,7 +29,7 @@ jobs:
       - name: Test typing_extensions
         run: |
           # Be wary of running `pip install` here, since it becomes easy for us to
-          # accidentally pick up typing_extensions as installed by a dependency 
+          # accidentally pick up typing_extensions as installed by a dependency
           cd typing_extensions/src
           python -m unittest test_typing_extensions.py
 
@@ -40,19 +40,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set up Python
+      - name: Set up Python 3
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
-
-      - name: Load pip cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/test-requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          python-version: 3
+          cache: "pip"
+          cache-dependency-path: "test-requirements.txt"
 
       - name: Install dependencies
         run: |

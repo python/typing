@@ -1,7 +1,9 @@
-# Unreleased
+# Release 4.x.x
 
 - Runtime support for PEP 646, adding `typing_extensions.TypeVarTuple`
   and `typing_extensions.Unpack`.
+- Add `is_typeddict`. Patch by Chris Moradi (@chrismoradi) and James
+  Hilton-Balfe (@Gobot1234).
 
 # Release 4.0.1 (November 30, 2021)
 

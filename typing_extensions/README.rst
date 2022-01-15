@@ -25,8 +25,8 @@ haven't yet figured out how to deal with that possibility.
 
 Starting with version 4.0.0, ``typing_extensions`` uses
 `Semantic Versioning <https://semver.org/>`_. The
-major version is incremented for all backwards-incompatible changes, including
-dropping support for older Python versions. Therefore, it's safe to depend
+major version is incremented for all backwards-incompatible changes.
+Therefore, it's safe to depend
 on ``typing_extensions`` like this: ``typing_extensions >=x.y, <(x+1)``,
 where ``x.y`` is the first version that includes all features you need.
 
@@ -49,8 +49,9 @@ This module currently contains the following:
   - ``ParamSpec`` (see PEP 612)
   - ``ParamSpecArgs`` (see PEP 612)
   - ``ParamSpecKwargs`` (see PEP 612)
-  - ``TypeAlias`` (see PEP 610)
+  - ``TypeAlias`` (see PEP 613)
   - ``TypeGuard`` (see PEP 647)
+  - ``is_typeddict``
 
 - In ``typing`` since Python 3.9
 
@@ -119,6 +120,4 @@ Running tests
 =============
 
 To run tests, navigate into the appropriate source directory and run
-``test_typing_extensions.py``. You will also need to install the latest
-version of ``typing`` if you are using a version of Python that does not
-include ``typing`` as a part of the standard library.
+``test_typing_extensions.py``.
