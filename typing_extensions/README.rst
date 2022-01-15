@@ -112,6 +112,4 @@ Running tests
 =============
 
 To run tests, navigate into the appropriate source directory and run
-``test_typing_extensions.py``. You will also need to install the latest
-version of ``typing`` if you are using a version of Python that does not
-include ``typing`` as a part of the standard library.
+``test_typing_extensions.py``.
