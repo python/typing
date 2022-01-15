@@ -1,3 +1,9 @@
+# Unreleased
+
+- The `@final` decorator now sets the `__final__` attribute on the
+  decorated object to allow runtime introspection. Backport from
+  bpo-46342.
+
 # Release 4.0.1 (November 30, 2021)
 
 - Fix broken sdist in release 4.0.0. Patch by Adam Turner (@AA-Turner).
