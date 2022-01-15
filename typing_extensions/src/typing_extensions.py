@@ -1128,7 +1128,10 @@ else:
 if hasattr(typing, "is_typeddict"):
     is_typeddict = typing.is_typeddict
 else:
-    _TYPEDDICT_TYPES = (typing._TypedDictMeta, _TypedDictMeta) if hasattr(typing, "_TypedDictMeta") else (_TypedDictMeta,)
+    if hasattr(typing, "_TypedDictMeta"):
+        _TYPEDDICT_TYPES = (typing._TypedDictMeta, _TypedDictMeta)
+    else:
+        _TYPEDDICT_TYPES = (_TypedDictMeta,)
 
     def is_typeddict(tp):
         """Check if an annotation is a TypedDict class
