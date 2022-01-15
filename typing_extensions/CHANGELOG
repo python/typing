@@ -1,5 +1,8 @@
 # Release 4.x.x
 
+- The `@final` decorator now sets the `__final__` attribute on the
+  decorated object to allow runtime introspection. Backport from
+  bpo-46342.
 - Add `is_typeddict`. Patch by Chris Moradi (@chrismoradi) and James
   Hilton-Balfe (@Gobot1234).
 

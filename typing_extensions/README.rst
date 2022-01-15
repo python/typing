@@ -96,6 +96,18 @@ This module currently contains the following:
 Other Notes and Limitations
 ===========================
 
+Certain objects were changed after they were added to ``typing``, and
+``typing_extensions`` provides a backport even on newer Python versions:
+
+- ``TypedDict`` does not store runtime information
+  about which (if any) keys are non-required in Python 3.8, and does not
+  honor the "total" keyword with old-style ``TypedDict()`` in Python
+  3.9.0 and 3.9.1.
+- ``get_origin`` and ``get_args`` lack support for ``Annotated`` in
+  Python 3.8 and lack support for ``ParamSpecArgs`` and ``ParamSpecKwargs``
+  in 3.9.
+- ``@final`` was changed in Python 3.11 to set the ``.__final__`` attribute.
+
 There are a few types whose interface was modified between different
 versions of typing. For example, ``typing.Sequence`` was modified to
 subclass ``typing.Reversible`` as of Python 3.5.3.
