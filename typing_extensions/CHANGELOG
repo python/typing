@@ -1,9 +1,9 @@
-# Changes in version 5.0.0
+# Changes in version 4.2.0
 
 Dropped support for Python 3.6 and simplified backports for Python 3.7.0 and
 newer. Patch by Adam Turner (@AA-Turner).
 
-## Removed in version 5.0.0
+## Removed in version 4.2.0
 
 The following non-exported but non-private names have been removed as they are
 unneeded for supporting Python 3.7 and newer.
