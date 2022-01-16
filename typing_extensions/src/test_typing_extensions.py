@@ -2121,15 +2121,10 @@ class ConcatenateTests(BaseTestCase):
         C1 = Callable[Concatenate[int, P], int]
         C2 = Callable[Concatenate[int, T, P], T]
 
-        # As a return type.
-        C3 = Callable[[str], Concatenate[int, P]]
-        C4 = Callable[[str], Concatenate[int, T, P]]
-
         # Test collections.abc.Callable too.
         if sys.version_info[:2] >= (3, 9):
-            C5 = collections.abc.Callable[Concatenate[int, P], int]
-            C6 = collections.abc.Callable[Concatenate[int, T, P], T]
-            C7 = collections.abc.Callable[[str], Concatenate[int, T, P]]
+            C3 = collections.abc.Callable[Concatenate[int, P], int]
+            C4 = collections.abc.Callable[Concatenate[int, T, P], T]
 
     def test_invalid_uses(self):
         P = ParamSpec('P')
