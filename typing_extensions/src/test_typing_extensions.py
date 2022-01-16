@@ -2119,31 +2119,17 @@ class ConcatenateTests(BaseTestCase):
         T = TypeVar('T')
 
         C1 = Callable[Concatenate[int, P], int]
-        self.assertEqual(C1.__args__, (Concatenate[int, P], int))
-        self.assertEqual(C1.__parameters__, (P,))
         C2 = Callable[Concatenate[int, T, P], T]
-        self.assertEqual(C2.__args__, (Concatenate[int, T, P], T))
-        self.assertEqual(C2.__parameters__, (T, P))
 
         # As a return type.
         C3 = Callable[[str], Concatenate[int, P]]
-        self.assertEqual(C3.__args__, (str, Concatenate[int, P]))
-        self.assertEqual(C3.__parameters__, (P,))
         C4 = Callable[[str], Concatenate[int, T, P]]
-        self.assertEqual(C4.__args__, (str, Concatenate[int, T, P]))
-        self.assertEqual(C4.__parameters__, (T, P))
 
         # Test collections.abc.Callable too.
         if sys.version_info[:2] >= (3, 9):
             C5 = collections.abc.Callable[Concatenate[int, P], int]
-            self.assertEqual(C5.__args__, (Concatenate[int, P], int))
-            self.assertEqual(C5.__parameters__, (P,))
             C6 = collections.abc.Callable[Concatenate[int, T, P], T]
-            self.assertEqual(C6.__args__, (Concatenate[int, T, P], T))
-            self.assertEqual(C6.__parameters__, (T, P))
             C7 = collections.abc.Callable[[str], Concatenate[int, T, P]]
-            self.assertEqual(C7.__args__, (str, Concatenate[int, T, P]))
-            self.assertEqual(C7.__parameters__, (T, P))
 
     def test_invalid_uses(self):
         P = ParamSpec('P')
