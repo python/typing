@@ -84,6 +84,8 @@ __all__ = [
     'TypeGuard',
     'TYPE_CHECKING',
     'NoReturn',
+    'Required',
+    'NotRequired',
 ]
 
 if PEP_560:
