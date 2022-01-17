@@ -1,5 +1,7 @@
 # Release 4.x.x
 
+- Add missed `Required` and `NotRequired` to `__all__`. Patch by
+  Yuri Karabas (@uriyyo).
 - The `@final` decorator now sets the `__final__` attribute on the
   decorated object to allow runtime introspection. Backport from
   bpo-46342.
