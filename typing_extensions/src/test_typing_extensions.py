@@ -2126,28 +2126,6 @@ class ConcatenateTests(BaseTestCase):
             C3 = collections.abc.Callable[Concatenate[int, P], int]
             C4 = collections.abc.Callable[Concatenate[int, T, P], T]
 
-    def test_invalid_uses(self):
-        P = ParamSpec('P')
-        T = TypeVar('T')
-
-        with self.assertRaisesRegex(
-            TypeError,
-            'Cannot take a Concatenate of no types',
-        ):
-            Concatenate[()]
-
-        with self.assertRaisesRegex(
-            TypeError,
-            'The last parameter to Concatenate should be a ParamSpec variable',
-        ):
-            Concatenate[P, T]
-
-        with self.assertRaisesRegex(
-            TypeError,
-            'each arg must be a type',
-        ):
-            Concatenate[1, P]
-
     def test_basic_introspection(self):
         P = ParamSpec('P')
         C1 = Concatenate[int, P]
