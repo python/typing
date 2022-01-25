@@ -1381,7 +1381,10 @@ else:
                                 "with at least two arguments (a type and an "
                                 "annotation).")
             else:
-                if type(params[0]).__name__ == "_ClassVar":
+                if (
+                    isinstance(params[0], typing._TypingBase)
+                    and type(params[0]).__name__ == "_ClassVar"
+                ):
                     tp = params[0]
                 else:
                     msg = "Annotated[t, ...]: t must be a type."
