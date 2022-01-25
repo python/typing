@@ -1799,6 +1799,7 @@ class AnnotatedTests(BaseTestCase):
         A.x = 5
         self.assertEqual(C.x, 5)
 
+    @skipIf(sys.version_info[:2] in ((3, 9), (3, 10)), "Waiting for bpo-46491 bugfix.")
     def test_special_form_containment(self):
         class C:
             classvar: Annotated[ClassVar[int], "a decoration"] = 4
