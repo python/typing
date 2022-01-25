@@ -1799,6 +1799,24 @@ class AnnotatedTests(BaseTestCase):
         A.x = 5
         self.assertEqual(C.x, 5)
 
+    @skipIf(sys.version_info[:2] in ((3, 9), (3, 10)), "Waiting for bpo-46491 bugfix.")
+    def test_special_form_containment(self):
+        class C:
+            classvar: Annotated[ClassVar[int], "a decoration"] = 4
+            const: Annotated[Final[int], "Const"] = 4
+
+        if sys.version_info[:2] >= (3, 7):
+            self.assertEqual(get_type_hints(C, globals())["classvar"], ClassVar[int])
+            self.assertEqual(get_type_hints(C, globals())["const"], Final[int])
+        else:
+            self.assertEqual(
+                get_type_hints(C, globals())["classvar"],
+                Annotated[ClassVar[int], "a decoration"]
+            )
+            self.assertEqual(
+                get_type_hints(C, globals())["const"], Annotated[Final[int], "Const"]
+            )
+
     def test_hash_eq(self):
         self.assertEqual(len({Annotated[int, 4, 5], Annotated[int, 4, 5]}), 1)
         self.assertNotEqual(Annotated[int, 4, 5], Annotated[int, 5, 4])

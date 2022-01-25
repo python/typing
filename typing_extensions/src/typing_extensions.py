@@ -1251,8 +1251,12 @@ elif PEP_560:
                 raise TypeError("Annotated[...] should be used "
                                 "with at least two arguments (a type and an "
                                 "annotation).")
-            msg = "Annotated[t, ...]: t must be a type."
-            origin = typing._type_check(params[0], msg)
+            allowed_special_forms = (ClassVar, Final)
+            if get_origin(params[0]) in allowed_special_forms:
+                origin = params[0]
+            else:
+                msg = "Annotated[t, ...]: t must be a type."
+                origin = typing._type_check(params[0], msg)
             metadata = tuple(params[1:])
             return _AnnotatedAlias(origin, metadata)
 
@@ -1377,8 +1381,14 @@ else:
                                 "with at least two arguments (a type and an "
                                 "annotation).")
             else:
-                msg = "Annotated[t, ...]: t must be a type."
-                tp = typing._type_check(params[0], msg)
+                if (
+                    isinstance(params[0], typing._TypingBase) and
+                    type(params[0]).__name__ == "_ClassVar"
+                ):
+                    tp = params[0]
+                else:
+                    msg = "Annotated[t, ...]: t must be a type."
+                    tp = typing._type_check(params[0], msg)
                 metadata = tuple(params[1:])
             return self.__class__(
                 self.__name__,

@@ -1,5 +1,7 @@
 # Release 4.x.x
 
+- `Annotated` can now wrap `ClassVar` and `Final`. Backport from
+  bpo-46491. Patch by Gregory Beauregard (@GBeauregard).
 - Add missed `Required` and `NotRequired` to `__all__`. Patch by
   Yuri Karabas (@uriyyo).
 - The `@final` decorator now sets the `__final__` attribute on the
