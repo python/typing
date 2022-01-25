@@ -1382,8 +1382,8 @@ else:
                                 "annotation).")
             else:
                 if (
-                    isinstance(params[0], typing._TypingBase)
-                    and type(params[0]).__name__ == "_ClassVar"
+                    isinstance(params[0], typing._TypingBase) and
+                    type(params[0]).__name__ == "_ClassVar"
                 ):
                     tp = params[0]
                 else:
