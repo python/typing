@@ -37,6 +37,7 @@ This module currently contains the following:
 
 - Experimental features
 
+  - ``LiteralString`` (see PEP 675)
   - ``NotRequired`` (see PEP 655)
   - ``Required`` (see PEP 655)
   - ``Self`` (see PEP 673)

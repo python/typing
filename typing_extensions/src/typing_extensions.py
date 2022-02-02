@@ -44,6 +44,7 @@ __all__ = [
     'ClassVar',
     'Concatenate',
     'Final',
+    'LiteralString',
     'ParamSpec',
     'Self',
     'Type',
@@ -2094,6 +2095,100 @@ else:
             return self is other
 
     TypeGuard = _TypeGuard(_root=True)
+
+
+if hasattr(typing, "LiteralString"):
+    LiteralString = typing.LiteralString
+elif sys.version_info[:2] >= (3, 7):
+    # Vendored from cpython typing._SpecialFrom
+    class _SpecialForm(typing._Final, _root=True):
+        __slots__ = ('_name', '__doc__', '_getitem')
+
+        def __init__(self, getitem):
+            self._getitem = getitem
+            self._name = getitem.__name__
+            self.__doc__ = getitem.__doc__
+
+        def __getattr__(self, item):
+            if item in {'__name__', '__qualname__'}:
+                return self._name
+
+            raise AttributeError(item)
+
+        def __mro_entries__(self, bases):
+            raise TypeError(f"Cannot subclass {self!r}")
+
+        def __repr__(self):
+            return f'typing_extensions.{self._name}'
+
+        def __reduce__(self):
+            return self._name
+
+        def __call__(self, *args, **kwds):
+            raise TypeError(f"Cannot instantiate {self!r}")
+
+        def __or__(self, other):
+            return typing.Union[self, other]
+
+        def __ror__(self, other):
+            return typing.Union[other, self]
+
+        def __instancecheck__(self, obj):
+            raise TypeError(f"{self} cannot be used with isinstance()")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError(f"{self} cannot be used with issubclass()")
+
+        @typing._tp_cache
+        def __getitem__(self, parameters):
+            return self._getitem(self, parameters)
+
+    @_SpecialForm
+    def LiteralString(self, params):
+        """Represents an arbitrary literal string.
+
+        Example::
+
+          from typing_extensions import LiteralString
+
+          def query(sql: LiteralString) -> ...:
+              ...
+
+          query("SELECT * FROM table")  # ok
+          query(f"SELECT * FROM {input()}")  # not ok
+
+        See PEP 675 for details.
+
+        """
+        raise TypeError(f"{self} is not subscriptable")
+else:
+    class _LiteralString(typing._FinalTypingBase, _root=True):
+        """Represents an arbitrary literal string.
+
+        Example::
+
+          from typing_extensions import LiteralString
+
+          def query(sql: LiteralString) -> ...:
+              ...
+
+          query("SELECT * FROM table")  # ok
+          query(f"SELECT * FROM {input()}")  # not ok
+
+        See PEP 675 for details.
+
+        """
+
+        __slots__ = ()
+
+        def __instancecheck__(self, obj):
+            raise TypeError(f"{self} cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError(f"{self} cannot be used with issubclass().")
+
+    LiteralString = _LiteralString(_root=True)
+
 
 if hasattr(typing, "Self"):
     Self = typing.Self

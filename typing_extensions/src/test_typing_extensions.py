@@ -22,6 +22,8 @@ from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, 
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
 from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload, final, is_typeddict
+from typing_extensions import LiteralString
+
 try:
     from typing_extensions import get_type_hints
 except ImportError:
@@ -2227,6 +2229,48 @@ class TypeGuardTests(BaseTestCase):
             isinstance(1, TypeGuard[int])
         with self.assertRaises(TypeError):
             issubclass(int, TypeGuard)
+
+
+class LiteralStringTests(BaseTestCase):
+    def test_basics(self):
+        class Foo:
+            def bar(self) -> LiteralString: ...
+
+        self.assertEqual(gth(Foo.bar), {'return': LiteralString})
+
+    def test_repr(self):
+        if hasattr(typing, 'LiteralString'):
+            mod_name = 'typing'
+        else:
+            mod_name = 'typing_extensions'
+        self.assertEqual(repr(LiteralString), '{}.LiteralString'.format(mod_name))
+
+    def test_cannot_subscript(self):
+        with self.assertRaises(TypeError):
+            LiteralString[int]
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(LiteralString)):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            LiteralString()
+        with self.assertRaises(TypeError):
+            type(LiteralString)()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, LiteralString)
+        with self.assertRaises(TypeError):
+            issubclass(int, LiteralString)
+
+    def test_alias(self):
+        StringTuple = Tuple[LiteralString, LiteralString]
+        class Alias:
+            def return_tuple(self) -> StringTuple:
+                return (self, self)
 
 
 class SelfTests(BaseTestCase):
