@@ -2396,7 +2396,7 @@ else:
         decorator. For example, the type checker will synthesize an ``__init__``
         method.
 
-        The arguments to this decoorator can be used to customize this behavior:
+        The arguments to this decorator can be used to customize this behavior:
         - ``eq_default`` indicates whether the ``eq`` parameter is assumed to be
           True or False if it is omitted by the caller.
         - ``order_default`` indicates whether the ``order`` parameter is
