@@ -533,7 +533,7 @@ It is recommended to exclude:
 
 1. Implementation details, with `multiprocessing/popen_spawn_win32.py <https://github.com/python/cpython/blob/main/Lib/multiprocessing/popen_spawn_win32.py>`_ as a notable example
 2. Modules that are not supposed to be imported, such as ``__main__.py``
-3. Protected modules that start with a single ``_`` char. However, when needed protected modules can still be added (see "Undocumented Objects" section below)
+3. Protected modules that start with a single ``_`` char. However, when needed protected modules can still be added (see :ref:`undocumented-objects` section below)
 
 Public Interface
 ----------------
@@ -549,6 +549,8 @@ The following should always be included:
 
 Other objects may be included if they are not prefixed with an underscore
 or if they are being used in practice. (See the next section.)
+
+.. _undocumented-objects:
 
 Undocumented Objects
 --------------------
