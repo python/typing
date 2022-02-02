@@ -124,7 +124,8 @@ versions of the typing module:
   ``get_origin``. Certain PEP 612 special cases in user-defined
   ``Generic``\ s are also not available.
 - ``Unpack`` from PEP 646 does not work properly with user-defined
-  ``Generic``\ s in Python 3.6.
+  ``Generic``\ s in Python 3.6: ``class X(Generic[Unpack[Ts]]):`` does
+  not work.
 
 These types are only guaranteed to work for static type checking.
 

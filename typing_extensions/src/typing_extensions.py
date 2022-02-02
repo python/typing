@@ -103,7 +103,7 @@ def _check_generic(cls, parameters, elen=_marker):
         if hasattr(cls, "__parameters__"):
             parameters = [p for p in cls.__parameters__ if not _is_unpack(p)]
             num_tv_tuples = sum(isinstance(p, TypeVarTuple) for p in parameters)
-            if num_tv_tuples > 0 and alen >= elen - num_tv_tuples:
+            if (num_tv_tuples > 0) and (alen >= elen - num_tv_tuples):
                 return
         raise TypeError(f"Too {'many' if alen > elen else 'few'} parameters for {cls};"
                         f" actual {alen}, expected {elen}")

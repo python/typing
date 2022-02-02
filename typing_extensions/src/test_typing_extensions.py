@@ -2341,21 +2341,23 @@ class UnpackTests(BaseTestCase):
     @skipUnless(PEP_560, "Unimplemented for 3.6")
     def test_concatenation(self):
         Xs = TypeVarTuple('Xs')
-        Tuple[int, Unpack[Xs]]
-        Tuple[Unpack[Xs], int]
-        Tuple[int, Unpack[Xs], str]
+        self.assertEqual(Tuple[int, Unpack[Xs]].__args__, (int, Unpack[Xs]))
+        self.assertEqual(Tuple[Unpack[Xs], int].__args__, (Unpack[Xs], int))
+        self.assertEqual(Tuple[int, Unpack[Xs], str].__args__,
+                         (int, Unpack[Xs], str))
         class C(Generic[Unpack[Xs]]): pass
-        C[int, Unpack[Xs]]
-        C[Unpack[Xs], int]
-        C[int, Unpack[Xs], str]
+        self.assertEqual(C[int, Unpack[Xs]].__args__, (int, Unpack[Xs]))
+        self.assertEqual(C[Unpack[Xs], int].__args__, (Unpack[Xs], int))
+        self.assertEqual(C[int, Unpack[Xs], str].__args__,
+                         (int, Unpack[Xs], str))
 
     @skipUnless(PEP_560, "Unimplemented for 3.6")
     def test_class(self):
         Ts = TypeVarTuple('Ts')
 
         class C(Generic[Unpack[Ts]]): pass
-        C[int]
-        C[int, str]
+        self.assertEqual(C[int].__args__, (int,))
+        self.assertEqual(C[int, str].__args__, (int, str))
 
         with self.assertRaises(TypeError):
             class C(Generic[Unpack[Ts], int]): pass
@@ -2363,8 +2365,9 @@ class UnpackTests(BaseTestCase):
         T1 = TypeVar('T')
         T2 = TypeVar('T')
         class C(Generic[T1, T2, Unpack[Ts]]): pass
-        C[int, str]
-        C[int, str, float]
+        self.assertEqual(C[int, str].__args__, (int, str))
+        self.assertEqual(C[int, str, float].__args__, (int, str, float))
+        self.assertEqual(C[int, str, float, bool].__args__, (int, str, float, bool))
         with self.assertRaises(TypeError):
             C[int]
 
