@@ -2351,7 +2351,10 @@ else:
         eq_default: bool = True,
         order_default: bool = False,
         kw_only_default: bool = False,
-        field_descriptors: typing.Tuple[typing.Any, ...] = (()),
+        field_descriptors: typing.Tuple[
+            typing.Union[typing.Type[typing.Any], typing.Callable[..., typing.Any]],
+            ...
+        ] = (),
     ) -> typing.Callable[[T], T]:
         """Decorator that marks a function, class, or metaclass as providing
         dataclass-like behavior.
