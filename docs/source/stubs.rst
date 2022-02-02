@@ -533,7 +533,7 @@ It is recommended to exclude:
 
 1. Implementation details, with `multiprocessing/popen_spawn_win32.py <https://github.com/python/cpython/blob/main/Lib/multiprocessing/popen_spawn_win32.py>`_ as a notable example
 2. Modules that are not supposed to be imported, such as ``__main__.py``
-3. Protected modules that start with a single ``_`` char. However, when needed protected modules can still be added
+3. Protected modules that start with a single ``_`` char. However, when needed protected modules can still be added (see "Undocumented Objects" section below)
 
 Public Interface
 ----------------
