@@ -2270,7 +2270,11 @@ class LiteralStringTests(BaseTestCase):
         StringTuple = Tuple[LiteralString, LiteralString]
         class Alias:
             def return_tuple(self) -> StringTuple:
-                return (self, self)
+                return ("foo", "pep" + "675")
+
+    def test_typevar(self):
+        StrT = TypeVar("StrT", bound=LiteralString)
+        self.assertIs(StrT.__bound__, LiteralString)
 
 
 class SelfTests(BaseTestCase):
