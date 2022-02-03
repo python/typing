@@ -22,6 +22,7 @@ from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, 
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
 from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload, final, is_typeddict
+from typing_extensions import reveal_type
 try:
     from typing_extensions import get_type_hints
 except ImportError:
@@ -2343,6 +2344,12 @@ class FinalDecoratorTests(BaseTestCase):
         )
         self.assertIs(True, Methods.prop.fget.__final__)
         self.assertIs(True, Methods.cached.__final__)
+
+
+class RevealTypeTests(BaseTestCase):
+    def test_reveal_type(self):
+        obj = object()
+        self.assertIs(obj, reveal_type(obj))
 
 
 class AllTests(BaseTestCase):

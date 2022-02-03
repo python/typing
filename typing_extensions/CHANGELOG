@@ -1,5 +1,6 @@
 # Release 4.x.x
 
+- Add `reveal_type`. Backport from bpo-46414.
 - `Annotated` can now wrap `ClassVar` and `Final`. Backport from
   bpo-46491. Patch by Gregory Beauregard (@GBeauregard).
 - Add missed `Required` and `NotRequired` to `__all__`. Patch by
