@@ -2347,7 +2347,7 @@ else:
 if hasattr(typing, "reveal_type"):
     reveal_type = typing.reveal_type
 else:
-    def reveal_type(obj: T, /) -> T:
+    def reveal_type(__obj: T) -> T:
         """Reveal the inferred type of a variable.
 
         When a static type checker encounters a call to ``reveal_type()``,
@@ -2363,8 +2363,8 @@ else:
         argument and returns it unchanged.
 
         """
-        print(f"Runtime type is {type(obj).__name__!r}", file=sys.stderr)
-        return obj
+        print(f"Runtime type is {type(__obj).__name__!r}", file=sys.stderr)
+        return __obj
 
 
 if hasattr(typing, 'dataclass_transform'):
