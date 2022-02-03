@@ -37,6 +37,7 @@ This module currently contains the following:
 
 - Experimental features
 
+  - ``@dataclass_transform()`` (see PEP 681)
   - ``NotRequired`` (see PEP 655)
   - ``Required`` (see PEP 655)
   - ``Self`` (see PEP 673)
