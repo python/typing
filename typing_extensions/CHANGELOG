@@ -1,6 +1,7 @@
 # Release 4.x.x
 
 - Add `reveal_type`. Backport from bpo-46414.
+- Runtime support for PEP 681 and `typing_extensions.dataclass_transform`.
 - `Annotated` can now wrap `ClassVar` and `Final`. Backport from
   bpo-46491. Patch by Gregory Beauregard (@GBeauregard).
 - Add missed `Required` and `NotRequired` to `__all__`. Patch by
