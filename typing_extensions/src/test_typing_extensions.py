@@ -487,6 +487,14 @@ class Animal(BaseAnimal, total=False):
 class Cat(Animal):
     fur_color: str
 
+class TotalMovie(TypedDict):
+    title: str
+    year: NotRequired[int]
+
+class NontotalMovie(TypedDict, total=False):
+    title: Required[str]
+    year: int
+
 
 gth = get_type_hints
 
@@ -1595,7 +1603,7 @@ class TypedDictTests(BaseTestCase):
 
     def test_typeddict_errors(self):
         Emp = TypedDict('Emp', {'name': str, 'id': int})
-        if sys.version_info >= (3, 9, 2):
+        if hasattr("typing", "Required"):
             self.assertEqual(TypedDict.__module__, 'typing')
         else:
             self.assertEqual(TypedDict.__module__, 'typing_extensions')
@@ -1662,6 +1670,15 @@ class TypedDictTests(BaseTestCase):
     def test_optional_keys(self):
         assert Point2Dor3D.__required_keys__ == frozenset(['x', 'y'])
         assert Point2Dor3D.__optional_keys__ == frozenset(['z'])
+
+    @skipUnless(PEP_560, "runtime support for Required and NotRequired requires PEP 560")
+    def test_required_notrequired_keys(self):
+        assert NontotalMovie.__required_keys__ == frozenset({'title'})
+        assert NontotalMovie.__optional_keys__ == frozenset({'year'})
+
+        assert TotalMovie.__required_keys__ == frozenset({'title'})
+        assert TotalMovie.__optional_keys__ == frozenset({'year'})
+
 
     def test_keys_inheritance(self):
         assert BaseAnimal.__required_keys__ == frozenset(['name'])
@@ -2474,7 +2491,8 @@ class AllTests(BaseTestCase):
             'TypedDict',
             'TYPE_CHECKING',
             'Final',
-            'get_type_hints'
+            'get_type_hints',
+            'is_typeddict',
         }
         if sys.version_info < (3, 10):
             exclude |= {'get_args', 'get_origin'}

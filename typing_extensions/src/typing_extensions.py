@@ -988,13 +988,16 @@ else:
             pass
 
 
-if sys.version_info >= (3, 9, 2):
+if hasattr(typing, "Required"):
     # The standard library TypedDict in Python 3.8 does not store runtime information
     # about which (if any) keys are optional.  See https://bugs.python.org/issue38834
     # The standard library TypedDict in Python 3.9.0/1 does not honour the "total"
     # keyword with old-style TypedDict().  See https://bugs.python.org/issue42059
+    # The standard library TypedDict below Python 3.11 does not store runtime
+    # information about optional and required keys when using Required or NotRequired.
     TypedDict = typing.TypedDict
     _TypedDictMeta = typing._TypedDictMeta
+    is_typeddict = typing.is_typeddict
 else:
     def _check_fails(cls, other):
         try:
@@ -1078,7 +1081,6 @@ else:
 
             annotations = {}
             own_annotations = ns.get('__annotations__', {})
-            own_annotation_keys = set(own_annotations.keys())
             msg = "TypedDict('Name', {f0: t0, f1: t1, ...}); each t must be a type"
             own_annotations = {
                 n: typing._type_check(tp, msg) for n, tp in own_annotations.items()
@@ -1092,10 +1094,29 @@ else:
                 optional_keys.update(base.__dict__.get('__optional_keys__', ()))
 
             annotations.update(own_annotations)
-            if total:
-                required_keys.update(own_annotation_keys)
+            if PEP_560:
+                for annotation_key, annotation_type in own_annotations.items():
+                    annotation_origin = get_origin(annotation_type)
+                    if annotation_origin is Annotated:
+                        annotation_args = get_args(annotation_type)
+                        if annotation_args:
+                            annotation_type = annotation_args[0]
+                            annotation_origin = get_origin(annotation_type)
+
+                    if annotation_origin is Required:
+                        required_keys.add(annotation_key)
+                    elif annotation_origin is NotRequired:
+                        optional_keys.add(annotation_key)
+                    elif total:
+                        required_keys.add(annotation_key)
+                    else:
+                        optional_keys.add(annotation_key)
             else:
-                optional_keys.update(own_annotation_keys)
+                own_annotation_keys = set(own_annotations.keys())
+                if total:
+                    required_keys.update(own_annotation_keys)
+                else:
+                    optional_keys.update(own_annotation_keys)
 
             tp_dict.__annotations__ = annotations
             tp_dict.__required_keys__ = frozenset(required_keys)
@@ -1138,10 +1159,6 @@ else:
         syntax forms work for Python 2.7 and 3.2+
         """
 
-
-if hasattr(typing, "is_typeddict"):
-    is_typeddict = typing.is_typeddict
-else:
     if hasattr(typing, "_TypedDictMeta"):
         _TYPEDDICT_TYPES = (typing._TypedDictMeta, _TypedDictMeta)
     else:
