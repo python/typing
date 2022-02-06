@@ -495,6 +495,10 @@ class NontotalMovie(TypedDict, total=False):
     title: Required[str]
     year: int
 
+class AnnotatedMovie(TypedDict):
+    title: Annotated[Required[str], "foobar"]
+    year: NotRequired[Annotated[int, 2000]]
+
 
 gth = get_type_hints
 
@@ -1982,6 +1986,19 @@ class GetTypeHintsTests(BaseTestCase):
             get_type_hints(MySet.__ior__, globals(), locals()),
             {'other': MySet[T], 'return': MySet[T]}
         )
+
+    def test_get_type_hints_typeddict(self):
+        assert get_type_hints(TotalMovie) == {'title': str, 'year': int}
+        assert get_type_hints(TotalMovie, include_extras=True) == {
+            'title': str,
+            'year': NotRequired[int],
+        }
+
+        assert get_type_hints(AnnotatedMovie) == {'title': str, 'year': int}
+        assert get_type_hints(AnnotatedMovie, include_extras=True) == {
+            'title': Annotated[Required[str], "foobar"],
+            'year': NotRequired[Annotated[int, 2000]],
+        }
 
 
 class TypeAliasTests(BaseTestCase):
