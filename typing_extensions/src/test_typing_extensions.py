@@ -2057,6 +2057,8 @@ class ParamSpecTests(BaseTestCase):
         self.assertTrue(hasattr(P, 'args'))
         self.assertTrue(hasattr(P, 'kwargs'))
 
+
+    @skipIf((3, 10, 0) <= sys.version_info[:3] <= (3, 10, 2), "Needs bpo-46676.")
     def test_args_kwargs(self):
         P = ParamSpec('P')
         P_2 = ParamSpec('P_2')
