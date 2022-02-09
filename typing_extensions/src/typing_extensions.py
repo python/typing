@@ -2488,7 +2488,7 @@ else:
 if hasattr(typing, "assert_never"):
     assert_never = typing.assert_never
 else:
-    def assert_never(arg: Never, /) -> Never:
+    def assert_never(__arg: Never) -> Never:
         """Assert to the type checker that a line of code is unreachable.
 
         Example::
