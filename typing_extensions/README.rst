@@ -40,6 +40,10 @@ This module currently contains the following:
   - ``@dataclass_transform()`` (see PEP 681)
   - ``NotRequired`` (see PEP 655)
   - ``Required`` (see PEP 655)
+
+- In ``typing`` since Python 3.11
+
+  - ``reveal_type``
   - ``Self`` (see PEP 673)
   - ``TypeVarTuple`` (see PEP 646)
   - ``Unpack`` (see PEP 646)

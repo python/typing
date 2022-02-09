@@ -22,7 +22,7 @@ from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, 
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
 from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload, final, is_typeddict
-from typing_extensions import TypeVarTuple, Unpack, dataclass_transform
+from typing_extensions import TypeVarTuple, Unpack, dataclass_transform, reveal_type
 try:
     from typing_extensions import get_type_hints
 except ImportError:
@@ -2067,8 +2067,10 @@ class ParamSpecTests(BaseTestCase):
         self.assertTrue(hasattr(P, 'args'))
         self.assertTrue(hasattr(P, 'kwargs'))
 
+    @skipIf((3, 10, 0) <= sys.version_info[:3] <= (3, 10, 2), "Needs bpo-46676.")
     def test_args_kwargs(self):
         P = ParamSpec('P')
+        P_2 = ParamSpec('P_2')
         # Note: not in dir(P) because of __class__ hacks
         self.assertTrue(hasattr(P, 'args'))
         self.assertTrue(hasattr(P, 'kwargs'))
@@ -2076,6 +2078,13 @@ class ParamSpecTests(BaseTestCase):
         self.assertIsInstance(P.kwargs, ParamSpecKwargs)
         self.assertIs(P.args.__origin__, P)
         self.assertIs(P.kwargs.__origin__, P)
+        self.assertEqual(P.args, P.args)
+        self.assertEqual(P.kwargs, P.kwargs)
+        self.assertNotEqual(P.args, P_2.args)
+        self.assertNotEqual(P.kwargs, P_2.kwargs)
+        self.assertNotEqual(P.args, P.kwargs)
+        self.assertNotEqual(P.kwargs, P.args)
+        self.assertNotEqual(P.args, P_2.kwargs)
         self.assertEqual(repr(P.args), "P.args")
         self.assertEqual(repr(P.kwargs), "P.kwargs")
 
@@ -2489,6 +2498,12 @@ class FinalDecoratorTests(BaseTestCase):
         )
         self.assertIs(True, Methods.prop.fget.__final__)
         self.assertIs(True, Methods.cached.__final__)
+
+
+class RevealTypeTests(BaseTestCase):
+    def test_reveal_type(self):
+        obj = object()
+        self.assertIs(obj, reveal_type(obj))
 
 
 class DataclassTransformTests(BaseTestCase):

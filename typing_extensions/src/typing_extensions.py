@@ -60,6 +60,7 @@ __all__ = [
     'NewType',
     'overload',
     'Protocol',
+    'reveal_type',
     'runtime',
     'runtime_checkable',
     'Text',
@@ -1697,6 +1698,11 @@ else:
         def __repr__(self):
             return f"{self.__origin__.__name__}.args"
 
+        def __eq__(self, other):
+            if not isinstance(other, ParamSpecArgs):
+                return NotImplemented
+            return self.__origin__ == other.__origin__
+
     class ParamSpecKwargs(_Immutable):
         """The kwargs for a ParamSpec object.
 
@@ -1714,6 +1720,11 @@ else:
 
         def __repr__(self):
             return f"{self.__origin__.__name__}.kwargs"
+
+        def __eq__(self, other):
+            if not isinstance(other, ParamSpecKwargs):
+                return NotImplemented
+            return self.__origin__ == other.__origin__
 
 # 3.10+
 if hasattr(typing, 'ParamSpec'):
@@ -2406,6 +2417,7 @@ else:
     Required = _Required(_root=True)
     NotRequired = _NotRequired(_root=True)
 
+
 if sys.version_info[:2] >= (3, 9):
     class _UnpackSpecialForm(typing._SpecialForm, _root=True):
         def __repr__(self):
@@ -2616,6 +2628,29 @@ class TypeVarTuple:
         def _get_type_vars(self, tvars):
             if self not in tvars:
                 tvars.append(self)
+
+
+if hasattr(typing, "reveal_type"):
+    reveal_type = typing.reveal_type
+else:
+    def reveal_type(__obj: T) -> T:
+        """Reveal the inferred type of a variable.
+
+        When a static type checker encounters a call to ``reveal_type()``,
+        it will emit the inferred type of the argument::
+
+            x: int = 1
+            reveal_type(x)
+
+        Running a static type checker (e.g., ``mypy``) on this example
+        will produce output similar to 'Revealed type is "builtins.int"'.
+
+        At runtime, the function prints the runtime type of the
+        argument and returns it unchanged.
+
+        """
+        print(f"Runtime type is {type(__obj).__name__!r}", file=sys.stderr)
+        return __obj
 
 
 if hasattr(typing, 'dataclass_transform'):
