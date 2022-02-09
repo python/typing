@@ -70,6 +70,7 @@ __all__ = [
 
     # One-off things.
     'Annotated',
+    'assert_never',
     'dataclass_transform',
     'final',
     'IntVar',
@@ -85,6 +86,7 @@ __all__ = [
     'TypeAlias',
     'TypeGuard',
     'TYPE_CHECKING',
+    'Never',
     'NoReturn',
     'Required',
     'NotRequired',
@@ -2195,6 +2197,112 @@ else:
     Self = _Self(_root=True)
 
 
+if hasattr(typing, "Never"):
+    Never = typing.Never
+elif sys.version_info[:2] >= (3, 7):
+    # Vendored from cpython typing._SpecialFrom
+    class _SpecialForm(typing._Final, _root=True):
+        __slots__ = ('_name', '__doc__', '_getitem')
+
+        def __init__(self, getitem):
+            self._getitem = getitem
+            self._name = getitem.__name__
+            self.__doc__ = getitem.__doc__
+
+        def __getattr__(self, item):
+            if item in {'__name__', '__qualname__'}:
+                return self._name
+
+            raise AttributeError(item)
+
+        def __mro_entries__(self, bases):
+            raise TypeError(f"Cannot subclass {self!r}")
+
+        def __repr__(self):
+            return f'typing_extensions.{self._name}'
+
+        def __reduce__(self):
+            return self._name
+
+        def __call__(self, *args, **kwds):
+            raise TypeError(f"Cannot instantiate {self!r}")
+
+        def __or__(self, other):
+            return typing.Union[self, other]
+
+        def __ror__(self, other):
+            return typing.Union[other, self]
+
+        def __instancecheck__(self, obj):
+            raise TypeError(f"{self} cannot be used with isinstance()")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError(f"{self} cannot be used with issubclass()")
+
+        @typing._tp_cache
+        def __getitem__(self, parameters):
+            return self._getitem(self, parameters)
+
+    @_SpecialForm
+    def Never(self, params):
+        """The bottom type, a type that has no members.
+
+        This can be used to define a function that should never be
+        called, or a function that never returns::
+
+            from typing_extensions import Never
+
+            def never_call_me(arg: Never) -> None:
+                pass
+
+            def int_or_str(arg: int | str) -> None:
+                never_call_me(arg)  # type checker error
+                match arg:
+                    case int():
+                        print("It's an int")
+                    case str():
+                        print("It's a str")
+                    case _:
+                        never_call_me(arg)  # ok, arg is of type Never
+
+        """
+
+        raise TypeError(f"{self} is not subscriptable")
+else:
+    class _Never(typing._FinalTypingBase, _root=True):
+        """The bottom type, a type that has no members.
+
+        This can be used to define a function that should never be
+        called, or a function that never returns::
+
+            from typing_extensions import Never
+
+            def never_call_me(arg: Never) -> None:
+                pass
+
+            def int_or_str(arg: int | str) -> None:
+                never_call_me(arg)  # type checker error
+                match arg:
+                    case int():
+                        print("It's an int")
+                    case str():
+                        print("It's a str")
+                    case _:
+                        never_call_me(arg)  # ok, arg is of type Never
+
+        """
+
+        __slots__ = ()
+
+        def __instancecheck__(self, obj):
+            raise TypeError(f"{self} cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError(f"{self} cannot be used with issubclass().")
+
+    Never = _Never(_root=True)
+
+
 if hasattr(typing, 'Required'):
     Required = typing.Required
     NotRequired = typing.NotRequired
@@ -2375,6 +2483,33 @@ else:
         """
         print(f"Runtime type is {type(__obj).__name__!r}", file=sys.stderr)
         return __obj
+
+
+if hasattr(typing, "assert_never"):
+    assert_never = typing.assert_never
+else:
+    def assert_never(arg: Never, /) -> Never:
+        """Assert to the type checker that a line of code is unreachable.
+
+        Example::
+
+            def int_or_str(arg: int | str) -> None:
+                match arg:
+                    case int():
+                        print("It's an int")
+                    case str():
+                        print("It's a str")
+                    case _:
+                        assert_never(arg)
+
+        If a type checker finds that a call to assert_never() is
+        reachable, it will emit an error.
+
+        At runtime, this throws an exception when called.
+
+        """
+        raise AssertionError("Expected code to be unreachable")
+
 
 
 if hasattr(typing, 'dataclass_transform'):
