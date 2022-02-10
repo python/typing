@@ -86,8 +86,7 @@ and is also present in ``typing_extensions`` starting at version 4.1.
 However, it is also possible to define a similar function in your own
 code, for example if you want to customize the error message.
 
-If you are not on Python 3.10 yet and cannot use the ``match`` statement,
-you can also use ``assert_never()`` with a sequence of ``if`` statements:
+You can also use ``assert_never()`` with a sequence of ``if`` statements:
 
 .. code:: python
 
