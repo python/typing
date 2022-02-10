@@ -2245,6 +2245,7 @@ class LiteralStringTests(BaseTestCase):
             def bar(self) -> LiteralString: ...
 
         self.assertEqual(gth(Foo.bar), {'return': LiteralString})
+        self.assertIsNone(get_origin(LiteralString), None))
 
     def test_repr(self):
         if hasattr(typing, 'LiteralString'):
