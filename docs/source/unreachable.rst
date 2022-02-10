@@ -84,7 +84,7 @@ it is provided by the standard library as ``typing.assert_never``
 starting in Python 3.11,
 and is also present in ``typing_extensions`` starting at version 4.1.
 However, it is also possible to define a similar function in your own
-code, for example if you want to customize the error message.
+code, for example if you want to customize the runtime error message.
 
 You can also use ``assert_never()`` with a sequence of ``if`` statements:
 
