@@ -93,4 +93,7 @@ Typing PEPs
 * `PEP 646 <https://www.python.org/dev/peps/pep-0646/>`_, variadic generics and ``TypeVarTuple``
 * `PEP 647 <https://www.python.org/dev/peps/pep-0647/>`_, ``TypeGuard``
 * `PEP 655 <https://www.python.org/dev/peps/pep-0655/>`_ (draft), ``Required`` and ``NotRequired``
-* `PEP 673 <https://www.python.org/dev/peps/pep-0673/>`_ (draft), ``Self``
+* `PEP 673 <https://www.python.org/dev/peps/pep-0673/>`_, ``Self``
+* `PEP 675 <https://www.python.org/dev/peps/pep-0675/>`_ (draft), ``LiteralString``
+* `PEP 677 <https://www.python.org/dev/peps/pep-0677/>`_ (draft), callable type syntax
+* `PEP 681 <https://www.python.org/dev/peps/pep-0681/>`_, ``@dataclass_transform()``
