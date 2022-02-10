@@ -39,7 +39,7 @@ use it yet, you can always use ``typing.NoReturn`` instead.
 ``assert_never()`` and exhaustiveness checking
 ==============================================
 
-The ``Never`` type can be leveraged to perform exhaustiveness checking,
+The ``Never`` type can be leveraged to perform static exhaustiveness checking,
 where we use the type checker to make sure that we covered all possible
 cases. For example, this can come up when code performs a separate action
 for each member of an enum, or for each type in a ``Union``.
