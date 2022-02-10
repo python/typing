@@ -131,8 +131,9 @@ Note how this is different from ``assert_never()``:
   cannot prove that the line is unreachable.
 - If we used ``assert False`` instead of ``assert_never()`` in the
   ``calculate()`` example above, we would not get the benefits of
-  exhaustiveness checking, because the type checker will not warn us
-  if the code is actually reachable.
+  exhaustiveness checking. If the code is actually reachable,
+  the type checker will not warn us and we could hit the assertion
+  at runtime.
 
 While ``assert False`` is the most idiomatic way to express this pattern,
 any statement that ends execution will do. For example, you could raise
