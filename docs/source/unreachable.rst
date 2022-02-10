@@ -22,7 +22,8 @@ Type theory has a concept of a
 `bottom type <https://en.wikipedia.org/wiki/Bottom_type>`__,
 a type that has no values. Concretely, this can be used to represent
 the return type of a function that never returns, or the argument type
-of a function that may never be called.
+of a function that may never be called. You can also think of the
+bottom type as a union with no members.
 
 The Python type system has long provided a type called ``NoReturn``.
 While it was originally meant only for functions that never return,
