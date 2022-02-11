@@ -175,10 +175,19 @@ Built-in Generics
 -----------------
 
 PEP 585 [#pep585]_ built-in generics are supported and should be used instead
-of the corresponding types from ``typing``.
+of the corresponding types from ``typing``::
+
+    from collections import defaultdict
+
+    def foo(t: type[MyClass]) -> list[int]: ...
+    x: defaultdict[int] = defaultdict(lambda: 42)
 
 Using imports from ``collections.abc`` instead of ``typing`` is
-generally possible and recommended.
+generally possible and recommended::
+
+    from collections.abc import Iterable
+
+    def foo(iter: Iterable[int]) -> None: ...
 
 Unions
 ------
