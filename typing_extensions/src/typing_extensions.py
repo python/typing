@@ -44,6 +44,7 @@ __all__ = [
     'ClassVar',
     'Concatenate',
     'Final',
+    'LiteralString',
     'ParamSpec',
     'Self',
     'Type',
@@ -70,6 +71,7 @@ __all__ = [
 
     # One-off things.
     'Annotated',
+    'assert_never',
     'dataclass_transform',
     'final',
     'IntVar',
@@ -85,6 +87,7 @@ __all__ = [
     'TypeAlias',
     'TypeGuard',
     'TYPE_CHECKING',
+    'Never',
     'NoReturn',
     'Required',
     'NotRequired',
@@ -1674,6 +1677,11 @@ else:
         def __repr__(self):
             return f"{self.__origin__.__name__}.args"
 
+        def __eq__(self, other):
+            if not isinstance(other, ParamSpecArgs):
+                return NotImplemented
+            return self.__origin__ == other.__origin__
+
     class ParamSpecKwargs(_Immutable):
         """The kwargs for a ParamSpec object.
 
@@ -1691,6 +1699,11 @@ else:
 
         def __repr__(self):
             return f"{self.__origin__.__name__}.kwargs"
+
+        def __eq__(self, other):
+            if not isinstance(other, ParamSpecKwargs):
+                return NotImplemented
+            return self.__origin__ == other.__origin__
 
 # 3.10+
 if hasattr(typing, 'ParamSpec'):
@@ -2136,9 +2149,8 @@ else:
 
     TypeGuard = _TypeGuard(_root=True)
 
-if hasattr(typing, "Self"):
-    Self = typing.Self
-elif sys.version_info[:2] >= (3, 7):
+
+if sys.version_info[:2] >= (3, 7):
     # Vendored from cpython typing._SpecialFrom
     class _SpecialForm(typing._Final, _root=True):
         __slots__ = ('_name', '__doc__', '_getitem')
@@ -2182,6 +2194,60 @@ elif sys.version_info[:2] >= (3, 7):
         def __getitem__(self, parameters):
             return self._getitem(self, parameters)
 
+
+if hasattr(typing, "LiteralString"):
+    LiteralString = typing.LiteralString
+elif sys.version_info[:2] >= (3, 7):
+    @_SpecialForm
+    def LiteralString(self, params):
+        """Represents an arbitrary literal string.
+
+        Example::
+
+          from typing_extensions import LiteralString
+
+          def query(sql: LiteralString) -> ...:
+              ...
+
+          query("SELECT * FROM table")  # ok
+          query(f"SELECT * FROM {input()}")  # not ok
+
+        See PEP 675 for details.
+
+        """
+        raise TypeError(f"{self} is not subscriptable")
+else:
+    class _LiteralString(typing._FinalTypingBase, _root=True):
+        """Represents an arbitrary literal string.
+
+        Example::
+
+          from typing_extensions import LiteralString
+
+          def query(sql: LiteralString) -> ...:
+              ...
+
+          query("SELECT * FROM table")  # ok
+          query(f"SELECT * FROM {input()}")  # not ok
+
+        See PEP 675 for details.
+
+        """
+
+        __slots__ = ()
+
+        def __instancecheck__(self, obj):
+            raise TypeError(f"{self} cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError(f"{self} cannot be used with issubclass().")
+
+    LiteralString = _LiteralString(_root=True)
+
+
+if hasattr(typing, "Self"):
+    Self = typing.Self
+elif sys.version_info[:2] >= (3, 7):
     @_SpecialForm
     def Self(self, params):
         """Used to spell the type of "self" in classes.
@@ -2222,6 +2288,69 @@ else:
             raise TypeError(f"{self} cannot be used with issubclass().")
 
     Self = _Self(_root=True)
+
+
+if hasattr(typing, "Never"):
+    Never = typing.Never
+elif sys.version_info[:2] >= (3, 7):
+    @_SpecialForm
+    def Never(self, params):
+        """The bottom type, a type that has no members.
+
+        This can be used to define a function that should never be
+        called, or a function that never returns::
+
+            from typing_extensions import Never
+
+            def never_call_me(arg: Never) -> None:
+                pass
+
+            def int_or_str(arg: int | str) -> None:
+                never_call_me(arg)  # type checker error
+                match arg:
+                    case int():
+                        print("It's an int")
+                    case str():
+                        print("It's a str")
+                    case _:
+                        never_call_me(arg)  # ok, arg is of type Never
+
+        """
+
+        raise TypeError(f"{self} is not subscriptable")
+else:
+    class _Never(typing._FinalTypingBase, _root=True):
+        """The bottom type, a type that has no members.
+
+        This can be used to define a function that should never be
+        called, or a function that never returns::
+
+            from typing_extensions import Never
+
+            def never_call_me(arg: Never) -> None:
+                pass
+
+            def int_or_str(arg: int | str) -> None:
+                never_call_me(arg)  # type checker error
+                match arg:
+                    case int():
+                        print("It's an int")
+                    case str():
+                        print("It's a str")
+                    case _:
+                        never_call_me(arg)  # ok, arg is of type Never
+
+        """
+
+        __slots__ = ()
+
+        def __instancecheck__(self, obj):
+            raise TypeError(f"{self} cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError(f"{self} cannot be used with issubclass().")
+
+    Never = _Never(_root=True)
 
 
 if hasattr(typing, 'Required'):
@@ -2404,6 +2533,32 @@ else:
         """
         print(f"Runtime type is {type(__obj).__name__!r}", file=sys.stderr)
         return __obj
+
+
+if hasattr(typing, "assert_never"):
+    assert_never = typing.assert_never
+else:
+    def assert_never(__arg: Never) -> Never:
+        """Assert to the type checker that a line of code is unreachable.
+
+        Example::
+
+            def int_or_str(arg: int | str) -> None:
+                match arg:
+                    case int():
+                        print("It's an int")
+                    case str():
+                        print("It's a str")
+                    case _:
+                        assert_never(arg)
+
+        If a type checker finds that a call to assert_never() is
+        reachable, it will emit an error.
+
+        At runtime, this throws an exception when called.
+
+        """
+        raise AssertionError("Expected code to be unreachable")
 
 
 if hasattr(typing, 'dataclass_transform'):

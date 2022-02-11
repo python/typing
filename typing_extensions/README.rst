@@ -37,12 +37,15 @@ This module currently contains the following:
 
 - Experimental features
 
+  - ``LiteralString`` (see PEP 675)
   - ``@dataclass_transform()`` (see PEP 681)
   - ``NotRequired`` (see PEP 655)
   - ``Required`` (see PEP 655)
 
 - In ``typing`` since Python 3.11
 
+  - ``assert_never``
+  - ``Never``
   - ``reveal_type``
   - ``Self`` (see PEP 673)
 
