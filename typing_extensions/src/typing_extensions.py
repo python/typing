@@ -2701,14 +2701,8 @@ class TypeVarTuple:
     def __iter__(self):
         yield self.__unpacked__
 
-    def __init__(self, name, *, bound=None, covariant=False, contravariant=False):
+    def __init__(self, name):
         self.__name__ = name
-        self.__covariant__ = bool(covariant)
-        self.__contravariant__ = bool(contravariant)
-        if bound:
-            self.__bound__ = typing._type_check(bound, 'Bound must be a type.')
-        else:
-            self.__bound__ = None
 
         # for pickling:
         try:
@@ -2721,13 +2715,7 @@ class TypeVarTuple:
         self.__unpacked__ = Unpack[self]
 
     def __repr__(self):
-        if self.__covariant__:
-            prefix = '+'
-        elif self.__contravariant__:
-            prefix = '-'
-        else:
-            prefix = ''
-        return prefix + self.__name__
+        return self.__name__
 
     def __hash__(self):
         return object.__hash__(self)
