@@ -991,13 +991,16 @@ else:
             pass
 
 
-if sys.version_info >= (3, 9, 2):
+if hasattr(typing, "Required"):
     # The standard library TypedDict in Python 3.8 does not store runtime information
     # about which (if any) keys are optional.  See https://bugs.python.org/issue38834
     # The standard library TypedDict in Python 3.9.0/1 does not honour the "total"
     # keyword with old-style TypedDict().  See https://bugs.python.org/issue42059
+    # The standard library TypedDict below Python 3.11 does not store runtime
+    # information about optional and required keys when using Required or NotRequired.
     TypedDict = typing.TypedDict
     _TypedDictMeta = typing._TypedDictMeta
+    is_typeddict = typing.is_typeddict
 else:
     def _check_fails(cls, other):
         try:
@@ -1081,7 +1084,6 @@ else:
 
             annotations = {}
             own_annotations = ns.get('__annotations__', {})
-            own_annotation_keys = set(own_annotations.keys())
             msg = "TypedDict('Name', {f0: t0, f1: t1, ...}); each t must be a type"
             own_annotations = {
                 n: typing._type_check(tp, msg) for n, tp in own_annotations.items()
@@ -1095,10 +1097,29 @@ else:
                 optional_keys.update(base.__dict__.get('__optional_keys__', ()))
 
             annotations.update(own_annotations)
-            if total:
-                required_keys.update(own_annotation_keys)
+            if PEP_560:
+                for annotation_key, annotation_type in own_annotations.items():
+                    annotation_origin = get_origin(annotation_type)
+                    if annotation_origin is Annotated:
+                        annotation_args = get_args(annotation_type)
+                        if annotation_args:
+                            annotation_type = annotation_args[0]
+                            annotation_origin = get_origin(annotation_type)
+
+                    if annotation_origin is Required:
+                        required_keys.add(annotation_key)
+                    elif annotation_origin is NotRequired:
+                        optional_keys.add(annotation_key)
+                    elif total:
+                        required_keys.add(annotation_key)
+                    else:
+                        optional_keys.add(annotation_key)
             else:
-                optional_keys.update(own_annotation_keys)
+                own_annotation_keys = set(own_annotations.keys())
+                if total:
+                    required_keys.update(own_annotation_keys)
+                else:
+                    optional_keys.update(own_annotation_keys)
 
             tp_dict.__annotations__ = annotations
             tp_dict.__required_keys__ = frozenset(required_keys)
@@ -1141,10 +1162,6 @@ else:
         syntax forms work for Python 2.7 and 3.2+
         """
 
-
-if hasattr(typing, "is_typeddict"):
-    is_typeddict = typing.is_typeddict
-else:
     if hasattr(typing, "_TypedDictMeta"):
         _TYPEDDICT_TYPES = (typing._TypedDictMeta, _TypedDictMeta)
     else:
@@ -1163,11 +1180,83 @@ else:
         """
         return isinstance(tp, tuple(_TYPEDDICT_TYPES))
 
+if hasattr(typing, "Required"):
+    get_type_hints = typing.get_type_hints
+elif PEP_560:
+    import functools
+    import types
 
-# Python 3.9+ has PEP 593 (Annotated and modified get_type_hints)
+    # replaces _strip_annotations()
+    def _strip_extras(t):
+        """Strips Annotated, Required and NotRequired from a given type."""
+        if isinstance(t, _AnnotatedAlias):
+            return _strip_extras(t.__origin__)
+        if hasattr(t, "__origin__") and t.__origin__ in (Required, NotRequired):
+            return _strip_extras(t.__args__[0])
+        if isinstance(t, typing._GenericAlias):
+            stripped_args = tuple(_strip_extras(a) for a in t.__args__)
+            if stripped_args == t.__args__:
+                return t
+            return t.copy_with(stripped_args)
+        if hasattr(types, "GenericAlias") and isinstance(t, types.GenericAlias):
+            stripped_args = tuple(_strip_extras(a) for a in t.__args__)
+            if stripped_args == t.__args__:
+                return t
+            return types.GenericAlias(t.__origin__, stripped_args)
+        if hasattr(types, "UnionType") and isinstance(t, types.UnionType):
+            stripped_args = tuple(_strip_extras(a) for a in t.__args__)
+            if stripped_args == t.__args__:
+                return t
+            return functools.reduce(operator.or_, stripped_args)
+
+        return t
+
+    def get_type_hints(obj, globalns=None, localns=None, include_extras=False):
+        """Return type hints for an object.
+
+        This is often the same as obj.__annotations__, but it handles
+        forward references encoded as string literals, adds Optional[t] if a
+        default value equal to None is set and recursively replaces all
+        'Annotated[T, ...]', 'Required[T]' or 'NotRequired[T]' with 'T'
+        (unless 'include_extras=True').
+
+        The argument may be a module, class, method, or function. The annotations
+        are returned as a dictionary. For classes, annotations include also
+        inherited members.
+
+        TypeError is raised if the argument is not of a type that can contain
+        annotations, and an empty dictionary is returned if no annotations are
+        present.
+
+        BEWARE -- the behavior of globalns and localns is counterintuitive
+        (unless you are familiar with how eval() and exec() work).  The
+        search order is locals first, then globals.
+
+        - If no dict arguments are passed, an attempt is made to use the
+          globals from obj (or the respective module's globals for classes),
+          and these are also used as the locals.  If the object does not appear
+          to have globals, an empty dictionary is used.
+
+        - If one dict argument is passed, it is used for both globals and
+          locals.
+
+        - If two dict arguments are passed, they specify globals and
+          locals, respectively.
+        """
+        if hasattr(typing, "Annotated"):
+            hint = typing.get_type_hints(
+                obj, globalns=globalns, localns=localns, include_extras=True
+            )
+        else:
+            hint = typing.get_type_hints(obj, globalns=globalns, localns=localns)
+        if include_extras:
+            return hint
+        return {k: _strip_extras(t) for k, t in hint.items()}
+
+
+# Python 3.9+ has PEP 593 (Annotated)
 if hasattr(typing, 'Annotated'):
     Annotated = typing.Annotated
-    get_type_hints = typing.get_type_hints
     # Not exported and not a public API, but needed for get_origin() and get_args()
     # to work.
     _AnnotatedAlias = typing._AnnotatedAlias
@@ -1269,56 +1358,6 @@ elif PEP_560:
             raise TypeError(
                 f"Cannot subclass {cls.__module__}.Annotated"
             )
-
-    def _strip_annotations(t):
-        """Strips the annotations from a given type.
-        """
-        if isinstance(t, _AnnotatedAlias):
-            return _strip_annotations(t.__origin__)
-        if isinstance(t, typing._GenericAlias):
-            stripped_args = tuple(_strip_annotations(a) for a in t.__args__)
-            if stripped_args == t.__args__:
-                return t
-            res = t.copy_with(stripped_args)
-            res._special = t._special
-            return res
-        return t
-
-    def get_type_hints(obj, globalns=None, localns=None, include_extras=False):
-        """Return type hints for an object.
-
-        This is often the same as obj.__annotations__, but it handles
-        forward references encoded as string literals, adds Optional[t] if a
-        default value equal to None is set and recursively replaces all
-        'Annotated[T, ...]' with 'T' (unless 'include_extras=True').
-
-        The argument may be a module, class, method, or function. The annotations
-        are returned as a dictionary. For classes, annotations include also
-        inherited members.
-
-        TypeError is raised if the argument is not of a type that can contain
-        annotations, and an empty dictionary is returned if no annotations are
-        present.
-
-        BEWARE -- the behavior of globalns and localns is counterintuitive
-        (unless you are familiar with how eval() and exec() work).  The
-        search order is locals first, then globals.
-
-        - If no dict arguments are passed, an attempt is made to use the
-          globals from obj (or the respective module's globals for classes),
-          and these are also used as the locals.  If the object does not appear
-          to have globals, an empty dictionary is used.
-
-        - If one dict argument is passed, it is used for both globals and
-          locals.
-
-        - If two dict arguments are passed, they specify globals and
-          locals, respectively.
-        """
-        hint = typing.get_type_hints(obj, globalns=globalns, localns=localns)
-        if include_extras:
-            return hint
-        return {k: _strip_annotations(t) for k, t in hint.items()}
 # 3.6
 else:
 
