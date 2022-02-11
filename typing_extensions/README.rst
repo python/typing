@@ -44,6 +44,8 @@ This module currently contains the following:
 
 - In ``typing`` since Python 3.11
 
+  - ``assert_never``
+  - ``Never``
   - ``reveal_type``
   - ``Self`` (see PEP 673)
 
