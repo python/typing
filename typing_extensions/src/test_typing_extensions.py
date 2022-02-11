@@ -2298,6 +2298,10 @@ class LiteralStringTests(BaseTestCase):
 
         self.assertEqual(gth(Foo.bar), {'return': LiteralString})
         self.assertEqual(gth(Foo.baz), {'return': LiteralString})
+
+    @skipUnless(PEP_560, "Python 3.7+ required")
+    def test_get_origin(self):
+        from typing_extensions import get_origin
         self.assertIsNone(get_origin(LiteralString))
 
     def test_repr(self):
