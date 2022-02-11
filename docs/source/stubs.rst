@@ -315,14 +315,15 @@ But::
         def create_it(cls: _T) -> _T: ...  # cls has type _T
 
 PEP 612 [#pep612]_ parameter specification variables (``ParamSpec``)
-are supported in argument and return types, although
-they need to be marked with ``# type: ignore`` to work with all
-type checkers [#ts-4827]_::
+are supported in argument and return types::
 
     _P = ParamSpec("_P")
-    _T = TypeVar("_T")
+    _R = TypeVar("_R")
 
-    def foo(cb: Callable[_P, _T]) -> Callable[_P, _T]: ...  # type: ignore
+    def foo(cb: Callable[_P, _R], *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
+
+However, ``Concatenate`` from PEP 612 is not yet supported; nor is using
+a ``ParamSpec`` to parameterize a generic class.
 
 PEP 647 [#pep647]_ type guards are supported.
 
@@ -1102,7 +1103,6 @@ Bugs
 
 .. [#ts-4819] typeshed issue #4819 -- PEP 604 tracker (https://github.com/python/typeshed/issues/4819)
 .. [#ts-4820] typeshed issue #4820 -- PEP 585 tracker (https://github.com/python/typeshed/issues/4820)
-.. [#ts-4827] typeshed issue #4827 -- PEP 612 tracker (https://github.com/python/typeshed/issues/4827)
 .. [#ts-4913] typeshed issue #4913 -- PEP 613 tracker (https://github.com/python/typeshed/issues/4913)
 .. [#ts-4972] typeshed issue #4972 -- PEP 570 tracker (https://github.com/python/typeshed/issues/4972)
 
