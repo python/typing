@@ -2,6 +2,8 @@
 
 - Runtime support for PEP 646, adding `typing_extensions.TypeVarTuple`
   and `typing_extensions.Unpack`.
+- Runtime support for PEP 675 and `typing_extensions.LiteralString`.
+- Add `Never` and `assert_never`. Backport from bpo-46475.
 - `ParamSpec` args and kwargs are now equal to themselves. Backport from
   bpo-46676. Patch by Gregory Beauregard (@GBeauregard).
 - Add `reveal_type`. Backport from bpo-46414.
