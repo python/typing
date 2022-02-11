@@ -12,7 +12,7 @@ import types
 from unittest import TestCase, main, skipUnless, skipIf
 from test import ann_module, ann_module2, ann_module3
 import typing
-from typing import TypeVar, Optional, Union
+from typing import TypeVar, Optional, Union, Any
 from typing import T, KT, VT  # Not in __all__.
 from typing import Tuple, List, Dict, Iterable, Iterator, Callable
 from typing import Generic, NamedTuple
@@ -22,7 +22,7 @@ from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, 
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
 from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload, final, is_typeddict
-from typing_extensions import dataclass_transform, reveal_type
+from typing_extensions import dataclass_transform, reveal_type, Never, assert_never
 try:
     from typing_extensions import get_type_hints
 except ImportError:
@@ -70,19 +70,50 @@ class Employee:
     pass
 
 
-class NoReturnTests(BaseTestCase):
+class BottomTypeTestsMixin:
+    bottom_type: ClassVar[Any]
 
-    def test_noreturn_instance_type_error(self):
-        with self.assertRaises(TypeError):
-            isinstance(42, NoReturn)
+    def test_equality(self):
+        self.assertEqual(self.bottom_type, self.bottom_type)
+        self.assertIs(self.bottom_type, self.bottom_type)
+        self.assertNotEqual(self.bottom_type, None)
 
-    def test_noreturn_subclass_type_error_1(self):
-        with self.assertRaises(TypeError):
-            issubclass(Employee, NoReturn)
+    @skipUnless(PEP_560, "Python 3.7+ required")
+    def test_get_origin(self):
+        from typing_extensions import get_origin
+        self.assertIs(get_origin(self.bottom_type), None)
 
-    def test_noreturn_subclass_type_error_2(self):
+    def test_instance_type_error(self):
         with self.assertRaises(TypeError):
-            issubclass(NoReturn, Employee)
+            isinstance(42, self.bottom_type)
+
+    def test_subclass_type_error(self):
+        with self.assertRaises(TypeError):
+            issubclass(Employee, self.bottom_type)
+        with self.assertRaises(TypeError):
+            issubclass(NoReturn, self.bottom_type)
+
+    def test_not_generic(self):
+        with self.assertRaises(TypeError):
+            self.bottom_type[int]
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class A(self.bottom_type):
+                pass
+        with self.assertRaises(TypeError):
+            class A(type(self.bottom_type)):
+                pass
+
+    def test_cannot_instantiate(self):
+        with self.assertRaises(TypeError):
+            self.bottom_type()
+        with self.assertRaises(TypeError):
+            type(self.bottom_type)()
+
+
+class NoReturnTests(BottomTypeTestsMixin, BaseTestCase):
+    bottom_type = NoReturn
 
     def test_repr(self):
         if hasattr(typing, 'NoReturn'):
@@ -90,23 +121,43 @@ class NoReturnTests(BaseTestCase):
         else:
             self.assertEqual(repr(NoReturn), 'typing_extensions.NoReturn')
 
-    def test_not_generic(self):
-        with self.assertRaises(TypeError):
-            NoReturn[int]
+    def test_get_type_hints(self):
+        def some(arg: NoReturn) -> NoReturn: ...
+        def some_str(arg: 'NoReturn') -> 'typing.NoReturn': ...
 
-    def test_cannot_subclass(self):
-        with self.assertRaises(TypeError):
-            class A(NoReturn):
-                pass
-        with self.assertRaises(TypeError):
-            class A(type(NoReturn)):
-                pass
+        expected = {'arg': NoReturn, 'return': NoReturn}
+        for target in [some, some_str]:
+            with self.subTest(target=target):
+                self.assertEqual(gth(target), expected)
 
-    def test_cannot_instantiate(self):
-        with self.assertRaises(TypeError):
-            NoReturn()
-        with self.assertRaises(TypeError):
-            type(NoReturn)()
+    def test_not_equality(self):
+        self.assertNotEqual(NoReturn, Never)
+        self.assertNotEqual(Never, NoReturn)
+
+
+class NeverTests(BottomTypeTestsMixin, BaseTestCase):
+    bottom_type = Never
+
+    def test_repr(self):
+        if hasattr(typing, 'Never'):
+            self.assertEqual(repr(Never), 'typing.Never')
+        else:
+            self.assertEqual(repr(Never), 'typing_extensions.Never')
+
+    def test_get_type_hints(self):
+        def some(arg: Never) -> Never: ...
+        def some_str(arg: 'Never') -> 'typing_extensions.Never': ...
+
+        expected = {'arg': Never, 'return': Never}
+        for target in [some, some_str]:
+            with self.subTest(target=target):
+                self.assertEqual(gth(target), expected)
+
+
+class AssertNeverTests(BaseTestCase):
+    def test_exception(self):
+        with self.assertRaises(AssertionError):
+            assert_never(None)
 
 
 class ClassVarTests(BaseTestCase):
