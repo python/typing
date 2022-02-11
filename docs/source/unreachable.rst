@@ -139,7 +139,7 @@ While ``assert False`` is the most idiomatic way to express this pattern,
 any statement that ends execution will do. For example, you could raise
 an exception or call a function that returns ``Never``.
 
-Detecting unexpectedly unreachable code
+Detecting Unexpectedly Unreachable Code
 =======================================
 
 Another possible problem is code that is supposed to execute, but that
