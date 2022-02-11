@@ -22,7 +22,7 @@ from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, 
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
 from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload, final, is_typeddict
-from typing_extensions import dataclass_transform, reveal_type, Never, assert_never
+from typing_extensions import dataclass_transform, reveal_type, Never, assert_never, LiteralString
 try:
     from typing_extensions import get_type_hints
 except ImportError:
@@ -110,6 +110,11 @@ class BottomTypeTestsMixin:
             self.bottom_type()
         with self.assertRaises(TypeError):
             type(self.bottom_type)()
+
+    def test_pickle(self):
+        for proto in range(pickle.HIGHEST_PROTOCOL):
+            pickled = pickle.dumps(self.bottom_type, protocol=proto)
+            self.assertIs(self.bottom_type, pickle.loads(pickled))
 
 
 class NoReturnTests(BottomTypeTestsMixin, BaseTestCase):
@@ -1896,7 +1901,8 @@ class AnnotatedTests(BaseTestCase):
     def test_pickle(self):
         samples = [typing.Any, typing.Union[int, str],
                    typing.Optional[str], Tuple[int, ...],
-                   typing.Callable[[str], bytes]]
+                   typing.Callable[[str], bytes],
+                   Self, LiteralString, Never]
 
         for t in samples:
             x = Annotated[t, "a"]
@@ -2290,6 +2296,67 @@ class TypeGuardTests(BaseTestCase):
             issubclass(int, TypeGuard)
 
 
+class LiteralStringTests(BaseTestCase):
+    def test_basics(self):
+        class Foo:
+            def bar(self) -> LiteralString: ...
+            def baz(self) -> "LiteralString": ...
+
+        self.assertEqual(gth(Foo.bar), {'return': LiteralString})
+        self.assertEqual(gth(Foo.baz), {'return': LiteralString})
+
+    @skipUnless(PEP_560, "Python 3.7+ required")
+    def test_get_origin(self):
+        from typing_extensions import get_origin
+        self.assertIsNone(get_origin(LiteralString))
+
+    def test_repr(self):
+        if hasattr(typing, 'LiteralString'):
+            mod_name = 'typing'
+        else:
+            mod_name = 'typing_extensions'
+        self.assertEqual(repr(LiteralString), '{}.LiteralString'.format(mod_name))
+
+    def test_cannot_subscript(self):
+        with self.assertRaises(TypeError):
+            LiteralString[int]
+
+    def test_cannot_subclass(self):
+        with self.assertRaises(TypeError):
+            class C(type(LiteralString)):
+                pass
+        with self.assertRaises(TypeError):
+            class C(LiteralString):
+                pass
+
+    def test_cannot_init(self):
+        with self.assertRaises(TypeError):
+            LiteralString()
+        with self.assertRaises(TypeError):
+            type(LiteralString)()
+
+    def test_no_isinstance(self):
+        with self.assertRaises(TypeError):
+            isinstance(1, LiteralString)
+        with self.assertRaises(TypeError):
+            issubclass(int, LiteralString)
+
+    def test_alias(self):
+        StringTuple = Tuple[LiteralString, LiteralString]
+        class Alias:
+            def return_tuple(self) -> StringTuple:
+                return ("foo", "pep" + "675")
+
+    def test_typevar(self):
+        StrT = TypeVar("StrT", bound=LiteralString)
+        self.assertIs(StrT.__bound__, LiteralString)
+
+    def test_pickle(self):
+        for proto in range(pickle.HIGHEST_PROTOCOL):
+            pickled = pickle.dumps(LiteralString, protocol=proto)
+            self.assertIs(LiteralString, pickle.loads(pickled))
+
+
 class SelfTests(BaseTestCase):
     def test_basics(self):
         class Foo:
@@ -2330,6 +2397,11 @@ class SelfTests(BaseTestCase):
         class Alias:
             def return_tuple(self) -> TupleSelf:
                 return (self, self)
+
+    def test_pickle(self):
+        for proto in range(pickle.HIGHEST_PROTOCOL):
+            pickled = pickle.dumps(Self, protocol=proto)
+            self.assertIs(Self, pickle.loads(pickled))
 
 
 class FinalDecoratorTests(BaseTestCase):

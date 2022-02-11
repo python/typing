@@ -44,6 +44,7 @@ __all__ = [
     'ClassVar',
     'Concatenate',
     'Final',
+    'LiteralString',
     'ParamSpec',
     'Self',
     'Type',
@@ -2153,6 +2154,56 @@ if sys.version_info[:2] >= (3, 7):
         @typing._tp_cache
         def __getitem__(self, parameters):
             return self._getitem(self, parameters)
+
+
+if hasattr(typing, "LiteralString"):
+    LiteralString = typing.LiteralString
+elif sys.version_info[:2] >= (3, 7):
+    @_SpecialForm
+    def LiteralString(self, params):
+        """Represents an arbitrary literal string.
+
+        Example::
+
+          from typing_extensions import LiteralString
+
+          def query(sql: LiteralString) -> ...:
+              ...
+
+          query("SELECT * FROM table")  # ok
+          query(f"SELECT * FROM {input()}")  # not ok
+
+        See PEP 675 for details.
+
+        """
+        raise TypeError(f"{self} is not subscriptable")
+else:
+    class _LiteralString(typing._FinalTypingBase, _root=True):
+        """Represents an arbitrary literal string.
+
+        Example::
+
+          from typing_extensions import LiteralString
+
+          def query(sql: LiteralString) -> ...:
+              ...
+
+          query("SELECT * FROM table")  # ok
+          query(f"SELECT * FROM {input()}")  # not ok
+
+        See PEP 675 for details.
+
+        """
+
+        __slots__ = ()
+
+        def __instancecheck__(self, obj):
+            raise TypeError(f"{self} cannot be used with isinstance().")
+
+        def __subclasscheck__(self, cls):
+            raise TypeError(f"{self} cannot be used with issubclass().")
+
+    LiteralString = _LiteralString(_root=True)
 
 
 if hasattr(typing, "Self"):
