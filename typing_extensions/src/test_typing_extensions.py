@@ -111,6 +111,11 @@ class BottomTypeTestsMixin:
         with self.assertRaises(TypeError):
             type(self.bottom_type)()
 
+    def test_pickle(self):
+        for proto in range(pickle.HIGHEST_PROTOCOL):
+            pickled = pickle.dumps(self.bottom_type, protocol=proto)
+            self.assertIs(self.bottom_type, pickle.loads(pickled))
+
 
 class NoReturnTests(BottomTypeTestsMixin, BaseTestCase):
     bottom_type = NoReturn
@@ -1896,7 +1901,8 @@ class AnnotatedTests(BaseTestCase):
     def test_pickle(self):
         samples = [typing.Any, typing.Union[int, str],
                    typing.Optional[str], Tuple[int, ...],
-                   typing.Callable[[str], bytes]]
+                   typing.Callable[[str], bytes],
+                   Self, LiteralString, Never]
 
         for t in samples:
             x = Annotated[t, "a"]
@@ -2319,6 +2325,9 @@ class LiteralStringTests(BaseTestCase):
         with self.assertRaises(TypeError):
             class C(type(LiteralString)):
                 pass
+        with self.assertRaises(TypeError):
+            class C(LiteralString):
+                pass
 
     def test_cannot_init(self):
         with self.assertRaises(TypeError):
@@ -2341,6 +2350,11 @@ class LiteralStringTests(BaseTestCase):
     def test_typevar(self):
         StrT = TypeVar("StrT", bound=LiteralString)
         self.assertIs(StrT.__bound__, LiteralString)
+
+    def test_pickle(self):
+        for proto in range(pickle.HIGHEST_PROTOCOL):
+            pickled = pickle.dumps(LiteralString, protocol=proto)
+            self.assertIs(LiteralString, pickle.loads(pickled))
 
 
 class SelfTests(BaseTestCase):
@@ -2383,6 +2397,11 @@ class SelfTests(BaseTestCase):
         class Alias:
             def return_tuple(self) -> TupleSelf:
                 return (self, self)
+
+    def test_pickle(self):
+        for proto in range(pickle.HIGHEST_PROTOCOL):
+            pickled = pickle.dumps(Self, protocol=proto)
+            self.assertIs(Self, pickle.loads(pickled))
 
 
 class FinalDecoratorTests(BaseTestCase):
