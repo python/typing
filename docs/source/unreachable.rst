@@ -43,7 +43,7 @@ use it yet, you can always use ``typing.NoReturn`` instead.
 The ``Never`` type can be leveraged to perform static exhaustiveness checking,
 where we use the type checker to make sure that we covered all possible
 cases. For example, this can come up when code performs a separate action
-for each member of an enum, or for each type in a ``Union``.
+for each member of an enum, or for each type in a union.
 
 To have the type checker do exhaustiveness checking for us, we call a
 function with a parameter typed as ``Never``. The type checker will allow
