@@ -37,7 +37,7 @@ it has the same meaning as ``NoReturn``.
 In this guide, we'll use ``Never`` for the bottom type, but if you cannot
 use it yet, you can always use ``typing.NoReturn`` instead.
 
-``assert_never()`` and exhaustiveness checking
+``assert_never()`` and Exhaustiveness Checking
 ==============================================
 
 The ``Never`` type can be leveraged to perform static exhaustiveness checking,
