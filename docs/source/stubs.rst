@@ -174,15 +174,8 @@ Type checkers support cyclic imports in stub files.
 Built-in Generics
 -----------------
 
-PEP 585 [#pep585]_ built-in generics are generally supported, with
-the following exceptions [#ts-4820]_:
-
-* Built-in generics don't work in type aliases.
-* Built-in generics don't work in base classes.
-* ``type`` is not supported.
-* Variable length tuples (``tuple[X, ...]``) are not supported.
-
-In these cases, the appropriate types from ``typing`` must be used.
+PEP 585 [#pep585]_ built-in generics are supported and should be used instead
+of the corresponding types from ``typing``.
 
 Using imports from ``collections.abc`` instead of ``typing`` is
 generally possible and recommended.
@@ -1101,7 +1094,6 @@ Bugs
 ----
 
 .. [#ts-4819] typeshed issue #4819 -- PEP 604 tracker (https://github.com/python/typeshed/issues/4819)
-.. [#ts-4820] typeshed issue #4820 -- PEP 585 tracker (https://github.com/python/typeshed/issues/4820)
 .. [#ts-4827] typeshed issue #4827 -- PEP 612 tracker (https://github.com/python/typeshed/issues/4827)
 .. [#ts-4913] typeshed issue #4913 -- PEP 613 tracker (https://github.com/python/typeshed/issues/4913)
 .. [#ts-4972] typeshed issue #4972 -- PEP 570 tracker (https://github.com/python/typeshed/issues/4972)
