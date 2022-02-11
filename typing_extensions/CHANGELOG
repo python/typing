@@ -1,5 +1,7 @@
 # Release 4.x.x
 
+- Add interaction of `Required` and `NotRequired` with `__required_keys__`,
+  `__optional_keys__` and `get_type_hints()`. Patch by David Cabot (@d-k-bo).
 - Runtime support for PEP 675 and `typing_extensions.LiteralString`.
 - Add `Never` and `assert_never`. Backport from bpo-46475.
 - `ParamSpec` args and kwargs are now equal to themselves. Backport from
