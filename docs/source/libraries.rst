@@ -282,33 +282,6 @@ Examples of known and unknown types
    class DictSubclass(dict):
        pass
 
-Verifying Type Completeness
-===========================
-
-Some type checkers provide features that allows library authors to verify type
-completeness for a “py.typed” package. E.g. Pyright has a special
-`command line flag <https://git.io/JPueJ>`_ for this.
-
-Improving Type Completeness
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Here are some tips for increasing the type completeness score for your
-library:
-
--  If your package includes tests or sample code, consider removing them
-   from the distribution. If there is good reason to include them,
-   consider placing them in a directory that begins with an underscore
-   so they are not considered part of your library’s interface.
--  If your package includes submodules that are meant to be
-   implementation details, rename those files to begin with an
-   underscore.
--  If a symbol is not intended to be part of the library’s interface and
-   is considered an implementation detail, rename it such that it begins
-   with an underscore. It will then be considered private and excluded
-   from the type completeness check.
--  If your package exposes types from other libraries, work with the
-   maintainers of these other libraries to achieve type completeness.
-
 Best Practices for Inlined Types
 ================================
 
