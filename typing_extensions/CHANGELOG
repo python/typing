@@ -1,4 +1,4 @@
-# Release 4.x.x
+# Release 4.1.0 (February 12, 2022)
 
 - Runtime support for PEP 646, adding `typing_extensions.TypeVarTuple`
   and `typing_extensions.Unpack`.
