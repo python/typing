@@ -48,6 +48,8 @@ This module currently contains the following:
   - ``Never``
   - ``reveal_type``
   - ``Self`` (see PEP 673)
+  - ``TypeVarTuple`` (see PEP 646)
+  - ``Unpack`` (see PEP 646)
 
 - In ``typing`` since Python 3.10
   
@@ -124,9 +126,15 @@ These changes are _not_ backported to prevent subtle compatibility
 issues when mixing the differing implementations of modified classes.
 
 Certain types have incorrect runtime behavior due to limitations of older
-versions of the typing module.  For example, ``ParamSpec`` and ``Concatenate``
-will not work with ``get_args``, ``get_origin``. Certain PEP 612 special cases
-in user-defined ``Generic``\ s are also not available.
+versions of the typing module:
+
+- ``ParamSpec`` and ``Concatenate`` will not work with ``get_args`` and
+  ``get_origin``. Certain PEP 612 special cases in user-defined
+  ``Generic``\ s are also not available.
+- ``Unpack`` from PEP 646 does not work properly with user-defined
+  ``Generic``\ s in Python 3.6: ``class X(Generic[Unpack[Ts]]):`` does
+  not work.
+
 These types are only guaranteed to work for static type checking.
 
 Running tests
