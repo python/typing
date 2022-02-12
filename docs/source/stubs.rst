@@ -180,7 +180,7 @@ of the corresponding types from ``typing``::
     from collections import defaultdict
 
     def foo(t: type[MyClass]) -> list[int]: ...
-    x: defaultdict[int] = defaultdict(lambda: 42)
+    x: defaultdict[int]
 
 Using imports from ``collections.abc`` instead of ``typing`` is
 generally possible and recommended::
