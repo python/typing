@@ -140,7 +140,7 @@ def _collect_type_vars(types, typevar_types=None):
         if (
             isinstance(t, typevar_types) and
             t not in tvars and
-            not isinstance(t, _UnpackAlias)
+            not _is_unpack(t)
         ):
             tvars.append(t)
         if _should_collect_from_parameters(t):
