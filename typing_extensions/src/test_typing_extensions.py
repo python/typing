@@ -131,7 +131,13 @@ class NoReturnTests(BottomTypeTestsMixin, BaseTestCase):
         def some_str(arg: 'NoReturn') -> 'typing.NoReturn': ...
 
         expected = {'arg': NoReturn, 'return': NoReturn}
-        for target in [some, some_str]:
+        targets = [some]
+
+        # On 3.7.0 and 3.7.1, https://github.com/python/cpython/pull/10772
+        # wasn't applied yet and NoReturn fails _type_check.
+        if not ((3, 7, 0) <= sys.version_info < (3, 7, 2)):
+            targets.append(some_str)
+        for target in targets:
             with self.subTest(target=target):
                 self.assertEqual(gth(target), expected)
 
