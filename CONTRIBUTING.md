@@ -30,11 +30,17 @@ backwards-incompatible changes.
 
 - Ensure that GitHub Actions reports no errors.
 
-- Update the version number in `pyproject.toml`.
+- Update the version number in `typing_extensions/pyproject.toml` and in
+  `typing_extensions/CHANGELOG`.
+
+- Make sure your environment is up to date
+
+ - `git checkout master`
+ - `git pull`
+ - `python -m pip install --upgrade build twine`
 
 - Build the source and wheel distributions:
 
-  - `python -m pip install --upgrade build`
   - `cd typing_extensions`
   - `rm -rf dist/`
   - `python -m build .`
@@ -42,4 +48,8 @@ backwards-incompatible changes.
 - Install the built distributions locally and test (if you were using `tox`, you already
   tested the source distribution).
 
-- Make sure twine is up to date, then run `twine upload dist/*`.
+- Run `twine upload dist/*`.
+
+- Tag the release. The tag should be just the version number, e.g. `4.1.1`.
+
+- `git push --tags`
