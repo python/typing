@@ -6,7 +6,7 @@ build-backend = "flit_core.buildapi"
 # Project metadata
 [project]
 name = "typing_extensions"
-version = "4.1.0"
+version = "4.1.1"
 description = "Backported and Experimental Type Hints for Python 3.6+"
 readme.text = """\
 Typing Extensions -- Backported and Experimental Type Hints for Python
