@@ -140,24 +140,12 @@ def _collect_type_vars(types, typevar_types=None):
         if (
             isinstance(t, typevar_types) and
             t not in tvars and
-            not isinstance(t, _UnpackAlias)
+            not _is_unpack(t)
         ):
             tvars.append(t)
         if _should_collect_from_parameters(t):
             tvars.extend([t for t in t.__parameters__ if t not in tvars])
     return tuple(tvars)
-
-
-# We have to do some monkey patching to deal with the dual nature of
-# Unpack/TypeVarTuple:
-# - We want Unpack to be a kind of TypeVar so it gets accepted in
-#   Generic[Unpack[Ts]]
-# - We want it to *not* be treated as a TypeVar for the purposes of
-#   counting generic parameters, so that when we subscript a generic,
-#   the runtime doesn't try to substitute the Unpack with the subscripted type.
-if not hasattr(typing, "TypeVarTuple"):
-    typing._collect_type_vars = _collect_type_vars
-    typing._check_generic = _check_generic
 
 
 # 3.6.2+
@@ -2906,3 +2894,15 @@ else:
             }
             return cls_or_fn
         return decorator
+
+
+# We have to do some monkey patching to deal with the dual nature of
+# Unpack/TypeVarTuple:
+# - We want Unpack to be a kind of TypeVar so it gets accepted in
+#   Generic[Unpack[Ts]]
+# - We want it to *not* be treated as a TypeVar for the purposes of
+#   counting generic parameters, so that when we subscript a generic,
+#   the runtime doesn't try to substitute the Unpack with the subscripted type.
+if not hasattr(typing, "TypeVarTuple"):
+    typing._collect_type_vars = _collect_type_vars
+    typing._check_generic = _check_generic
