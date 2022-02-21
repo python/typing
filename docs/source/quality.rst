@@ -1,8 +1,8 @@
 .. _tools:
 
-***************************************
-Tools for Working With Type Annotations
-***************************************
+********************************************
+Testing and Ensuring Type Annotation Quality
+********************************************
 
 Testing Annotation Accuracy
 ===========================
@@ -23,7 +23,7 @@ a few of them.
 Testing Using ``mypy --warn-unused-ignores``
 --------------------------------------------
 
-Clever use of the ``--warn-unused-ignores`` can be used to check that certain
+Clever use of ``--warn-unused-ignores`` can be used to check that certain
 expressions are or are not well-typed.
 
 The idea is to write normal python files which contain valid expressions along
@@ -109,11 +109,15 @@ fixture which generates a temporary file and uses it as the input to
 
         return func
 
+
+For more details, see `the documentation on mypy.api
+<https://mypy.readthedocs.io/en/stable/extending_mypy.html#integrating-mypy-into-another-python-application>`_.
+
 pytest-mypy-plugins
 -------------------
 
-``pytest-mypy-plugins`` [#pytest-mypy-plugins]_ is a plugin for ``pytest``
-which defines typing test cases as YAML data.
+`pytest-mypy-plugins <https://github.com/typeddjango/pytest-mypy-plugins>`_ is
+a plugin for ``pytest`` which defines typing test cases as YAML data.
 The test cases are run through ``mypy`` and the output of ``reveal_type`` can
 be asserted.
 
@@ -172,8 +176,8 @@ library:
 -------------------------
 
 ``mypy`` offers several options which can detect untyped code.
-More details can be found in the
-mypy documentation on these options [#mypy-untyped-checks]_.
+More details can be found in `the mypy documentation on these options
+<https://mypy.readthedocs.io/en/latest/command_line.html#untyped-definitions-and-calls>`_.
 
 Some basic usages which make ``mypy`` error on untyped data are::
 
@@ -184,24 +188,13 @@ Some basic usages which make ``mypy`` error on untyped data are::
 -----------------------------
 
 pyright has a special command line flag, ``--verifytypes``, for verifying
-type completeness. You can learn more about it from the
-pyright documentation on verifying type completeness [#pyright-verifytypes]_.
+type completeness. You can learn more about it from
+`the pyright documentation on verifying type completeness
+<https://github.com/microsoft/pyright/blob/main/docs/typed-libraries.md#verifying-type-completeness>`_.
 
 ``mypy`` reports
 ----------------
 
 ``mypy`` offers several options options for generating reports on its analysis.
-See the mypy documentation on report generation [#mypy-report]_ for details.
-
-References
-==========
-
-.. [#mypy-report] mypy reporting options (https://mypy.readthedocs.io/en/stable/command_line.html#report-generation)
-
-.. [#mypy.api] mypy.api -- the python interface to mypy (https://mypy.readthedocs.io/en/stable/extending_mypy.html#integrating-mypy-into-another-python-application)
-
-.. [#mypy-untyped-checks] mypy CLI untyped checks (https://mypy.readthedocs.io/en/latest/command_line.html#untyped-definitions-and-calls)
-
-.. [#pyright-verifytypes] pyright --verifytypes (https://github.com/microsoft/pyright/blob/main/docs/typed-libraries.md#verifying-type-completeness)
-
-.. [#pytest-mypy-plugins] pytest-mypy-plugins (https://github.com/typeddjango/pytest-mypy-plugins)
+See `the mypy documentation on report generation
+<https://mypy.readthedocs.io/en/stable/command_line.html#report-generation>`_ for details.

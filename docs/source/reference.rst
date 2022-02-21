@@ -7,7 +7,7 @@ Type System Reference
    :caption: Contents:
 
    stubs
-   tools
+   quality
    typing Module Documentation <https://docs.python.org/3/library/typing.html>
 
 .. The following pages are desired in a new TOC which will cover multiple
