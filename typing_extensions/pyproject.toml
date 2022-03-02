@@ -53,7 +53,6 @@ email = "levkivskyi@gmail.com"
 include = [
     "CHANGELOG",
     "README.rst",
-]
-exclude = [
     "*/test*.py"
 ]
+exclude = []
