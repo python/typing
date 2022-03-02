@@ -1,3 +1,0 @@
-include CHANGELOG LICENSE README.rst
-include src/typing_extensions.py
-include src/test_typing_extensions.py
