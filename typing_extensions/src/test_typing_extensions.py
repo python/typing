@@ -1364,10 +1364,11 @@ class ProtocolTests(BaseTestCase):
             PR[int]
         with self.assertRaises(TypeError):
             P[int, str]
-        with self.assertRaises(TypeError):
-            PR[int, 1]
-        with self.assertRaises(TypeError):
-            PR[int, ClassVar]
+        if not TYPING_3_10_0:
+            with self.assertRaises(TypeError):
+                PR[int, 1]
+            with self.assertRaises(TypeError):
+                PR[int, ClassVar]
         class C(PR[int, T]): pass
         self.assertIsInstance(C[str](), C)
 
