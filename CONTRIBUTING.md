@@ -18,7 +18,7 @@ standard library, so that users can experiment with them before they are added t
 standard library. Such features should ideally already be specified in a PEP or draft
 PEP.
 
-`typing_extensions` supports Python versions 3.6 and up.
+`typing_extensions` supports Python versions 3.7 and up.
 
 # Versioning scheme
 
