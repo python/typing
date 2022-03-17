@@ -30,6 +30,10 @@ Therefore, it's safe to depend
 on ``typing_extensions`` like this: ``typing_extensions >=x.y, <(x+1)``,
 where ``x.y`` is the first version that includes all features you need.
 
+``typing_extensions`` supports Python versions 3.7 and higher. In the future,
+support for older Python versions will be dropped some time after that version
+reaches end of life.
+
 Included items
 ==============
 
@@ -101,7 +105,7 @@ This module currently contains the following:
   - ``Text``
   - ``Type``
   - ``TYPE_CHECKING``
-  - ``get_type_hints`` (``typing_extensions`` provides this function only in Python 3.7+)
+  - ``get_type_hints``
 
 Other Notes and Limitations
 ===========================
@@ -131,9 +135,6 @@ versions of the typing module:
 - ``ParamSpec`` and ``Concatenate`` will not work with ``get_args`` and
   ``get_origin``. Certain PEP 612 special cases in user-defined
   ``Generic``\ s are also not available.
-- ``Unpack`` from PEP 646 does not work properly with user-defined
-  ``Generic``\ s in Python 3.6: ``class X(Generic[Unpack[Ts]]):`` does
-  not work.
 
 These types are only guaranteed to work for static type checking.
 
