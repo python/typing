@@ -1356,8 +1356,10 @@ class ProtocolTests(BaseTestCase):
             def meth(self): pass
         class P(PR[int, T], Protocol[T]):
             y = 1
-        self.assertIsSubclass(PR[int, T], PR)
-        self.assertIsSubclass(P[str], PR)
+        with self.assertRaises(TypeError):
+            issubclass(PR[int, T], PR)
+        with self.assertRaises(TypeError):
+            issubclass(P[str], PR)
         with self.assertRaises(TypeError):
             PR[int]
         with self.assertRaises(TypeError):
@@ -1441,8 +1443,6 @@ class ProtocolTests(BaseTestCase):
         T = TypeVar('T')
         class P(Protocol[T]): pass
         self.assertEqual(P.__parameters__, (T,))
-        self.assertIs(P.__args__, None)
-        self.assertIs(P.__origin__, None)
         self.assertEqual(P[int].__parameters__, ())
         self.assertEqual(P[int].__args__, (int,))
         self.assertIs(P[int].__origin__, P)
