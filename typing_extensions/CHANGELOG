@@ -1,3 +1,7 @@
+# Unreleased
+
+- Add `typing.assert_type`. Backport from bpo-46480.
+
 # Release 4.1.1 (February 13, 2022)
 
 - Fix importing `typing_extensions` on Python 3.7.0 and 3.7.1. Original
