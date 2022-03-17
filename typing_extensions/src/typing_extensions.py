@@ -1236,7 +1236,7 @@ if hasattr(typing, "assert_type"):
     assert_type = typing.assert_type
 
 else:
-    def assert_type(val, typ, /):
+    def assert_type(__val, __typ):
         """Assert (to the type checker) that the value is of the given type.
 
         When the type checker encounters a call to assert_type(), it
@@ -1249,7 +1249,7 @@ else:
         At runtime this returns the first argument unchanged and otherwise
         does nothing.
         """
-        return val
+        return __val
 
 
 if hasattr(typing, "Required"):
