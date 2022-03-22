@@ -23,8 +23,7 @@ from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, 
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
 from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload, final, is_typeddict
 from typing_extensions import TypeVarTuple, Unpack, dataclass_transform, reveal_type, Never, assert_never, LiteralString
-from typing_extensions import assert_type
-from typing_extensions import get_type_hints, get_origin, get_args
+from typing_extensions import assert_type, get_type_hints, get_origin, get_args
 
 # Flags used to mark tests that only apply after a specific
 # version of the typing module.
