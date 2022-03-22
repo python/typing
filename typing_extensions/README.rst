@@ -46,6 +46,7 @@ This module currently contains the following:
 - In ``typing`` since Python 3.11
 
   - ``assert_never``
+  - ``assert_type``
   - ``LiteralString`` (see PEP 675)
   - ``Never``
   - ``NotRequired`` (see PEP 655)

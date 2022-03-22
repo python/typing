@@ -717,6 +717,27 @@ else:
         """
         return isinstance(tp, tuple(_TYPEDDICT_TYPES))
 
+
+if hasattr(typing, "assert_type"):
+    assert_type = typing.assert_type
+
+else:
+    def assert_type(__val, __typ):
+        """Assert (to the type checker) that the value is of the given type.
+
+        When the type checker encounters a call to assert_type(), it
+        emits an error if the value is not of the specified type::
+
+            def greet(name: str) -> None:
+                assert_type(name, str)  # ok
+                assert_type(name, int)  # type checker error
+
+        At runtime this returns the first argument unchanged and otherwise
+        does nothing.
+        """
+        return __val
+
+
 if hasattr(typing, "Required"):
     get_type_hints = typing.get_type_hints
 else:

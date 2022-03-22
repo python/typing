@@ -1,5 +1,6 @@
 # Unreleased
 
+- Add `typing.assert_type`. Backport from bpo-46480.
 - Drop support for Python 3.6. Original patch by Adam Turner (@AA-Turner).
 
 # Release 4.1.1 (February 13, 2022)
