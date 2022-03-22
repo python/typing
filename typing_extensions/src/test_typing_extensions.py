@@ -2591,7 +2591,7 @@ class FinalDecoratorTests(BaseTestCase):
             def prop(self): ...
 
             @final
-            @lru_cache()
+            @lru_cache()  # noqa: B019
             def cached(self): ...
 
         # Use getattr_static because the descriptor returns the
