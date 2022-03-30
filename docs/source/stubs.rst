@@ -372,7 +372,7 @@ e.g.::
       def f(self) -> int: ...
       g = f
 
-A type alias to a type may contain type variables. As per PEP 484 [#pep484]_,
+A type alias may contain type variables. As per PEP 484 [#pep484]_,
 all type variables must be substituted when the alias is used::
 
   _K = TypeVar("_K")
