@@ -356,20 +356,28 @@ type stubs::
 Aliases and NewType
 -------------------
 
-Type checkers should accept module-level and class-level aliases, e.g.::
+Type checkers should accept module-level type aliases, optionally using
+``TypeAlias`` (PEP 613 [#pep613]_), e.g.::
 
   _IntList = list[int]
+  _StrList: TypeAlias = list[str]
+
+Type checkers should also accept regular module-level or class-level aliases,
+e.g.::
+
+  def a() -> None: ...
+  b = a
 
   class C:
       def f(self) -> int: ...
       g = f
 
-An alias to a type may contain type variables. As per PEP 484 [#pep484]_,
+A type alias to a type may contain type variables. As per PEP 484 [#pep484]_,
 all type variables must be substituted when the alias is used::
 
   _K = TypeVar("_K")
   _V = TypeVar("_V")
-  _MyMap = Dict[str, Dict[_K, _V]]
+  _MyMap: TypeAlias = dict[str, dict[_K, _V]]
 
   # either concrete types or other type variables can be substituted
   def f(x: _MyMap[str, _V]) -> _V: ...
@@ -518,8 +526,6 @@ and should not be used in stubs:
 * Positional-only argument syntax (PEP 570 [#pep570]_). Instead, use
   the syntax described in the section :ref:`supported-functions`.
   [#ts-4972]_
-* ``TypeAlias`` (PEP 613 [#pep613]_). Instead, use a simple
-  assigment to define a type alias. [#ts-4913]_
 
 Type Stub Content
 =================
@@ -827,7 +833,7 @@ No::
 
 But the following is still necessary::
 
-    TYPE_ALIAS = Optional[Union[str, int]]
+    TYPE_ALIAS: TypeAlias = Optional[Union[str, int]]
 
 Module Level Attributes
 -----------------------
@@ -846,6 +852,25 @@ No::
     y: float = ...
     z = 0  # type: int
     a = ...  # type: int
+
+Type Aliases
+------------
+
+Use ``TypeAlias`` for type aliases (but not for regular aliases).
+
+Yes::
+
+    _IntList: TypeAlias = list[int]
+    g = os.stat
+    Path = pathlib.Path
+    ERROR = errno.EEXIST
+
+No::
+
+    _IntList = list[int]
+    g: TypeAlias = os.stat
+    Path: TypeAlias = pathlib.Path
+    ERROR: TypeAlias = errno.EEXIST
 
 Classes
 -------
@@ -1104,7 +1129,6 @@ Bugs
 ----
 
 .. [#ts-4819] typeshed issue #4819 -- PEP 604 tracker (https://github.com/python/typeshed/issues/4819)
-.. [#ts-4913] typeshed issue #4913 -- PEP 613 tracker (https://github.com/python/typeshed/issues/4913)
 .. [#ts-4972] typeshed issue #4972 -- PEP 570 tracker (https://github.com/python/typeshed/issues/4972)
 
 Copyright
