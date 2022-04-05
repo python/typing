@@ -193,14 +193,11 @@ Unions
 ------
 
 Declaring unions with ``Union`` and ``Optional`` is supported by all
-type checkers. With the exception of type aliases [#ts-4819]_, the shorthand syntax
+type checkers. With a few exceptions [#ts-4819]_, the shorthand syntax
 is also supported::
 
     def foo(x: int | str) -> int | None: ...  # recommended
     def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
-
-    TYPE_ALIAS = Union[int, str]  # ok
-    TYPE_ALIAS = int | str  # does not work with all type checkers
 
 Module Level Attributes
 -----------------------
@@ -817,8 +814,7 @@ Shorthand Syntax
 
 Where possible, use shorthand syntax for unions instead of
 ``Union`` or ``Optional``. ``None`` should be the last
-element of an union. See the Unions_ section for cases where
-using the shorthand syntax is not possible.
+element of an union.
 
 Yes::
 
@@ -830,10 +826,6 @@ No::
     def foo(x: Union[str, int]) -> None: ...
     def bar(x: Optional[str]) -> Optional[int]: ...
     def baz(x: None | str) -> None: ...
-
-But the following is still necessary::
-
-    TYPE_ALIAS: TypeAlias = Optional[Union[str, int]]
 
 Module Level Attributes
 -----------------------
