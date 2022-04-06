@@ -1795,10 +1795,11 @@ else:
         eq_default: bool = True,
         order_default: bool = False,
         kw_only_default: bool = False,
-        field_descriptors: typing.Tuple[
+        field_specifiers: typing.Tuple[
             typing.Union[typing.Type[typing.Any], typing.Callable[..., typing.Any]],
             ...
         ] = (),
+        **kwargs: typing.Any,
     ) -> typing.Callable[[T], T]:
         """Decorator that marks a function, class, or metaclass as providing
         dataclass-like behavior.
@@ -1850,7 +1851,7 @@ else:
           assumed to be True or False if it is omitted by the caller.
         - ``kw_only_default`` indicates whether the ``kw_only`` parameter is
           assumed to be True or False if it is omitted by the caller.
-        - ``field_descriptors`` specifies a static list of supported classes
+        - ``field_specifiers`` specifies a static list of supported classes
           or functions, that describe fields, similar to ``dataclasses.field()``.
 
         At runtime, this decorator records its arguments in the
@@ -1864,7 +1865,8 @@ else:
                 "eq_default": eq_default,
                 "order_default": order_default,
                 "kw_only_default": kw_only_default,
-                "field_descriptors": field_descriptors,
+                "field_specifiers": field_specifiers,
+                "kwargs": kwargs,
             }
             return cls_or_fn
         return decorator
