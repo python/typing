@@ -1,5 +1,8 @@
 # Unreleased
 
+- Update `typing_extensions.dataclass_transform` to rename the
+  `field_descriptors` parameter to `field_specifiers` and accept
+  arbitrary keyword arguments.
 - Add `typing.assert_type`. Backport from bpo-46480.
 - Drop support for Python 3.6. Original patch by Adam Turner (@AA-Turner).
 
