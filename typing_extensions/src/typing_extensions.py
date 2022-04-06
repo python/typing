@@ -1852,7 +1852,7 @@ else:
         - ``kw_only_default`` indicates whether the ``kw_only`` parameter is
           assumed to be True or False if it is omitted by the caller.
         - ``field_specifiers`` specifies a static list of supported classes
-          or functions, that describe fields, similar to ``dataclasses.field()``.
+          or functions that describe fields, similar to ``dataclasses.field()``.
 
         At runtime, this decorator records its arguments in the
         ``__dataclass_transform__`` attribute on the decorated object.
