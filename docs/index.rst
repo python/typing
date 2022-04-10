@@ -94,6 +94,6 @@ Typing PEPs
 * `PEP 647 <https://www.python.org/dev/peps/pep-0647/>`_ (accepted), ``TypeGuard``
 * `PEP 655 <https://www.python.org/dev/peps/pep-0655/>`_ (accepted), ``Required`` and ``NotRequired``
 * `PEP 673 <https://www.python.org/dev/peps/pep-0673/>`_ (accepted), ``Self``
-* `PEP 675 <https://www.python.org/dev/peps/pep-0675/>`_ (accepted)``LiteralString``
+* `PEP 675 <https://www.python.org/dev/peps/pep-0675/>`_ (accepted), ``LiteralString``
 * `PEP 677 <https://www.python.org/dev/peps/pep-0677/>`_ (rejected), callable type syntax
 * `PEP 681 <https://www.python.org/dev/peps/pep-0681/>`_ (draft), ``@dataclass_transform()``
