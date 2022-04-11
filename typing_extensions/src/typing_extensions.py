@@ -157,7 +157,7 @@ else:
 
         def __getitem__(self, parameters):
             item = typing._type_check(parameters,
-                                      f'{self._name} accepts only single type')
+                                      f'{self._name} accepts only a single type.')
             return typing._GenericAlias(self, (item,))
 
     Final = _FinalForm('Final',
@@ -1336,7 +1336,7 @@ elif sys.version_info[:2] >= (3, 9):
         ``TypeGuard`` also works with type variables.  For more information, see
         PEP 647 (User-Defined Type Guards).
         """
-        item = typing._type_check(parameters, f'{self} accepts only single type.')
+        item = typing._type_check(parameters, f'{self} accepts only a single type.')
         return typing._GenericAlias(self, (item,))
 # 3.7-3.8
 else:
@@ -1539,7 +1539,7 @@ elif sys.version_info[:2] >= (3, 9):
         There is no runtime checking that a required key is actually provided
         when instantiating a related TypedDict.
         """
-        item = typing._type_check(parameters, f'{self._name} accepts only single type')
+        item = typing._type_check(parameters, f'{self._name} accepts only a single type.')
         return typing._GenericAlias(self, (item,))
 
     @_ExtensionsSpecialForm
@@ -1556,7 +1556,7 @@ elif sys.version_info[:2] >= (3, 9):
                 year=1999,
             )
         """
-        item = typing._type_check(parameters, f'{self._name} accepts only single type')
+        item = typing._type_check(parameters, f'{self._name} accepts only a single type.')
         return typing._GenericAlias(self, (item,))
 
 else:
@@ -1566,7 +1566,7 @@ else:
 
         def __getitem__(self, parameters):
             item = typing._type_check(parameters,
-                                      '{} accepts only single type'.format(self._name))
+                                      f'{self._name} accepts only a single type.')
             return typing._GenericAlias(self, (item,))
 
     Required = _RequiredForm(
@@ -1622,7 +1622,7 @@ if sys.version_info[:2] >= (3, 9):
             ) -> Array[Batch, Unpack[Shape]]: ...
 
         """
-        item = typing._type_check(parameters, f'{self._name} accepts only single type')
+        item = typing._type_check(parameters, f'{self._name} accepts only a single type.')
         return _UnpackAlias(self, (item,))
 
     def _is_unpack(obj):
@@ -1638,7 +1638,7 @@ else:
 
         def __getitem__(self, parameters):
             item = typing._type_check(parameters,
-                                      f'{self._name} accepts only single type')
+                                      f'{self._name} accepts only a single type.')
             return _UnpackAlias(self, (item,))
 
     Unpack = _UnpackForm(
