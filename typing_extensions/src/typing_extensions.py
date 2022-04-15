@@ -43,6 +43,7 @@ __all__ = [
     # One-off things.
     'Annotated',
     'assert_never',
+    'assert_type',
     'dataclass_transform',
     'final',
     'get_args',
