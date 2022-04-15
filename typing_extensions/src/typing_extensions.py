@@ -1672,8 +1672,8 @@ else:
             Ts = TypeVarTuple('Ts')
 
         In the same way that a normal type variable is a stand-in for a single
-        type such as ``int``, a type variable *tuple* is a stand-in for a *tuple* type such as
-        ``Tuple[int, str]``.
+        type such as ``int``, a type variable *tuple* is a stand-in for a *tuple*
+        type such as ``Tuple[int, str]``.
 
         Type variable tuples can be used in ``Generic`` declarations.
         Consider the following example::
