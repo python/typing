@@ -32,6 +32,8 @@ from typing_extensions import clear_overloads, get_overloads, overload
 # version of the typing module.
 TYPING_3_8_0 = sys.version_info[:3] >= (3, 8, 0)
 TYPING_3_10_0 = sys.version_info[:3] >= (3, 10, 0)
+
+# 3.11 makes runtime type checks (_type_check) more lenient.
 TYPING_3_11_0 = sys.version_info[:3] >= (3, 11, 0)
 
 
@@ -157,8 +159,9 @@ class AssertNeverTests(BaseTestCase):
 class ClassVarTests(BaseTestCase):
 
     def test_basics(self):
-        with self.assertRaises(TypeError):
-            ClassVar[1]
+        if not TYPING_3_11_0:
+            with self.assertRaises(TypeError):
+                ClassVar[1]
         with self.assertRaises(TypeError):
             ClassVar[int, str]
         with self.assertRaises(TypeError):
@@ -201,8 +204,9 @@ class ClassVarTests(BaseTestCase):
 class FinalTests(BaseTestCase):
 
     def test_basics(self):
-        with self.assertRaises(TypeError):
-            Final[1]
+        if not TYPING_3_11_0:
+            with self.assertRaises(TypeError):
+                Final[1]
         with self.assertRaises(TypeError):
             Final[int, str]
         with self.assertRaises(TypeError):
@@ -245,8 +249,9 @@ class FinalTests(BaseTestCase):
 class RequiredTests(BaseTestCase):
 
     def test_basics(self):
-        with self.assertRaises(TypeError):
-            Required[1]
+        if not TYPING_3_11_0:
+            with self.assertRaises(TypeError):
+                Required[1]
         with self.assertRaises(TypeError):
             Required[int, str]
         with self.assertRaises(TypeError):
@@ -289,8 +294,9 @@ class RequiredTests(BaseTestCase):
 class NotRequiredTests(BaseTestCase):
 
     def test_basics(self):
-        with self.assertRaises(TypeError):
-            NotRequired[1]
+        if not TYPING_3_11_0:
+            with self.assertRaises(TypeError):
+                NotRequired[1]
         with self.assertRaises(TypeError):
             NotRequired[int, str]
         with self.assertRaises(TypeError):
@@ -738,7 +744,10 @@ class GetUtilitiesTestCase(TestCase):
         self.assertEqual(get_args(Union[int, Callable[[Tuple[T, ...]], str]]),
                          (int, Callable[[Tuple[T, ...]], str]))
         self.assertEqual(get_args(Tuple[int, ...]), (int, ...))
-        self.assertEqual(get_args(Tuple[()]), ((),))
+        if TYPING_3_11_0:
+            self.assertEqual(get_args(Tuple[()]), ())
+        else:
+            self.assertEqual(get_args(Tuple[()]), ((),))
         self.assertEqual(get_args(Annotated[T, 'one', 2, ['three']]), (T, 'one', 2, ['three']))
         self.assertEqual(get_args(List), ())
         self.assertEqual(get_args(Tuple), ())
@@ -1731,10 +1740,12 @@ class TypedDictTests(BaseTestCase):
             isinstance(jim, Emp)
         with self.assertRaises(TypeError):
             issubclass(dict, Emp)
-        with self.assertRaises(TypeError):
-            TypedDict('Hi', x=1)
-        with self.assertRaises(TypeError):
-            TypedDict('Hi', [('x', int), ('y', 1)])
+
+        if not TYPING_3_11_0:
+            with self.assertRaises(TypeError):
+                TypedDict('Hi', x=1)
+            with self.assertRaises(TypeError):
+                TypedDict('Hi', [('x', int), ('y', 1)])
         with self.assertRaises(TypeError):
             TypedDict('Hi', [('x', int)], y=int)
 
@@ -2313,11 +2324,12 @@ class ConcatenateTests(BaseTestCase):
         ):
             Concatenate[P, T]
 
-        with self.assertRaisesRegex(
-            TypeError,
-            'each arg must be a type',
-        ):
-            Concatenate[1, P]
+        if not TYPING_3_11_0:
+            with self.assertRaisesRegex(
+                TypeError,
+                'each arg must be a type',
+            ):
+                Concatenate[1, P]
 
     def test_basic_introspection(self):
         P = ParamSpec('P')
@@ -2497,7 +2509,10 @@ class UnpackTests(BaseTestCase):
 
     def test_repr(self):
         Ts = TypeVarTuple('Ts')
-        self.assertEqual(repr(Unpack[Ts]), 'typing_extensions.Unpack[Ts]')
+        if TYPING_3_11_0:
+            self.assertEqual(repr(Unpack[Ts]), '*Ts')
+        else:
+            self.assertEqual(repr(Unpack[Ts]), 'typing_extensions.Unpack[Ts]')
 
     def test_cannot_subclass_vars(self):
         with self.assertRaises(TypeError):
@@ -2572,8 +2587,10 @@ class UnpackTests(BaseTestCase):
         self.assertEqual(C[int, str].__args__, (int, str))
         self.assertEqual(C[int, str, float].__args__, (int, str, float))
         self.assertEqual(C[int, str, float, bool].__args__, (int, str, float, bool))
-        with self.assertRaises(TypeError):
-            C[int]
+        # TODO This should probably also fail on 3.11, pending changes to CPython.
+        if not TYPING_3_11_0:
+            with self.assertRaises(TypeError):
+                C[int]
 
 
 class TypeVarTupleTests(BaseTestCase):
@@ -2617,7 +2634,7 @@ class TypeVarTupleTests(BaseTestCase):
         Ts = TypeVarTuple('Ts')
 
         t = Tuple[tuple(Ts)]
-        self.assertEqual(t.__args__, (Ts.__unpacked__,))
+        self.assertEqual(t.__args__, (Unpack[Ts],))
         self.assertEqual(t.__parameters__, (Ts,))
 
 
