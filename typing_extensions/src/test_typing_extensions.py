@@ -2743,6 +2743,27 @@ class AllTests(BaseTestCase):
         for name in a:
             self.assertTrue(hasattr(typing_extensions, name))
 
+    def test_all_names_in___all__(self):
+        exclude = {
+            'GenericMeta',
+            'KT',
+            'PEP_560',
+            'T',
+            'T_co',
+            'T_contra',
+            'VT',
+        }
+        actual_names = {
+            name for name in dir(typing_extensions)
+            if not name.startswith("_")
+            and not isinstance(getattr(typing_extensions, name), types.ModuleType)
+        }
+        # Make sure all public names are in __all__
+        self.assertEqual({*exclude, *typing_extensions.__all__},
+                         actual_names)
+        # Make sure all excluded names actually exist
+        self.assertLessEqual(exclude, actual_names)
+
     def test_typing_extensions_defers_when_possible(self):
         exclude = {
             'overload',

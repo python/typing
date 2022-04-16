@@ -15,6 +15,8 @@ __all__ = [
     'Final',
     'LiteralString',
     'ParamSpec',
+    'ParamSpecArgs',
+    'ParamSpecKwargs',
     'Self',
     'Type',
     'TypeVarTuple',
@@ -933,9 +935,9 @@ else:
         _BaseGenericAlias = typing._GenericAlias
     try:
         # 3.9+
-        from typing import GenericAlias
+        from typing import GenericAlias as _typing_GenericAlias
     except ImportError:
-        GenericAlias = typing._GenericAlias
+        _typing_GenericAlias = typing._GenericAlias
 
     def get_origin(tp):
         """Get the unsubscripted version of a type.
@@ -954,7 +956,7 @@ else:
         """
         if isinstance(tp, _AnnotatedAlias):
             return Annotated
-        if isinstance(tp, (typing._GenericAlias, GenericAlias, _BaseGenericAlias,
+        if isinstance(tp, (typing._GenericAlias, _typing_GenericAlias, _BaseGenericAlias,
                            ParamSpecArgs, ParamSpecKwargs)):
             return tp.__origin__
         if tp is typing.Generic:
@@ -974,7 +976,7 @@ else:
         """
         if isinstance(tp, _AnnotatedAlias):
             return (tp.__origin__,) + tp.__metadata__
-        if isinstance(tp, (typing._GenericAlias, GenericAlias)):
+        if isinstance(tp, (typing._GenericAlias, _typing_GenericAlias)):
             if getattr(tp, "_special", False):
                 return ()
             res = tp.__args__
