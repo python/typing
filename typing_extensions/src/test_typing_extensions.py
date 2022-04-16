@@ -2718,7 +2718,8 @@ class DataclassTransformTests(BaseTestCase):
                 "eq_default": True,
                 "order_default": False,
                 "kw_only_default": True,
-                "field_descriptors": (),
+                "field_specifiers": (),
+                "kwargs": {},
             }
         )
         self.assertIs(
@@ -2730,7 +2731,12 @@ class DataclassTransformTests(BaseTestCase):
         class ModelBase:
             def __init_subclass__(cls, *, frozen: bool = False): ...
 
-        Decorated = dataclass_transform(eq_default=True, order_default=True)(ModelBase)
+        Decorated = dataclass_transform(
+            eq_default=True,
+            order_default=True,
+            # Arbitrary unrecognized kwargs are accepted at runtime.
+            make_everything_awesome=True,
+        )(ModelBase)
 
         class CustomerModel(Decorated, frozen=True):
             id: int
@@ -2742,7 +2748,8 @@ class DataclassTransformTests(BaseTestCase):
                 "eq_default": True,
                 "order_default": True,
                 "kw_only_default": False,
-                "field_descriptors": (),
+                "field_specifiers": (),
+                "kwargs": {"make_everything_awesome": True},
             }
         )
         self.assertIsSubclass(CustomerModel, Decorated)
@@ -2757,7 +2764,7 @@ class DataclassTransformTests(BaseTestCase):
                 return super().__new__(cls, name, bases, namespace)
 
         Decorated = dataclass_transform(
-            order_default=True, field_descriptors=(Field,)
+            order_default=True, field_specifiers=(Field,)
         )(ModelMeta)
 
         class ModelBase(metaclass=Decorated): ...
@@ -2772,7 +2779,8 @@ class DataclassTransformTests(BaseTestCase):
                 "eq_default": True,
                 "order_default": True,
                 "kw_only_default": False,
-                "field_descriptors": (Field,),
+                "field_specifiers": (Field,),
+                "kwargs": {},
             }
         )
         self.assertIsInstance(CustomerModel, Decorated)
