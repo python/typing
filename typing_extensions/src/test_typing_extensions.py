@@ -460,10 +460,12 @@ class OverloadTests(BaseTestCase):
         return blah, [overload1, overload2]
 
     # Make sure we don't clear the global overload registry
-    @patch(f"{registry_holder.__name__}._overload_registry",
-        defaultdict(lambda: defaultdict(dict)))
+    @patch(
+        f"{registry_holder.__name__}._overload_registry",
+        defaultdict(lambda: defaultdict(dict))
+    )
     def test_overload_registry(self):
-        registry = getattr(registry_holder, "_overload_registry")
+        registry = registry_holder._overload_registry
         # The registry starts out empty
         self.assertEqual(registry, {})
 
