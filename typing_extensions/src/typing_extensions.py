@@ -253,6 +253,7 @@ else:
 
 _overload_dummy = typing._overload_dummy  # noqa
 
+
 if hasattr(typing, "get_overloads"): # 3.11+
     overload = typing.overload
     get_overloads = typing.get_overloads
@@ -262,7 +263,6 @@ else:
     _overload_registry = collections.defaultdict(
         functools.partial(collections.defaultdict, dict)
     )
-
 
     def overload(func):
         """Decorator for overloaded functions/methods.
@@ -296,12 +296,13 @@ else:
         # classmethod and staticmethod
         f = getattr(func, "__func__", func)
         try:
-            _overload_registry[f.__module__][f.__qualname__][f.__code__.co_firstlineno] = func
+            _overload_registry[f.__module__][f.__qualname__][
+                f.__code__.co_firstlineno
+            ] = func
         except AttributeError:
             # Not a normal function; ignore.
             pass
         return _overload_dummy
-
 
     def get_overloads(func):
         """Return all defined overloads for *func* as a sequence."""
@@ -313,7 +314,6 @@ else:
         if f.__qualname__ not in mod_dict:
             return []
         return list(mod_dict[f.__qualname__].values())
-
 
     def clear_overloads():
         """Clear all overloads in the registry."""
