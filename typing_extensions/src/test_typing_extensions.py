@@ -3,6 +3,7 @@ import os
 import abc
 import contextlib
 import collections
+from collections import defaultdict
 import collections.abc
 from functools import lru_cache
 import inspect
@@ -10,6 +11,7 @@ import pickle
 import subprocess
 import types
 from unittest import TestCase, main, skipUnless, skipIf
+from unittest.mock import patch
 from test import ann_module, ann_module2, ann_module3
 import typing
 from typing import TypeVar, Optional, Union, Any, AnyStr
@@ -21,9 +23,10 @@ import typing_extensions
 from typing_extensions import NoReturn, ClassVar, Final, IntVar, Literal, Type, NewType, TypedDict, Self
 from typing_extensions import TypeAlias, ParamSpec, Concatenate, ParamSpecArgs, ParamSpecKwargs, TypeGuard
 from typing_extensions import Awaitable, AsyncIterator, AsyncContextManager, Required, NotRequired
-from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, overload, final, is_typeddict
+from typing_extensions import Protocol, runtime, runtime_checkable, Annotated, final, is_typeddict
 from typing_extensions import TypeVarTuple, Unpack, dataclass_transform, reveal_type, Never, assert_never, LiteralString
 from typing_extensions import assert_type, get_type_hints, get_origin, get_args
+from typing_extensions import clear_overloads, get_overloads, overload
 
 # Flags used to mark tests that only apply after a specific
 # version of the typing module.
@@ -409,6 +412,20 @@ class LiteralTests(BaseTestCase):
             Literal[1][1]
 
 
+class MethodHolder:
+    @classmethod
+    def clsmethod(cls): ...
+    @staticmethod
+    def stmethod(): ...
+    def method(self): ...
+
+
+if TYPING_3_11_0:
+    registry_holder = typing
+else:
+    registry_holder = typing_extensions
+
+
 class OverloadTests(BaseTestCase):
 
     def test_overload_fails(self):
@@ -429,6 +446,61 @@ class OverloadTests(BaseTestCase):
             pass
 
         blah()
+
+    def set_up_overloads(self):
+        def blah():
+            pass
+
+        overload1 = blah
+        overload(blah)
+
+        def blah():
+            pass
+
+        overload2 = blah
+        overload(blah)
+
+        def blah():
+            pass
+
+        return blah, [overload1, overload2]
+
+    # Make sure we don't clear the global overload registry
+    @patch(
+        f"{registry_holder.__name__}._overload_registry",
+        defaultdict(lambda: defaultdict(dict))
+    )
+    def test_overload_registry(self):
+        registry = registry_holder._overload_registry
+        # The registry starts out empty
+        self.assertEqual(registry, {})
+
+        impl, overloads = self.set_up_overloads()
+        self.assertNotEqual(registry, {})
+        self.assertEqual(list(get_overloads(impl)), overloads)
+
+        def some_other_func(): pass
+        overload(some_other_func)
+        other_overload = some_other_func
+        def some_other_func(): pass
+        self.assertEqual(list(get_overloads(some_other_func)), [other_overload])
+
+        # Make sure that after we clear all overloads, the registry is
+        # completely empty.
+        clear_overloads()
+        self.assertEqual(registry, {})
+        self.assertEqual(get_overloads(impl), [])
+
+        # Querying a function with no overloads shouldn't change the registry.
+        def the_only_one(): pass
+        self.assertEqual(get_overloads(the_only_one), [])
+        self.assertEqual(registry, {})
+
+    def test_overload_registry_repeated(self):
+        for _ in range(2):
+            impl, overloads = self.set_up_overloads()
+
+            self.assertEqual(list(get_overloads(impl)), overloads)
 
 
 class AssertTypeTests(BaseTestCase):
@@ -2663,7 +2735,8 @@ class DataclassTransformTests(BaseTestCase):
                 "eq_default": True,
                 "order_default": False,
                 "kw_only_default": True,
-                "field_descriptors": (),
+                "field_specifiers": (),
+                "kwargs": {},
             }
         )
         self.assertIs(
@@ -2675,7 +2748,12 @@ class DataclassTransformTests(BaseTestCase):
         class ModelBase:
             def __init_subclass__(cls, *, frozen: bool = False): ...
 
-        Decorated = dataclass_transform(eq_default=True, order_default=True)(ModelBase)
+        Decorated = dataclass_transform(
+            eq_default=True,
+            order_default=True,
+            # Arbitrary unrecognized kwargs are accepted at runtime.
+            make_everything_awesome=True,
+        )(ModelBase)
 
         class CustomerModel(Decorated, frozen=True):
             id: int
@@ -2687,7 +2765,8 @@ class DataclassTransformTests(BaseTestCase):
                 "eq_default": True,
                 "order_default": True,
                 "kw_only_default": False,
-                "field_descriptors": (),
+                "field_specifiers": (),
+                "kwargs": {"make_everything_awesome": True},
             }
         )
         self.assertIsSubclass(CustomerModel, Decorated)
@@ -2702,7 +2781,7 @@ class DataclassTransformTests(BaseTestCase):
                 return super().__new__(cls, name, bases, namespace)
 
         Decorated = dataclass_transform(
-            order_default=True, field_descriptors=(Field,)
+            order_default=True, field_specifiers=(Field,)
         )(ModelMeta)
 
         class ModelBase(metaclass=Decorated): ...
@@ -2717,7 +2796,8 @@ class DataclassTransformTests(BaseTestCase):
                 "eq_default": True,
                 "order_default": True,
                 "kw_only_default": False,
-                "field_descriptors": (Field,),
+                "field_specifiers": (Field,),
+                "kwargs": {},
             }
         )
         self.assertIsInstance(CustomerModel, Decorated)
@@ -2759,6 +2839,27 @@ class AllTests(BaseTestCase):
         # Check that all objects in `__all__` are present in the module
         for name in a:
             self.assertTrue(hasattr(typing_extensions, name))
+
+    def test_all_names_in___all__(self):
+        exclude = {
+            'GenericMeta',
+            'KT',
+            'PEP_560',
+            'T',
+            'T_co',
+            'T_contra',
+            'VT',
+        }
+        actual_names = {
+            name for name in dir(typing_extensions)
+            if not name.startswith("_")
+            and not isinstance(getattr(typing_extensions, name), types.ModuleType)
+        }
+        # Make sure all public names are in __all__
+        self.assertEqual({*exclude, *typing_extensions.__all__},
+                         actual_names)
+        # Make sure all excluded names actually exist
+        self.assertLessEqual(exclude, actual_names)
 
     def test_typing_extensions_defers_when_possible(self):
         exclude = {

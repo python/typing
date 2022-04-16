@@ -1,6 +1,7 @@
 import abc
 import collections
 import collections.abc
+import functools
 import operator
 import sys
 import types as _types
@@ -15,6 +16,8 @@ __all__ = [
     'Final',
     'LiteralString',
     'ParamSpec',
+    'ParamSpecArgs',
+    'ParamSpecKwargs',
     'Self',
     'Type',
     'TypeVarTuple',
@@ -44,7 +47,9 @@ __all__ = [
     'Annotated',
     'assert_never',
     'assert_type',
+    'clear_overloads',
     'dataclass_transform',
+    'get_overloads',
     'final',
     'get_args',
     'get_origin',
@@ -247,7 +252,72 @@ else:
 
 
 _overload_dummy = typing._overload_dummy  # noqa
-overload = typing.overload
+
+
+if hasattr(typing, "get_overloads"):  # 3.11+
+    overload = typing.overload
+    get_overloads = typing.get_overloads
+    clear_overloads = typing.clear_overloads
+else:
+    # {module: {qualname: {firstlineno: func}}}
+    _overload_registry = collections.defaultdict(
+        functools.partial(collections.defaultdict, dict)
+    )
+
+    def overload(func):
+        """Decorator for overloaded functions/methods.
+
+        In a stub file, place two or more stub definitions for the same
+        function in a row, each decorated with @overload.  For example:
+
+        @overload
+        def utf8(value: None) -> None: ...
+        @overload
+        def utf8(value: bytes) -> bytes: ...
+        @overload
+        def utf8(value: str) -> bytes: ...
+
+        In a non-stub file (i.e. a regular .py file), do the same but
+        follow it with an implementation.  The implementation should *not*
+        be decorated with @overload.  For example:
+
+        @overload
+        def utf8(value: None) -> None: ...
+        @overload
+        def utf8(value: bytes) -> bytes: ...
+        @overload
+        def utf8(value: str) -> bytes: ...
+        def utf8(value):
+            # implementation goes here
+
+        The overloads for a function can be retrieved at runtime using the
+        get_overloads() function.
+        """
+        # classmethod and staticmethod
+        f = getattr(func, "__func__", func)
+        try:
+            _overload_registry[f.__module__][f.__qualname__][
+                f.__code__.co_firstlineno
+            ] = func
+        except AttributeError:
+            # Not a normal function; ignore.
+            pass
+        return _overload_dummy
+
+    def get_overloads(func):
+        """Return all defined overloads for *func* as a sequence."""
+        # classmethod and staticmethod
+        f = getattr(func, "__func__", func)
+        if f.__module__ not in _overload_registry:
+            return []
+        mod_dict = _overload_registry[f.__module__]
+        if f.__qualname__ not in mod_dict:
+            return []
+        return list(mod_dict[f.__qualname__].values())
+
+    def clear_overloads():
+        """Clear all overloads in the registry."""
+        _overload_registry.clear()
 
 
 # This is not a real generic class.  Don't use outside annotations.
@@ -933,9 +1003,9 @@ else:
         _BaseGenericAlias = typing._GenericAlias
     try:
         # 3.9+
-        from typing import GenericAlias
+        from typing import GenericAlias as _typing_GenericAlias
     except ImportError:
-        GenericAlias = typing._GenericAlias
+        _typing_GenericAlias = typing._GenericAlias
 
     def get_origin(tp):
         """Get the unsubscripted version of a type.
@@ -954,7 +1024,7 @@ else:
         """
         if isinstance(tp, _AnnotatedAlias):
             return Annotated
-        if isinstance(tp, (typing._GenericAlias, GenericAlias, _BaseGenericAlias,
+        if isinstance(tp, (typing._GenericAlias, _typing_GenericAlias, _BaseGenericAlias,
                            ParamSpecArgs, ParamSpecKwargs)):
             return tp.__origin__
         if tp is typing.Generic:
@@ -974,7 +1044,7 @@ else:
         """
         if isinstance(tp, _AnnotatedAlias):
             return (tp.__origin__,) + tp.__metadata__
-        if isinstance(tp, (typing._GenericAlias, GenericAlias)):
+        if isinstance(tp, (typing._GenericAlias, _typing_GenericAlias)):
             if getattr(tp, "_special", False):
                 return ()
             res = tp.__args__
@@ -1801,10 +1871,11 @@ else:
         eq_default: bool = True,
         order_default: bool = False,
         kw_only_default: bool = False,
-        field_descriptors: typing.Tuple[
+        field_specifiers: typing.Tuple[
             typing.Union[typing.Type[typing.Any], typing.Callable[..., typing.Any]],
             ...
         ] = (),
+        **kwargs: typing.Any,
     ) -> typing.Callable[[T], T]:
         """Decorator that marks a function, class, or metaclass as providing
         dataclass-like behavior.
@@ -1856,8 +1927,8 @@ else:
           assumed to be True or False if it is omitted by the caller.
         - ``kw_only_default`` indicates whether the ``kw_only`` parameter is
           assumed to be True or False if it is omitted by the caller.
-        - ``field_descriptors`` specifies a static list of supported classes
-          or functions, that describe fields, similar to ``dataclasses.field()``.
+        - ``field_specifiers`` specifies a static list of supported classes
+          or functions that describe fields, similar to ``dataclasses.field()``.
 
         At runtime, this decorator records its arguments in the
         ``__dataclass_transform__`` attribute on the decorated object.
@@ -1870,7 +1941,8 @@ else:
                 "eq_default": eq_default,
                 "order_default": order_default,
                 "kw_only_default": kw_only_default,
-                "field_descriptors": field_descriptors,
+                "field_specifiers": field_specifiers,
+                "kwargs": kwargs,
             }
             return cls_or_fn
         return decorator
