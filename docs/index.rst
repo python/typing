@@ -4,10 +4,10 @@ Static Typing with Python
 
 .. Introduction
 .. ============
-.. 
+..
 .. .. toctree::
 ..    :maxdepth: 2
-.. 
+..
 ..    source/introduction
 
 Guides
@@ -92,8 +92,8 @@ Typing PEPs
 * `PEP 613 <https://www.python.org/dev/peps/pep-0613/>`_, ``TypeAlias``
 * `PEP 646 <https://www.python.org/dev/peps/pep-0646/>`_, variadic generics and ``TypeVarTuple``
 * `PEP 647 <https://www.python.org/dev/peps/pep-0647/>`_, ``TypeGuard``
-* `PEP 655 <https://www.python.org/dev/peps/pep-0655/>`_ (draft), ``Required`` and ``NotRequired``
+* `PEP 655 <https://www.python.org/dev/peps/pep-0655/>`_, ``Required`` and ``NotRequired``
 * `PEP 673 <https://www.python.org/dev/peps/pep-0673/>`_, ``Self``
-* `PEP 675 <https://www.python.org/dev/peps/pep-0675/>`_ (draft), ``LiteralString``
-* `PEP 677 <https://www.python.org/dev/peps/pep-0677/>`_ (draft), callable type syntax
+* `PEP 675 <https://www.python.org/dev/peps/pep-0675/>`_, ``LiteralString``
+* `PEP 677 <https://www.python.org/dev/peps/pep-0677/>`_ (rejected), callable type syntax
 * `PEP 681 <https://www.python.org/dev/peps/pep-0681/>`_ (draft), ``@dataclass_transform()``
