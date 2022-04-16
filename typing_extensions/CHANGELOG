@@ -1,6 +1,9 @@
 # Unreleased
 
-- Add `typing.assert_type`. Backport from bpo-46480.
+- Add `typing_extensions.get_overloads` and
+  `typing_extensions.clear_overloads`, and add registry support to
+  `typing_extensions.overload`. Backport from python/cpython#89263.
+- Add `typing_extensions.assert_type`. Backport from bpo-46480.
 - Drop support for Python 3.6. Original patch by Adam Turner (@AA-Turner).
 
 # Release 4.1.1 (February 13, 2022)

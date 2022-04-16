@@ -1,6 +1,7 @@
 import abc
 import collections
 import collections.abc
+import functools
 import operator
 import sys
 import types as _types
@@ -46,7 +47,9 @@ __all__ = [
     'Annotated',
     'assert_never',
     'assert_type',
+    'clear_overloads',
     'dataclass_transform',
+    'get_overloads',
     'final',
     'get_args',
     'get_origin',
@@ -249,7 +252,72 @@ else:
 
 
 _overload_dummy = typing._overload_dummy  # noqa
-overload = typing.overload
+
+
+if hasattr(typing, "get_overloads"):  # 3.11+
+    overload = typing.overload
+    get_overloads = typing.get_overloads
+    clear_overloads = typing.clear_overloads
+else:
+    # {module: {qualname: {firstlineno: func}}}
+    _overload_registry = collections.defaultdict(
+        functools.partial(collections.defaultdict, dict)
+    )
+
+    def overload(func):
+        """Decorator for overloaded functions/methods.
+
+        In a stub file, place two or more stub definitions for the same
+        function in a row, each decorated with @overload.  For example:
+
+        @overload
+        def utf8(value: None) -> None: ...
+        @overload
+        def utf8(value: bytes) -> bytes: ...
+        @overload
+        def utf8(value: str) -> bytes: ...
+
+        In a non-stub file (i.e. a regular .py file), do the same but
+        follow it with an implementation.  The implementation should *not*
+        be decorated with @overload.  For example:
+
+        @overload
+        def utf8(value: None) -> None: ...
+        @overload
+        def utf8(value: bytes) -> bytes: ...
+        @overload
+        def utf8(value: str) -> bytes: ...
+        def utf8(value):
+            # implementation goes here
+
+        The overloads for a function can be retrieved at runtime using the
+        get_overloads() function.
+        """
+        # classmethod and staticmethod
+        f = getattr(func, "__func__", func)
+        try:
+            _overload_registry[f.__module__][f.__qualname__][
+                f.__code__.co_firstlineno
+            ] = func
+        except AttributeError:
+            # Not a normal function; ignore.
+            pass
+        return _overload_dummy
+
+    def get_overloads(func):
+        """Return all defined overloads for *func* as a sequence."""
+        # classmethod and staticmethod
+        f = getattr(func, "__func__", func)
+        if f.__module__ not in _overload_registry:
+            return []
+        mod_dict = _overload_registry[f.__module__]
+        if f.__qualname__ not in mod_dict:
+            return []
+        return list(mod_dict[f.__qualname__].values())
+
+    def clear_overloads():
+        """Clear all overloads in the registry."""
+        _overload_registry.clear()
 
 
 # This is not a real generic class.  Don't use outside annotations.

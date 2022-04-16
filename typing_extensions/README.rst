@@ -47,6 +47,8 @@ This module currently contains the following:
 
   - ``assert_never``
   - ``assert_type``
+  - ``clear_overloads``
+  - ``get_overloads``
   - ``LiteralString`` (see PEP 675)
   - ``Never``
   - ``NotRequired`` (see PEP 655)
@@ -122,6 +124,10 @@ Certain objects were changed after they were added to ``typing``, and
   Python 3.8 and lack support for ``ParamSpecArgs`` and ``ParamSpecKwargs``
   in 3.9.
 - ``@final`` was changed in Python 3.11 to set the ``.__final__`` attribute.
+- ``@overload`` was changed in Python 3.11 to make function overloads
+  introspectable at runtime. In order to access overloads with
+  ``typing_extensions.get_overloads()``, you must use
+  ``@typing_extensions.overload``.
 
 There are a few types whose interface was modified between different
 versions of typing. For example, ``typing.Sequence`` was modified to
