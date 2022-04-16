@@ -254,7 +254,7 @@ else:
 _overload_dummy = typing._overload_dummy  # noqa
 
 
-if hasattr(typing, "get_overloads"): # 3.11+
+if hasattr(typing, "get_overloads"):  # 3.11+
     overload = typing.overload
     get_overloads = typing.get_overloads
     clear_overloads = typing.clear_overloads
