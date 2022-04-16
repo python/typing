@@ -1,5 +1,8 @@
 # Unreleased
 
+- Add `ParamSpecArgs` and `ParamSpecKwargs` to `__all__`.
+- Improve "accepts only single type" error messages.
+- Improve the distributed package. Patch by Marc Mueller (@cdce8p).
 - Update `typing_extensions.dataclass_transform` to rename the
   `field_descriptors` parameter to `field_specifiers` and accept
   arbitrary keyword arguments.
