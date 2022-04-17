@@ -1,4 +1,4 @@
-# Unreleased
+# Release 4.2.0 (April 17, 2022)
 
 - Re-export `typing.Unpack` and `typing.TypeVarTuple` on Python 3.11.
 - Add `ParamSpecArgs` and `ParamSpecKwargs` to `__all__`.

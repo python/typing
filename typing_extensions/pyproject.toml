@@ -6,8 +6,8 @@ build-backend = "flit_core.buildapi"
 # Project metadata
 [project]
 name = "typing_extensions"
-version = "4.1.1"
-description = "Backported and Experimental Type Hints for Python 3.6+"
+version = "4.2.0"
+description = "Backported and Experimental Type Hints for Python 3.7+"
 readme = "README.rst"
 requires-python = ">=3.7"
 urls.Home = "https://github.com/python/typing/blob/master/typing_extensions/README.rst"
@@ -28,7 +28,7 @@ keywords = [
 ]
 # Classifiers list: https://pypi.org/classifiers/
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: Python Software Foundation License",
