@@ -10,7 +10,6 @@ version = "4.2.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 readme = "README.rst"
 requires-python = ">=3.7"
-urls.Home = "https://github.com/python/typing/blob/master/typing_extensions/README.rst"
 license.file = "LICENSE"
 keywords = [
     "annotations",
@@ -44,6 +43,7 @@ classifiers = [
 ]
 
 [project.urls]
+Home = "https://github.com/python/typing/blob/master/typing_extensions/README.rst"
 Repository = "https://github.com/python/typing"
 Changes = "https://github.com/python/typing/blob/master/typing_extensions/CHANGELOG"
 Documentation = "https://typing.readthedocs.io/"
