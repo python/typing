@@ -31,7 +31,7 @@ backwards-incompatible changes.
 - Ensure that GitHub Actions reports no errors.
 
 - Update the version number in `typing_extensions/pyproject.toml` and in
-  `typing_extensions/CHANGELOG`.
+  `typing_extensions/CHANGELOG.md`.
 
 - Make sure your environment is up to date
 
