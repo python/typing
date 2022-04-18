@@ -45,7 +45,7 @@ classifiers = [
 [project.urls]
 Home = "https://github.com/python/typing/blob/master/typing_extensions/README.rst"
 Repository = "https://github.com/python/typing"
-Changes = "https://github.com/python/typing/blob/master/typing_extensions/CHANGELOG"
+Changes = "https://github.com/python/typing/blob/master/typing_extensions/CHANGELOG.md"
 Documentation = "https://typing.readthedocs.io/"
 "Bug Tracker" = "https://github.com/python/typing/issues"
 "Q & A" = "https://github.com/python/typing/discussions"
@@ -58,7 +58,7 @@ email = "levkivskyi@gmail.com"
 
 [tool.flit.sdist]
 include = [
-    "CHANGELOG",
+    "CHANGELOG.md",
     "README.rst",
     "*/test*.py"
 ]
