@@ -43,6 +43,13 @@ classifiers = [
     "Topic :: Software Development"
 ]
 
+[project.urls]
+Repository = "https://github.com/python/typing"
+Changes = "https://github.com/python/typing/blob/master/typing_extensions/CHANGELOG"
+Documentation = "https://typing.readthedocs.io/"
+"Bug Tracker" = "https://github.com/python/typing/issues"
+"Q & A" = "https://github.com/python/typing/discussions"
+
 # Project metadata -- authors. Flit stores this as a list of dicts, so it can't
 # be inline above.
 [[project.authors]]
