@@ -8,7 +8,7 @@ build-backend = "flit_core.buildapi"
 name = "typing_extensions"
 version = "4.2.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3.7"
 license.file = "LICENSE"
 keywords = [
@@ -23,7 +23,7 @@ keywords = [
     "typechecking",
     "typehinting",
     "typehints",
-    "typing"
+    "typing",
 ]
 # Classifiers list: https://pypi.org/classifiers/
 classifiers = [
@@ -39,11 +39,11 @@ classifiers = [
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
-    "Topic :: Software Development"
+    "Topic :: Software Development",
 ]
 
 [project.urls]
-Home = "https://github.com/python/typing/blob/master/typing_extensions/README.rst"
+Home = "https://github.com/python/typing/blob/master/typing_extensions/README.md"
 Repository = "https://github.com/python/typing"
 Changes = "https://github.com/python/typing/blob/master/typing_extensions/CHANGELOG.md"
 Documentation = "https://typing.readthedocs.io/"
@@ -57,9 +57,5 @@ name = "Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee"
 email = "levkivskyi@gmail.com"
 
 [tool.flit.sdist]
-include = [
-    "CHANGELOG.md",
-    "README.rst",
-    "*/test*.py"
-]
+include = ["CHANGELOG.md", "README.md", "*/test*.py"]
 exclude = []
