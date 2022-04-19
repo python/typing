@@ -42,7 +42,7 @@ classifiers = [
 ]
 
 [project.urls]
-Home = "https://github.com/python/typing/blob/master/typing_extensions/README.md"
+Home = "https://github.com/python/typing/tree/master/typing_extensions"
 Repository = "https://github.com/python/typing"
 Changes = "https://github.com/python/typing/blob/master/typing_extensions/CHANGELOG.md"
 Documentation = "https://typing.readthedocs.io/"
