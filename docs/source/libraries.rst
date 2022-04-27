@@ -4,79 +4,197 @@
 Typing Python Libraries
 ***********************
 
-Much of Python’s popularity can be attributed to the rich collection of
+Much of Python's popularity can be attributed to the rich collection of
 Python libraries available to developers. Authors of these libraries
 play an important role in improving the experience for Python
 developers. This document provides some recommendations and guidance for
 Python library authors.
 
-These recommendations are intended to provide the following benefits:
+Why provide type annotations?
+=============================
 
-1. Consumers of libraries should have a great coding experience with
-   fast and accurate completion suggestions, class and function
-   documentation, signature help (including parameter default values),
-   hover text, and auto-imports. This should happen by default without
-   needing to download extra packages and without any special
-   configuration. These features should be consistent across the Python
-   ecosystem regardless of a developer’s choice of editor, IDE, notebook
-   environment, etc.
-2. Consumers of libraries should be able to rely on complete and
-   accurate type information so static type checkers can detect and
-   report type inconsistencies and other violations of the interface
-   contract.
-3. Library authors should be able to specify a well-defined interface
-   contract that is enforced by tools. This allows a library
-   implementation to evolve and improve without breaking consumers of
-   the library.
-4. Library authors should have the benefits of static type checking to
+Providing type annotations has the following benefits:
+
+1. Type annotations help provide users of libraries a better coding
+   experience by enabling fast and accurate completion suggestions, class and
+   function documentation, signature help, hover text, auto-imports, etc.
+2. Users of libraries are able to use static type checkers to detect issues
+   with their use of libraries.
+3. Type annotations allow library authors to specify an interface contract that
+   is enforced by tools. This lets the library implementation evolve with less
+   fear that users are depending on implementation details. In the event of
+   changes to the library interface, type checkers are able to warn users when
+   their code is affected.
+4. Library authors are able to use static type checking themselves to help
    produce high-quality, bug-free implementations.
 
-Inlined Type Annotations and Type Stubs
-=======================================
+How to provide type annotations?
+================================
 
-`PEP 561 <https://www.python.org/dev/peps/pep-0561/>`__ documents
-several ways type information can be delivered for a library: inlined
-type annotations, type stub files included in the package, a separate
-companion type stub package, and type stubs in the typeshed repository.
-Some of these options fall short on delivering the benefits above. We
-therefore provide the following more specific guidance to library
-authors.
+:pep:`561` documents several ways type information can be provided for a
+library:
+
+- inline type annotations (preferred)
+- type stub files included in the package
+- a separate companion type stub package
+- type stubs in the typeshed repository
+
+Inline type annotations simply refers to the use of annotations within your
+``.py`` files. In contrast, with type stub files, type information lives in
+separate ``.pyi`` files; see :ref:`stubs` for more details.
+
+..
+   TODO: link to a guide for writing stubs above
+
+We recommend using the inline type annotations approach, since it has the
+following benefits:
+
+- Typically requires the least effort to add and maintain
+- Users don't have to download additional packages
+- Always remains consistent with the implementation
+- Allows library authors to type check their own code
+- Allows language servers to show users relevant details about the
+  implementation, such as docstrings and default parameter values
+
+However, there are cases where inlined type annotations are not possible — most
+notably when a library's functionality is implemented in a language
+other than Python.
+
+If you are not interested in providing type annotations for your library, you
+could suggest users to contribute type stubs to the
+`typeshed <https://github.com/python/typeshed>`__ project.
+
+Marking a package as providing type information
+-----------------------------------------------
+
+As specified in :pep:`561`, tools will not treat your package as providing type
+information unless it includes a special ``py.typed`` marker file.
 
 .. note::
-   All libraries should include inlined type annotations for the
-   functions, classes, methods, and constants that comprise the public
-   interface for the library.
+   Before marking a package as providing type information, it is best to ensure
+   that the library's interface is fully annotated. See :ref:`type_completeness`
+   for more details.
 
-Inlined type annotations should be included directly within the source
-code that ships with the package. Of the options listed in PEP 561,
-inlined type annotations offer the most benefits. They typically require
-the least effort to add and maintain, they are always consistent with
-the implementation, and docstrings and default parameter values are
-readily available, allowing language servers to enhance the development
-experience.
+Inline type annotations
+^^^^^^^^^^^^^^^^^^^^^^^
 
-There are cases where inlined type annotations are not possible — most
-notably when a library’s exposed functionality is implemented in a
-language other than Python.
+A typical directory structure would look like:
 
-.. note::
-   Libraries that expose symbols implemented in languages other than
-   Python should include stub (``.pyi``) files that describe the types for
-   those symbols. These stubs should also contain docstrings and default
-   parameter values.
+.. code-block:: text
 
-In many existing type stubs (such as those found in typeshed), default
-parameter values are replaced with with ``...`` and all docstrings are
-removed. We recommend that default values and docstrings remain within
-the type stub file so language servers can display this information to
-developers.
+   setup.py
+   my_great_package/
+      __init__.py
+      stuff.py
+      py.typed
 
-Library Interface
-=================
+It's important to ensure that the ``py.typed`` marker file is included in the
+distributed package. If using ``setuptools``, this can be achieved like so:
 
-`PEP 561 <https://www.python.org/dev/peps/pep-0561/>`__ indicates that a
-``py.typed`` marker file must be included in the package if the author
-wishes to support type checking of their code.
+.. code-block:: python
+
+   from setuptools import setup
+
+   setup(
+      name="my_great_distribution",
+      version="0.1",
+      package_data={"my_great_package": ["py.typed"]},
+      packages=["my_great_package"],
+   )
+
+
+Type stub files included in the package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It's possible to include a mix of type stub files (``.pyi``) and inline type
+annotations (``.py``). One use case for including type stub files in your
+package is to provide types for extension modules in your library. A typical
+directory structure would look like:
+
+.. code-block:: text
+
+   setup.py
+   my_great_package/
+      __init__.py
+      stuff.py
+      stuff.pyi
+      py.typed
+
+If using ``setuptools``, we can ensure the ``.pyi`` and ``py.typed`` files are
+included like so:
+
+.. code-block:: python
+
+   from setuptools import setup
+
+   setup(
+      name="my_great_distribution",
+      version="0.1",
+      package_data={"my_great_package": ["py.typed", "stuff.pyi"]},
+      packages=["my_great_package"],
+   )
+
+The presence of ``.pyi`` files does not affect the Python interpreter at runtime
+in any way. However, static type checkers will only look at ``.pyi`` file and
+ignore the corresponding ``.py`` file.
+
+Companion type stub package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+These are often referred to as "stub-only" packages. The package should have a
+prefix of the runtime package name with a suffix of ``-stubs``. The py.typed
+marker file is not necessary for stub-only packages. This approach can be useful
+to develop type stubs independently from your library.
+
+For example:
+
+.. code-block:: text
+
+   setup.py
+   my_great_package-stubs/
+      __init__.pyi
+      stuff.pyi
+
+
+.. code-block:: python
+
+   from setuptools import setup
+
+   setup(
+      name="my_great_package-stubs",
+      version="0.1",
+      package_data={"my_great_package-stubs": ["__init__.pyi", "stuff.pyi"]},
+      packages=["my_great_package-stubs"]
+   )
+
+
+Users are then able to install the stubs-only package separately to provide
+types for the original library.
+
+Note that to ensure inclusion of ``.pyi`` and ``py.typed`` files in an sdist
+(.tar.gz archive), you may also need to modify the inclusion rules in your
+``MANIFEST.in`` (see the
+`packaging guide <https://packaging.python.org/en/latest/guides/using-manifest-in/>`__
+for more details on ``MANIFEST.in``). For example:
+
+.. code-block:: text
+
+   global-include *.pyi
+   global-include py.typed
+
+.. _type_completeness:
+
+How much of my library needs types?
+===================================
+
+A "py.typed" library should aim to be type complete so that type
+checking and inspection can work to their full extent. Here we say that a
+library is “type complete” if all of the symbols
+that comprise its interface have type annotations that refer to types
+that are fully known. Private symbols are exempt.
+
+Library interface (public and private symbols)
+----------------------------------------------
 
 If a ``py.typed`` module is present, a type checker will treat all modules
 within that package (i.e. all files that end in ``.py`` or ``.pyi``) as
@@ -119,13 +237,7 @@ determine the value of ``__all__``.
 -  ``__all__.remove('a')``
 
 Type Completeness
-=================
-
-A “py.typed” library should aim to be type complete so that type
-checking and inspection can work to their full extent. Here we say that a
-library is “type complete” if all of the symbols
-that comprise its interface have type annotations that refer to types
-that are fully known. Private symbols are exempt.
+-----------------
 
 The following are best practice recommendations for how to define “type complete”:
 
@@ -281,6 +393,9 @@ Examples of known and unknown types
    # (dict) is generic, and type arguments are not specified.
    class DictSubclass(dict):
        pass
+
+..
+   TODO: consider moving best practices to their own page?
 
 Best Practices for Inlined Types
 ================================
