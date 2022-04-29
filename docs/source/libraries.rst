@@ -135,14 +135,14 @@ included like so:
    )
 
 The presence of ``.pyi`` files does not affect the Python interpreter at runtime
-in any way. However, static type checkers will only look at ``.pyi`` file and
+in any way. However, static type checkers will only look at the ``.pyi`` file and
 ignore the corresponding ``.py`` file.
 
 Companion type stub package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-These are often referred to as "stub-only" packages. The package should have a
-prefix of the runtime package name with a suffix of ``-stubs``. The py.typed
+These are often referred to as "stub-only" packages. The name of the stub package
+should be the name of the runtime package suffixed with ``-stubs``. The ``py.typed``
 marker file is not necessary for stub-only packages. This approach can be useful
 to develop type stubs independently from your library.
 
