@@ -90,6 +90,9 @@ Simply running a type checker on the stubs can catch several issues, from simple
 things like detecting missing annotations to more complex things like ensuring
 Liskov substitutability or detecting problematic overloads.
 
+It may be instructive to examine `typeshed <https://github.com/python/typeshed/>`__'s
+`setup for testing stubs <https://github.com/python/typeshed/blob/master/tests/README.md>`__.
+
 ..
    TODO: consider adding examples and configurations for specific type checkers
 
