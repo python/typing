@@ -41,10 +41,8 @@ library:
 
 Inline type annotations simply refers to the use of annotations within your
 ``.py`` files. In contrast, with type stub files, type information lives in
-separate ``.pyi`` files; see :ref:`stubs` for more details.
-
-..
-   TODO: link to a guide for writing stubs above
+separate ``.pyi`` files; see :ref:`stubs` and :ref:`writing_stubs` for more
+details.
 
 We recommend using the inline type annotations approach, since it has the
 following benefits:

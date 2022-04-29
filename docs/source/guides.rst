@@ -7,4 +7,5 @@ Type System Guides
    :caption: Contents:
 
    libraries
+   writing_stubs
    unreachable
