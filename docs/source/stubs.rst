@@ -77,8 +77,9 @@ see PEP 561 [#pep561]_ for more information. The
 includes stubs for Python's standard library and several third-party
 packages. The stubs for the standard library are usually distributed with type checkers and do not
 require separate installation. Stubs for third-party libraries are
-available on the `Python Package Index <https://pypi.org>`_. A stub package for
-a library called ``widget`` will be called ``types-widget``.
+available on the `Python Package Index <https://pypi.org>`_.
+By convention, a stub package for a library called ``widget`` would be named
+``types-widget``.
 
 Supported Constructs
 ====================
@@ -491,7 +492,7 @@ do not get interpreted by type checkers as enum members.
 Yes::
 
     from enum import Enum
-    
+
     class Color(Enum):
         RED: int
         BLUE: int
@@ -508,7 +509,7 @@ Yes::
 No::
 
     from enum import Enum
-    
+
     class Color(Enum):
         RED: int
         BLUE: int
@@ -1005,27 +1006,6 @@ with the current type system or using the correct type is unergonomic.
 
 Use ``float`` instead of ``int | float``.
 Use ``None`` instead of ``Literal[None]``.
-For argument types,
-use ``bytes`` instead of ``bytes | memoryview | bytearray``.
-
-Use ``Text`` in stubs that support Python 2 when something accepts both
-``str`` and ``unicode``. Avoid using ``Text`` in stubs or branches for
-Python 3 only.
-
-Yes::
-
-    if sys.version_info < (3,):
-        def foo(s: Text) -> None: ...
-    else:
-        def foo(s: str, *, i: int) -> None: ...
-    def bar(s: Text) -> None: ...
-
-No::
-
-    if sys.version_info < (3,):
-        def foo(s: unicode) -> None: ...
-    else:
-        def foo(s: Text, *, i: int) -> None: ...
 
 For arguments, prefer protocols and abstract types (``Mapping``,
 ``Sequence``, ``Iterable``, etc.). If an argument accepts literally any value,
