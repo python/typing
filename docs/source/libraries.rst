@@ -171,6 +171,9 @@ For example:
 Users are then able to install the stubs-only package separately to provide
 types for the original library.
 
+Inclusion in sdist
+^^^^^^^^^^^^^^^^^^
+
 Note that to ensure inclusion of ``.pyi`` and ``py.typed`` files in an sdist
 (.tar.gz archive), you may also need to modify the inclusion rules in your
 ``MANIFEST.in`` (see the
