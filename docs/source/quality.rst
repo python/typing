@@ -1,4 +1,4 @@
-.. _tools:
+.. _testing:
 
 ********************************************
 Testing and Ensuring Type Annotation Quality
