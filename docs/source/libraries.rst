@@ -296,7 +296,7 @@ is obvious from the context:
    ``__slots__``.
 
 Examples of known and unknown types
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
@@ -404,7 +404,7 @@ Best Practices for Inlined Types
 ================================
 
 Wide vs. Narrow Types
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 In type theory, when comparing two types that are related to each other,
 the “wider” type is the one that is more general, and the “narrower”
@@ -435,7 +435,7 @@ parameter typed as ``List[Union[str, int]]`` is much more restrictive
 and accepts only a ``List[Union[str, int]]``.
 
 Overloads
-~~~~~~~~~
+---------
 
 If a function or method can return multiple different types and those
 types can be determined based on the presence or types of certain
@@ -445,7 +445,7 @@ are used within a “.py” file, they must appear prior to the function
 implementation, which should not have an ``@overload`` decorator.
 
 Keyword-only Parameters
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
 If a function or method is intended to take parameters that are
 specified only by name, use the keyword-only separator (``*``).
@@ -456,7 +456,7 @@ specified only by name, use the keyword-only separator (``*``).
        ...
 
 Annotating Decorators
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 Decorators modify the behavior of a class or a function. Providing
 annotations for decorators is straightforward if the decorator retains
@@ -493,7 +493,7 @@ provide signature assistance. As such, library authors are discouraged
 from creating decorators that mutate function signatures in this manner.
 
 Generic Classes and Functions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 Classes and functions that can operate in a generic manner on various
 types should declare themselves as generic using the mechanisms
@@ -503,7 +503,7 @@ should be private to the file that declares it, and should therefore
 begin with an underscore.
 
 Type Aliases
-~~~~~~~~~~~~
+------------
 
 Type aliases are symbols that refer to other types. Generic type aliases
 (those that refer to unspecialized generic classes) are supported by
@@ -528,7 +528,7 @@ annotation.
    StrOrInt: TypeAlias = Union[str, int]
 
 Abstract Classes and Methods
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 Classes that must be subclassed should derive from ``ABC``, and methods
 or properties that must be overridden should be decorated with the
@@ -555,7 +555,7 @@ exception.
          raise NotImplementedError()
 
 Final Classes and Methods
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
 
 Classes that are not intended to be subclassed should be decorated as
 ``@final`` as described in `PEP
@@ -564,7 +564,7 @@ can also be used to specify methods that cannot be overridden by
 subclasses.
 
 Literals
-~~~~~~~~
+--------
 
 Type annotations should make use of the Literal type where appropriate,
 as described in `PEP 586 <https://www.python.org/dev/peps/pep-0586/>`__.
@@ -572,7 +572,7 @@ Literals allow for more type specificity than their non-literal
 counterparts.
 
 Constants
-~~~~~~~~~
+---------
 
 Constant values (those that are read-only) can be specified using the
 Final annotation as described in `PEP
@@ -603,7 +603,7 @@ type annotation would be redundant.
    LATEST_VERSION: Final[Tuple[int, int]] = (4, 5)
 
 Typed Dictionaries, Data Classes, and Named Tuples
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------
 
 If your library runs only on newer versions of Python, you are
 encouraged to use some of the new type-friendly classes.
@@ -630,7 +630,7 @@ section documents several techniques that can be used to add types while
 maintaining backward compatibility.
 
 Quoted Annotations
-~~~~~~~~~~~~~~~~~~
+------------------
 
 Type annotations for variables, parameters, and return types can be
 placed in quotes. The Python interpreter will then ignore them, whereas
@@ -645,7 +645,7 @@ a type checker will interpret them as type annotations.
       return self._config
 
 Type Comment Annotations
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 
 Python 3.0 introduced syntax for parameter and return type annotations,
 as specified in `PEP 484 <https://www.python.org/dev/peps/pep-0484/>`__.
@@ -680,7 +680,7 @@ type: .
          ...
 
 typing_extensions
-~~~~~~~~~~~~~~~~~
+-----------------
 
 New type features that require runtime support are typically included in
 the stdlib ``typing`` module. Where possible, these new features are
@@ -688,7 +688,7 @@ back-ported to a runtime library called ``typing_extensions`` that works
 with older Python runtimes.
 
 TYPE_CHECKING
-~~~~~~~~~~~~~
+-------------
 
 The ``typing`` module exposes a variable called ``TYPE_CHECKING`` which
 has a value of False within the Python runtime but a value of True when

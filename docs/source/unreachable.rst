@@ -99,7 +99,7 @@ You can also use ``assert_never()`` with a sequence of ``if`` statements:
            assert_never(op)
 
 Marking Code as Unreachable
-=======================
+===========================
 
 Sometimes a piece of code is unreachable, but the type system is not
 powerful enough to recognize that. For example, consider a function that
