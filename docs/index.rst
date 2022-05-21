@@ -32,6 +32,8 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`search`
 
+.. _contact:
+
 Discussions and Support
 =======================
 
