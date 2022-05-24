@@ -36,7 +36,3 @@ Historically, this repository also hosted:
   in the standard library reached end of life. The last released version,
   supporting Python 2.7 and 3.4,
   is [available at PyPI](https://pypi.org/project/typing/).
-
-## Workflow
-
-See [CONTRIBUTING.md](/CONTRIBUTING.md) for more.
