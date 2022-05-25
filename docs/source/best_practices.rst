@@ -22,6 +22,24 @@ Please see :ref:`contact` on how to join the discussion.
 Typing Features
 ===============
 
+Future Import
+-------------
+
+We recommend to use ``from __future__ import annotations`` in source files
+that use type annotations. This allows you to use some newer syntax features —
+like built-in generics or new-style unions — in type annotations, even in
+Python versions that don't officially support these features yet.
+
+For example, the following code works with Python 3.7 and above::
+
+    from __future__ import annotations
+
+    def do_stuff(x: dict[str, int]) -> int | str:
+        ...
+
+Stub files use ``from __future__ import annotations`` implicitly, so we don't
+recommend to include it in stub files.
+
 Type Aliases
 ------------
 
@@ -44,11 +62,20 @@ No::
 Ergonomic Practices
 ===================
 
-Using `Any`
------------
+Using ``Any`` and ``object``
+----------------------------
 
 Generally, use ``Any`` when a type cannot be expressed appropriately
 with the current type system or using the correct type is unergonomic.
+
+If a function accepts virtually any object as an argument, for example
+because it's only passed to ``str()``, use ``object`` instead of ``Any`` as
+type annotation. Similarly, if the return value of a callback is ignored,
+annotate it with ``object``::
+
+    def call_cb_if_int(cb: Callable[[int], object], o: object) -> None:
+        if isinstance(o, int):
+            cb(o)
 
 Arguments and Return Types
 --------------------------
