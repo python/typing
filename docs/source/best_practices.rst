@@ -44,11 +44,20 @@ No::
 Ergonomic Practices
 ===================
 
-Using `Any`
------------
+Using ``Any`` and ``object``
+----------------------------
 
 Generally, use ``Any`` when a type cannot be expressed appropriately
 with the current type system or using the correct type is unergonomic.
+
+If a function accepts every possible object as an argument, for example
+because it's only passed to ``str()``, use ``object`` instead of ``Any`` as
+type annotation. Similarly, if the return value of a callback is ignored,
+annotate it with ``object``::
+
+    def call_cb_if_int(cb: Callable[[int], object], o: object) -> None:
+        if isinstance(o, int):
+            cb(o)
 
 Arguments and Return Types
 --------------------------
