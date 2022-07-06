@@ -20,21 +20,15 @@ a few of them.
     For simplicity, we will assume that type-checking is done with ``mypy``.
     Many of these strategies can be applied to other type-checkers as well.
 
-Testing Using ``mypy --warn-unused-ignores``
---------------------------------------------
+Testing Using ``assert_type`` and ``--warn-unused-ignores``
+-----------------------------------------------------------
 
-Clever use of ``--warn-unused-ignores`` can be used to check that certain
-expressions are or are not well-typed.
+The idea is to write normal Python files, set aside in a dedicated directory like ``typing_tests/``, which assert certain properties
+of the type annotations.
 
-The idea is to write normal python files which contain valid expressions along
-with invalid expressions annotated with ``type: ignore`` comments. When
-``mypy --warn-unused-ignores`` is run on these files, it should pass.
-A directory of test files, ``typing_tests/``, can be maintained.
+``assert_type`` (``mypy`` 0.950 and above) can ensure that the type annotation produces the expected type.
 
-This strategy does not offer strong guarantees about the types under test, but
-it requires no additional tooling.
-
-If the following file is under test
+If the following file is under test:
 
 .. code-block:: python
 
@@ -42,7 +36,29 @@ If the following file is under test
     def bar(x: int) -> str:
         return str(x)
 
-Then the following file tests ``foo.py``:
+then the following file tests ``foo.py``:
+
+.. code-block:: python
+
+    assert_type(bar(42), str)
+
+Clever use of ``mypy --warn-unused-ignores`` can be used to check that certain
+expressions are or are not well-typed. The idea is to have valid expressions along
+with invalid expressions annotated with ``type: ignore`` comments. When
+``mypy --warn-unused-ignores`` is run on these files, it should pass.
+
+This strategy does not offer strong guarantees about the types under test, but
+it requires no additional tooling.
+
+If the following file is under test:
+
+.. code-block:: python
+
+    # foo.py
+    def bar(x: int) -> str:
+        return str(x)
+
+then the following file tests ``foo.py``:
 
 .. code-block:: python
 
