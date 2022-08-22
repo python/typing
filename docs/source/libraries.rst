@@ -490,6 +490,36 @@ original signature, thus blinding type checkers and other tools that
 provide signature assistance. As such, library authors are discouraged
 from creating decorators that mutate function signatures in this manner.
 
+Aliasing Decorators
+-------------------
+
+When writing a library with a couple of decorator factories 
+(i.e. functions returning decorators, like ``complex_decorator`` from 
+Annotating Decorators section) it may be tempting to create a shortcut 
+for a decorator. 
+
+Different type checkers handle ``TypeAlias`` involving ``Callable`` in a 
+different manner, so the most portable and easy way to create a shortcut 
+is to define a callable ``Protocol`` as described in `PEP 
+544 <https://peps.python.org/pep-0544/#callback-protocols>`_:
+
+.. code:: python
+
+   _F = TypeVar("_F", bound=Callable[..., Any])
+   
+   class PDecorator(Protocol):
+       def __call__(self, _: _F, /) -> _F:
+           ...
+
+   def decorator_factory(*, mode: str) -> PDecorator:
+       """
+        Decorator factory is invoked with arguments like this:
+          @decorator_factory(mode="easy")
+          def my_function(): ...
+        """
+      ...
+
+
 Generic Classes and Functions
 -----------------------------
 
