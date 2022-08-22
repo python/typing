@@ -503,7 +503,7 @@ different manner, so the most portable and easy way to create a shortcut
 is to define a callable ``Protocol`` as described in `PEP 
 544 <https://peps.python.org/pep-0544/#callback-protocols>`_.
 
-There is already a ``Protcol`` called ``IndentityFunction`` defined in ``_typeshed``:
+There is already a ``Protocol`` called ``IdentityFunction`` defined in ``_typeshed``:
 
 .. code:: python
 
