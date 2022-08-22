@@ -501,23 +501,47 @@ for a decorator.
 Different type checkers handle ``TypeAlias`` involving ``Callable`` in a 
 different manner, so the most portable and easy way to create a shortcut 
 is to define a callable ``Protocol`` as described in `PEP 
-544 <https://peps.python.org/pep-0544/#callback-protocols>`_:
+544 <https://peps.python.org/pep-0544/#callback-protocols>`_.
+
+There is already a ``Protcol`` called ``IndentityFunction`` defined in ``_typeshed``:
 
 .. code:: python
 
-   _F = TypeVar("_F", bound=Callable[..., Any])
+   if TYPE_CHECKING:
+       from _typeshed import IdentityFunction
+
+   def decorator_factory(*, mode: str) -> "IdentityFunction":
+      """
+       Decorator factory is invoked with arguments like this:
+         @decorator_factory(mode="easy")
+         def my_function(): ...
+      """
+        ...
+
+For non-trivial decorators with custom logic, it is still possible 
+to define a custom protocol using ``ParamSpec`` and ``Concatenate``
+mechanisms described in `PEP 612 
+<https://www.python.org/dev/peps/pep-0612/>`__:
+
+.. code:: python
+
+   class Client: ...
    
-   class PDecorator(Protocol):
-       def __call__(self, _: _F, /) -> _F:
+   P = ParamSpec("P")
+   R = TypeVar("R")
+  
+   class PClientInjector(Protocol):
+       def __call__(self, _: Callable[Concatenate[Client, P], R], /) -> Callable[P, R]:
            ...
 
-   def decorator_factory(*, mode: str) -> PDecorator:
-       """
-        Decorator factory is invoked with arguments like this:
-          @decorator_factory(mode="easy")
-          def my_function(): ...
-        """
-      ...
+   def inject_client(service: str) -> PClientInjector:
+      """
+       Decorator factory is invoked with arguments like this:
+         @inject_client("testing")
+         def my_function(client: Client, value: int): ...
+         
+         my_function then takes only value
+      """
 
 
 Generic Classes and Functions
