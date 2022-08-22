@@ -495,7 +495,7 @@ Aliasing Decorators
 
 When writing a library with a couple of decorator factories 
 (i.e. functions returning decorators, like ``complex_decorator`` from 
-Annotating Decorators section) it may be tempting to create a shortcut 
+:ref:`annotating-decorators` section) it may be tempting to create a shortcut 
 for a decorator. 
 
 Different type checkers handle ``TypeAlias`` involving ``Callable`` in a 
