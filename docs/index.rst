@@ -78,7 +78,7 @@ Linters and Formatters
 Type-Hint and Stub Integration
 ----------------------
 
-* `autotyping <https://github.com/JelleZijlstra/autotyping>`_, a tool which infers types from their context and inserts them as inline type-hints.
+* `autotyping <https://github.com/JelleZijlstra/autotyping>`_, a tool which infers simple types from their context and inserts them as inline type-hints.
 * `merge_pyi <https://google.github.io/pytype/developers/tools.html#merge_pyi>`_, integrates .pyi signatures as inline type-hints in Python source code.
 * `retype <https://github.com/ambv/retype>`_, Re-applies type annotations from .pyi stubs to your codebase.
 
