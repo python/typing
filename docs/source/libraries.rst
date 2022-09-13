@@ -453,6 +453,8 @@ specified only by name, use the keyword-only separator (``*``).
    def create_user(age: int, *, dob: Optional[date] = None):
        ...
 
+.. _annotating-decorators:
+
 Annotating Decorators
 ---------------------
 
@@ -489,6 +491,8 @@ complex signature mutations may require type annotations that erase the
 original signature, thus blinding type checkers and other tools that
 provide signature assistance. As such, library authors are discouraged
 from creating decorators that mutate function signatures in this manner.
+
+.. _aliasing-decorators:
 
 Aliasing Decorators
 -------------------
