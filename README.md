@@ -1,5 +1,3 @@
-[![Chat at https://gitter.im/python/typing](https://badges.gitter.im/python/typing.svg)](https://gitter.im/python/typing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 # Static Typing for Python
 
 ## Documentation and Support
@@ -13,6 +11,10 @@ Improvements to the type system should be discussed on the
 [typing-sig](https://mail.python.org/mailman3/lists/typing-sig.python.org/)
 mailing list, although the [issues](https://github.com/python/typing/issues) in this
 repository contain some historic discussions.
+
+For conversations that are more suitable to a chat platform, you can use one of the following:
+- [gitter](https://gitter.im/python/typing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+- [discord](https://discord.com/channels/267624335836053506/891788761371906108) `#type-hinting` channel
 
 ## Repository Content
 
