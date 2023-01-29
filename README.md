@@ -4,8 +4,7 @@
 
 The documentation for Python's static typing can be found at
 [typing.readthedocs.io](https://typing.readthedocs.io/). You can get
-help either in our [support forum](https://github.com/python/typing/discussions) or
-chat with us on [Gitter](https://gitter.im/python/typing).
+help in our [support forum](https://github.com/python/typing/discussions).
 
 Improvements to the type system should be discussed on the
 [typing-sig](https://mail.python.org/mailman3/lists/typing-sig.python.org/)
