@@ -12,7 +12,7 @@ mailing list, although the [issues](https://github.com/python/typing/issues) in 
 repository contain some historic discussions.
 
 For conversations that are more suitable to a chat platform, you can use one of the following:
-- [gitter](https://gitter.im/python/typing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+- [gitter](https://gitter.im/python/typing)
 - [discord](https://discord.com/channels/267624335836053506/891788761371906108) `#type-hinting` channel
 
 ## Repository Content
