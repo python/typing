@@ -111,7 +111,7 @@ https://peps.python.org/topic/typing
 * `PEP 677 <https://www.python.org/dev/peps/pep-0677/>`_ (rejected), ``(int, str) -> bool`` callable type syntax
 * `PEP 681 <https://www.python.org/dev/peps/pep-0681/>`_ ``@dataclass_transform()``
 * `PEP 688 <https://www.python.org/dev/peps/pep-0688/>`_ (draft), ``Buffer``
-* `PEP 692 <https://www.python.org/dev/peps/pep-0692/>`_ (draft), ``Unpack[TypedDict]`` for ``**kwargs``
+* `PEP 692 <https://www.python.org/dev/peps/pep-0692/>`_ ``Unpack[TypedDict]`` for ``**kwargs``
 * `PEP 695 <https://www.python.org/dev/peps/pep-0695/>`_ (draft), ``class Class[T]:`` type parameter syntax
 * `PEP 696 <https://www.python.org/dev/peps/pep-0696/>`_ (draft), defaults for type variables
 * `PEP 698 <https://www.python.org/dev/peps/pep-0698/>`_ ``@override``
