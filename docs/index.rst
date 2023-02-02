@@ -115,4 +115,4 @@ https://peps.python.org/topic/typing
 * `PEP 695 <https://www.python.org/dev/peps/pep-0695/>`_ (draft), ``class Class[T]:`` type parameter syntax
 * `PEP 696 <https://www.python.org/dev/peps/pep-0696/>`_ (draft), defaults for type variables
 * `PEP 698 <https://www.python.org/dev/peps/pep-0698/>`_ ``@override``
-* `PEP 702 <https://www.python.org/dev/peps/pep-0702/>`_ ``@deprecated()``
+* `PEP 702 <https://www.python.org/dev/peps/pep-0702/>`_ (draft), ``@deprecated()``
