@@ -74,7 +74,7 @@ Linters and Formatters
 * `flake8-pyi <https://github.com/ambv/flake8-pyi>`_, a plugin for the
   `flake8 <https://flake8.pycqa.org/>`_ linter that adds support for type
   stubs.
-  
+
 Type-Hint and Stub Integration
 ----------------------
 
@@ -85,6 +85,9 @@ Type-Hint and Stub Integration
 Typing PEPs
 ===========
 
+https://peps.python.org/topic/typing
+
+* `PEP 482 <https://www.python.org/dev/peps/pep-0483/>`_, literature overview on type hints
 * `PEP 483 <https://www.python.org/dev/peps/pep-0483/>`_, background on type hints
 * `PEP 484 <https://www.python.org/dev/peps/pep-0484/>`_, type hints
 * `PEP 526 <https://www.python.org/dev/peps/pep-0526/>`_, variable annotations and ``ClassVar``
@@ -101,8 +104,15 @@ Typing PEPs
 * `PEP 613 <https://www.python.org/dev/peps/pep-0613/>`_, ``TypeAlias``
 * `PEP 646 <https://www.python.org/dev/peps/pep-0646/>`_, variadic generics and ``TypeVarTuple``
 * `PEP 647 <https://www.python.org/dev/peps/pep-0647/>`_, ``TypeGuard``
+* `PEP 649 <https://www.python.org/dev/peps/pep-0698/>`_ (draft), ``from __future__ import co_annotations``
 * `PEP 655 <https://www.python.org/dev/peps/pep-0655/>`_, ``Required`` and ``NotRequired``
 * `PEP 673 <https://www.python.org/dev/peps/pep-0673/>`_, ``Self``
 * `PEP 675 <https://www.python.org/dev/peps/pep-0675/>`_, ``LiteralString``
-* `PEP 677 <https://www.python.org/dev/peps/pep-0677/>`_ (rejected), callable type syntax
-* `PEP 681 <https://www.python.org/dev/peps/pep-0681/>`_ (draft), ``@dataclass_transform()``
+* `PEP 677 <https://www.python.org/dev/peps/pep-0677/>`_ (rejected), ``(int, str) -> bool`` callable type syntax
+* `PEP 681 <https://www.python.org/dev/peps/pep-0681/>`_ ``@dataclass_transform()``
+* `PEP 688 <https://www.python.org/dev/peps/pep-0688/>`_ (draft), ``Buffer``
+* `PEP 692 <https://www.python.org/dev/peps/pep-0692/>`_ (draft), ``Unpack[TypedDict]`` for ``**kwargs``
+* `PEP 695 <https://www.python.org/dev/peps/pep-0695/>`_ (draft), ``class Class[T]:`` type parameter syntax
+* `PEP 696 <https://www.python.org/dev/peps/pep-0696/>`_ (draft), defaults for type variables
+* `PEP 698 <https://www.python.org/dev/peps/pep-0698/>`_ ``@override``
+* `PEP 702 <https://www.python.org/dev/peps/pep-0702/>`_ ``@deprecated()``
