@@ -87,7 +87,7 @@ Typing PEPs
 
 https://peps.python.org/topic/typing
 
-* `PEP 482 <https://www.python.org/dev/peps/pep-0483/>`_, literature overview on type hints
+* `PEP 482 <https://www.python.org/dev/peps/pep-0482/>`_, literature overview on type hints
 * `PEP 483 <https://www.python.org/dev/peps/pep-0483/>`_, background on type hints
 * `PEP 484 <https://www.python.org/dev/peps/pep-0484/>`_, type hints
 * `PEP 526 <https://www.python.org/dev/peps/pep-0526/>`_, variable annotations and ``ClassVar``
@@ -104,7 +104,7 @@ https://peps.python.org/topic/typing
 * `PEP 613 <https://www.python.org/dev/peps/pep-0613/>`_, ``TypeAlias``
 * `PEP 646 <https://www.python.org/dev/peps/pep-0646/>`_, variadic generics and ``TypeVarTuple``
 * `PEP 647 <https://www.python.org/dev/peps/pep-0647/>`_, ``TypeGuard``
-* `PEP 649 <https://www.python.org/dev/peps/pep-0698/>`_ (draft), ``from __future__ import co_annotations``
+* `PEP 649 <https://www.python.org/dev/peps/pep-0649/>`_ (draft), ``from __future__ import co_annotations``
 * `PEP 655 <https://www.python.org/dev/peps/pep-0655/>`_, ``Required`` and ``NotRequired``
 * `PEP 673 <https://www.python.org/dev/peps/pep-0673/>`_, ``Self``
 * `PEP 675 <https://www.python.org/dev/peps/pep-0675/>`_, ``LiteralString``
