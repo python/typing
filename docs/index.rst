@@ -26,6 +26,13 @@ Reference
 
    source/reference
 
+.. seealso::
+
+   The documentation at https://mypy.readthedocs.io/ is relatively accessible
+   and complete. Particularly refer to the "Type System Reference" section of
+   the docs -- since the Python typing system is standardised via PEPs, this
+   information should apply to most Python type checkers.
+
 Indices and tables
 ==================
 
