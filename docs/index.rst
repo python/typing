@@ -48,13 +48,13 @@ Type Checkers
 -------------
 
 * `mypy <http://mypy-lang.org/>`_, the reference implementation for type
-  checkers. Supports Python 2 and 3.
+  checkers.
 * `pyre <https://pyre-check.org/>`_, written in OCaml and optimized for
-  performance. Supports Python 3 only.
+  performance.
 * `pyright <https://github.com/microsoft/pyright>`_, a type checker that
-  emphasizes speed. Supports Python 3 only.
+  emphasizes speed.
 * `pytype <https://google.github.io/pytype/>`_, checks and infers types for
-  unannotated code. Supports Python 2 and 3.
+  unannotated code.
 
 Development Environments
 ------------------------
@@ -110,7 +110,7 @@ https://peps.python.org/topic/typing
 * `PEP 675 <https://www.python.org/dev/peps/pep-0675/>`_, ``LiteralString``
 * `PEP 677 <https://www.python.org/dev/peps/pep-0677/>`_ (rejected), ``(int, str) -> bool`` callable type syntax
 * `PEP 681 <https://www.python.org/dev/peps/pep-0681/>`_ ``@dataclass_transform()``
-* `PEP 688 <https://www.python.org/dev/peps/pep-0688/>`_ (draft), ``Buffer``
+* `PEP 688 <https://www.python.org/dev/peps/pep-0688/>`_ ``Buffer``
 * `PEP 692 <https://www.python.org/dev/peps/pep-0692/>`_ ``Unpack[TypedDict]`` for ``**kwargs``
 * `PEP 695 <https://www.python.org/dev/peps/pep-0695/>`_ (draft), ``class Class[T]:`` type parameter syntax
 * `PEP 696 <https://www.python.org/dev/peps/pep-0696/>`_ (draft), defaults for type variables
