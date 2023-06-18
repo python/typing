@@ -9,7 +9,7 @@ compatible as types: nominal subtyping and structural subtyping.
 *Nominal* subtyping is strictly based on the class hierarchy. If class ``Dog``
 inherits class ``Animal``, it's a subtype of ``Animal``. Instances of ``Dog``
 can be used when ``Animal`` instances are expected. This form of subtyping
-subtyping is what Python's type system predominantly uses: it's easy to
+is what Python's type system predominantly uses: it's easy to
 understand and produces clear and concise error messages, and matches how the
 native :py:func:`isinstance <isinstance>` check works -- based on class
 hierarchy.
@@ -27,26 +27,29 @@ of protocols and structural subtyping in Python.
 Predefined protocols
 ********************
 
-The :py:mod:`typing` module defines various protocol classes that correspond
-to common Python protocols, such as :py:class:`Iterable[T] <typing.Iterable>`. If a class
-defines a suitable :py:meth:`__iter__ <object.__iter__>` method, type checkers understand that it
-implements the iterable protocol and is compatible with :py:class:`Iterable[T] <typing.Iterable>`.
-For example, ``IntList`` below is iterable, over ``int`` values:
+The :py:mod:`typing` module defines various protocol classes that correspond to
+places where duck typing is commonly used in Python, such as
+:py:class:`Iterable[T] <typing.Iterable>`.
+
+If a class defines a suitable :py:meth:`__iter__ <object.__iter__>` method, type
+checkers understand that it implements the iterable protocol and is compatible
+with :py:class:`Iterable[T] <typing.Iterable>`. For example, ``IntList`` below
+is iterable, over ``int`` values:
 
 .. code-block:: python
 
    from typing import Iterator, Iterable, Optional
 
    class IntList:
-       def __init__(self, value: int, next: Optional['IntList']) -> None:
+       def __init__(self, value: int, next_node: Optional['IntList']) -> None:
            self.value = value
-           self.next = next
+           self.next_node = next_node
 
        def __iter__(self) -> Iterator[int]:
            current = self
            while current:
                yield current.value
-               current = current.next
+               current = current.next_node
 
    def print_numbered(items: Iterable[int]) -> None:
        for n, x in enumerate(items):
@@ -63,8 +66,8 @@ to implement each protocol.
 Simple user-defined protocols
 *****************************
 
-You can define your own protocol class by inheriting the special ``Protocol``
-class:
+You can define your own protocol class by inheriting from the special
+``Protocol`` class:
 
 .. code-block:: python
 
@@ -140,7 +143,7 @@ present if you are defining a protocol:
    x: NotAProtocol = Concrete()  # Error!
 
 You can also include default implementations of methods in
-protocols. If you explicitly subclass these protocols you can inherit
+protocols. If you explicitly subclass these protocols, you inherit
 these default implementations.
 
 Explicitly including a protocol as a
@@ -154,7 +157,9 @@ abstract:
 
    class SomeProto(Protocol):
        attr: int  # Note, no right hand side
-       def method(self) -> str: ...  # Literally just ... here
+       # If the body is literally just "...", explicit subclasses will
+       # be treated as abstract classes if they don't implement the method.
+       def method(self) -> str: ...
 
    class ExplicitSubclass(SomeProto):
        pass
@@ -345,8 +350,8 @@ Predefined protocol reference
 Iteration protocols
 ...................
 
-The iteration protocols are useful in many contexts. For example, they allow
-iteration of objects in for loops.
+The iteration protocols allow you to type things that can be iterated
+over in for loops or things that can be passed to ``next``.
 
 Iterable[T]
 -----------
