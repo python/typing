@@ -32,7 +32,7 @@ places where duck typing is commonly used in Python, such as
 :py:class:`Iterable[T] <typing.Iterable>`.
 
 If a class defines a suitable :py:meth:`__iter__ <object.__iter__>` method, type
-checkers understand that it implements the iterable protocol and is compatible
+checkers understand that it implements the :py:term:`iterable` protocol and is compatible
 with :py:class:`Iterable[T] <typing.Iterable>`. For example, ``IntList`` below
 is iterable, over ``int`` values:
 
@@ -81,7 +81,7 @@ You can define your own protocol class by inheriting from the special
    class Resource:  # No SupportsClose base class!
 
        def close(self) -> None:
-          self.resource.release()
+           self.resource.release()
 
        # ... other methods ...
 
@@ -134,10 +134,10 @@ present if you are defining a protocol:
        new_attr: int
 
    class Concrete:
-      new_attr: int = 0
+       new_attr: int = 0
 
-      def close(self) -> None:
-          ...
+       def close(self) -> None:
+           ...
 
    # Error: nominal subtyping used by default
    x: NotAProtocol = Concrete()  # Error!
@@ -183,10 +183,10 @@ For example:
 .. code-block:: python
 
    class Box(Protocol):
-         content: object
+        content: object
 
    class IntBox:
-         content: int
+        content: int
 
    def takes_box(box: Box) -> None: ...
 
@@ -274,7 +274,7 @@ rudimentary support for runtime structural checks:
 
    mug = Mug()
    if isinstance(mug, Portable):  # Works at runtime!
-      use(mug.handles)
+       use(mug.handles)
 
 :py:func:`isinstance` also works with the :ref:`predefined protocols <predefined_protocols>`
 in :py:mod:`typing` such as :py:class:`~typing.Iterable`.
@@ -351,7 +351,7 @@ Iteration protocols
 ...................
 
 The iteration protocols allow you to type things that can be iterated
-over in for loops or things that can be passed to ``next``.
+over in ``for`` loops or things that can be passed to :py:func:`next`.
 
 Iterable[T]
 -----------
