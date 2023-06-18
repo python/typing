@@ -6,6 +6,7 @@ Type System Reference
    :maxdepth: 2
    :caption: Contents:
 
+   protocols
    stubs
    best_practices
    quality
