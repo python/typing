@@ -339,13 +339,13 @@ Variance of generic types
 There are three main kinds of generic types with respect to subtype
 relations between them: invariant, covariant, and contravariant.
 Assuming that we have a pair of types ``Animal`` and ``Bear``, and
-``Bear`` is a subtype of ``A``, these are defined as follows:
+``Bear`` is a subtype of ``Animal``, these are defined as follows:
 
-* A generic class ``MyCovGen[T]`` is called covariant in type variable
-  ``T`` if ``MyCovGen[Bear]`` is always a subtype of ``MyCovGen[Animal]``.
+* A generic class ``MyCovGen[T]`` is called covariant in type parameter
+  ``T`` if ``MyCovGen[Bear]`` is a subtype of ``MyCovGen[Animal]``.
   This is the most intuitive form of variance.
 * A generic class ``MyContraGen[T]`` is called contravariant in type
-  variable ``T`` if ``MyContraGen[Animal]`` is always a subtype of
+  parameter ``T`` if ``MyContraGen[Animal]`` is a subtype of
   ``MyContraGen[Bear]``.
 * A generic class ``MyInvGen[T]`` is called invariant in ``T`` if neither
   of the above is true.
@@ -494,12 +494,14 @@ restrict the valid values for the type parameter in the same way.
 
 .. _type-variable-value-restriction:
 
-Type variables with value restriction
-*************************************
+Type variables with constraints
+*******************************
 
-Similarly, it can be useful to restrict the values that a type variable
-to only a specific set of types. A typical example is a type variable that can
-only have values ``str`` and ``bytes``:
+In some cases, it can be useful to restrict the values that a type variable to
+exactly a specific set of types. This feature is a little complex and should
+be avoided if an upper bound can be made to work instead, as above.
+
+An example is a type variable that can only have values ``str`` and ``bytes``:
 
 .. code-block:: python
 
