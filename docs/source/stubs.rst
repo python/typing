@@ -79,7 +79,7 @@ packages. The stubs for the standard library are usually distributed with type c
 require separate installation. Stubs for third-party libraries are
 available on the `Python Package Index <https://pypi.org>`_.
 By convention, a stub package for a library called ``widget`` would be named
-``types-widget``.
+``widget-stubs``.
 
 Supported Constructs
 ====================
