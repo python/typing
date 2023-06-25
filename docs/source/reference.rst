@@ -6,6 +6,7 @@ Type System Reference
    :maxdepth: 2
    :caption: Contents:
 
+   generics
    protocols
    stubs
    best_practices
