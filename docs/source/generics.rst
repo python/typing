@@ -50,8 +50,8 @@ Using ``Stack`` is similar to built-in container types, like ``list``:
    stack.pop() + 1
    stack.push('x')  # error: Argument 1 to "push" of "Stack" has incompatible type "str"; expected "int"
 
-When creating instances of generic classes, the type parameter can usually be
-inferred. In cases where you explicitly specify the type parameter, the
+When creating instances of generic classes, the type argument can usually be
+inferred. In cases where you explicitly specify the type argument, the
 construction of the instance will be type checked correspondingly.
 
 .. code-block:: python
@@ -108,7 +108,7 @@ can be used as a base class for another class (generic or non-generic). For exam
     Note that you have to explicitly inherit from :py:class:`~typing.Mapping`
     and :py:class:`~typing.Sequence` for your class to be considered a mapping
     or sequence. This is because these classes are nominally typed, unlike
-    simpler protocols like :py:class:`~typing.Iterable`, which use
+    protocols like :py:class:`~typing.Iterable`, which use
     :ref:`structural subtyping <protocol-types>`.
 
 :py:class:`Generic <typing.Generic>` can be omitted from bases if there are
@@ -191,7 +191,7 @@ functions do not share any typing relationship to each other:
    def last(seq: Sequence[T]) -> T:
        return seq[-1]
 
-Variables should not have a type variable in its type unless the type variable
+Variables should not have a type variable in their type unless the type variable
 is bound by a containing generic class, generic function or generic alias.
 
 .. _generic-methods-and-generic-self:
@@ -255,7 +255,7 @@ checked properly, since the return type of ``set_scale`` would be
 ``Shape``, which doesn't define ``set_radius`` or ``set_width``.
 
 Other uses are factory methods, such as copy and deserialization.
-For class methods, you can also define generic ``cls``, using :py:class:`Type[T] <typing.Type>`:
+For class methods, you can also define generic ``cls``, using :py:class:`type`:
 
 .. code-block:: python
 
@@ -380,7 +380,7 @@ Let us illustrate this by few simple examples:
   Covariance should feel relatively intuitive, but contravariance and invariance
   can be harder to reason about.
 
-* :py:data:`~typing.Callable` is an example of type that behaves contravariant
+* :py:data:`~typing.Callable` is an example of type that behaves contravariantly
   in types of arguments. That is, ``Callable[[Shape], int]`` is a subtype of
   ``Callable[[Triangle], int]``, despite ``Shape`` being a supertype of
   ``Triangle``. To understand this, consider:
@@ -421,7 +421,7 @@ Let us illustrate this by few simple examples:
      add_one(my_circles)     # This may appear safe, but...
      my_circles[-1].rotate()  # ...this will fail, since my_circles[0] is now a Shape, not a Circle
 
-  Another example of invariant type is :py:class:`~typing.Dict`. Most mutable containers
+  Another example of an invariant type is :py:class:`~typing.Dict`. Most mutable containers
   are invariant.
 
 By default, all user-defined generics are invariant.
@@ -497,7 +497,7 @@ restrict the valid values for the type parameter in the same way.
 Type variables with constraints
 *******************************
 
-In some cases, it can be useful to restrict the values that a type variable to
+In some cases, it can be useful to restrict the values that a type variable can take to
 exactly a specific set of types. This feature is a little complex and should
 be avoided if an upper bound can be made to work instead, as above.
 
