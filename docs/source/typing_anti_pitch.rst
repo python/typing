@@ -60,6 +60,10 @@ in Python::
   well with your editor, maybe they're too hard to configure. Whatever the reason -- it just doesn't
   work for your project.
 
+* Type checking in Python isn't actually strict enough, powerful enough or expressive enough for
+  you. Python type checkers end up making various decisions out of pragmatism, or due to limited
+  resources, and these decisions might not be the ones for you.
+
 Advice for maintainers of untyped libraries
 *******************************************
 
