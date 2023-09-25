@@ -69,7 +69,7 @@ Advice for maintainers of untyped libraries
 
 You've made the decision that adding static types isn't the right choice for your library. But
 perhaps you'd still like to help your users who do use static type checking -- and maybe you have
-some enthusiastic would-be contributors willing to help with this).
+some enthusiastic would-be contributors willing to help with this.
 
 One option is encourage such contributors  to publish a :pep:`561` stub-only package that is
 maintained separately from your main project. You could also contribute these stubs to the
