@@ -50,7 +50,7 @@ in Python::
 
 * Your codebase has suffered at the hands of `Hyrum's Law <https://www.hyrumslaw.com/>`_
   and all possible observable behaviour is depended on. In order to avoid false positives for your
-  users, all your types end up being either a) complicated ``Protocol``s that are hard to maintain,
+  users, all your types end up being either a) complicated ``Protocol``\s that are hard to maintain,
   or b) ``Any`` in which case there's not much point. (On the other hand, static type checking could
   be a good solution for communicating to users what behaviour they should be allowed to rely on)
 
