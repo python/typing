@@ -47,10 +47,11 @@ in Python::
   `allow gradual adoption of static type checking <https://mypy.readthedocs.io/en/stable/existing_code.html>`_,
   the total cost of adding type annotations to a large extant codebase can be prohibitive.
 
-* Your library does enough dynamic things that type checking would be unlikely to help your users.
-  Either you would have to spend a lot of effort redesigning your library in ways that static type
-  checkers could better understand, or you'd have to invest a lot of effort into figuring out clever
-  type annotations to twist the arms of type checkers.
+* Your application uses a particularly dynamic framework or your library does enough dynamic things
+  that type checking would be unlikely to help your developers and users. Migrating application
+  frameworks could be costly. Either a) redesigning your library in ways that static type checkers
+  could better understand or b) figuring out clever type annotations to twist the arms of type
+  checkers would take a lot of effort.
 
 * Your codebase has suffered at the hands of `Hyrum's Law <https://www.hyrumslaw.com/>`_
   and all possible observable behaviour is depended on. In order to avoid false positives for your
