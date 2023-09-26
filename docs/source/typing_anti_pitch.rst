@@ -67,7 +67,9 @@ in Python::
 
 * Type checking in Python isn't actually strict enough, powerful enough or expressive enough for
   you. Python type checkers end up making various decisions out of pragmatism, or due to limited
-  resources, and these decisions might not be the ones for you.
+  resources, and these decisions might not be the ones for you. This might mean that typed Python
+  simply isn't the right language for you, or you need to find other methods to enforce the
+  properties you desire.
 
 Advice for maintainers of untyped libraries
 *******************************************
