@@ -25,6 +25,10 @@ in Python::
   multi-paradigm language that generally allows you to do things in the way that best suits your
   needs, as best determined by you.
 
+* Type annotations can both help and hurt readability. While type annotations can serve both
+  humans and machines, particularly complex annotations or changes to idioms serve machines more
+  than they do humans. Readability counts.
+
 * The cost-benefit ratio isn't good enough. Pleasing static type checkers requires a non-zero amount
   of busy work. If this isn't worth the extra confidence you get, you shouldn't add static type
   checking.
