@@ -9,3 +9,4 @@ Type System Guides
    libraries
    writing_stubs
    unreachable
+   typing_anti_pitch
