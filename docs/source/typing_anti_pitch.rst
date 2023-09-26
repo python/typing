@@ -84,7 +84,8 @@ maintained separately from your main project. They could also contribute these s
 
 Note that if you're willing to maintain the stubs, but you don't wish to have them inline and don't
 want to statically type check your code, you can accomplish this by distributing type stubs inside
-your package. See :ref:`libraries` for more information.
+your package. See :ref:`libraries` for more information. See :ref:`writing_stubs` for advice on
+how to help maintain type stubs.
 
 If more users pester you about adding static types, feel free to link them to this document. And if
 you ever change your mind, make sure to check out some of the other guides in this documentation,
