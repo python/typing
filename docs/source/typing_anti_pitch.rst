@@ -78,9 +78,13 @@ You've made the decision that adding static types isn't the right choice for you
 perhaps you'd still like to help your users who do use static type checking -- and maybe you have
 some enthusiastic would-be contributors willing to help with this.
 
-One option is encourage such contributors  to publish a :pep:`561` stub-only package that is
+One option is encourage such contributors to publish a :pep:`561` stub-only package that is
 maintained separately from your main project. They could also contribute these stubs to the
 `typeshed <https://github.com/python/typeshed>`_ project.
+
+Note that if you're willing to maintain the stubs, but you don't wish to have them inline and don't
+want to statically type check your code, you can accomplish this by distributing type stubs inside
+your package. See :ref:`libraries` for more information.
 
 If more users pester you about adding static types, feel free to link them to this document. And if
 you ever change your mind, make sure to check out some of the other guides in this documentation,
