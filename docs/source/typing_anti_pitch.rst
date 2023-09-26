@@ -11,7 +11,7 @@ In the words of :pep:`484`::
 The idea that dynamism in Python is a strength of the language is reflected in the fact that
 Python's type system is gradual. See :pep:`483` for details, but the long and short of this is
 that you can add static types to your codebase only to the extent that you want to, and static
-type checkers are designed to be able to put up with this.
+type checkers and other tools should be able to put up with this.
 
 It's also worth noting that "static type checking" encompasses a spectrum of possible degrees of
 strictness. On the one hand, you can set yourself up so that your type checker does almost nothing.
