@@ -18,7 +18,7 @@ strictness. On the one hand, you can set yourself up so that your type checker d
 On the other -- well, I love type checking, but I would quit Python if I had to enable all
 possible strictness checks that type checkers offer.
 
-Anway, with all that said, here's a list of possible reasons to not use static type checking
+Anyway, with all that said, here's a list of possible reasons to not use static type checking
 in Python::
 
 * You simply don't want to. Python is a tool that is meant to serve you. Python is a big tent,
@@ -72,7 +72,7 @@ perhaps you'd still like to help your users who do use static type checking -- a
 some enthusiastic would-be contributors willing to help with this.
 
 One option is encourage such contributors  to publish a :pep:`561` stub-only package that is
-maintained separately from your main project. You could also contribute these stubs to the
+maintained separately from your main project. They could also contribute these stubs to the
 `typeshed <https://github.com/python/typeshed>`_ project.
 
 If more users pester you about adding static types, feel free to link them to this document. And if
