@@ -231,6 +231,7 @@ determine the value of ``__all__``.
 -  ``__all__ = ('a', b')``
 -  ``__all__ = ['a', b']``
 -  ``__all__ += ['a', b']``
+-  ``__all__ += (variable := ['a', b'])``
 -  ``__all__ += submodule.__all__``
 -  ``__all__.extend(['a', b'])``
 -  ``__all__.extend(submodule.__all__)``
