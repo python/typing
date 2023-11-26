@@ -5,8 +5,8 @@ Reasons to avoid static type checking
 
 In the words of :pep:`484`::
 
-    It should also be emphasized that Python will remain a dynamically typed language, and the
-    authors have no desire to ever make type hints mandatory, even by convention.
+    It should also be emphasized that Python will remain a dynamically typed language, and
+    the authors have no desire to ever make type hints mandatory, even by convention.
 
 The idea that dynamism in Python is a strength of the language is reflected in the fact that
 Python's type system is gradual. See :pep:`483` for details, but the long and short of this is
@@ -19,7 +19,7 @@ On the other -- well, I love type checking, but I would quit Python if I had to 
 possible strictness checks that type checkers offer.
 
 Anyway, with all that said, here's a list of possible reasons to not use static type checking
-in Python::
+in Python:
 
 * You simply don't want to. Python is a tool that is meant to serve you. Python is a big tent,
   multi-paradigm language that generally allows you to do things in the way that best suits your
