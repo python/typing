@@ -287,8 +287,6 @@ or a deserialization method returns the actual type of self. Therefore
 you may need to silence the type checker inside these methods (but not at the call site),
 possibly by making use of the ``Any`` type or a ``# type: ignore`` comment.
 
-For some advanced uses of self types, see :ref:`additional examples <advanced_self>`.
-
 Automatic self types using typing.Self
 **************************************
 
@@ -641,7 +639,7 @@ Here's how one could annotate the decorator:
 
 This still has some shortcomings. First, we need to use the unsafe
 :py:func:`~typing.cast` to convince type checkers that ``wrapper()`` has the same
-signature as ``func``. See :ref:`casts <casts>`.
+signature as ``func``.
 
 Second, the ``wrapper()`` function is not tightly type checked, although
 wrapper functions are typically small enough that this is not a big

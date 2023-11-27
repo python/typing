@@ -507,8 +507,7 @@ See also :py:class:`~typing.SupportsRound`.
 Async protocols
 ...............
 
-These protocols can be useful in async code. See :ref:`async-and-await`
-for more information.
+These protocols can be useful in async code.
 
 Awaitable[T]
 ------------
