@@ -5,8 +5,6 @@ Reasons to avoid static type checking
 
 In the words of :pep:`484`:
 
-.. code-block:: none
-
     It should also be emphasized that Python will remain a dynamically typed language, and
     the authors have no desire to ever make type hints mandatory, even by convention.
 
