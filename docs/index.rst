@@ -83,7 +83,7 @@ Linters and Formatters
   stubs.
 
 Type-Hint and Stub Integration
-----------------------
+------------------------------
 
 * `autotyping <https://github.com/JelleZijlstra/autotyping>`_, a tool which infers simple types from their context and inserts them as inline type-hints.
 * `merge_pyi <https://google.github.io/pytype/developers/tools.html#merge_pyi>`_, integrates .pyi signatures as inline type-hints in Python source code.
