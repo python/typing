@@ -33,6 +33,14 @@ Reference
    the docs -- since the Python typing system is standardised via PEPs, this
    information should apply to most Python type checkers.
 
+Specification
+=============
+
+.. toctree::
+   :maxdepth: 2
+
+   spec/index
+
 Indices and tables
 ==================
 
