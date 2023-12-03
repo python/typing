@@ -121,10 +121,10 @@ checks, e.g.::
 
   import sys
 
-  if sys.version_info[0] >= 3:
-      # Python 3 specific definitions
+  if sys.version_info >= (3, 12):
+      # Python 3.12+
   else:
-      # Python 2 specific definitions
+      # Python 3.11 and lower
 
   if sys.platform == 'win32':
       # Windows specific definitions
