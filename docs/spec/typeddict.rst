@@ -57,11 +57,8 @@ TypedDict definition conforms to the following rules:
   to the string value of the key instead of an attribute name.
 
 * Type comments cannot be used with the class-based syntax, for
-  consistency with the class-based ``NamedTuple`` syntax.  (Note that
-  it would not be sufficient to support type comments for backwards
-  compatibility with Python 2.7, since the class definition may have a
-  ``total`` keyword argument, as discussed below, and this isn't valid
-  syntax in Python 2.7.)  Instead, `Alternative Syntax`_ provides an
+  consistency with the class-based ``NamedTuple`` syntax.  Instead,
+  `Alternative Syntax`_ provides an
   alternative, assignment-based syntax for backwards compatibility.
 
 * String literal forward references are valid in the value types.
