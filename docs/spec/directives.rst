@@ -133,3 +133,132 @@ checks, e.g.::
 
 Don't expect a checker to understand obfuscations like
 ``"".join(reversed(sys.platform)) == "xunil"``.
+
+``@deprecated``
+---------------
+
+(Originally specified in :pep:`702`.)
+
+The :py:func:`warnings.deprecated`
+decorator can be used on a class, function or method to mark it as deprecated.
+This includes :class:`typing.TypedDict` and :class:`typing.NamedTuple` definitions.
+With overloaded functions, the decorator may be applied to individual overloads,
+indicating that the particular overload is deprecated. The decorator may also be
+applied to the overload implementation function, indicating that the entire function
+is deprecated.
+
+The decorator takes the following arguments:
+
+* A required positional-only argument representing the deprecation message.
+* Two keyword-only arguments, ``category`` and ``stacklevel``, controlling
+  runtime behavior (see under "Runtime behavior" below).
+
+The positional-only argument is of type ``str`` and contains a message that should
+be shown by the type checker when it encounters a usage of the decorated object.
+Tools may clean up the deprecation message for display, for example
+by using :func:`inspect.cleandoc` or equivalent logic.
+The message must be a string literal.
+The content of deprecation messages is up to the user, but it may include the version
+in which the deprecated object is to be removed, and information about suggested
+replacement APIs.
+
+Type checkers should produce a diagnostic whenever they encounter a usage of an
+object marked as deprecated. For deprecated overloads, this includes all calls
+that resolve to the deprecated overload.
+For deprecated classes and functions, this includes:
+
+* References through module, class, or instance attributes (``module.deprecated_object``,
+  ``module.SomeClass.deprecated_method``, ``module.SomeClass().deprecated_method``)
+* Any usage of deprecated objects in their defining module
+  (``x = deprecated_object()`` in ``module.py``)
+* If ``import *`` is used, usage of deprecated objects from the
+  module (``from module import *; x = deprecated_object()``)
+* ``from`` imports (``from module import deprecated_object``)
+* Any syntax that indirectly triggers a call to the function. For example,
+  if the ``__add__`` method of a class ``C`` is deprecated, then
+  the code ``C() + C()`` should trigger a diagnostic. Similarly, if the
+  setter of a property is marked deprecated, attempts to set the property
+  should trigger a diagnostic.
+
+If a method is marked with the :func:`typing.override` decorator from :pep:`698`
+and the base class method it overrides is deprecated, the type checker should
+produce a diagnostic.
+
+There are additional scenarios where deprecations could come into play.
+For example, an object may implement a :class:`typing.Protocol`, but one
+of the methods required for protocol compliance is deprecated.
+As scenarios such as this one appear complex and relatively unlikely to come up in practice,
+this PEP does not mandate that type checkers detect them.
+
+Example
+^^^^^^^
+
+As an example, consider this library stub named ``library.pyi``:
+
+.. code-block:: python
+
+   from warnings import deprecated
+
+   @deprecated("Use Spam instead")
+   class Ham: ...
+
+   @deprecated("It is pining for the fiords")
+   def norwegian_blue(x: int) -> int: ...
+
+   @overload
+   @deprecated("Only str will be allowed")
+   def foo(x: int) -> str: ...
+   @overload
+   def foo(x: str) -> str: ...
+
+   class Spam:
+       @deprecated("There is enough spam in the world")
+       def __add__(self, other: object) -> object: ...
+
+       @property
+       @deprecated("All spam will be equally greasy")
+       def greasy(self) -> float: ...
+
+       @property
+       def shape(self) -> str: ...
+       @shape.setter
+       @deprecated("Shapes are becoming immutable")
+       def shape(self, value: str) -> None: ...
+
+Here is how type checkers should handle usage of this library:
+
+.. code-block:: python
+
+   from library import Ham  # error: Use of deprecated class Ham. Use Spam instead.
+
+   import library
+
+   library.norwegian_blue(1)  # error: Use of deprecated function norwegian_blue. It is pining for the fiords.
+   map(library.norwegian_blue, [1, 2, 3])  # error: Use of deprecated function norwegian_blue. It is pining for the fiords.
+
+   library.foo(1)  # error: Use of deprecated overload for foo. Only str will be allowed.
+   library.foo("x")  # no error
+
+   ham = Ham()  # no error (already reported above)
+
+   spam = library.Spam()
+   spam + 1  # error: Use of deprecated method Spam.__add__. There is enough spam in the world.
+   spam.greasy  # error: Use of deprecated property Spam.greasy. All spam will be equally greasy.
+   spam.shape  # no error
+   spam.shape = "cube"  # error: Use of deprecated property setter Spam.shape. Shapes are becoming immutable.
+
+The exact wording of the diagnostics is up to the type checker and is not part
+of the specification.
+
+Type checker behavior
+^^^^^^^^^^^^^^^^^^^^^
+
+It is unspecified exactly how type checkers should present deprecation
+diagnostics to their users. However, some users (e.g., application developers
+targeting only a specific version of Python) may not care about deprecations,
+while others (e.g., library developers who want their library to remain
+compatible with future versions of Python) would want to catch any use of
+deprecated functionality in their CI pipeline. Therefore, it is recommended
+that type checkers provide configuration options that cover both use cases.
+As with any other type checker error, it is also possible to ignore deprecations
+using ``# type: ignore`` comments.
