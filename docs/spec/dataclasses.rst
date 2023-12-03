@@ -69,7 +69,7 @@ Decorator function example
 .. code-block:: python
 
   _T = TypeVar("_T")
-  
+
   # The ``create_model`` decorator is defined by a library.
   # This could be in a type stub or inline.
   @typing.dataclass_transform()
@@ -78,7 +78,7 @@ Decorator function example
       cls.__eq__ = ...
       cls.__ne__ = ...
       return cls
-  
+
   # The ``create_model`` decorator can now be used to create new model
   # classes, like this:
   @create_model
@@ -111,9 +111,9 @@ Metaclass example
   # a library. This could be in a type stub or inline.
   @typing.dataclass_transform()
   class ModelMeta(type): ...
-  
+
   class ModelBase(metaclass=ModelMeta): ...
-  
+
   # The ``ModelBase`` class can now be used to create new model
   # subclasses, like this:
   class CustomerModel(ModelBase):
@@ -131,7 +131,7 @@ these parameters accepts a bool argument, and it must be possible for
 the bool value (``True`` or ``False``) to be statically evaluated.
 
 * ``eq``,  ``order``, ``frozen``, ``init`` and ``unsafe_hash`` are parameters
-  supported in the stdlib dataclass, with meanings defined in 
+  supported in the stdlib dataclass, with meanings defined in
   :pep:`PEP 557 <557#id7>`.
 * ``kw_only``, ``match_args`` and ``slots`` are parameters supported
   in the stdlib dataclass, first introduced in Python 3.10.
@@ -145,12 +145,13 @@ customization of default behaviors:
 .. code-block:: python
 
   _T = TypeVar("_T")
-  
+
   def dataclass_transform(
       *,
       eq_default: bool = True,
       order_default: bool = False,
       kw_only_default: bool = False,
+      frozen_default: bool = False,
       field_specifiers: tuple[type | Callable[..., Any], ...] = (),
       **kwargs: Any,
   ) -> Callable[[_T], _T]: ...
@@ -166,6 +167,10 @@ customization of default behaviors:
 * ``kw_only_default`` indicates whether the ``kw_only`` parameter is
   assumed to be True or False if it is omitted by the caller. If not
   specified, ``kw_only_default`` will default to False (the default
+  assumption for dataclass).
+* ``frozen_default`` indicates whether the ``frozen`` parameter is
+  assumed to be True or False if it is omitted by the caller. If not
+  specified, ``frozen_default`` will default to False (the default
   assumption for dataclass).
 * ``field_specifiers`` specifies a static list of supported classes
   that describe fields. Some libraries also supply functions to
@@ -206,7 +211,7 @@ Decorator function example
       frozen: bool = False,
       kw_only: bool = True,
   ) -> Callable[[Type[_T]], Type[_T]]: ...
-  
+
   # Example of how this decorator would be used by code that imports
   # from this library:
   @create_model(frozen=True, kw_only=False)
@@ -232,7 +237,7 @@ Class example
           order: bool = True,
       ):
           ...
-  
+
   # Example of how this class would be used by code that imports
   # from this library:
   class CustomerModel(
@@ -266,10 +271,10 @@ Metaclass example
           order: bool = True,
       ):
           ...
-  
+
   class ModelBase(metaclass=ModelMeta):
       ...
-  
+
   # Example of how this class would be used by code that imports
   # from this library:
   class CustomerModel(
@@ -301,14 +306,14 @@ not required:
   class Employee:
       # Field with no specifier
       name: str
-  
+
       # Field that uses field specifier class instance
       age: Optional[int] = field(default=None, init=False)
-  
+
       # Field with type annotation and simple initializer to
       # describe default value
       is_paid_hourly: bool = True
-  
+
       # Not a field (but rather a class variable) because type
       # annotation is not provided.
       office_number = "unassigned"
@@ -374,7 +379,7 @@ This example demonstrates the above:
           resolver: Callable[[], Any],
           init: Literal[False] = False,
       ) -> Any: ...
-  
+
   @overload
   def model_field(
           *,
@@ -382,7 +387,7 @@ This example demonstrates the above:
           resolver: None = None,
           init: bool = True,
       ) -> Any: ...
-  
+
   @typing.dataclass_transform(
       kw_only_default=True,
       field_specifiers=(model_field, ))
@@ -390,7 +395,7 @@ This example demonstrates the above:
       *,
       init: bool = True,
   ) -> Callable[[Type[_T]], Type[_T]]: ...
-  
+
   # Code that imports this library:
   @create_model(init=False)
   class CustomerModel:
@@ -439,7 +444,7 @@ This includes, but is not limited to, the following semantics:
   is considered neither frozen nor non-frozen.
 
   Consider these class examples:
-   
+
   .. code-block:: python
 
     # ModelBase is not considered either "frozen" or "non-frozen"
@@ -458,7 +463,7 @@ This includes, but is not limited to, the following semantics:
         wheel_count: int
 
   And these similar metaclass examples:
-   
+
   .. code-block:: python
 
     @typing.dataclass_transform()
