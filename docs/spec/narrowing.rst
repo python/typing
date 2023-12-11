@@ -74,9 +74,9 @@ allows for cases like the example above where ``list[str]`` is not assignable
 to ``list[object]``.
 
 When a conditional statement includes a call to a user-defined type guard
-function, and that function returns true, the expression passed as the first 
-positional argument to the type guard function should be assumed by a static 
-type checker to take on the type specified in the TypeGuard return type, 
+function, and that function returns true, the expression passed as the first
+positional argument to the type guard function should be assumed by a static
+type checker to take on the type specified in the TypeGuard return type,
 unless and until it is further narrowed within the conditional code block.
 
 Some built-in type guards provide narrowing for both positive and negative
@@ -97,7 +97,7 @@ is not narrowed in the negative case.
         else:
             reveal_type(val)   # OneOrTwoStrs
             ...
-        
+
         if not is_two_element_tuple(val):
             reveal_type(val)   # OneOrTwoStrs
             ...

@@ -1050,7 +1050,7 @@ Or when using the built-in syntax for generics in Python 3.12 and higher::
 
     class Array[*Ts]:
       ...
-    
+
     def foo[*Ts](*args: *Ts):
       ...
 
@@ -1685,7 +1685,7 @@ to the ``TypeVarTuple``:
 
     Ptang[str, bool, float]       # T1=str, T3=float, T2=bool,  Ts=tuple[()]
     Ptang[str, bool, float, int]  # T1=str, T3=int,   T2=float, Ts=tuple[bool]
-       
+
 Note that the minimum number of type arguments in such cases is set by
 the number of ``TypeVar``\s:
 
@@ -2406,7 +2406,7 @@ Here is an example.
     class ClassA[T1, T2, T3](list[T1]):
         def method1(self, a: T2) -> None:
             ...
-        
+
         def method2(self) -> T3:
             ...
 

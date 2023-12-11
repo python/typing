@@ -192,7 +192,7 @@ allowing them in the future.
 -  Floats: e.g. ``Literal[3.14]``. Representing Literals of infinity or NaN
    in a clean way is tricky; real-world APIs are unlikely to vary their
    behavior based on a float parameter.
-  
+
 -  Any: e.g. ``Literal[Any]``. ``Any`` is a type, and ``Literal[...]`` is
    meant to contain values only. It is also unclear what ``Literal[Any]``
    would actually semantically mean.
@@ -515,7 +515,7 @@ involving Literal bools. For example, we can combine ``Literal[True]``,
        scalar += 3      # Type checks: type of 'scalar' is narrowed to 'int'
    else:
        scalar += "foo"  # Type checks: type of 'scalar' is narrowed to 'str'
-    
+
 Interactions with Final
 """""""""""""""""""""""
 

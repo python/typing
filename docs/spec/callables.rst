@@ -154,7 +154,7 @@ compatible::
 
     class Animal(TypedDict):
         name: str
-    
+
     class Dog(Animal):
         breed: str
 
@@ -181,10 +181,10 @@ function arguments. Again, the rest of the parameters have to be compatible.
 Continuing the previous example::
 
     class Example(TypedDict):
-        animal: Animal 
+        animal: Animal
         string: str
         number: NotRequired[int]
-    
+
     def src(**kwargs: Unpack[Example]): ...
     def dest(*, animal: Dog, string: str, number: int = ...): ...
 
@@ -245,7 +245,7 @@ type ``T``::
 
     class Vehicle:
         ...
-    
+
     class Car(Vehicle):
         ...
 
@@ -255,7 +255,7 @@ type ``T``::
     class Vehicles(TypedDict):
         car: Car
         moto: Motorcycle
-    
+
     def dest(**kwargs: Unpack[Vehicles]): ...
     def src(**kwargs: Vehicle): ...
 
@@ -279,7 +279,7 @@ consider the following example::
 
     class Animal(TypedDict):
         name: str
-    
+
     class Dog(Animal):
         breed: str
 
@@ -290,21 +290,21 @@ consider the following example::
 
     def foo(**kwargs: Unpack[Animal]):
         print(kwargs["name"].capitalize())
-    
+
     def bar(**kwargs: Unpack[Animal]):
         takes_name(**kwargs)
-    
+
     def baz(animal: Animal):
         takes_name(**animal)
-    
+
     def spam(**kwargs: Unpack[Animal]):
         baz(kwargs)
-    
+
     foo(**animal)   # OK! foo only expects and uses keywords of 'Animal'.
 
     bar(**animal)   # WRONG! This will fail at runtime because 'breed' keyword
                     # will be passed to 'takes_name' as well.
-    
+
     spam(**animal)  # WRONG! Again, 'breed' keyword will be eventually passed
                     # to 'takes_name'.
 
