@@ -26,7 +26,7 @@ complex cases, a comment of the following format may be used::
   x = [1, 2]            # type: list[int]
 
 Type comments should be put on the last line of the statement that
-contains the variable definition. 
+contains the variable definition.
 
 These should be treated as equivalent to annotating the variables
 using :pep:`526` variable annotations::
