@@ -486,7 +486,7 @@ be a subtype of the boundary type. Example::
 
   longer([1], [1, 2])  # ok, return type list[int]
   longer({1}, {1, 2})  # ok, return type set[int]
-  longer([1], {1, 2})  # ok, return type Collection[int]
+  longer([1], {1, 2})  # ok, return type a supertype of list[int] and set[int]
 
 An upper bound cannot be combined with type constraints (as used in
 ``AnyStr``, see the example earlier); type constraints cause the
