@@ -6,12 +6,13 @@ The documentation for Python's static typing can be found at
 [typing.readthedocs.io](https://typing.readthedocs.io/). You can get
 help in our [support forum](https://github.com/python/typing/discussions).
 
-Improvements to the type system should be discussed on the
-[typing-sig](https://mail.python.org/mailman3/lists/typing-sig.python.org/)
-mailing list, although the [issues](https://github.com/python/typing/issues) in this
-repository contain some historic discussions.
+Improvements to the type system should be discussed on
+[Python's Discourse](https://discuss.python.org/c/typing/32), and are
+tracked in the [issues](https://github.com/python/typing/issues) in this
+repository.
 
 For conversations that are more suitable to a chat platform, you can use one of the following:
+
 - [gitter](https://gitter.im/python/typing)
 - [discord](https://discord.com/channels/267624335836053506/891788761371906108) `#type-hinting` channel
 
