@@ -5,9 +5,9 @@
 
 .. _modernizing:
 
-************************************
-Modernizing Obsolete Typing Features
-************************************
+**************************************
+Modernizing Superseded Typing Features
+**************************************
 
 Introduction
 ============
