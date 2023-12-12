@@ -8,5 +8,6 @@ Type System Guides
 
    libraries
    writing_stubs
+   modernizing
    unreachable
    typing_anti_pitch
