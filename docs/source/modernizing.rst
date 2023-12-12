@@ -116,6 +116,11 @@ with::
         x: int
         y: str
 
+But the dictionary form is still necessary if the keys are not valid Python
+identifiers::
+
+    Airspeeds = TypedDict("Airspeeds", {"unladen-swallow": int})
+
 .. _modernizing-generics:
 
 Generics in the ``typing`` Module
