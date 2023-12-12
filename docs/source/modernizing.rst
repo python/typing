@@ -14,7 +14,7 @@ Introduction
 
 This guide helps to modernize your code by replacing older typing features
 with their modern equivalents. Not all features described here are obsolete,
-but they superseded by more modern alternatives, that are recommended to use.
+but they are superseded by more modern alternatives, that are recommended to use.
 
 These newer features are not available in all Python versions, although
 some features are available as backports from the
