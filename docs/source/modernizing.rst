@@ -126,7 +126,7 @@ identifiers::
 Generics in the ``typing`` Module
 =================================
 
-*Alternative available since:* Python 3.0 (quoted), Python 3.9, 3.12 (unquoted)
+*Alternative available since:* Python 3.0 (quoted), Python 3.9 (unquoted)
 
 Originally, the :mod:`typing` module provided aliases for built-in types that
 accepted type parameters. Since Python 3.9, these aliases are no longer
@@ -199,11 +199,6 @@ This affects the following types:
 * :class:`typing.AsyncContextManager` (→ :class:`contextlib.AbstractAsyncContextManager`)
 * :class:`typing.Pattern` (→ :class:`re.Pattern`)
 * :class:`typing.Match` (→ :class:`re.Match`)
-
-The following types were made generic in Python 3.12:
-
-* :class:`typing.Hashable` (→ :class:`collections.abc.Hashable`)
-* :class:`typing.Sized` (→ :class:`collections.abc.Sized`)
 
 .. _modernizing-union:
 
@@ -322,3 +317,20 @@ is seldom exactly what is needed. Use one of these alternatives instead:
   (available since Python 3.12) or :t-ext:`typing_extensions.Buffer`.
 * Otherwise, use a union of :class:`bytes`, :class:`bytearray`,
   :class:`memoryview`, and/or any other types that are accepted.
+
+``typing.Hashable`` and ``typing.Sized``
+========================================
+
+*Alternative available since:* Python 3.12, typing-extensions
+
+The following abstract base classes from :mod:`typing` were added to
+:mod:`collections.abc` in Python 3.12:
+
+* :class:`typing.Hashable` (→ :class:`collections.abc.Hashable`)
+* :class:`typing.Sized` (→ :class:`collections.abc.Sized`)
+
+Update your imports to use the new locations::
+
+    from collections.abc import Hashable, Sized
+
+    def f(x: Hashable) -> Sized: ...
