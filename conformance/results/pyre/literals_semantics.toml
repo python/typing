@@ -1,0 +1,9 @@
+conformant = "Partial"
+notes = """
+Does not reject augmented operation that modifies literal value.
+"""
+output = """
+literals_semantics.py:10:0 Incompatible variable type [9]: v2 is declared to have type `typing_extensions.Literal[3]` but is used as type `typing_extensions.Literal[4]`.
+literals_semantics.py:24:4 Incompatible variable type [9]: x1 is declared to have type `typing_extensions.Literal[False]` but is used as type `typing_extensions.Literal[0]`.
+literals_semantics.py:25:4 Incompatible variable type [9]: x2 is declared to have type `typing_extensions.Literal[0]` but is used as type `typing_extensions.Literal[False]`.
+"""

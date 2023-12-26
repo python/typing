@@ -1,0 +1,22 @@
+conformant = "Partial"
+notes = """
+Does not reject tuple within Literal.
+"""
+output = """
+literals_parameterizations.py:40: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
+literals_parameterizations.py:41: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
+literals_parameterizations.py:42: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
+literals_parameterizations.py:43: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
+literals_parameterizations.py:44: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
+literals_parameterizations.py:46: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
+literals_parameterizations.py:47: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+literals_parameterizations.py:48: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+literals_parameterizations.py:49: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+literals_parameterizations.py:50: error: Parameter 1 of Literal[...] cannot be of type "float"  [valid-type]
+literals_parameterizations.py:51: error: Parameter 1 of Literal[...] cannot be of type "Any"  [valid-type]
+literals_parameterizations.py:52: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+literals_parameterizations.py:55: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
+literals_parameterizations.py:58: error: Literal[...] must have at least one parameter  [valid-type]
+literals_parameterizations.py:59: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+literals_parameterizations.py:63: error: Incompatible types in assignment (expression has type "Literal[Color.RED]", variable has type "Literal['Color.RED']")  [assignment]
+"""

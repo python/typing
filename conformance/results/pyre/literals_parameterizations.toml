@@ -1,0 +1,30 @@
+conformant = "Partial"
+notes = """
+Does not support type aliases in Literal type expression.
+Does not support nested Literal type expression.
+Does not reject unary + operator in Literal type expression.
+Does not reject tuple in Literal type expression.
+Does not reject "bare" Literal in type expression.
+"""
+output = """
+literals_parameterizations.py:32:0 Invalid type [31]: Expression `AppendMode` is not a literal value.
+literals_parameterizations.py:32:0 Invalid type [31]: Expression `ReadOnlyMode` is not a literal value.
+literals_parameterizations.py:32:0 Invalid type [31]: Expression `WriteAndTruncateMode` is not a literal value.
+literals_parameterizations.py:32:0 Invalid type [31]: Expression `WriteNoTruncateMode` is not a literal value.
+literals_parameterizations.py:32:0 Undefined or invalid type [11]: Annotation `` is not defined as a type.
+literals_parameterizations.py:34:8 Invalid type [31]: Expression `typing.Literal[(typing.Literal[(typing.Literal[(1, 2, 3)], "foo")], 5, None)]` is not a valid type.
+literals_parameterizations.py:40:6 Invalid type [31]: Expression `typing.Literal[3.__add__(4)]` is not a valid type.
+literals_parameterizations.py:41:6 Invalid type [31]: Expression `typing.Literal["foo".replace("o", "b")]` is not a valid type.
+literals_parameterizations.py:42:6 Invalid type [31]: Expression `typing.Literal[4.__add__(3.000000j)]` is not a valid type.
+literals_parameterizations.py:44:6 Invalid type [31]: Expression `typing.Literal[not False]` is not a valid type.
+literals_parameterizations.py:46:6 Invalid type [31]: Expression `typing.Literal[{ "a":"b","c":"d" }]` is not a valid type.
+literals_parameterizations.py:47:6 Invalid type [31]: Expression `typing.Literal[int]` is not a valid type.
+literals_parameterizations.py:48:6 Invalid type [31]: Expression `variable` is not a literal value.
+literals_parameterizations.py:49:7 Invalid type [31]: Expression `T` is not a literal value.
+literals_parameterizations.py:50:7 Invalid type [31]: Expression `typing.Literal[3.140000]` is not a valid type.
+literals_parameterizations.py:51:7 Invalid type [31]: Expression `Any` is not a literal value.
+literals_parameterizations.py:52:7 Invalid type [31]: Expression `typing.Literal[...]` is not a valid type.
+literals_parameterizations.py:55:19 Invalid type [31]: Expression `typing.Literal[1.__add__(2)]` is not a valid type.
+literals_parameterizations.py:59:3 Invalid type [31]: Expression `my_function` is not a literal value.
+literals_parameterizations.py:63:4 Incompatible variable type [9]: x1 is declared to have type `typing_extensions.Literal['Color.RED']` but is used as type `typing_extensions.Literal[Color.RED]`.
+"""

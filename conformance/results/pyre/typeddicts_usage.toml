@@ -1,0 +1,10 @@
+conformant = "Partial"
+notes = """
+Does not report errant use of TypedDict in `isinstance` call.
+Does not reject use of TypedDict as TypeVar bound.
+"""
+output = """
+typeddicts_usage.py:23:6 TypedDict accessed with a missing key [27]: TypedDict `Movie` has no key `director`.
+typeddicts_usage.py:24:16 Invalid TypedDict operation [54]: Expected `int` to be assigned to `Movie` field `year` but got `str`.
+typeddicts_usage.py:28:16 TypedDict initialization error [55]: Missing required field `name` for TypedDict `Movie`.
+"""

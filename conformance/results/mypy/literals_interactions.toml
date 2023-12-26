@@ -1,0 +1,12 @@
+conformant = "Partial"
+notes = """
+Does not narrow type of `x` with `x in Literal` type guard pattern.
+"""
+output = """
+literals_interactions.py:15: error: Tuple index out of range  [misc]
+literals_interactions.py:16: error: Tuple index out of range  [misc]
+literals_interactions.py:17: error: Tuple index out of range  [misc]
+literals_interactions.py:18: error: Tuple index out of range  [misc]
+literals_interactions.py:106: error: Argument 1 to "expects_bad_status" has incompatible type "str"; expected "Literal['MALFORMED', 'ABORTED']"  [arg-type]
+literals_interactions.py:109: error: Argument 1 to "expects_pending_status" has incompatible type "str"; expected "Literal['PENDING']"  [arg-type]
+"""

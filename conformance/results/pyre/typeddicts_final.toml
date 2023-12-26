@@ -1,0 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not handle value with literal type as index to TypedDict object.
+"""
+output = """
+typeddicts_final.py:26:17 Incompatible parameter type [6]: In call `TypedDictionary.__getitem__`, for 1st positional argument, expected `typing_extensions.Literal['name']` but got `Union[typing_extensions.Literal['name'], typing_extensions.Literal['year']]`.
+"""

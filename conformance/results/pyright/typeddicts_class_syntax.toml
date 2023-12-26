@@ -1,0 +1,10 @@
+conformant = "Partial"
+notes = """
+Does not report when metaclass is provided.
+Does not report when other keyword argument is provided.
+"""
+output = """
+typeddicts_class_syntax.py:29:5 - error: TypedDict classes can contain only type annotations
+typeddicts_class_syntax.py:33:5 - error: TypedDict classes can contain only type annotations
+typeddicts_class_syntax.py:38:5 - error: TypedDict classes can contain only type annotations
+"""

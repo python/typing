@@ -1,0 +1,10 @@
+conformant = "Partial"
+notes = """
+Does not properly handle constructor call through `cls` parameter.
+"""
+output = """
+generics_self_basic.py:19: error: Incompatible return value type (got "Shape", expected "Self")  [return-value]
+generics_self_basic.py:27: error: Too many arguments for "Shape"  [call-arg]
+generics_self_basic.py:32: error: Incompatible return value type (got "Shape", expected "Self")  [return-value]
+generics_self_basic.py:64: error: Self type cannot have type arguments  [misc]
+"""
