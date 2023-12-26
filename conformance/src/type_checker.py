@@ -78,7 +78,7 @@ class PyrightTypeChecker(TypeChecker):
 
     def install(self) -> None:
         # Install the Python wrapper if it's not installed.
-        run("pip install pyright", shell=True)
+        run("pip install pyright --upgrade", shell=True)
 
         # Force the Python wrapper to install node if needed
         # and download the latest version of pyright.
