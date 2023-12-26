@@ -44,10 +44,6 @@
             font-weight: normal;
         }
 
-        th {
-            background-color: #f8f8f8;
-        }
-
         .content_container {
             margin: 20px;
         }
@@ -57,7 +53,6 @@
         }
 
         .column {
-            background-color: #f8f8f8;
             padding-left: 8px;
             padding-right: 8px;
             padding-top: 4px;
@@ -69,6 +64,12 @@
             margin-bottom: 4px;
 
             border: 0px solid #000;
+        }
+
+        .spacer {
+            border-color: #f0f0f0;
+            border-style: solid;
+            border-bottom-width: 1px;
         }
 
         .col1 {
@@ -84,6 +85,22 @@
         .col3 {
             width: 65%;
             vertical-align: top;
+        }
+
+        .tc-header {
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        .tc-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .tc-time {
+            margin-left: 8px;
+            font-size: 12px;
+            font-weight: normal;
         }
 
         .test_group {
@@ -110,12 +127,14 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div><h4>mypy 1.8.0</h4></div>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.32sec)</span>
+</div>
 <div class="table_container"><table>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_advanced</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not infer the type of an unannotated `self` parameter to be type `Self`.<br>Does not retain `Self` when calling method that returns `Self`.<br>Does not infer the type of an unannotated `cls` parameter to be type `type[Self]`.<br>Does not retain `Self` when accessing attribute through `type[Self]`.<br></th></tr>
@@ -123,14 +142,14 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not properly handle constructor call through `cls` parameter.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/literal.html">Literals</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_interactions</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not narrow type of `x` with `x in Literal` type guard pattern.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_literalstring</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Support for `LiteralString` has not been implemented in mypy.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_parameterizations</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject tuple within Literal.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/typeddict.html">Typed dictionaries</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_alt_syntax</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support keyword-argument form of alternative syntax (deprecated in 3.11).<br></th></tr>
@@ -141,18 +160,20 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_required</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support nesting of `Annotated` and `Required` or `NotRequired`.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_type_consistency</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_usage</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div><h4>pyright 1.1.343</h4></div>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(0.78sec)</span>
+</div>
 <div class="table_container"><table>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_advanced</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
@@ -160,14 +181,14 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/literal.html">Literals</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_interactions</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_literalstring</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_parameterizations</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/typeddict.html">Typed dictionaries</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_alt_syntax</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
@@ -178,18 +199,20 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_required</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_type_consistency</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_usage</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div><h4>pyre 0.9.19</h4></div>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.28sec)</span>
+</div>
 <div class="table_container"><table>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_advanced</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
@@ -197,14 +220,14 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject protocol compatibility due to method `Self` return type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/literal.html">Literals</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_interactions</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not detect out-of-bound tuple literal index.<br>Does not narrow type of `x` with `x in Literal` type guard pattern.<br>Does not narrow type of `x` with `x == Literal` type guard pattern.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_literalstring</th><th class="column col2 conformant">Yes</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_parameterizations</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support type aliases in Literal type expression.<br>Does not support nested Literal type expression.<br>Does not reject unary + operator in Literal type expression.<br>Does not reject tuple in Literal type expression.<br>Does not reject "bare" Literal in type expression.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject augmented operation that modifies literal value.<br></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/typeddict.html">Typed dictionaries</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_alt_syntax</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report when name of TypedDict doesn't match assigned identifier name.<br>Does not support keyword-argument form of alternative syntax (deprecated in 3.11).<br></th></tr>
@@ -215,18 +238,20 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_required</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of `Required` in function parameter annotation.<br>Does not reject nested use of `Required` in type annotation.<br>Does not support recursive TypedDict definitions.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_type_consistency</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject assignment of TypedDict with missing key.<br>Does not return non-Optional value from `get` method for required key.<br>Does not properly handle nested TypedDicts.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_usage</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report errant use of TypedDict in `isinstance` call.<br>Does not reject use of TypedDict as TypeVar bound.<br></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support `tuple` in `assert_type` call.<br>Does not reject TypeGuard method with too few parameters.<br></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div><h4>pytype 2023.12.18</h4></div>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(18.68sec)</span>
+</div>
 <div class="table_container"><table>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject call expressions in type annotation.<br>Does not reject call lambda expression in type annotation.<br>Does not reject list expression in type annotation.<br>Does not reject ternary expression in type annotation.<br>Does not reject f-string in type annotation.<br></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_advanced</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
@@ -234,14 +259,14 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 not-conformant">Unknown</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/literal.html">Literals</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_interactions</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly rejects some legal Literal annotations.<br>Does not reject some illegal Literal annotations.<br>Does not use Literal to distinguish overloads.<br>Does not narrow based on `x is Literal` type guard pattern.<br>Does not narrow based on `x == Literal` type guard pattern.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_literalstring</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `LiteralString` special form.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_parameterizations</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Literal` type annotation.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Literal` type annotation.<br></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/typeddict.html">Typed dictionaries</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_alt_syntax</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of variable as second argument to `TypedDict` call.<br>Does not report when name of TypedDict doesn't match assigned identifier name.<br>Does not support keyword-argument form of alternative syntax (deprecated in 3.11).<br></th></tr>
@@ -252,11 +277,11 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_required</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of `Required` in non-TypedDict class.<br>Does not reject use of `Required` in function parameter annotation.<br>Does not reject nested use of `Required` in type annotation.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_type_consistency</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report some type violations for TypedDict type compatibility.<br>Incorrectly reports type violation in cases where there is none.<br>Does not report type incompatibility between TypedDict and `dict[str, Any]`.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_usage</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report errant use of TypedDict in `isinstance` call.<br>Does not reject use of TypedDict as TypeVar bound.<br></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject TypeGuard method with too few parameters.<br></th></tr>
-<tr><th class="column" colspan="4"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
 
         <!-- <div>

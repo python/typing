@@ -5,6 +5,7 @@ Type system conformance test for static type checkers.
 import os
 from pathlib import Path
 import sys
+from time import time
 from typing import Sequence
 
 import tomli
@@ -21,7 +22,11 @@ def run_tests(
     test_cases: Sequence[Path],
 ):
     print(f"Running tests for {type_checker.name}")
+
+    test_start_time = time()
     tests_output = type_checker.run_tests([file.name for file in test_cases])
+    test_duration = time() - test_start_time
+
     results_dir = root_dir / "results" / type_checker.name
 
     for test_case in test_cases:
@@ -29,7 +34,7 @@ def run_tests(
             type_checker, results_dir, test_case, tests_output.get(test_case.name, "")
         )
 
-    update_type_checker_version(type_checker, root_dir)
+    update_type_checker_info(type_checker, root_dir, test_duration)
 
 
 def update_output_for_test(
@@ -74,7 +79,7 @@ def update_output_for_test(
             tomlkit.dump(existing_results, f)
 
 
-def update_type_checker_version(type_checker: TypeChecker, root_dir: Path):
+def update_type_checker_info(type_checker: TypeChecker, root_dir: Path, test_duration: float):
     # Record the version of the type checker used for the latest run.
     version_file = root_dir / "results" / type_checker.name / "version.toml"
 
@@ -86,6 +91,7 @@ def update_type_checker_version(type_checker: TypeChecker, root_dir: Path):
         existing_info = {}
 
     existing_info["version"] = type_checker.get_version()
+    existing_info["test_duration"] = test_duration
 
     version_file.parent.mkdir(parents=True, exist_ok=True)
     with open(version_file, "w") as f:

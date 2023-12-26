@@ -1,1 +1,2 @@
 version = "mypy 1.8.0"
+test_duration = 0.31742215156555176

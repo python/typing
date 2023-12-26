@@ -41,9 +41,14 @@ def generate_summary_html(root_dir: Path):
             existing_info = {}
 
         version = existing_info["version"] or "Unknown version"
+        test_duration = existing_info.get("test_duration")
 
-        summary_html += f"<div><h4>{version}</h4></div>\n"
+        summary_html += f"<div class='tc-header'><span class='tc-name'>{version}"
+        if test_duration is not None:
+            summary_html += f"<span class='tc-time'>({test_duration:.2f}sec)</span>\n"
+        summary_html += '</div>\n'
         summary_html += '<div class="table_container"><table>\n'
+        summary_html += '<tr><th class="column spacer" colspan="4"></th></tr>\n'
 
         for test_group_name, test_group in test_groups.items():
             tests_in_group = [
@@ -91,8 +96,8 @@ def generate_summary_html(root_dir: Path):
                     summary_html += f'<th class="column col2 {conformance_class}">{conformance}</th>'
                     summary_html += f'<th class="column col3">{notes}</th></tr>\n'
 
-                # Add a spacer row after this group to help with readability.
-                summary_html += '<tr><th class="column" colspan="4"></th></tr>\n'
+                # Add spacer row after this group to help with readability.
+                summary_html += '<tr><th class="column spacer" colspan="4"></th></tr>\n'
 
         summary_html += "</table></div>\n"
 
