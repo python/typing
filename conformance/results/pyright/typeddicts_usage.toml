@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 typeddicts_usage.py:23:1 - error: Could not assign item in TypedDict
   "director" is not a defined key in "Movie" (reportGeneralTypeIssues)

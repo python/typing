@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 typeddicts_class_syntax.py:29:5 - error: TypedDict classes can contain only type annotations
 typeddicts_class_syntax.py:33:5 - error: TypedDict classes can contain only type annotations

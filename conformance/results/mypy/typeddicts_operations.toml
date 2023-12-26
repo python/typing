@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 typeddicts_operations.py:22: error: Value of "name" has incompatible type "int"; expected "str"  [typeddict-item]
 typeddicts_operations.py:23: error: Value of "year" has incompatible type "str"; expected "int"  [typeddict-item]

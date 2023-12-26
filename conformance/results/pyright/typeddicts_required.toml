@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 typeddicts_required.py:12:8 - error: "Required" is not allowed in this context
 typeddicts_required.py:16:8 - error: "NotRequired" is not allowed in this context

@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 generics_self_basic.py:19:16 - error: Expression of type "Shape" cannot be assigned to return type "Self@Shape"
   Type "Shape" cannot be assigned to type "Self@Shape" (reportGeneralTypeIssues)

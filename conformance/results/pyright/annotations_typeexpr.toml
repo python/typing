@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 annotations_typeexpr.py:77:9 - error: Call expression not allowed in type expression (reportGeneralTypeIssues)
 annotations_typeexpr.py:78:9 - error: List expression not allowed in type annotation

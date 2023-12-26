@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 typeddicts_usage.py:23: error: TypedDict "Movie" has no key "director"  [typeddict-unknown-key]
 typeddicts_usage.py:24: error: Value of "year" has incompatible type "str"; expected "int"  [typeddict-item]

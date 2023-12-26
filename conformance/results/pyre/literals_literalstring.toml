@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 literals_literalstring.py:36:11 Invalid type [31]: Expression `LiteralString` is not a literal value.
 literals_literalstring.py:36:11 Undefined or invalid type [11]: Annotation `typing` is not defined as a type.

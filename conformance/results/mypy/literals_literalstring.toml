@@ -1,6 +1,6 @@
 conformant = "Unsupported"
 notes = """
-Support for `LiteralString` has not been implemented in mypy.
+Support for `LiteralString` is not implemented.
 """
 output = """
 literals_literalstring.py:36: error: Parameter 2 of Literal[...] is invalid  [valid-type]

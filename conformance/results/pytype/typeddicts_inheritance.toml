@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 File "typeddicts_inheritance.py", line 44, in <module>: Invalid base class: NonTypedDict [base-class-error]
   TypedDict BadTypedDict cannot inherit from a non-TypedDict class.

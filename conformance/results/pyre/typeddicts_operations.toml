@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 typeddicts_operations.py:22:16 Invalid TypedDict operation [54]: Expected `str` to be assigned to `Movie` field `name` but got `int`.
 typeddicts_operations.py:23:16 Invalid TypedDict operation [54]: Expected `int` to be assigned to `Movie` field `year` but got `str`.

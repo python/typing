@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 generics_self_protocols.py:61: error: Argument 1 to "accepts_shape" has incompatible type "BadReturnType"; expected "ShapeProtocol"  [arg-type]
 generics_self_protocols.py:61: note: Following member(s) of "BadReturnType" have conflicts:

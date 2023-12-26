@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 literals_semantics.py:10:18 - error: Expression of type "Literal[4]" cannot be assigned to declared type "Literal[3]"
   "Literal[4]" cannot be assigned to type "Literal[3]" (reportGeneralTypeIssues)

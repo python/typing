@@ -1,0 +1,21 @@
+conformant = "Pass"
+output = """
+File "dataclasses_usage.py", line 49, in <module>: Missing parameter 'unit_price' in call to function InventoryItem.__init__ [missing-parameter]
+         Expected: (self, name, unit_price, quantity_on_hand)
+  Actually passed: (self, name)
+File "dataclasses_usage.py", line 50, in <module>: Function InventoryItem.__init__ was called with the wrong arguments [wrong-arg-types]
+         Expected: (self, name, unit_price: float, ...)
+  Actually passed: (self, name, unit_price: str)
+File "dataclasses_usage.py", line 51, in <module>: Function InventoryItem.__init__ expects 3 arg(s), got 5 [wrong-arg-count]
+         Expected: (self, name, unit_price, quantity_on_hand)
+  Actually passed: (self, name, unit_price, quantity_on_hand, _)
+File "dataclasses_usage.py", line 58, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
+File "dataclasses_usage.py", line 64, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
+File "dataclasses_usage.py", line 69, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
+File "dataclasses_usage.py", line 81, in <module>: Function DC4.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
+         Expected: (self, b)
+  Actually passed: (self, b, _)
+File "dataclasses_usage.py", line 86, in DC5: Type annotation for a does not match type of assignment [annotation-type-mismatch]
+  Annotation: int
+  Assignment: str
+"""

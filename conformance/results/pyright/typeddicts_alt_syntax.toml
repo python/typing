@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 typeddicts_alt_syntax.py:23:17 - error: Expected dict or keyword parameter as second parameter
 typeddicts_alt_syntax.py:27:45 - error: Expected string literal for dictionary entry name

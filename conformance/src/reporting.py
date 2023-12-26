@@ -85,7 +85,7 @@ def generate_summary_html(root_dir: Path):
 
                     conformance_class = (
                         "conformant"
-                        if conformance == "Yes"
+                        if conformance == "Pass"
                         else "partially-conformant"
                         if conformance == "Partial"
                         else "not-conformant"

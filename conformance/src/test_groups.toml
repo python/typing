@@ -32,6 +32,7 @@ name = "Literals"
 href = "https://typing.readthedocs.io/en/latest/spec/literal.html"
 
 [protocols]
+name = "Protocols"
 href = "https://typing.readthedocs.io/en/latest/spec/protocol.html"
 
 [callables]
@@ -43,6 +44,7 @@ name = "Overloads"
 href = "https://typing.readthedocs.io/en/latest/spec/overload.html"
 
 [dataclasses]
+name = "Dataclasses"
 href = "https://typing.readthedocs.io/en/latest/spec/dataclasses.html"
 
 [typeddicts]

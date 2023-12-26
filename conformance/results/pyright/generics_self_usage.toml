@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 generics_self_usage.py:73:14 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
 generics_self_usage.py:73:23 - error: "Self" is not valid in this context (reportGeneralTypeIssues)

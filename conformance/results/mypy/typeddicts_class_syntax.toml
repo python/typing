@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 typeddicts_class_syntax.py:29: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
 typeddicts_class_syntax.py:33: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]

@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 typeddicts_type_consistency.py:21: error: Incompatible types in assignment (expression has type "B1", variable has type "A1")  [assignment]
 typeddicts_type_consistency.py:38: error: Incompatible types in assignment (expression has type "B2", variable has type "A2")  [assignment]

@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 literals_parameterizations.py:40:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
 literals_parameterizations.py:41:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value

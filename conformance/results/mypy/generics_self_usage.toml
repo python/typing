@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 generics_self_usage.py:73: error: Self type is only allowed in annotations within class definition  [misc]
 generics_self_usage.py:76: error: Self type is only allowed in annotations within class definition  [misc]

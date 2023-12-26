@@ -1,0 +1,13 @@
+conformant = "Partial"
+notes = """
+Does not report error when field with no default follows field with default.
+Incorrectly reports error with InitVar that has default value.
+"""
+output = """
+dataclasses_usage.py:49:5 Missing argument [20]: Call `InventoryItem.__init__` expects argument `unit_price`.
+dataclasses_usage.py:50:27 Incompatible parameter type [6]: In call `InventoryItem.__init__`, for 2nd positional argument, expected `float` but got `str`.
+dataclasses_usage.py:51:5 Too many arguments [19]: Call `InventoryItem.__init__` expects 3 positional arguments, 4 were provided.
+dataclasses_usage.py:70:4 Incompatible attribute type [8]: Attribute `a` declared in class `DC3` has type `InitVar[int]` but is used as type `int`.
+dataclasses_usage.py:81:5 Too many arguments [19]: Call `DC4.__init__` expects 1 positional argument, 2 were provided.
+dataclasses_usage.py:86:4 Incompatible attribute type [8]: Attribute `a` declared in class `DC5` has type `int` but is used as type `str`.
+"""

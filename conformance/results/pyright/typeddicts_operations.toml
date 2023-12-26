@@ -1,4 +1,4 @@
-conformant = "Yes"
+conformant = "Pass"
 output = """
 typeddicts_operations.py:22:1 - error: Could not assign item in TypedDict
   "Literal[1982]" is incompatible with "str" (reportGeneralTypeIssues)
