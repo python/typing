@@ -4,7 +4,6 @@ Type system conformance test for static type checkers.
 
 import os
 from pathlib import Path
-import re
 import sys
 from typing import Sequence
 

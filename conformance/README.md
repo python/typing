@@ -38,6 +38,14 @@ Test cases are meant to be human readable. They should include comments that hel
 
 The test suite focuses on static type checking not general Python semantics. Tests should therefore focus on static analysis behaviors, not runtime behaviors.
 
+## Running the Conformance Test Tool
+
+To run the conformance test suite:
+* Clone the https://github.com/python/typing repo.
+* Create and activate a Python 3.12 virtual environment.
+* Switch to the `conformance` subdirectory and install all dependencies (`pip install -r requirements.txt`).
+* Switch to the `src` subdirectory and run `python main.py`.
+
 ## Reporting Conformance Results
 
 Different type checkers report errors in different ways (with different wording in error messages and different line numbers or character ranges for errors). This variation makes it difficult to fully automate test validation given that tests will want to check for both false positive and false negative type errors. Some level of manual inspection will therefore be needed to determine whether a type checker is fully conformant with all tests in any given test file. This "scoring" process is required only when the output of a test changes — e.g. when a new version of that type checker is released and the tests are rerun. We assume that the output of a type checker will be the same from one run to the next unless/until a new version is released that fixes or introduces a bug. In this case, the output will need to be manually inspected and the conformance results re-scored for those tests whose output has changed.
@@ -46,11 +54,11 @@ Conformance results are reported and summarized for each supported type checker.
 
 ## Adding a New Test Case
 
-To add a new test, create a new ".py" file in the `tests` directory. Its name must begin with one of the above test group names followed by an underscore. Write the contents of the test including a module docstring describing the purpose of the test. Next, run the tool. This will generate a new `.toml` file corresponding to the new test for each supported type checker. Manually review the output from each type checker and determine whether it conforms to the specification. If so, add `conformant = "Yes"` to the `.toml` file. If it does not fully comply, add `conformant = "Partial"` and a `notes` section detailing where it is not compliant. If the type checker doesn't support the feature in the test add `conformant = "Unsupported"`. Once the conformance status has been updated, re-run the test tool again to regenerate the summary report.
+To add a new test, create a new ".py" file in the `tests` directory. Its name must begin with one of the above test group names followed by an underscore. Write the contents of the test including a module docstring describing the purpose of the test. Next, run the conformance test tool. This will generate a new `.toml` file in the `results` subdirectory corresponding each type checker. Manually review the output from each type checker and determine whether it conforms to the specification. If so, add `conformant = "Yes"` to the `.toml` file. If it does not fully comply, add `conformant = "Partial"` and a `notes` section detailing where it is not compliant. If the type checker doesn't support the feature in the test add `conformant = "Unsupported"`. Once the conformance status has been updated, rerun the conformance test tool to regenerate the summary report.
 
-## Updating A Test Case
+## Updating a Test Case
 
-If a test is updated (augmented or fixed), the process is similar to when adding a new test. Run the tool to generate new results and manually examine the output of each supported type checker. Then update the conformance status accordingly. Once the conformance status has been updated, re-run the test tool again to regenerate the summary report.
+If a test is updated (augmented or fixed), the process is similar to when adding a new test. Run the conformance test tool to generate new results and manually examine the output of each supported type checker. Then update the conformance status accordingly. Once the conformance status has been updated, rerun the conformance test tool to regenerate the summary report.
 
 ## Updating a Type Checker
 
