@@ -51,7 +51,7 @@ def update_output_for_test(
     except FileNotFoundError:
         existing_results = {}
 
-    old_output = existing_results.get("output", "")
+    old_output = existing_results.get("output", None)
     old_output = f"\n{old_output}"
 
     # Did the type checker output change since last time the

@@ -1,0 +1,41 @@
+conformant = "Unsupported"
+notes = """
+Does not understand `Literal` type annotation.
+"""
+output = """
+File "literals_parameterizations.py", line 17, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'int' at index 0
+File "literals_parameterizations.py", line 18, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'int' at index 0
+File "literals_parameterizations.py", line 19, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'int' at index 0
+File "literals_parameterizations.py", line 32, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'Union' at index 0
+  Bad parameter 'Union' at index 1
+  Bad parameter 'Union' at index 2
+  Bad parameter 'Union' at index 3
+File "literals_parameterizations.py", line 34, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'Union' at index 0
+File "literals_parameterizations.py", line 41, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'str' at index 0
+File "literals_parameterizations.py", line 42, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'complex' at index 0
+File "literals_parameterizations.py", line 46, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'dict' at index 0
+File "literals_parameterizations.py", line 47, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'int' at index 0
+File "literals_parameterizations.py", line 49, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'T' at index 0
+File "literals_parameterizations.py", line 50, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'float' at index 0
+File "literals_parameterizations.py", line 52, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter '...' at index 0
+File "literals_parameterizations.py", line 59, in <module>: Invalid type annotation 'Literal[my_function]'  [invalid-annotation]
+  Invalid type annotation 'Literal' 
+  Bad parameter 'my_function' at index 0
+File "literals_parameterizations.py", line 59, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'my_function' at index 0
+File "literals_parameterizations.py", line 63, in func2: Type annotation for x1 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Literal['Color.RED']
+  Assignment: Color
+"""

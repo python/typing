@@ -5,6 +5,7 @@ Classes that abstract differences between type checkers.
 from abc import ABC, abstractmethod
 import json
 from pathlib import Path
+import re
 from subprocess import PIPE, run
 from typing import Sequence
 
@@ -146,8 +147,67 @@ class PyreTypeChecker(TypeChecker):
         return results_dict
 
 
+class PytypeTypeChecker(TypeChecker):
+    @property
+    def name(self) -> str:
+        return "pytype"
+
+    def install(self) -> None:
+        run("pip install pytype --upgrade", shell=True)
+
+    def get_version(self) -> str:
+        proc = run("pytype --version", stdout=PIPE, text=True, shell=True)
+        version = proc.stdout.strip()
+        return f'pytype {version}'
+
+    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
+        command = "pytype -V 3.11 -k *.py"
+        proc = run(command, stdout=PIPE, text=True, shell=True)
+        lines = proc.stdout.split("\n")
+
+        # Add results to a dictionary keyed by the file name.
+        results_dict: dict[str, str] = {}
+        accumulated_lines: list[str] = []
+        file_name: str | None = None
+
+        def log_accumulated():
+            if file_name is not None:
+                results_dict[file_name] = (
+                    results_dict.get(file_name, "") + ''.join(accumulated_lines) + '\n'
+                )
+
+        for line in lines:
+            match = re.search(r'File "(.*?)",', line)
+
+            if not match or match.start() != 0:
+                # An empty line precedes the summary for the file. Ignore
+                # everything after that line until we see diagnostics for
+                # the next file.
+                if line.strip() == '':
+                    log_accumulated()
+                    file_name = None
+                    accumulated_lines = []
+                elif file_name is not None:
+                    accumulated_lines.append('\n' + line)
+            else:
+                log_accumulated()
+
+                file_path = Path(match.group(1))
+                file_name = file_path.name
+
+                # Replace the full file path with the file name.
+                line = f'File "{file_name}",{line[match.end():]}'
+                accumulated_lines = [line]
+        
+        # Log the final accumulated lines.
+        log_accumulated()
+
+        return results_dict
+
+
 TYPE_CHECKERS: Sequence[TypeChecker] = (
     MypyTypeChecker(),
     PyrightTypeChecker(),
     PyreTypeChecker(),
+    PytypeTypeChecker(),
 )

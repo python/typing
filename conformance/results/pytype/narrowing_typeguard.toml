@@ -1,0 +1,6 @@
+conformant = "Partial"
+notes = """
+Does not reject TypeGuard method with too few parameters.
+"""
+output = """
+"""

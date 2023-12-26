@@ -1,0 +1,31 @@
+conformant = "Unsupported"
+notes = """
+Does not understand `Self` type.
+"""
+output = """
+File "generics_self_usage.py", line 58, in foo: Invalid type annotation 'Self'  [invalid-annotation]
+  Cannot use 'typing.Self' outside of a class
+File "generics_self_usage.py", line 73, in <module>: Invalid type annotation 'Self'  [invalid-annotation]
+  Cannot use 'typing.Self' outside of a class
+File "generics_self_usage.py", line 76, in <module>: Invalid type annotation 'Self' for bar [invalid-annotation]
+  TypeVar(s) 'Self' not in scope
+File "generics_self_usage.py", line 82, in has_existing_self_annotation: bad return type [bad-return-type]
+           Expected: Foo2
+  Actually returned: None
+File "generics_self_usage.py", line 86, in return_concrete_type: bad return type [bad-return-type]
+           Expected: Foo3Child
+  Actually returned: Foo3
+Called from (traceback):
+  line 92, in child_method
+File "generics_self_usage.py", line 103, in <module>: Invalid base class: Self [base-class-error]
+File "generics_self_usage.py", line 111, in Base: Invalid type annotation 'Self'  [invalid-annotation]
+  Cannot use 'typing.Self' outside of a class
+File "generics_self_usage.py", line 116, in Base: Invalid type annotation 'Self'  [invalid-annotation]
+  Cannot use 'typing.Self' outside of a class
+File "generics_self_usage.py", line 122, in __new__: bad return type [bad-return-type]
+           Expected: MyMetaclass
+  Actually returned: None
+File "generics_self_usage.py", line 126, in __mul__: bad return type [bad-return-type]
+           Expected: List[MyMetaclass]
+  Actually returned: None
+"""

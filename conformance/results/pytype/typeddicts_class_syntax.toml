@@ -1,0 +1,8 @@
+conformant = "Partial"
+notes = """
+Does not reject methods within TypedDict class.
+Does not report when metaclass is provided.
+Does not report when other keyword argument is provided.
+"""
+output = """
+"""

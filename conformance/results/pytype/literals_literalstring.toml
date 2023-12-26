@@ -1,0 +1,6 @@
+conformant = "Unsupported"
+notes = """
+Does not understand `LiteralString` special form.
+"""
+output = """
+"""
