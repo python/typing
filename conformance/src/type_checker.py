@@ -103,7 +103,7 @@ class PyrightTypeChecker(TypeChecker):
             col_number = diagnostic['range']['start']['character'] + 1
             severity = diagnostic['severity']
             message = diagnostic['message']
-            rule = f' ({diagnostic['rule']})' if 'rule' in diagnostic else ''
+            rule = f" ({diagnostic['rule']})" if 'rule' in diagnostic else ''
             
             line_text = f'{file_name}:{line_number}:{col_number} - {severity}: {message}{rule}\n'
             results_dict[file_name] = results_dict.get(file_name, '') + line_text
