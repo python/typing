@@ -1,0 +1,8 @@
+conformant = "Unsupported"
+notes = """
+Does not detect variance incompatibility.
+"""
+output = """
+File "aliases_variance.py", line 9, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+File "aliases_variance.py", line 10, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+"""

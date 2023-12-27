@@ -1,0 +1,7 @@
+conformant = "Pass"
+output = """
+aliases_variance.py:24: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+aliases_variance.py:28: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+aliases_variance.py:32: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+aliases_variance.py:44: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
+"""
