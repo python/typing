@@ -1,0 +1,59 @@
+conformant = "Partial"
+notes = """
+Does not report type incompatibility for callback protocol with positional-only parameters.
+"""
+output = """
+callables_protocol.py:35:7 - error: Expression of type "(*vals: bytes, max_items: int | None) -> list[bytes]" cannot be assigned to declared type "Proto1"
+  Type "(*vals: bytes, max_items: int | None) -> list[bytes]" cannot be assigned to type "(*vals: bytes, max_len: int | None = None) -> list[bytes]"
+    Keyword parameter "max_items" is missing in destination
+    Keyword parameter "max_len" is missing in source (reportGeneralTypeIssues)
+callables_protocol.py:36:7 - error: Expression of type "(*vals: bytes) -> list[bytes]" cannot be assigned to declared type "Proto1"
+  Type "(*vals: bytes) -> list[bytes]" cannot be assigned to type "(*vals: bytes, max_len: int | None = None) -> list[bytes]"
+    Keyword parameter "max_len" is missing in source (reportGeneralTypeIssues)
+callables_protocol.py:37:7 - error: Expression of type "(*vals: bytes, max_len: str | None) -> list[bytes]" cannot be assigned to declared type "Proto1"
+  Type "(*vals: bytes, max_len: str | None) -> list[bytes]" cannot be assigned to type "(*vals: bytes, max_len: int | None = None) -> list[bytes]"
+    Keyword parameter "max_len" of type "int | None" cannot be assigned to type "str | None"
+    Parameter "max_len" is missing default argument (reportGeneralTypeIssues)
+callables_protocol.py:67:7 - error: Expression of type "(*a: bytes) -> None" cannot be assigned to declared type "Proto2"
+  Type "(*a: bytes) -> None" cannot be assigned to type "(*vals: bytes, **kwargs: str) -> None"
+    Parameter "**kwargs" has no corresponding parameter (reportGeneralTypeIssues)
+callables_protocol.py:68:7 - error: Expression of type "(*a: str, **b: str) -> None" cannot be assigned to declared type "Proto2"
+  Type "(*a: str, **b: str) -> None" cannot be assigned to type "(*vals: bytes, **kwargs: str) -> None"
+    Parameter 1: type "*tuple[bytes, ...]" cannot be assigned to type "*tuple[str, ...]"
+      "*tuple[bytes, ...]" is incompatible with "*tuple[str, ...]"
+        Tuple entry 1 is incorrect type
+          "bytes" is incompatible with "str" (reportGeneralTypeIssues)
+callables_protocol.py:69:7 - error: Expression of type "(*a: bytes, **b: bytes) -> None" cannot be assigned to declared type "Proto2"
+  Type "(*a: bytes, **b: bytes) -> None" cannot be assigned to type "(*vals: bytes, **kwargs: str) -> None"
+    Parameter 2: type "str" cannot be assigned to type "bytes"
+      "str" is incompatible with "bytes" (reportGeneralTypeIssues)
+callables_protocol.py:70:7 - error: Expression of type "(**b: str) -> None" cannot be assigned to declared type "Proto2"
+  Type "(**b: str) -> None" cannot be assigned to type "(*vals: bytes, **kwargs: str) -> None"
+    Parameter "*vals" has no corresponding parameter (reportGeneralTypeIssues)
+callables_protocol.py:97:16 - error: Expression of type "(x: int) -> None" cannot be assigned to declared type "Proto4"
+  "function" is incompatible with protocol "Proto4"
+    "other_attribute" is not present
+    "__call__" is not present (reportGeneralTypeIssues)
+callables_protocol.py:121:18 - error: Expression of type "(*vals: bytes, max_len: int | None = None) -> list[bytes]" cannot be assigned to declared type "NotProto6"
+  "function" is incompatible with "NotProto6" (reportGeneralTypeIssues)
+callables_protocol.py:169:7 - error: Expression of type "(x: int) -> Any" cannot be assigned to declared type "Proto8"
+  One or more overloads of "__call__" is not assignable
+    Type "(x: int) -> Any" cannot be assigned to type "(x: str) -> str"
+      Parameter 1: type "str" cannot be assigned to type "int"
+        "str" is incompatible with "int" (reportGeneralTypeIssues)
+callables_protocol.py:186:33 - error: Cannot assign member "other_attribute" for type "Proto9[P@decorator1, R@decorator1]"
+  "Literal['str']" is incompatible with "int" (reportGeneralTypeIssues)
+callables_protocol.py:187:15 - error: Cannot assign member "xxx" for type "Proto9[P@decorator1, R@decorator1]"
+  Member "xxx" is unknown (reportGeneralTypeIssues)
+callables_protocol.py:197:16 - error: Cannot access member "other_attribute2" for type "Proto9[(x: int), str]"
+  Member "other_attribute2" is unknown (reportGeneralTypeIssues)
+callables_protocol.py:260:8 - error: Expression of type "(*args: Any, kwarg0: Any) -> None" cannot be assigned to declared type "Proto12"
+  Type "(*args: Any, kwarg0: Any) -> None" cannot be assigned to type "(*args: Any, kwarg0: Any, kwarg1: Any) -> None"
+    Keyword parameter "kwarg1" is missing in source (reportGeneralTypeIssues)
+callables_protocol.py:284:27 - error: Expression of type "(path: str) -> str" cannot be assigned to declared type "Proto13_Default"
+  Type "(path: str) -> str" cannot be assigned to type "(path: str = ...) -> str"
+    Parameter "path" is missing default argument (reportGeneralTypeIssues)
+callables_protocol.py:311:27 - error: Expression of type "(*, path: str) -> str" cannot be assigned to declared type "Proto14_Default"
+  Type "(*, path: str) -> str" cannot be assigned to type "(*, path: str = ...) -> str"
+    Parameter "path" is missing default argument (reportGeneralTypeIssues)
+"""

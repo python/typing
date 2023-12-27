@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.37sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.33sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -149,6 +149,11 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_literalstring</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Support for `LiteralString` is not implemented.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_parameterizations</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject tuple within Literal.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_annotation</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
@@ -182,7 +187,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(0.87sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(0.88sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -204,6 +209,11 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_literalstring</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_parameterizations</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_annotation</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report type incompatibility for callback protocol with positional-only parameters.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
@@ -237,7 +247,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.36sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.45sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -259,6 +269,11 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_literalstring</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_parameterizations</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support type aliases in Literal type expression.<br>Does not support nested Literal type expression.<br>Does not reject unary + operator in Literal type expression.<br>Does not reject tuple in Literal type expression.<br>Does not reject "bare" Literal in type expression.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject augmented operation that modifies literal value.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not evaluate correct type for `*args: int` parameter.<br>Does not reject illegal form `Callable[[...], int]`.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not correctly handle callback protocol that declares attributes in all functions.<br>Does not report type incompatibility for callback protocol with positional-only parameters.<br>Incorrectly reports type compatibility error with callback that has *args and **kwargs.<br>Does not report type incompatibility for callback missing a default argument for positional parameter.<br>Does not report type incompatibility for callback missing a default argument for keyword parameter.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
@@ -292,7 +307,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support `tuple` in `assert_type` call.<br>Does not reject TypeGuard method with too few parameters.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(38.02sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(40.14sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -314,6 +329,11 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_literalstring</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `LiteralString` special form.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_parameterizations</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Literal` type annotation.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Literal` type annotation.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_annotation</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not properly handle type compatibility checks with callback protocols.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
