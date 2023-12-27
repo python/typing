@@ -1,0 +1,59 @@
+conformant = "Partial"
+notes = """
+Does not detect type violation for some deeply-nested types.
+Does not properly handle `|` for unions in some recursive type alias definitions.
+Does not detect cyclical references in recursive type alias definition.
+"""
+output = """
+File "aliases_recursive.py", line 19, in <module>: Type annotation for j4 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Optional[Union[Dict[str, Json], List[Json], float, int, str]]
+  Assignment: Dict[str, Union[complex, int]]
+File "aliases_recursive.py", line 20, in <module>: Type annotation for j5 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Optional[Union[Dict[str, Json], List[Json], float, int, str]]
+  Assignment: List[Union[complex, int]]
+File "aliases_recursive.py", line 38, in <module>: Type annotation for t6 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Union[Tuple[RecursiveTuple, ...], Union[int, str]]
+  Assignment: Tuple[int, Tuple[str, int], Tuple[int, Tuple[int, List[int]]]]
+File "aliases_recursive.py", line 39, in <module>: Type annotation for t6 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Union[Tuple[RecursiveTuple, ...], Union[int, str]]
+  Assignment: Tuple[int, List[int]]
+File "aliases_recursive.py", line 50, in <module>: Type annotation for m7 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Union[Mapping[str, RecursiveMapping], Union[int, str]]
+  Assignment: Dict[str, List[int]]
+  Attributes of protocol Mapping[str, RecursiveMapping] are not implemented on list: get, items, keys, values
+File "aliases_recursive.py", line 51, in <module>: Type annotation for m8 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Union[Mapping[str, RecursiveMapping], Union[int, str]]
+  Assignment: Dict[str, Union[List[int], int, str]]
+  Attributes of protocol Mapping[str, RecursiveMapping] are not implemented on list: get, items, keys, values
+File "aliases_recursive.py", line 62, in <module>: unsupported operand type(s) for |: ''GenericTypeAlias1[T1]': str' and 'T1: TypeVar' [unsupported-operands]
+  No attribute '__or__' on ''GenericTypeAlias1[T1]': str' or '__ror__' on 'T1: TypeVar'
+File "aliases_recursive.py", line 63, in <module>: Invalid type annotation 'list[str]'  [invalid-annotation]
+  list expected 0 parameters, got 1
+File "aliases_recursive.py", line 66, in <module>: Invalid type annotation 'GenericTypeAlias1[str]'  [invalid-annotation]
+  Invalid type annotation 'list[str]' 
+  list expected 0 parameters, got 1
+File "aliases_recursive.py", line 66, in <module>: Invalid type annotation 'list[str]'  [invalid-annotation]
+  list expected 0 parameters, got 1
+File "aliases_recursive.py", line 67, in <module>: Invalid type annotation 'GenericTypeAlias1[str]'  [invalid-annotation]
+  Invalid type annotation 'list[str]' 
+  list expected 0 parameters, got 1
+File "aliases_recursive.py", line 67, in <module>: Invalid type annotation 'list[str]'  [invalid-annotation]
+  list expected 0 parameters, got 1
+File "aliases_recursive.py", line 69, in <module>: unsupported operand type(s) for |: ''GenericTypeAlias2[T1, T2]': str' and 'T1: TypeVar' [unsupported-operands]
+  No attribute '__or__' on ''GenericTypeAlias2[T1, T2]': str' or '__ror__' on 'T1: TypeVar'
+File "aliases_recursive.py", line 71, in <module>: Invalid type annotation 'GenericTypeAlias2[str, int]'  [invalid-annotation]
+  Invalid type annotation 'list[str, int]' 
+  list expected 1 parameter, got 2
+File "aliases_recursive.py", line 71, in <module>: Invalid type annotation 'list[str, int]'  [invalid-annotation]
+  list expected 1 parameter, got 2
+File "aliases_recursive.py", line 72, in <module>: Invalid type annotation 'GenericTypeAlias2[str, float]'  [invalid-annotation]
+  Invalid type annotation 'list[str, float]' 
+  list expected 1 parameter, got 2
+File "aliases_recursive.py", line 72, in <module>: Invalid type annotation 'list[str, float]'  [invalid-annotation]
+  list expected 1 parameter, got 2
+File "aliases_recursive.py", line 73, in <module>: Invalid type annotation 'GenericTypeAlias2[str, int]'  [invalid-annotation]
+  Invalid type annotation 'list[str, int]' 
+  list expected 1 parameter, got 2
+File "aliases_recursive.py", line 73, in <module>: Invalid type annotation 'list[str, int]'  [invalid-annotation]
+  list expected 1 parameter, got 2
+"""

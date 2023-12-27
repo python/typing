@@ -1,0 +1,20 @@
+conformant = "Partial"
+notes = """
+Does not reject use of NewType in `isinstance` call.
+Does not reject use of NewType in class definition statement.
+Does not report inconsistency between name of NewType and assigned identifier name.
+Does not reject use of NewType with generic class with TypeVar.
+Does not reject use of NewType with protocol class.
+Does not reject use of NewType with TypedDict class.
+Does not reject use of NewType with another NewType.
+Does not reject use of NewType with Any.
+"""
+output = """
+aliases_newtype.py:11:7 Incompatible parameter type [6]: In call `UserId.__init__`, for 1st positional argument, expected `int` but got `str`.
+aliases_newtype.py:12:0 Incompatible variable type [9]: u1 is declared to have type `UserId` but is used as type `int`.
+aliases_newtype.py:36:5 Invalid type parameters [24]: Non-generic type `GoodNewType1` cannot take parameters.
+aliases_newtype.py:42:37 Invalid inheritance [39]: `typing.Union[int, str]` is not a valid parent class.
+aliases_newtype.py:49:37 Invalid inheritance [39]: `typing_extensions.Literal[7]` is not a valid parent class.
+aliases_newtype.py:60:14 Too many arguments [19]: Call `NewType.__init__` expects 2 positional arguments, 3 were provided.
+aliases_newtype.py:62:37 Invalid inheritance [39]: `typing.Any` is not a valid parent class.
+"""

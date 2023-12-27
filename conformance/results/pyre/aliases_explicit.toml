@@ -1,0 +1,38 @@
+conformant = "Partial"
+notes = """
+Incorrectly reports error for type alias defined with ParamSpec.
+Incorrectly rejects some valid type aliases when used in annotations.
+Incorrectly evaluates generic type alias with ParamSpec with missing type argument.
+Does not report some illegal annotation forms as invalid type aliases.
+Does not report invalid specialization of generic type aliases.
+Incorrectly rejects import alias of `TypeAlias` when used to define type alias.
+Does not report invalid specialization of already-specialized generic type alias.
+"""
+output = """
+aliases_explicit.py:23:0 Incompatible variable type [9]: GoodTypeAlias9 is declared to have type `TA` but is used as type `Type[typing.Callable[..., Variable[$synthetic_attribute_resolution_variable]]]`.
+aliases_explicit.py:23:30 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[object, TypeVar]`.
+aliases_explicit.py:26:0 Incompatible variable type [9]: GoodTypeAlias12 is declared to have type `TA` but is used as type `Type[typing.Callable[..., Variable[$synthetic_attribute_resolution_variable]]]`.
+aliases_explicit.py:26:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[ParamSpec, None]`.
+aliases_explicit.py:41:8 Undefined or invalid type [11]: Annotation `GoodTypeAlias9` is not defined as a type.
+aliases_explicit.py:44:9 Undefined or invalid type [11]: Annotation `GoodTypeAlias12` is not defined as a type.
+aliases_explicit.py:51:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `UnionType`.
+aliases_explicit.py:53:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.
+aliases_explicit.py:54:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[int], Type[int], Type[str]]`.
+aliases_explicit.py:57:29 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[List[Type[Union[int, str]]], None]`.
+aliases_explicit.py:60:30 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[typing.Any, None]`.
+aliases_explicit.py:62:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `UnionType`.
+aliases_explicit.py:80:0 Incompatible variable type [9]: BadTypeAlias2 is declared to have type `TA` but is used as type `List[Type[Union[int, str]]]`.
+aliases_explicit.py:81:0 Incompatible variable type [9]: BadTypeAlias3 is declared to have type `TA` but is used as type `Tuple[Tuple[Type[int], Type[str]]]`.
+aliases_explicit.py:82:0 Incompatible variable type [9]: BadTypeAlias4 is declared to have type `TA` but is used as type `List[Type[int]]`.
+aliases_explicit.py:83:0 Incompatible variable type [9]: BadTypeAlias5 is declared to have type `TA` but is used as type `Dict[str, str]`.
+aliases_explicit.py:84:0 Incompatible variable type [9]: BadTypeAlias6 is declared to have type `TA` but is used as type `Type[int]`.
+aliases_explicit.py:85:0 Incompatible variable type [9]: BadTypeAlias7 is declared to have type `TA` but is used as type `Type[int]`.
+aliases_explicit.py:86:0 Incompatible variable type [9]: BadTypeAlias8 is declared to have type `TA` but is used as type `Type[Union[int, str]]`.
+aliases_explicit.py:87:0 Incompatible variable type [9]: BadTypeAlias9 is declared to have type `TA` but is used as type `int`.
+aliases_explicit.py:88:0 Incompatible variable type [9]: BadTypeAlias10 is declared to have type `TA` but is used as type `bool`.
+aliases_explicit.py:89:0 Incompatible variable type [9]: BadTypeAlias11 is declared to have type `TA` but is used as type `int`.
+aliases_explicit.py:90:0 Incompatible variable type [9]: BadTypeAlias12 is declared to have type `TA` but is used as type `Type[Union[list, set]]`.
+aliases_explicit.py:91:0 Incompatible variable type [9]: BadTypeAlias13 is declared to have type `TA` but is used as type `str`.
+aliases_explicit.py:97:16 Call error [29]: `TA` is not a function.
+aliases_explicit.py:101:5 Call error [29]: `TA` is not a function.
+"""

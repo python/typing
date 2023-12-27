@@ -1,0 +1,18 @@
+conformant = "Pass"
+output = """
+aliases_newtype.py:11: error: Argument 1 to "UserId" has incompatible type "str"; expected "int"  [arg-type]
+aliases_newtype.py:12: error: Incompatible types in assignment (expression has type "int", variable has type "UserId")  [assignment]
+aliases_newtype.py:20: error: Cannot use isinstance() with NewType type  [misc]
+aliases_newtype.py:23: error: Cannot subclass "NewType"  [misc]
+aliases_newtype.py:32: error: String argument 1 "BadName" to NewType(...) does not match variable name "GoodName"  [misc]
+aliases_newtype.py:36: error: "GoodNewType1" expects no type arguments, but 1 given  [type-arg]
+aliases_newtype.py:42: error: Argument 2 to NewType(...) must be subclassable (got "int | str")  [valid-newtype]
+aliases_newtype.py:45: error: Type variable "aliases_newtype.T" is unbound  [valid-type]
+aliases_newtype.py:45: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+aliases_newtype.py:45: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+aliases_newtype.py:47: error: NewType cannot be used with protocol classes  [misc]
+aliases_newtype.py:49: error: Argument 2 to NewType(...) must be subclassable (got "Literal[7]")  [valid-newtype]
+aliases_newtype.py:56: error: Argument 2 to NewType(...) must be subclassable (got "TD1")  [valid-newtype]
+aliases_newtype.py:60: error: NewType(...) expects exactly two positional arguments  [misc]
+aliases_newtype.py:62: error: Argument 2 to NewType(...) must be subclassable (got "Any")  [valid-newtype]
+"""

@@ -1,0 +1,21 @@
+conformant = "Partial"
+notes = """
+Does not reject use of NewType in `isinstance` call.
+Does not report inconsistency between name of NewType and assigned identifier name.
+Does not reject use of NewType with TypedDict class.
+Does not reject use of NewType with another NewType.
+Does not reject use of NewType with Any.
+"""
+output = """
+aliases_newtype.py:11:8 - error: Argument of type "Literal['user']" cannot be assigned to parameter "_x" of type "int" in function "__init__"
+  "Literal['user']" is incompatible with "int" (reportGeneralTypeIssues)
+aliases_newtype.py:12:14 - error: Expression of type "Literal[42]" cannot be assigned to declared type "UserId"
+  "Literal[42]" is incompatible with "UserId" (reportGeneralTypeIssues)
+aliases_newtype.py:23:21 - error: Base class "UserId" is marked final and cannot be subclassed
+aliases_newtype.py:36:19 - error: Expected no type arguments for class "GoodNewType1" (reportGeneralTypeIssues)
+aliases_newtype.py:42:38 - error: Expected class as second argument to NewType
+aliases_newtype.py:45:43 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
+aliases_newtype.py:47:38 - error: NewType cannot be used with protocol class
+aliases_newtype.py:49:38 - error: NewType cannot be used with Literal type
+aliases_newtype.py:60:15 - error: NewType requires two positional arguments (reportGeneralTypeIssues)
+"""
