@@ -1,0 +1,9 @@
+conformant = "Pass"
+output = """
+dataclasses_transform_class.py:48: error: Cannot inherit non-frozen dataclass from a frozen one  [misc]
+dataclasses_transform_class.py:60: error: Property "id" defined in "Customer1" is read-only  [misc]
+dataclasses_transform_class.py:63: error: Too many positional arguments for "Customer1"  [misc]
+dataclasses_transform_class.py:69: error: Unsupported left operand type for < ("Customer1")  [operator]
+dataclasses_transform_class.py:79: error: Too many positional arguments for "Customer2"  [misc]
+dataclasses_transform_class.py:119: error: Property "id" defined in "Customer3" is read-only  [misc]
+"""

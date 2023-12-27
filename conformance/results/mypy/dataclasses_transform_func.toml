@@ -1,0 +1,13 @@
+conformant = "Partial"
+notes = """
+Does not handle `kw_only=False` override when `kw_only_default=True`.
+Does not report error when `order=False` and comparison operators are used.
+"""
+output = """
+dataclasses_transform_func.py:53: error: Too many positional arguments for "Customer1"  [misc]
+dataclasses_transform_func.py:57: error: Incompatible types in assignment (expression has type "int", variable has type "str")  [assignment]
+dataclasses_transform_func.py:65: error: Unexpected keyword argument "salary" for "Customer1"  [call-arg]
+dataclasses_transform_func.py:71: error: Too many positional arguments for "Customer2"  [misc]
+dataclasses_transform_func.py:90: error: Cannot inherit non-frozen dataclass from a frozen one  [misc]
+dataclasses_transform_func.py:97: error: Property "id" defined in "Customer3" is read-only  [misc]
+"""
