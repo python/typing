@@ -1,0 +1,9 @@
+conformant = "Partial"
+notes = """
+Does not reject write to instance variable that is not defined in __slots__.
+"""
+output = """
+dataclasses_slots.py:12: error: "DC1" both defines "__slots__" and is used with "slots=True"  [misc]
+dataclasses_slots.py:67: error: "type[DC6]" has no attribute "__slots__"  [attr-defined]
+dataclasses_slots.py:70: error: "DC6" has no attribute "__slots__"  [attr-defined]
+"""

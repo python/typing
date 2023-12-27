@@ -1,0 +1,6 @@
+conformant = "Partial"
+notes = """
+Does not report when dataclass is not compatible with Hashable protocol.
+"""
+output = """
+"""

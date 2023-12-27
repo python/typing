@@ -1,0 +1,6 @@
+conformant = "Pass"
+output = """
+dataclasses_kwonly.py:23:0 Too many arguments [19]: Call `DC1.__init__` expects 1 positional argument, 2 were provided.
+dataclasses_kwonly.py:38:0 Too many arguments [19]: Call `DC2.__init__` expects 1 positional argument, 2 were provided.
+dataclasses_kwonly.py:53:0 Too many arguments [19]: Call `DC3.__init__` expects 1 positional argument, 2 were provided.
+"""

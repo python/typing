@@ -1,0 +1,11 @@
+conformant = "Pass"
+output = """
+dataclasses_hash.py:15:16 - error: Expression of type "DC1" cannot be assigned to declared type "Hashable"
+  "DC1" is incompatible with protocol "Hashable"
+    "__hash__" is an incompatible type
+      Type "None" cannot be assigned to type "() -> int" (reportGeneralTypeIssues)
+dataclasses_hash.py:32:16 - error: Expression of type "DC3" cannot be assigned to declared type "Hashable"
+  "DC3" is incompatible with protocol "Hashable"
+    "__hash__" is an incompatible type
+      Type "None" cannot be assigned to type "() -> int" (reportGeneralTypeIssues)
+"""

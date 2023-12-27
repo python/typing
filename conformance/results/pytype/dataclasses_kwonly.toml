@@ -1,0 +1,23 @@
+conformant = "Partial"
+notes = """
+Incorrectly reports error when kw_only field has default value.
+Incorrectly rejects kw_only field with default before positional field.
+"""
+output = """
+File "dataclasses_kwonly.py", line 38, in <module>: Function DC2.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
+         Expected: (self, a, *, b)
+  Actually passed: (self, a, _)
+File "dataclasses_kwonly.py", line 47, in <module>: Missing parameter 'a' in call to function DC3.__init__ [missing-parameter]
+         Expected: (self, *, a, b)
+  Actually passed: (self, _)
+File "dataclasses_kwonly.py", line 50, in <module>: Missing parameter 'a' in call to function DC3.__init__ [missing-parameter]
+         Expected: (self, *, a, b)
+  Actually passed: (self, b, _)
+File "dataclasses_kwonly.py", line 53, in <module>: Missing parameter 'a' in call to function DC3.__init__ [missing-parameter]
+         Expected: (self, *, a, b)
+  Actually passed: (self, _, _)
+File "dataclasses_kwonly.py", line 57, in <module>: In method __init__, non-default argument c follows default argument [invalid-function-definition]
+File "dataclasses_kwonly.py", line 61, in <module>: function DC4.__init__ got multiple values for keyword argument 'b' [duplicate-keyword-argument]
+         Expected: (self, a, b, c)
+  Actually passed: (self, a, b, b)
+"""

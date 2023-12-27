@@ -1,0 +1,8 @@
+conformant = "Partial"
+notes = """
+Does not correctly evaluate type of descriptor access.
+"""
+output = """
+dataclasses_descriptors.py:66: error: Expression is of type "Desc2[int]", not "int"  [assert-type]
+dataclasses_descriptors.py:67: error: Expression is of type "Desc2[str]", not "str"  [assert-type]
+"""

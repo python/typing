@@ -1,0 +1,6 @@
+conformant = "Pass"
+output = """
+dataclasses_kwonly.py:23:11 - error: Expected 1 positional argument (reportGeneralTypeIssues)
+dataclasses_kwonly.py:38:11 - error: Expected 1 positional argument (reportGeneralTypeIssues)
+dataclasses_kwonly.py:53:11 - error: Expected 1 positional argument (reportGeneralTypeIssues)
+"""

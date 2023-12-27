@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.31sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.34sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -152,10 +152,14 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_descriptors</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not correctly evaluate type of descriptor access.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_frozen</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_hash</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report when dataclass is not compatible with Hashable protocol.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_inheritance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_kwonly</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly rejects kw_only field with default before positional field.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_order</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_postinit</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_slots</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject write to instance variable that is not defined in __slots__.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_usage</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -174,7 +178,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(0.94sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(0.84sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -199,10 +203,14 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_descriptors</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_frozen</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_hash</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_inheritance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_kwonly</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_order</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_postinit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports incorrect error for incompatible `__post_init__` method override.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_slots</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_usage</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -221,7 +229,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.40sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.28sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -246,10 +254,14 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_descriptors</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly generates error when calling constructor of dataclass with descriptor.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_frozen</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject frozen dataclass inherited from non-frozen dataclass.<br>Does not reject non-frozen dataclass inherited from frozen dataclass.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_hash</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report when dataclass is not compatible with Hashable protocol.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_inheritance</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject ClassVar that is overridden by instance variable.<br>Does not reject instance variable that is overridden by ClassVar.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_kwonly</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_order</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report type incompatibility with comparison operator.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_postinit</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not perform validation of `__post_init__` method.<br>Does not reject access of `InitVar` from object.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_slots</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error when `slots=True` is used with `__slots__` definition.<br>Does not reject write to instance variable that is not defined in __slots__.<br>Does not reject access to `__slots__` from dataclass instance when `slots=False`.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_usage</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error when field with no default follows field with default.<br>Incorrectly reports error with InitVar that has default value.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -268,7 +280,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support `tuple` in `assert_type` call.<br>Does not reject TypeGuard method with too few parameters.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(24.23sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(29.35sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -281,7 +293,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_advanced</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_attributes</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 not-conformant">Unknown</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject protocol compatibility due to method `Self` return type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -293,10 +305,14 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_descriptors</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand descriptor objects in dataclass.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_frozen</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not report assignment to field within frozen dataclass instance.<br>Does not reject frozen dataclass inherited from non-frozen dataclass.<br>Does not reject non-frozen dataclass inherited from frozen dataclass.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_hash</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report when dataclass is not compatible with Hashable protocol.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_inheritance</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject ClassVar that is overridden by instance variable.<br>Does not reject instance variable that is overridden by ClassVar.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_kwonly</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports error when kw_only field has default value.<br>Incorrectly rejects kw_only field with default before positional field.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_order</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report type incompatibility with comparison operator.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_postinit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not validate `__post_init__` method.<br>Reports incorrect error for incompatible `__post_init__` method override.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_slots</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error when `slots=True` is used with `__slots__` definition.<br>Does not reject write to instance variable that is not defined in __slots__.<br>Incorrectly reports error when accessing `__slots__` when `slots=True`.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_usage</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
