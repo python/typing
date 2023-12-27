@@ -1,0 +1,46 @@
+conformant = "Partial"
+notes = """
+Incorrectly reports error for type alias defined with ParamSpec.
+Does not report invalid specialization of generic type alias with bound TypeVar.
+Incorrectly evaluates generic type alias with ParamSpec with missing type argument.
+Allows some illegal annotation forms to be interpreted as valid type aliases.
+Does not report invalid specialization of already-specialized generic type alias.
+"""
+output = """
+File "aliases_implicit.py", line 54, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][[str, str], None]'  [invalid-annotation]
+  Callable[Concatenate[int, P], R] expected 1 parameter, got 2
+File "aliases_implicit.py", line 54, in <module>: Invalid type annotation '[str, str]'  [invalid-annotation]
+  Not a type
+File "aliases_implicit.py", line 68, in good_type_aliases: Callable[Concatenate, Any] [assert-type]
+  Expected: Callable[[int, str, str], None]
+    Actual: Callable[Concatenate, Any]
+File "aliases_implicit.py", line 72, in good_type_aliases: Callable[[Any], None] [assert-type]
+  Expected: Callable[..., None]
+    Actual: Callable[[Any], None]
+File "aliases_implicit.py", line 76, in <module>: Invalid type annotation 'Optional[int][int]'  [invalid-annotation]
+  Optional[int] expected 0 parameters, got 1
+File "aliases_implicit.py", line 77, in <module>: Invalid type annotation 'List[Optional[int]][int]'  [invalid-annotation]
+  List[Optional[int]] expected 0 parameters, got 1
+File "aliases_implicit.py", line 78, in <module>: Invalid type annotation 'List[T][int, int]'  [invalid-annotation]
+  List[T] expected 1 parameter, got 2
+File "aliases_implicit.py", line 79, in <module>: Invalid type annotation 'Callable[[int, T], T][int, int]'  [invalid-annotation]
+  Callable[[int, T], T] expected 1 parameter, got 2
+File "aliases_implicit.py", line 80, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][int, int]'  [invalid-annotation]
+  Callable[Concatenate[int, P], R] expected 1 parameter, got 2
+File "aliases_implicit.py", line 105, in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]
+  Not a type
+File "aliases_implicit.py", line 105, in <module>: Invalid type annotation '((int, str),)' for p3 [invalid-annotation]
+  Not a type
+File "aliases_implicit.py", line 105, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for p4 [invalid-annotation]
+  Not a type
+File "aliases_implicit.py", line 105, in <module>: Invalid type annotation "{'a': 'b'}" for p5 [invalid-annotation]
+  Not a type
+File "aliases_implicit.py", line 105, in <module>: Invalid type annotation '3' for p9 [invalid-annotation]
+  Not a type
+File "aliases_implicit.py", line 105, in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]
+  Not a type
+File "aliases_implicit.py", line 105, in <module>: Invalid type annotation '1' for p11 [invalid-annotation]
+  Not a type
+File "aliases_implicit.py", line 135, in <module>: Invalid type annotation 'Union[list, set][int]'  [invalid-annotation]
+  Union[list, set] expected 0 parameters, got 1
+"""

@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.33sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.45sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -145,7 +145,7 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_traditional</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -193,7 +193,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(0.91sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(1.04sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -211,7 +211,7 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_traditional</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -259,7 +259,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.41sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.46sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -277,7 +277,7 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_traditional</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports error for type alias defined with ParamSpec.<br>Incorrectly rejects some valid type aliases when used in annotations.<br>Incorrectly evaluates generic type alias with ParamSpec with missing type argument.<br>Does not report invalid specialization of generic type aliases.<br>Does not report error for attempt to instantiate union type alias.<br>Does not report invalid specialization of already-specialized generic type alias.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports error for type alias defined with ParamSpec.<br>Incorrectly rejects some valid type aliases when used in annotations.<br>Incorrectly evaluates generic type alias with ParamSpec with missing type argument.<br>Does not report invalid specialization of generic type aliases.<br>Does not report error for attempt to instantiate union type alias.<br>Does not report invalid specialization of already-specialized generic type alias.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -325,7 +325,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support `tuple` in `assert_type` call.<br>Does not reject TypeGuard method with too few parameters.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(44.87sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(45.36sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -343,7 +343,7 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_traditional</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports error for type alias defined with ParamSpec.<br>Does not report invalid specialization of generic type alias with bound TypeVar.<br>Incorrectly evaluates generic type alias with ParamSpec with missing type argument.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br>Does not report invalid specialization of already-specialized generic type alias.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports error for type alias defined with ParamSpec.<br>Does not report invalid specialization of generic type alias with bound TypeVar.<br>Incorrectly evaluates generic type alias with ParamSpec with missing type argument.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br>Does not report invalid specialization of already-specialized generic type alias.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not detect variance incompatibility.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">

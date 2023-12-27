@@ -1,5 +1,5 @@
 """
-Tests traditional (PEP 484) type aliases.
+Tests traditional implicit type aliases.
 """
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/aliases.html
