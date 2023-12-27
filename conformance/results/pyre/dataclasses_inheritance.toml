@@ -1,0 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not reject ClassVar that is overridden by instance variable.
+Does not reject instance variable that is overridden by ClassVar.
+"""
+output = """
+"""

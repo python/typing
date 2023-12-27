@@ -1,0 +1,11 @@
+conformant = "Pass"
+output = """
+dataclasses_frozen.py:16:5 - error: Cannot assign member "a" for type "DC1"
+  "DC1" is frozen
+    Member "__set__" is unknown (reportGeneralTypeIssues)
+dataclasses_frozen.py:17:5 - error: Cannot assign member "b" for type "DC1"
+  "DC1" is frozen
+    Member "__set__" is unknown (reportGeneralTypeIssues)
+dataclasses_frozen.py:22:1 - error: A non-frozen class cannot inherit from a class that is frozen (reportGeneralTypeIssues)
+dataclasses_frozen.py:32:12 - error: A frozen class cannot inherit from a class that is not frozen (reportGeneralTypeIssues)
+"""

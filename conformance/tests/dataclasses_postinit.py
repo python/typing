@@ -4,7 +4,7 @@ Tests type checking of the __post_init__ method in a dataclass.
 
 # Specification: https://peps.python.org/pep-0557/#post-init-processing
 
-from dataclasses import InitVar, dataclass, field
+from dataclasses import InitVar, dataclass, field, replace
 from typing import assert_type
 
 
@@ -27,7 +27,6 @@ assert_type(dc1.b, int)
 assert_type(dc1.c, int)
 print(dc1.x)  # Type error: cannot access InitVar
 print(dc1.y)  # Type error: cannot access InitVar
-
 
 @dataclass
 class DC2:

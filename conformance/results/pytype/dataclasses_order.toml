@@ -1,0 +1,6 @@
+conformant = "Partial"
+notes = """
+Does not report type incompatibility with comparison operator.
+"""
+output = """
+"""

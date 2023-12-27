@@ -6,7 +6,9 @@ Tests basic handling of the dataclass factory.
 # Also, see https://peps.python.org/pep-0557/
 
 from dataclasses import InitVar, dataclass, field
-from typing import ClassVar, Protocol, assert_type
+from typing import Any, Callable, ClassVar, Generic, Protocol, TypeVar, assert_type
+
+T = TypeVar("T")
 
 
 @dataclass(order=True)
@@ -65,6 +67,7 @@ class DC2:
     a: int = field(default=1)
     b: int  # Error: field with no default cannot follow field with default.
 
+
 @dataclass
 class DC3:
     a: InitVar[int] = 0
@@ -85,14 +88,143 @@ v6 = DC4(0, 1)  # Type error: too many parameters
 class DC5:
     a: int = field(default_factory=str)  # Type error: type mismatch
 
+
+def f(s: str) -> int:
+    return int(s)
+
+
 @dataclass
 class DC6:
     a: ClassVar[int] = 0
     b: str
+    c: Callable[[str], int] = f
+
 
 dc6 = DC6("")
 assert_type(dc6.a, int)
 assert_type(DC6.a, int)
 assert_type(dc6.b, str)
+assert_type(dc6.c, Callable[[str], int])
 
 
+@dataclass
+class DC7:
+    x: int
+
+
+@dataclass(init=False)
+class DC8(DC7):
+    y: int
+
+    def __init__(self, a: DC7, y: int):
+        self.__dict__ = a.__dict__
+
+
+a = DC7(3)
+b = DC8(a, 5)
+
+# This should generate an error because there is an extra parameter
+DC7(3, 4)
+
+# This should generate an error because there is one too few parameters
+DC8(a)
+
+
+@dataclass
+class DC9:
+    a: str = field(init=False, default="s")
+    b: bool = field()
+
+
+@dataclass
+class DC10(DC9):
+    a: str = field()
+    b: bool = field()
+
+
+@dataclass(init=False)
+class DC11:
+    x: int
+    x_squared: int
+
+    def __init__(self, x: int):
+        self.x = x
+        self.x_squared = x**2
+
+
+DC11(3)
+
+
+@dataclass(init=True)
+class DC12:
+    x: int
+    x_squared: int
+
+    def __init__(self, x: int):
+        self.x = x
+        self.x_squared = x**2
+
+
+DC12(3)
+
+
+@dataclass(init=False)
+class DC13:
+    x: int
+    x_squared: int
+
+
+# This should generate an error because there is no
+# override __init__ method and no synthesized __init__.
+DC13(3)
+
+
+@dataclass
+class DC14:
+    prop_1: str = field(init=False)
+    prop_2: str = field(default="hello")
+    prop_3: str = field(default_factory=lambda: "hello")
+
+
+@dataclass
+class DC15(DC14):
+    prop_2: str
+
+
+dc15 = DC15(prop_2="test")
+
+assert_type(dc15.prop_1, str)
+assert_type(dc15.prop_2, str)
+assert_type(dc15.prop_3, str)
+
+
+class DataclassProto(Protocol):
+    # Checking for this attribute seems to currently be
+    # the most reliable way to ascertain that something is a dataclass
+    __dataclass_fields__: dict[str, Any]
+
+
+v1: DataclassProto = dc15
+
+
+@dataclass
+class DC16(Generic[T]):
+    value: T
+
+
+assert_type(DC16(1), DC16[int])
+
+
+class DC17(DC16[str]):
+    pass
+
+
+assert_type(DC17(""), DC17)
+
+
+@dataclass
+class DC18:
+    x: int = field()
+    # This should generate an error because an unannotated field
+    # will result in a runtime exception.
+    y = field()
