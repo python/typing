@@ -3,4 +3,5 @@ tomlkit
 pyright
 mypy
 pyre-check
-pytype
+pytype; platform_system != "Windows"
+

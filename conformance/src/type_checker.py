@@ -21,9 +21,10 @@ class TypeChecker(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def install(self) -> None:
+    def install(self) -> bool:
         """
         Ensures that the latest version of the type checker is installed.
+        Returns False if installation fails.
         """
         raise NotImplementedError
 
@@ -48,8 +49,13 @@ class MypyTypeChecker(TypeChecker):
     def name(self) -> str:
         return "mypy"
 
-    def install(self) -> None:
-        run(f"{sys.executable} -m pip install mypy --upgrade", shell=True)
+    def install(self) -> bool:
+        try:
+            run(f"{sys.executable} -m pip install mypy --upgrade", check=True, shell=True)
+            return True
+        except:
+            print('Unable to install mypy')
+            return False
 
     def get_version(self) -> str:
         proc = run(
@@ -80,13 +86,18 @@ class PyrightTypeChecker(TypeChecker):
     def name(self) -> str:
         return "pyright"
 
-    def install(self) -> None:
-        # Install the Python wrapper if it's not installed.
-        run(f"{sys.executable} -m pip install pyright --upgrade", shell=True)
+    def install(self) -> bool:
+        try:
+            # Install the Python wrapper if it's not installed.
+            run(f"{sys.executable} -m pip install pyright --upgrade", check=True, shell=True)
 
-        # Force the Python wrapper to install node if needed
-        # and download the latest version of pyright.
-        self.get_version()
+            # Force the Python wrapper to install node if needed
+            # and download the latest version of pyright.
+            self.get_version()
+            return True
+        except:
+            print('Unable to install pyright')
+            return False
 
     def get_version(self) -> str:
         proc = run(
@@ -122,15 +133,21 @@ class PyreTypeChecker(TypeChecker):
     def name(self) -> str:
         return "pyre"
 
-    def install(self) -> None:
-        run(f"{sys.executable} -m pip install pyre-check --upgrade", shell=True)
+    def install(self) -> bool:
+        try:
+            run(f"{sys.executable} -m pip install pyre-check --upgrade", check=True, shell=True)
 
-        # Generate a default config file.
-        pyre_config = (
-            '{"site_package_search_strategy": "pep561", "source_directories": ["."]}\n'
-        )
-        with open(".pyre_configuration", "w") as f:
-            f.write(pyre_config)
+            # Generate a default config file.
+            pyre_config = (
+                '{"site_package_search_strategy": "pep561", "source_directories": ["."]}\n'
+            )
+            with open(".pyre_configuration", "w") as f:
+                f.write(pyre_config)
+
+            return True
+        except:
+            print('Unable to install pyre')
+            return False
 
     def get_version(self) -> str:
         proc = run("pyre --version", stdout=PIPE, text=True, shell=True)
@@ -156,8 +173,13 @@ class PytypeTypeChecker(TypeChecker):
     def name(self) -> str:
         return "pytype"
 
-    def install(self) -> None:
-        run(f"{sys.executable} -m pip install pytype --upgrade", shell=True)
+    def install(self) -> bool:
+        try:
+            run(f"{sys.executable} -m pip install pytype --upgrade", check=True, shell=True)
+            return True
+        except:
+            print('Unable to install pytype on this platform')
+            return False
 
     def get_version(self) -> str:
         proc = run(
