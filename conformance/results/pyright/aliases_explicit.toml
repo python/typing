@@ -1,6 +1,7 @@
 conformant = "Partial"
 notes = """
 Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.
+Allows some illegal annotation forms to be interpreted as valid type aliases.
 """
 output = """
 aliases_explicit.py:57:17 - error: "assert_type" mismatch: expected "(int, str, str) -> None" but received "(int, str, str) -> None" (reportGeneralTypeIssues)

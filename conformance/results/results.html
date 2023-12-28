@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.38sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.40sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -150,6 +150,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_recursive</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support `type` statement.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_typealiastype</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Support for TypeAliasType is not implemented.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -197,7 +198,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(0.99sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(1.01sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -215,11 +216,12 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_explicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_explicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of NewType in `isinstance` call.<br>Does not report inconsistency between name of NewType and assigned identifier name.<br>Does not reject use of NewType with TypedDict class.<br>Does not reject use of NewType with another NewType.<br>Does not reject use of NewType with Any.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_recursive</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject binary expression when used in type alias definition.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_typealiastype</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject type alias expression that uses TypeVar that is not in scope and not in `type_params`.<br>Does not allow access to `__value__` attribute of type alias.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -290,6 +292,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of NewType in `isinstance` call.<br>Does not reject use of NewType in class definition statement.<br>Does not report inconsistency between name of NewType and assigned identifier name.<br>Does not reject use of NewType with generic class with TypeVar.<br>Does not reject use of NewType with protocol class.<br>Does not reject use of NewType with TypedDict class.<br>Does not reject use of NewType with another NewType.<br>Does not reject use of NewType with Any.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_recursive</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not properly handle some recursive type aliases.<br>Does not properly handle specialization of generic recursive type aliases.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support `type` statement.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_typealiastype</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Support for TypeAliasType is not implemented.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -337,7 +340,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support `tuple` in `assert_type` call.<br>Does not reject TypeGuard method with too few parameters.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(50.07sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(51.57sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -360,6 +363,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of NewType in `isinstance` call.<br>Does not reject use of NewType in class definition statement.<br>Does not report inconsistency between name of NewType and assigned identifier name.<br>Does not reject use of NewType with generic class with TypeVar.<br>Does not reject use of NewType with protocol class.<br>Does not reject use of NewType with TypedDict class.<br>Does not reject use of NewType with another NewType.<br>Does not reject use of NewType with Any.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_recursive</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not detect type violation for some deeply-nested types.<br>Does not properly handle `|` for unions in some recursive type alias definitions.<br>Does not detect cyclical references in recursive type alias definition.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support `type` statement.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_typealiastype</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Support for TypeAliasType is not implemented.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not detect variance incompatibility.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">

@@ -1,0 +1,57 @@
+conformant = "Unsupported"
+notes = """
+Support for TypeAliasType is not implemented.
+"""
+output = """
+aliases_typealiastype.py:17: error: Type variable "aliases_typealiastype.T" is unbound  [valid-type]
+aliases_typealiastype.py:17: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+aliases_typealiastype.py:17: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+aliases_typealiastype.py:17: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
+aliases_typealiastype.py:18: error: Type variable "aliases_typealiastype.T" is unbound  [valid-type]
+aliases_typealiastype.py:18: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+aliases_typealiastype.py:18: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+aliases_typealiastype.py:18: error: Type variable "aliases_typealiastype.S" is unbound  [valid-type]
+aliases_typealiastype.py:18: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
+aliases_typealiastype.py:18: note: (Hint: Use "S" in function signature to bind "S" inside a function)
+aliases_typealiastype.py:18: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object, object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
+aliases_typealiastype.py:19: error: Cannot resolve name "GoodAlias4" (possible cyclic definition)  [misc]
+aliases_typealiastype.py:19: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
+aliases_typealiastype.py:22: error: Type variable "aliases_typealiastype.S" is unbound  [valid-type]
+aliases_typealiastype.py:22: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
+aliases_typealiastype.py:22: note: (Hint: Use "S" in function signature to bind "S" inside a function)
+aliases_typealiastype.py:22: error: Cannot resolve name "GoodAlias5" (possible cyclic definition)  [misc]
+aliases_typealiastype.py:22: error: TypeVarTuple "Ts" is unbound  [valid-type]
+aliases_typealiastype.py:23: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object, object, object, object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
+aliases_typealiastype.py:32: error: "TypeAliasType" has no attribute "other_attrib"  [attr-defined]
+aliases_typealiastype.py:35: error: Variable "aliases_typealiastype.GoodAlias4" is not valid as a type  [valid-type]
+aliases_typealiastype.py:35: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_typealiastype.py:36: error: Variable "aliases_typealiastype.GoodAlias4" is not valid as a type  [valid-type]
+aliases_typealiastype.py:36: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_typealiastype.py:37: error: Unexpected "..."  [misc]
+aliases_typealiastype.py:37: error: Variable "aliases_typealiastype.GoodAlias5" is not valid as a type  [valid-type]
+aliases_typealiastype.py:37: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_typealiastype.py:38: error: Unexpected "..."  [misc]
+aliases_typealiastype.py:38: error: Variable "aliases_typealiastype.GoodAlias5" is not valid as a type  [valid-type]
+aliases_typealiastype.py:38: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_typealiastype.py:39: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
+aliases_typealiastype.py:39: error: Variable "aliases_typealiastype.GoodAlias5" is not valid as a type  [valid-type]
+aliases_typealiastype.py:39: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_typealiastype.py:39: error: Unpack is only valid in a variadic position  [valid-type]
+aliases_typealiastype.py:40: error: Unexpected "..."  [misc]
+aliases_typealiastype.py:40: error: Variable "aliases_typealiastype.GoodAlias5" is not valid as a type  [valid-type]
+aliases_typealiastype.py:40: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_typealiastype.py:44: error: Type variable "aliases_typealiastype.S" is unbound  [valid-type]
+aliases_typealiastype.py:44: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
+aliases_typealiastype.py:44: note: (Hint: Use "S" in function signature to bind "S" inside a function)
+aliases_typealiastype.py:44: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
+aliases_typealiastype.py:46: error: Type variable "aliases_typealiastype.S" is unbound  [valid-type]
+aliases_typealiastype.py:46: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
+aliases_typealiastype.py:46: note: (Hint: Use "S" in function signature to bind "S" inside a function)
+aliases_typealiastype.py:48: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object, object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
+aliases_typealiastype.py:50: error: Cannot determine type of "BadAlias4"  [has-type]
+aliases_typealiastype.py:52: error: Cannot determine type of "BadAlias5"  [has-type]
+aliases_typealiastype.py:52: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
+aliases_typealiastype.py:54: error: Cannot determine type of "BadAlias7"  [has-type]
+aliases_typealiastype.py:54: error: Name "BadAlias7" is used before definition  [used-before-def]
+aliases_typealiastype.py:69: error: Function "list" could always be true in boolean context  [truthy-function]
+"""

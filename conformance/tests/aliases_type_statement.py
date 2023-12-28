@@ -18,6 +18,10 @@ GoodAlias1.bit_count  # Type error: cannot access attribute
 
 GoodAlias1()  # Type error: cannot call alias
 
+print(GoodAlias1.__value__)  # OK
+print(GoodAlias1.__type_params__)  # OK
+print(GoodAlias1.other_attrib)  # Type error: unknown attribute
+
 
 class DerivedInt(GoodAlias1):  # Type error: cannot use alias as base class
     pass

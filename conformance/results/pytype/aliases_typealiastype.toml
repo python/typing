@@ -1,0 +1,18 @@
+conformant = "Unsupported"
+notes = """
+Support for TypeAliasType is not implemented.
+"""
+output = """
+File "aliases_typealiastype.py", line 5, in <module>: Can't find module 'typing.TypeAliasType'. [import-error]
+File "aliases_typealiastype.py", line 5, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
+File "aliases_typealiastype.py", line 11, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+         Expected: (self)
+  Actually passed: (self, _)
+File "aliases_typealiastype.py", line 19, in <module>: Name 'GoodAlias4' is not defined [name-error]
+File "aliases_typealiastype.py", line 22, in <module>: Name 'GoodAlias5' is not defined [name-error]
+File "aliases_typealiastype.py", line 22, in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+  Not a type
+File "aliases_typealiastype.py", line 50, in <module>: Name 'BadAlias4' is not defined [name-error]
+File "aliases_typealiastype.py", line 52, in <module>: Name 'BadAlias5' is not defined [name-error]
+File "aliases_typealiastype.py", line 54, in <module>: Name 'BadAlias7' is not defined [name-error]
+"""
