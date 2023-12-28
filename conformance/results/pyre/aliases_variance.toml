@@ -1,0 +1,7 @@
+conformant = "Pass"
+output = """
+aliases_variance.py:24:0 Invalid type variance [46]: The type variable `Variable[T_co](covariant)` is incompatible with parent class type variable `Variable[T]` because subclasses cannot use more permissive type variables than their superclasses.
+aliases_variance.py:28:0 Invalid type variance [46]: The type variable `Variable[T_co](covariant)` is incompatible with parent class type variable `Variable[T]` because subclasses cannot use more permissive type variables than their superclasses.
+aliases_variance.py:32:0 Invalid type variance [46]: The type variable `Variable[T_co](covariant)` is incompatible with parent class type variable `Variable[T]` because subclasses cannot use more permissive type variables than their superclasses.
+aliases_variance.py:44:0 Invalid type variance [46]: The type variable `Variable[T_contra](contravariant)` is incompatible with parent class type variable `Variable[T]` because subclasses cannot use more permissive type variables than their superclasses.
+"""

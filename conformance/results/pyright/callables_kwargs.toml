@@ -1,0 +1,30 @@
+conformant = "Pass"
+output = """
+callables_kwargs.py:26:5 - error: Could not access item in TypedDict
+  "v2" is not a required key in "*TD2", so access may result in runtime exception (reportTypedDictNotRequiredAccess)
+callables_kwargs.py:43:5 - error: Arguments missing for parameters "v1", "v3" (reportGeneralTypeIssues)
+callables_kwargs.py:48:32 - error: No parameter named "v4" (reportGeneralTypeIssues)
+callables_kwargs.py:49:11 - error: Expected 0 positional arguments (reportGeneralTypeIssues)
+callables_kwargs.py:55:13 - error: Argument of type "str" cannot be assigned to parameter "v1" of type "int" in function "func1"
+  "str" is incompatible with "int" (reportGeneralTypeIssues)
+callables_kwargs.py:60:19 - error: Unable to match unpacked TypedDict argument to parameters
+  Parameter "v1" is already assigned (reportGeneralTypeIssues)
+callables_kwargs.py:61:16 - error: Unable to match unpacked TypedDict argument to parameters
+  Parameter "v3" is already assigned (reportGeneralTypeIssues)
+callables_kwargs.py:62:19 - error: Unable to match unpacked TypedDict argument to parameters
+  Parameter "v1" is already assigned (reportGeneralTypeIssues)
+callables_kwargs.py:98:19 - error: Expression of type "(**kwargs: **TD2) -> None" cannot be assigned to declared type "TDProtocol3"
+  Type "(**kwargs: **TD2) -> None" cannot be assigned to type "(*, v1: int, v2: int, v3: str) -> None"
+    Keyword parameter "v2" of type "int" cannot be assigned to type "str"
+      "int" is incompatible with "str" (reportGeneralTypeIssues)
+callables_kwargs.py:99:19 - error: Expression of type "(**kwargs: **TD2) -> None" cannot be assigned to declared type "TDProtocol4"
+  Type "(**kwargs: **TD2) -> None" cannot be assigned to type "(*, v1: int) -> None"
+    Keyword parameter "v3" is missing in destination (reportGeneralTypeIssues)
+callables_kwargs.py:100:19 - error: Expression of type "(**kwargs: **TD2) -> None" cannot be assigned to declared type "TDProtocol5"
+  Type "(**kwargs: **TD2) -> None" cannot be assigned to type "(v1: int, v3: str) -> None"
+    Function accepts too many positional parameters; expected 0 but received 2
+      Keyword parameter "v1" is missing in destination
+      Keyword parameter "v3" is missing in destination (reportGeneralTypeIssues)
+callables_kwargs.py:109:30 - error: Typed dictionary overlaps with keyword parameter: v1 (reportGeneralTypeIssues)
+callables_kwargs.py:121:21 - error: Expected TypedDict type argument for Unpack (reportGeneralTypeIssues)
+"""

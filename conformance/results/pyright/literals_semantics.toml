@@ -1,0 +1,10 @@
+conformant = "Pass"
+output = """
+literals_semantics.py:10:18 - error: Expression of type "Literal[4]" cannot be assigned to declared type "Literal[3]"
+  "Literal[4]" cannot be assigned to type "Literal[3]" (reportGeneralTypeIssues)
+literals_semantics.py:24:26 - error: Expression of type "Literal[0]" cannot be assigned to declared type "Literal[False]"
+  "Literal[0]" cannot be assigned to type "Literal[False]" (reportGeneralTypeIssues)
+literals_semantics.py:25:22 - error: Expression of type "Literal[False]" cannot be assigned to declared type "Literal[0]"
+  "Literal[False]" cannot be assigned to type "Literal[0]" (reportGeneralTypeIssues)
+literals_semantics.py:33:10 - error: Expression of type "Literal[6, 7, 8]" cannot be assigned to declared type "Literal[3, 4, 5]" (reportGeneralTypeIssues)
+"""

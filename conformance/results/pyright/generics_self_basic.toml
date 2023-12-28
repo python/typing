@@ -1,0 +1,8 @@
+conformant = "Pass"
+output = """
+generics_self_basic.py:19:16 - error: Expression of type "Shape" cannot be assigned to return type "Self@Shape"
+  Type "Shape" cannot be assigned to type "Self@Shape" (reportGeneralTypeIssues)
+generics_self_basic.py:32:16 - error: Expression of type "Shape" cannot be assigned to return type "Self@Shape"
+  Type "Shape" cannot be assigned to type "Self@Shape" (reportGeneralTypeIssues)
+generics_self_basic.py:64:31 - error: Expected no type arguments for class "Self" (reportGeneralTypeIssues)
+"""

@@ -1,0 +1,21 @@
+conformant = "Partial"
+notes = """
+Does not properly handle some recursive type aliases.
+Does not properly handle specialization of generic recursive type aliases.
+"""
+output = """
+aliases_recursive.py:19:0 Incompatible variable type [9]: j4 is declared to have type `aliases_recursive.Json (resolves to Union[None, Dict[str, Json], List[Json], float, int, str])` but is used as type `Dict[str, complex]`.
+aliases_recursive.py:20:0 Incompatible variable type [9]: j5 is declared to have type `aliases_recursive.Json (resolves to Union[None, Dict[str, Json], List[Json], float, int, str])` but is used as type `List[complex]`.
+aliases_recursive.py:30:35 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[str, typing.Any]`.
+aliases_recursive.py:33:4 Undefined or invalid type [11]: Annotation `RecursiveTuple` is not defined as a type.
+aliases_recursive.py:42:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_KT]], Type[Variable[_VT_co](covariant)]]` but got `Tuple[Type[str], str]`.
+aliases_recursive.py:44:4 Undefined or invalid type [11]: Annotation `RecursiveMapping` is not defined as a type.
+aliases_recursive.py:62:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `_SpecialForm`.
+aliases_recursive.py:65:4 Undefined or invalid type [11]: Annotation `SpecializedTypeAlias1` is not defined as a type.
+aliases_recursive.py:66:4 Undefined or invalid type [11]: Annotation `GenericTypeAlias1` is not defined as a type.
+aliases_recursive.py:69:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `_SpecialForm`.
+aliases_recursive.py:71:4 Undefined or invalid type [11]: Annotation `GenericTypeAlias2` is not defined as a type.
+aliases_recursive.py:76:0 Incompatible variable type [9]: RecursiveUnion is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.
+aliases_recursive.py:78:0 Incompatible variable type [9]: MutualReference1 is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.
+aliases_recursive.py:81:0 Incompatible variable type [9]: MutualReference2 is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.
+"""

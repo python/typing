@@ -1,0 +1,25 @@
+conformant = "Pass"
+output = """
+typeddicts_type_consistency.py:21:10 - error: Expression of type "B1" cannot be assigned to declared type "A1"
+  "x" is an incompatible type
+    Type "int" cannot be assigned to type "int | None"
+      "int" is incompatible with "None" (reportGeneralTypeIssues)
+typeddicts_type_consistency.py:38:10 - error: Expression of type "B2" cannot be assigned to declared type "A2"
+  "x" is not required in "type[A2]" (reportGeneralTypeIssues)
+typeddicts_type_consistency.py:65:6 - error: Expression of type "A3" cannot be assigned to declared type "B3"
+  "y" is missing from "type[A3]" (reportGeneralTypeIssues)
+typeddicts_type_consistency.py:69:21 - error: Expression of type "dict[str, int]" cannot be assigned to declared type "A3"
+  "y" is an undefined field in type "A3" (reportGeneralTypeIssues)
+typeddicts_type_consistency.py:76:22 - error: Expression of type "B3" cannot be assigned to declared type "dict[str, int]"
+  "B3" is incompatible with "dict[str, int]" (reportGeneralTypeIssues)
+typeddicts_type_consistency.py:77:25 - error: Expression of type "B3" cannot be assigned to declared type "dict[str, object]"
+  "B3" is incompatible with "dict[str, object]" (reportGeneralTypeIssues)
+typeddicts_type_consistency.py:78:22 - error: Expression of type "B3" cannot be assigned to declared type "dict[Any, Any]"
+  "B3" is incompatible with "dict[Any, Any]" (reportGeneralTypeIssues)
+typeddicts_type_consistency.py:82:25 - error: Expression of type "B3" cannot be assigned to declared type "Mapping[str, int]"
+  "B3" is incompatible with "Mapping[str, int]"
+    Type parameter "_VT_co@Mapping" is covariant, but "object" is not a subtype of "int"
+      "object" is incompatible with "int" (reportGeneralTypeIssues)
+typeddicts_type_consistency.py:124:56 - error: Expression of type "dict[str, dict[str, dict[str, int]]]" cannot be assigned to declared type "Outer1"
+  "Literal[1]" is incompatible with "str" (reportGeneralTypeIssues)
+"""

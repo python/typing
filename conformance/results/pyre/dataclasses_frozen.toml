@@ -1,0 +1,9 @@
+conformant = "Partial"
+notes = """
+Does not reject frozen dataclass inherited from non-frozen dataclass.
+Does not reject non-frozen dataclass inherited from frozen dataclass.
+"""
+output = """
+dataclasses_frozen.py:16:0 Invalid assignment [41]: Cannot reassign final attribute `dc1.a`.
+dataclasses_frozen.py:17:0 Invalid assignment [41]: Cannot reassign final attribute `dc1.b`.
+"""

@@ -1,0 +1,15 @@
+conformant = "Unsupported"
+notes = """
+Support for `LiteralString` is not implemented.
+"""
+output = """
+literals_literalstring.py:36: error: Parameter 2 of Literal[...] is invalid  [valid-type]
+literals_literalstring.py:37: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+literals_literalstring.py:43: error: Incompatible types in assignment (expression has type "Literal['two']", variable has type "Literal['']")  [assignment]
+literals_literalstring.py:74: error: Incompatible types in assignment (expression has type "int", variable has type "str")  [assignment]
+literals_literalstring.py:75: error: Incompatible types in assignment (expression has type "bytes", variable has type "str")  [assignment]
+literals_literalstring.py:142: error: Overloaded function signatures 1 and 2 overlap with incompatible return types  [overload-overlap]
+literals_literalstring.py:142: error: Overloaded function signatures 1 and 3 overlap with incompatible return types  [overload-overlap]
+literals_literalstring.py:152: error: Overloaded function signature 3 will never be matched: signature 2's parameter type(s) are the same or broader  [misc]
+literals_literalstring.py:162: error: Expression is of type "bool", not "str"  [assert-type]
+"""

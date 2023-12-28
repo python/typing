@@ -1,0 +1,20 @@
+conformant = "Partial"
+notes = """
+Does not report error when field with no default follows field with default.
+Incorrectly reports error with InitVar that has default value.
+"""
+output = """
+dataclasses_usage.py:51:5 Missing argument [20]: Call `InventoryItem.__init__` expects argument `unit_price`.
+dataclasses_usage.py:52:27 Incompatible parameter type [6]: In call `InventoryItem.__init__`, for 2nd positional argument, expected `float` but got `str`.
+dataclasses_usage.py:53:5 Too many arguments [19]: Call `InventoryItem.__init__` expects 3 positional arguments, 4 were provided.
+dataclasses_usage.py:73:4 Incompatible attribute type [8]: Attribute `a` declared in class `DC3` has type `InitVar[int]` but is used as type `int`.
+dataclasses_usage.py:84:5 Too many arguments [19]: Call `DC4.__init__` expects 1 positional argument, 2 were provided.
+dataclasses_usage.py:89:4 Incompatible attribute type [8]: Attribute `a` declared in class `DC5` has type `int` but is used as type `str`.
+dataclasses_usage.py:116:0 Uninitialized attribute [13]: Attribute `y` is declared in class `DC8` to have type `int` but is never initialized.
+dataclasses_usage.py:127:0 Too many arguments [19]: Call `DC7.__init__` expects 1 positional argument, 2 were provided.
+dataclasses_usage.py:130:0 Missing argument [20]: Call `DC8.__init__` expects argument `y`.
+dataclasses_usage.py:172:0 Uninitialized attribute [13]: Attribute `x` is declared in class `DC13` to have type `int` but is never initialized.
+dataclasses_usage.py:172:0 Uninitialized attribute [13]: Attribute `x_squared` is declared in class `DC13` to have type `int` but is never initialized.
+dataclasses_usage.py:179:0 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 1 was provided.
+dataclasses_usage.py:207:0 Incompatible variable type [9]: v1 is declared to have type `DataclassProto` but is used as type `DC15`.
+"""

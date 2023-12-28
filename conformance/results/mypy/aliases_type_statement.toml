@@ -1,0 +1,76 @@
+conformant = "Unsupported"
+notes = """
+Does not support `type` statement.
+"""
+output = """
+aliases_type_statement.py: error: Cannot assign multiple types to name "BadTypeAlias14" without an explicit "Type[...]" annotation  [misc]
+aliases_type_statement.py:8: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:9: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:9: error: Name "S3" is not defined  [name-defined]
+aliases_type_statement.py:9: error: Name "S1" is not defined  [name-defined]
+aliases_type_statement.py:9: error: Name "S2" is not defined  [name-defined]
+aliases_type_statement.py:10: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:10: error: Value of type "UnionType" is not indexable  [index]
+aliases_type_statement.py:14: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:21: error: "type[int]" has no attribute "__value__"  [attr-defined]
+aliases_type_statement.py:23: error: "type[int]" has no attribute "other_attrib"  [attr-defined]
+aliases_type_statement.py:37: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:38: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:39: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:40: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:41: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:42: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:43: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:44: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:45: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:46: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:47: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:48: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:48: error: Function "list" could always be true in boolean context  [truthy-function]
+aliases_type_statement.py:49: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:52: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:54: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:58: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:64: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:64: error: Name "K" is not defined  [name-defined]
+aliases_type_statement.py:69: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:72: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:72: error: Name "T" is not defined  [name-defined]
+aliases_type_statement.py:72: error: Variable "aliases_type_statement.RecursiveTypeAlias1" is not valid as a type  [valid-type]
+aliases_type_statement.py:72: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_type_statement.py:74: error: Variable "aliases_type_statement.RecursiveTypeAlias1" is not valid as a type  [valid-type]
+aliases_type_statement.py:74: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_type_statement.py:75: error: Variable "aliases_type_statement.RecursiveTypeAlias1" is not valid as a type  [valid-type]
+aliases_type_statement.py:75: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_type_statement.py:77: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:77: error: Name "P" is not defined  [name-defined]
+aliases_type_statement.py:77: error: Name "T" is not defined  [name-defined]
+aliases_type_statement.py:77: error: Name "S" is not defined  [name-defined]
+aliases_type_statement.py:77: error: Variable "aliases_type_statement.RecursiveTypeAlias2" is not valid as a type  [valid-type]
+aliases_type_statement.py:77: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_type_statement.py:79: error: Unexpected "..."  [misc]
+aliases_type_statement.py:79: error: Variable "aliases_type_statement.RecursiveTypeAlias2" is not valid as a type  [valid-type]
+aliases_type_statement.py:79: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_type_statement.py:80: error: Unexpected "..."  [misc]
+aliases_type_statement.py:80: error: Variable "aliases_type_statement.RecursiveTypeAlias2" is not valid as a type  [valid-type]
+aliases_type_statement.py:80: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_type_statement.py:81: error: Unexpected "..."  [misc]
+aliases_type_statement.py:81: error: Variable "aliases_type_statement.RecursiveTypeAlias2" is not valid as a type  [valid-type]
+aliases_type_statement.py:81: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_type_statement.py:82: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
+aliases_type_statement.py:82: error: Variable "aliases_type_statement.RecursiveTypeAlias2" is not valid as a type  [valid-type]
+aliases_type_statement.py:82: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_type_statement.py:84: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:84: error: Name "RecursiveTypeAlias3" is not defined  [name-defined]
+aliases_type_statement.py:86: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:86: error: Name "T" is not defined  [name-defined]
+aliases_type_statement.py:86: error: Cannot determine type of "RecursiveTypeAlias4"  [has-type]
+aliases_type_statement.py:88: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:88: error: Name "T" is not defined  [name-defined]
+aliases_type_statement.py:88: error: Variable "aliases_type_statement.RecursiveTypeAlias5" is not valid as a type  [valid-type]
+aliases_type_statement.py:88: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_type_statement.py:90: error: PEP 695 type aliases are not yet supported  [valid-type]
+aliases_type_statement.py:90: error: Cannot resolve name "RecursiveTypeAlias7" (possible cyclic definition)  [misc]
+aliases_type_statement.py:90: error: Name "RecursiveTypeAlias7" is used before definition  [used-before-def]
+aliases_type_statement.py:91: error: PEP 695 type aliases are not yet supported  [valid-type]
+"""

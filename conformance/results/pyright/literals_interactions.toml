@@ -1,0 +1,7 @@
+conformant = "Pass"
+output = """
+literals_interactions.py:15:5 - error: Index 5 is out of range for type tuple[int, str, list[bool]] (reportGeneralTypeIssues)
+literals_interactions.py:16:5 - error: Index -5 is out of range for type tuple[int, str, list[bool]] (reportGeneralTypeIssues)
+literals_interactions.py:17:5 - error: Index 4 is out of range for type tuple[int, str, list[bool]] (reportGeneralTypeIssues)
+literals_interactions.py:18:5 - error: Index -4 is out of range for type tuple[int, str, list[bool]] (reportGeneralTypeIssues)
+"""

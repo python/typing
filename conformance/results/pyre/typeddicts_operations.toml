@@ -1,0 +1,14 @@
+conformant = "Pass"
+output = """
+typeddicts_operations.py:22:16 Invalid TypedDict operation [54]: Expected `str` to be assigned to `Movie` field `name` but got `int`.
+typeddicts_operations.py:23:16 Invalid TypedDict operation [54]: Expected `int` to be assigned to `Movie` field `year` but got `str`.
+typeddicts_operations.py:24:6 TypedDict accessed with a missing key [27]: TypedDict `Movie` has no key `other`.
+typeddicts_operations.py:26:12 TypedDict accessed with a missing key [27]: TypedDict `Movie` has no key `other`.
+typeddicts_operations.py:28:8 TypedDict initialization error [55]: Missing required field `year` for TypedDict `Movie`.
+typeddicts_operations.py:29:8 TypedDict initialization error [55]: Expected type `int` for `Movie` field `year` but got `float`.
+typeddicts_operations.py:32:8 TypedDict initialization error [55]: TypedDict `Movie` has no field `other`.
+typeddicts_operations.py:37:4 Incompatible variable type [9]: movie is declared to have type `Movie` but is used as type `Dict[str, Union[int, str]]`.
+typeddicts_operations.py:44:10 TypedDict accessed with a missing key [27]: TypedDict `Movie` has no key `other`.
+typeddicts_operations.py:47:0 Undefined attribute [16]: `Movie` has no attribute `clear`.
+typeddicts_operations.py:62:0 Undefined attribute [16]: `MovieOptional` has no attribute `clear`.
+"""

@@ -1,0 +1,27 @@
+conformant = "Unsupported"
+notes = """
+Does not properly handle type compatibility checks with callback protocols.
+"""
+output = """
+File "callables_protocol.py", line 9, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+File "callables_protocol.py", line 10, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+File "callables_protocol.py", line 121, in <module>: Type annotation for cb6 does not match type of assignment [annotation-type-mismatch]
+  Annotation: NotProto6
+  Assignment: Callable[..., List[bytes]]
+File "callables_protocol.py", line 173, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+File "callables_protocol.py", line 176, in <module>: Invalid type annotation 'Protocol'  [invalid-annotation]
+  Parameters to Generic[...] must all be type variables
+File "callables_protocol.py", line 183, in <module>: Invalid type annotation 'Proto9[P, R]'  [invalid-annotation]
+  Proto9[R] expected 1 parameter, got 2
+File "callables_protocol.py", line 184, in decorator1: Invalid type annotation 'Proto9[P, R]'  [invalid-annotation]
+  Proto9[R] expected 1 parameter, got 2
+File "callables_protocol.py", line 188, in decorator1: bad return type [bad-return-type]
+           Expected: Proto9
+  Actually returned: Proto9
+Called from (traceback):
+  line 191, in current file
+File "callables_protocol.py", line 197, in <module>: No attribute 'other_attribute2' on Proto9 [attribute-error]
+File "callables_protocol.py", line 199, in <module>: Function Proto9.__call__ was called with the wrong arguments [wrong-arg-types]
+         Expected: (self, x: P.kwargs, ...)
+  Actually passed: (self, x: int)
+"""

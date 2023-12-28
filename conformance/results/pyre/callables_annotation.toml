@@ -1,0 +1,17 @@
+conformant = "Partial"
+notes = """
+Does not evaluate correct type for `*args: int` parameter.
+Does not reject illegal form `Callable[[...], int]`.
+"""
+output = """
+callables_annotation.py:13:4 Missing argument [20]: PositionalOnly call expects argument in position 1.
+callables_annotation.py:14:10 Incompatible parameter type [6]: In anonymous call, for 2nd positional argument, expected `str` but got `int`.
+callables_annotation.py:15:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.
+callables_annotation.py:16:4 Unexpected keyword [28]: Unexpected keyword argument `a` to anonymous call.
+callables_annotation.py:22:4 Too many arguments [19]: PositionalOnly call expects 0 positional arguments, 1 was provided.
+callables_annotation.py:35:28 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.
+callables_annotation.py:39:4 Invalid type [31]: Expression `typing.Callable[int]` is not a valid type.
+callables_annotation.py:40:4 Invalid type [31]: Expression `typing.Callable[(int, int)]` is not a valid type.
+callables_annotation.py:41:4 Invalid type [31]: Expression `typing.Callable[([], [int])]` is not a valid type.
+callables_annotation.py:42:4 Invalid type [31]: Expression `typing.Callable[(int, int, int)]` is not a valid type.
+"""

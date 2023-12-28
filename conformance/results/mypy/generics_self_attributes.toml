@@ -1,0 +1,5 @@
+conformant = "Pass"
+output = """
+generics_self_attributes.py:26: error: Argument "next" to "OrdinalLinkedList" has incompatible type "LinkedList[int]"; expected "OrdinalLinkedList | None"  [arg-type]
+generics_self_attributes.py:32: error: Incompatible types in assignment (expression has type "LinkedList[int]", variable has type "OrdinalLinkedList | None")  [assignment]
+"""

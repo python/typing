@@ -1,0 +1,26 @@
+conformant = "Unsupported"
+notes = """
+Does not understand @dataclass_transform.
+"""
+output = """
+dataclasses_transform_func.py:20:0 Incompatible overload [43]: The implementation of `create_model` does not accept all possible arguments of overload defined on line `20`.
+dataclasses_transform_func.py:25:5 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters.
+dataclasses_transform_func.py:29:0 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
+dataclasses_transform_func.py:34:0 Uninitialized attribute [13]: Attribute `id` is declared in class `Customer1` to have type `int` but is never initialized.
+dataclasses_transform_func.py:34:0 Uninitialized attribute [13]: Attribute `name` is declared in class `Customer1` to have type `str` but is never initialized.
+dataclasses_transform_func.py:40:0 Uninitialized attribute [13]: Attribute `id` is declared in class `Customer2` to have type `int` but is never initialized.
+dataclasses_transform_func.py:40:0 Uninitialized attribute [13]: Attribute `name` is declared in class `Customer2` to have type `str` but is never initialized.
+dataclasses_transform_func.py:46:0 Uninitialized attribute [13]: Attribute `salary` is declared in class `Customer2Subclass` to have type `float` but is never initialized.
+dataclasses_transform_func.py:50:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_func.py:53:7 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 2 were provided.
+dataclasses_transform_func.py:57:0 Incompatible attribute type [8]: Attribute `name` declared in class `Customer1` has type `str` but is used as type `int`.
+dataclasses_transform_func.py:61:5 Unsupported operand [58]: `<` is not supported for operand types `Customer1` and `Customer1`.
+dataclasses_transform_func.py:65:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_func.py:67:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_func.py:71:7 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 2 were provided.
+dataclasses_transform_func.py:73:5 Unsupported operand [58]: `<` is not supported for operand types `Customer2` and `Customer2`.
+dataclasses_transform_func.py:82:0 Uninitialized attribute [13]: Attribute `id` is declared in class `Customer3` to have type `int` but is never initialized.
+dataclasses_transform_func.py:82:0 Uninitialized attribute [13]: Attribute `name` is declared in class `Customer3` to have type `str` but is never initialized.
+dataclasses_transform_func.py:90:0 Uninitialized attribute [13]: Attribute `age` is declared in class `Customer3Subclass` to have type `int` but is never initialized.
+dataclasses_transform_func.py:94:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+"""

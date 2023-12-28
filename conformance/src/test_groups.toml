@@ -1,0 +1,68 @@
+
+[concepts]
+name = "Type system concepts"
+href = "https://typing.readthedocs.io/en/latest/spec/concepts.html"
+
+[annotations]
+name = "Type annotations"
+href = "https://typing.readthedocs.io/en/latest/spec/annotations.html"
+
+[specialtypes]
+name = "Special types in annotations"
+href = "https://typing.readthedocs.io/en/latest/spec/special-types.html"
+
+[generics]
+name = "Generics"
+href = "https://typing.readthedocs.io/en/latest/spec/generics.html"
+
+[qualifiers]
+name = "Type qualifiers"
+href = "https://typing.readthedocs.io/en/latest/spec/qualifiers.html"
+
+[classes]
+name = "Class type compatibility"
+href = "https://typing.readthedocs.io/en/latest/spec/class-compat.html"
+
+[aliases]
+name = "Type aliases"
+href = "https://typing.readthedocs.io/en/latest/spec/aliases.html"
+
+[literals]
+name = "Literals"
+href = "https://typing.readthedocs.io/en/latest/spec/literal.html"
+
+[protocols]
+name = "Protocols"
+href = "https://typing.readthedocs.io/en/latest/spec/protocol.html"
+
+[callables]
+name = "Callables"
+href = "https://typing.readthedocs.io/en/latest/spec/callables.html"
+
+[overloads]
+name = "Overloads"
+href = "https://typing.readthedocs.io/en/latest/spec/overload.html"
+
+[dataclasses]
+name = "Dataclasses"
+href = "https://typing.readthedocs.io/en/latest/spec/dataclasses.html"
+
+[typeddicts]
+name = "Typed dictionaries"
+href = "https://typing.readthedocs.io/en/latest/spec/typeddict.html"
+
+[narrowing]
+name = "Type narrowing"
+href = "https://typing.readthedocs.io/en/latest/spec/narrowing.html"
+
+[directives]
+name = "Type checker directives"
+href = "https://typing.readthedocs.io/en/latest/spec/directives.html"
+
+[distribution]
+name = "Distributing type information"
+href = "https://typing.readthedocs.io/en/latest/spec/distributing.html"
+
+[historical]
+name = "Historical and deprecated features"
+href = "https://typing.readthedocs.io/en/latest/spec/historical.html"

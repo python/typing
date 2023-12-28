@@ -1,0 +1,24 @@
+conformant = "Pass"
+output = """
+typeddicts_operations.py:22:1 - error: Could not assign item in TypedDict
+  "Literal[1982]" is incompatible with "str" (reportGeneralTypeIssues)
+typeddicts_operations.py:23:1 - error: Could not assign item in TypedDict
+  "Literal['']" is incompatible with "int" (reportGeneralTypeIssues)
+typeddicts_operations.py:24:1 - error: Could not assign item in TypedDict
+  "other" is not a defined key in "Movie" (reportGeneralTypeIssues)
+typeddicts_operations.py:26:7 - error: Could not access item in TypedDict
+  "other" is not a defined key in "Movie" (reportGeneralTypeIssues)
+typeddicts_operations.py:28:9 - error: Expression of type "dict[str, str]" cannot be assigned to declared type "Movie"
+  "year" is required in "Movie" (reportGeneralTypeIssues)
+typeddicts_operations.py:29:42 - error: Expression of type "dict[str, str | float]" cannot be assigned to declared type "Movie"
+  "float" is incompatible with "int" (reportGeneralTypeIssues)
+typeddicts_operations.py:32:36 - error: Expression of type "dict[str, str | int]" cannot be assigned to declared type "Movie"
+  "other" is an undefined field in type "Movie" (reportGeneralTypeIssues)
+typeddicts_operations.py:37:20 - error: Expression of type "dict[str, str | int]" cannot be assigned to declared type "Movie" (reportGeneralTypeIssues)
+typeddicts_operations.py:47:7 - error: Cannot access member "clear" for type "Movie"
+  Member "clear" is unknown (reportGeneralTypeIssues)
+typeddicts_operations.py:49:5 - error: Could not delete item in TypedDict
+  "name" is a required key and cannot be deleted (reportGeneralTypeIssues)
+typeddicts_operations.py:62:16 - error: Cannot access member "clear" for type "MovieOptional"
+  Member "clear" is unknown (reportGeneralTypeIssues)
+"""

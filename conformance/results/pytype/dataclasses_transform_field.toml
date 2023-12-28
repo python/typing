@@ -1,0 +1,11 @@
+conformant = "Unsupported"
+notes = """
+Does not understand @dataclass_transform.
+"""
+output = """
+File "dataclasses_transform_field.py", line 48, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+File "dataclasses_transform_field.py", line 50, in create_model: bad return type [bad-return-type]
+           Expected: Callable[[type], type]
+  Actually returned: None
+  Attributes of protocol Callable[[Type[T]], Type[T]] are not implemented on None: __call__
+"""

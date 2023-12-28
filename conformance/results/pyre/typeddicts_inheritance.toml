@@ -1,0 +1,8 @@
+conformant = "Partial"
+notes = """
+Does not reject TypedDict class that inherits from non-TypedDict class.
+"""
+output = """
+typeddicts_inheritance.py:54:0 Inconsistent override [15]: `x` overrides attribute defined in `X1` inconsistently. Type `int` is not a subtype of the overridden attribute `str`.
+typeddicts_inheritance.py:65:0 Invalid inheritance [39]: Field `x` has type `int` in base class `X2` and type `str` in base class `Y2`.
+"""

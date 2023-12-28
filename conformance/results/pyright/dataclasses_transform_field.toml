@@ -1,0 +1,5 @@
+conformant = "Pass"
+output = """
+dataclasses_transform_field.py:64:16 - error: No parameter named "id" (reportGeneralTypeIssues)
+dataclasses_transform_field.py:75:16 - error: Expected 0 positional arguments (reportGeneralTypeIssues)
+"""

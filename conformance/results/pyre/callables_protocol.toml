@@ -1,0 +1,26 @@
+conformant = "Partial"
+notes = """
+Does not correctly handle callback protocol that declares attributes in all functions.
+Does not report type incompatibility for callback protocol with positional-only parameters.
+Incorrectly reports type compatibility error with callback that has *args and **kwargs.
+Does not report type incompatibility for callback missing a default argument for positional parameter.
+Does not report type incompatibility for callback missing a default argument for keyword parameter.
+"""
+output = """
+callables_protocol.py:35:0 Incompatible variable type [9]: cb1 is declared to have type `Proto1` but is used as type `typing.Callable(cb1_bad1)[[Variable(bytes), KeywordOnly(max_items, Optional[int])], List[bytes]]`.
+callables_protocol.py:36:0 Incompatible variable type [9]: cb1 is declared to have type `Proto1` but is used as type `typing.Callable(cb1_bad2)[[Variable(bytes)], List[bytes]]`.
+callables_protocol.py:37:0 Incompatible variable type [9]: cb1 is declared to have type `Proto1` but is used as type `typing.Callable(cb1_bad3)[[Variable(bytes), KeywordOnly(max_len, Optional[str])], List[bytes]]`.
+callables_protocol.py:67:0 Incompatible variable type [9]: cb2 is declared to have type `Proto2` but is used as type `typing.Callable(cb2_bad1)[[Variable(bytes)], typing.Any]`.
+callables_protocol.py:68:0 Incompatible variable type [9]: cb2 is declared to have type `Proto2` but is used as type `typing.Callable(cb2_bad2)[[Variable(str), Keywords(str)], typing.Any]`.
+callables_protocol.py:69:0 Incompatible variable type [9]: cb2 is declared to have type `Proto2` but is used as type `typing.Callable(cb2_bad3)[[Variable(bytes), Keywords(bytes)], typing.Any]`.
+callables_protocol.py:70:0 Incompatible variable type [9]: cb2 is declared to have type `Proto2` but is used as type `typing.Callable(cb2_bad4)[[Keywords(str)], typing.Any]`.
+callables_protocol.py:97:0 Incompatible variable type [9]: var4 is declared to have type `Proto4` but is used as type `typing.Callable(cb4_bad1)[[Named(x, int)], None]`.
+callables_protocol.py:121:0 Incompatible variable type [9]: cb6 is declared to have type `NotProto6` but is used as type `typing.Callable(cb6_bad1)[[Variable(bytes), KeywordOnly(max_len, Optional[int], default)], List[bytes]]`.
+callables_protocol.py:169:0 Incompatible variable type [9]: cb8 is declared to have type `Proto8` but is used as type `typing.Callable(cb8_bad1)[[Named(x, int)], typing.Any]`.
+callables_protocol.py:186:4 Incompatible attribute type [8]: Attribute `other_attribute` declared in class `Proto9` has type `int` but is used as type `str`.
+callables_protocol.py:187:4 Undefined attribute [16]: `Proto9` has no attribute `xxx`.
+callables_protocol.py:197:6 Undefined attribute [16]: `Proto9` has no attribute `other_attribute2`.
+callables_protocol.py:216:0 Incompatible variable type [9]: cb10 is declared to have type `Proto10` but is used as type `typing.Callable(cb10_good)[[], None]`.
+callables_protocol.py:259:0 Incompatible variable type [9]: cb12 is declared to have type `Proto12` but is used as type `typing.Callable(cb12_good2)[[Variable(typing.Any), Keywords(typing.Any)], None]`.
+callables_protocol.py:260:0 Incompatible variable type [9]: cb12 is declared to have type `Proto12` but is used as type `typing.Callable(cb12_bad1)[[Variable(typing.Any), KeywordOnly(kwarg0, typing.Any)], None]`.
+"""

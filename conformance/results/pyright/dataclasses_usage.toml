@@ -1,0 +1,17 @@
+conformant = "Pass"
+output = """
+dataclasses_usage.py:51:6 - error: Argument missing for parameter "unit_price" (reportGeneralTypeIssues)
+dataclasses_usage.py:52:28 - error: Argument of type "Literal['price']" cannot be assigned to parameter "unit_price" of type "float" in function "__init__"
+  "Literal['price']" is incompatible with "float" (reportGeneralTypeIssues)
+dataclasses_usage.py:53:36 - error: Expected 3 positional arguments (reportGeneralTypeIssues)
+dataclasses_usage.py:62:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
+dataclasses_usage.py:68:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
+dataclasses_usage.py:74:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
+dataclasses_usage.py:84:13 - error: Expected 1 positional argument (reportGeneralTypeIssues)
+dataclasses_usage.py:89:36 - error: Argument of type "type[str]" cannot be assigned to parameter "default_factory" of type "() -> _T@field" in function "field"
+  No overloaded function matches type "() -> int" (reportGeneralTypeIssues)
+dataclasses_usage.py:127:8 - error: Expected 1 positional argument (reportGeneralTypeIssues)
+dataclasses_usage.py:130:1 - error: Argument missing for parameter "y" (reportGeneralTypeIssues)
+dataclasses_usage.py:179:1 - error: Expected no arguments to "DC13" constructor (reportGeneralTypeIssues)
+dataclasses_usage.py:230:9 - error: Dataclass field without type annotation will cause runtime exception (reportGeneralTypeIssues)
+"""

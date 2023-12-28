@@ -1,0 +1,14 @@
+conformant = "Pass"
+output = """
+typeddicts_operations.py:22: error: Value of "name" has incompatible type "int"; expected "str"  [typeddict-item]
+typeddicts_operations.py:23: error: Value of "year" has incompatible type "str"; expected "int"  [typeddict-item]
+typeddicts_operations.py:24: error: TypedDict "Movie" has no key "other"  [typeddict-unknown-key]
+typeddicts_operations.py:26: error: TypedDict "Movie" has no key "other"  [typeddict-item]
+typeddicts_operations.py:28: error: Missing key "year" for TypedDict "Movie"  [typeddict-item]
+typeddicts_operations.py:29: error: Incompatible types (expression has type "float", TypedDict item "year" has type "int")  [typeddict-item]
+typeddicts_operations.py:32: error: Extra key "other" for TypedDict "Movie"  [typeddict-unknown-key]
+typeddicts_operations.py:37: error: Expected TypedDict key to be string literal  [misc]
+typeddicts_operations.py:47: error: "Movie" has no attribute "clear"  [attr-defined]
+typeddicts_operations.py:49: error: Key "name" of TypedDict "Movie" cannot be deleted  [misc]
+typeddicts_operations.py:62: error: "MovieOptional" has no attribute "clear"  [attr-defined]
+"""

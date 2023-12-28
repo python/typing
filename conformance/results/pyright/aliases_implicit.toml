@@ -1,0 +1,31 @@
+conformant = "Partial"
+notes = """
+Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.
+Allows some illegal annotation forms to be interpreted as valid type aliases.
+"""
+output = """
+aliases_implicit.py:68:17 - error: "assert_type" mismatch: expected "(int, str, str) -> None" but received "(int, str, str) -> None" (reportGeneralTypeIssues)
+aliases_implicit.py:76:24 - error: Expected no type arguments for class "int" (reportGeneralTypeIssues)
+aliases_implicit.py:76:24 - error: Expected no type arguments for class "NoneType" (reportGeneralTypeIssues)
+aliases_implicit.py:77:9 - error: Type "list[int | None]" is already specialized (reportGeneralTypeIssues)
+aliases_implicit.py:78:29 - error: Too many type arguments provided for "GoodTypeAlias4[T@GoodTypeAlias4]"; expected 1 but received 2
+aliases_implicit.py:79:29 - error: Too many type arguments provided for "GoodTypeAlias8[T@GoodTypeAlias8]"; expected 1 but received 2
+aliases_implicit.py:80:24 - error: Expected ParamSpec, ellipsis, or list of types
+aliases_implicit.py:81:9 - error: Could not specialize type "GoodTypeAlias12[TFloat@GoodTypeAlias12]"
+  Type "str" cannot be assigned to type "float"
+    "str" is incompatible with "float"
+aliases_implicit.py:106:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:107:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:108:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:109:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:110:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:113:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:114:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:115:10 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:116:10 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:118:10 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:119:10 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:133:6 - error: Object of type "type[list[Unknown]] | type[set[Unknown]]" is not callable (reportGeneralTypeIssues)
+aliases_implicit.py:135:5 - error: Type "list[Unknown]" is already specialized (reportGeneralTypeIssues)
+aliases_implicit.py:135:5 - error: Type "set[Unknown]" is already specialized (reportGeneralTypeIssues)
+"""

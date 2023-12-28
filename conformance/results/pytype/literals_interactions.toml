@@ -1,0 +1,48 @@
+conformant = "Partial"
+notes = """
+Incorrectly rejects some legal Literal annotations.
+Does not reject some illegal Literal annotations.
+Does not use Literal to distinguish overloads.
+Does not narrow based on `x is Literal` type guard pattern.
+Does not narrow based on `x == Literal` type guard pattern.
+"""
+output = """
+File "literals_interactions.py", line 11, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'int' at index 0
+File "literals_interactions.py", line 46, in open: bad return type [bad-return-type]
+           Expected: IO[str]
+  Actually returned: None
+Called from (traceback):
+  line 49, in current file
+File "literals_interactions.py", line 46, in open: bad return type [bad-return-type]
+           Expected: IO[bytes]
+  Actually returned: None
+Called from (traceback):
+  line 50, in current file
+File "literals_interactions.py", line 46, in open: bad return type [bad-return-type]
+           Expected: IO
+  Actually returned: None
+Called from (traceback):
+  line 51, in current file
+File "literals_interactions.py", line 61, in __add__: bad return type [bad-return-type]
+           Expected: Matrix[int, int]
+  Actually returned: None
+File "literals_interactions.py", line 64, in __matmul__: bad return type [bad-return-type]
+           Expected: Matrix[int, int]
+  Actually returned: None
+File "literals_interactions.py", line 67, in transpose: bad return type [bad-return-type]
+           Expected: Matrix[int, int]
+  Actually returned: None
+File "literals_interactions.py", line 72, in func2: Matrix[Any, int] [assert-type]
+  Expected: Matrix[int, int]
+    Actual: Matrix[Any, int]
+File "literals_interactions.py", line 93, in parse_status1: Union[Status, str] [assert-type]
+  Expected: str
+    Actual: Union[Status, str]
+File "literals_interactions.py", line 106, in parse_status2: Function expects_bad_status was called with the wrong arguments [wrong-arg-types]
+         Expected: (status: Literal['ABORTED', 'MALFORMED'])
+  Actually passed: (status: str)
+File "literals_interactions.py", line 109, in parse_status2: Function expects_pending_status was called with the wrong arguments [wrong-arg-types]
+         Expected: (status: Literal['PENDING'])
+  Actually passed: (status: str)
+"""

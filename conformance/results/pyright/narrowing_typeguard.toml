@@ -1,0 +1,5 @@
+conformant = "Pass"
+output = """
+narrowing_typeguard.py:102:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)
+narrowing_typeguard.py:107:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)
+"""

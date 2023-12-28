@@ -1,0 +1,11 @@
+conformant = "Unsupported"
+notes = """
+Does not understand @dataclass_transform.
+"""
+output = """
+dataclasses_transform_field.py:49:42 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters.
+dataclasses_transform_field.py:60:0 Unexpected keyword [28]: Unexpected keyword argument `name` to call `object.__init__`.
+dataclasses_transform_field.py:64:0 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_field.py:75:0 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 1 was provided.
+dataclasses_transform_field.py:77:0 Unexpected keyword [28]: Unexpected keyword argument `name` to call `object.__init__`.
+"""

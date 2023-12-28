@@ -1,0 +1,10 @@
+conformant = "Unsupported"
+notes = """
+Does not understand `Self` type.
+"""
+output = """
+generics_self_usage.py:20:34 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.
+generics_self_usage.py:86:8 Incompatible return type [7]: Expected `Variable[_Self_generics_self_usage_Foo3__ (bound to Foo3)]` but got `Foo3`.
+generics_self_usage.py:106:0 Incompatible variable type [9]: TupleSelf is declared to have type `TypeAlias` but is used as type `Type[tuple[Variable[_T_co](covariant)]]`.
+generics_self_usage.py:106:29 Undefined attribute [16]: Module `typing` has no attribute `Self`.
+"""

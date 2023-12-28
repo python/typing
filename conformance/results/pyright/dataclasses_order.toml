@@ -1,0 +1,4 @@
+conformant = "Pass"
+output = """
+dataclasses_order.py:50:4 - error: Operator "<" not supported for types "DC1" and "DC2" (reportGeneralTypeIssues)
+"""

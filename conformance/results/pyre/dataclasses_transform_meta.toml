@@ -1,0 +1,19 @@
+conformant = "Unsupported"
+notes = """
+Does not understand @dataclass_transform.
+"""
+output = """
+dataclasses_transform_meta.py:25:0 Uninitialized attribute [13]: Attribute `not_a_field` is declared in class `ModelMeta` to have type `str` but is never initialized.
+dataclasses_transform_meta.py:52:0 Uninitialized attribute [13]: Attribute `id` is declared in class `Customer2` to have type `int` but is never initialized.
+dataclasses_transform_meta.py:57:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_meta.py:63:7 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 2 were provided.
+dataclasses_transform_meta.py:66:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_meta.py:70:5 Unsupported operand [58]: `<` is not supported for operand types `Customer1` and `Customer1`.
+dataclasses_transform_meta.py:72:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_meta.py:74:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_meta.py:76:5 Unsupported operand [58]: `<` is not supported for operand types `Customer2` and `Customer2`.
+dataclasses_transform_meta.py:80:7 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 2 were provided.
+dataclasses_transform_meta.py:92:0 Uninitialized attribute [13]: Attribute `id` is declared in class `Customer3` to have type `int` but is never initialized.
+dataclasses_transform_meta.py:92:0 Uninitialized attribute [13]: Attribute `name` is declared in class `Customer3` to have type `str` but is never initialized.
+dataclasses_transform_meta.py:97:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+"""

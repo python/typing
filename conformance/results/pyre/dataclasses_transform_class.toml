@@ -1,0 +1,22 @@
+conformant = "Unsupported"
+notes = """
+Does not understand @dataclass_transform.
+"""
+output = """
+dataclasses_transform_class.py:27:0 Uninitialized attribute [13]: Attribute `not_a_field` is declared in class `ModelBase` to have type `str` but is never initialized.
+dataclasses_transform_class.py:52:0 Uninitialized attribute [13]: Attribute `id` is declared in class `Customer2` to have type `int` but is never initialized.
+dataclasses_transform_class.py:57:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_class.py:63:7 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 2 were provided.
+dataclasses_transform_class.py:65:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_class.py:69:5 Unsupported operand [58]: `<` is not supported for operand types `Customer1` and `Customer1`.
+dataclasses_transform_class.py:71:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_class.py:73:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_class.py:75:5 Unsupported operand [58]: `<` is not supported for operand types `Customer2` and `Customer2`.
+dataclasses_transform_class.py:79:7 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 2 were provided.
+dataclasses_transform_class.py:86:0 Uninitialized attribute [13]: Attribute `not_a_field` is declared in class `GenericModelBase` to have type `Variable[T]` but is never initialized.
+dataclasses_transform_class.py:103:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_class.py:107:0 Uninitialized attribute [13]: Attribute `not_a_field` is declared in class `ModelBaseFrozen` to have type `str` but is never initialized.
+dataclasses_transform_class.py:111:0 Uninitialized attribute [13]: Attribute `id` is declared in class `Customer3` to have type `int` but is never initialized.
+dataclasses_transform_class.py:111:0 Uninitialized attribute [13]: Attribute `name` is declared in class `Customer3` to have type `str` but is never initialized.
+dataclasses_transform_class.py:116:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+"""

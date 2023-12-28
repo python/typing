@@ -1,0 +1,40 @@
+conformant = "Unsupported"
+notes = """
+Does not understand descriptor objects in dataclass.
+"""
+output = """
+File "dataclasses_descriptors.py", line 24, in __get__: bad return type [bad-return-type]
+           Expected: int
+  Actually returned: None
+Called from (traceback):
+  line 37, in current file
+File "dataclasses_descriptors.py", line 24, in __get__: bad return type [bad-return-type]
+           Expected: Desc1
+  Actually returned: None
+Called from (traceback):
+  line 38, in current file
+File "dataclasses_descriptors.py", line 35, in <module>: Function DC1.__init__ was called with the wrong arguments [wrong-arg-types]
+         Expected: (self, y: Desc1 = ...)
+  Actually passed: (self, y: int)
+File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]
+           Expected: list
+  Actually returned: None
+File "dataclasses_descriptors.py", line 61, in <module>: list [assert-type]
+  Expected: List[int]
+    Actual: list
+File "dataclasses_descriptors.py", line 62, in <module>: list [assert-type]
+  Expected: List[str]
+    Actual: list
+File "dataclasses_descriptors.py", line 63, in <module>: list [assert-type]
+  Expected: List[str]
+    Actual: list
+File "dataclasses_descriptors.py", line 66, in <module>: Any [assert-type]
+  Expected: int
+    Actual: Any
+File "dataclasses_descriptors.py", line 67, in <module>: Any [assert-type]
+  Expected: str
+    Actual: Any
+File "dataclasses_descriptors.py", line 68, in <module>: Any [assert-type]
+  Expected: str
+    Actual: Any
+"""

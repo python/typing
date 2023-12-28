@@ -1,0 +1,26 @@
+conformant = "Partial"
+notes = """
+Does not reject call expressions in type annotation.
+Does not reject call lambda expression in type annotation.
+Does not reject list expression in type annotation.
+Does not reject ternary expression in type annotation.
+Does not reject f-string in type annotation.
+"""
+output = """
+File "annotations_typeexpr.py", line 76, in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]
+  Not a type
+File "annotations_typeexpr.py", line 76, in <module>: Invalid type annotation '(int, str)' for p3 [invalid-annotation]
+  Not a type
+File "annotations_typeexpr.py", line 76, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for p4 [invalid-annotation]
+  Not a type
+File "annotations_typeexpr.py", line 76, in <module>: Invalid type annotation '{}' for p5 [invalid-annotation]
+  Not a type
+File "annotations_typeexpr.py", line 76, in <module>: Invalid type annotation '3' for p9 [invalid-annotation]
+  Not a type
+File "annotations_typeexpr.py", line 76, in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]
+  Not a type
+File "annotations_typeexpr.py", line 76, in <module>: Invalid type annotation '1' for p11 [invalid-annotation]
+  Not a type
+File "annotations_typeexpr.py", line 76, in <module>: Invalid type annotation '-1' for p12 [invalid-annotation]
+  Not a type
+"""

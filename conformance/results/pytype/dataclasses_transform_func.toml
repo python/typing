@@ -1,0 +1,36 @@
+conformant = "Unsupported"
+notes = """
+Does not understand @dataclass_transform.
+"""
+output = """
+File "dataclasses_transform_func.py", line 13, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+File "dataclasses_transform_func.py", line 19, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+File "dataclasses_transform_func.py", line 30, in create_model: bad return type [bad-return-type]
+           Expected: Callable[[Any], Any]
+  Actually returned: None
+  Attributes of protocol Callable[[T], T] are not implemented on None: __call__
+File "dataclasses_transform_func.py", line 30, in create_model: bad return type [bad-return-type]
+           Expected: Type[Customer3Subclass]
+  Actually returned: None
+Called from (traceback):
+  line 89, in current file
+File "dataclasses_transform_func.py", line 50, in <module>: Invalid keyword arguments (id, name) to function Customer1.__init__ [wrong-keyword-args]
+         Expected: (self)
+  Actually passed: (self, id, name)
+File "dataclasses_transform_func.py", line 53, in <module>: Function Customer1.__init__ expects 1 arg(s), got 3 [wrong-arg-count]
+         Expected: (self)
+  Actually passed: (self, _, _)
+File "dataclasses_transform_func.py", line 57, in <module>: Type annotation for name does not match type of assignment [annotation-type-mismatch]
+  Annotation: str
+  Assignment: int
+File "dataclasses_transform_func.py", line 65, in <module>: Invalid keyword arguments (id, name, salary) to function Customer1.__init__ [wrong-keyword-args]
+         Expected: (self)
+  Actually passed: (self, id, name, salary)
+File "dataclasses_transform_func.py", line 67, in <module>: Invalid keyword arguments (id, name) to function Customer2.__init__ [wrong-keyword-args]
+         Expected: (self)
+  Actually passed: (self, id, name)
+File "dataclasses_transform_func.py", line 71, in <module>: Function Customer2.__init__ expects 1 arg(s), got 3 [wrong-arg-count]
+         Expected: (self)
+  Actually passed: (self, _, _)
+File "dataclasses_transform_func.py", line 76, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+"""

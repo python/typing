@@ -1,0 +1,13 @@
+conformant = "Partial"
+notes = """
+Does not validate `__post_init__` method.
+Reports incorrect error for incompatible `__post_init__` method override.
+"""
+output = """
+File "dataclasses_postinit.py", line 28, in <module>: No attribute 'x' on DC1 [attribute-error]
+File "dataclasses_postinit.py", line 29, in <module>: No attribute 'y' on DC1 [attribute-error]
+File "dataclasses_postinit.py", line 54, in DC4: Overriding method signature mismatch [signature-mismatch]
+  Base signature: 'def DC3.__post_init__(self, _name: str) -> Any'.
+  Subclass signature: 'def DC4.__post_init__(self, _name: str, _age: int) -> Any'.
+  Parameter '_age' must have a default value.
+"""

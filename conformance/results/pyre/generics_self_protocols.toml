@@ -1,0 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not reject protocol compatibility due to method `Self` return type.
+"""
+output = """
+generics_self_protocols.py:61:18 Incompatible parameter type [6]: In call `accepts_shape`, for 1st positional argument, expected `ShapeProtocol` but got `BadReturnType`.
+"""

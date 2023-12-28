@@ -1,0 +1,28 @@
+conformant = "Partial"
+notes = """
+Does not reject specialization of type alias that has already been implicitly specialized.
+"""
+output = """
+aliases_explicit.py:67: error: Bad number of arguments for type alias, expected: 0, given: 1  [type-arg]
+aliases_explicit.py:68: error: Bad number of arguments for type alias, expected: 0, given: 1  [type-arg]
+aliases_explicit.py:69: error: Bad number of arguments for type alias, expected: 1, given: 2  [type-arg]
+aliases_explicit.py:70: error: Bad number of arguments for type alias, expected: 1, given: 2  [type-arg]
+aliases_explicit.py:71: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "int"  [misc]
+aliases_explicit.py:79: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_explicit.py:80: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
+aliases_explicit.py:81: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_explicit.py:82: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_explicit.py:83: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_explicit.py:84: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_explicit.py:85: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_explicit.py:86: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_explicit.py:87: error: Variable "aliases_explicit.var1" is not valid as a type  [valid-type]
+aliases_explicit.py:87: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_explicit.py:88: error: Invalid type: try using Literal[True] instead?  [valid-type]
+aliases_explicit.py:89: error: Invalid type: try using Literal[1] instead?  [valid-type]
+aliases_explicit.py:90: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_explicit.py:90: error: Function "list" could always be true in boolean context  [truthy-function]
+aliases_explicit.py:91: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_explicit.py:101: error: "<typing special form>" not callable  [operator]
+aliases_explicit.py:102: error: Bad number of arguments for type alias, expected: 0, given: 1  [type-arg]
+"""

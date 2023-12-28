@@ -1,0 +1,9 @@
+conformant = "Pass"
+output = """
+File "typeddicts_inheritance.py", line 44, in <module>: Invalid base class: NonTypedDict [base-class-error]
+  TypedDict BadTypedDict cannot inherit from a non-TypedDict class.
+File "typeddicts_inheritance.py", line 54, in <module>: Invalid base class: X1 [base-class-error]
+  Duplicate TypedDict key x in classes X1 and Y1
+File "typeddicts_inheritance.py", line 65, in <module>: Invalid base class: Y2 [base-class-error]
+  Duplicate TypedDict key x in classes Y2 and X2
+"""

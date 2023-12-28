@@ -1,0 +1,5 @@
+conformant = "Pass"
+output = """
+dataclasses_inheritance.py:60: error: Cannot override instance variable (previously declared on base class "DC6") with class variable  [misc]
+dataclasses_inheritance.py:64: error: Cannot override class variable (previously declared on base class "DC6") with instance variable  [misc]
+"""

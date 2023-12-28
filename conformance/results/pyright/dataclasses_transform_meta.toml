@@ -1,0 +1,13 @@
+conformant = "Pass"
+output = """
+dataclasses_transform_meta.py:48:36 - error: A non-frozen class cannot inherit from a class that is frozen (reportGeneralTypeIssues)
+dataclasses_transform_meta.py:60:6 - error: Cannot assign member "id" for type "Customer1"
+  "Customer1" is frozen
+    Member "__set__" is unknown (reportGeneralTypeIssues)
+dataclasses_transform_meta.py:63:18 - error: Expected 0 positional arguments (reportGeneralTypeIssues)
+dataclasses_transform_meta.py:70:6 - error: Operator "<" not supported for types "Customer1" and "Customer1" (reportGeneralTypeIssues)
+dataclasses_transform_meta.py:80:18 - error: Expected 0 positional arguments (reportGeneralTypeIssues)
+dataclasses_transform_meta.py:100:6 - error: Cannot assign member "id" for type "Customer3"
+  "Customer3" is frozen
+    Member "__set__" is unknown (reportGeneralTypeIssues)
+"""

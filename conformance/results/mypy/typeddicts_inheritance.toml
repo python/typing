@@ -1,0 +1,6 @@
+conformant = "Pass"
+output = """
+typeddicts_inheritance.py:44: error: All bases of a new TypedDict must be TypedDict types  [misc]
+typeddicts_inheritance.py:55: error: Overwriting TypedDict field "x" while extending  [misc]
+typeddicts_inheritance.py:65: error: Overwriting TypedDict field "x" while merging  [misc]
+"""

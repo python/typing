@@ -1,0 +1,11 @@
+conformant = "Unsupported"
+notes = """
+Does not understand @dataclass_transform.
+"""
+output = """
+File "dataclasses_transform_meta.py", line 21, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+File "dataclasses_transform_meta.py", line 57, in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]
+         Expected: (self, id, name, name2)
+  Actually passed: (self, id, name, other_name)
+File "dataclasses_transform_meta.py", line 83, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+"""

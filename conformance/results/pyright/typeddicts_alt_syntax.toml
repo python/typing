@@ -1,0 +1,9 @@
+conformant = "Pass"
+output = """
+typeddicts_alt_syntax.py:23:17 - error: Expected dict or keyword parameter as second parameter
+typeddicts_alt_syntax.py:27:45 - error: Expected string literal for dictionary entry name
+typeddicts_alt_syntax.py:31:1 - error: TypedDict must be assigned to a variable named "WrongName"
+typeddicts_alt_syntax.py:35:78 - error: Extra TypedDict arguments not supported
+typeddicts_alt_syntax.py:45:43 - error: Expression of type "dict[str, str]" cannot be assigned to declared type "Movie2"
+  "Literal['']" is incompatible with "int" (reportGeneralTypeIssues)
+"""

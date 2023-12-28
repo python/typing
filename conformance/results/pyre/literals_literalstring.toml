@@ -1,0 +1,13 @@
+conformant = "Pass"
+output = """
+literals_literalstring.py:36:11 Invalid type [31]: Expression `LiteralString` is not a literal value.
+literals_literalstring.py:36:11 Undefined or invalid type [11]: Annotation `typing` is not defined as a type.
+literals_literalstring.py:37:13 Invalid type [31]: Expression `LiteralString` is not a literal value.
+literals_literalstring.py:43:4 Incompatible variable type [9]: x2 is declared to have type `typing_extensions.Literal['']` but is used as type `typing_extensions.Literal['two']`.
+literals_literalstring.py:66:4 Incompatible variable type [9]: x1 is declared to have type `typing_extensions.LiteralString` but is used as type `str`.
+literals_literalstring.py:74:4 Incompatible variable type [9]: x3 is declared to have type `typing_extensions.LiteralString` but is used as type `typing_extensions.Literal[3]`.
+literals_literalstring.py:75:4 Incompatible variable type [9]: x4 is declared to have type `typing_extensions.LiteralString` but is used as type `typing_extensions.Literal[b'test']`.
+literals_literalstring.py:120:21 Incompatible parameter type [6]: In call `literal_identity`, for 1st positional argument, expected `Variable[TLiteral (bound to typing_extensions.LiteralString)]` but got `str`.
+literals_literalstring.py:134:50 Incompatible parameter type [6]: In call `Container.__init__`, for 1st positional argument, expected `Variable[T (bound to typing_extensions.LiteralString)]` but got `str`.
+literals_literalstring.py:166:4 Incompatible variable type [9]: x1 is declared to have type `List[str]` but is used as type `List[typing_extensions.LiteralString]`.
+"""

@@ -1,0 +1,7 @@
+conformant = "Pass"
+output = """
+dataclasses_frozen.py:16: error: Property "a" defined in "DC1" is read-only  [misc]
+dataclasses_frozen.py:17: error: Property "b" defined in "DC1" is read-only  [misc]
+dataclasses_frozen.py:23: error: Cannot inherit non-frozen dataclass from a frozen one  [misc]
+dataclasses_frozen.py:33: error: Cannot inherit frozen dataclass from a non-frozen one  [misc]
+"""

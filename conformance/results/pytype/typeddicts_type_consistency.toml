@@ -1,0 +1,20 @@
+conformant = "Partial"
+notes = """
+Does not report some type violations for TypedDict type compatibility.
+Incorrectly reports type violation in cases where there is none.
+Does not report type incompatibility between TypedDict and `dict[str, Any]`.
+"""
+output = """
+File "typeddicts_type_consistency.py", line 62, in <module>: Type annotation for a3 does not match type of assignment [annotation-type-mismatch]
+  Annotation: A3(TypedDict)
+  Assignment: B3
+File "typeddicts_type_consistency.py", line 65, in <module>: Type annotation for b3 does not match type of assignment [annotation-type-mismatch]
+  Annotation: B3(TypedDict)
+  Assignment: Dict[str, int]
+File "typeddicts_type_consistency.py", line 69, in <module>: Type annotation for a3_1 does not match type of assignment [annotation-type-mismatch]
+  Annotation: A3(TypedDict)
+  Assignment: Dict[str, int]
+File "typeddicts_type_consistency.py", line 124, in <module>: Type annotation for o2 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Outer1(TypedDict)
+  Assignment: Dict[str, Dict[str, Dict[str, int]]]
+"""

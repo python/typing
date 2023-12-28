@@ -1,0 +1,13 @@
+conformant = "Partial"
+notes = """
+Does not support keyword-argument form of alternative syntax (deprecated in 3.11).
+"""
+output = """
+typeddicts_alt_syntax.py:23: error: TypedDict() expects a dictionary literal as the second argument  [misc]
+typeddicts_alt_syntax.py:27: error: Invalid TypedDict() field name  [misc]
+typeddicts_alt_syntax.py:31: error: First argument "WrongName" to TypedDict() does not match variable name "BadTypedDict3"  [name-match]
+typeddicts_alt_syntax.py:35: error: Too many arguments for TypedDict()  [misc]
+typeddicts_alt_syntax.py:41: error: Unexpected arguments to TypedDict()  [misc]
+typeddicts_alt_syntax.py:44: error: Extra keys ("name", "year") for TypedDict "Movie2"  [typeddict-unknown-key]
+typeddicts_alt_syntax.py:45: error: Extra keys ("name", "year") for TypedDict "Movie2"  [typeddict-unknown-key]
+"""

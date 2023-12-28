@@ -1,0 +1,8 @@
+conformant = "Unsupported"
+notes = """
+Does not perform validation of `__post_init__` method.
+Does not reject access of `InitVar` from object.
+"""
+output = """
+dataclasses_postinit.py:54:4 Inconsistent override [14]: `dataclasses_postinit.DC4.__post_init__` overrides method defined in `DC3` inconsistently. Could not find parameter `_age` in overridden signature.
+"""

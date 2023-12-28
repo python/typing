@@ -1,0 +1,9 @@
+conformant = "Partial"
+notes = """
+Does not support `tuple` in `assert_type` call.
+Does not reject TypeGuard method with too few parameters.
+"""
+output = """
+narrowing_typeguard.py:17:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.
+narrowing_typeguard.py:19:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.
+"""

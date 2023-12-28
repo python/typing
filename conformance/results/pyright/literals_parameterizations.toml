@@ -1,0 +1,21 @@
+conformant = "Pass"
+output = """
+literals_parameterizations.py:40:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:41:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:42:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:43:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:44:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:45:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:46:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:47:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:48:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:49:16 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:50:16 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:51:16 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:52:16 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:55:28 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:58:4 - error: "Literal" cannot be used in this context without a type argument
+literals_parameterizations.py:59:12 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_parameterizations.py:63:32 - error: Expression of type "Literal[Color.RED]" cannot be assigned to declared type "Literal['Color.RED']"
+  "Literal[Color.RED]" cannot be assigned to type "Literal['Color.RED']" (reportGeneralTypeIssues)
+"""

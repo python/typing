@@ -1,0 +1,40 @@
+conformant = "Pass"
+output = """
+aliases_implicit.py:76: error: Bad number of arguments for type alias, expected: 0, given: 1  [type-arg]
+aliases_implicit.py:77: error: Bad number of arguments for type alias, expected: 0, given: 1  [type-arg]
+aliases_implicit.py:78: error: Bad number of arguments for type alias, expected: 1, given: 2  [type-arg]
+aliases_implicit.py:79: error: Bad number of arguments for type alias, expected: 1, given: 2  [type-arg]
+aliases_implicit.py:80: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "int"  [misc]
+aliases_implicit.py:81: error: Type argument "str" of "GoodTypeAlias12" must be a subtype of "float"  [type-var]
+aliases_implicit.py:100: error: Function "list" could always be true in boolean context  [truthy-function]
+aliases_implicit.py:106: error: Variable "aliases_implicit.BadTypeAlias1" is not valid as a type  [valid-type]
+aliases_implicit.py:106: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:107: error: Variable "aliases_implicit.BadTypeAlias2" is not valid as a type  [valid-type]
+aliases_implicit.py:107: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:108: error: Variable "aliases_implicit.BadTypeAlias3" is not valid as a type  [valid-type]
+aliases_implicit.py:108: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:109: error: Variable "aliases_implicit.BadTypeAlias4" is not valid as a type  [valid-type]
+aliases_implicit.py:109: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:110: error: Variable "aliases_implicit.BadTypeAlias5" is not valid as a type  [valid-type]
+aliases_implicit.py:110: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:111: error: Variable "aliases_implicit.BadTypeAlias6" is not valid as a type  [valid-type]
+aliases_implicit.py:111: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:112: error: Variable "aliases_implicit.BadTypeAlias7" is not valid as a type  [valid-type]
+aliases_implicit.py:112: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:113: error: Variable "aliases_implicit.BadTypeAlias8" is not valid as a type  [valid-type]
+aliases_implicit.py:113: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:114: error: Variable "aliases_implicit.BadTypeAlias9" is not valid as a type  [valid-type]
+aliases_implicit.py:114: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:115: error: Variable "aliases_implicit.BadTypeAlias10" is not valid as a type  [valid-type]
+aliases_implicit.py:115: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:116: error: Variable "aliases_implicit.BadTypeAlias11" is not valid as a type  [valid-type]
+aliases_implicit.py:116: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:117: error: Variable "aliases_implicit.BadTypeAlias12" is not valid as a type  [valid-type]
+aliases_implicit.py:117: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:118: error: Variable "aliases_implicit.BadTypeAlias13" is not valid as a type  [valid-type]
+aliases_implicit.py:118: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:119: error: Variable "aliases_implicit.BadTypeAlias14" is not valid as a type  [valid-type]
+aliases_implicit.py:119: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_implicit.py:133: error: "<typing special form>" not callable  [operator]
+aliases_implicit.py:135: error: Bad number of arguments for type alias, expected: 0, given: 1  [type-arg]
+"""

@@ -1,0 +1,12 @@
+conformant = "Unsupported"
+notes = """
+Does not understand Unpack in the context of **kwargs annotation.
+"""
+output = """
+callables_kwargs.py:22:20 Undefined or invalid type [11]: Annotation `Unpack` is not defined as a type.
+callables_kwargs.py:49:4 Too many arguments [19]: Call `func1` expects 1 positional argument, 4 were provided.
+callables_kwargs.py:59:12 Incompatible parameter type [6]: In call `func2`, for 1st positional argument, expected `str` but got `object`.
+callables_kwargs.py:61:10 Incompatible parameter type [6]: In call `func2`, for 1st positional argument, expected `str` but got `int`.
+callables_kwargs.py:62:18 Incompatible parameter type [6]: In call `func2`, for 2nd positional argument, expected `str` but got `object`.
+callables_kwargs.py:121:20 Invalid type variable [34]: The type variable `Variable[T (bound to callables_kwargs.TD2)]` isn't present in the function's parameters.
+"""

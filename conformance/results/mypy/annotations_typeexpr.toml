@@ -1,0 +1,20 @@
+conformant = "Pass"
+output = """
+annotations_typeexpr.py:77: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:77: note: Suggestion: use eval[...] instead of eval(...)
+annotations_typeexpr.py:78: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
+annotations_typeexpr.py:79: error: Syntax error in type annotation  [syntax]
+annotations_typeexpr.py:79: note: Suggestion: Use Tuple[T1, ..., Tn] instead of (T1, ..., Tn)
+annotations_typeexpr.py:80: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:81: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:82: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:83: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:84: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:85: error: Variable "annotations_typeexpr.var1" is not valid as a type  [valid-type]
+annotations_typeexpr.py:85: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+annotations_typeexpr.py:86: error: Invalid type: try using Literal[True] instead?  [valid-type]
+annotations_typeexpr.py:87: error: Invalid type: try using Literal[1] instead?  [valid-type]
+annotations_typeexpr.py:88: error: Invalid type: try using Literal[-1] instead?  [valid-type]
+annotations_typeexpr.py:89: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:90: error: Invalid type comment or annotation  [valid-type]
+"""

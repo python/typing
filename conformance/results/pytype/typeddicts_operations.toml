@@ -1,0 +1,24 @@
+conformant = "Partial"
+notes = """
+Does not report type violation with TypedDict value assignment.
+Does not report reference to unknown key in TypedDict.
+Does not reject `clear` method on TypedDict with required keys.
+Does not reject delete operation for required key in TypedDict.
+"""
+output = """
+File "typeddicts_operations.py", line 28, in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
+  Annotation: Movie(TypedDict)
+  Assignment: Dict[str, str]
+File "typeddicts_operations.py", line 29, in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
+  Annotation: Movie(TypedDict)
+  Assignment: Dict[str, Union[float, str]]
+File "typeddicts_operations.py", line 32, in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
+  Annotation: Movie(TypedDict)
+  Assignment: Dict[str, Union[int, str]]
+File "typeddicts_operations.py", line 37, in func1: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
+  Annotation: Movie(TypedDict)
+  Assignment: Dict[str, Union[int, str]]
+File "typeddicts_operations.py", line 60, in <module>: str [assert-type]
+  Expected: Optional[str]
+    Actual: str
+"""

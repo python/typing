@@ -1,0 +1,11 @@
+conformant = "Pass"
+output = """
+dataclasses_postinit.py:19: error: Argument 3 of "__post_init__" is incompatible with supertype "dataclass"; supertype defines the argument type as "str"  [override]
+dataclasses_postinit.py:28: error: "DC1" has no attribute "x"  [attr-defined]
+dataclasses_postinit.py:29: error: "DC1" has no attribute "y"  [attr-defined]
+dataclasses_postinit.py:36: error: Signature of "__post_init__" incompatible with supertype "dataclass"  [override]
+dataclasses_postinit.py:36: note:      Superclass:
+dataclasses_postinit.py:36: note:          def __post_init__(self: DC2, x: int, y: str) -> None
+dataclasses_postinit.py:36: note:      Subclass:
+dataclasses_postinit.py:36: note:          def __post_init__(self: DC2, x: int) -> None
+"""

@@ -1,0 +1,51 @@
+conformant = "Unsupported"
+notes = """
+Does not understand `Self` type.
+"""
+output = """
+File "generics_self_advanced.py", line 12, in prop1: bad return type [bad-return-type]
+           Expected: ParentA
+  Actually returned: None
+Called from (traceback):
+  line 18, in current file
+File "generics_self_advanced.py", line 12, in prop1: bad return type [bad-return-type]
+           Expected: ParentA
+  Actually returned: None
+Called from (traceback):
+  line 19, in current file
+File "generics_self_advanced.py", line 19, in <module>: ParentA [assert-type]
+  Expected: ChildA
+    Actual: ParentA
+File "generics_self_advanced.py", line 29, in method1: bad return type [bad-return-type]
+           Expected: ChildB
+  Actually returned: None
+Called from (traceback):
+  line 38, in method2
+File "generics_self_advanced.py", line 29, in method1: bad return type [bad-return-type]
+           Expected: ParentB
+  Actually returned: None
+File "generics_self_advanced.py", line 35, in method2: ChildB [assert-type]
+  Expected: Any
+    Actual: ChildB
+File "generics_self_advanced.py", line 36, in method2: List[ChildB] [assert-type]
+  Expected: list
+    Actual: List[ChildB]
+File "generics_self_advanced.py", line 37, in method2: ChildB [assert-type]
+  Expected: Any
+    Actual: ChildB
+File "generics_self_advanced.py", line 38, in method2: ChildB [assert-type]
+  Expected: Any
+    Actual: ChildB
+File "generics_self_advanced.py", line 42, in method3: Type[ChildB] [assert-type]
+  Expected: Any
+    Actual: Type[ChildB]
+File "generics_self_advanced.py", line 43, in method3: List[ChildB] [assert-type]
+  Expected: list
+    Actual: List[ChildB]
+File "generics_self_advanced.py", line 44, in method3: ChildB [assert-type]
+  Expected: Any
+    Actual: ChildB
+File "generics_self_advanced.py", line 45, in method3: ChildB [assert-type]
+  Expected: Any
+    Actual: ChildB
+"""

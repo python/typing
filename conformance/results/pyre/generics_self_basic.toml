@@ -1,0 +1,15 @@
+conformant = "Unsupported"
+notes = """
+Does not understand `Self` type.
+"""
+output = """
+generics_self_basic.py:13:26 Undefined attribute [16]: Module `typing` has no attribute `Self`.
+generics_self_basic.py:19:8 Incompatible return type [7]: Expected `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]` but got `Shape`.
+generics_self_basic.py:26:30 Undefined attribute [16]: Module `typing` has no attribute `Self`.
+generics_self_basic.py:27:15 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 1 was provided.
+generics_self_basic.py:32:8 Incompatible return type [7]: Expected `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]` but got `Shape`.
+generics_self_basic.py:39:27 Undefined attribute [16]: Module `typing` has no attribute `Self`.
+generics_self_basic.py:57:0 Uninitialized attribute [13]: Attribute `value` is declared in class `Container` to have type `Variable[T]` but is never initialized.
+generics_self_basic.py:64:25 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.
+generics_self_basic.py:80:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[T]]` but got `TypeVar`.
+"""

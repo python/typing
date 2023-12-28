@@ -1,0 +1,15 @@
+conformant = "Pass"
+output = """
+generics_self_protocols.py:61:19 - error: Argument of type "BadReturnType" cannot be assigned to parameter "shape" of type "ShapeProtocol" in function "accepts_shape"
+  "BadReturnType" is incompatible with protocol "ShapeProtocol"
+    "set_scale" is an incompatible type
+      Type "(scale: float) -> int" cannot be assigned to type "(scale: float) -> BadReturnType"
+        Function return type "int" is incompatible with type "BadReturnType"
+          "int" is incompatible with "BadReturnType" (reportGeneralTypeIssues)
+generics_self_protocols.py:64:19 - error: Argument of type "ReturnDifferentClass" cannot be assigned to parameter "shape" of type "ShapeProtocol" in function "accepts_shape"
+  "ReturnDifferentClass" is incompatible with protocol "ShapeProtocol"
+    "set_scale" is an incompatible type
+      Type "(scale: float) -> ReturnConcreteShape" cannot be assigned to type "(scale: float) -> ReturnDifferentClass"
+        Function return type "ReturnConcreteShape" is incompatible with type "ReturnDifferentClass"
+          "ReturnConcreteShape" is incompatible with "ReturnDifferentClass" (reportGeneralTypeIssues)
+"""

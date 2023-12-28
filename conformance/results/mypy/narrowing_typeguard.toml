@@ -1,0 +1,5 @@
+conformant = "Pass"
+output = """
+narrowing_typeguard.py:102: error: TypeGuard functions must have a positional argument  [valid-type]
+narrowing_typeguard.py:107: error: TypeGuard functions must have a positional argument  [valid-type]
+"""

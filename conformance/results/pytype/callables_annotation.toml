@@ -1,0 +1,32 @@
+conformant = "Pass"
+output = """
+File "callables_annotation.py", line 13, in func1: Function <callable> expects 2 arg(s), got 1 [wrong-arg-count]
+         Expected: (_, _)
+  Actually passed: (_)
+File "callables_annotation.py", line 14, in func1: Function <callable> was called with the wrong arguments [wrong-arg-types]
+         Expected: (_, _1: str)
+  Actually passed: (_, _1: int)
+File "callables_annotation.py", line 15, in func1: Function <callable> expects 2 arg(s), got 3 [wrong-arg-count]
+         Expected: (_, _)
+  Actually passed: (_, _, _)
+File "callables_annotation.py", line 16, in func1: Invalid keyword arguments (a, b) to function <callable> [wrong-keyword-args]
+         Expected: (_, _)
+  Actually passed: (a, b)
+File "callables_annotation.py", line 22, in func2: Function <callable> expects 0 arg(s), got 1 [wrong-arg-count]
+         Expected: ()
+  Actually passed: (_)
+File "callables_annotation.py", line 39, in <module>: Invalid type annotation 'int'  [invalid-annotation]
+  First argument to Callable must be a list of argument types or ellipsis.
+File "callables_annotation.py", line 39, in <module>: Invalid type annotation 'Callable[Any]'  [invalid-annotation]
+  Callable[_ARGS, _RET] expected 2 parameters, got 1
+File "callables_annotation.py", line 40, in <module>: Invalid type annotation 'int'  [invalid-annotation]
+  First argument to Callable must be a list of argument types or ellipsis.
+File "callables_annotation.py", line 41, in <module>: Invalid type annotation '[int]'  [invalid-annotation]
+  Not a type
+File "callables_annotation.py", line 42, in <module>: Invalid type annotation 'int'  [invalid-annotation]
+  First argument to Callable must be a list of argument types or ellipsis.
+File "callables_annotation.py", line 42, in <module>: Invalid type annotation 'Callable[Any, int, int]'  [invalid-annotation]
+  Callable[_ARGS, _RET] expected 2 parameters, got 3
+File "callables_annotation.py", line 43, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
+  Not allowed at index 0 in list
+"""

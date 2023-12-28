@@ -1,0 +1,7 @@
+conformant = "Partial"
+notes = """
+Incorrectly generates error when calling constructor of dataclass with descriptor.
+"""
+output = """
+dataclasses_descriptors.py:35:10 Incompatible parameter type [6]: In call `DC1.__init__`, for 1st positional argument, expected `Desc1` but got `int`.
+"""

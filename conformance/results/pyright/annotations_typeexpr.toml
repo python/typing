@@ -1,0 +1,29 @@
+conformant = "Pass"
+output = """
+annotations_typeexpr.py:77:9 - error: Call expression not allowed in type expression (reportGeneralTypeIssues)
+annotations_typeexpr.py:78:9 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+annotations_typeexpr.py:78:9 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)
+annotations_typeexpr.py:79:9 - error: Tuple expression not allowed in type annotation
+  Use Tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+annotations_typeexpr.py:79:9 - error: Expected type expression but received "tuple[type[int], type[str]]" (reportGeneralTypeIssues)
+annotations_typeexpr.py:80:9 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+annotations_typeexpr.py:80:9 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
+annotations_typeexpr.py:81:9 - error: Dictionary expression not allowed in type annotation
+  Use Dict[T1, T2] to indicate a dictionary type (reportGeneralTypeIssues)
+annotations_typeexpr.py:81:9 - error: Expected type expression but received "dict[Unknown, Unknown]" (reportGeneralTypeIssues)
+annotations_typeexpr.py:82:9 - error: Call expression not allowed in type expression (reportGeneralTypeIssues)
+annotations_typeexpr.py:83:9 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+annotations_typeexpr.py:83:9 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
+annotations_typeexpr.py:84:9 - error: Ternary expression not allowed in type annotation
+annotations_typeexpr.py:85:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+annotations_typeexpr.py:86:10 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)
+annotations_typeexpr.py:87:10 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
+annotations_typeexpr.py:88:10 - error: Unary operator not allowed in type annotation
+annotations_typeexpr.py:89:10 - error: Binary operator not allowed in type annotation
+annotations_typeexpr.py:90:10 - error: Expected expression
+annotations_typeexpr.py:90:10 - error: Tuple expression not allowed in type annotation
+  Use Tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+"""

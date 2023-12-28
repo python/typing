@@ -1,0 +1,11 @@
+conformant = "Pass"
+output = """
+aliases_variance.py:24:23 - error: Type "T_co@ClassA_1" cannot be assigned to type variable "T@ClassA"
+  Variance of type argument "T_co@ClassA_1" is incompatible with base class "ClassA" (reportGeneralTypeIssues)
+aliases_variance.py:28:26 - error: Could not specialize type "A_Alias_1[T_co@A_Alias_1]"
+  Variance of type argument "T_co@ClassA_2" is incompatible with "T_co@A_Alias_1"
+aliases_variance.py:32:26 - error: Could not specialize type "A_Alias_2[T_co@A_Alias_2]"
+  Variance of type argument "T_co@ClassA_3" is incompatible with "T_co@A_Alias_2"
+aliases_variance.py:44:26 - error: Could not specialize type "B_Alias_1[T_co@B_Alias_1, T_contra@B_Alias_1]"
+  Variance of type argument "T_contra@ClassB_1" is incompatible with "T_co@B_Alias_1"
+"""

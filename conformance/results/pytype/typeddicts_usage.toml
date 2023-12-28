@@ -1,0 +1,14 @@
+conformant = "Partial"
+notes = """
+Does not report errant use of TypedDict in `isinstance` call.
+Does not reject use of TypedDict as TypeVar bound.
+"""
+output = """
+File "typeddicts_usage.py", line 23, in <module>: TypedDict Movie does not contain key director [typed-dict-error]
+File "typeddicts_usage.py", line 24, in <module>: Type annotation for key year in TypedDict Movie does not match type of assignment [annotation-type-mismatch]
+  Annotation: int
+  Assignment: str
+File "typeddicts_usage.py", line 28, in <module>: Type annotation for movie2 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Movie(TypedDict)
+  Assignment: Dict[str, Union[int, str]]
+"""

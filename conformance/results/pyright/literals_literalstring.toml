@@ -1,0 +1,25 @@
+conformant = "Pass"
+output = """
+literals_literalstring.py:36:29 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_literalstring.py:37:22 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+literals_literalstring.py:43:23 - error: Expression of type "Literal['two']" cannot be assigned to declared type "Literal['']"
+  "Literal['two']" cannot be assigned to type "Literal['']" (reportGeneralTypeIssues)
+literals_literalstring.py:66:25 - error: Expression of type "str" cannot be assigned to declared type "LiteralString"
+  "str" is incompatible with "LiteralString" (reportGeneralTypeIssues)
+literals_literalstring.py:74:25 - error: Expression of type "Literal[3]" cannot be assigned to declared type "LiteralString"
+  "Literal[3]" is incompatible with "LiteralString" (reportGeneralTypeIssues)
+literals_literalstring.py:75:25 - error: Expression of type "Literal[b"test"]" cannot be assigned to declared type "LiteralString"
+  "Literal[b"test"]" is incompatible with "LiteralString" (reportGeneralTypeIssues)
+literals_literalstring.py:120:22 - error: Argument of type "str" cannot be assigned to parameter "s" of type "TLiteral@literal_identity" in function "literal_identity"
+  Type "str" cannot be assigned to type "LiteralString"
+    "str" is incompatible with "LiteralString" (reportGeneralTypeIssues)
+literals_literalstring.py:134:51 - error: Argument of type "str" cannot be assigned to parameter "value" of type "T@Container" in function "__init__"
+  Type "str" cannot be assigned to type "LiteralString"
+    "str" is incompatible with "LiteralString" (reportGeneralTypeIssues)
+literals_literalstring.py:142:5 - error: Overload 1 for "func8" overlaps overload 2 and returns an incompatible type (reportOverlappingOverload)
+literals_literalstring.py:142:5 - error: Overload 1 for "func8" overlaps overload 3 and returns an incompatible type (reportOverlappingOverload)
+literals_literalstring.py:166:21 - error: Expression of type "list[LiteralString]" cannot be assigned to declared type "list[str]"
+  "list[LiteralString]" is incompatible with "list[str]"
+    Type parameter "_T@list" is invariant, but "LiteralString" is not the same as "str"
+    Consider switching from "list" to "Sequence" which is covariant (reportGeneralTypeIssues)
+"""

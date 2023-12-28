@@ -1,0 +1,25 @@
+conformant = "Unsupported"
+notes = """
+Does not understand `Literal` type annotation.
+"""
+output = """
+File "literals_semantics.py", line 10, in <module>: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Literal[3]
+  Assignment: Literal[4]
+File "literals_semantics.py", line 12, in <module>: Invalid type annotation 'L[-3]'  [invalid-annotation]
+  Invalid type annotation 'Literal' 
+  Bad parameter 'int' at index 0
+File "literals_semantics.py", line 12, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'int' at index 0
+File "literals_semantics.py", line 16, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'int' at index 0
+File "literals_semantics.py", line 17, in func1: Invalid type annotation 'Literal[20]'  [invalid-annotation]
+  Invalid type annotation 'Literal' 
+  Bad parameter 'int' at index 0
+File "literals_semantics.py", line 18, in func1: Invalid type annotation 'Literal[20]'  [invalid-annotation]
+  Invalid type annotation 'Literal' 
+  Bad parameter 'int' at index 0
+File "literals_semantics.py", line 19, in func1: Invalid type annotation 'Literal[20]'  [invalid-annotation]
+  Invalid type annotation 'Literal' 
+  Bad parameter 'int' at index 0
+"""

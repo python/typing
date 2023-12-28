@@ -1,0 +1,48 @@
+conformant = "Unsupported"
+notes = """
+Does not understand Unpack in the context of **kwargs annotation.
+"""
+output = """
+File "callables_kwargs.py", line 10, in <module>: typing.NotRequired not supported yet [not-supported-yet]
+File "callables_kwargs.py", line 10, in <module>: typing.Required not supported yet [not-supported-yet]
+File "callables_kwargs.py", line 10, in <module>: typing.Unpack not supported yet [not-supported-yet]
+File "callables_kwargs.py", line 24, in func1: Unpack[TD2] [assert-type]
+  Expected: int
+    Actual: Unpack[TD2]
+File "callables_kwargs.py", line 30, in func1: Unpack[TD2] [assert-type]
+  Expected: str
+    Actual: Unpack[TD2]
+File "callables_kwargs.py", line 33, in func1: Unpack[TD2] [assert-type]
+  Expected: str
+    Actual: Unpack[TD2]
+File "callables_kwargs.py", line 39, in func2: Dict[str, Unpack[TD1]] [assert-type]
+  Expected: TD1
+    Actual: Dict[str, Unpack[TD1]]
+File "callables_kwargs.py", line 44, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+         Expected: (v1: Unpack[TD2], ...)
+  Actually passed: (v1: int, ...)
+File "callables_kwargs.py", line 46, in func3: Function TD2.__init__ was called with the wrong arguments [wrong-arg-types]
+         Expected: (*, v1: Required[int], ...)
+  Actually passed: (v1: int, ...)
+File "callables_kwargs.py", line 48, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+         Expected: (v1: Unpack[TD2], ...)
+  Actually passed: (v1: int, ...)
+File "callables_kwargs.py", line 49, in func3: Function func1 expects 0 arg(s), got 3 [wrong-arg-count]
+         Expected: (**kwargs)
+  Actually passed: (_, _, _)
+File "callables_kwargs.py", line 55, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+         Expected: (**kwargs: Mapping[str, Unpack[TD2]])
+  Actually passed: (kwargs: Dict[str, str])
+File "callables_kwargs.py", line 58, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+         Expected: (v1: Unpack[TD2], ...)
+  Actually passed: (v1: int, ...)
+File "callables_kwargs.py", line 60, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+         Expected: (v1: Unpack[TD2], ...)
+  Actually passed: (v1: int, ...)
+File "callables_kwargs.py", line 61, in func3: Function func2 was called with the wrong arguments [wrong-arg-types]
+         Expected: (v3: str, ...)
+  Actually passed: (v3: int, ...)
+File "callables_kwargs.py", line 62, in func3: Function func2 was called with the wrong arguments [wrong-arg-types]
+         Expected: (v3, v1: Unpack[TD1], ...)
+  Actually passed: (v1: int, ...)
+"""

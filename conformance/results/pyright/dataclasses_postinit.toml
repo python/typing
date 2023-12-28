@@ -1,0 +1,15 @@
+conformant = "Partial"
+notes = """
+Reports incorrect error for incompatible `__post_init__` method override.
+"""
+output = """
+dataclasses_postinit.py:19:40 - error: Dataclass __post_init__ method parameter type mismatch for field "y"
+  "str" is incompatible with "int" (reportGeneralTypeIssues)
+dataclasses_postinit.py:28:11 - error: Cannot access member "x" for type "DC1"
+  Member "x" is an init-only field (reportGeneralTypeIssues)
+dataclasses_postinit.py:29:11 - error: Cannot access member "y" for type "DC1"
+  Member "y" is an init-only field (reportGeneralTypeIssues)
+dataclasses_postinit.py:36:9 - error: Dataclass __post_init__ incorrect parameter count; number of InitVar fields is 2 (reportGeneralTypeIssues)
+dataclasses_postinit.py:54:9 - error: Method "__post_init__" overrides class "DC3" in an incompatible manner
+  Positional parameter count mismatch; base method has 2, but override has 3 (reportIncompatibleMethodOverride)
+"""

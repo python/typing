@@ -1,0 +1,38 @@
+conformant = "Pass"
+output = """
+File "dataclasses_usage.py", line 51, in <module>: Missing parameter 'unit_price' in call to function InventoryItem.__init__ [missing-parameter]
+         Expected: (self, name, unit_price, quantity_on_hand)
+  Actually passed: (self, name)
+File "dataclasses_usage.py", line 52, in <module>: Function InventoryItem.__init__ was called with the wrong arguments [wrong-arg-types]
+         Expected: (self, name, unit_price: float, ...)
+  Actually passed: (self, name, unit_price: str)
+File "dataclasses_usage.py", line 53, in <module>: Function InventoryItem.__init__ expects 3 arg(s), got 5 [wrong-arg-count]
+         Expected: (self, name, unit_price, quantity_on_hand)
+  Actually passed: (self, name, unit_price, quantity_on_hand, _)
+File "dataclasses_usage.py", line 60, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
+File "dataclasses_usage.py", line 66, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
+File "dataclasses_usage.py", line 72, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
+File "dataclasses_usage.py", line 84, in <module>: Function DC4.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
+         Expected: (self, b)
+  Actually passed: (self, b, _)
+File "dataclasses_usage.py", line 89, in DC5: Type annotation for a does not match type of assignment [annotation-type-mismatch]
+  Annotation: int
+  Assignment: str
+File "dataclasses_usage.py", line 127, in <module>: Function DC7.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
+         Expected: (self, x)
+  Actually passed: (self, x, _)
+File "dataclasses_usage.py", line 130, in <module>: Missing parameter 'y' in call to function DC8.__init__ [missing-parameter]
+         Expected: (self, a, y)
+  Actually passed: (self, a)
+File "dataclasses_usage.py", line 152, in __init__: Type annotation for x_squared does not match type of assignment [annotation-type-mismatch]
+  Annotation: int
+  Assignment: float
+  In assignment of type: Union[float, int]
+File "dataclasses_usage.py", line 165, in __init__: Type annotation for x_squared does not match type of assignment [annotation-type-mismatch]
+  Annotation: int
+  Assignment: float
+  In assignment of type: Union[float, int]
+File "dataclasses_usage.py", line 179, in <module>: Function DC13.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+         Expected: (self)
+  Actually passed: (self, _)
+"""

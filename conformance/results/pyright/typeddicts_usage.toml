@@ -1,0 +1,12 @@
+conformant = "Pass"
+output = """
+typeddicts_usage.py:23:1 - error: Could not assign item in TypedDict
+  "director" is not a defined key in "Movie" (reportGeneralTypeIssues)
+typeddicts_usage.py:24:1 - error: Could not assign item in TypedDict
+  "Literal['1982']" is incompatible with "int" (reportGeneralTypeIssues)
+typeddicts_usage.py:28:18 - error: Expression of type "dict[str, str | int]" cannot be assigned to declared type "Movie"
+  "title" is an undefined field in type "Movie" (reportGeneralTypeIssues)
+typeddicts_usage.py:35:22 - error: Second argument to "isinstance" must be a class or tuple of classes
+  TypedDict class not allowed for instance or class checks (reportGeneralTypeIssues)
+typeddicts_usage.py:40:24 - error: "TypedDict" cannot be used in this context
+"""

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type System Test Results</title>
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        p,
+        table {
+            font-family: "system-ui", "Segoe UI", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+        }
+
+        table {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            border-collapse: collapse;
+            font-family: "system-ui", "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 10pt;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        th,
+        td {
+            margin: 0px;
+            padding: 0px;
+            text-align: left;
+            border-bottom: 0px solid #000;
+            font-weight: normal;
+        }
+
+        .content_container {
+            margin: 20px;
+        }
+
+        .table_container {
+            margin-left: 20px;
+        }
+
+        .column {
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+
+            margin-left: 8px;
+            margin-right: 8px;
+            margin-top: 4px;
+            margin-bottom: 4px;
+
+            border: 0px solid #000;
+        }
+
+        .spacer {
+            border-color: #f0f0f0;
+            border-style: solid;
+            border-bottom-width: 1px;
+        }
+
+        .col1 {
+            width: 25%;
+            vertical-align: top;
+        }
+
+        .col2 {
+            width: 10%;
+            vertical-align: top;
+        }
+
+        .col3 {
+            width: 65%;
+            vertical-align: top;
+        }
+
+        .tc-header {
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        .tc-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .tc-time {
+            margin-left: 8px;
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .test_group {
+            font-size: 10pt;
+            font-weight: bold;
+        }
+
+        .conformant {
+            background-color: rgb(203, 255, 203);
+        }
+
+        .partially-conformant {
+            background-color: rgb(251, 244, 166);
+        }
+
+        .not-conformant {
+            background-color: rgb(242, 171, 171);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content_container">
+        <header>
+            <h3>Python Type System Conformance Test Results</h3>
+        </header>
+        {{summary}}
+        <!-- <div>
+        <h4>Mypy 1.8.0</h4>
+        </div>
+        <table>
+            <tr>
+                <th class="column" colspan="3">Test Category 1</th>
+            </tr>
+            <tr>
+                <th class="column">xxx</th>
+                <th class="column">Pass</th>
+                <th class="column"></th>
+            </tr>
+        </table> -->
+    </div>
+</body>
+
+</html>

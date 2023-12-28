@@ -1,0 +1,8 @@
+conformant = "Unsupported"
+notes = """
+Does not report assignment to field within frozen dataclass instance.
+Does not reject frozen dataclass inherited from non-frozen dataclass.
+Does not reject non-frozen dataclass inherited from frozen dataclass.
+"""
+output = """
+"""

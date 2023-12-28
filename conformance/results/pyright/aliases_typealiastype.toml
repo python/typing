@@ -1,0 +1,37 @@
+conformant = "Partial"
+notes = """
+Does not reject type alias with TypeVar that is not in scope and not in `type_params`.
+Does not allow access to `__value__` attribute of type alias.
+Allows some illegal annotation forms to be interpreted as valid type aliases.
+"""
+output = """
+aliases_typealiastype.py:30:18 - error: Cannot access member "__value__" for type "GoodAlias1"
+  Member "__value__" is unknown (reportGeneralTypeIssues)
+aliases_typealiastype.py:32:18 - error: Cannot access member "other_attrib" for type "GoodAlias1"
+  Member "other_attrib" is unknown (reportGeneralTypeIssues)
+aliases_typealiastype.py:40:5 - error: Could not specialize type "GoodAlias5[S@GoodAlias5, TStr@GoodAlias5, P@GoodAlias5, Ts@GoodAlias5]"
+  Type "int" cannot be assigned to type "str"
+    "int" is incompatible with "str"
+aliases_typealiastype.py:44:23 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
+aliases_typealiastype.py:48:35 - error: Type parameter list must be a tuple containing only TypeVar, TypeVarTuple, or ParamSpec
+aliases_typealiastype.py:50:40 - error: Type alias "BadAlias4" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:52:18 - error: Type alias "BadAlias5" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:54:40 - error: Type alias "BadAlias6" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:58:40 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:59:40 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:59:40 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:60:42 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:60:42 - error: Expected type expression but received "tuple[tuple[type[int], type[str]]]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:61:42 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:61:42 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:62:42 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:62:42 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:63:42 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:64:42 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:65:42 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:66:42 - error: Expected type expression but received "int" (reportGeneralTypeIssues)
+aliases_typealiastype.py:67:42 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:68:42 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:68:42 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:70:42 - error: Expected expression
+"""

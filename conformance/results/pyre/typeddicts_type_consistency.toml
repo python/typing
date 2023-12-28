@@ -1,0 +1,19 @@
+conformant = "Partial"
+notes = """
+Does not reject assignment of TypedDict with missing key.
+Does not return non-Optional value from `get` method for required key.
+Does not properly handle nested TypedDicts.
+"""
+output = """
+typeddicts_type_consistency.py:21:0 Incompatible variable type [9]: a1 is declared to have type `A1` but is used as type `B1`.
+typeddicts_type_consistency.py:38:0 Incompatible variable type [9]: a2 is declared to have type `A2` but is used as type `B2`.
+typeddicts_type_consistency.py:69:11 TypedDict initialization error [55]: TypedDict `A3` has no field `y`.
+typeddicts_type_consistency.py:76:0 Incompatible variable type [9]: d1 is declared to have type `Dict[str, int]` but is used as type `B3`.
+typeddicts_type_consistency.py:77:0 Incompatible variable type [9]: d2 is declared to have type `Dict[str, object]` but is used as type `B3`.
+typeddicts_type_consistency.py:78:0 Incompatible variable type [9]: d3 is declared to have type `Dict[typing.Any, typing.Any]` but is used as type `B3`.
+typeddicts_type_consistency.py:82:0 Incompatible variable type [9]: m1 is declared to have type `Mapping[str, int]` but is used as type `B3`.
+typeddicts_type_consistency.py:99:0 Incompatible variable type [9]: name3 is declared to have type `str` but is used as type `Optional[str]`.
+typeddicts_type_consistency.py:105:0 Incompatible variable type [9]: age4 is declared to have type `int` but is used as type `Union[str, int]`.
+typeddicts_type_consistency.py:124:41 TypedDict initialization error [55]: Expected type `str` for `Inner1` field `inner_key` but got `int`.
+typeddicts_type_consistency.py:150:0 Incompatible variable type [9]: o4 is declared to have type `Outer3` but is used as type `Outer2`.
+"""

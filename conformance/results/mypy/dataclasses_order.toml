@@ -1,0 +1,4 @@
+conformant = "Pass"
+output = """
+dataclasses_order.py:50: error: Unsupported operand types for < ("DC1" and "DC2")  [operator]
+"""

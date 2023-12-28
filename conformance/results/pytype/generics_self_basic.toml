@@ -1,0 +1,52 @@
+conformant = "Unsupported"
+notes = """
+Does not understand `Self` type.
+"""
+output = """
+File "generics_self_basic.py", line 13, in set_scale: Shape [assert-type]
+  Expected: Any
+    Actual: Shape
+File "generics_self_basic.py", line 13, in set_scale: Circle [assert-type]
+  Expected: Any
+    Actual: Circle
+Called from (traceback):
+  line 51, in current file
+File "generics_self_basic.py", line 26, in from_config: Type[Shape] [assert-type]
+  Expected: Any
+    Actual: Type[Shape]
+Called from (traceback):
+  line 53, in current file
+File "generics_self_basic.py", line 26, in from_config: Type[Circle] [assert-type]
+  Expected: Any
+    Actual: Type[Circle]
+Called from (traceback):
+  line 54, in current file
+File "generics_self_basic.py", line 27, in from_config: Function Shape.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+         Expected: (self)
+  Actually passed: (self, _)
+Called from (traceback):
+  line 53, in current file
+File "generics_self_basic.py", line 27, in from_config: Function Circle.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+         Expected: (self)
+  Actually passed: (self, _)
+Called from (traceback):
+  line 54, in current file
+File "generics_self_basic.py", line 39, in difference: Shape [assert-type]
+  Expected: Any
+    Actual: Shape
+File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]
+           Expected: Container
+  Actually returned: None
+File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]
+           Expected: Container[int]
+  Actually returned: None
+Called from (traceback):
+  line 71, in object_with_concrete_type
+File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]
+           Expected: Container[str]
+  Actually returned: None
+Called from (traceback):
+  line 72, in object_with_concrete_type
+File "generics_self_basic.py", line 64, in Container: unsupported operand type(s) for item retrieval: 'Self: TypeVar' and 'int: Type[int]' [unsupported-operands]
+  No attribute '__getitem__' on 'Self: TypeVar'
+"""

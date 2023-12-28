@@ -1,0 +1,19 @@
+conformant = "Pass"
+output = """
+annotations_typeexpr.py:65:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `object`.
+annotations_typeexpr.py:67:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[object, typing.Any]`.
+annotations_typeexpr.py:77:8 Invalid type [31]: Expression `eval("".join(map(chr, [105, 110, 116])))` is not a valid type.
+annotations_typeexpr.py:78:8 Invalid type [31]: Expression `[int, str]` is not a valid type.
+annotations_typeexpr.py:79:8 Invalid type [31]: Expression `(int, str)` is not a valid type.
+annotations_typeexpr.py:80:8 Invalid type [31]: Expression `comprehension(int for generators(generator($target$i in range(1) if )))` is not a valid type.
+annotations_typeexpr.py:81:8 Invalid type [31]: Expression `{  }` is not a valid type.
+annotations_typeexpr.py:82:8 Invalid type [31]: Expression `lambda () (int)()` is not a valid type.
+annotations_typeexpr.py:83:8 Invalid type [31]: Expression `[int][0]` is not a valid type.
+annotations_typeexpr.py:84:8 Invalid type [31]: Expression `int if 1 < 3 else str` is not a valid type.
+annotations_typeexpr.py:85:8 Undefined or invalid type [11]: Annotation `var1` is not defined as a type.
+annotations_typeexpr.py:86:9 Invalid type [31]: Expression `True` is not a valid type.
+annotations_typeexpr.py:87:9 Invalid type [31]: Expression `1` is not a valid type.
+annotations_typeexpr.py:88:9 Invalid type [31]: Expression `-1` is not a valid type.
+annotations_typeexpr.py:89:9 Invalid type [31]: Expression `int or str` is not a valid type.
+annotations_typeexpr.py:90:9 Invalid type [31]: Expression `"int"` is not a valid type.
+"""

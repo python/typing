@@ -1,0 +1,14 @@
+conformant = "Pass"
+output = """
+generics_self_attributes.py:26:38 - error: Argument of type "LinkedList[int]" cannot be assigned to parameter "next" of type "OrdinalLinkedList | None" in function "__init__"
+  Type "LinkedList[int]" cannot be assigned to type "OrdinalLinkedList | None"
+    "LinkedList[int]" is incompatible with "OrdinalLinkedList"
+    "LinkedList[int]" is incompatible with "None" (reportGeneralTypeIssues)
+generics_self_attributes.py:32:8 - error: Cannot assign member "next" for type "OrdinalLinkedList"
+  Expression of type "LinkedList[int]" cannot be assigned to member "next" of class "OrdinalLinkedList"
+    Member "__set__" is unknown
+    Member "__set__" is unknown
+    Type "LinkedList[int]" cannot be assigned to type "OrdinalLinkedList | None"
+      "LinkedList[int]" is incompatible with "OrdinalLinkedList"
+      "LinkedList[int]" is incompatible with "None" (reportGeneralTypeIssues)
+"""

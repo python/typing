@@ -1,0 +1,16 @@
+conformant = "Pass"
+output = """
+dataclasses_usage.py:36: error: Accessing "__init__" on an instance is unsound, since instance.__init__ could be from an incompatible subclass  [misc]
+dataclasses_usage.py:51: error: Missing positional argument "unit_price" in call to "InventoryItem"  [call-arg]
+dataclasses_usage.py:52: error: Argument 2 to "InventoryItem" has incompatible type "str"; expected "float"  [arg-type]
+dataclasses_usage.py:53: error: Too many arguments for "InventoryItem"  [call-arg]
+dataclasses_usage.py:62: error: Attributes without a default cannot follow attributes with one  [misc]
+dataclasses_usage.py:68: error: Attributes without a default cannot follow attributes with one  [misc]
+dataclasses_usage.py:74: error: Attributes without a default cannot follow attributes with one  [misc]
+dataclasses_usage.py:84: error: Too many arguments for "DC4"  [call-arg]
+dataclasses_usage.py:89: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+dataclasses_usage.py:127: error: Too many arguments for "DC7"  [call-arg]
+dataclasses_usage.py:130: error: Missing positional argument "y" in call to "DC8"  [call-arg]
+dataclasses_usage.py:179: error: Too many arguments for "DC13"  [call-arg]
+dataclasses_usage.py:207: error: Name "v1" already defined on line 25  [no-redef]
+"""

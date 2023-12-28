@@ -1,0 +1,12 @@
+conformant = "Pass"
+output = """
+dataclasses_transform_func.py:57:13 - error: Cannot assign member "name" for type "Customer1"
+  "Literal[3]" is incompatible with "str" (reportGeneralTypeIssues)
+dataclasses_transform_func.py:61:6 - error: Operator "<" not supported for types "Customer1" and "Customer1" (reportGeneralTypeIssues)
+dataclasses_transform_func.py:65:36 - error: No parameter named "salary" (reportGeneralTypeIssues)
+dataclasses_transform_func.py:71:18 - error: Expected 0 positional arguments (reportGeneralTypeIssues)
+dataclasses_transform_func.py:89:1 - error: A non-frozen class cannot inherit from a class that is frozen (reportGeneralTypeIssues)
+dataclasses_transform_func.py:97:6 - error: Cannot assign member "id" for type "Customer3"
+  "Customer3" is frozen
+    Member "__set__" is unknown (reportGeneralTypeIssues)
+"""

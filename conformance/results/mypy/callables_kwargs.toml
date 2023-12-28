@@ -1,0 +1,23 @@
+conformant = "Pass"
+output = """
+callables_kwargs.py:22: note: "func1" defined here
+callables_kwargs.py:43: error: Missing named argument "v1" for "func1"  [call-arg]
+callables_kwargs.py:43: error: Missing named argument "v3" for "func1"  [call-arg]
+callables_kwargs.py:48: error: Unexpected keyword argument "v4" for "func1"  [call-arg]
+callables_kwargs.py:49: error: Too many positional arguments for "func1"  [misc]
+callables_kwargs.py:55: error: Argument 1 to "func1" has incompatible type "**dict[str, str]"; expected "int"  [arg-type]
+callables_kwargs.py:58: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "int"  [arg-type]
+callables_kwargs.py:58: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "str"  [arg-type]
+callables_kwargs.py:60: error: "func1" gets multiple values for keyword argument "v1"  [misc]
+callables_kwargs.py:61: error: "func2" gets multiple values for keyword argument "v3"  [misc]
+callables_kwargs.py:61: error: Argument 1 to "func2" has incompatible type "int"; expected "str"  [arg-type]
+callables_kwargs.py:62: error: "func2" gets multiple values for keyword argument "v1"  [misc]
+callables_kwargs.py:98: error: Incompatible types in assignment (expression has type "Callable[[KwArg(TD2)], None]", variable has type "TDProtocol3")  [assignment]
+callables_kwargs.py:98: note: "TDProtocol3.__call__" has type "Callable[[NamedArg(int, 'v1'), NamedArg(int, 'v2'), NamedArg(str, 'v3')], None]"
+callables_kwargs.py:99: error: Incompatible types in assignment (expression has type "Callable[[KwArg(TD2)], None]", variable has type "TDProtocol4")  [assignment]
+callables_kwargs.py:99: note: "TDProtocol4.__call__" has type "Callable[[NamedArg(int, 'v1')], None]"
+callables_kwargs.py:100: error: Incompatible types in assignment (expression has type "Callable[[KwArg(TD2)], None]", variable has type "TDProtocol5")  [assignment]
+callables_kwargs.py:100: note: "TDProtocol5.__call__" has type "Callable[[Arg(int, 'v1'), Arg(str, 'v3')], None]"
+callables_kwargs.py:109: error: Overlap between argument names and ** TypedDict items: "v1"  [misc]
+callables_kwargs.py:121: error: Unpack item in ** argument must be a TypedDict  [misc]
+"""
