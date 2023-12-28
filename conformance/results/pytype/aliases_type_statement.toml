@@ -1,0 +1,7 @@
+conformant = "Unsupported"
+notes = """
+Does not support `type` statement.
+"""
+output = """
+File "aliases_type_statement.py", line 8: Type statement is only supported in Python 3.12 and greater [python-compiler-error]
+"""

@@ -1,0 +1,46 @@
+conformant = "Partial"
+notes = """
+Does not reject binary expression when used in type alias definition.
+"""
+output = """
+aliases_type_statement.py:40:26 - error: Statements must be separated by newlines or semicolons
+aliases_type_statement.py:40:35 - error: Expected ":"
+aliases_type_statement.py:17:12 - error: Cannot access member "bit_count" for type "TypeAliasType"
+  Member "bit_count" is unknown (reportGeneralTypeIssues)
+aliases_type_statement.py:19:1 - error: Object of type "TypeAliasType" is not callable (reportGeneralTypeIssues)
+aliases_type_statement.py:22:18 - error: Expected type expression but received "TypeAliasType" (reportGeneralTypeIssues)
+aliases_type_statement.py:27:22 - error: Argument of type "TypeAliasType" cannot be assigned to parameter "__class_or_tuple" of type "_ClassInfo" in function "isinstance"
+  Type "TypeAliasType" cannot be assigned to type "_ClassInfo"
+    "TypeAliasType" is incompatible with "type"
+    "TypeAliasType" is incompatible with "UnionType"
+    "TypeAliasType" is incompatible with "tuple[_ClassInfo, ...]" (reportGeneralTypeIssues)
+aliases_type_statement.py:33:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_type_statement.py:34:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_type_statement.py:34:22 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)
+aliases_type_statement.py:35:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_type_statement.py:35:22 - error: Expected type expression but received "tuple[tuple[type[int], type[str]]]" (reportGeneralTypeIssues)
+aliases_type_statement.py:36:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_type_statement.py:36:22 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
+aliases_type_statement.py:37:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_type_statement.py:37:22 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)
+aliases_type_statement.py:38:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_type_statement.py:39:22 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
+aliases_type_statement.py:41:22 - error: Expected type expression but received "int" (reportGeneralTypeIssues)
+aliases_type_statement.py:42:23 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)
+aliases_type_statement.py:43:23 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_type_statement.py:43:23 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
+aliases_type_statement.py:45:23 - error: Expected expression
+aliases_type_statement.py:54:10 - error: A type statement can be used only within a module or class scope
+aliases_type_statement.py:60:23 - error: Type parameter "V" is not included in the type parameter list for "TA1" (reportGeneralTypeIssues)
+aliases_type_statement.py:65:17 - error: Type parameter "T1" is not included in the type parameter list for "TA2" (reportGeneralTypeIssues)
+aliases_type_statement.py:75:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
+  Type "str" cannot be assigned to type "int"
+    "str" is incompatible with "int"
+aliases_type_statement.py:77:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
+  Type "int" cannot be assigned to type "str"
+    "int" is incompatible with "str"
+aliases_type_statement.py:80:28 - error: Type alias "RecursiveTypeAlias3" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_type_statement.py:82:31 - error: Type alias "RecursiveTypeAlias4" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_type_statement.py:86:28 - error: Type alias "RecursiveTypeAlias6" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_type_statement.py:48:10 - error: Type alias declaration "BadTypeAlias14" is obscured by a declaration of the same name (reportGeneralTypeIssues)
+"""

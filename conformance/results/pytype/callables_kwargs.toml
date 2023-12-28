@@ -1,5 +1,5 @@
 conformant = "Unsupported"
-note = """
+notes = """
 Does not understand Unpack in the context of **kwargs annotation.
 """
 output = """

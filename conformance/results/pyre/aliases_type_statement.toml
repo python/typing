@@ -1,0 +1,7 @@
+conformant = "Unsupported"
+notes = """
+Does not support `type` statement.
+"""
+output = """
+aliases_type_statement.py:8:6 Parsing failure [404]: invalid syntax
+"""

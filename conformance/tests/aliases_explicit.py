@@ -75,7 +75,7 @@ def good_type_aliases_used_badly(
 
 var1 = 3
 
-# The following should not be considered type aliases.
+# The following should not be allowed as type aliases.
 BadTypeAlias1: TA = eval("".join(map(chr, [105, 110, 116])))
 BadTypeAlias2: TA = [int, str]
 BadTypeAlias3: TA = ((int, str),)

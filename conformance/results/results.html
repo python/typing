@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.37sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.38sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -149,6 +149,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_recursive</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support `type` statement.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -196,7 +197,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(1.02sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(0.99sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -218,6 +219,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of NewType in `isinstance` call.<br>Does not report inconsistency between name of NewType and assigned identifier name.<br>Does not reject use of NewType with TypedDict class.<br>Does not reject use of NewType with another NewType.<br>Does not reject use of NewType with Any.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_recursive</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject binary expression when used in type alias definition.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -265,7 +267,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.42sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.40sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -287,6 +289,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports error for type alias defined with ParamSpec.<br>Incorrectly rejects some valid type aliases when used in annotations.<br>Incorrectly evaluates generic type alias with ParamSpec with missing type argument.<br>Does not report invalid specialization of generic type aliases.<br>Does not report error for attempt to instantiate union type alias.<br>Does not report invalid specialization of already-specialized generic type alias.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of NewType in `isinstance` call.<br>Does not reject use of NewType in class definition statement.<br>Does not report inconsistency between name of NewType and assigned identifier name.<br>Does not reject use of NewType with generic class with TypeVar.<br>Does not reject use of NewType with protocol class.<br>Does not reject use of NewType with TypedDict class.<br>Does not reject use of NewType with another NewType.<br>Does not reject use of NewType with Any.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_recursive</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not properly handle some recursive type aliases.<br>Does not properly handle specialization of generic recursive type aliases.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support `type` statement.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -299,7 +302,7 @@
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not evaluate correct type for `*args: int` parameter.<br>Does not reject illegal form `Callable[[...], int]`.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_kwargs</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_kwargs</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand Unpack in the context of **kwargs annotation.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not correctly handle callback protocol that declares attributes in all functions.<br>Does not report type incompatibility for callback protocol with positional-only parameters.<br>Incorrectly reports type compatibility error with callback that has *args and **kwargs.<br>Does not report type incompatibility for callback missing a default argument for positional parameter.<br>Does not report type incompatibility for callback missing a default argument for keyword parameter.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -334,7 +337,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support `tuple` in `assert_type` call.<br>Does not reject TypeGuard method with too few parameters.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(49.96sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(50.07sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -356,6 +359,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports error for type alias defined with ParamSpec.<br>Does not report invalid specialization of generic type alias with bound TypeVar.<br>Incorrectly evaluates generic type alias with ParamSpec with missing type argument.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br>Does not report invalid specialization of already-specialized generic type alias.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of NewType in `isinstance` call.<br>Does not reject use of NewType in class definition statement.<br>Does not report inconsistency between name of NewType and assigned identifier name.<br>Does not reject use of NewType with generic class with TypeVar.<br>Does not reject use of NewType with protocol class.<br>Does not reject use of NewType with TypedDict class.<br>Does not reject use of NewType with another NewType.<br>Does not reject use of NewType with Any.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_recursive</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not detect type violation for some deeply-nested types.<br>Does not properly handle `|` for unions in some recursive type alias definitions.<br>Does not detect cyclical references in recursive type alias definition.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support `type` statement.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not detect variance incompatibility.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -368,7 +372,7 @@
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_annotation</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_kwargs</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_kwargs</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand Unpack in the context of **kwargs annotation.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not properly handle type compatibility checks with callback protocols.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
