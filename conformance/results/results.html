@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.48sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.78sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -148,6 +148,10 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not allow ClassVar to be nested within Annotated.<br>Does not allow Final to be nested within Annotated.<br>Does not allow Required and NotRequired to be nested within Annotated.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br>Does not allow conditional assignment of Final instance variable in __init__ method.<br>Does not allow redefinition of private class variable that is marked Final in parent class.<br>Does not report modification of local Final variable via "for" statement.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Internal error if TypeVarTuple is used in ClassVar.<br>Does not reject use of ParamSpec in ClassVar.<br>Rejects ClassVar nested in Annotated.<br>Does not reject use of ClassVar in TypeAlias definition.<br>Does not infer type of ClassVar from assignment if no type is provided.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
@@ -204,7 +208,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.00sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.02sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -225,6 +229,10 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject all invalid type expressions within Annotated.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report override of overloaded method marked @final.<br>Does not report error for non-method function marked @final.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
@@ -281,7 +289,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.67sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.53sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -302,6 +310,10 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject Annotated with a single parameter.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report Final variable with missing initialization in module scope.<br>Does not report error for invalid nesting of Final and ClassVar.<br>Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports error for overloaded method implementation marked @final if its overloads do not.<br>Does not report error for overloaded @final method defined in stub file.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of TypeVar in ClassVar.<br>Does not reject use of ParamSpec in ClassVar.<br>Does not reject use of ClassVar as a generic type argument.<br>Does not reject use of ClassVar in parameter type annotation.<br>Does not reject use of ClassVar in local variable annotation.<br>Does not reject use of ClassVar in instance variable annotation.<br>Does not reject use of ClassVar in return type annotation.<br>Does not reject use of ClassVar in type alias definition.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
@@ -358,7 +370,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support `tuple` in `assert_type` call.<br>Does not reject TypeGuard method with too few parameters.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(54.83sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(81.08sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -379,6 +391,10 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject some illegal type expression forms used in Annotated.<br>Does not allow TypeVar to be used in type alias when wrapped with Annotated.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report Final variable with missing initialization.<br>Does not reject Final instance variable declared outside of __init__ method.<br>Does not reject modification of global variable declared Final.<br>Does not reject modification of local variable declared Final.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error for overloaded @final method defined in stub file.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of TypeVar in ClassVar.<br>Does not reject use of ParamSpec in ClassVar.<br>Does not reject use of ClassVar as a generic type argument.<br>Rejects initialization of ClassVar if no type argument is provided.<br>Does not reject use of ClassVar in parameter type annotation.<br>Does not reject use of ClassVar in local variable annotation.<br>Does not reject use of ClassVar in instance variable annotation.<br>Does not reject use of ClassVar in return type annotation.<br>Does not reject use of ClassVar in type alias definition.<br>Does not reject assignment of ClassVar through instance of class.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
