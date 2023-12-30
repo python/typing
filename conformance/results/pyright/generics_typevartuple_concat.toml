@@ -1,0 +1,10 @@
+conformant = "Partial"
+notes = """
+Does not support tuple slicing when tuple type includes TypeVarTuple.
+"""
+output = """
+generics_typevartuple_concat.py:56:12 - error: Expression of type "tuple[*tuple[T@move_first_element_to_last | Union[*Ts@move_first_element_to_last], ...], T@move_first_element_to_last]" cannot be assigned to return type "tuple[*Ts@move_first_element_to_last, T@move_first_element_to_last]"
+  "tuple[*tuple[T@move_first_element_to_last | Union[*Ts@move_first_element_to_last], ...], T@move_first_element_to_last]" is incompatible with "tuple[*Ts@move_first_element_to_last, T@move_first_element_to_last]"
+    Tuple entry 1 is incorrect type
+      Type "*tuple[T@move_first_element_to_last | Union[*Ts@move_first_element_to_last], ...]" cannot be assigned to type "*Ts@move_first_element_to_last" (reportGeneralTypeIssues)
+"""

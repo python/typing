@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.66sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(1.25sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -151,11 +151,28 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject ParamSpec when used "bare" in type alias definition.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_components</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report illegal use of "P.args" on normal parameter.<br>Does not report error when P.args is specified but P.kwargs is missing.<br>Does not report error when P is out of scope and P.args and P.kwargs is used.<br>Does not report error when keyword argument is specified between P.args and P.kwargs.<br>Does not report error when calling callable and argument is missing for concatenated parameters.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_semantics</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_specialization</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_advanced</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not infer the type of an unannotated `self` parameter to be type `Self`.<br>Does not retain `Self` when calling method that returns `Self`.<br>Does not infer the type of an unannotated `cls` parameter to be type `type[Self]`.<br>Does not retain `Self` when accessing attribute through `type[Self]`.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_attributes</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not properly handle constructor call through `cls` parameter.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_compatibility</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_declarations</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_infer_variance</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_scoping</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_args</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not enforce that tuples captured by TypeVarTuple are same length (spec bug?).<br>Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).<br>Does not enforce that tuples captured by TypeVarTuple are invariant in non-tuple class.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_callable</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_concat</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_overloads</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_specialization</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports type incompatibility when generic class is specialized with `*tuple[Any, ...]`.<br>Incorrectly specializes generic alias that includes a TypeVar and TypeVarTuple if no type arguments are provided.<br>Rejects use of unpacked TypeVarTuple in generic type alias definition.<br>Rejects specialization of generic type alias defined as a tuple containing a TypeVar.<br>"More than one Unpack" error message has no line number.<br>Incorrectly evaluates tuple split across a TypeVarTuple and a TypeVar.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_unpack</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject multiple unpack operators in a tuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_variance</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject a function-scoped TypeVar that is marked as covariant or contravariant.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_variance_inference</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
@@ -253,7 +270,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not understand three-element form of sys.version checks.<br>Does not understand os.name checks.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.24sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.44sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -277,11 +294,28 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject the use of Concatenate outside of a Callable annotation.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_components</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_semantics</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Constraint solver doesn't find common type for two signatures captured by a single ParamSpec.<br>Evaluates incorrect type when evaluating constructor call for generic class parameterized by ParamSpec.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_specialization</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_advanced</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_attributes</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_compatibility</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_declarations</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_infer_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_scoping</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not evaluate correct type for variables that shadow type parameters.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_args</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject value constraints when constructing TypeVarTuple.<br>Does not enforce that tuples captured by TypeVarTuple are same length (spec bug?).<br>Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_callable</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_concat</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support tuple slicing when tuple type includes TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_overloads</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_specialization</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports type incompatibility when generic class is specialized with `*tuple[Any, ...]`.<br>Does not reject specialization of TypeVar in generic type alias when unpacked tuple is specified as type argument.<br>Does not reject specialization of generic type alias when number of type arguments is too few.<br>Incorrectly evaluates tuple split across a TypeVarTuple and a TypeVar.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_unpack</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat `tuple[Any, ...]` as having an arbitrary length.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_variance</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject a function-scoped TypeVar that is marked as covariant or contravariant.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_variance_inference</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
@@ -379,7 +413,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(2.12sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(2.29sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -403,11 +437,28 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not enforce name consistency for ParamSpec assigned to identifier.<br>Incorrectly reports error for legitimate use of ParamSpec in generic type alias.<br>Does not reject ParamSpec when used in various invalid locations.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_components</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report illegal use of "P.args" on normal parameter.<br>Does not report error when P.args is specified but P.kwargs is missing.<br>Does not report error when P is out of scope and P.args and P.kwargs is used.<br>Does not report error when calling callback defined with ParamSpec with incorrect arguments.<br>Does not report error when keyword argument is specified between P.args and P.kwargs.<br>Does not report error when calling callable and argument is missing for concatenated parameters.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_semantics</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Constraint solver doesn't find common type for two signatures captured by a single ParamSpec.<br>Reports error for legitimate Callable type annotation that uses Concatenate.<br>Does not evaluate the correct type for call of Callable defined with Concatenate.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_specialization</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports error for legitimate use of ParamSpec and Concatenate in function signature.<br>Reports error for legitimate specialization of generic class parameterized with ParamSpec.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_advanced</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_attributes</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject protocol compatibility due to method `Self` return type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_compatibility</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_declarations</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_infer_variance</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_scoping</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_args</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_callable</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_concat</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_overloads</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_specialization</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_unpack</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_variance</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject a TypeVar that is defined as both covariant and contravariant.<br>Does not reject a function-scoped TypeVar that is marked as covariant or contravariant.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_variance_inference</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
@@ -505,7 +556,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support sys.platform checks.<br>Does not support os.name checks.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(26.71sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(26.56sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -529,11 +580,28 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support ParamSpec.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_components</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support ParamSpec.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_semantics</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support ParamSpec.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_specialization</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support ParamSpec.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_advanced</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_attributes</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject protocol compatibility due to method `Self` return type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_compatibility</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_declarations</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_infer_variance</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_scoping</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_args</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_callable</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_concat</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_overloads</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_specialization</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_unpack</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_variance</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support covariant or contravariant TypeVars.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_variance_inference</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Type parameter syntax not yet support.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>

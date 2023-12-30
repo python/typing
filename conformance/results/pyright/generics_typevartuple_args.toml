@@ -1,0 +1,20 @@
+conformant = "Partial"
+notes = """
+Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).
+"""
+output = """
+generics_typevartuple_args.py:33:16 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "Env" in function "exec_le"
+  "Literal['']" is incompatible with "Env" (reportGeneralTypeIssues)
+generics_typevartuple_args.py:34:16 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "Env" in function "exec_le"
+  "Literal['']" is incompatible with "Env" (reportGeneralTypeIssues)
+generics_typevartuple_args.py:48:10 - error: Argument of type "Literal['2']" cannot be assigned to parameter of type "int" in function "func1"
+  "Literal['2']" is incompatible with "int" (reportGeneralTypeIssues)
+generics_typevartuple_args.py:57:10 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str" in function "func2"
+  "Literal[1]" is incompatible with "str" (reportGeneralTypeIssues)
+generics_typevartuple_args.py:58:1 - error: Argument missing for parameter "args[2]" (reportGeneralTypeIssues)
+generics_typevartuple_args.py:59:1 - error: Argument missing for parameter "args[2]" (reportGeneralTypeIssues)
+generics_typevartuple_args.py:67:1 - error: Argument missing for parameter "args[1]" (reportGeneralTypeIssues)
+generics_typevartuple_args.py:75:13 - error: Argument of type "tuple[Literal[1], Literal[2]]" cannot be assigned to parameter "args" of type "tuple[*Ts@func4]" in function "func4"
+  "tuple[Literal[1], Literal[2]]" is incompatible with "tuple[int]"
+    Tuple size mismatch; expected 1 but received 2 (reportGeneralTypeIssues)
+"""

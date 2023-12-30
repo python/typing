@@ -1,0 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not reject a function-scoped TypeVar that is marked as covariant or contravariant.
+"""
+output = """
+generics_variance.py:14:50 - error: TypeVar cannot be both covariant and contravariant
+"""

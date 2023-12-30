@@ -1,0 +1,8 @@
+conformant = "Pass"
+output = """
+generics_paramspec_specialization.py:45: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "int"  [misc]
+generics_paramspec_specialization.py:55: error: Argument 1 has incompatible type "str"; expected "int"  [arg-type]
+generics_paramspec_specialization.py:56: error: Argument 3 has incompatible type "str"; expected "bool"  [arg-type]
+generics_paramspec_specialization.py:61: error: Argument 1 has incompatible type "str"; expected "int"  [arg-type]
+generics_paramspec_specialization.py:62: error: Argument 3 has incompatible type "str"; expected "bool"  [arg-type]
+"""

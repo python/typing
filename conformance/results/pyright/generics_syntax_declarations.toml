@@ -1,0 +1,14 @@
+conformant = "Pass"
+output = """
+generics_syntax_declarations.py:19:17 - error: "Generic" base class cannot be used with type parameter syntax (reportGeneralTypeIssues)
+generics_syntax_declarations.py:23:20 - error: Type arguments are not allowed with Protocol class when using type parameter syntax (reportGeneralTypeIssues)
+generics_syntax_declarations.py:30:11 - error: Cannot access member "is_integer" for type "str*"
+  Member "is_integer" is unknown (reportGeneralTypeIssues)
+generics_syntax_declarations.py:42:21 - error: TypeVar constraint type cannot be generic
+generics_syntax_declarations.py:46:17 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)
+generics_syntax_declarations.py:58:17 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)
+generics_syntax_declarations.py:62:17 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)
+generics_syntax_declarations.py:69:17 - error: Expected type expression but received "tuple[type[bytes], type[str]]" (reportGeneralTypeIssues)
+generics_syntax_declarations.py:73:18 - error: Expected type expression but received "Literal[3]" (reportGeneralTypeIssues)
+generics_syntax_declarations.py:77:23 - error: "S" is not defined (reportUndefinedVariable)
+"""

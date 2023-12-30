@@ -1,0 +1,35 @@
+conformant = "Partial"
+notes = """
+Constraint solver doesn't find common type for two signatures captured by a single ParamSpec.
+Evaluates incorrect type when evaluating constructor call for generic class parameterized by ParamSpec.
+"""
+output = """
+generics_paramspec_semantics.py:26:6 - error: Expected 2 more positional arguments (reportGeneralTypeIssues)
+generics_paramspec_semantics.py:27:9 - error: Argument of type "Literal['A']" cannot be assigned to parameter "b" of type "bool"
+  "Literal['A']" is incompatible with "bool" (reportGeneralTypeIssues)
+generics_paramspec_semantics.py:46:17 - error: Argument of type "(y: int, x: str) -> int" cannot be assigned to parameter "y" of type "(**P@func1) -> int" in function "func1"
+  Type "(y: int, x: str) -> int" cannot be assigned to type "(x: int, y: str) -> int"
+    Parameter name mismatch: "x" versus "y"
+    Parameter name mismatch: "y" versus "x" (reportGeneralTypeIssues)
+generics_paramspec_semantics.py:61:23 - error: Argument of type "(*, y: int) -> int" cannot be assigned to parameter "y" of type "(**P@func1) -> int" in function "func1"
+  Type "(*, y: int) -> int" cannot be assigned to type "(*, x: int) -> int"
+    Keyword parameter "y" is missing in destination
+    Keyword parameter "x" is missing in source (reportGeneralTypeIssues)
+generics_paramspec_semantics.py:81:13 - error: "assert_type" mismatch: expected "Y[int, (int)]" but received "Y[int, (q: int, /)]" (reportGeneralTypeIssues)
+generics_paramspec_semantics.py:97:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str"
+  "Literal[1]" is incompatible with "str" (reportGeneralTypeIssues)
+generics_paramspec_semantics.py:107:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter "args" of type "bool"
+  "Literal[1]" is incompatible with "bool" (reportGeneralTypeIssues)
+generics_paramspec_semantics.py:119:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str"
+  "Literal[1]" is incompatible with "str" (reportGeneralTypeIssues)
+generics_paramspec_semantics.py:126:2 - error: Argument of type "(x: str) -> int" cannot be assigned to parameter "x" of type "(int, **P@expects_int_first) -> int" in function "expects_int_first"
+  Type "(x: str) -> int" cannot be assigned to type "(int, **P@expects_int_first) -> int"
+    Parameter 1: type "int" cannot be assigned to type "str"
+      "int" is incompatible with "str" (reportGeneralTypeIssues)
+generics_paramspec_semantics.py:131:2 - error: Argument of type "(*, x: int) -> int" cannot be assigned to parameter "x" of type "(int, **P@expects_int_first) -> int" in function "expects_int_first"
+  Type "(*, x: int) -> int" cannot be assigned to type "(int, **P@expects_int_first) -> int"
+    Function accepts too many positional parameters; expected 0 but received 1 (reportGeneralTypeIssues)
+generics_paramspec_semantics.py:136:2 - error: Argument of type "(**kwargs: int) -> int" cannot be assigned to parameter "x" of type "(int, **P@expects_int_first) -> int" in function "expects_int_first"
+  Type "(**kwargs: int) -> int" cannot be assigned to type "(int, **P@expects_int_first) -> int"
+    Function accepts too many positional parameters; expected 0 but received 1 (reportGeneralTypeIssues)
+"""

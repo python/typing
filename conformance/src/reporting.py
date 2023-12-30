@@ -11,7 +11,7 @@ from type_checker import TYPE_CHECKERS
 
 
 def generate_summary(root_dir: Path):
-    print('Generating summary report')
+    print("Generating summary report")
     template_file = root_dir / "src" / "results_template.html"
     with open(template_file, "r") as f:
         template = f.read()
@@ -39,6 +39,9 @@ def generate_summary_html(root_dir: Path):
                 existing_info = tomli.load(f)
         except FileNotFoundError:
             existing_info = {}
+        except tomli.TOMLDecodeError:
+            print(f"Error decoding {version_file}")
+            existing_info = {}
 
         version = existing_info["version"] or "Unknown version"
         test_duration = existing_info.get("test_duration")
@@ -46,7 +49,7 @@ def generate_summary_html(root_dir: Path):
         summary_html += f"<div class='tc-header'><span class='tc-name'>{version}"
         if test_duration is not None:
             summary_html += f"<span class='tc-time'>({test_duration:.2f}sec)</span>\n"
-        summary_html += '</div>\n'
+        summary_html += "</div>\n"
         summary_html += '<div class="table_container"><table>\n'
         summary_html += '<tr><th class="column spacer" colspan="4"></th></tr>\n'
 
@@ -56,7 +59,7 @@ def generate_summary_html(root_dir: Path):
                 for case in test_cases
                 if case.name.startswith(f"{test_group_name}_")
             ]
-            
+
             tests_in_group.sort(key=lambda x: x.name)
 
             # Are there any test cases in this group?

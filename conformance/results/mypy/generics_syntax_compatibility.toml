@@ -1,0 +1,14 @@
+conformant = "Unsupported"
+notes = """
+Type parameter syntax not yet support.
+"""
+output = """
+generics_syntax_compatibility.py:14: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_compatibility.py:14: error: Name "V" is not defined  [name-defined]
+generics_syntax_compatibility.py:18: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_compatibility.py:18: error: Name "V" is not defined  [name-defined]
+generics_syntax_compatibility.py:22: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_compatibility.py:23: error: Name "V" is not defined  [name-defined]
+generics_syntax_compatibility.py:26: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_compatibility.py:26: error: Name "M" is not defined  [name-defined]
+"""

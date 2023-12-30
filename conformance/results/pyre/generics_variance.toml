@@ -1,0 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not reject a TypeVar that is defined as both covariant and contravariant.
+Does not reject a function-scoped TypeVar that is marked as covariant or contravariant.
+"""
+output = """
+"""

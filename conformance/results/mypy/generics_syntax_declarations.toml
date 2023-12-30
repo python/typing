@@ -1,0 +1,34 @@
+conformant = "Unsupported"
+notes = """
+Type parameter syntax not yet support.
+"""
+output = """
+generics_syntax_declarations.py:13: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:14: error: Expression is of type "Any", not "TypeVar"  [assert-type]
+generics_syntax_declarations.py:14: error: Name "T" is not defined  [name-defined]
+generics_syntax_declarations.py:15: error: Expression is of type "Any", not "TypeVarTuple"  [assert-type]
+generics_syntax_declarations.py:15: error: Name "Ts" is not defined  [name-defined]
+generics_syntax_declarations.py:16: error: Expression is of type "Any", not "ParamSpec"  [assert-type]
+generics_syntax_declarations.py:16: error: Name "P" is not defined  [name-defined]
+generics_syntax_declarations.py:19: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:19: error: Free type variable expected in Generic[...]  [misc]
+generics_syntax_declarations.py:19: error: Name "T" is not defined  [name-defined]
+generics_syntax_declarations.py:23: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:23: error: Free type variable expected in Protocol[...]  [misc]
+generics_syntax_declarations.py:23: error: Name "S" is not defined  [name-defined]
+generics_syntax_declarations.py:23: error: Name "T" is not defined  [name-defined]
+generics_syntax_declarations.py:27: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:28: error: Name "T" is not defined  [name-defined]
+generics_syntax_declarations.py:33: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:37: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:41: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:42: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:46: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:50: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:54: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:58: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:62: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:69: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:73: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:77: error: PEP 695 generics are not yet supported  [valid-type]
+"""

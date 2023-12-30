@@ -55,6 +55,9 @@ def update_output_for_test(
             existing_results = tomli.load(f)
     except FileNotFoundError:
         existing_results = {}
+    except tomli.TOMLDecodeError:
+        print(f"Error decoding {results_file}")
+        existing_results = {}
 
     old_output = existing_results.get("output", None)
     old_output = f"\n{old_output}"
@@ -79,7 +82,9 @@ def update_output_for_test(
             tomlkit.dump(existing_results, f)
 
 
-def update_type_checker_info(type_checker: TypeChecker, root_dir: Path, test_duration: float):
+def update_type_checker_info(
+    type_checker: TypeChecker, root_dir: Path, test_duration: float
+):
     # Record the version of the type checker used for the latest run.
     version_file = root_dir / "results" / type_checker.name / "version.toml"
 
@@ -88,6 +93,9 @@ def update_type_checker_info(type_checker: TypeChecker, root_dir: Path, test_dur
         with open(version_file, "rb") as f:
             existing_info = tomli.load(f)
     except FileNotFoundError:
+        existing_info = {}
+    except tomli.TOMLDecodeError:
+        print(f"Error decoding {version_file}")
         existing_info = {}
 
     existing_info["version"] = type_checker.get_version()
@@ -117,7 +125,7 @@ def main():
     # Run each test case with each type checker.
     for type_checker in TYPE_CHECKERS:
         if not type_checker.install():
-            print(f'Skipping tests for {type_checker.name}')
+            print(f"Skipping tests for {type_checker.name}")
         else:
             run_tests(root_dir, type_checker, test_cases)
 

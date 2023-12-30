@@ -1,0 +1,50 @@
+conformant = "Unsupported"
+notes = """
+Does not support TypeVarTuple.
+"""
+output = """
+File "generics_typevartuple_unpack.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
+File "generics_typevartuple_unpack.py", line 12, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+  Not a type
+File "generics_typevartuple_unpack.py", line 13, in func1: Tuple[Any] [assert-type]
+  Expected: Tuple[int, bool, bool, str]
+    Actual: Tuple[Any]
+File "generics_typevartuple_unpack.py", line 14, in func1: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+  Not a type
+File "generics_typevartuple_unpack.py", line 15, in func1: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+  Not a type
+File "generics_typevartuple_unpack.py", line 21, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+  Not a type
+File "generics_typevartuple_unpack.py", line 22, in func2: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+  Not a type
+File "generics_typevartuple_unpack.py", line 30, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+         Expected: (self)
+  Actually passed: (self, _)
+File "generics_typevartuple_unpack.py", line 33, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+  Parameters to Generic[...] must all be type variables
+File "generics_typevartuple_unpack.py", line 37, in <module>: class Array is not indexable [not-indexable]
+  ('Array' does not subclass Generic)
+File "generics_typevartuple_unpack.py", line 42, in <module>: class Array is not indexable [not-indexable]
+  ('Array' does not subclass Generic)
+File "generics_typevartuple_unpack.py", line 49, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+         Expected: (self)
+  Actually passed: (self, _)
+File "generics_typevartuple_unpack.py", line 52, in <module>: class Array is not indexable [not-indexable]
+  ('Array' does not subclass Generic)
+File "generics_typevartuple_unpack.py", line 56, in <module>: class Array is not indexable [not-indexable]
+  ('Array' does not subclass Generic)
+File "generics_typevartuple_unpack.py", line 60, in <module>: class Array is not indexable [not-indexable]
+  ('Array' does not subclass Generic)
+File "generics_typevartuple_unpack.py", line 67, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
+         Expected: (self, i: Iterable)
+  Actually passed: (self, i: Type[Tuple[int]])
+  Attributes of protocol Iterable[_T2] are not implemented on type: __iter__
+File "generics_typevartuple_unpack.py", line 67, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+  Not a type
+File "generics_typevartuple_unpack.py", line 68, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
+         Expected: (self, i: Iterable)
+  Actually passed: (self, i: Type[Tuple[int]])
+  Attributes of protocol Iterable[_T2] are not implemented on type: __iter__
+File "generics_typevartuple_unpack.py", line 68, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+  Not a type
+"""

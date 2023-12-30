@@ -1,0 +1,4 @@
+conformant = "Pass"
+output = """
+generics_typevartuple_callable.py:26: error: Argument "target" to "Process" has incompatible type "Callable[[int, str], None]"; expected "Callable[[str, int], None]"  [arg-type]
+"""
