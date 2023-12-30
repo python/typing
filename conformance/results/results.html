@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.78sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.40sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -152,6 +152,7 @@
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Internal error if TypeVarTuple is used in ClassVar.<br>Does not reject use of ParamSpec in ClassVar.<br>Rejects ClassVar nested in Annotated.<br>Does not reject use of ClassVar in TypeAlias definition.<br>Does not infer type of ClassVar from assignment if no type is provided.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_override</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not handle case where parent class derives from Any.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
@@ -208,7 +209,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.02sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.05sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -233,6 +234,7 @@
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_override</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
@@ -314,6 +316,7 @@
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of TypeVar in ClassVar.<br>Does not reject use of ParamSpec in ClassVar.<br>Does not reject use of ClassVar as a generic type argument.<br>Does not reject use of ClassVar in parameter type annotation.<br>Does not reject use of ClassVar in local variable annotation.<br>Does not reject use of ClassVar in instance variable annotation.<br>Does not reject use of ClassVar in return type annotation.<br>Does not reject use of ClassVar in type alias definition.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_override</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not yet support the @override decorator.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
@@ -370,7 +373,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support `tuple` in `assert_type` call.<br>Does not reject TypeGuard method with too few parameters.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(81.08sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(57.62sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -395,6 +398,7 @@
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of TypeVar in ClassVar.<br>Does not reject use of ParamSpec in ClassVar.<br>Does not reject use of ClassVar as a generic type argument.<br>Rejects initialization of ClassVar if no type argument is provided.<br>Does not reject use of ClassVar in parameter type annotation.<br>Does not reject use of ClassVar in local variable annotation.<br>Does not reject use of ClassVar in instance variable annotation.<br>Does not reject use of ClassVar in return type annotation.<br>Does not reject use of ClassVar in type alias definition.<br>Does not reject assignment of ClassVar through instance of class.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_override</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not yet support the @override decorator.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>

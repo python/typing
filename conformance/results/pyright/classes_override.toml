@@ -1,0 +1,8 @@
+conformant = "Pass"
+output = """
+classes_override.py:53:9 - error: Method "method3" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
+classes_override.py:65:9 - error: Method "method4" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
+classes_override.py:79:9 - error: Method "static_method1" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
+classes_override.py:84:9 - error: Method "class_method1" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
+classes_override.py:91:9 - error: Method "property1" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
+"""
