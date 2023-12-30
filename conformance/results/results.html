@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.40sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.48sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -142,6 +142,12 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not properly handle constructor call through `cls` parameter.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not allow ClassVar to be nested within Annotated.<br>Does not allow Final to be nested within Annotated.<br>Does not allow Required and NotRequired to be nested within Annotated.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br>Does not allow conditional assignment of Final instance variable in __init__ method.<br>Does not allow redefinition of private class variable that is marked Final in parent class.<br>Does not report modification of local Final variable via "for" statement.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
@@ -198,7 +204,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(1.01sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.00sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -215,13 +221,19 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject all invalid type expressions within Annotated.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report override of overloaded method marked @final.<br>Does not report error for non-method function marked @final.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_explicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of NewType in `isinstance` call.<br>Does not report inconsistency between name of NewType and assigned identifier name.<br>Does not reject use of NewType with TypedDict class.<br>Does not reject use of NewType with another NewType.<br>Does not reject use of NewType with Any.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_explicit</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_recursive</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject binary expression when used in type alias definition.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_typealiastype</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject type alias expression that uses TypeVar that is not in scope and not in `type_params`.<br>Does not allow access to `__value__` attribute of type alias.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_typealiastype</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -235,7 +247,7 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_annotation</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_kwargs</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report type incompatibility for callback protocol with positional-only parameters.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
@@ -245,7 +257,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_inheritance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_kwonly</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_order</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_postinit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports incorrect error for incompatible `__post_init__` method override.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_postinit</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_slots</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_transform_class</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_transform_field</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
@@ -269,7 +281,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.40sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.67sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -284,6 +296,12 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject protocol compatibility due to method `Self` return type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject Annotated with a single parameter.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report Final variable with missing initialization in module scope.<br>Does not report error for invalid nesting of Final and ClassVar.<br>Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports error for overloaded method implementation marked @final if its overloads do not.<br>Does not report error for overloaded @final method defined in stub file.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
@@ -340,7 +358,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support `tuple` in `assert_type` call.<br>Does not reject TypeGuard method with too few parameters.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(51.57sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(54.83sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -355,6 +373,12 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject protocol compatibility due to method `Self` return type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject some illegal type expression forms used in Annotated.<br>Does not allow TypeVar to be used in type alias when wrapped with Annotated.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report Final variable with missing initialization.<br>Does not reject Final instance variable declared outside of __init__ method.<br>Does not reject modification of global variable declared Final.<br>Does not reject modification of local variable declared Final.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error for overloaded @final method defined in stub file.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
