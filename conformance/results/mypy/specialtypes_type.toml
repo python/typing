@@ -1,0 +1,20 @@
+conformant = "Partial"
+notes = """
+Does not treat `type` same as `type[Any]` for assert_type.
+Does not allow access to unknown attributes from object of type `type[Any]`.
+"""
+output = """
+specialtypes_type.py:56: error: Argument 1 to "func4" has incompatible type "type[TeamUser]"; expected "type[BasicUser] | type[ProUser]"  [arg-type]
+specialtypes_type.py:70: error: Argument 1 to "func5" has incompatible type "<typing special form>"; expected "type[Never]"  [arg-type]
+specialtypes_type.py:76: error: type[...] must have exactly one type argument  [valid-type]
+specialtypes_type.py:84: error: Expression is of type "type", not "type[Any]"  [assert-type]
+specialtypes_type.py:99: error: "type" has no attribute "unknown"  [attr-defined]
+specialtypes_type.py:100: error: "type" has no attribute "unknown"  [attr-defined]
+specialtypes_type.py:117: error: "type[object]" has no attribute "unknown"  [attr-defined]
+specialtypes_type.py:120: error: "type[object]" has no attribute "unknown"  [attr-defined]
+specialtypes_type.py:139: error: Expression is of type "type", not "type[Any]"  [assert-type]
+specialtypes_type.py:143: error: "<typing special form>" has no attribute "unknown"  [attr-defined]
+specialtypes_type.py:144: error: "<typing special form>" has no attribute "unknown"  [attr-defined]
+specialtypes_type.py:145: error: "type[type]" has no attribute "unknown"  [attr-defined]
+specialtypes_type.py:146: error: "<typing special form>" has no attribute "unknown"  [attr-defined]
+"""

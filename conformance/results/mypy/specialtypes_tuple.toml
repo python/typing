@@ -1,0 +1,10 @@
+conformant = "Pass"
+output = """
+specialtypes_tuple.py:12: error: Incompatible types in assignment (expression has type "tuple[int, int]", variable has type "tuple[int]")  [assignment]
+specialtypes_tuple.py:14: error: Incompatible types in assignment (expression has type "tuple[int]", variable has type "tuple[int, int]")  [assignment]
+specialtypes_tuple.py:15: error: Incompatible types in assignment (expression has type "tuple[int, str]", variable has type "tuple[int, int]")  [assignment]
+specialtypes_tuple.py:25: error: Incompatible types in assignment (expression has type "tuple[int]", variable has type "tuple[()]")  [assignment]
+specialtypes_tuple.py:36: error: Incompatible types in assignment (expression has type "tuple[int, int, int, str]", variable has type "tuple[int, ...]")  [assignment]
+specialtypes_tuple.py:42: error: Incompatible types in assignment (expression has type "tuple[int, ...]", variable has type "tuple[int]")  [assignment]
+specialtypes_tuple.py:43: error: Incompatible types in assignment (expression has type "tuple[int, ...]", variable has type "tuple[()]")  [assignment]
+"""

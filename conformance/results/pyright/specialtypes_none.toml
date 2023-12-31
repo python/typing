@@ -1,0 +1,10 @@
+conformant = "Pass"
+output = """
+specialtypes_none.py:21:7 - error: Argument of type "type[None]" cannot be assigned to parameter "val1" of type "None" in function "func1"
+  "type[type]" is incompatible with "type[None]" (reportGeneralTypeIssues)
+specialtypes_none.py:27:19 - error: Expression of type "None" cannot be assigned to declared type "Iterable[Unknown]"
+  "None" is incompatible with protocol "Iterable[Unknown]"
+    "__iter__" is not present (reportGeneralTypeIssues)
+specialtypes_none.py:41:7 - error: Argument of type "None" cannot be assigned to parameter "val1" of type "type[None]" in function "func2"
+  Type "None" cannot be assigned to type "type[None]" (reportGeneralTypeIssues)
+"""
