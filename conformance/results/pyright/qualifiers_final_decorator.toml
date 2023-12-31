@@ -2,6 +2,8 @@ conformant = "Partial"
 notes = """
 Does not report override of overloaded method marked @final.
 Does not report error for non-method function marked @final.
+Does not report error if overload is marked @final but implementation is not.
+Does not report error in stub if first overload is not marked @final but subsequent ones are.
 """
 output = """
 qualifiers_final_decorator.py:8:6 - warning: Import "_qualifiers_final_decorator" could not be resolved from source (reportMissingModuleSource)
@@ -9,7 +11,7 @@ qualifiers_final_decorator.py:21:16 - error: Base class "Base1" is marked final 
 qualifiers_final_decorator.py:56:9 - error: Method "method1" cannot override final method defined in class "Base2"
 qualifiers_final_decorator.py:60:9 - error: Method "method2" cannot override final method defined in class "Base2"
 qualifiers_final_decorator.py:64:9 - error: Method "method3" cannot override final method defined in class "Base2"
-qualifiers_final_decorator.py:117:9 - error: Method "method" overrides class "Base5_2" in an incompatible manner
+qualifiers_final_decorator.py:118:9 - error: Method "method" overrides class "Base5_2" in an incompatible manner
   Positional parameter count mismatch; base method has 2, but override has 1 (reportIncompatibleMethodOverride)
-qualifiers_final_decorator.py:117:9 - error: Method "method" cannot override final method defined in class "Base5_2"
+qualifiers_final_decorator.py:118:9 - error: Method "method" cannot override final method defined in class "Base5_2"
 """

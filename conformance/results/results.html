@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.39sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.55sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -199,7 +199,7 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/typeddict.html">Typed dictionaries</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_alt_syntax</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support keyword-argument form of alternative syntax (deprecated in 3.11).<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_alt_syntax</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not support keyword-argument form of alternative syntax (deprecated in 3.11).<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_class_syntax</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_final</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_inheritance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
@@ -243,7 +243,7 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject all invalid type expressions within Annotated.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report override of overloaded method marked @final.<br>Does not report error for non-method function marked @final.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report override of overloaded method marked @final.<br>Does not report error for non-method function marked @final.<br>Does not report error if overload is marked @final but implementation is not.<br>Does not report error in stub if first overload is not marked @final but subsequent ones are.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
@@ -319,7 +319,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.53sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.93sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -339,7 +339,7 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject Annotated with a single parameter.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report Final variable with missing initialization in module scope.<br>Does not report error for invalid nesting of Final and ClassVar.<br>Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports error for overloaded method implementation marked @final if its overloads do not.<br>Does not report error for overloaded @final method defined in stub file.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports error for overloaded method implementation marked @final if its overloads do not.<br>Does not report error for overloaded @final method defined in stub file.<br>Reports misleading error when overload is marked @final but implementation is not.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
@@ -415,7 +415,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support sys.platform checks.<br>Does not support os.name checks.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(65.10sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(68.93sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -435,7 +435,7 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject some illegal type expression forms used in Annotated.<br>Does not allow TypeVar to be used in type alias when wrapped with Annotated.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report Final variable with missing initialization.<br>Does not reject Final instance variable declared outside of __init__ method.<br>Does not reject modification of global variable declared Final.<br>Does not reject modification of local variable declared Final.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error for overloaded @final method defined in stub file.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error for overloaded @final method defined in stub file.<br>Does not report error for overload that is marked @final when implementation is not.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>

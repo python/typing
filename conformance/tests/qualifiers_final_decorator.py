@@ -82,6 +82,7 @@ class Derived3(Base3):
         ...
 
     @overload
+    @final # Type error: should be applied only to implementation
     def method(self, x: str) -> str:
         ...
 
