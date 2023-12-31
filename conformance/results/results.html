@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.40sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.42sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -208,8 +208,18 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/directives.html">Type checker directives</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_assert_type</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_cast</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_no_type_check</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_reveal_type</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_checking</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not honor "# type: ignore" comment if comment includes additional text.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not understand three-element form of sys.version checks.<br>Does not understand os.name checks.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.05sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.03sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -290,8 +300,18 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/directives.html">Type checker directives</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_assert_type</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_cast</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_no_type_check</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Intentionally does not honor @no_type_check decorator.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_reveal_type</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_checking</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.53sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.60sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -372,8 +392,18 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support `tuple` in `assert_type` call.<br>Does not reject TypeGuard method with too few parameters.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/directives.html">Type checker directives</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_assert_type</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand "assert_type".<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_cast</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_no_type_check</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not honor @no_type_check decorator.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_reveal_type</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand reveal_type call.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_checking</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support sys.platform checks.<br>Does not support os.name checks.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(57.62sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(64.41sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -453,6 +483,16 @@
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject TypeGuard method with too few parameters.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/directives.html">Type checker directives</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_assert_type</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_cast</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject a call to "cast" with additional arguments.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_no_type_check</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not honor @no_type_check decorator.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_reveal_type</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject call to reveal_type with zero arguments.<br>Does not reject call to reveal_type with too many arguments.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_checking</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not honor "# type: ignore" comment if comment includes additional text.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not understand three-element form of sys.version checks.<br>Does not understand os.name checks.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
 

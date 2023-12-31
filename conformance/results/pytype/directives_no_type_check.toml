@@ -1,0 +1,11 @@
+conformant = "Unsupported"
+notes = """
+Does not honor @no_type_check decorator.
+"""
+output = """
+File "directives_no_type_check.py", line 16, in func1: unsupported operand type(s) for +: int and str [unsupported-operands]
+  Function __add__ on int expects int
+File "directives_no_type_check.py", line 17, in func1: bad return type [bad-return-type]
+           Expected: None
+  Actually returned: int
+"""

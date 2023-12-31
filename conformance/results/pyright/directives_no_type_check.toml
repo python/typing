@@ -1,0 +1,9 @@
+conformant = "Unsupported"
+notes = """
+Intentionally does not honor @no_type_check decorator.
+"""
+output = """
+directives_no_type_check.py:16:9 - error: Operator "+" not supported for types "int" and "str" (reportGeneralTypeIssues)
+directives_no_type_check.py:17:12 - error: Expression of type "Literal[1]" cannot be assigned to return type "None"
+  "Literal[1]" is incompatible with "None" (reportGeneralTypeIssues)
+"""

@@ -1,0 +1,18 @@
+conformant = "Pass"
+output = """
+File "directives_assert_type.py", line 27, in func1: Union[int, str] [assert-type]
+  Expected: int
+    Actual: Union[int, str]
+File "directives_assert_type.py", line 28, in func1: Any [assert-type]
+  Expected: int
+    Actual: Any
+File "directives_assert_type.py", line 30, in func1: Function assert_type expects 2 arg(s), got 0 [wrong-arg-count]
+         Expected: (variable, type)
+  Actually passed: ()
+File "directives_assert_type.py", line 31, in func1: str [assert-type]
+  Expected: int
+    Actual: str
+File "directives_assert_type.py", line 32, in func1: Function assert_type expects 2 arg(s), got 3 [wrong-arg-count]
+         Expected: (variable, type)
+  Actually passed: (variable, type, _)
+"""
