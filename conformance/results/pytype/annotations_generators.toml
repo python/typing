@@ -1,0 +1,37 @@
+conformant = "Partial"
+notes = """
+Does not report invalid return type for generator when function implicitly returns None.
+Reports invalid error when return type of generator is annotated as a compatible protocol.
+Does not report type violation in `yield from` statement.
+"""
+output = """
+File "annotations_generators.py", line 53, in generator2: bad return type [bad-return-type]
+           Expected: C
+  Actually returned: bool
+File "annotations_generators.py", line 56, in generator2: bad return type [bad-return-type]
+           Expected: C
+  Actually returned: None
+File "annotations_generators.py", line 56, in generator2: bad return type [bad-return-type]
+           Expected: A
+  Actually returned: int
+File "annotations_generators.py", line 65, in generator3: bad return type [bad-return-type]
+           Expected: A
+  Actually returned: int
+File "annotations_generators.py", line 74, in generator5: bad return type [bad-return-type]
+           Expected: A
+  Actually returned: B
+File "annotations_generators.py", line 85, in <module>: Bad return type 'int' for generator function generator8 [bad-yield-annotation]
+  Expected Generator, Iterable or Iterator
+File "annotations_generators.py", line 90, in <module>: Bad return type 'int' for async generator function generator9 [bad-yield-annotation]
+  Expected AsyncGenerator, AsyncIterable or AsyncIterator
+File "annotations_generators.py", line 99, in <module>: Bad return type 'IntIterator' for generator function generator15 [bad-yield-annotation]
+  Expected Generator, Iterable or Iterator
+File "annotations_generators.py", line 108, in <module>: Bad return type 'AsyncIntIterator' for async generator function generator16 [bad-yield-annotation]
+  Expected AsyncGenerator, AsyncIterable or AsyncIterator
+File "annotations_generators.py", line 117, in generator18: bad return type [bad-return-type]
+           Expected: B
+  Actually returned: A
+File "annotations_generators.py", line 118, in generator18: bad return type [bad-return-type]
+           Expected: B
+  Actually returned: A
+"""

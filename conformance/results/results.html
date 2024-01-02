@@ -127,12 +127,16 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.39sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.57sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_coroutines</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_forward_refs</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error for a forward reference that is not enclosed in quotes.<br>Does not report error for use of quoted type with "|" operator (runtime error).<br>Incorrectly generates error for quoted type defined in class scope.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_generators</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report incompatible Generator type in `yield from` statement.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_methods</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -185,7 +189,7 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/protocol.html">Protocols</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_class_objects</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_definition</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Rejects implicit class variable when matching protocol with explicit ClassVar.<br>Does not detect protocol mismatch if concrete method is missing annotations.<br>Does not detect protocol mismatch if concrete method's parameters are position-only.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_explicit</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not report unimplemented attributes for class that explicitly derives from protocol until is instantiated.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_explicit</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not report unimplemented attributes for class that explicitly derives from protocol until it is instantiated.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_generic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Fails protocol matching when method-scoped TypeVar is used in protocol.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_merging</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_modules</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
@@ -247,12 +251,16 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not understand three-element form of sys.version checks.<br>Does not understand os.name checks.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.19sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.24sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_coroutines</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_forward_refs</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_generators</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_methods</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -367,12 +375,16 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.82sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.84sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_coroutines</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not evaluate correct type for async function.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_forward_refs</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error for a forward reference that is not enclosed in quotes.<br>Does not report error for use of quoted type with "|" operator (runtime error).<br>Does not reject f-string in quoted type annotation.<br>Incorrectly generates error for quoted type defined in class scope.<br>Does not generate error for unquoted type defined in class scope.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_generators</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report invalid return type for generator when function implicitly returns None.<br>Incorrectly evaluates type of call to async generator.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_methods</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -487,13 +499,17 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support sys.platform checks.<br>Does not support os.name checks.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(99.84sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(98.67sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject call expressions in type annotation.<br>Does not reject call lambda expression in type annotation.<br>Does not reject list expression in type annotation.<br>Does not reject ternary expression in type annotation.<br>Does not reject f-string in type annotation.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_coroutines</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not evaluate correct type for async function.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_forward_refs</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject some illegal type expression forms when quoted.<br>Incorrectly generates error for quoted type defined in class scope.<br>Evaluates incorrect type for class variable annotated with quoted type expression.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_generators</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report invalid return type for generator when function implicitly returns None.<br>Reports invalid error when return type of generator is annotated as a compatible protocol.<br>Does not report type violation in `yield from` statement.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_methods</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject call expressions in type annotation.<br>Does not reject call lambda expression in type annotation.<br>Does not reject list expression in type annotation.<br>Does not reject ternary expression in type annotation.<br>Does not reject f-string in type annotation.<br>Does not reject module in type annotation.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/special-types.html">Special types in annotations</a></th></tr>

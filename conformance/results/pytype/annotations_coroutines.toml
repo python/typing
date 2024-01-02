@@ -1,0 +1,9 @@
+conformant = "Partial"
+notes = """
+Does not evaluate correct type for async function.
+"""
+output = """
+File "annotations_coroutines.py", line 19, in <module>: Callable[[int], str] [assert-type]
+  Expected: Callable[[int], Coroutine[Any, Any, str]]
+    Actual: Callable[[int], str]
+"""

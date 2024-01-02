@@ -1,6 +1,6 @@
 conformant = "Pass"
 notes = """
-Does not report unimplemented attributes for class that explicitly derives from protocol until is instantiated.
+Does not report unimplemented attributes for class that explicitly derives from protocol until it is instantiated.
 """
 output = """
 protocols_explicit.py:27: error: Call to abstract method "draw" of "PColor" with trivial body via super() is unsafe  [safe-super]
