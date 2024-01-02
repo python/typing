@@ -234,6 +234,18 @@ class Concrete5_Good3:
         return 0.0
 
 
+class Concrete5_Good4:
+    @classmethod
+    def method1(cls, a: int, b: int) -> float:
+        return 0
+
+
+class Concrete5_Good5:
+    @staticmethod
+    def method1(a: int, b: int) -> float:
+        return 0
+
+
 class Concrete5_Bad1:
     def method1(self, a, c) -> int:
         return 0
@@ -249,12 +261,6 @@ class Concrete5_Bad3:
         return 0
 
 
-class Concrete5_Bad4:
-    @classmethod
-    def method1(self, a: int, b: int) -> float:
-        return 0
-
-
 class Concrete5_Bad5:
     @staticmethod
     def method1(self, a: int, b: int) -> float:
@@ -264,10 +270,11 @@ class Concrete5_Bad5:
 v5_good1: Template5 = Concrete5_Good1()  # OK
 v5_good2: Template5 = Concrete5_Good2()  # OK
 v5_good3: Template5 = Concrete5_Good3()  # OK
+v5_good4: Template5 = Concrete5_Good4()  # OK
+v5_good5: Template5 = Concrete5_Good5()  # OK
 v5_bad1: Template5 = Concrete5_Bad1()  # Type error
 v5_bad2: Template5 = Concrete5_Bad2()  # Type error
 v5_bad3: Template5 = Concrete5_Bad3()  # Type error
-v5_bad4: Template5 = Concrete5_Bad4()  # Type error
 v5_bad5: Template5 = Concrete5_Bad5()  # Type error
 
 

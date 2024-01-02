@@ -1,7 +1,6 @@
 conformant = "Partial"
 notes = """
 Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar.
-Does not detect protocol mismatch if concrete method is a classmethod.
 """
 output = """
 protocols_definition.py:30:12 - error: Argument of type "list[int]" cannot be assigned to parameter "things" of type "Iterable[SupportsClose]" in function "close_all"
@@ -46,41 +45,40 @@ protocols_definition.py:213:22 - error: Expression of type "Concrete4_Bad1" cann
 protocols_definition.py:214:22 - error: Expression of type "Concrete4_Bad2" cannot be assigned to declared type "Template4"
   "Concrete4_Bad2" is incompatible with protocol "Template4"
     "val1" is not present (reportGeneralTypeIssues)
-protocols_definition.py:254:17 - warning: Class methods should take a "cls" parameter (reportSelfClsParameterName)
-protocols_definition.py:260:17 - warning: Static methods should not take a "self" or "cls" parameter (reportSelfClsParameterName)
-protocols_definition.py:267:22 - error: Expression of type "Concrete5_Bad1" cannot be assigned to declared type "Template5"
+protocols_definition.py:266:17 - warning: Static methods should not take a "self" or "cls" parameter (reportSelfClsParameterName)
+protocols_definition.py:275:22 - error: Expression of type "Concrete5_Bad1" cannot be assigned to declared type "Template5"
   "Concrete5_Bad1" is incompatible with protocol "Template5"
     "method1" is an incompatible type
       Type "(a: Unknown, c: Unknown) -> int" cannot be assigned to type "(a: int, b: int) -> float"
         Parameter name mismatch: "b" versus "c" (reportGeneralTypeIssues)
-protocols_definition.py:268:22 - error: Expression of type "Concrete5_Bad2" cannot be assigned to declared type "Template5"
+protocols_definition.py:276:22 - error: Expression of type "Concrete5_Bad2" cannot be assigned to declared type "Template5"
   "Concrete5_Bad2" is incompatible with protocol "Template5"
     "method1" is an incompatible type
       Type "(*, a: int, b: int) -> float" cannot be assigned to type "(a: int, b: int) -> float"
         Function accepts too many positional parameters; expected 0 but received 2
           Keyword parameter "a" is missing in destination
           Keyword parameter "b" is missing in destination (reportGeneralTypeIssues)
-protocols_definition.py:269:22 - error: Expression of type "Concrete5_Bad3" cannot be assigned to declared type "Template5"
+protocols_definition.py:277:22 - error: Expression of type "Concrete5_Bad3" cannot be assigned to declared type "Template5"
   "Concrete5_Bad3" is incompatible with protocol "Template5"
     "method1" is an incompatible type
       Type "(a: int, b: int, /) -> float" cannot be assigned to type "(a: int, b: int) -> float"
         Position-only parameter mismatch; parameter "a" is not position-only
         Position-only parameter mismatch; parameter "b" is not position-only
         Position-only parameter mismatch; expected 2 but received 0 (reportGeneralTypeIssues)
-protocols_definition.py:271:22 - error: Expression of type "Concrete5_Bad5" cannot be assigned to declared type "Template5"
+protocols_definition.py:278:22 - error: Expression of type "Concrete5_Bad5" cannot be assigned to declared type "Template5"
   "Concrete5_Bad5" is incompatible with protocol "Template5"
     "method1" is an incompatible type
       Type "(self: Unknown, a: int, b: int) -> float" cannot be assigned to type "(a: int, b: int) -> float"
         Parameter name mismatch: "a" versus "self"
         Parameter name mismatch: "b" versus "a" (reportGeneralTypeIssues)
-protocols_definition.py:321:22 - error: Expression of type "Concrete6_Bad1" cannot be assigned to declared type "Template6"
+protocols_definition.py:328:22 - error: Expression of type "Concrete6_Bad1" cannot be assigned to declared type "Template6"
   "Concrete6_Bad1" is incompatible with protocol "Template6"
     "val1" is an incompatible type
       Property setter method is missing (reportGeneralTypeIssues)
-protocols_definition.py:322:22 - error: Expression of type "Concrete6_Bad2" cannot be assigned to declared type "Template6"
+protocols_definition.py:329:22 - error: Expression of type "Concrete6_Bad2" cannot be assigned to declared type "Template6"
   "Concrete6_Bad2" is incompatible with protocol "Template6"
     "val1" is writable in protocol (reportGeneralTypeIssues)
-protocols_definition.py:323:22 - error: Expression of type "Concrete6_Bad3" cannot be assigned to declared type "Template6"
+protocols_definition.py:330:22 - error: Expression of type "Concrete6_Bad3" cannot be assigned to declared type "Template6"
   "Concrete6_Bad3" is incompatible with protocol "Template6"
     "val1" is writable in protocol (reportGeneralTypeIssues)
 """

@@ -3,7 +3,6 @@ notes = """
 Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar.
 Does not reject read-only property in concrete class when attribute in protocol is mutable.
 Does not reject covariant attribute type when protocol attribute is mutable.
-Does not detect protocol mismatch if concrete method is a classmethod.
 Does not reject read-only property in concrete class when protocol has settable property.
 Does not reject immutable named tuple attribute in concrete class when protocol attribute is mutable.
 Does not reject immutable frozen dataclass attribute in concrete class when protocol attribute is mutable.
@@ -17,8 +16,8 @@ protocols_definition.py:151:0 Incompatible variable type [9]: v3_bad1 is declare
 protocols_definition.py:154:0 Incompatible variable type [9]: v3_bad4 is declared to have type `Template3` but is used as type `Concrete3_Bad4`.
 protocols_definition.py:213:0 Incompatible variable type [9]: v4_bad1 is declared to have type `Template4` but is used as type `Concrete4_Bad1`.
 protocols_definition.py:214:0 Incompatible variable type [9]: v4_bad2 is declared to have type `Template4` but is used as type `Concrete4_Bad2`.
-protocols_definition.py:267:0 Incompatible variable type [9]: v5_bad1 is declared to have type `Template5` but is used as type `Concrete5_Bad1`.
-protocols_definition.py:268:0 Incompatible variable type [9]: v5_bad2 is declared to have type `Template5` but is used as type `Concrete5_Bad2`.
-protocols_definition.py:269:0 Incompatible variable type [9]: v5_bad3 is declared to have type `Template5` but is used as type `Concrete5_Bad3`.
-protocols_definition.py:271:0 Incompatible variable type [9]: v5_bad5 is declared to have type `Template5` but is used as type `Concrete5_Bad5`.
+protocols_definition.py:275:0 Incompatible variable type [9]: v5_bad1 is declared to have type `Template5` but is used as type `Concrete5_Bad1`.
+protocols_definition.py:276:0 Incompatible variable type [9]: v5_bad2 is declared to have type `Template5` but is used as type `Concrete5_Bad2`.
+protocols_definition.py:277:0 Incompatible variable type [9]: v5_bad3 is declared to have type `Template5` but is used as type `Concrete5_Bad3`.
+protocols_definition.py:278:0 Incompatible variable type [9]: v5_bad5 is declared to have type `Template5` but is used as type `Concrete5_Bad5`.
 """
