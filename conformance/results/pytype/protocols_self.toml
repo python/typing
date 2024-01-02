@@ -1,0 +1,13 @@
+conformant = "Partial"
+notes = """
+Does not properly handle Self type within a protocol.
+"""
+output = """
+File "protocols_self.py", line 37, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+File "protocols_self.py", line 72, in <module>: Type annotation for a2 does not match type of assignment [annotation-type-mismatch]
+  Annotation: P2Parent[str]
+  Assignment: C2[str]
+File "protocols_self.py", line 73, in <module>: Type annotation for b2 does not match type of assignment [annotation-type-mismatch]
+  Annotation: P2Child[str]
+  Assignment: C2[str]
+"""

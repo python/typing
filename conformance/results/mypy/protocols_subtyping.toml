@@ -1,0 +1,12 @@
+conformant = "Pass"
+output = """
+protocols_subtyping.py:16: error: Cannot instantiate protocol class "Proto1"  [misc]
+protocols_subtyping.py:38: error: Incompatible types in assignment (expression has type "Proto2", variable has type "Concrete2")  [assignment]
+protocols_subtyping.py:55: error: Incompatible types in assignment (expression has type "Proto2", variable has type "Proto3")  [assignment]
+protocols_subtyping.py:55: note: "Proto2" is missing following "Proto3" protocol member:
+protocols_subtyping.py:55: note:     method2
+protocols_subtyping.py:79: error: Incompatible types in assignment (expression has type "Proto5[int]", variable has type "Proto4[int, float]")  [assignment]
+protocols_subtyping.py:80: error: Incompatible types in assignment (expression has type "Proto4[int, int]", variable has type "Proto5[float]")  [assignment]
+protocols_subtyping.py:102: error: Incompatible types in assignment (expression has type "Proto6[float, float]", variable has type "Proto7[int, float]")  [assignment]
+protocols_subtyping.py:103: error: Incompatible types in assignment (expression has type "Proto6[float, float]", variable has type "Proto7[float, object]")  [assignment]
+"""

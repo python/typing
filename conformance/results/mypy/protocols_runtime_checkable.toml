@@ -1,0 +1,9 @@
+conformant = "Partial"
+notes = """
+Does not report unsafe overlap for runtime_checkable protocol.
+"""
+output = """
+protocols_runtime_checkable.py:23: error: Only @runtime_checkable protocols can be used with instance and class checks  [misc]
+protocols_runtime_checkable.py:55: error: Only protocols that don't have non-method members can be used with issubclass()  [misc]
+protocols_runtime_checkable.py:55: note: Protocol "DataProtocol" has non-method member(s): name
+"""

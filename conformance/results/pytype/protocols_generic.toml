@@ -1,0 +1,28 @@
+conformant = "Partial"
+notes = """
+Does not correctly enforce contravariance in protocol type compatibility tests.
+Does not correctly enforce invariance in protocol type compatibility tests.
+Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.
+"""
+output = """
+File "protocols_generic.py", line 12, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+File "protocols_generic.py", line 13, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+File "protocols_generic.py", line 40, in <module>: Type annotation for p2 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Proto1[int, str]
+  Assignment: Concrete1
+File "protocols_generic.py", line 44, in <module>: Invalid type annotation 'Proto2'  [invalid-annotation]
+  Cannot inherit from Generic[...] multiple times
+File "protocols_generic.py", line 56, in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Box[int]
+  Assignment: Box[float]
+File "protocols_generic.py", line 65, in func2: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Sender[int]
+  Assignment: Sender[float]
+File "protocols_generic.py", line 75, in func3: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
+  Annotation: AttrProto[int]
+  Assignment: AttrProto[float]
+File "protocols_generic.py", line 146, in <module>: Type annotation for hp3 does not match type of assignment [annotation-type-mismatch]
+  Annotation: HasPropertyProto
+  Assignment: ConcreteHasProperty3
+  Attribute f of protocol HasPropertyProto has wrong type in ConcreteHasProperty3: expected HasPropertyProto, got int
+"""

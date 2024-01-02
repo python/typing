@@ -1,0 +1,11 @@
+conformant = "Unsupported"
+notes = """
+Does not detect incorrect TypeVar variance within generic protocols.
+"""
+output = """
+File "protocols_variance.py", line 12, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+File "protocols_variance.py", line 13, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+File "protocols_variance.py", line 15, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+File "protocols_variance.py", line 84, in <module>: Invalid type annotation 'Protocol'  [invalid-annotation]
+  Parameters to Generic[...] must all be type variables
+"""

@@ -1,0 +1,8 @@
+conformant = "Partial"
+notes = """
+Does not reject protocol class assigned to type[Proto].
+Incorrectly reports some class objects as incompatible with a protocol.
+Fails to report some class objects as incompatible with a protocol.
+"""
+output = """
+"""

@@ -1,0 +1,14 @@
+conformant = "Pass"
+output = """
+protocols_merging.py:52:25 - error: Expression of type "SCConcrete2" cannot be assigned to declared type "SizedAndClosable1"
+  "SCConcrete2" is incompatible with protocol "SizedAndClosable1"
+    "__len__" is not present (reportGeneralTypeIssues)
+protocols_merging.py:53:25 - error: Expression of type "SCConcrete2" cannot be assigned to declared type "SizedAndClosable2"
+  "SCConcrete2" is incompatible with protocol "SizedAndClosable2"
+    "__len__" is not present (reportGeneralTypeIssues)
+protocols_merging.py:54:25 - error: Expression of type "SCConcrete2" cannot be assigned to declared type "SizedAndClosable3"
+  "SCConcrete2" is incompatible with "SizedAndClosable3" (reportGeneralTypeIssues)
+protocols_merging.py:68:16 - error: Protocol class "type[BadProto]" cannot derive from non-protocol class "type[SizedAndClosable3]"
+protocols_merging.py:83:5 - error: Cannot instantiate abstract class "SizedAndClosable4"
+  "SizedAndClosable4.close" is abstract (reportGeneralTypeIssues)
+"""
