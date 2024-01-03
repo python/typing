@@ -9,15 +9,24 @@ output = """
 File "typeddicts_operations.py", line 28, in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
   Annotation: Movie(TypedDict)
   Assignment: Dict[str, str]
+  
+  TypedDict missing keys: year
 File "typeddicts_operations.py", line 29, in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
   Annotation: Movie(TypedDict)
   Assignment: Dict[str, Union[float, str]]
+  
+  TypedDict type errors: 
+    {'year': ...}: expected int, got float
 File "typeddicts_operations.py", line 32, in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
   Annotation: Movie(TypedDict)
   Assignment: Dict[str, Union[int, str]]
+  
+  TypedDict extra keys: other
 File "typeddicts_operations.py", line 37, in func1: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
   Annotation: Movie(TypedDict)
   Assignment: Dict[str, Union[int, str]]
+  
+  TypedDict missing keys: name
 File "typeddicts_operations.py", line 60, in <module>: str [assert-type]
   Expected: Optional[str]
     Actual: str

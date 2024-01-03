@@ -3,4 +3,29 @@ notes = """
 Does not understand `LiteralString` special form.
 """
 output = """
+File "literals_literalstring.py", line 8, in <module>: typing.LiteralString not supported yet [not-supported-yet]
+File "literals_literalstring.py", line 24, in my_function: bad return type [bad-return-type]
+           Expected: str
+  Actually returned: None
+File "literals_literalstring.py", line 36, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'str' at index 1
+File "literals_literalstring.py", line 37, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+  Bad parameter 'str' at index 0
+File "literals_literalstring.py", line 43, in func1: Type annotation for x2 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Literal['']
+  Assignment: Literal['two']
+File "literals_literalstring.py", line 74, in func2: Type annotation for x3 does not match type of assignment [annotation-type-mismatch]
+  Annotation: str
+  Assignment: int
+File "literals_literalstring.py", line 75, in func2: Type annotation for x4 does not match type of assignment [annotation-type-mismatch]
+  Annotation: str
+  Assignment: bytes
+File "literals_literalstring.py", line 157, in func8: bad return type [bad-return-type]
+           Expected: int
+  Actually returned: None
+Called from (traceback):
+  line 160, in current file
+File "literals_literalstring.py", line 162, in <module>: bool [assert-type]
+  Expected: str
+    Actual: bool
 """

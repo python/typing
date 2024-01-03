@@ -5,9 +5,14 @@ Classes that abstract differences between type checkers.
 from abc import ABC, abstractmethod
 import json
 from pathlib import Path
+import os
+from pytype import config as pytype_config
+from pytype import io as pytype_io
+from pytype import load_pytd as pytype_loader
 import re
 from subprocess import PIPE, run
 import sys
+from tqdm import tqdm
 from typing import Sequence
 
 
@@ -192,47 +197,27 @@ class PytypeTypeChecker(TypeChecker):
         # Specify 3.11 for now to work around the fact that pytype
         # currently doesn't support 3.12 and emits an error when
         # running on 3.12.
-        command = f"{sys.executable} -m pytype -V 3.11 -k *.py"
-        proc = run(command, stdout=PIPE, text=True, shell=True)
-        lines = proc.stdout.split("\n")
+        options = pytype_config.Options.create(
+            python_version=(3, 11),
+            quick=True)
+        loader = pytype_loader.create_loader(options)
 
         # Add results to a dictionary keyed by the file name.
         results_dict: dict[str, str] = {}
-        accumulated_lines: list[str] = []
-        file_name: str | None = None
 
-        def log_accumulated():
-            if file_name is not None:
-                results_dict[file_name] = (
-                    results_dict.get(file_name, "") + "".join(accumulated_lines) + "\n"
-                )
-
-        for line in lines:
-            match = re.search(r'File "(.*?)",', line)
-
-            if not match or match.start() != 0:
-                # An empty line precedes the summary for the file. Ignore
-                # everything after that line until we see diagnostics for
-                # the next file.
-                if line.strip() == "":
-                    log_accumulated()
-                    file_name = None
-                    accumulated_lines = []
-                elif file_name is not None:
-                    accumulated_lines.append("\n" + line)
+        for fi in tqdm(os.listdir('.')):
+            if not fi.endswith('.py'):
+                continue
+            options.tweak(input=fi)
+            with open(fi, 'r') as test_file:
+                src = test_file.read()
+            try:
+                errorlog = pytype_io.check_py(
+                    src, options=options, loader=loader)
+            except Exception as e:
+                results_dict[fi] = f'{e.__class__.__name__}: {e}'
             else:
-                log_accumulated()
-
-                file_path = Path(match.group(1))
-                file_name = file_path.name
-
-                # Replace the full file path with the file name.
-                line = f'File "{file_name}",{line[match.end():]}'
-                accumulated_lines = [line]
-
-        # Log the final accumulated lines.
-        log_accumulated()
-
+                results_dict[fi] = str(errorlog)
         return results_dict
 
 
