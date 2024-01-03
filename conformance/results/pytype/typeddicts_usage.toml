@@ -11,4 +11,7 @@ File "typeddicts_usage.py", line 24, in <module>: Type annotation for key year i
 File "typeddicts_usage.py", line 28, in <module>: Type annotation for movie2 does not match type of assignment [annotation-type-mismatch]
   Annotation: Movie(TypedDict)
   Assignment: Dict[str, Union[int, str]]
+  
+  TypedDict missing keys: name
+  TypedDict extra keys: title
 """
