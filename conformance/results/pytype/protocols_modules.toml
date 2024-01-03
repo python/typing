@@ -3,12 +3,6 @@ notes = """
 Does not report incompatibilities for protocol methods.
 """
 output = """
-File "protocols_modules.py", line 26, in <module>: Type annotation for op2 does not match type of assignment [annotation-type-mismatch]
-  Annotation: Options2
-  Assignment: module
-  Attribute timeout of protocol Options2 has wrong type in module: expected str, got int
-File "protocols_modules.py", line 49, in <module>: Type annotation for rp3 does not match type of assignment [annotation-type-mismatch]
-  Annotation: Reporter3
-  Assignment: module
-  Attributes of protocol Reporter3 are not implemented on module: not_implemented
+File "protocols_modules.py", line 10, in <module>: Can't find module '_protocols_modules1'. [import-error]
+File "protocols_modules.py", line 11, in <module>: Can't find module '_protocols_modules2'. [import-error]
 """

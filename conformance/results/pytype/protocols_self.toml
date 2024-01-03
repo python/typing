@@ -7,7 +7,23 @@ File "protocols_self.py", line 37, in <module>: argument "covariant" to TypeVar 
 File "protocols_self.py", line 72, in <module>: Type annotation for a2 does not match type of assignment [annotation-type-mismatch]
   Annotation: P2Parent[str]
   Assignment: C2[str]
+  
+  Method f0 of protocol P2Parent[str] has the wrong signature in C2[str]:
+  
+  >> P2Parent[str] expects:
+  def f0(self, right: Self, /) -> P2Parent[T1]: ...
+  
+  >> C2[str] defines:
+  def f0(self, other: Self) -> C2[T2_co]: ...
 File "protocols_self.py", line 73, in <module>: Type annotation for b2 does not match type of assignment [annotation-type-mismatch]
   Annotation: P2Child[str]
   Assignment: C2[str]
+  
+  Method f0 of protocol P2Child[str] has the wrong signature in C2[str]:
+  
+  >> P2Child[str] expects:
+  def f0(self, right: Self, /) -> P2Parent[T1]: ...
+  
+  >> C2[str] defines:
+  def f0(self, other: Self) -> C2[T2_co]: ...
 """

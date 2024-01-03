@@ -10,6 +10,14 @@ File "protocols_generic.py", line 13, in <module>: argument "contravariant" to T
 File "protocols_generic.py", line 40, in <module>: Type annotation for p2 does not match type of assignment [annotation-type-mismatch]
   Annotation: Proto1[int, str]
   Assignment: Concrete1
+  
+  Method __iter__ of protocol Proto1[int, str] has the wrong signature in Concrete1:
+  
+  >> Proto1[int, str] expects:
+  def __iter__(self) -> Iterator[T_co]: ...
+  
+  >> Concrete1 defines:
+  def __iter__(self) -> Iterator[int]: ...
 File "protocols_generic.py", line 44, in <module>: Invalid type annotation 'Proto2'  [invalid-annotation]
   Cannot inherit from Generic[...] multiple times
 File "protocols_generic.py", line 56, in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
