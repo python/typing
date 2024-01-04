@@ -6,79 +6,84 @@ output = """
 protocols_definition.py:30:12 - error: Argument of type "list[int]" cannot be assigned to parameter "things" of type "Iterable[SupportsClose]" in function "close_all"
   "Literal[1]" is incompatible with protocol "SupportsClose"
     "close" is not present (reportGeneralTypeIssues)
-protocols_definition.py:62:14 - error: Instance or class variables within a Protocol class must be explicitly declared within the class body
-protocols_definition.py:110:22 - error: Expression of type "Concrete2_Bad1" cannot be assigned to declared type "Template2"
+protocols_definition.py:67:14 - error: Instance or class variables within a Protocol class must be explicitly declared within the class body
+protocols_definition.py:115:22 - error: Expression of type "Concrete2_Bad1" cannot be assigned to declared type "Template2"
   "Concrete2_Bad1" is incompatible with protocol "Template2"
     "val1" is not present (reportGeneralTypeIssues)
-protocols_definition.py:111:22 - error: Expression of type "Concrete2_Bad2" cannot be assigned to declared type "Template2"
+protocols_definition.py:116:22 - error: Expression of type "Concrete2_Bad2" cannot be assigned to declared type "Template2"
   "Concrete2_Bad2" is incompatible with protocol "Template2"
     "val1" is invariant because it is mutable
     "val1" is an incompatible type
       "Sequence[float]" is incompatible with "Sequence[int]" (reportGeneralTypeIssues)
-protocols_definition.py:112:22 - error: Expression of type "Concrete2_Bad3" cannot be assigned to declared type "Template2"
+protocols_definition.py:117:22 - error: Expression of type "Concrete2_Bad3" cannot be assigned to declared type "Template2"
   "Concrete2_Bad3" is incompatible with protocol "Template2"
     "val1" is invariant because it is mutable
     "val1" is an incompatible type
       "list[int]" is incompatible with "Sequence[int]" (reportGeneralTypeIssues)
-protocols_definition.py:151:22 - error: Expression of type "Concrete3_Bad1" cannot be assigned to declared type "Template3"
+protocols_definition.py:156:22 - error: Expression of type "Concrete3_Bad1" cannot be assigned to declared type "Template3"
   "Concrete3_Bad1" is incompatible with protocol "Template3"
     "val1" is not present (reportGeneralTypeIssues)
-protocols_definition.py:153:22 - error: Expression of type "Concrete3_Bad3" cannot be assigned to declared type "Template3"
+protocols_definition.py:158:22 - error: Expression of type "Concrete3_Bad3" cannot be assigned to declared type "Template3"
   "Concrete3_Bad3" is incompatible with protocol "Template3"
     "val1" is invariant because it is mutable
     "val1" is an incompatible type
       "property" is incompatible with "Sequence[int]" (reportGeneralTypeIssues)
-protocols_definition.py:154:22 - error: Expression of type "Concrete3_Bad4" cannot be assigned to declared type "Template3"
+protocols_definition.py:159:22 - error: Expression of type "Concrete3_Bad4" cannot be assigned to declared type "Template3"
   "Concrete3_Bad4" is incompatible with protocol "Template3"
     "val1" is invariant because it is mutable
     "val1" is an incompatible type
       "Sequence[float]" is incompatible with "Sequence[int]" (reportGeneralTypeIssues)
-protocols_definition.py:155:22 - error: Expression of type "Concrete3_Bad5" cannot be assigned to declared type "Template3"
+protocols_definition.py:160:22 - error: Expression of type "Concrete3_Bad5" cannot be assigned to declared type "Template3"
   "Concrete3_Bad5" is incompatible with protocol "Template3"
     "val1" is invariant because it is mutable
     "val1" is an incompatible type
       "list[int]" is incompatible with "Sequence[int]" (reportGeneralTypeIssues)
-protocols_definition.py:213:22 - error: Expression of type "Concrete4_Bad1" cannot be assigned to declared type "Template4"
+protocols_definition.py:218:22 - error: Expression of type "Concrete4_Bad1" cannot be assigned to declared type "Template4"
   "Concrete4_Bad1" is incompatible with protocol "Template4"
     "val1" is an incompatible type
       "function" is incompatible with "Sequence[float]" (reportGeneralTypeIssues)
-protocols_definition.py:214:22 - error: Expression of type "Concrete4_Bad2" cannot be assigned to declared type "Template4"
+protocols_definition.py:219:22 - error: Expression of type "Concrete4_Bad2" cannot be assigned to declared type "Template4"
   "Concrete4_Bad2" is incompatible with protocol "Template4"
     "val1" is not present (reportGeneralTypeIssues)
-protocols_definition.py:266:17 - warning: Static methods should not take a "self" or "cls" parameter (reportSelfClsParameterName)
-protocols_definition.py:275:22 - error: Expression of type "Concrete5_Bad1" cannot be assigned to declared type "Template5"
+protocols_definition.py:276:17 - warning: Static methods should not take a "self" or "cls" parameter (reportSelfClsParameterName)
+protocols_definition.py:285:22 - error: Expression of type "Concrete5_Bad1" cannot be assigned to declared type "Template5"
   "Concrete5_Bad1" is incompatible with protocol "Template5"
     "method1" is an incompatible type
       Type "(a: Unknown, c: Unknown) -> int" cannot be assigned to type "(a: int, b: int) -> float"
         Parameter name mismatch: "b" versus "c" (reportGeneralTypeIssues)
-protocols_definition.py:276:22 - error: Expression of type "Concrete5_Bad2" cannot be assigned to declared type "Template5"
+protocols_definition.py:286:22 - error: Expression of type "Concrete5_Bad2" cannot be assigned to declared type "Template5"
   "Concrete5_Bad2" is incompatible with protocol "Template5"
+    "method1" is an incompatible type
+      Type "(a: int, c: int) -> int" cannot be assigned to type "(a: int, b: int) -> float"
+        Parameter name mismatch: "b" versus "c" (reportGeneralTypeIssues)
+protocols_definition.py:287:22 - error: Expression of type "Concrete5_Bad3" cannot be assigned to declared type "Template5"
+  "Concrete5_Bad3" is incompatible with protocol "Template5"
     "method1" is an incompatible type
       Type "(*, a: int, b: int) -> float" cannot be assigned to type "(a: int, b: int) -> float"
         Function accepts too many positional parameters; expected 0 but received 2
           Keyword parameter "a" is missing in destination
           Keyword parameter "b" is missing in destination (reportGeneralTypeIssues)
-protocols_definition.py:277:22 - error: Expression of type "Concrete5_Bad3" cannot be assigned to declared type "Template5"
-  "Concrete5_Bad3" is incompatible with protocol "Template5"
+protocols_definition.py:288:22 - error: Expression of type "Concrete5_Bad4" cannot be assigned to declared type "Template5"
+  "Concrete5_Bad4" is incompatible with protocol "Template5"
     "method1" is an incompatible type
       Type "(a: int, b: int, /) -> float" cannot be assigned to type "(a: int, b: int) -> float"
         Position-only parameter mismatch; parameter "a" is not position-only
         Position-only parameter mismatch; parameter "b" is not position-only
         Position-only parameter mismatch; expected 2 but received 0 (reportGeneralTypeIssues)
-protocols_definition.py:278:22 - error: Expression of type "Concrete5_Bad5" cannot be assigned to declared type "Template5"
+protocols_definition.py:289:22 - error: Expression of type "Concrete5_Bad5" cannot be assigned to declared type "Template5"
   "Concrete5_Bad5" is incompatible with protocol "Template5"
     "method1" is an incompatible type
       Type "(self: Unknown, a: int, b: int) -> float" cannot be assigned to type "(a: int, b: int) -> float"
         Parameter name mismatch: "a" versus "self"
         Parameter name mismatch: "b" versus "a" (reportGeneralTypeIssues)
-protocols_definition.py:328:22 - error: Expression of type "Concrete6_Bad1" cannot be assigned to declared type "Template6"
+protocols_definition.py:339:22 - error: Expression of type "Concrete6_Bad1" cannot be assigned to declared type "Template6"
   "Concrete6_Bad1" is incompatible with protocol "Template6"
     "val1" is an incompatible type
       Property setter method is missing (reportGeneralTypeIssues)
-protocols_definition.py:329:22 - error: Expression of type "Concrete6_Bad2" cannot be assigned to declared type "Template6"
+protocols_definition.py:340:22 - error: Expression of type "Concrete6_Bad2" cannot be assigned to declared type "Template6"
   "Concrete6_Bad2" is incompatible with protocol "Template6"
     "val1" is writable in protocol (reportGeneralTypeIssues)
-protocols_definition.py:330:22 - error: Expression of type "Concrete6_Bad3" cannot be assigned to declared type "Template6"
+protocols_definition.py:341:22 - error: Expression of type "Concrete6_Bad3" cannot be assigned to declared type "Template6"
   "Concrete6_Bad3" is incompatible with protocol "Template6"
     "val1" is writable in protocol (reportGeneralTypeIssues)
 """

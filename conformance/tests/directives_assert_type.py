@@ -26,6 +26,7 @@ def func1(
 
     assert_type(a, int)  # Error: Type mismatch
     assert_type(c, int)  # Error: Type mismatch
+    assert_type(e, int)  # Error: Type mismatch
 
     assert_type()  # Error: not enough arguments
     assert_type("", int)  # Error: wrong argument type

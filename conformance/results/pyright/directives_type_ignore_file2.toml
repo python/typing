@@ -1,0 +1,5 @@
+conformant = "Pass"
+output = """
+directives_type_ignore_file2.py:14:10 - error: Expression of type "Literal['']" cannot be assigned to declared type "int"
+  "Literal['']" is incompatible with "int" (reportGeneralTypeIssues)
+"""

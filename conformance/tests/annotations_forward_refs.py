@@ -19,8 +19,8 @@ def func1(
     assert_type(p4, list[ClassA | int])
 
 
-bad1: ClassA  # Type error: requires quotes
-bad2: list[ClassA]  # Type error: requires quotes
+bad1: ClassA  # Runtime error: requires quotes
+bad2: list[ClassA]  # Runtime error: requires quotes
 bad3: "ClassA" | int  # Runtime error
 bad4: int | "ClassA"  # Runtime error
 

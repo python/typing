@@ -1,5 +1,5 @@
 """
-Tests for annotating generators and coroutines.
+Tests for annotating coroutines.
 """
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/annotations.html#annotating-generator-functions-and-coroutines

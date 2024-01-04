@@ -1,0 +1,6 @@
+conformant = "Partial"
+notes = """
+Does not ignore `# type: ignore` if it occurs after docstrings in the file.
+"""
+output = """
+"""

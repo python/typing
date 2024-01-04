@@ -4,12 +4,12 @@ Does not reject a function with a single @overload signature.
 Does not reject a function with @overload signature but no implementation.
 """
 output = """
-File "overloads_basic.py", line 30, in __getitem__: bad return type [bad-return-type]
+File "overloads_basic.py", line 31, in __getitem__: bad return type [bad-return-type]
            Expected: int
   Actually returned: bytes
-File "overloads_basic.py", line 35, in <module>: unsupported operand type(s) for item retrieval: Bytes and str [unsupported-operands]
+File "overloads_basic.py", line 37, in <module>: unsupported operand type(s) for item retrieval: Bytes and str [unsupported-operands]
   Function __getitem__ on Bytes expects int
-File "overloads_basic.py", line 55, in map: bad return type [bad-return-type]
+File "overloads_basic.py", line 58, in map: bad return type [bad-return-type]
            Expected: Iterator
   Actually returned: None
   Attributes of protocol Iterator[S] are not implemented on None: __next__

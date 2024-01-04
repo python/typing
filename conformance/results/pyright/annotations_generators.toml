@@ -1,32 +1,32 @@
 conformant = "Pass"
 output = """
-annotations_generators.py:53:16 - error: Expression of type "Literal[False]" cannot be assigned to return type "C"
+annotations_generators.py:54:16 - error: Expression of type "Literal[False]" cannot be assigned to return type "C"
   "Literal[False]" is incompatible with "C" (reportGeneralTypeIssues)
-annotations_generators.py:56:15 - error: Return type of generator function must be compatible with "Generator[Literal[3], Any, Any]"
+annotations_generators.py:57:15 - error: Return type of generator function must be compatible with "Generator[Literal[3], Any, Any]"
   "Literal[3]" is incompatible with "A" (reportGeneralTypeIssues)
-annotations_generators.py:50:21 - error: Function with declared return type "C" must return value on all code paths
+annotations_generators.py:51:21 - error: Function with declared return type "C" must return value on all code paths
   "None" is incompatible with "C" (reportGeneralTypeIssues)
-annotations_generators.py:65:15 - error: Return type of generator function must be compatible with "Generator[Literal[3], Any, Any]"
+annotations_generators.py:66:15 - error: Return type of generator function must be compatible with "Generator[Literal[3], Any, Any]"
   "Literal[3]" is incompatible with "A" (reportGeneralTypeIssues)
-annotations_generators.py:74:11 - error: Return type of generator function must be compatible with "Generator[B, Any, Any]"
+annotations_generators.py:75:11 - error: Return type of generator function must be compatible with "Generator[B, Any, Any]"
   "B" is incompatible with "A" (reportGeneralTypeIssues)
-annotations_generators.py:86:11 - error: Return type of generator function must be compatible with "Generator[None, Any, Any]"
+annotations_generators.py:87:11 - error: Return type of generator function must be compatible with "Generator[None, Any, Any]"
   "Generator[None, Unknown, Unknown]" is incompatible with "int" (reportGeneralTypeIssues)
-annotations_generators.py:85:21 - error: Return type of generator function must be compatible with "Generator[Any, Any, Any]"
+annotations_generators.py:86:21 - error: Return type of generator function must be compatible with "Generator[Any, Any, Any]"
   "Generator[Any, Any, Any]" is incompatible with "int" (reportGeneralTypeIssues)
-annotations_generators.py:91:11 - error: Return type of async generator function must be compatible with "AsyncGenerator[None, Any]"
+annotations_generators.py:92:11 - error: Return type of async generator function must be compatible with "AsyncGenerator[None, Any]"
   "AsyncGenerator[None, Unknown, Unknown]" is incompatible with "int" (reportGeneralTypeIssues)
-annotations_generators.py:90:27 - error: Return type of async generator function must be compatible with "AsyncGenerator[Any, Any]"
+annotations_generators.py:91:27 - error: Return type of async generator function must be compatible with "AsyncGenerator[Any, Any]"
   "AsyncGenerator[Any, Any, Any]" is incompatible with "int" (reportGeneralTypeIssues)
-annotations_generators.py:117:16 - error: Return type of generator function must be compatible with "Generator[A, Any, Any]"
+annotations_generators.py:118:16 - error: Return type of generator function must be compatible with "Generator[A, Any, Any]"
   "Generator[A, Unknown, Unknown]" is incompatible with "Iterator[B]"
     Type parameter "_T_co@Iterator" is covariant, but "A" is not a subtype of "B"
       "A" is incompatible with "B" (reportGeneralTypeIssues)
-annotations_generators.py:118:16 - error: Return type of generator function must be compatible with "Generator[int, Any, Any]"
+annotations_generators.py:119:16 - error: Return type of generator function must be compatible with "Generator[int, Any, Any]"
   "Generator[int, Unknown, Unknown]" is incompatible with "Iterator[B]"
     Type parameter "_T_co@Iterator" is covariant, but "int" is not a subtype of "B"
       "int" is incompatible with "B" (reportGeneralTypeIssues)
-annotations_generators.py:134:16 - error: Return type of generator function must be compatible with "Generator[None, Any, Any]"
+annotations_generators.py:135:16 - error: Return type of generator function must be compatible with "Generator[None, Any, Any]"
   "Generator[None, int, Unknown]" is incompatible with "Generator[None, str, None]"
     Type parameter "_SendT_contra@Generator" is contravariant, but "int" is not a supertype of "str"
       "str" is incompatible with "int" (reportGeneralTypeIssues)

@@ -16,4 +16,7 @@ File "protocols_merging.py", line 54, in <module>: Type annotation for s8 does n
   Annotation: SizedAndClosable3
   Assignment: SCConcrete2
 File "protocols_merging.py", line 83, in <module>: Can't instantiate SizedAndClosable4 with abstract methods close [not-instantiable]
+File "protocols_merging.py", line 84, in <module>: Type annotation for y does not match type of assignment [annotation-type-mismatch]
+  Annotation: SizedAndClosable4
+  Assignment: SCConcrete1
 """

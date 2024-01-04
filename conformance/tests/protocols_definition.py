@@ -48,6 +48,10 @@ class Example(Protocol):
     def fourth(cls) -> int:
         ...
 
+    @property
+    def fifth(self) -> int:
+        ...
+
 
 # > To define a protocol variable, one can use PEP 526 variable annotations
 # > in the class body. Additional attributes only defined in the body of a
@@ -59,6 +63,7 @@ class Template(Protocol):
     value: int = 0  # This one too (with default)
 
     def method(self) -> None:
+        self.name = "name"  # OK
         self.temp: list[int] = []  # Type error: use of self variables not allowed
 
 
@@ -252,11 +257,16 @@ class Concrete5_Bad1:
 
 
 class Concrete5_Bad2:
-    def method1(self, *, a: int, b: int) -> float:
+    def method1(self, a: int, c: int) -> int:
         return 0
 
 
 class Concrete5_Bad3:
+    def method1(self, *, a: int, b: int) -> float:
+        return 0
+
+
+class Concrete5_Bad4:
     def method1(self, a: int, b: int, /) -> float:
         return 0
 
@@ -275,6 +285,7 @@ v5_good5: Template5 = Concrete5_Good5()  # OK
 v5_bad1: Template5 = Concrete5_Bad1()  # Type error
 v5_bad2: Template5 = Concrete5_Bad2()  # Type error
 v5_bad3: Template5 = Concrete5_Bad3()  # Type error
+v5_bad4: Template5 = Concrete5_Bad4()  # Type error
 v5_bad5: Template5 = Concrete5_Bad5()  # Type error
 
 

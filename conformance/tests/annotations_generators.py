@@ -14,10 +14,11 @@ from typing import (
     AsyncIterable,
     AsyncIterator,
     Awaitable,
+    Callable,
+    Coroutine,
     Generator,
     Iterable,
     Iterator,
-    Literal,
     Protocol,
     TypeVar,
     assert_type,
@@ -172,3 +173,18 @@ async def generator28() -> AsyncIterator[str]:
     v1 = generator26(data)
     assert_type(v1, AsyncGenerator[str, None])
     return v1
+
+
+async def generator29() -> AsyncIterator[int]:
+    raise NotImplementedError
+
+
+assert_type(generator29, Callable[[], Coroutine[Any, Any, AsyncIterator[int]]])
+
+
+async def generator30() -> AsyncIterator[int]:
+    raise NotImplementedError
+    yield
+
+
+assert_type(generator30, Callable[[], AsyncIterator[int]])

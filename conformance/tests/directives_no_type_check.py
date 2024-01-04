@@ -17,3 +17,5 @@ def func1(a: int, b: str) -> None:
     return 1  # No error should be reported
 
 
+func1(b"invalid", b"arguments")  # No error should be reported
+func1()  # No error should be reported

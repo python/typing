@@ -5,12 +5,13 @@ Tests the basic typing.overload behavior described in PEP 484.
 # Specification: https://typing.readthedocs.io/en/latest/spec/overload.html#overload
 
 # Note: The behavior of @overload is severely under-specified by PEP 484 leading
-# to significant convergence in behavior across type checkers. This is something
+# to significant divergence in behavior across type checkers. This is something
 # we will likely want to address in a future update to the typing spec. For now,
 # this conformance test will cover only the most basic functionality described
 # in PEP 484.
 
 from typing import Any, Callable, Iterable, Iterator, TypeVar, assert_type, overload
+
 
 class Bytes:
     ...
@@ -29,10 +30,11 @@ class Bytes:
         else:
             return b""
 
+
 b = Bytes()
 assert_type(b[0], int)
-assert_type(b[0: 1], bytes)
-b[""] # Type error: no matching overload
+assert_type(b[0:1], bytes)
+b[""]  # Type error: no matching overload
 
 
 T1 = TypeVar("T1")
@@ -51,13 +53,16 @@ def map(
 ) -> Iterator[S]:
     ...
 
+
 def map(func: Any, iter1: Any, iter2: Any = ...) -> Any:
     pass
 
 
 # At least two overload signatures should be provided.
 @overload
-def func1() -> None: ... # Type error: At least two overloads must be present
+def func1() -> None:
+    ...  # Type error: At least two overloads must be present
+
 
 def func1() -> None:
     pass
@@ -67,7 +72,10 @@ def func1() -> None:
 # > followed by exactly one non-@overload-decorated definition (for the same
 # > function/method).
 @overload
-def func2(x: int) -> int: ...  # Type error: no implementation
+def func2(x: int) -> int:
+    ...  # Type error: no implementation
+
 
 @overload
-def func2(x: str) -> str: ...
+def func2(x: str) -> str:
+    ...

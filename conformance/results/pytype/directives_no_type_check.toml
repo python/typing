@@ -8,4 +8,10 @@ File "directives_no_type_check.py", line 16, in func1: unsupported operand type(
 File "directives_no_type_check.py", line 17, in func1: bad return type [bad-return-type]
            Expected: None
   Actually returned: int
+File "directives_no_type_check.py", line 20, in <module>: Function func1 was called with the wrong arguments [wrong-arg-types]
+         Expected: (a: int, ...)
+  Actually passed: (a: bytes, ...)
+File "directives_no_type_check.py", line 21, in <module>: Missing parameter 'a' in call to function func1 [missing-parameter]
+         Expected: (a, b)
+  Actually passed: ()
 """
