@@ -3,5 +3,5 @@ notes = """
 Type parameter syntax not yet support.
 """
 output = """
-generics_syntax_declarations.py:13:13 Parsing failure [404]: invalid syntax
+generics_syntax_declarations.py:13:17 Parsing failure [404]: invalid syntax
 """

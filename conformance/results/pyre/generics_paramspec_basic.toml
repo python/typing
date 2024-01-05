@@ -12,4 +12,5 @@ generics_paramspec_basic.py:18:0 Incompatible variable type [9]: TA3 is declared
 generics_paramspec_basic.py:18:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[object, None]`.
 generics_paramspec_basic.py:27:13 Invalid type variable [34]: The type variable `P` isn't present in the function's parameters.
 generics_paramspec_basic.py:27:13 Undefined or invalid type [11]: Annotation `Concatenate` is not defined as a type.
+generics_paramspec_basic.py:31:13 Invalid type parameters [24]: Single type parameter `Variable[_T]` expected, but a callable parameters `generics_paramspec_basic.P` was given for generic type list.
 """

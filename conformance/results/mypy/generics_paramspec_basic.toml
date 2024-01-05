@@ -10,7 +10,6 @@ generics_paramspec_basic.py:27: error: Invalid location for Concatenate  [valid-
 generics_paramspec_basic.py:27: note: You can use Concatenate as the first argument to Callable
 generics_paramspec_basic.py:31: error: Invalid location for ParamSpec "P"  [misc]
 generics_paramspec_basic.py:31: note: You can use ParamSpec as the first argument to Callable, e.g., 'Callable[P, int]'
-generics_paramspec_basic.py:35: error: Name "func3" already defined on line 31  [no-redef]
 generics_paramspec_basic.py:35: error: Invalid location for ParamSpec "P"  [valid-type]
 generics_paramspec_basic.py:35: note: You can use ParamSpec as the first argument to Callable, e.g., 'Callable[P, int]'
 generics_paramspec_basic.py:39: error: Invalid location for ParamSpec "P"  [valid-type]

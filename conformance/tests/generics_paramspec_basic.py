@@ -32,9 +32,9 @@ def func3(x: list[P]) -> None:  # Type error
     ...
 
 
-def func3(x: Callable[[int, str], P]) -> None:  # Type error
+def func4(x: Callable[[int, str], P]) -> None:  # Type error
     ...
 
 
-def func4(*args: P, **kwargs: P) -> None:  # Type error
+def func5(*args: P, **kwargs: P) -> None:  # Type error
     ...

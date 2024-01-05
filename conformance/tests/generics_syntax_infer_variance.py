@@ -4,7 +4,7 @@ Tests the handling of "infer_variance" parameter for TypeVar.
 
 # Specification: https://peps.python.org/pep-0695/#auto-variance-for-typevar
 
-from typing import Generic, Iterator, Sequence, TypeVar
+from typing import Final, Generic, Iterator, Sequence, TypeVar
 from dataclasses import dataclass
 
 
@@ -70,6 +70,17 @@ class ShouldBeCovariant5(Generic[T]):
 
 vo5_1: ShouldBeCovariant5[float] = ShouldBeCovariant5[int](1)  # OK
 vo5_2: ShouldBeCovariant5[int] = ShouldBeCovariant5[float](1.0)  # Type error
+
+
+class ShouldBeCovariant6(Generic[T]):
+    x: Final[T]
+
+    def __init__(self, value: T):
+        self.x = value
+
+
+vo6_1: ShouldBeCovariant6[float] = ShouldBeCovariant6[int](1)  # OK
+vo6_2: ShouldBeCovariant6[int] = ShouldBeCovariant6[float](1.0)  # Type error
 
 
 class ShouldBeInvariant1(Generic[T]):

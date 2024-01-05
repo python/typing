@@ -12,5 +12,4 @@ generics_paramspec_basic.py:31:19 - error: Type "P@func3" cannot be assigned to 
 generics_paramspec_basic.py:35:35 - error: ParamSpec is not allowed in this context
 generics_paramspec_basic.py:39:18 - error: ParamSpec is not allowed in this context
 generics_paramspec_basic.py:39:31 - error: ParamSpec is not allowed in this context
-generics_paramspec_basic.py:31:5 - error: Function declaration "func3" is obscured by a declaration of the same name (reportGeneralTypeIssues)
 """

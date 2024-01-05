@@ -10,13 +10,17 @@ Validates the type parameter syntax introduced in PEP 695.
 from typing import Generic, ParamSpec, Protocol, TypeVar, TypeVarTuple, assert_type
 
 
-class ClassA[T, *Ts, **P]:
+class ChildClass[T, *Ts, **P]:
     assert_type(T, TypeVar)
     assert_type(Ts, TypeVarTuple)
     assert_type(P, ParamSpec)
 
 
-class ClassB[T](Generic[T]):  # Runtime error
+class ClassA[T](Generic[T]):  # Runtime error
+    ...
+
+
+class ClassB[S, T](Protocol):  # OK
     ...
 
 

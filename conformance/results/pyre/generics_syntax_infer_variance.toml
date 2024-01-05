@@ -3,5 +3,5 @@ notes = """
 Type parameter syntax not yet support.
 """
 output = """
-generics_syntax_infer_variance.py:118:25 Parsing failure [404]: invalid syntax
+generics_syntax_infer_variance.py:129:25 Parsing failure [404]: invalid syntax
 """
