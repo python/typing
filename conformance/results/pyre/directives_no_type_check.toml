@@ -1,0 +1,11 @@
+conformant = "Unsupported"
+notes = """
+Does not honor @no_type_check decorator.
+"""
+output = """
+directives_no_type_check.py:16:12 Unsupported operand [58]: `+` is not supported for operand types `int` and `str`.
+directives_no_type_check.py:17:4 Incompatible return type [7]: Expected `None` but got `int`.
+directives_no_type_check.py:20:6 Incompatible parameter type [6]: In call `func1`, for 1st positional argument, expected `int` but got `bytes`.
+directives_no_type_check.py:20:18 Incompatible parameter type [6]: In call `func1`, for 2nd positional argument, expected `str` but got `bytes`.
+directives_no_type_check.py:21:0 Missing argument [20]: Call `func1` expects argument `a`.
+"""

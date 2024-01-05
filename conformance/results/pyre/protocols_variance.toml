@@ -1,0 +1,8 @@
+conformant = "Unsupported"
+notes = """
+Does not detect incorrect TypeVar variance within generic protocols.
+"""
+output = """
+protocols_variance.py:62:17 Invalid type variance [46]: The type variable `Variable[T1_co](covariant)` is covariant and cannot be a parameter type.
+protocols_variance.py:72:4 Invalid type variance [46]: The type variable `Variable[T1_contra](contravariant)` is contravariant and cannot be a return type.
+"""

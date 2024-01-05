@@ -1,0 +1,32 @@
+conformant = "Partial"
+notes = """
+Does not reject Callable when passed to type[T].
+Does not allow access to known attributes from object of type `type[Any]`.
+"""
+output = """
+File "specialtypes_type.py", line 56, in <module>: Function func4 was called with the wrong arguments [wrong-arg-types]
+         Expected: (user_class: Type[Union[BasicUser, ProUser]])
+  Actually passed: (user_class: Type[TeamUser])
+File "specialtypes_type.py", line 64, in <module>: Invalid type annotation 'T'  [invalid-annotation]
+  TypeVar 'T' appears only once in the function signature
+File "specialtypes_type.py", line 76, in <module>: Invalid type annotation 'type[int, str]'  [invalid-annotation]
+  type[_T] expected 1 parameter, got 2
+File "specialtypes_type.py", line 98, in func7: Any [assert-type]
+  Expected: Tuple[type, ...]
+    Actual: Any
+File "specialtypes_type.py", line 102, in func7: Any [assert-type]
+  Expected: Tuple[type, ...]
+    Actual: Any
+File "specialtypes_type.py", line 106, in func7: Any [assert-type]
+  Expected: Tuple[type, ...]
+    Actual: Any
+File "specialtypes_type.py", line 110, in func7: Any [assert-type]
+  Expected: Tuple[type, ...]
+    Actual: Any
+File "specialtypes_type.py", line 117, in func8: No attribute 'unknown' on Type[object] [attribute-error]
+File "specialtypes_type.py", line 120, in func8: No attribute 'unknown' on Type[object] [attribute-error]
+File "specialtypes_type.py", line 143, in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+File "specialtypes_type.py", line 144, in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+File "specialtypes_type.py", line 145, in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+File "specialtypes_type.py", line 146, in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+"""

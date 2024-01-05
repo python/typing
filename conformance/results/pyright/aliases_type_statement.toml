@@ -1,10 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not reject binary expression when used in type alias definition.
-"""
+conformant = "Pass"
 output = """
-aliases_type_statement.py:44:26 - error: Statements must be separated by newlines or semicolons
-aliases_type_statement.py:44:35 - error: Expected ":"
 aliases_type_statement.py:17:12 - error: Cannot access member "bit_count" for type "TypeAliasType"
   Member "bit_count" is unknown (reportGeneralTypeIssues)
 aliases_type_statement.py:19:1 - error: Object of type "TypeAliasType" is not callable (reportGeneralTypeIssues)
@@ -16,22 +11,30 @@ aliases_type_statement.py:31:22 - error: Argument of type "TypeAliasType" cannot
     "TypeAliasType" is incompatible with "type"
     "TypeAliasType" is incompatible with "UnionType"
     "TypeAliasType" is incompatible with "tuple[_ClassInfo, ...]" (reportGeneralTypeIssues)
-aliases_type_statement.py:37:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
-aliases_type_statement.py:38:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_type_statement.py:37:22 - error: Call expression not allowed in type expression (reportGeneralTypeIssues)
+aliases_type_statement.py:38:22 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
 aliases_type_statement.py:38:22 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)
-aliases_type_statement.py:39:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
-aliases_type_statement.py:39:22 - error: Expected type expression but received "tuple[tuple[type[int], type[str]]]" (reportGeneralTypeIssues)
-aliases_type_statement.py:40:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_type_statement.py:39:22 - error: Tuple expression not allowed in type annotation
+  Use Tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+aliases_type_statement.py:40:22 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
 aliases_type_statement.py:40:22 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
-aliases_type_statement.py:41:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_type_statement.py:41:22 - error: Dictionary expression not allowed in type annotation
+  Use Dict[T1, T2] to indicate a dictionary type (reportGeneralTypeIssues)
 aliases_type_statement.py:41:22 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)
-aliases_type_statement.py:42:22 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
+aliases_type_statement.py:42:22 - error: Call expression not allowed in type expression (reportGeneralTypeIssues)
+aliases_type_statement.py:43:22 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
 aliases_type_statement.py:43:22 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
-aliases_type_statement.py:45:22 - error: Expected type expression but received "int" (reportGeneralTypeIssues)
+aliases_type_statement.py:44:22 - error: Ternary expression not allowed in type annotation
+aliases_type_statement.py:45:22 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
 aliases_type_statement.py:46:23 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)
-aliases_type_statement.py:47:23 - error: Invalid expression form for type alias definition (reportGeneralTypeIssues)
 aliases_type_statement.py:47:23 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
+aliases_type_statement.py:48:23 - error: Binary operator not allowed in type annotation
 aliases_type_statement.py:49:23 - error: Expected expression
+aliases_type_statement.py:49:23 - error: Tuple expression not allowed in type annotation
+  Use Tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
 aliases_type_statement.py:58:10 - error: A type statement can be used only within a module or class scope
 aliases_type_statement.py:64:23 - error: Type parameter "V" is not included in the type parameter list for "TA1" (reportGeneralTypeIssues)
 aliases_type_statement.py:69:17 - error: Type parameter "T1" is not included in the type parameter list for "TA2" (reportGeneralTypeIssues)

@@ -1,0 +1,8 @@
+conformant = "Unsupported"
+notes = """
+Does not understand "assert_type".
+"""
+output = """
+directives_assert_type.py:31:4 Missing argument [20]: Call `assert_type` expects argument in position 0.
+directives_assert_type.py:33:4 Too many arguments [19]: Call `assert_type` expects 2 positional arguments, 3 were provided.
+"""

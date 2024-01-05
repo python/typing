@@ -1,0 +1,40 @@
+conformant = "Partial"
+notes = """
+Does not report invalid return type for generator when function implicitly returns None.
+Reports invalid error when return type of generator is annotated as a compatible protocol.
+Does not report type violation in `yield from` statement.
+"""
+output = """
+File "annotations_generators.py", line 54, in generator2: bad return type [bad-return-type]
+           Expected: C
+  Actually returned: bool
+File "annotations_generators.py", line 57, in generator2: bad return type [bad-return-type]
+           Expected: C
+  Actually returned: None
+File "annotations_generators.py", line 57, in generator2: bad return type [bad-return-type]
+           Expected: A
+  Actually returned: int
+File "annotations_generators.py", line 66, in generator3: bad return type [bad-return-type]
+           Expected: A
+  Actually returned: int
+File "annotations_generators.py", line 75, in generator5: bad return type [bad-return-type]
+           Expected: A
+  Actually returned: B
+File "annotations_generators.py", line 86, in <module>: Bad return type 'int' for generator function generator8 [bad-yield-annotation]
+  Expected Generator, Iterable or Iterator
+File "annotations_generators.py", line 91, in <module>: Bad return type 'int' for async generator function generator9 [bad-yield-annotation]
+  Expected AsyncGenerator, AsyncIterable or AsyncIterator
+File "annotations_generators.py", line 100, in <module>: Bad return type 'IntIterator' for generator function generator15 [bad-yield-annotation]
+  Expected Generator, Iterable or Iterator
+File "annotations_generators.py", line 109, in <module>: Bad return type 'AsyncIntIterator' for async generator function generator16 [bad-yield-annotation]
+  Expected AsyncGenerator, AsyncIterable or AsyncIterator
+File "annotations_generators.py", line 118, in generator18: bad return type [bad-return-type]
+           Expected: B
+  Actually returned: A
+File "annotations_generators.py", line 119, in generator18: bad return type [bad-return-type]
+           Expected: B
+  Actually returned: A
+File "annotations_generators.py", line 182, in <module>: Callable[[], AsyncIterator[int]] [assert-type]
+  Expected: Callable[[], Coroutine[Any, Any, AsyncIterator[int]]]
+    Actual: Callable[[], AsyncIterator[int]]
+"""

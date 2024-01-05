@@ -1,0 +1,14 @@
+conformant = "Pass"
+output = """
+protocols_modules.py:26:17 - error: Expression of type "Module("_protocols_modules1")" cannot be assigned to declared type "Options2"
+  "timeout" is invariant because it is mutable
+  "timeout" is an incompatible type
+    "int" is incompatible with "str" (reportGeneralTypeIssues)
+protocols_modules.py:48:18 - error: Expression of type "Module("_protocols_modules2")" cannot be assigned to declared type "Reporter2"
+  "on_error" is an incompatible type
+    Type "(x: int) -> None" cannot be assigned to type "(x: int) -> int"
+      Function return type "None" is incompatible with type "int"
+        "None" is incompatible with "int" (reportGeneralTypeIssues)
+protocols_modules.py:49:18 - error: Expression of type "Module("_protocols_modules2")" cannot be assigned to declared type "Reporter3"
+  "not_implemented" is not present (reportGeneralTypeIssues)
+"""

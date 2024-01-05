@@ -1,0 +1,26 @@
+conformant = "Partial"
+notes = """
+Does not report error when calling unimplemented protocol method from derived class.
+"""
+output = """
+protocols_explicit.py:56:32 - error: Cannot assign member "rgb" for type "Point*"
+  "str" is incompatible with "int" (reportGeneralTypeIssues)
+protocols_explicit.py:54:7 - error: Class derives from one or more protocol classes but does not implement all required members
+  Member "other" is declared in protocol class "RGB"
+  Member "transparency" is declared in protocol class "RGB" (reportGeneralTypeIssues)
+protocols_explicit.py:63:5 - error: Cannot instantiate abstract class "Point"
+  "RGB.intensity" is abstract (reportGeneralTypeIssues)
+protocols_explicit.py:86:7 - error: Class derives from one or more protocol classes but does not implement all required members
+  Member "cm1" is declared in protocol class "Proto1"
+  Member "im1" is declared in protocol class "Proto1" (reportGeneralTypeIssues)
+protocols_explicit.py:103:7 - error: Class derives from one or more protocol classes but does not implement all required members
+  Member "im1" is declared in protocol class "Proto1"
+  Member "cm10" is declared in protocol class "Proto2"
+  Member "cm11" is declared in protocol class "Proto3" (reportGeneralTypeIssues)
+protocols_explicit.py:135:7 - error: Class derives from one or more protocol classes but does not implement all required members
+  Member "method1" is declared in protocol class "Proto5" (reportGeneralTypeIssues)
+protocols_explicit.py:166:7 - error: Class derives from one or more protocol classes but does not implement all required members
+  Member "method1" is declared in protocol class "Proto7" (reportGeneralTypeIssues)
+protocols_explicit.py:171:7 - error: Cannot instantiate abstract class "Concrete7A"
+  "Proto7.method1" is abstract (reportGeneralTypeIssues)
+"""

@@ -1,0 +1,9 @@
+conformant = "Partial"
+notes = """
+Does not reject issubclass call for data protocol.
+Does not report unsafe overlap for runtime_checkable protocol.
+"""
+output = """
+protocols_runtime_checkable.py:23:22 - error: Second argument to "isinstance" must be a class or tuple of classes
+  Protocol class must be @runtime_checkable to be used with instance and class checks (reportGeneralTypeIssues)
+"""

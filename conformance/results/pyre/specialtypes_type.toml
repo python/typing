@@ -1,0 +1,25 @@
+conformant = "Partial"
+notes = """
+Does not reject Callable when passed to type[T].
+Does not treat `type` same as `type[Any]` for assert_type.
+Does not allow access to unknown attributes from object of type `type[Any]`.
+Does not reject access to unknown attributes from object of type `Type[object]`.
+Reports type incompatibility between `type` and `Callable[..., Any]`.
+"""
+output = """
+specialtypes_type.py:56:6 Incompatible parameter type [6]: In call `func4`, for 1st positional argument, expected `Type[Union[BasicUser, ProUser]]` but got `Type[TeamUser]`.
+specialtypes_type.py:76:11 Invalid type parameters [24]: Generic type `type` expects 1 type parameter, received 2, use `typing.Type[<base type>]` to avoid runtime subscripting errors.
+specialtypes_type.py:84:24 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_meta](covariant)]` but got `object`.
+specialtypes_type.py:98:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[type], typing.Any]`.
+specialtypes_type.py:102:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[type], typing.Any]`.
+specialtypes_type.py:106:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[type], typing.Any]`.
+specialtypes_type.py:110:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[type], typing.Any]`.
+specialtypes_type.py:117:4 Undefined attribute [16]: `object` has no attribute `unknown`.
+specialtypes_type.py:137:24 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_meta](covariant)]` but got `object`.
+specialtypes_type.py:138:24 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_meta](covariant)]` but got `object`.
+specialtypes_type.py:139:24 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_meta](covariant)]` but got `object`.
+specialtypes_type.py:140:24 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_meta](covariant)]` but got `object`.
+specialtypes_type.py:143:0 Undefined attribute [16]: `TypeAlias` has no attribute `unknown`.
+specialtypes_type.py:165:4 Incompatible variable type [9]: x1 is declared to have type `typing.Callable[..., typing.Any]` but is used as type `Type[typing.Any]`.
+specialtypes_type.py:166:4 Incompatible variable type [9]: x2 is declared to have type `typing.Callable[[int, int], int]` but is used as type `Type[typing.Any]`.
+"""

@@ -1,0 +1,17 @@
+conformant = "Unsupported"
+notes = """
+Does not honor @no_type_check decorator.
+"""
+output = """
+File "directives_no_type_check.py", line 16, in func1: unsupported operand type(s) for +: int and str [unsupported-operands]
+  Function __add__ on int expects int
+File "directives_no_type_check.py", line 17, in func1: bad return type [bad-return-type]
+           Expected: None
+  Actually returned: int
+File "directives_no_type_check.py", line 20, in <module>: Function func1 was called with the wrong arguments [wrong-arg-types]
+         Expected: (a: int, ...)
+  Actually passed: (a: bytes, ...)
+File "directives_no_type_check.py", line 21, in <module>: Missing parameter 'a' in call to function func1 [missing-parameter]
+         Expected: (a, b)
+  Actually passed: ()
+"""

@@ -127,13 +127,27 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.40sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(0.66sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_coroutines</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_forward_refs</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error for a forward reference that is not enclosed in quotes.<br>Does not report error for use of quoted type with "|" operator (runtime error).<br>Incorrectly generates error for quoted type defined in class scope.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_generators</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report incompatible Generator type in `yield from` statement.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_methods</th><th class="column col2 conformant">Pass</th><th class="column col3">Type evaluation differs from other type checkers because of ambiguity in the spec related to method bindings.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/special-types.html">Special types in annotations</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_any</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_never</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject NoReturn when used outside of return type annotation.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_none</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_promotions</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_tuple</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_tuple_unpack</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_type</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat `type` same as `type[Any]` for assert_type.<br>Does not allow access to unknown attributes from object of type `type[Any]`.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
@@ -142,6 +156,17 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not properly handle constructor call through `cls` parameter.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not allow ClassVar to be nested within Annotated.<br>Does not allow Final to be nested within Annotated.<br>Does not allow Required and NotRequired to be nested within Annotated.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br>Does not allow conditional assignment of Final instance variable in __init__ method.<br>Does not allow redefinition of private class variable that is marked Final in parent class.<br>Does not report modification of local Final variable via "for" statement.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Internal error if TypeVarTuple is used in ClassVar.<br>Does not reject use of ParamSpec in ClassVar.<br>Rejects ClassVar nested in Annotated.<br>Does not reject use of ClassVar in TypeAlias definition.<br>Does not infer type of ClassVar from assignment if no type is provided.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_override</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not handle case where parent class derives from Any.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
@@ -161,10 +186,28 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/protocol.html">Protocols</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_class_objects</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_definition</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Rejects implicit class variable when matching protocol with explicit ClassVar.<br>Does not detect protocol mismatch if concrete method is missing annotations.<br>Does not detect protocol mismatch if concrete method's parameters are position-only.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_explicit</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not report unimplemented attributes for class that explicitly derives from protocol until it is instantiated.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_generic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Fails protocol matching when method-scoped TypeVar is used in protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_merging</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_modules</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_recursive</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_runtime_checkable</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report unsafe overlap for runtime_checkable protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_self</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_subtyping</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_annotation</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_kwargs</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/overload.html">Overloads</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">overloads_basic</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
@@ -184,7 +227,7 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/typeddict.html">Typed dictionaries</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_alt_syntax</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support keyword-argument form of alternative syntax (deprecated in 3.11).<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_alt_syntax</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not support keyword-argument form of alternative syntax (deprecated in 3.11).<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_class_syntax</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_final</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">typeddicts_inheritance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
@@ -197,14 +240,40 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/directives.html">Type checker directives</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_assert_type</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_cast</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_no_type_check</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_reveal_type</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_checking</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not honor "# type: ignore" comment if comment includes additional text.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore_file1</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore_file2</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not understand three-element form of sys.version checks.<br>Does not understand os.name checks.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.343<span class='tc-time'>(1.01sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.24sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_coroutines</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_forward_refs</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_generators</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_methods</th><th class="column col2 conformant">Pass</th><th class="column col3">Type evaluation differs from other type checkers because of ambiguity in the spec related to method bindings.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/special-types.html">Special types in annotations</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_any</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_never</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject NoReturn when used outside of return type annotation.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_none</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_promotions</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_tuple</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_tuple_unpack</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_type</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject Callable when passed to type[T].<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
@@ -215,13 +284,24 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject all invalid type expressions within Annotated.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report override of overloaded method marked @final.<br>Does not report error for non-method function marked @final.<br>Does not report error if overload is marked @final but implementation is not.<br>Does not report error in stub if first overload is not marked @final but subsequent ones are.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_override</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_explicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of NewType in `isinstance` call.<br>Does not report inconsistency between name of NewType and assigned identifier name.<br>Does not reject use of NewType with TypedDict class.<br>Does not reject use of NewType with another NewType.<br>Does not reject use of NewType with Any.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_explicit</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_implicit</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_newtype</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_recursive</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject binary expression when used in type alias definition.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_typealiastype</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject type alias expression that uses TypeVar that is not in scope and not in `type_params`.<br>Does not allow access to `__value__` attribute of type alias.<br>Allows some illegal annotation forms to be interpreted as valid type aliases.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_type_statement</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_typealiastype</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">aliases_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
@@ -232,10 +312,28 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/protocol.html">Protocols</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_class_objects</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports some class objects as incompatible with a protocol.<br>Fails to report some class objects as incompatible with a protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_definition</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_explicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error when calling unimplemented protocol method from derived class.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_generic</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_merging</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_modules</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_recursive</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_runtime_checkable</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject issubclass call for data protocol.<br>Does not report unsafe overlap for runtime_checkable protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_self</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_subtyping</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_variance</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not exempt "self" and "cls" parameters from variance checks.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_annotation</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_kwargs</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report type incompatibility for callback protocol with positional-only parameters.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/overload.html">Overloads</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">overloads_basic</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
@@ -245,7 +343,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_inheritance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_kwonly</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_order</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_postinit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports incorrect error for incompatible `__post_init__` method override.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_postinit</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_slots</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_transform_class</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">dataclasses_transform_field</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
@@ -268,14 +366,40 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/directives.html">Type checker directives</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_assert_type</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_cast</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_no_type_check</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Intentionally does not honor @no_type_check decorator.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_reveal_type</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_checking</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore_file1</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore_file2</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(1.40sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(2.12sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_coroutines</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not evaluate correct type for async function.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_forward_refs</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error for a forward reference that is not enclosed in quotes.<br>Does not report error for use of quoted type with "|" operator (runtime error).<br>Does not reject f-string in quoted type annotation.<br>Incorrectly generates error for quoted type defined in class scope.<br>Does not generate error for unquoted type defined in class scope.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_generators</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report invalid return type for generator when function implicitly returns None.<br>Incorrectly evaluates type of call to async generator.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_methods</th><th class="column col2 conformant">Pass</th><th class="column col3">Type evaluation differs from other type checkers because of ambiguity in the spec related to method bindings.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/special-types.html">Special types in annotations</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_any</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat missing type argument as Any in generic type.<br>Does not support Any as a base class.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_never</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject NoReturn when used outside of return type annotation.<br>Does not treat Never as compatible with all other types.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_none</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not correctly handle type annotation type[None].<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_promotions</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of attribute that is compatible only with float.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_tuple</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report type violation when assigning tuple[T, ...] to tuple[T].<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_tuple_unpack</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support unpacked tuple in type expression.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_type</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject Callable when passed to type[T].<br>Does not treat `type` same as `type[Any]` for assert_type.<br>Does not allow access to unknown attributes from object of type `type[Any]`.<br>Does not reject access to unknown attributes from object of type `Type[object]`.<br>Reports type incompatibility between `type` and `Callable[..., Any]`.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
@@ -284,6 +408,17 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject protocol compatibility due to method `Self` return type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject Annotated with a single parameter.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report Final variable with missing initialization in module scope.<br>Does not report error for invalid nesting of Final and ClassVar.<br>Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports error for overloaded method implementation marked @final if its overloads do not.<br>Does not report error for overloaded @final method defined in stub file.<br>Reports misleading error when overload is marked @final but implementation is not.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of TypeVar in ClassVar.<br>Does not reject use of ParamSpec in ClassVar.<br>Does not reject use of ClassVar as a generic type argument.<br>Does not reject use of ClassVar in parameter type annotation.<br>Does not reject use of ClassVar in local variable annotation.<br>Does not reject use of ClassVar in instance variable annotation.<br>Does not reject use of ClassVar in return type annotation.<br>Does not reject use of ClassVar in type alias definition.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_override</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not yet support the @override decorator.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
@@ -303,10 +438,28 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject augmented operation that modifies literal value.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/protocol.html">Protocols</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_class_objects</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject protocol class assigned to type[Proto].<br>Incorrectly reports some class objects as incompatible with a protocol.<br>Fails to report some class objects as incompatible with a protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_definition</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar.<br>Does not reject read-only property in concrete class when attribute in protocol is mutable.<br>Does not reject covariant attribute type when protocol attribute is mutable.<br>Does not reject read-only property in concrete class when protocol has settable property.<br>Does not reject immutable named tuple attribute in concrete class when protocol attribute is mutable.<br>Does not reject immutable frozen dataclass attribute in concrete class when protocol attribute is mutable.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_explicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error when calling unimplemented protocol method from derived class.<br>Does not report error when method is not implemented in derived class.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_generic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject the use of Protocol and Generic together as base classes.<br>Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_merging</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject a protocol class that derives from a non-protocol class.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_modules</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not perform protocol checks for modules.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_recursive</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_runtime_checkable</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not reject isinstance or issubclass call for protocol that is not runtime_checkable.<br>Does not reject issubclass call for data protocol.<br>Does not report unsafe overlap for runtime_checkable protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_self</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_subtyping</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_variance</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not detect incorrect TypeVar variance within generic protocols.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not evaluate correct type for `*args: int` parameter.<br>Does not reject illegal form `Callable[[...], int]`.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_kwargs</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand Unpack in the context of **kwargs annotation.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not correctly handle callback protocol that declares attributes in all functions.<br>Does not report type incompatibility for callback protocol with positional-only parameters.<br>Incorrectly reports type compatibility error with callback that has *args and **kwargs.<br>Does not report type incompatibility for callback missing a default argument for positional parameter.<br>Does not report type incompatibility for callback missing a default argument for keyword parameter.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/overload.html">Overloads</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">overloads_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject a function with a single @overload signature.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
@@ -339,14 +492,40 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support `tuple` in `assert_type` call.<br>Does not reject TypeGuard method with too few parameters.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/directives.html">Type checker directives</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_assert_type</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand "assert_type".<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_cast</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_no_type_check</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not honor @no_type_check decorator.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_reveal_type</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand reveal_type call.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_checking</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore_file1</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support file-level `#type: ignore` comment.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore_file2</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support sys.platform checks.<br>Does not support os.name checks.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(28.14sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(26.71sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject call expressions in type annotation.<br>Does not reject call lambda expression in type annotation.<br>Does not reject list expression in type annotation.<br>Does not reject ternary expression in type annotation.<br>Does not reject f-string in type annotation.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_coroutines</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not evaluate correct type for async function.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_forward_refs</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject some illegal type expression forms when quoted.<br>Incorrectly generates error for quoted type defined in class scope.<br>Evaluates incorrect type for class variable annotated with quoted type expression.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_generators</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report invalid return type for generator when function implicitly returns None.<br>Reports invalid error when return type of generator is annotated as a compatible protocol.<br>Does not report type violation in `yield from` statement.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_methods</th><th class="column col2 conformant">Pass</th><th class="column col3">Type evaluation differs from other type checkers because of ambiguity in the spec related to method bindings.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">annotations_typeexpr</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject call expressions in type annotation.<br>Does not reject call lambda expression in type annotation.<br>Does not reject list expression in type annotation.<br>Does not reject ternary expression in type annotation.<br>Does not reject f-string in type annotation.<br>Does not reject module in type annotation.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/special-types.html">Special types in annotations</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_any</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_never</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand NoReturn or Never.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_none</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not detect type incompatibility between None and type[None].<br>Does not detect type incompatibility between None and incompatible protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_promotions</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_tuple</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report type violation when assigning tuple[T, ...] to tuple[T].<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_tuple_unpack</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not support unpacked tuple in type expression.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">specialtypes_type</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject Callable when passed to type[T].<br>Does not allow access to known attributes from object of type `type[Any]`.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
@@ -355,6 +534,17 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_basic</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_protocols</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject protocol compatibility due to method `Self` return type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_usage</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject some illegal type expression forms used in Annotated.<br>Does not allow TypeVar to be used in type alias when wrapped with Annotated.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report Final variable with missing initialization.<br>Does not reject Final instance variable declared outside of __init__ method.<br>Does not reject modification of global variable declared Final.<br>Does not reject modification of local variable declared Final.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error for overloaded @final method defined in stub file.<br>Does not report error for overload that is marked @final when implementation is not.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_classvar</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject use of TypeVar in ClassVar.<br>Does not reject use of ParamSpec in ClassVar.<br>Does not reject use of ClassVar as a generic type argument.<br>Rejects initialization of ClassVar if no type argument is provided.<br>Does not reject use of ClassVar in parameter type annotation.<br>Does not reject use of ClassVar in local variable annotation.<br>Does not reject use of ClassVar in instance variable annotation.<br>Does not reject use of ClassVar in return type annotation.<br>Does not reject use of ClassVar in type alias definition.<br>Does not reject assignment of ClassVar through instance of class.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">classes_override</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not yet support the @override decorator.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a></th></tr>
@@ -374,10 +564,28 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">literals_semantics</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Literal` type annotation.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/protocol.html">Protocols</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_class_objects</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject protocol class assigned to type[Proto].<br>Incorrectly reports some class objects as incompatible with a protocol.<br>Fails to report some class objects as incompatible with a protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_definition</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports errors for protocol static method with "..." implementation.<br>Does not report error when instance variable is set through "self" access in protocol class.<br>Does not report protocol mismatch when concrete class has attribute with covariant type and protocol attribute is mutable.<br>Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar.<br>Does not reject read-only property in concrete class when attribute in protocol is mutable.<br>Does not reject covariant attribute type when protocol attribute is mutable.<br>Does not detect protocol mismatch if concrete method is missing annotations.<br>Does not detect protocol mismatch if concrete method's parameters are keyword-only.<br>Does not detect protocol mismatch if concrete method's parameters are position-only.<br>Does not detect protocol mismatch if concrete method is a classmethod.<br>Does not detect protocol mismatch if concrete method is a staticmethod.<br>Does not reject read-only property in concrete class when protocol has settable property.<br>Does not reject immutable named tuple attribute in concrete class when protocol attribute is mutable.<br>Does not reject immutable frozen dataclass attribute in concrete class when protocol attribute is mutable.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_explicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports errors for protocol static method with "..." implementation.<br>Does not report error when calling unimplemented protocol method from derived class.<br>Does not report type incompatibility when assigning to attribute defined in protocol.<br>Does not reject instantiation of class that derives from protocol but doesn't implement attribute.<br>Does not report instantiation of class that derives from protocol but doesn't implement method.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_generic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not correctly enforce contravariance in protocol type compatibility tests.<br>Does not correctly enforce invariance in protocol type compatibility tests.<br>Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_merging</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject a protocol class that derives from a non-protocol class.<br>Does not report attempt to instantiate abstract class downgraded from protocol class.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_modules</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report incompatibilities for protocol methods.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_recursive</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports type error for some recursive protocols.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_runtime_checkable</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not reject isinstance or issubclass call for protocol that is not runtime_checkable.<br>Does not reject issubclass call for data protocol.<br>Does not report unsafe overlap for runtime_checkable protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_self</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not properly handle Self type within a protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_subtyping</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject attempt to instantiate protocol class.<br>Does not report some protocol type compatibility violations involving contravariance.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_variance</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not detect incorrect TypeVar variance within generic protocols.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_annotation</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_kwargs</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand Unpack in the context of **kwargs annotation.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">callables_protocol</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not properly handle type compatibility checks with callback protocols.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/overload.html">Overloads</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">overloads_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject a function with a single @overload signature.<br>Does not reject a function with @overload signature but no implementation.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a></th></tr>
@@ -409,6 +617,18 @@
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">narrowing_typeguard</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject TypeGuard method with too few parameters.<br></th></tr>
+<tr><th class="column spacer" colspan="4"></th></tr>
+<tr><th class="column" colspan="4">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/directives.html">Type checker directives</a></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_assert_type</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_cast</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject a call to "cast" with additional arguments.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_no_type_check</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not honor @no_type_check decorator.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_reveal_type</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject call to reveal_type with zero arguments.<br>Does not reject call to reveal_type with too many arguments.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_checking</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not honor "# type: ignore" comment if comment includes additional text.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore_file1</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_type_ignore_file2</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not ignore `# type: ignore` if it occurs after docstrings in the file.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not understand three-element form of sys.version checks.<br>Does not understand os.name checks.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
 

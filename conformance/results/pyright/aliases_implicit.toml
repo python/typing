@@ -1,10 +1,5 @@
-conformant = "Partial"
-notes = """
-Incorrectly evaluates type of specialized type alias parameterized with ParamSpec.
-Allows some illegal annotation forms to be interpreted as valid type aliases.
-"""
+conformant = "Pass"
 output = """
-aliases_implicit.py:68:17 - error: "assert_type" mismatch: expected "(int, str, str) -> None" but received "(int, str, str) -> None" (reportGeneralTypeIssues)
 aliases_implicit.py:76:24 - error: Expected no type arguments for class "int" (reportGeneralTypeIssues)
 aliases_implicit.py:76:24 - error: Expected no type arguments for class "NoneType" (reportGeneralTypeIssues)
 aliases_implicit.py:77:9 - error: Type "list[int | None]" is already specialized (reportGeneralTypeIssues)
@@ -19,10 +14,13 @@ aliases_implicit.py:107:9 - error: Variable not allowed in type expression (repo
 aliases_implicit.py:108:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
 aliases_implicit.py:109:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
 aliases_implicit.py:110:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:111:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:112:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
 aliases_implicit.py:113:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
 aliases_implicit.py:114:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
 aliases_implicit.py:115:10 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
 aliases_implicit.py:116:10 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+aliases_implicit.py:117:10 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
 aliases_implicit.py:118:10 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
 aliases_implicit.py:119:10 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
 aliases_implicit.py:133:6 - error: Object of type "type[list[Unknown]] | type[set[Unknown]]" is not callable (reportGeneralTypeIssues)

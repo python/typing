@@ -1,0 +1,28 @@
+conformant = "Partial"
+notes = """
+Incorrectly reports some class objects as incompatible with a protocol.
+Fails to report some class objects as incompatible with a protocol.
+"""
+output = """
+protocols_class_objects.py:29:5 - error: Argument of type "type[Proto]" cannot be assigned to parameter "cls" of type "type[Proto]" in function "fun"
+  "Proto" is not a concrete class type and cannot be assigned to type "type[Proto]" (reportGeneralTypeIssues)
+protocols_class_objects.py:34:7 - error: Expression of type "type[Proto]" cannot be assigned to declared type "type[Proto]"
+  "Proto" is not a concrete class type and cannot be assigned to type "type[Proto]" (reportGeneralTypeIssues)
+protocols_class_objects.py:58:16 - error: Expression of type "type[ConcreteA]" cannot be assigned to declared type "ProtoA1"
+  "type[type]" is incompatible with "type[ConcreteA]"
+  "type[type]" is incompatible with "type[ConcreteA]"
+  "method1" is an incompatible type
+    Type "(self: ConcreteA, x: int) -> int" cannot be assigned to type "(x: int) -> int"
+      Parameter name mismatch: "x" versus "self"
+      Parameter 1: type "int" cannot be assigned to type "ConcreteA"
+        "int" is incompatible with "ConcreteA" (reportGeneralTypeIssues)
+protocols_class_objects.py:59:16 - error: Expression of type "type[ConcreteA]" cannot be assigned to declared type "ProtoA2"
+  "type[type]" is incompatible with "type[ConcreteA]"
+  "type[type]" is incompatible with "type[ConcreteA]"
+  "method1" is an incompatible type
+    Type "(self: ConcreteA, x: int) -> int" cannot be assigned to type "(obj: Any, x: int) -> int"
+      Parameter name mismatch: "obj" versus "self" (reportGeneralTypeIssues)
+protocols_class_objects.py:74:16 - error: Expression of type "type[ConcreteB]" cannot be assigned to declared type "ProtoB1"
+  "prop1" is an incompatible type
+    "property" is incompatible with "int" (reportGeneralTypeIssues)
+"""

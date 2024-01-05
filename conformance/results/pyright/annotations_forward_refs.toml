@@ -1,0 +1,37 @@
+conformant = "Pass"
+output = """
+annotations_forward_refs.py:22:7 - error: "ClassA" is not defined (reportUndefinedVariable)
+annotations_forward_refs.py:23:12 - error: "ClassA" is not defined (reportUndefinedVariable)
+annotations_forward_refs.py:24:7 - error: Union syntax cannot be used with string operand; use quotes around entire expression (reportGeneralTypeIssues)
+annotations_forward_refs.py:25:13 - error: Union syntax cannot be used with string operand; use quotes around entire expression (reportGeneralTypeIssues)
+annotations_forward_refs.py:41:9 - error: Expected type but received a string literal (reportGeneralTypeIssues)
+annotations_forward_refs.py:42:10 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+annotations_forward_refs.py:42:10 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)
+annotations_forward_refs.py:43:10 - error: Tuple expression not allowed in type annotation
+  Use Tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+annotations_forward_refs.py:44:10 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+annotations_forward_refs.py:44:10 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
+annotations_forward_refs.py:45:10 - error: Dictionary expression not allowed in type annotation
+  Use Dict[T1, T2] to indicate a dictionary type (reportGeneralTypeIssues)
+annotations_forward_refs.py:45:10 - error: Expected type expression but received "dict[Unknown, Unknown]" (reportGeneralTypeIssues)
+annotations_forward_refs.py:46:10 - error: Call expression not allowed in type expression (reportGeneralTypeIssues)
+annotations_forward_refs.py:47:10 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+annotations_forward_refs.py:47:10 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
+annotations_forward_refs.py:48:10 - error: Ternary expression not allowed in type annotation
+annotations_forward_refs.py:49:10 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+annotations_forward_refs.py:50:11 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)
+annotations_forward_refs.py:51:11 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
+annotations_forward_refs.py:52:11 - error: Unary operator not allowed in type annotation
+annotations_forward_refs.py:53:11 - error: Binary operator not allowed in type annotation
+annotations_forward_refs.py:54:11 - error: Expected expression
+annotations_forward_refs.py:54:11 - error: Tuple expression not allowed in type annotation
+  Use Tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+annotations_forward_refs.py:55:10 - error: Module cannot be used as a type (reportGeneralTypeIssues)
+annotations_forward_refs.py:66:26 - error: "ClassB" is not defined (reportUndefinedVariable)
+annotations_forward_refs.py:80:14 - error: Type of "ClassF" could not be determined because it refers to itself (reportGeneralTypeIssues)
+annotations_forward_refs.py:80:14 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+annotations_forward_refs.py:89:8 - error: Expected type expression but received "(self: Self@ClassD) -> None" (reportGeneralTypeIssues)
+"""

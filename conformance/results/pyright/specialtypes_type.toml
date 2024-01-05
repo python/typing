@@ -1,0 +1,25 @@
+conformant = "Partial"
+notes = """
+Does not reject Callable when passed to type[T].
+"""
+output = """
+specialtypes_type.py:56:7 - error: Argument of type "type[TeamUser]" cannot be assigned to parameter "user_class" of type "type[BasicUser] | type[ProUser]" in function "func4"
+  Type "type[TeamUser]" cannot be assigned to type "type[BasicUser] | type[ProUser]"
+    "type[TeamUser]" is incompatible with "type[BasicUser]"
+    Type "type[TeamUser]" cannot be assigned to type "type[BasicUser]"
+    "type[TeamUser]" is incompatible with "type[ProUser]"
+    Type "type[TeamUser]" cannot be assigned to type "type[ProUser]" (reportGeneralTypeIssues)
+specialtypes_type.py:76:22 - error: Too many type arguments provided for "type"; expected 1 but received 2
+specialtypes_type.py:117:7 - error: Cannot access member "unknown" for type "type[object]"
+  Member "unknown" is unknown (reportGeneralTypeIssues)
+specialtypes_type.py:120:7 - error: Cannot access member "unknown" for type "type[object]"
+  Member "unknown" is unknown (reportGeneralTypeIssues)
+specialtypes_type.py:143:5 - error: Cannot access member "unknown" for type "TA1"
+  Member "unknown" is unknown (reportGeneralTypeIssues)
+specialtypes_type.py:144:5 - error: Cannot access member "unknown" for type "TA2"
+  Member "unknown" is unknown (reportGeneralTypeIssues)
+specialtypes_type.py:145:5 - error: Cannot access member "unknown" for type "TA3"
+  Member "unknown" is unknown (reportGeneralTypeIssues)
+specialtypes_type.py:146:5 - error: Cannot access member "unknown" for type "TA4"
+  Member "unknown" is unknown (reportGeneralTypeIssues)
+"""

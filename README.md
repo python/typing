@@ -26,6 +26,8 @@ This GitHub repository is used for several things:
 - A [discussion forum](https://github.com/python/typing/discussions) for typing-related user
   help is hosted here.
 
+- [Conformance test](https://github.com/python/typing/blob/main/conformance/README.md) for Python static type checkers. The [latest conformance test results](https://htmlpreview.github.io/?https://github.com/python/typing/blob/main/conformance/results/results.html) are here.
+
 Historically, this repository also hosted:
 
 - The `typing_extensions` package, which now lives in the

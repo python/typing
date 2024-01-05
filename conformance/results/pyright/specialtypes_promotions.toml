@@ -1,0 +1,5 @@
+conformant = "Pass"
+output = """
+specialtypes_promotions.py:13:7 - error: Cannot access member "numerator" for type "float"
+  Member "numerator" is unknown (reportGeneralTypeIssues)
+"""

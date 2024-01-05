@@ -1,0 +1,11 @@
+conformant = "Partial"
+notes = """
+Does not reject NoReturn when used outside of return type annotation.
+"""
+output = """
+specialtypes_never.py:19: error: Implicit return in function which does not return  [misc]
+specialtypes_never.py:85: error: Incompatible types in assignment (expression has type "list[NoReturn]", variable has type "list[int]")  [assignment]
+specialtypes_never.py:85: note: "List" is invariant -- see https://mypy.readthedocs.io/en/stable/common_issues.html#variance
+specialtypes_never.py:85: note: Consider using "Sequence" instead, which is covariant
+specialtypes_never.py:104: error: Incompatible return value type (got "ClassC[NoReturn]", expected "ClassC[U]")  [return-value]
+"""

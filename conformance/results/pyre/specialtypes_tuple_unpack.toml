@@ -1,0 +1,43 @@
+conformant = "Unsupported"
+notes = """
+Does not support unpacked tuple in type expression.
+"""
+output = """
+specialtypes_tuple_unpack.py:6:4 Invalid type [31]: Expression `tuple[(int, *tuple[str])]` is not a valid type.
+specialtypes_tuple_unpack.py:7:0 Incompatible variable type [9]: t1 is declared to have type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal['']]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[''], typing_extensions.Literal['']]`.
+specialtypes_tuple_unpack.py:9:0 Incompatible variable type [9]: t2 is declared to have type `Tuple[int, unknown]` but is used as type `Tuple[int]`.
+specialtypes_tuple_unpack.py:9:4 Invalid type [31]: Expression `tuple[(int, *tuple[(str, ...)])]` is not a valid type.
+specialtypes_tuple_unpack.py:10:0 Incompatible variable type [9]: t2 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal['']]`.
+specialtypes_tuple_unpack.py:11:0 Incompatible variable type [9]: t2 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[''], typing_extensions.Literal['']]`.
+specialtypes_tuple_unpack.py:12:0 Incompatible variable type [9]: t2 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[1], typing_extensions.Literal['']]`.
+specialtypes_tuple_unpack.py:13:0 Incompatible variable type [9]: t2 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[''], typing_extensions.Literal[1]]`.
+specialtypes_tuple_unpack.py:16:0 Incompatible variable type [9]: t3 is declared to have type `Tuple[int, unknown, int]` but is used as type `Tuple[int, int]`.
+specialtypes_tuple_unpack.py:16:4 Invalid type [31]: Expression `tuple[(int, *tuple[(str, ...)], int)]` is not a valid type.
+specialtypes_tuple_unpack.py:17:0 Incompatible variable type [9]: t3 is declared to have type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[2]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[''], typing_extensions.Literal[2]]`.
+specialtypes_tuple_unpack.py:18:0 Incompatible variable type [9]: t3 is declared to have type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[2]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[''], typing_extensions.Literal[''], typing_extensions.Literal[2]]`.
+specialtypes_tuple_unpack.py:19:0 Incompatible variable type [9]: t3 is declared to have type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[2]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[''], typing_extensions.Literal['']]`.
+specialtypes_tuple_unpack.py:20:0 Incompatible variable type [9]: t3 is declared to have type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[2]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[''], typing_extensions.Literal[''], float]`.
+specialtypes_tuple_unpack.py:22:0 Incompatible variable type [9]: t4 is declared to have type `Tuple[unknown, int]` but is used as type `Tuple[int]`.
+specialtypes_tuple_unpack.py:22:4 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], int)]` is not a valid type.
+specialtypes_tuple_unpack.py:23:0 Incompatible variable type [9]: t4 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[''], typing_extensions.Literal[1]]`.
+specialtypes_tuple_unpack.py:24:0 Incompatible variable type [9]: t4 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[''], typing_extensions.Literal[''], typing_extensions.Literal[1]]`.
+specialtypes_tuple_unpack.py:25:0 Incompatible variable type [9]: t4 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[''], typing_extensions.Literal[1]]`.
+specialtypes_tuple_unpack.py:26:0 Incompatible variable type [9]: t4 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[''], typing_extensions.Literal[''], float]`.
+specialtypes_tuple_unpack.py:28:4 Invalid type [31]: Expression `tuple[(*tuple[str], *tuple[int])]` is not a valid type.
+specialtypes_tuple_unpack.py:29:4 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *tuple[(int, ...)])]` is not a valid type.
+specialtypes_tuple_unpack.py:33:4 Incompatible variable type [9]: t1 is declared to have type `Tuple[str, str, unknown]` but is used as type `Tuple[str, str]`.
+specialtypes_tuple_unpack.py:33:8 Invalid type [31]: Expression `tuple[(str, str, *tuple[(int, ...)])]` is not a valid type.
+specialtypes_tuple_unpack.py:34:4 Incompatible variable type [9]: t2 is declared to have type `Tuple[str, str, unknown]` but is used as type `Tuple[str, str]`.
+specialtypes_tuple_unpack.py:34:8 Invalid type [31]: Expression `tuple[(str, str, *tuple[int])]` is not a valid type.
+specialtypes_tuple_unpack.py:35:8 Invalid type [31]: Expression `tuple[(str, *tuple[(str, ...)])]` is not a valid type.
+specialtypes_tuple_unpack.py:36:4 Incompatible variable type [9]: t4 is declared to have type `Tuple[str, str, unknown]` but is used as type `Tuple[str, str]`.
+specialtypes_tuple_unpack.py:36:8 Invalid type [31]: Expression `tuple[(str, str, *tuple[(str, ...)])]` is not a valid type.
+specialtypes_tuple_unpack.py:37:4 Incompatible variable type [9]: t5 is declared to have type `Tuple[str, str, str, unknown]` but is used as type `Tuple[str, str]`.
+specialtypes_tuple_unpack.py:37:8 Invalid type [31]: Expression `tuple[(str, str, str, *tuple[(str, ...)])]` is not a valid type.
+specialtypes_tuple_unpack.py:38:4 Incompatible variable type [9]: t6 is declared to have type `Tuple[str, unknown, str]` but is used as type `Tuple[str, str]`.
+specialtypes_tuple_unpack.py:38:8 Invalid type [31]: Expression `tuple[(str, *tuple[(int, ...)], str)]` is not a valid type.
+specialtypes_tuple_unpack.py:39:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], str)]` is not a valid type.
+specialtypes_tuple_unpack.py:40:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], str)]` is not a valid type.
+specialtypes_tuple_unpack.py:41:4 Incompatible variable type [9]: t9 is declared to have type `Tuple[unknown, str, str, str]` but is used as type `Tuple[str, str]`.
+specialtypes_tuple_unpack.py:41:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], str, str, str)]` is not a valid type.
+"""

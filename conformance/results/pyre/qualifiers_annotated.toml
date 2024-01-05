@@ -1,0 +1,18 @@
+conformant = "Partial"
+notes = """
+Does not reject Annotated with a single parameter.
+"""
+output = """
+qualifiers_annotated.py:41:6 Undefined or invalid type [11]: Annotation `` is not defined as a type.
+qualifiers_annotated.py:42:6 Invalid type [31]: Expression `typing.Annotated[(((int, str)), "")]` is not a valid type.
+qualifiers_annotated.py:43:6 Invalid type [31]: Expression `typing.Annotated[(comprehension(int for generators(generator($target$i in range(1) if ))), "")]` is not a valid type.
+qualifiers_annotated.py:44:6 Invalid type [31]: Expression `typing.Annotated[({ "a":"b" }, "")]` is not a valid type.
+qualifiers_annotated.py:45:6 Invalid type [31]: Expression `typing.Annotated[(lambda () (int)(), "")]` is not a valid type.
+qualifiers_annotated.py:46:6 Invalid type [31]: Expression `typing.Annotated[([int][0], "")]` is not a valid type.
+qualifiers_annotated.py:47:6 Invalid type [31]: Expression `typing.Annotated[(int if 1 < 3 else str, "")]` is not a valid type.
+qualifiers_annotated.py:48:16 Unbound name [10]: Name `var1` is used but not defined in the current scope.
+qualifiers_annotated.py:49:6 Invalid type [31]: Expression `typing.Annotated[(True, "")]` is not a valid type.
+qualifiers_annotated.py:50:7 Invalid type [31]: Expression `typing.Annotated[(1, "")]` is not a valid type.
+qualifiers_annotated.py:51:7 Invalid type [31]: Expression `typing.Annotated[(list or set, "")]` is not a valid type.
+qualifiers_annotated.py:52:7 Invalid type [31]: Expression `typing.Annotated[(f"{"int"}", "")]` is not a valid type.
+"""

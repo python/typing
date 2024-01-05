@@ -1,0 +1,9 @@
+conformant = "Pass"
+output = """
+directives_assert_type.py:27:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportGeneralTypeIssues)
+directives_assert_type.py:28:17 - error: "assert_type" mismatch: expected "int" but received "Any" (reportGeneralTypeIssues)
+directives_assert_type.py:29:17 - error: "assert_type" mismatch: expected "int" but received "Literal[4]" (reportGeneralTypeIssues)
+directives_assert_type.py:31:5 - error: "assert_type" expects two positional arguments
+directives_assert_type.py:32:17 - error: "assert_type" mismatch: expected "int" but received "Literal['']" (reportGeneralTypeIssues)
+directives_assert_type.py:33:5 - error: "assert_type" expects two positional arguments
+"""

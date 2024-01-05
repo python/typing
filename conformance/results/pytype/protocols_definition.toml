@@ -1,0 +1,50 @@
+conformant = "Partial"
+notes = """
+Reports errors for protocol static method with "..." implementation.
+Does not report error when instance variable is set through "self" access in protocol class.
+Does not report protocol mismatch when concrete class has attribute with covariant type and protocol attribute is mutable.
+Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar.
+Does not reject read-only property in concrete class when attribute in protocol is mutable.
+Does not reject covariant attribute type when protocol attribute is mutable.
+Does not detect protocol mismatch if concrete method is missing annotations.
+Does not detect protocol mismatch if concrete method's parameters are keyword-only.
+Does not detect protocol mismatch if concrete method's parameters are position-only.
+Does not detect protocol mismatch if concrete method is a classmethod.
+Does not detect protocol mismatch if concrete method is a staticmethod.
+Does not reject read-only property in concrete class when protocol has settable property.
+Does not reject immutable named tuple attribute in concrete class when protocol attribute is mutable.
+Does not reject immutable frozen dataclass attribute in concrete class when protocol attribute is mutable.
+"""
+output = """
+File "protocols_definition.py", line 30, in <module>: Function close_all was called with the wrong arguments [wrong-arg-types]
+         Expected: (things: Iterable[SupportsClose])
+  Actually passed: (things: List[int])
+  Attributes of protocol SupportsClose are not implemented on int: close
+File "protocols_definition.py", line 45, in third: bad return type [bad-return-type]
+           Expected: int
+  Actually returned: None
+File "protocols_definition.py", line 115, in <module>: Type annotation for v2_bad1 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Template2
+  Assignment: Concrete2_Bad1
+  Attributes of protocol Template2 are not implemented on Concrete2_Bad1: val1
+File "protocols_definition.py", line 116, in <module>: Type annotation for v2_bad2 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Template2
+  Assignment: Concrete2_Bad2
+  Attribute val1 of protocol Template2 has wrong type in Concrete2_Bad2: expected Sequence[int], got Sequence[float]
+File "protocols_definition.py", line 156, in <module>: Type annotation for v3_bad1 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Template3
+  Assignment: Concrete3_Bad1
+  Attributes of protocol Template3 are not implemented on Concrete3_Bad1: val1
+File "protocols_definition.py", line 159, in <module>: Type annotation for v3_bad4 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Template3
+  Assignment: Concrete3_Bad4
+  Attribute val1 of protocol Template3 has wrong type in Concrete3_Bad4: expected Sequence[int], got Sequence[float]
+File "protocols_definition.py", line 218, in <module>: Type annotation for v4_bad1 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Template4
+  Assignment: Concrete4_Bad1
+  Attribute val1 of protocol Template4 has wrong type in Concrete4_Bad1: expected Sequence[float], got Callable[[Any], Sequence[int]]
+File "protocols_definition.py", line 219, in <module>: Type annotation for v4_bad2 does not match type of assignment [annotation-type-mismatch]
+  Annotation: Template4
+  Assignment: Concrete4_Bad2
+  Attributes of protocol Template4 are not implemented on Concrete4_Bad2: val1
+"""

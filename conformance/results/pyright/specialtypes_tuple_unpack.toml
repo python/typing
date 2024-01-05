@@ -1,0 +1,29 @@
+conformant = "Pass"
+output = """
+specialtypes_tuple_unpack.py:7:6 - error: Expression of type "tuple[Literal[1], Literal[''], Literal['']]" cannot be assigned to declared type "tuple[int, str]"
+  "tuple[Literal[1], Literal[''], Literal['']]" is incompatible with "tuple[int, str]"
+    Tuple size mismatch; expected 2 but received 3 (reportGeneralTypeIssues)
+specialtypes_tuple_unpack.py:12:10 - error: Expression of type "tuple[Literal[1], Literal[1], Literal['']]" cannot be assigned to declared type "tuple[int, *tuple[str, ...]]"
+  "Literal[1]" is incompatible with "str" (reportGeneralTypeIssues)
+specialtypes_tuple_unpack.py:13:14 - error: Expression of type "tuple[Literal[1], Literal[''], Literal[1]]" cannot be assigned to declared type "tuple[int, *tuple[str, ...]]"
+  "Literal[1]" is incompatible with "str" (reportGeneralTypeIssues)
+specialtypes_tuple_unpack.py:19:14 - error: Expression of type "tuple[Literal[1], Literal[''], Literal['']]" cannot be assigned to declared type "tuple[int, *tuple[str, ...], int]"
+  "Literal['']" is incompatible with "int" (reportGeneralTypeIssues)
+specialtypes_tuple_unpack.py:20:18 - error: Expression of type "tuple[Literal[1], Literal[''], Literal[''], float]" cannot be assigned to declared type "tuple[int, *tuple[str, ...], int]"
+  "float" is incompatible with "int" (reportGeneralTypeIssues)
+specialtypes_tuple_unpack.py:25:7 - error: Expression of type "tuple[Literal[1], Literal[''], Literal[1]]" cannot be assigned to declared type "tuple[*tuple[str, ...], int]"
+  "Literal[1]" is incompatible with "str" (reportGeneralTypeIssues)
+specialtypes_tuple_unpack.py:26:15 - error: Expression of type "tuple[Literal[''], Literal[''], float]" cannot be assigned to declared type "tuple[*tuple[str, ...], int]"
+  "float" is incompatible with "int" (reportGeneralTypeIssues)
+specialtypes_tuple_unpack.py:28:25 - error: Type argument list can have at most one unpacked TypeVarTuple or Tuple
+specialtypes_tuple_unpack.py:29:30 - error: Type argument list can have at most one unpacked TypeVarTuple or Tuple
+specialtypes_tuple_unpack.py:34:40 - error: Expression of type "tuple[str, str]" cannot be assigned to declared type "tuple[str, str, int]"
+  "tuple[str, str]" is incompatible with "tuple[str, str, int]"
+    Tuple size mismatch; expected 3 but received 2 (reportGeneralTypeIssues)
+specialtypes_tuple_unpack.py:37:50 - error: Expression of type "tuple[str, str]" cannot be assigned to declared type "tuple[str, str, str, *tuple[str, ...]]"
+  "tuple[str, str]" is incompatible with "tuple[str, str, str, *tuple[str, ...]]"
+    Tuple size mismatch; expected 4 but received 2 (reportGeneralTypeIssues)
+specialtypes_tuple_unpack.py:41:50 - error: Expression of type "tuple[str, str]" cannot be assigned to declared type "tuple[*tuple[str, ...], str, str, str]"
+  "tuple[str, str]" is incompatible with "tuple[*tuple[str, ...], str, str, str]"
+    Tuple size mismatch; expected 4 but received 2 (reportGeneralTypeIssues)
+"""

@@ -1,0 +1,20 @@
+conformant = "Unsupported"
+notes = """
+Does not yet support the @override decorator.
+"""
+output = """
+File "classes_override.py", line 7, in <module>: typing.override not supported yet [not-supported-yet]
+  Import override from typing_extensions in Python versions before 3.12.
+File "classes_override.py", line 30, in method2: bad return type [bad-return-type]
+           Expected: str
+  Actually returned: int
+File "classes_override.py", line 50, in method2: bad return type [bad-return-type]
+           Expected: str
+  Actually returned: int
+File "classes_override.py", line 53, in ChildA: Attribute 'method3' not found on any parent class [override-error]
+File "classes_override.py", line 57, in ChildA: Attribute 'method4' not found on any parent class [override-error]
+File "classes_override.py", line 66, in method4: bad return type [bad-return-type]
+           Expected: str
+  Actually returned: int
+File "classes_override.py", line 103, in ChildB: Attribute 'method1' not found on any parent class [override-error]
+"""

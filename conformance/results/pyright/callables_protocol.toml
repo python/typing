@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Does not report type incompatibility for callback protocol with positional-only parameters.
-"""
+conformant = "Pass"
 output = """
 callables_protocol.py:35:7 - error: Expression of type "(*vals: bytes, max_items: int | None) -> list[bytes]" cannot be assigned to declared type "Proto1"
   Type "(*vals: bytes, max_items: int | None) -> list[bytes]" cannot be assigned to type "(*vals: bytes, max_len: int | None = None) -> list[bytes]"
@@ -47,6 +44,9 @@ callables_protocol.py:187:15 - error: Cannot assign member "xxx" for type "Proto
   Member "xxx" is unknown (reportGeneralTypeIssues)
 callables_protocol.py:197:16 - error: Cannot access member "other_attribute2" for type "Proto9[(x: int), str]"
   Member "other_attribute2" is unknown (reportGeneralTypeIssues)
+callables_protocol.py:238:8 - error: Expression of type "(x: int, y: str, /) -> Any" cannot be assigned to declared type "Proto11"
+  Type "(x: int, y: str, /) -> Any" cannot be assigned to type "(x: int, /, y: str) -> Any"
+    Position-only parameter mismatch; parameter "y" is not position-only (reportGeneralTypeIssues)
 callables_protocol.py:260:8 - error: Expression of type "(*args: Any, kwarg0: Any) -> None" cannot be assigned to declared type "Proto12"
   Type "(*args: Any, kwarg0: Any) -> None" cannot be assigned to type "(*args: Any, kwarg0: Any, kwarg1: Any) -> None"
     Keyword parameter "kwarg1" is missing in source (reportGeneralTypeIssues)

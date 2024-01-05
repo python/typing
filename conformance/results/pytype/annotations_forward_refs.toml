@@ -1,0 +1,45 @@
+conformant = "Partial"
+notes = """
+Does not reject some illegal type expression forms when quoted.
+Incorrectly generates error for quoted type defined in class scope.
+Evaluates incorrect type for class variable annotated with quoted type expression.
+"""
+output = """
+File "annotations_forward_refs.py", line 22, in <module>: Name 'ClassA' is not defined [name-error]
+File "annotations_forward_refs.py", line 23, in <module>: Name 'ClassA' is not defined [name-error]
+File "annotations_forward_refs.py", line 24, in <module>: unsupported operand type(s) for |: ''ClassA': str' and 'int: Type[int]' [unsupported-operands]
+  No attribute '__or__' on ''ClassA': str' or '__ror__' on 'int: Type[int]'
+File "annotations_forward_refs.py", line 25, in <module>: Missing parameter 'y' in call to function int.__or__ [missing-parameter]
+         Expected: (self, y)
+  Actually passed: (self)
+File "annotations_forward_refs.py", line 40, in <module>: invalid syntax [python-compiler-error]
+File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]
+  Not a type
+File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '(int, str)' for p3 [invalid-annotation]
+  Not a type
+File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for p4 [invalid-annotation]
+  Not a type
+File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '{}' for p5 [invalid-annotation]
+  Not a type
+File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '1' for p9 [invalid-annotation]
+  Not a type
+File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]
+  Not a type
+File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '1' for p11 [invalid-annotation]
+  Not a type
+File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '-1' for p12 [invalid-annotation]
+  Not a type
+File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '<instance of module>' for p15 [invalid-annotation]
+  Not a type
+File "annotations_forward_refs.py", line 66, in ClassB: Name 'ClassB' is not defined [name-error]
+File "annotations_forward_refs.py", line 80, in ClassD: Name 'ClassF' is not defined [name-error]
+File "annotations_forward_refs.py", line 82, in ClassD: Invalid type annotation '<instance of str>' for str [invalid-annotation]
+  Must be constant
+File "annotations_forward_refs.py", line 87, in ClassD: Invalid type annotation '<instance of Callable>' for x [invalid-annotation]
+  Not a type
+File "annotations_forward_refs.py", line 89, in ClassD: Invalid type annotation '<instance of Callable>' for y [invalid-annotation]
+  Not a type
+File "annotations_forward_refs.py", line 93, in <module>: Any [assert-type]
+  Expected: int
+    Actual: Any
+"""

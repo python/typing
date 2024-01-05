@@ -1,0 +1,4 @@
+conformant = "Pass"
+output = """
+File "specialtypes_promotions.py", line 13, in func1: No attribute 'numerator' on float [attribute-error]
+"""
