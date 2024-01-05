@@ -3,12 +3,14 @@ notes = """
 Intentionally does not honor @no_type_check decorator.
 """
 output = """
-directives_no_type_check.py:16:9 - error: Operator "+" not supported for types "int" and "str" (reportGeneralTypeIssues)
-directives_no_type_check.py:17:12 - error: Expression of type "Literal[1]" cannot be assigned to return type "None"
+directives_no_type_check.py:16:14 - error: Expression of type "Literal['']" cannot be assigned to declared type "int"
+  "Literal['']" is incompatible with "int" (reportGeneralTypeIssues)
+directives_no_type_check.py:21:9 - error: Operator "+" not supported for types "int" and "str" (reportGeneralTypeIssues)
+directives_no_type_check.py:22:12 - error: Expression of type "Literal[1]" cannot be assigned to return type "None"
   "Literal[1]" is incompatible with "None" (reportGeneralTypeIssues)
-directives_no_type_check.py:20:7 - error: Argument of type "Literal[b"invalid"]" cannot be assigned to parameter "a" of type "int" in function "func1"
+directives_no_type_check.py:25:7 - error: Argument of type "Literal[b"invalid"]" cannot be assigned to parameter "a" of type "int" in function "func1"
   "Literal[b"invalid"]" is incompatible with "int" (reportGeneralTypeIssues)
-directives_no_type_check.py:20:19 - error: Argument of type "Literal[b"arguments"]" cannot be assigned to parameter "b" of type "str" in function "func1"
+directives_no_type_check.py:25:19 - error: Argument of type "Literal[b"arguments"]" cannot be assigned to parameter "b" of type "str" in function "func1"
   "Literal[b"arguments"]" is incompatible with "str" (reportGeneralTypeIssues)
-directives_no_type_check.py:21:1 - error: Arguments missing for parameters "a", "b" (reportGeneralTypeIssues)
+directives_no_type_check.py:26:1 - error: Arguments missing for parameters "a", "b" (reportGeneralTypeIssues)
 """
