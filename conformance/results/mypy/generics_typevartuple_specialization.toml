@@ -11,9 +11,6 @@ output = """
 generics_typevartuple_specialization.py: error: More than one Unpack in a type is not allowed  [misc]
 generics_typevartuple_specialization.py:85: error: Argument 1 to "takes_float_array_with_specific_shape" has incompatible type "Array2[float, *tuple[Any, ...]]"; expected "Array2[float, Height, Width]"  [arg-type]
 generics_typevartuple_specialization.py:95: error: Expression is of type "tuple[Any, *tuple[Any, ...]]", not "tuple[Any, ...]"  [assert-type]
-generics_typevartuple_specialization.py:101: error: "Ts1" cannot be unpacked (must be tuple or TypeVarTuple)  [valid-type]
-generics_typevartuple_specialization.py:102: error: Unpack is only valid in a variadic position  [valid-type]
-generics_typevartuple_specialization.py:103: error: Unpack is only valid in a variadic position  [valid-type]
 generics_typevartuple_specialization.py:108: error: Type application is only supported for generic classes  [misc]
 generics_typevartuple_specialization.py:109: error: Type application is only supported for generic classes  [misc]
 generics_typevartuple_specialization.py:109: error: Unpack is only valid in a variadic position  [valid-type]
@@ -21,9 +18,5 @@ generics_typevartuple_specialization.py:110: error: Type application is only sup
 generics_typevartuple_specialization.py:110: error: Unpack is only valid in a variadic position  [valid-type]
 generics_typevartuple_specialization.py:127: error: Bad number of arguments for type alias, expected: at least 2, given: 1  [type-arg]
 generics_typevartuple_specialization.py:159: error: Expression is of type "tuple[str, *tuple[int, ...]]", not "tuple[str, *tuple[int, ...], int]"  [assert-type]
-generics_typevartuple_specialization.py:162: error: "Ts1" cannot be unpacked (must be tuple or TypeVarTuple)  [valid-type]
-generics_typevartuple_specialization.py:163: error: Unpack is only valid in a variadic position  [valid-type]
-generics_typevartuple_specialization.py:163: error: Type variable "generics_typevartuple_specialization.Ts2" is unbound  [valid-type]
-generics_typevartuple_specialization.py:163: note: (Hint: Use "Generic[Ts2]" or "Protocol[Ts2]" base class to bind "Ts2" inside a class)
-generics_typevartuple_specialization.py:163: note: (Hint: Use "Ts2" in function signature to bind "Ts2" inside a function)
+generics_typevartuple_specialization.py:163: error: TypeVarTuple "Ts2" is unbound  [valid-type]
 """

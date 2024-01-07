@@ -5,10 +5,11 @@ Does not support covariant or contravariant TypeVars.
 output = """
 File "generics_variance.py", line 14, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
 File "generics_variance.py", line 14, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
-File "generics_variance.py", line 17, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
-File "generics_variance.py", line 25, in __iter__: bad return type [bad-return-type]
+File "generics_variance.py", line 18, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+File "generics_variance.py", line 19, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+File "generics_variance.py", line 27, in __iter__: bad return type [bad-return-type]
            Expected: Iterator
   Actually returned: None
   Attributes of protocol Iterator[T_co] are not implemented on None: __next__
-File "generics_variance.py", line 50, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+File "generics_variance.py", line 52, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
 """

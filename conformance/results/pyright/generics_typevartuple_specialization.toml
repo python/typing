@@ -7,12 +7,10 @@ Incorrectly evaluates tuple split across a TypeVarTuple and a TypeVar.
 """
 output = """
 generics_typevartuple_specialization.py:95:17 - error: "assert_type" mismatch: expected "tuple[Any, ...]" but received "tuple[Unknown, Unknown]" (reportGeneralTypeIssues)
-generics_typevartuple_specialization.py:102:40 - error: Too many type arguments provided for "IntTupleVar[Ts1@IntTupleVar]"; expected 1 but received 2
 generics_typevartuple_specialization.py:109:18 - error: Type variable "Ts" has no meaning in this context (reportGeneralTypeIssues)
 generics_typevartuple_specialization.py:121:27 - error: Type argument list can have at most one unpacked TypeVarTuple or Tuple
 generics_typevartuple_specialization.py:122:27 - error: Type argument list can have at most one unpacked TypeVarTuple or Tuple
 generics_typevartuple_specialization.py:157:17 - error: "assert_type" mismatch: expected "tuple[*tuple[int, ...], int]" but received "tuple[*tuple[int, ...]]" (reportGeneralTypeIssues)
 generics_typevartuple_specialization.py:159:17 - error: "assert_type" mismatch: expected "tuple[str, *tuple[int, ...], int]" but received "tuple[str, *tuple[int, ...]]" (reportGeneralTypeIssues)
 generics_typevartuple_specialization.py:163:11 - error: Type variable "Ts2" has no meaning in this context (reportGeneralTypeIssues)
-generics_typevartuple_specialization.py:163:10 - error: Too few type arguments provided for "TA11[T@TA11, Ts1@TA11]"; expected 2 but received 1
 """

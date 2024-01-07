@@ -1,7 +1,14 @@
 conformant = "Partial"
 notes = """
 Does not reject a function-scoped TypeVar that is marked as covariant or contravariant.
+Does not reject use of class-scoped TypeVar used in a base class when variance is incompatible.
 """
 output = """
 generics_variance.py:14: error: TypeVar cannot be both covariant and contravariant  [misc]
+generics_variance.py:78: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+generics_variance.py:82: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
+generics_variance.py:94: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
+generics_variance.py:106: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+generics_variance.py:126: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+generics_variance.py:132: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
 """

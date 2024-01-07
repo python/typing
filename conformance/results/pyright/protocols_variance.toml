@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not exempt "self" and "cls" parameters from variance checks.
+Calculates incorrect variance when `self` or `cls` have explicit annotation.
 """
 output = """
 protocols_variance.py:21:7 - warning: Type variable "T1" used in generic protocol "AnotherBox" should be covariant (reportInvalidTypeVarUse)

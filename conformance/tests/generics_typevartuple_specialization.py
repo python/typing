@@ -95,8 +95,8 @@ def func6(a: VariadicTuple[str, int], b: VariadicTuple[float], c: VariadicTuple)
     assert_type(c, tuple[Any, ...])
 
 
-Ts1 = TypeVar("Ts1")
-Ts2 = TypeVar("Ts2")
+Ts1 = TypeVarTuple("Ts1")
+Ts2 = TypeVarTuple("Ts2")
 
 IntTupleVar = tuple[int, *Ts1]  # OK
 IntFloatTupleVar = IntTupleVar[float, *Ts2]  # OK
