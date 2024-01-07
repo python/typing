@@ -79,11 +79,14 @@ class Concrete3B:
 
 
 def func3():
+    if isinstance(Concrete3A(), Proto2):  # OK
+        pass
+
     if isinstance(Concrete3A(), Proto3):  # Type error: unsafe overlap
         pass
 
-    if isinstance(Concrete3B(), Proto3):  # Type error: unsafe overlap
+    if isinstance(Concrete3B(), (Proto3, Proto2)):  # Type error: unsafe overlap
         pass
 
-    if issubclass(Concrete3A, Proto3):  # Type error: unsafe overlap
+    if issubclass(Concrete3A, (Proto3, Proto2)):  # Type error: unsafe overlap
         pass
