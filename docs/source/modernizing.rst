@@ -14,7 +14,7 @@ Introduction
 
 This guide helps to modernize your code by replacing older typing features
 with their modern equivalents. Not all features described here are obsolete,
-but they are superseded by more modern alternatives, that are recommended to use.
+but they are superseded by more modern alternatives, which are recommended to use.
 
 These newer features are not available in all Python versions, although
 some features are available as backports from the
@@ -33,7 +33,7 @@ available using quoting.
 .. note::
 
     :python:`from __future__ import annotations` is available since Python 3.7.
-    This will only work inside type annotations, while quoting is still
+    This only has an effect inside type annotations, while quoting is still
     required outside. For example, this example runs on Python 3.7 and up,
     although the pipe operator was only introduced in Python 3.10::
 
@@ -184,7 +184,7 @@ This affects the following types:
 * :class:`typing.Container` (→ :class:`collections.abc.Container`)
 * :class:`typing.Collection` (→ :class:`collections.abc.Collection`)
 * :data:`typing.Callable` (→ :class:`collections.abc.Callable`)
-* :class:`typing.AbstractSet` (→ :class:`collections.abc.Set`)
+* :class:`typing.AbstractSet` (→ :class:`collections.abc.Set`), note the change in name
 * :class:`typing.MutableSet` (→ :class:`collections.abc.MutableSet`)
 * :class:`typing.Mapping` (→ :class:`collections.abc.Mapping`)
 * :class:`typing.MutableMapping` (→ :class:`collections.abc.MutableMapping`)
@@ -195,8 +195,8 @@ This affects the following types:
 * :class:`typing.KeysView` (→ :class:`collections.abc.KeysView`)
 * :class:`typing.ItemsView` (→ :class:`collections.abc.ItemsView`)
 * :class:`typing.ValuesView` (→ :class:`collections.abc.ValuesView`)
-* :class:`typing.ContextManager` (→ :class:`contextlib.AbstractContextManager`)
-* :class:`typing.AsyncContextManager` (→ :class:`contextlib.AbstractAsyncContextManager`)
+* :class:`typing.ContextManager` (→ :class:`contextlib.AbstractContextManager`), note the change in name
+* :class:`typing.AsyncContextManager` (→ :class:`contextlib.AbstractAsyncContextManager`), note the change in name
 * :class:`typing.Pattern` (→ :class:`re.Pattern`)
 * :class:`typing.Match` (→ :class:`re.Match`)
 
