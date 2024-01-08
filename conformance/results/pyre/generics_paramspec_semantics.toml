@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Constraint solver doesn't find common type for two signatures captured by a single ParamSpec.
+Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).
 Reports error for legitimate Callable type annotation that uses Concatenate.
 Does not evaluate the correct type for call of Callable defined with Concatenate.
 """

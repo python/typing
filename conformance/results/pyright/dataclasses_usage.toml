@@ -13,5 +13,5 @@ dataclasses_usage.py:89:36 - error: Argument of type "type[str]" cannot be assig
 dataclasses_usage.py:127:8 - error: Expected 1 positional argument (reportGeneralTypeIssues)
 dataclasses_usage.py:130:1 - error: Argument missing for parameter "y" (reportGeneralTypeIssues)
 dataclasses_usage.py:179:1 - error: Expected no arguments to "DC13" constructor (reportGeneralTypeIssues)
-dataclasses_usage.py:230:9 - error: Dataclass field without type annotation will cause runtime exception (reportGeneralTypeIssues)
+dataclasses_usage.py:228:9 - error: Dataclass field without type annotation will cause runtime exception (reportGeneralTypeIssues)
 """

@@ -1,9 +1,8 @@
-conformant = "Partial"
-notes = """
-Does not reject all invalid type expressions within Annotated.
-"""
+conformant = "Pass"
 output = """
+qualifiers_annotated.py:41:17 - error: List expression not allowed for this type argument
 qualifiers_annotated.py:42:17 - error: Expected type expression but received "tuple[tuple[type[int], type[str]]]" (reportGeneralTypeIssues)
+qualifiers_annotated.py:43:17 - error: List expression not allowed for this type argument
 qualifiers_annotated.py:43:18 - error: Expected type expression but received "Generator[type[int], None, None]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:44:17 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:44:17 - error: Dictionary expression not allowed in type annotation

@@ -1,6 +1,5 @@
 conformant = "Partial"
 notes = """
-Does not reject value constraints when constructing TypeVarTuple.
 Does not enforce that tuples captured by TypeVarTuple are same length (spec bug?).
 Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).
 """
@@ -18,6 +17,8 @@ generics_typevartuple_basic.py:53:37 - error: Expected unpacked TypeVarTuple; us
 generics_typevartuple_basic.py:56:34 - error: Expected unpacked TypeVarTuple; use Unpack[Shape] or *Shape
 generics_typevartuple_basic.py:59:24 - error: Expected unpacked TypeVarTuple; use Unpack[Shape] or *Shape
 generics_typevartuple_basic.py:65:27 - error: "covariant" is unknown parameter to TypeVarTuple
+generics_typevartuple_basic.py:66:27 - error: TypeVarTuple cannot have value constraints
+generics_typevartuple_basic.py:66:32 - error: TypeVarTuple cannot have value constraints
 generics_typevartuple_basic.py:67:27 - error: "bound" is unknown parameter to TypeVarTuple
 generics_typevartuple_basic.py:87:13 - error: "assert_type" mismatch: expected "tuple[int]" but received "tuple[tuple[Literal[0]], tuple[Literal[1]]]" (reportGeneralTypeIssues)
 generics_typevartuple_basic.py:101:14 - error: Argument of type "Array[Height]" cannot be assigned to parameter "x" of type "Array[*Shape@multiply]" in function "multiply"
@@ -29,6 +30,6 @@ generics_typevartuple_basic.py:101:17 - error: Argument of type "Array[Width]" c
 generics_typevartuple_basic.py:102:17 - error: Argument of type "Array[Height, Width]" cannot be assigned to parameter "y" of type "Array[*Shape@multiply]" in function "multiply"
   "Array[Height, Width]" is incompatible with "Array[Height]"
     Type parameter "Shape@Array" is invariant, but "*tuple[Height, Width]" is not the same as "*tuple[Height]" (reportGeneralTypeIssues)
-generics_typevartuple_basic.py:108:29 - error: Type argument list can have at most one unpacked TypeVarTuple or Tuple
 generics_typevartuple_basic.py:108:14 - error: Generic class can have at most one TypeVarTuple type parameter but received multiple ("Ts1", "Ts2")
+generics_typevartuple_basic.py:108:29 - error: Type argument list can have at most one unpacked TypeVarTuple or Tuple
 """

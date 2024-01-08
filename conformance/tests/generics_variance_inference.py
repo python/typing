@@ -9,7 +9,7 @@ from dataclasses import dataclass
 # T1 should be invariant
 # T2 should be contravariant
 # T3 should be covariant
-from typing import Generic, Sequence, TypeVar
+from typing import Generic, Iterator, Sequence, TypeVar
 
 
 class ClassA[T1, T2, T3](list[T1]):
@@ -162,33 +162,33 @@ class Parent_Invariant(Generic[T]):
     pass
 
 
-class ShouldBeInvariant1[T](Parent_Invariant[T]):
+class ShouldBeInvariant6[T](Parent_Invariant[T]):
     pass
 
 
-a1: ShouldBeInvariant1[int] = ShouldBeInvariant1[float]()  # Type error
-a2: ShouldBeInvariant1[float] = ShouldBeInvariant1[int]()  # Type error
+a1: ShouldBeInvariant6[int] = ShouldBeInvariant6[float]()  # Type error
+a2: ShouldBeInvariant6[float] = ShouldBeInvariant6[int]()  # Type error
 
 
 class Parent_Covariant(Generic[T_co]):
     pass
 
 
-class ShouldBeCovariant1[T](Parent_Covariant[T]):
+class ShouldBeCovariant6[T](Parent_Covariant[T]):
     pass
 
 
-b1: ShouldBeCovariant1[int] = ShouldBeCovariant1[float]()  # Type error
-b2: ShouldBeCovariant1[float] = ShouldBeCovariant1[int]()  # OK
+b1: ShouldBeCovariant6[int] = ShouldBeCovariant6[float]()  # Type error
+b2: ShouldBeCovariant6[float] = ShouldBeCovariant6[int]()  # OK
 
 
 class Parent_Contravariant(Generic[T_contra]):
     pass
 
 
-class ShouldBeContravariant1[T](Parent_Contravariant[T]):
+class ShouldBeContravariant2[T](Parent_Contravariant[T]):
     pass
 
 
-c1: ShouldBeContravariant1[int] = ShouldBeContravariant1[float]()  # OK
-c2: ShouldBeContravariant1[float] = ShouldBeContravariant1[int]()  # Type error
+c1: ShouldBeContravariant2[int] = ShouldBeContravariant2[float]()  # OK
+c2: ShouldBeContravariant2[float] = ShouldBeContravariant2[int]()  # Type error

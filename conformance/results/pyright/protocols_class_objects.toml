@@ -25,4 +25,10 @@ protocols_class_objects.py:59:16 - error: Expression of type "type[ConcreteA]" c
 protocols_class_objects.py:74:16 - error: Expression of type "type[ConcreteB]" cannot be assigned to declared type "ProtoB1"
   "prop1" is an incompatible type
     "property" is incompatible with "int" (reportGeneralTypeIssues)
+protocols_class_objects.py:102:16 - error: Expression of type "type[ConcreteC1]" cannot be assigned to declared type "ProtoC2"
+  "attr1" is not defined as a ClassVar in protocol (reportGeneralTypeIssues)
+protocols_class_objects.py:103:16 - error: Expression of type "type[ConcreteC2]" cannot be assigned to declared type "ProtoC1"
+  "attr1" is defined as a ClassVar in protocol (reportGeneralTypeIssues)
+protocols_class_objects.py:105:16 - error: Expression of type "type[ConcreteC3]" cannot be assigned to declared type "ProtoC1"
+  "attr1" is defined as a ClassVar in protocol (reportGeneralTypeIssues)
 """

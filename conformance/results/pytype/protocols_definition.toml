@@ -23,11 +23,11 @@ File "protocols_definition.py", line 30, in <module>: Function close_all was cal
 File "protocols_definition.py", line 45, in third: bad return type [bad-return-type]
            Expected: int
   Actually returned: None
-File "protocols_definition.py", line 115, in <module>: Type annotation for v2_bad1 does not match type of assignment [annotation-type-mismatch]
+File "protocols_definition.py", line 114, in <module>: Type annotation for v2_bad1 does not match type of assignment [annotation-type-mismatch]
   Annotation: Template2
   Assignment: Concrete2_Bad1
   Attributes of protocol Template2 are not implemented on Concrete2_Bad1: val1
-File "protocols_definition.py", line 116, in <module>: Type annotation for v2_bad2 does not match type of assignment [annotation-type-mismatch]
+File "protocols_definition.py", line 115, in <module>: Type annotation for v2_bad2 does not match type of assignment [annotation-type-mismatch]
   Annotation: Template2
   Assignment: Concrete2_Bad2
   Attribute val1 of protocol Template2 has wrong type in Concrete2_Bad2: expected Sequence[int], got Sequence[float]

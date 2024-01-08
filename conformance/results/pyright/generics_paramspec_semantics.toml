@@ -1,7 +1,6 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
-Constraint solver doesn't find common type for two signatures captured by a single ParamSpec.
-Evaluates incorrect type when evaluating constructor call for generic class parameterized by ParamSpec.
+Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).
 """
 output = """
 generics_paramspec_semantics.py:26:6 - error: Expected 2 more positional arguments (reportGeneralTypeIssues)
@@ -15,7 +14,6 @@ generics_paramspec_semantics.py:61:23 - error: Argument of type "(*, y: int) -> 
   Type "(*, y: int) -> int" cannot be assigned to type "(*, x: int) -> int"
     Keyword parameter "y" is missing in destination
     Keyword parameter "x" is missing in source (reportGeneralTypeIssues)
-generics_paramspec_semantics.py:81:13 - error: "assert_type" mismatch: expected "Y[int, (int)]" but received "Y[int, (q: int, /)]" (reportGeneralTypeIssues)
 generics_paramspec_semantics.py:97:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str"
   "Literal[1]" is incompatible with "str" (reportGeneralTypeIssues)
 generics_paramspec_semantics.py:107:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter "args" of type "bool"

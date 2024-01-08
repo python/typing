@@ -127,7 +127,7 @@
         <header>
             <h3>Python Type System Conformance Test Results</h3>
         </header>
-        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(1.25sec)</span>
+        <div class='tc-header'><span class='tc-name'>mypy 1.8.0<span class='tc-time'>(1.35sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -205,7 +205,7 @@
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/protocol.html">Protocols</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_class_objects</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_definition</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Rejects implicit class variable when matching protocol with explicit ClassVar.<br>Does not detect protocol mismatch if concrete method is missing annotations.<br>Does not detect protocol mismatch if concrete method's parameters are position-only.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_definition</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not detect protocol mismatch if concrete method is missing annotations.<br>Does not detect protocol mismatch if concrete method's parameters are position-only.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_explicit</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not report unimplemented attributes for class that explicitly derives from protocol until it is instantiated.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_generic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Fails protocol matching when method-scoped TypeVar is used in protocol.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_merging</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
@@ -270,7 +270,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3">Does not understand three-element form of sys.version checks.<br>Does not understand os.name checks.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyright 1.1.344<span class='tc-time'>(1.40sec)</span>
+<div class='tc-header'><span class='tc-name'>pyright 1.1.345<span class='tc-time'>(1.42sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -294,9 +294,9 @@
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject the use of Concatenate outside of a Callable annotation.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_basic</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_components</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_semantics</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Constraint solver doesn't find common type for two signatures captured by a single ParamSpec.<br>Evaluates incorrect type when evaluating constructor call for generic class parameterized by ParamSpec.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_semantics</th><th class="column col2 conformant">Pass</th><th class="column col3">Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_specialization</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_advanced</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_attributes</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
@@ -306,22 +306,22 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_compatibility</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_declarations</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_infer_variance</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_scoping</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not evaluate correct type for variables that shadow type parameters.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_syntax_scoping</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_args</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject value constraints when constructing TypeVarTuple.<br>Does not enforce that tuples captured by TypeVarTuple are same length (spec bug?).<br>Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not enforce that tuples captured by TypeVarTuple are same length (spec bug?).<br>Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_callable</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_concat</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support tuple slicing when tuple type includes TypeVarTuple.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_concat</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_overloads</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_specialization</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports type incompatibility when generic class is specialized with `*tuple[Any, ...]`.<br>Does not reject specialization of TypeVar in generic type alias when unpacked tuple is specified as type argument.<br>Does not reject specialization of generic type alias when number of type arguments is too few.<br>Incorrectly evaluates tuple split across a TypeVarTuple and a TypeVar.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_specialization</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports type incompatibility when generic class is specialized with `*tuple[Any, ...]`.<br>Incorrectly evaluates tuple split across a TypeVarTuple and a TypeVar.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_typevartuple_unpack</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat `tuple[Any, ...]` as having an arbitrary length.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_variance</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject a function-scoped TypeVar that is marked as covariant or contravariant.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_variance_inference</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject all invalid type expressions within Annotated.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report override of overloaded method marked @final.<br>Does not report error for non-method function marked @final.<br>Does not report error if overload is marked @final but implementation is not.<br>Does not report error in stub if first overload is not marked @final but subsequent ones are.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_annotated</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_annotation</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">qualifiers_final_decorator</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a></th></tr>
@@ -348,13 +348,13 @@
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/protocol.html">Protocols</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_class_objects</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Incorrectly reports some class objects as incompatible with a protocol.<br>Fails to report some class objects as incompatible with a protocol.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_definition</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_explicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error when calling unimplemented protocol method from derived class.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_definition</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_explicit</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_generic</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_merging</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_modules</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_recursive</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_runtime_checkable</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject issubclass call for data protocol.<br>Does not report unsafe overlap for runtime_checkable protocol.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_runtime_checkable</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject issubclass call for data protocol if included in tuple.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_self</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_subtyping</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_variance</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Calculates incorrect variance when `self` or `cls` have explicit annotation.<br></th></tr>
@@ -413,7 +413,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 conformant">Pass</th><th class="column col3"></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(2.39sec)</span>
+<div class='tc-header'><span class='tc-name'>pyre 0.9.19<span class='tc-time'>(2.22sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
@@ -439,7 +439,7 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_basic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not enforce name consistency for ParamSpec assigned to identifier.<br>Incorrectly reports error for legitimate use of ParamSpec in generic type alias.<br>Does not reject ParamSpec when used in various invalid locations.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_components</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report illegal use of "P.args" on normal parameter.<br>Does not report error when P.args is specified but P.kwargs is missing.<br>Does not report error when P is out of scope and P.args and P.kwargs is used.<br>Does not report error when calling callback defined with ParamSpec with incorrect arguments.<br>Does not report error when keyword argument is specified between P.args and P.kwargs.<br>Does not report error when calling callable and argument is missing for concatenated parameters.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_semantics</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Constraint solver doesn't find common type for two signatures captured by a single ParamSpec.<br>Reports error for legitimate Callable type annotation that uses Concatenate.<br>Does not evaluate the correct type for call of Callable defined with Concatenate.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_semantics</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).<br>Reports error for legitimate Callable type annotation that uses Concatenate.<br>Does not evaluate the correct type for call of Callable defined with Concatenate.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_paramspec_specialization</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Reports error for legitimate use of ParamSpec and Concatenate in function signature.<br>Reports error for legitimate specialization of generic class parameterized with ParamSpec.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_advanced</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">generics_self_attributes</th><th class="column col2 not-conformant">Unsupported</th><th class="column col3">Does not understand `Self` type.<br></th></tr>
@@ -491,7 +491,7 @@
 <tr><th class="column" colspan="4">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/protocol.html">Protocols</a></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_class_objects</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject protocol class assigned to type[Proto].<br>Incorrectly reports some class objects as incompatible with a protocol.<br>Fails to report some class objects as incompatible with a protocol.<br></th></tr>
-<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_definition</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar.<br>Does not reject read-only property in concrete class when attribute in protocol is mutable.<br>Does not reject covariant attribute type when protocol attribute is mutable.<br>Does not reject read-only property in concrete class when protocol has settable property.<br>Does not reject immutable named tuple attribute in concrete class when protocol attribute is mutable.<br>Does not reject immutable frozen dataclass attribute in concrete class when protocol attribute is mutable.<br></th></tr>
+<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_definition</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar or vice versa.<br>Does not reject read-only property in concrete class when attribute in protocol is mutable.<br>Does not reject covariant attribute type when protocol attribute is mutable.<br>Does not reject read-only property in concrete class when protocol has settable property.<br>Does not reject immutable named tuple attribute in concrete class when protocol attribute is mutable.<br>Does not reject immutable frozen dataclass attribute in concrete class when protocol attribute is mutable.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_explicit</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not report error when calling unimplemented protocol method from derived class.<br>Does not report error when method is not implemented in derived class.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_generic</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject the use of Protocol and Generic together as base classes.<br>Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.<br></th></tr>
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">protocols_merging</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not reject a protocol class that derives from a non-protocol class.<br></th></tr>
@@ -556,7 +556,7 @@
 <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th class="column col1">directives_version_platform</th><th class="column col2 partially-conformant">Partial</th><th class="column col3">Does not support sys.platform checks.<br>Does not support os.name checks.<br></th></tr>
 <tr><th class="column spacer" colspan="4"></th></tr>
 </table></div>
-<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(28.24sec)</span>
+<div class='tc-header'><span class='tc-name'>pytype 2023.12.18<span class='tc-time'>(27.98sec)</span>
 </div>
 <div class="table_container"><table>
 <tr><th class="column spacer" colspan="4"></th></tr>
