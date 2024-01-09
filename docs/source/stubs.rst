@@ -52,10 +52,10 @@ Type checker authors are encouraged to support syntax features from
 post-3.7 Python versions, although type stub authors should not use such
 features if they wish to maintain compatibility with all type checkers.
 
-For example, Python 3.7 added the ``async`` keyword (see PEP 492 [#pep492]_).
+For example, Python 3.7 added the ``async`` keyword (see :pep:`492`).
 Stub authors should use it to mark coroutines, even if the implementation
 still uses the ``@coroutine`` decorator. On the other hand, type stubs should
-not use the positional-only syntax from PEP 570 [#pep570]_, introduced in
+not use the positional-only syntax from :pep:`570`, introduced in
 Python 3.8, although type checker authors are encouraged to support it.
 
 Stubs are treated as if ``from __future__ import annotations`` is enabled.
@@ -72,7 +72,7 @@ Distribution
 ============
 
 Type stubs can be distributed with or separately from the implementation;
-see PEP 561 [#pep561]_ for more information. The
+see :pep:`561` for more information. The
 `typeshed <https://github.com/python/typeshed>`_ project
 includes stubs for Python's standard library and several third-party
 packages. The stubs for the standard library are usually distributed with type checkers and do not
@@ -112,7 +112,7 @@ Standard Python comments are accepted everywhere Python syntax allows them.
 Two kinds of structured comments are accepted:
 
 * A ``# type: X`` comment at the end of a line that defines a variable,
-  declaring that the variable has type ``X``. However, PEP 526-style [#pep526]_
+  declaring that the variable has type ``X``. However, :pep:`526`-style
   variable annotations are preferred over type comments.
 * A ``# type: ignore`` comment at the end of any line, which suppresses all type
   errors in that line. The type checker mypy supports suppressing certain
@@ -124,7 +124,7 @@ Imports
 
 Type stubs distinguish between imports that are re-exported and those
 that are only used internally. Imports are re-exported if they use one of these
-forms:[#pep484]_
+forms (:pep:`383`):
 
 * ``import X as X``
 * ``from Y import X as X``
@@ -175,7 +175,7 @@ Type checkers support cyclic imports in stub files.
 Built-in Generics
 -----------------
 
-PEP 585 [#pep585]_ built-in generics are supported and should be used instead
+:pep:`585` built-in generics are supported and should be used instead
 of the corresponding types from ``typing``::
 
     from collections import defaultdict
@@ -268,17 +268,17 @@ Functions and Methods
 
 Function and method definition syntax follows general Python syntax.
 Unless an argument name is prefixed with two underscores (but not suffixed
-with two underscores), it can be used as a keyword argument [#pep484]_::
+with two underscores), it can be used as a keyword argument (:pep:`484`)::
 
     # x is positional-only
     # y can be used positionally or as keyword argument
     # z is keyword-only
     def foo(__x, y, *, z): ...
 
-PEP 570 [#pep570]_ style positional-only parameters are currently not
+:pep:`570` style positional-only parameters are currently not
 supported.
 
-If an argument or return type is unannotated, per PEP 484 [#pep484]_ its
+If an argument or return type is unannotated, per :pep:`484` its
 type is assumed to be ``Any``. It is preferred to leave unknown
 types unannotated rather than explicitly marking them as ``Any``, as some
 type checkers can optionally warn about unannotated arguments.
@@ -314,7 +314,7 @@ But::
         @classmethod
         def create_it(cls: _T) -> _T: ...  # cls has type _T
 
-PEP 612 [#pep612]_ parameter specification variables (``ParamSpec``)
+:pep:`612` parameter specification variables (``ParamSpec``)
 are supported in argument and return types::
 
     _P = ParamSpec("_P")
@@ -325,7 +325,7 @@ are supported in argument and return types::
 However, ``Concatenate`` from PEP 612 is not yet supported; nor is using
 a ``ParamSpec`` to parameterize a generic class.
 
-PEP 647 [#pep647]_ type guards are supported.
+:pep:`647` type guards are supported.
 
 Using a function or method body other than the ellipsis literal is currently
 unspecified. Stub authors may experiment with other bodies, but it is up to
@@ -355,7 +355,7 @@ Aliases and NewType
 -------------------
 
 Type checkers should accept module-level type aliases, optionally using
-``TypeAlias`` (PEP 613 [#pep613]_), e.g.::
+``TypeAlias`` (:pep:`613`), e.g.::
 
   _IntList = list[int]
   _StrList: TypeAlias = list[str]
@@ -370,7 +370,7 @@ e.g.::
       def f(self) -> int: ...
       g = f
 
-A type alias may contain type variables. As per PEP 484 [#pep484]_,
+A type alias may contain type variables. As per :pep:`484`,
 all type variables must be substituted when the alias is used::
 
   _K = TypeVar("_K")
@@ -521,7 +521,7 @@ Unsupported Features
 Currently, the following features are not supported by all type checkers
 and should not be used in stubs:
 
-* Positional-only argument syntax (PEP 570 [#pep570]_). Instead, use
+* Positional-only argument syntax (:pep:`570`). Instead, use
   the syntax described in the section :ref:`supported-functions`.
   [#ts-4972]_
 
@@ -607,7 +607,7 @@ Structural Types
 
 As seen in the example with ``_Readable`` in the previous section, a common use
 of stub-only objects is to model types that are best described by their
-structure. These objects are called protocols [#pep544]_, and it is encouraged
+structure. These objects are called protocols (:pep:`544`), and it is encouraged
 to use them freely to describe simple structural types.
 
 It is `recommended <#private-definitions>`_ to prefix stubs-only object names with ``_``.
@@ -765,8 +765,8 @@ who wish to provide a consistent style for type stubs. Type checkers
 should not reject stubs that do not follow these recommendations, but
 linters can warn about them.
 
-Stub files should generally follow the Style Guide for Python Code (PEP 8)
-[#pep8]_ and the :ref:`best-practices`. There are a few exceptions, outlined below, that take the
+Stub files should generally follow the Style Guide for Python Code (:pep:`8`)
+and the :ref:`best-practices`. There are a few exceptions, outlined below, that take the
 different structure of stub files into account and are aimed to create
 more concise files.
 
@@ -988,23 +988,6 @@ No::
 
 References
 ==========
-
-PEPs
-----
-
-.. [#pep8] PEP 8 -- Style Guide for Python Code, van Rossum et al. (https://www.python.org/dev/peps/pep-0008/)
-.. [#pep484] PEP 484 -- Type Hints, van Rossum et al. (https://www.python.org/dev/peps/pep-0484)
-.. [#pep492] PEP 492 -- Coroutines with async and await syntax, Selivanov (https://www.python.org/dev/peps/pep-0492/)
-.. [#pep526] PEP 526 -- Syntax for Variable Annotations, Gonzalez et al. (https://www.python.org/dev/peps/pep-0526)
-.. [#pep544] PEP 544 -- Protocols: Structural Subtyping, Levkivskyi et al. (https://www.python.org/dev/peps/pep-0544)
-.. [#pep561] PEP 561 -- Distributing and Packaging Type Information, Smith (https://www.python.org/dev/peps/pep-0561)
-.. [#pep570] PEP 570 -- Python Positional-Only Parameters, Hastings et al. (https://www.python.org/dev/peps/pep-0570)
-.. [#pep585] PEP 585 -- Type Hinting Generics In Standard Collections, Langa (https://www.python.org/dev/peps/pep-0585)
-.. [#pep604] PEP 604 -- Allow writing union types as X | Y, Prados and Moss (https://www.python.org/dev/peps/pep-0604)
-.. [#pep612] PEP 612 -- Parameter Specification Variables, Mendoza (https://www.python.org/dev/peps/pep-0612)
-.. [#pep613] PEP 613 -- Explicit Type Aliases, Zhu (https://www.python.org/dev/peps/pep-0613)
-.. [#pep647] PEP 647 -- User-Defined Type Guards, Traut (https://www.python.org/dev/peps/pep-0647)
-.. [#pep3107] PEP 3107 -- Function Annotations, Winter and Lownds (https://www.python.org/dev/peps/pep-3107)
 
 Bugs
 ----
