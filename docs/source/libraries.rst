@@ -482,8 +482,7 @@ the original signature of the decorated function.
 
 Decorators that mutate the signature of the decorated function present
 challenges for type annotations. The ``ParamSpec`` and ``Concatenate``
-mechanisms described in `PEP
-612 <https://www.python.org/dev/peps/pep-0612/>`__ provide some help
+mechanisms described in :pep:`612` provide some help
 here, but these are available only in Python 3.10 and newer. More
 complex signature mutations may require type annotations that erase the
 original signature, thus blinding type checkers and other tools that
@@ -495,7 +494,7 @@ Generic Classes and Functions
 
 Classes and functions that can operate in a generic manner on various
 types should declare themselves as generic using the mechanisms
-described in `PEP 484 <https://www.python.org/dev/peps/pep-0484/>`__.
+described in :pep:`484`.
 This includes the use of ``TypeVar`` symbols. Typically, a ``TypeVar``
 should be private to the file that declares it, and should therefore
 begin with an underscore.
@@ -507,7 +506,7 @@ Type aliases are symbols that refer to other types. Generic type aliases
 (those that refer to unspecialized generic classes) are supported by
 most type checkers.
 
-`PEP 613 <https://www.python.org/dev/peps/pep-0613/>`__ provides a way
+:pep:`613` provides a way
 to explicitly designate a symbol as a type alias using the new TypeAlias
 annotation.
 
@@ -556,8 +555,7 @@ Final Classes and Methods
 -------------------------
 
 Classes that are not intended to be subclassed should be decorated as
-``@final`` as described in `PEP
-591 <https://www.python.org/dev/peps/pep-0591/>`__. The same decorator
+``@final`` as described in :pep:`591`. The same decorator
 can also be used to specify methods that cannot be overridden by
 subclasses.
 
@@ -565,7 +563,7 @@ Literals
 --------
 
 Type annotations should make use of the Literal type where appropriate,
-as described in `PEP 586 <https://www.python.org/dev/peps/pep-0586/>`__.
+as described in :pep:`586`.
 Literals allow for more type specificity than their non-literal
 counterparts.
 
@@ -573,8 +571,7 @@ Constants
 ---------
 
 Constant values (those that are read-only) can be specified using the
-Final annotation as described in `PEP
-591 <https://www.python.org/dev/peps/pep-0591/>`__.
+Final annotation as described in :pep:`591`.
 
 Type checkers will also typically treat variables that are named using
 all upper-case characters as constants.
@@ -606,16 +603,13 @@ Typed Dictionaries, Data Classes, and Named Tuples
 If your library runs only on newer versions of Python, you are
 encouraged to use some of the new type-friendly classes.
 
-NamedTuple (described in `PEP
-484 <https://www.python.org/dev/peps/pep-0484/>`__) is preferred over
+NamedTuple (described in :pep:`484`) is preferred over
 namedtuple.
 
-Data classes (described in `PEP
-557 <https://www.python.org/dev/peps/pep-0557/>`__) is preferred over
+Data classes (described in :pep:`557`) is preferred over
 untyped dictionaries.
 
-TypedDict (described in `PEP
-589 <https://www.python.org/dev/peps/pep-0589/>`__) is preferred over
+TypedDict (described in :pep:`589`) is preferred over
 untyped dictionaries.
 
 Compatibility with Older Python Versions
@@ -646,9 +640,9 @@ Type Comment Annotations
 ------------------------
 
 Python 3.0 introduced syntax for parameter and return type annotations,
-as specified in `PEP 484 <https://www.python.org/dev/peps/pep-0484/>`__.
+as specified in :pep:`484`.
 Python 3.6 introduced support for variable type annotations, as
-specified in `PEP 526 <https://www.python.org/dev/peps/pep-0526/>`__.
+specified in :pep:`526`.
 
 If you need to support older versions of Python, type annotations can
 still be provided as “type comments”. These comments take the form #
@@ -710,8 +704,7 @@ Docstrings
 ==========
 
 Docstrings should be provided for all classes, functions, and methods in
-the interface. They should be formatted according to `PEP
-257 <https://www.python.org/dev/peps/pep-0257/>`__.
+the interface. They should be formatted according to :pep:`257`.
 
 There is currently no single agreed-upon standard for function and
 method docstrings, but several common variants have emerged. We
