@@ -124,7 +124,7 @@ Imports
 
 Type stubs distinguish between imports that are re-exported and those
 that are only used internally. Imports are re-exported if they use one of these
-forms (:pep:`383`):
+forms (:pep:`484`):
 
 * ``import X as X``
 * ``from Y import X as X``
