@@ -589,6 +589,8 @@ while the following is prohibited::
   def bad_func(x: B_co) -> B_co:  # Flagged as error by a type checker
       ...
 
+.. _`paramspec`:
+
 ParamSpec
 ---------
 
