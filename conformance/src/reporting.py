@@ -88,12 +88,10 @@ def generate_summary_html(root_dir: Path):
                     except FileNotFoundError:
                         results = {}
 
+                    raw_notes = results.get("notes", "").strip()
                     conformance = results.get("conformant", "Unknown")
                     notes = "".join(
-                        [
-                            f"<p>{note}</p>"
-                            for note in results.get("notes", "").split("\n")
-                        ]
+                        [f"<p>{note}</p>" for note in raw_notes.split("\n")]
                     )
 
                     conformance_class = (
@@ -104,8 +102,12 @@ def generate_summary_html(root_dir: Path):
                         else "not-conformant"
                     )
 
+                    # Add an asterisk if there are notes to display for a "Pass".
+                    if raw_notes != "" and conformance == "Pass":
+                        conformance = "Pass*"
+
                     conformance_cell = f"{conformance}"
-                    if conformance != "Pass":
+                    if raw_notes != "":
                         conformance_cell = f'<div class="hover-text">{conformance_cell}<span class="tooltip-text" id="bottom">{notes}</span></div>'
 
                     summary_html += f'<th class="column col2 {conformance_class}">{conformance_cell}</th>'
