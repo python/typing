@@ -79,7 +79,7 @@ The Typeshed Project
 The `typeshed project <https://github.com/python/typeshed>`_ contains type
 annotations for the standard library and a selection of third-party libraries
 that don't ship their own type annotations or stubs. Policies regarding the
-stubs collected there are decided separately and reported in the project's
+stubs collected there are decided separately and described in the project's
 documentation.
 
 Type information in libraries
