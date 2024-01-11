@@ -6,6 +6,7 @@ Specification for the Python type system
    :caption: Contents:
 
    type-system
+   meta
    concepts
    annotations
    special-types
