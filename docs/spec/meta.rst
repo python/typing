@@ -22,19 +22,20 @@ Changes to the specification come in three kinds:
   the `python/typing <https://github.com/python/typing>`__ repository,
   and may be merged by anyone with commit access. Such changes may
   include formatting fixes, linking improvements, etc.
+- Substantive changes that do not rise to the level of a PEP must
+  be approved by the Typing Council. The procedure is described below.
 - Major changes should go through the PEP process, as described in
   :pep:`1`. What counts as a major change is not precisely defined,
   but it would generally include any change of a similar magnitude
   to `previous typing PEPs <https://peps.python.org/topic/typing/>`__.
-- Substantive changes that do not rise to the level of a PEP must
-  be approved by the Typing Council. The procedure is described below.
 
 Changes that need Typing Council approval go through three steps:
 
 - Open a discussion on `discuss.python.org <https://discuss.python.org/c/typing/32>`__
   describing the issue.
 - Open a PR on `python/typing <https://github.com/python/typing>`__
-  that changes the spec and the `conformance test suite <https://github.com/python/typing/tree/main/conformance>`__.
+  that changes the spec and, if applicable, the
+  `conformance test suite <https://github.com/python/typing/tree/main/conformance>`__.
 - `Open an issue <https://github.com/python/typing-council/issues/new>`__ on
   the Typing Council's issue tracker asking for a decision.
 
