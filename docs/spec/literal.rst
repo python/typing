@@ -168,8 +168,8 @@ The following parameters are intentionally disallowed by design:
     ``Literal[4j]`` that contain just a single complex number are also
     prohibited.
 
-  - The only exception to this rule is the unary ``-`` (minus) for ints: types
-    like ``Literal[-5]`` are *accepted*.
+  - The only exceptions to this rule are the unary ``-`` (minus) and unary ``+`` (plus) for ints: types
+    like ``Literal[-5]`` and ``Literal[+1]`` are *accepted*.
 
 -  Tuples containing valid literal types like ``Literal[(1, "foo", "bar")]``.
    The user could always express this type as
