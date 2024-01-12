@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Does not reject NoReturn when used outside of return type annotation.
-"""
+conformant = "Pass"
 output = """
 specialtypes_never.py:19:22 - error: Function with declared return type "NoReturn" cannot return "None" (reportGeneralTypeIssues)
 specialtypes_never.py:85:21 - error: Expression of type "list[Never]" cannot be assigned to declared type "list[int]"
