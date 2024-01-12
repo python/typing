@@ -58,8 +58,9 @@ def test_concat_subtype(s: str, b: bytes, a: Any, m: MyStr) -> None:
     assert_type(concat(m, s), str)
     concat(m, b)  # Type error
 
-    assert_type(concat(m, a), str)
-    assert_type(concat(a, m), str)
+    # TODO: should these be str or Any?
+    # reveal_type(concat(m, a))
+    # reveal_type(concat(a, m))
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#user-defined-generic-classes
 
@@ -96,7 +97,6 @@ def zero_all_vars(vars: Iterable[LoggedVar[int]]) -> None:
 # > A generic type can have any number of type variables, and type variables
 # > may be constrained.
 
-T = TypeVar('T')
 S = TypeVar('S')
 
 class Pair1(Generic[T, S]):
@@ -126,8 +126,6 @@ def test_my_iter(m1: MyIter1[int], m2: MyIter2[int]):
 # > You can use multiple inheritance with ``Generic``
 
 from collections.abc import Sized, Container
-
-T = TypeVar('T')
 
 class LinkedList(Sized, Generic[T]):
     ...
