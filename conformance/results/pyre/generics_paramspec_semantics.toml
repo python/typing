@@ -1,0 +1,18 @@
+conformant = "Partial"
+notes = """
+Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).
+Reports error for legitimate Callable type annotation that uses Concatenate.
+Does not evaluate the correct type for call of Callable defined with Concatenate.
+"""
+output = """
+generics_paramspec_semantics.py:26:0 Unexpected keyword [28]: Unexpected keyword argument `a` to anonymous call.
+generics_paramspec_semantics.py:27:8 Incompatible parameter type [6]: In anonymous call, for 2nd positional argument, expected `bool` but got `str`.
+generics_paramspec_semantics.py:46:16 Incompatible parameter type [6]: In call `func1`, for 2nd positional argument, expected `typing.Callable[generics_paramspec_semantics.P, int]` but got `typing.Callable(y_x)[[Named(y, int), Named(x, str)], int]`.
+generics_paramspec_semantics.py:61:22 Incompatible parameter type [6]: In call `func1`, for 2nd positional argument, expected `typing.Callable[generics_paramspec_semantics.P, int]` but got `typing.Callable(keyword_only_y)[[KeywordOnly(y, int)], int]`.
+generics_paramspec_semantics.py:90:32 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(str, $local_generics_paramspec_semantics$P)], bool)]` is not a valid type.
+generics_paramspec_semantics.py:100:14 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, $local_generics_paramspec_semantics$P)], int)]` is not a valid type.
+generics_paramspec_semantics.py:100:53 Invalid type variable [34]: The type variable `P` isn't present in the function's parameters.
+generics_paramspec_semantics.py:111:7 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, $local_generics_paramspec_semantics$P)], int)]` is not a valid type.
+generics_paramspec_semantics.py:112:5 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(str, $local_generics_paramspec_semantics$P)], bool)]` is not a valid type.
+generics_paramspec_semantics.py:122:25 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, $local_generics_paramspec_semantics$P)], int)]` is not a valid type.
+"""

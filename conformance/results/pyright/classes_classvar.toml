@@ -20,5 +20,7 @@ classes_classvar.py:100:14 - error: Cannot assign member "stats" for type "Stars
     Member "__set__" is unknown (reportGeneralTypeIssues)
 classes_classvar.py:129:13 - error: Expression of type "ProtoAImpl" cannot be assigned to declared type "ProtoA"
   "ProtoAImpl" is incompatible with protocol "ProtoA"
-    "y" is not a class variable (reportGeneralTypeIssues)
+    "y" is not a class variable
+      "x" is defined as a ClassVar in protocol
+      "y" is defined as a ClassVar in protocol (reportGeneralTypeIssues)
 """

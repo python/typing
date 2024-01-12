@@ -12,6 +12,11 @@ from typing import no_type_check
 
 
 @no_type_check
+class ClassA:
+    x: int = ""  # No error should be reported
+
+
+@no_type_check
 def func1(a: int, b: str) -> None:
     c = a + b  # No error should be reported
     return 1  # No error should be reported

@@ -108,7 +108,6 @@ class Protocol12(Protocol[T1]):  # Type error: T1 should be covariant
 
 
 class Protocol13(Protocol[T1_contra]):  # OK
-    # "self" and "cls" parameters are exempt from variance calculations.
     def m1(self: "Protocol13[T1_contra]", x: T1_contra) -> None:
         ...
 

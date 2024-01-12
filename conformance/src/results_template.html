@@ -63,44 +63,38 @@
             margin-top: 4px;
             margin-bottom: 4px;
 
-            border: 0px solid #000;
-        }
-
-        .spacer {
-            border-color: #f0f0f0;
             border-style: solid;
-            border-bottom-width: 1px;
+            border-color: white;
+            border-left-width: 8px;
+            border-right-width: 8px;
+            border-top-width: 0;
+            border-bottom-width: 0;
         }
 
         .col1 {
-            width: 25%;
+            width: 28%;
             vertical-align: top;
         }
 
         .col2 {
-            width: 10%;
-            vertical-align: top;
-        }
-
-        .col3 {
-            width: 65%;
-            vertical-align: top;
+            width: 18%;
+            cursor: pointer;
+            text-align: center;
         }
 
         .tc-header {
-            margin-top: 20px;
-            margin-bottom: 8px;
+            padding-top: 4px;
+            text-align: center;
         }
 
         .tc-name {
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 16px;
+            margin-top: 8px;
+            margin-bottom: 8px;
         }
 
         .tc-time {
-            margin-left: 8px;
             font-size: 12px;
-            font-weight: normal;
         }
 
         .test_group {
@@ -118,6 +112,41 @@
 
         .not-conformant {
             background-color: rgb(242, 171, 171);
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            position: absolute;
+            z-index: 2;
+            width: 400px;
+            color: black;
+            font-size: 12px;
+            background-color: white;
+            border: 1px solid black;
+            padding: 10px 15px 10px 15px;
+            text-align: left;
+        }
+
+        .hover-text:hover .tooltip-text {
+            visibility: visible;
+        }
+
+        .hover-text .tooltip-text p {
+            margin: 4px;
+        }
+
+        #bottom {
+            top: 25px;
+            left: -80%;
+        }
+
+        #bottom::before {
+            top: -5%;
+            left: 94%;
+        }
+
+        .hover-text {
+            position: relative;
         }
     </style>
 </head>

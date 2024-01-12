@@ -1,0 +1,93 @@
+conformant = "Unsupported"
+notes = """
+Does not support TypeVarTuple.
+"""
+output = """
+generics_typevartuple_specialization.py:16:12 Invalid type [31]: Expression `typing.Generic[(*$local_generics_typevartuple_specialization$Ts)]` is not a valid type.
+generics_typevartuple_specialization.py:24:26 Invalid type [31]: Expression `Array[(*tuple[(typing.Any, ...)])]` is not a valid type.
+generics_typevartuple_specialization.py:24:26 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_specialization.py:28:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_specialization.py:33:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_specialization.py:41:17 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[Type[int], *Tuple[typing.Any, ...]]`.
+generics_typevartuple_specialization.py:42:0 Incompatible variable type [9]: NamedArray is declared to have type `Type[Tuple[str, Array[]]]` but is used as type `Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_specialization.py:42:19 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[Array[]]]`.
+generics_typevartuple_specialization.py:45:13 Undefined or invalid type [11]: Annotation `IntTuple` is not defined as a type.
+generics_typevartuple_specialization.py:45:39 Undefined or invalid type [11]: Annotation `NamedArray` is not defined as a type.
+generics_typevartuple_specialization.py:46:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[float], Type[bool]]`.
+generics_typevartuple_specialization.py:47:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[Array[]]]`.
+generics_typevartuple_specialization.py:47:36 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Type[Height]`.
+generics_typevartuple_specialization.py:52:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[Array[]]]`.
+generics_typevartuple_specialization.py:59:13 Invalid type [31]: Expression `typing.Generic[($local_generics_typevartuple_specialization$DType, *$local_generics_typevartuple_specialization$Shape)]` is not a valid type.
+generics_typevartuple_specialization.py:59:13 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[DType]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[DType]`.
+generics_typevartuple_specialization.py:63:20 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `typing.Tuple[Type[float], *Tuple[typing.Any, ...]]`.
+generics_typevartuple_specialization.py:64:0 Invalid type parameters [24]: Non-generic type `Array2` cannot take parameters.
+generics_typevartuple_specialization.py:68:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[object, object]`. Expected has length 0, but actual has length 2.
+generics_typevartuple_specialization.py:69:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], object]`. Expected has length 0, but actual has length 2.
+generics_typevartuple_specialization.py:72:38 Undefined or invalid type [11]: Annotation `FloatArray` is not defined as a type.
+generics_typevartuple_specialization.py:89:22 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[TypeVar, *Tuple[typing.Any, ...]]`.
+generics_typevartuple_specialization.py:92:13 Undefined or invalid type [11]: Annotation `VariadicTuple` is not defined as a type.
+generics_typevartuple_specialization.py:93:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[int]]`.
+generics_typevartuple_specialization.py:95:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[object, typing.Any]`.
+generics_typevartuple_specialization.py:101:20 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[Type[int], *Tuple[typing.Any, ...]]`.
+generics_typevartuple_specialization.py:103:32 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_specialization.py:103:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[float], typing.Any]`.
+generics_typevartuple_specialization.py:110:16 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_specialization.py:110:23 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[float], typing.Any]`.
+generics_typevartuple_specialization.py:117:12 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[*Tuple[typing.Any, ...], TypeVar, TypeVar]`.
+generics_typevartuple_specialization.py:118:12 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[TypeVar, TypeVar, *Tuple[typing.Any, ...]]`.
+generics_typevartuple_specialization.py:119:12 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[TypeVar, *Tuple[typing.Any, ...], TypeVar, TypeVar]`.
+generics_typevartuple_specialization.py:120:12 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[TypeVar, TypeVar, *Tuple[typing.Any, ...]]`.
+generics_typevartuple_specialization.py:120:12 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_specialization.py:120:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.
+generics_typevartuple_specialization.py:121:12 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[typing.Any, ...]`.
+generics_typevartuple_specialization.py:121:12 Unable to concatenate tuple [60]: Concatenation not yet support for multiple variadic tuples: `*Ts, *Ts`.
+generics_typevartuple_specialization.py:122:12 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[typing.Any, ...]`.
+generics_typevartuple_specialization.py:122:12 Unable to concatenate tuple [60]: Concatenation not yet support for multiple variadic tuples: `*Ts, *tuple[(int, ...)]`.
+generics_typevartuple_specialization.py:122:12 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_specialization.py:122:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.
+generics_typevartuple_specialization.py:125:12 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[*Tuple[typing.Any, ...], TypeVar, TypeVar]`.
+generics_typevartuple_specialization.py:127:4 Undefined or invalid type [11]: Annotation `TA7` is not defined as a type.
+generics_typevartuple_specialization.py:130:13 Invalid type [31]: Expression `$local_generics_typevartuple_specialization$TA7[(*$local_generics_typevartuple_specialization$Ts, $local_generics_typevartuple_specialization$T1, $local_generics_typevartuple_specialization$T2)]` is not a valid type.
+generics_typevartuple_specialization.py:130:13 Invalid type variable [34]: The type variable `Variable[T1]` isn't present in the function's parameters.
+generics_typevartuple_specialization.py:130:13 Invalid type variable [34]: The type variable `Variable[T2]` isn't present in the function's parameters.
+generics_typevartuple_specialization.py:130:34 Invalid type [31]: Expression `tuple[(tuple[(*$local_generics_typevartuple_specialization$Ts)], $local_generics_typevartuple_specialization$T1, $local_generics_typevartuple_specialization$T2)]` is not a valid type.
+generics_typevartuple_specialization.py:130:34 Invalid type variable [34]: The type variable `Variable[T1]` isn't present in the function's parameters.
+generics_typevartuple_specialization.py:130:34 Invalid type variable [34]: The type variable `Variable[T2]` isn't present in the function's parameters.
+generics_typevartuple_specialization.py:135:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[tuple[Variable[_T_co](covariant)]], Type[str], Type[bool]]`.
+generics_typevartuple_specialization.py:135:38 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[]`.
+generics_typevartuple_specialization.py:136:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[tuple[str]], Type[bool], Type[float]]`.
+generics_typevartuple_specialization.py:137:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[tuple[Variable[_T_co](covariant)]], Type[float], Type[int]]`.
+generics_typevartuple_specialization.py:137:38 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[bool]]`.
+generics_typevartuple_specialization.py:140:12 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[TypeVar, *Tuple[typing.Any, ...], TypeVar, TypeVar]`.
+generics_typevartuple_specialization.py:143:13 Invalid type [31]: Expression `$local_generics_typevartuple_specialization$TA8[($local_generics_typevartuple_specialization$T1, *$local_generics_typevartuple_specialization$Ts, $local_generics_typevartuple_specialization$T2, $local_generics_typevartuple_specialization$T3)]` is not a valid type.
+generics_typevartuple_specialization.py:143:13 Invalid type variable [34]: The type variable `Variable[T1]` isn't present in the function's parameters.
+generics_typevartuple_specialization.py:143:13 Invalid type variable [34]: The type variable `Variable[T2]` isn't present in the function's parameters.
+generics_typevartuple_specialization.py:143:13 Invalid type variable [34]: The type variable `Variable[T3]` isn't present in the function's parameters.
+generics_typevartuple_specialization.py:143:13 Undefined or invalid type [11]: Annotation `TA8` is not defined as a type.
+generics_typevartuple_specialization.py:143:38 Invalid type [31]: Expression `tuple[(tuple[(*$local_generics_typevartuple_specialization$Ts)], $local_generics_typevartuple_specialization$T1, $local_generics_typevartuple_specialization$T2, $local_generics_typevartuple_specialization$T3)]` is not a valid type.
+generics_typevartuple_specialization.py:143:38 Invalid type variable [34]: The type variable `Variable[T1]` isn't present in the function's parameters.
+generics_typevartuple_specialization.py:143:38 Invalid type variable [34]: The type variable `Variable[T2]` isn't present in the function's parameters.
+generics_typevartuple_specialization.py:143:38 Invalid type variable [34]: The type variable `Variable[T3]` isn't present in the function's parameters.
+generics_typevartuple_specialization.py:148:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[tuple[Variable[_T_co](covariant)]], Type[str], Type[bool], Type[float]]`.
+generics_typevartuple_specialization.py:148:38 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[]`.
+generics_typevartuple_specialization.py:149:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[tuple[bool]], Type[str], Type[float], Type[int]]`.
+generics_typevartuple_specialization.py:152:12 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[*Tuple[typing.Any, ...], TypeVar]`.
+generics_typevartuple_specialization.py:153:11 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_specialization.py:153:18 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.
+generics_typevartuple_specialization.py:156:14 Undefined or invalid type [11]: Annotation `TA10` is not defined as a type.
+generics_typevartuple_specialization.py:156:23 Invalid type [31]: Expression `$local_generics_typevartuple_specialization$TA9[(*tuple[(int, ...)], str)]` is not a valid type.
+generics_typevartuple_specialization.py:156:23 Undefined or invalid type [11]: Annotation `TA9` is not defined as a type.
+generics_typevartuple_specialization.py:156:54 Invalid type [31]: Expression `$local_generics_typevartuple_specialization$TA9[(str, *tuple[(int, ...)])]` is not a valid type.
+generics_typevartuple_specialization.py:157:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[*Tuple[typing.Any, ...], Type[int]]`.
+generics_typevartuple_specialization.py:157:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_specialization.py:157:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.
+generics_typevartuple_specialization.py:158:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[*Tuple[typing.Any, ...], Type[str]]`.
+generics_typevartuple_specialization.py:158:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_specialization.py:158:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.
+generics_typevartuple_specialization.py:159:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[Type[str], *Tuple[typing.Any, ...], Type[int]]`.
+generics_typevartuple_specialization.py:159:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_specialization.py:159:37 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.
+generics_typevartuple_specialization.py:162:13 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[TypeVar, *Tuple[typing.Any, ...]]`.
+generics_typevartuple_specialization.py:163:4 Invalid type [31]: Expression `$local_generics_typevartuple_specialization$TA11[(*$local_generics_typevartuple_specialization$Ts2)]` is not a valid type.
+generics_typevartuple_specialization.py:163:4 Undefined or invalid type [11]: Annotation `TA11` is not defined as a type.
+"""

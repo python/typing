@@ -767,7 +767,7 @@ evaluated in the same way.
 
    def a(q: int) -> str: ...
 
-   Y(a, 1)   # Should resolve to Y[(q: int), int]
+   Y(a, 1)   # Should resolve to Y[int, (q: int)]
    Y(a, 1).f # Should resolve to (q: int) -> str
 
 The semantics of ``Concatenate[X, Y, P]`` are that it represents the parameters

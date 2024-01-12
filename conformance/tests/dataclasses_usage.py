@@ -199,9 +199,7 @@ assert_type(dc15.prop_3, str)
 
 
 class DataclassProto(Protocol):
-    # Checking for this attribute seems to currently be
-    # the most reliable way to ascertain that something is a dataclass
-    __dataclass_fields__: dict[str, Any]
+    __dataclass_fields__: ClassVar[dict[str, Any]]
 
 
 v1: DataclassProto = dc15

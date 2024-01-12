@@ -1,0 +1,63 @@
+conformant = "Pass"
+output = """
+generics_syntax_infer_variance.py:16:42 - error: TypeVar cannot be both covariant and contravariant
+generics_syntax_infer_variance.py:20:46 - error: TypeVar cannot be both covariant and contravariant
+generics_syntax_infer_variance.py:33:35 - error: Expression of type "ShouldBeCovariant1[float]" cannot be assigned to declared type "ShouldBeCovariant1[int]"
+  "ShouldBeCovariant1[float]" is incompatible with "ShouldBeCovariant1[int]"
+    Type parameter "T@ShouldBeCovariant1" is covariant, but "float" is not a subtype of "int"
+      "float" is incompatible with "int" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:41:35 - error: Expression of type "ShouldBeCovariant2[float]" cannot be assigned to declared type "ShouldBeCovariant2[int]"
+  "ShouldBeCovariant2[float]" is incompatible with "ShouldBeCovariant2[int]"
+    Type parameter "T@ShouldBeCovariant2" is covariant, but "float" is not a subtype of "int"
+      "float" is incompatible with "int" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:50:35 - error: Expression of type "ShouldBeCovariant3[float]" cannot be assigned to declared type "ShouldBeCovariant3[int]"
+  "ShouldBeCovariant3[float]" is incompatible with "ShouldBeCovariant3[int]"
+    Type parameter "T@ShouldBeCovariant3" is covariant, but "float" is not a subtype of "int"
+      "float" is incompatible with "int" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:59:34 - error: Expression of type "ShouldBeCovariant4[float]" cannot be assigned to declared type "ShouldBeCovariant4[int]"
+  "ShouldBeCovariant4[float]" is incompatible with "ShouldBeCovariant4[int]"
+    Type parameter "T@ShouldBeCovariant4" is covariant, but "float" is not a subtype of "int"
+      "float" is incompatible with "int" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:72:34 - error: Expression of type "ShouldBeCovariant5[float]" cannot be assigned to declared type "ShouldBeCovariant5[int]"
+  "ShouldBeCovariant5[float]" is incompatible with "ShouldBeCovariant5[int]"
+    Type parameter "T@ShouldBeCovariant5" is covariant, but "float" is not a subtype of "int"
+      "float" is incompatible with "int" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:83:34 - error: Expression of type "ShouldBeCovariant6[float]" cannot be assigned to declared type "ShouldBeCovariant6[int]"
+  "ShouldBeCovariant6[float]" is incompatible with "ShouldBeCovariant6[int]"
+    Type parameter "T@ShouldBeCovariant6" is covariant, but "float" is not a subtype of "int"
+      "float" is incompatible with "int" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:99:38 - error: Expression of type "ShouldBeInvariant1[int]" cannot be assigned to declared type "ShouldBeInvariant1[float]"
+  "ShouldBeInvariant1[int]" is incompatible with "ShouldBeInvariant1[float]"
+    Type parameter "T@ShouldBeInvariant1" is invariant, but "int" is not the same as "float" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:100:36 - error: Expression of type "ShouldBeInvariant1[float]" cannot be assigned to declared type "ShouldBeInvariant1[int]"
+  "ShouldBeInvariant1[float]" is incompatible with "ShouldBeInvariant1[int]"
+    Type parameter "T@ShouldBeInvariant1" is invariant, but "float" is not the same as "int" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:114:38 - error: Expression of type "ShouldBeInvariant2[int]" cannot be assigned to declared type "ShouldBeInvariant2[float]"
+  "ShouldBeInvariant2[int]" is incompatible with "ShouldBeInvariant2[float]"
+    Type parameter "T@ShouldBeInvariant2" is invariant, but "int" is not the same as "float" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:115:36 - error: Expression of type "ShouldBeInvariant2[float]" cannot be assigned to declared type "ShouldBeInvariant2[int]"
+  "ShouldBeInvariant2[float]" is incompatible with "ShouldBeInvariant2[int]"
+    Type parameter "T@ShouldBeInvariant2" is invariant, but "float" is not the same as "int" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:122:43 - error: Expression of type "ShouldBeInvariant3[int, str]" cannot be assigned to declared type "ShouldBeInvariant3[float, str]"
+  "ShouldBeInvariant3[int, str]" is incompatible with "ShouldBeInvariant3[float, str]"
+    Type parameter "K@ShouldBeInvariant3" is invariant, but "int" is not the same as "float" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:123:41 - error: Expression of type "ShouldBeInvariant3[float, str]" cannot be assigned to declared type "ShouldBeInvariant3[int, str]"
+  "ShouldBeInvariant3[float, str]" is incompatible with "ShouldBeInvariant3[int, str]"
+    Type parameter "K@ShouldBeInvariant3" is invariant, but "float" is not the same as "int" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:124:43 - error: Expression of type "ShouldBeInvariant3[str, int]" cannot be assigned to declared type "ShouldBeInvariant3[str, float]"
+  "ShouldBeInvariant3[str, int]" is incompatible with "ShouldBeInvariant3[str, float]"
+    Type parameter "V@ShouldBeInvariant3" is invariant, but "int" is not the same as "float" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:125:41 - error: Expression of type "ShouldBeInvariant3[str, float]" cannot be assigned to declared type "ShouldBeInvariant3[str, int]"
+  "ShouldBeInvariant3[str, float]" is incompatible with "ShouldBeInvariant3[str, int]"
+    Type parameter "V@ShouldBeInvariant3" is invariant, but "float" is not the same as "int" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:133:38 - error: Expression of type "ShouldBeInvariant4[int]" cannot be assigned to declared type "ShouldBeInvariant4[float]"
+  "ShouldBeInvariant4[int]" is incompatible with "ShouldBeInvariant4[float]"
+    Type parameter "T@ShouldBeInvariant4" is invariant, but "int" is not the same as "float" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:141:38 - error: Expression of type "ShouldBeInvariant5[int]" cannot be assigned to declared type "ShouldBeInvariant5[float]"
+  "ShouldBeInvariant5[int]" is incompatible with "ShouldBeInvariant5[float]"
+    Type parameter "T@ShouldBeInvariant5" is invariant, but "int" is not the same as "float" (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:152:45 - error: Expression of type "ShouldBeContravariant1[int]" cannot be assigned to declared type "ShouldBeContravariant1[float]"
+  "ShouldBeContravariant1[int]" is incompatible with "ShouldBeContravariant1[float]"
+    Type parameter "T@ShouldBeContravariant1" is contravariant, but "int" is not a supertype of "float"
+      "float" is incompatible with "int" (reportGeneralTypeIssues)
+"""

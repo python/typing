@@ -1,6 +1,5 @@
 conformant = "Partial"
 notes = """
-Rejects implicit class variable when matching protocol with explicit ClassVar.
 Does not detect protocol mismatch if concrete method is missing annotations.
 Does not detect protocol mismatch if concrete method's parameters are position-only.
 """
@@ -8,16 +7,16 @@ output = """
 protocols_definition.py:30: error: List item 0 has incompatible type "int"; expected "SupportsClose"  [list-item]
 protocols_definition.py:67: error: Protocol members cannot be defined via assignment to self  [misc]
 protocols_definition.py:67: error: "Template" has no attribute "temp"  [attr-defined]
-protocols_definition.py:114: error: Incompatible types in assignment (expression has type "Concrete2_Good2", variable has type "Template2")  [assignment]
-protocols_definition.py:114: note: Protocol member Template2.val1 expected class variable, got instance variable
-protocols_definition.py:115: error: Incompatible types in assignment (expression has type "Concrete2_Bad1", variable has type "Template2")  [assignment]
-protocols_definition.py:116: error: Incompatible types in assignment (expression has type "Concrete2_Bad2", variable has type "Template2")  [assignment]
-protocols_definition.py:116: note: Following member(s) of "Concrete2_Bad2" have conflicts:
-protocols_definition.py:116: note:     val1: expected "Sequence[int]", got "Sequence[float]"
+protocols_definition.py:114: error: Incompatible types in assignment (expression has type "Concrete2_Bad1", variable has type "Template2")  [assignment]
+protocols_definition.py:115: error: Incompatible types in assignment (expression has type "Concrete2_Bad2", variable has type "Template2")  [assignment]
+protocols_definition.py:115: note: Following member(s) of "Concrete2_Bad2" have conflicts:
+protocols_definition.py:115: note:     val1: expected "Sequence[int]", got "Sequence[float]"
+protocols_definition.py:115: note: Protocol member Template2.val1 expected class variable, got instance variable
+protocols_definition.py:116: error: Incompatible types in assignment (expression has type "Concrete2_Bad3", variable has type "Template2")  [assignment]
+protocols_definition.py:116: note: Following member(s) of "Concrete2_Bad3" have conflicts:
+protocols_definition.py:116: note:     val1: expected "Sequence[int]", got "list[int]"
 protocols_definition.py:116: note: Protocol member Template2.val1 expected class variable, got instance variable
-protocols_definition.py:117: error: Incompatible types in assignment (expression has type "Concrete2_Bad3", variable has type "Template2")  [assignment]
-protocols_definition.py:117: note: Following member(s) of "Concrete2_Bad3" have conflicts:
-protocols_definition.py:117: note:     val1: expected "Sequence[int]", got "list[int]"
+protocols_definition.py:117: error: Incompatible types in assignment (expression has type "Concrete2_Bad4", variable has type "Template2")  [assignment]
 protocols_definition.py:117: note: Protocol member Template2.val1 expected class variable, got instance variable
 protocols_definition.py:156: error: Incompatible types in assignment (expression has type "Concrete3_Bad1", variable has type "Template3")  [assignment]
 protocols_definition.py:157: error: Incompatible types in assignment (expression has type "Concrete3_Bad2", variable has type "Template3")  [assignment]

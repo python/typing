@@ -3,4 +3,5 @@ notes = """
 Does not support `type` statement.
 """
 output = """
-SyntaxError: Type statement is only supported in Python 3.12 and greater (<unknown>, line 8)"""
+SyntaxError: Type statement is only supported in Python 3.12 and greater (<unknown>, line 8)
+"""

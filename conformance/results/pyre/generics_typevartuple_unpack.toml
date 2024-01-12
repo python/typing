@@ -1,0 +1,31 @@
+conformant = "Unsupported"
+notes = """
+Does not support TypeVarTuple.
+"""
+output = """
+generics_typevartuple_unpack.py:12:13 Invalid type [31]: Expression `tuple[(int, *tuple[(bool, bool)], str)]` is not a valid type.
+generics_typevartuple_unpack.py:13:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[bool], Type[bool], Type[str]]`.
+generics_typevartuple_unpack.py:14:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[*Tuple[typing.Any, ...], Type[bool], Type[str]]`.
+generics_typevartuple_unpack.py:14:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_unpack.py:14:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[bool]]`.
+generics_typevartuple_unpack.py:15:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[Type[int], Type[bool], *Tuple[typing.Any, ...]]`.
+generics_typevartuple_unpack.py:15:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_unpack.py:15:43 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[bool], Type[str]]`.
+generics_typevartuple_unpack.py:21:13 Invalid type [31]: Expression `tuple[(int, *tuple[(bool, ...)], str)]` is not a valid type.
+generics_typevartuple_unpack.py:22:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[Type[int], *Tuple[typing.Any, ...], Type[str]]`.
+generics_typevartuple_unpack.py:22:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_unpack.py:22:37 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[bool], typing.Any]`.
+generics_typevartuple_unpack.py:33:12 Invalid type [31]: Expression `typing.Generic[(*$local_generics_typevartuple_unpack$Ts)]` is not a valid type.
+generics_typevartuple_unpack.py:37:30 Invalid type [31]: Expression `Array[(generics_typevartuple_unpack.Batch, *tuple[(typing.Any, ...)], generics_typevartuple_unpack.Channels)]` is not a valid type.
+generics_typevartuple_unpack.py:37:30 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_unpack.py:42:7 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_unpack.py:42:49 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_unpack.py:42:76 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_unpack.py:52:29 Invalid type [31]: Expression `Array[(generics_typevartuple_unpack.Batch, *$local_generics_typevartuple_unpack$Shape)]` is not a valid type.
+generics_typevartuple_unpack.py:52:29 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_unpack.py:56:28 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_unpack.py:60:13 Invalid type [31]: Expression `Array[(*tuple[(typing.Any, ...)])]` is not a valid type.
+generics_typevartuple_unpack.py:60:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_unpack.py:67:6 Invalid type [31]: Expression `tuple[(*tuple[int], *tuple[int])]` is not a valid type.
+generics_typevartuple_unpack.py:68:6 Invalid type [31]: Expression `tuple[(*tuple[(int, ...)], *tuple[int])]` is not a valid type.
+"""

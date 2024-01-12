@@ -1,0 +1,7 @@
+conformant = "Unsupported"
+notes = """
+Does not support ParamSpec.
+"""
+output = """
+NotImplementedError: ParamSpecArgs
+"""

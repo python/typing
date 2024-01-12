@@ -1,0 +1,56 @@
+conformant = "Unsupported"
+notes = """
+Does not support TypeVarTuple.
+"""
+output = """
+File "generics_typevartuple_callable.py", line 10, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
+File "generics_typevartuple_callable.py", line 12, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+         Expected: (self)
+  Actually passed: (self, _)
+File "generics_typevartuple_callable.py", line 17, in Process: Invalid type annotation '<instance of List[nothing]>'  [invalid-annotation]
+  Must be constant
+File "generics_typevartuple_callable.py", line 17, in Process: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+  Not a type
+File "generics_typevartuple_callable.py", line 25, in <module>: Function Process.__init__ was called with the wrong arguments [wrong-arg-types]
+         Expected: (self, target, args: Tuple[Any])
+  Actually passed: (self, target, args: Tuple[int, str])
+File "generics_typevartuple_callable.py", line 26, in <module>: Function Process.__init__ was called with the wrong arguments [wrong-arg-types]
+         Expected: (self, target, args: Tuple[Any])
+  Actually passed: (self, target, args: Tuple[str, int])
+File "generics_typevartuple_callable.py", line 29, in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
+  Not a type
+File "generics_typevartuple_callable.py", line 29, in <module>: Invalid type annotation '<instance of List[Type[int]]>'  [invalid-annotation]
+  Must be constant
+File "generics_typevartuple_callable.py", line 29, in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+  Not a type
+File "generics_typevartuple_callable.py", line 30, in func2: bad return type [bad-return-type]
+           Expected: Tuple[Any]
+  Actually returned: None
+Called from (traceback):
+  line 42, in current file
+File "generics_typevartuple_callable.py", line 34, in callback1: bad return type [bad-return-type]
+           Expected: Tuple[complex, str, int]
+  Actually returned: None
+File "generics_typevartuple_callable.py", line 38, in callback2: bad return type [bad-return-type]
+           Expected: Tuple[str]
+  Actually returned: None
+File "generics_typevartuple_callable.py", line 41, in <module>: Function func2 was called with the wrong arguments [wrong-arg-types]
+         Expected: (f: Callable[..., Tuple[Any]])
+  Actually passed: (f: Callable[[int, str, int, complex], Tuple[complex, str, int]])
+File "generics_typevartuple_callable.py", line 41, in <module>: Any [assert-type]
+  Expected: Tuple[str, int, complex]
+    Actual: Any
+File "generics_typevartuple_callable.py", line 42, in <module>: Tuple[Any] [assert-type]
+  Expected: Tuple[str]
+    Actual: Tuple[Any]
+File "generics_typevartuple_callable.py", line 45, in <module>: Invalid type annotation '<instance of Tuple[Type[int], ...]>'  [invalid-annotation]
+  Not a type
+File "generics_typevartuple_callable.py", line 45, in <module>: Missing parameter 'self' in call to function tuple.__iter__ [missing-parameter]
+         Expected: (self)
+  Actually passed: ()
+File "generics_typevartuple_callable.py", line 45, in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
+  Not a type
+File "generics_typevartuple_callable.py", line 46, in func3: bad return type [bad-return-type]
+           Expected: Tuple[Any]
+  Actually returned: None
+"""

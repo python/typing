@@ -94,10 +94,6 @@ class Concrete2_Good1:
     val1: ClassVar[Sequence[int]] = [2]
 
 
-class Concrete2_Good2:
-    val1: Sequence[int] = [2]
-
-
 class Concrete2_Bad1:
     ...
 
@@ -110,11 +106,15 @@ class Concrete2_Bad3:
     val1: list[int] = [2]
 
 
+class Concrete2_Bad4:
+    val1: Sequence[int] = [2]
+
+
 v2_good1: Template2 = Concrete2_Good1()  # OK
-v2_good2: Template2 = Concrete2_Good2()  # OK
 v2_bad1: Template2 = Concrete2_Bad1()  # Type error
 v2_bad2: Template2 = Concrete2_Bad2()  # Type error
 v2_bad3: Template2 = Concrete2_Bad3()  # Type error
+v2_bad4: Template2 = Concrete2_Bad4()  # Type error
 
 
 class Template3(Protocol):

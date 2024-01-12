@@ -9,7 +9,6 @@ import os
 from pytype import config as pytype_config
 from pytype import io as pytype_io
 from pytype import load_pytd as pytype_loader
-import re
 from subprocess import PIPE, run
 import sys
 from tqdm import tqdm
@@ -56,10 +55,14 @@ class MypyTypeChecker(TypeChecker):
 
     def install(self) -> bool:
         try:
-            run(f"{sys.executable} -m pip install mypy --upgrade", check=True, shell=True)
+            run(
+                f"{sys.executable} -m pip install mypy --upgrade",
+                check=True,
+                shell=True,
+            )
             return True
         except:
-            print('Unable to install mypy')
+            print("Unable to install mypy")
             return False
 
     def get_version(self) -> str:
@@ -94,14 +97,18 @@ class PyrightTypeChecker(TypeChecker):
     def install(self) -> bool:
         try:
             # Install the Python wrapper if it's not installed.
-            run(f"{sys.executable} -m pip install pyright --upgrade", check=True, shell=True)
+            run(
+                f"{sys.executable} -m pip install pyright --upgrade",
+                check=True,
+                shell=True,
+            )
 
             # Force the Python wrapper to install node if needed
             # and download the latest version of pyright.
             self.get_version()
             return True
         except:
-            print('Unable to install pyright')
+            print("Unable to install pyright")
             return False
 
     def get_version(self) -> str:
@@ -140,18 +147,20 @@ class PyreTypeChecker(TypeChecker):
 
     def install(self) -> bool:
         try:
-            run(f"{sys.executable} -m pip install pyre-check --upgrade", check=True, shell=True)
+            run(
+                f"{sys.executable} -m pip install pyre-check --upgrade",
+                check=True,
+                shell=True,
+            )
 
             # Generate a default config file.
-            pyre_config = (
-                '{"site_package_search_strategy": "pep561", "source_directories": ["."]}\n'
-            )
+            pyre_config = '{"site_package_search_strategy": "pep561", "source_directories": ["."]}\n'
             with open(".pyre_configuration", "w") as f:
                 f.write(pyre_config)
 
             return True
         except:
-            print('Unable to install pyre')
+            print("Unable to install pyre")
             return False
 
     def get_version(self) -> str:
@@ -180,10 +189,14 @@ class PytypeTypeChecker(TypeChecker):
 
     def install(self) -> bool:
         try:
-            run(f"{sys.executable} -m pip install pytype --upgrade", check=True, shell=True)
+            run(
+                f"{sys.executable} -m pip install pytype --upgrade",
+                check=True,
+                shell=True,
+            )
             return True
         except:
-            print('Unable to install pytype on this platform')
+            print("Unable to install pytype on this platform")
             return False
 
     def get_version(self) -> str:
@@ -197,27 +210,24 @@ class PytypeTypeChecker(TypeChecker):
         # Specify 3.11 for now to work around the fact that pytype
         # currently doesn't support 3.12 and emits an error when
         # running on 3.12.
-        options = pytype_config.Options.create(
-            python_version=(3, 11),
-            quick=True)
+        options = pytype_config.Options.create(python_version=(3, 11), quick=True)
         loader = pytype_loader.create_loader(options)
 
         # Add results to a dictionary keyed by the file name.
         results_dict: dict[str, str] = {}
 
-        for fi in tqdm(os.listdir('.')):
-            if not fi.endswith('.py'):
+        for fi in tqdm(os.listdir(".")):
+            if not fi.endswith(".py"):
                 continue
             options.tweak(input=fi)
-            with open(fi, 'r') as test_file:
+            with open(fi, "r") as test_file:
                 src = test_file.read()
             try:
-                errorlog = pytype_io.check_py(
-                    src, options=options, loader=loader)
+                errorlog = pytype_io.check_py(src, options=options, loader=loader)
             except Exception as e:
-                results_dict[fi] = f'{e.__class__.__name__}: {e}'
+                results_dict[fi] = f"{e.__class__.__name__}: {e}\n"
             else:
-                results_dict[fi] = str(errorlog)
+                results_dict[fi] = f"{str(errorlog)}"
         return results_dict
 
 

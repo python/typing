@@ -1,13 +1,11 @@
-conformant = "Partial"
-notes = """
-Does not report error when calling unimplemented protocol method from derived class.
-"""
+conformant = "Pass"
 output = """
-protocols_explicit.py:56:32 - error: Cannot assign member "rgb" for type "Point*"
-  "str" is incompatible with "int" (reportGeneralTypeIssues)
+protocols_explicit.py:27:16 - error: Method "draw" cannot be called because it is abstract and unimplemented (reportGeneralTypeIssues)
 protocols_explicit.py:54:7 - error: Class derives from one or more protocol classes but does not implement all required members
   Member "other" is declared in protocol class "RGB"
   Member "transparency" is declared in protocol class "RGB" (reportGeneralTypeIssues)
+protocols_explicit.py:56:32 - error: Cannot assign member "rgb" for type "Point*"
+  "str" is incompatible with "int" (reportGeneralTypeIssues)
 protocols_explicit.py:63:5 - error: Cannot instantiate abstract class "Point"
   "RGB.intensity" is abstract (reportGeneralTypeIssues)
 protocols_explicit.py:86:7 - error: Class derives from one or more protocol classes but does not implement all required members

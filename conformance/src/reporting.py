@@ -11,7 +11,7 @@ from type_checker import TYPE_CHECKERS
 
 
 def generate_summary(root_dir: Path):
-    print('Generating summary report')
+    print("Generating summary report")
     template_file = root_dir / "src" / "results_template.html"
     with open(template_file, "r") as f:
         template = f.read()
@@ -25,10 +25,12 @@ def generate_summary(root_dir: Path):
 
 
 def generate_summary_html(root_dir: Path):
+    column_count = len(TYPE_CHECKERS) + 1
     test_groups = get_test_groups(root_dir)
     test_cases = get_test_cases(test_groups, root_dir / "tests")
 
-    summary_html = ""
+    summary_html = '<div class="table_container"><table><tbody>'
+    summary_html += '<tr><th class="col1">&nbsp;</th>'
 
     for type_checker in TYPE_CHECKERS:
         # Load the version file for the type checker.
@@ -39,35 +41,41 @@ def generate_summary_html(root_dir: Path):
                 existing_info = tomli.load(f)
         except FileNotFoundError:
             existing_info = {}
+        except tomli.TOMLDecodeError:
+            print(f"Error decoding {version_file}")
+            existing_info = {}
 
         version = existing_info["version"] or "Unknown version"
         test_duration = existing_info.get("test_duration")
 
-        summary_html += f"<div class='tc-header'><span class='tc-name'>{version}"
+        summary_html += f"<th class='tc-header'><div class='tc-name'>{version}</div>"
         if test_duration is not None:
-            summary_html += f"<span class='tc-time'>({test_duration:.2f}sec)</span>\n"
-        summary_html += '</div>\n'
-        summary_html += '<div class="table_container"><table>\n'
-        summary_html += '<tr><th class="column spacer" colspan="4"></th></tr>\n'
+            summary_html += f"<div class='tc-time'>{test_duration:.2f}sec</div>"
+        summary_html += f"</th>"
 
-        for test_group_name, test_group in test_groups.items():
-            tests_in_group = [
-                case
-                for case in test_cases
-                if case.name.startswith(f"{test_group_name}_")
-            ]
-            
-            tests_in_group.sort(key=lambda x: x.name)
+    summary_html += f"</tr>"
 
-            # Are there any test cases in this group?
-            if len(tests_in_group) > 0:
-                summary_html += '<tr><th class="column" colspan="4">\n'
-                summary_html += f'<a class="test_group" href="{test_group.href}">{test_group.name}</a>'
-                summary_html += "</th></tr>\n"
+    for test_group_name, test_group in test_groups.items():
+        tests_in_group = [
+            case for case in test_cases if case.name.startswith(f"{test_group_name}_")
+        ]
 
-                for test_case in tests_in_group:
-                    test_case_name = test_case.stem
+        tests_in_group.sort(key=lambda x: x.name)
 
+        # Are there any test cases in this group?
+        if len(tests_in_group) > 0:
+            summary_html += f'<tr><th class="column" colspan="{column_count}">'
+            summary_html += (
+                f'<a class="test_group" href="{test_group.href}">{test_group.name}</a>'
+            )
+            summary_html += "</th></tr>"
+
+            for test_case in tests_in_group:
+                test_case_name = test_case.stem
+
+                summary_html += f'<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{test_case_name}</th>'
+
+                for type_checker in TYPE_CHECKERS:
                     try:
                         results_file = (
                             root_dir
@@ -80,8 +88,11 @@ def generate_summary_html(root_dir: Path):
                     except FileNotFoundError:
                         results = {}
 
+                    raw_notes = results.get("notes", "").strip()
                     conformance = results.get("conformant", "Unknown")
-                    notes = results.get("notes", "").replace("\n", "<br>")
+                    notes = "".join(
+                        [f"<p>{note}</p>" for note in raw_notes.split("\n")]
+                    )
 
                     conformance_class = (
                         "conformant"
@@ -91,14 +102,18 @@ def generate_summary_html(root_dir: Path):
                         else "not-conformant"
                     )
 
-                    summary_html += f"<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>"
-                    summary_html += f'<th class="column col1">{test_case_name}</th>'
-                    summary_html += f'<th class="column col2 {conformance_class}">{conformance}</th>'
-                    summary_html += f'<th class="column col3">{notes}</th></tr>\n'
+                    # Add an asterisk if there are notes to display for a "Pass".
+                    if raw_notes != "" and conformance == "Pass":
+                        conformance = "Pass*"
 
-                # Add spacer row after this group to help with readability.
-                summary_html += '<tr><th class="column spacer" colspan="4"></th></tr>\n'
+                    conformance_cell = f"{conformance}"
+                    if raw_notes != "":
+                        conformance_cell = f'<div class="hover-text">{conformance_cell}<span class="tooltip-text" id="bottom">{notes}</span></div>'
 
-        summary_html += "</table></div>\n"
+                    summary_html += f'<th class="column col2 {conformance_class}">{conformance_cell}</th>'
+
+                summary_html += f"</tr>"
+
+    summary_html += "</tbody></table></div>\n"
 
     return summary_html

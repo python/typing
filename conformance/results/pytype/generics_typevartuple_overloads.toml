@@ -1,0 +1,25 @@
+conformant = "Unsupported"
+notes = """
+Does not support TypeVarTuple.
+"""
+output = """
+File "generics_typevartuple_overloads.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
+File "generics_typevartuple_overloads.py", line 10, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+         Expected: (self)
+  Actually passed: (self, _)
+File "generics_typevartuple_overloads.py", line 16, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+  Parameters to Generic[...] must all be type variables
+File "generics_typevartuple_overloads.py", line 18, in Array: class Array is not indexable [not-indexable]
+  ('Array' does not subclass Generic)
+File "generics_typevartuple_overloads.py", line 22, in Array: class Array is not indexable [not-indexable]
+  ('Array' does not subclass Generic)
+File "generics_typevartuple_overloads.py", line 26, in transpose: bad return type [bad-return-type]
+           Expected: Array
+  Actually returned: None
+File "generics_typevartuple_overloads.py", line 29, in <module>: class Array is not indexable [not-indexable]
+  ('Array' does not subclass Generic)
+File "generics_typevartuple_overloads.py", line 30, in func1: class Array is not indexable [not-indexable]
+  ('Array' does not subclass Generic)
+File "generics_typevartuple_overloads.py", line 31, in func1: class Array is not indexable [not-indexable]
+  ('Array' does not subclass Generic)
+"""

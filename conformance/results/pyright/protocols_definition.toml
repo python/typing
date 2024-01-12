@@ -1,28 +1,33 @@
-conformant = "Partial"
-notes = """
-Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar.
-"""
+conformant = "Pass"
 output = """
 protocols_definition.py:30:12 - error: Argument of type "list[int]" cannot be assigned to parameter "things" of type "Iterable[SupportsClose]" in function "close_all"
   "Literal[1]" is incompatible with protocol "SupportsClose"
     "close" is not present (reportGeneralTypeIssues)
 protocols_definition.py:67:14 - error: Instance or class variables within a Protocol class must be explicitly declared within the class body
-protocols_definition.py:115:22 - error: Expression of type "Concrete2_Bad1" cannot be assigned to declared type "Template2"
+protocols_definition.py:114:22 - error: Expression of type "Concrete2_Bad1" cannot be assigned to declared type "Template2"
   "Concrete2_Bad1" is incompatible with protocol "Template2"
     "val1" is not present (reportGeneralTypeIssues)
-protocols_definition.py:116:22 - error: Expression of type "Concrete2_Bad2" cannot be assigned to declared type "Template2"
+protocols_definition.py:115:22 - error: Expression of type "Concrete2_Bad2" cannot be assigned to declared type "Template2"
   "Concrete2_Bad2" is incompatible with protocol "Template2"
     "val1" is invariant because it is mutable
     "val1" is an incompatible type
+    "val1" is defined as a ClassVar in protocol
       "Sequence[float]" is incompatible with "Sequence[int]" (reportGeneralTypeIssues)
-protocols_definition.py:117:22 - error: Expression of type "Concrete2_Bad3" cannot be assigned to declared type "Template2"
+protocols_definition.py:116:22 - error: Expression of type "Concrete2_Bad3" cannot be assigned to declared type "Template2"
   "Concrete2_Bad3" is incompatible with protocol "Template2"
     "val1" is invariant because it is mutable
     "val1" is an incompatible type
+    "val1" is defined as a ClassVar in protocol
       "list[int]" is incompatible with "Sequence[int]" (reportGeneralTypeIssues)
+protocols_definition.py:117:22 - error: Expression of type "Concrete2_Bad4" cannot be assigned to declared type "Template2"
+  "Concrete2_Bad4" is incompatible with protocol "Template2"
+    "val1" is defined as a ClassVar in protocol (reportGeneralTypeIssues)
 protocols_definition.py:156:22 - error: Expression of type "Concrete3_Bad1" cannot be assigned to declared type "Template3"
   "Concrete3_Bad1" is incompatible with protocol "Template3"
     "val1" is not present (reportGeneralTypeIssues)
+protocols_definition.py:157:22 - error: Expression of type "Concrete3_Bad2" cannot be assigned to declared type "Template3"
+  "Concrete3_Bad2" is incompatible with protocol "Template3"
+    "val1" is not defined as a ClassVar in protocol (reportGeneralTypeIssues)
 protocols_definition.py:158:22 - error: Expression of type "Concrete3_Bad3" cannot be assigned to declared type "Template3"
   "Concrete3_Bad3" is incompatible with protocol "Template3"
     "val1" is invariant because it is mutable

@@ -12,5 +12,5 @@ dataclasses_usage.py:89: error: Incompatible types in assignment (expression has
 dataclasses_usage.py:127: error: Too many arguments for "DC7"  [call-arg]
 dataclasses_usage.py:130: error: Missing positional argument "y" in call to "DC8"  [call-arg]
 dataclasses_usage.py:179: error: Too many arguments for "DC13"  [call-arg]
-dataclasses_usage.py:207: error: Name "v1" already defined on line 25  [no-redef]
+dataclasses_usage.py:205: error: Name "v1" already defined on line 25  [no-redef]
 """

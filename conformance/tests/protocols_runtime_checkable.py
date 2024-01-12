@@ -58,6 +58,9 @@ def func2(a: Any):
     if issubclass(a, NonDataProtocol):  # OK
         return
 
+    if issubclass(a, (NonDataProtocol, DataProtocol)):  # Type error
+        return
+
 
 # > Type checkers should reject an isinstance() or issubclass() call if there
 # > is an unsafe overlap between the type of the first argument and the protocol.
@@ -79,11 +82,16 @@ class Concrete3B:
 
 
 def func3():
+    if isinstance(Concrete3A(), Proto2):  # OK
+        pass
+
     if isinstance(Concrete3A(), Proto3):  # Type error: unsafe overlap
         pass
 
-    if isinstance(Concrete3B(), Proto3):  # Type error: unsafe overlap
+    if isinstance(
+        Concrete3B(), (Proto3, NonDataProtocol)
+    ):  # Type error: unsafe overlap
         pass
 
-    if issubclass(Concrete3A, Proto3):  # Type error: unsafe overlap
+    if issubclass(Concrete3A, (Proto3, NonDataProtocol)):  # Type error: unsafe overlap
         pass

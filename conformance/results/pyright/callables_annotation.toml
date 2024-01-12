@@ -6,8 +6,8 @@ callables_annotation.py:14:11 - error: Argument of type "Literal[2]" cannot be a
 callables_annotation.py:15:15 - error: Expected 2 positional arguments (reportGeneralTypeIssues)
 callables_annotation.py:16:10 - error: Expected 2 more positional arguments (reportGeneralTypeIssues)
 callables_annotation.py:22:8 - error: Expected 0 positional arguments (reportGeneralTypeIssues)
-callables_annotation.py:39:14 - error: Expected parameter type list or "..."
 callables_annotation.py:39:5 - error: Expected return type as second type argument for "Callable" (reportGeneralTypeIssues)
+callables_annotation.py:39:14 - error: Expected parameter type list or "..."
 callables_annotation.py:40:14 - error: Expected parameter type list or "..."
 callables_annotation.py:41:18 - error: List expression not allowed for this type argument
 callables_annotation.py:42:14 - error: Expected parameter type list or "..."
