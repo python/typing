@@ -73,13 +73,15 @@ Additional notes on stub files:
   Any identifier not defined in the stub is therefore assumed to be of type
   ``Any``.
 
-The Typeshed Repo
-^^^^^^^^^^^^^^^^^
+The Typeshed Project
+^^^^^^^^^^^^^^^^^^^^
 
-There is a `shared repository <https://github.com/python/typeshed>`_ where useful stubs are being
-collected.  Policies regarding the stubs collected here are
-decided separately and reported in the repo's documentation.
-
+The `typeshed project <https://github.com/python/typeshed>`_ contains type
+stubs for the standard library (vendored or handled specially by type checkers)
+and type stubs for third-party libraries that don't ship their own type information
+(typically distributed via PyPI). Policies regarding the
+stubs collected there are decided separately and described in the project's
+documentation.
 
 Type information in libraries
 -----------------------------
@@ -194,13 +196,13 @@ Partial Stub Packages
 Many stub packages will only have part of the type interface for libraries
 completed, especially initially. For the benefit of type checking and code
 editors, packages can be "partial". This means modules not found in the stub
-package SHOULD be searched for in parts four and five of the module resolution
-order above, namely inline packages and typeshed.
+package SHOULD be searched for in part four of the module resolution
+order below, namely inline packages.
 
-Type checkers should merge the stub package and runtime package or typeshed
+Type checkers should merge the stub package and runtime package
 directories. This can be thought of as the functional equivalent of copying the
-stub package into the same directory as the corresponding runtime package or
-typeshed folder and type checking the combined directory structure. Thus type
+stub package into the same directory as the corresponding runtime package
+and type checking the combined directory structure. Thus type
 checkers MUST maintain the normal resolution order of checking ``*.pyi`` before
 ``*.py`` files.
 
@@ -216,8 +218,8 @@ are considered complete unless a ``py.typed`` with ``partial\n`` is included.
 
 .. _mro:
 
-Import resolutiong ordering
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Import resolution ordering
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following is the order in which type checkers supporting this specification SHOULD
 resolve modules containing type information:
@@ -238,8 +240,7 @@ resolve modules containing type information:
    bundled with the package SHOULD be used (be they in ``.pyi`` type
    stub files or inline in ``.py`` files).
 
-5. Typeshed (if used) - Provides the stdlib types and several third party
-   libraries.
+5. Typeshed - only for modules in the standard library.
 
 If typecheckers identify a stub-only namespace package without the desired module
 in step 3, they should continue to step 4/5. Typecheckers should identify namespace packages
