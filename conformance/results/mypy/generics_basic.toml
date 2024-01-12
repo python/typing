@@ -1,3 +1,4 @@
+conformant = "Pass"
 output = """
 generics_basic.py:36: error: Value of type variable "AnyStr" of "concat" cannot be "Sequence[object]"  [type-var]
 generics_basic.py:37: error: Value of type variable "AnyStr" of "concat" cannot be "Sequence[object]"  [type-var]

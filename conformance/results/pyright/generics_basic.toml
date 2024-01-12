@@ -1,3 +1,4 @@
+conformant = "Pass"
 output = """
 generics_basic.py:36:15 - error: Argument of type "bytes" cannot be assigned to parameter "y" of type "AnyStr@concat" in function "concat"
   "bytes" is incompatible with "str" (reportGeneralTypeIssues)

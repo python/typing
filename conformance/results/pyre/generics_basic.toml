@@ -1,3 +1,9 @@
+conformant = "Partial"
+notes = """
+False positives in examples using constrained type variables.
+False positive using `iter`.
+False negative for generic metaclass.
+"""
 output = """
 generics_basic.py:31:4 Incompatible return type [7]: Expected `Variable[AnyStr <: [str, bytes]]` but got `bytes`.
 generics_basic.py:31:15 Incompatible parameter type [6]: In call `bytes.__add__`, for 1st positional argument, expected `Union[array[typing.Any], bytearray, bytes, _CData, memoryview, mmap, PickleBuffer]` but got `Variable[AnyStr <: [str, bytes]]`.

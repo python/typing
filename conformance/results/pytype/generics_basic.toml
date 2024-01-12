@@ -1,3 +1,8 @@
+conformant = "Partial"
+notes = """
+False positives in examples using constrained type variables.
+False negative for generic metaclass,
+"""
 output = """
 File "generics_basic.py", line 31, in concat: bad return type [bad-return-type]
            Expected: MyStr
