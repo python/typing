@@ -21,7 +21,10 @@ For conversations that are more suitable to a chat platform, you can use one of 
 This GitHub repository is used for several things:
 
 - The documentation at [typing.readthedocs.io](https://typing.readthedocs.io/)
-  is maintained in the [docs directory](./docs).
+  is maintained in the [docs directory](./docs). This includes the
+  [specification](https://typing.readthedocs.io/en/latest/spec/index.html) for the
+  type system. See especially [the update procedure](https://typing.readthedocs.io/en/latest/spec/meta.html)
+  for the spec.
 
 - A [discussion forum](https://github.com/python/typing/discussions) for typing-related user
   help is hosted here.
