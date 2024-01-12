@@ -43,7 +43,7 @@ assert_type(x.method(0, b"abc"), bytes)
 # > Unbound type variables should not appear in the bodies of generic functions,
 # > or in the class bodies apart from method definitions.
 
-def a_fun(x: T) -> list[T]:
+def fun_3(x: T) -> list[T]:
     y: list[T] = []  # OK
     z: list[S] = []  # Type error
     return y
@@ -57,7 +57,7 @@ class Bar(Generic[T]):
 # A generic class definition that appears inside a generic function
 # should not use type variables that parameterize the generic function.
 
-def a_fun(x: T) -> list[T]:
+def fun_4(x: T) -> list[T]:
     a_list: list[T] = []  # OK
 
     class MyGeneric(Generic[T]):  # Type error
@@ -68,9 +68,6 @@ def a_fun(x: T) -> list[T]:
 # > A generic class nested in another generic class cannot use the same type
 # > variables. The scope of the type variables of the outer class
 # > doesn't cover the inner one
-
-T = TypeVar('T')
-S = TypeVar('S')
 
 class Outer(Generic[T]):
     class Bad(Iterable[T]):  # Type error
