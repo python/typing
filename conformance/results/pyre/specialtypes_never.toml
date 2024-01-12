@@ -1,6 +1,5 @@
 conformant = "Partial"
 notes = """
-Does not reject NoReturn when used outside of return type annotation.
 Does not treat Never as compatible with all other types.
 """
 output = """
