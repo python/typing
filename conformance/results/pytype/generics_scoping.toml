@@ -1,3 +1,4 @@
+conformant = "Pass"
 output = """
 File "generics_scoping.py", line 11, in fun_1: bad return type [bad-return-type]
            Expected: int
@@ -27,14 +28,14 @@ File "generics_scoping.py", line 37, in method: bad return type [bad-return-type
   Actually returned: None
 Called from (traceback):
   line 41, in current file
-File "generics_scoping.py", line 48, in a_fun: Invalid type annotation 'List[S]' for z [invalid-annotation]
-  TypeVar(s) 'S' not in scope for method 'a_fun'
+File "generics_scoping.py", line 48, in fun_3: Invalid type annotation 'List[S]' for z [invalid-annotation]
+  TypeVar(s) 'S' not in scope for method 'fun_3'
 File "generics_scoping.py", line 52, in Bar: Invalid type annotation 'List[S]' for an_attr [invalid-annotation]
   TypeVar(s) 'S' not in scope for class 'Bar'
-File "generics_scoping.py", line 61, in a_fun: Invalid type annotation 'T'  [invalid-annotation]
-  Function [a_fun] and its nested generic class [MyGeneric] cannot use the same type variable T
-File "generics_scoping.py", line 75, in <module>: Invalid type annotation 'Outer'  [invalid-annotation]
+File "generics_scoping.py", line 61, in fun_4: Invalid type annotation 'T'  [invalid-annotation]
+  Function [fun_4] and its nested generic class [MyGeneric] cannot use the same type variable T
+File "generics_scoping.py", line 72, in <module>: Invalid type annotation 'Outer'  [invalid-annotation]
   Generic class [Outer] and its nested generic class [Bad] cannot use the same type variable T.
-File "generics_scoping.py", line 79, in AlsoBad: Invalid type annotation 'List[T]' for x [invalid-annotation]
+File "generics_scoping.py", line 76, in AlsoBad: Invalid type annotation 'List[T]' for x [invalid-annotation]
   TypeVar(s) 'T' not in scope for class 'Outer.AlsoBad'
 """

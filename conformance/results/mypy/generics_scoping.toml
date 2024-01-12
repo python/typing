@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+False negative on generic class nested within generic class with same type variable.
+"""
 output = """
 generics_scoping.py:27: error: Argument 1 to "meth_2" of "MyClass" has incompatible type "str"; expected "int"  [arg-type]
 generics_scoping.py:48: error: Type variable "generics_scoping.S" is unbound  [valid-type]
@@ -6,13 +10,8 @@ generics_scoping.py:48: note: (Hint: Use "S" in function signature to bind "S" i
 generics_scoping.py:52: error: Type variable "generics_scoping.S" is unbound  [valid-type]
 generics_scoping.py:52: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
 generics_scoping.py:52: note: (Hint: Use "S" in function signature to bind "S" inside a function)
-generics_scoping.py:60: error: Name "a_fun" already defined on line 46  [no-redef]
 generics_scoping.py:63: error: Free type variable expected in Generic[...]  [misc]
-generics_scoping.py:72: error: Cannot redefine "T" as a type variable  [misc]
-generics_scoping.py:72: error: Invalid assignment target  [misc]
-generics_scoping.py:73: error: Cannot redefine "S" as a type variable  [misc]
-generics_scoping.py:73: error: Invalid assignment target  [misc]
-generics_scoping.py:79: error: Type variable "generics_scoping.T" is unbound  [valid-type]
-generics_scoping.py:79: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
-generics_scoping.py:79: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+generics_scoping.py:76: error: Type variable "generics_scoping.T" is unbound  [valid-type]
+generics_scoping.py:76: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+generics_scoping.py:76: note: (Hint: Use "T" in function signature to bind "T" inside a function)
 """

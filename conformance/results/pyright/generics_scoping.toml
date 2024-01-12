@@ -1,10 +1,10 @@
+conformant = "Pass"
 output = """
 generics_scoping.py:27:10 - error: Argument of type "Literal['a']" cannot be assigned to parameter "x" of type "int" in function "meth_2"
   "Literal['a']" is incompatible with "int" (reportGeneralTypeIssues)
-generics_scoping.py:46:5 - error: Function declaration "a_fun" is obscured by a declaration of the same name (reportGeneralTypeIssues)
 generics_scoping.py:48:13 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
 generics_scoping.py:52:19 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
 generics_scoping.py:63:29 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
-generics_scoping.py:76:24 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
-generics_scoping.py:79:17 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
+generics_scoping.py:73:24 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
+generics_scoping.py:76:17 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
 """
