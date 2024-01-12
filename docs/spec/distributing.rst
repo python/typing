@@ -113,19 +113,11 @@ frameworks.
 Package maintainers who wish to support type checking of their code MUST add
 a marker file named ``py.typed`` to their package supporting typing. This marker applies
 recursively: if a top-level package includes it, all its sub-packages MUST support
-type checking as well. To have this file installed with the package,
-maintainers can use existing packaging options such as ``package_data`` in
-distutils, shown below.
+type checking as well.
 
-Distutils option example::
-
-    setup(
-        ...,
-        package_data = {
-            'foopkg': ['py.typed'],
-        },
-        ...,
-        )
+To have this file including with the package, maintainers can use existing packaging
+options such as ``package_data`` in ``setuptools``. For more details, see
+`the guide to providing type annotations <https://typing.readthedocs.io/en/latest/source/libraries.html#how-to-provide-type-annotations>`_
 
 For namespace packages (see :pep:`420`), the ``py.typed`` file should be in the
 submodules of the namespace, to avoid conflicts and for clarity.
@@ -146,7 +138,10 @@ corresponding ``*.py`` files. However, the stubs can also be put in a separate
 package and distributed separately. Third parties can also find this method
 useful if they wish to distribute stub files. The name of the stub package
 MUST follow the scheme ``foopkg-stubs`` for type stubs for the package named
-``foopkg``. Note that for stub-only packages adding a ``py.typed`` marker is not
+``foopkg`` (note the name of the distribution containing the package may be
+different than the mandated ``*-stubs`` package name).
+
+For stub-only packages adding a ``py.typed`` marker is not
 needed since the name ``*-stubs`` is enough to indicate it is a source of typing
 information.
 
@@ -155,16 +150,12 @@ maintainer of the package about distribution alongside the package. If the
 maintainer does not wish to maintain or package stub files or type information
 inline, then a third party stub-only package can be created.
 
-In addition, stub-only distributions SHOULD indicate which version(s)
-of the runtime package are supported by indicating the runtime distribution's
+In addition, stub-only distributions MAY indicate which version(s)
+of the runtime package are targeted by indicating the runtime distribution's
 version(s) through normal dependency data. For example, the
 stub package ``flyingcircus-stubs`` can indicate the versions of the
-runtime ``flyingcircus`` distribution it supports through ``install_requires``
-in distutils-based tools, or the equivalent in other packaging tools. Note that
-in pip 9.0, if you update ``flyingcircus-stubs``, it will update
-``flyingcircus``. In pip 9.0, you can use the
-``--upgrade-strategy=only-if-needed`` flag. In pip 10.0 this is the default
-behavior.
+runtime ``flyingcircus`` distribution it supports through ``dependencies``
+field in ``pyproject.toml``.
 
 For namespace packages (see :pep:`420`), stub-only packages should
 use the ``-stubs`` suffix on only the root namespace package.
@@ -231,7 +222,8 @@ resolve modules containing type information:
 2. User code - the files the type checker is running on.
 
 3. Stub packages - these packages SHOULD supersede any installed inline
-   package. They can be found at ``foopkg-stubs`` for package ``foopkg``.
+   package. They can be found in directories named ``foopkg-stubs`` for
+   package ``foopkg``.
 
 4. Packages with a ``py.typed`` marker file - if there is nothing overriding
    the installed package, *and* it opts into type checking, the types
