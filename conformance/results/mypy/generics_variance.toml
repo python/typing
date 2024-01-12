@@ -4,10 +4,10 @@ Does not reject use of class-scoped TypeVar used in a base class when variance i
 """
 output = """
 generics_variance.py:14: error: TypeVar cannot be both covariant and contravariant  [misc]
-generics_variance.py:75: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
-generics_variance.py:79: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
-generics_variance.py:91: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
-generics_variance.py:103: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
-generics_variance.py:123: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
-generics_variance.py:129: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
+generics_variance.py:77: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+generics_variance.py:81: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
+generics_variance.py:93: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
+generics_variance.py:105: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+generics_variance.py:125: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+generics_variance.py:131: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
 """
