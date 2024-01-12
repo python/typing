@@ -85,25 +85,16 @@ is unreachable and will behave accordingly::
       return 'whatever works'  # Error might be not reported by some checkers
                                # that ignore errors in unreachable blocks
 
-The ``NoReturn`` type is only valid as a return annotation of functions,
-and considered an error if it appears in other positions::
-
-  from typing import NoReturn
-
-  # All of the following are errors
-  def bad1(x: NoReturn) -> int:
-      ...
-  bad2: NoReturn = None
-  def bad3() -> list[NoReturn]:
-      ...
-
 ``Never``
 ---------
 
-Since Python 3.11, the ``typing`` module has a primitive ``Never``. This
-represents the bottom type, a type that has no members. Type checkers are
-expected to treat this type as equivalent to ``NoReturn``, but it is explicitly
-also allowed in argument positions.
+Since Python 3.11, the ``typing`` module contains a primitive ``Never``. It
+represents the bottom type, a type that has no members.
+
+The ``Never`` type is equivalent to ``NoReturn``, which is discussed above.
+The ``NoReturn`` type is conventionally used in return annotations of
+functions, and ``Never`` is typically used in other locations, but the two
+types are completely interchangeable.
 
 Tuples
 ------
