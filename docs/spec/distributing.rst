@@ -77,8 +77,9 @@ The Typeshed Project
 ^^^^^^^^^^^^^^^^^^^^
 
 The `typeshed project <https://github.com/python/typeshed>`_ contains type
-annotations for the standard library and a selection of third-party libraries
-that don't ship their own type annotations or stubs. Policies regarding the
+stubs for the standard library (vendored or handled specially by type checkers)
+and type stubs for third-party libraries that don't ship their own type information
+(typically distributed via PyPI). Policies regarding the
 stubs collected there are decided separately and described in the project's
 documentation.
 
@@ -239,7 +240,7 @@ resolve modules containing type information:
    bundled with the package SHOULD be used (be they in ``.pyi`` type
    stub files or inline in ``.py`` files).
 
-5. Typeshed (if used) - Provides the stdlib types.
+5. Typeshed - only for modules in the standard library.
 
 If typecheckers identify a stub-only namespace package without the desired module
 in step 3, they should continue to step 4/5. Typecheckers should identify namespace packages
