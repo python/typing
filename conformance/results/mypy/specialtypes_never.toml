@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Does not reject NoReturn when used outside of return type annotation.
-"""
+conformant = "Pass"
 output = """
 specialtypes_never.py:19: error: Implicit return in function which does not return  [misc]
 specialtypes_never.py:85: error: Incompatible types in assignment (expression has type "list[NoReturn]", variable has type "list[int]")  [assignment]
