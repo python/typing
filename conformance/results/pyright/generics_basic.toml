@@ -1,0 +1,15 @@
+output = """
+generics_basic.py:36:15 - error: Argument of type "bytes" cannot be assigned to parameter "y" of type "AnyStr@concat" in function "concat"
+  "bytes" is incompatible with "str" (reportGeneralTypeIssues)
+generics_basic.py:37:15 - error: Argument of type "str" cannot be assigned to parameter "y" of type "AnyStr@concat" in function "concat"
+  "str" is incompatible with "bytes" (reportGeneralTypeIssues)
+generics_basic.py:44:1 - error: TypeVar must be assigned to a variable named "BadConstraint"
+generics_basic.py:44:43 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)
+generics_basic.py:48:1 - error: TypeVar must be assigned to a variable named "BadConstraint"
+generics_basic.py:48:48 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
+generics_basic.py:48:48 - error: TypeVar constraint type cannot be generic
+generics_basic.py:59:15 - error: Argument of type "bytes" cannot be assigned to parameter "y" of type "AnyStr@concat" in function "concat"
+  "bytes" is incompatible with "str" (reportGeneralTypeIssues)
+generics_basic.py:107:24 - error: Type arguments for "Generic" must be unique
+generics_basic.py:153:37 - error: Metaclass cannot be generic (reportGeneralTypeIssues)
+"""
