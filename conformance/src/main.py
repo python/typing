@@ -11,6 +11,7 @@ from typing import Sequence
 import tomli
 import tomlkit
 
+from options import parse_options
 from reporting import generate_summary
 from test_groups import get_test_cases, get_test_groups
 from type_checker import TYPE_CHECKERS, TypeChecker
@@ -111,23 +112,26 @@ def main():
     # latest version of Python (3.12), so we need this version.
     assert sys.version_info >= (3, 12)
 
+    options = parse_options(sys.argv[1:])
+
     root_dir = Path(__file__).resolve().parent.parent
 
-    tests_dir = root_dir / "tests"
-    assert tests_dir.is_dir()
+    if not options.report_only:
+        tests_dir = root_dir / "tests"
+        assert tests_dir.is_dir()
 
-    test_groups = get_test_groups(root_dir)
-    test_cases = get_test_cases(test_groups, tests_dir)
+        test_groups = get_test_groups(root_dir)
+        test_cases = get_test_cases(test_groups, tests_dir)
 
-    # Switch to the tests directory.
-    os.chdir(tests_dir)
+        # Switch to the tests directory.
+        os.chdir(tests_dir)
 
-    # Run each test case with each type checker.
-    for type_checker in TYPE_CHECKERS:
-        if not type_checker.install():
-            print(f"Skipping tests for {type_checker.name}")
-        else:
-            run_tests(root_dir, type_checker, test_cases)
+        # Run each test case with each type checker.
+        for type_checker in TYPE_CHECKERS:
+            if not type_checker.install():
+                print(f"Skipping tests for {type_checker.name}")
+            else:
+                run_tests(root_dir, type_checker, test_cases)
 
     # Generate a summary report.
     generate_summary(root_dir)
