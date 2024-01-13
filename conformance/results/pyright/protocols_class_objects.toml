@@ -16,12 +16,6 @@ protocols_class_objects.py:58:16 - error: Expression of type "type[ConcreteA]" c
       Parameter name mismatch: "x" versus "self"
       Parameter 1: type "int" cannot be assigned to type "ConcreteA"
         "int" is incompatible with "ConcreteA" (reportGeneralTypeIssues)
-protocols_class_objects.py:59:16 - error: Expression of type "type[ConcreteA]" cannot be assigned to declared type "ProtoA2"
-  "type[type]" is incompatible with "type[ConcreteA]"
-  "type[type]" is incompatible with "type[ConcreteA]"
-  "method1" is an incompatible type
-    Type "(self: ConcreteA, x: int) -> int" cannot be assigned to type "(obj: Any, x: int) -> int"
-      Parameter name mismatch: "obj" versus "self" (reportGeneralTypeIssues)
 protocols_class_objects.py:74:16 - error: Expression of type "type[ConcreteB]" cannot be assigned to declared type "ProtoB1"
   "prop1" is an incompatible type
     "property" is incompatible with "int" (reportGeneralTypeIssues)
