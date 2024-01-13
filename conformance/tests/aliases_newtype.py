@@ -31,7 +31,9 @@ class UserIdDerived(UserId):  # Type error: subclassing not allowed
 
 GoodName = NewType("BadName", int)  # Type error: assigned name does not match
 
-GoodNewType1 = NewType("GoodNewType1", list)
+GoodNewType1 = NewType("GoodNewType1", list)  # OK
+
+GoodNewType2 = NewType("GoodNewType2", GoodNewType1)  # OK
 
 nt1: GoodNewType1[int]  # Type error: NewType cannot be generic
 
@@ -55,8 +57,6 @@ class TD1(TypedDict):
 
 BadNewType5 = NewType("BadNewType5", TD1)  # Type error: cannot be TypedDict
 
-BadNewType6 = NewType("BadNewType6", GoodNewType1)  # Type error: cannot be NewType
+BadNewType6 = NewType("BadNewType6", int, int)  # Type error: too many arguments
 
-BadNewType7 = NewType("BadNewType7", int, int)  # Type error: too many arguments
-
-BadNewType8 = NewType("BadNewType8", Any)  # Type error: cannot be Any
+BadNewType7 = NewType("BadNewType7", Any)  # Type error: cannot be Any

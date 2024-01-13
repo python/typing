@@ -46,7 +46,7 @@ class ProtoA1(Protocol):
 
 
 class ProtoA2(Protocol):
-    def method1(self, obj: Any, x: int) -> int:
+    def method1(_self, self: Any, x: int) -> int:
         ...
 
 
