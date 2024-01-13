@@ -17,12 +17,13 @@ class Color(Enum):
 good1: Literal[26]
 good2: Literal[0x1A]
 good3: Literal[-4]
-good4: Literal["hello world"]
-good5: Literal[b"hello world"]
-good6: Literal["hello world"]
-good7: Literal[True]
-good8: Literal[Color.RED]
-good9: Literal[None]
+good4: Literal[+5]
+good5: Literal["hello world"]
+good6: Literal[b"hello world"]
+good7: Literal["hello world"]
+good8: Literal[True]
+good9: Literal[Color.RED]
+good10: Literal[None]
 
 ReadOnlyMode = Literal["r", "r+"]
 WriteAndTruncateMode = Literal["w", "w+", "wt", "w+t"]
@@ -31,7 +32,7 @@ AppendMode = Literal["a", "a+", "at", "a+t"]
 
 AllModes = Literal[ReadOnlyMode, WriteAndTruncateMode, WriteNoTruncateMode, AppendMode]
 
-good10: Literal[Literal[Literal[1, 2, 3], "foo"], 5, None]
+good11: Literal[Literal[Literal[1, 2, 3], "foo"], 5, None]
 
 variable = 3
 T = TypeVar("T")
@@ -40,7 +41,7 @@ T = TypeVar("T")
 bad1: Literal[3 + 4]  # Type error
 bad2: Literal["foo".replace("o", "b")]  # Type error
 bad3: Literal[4 + 3j]  # Type error
-bad4: Literal[+5]  # Type error
+bad4: Literal[~5]  # Type error
 bad5: Literal[not False]  # Type error
 bad6: Literal[(1, "foo", "bar")]  # Type error
 bad7: Literal[{"a": "b", "c": "d"}]  # Type error
@@ -55,6 +56,7 @@ bad13: Literal[...]  # Type error
 def my_function(x: Literal[1 + 2]) -> int:  # Type error
     return x * 3
 
+
 x: Literal  # Type error
 y: Literal[my_function] = my_function  # Type error
 
@@ -63,5 +65,3 @@ def func2(a: Literal[Color.RED]):
     x1: Literal["Color.RED"] = a  # Type error
 
     x2: "Literal[Color.RED]" = a  # OK
-
-
