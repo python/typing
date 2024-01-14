@@ -1,6 +1,6 @@
 # Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#scoping-rules-for-type-variables
 
-from typing import TypeVar, Generic, Iterable, assert_type
+from typing import TypeVar, Generic, Iterable, TypeAlias, assert_type
 
 # > A type variable used in a generic function could be inferred to represent
 # > different types in the same code block.
@@ -76,6 +76,8 @@ class Outer(Generic[T]):
     class Inner(Iterable[S]):  # OK
         ...
     attr: Inner[T]  # OK
+
+    alias: TypeAlias = list[T]  # Type error
 
 
 # Test unbound type variables at global scope
