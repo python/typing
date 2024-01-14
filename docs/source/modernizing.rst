@@ -80,7 +80,7 @@ it's necessary to either use :python:`from __future__ import annotations`
 ``typing.Text``
 ===============
 
-*Alternative available since:* Python 3.0
+*Alternative available since:* Python 3.5
 
 :class:`typing.Text` was a type alias intended for Python 2 compatibility.
 It is equivalent to :class:`str` and should be replaced with it.
