@@ -117,7 +117,7 @@ type checking as well.
 
 To have this file including with the package, maintainers can use existing packaging
 options such as ``package_data`` in ``setuptools``. For more details, see
-`the guide to providing type annotations <https://typing.readthedocs.io/en/latest/source/libraries.html#how-to-provide-type-annotations>`_
+:ref:`the guide to providing type annotations <providing-type-annotations>`_.
 
 For namespace packages (see :pep:`420`), the ``py.typed`` file should be in the
 submodules of the namespace, to avoid conflicts and for clarity.
@@ -138,8 +138,12 @@ corresponding ``*.py`` files. However, the stubs can also be put in a separate
 package and distributed separately. Third parties can also find this method
 useful if they wish to distribute stub files. The name of the stub package
 MUST follow the scheme ``foopkg-stubs`` for type stubs for the package named
-``foopkg`` (note the name of the distribution containing the package may be
-different than the mandated ``*-stubs`` package name).
+``foopkg``.
+
+Note the name of the distribution (i.e. the project name on PyPI) containing
+the package MAY be different than the mandated ``*-stubs`` package name.
+The name of the distribution SHOULD NOT be ``types-*``, since this is
+conventionally used for stub-only packages provided by typeshed.
 
 For stub-only packages adding a ``py.typed`` marker is not
 needed since the name ``*-stubs`` is enough to indicate it is a source of typing
