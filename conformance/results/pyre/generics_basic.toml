@@ -10,7 +10,7 @@ generics_basic.py:31:15 Incompatible parameter type [6]: In call `bytes.__add__`
 generics_basic.py:36:14 Incompatible parameter type [6]: In call `concat`, for 2nd positional argument, expected `Variable[AnyStr <: [str, bytes]]` but got `bytes`.
 generics_basic.py:37:14 Incompatible parameter type [6]: In call `concat`, for 2nd positional argument, expected `Variable[AnyStr <: [str, bytes]]` but got `str`.
 generics_basic.py:44:0 Invalid type [31]: TypeVar can't have a single explicit constraint. Did you mean `bound=str`?
-generics_basic.py:48:0 Invalid type [31]: Expression `Variable[BadConstraint <: [str, Variable[generics_basic.T]]]` is not a valid type. Type variables cannot contain other type variables in their constraints.
+generics_basic.py:48:0 Invalid type [31]: Expression `Variable[BadConstraint2 <: [str, Variable[generics_basic.T]]]` is not a valid type. Type variables cannot contain other type variables in their constraints.
 generics_basic.py:59:14 Incompatible parameter type [6]: In call `concat`, for 2nd positional argument, expected `Variable[AnyStr <: [str, bytes]]` but got `bytes`.
 generics_basic.py:107:0 Duplicate type variables [59]: Duplicate type variable `T` in Generic[...].
 generics_basic.py:147:25 Undefined attribute [16]: `typing.Iterator` has no attribute `__getitem__`.

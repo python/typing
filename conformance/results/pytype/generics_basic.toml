@@ -16,9 +16,7 @@ File "generics_basic.py", line 37, in test_concat: Function concat was called wi
          Expected: (x, y: bytes)
   Actually passed: (x, y: str)
 File "generics_basic.py", line 44, in <module>: Invalid TypeVar: the number of constraints must be 0 or more than 1 [invalid-typevar]
-File "generics_basic.py", line 44, in <module>: Invalid TypeVar: TypeVar('BadConstraint') must be stored as 'BadConstraint', not 'BadConstraint1' [invalid-typevar]
 File "generics_basic.py", line 48, in <module>: Invalid TypeVar: constraint cannot contain TypeVars [invalid-typevar]
-File "generics_basic.py", line 48, in <module>: Invalid TypeVar: TypeVar('BadConstraint') must be stored as 'BadConstraint', not 'BadConstraint2' [invalid-typevar]
 File "generics_basic.py", line 57, in test_concat_subtype: MyStr [assert-type]
   Expected: str
     Actual: MyStr

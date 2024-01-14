@@ -2,8 +2,10 @@ conformant = "Pass"
 output = """
 generics_basic.py:36: error: Value of type variable "AnyStr" of "concat" cannot be "Sequence[object]"  [type-var]
 generics_basic.py:37: error: Value of type variable "AnyStr" of "concat" cannot be "Sequence[object]"  [type-var]
-generics_basic.py:44: error: String argument 1 "BadConstraint" to TypeVar(...) does not match variable name "BadConstraint1"  [misc]
-generics_basic.py:48: error: String argument 1 "BadConstraint" to TypeVar(...) does not match variable name "BadConstraint2"  [misc]
+generics_basic.py:44: error: TypeVar cannot have only a single constraint  [misc]
+generics_basic.py:48: error: Type variable "generics_basic.T" is unbound  [valid-type]
+generics_basic.py:48: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+generics_basic.py:48: note: (Hint: Use "T" in function signature to bind "T" inside a function)
 generics_basic.py:59: error: Value of type variable "AnyStr" of "concat" cannot be "Sequence[object]"  [type-var]
 generics_basic.py:107: error: Duplicate type variables in Generic[...] or Protocol[...]  [misc]
 generics_basic.py:153: error: Dynamic metaclass not supported for "GenericMetaInstance"  [misc]
