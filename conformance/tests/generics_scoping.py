@@ -1,7 +1,5 @@
 # Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#scoping-rules-for-type-variables
 
-# TODO: write PEP 695 versions
-
 from typing import TypeVar, Generic, Iterable, assert_type
 
 # > A type variable used in a generic function could be inferred to represent
@@ -23,7 +21,7 @@ class MyClass(Generic[T]):
     def meth_2(self, x: T) -> T: ...  # and here are always the same
 
 a: MyClass[int] = MyClass()
-a.meth_1(1)
+a.meth_1(1)  # OK
 a.meth_2('a')  # Type error
 
 # > A type variable used in a method that does not match any of the variables
