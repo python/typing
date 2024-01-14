@@ -76,3 +76,9 @@ class Outer(Generic[T]):
     class Inner(Iterable[S]):  # OK
         ...
     attr: Inner[T]  # OK
+
+
+# Test unbound type variables at global scope
+global_var1: T  # Type error
+global_var2: list[T] = []  # Type error
+list[T]()  # Type error
