@@ -41,11 +41,11 @@ def test_concat(s: str, b: bytes, a: Any) -> None:
 
 # > Specifying a single constraint is disallowed.
 
-BadConstraint1 = TypeVar('BadConstraint', str)  # Type error
+BadConstraint1 = TypeVar('BadConstraint1', str)  # Type error
 
 # > Note: those types cannot be parameterized by type variables
 
-BadConstraint2 = TypeVar('BadConstraint', str, T)  # Type error
+BadConstraint2 = TypeVar('BadConstraint2', str, T)  # Type error
 
 # > Subtypes of types constrained by a type variable should be treated
 # > as their respective explicitly listed base types in the context of the
