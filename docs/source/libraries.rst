@@ -28,6 +28,8 @@ Providing type annotations has the following benefits:
 4. Library authors are able to use static type checking themselves to help
    produce high-quality, bug-free implementations.
 
+.. _providing-type-annotations:
+
 How to provide type annotations?
 ================================
 
