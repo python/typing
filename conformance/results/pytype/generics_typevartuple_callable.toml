@@ -53,4 +53,9 @@ File "generics_typevartuple_callable.py", line 45, in <module>: Invalid type ann
 File "generics_typevartuple_callable.py", line 46, in func3: bad return type [bad-return-type]
            Expected: Tuple[Any]
   Actually returned: None
+Called from (traceback):
+  line 49, in current file
+File "generics_typevartuple_callable.py", line 49, in <module>: Tuple[Any] [assert-type]
+  Expected: Tuple[float, str, complex]
+    Actual: Tuple[Any]
 """

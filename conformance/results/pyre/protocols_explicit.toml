@@ -8,8 +8,8 @@ protocols_explicit.py:54:0 Uninitialized attribute [13]: Attribute `other` inher
 protocols_explicit.py:63:4 Invalid class instantiation [45]: Cannot instantiate abstract class `Point` with abstract method `intensity`.
 protocols_explicit.py:86:0 Uninitialized attribute [13]: Attribute `cm1` inherited from protocol `Proto1` in class `Concrete1` to have type `int` but is never initialized.
 protocols_explicit.py:86:0 Uninitialized attribute [13]: Attribute `im1` inherited from protocol `Proto1` in class `Concrete1` to have type `int` but is never initialized.
-protocols_explicit.py:103:0 Uninitialized attribute [13]: Attribute `cm10` inherited from protocol `Proto2` in class `Concrete3` to have type `int` but is never initialized.
-protocols_explicit.py:103:0 Uninitialized attribute [13]: Attribute `cm11` inherited from protocol `Proto3` in class `Concrete3` to have type `int` but is never initialized.
-protocols_explicit.py:103:0 Uninitialized attribute [13]: Attribute `im1` inherited from protocol `Proto1` in class `Concrete3` to have type `int` but is never initialized.
-protocols_explicit.py:171:6 Invalid class instantiation [45]: Cannot instantiate abstract class `Concrete7A` with abstract method `method1`.
+protocols_explicit.py:101:0 Uninitialized attribute [13]: Attribute `cm10` inherited from protocol `Proto2` in class `Concrete3` to have type `int` but is never initialized.
+protocols_explicit.py:101:0 Uninitialized attribute [13]: Attribute `cm11` inherited from protocol `Proto3` in class `Concrete3` to have type `int` but is never initialized.
+protocols_explicit.py:101:0 Uninitialized attribute [13]: Attribute `im1` inherited from protocol `Proto1` in class `Concrete3` to have type `int` but is never initialized.
+protocols_explicit.py:163:6 Invalid class instantiation [45]: Cannot instantiate abstract class `Concrete7A` with abstract method `method1`.
 """

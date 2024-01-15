@@ -84,12 +84,12 @@ def func2(arg1: tuple[*Ts], arg2: tuple[*Ts]) -> tuple[*Ts]:
 # Note from Eric Traut: The above provision in the spec is very problematic
 # and will likely need to be changed.
 
-assert_type(func1((0,), (1,)), tuple[int])  # OK
-func1((0,), ("0",))  # Type error?
-func1((0,), (0.0,))  # Type error?
-func1((0.0,), (0,))  # Type error?
-func1((0,), (1,))  # Type error?
-func1((0, 0), (0,))  # Type error
+assert_type(func2((0,), (1,)), tuple[int])  # OK
+func2((0,), ("0",))  # Type error?
+func2((0,), (0.0,))  # Type error?
+func2((0.0,), (0,))  # Type error?
+func2((0,), (1,))  # Type error?
+func2((0, 0), (0,))  # Type error
 
 
 def multiply(x: Array[*Shape], y: Array[*Shape]) -> Array[*Shape]:

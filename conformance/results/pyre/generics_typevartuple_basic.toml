@@ -36,6 +36,7 @@ generics_typevartuple_basic.py:67:6 Unexpected keyword [28]: Unexpected keyword 
 generics_typevartuple_basic.py:75:16 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.
 generics_typevartuple_basic.py:75:34 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.
 generics_typevartuple_basic.py:75:49 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.
+generics_typevartuple_basic.py:92:6 Incompatible parameter type [6]: In call `func2`, for 1st positional argument, expected `Tuple[]` but got `Tuple[int, int]`. Expected has length 1, but actual has length 2.
 generics_typevartuple_basic.py:95:16 Invalid type [31]: Expression `Array[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.
 generics_typevartuple_basic.py:95:16 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
 generics_typevartuple_basic.py:95:34 Invalid type [31]: Expression `Array[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.
