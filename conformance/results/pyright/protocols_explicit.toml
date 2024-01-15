@@ -1,4 +1,7 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Reports protocol incompatibility at time of class declaration rather than treating class as abstract.
+"""
 output = """
 protocols_explicit.py:27:16 - error: Method "draw" cannot be called because it is abstract and unimplemented (reportGeneralTypeIssues)
 protocols_explicit.py:54:7 - error: Class derives from one or more protocol classes but does not implement all required members
@@ -11,14 +14,14 @@ protocols_explicit.py:63:5 - error: Cannot instantiate abstract class "Point"
 protocols_explicit.py:86:7 - error: Class derives from one or more protocol classes but does not implement all required members
   Member "cm1" is declared in protocol class "Proto1"
   Member "im1" is declared in protocol class "Proto1" (reportGeneralTypeIssues)
-protocols_explicit.py:103:7 - error: Class derives from one or more protocol classes but does not implement all required members
+protocols_explicit.py:101:7 - error: Class derives from one or more protocol classes but does not implement all required members
   Member "im1" is declared in protocol class "Proto1"
   Member "cm10" is declared in protocol class "Proto2"
   Member "cm11" is declared in protocol class "Proto3" (reportGeneralTypeIssues)
-protocols_explicit.py:135:7 - error: Class derives from one or more protocol classes but does not implement all required members
+protocols_explicit.py:129:7 - error: Class derives from one or more protocol classes but does not implement all required members
   Member "method1" is declared in protocol class "Proto5" (reportGeneralTypeIssues)
-protocols_explicit.py:166:7 - error: Class derives from one or more protocol classes but does not implement all required members
+protocols_explicit.py:159:7 - error: Class derives from one or more protocol classes but does not implement all required members
   Member "method1" is declared in protocol class "Proto7" (reportGeneralTypeIssues)
-protocols_explicit.py:171:7 - error: Cannot instantiate abstract class "Concrete7A"
+protocols_explicit.py:163:7 - error: Cannot instantiate abstract class "Concrete7A"
   "Proto7.method1" is abstract (reportGeneralTypeIssues)
 """

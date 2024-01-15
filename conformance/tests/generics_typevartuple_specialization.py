@@ -64,7 +64,7 @@ FloatArray = Array2[float, *Shape]
 Array1D = Array2[DType, Any]
 
 
-def func5(a: Array1D, b: Array1D[int]):
+def func5_0(a: Array1D, b: Array1D[int]):
     assert_type(a, Array2[Any, Any])
     assert_type(b, Array2[int, Any])
 
@@ -73,16 +73,16 @@ def takes_float_array_of_any_shape(x: FloatArray):
     ...
 
 
-x: FloatArray[Height, Width] = Array2()
-takes_float_array_of_any_shape(x)  # OK
+def func5_1(x: FloatArray[Height, Width]):
+    takes_float_array_of_any_shape(x)  # OK
 
 
 def takes_float_array_with_specific_shape(y: FloatArray[Height, Width]):
     ...
 
 
-y: FloatArray = Array2()
-takes_float_array_with_specific_shape(y)  # OK
+def func5_2(x: FloatArray):
+    takes_float_array_with_specific_shape(x)  # OK
 
 
 T = TypeVar("T")
@@ -92,7 +92,7 @@ VariadicTuple = tuple[T, *Ts]
 def func6(a: VariadicTuple[str, int], b: VariadicTuple[float], c: VariadicTuple):
     assert_type(a, tuple[str, int])
     assert_type(b, tuple[float])
-    assert_type(c, tuple[Any, ...])
+    assert_type(c, tuple[Any, *tuple[Any, ...]])
 
 
 Ts1 = TypeVarTuple("Ts1")
@@ -153,11 +153,11 @@ TA9 = tuple[*Ts, T1]
 TA10 = TA9[*tuple[int, ...]]  # OK
 
 
-def func11(a: TA10, b: TA9[*tuple[int, ...], str], c: TA9[str, *tuple[int, ...]]):
+def func11(a: TA10, b: TA9[*tuple[int, ...], str], c: TA9[*tuple[int, ...], str]):
     assert_type(a, tuple[*tuple[int, ...], int])
     assert_type(b, tuple[*tuple[int, ...], str])
-    assert_type(c, tuple[str, *tuple[int, ...], int])
+    assert_type(c, tuple[*tuple[int, ...], str])
 
 
 TA11 = tuple[T, *Ts1]
-v2: TA11[*Ts2]  # Type error
+TA12 = TA11[*Ts2]  # Type error

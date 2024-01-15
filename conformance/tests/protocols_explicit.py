@@ -84,12 +84,10 @@ class Proto3(Proto2, Protocol):
 
 
 class Concrete1(Proto1):
-    # Type error (optional): cm1 is unimplemented
-    # Type error (optional): im1 is unimplemented
     ...
 
 
-c1 = Concrete1()  # Type error (optional): cannot instantiate abstract class
+c1 = Concrete1()  # Type error: cannot instantiate abstract class
 
 
 class Concrete2(Proto1):
@@ -106,12 +104,8 @@ class Concrete3(Proto1, Proto3):
     def __init__(self):
         im1 = 0
 
-    # Type error (optional): im1 is unimplemented
-    # Type error (optional): cm10 is unimplemented
-    # Type error (optional): cm11 is unimplemented
 
-
-c3 = Concrete3()  # Type error (optional): cannot instantiate abstract class
+c3 = Concrete3()  # Type error: cannot instantiate abstract class
 
 
 class Concrete4(Proto1, Proto3):
@@ -133,11 +127,10 @@ class Proto5(Protocol):
 
 
 class Concrete5(Proto5):
-    # Type error (optional): method1 is not implemented
     pass
 
 
-c5 = Concrete5()  # Type error (optional): cannot instantiate abstract class
+c5 = Concrete5()  # Type error: cannot instantiate abstract class
 
 
 class Proto6(Protocol):
@@ -164,11 +157,10 @@ class Mixin7(Proto7, ABC):
 
 
 class Concrete7A(Proto7):
-    # Type error (optional): method1 is not implemented
     pass
 
 
-c7a = Concrete7A()  # Type error (optional): cannot instantiate abstract class
+c7a = Concrete7A()  # Type error: cannot instantiate abstract class
 
 
 class Concrete7B(Mixin7, Proto7):

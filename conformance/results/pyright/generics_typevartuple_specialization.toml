@@ -1,10 +1,10 @@
 conformant = "Partial"
 notes = """
-Incorrectly reports type incompatibility when generic class is specialized with `*tuple[Any, ...]`.
+Incorrectly evaluates generic alias with TypeVarTuple if no type arguments are supplied.
 Incorrectly evaluates tuple split across a TypeVarTuple and a TypeVar.
 """
 output = """
-generics_typevartuple_specialization.py:95:17 - error: "assert_type" mismatch: expected "tuple[Any, ...]" but received "tuple[Unknown, Unknown]" (reportGeneralTypeIssues)
+generics_typevartuple_specialization.py:95:17 - error: "assert_type" mismatch: expected "tuple[Any, *tuple[Any, ...]]" but received "tuple[Unknown, Unknown]" (reportGeneralTypeIssues)
 generics_typevartuple_specialization.py:109:18 - error: Type variable "Ts" has no meaning in this context (reportGeneralTypeIssues)
 generics_typevartuple_specialization.py:109:18 - error: Could not specialize type "IntTupleGeneric[T@IntTupleGeneric]"
   Unpacked arguments cannot be used in type argument lists
@@ -15,11 +15,7 @@ generics_typevartuple_specialization.py:122:27 - error: Type argument list can h
 generics_typevartuple_specialization.py:127:9 - error: Too few type arguments provided for "TA7[*Ts@TA7, T1@TA7, T2@TA7]"; expected 3 but received 2
 generics_typevartuple_specialization.py:153:13 - error: Could not specialize type "TA9[*Ts@TA9, T1@TA9]"
   Unpacked arguments cannot be used in type argument lists
-generics_typevartuple_specialization.py:156:65 - error: Could not specialize type "TA9[*Ts@TA9, T1@TA9]"
-  Unpacked arguments cannot be used in type argument lists
 generics_typevartuple_specialization.py:157:17 - error: "assert_type" mismatch: expected "tuple[*tuple[int, ...], int]" but received "tuple[Unknown]" (reportGeneralTypeIssues)
-generics_typevartuple_specialization.py:159:17 - error: "assert_type" mismatch: expected "tuple[str, *tuple[int, ...], int]" but received "tuple[str, Unknown]" (reportGeneralTypeIssues)
-generics_typevartuple_specialization.py:163:11 - error: Type variable "Ts2" has no meaning in this context (reportGeneralTypeIssues)
-generics_typevartuple_specialization.py:163:11 - error: Could not specialize type "TA11[T@TA11, *Ts1@TA11]"
+generics_typevartuple_specialization.py:163:14 - error: Could not specialize type "TA11[T@TA11, *Ts1@TA11]"
   Unpacked arguments cannot be used in type argument lists
 """

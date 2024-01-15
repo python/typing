@@ -17,4 +17,5 @@ generics_typevartuple_callable.py:42:18 Incompatible parameter type [6]: In call
 generics_typevartuple_callable.py:45:17 Invalid type [31]: Expression `*tuple[(int, *$local_generics_typevartuple_callable$Ts, $local_generics_typevartuple_callable$T)]` is not a valid type.
 generics_typevartuple_callable.py:45:42 Invalid type [31]: Expression `tuple[($local_generics_typevartuple_callable$T, *$local_generics_typevartuple_callable$Ts)]` is not a valid type.
 generics_typevartuple_callable.py:45:42 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters.
+generics_typevartuple_callable.py:49:41 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[float], Type[str], Type[complex]]`.
 """

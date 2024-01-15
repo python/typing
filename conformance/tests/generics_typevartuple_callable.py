@@ -44,3 +44,6 @@ assert_type(func2(callback2), tuple[str])
 
 def func3(*args: * tuple[int, *Ts, T]) -> tuple[T, *Ts]:
     ...
+
+
+assert_type(func3(1, "", 3j, 3.4), tuple[float, str, complex])

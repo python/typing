@@ -27,7 +27,9 @@ generics_typevartuple_specialization.py:72:38 Undefined or invalid type [11]: An
 generics_typevartuple_specialization.py:89:22 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[TypeVar, *Tuple[typing.Any, ...]]`.
 generics_typevartuple_specialization.py:92:13 Undefined or invalid type [11]: Annotation `VariadicTuple` is not defined as a type.
 generics_typevartuple_specialization.py:93:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[int]]`.
-generics_typevartuple_specialization.py:95:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[object, typing.Any]`.
+generics_typevartuple_specialization.py:95:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[object, *Tuple[typing.Any, ...]]`.
+generics_typevartuple_specialization.py:95:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_typevartuple_specialization.py:95:37 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[object, typing.Any]`.
 generics_typevartuple_specialization.py:101:20 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[Type[int], *Tuple[typing.Any, ...]]`.
 generics_typevartuple_specialization.py:103:32 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
 generics_typevartuple_specialization.py:103:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[float], typing.Any]`.
@@ -77,17 +79,15 @@ generics_typevartuple_specialization.py:153:18 Incompatible parameter type [6]: 
 generics_typevartuple_specialization.py:156:14 Undefined or invalid type [11]: Annotation `TA10` is not defined as a type.
 generics_typevartuple_specialization.py:156:23 Invalid type [31]: Expression `$local_generics_typevartuple_specialization$TA9[(*tuple[(int, ...)], str)]` is not a valid type.
 generics_typevartuple_specialization.py:156:23 Undefined or invalid type [11]: Annotation `TA9` is not defined as a type.
-generics_typevartuple_specialization.py:156:54 Invalid type [31]: Expression `$local_generics_typevartuple_specialization$TA9[(str, *tuple[(int, ...)])]` is not a valid type.
+generics_typevartuple_specialization.py:156:54 Invalid type [31]: Expression `$local_generics_typevartuple_specialization$TA9[(*tuple[(int, ...)], str)]` is not a valid type.
 generics_typevartuple_specialization.py:157:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[*Tuple[typing.Any, ...], Type[int]]`.
 generics_typevartuple_specialization.py:157:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
 generics_typevartuple_specialization.py:157:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.
 generics_typevartuple_specialization.py:158:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[*Tuple[typing.Any, ...], Type[str]]`.
 generics_typevartuple_specialization.py:158:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
 generics_typevartuple_specialization.py:158:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.
-generics_typevartuple_specialization.py:159:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[Type[str], *Tuple[typing.Any, ...], Type[int]]`.
+generics_typevartuple_specialization.py:159:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[*Tuple[typing.Any, ...], Type[str]]`.
 generics_typevartuple_specialization.py:159:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
-generics_typevartuple_specialization.py:159:37 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.
+generics_typevartuple_specialization.py:159:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.
 generics_typevartuple_specialization.py:162:13 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[TypeVar, *Tuple[typing.Any, ...]]`.
-generics_typevartuple_specialization.py:163:4 Invalid type [31]: Expression `$local_generics_typevartuple_specialization$TA11[(*$local_generics_typevartuple_specialization$Ts2)]` is not a valid type.
-generics_typevartuple_specialization.py:163:4 Undefined or invalid type [11]: Annotation `TA11` is not defined as a type.
 """

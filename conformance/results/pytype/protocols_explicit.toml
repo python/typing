@@ -13,5 +13,5 @@ File "protocols_explicit.py", line 14, in draw: bad return type [bad-return-type
 Called from (traceback):
   line 27, in draw
 File "protocols_explicit.py", line 63, in <module>: Can't instantiate Point with abstract methods intensity [not-instantiable]
-File "protocols_explicit.py", line 171, in <module>: Can't instantiate Concrete7A with abstract methods method1 [not-instantiable]
+File "protocols_explicit.py", line 163, in <module>: Can't instantiate Concrete7A with abstract methods method1 [not-instantiable]
 """
