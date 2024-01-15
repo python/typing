@@ -114,7 +114,7 @@ perspective of a caller, all of the function's parameters and return type are
 always assumed to be Any, even if they are otherwise annotated or the type
 checker would normally infer the return type.
 
-When applied to a class, the behavior of ``@no_type_check`` unspecified;
+When applied to a class, the behavior of ``@no_type_check`` is unspecified;
 static type checkers should feel free to ignore it.
 
 Version and platform checking
