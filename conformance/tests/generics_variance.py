@@ -52,9 +52,10 @@ dump_employee(Manager())  # OK
 B_co = TypeVar("B_co", covariant=True)
 
 
-# > Variance has no meaning, and should therefore be ignored by type checkers,
-# > if a type variable is bound to a generic function or type alias.
-def func(x: list[B_co]) -> B_co:  # OK
+# > Variance is only applicable to generic types; generic functions do not
+# > have this property. The latter should be defined using only type variables
+# > without covariant or contravariant keyword arguments.
+def bad_func(x: list[B_co]) -> B_co:  # Type checker error
     ...
 
 

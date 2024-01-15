@@ -562,21 +562,32 @@ mutable collection classes (e.g. ``MutableMapping`` and
 a contravariant type is the ``Generator`` type, which is contravariant
 in the ``send()`` argument type (see below).
 
-Variance is meaningful only when a type variable is bound to a generic class.
-Variance has no meaning, and should therefore be ignored by type checkers, if
-a type variable is bound to a generic function or type alias.
+Note: Covariance or contravariance is *not* a property of a type variable,
+but a property of a generic class defined using this variable.
+Variance is only applicable to generic types; generic functions
+do not have this property. The latter should be defined using only
+type variables without ``covariant`` or ``contravariant`` keyword arguments.
+For example, the following example is
+fine::
 
-For example::
+  from typing import TypeVar
 
-  T = TypeVar('T', covariant=True)
+  class Employee: ...
 
-  class A(Generic[T]):  # T is covariant in this context
-    ...
+  class Manager(Employee): ...
 
-  def f(x: T) -> None:  # Variance of T is meaningless in this context
-    ...
+  E = TypeVar('E', bound=Employee)
 
-  Alias = list[T] | set[T]  # Variance of T is meaningless in this context
+  def dump_employee(e: E) -> None: ...
+
+  dump_employee(Manager())  # OK
+
+while the following is prohibited::
+
+  B_co = TypeVar('B_co', covariant=True)
+
+  def bad_func(x: B_co) -> B_co:  # Flagged as error by a type checker
+      ...
 
 .. _`paramspec`:
 
