@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).
+Does not enforce that tuples captured by TypeVarTuple are same type.
 """
 output = """
 generics_typevartuple_basic.py:42:34 - error: Argument of type "Height" cannot be assigned to parameter "shape" of type "tuple[*Shape@Array]" in function "__init__"

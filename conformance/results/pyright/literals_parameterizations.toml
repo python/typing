@@ -1,9 +1,5 @@
-conformant = "Partial"
-notes = """
-Rejects integer Literal with unary `+` operator.
-"""
+conformant = "Pass"
 output = """
-literals_parameterizations.py:20:16 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
 literals_parameterizations.py:41:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
 literals_parameterizations.py:42:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
 literals_parameterizations.py:43:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value

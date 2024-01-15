@@ -2,14 +2,14 @@ conformant = "Pass"
 output = """
 qualifiers_final_decorator.py:8:6 - warning: Import "_qualifiers_final_decorator" could not be resolved from source (reportMissingModuleSource)
 qualifiers_final_decorator.py:21:16 - error: Base class "Base1" is marked final and cannot be subclassed
-qualifiers_final_decorator.py:56:9 - error: Method "method1" cannot override final method defined in class "Base2"
-qualifiers_final_decorator.py:60:9 - error: Method "method2" cannot override final method defined in class "Base2"
-qualifiers_final_decorator.py:64:9 - error: Method "method3" cannot override final method defined in class "Base2"
-qualifiers_final_decorator.py:75:9 - error: Method "method4" cannot override final method defined in class "Base2"
+qualifiers_final_decorator.py:56:9 - error: Method "method1" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)
+qualifiers_final_decorator.py:60:9 - error: Method "method2" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)
+qualifiers_final_decorator.py:64:9 - error: Method "method3" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)
+qualifiers_final_decorator.py:75:9 - error: Method "method4" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)
 qualifiers_final_decorator.py:86:9 - error: Overload for "method" is marked @final but implementation is not (reportGeneralTypeIssues)
-qualifiers_final_decorator.py:89:9 - error: Method "method" cannot override final method defined in class "Base3"
-qualifiers_final_decorator.py:102:9 - error: Method "method" cannot override final method defined in class "Base4"
-qualifiers_final_decorator.py:118:9 - error: Method "method" cannot override final method defined in class "Base5_2"
+qualifiers_final_decorator.py:89:9 - error: Method "method" cannot override final method defined in class "Base3" (reportIncompatibleMethodOverride)
+qualifiers_final_decorator.py:102:9 - error: Method "method" cannot override final method defined in class "Base4" (reportIncompatibleMethodOverride)
+qualifiers_final_decorator.py:118:9 - error: Method "method" cannot override final method defined in class "Base5_2" (reportIncompatibleMethodOverride)
 qualifiers_final_decorator.py:118:9 - error: Method "method" overrides class "Base5_2" in an incompatible manner
   Positional parameter count mismatch; base method has 2, but override has 1 (reportIncompatibleMethodOverride)
 qualifiers_final_decorator.py:126:5 - error: Function "func1" cannot be marked @final because it is not a method (reportGeneralTypeIssues)

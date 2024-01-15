@@ -55,10 +55,6 @@ class Point(RGB):
     def __init__(self, red: int, green: int, blue: str) -> None:
         self.rgb = red, green, blue  # Type error: 'blue' must be 'int'
 
-    # Type error (optional): 'intensity' is not implemented
-    # Type error (optional): 'transparency' is not implemented
-    # Type error (optional): 'other' are not implemented
-
 
 p = Point(0, 0, "")  # Type error: Cannot instantiate abstract class
 

@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
 Does not enforce that tuples captured by TypeVarTuple are same length.
-Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).
+Does not enforce that tuples captured by TypeVarTuple are same type.
 Does not enforce that tuples captured by TypeVarTuple are invariant in non-tuple class.
 """
 output = """
