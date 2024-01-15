@@ -108,10 +108,14 @@ This approach may also be useful to handle import cycles.
 ``@no_type_check``
 ------------------
 
-To mark portions of the program that should not be covered by type
-hinting, you can use the ``@typing.no_type_check`` decorator on a class or function.
-Functions with this decorator should be treated as having
-no annotations.
+When applied to a function, ``@no_type_check`` indicates that static type
+checkers should suppress all type-related errors within that function. From the
+perspective of a caller, all of the function's parameters and return type are
+always assumed to be Any, even if they are otherwise annotated or the type
+checker would normally infer the return type.
+
+When applied to a class, the behavior of ``@no_type_check`` unspecified;
+static type checkers should feel free to ignore it.
 
 Version and platform checking
 -----------------------------
