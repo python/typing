@@ -5,6 +5,7 @@ Does not report error for use of quoted type with "|" operator (runtime error).
 Does not reject f-string in quoted type annotation.
 Incorrectly generates error for quoted type defined in class scope.
 Does not generate error for unquoted type defined in class scope.
+Does not treat triple-quoted forward reference annotation as implicitly parenthesized.
 """
 output = """
 annotations_forward_refs.py:19:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `UnionType`.
@@ -25,4 +26,5 @@ annotations_forward_refs.py:55:9 Undefined or invalid type [11]: Annotation `typ
 annotations_forward_refs.py:77:0 Uninitialized attribute [13]: Attribute `ClassC` is declared in class `ClassD` to have type `ClassC` but is never initialized.
 annotations_forward_refs.py:80:12 Undefined or invalid type [11]: Annotation `ClassF` is not defined as a type.
 annotations_forward_refs.py:87:7 Undefined or invalid type [11]: Annotation `ClassD.int` is not defined as a type.
+annotations_forward_refs.py:100:7 Undefined or invalid type [11]: Annotation `
 """

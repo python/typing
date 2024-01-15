@@ -91,3 +91,14 @@ class ClassD:
 
 assert_type(ClassD.str, str)
 assert_type(ClassD.x, int)
+
+
+# > If a triple quote is used, the string should be parsed as though it is implicitly
+# > surrounded by parentheses. This allows newline characters to be
+# > used within the string literal.
+
+value: """
+    int |
+    str |
+    list[int]
+"""
