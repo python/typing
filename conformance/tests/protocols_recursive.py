@@ -8,6 +8,7 @@ Tests the handling of recursive protocols.
 from typing import Generic, Iterable, Never, Protocol, Self, TypeVar, assert_type
 
 T = TypeVar("T")
+T_co = TypeVar("T_co", covariant=True)
 T_contra = TypeVar("T_contra", contravariant=True)
 
 
@@ -37,17 +38,17 @@ tree: Tree[float] = Tree()
 walk(tree)  # OK
 
 
-class ProtoA(Protocol[T_contra, T]):
-    def method1(self) -> "ProtoA[T_contra, T]":
+class ProtoA(Protocol[T_co, T_contra]):
+    def method1(self) -> "ProtoA[T_co, T_contra]":
         ...
 
     @classmethod
-    def method2(cls, value: T) -> None:
+    def method2(cls, value: T_contra) -> None:
         ...
 
 
-class ProtoB(Protocol[T_contra, T]):
-    def method3(self) -> ProtoA[T_contra, T]:
+class ProtoB(Protocol[T_co, T_contra]):
+    def method3(self) -> ProtoA[T_co, T_contra]:
         ...
 
 
@@ -68,7 +69,7 @@ class ImplB:
         return self
 
     @classmethod
-    def method2(cls: type[ProtoB[Never, T]], value: list[T]) -> None:
+    def method2(cls: type[ProtoB[object, T]], value: list[T]) -> None:
         pass
 
 

@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).
+Does not enforce that tuples captured by TypeVarTuple are same type.
 """
 output = """
 generics_typevartuple_args.py:33:16 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "Env" in function "exec_le"

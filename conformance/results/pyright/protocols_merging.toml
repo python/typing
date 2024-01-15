@@ -8,9 +8,9 @@ protocols_merging.py:53:25 - error: Expression of type "SCConcrete2" cannot be a
     "__len__" is not present (reportGeneralTypeIssues)
 protocols_merging.py:54:25 - error: Expression of type "SCConcrete2" cannot be assigned to declared type "SizedAndClosable3"
   "SCConcrete2" is incompatible with "SizedAndClosable3" (reportGeneralTypeIssues)
-protocols_merging.py:68:16 - error: Protocol class "BadProto" cannot derive from non-protocol class "SizedAndClosable3"
+protocols_merging.py:68:16 - error: Protocol class "BadProto" cannot derive from non-protocol class "SizedAndClosable3" (reportGeneralTypeIssues)
 protocols_merging.py:83:5 - error: Cannot instantiate abstract class "SizedAndClosable4"
-  "SizedAndClosable4.close" is abstract (reportGeneralTypeIssues)
+  "SizedAndClosable4.close" is not implemented (reportGeneralTypeIssues)
 protocols_merging.py:84:24 - error: Expression of type "SCConcrete1" cannot be assigned to declared type "SizedAndClosable4"
   "SCConcrete1" is incompatible with "SizedAndClosable4" (reportGeneralTypeIssues)
 """
