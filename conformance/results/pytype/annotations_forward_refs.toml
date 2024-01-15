@@ -3,6 +3,7 @@ notes = """
 Does not reject some illegal type expression forms when quoted.
 Incorrectly generates error for quoted type defined in class scope.
 Evaluates incorrect type for class variable annotated with quoted type expression.
+Does not treat triple-quoted forward reference annotation as implicitly parenthesized.
 """
 output = """
 File "annotations_forward_refs.py", line 22, in <module>: Name 'ClassA' is not defined [name-error]
@@ -42,4 +43,5 @@ File "annotations_forward_refs.py", line 89, in ClassD: Invalid type annotation 
 File "annotations_forward_refs.py", line 93, in <module>: Any [assert-type]
   Expected: int
     Actual: Any
+File "annotations_forward_refs.py", line 100, in <module>: unexpected indent [python-compiler-error]
 """
