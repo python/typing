@@ -1,0 +1,10 @@
+conformant = "Partial"
+notes = """
+False negative on passing SymbolTable to dict[str, list[object]].
+"""
+output = """
+File "generics_base_class.py", line 37, in <module>: Invalid type annotation 'LinkedList[int, int]'  [invalid-annotation]
+  LinkedList[T] expected 1 parameter, got 2
+File "generics_base_class.py", line 46, in <module>: Invalid type annotation 'MyDict[int, int]'  [invalid-annotation]
+  MyDict[T] expected 1 parameter, got 2
+"""
