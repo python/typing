@@ -1,0 +1,18 @@
+conformant = "Partial"
+notes = """
+False negatives on instance attribute access on the type.
+"""
+output = """
+generics_type_erasure.py:36:16 - error: Argument of type "Literal['']" cannot be assigned to parameter "label" of type "int | None" in function "__init__"
+  Type "Literal['']" cannot be assigned to type "int | None"
+    "Literal['']" is incompatible with "int"
+    "Literal['']" is incompatible with "None" (reportGeneralTypeIssues)
+generics_type_erasure.py:38:16 - error: Argument of type "Literal[0]" cannot be assigned to parameter "label" of type "str | None" in function "__init__"
+  Type "Literal[0]" cannot be assigned to type "str | None"
+    "Literal[0]" is incompatible with "str"
+    "Literal[0]" is incompatible with "None" (reportGeneralTypeIssues)
+generics_type_erasure.py:42:6 - error: Cannot assign member "label" for type "type[Node[T@Node]]"
+  Expression of type "Literal[1]" cannot be assigned to member "label" of class "Node[T@Node]"
+    Member "__set__" is unknown
+    Type "Literal[1]" cannot be assigned to type "T@Node" (reportGeneralTypeIssues)
+"""

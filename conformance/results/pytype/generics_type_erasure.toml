@@ -1,0 +1,4 @@
+conformant = "Unsupported"
+output = """
+NotImplementedError: ParameterizedClass
+"""
