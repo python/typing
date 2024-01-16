@@ -272,7 +272,7 @@ However, there are some special cases in the static typechecking context:
         # this is also an error
         an_attr: list[S] = []
 
-        def do_something(x: S) -> S:  # this is OK though
+        def do_something(self, x: S) -> S:  # this is OK though
             ...
 
 * A generic class definition that appears inside a generic function

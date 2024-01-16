@@ -1,0 +1,41 @@
+conformant = "Partial"
+notes = """
+False positives in examples using constrained type variables.
+False negative for generic metaclass.
+"""
+output = """
+File "generics_basic.py", line 31, in concat: bad return type [bad-return-type]
+           Expected: MyStr
+  Actually returned: str
+Called from (traceback):
+  line 57, in test_concat_subtype
+File "generics_basic.py", line 36, in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]
+         Expected: (x, y: str)
+  Actually passed: (x, y: bytes)
+File "generics_basic.py", line 37, in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]
+         Expected: (x, y: bytes)
+  Actually passed: (x, y: str)
+File "generics_basic.py", line 44, in <module>: Invalid TypeVar: the number of constraints must be 0 or more than 1 [invalid-typevar]
+File "generics_basic.py", line 48, in <module>: Invalid TypeVar: constraint cannot contain TypeVars [invalid-typevar]
+File "generics_basic.py", line 57, in test_concat_subtype: MyStr [assert-type]
+  Expected: str
+    Actual: MyStr
+File "generics_basic.py", line 58, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]
+         Expected: (x, y: MyStr)
+  Actually passed: (x, y: str)
+File "generics_basic.py", line 58, in test_concat_subtype: Any [assert-type]
+  Expected: str
+    Actual: Any
+File "generics_basic.py", line 59, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]
+         Expected: (x, y: MyStr)
+  Actually passed: (x, y: bytes)
+File "generics_basic.py", line 107, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+  Parameters to Generic[...] must all be unique
+File "generics_basic.py", line 140, in test_my_map: unsupported operand type(s) for item retrieval: MyMap1[str, int] and int [unsupported-operands]
+  Function __getitem__ on MyMap1[str, int] expects str
+File "generics_basic.py", line 141, in test_my_map: unsupported operand type(s) for item retrieval: MyMap2[int, str] and int [unsupported-operands]
+  Function __getitem__ on MyMap2[int, str] expects str
+File "generics_basic.py", line 161, in test_my_iterable_any: Iterator[nothing] [assert-type]
+  Expected: Iterator
+    Actual: Iterator[nothing]
+"""

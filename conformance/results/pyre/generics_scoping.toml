@@ -1,0 +1,18 @@
+conformant = "Partial"
+notes = """
+False negative on generic class nested within generic function with same type variable.
+False negative on generic class nested within generic class with same type variable.
+"""
+output = """
+generics_scoping.py:25:9 Incompatible parameter type [6]: In call `MyClass.meth_2`, for 1st positional argument, expected `int` but got `str`.
+generics_scoping.py:46:7 Invalid type variable [34]: The type variable `Variable[S]` isn't present in the function's parameters.
+generics_scoping.py:50:13 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[S]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[S]`.
+generics_scoping.py:70:0 Uninitialized attribute [13]: Attribute `attr` is declared in class `Outer` to have type `Outer.Inner[Variable[T]]` but is never initialized.
+generics_scoping.py:73:4 Uninitialized attribute [13]: Attribute `x` is declared in class `Outer.AlsoBad` to have type `typing.List[Variable[T]]` but is never initialized.
+generics_scoping.py:74:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T]`.
+generics_scoping.py:80:4 Incompatible attribute type [8]: Attribute `alias` declared in class `Outer` has type `TypeAlias` but is used as type `Type[List[Variable[_T]]]`.
+generics_scoping.py:80:28 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.
+generics_scoping.py:84:13 Invalid type variable [34]: The type variable `Variable[T]` can only be used to annotate generic classes or functions.
+generics_scoping.py:85:13 Invalid type variable [34]: The type variable `Variable[T]` can only be used to annotate generic classes or functions.
+generics_scoping.py:86:5 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.
+"""

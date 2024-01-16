@@ -1,0 +1,45 @@
+conformant = "Pass"
+output = """
+File "generics_scoping.py", line 9, in fun_1: bad return type [bad-return-type]
+           Expected: int
+  Actually returned: None
+Called from (traceback):
+  line 12, in current file
+File "generics_scoping.py", line 10, in fun_2: bad return type [bad-return-type]
+           Expected: str
+  Actually returned: None
+Called from (traceback):
+  line 13, in current file
+File "generics_scoping.py", line 20, in meth_1: bad return type [bad-return-type]
+           Expected: int
+  Actually returned: None
+Called from (traceback):
+  line 24, in current file
+File "generics_scoping.py", line 25, in <module>: Function MyClass.meth_2 was called with the wrong arguments [wrong-arg-types]
+         Expected: (self, x: int)
+  Actually passed: (self, x: str)
+File "generics_scoping.py", line 35, in method: bad return type [bad-return-type]
+           Expected: str
+  Actually returned: None
+Called from (traceback):
+  line 38, in current file
+File "generics_scoping.py", line 35, in method: bad return type [bad-return-type]
+           Expected: bytes
+  Actually returned: None
+Called from (traceback):
+  line 39, in current file
+File "generics_scoping.py", line 46, in fun_3: Invalid type annotation 'List[S]' for z [invalid-annotation]
+  TypeVar(s) 'S' not in scope for method 'fun_3'
+File "generics_scoping.py", line 50, in Bar: Invalid type annotation 'List[S]' for an_attr [invalid-annotation]
+  TypeVar(s) 'S' not in scope for class 'Bar'
+File "generics_scoping.py", line 59, in fun_4: Invalid type annotation 'T'  [invalid-annotation]
+  Function [fun_4] and its nested generic class [MyGeneric] cannot use the same type variable T
+File "generics_scoping.py", line 70, in <module>: Invalid type annotation 'Outer'  [invalid-annotation]
+  Generic class [Outer] and its nested generic class [Bad] cannot use the same type variable T.
+File "generics_scoping.py", line 74, in AlsoBad: Invalid type annotation 'List[T]' for x [invalid-annotation]
+  TypeVar(s) 'T' not in scope for class 'Outer.AlsoBad'
+File "generics_scoping.py", line 84, in <module>: Invalid type annotation 'T' for global_var1 [invalid-annotation]
+  TypeVar(s) 'T' not in scope
+File "generics_scoping.py", line 85, in <module>: Invalid type annotation 'List[T]' for global_var2 [invalid-annotation]
+  TypeVar(s) 'T' not in scope
+"""
