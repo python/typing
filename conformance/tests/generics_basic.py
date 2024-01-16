@@ -111,7 +111,7 @@ class Pair2(Generic[T, T]):   # Type error
 # > subclass some other generic class and specify type variables for its
 # > parameters.
 
-from collections.abc import Iterator
+from collections.abc import Iterator, Mapping
 
 class MyIter1(Iterator[T]):
     ...
@@ -123,15 +123,29 @@ def test_my_iter(m1: MyIter1[int], m2: MyIter2[int]):
     assert_type(next(m1), int)
     assert_type(next(m2), int)
 
+
+K = TypeVar("K")
+V = TypeVar("V")
+
+class MyMap1(Mapping[K, V], Generic[K, V]):
+    ...
+
+class MyMap2(Mapping[K, V], Generic[V, K]):
+    ...
+
+def test_my_map(m1: MyMap1[str, int], m2: MyMap2[int, str]):
+    assert_type(m1["key"], int)
+    assert_type(m2["key"], int)
+
+    m1[0]  # Type error
+    m2[0]  # Type error
+
 # > You can use multiple inheritance with ``Generic``
 
 from collections.abc import Sized, Container
 
 class LinkedList(Sized, Generic[T]):
     ...
-
-K = TypeVar('K')
-V = TypeVar('V')
 
 class MyMapping(Iterable[tuple[K, V]], Container[tuple[K, V]], Generic[K, V]):
     ...
