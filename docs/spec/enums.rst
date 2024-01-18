@@ -14,8 +14,9 @@ Enum Definition
 
 Enum classes can be defined using a "class syntax" or a "function syntax".
 The function syntax offers several ways to specify enum members: names passed
-as individual arguments, a list of names, a tuple of names, or a string of
-comma-delimited names, or a string of space-delimited names.
+as individual arguments, a list or tuple of names, a string of
+comma-delimited or space-delimited names, a list or tuple of tuples that contain
+name/value pairs, and a dictionary of name/value items.
 
 Type checkers should support the class syntax, but the function syntax (in
 is various forms) is optional::
@@ -30,6 +31,9 @@ is various forms) is optional::
     Color4 = Enum('Color4', ('RED', 'GREEN', 'BLUE'))  # Optional
     Color5 = Enum('Color5', 'RED, GREEN, BLUE')  # Optional
     Color6 = Enum('Color6', 'RED GREEN BLUE')  # Optional
+    Color7 = Enum('Color7', [('RED': 1), ('GREEN': 2), ('BLUE': 3)])  # Optional
+    Color8 = Enum('Color8', (('RED': 1), ('GREEN': 2), ('BLUE': 3)))  # Optional
+    Color9 = Enum('Color9', {'RED': 1, 'GREEN': 2, 'BLUE': 3})  # Optional
 
 If a type checker supports the functional syntax, it should enforce name
 consistency. That is, if the type is assigned to a variable, the name of
@@ -38,8 +42,8 @@ the variable must match the name of the enum class::
   WrongName = Enum('Color', 'RED GREEN BLUE')  # Type checker error
 
 Enum classes can also be defined using a subclass of ``enum.Enum`` or any class
-that uses ``enum.EnumType`` (or a subclass thereof) as a metaclass. Type
-checkers should treat such classes as enums::
+that uses ``enum.EnumType`` or ``enum.EnumMeta`` (or a subclass thereof) as a
+metaclass. Type checkers should treat such classes as enums::
 
     class CustomEnum1(Enum):
         pass
@@ -84,9 +88,8 @@ in most Python classes. The defined ``__new__`` method of an enum class is
 replaced with a custom implementation that performs a value-based lookup of
 an enum member.
 
-Enum classes are immutable. Type checkers should generate an error if an enum
-is modified or deleted because these attempts will result in runtime
-errors::
+Type checkers should generate an error if an enum member is overwritten or
+deleted because these will result in runtime errors::
 
     Color.RED = 5  # Type checker error
     del Color.RED  # Type checker error
@@ -109,11 +112,11 @@ Members and Non-Member Attributes
 ---------------------------------
 
 When using the "class syntax", enum classes can define both members and
-non-member attributes. The ``EnumType`` metaclass applies a set of rules to
-distinguish between members and non-members. Type checkers should honor
-the most common of these rules. The lesser-used rules are optional. Some
-of these rules may be impossible to evaluate and enforce statically in cases 
-where dynamic values are used.
+non-member attributes. The ``EnumType`` metaclass (named ``EnumMeta`` prior to 
+Python 3.11) applies a set of rules to distinguish between members and
+non-members. Type checkers should honor the most common of these rules. The
+lesser-used rules are optional. Some of these rules may be impossible to
+evaluate and enforce statically in cases where dynamic values are used.
 
 * If an attribute is defined in the class body with a type annotation but
   with no assigned value, a type checker should assume this is a non-member
@@ -145,9 +148,6 @@ where dynamic values are used.
     class Pet(Enum):
         CAT = 1  # OK
         DOG: int = 2  # Type checker error
-
-    reveal_type(Pet.CAT)  # Revealed type is Literal[Pet.CAT]
-    reveal_type(Pet.DOG)  # Revealed type is Literal[Pet.DOG]
 
 * Methods, callables, and descriptors (including properties) that are defined
   in the class are not treated as enum members by the ``EnumType`` metaclass
@@ -189,18 +189,14 @@ where dynamic values are used.
 
 * An enum class can define a class symbol named ``_ignore_``. This can be a list
   of names or a string containing a space-delimited list of names that are
-  excluded from the list of members at runtime. Type checkers may support this
+  deleted from the enum class at runtime. Type checkers may support this
   mechanism::
 
     class Pet(Enum):
+        _ignore_ = "DOG FISH"
         CAT = 1  # Member attribute
         DOG = 2  # Non-member attribute
         FISH = 3  # Non-member attribute
-        _ignore_ = "DOG FISH"
-
-    reveal_type(Pet.CAT)  # Revealed type is Literal[Pet.CAT]
-    reveal_type(Pet.DOG)  # Revealed type is int (if _ignore_ is supported)
-    reveal_type(Pet.FISH)  # Revealed type is int (if _ignore_ is supported)
 
 
 Member Names
