@@ -149,7 +149,7 @@ where dynamic values are used.
 
 * If using Python 3.11 or newer, the ``enum.member`` and ``enum.nonmember``
   classes can be used to unambiguously distinguish members from non-members.
-  Type checkers should support these classes.
+  Type checkers should support these classes::
 
     class Example(Enum):
         a = member(1)  # Member attribute
@@ -167,7 +167,7 @@ where dynamic values are used.
 * An enum class can define a class symbol named ``_ignore_``. This can be a list
   of names or a string containing a space-delimited list of names that are
   excluded from the list of members at runtime. Type checkers may support this
-  mechanism.
+  mechanism::
 
     class Pet(Enum):
         CAT = 1  # Member attribute
