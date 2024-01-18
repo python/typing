@@ -1,9 +1,6 @@
 Enumerations
 ============
 
-Introduction
-------------
-
 The ``Enum`` class behaves differently from other Python classes in several 
 ways that require special-case handling in type checkers. This section discusses
 the Enum behaviors that should be supported by type checkers and others which
@@ -64,8 +61,8 @@ in most Python classes. The defined ``__new__`` method of an enum class is
 replaced with a custom implementation that performs a value-based lookup of
 an enum member.
 
-Enum members are immutable. Type checkers should generate an error if an enum
-member is modified or deleted because these attempts will result in runtime
+Enum classes are immutable. Type checkers should generate an error if an enum
+is modified or deleted because these attempts will result in runtime
 errors::
 
     Color.RED = 5  # Type checker error
@@ -130,7 +127,7 @@ to readers of the code::
     reveal_type(Pet.DOG)  # Revealed type is Literal[Pet.DOG]
 
 * Methods, callables, and descriptors (including properties) that are defined
-in the class are are not treated as enum members by the ``EnumType`` metaclass
+in the class are not treated as enum members by the ``EnumType`` metaclass
 and should likewise not be treated as enum members by a type checker::
 
     def identity(__x): return __x
@@ -140,7 +137,7 @@ and should likewise not be treated as enum members by a type checker::
         DOG = 2  # Member attribute
         
         converter = lambda __x: str(__x)  # Non-member attribute
-        identity = identity  # Non-member attribute
+        transform = identity  # Non-member attribute
 
         @property
         def species(self) -> str:  # Non-member property
@@ -231,7 +228,7 @@ The value of ``_value_`` can be assigned in a constructor method. This technique
 is sometimes used to initialize both the member value and non-member attributes.
 If the value assigned in the class body is a tuple, the unpacked tuple value is
 passed to the constructor. Type checkers may validate consistency between assigned
-tuple values and the constructor signature.
+tuple values and the constructor signature::
 
     class Planet(Enum):
         def __init__(self, value: int, mass: float, radius: float):
@@ -262,7 +259,7 @@ may support these to infer literal types for member values::
 
 If an enum class provides an explicit type annotation for ``_value_``, type
 checkers should enforce this declared type when values are assigned to
-``_value__`::
+``_value_``::
 
     class Color(Enum):
         _value_: int
@@ -306,3 +303,17 @@ exhaustion detection::
                 print("green")
             case _:
                 reveal_type(c)  # Revealed type is Never
+
+
+Likewise, a type checker should treat a complete union of all literal members
+as compatible with the enum type::
+
+    class Answer(Enum):
+        Yes = 1
+        No = 2
+
+    def func(val: object) -> Answer:
+        if val is not Answer.Yes and val is not Answer.No:
+            raise ValueError("Invalid value")
+        reveal_type(val)  # Revealed type is Answer (or Literal[Answer.Yes, Answer.No])
+        return val  # OK
