@@ -1,7 +1,7 @@
 Enumerations
 ============
 
-The ``Enum`` class behaves differently from other Python classes in several 
+The ``enum.Enum`` class behaves differently from other Python classes in several 
 ways that require special-case handling in type checkers. This section discusses
 the Enum behaviors that should be supported by type checkers and others which
 may be supported optionally. It is recommended that library and type stub
@@ -25,17 +25,40 @@ is various forms) is optional::
         GREEN = 2
         BLUE = 3
 
-    Color2 = Enum('Color2', 'RED', 'GREEN', 'BLUE') # Optional
-    Color3 = Enum('Color3', ['RED', 'GREEN', 'BLUE']) # Optional
-    Color4 = Enum('Color4', ('RED', 'GREEN', 'BLUE')) # Optional
-    Color5 = Enum('Color5', 'RED, GREEN, BLUE') # Optional
-    Color6 = Enum('Color6', 'RED GREEN BLUE') # Optional
+    Color2 = Enum('Color2', 'RED', 'GREEN', 'BLUE')  # Optional
+    Color3 = Enum('Color3', ['RED', 'GREEN', 'BLUE'])  # Optional
+    Color4 = Enum('Color4', ('RED', 'GREEN', 'BLUE'))  # Optional
+    Color5 = Enum('Color5', 'RED, GREEN, BLUE')  # Optional
+    Color6 = Enum('Color6', 'RED GREEN BLUE')  # Optional
 
 If a type checker supports the functional syntax, it should enforce name
 consistency. That is, if the type is assigned to a variable, the name of
 the variable must match the name of the enum class::
 
   WrongName = Enum('Color', 'RED GREEN BLUE') # Type checker error
+
+Enum classes can also be defined using a subclass of ``enum.Enum`` or any class
+that uses ``enum.EnumType`` (or a subclass thereof) as a metaclass. Type
+checkers should treat such classes as enums::
+
+    class CustomEnum1(Enum):
+        pass
+    
+    class Color7(CustomEnum1):  # Supported
+        RED = 1
+        GREEN = 2
+        BLUE = 3
+
+    class CustomEnumType(EnumType):
+        pass
+    
+    class CustomEnum2(metaclass=CustomEnumType):
+        pass
+
+    class Color8(CustomEnum2):  # Supported
+        RED = 1
+        GREEN = 2
+        BLUE = 3
 
 
 Enum Behaviors
