@@ -35,7 +35,7 @@ If a type checker supports the functional syntax, it should enforce name
 consistency. That is, if the type is assigned to a variable, the name of
 the variable must match the name of the enum class::
 
-  WrongName = Enum('Color', 'RED GREEN BLUE') # Type checker error
+  WrongName = Enum('Color', 'RED GREEN BLUE')  # Type checker error
 
 Enum classes can also be defined using a subclass of ``enum.Enum`` or any class
 that uses ``enum.EnumType`` (or a subclass thereof) as a metaclass. Type
@@ -74,10 +74,10 @@ behaviors::
         BLUE = 3
 
     for color in Color:
-        reveal_type(color) # Revealed type is 'Color'
+        reveal_type(color)  # Revealed type is 'Color'
 
-    reveal_type(Color["RED"]) # Revealed type is 'Literal[Color.RED]' (or 'Color')
-    reveal_type(Color(3)) # Revealed type is 'Literal[Color.BLUE]' (or 'Color')
+    reveal_type(Color["RED"])  # Revealed type is 'Literal[Color.RED]' (or 'Color')
+    reveal_type(Color(3))  # Revealed type is 'Literal[Color.BLUE]' (or 'Color')
 
 Calling an enum class does not invoke its constructor, as is normal
 in most Python classes. The defined ``__new__`` method of an enum class is
@@ -277,7 +277,7 @@ may support these to infer literal types for member values::
         GREEN = auto()
         BLUE = auto()
 
-    reveal_type(Color.RED.value) # Revealed type is Literal[1] (or int or object or Any)
+    reveal_type(Color.RED.value)  # Revealed type is Literal[1] (or int or object or Any)
 
 
 If an enum class provides an explicit type annotation for ``_value_``, type
