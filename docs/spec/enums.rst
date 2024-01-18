@@ -93,8 +93,8 @@ of these rules may be impossible to evaluate and enforce statically in cases
 where dynamic values are used.
 
 * If an attribute is defined in the class body with a type annotation but
-with no assigned value, a type checker should assume this is a non-member
-attribute::
+  with no assigned value, a type checker should assume this is a non-member
+  attribute::
 
     class Pet(Enum):
         genus: str  # Non-member attribute
@@ -103,8 +103,8 @@ attribute::
         CAT = 1  # Member attribute
         DOG = 2  # Member attribute
 
-Within a type stub, members can be defined using the actual runtime values,
-or a placeholder of ``...`` can be used::
+  Within a type stub, members can be defined using the actual runtime values,
+  or a placeholder of ``...`` can be used::
 
     class Pet(Enum):
         genus: str  # Non-member attribute
@@ -114,10 +114,10 @@ or a placeholder of ``...`` can be used::
         DOG = ...  # Member attribute
 
 * Members defined within an enum class should not include explicit type
-annotations. Type checkers should infer a literal type for all members.
-A type checker should report an error if a type annotation is used
-for an enum member because this type will be incorrect and misleading
-to readers of the code::
+  annotations. Type checkers should infer a literal type for all members.
+  A type checker should report an error if a type annotation is used
+  for an enum member because this type will be incorrect and misleading
+  to readers of the code::
 
     class Pet(Enum):
         CAT = 1  # OK
@@ -127,8 +127,8 @@ to readers of the code::
     reveal_type(Pet.DOG)  # Revealed type is Literal[Pet.DOG]
 
 * Methods, callables, and descriptors (including properties) that are defined
-in the class are not treated as enum members by the ``EnumType`` metaclass
-and should likewise not be treated as enum members by a type checker::
+  in the class are not treated as enum members by the ``EnumType`` metaclass
+  and should likewise not be treated as enum members by a type checker::
 
     def identity(__x): return __x
 
@@ -148,8 +148,8 @@ and should likewise not be treated as enum members by a type checker::
 
 
 * If using Python 3.11 or newer, the ``enum.member`` and ``enum.nonmember``
-classes can be used to unambiguously distinguish members from non-members.
-Type checkers should support these classes.
+  classes can be used to unambiguously distinguish members from non-members.
+  Type checkers should support these classes.
 
     class Example(Enum):
         a = member(1)  # Member attribute
@@ -165,9 +165,9 @@ Type checkers should support these classes.
 
 
 * An enum class can define a class symbol named ``_ignore_``. This can be a list
-of names or a string containing a space-delimited list of names that are
-excluded from the list of members at runtime. Type checkers may support this
-mechanism.
+  of names or a string containing a space-delimited list of names that are
+  excluded from the list of members at runtime. Type checkers may support this
+  mechanism.
 
     class Pet(Enum):
         CAT = 1  # Member attribute
