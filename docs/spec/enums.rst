@@ -195,8 +195,8 @@ evaluate and enforce statically in cases where dynamic values are used.
     class Pet(Enum):
         _ignore_ = "DOG FISH"
         CAT = 1  # Member attribute
-        DOG = 2  # Non-member attribute
-        FISH = 3  # Non-member attribute
+        DOG = 2  # temporary variable, will be removed from the final enum class
+        FISH = 3  # temporary variable, will be removed from the final enum class
 
 
 Member Names
