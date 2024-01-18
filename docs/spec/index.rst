@@ -20,6 +20,7 @@ Specification for the Python type system
    overload
    dataclasses
    typeddict
+   enums
    narrowing
    directives
    distributing
