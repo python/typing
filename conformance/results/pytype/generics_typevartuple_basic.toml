@@ -113,24 +113,24 @@ File "generics_typevartuple_basic.py", line 76, in func2: bad return type [bad-r
            Expected: Tuple[Any]
   Actually returned: None
 Called from (traceback):
-  line 87, in current file
-File "generics_typevartuple_basic.py", line 87, in <module>: Tuple[Any] [assert-type]
+  line 84, in current file
+File "generics_typevartuple_basic.py", line 84, in <module>: Tuple[Any] [assert-type]
   Expected: Tuple[int]
     Actual: Tuple[Any]
-File "generics_typevartuple_basic.py", line 92, in <module>: Function func2 was called with the wrong arguments [wrong-arg-types]
+File "generics_typevartuple_basic.py", line 90, in <module>: Function func2 was called with the wrong arguments [wrong-arg-types]
          Expected: (arg1: Tuple[Any], ...)
   Actually passed: (arg1: Tuple[int, int], ...)
-File "generics_typevartuple_basic.py", line 95, in <module>: class Array is not indexable [not-indexable]
+File "generics_typevartuple_basic.py", line 93, in <module>: class Array is not indexable [not-indexable]
   ('Array' does not subclass Generic)
-File "generics_typevartuple_basic.py", line 96, in multiply: bad return type [bad-return-type]
+File "generics_typevartuple_basic.py", line 94, in multiply: bad return type [bad-return-type]
            Expected: Array
   Actually returned: None
-File "generics_typevartuple_basic.py", line 99, in <module>: class Array is not indexable [not-indexable]
+File "generics_typevartuple_basic.py", line 97, in <module>: class Array is not indexable [not-indexable]
   ('Array' does not subclass Generic)
-File "generics_typevartuple_basic.py", line 108, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
+File "generics_typevartuple_basic.py", line 106, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
          Expected: (self, i: Iterable)
   Actually passed: (self, i: TypeVarTuple)
   Attributes of protocol Iterable[_T2] are not implemented on TypeVarTuple: __iter__
-File "generics_typevartuple_basic.py", line 108, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+File "generics_typevartuple_basic.py", line 106, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
   Parameters to Generic[...] must all be type variables
 """
