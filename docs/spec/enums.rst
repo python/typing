@@ -88,12 +88,6 @@ in most Python classes. The defined ``__new__`` method of an enum class is
 replaced with a custom implementation that performs a value-based lookup of
 an enum member.
 
-Type checkers should generate an error if an enum member is overwritten or
-deleted because these will result in runtime errors::
-
-    Color.RED = 5  # Type checker error
-    del Color.RED  # Type checker error
-
 An Enum class with one or more defined members cannot be subclassed. They are
 implicitly "final". Type checkers should enforce this::
 
