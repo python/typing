@@ -108,14 +108,14 @@ implicitly "final". Type checkers should enforce this::
         TRIANGLE = 3
 
 
-Members and Non-Member Attributes
----------------------------------
+Defining Members
+----------------
 
 When using the "class syntax", enum classes can define both members and
-non-member attributes. The ``EnumType`` metaclass (named ``EnumMeta`` prior to 
-Python 3.11) applies a set of rules to distinguish between members and
-non-members. Type checkers should honor the most common of these rules. The
-lesser-used rules are optional. Some of these rules may be impossible to
+other (non-member) attributes. The ``EnumType`` metaclass (named ``EnumMeta``
+prior to Python 3.11) applies a set of rules to distinguish between members 
+and non-members. Type checkers should honor the most common of these rules. 
+The lesser-used rules are optional. Some of these rules may be impossible to
 evaluate and enforce statically in cases where dynamic values are used.
 
 * If an attribute is defined in the class body with a type annotation but
