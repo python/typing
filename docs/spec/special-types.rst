@@ -96,15 +96,6 @@ The ``NoReturn`` type is conventionally used in return annotations of
 functions, and ``Never`` is typically used in other locations, but the two
 types are completely interchangeable.
 
-Tuples
-------
-
-The type of a tuple can be expressed by listing the element
-types: ``tuple[int, int, str]`` is a tuple containing an int,
-another int, and a str.  The empty tuple can be typed as
-``tuple[()]``.  Arbitrary-length homogeneous tuples can be
-expressed using one type and ellipsis, for example ``tuple[int, ...]``.
-
 Special cases for ``float`` and ``complex``
 -------------------------------------------
 
