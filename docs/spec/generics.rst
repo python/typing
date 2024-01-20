@@ -563,10 +563,10 @@ a contravariant type is the ``Generator`` type, which is contravariant
 in the ``send()`` argument type (see below).
 
 Variance is meaningful only when a type variable is bound to a generic class.
-Variance has no meaning, and should therefore be ignored by type checkers, if
-a type variable is bound to a generic function or type alias.
-
-For example::
+If a type variable declared as covariant or contravariant is bound to a generic
+function or type alias, type checkers may warn users about this. However, any
+subsequent type analysis involving such functions or aliases should ignore the
+declared variance::
 
   T = TypeVar('T', covariant=True)
 
