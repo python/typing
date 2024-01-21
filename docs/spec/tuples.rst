@@ -31,6 +31,17 @@ compatible with any tuple of any length. This is useful for gradual typing.
 The type ``tuple`` (with no type arguments provided) is equivalent to
 ``tuple[Any, ...]``.
 
+Arbitrary-length tuples have exactly two type arguments -- the type and
+an ellipsis. Any other tuple form that uses an ellipsis is invalid::
+    
+    t1: tuple[int, ...]  # OK
+    t2: tuple[int, int, ...]  # Invalid
+    t3: tuple[...] # Invalid
+    t4: tuple[..., int] # Invalid
+    t5: tuple[int, ..., int] # Invalid
+    t6: tuple[*tuple[str], ...] # Invalid
+    t7: tuple[*tuple[str, ...], ...] # Invalid
+
 
 Unpacked Tuple Form
 -------------------
