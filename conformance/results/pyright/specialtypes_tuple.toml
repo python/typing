@@ -2,21 +2,21 @@ conformant = "Pass"
 output = """
 specialtypes_tuple.py:12:6 - error: Expression of type "tuple[Literal[1], Literal[2]]" cannot be assigned to declared type "tuple[int]"
   "tuple[Literal[1], Literal[2]]" is incompatible with "tuple[int]"
-    Tuple size mismatch; expected 1 but received 2 (reportGeneralTypeIssues)
+    Tuple size mismatch; expected 1 but received 2 (reportAssignmentType)
 specialtypes_tuple.py:14:6 - error: Expression of type "tuple[Literal[1]]" cannot be assigned to declared type "tuple[int, int]"
   "tuple[Literal[1]]" is incompatible with "tuple[int, int]"
-    Tuple size mismatch; expected 2 but received 1 (reportGeneralTypeIssues)
+    Tuple size mismatch; expected 2 but received 1 (reportAssignmentType)
 specialtypes_tuple.py:15:10 - error: Expression of type "tuple[Literal[1], Literal['']]" cannot be assigned to declared type "tuple[int, int]"
-  "Literal['']" is incompatible with "int" (reportGeneralTypeIssues)
+  "Literal['']" is incompatible with "int" (reportAssignmentType)
 specialtypes_tuple.py:25:7 - error: Expression of type "tuple[Literal[1]]" cannot be assigned to declared type "tuple[()]"
   "tuple[Literal[1]]" is incompatible with "tuple[()]"
-    Tuple size mismatch; expected 0 but received 1 (reportGeneralTypeIssues)
+    Tuple size mismatch; expected 0 but received 1 (reportAssignmentType)
 specialtypes_tuple.py:36:17 - error: Expression of type "tuple[Literal[1], Literal[2], Literal[3], Literal['']]" cannot be assigned to declared type "tuple[int, ...]"
-  "Literal['']" is incompatible with "int" (reportGeneralTypeIssues)
+  "Literal['']" is incompatible with "int" (reportAssignmentType)
 specialtypes_tuple.py:42:22 - error: Expression of type "tuple[int, ...]" cannot be assigned to declared type "tuple[int]"
   "tuple[int, ...]" is incompatible with "tuple[int]"
-    Tuple size mismatch; expected 1 but received indeterminate (reportGeneralTypeIssues)
+    Tuple size mismatch; expected 1 but received indeterminate (reportAssignmentType)
 specialtypes_tuple.py:43:21 - error: Expression of type "tuple[int, ...]" cannot be assigned to declared type "tuple[()]"
   "tuple[int, ...]" is incompatible with "tuple[()]"
-    Tuple size mismatch; expected 0 but received indeterminate (reportGeneralTypeIssues)
+    Tuple size mismatch; expected 0 but received indeterminate (reportAssignmentType)
 """

@@ -1,11 +1,11 @@
 conformant = "Pass"
 output = """
-specialtypes_never.py:19:22 - error: Function with declared return type "NoReturn" cannot return "None" (reportGeneralTypeIssues)
+specialtypes_never.py:19:22 - error: Function with declared return type "NoReturn" cannot return "None" (reportReturnType)
 specialtypes_never.py:85:21 - error: Expression of type "list[Never]" cannot be assigned to declared type "list[int]"
   "list[Never]" is incompatible with "list[int]"
     Type parameter "_T@list" is invariant, but "Never" is not the same as "int"
-    Consider switching from "list" to "Sequence" which is covariant (reportGeneralTypeIssues)
+    Consider switching from "list" to "Sequence" which is covariant (reportAssignmentType)
 specialtypes_never.py:104:12 - error: Expression of type "ClassC[Never]" cannot be assigned to return type "ClassC[U@func10]"
   "ClassC[Never]" is incompatible with "ClassC[U@func10]"
-    Type parameter "T@ClassC" is invariant, but "Never" is not the same as "U@func10" (reportGeneralTypeIssues)
+    Type parameter "T@ClassC" is invariant, but "Never" is not the same as "U@func10" (reportReturnType)
 """
