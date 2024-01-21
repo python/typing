@@ -148,8 +148,8 @@ Type checkers may safely use this equivalency rule when narrowing tuple types::
 
 The ``tuple`` class derives from ``Sequence[T_co]`` where ``T_co`` is a covariant
 (non-variadic) type variable. The specialized type of ``T_co`` should be computed
-by a type checker based on the union of element types within the tuple.
-For example, ``tuple[int, *tuple[str, ...]]`` is a subtype of ``Sequence[int | str]``.
+by a type checker as a a supertype of all element types.
+For example, ``tuple[int, *tuple[str, ...]]`` is a subtype of
+``Sequence[int | str]`` or ``Sequence[object]``.
+
 A zero-length tuple (``tuple[()]``) is a subtype of ``Sequence[Never]``.
-
-
