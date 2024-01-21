@@ -8,7 +8,9 @@ from pathlib import Path
 import os
 from pytype import config as pytype_config
 from pytype import io as pytype_io
+from pytype import errors as pytype_errors
 from pytype import load_pytd as pytype_loader
+from shutil import rmtree
 from subprocess import PIPE, run
 import sys
 from tqdm import tqdm
@@ -55,6 +57,9 @@ class MypyTypeChecker(TypeChecker):
 
     def install(self) -> bool:
         try:
+            # Delete the cache for consistent timings.
+            rmtree(".mypy_cache")
+
             run(
                 f"{sys.executable} -m pip install mypy --upgrade",
                 check=True,
@@ -147,6 +152,9 @@ class PyreTypeChecker(TypeChecker):
 
     def install(self) -> bool:
         try:
+            # Delete the cache for consistent timings.
+            rmtree(".pyre")
+
             run(
                 f"{sys.executable} -m pip install pyre-check --upgrade",
                 check=True,
@@ -223,12 +231,49 @@ class PytypeTypeChecker(TypeChecker):
             with open(fi, "r") as test_file:
                 src = test_file.read()
             try:
-                errorlog = pytype_io.check_py(src, options=options, loader=loader)
+                errorlog: pytype_errors.ErrorLog = pytype_io.check_py(
+                    src, options=options, loader=loader
+                )
             except Exception as e:
                 results_dict[fi] = f"{e.__class__.__name__}: {e}\n"
             else:
-                results_dict[fi] = f"{str(errorlog)}"
+                results_dict[fi] = self.enforce_consistent_order(errorlog)
         return results_dict
+
+    def enforce_consistent_order(self, log: pytype_errors.ErrorLog) -> str:
+        """Pytype does not guarantee deterministic output across runs.
+        It does order diagnostics by line number, but if multiple errors
+        occur on the same line, the ordering appears to change from one
+        run to the next. We require deterministic and consistent output,
+        so this method sorts the pytype output by line number and then
+        alphabetically within a line.
+        """
+
+        class ErrorSorter:
+            def __init__(self, err: pytype_errors.Error) -> None:
+                # Overwrite the details in the error because these can be
+                # nondeterministic (differ from run to run) in some cases.
+                err._details = ""
+                self._err = err
+
+            def __lt__(self, other: "ErrorSorter", /) -> bool:
+                lineno_diff = self._err.lineno - other._err.lineno
+                if lineno_diff != 0:
+                    return lineno_diff < 0
+                return other._err.message < self._err.message
+
+            def __eq__(self, other: object, /) -> bool:
+                return (
+                    isinstance(other, ErrorSorter)
+                    and self._err.lineno == other._err.lineno
+                    and other._err.message == self._err.message
+                )
+
+        errors: list[pytype_errors.Error] = [
+            error for error in log.unique_sorted_errors()
+        ]
+        errors.sort(key=ErrorSorter)
+        return "\n".join(map(str, errors)) + "\n"
 
 
 TYPE_CHECKERS: Sequence[TypeChecker] = (

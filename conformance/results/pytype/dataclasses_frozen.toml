@@ -5,4 +5,5 @@ Does not reject frozen dataclass inherited from non-frozen dataclass.
 Does not reject non-frozen dataclass inherited from frozen dataclass.
 """
 output = """
+
 """

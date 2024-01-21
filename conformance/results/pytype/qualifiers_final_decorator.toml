@@ -5,32 +5,16 @@ Does not report error for overload that is marked @final when implementation is 
 """
 output = """
 File "qualifiers_final_decorator.py", line 8, in <module>: Couldn't import pyi for '_qualifiers_final_decorator' [pyi-error]
-    File: "_qualifiers_final_decorator.pyi", line 8
-      class Base3:
-     ^
-  ParseError: Overloaded signatures for 'method' disagree on final decorators
 File "qualifiers_final_decorator.py", line 21, in <module>: Cannot subclass final class: Base1 [final-error]
 File "qualifiers_final_decorator.py", line 52, in method4: bad return type [bad-return-type]
-           Expected: str
-  Actually returned: int
-File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method2, defined in base class Base2 [final-error]
 File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method4, defined in base class Base2 [final-error]
-File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method1, defined in base class Base2 [final-error]
 File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method3, defined in base class Base2 [final-error]
+File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method2, defined in base class Base2 [final-error]
+File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method1, defined in base class Base2 [final-error]
 File "qualifiers_final_decorator.py", line 76, in method4: bad return type [bad-return-type]
-           Expected: str
-  Actually returned: int
 File "qualifiers_final_decorator.py", line 90, in method: bad return type [bad-return-type]
-           Expected: str
-  Actually returned: int
 File "qualifiers_final_decorator.py", line 103, in method: bad return type [bad-return-type]
-           Expected: str
-  Actually returned: int
 File "qualifiers_final_decorator.py", line 117, in <module>: Class Derived5 overrides final method method, defined in base class Base5_2 [final-error]
 File "qualifiers_final_decorator.py", line 118, in Derived5: Overriding method signature mismatch [signature-mismatch]
-  Base signature: 'def Base5_2.method(self, v: int) -> None'.
-  Subclass signature: 'def Derived5.method(self) -> None'.
-  Not enough positional parameters in overriding method.
 File "qualifiers_final_decorator.py", line 126, in <module>: Cannot apply @final decorator to func1 [final-error]
-  @final can only be applied to classes and methods.
 """
