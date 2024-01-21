@@ -59,7 +59,11 @@ class MypyTypeChecker(TypeChecker):
         try:
             # Delete the cache for consistent timings.
             rmtree(".mypy_cache")
+        except:
+            # Ignore any errors here.
+            pass
 
+        try:
             run(
                 f"{sys.executable} -m pip install mypy --upgrade",
                 check=True,
@@ -154,7 +158,11 @@ class PyreTypeChecker(TypeChecker):
         try:
             # Delete the cache for consistent timings.
             rmtree(".pyre")
+        except:
+            # Ignore any errors here.
+            pass
 
+        try:
             run(
                 f"{sys.executable} -m pip install pyre-check --upgrade",
                 check=True,
