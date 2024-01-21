@@ -1297,6 +1297,7 @@ explicitly marking the code as unsafe (by using ``y: Array[*tuple[Any,
 checker every time they tried to use the variable ``y``, which would
 hinder them when migrating a legacy code base to use ``TypeVarTuple``.
 
+.. _args_as_typevartuple:
 
 ``*args`` as a Type Variable Tuple
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

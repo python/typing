@@ -4,9 +4,10 @@ Tuples
 The ``tuple`` class has some special behaviors and properties that make it
 different from other classes from a typing perspective. The most obvious
 difference is that ``tuple`` is variadic -- it supports an arbitrary number
-of type arguments. Each type argument represents a single element, and those
-elements are immutable at runtime. These properties affect subtyping rules and
-other behaviors as described below.
+of type arguments. At runtime, the sequence of objects contained within the
+tuple is fixed at the time of construction. Elements cannot be added, removed,
+reordered, or replaced after construction. These properties affect subtyping
+rules and other behaviors as described below.
 
 
 Tuple Type Form
@@ -79,11 +80,10 @@ the ``typing.Unpack`` special form can be used:
 ``tuple[int, Unpack[tuple[str, ...]], int]``.
 
 Unpacked tuples can also be used for ``*args`` parameters in a function
-signature. For example, ``def f(*args: *tuple[int, str]): ...``. Unpacked tuples
+signature: ``def f(*args: *tuple[int, str]): ...``. Unpacked tuples
 can also be used for specializing generic classes or type variables that are
-parameterized using a ``TypeVarTuple``. For more details, see "``*args`` as a
-Type Variable Tuple" in the Generics section. [TODO: not sure how to create a
-link to a heading in another .rst file]
+parameterized using a ``TypeVarTuple``. For more details, see
+:ref:`args_as_typevartuple`.
 
 
 Type Compatibility Rules
@@ -95,7 +95,8 @@ For example, ``tuple[int, int]`` is a subtype of ``tuple[float, complex]``.
 As discussed above, a homogeneous tuple of arbitrary length is equivalent
 to a union of tuples of different lengths. That means ``tuple[()]``, 
 ``tuple[int]`` and ``tuple[int, *tuple[int, ...]]`` are all subtypes of
-``tuple[int, ...]``.
+``tuple[int, ...]``. The converse is not true; ``tuple[int, ...]``` is not a
+subtype of ``tuple[int]``.
 
 The type ``tuple[Any, ...]`` is bidirectionally compatible with any tuple::
 
