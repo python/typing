@@ -6,6 +6,4 @@ output = """
 File "protocols_recursive.py", line 11, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
 File "protocols_recursive.py", line 12, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
 File "protocols_recursive.py", line 81, in <module>: Any [assert-type]
-  Expected: List[int]
-    Actual: Any
 """

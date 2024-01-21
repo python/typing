@@ -3,4 +3,5 @@ notes = """
 Does not reject protocol compatibility due to method `Self` return type.
 """
 output = """
+
 """

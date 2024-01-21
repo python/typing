@@ -4,24 +4,16 @@ Does not reject some illegal type expression forms used in Annotated.
 Does not allow TypeVar to be used in type alias when wrapped with Annotated.
 """
 output = """
-File "qualifiers_annotated.py", line 10, in <module>: typing.NotRequired not supported yet [not-supported-yet]
 File "qualifiers_annotated.py", line 10, in <module>: typing.Required not supported yet [not-supported-yet]
+File "qualifiers_annotated.py", line 10, in <module>: typing.NotRequired not supported yet [not-supported-yet]
 File "qualifiers_annotated.py", line 41, in <module>: Invalid type annotation '[int, str]' for Bad1 [invalid-annotation]
-  Not a type
 File "qualifiers_annotated.py", line 42, in <module>: Invalid type annotation '((int, str),)' for Bad2 [invalid-annotation]
-  Not a type
 File "qualifiers_annotated.py", line 43, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for Bad3 [invalid-annotation]
-  Not a type
 File "qualifiers_annotated.py", line 44, in <module>: Invalid type annotation "{'a': 'b'}" for Bad4 [invalid-annotation]
-  Not a type
 File "qualifiers_annotated.py", line 48, in <module>: Name 'var1' is not defined [name-error]
 File "qualifiers_annotated.py", line 49, in <module>: Invalid type annotation 'True' for Bad9 [invalid-annotation]
-  Not a type
 File "qualifiers_annotated.py", line 50, in <module>: Invalid type annotation '1' for Bad10 [invalid-annotation]
-  Not a type
 File "qualifiers_annotated.py", line 52, in <module>: Invalid type annotation '<instance of str>' for Bad12 [invalid-annotation]
-  Must be constant
 File "qualifiers_annotated.py", line 62, in <module>: Invalid type annotation 'Annotated'  [invalid-annotation]
-  typing.Annotated must have at least 1 annotation
 File "qualifiers_annotated.py", line 96, in <module>: Invalid TypeVar: TypeVar('T') must be stored as 'T', not 'TA3' [invalid-typevar]
 """

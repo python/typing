@@ -5,53 +5,24 @@ Does not support TypeVarTuple.
 output = """
 File "generics_typevartuple_concat.py", line 9, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
 File "generics_typevartuple_concat.py", line 17, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
-         Expected: (self)
-  Actually passed: (self, _)
 File "generics_typevartuple_concat.py", line 18, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
-         Expected: (self)
-  Actually passed: (self, _)
 File "generics_typevartuple_concat.py", line 22, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
-  Parameters to Generic[...] must all be type variables
 File "generics_typevartuple_concat.py", line 26, in <module>: class Array is not indexable [not-indexable]
-  ('Array' does not subclass Generic)
 File "generics_typevartuple_concat.py", line 27, in add_batch_axis: bad return type [bad-return-type]
-           Expected: Array
-  Actually returned: None
 File "generics_typevartuple_concat.py", line 30, in <module>: class Array is not indexable [not-indexable]
-  ('Array' does not subclass Generic)
 File "generics_typevartuple_concat.py", line 31, in del_batch_axis: bad return type [bad-return-type]
-           Expected: Array
-  Actually returned: None
 File "generics_typevartuple_concat.py", line 34, in <module>: class Array is not indexable [not-indexable]
-  ('Array' does not subclass Generic)
 File "generics_typevartuple_concat.py", line 35, in add_batch_channels: bad return type [bad-return-type]
-           Expected: Array
-  Actually returned: None
 File "generics_typevartuple_concat.py", line 38, in <module>: class Array is not indexable [not-indexable]
-  ('Array' does not subclass Generic)
 File "generics_typevartuple_concat.py", line 40, in func1: class Array is not indexable [not-indexable]
-  ('Array' does not subclass Generic)
 File "generics_typevartuple_concat.py", line 42, in func1: class Array is not indexable [not-indexable]
-  ('Array' does not subclass Generic)
 File "generics_typevartuple_concat.py", line 44, in func1: class Array is not indexable [not-indexable]
-  ('Array' does not subclass Generic)
-File "generics_typevartuple_concat.py", line 47, in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
-  Not a type
-File "generics_typevartuple_concat.py", line 47, in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
-  Not a type
 File "generics_typevartuple_concat.py", line 47, in <module>: Invalid type annotation 'T'  [invalid-annotation]
-  TypeVar 'T' appears only once in the function signature
+File "generics_typevartuple_concat.py", line 47, in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+File "generics_typevartuple_concat.py", line 47, in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
 File "generics_typevartuple_concat.py", line 48, in prefix_tuple: bad return type [bad-return-type]
-           Expected: Tuple[Any]
-  Actually returned: None
 File "generics_typevartuple_concat.py", line 51, in <module>: Function prefix_tuple was called with the wrong arguments [wrong-arg-types]
-         Expected: (x, y: Tuple[Any])
-  Actually passed: (x, y: Tuple[bool, str])
 File "generics_typevartuple_concat.py", line 52, in <module>: Any [assert-type]
-  Expected: Tuple[int, bool, str]
-    Actual: Any
-File "generics_typevartuple_concat.py", line 55, in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
-  Not a type
 File "generics_typevartuple_concat.py", line 55, in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
-  Not a type
+File "generics_typevartuple_concat.py", line 55, in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
 """
