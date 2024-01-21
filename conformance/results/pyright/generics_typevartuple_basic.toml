@@ -1,16 +1,13 @@
-conformant = "Partial"
-notes = """
-Does not enforce that tuples captured by TypeVarTuple are same type (spec bug?).
-"""
+conformant = "Pass"
 output = """
 generics_typevartuple_basic.py:42:34 - error: Argument of type "Height" cannot be assigned to parameter "shape" of type "tuple[*Shape@Array]" in function "__init__"
-  "Height" is incompatible with "tuple[*Shape@Array]" (reportGeneralTypeIssues)
+  "Height" is incompatible with "tuple[*Shape@Array]" (reportArgumentType)
 generics_typevartuple_basic.py:43:35 - error: Expression of type "Array[Batch, Width]" cannot be assigned to declared type "Array[Batch, Height, Width]"
   "Array[Batch, Width]" is incompatible with "Array[Batch, Height, Width]"
-    Type parameter "Shape@Array" is invariant, but "*tuple[Batch, Width]" is not the same as "*tuple[Batch, Height, Width]" (reportGeneralTypeIssues)
+    Type parameter "Shape@Array" is invariant, but "*tuple[Batch, Width]" is not the same as "*tuple[Batch, Height, Width]" (reportAssignmentType)
 generics_typevartuple_basic.py:44:41 - error: Expression of type "Array[Time, Batch, Width, Height]" cannot be assigned to declared type "Array[Time, Batch, Height, Width]"
   "Array[Time, Batch, Width, Height]" is incompatible with "Array[Time, Batch, Height, Width]"
-    Type parameter "Shape@Array" is invariant, but "*tuple[Time, Batch, Width, Height]" is not the same as "*tuple[Time, Batch, Height, Width]" (reportGeneralTypeIssues)
+    Type parameter "Shape@Array" is invariant, but "*tuple[Time, Batch, Width, Height]" is not the same as "*tuple[Time, Batch, Height, Width]" (reportAssignmentType)
 generics_typevartuple_basic.py:52:22 - error: Expected unpacked TypeVarTuple; use Unpack[Shape] or *Shape
 generics_typevartuple_basic.py:53:37 - error: Expected unpacked TypeVarTuple; use Unpack[Shape] or *Shape
 generics_typevartuple_basic.py:56:34 - error: Expected unpacked TypeVarTuple; use Unpack[Shape] or *Shape
@@ -19,18 +16,17 @@ generics_typevartuple_basic.py:65:27 - error: "covariant" is unknown parameter t
 generics_typevartuple_basic.py:66:27 - error: TypeVarTuple cannot have value constraints
 generics_typevartuple_basic.py:66:32 - error: TypeVarTuple cannot have value constraints
 generics_typevartuple_basic.py:67:27 - error: "bound" is unknown parameter to TypeVarTuple
-generics_typevartuple_basic.py:92:15 - error: Argument of type "tuple[Literal[0]]" cannot be assigned to parameter "arg2" of type "tuple[*Ts@func2]" in function "func2"
+generics_typevartuple_basic.py:89:14 - error: Argument of type "tuple[Literal['0']]" cannot be assigned to parameter "arg2" of type "tuple[*Ts@func2]" in function "func2"
+  "Literal['0']" is incompatible with "int" (reportArgumentType)
+generics_typevartuple_basic.py:90:15 - error: Argument of type "tuple[Literal[0]]" cannot be assigned to parameter "arg2" of type "tuple[*Ts@func2]" in function "func2"
   "tuple[Literal[0]]" is incompatible with "tuple[int, int]"
-    Tuple size mismatch; expected 2 but received 1 (reportGeneralTypeIssues)
-generics_typevartuple_basic.py:101:14 - error: Argument of type "Array[Height]" cannot be assigned to parameter "x" of type "Array[*Shape@multiply]" in function "multiply"
-  "Array[Height]" is incompatible with "Array[Height | Width]"
-    Type parameter "Shape@Array" is invariant, but "*tuple[Height]" is not the same as "*tuple[Height | Width]" (reportGeneralTypeIssues)
-generics_typevartuple_basic.py:101:17 - error: Argument of type "Array[Width]" cannot be assigned to parameter "y" of type "Array[*Shape@multiply]" in function "multiply"
-  "Array[Width]" is incompatible with "Array[Height | Width]"
-    Type parameter "Shape@Array" is invariant, but "*tuple[Width]" is not the same as "*tuple[Height | Width]" (reportGeneralTypeIssues)
-generics_typevartuple_basic.py:102:17 - error: Argument of type "Array[Height, Width]" cannot be assigned to parameter "y" of type "Array[*Shape@multiply]" in function "multiply"
+    Tuple size mismatch; expected 2 but received 1 (reportArgumentType)
+generics_typevartuple_basic.py:99:17 - error: Argument of type "Array[Width]" cannot be assigned to parameter "y" of type "Array[*Shape@multiply]" in function "multiply"
+  "Array[Width]" is incompatible with "Array[Height]"
+    Type parameter "Shape@Array" is invariant, but "*tuple[Width]" is not the same as "*tuple[Height]" (reportArgumentType)
+generics_typevartuple_basic.py:100:17 - error: Argument of type "Array[Height, Width]" cannot be assigned to parameter "y" of type "Array[*Shape@multiply]" in function "multiply"
   "Array[Height, Width]" is incompatible with "Array[Height]"
-    Type parameter "Shape@Array" is invariant, but "*tuple[Height, Width]" is not the same as "*tuple[Height]" (reportGeneralTypeIssues)
-generics_typevartuple_basic.py:108:14 - error: Generic class can have at most one TypeVarTuple type parameter but received multiple ("Ts1", "Ts2")
-generics_typevartuple_basic.py:108:29 - error: Type argument list can have at most one unpacked TypeVarTuple or Tuple
+    Type parameter "Shape@Array" is invariant, but "*tuple[Height, Width]" is not the same as "*tuple[Height]" (reportArgumentType)
+generics_typevartuple_basic.py:106:14 - error: Generic class can have at most one TypeVarTuple type parameter but received multiple ("Ts1", "Ts2")
+generics_typevartuple_basic.py:106:29 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
 """

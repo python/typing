@@ -1,13 +1,9 @@
-conformant = "Partial"
-notes = """
-Incorrectly reports some class objects as incompatible with a protocol.
-Fails to report some class objects as incompatible with a protocol.
-"""
+conformant = "Pass"
 output = """
 protocols_class_objects.py:29:5 - error: Argument of type "type[Proto]" cannot be assigned to parameter "cls" of type "type[Proto]" in function "fun"
-  "Proto" is not a concrete class type and cannot be assigned to type "type[Proto]" (reportGeneralTypeIssues)
+  "Proto" is not a concrete class type and cannot be assigned to type "type[Proto]" (reportArgumentType)
 protocols_class_objects.py:34:7 - error: Expression of type "type[Proto]" cannot be assigned to declared type "type[Proto]"
-  "Proto" is not a concrete class type and cannot be assigned to type "type[Proto]" (reportGeneralTypeIssues)
+  "Proto" is not a concrete class type and cannot be assigned to type "type[Proto]" (reportAssignmentType)
 protocols_class_objects.py:58:16 - error: Expression of type "type[ConcreteA]" cannot be assigned to declared type "ProtoA1"
   "type[type]" is incompatible with "type[ConcreteA]"
   "type[type]" is incompatible with "type[ConcreteA]"
@@ -15,14 +11,16 @@ protocols_class_objects.py:58:16 - error: Expression of type "type[ConcreteA]" c
     Type "(self: ConcreteA, x: int) -> int" cannot be assigned to type "(x: int) -> int"
       Parameter name mismatch: "x" versus "self"
       Parameter 1: type "int" cannot be assigned to type "ConcreteA"
-        "int" is incompatible with "ConcreteA" (reportGeneralTypeIssues)
+        "int" is incompatible with "ConcreteA" (reportAssignmentType)
 protocols_class_objects.py:74:16 - error: Expression of type "type[ConcreteB]" cannot be assigned to declared type "ProtoB1"
   "prop1" is an incompatible type
-    "property" is incompatible with "int" (reportGeneralTypeIssues)
-protocols_class_objects.py:102:16 - error: Expression of type "type[ConcreteC1]" cannot be assigned to declared type "ProtoC2"
-  "attr1" is not defined as a ClassVar in protocol (reportGeneralTypeIssues)
+    "property" is incompatible with "int" (reportAssignmentType)
+protocols_class_objects.py:101:16 - error: Expression of type "type[ConcreteC1]" cannot be assigned to declared type "ProtoC1"
+  "attr1" is defined as a ClassVar in protocol (reportAssignmentType)
 protocols_class_objects.py:103:16 - error: Expression of type "type[ConcreteC2]" cannot be assigned to declared type "ProtoC1"
-  "attr1" is defined as a ClassVar in protocol (reportGeneralTypeIssues)
+  "attr1" is defined as a ClassVar in protocol (reportAssignmentType)
+protocols_class_objects.py:104:16 - error: Expression of type "type[ConcreteC2]" cannot be assigned to declared type "ProtoC2"
+  "attr1" must be defined as a ClassVar to be compatible with protocol (reportAssignmentType)
 protocols_class_objects.py:105:16 - error: Expression of type "type[ConcreteC3]" cannot be assigned to declared type "ProtoC1"
-  "attr1" is defined as a ClassVar in protocol (reportGeneralTypeIssues)
+  "attr1" is defined as a ClassVar in protocol (reportAssignmentType)
 """

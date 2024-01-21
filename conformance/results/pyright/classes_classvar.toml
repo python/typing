@@ -6,7 +6,7 @@ classes_classvar.py:38:14 - error: "var" is not defined (reportUndefinedVariable
 classes_classvar.py:43:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
 classes_classvar.py:44:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
 classes_classvar.py:45:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
-classes_classvar.py:50:33 - error: Expression of type "dict[Any, Any]" cannot be assigned to declared type "list[str]" (reportGeneralTypeIssues)
+classes_classvar.py:50:33 - error: Expression of type "dict[Any, Any]" cannot be assigned to declared type "list[str]" (reportAssignmentType)
 classes_classvar.py:52:11 - error: "Final" is not defined (reportUndefinedVariable)
 classes_classvar.py:53:17 - error: "ClassVar" is not allowed in this context
 classes_classvar.py:61:26 - error: "ClassVar" is not allowed in this context
@@ -17,10 +17,9 @@ classes_classvar.py:69:8 - error: "ClassVar" is not allowed in this context
 classes_classvar.py:70:20 - error: "ClassVar" is not allowed in this context
 classes_classvar.py:100:14 - error: Cannot assign member "stats" for type "Starship"
   Member "stats" cannot be assigned through a class instance because it is a ClassVar
-    Member "__set__" is unknown (reportGeneralTypeIssues)
+    Member "__set__" is unknown (reportAttributeAccessIssue)
 classes_classvar.py:129:13 - error: Expression of type "ProtoAImpl" cannot be assigned to declared type "ProtoA"
   "ProtoAImpl" is incompatible with protocol "ProtoA"
-    "y" is not a class variable
-      "x" is defined as a ClassVar in protocol
-      "y" is defined as a ClassVar in protocol (reportGeneralTypeIssues)
+    "x" is defined as a ClassVar in protocol
+    "y" is defined as a ClassVar in protocol (reportAssignmentType)
 """

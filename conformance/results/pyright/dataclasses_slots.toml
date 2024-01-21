@@ -4,7 +4,7 @@ dataclasses_slots.py:11:12 - error: __slots__ is already defined in class (repor
 dataclasses_slots.py:26:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)
 dataclasses_slots.py:39:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)
 dataclasses_slots.py:67:5 - error: Cannot access member "__slots__" for type "type[DC6]"
-  Member "__slots__" is unknown (reportGeneralTypeIssues)
+  Member "__slots__" is unknown (reportAttributeAccessIssue)
 dataclasses_slots.py:70:8 - error: Cannot access member "__slots__" for type "DC6"
-  Member "__slots__" is unknown (reportGeneralTypeIssues)
+  Member "__slots__" is unknown (reportAttributeAccessIssue)
 """

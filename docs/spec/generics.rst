@@ -272,7 +272,7 @@ However, there are some special cases in the static typechecking context:
         # this is also an error
         an_attr: list[S] = []
 
-        def do_something(x: S) -> S:  # this is OK though
+        def do_something(self, x: S) -> S:  # this is OK though
             ...
 
 * A generic class definition that appears inside a generic function
@@ -333,7 +333,7 @@ argument(s) is substituted.  Otherwise, ``Any`` is assumed.  Example::
 
   class Node(Generic[T]):
       x: T # Instance attribute (see below)
-      def __init__(self, label: T = None) -> None:
+      def __init__(self, label: T | None = None) -> None:
           ...
 
   x = Node('')  # Inferred type is Node[str]
@@ -341,7 +341,7 @@ argument(s) is substituted.  Otherwise, ``Any`` is assumed.  Example::
   z = Node()    # Inferred type is Node[Any]
 
 In case the inferred type uses ``[Any]`` but the intended type is more
-specific, you can use a type comment (see below) to force the type of
+specific, you can use an annotation (see below) to force the type of
 the variable, e.g.::
 
   # (continued from previous example)
@@ -373,8 +373,8 @@ class instance that does not have an instance attribute with the same name::
   Node.x = 1       # Error
   Node.x           # Error
   type(p).x        # Error
-  p.x              # Ok (evaluates to None)
-  Node[int]().x    # Ok (evaluates to None)
+  p.x              # Ok (evaluates to int)
+  Node[int]().x    # Ok (evaluates to int)
   p.x = 1          # Ok, but assigning to instance attribute
 
 Generic versions of abstract collections like ``Mapping`` or ``Sequence``

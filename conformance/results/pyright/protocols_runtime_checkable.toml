@@ -1,11 +1,9 @@
-conformant = "Partial"
-notes = """
-Does not reject issubclass call for data protocol if included in tuple.
-"""
+conformant = "Pass"
 output = """
 protocols_runtime_checkable.py:23:22 - error: Second argument to "isinstance" must be a class or tuple of classes
-  Protocol class must be @runtime_checkable to be used with instance and class checks (reportGeneralTypeIssues)
+  Protocol class must be @runtime_checkable to be used with instance and class checks (reportArgumentType)
 protocols_runtime_checkable.py:55:22 - error: Data protocols (which include non-method attributes) are not allowed in issubclass calls (reportGeneralTypeIssues)
+protocols_runtime_checkable.py:61:22 - error: Data protocols (which include non-method attributes) are not allowed in issubclass calls (reportGeneralTypeIssues)
 protocols_runtime_checkable.py:88:19 - error: Class overlaps "Proto3" unsafely and could produce a match at runtime
   Attributes of "Concrete3A" have the same names as the protocol (reportGeneralTypeIssues)
 protocols_runtime_checkable.py:92:9 - error: Class overlaps "Proto3" unsafely and could produce a match at runtime

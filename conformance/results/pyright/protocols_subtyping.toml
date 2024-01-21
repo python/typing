@@ -1,25 +1,25 @@
 conformant = "Pass"
 output = """
-protocols_subtyping.py:16:6 - error: Cannot instantiate protocol class "Proto1" (reportGeneralTypeIssues)
+protocols_subtyping.py:16:6 - error: Cannot instantiate protocol class "Proto1" (reportAbstractUsage)
 protocols_subtyping.py:38:21 - error: Expression of type "Proto2" cannot be assigned to declared type "Concrete2"
-  "Proto2" is incompatible with "Concrete2" (reportGeneralTypeIssues)
+  "Proto2" is incompatible with "Concrete2" (reportAssignmentType)
 protocols_subtyping.py:55:18 - error: Expression of type "Proto2" cannot be assigned to declared type "Proto3"
   "Proto2" is incompatible with protocol "Proto3"
-    "method2" is not present (reportGeneralTypeIssues)
+    "method2" is not present (reportAssignmentType)
 protocols_subtyping.py:79:30 - error: Expression of type "Proto5[int]" cannot be assigned to declared type "Proto4[int, float]"
   "Proto5[int]" is incompatible with protocol "Proto4[int, float]"
-    Type parameter "T@Proto4" is invariant, but "int" is not the same as "float" (reportGeneralTypeIssues)
+    Type parameter "T@Proto4" is invariant, but "int" is not the same as "float" (reportAssignmentType)
 protocols_subtyping.py:80:25 - error: Expression of type "Proto4[int, int]" cannot be assigned to declared type "Proto5[float]"
   "Proto4[int, int]" is incompatible with protocol "Proto5[float]"
-    Type parameter "T@Proto5" is invariant, but "int" is not the same as "float" (reportGeneralTypeIssues)
+    Type parameter "T@Proto5" is invariant, but "int" is not the same as "float" (reportAssignmentType)
 protocols_subtyping.py:102:30 - error: Expression of type "Proto6[float, float]" cannot be assigned to declared type "Proto7[int, float]"
   "Proto6[float, float]" is incompatible with protocol "Proto7[int, float]"
     "method1" is an incompatible type
       Type "(a: float) -> Sequence[float]" cannot be assigned to type "(a: T_contra@Proto7) -> Sequence[S_co@Proto7]"
         Function return type "Sequence[float]" is incompatible with type "Sequence[S_co@Proto7]"
-          "Sequence[float]" is incompatible with "Sequence[S_co@Proto7]" (reportGeneralTypeIssues)
+          "Sequence[float]" is incompatible with "Sequence[S_co@Proto7]" (reportAssignmentType)
 protocols_subtyping.py:103:33 - error: Expression of type "Proto6[float, float]" cannot be assigned to declared type "Proto7[float, object]"
   "Proto6[float, float]" is incompatible with protocol "Proto7[float, object]"
     Type parameter "T_contra@Proto7" is contravariant, but "float" is not a supertype of "object"
-      "object" is incompatible with "float" (reportGeneralTypeIssues)
+      "object" is incompatible with "float" (reportAssignmentType)
 """

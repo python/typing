@@ -8,10 +8,8 @@ Does not report instantiation of class that derives from protocol but doesn't im
 """
 output = """
 File "protocols_explicit.py", line 14, in draw: bad return type [bad-return-type]
-           Expected: str
-  Actually returned: None
 Called from (traceback):
   line 27, in draw
-File "protocols_explicit.py", line 63, in <module>: Can't instantiate Point with abstract methods intensity [not-instantiable]
-File "protocols_explicit.py", line 163, in <module>: Can't instantiate Concrete7A with abstract methods method1 [not-instantiable]
+File "protocols_explicit.py", line 59, in <module>: Can't instantiate Point with abstract methods intensity [not-instantiable]
+File "protocols_explicit.py", line 159, in <module>: Can't instantiate Concrete7A with abstract methods method1 [not-instantiable]
 """

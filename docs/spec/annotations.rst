@@ -114,6 +114,16 @@ be evaluated.
 Moreover, the expression should be parseable as a valid type hint, i.e.,
 it is constrained by the rules from the section on :ref:`valid-types`.
 
+If a triple quote is used, the string should be parsed as though it is
+implicitly surrounded by parentheses. This allows newline characters to be 
+used within the string literal::
+
+    value: """
+        int |
+        str |
+        list[Any]
+    """
+
 It is allowable to use string literals as *part* of a type hint, for
 example::
 
