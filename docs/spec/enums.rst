@@ -19,7 +19,7 @@ comma-delimited or space-delimited names, a list or tuple of tuples that contain
 name/value pairs, and a dictionary of name/value items.
 
 Type checkers should support the class syntax, but the function syntax (in
-is various forms) is optional::
+its various forms) is optional::
 
     class Color1(Enum): # Supported
         RED = 1
@@ -42,8 +42,9 @@ the variable must match the name of the enum class::
   WrongName = Enum('Color', 'RED GREEN BLUE')  # Type checker error
 
 Enum classes can also be defined using a subclass of ``enum.Enum`` or any class
-that uses ``enum.EnumType`` or ``enum.EnumMeta`` (or a subclass thereof) as a
-metaclass. Type checkers should treat such classes as enums::
+that uses ``enum.EnumType`` (or a subclass thereof) as a metaclass. Note that
+``enum.EnumType`` was named ``enum.EnumMeta`` prior to Python 3.11. Type
+checkers should treat such classes as enums::
 
     class CustomEnum1(Enum):
         pass
@@ -106,11 +107,11 @@ Defining Members
 ----------------
 
 When using the "class syntax", enum classes can define both members and
-other (non-member) attributes. The ``EnumType`` metaclass (named ``EnumMeta``
-prior to Python 3.11) applies a set of rules to distinguish between members 
-and non-members. Type checkers should honor the most common of these rules. 
-The lesser-used rules are optional. Some of these rules may be impossible to
-evaluate and enforce statically in cases where dynamic values are used.
+other (non-member) attributes. The ``EnumType`` metaclass applies a set
+of rules to distinguish between members and non-members. Type checkers
+should honor the most common of these rules. The lesser-used rules are
+optional. Some of these rules may be impossible to evaluate and enforce
+statically in cases where dynamic values are used.
 
 * If an attribute is defined in the class body with a type annotation but
   with no assigned value, a type checker should assume this is a non-member
