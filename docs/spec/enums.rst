@@ -35,12 +35,6 @@ its various forms) is optional::
     Color8 = Enum('Color8', (('RED': 1), ('GREEN': 2), ('BLUE': 3)))  # Optional
     Color9 = Enum('Color9', {'RED': 1, 'GREEN': 2, 'BLUE': 3})  # Optional
 
-If a type checker supports the functional syntax, it should enforce name
-consistency. That is, if the type is assigned to a variable, the name of
-the variable must match the name of the enum class::
-
-  WrongName = Enum('Color', 'RED GREEN BLUE')  # Type checker error
-
 Enum classes can also be defined using a subclass of ``enum.Enum`` or any class
 that uses ``enum.EnumType`` (or a subclass thereof) as a metaclass. Note that
 ``enum.EnumType`` was named ``enum.EnumMeta`` prior to Python 3.11. Type
