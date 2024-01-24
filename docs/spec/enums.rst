@@ -280,6 +280,18 @@ checkers should enforce this declared type when values are assigned to
 
         MERCURY = (1, 3.303e+23, 2.4397e6)
 
+If the literal values for enum members are not supplied, as they sometimes
+are not within a type stub file, a type checker can use the type of the
+``_value_`` attribute::
+
+    class ColumnType(Enum):
+        _value_: int
+        DORIC = ...
+        IONIC = ...
+        CORINTHIAN = ...
+    
+    reveal_type(ColumnType.DORIC.value)  # Revealed type is int (or object or Any)
+
 
 Enum Literal Expansion
 ----------------------
