@@ -19,7 +19,7 @@ example, ``tuple[int, int, str]`` is a tuple containing an ``int``, another
 
 The empty tuple can be annotated as ``tuple[()]``.
 
-Arbitrary-length homogeneous tuples can be expressed using one type and
+Arbitrary-length homogeneous tuples can be expressed using one type and an
 ellipsis, for example ``tuple[int, ...]``. This type is equivalent to a union
 of tuples containing zero or more ``int`` elements (``tuple[()] |
 tuple[int] | tuple[int, int] | tuple[int, int, int] | ...``).
