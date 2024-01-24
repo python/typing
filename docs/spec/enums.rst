@@ -84,10 +84,8 @@ behaviors::
     reveal_type(Color["RED"])  # Revealed type is 'Literal[Color.RED]' (or 'Color')
     reveal_type(Color(3))  # Revealed type is 'Literal[Color.BLUE]' (or 'Color')
 
-Calling an enum class does not invoke its constructor, as is normal
-in most Python classes. The defined ``__new__`` method of an enum class is
-replaced with a custom implementation that performs a value-based lookup of
-an enum member.
+Unlike most Python classes, Calling an enum class does not invoke its constructor.
+Instead, the call performs a value-based lookup of an enum member.
 
 An Enum class with one or more defined members cannot be subclassed. They are
 implicitly "final". Type checkers should enforce this::
