@@ -62,7 +62,7 @@ If an unpacked ``*tuple[Any, ...]`` is embedded within another tuple, that
 portion of the tuple is bidirectionally type compatible with any tuple of
 any length.
 
-Only one unbounded tuple can be used with another tuple::
+Only one unbounded tuple can be used within another tuple::
 
     t1: tuple[*tuple[str], *tuple[str]]  # OK
     t2: tuple[*tuple[str, *tuple[str, ...]]]  # OK
