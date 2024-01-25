@@ -4,8 +4,6 @@ Does not reject some illegal type expression forms used in Annotated.
 Does not allow TypeVar to be used in type alias when wrapped with Annotated.
 """
 output = """
-File "qualifiers_annotated.py", line 10, in <module>: typing.Required not supported yet [not-supported-yet]
-File "qualifiers_annotated.py", line 10, in <module>: typing.NotRequired not supported yet [not-supported-yet]
 File "qualifiers_annotated.py", line 41, in <module>: Invalid type annotation '[int, str]' for Bad1 [invalid-annotation]
 File "qualifiers_annotated.py", line 42, in <module>: Invalid type annotation '((int, str),)' for Bad2 [invalid-annotation]
 File "qualifiers_annotated.py", line 43, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for Bad3 [invalid-annotation]
