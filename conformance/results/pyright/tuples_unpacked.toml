@@ -1,0 +1,16 @@
+conformance = "Partial"
+notes = """
+Incorrectly rejects tuple with multiple unpacks even if there is only one unbounded tuple.
+"""
+output = """
+tuples_unpacked.py:31:27 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+tuples_unpacked.py:32:32 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+tuples_unpacked.py:37:25 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+tuples_unpacked.py:39:30 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+tuples_unpacked.py:40:43 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+tuples_unpacked.py:48:29 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+tuples_unpacked.py:49:34 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+tuples_unpacked.py:55:32 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+tuples_unpacked.py:57:37 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+tuples_unpacked.py:59:50 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+"""

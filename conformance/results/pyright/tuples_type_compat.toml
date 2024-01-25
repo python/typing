@@ -1,0 +1,31 @@
+conformance = "Partial"
+notes = """
+Does not detect type incompatibility between `tuple[int, ...]` and `tuple[int, *tuple[int, ...]]`.
+Evaluates incorrect type for tuple constructor call when argument is `tuple[Any, ...]`.
+Incorrectly narrows tuple type based on `len()` type guard.
+Does not correctly evaluate `Sequence[Never]` for `tuple[()]`.
+"""
+output = """
+tuples_type_compat.py:15:27 - error: Expression of type "tuple[float, complex]" cannot be assigned to declared type "tuple[int, int]"
+  "tuple[float, complex]" is incompatible with "tuple[int, int]"
+    Tuple entry 1 is incorrect type
+      "float" is incompatible with "int" (reportAssignmentType)
+tuples_type_compat.py:32:10 - error: Expression of type "tuple[int, *tuple[int, ...]]" cannot be assigned to declared type "tuple[int]"
+  "tuple[int, *tuple[int, ...]]" is incompatible with "tuple[int]"
+    Tuple size mismatch; expected 1 but received indeterminate (reportAssignmentType)
+tuples_type_compat.py:33:10 - error: Expression of type "tuple[int, ...]" cannot be assigned to declared type "tuple[int]"
+  "tuple[int, ...]" is incompatible with "tuple[int]"
+    Tuple size mismatch; expected 1 but received indeterminate (reportAssignmentType)
+tuples_type_compat.py:43:22 - error: Expression of type "tuple[int, ...]" cannot be assigned to declared type "tuple[int]"
+  "tuple[int, ...]" is incompatible with "tuple[int]"
+    Tuple size mismatch; expected 1 but received indeterminate (reportAssignmentType)
+tuples_type_compat.py:59:26 - error: Expression of type "tuple[int, ...]" cannot be assigned to declared type "tuple[int, int]"
+  "tuple[int, ...]" is incompatible with "tuple[int, int]"
+    Tuple size mismatch; expected 2 but received indeterminate (reportAssignmentType)
+tuples_type_compat.py:62:26 - error: Expression of type "tuple[int, ...]" cannot be assigned to declared type "tuple[int, int]"
+  "tuple[int, ...]" is incompatible with "tuple[int, int]"
+    Tuple size mismatch; expected 2 but received indeterminate (reportAssignmentType)
+tuples_type_compat.py:78:21 - error: "assert_type" mismatch: expected "tuple[str, str] | tuple[int, int]" but received "tuple[str, str]" (reportAssertTypeFailure)
+tuples_type_compat.py:99:25 - error: "assert_type" mismatch: expected "tuple[str, str] | tuple[int, int]" but received "tuple[str, str]" (reportAssertTypeFailure)
+tuples_type_compat.py:140:17 - error: "assert_type" mismatch: expected "Sequence[Never]" but received "Sequence[Any]" (reportAssertTypeFailure)
+"""

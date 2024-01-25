@@ -1,0 +1,22 @@
+conformance = "Partial"
+notes = """
+Does not support unpacked tuple forms.
+Does not report type violation when assigning `tuple[int, ...]` to `tuple[int]`.
+Does not support tuple narrowing based on `len()` type guard (optional).
+"""
+output = """
+File "tuples_type_compat.py", line 15, in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
+File "tuples_type_compat.py", line 22, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+File "tuples_type_compat.py", line 27, in func2: Invalid type annotation 'tuple[int, *tuple[int, ...]]'  [invalid-annotation]
+File "tuples_type_compat.py", line 47, in func3: Invalid type annotation 'tuple[int, *tuple[str, ...]]'  [invalid-annotation]
+File "tuples_type_compat.py", line 71, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+File "tuples_type_compat.py", line 74, in func5: tuple [assert-type]
+File "tuples_type_compat.py", line 78, in func5: tuple [assert-type]
+File "tuples_type_compat.py", line 82, in func5: tuple [assert-type]
+File "tuples_type_compat.py", line 91, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+File "tuples_type_compat.py", line 115, in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]
+File "tuples_type_compat.py", line 117, in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]
+File "tuples_type_compat.py", line 134, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+File "tuples_type_compat.py", line 139, in func8: Sequence [assert-type]
+File "tuples_type_compat.py", line 140, in func8: Sequence [assert-type]
+"""

@@ -2,7 +2,7 @@
 Tests the handling of builtins.tuple.
 """
 
-# Specification: https://typing.readthedocs.io/en/latest/spec/special-types.html#tuples
+# Specification: https://typing.readthedocs.io/en/latest/spec/tuples.html#tuple-type-form
 
 # > The type of a tuple can be expressed by listing the element types.
 from typing import Literal
@@ -36,8 +36,10 @@ t20 = (1, 2, 3, 4)  # OK
 t20 = (1, 2, 3, "")  # Type error
 
 
-# The spec isn't clear on this point, but mypy treats tuple[int, ...]
-# as incompatible with tuple[int].
-def func3(a: tuple[int, ...]):
-    t1: tuple[int] = a  # Type error
-    t2: tuple[()] = a  # Type error
+t30: tuple[int, ...]  # OK
+t31: tuple[int, int, ...]  # Invalid
+t32: tuple[...]  # Invalid
+t33: tuple[..., int]  # Invalid
+t34: tuple[int, ..., int]  # Invalid
+t35: tuple[*tuple[str], ...]  # Invalid
+t36: tuple[*tuple[str, ...], ...]  # Invalid

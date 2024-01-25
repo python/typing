@@ -1,0 +1,16 @@
+conformance = "Pass"
+output = """
+File "tuples_type_form.py", line 12, in <module>: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]
+File "tuples_type_form.py", line 14, in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
+File "tuples_type_form.py", line 15, in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
+File "tuples_type_form.py", line 25, in <module>: Type annotation for t10 does not match type of assignment [annotation-type-mismatch]
+File "tuples_type_form.py", line 36, in <module>: Type annotation for t20 does not match type of assignment [annotation-type-mismatch]
+File "tuples_type_form.py", line 40, in <module>: Invalid type annotation 'tuple[int, int, Any]'  [invalid-annotation]
+File "tuples_type_form.py", line 41, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
+File "tuples_type_form.py", line 42, in <module>: Invalid type annotation 'tuple[Any, int]'  [invalid-annotation]
+File "tuples_type_form.py", line 42, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
+File "tuples_type_form.py", line 43, in <module>: Invalid type annotation 'tuple[int, Any, int]'  [invalid-annotation]
+File "tuples_type_form.py", line 43, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
+File "tuples_type_form.py", line 44, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+File "tuples_type_form.py", line 45, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+"""

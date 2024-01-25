@@ -1,0 +1,27 @@
+conformance = "Partial"
+notes = """
+Does not support some unpacked tuple forms.
+Does not report type violation when assigning `tuple[int, ...]` to `tuple[int]`.
+Does not support tuple narrowing based on `len()` type guard (optional).
+Does not correctly evaluate `Sequence[Never]` for `tuple[()]`.
+"""
+output = """
+tuples_type_compat.py:15:4 Incompatible variable type [9]: v2 is declared to have type `Tuple[int, int]` but is used as type `Tuple[float, complex]`.
+tuples_type_compat.py:22:30 Invalid type [31]: Expression `tuple[(int, *tuple[(int, ...)])]` is not a valid type.
+tuples_type_compat.py:27:8 Invalid type [31]: Expression `tuple[(int, *tuple[(int, ...)])]` is not a valid type.
+tuples_type_compat.py:47:8 Invalid type [31]: Expression `tuple[(int, *tuple[(str, ...)])]` is not a valid type.
+tuples_type_compat.py:55:21 Undefined or invalid type [11]: Annotation `SomeType` is not defined as a type.
+tuples_type_compat.py:71:15 Invalid type [31]: Expression `typing.Union[(tuple[int], tuple[(str, str)], tuple[(int, *tuple[str], int)])]` is not a valid type.
+tuples_type_compat.py:78:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.
+tuples_type_compat.py:78:49 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[int]]`.
+tuples_type_compat.py:82:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[str], Type[int]]`.
+tuples_type_compat.py:91:15 Invalid type [31]: Expression `typing.Union[(tuple[int], tuple[(str, str)], tuple[(int, *tuple[str], int)])]` is not a valid type.
+tuples_type_compat.py:99:35 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.
+tuples_type_compat.py:99:53 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[int]]`.
+tuples_type_compat.py:103:35 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[str], Type[int]]`.
+tuples_type_compat.py:115:36 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[UnionType, Type[str]]`.
+tuples_type_compat.py:117:36 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[UnionType, Type[int]]`.
+tuples_type_compat.py:134:39 Invalid type [31]: Expression `tuple[(int, *tuple[(str, ...)])]` is not a valid type.
+tuples_type_compat.py:137:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `UnionType`.
+tuples_type_compat.py:139:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `UnionType`.
+"""
