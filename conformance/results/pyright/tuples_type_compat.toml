@@ -1,4 +1,4 @@
-conformance = "Partial"
+conformant = "Partial"
 notes = """
 Does not detect type incompatibility between `tuple[int, ...]` and `tuple[int, *tuple[int, ...]]`.
 Evaluates incorrect type for tuple constructor call when argument is `tuple[Any, ...]`.
@@ -25,7 +25,32 @@ tuples_type_compat.py:59:26 - error: Expression of type "tuple[int, ...]" cannot
 tuples_type_compat.py:62:26 - error: Expression of type "tuple[int, ...]" cannot be assigned to declared type "tuple[int, int]"
   "tuple[int, ...]" is incompatible with "tuple[int, int]"
     Tuple size mismatch; expected 2 but received indeterminate (reportAssignmentType)
-tuples_type_compat.py:78:21 - error: "assert_type" mismatch: expected "tuple[str, str] | tuple[int, int]" but received "tuple[str, str]" (reportAssertTypeFailure)
-tuples_type_compat.py:99:25 - error: "assert_type" mismatch: expected "tuple[str, str] | tuple[int, int]" but received "tuple[str, str]" (reportAssertTypeFailure)
+tuples_type_compat.py:95:25 - error: "assert_type" mismatch: expected "tuple[int]" but received "tuple[int] | tuple[int | str]" (reportAssertTypeFailure)
+tuples_type_compat.py:99:25 - error: "assert_type" mismatch: expected "tuple[str, str] | tuple[int, int]" but received "tuple[str, str] | tuple[int | str, int | str]" (reportAssertTypeFailure)
+tuples_type_compat.py:103:25 - error: "assert_type" mismatch: expected "tuple[int, str, int]" but received "tuple[int | str, int | str, int | str]" (reportAssertTypeFailure)
 tuples_type_compat.py:140:17 - error: "assert_type" mismatch: expected "Sequence[Never]" but received "Sequence[Any]" (reportAssertTypeFailure)
+tuples_type_compat.py:144:6 - error: Expression of type "tuple[Literal[1], Literal[''], Literal['']]" cannot be assigned to declared type "tuple[int, str]"
+  "tuple[Literal[1], Literal[''], Literal['']]" is incompatible with "tuple[int, str]"
+    Tuple size mismatch; expected 2 but received 3 (reportAssignmentType)
+tuples_type_compat.py:149:10 - error: Expression of type "tuple[Literal[1], Literal[1], Literal['']]" cannot be assigned to declared type "tuple[int, *tuple[str, ...]]"
+  "Literal[1]" is incompatible with "str" (reportAssignmentType)
+tuples_type_compat.py:150:14 - error: Expression of type "tuple[Literal[1], Literal[''], Literal[1]]" cannot be assigned to declared type "tuple[int, *tuple[str, ...]]"
+  "Literal[1]" is incompatible with "str" (reportAssignmentType)
+tuples_type_compat.py:156:14 - error: Expression of type "tuple[Literal[1], Literal[''], Literal['']]" cannot be assigned to declared type "tuple[int, *tuple[str, ...], int]"
+  "Literal['']" is incompatible with "int" (reportAssignmentType)
+tuples_type_compat.py:157:18 - error: Expression of type "tuple[Literal[1], Literal[''], Literal[''], float]" cannot be assigned to declared type "tuple[int, *tuple[str, ...], int]"
+  "float" is incompatible with "int" (reportAssignmentType)
+tuples_type_compat.py:162:7 - error: Expression of type "tuple[Literal[1], Literal[''], Literal[1]]" cannot be assigned to declared type "tuple[*tuple[str, ...], int]"
+  "Literal[1]" is incompatible with "str" (reportAssignmentType)
+tuples_type_compat.py:163:15 - error: Expression of type "tuple[Literal[''], Literal[''], float]" cannot be assigned to declared type "tuple[*tuple[str, ...], int]"
+  "float" is incompatible with "int" (reportAssignmentType)
+tuples_type_compat.py:168:40 - error: Expression of type "tuple[str, str]" cannot be assigned to declared type "tuple[str, str, int]"
+  "tuple[str, str]" is incompatible with "tuple[str, str, int]"
+    Tuple size mismatch; expected 3 but received 2 (reportAssignmentType)
+tuples_type_compat.py:171:50 - error: Expression of type "tuple[str, str]" cannot be assigned to declared type "tuple[str, str, str, *tuple[str, ...]]"
+  "tuple[str, str]" is incompatible with "tuple[str, str, str, *tuple[str, ...]]"
+    Tuple size mismatch; expected 4 but received 2 (reportAssignmentType)
+tuples_type_compat.py:175:50 - error: Expression of type "tuple[str, str]" cannot be assigned to declared type "tuple[*tuple[str, ...], str, str, str]"
+  "tuple[str, str]" is incompatible with "tuple[*tuple[str, ...], str, str, str]"
+    Tuple size mismatch; expected 4 but received 2 (reportAssignmentType)
 """

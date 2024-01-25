@@ -1,4 +1,4 @@
-conformance = "Pass"
+conformant = "Pass"
 output = """
 File "tuples_type_form.py", line 12, in <module>: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]
 File "tuples_type_form.py", line 14, in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]

@@ -39,6 +39,7 @@ t2: tuple[*tuple[str, *tuple[str, ...]]]  # OK
 t3: tuple[*tuple[str, ...], *tuple[int, ...]]  # Type error
 t4: tuple[*tuple[str, *tuple[str, ...]], *tuple[int, ...]]  # Type error
 
+
 # > An unpacked TypeVarTuple counts as an unbounded tuple in the context of this rule
 
 Ts = TypeVarTuple("Ts")

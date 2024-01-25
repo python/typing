@@ -1,4 +1,4 @@
-conformance = "Unsupported"
+conformant = "Unsupported"
 notes = """
 Does not support `typing.Unpack`.
 Does not support unpacked tuples within a tuple type form.
@@ -23,8 +23,8 @@ File "tuples_unpacked.py", line 39, in <module>: Invalid type annotation '<insta
 File "tuples_unpacked.py", line 39, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
 File "tuples_unpacked.py", line 40, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
 File "tuples_unpacked.py", line 40, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
-File "tuples_unpacked.py", line 44, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
-File "tuples_unpacked.py", line 47, in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
-File "tuples_unpacked.py", line 48, in func3: Invalid type annotation 'tuple[*tuple[str], *Ts]'  [invalid-annotation]
-File "tuples_unpacked.py", line 49, in func3: Invalid type annotation 'tuple[*tuple[str, ...], *Ts]'  [invalid-annotation]
+File "tuples_unpacked.py", line 45, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+File "tuples_unpacked.py", line 48, in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+File "tuples_unpacked.py", line 49, in func3: Invalid type annotation 'tuple[*tuple[str], *Ts]'  [invalid-annotation]
+File "tuples_unpacked.py", line 50, in func3: Invalid type annotation 'tuple[*tuple[str, ...], *Ts]'  [invalid-annotation]
 """

@@ -1,4 +1,4 @@
-conformance = "Partial"
+conformant = "Partial"
 notes = """
 Does not reject some invalid tuple forms involving ellipsis.
 """

@@ -68,7 +68,7 @@ def func4(
 # NOTE: This type narrowing functionality is optional, not mandated.
 
 
-def func5(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str], int]):
+def func5(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]):
     if len(val) == 1:
         # Type can be narrowed to tuple[int].
         assert_type(val, tuple[int])  # tuple[int]
@@ -88,7 +88,7 @@ def func5(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str], int]):
 # NOTE: This type narrowing functionality is optional, not mandated.
 
 
-def func6(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str], int]):
+def func6(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]):
     match val:
         case (x,):
             # Type can be narrowed to tuple[int].
@@ -138,3 +138,38 @@ def func8(
     )  # Could be Sequence[object]
     assert_type(test_seq(t2), Sequence[int | str])  # Could be Sequence[object]
     assert_type(test_seq(t3), Sequence[Never])
+
+
+t1: tuple[int, *tuple[str]] = (1, "")  # OK
+t1 = (1, "", "")  # Type error
+
+t2: tuple[int, *tuple[str, ...]] = (1,)  # OK
+t2 = (1, "")  # OK
+t2 = (1, "", "")  # OK
+t2 = (1, 1, "")  # Type error
+t2 = (1, "", 1)  # Type error
+
+
+t3: tuple[int, *tuple[str, ...], int] = (1, 2)  # OK
+t3 = (1, "", 2)  # OK
+t3 = (1, "", "", 2)  # OK
+t3 = (1, "", "")  # Type error
+t3 = (1, "", "", 1.2)  # Type error
+
+t4: tuple[*tuple[str, ...], int] = (1,)  # OK
+t4 = ("", 1)  # OK
+t4 = ("", "", 1)  # OK
+t4 = (1, "", 1)  # Type error
+t4 = ("", "", 1.2)  # Type error
+
+
+def func9(a: tuple[str, str]):
+    t1: tuple[str, str, *tuple[int, ...]] = a  # OK
+    t2: tuple[str, str, *tuple[int]] = a  # Type error
+    t3: tuple[str, *tuple[str, ...]] = a  # OK
+    t4: tuple[str, str, *tuple[str, ...]] = a  # OK
+    t5: tuple[str, str, str, *tuple[str, ...]] = a  # Type error
+    t6: tuple[str, *tuple[int, ...], str] = a  # OK
+    t7: tuple[*tuple[str, ...], str] = a  # OK
+    t8: tuple[*tuple[str, ...], str] = a  # OK
+    t9: tuple[*tuple[str, ...], str, str, str] = a  # Type error

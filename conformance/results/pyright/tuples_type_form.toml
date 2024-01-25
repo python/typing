@@ -1,4 +1,4 @@
-conformance = "Pass"
+conformant = "Pass"
 output = """
 tuples_type_form.py:12:6 - error: Expression of type "tuple[Literal[1], Literal[2]]" cannot be assigned to declared type "tuple[int]"
   "tuple[Literal[1], Literal[2]]" is incompatible with "tuple[int]"

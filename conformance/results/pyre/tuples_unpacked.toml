@@ -1,4 +1,4 @@
-conformance = "Partial"
+conformant = "Partial"
 notes = """
 Rejects some legal tuple type forms involving unpack.
 Does not reject some illegal tuple type forms involving unpack.
@@ -22,8 +22,8 @@ tuples_unpacked.py:37:4 Invalid type [31]: Expression `tuple[(*tuple[str], *tupl
 tuples_unpacked.py:38:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])])]` is not a valid type.
 tuples_unpacked.py:39:4 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *tuple[(int, ...)])]` is not a valid type.
 tuples_unpacked.py:40:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])], *tuple[(int, ...)])]` is not a valid type.
-tuples_unpacked.py:47:13 Invalid type [31]: Expression `tuple[(*$local_tuples_unpacked$Ts)]` is not a valid type.
-tuples_unpacked.py:48:8 Invalid type [31]: Expression `tuple[(*tuple[str], *$local_tuples_unpacked$Ts)]` is not a valid type.
-tuples_unpacked.py:49:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *$local_tuples_unpacked$Ts)]` is not a valid type.
-tuples_unpacked.py:55:5 Undefined or invalid type [11]: Annotation `Unpack` is not defined as a type.
+tuples_unpacked.py:48:13 Invalid type [31]: Expression `tuple[(*$local_tuples_unpacked$Ts)]` is not a valid type.
+tuples_unpacked.py:49:8 Invalid type [31]: Expression `tuple[(*tuple[str], *$local_tuples_unpacked$Ts)]` is not a valid type.
+tuples_unpacked.py:50:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *$local_tuples_unpacked$Ts)]` is not a valid type.
+tuples_unpacked.py:56:5 Undefined or invalid type [11]: Annotation `Unpack` is not defined as a type.
 """
