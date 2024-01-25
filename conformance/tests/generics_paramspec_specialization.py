@@ -23,27 +23,27 @@ class ClassB(ClassA[T, P1], Generic[T, P1, P2]):
 
 
 def func20(x: ClassA[int, P2]) -> str:  # OK
-    ...
+    return ""
 
 
 def func21(x: ClassA[int, Concatenate[int, P2]]) -> str:  # OK
-    ...
+    return ""
 
 
 def func22(x: ClassB[int, [int, bool], ...]) -> str:  # OK
-    ...
+    return ""
 
 
 def func23(x: ClassA[int, ...]) -> str:  # OK
-    ...
+    return ""
 
 
 def func24(x: ClassB[int, [], []]) -> str:  # OK
-    ...
+    return ""
 
 
 def func25(x: ClassA[int, int]) -> str:  # Type error
-    ...
+    return ""
 
 
 class ClassC(Generic[P1]):

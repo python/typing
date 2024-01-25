@@ -16,5 +16,5 @@ File "qualifiers_final_decorator.py", line 90, in method: bad return type [bad-r
 File "qualifiers_final_decorator.py", line 103, in method: bad return type [bad-return-type]
 File "qualifiers_final_decorator.py", line 117, in <module>: Class Derived5 overrides final method method, defined in base class Base5_2 [final-error]
 File "qualifiers_final_decorator.py", line 118, in Derived5: Overriding method signature mismatch [signature-mismatch]
-File "qualifiers_final_decorator.py", line 126, in <module>: Cannot apply @final decorator to func1 [final-error]
+File "qualifiers_final_decorator.py", line 125, in <module>: Cannot apply @final decorator to func1 [final-error]
 """

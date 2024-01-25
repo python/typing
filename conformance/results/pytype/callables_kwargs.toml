@@ -4,14 +4,12 @@ Does not understand Unpack in the context of **kwargs annotation.
 """
 output = """
 File "callables_kwargs.py", line 10, in <module>: typing.Unpack not supported yet [not-supported-yet]
-File "callables_kwargs.py", line 10, in <module>: typing.Required not supported yet [not-supported-yet]
-File "callables_kwargs.py", line 10, in <module>: typing.NotRequired not supported yet [not-supported-yet]
 File "callables_kwargs.py", line 24, in func1: Unpack[TD2] [assert-type]
 File "callables_kwargs.py", line 30, in func1: Unpack[TD2] [assert-type]
 File "callables_kwargs.py", line 33, in func1: Unpack[TD2] [assert-type]
 File "callables_kwargs.py", line 39, in func2: Dict[str, Unpack[TD1]] [assert-type]
 File "callables_kwargs.py", line 44, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
-File "callables_kwargs.py", line 46, in func3: Function TD2.__init__ was called with the wrong arguments [wrong-arg-types]
+File "callables_kwargs.py", line 46, in func3: Missing parameter 'v2' in call to function TD2.__init__ [missing-parameter]
 File "callables_kwargs.py", line 48, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
 File "callables_kwargs.py", line 49, in func3: Function func1 expects 0 arg(s), got 3 [wrong-arg-count]
 File "callables_kwargs.py", line 55, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
