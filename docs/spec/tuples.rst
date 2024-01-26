@@ -114,7 +114,7 @@ The type ``tuple[Any, ...]`` is bidirectionally compatible with any tuple::
 The length of a tuple at runtime is immutable, so it is safe for type checkers
 to use length checks to narrow the type of a tuple::
 
-    def func(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str], int]):
+    def func(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]):
         if len(val) == 1:
             # Type can be narrowed to tuple[int].
             reveal_type(val)  # tuple[int]
@@ -132,7 +132,7 @@ statement that uses sequence patterns.
 
 If a tuple element is a union type, the tuple can be safely expanded into a
 union of tuples. For example, ``tuple[int | str]`` is equivalent to 
-``tuple[int] | tuple[str]``. If multiple elements are union types, the expansion
+``tuple[int] | tuple[str]``. If multiple elements are union types, full expansion
 must consider all combinations. For example, ``tuple[int | str, int | str]`` is
 equivalent to ``tuple[int, int] | tuple[int, str] | tuple[str, int] | tuple[str, str]``.
 Unbounded tuples cannot be expanded in this manner. 
