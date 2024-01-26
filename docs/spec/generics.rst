@@ -1228,26 +1228,10 @@ allow unpacking a tuple type. As we shall see, this also enables a
 number of interesting features.
 
 
-Unpacking Concrete Tuple Types
-""""""""""""""""""""""""""""""
-
-Unpacking a concrete tuple type is analogous to unpacking a tuple of
-values at runtime. ``tuple[int, *tuple[bool, bool], str]`` is
-equivalent to ``tuple[int, bool, bool, str]``.
-
 Unpacking Unbounded Tuple Types
 """""""""""""""""""""""""""""""
 
-Unpacking an unbounded tuple preserves the unbounded tuple as it is.
-That is, ``*tuple[int, ...]`` remains ``*tuple[int, ...]``; there's no
-simpler form. This enables us to specify types such as ``tuple[int,
-*tuple[str, ...], str]`` - a tuple type where the first element is
-guaranteed to be of type ``int``, the last element is guaranteed to be
-of type ``str``, and the elements in the middle are zero or more
-elements of type ``str``. Note that ``tuple[*tuple[int, ...]]`` is
-equivalent to ``tuple[int, ...]``.
-
-Unpacking unbounded tuples is also useful in function signatures where
+Unpacking unbounded tuples is useful in function signatures where
 we don't care about the exact elements and don't want to define an
 unnecessary ``TypeVarTuple``:
 
@@ -1302,18 +1286,7 @@ explicitly marking the code as unsafe (by using ``y: Array[*tuple[Any,
 checker every time they tried to use the variable ``y``, which would
 hinder them when migrating a legacy code base to use ``TypeVarTuple``.
 
-Multiple Unpackings in a Tuple: Not Allowed
-"""""""""""""""""""""""""""""""""""""""""""
-
-As with ``TypeVarTuples``, `only one <Multiple Type Variable Tuples:
-Not Allowed_>`_ unpacking may appear in a tuple:
-
-
-::
-
-    x: tuple[int, *Ts, str, *Ts2]  # Error
-    y: tuple[int, *tuple[int, ...], str, *tuple[str, ...]]  # Error
-
+.. _args_as_typevartuple:
 
 ``*args`` as a Type Variable Tuple
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
