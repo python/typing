@@ -37,11 +37,11 @@ an ellipsis. Any other tuple form that uses an ellipsis is invalid::
     
     t1: tuple[int, ...]  # OK
     t2: tuple[int, int, ...]  # Invalid
-    t3: tuple[...] # Invalid
-    t4: tuple[..., int] # Invalid
-    t5: tuple[int, ..., int] # Invalid
-    t6: tuple[*tuple[str], ...] # Invalid
-    t7: tuple[*tuple[str, ...], ...] # Invalid
+    t3: tuple[...]  # Invalid
+    t4: tuple[..., int]  # Invalid
+    t5: tuple[int, ..., int]  # Invalid
+    t6: tuple[*tuple[str], ...]  # Invalid
+    t7: tuple[*tuple[str, ...], ...]  # Invalid
 
 
 Unpacked Tuple Form
@@ -95,7 +95,7 @@ For example, ``tuple[int, int]`` is a subtype of ``tuple[float, complex]``.
 As discussed above, a homogeneous tuple of arbitrary length is equivalent
 to a union of tuples of different lengths. That means ``tuple[()]``, 
 ``tuple[int]`` and ``tuple[int, *tuple[int, ...]]`` are all subtypes of
-``tuple[int, ...]``. The converse is not true; ``tuple[int, ...]``` is not a
+``tuple[int, ...]``. The converse is not true; ``tuple[int, ...]`` is not a
 subtype of ``tuple[int]``.
 
 The type ``tuple[Any, ...]`` is bidirectionally compatible with any tuple::
@@ -148,7 +148,7 @@ Type checkers may safely use this equivalency rule when narrowing tuple types::
 
 The ``tuple`` class derives from ``Sequence[T_co]`` where ``T_co`` is a covariant
 (non-variadic) type variable. The specialized type of ``T_co`` should be computed
-by a type checker as a a supertype of all element types.
+by a type checker as a supertype of all element types.
 For example, ``tuple[int, *tuple[str, ...]]`` is a subtype of
 ``Sequence[int | str]`` or ``Sequence[object]``.
 
