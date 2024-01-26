@@ -6,24 +6,7 @@ Does not report type incompatibility between TypedDict and `dict[str, Any]`.
 """
 output = """
 File "typeddicts_type_consistency.py", line 62, in <module>: Type annotation for a3 does not match type of assignment [annotation-type-mismatch]
-  Annotation: A3(TypedDict)
-  Assignment: B3
-  
-  TypedDict extra keys: y
 File "typeddicts_type_consistency.py", line 65, in <module>: Type annotation for b3 does not match type of assignment [annotation-type-mismatch]
-  Annotation: B3(TypedDict)
-  Assignment: Dict[str, int]
-  
-  TypedDict missing keys: y
 File "typeddicts_type_consistency.py", line 69, in <module>: Type annotation for a3_1 does not match type of assignment [annotation-type-mismatch]
-  Annotation: A3(TypedDict)
-  Assignment: Dict[str, int]
-  
-  TypedDict extra keys: y
 File "typeddicts_type_consistency.py", line 124, in <module>: Type annotation for o2 does not match type of assignment [annotation-type-mismatch]
-  Annotation: Outer1(TypedDict)
-  Assignment: Dict[str, Dict[str, Dict[str, int]]]
-  
-  TypedDict type errors: 
-    {'outer_key': ...}: expected Inner2, got Dict[str, Dict[str, int]]
 """

@@ -14,32 +14,14 @@ Does not reject assignment of ClassVar through instance of class.
 output = """
 File "classes_classvar.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
 File "classes_classvar.py", line 27, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
-         Expected: (self)
-  Actually passed: (self, _)
-File "classes_classvar.py", line 33, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
-  Parameters to Generic[...] must all be type variables
 File "classes_classvar.py", line 36, in ClassA: Invalid type annotation 'ClassVar[int, str]'  [invalid-annotation]
-  ClassVar[_T] expected 1 parameter, got 2
 File "classes_classvar.py", line 37, in ClassA: class ClassVar is not indexable [not-indexable]
 File "classes_classvar.py", line 38, in ClassA: Name 'var' is not defined [name-error]
 File "classes_classvar.py", line 50, in ClassA: Type annotation for bad8 does not match type of assignment [annotation-type-mismatch]
-  Annotation: List[str]
-  Assignment: Dict[nothing, nothing]
 File "classes_classvar.py", line 52, in ClassA: Name 'Final' is not defined [name-error]
 File "classes_classvar.py", line 58, in ClassA: Type annotation for good4 does not match type of assignment [annotation-type-mismatch]
-  Annotation: ClassVar
-  Assignment: float
 File "classes_classvar.py", line 66, in method2: bad return type [bad-return-type]
-           Expected: ClassVar[int]
-  Actually returned: int
 File "classes_classvar.py", line 76, in <module>: ClassVar [assert-type]
-  Expected: float
-    Actual: ClassVar
 File "classes_classvar.py", line 119, in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]
-  Annotation: ClassVar
-  Assignment: List[str]
 File "classes_classvar.py", line 129, in <module>: Type annotation for a does not match type of assignment [annotation-type-mismatch]
-  Annotation: ProtoA
-  Assignment: ProtoAImpl
-  Attributes of protocol ProtoA are not implemented on ProtoAImpl: z
 """

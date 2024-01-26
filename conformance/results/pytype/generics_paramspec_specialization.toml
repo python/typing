@@ -1,68 +1,20 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not support ParamSpec.
+Rejects valid specialization of ParamSpec using list expression.
+Does not reject invalid specialization of class with both TypeVar and ParamSpec.
+Reports error for valid method call involving ParamSpec.
 """
 output = """
-File "generics_paramspec_specialization.py", line 14, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
-  Parameters to Generic[...] must all be type variables
-File "generics_paramspec_specialization.py", line 19, in <module>: Invalid type annotation 'ClassA[T, P1]'  [invalid-annotation]
-  ClassA[T] expected 1 parameter, got 2
-File "generics_paramspec_specialization.py", line 19, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
-  Parameters to Generic[...] must all be type variables
-File "generics_paramspec_specialization.py", line 25, in <module>: Invalid type annotation 'ClassA[int, P2]'  [invalid-annotation]
-  ClassA[T] expected 1 parameter, got 2
-File "generics_paramspec_specialization.py", line 26, in func20: bad return type [bad-return-type]
-           Expected: str
-  Actually returned: None
-File "generics_paramspec_specialization.py", line 29, in <module>: Invalid type annotation 'ClassA[int, Concatenate]'  [invalid-annotation]
-  ClassA[T] expected 1 parameter, got 2
-File "generics_paramspec_specialization.py", line 30, in func21: bad return type [bad-return-type]
-           Expected: str
-  Actually returned: None
+File "generics_paramspec_specialization.py", line 33, in <module>: Invalid type annotation '[int, bool]'  [invalid-annotation]
 File "generics_paramspec_specialization.py", line 33, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
-  Not allowed at index 2 in ClassB
-File "generics_paramspec_specialization.py", line 33, in <module>: Invalid type annotation 'ClassB[int, [int, bool], Any]'  [invalid-annotation]
-  ClassB[T] expected 1 parameter, got 3
-File "generics_paramspec_specialization.py", line 34, in func22: bad return type [bad-return-type]
-           Expected: str
-  Actually returned: None
 File "generics_paramspec_specialization.py", line 37, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
-  Not allowed at index 1 in ClassA
-File "generics_paramspec_specialization.py", line 38, in func23: bad return type [bad-return-type]
-           Expected: str
-  Actually returned: None
-File "generics_paramspec_specialization.py", line 41, in <module>: Invalid type annotation 'ClassB[int, [], []]'  [invalid-annotation]
-  ClassB[T] expected 1 parameter, got 3
-File "generics_paramspec_specialization.py", line 42, in func24: bad return type [bad-return-type]
-           Expected: str
-  Actually returned: None
-File "generics_paramspec_specialization.py", line 45, in <module>: Invalid type annotation 'ClassA[int, int]'  [invalid-annotation]
-  ClassA[T] expected 1 parameter, got 2
-File "generics_paramspec_specialization.py", line 46, in func25: bad return type [bad-return-type]
-           Expected: str
-  Actually returned: None
-File "generics_paramspec_specialization.py", line 49, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
-  Parameters to Generic[...] must all be type variables
-File "generics_paramspec_specialization.py", line 53, in <module>: class ClassC is not indexable [not-indexable]
-  ('ClassC' does not subclass Generic)
+File "generics_paramspec_specialization.py", line 41, in <module>: Invalid type annotation '[]'  [invalid-annotation]
+File "generics_paramspec_specialization.py", line 53, in <module>: Invalid type annotation '[int, str, bool]'  [invalid-annotation]
 File "generics_paramspec_specialization.py", line 54, in func30: Function <callable> expects 1 arg(s), got 3 [wrong-arg-count]
-         Expected: (_)
-  Actually passed: (_, _, _)
 File "generics_paramspec_specialization.py", line 55, in func30: Function <callable> expects 1 arg(s), got 3 [wrong-arg-count]
-         Expected: (_)
-  Actually passed: (_, _, _)
 File "generics_paramspec_specialization.py", line 56, in func30: Function <callable> expects 1 arg(s), got 3 [wrong-arg-count]
-         Expected: (_)
-  Actually passed: (_, _, _)
-File "generics_paramspec_specialization.py", line 59, in <module>: class ClassC is not indexable [not-indexable]
-  ('ClassC' does not subclass Generic)
+File "generics_paramspec_specialization.py", line 59, in <module>: Invalid type annotation 'ClassC[int, str, bool]'  [invalid-annotation]
 File "generics_paramspec_specialization.py", line 60, in func31: Function <callable> expects 1 arg(s), got 3 [wrong-arg-count]
-         Expected: (_)
-  Actually passed: (_, _, _)
 File "generics_paramspec_specialization.py", line 61, in func31: Function <callable> expects 1 arg(s), got 3 [wrong-arg-count]
-         Expected: (_)
-  Actually passed: (_, _, _)
 File "generics_paramspec_specialization.py", line 62, in func31: Function <callable> expects 1 arg(s), got 3 [wrong-arg-count]
-         Expected: (_)
-  Actually passed: (_, _, _)
 """

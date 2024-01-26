@@ -1,18 +1,12 @@
-conformant = "Partial"
-notes = """
-Incorrectly evaluates generic alias with TypeVarTuple if no type arguments are supplied.
-"""
+conformant = "Pass"
 output = """
-generics_typevartuple_specialization.py:85:43 - error: Argument of type "FloatArray[Unknown]" cannot be assigned to parameter "y" of type "FloatArray[Height, Width]" in function "takes_float_array_with_specific_shape"
-  "FloatArray[Unknown]" is incompatible with "FloatArray[Height, Width]"
-    Type parameter "Shape@Array2" is invariant, but "*tuple[Unknown, ...]" is not the same as "*tuple[Height, Width]" (reportGeneralTypeIssues)
 generics_typevartuple_specialization.py:109:18 - error: Type variable "Ts" has no meaning in this context (reportGeneralTypeIssues)
 generics_typevartuple_specialization.py:109:18 - error: Could not specialize type "IntTupleGeneric[T@IntTupleGeneric]"
   Unpacked arguments cannot be used in type argument lists
 generics_typevartuple_specialization.py:110:18 - error: Could not specialize type "IntTupleGeneric[T@IntTupleGeneric]"
   Unpacked arguments cannot be used in type argument lists
-generics_typevartuple_specialization.py:121:27 - error: Type argument list can have at most one unpacked TypeVarTuple or Tuple
-generics_typevartuple_specialization.py:122:27 - error: Type argument list can have at most one unpacked TypeVarTuple or Tuple
+generics_typevartuple_specialization.py:121:27 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+generics_typevartuple_specialization.py:122:27 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
 generics_typevartuple_specialization.py:127:9 - error: Too few type arguments provided for "TA7[*Ts@TA7, T1@TA7, T2@TA7]"; expected 3 but received 2
 generics_typevartuple_specialization.py:163:14 - error: Could not specialize type "TA11[T@TA11, *Ts1@TA11]"
   Unpacked arguments cannot be used in type argument lists
