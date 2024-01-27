@@ -156,6 +156,17 @@ statically in cases where dynamic values are used.
         def speak(self) -> None:  # Non-member method
             print("meow" if self is Pet.CAT else "woof")
 
+* An attribute that is assigned the value of another member of the same enum
+  is not a member itself. Instead, it is an alias for the first member::
+
+    class TrafficLight(Enum):
+        RED = 1
+        GREEN = 2
+        YELLOW = 3
+
+        AMBER = YELLOW  # Alias for YELLOW
+
+    reveal_type(TrafficLight.AMBER)  # Revealed type is Literal[TrafficLight.YELLOW]
 
 * If using Python 3.11 or newer, the ``enum.member`` and ``enum.nonmember``
   classes can be used to unambiguously distinguish members from non-members.
@@ -172,7 +183,6 @@ statically in cases where dynamic values are used.
     reveal_type(Example.a)  # Revealed type is Literal[Example.a]
     reveal_type(Example.b)  # Revealed type is int
     reveal_type(Example.c)  # Revealed type is Literal[Example.c]
-
 
 * An enum class can define a class symbol named ``_ignore_``. This can be a list
   of names or a string containing a space-delimited list of names that are
