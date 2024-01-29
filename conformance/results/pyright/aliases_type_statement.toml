@@ -1,11 +1,16 @@
 conformant = "Pass"
 output = """
-aliases_type_statement.py:17:12 - error: Cannot access member "bit_count" for type "type[TypeAliasType]"
+aliases_type_statement.py:17:12 - error: Cannot access member "bit_count" for type "TypeAliasType"
   Member "bit_count" is unknown (reportAttributeAccessIssue)
 aliases_type_statement.py:19:1 - error: Object of type "type[int]" is not callable (reportCallIssue)
-aliases_type_statement.py:23:18 - error: Cannot access member "other_attrib" for type "type[TypeAliasType]"
+aliases_type_statement.py:23:18 - error: Cannot access member "other_attrib" for type "TypeAliasType"
   Member "other_attrib" is unknown (reportAttributeAccessIssue)
 aliases_type_statement.py:26:18 - error: A type alias defined in a "type" statement cannot be used as a base class
+aliases_type_statement.py:31:22 - error: Argument of type "GoodAlias1" cannot be assigned to parameter "__class_or_tuple" of type "_ClassInfo" in function "isinstance"
+  Type "TypeAliasType" cannot be assigned to type "_ClassInfo"
+    "TypeAliasType" is incompatible with "type"
+    "TypeAliasType" is incompatible with "UnionType"
+    "TypeAliasType" is incompatible with "tuple[_ClassInfo, ...]" (reportArgumentType)
 aliases_type_statement.py:31:22 - error: Second argument to "isinstance" must be a class or tuple of classes
   Type alias created with "type" statement cannot be used with instance and class checks (reportArgumentType)
 aliases_type_statement.py:37:22 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
