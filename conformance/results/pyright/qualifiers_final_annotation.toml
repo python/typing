@@ -9,6 +9,8 @@ qualifiers_final_annotation.py:54:14 - error: Cannot assign member "ID5" for typ
     Member "__set__" is unknown (reportAttributeAccessIssue)
 qualifiers_final_annotation.py:62:19 - error: "Final" is not allowed in this context
 qualifiers_final_annotation.py:63:19 - error: "Final" is not allowed in this context
+qualifiers_final_annotation.py:63:32 - error: Cannot assign member "id4" for type "ClassA*"
+  "Literal[1]" is incompatible with "Final" (reportAttributeAccessIssue)
 qualifiers_final_annotation.py:65:14 - error: Cannot assign member "ID7" for type "ClassA*"
   Member "ID7" cannot be assigned through a class instance because it is a ClassVar
   "ID7" is declared as Final and cannot be reassigned
@@ -23,6 +25,8 @@ qualifiers_final_annotation.py:81:8 - error: Cannot assign member "DEFAULT_ID" f
     Member "__set__" is unknown (reportAttributeAccessIssue)
 qualifiers_final_annotation.py:94:5 - error: "BORDER_WIDTH" cannot be redeclared because parent class "ClassC" declares it as Final (reportGeneralTypeIssues)
 qualifiers_final_annotation.py:107:22 - error: "Final" is not allowed in this context
+qualifiers_final_annotation.py:107:31 - error: Expression of type "Literal[1]" cannot be assigned to declared type "Final"
+  "Literal[1]" is incompatible with "Final" (reportAssignmentType)
 qualifiers_final_annotation.py:108:19 - error: "ClassVar" is not allowed in this context
 qualifiers_final_annotation.py:118:9 - error: "Final" is not allowed in this context
 qualifiers_final_annotation.py:121:14 - error: "Final" is not allowed in this context
