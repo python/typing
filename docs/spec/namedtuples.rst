@@ -77,7 +77,7 @@ A type checker may support the function syntax in its various forms::
     Point6 = NamedTuple('Point6', (('x', int), ('y', int)))
 
 At runtime, the ``namedtuple`` function disallows field names that are
-illegal Python identifiers and either rases an exception or replaces these
+illegal Python identifiers and either raises an exception or replaces these
 fields with a parameter name of the form ``_N``. The behavior depends on
 the value of the ``rename`` argument. Type checkers may replicate this
 behavior statically::
@@ -107,7 +107,7 @@ attribute access (``.``) operator. Type checkers should support this::
     assert_type(p.units, str)
 
 Like normal tuples, elements of a named tuple can also be accessed by index,
-and type checkers should support this.
+and type checkers should support this::
 
     assert_type(p[0], int)
     assert_type(p[2], str)
