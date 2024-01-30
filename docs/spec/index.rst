@@ -21,6 +21,7 @@ Specification for the Python type system
    dataclasses
    typeddict
    tuples
+   namedtuples
    narrowing
    directives
    distributing
