@@ -22,7 +22,7 @@ a named tuple, type checkers should synthesize a ``__new__`` method based on
 the named tuple fields. This mirrors the runtime behavior. In the example
 above, the synthesized ``__new__`` method would look like the following::
 
-    def __new__(cls, x: int, y: int, units: str = "meters") -> None:
+    def __new__(cls, x: int, y: int, units: str = "meters") -> Self:
         ...
 
 The runtime implementation of ``NamedTuple`` enforces that fields with default
