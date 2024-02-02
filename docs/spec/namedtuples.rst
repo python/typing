@@ -82,7 +82,7 @@ fields with a parameter name of the form ``_N``. The behavior depends on
 the value of the ``rename`` argument. Type checkers may replicate this
 behavior statically::
 
-    NT1 = namedtuple("NT1", ["a", "b"])  # Type error (duplicate field name)
+    NT1 = namedtuple("NT1", ["a", "a"])  # Type error (duplicate field name)
     NT2 = namedtuple("NT2", ["abc", "def"], rename=False)  # Type error (illegal field name)
 
     NT3 = namedtuple("NT3", ["abc", "def"], rename=True)  # OK
