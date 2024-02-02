@@ -116,9 +116,8 @@ should suppress all type errors for the ``def`` statement and its body including
 any nested functions or classes. It should also ignore all parameter
 and return type annotations and treat the function as if it were unannotated.
 
-If a type checker supports the ``no_type_check`` decorator for classes, it
-should suppress all type errors for the ``class`` statement and its body
-including any nested functions or classes.
+The behavior for the ``no_type_check`` decorator when applied to a class is
+left undefined by the typing spec at this time.
 
 Version and platform checking
 -----------------------------
