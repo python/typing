@@ -8,7 +8,8 @@ checking.
 Defining Named Tuples
 ---------------------
 
-A named tuple class can be defined using a class syntax or a function syntax.
+A named tuple class can be defined using a class syntax or a factory function
+call.
 
 Type checkers should support the class syntax::
 
@@ -17,7 +18,7 @@ Type checkers should support the class syntax::
         y: int
         units: str = "meters"
 
-Regardless of whether the class syntax or function syntax is used to define
+Regardless of whether the class syntax or factory function call is used to define
 a named tuple, type checkers should synthesize a ``__new__`` method based on
 the named tuple fields. This mirrors the runtime behavior. In the example
 above, the synthesized ``__new__`` method would look like the following::
@@ -58,7 +59,7 @@ enforce this limitation::
     class Unit(NamedTuple, object):  # Type error
         name: str
 
-The function syntax supports two variants: ``collections.namedtuple`` and
+The factory function call supports two variants: ``collections.namedtuple`` and
 ``typing.NamedTuple``. The latter provides a way to specify the types
 of the fields in the tuple whereas the former does not. The ``namedtuple``
 form allows fields to be specified as a tuple or list of strings or a single
@@ -66,7 +67,7 @@ string with fields separated by whitespace or commas. The ``NamedTuple``
 functional form accepts an iterable of ``(name, type)`` pairs.
 For the ``namedtuple`` form, all fields are assumed to be of type ``Any``.
 
-A type checker may support the function syntax in its various forms::
+A type checker may support the factory function call in its various forms::
 
     Point1 = namedtuple('Point1', ['x', 'y'])
     Point2 = namedtuple('Point2', ('x', 'y'))
