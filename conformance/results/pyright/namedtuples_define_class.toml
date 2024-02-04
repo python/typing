@@ -1,0 +1,19 @@
+conformant = "Partial"
+notes = """
+Does not report out-of-range index access with named tuple instance.
+Does not reject override of named tuple attribute in child class.
+"""
+output = """
+namedtuples_define_class.py:44:6 - error: Argument missing for parameter "y" (reportCallIssue)
+namedtuples_define_class.py:45:6 - error: Argument missing for parameter "y" (reportCallIssue)
+namedtuples_define_class.py:46:15 - error: Argument of type "Literal['']" cannot be assigned to parameter "y" of type "int" in function "__init__"
+  "Literal['']" is incompatible with "int" (reportArgumentType)
+namedtuples_define_class.py:47:24 - error: Argument of type "Literal[3]" cannot be assigned to parameter "units" of type "str" in function "__init__"
+  "Literal[3]" is incompatible with "str" (reportArgumentType)
+namedtuples_define_class.py:48:22 - error: Expected 3 positional arguments (reportCallIssue)
+namedtuples_define_class.py:49:23 - error: No parameter named "other" (reportCallIssue)
+namedtuples_define_class.py:59:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
+namedtuples_define_class.py:98:19 - error: Argument of type "float" cannot be assigned to parameter "value" of type "str" in function "__init__"
+  "float" is incompatible with "str" (reportArgumentType)
+namedtuples_define_class.py:105:7 - error: Multiple inheritance with NamedTuple is not supported (reportGeneralTypeIssues)
+"""
