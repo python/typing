@@ -227,6 +227,24 @@ details of the syntax:
 
     V == Annotated[list[tuple[int, int]], MaxLen(10)]
 
+* As with most special forms, ``Annotated`` is not type compatible with
+  ``type`` or ``type[T]``::
+
+    v1: type[int] = Annotated[int, ""]  # Type error
+
+    SmallInt: TypeAlias = Annotated[int, ValueRange(0, 100)]
+    v2: type[Any] = SmallInt  # Type error
+
+* An attempt to call ``Annotated`` (whether parameterized or not) should be
+  treated as a type error by type checkers::
+
+    Annotated()  # Type error
+    Annotated[int, ""](0)  # Type error
+
+    SmallInt = Annotated[int, ValueRange(0, 100)]
+    SmallInt(1)  # Type error
+
+
 Consuming annotations
 ^^^^^^^^^^^^^^^^^^^^^
 
