@@ -196,10 +196,10 @@ and expect their callers never to use the argument's name to provide
 that argument by keyword. Before Python 3.8 (:pep:`570`), Python did
 not provide a way to declare positional-only parameters.
 
-To support positional-only parameters on older Python versions, type
-checkers should support the following special case: all parameters with
-names beginning with ``__`` are assumed to be positional-only unless their
-names also end with ``__``::
+To support positional-only parameters for code that is intended to work
+with older versions of Python, type checkers should support the following
+special case: all parameters with names beginning with ``__`` are assumed to 
+be positional-only unless their names also end with ``__``::
 
   def f(__x: int, __y__: int = 0) -> None: ...
 
