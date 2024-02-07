@@ -1754,6 +1754,8 @@ overloads for each possible rank is, of course, a rather cumbersome
 solution. However, it's the best we can do without additional type
 manipulation mechanisms.)
 
+.. _`self`:
+
 ``Self``
 --------
 
