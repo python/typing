@@ -1,5 +1,9 @@
+.. _`class-compat`:
+
 Class type compatibility
 ========================
+
+.. _`classvar`:
 
 ``ClassVar``
 ------------
@@ -84,6 +88,8 @@ annotated in ``__init__`` or other methods, rather than in the class::
   class Box(Generic[T]):
       def __init__(self, content):
           self.content: T = content
+
+.. _`override`:
 
 ``@override``
 -------------

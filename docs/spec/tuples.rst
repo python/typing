@@ -1,3 +1,5 @@
+.. _`tuples`:
+
 Tuples
 ======
 
@@ -34,7 +36,7 @@ The type ``tuple`` (with no type arguments provided) is equivalent to
 
 Arbitrary-length tuples have exactly two type arguments -- the type and
 an ellipsis. Any other tuple form that uses an ellipsis is invalid::
-    
+
     t1: tuple[int, ...]  # OK
     t2: tuple[int, int, ...]  # Invalid
     t3: tuple[...]  # Invalid
@@ -93,7 +95,7 @@ Because tuple contents are immutable, the element types of a tuple are covariant
 For example, ``tuple[int, int]`` is a subtype of ``tuple[float, complex]``.
 
 As discussed above, a homogeneous tuple of arbitrary length is equivalent
-to a union of tuples of different lengths. That means ``tuple[()]``, 
+to a union of tuples of different lengths. That means ``tuple[()]``,
 ``tuple[int]`` and ``tuple[int, *tuple[int, ...]]`` are all subtypes of
 ``tuple[int, ...]``. The converse is not true; ``tuple[int, ...]`` is not a
 subtype of ``tuple[int]``.
@@ -118,7 +120,7 @@ to use length checks to narrow the type of a tuple::
         if len(val) == 1:
             # Type can be narrowed to tuple[int].
             reveal_type(val)  # tuple[int]
-        
+
         if len(val) == 2:
             # Type can be narrowed to tuple[str, str] | tuple[int, int].
             reveal_type(val)  # tuple[str, str] | tuple[int, int]
@@ -131,11 +133,11 @@ This property may also be used to safely narrow tuple types within a ``match``
 statement that uses sequence patterns.
 
 If a tuple element is a union type, the tuple can be safely expanded into a
-union of tuples. For example, ``tuple[int | str]`` is equivalent to 
+union of tuples. For example, ``tuple[int | str]`` is equivalent to
 ``tuple[int] | tuple[str]``. If multiple elements are union types, full expansion
 must consider all combinations. For example, ``tuple[int | str, int | str]`` is
 equivalent to ``tuple[int, int] | tuple[int, str] | tuple[str, int] | tuple[str, str]``.
-Unbounded tuples cannot be expanded in this manner. 
+Unbounded tuples cannot be expanded in this manner.
 
 Type checkers may safely use this equivalency rule when narrowing tuple types::
 
