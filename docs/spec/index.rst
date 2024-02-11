@@ -20,6 +20,8 @@ Specification for the Python type system
    overload
    dataclasses
    typeddict
+   tuples
+   namedtuples
    enums
    narrowing
    directives

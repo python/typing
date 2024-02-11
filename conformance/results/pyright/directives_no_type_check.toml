@@ -1,9 +1,9 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
 Does not honor `@no_type_check` class decorator.
 """
 output = """
 directives_no_type_check.py:16:14 - error: Expression of type "Literal['']" cannot be assigned to declared type "int"
-  "Literal['']" is incompatible with "int" (reportGeneralTypeIssues)
-directives_no_type_check.py:26:1 - error: Arguments missing for parameters "a", "b" (reportGeneralTypeIssues)
+  "Literal['']" is incompatible with "int" (reportAssignmentType)
+directives_no_type_check.py:26:1 - error: Arguments missing for parameters "a", "b" (reportCallIssue)
 """

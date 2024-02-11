@@ -3,6 +3,8 @@
 Type checker directives
 =======================
 
+.. _`assert-type`:
+
 ``assert_type()``
 -----------------
 
@@ -16,6 +18,8 @@ should emit an error if the value is not of the specified type::
         assert_type(name, str)  # OK, inferred type of `name` is `str`
         assert_type(name, int)  # type checker error
 
+.. _`reveal-type`:
+
 ``reveal_type()``
 -----------------
 
@@ -27,6 +31,8 @@ it should emit a diagnostic with the type of the argument. For example::
 
   x: int = 1
   reveal_type(x)  # Revealed type is "builtins.int"
+
+.. _`type-ignore`:
 
 ``# type: ignore`` comments
 ---------------------------
@@ -52,6 +58,8 @@ line as a type comment. In these cases, the type comment should be before
 other comments and linting markers:
 
   # type: ignore # <comment or other marker>
+
+.. _`cast`:
 
 ``cast()``
 ----------
@@ -81,6 +89,8 @@ type is consistent with the stated type.  When using a cast, the type
 checker should blindly believe the programmer.  Also, casts can be used
 in expressions, while type comments only apply to assignments.
 
+.. _`if-type-checking`:
+
 ``TYPE_CHECKING``
 -----------------
 
@@ -105,13 +115,21 @@ interpreter runtime.  In the variable annotation no quotes are needed.)
 
 This approach may also be useful to handle import cycles.
 
+.. _`no-type-check`:
+
 ``@no_type_check``
 ------------------
 
-To mark portions of the program that should not be covered by type
-hinting, you can use the ``@typing.no_type_check`` decorator on a class or function.
-Functions with this decorator should be treated as having
-no annotations.
+The ``@typing.no_type_check`` decorator may be supported by type checkers
+for functions and classes.
+
+If a type checker supports the ``no_type_check`` decorator for functions, it
+should suppress all type errors for the ``def`` statement and its body including
+any nested functions or classes. It should also ignore all parameter
+and return type annotations and treat the function as if it were unannotated.
+
+The behavior for the ``no_type_check`` decorator when applied to a class is
+left undefined by the typing spec at this time.
 
 Version and platform checking
 -----------------------------
@@ -133,6 +151,8 @@ checks, e.g.::
 
 Don't expect a checker to understand obfuscations like
 ``"".join(reversed(sys.platform)) == "xunil"``.
+
+.. _`deprecated`:
 
 ``@deprecated``
 ---------------

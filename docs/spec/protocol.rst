@@ -1,3 +1,5 @@
+.. _protocols:
+
 Protocols
 ---------
 
@@ -34,8 +36,7 @@ The attributes (variables and methods) of a protocol that are mandatory
 for another class in order to be considered a structural subtype are called
 protocol members.
 
-
-.. _definition:
+.. _protocol-definition:
 
 Defining a protocol
 ^^^^^^^^^^^^^^^^^^^
@@ -456,10 +457,10 @@ Example::
   cached_func((1, 2, 3)) # OK, tuple is both hashable and iterable
 
 
-``Type[]`` and class objects vs protocols
+``type[]`` and class objects vs protocols
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Variables and parameters annotated with ``Type[Proto]`` accept only concrete
+Variables and parameters annotated with ``type[Proto]`` accept only concrete
 (non-protocol) subtypes of ``Proto``. The main reason for this is to allow
 instantiation of parameters with such types. For example::
 
@@ -471,7 +472,7 @@ instantiation of parameters with such types. For example::
       def meth(self) -> int:
           return 42
 
-  def fun(cls: Type[Proto]) -> int:
+  def fun(cls: type[Proto]) -> int:
       return cls().meth() # OK
   fun(Proto)              # Error
   fun(Concrete)           # OK
@@ -485,7 +486,7 @@ The same rule applies to variables::
 
 Assigning an ABC or a protocol class to a variable is allowed if it is
 not explicitly typed, and such assignment creates a type alias.
-For normal (non-abstract) classes, the behavior of ``Type[]`` is
+For normal (non-abstract) classes, the behavior of ``type[]`` is
 not changed.
 
 A class object is considered an implementation of a protocol if accessing
@@ -580,6 +581,8 @@ of the corresponding protocol methods is dropped. For example::
           ...
 
   rp: Reporter = callbacks  # Passes type check
+
+.. _`runtime-checkable`:
 
 ``@runtime_checkable`` decorator and narrowing types by ``isinstance()``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

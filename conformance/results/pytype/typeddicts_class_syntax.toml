@@ -5,4 +5,5 @@ Does not report when metaclass is provided.
 Does not report when other keyword argument is provided.
 """
 output = """
+
 """

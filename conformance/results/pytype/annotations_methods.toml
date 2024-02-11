@@ -4,6 +4,4 @@ Type evaluation differs from other type checkers because of ambiguity in the spe
 """
 output = """
 File "annotations_methods.py", line 42, in <module>: B [assert-type]
-  Expected: A
-    Actual: B
 """

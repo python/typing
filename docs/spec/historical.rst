@@ -11,6 +11,8 @@ the older alternatives and treat them as equivalent.
 
 This section lists all of these cases.
 
+.. _`type-comments`:
+
 Type comments
 -------------
 
@@ -77,6 +79,8 @@ inferred type to ``... | None``.  The
 assumption here is that other code will ensure that the variable is
 given a value of the proper type, and all uses can assume that the
 variable has the given type.
+
+.. _`type-comments-function`:
 
 Type comments on function definitions
 -------------------------------------
@@ -187,6 +191,7 @@ When checking Python 2.7 code, type checkers should treat the ``int`` and
 ``long`` types as equivalent. For parameters typed as ``Text``, arguments of
 type ``str`` as well as ``unicode`` should be acceptable.
 
+.. _`pos-only-double-underscore`:
 
 Positional-only arguments
 -------------------------
@@ -263,6 +268,9 @@ as equivalent to the alias in the ``typing`` module. This includes:
 The generic aliases in the ``typing`` module are considered deprecated
 and type checkers may warn if they are used.
 
+.. _`typing-union`:
+.. _`typing-optional`:
+
 ``Union`` and ``Optional``
 --------------------------
 
@@ -277,6 +285,8 @@ Examples:
 * ``int | str`` is the same as ``Union[int, str]``
 * ``int | str | range`` is the same as ``Union[int, str, range]``
 * ``int | None`` is the same as ``Optional[int]`` and ``Union[int, None]``
+
+.. _`unpack-pep646`:
 
 ``Unpack``
 ----------

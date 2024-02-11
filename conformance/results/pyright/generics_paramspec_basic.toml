@@ -6,7 +6,7 @@ generics_paramspec_basic.py:23:14 - error: ParamSpec is not allowed in this cont
 generics_paramspec_basic.py:23:20 - error: ParamSpec is not allowed in this context
 generics_paramspec_basic.py:27:14 - error: "Concatenate" is not allowed in this context
 generics_paramspec_basic.py:31:19 - error: Type "P@func3" cannot be assigned to type variable "_T@list"
-  ParamSpec is not allowed in this context (reportGeneralTypeIssues)
+  ParamSpec is not allowed in this context (reportInvalidTypeArguments)
 generics_paramspec_basic.py:35:35 - error: ParamSpec is not allowed in this context
 generics_paramspec_basic.py:39:18 - error: ParamSpec is not allowed in this context
 generics_paramspec_basic.py:39:31 - error: ParamSpec is not allowed in this context

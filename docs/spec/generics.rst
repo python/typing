@@ -1,3 +1,5 @@
+.. _`generics`:
+
 Generics
 ========
 
@@ -207,6 +209,7 @@ is not generic but implicitly inherits from ``Iterable[Any]``::
 
 Generic metaclasses are not supported.
 
+.. _`typevar-scoping`:
 
 Scoping rules for type variables
 --------------------------------
@@ -464,6 +467,7 @@ A generic class can be an ABC by including abstract methods
 or properties, and generic classes can also have ABCs as base
 classes without a metaclass conflict.
 
+.. _`typevar-bound`:
 
 Type variables with an upper bound
 ----------------------------------
@@ -494,6 +498,7 @@ inferred type to be _exactly_ one of the constraint types, while an
 upper bound just requires that the actual type is a subtype of the
 boundary type.
 
+.. _`variance`:
 
 Variance
 --------
@@ -562,32 +567,21 @@ mutable collection classes (e.g. ``MutableMapping`` and
 a contravariant type is the ``Generator`` type, which is contravariant
 in the ``send()`` argument type (see below).
 
-Note: Covariance or contravariance is *not* a property of a type variable,
-but a property of a generic class defined using this variable.
-Variance is only applicable to generic types; generic functions
-do not have this property. The latter should be defined using only
-type variables without ``covariant`` or ``contravariant`` keyword arguments.
-For example, the following example is
-fine::
+Variance is meaningful only when a type variable is bound to a generic class.
+If a type variable declared as covariant or contravariant is bound to a generic
+function or type alias, type checkers may warn users about this. However, any
+subsequent type analysis involving such functions or aliases should ignore the
+declared variance::
 
-  from typing import TypeVar
+  T = TypeVar('T', covariant=True)
 
-  class Employee: ...
+  class A(Generic[T]):  # T is covariant in this context
+    ...
 
-  class Manager(Employee): ...
+  def f(x: T) -> None:  # Variance of T is meaningless in this context
+    ...
 
-  E = TypeVar('E', bound=Employee)
-
-  def dump_employee(e: E) -> None: ...
-
-  dump_employee(Manager())  # OK
-
-while the following is prohibited::
-
-  B_co = TypeVar('B_co', covariant=True)
-
-  def bad_func(x: B_co) -> B_co:  # Flagged as error by a type checker
-      ...
+  Alias = list[T] | set[T]  # Variance of T is meaningless in this context
 
 .. _`paramspec`:
 
@@ -1014,6 +1008,8 @@ outer ``Callable``.  This has the following semantics:
 
    twice(a_int_b_str, "A", 1)       # Rejected
 
+.. _`typevartuple`:
+
 TypeVarTuple
 ------------
 
@@ -1239,26 +1235,10 @@ allow unpacking a tuple type. As we shall see, this also enables a
 number of interesting features.
 
 
-Unpacking Concrete Tuple Types
-""""""""""""""""""""""""""""""
-
-Unpacking a concrete tuple type is analogous to unpacking a tuple of
-values at runtime. ``tuple[int, *tuple[bool, bool], str]`` is
-equivalent to ``tuple[int, bool, bool, str]``.
-
 Unpacking Unbounded Tuple Types
 """""""""""""""""""""""""""""""
 
-Unpacking an unbounded tuple preserves the unbounded tuple as it is.
-That is, ``*tuple[int, ...]`` remains ``*tuple[int, ...]``; there's no
-simpler form. This enables us to specify types such as ``tuple[int,
-*tuple[str, ...], str]`` - a tuple type where the first element is
-guaranteed to be of type ``int``, the last element is guaranteed to be
-of type ``str``, and the elements in the middle are zero or more
-elements of type ``str``. Note that ``tuple[*tuple[int, ...]]`` is
-equivalent to ``tuple[int, ...]``.
-
-Unpacking unbounded tuples is also useful in function signatures where
+Unpacking unbounded tuples is useful in function signatures where
 we don't care about the exact elements and don't want to define an
 unnecessary ``TypeVarTuple``:
 
@@ -1313,18 +1293,7 @@ explicitly marking the code as unsafe (by using ``y: Array[*tuple[Any,
 checker every time they tried to use the variable ``y``, which would
 hinder them when migrating a legacy code base to use ``TypeVarTuple``.
 
-Multiple Unpackings in a Tuple: Not Allowed
-"""""""""""""""""""""""""""""""""""""""""""
-
-As with ``TypeVarTuples``, `only one <Multiple Type Variable Tuples:
-Not Allowed_>`_ unpacking may appear in a tuple:
-
-
-::
-
-    x: tuple[int, *Ts, str, *Ts2]  # Error
-    y: tuple[int, *tuple[int, ...], str, *tuple[str, ...]]  # Error
-
+.. _args_as_typevartuple:
 
 ``*args`` as a Type Variable Tuple
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1791,6 +1760,8 @@ overloads can be used with individual ``TypeVar`` instances in place of the type
 overloads for each possible rank is, of course, a rather cumbersome
 solution. However, it's the best we can do without additional type
 manipulation mechanisms.)
+
+.. _`self`:
 
 ``Self``
 --------
@@ -2355,6 +2326,8 @@ avoid confusion, we reject this edge case.
             return [cls()] * count
 
     class Foo(metaclass=MyMetaclass): ...
+
+.. _`variance-inference`:
 
 Variance Inference
 ------------------

@@ -1,5 +1,9 @@
+.. _`special-types`:
+
 Special types in annotations
 ============================
+
+.. _`any`:
 
 ``Any``
 -------
@@ -45,11 +49,15 @@ to ``tuple[Any, ...]``. As well, a bare
 avoiding type checker errors with classes that can duck type anywhere or
 are highly dynamic.
 
+.. _`none`:
+
 ``None``
 --------
 
 When used in a type hint, the expression ``None`` is considered
 equivalent to ``type(None)``.
+
+.. _`noreturn`:
 
 ``NoReturn``
 ------------
@@ -85,6 +93,8 @@ is unreachable and will behave accordingly::
       return 'whatever works'  # Error might be not reported by some checkers
                                # that ignore errors in unreachable blocks
 
+.. _`never`:
+
 ``Never``
 ---------
 
@@ -96,14 +106,7 @@ The ``NoReturn`` type is conventionally used in return annotations of
 functions, and ``Never`` is typically used in other locations, but the two
 types are completely interchangeable.
 
-Tuples
-------
-
-The type of a tuple can be expressed by listing the element
-types: ``tuple[int, int, str]`` is a tuple containing an int,
-another int, and a str.  The empty tuple can be typed as
-``tuple[()]``.  Arbitrary-length homogeneous tuples can be
-expressed using one type and ellipsis, for example ``tuple[int, ...]``.
+.. _`numeric-promotions`:
 
 Special cases for ``float`` and ``complex``
 -------------------------------------------
@@ -115,6 +118,8 @@ when an argument is annotated as having
 type ``float``, an argument of type ``int`` is acceptable; similar,
 for an argument annotated as having type ``complex``, arguments of
 type ``float`` or ``int`` are acceptable.
+
+.. _`type-brackets`:
 
 ``type[]``
 ----------

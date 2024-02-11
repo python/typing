@@ -1,5 +1,9 @@
+.. _`type-qualifiers`:
+
 Type qualifiers
 ===============
+
+.. _`at-final`:
 
 ``@final``
 ----------
@@ -55,6 +59,8 @@ implementation (or on the first overload, for stubs)::
            ...
 
 It is an error to use ``@final`` on a non-method function.
+
+.. _`uppercase-final`:
 
 ``Final``
 ---------
@@ -176,6 +182,8 @@ following should be allowed::
    X: Final = "x"
    Y: Final = "y"
    N = NamedTuple("N", [(X, int), (Y, int)])
+
+.. _`annotated`:
 
 ``Annotated``
 -------------

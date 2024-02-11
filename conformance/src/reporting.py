@@ -50,7 +50,7 @@ def generate_summary_html(root_dir: Path):
 
         summary_html += f"<th class='tc-header'><div class='tc-name'>{version}</div>"
         if test_duration is not None:
-            summary_html += f"<div class='tc-time'>{test_duration:.2f}sec</div>"
+            summary_html += f"<div class='tc-time'>{test_duration:.1f}sec</div>"
         summary_html += f"</th>"
 
     summary_html += f"</tr>"

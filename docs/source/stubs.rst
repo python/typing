@@ -72,14 +72,8 @@ Distribution
 ============
 
 Type stubs can be distributed with or separately from the implementation;
-see :pep:`561` for more information. The
-`typeshed <https://github.com/python/typeshed>`_ project
-includes stubs for Python's standard library and several third-party
-packages. The stubs for the standard library are usually distributed with type checkers and do not
-require separate installation. Stubs for third-party libraries are
-available on the `Python Package Index <https://pypi.org>`_.
-By convention, a stub package for a library called ``widget`` would be named
-``types-widget``.
+see :ref:`distributing-type` and :ref:`providing-type-annotations`
+for more information.
 
 Supported Constructs
 ====================

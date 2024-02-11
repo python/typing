@@ -51,6 +51,14 @@ href = "https://typing.readthedocs.io/en/latest/spec/dataclasses.html"
 name = "Typed dictionaries"
 href = "https://typing.readthedocs.io/en/latest/spec/typeddict.html"
 
+[tuples]
+name = "Tuples"
+href = "https://typing.readthedocs.io/en/latest/spec/tuples.html"
+
+[namedtuples]
+name = "Named tuples"
+href = "https://typing.readthedocs.io/en/latest/spec/namedtuples.html"
+
 [narrowing]
 name = "Type narrowing"
 href = "https://typing.readthedocs.io/en/latest/spec/narrowing.html"

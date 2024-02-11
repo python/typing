@@ -1,29 +1,29 @@
 conformant = "Pass"
 output = """
-annotations_typeexpr.py:88:9 - error: Call expression not allowed in type expression (reportGeneralTypeIssues)
+annotations_typeexpr.py:88:9 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 annotations_typeexpr.py:89:9 - error: List expression not allowed in type annotation
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
 annotations_typeexpr.py:89:9 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)
 annotations_typeexpr.py:90:9 - error: Tuple expression not allowed in type annotation
-  Use Tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+  Use tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
 annotations_typeexpr.py:91:9 - error: List expression not allowed in type annotation
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
 annotations_typeexpr.py:91:9 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
 annotations_typeexpr.py:92:9 - error: Dictionary expression not allowed in type annotation
-  Use Dict[T1, T2] to indicate a dictionary type (reportGeneralTypeIssues)
+  Use Dict[T1, T2] to indicate a dictionary type (reportInvalidTypeForm)
 annotations_typeexpr.py:92:9 - error: Expected type expression but received "dict[Unknown, Unknown]" (reportGeneralTypeIssues)
-annotations_typeexpr.py:93:9 - error: Call expression not allowed in type expression (reportGeneralTypeIssues)
+annotations_typeexpr.py:93:9 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 annotations_typeexpr.py:94:9 - error: List expression not allowed in type annotation
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
 annotations_typeexpr.py:94:9 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
-annotations_typeexpr.py:95:9 - error: Ternary expression not allowed in type annotation (reportGeneralTypeIssues)
-annotations_typeexpr.py:96:9 - error: Variable not allowed in type expression (reportGeneralTypeIssues)
+annotations_typeexpr.py:95:9 - error: Ternary expression not allowed in type annotation (reportInvalidTypeForm)
+annotations_typeexpr.py:96:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 annotations_typeexpr.py:97:10 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)
 annotations_typeexpr.py:98:10 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
-annotations_typeexpr.py:99:10 - error: Unary operator not allowed in type annotation (reportGeneralTypeIssues)
-annotations_typeexpr.py:100:10 - error: Binary operator not allowed in type annotation (reportGeneralTypeIssues)
+annotations_typeexpr.py:99:10 - error: Unary operator not allowed in type annotation (reportInvalidTypeForm)
+annotations_typeexpr.py:100:10 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)
 annotations_typeexpr.py:101:10 - error: Expected expression
 annotations_typeexpr.py:101:10 - error: Tuple expression not allowed in type annotation
-  Use Tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportGeneralTypeIssues)
+  Use tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
 annotations_typeexpr.py:102:10 - error: Module cannot be used as a type (reportGeneralTypeIssues)
 """

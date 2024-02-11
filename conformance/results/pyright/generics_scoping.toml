@@ -1,7 +1,7 @@
 conformant = "Pass"
 output = """
 generics_scoping.py:25:10 - error: Argument of type "Literal['a']" cannot be assigned to parameter "x" of type "int" in function "meth_2"
-  "Literal['a']" is incompatible with "int" (reportGeneralTypeIssues)
+  "Literal['a']" is incompatible with "int" (reportArgumentType)
 generics_scoping.py:46:13 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
 generics_scoping.py:50:19 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
 generics_scoping.py:61:29 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)

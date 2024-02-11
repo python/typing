@@ -1,5 +1,9 @@
+.. _`literal-types`:
+
 Literals
 ========
+
+.. _`literal`:
 
 ``Literal``
 -----------
@@ -552,6 +556,8 @@ example, whether or not the following program type checks is left unspecified::
     # Note: "Literal[1 + 2]" is not a legal type.
     bar2: Final = 1 + 2
     expects_three(bar2)  # May or may not be accepted by type checkers
+
+.. _`literalstring`:
 
 ``LiteralString``
 -----------------

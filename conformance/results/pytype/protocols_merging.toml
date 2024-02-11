@@ -5,18 +5,8 @@ Does not report attempt to instantiate abstract class downgraded from protocol c
 """
 output = """
 File "protocols_merging.py", line 52, in <module>: Type annotation for s6 does not match type of assignment [annotation-type-mismatch]
-  Annotation: SizedAndClosable1
-  Assignment: SCConcrete2
-  Attributes of protocol SizedAndClosable1 are not implemented on SCConcrete2: __len__
 File "protocols_merging.py", line 53, in <module>: Type annotation for s7 does not match type of assignment [annotation-type-mismatch]
-  Annotation: SizedAndClosable2
-  Assignment: SCConcrete2
-  Attributes of protocol SizedAndClosable2 are not implemented on SCConcrete2: __len__
 File "protocols_merging.py", line 54, in <module>: Type annotation for s8 does not match type of assignment [annotation-type-mismatch]
-  Annotation: SizedAndClosable3
-  Assignment: SCConcrete2
 File "protocols_merging.py", line 83, in <module>: Can't instantiate SizedAndClosable4 with abstract methods close [not-instantiable]
 File "protocols_merging.py", line 84, in <module>: Type annotation for y does not match type of assignment [annotation-type-mismatch]
-  Annotation: SizedAndClosable4
-  Assignment: SCConcrete1
 """
