@@ -2,7 +2,7 @@ conformant = "Pass"
 output = """
 aliases_type_statement.py:17:12 - error: Cannot access member "bit_count" for type "TypeAliasType"
   Member "bit_count" is unknown (reportAttributeAccessIssue)
-aliases_type_statement.py:19:1 - error: Object of type "type[int]" is not callable (reportCallIssue)
+aliases_type_statement.py:19:1 - error: Object of type "TypeAliasType" is not callable (reportCallIssue)
 aliases_type_statement.py:23:18 - error: Cannot access member "other_attrib" for type "TypeAliasType"
   Member "other_attrib" is unknown (reportAttributeAccessIssue)
 aliases_type_statement.py:26:18 - error: A type alias defined in a "type" statement cannot be used as a base class

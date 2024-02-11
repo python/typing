@@ -1,0 +1,15 @@
+conformant = "Partial"
+notes = """
+Incorrectly rejects valid index of named tuple instance when using a negative index.
+Does not report out-of-range index access with named tuple instance.
+Does not reject attempt to overwrite named tuple entry by name.
+Does not reject attempt to delete named tuple entry by name.
+"""
+output = """
+File "namedtuples_usage.py", line 31, in <module>: Union[int, str] [assert-type]
+File "namedtuples_usage.py", line 32, in <module>: Union[int, str] [assert-type]
+File "namedtuples_usage.py", line 41, in <module>: unsupported operand type(s) for item assignment: Point [unsupported-operands]
+File "namedtuples_usage.py", line 43, in <module>: unsupported operand type(s) for item deletion: Point [unsupported-operands]
+File "namedtuples_usage.py", line 52, in <module>: Cannot unpack 3 values into 2 variables [bad-unpacking]
+File "namedtuples_usage.py", line 53, in <module>: Cannot unpack 3 values into 4 variables [bad-unpacking]
+"""
