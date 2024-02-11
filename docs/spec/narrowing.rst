@@ -1,8 +1,12 @@
+.. _`type-narrowing`:
+
 Type narrowing
 ==============
 
 Type checkers should narrow the types of expressions in
 certain contexts. This behavior is currently largely unspecified.
+
+.. _`typeguard`:
 
 TypeGuard
 ---------
