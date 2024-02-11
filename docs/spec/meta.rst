@@ -1,3 +1,5 @@
+.. _`spec-meta`:
+
 Meta-topics
 ===========
 

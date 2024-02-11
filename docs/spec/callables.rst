@@ -1,3 +1,5 @@
+.. _`callables`:
+
 Callables
 =========
 
@@ -338,6 +340,8 @@ Therefore, in the context of typing ``**kwargs``, using ``Unpack`` with types
 other than ``TypedDict`` should not be allowed and type checkers should
 generate errors in such cases.
 
+.. _`callable`:
+
 Callable
 --------
 
@@ -371,6 +375,8 @@ arguments with ``Callable``.  Similarly, ``Callable`` does not support
 specifying callback signatures with a variable number of arguments of a
 specific type. For these use cases, see the section on
 `Callback protocols`_.
+
+.. _`callback-protocols`:
 
 Callback protocols
 ------------------

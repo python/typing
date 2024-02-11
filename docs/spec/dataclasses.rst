@@ -1,3 +1,5 @@
+.. _`dataclasses`:
+
 Dataclasses
 ===========
 
@@ -5,6 +7,8 @@ Type checkers should support dataclasses created through
 the :py:mod:`dataclasses` module. In addition, the type system
 contains a mechanism to make third-party classes behave like
 standard dataclasses.
+
+.. _`dataclass-transform`:
 
 The ``dataclass_transform`` decorator
 -------------------------------------

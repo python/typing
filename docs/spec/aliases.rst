@@ -1,3 +1,5 @@
+.. _`type-aliases`:
+
 Type aliases
 ============
 
@@ -58,6 +60,8 @@ This is equivalent to::
         return ((x * scale, y * scale) for x, y in v)
     vec: Iterable[tuple[float, float]] = []
 
+.. _`typealias`:
+
 ``TypeAlias``
 -------------
 
@@ -97,6 +101,8 @@ isolation. For the sake of backwards compatibility, type checkers should support
 both simultaneously, meaning an untyped global expression ``x = int`` will
 still be considered a valid type alias.
 
+.. _`type-statement`:
+
 ``type`` statement
 ------------------
 
@@ -125,6 +131,8 @@ should generate an error in this case.
 
     T = TypeVar("T")
     type MyList = list[T]  # Type checker error: traditional type variable usage
+
+.. _`newtype`:
 
 ``NewType``
 -----------

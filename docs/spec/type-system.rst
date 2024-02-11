@@ -1,3 +1,5 @@
+.. _`type-system`:
+
 The Python Type System
 ======================
 
@@ -41,6 +43,8 @@ optimizations is left as an exercise for the reader.
 It should also be emphasized that **Python will remain a dynamically
 typed language, and there is no desire to ever make type hints
 mandatory, even by convention.**
+
+.. _`definitions`:
 
 Definition of terms
 -------------------
