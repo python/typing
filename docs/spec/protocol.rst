@@ -460,7 +460,7 @@ Example::
 ``type[]`` and class objects vs protocols
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Variables and parameters annotated with ``Type[Proto]`` accept only concrete
+Variables and parameters annotated with ``type[Proto]`` accept only concrete
 (non-protocol) subtypes of ``Proto``. The main reason for this is to allow
 instantiation of parameters with such types. For example::
 
