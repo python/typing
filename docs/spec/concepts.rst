@@ -1,5 +1,9 @@
+.. _`type-system-concepts`:
+
 Type system concepts
 ====================
+
+.. _`union-types`:
 
 Union types
 -----------

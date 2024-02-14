@@ -1,0 +1,19 @@
+conformant = "Pass"
+output = """
+namedtuples_usage.py:34:7 - error: Index 3 is out of range for type Point (reportGeneralTypeIssues)
+namedtuples_usage.py:35:7 - error: Index -4 is out of range for type Point (reportGeneralTypeIssues)
+namedtuples_usage.py:40:3 - error: Cannot assign member "x" for type "Point"
+  Attribute "x" is read-only
+    Member "__set__" is unknown (reportAttributeAccessIssue)
+namedtuples_usage.py:41:1 - error: "__setitem__" method not defined on type "Point" (reportIndexIssue)
+namedtuples_usage.py:42:7 - error: Cannot delete member "x" for type "Point"
+  Attribute "x" is read-only
+    Member "__delete__" is unknown (reportAttributeAccessIssue)
+namedtuples_usage.py:43:5 - error: "__delitem__" method not defined on type "Point" (reportIndexIssue)
+namedtuples_usage.py:52:1 - error: Expression with type "Point" cannot be assigned to target tuple
+  Type "Point" is incompatible with target tuple
+    Tuple size mismatch; expected 2 but received 3 (reportAssignmentType)
+namedtuples_usage.py:53:1 - error: Expression with type "Point" cannot be assigned to target tuple
+  Type "Point" is incompatible with target tuple
+    Tuple size mismatch; expected 4 but received 3 (reportAssignmentType)
+"""

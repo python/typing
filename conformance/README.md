@@ -23,6 +23,8 @@ This project contains test cases for behaviors defined in the Python typing spec
 * [overloads](https://typing.readthedocs.io/en/latest/spec/overload.html)
 * [dataclasses](https://typing.readthedocs.io/en/latest/spec/dataclasses.html)
 * [typeddicts](https://typing.readthedocs.io/en/latest/spec/typeddict.html)
+* [tuples](https://typing.readthedocs.io/en/latest/spec/tuples.html)
+* [namedtuples](https://typing.readthedocs.io/en/latest/spec/namedtuples.html)
 * [narrowing](https://typing.readthedocs.io/en/latest/spec/narrowing.html)
 * [directives](https://typing.readthedocs.io/en/latest/spec/directives.html)
 * [distribution](https://typing.readthedocs.io/en/latest/spec/distributing.html)

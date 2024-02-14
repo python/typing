@@ -1,5 +1,9 @@
+.. _`typed-dictionaries`:
+
 Typed dictionaries
 ==================
+
+.. _`typeddict`:
 
 TypedDict
 ---------
@@ -521,6 +525,7 @@ start generating errors once TypedDict support is added to the type
 checker, since TypedDict types are more restrictive than dictionary
 types.  In particular, they aren't subtypes of dictionary types.
 
+.. _`required-notrequired`:
 
 ``Required`` and ``NotRequired``
 --------------------------------

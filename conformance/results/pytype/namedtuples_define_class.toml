@@ -1,0 +1,23 @@
+conformant = "Partial"
+notes = """
+Incorrectly rejects valid index of named tuple instance when using a negative index.
+Does not evaluate correct type for indexed named tuple instance with slice.
+Does not reject named tuple element with no default value after one with a default.
+Does not reject override of named tuple attribute in child class.
+Evaluates incorrect type for named tuple entry with a generic type.
+Does not reject incorrect argument type passed to specialized generic named tuple constructor.
+Does not reject attempt to use NamedTuple with multiple inheritance.
+"""
+output = """
+File "namedtuples_define_class.py", line 27, in <module>: Union[int, str] [assert-type]
+File "namedtuples_define_class.py", line 28, in <module>: Union[int, str] [assert-type]
+File "namedtuples_define_class.py", line 29, in <module>: Tuple[Union[int, str], ...] [assert-type]
+File "namedtuples_define_class.py", line 30, in <module>: Tuple[Union[int, str], ...] [assert-type]
+File "namedtuples_define_class.py", line 44, in <module>: Missing parameter 'y' in call to function Point.__new__ [missing-parameter]
+File "namedtuples_define_class.py", line 45, in <module>: Missing parameter 'y' in call to function Point.__new__ [missing-parameter]
+File "namedtuples_define_class.py", line 46, in <module>: Function Point.__new__ was called with the wrong arguments [wrong-arg-types]
+File "namedtuples_define_class.py", line 47, in <module>: Function Point.__new__ was called with the wrong arguments [wrong-arg-types]
+File "namedtuples_define_class.py", line 48, in <module>: Function Point.__new__ expects 3 arg(s), got 5 [wrong-arg-count]
+File "namedtuples_define_class.py", line 49, in <module>: Invalid keyword argument other to function Point.__new__ [wrong-keyword-args]
+File "namedtuples_define_class.py", line 95, in <module>: Any [assert-type]
+"""

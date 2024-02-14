@@ -1,3 +1,5 @@
+.. _`generics`:
+
 Generics
 ========
 
@@ -207,6 +209,7 @@ is not generic but implicitly inherits from ``Iterable[Any]``::
 
 Generic metaclasses are not supported.
 
+.. _`typevar-scoping`:
 
 Scoping rules for type variables
 --------------------------------
@@ -464,6 +467,7 @@ A generic class can be an ABC by including abstract methods
 or properties, and generic classes can also have ABCs as base
 classes without a metaclass conflict.
 
+.. _`typevar-bound`:
 
 Type variables with an upper bound
 ----------------------------------
@@ -494,6 +498,7 @@ inferred type to be _exactly_ one of the constraint types, while an
 upper bound just requires that the actual type is a subtype of the
 boundary type.
 
+.. _`variance`:
 
 Variance
 --------
@@ -1002,6 +1007,8 @@ outer ``Callable``.  This has the following semantics:
    twice(a_int_b_str, b="A", a=1)   # Accepted
 
    twice(a_int_b_str, "A", 1)       # Rejected
+
+.. _`typevartuple`:
 
 TypeVarTuple
 ------------
@@ -1754,6 +1761,8 @@ overloads for each possible rank is, of course, a rather cumbersome
 solution. However, it's the best we can do without additional type
 manipulation mechanisms.)
 
+.. _`self`:
+
 ``Self``
 --------
 
@@ -2317,6 +2326,8 @@ avoid confusion, we reject this edge case.
             return [cls()] * count
 
     class Foo(metaclass=MyMetaclass): ...
+
+.. _`variance-inference`:
 
 Variance Inference
 ------------------
