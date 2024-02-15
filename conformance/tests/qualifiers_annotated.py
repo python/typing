@@ -22,6 +22,8 @@ from typing import (
     Union,
 )
 
+T = TypeVar("T")
+
 
 Good1: Annotated[Union[int, str], ""]
 Good2: Annotated[int | None, ""]
@@ -31,7 +33,7 @@ Good5: Annotated[tuple[int, ...] | list[int], ""]
 Good6: Annotated[Callable[..., int], ""]
 Good7: Annotated["int | str", ""]
 Good8: Annotated[list["int | str"], ""]
-Good9: Annotated[Literal[3, 4, 5, None], x:=3]
+Good9: Annotated[Literal[3, 4, 5, None], x := 3]
 
 
 async def func3() -> None:
@@ -62,10 +64,33 @@ Multi2: Annotated[int | str, 3, "", lambda x: x, max(1, 2)]
 Bad13: Annotated[int]  # Type error: requires at least two arguments
 
 
-# Annotated types can be nested
+# > Annotated types can be nested
 
 Nested1: list[Annotated[dict[str, Annotated[str, ""]], ""]]
 Nested2: Annotated[list[Annotated[dict[str, Annotated[Literal[1, 2, 3], ""]], ""]], ""]
+
+
+# > Annotated is not type compatible with type or type[T]
+SmallInt: TypeAlias = Annotated[int, ""]
+
+not_type1: type[Any] = Annotated[int, ""]  # Type Error
+not_type2: type[Any] = SmallInt  # Type error
+
+
+def func4(x: type[T]) -> T:
+    return x()
+
+
+func4(Annotated[str, ""])  # Type Error
+func4(SmallInt)  # Type Error
+
+
+# > An attempt to call Annotated (whether parameterized or not) should be
+# > treated as a type error by type checkers.
+
+Annotated()  # Type Error
+Annotated[int, ""]()  # Type Error
+SmallInt(1)  # Type Error
 
 
 class ClassA:

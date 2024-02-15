@@ -8,6 +8,7 @@ from pathlib import Path
 import os
 from pytype import config as pytype_config
 from pytype import io as pytype_io
+from pytype import analyze as pytype_analyze
 from pytype import errors as pytype_errors
 from pytype import load_pytd as pytype_loader
 from shutil import rmtree
@@ -239,13 +240,15 @@ class PytypeTypeChecker(TypeChecker):
             with open(fi, "r") as test_file:
                 src = test_file.read()
             try:
-                errorlog: pytype_errors.ErrorLog = pytype_io.check_py(
+                analysis: pytype_analyze.Analysis = pytype_io.check_py(
                     src, options=options, loader=loader
                 )
             except Exception as e:
                 results_dict[fi] = f"{e.__class__.__name__}: {e}\n"
             else:
-                results_dict[fi] = self.enforce_consistent_order(errorlog)
+                results_dict[fi] = self.enforce_consistent_order(
+                    analysis.context.errorlog
+                )
         return results_dict
 
     def enforce_consistent_order(self, log: pytype_errors.ErrorLog) -> str:
