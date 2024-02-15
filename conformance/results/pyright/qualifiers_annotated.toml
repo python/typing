@@ -1,22 +1,29 @@
 conformant = "Pass"
 output = """
-qualifiers_annotated.py:41:17 - error: List expression not allowed for this type argument
-qualifiers_annotated.py:42:17 - error: Expected type expression but received "tuple[tuple[type[int], type[str]]]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:43:17 - error: List expression not allowed for this type argument
-qualifiers_annotated.py:43:18 - error: Expected type expression but received "Generator[type[int], None, None]" (reportGeneralTypeIssues)
-qualifiers_annotated.py:44:17 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)
-qualifiers_annotated.py:44:17 - error: Dictionary expression not allowed in type annotation
-qualifiers_annotated.py:45:17 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
-qualifiers_annotated.py:46:17 - error: List expression not allowed in type annotation
+qualifiers_annotated.py:44:17 - error: Expected type expression but received "tuple[tuple[type[int], type[str]]]" (reportGeneralTypeIssues)
+qualifiers_annotated.py:45:17 - error: List expression not allowed for this type argument
+qualifiers_annotated.py:45:18 - error: Expected type expression but received "Generator[type[int], None, None]" (reportGeneralTypeIssues)
+qualifiers_annotated.py:46:17 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)
+qualifiers_annotated.py:46:17 - error: Dictionary expression not allowed in type annotation
+qualifiers_annotated.py:47:17 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
+qualifiers_annotated.py:48:17 - error: List expression not allowed in type annotation
   Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
-qualifiers_annotated.py:46:17 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
-qualifiers_annotated.py:47:17 - error: Ternary expression not allowed in type annotation (reportInvalidTypeForm)
-qualifiers_annotated.py:48:17 - error: "var1" is not defined (reportUndefinedVariable)
-qualifiers_annotated.py:49:17 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)
-qualifiers_annotated.py:50:18 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
-qualifiers_annotated.py:51:18 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)
-qualifiers_annotated.py:52:18 - error: Expected expression
-qualifiers_annotated.py:52:18 - error: Tuple expression not allowed in type annotation
+qualifiers_annotated.py:48:17 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
+qualifiers_annotated.py:49:17 - error: Ternary expression not allowed in type annotation (reportInvalidTypeForm)
+qualifiers_annotated.py:50:17 - error: "var1" is not defined (reportUndefinedVariable)
+qualifiers_annotated.py:51:17 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)
+qualifiers_annotated.py:52:18 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
+qualifiers_annotated.py:53:18 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)
+qualifiers_annotated.py:54:18 - error: Expected expression
+qualifiers_annotated.py:54:18 - error: Tuple expression not allowed in type annotation
   Use tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
-qualifiers_annotated.py:62:8 - error: Expected one type argument and one or more annotations for "Annotated"
+qualifiers_annotated.py:64:8 - error: Expected one type argument and one or more annotations for "Annotated"
+qualifiers_annotated.py:76:24 - error: Expression of type "type[int]" cannot be assigned to declared type "type[Any]" (reportAssignmentType)
+qualifiers_annotated.py:77:24 - error: Expression of type "SmallInt" cannot be assigned to declared type "type[Any]" (reportAssignmentType)
+qualifiers_annotated.py:84:7 - error: Argument of type "type[str]" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4" (reportArgumentType)
+qualifiers_annotated.py:85:7 - error: Argument of type "SmallInt" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4" (reportArgumentType)
+qualifiers_annotated.py:91:1 - error: "Annotated" cannot be instantiated (reportCallIssue)
+qualifiers_annotated.py:92:1 - error: Object of type "type[Annotated]" is not callable (reportCallIssue)
+qualifiers_annotated.py:93:1 - error: Object of type "type[Annotated]" is not callable (reportCallIssue)
 """
