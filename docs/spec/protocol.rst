@@ -427,7 +427,7 @@ Unions and intersections of protocols
 Unions of protocol classes behaves the same way as for non-protocol
 classes. For example::
 
-  from typing importt Protocol
+  from typing import Protocol
 
   class Exitable(Protocol):
       def exit(self) -> int:
