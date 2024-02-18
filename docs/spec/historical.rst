@@ -198,8 +198,8 @@ not provide a way to declare positional-only parameters.
 
 To support positional-only parameters in code that must remain compatible
 with older versions of Python, type checkers should support the following
-special case: all parameters with names beginning with ``__`` are assumed to 
-be positional-only unless their names also end with ``__``::
+special case: all parameters with names that begin but don't end with ``__``
+are assumed to be positional-only::
 
   def f(__x: int, __y__: int = 0) -> None: ...
 
