@@ -193,25 +193,30 @@ type ``str`` as well as ``unicode`` should be acceptable.
 
 .. _`pos-only-double-underscore`:
 
-Positional-only arguments
--------------------------
+Positional-only parameters
+--------------------------
 
 Some functions are designed to take their arguments only positionally,
 and expect their callers never to use the argument's name to provide
 that argument by keyword. Before Python 3.8 (:pep:`570`), Python did
-not provide a way to declare positional-only arguments.
+not provide a way to declare positional-only parameters.
 
-To support positional-only arguments on older Python versions, type
-checkers support the following special case:
-all arguments with names beginning with
-``__`` are assumed to be positional-only, except if their names also
-end with ``__``::
+To support positional-only parameters in code that must remain compatible
+with older versions of Python, type checkers should support the following
+special case: all parameters with names that begin but don't end with ``__``
+are assumed to be positional-only::
 
-  def quux(__x: int, __y__: int = 0) -> None: ...
+  def f(__x: int, __y__: int = 0) -> None: ...
 
-  quux(3, __y__=1)  # This call is fine.
+  f(3, __y__=1)  # This call is fine.
 
-  quux(__x=3)  # This call is an error.
+  f(__x=3)  # This call is an error.
+
+Consistent with :pep:`570` syntax, positional-only parameters cannot appear
+after parameters that accept keyword arguments. Type checkers should enforce
+this requirement::
+
+  def g(x: int, __y: int) -> None: ...  # Type error
 
 
 Generics in standard collections
