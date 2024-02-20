@@ -1,0 +1,12 @@
+conformant="Partial"
+notes = """
+Does not reject positional-only parameter after non-positional-only parameter.
+Treats keyword-only parameter as positional-only.
+Applies legacy positional-only rules when PEP 570 syntax is used.
+"""
+output = """
+historical_positional.py:18:0 Unexpected keyword [28]: Unexpected keyword argument `__x` to call `f1`.
+historical_positional.py:32:0 Unexpected keyword [28]: Unexpected keyword argument `__y` to call `f3`.
+historical_positional.py:43:0 Unexpected keyword [28]: Unexpected keyword argument `__x` to call `A.m1`.
+historical_positional.py:53:0 Unexpected keyword [28]: Unexpected keyword argument `__y` to call `f4`.
+"""
