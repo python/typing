@@ -2,4 +2,5 @@ conformant = "Pass"
 output = """
 narrowing_typeguard.py:102: error: TypeGuard functions must have a positional argument  [valid-type]
 narrowing_typeguard.py:107: error: TypeGuard functions must have a positional argument  [valid-type]
+narrowing_typeguard.py:128: error: Argument 1 to "takes_callable_str" has incompatible type "Callable[[object], TypeGuard[int]]"; expected "Callable[[object], str]"  [arg-type]
 """
