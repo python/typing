@@ -7,4 +7,9 @@ narrowing_typeguard.py:128:20 - error: Argument of type "(val: object) -> TypeGu
     Function return type "TypeGuard[int]" is incompatible with type "str"
       "TypeGuard[int]" is incompatible with "str"
       "bool" is incompatible with "str" (reportArgumentType)
+narrowing_typeguard.py:148:26 - error: Argument of type "(val: object) -> TypeGuard[int]" cannot be assigned to parameter "f" of type "CallableStrProto" in function "takes_callable_str_proto"
+  Type "(val: object) -> TypeGuard[int]" cannot be assigned to type "(val: object) -> str"
+    Function return type "TypeGuard[int]" is incompatible with type "str"
+      "TypeGuard[int]" is incompatible with "str"
+      "bool" is incompatible with "str" (reportArgumentType)
 """

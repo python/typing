@@ -19,8 +19,9 @@ user-defined type guard function. Return statements within a type guard function
 should return bool values, and type checkers should verify that all return paths
 return a bool.
 
-``TypeGuard`` is also valid as the return type of a ``Callable`` type. In that
-context, it is treated as a subtype of bool. For example, ``Callable[..., TypeGuard[int]]``
+``TypeGuard`` is also valid as the return type of a callable, for example
+in callback protocols and in the ``Callable`` special form. In these
+contexts, it is treated as a subtype of bool. For example, ``Callable[..., TypeGuard[int]]``
 is assignable to ``Callable[..., bool]``.
 
 When ``TypeGuard`` is used to annotate the return type of a function or

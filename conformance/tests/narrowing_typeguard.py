@@ -4,7 +4,7 @@ Tests TypeGuard functionality.
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/narrowing.html#typeguard
 
-from typing import Any, Callable, Self, TypeGuard, TypeVar, assert_type
+from typing import Any, Callable, Protocol, Self, TypeGuard, TypeVar, assert_type
 
 
 T = TypeVar("T")
@@ -126,3 +126,23 @@ def simple_typeguard(val: object) -> TypeGuard[int]:
 
 takes_callable_bool(simple_typeguard)  # OK
 takes_callable_str(simple_typeguard)   # Error
+
+
+class CallableBoolProto(Protocol):
+    def __call__(self, val: object) -> bool: ...
+
+
+class CallableStrProto(Protocol):
+    def __call__(self, val: object) -> str: ...
+
+
+def takes_callable_bool_proto(f: CallableBoolProto) -> None:
+    pass
+
+
+def takes_callable_str_proto(f: CallableStrProto) -> None:
+    pass
+
+
+takes_callable_bool_proto(simple_typeguard)  # OK
+takes_callable_str_proto(simple_typeguard)   # Error
