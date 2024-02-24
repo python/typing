@@ -119,16 +119,22 @@ https://peps.python.org/topic/typing
 * :pep:`613`, ``TypeAlias``
 * :pep:`646`, variadic generics and ``TypeVarTuple``
 * :pep:`647`, ``TypeGuard``
-* :pep:`649` (draft), ``from __future__ import co_annotations``
+* :pep:`649` (draft), lazy evaluation of annotations
 * :pep:`655`, ``Required`` and ``NotRequired``
 * :pep:`673`, ``Self``
 * :pep:`675`, ``LiteralString``
 * :pep:`677` (rejected), ``(int, str) -> bool`` callable type syntax
-* :pep:`681` ``@dataclass_transform()``
-* :pep:`688` ``Buffer``
-* :pep:`692` ``Unpack[TypedDict]`` for ``**kwargs``
-* :pep:`695` ``class Class[T]:`` type parameter syntax
+* :pep:`681`, ``@dataclass_transform()``
+* :pep:`688`, ``Buffer``
+* :pep:`692`, ``Unpack[TypedDict]`` for ``**kwargs``
+* :pep:`695`, ``class Class[T]:`` type parameter syntax and ``type X`` type alias syntax
 * :pep:`696` (draft), defaults for type variables
-* :pep:`698` ``@override``
-* :pep:`702` (draft), ``@deprecated()``
-* :pep:`705` (draft), ``TypedMapping``
+* :pep:`698`, ``@override``
+* :pep:`702`, ``@deprecated()``
+* :pep:`705` (draft), ``TypedDict`` with read-only items
+* :pep:`718` (draft), subscriptable functions
+* :pep:`724` (withdrawn), stricter ``TypeGuard``
+* :pep:`727` (draft), ``Doc`` in ``Annotated``
+* :pep:`728` (draft), ``TypedDict`` with typed extra items
+* :pep:`729`, typing governance process
+* :pep:`742` (draft), ``TypeIs``
