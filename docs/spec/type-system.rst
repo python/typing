@@ -43,29 +43,3 @@ optimizations is left as an exercise for the reader.
 It should also be emphasized that **Python will remain a dynamically
 typed language, and there is no desire to ever make type hints
 mandatory, even by convention.**
-
-.. _`definitions`:
-
-Definition of terms
--------------------
-
-This section defines a few terms that may be used elsewhere in the specification.
-
-The definition of "MAY", "MUST", and "SHOULD", and "SHOULD NOT" are
-to be interpreted as described in :rfc:`2119`.
-
-"inline" - the types are part of the runtime code using :pep:`526` and
-:pep:`3107` syntax (the filename ends in ``.py``).
-
-"stubs" - files containing only type information, empty of runtime code
-(the filename ends in ``.pyi``).
-
-"Distributions" are the packaged files which are used to publish and distribute
-a release. (:pep:`426`)
-
-"Module" a file containing Python runtime code or stubbed type information.
-
-"Package" a directory or directories that namespace Python modules.
-(Note the distinction between packages and distributions.  While most
-distributions are named after the one package they install, some
-distributions install multiple packages.)
