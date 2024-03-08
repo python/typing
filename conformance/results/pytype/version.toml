@@ -1,2 +1,2 @@
-version = "pytype 2024.02.13"
-test_duration = 42.5
+version = "pytype 2024.02.27"
+test_duration = 30.5

@@ -13,7 +13,7 @@ typeddicts_operations.py:28:9 - error: Expression of type "dict[str, str]" canno
 typeddicts_operations.py:29:42 - error: Expression of type "dict[str, str | float]" cannot be assigned to declared type "Movie"
   "float" is incompatible with "int" (reportAssignmentType)
 typeddicts_operations.py:32:36 - error: Expression of type "dict[str, str | int]" cannot be assigned to declared type "Movie"
-  "other" is an undefined field in type "Movie" (reportAssignmentType)
+  "other" is an undefined item in type "Movie" (reportAssignmentType)
 typeddicts_operations.py:37:20 - error: Expression of type "dict[str, str | int]" cannot be assigned to declared type "Movie" (reportAssignmentType)
 typeddicts_operations.py:47:7 - error: Cannot access member "clear" for type "Movie"
   Member "clear" is unknown (reportAttributeAccessIssue)
