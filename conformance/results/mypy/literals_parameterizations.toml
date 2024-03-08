@@ -1,10 +1,8 @@
 conformant = "Partial"
 notes = """
-Rejects integer Literal with unary `+` operator.
 Does not reject tuple within Literal.
 """
 output = """
-literals_parameterizations.py:20: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
 literals_parameterizations.py:41: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
 literals_parameterizations.py:42: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
 literals_parameterizations.py:43: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
