@@ -579,7 +579,7 @@ may also enforce this restriction.
 
 The :pep:`alternative functional syntax <589#alternative-syntax>`
 for TypedDict also supports
-``Required[]`` and ``NotRequired[]``:
+``Required[]``, ``NotRequired[]``, and ``ReadOnly[]``:
 
 ::
 
@@ -660,13 +660,6 @@ The ``typing.ReadOnly`` type qualifier is used to indicate that an item declared
     blur["members"] = ["Damon Albarn"]  # Type check error: "members" is read-only
     blur["members"].append("Damon Albarn")  # OK: list is mutable
 
-
-Alternative functional syntax
------------------------------
-
-The :pep:`alternative functional syntax <589#alternative-syntax>` for TypedDict also supports the new type qualifier::
-
-   Band = TypedDict("Band", {"name": str, "members": ReadOnly[list[str]]})
 
 Interaction with other special types
 ------------------------------------
@@ -809,7 +802,7 @@ Note: Nothing will ever match the ``Never`` type, so an item annotated with it m
 Keyword argument typing
 -----------------------
 
-:pep:`692` introduced ``Unpack`` to annotate ``**kwargs`` with a ``TypedDict``. Marking one or more of the items of a ``TypedDict`` used in this way as read-only will have no effect on the type signature of the method. However, it *will* prevent the item from being modified in the body of the function::
+As discussed in the section `unpack-kwargs`_, an unpacked ``TypedDict`` can be used to annotate ``**kwargs``. Marking one or more of the items of a ``TypedDict`` used in this way as read-only will have no effect on the type signature of the method. However, it *will* prevent the item from being modified in the body of the function::
 
     class Args(TypedDict):
         key1: int
