@@ -1,0 +1,20 @@
+conformant = "Unsupported"
+output = """
+File "typeddicts_readonly_inheritance.py", line 8, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]
+File "typeddicts_readonly_inheritance.py", line 18, in <module>: Invalid base class: NamedDict [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 47, in <module>: Invalid base class: AlbumCollection [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 47, in <module>: Invalid base class: AlbumCollection [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 61, in <module>: Invalid base class: OptionalName [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 65, in <module>: Type annotation for d does not match type of assignment [annotation-type-mismatch]
+File "typeddicts_readonly_inheritance.py", line 75, in <module>: Invalid base class: OptionalIdent [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 83, in <module>: Type annotation for u does not match type of assignment [annotation-type-mismatch]
+File "typeddicts_readonly_inheritance.py", line 84, in <module>: Type annotation for u does not match type of assignment [annotation-type-mismatch]
+File "typeddicts_readonly_inheritance.py", line 93, in <module>: Invalid base class: F1 [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 97, in <module>: Invalid base class: F1 [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 101, in <module>: Invalid base class: F1 [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 105, in <module>: Invalid base class: F1 [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 119, in <module>: Invalid base class: TD_A2 [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 119, in <module>: Invalid base class: TD_A2 [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 132, in <module>: Invalid base class: TD_B2 [base-class-error]
+File "typeddicts_readonly_inheritance.py", line 132, in <module>: Invalid base class: TD_B2 [base-class-error]
+"""

@@ -1,0 +1,22 @@
+conformant = "Pass"
+output = """
+typeddicts_readonly_inheritance.py:36:1 - error: Could not assign item in TypedDict
+  "name" is a read-only key in "Album2" (reportTypedDictNotRequiredAccess)
+typeddicts_readonly_inheritance.py:50:5 - error: "alt" overrides symbol of same name in class "AlbumCollection"
+  "list[str]" is incompatible with "list[str | int]"
+    Type parameter "_T@list" is invariant, but "str" is not the same as "str | int"
+    Consider switching from "list" to "Sequence" which is covariant (reportIncompatibleVariableOverride)
+typeddicts_readonly_inheritance.py:65:19 - error: Expression of type "dict[Any, Any]" cannot be assigned to declared type "RequiredName"
+  "name" is required in "RequiredName" (reportAssignmentType)
+typeddicts_readonly_inheritance.py:82:1 - error: Could not assign item in TypedDict
+  "Literal[3]" is incompatible with "str" (reportGeneralTypeIssues)
+typeddicts_readonly_inheritance.py:83:15 - error: Expression of type "dict[str, int]" cannot be assigned to declared type "User"
+  "Literal[3]" is incompatible with "str" (reportAssignmentType)
+typeddicts_readonly_inheritance.py:84:5 - error: Expression of type "dict[Any, Any]" cannot be assigned to declared type "User"
+  "ident" is required in "User" (reportAssignmentType)
+typeddicts_readonly_inheritance.py:94:5 - error: TypedDict item "a" cannot be redefined as ReadOnly (reportGeneralTypeIssues)
+typeddicts_readonly_inheritance.py:98:5 - error: TypedDict item "a" cannot be redefined as NotRequired (reportGeneralTypeIssues)
+typeddicts_readonly_inheritance.py:106:5 - error: TypedDict item "c" cannot be redefined as NotRequired (reportGeneralTypeIssues)
+typeddicts_readonly_inheritance.py:119:7 - error: Base classes for class "TD_A" define variable "x" in incompatible way (reportIncompatibleVariableOverride)
+typeddicts_readonly_inheritance.py:132:7 - error: TypedDict item "x" cannot be redefined as NotRequired (reportIncompatibleVariableOverride)
+"""
