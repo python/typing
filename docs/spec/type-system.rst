@@ -43,3 +43,9 @@ optimizations is left as an exercise for the reader.
 It should also be emphasized that **Python will remain a dynamically
 typed language, and there is no desire to ever make type hints
 mandatory, even by convention.**
+
+Interpretation
+--------------
+
+The definition of "MAY", "MUST", and "SHOULD", and "SHOULD NOT" are
+to be interpreted as described in :rfc:`2119`.

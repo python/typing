@@ -5,9 +5,6 @@ Glossary
 
 This section defines a few terms that may be used elsewhere in the specification.
 
-The definition of "MAY", "MUST", and "SHOULD", and "SHOULD NOT" are
-to be interpreted as described in :rfc:`2119`.
-
 .. glossary::
 
    distribution
