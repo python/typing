@@ -11,10 +11,22 @@ Called from (traceback):
   line 37, in current file
 File "dataclasses_descriptors.py", line 35, in <module>: Function DC1.__init__ was called with the wrong arguments [wrong-arg-types]
 File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]
-File "dataclasses_descriptors.py", line 61, in <module>: list [assert-type]
-File "dataclasses_descriptors.py", line 62, in <module>: list [assert-type]
-File "dataclasses_descriptors.py", line 63, in <module>: list [assert-type]
-File "dataclasses_descriptors.py", line 66, in <module>: Any [assert-type]
-File "dataclasses_descriptors.py", line 67, in <module>: Any [assert-type]
-File "dataclasses_descriptors.py", line 68, in <module>: Any [assert-type]
+Called from (traceback):
+  line 68, in current file
+File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]
+Called from (traceback):
+  line 67, in current file
+File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]
+Called from (traceback):
+  line 66, in current file
+File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]
+Called from (traceback):
+  line 63, in current file
+File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]
+Called from (traceback):
+  line 62, in current file
+File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]
+Called from (traceback):
+  line 61, in current file
+File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]
 """
