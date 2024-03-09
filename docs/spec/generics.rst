@@ -1964,11 +1964,11 @@ Type parameters are valid as parameters to generics inside of a
    class Bar(Generic[T, ListDefaultT]):
        def __init__(self, x: T, y: ListDefaultT): ...
 
-   reveal_type(Bar)                    # type is type[Bar[T, ListDefaultT = list[T]]]
-   reveal_type(Bar[int])               # type is type[Bar[int, list[int]]]
-   reveal_type(Bar[int]())             # type is Bar[int, list[int]]
-   reveal_type(Bar[int, list[str]]())  # type is Bar[int, list[str]]
-   reveal_type(Bar[int, str]())        # type is Bar[int, str]
+   reveal_type(Bar)                         # type is type[Bar[T, ListDefaultT = list[T]]]
+   reveal_type(Bar[int])                    # type is type[Bar[int, list[int]]]
+   reveal_type(Bar[int](0, []))             # type is Bar[int, list[int]]
+   reveal_type(Bar[int, list[str]](0, []))  # type is Bar[int, list[str]]
+   reveal_type(Bar[int, str](0, ""))        # type is Bar[int, str]
 
 Specialization Rules
 ~~~~~~~~~~~~~~~~~~~~
