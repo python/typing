@@ -234,7 +234,7 @@ Now the protocol ``SizedAndClosable`` is a protocol with two methods,
 ``__len__`` and ``close``. If one omits ``Protocol`` in the base class list,
 this would be a regular (non-protocol) class that must implement ``Sized``.
 Alternatively, one can implement ``SizedAndClosable`` protocol by merging
-the ``SupportsClose`` protocol from the example in the `definition`_ section
+the ``SupportsClose`` protocol from the example in the `protocol-definition`_ section
 with ``typing.Sized``::
 
   from collections.abc import Sized

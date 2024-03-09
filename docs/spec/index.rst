@@ -26,3 +26,4 @@ Specification for the Python type system
    directives
    distributing
    historical
+   glossary
