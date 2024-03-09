@@ -1872,10 +1872,6 @@ To use another type parameter as a default the ``default`` and the
 type parameter must be the same type (a ``TypeVar``'s default must be
 a ``TypeVar``, etc.).
 
-`This could be used on builtins.slice <https://github.com/python/typing/issues/159>`__
-where the ``start`` parameter should default to ``int``, ``stop``
-default to the type of ``start`` and step default to ``int | None``.
-
 ::
 
    StartT = TypeVar("StartT", default=int)
@@ -2070,7 +2066,7 @@ should be bound to the ``TypeVarTuple`` or the defaulted ``TypeVar``.
    Ts = TypeVarTuple("Ts")
    T = TypeVar("T", default=bool)
 
-   class Foo(Generic[Ts, T]): ...  # Type checker error
+   class Foo(Generic[*Ts, T]): ...  # Type checker error
 
    # Could be reasonably interpreted as either Ts = (int, str, float), T = bool
    # or Ts = (int, str), T = float
@@ -2085,7 +2081,7 @@ for the ``ParamSpec`` and one for the ``TypeVarTuple``.
    Ts = TypeVarTuple("Ts")
    P = ParamSpec("P", default=[float, bool])
 
-   class Foo(Generic[Ts, P]): ...  # Valid
+   class Foo(Generic[*Ts, P]): ...  # Valid
 
    Foo[int, str]  # Ts = (int, str), P = [float, bool]
    Foo[int, str, [bytes]]  # Ts = (int, str), P = [bytes]
