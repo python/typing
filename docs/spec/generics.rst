@@ -1911,8 +1911,6 @@ Scoping Rules
    T2 = TypeVar("T2", default=T1)
 
    class Foo(Generic[T1, T2]): ...   # Valid
-   class Foo(Generic[T1]):
-       class Bar(Generic[T2]): ...   # Valid
 
    StartT = TypeVar("StartT", default="StopT")  # Swapped defaults around from previous example
    StopT = TypeVar("StopT", default=int)
@@ -1920,6 +1918,9 @@ Scoping Rules
                      # ^^^^^^ Invalid: ordering does not allow StopT to be bound
 
 Using a type parameter from an outer scope as a default is not supported.
+
+   class Foo(Generic[T1]):
+       class Bar(Generic[T2]): ...   # Type Error
 
 Bound Rules
 ~~~~~~~~~~~
