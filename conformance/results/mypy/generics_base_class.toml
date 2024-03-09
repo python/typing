@@ -1,6 +1,3 @@
 conformant = "Pass"
 output = """
-generics_base_class.py:22: error: Argument 1 to "takes_dict_incorrect" has incompatible type "SymbolTable"; expected "dict[str, list[object]]"  [arg-type]
-generics_base_class.py:37: error: "LinkedList" expects 1 type argument, but 2 given  [type-arg]
-generics_base_class.py:46: error: "MyDict" expects 1 type argument, but 2 given  [type-arg]
 """

@@ -1,0 +1,17 @@
+conformant = "Partial"
+notes = """
+Does not reject TypeVar with default after TypeVarTuple in class definition.
+Rejects specialization of generic class that has a TypeVarTuple followed by a ParamSpec with a default.
+Incorrectly evaluates type of generic attribute when accessing through unspecialized class.
+"""
+output = """
+generics_defaults.py:24:7 - error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type (reportGeneralTypeIssues)
+generics_defaults.py:52:16 - error: Too few type arguments provided for "AllTheDefaults"; expected 2 but received 1 (reportInvalidTypeArguments)
+generics_defaults.py:107:35 - error: TypeVar default type must be a subtype of the bound type (reportGeneralTypeIssues)
+generics_defaults.py:116:36 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)
+generics_defaults.py:157:13 - error: "assert_type" mismatch: expected "type[Foo6[int, str, (float, bool)]]" but received "type[Foo6[int, str]]" (reportAssertTypeFailure)
+generics_defaults.py:157:23 - error: Type "str" cannot be assigned to type variable "P@Foo6"
+  Type "str" is incompatible with ParamSpec "P@Foo6" (reportInvalidTypeArguments)
+generics_defaults.py:173:13 - error: "assert_type" mismatch: expected "int" but received "DefaultIntT@Foo7" (reportAssertTypeFailure)
+generics_defaults.py:173:18 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
+"""

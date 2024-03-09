@@ -5,27 +5,4 @@ Does not report error for use of quoted type with "|" operator (runtime error).
 Incorrectly generates error for quoted type defined in class scope.
 """
 output = """
-annotations_forward_refs.py:41: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:42: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:43: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:44: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:45: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:46: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:47: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:48: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:49: error: Variable "annotations_forward_refs.var1" is not valid as a type  [valid-type]
-annotations_forward_refs.py:49: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
-annotations_forward_refs.py:50: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:51: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:52: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:53: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:54: error: Invalid type comment or annotation  [valid-type]
-annotations_forward_refs.py:55: error: Module "types" is not valid as a type  [valid-type]
-annotations_forward_refs.py:55: note: Perhaps you meant to use a protocol matching the module structure?
-annotations_forward_refs.py:80: error: Name "ClassF" is not defined  [name-defined]
-annotations_forward_refs.py:87: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
-annotations_forward_refs.py:87: note: Perhaps you need "Callable[...]" or a callback protocol?
-annotations_forward_refs.py:89: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
-annotations_forward_refs.py:89: note: Perhaps you need "Callable[...]" or a callback protocol?
-annotations_forward_refs.py:93: error: Expression is of type int?, not "int"  [assert-type]
 """
