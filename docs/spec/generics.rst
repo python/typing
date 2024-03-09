@@ -1777,9 +1777,8 @@ Default Ordering and Subscription Rules
 
 The order for defaults should follow the standard function parameter
 rules, so a type parameter with no ``default`` cannot follow one with
-a ``default`` value. Doing so should ideally raise a ``TypeError`` in
-``typing._GenericAlias``/``types.GenericAlias``, and a type checker
-should flag this as an error.
+a ``default`` value. Doing so may raise a ``TypeError`` at runtime,
+and a type checker should flag this as an error.
 
 ::
 
@@ -1973,14 +1972,12 @@ Type parameters are valid as parameters to generics inside of a
 Specialization Rules
 ~~~~~~~~~~~~~~~~~~~~
 
-``Generic`` ``TypeAlias``\ es
-'''''''''''''''''''''''''''''
+Generic Type Aliases
+''''''''''''''''''''
 
-``Generic`` ``TypeAlias``\ es can be further subscripted
-following normal subscription rules. If a type parameter has a default
-that hasn't been overridden, it should be treated like it was
-substituted into the ``TypeAlias``. However, it can be specialized
-further down the line.
+A generic type alias can be further subscripted following normal subscription
+rules. If a type parameter has a default that hasn't been overridden, it should
+be treated like it was substituted into the type alias.
 
 ::
 
@@ -1995,11 +1992,9 @@ further down the line.
 Subclassing
 '''''''''''
 
-Subclasses of ``Generic``\ s with type parameters that have defaults
-behave similarly to ``Generic`` ``TypeAlias``\ es. That is, subclasses can be
-further subscripted following normal subscription rules, non-overridden
-defaults should be substituted in, and type parameters with such defaults can be
-further specialized down the line.
+Generic classes with type parameters that have defaults behave similarly
+generic type aliases. That is, subclasses can be further subscripted following
+normal subscription rules, non-overridden defaults should be substituted.
 
 ::
 
