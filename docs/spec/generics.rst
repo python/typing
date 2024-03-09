@@ -1794,9 +1794,9 @@ and a type checker should flag this as an error.
    class NoNonDefaults(Generic[DefaultStrT, DefaultIntT]): ...
 
    (
-       NoNoneDefaults ==
-       NoNoneDefaults[str] ==
-       NoNoneDefaults[str, int]
+       NoNonDefaults ==
+       NoNonDefaults[str] ==
+       NoNonDefaults[str, int]
    )  # All valid
 
 
