@@ -1,0 +1,19 @@
+conformant = "Pass"
+output = """
+typeddicts_readonly_consistency.py:37:14 - error: Expression of type "A1" cannot be assigned to declared type "B1"
+  "y" is missing from "A1" (reportAssignmentType)
+typeddicts_readonly_consistency.py:38:14 - error: Expression of type "C1" cannot be assigned to declared type "B1"
+  "y" is not read-only in "B1" (reportAssignmentType)
+typeddicts_readonly_consistency.py:40:14 - error: Expression of type "A1" cannot be assigned to declared type "C1"
+  "y" is an incompatible type
+    "object" is incompatible with "str" (reportAssignmentType)
+typeddicts_readonly_consistency.py:81:14 - error: Expression of type "A2" cannot be assigned to declared type "B2"
+  "x" is not read-only in "B2" (reportAssignmentType)
+typeddicts_readonly_consistency.py:82:14 - error: Expression of type "C2" cannot be assigned to declared type "B2"
+  "x" is not required in "B2" (reportAssignmentType)
+typeddicts_readonly_consistency.py:84:14 - error: Expression of type "A2" cannot be assigned to declared type "C2"
+  "x" is required in "C2"
+  "x" is not read-only in "C2" (reportAssignmentType)
+typeddicts_readonly_consistency.py:85:14 - error: Expression of type "B2" cannot be assigned to declared type "C2"
+  "x" is required in "C2" (reportAssignmentType)
+"""

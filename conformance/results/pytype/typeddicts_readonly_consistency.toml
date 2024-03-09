@@ -1,0 +1,7 @@
+conformant = "Unsupported"
+output = """
+File "typeddicts_readonly_consistency.py", line 8, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]
+File "typeddicts_readonly_consistency.py", line 34, in func1: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]
+File "typeddicts_readonly_consistency.py", line 35, in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
+File "typeddicts_readonly_consistency.py", line 40, in func1: Type annotation for v5 does not match type of assignment [annotation-type-mismatch]
+"""

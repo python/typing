@@ -1,0 +1,4 @@
+conformant = "Unsupported"
+output = """
+File "typeddicts_readonly.py", line 8, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]
+"""

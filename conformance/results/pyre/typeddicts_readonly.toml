@@ -1,0 +1,5 @@
+conformant = "Unsupported"
+output = """
+typeddicts_readonly.py:8:0 Undefined import [21]: Could not find a name `ReadOnly` defined in module `typing_extensions`.
+typeddicts_readonly.py:18:13 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.
+"""

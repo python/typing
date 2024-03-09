@@ -1,0 +1,5 @@
+conformant = "Pass"
+output = """
+typeddicts_readonly_kwargs.py:33:5 - error: Could not assign item in TypedDict
+  "key1" is a read-only key in "*ReadOnlyArgs" (reportTypedDictNotRequiredAccess)
+"""
