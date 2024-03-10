@@ -118,7 +118,7 @@ method or attribute in some ancestor class.
             return 2
 
         @override
-        def baz() -> int:  # Type check error: no matching signature in ancestor
+        def baz(self) -> int:  # Type check error: no matching signature in ancestor
             return 1
 
 
