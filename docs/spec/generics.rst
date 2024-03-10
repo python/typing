@@ -1990,7 +1990,7 @@ Subclassing
 '''''''''''
 
 Generic classes with type parameters that have defaults behave similarly
-generic type aliases. That is, subclasses can be further subscripted following
+to generic type aliases. That is, subclasses can be further subscripted following
 normal subscription rules, non-overridden defaults should be substituted.
 
 ::
