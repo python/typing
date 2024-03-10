@@ -7,25 +7,4 @@ Does not reject use of ClassVar in TypeAlias definition.
 Does not infer type of ClassVar from assignment if no type is provided.
 """
 output = """
-classes_classvar.py:36: error: ClassVar[...] must have at most one type argument  [valid-type]
-classes_classvar.py:37: error: Invalid type: try using Literal[3] instead?  [valid-type]
-classes_classvar.py:38: error: Name "var" is not defined  [name-defined]
-classes_classvar.py:43: error: ClassVar cannot contain type variables  [misc]
-classes_classvar.py:44: error: ClassVar cannot contain type variables  [misc]
-classes_classvar.py:50: error: Incompatible types in assignment (expression has type "dict[Never, Never]", variable has type "list[str]")  [assignment]
-classes_classvar.py:52: error: Name "Final" is not defined  [name-defined]
-classes_classvar.py:53: error: Invalid type: ClassVar nested inside other type  [valid-type]
-classes_classvar.py:59: error: Invalid type: ClassVar nested inside other type  [valid-type]
-classes_classvar.py:61: error: ClassVar can only be used for assignments in class body  [misc]
-classes_classvar.py:62: error: ClassVar can only be used for assignments in class body  [misc]
-classes_classvar.py:63: error: ClassVar can only be used for assignments in class body  [misc]
-classes_classvar.py:65: error: ClassVar can only be used for assignments in class body  [misc]
-classes_classvar.py:69: error: ClassVar can only be used for assignments in class body  [misc]
-classes_classvar.py:76: error: Expression is of type "Any", not "float"  [assert-type]
-classes_classvar.py:100: error: Cannot assign to class variable "stats" via instance  [misc]
-classes_classvar.py:129: error: Incompatible types in assignment (expression has type "ProtoAImpl", variable has type "ProtoA")  [assignment]
-classes_classvar.py:129: note: "ProtoAImpl" is missing following "ProtoA" protocol member:
-classes_classvar.py:129: note:     z
-classes_classvar.py:129: note: Protocol member ProtoA.x expected class variable, got instance variable
-classes_classvar.py:129: note: Protocol member ProtoA.y expected class variable, got instance variable
 """

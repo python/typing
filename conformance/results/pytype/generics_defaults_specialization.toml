@@ -1,0 +1,19 @@
+conformant = "Unsupported"
+output = """
+File "generics_defaults_specialization.py", line 15, in <module>: wrong arguments [invalid-typevar]
+File "generics_defaults_specialization.py", line 16, in <module>: wrong arguments [invalid-typevar]
+File "generics_defaults_specialization.py", line 25, in <module>: Invalid type annotation 'SomethingWithNoDefaults[int, Any][bool]'  [invalid-annotation]
+File "generics_defaults_specialization.py", line 26, in func1: SomethingWithNoDefaults[int, Any] [assert-type]
+File "generics_defaults_specialization.py", line 27, in func1: SomethingWithNoDefaults[int, Any] [assert-type]
+File "generics_defaults_specialization.py", line 30, in <module>: Invalid type annotation 'SomethingWithNoDefaults[int, Any][bool, int]'  [invalid-annotation]
+File "generics_defaults_specialization.py", line 38, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+File "generics_defaults_specialization.py", line 42, in <module>: Invalid type annotation 'SubclassMe[int, Any]'  [invalid-annotation]
+File "generics_defaults_specialization.py", line 45, in <module>: class Bar is not indexable [not-indexable]
+File "generics_defaults_specialization.py", line 46, in <module>: class Bar is not indexable [not-indexable]
+File "generics_defaults_specialization.py", line 47, in <module>: class Bar is not indexable [not-indexable]
+File "generics_defaults_specialization.py", line 53, in <module>: Any [assert-type]
+File "generics_defaults_specialization.py", line 55, in <module>: class Foo is not indexable [not-indexable]
+File "generics_defaults_specialization.py", line 58, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+File "generics_defaults_specialization.py", line 65, in <module>: class Baz is not indexable [not-indexable]
+File "generics_defaults_specialization.py", line 65, in <module>: Invalid type annotation 'Baz[int, str]'  [invalid-annotation]
+"""
