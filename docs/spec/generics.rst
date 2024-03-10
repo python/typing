@@ -199,8 +199,9 @@ You can use multiple inheritance with ``Generic``::
       ...
 
 Subclassing a generic class without specifying type parameters assumes
-``Any`` for each position.  In the following example, ``MyIterable``
-is not generic but implicitly inherits from ``Iterable[Any]``::
+``Any`` for each position unless the type parameter has a default value.
+In the following example, ``MyIterable`` is not generic but implicitly inherits
+from ``Iterable[Any]``::
 
   from collections.abc import Iterable
 
@@ -328,7 +329,8 @@ But what type does it have to the type checker?  The answer depends on
 how much information is available in the call.  If the constructor
 (``__init__`` or ``__new__``) uses ``T`` in its signature, and a
 corresponding argument value is passed, the type of the corresponding
-argument(s) is substituted.  Otherwise, ``Any`` is assumed.  Example::
+argument(s) is substituted.  Otherwise, the default value for the type
+parameter (or ``Any``, if no default is provided) is assumed.  Example::
 
   from typing import TypeVar, Generic
 
@@ -1075,7 +1077,7 @@ the star operator: ``*Shape``. The signature of ``Array`` then behaves
 as if we had simply written ``class Array(Generic[T1, T2]): ...``.
 
 In contrast to ``Generic[T1, T2]``, however, ``Generic[*Shape]`` allows
-us to parameterise the class with an *arbitrary* number of type parameters.
+us to parameterize the class with an *arbitrary* number of type parameters.
 That is, in addition to being able to define rank-2 arrays such as
 ``Array[Height, Width]``, we could also define rank-3 arrays, rank-4 arrays,
 and so on:
@@ -1373,9 +1375,9 @@ instance is *not* allowed:
     def foo(*args: Ts): ...  # NOT valid
 
 ``*args`` is the only case where an argument can be annotated as ``*Ts`` directly;
-other arguments should use ``*Ts`` to parameterise something else, e.g. ``tuple[*Ts]``.
-If ``*args`` itself is annotated as ``tuple[*Ts]``, the old behaviour still applies:
-all arguments must be a ``tuple`` parameterised with the same types.
+other arguments should use ``*Ts`` to parameterize something else, e.g. ``tuple[*Ts]``.
+If ``*args`` itself is annotated as ``tuple[*Ts]``, the old behavior still applies:
+all arguments must be a ``tuple`` parameterized with the same types.
 
 ::
 
@@ -1439,12 +1441,12 @@ the function:
 
     def foo(*args: *tuple[int, *Ts, T]) -> tuple[T, *Ts]: ...
 
-Behaviour when Type Parameters are not Specified
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Behavior when Type Parameters are not Specified
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When a generic class parameterised by a type variable tuple is used without
-any type parameters, it behaves as if the type variable tuple was
-substituted with ``tuple[Any, ...]``:
+When a generic class parameterized by a type variable tuple is used without
+any type parameters and the TypeVarTuple has no default value, it behaves as
+if the type variable tuple was substituted with ``tuple[Any, ...]``:
 
 ::
 
@@ -1522,7 +1524,7 @@ tuple in the alias is set empty:
 
 If the type parameter list is omitted entirely, the unspecified type
 variable tuples are treated as ``tuple[Any, ...]`` (similar to
-`Behaviour when Type Parameters are not Specified`_):
+`Behavior when Type Parameters are not Specified`_):
 
 ::
 
@@ -1760,6 +1762,344 @@ overloads can be used with individual ``TypeVar`` instances in place of the type
 overloads for each possible rank is, of course, a rather cumbersome
 solution. However, it's the best we can do without additional type
 manipulation mechanisms.)
+
+.. _`type_parameter_defaults`:
+
+Defaults for Type Parameters
+----------------------------
+
+(Originally specified in :pep:`696`.)
+
+Default values can be provided for a TypeVar, ParamSpec, or TypeVarTuple.
+
+Default Ordering and Subscription Rules
+'''''''''''''''''''''''''''''''''''''''
+
+The order for defaults should follow the standard function parameter
+rules, so a type parameter with no ``default`` cannot follow one with
+a ``default`` value. Doing so may raise a ``TypeError`` at runtime,
+and a type checker should flag this as an error.
+
+::
+
+   DefaultStrT = TypeVar("DefaultStrT", default=str)
+   DefaultIntT = TypeVar("DefaultIntT", default=int)
+   DefaultBoolT = TypeVar("DefaultBoolT", default=bool)
+   T = TypeVar("T")
+   T2 = TypeVar("T2")
+
+   class NonDefaultFollowsDefault(Generic[DefaultStrT, T]): ...  # Invalid: non-default TypeVars cannot follow ones with defaults
+
+
+   class NoNonDefaults(Generic[DefaultStrT, DefaultIntT]): ...
+
+   (
+       NoNonDefaults ==
+       NoNonDefaults[str] ==
+       NoNonDefaults[str, int]
+   )  # All valid
+
+
+   class OneDefault(Generic[T, DefaultBoolT]): ...
+
+   OneDefault[float] == OneDefault[float, bool]  # Valid
+   reveal_type(OneDefault)          # type is type[OneDefault[T, DefaultBoolT = bool]]
+   reveal_type(OneDefault[float]()) # type is OneDefault[float, bool]
+
+
+   class AllTheDefaults(Generic[T1, T2, DefaultStrT, DefaultIntT, DefaultBoolT]): ...
+
+   reveal_type(AllTheDefaults)                  # type is type[AllTheDefaults[T1, T2, DefaultStrT = str, DefaultIntT = int, DefaultBoolT = bool]]
+   reveal_type(AllTheDefaults[int, complex]())  # type is AllTheDefaults[int, complex, str, int, bool]
+   AllTheDefaults[int]  # Invalid: expected 2 arguments to AllTheDefaults
+   (
+       AllTheDefaults[int, complex] ==
+       AllTheDefaults[int, complex, str] ==
+       AllTheDefaults[int, complex, str, int] ==
+       AllTheDefaults[int, complex, str, int, bool]
+   )  # All valid
+
+With the new Python 3.12 syntax for generics (introduced by :pep:`695`), this can
+be enforced at compile time::
+
+   type Alias[DefaultT = int, T] = tuple[DefaultT, T]  # SyntaxError: non-default TypeVars cannot follow ones with defaults
+
+   def generic_func[DefaultT = int, T](x: DefaultT, y: T) -> None: ...  # SyntaxError: non-default TypeVars cannot follow ones with defaults
+
+   class GenericClass[DefaultT = int, T]: ...  # SyntaxError: non-default TypeVars cannot follow ones with defaults
+
+``ParamSpec`` Defaults
+''''''''''''''''''''''
+
+``ParamSpec`` defaults are defined using the same syntax as
+``TypeVar`` \ s but use a ``list`` of types or an ellipsis
+literal "``...``" or another in-scope ``ParamSpec`` (see `Scoping Rules`_).
+
+::
+
+   DefaultP = ParamSpec("DefaultP", default=[str, int])
+
+   class Foo(Generic[DefaultP]): ...
+
+   reveal_type(Foo)                  # type is type[Foo[DefaultP = [str, int]]]
+   reveal_type(Foo())                # type is Foo[[str, int]]
+   reveal_type(Foo[[bool, bool]]())  # type is Foo[[bool, bool]]
+
+``TypeVarTuple`` Defaults
+'''''''''''''''''''''''''
+
+``TypeVarTuple`` defaults are defined using the same syntax as
+``TypeVar`` \ s but use an unpacked tuple of types instead of a single type
+or another in-scope ``TypeVarTuple`` (see `Scoping Rules`_).
+
+::
+
+   DefaultTs = TypeVarTuple("DefaultTs", default=Unpack[tuple[str, int]])
+
+   class Foo(Generic[*DefaultTs]): ...
+
+   reveal_type(Foo)               # type is type[Foo[DefaultTs = *tuple[str, int]]]
+   reveal_type(Foo())             # type is Foo[str, int]
+   reveal_type(Foo[int, bool]())  # type is Foo[int, bool]
+
+Using Another Type Parameter as ``default``
+''''''''''''''''''''''''''''''''''''''''''''
+
+This allows for a value to be used again when the type parameter to a
+generic is missing but another type parameter is specified.
+
+To use another type parameter as a default the ``default`` and the
+type parameter must be the same type (a ``TypeVar``'s default must be
+a ``TypeVar``, etc.).
+
+::
+
+   StartT = TypeVar("StartT", default=int)
+   StopT = TypeVar("StopT", default=StartT)
+   StepT = TypeVar("StepT", default=int | None)
+
+   class slice(Generic[StartT, StopT, StepT]): ...
+
+   reveal_type(slice)  # type is type[slice[StartT = int, StopT = StartT, StepT = int | None]]
+   reveal_type(slice())                        # type is slice[int, int, int | None]
+   reveal_type(slice[str]())                   # type is slice[str, str, int | None]
+   reveal_type(slice[str, bool, timedelta]())  # type is slice[str, bool, timedelta]
+
+   T2 = TypeVar("T2", default=DefaultStrT)
+
+   class Foo(Generic[DefaultStrT, T2]):
+       def __init__(self, a: DefaultStrT, b: T2) -> None: ...
+
+   reveal_type(Foo(1, ""))  # type is Foo[int, str]
+   Foo[int](1, "")          # Invalid: Foo[int, str] cannot be assigned to self: Foo[int, int] in Foo.__init__
+   Foo[int]("", 1)          # Invalid: Foo[str, int] cannot be assigned to self: Foo[int, int] in Foo.__init__
+
+When using a type parameter as the default to another type parameter, the
+following rules apply, where ``T1`` is the default for ``T2``.
+
+Scoping Rules
+~~~~~~~~~~~~~
+
+``T1`` must be used before ``T2`` in the parameter list of the generic.
+
+::
+
+   T2 = TypeVar("T2", default=T1)
+
+   class Foo(Generic[T1, T2]): ...   # Valid
+
+   StartT = TypeVar("StartT", default="StopT")  # Swapped defaults around from previous example
+   StopT = TypeVar("StopT", default=int)
+   class slice(Generic[StartT, StopT, StepT]): ...
+                     # ^^^^^^ Invalid: ordering does not allow StopT to be bound
+
+Using a type parameter from an outer scope as a default is not supported.
+
+   class Foo(Generic[T1]):
+       class Bar(Generic[T2]): ...   # Type Error
+
+Bound Rules
+~~~~~~~~~~~
+
+``T1``'s bound must be a subtype of ``T2``'s bound.
+
+::
+
+   T1 = TypeVar("T1", bound=int)
+   TypeVar("Ok", default=T1, bound=float)     # Valid
+   TypeVar("AlsoOk", default=T1, bound=int)   # Valid
+   TypeVar("Invalid", default=T1, bound=str)  # Invalid: int is not a subtype of str
+
+Constraint Rules
+~~~~~~~~~~~~~~~~
+
+The constraints of ``T2`` must be a superset of the constraints of ``T1``.
+
+::
+
+   T1 = TypeVar("T1", bound=int)
+   TypeVar("Invalid", float, str, default=T1)         # Invalid: upper bound int is incompatible with constraints float or str
+
+   T1 = TypeVar("T1", int, str)
+   TypeVar("AlsoOk", int, str, bool, default=T1)      # Valid
+   TypeVar("AlsoInvalid", bool, complex, default=T1)  # Invalid: {bool, complex} is not a superset of {int, str}
+
+
+Type Parameters as Parameters to Generics
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Type parameters are valid as parameters to generics inside of a
+``default`` when the first parameter is in scope as determined by the
+`previous section <scoping rules_>`_.
+
+::
+
+   T = TypeVar("T")
+   ListDefaultT = TypeVar("ListDefaultT", default=list[T])
+
+   class Bar(Generic[T, ListDefaultT]):
+       def __init__(self, x: T, y: ListDefaultT): ...
+
+   reveal_type(Bar)                         # type is type[Bar[T, ListDefaultT = list[T]]]
+   reveal_type(Bar[int])                    # type is type[Bar[int, list[int]]]
+   reveal_type(Bar[int](0, []))             # type is Bar[int, list[int]]
+   reveal_type(Bar[int, list[str]](0, []))  # type is Bar[int, list[str]]
+   reveal_type(Bar[int, str](0, ""))        # type is Bar[int, str]
+
+Specialization Rules
+~~~~~~~~~~~~~~~~~~~~
+
+Generic Type Aliases
+''''''''''''''''''''
+
+A generic type alias can be further subscripted following normal subscription
+rules. If a type parameter has a default that hasn't been overridden, it should
+be treated like it was substituted into the type alias.
+
+::
+
+   class SomethingWithNoDefaults(Generic[T, T2]): ...
+
+   MyAlias: TypeAlias = SomethingWithNoDefaults[int, DefaultStrT]  # Valid
+   reveal_type(MyAlias)          # type is type[SomethingWithNoDefaults[int, DefaultStrT]]
+   reveal_type(MyAlias[bool]())  # type is SomethingWithNoDefaults[int, bool]
+
+   MyAlias[bool, int]  # Invalid: too many arguments passed to MyAlias
+
+Subclassing
+'''''''''''
+
+Generic classes with type parameters that have defaults behave similarly
+to generic type aliases. That is, subclasses can be further subscripted following
+normal subscription rules, non-overridden defaults should be substituted.
+
+::
+
+   class SubclassMe(Generic[T, DefaultStrT]):
+       x: DefaultStrT
+
+   class Bar(SubclassMe[int, DefaultStrT]): ...
+   reveal_type(Bar)          # type is type[Bar[DefaultStrT = str]]
+   reveal_type(Bar())        # type is Bar[str]
+   reveal_type(Bar[bool]())  # type is Bar[bool]
+
+   class Foo(SubclassMe[float]): ...
+
+   reveal_type(Foo().x)  # type is str
+
+   Foo[str]  # Invalid: Foo cannot be further subscripted
+
+   class Baz(Generic[DefaultIntT, DefaultStrT]): ...
+
+   class Spam(Baz): ...
+   reveal_type(Spam())  # type is <subclass of Baz[int, str]>
+
+Using ``bound`` and ``default``
+'''''''''''''''''''''''''''''''
+
+If both ``bound`` and ``default`` are passed, ``default`` must be a
+subtype of ``bound``. If not, the type checker should generate an
+error.
+
+::
+
+   TypeVar("Ok", bound=float, default=int)     # Valid
+   TypeVar("Invalid", bound=str, default=int)  # Invalid: the bound and default are incompatible
+
+Constraints
+'''''''''''
+
+For constrained ``TypeVar``\ s, the default needs to be one of the
+constraints. A type checker should generate an error even if it is a
+subtype of one of the constraints.
+
+::
+
+   TypeVar("Ok", float, str, default=float)     # Valid
+   TypeVar("Invalid", float, str, default=int)  # Invalid: expected one of float or str got int
+
+Function Defaults
+'''''''''''''''''
+
+In generic functions, type checkers may use a type parameter's default when the
+type parameter cannot be solved to anything. We leave the semantics of this
+usage unspecified, as ensuring the ``default`` is returned in every code path
+where the type parameter can go unsolved may be too hard to implement. Type
+checkers are free to either disallow this case or experiment with implementing
+support.
+
+::
+
+   T = TypeVar('T', default=int)
+   def func(x: int | set[T]) -> T: ...
+   reveal_type(func(0))  # a type checker may reveal T's default of int here
+
+Defaults following ``TypeVarTuple``
+'''''''''''''''''''''''''''''''''''
+
+A ``TypeVar`` that immediately follows a ``TypeVarTuple`` is not allowed
+to have a default, because it would be ambiguous whether a type argument
+should be bound to the ``TypeVarTuple`` or the defaulted ``TypeVar``.
+
+::
+
+   Ts = TypeVarTuple("Ts")
+   T = TypeVar("T", default=bool)
+
+   class Foo(Generic[*Ts, T]): ...  # Type checker error
+
+   # Could be reasonably interpreted as either Ts = (int, str, float), T = bool
+   # or Ts = (int, str), T = float
+   Foo[int, str, float]
+
+It is allowed to have a ``ParamSpec`` with a default following a
+``TypeVarTuple`` with a default, as there can be no ambiguity between a type argument
+for the ``ParamSpec`` and one for the ``TypeVarTuple``.
+
+::
+
+   Ts = TypeVarTuple("Ts")
+   P = ParamSpec("P", default=[float, bool])
+
+   class Foo(Generic[*Ts, P]): ...  # Valid
+
+   Foo[int, str]  # Ts = (int, str), P = [float, bool]
+   Foo[int, str, [bytes]]  # Ts = (int, str), P = [bytes]
+
+Binding rules
+'''''''''''''
+
+Type parameter defaults should be bound by attribute access
+(including call and subscript).
+
+::
+
+   class Foo[T = int]:
+       def meth(self) -> Self:
+           return self
+
+   reveal_type(Foo.meth)  # type is (self: Foo[int]) -> Foo[int]
+
 
 .. _`self`:
 
