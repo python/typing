@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Incorrectly rejects default that uses a constrained TypeVar.
-"""
+conformant = "Pass"
 output = """
 generics_defaults_referential.py:37:8 - error: Argument of type "Literal['']" cannot be assigned to parameter "b" of type "int" in function "__init__"
   "Literal['']" is incompatible with "int" (reportArgumentType)
@@ -13,6 +10,5 @@ generics_defaults_referential.py:64:11 - error: Type parameter "S2" has a defaul
   Type variable "S1" is not in scope (reportGeneralTypeIssues)
 generics_defaults_referential.py:72:29 - error: TypeVar default type must be a subtype of the bound type (reportGeneralTypeIssues)
 generics_defaults_referential.py:79:37 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)
-generics_defaults_referential.py:83:44 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)
 generics_defaults_referential.py:85:44 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)
 """
