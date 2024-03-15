@@ -63,7 +63,7 @@ In particular, built-in generics, pipe union syntax (``X | Y``), and forward
 references can be used.
 
 The :py:mod:`ast` module from the standard library supports
-all syntax features required by this PEP.
+all syntax features required by this document.
 
 Distribution
 ============
