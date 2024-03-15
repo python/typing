@@ -187,9 +187,8 @@ generally possible and recommended::
 Unions
 ------
 
-Declaring unions with ``Union`` and ``Optional`` is supported by all
-type checkers. With a few exceptions [#ts-4819]_, the shorthand syntax
-is also supported::
+Declaring unions with the shorthand syntax or ``Union`` and ``Optional`` is
+supported by all type checkers::
 
     def foo(x: int | str) -> int | None: ...  # recommended
     def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
@@ -261,16 +260,15 @@ Functions and Methods
 ---------------------
 
 Function and method definition syntax follows general Python syntax.
-Unless an argument name is prefixed with two underscores (but not suffixed
-with two underscores), it can be used as a keyword argument (:pep:`484`)::
+For backwards compatibility, positional-only parameters can also be marked by
+prefixing their name with two underscores (but not suffixing it with two
+underscores)::
 
     # x is positional-only
     # y can be used positionally or as keyword argument
     # z is keyword-only
-    def foo(__x, y, *, z): ...
-
-:pep:`570` style positional-only parameters are currently not
-supported.
+    def foo(x, /, y, *, z): ...  # recommended
+    def foo(__x, y, *, z): ...  # backwards compatible syntax
 
 If an argument or return type is unannotated, per :pep:`484` its
 type is assumed to be ``Any``. It is preferred to leave unknown
@@ -508,16 +506,6 @@ No::
         RED: int
         BLUE: int
         rgb_value: int  # no way for type checkers to know that this is not an enum member
-
-Unsupported Features
---------------------
-
-Currently, the following features are not supported by all type checkers
-and should not be used in stubs:
-
-* Positional-only argument syntax (:pep:`570`). Instead, use
-  the syntax described in the section :ref:`supported-functions`.
-  [#ts-4972]_
 
 Type Stub Content
 =================
@@ -979,15 +967,6 @@ No::
     from typing import NamedTuple, TypedDict
     Point = NamedTuple("Point", [('x', float), ('y', float)])
     Thing = TypedDict("Thing", {'stuff': str, 'index': int})
-
-References
-==========
-
-Bugs
-----
-
-.. [#ts-4819] typeshed issue #4819 -- PEP 604 tracker (https://github.com/python/typeshed/issues/4819)
-.. [#ts-4972] typeshed issue #4972 -- PEP 570 tracker (https://github.com/python/typeshed/issues/4972)
 
 Copyright
 =========
