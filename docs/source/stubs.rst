@@ -42,31 +42,28 @@ encouraged to experiment with additional features.
 Syntax
 ======
 
-Type stubs are syntactically valid Python 3.7 files with a ``.pyi`` suffix.
+Type stubs are syntactically valid Python 3.8 files with a ``.pyi`` suffix.
 The Python syntax used for type stubs is independent from the Python
 versions supported by the implementation, and from the Python version the type
 checker runs under (if any). Therefore, type stub authors should use the
-latest available syntax features in stubs (up to Python 3.7), even if the
-implementation supports older, pre-3.7 Python versions.
+latest available syntax features in stubs (up to Python 3.8), even if the
+implementation supports older, pre-3.8 Python versions.
 Type checker authors are encouraged to support syntax features from
-post-3.7 Python versions, although type stub authors should not use such
+post-3.8 Python versions, although type stub authors should not use such
 features if they wish to maintain compatibility with all type checkers.
 
 For example, Python 3.7 added the ``async`` keyword (see :pep:`492`).
 Stub authors should use it to mark coroutines, even if the implementation
 still uses the ``@coroutine`` decorator. On the other hand, type stubs should
-not use the positional-only syntax from :pep:`570`, introduced in
-Python 3.8, although type checker authors are encouraged to support it.
+not use the ``type`` soft keyword from :pep:`695`, introduced in
+Python 3.12, although type checker authors are encouraged to support it.
 
 Stubs are treated as if ``from __future__ import annotations`` is enabled.
 In particular, built-in generics, pipe union syntax (``X | Y``), and forward
 references can be used.
 
-Starting with Python 3.8, the :py:mod:`ast` module from the standard library supports
-all syntax features required by this PEP. Older Python versions can use the
-`typed_ast <https://pypi.org/project/typed-ast/>`_ package from the
-Python Package Index, which also supports Python 3.7 syntax and ``# type``
-comments.
+The :py:mod:`ast` module from the standard library supports
+all syntax features required by this document.
 
 Distribution
 ============
