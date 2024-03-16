@@ -3,4 +3,13 @@ notes = """
 Does not report incompatible Generator type in `yield from` statement.
 """
 output = """
+annotations_generators.py:51: error: Missing return statement  [return]
+annotations_generators.py:54: error: Incompatible return value type (got "bool", expected "C")  [return-value]
+annotations_generators.py:57: error: Incompatible types in "yield" (actual type "int", expected type "A")  [misc]
+annotations_generators.py:66: error: Incompatible types in "yield" (actual type "int", expected type "A")  [misc]
+annotations_generators.py:75: error: Incompatible types in "yield" (actual type "B", expected type "A")  [misc]
+annotations_generators.py:86: error: The return type of a generator function should be "Generator" or one of its supertypes  [misc]
+annotations_generators.py:91: error: The return type of an async generator function should be "AsyncGenerator" or one of its supertypes  [misc]
+annotations_generators.py:118: error: Incompatible types in "yield from" (actual type "A", expected type "B")  [misc]
+annotations_generators.py:119: error: Incompatible types in "yield from" (actual type "int", expected type "B")  [misc]
 """

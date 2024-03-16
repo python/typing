@@ -3,4 +3,10 @@ notes = """
 Does not handle case where parent class derives from Any.
 """
 output = """
+classes_override.py:53: error: Method "method3" is marked as an override, but no base method was found with this name  [misc]
+classes_override.py:56: error: Method "method4" is marked as an override, but no base method was found with this name  [misc]
+classes_override.py:79: error: Method "static_method1" is marked as an override, but no base method was found with this name  [misc]
+classes_override.py:84: error: Method "class_method1" is marked as an override, but no base method was found with this name  [misc]
+classes_override.py:91: error: Method "property1" is marked as an override, but no base method was found with this name  [misc]
+classes_override.py:103: error: Method "method1" is marked as an override, but no base method was found with this name  [misc]
 """
