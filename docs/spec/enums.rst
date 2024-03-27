@@ -308,11 +308,11 @@ Enum Literal Expansion
 
 From the perspective of the type system, an most enum classes are equivalent
 to the union of the literal members within that enum. (This rule
-does not apply to classes that derive from ``enum.Flags`` because these enums
+does not apply to classes that derive from ``enum.Flag`` because these enums
 allow flags to be combined in arbitrary ways.) Because of the equivalency
 between an enum class and the union of literal members within that enum, the
 two types may be used interchangeably. Type checkers may therefore expand
-an enum type (that does not derive from ``enum.Flags``) into a union of
+an enum type (that does not derive from ``enum.Flag``) into a union of
 literal values during type narrowing and exhaustion detection::
 
     class Color(Enum):
