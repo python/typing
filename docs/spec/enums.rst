@@ -306,11 +306,14 @@ are not within a type stub file, a type checker can use the type of the
 Enum Literal Expansion
 ----------------------
 
-From the perspective of the type system, an enum class is equivalent to the union
-of the literal members within that enum. Because of this equivalency, the
+From the perspective of the type system, an most enum classes are equivalent
+to the union of the literal members within that enum. (This rule
+does not apply to classes that derive from ``enum.Flags`` because these enums
+allow flags to be combined in arbitrary ways.) Because of the equivalency
+between an enum class and the union of literal members within that enum, the
 two types may be used interchangeably. Type checkers may therefore expand
-an enum type into a union of literal values during type narrowing and
-exhaustion detection::
+an enum type (that does not derive from ``enum.Flags``) into a union of
+literal values during type narrowing and exhaustion detection::
 
     class Color(Enum):
         RED = 1
