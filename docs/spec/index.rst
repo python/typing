@@ -22,6 +22,7 @@ Specification for the Python type system
    typeddict
    tuples
    namedtuples
+   enums
    narrowing
    directives
    distributing
