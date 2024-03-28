@@ -49,12 +49,12 @@ calls are not supported for that class.
 ==================
 
 After the metaclass ``__call__`` method has been evaluated, a type checker
-should evaluate the ``__new__`` method of the class using the supplied arguments.
-If the class is generic and explicitly specialized, the type checker
-should partially specialize the ``__new__`` method using the supplied type
-arguments. If the class is not explicitly specialized, class-scoped type
-variables should be solved using the supplied arguments passed to the constructor
-call.
+should evaluate the ``__new__`` method of the class (if applicable) using
+the supplied arguments. If the class is generic and explicitly specialized,
+the type checker should partially specialize the ``__new__`` method using the
+supplied type arguments. If the class is not explicitly specialized,
+class-scoped type variables should be solved using the supplied arguments
+passed to the constructor call.
 
   ::
 
@@ -157,8 +157,8 @@ that arise during binding.
 ===================
 
 After evaluating the ``__new__`` method, a type checker should evaluate the
-``__init__`` method using the supplied arguments. If the class is
-generic and explicitly specialized (or specialized via the ``__new__`` method
+``__init__`` method (if applicable) using the supplied arguments. If the class
+is generic and explicitly specialized (or specialized via the ``__new__`` method
 return type), the type checker should partially specialize the ``__init__``
 method using the supplied type arguments. If the class is not explicitly
 specialized, class-scoped type variables should be solved using the supplied
