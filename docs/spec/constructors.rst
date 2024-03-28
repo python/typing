@@ -254,7 +254,7 @@ Constructor Calls for type[T]
 
 When a value of type ``type[T]`` (where ``T`` is a type variable or a concrete
 class) is called, a type checker should evaluate the constructor call as if
-it is being made on the class ``T`` (or the class the represents the upper bound
+it is being made on the class ``T`` (or the class that represents the upper bound
 of type variable ``T``). This means the type checker should use ``__call__``
 method of ``T``'s metaclass and the ``__new__`` and ``__init__`` methods of ``T``
 to evaluate the constructor call.
