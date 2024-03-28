@@ -84,7 +84,8 @@ protocols_definition.py:289:22 - error: Expression of type "Concrete5_Bad5" cann
 protocols_definition.py:339:22 - error: Expression of type "Concrete6_Bad1" cannot be assigned to declared type "Template6"
   "Concrete6_Bad1" is incompatible with protocol "Template6"
     "val1" is an incompatible type
-      Property setter method is missing (reportAssignmentType)
+      Property setter method is missing
+        "Template6" is incompatible with "Concrete6_Bad1" (reportAssignmentType)
 protocols_definition.py:340:22 - error: Expression of type "Concrete6_Bad2" cannot be assigned to declared type "Template6"
   "Concrete6_Bad2" is incompatible with protocol "Template6"
     "val1" is writable in protocol (reportAssignmentType)

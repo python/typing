@@ -9,7 +9,7 @@ import os
 from pytype import config as pytype_config
 from pytype import io as pytype_io
 from pytype import analyze as pytype_analyze
-from pytype import errors as pytype_errors
+from pytype.errors import errors as pytype_errors
 from pytype import load_pytd as pytype_loader
 from shutil import rmtree
 from subprocess import PIPE, run
