@@ -259,7 +259,7 @@ of type variable ``T``). This means the type checker should use the ``__call__``
 method of ``T``'s metaclass and the ``__new__`` and ``__init__`` methods of ``T``
 to evaluate the constructor call.
 
-It should be noted that such code could be unsafe because The type ``type[T]``
+It should be noted that such code could be unsafe because the type ``type[T]``
 may represent subclasses of ``T``, and those subclasses could redefine the
 ``__new__`` and ``__init__`` methods in a way that is incompatible with the
 base class. Likewise, the metaclass of ``T`` could redefine the ``__call__``
