@@ -73,7 +73,8 @@ passed to the constructor call.
 
 If any class-scoped type variables are not solved when evaluating the ``__new__``
 method call using the supplied arguments, these type variables should be left
-unsolved, allowing the ``__init__`` method to be used to solve them.
+unsolved, allowing the ``__init__`` method (if applicable) to be used to solve
+them.
 
   ::
 
