@@ -291,6 +291,23 @@ these method evaluations, they should take on their default values.
     assert_type(MyClass2(1), MyClass2[int, str])
 
 
+Consistency of ``__new__`` and ``__init__``
+-------------------------------------------
+
+Type checkers may optionally validate that the ``__new__`` and ``__init__``
+methods for a class have consistent signatures.
+
+  ::
+
+    class MyClass:
+        def __new__(cls) -> Self:
+            return super().__new__(cls)
+
+        # Type error: __new__ and __init__ have inconsistent signatures
+        def __init__(self, x: str) -> None:
+            pass
+
+
 Converting a Constructor to Callable
 ------------------------------------
 
