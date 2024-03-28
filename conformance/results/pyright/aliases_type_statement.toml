@@ -6,7 +6,7 @@ aliases_type_statement.py:19:1 - error: Object of type "TypeAliasType" is not ca
 aliases_type_statement.py:23:18 - error: Cannot access member "other_attrib" for type "TypeAliasType"
   Member "other_attrib" is unknown (reportAttributeAccessIssue)
 aliases_type_statement.py:26:18 - error: A type alias defined in a "type" statement cannot be used as a base class
-aliases_type_statement.py:31:22 - error: Argument of type "GoodAlias1" cannot be assigned to parameter "__class_or_tuple" of type "_ClassInfo" in function "isinstance"
+aliases_type_statement.py:31:22 - error: Argument of type "GoodAlias1" cannot be assigned to parameter "class_or_tuple" of type "_ClassInfo" in function "isinstance"
   Type "TypeAliasType" cannot be assigned to type "_ClassInfo"
     "TypeAliasType" is incompatible with "type"
     "TypeAliasType" is incompatible with "UnionType"
