@@ -47,7 +47,8 @@ to ``tuple[Any, ...]``. As well, a bare
 
 ``Any`` can also be used as a base class. This can be useful for
 avoiding type checker errors with classes that can duck type anywhere or
-are highly dynamic.
+are highly dynamic. When ``Any`` is present in the bases of a type,
+it should be considered only after all other known types in the MRO.
 
 .. _`none`:
 
