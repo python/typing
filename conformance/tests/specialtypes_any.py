@@ -111,11 +111,13 @@ class AnyLast(ClassKnown, Any):
 af = AnyFirst()
 assert_type(af.method1(), str)
 assert_type(af.method2(), str)
+assert_type(af.attr1, str)
 assert_type(af.non_exist_method(), Any)
 assert_type(af.non_exist_attr, Any)
 al = AnyLast()
 assert_type(al.method1(), str)
 assert_type(al.method2(), str)
+assert_type(al.attr1, str)
 assert_type(al.non_exist_method(), Any)
 assert_type(al.non_exist_attr, Any)
 
