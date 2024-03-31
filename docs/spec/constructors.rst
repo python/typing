@@ -50,11 +50,14 @@ calls are not supported for that class.
 
 After the metaclass ``__call__`` method has been evaluated, a type checker
 should evaluate the ``__new__`` method of the class (if applicable) using
-the supplied arguments. If the class is generic and explicitly specialized,
-the type checker should partially specialize the ``__new__`` method using the
-supplied type arguments. If the class is not explicitly specialized,
-class-scoped type variables should be solved using the supplied arguments
-passed to the constructor call.
+the supplied arguments. This step should be skipped if the class does not
+define a ``__new__`` method and does not inherit a ``__new__`` method from
+a base class other than ``object``.
+
+If the class is generic and explicitly specialized, the type checker should
+partially specialize the ``__new__`` method using the supplied type arguments.
+If the class is not explicitly specialized, class-scoped type variables should
+be solved using the supplied arguments passed to the constructor call.
 
   ::
 
@@ -165,6 +168,10 @@ method using the supplied type arguments. If the class is not explicitly
 specialized, class-scoped type variables should be solved using the supplied
 arguments passed to the constructor call.
 
+This step should be skipped if the class does not define an ``__init__`` method
+and does not inherit an ``__init__`` method from a base class other than
+``object``.
+
   ::
 
     class MyClass[T]:
@@ -250,6 +257,23 @@ within a type annotation for the ``self`` parameter in an ``__init__`` method.
         def __init__(self: "MyClass4[T2, T1]") -> None: ...
 
 
+Classes Without ``__new__`` and ``__init__`` Methods
+====================================================
+
+If a class does not define a ``__new__`` method or ``__init__`` method and
+does not inherit either of these methods from a base class other than
+``object``, a type checker should evaluate the argument list using the
+``__new__`` and ``__init__`` methods from the ``object`` class.
+
+  ::
+
+    class MyClass5:
+        pass
+    
+    MyClass5()  # OK
+    MyClass5(1)  # Type error
+
+
 Constructor Calls for type[T]
 -----------------------------
 
@@ -328,24 +352,52 @@ Class objects are callable, which means they are compatible with callable types.
 When converting a class to a callable type, a type checker should use the
 following rules:
 
-1. If the class defines an ``__init__`` method or inherits an ``__init__`` 
-   method from a base class other than ``object``, the callable type should be
-   synthesized from the parameters of the ``__init__`` method after it is bound
-   to the class instance. The return type of the synthesized callable should be
-   the class itself.
+1. If the class has a custom metaclass that defines a ``__call__`` method
+   that is annotated with a return type other than ``Any`` or a subclass of the
+   class being constructed, a type checker should assume that the metaclass
+   ``__call__`` method is overriding ``type.__call__`` in some special manner.
+   In this case, the callable should be synthesized from the parameters and return
+   type of the metaclass ``__call__`` method after it is bound to the class,
+   and the ``__new__`` or ``__init__`` methods (if present) should be ignored.
+   This is an uncommon case. In the more typical case where there is no custom
+   metaclass that overrides ``type.__call__`` in a special manner, the metaclass
+   ``__call__`` signature should be ignored for purposes of converting to a
+   callable type.
 
-2. If the class does not define or inherit an ``__init__`` method from a base
-   class other than the ``object`` class, the callable type should be synthesized
-   from the parameters of the ``__new__`` method after it is bound to the class.
-   The return type of the synthesized callable should come from the bound
-   ``__new__`` method.
+2. If the class defines a ``__new__`` method or inherits a ``__new__`` method
+   from a base class other than ``object``, a type checker should synthesize a
+   callable from the parameters and return type of that method after it is bound
+   to the class.
+
+3. If the method in step 2 has a return type that is not ``Any`` or a subclass
+   of the class being constructed, the final callable type is based on the
+   result of step 2, and the conversion process is complete. This is consistent
+   with the runtime behavior of the ``type.__call__`` method.
+
+4. If the class defines an ``__init__`` method or inherits an ``__init__`` method
+   from a base class other than ``object``, a callable type should be synthesized
+   from the parameters of the ``__init__`` method after it is bound to the class
+   instance. The return type of this synthesized callable should be the class
+   itself.
+
+5. If step 2 and 4 both produce no result because the class does not define or
+   inherit a ``__new__`` or ``__init__`` method from a class other than ``object``,
+   the type checker should synthesize callable types from the ``__new__`` and
+   ``__init__`` methods for the ``object`` class.
+
+6. Steps 2, 4 and 5 will produce either one or two callable types. The final
+   result of the conversion process is the union of these types. This will
+   reflect the callable signatures of the applicable ``__new__`` and
+   ``__init__`` methods.
 
   ::
 
     class A:
+        """ No __new__ or __init__ """
         pass
     
     class B:
+        """ __new__ and __init__ """
         def __new__(cls, *args, **kwargs) -> Self:
             ...
 
@@ -353,12 +405,37 @@ following rules:
             ...
       
     class C:
+        """ __new__ but no __init__ """
         def __new__(cls, x: int) -> int:
             ...
 
+    class CustomMeta(type):
+        def __call__(cls) -> NoReturn:
+            raise NotImplemented("Class not constructable")
+
+    class D(metaclass=CustomMeta):
+        """ Custom metaclass that overrides type.__call__ """
+        def __new__(cls, *args, **kwargs) -> Self:
+            """ This __new__ is ignored for purposes of conversion """
+            pass
+
+
+    class E:
+        """ __new__ that causes __init__ to be ignored """
+
+        def __new__(cls) -> A:
+            return A.__new__()
+
+        def __init__(self, x: int) -> None:
+            """ This __init__ is ignored for purposes of conversion """
+            ...
+      
+
     reveal_type(accepts_callable(A))  # ``def () -> A``
-    reveal_type(accepts_callable(B))  # ``def (x: int) -> B``
+    reveal_type(accepts_callable(B))  # ``def (*args, **kwargs) -> B | def (x: int) -> B``
     reveal_type(accepts_callable(C))  # ``def (x: int) -> int``
+    reveal_type(accepts_callable(D))  # ``def () -> NoReturn``
+    reveal_type(accepts_callable(E))  # ``def () -> A``
 
 
 If the ``__init__`` or ``__new__`` method is overloaded, the callable
