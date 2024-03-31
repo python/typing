@@ -87,4 +87,35 @@ assert_type(a.method1(), int)
 assert_type(a.method2(), Any)
 assert_type(ClassA.method3(), Any)
 
+# > When ``Any`` is present in the bases of a type,
+# > it should be considered only after all other known types in the MRO.
+
+class ClassKnown:
+
+    def __init__(self):
+        self.attr1: str = ""
+
+    def method1(self) -> str:
+        return ""
+
+class AnyFirst(Any, ClassKnown):
+
+    def method2(self) -> str:
+        return ""
+
+class AnyLast(ClassKnown, Any):
+    def method2(self) -> str:
+        return ""
+
+
+af = AnyFirst()
+assert_type(af.method1(), str)
+assert_type(af.method2(), str)
+assert_type(af.non_exist_method(), Any)
+assert_type(af.non_exist_attr, Any)
+al = AnyLast()
+assert_type(al.method1(), str)
+assert_type(al.method2(), str)
+assert_type(al.non_exist_method(), Any)
+assert_type(al.non_exist_attr, Any)
 
