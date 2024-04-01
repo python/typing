@@ -6,6 +6,7 @@ Tests the typing.Any special type.
 
 # > Every type is consistent with Any.
 
+from collections.abc import Iterator
 from typing import Any, Callable, assert_type
 
 
@@ -92,6 +93,11 @@ assert_type(ClassA.method3(), Any)
 
 class ClassKnown:
 
+    classvar1 = ""
+
+    def __iter__(self) -> Iterator[str]:
+        yield from self.attr1
+
     def __init__(self):
         self.attr1: str = ""
 
@@ -107,6 +113,18 @@ class AnyLast(ClassKnown, Any):
     def method2(self) -> str:
         return ""
 
+class GetattrKnown(ClassKnown):
+    def __getattr__(self, name: str) -> int:
+        return 1
+
+class AnyFirstGetAttr(Any, GetattrKnown):
+    def method2(self) -> str:
+        return ""
+
+class AnyLastGetAttr(GetattrKnown, Any):
+    def method2(self) -> str:
+        return ""
+
 
 af = AnyFirst()
 assert_type(af.method1(), str)
@@ -114,10 +132,36 @@ assert_type(af.method2(), str)
 assert_type(af.attr1, str)
 assert_type(af.non_exist_method(), Any)
 assert_type(af.non_exist_attr, Any)
+assert_type(af.classvar1, str)
+assert_type(AnyFirst.classvar1, str)
+assert_type(iter(af()), Iterator[str])
+
 al = AnyLast()
 assert_type(al.method1(), str)
 assert_type(al.method2(), str)
 assert_type(al.attr1, str)
 assert_type(al.non_exist_method(), Any)
 assert_type(al.non_exist_attr, Any)
+assert_type(al.classvar1, str)
+assert_type(AnyLast.classvar1, str)
+assert_type(iter(al()), Iterator[str])
 
+af_getattr = AnyFirstGetAttr()
+
+assert_type(af_getattr.method1(), str)
+assert_type(af_getattr.method2(), str)
+assert_type(af_getattr.attr1, str)
+assert_type(af_getattr.triggers_getattr, int)
+assert_type(af_getattr.classvar1, str)
+assert_type(AnyFirstGetAttr.classvar1, str)
+assert_type(iter(af_getattr()), Iterator[str])
+
+al_getattr = AnyLastGetAttr()
+
+assert_type(al_getattr.method1(), str)
+assert_type(al_getattr.method2(), str)
+assert_type(al_getattr.attr1, str)
+assert_type(al_getattr.triggers_getattr, int)
+assert_type(al_getattr.classvar1, str)
+assert_type(AnyLastGetAttr.classvar1, str)
+assert_type(iter(al_getattr()), Iterator[str])
