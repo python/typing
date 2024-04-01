@@ -306,7 +306,7 @@ are not within a type stub file, a type checker can use the type of the
 Enum Literal Expansion
 ----------------------
 
-From the perspective of the type system, an most enum classes are equivalent
+From the perspective of the type system, most enum classes are equivalent
 to the union of the literal members within that enum. (This rule
 does not apply to classes that derive from ``enum.Flag`` because these enums
 allow flags to be combined in arbitrary ways.) Because of the equivalency
