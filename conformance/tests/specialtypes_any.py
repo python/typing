@@ -125,6 +125,15 @@ class AnyLastGetAttr(GetattrKnown, Any):
     def method2(self) -> str:
         return ""
 
+class AnySub(Any):
+    ...
+
+# primarily included to demonstrate intent that this is for the full MRO
+class AnySubFirst(AnySub, ClassKnown):
+    def method2(self):
+        ...
+
+
 
 af = AnyFirst()
 assert_type(af.method1(), str)
@@ -163,5 +172,15 @@ assert_type(al_getattr.method2(), str)
 assert_type(al_getattr.attr1, str)
 assert_type(al_getattr.triggers_getattr, int)
 assert_type(al_getattr.classvar1, str)
-assert_type(AnyLastGetAttr.classvar1, str)
+assert_type(AnySubFirst.classvar1, str)
 assert_type(iter(al_getattr()), Iterator[str])
+
+full_mro_checked = AnySubFirst()
+
+assert_type(full_mro_checked.method1(), str)
+assert_type(full_mro_checked.method2(), str)
+assert_type(full_mro_checked.attr1, str)
+assert_type(full_mro_checked.triggers_getattr, int)
+assert_type(full_mro_checked.classvar1, str)
+assert_type(AnyLastGetAttr.classvar1, str)
+assert_type(iter(full_mro_checked()), Iterator[str])
