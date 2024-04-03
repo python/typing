@@ -95,10 +95,11 @@ For most classes, the return type for ``__new__`` method is typically ``Self``,
 but other types are also allowed. For example, the ``__new__`` method may return
 an instance of a subclass or an instance of some completely unrelated class.
 
-If the return type of the ``__new__`` method is specified as ``Any`` (or the
-return type is unspecified and not inferred), a type checker should
-assume that the return type is ``Self``, and it should proceed to evaluate the
-``__init__`` method.
+If the return type of the ``__new__`` method evaluates to ``Any`` or a union that
+includes ``Any``, a type checker should proceed to evaluate the ``__init__``
+method as if the return type of ``__new__`` was ``Self``. However, the final
+evaluated type of the constructor call should include ``Any`` in this case,
+unioned with the type informed by the evaluation of the ``__init__`` call.
 
   ::
 
@@ -109,12 +110,15 @@ assume that the return type is ``Self``, and it should proceed to evaluate the
         def __init__(self):
             pass
 
-    assert_type(MyClass(), MyClass)
+    # Constructor call evaluates to `Any` (from __new__ method)
+    # unioned with `MyClass` (from __init__ method).
+    assert_type(MyClass(), Any | MyClass)
 
-If the ``__new__`` method returns a type that is not an instance of the class
-being constructed (or a subclass thereof), a type checker should assume that
-the ``__init__`` method will not be called. This is consistent with the runtime
-behavior of the ``type.__call__`` method.
+If the evaluated return type of ``__new__`` is not an instance of the class
+being constructed (or a subclass thereof) or is a union that includes such
+a class, a type checker should assume that the ``__init__`` method will not be
+called. This is consistent with the runtime behavior of the ``type.__call__``
+method.
 
   ::
 
@@ -369,16 +373,18 @@ following rules:
    callable from the parameters and return type of that method after it is bound
    to the class.
 
-3. If the method in step 2 has a return type that is not ``Any`` or a subclass
-   of the class being constructed, the final callable type is based on the
-   result of step 2, and the conversion process is complete. This is consistent
-   with the runtime behavior of the ``type.__call__`` method.
+3. If the return type of the method in step 2 evaluates to a type that is not a
+   subclass of the class being constructed (or a union that includes such a
+   class), the final callable type is based on the result of step 2, and the
+   conversion process is complete. The ``__init__`` method is ignored in this
+   case. This is consistent with the runtime behavior of the ``type.__call__``
+   method.
 
 4. If the class defines an ``__init__`` method or inherits an ``__init__`` method
    from a base class other than ``object``, a callable type should be synthesized
    from the parameters of the ``__init__`` method after it is bound to the class
-   instance. The return type of this synthesized callable should be the class
-   itself.
+   instance resulting from step 2. The return type of this synthesized callable
+   should be the concrete value of ``Self``.
 
 5. If step 2 and 4 both produce no result because the class does not define or
    inherit a ``__new__`` or ``__init__`` method from a class other than ``object``,
