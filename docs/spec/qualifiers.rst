@@ -147,6 +147,10 @@ be initialized in the ``__init__`` method (except in stub files)::
        def __init__(self) -> None:
            self.x = 1  # Good
 
+The generated ``__init__`` method of :doc:`dataclasses` qualifies for this
+requirement: a bare ``x: Final[int]`` is permitted in a dataclass body, because
+the generated ``__init__`` will initialize ``x``.
+
 Type checkers should infer a final attribute that is initialized in a class
 body as being a class variable, except in the case of :doc:`dataclasses`, where
 ``x: Final[int] = 3`` creates a dataclass field and instance-level final

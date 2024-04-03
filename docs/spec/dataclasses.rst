@@ -516,13 +516,15 @@ This includes, but is not limited to, the following semantics:
 * ClassVar attributes are not considered dataclass fields and are
   `ignored by dataclass mechanisms <https://docs.python.org/3/library/dataclasses.html#class-variables>`_.
 
-* Dataclass fields annotated with ``Final`` and initialized in the class body
-  are not considered class attributes unless explicitly annotated with
-  ``ClassVar``. For example, ``x: Final[int] = 3`` in a dataclass body is a
-  dataclass field (and thus instance attribute) named ``x`` with a default
-  value of ``3`` in the generated ``__init__`` method, which cannot be
-  reassigned after ``__init__``. A final class variable on a dataclass should
-  be explicitly annotated as ``x: ClassVar[Final[int]] = 3``.
+* A dataclass field may be annotated with ``Final[...]``. For example, ``x:
+  Final[int]`` in a dataclass body specifies a dataclass field ``x``, which
+  will be initialized in the generated ``__init__`` and cannot be assigned to
+  thereafter. A ``Final`` dataclass field initialized in the class body is not
+  a class attribute unless explicitly annotated with ``ClassVar``. For example,
+  ``x: Final[int] = 3`` is a dataclass field named ``x`` with a default value
+  of ``3`` in the generated ``__init__`` method. A final class variable on a
+  dataclass must be explicitly annotated as e.g. ``x: ClassVar[Final[int]] =
+  3``.
 
 
 Undefined behavior
