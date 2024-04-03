@@ -130,7 +130,7 @@ class AnySub(Any):
 
 # primarily included to demonstrate intent that this is for the full MRO
 class AnySubFirst(AnySub, ClassKnown):
-    def method2(self):
+    def method2(self) -> str:
         ...
 
 
@@ -155,6 +155,23 @@ assert_type(al.classvar1, str)
 assert_type(AnyLast.classvar1, str)
 assert_type(iter(al), Iterator[str])
 
+
+# this example has Any deeper in the inheritence than the bases, specifically as
+# an ancestor of the first base, with other known methods and attributes in the second.
+full_mro_checked = AnySubFirst()
+
+assert_type(full_mro_checked.method1(), str)
+assert_type(full_mro_checked.method2(), str)
+assert_type(full_mro_checked.attr1, str)
+assert_type(al.non_exist_method(), Any)
+assert_type(al.non_exist_attr, Any)
+assert_type(full_mro_checked.classvar1, str)
+assert_type(AnySubFirst.classvar1, str)
+assert_type(iter(full_mro_checked), Iterator[str])
+
+# Note The next two examples check different bases, one of which provides a `__getattr__`
+# ensuring the behavior is the same for unaffected cases
+
 af_getattr = AnyFirstGetAttr()
 
 assert_type(af_getattr.method1(), str)
@@ -174,13 +191,3 @@ assert_type(al_getattr.triggers_getattr, int)
 assert_type(al_getattr.classvar1, str)
 assert_type(AnyLastGetAttr.classvar1, str)
 assert_type(iter(al_getattr), Iterator[str])
-
-full_mro_checked = AnySubFirst()
-
-assert_type(full_mro_checked.method1(), str)
-assert_type(full_mro_checked.method2(), str)
-assert_type(full_mro_checked.attr1, str)
-assert_type(full_mro_checked.triggers_getattr, int)
-assert_type(full_mro_checked.classvar1, str)
-assert_type(AnySubFirst.classvar1, str)
-assert_type(iter(full_mro_checked), Iterator[str])
