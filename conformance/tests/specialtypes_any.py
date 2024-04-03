@@ -143,7 +143,7 @@ assert_type(af.non_exist_method(), Any)
 assert_type(af.non_exist_attr, Any)
 assert_type(af.classvar1, str)
 assert_type(AnyFirst.classvar1, str)
-assert_type(iter(af()), Iterator[str])
+assert_type(iter(af), Iterator[str])
 
 al = AnyLast()
 assert_type(al.method1(), str)
