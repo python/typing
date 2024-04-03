@@ -86,7 +86,10 @@ class MypyTypeChecker(TypeChecker):
         return version
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        command = f"{sys.executable} -m mypy . --disable-error-code empty-body"
+        # Mypy currently crashes when run on the "generics_defaults.py" test case,
+        # so we need to exclude it for now. Remove this once mypy adds support for
+        # this functionality.
+        command = f"{sys.executable} -m mypy . --exclude 'generics_defaults\.py' --disable-error-code empty-body"
         proc = run(command, stdout=PIPE, text=True, shell=True)
         lines = proc.stdout.split("\n")
 
