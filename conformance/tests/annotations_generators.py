@@ -63,7 +63,7 @@ def generator3() -> Generator[A, int, Any]:
         return 3
 
     while cont.should_continue():
-        yield 3  # Incompatible yield type
+        yield 3  # E: Incompatible yield type
 
 
 def generator4() -> Iterable[A]:

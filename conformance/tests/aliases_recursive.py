@@ -52,8 +52,8 @@ m8: RecursiveMapping = {"1": "1", "2": 1, "3": [1, 2]}  # E
 m9: RecursiveMapping = {
     "1": "1",
     "2": 1,
-    "3": {"0": "0", "1": 1, "2": [1, 2, 3]},
-}  # E
+    "3": {"0": "0", "1": 1, "2": [1, 2, 3]},  # E
+}
 
 
 T1 = TypeVar("T1", str, int)
@@ -75,6 +75,6 @@ g6: GenericTypeAlias2[str, int] = [[3, ["hi", 3, [3.4]]], "hi"]  # E
 
 RecursiveUnion: TypeAlias = Union["RecursiveUnion", int]  # E: cyclical reference
 
-MutualReference1: TypeAlias = Union["MutualReference2", int]  # E: cyclical reference
-MutualReference2: TypeAlias = Union["MutualReference1", str]
+# On one line because different type checkers report the error on different lines
+MutualReference1: TypeAlias = Union["MutualReference2", int]; MutualReference2: TypeAlias = Union["MutualReference1", str]  # E: cyclical reference
 

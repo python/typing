@@ -62,10 +62,10 @@ aliases_recursive.py:73:51 - error: Expression of type "list[list[int | list[str
     "float" is incompatible with "str"
     "float" is incompatible with "int" (reportAssignmentType)
 aliases_recursive.py:76:29 - error: Type alias "RecursiveUnion" cannot use itself in its definition (reportGeneralTypeIssues)
-aliases_recursive.py:78:31 - error: Type alias "MutualReference1" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_recursive.py:79:31 - error: Type alias "MutualReference1" cannot use itself in its definition (reportGeneralTypeIssues)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 56: Expected 1 errors
+Line 55: Expected 1 errors
 Line 52: Unexpected errors ['aliases_recursive.py:52:24 - error: Expression of type "dict[str, str | int | dict[str, str | int | list[int]]]" cannot be assigned to declared type "RecursiveMapping"']
 """

@@ -16,8 +16,8 @@ aliases_recursive.py:66:4 Undefined or invalid type [11]: Annotation `GenericTyp
 aliases_recursive.py:69:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `_SpecialForm`.
 aliases_recursive.py:71:4 Undefined or invalid type [11]: Annotation `GenericTypeAlias2` is not defined as a type.
 aliases_recursive.py:76:0 Incompatible variable type [9]: RecursiveUnion is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.
-aliases_recursive.py:78:0 Incompatible variable type [9]: MutualReference1 is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.
-aliases_recursive.py:79:0 Incompatible variable type [9]: MutualReference2 is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.
+aliases_recursive.py:79:0 Incompatible variable type [9]: MutualReference1 is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.
+aliases_recursive.py:79:62 Incompatible variable type [9]: MutualReference2 is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -25,9 +25,10 @@ Line 38: Expected 1 errors
 Line 39: Expected 1 errors
 Line 50: Expected 1 errors
 Line 51: Expected 1 errors
-Line 56: Expected 1 errors
+Line 55: Expected 1 errors
 Line 67: Expected 1 errors
 Line 73: Expected 1 errors
+Line 79: Expected 1 errors, got 2 (['aliases_recursive.py:79:0 Incompatible variable type [9]: MutualReference1 is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.', 'aliases_recursive.py:79:62 Incompatible variable type [9]: MutualReference2 is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.'])
 Line 30: Unexpected errors ['aliases_recursive.py:30:35 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[str, typing.Any]`.']
 Line 33: Unexpected errors ['aliases_recursive.py:33:4 Undefined or invalid type [11]: Annotation `RecursiveTuple` is not defined as a type.']
 Line 42: Unexpected errors ['aliases_recursive.py:42:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_KT]], Type[Variable[_VT_co](covariant)]]` but got `Tuple[Type[str], str]`.']
@@ -37,5 +38,4 @@ Line 65: Unexpected errors ['aliases_recursive.py:65:4 Undefined or invalid type
 Line 66: Unexpected errors ['aliases_recursive.py:66:4 Undefined or invalid type [11]: Annotation `GenericTypeAlias1` is not defined as a type.']
 Line 69: Unexpected errors ['aliases_recursive.py:69:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `_SpecialForm`.']
 Line 71: Unexpected errors ['aliases_recursive.py:71:4 Undefined or invalid type [11]: Annotation `GenericTypeAlias2` is not defined as a type.']
-Line 79: Unexpected errors ['aliases_recursive.py:79:0 Incompatible variable type [9]: MutualReference2 is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.']
 """

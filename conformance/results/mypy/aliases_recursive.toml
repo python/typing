@@ -12,10 +12,6 @@ aliases_recursive.py:73: error: List item 0 has incompatible type "float"; expec
 aliases_recursive.py:76: error: Invalid recursive alias: a union item of itself  [misc]
 aliases_recursive.py:79: error: Invalid recursive alias: a union item of itself  [misc]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 56: Expected 1 errors
-Line 78: Expected 1 errors
-Line 55: Unexpected errors ['aliases_recursive.py:55: error: Dict entry 2 has incompatible type "str": "list[int]"; expected "str": "str | int | Mapping[str, RecursiveMapping]"  [dict-item]']
-Line 79: Unexpected errors ['aliases_recursive.py:79: error: Invalid recursive alias: a union item of itself  [misc]']
 """

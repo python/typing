@@ -27,11 +27,11 @@ File "aliases_recursive.py", line 73, in <module>: Invalid type annotation 'Gene
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 56: Expected 1 errors
+Line 55: Expected 1 errors
 Line 67: Expected 1 errors, got 2 (['File "aliases_recursive.py", line 67, in <module>: Invalid type annotation \\'list[str]\\'  [invalid-annotation]', 'File "aliases_recursive.py", line 67, in <module>: Invalid type annotation \\'GenericTypeAlias1[str]\\'  [invalid-annotation]'])
 Line 73: Expected 1 errors, got 2 (['File "aliases_recursive.py", line 73, in <module>: Invalid type annotation \\'list[str, int]\\'  [invalid-annotation]', 'File "aliases_recursive.py", line 73, in <module>: Invalid type annotation \\'GenericTypeAlias2[str, int]\\'  [invalid-annotation]'])
 Line 76: Expected 1 errors
-Line 78: Expected 1 errors
+Line 79: Expected 1 errors
 Line 62: Unexpected errors ['File "aliases_recursive.py", line 62, in <module>: unsupported operand type(s) for |: \\'\\'GenericTypeAlias1[T1]\\': str\\' and \\'T1: TypeVar\\' [unsupported-operands]']
 Line 63: Unexpected errors ['File "aliases_recursive.py", line 63, in <module>: Invalid type annotation \\'list[str]\\'  [invalid-annotation]']
 Line 66: Unexpected errors ['File "aliases_recursive.py", line 66, in <module>: Invalid type annotation \\'list[str]\\'  [invalid-annotation]', 'File "aliases_recursive.py", line 66, in <module>: Invalid type annotation \\'GenericTypeAlias1[str]\\'  [invalid-annotation]']
