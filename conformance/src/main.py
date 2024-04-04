@@ -4,6 +4,7 @@ Type system conformance test for static type checkers.
 
 import os
 from pathlib import Path
+import re
 import sys
 from time import time
 from typing import Sequence
@@ -41,14 +42,25 @@ def run_tests(
     update_type_checker_info(type_checker, root_dir, test_duration)
 
 
-def get_expected_errors(test_case: Path) -> dict[int, int]:
+def get_expected_errors(test_case: Path) -> dict[int, tuple[int, int]]:
     """Return the line numbers where type checkers are expected to produce an error.
 
-    The format is {line number: expected number of errors}.
+    The format is {line number: (expected number of required errors, expected number of optional errors)}.
     """
     with open(test_case, "r") as f:
         lines = f.readlines()
-    return {i: line.count("# E") for i, line in enumerate(lines, start=1) if "# E" in line}
+    output: dict[int, tuple[int, int]] = {}
+    for i, line in enumerate(lines, start=1):
+        required = 0
+        optional = 0
+        for match in re.finditer(r"# E\??(?=:|$)", line):
+            if match.group() == "# E":
+                required += 1
+            else:
+                optional += 1
+        if required or optional:
+            output[i] = (required, optional)
+    return output
 
 
 def diff_expected_errors(type_checker: TypeChecker, test_case: Path, output: str) -> str:
@@ -57,12 +69,20 @@ def diff_expected_errors(type_checker: TypeChecker, test_case: Path, output: str
     errors = type_checker.parse_errors(output.splitlines())
 
     differences: list[str] = []
-    for expected_lineno, expected_count in expected_errors.items():
+    for expected_lineno, (expected_count, optional_count) in expected_errors.items():
         if expected_lineno not in errors:
-            differences.append(f"Line {expected_lineno}: Expected {expected_count} errors")
-        elif (actual_count := len(errors[expected_lineno])) != expected_count:
+            if expected_count > 0:
+                differences.append(f"Line {expected_lineno}: Expected {expected_count} errors")
+            continue
+        actual_count = len(errors[expected_lineno])
+        if not (expected_count <= actual_count <= expected_count + optional_count):
+            expected_text = (
+                str(expected_count)
+                if optional_count == 0
+                else f"{expected_count} to {expected_count + optional_count}"
+            )
             differences.append(
-                f"Line {expected_lineno}: Expected {expected_count} errors, "
+                f"Line {expected_lineno}: Expected {expected_text} errors, "
                 f"got {actual_count} ({errors[expected_lineno]})"
             )
     for actual_lineno, actual_errors in errors.items():

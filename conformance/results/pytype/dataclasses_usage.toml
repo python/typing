@@ -16,9 +16,6 @@ File "dataclasses_usage.py", line 179, in <module>: Function DC13.__init__ expec
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 62: Expected 1 errors
-Line 68: Expected 1 errors
-Line 74: Expected 1 errors
 Line 59: Unexpected errors ['File "dataclasses_usage.py", line 59, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']
 Line 65: Unexpected errors ['File "dataclasses_usage.py", line 65, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']
 Line 71: Unexpected errors ['File "dataclasses_usage.py", line 71, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']

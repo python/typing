@@ -24,7 +24,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 51: Expected 1 errors
 Line 86: Expected 1 errors
-Line 66: Unexpected errors ['annotations_generators.py:66:8 Incompatible return type [7]: Expected `Generator[A, int, typing.Any]` but got `Generator[int, typing.Any, typing.Any]`.']
 Line 87: Unexpected errors ['annotations_generators.py:87:4 Incompatible return type [7]: Expected `int` but got `Generator[None, typing.Any, typing.Any]`.']
 Line 88: Unexpected errors ['annotations_generators.py:88:4 Incompatible return type [7]: Expected `int` but got `Generator[typing.Any, typing.Any, int]`.']
 Line 92: Unexpected errors ['annotations_generators.py:92:4 Incompatible return type [7]: Expected `int` but got `AsyncGenerator[None, typing.Any]`.']

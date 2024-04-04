@@ -5,8 +5,6 @@ Type evaluation differs from other type checkers because of ambiguity in the spe
 output = """
 annotations_methods.py:42: error: Expression is of type "B", not "A"  [assert-type]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 46: Expected 1 errors
-Line 42: Unexpected errors ['annotations_methods.py:42: error: Expression is of type "B", not "A"  [assert-type]']
 """

@@ -6,6 +6,8 @@ output = """
 directives_reveal_type.py:19:4 Missing argument [20]: Call `reveal_type` expects argument in position 0.
 directives_reveal_type.py:20:4 Too many arguments [19]: Call `reveal_type` expects 1 positional argument, 2 were provided.
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 19: Unexpected errors ['directives_reveal_type.py:19:4 Missing argument [20]: Call `reveal_type` expects argument in position 0.']
+Line 20: Unexpected errors ['directives_reveal_type.py:20:4 Too many arguments [19]: Call `reveal_type` expects 1 positional argument, 2 were provided.']
 """

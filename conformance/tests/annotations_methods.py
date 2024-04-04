@@ -39,11 +39,11 @@ assert_type(B.factory(), B)
 # type binding should be performed. Currently, pyright evaluates
 # A here, but mypy evaluates B. Since the spec is not clear, both
 # of these are currently acceptable answers.
-assert_type(A.copy(B()), A)
+assert_type(A.copy(B()), A)  # E?
 
 # Similarly, this case is ambiguous in the spec. Pyright currently
 # generates a type error here, but mypy accepts this.
-B.copy(A())  # E
+B.copy(A())  # E?
 
 assert_type(A.static_method(A), A)
 assert_type(A.static_method(B), B)

@@ -11,6 +11,6 @@ directives_reveal_type.py:20: error: Too many arguments for "reveal_type"  [call
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 19: Expected 1 errors, got 2 (['directives_reveal_type.py:19: error: "reveal_type" expects 1 argument  [misc]', 'directives_reveal_type.py:19: error: Too few arguments for "reveal_type"  [call-arg]'])
-Line 20: Expected 1 errors, got 2 (['directives_reveal_type.py:20: error: "reveal_type" expects 1 argument  [misc]', 'directives_reveal_type.py:20: error: Too many arguments for "reveal_type"  [call-arg]'])
+Line 19: Unexpected errors ['directives_reveal_type.py:19: error: "reveal_type" expects 1 argument  [misc]', 'directives_reveal_type.py:19: error: Too few arguments for "reveal_type"  [call-arg]']
+Line 20: Unexpected errors ['directives_reveal_type.py:20: error: "reveal_type" expects 1 argument  [misc]', 'directives_reveal_type.py:20: error: Too many arguments for "reveal_type"  [call-arg]']
 """

@@ -20,9 +20,6 @@ dataclasses_usage.py:205:0 Incompatible variable type [9]: v1 is declared to hav
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 62: Expected 1 errors
-Line 68: Expected 1 errors
-Line 74: Expected 1 errors
 Line 73: Unexpected errors ['dataclasses_usage.py:73:4 Incompatible attribute type [8]: Attribute `a` declared in class `DC3` has type `InitVar[int]` but is used as type `int`.']
 Line 116: Unexpected errors ['dataclasses_usage.py:116:0 Uninitialized attribute [13]: Attribute `y` is declared in class `DC8` to have type `int` but is never initialized.']
 Line 127: Unexpected errors ['dataclasses_usage.py:127:0 Too many arguments [19]: Call `DC7.__init__` expects 1 positional argument, 2 were provided.']

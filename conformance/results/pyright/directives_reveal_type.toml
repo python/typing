@@ -7,6 +7,8 @@ directives_reveal_type.py:17:17 - information: Type of "d" is "ForwardReference"
 directives_reveal_type.py:19:5 - error: Expected a single positional argument for "reveal_type" call
 directives_reveal_type.py:20:5 - error: Expected a single positional argument for "reveal_type" call
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 19: Unexpected errors ['directives_reveal_type.py:19:5 - error: Expected a single positional argument for "reveal_type" call']
+Line 20: Unexpected errors ['directives_reveal_type.py:20:5 - error: Expected a single positional argument for "reveal_type" call']
 """

@@ -17,6 +17,9 @@ dataclasses_usage.py:205: error: Name "v1" already defined on line 25  [no-redef
 conformance_automated = "Fail"
 errors_diff = """
 Line 36: Unexpected errors ['dataclasses_usage.py:36: error: Accessing "__init__" on an instance is unsound, since instance.__init__ could be from an incompatible subclass  [misc]']
+Line 62: Unexpected errors ['dataclasses_usage.py:62: error: Attributes without a default cannot follow attributes with one  [misc]']
+Line 68: Unexpected errors ['dataclasses_usage.py:68: error: Attributes without a default cannot follow attributes with one  [misc]']
+Line 74: Unexpected errors ['dataclasses_usage.py:74: error: Attributes without a default cannot follow attributes with one  [misc]']
 Line 127: Unexpected errors ['dataclasses_usage.py:127: error: Too many arguments for "DC7"  [call-arg]']
 Line 130: Unexpected errors ['dataclasses_usage.py:130: error: Missing positional argument "y" in call to "DC8"  [call-arg]']
 Line 179: Unexpected errors ['dataclasses_usage.py:179: error: Too many arguments for "DC13"  [call-arg]']
