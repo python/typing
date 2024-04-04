@@ -9,6 +9,6 @@ dataclasses_postinit.py:36: note:          def __post_init__(self: DC2, x: int, 
 dataclasses_postinit.py:36: note:      Subclass:
 dataclasses_postinit.py:36: note:          def __post_init__(self: DC2, x: int) -> None
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

@@ -2,6 +2,6 @@ conformant = "Unsupported"
 output = """
 NotImplementedError: ParameterizedClass
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

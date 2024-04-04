@@ -17,6 +17,6 @@ aliases_newtype.py:58:38 - error: NewType cannot be used with structural type (a
 aliases_newtype.py:60:15 - error: NewType requires two positional arguments (reportCallIssue)
 aliases_newtype.py:62:38 - error: The second argument to NewType must be a known class, not Any or Unknown (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

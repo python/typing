@@ -4,6 +4,6 @@ Does not perform protocol checks for modules.
 """
 output = """
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

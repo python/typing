@@ -5,6 +5,6 @@ Does not reject instance variable that is overridden by ClassVar.
 """
 output = """
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

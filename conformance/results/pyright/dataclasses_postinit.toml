@@ -8,6 +8,6 @@ dataclasses_postinit.py:29:11 - error: Cannot access member "y" for type "DC1"
   Member "y" is an init-only field (reportAttributeAccessIssue)
 dataclasses_postinit.py:36:9 - error: Dataclass __post_init__ incorrect parameter count; number of InitVar fields is 2 (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

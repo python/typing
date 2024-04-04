@@ -4,6 +4,6 @@ Does not reject use of attribute that is compatible only with float.
 """
 output = """
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

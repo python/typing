@@ -5,6 +5,6 @@ Type parameter syntax not yet support.
 output = """
 generics_syntax_compatibility.py:14:13 Parsing failure [404]: invalid syntax
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

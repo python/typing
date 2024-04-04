@@ -7,6 +7,6 @@ directives_assert_type.py:31:5 - error: "assert_type" expects two positional arg
 directives_assert_type.py:32:17 - error: "assert_type" mismatch: expected "int" but received "Literal['']" (reportAssertTypeFailure)
 directives_assert_type.py:33:5 - error: "assert_type" expects two positional arguments
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

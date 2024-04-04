@@ -7,6 +7,6 @@ Does not report when other keyword argument is provided.
 output = """
 
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

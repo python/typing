@@ -19,6 +19,6 @@ protocols_explicit.py:129:6 - error: Cannot instantiate abstract class "Concrete
 protocols_explicit.py:159:7 - error: Cannot instantiate abstract class "Concrete7A"
   "Proto7.method1" is not implemented (reportAbstractUsage)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

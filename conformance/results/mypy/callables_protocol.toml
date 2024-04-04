@@ -32,6 +32,6 @@ callables_protocol.py:284: note: "Proto13_Default.__call__" has type "Callable[[
 callables_protocol.py:311: error: Incompatible types in assignment (expression has type "Callable[[NamedArg(str, 'path')], str]", variable has type "Proto14_Default")  [assignment]
 callables_protocol.py:311: note: "Proto14_Default.__call__" has type "Callable[[DefaultNamedArg(str, 'path')], str]"
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """

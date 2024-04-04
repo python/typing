@@ -2,6 +2,6 @@ conformant = "Pass"
 output = """
 directives_type_ignore_file2.py:14:0 Incompatible variable type [9]: x is declared to have type `int` but is used as type `str`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
 """
