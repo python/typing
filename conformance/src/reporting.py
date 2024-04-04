@@ -24,13 +24,13 @@ def generate_summary(root_dir: Path):
         f.write(summary)
 
 
-def generate_summary_html(root_dir: Path):
+def generate_summary_html(root_dir: Path) -> str:
     column_count = len(TYPE_CHECKERS) + 1
     test_groups = get_test_groups(root_dir)
     test_cases = get_test_cases(test_groups, root_dir / "tests")
 
-    summary_html = '<div class="table_container"><table><tbody>'
-    summary_html += '<tr><th class="col1">&nbsp;</th>'
+    summary_html = ['<div class="table_container"><table><tbody>']
+    summary_html.append('<tr><th class="col1">&nbsp;</th>')
 
     for type_checker in TYPE_CHECKERS:
         # Load the version file for the type checker.
@@ -48,12 +48,12 @@ def generate_summary_html(root_dir: Path):
         version = existing_info["version"] or "Unknown version"
         test_duration = existing_info.get("test_duration")
 
-        summary_html += f"<th class='tc-header'><div class='tc-name'>{version}</div>"
+        summary_html.append(f"<th class='tc-header'><div class='tc-name'>{version}</div>")
         if test_duration is not None:
-            summary_html += f"<div class='tc-time'>{test_duration:.1f}sec</div>"
-        summary_html += f"</th>"
+            summary_html.append(f"<div class='tc-time'>{test_duration:.1f}sec</div>")
+        summary_html.append("</th>")
 
-    summary_html += f"</tr>"
+    summary_html.append("</tr>")
 
     for test_group_name, test_group in test_groups.items():
         tests_in_group = [
@@ -64,16 +64,16 @@ def generate_summary_html(root_dir: Path):
 
         # Are there any test cases in this group?
         if len(tests_in_group) > 0:
-            summary_html += f'<tr><th class="column" colspan="{column_count}">'
-            summary_html += (
+            summary_html.append(f'<tr><th class="column" colspan="{column_count}">')
+            summary_html.append(
                 f'<a class="test_group" href="{test_group.href}">{test_group.name}</a>'
             )
-            summary_html += "</th></tr>"
+            summary_html.append("</th></tr>")
 
             for test_case in tests_in_group:
                 test_case_name = test_case.stem
 
-                summary_html += f'<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{test_case_name}</th>'
+                summary_html.append(f'<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{test_case_name}</th>')
 
                 for type_checker in TYPE_CHECKERS:
                     try:
@@ -110,10 +110,10 @@ def generate_summary_html(root_dir: Path):
                     if raw_notes != "":
                         conformance_cell = f'<div class="hover-text">{conformance_cell}<span class="tooltip-text" id="bottom">{notes}</span></div>'
 
-                    summary_html += f'<th class="column col2 {conformance_class}">{conformance_cell}</th>'
+                    summary_html.append(f'<th class="column col2 {conformance_class}">{conformance_cell}</th>')
 
-                summary_html += f"</tr>"
+                summary_html.append("</tr>")
 
-    summary_html += "</tbody></table></div>\n"
+    summary_html.append("</tbody></table></div>\n")
 
-    return summary_html
+    return "".join(summary_html)
