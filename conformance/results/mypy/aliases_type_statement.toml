@@ -80,12 +80,6 @@ Line 17: Expected 1 errors
 Line 19: Expected 1 errors
 Line 26: Expected 1 errors
 Line 31: Expected 1 errors
-Line 64: Expected 1 errors, got 2 (['aliases_type_statement.py:64: error: PEP 695 type aliases are not yet supported  [valid-type]', 'aliases_type_statement.py:64: error: Name "K" is not defined  [name-defined]'])
-Line 79: Expected 1 errors, got 2 (['aliases_type_statement.py:79: error: Unexpected "..."  [misc]', 'aliases_type_statement.py:79: error: Variable "aliases_type_statement.RecursiveTypeAlias2" is not valid as a type  [valid-type]'])
-Line 81: Expected 1 errors, got 2 (['aliases_type_statement.py:81: error: Unexpected "..."  [misc]', 'aliases_type_statement.py:81: error: Variable "aliases_type_statement.RecursiveTypeAlias2" is not valid as a type  [valid-type]'])
-Line 84: Expected 1 errors, got 2 (['aliases_type_statement.py:84: error: PEP 695 type aliases are not yet supported  [valid-type]', 'aliases_type_statement.py:84: error: Name "RecursiveTypeAlias3" is not defined  [name-defined]'])
-Line 86: Expected 1 errors, got 3 (['aliases_type_statement.py:86: error: PEP 695 type aliases are not yet supported  [valid-type]', 'aliases_type_statement.py:86: error: Name "T" is not defined  [name-defined]', 'aliases_type_statement.py:86: error: Cannot determine type of "RecursiveTypeAlias4"  [has-type]'])
-Line 90: Expected 1 errors, got 3 (['aliases_type_statement.py:90: error: PEP 695 type aliases are not yet supported  [valid-type]', 'aliases_type_statement.py:90: error: Cannot resolve name "RecursiveTypeAlias7" (possible cyclic definition)  [misc]', 'aliases_type_statement.py:90: error: Name "RecursiveTypeAlias7" is used before definition  [used-before-def]'])
 Line 8: Unexpected errors ['aliases_type_statement.py:8: error: PEP 695 type aliases are not yet supported  [valid-type]']
 Line 9: Unexpected errors ['aliases_type_statement.py:9: error: PEP 695 type aliases are not yet supported  [valid-type]', 'aliases_type_statement.py:9: error: Name "S3" is not defined  [name-defined]', 'aliases_type_statement.py:9: error: Name "S1" is not defined  [name-defined]', 'aliases_type_statement.py:9: error: Name "S2" is not defined  [name-defined]']
 Line 10: Unexpected errors ['aliases_type_statement.py:10: error: PEP 695 type aliases are not yet supported  [valid-type]', 'aliases_type_statement.py:10: error: Value of type "UnionType" is not indexable  [index]']

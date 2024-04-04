@@ -13,7 +13,6 @@ generics_syntax_scoping.py:98:29 - error: Variable not allowed in type expressio
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 98: Expected 1 errors, got 2 (['generics_syntax_scoping.py:98:17 - error: Type parameter "T" is already in use', 'generics_syntax_scoping.py:98:29 - error: Variable not allowed in type expression (reportInvalidTypeForm)'])
 Line 35: Unexpected errors ['generics_syntax_scoping.py:35:7 - error: "T" is not defined (reportUndefinedVariable)']
 Line 44: Unexpected errors ['generics_syntax_scoping.py:44:17 - error: "T" is not defined (reportUndefinedVariable)']
 Line 62: Unexpected errors ['generics_syntax_scoping.py:62:25 - error: "assert_type" mismatch: expected "str" but received "Literal[\\'\\']" (reportAssertTypeFailure)']

@@ -11,7 +11,6 @@ literals_literalstring.py:120:21 Incompatible parameter type [6]: In call `liter
 literals_literalstring.py:134:50 Incompatible parameter type [6]: In call `Container.__init__`, for 1st positional argument, expected `Variable[T (bound to typing_extensions.LiteralString)]` but got `str`.
 literals_literalstring.py:166:4 Incompatible variable type [9]: x1 is declared to have type `List[str]` but is used as type `List[typing_extensions.LiteralString]`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 36: Expected 1 errors, got 2 (['literals_literalstring.py:36:11 Invalid type [31]: Expression `LiteralString` is not a literal value.', 'literals_literalstring.py:36:11 Undefined or invalid type [11]: Annotation `typing` is not defined as a type.'])
 """

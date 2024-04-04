@@ -34,7 +34,6 @@ Line 26: Expected 1 errors
 Line 52: Expected 1 errors
 Line 108: Expected 1 errors
 Line 117: Expected 1 errors
-Line 144: Expected 1 errors, got 2 (['generics_defaults.py:144:11 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$Ts, $local_generics_defaults$T5)]` is not a valid type.', 'generics_defaults.py:144:11 Undefined or invalid type [11]: Annotation `T5` is not defined as a type.'])
 Line 25: Unexpected errors ['generics_defaults.py:25:4 Undefined or invalid type [11]: Annotation `DefaultStrT` is not defined as a type.', 'generics_defaults.py:25:4 Undefined or invalid type [11]: Annotation `T` is not defined as a type.']
 Line 29: Unexpected errors ['generics_defaults.py:29:20 Undefined or invalid type [11]: Annotation `DefaultIntT` is not defined as a type.']
 Line 32: Unexpected errors ['generics_defaults.py:32:32 Undefined attribute [16]: `NoNonDefaults` has no attribute `__getitem__`.']

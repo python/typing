@@ -21,7 +21,6 @@ File "annotations_generators.py", line 182, in <module>: Callable[[], AsyncItera
 conformance_automated = "Fail"
 errors_diff = """
 Line 51: Expected 1 errors
-Line 57: Expected 1 errors, got 2 (['File "annotations_generators.py", line 57, in generator2: bad return type [bad-return-type]', 'File "annotations_generators.py", line 57, in generator2: bad return type [bad-return-type]'])
 Line 135: Expected 1 errors
 Line 100: Unexpected errors ['File "annotations_generators.py", line 100, in <module>: Bad return type \\'IntIterator\\' for generator function generator15 [bad-yield-annotation]']
 Line 109: Unexpected errors ['File "annotations_generators.py", line 109, in <module>: Bad return type \\'AsyncIntIterator\\' for async generator function generator16 [bad-yield-annotation]']

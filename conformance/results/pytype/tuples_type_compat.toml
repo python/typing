@@ -68,9 +68,6 @@ Line 32: Expected 1 errors
 Line 33: Expected 1 errors
 Line 43: Expected 1 errors
 Line 62: Expected 1 errors
-Line 168: Expected 1 errors, got 2 (['File "tuples_type_compat.py", line 168, in func9: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]', 'File "tuples_type_compat.py", line 168, in func9: Invalid type annotation \\'tuple[str, str, *tuple[int]]\\'  [invalid-annotation]'])
-Line 171: Expected 1 errors, got 2 (['File "tuples_type_compat.py", line 171, in func9: Type annotation for t5 does not match type of assignment [annotation-type-mismatch]', 'File "tuples_type_compat.py", line 171, in func9: Invalid type annotation \\'tuple[str, str, str, *tuple[str, ...]]\\'  [invalid-annotation]'])
-Line 175: Expected 1 errors, got 2 (['File "tuples_type_compat.py", line 175, in func9: Type annotation for t9 does not match type of assignment [annotation-type-mismatch]', 'File "tuples_type_compat.py", line 175, in func9: Invalid type annotation \\'tuple[*tuple[str, ...], str, str, str]\\'  [invalid-annotation]'])
 Line 22: Unexpected errors ['File "tuples_type_compat.py", line 22, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
 Line 27: Unexpected errors ['File "tuples_type_compat.py", line 27, in func2: Invalid type annotation \\'tuple[int, *tuple[int, ...]]\\'  [invalid-annotation]']
 Line 47: Unexpected errors ['File "tuples_type_compat.py", line 47, in func3: Invalid type annotation \\'tuple[int, *tuple[str, ...]]\\'  [invalid-annotation]']

@@ -9,6 +9,5 @@ generics_upper_bound.py:48:10 Incompatible parameter type [6]: In call `longer`,
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 48: Expected 1 errors, got 2 (['generics_upper_bound.py:48:7 Incompatible parameter type [6]: In call `longer`, for 1st positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.', 'generics_upper_bound.py:48:10 Incompatible parameter type [6]: In call `longer`, for 2nd positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.'])
 Line 53: Expected 1 errors
 """

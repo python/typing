@@ -25,7 +25,7 @@ movie["year"] = "1982"  # E: invalid value type ("int" expected)
 
 # The code below should be rejected, since 'title' is not a valid key,
 # and the 'name' key is missing:
-movie2: Movie = {"title": "Blade Runner", "year": 1982}  # E  # E?
+movie2: Movie = {"title": "Blade Runner", "year": 1982}  # E
 
 m = Movie(name='Blade Runner', year=1982)
 

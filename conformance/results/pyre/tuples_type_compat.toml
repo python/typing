@@ -67,9 +67,6 @@ Line 32: Expected 1 errors
 Line 33: Expected 1 errors
 Line 43: Expected 1 errors
 Line 62: Expected 1 errors
-Line 168: Expected 1 errors, got 2 (['tuples_type_compat.py:168:4 Incompatible variable type [9]: t2 is declared to have type `Tuple[str, str, unknown]` but is used as type `Tuple[str, str]`.', 'tuples_type_compat.py:168:8 Invalid type [31]: Expression `tuple[(str, str, *tuple[int])]` is not a valid type.'])
-Line 171: Expected 1 errors, got 2 (['tuples_type_compat.py:171:4 Incompatible variable type [9]: t5 is declared to have type `Tuple[str, str, str, unknown]` but is used as type `Tuple[str, str]`.', 'tuples_type_compat.py:171:8 Invalid type [31]: Expression `tuple[(str, str, str, *tuple[(str, ...)])]` is not a valid type.'])
-Line 175: Expected 1 errors, got 2 (['tuples_type_compat.py:175:4 Incompatible variable type [9]: t9 is declared to have type `Tuple[unknown, str, str, str]` but is used as type `Tuple[str, str]`.', 'tuples_type_compat.py:175:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], str, str, str)]` is not a valid type.'])
 Line 22: Unexpected errors ['tuples_type_compat.py:22:30 Invalid type [31]: Expression `tuple[(int, *tuple[(int, ...)])]` is not a valid type.']
 Line 27: Unexpected errors ['tuples_type_compat.py:27:8 Invalid type [31]: Expression `tuple[(int, *tuple[(int, ...)])]` is not a valid type.']
 Line 47: Unexpected errors ['tuples_type_compat.py:47:8 Invalid type [31]: Expression `tuple[(int, *tuple[(str, ...)])]` is not a valid type.']

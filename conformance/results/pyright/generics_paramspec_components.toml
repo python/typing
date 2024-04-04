@@ -23,10 +23,6 @@ generics_paramspec_components.py:98:20 - error: Argument of type "Literal['A']" 
 generics_paramspec_components.py:98:25 - error: Argument of type "Literal[1]" cannot be assigned to parameter "b" of type "str"
   "Literal[1]" is incompatible with "str" (reportArgumentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 17: Expected 1 errors, got 2 (['generics_paramspec_components.py:17:25 - error: "kwargs" member of ParamSpec is valid only when used with **kwargs parameter', 'generics_paramspec_components.py:17:45 - error: "args" member of ParamSpec is valid only when used with *args parameter'])
-Line 23: Expected 1 errors, got 2 (['generics_paramspec_components.py:23:28 - error: "args" and "kwargs" members of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)', 'generics_paramspec_components.py:23:46 - error: "args" member of ParamSpec is valid only when used with *args parameter'])
-Line 30: Expected 1 errors, got 2 (['generics_paramspec_components.py:30:25 - error: ParamSpec "P" has no meaning in this context (reportGeneralTypeIssues)', 'generics_paramspec_components.py:30:43 - error: ParamSpec "P" has no meaning in this context (reportGeneralTypeIssues)'])
-Line 98: Expected 1 errors, got 2 (['generics_paramspec_components.py:98:20 - error: Argument of type "Literal[\\'A\\']" cannot be assigned to parameter "a" of type "int"', 'generics_paramspec_components.py:98:25 - error: Argument of type "Literal[1]" cannot be assigned to parameter "b" of type "str"'])
 """

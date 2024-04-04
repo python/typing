@@ -53,7 +53,6 @@ aliases_type_statement.py:90:28 - error: Type alias "RecursiveTypeAlias6" cannot
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 31: Expected 1 errors, got 2 (['aliases_type_statement.py:31:22 - error: Argument of type "GoodAlias1" cannot be assigned to parameter "class_or_tuple" of type "_ClassInfo" in function "isinstance"', 'aliases_type_statement.py:31:22 - error: Second argument to "isinstance" must be a class or tuple of classes'])
 Line 37: Unexpected errors ['aliases_type_statement.py:37:22 - error: Call expression not allowed in type expression (reportInvalidTypeForm)']
 Line 38: Unexpected errors ['aliases_type_statement.py:38:22 - error: List expression not allowed in type annotation', 'aliases_type_statement.py:38:22 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)']
 Line 39: Unexpected errors ['aliases_type_statement.py:39:22 - error: Tuple expression not allowed in type annotation']

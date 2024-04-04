@@ -70,7 +70,6 @@ generics_syntax_scoping.py:124: note: "assert_type" expects everything to be "An
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 98: Expected 1 errors, got 2 (['generics_syntax_scoping.py:98: error: PEP 695 generics are not yet supported  [valid-type]', 'generics_syntax_scoping.py:98: error: Variable "generics_syntax_scoping.ClassE.T" is not valid as a type  [valid-type]'])
 Line 22: Unexpected errors ['generics_syntax_scoping.py:22: error: PEP 695 generics are not yet supported  [valid-type]']
 Line 26: Unexpected errors ['generics_syntax_scoping.py:26: error: PEP 695 generics are not yet supported  [valid-type]']
 Line 27: Unexpected errors ['generics_syntax_scoping.py:27: error: "Foo" expects no type arguments, but 1 given  [type-arg]', 'generics_syntax_scoping.py:27: error: Variable "generics_syntax_scoping.T" is not valid as a type  [valid-type]']

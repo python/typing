@@ -30,10 +30,6 @@ File "tuples_unpacked.py", line 50, in func3: Invalid type annotation 'tuple[*tu
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 31: Expected 1 errors, got 2 (['File "tuples_unpacked.py", line 31, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]', 'File "tuples_unpacked.py", line 31, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]'])
-Line 32: Expected 1 errors, got 2 (['File "tuples_unpacked.py", line 32, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]', 'File "tuples_unpacked.py", line 32, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]'])
-Line 39: Expected 1 errors, got 2 (['File "tuples_unpacked.py", line 39, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]', 'File "tuples_unpacked.py", line 39, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]'])
-Line 40: Expected 1 errors, got 2 (['File "tuples_unpacked.py", line 40, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]', 'File "tuples_unpacked.py", line 40, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]'])
 Line 58: Expected 1 errors
 Line 61: Expected 1 errors
 Line 13: Unexpected errors ['File "tuples_unpacked.py", line 13, in <module>: typing.Unpack not supported yet [not-supported-yet]', 'File "tuples_unpacked.py", line 13, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']

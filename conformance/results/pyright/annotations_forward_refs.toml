@@ -37,7 +37,6 @@ annotations_forward_refs.py:89:8 - error: Expected type expression but received 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 80: Expected 1 errors, got 2 (['annotations_forward_refs.py:80:14 - error: Type of "ClassF" could not be determined because it refers to itself (reportGeneralTypeIssues)', 'annotations_forward_refs.py:80:14 - error: Variable not allowed in type expression (reportInvalidTypeForm)'])
 Line 22: Unexpected errors ['annotations_forward_refs.py:22:7 - error: "ClassA" is not defined (reportUndefinedVariable)']
 Line 23: Unexpected errors ['annotations_forward_refs.py:23:12 - error: "ClassA" is not defined (reportUndefinedVariable)']
 Line 24: Unexpected errors ['annotations_forward_refs.py:24:7 - error: Union syntax cannot be used with string operand; use quotes around entire expression (reportGeneralTypeIssues)']

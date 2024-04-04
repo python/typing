@@ -54,13 +54,10 @@ File "generics_typevartuple_basic.py", line 106, in <module>: Function list.exte
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 42: Expected 1 errors, got 3 (['File "generics_typevartuple_basic.py", line 42, in <module>: class Array is not indexable [not-indexable]', 'File "generics_typevartuple_basic.py", line 42, in <module>: Invalid type annotation \\'Array[Height, Width]\\'  [invalid-annotation]', 'File "generics_typevartuple_basic.py", line 42, in <module>: Function Array.__init__ was called with the wrong arguments [wrong-arg-types]'])
-Line 43: Expected 1 errors, got 3 (['File "generics_typevartuple_basic.py", line 43, in <module>: class Array is not indexable [not-indexable]', 'File "generics_typevartuple_basic.py", line 43, in <module>: Invalid type annotation \\'Array[Batch, Height, Width]\\'  [invalid-annotation]', 'File "generics_typevartuple_basic.py", line 43, in <module>: Function Array.__init__ was called with the wrong arguments [wrong-arg-types]'])
 Line 46: Expected 1 errors
 Line 89: Expected 1 errors
 Line 99: Expected 1 errors
 Line 100: Expected 1 errors
-Line 106: Expected 1 errors, got 2 (['File "generics_typevartuple_basic.py", line 106, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]', 'File "generics_typevartuple_basic.py", line 106, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]'])
 Line 7: Unexpected errors ['File "generics_typevartuple_basic.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
 Line 9: Unexpected errors ['File "generics_typevartuple_basic.py", line 9, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
 Line 12: Unexpected errors ['File "generics_typevartuple_basic.py", line 12, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']

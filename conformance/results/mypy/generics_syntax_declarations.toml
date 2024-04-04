@@ -35,7 +35,6 @@ generics_syntax_declarations.py:81: error: PEP 695 generics are not yet supporte
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 27: Expected 1 errors, got 4 (['generics_syntax_declarations.py:27: error: PEP 695 generics are not yet supported  [valid-type]', 'generics_syntax_declarations.py:27: error: Free type variable expected in Protocol[...]  [misc]', 'generics_syntax_declarations.py:27: error: Name "S" is not defined  [name-defined]', 'generics_syntax_declarations.py:27: error: Name "T" is not defined  [name-defined]'])
 Line 34: Expected 1 errors
 Line 13: Unexpected errors ['generics_syntax_declarations.py:13: error: PEP 695 generics are not yet supported  [valid-type]']
 Line 14: Unexpected errors ['generics_syntax_declarations.py:14: error: Expression is of type "Any", not "TypeVar"  [assert-type]', 'generics_syntax_declarations.py:14: error: Name "T" is not defined  [name-defined]']

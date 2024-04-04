@@ -38,7 +38,6 @@ qualifiers_final_annotation.py:155: error: Cannot assign to final name "x"  [mis
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 135: Expected 1 errors, got 2 (['qualifiers_final_annotation.py:135: error: Unexpected keyword argument "x" for "N"  [call-arg]', 'qualifiers_final_annotation.py:135: error: Unexpected keyword argument "y" for "N"  [call-arg]'])
 Line 149: Expected 1 errors
 Line 59: Unexpected errors ['qualifiers_final_annotation.py:59: error: Cannot assign to final attribute "ID6"  [misc]']
 Line 96: Unexpected errors ['qualifiers_final_annotation.py:96: error: Cannot assign to final name "__private"  [misc]']

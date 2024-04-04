@@ -11,7 +11,6 @@ generics_base_class.py:49:38 - error: Too many type arguments provided for "Link
 generics_base_class.py:61:30 - error: Too many type arguments provided for "MyDict"; expected 1 but received 2 (reportInvalidTypeArguments)
 generics_base_class.py:68:28 - error: Type arguments for "Generic" must be unique
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 30: Expected 1 errors, got 2 (['generics_base_class.py:30:8 - error: "Generic" requires at least one type argument', 'generics_base_class.py:30:8 - error: "Generic" is not valid in this context (reportGeneralTypeIssues)'])
 """

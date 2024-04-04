@@ -13,7 +13,6 @@ callables_annotation.py:43:14 - error: Expected parameter type list or "..."
 callables_annotation.py:43:24 - error: Expected only two type arguments to "Callable"
 callables_annotation.py:44:15 - error: "..." is not allowed in this context
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 43: Expected 1 errors, got 2 (['callables_annotation.py:43:14 - error: Expected parameter type list or "..."', 'callables_annotation.py:43:24 - error: Expected only two type arguments to "Callable"'])
 """

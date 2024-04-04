@@ -21,7 +21,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 38: Expected 1 errors
 Line 41: Expected 1 errors
-Line 57: Expected 1 errors, got 2 (['generics_defaults_referential.py:57:13 Undefined or invalid type [11]: Annotation `Start2T` is not defined as a type.', 'generics_defaults_referential.py:57:13 Undefined or invalid type [11]: Annotation `Stop2T` is not defined as a type.'])
 Line 64: Expected 1 errors
 Line 72: Expected 1 errors
 Line 80: Expected 1 errors

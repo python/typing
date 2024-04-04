@@ -28,14 +28,11 @@ File "qualifiers_final_annotation.py", line 145, in func2: Assigning to variable
 conformance_automated = "Fail"
 errors_diff = """
 Line 16: Expected 1 errors
-Line 18: Expected 1 errors, got 2 (['File "qualifiers_final_annotation.py", line 18, in <module>: Invalid type annotation \\'Final[str, int]\\'  [invalid-annotation]', 'File "qualifiers_final_annotation.py", line 18, in <module>: Invalid type annotation \\'Final\\'  [invalid-annotation]'])
 Line 34: Expected 1 errors
 Line 38: Expected 1 errors
 Line 62: Expected 1 errors
 Line 63: Expected 1 errors
 Line 94: Expected 1 errors
-Line 107: Expected 1 errors, got 3 (['File "qualifiers_final_annotation.py", line 107, in ClassD: Type annotation for VALUE2 does not match type of assignment [annotation-type-mismatch]', 'File "qualifiers_final_annotation.py", line 107, in ClassD: Invalid use of typing.Final [final-error]', 'File "qualifiers_final_annotation.py", line 107, in ClassD: Invalid type annotation \\'ClassVar[Final]\\'  [invalid-annotation]'])
-Line 118: Expected 1 errors, got 2 (['File "qualifiers_final_annotation.py", line 118, in <module>: Invalid use of typing.Final [final-error]', 'File "qualifiers_final_annotation.py", line 118, in <module>: Invalid type annotation \\'list[Final[int]]\\'  [invalid-annotation]'])
 Line 141: Expected 1 errors
 Line 147: Expected 1 errors
 Line 149: Expected 1 errors

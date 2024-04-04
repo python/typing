@@ -27,8 +27,6 @@ aliases_implicit.py:134:6 - error: Object of type "UnionType" is not callable (r
 aliases_implicit.py:136:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)
 aliases_implicit.py:136:5 - error: Type "set[Unknown]" is already specialized (reportInvalidTypeArguments)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 77: Expected 1 errors, got 2 (['aliases_implicit.py:77:24 - error: Expected no type arguments for class "int" (reportInvalidTypeArguments)', 'aliases_implicit.py:77:24 - error: Expected no type arguments for class "NoneType" (reportInvalidTypeArguments)'])
-Line 136: Expected 1 errors, got 2 (['aliases_implicit.py:136:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)', 'aliases_implicit.py:136:5 - error: Type "set[Unknown]" is already specialized (reportInvalidTypeArguments)'])
 """

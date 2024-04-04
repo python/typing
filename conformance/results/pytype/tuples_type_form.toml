@@ -14,8 +14,6 @@ File "tuples_type_form.py", line 43, in <module>: Invalid type annotation 'Ellip
 File "tuples_type_form.py", line 44, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
 File "tuples_type_form.py", line 45, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 42: Expected 1 errors, got 2 (['File "tuples_type_form.py", line 42, in <module>: Invalid type annotation \\'tuple[Any, int]\\'  [invalid-annotation]', 'File "tuples_type_form.py", line 42, in <module>: Invalid type annotation \\'Ellipsis\\'  [invalid-annotation]'])
-Line 43: Expected 1 errors, got 2 (['File "tuples_type_form.py", line 43, in <module>: Invalid type annotation \\'tuple[int, Any, int]\\'  [invalid-annotation]', 'File "tuples_type_form.py", line 43, in <module>: Invalid type annotation \\'Ellipsis\\'  [invalid-annotation]'])
 """

@@ -16,7 +16,6 @@ generics_basic.py:141:5 - error: Argument of type "Literal[0]" cannot be assigne
   "Literal[0]" is incompatible with "str" (reportArgumentType)
 generics_basic.py:167:37 - error: Metaclass cannot be generic (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 48: Expected 1 errors, got 2 (['generics_basic.py:48:49 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)', 'generics_basic.py:48:49 - error: TypeVar constraint type cannot be generic'])
 """

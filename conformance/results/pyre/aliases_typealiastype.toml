@@ -48,7 +48,6 @@ errors_diff = """
 Line 32: Expected 1 errors
 Line 40: Expected 1 errors
 Line 45: Expected 1 errors
-Line 46: Expected 1 errors, got 2 (['aliases_typealiastype.py:46:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.', 'aliases_typealiastype.py:46:44 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.'])
 Line 49: Expected 1 errors
 Line 53: Expected 1 errors
 Line 5: Unexpected errors ['aliases_typealiastype.py:5:0 Undefined import [21]: Could not find a name `TypeAliasType` defined in module `typing`.']

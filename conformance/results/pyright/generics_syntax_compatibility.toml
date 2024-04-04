@@ -4,7 +4,6 @@ generics_syntax_compatibility.py:14:22 - error: Type parameter "K" is not includ
 generics_syntax_compatibility.py:26:35 - error: Type parameter "K" is not included in the type parameter list for "method2" (reportGeneralTypeIssues)
 generics_syntax_compatibility.py:26:45 - error: Type parameter "K" is not included in the type parameter list for "method2" (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 26: Expected 1 errors, got 2 (['generics_syntax_compatibility.py:26:35 - error: Type parameter "K" is not included in the type parameter list for "method2" (reportGeneralTypeIssues)', 'generics_syntax_compatibility.py:26:45 - error: Type parameter "K" is not included in the type parameter list for "method2" (reportGeneralTypeIssues)'])
 """

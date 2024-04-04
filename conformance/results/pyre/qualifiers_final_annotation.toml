@@ -36,7 +36,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 16: Expected 1 errors
 Line 38: Expected 1 errors
-Line 107: Expected 1 errors, got 2 (['qualifiers_final_annotation.py:107:4 Incompatible attribute type [8]: Attribute `VALUE2` declared in class `ClassD` has type `Final` but is used as type `int`.', 'qualifiers_final_annotation.py:107:4 Invalid type [31]: Expression `Final` is not a valid type. Final cannot be nested.'])
 Line 108: Expected 1 errors
 Line 28: Unexpected errors ['qualifiers_final_annotation.py:28:0 Uninitialized attribute [13]: Attribute `ID3` is declared in class `ClassA` to have type `int` but is never initialized.']
 Line 131: Unexpected errors ['qualifiers_final_annotation.py:131:0 Uninitialized attribute [13]: Attribute `($local_qualifiers_final_annotation$X, int)` is declared in class `N` to have type `typing.Any` but is never initialized.', 'qualifiers_final_annotation.py:131:0 Uninitialized attribute [13]: Attribute `($local_qualifiers_final_annotation$Y, int)` is declared in class `N` to have type `typing.Any` but is never initialized.']

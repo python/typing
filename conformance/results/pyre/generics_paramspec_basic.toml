@@ -18,7 +18,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 10: Expected 1 errors
 Line 23: Expected 1 errors
-Line 27: Expected 1 errors, got 2 (["generics_paramspec_basic.py:27:13 Invalid type variable [34]: The type variable `P` isn't present in the function's parameters.", 'generics_paramspec_basic.py:27:13 Undefined or invalid type [11]: Annotation `Concatenate` is not defined as a type.'])
 Line 35: Expected 1 errors
 Line 39: Expected 1 errors
 Line 17: Unexpected errors ['generics_paramspec_basic.py:17:0 Incompatible variable type [9]: TA2 is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., Variable[$synthetic_attribute_resolution_variable]]]`.', 'generics_paramspec_basic.py:17:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[ParamSpec, None]`.']

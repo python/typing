@@ -50,8 +50,6 @@ generics_typevartuple_basic.py:106:13 Invalid type [31]: Expression `typing.Gene
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 42: Expected 1 errors, got 3 (['generics_typevartuple_basic.py:42:0 Incompatible variable type [9]: v4 is declared to have type `Array[]` but is used as type `Array`.', 'generics_typevartuple_basic.py:42:4 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_basic.py:42:33 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `Tuple[]` but got `Height`.'])
-Line 43: Expected 1 errors, got 3 (['generics_typevartuple_basic.py:43:0 Incompatible variable type [9]: v5 is declared to have type `Array[]` but is used as type `Array`.', 'generics_typevartuple_basic.py:43:4 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_basic.py:43:40 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Batch, Width]`. Expected has length 1, but actual has length 2.'])
 Line 46: Expected 1 errors
 Line 53: Expected 1 errors
 Line 56: Expected 1 errors

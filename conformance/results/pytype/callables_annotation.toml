@@ -13,8 +13,6 @@ File "callables_annotation.py", line 43, in <module>: Invalid type annotation 'i
 File "callables_annotation.py", line 43, in <module>: Invalid type annotation 'Callable[Any, int, int]'  [invalid-annotation]
 File "callables_annotation.py", line 44, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 40: Expected 1 errors, got 2 (['File "callables_annotation.py", line 40, in <module>: Invalid type annotation \\'int\\'  [invalid-annotation]', 'File "callables_annotation.py", line 40, in <module>: Invalid type annotation \\'Callable[Any]\\'  [invalid-annotation]'])
-Line 43: Expected 1 errors, got 2 (['File "callables_annotation.py", line 43, in <module>: Invalid type annotation \\'int\\'  [invalid-annotation]', 'File "callables_annotation.py", line 43, in <module>: Invalid type annotation \\'Callable[Any, int, int]\\'  [invalid-annotation]'])
 """

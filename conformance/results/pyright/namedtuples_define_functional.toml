@@ -17,7 +17,6 @@ namedtuples_define_functional.py:53:33 - error: Field names cannot be a keyword 
 namedtuples_define_functional.py:54:33 - error: Field names cannot be a keyword (reportGeneralTypeIssues)
 namedtuples_define_functional.py:66:1 - error: Argument missing for parameter "a" (reportCallIssue)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 31: Expected 1 errors, got 2 (['namedtuples_define_functional.py:31:8 - error: Argument missing for parameter "y" (reportCallIssue)', 'namedtuples_define_functional.py:31:18 - error: No parameter named "z" (reportCallIssue)'])
 """

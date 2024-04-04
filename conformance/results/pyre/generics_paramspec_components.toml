@@ -22,7 +22,6 @@ generics_paramspec_components.py:98:24 Incompatible parameter type [6]: In call 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 17: Expected 1 errors, got 2 (['generics_paramspec_components.py:17:24 Undefined or invalid type [11]: Annotation `P.kwargs` is not defined as a type.', 'generics_paramspec_components.py:17:44 Undefined or invalid type [11]: Annotation `P.args` is not defined as a type.'])
 Line 20: Expected 1 errors
 Line 23: Expected 1 errors
 Line 26: Expected 1 errors
@@ -35,7 +34,6 @@ Line 51: Expected 1 errors
 Line 60: Expected 1 errors
 Line 70: Expected 1 errors
 Line 72: Expected 1 errors
-Line 98: Expected 1 errors, got 2 (['generics_paramspec_components.py:98:19 Incompatible parameter type [6]: In call `twice`, for 2nd positional argument, expected `int` but got `str`.', 'generics_paramspec_components.py:98:24 Incompatible parameter type [6]: In call `twice`, for 3rd positional argument, expected `str` but got `int`.'])
 Line 56: Unexpected errors ['generics_paramspec_components.py:56:32 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(str, $local_generics_paramspec_components$P)], None)]` is not a valid type.']
 Line 66: Unexpected errors ['generics_paramspec_components.py:66:14 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, $local_generics_paramspec_components$P)], int)]` is not a valid type.', 'generics_paramspec_components.py:66:14 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, $local_generics_paramspec_components$P)], int)]` is not a valid type.', "generics_paramspec_components.py:66:53 Invalid type variable [34]: The type variable `P` isn't present in the function's parameters."]
 Line 74: Unexpected errors ['generics_paramspec_components.py:74:4 Incompatible return type [7]: Expected `typing.Callable[generics_paramspec_components.P, None]` but got `typing.Callable($local_generics_paramspec_components?remove$foo)[generics_paramspec_components.P, None]`.']

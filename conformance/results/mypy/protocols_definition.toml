@@ -54,7 +54,6 @@ protocols_definition.py:341: note: Protocol member Template6.val1 expected setta
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 67: Expected 1 errors, got 2 (['protocols_definition.py:67: error: Protocol members cannot be defined via assignment to self  [misc]', 'protocols_definition.py:67: error: "Template" has no attribute "temp"  [attr-defined]'])
 Line 285: Expected 1 errors
 Line 286: Expected 1 errors
 Line 288: Expected 1 errors

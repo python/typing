@@ -29,7 +29,6 @@ Line 49: Expected 1 errors
 Line 52: Expected 1 errors
 Line 56: Expected 1 errors
 Line 60: Expected 1 errors
-Line 61: Expected 1 errors, got 2 (['File "literals_parameterizations.py", line 61, in <module>: Invalid type annotation \\'Literal[my_function]\\'  [invalid-annotation]', 'File "literals_parameterizations.py", line 61, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]'])
 Line 17: Unexpected errors ['File "literals_parameterizations.py", line 17, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
 Line 18: Unexpected errors ['File "literals_parameterizations.py", line 18, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
 Line 19: Unexpected errors ['File "literals_parameterizations.py", line 19, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']

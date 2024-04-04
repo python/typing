@@ -20,7 +20,6 @@ errors_diff = """
 Line 59: Expected 1 errors
 Line 63: Expected 1 errors
 Line 85: Expected 1 errors
-Line 118: Expected 1 errors, got 2 (['qualifiers_final_decorator.py:118:9 - error: Method "method" cannot override final method defined in class "Base5_2" (reportIncompatibleMethodOverride)', 'qualifiers_final_decorator.py:118:9 - error: Method "method" overrides class "Base5_2" in an incompatible manner'])
 Line 125: Expected 1 errors
 Line 60: Unexpected errors ['qualifiers_final_decorator.py:60:9 - error: Method "method2" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)']
 Line 64: Unexpected errors ['qualifiers_final_decorator.py:64:9 - error: Method "method3" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)']

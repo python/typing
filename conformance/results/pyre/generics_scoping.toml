@@ -20,7 +20,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 61: Expected 1 errors
 Line 71: Expected 1 errors
-Line 80: Expected 1 errors, got 2 (['generics_scoping.py:80:4 Incompatible attribute type [8]: Attribute `alias` declared in class `Outer` has type `TypeAlias` but is used as type `Type[List[Variable[_T]]]`.', 'generics_scoping.py:80:28 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.'])
 Line 70: Unexpected errors ['generics_scoping.py:70:0 Uninitialized attribute [13]: Attribute `attr` is declared in class `Outer` to have type `Outer.Inner[Variable[T]]` but is never initialized.']
 Line 73: Unexpected errors ['generics_scoping.py:73:4 Uninitialized attribute [13]: Attribute `x` is declared in class `Outer.AlsoBad` to have type `typing.List[Variable[T]]` but is never initialized.']
 """
