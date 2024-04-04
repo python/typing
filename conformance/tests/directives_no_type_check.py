@@ -23,4 +23,4 @@ def func1(a: int, b: str) -> None:
 
 
 func1(b"invalid", b"arguments")  # No error should be reported
-func1()  # Type error - incorrect arguments for parameters
+func1()  # E: incorrect arguments for parameters

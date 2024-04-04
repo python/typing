@@ -66,7 +66,7 @@ b3 = a3  # E
 
 
 # This should generate an error because it's a literal assignment.
-a3_1: A3 = {"x": 0, "y": 0}
+a3_1: A3 = {"x": 0, "y": 0}  # E
 
 # This should not generate an error.
 a3_2 = b3

@@ -40,31 +40,25 @@ x5: GoodAlias5[int, str, [int, str], *tuple[int, str, int]]  # OK
 x6: GoodAlias5[int, int, ...]  # E: incorrect type arguments
 
 
-BadAlias1 = TypeAliasType(
-    "BadAlias1", list[S], type_params=(T,)
-)  # E: S not in scope
+BadAlias1 = TypeAliasType("BadAlias1", list[S], type_params=(T,))  # E: S not in scope
 BadAlias2 = TypeAliasType("BadAlias2", list[S])  # E: S not in scope
-BadAlias3 = TypeAliasType(
-    "BadAlias3", int, type_params=my_tuple
-)  # E: not literal tuple
+BadAlias3 = TypeAliasType("BadAlias3", int, type_params=my_tuple)  # E: not literal tuple
 BadAlias4 = TypeAliasType("BadAlias4", BadAlias4)  # E: circular dependency
-BadAlias5 = TypeAliasType(
-    "BadAlias5", T | BadAlias5[str], type_params=(T,)
-)  # E: circular dependency
+BadAlias5 = TypeAliasType("BadAlias5", T | BadAlias5[str], type_params=(T,))  # E: circular dependency
 BadAlias6 = TypeAliasType("BadAlias6", BadAlias7)  # E: circular dependency
 BadAlias7 = TypeAliasType("BadAlias7", BadAlias6)
 
 # The following are invalid type expressions for a type alias.
-BadAlias8 = TypeAliasType("BadAlias8", eval("".join(map(chr, [105, 110, 116]))))
-BadAlias9 = TypeAliasType("BadAlias9", [int, str])
-BadAlias10 = TypeAliasType("BadAlias10", ((int, str),))
-BadAlias11 = TypeAliasType("BadAlias11", [int for i in range(1)])
-BadAlias12 = TypeAliasType("BadAlias12", {"a": "b"})
-BadAlias13 = TypeAliasType("BadAlias13", (lambda: int)())
-BadAlias14 = TypeAliasType("BadAlias14", [int][0])
-BadAlias15 = TypeAliasType("BadAlias15", int if 1 < 3 else str)
-BadAlias16 = TypeAliasType("BadAlias16", var1)
-BadAlias17 = TypeAliasType("BadAlias17", True)
-BadAlias18 = TypeAliasType("BadAlias18", 1)
-BadAlias19 = TypeAliasType("BadAlias19", list or set)
-BadAlias20 = TypeAliasType("BadAlias20", f"{'int'}")
+BadAlias8 = TypeAliasType("BadAlias8", eval("".join(map(chr, [105, 110, 116]))))  # E
+BadAlias9 = TypeAliasType("BadAlias9", [int, str])  # E
+BadAlias10 = TypeAliasType("BadAlias10", ((int, str),))  # E
+BadAlias11 = TypeAliasType("BadAlias11", [int for i in range(1)])  # E
+BadAlias12 = TypeAliasType("BadAlias12", {"a": "b"})  # E
+BadAlias13 = TypeAliasType("BadAlias13", (lambda: int)())  # E
+BadAlias14 = TypeAliasType("BadAlias14", [int][0])  # E
+BadAlias15 = TypeAliasType("BadAlias15", int if 1 < 3 else str)  # E
+BadAlias16 = TypeAliasType("BadAlias16", var1)  # E
+BadAlias17 = TypeAliasType("BadAlias17", True)  # E
+BadAlias18 = TypeAliasType("BadAlias18", 1)  # E
+BadAlias19 = TypeAliasType("BadAlias19", list or set)  # E
+BadAlias20 = TypeAliasType("BadAlias20", f"{'int'}")  # E

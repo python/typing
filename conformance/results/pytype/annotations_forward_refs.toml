@@ -30,12 +30,22 @@ File "annotations_forward_refs.py", line 100, in <module>: unexpected indent [py
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 22: Unexpected errors ['File "annotations_forward_refs.py", line 22, in <module>: Name \\'ClassA\\' is not defined [name-error]']
-Line 23: Unexpected errors ['File "annotations_forward_refs.py", line 23, in <module>: Name \\'ClassA\\' is not defined [name-error]']
-Line 24: Unexpected errors ['File "annotations_forward_refs.py", line 24, in <module>: unsupported operand type(s) for |: \\'\\'ClassA\\': str\\' and \\'int: Type[int]\\' [unsupported-operands]']
-Line 25: Unexpected errors ['File "annotations_forward_refs.py", line 25, in <module>: Missing parameter \\'y\\' in call to function int.__or__ [missing-parameter]']
+Line 41: Expected 1 errors
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+Line 46: Expected 1 errors
+Line 47: Expected 1 errors
+Line 48: Expected 1 errors
+Line 49: Expected 1 errors
+Line 50: Expected 1 errors
+Line 51: Expected 1 errors
+Line 52: Expected 1 errors
+Line 53: Expected 1 errors
+Line 54: Expected 1 errors
+Line 55: Expected 1 errors
 Line 40: Unexpected errors ['File "annotations_forward_refs.py", line 40, in <module>: invalid syntax [python-compiler-error]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'{}\\' for p5 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'[int, str]\\' for p2 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'True\\' for p10 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'<instance of module>\\' for p15 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'<instance of List[Type[int]]>\\' for p4 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'1\\' for p9 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'1\\' for p11 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'-1\\' for p12 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'(int, str)\\' for p3 [invalid-annotation]']
-Line 66: Unexpected errors ['File "annotations_forward_refs.py", line 66, in ClassB: Name \\'ClassB\\' is not defined [name-error]']
 Line 82: Unexpected errors ['File "annotations_forward_refs.py", line 82, in ClassD: Invalid type annotation \\'<instance of str>\\' for str [invalid-annotation]']
 Line 87: Unexpected errors ['File "annotations_forward_refs.py", line 87, in ClassD: Invalid type annotation \\'<instance of Callable>\\' for x [invalid-annotation]']
 Line 93: Unexpected errors ['File "annotations_forward_refs.py", line 93, in <module>: Any [assert-type]']

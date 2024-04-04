@@ -21,9 +21,7 @@ T2 = TypeVar("T2")
 # > and a type checker should flag this as an error.
 
 
-class NonDefaultFollowsDefault(
-    Generic[DefaultStrT, T]
-): ...  # E: non-default TypeVars cannot follow ones with defaults
+class NonDefaultFollowsDefault(Generic[DefaultStrT, T]): ...  # E: non-default TypeVars cannot follow ones with defaults
 
 
 class NoNonDefaults(Generic[DefaultStrT, DefaultIntT]): ...

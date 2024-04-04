@@ -12,7 +12,7 @@ typeddicts_required.py:74:24 TypedDict initialization error [55]: Expected type 
 conformance_automated = "Fail"
 errors_diff = """
 Line 12: Expected 1 errors
-Line 17: Expected 1 errors
+Line 16: Expected 1 errors
 Line 59: Expected 1 errors
 Line 60: Expected 1 errors
 Line 11: Unexpected errors ['typeddicts_required.py:11:0 Uninitialized attribute [13]: Attribute `x` is declared in class `NotTypedDict` to have type `Required[int]` but is never initialized.']

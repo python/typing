@@ -1,19 +1,17 @@
 conformant = "Pass"
 output = """
 generics_defaults.py:24:7 - error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type (reportGeneralTypeIssues)
-generics_defaults.py:52:16 - error: Too few type arguments provided for "AllTheDefaults"; expected 2 but received 1 (reportInvalidTypeArguments)
-generics_defaults.py:107:35 - error: TypeVar default type must be a subtype of the bound type (reportGeneralTypeIssues)
-generics_defaults.py:116:36 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)
-generics_defaults.py:144:7 - error: TypeVar "T5" has a default value and cannot follow TypeVarTuple "Ts" (reportGeneralTypeIssues)
-generics_defaults.py:173:18 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
+generics_defaults.py:50:16 - error: Too few type arguments provided for "AllTheDefaults"; expected 2 but received 1 (reportInvalidTypeArguments)
+generics_defaults.py:105:35 - error: TypeVar default type must be a subtype of the bound type (reportGeneralTypeIssues)
+generics_defaults.py:114:36 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)
+generics_defaults.py:142:7 - error: TypeVar "T5" has a default value and cannot follow TypeVarTuple "Ts" (reportGeneralTypeIssues)
+generics_defaults.py:171:18 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Expected 1 errors
-Line 108: Expected 1 errors
-Line 117: Expected 1 errors
-Line 24: Unexpected errors ['generics_defaults.py:24:7 - error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type (reportGeneralTypeIssues)']
-Line 107: Unexpected errors ['generics_defaults.py:107:35 - error: TypeVar default type must be a subtype of the bound type (reportGeneralTypeIssues)']
-Line 116: Unexpected errors ['generics_defaults.py:116:36 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)']
-Line 173: Unexpected errors ['generics_defaults.py:173:18 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)']
+Line 106: Expected 1 errors
+Line 115: Expected 1 errors
+Line 105: Unexpected errors ['generics_defaults.py:105:35 - error: TypeVar default type must be a subtype of the bound type (reportGeneralTypeIssues)']
+Line 114: Unexpected errors ['generics_defaults.py:114:36 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)']
+Line 171: Unexpected errors ['generics_defaults.py:171:18 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)']
 """

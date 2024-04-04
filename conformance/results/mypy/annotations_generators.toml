@@ -15,5 +15,7 @@ annotations_generators.py:119: error: Incompatible types in "yield from" (actual
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 87: Expected 1 errors
+Line 92: Expected 1 errors
 Line 135: Expected 1 errors
 """

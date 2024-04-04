@@ -22,18 +22,16 @@ classes_override.py:103:4 Invalid override [40]: `classes_override.ChildB.method
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 86: Expected 1 errors
 Line 7: Unexpected errors ['classes_override.py:7:0 Undefined import [21]: Could not find a name `override` defined in module `typing`.']
 Line 37: Unexpected errors ['classes_override.py:37:5 Undefined attribute [16]: Module `typing` has no attribute `override`.']
 Line 52: Unexpected errors ['classes_override.py:52:5 Undefined attribute [16]: Module `typing` has no attribute `override`.']
-Line 53: Unexpected errors ['classes_override.py:53:4 Invalid override [40]: `classes_override.ChildA.method3` is decorated with @override, but no method of the same name exists in superclasses of `ChildA`.']
 Line 64: Unexpected errors ['classes_override.py:64:5 Undefined attribute [16]: Module `typing` has no attribute `override`.']
 Line 65: Unexpected errors ['classes_override.py:65:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).', 'classes_override.py:65:4 Invalid override [40]: `classes_override.ChildA.method4` is decorated with @override, but no method of the same name exists in superclasses of `ChildA`.']
 Line 78: Unexpected errors ['classes_override.py:78:5 Undefined attribute [16]: Module `typing` has no attribute `override`.']
-Line 79: Unexpected errors ['classes_override.py:79:4 Invalid override [40]: `classes_override.ChildA.static_method1` is decorated with @override, but no method of the same name exists in superclasses of `ChildA`.']
 Line 83: Unexpected errors ['classes_override.py:83:5 Undefined attribute [16]: Module `typing` has no attribute `override`.']
 Line 84: Unexpected errors ['classes_override.py:84:4 Invalid override [40]: `classes_override.ChildA.class_method1` is decorated with @override, but no method of the same name exists in superclasses of `ChildA`.']
 Line 90: Unexpected errors ['classes_override.py:90:5 Undefined attribute [16]: Module `typing` has no attribute `override`.']
-Line 91: Unexpected errors ['classes_override.py:91:4 Invalid override [40]: `classes_override.ChildA.property1` is decorated with @override, but no method of the same name exists in superclasses of `ChildA`.']
 Line 97: Unexpected errors ['classes_override.py:97:14 Invalid inheritance [39]: `typing.Any` is not a valid parent class.']
 Line 102: Unexpected errors ['classes_override.py:102:5 Undefined attribute [16]: Module `typing` has no attribute `override`.']
 Line 103: Unexpected errors ['classes_override.py:103:4 Invalid override [40]: `classes_override.ChildB.method1` is decorated with @override, but no method of the same name exists in superclasses of `ChildB`.']

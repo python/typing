@@ -57,5 +57,5 @@ t11: tuple[Unpack[tuple[str]], Unpack[tuple[str]]]  # OK
 t12: tuple[Unpack[tuple[str, Unpack[tuple[str, ...]]]]]  # OK
 t13: tuple[Unpack[tuple[str, ...]], Unpack[tuple[int, ...]]]  # E
 t14: tuple[
-    Unpack[tuple[str, Unpack[tuple[str, ...]]]], Unpack[tuple[int, ...]]
-]  # E
+    Unpack[tuple[str, Unpack[tuple[str, ...]]]], Unpack[tuple[int, ...]]  # E
+]

@@ -30,7 +30,6 @@ errors_diff = """
 Line 43: Expected 1 errors
 Line 44: Expected 1 errors
 Line 45: Expected 1 errors
-Line 48: Expected 1 errors
 Line 53: Expected 1 errors
 Line 61: Expected 1 errors
 Line 62: Expected 1 errors

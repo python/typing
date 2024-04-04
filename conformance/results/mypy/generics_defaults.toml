@@ -3,9 +3,9 @@ output = """
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Expected 1 errors
-Line 52: Expected 1 errors
-Line 108: Expected 1 errors
-Line 117: Expected 1 errors
-Line 144: Expected 1 errors
+Line 24: Expected 1 errors
+Line 50: Expected 1 errors
+Line 106: Expected 1 errors
+Line 115: Expected 1 errors
+Line 142: Expected 1 errors
 """

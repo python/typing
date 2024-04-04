@@ -13,8 +13,8 @@ class NotTypedDict:
 
 
 def func1(
-    x: NotRequired[int],
-) -> None:  # E: Required not allowed in this context
+    x: NotRequired[int],  # E: NotRequired not allowed in this context
+) -> None:
     pass
 
 

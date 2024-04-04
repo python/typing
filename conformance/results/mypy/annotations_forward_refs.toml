@@ -31,21 +31,11 @@ annotations_forward_refs.py:93: error: Expression is of type int?, not "int"  [a
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 41: Unexpected errors ['annotations_forward_refs.py:41: error: Invalid type comment or annotation  [valid-type]']
-Line 42: Unexpected errors ['annotations_forward_refs.py:42: error: Invalid type comment or annotation  [valid-type]']
-Line 43: Unexpected errors ['annotations_forward_refs.py:43: error: Invalid type comment or annotation  [valid-type]']
-Line 44: Unexpected errors ['annotations_forward_refs.py:44: error: Invalid type comment or annotation  [valid-type]']
-Line 45: Unexpected errors ['annotations_forward_refs.py:45: error: Invalid type comment or annotation  [valid-type]']
-Line 46: Unexpected errors ['annotations_forward_refs.py:46: error: Invalid type comment or annotation  [valid-type]']
-Line 47: Unexpected errors ['annotations_forward_refs.py:47: error: Invalid type comment or annotation  [valid-type]']
-Line 48: Unexpected errors ['annotations_forward_refs.py:48: error: Invalid type comment or annotation  [valid-type]']
-Line 49: Unexpected errors ['annotations_forward_refs.py:49: error: Variable "annotations_forward_refs.var1" is not valid as a type  [valid-type]']
-Line 50: Unexpected errors ['annotations_forward_refs.py:50: error: Invalid type comment or annotation  [valid-type]']
-Line 51: Unexpected errors ['annotations_forward_refs.py:51: error: Invalid type comment or annotation  [valid-type]']
-Line 52: Unexpected errors ['annotations_forward_refs.py:52: error: Invalid type comment or annotation  [valid-type]']
-Line 53: Unexpected errors ['annotations_forward_refs.py:53: error: Invalid type comment or annotation  [valid-type]']
-Line 54: Unexpected errors ['annotations_forward_refs.py:54: error: Invalid type comment or annotation  [valid-type]']
-Line 55: Unexpected errors ['annotations_forward_refs.py:55: error: Module "types" is not valid as a type  [valid-type]']
+Line 22: Expected 1 errors
+Line 23: Expected 1 errors
+Line 24: Expected 1 errors
+Line 25: Expected 1 errors
+Line 66: Expected 1 errors
 Line 87: Unexpected errors ['annotations_forward_refs.py:87: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]']
 Line 93: Unexpected errors ['annotations_forward_refs.py:93: error: Expression is of type int?, not "int"  [assert-type]']
 """

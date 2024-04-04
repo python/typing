@@ -31,7 +31,7 @@ File "tuples_unpacked.py", line 50, in func3: Invalid type annotation 'tuple[*tu
 conformance_automated = "Fail"
 errors_diff = """
 Line 58: Expected 1 errors
-Line 61: Expected 1 errors
+Line 60: Expected 1 errors
 Line 13: Unexpected errors ['File "tuples_unpacked.py", line 13, in <module>: typing.Unpack not supported yet [not-supported-yet]', 'File "tuples_unpacked.py", line 13, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
 Line 16: Unexpected errors ['File "tuples_unpacked.py", line 16, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
 Line 17: Unexpected errors ['File "tuples_unpacked.py", line 17, in func1: Tuple[Any] [assert-type]']

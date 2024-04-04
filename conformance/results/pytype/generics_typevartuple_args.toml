@@ -36,7 +36,6 @@ Line 58: Expected 1 errors
 Line 59: Expected 1 errors
 Line 67: Expected 1 errors
 Line 76: Expected 1 errors
-Line 80: Expected 1 errors
 Line 10: Unexpected errors ['File "generics_typevartuple_args.py", line 10, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
 Line 13: Unexpected errors ['File "generics_typevartuple_args.py", line 13, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
 Line 16: Unexpected errors ['File "generics_typevartuple_args.py", line 16, in <module>: No attribute \\'__iter__\\' on TypeVarTuple [attribute-error]', 'File "generics_typevartuple_args.py", line 16, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']

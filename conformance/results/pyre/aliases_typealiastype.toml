@@ -21,35 +21,32 @@ aliases_typealiastype.py:35:4 Undefined or invalid type [11]: Annotation `GoodAl
 aliases_typealiastype.py:37:4 Undefined or invalid type [11]: Annotation `GoodAlias5` is not defined as a type.
 aliases_typealiastype.py:39:4 Invalid type [31]: Expression `$local_aliases_typealiastype$GoodAlias5[(int, str, [int, str], *tuple[(int, str, int)])]` is not a valid type.
 aliases_typealiastype.py:43:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:44:22 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.
+aliases_typealiastype.py:43:44 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.
+aliases_typealiastype.py:44:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
+aliases_typealiastype.py:44:44 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.
+aliases_typealiastype.py:45:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
 aliases_typealiastype.py:46:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:46:44 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.
 aliases_typealiastype.py:47:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:50:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:51:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:54:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:55:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:58:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:59:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
+aliases_typealiastype.py:48:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
+aliases_typealiastype.py:49:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
+aliases_typealiastype.py:52:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
+aliases_typealiastype.py:53:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
+aliases_typealiastype.py:54:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
+aliases_typealiastype.py:55:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
+aliases_typealiastype.py:56:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
+aliases_typealiastype.py:57:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
+aliases_typealiastype.py:58:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
+aliases_typealiastype.py:59:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
 aliases_typealiastype.py:60:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
 aliases_typealiastype.py:61:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
 aliases_typealiastype.py:62:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
 aliases_typealiastype.py:63:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
 aliases_typealiastype.py:64:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:65:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:66:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:67:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:68:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:69:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
-aliases_typealiastype.py:70:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 32: Expected 1 errors
 Line 40: Expected 1 errors
-Line 45: Expected 1 errors
-Line 49: Expected 1 errors
-Line 53: Expected 1 errors
 Line 5: Unexpected errors ['aliases_typealiastype.py:5:0 Undefined import [21]: Could not find a name `TypeAliasType` defined in module `typing`.']
 Line 16: Unexpected errors ['aliases_typealiastype.py:16:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
 Line 17: Unexpected errors ['aliases_typealiastype.py:17:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.', 'aliases_typealiastype.py:17:46 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.']
@@ -61,22 +58,5 @@ Line 27: Unexpected errors ['aliases_typealiastype.py:27:17 Undefined attribute 
 Line 35: Unexpected errors ['aliases_typealiastype.py:35:4 Undefined or invalid type [11]: Annotation `GoodAlias4` is not defined as a type.']
 Line 37: Unexpected errors ['aliases_typealiastype.py:37:4 Undefined or invalid type [11]: Annotation `GoodAlias5` is not defined as a type.']
 Line 39: Unexpected errors ['aliases_typealiastype.py:39:4 Invalid type [31]: Expression `$local_aliases_typealiastype$GoodAlias5[(int, str, [int, str], *tuple[(int, str, int)])]` is not a valid type.']
-Line 43: Unexpected errors ['aliases_typealiastype.py:43:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 44: Unexpected errors ['aliases_typealiastype.py:44:22 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.']
-Line 47: Unexpected errors ['aliases_typealiastype.py:47:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 51: Unexpected errors ['aliases_typealiastype.py:51:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 55: Unexpected errors ['aliases_typealiastype.py:55:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 58: Unexpected errors ['aliases_typealiastype.py:58:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 59: Unexpected errors ['aliases_typealiastype.py:59:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 60: Unexpected errors ['aliases_typealiastype.py:60:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 61: Unexpected errors ['aliases_typealiastype.py:61:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 62: Unexpected errors ['aliases_typealiastype.py:62:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 63: Unexpected errors ['aliases_typealiastype.py:63:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 64: Unexpected errors ['aliases_typealiastype.py:64:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 65: Unexpected errors ['aliases_typealiastype.py:65:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 66: Unexpected errors ['aliases_typealiastype.py:66:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 67: Unexpected errors ['aliases_typealiastype.py:67:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 68: Unexpected errors ['aliases_typealiastype.py:68:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 69: Unexpected errors ['aliases_typealiastype.py:69:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
-Line 70: Unexpected errors ['aliases_typealiastype.py:70:13 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
+Line 49: Unexpected errors ['aliases_typealiastype.py:49:12 Undefined attribute [16]: Module `typing` has no attribute `TypeAliasType`.']
 """

@@ -20,7 +20,6 @@ typeddicts_type_consistency.py:150:0 Incompatible variable type [9]: o4 is decla
 conformance_automated = "Fail"
 errors_diff = """
 Line 65: Expected 1 errors
-Line 69: Unexpected errors ['typeddicts_type_consistency.py:69:11 TypedDict initialization error [55]: TypedDict `A3` has no field `y`.']
 Line 99: Unexpected errors ['typeddicts_type_consistency.py:99:0 Incompatible variable type [9]: name3 is declared to have type `str` but is used as type `Optional[str]`.']
 Line 105: Unexpected errors ['typeddicts_type_consistency.py:105:0 Incompatible variable type [9]: age4 is declared to have type `int` but is used as type `Union[str, int]`.']
 Line 150: Unexpected errors ['typeddicts_type_consistency.py:150:0 Incompatible variable type [9]: o4 is declared to have type `Outer3` but is used as type `Outer2`.']

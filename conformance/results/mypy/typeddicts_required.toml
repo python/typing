@@ -12,8 +12,6 @@ typeddicts_required.py:67: error: Required[] can be only used in a TypedDict def
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 17: Expected 1 errors
-Line 16: Unexpected errors ['typeddicts_required.py:16: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
 Line 65: Unexpected errors ['typeddicts_required.py:65: error: Required[] can be only used in a TypedDict definition  [valid-type]']
 Line 67: Unexpected errors ['typeddicts_required.py:67: error: Required[] can be only used in a TypedDict definition  [valid-type]']
 """

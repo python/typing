@@ -51,6 +51,10 @@ def get_expected_errors(test_case: Path) -> dict[int, tuple[int, int]]:
         lines = f.readlines()
     output: dict[int, tuple[int, int]] = {}
     for i, line in enumerate(lines, start=1):
+        line_without_comment, *_ = line.split("#")
+        # Ignore lines with no non-comment content. This allows commenting out test cases.
+        if not line_without_comment.strip():
+            continue
         required = 0
         optional = 0
         for match in re.finditer(r"# E\??(?=:|$| )", line):

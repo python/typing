@@ -34,19 +34,19 @@ def func2(x: object):
 var1 = 1
 
 # The following should not be allowed as type aliases.
-type BadTypeAlias1 = eval("".join(map(chr, [105, 110, 116])))
-type BadTypeAlias2 = [int, str]
-type BadTypeAlias3 = ((int, str),)
-type BadTypeAlias4 = [int for i in range(1)]
-type BadTypeAlias5 = {"a": "b"}
-type BadTypeAlias6 = (lambda: int)()
-type BadTypeAlias7 = [int][0]
-type BadTypeAlias8 = int if 1 < 3 else str
-type BadTypeAlias9 = var1
-type BadTypeAlias10 = True
-type BadTypeAlias11 = 1
-type BadTypeAlias12 = list or set
-type BadTypeAlias13 = f"{'int'}"
+type BadTypeAlias1 = eval("".join(map(chr, [105, 110, 116])))  # E
+type BadTypeAlias2 = [int, str]  # E
+type BadTypeAlias3 = ((int, str),)  # E
+type BadTypeAlias4 = [int for i in range(1)]  # E
+type BadTypeAlias5 = {"a": "b"}  # E
+type BadTypeAlias6 = (lambda: int)()  # E
+type BadTypeAlias7 = [int][0]  # E
+type BadTypeAlias8 = int if 1 < 3 else str  # E
+type BadTypeAlias9 = var1  # E
+type BadTypeAlias10 = True  # E
+type BadTypeAlias11 = 1  # E
+type BadTypeAlias12 = list or set  # E
+type BadTypeAlias13 = f"{'int'}"  # E
 
 if 1 < 2:
     type BadTypeAlias14 = int  # E: redeclared
@@ -55,7 +55,7 @@ else:
 
 
 def func3():
-    type BadTypeAlias15 = int  # Type error alias not allowed in function
+    type BadTypeAlias15 = int  # E: alias not allowed in function
 
 
 

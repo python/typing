@@ -51,20 +51,6 @@ aliases_type_statement.py:84:28 - error: Type alias "RecursiveTypeAlias3" cannot
 aliases_type_statement.py:86:31 - error: Type alias "RecursiveTypeAlias4" cannot use itself in its definition (reportGeneralTypeIssues)
 aliases_type_statement.py:90:28 - error: Type alias "RecursiveTypeAlias6" cannot use itself in its definition (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 37: Unexpected errors ['aliases_type_statement.py:37:22 - error: Call expression not allowed in type expression (reportInvalidTypeForm)']
-Line 38: Unexpected errors ['aliases_type_statement.py:38:22 - error: List expression not allowed in type annotation', 'aliases_type_statement.py:38:22 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)']
-Line 39: Unexpected errors ['aliases_type_statement.py:39:22 - error: Tuple expression not allowed in type annotation']
-Line 40: Unexpected errors ['aliases_type_statement.py:40:22 - error: List expression not allowed in type annotation', 'aliases_type_statement.py:40:22 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)']
-Line 41: Unexpected errors ['aliases_type_statement.py:41:22 - error: Dictionary expression not allowed in type annotation', 'aliases_type_statement.py:41:22 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)']
-Line 42: Unexpected errors ['aliases_type_statement.py:42:22 - error: Call expression not allowed in type expression (reportInvalidTypeForm)']
-Line 43: Unexpected errors ['aliases_type_statement.py:43:22 - error: List expression not allowed in type annotation', 'aliases_type_statement.py:43:22 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)']
-Line 44: Unexpected errors ['aliases_type_statement.py:44:22 - error: Ternary expression not allowed in type annotation (reportInvalidTypeForm)']
-Line 45: Unexpected errors ['aliases_type_statement.py:45:22 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 46: Unexpected errors ['aliases_type_statement.py:46:23 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)']
-Line 47: Unexpected errors ['aliases_type_statement.py:47:23 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)']
-Line 48: Unexpected errors ['aliases_type_statement.py:48:23 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)']
-Line 49: Unexpected errors ['aliases_type_statement.py:49:23 - error: Expected expression', 'aliases_type_statement.py:49:23 - error: Tuple expression not allowed in type annotation']
-Line 58: Unexpected errors ['aliases_type_statement.py:58:10 - error: A type statement can be used only within a module or class scope (reportGeneralTypeIssues)']
 """

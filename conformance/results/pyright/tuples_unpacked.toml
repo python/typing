@@ -10,6 +10,4 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 31: Expected 1 errors
 Line 32: Expected 1 errors
-Line 61: Expected 1 errors
-Line 60: Unexpected errors ['tuples_unpacked.py:60:50 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple']
 """

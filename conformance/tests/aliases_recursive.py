@@ -49,11 +49,7 @@ m5: RecursiveMapping = {"1": "1", "2": 1, "3": {}}  # OK
 m6: RecursiveMapping = {"1": "1", "2": 1, "3": {"0": "0", "1": "2", "2": {}}}  # OK
 m7: RecursiveMapping = {"1": [1]}  # E
 m8: RecursiveMapping = {"1": "1", "2": 1, "3": [1, 2]}  # E
-m9: RecursiveMapping = {
-    "1": "1",
-    "2": 1,
-    "3": {"0": "0", "1": 1, "2": [1, 2, 3]},  # E
-}
+m9: RecursiveMapping = {"1": "1", "2": 1, "3": {"0": "0", "1": 1, "2": [1, 2, 3]}}  # E
 
 
 T1 = TypeVar("T1", str, int)

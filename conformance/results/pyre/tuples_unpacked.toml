@@ -30,7 +30,7 @@ tuples_unpacked.py:56:5 Undefined or invalid type [11]: Annotation `Unpack` is n
 conformance_automated = "Fail"
 errors_diff = """
 Line 58: Expected 1 errors
-Line 61: Expected 1 errors
+Line 60: Expected 1 errors
 Line 16: Unexpected errors ['tuples_unpacked.py:16:13 Invalid type [31]: Expression `tuple[(int, *tuple[(bool, bool)], str)]` is not a valid type.']
 Line 17: Unexpected errors ['tuples_unpacked.py:17:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[bool], Type[bool], Type[str]]`.']
 Line 18: Unexpected errors ['tuples_unpacked.py:18:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[*Tuple[typing.Any, ...], Type[bool], Type[str]]`.', 'tuples_unpacked.py:18:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.', 'tuples_unpacked.py:18:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[bool]]`.']

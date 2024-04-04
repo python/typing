@@ -31,8 +31,6 @@ annotations_generators.py:135:16 - error: Return type of generator function must
     Type parameter "_SendT_contra@Generator" is contravariant, but "int" is not a supertype of "str"
       "str" is incompatible with "int" (reportReturnType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 87: Unexpected errors ['annotations_generators.py:87:11 - error: Return type of generator function must be compatible with "Generator[None, Any, Any]"']
-Line 92: Unexpected errors ['annotations_generators.py:92:11 - error: Return type of async generator function must be compatible with "AsyncGenerator[None, Any]"']
 """
