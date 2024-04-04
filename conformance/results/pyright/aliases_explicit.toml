@@ -1,63 +1,63 @@
 conformant = "Pass"
 output = """
-aliases_explicit.py:67:24 - error: Expected no type arguments for class "int" (reportInvalidTypeArguments)
-aliases_explicit.py:67:24 - error: Expected no type arguments for class "NoneType" (reportInvalidTypeArguments)
-aliases_explicit.py:68:9 - error: Type "list[int | None]" is already specialized (reportInvalidTypeArguments)
-aliases_explicit.py:69:29 - error: Too many type arguments provided for "GoodTypeAlias4[T@GoodTypeAlias4]"; expected 1 but received 2
-aliases_explicit.py:70:29 - error: Too many type arguments provided for "GoodTypeAlias8[T@GoodTypeAlias8]"; expected 1 but received 2
-aliases_explicit.py:71:24 - error: Expected ParamSpec, ellipsis, or list of types
-aliases_explicit.py:79:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
-aliases_explicit.py:79:21 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
+aliases_explicit.py:68:24 - error: Expected no type arguments for class "int" (reportInvalidTypeArguments)
+aliases_explicit.py:68:24 - error: Expected no type arguments for class "NoneType" (reportInvalidTypeArguments)
+aliases_explicit.py:69:9 - error: Type "list[int | None]" is already specialized (reportInvalidTypeArguments)
+aliases_explicit.py:70:29 - error: Too many type arguments provided for "GoodTypeAlias4[T@GoodTypeAlias4]"; expected 1 but received 2
+aliases_explicit.py:71:29 - error: Too many type arguments provided for "GoodTypeAlias8[T@GoodTypeAlias8]"; expected 1 but received 2
+aliases_explicit.py:72:24 - error: Expected ParamSpec, ellipsis, or list of types
 aliases_explicit.py:80:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
-aliases_explicit.py:80:21 - error: List expression not allowed in type annotation
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
-aliases_explicit.py:80:21 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)
+aliases_explicit.py:80:21 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 aliases_explicit.py:81:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
-aliases_explicit.py:81:21 - error: Tuple expression not allowed in type annotation
-  Use tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+aliases_explicit.py:81:21 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+aliases_explicit.py:81:21 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)
 aliases_explicit.py:82:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
-aliases_explicit.py:82:21 - error: List expression not allowed in type annotation
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
-aliases_explicit.py:82:21 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
-aliases_explicit.py:83:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
-aliases_explicit.py:83:21 - error: Dictionary expression not allowed in type annotation
-  Use Dict[T1, T2] to indicate a dictionary type (reportInvalidTypeForm)
-aliases_explicit.py:83:21 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)
-aliases_explicit.py:84:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
-aliases_explicit.py:84:21 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
-aliases_explicit.py:85:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
-aliases_explicit.py:85:21 - error: List expression not allowed in type annotation
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
-aliases_explicit.py:85:21 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
-aliases_explicit.py:86:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
-aliases_explicit.py:86:21 - error: Ternary expression not allowed in type annotation (reportInvalidTypeForm)
-aliases_explicit.py:87:21 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-aliases_explicit.py:88:22 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)
-aliases_explicit.py:89:22 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
-aliases_explicit.py:89:22 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
-aliases_explicit.py:90:22 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
-aliases_explicit.py:90:22 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)
-aliases_explicit.py:91:22 - error: Expected expression
-aliases_explicit.py:91:22 - error: Tuple expression not allowed in type annotation
+aliases_explicit.py:82:21 - error: Tuple expression not allowed in type annotation
   Use tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
-aliases_explicit.py:100:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)
-aliases_explicit.py:101:6 - error: Object of type "UnionType" is not callable (reportCallIssue)
-aliases_explicit.py:102:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)
-aliases_explicit.py:102:5 - error: Type "set[Unknown]" is already specialized (reportInvalidTypeArguments)
+aliases_explicit.py:83:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
+aliases_explicit.py:83:21 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+aliases_explicit.py:83:21 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
+aliases_explicit.py:84:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
+aliases_explicit.py:84:21 - error: Dictionary expression not allowed in type annotation
+  Use Dict[T1, T2] to indicate a dictionary type (reportInvalidTypeForm)
+aliases_explicit.py:84:21 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)
+aliases_explicit.py:85:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
+aliases_explicit.py:85:21 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
+aliases_explicit.py:86:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
+aliases_explicit.py:86:21 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+aliases_explicit.py:86:21 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
+aliases_explicit.py:87:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
+aliases_explicit.py:87:21 - error: Ternary expression not allowed in type annotation (reportInvalidTypeForm)
+aliases_explicit.py:88:21 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+aliases_explicit.py:89:22 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)
+aliases_explicit.py:90:22 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
+aliases_explicit.py:90:22 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
+aliases_explicit.py:91:22 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
+aliases_explicit.py:91:22 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)
+aliases_explicit.py:92:22 - error: Expected expression
+aliases_explicit.py:92:22 - error: Tuple expression not allowed in type annotation
+  Use tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+aliases_explicit.py:101:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)
+aliases_explicit.py:102:6 - error: Object of type "UnionType" is not callable (reportCallIssue)
+aliases_explicit.py:103:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)
+aliases_explicit.py:103:5 - error: Type "set[Unknown]" is already specialized (reportInvalidTypeArguments)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 67: Expected 1 errors, got 2 (['aliases_explicit.py:67:24 - error: Expected no type arguments for class "int" (reportInvalidTypeArguments)', 'aliases_explicit.py:67:24 - error: Expected no type arguments for class "NoneType" (reportInvalidTypeArguments)'])
-Line 79: Expected 1 errors, got 2 (['aliases_explicit.py:79:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:79:21 - error: Call expression not allowed in type expression (reportInvalidTypeForm)'])
-Line 80: Expected 1 errors, got 3 (['aliases_explicit.py:80:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:80:21 - error: List expression not allowed in type annotation', 'aliases_explicit.py:80:21 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)'])
-Line 81: Expected 1 errors, got 2 (['aliases_explicit.py:81:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:81:21 - error: Tuple expression not allowed in type annotation'])
-Line 82: Expected 1 errors, got 3 (['aliases_explicit.py:82:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:82:21 - error: List expression not allowed in type annotation', 'aliases_explicit.py:82:21 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)'])
-Line 83: Expected 1 errors, got 3 (['aliases_explicit.py:83:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:83:21 - error: Dictionary expression not allowed in type annotation', 'aliases_explicit.py:83:21 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)'])
-Line 84: Expected 1 errors, got 2 (['aliases_explicit.py:84:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:84:21 - error: Call expression not allowed in type expression (reportInvalidTypeForm)'])
-Line 85: Expected 1 errors, got 3 (['aliases_explicit.py:85:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:85:21 - error: List expression not allowed in type annotation', 'aliases_explicit.py:85:21 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)'])
-Line 86: Expected 1 errors, got 2 (['aliases_explicit.py:86:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:86:21 - error: Ternary expression not allowed in type annotation (reportInvalidTypeForm)'])
-Line 89: Expected 1 errors, got 2 (['aliases_explicit.py:89:22 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:89:22 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)'])
-Line 90: Expected 1 errors, got 2 (['aliases_explicit.py:90:22 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:90:22 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)'])
-Line 91: Expected 1 errors, got 2 (['aliases_explicit.py:91:22 - error: Expected expression', 'aliases_explicit.py:91:22 - error: Tuple expression not allowed in type annotation'])
-Line 102: Expected 1 errors, got 2 (['aliases_explicit.py:102:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)', 'aliases_explicit.py:102:5 - error: Type "set[Unknown]" is already specialized (reportInvalidTypeArguments)'])
+Line 68: Expected 1 errors, got 2 (['aliases_explicit.py:68:24 - error: Expected no type arguments for class "int" (reportInvalidTypeArguments)', 'aliases_explicit.py:68:24 - error: Expected no type arguments for class "NoneType" (reportInvalidTypeArguments)'])
+Line 80: Expected 1 errors, got 2 (['aliases_explicit.py:80:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:80:21 - error: Call expression not allowed in type expression (reportInvalidTypeForm)'])
+Line 81: Expected 1 errors, got 3 (['aliases_explicit.py:81:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:81:21 - error: List expression not allowed in type annotation', 'aliases_explicit.py:81:21 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)'])
+Line 82: Expected 1 errors, got 2 (['aliases_explicit.py:82:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:82:21 - error: Tuple expression not allowed in type annotation'])
+Line 83: Expected 1 errors, got 3 (['aliases_explicit.py:83:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:83:21 - error: List expression not allowed in type annotation', 'aliases_explicit.py:83:21 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)'])
+Line 84: Expected 1 errors, got 3 (['aliases_explicit.py:84:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:84:21 - error: Dictionary expression not allowed in type annotation', 'aliases_explicit.py:84:21 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)'])
+Line 85: Expected 1 errors, got 2 (['aliases_explicit.py:85:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:85:21 - error: Call expression not allowed in type expression (reportInvalidTypeForm)'])
+Line 86: Expected 1 errors, got 3 (['aliases_explicit.py:86:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:86:21 - error: List expression not allowed in type annotation', 'aliases_explicit.py:86:21 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)'])
+Line 87: Expected 1 errors, got 2 (['aliases_explicit.py:87:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:87:21 - error: Ternary expression not allowed in type annotation (reportInvalidTypeForm)'])
+Line 90: Expected 1 errors, got 2 (['aliases_explicit.py:90:22 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:90:22 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)'])
+Line 91: Expected 1 errors, got 2 (['aliases_explicit.py:91:22 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)', 'aliases_explicit.py:91:22 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)'])
+Line 92: Expected 1 errors, got 2 (['aliases_explicit.py:92:22 - error: Expected expression', 'aliases_explicit.py:92:22 - error: Tuple expression not allowed in type annotation'])
+Line 103: Expected 1 errors, got 2 (['aliases_explicit.py:103:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)', 'aliases_explicit.py:103:5 - error: Type "set[Unknown]" is already specialized (reportInvalidTypeArguments)'])
 """

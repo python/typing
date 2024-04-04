@@ -1,3 +1,4 @@
+# mypy: disable-error-code="truthy-function"
 """
 Tests traditional implicit type aliases.
 """

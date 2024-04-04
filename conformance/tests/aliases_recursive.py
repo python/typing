@@ -64,19 +64,17 @@ SpecializedTypeAlias1 = GenericTypeAlias1[str]
 
 g1: SpecializedTypeAlias1 = ["hi", ["hi", "hi"]]  # OK
 g2: GenericTypeAlias1[str] = ["hi", "bye", [""], [["hi"]]]  # OK
-g3: GenericTypeAlias1[str] = ["hi", [2.4]]  # Type error
+g3: GenericTypeAlias1[str] = ["hi", [2.4]]  # E
 
 GenericTypeAlias2 = list["GenericTypeAlias2[T1, T2]" | T1 | T2]
 
 g4: GenericTypeAlias2[str, int] = [[3, ["hi"]], "hi"]  # OK
 g5: GenericTypeAlias2[str, float] = [[3, ["hi", 3.4, [3.4]]], "hi"]  # OK
-g6: GenericTypeAlias2[str, int] = [[3, ["hi", 3, [3.4]]], "hi"]  # Type error
+g6: GenericTypeAlias2[str, int] = [[3, ["hi", 3, [3.4]]], "hi"]  # E
 
 
 RecursiveUnion: TypeAlias = Union["RecursiveUnion", int]  # E: cyclical reference
 
-MutualReference1: TypeAlias = Union[
-    "MutualReference2", int
-]  # E: cyclical reference
+MutualReference1: TypeAlias = Union["MutualReference2", int]  # E: cyclical reference
 MutualReference2: TypeAlias = Union["MutualReference1", str]
 

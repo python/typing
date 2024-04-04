@@ -96,7 +96,7 @@ def update_output_for_test(
 
     should_write = False
     errors_diff = "\n" + diff_expected_errors(type_checker, test_case, output)
-    old_errors_diff = existing_results.get("errors_diff", "")
+    old_errors_diff = "\n" + existing_results.get("errors_diff", "")
 
     if errors_diff != old_errors_diff:
         should_write = True

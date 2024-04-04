@@ -38,7 +38,7 @@ GoodNewType2 = NewType("GoodNewType2", GoodNewType1)  # OK
 nt1: GoodNewType1[int]  # E: NewType cannot be generic
 
 TypeAlias1 = dict[str, str]
-GoodNewType2 = NewType("GoodNewType2", TypeAlias1)
+GoodNewType3 = NewType("GoodNewType3", TypeAlias1)
 
 
 BadNewType1 = NewType("BadNewType1", int | str)  # E: cannot be generic

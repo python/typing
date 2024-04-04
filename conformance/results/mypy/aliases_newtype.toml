@@ -6,8 +6,6 @@ aliases_newtype.py:20: error: Cannot use isinstance() with NewType type  [misc]
 aliases_newtype.py:23: error: Cannot subclass "NewType"  [misc]
 aliases_newtype.py:32: error: String argument 1 "BadName" to NewType(...) does not match variable name "GoodName"  [misc]
 aliases_newtype.py:38: error: "GoodNewType1" expects no type arguments, but 1 given  [type-arg]
-aliases_newtype.py:41: error: Cannot redefine "GoodNewType2" as a NewType  [misc]
-aliases_newtype.py:41: error: Name "GoodNewType2" already defined on line 36  [no-redef]
 aliases_newtype.py:44: error: Argument 2 to NewType(...) must be subclassable (got "int | str")  [valid-newtype]
 aliases_newtype.py:47: error: Type variable "aliases_newtype.T" is unbound  [valid-type]
 aliases_newtype.py:47: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
@@ -18,7 +16,6 @@ aliases_newtype.py:58: error: Argument 2 to NewType(...) must be subclassable (g
 aliases_newtype.py:60: error: NewType(...) expects exactly two positional arguments  [misc]
 aliases_newtype.py:62: error: Argument 2 to NewType(...) must be subclassable (got "Any")  [valid-newtype]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 41: Unexpected errors ['aliases_newtype.py:41: error: Cannot redefine "GoodNewType2" as a NewType  [misc]', 'aliases_newtype.py:41: error: Name "GoodNewType2" already defined on line 36  [no-redef]']
 """
