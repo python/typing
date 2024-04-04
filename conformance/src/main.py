@@ -53,7 +53,7 @@ def get_expected_errors(test_case: Path) -> dict[int, tuple[int, int]]:
     for i, line in enumerate(lines, start=1):
         required = 0
         optional = 0
-        for match in re.finditer(r"# E\??(?=:|$)", line):
+        for match in re.finditer(r"# E\??(?=:|$| )", line):
             if match.group() == "# E":
                 required += 1
             else:

@@ -3,23 +3,17 @@ output = """
 callables_annotation.py:13: error: Too few arguments  [call-arg]
 callables_annotation.py:14: error: Argument 2 has incompatible type "int"; expected "str"  [arg-type]
 callables_annotation.py:15: error: Too many arguments  [call-arg]
-callables_annotation.py:16: error: Unexpected keyword argument "a"  [call-arg]
-callables_annotation.py:16: error: Unexpected keyword argument "b"  [call-arg]
-callables_annotation.py:22: error: Too many arguments  [call-arg]
-callables_annotation.py:39: error: Please use "Callable[[<parameters>], <return type>]" or "Callable"  [misc]
-callables_annotation.py:40: error: The first argument to Callable must be a list of types, parameter specification, or "..."  [valid-type]
-callables_annotation.py:40: note: See https://mypy.readthedocs.io/en/stable/kinds_of_types.html#callable-types-and-lambdas
-callables_annotation.py:41: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
-callables_annotation.py:41: note: Did you mean "List[...]"?
-callables_annotation.py:42: error: Please use "Callable[[<parameters>], <return type>]" or "Callable"  [misc]
-callables_annotation.py:43: error: Unexpected "..."  [misc]
+callables_annotation.py:17: error: Unexpected keyword argument "a"  [call-arg]
+callables_annotation.py:17: error: Unexpected keyword argument "b"  [call-arg]
+callables_annotation.py:23: error: Too many arguments  [call-arg]
+callables_annotation.py:40: error: Please use "Callable[[<parameters>], <return type>]" or "Callable"  [misc]
+callables_annotation.py:41: error: The first argument to Callable must be a list of types, parameter specification, or "..."  [valid-type]
+callables_annotation.py:41: note: See https://mypy.readthedocs.io/en/stable/kinds_of_types.html#callable-types-and-lambdas
+callables_annotation.py:42: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
+callables_annotation.py:42: note: Did you mean "List[...]"?
+callables_annotation.py:43: error: Please use "Callable[[<parameters>], <return type>]" or "Callable"  [misc]
+callables_annotation.py:44: error: Unexpected "..."  [misc]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 16: Expected 1 errors, got 2 (['callables_annotation.py:16: error: Unexpected keyword argument "a"  [call-arg]', 'callables_annotation.py:16: error: Unexpected keyword argument "b"  [call-arg]'])
-Line 39: Unexpected errors ['callables_annotation.py:39: error: Please use "Callable[[<parameters>], <return type>]" or "Callable"  [misc]']
-Line 40: Unexpected errors ['callables_annotation.py:40: error: The first argument to Callable must be a list of types, parameter specification, or "..."  [valid-type]']
-Line 41: Unexpected errors ['callables_annotation.py:41: error: Bracketed expression "[...]" is not valid as a type  [valid-type]']
-Line 42: Unexpected errors ['callables_annotation.py:42: error: Please use "Callable[[<parameters>], <return type>]" or "Callable"  [misc]']
-Line 43: Unexpected errors ['callables_annotation.py:43: error: Unexpected "..."  [misc]']
 """

@@ -3,21 +3,18 @@ output = """
 File "callables_annotation.py", line 13, in func1: Function <callable> expects 2 arg(s), got 1 [wrong-arg-count]
 File "callables_annotation.py", line 14, in func1: Function <callable> was called with the wrong arguments [wrong-arg-types]
 File "callables_annotation.py", line 15, in func1: Function <callable> expects 2 arg(s), got 3 [wrong-arg-count]
-File "callables_annotation.py", line 16, in func1: Invalid keyword arguments (a, b) to function <callable> [wrong-keyword-args]
-File "callables_annotation.py", line 22, in func2: Function <callable> expects 0 arg(s), got 1 [wrong-arg-count]
-File "callables_annotation.py", line 39, in <module>: Invalid type annotation 'int'  [invalid-annotation]
-File "callables_annotation.py", line 39, in <module>: Invalid type annotation 'Callable[Any]'  [invalid-annotation]
+File "callables_annotation.py", line 17, in func1: Invalid keyword arguments (a, b) to function <callable> [wrong-keyword-args]
+File "callables_annotation.py", line 23, in func2: Function <callable> expects 0 arg(s), got 1 [wrong-arg-count]
 File "callables_annotation.py", line 40, in <module>: Invalid type annotation 'int'  [invalid-annotation]
-File "callables_annotation.py", line 41, in <module>: Invalid type annotation '[int]'  [invalid-annotation]
-File "callables_annotation.py", line 42, in <module>: Invalid type annotation 'int'  [invalid-annotation]
-File "callables_annotation.py", line 42, in <module>: Invalid type annotation 'Callable[Any, int, int]'  [invalid-annotation]
-File "callables_annotation.py", line 43, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
+File "callables_annotation.py", line 40, in <module>: Invalid type annotation 'Callable[Any]'  [invalid-annotation]
+File "callables_annotation.py", line 41, in <module>: Invalid type annotation 'int'  [invalid-annotation]
+File "callables_annotation.py", line 42, in <module>: Invalid type annotation '[int]'  [invalid-annotation]
+File "callables_annotation.py", line 43, in <module>: Invalid type annotation 'int'  [invalid-annotation]
+File "callables_annotation.py", line 43, in <module>: Invalid type annotation 'Callable[Any, int, int]'  [invalid-annotation]
+File "callables_annotation.py", line 44, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 39: Unexpected errors ['File "callables_annotation.py", line 39, in <module>: Invalid type annotation \\'int\\'  [invalid-annotation]', 'File "callables_annotation.py", line 39, in <module>: Invalid type annotation \\'Callable[Any]\\'  [invalid-annotation]']
-Line 40: Unexpected errors ['File "callables_annotation.py", line 40, in <module>: Invalid type annotation \\'int\\'  [invalid-annotation]']
-Line 41: Unexpected errors ['File "callables_annotation.py", line 41, in <module>: Invalid type annotation \\'[int]\\'  [invalid-annotation]']
-Line 42: Unexpected errors ['File "callables_annotation.py", line 42, in <module>: Invalid type annotation \\'int\\'  [invalid-annotation]', 'File "callables_annotation.py", line 42, in <module>: Invalid type annotation \\'Callable[Any, int, int]\\'  [invalid-annotation]']
-Line 43: Unexpected errors ['File "callables_annotation.py", line 43, in <module>: Invalid type annotation \\'Ellipsis\\'  [invalid-annotation]']
+Line 40: Expected 1 errors, got 2 (['File "callables_annotation.py", line 40, in <module>: Invalid type annotation \\'int\\'  [invalid-annotation]', 'File "callables_annotation.py", line 40, in <module>: Invalid type annotation \\'Callable[Any]\\'  [invalid-annotation]'])
+Line 43: Expected 1 errors, got 2 (['File "callables_annotation.py", line 43, in <module>: Invalid type annotation \\'int\\'  [invalid-annotation]', 'File "callables_annotation.py", line 43, in <module>: Invalid type annotation \\'Callable[Any, int, int]\\'  [invalid-annotation]'])
 """
