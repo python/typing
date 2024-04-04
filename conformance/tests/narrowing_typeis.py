@@ -1,5 +1,5 @@
 """
-Tests TypeGuard functionality.
+Tests TypeIs functionality.
 """
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/narrowing.html#typeis
