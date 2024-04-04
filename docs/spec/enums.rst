@@ -184,6 +184,16 @@ statically in cases where dynamic values are used.
     reveal_type(Example.b)  # Revealed type is int
     reveal_type(Example.c)  # Revealed type is Literal[Example.c]
 
+* An attribute with a private name (beginning with, but not ending in, a double
+  underscore) is treated as a non-member.
+
+    class Example(Enum):
+        A = 1  # Member attribute
+        __B = 2  # Non-member attribute
+
+    reveal_type(Example.A)  # Revealed type is Literal[Example.A]
+    reveal_type(Example.__B)  # Type Error: Private name is mangled
+
 * An enum class can define a class symbol named ``_ignore_``. This can be a list
   of names or a string containing a space-delimited list of names that are
   deleted from the enum class at runtime. Type checkers may support this
