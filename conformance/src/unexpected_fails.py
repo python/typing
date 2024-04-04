@@ -8,9 +8,9 @@ conformance results differ.
 from pathlib import Path
 import tomllib
 
-root_dir = Path(__file__).resolve().parent.parent
+results_dir = Path(__file__).resolve().parent.parent / "results"
 
-for type_checker_dir in sorted((root_dir / "results").iterdir()):
+for type_checker_dir in sorted(results_dir.iterdir()):
     if type_checker_dir.is_dir():
         for file in sorted(type_checker_dir.iterdir()):
             if file.name == "version.toml":
@@ -26,4 +26,4 @@ for type_checker_dir in sorted((root_dir / "results").iterdir()):
             except KeyError as e:
                 raise Exception(f"Missing key in {file}") from e
             if previous_pass != new_pass:
-                print(f"{file}: {info['conformant']} vs. {info['conformance_automated']}")
+                print(f"{file.relative_to(results_dir)}: {info['conformant']} vs. {info['conformance_automated']}")

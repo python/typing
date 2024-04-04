@@ -3,29 +3,29 @@ notes = """
 False negative on generic class nested within generic class with same type variable.
 """
 output = """
-generics_scoping.py:25: error: Argument 1 to "meth_2" of "MyClass" has incompatible type "str"; expected "int"  [arg-type]
-generics_scoping.py:46: error: Type variable "generics_scoping.S" is unbound  [valid-type]
-generics_scoping.py:46: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
-generics_scoping.py:46: note: (Hint: Use "S" in function signature to bind "S" inside a function)
+generics_scoping.py:29: error: Argument 1 to "meth_2" of "MyClass" has incompatible type "str"; expected "int"  [arg-type]
 generics_scoping.py:50: error: Type variable "generics_scoping.S" is unbound  [valid-type]
 generics_scoping.py:50: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
 generics_scoping.py:50: note: (Hint: Use "S" in function signature to bind "S" inside a function)
-generics_scoping.py:61: error: Free type variable expected in Generic[...]  [misc]
-generics_scoping.py:74: error: Type variable "generics_scoping.T" is unbound  [valid-type]
-generics_scoping.py:74: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
-generics_scoping.py:74: note: (Hint: Use "T" in function signature to bind "T" inside a function)
-generics_scoping.py:80: error: Can't use bound type variable "T" to define generic alias  [valid-type]
-generics_scoping.py:84: error: Type variable "generics_scoping.T" is unbound  [valid-type]
-generics_scoping.py:84: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
-generics_scoping.py:84: note: (Hint: Use "T" in function signature to bind "T" inside a function)
-generics_scoping.py:85: error: Type variable "generics_scoping.T" is unbound  [valid-type]
-generics_scoping.py:85: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
-generics_scoping.py:85: note: (Hint: Use "T" in function signature to bind "T" inside a function)
-generics_scoping.py:86: error: Type variable "generics_scoping.T" is unbound  [valid-type]
-generics_scoping.py:86: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
-generics_scoping.py:86: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+generics_scoping.py:54: error: Type variable "generics_scoping.S" is unbound  [valid-type]
+generics_scoping.py:54: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
+generics_scoping.py:54: note: (Hint: Use "S" in function signature to bind "S" inside a function)
+generics_scoping.py:65: error: Free type variable expected in Generic[...]  [misc]
+generics_scoping.py:78: error: Type variable "generics_scoping.T" is unbound  [valid-type]
+generics_scoping.py:78: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+generics_scoping.py:78: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+generics_scoping.py:84: error: Can't use bound type variable "T" to define generic alias  [valid-type]
+generics_scoping.py:88: error: Type variable "generics_scoping.T" is unbound  [valid-type]
+generics_scoping.py:88: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+generics_scoping.py:88: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+generics_scoping.py:89: error: Type variable "generics_scoping.T" is unbound  [valid-type]
+generics_scoping.py:89: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+generics_scoping.py:89: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+generics_scoping.py:90: error: Type variable "generics_scoping.T" is unbound  [valid-type]
+generics_scoping.py:90: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+generics_scoping.py:90: note: (Hint: Use "T" in function signature to bind "T" inside a function)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 71: Expected 1 errors
+Line 75: Expected 1 errors
 """

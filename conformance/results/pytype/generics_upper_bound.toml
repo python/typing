@@ -1,4 +1,4 @@
-conformant = "Pass"
+conformant = "Partial"
 notes = """
 Does not properly support assert_type.
 """

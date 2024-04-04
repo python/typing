@@ -6,8 +6,10 @@ from typing import TypeVar, Generic, Iterable, TypeAlias, assert_type
 # > different types in the same code block.
 T = TypeVar('T')
 
-def fun_1(x: T) -> T: ...  # T here
-def fun_2(x: T) -> T: ...  # and here could be different
+def fun_1(x: T) -> T:  # T here
+    return x
+def fun_2(x: T) -> T:  # and here could be different
+    return x
 
 assert_type(fun_1(1), int)
 assert_type(fun_2('a'), str)
@@ -17,8 +19,10 @@ assert_type(fun_2('a'), str)
 # > to that variable.
 
 class MyClass(Generic[T]):
-    def meth_1(self, x: T) -> T: ...  # T here
-    def meth_2(self, x: T) -> T: ...  # and here are always the same
+    def meth_1(self, x: T) -> T:  # T here
+        return x
+    def meth_2(self, x: T) -> T:  # and here are always the same
+        return x
 
 a: MyClass[int] = MyClass()
 a.meth_1(1)  # OK
