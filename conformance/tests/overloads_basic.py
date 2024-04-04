@@ -34,7 +34,7 @@ class Bytes:
 b = Bytes()
 assert_type(b[0], int)
 assert_type(b[0:1], bytes)
-b[""]  # Type error: no matching overload
+b[""]  # E: no matching overload
 
 
 T1 = TypeVar("T1")
@@ -61,7 +61,7 @@ def map(func: Any, iter1: Any, iter2: Any = ...) -> Any:
 # At least two overload signatures should be provided.
 @overload
 def func1() -> None:
-    ...  # Type error: At least two overloads must be present
+    ...  # E: At least two overloads must be present
 
 
 def func1() -> None:
@@ -73,7 +73,7 @@ def func1() -> None:
 # > function/method).
 @overload
 def func2(x: int) -> int:
-    ...  # Type error: no implementation
+    ...  # E: no implementation
 
 
 @overload

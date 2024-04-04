@@ -17,3 +17,14 @@ namedtuples_usage.py:53:1 - error: Expression with type "Point" cannot be assign
   Type "Point" is incompatible with target tuple
     Tuple size mismatch; expected 4 but received 3 (reportAssignmentType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 34: Unexpected errors ['namedtuples_usage.py:34:7 - error: Index 3 is out of range for type Point (reportGeneralTypeIssues)']
+Line 35: Unexpected errors ['namedtuples_usage.py:35:7 - error: Index -4 is out of range for type Point (reportGeneralTypeIssues)']
+Line 40: Unexpected errors ['namedtuples_usage.py:40:3 - error: Cannot assign member "x" for type "Point"']
+Line 41: Unexpected errors ['namedtuples_usage.py:41:1 - error: "__setitem__" method not defined on type "Point" (reportIndexIssue)']
+Line 42: Unexpected errors ['namedtuples_usage.py:42:7 - error: Cannot delete member "x" for type "Point"']
+Line 43: Unexpected errors ['namedtuples_usage.py:43:5 - error: "__delitem__" method not defined on type "Point" (reportIndexIssue)']
+Line 52: Unexpected errors ['namedtuples_usage.py:52:1 - error: Expression with type "Point" cannot be assigned to target tuple']
+Line 53: Unexpected errors ['namedtuples_usage.py:53:1 - error: Expression with type "Point" cannot be assigned to target tuple']
+"""

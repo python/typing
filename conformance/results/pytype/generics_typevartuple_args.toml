@@ -1,6 +1,5 @@
 conformant = "Unsupported"
-notes = """
-Does not support TypeVarTuple.
+notes = """Does not support TypeVarTuple.
 """
 output = """
 File "generics_typevartuple_args.py", line 10, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
@@ -25,4 +24,21 @@ File "generics_typevartuple_args.py", line 51, in <module>: Invalid type annotat
 File "generics_typevartuple_args.py", line 62, in <module>: Missing parameter 'self' in call to function tuple.__iter__ [missing-parameter]
 File "generics_typevartuple_args.py", line 70, in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
 File "generics_typevartuple_args.py", line 75, in <module>: Function func4 was called with the wrong arguments [wrong-arg-types]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 10: Unexpected errors ['File "generics_typevartuple_args.py", line 10, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
+Line 13: Unexpected errors ['File "generics_typevartuple_args.py", line 13, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
+Line 16: Unexpected errors ['File "generics_typevartuple_args.py", line 16, in <module>: No attribute \\'__iter__\\' on TypeVarTuple [attribute-error]', 'File "generics_typevartuple_args.py", line 16, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
+Line 17: Unexpected errors ['File "generics_typevartuple_args.py", line 17, in args_to_tuple: bad return type [bad-return-type]']
+Line 20: Unexpected errors ['File "generics_typevartuple_args.py", line 20, in <module>: Tuple[Any] [assert-type]']
+Line 27: Unexpected errors ['File "generics_typevartuple_args.py", line 27, in <module>: Missing parameter \\'self\\' in call to function tuple.__iter__ [missing-parameter]', 'File "generics_typevartuple_args.py", line 27, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]', 'File "generics_typevartuple_args.py", line 27, in <module>: Invalid type annotation \\'<instance of Tuple[Type[Env], ...]>\\'  [invalid-annotation]']
+Line 28: Unexpected errors ['File "generics_typevartuple_args.py", line 28, in exec_le: bad return type [bad-return-type]']
+Line 31: Unexpected errors ['File "generics_typevartuple_args.py", line 31, in <module>: Tuple[Any] [assert-type]']
+Line 32: Unexpected errors ['File "generics_typevartuple_args.py", line 32, in <module>: Tuple[Any] [assert-type]']
+Line 42: Unexpected errors ['File "generics_typevartuple_args.py", line 42, in <module>: Missing parameter \\'self\\' in call to function tuple.__iter__ [missing-parameter]']
+Line 51: Unexpected errors ['File "generics_typevartuple_args.py", line 51, in <module>: Missing parameter \\'self\\' in call to function tuple.__iter__ [missing-parameter]', 'File "generics_typevartuple_args.py", line 51, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
+Line 62: Unexpected errors ['File "generics_typevartuple_args.py", line 62, in <module>: Missing parameter \\'self\\' in call to function tuple.__iter__ [missing-parameter]']
+Line 70: Unexpected errors ['File "generics_typevartuple_args.py", line 70, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
+Line 75: Unexpected errors ['File "generics_typevartuple_args.py", line 75, in <module>: Function func4 was called with the wrong arguments [wrong-arg-types]']
 """

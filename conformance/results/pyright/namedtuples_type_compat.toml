@@ -8,3 +8,8 @@ namedtuples_type_compat.py:23:28 - error: Expression of type "Point" cannot be a
     Tuple entry 2 is incorrect type
       "int" is incompatible with "str" (reportAssignmentType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 22: Unexpected errors ['namedtuples_type_compat.py:22:23 - error: Expression of type "Point" cannot be assigned to declared type "tuple[int, int]"']
+Line 23: Unexpected errors ['namedtuples_type_compat.py:23:28 - error: Expression of type "Point" cannot be assigned to declared type "tuple[int, str, str]"']
+"""

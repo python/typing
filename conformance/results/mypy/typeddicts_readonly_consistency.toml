@@ -14,3 +14,16 @@ typeddicts_readonly_consistency.py:82: error: Incompatible types in assignment (
 typeddicts_readonly_consistency.py:84: error: Incompatible types in assignment (expression has type "A2", variable has type "C2")  [assignment]
 typeddicts_readonly_consistency.py:85: error: Incompatible types in assignment (expression has type "B2", variable has type "C2")  [assignment]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 30: Unexpected errors ['typeddicts_readonly_consistency.py:30: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly_consistency.py:30: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
+Line 37: Unexpected errors ['typeddicts_readonly_consistency.py:37: error: Incompatible types in assignment (expression has type "A1", variable has type "B1")  [assignment]']
+Line 38: Unexpected errors ['typeddicts_readonly_consistency.py:38: error: Incompatible types in assignment (expression has type "C1", variable has type "B1")  [assignment]']
+Line 40: Unexpected errors ['typeddicts_readonly_consistency.py:40: error: Incompatible types in assignment (expression has type "A1", variable has type "C1")  [assignment]']
+Line 41: Unexpected errors ['typeddicts_readonly_consistency.py:41: error: Incompatible types in assignment (expression has type "B1", variable has type "C1")  [assignment]']
+Line 66: Unexpected errors ['typeddicts_readonly_consistency.py:66: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']
+Line 79: Unexpected errors ['typeddicts_readonly_consistency.py:79: error: Incompatible types in assignment (expression has type "C2", variable has type "A2")  [assignment]']
+Line 82: Unexpected errors ['typeddicts_readonly_consistency.py:82: error: Incompatible types in assignment (expression has type "C2", variable has type "B2")  [assignment]']
+Line 84: Unexpected errors ['typeddicts_readonly_consistency.py:84: error: Incompatible types in assignment (expression has type "A2", variable has type "C2")  [assignment]']
+Line 85: Unexpected errors ['typeddicts_readonly_consistency.py:85: error: Incompatible types in assignment (expression has type "B2", variable has type "C2")  [assignment]']
+"""

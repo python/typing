@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not treat `type` same as `type[Any]` for assert_type.
+notes = """Does not treat `type` same as `type[Any]` for assert_type.
 Does not allow access to unknown attributes from object of type `type[Any]`.
 """
 output = """
@@ -17,4 +16,20 @@ specialtypes_type.py:143: error: "<typing special form>" has no attribute "unkno
 specialtypes_type.py:144: error: "<typing special form>" has no attribute "unknown"  [attr-defined]
 specialtypes_type.py:145: error: "type[type]" has no attribute "unknown"  [attr-defined]
 specialtypes_type.py:146: error: "<typing special form>" has no attribute "unknown"  [attr-defined]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 56: Unexpected errors ['specialtypes_type.py:56: error: Argument 1 to "func4" has incompatible type "type[TeamUser]"; expected "type[BasicUser] | type[ProUser]"  [arg-type]']
+Line 70: Unexpected errors ['specialtypes_type.py:70: error: Argument 1 to "func5" has incompatible type "<typing special form>"; expected "type[Never]"  [arg-type]']
+Line 76: Unexpected errors ['specialtypes_type.py:76: error: type[...] must have exactly one type argument  [valid-type]']
+Line 84: Unexpected errors ['specialtypes_type.py:84: error: Expression is of type "type", not "type[Any]"  [assert-type]']
+Line 99: Unexpected errors ['specialtypes_type.py:99: error: "type" has no attribute "unknown"  [attr-defined]']
+Line 100: Unexpected errors ['specialtypes_type.py:100: error: "type" has no attribute "unknown"  [attr-defined]']
+Line 117: Unexpected errors ['specialtypes_type.py:117: error: "type[object]" has no attribute "unknown"  [attr-defined]']
+Line 120: Unexpected errors ['specialtypes_type.py:120: error: "type[object]" has no attribute "unknown"  [attr-defined]']
+Line 139: Unexpected errors ['specialtypes_type.py:139: error: Expression is of type "type", not "type[Any]"  [assert-type]']
+Line 143: Unexpected errors ['specialtypes_type.py:143: error: "<typing special form>" has no attribute "unknown"  [attr-defined]']
+Line 144: Unexpected errors ['specialtypes_type.py:144: error: "<typing special form>" has no attribute "unknown"  [attr-defined]']
+Line 145: Unexpected errors ['specialtypes_type.py:145: error: "type[type]" has no attribute "unknown"  [attr-defined]']
+Line 146: Unexpected errors ['specialtypes_type.py:146: error: "<typing special form>" has no attribute "unknown"  [attr-defined]']
 """

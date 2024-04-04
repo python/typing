@@ -12,3 +12,17 @@ aliases_recursive.py:73: error: List item 0 has incompatible type "float"; expec
 aliases_recursive.py:76: error: Invalid recursive alias: a union item of itself  [misc]
 aliases_recursive.py:81: error: Invalid recursive alias: a union item of itself  [misc]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Unexpected errors ['aliases_recursive.py:19: error: Dict entry 1 has incompatible type "str": "complex"; expected "str": "int | str | float | list[Json] | dict[str, Json] | None"  [dict-item]']
+Line 20: Unexpected errors ['aliases_recursive.py:20: error: List item 1 has incompatible type "complex"; expected "int | str | float | list[Json] | dict[str, Json] | None"  [list-item]']
+Line 38: Unexpected errors ['aliases_recursive.py:38: error: Incompatible types in assignment (expression has type "tuple[int, tuple[str, int], tuple[int, tuple[int, list[int]]]]", variable has type "RecursiveTuple")  [assignment]']
+Line 39: Unexpected errors ['aliases_recursive.py:39: error: Name "t6" already defined on line 38  [no-redef]']
+Line 50: Unexpected errors ['aliases_recursive.py:50: error: Dict entry 0 has incompatible type "str": "list[int]"; expected "str": "str | int | Mapping[str, RecursiveMapping]"  [dict-item]']
+Line 51: Unexpected errors ['aliases_recursive.py:51: error: Dict entry 2 has incompatible type "str": "list[int]"; expected "str": "str | int | Mapping[str, RecursiveMapping]"  [dict-item]']
+Line 55: Unexpected errors ['aliases_recursive.py:55: error: Dict entry 2 has incompatible type "str": "list[int]"; expected "str": "str | int | Mapping[str, RecursiveMapping]"  [dict-item]']
+Line 67: Unexpected errors ['aliases_recursive.py:67: error: List item 0 has incompatible type "float"; expected "GenericTypeAlias1[str] | str"  [list-item]']
+Line 73: Unexpected errors ['aliases_recursive.py:73: error: List item 0 has incompatible type "float"; expected "GenericTypeAlias2[str, int] | str | int"  [list-item]']
+Line 76: Unexpected errors ['aliases_recursive.py:76: error: Invalid recursive alias: a union item of itself  [misc]']
+Line 81: Unexpected errors ['aliases_recursive.py:81: error: Invalid recursive alias: a union item of itself  [misc]']
+"""

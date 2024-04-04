@@ -3,3 +3,8 @@ output = """
 File "namedtuples_type_compat.py", line 22, in <module>: Type annotation for v3 does not match type of assignment [annotation-type-mismatch]
 File "namedtuples_type_compat.py", line 23, in <module>: Type annotation for v4 does not match type of assignment [annotation-type-mismatch]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 22: Unexpected errors ['File "namedtuples_type_compat.py", line 22, in <module>: Type annotation for v3 does not match type of assignment [annotation-type-mismatch]']
+Line 23: Unexpected errors ['File "namedtuples_type_compat.py", line 23, in <module>: Type annotation for v4 does not match type of assignment [annotation-type-mismatch]']
+"""

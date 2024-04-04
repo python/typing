@@ -12,3 +12,16 @@ generics_syntax_declarations.py:73:17 - error: Expected type expression but rece
 generics_syntax_declarations.py:77:18 - error: Expected type expression but received "Literal[3]" (reportGeneralTypeIssues)
 generics_syntax_declarations.py:81:23 - error: "S" is not defined (reportUndefinedVariable)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Unexpected errors ['generics_syntax_declarations.py:19:17 - error: "Generic" base class cannot be used with type parameter syntax (reportGeneralTypeIssues)']
+Line 27: Unexpected errors ['generics_syntax_declarations.py:27:20 - error: Type arguments are not allowed with Protocol class when using type parameter syntax (reportGeneralTypeIssues)']
+Line 34: Unexpected errors ['generics_syntax_declarations.py:34:11 - error: Cannot access member "is_integer" for type "str*"']
+Line 46: Unexpected errors ['generics_syntax_declarations.py:46:21 - error: TypeVar constraint type cannot be generic']
+Line 50: Unexpected errors ['generics_syntax_declarations.py:50:17 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)']
+Line 62: Unexpected errors ['generics_syntax_declarations.py:62:17 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)']
+Line 66: Unexpected errors ['generics_syntax_declarations.py:66:17 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)']
+Line 73: Unexpected errors ['generics_syntax_declarations.py:73:17 - error: Expected type expression but received "tuple[type[bytes], type[str]]" (reportGeneralTypeIssues)']
+Line 77: Unexpected errors ['generics_syntax_declarations.py:77:18 - error: Expected type expression but received "Literal[3]" (reportGeneralTypeIssues)']
+Line 81: Unexpected errors ['generics_syntax_declarations.py:81:23 - error: "S" is not defined (reportUndefinedVariable)']
+"""

@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not correctly enforce contravariance in protocol type compatibility tests.
+notes = """Does not correctly enforce contravariance in protocol type compatibility tests.
 Does not correctly enforce invariance in protocol type compatibility tests.
 Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.
 """
@@ -13,4 +12,15 @@ File "protocols_generic.py", line 56, in func1: Type annotation for v2 does not 
 File "protocols_generic.py", line 65, in func2: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]
 File "protocols_generic.py", line 75, in func3: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
 File "protocols_generic.py", line 146, in <module>: Type annotation for hp3 does not match type of assignment [annotation-type-mismatch]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 12: Unexpected errors ['File "protocols_generic.py", line 12, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 13: Unexpected errors ['File "protocols_generic.py", line 13, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
+Line 40: Unexpected errors ['File "protocols_generic.py", line 40, in <module>: Type annotation for p2 does not match type of assignment [annotation-type-mismatch]']
+Line 44: Unexpected errors ['File "protocols_generic.py", line 44, in <module>: Invalid type annotation \\'Proto2\\'  [invalid-annotation]']
+Line 56: Unexpected errors ['File "protocols_generic.py", line 56, in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]']
+Line 65: Unexpected errors ['File "protocols_generic.py", line 65, in func2: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]']
+Line 75: Unexpected errors ['File "protocols_generic.py", line 75, in func3: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]']
+Line 146: Unexpected errors ['File "protocols_generic.py", line 146, in <module>: Type annotation for hp3 does not match type of assignment [annotation-type-mismatch]']
 """

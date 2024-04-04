@@ -27,7 +27,7 @@ def close_all(things: Iterable[SupportsClose]) -> None:
 f = open("foo.txt")
 r = Resource()
 close_all([f, r])  # OK
-close_all([1])  # Type error: 'int' has no 'close' method
+close_all([1])  # E: 'int' has no 'close' method
 
 
 class Example(Protocol):
@@ -64,7 +64,7 @@ class Template(Protocol):
 
     def method(self) -> None:
         self.name = "name"  # OK
-        self.temp: list[int] = []  # Type error: use of self variables not allowed
+        self.temp: list[int] = []  # E: use of self variables not allowed
 
 
 class Concrete:
@@ -337,5 +337,5 @@ v6_good1: Template6 = Concrete6_Good1()  # OK
 v6_good2: Template6 = Concrete6_Good2()  # OK
 v6_good3: Template6 = Concrete6_Good3()  # OK
 v6_bad1: Template6 = Concrete6_Bad1()  # Type error
-v6_bad2: Template6 = Concrete6_Bad2()  # Type error: named tuple is immutable
-v6_bad3: Template6 = Concrete6_Bad3()  # Type error: dataclass is frozen
+v6_bad2: Template6 = Concrete6_Bad2()  # E: named tuple is immutable
+v6_bad3: Template6 = Concrete6_Bad3()  # E: dataclass is frozen

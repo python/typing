@@ -12,10 +12,10 @@ def func1(v: tuple[int, str, list[bool]], a: Literal[0], b: Literal[5], c: Liter
     assert_type(v[a], int)
     assert_type(v[2], list[bool])
 
-    v[b]  # Type error: index out of range
-    v[c]  # Type error: index out of range
-    v[4]  # Type error: index out of range
-    v[-4]  # Type error: index out of range
+    v[b]  # E: index out of range
+    v[c]  # E: index out of range
+    v[4]  # E: index out of range
+    v[-4]  # E: index out of range
 
 
 _PathType = str | bytes | int

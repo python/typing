@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject use of TypeVar in ClassVar.
+notes = """Does not reject use of TypeVar in ClassVar.
 Does not reject use of ParamSpec in ClassVar.
 Does not reject use of ClassVar as a generic type argument.
 Does not reject use of ClassVar in parameter type annotation.
@@ -24,4 +23,18 @@ classes_classvar.py:66:8 Incompatible return type [7]: Expected `CV[int]` but go
 classes_classvar.py:79:0 Uninitialized attribute [13]: Attribute `damage` is declared in class `BasicStarship` to have type `int` but is never initialized.
 classes_classvar.py:100:0 Invalid assignment [41]: Assigning to class variable through instance, did you mean to assign to `Starship.stats` instead?
 classes_classvar.py:129:0 Incompatible variable type [9]: a is declared to have type `ProtoA` but is used as type `ProtoAImpl`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 33: Unexpected errors ['classes_classvar.py:33:0 Uninitialized attribute [13]: Attribute `bad1` is declared in class `ClassA` to have type `typing.Any` but is never initialized.', 'classes_classvar.py:33:0 Uninitialized attribute [13]: Attribute `bad4` is declared in class `ClassA` to have type `Variable[T]` but is never initialized.', 'classes_classvar.py:33:0 Uninitialized attribute [13]: Attribute `bad5` is declared in class `ClassA` to have type `typing.List[Variable[T]]` but is never initialized.', 'classes_classvar.py:33:0 Uninitialized attribute [13]: Attribute `bad6` is declared in class `ClassA` to have type `typing.Callable[classes_classvar.P, typing.Any]` but is never initialized.']
+Line 36: Unexpected errors ['classes_classvar.py:36:10 Invalid type parameters [24]: Generic type `CV` expects 1 type parameter, received 2.']
+Line 37: Unexpected errors ['classes_classvar.py:37:10 Invalid type [31]: Expression `typing.ClassVar[3]` is not a valid type.']
+Line 38: Unexpected errors ['classes_classvar.py:38:13 Unbound name [10]: Name `var` is used but not defined in the current scope.']
+Line 50: Unexpected errors ['classes_classvar.py:50:4 Incompatible attribute type [8]: Attribute `bad8` declared in class `ClassA` has type `List[str]` but is used as type `Dict[Variable[_KT], Variable[_VT]]`.']
+Line 52: Unexpected errors ['classes_classvar.py:52:10 Unbound name [10]: Name `Final` is used but not defined in the current scope.']
+Line 63: Unexpected errors ['classes_classvar.py:63:8 Undefined attribute [16]: `ClassA` has no attribute `xx`.']
+Line 66: Unexpected errors ['classes_classvar.py:66:8 Incompatible return type [7]: Expected `CV[int]` but got `int`.']
+Line 79: Unexpected errors ['classes_classvar.py:79:0 Uninitialized attribute [13]: Attribute `damage` is declared in class `BasicStarship` to have type `int` but is never initialized.']
+Line 100: Unexpected errors ['classes_classvar.py:100:0 Invalid assignment [41]: Assigning to class variable through instance, did you mean to assign to `Starship.stats` instead?']
+Line 129: Unexpected errors ['classes_classvar.py:129:0 Incompatible variable type [9]: a is declared to have type `ProtoA` but is used as type `ProtoAImpl`.']
 """

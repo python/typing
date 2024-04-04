@@ -4,3 +4,9 @@ File "typeddicts_inheritance.py", line 44, in <module>: Invalid base class: NonT
 File "typeddicts_inheritance.py", line 54, in <module>: Invalid base class: X1 [base-class-error]
 File "typeddicts_inheritance.py", line 65, in <module>: Invalid base class: Y2 [base-class-error]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 44: Unexpected errors ['File "typeddicts_inheritance.py", line 44, in <module>: Invalid base class: NonTypedDict [base-class-error]']
+Line 54: Unexpected errors ['File "typeddicts_inheritance.py", line 54, in <module>: Invalid base class: X1 [base-class-error]']
+Line 65: Unexpected errors ['File "typeddicts_inheritance.py", line 65, in <module>: Invalid base class: Y2 [base-class-error]']
+"""

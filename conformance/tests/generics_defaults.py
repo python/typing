@@ -23,7 +23,7 @@ T2 = TypeVar("T2")
 
 class NonDefaultFollowsDefault(
     Generic[DefaultStrT, T]
-): ...  # Type error: non-default TypeVars cannot follow ones with defaults
+): ...  # E: non-default TypeVars cannot follow ones with defaults
 
 
 class NoNonDefaults(Generic[DefaultStrT, DefaultIntT]): ...

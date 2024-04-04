@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not detect out-of-bound tuple literal index.
+notes = """Does not detect out-of-bound tuple literal index.
 Does not narrow type of `x` with `x in Literal` type guard pattern.
 Does not narrow type of `x` with `x == Literal` type guard pattern.
 """
@@ -8,4 +7,10 @@ output = """
 literals_interactions.py:51:38 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[AnyStr <: [str, bytes]]]` but got `object`.
 literals_interactions.py:106:34 Incompatible parameter type [6]: In call `expects_bad_status`, for 1st positional argument, expected `Union[typing_extensions.Literal['ABORTED'], typing_extensions.Literal['MALFORMED']]` but got `str`.
 literals_interactions.py:109:31 Non-literal string [62]: In call `expects_pending_status`, for 1st positional argument, expected `LiteralString` but got `str`. Ensure only a string literal or a `LiteralString` is used.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 51: Unexpected errors ['literals_interactions.py:51:38 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[AnyStr <: [str, bytes]]]` but got `object`.']
+Line 106: Unexpected errors ["literals_interactions.py:106:34 Incompatible parameter type [6]: In call `expects_bad_status`, for 1st positional argument, expected `Union[typing_extensions.Literal['ABORTED'], typing_extensions.Literal['MALFORMED']]` but got `str`."]
+Line 109: Unexpected errors ['literals_interactions.py:109:31 Non-literal string [62]: In call `expects_pending_status`, for 1st positional argument, expected `LiteralString` but got `str`. Ensure only a string literal or a `LiteralString` is used.']
 """

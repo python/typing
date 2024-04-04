@@ -3,3 +3,8 @@ output = """
 dataclasses_inheritance.py:60:5 - error: Class variable "x" overrides instance variable of same name in class "DC6" (reportIncompatibleVariableOverride)
 dataclasses_inheritance.py:64:5 - error: Instance variable "y" overrides class variable of same name in class "DC6" (reportIncompatibleVariableOverride)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 60: Unexpected errors ['dataclasses_inheritance.py:60:5 - error: Class variable "x" overrides instance variable of same name in class "DC6" (reportIncompatibleVariableOverride)']
+Line 64: Unexpected errors ['dataclasses_inheritance.py:64:5 - error: Instance variable "y" overrides class variable of same name in class "DC6" (reportIncompatibleVariableOverride)']
+"""

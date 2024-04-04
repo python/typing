@@ -9,3 +9,8 @@ directives_assert_type.py:32: error: Expression is of type "Literal['']", not "i
 directives_assert_type.py:33: error: "assert_type" expects 2 arguments  [misc]
 directives_assert_type.py:33: error: Too many arguments for "assert_type"  [call-arg]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 31: Expected 1 errors, got 2 (['directives_assert_type.py:31: error: "assert_type" expects 2 arguments  [misc]', 'directives_assert_type.py:31: error: Too few arguments for "assert_type"  [call-arg]'])
+Line 33: Expected 1 errors, got 2 (['directives_assert_type.py:33: error: "assert_type" expects 2 arguments  [misc]', 'directives_assert_type.py:33: error: Too many arguments for "assert_type"  [call-arg]'])
+"""

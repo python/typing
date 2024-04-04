@@ -13,3 +13,8 @@ narrowing_typeguard.py:148:26 - error: Argument of type "(val: object) -> TypeGu
       "TypeGuard[int]" is incompatible with "str"
       "bool" is incompatible with "str" (reportArgumentType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 102: Unexpected errors ['narrowing_typeguard.py:102:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)']
+Line 107: Unexpected errors ['narrowing_typeguard.py:107:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)']
+"""

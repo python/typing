@@ -23,8 +23,8 @@ assert_type(f1, Callable[[str, bool], str])
 
 v1 = f1("A", True)  # OK
 assert_type(v1, str)
-f1(a="A", b=True)  # Type error: position-only
-f1("A", "A")  # Type error: wrong type
+f1(a="A", b=True)  # E: position-only
+f1("A", "A")  # E: wrong type
 
 
 def func1(x: Callable[P, int], y: Callable[P, int]) -> Callable[P, bool]:

@@ -16,3 +16,16 @@ qualifiers_final_decorator.py:118: note:      Subclass:
 qualifiers_final_decorator.py:118: note:          def method(self) -> None
 qualifiers_final_decorator.py:125: error: @final cannot be used with non-method functions  [misc]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Unexpected errors ['qualifiers_final_decorator.py:21: error: Cannot inherit from final class "Base1"  [misc]']
+Line 56: Unexpected errors ['qualifiers_final_decorator.py:56: error: Cannot override final attribute "method1" (previously declared in base class "Base2")  [misc]']
+Line 59: Unexpected errors ['qualifiers_final_decorator.py:59: error: Cannot override final attribute "method2" (previously declared in base class "Base2")  [misc]']
+Line 63: Unexpected errors ['qualifiers_final_decorator.py:63: error: Cannot override final attribute "method3" (previously declared in base class "Base2")  [misc]']
+Line 67: Unexpected errors ['qualifiers_final_decorator.py:67: error: Cannot override final attribute "method4" (previously declared in base class "Base2")  [misc]']
+Line 80: Unexpected errors ['qualifiers_final_decorator.py:80: error: Cannot override final attribute "method" (previously declared in base class "Base3")  [misc]']
+Line 84: Unexpected errors ['qualifiers_final_decorator.py:84: error: @final should be applied only to overload implementation  [misc]']
+Line 94: Unexpected errors ['qualifiers_final_decorator.py:94: error: Cannot override final attribute "method" (previously declared in base class "Base4")  [misc]']
+Line 118: Unexpected errors ['qualifiers_final_decorator.py:118: error: Cannot override final attribute "method" (previously declared in base class "Base5_2")  [misc]', 'qualifiers_final_decorator.py:118: error: Signature of "method" incompatible with supertype "Base5_2"  [override]']
+Line 125: Unexpected errors ['qualifiers_final_decorator.py:125: error: @final cannot be used with non-method functions  [misc]']
+"""

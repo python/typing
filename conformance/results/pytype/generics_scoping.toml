@@ -24,3 +24,18 @@ File "generics_scoping.py", line 74, in AlsoBad: Invalid type annotation 'List[T
 File "generics_scoping.py", line 84, in <module>: Invalid type annotation 'T' for global_var1 [invalid-annotation]
 File "generics_scoping.py", line 85, in <module>: Invalid type annotation 'List[T]' for global_var2 [invalid-annotation]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 9: Unexpected errors ['File "generics_scoping.py", line 9, in fun_1: bad return type [bad-return-type]']
+Line 10: Unexpected errors ['File "generics_scoping.py", line 10, in fun_2: bad return type [bad-return-type]']
+Line 20: Unexpected errors ['File "generics_scoping.py", line 20, in meth_1: bad return type [bad-return-type]']
+Line 25: Unexpected errors ['File "generics_scoping.py", line 25, in <module>: Function MyClass.meth_2 was called with the wrong arguments [wrong-arg-types]']
+Line 35: Unexpected errors ['File "generics_scoping.py", line 35, in method: bad return type [bad-return-type]', 'File "generics_scoping.py", line 35, in method: bad return type [bad-return-type]']
+Line 46: Unexpected errors ['File "generics_scoping.py", line 46, in fun_3: Invalid type annotation \\'List[S]\\' for z [invalid-annotation]']
+Line 50: Unexpected errors ['File "generics_scoping.py", line 50, in Bar: Invalid type annotation \\'List[S]\\' for an_attr [invalid-annotation]']
+Line 59: Unexpected errors ['File "generics_scoping.py", line 59, in fun_4: Invalid type annotation \\'T\\'  [invalid-annotation]']
+Line 70: Unexpected errors ['File "generics_scoping.py", line 70, in <module>: Invalid type annotation \\'Outer\\'  [invalid-annotation]']
+Line 74: Unexpected errors ['File "generics_scoping.py", line 74, in AlsoBad: Invalid type annotation \\'List[T]\\' for x [invalid-annotation]']
+Line 84: Unexpected errors ['File "generics_scoping.py", line 84, in <module>: Invalid type annotation \\'T\\' for global_var1 [invalid-annotation]']
+Line 85: Unexpected errors ['File "generics_scoping.py", line 85, in <module>: Invalid type annotation \\'List[T]\\' for global_var2 [invalid-annotation]']
+"""

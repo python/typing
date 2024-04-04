@@ -20,3 +20,21 @@ annotations_typeexpr.py:101: error: Invalid type comment or annotation  [valid-t
 annotations_typeexpr.py:102: error: Module "types" is not valid as a type  [valid-type]
 annotations_typeexpr.py:102: note: Perhaps you meant to use a protocol matching the module structure?
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 88: Unexpected errors ['annotations_typeexpr.py:88: error: Invalid type comment or annotation  [valid-type]']
+Line 89: Unexpected errors ['annotations_typeexpr.py:89: error: Bracketed expression "[...]" is not valid as a type  [valid-type]']
+Line 90: Unexpected errors ['annotations_typeexpr.py:90: error: Syntax error in type annotation  [syntax]']
+Line 91: Unexpected errors ['annotations_typeexpr.py:91: error: Invalid type comment or annotation  [valid-type]']
+Line 92: Unexpected errors ['annotations_typeexpr.py:92: error: Invalid type comment or annotation  [valid-type]']
+Line 93: Unexpected errors ['annotations_typeexpr.py:93: error: Invalid type comment or annotation  [valid-type]']
+Line 94: Unexpected errors ['annotations_typeexpr.py:94: error: Invalid type comment or annotation  [valid-type]']
+Line 95: Unexpected errors ['annotations_typeexpr.py:95: error: Invalid type comment or annotation  [valid-type]']
+Line 96: Unexpected errors ['annotations_typeexpr.py:96: error: Variable "annotations_typeexpr.var1" is not valid as a type  [valid-type]']
+Line 97: Unexpected errors ['annotations_typeexpr.py:97: error: Invalid type: try using Literal[True] instead?  [valid-type]']
+Line 98: Unexpected errors ['annotations_typeexpr.py:98: error: Invalid type: try using Literal[1] instead?  [valid-type]']
+Line 99: Unexpected errors ['annotations_typeexpr.py:99: error: Invalid type: try using Literal[-1] instead?  [valid-type]']
+Line 100: Unexpected errors ['annotations_typeexpr.py:100: error: Invalid type comment or annotation  [valid-type]']
+Line 101: Unexpected errors ['annotations_typeexpr.py:101: error: Invalid type comment or annotation  [valid-type]']
+Line 102: Unexpected errors ['annotations_typeexpr.py:102: error: Module "types" is not valid as a type  [valid-type]']
+"""

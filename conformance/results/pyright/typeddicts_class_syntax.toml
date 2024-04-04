@@ -6,3 +6,11 @@ typeddicts_class_syntax.py:38:5 - error: TypedDict classes can contain only type
 typeddicts_class_syntax.py:44:32 - error: TypedDict does not support __init_subclass__ parameter "metaclass"
 typeddicts_class_syntax.py:49:32 - error: TypedDict does not support __init_subclass__ parameter "other"
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Unexpected errors ['typeddicts_class_syntax.py:29:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)']
+Line 33: Unexpected errors ['typeddicts_class_syntax.py:33:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)']
+Line 38: Unexpected errors ['typeddicts_class_syntax.py:38:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)']
+Line 44: Unexpected errors ['typeddicts_class_syntax.py:44:32 - error: TypedDict does not support __init_subclass__ parameter "metaclass"']
+Line 49: Unexpected errors ['typeddicts_class_syntax.py:49:32 - error: TypedDict does not support __init_subclass__ parameter "other"']
+"""

@@ -17,3 +17,21 @@ File "generics_defaults_specialization.py", line 58, in <module>: Invalid type a
 File "generics_defaults_specialization.py", line 65, in <module>: class Baz is not indexable [not-indexable]
 File "generics_defaults_specialization.py", line 65, in <module>: Invalid type annotation 'Baz[int, str]'  [invalid-annotation]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 15: Unexpected errors ['File "generics_defaults_specialization.py", line 15, in <module>: wrong arguments [invalid-typevar]']
+Line 16: Unexpected errors ['File "generics_defaults_specialization.py", line 16, in <module>: wrong arguments [invalid-typevar]']
+Line 25: Unexpected errors ['File "generics_defaults_specialization.py", line 25, in <module>: Invalid type annotation \\'SomethingWithNoDefaults[int, Any][bool]\\'  [invalid-annotation]']
+Line 26: Unexpected errors ['File "generics_defaults_specialization.py", line 26, in func1: SomethingWithNoDefaults[int, Any] [assert-type]']
+Line 27: Unexpected errors ['File "generics_defaults_specialization.py", line 27, in func1: SomethingWithNoDefaults[int, Any] [assert-type]']
+Line 30: Unexpected errors ['File "generics_defaults_specialization.py", line 30, in <module>: Invalid type annotation \\'SomethingWithNoDefaults[int, Any][bool, int]\\'  [invalid-annotation]']
+Line 38: Unexpected errors ['File "generics_defaults_specialization.py", line 38, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
+Line 42: Unexpected errors ['File "generics_defaults_specialization.py", line 42, in <module>: Invalid type annotation \\'SubclassMe[int, Any]\\'  [invalid-annotation]']
+Line 45: Unexpected errors ['File "generics_defaults_specialization.py", line 45, in <module>: class Bar is not indexable [not-indexable]']
+Line 46: Unexpected errors ['File "generics_defaults_specialization.py", line 46, in <module>: class Bar is not indexable [not-indexable]']
+Line 47: Unexpected errors ['File "generics_defaults_specialization.py", line 47, in <module>: class Bar is not indexable [not-indexable]']
+Line 53: Unexpected errors ['File "generics_defaults_specialization.py", line 53, in <module>: Any [assert-type]']
+Line 55: Unexpected errors ['File "generics_defaults_specialization.py", line 55, in <module>: class Foo is not indexable [not-indexable]']
+Line 58: Unexpected errors ['File "generics_defaults_specialization.py", line 58, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
+Line 65: Unexpected errors ['File "generics_defaults_specialization.py", line 65, in <module>: class Baz is not indexable [not-indexable]', 'File "generics_defaults_specialization.py", line 65, in <module>: Invalid type annotation \\'Baz[int, str]\\'  [invalid-annotation]']
+"""

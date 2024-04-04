@@ -1,7 +1,10 @@
 conformant = "Unsupported"
-notes = """
-Does not support `type` statement.
+notes = """Does not support `type` statement.
 """
 output = """
 aliases_type_statement.py:8:6 Parsing failure [404]: invalid syntax
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 8: Unexpected errors ['aliases_type_statement.py:8:6 Parsing failure [404]: invalid syntax']
 """

@@ -58,3 +58,23 @@ callables_protocol.py:311:27 - error: Expression of type "(*, path: str) -> str"
   Type "(*, path: str) -> str" cannot be assigned to type "(*, path: str = ...) -> str"
     Parameter "path" is missing default argument (reportAssignmentType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 35: Unexpected errors ['callables_protocol.py:35:7 - error: Expression of type "(*vals: bytes, max_items: int | None) -> list[bytes]" cannot be assigned to declared type "Proto1"']
+Line 36: Unexpected errors ['callables_protocol.py:36:7 - error: Expression of type "(*vals: bytes) -> list[bytes]" cannot be assigned to declared type "Proto1"']
+Line 37: Unexpected errors ['callables_protocol.py:37:7 - error: Expression of type "(*vals: bytes, max_len: str | None) -> list[bytes]" cannot be assigned to declared type "Proto1"']
+Line 67: Unexpected errors ['callables_protocol.py:67:7 - error: Expression of type "(*a: bytes) -> None" cannot be assigned to declared type "Proto2"']
+Line 68: Unexpected errors ['callables_protocol.py:68:7 - error: Expression of type "(*a: str, **b: str) -> None" cannot be assigned to declared type "Proto2"']
+Line 69: Unexpected errors ['callables_protocol.py:69:7 - error: Expression of type "(*a: bytes, **b: bytes) -> None" cannot be assigned to declared type "Proto2"']
+Line 70: Unexpected errors ['callables_protocol.py:70:7 - error: Expression of type "(**b: str) -> None" cannot be assigned to declared type "Proto2"']
+Line 97: Unexpected errors ['callables_protocol.py:97:16 - error: Expression of type "(x: int) -> None" cannot be assigned to declared type "Proto4"']
+Line 121: Unexpected errors ['callables_protocol.py:121:18 - error: Expression of type "(*vals: bytes, max_len: int | None = None) -> list[bytes]" cannot be assigned to declared type "NotProto6"']
+Line 169: Unexpected errors ['callables_protocol.py:169:7 - error: Expression of type "(x: int) -> Any" cannot be assigned to declared type "Proto8"']
+Line 186: Unexpected errors ['callables_protocol.py:186:33 - error: Cannot assign member "other_attribute" for type "Proto9[P@decorator1, R@decorator1]"']
+Line 187: Unexpected errors ['callables_protocol.py:187:15 - error: Cannot assign member "xxx" for type "Proto9[P@decorator1, R@decorator1]"']
+Line 197: Unexpected errors ['callables_protocol.py:197:16 - error: Cannot access member "other_attribute2" for type "Proto9[(x: int), str]"']
+Line 238: Unexpected errors ['callables_protocol.py:238:8 - error: Expression of type "(x: int, y: str, /) -> Any" cannot be assigned to declared type "Proto11"']
+Line 260: Unexpected errors ['callables_protocol.py:260:8 - error: Expression of type "(*args: Any, kwarg0: Any) -> None" cannot be assigned to declared type "Proto12"']
+Line 284: Unexpected errors ['callables_protocol.py:284:27 - error: Expression of type "(path: str) -> str" cannot be assigned to declared type "Proto13_Default"']
+Line 311: Unexpected errors ['callables_protocol.py:311:27 - error: Expression of type "(*, path: str) -> str" cannot be assigned to declared type "Proto14_Default"']
+"""

@@ -4,3 +4,7 @@ generics_typevartuple_callable.py:26:28 - error: Argument of type "tuple[Literal
   "Literal['']" is incompatible with "int"
   "Literal[0]" is incompatible with "str" (reportArgumentType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Unexpected errors ['generics_typevartuple_callable.py:26:28 - error: Argument of type "tuple[Literal[\\'\\'], Literal[0]]" cannot be assigned to parameter "args" of type "tuple[*Ts@__init__]" in function "__init__"']
+"""

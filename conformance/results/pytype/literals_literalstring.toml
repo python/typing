@@ -1,6 +1,5 @@
 conformant = "Unsupported"
-notes = """
-Does not understand `LiteralString` special form.
+notes = """Does not understand `LiteralString` special form.
 """
 output = """
 File "literals_literalstring.py", line 8, in <module>: typing.LiteralString not supported yet [not-supported-yet]
@@ -14,4 +13,16 @@ File "literals_literalstring.py", line 157, in func8: bad return type [bad-retur
 Called from (traceback):
   line 160, in current file
 File "literals_literalstring.py", line 162, in <module>: bool [assert-type]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 8: Unexpected errors ['File "literals_literalstring.py", line 8, in <module>: typing.LiteralString not supported yet [not-supported-yet]']
+Line 24: Unexpected errors ['File "literals_literalstring.py", line 24, in my_function: bad return type [bad-return-type]']
+Line 36: Unexpected errors ['File "literals_literalstring.py", line 36, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 37: Unexpected errors ['File "literals_literalstring.py", line 37, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 43: Unexpected errors ['File "literals_literalstring.py", line 43, in func1: Type annotation for x2 does not match type of assignment [annotation-type-mismatch]']
+Line 74: Unexpected errors ['File "literals_literalstring.py", line 74, in func2: Type annotation for x3 does not match type of assignment [annotation-type-mismatch]']
+Line 75: Unexpected errors ['File "literals_literalstring.py", line 75, in func2: Type annotation for x4 does not match type of assignment [annotation-type-mismatch]']
+Line 157: Unexpected errors ['File "literals_literalstring.py", line 157, in func8: bad return type [bad-return-type]']
+Line 162: Unexpected errors ['File "literals_literalstring.py", line 162, in <module>: bool [assert-type]']
 """

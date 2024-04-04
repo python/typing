@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject attempt to instantiate protocol class.
+notes = """Does not reject attempt to instantiate protocol class.
 Does not report some protocol type compatibility violations involving contravariance.
 """
 output = """
@@ -8,4 +7,11 @@ File "protocols_subtyping.py", line 38, in func1: Type annotation for v2 does no
 File "protocols_subtyping.py", line 55, in func2: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
 File "protocols_subtyping.py", line 83, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
 File "protocols_subtyping.py", line 84, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 38: Unexpected errors ['File "protocols_subtyping.py", line 38, in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]']
+Line 55: Unexpected errors ['File "protocols_subtyping.py", line 55, in func2: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]']
+Line 83: Unexpected errors ['File "protocols_subtyping.py", line 83, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 84: Unexpected errors ['File "protocols_subtyping.py", line 84, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
 """

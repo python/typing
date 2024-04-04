@@ -93,3 +93,27 @@ protocols_definition.py:341:22 - error: Expression of type "Concrete6_Bad3" cann
   "Concrete6_Bad3" is incompatible with protocol "Template6"
     "val1" is writable in protocol (reportAssignmentType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 30: Unexpected errors ['protocols_definition.py:30:12 - error: Argument of type "list[int]" cannot be assigned to parameter "things" of type "Iterable[SupportsClose]" in function "close_all"']
+Line 67: Unexpected errors ['protocols_definition.py:67:14 - error: Instance or class variables within a Protocol class must be explicitly declared within the class body']
+Line 114: Unexpected errors ['protocols_definition.py:114:22 - error: Expression of type "Concrete2_Bad1" cannot be assigned to declared type "Template2"']
+Line 115: Unexpected errors ['protocols_definition.py:115:22 - error: Expression of type "Concrete2_Bad2" cannot be assigned to declared type "Template2"']
+Line 116: Unexpected errors ['protocols_definition.py:116:22 - error: Expression of type "Concrete2_Bad3" cannot be assigned to declared type "Template2"']
+Line 117: Unexpected errors ['protocols_definition.py:117:22 - error: Expression of type "Concrete2_Bad4" cannot be assigned to declared type "Template2"']
+Line 156: Unexpected errors ['protocols_definition.py:156:22 - error: Expression of type "Concrete3_Bad1" cannot be assigned to declared type "Template3"']
+Line 157: Unexpected errors ['protocols_definition.py:157:22 - error: Expression of type "Concrete3_Bad2" cannot be assigned to declared type "Template3"']
+Line 158: Unexpected errors ['protocols_definition.py:158:22 - error: Expression of type "Concrete3_Bad3" cannot be assigned to declared type "Template3"']
+Line 159: Unexpected errors ['protocols_definition.py:159:22 - error: Expression of type "Concrete3_Bad4" cannot be assigned to declared type "Template3"']
+Line 160: Unexpected errors ['protocols_definition.py:160:22 - error: Expression of type "Concrete3_Bad5" cannot be assigned to declared type "Template3"']
+Line 218: Unexpected errors ['protocols_definition.py:218:22 - error: Expression of type "Concrete4_Bad1" cannot be assigned to declared type "Template4"']
+Line 219: Unexpected errors ['protocols_definition.py:219:22 - error: Expression of type "Concrete4_Bad2" cannot be assigned to declared type "Template4"']
+Line 285: Unexpected errors ['protocols_definition.py:285:22 - error: Expression of type "Concrete5_Bad1" cannot be assigned to declared type "Template5"']
+Line 286: Unexpected errors ['protocols_definition.py:286:22 - error: Expression of type "Concrete5_Bad2" cannot be assigned to declared type "Template5"']
+Line 287: Unexpected errors ['protocols_definition.py:287:22 - error: Expression of type "Concrete5_Bad3" cannot be assigned to declared type "Template5"']
+Line 288: Unexpected errors ['protocols_definition.py:288:22 - error: Expression of type "Concrete5_Bad4" cannot be assigned to declared type "Template5"']
+Line 289: Unexpected errors ['protocols_definition.py:289:22 - error: Expression of type "Concrete5_Bad5" cannot be assigned to declared type "Template5"']
+Line 339: Unexpected errors ['protocols_definition.py:339:22 - error: Expression of type "Concrete6_Bad1" cannot be assigned to declared type "Template6"']
+Line 340: Unexpected errors ['protocols_definition.py:340:22 - error: Expression of type "Concrete6_Bad2" cannot be assigned to declared type "Template6"']
+Line 341: Unexpected errors ['protocols_definition.py:341:22 - error: Expression of type "Concrete6_Bad3" cannot be assigned to declared type "Template6"']
+"""

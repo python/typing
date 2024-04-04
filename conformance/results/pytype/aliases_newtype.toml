@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject use of NewType in `isinstance` call.
+notes = """Does not reject use of NewType in `isinstance` call.
 Does not reject use of NewType in class definition statement.
 Does not report inconsistency between name of NewType and assigned identifier name.
 Does not reject use of NewType with generic class with TypeVar.
@@ -13,4 +12,11 @@ File "aliases_newtype.py", line 11, in <module>: Function UserId.__init__ was ca
 File "aliases_newtype.py", line 12, in <module>: Type annotation for u1 does not match type of assignment [annotation-type-mismatch]
 File "aliases_newtype.py", line 38, in <module>: class GoodNewType1 is not indexable [not-indexable]
 File "aliases_newtype.py", line 60, in <module>: Function typing.NewType expects 2 arg(s), got 3 [wrong-arg-count]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 11: Unexpected errors ['File "aliases_newtype.py", line 11, in <module>: Function UserId.__init__ was called with the wrong arguments [wrong-arg-types]']
+Line 12: Unexpected errors ['File "aliases_newtype.py", line 12, in <module>: Type annotation for u1 does not match type of assignment [annotation-type-mismatch]']
+Line 38: Unexpected errors ['File "aliases_newtype.py", line 38, in <module>: class GoodNewType1 is not indexable [not-indexable]']
+Line 60: Unexpected errors ['File "aliases_newtype.py", line 60, in <module>: Function typing.NewType expects 2 arg(s), got 3 [wrong-arg-count]']
 """

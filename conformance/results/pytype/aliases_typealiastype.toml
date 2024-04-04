@@ -1,6 +1,5 @@
 conformant = "Unsupported"
-notes = """
-Support for TypeAliasType is not implemented.
+notes = """Support for TypeAliasType is not implemented.
 """
 output = """
 File "aliases_typealiastype.py", line 5, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
@@ -12,4 +11,14 @@ File "aliases_typealiastype.py", line 22, in <module>: Invalid type annotation '
 File "aliases_typealiastype.py", line 50, in <module>: Name 'BadAlias4' is not defined [name-error]
 File "aliases_typealiastype.py", line 52, in <module>: Name 'BadAlias5' is not defined [name-error]
 File "aliases_typealiastype.py", line 54, in <module>: Name 'BadAlias7' is not defined [name-error]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 5: Unexpected errors ['File "aliases_typealiastype.py", line 5, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]', 'File "aliases_typealiastype.py", line 5, in <module>: Can\\'t find module \\'typing.TypeAliasType\\'. [import-error]']
+Line 11: Unexpected errors ['File "aliases_typealiastype.py", line 11, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
+Line 19: Unexpected errors ['File "aliases_typealiastype.py", line 19, in <module>: Name \\'GoodAlias4\\' is not defined [name-error]']
+Line 22: Unexpected errors ['File "aliases_typealiastype.py", line 22, in <module>: Name \\'GoodAlias5\\' is not defined [name-error]', 'File "aliases_typealiastype.py", line 22, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
+Line 50: Unexpected errors ['File "aliases_typealiastype.py", line 50, in <module>: Name \\'BadAlias4\\' is not defined [name-error]']
+Line 52: Unexpected errors ['File "aliases_typealiastype.py", line 52, in <module>: Name \\'BadAlias5\\' is not defined [name-error]']
+Line 54: Unexpected errors ['File "aliases_typealiastype.py", line 54, in <module>: Name \\'BadAlias7\\' is not defined [name-error]']
 """

@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not allow ClassVar to be nested within Annotated.
+notes = """Does not allow ClassVar to be nested within Annotated.
 Does not allow Final to be nested within Annotated.
 Does not allow Required and NotRequired to be nested within Annotated.
 Does not reject type[T] compatibility for type alias defined with Annotated.
@@ -31,4 +30,29 @@ qualifiers_annotated.py:110: error: Required[] can be only used in a TypedDict d
 qualifiers_annotated.py:112: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]
 qualifiers_annotated.py:119: error: Cannot redefine "T" as a type variable  [misc]
 qualifiers_annotated.py:119: error: Invalid assignment target  [misc]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 43: Unexpected errors ['qualifiers_annotated.py:43: error: Bracketed expression "[...]" is not valid as a type  [valid-type]']
+Line 44: Unexpected errors ['qualifiers_annotated.py:44: error: Syntax error in type annotation  [syntax]']
+Line 45: Unexpected errors ['qualifiers_annotated.py:45: error: Invalid type comment or annotation  [valid-type]']
+Line 46: Unexpected errors ['qualifiers_annotated.py:46: error: Invalid type comment or annotation  [valid-type]']
+Line 47: Unexpected errors ['qualifiers_annotated.py:47: error: Invalid type comment or annotation  [valid-type]']
+Line 48: Unexpected errors ['qualifiers_annotated.py:48: error: Invalid type comment or annotation  [valid-type]']
+Line 49: Unexpected errors ['qualifiers_annotated.py:49: error: Invalid type comment or annotation  [valid-type]']
+Line 50: Unexpected errors ['qualifiers_annotated.py:50: error: Name "var1" is not defined  [name-defined]']
+Line 51: Unexpected errors ['qualifiers_annotated.py:51: error: Invalid type: try using Literal[True] instead?  [valid-type]']
+Line 52: Unexpected errors ['qualifiers_annotated.py:52: error: Invalid type: try using Literal[1] instead?  [valid-type]']
+Line 53: Unexpected errors ['qualifiers_annotated.py:53: error: Invalid type comment or annotation  [valid-type]']
+Line 54: Unexpected errors ['qualifiers_annotated.py:54: error: Invalid type comment or annotation  [valid-type]']
+Line 64: Unexpected errors ['qualifiers_annotated.py:64: error: Annotated[...] must have exactly one type argument and at least one annotation  [valid-type]']
+Line 76: Unexpected errors ['qualifiers_annotated.py:76: error: Incompatible types in assignment (expression has type "object", variable has type "type[Any]")  [assignment]']
+Line 84: Unexpected errors ['qualifiers_annotated.py:84: error: Argument 1 to "func4" has incompatible type "object"; expected "type[Never]"  [arg-type]']
+Line 91: Unexpected errors ['qualifiers_annotated.py:91: error: "<typing special form>" not callable  [operator]']
+Line 92: Unexpected errors ['qualifiers_annotated.py:92: error: "object" not callable  [operator]']
+Line 98: Unexpected errors ['qualifiers_annotated.py:98: error: Invalid type: ClassVar nested inside other type  [valid-type]']
+Line 100: Unexpected errors ['qualifiers_annotated.py:100: error: Final can be only used as an outermost qualifier in a variable annotation  [valid-type]']
+Line 110: Unexpected errors ['qualifiers_annotated.py:110: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+Line 112: Unexpected errors ['qualifiers_annotated.py:112: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
+Line 119: Unexpected errors ['qualifiers_annotated.py:119: error: Cannot redefine "T" as a type variable  [misc]', 'qualifiers_annotated.py:119: error: Invalid assignment target  [misc]']
 """

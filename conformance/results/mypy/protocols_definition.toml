@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not detect protocol mismatch if concrete method is missing annotations.
+notes = """Does not detect protocol mismatch if concrete method is missing annotations.
 Does not detect protocol mismatch if concrete method's parameters are position-only.
 """
 output = """
@@ -51,4 +50,25 @@ protocols_definition.py:340: error: Incompatible types in assignment (expression
 protocols_definition.py:340: note: Protocol member Template6.val1 expected settable variable, got read-only attribute
 protocols_definition.py:341: error: Incompatible types in assignment (expression has type "Concrete6_Bad3", variable has type "Template6")  [assignment]
 protocols_definition.py:341: note: Protocol member Template6.val1 expected settable variable, got read-only attribute
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 30: Unexpected errors ['protocols_definition.py:30: error: List item 0 has incompatible type "int"; expected "SupportsClose"  [list-item]']
+Line 67: Unexpected errors ['protocols_definition.py:67: error: Protocol members cannot be defined via assignment to self  [misc]', 'protocols_definition.py:67: error: "Template" has no attribute "temp"  [attr-defined]']
+Line 114: Unexpected errors ['protocols_definition.py:114: error: Incompatible types in assignment (expression has type "Concrete2_Bad1", variable has type "Template2")  [assignment]']
+Line 115: Unexpected errors ['protocols_definition.py:115: error: Incompatible types in assignment (expression has type "Concrete2_Bad2", variable has type "Template2")  [assignment]']
+Line 116: Unexpected errors ['protocols_definition.py:116: error: Incompatible types in assignment (expression has type "Concrete2_Bad3", variable has type "Template2")  [assignment]']
+Line 117: Unexpected errors ['protocols_definition.py:117: error: Incompatible types in assignment (expression has type "Concrete2_Bad4", variable has type "Template2")  [assignment]']
+Line 156: Unexpected errors ['protocols_definition.py:156: error: Incompatible types in assignment (expression has type "Concrete3_Bad1", variable has type "Template3")  [assignment]']
+Line 157: Unexpected errors ['protocols_definition.py:157: error: Incompatible types in assignment (expression has type "Concrete3_Bad2", variable has type "Template3")  [assignment]']
+Line 158: Unexpected errors ['protocols_definition.py:158: error: Incompatible types in assignment (expression has type "Concrete3_Bad3", variable has type "Template3")  [assignment]']
+Line 159: Unexpected errors ['protocols_definition.py:159: error: Incompatible types in assignment (expression has type "Concrete3_Bad4", variable has type "Template3")  [assignment]']
+Line 160: Unexpected errors ['protocols_definition.py:160: error: Incompatible types in assignment (expression has type "Concrete3_Bad5", variable has type "Template3")  [assignment]']
+Line 218: Unexpected errors ['protocols_definition.py:218: error: Incompatible types in assignment (expression has type "Concrete4_Bad1", variable has type "Template4")  [assignment]']
+Line 219: Unexpected errors ['protocols_definition.py:219: error: Incompatible types in assignment (expression has type "Concrete4_Bad2", variable has type "Template4")  [assignment]']
+Line 287: Unexpected errors ['protocols_definition.py:287: error: Incompatible types in assignment (expression has type "Concrete5_Bad3", variable has type "Template5")  [assignment]']
+Line 289: Unexpected errors ['protocols_definition.py:289: error: Incompatible types in assignment (expression has type "Concrete5_Bad5", variable has type "Template5")  [assignment]']
+Line 339: Unexpected errors ['protocols_definition.py:339: error: Incompatible types in assignment (expression has type "Concrete6_Bad1", variable has type "Template6")  [assignment]']
+Line 340: Unexpected errors ['protocols_definition.py:340: error: Incompatible types in assignment (expression has type "Concrete6_Bad2", variable has type "Template6")  [assignment]']
+Line 341: Unexpected errors ['protocols_definition.py:341: error: Incompatible types in assignment (expression has type "Concrete6_Bad3", variable has type "Template6")  [assignment]']
 """

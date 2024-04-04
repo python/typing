@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Incorrectly reports error for type alias defined with ParamSpec.
+notes = """Incorrectly reports error for type alias defined with ParamSpec.
 Incorrectly rejects some valid type aliases when used in annotations.
 Incorrectly evaluates generic type alias with ParamSpec with missing type argument.
 Does not report some illegal annotation forms as invalid type aliases.
@@ -35,4 +34,26 @@ aliases_explicit.py:90:0 Incompatible variable type [9]: BadTypeAlias12 is decla
 aliases_explicit.py:91:0 Incompatible variable type [9]: BadTypeAlias13 is declared to have type `TA` but is used as type `str`.
 aliases_explicit.py:97:16 Call error [29]: `TA` is not a function.
 aliases_explicit.py:101:5 Call error [29]: `TA` is not a function.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 67: Expected 1 errors
+Line 68: Expected 1 errors
+Line 69: Expected 1 errors
+Line 70: Expected 1 errors
+Line 71: Expected 1 errors
+Line 79: Expected 1 errors
+Line 100: Expected 1 errors
+Line 102: Expected 1 errors
+Line 23: Unexpected errors ['aliases_explicit.py:23:0 Incompatible variable type [9]: GoodTypeAlias9 is declared to have type `TA` but is used as type `Type[typing.Callable[..., Variable[$synthetic_attribute_resolution_variable]]]`.', 'aliases_explicit.py:23:30 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[object, TypeVar]`.']
+Line 26: Unexpected errors ['aliases_explicit.py:26:0 Incompatible variable type [9]: GoodTypeAlias12 is declared to have type `TA` but is used as type `Type[typing.Callable[..., Variable[$synthetic_attribute_resolution_variable]]]`.', 'aliases_explicit.py:26:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[ParamSpec, None]`.']
+Line 41: Unexpected errors ['aliases_explicit.py:41:8 Undefined or invalid type [11]: Annotation `GoodTypeAlias9` is not defined as a type.']
+Line 44: Unexpected errors ['aliases_explicit.py:44:9 Undefined or invalid type [11]: Annotation `GoodTypeAlias12` is not defined as a type.']
+Line 51: Unexpected errors ['aliases_explicit.py:51:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `UnionType`.']
+Line 53: Unexpected errors ['aliases_explicit.py:53:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.']
+Line 54: Unexpected errors ['aliases_explicit.py:54:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[int], Type[int], Type[str]]`.']
+Line 57: Unexpected errors ['aliases_explicit.py:57:29 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[List[Type[Union[int, str]]], None]`.']
+Line 60: Unexpected errors ['aliases_explicit.py:60:30 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[typing.Any, None]`.']
+Line 62: Unexpected errors ['aliases_explicit.py:62:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `UnionType`.']
+Line 97: Unexpected errors ['aliases_explicit.py:97:16 Call error [29]: `TA` is not a function.']
 """

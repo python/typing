@@ -16,3 +16,14 @@ typeddicts_readonly.py:55: error: Variable "typing_extensions.ReadOnly" is not v
 typeddicts_readonly.py:55: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
 typeddicts_readonly.py:56: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 18: Unexpected errors ['typeddicts_readonly.py:18: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']
+Line 25: Unexpected errors ['typeddicts_readonly.py:25: error: "ReadOnly?[builtins.list[builtins.str]]" has no attribute "append"  [attr-defined]']
+Line 31: Unexpected errors ['typeddicts_readonly.py:31: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']
+Line 37: Unexpected errors ['typeddicts_readonly.py:37: error: "ReadOnly?[builtins.list[builtins.str]]" has no attribute "append"  [attr-defined]']
+Line 45: Unexpected errors ['typeddicts_readonly.py:45: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly.py:45: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+Line 46: Unexpected errors ['typeddicts_readonly.py:46: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly.py:46: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
+Line 55: Unexpected errors ['typeddicts_readonly.py:55: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']
+Line 56: Unexpected errors ['typeddicts_readonly.py:56: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
+"""

@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject use of NewType in `isinstance` call.
+notes = """Does not reject use of NewType in `isinstance` call.
 Does not reject use of NewType in class definition statement.
 Does not report inconsistency between name of NewType and assigned identifier name.
 Does not reject use of NewType with generic class with TypeVar.
@@ -16,4 +15,14 @@ aliases_newtype.py:44:37 Invalid inheritance [39]: `typing.Union[int, str]` is n
 aliases_newtype.py:51:37 Invalid inheritance [39]: `typing_extensions.Literal[7]` is not a valid parent class.
 aliases_newtype.py:60:14 Too many arguments [19]: Call `NewType.__init__` expects 2 positional arguments, 3 were provided.
 aliases_newtype.py:62:37 Invalid inheritance [39]: `typing.Any` is not a valid parent class.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 11: Unexpected errors ['aliases_newtype.py:11:7 Incompatible parameter type [6]: In call `UserId.__init__`, for 1st positional argument, expected `int` but got `str`.']
+Line 12: Unexpected errors ['aliases_newtype.py:12:0 Incompatible variable type [9]: u1 is declared to have type `UserId` but is used as type `int`.']
+Line 38: Unexpected errors ['aliases_newtype.py:38:5 Invalid type parameters [24]: Non-generic type `GoodNewType1` cannot take parameters.']
+Line 44: Unexpected errors ['aliases_newtype.py:44:37 Invalid inheritance [39]: `typing.Union[int, str]` is not a valid parent class.']
+Line 51: Unexpected errors ['aliases_newtype.py:51:37 Invalid inheritance [39]: `typing_extensions.Literal[7]` is not a valid parent class.']
+Line 60: Unexpected errors ['aliases_newtype.py:60:14 Too many arguments [19]: Call `NewType.__init__` expects 2 positional arguments, 3 were provided.']
+Line 62: Unexpected errors ['aliases_newtype.py:62:37 Invalid inheritance [39]: `typing.Any` is not a valid parent class.']
 """

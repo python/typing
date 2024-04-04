@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Reports errors for protocol static method with "..." implementation.
+notes = """Reports errors for protocol static method with "..." implementation.
 Does not report error when instance variable is set through "self" access in protocol class.
 Does not report protocol mismatch when concrete class has attribute with covariant type and protocol attribute is mutable.
 Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar.
@@ -24,4 +23,15 @@ File "protocols_definition.py", line 156, in <module>: Type annotation for v3_ba
 File "protocols_definition.py", line 159, in <module>: Type annotation for v3_bad4 does not match type of assignment [annotation-type-mismatch]
 File "protocols_definition.py", line 218, in <module>: Type annotation for v4_bad1 does not match type of assignment [annotation-type-mismatch]
 File "protocols_definition.py", line 219, in <module>: Type annotation for v4_bad2 does not match type of assignment [annotation-type-mismatch]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 30: Unexpected errors ['File "protocols_definition.py", line 30, in <module>: Function close_all was called with the wrong arguments [wrong-arg-types]']
+Line 45: Unexpected errors ['File "protocols_definition.py", line 45, in third: bad return type [bad-return-type]']
+Line 114: Unexpected errors ['File "protocols_definition.py", line 114, in <module>: Type annotation for v2_bad1 does not match type of assignment [annotation-type-mismatch]']
+Line 115: Unexpected errors ['File "protocols_definition.py", line 115, in <module>: Type annotation for v2_bad2 does not match type of assignment [annotation-type-mismatch]']
+Line 156: Unexpected errors ['File "protocols_definition.py", line 156, in <module>: Type annotation for v3_bad1 does not match type of assignment [annotation-type-mismatch]']
+Line 159: Unexpected errors ['File "protocols_definition.py", line 159, in <module>: Type annotation for v3_bad4 does not match type of assignment [annotation-type-mismatch]']
+Line 218: Unexpected errors ['File "protocols_definition.py", line 218, in <module>: Type annotation for v4_bad1 does not match type of assignment [annotation-type-mismatch]']
+Line 219: Unexpected errors ['File "protocols_definition.py", line 219, in <module>: Type annotation for v4_bad2 does not match type of assignment [annotation-type-mismatch]']
 """

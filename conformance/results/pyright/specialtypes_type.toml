@@ -21,3 +21,15 @@ specialtypes_type.py:145:5 - error: Cannot access member "unknown" for type "TA3
 specialtypes_type.py:146:5 - error: Cannot access member "unknown" for type "TA4"
   Member "unknown" is unknown (reportAttributeAccessIssue)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 56: Unexpected errors ['specialtypes_type.py:56:7 - error: Argument of type "type[TeamUser]" cannot be assigned to parameter "user_class" of type "type[BasicUser] | type[ProUser]" in function "func4"']
+Line 70: Unexpected errors ['specialtypes_type.py:70:7 - error: Argument of type "type[Callable]" cannot be assigned to parameter "x" of type "type[T@func5]" in function "func5" (reportArgumentType)']
+Line 76: Unexpected errors ['specialtypes_type.py:76:22 - error: Too many type arguments provided for "type"; expected 1 but received 2']
+Line 117: Unexpected errors ['specialtypes_type.py:117:7 - error: Cannot access member "unknown" for type "type[object]"']
+Line 120: Unexpected errors ['specialtypes_type.py:120:7 - error: Cannot access member "unknown" for type "type[object]"']
+Line 143: Unexpected errors ['specialtypes_type.py:143:5 - error: Cannot access member "unknown" for type "TA1"']
+Line 144: Unexpected errors ['specialtypes_type.py:144:5 - error: Cannot access member "unknown" for type "TA2"']
+Line 145: Unexpected errors ['specialtypes_type.py:145:5 - error: Cannot access member "unknown" for type "TA3"']
+Line 146: Unexpected errors ['specialtypes_type.py:146:5 - error: Cannot access member "unknown" for type "TA4"']
+"""

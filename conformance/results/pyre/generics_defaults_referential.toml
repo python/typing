@@ -17,3 +17,15 @@ generics_defaults_referential.py:98:10 Undefined or invalid type [11]: Annotatio
 generics_defaults_referential.py:102:22 Undefined attribute [16]: `Bar` has no attribute `__getitem__`.
 generics_defaults_referential.py:102:36 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `object`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 20: Unexpected errors ['generics_defaults_referential.py:20:12 Undefined or invalid type [11]: Annotation `StartT` is not defined as a type.', 'generics_defaults_referential.py:20:12 Undefined or invalid type [11]: Annotation `StepT` is not defined as a type.', 'generics_defaults_referential.py:20:12 Undefined or invalid type [11]: Annotation `StopT` is not defined as a type.']
+Line 23: Unexpected errors ['generics_defaults_referential.py:23:24 Undefined attribute [16]: `slice` has no attribute `__getitem__`.']
+Line 31: Unexpected errors ['generics_defaults_referential.py:31:10 Undefined or invalid type [11]: Annotation `DefaultStrT` is not defined as a type.', 'generics_defaults_referential.py:31:10 Undefined or invalid type [11]: Annotation `T2` is not defined as a type.']
+Line 35: Unexpected errors ['generics_defaults_referential.py:35:24 Undefined attribute [16]: `Foo` has no attribute `__getitem__`.']
+Line 50: Unexpected errors ['generics_defaults_referential.py:50:11 Undefined or invalid type [11]: Annotation `S1` is not defined as a type.', 'generics_defaults_referential.py:50:11 Undefined or invalid type [11]: Annotation `S2` is not defined as a type.']
+Line 57: Unexpected errors ['generics_defaults_referential.py:57:13 Undefined or invalid type [11]: Annotation `Start2T` is not defined as a type.', 'generics_defaults_referential.py:57:13 Undefined or invalid type [11]: Annotation `Stop2T` is not defined as a type.']
+Line 95: Unexpected errors ['generics_defaults_referential.py:95:52 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.']
+Line 98: Unexpected errors ['generics_defaults_referential.py:98:10 Undefined or invalid type [11]: Annotation `ListDefaultT` is not defined as a type.', 'generics_defaults_referential.py:98:10 Undefined or invalid type [11]: Annotation `Z1` is not defined as a type.']
+Line 102: Unexpected errors ['generics_defaults_referential.py:102:22 Undefined attribute [16]: `Bar` has no attribute `__getitem__`.', 'generics_defaults_referential.py:102:36 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `object`.']
+"""

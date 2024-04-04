@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-False positives in examples using constrained type variables.
+notes = """False positives in examples using constrained type variables.
 False negative in custom map example.
 False positive using `iter`.
 False negative for generic metaclass.
@@ -15,4 +14,15 @@ generics_basic.py:48:0 Invalid type [31]: Expression `Variable[BadConstraint2 <:
 generics_basic.py:59:14 Incompatible parameter type [6]: In call `concat`, for 2nd positional argument, expected `Variable[AnyStr <: [str, bytes]]` but got `bytes`.
 generics_basic.py:107:0 Duplicate type variables [59]: Duplicate type variable `T` in Generic[...].
 generics_basic.py:161:25 Undefined attribute [16]: `typing.Iterator` has no attribute `__getitem__`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 31: Unexpected errors ['generics_basic.py:31:4 Incompatible return type [7]: Expected `Variable[AnyStr <: [str, bytes]]` but got `bytes`.', 'generics_basic.py:31:15 Incompatible parameter type [6]: In call `bytes.__add__`, for 1st positional argument, expected `Union[array[typing.Any], bytearray, bytes, _CData, memoryview, mmap, PickleBuffer]` but got `Variable[AnyStr <: [str, bytes]]`.']
+Line 36: Unexpected errors ['generics_basic.py:36:14 Incompatible parameter type [6]: In call `concat`, for 2nd positional argument, expected `Variable[AnyStr <: [str, bytes]]` but got `bytes`.']
+Line 37: Unexpected errors ['generics_basic.py:37:14 Incompatible parameter type [6]: In call `concat`, for 2nd positional argument, expected `Variable[AnyStr <: [str, bytes]]` but got `str`.']
+Line 44: Unexpected errors ["generics_basic.py:44:0 Invalid type [31]: TypeVar can't have a single explicit constraint. Did you mean `bound=str`?"]
+Line 48: Unexpected errors ['generics_basic.py:48:0 Invalid type [31]: Expression `Variable[BadConstraint2 <: [str, Variable[generics_basic.T]]]` is not a valid type. Type variables cannot contain other type variables in their constraints.']
+Line 59: Unexpected errors ['generics_basic.py:59:14 Incompatible parameter type [6]: In call `concat`, for 2nd positional argument, expected `Variable[AnyStr <: [str, bytes]]` but got `bytes`.']
+Line 107: Unexpected errors ['generics_basic.py:107:0 Duplicate type variables [59]: Duplicate type variable `T` in Generic[...].']
+Line 161: Unexpected errors ['generics_basic.py:161:25 Undefined attribute [16]: `typing.Iterator` has no attribute `__getitem__`.']
 """

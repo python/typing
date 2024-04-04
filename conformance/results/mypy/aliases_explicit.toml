@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject specialization of type alias that has already been implicitly specialized.
+notes = """Does not reject specialization of type alias that has already been implicitly specialized.
 """
 output = """
 aliases_explicit.py:67: error: Bad number of arguments for type alias, expected 0, given 1  [type-arg]
@@ -25,4 +24,9 @@ aliases_explicit.py:90: error: Function "list" could always be true in boolean c
 aliases_explicit.py:91: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_explicit.py:101: error: "<typing special form>" not callable  [operator]
 aliases_explicit.py:102: error: Bad number of arguments for type alias, expected 0, given 1  [type-arg]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 90: Expected 1 errors, got 2 (['aliases_explicit.py:90: error: Invalid type alias: expression is not a valid type  [valid-type]', 'aliases_explicit.py:90: error: Function "list" could always be true in boolean context  [truthy-function]'])
+Line 100: Expected 1 errors
 """

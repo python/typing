@@ -29,3 +29,27 @@ aliases_typealiastype.py:70:42 - error: Expected expression
 aliases_typealiastype.py:70:42 - error: Tuple expression not allowed in type annotation
   Use tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 32: Unexpected errors ['aliases_typealiastype.py:32:18 - error: Cannot access member "other_attrib" for type "TypeAliasType"']
+Line 40: Unexpected errors ['aliases_typealiastype.py:40:5 - error: Could not specialize type "GoodAlias5[S@GoodAlias5, TStr@GoodAlias5, P@GoodAlias5, Ts@GoodAlias5]"']
+Line 44: Unexpected errors ['aliases_typealiastype.py:44:23 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)']
+Line 46: Unexpected errors ['aliases_typealiastype.py:46:45 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)']
+Line 48: Unexpected errors ['aliases_typealiastype.py:48:35 - error: Type parameter list must be a tuple containing only TypeVar, TypeVarTuple, or ParamSpec']
+Line 50: Unexpected errors ['aliases_typealiastype.py:50:40 - error: Type alias "BadAlias4" cannot use itself in its definition (reportGeneralTypeIssues)']
+Line 52: Unexpected errors ['aliases_typealiastype.py:52:18 - error: Type alias "BadAlias5" cannot use itself in its definition (reportGeneralTypeIssues)']
+Line 54: Unexpected errors ['aliases_typealiastype.py:54:40 - error: Type alias "BadAlias6" cannot use itself in its definition (reportGeneralTypeIssues)']
+Line 58: Unexpected errors ['aliases_typealiastype.py:58:40 - error: Call expression not allowed in type expression (reportInvalidTypeForm)']
+Line 59: Unexpected errors ['aliases_typealiastype.py:59:40 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)']
+Line 60: Unexpected errors ['aliases_typealiastype.py:60:42 - error: Expected type expression but received "tuple[tuple[type[int], type[str]]]" (reportGeneralTypeIssues)']
+Line 61: Unexpected errors ['aliases_typealiastype.py:61:42 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)']
+Line 62: Unexpected errors ['aliases_typealiastype.py:62:42 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)']
+Line 63: Unexpected errors ['aliases_typealiastype.py:63:42 - error: Call expression not allowed in type expression (reportInvalidTypeForm)']
+Line 64: Unexpected errors ['aliases_typealiastype.py:64:42 - error: List expression not allowed in type annotation', 'aliases_typealiastype.py:64:42 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)']
+Line 65: Unexpected errors ['aliases_typealiastype.py:65:42 - error: Ternary expression not allowed in type annotation (reportInvalidTypeForm)']
+Line 66: Unexpected errors ['aliases_typealiastype.py:66:42 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
+Line 67: Unexpected errors ['aliases_typealiastype.py:67:42 - error: Expected type expression but received "Literal[True]" (reportGeneralTypeIssues)']
+Line 68: Unexpected errors ['aliases_typealiastype.py:68:42 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)']
+Line 69: Unexpected errors ['aliases_typealiastype.py:69:42 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)']
+Line 70: Unexpected errors ['aliases_typealiastype.py:70:42 - error: Expected expression', 'aliases_typealiastype.py:70:42 - error: Tuple expression not allowed in type annotation']
+"""

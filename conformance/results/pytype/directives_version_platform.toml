@@ -1,10 +1,15 @@
 conformant = "Pass"
-notes = """
-Does not understand three-element form of sys.version checks.
+notes = """Does not understand three-element form of sys.version checks.
 Does not understand os.name checks.
 """
 output = """
 File "directives_version_platform.py", line 27, in <module>: Type annotation for val3 does not match type of assignment [annotation-type-mismatch]
 File "directives_version_platform.py", line 40, in <module>: Type annotation for val7 does not match type of assignment [annotation-type-mismatch]
 File "directives_version_platform.py", line 45, in <module>: Type annotation for val8 does not match type of assignment [annotation-type-mismatch]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 27: Unexpected errors ['File "directives_version_platform.py", line 27, in <module>: Type annotation for val3 does not match type of assignment [annotation-type-mismatch]']
+Line 40: Unexpected errors ['File "directives_version_platform.py", line 40, in <module>: Type annotation for val7 does not match type of assignment [annotation-type-mismatch]']
+Line 45: Unexpected errors ['File "directives_version_platform.py", line 45, in <module>: Type annotation for val8 does not match type of assignment [annotation-type-mismatch]']
 """

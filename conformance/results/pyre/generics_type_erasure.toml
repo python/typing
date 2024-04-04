@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Doesn't allow using Node[Any] in assert_type expression.
+notes = """Doesn't allow using Node[Any] in assert_type expression.
 False negatives on instance attribute access on the type.
 """
 output = """
@@ -8,4 +7,11 @@ generics_type_erasure.py:11:0 Uninitialized attribute [13]: Attribute `label` is
 generics_type_erasure.py:17:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[T]]` but got `object`.
 generics_type_erasure.py:36:15 Incompatible parameter type [6]: In call `Node.__init__`, for 1st positional argument, expected `Optional[int]` but got `str`.
 generics_type_erasure.py:38:15 Incompatible parameter type [6]: In call `Node.__init__`, for 1st positional argument, expected `Optional[str]` but got `int`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 11: Unexpected errors ['generics_type_erasure.py:11:0 Uninitialized attribute [13]: Attribute `label` is declared in class `Node` to have type `Variable[T]` but is never initialized.']
+Line 17: Unexpected errors ['generics_type_erasure.py:17:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[T]]` but got `object`.']
+Line 36: Unexpected errors ['generics_type_erasure.py:36:15 Incompatible parameter type [6]: In call `Node.__init__`, for 1st positional argument, expected `Optional[int]` but got `str`.']
+Line 38: Unexpected errors ['generics_type_erasure.py:38:15 Incompatible parameter type [6]: In call `Node.__init__`, for 1st positional argument, expected `Optional[str]` but got `int`.']
 """

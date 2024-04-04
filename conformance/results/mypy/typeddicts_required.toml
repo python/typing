@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not support nesting of `Annotated` and `Required` or `NotRequired`.
+notes = """Does not support nesting of `Annotated` and `Required` or `NotRequired`.
 """
 output = """
 typeddicts_required.py:12: error: Required[] can be only used in a TypedDict definition  [valid-type]
@@ -9,4 +8,13 @@ typeddicts_required.py:59: error: Required[] can be only used in a TypedDict def
 typeddicts_required.py:60: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]
 typeddicts_required.py:65: error: Required[] can be only used in a TypedDict definition  [valid-type]
 typeddicts_required.py:67: error: Required[] can be only used in a TypedDict definition  [valid-type]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 12: Unexpected errors ['typeddicts_required.py:12: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+Line 16: Unexpected errors ['typeddicts_required.py:16: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
+Line 59: Unexpected errors ['typeddicts_required.py:59: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+Line 60: Unexpected errors ['typeddicts_required.py:60: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
+Line 65: Unexpected errors ['typeddicts_required.py:65: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+Line 67: Unexpected errors ['typeddicts_required.py:67: error: Required[] can be only used in a TypedDict definition  [valid-type]']
 """

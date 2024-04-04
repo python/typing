@@ -10,3 +10,9 @@ typeddicts_usage.py:35:22 - error: Second argument to "isinstance" must be a cla
   TypedDict class not allowed for instance or class checks (reportArgumentType)
 typeddicts_usage.py:40:24 - error: "TypedDict" cannot be used in this context
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 28: Unexpected errors ['typeddicts_usage.py:28:18 - error: Expression of type "dict[str, str | int]" cannot be assigned to declared type "Movie"']
+Line 35: Unexpected errors ['typeddicts_usage.py:35:22 - error: Second argument to "isinstance" must be a class or tuple of classes']
+Line 40: Unexpected errors ['typeddicts_usage.py:40:24 - error: "TypedDict" cannot be used in this context']
+"""

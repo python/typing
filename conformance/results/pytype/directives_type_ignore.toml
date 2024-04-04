@@ -1,8 +1,11 @@
 conformant = "Partial"
-notes = """
-Does not honor "# type: ignore" comment if comment includes additional text.
+notes = """Does not honor "# type: ignore" comment if comment includes additional text.
 """
 output = """
 File "directives_type_ignore.py", line 11, in <module>: Type annotation for y does not match type of assignment [annotation-type-mismatch]
 File "directives_type_ignore.py", line 11: Stray type comment: ignore - additional stuff [ignored-type-comment]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 11: Unexpected errors ['File "directives_type_ignore.py", line 11, in <module>: Type annotation for y does not match type of assignment [annotation-type-mismatch]', 'File "directives_type_ignore.py", line 11: Stray type comment: ignore - additional stuff [ignored-type-comment]']
 """

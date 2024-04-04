@@ -77,7 +77,7 @@ class ClassC:
 class ClassD:
     ClassC: "ClassC"  # OK
 
-    ClassF: "ClassF"  # Type error: circular reference
+    ClassF: "ClassF"  # E: circular reference
 
     str: "str" = ""  # OK
 
@@ -86,7 +86,7 @@ class ClassD:
 
     x: "int" = 0  # OK
 
-    y: int = 0  # Type error: Refers to local int, which isn't a legal type expression
+    y: int = 0  # E: Refers to local int, which isn't a legal type expression
 
 
 assert_type(ClassD.str, str)

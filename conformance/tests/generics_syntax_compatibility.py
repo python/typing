@@ -11,7 +11,7 @@ from typing import TypeVar
 K = TypeVar("K")
 
 
-class ClassA[V](dict[K, V]):  # Type error: traditional TypeVar not allowed here
+class ClassA[V](dict[K, V]):  # E: traditional TypeVar not allowed here
     ...
 
 

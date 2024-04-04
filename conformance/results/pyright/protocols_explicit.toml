@@ -19,3 +19,13 @@ protocols_explicit.py:129:6 - error: Cannot instantiate abstract class "Concrete
 protocols_explicit.py:159:7 - error: Cannot instantiate abstract class "Concrete7A"
   "Proto7.method1" is not implemented (reportAbstractUsage)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 27: Unexpected errors ['protocols_explicit.py:27:16 - error: Method "draw" cannot be called because it is abstract and unimplemented (reportAbstractUsage)']
+Line 56: Unexpected errors ['protocols_explicit.py:56:32 - error: Cannot assign member "rgb" for type "Point*"']
+Line 59: Unexpected errors ['protocols_explicit.py:59:5 - error: Cannot instantiate abstract class "Point"']
+Line 86: Unexpected errors ['protocols_explicit.py:86:6 - error: Cannot instantiate abstract class "Concrete1"']
+Line 104: Unexpected errors ['protocols_explicit.py:104:6 - error: Cannot instantiate abstract class "Concrete3"']
+Line 129: Unexpected errors ['protocols_explicit.py:129:6 - error: Cannot instantiate abstract class "Concrete5"']
+Line 159: Unexpected errors ['protocols_explicit.py:159:7 - error: Cannot instantiate abstract class "Concrete7A"']
+"""

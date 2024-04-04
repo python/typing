@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not report out-of-range index access with named tuple instance.
+notes = """Does not report out-of-range index access with named tuple instance.
 Does not reject attempt to delete named tuple field by name.
 Does not reject attempt to delete named tuple field by index.
 Incorrectly handles subclasses of named tuples that add more attributes.
@@ -11,4 +10,12 @@ namedtuples_usage.py:41:0 Undefined attribute [16]: `Point` has no attribute `__
 namedtuples_usage.py:52:0 Unable to unpack [23]: Unable to unpack 3 values, 2 were expected.
 namedtuples_usage.py:53:0 Unable to unpack [23]: Unable to unpack 3 values, 4 were expected.
 namedtuples_usage.py:61:0 Unable to unpack [23]: Unable to unpack 0 values, 3 were expected.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 40: Unexpected errors ['namedtuples_usage.py:40:0 Invalid assignment [41]: Cannot reassign final attribute `p.x`.']
+Line 41: Unexpected errors ['namedtuples_usage.py:41:0 Undefined attribute [16]: `Point` has no attribute `__setitem__`.']
+Line 52: Unexpected errors ['namedtuples_usage.py:52:0 Unable to unpack [23]: Unable to unpack 3 values, 2 were expected.']
+Line 53: Unexpected errors ['namedtuples_usage.py:53:0 Unable to unpack [23]: Unable to unpack 3 values, 4 were expected.']
+Line 61: Unexpected errors ['namedtuples_usage.py:61:0 Unable to unpack [23]: Unable to unpack 0 values, 3 were expected.']
 """

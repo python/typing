@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not report some type violations for TypedDict type compatibility.
+notes = """Does not report some type violations for TypedDict type compatibility.
 Incorrectly reports type violation in cases where there is none.
 Does not report type incompatibility between TypedDict and `dict[str, Any]`.
 """
@@ -9,4 +8,11 @@ File "typeddicts_type_consistency.py", line 62, in <module>: Type annotation for
 File "typeddicts_type_consistency.py", line 65, in <module>: Type annotation for b3 does not match type of assignment [annotation-type-mismatch]
 File "typeddicts_type_consistency.py", line 69, in <module>: Type annotation for a3_1 does not match type of assignment [annotation-type-mismatch]
 File "typeddicts_type_consistency.py", line 124, in <module>: Type annotation for o2 does not match type of assignment [annotation-type-mismatch]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 62: Unexpected errors ['File "typeddicts_type_consistency.py", line 62, in <module>: Type annotation for a3 does not match type of assignment [annotation-type-mismatch]']
+Line 65: Unexpected errors ['File "typeddicts_type_consistency.py", line 65, in <module>: Type annotation for b3 does not match type of assignment [annotation-type-mismatch]']
+Line 69: Unexpected errors ['File "typeddicts_type_consistency.py", line 69, in <module>: Type annotation for a3_1 does not match type of assignment [annotation-type-mismatch]']
+Line 124: Unexpected errors ['File "typeddicts_type_consistency.py", line 124, in <module>: Type annotation for o2 does not match type of assignment [annotation-type-mismatch]']
 """

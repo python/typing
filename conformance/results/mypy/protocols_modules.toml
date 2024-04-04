@@ -11,3 +11,9 @@ protocols_modules.py:48: note:     Got:
 protocols_modules.py:48: note:         def on_error(x: int) -> None
 protocols_modules.py:49: error: Incompatible types in assignment (expression has type Module, variable has type "Reporter3")  [assignment]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Unexpected errors ['protocols_modules.py:26: error: Incompatible types in assignment (expression has type Module, variable has type "Options2")  [assignment]']
+Line 48: Unexpected errors ['protocols_modules.py:48: error: Incompatible types in assignment (expression has type Module, variable has type "Reporter2")  [assignment]']
+Line 49: Unexpected errors ['protocols_modules.py:49: error: Incompatible types in assignment (expression has type Module, variable has type "Reporter3")  [assignment]']
+"""

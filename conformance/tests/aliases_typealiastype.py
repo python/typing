@@ -29,7 +29,7 @@ class ClassA(Generic[T]):
 
 print(GoodAlias1.__value__)  # OK
 print(GoodAlias1.__type_params__)  # OK
-print(GoodAlias1.other_attrib)  # Type error: unknown attribute
+print(GoodAlias1.other_attrib)  # E: unknown attribute
 
 
 x1: GoodAlias4[int] = 1  # OK
@@ -37,21 +37,21 @@ x2: GoodAlias4[int] = [1]  # OK
 x3: GoodAlias5[str, str, ..., int, str]  # OK
 x4: GoodAlias5[int, str, ..., int, str]  # OK
 x5: GoodAlias5[int, str, [int, str], *tuple[int, str, int]]  # OK
-x6: GoodAlias5[int, int, ...]  # Type error: incorrect type arguments
+x6: GoodAlias5[int, int, ...]  # E: incorrect type arguments
 
 
 BadAlias1 = TypeAliasType(
     "BadAlias1", list[S], type_params=(T,)
-)  # Type error: S not in scope
-BadAlias2 = TypeAliasType("BadAlias2", list[S])  # Type error: S not in scope
+)  # E: S not in scope
+BadAlias2 = TypeAliasType("BadAlias2", list[S])  # E: S not in scope
 BadAlias3 = TypeAliasType(
     "BadAlias3", int, type_params=my_tuple
-)  # Type error: not literal tuple
-BadAlias4 = TypeAliasType("BadAlias4", BadAlias4)  # Type error: circular dependency
+)  # E: not literal tuple
+BadAlias4 = TypeAliasType("BadAlias4", BadAlias4)  # E: circular dependency
 BadAlias5 = TypeAliasType(
     "BadAlias5", T | BadAlias5[str], type_params=(T,)
-)  # Type error: circular dependency
-BadAlias6 = TypeAliasType("BadAlias6", BadAlias7)  # Type error: circular dependency
+)  # E: circular dependency
+BadAlias6 = TypeAliasType("BadAlias6", BadAlias7)  # E: circular dependency
 BadAlias7 = TypeAliasType("BadAlias7", BadAlias6)
 
 # The following are invalid type expressions for a type alias.

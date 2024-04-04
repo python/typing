@@ -42,4 +42,4 @@ Movie2 = TypedDict("Movie2", name=str, year=int)
 
 movie2: Movie2
 movie2 = {"name": "Blade Runner", "year": 1982}
-movie2 = {"name": "Blade Runner", "year": ""}  # Type error: Incorrect type for year
+movie2 = {"name": "Blade Runner", "year": ""}  # E: Incorrect type for year

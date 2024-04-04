@@ -1,6 +1,5 @@
 conformant = "Unsupported"
-notes = """
-Does not understand NoReturn or Never.
+notes = """Does not understand NoReturn or Never.
 """
 output = """
 File "specialtypes_never.py", line 11, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
@@ -9,4 +8,13 @@ File "specialtypes_never.py", line 67, in func6: Type annotation for v1 does not
 File "specialtypes_never.py", line 68, in func6: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
 File "specialtypes_never.py", line 69, in func6: Type annotation for v3 does not match type of assignment [annotation-type-mismatch]
 File "specialtypes_never.py", line 85, in func8: Type annotation for v3 does not match type of assignment [annotation-type-mismatch]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 11: Unexpected errors ['File "specialtypes_never.py", line 11, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 21: Unexpected errors ['File "specialtypes_never.py", line 21, in func1: bad return type [bad-return-type]']
+Line 67: Unexpected errors ['File "specialtypes_never.py", line 67, in func6: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]']
+Line 68: Unexpected errors ['File "specialtypes_never.py", line 68, in func6: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]']
+Line 69: Unexpected errors ['File "specialtypes_never.py", line 69, in func6: Type annotation for v3 does not match type of assignment [annotation-type-mismatch]']
+Line 85: Unexpected errors ['File "specialtypes_never.py", line 85, in func8: Type annotation for v3 does not match type of assignment [annotation-type-mismatch]']
 """

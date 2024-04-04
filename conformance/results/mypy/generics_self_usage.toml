@@ -17,3 +17,17 @@ generics_self_usage.py:116: error: Static methods cannot use Self type  [misc]
 generics_self_usage.py:121: error: Self type cannot be used in a metaclass  [misc]
 generics_self_usage.py:125: error: Self type cannot be used in a metaclass  [misc]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 73: Unexpected errors ['generics_self_usage.py:73: error: Self type is only allowed in annotations within class definition  [misc]']
+Line 76: Unexpected errors ['generics_self_usage.py:76: error: Self type is only allowed in annotations within class definition  [misc]']
+Line 82: Unexpected errors ['generics_self_usage.py:82: error: Method cannot have explicit self annotation and Self type  [misc]', 'generics_self_usage.py:82: error: A function returning TypeVar should receive at least one argument containing the same TypeVar  [type-var]']
+Line 86: Unexpected errors ['generics_self_usage.py:86: error: Incompatible return value type (got "Foo3", expected "Self")  [return-value]']
+Line 101: Unexpected errors ['generics_self_usage.py:101: error: Self type is only allowed in annotations within class definition  [misc]']
+Line 103: Unexpected errors ['generics_self_usage.py:103: error: Self type is only allowed in annotations within class definition  [misc]']
+Line 106: Unexpected errors ['generics_self_usage.py:106: error: Self type is only allowed in annotations within class definition  [misc]', 'generics_self_usage.py:106: error: Self type cannot be used in type alias target  [misc]']
+Line 111: Unexpected errors ['generics_self_usage.py:111: error: Static methods cannot use Self type  [misc]', 'generics_self_usage.py:111: error: A function returning TypeVar should receive at least one argument containing the same TypeVar  [type-var]']
+Line 116: Unexpected errors ['generics_self_usage.py:116: error: Static methods cannot use Self type  [misc]']
+Line 121: Unexpected errors ['generics_self_usage.py:121: error: Self type cannot be used in a metaclass  [misc]']
+Line 125: Unexpected errors ['generics_self_usage.py:125: error: Self type cannot be used in a metaclass  [misc]']
+"""

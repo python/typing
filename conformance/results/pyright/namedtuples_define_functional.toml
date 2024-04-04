@@ -17,3 +17,18 @@ namedtuples_define_functional.py:53:33 - error: Field names cannot be a keyword 
 namedtuples_define_functional.py:54:33 - error: Field names cannot be a keyword (reportGeneralTypeIssues)
 namedtuples_define_functional.py:66:1 - error: Argument missing for parameter "a" (reportCallIssue)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 16: Unexpected errors ['namedtuples_define_functional.py:16:8 - error: Argument missing for parameter "y" (reportCallIssue)']
+Line 21: Unexpected errors ['namedtuples_define_functional.py:21:8 - error: Arguments missing for parameters "x", "y" (reportCallIssue)']
+Line 26: Unexpected errors ['namedtuples_define_functional.py:26:21 - error: Expected 2 positional arguments (reportCallIssue)']
+Line 31: Unexpected errors ['namedtuples_define_functional.py:31:8 - error: Argument missing for parameter "y" (reportCallIssue)', 'namedtuples_define_functional.py:31:18 - error: No parameter named "z" (reportCallIssue)']
+Line 36: Unexpected errors ['namedtuples_define_functional.py:36:18 - error: Argument of type "Literal[\\'1\\']" cannot be assigned to parameter "y" of type "int" in function "__new__"']
+Line 37: Unexpected errors ['namedtuples_define_functional.py:37:21 - error: Expected 2 positional arguments (reportCallIssue)']
+Line 42: Unexpected errors ['namedtuples_define_functional.py:42:18 - error: Argument of type "Literal[\\'1\\']" cannot be assigned to parameter "y" of type "int" in function "__new__"']
+Line 43: Unexpected errors ['namedtuples_define_functional.py:43:17 - error: Argument of type "float" cannot be assigned to parameter "x" of type "int" in function "__new__"']
+Line 52: Unexpected errors ['namedtuples_define_functional.py:52:31 - error: Names within a named tuple must be unique (reportGeneralTypeIssues)']
+Line 53: Unexpected errors ['namedtuples_define_functional.py:53:33 - error: Field names cannot be a keyword (reportGeneralTypeIssues)']
+Line 54: Unexpected errors ['namedtuples_define_functional.py:54:33 - error: Field names cannot be a keyword (reportGeneralTypeIssues)']
+Line 66: Unexpected errors ['namedtuples_define_functional.py:66:1 - error: Argument missing for parameter "a" (reportCallIssue)']
+"""

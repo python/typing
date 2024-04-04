@@ -1,6 +1,5 @@
 conformant = "Unsupported"
-notes = """
-Does not understand `Literal` type annotation.
+notes = """Does not understand `Literal` type annotation.
 """
 output = """
 File "literals_parameterizations.py", line 17, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
@@ -19,4 +18,22 @@ File "literals_parameterizations.py", line 53, in <module>: Invalid type annotat
 File "literals_parameterizations.py", line 61, in <module>: Invalid type annotation 'Literal[my_function]'  [invalid-annotation]
 File "literals_parameterizations.py", line 61, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
 File "literals_parameterizations.py", line 65, in func2: Type annotation for x1 does not match type of assignment [annotation-type-mismatch]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 17: Unexpected errors ['File "literals_parameterizations.py", line 17, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 18: Unexpected errors ['File "literals_parameterizations.py", line 18, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 19: Unexpected errors ['File "literals_parameterizations.py", line 19, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 33: Unexpected errors ['File "literals_parameterizations.py", line 33, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 35: Unexpected errors ['File "literals_parameterizations.py", line 35, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 42: Unexpected errors ['File "literals_parameterizations.py", line 42, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 43: Unexpected errors ['File "literals_parameterizations.py", line 43, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 44: Unexpected errors ['File "literals_parameterizations.py", line 44, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 47: Unexpected errors ['File "literals_parameterizations.py", line 47, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 48: Unexpected errors ['File "literals_parameterizations.py", line 48, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 50: Unexpected errors ['File "literals_parameterizations.py", line 50, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 51: Unexpected errors ['File "literals_parameterizations.py", line 51, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 53: Unexpected errors ['File "literals_parameterizations.py", line 53, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 61: Unexpected errors ['File "literals_parameterizations.py", line 61, in <module>: Invalid type annotation \\'Literal[my_function]\\'  [invalid-annotation]', 'File "literals_parameterizations.py", line 61, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 65: Unexpected errors ['File "literals_parameterizations.py", line 65, in func2: Type annotation for x1 does not match type of assignment [annotation-type-mismatch]']
 """

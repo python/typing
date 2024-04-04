@@ -18,7 +18,7 @@ class Base1:
     ...
 
 
-class Derived1(Base1):  # Type error: Cannot inherit from final class "Base"
+class Derived1(Base1):  # E: Cannot inherit from final class "Base"
     ...
 
 
@@ -82,7 +82,7 @@ class Derived3(Base3):
         ...
 
     @overload
-    @final  # Type error: should be applied only to implementation
+    @final  # E: should be applied only to implementation
     def method(self, x: str) -> str:
         ...
 
@@ -123,5 +123,5 @@ class Derived5(Base5_1, Base5_2):
 
 
 @final
-def func1() -> int:  # Type error: not allowed on non-method function.
+def func1() -> int:  # E: not allowed on non-method function.
     return 0

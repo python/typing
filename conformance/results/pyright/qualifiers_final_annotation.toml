@@ -43,3 +43,30 @@ qualifiers_final_annotation.py:149:9 - error: "x" is declared as Final and canno
 qualifiers_final_annotation.py:152:30 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
 qualifiers_final_annotation.py:155:9 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 16: Unexpected errors ['qualifiers_final_annotation.py:16:1 - error: "BAD1" is declared Final, but value is not assigned (reportGeneralTypeIssues)']
+Line 18: Unexpected errors ['qualifiers_final_annotation.py:18:7 - error: Expected a single type argument after "Final"']
+Line 34: Unexpected errors ['qualifiers_final_annotation.py:34:5 - error: "ID2" is declared Final, but value is not assigned (reportGeneralTypeIssues)']
+Line 38: Unexpected errors ['qualifiers_final_annotation.py:38:5 - error: "ID3" is declared Final, but value is not assigned (reportGeneralTypeIssues)']
+Line 54: Unexpected errors ['qualifiers_final_annotation.py:54:14 - error: Cannot assign member "ID5" for type "ClassA*"']
+Line 62: Unexpected errors ['qualifiers_final_annotation.py:62:19 - error: "Final" is not allowed in this context']
+Line 63: Unexpected errors ['qualifiers_final_annotation.py:63:19 - error: "Final" is not allowed in this context', 'qualifiers_final_annotation.py:63:32 - error: Cannot assign member "id4" for type "ClassA*"']
+Line 65: Unexpected errors ['qualifiers_final_annotation.py:65:14 - error: Cannot assign member "ID7" for type "ClassA*"']
+Line 67: Unexpected errors ['qualifiers_final_annotation.py:67:14 - error: Cannot assign member "ID7" for type "ClassA*"']
+Line 71: Unexpected errors ['qualifiers_final_annotation.py:71:1 - error: "RATE" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)']
+Line 81: Unexpected errors ['qualifiers_final_annotation.py:81:8 - error: Cannot assign member "DEFAULT_ID" for type "type[ClassB]"']
+Line 94: Unexpected errors ['qualifiers_final_annotation.py:94:5 - error: "BORDER_WIDTH" cannot be redeclared because parent class "ClassC" declares it as Final (reportGeneralTypeIssues)']
+Line 107: Unexpected errors ['qualifiers_final_annotation.py:107:22 - error: "Final" is not allowed in this context', 'qualifiers_final_annotation.py:107:31 - error: Expression of type "Literal[1]" cannot be assigned to declared type "Final"']
+Line 108: Unexpected errors ['qualifiers_final_annotation.py:108:19 - error: "ClassVar" is not allowed in this context']
+Line 118: Unexpected errors ['qualifiers_final_annotation.py:118:9 - error: "Final" is not allowed in this context']
+Line 121: Unexpected errors ['qualifiers_final_annotation.py:121:14 - error: "Final" is not allowed in this context']
+Line 134: Unexpected errors ['qualifiers_final_annotation.py:134:1 - error: Arguments missing for parameters "x", "y" (reportCallIssue)', 'qualifiers_final_annotation.py:134:3 - error: No parameter named "a" (reportCallIssue)']
+Line 135: Unexpected errors ['qualifiers_final_annotation.py:135:5 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter "x" of type "int" in function "__new__"', 'qualifiers_final_annotation.py:135:11 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter "y" of type "int" in function "__new__"']
+Line 141: Unexpected errors ['qualifiers_final_annotation.py:141:5 - error: "ID1" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)']
+Line 145: Unexpected errors ['qualifiers_final_annotation.py:145:5 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)']
+Line 147: Unexpected errors ['qualifiers_final_annotation.py:147:10 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)']
+Line 149: Unexpected errors ['qualifiers_final_annotation.py:149:9 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)']
+Line 152: Unexpected errors ['qualifiers_final_annotation.py:152:30 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)']
+Line 155: Unexpected errors ['qualifiers_final_annotation.py:155:9 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)']
+"""

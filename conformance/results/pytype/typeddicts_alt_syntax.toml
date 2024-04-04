@@ -1,10 +1,14 @@
 conformant = "Partial"
-notes = """
-Does not reject use of variable as second argument to `TypedDict` call.
+notes = """Does not reject use of variable as second argument to `TypedDict` call.
 Does not report when name of TypedDict doesn't match assigned identifier name.
 Does not support keyword-argument form of alternative syntax (deprecated in 3.11).
 """
 output = """
 File "typeddicts_alt_syntax.py", line 27, in <module>: Function typing.TypedDict was called with the wrong arguments [wrong-arg-types]
 File "typeddicts_alt_syntax.py", line 41, in <module>: Function typing.TypedDict expects 2 arg(s), got 3 [wrong-arg-count]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 27: Unexpected errors ['File "typeddicts_alt_syntax.py", line 27, in <module>: Function typing.TypedDict was called with the wrong arguments [wrong-arg-types]']
+Line 41: Unexpected errors ['File "typeddicts_alt_syntax.py", line 41, in <module>: Function typing.TypedDict expects 2 arg(s), got 3 [wrong-arg-count]']
 """

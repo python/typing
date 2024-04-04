@@ -7,7 +7,7 @@ Tests basic usage of ParamSpec.
 from typing import Any, Callable, Concatenate, ParamSpec, TypeAlias
 
 P = ParamSpec("P")  # OK
-WrongName = ParamSpec("NotIt")  # Type error: name inconsistency
+WrongName = ParamSpec("NotIt")  # E: name inconsistency
 
 
 # > Valid use locations

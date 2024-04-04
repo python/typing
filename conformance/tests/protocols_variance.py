@@ -18,7 +18,7 @@ R = TypeVar("R", covariant=True)
 # > declared variance.
 
 
-class AnotherBox(Protocol[T1]):  # Type error: T should be covariant
+class AnotherBox(Protocol[T1]):  # E: T should be covariant
     def content(self) -> T1:
         ...
 
@@ -37,7 +37,7 @@ class Protocol1(Protocol[T1, T2, T3]):  # OK
         ...
 
 
-class Protocol2(Protocol[T1, T2, T3]):  # Type error: T3 should be contravariant
+class Protocol2(Protocol[T1, T2, T3]):  # E: T3 should be contravariant
     def m1(self, p0: T1, p1: T2, p2: T3) -> T1:
         ...
 
@@ -53,22 +53,22 @@ class Protocol3(Protocol[T1_co]):
         pass
 
 
-class Protocol4(Protocol[T1]):  # Type error: T1 should be contravariant
+class Protocol4(Protocol[T1]):  # E: T1 should be contravariant
     def m1(self, p0: T1) -> None:
         ...
 
 
-class Protocol5(Protocol[T1_co]):  # Type error: T1_co should be contravariant
+class Protocol5(Protocol[T1_co]):  # E: T1_co should be contravariant
     def m1(self, p0: T1_co) -> None:
         ...
 
 
-class Protocol6(Protocol[T1]):  # Type error: T1 should be covariant
+class Protocol6(Protocol[T1]):  # E: T1 should be covariant
     def m1(self) -> T1:
         ...
 
 
-class Protocol7(Protocol[T1_contra]):  # Type error: T1_contra should be covariant
+class Protocol7(Protocol[T1_contra]):  # E: T1_contra should be covariant
     def m1(self) -> T1_contra:
         ...
 
@@ -101,7 +101,7 @@ class Protocol11(Protocol[T1]):  # OK
     x: T1 | None
 
 
-class Protocol12(Protocol[T1]):  # Type error: T1 should be covariant
+class Protocol12(Protocol[T1]):  # E: T1 should be covariant
     # __init__ method is exempt from variance calculations.
     def __init__(self, x: T1) -> None:
         ...

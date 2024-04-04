@@ -6,3 +6,11 @@ generics_paramspec_specialization.py:56: error: Argument 3 has incompatible type
 generics_paramspec_specialization.py:61: error: Argument 1 has incompatible type "str"; expected "int"  [arg-type]
 generics_paramspec_specialization.py:62: error: Argument 3 has incompatible type "str"; expected "bool"  [arg-type]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 45: Unexpected errors ['generics_paramspec_specialization.py:45: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "int"  [misc]']
+Line 55: Unexpected errors ['generics_paramspec_specialization.py:55: error: Argument 1 has incompatible type "str"; expected "int"  [arg-type]']
+Line 56: Unexpected errors ['generics_paramspec_specialization.py:56: error: Argument 3 has incompatible type "str"; expected "bool"  [arg-type]']
+Line 61: Unexpected errors ['generics_paramspec_specialization.py:61: error: Argument 1 has incompatible type "str"; expected "int"  [arg-type]']
+Line 62: Unexpected errors ['generics_paramspec_specialization.py:62: error: Argument 3 has incompatible type "str"; expected "bool"  [arg-type]']
+"""

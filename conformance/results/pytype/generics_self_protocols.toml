@@ -1,7 +1,9 @@
 conformant = "Partial"
-notes = """
-Does not reject protocol compatibility due to method `Self` return type.
+notes = """Does not reject protocol compatibility due to method `Self` return type.
 """
 output = """
 
+"""
+conformance_automated = "Fail"
+errors_diff = """
 """

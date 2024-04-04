@@ -20,7 +20,7 @@ class Proto2(Protocol):
 
 
 def func1(a: Any):
-    if isinstance(a, Proto1):  # Type error: not runtime_checkable
+    if isinstance(a, Proto1):  # E: not runtime_checkable
         return
 
     if isinstance(a, Proto2):  # OK
@@ -85,13 +85,13 @@ def func3():
     if isinstance(Concrete3A(), Proto2):  # OK
         pass
 
-    if isinstance(Concrete3A(), Proto3):  # Type error: unsafe overlap
+    if isinstance(Concrete3A(), Proto3):  # E: unsafe overlap
         pass
 
     if isinstance(
         Concrete3B(), (Proto3, NonDataProtocol)
-    ):  # Type error: unsafe overlap
+    ):  # E: unsafe overlap
         pass
 
-    if issubclass(Concrete3A, (Proto3, NonDataProtocol)):  # Type error: unsafe overlap
+    if issubclass(Concrete3A, (Proto3, NonDataProtocol)):  # E: unsafe overlap
         pass

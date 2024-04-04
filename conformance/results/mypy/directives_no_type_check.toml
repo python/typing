@@ -1,8 +1,11 @@
 conformant = "Partial"
-notes = """
-Does not honor `@no_type_check` class decorator.
+notes = """Does not honor `@no_type_check` class decorator.
 Does not reject invalid call of `@no_type_check` function.
 """
 output = """
 directives_no_type_check.py:16: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 16: Unexpected errors ['directives_no_type_check.py:16: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
 """

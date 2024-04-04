@@ -6,3 +6,9 @@ directives_cast.py:16:13 - error: Expected type expression but received "Literal
 directives_cast.py:17:8 - error: No overloads for "cast" match the provided arguments
   Argument types: (type[int], Literal[''], Literal['']) (reportCallIssue)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 15: Unexpected errors ['directives_cast.py:15:8 - error: No overloads for "cast" match the provided arguments']
+Line 16: Unexpected errors ['directives_cast.py:16:13 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)']
+Line 17: Unexpected errors ['directives_cast.py:17:8 - error: No overloads for "cast" match the provided arguments']
+"""

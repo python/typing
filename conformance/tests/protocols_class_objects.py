@@ -55,7 +55,7 @@ class ConcreteA:
         return 0
 
 
-pa1: ProtoA1 = ConcreteA  # Type error: signatures don't match
+pa1: ProtoA1 = ConcreteA  # E: signatures don't match
 pa2: ProtoA2 = ConcreteA  # OK
 
 

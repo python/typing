@@ -24,7 +24,7 @@ func1(type(None))  # Type error
 none1: Hashable = None  # OK
 
 # None is not iterable
-none2: Iterable = None  # Type error: not iterable
+none2: Iterable = None  # E: not iterable
 
 
 None.__class__  # OK
@@ -38,4 +38,4 @@ def func2(val1: type[None]):
 
 func2(None.__class__)  # OK
 func2(type(None))  # OK
-func2(None)  # Type error: not compatible
+func2(None)  # E: not compatible

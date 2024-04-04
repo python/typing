@@ -6,3 +6,9 @@ specialtypes_never.py:85: note: "List" is invariant -- see https://mypy.readthed
 specialtypes_never.py:85: note: Consider using "Sequence" instead, which is covariant
 specialtypes_never.py:104: error: Incompatible return value type (got "ClassC[NoReturn]", expected "ClassC[U]")  [return-value]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Unexpected errors ['specialtypes_never.py:19: error: Implicit return in function which does not return  [misc]']
+Line 85: Unexpected errors ['specialtypes_never.py:85: error: Incompatible types in assignment (expression has type "list[NoReturn]", variable has type "list[int]")  [assignment]']
+Line 104: Unexpected errors ['specialtypes_never.py:104: error: Incompatible return value type (got "ClassC[NoReturn]", expected "ClassC[U]")  [return-value]']
+"""

@@ -4,3 +4,9 @@ dataclasses_kwonly.py:23:11 - error: Expected 1 positional argument (reportCallI
 dataclasses_kwonly.py:38:11 - error: Expected 1 positional argument (reportCallIssue)
 dataclasses_kwonly.py:53:11 - error: Expected 1 positional argument (reportCallIssue)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 23: Unexpected errors ['dataclasses_kwonly.py:23:11 - error: Expected 1 positional argument (reportCallIssue)']
+Line 38: Unexpected errors ['dataclasses_kwonly.py:38:11 - error: Expected 1 positional argument (reportCallIssue)']
+Line 53: Unexpected errors ['dataclasses_kwonly.py:53:11 - error: Expected 1 positional argument (reportCallIssue)']
+"""

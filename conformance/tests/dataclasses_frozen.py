@@ -13,8 +13,8 @@ class DC1:
 
 dc1 = DC1(1, "")
 
-dc1.a = 1  # Type error: dataclass is frozen
-dc1.b = "" # Type error: dataclass is frozen
+dc1.a = 1  # E: dataclass is frozen
+dc1.b = "" # E: dataclass is frozen
 
 
 # This should generate an error because a non-frozen dataclass

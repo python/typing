@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject call to reveal_type with zero arguments.
+notes = """Does not reject call to reveal_type with zero arguments.
 Does not reject call to reveal_type with too many arguments.
 """
 output = """
@@ -9,4 +8,12 @@ File "directives_reveal_type.py", line 15, in func1: List[int] [reveal-type]
 File "directives_reveal_type.py", line 16, in func1: Any [reveal-type]
 File "directives_reveal_type.py", line 17, in func1: ForwardReference [reveal-type]
 File "directives_reveal_type.py", line 20, in func1: Union[int, str] [reveal-type]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Expected 1 errors
+Line 14: Unexpected errors ['File "directives_reveal_type.py", line 14, in func1: Union[int, str] [reveal-type]']
+Line 15: Unexpected errors ['File "directives_reveal_type.py", line 15, in func1: List[int] [reveal-type]']
+Line 16: Unexpected errors ['File "directives_reveal_type.py", line 16, in func1: Any [reveal-type]']
+Line 17: Unexpected errors ['File "directives_reveal_type.py", line 17, in func1: ForwardReference [reveal-type]']
 """

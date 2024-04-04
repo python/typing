@@ -6,3 +6,11 @@ classes_override.py:79:9 - error: Method "static_method1" is marked as override,
 classes_override.py:84:9 - error: Method "class_method1" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
 classes_override.py:91:9 - error: Method "property1" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 53: Unexpected errors ['classes_override.py:53:9 - error: Method "method3" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)']
+Line 65: Unexpected errors ['classes_override.py:65:9 - error: Method "method4" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)']
+Line 79: Unexpected errors ['classes_override.py:79:9 - error: Method "static_method1" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)']
+Line 84: Unexpected errors ['classes_override.py:84:9 - error: Method "class_method1" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)']
+Line 91: Unexpected errors ['classes_override.py:91:9 - error: Method "property1" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)']
+"""

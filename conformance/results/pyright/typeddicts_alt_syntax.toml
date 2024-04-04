@@ -7,3 +7,11 @@ typeddicts_alt_syntax.py:35:78 - error: Extra TypedDict arguments not supported 
 typeddicts_alt_syntax.py:45:43 - error: Expression of type "dict[str, str]" cannot be assigned to declared type "Movie2"
   "Literal['']" is incompatible with "int" (reportAssignmentType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 23: Unexpected errors ['typeddicts_alt_syntax.py:23:17 - error: Expected dict or keyword parameter as second parameter (reportArgumentType)']
+Line 27: Unexpected errors ['typeddicts_alt_syntax.py:27:45 - error: Expected string literal for dictionary entry name (reportGeneralTypeIssues)']
+Line 31: Unexpected errors ['typeddicts_alt_syntax.py:31:1 - error: TypedDict must be assigned to a variable named "WrongName" (reportGeneralTypeIssues)']
+Line 35: Unexpected errors ['typeddicts_alt_syntax.py:35:78 - error: Extra TypedDict arguments not supported (reportCallIssue)']
+Line 45: Unexpected errors ['typeddicts_alt_syntax.py:45:43 - error: Expression of type "dict[str, str]" cannot be assigned to declared type "Movie2"']
+"""

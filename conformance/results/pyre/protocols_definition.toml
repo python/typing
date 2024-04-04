@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar or vice versa.
+notes = """Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar or vice versa.
 Does not reject read-only property in concrete class when attribute in protocol is mutable.
 Does not reject covariant attribute type when protocol attribute is mutable.
 Does not reject read-only property in concrete class when protocol has settable property.
@@ -21,4 +20,20 @@ protocols_definition.py:286:0 Incompatible variable type [9]: v5_bad2 is declare
 protocols_definition.py:287:0 Incompatible variable type [9]: v5_bad3 is declared to have type `Template5` but is used as type `Concrete5_Bad3`.
 protocols_definition.py:288:0 Incompatible variable type [9]: v5_bad4 is declared to have type `Template5` but is used as type `Concrete5_Bad4`.
 protocols_definition.py:289:0 Incompatible variable type [9]: v5_bad5 is declared to have type `Template5` but is used as type `Concrete5_Bad5`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 30: Unexpected errors ['protocols_definition.py:30:10 Incompatible parameter type [6]: In call `close_all`, for 1st positional argument, expected `Iterable[SupportsClose]` but got `Iterable[int]`.']
+Line 67: Unexpected errors ['protocols_definition.py:67:8 Undefined attribute [16]: `Template` has no attribute `temp`.']
+Line 114: Unexpected errors ['protocols_definition.py:114:0 Incompatible variable type [9]: v2_bad1 is declared to have type `Template2` but is used as type `Concrete2_Bad1`.']
+Line 115: Unexpected errors ['protocols_definition.py:115:0 Incompatible variable type [9]: v2_bad2 is declared to have type `Template2` but is used as type `Concrete2_Bad2`.']
+Line 156: Unexpected errors ['protocols_definition.py:156:0 Incompatible variable type [9]: v3_bad1 is declared to have type `Template3` but is used as type `Concrete3_Bad1`.']
+Line 159: Unexpected errors ['protocols_definition.py:159:0 Incompatible variable type [9]: v3_bad4 is declared to have type `Template3` but is used as type `Concrete3_Bad4`.']
+Line 218: Unexpected errors ['protocols_definition.py:218:0 Incompatible variable type [9]: v4_bad1 is declared to have type `Template4` but is used as type `Concrete4_Bad1`.']
+Line 219: Unexpected errors ['protocols_definition.py:219:0 Incompatible variable type [9]: v4_bad2 is declared to have type `Template4` but is used as type `Concrete4_Bad2`.']
+Line 285: Unexpected errors ['protocols_definition.py:285:0 Incompatible variable type [9]: v5_bad1 is declared to have type `Template5` but is used as type `Concrete5_Bad1`.']
+Line 286: Unexpected errors ['protocols_definition.py:286:0 Incompatible variable type [9]: v5_bad2 is declared to have type `Template5` but is used as type `Concrete5_Bad2`.']
+Line 287: Unexpected errors ['protocols_definition.py:287:0 Incompatible variable type [9]: v5_bad3 is declared to have type `Template5` but is used as type `Concrete5_Bad3`.']
+Line 288: Unexpected errors ['protocols_definition.py:288:0 Incompatible variable type [9]: v5_bad4 is declared to have type `Template5` but is used as type `Concrete5_Bad4`.']
+Line 289: Unexpected errors ['protocols_definition.py:289:0 Incompatible variable type [9]: v5_bad5 is declared to have type `Template5` but is used as type `Concrete5_Bad5`.']
 """

@@ -74,11 +74,11 @@ class CoContra(Generic[T_co, T_contra]):
     ...
 
 
-class Class1(Inv[T_co]):  # Type error: Inv requires invariant TypeVar
+class Class1(Inv[T_co]):  # E: Inv requires invariant TypeVar
     pass
 
 
-class Class2(Inv[T_contra]):  # Type error: Inv requires invariant TypeVar
+class Class2(Inv[T_contra]):  # E: Inv requires invariant TypeVar
     pass
 
 
@@ -90,7 +90,7 @@ class Co_Child2(Co[T]):  # OK
     ...
 
 
-class Co_Child3(Co[T_contra]):  # Type error: Co requires covariant
+class Co_Child3(Co[T_contra]):  # E: Co requires covariant
     ...
 
 
@@ -102,7 +102,7 @@ class Contra_Child2(Contra[T]):  # OK
     ...
 
 
-class Contra_Child3(Contra[T_co]):  # Type error: Contra requires contravariant
+class Contra_Child3(Contra[T_co]):  # E: Contra requires contravariant
     ...
 
 
@@ -110,7 +110,7 @@ class Contra_Child4(Contra[Co[T_contra]]):  # OK
     ...
 
 
-class Contra_Child5(Contra[Co[T_co]]):  # Type error: Contra requires contravariant
+class Contra_Child5(Contra[Co[T_co]]):  # E: Contra requires contravariant
     ...
 
 
@@ -124,13 +124,13 @@ class CoContra_Child1(CoContra[T_co, T_contra]):  # OK
 
 class CoContra_Child2(
     CoContra[T_co, T_co]
-):  # Type error: Second type arg must be contravariant
+):  # E: Second type arg must be contravariant
     ...
 
 
 class CoContra_Child3(
     CoContra[T_contra, T_contra]
-):  # Type error: First type arg must be covariant
+):  # E: First type arg must be covariant
     ...
 
 
@@ -140,7 +140,7 @@ class CoContra_Child4(CoContra[T, T]):  # OK
 
 class CoContra_Child5(
     CoContra[Co[T_co], Co[T_co]]
-):  # Type error: Second type arg must be contravariant
+):  # E: Second type arg must be contravariant
     ...
 
 

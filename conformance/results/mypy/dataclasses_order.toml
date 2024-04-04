@@ -2,3 +2,7 @@ conformant = "Pass"
 output = """
 dataclasses_order.py:50: error: Unsupported operand types for < ("DC1" and "DC2")  [operator]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 50: Unexpected errors ['dataclasses_order.py:50: error: Unsupported operand types for < ("DC1" and "DC2")  [operator]']
+"""

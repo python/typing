@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-False negative on passing SymbolTable to dict[str, list[object]].
+notes = """False negative on passing SymbolTable to dict[str, list[object]].
 Does not reject illegal use of Generic.
 """
 output = """
@@ -8,4 +7,11 @@ File "generics_base_class.py", line 29, in <module>: Invalid type annotation 'T'
 File "generics_base_class.py", line 49, in <module>: Invalid type annotation 'LinkedList[int, int]'  [invalid-annotation]
 File "generics_base_class.py", line 61, in <module>: Invalid type annotation 'MyDict[int, int]'  [invalid-annotation]
 File "generics_base_class.py", line 68, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Unexpected errors ['File "generics_base_class.py", line 29, in <module>: Invalid type annotation \\'T\\'  [invalid-annotation]']
+Line 49: Unexpected errors ['File "generics_base_class.py", line 49, in <module>: Invalid type annotation \\'LinkedList[int, int]\\'  [invalid-annotation]']
+Line 61: Unexpected errors ['File "generics_base_class.py", line 61, in <module>: Invalid type annotation \\'MyDict[int, int]\\'  [invalid-annotation]']
+Line 68: Unexpected errors ['File "generics_base_class.py", line 68, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
 """

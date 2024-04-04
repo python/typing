@@ -23,7 +23,7 @@ def func1(**kwargs: Unpack[TD2]) -> None:
     v1 = kwargs["v1"]
     assert_type(v1, int)
 
-    kwargs["v2"]  # Type error: v2 may not be present
+    kwargs["v2"]  # E: v2 may not be present
 
     if "v2" in kwargs:
         v2 = kwargs["v2"]
@@ -40,26 +40,26 @@ def func2(v3: str, **kwargs: Unpack[TD1]) -> None:
 
 
 def func3() -> None:
-    func1()  # Type error: missing required keyword args
+    func1()  # E: missing required keyword args
     func1(v1=1, v2="", v3="5")  # OK
     
     td2 = TD2(v1=2, v3="4")
     func1(**td2)  # OK
-    func1(v1=1, v2="", v3="5", v4=5)  # Type error: v4 is not in TD2
-    func1(1, "", "5")  # Type error: args not passed by position
+    func1(v1=1, v2="", v3="5", v4=5)  # E: v4 is not in TD2
+    func1(1, "", "5")  # E: args not passed by position
 
     # > Passing a dictionary of type dict[str, object] as a **kwargs argument
     # > to a function that has **kwargs annotated with Unpack must generate a
     # > type checker error.
     my_dict: dict[str, str] = {}
-    func1(**my_dict)  # Type error: untyped dict
+    func1(**my_dict)  # E: untyped dict
 
     d1 = {"v1": 2, "v3": "4", "v4": 4}
     func1(**d1)  # OK or Type error (spec allows either)
     func2(**td2)  # OK
-    func1(v1=2, **td2)  # Type error: v1 is already specified
-    func2(1, **td2)  # Type error: v1 is already specified
-    func2(v1=1, **td2)  # Type error: v1 is already specified
+    func1(v1=2, **td2)  # E: v1 is already specified
+    func2(1, **td2)  # E: v1 is already specified
+    func2(v1=1, **td2)  # E: v1 is already specified
 
 
 class TDProtocol1(Protocol):
@@ -95,9 +95,9 @@ class TDProtocol6(Protocol):
 
 v1: TDProtocol1 = func1  # OK
 v2: TDProtocol2 = func1  # OK
-v3: TDProtocol3 = func1  # Type error: v2 is wrong type
-v4: TDProtocol4 = func1  # Type error: v3 is missing
-v5: TDProtocol5 = func1  # Type error: params are positional
+v3: TDProtocol3 = func1  # E: v2 is wrong type
+v4: TDProtocol4 = func1  # E: v3 is missing
+v5: TDProtocol5 = func1  # E: params are positional
 v6: TDProtocol6 = func1  # OK
 
 
@@ -105,7 +105,7 @@ def func4(v1: int, /, **kwargs: Unpack[TD2]) -> None:
     ...
 
 
-# Type error: parameter v1 overlaps with the TypedDict.
+# E: parameter v1 overlaps with the TypedDict.
 def func5(v1: int, **kwargs: Unpack[TD2]) -> None:
     ...
 
@@ -117,7 +117,7 @@ T = TypeVar("T", bound=TD2)
 # > than TypedDict should not be allowed and type checkers should generate
 # > errors in such cases.
 
-# Type error: unpacked value must be a TypedDict, not a TypeVar bound to TypedDict.
+# E: unpacked value must be a TypedDict, not a TypeVar bound to TypedDict.
 def func6(**kwargs: Unpack[T]) -> None:
     ...
 

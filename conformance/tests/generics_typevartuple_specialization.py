@@ -124,7 +124,7 @@ TA6 = tuple[T1, *Ts, T2, *tuple[int, ...]]  # Type error
 
 TA7 = tuple[*Ts, T1, T2]
 
-v1: TA7[int]  # Type error: requires at least two type arguments
+v1: TA7[int]  # E: requires at least two type arguments
 
 
 def func7(a: TA7[*Ts, T1, T2]) -> tuple[tuple[*Ts], T1, T2]:

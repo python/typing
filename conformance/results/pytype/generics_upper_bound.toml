@@ -1,6 +1,5 @@
 conformant = "Pass"
-notes = """
-Does not properly support assert_type.
+notes = """Does not properly support assert_type.
 """
 output = """
 File "generics_upper_bound.py", line 22, in <module>: Invalid TypeVar: bound cannot contain TypeVars [invalid-typevar]
@@ -9,4 +8,13 @@ File "generics_upper_bound.py", line 36, in <module>: set [assert-type]
 File "generics_upper_bound.py", line 41, in <module>: Union[list, set] [assert-type]
 File "generics_upper_bound.py", line 43, in <module>: Function longer was called with the wrong arguments [wrong-arg-types]
 File "generics_upper_bound.py", line 48, in <module>: Invalid TypeVar: constraints and a bound are mutually exclusive [invalid-typevar]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 22: Unexpected errors ['File "generics_upper_bound.py", line 22, in <module>: Invalid TypeVar: bound cannot contain TypeVars [invalid-typevar]']
+Line 35: Unexpected errors ['File "generics_upper_bound.py", line 35, in <module>: list [assert-type]']
+Line 36: Unexpected errors ['File "generics_upper_bound.py", line 36, in <module>: set [assert-type]']
+Line 41: Unexpected errors ['File "generics_upper_bound.py", line 41, in <module>: Union[list, set] [assert-type]']
+Line 43: Unexpected errors ['File "generics_upper_bound.py", line 43, in <module>: Function longer was called with the wrong arguments [wrong-arg-types]']
+Line 48: Unexpected errors ['File "generics_upper_bound.py", line 48, in <module>: Invalid TypeVar: constraints and a bound are mutually exclusive [invalid-typevar]']
 """

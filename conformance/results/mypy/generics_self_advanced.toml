@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not infer the type of an unannotated `self` parameter to be type `Self`.
+notes = """Does not infer the type of an unannotated `self` parameter to be type `Self`.
 Does not retain `Self` when calling method that returns `Self`.
 Does not infer the type of an unannotated `cls` parameter to be type `type[Self]`.
 Does not retain `Self` when accessing attribute through `type[Self]`.
@@ -12,4 +11,13 @@ generics_self_advanced.py:42: error: Expression is of type "type[ChildB]", not "
 generics_self_advanced.py:43: error: Expression is of type "list[ChildB]", not "list[Self]"  [assert-type]
 generics_self_advanced.py:44: error: Expression is of type "ChildB", not "Self"  [assert-type]
 generics_self_advanced.py:45: error: Expression is of type "ChildB", not "Self"  [assert-type]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 35: Unexpected errors ['generics_self_advanced.py:35: error: Expression is of type "ChildB", not "Self"  [assert-type]']
+Line 38: Unexpected errors ['generics_self_advanced.py:38: error: Expression is of type "ChildB", not "Self"  [assert-type]']
+Line 42: Unexpected errors ['generics_self_advanced.py:42: error: Expression is of type "type[ChildB]", not "type[Self]"  [assert-type]']
+Line 43: Unexpected errors ['generics_self_advanced.py:43: error: Expression is of type "list[ChildB]", not "list[Self]"  [assert-type]']
+Line 44: Unexpected errors ['generics_self_advanced.py:44: error: Expression is of type "ChildB", not "Self"  [assert-type]']
+Line 45: Unexpected errors ['generics_self_advanced.py:45: error: Expression is of type "ChildB", not "Self"  [assert-type]']
 """

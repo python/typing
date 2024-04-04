@@ -32,3 +32,23 @@ callables_protocol.py:284: note: "Proto13_Default.__call__" has type "Callable[[
 callables_protocol.py:311: error: Incompatible types in assignment (expression has type "Callable[[NamedArg(str, 'path')], str]", variable has type "Proto14_Default")  [assignment]
 callables_protocol.py:311: note: "Proto14_Default.__call__" has type "Callable[[DefaultNamedArg(str, 'path')], str]"
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 35: Unexpected errors ['callables_protocol.py:35: error: Incompatible types in assignment (expression has type "Callable[[VarArg(bytes), NamedArg(int | None, \\'max_items\\')], list[bytes]]", variable has type "Proto1")  [assignment]']
+Line 36: Unexpected errors ['callables_protocol.py:36: error: Incompatible types in assignment (expression has type "Callable[[VarArg(bytes)], list[bytes]]", variable has type "Proto1")  [assignment]']
+Line 37: Unexpected errors ['callables_protocol.py:37: error: Incompatible types in assignment (expression has type "Callable[[VarArg(bytes), NamedArg(str | None, \\'max_len\\')], list[bytes]]", variable has type "Proto1")  [assignment]']
+Line 67: Unexpected errors ['callables_protocol.py:67: error: Incompatible types in assignment (expression has type "Callable[[VarArg(bytes)], Any]", variable has type "Proto2")  [assignment]']
+Line 68: Unexpected errors ['callables_protocol.py:68: error: Incompatible types in assignment (expression has type "Callable[[VarArg(str), KwArg(str)], Any]", variable has type "Proto2")  [assignment]']
+Line 69: Unexpected errors ['callables_protocol.py:69: error: Incompatible types in assignment (expression has type "Callable[[VarArg(bytes), KwArg(bytes)], Any]", variable has type "Proto2")  [assignment]']
+Line 70: Unexpected errors ['callables_protocol.py:70: error: Incompatible types in assignment (expression has type "Callable[[KwArg(str)], Any]", variable has type "Proto2")  [assignment]']
+Line 97: Unexpected errors ['callables_protocol.py:97: error: Incompatible types in assignment (expression has type "Callable[[int], None]", variable has type "Proto4")  [assignment]']
+Line 121: Unexpected errors ['callables_protocol.py:121: error: Incompatible types in assignment (expression has type "Callable[[VarArg(bytes), DefaultNamedArg(int | None, \\'max_len\\')], list[bytes]]", variable has type "NotProto6")  [assignment]']
+Line 169: Unexpected errors ['callables_protocol.py:169: error: Incompatible types in assignment (expression has type "Callable[[int], Any]", variable has type "Proto8")  [assignment]']
+Line 186: Unexpected errors ['callables_protocol.py:186: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+Line 187: Unexpected errors ['callables_protocol.py:187: error: "Proto9[P, R]" has no attribute "xxx"  [attr-defined]']
+Line 197: Unexpected errors ['callables_protocol.py:197: error: "Proto9[[int], str]" has no attribute "other_attribute2"; maybe "other_attribute"?  [attr-defined]']
+Line 238: Unexpected errors ['callables_protocol.py:238: error: Incompatible types in assignment (expression has type "Callable[[int, str], Any]", variable has type "Proto11")  [assignment]']
+Line 260: Unexpected errors ['callables_protocol.py:260: error: Incompatible types in assignment (expression has type "Callable[[VarArg(Any), NamedArg(Any, \\'kwarg0\\')], None]", variable has type "Proto12")  [assignment]']
+Line 284: Unexpected errors ['callables_protocol.py:284: error: Incompatible types in assignment (expression has type "Callable[[str], str]", variable has type "Proto13_Default")  [assignment]']
+Line 311: Unexpected errors ['callables_protocol.py:311: error: Incompatible types in assignment (expression has type "Callable[[NamedArg(str, \\'path\\')], str]", variable has type "Proto14_Default")  [assignment]']
+"""

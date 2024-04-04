@@ -32,9 +32,9 @@ def cb1_bad3(*vals: bytes, max_len: str | None) -> list[bytes]:
 
 
 cb1: Proto1 = cb1_good1  # OK
-cb1 = cb1_bad1  # Type error: different names
-cb1 = cb1_bad2  # Type error: parameter types
-cb1 = cb1_bad3  # Type error: default argument
+cb1 = cb1_bad1  # E: different names
+cb1 = cb1_bad2  # E: parameter types
+cb1 = cb1_bad3  # E: default argument
 
 
 class Proto2(Protocol):
@@ -64,10 +64,10 @@ def cb2_bad4(**b: str):
 
 cb2: Proto2 = cb2_good1  # OK
 
-cb2 = cb2_bad1  # Type error: missing **kwargs
-cb2 = cb2_bad2  # Type error: parameter type
-cb2 = cb2_bad3  # Type error: parameter type
-cb2 = cb2_bad4  # Type error: missing parameter
+cb2 = cb2_bad1  # E: missing **kwargs
+cb2 = cb2_bad2  # E: parameter type
+cb2 = cb2_bad3  # E: parameter type
+cb2 = cb2_bad4  # E: missing parameter
 
 
 class Proto3(Protocol):
@@ -94,7 +94,7 @@ def cb4_bad1(x: int) -> None:
     pass
 
 
-var4: Proto4 = cb4_bad1  # Type error: missing attribute
+var4: Proto4 = cb4_bad1  # E: missing attribute
 
 
 class Proto5(Protocol):
@@ -118,7 +118,7 @@ def cb6_bad1(*vals: bytes, max_len: int | None = None) -> list[bytes]:
     return []
 
 
-cb6: NotProto6 = cb6_bad1  # Type error: NotProto6 isn't a protocol class
+cb6: NotProto6 = cb6_bad1  # E: NotProto6 isn't a protocol class
 
 
 class Proto7(Protocol[InputT, OutputT]):
@@ -166,7 +166,7 @@ def cb8_bad1(x: int) -> Any:
 
 
 cb8: Proto8 = cb8_good1  # OK
-cb8 = cb8_bad1  # Type error: parameter type
+cb8 = cb8_bad1  # E: parameter type
 
 
 P = ParamSpec("P")
@@ -183,8 +183,8 @@ class Proto9(Protocol[P, R]):
 def decorator1(f: Callable[P, R]) -> Proto9[P, R]:
     converted = cast(Proto9[P, R], f)
     converted.other_attribute = 1
-    converted.other_attribute = "str"  # Type error: incompatible type
-    converted.xxx = 3  # Type error: unknown attribute
+    converted.other_attribute = "str"  # E: incompatible type
+    converted.xxx = 3  # E: unknown attribute
     return converted
 
 
@@ -194,7 +194,7 @@ def cb9_good(x: int) -> str:
 
 
 print(cb9_good.other_attribute)  # OK
-print(cb9_good.other_attribute2)  # Type error: unknown attribute
+print(cb9_good.other_attribute2)  # E: unknown attribute
 
 cb9_good(x=3)
 
@@ -235,7 +235,7 @@ def cb11_bad1(x: int, y: str, /) -> Any:
 
 cb11: Proto11 = cb11_good1  # OK
 cb11 = cb11_good2  # OK
-cb11 = cb11_bad1  # Type error: y is position-only
+cb11 = cb11_bad1  # E: y is position-only
 
 
 class Proto12(Protocol):
@@ -257,7 +257,7 @@ def cb12_bad1(*args: Any, kwarg0: Any) -> None:
 
 cb12: Proto12 = cb12_good1  # OK
 cb12 = cb12_good2  # OK
-cb12 = cb12_bad1  # Type error: missing kwarg1
+cb12 = cb12_bad1  # E: missing kwarg1
 
 
 class Proto13_Default(Protocol):
@@ -281,7 +281,7 @@ def cb13_no_default(path: str) -> str:
 
 
 cb13_1: Proto13_Default = cb13_default  # OK
-cb13_2: Proto13_Default = cb13_no_default  # Type error: no default
+cb13_2: Proto13_Default = cb13_no_default  # E: no default
 
 cb13_3: Proto13_NoDefault = cb13_default  # OK
 cb13_4: Proto13_NoDefault = cb13_no_default  # OK
@@ -308,6 +308,6 @@ def cb14_no_default(*, path: str) -> str:
 
 
 cb14_1: Proto14_Default = cb14_default  # OK
-cb14_2: Proto14_Default = cb14_no_default  # Type error: no default
+cb14_2: Proto14_Default = cb14_no_default  # E: no default
 cb14_3: Proto14_NoDefault = cb14_default  # OK
 cb14_4: Proto14_NoDefault = cb14_no_default  # OK

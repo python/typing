@@ -37,7 +37,7 @@ class Concrete1:
 
 
 p1: Proto1[str, int] = Concrete1()  # OK
-p2: Proto1[int, str] = Concrete1()  # Type error: incompatible type
+p2: Proto1[int, str] = Concrete1()  # E: incompatible type
 
 
 # Runtime error: Protocol and Generic cannot be used together as base classes.

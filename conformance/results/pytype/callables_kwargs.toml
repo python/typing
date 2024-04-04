@@ -1,6 +1,5 @@
 conformant = "Unsupported"
-notes = """
-Does not understand Unpack in the context of **kwargs annotation.
+notes = """Does not understand Unpack in the context of **kwargs annotation.
 """
 output = """
 File "callables_kwargs.py", line 10, in <module>: typing.Unpack not supported yet [not-supported-yet]
@@ -17,4 +16,21 @@ File "callables_kwargs.py", line 58, in func3: Function func1 was called with th
 File "callables_kwargs.py", line 60, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
 File "callables_kwargs.py", line 61, in func3: Function func2 was called with the wrong arguments [wrong-arg-types]
 File "callables_kwargs.py", line 62, in func3: Function func2 was called with the wrong arguments [wrong-arg-types]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 10: Unexpected errors ['File "callables_kwargs.py", line 10, in <module>: typing.Unpack not supported yet [not-supported-yet]']
+Line 24: Unexpected errors ['File "callables_kwargs.py", line 24, in func1: Unpack[TD2] [assert-type]']
+Line 30: Unexpected errors ['File "callables_kwargs.py", line 30, in func1: Unpack[TD2] [assert-type]']
+Line 33: Unexpected errors ['File "callables_kwargs.py", line 33, in func1: Unpack[TD2] [assert-type]']
+Line 39: Unexpected errors ['File "callables_kwargs.py", line 39, in func2: Dict[str, Unpack[TD1]] [assert-type]']
+Line 44: Unexpected errors ['File "callables_kwargs.py", line 44, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]']
+Line 46: Unexpected errors ['File "callables_kwargs.py", line 46, in func3: Missing parameter \\'v2\\' in call to function TD2.__init__ [missing-parameter]']
+Line 48: Unexpected errors ['File "callables_kwargs.py", line 48, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]']
+Line 49: Unexpected errors ['File "callables_kwargs.py", line 49, in func3: Function func1 expects 0 arg(s), got 3 [wrong-arg-count]']
+Line 55: Unexpected errors ['File "callables_kwargs.py", line 55, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]']
+Line 58: Unexpected errors ['File "callables_kwargs.py", line 58, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]']
+Line 60: Unexpected errors ['File "callables_kwargs.py", line 60, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]']
+Line 61: Unexpected errors ['File "callables_kwargs.py", line 61, in func3: Function func2 was called with the wrong arguments [wrong-arg-types]']
+Line 62: Unexpected errors ['File "callables_kwargs.py", line 62, in func3: Function func2 was called with the wrong arguments [wrong-arg-types]']
 """

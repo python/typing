@@ -6,3 +6,9 @@ generics_self_basic.py:32:16 - error: Expression of type "Shape" cannot be assig
   Type "Shape" cannot be assigned to type "Self@Shape" (reportReturnType)
 generics_self_basic.py:64:31 - error: Expected no type arguments for class "Self" (reportInvalidTypeArguments)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Unexpected errors ['generics_self_basic.py:19:16 - error: Expression of type "Shape" cannot be assigned to return type "Self@Shape"']
+Line 32: Unexpected errors ['generics_self_basic.py:32:16 - error: Expression of type "Shape" cannot be assigned to return type "Self@Shape"']
+Line 64: Unexpected errors ['generics_self_basic.py:64:31 - error: Expected no type arguments for class "Self" (reportInvalidTypeArguments)']
+"""

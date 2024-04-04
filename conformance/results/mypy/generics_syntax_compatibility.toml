@@ -1,6 +1,5 @@
 conformant = "Unsupported"
-notes = """
-Type parameter syntax not yet support.
+notes = """Type parameter syntax not yet support.
 """
 output = """
 generics_syntax_compatibility.py:14: error: PEP 695 generics are not yet supported  [valid-type]
@@ -11,4 +10,12 @@ generics_syntax_compatibility.py:22: error: PEP 695 generics are not yet support
 generics_syntax_compatibility.py:23: error: Name "V" is not defined  [name-defined]
 generics_syntax_compatibility.py:26: error: PEP 695 generics are not yet supported  [valid-type]
 generics_syntax_compatibility.py:26: error: Name "M" is not defined  [name-defined]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 14: Unexpected errors ['generics_syntax_compatibility.py:14: error: PEP 695 generics are not yet supported  [valid-type]', 'generics_syntax_compatibility.py:14: error: Name "V" is not defined  [name-defined]']
+Line 18: Unexpected errors ['generics_syntax_compatibility.py:18: error: PEP 695 generics are not yet supported  [valid-type]', 'generics_syntax_compatibility.py:18: error: Name "V" is not defined  [name-defined]']
+Line 22: Unexpected errors ['generics_syntax_compatibility.py:22: error: PEP 695 generics are not yet supported  [valid-type]']
+Line 23: Unexpected errors ['generics_syntax_compatibility.py:23: error: Name "V" is not defined  [name-defined]']
+Line 26: Unexpected errors ['generics_syntax_compatibility.py:26: error: PEP 695 generics are not yet supported  [valid-type]', 'generics_syntax_compatibility.py:26: error: Name "M" is not defined  [name-defined]']
 """

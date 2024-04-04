@@ -1,6 +1,5 @@
 conformant = "Unsupported"
-notes = """
-Does not understand descriptor objects in dataclass.
+notes = """Does not understand descriptor objects in dataclass.
 """
 output = """
 File "dataclasses_descriptors.py", line 24, in __get__: bad return type [bad-return-type]
@@ -29,4 +28,10 @@ File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-ret
 Called from (traceback):
   line 61, in current file
 File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Unexpected errors ['File "dataclasses_descriptors.py", line 24, in __get__: bad return type [bad-return-type]', 'File "dataclasses_descriptors.py", line 24, in __get__: bad return type [bad-return-type]']
+Line 35: Unexpected errors ['File "dataclasses_descriptors.py", line 35, in <module>: Function DC1.__init__ was called with the wrong arguments [wrong-arg-types]']
+Line 51: Unexpected errors ['File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]', 'File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]', 'File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]', 'File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]', 'File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]', 'File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]', 'File "dataclasses_descriptors.py", line 51, in __get__: bad return type [bad-return-type]']
 """

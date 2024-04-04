@@ -12,3 +12,15 @@ generics_paramspec_semantics.py:126: note: This is likely because "one" has name
 generics_paramspec_semantics.py:131: error: Argument 1 to "expects_int_first" has incompatible type "Callable[[NamedArg(int, 'x')], int]"; expected "Callable[[int, NamedArg(int, 'x')], int]"  [arg-type]
 generics_paramspec_semantics.py:136: error: Argument 1 to "expects_int_first" has incompatible type "Callable[[KwArg(int)], int]"; expected "Callable[[int, KwArg(int)], int]"  [arg-type]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Unexpected errors ['generics_paramspec_semantics.py:26: error: Unexpected keyword argument "a"  [call-arg]', 'generics_paramspec_semantics.py:26: error: Unexpected keyword argument "b"  [call-arg]']
+Line 27: Unexpected errors ['generics_paramspec_semantics.py:27: error: Argument 2 has incompatible type "str"; expected "bool"  [arg-type]']
+Line 61: Unexpected errors ['generics_paramspec_semantics.py:61: error: Argument 2 to "func1" has incompatible type "Callable[[NamedArg(int, \\'y\\')], int]"; expected "Callable[[NamedArg(int, \\'x\\')], int]"  [arg-type]']
+Line 97: Unexpected errors ['generics_paramspec_semantics.py:97: error: Argument 1 has incompatible type "int"; expected "str"  [arg-type]']
+Line 107: Unexpected errors ['generics_paramspec_semantics.py:107: error: Argument 1 has incompatible type "int"; expected "bool"  [arg-type]']
+Line 119: Unexpected errors ['generics_paramspec_semantics.py:119: error: Argument 1 has incompatible type "int"; expected "str"  [arg-type]']
+Line 126: Unexpected errors ['generics_paramspec_semantics.py:126: error: Argument 1 to "expects_int_first" has incompatible type "Callable[[str], int]"; expected "Callable[[int], int]"  [arg-type]']
+Line 131: Unexpected errors ['generics_paramspec_semantics.py:131: error: Argument 1 to "expects_int_first" has incompatible type "Callable[[NamedArg(int, \\'x\\')], int]"; expected "Callable[[int, NamedArg(int, \\'x\\')], int]"  [arg-type]']
+Line 136: Unexpected errors ['generics_paramspec_semantics.py:136: error: Argument 1 to "expects_int_first" has incompatible type "Callable[[KwArg(int)], int]"; expected "Callable[[int, KwArg(int)], int]"  [arg-type]']
+"""

@@ -24,3 +24,14 @@ protocols_class_objects.py:104:16 - error: Expression of type "type[ConcreteC2]"
 protocols_class_objects.py:105:16 - error: Expression of type "type[ConcreteC3]" cannot be assigned to declared type "ProtoC1"
   "attr1" is defined as a ClassVar in protocol (reportAssignmentType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Unexpected errors ['protocols_class_objects.py:29:5 - error: Argument of type "type[Proto]" cannot be assigned to parameter "cls" of type "type[Proto]" in function "fun"']
+Line 34: Unexpected errors ['protocols_class_objects.py:34:7 - error: Expression of type "type[Proto]" cannot be assigned to declared type "type[Proto]"']
+Line 58: Unexpected errors ['protocols_class_objects.py:58:16 - error: Expression of type "type[ConcreteA]" cannot be assigned to declared type "ProtoA1"']
+Line 74: Unexpected errors ['protocols_class_objects.py:74:16 - error: Expression of type "type[ConcreteB]" cannot be assigned to declared type "ProtoB1"']
+Line 101: Unexpected errors ['protocols_class_objects.py:101:16 - error: Expression of type "type[ConcreteC1]" cannot be assigned to declared type "ProtoC1"']
+Line 103: Unexpected errors ['protocols_class_objects.py:103:16 - error: Expression of type "type[ConcreteC2]" cannot be assigned to declared type "ProtoC1"']
+Line 104: Unexpected errors ['protocols_class_objects.py:104:16 - error: Expression of type "type[ConcreteC2]" cannot be assigned to declared type "ProtoC2"']
+Line 105: Unexpected errors ['protocols_class_objects.py:105:16 - error: Expression of type "type[ConcreteC3]" cannot be assigned to declared type "ProtoC1"']
+"""

@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject methods within TypedDict class.
+notes = """Does not reject methods within TypedDict class.
 Does not report when metaclass is provided.
 Does not report when other keyword argument is provided.
 Does not support generic TypedDict class.
@@ -8,4 +7,8 @@ Does not support generic TypedDict class.
 output = """
 typeddicts_class_syntax.py:57:0 Uninitialized attribute [13]: Attribute `name` is declared in class `GenericTypedDict` to have type `str` but is never initialized.
 typeddicts_class_syntax.py:57:0 Uninitialized attribute [13]: Attribute `value` is declared in class `GenericTypedDict` to have type `Variable[T]` but is never initialized.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 57: Unexpected errors ['typeddicts_class_syntax.py:57:0 Uninitialized attribute [13]: Attribute `name` is declared in class `GenericTypedDict` to have type `str` but is never initialized.', 'typeddicts_class_syntax.py:57:0 Uninitialized attribute [13]: Attribute `value` is declared in class `GenericTypedDict` to have type `Variable[T]` but is never initialized.']
 """

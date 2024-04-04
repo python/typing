@@ -23,3 +23,15 @@ typeddicts_type_consistency.py:82:25 - error: Expression of type "B3" cannot be 
 typeddicts_type_consistency.py:124:56 - error: Expression of type "dict[str, dict[str, dict[str, int]]]" cannot be assigned to declared type "Outer1"
   "Literal[1]" is incompatible with "str" (reportAssignmentType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Unexpected errors ['typeddicts_type_consistency.py:21:10 - error: Expression of type "B1" cannot be assigned to declared type "A1"']
+Line 38: Unexpected errors ['typeddicts_type_consistency.py:38:10 - error: Expression of type "B2" cannot be assigned to declared type "A2"']
+Line 65: Unexpected errors ['typeddicts_type_consistency.py:65:6 - error: Expression of type "A3" cannot be assigned to declared type "B3"']
+Line 69: Unexpected errors ['typeddicts_type_consistency.py:69:21 - error: Expression of type "dict[str, int]" cannot be assigned to declared type "A3"']
+Line 76: Unexpected errors ['typeddicts_type_consistency.py:76:22 - error: Expression of type "B3" cannot be assigned to declared type "dict[str, int]"']
+Line 77: Unexpected errors ['typeddicts_type_consistency.py:77:25 - error: Expression of type "B3" cannot be assigned to declared type "dict[str, object]"']
+Line 78: Unexpected errors ['typeddicts_type_consistency.py:78:22 - error: Expression of type "B3" cannot be assigned to declared type "dict[Any, Any]"']
+Line 82: Unexpected errors ['typeddicts_type_consistency.py:82:25 - error: Expression of type "B3" cannot be assigned to declared type "Mapping[str, int]"']
+Line 124: Unexpected errors ['typeddicts_type_consistency.py:124:56 - error: Expression of type "dict[str, dict[str, dict[str, int]]]" cannot be assigned to declared type "Outer1"']
+"""

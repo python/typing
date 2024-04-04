@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not support `tuple` in `assert_type` call.
+notes = """Does not support `tuple` in `assert_type` call.
 Does not reject TypeGuard method with too few parameters.
 """
 output = """
@@ -8,4 +7,9 @@ narrowing_typeguard.py:17:33 Incompatible parameter type [6]: In call `typing.Ge
 narrowing_typeguard.py:19:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.
 narrowing_typeguard.py:128:19 Incompatible parameter type [6]: In call `takes_callable_str`, for 1st positional argument, expected `typing.Callable[[object], str]` but got `typing.Callable(simple_typeguard)[[Named(val, object)], TypeGuard[int]]`.
 narrowing_typeguard.py:148:25 Incompatible parameter type [6]: In call `takes_callable_str_proto`, for 1st positional argument, expected `CallableStrProto` but got `typing.Callable(simple_typeguard)[[Named(val, object)], TypeGuard[int]]`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 17: Unexpected errors ['narrowing_typeguard.py:17:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.']
+Line 19: Unexpected errors ['narrowing_typeguard.py:19:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.']
 """

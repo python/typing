@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject a protocol class that derives from a non-protocol class.
+notes = """Does not reject a protocol class that derives from a non-protocol class.
 """
 output = """
 protocols_merging.py:52:0 Incompatible variable type [9]: s6 is declared to have type `SizedAndClosable1` but is used as type `SCConcrete2`.
@@ -8,4 +7,12 @@ protocols_merging.py:53:0 Incompatible variable type [9]: s7 is declared to have
 protocols_merging.py:54:0 Incompatible variable type [9]: s8 is declared to have type `SizedAndClosable3` but is used as type `SCConcrete2`.
 protocols_merging.py:83:4 Invalid class instantiation [45]: Cannot instantiate abstract class `SizedAndClosable4` with abstract method `close`.
 protocols_merging.py:84:0 Incompatible variable type [9]: y is declared to have type `SizedAndClosable4` but is used as type `SCConcrete1`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 52: Unexpected errors ['protocols_merging.py:52:0 Incompatible variable type [9]: s6 is declared to have type `SizedAndClosable1` but is used as type `SCConcrete2`.']
+Line 53: Unexpected errors ['protocols_merging.py:53:0 Incompatible variable type [9]: s7 is declared to have type `SizedAndClosable2` but is used as type `SCConcrete2`.']
+Line 54: Unexpected errors ['protocols_merging.py:54:0 Incompatible variable type [9]: s8 is declared to have type `SizedAndClosable3` but is used as type `SCConcrete2`.']
+Line 83: Unexpected errors ['protocols_merging.py:83:4 Invalid class instantiation [45]: Cannot instantiate abstract class `SizedAndClosable4` with abstract method `close`.']
+Line 84: Unexpected errors ['protocols_merging.py:84:0 Incompatible variable type [9]: y is declared to have type `SizedAndClosable4` but is used as type `SCConcrete1`.']
 """

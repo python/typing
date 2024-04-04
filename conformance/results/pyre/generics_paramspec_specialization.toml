@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Reports error for legitimate use of ParamSpec and Concatenate in function signature.
+notes = """Reports error for legitimate use of ParamSpec and Concatenate in function signature.
 Reports error for legitimate specialization of generic class parameterized with ParamSpec.
 """
 output = """
@@ -19,4 +18,18 @@ generics_paramspec_specialization.py:55:8 Incompatible parameter type [6]: In an
 generics_paramspec_specialization.py:56:15 Incompatible parameter type [6]: In anonymous call, for 3rd positional argument, expected `bool` but got `str`.
 generics_paramspec_specialization.py:61:8 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `int` but got `str`.
 generics_paramspec_specialization.py:62:15 Incompatible parameter type [6]: In anonymous call, for 3rd positional argument, expected `bool` but got `str`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 14: Unexpected errors ['generics_paramspec_specialization.py:14:0 Uninitialized attribute [13]: Attribute `f` is declared in class `ClassA` to have type `typing.Callable[generics_paramspec_specialization.P1, int]` but is never initialized.', 'generics_paramspec_specialization.py:14:0 Uninitialized attribute [13]: Attribute `x` is declared in class `ClassA` to have type `Variable[T]` but is never initialized.']
+Line 19: Unexpected errors ['generics_paramspec_specialization.py:19:0 Uninitialized attribute [13]: Attribute `f1` is declared in class `ClassB` to have type `typing.Callable[generics_paramspec_specialization.P1, int]` but is never initialized.', 'generics_paramspec_specialization.py:19:0 Uninitialized attribute [13]: Attribute `f2` is declared in class `ClassB` to have type `typing.Callable[generics_paramspec_specialization.P2, int]` but is never initialized.', 'generics_paramspec_specialization.py:19:0 Uninitialized attribute [13]: Attribute `x` is declared in class `ClassB` to have type `Variable[T]` but is never initialized.']
+Line 29: Unexpected errors ["generics_paramspec_specialization.py:29:14 Invalid type variable [34]: The type variable `P2` isn't present in the function's parameters.", 'generics_paramspec_specialization.py:29:14 Undefined or invalid type [11]: Annotation `Concatenate` is not defined as a type.']
+Line 33: Unexpected errors ['generics_paramspec_specialization.py:33:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P2`, but a single type `...` was given for generic type ClassB.']
+Line 37: Unexpected errors ['generics_paramspec_specialization.py:37:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P1`, but a single type `...` was given for generic type ClassA.']
+Line 45: Unexpected errors ['generics_paramspec_specialization.py:45:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P1`, but a single type `int` was given for generic type ClassA.']
+Line 49: Unexpected errors ['generics_paramspec_specialization.py:49:0 Uninitialized attribute [13]: Attribute `f` is declared in class `ClassC` to have type `typing.Callable[generics_paramspec_specialization.P1, int]` but is never initialized.']
+Line 55: Unexpected errors ['generics_paramspec_specialization.py:55:8 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `int` but got `str`.']
+Line 56: Unexpected errors ['generics_paramspec_specialization.py:56:15 Incompatible parameter type [6]: In anonymous call, for 3rd positional argument, expected `bool` but got `str`.']
+Line 61: Unexpected errors ['generics_paramspec_specialization.py:61:8 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `int` but got `str`.']
+Line 62: Unexpected errors ['generics_paramspec_specialization.py:62:15 Incompatible parameter type [6]: In anonymous call, for 3rd positional argument, expected `bool` but got `str`.']
 """

@@ -1,6 +1,5 @@
 conformant = "Unsupported"
-notes = """
-Does not yet support the @override decorator.
+notes = """Does not yet support the @override decorator.
 """
 output = """
 File "classes_override.py", line 7, in <module>: typing.override not supported yet [not-supported-yet]
@@ -10,4 +9,14 @@ File "classes_override.py", line 53, in ChildA: Attribute 'method3' not found on
 File "classes_override.py", line 57, in ChildA: Attribute 'method4' not found on any parent class [override-error]
 File "classes_override.py", line 66, in method4: bad return type [bad-return-type]
 File "classes_override.py", line 103, in ChildB: Attribute 'method1' not found on any parent class [override-error]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 7: Unexpected errors ['File "classes_override.py", line 7, in <module>: typing.override not supported yet [not-supported-yet]']
+Line 30: Unexpected errors ['File "classes_override.py", line 30, in method2: bad return type [bad-return-type]']
+Line 50: Unexpected errors ['File "classes_override.py", line 50, in method2: bad return type [bad-return-type]']
+Line 53: Unexpected errors ['File "classes_override.py", line 53, in ChildA: Attribute \\'method3\\' not found on any parent class [override-error]']
+Line 57: Unexpected errors ['File "classes_override.py", line 57, in ChildA: Attribute \\'method4\\' not found on any parent class [override-error]']
+Line 66: Unexpected errors ['File "classes_override.py", line 66, in method4: bad return type [bad-return-type]']
+Line 103: Unexpected errors ['File "classes_override.py", line 103, in ChildB: Attribute \\'method1\\' not found on any parent class [override-error]']
 """

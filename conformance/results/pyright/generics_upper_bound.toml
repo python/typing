@@ -12,3 +12,9 @@ generics_upper_bound.py:43:11 - error: Argument of type "Literal[3]" cannot be a
       "__len__" is not present (reportArgumentType)
 generics_upper_bound.py:48:44 - error: TypeVar cannot be both bound and constrained
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 22: Unexpected errors ['generics_upper_bound.py:22:34 - error: TypeVar bound type cannot be generic', 'generics_upper_bound.py:22:39 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)']
+Line 43: Unexpected errors ['generics_upper_bound.py:43:8 - error: Argument of type "Literal[3]" cannot be assigned to parameter "x" of type "ST@longer" in function "longer"', 'generics_upper_bound.py:43:11 - error: Argument of type "Literal[3]" cannot be assigned to parameter "y" of type "ST@longer" in function "longer"']
+Line 48: Unexpected errors ['generics_upper_bound.py:48:44 - error: TypeVar cannot be both bound and constrained']
+"""

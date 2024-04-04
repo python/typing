@@ -1,7 +1,9 @@
 conformant = "Partial"
-notes = """
-Does not report type incompatibility with comparison operator.
+notes = """Does not report type incompatibility with comparison operator.
 """
 output = """
 
+"""
+conformance_automated = "Fail"
+errors_diff = """
 """

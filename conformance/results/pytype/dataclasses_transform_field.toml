@@ -1,8 +1,12 @@
 conformant = "Unsupported"
-notes = """
-Does not understand @dataclass_transform.
+notes = """Does not understand @dataclass_transform.
 """
 output = """
 File "dataclasses_transform_field.py", line 48, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
 File "dataclasses_transform_field.py", line 50, in create_model: bad return type [bad-return-type]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 48: Unexpected errors ['File "dataclasses_transform_field.py", line 48, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+Line 50: Unexpected errors ['File "dataclasses_transform_field.py", line 50, in create_model: bad return type [bad-return-type]']
 """

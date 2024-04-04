@@ -1,6 +1,5 @@
 conformant = "Pass"
-notes = """
-Does not honor @no_type_check decorator.
+notes = """Does not honor @no_type_check decorator.
 """
 output = """
 File "directives_no_type_check.py", line 16, in ClassA: Type annotation for x does not match type of assignment [annotation-type-mismatch]
@@ -8,4 +7,12 @@ File "directives_no_type_check.py", line 21, in func1: unsupported operand type(
 File "directives_no_type_check.py", line 22, in func1: bad return type [bad-return-type]
 File "directives_no_type_check.py", line 25, in <module>: Function func1 was called with the wrong arguments [wrong-arg-types]
 File "directives_no_type_check.py", line 26, in <module>: Missing parameter 'a' in call to function func1 [missing-parameter]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 16: Unexpected errors ['File "directives_no_type_check.py", line 16, in ClassA: Type annotation for x does not match type of assignment [annotation-type-mismatch]']
+Line 21: Unexpected errors ['File "directives_no_type_check.py", line 21, in func1: unsupported operand type(s) for +: int and str [unsupported-operands]']
+Line 22: Unexpected errors ['File "directives_no_type_check.py", line 22, in func1: bad return type [bad-return-type]']
+Line 25: Unexpected errors ['File "directives_no_type_check.py", line 25, in <module>: Function func1 was called with the wrong arguments [wrong-arg-types]']
+Line 26: Unexpected errors ['File "directives_no_type_check.py", line 26, in <module>: Missing parameter \\'a\\' in call to function func1 [missing-parameter]']
 """

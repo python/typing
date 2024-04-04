@@ -49,14 +49,14 @@ v6: Array[Time, Batch, Height, Width] = Array(
 # > Type Variable Tuples Must Always be Unpacked
 
 
-class ClassA(Generic[Shape]):  # Type error: not unpacked
-    def __init__(self, shape: tuple[Shape]):  # Type error: not unpacked
+class ClassA(Generic[Shape]):  # E: not unpacked
+    def __init__(self, shape: tuple[Shape]):  # E: not unpacked
         self._shape: tuple[*Shape] = shape
 
-    def get_shape(self) -> tuple[Shape]:  # Type error: not unpacked
+    def get_shape(self) -> tuple[Shape]:  # E: not unpacked
         return self._shape
 
-    def method1(*args: Shape) -> None:  # Type error: not unpacked
+    def method1(*args: Shape) -> None:  # E: not unpacked
         ...
 
 

@@ -23,3 +23,22 @@ generics_paramspec_components.py:98:20 - error: Argument of type "Literal['A']" 
 generics_paramspec_components.py:98:25 - error: Argument of type "Literal[1]" cannot be assigned to parameter "b" of type "str"
   "Literal[1]" is incompatible with "str" (reportArgumentType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 17: Unexpected errors ['generics_paramspec_components.py:17:25 - error: "kwargs" member of ParamSpec is valid only when used with **kwargs parameter', 'generics_paramspec_components.py:17:45 - error: "args" member of ParamSpec is valid only when used with *args parameter']
+Line 20: Unexpected errors ['generics_paramspec_components.py:20:23 - error: "args" member of ParamSpec is valid only when used with *args parameter']
+Line 23: Unexpected errors ['generics_paramspec_components.py:23:28 - error: "args" and "kwargs" members of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)', 'generics_paramspec_components.py:23:46 - error: "args" member of ParamSpec is valid only when used with *args parameter']
+Line 26: Unexpected errors ['generics_paramspec_components.py:26:28 - error: "args" and "kwargs" members of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)']
+Line 30: Unexpected errors ['generics_paramspec_components.py:30:25 - error: ParamSpec "P" has no meaning in this context (reportGeneralTypeIssues)', 'generics_paramspec_components.py:30:43 - error: ParamSpec "P" has no meaning in this context (reportGeneralTypeIssues)']
+Line 35: Unexpected errors ['generics_paramspec_components.py:35:18 - error: "args" member of ParamSpec is valid only when used with *args parameter']
+Line 36: Unexpected errors ['generics_paramspec_components.py:36:20 - error: "kwargs" member of ParamSpec is valid only when used with **kwargs parameter']
+Line 38: Unexpected errors ['generics_paramspec_components.py:38:26 - error: "args" and "kwargs" members of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)']
+Line 41: Unexpected errors ['generics_paramspec_components.py:41:31 - error: "args" and "kwargs" members of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)']
+Line 49: Unexpected errors ['generics_paramspec_components.py:49:9 - error: Arguments for ParamSpec "P@decorator" are missing (reportCallIssue)']
+Line 51: Unexpected errors ['generics_paramspec_components.py:51:11 - error: Expected 0 positional arguments (reportCallIssue)']
+Line 60: Unexpected errors ['generics_paramspec_components.py:60:28 - error: Keyword parameter "s" cannot appear in signature after ParamSpec args parameter (reportGeneralTypeIssues)']
+Line 70: Unexpected errors ['generics_paramspec_components.py:70:12 - error: Expected 1 positional argument (reportCallIssue)']
+Line 72: Unexpected errors ['generics_paramspec_components.py:72:12 - error: Expected 1 positional argument (reportCallIssue)']
+Line 83: Unexpected errors ['generics_paramspec_components.py:83:19 - error: Expected 2 positional arguments (reportCallIssue)']
+Line 98: Unexpected errors ['generics_paramspec_components.py:98:20 - error: Argument of type "Literal[\\'A\\']" cannot be assigned to parameter "a" of type "int"', 'generics_paramspec_components.py:98:25 - error: Argument of type "Literal[1]" cannot be assigned to parameter "b" of type "str"']
+"""

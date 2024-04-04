@@ -1,6 +1,5 @@
 conformant = "Pass"
-notes = """
-Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).
+notes = """Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).
 """
 output = """
 generics_paramspec_semantics.py:26:6 - error: Expected 2 more positional arguments (reportCallIssue)
@@ -30,4 +29,17 @@ generics_paramspec_semantics.py:131:2 - error: Argument of type "(*, x: int) -> 
 generics_paramspec_semantics.py:136:2 - error: Argument of type "(**kwargs: int) -> int" cannot be assigned to parameter "x" of type "(int, **P@expects_int_first) -> int" in function "expects_int_first"
   Type "(**kwargs: int) -> int" cannot be assigned to type "(int, **P@expects_int_first) -> int"
     Function accepts too many positional parameters; expected 0 but received 1 (reportArgumentType)
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Unexpected errors ['generics_paramspec_semantics.py:26:6 - error: Expected 2 more positional arguments (reportCallIssue)']
+Line 27: Unexpected errors ['generics_paramspec_semantics.py:27:9 - error: Argument of type "Literal[\\'A\\']" cannot be assigned to parameter "b" of type "bool"']
+Line 46: Unexpected errors ['generics_paramspec_semantics.py:46:17 - error: Argument of type "(y: int, x: str) -> int" cannot be assigned to parameter "y" of type "(**P@func1) -> int" in function "func1"']
+Line 61: Unexpected errors ['generics_paramspec_semantics.py:61:23 - error: Argument of type "(*, y: int) -> int" cannot be assigned to parameter "y" of type "(**P@func1) -> int" in function "func1"']
+Line 97: Unexpected errors ['generics_paramspec_semantics.py:97:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str"']
+Line 107: Unexpected errors ['generics_paramspec_semantics.py:107:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter "args" of type "bool"']
+Line 119: Unexpected errors ['generics_paramspec_semantics.py:119:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str"']
+Line 126: Unexpected errors ['generics_paramspec_semantics.py:126:2 - error: Argument of type "(x: str) -> int" cannot be assigned to parameter "x" of type "(int, **P@expects_int_first) -> int" in function "expects_int_first"']
+Line 131: Unexpected errors ['generics_paramspec_semantics.py:131:2 - error: Argument of type "(*, x: int) -> int" cannot be assigned to parameter "x" of type "(int, **P@expects_int_first) -> int" in function "expects_int_first"']
+Line 136: Unexpected errors ['generics_paramspec_semantics.py:136:2 - error: Argument of type "(**kwargs: int) -> int" cannot be assigned to parameter "x" of type "(int, **P@expects_int_first) -> int" in function "expects_int_first"']
 """

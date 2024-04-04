@@ -11,3 +11,15 @@ generics_syntax_scoping.py:95:17 - error: Type parameter "T" is already in use
 generics_syntax_scoping.py:98:17 - error: Type parameter "T" is already in use
 generics_syntax_scoping.py:98:29 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 14: Unexpected errors ['generics_syntax_scoping.py:14:29 - error: "S" is not defined (reportUndefinedVariable)']
+Line 18: Unexpected errors ['generics_syntax_scoping.py:18:26 - error: "T" is not defined (reportUndefinedVariable)']
+Line 35: Unexpected errors ['generics_syntax_scoping.py:35:7 - error: "T" is not defined (reportUndefinedVariable)']
+Line 44: Unexpected errors ['generics_syntax_scoping.py:44:17 - error: "T" is not defined (reportUndefinedVariable)']
+Line 62: Unexpected errors ['generics_syntax_scoping.py:62:25 - error: "assert_type" mismatch: expected "str" but received "Literal[\\'\\']" (reportAssertTypeFailure)']
+Line 67: Unexpected errors ['generics_syntax_scoping.py:67:25 - error: "assert_type" mismatch: expected "int" but received "Literal[0]" (reportAssertTypeFailure)']
+Line 92: Unexpected errors ['generics_syntax_scoping.py:92:17 - error: Type parameter "T" is already in use']
+Line 95: Unexpected errors ['generics_syntax_scoping.py:95:17 - error: Type parameter "T" is already in use']
+Line 98: Unexpected errors ['generics_syntax_scoping.py:98:17 - error: Type parameter "T" is already in use', 'generics_syntax_scoping.py:98:29 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
+"""

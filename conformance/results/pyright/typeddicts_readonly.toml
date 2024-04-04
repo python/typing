@@ -13,3 +13,12 @@ typeddicts_readonly.py:60:1 - error: Could not assign item in TypedDict
 typeddicts_readonly.py:61:1 - error: Could not assign item in TypedDict
   "year" is a read-only key in "Movie2" (reportTypedDictNotRequiredAccess)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Unexpected errors ['typeddicts_readonly.py:24:1 - error: Could not assign item in TypedDict']
+Line 36: Unexpected errors ['typeddicts_readonly.py:36:1 - error: Could not assign item in TypedDict']
+Line 50: Unexpected errors ['typeddicts_readonly.py:50:1 - error: Could not assign item in TypedDict']
+Line 51: Unexpected errors ['typeddicts_readonly.py:51:1 - error: Could not assign item in TypedDict']
+Line 60: Unexpected errors ['typeddicts_readonly.py:60:1 - error: Could not assign item in TypedDict']
+Line 61: Unexpected errors ['typeddicts_readonly.py:61:1 - error: Could not assign item in TypedDict']
+"""

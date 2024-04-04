@@ -16,8 +16,8 @@ Json = Union[None, int, str, float, list["Json"], dict[str, "Json"]]
 j1: Json = [1, {"a": 1}]  # OK
 j2: Json = 3.4  # OK
 j3: Json = [1.2, None, [1.2, [""]]]  # OK
-j4: Json = {"a": 1, "b": 3j}  # Type error: incompatible type
-j5: Json = [2, 3j]  # Type error: incompatible type
+j4: Json = {"a": 1, "b": 3j}  # E: incompatible type
+j5: Json = [2, 3j]  # E: incompatible type
 
 
 # This type alias should be equivalent to Json.
@@ -73,10 +73,10 @@ g5: GenericTypeAlias2[str, float] = [[3, ["hi", 3.4, [3.4]]], "hi"]  # OK
 g6: GenericTypeAlias2[str, int] = [[3, ["hi", 3, [3.4]]], "hi"]  # Type error
 
 
-RecursiveUnion: TypeAlias = Union["RecursiveUnion", int]  # Type error: cyclical reference
+RecursiveUnion: TypeAlias = Union["RecursiveUnion", int]  # E: cyclical reference
 
 MutualReference1: TypeAlias = Union[
     "MutualReference2", int
-]  # Type error: cyclical reference
+]  # E: cyclical reference
 MutualReference2: TypeAlias = Union["MutualReference1", str]
 

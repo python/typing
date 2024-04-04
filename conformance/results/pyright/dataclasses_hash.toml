@@ -9,3 +9,8 @@ dataclasses_hash.py:32:16 - error: Expression of type "DC3" cannot be assigned t
     "__hash__" is an incompatible type
       Type "None" cannot be assigned to type "() -> int" (reportAssignmentType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 15: Unexpected errors ['dataclasses_hash.py:15:16 - error: Expression of type "DC1" cannot be assigned to declared type "Hashable"']
+Line 32: Unexpected errors ['dataclasses_hash.py:32:16 - error: Expression of type "DC3" cannot be assigned to declared type "Hashable"']
+"""

@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject attempt to delete named tuple field by name.
+notes = """Does not reject attempt to delete named tuple field by name.
 """
 output = """
 namedtuples_usage.py:34: error: Tuple index out of range  [misc]
@@ -10,4 +9,14 @@ namedtuples_usage.py:41: error: Unsupported target for indexed assignment ("Poin
 namedtuples_usage.py:43: error: "Point" has no attribute "__delitem__"  [attr-defined]
 namedtuples_usage.py:52: error: Too many values to unpack (2 expected, 3 provided)  [misc]
 namedtuples_usage.py:53: error: Need more than 3 values to unpack (4 expected)  [misc]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 34: Unexpected errors ['namedtuples_usage.py:34: error: Tuple index out of range  [misc]']
+Line 35: Unexpected errors ['namedtuples_usage.py:35: error: Tuple index out of range  [misc]']
+Line 40: Unexpected errors ['namedtuples_usage.py:40: error: Property "x" defined in "Point" is read-only  [misc]']
+Line 41: Unexpected errors ['namedtuples_usage.py:41: error: Unsupported target for indexed assignment ("Point")  [index]']
+Line 43: Unexpected errors ['namedtuples_usage.py:43: error: "Point" has no attribute "__delitem__"  [attr-defined]']
+Line 52: Unexpected errors ['namedtuples_usage.py:52: error: Too many values to unpack (2 expected, 3 provided)  [misc]']
+Line 53: Unexpected errors ['namedtuples_usage.py:53: error: Need more than 3 values to unpack (4 expected)  [misc]']
 """

@@ -40,18 +40,18 @@ async def func3() -> None:
     Good10: Annotated[str, await func3()]
 
 
-Bad1: Annotated[[int, str], ""]  # Type error: invalid type expression
-Bad2: Annotated[((int, str),), ""]  # Type error: invalid type expression
-Bad3: Annotated[[int for i in range(1)], ""]  # Type error: invalid type expression
-Bad4: Annotated[{"a": "b"}, ""]  # Type error: invalid type expression
-Bad5: Annotated[(lambda: int)(), ""]  # Type error: invalid type expression
-Bad6: Annotated[[int][0], ""]  # Type error: invalid type expression
-Bad7: Annotated[int if 1 < 3 else str, ""]  # Type error: invalid type expression
-Bad8: Annotated[var1, ""]  # Type error: invalid type expression
-Bad9: Annotated[True, ""]  # Type error: invalid type expression
-Bad10: Annotated[1, ""]  # Type error: invalid type expression
-Bad11: Annotated[list or set, ""]  # Type error: invalid type expression
-Bad12: Annotated[f"{'int'}", ""]  # Type error: invalid type expression
+Bad1: Annotated[[int, str], ""]  # E: invalid type expression
+Bad2: Annotated[((int, str),), ""]  # E: invalid type expression
+Bad3: Annotated[[int for i in range(1)], ""]  # E: invalid type expression
+Bad4: Annotated[{"a": "b"}, ""]  # E: invalid type expression
+Bad5: Annotated[(lambda: int)(), ""]  # E: invalid type expression
+Bad6: Annotated[[int][0], ""]  # E: invalid type expression
+Bad7: Annotated[int if 1 < 3 else str, ""]  # E: invalid type expression
+Bad8: Annotated[var1, ""]  # E: invalid type expression
+Bad9: Annotated[True, ""]  # E: invalid type expression
+Bad10: Annotated[1, ""]  # E: invalid type expression
+Bad11: Annotated[list or set, ""]  # E: invalid type expression
+Bad12: Annotated[f"{'int'}", ""]  # E: invalid type expression
 
 
 # > Multiple type annotations are supported (Annotated supports variadic arguments):
@@ -61,7 +61,7 @@ Multi2: Annotated[int | str, 3, "", lambda x: x, max(1, 2)]
 
 # > Annotated must be called with at least two arguments ( Annotated[int] is not valid)
 
-Bad13: Annotated[int]  # Type error: requires at least two arguments
+Bad13: Annotated[int]  # E: requires at least two arguments
 
 
 # > Annotated types can be nested

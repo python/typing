@@ -2,3 +2,7 @@ conformant = "Unsupported"
 output = """
 File "typeddicts_readonly.py", line 8, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 8: Unexpected errors ['File "typeddicts_readonly.py", line 8, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]']
+"""

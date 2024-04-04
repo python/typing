@@ -1,6 +1,5 @@
 conformant = "Unsupported"
-notes = """
-Does not understand `Self` type.
+notes = """Does not understand `Self` type.
 """
 output = """
 generics_self_advanced.py:25:7 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.
@@ -12,4 +11,16 @@ generics_self_advanced.py:42:30 Undefined attribute [16]: Module `typing` has no
 generics_self_advanced.py:43:32 Undefined attribute [16]: Module `typing` has no attribute `Self`.
 generics_self_advanced.py:44:30 Undefined attribute [16]: Module `typing` has no attribute `Self`.
 generics_self_advanced.py:45:35 Undefined attribute [16]: Module `typing` has no attribute `Self`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 25: Unexpected errors ['generics_self_advanced.py:25:7 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.']
+Line 35: Unexpected errors ['generics_self_advanced.py:35:26 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
+Line 36: Unexpected errors ['generics_self_advanced.py:36:33 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
+Line 37: Unexpected errors ['generics_self_advanced.py:37:31 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
+Line 38: Unexpected errors ['generics_self_advanced.py:38:36 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
+Line 42: Unexpected errors ['generics_self_advanced.py:42:30 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
+Line 43: Unexpected errors ['generics_self_advanced.py:43:32 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
+Line 44: Unexpected errors ['generics_self_advanced.py:44:30 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
+Line 45: Unexpected errors ['generics_self_advanced.py:45:35 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
 """

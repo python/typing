@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject some illegal type expression forms used in Annotated.
+notes = """Does not reject some illegal type expression forms used in Annotated.
 Does not report type incompatibility between Annotated and type[T].
 Does not reject call of Annotated.
 Does not allow TypeVar to be used in type alias when wrapped with Annotated.
@@ -17,4 +16,18 @@ File "qualifiers_annotated.py", line 54, in <module>: Invalid type annotation '<
 File "qualifiers_annotated.py", line 64, in <module>: Invalid type annotation 'Annotated'  [invalid-annotation]
 File "qualifiers_annotated.py", line 91, in <module>: 'Annotated' object is not callable [not-callable]
 File "qualifiers_annotated.py", line 121, in <module>: Invalid TypeVar: TypeVar('T') must be stored as 'T', not 'TA3' [invalid-typevar]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 43: Unexpected errors ['File "qualifiers_annotated.py", line 43, in <module>: Invalid type annotation \\'[int, str]\\' for Bad1 [invalid-annotation]']
+Line 44: Unexpected errors ['File "qualifiers_annotated.py", line 44, in <module>: Invalid type annotation \\'((int, str),)\\' for Bad2 [invalid-annotation]']
+Line 45: Unexpected errors ['File "qualifiers_annotated.py", line 45, in <module>: Invalid type annotation \\'<instance of List[Type[int]]>\\' for Bad3 [invalid-annotation]']
+Line 46: Unexpected errors ['File "qualifiers_annotated.py", line 46, in <module>: Invalid type annotation "{\\'a\\': \\'b\\'}" for Bad4 [invalid-annotation]']
+Line 50: Unexpected errors ['File "qualifiers_annotated.py", line 50, in <module>: Name \\'var1\\' is not defined [name-error]']
+Line 51: Unexpected errors ['File "qualifiers_annotated.py", line 51, in <module>: Invalid type annotation \\'True\\' for Bad9 [invalid-annotation]']
+Line 52: Unexpected errors ['File "qualifiers_annotated.py", line 52, in <module>: Invalid type annotation \\'1\\' for Bad10 [invalid-annotation]']
+Line 54: Unexpected errors ['File "qualifiers_annotated.py", line 54, in <module>: Invalid type annotation \\'<instance of str>\\' for Bad12 [invalid-annotation]']
+Line 64: Unexpected errors ['File "qualifiers_annotated.py", line 64, in <module>: Invalid type annotation \\'Annotated\\'  [invalid-annotation]']
+Line 91: Unexpected errors ['File "qualifiers_annotated.py", line 91, in <module>: \\'Annotated\\' object is not callable [not-callable]']
+Line 121: Unexpected errors ['File "qualifiers_annotated.py", line 121, in <module>: Invalid TypeVar: TypeVar(\\'T\\') must be stored as \\'T\\', not \\'TA3\\' [invalid-typevar]']
 """

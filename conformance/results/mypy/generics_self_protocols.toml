@@ -13,3 +13,8 @@ generics_self_protocols.py:64: note:         def set_scale(self, scale: float) -
 generics_self_protocols.py:64: note:     Got:
 generics_self_protocols.py:64: note:         def set_scale(self, scale: float) -> ReturnConcreteShape
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 61: Unexpected errors ['generics_self_protocols.py:61: error: Argument 1 to "accepts_shape" has incompatible type "BadReturnType"; expected "ShapeProtocol"  [arg-type]']
+Line 64: Unexpected errors ['generics_self_protocols.py:64: error: Argument 1 to "accepts_shape" has incompatible type "ReturnDifferentClass"; expected "ShapeProtocol"  [arg-type]']
+"""

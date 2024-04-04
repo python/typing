@@ -31,3 +31,18 @@ annotations_generators.py:135:16 - error: Return type of generator function must
     Type parameter "_SendT_contra@Generator" is contravariant, but "int" is not a supertype of "str"
       "str" is incompatible with "int" (reportReturnType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 51: Unexpected errors ['annotations_generators.py:51:21 - error: Function with declared return type "C" must return value on all code paths']
+Line 54: Unexpected errors ['annotations_generators.py:54:16 - error: Expression of type "Literal[False]" cannot be assigned to return type "C"']
+Line 57: Unexpected errors ['annotations_generators.py:57:15 - error: Return type of generator function must be compatible with "Generator[Literal[3], Any, Any]"']
+Line 66: Unexpected errors ['annotations_generators.py:66:15 - error: Return type of generator function must be compatible with "Generator[Literal[3], Any, Any]"']
+Line 75: Unexpected errors ['annotations_generators.py:75:11 - error: Return type of generator function must be compatible with "Generator[B, Any, Any]"']
+Line 86: Unexpected errors ['annotations_generators.py:86:21 - error: Return type of generator function must be compatible with "Generator[Any, Any, Any]"']
+Line 87: Unexpected errors ['annotations_generators.py:87:11 - error: Return type of generator function must be compatible with "Generator[None, Any, Any]"']
+Line 91: Unexpected errors ['annotations_generators.py:91:27 - error: Return type of async generator function must be compatible with "AsyncGenerator[Any, Any]"']
+Line 92: Unexpected errors ['annotations_generators.py:92:11 - error: Return type of async generator function must be compatible with "AsyncGenerator[None, Any]"']
+Line 118: Unexpected errors ['annotations_generators.py:118:16 - error: Return type of generator function must be compatible with "Generator[A, Any, Any]"']
+Line 119: Unexpected errors ['annotations_generators.py:119:16 - error: Return type of generator function must be compatible with "Generator[int, Any, Any]"']
+Line 135: Unexpected errors ['annotations_generators.py:135:16 - error: Return type of generator function must be compatible with "Generator[None, Any, Any]"']
+"""

@@ -12,3 +12,17 @@ typeddicts_type_consistency.py:99: error: Incompatible types in assignment (expr
 typeddicts_type_consistency.py:105: error: Incompatible types in assignment (expression has type "int | str", variable has type "int")  [assignment]
 typeddicts_type_consistency.py:124: error: Incompatible types (expression has type "int", TypedDict item "inner_key" has type "str")  [typeddict-item]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Unexpected errors ['typeddicts_type_consistency.py:21: error: Incompatible types in assignment (expression has type "B1", variable has type "A1")  [assignment]']
+Line 38: Unexpected errors ['typeddicts_type_consistency.py:38: error: Incompatible types in assignment (expression has type "B2", variable has type "A2")  [assignment]']
+Line 65: Unexpected errors ['typeddicts_type_consistency.py:65: error: Incompatible types in assignment (expression has type "A3", variable has type "B3")  [assignment]']
+Line 69: Unexpected errors ['typeddicts_type_consistency.py:69: error: Extra key "y" for TypedDict "A3"  [typeddict-unknown-key]']
+Line 76: Unexpected errors ['typeddicts_type_consistency.py:76: error: Incompatible types in assignment (expression has type "B3", variable has type "dict[str, int]")  [assignment]']
+Line 77: Unexpected errors ['typeddicts_type_consistency.py:77: error: Incompatible types in assignment (expression has type "B3", variable has type "dict[str, object]")  [assignment]']
+Line 78: Unexpected errors ['typeddicts_type_consistency.py:78: error: Incompatible types in assignment (expression has type "B3", variable has type "dict[Any, Any]")  [assignment]']
+Line 82: Unexpected errors ['typeddicts_type_consistency.py:82: error: Incompatible types in assignment (expression has type "B3", variable has type "Mapping[str, int]")  [assignment]']
+Line 99: Unexpected errors ['typeddicts_type_consistency.py:99: error: Incompatible types in assignment (expression has type "str | None", variable has type "str")  [assignment]']
+Line 105: Unexpected errors ['typeddicts_type_consistency.py:105: error: Incompatible types in assignment (expression has type "int | str", variable has type "int")  [assignment]']
+Line 124: Unexpected errors ['typeddicts_type_consistency.py:124: error: Incompatible types (expression has type "int", TypedDict item "inner_key" has type "str")  [typeddict-item]']
+"""

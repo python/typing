@@ -13,7 +13,7 @@ class Proto1(Protocol):
     pass
 
 
-p1 = Proto1()  # Type error: protocol cannot be instantiated
+p1 = Proto1()  # E: protocol cannot be instantiated
 
 
 # > A protocol is never a subtype of a concrete type.

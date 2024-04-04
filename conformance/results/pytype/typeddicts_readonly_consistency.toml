@@ -5,3 +5,10 @@ File "typeddicts_readonly_consistency.py", line 34, in func1: Type annotation fo
 File "typeddicts_readonly_consistency.py", line 35, in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
 File "typeddicts_readonly_consistency.py", line 40, in func1: Type annotation for v5 does not match type of assignment [annotation-type-mismatch]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 8: Unexpected errors ['File "typeddicts_readonly_consistency.py", line 8, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]']
+Line 34: Unexpected errors ['File "typeddicts_readonly_consistency.py", line 34, in func1: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]']
+Line 35: Unexpected errors ['File "typeddicts_readonly_consistency.py", line 35, in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]']
+Line 40: Unexpected errors ['File "typeddicts_readonly_consistency.py", line 40, in func1: Type annotation for v5 does not match type of assignment [annotation-type-mismatch]']
+"""

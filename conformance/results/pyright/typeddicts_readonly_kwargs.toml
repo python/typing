@@ -3,3 +3,7 @@ output = """
 typeddicts_readonly_kwargs.py:33:5 - error: Could not assign item in TypedDict
   "key1" is a read-only key in "*ReadOnlyArgs" (reportTypedDictNotRequiredAccess)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 33: Unexpected errors ['typeddicts_readonly_kwargs.py:33:5 - error: Could not assign item in TypedDict']
+"""

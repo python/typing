@@ -14,11 +14,11 @@ V = TypeVar("V", infer_variance=True)
 
 S1 = TypeVar(
     "S1", covariant=True, infer_variance=True
-)  # Type error: cannot use covariant with infer_variance
+)  # E: cannot use covariant with infer_variance
 
 S2 = TypeVar(
     "S2", contravariant=True, infer_variance=True
-)  # Type error: cannot use contravariant with infer_variance
+)  # E: cannot use contravariant with infer_variance
 
 
 class ShouldBeCovariant1(Generic[T]):

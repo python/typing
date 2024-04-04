@@ -2,3 +2,6 @@ conformant = "Pass"
 output = """
 
 """
+conformance_automated = "Fail"
+errors_diff = """
+"""

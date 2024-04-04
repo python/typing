@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not report Final variable with missing initialization.
+notes = """Does not report Final variable with missing initialization.
 Does not reject Final instance variable declared outside of __init__ method.
 Does not reject modification of global variable declared Final.
 Does not reject modification of local variable declared Final.
@@ -24,4 +23,21 @@ File "qualifiers_final_annotation.py", line 121, in <module>: Invalid use of typ
 File "qualifiers_final_annotation.py", line 134, in <module>: Invalid keyword argument a to function N.__new__ [wrong-keyword-args]
 File "qualifiers_final_annotation.py", line 135, in <module>: Function N.__new__ was called with the wrong arguments [wrong-arg-types]
 File "qualifiers_final_annotation.py", line 145, in func2: Assigning to variable x, which was annotated with Final [final-error]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 18: Unexpected errors ['File "qualifiers_final_annotation.py", line 18, in <module>: Invalid type annotation \\'Final[str, int]\\'  [invalid-annotation]', 'File "qualifiers_final_annotation.py", line 18, in <module>: Invalid type annotation \\'Final\\'  [invalid-annotation]']
+Line 54: Unexpected errors ['File "qualifiers_final_annotation.py", line 54, in __init__: Assigning to attribute ID5, which was annotated with Final [final-error]']
+Line 65: Unexpected errors ['File "qualifiers_final_annotation.py", line 65, in method1: Assigning to attribute ID7, which was annotated with Final [final-error]']
+Line 67: Unexpected errors ['File "qualifiers_final_annotation.py", line 67, in method1: Assigning to attribute ID7, which was annotated with Final [final-error]']
+Line 71: Unexpected errors ['File "qualifiers_final_annotation.py", line 71, in <module>: Assigning to variable RATE, which was annotated with Final [final-error]']
+Line 81: Unexpected errors ['File "qualifiers_final_annotation.py", line 81, in <module>: Assigning to attribute DEFAULT_ID, which was annotated with Final [final-error]']
+Line 93: Unexpected errors ['File "qualifiers_final_annotation.py", line 93, in <module>: Class ClassCChild overrides final class attribute BORDER_WIDTH, defined in base class ClassC [final-error]']
+Line 107: Unexpected errors ['File "qualifiers_final_annotation.py", line 107, in ClassD: Type annotation for VALUE2 does not match type of assignment [annotation-type-mismatch]', 'File "qualifiers_final_annotation.py", line 107, in ClassD: Invalid use of typing.Final [final-error]', 'File "qualifiers_final_annotation.py", line 107, in ClassD: Invalid type annotation \\'ClassVar[Final]\\'  [invalid-annotation]']
+Line 108: Unexpected errors ['File "qualifiers_final_annotation.py", line 108, in ClassD: Type annotation for VALUE3 does not match type of assignment [annotation-type-mismatch]']
+Line 118: Unexpected errors ['File "qualifiers_final_annotation.py", line 118, in <module>: Invalid use of typing.Final [final-error]', 'File "qualifiers_final_annotation.py", line 118, in <module>: Invalid type annotation \\'list[Final[int]]\\'  [invalid-annotation]']
+Line 121: Unexpected errors ['File "qualifiers_final_annotation.py", line 121, in <module>: Invalid use of typing.Final [final-error]']
+Line 134: Unexpected errors ['File "qualifiers_final_annotation.py", line 134, in <module>: Invalid keyword argument a to function N.__new__ [wrong-keyword-args]']
+Line 135: Unexpected errors ['File "qualifiers_final_annotation.py", line 135, in <module>: Function N.__new__ was called with the wrong arguments [wrong-arg-types]']
+Line 145: Unexpected errors ['File "qualifiers_final_annotation.py", line 145, in func2: Assigning to variable x, which was annotated with Final [final-error]']
 """

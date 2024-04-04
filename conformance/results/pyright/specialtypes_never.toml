@@ -9,3 +9,9 @@ specialtypes_never.py:104:12 - error: Expression of type "ClassC[Never]" cannot 
   "ClassC[Never]" is incompatible with "ClassC[U@func10]"
     Type parameter "T@ClassC" is invariant, but "Never" is not the same as "U@func10" (reportReturnType)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Unexpected errors ['specialtypes_never.py:19:22 - error: Function with declared return type "NoReturn" cannot return "None" (reportReturnType)']
+Line 85: Unexpected errors ['specialtypes_never.py:85:21 - error: Expression of type "list[Never]" cannot be assigned to declared type "list[int]"']
+Line 104: Unexpected errors ['specialtypes_never.py:104:12 - error: Expression of type "ClassC[Never]" cannot be assigned to return type "ClassC[U@func10]"']
+"""

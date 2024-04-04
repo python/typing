@@ -1,6 +1,5 @@
 conformant = "Partial"
-notes = """
-Does not reject positional-only parameter after non-positional-only parameter.
+notes = """Does not reject positional-only parameter after non-positional-only parameter.
 Treats keyword-only parameter as positional-only.
 Applies legacy positional-only rules when PEP 570 syntax is used.
 """
@@ -13,4 +12,11 @@ historical_positional.py:36: note: "m1" of "A" defined here
 historical_positional.py:43: error: Unexpected keyword argument "__x" for "m1" of "A"  [call-arg]
 historical_positional.py:50: note: "f4" defined here
 historical_positional.py:53: error: Unexpected keyword argument "__y" for "f4"  [call-arg]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 18: Unexpected errors ['historical_positional.py:18: error: Unexpected keyword argument "__x" for "f1"  [call-arg]']
+Line 32: Unexpected errors ['historical_positional.py:32: error: Unexpected keyword argument "__y" for "f3"  [call-arg]']
+Line 43: Unexpected errors ['historical_positional.py:43: error: Unexpected keyword argument "__x" for "m1" of "A"  [call-arg]']
+Line 53: Unexpected errors ['historical_positional.py:53: error: Unexpected keyword argument "__y" for "f4"  [call-arg]']
 """
