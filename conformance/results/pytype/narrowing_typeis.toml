@@ -1,5 +1,5 @@
-conformance = "Partial"
-note = """
+conformant = "Partial"
+notes = """
 Does not narrow correctly on generic tuple type
 Does not reject covariant use of TypeIs
 Does not reject TypeIs where return type is not consistent with input type due to variance

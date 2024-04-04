@@ -1,5 +1,5 @@
-conformance = "Partial"
-note = """
+conformant = "Partial"
+notes = """
 Does not reject covariant use of TypeIs
 """
 output = """
