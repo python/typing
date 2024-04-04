@@ -146,3 +146,22 @@ def takes_callable_str_proto(f: CallableStrProto) -> None:
 
 takes_callable_bool_proto(simple_typeguard)  # OK
 takes_callable_str_proto(simple_typeguard)   # Error
+
+# > Unlike ``TypeGuard``, ``TypeIs`` is invariant in its argument type:
+# > ``TypeIs[B]`` is not a subtype of ``TypeIs[A]``,
+# > even if ``B`` is a subtype of ``A``.
+
+def takes_int_typeis(f: Callable[[object], TypeGuard[int]]) -> None:
+    pass
+
+
+def int_typeis(val: object) -> TypeGuard[int]:
+    return isinstance(val, int)
+
+
+def bool_typeis(val: object) -> TypeGuard[bool]:
+    return isinstance(val, bool)
+
+
+takes_int_typeis(int_typeis)  # OK
+takes_int_typeis(bool_typeis)  # OK
