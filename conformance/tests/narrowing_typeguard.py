@@ -99,12 +99,12 @@ def func3() -> None:
 
 class C:
     # Type checker should emit error here.
-    def tg_1(self) -> TypeGuard[int]:
+    def tg_1(self) -> TypeGuard[int]:  # E
         return False
 
     @classmethod
     # Type checker should emit error here.
-    def tg_2(cls) -> TypeGuard[int]:
+    def tg_2(cls) -> TypeGuard[int]:  # E
         return False
 
 # > ``TypeGuard`` is also valid as the return type of a ``Callable`` type. In that

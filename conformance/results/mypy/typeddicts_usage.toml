@@ -8,7 +8,6 @@ typeddicts_usage.py:35: error: Cannot use isinstance() with TypedDict type  [mis
 typeddicts_usage.py:40: error: Variable "typing.TypedDict" is not valid as a type  [valid-type]
 typeddicts_usage.py:40: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 28: Expected 1 errors, got 2 (['typeddicts_usage.py:28: error: Missing key "name" for TypedDict "Movie"  [typeddict-item]', 'typeddicts_usage.py:28: error: Extra key "title" for TypedDict "Movie"  [typeddict-unknown-key]'])
 """

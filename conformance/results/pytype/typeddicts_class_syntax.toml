@@ -7,6 +7,11 @@ Does not report when other keyword argument is provided.
 output = """
 
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 29: Expected 1 errors
+Line 33: Expected 1 errors
+Line 38: Expected 1 errors
+Line 44: Expected 1 errors
+Line 49: Expected 1 errors
 """

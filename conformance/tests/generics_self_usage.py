@@ -79,7 +79,7 @@ TFoo2 = TypeVar("TFoo2", bound="Foo2")
 
 class Foo2:
     # Rejected (Self is treated as unknown).
-    def has_existing_self_annotation(self: TFoo2) -> Self: ... # E
+    def has_existing_self_annotation(self: TFoo2) -> Self: ... # E  # E?
 
 class Foo3:
     def return_concrete_type(self) -> Self:
@@ -103,12 +103,12 @@ class Baz(Bar[Self]): ...  # E
 class Baz2(Self): ...  # E
 
 # This should generate an error.
-TupleSelf: TypeAlias = tuple[Self]  # E
+TupleSelf: TypeAlias = tuple[Self]  # E  # E?
 
 class Base:
     @staticmethod
     # This should generate an error.
-    def make() -> Self:  # E
+    def make() -> Self:  # E  # E?
         ...
 
     @staticmethod

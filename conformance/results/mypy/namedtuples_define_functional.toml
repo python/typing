@@ -17,7 +17,7 @@ namedtuples_define_functional.py:66: error: Missing positional argument "a" in c
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 52: Unexpected errors ['namedtuples_define_functional.py:52: error: Name "a" already defined (possibly by an import)  [no-redef]']
+Line 53: Expected 1 errors
+Line 54: Expected 1 errors
 Line 57: Unexpected errors ['namedtuples_define_functional.py:57: error: Unexpected keyword argument "_1" for "NT4"  [call-arg]']
-Line 66: Unexpected errors ['namedtuples_define_functional.py:66: error: Missing positional argument "a" in call to "NT5"  [call-arg]']
 """

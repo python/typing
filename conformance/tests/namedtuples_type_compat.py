@@ -19,8 +19,8 @@ class Point(NamedTuple):
 p = Point(x=1, y=2, units="inches")
 v1: tuple[int, int, str] = p  # OK
 v2: tuple[Any, ...] = p  # OK
-v3: tuple[int, int] = p  # Type error (too few elements)
-v4: tuple[int, str, str] = p  # Type error (incompatible element type)
+v3: tuple[int, int] = p  # E: too few elements
+v4: tuple[int, str, str] = p  # E: incompatible element type
 
 # > As with normal tuples, named tuples are covariant in their type parameters.
 

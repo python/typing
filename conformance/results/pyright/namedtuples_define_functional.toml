@@ -20,8 +20,4 @@ namedtuples_define_functional.py:66:1 - error: Argument missing for parameter "a
 conformance_automated = "Fail"
 errors_diff = """
 Line 31: Expected 1 errors, got 2 (['namedtuples_define_functional.py:31:8 - error: Argument missing for parameter "y" (reportCallIssue)', 'namedtuples_define_functional.py:31:18 - error: No parameter named "z" (reportCallIssue)'])
-Line 52: Unexpected errors ['namedtuples_define_functional.py:52:31 - error: Names within a named tuple must be unique (reportGeneralTypeIssues)']
-Line 53: Unexpected errors ['namedtuples_define_functional.py:53:33 - error: Field names cannot be a keyword (reportGeneralTypeIssues)']
-Line 54: Unexpected errors ['namedtuples_define_functional.py:54:33 - error: Field names cannot be a keyword (reportGeneralTypeIssues)']
-Line 66: Unexpected errors ['namedtuples_define_functional.py:66:1 - error: Argument missing for parameter "a" (reportCallIssue)']
 """

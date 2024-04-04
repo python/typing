@@ -13,7 +13,5 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 20: Unexpected errors ['namedtuples_type_compat.py:20:0 Incompatible variable type [9]: Unable to unpack `Point`, expected a tuple.']
 Line 21: Unexpected errors ['namedtuples_type_compat.py:21:0 Incompatible variable type [9]: Unable to unpack `Point`, expected a tuple.']
-Line 22: Unexpected errors ['namedtuples_type_compat.py:22:0 Incompatible variable type [9]: Unable to unpack `Point`, expected a tuple.']
-Line 23: Unexpected errors ['namedtuples_type_compat.py:23:0 Incompatible variable type [9]: Unable to unpack `Point`, expected a tuple.']
 Line 27: Unexpected errors ['namedtuples_type_compat.py:27:0 Incompatible variable type [9]: Unable to unpack `Point`, expected a tuple.']
 """

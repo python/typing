@@ -40,8 +40,8 @@ def func2(x: int) -> int:
 
 
 def func3(
-    a: NoReturn, b: list[NoReturn]
-) -> None:  # E: NoReturn used outside of return annotation
+    a: NoReturn, b: list[NoReturn]  # E: NoReturn used outside of return annotation
+) -> None:
     c: NoReturn = a  # E: NoReturn used outside of return annotation
 
 

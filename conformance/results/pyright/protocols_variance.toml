@@ -19,6 +19,4 @@ Line 61: Expected 1 errors
 Line 66: Expected 1 errors
 Line 71: Expected 1 errors
 Line 104: Expected 1 errors
-Line 62: Unexpected errors ['protocols_variance.py:62:22 - error: Covariant type variable cannot be used in parameter type (reportGeneralTypeIssues)']
-Line 72: Unexpected errors ['protocols_variance.py:72:21 - error: Contravariant type variable cannot be used in return type (reportGeneralTypeIssues)']
 """

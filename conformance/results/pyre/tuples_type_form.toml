@@ -13,6 +13,8 @@ tuples_type_form.py:45:5 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 44: Unexpected errors ['tuples_type_form.py:44:5 Invalid type [31]: Expression `tuple[(*tuple[str], ...)]` is not a valid type.']
-Line 45: Unexpected errors ['tuples_type_form.py:45:5 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], ...)]` is not a valid type.']
+Line 40: Expected 1 errors
+Line 41: Expected 1 errors
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
 """

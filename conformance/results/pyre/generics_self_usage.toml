@@ -15,7 +15,6 @@ Line 76: Expected 1 errors
 Line 82: Expected 1 errors
 Line 101: Expected 1 errors
 Line 103: Expected 1 errors
-Line 106: Expected 1 errors, got 2 (['generics_self_usage.py:106:0 Incompatible variable type [9]: TupleSelf is declared to have type `TypeAlias` but is used as type `Type[tuple[Variable[_T_co](covariant)]]`.', 'generics_self_usage.py:106:29 Undefined attribute [16]: Module `typing` has no attribute `Self`.'])
 Line 111: Expected 1 errors
 Line 116: Expected 1 errors
 Line 121: Expected 1 errors

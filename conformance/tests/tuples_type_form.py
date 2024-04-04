@@ -37,9 +37,9 @@ t20 = (1, 2, 3, "")  # E
 
 
 t30: tuple[int, ...]  # OK
-t31: tuple[int, int, ...]  # Invalid
-t32: tuple[...]  # Invalid
-t33: tuple[..., int]  # Invalid
-t34: tuple[int, ..., int]  # Invalid
-t35: tuple[*tuple[str], ...]  # Invalid
-t36: tuple[*tuple[str, ...], ...]  # Invalid
+t31: tuple[int, int, ...]  # E
+t32: tuple[...]  # E
+t33: tuple[..., int]  # E
+t34: tuple[int, ..., int]  # E
+t35: tuple[*tuple[str], ...]  # E
+t36: tuple[*tuple[str, ...], ...]  # E

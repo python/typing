@@ -19,8 +19,6 @@ File "namedtuples_define_functional.py", line 63, in <module>: Function collecti
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 52: Unexpected errors ['File "namedtuples_define_functional.py", line 52, in <module>: collections.namedtuple argument \\'a\\' is not a valid typename or field name. [invalid-namedtuple-arg]']
-Line 53: Unexpected errors ['File "namedtuples_define_functional.py", line 53, in <module>: collections.namedtuple argument \\'def\\' is not a valid typename or field name. [invalid-namedtuple-arg]']
-Line 54: Unexpected errors ['File "namedtuples_define_functional.py", line 54, in <module>: collections.namedtuple argument \\'def\\' is not a valid typename or field name. [invalid-namedtuple-arg]']
+Line 66: Expected 1 errors
 Line 63: Unexpected errors ['File "namedtuples_define_functional.py", line 63, in <module>: Function collections.namedtuple was called with the wrong arguments [wrong-arg-types]']
 """

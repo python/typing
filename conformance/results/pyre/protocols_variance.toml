@@ -15,6 +15,4 @@ Line 61: Expected 1 errors
 Line 66: Expected 1 errors
 Line 71: Expected 1 errors
 Line 104: Expected 1 errors
-Line 62: Unexpected errors ['protocols_variance.py:62:17 Invalid type variance [46]: The type variable `Variable[T1_co](covariant)` is covariant and cannot be a parameter type.']
-Line 72: Unexpected errors ['protocols_variance.py:72:4 Invalid type variance [46]: The type variable `Variable[T1_contra](contravariant)` is contravariant and cannot be a return type.']
 """

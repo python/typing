@@ -56,12 +56,12 @@ class Derived2(Base2):
     def method1(self) -> None:  # E
         pass
 
-    @classmethod
-    def method2(cls) -> None:  # E
+    @classmethod  # E
+    def method2(cls) -> None:
         pass
 
-    @staticmethod
-    def method3() -> None:  # E
+    @staticmethod  # E
+    def method3() -> None:
         pass
 
     @overload
@@ -122,6 +122,6 @@ class Derived5(Base5_1, Base5_2):
 # > It is an error to use @final on a non-method function.
 
 
-@final
-def func1() -> int:  # E: not allowed on non-method function.
+@final  # E: not allowed on non-method function.
+def func1() -> int:
     return 0

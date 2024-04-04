@@ -49,9 +49,9 @@ p6_4 = Point6(x=1.1, y=2)  # E
 # > the value of the ``rename`` argument. Type checkers may replicate this
 # > behavior statically.
 
-NT1 = namedtuple("NT1", ["a", "a"])  # Type error (duplicate field name)
-NT2 = namedtuple("NT2", ["abc", "def"])  # Type error (illegal field name)
-NT3 = namedtuple("NT3", ["abc", "def"], rename=False)  # Type error (illegal field name)
+NT1 = namedtuple("NT1", ["a", "a"])  # E: duplicate field name
+NT2 = namedtuple("NT2", ["abc", "def"])  # E: illegal field name
+NT3 = namedtuple("NT3", ["abc", "def"], rename=False)  # E: illegal field name
 
 NT4 = namedtuple("NT4", ["abc", "def"], rename=True)  # OK
 NT4(abc="", _1="")  # OK
@@ -63,4 +63,4 @@ NT4(abc="", _1="")  # OK
 NT5 = namedtuple("NT5", "a b c", defaults=(1, 2))
 NT5(1)  # OK
 NT5(1, 2, 3)  # OK
-NT5()  # Type error (too few arguments)
+NT5()  # E: too few arguments

@@ -8,14 +8,12 @@ protocols_merging.py:53:25 - error: Expression of type "SCConcrete2" cannot be a
     "__len__" is not present (reportAssignmentType)
 protocols_merging.py:54:25 - error: Expression of type "SCConcrete2" cannot be assigned to declared type "SizedAndClosable3"
   "SCConcrete2" is incompatible with "SizedAndClosable3" (reportAssignmentType)
-protocols_merging.py:68:16 - error: Protocol class "BadProto" cannot derive from non-protocol class "SizedAndClosable3" (reportGeneralTypeIssues)
-protocols_merging.py:83:5 - error: Cannot instantiate abstract class "SizedAndClosable4"
+protocols_merging.py:67:16 - error: Protocol class "BadProto" cannot derive from non-protocol class "SizedAndClosable3" (reportGeneralTypeIssues)
+protocols_merging.py:82:5 - error: Cannot instantiate abstract class "SizedAndClosable4"
   "SizedAndClosable4.close" is not implemented (reportAbstractUsage)
-protocols_merging.py:84:24 - error: Expression of type "SCConcrete1" cannot be assigned to declared type "SizedAndClosable4"
+protocols_merging.py:83:24 - error: Expression of type "SCConcrete1" cannot be assigned to declared type "SizedAndClosable4"
   "SCConcrete1" is incompatible with "SizedAndClosable4" (reportAssignmentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 67: Expected 1 errors
-Line 68: Unexpected errors ['protocols_merging.py:68:16 - error: Protocol class "BadProto" cannot derive from non-protocol class "SizedAndClosable3" (reportGeneralTypeIssues)']
 """

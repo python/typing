@@ -11,6 +11,8 @@ narrowing_typeguard.py:148:25 Incompatible parameter type [6]: In call `takes_ca
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 102: Expected 1 errors
+Line 107: Expected 1 errors
 Line 17: Unexpected errors ['narrowing_typeguard.py:17:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.']
 Line 19: Unexpected errors ['narrowing_typeguard.py:19:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.']
 """

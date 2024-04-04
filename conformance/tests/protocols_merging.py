@@ -64,8 +64,7 @@ def func1(s1: SizedAndClosable1, s2: SizedAndClosable2):
 # > must be protocols.
 
 
-# E: SizedAndClosable3 is not a protocol
-class BadProto(SizedAndClosable3, Protocol):
+class BadProto(SizedAndClosable3, Protocol):  # E: SizedAndClosable3 is not a protocol
     ...
 
 

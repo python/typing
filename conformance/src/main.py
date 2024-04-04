@@ -69,22 +69,11 @@ def diff_expected_errors(type_checker: TypeChecker, test_case: Path, output: str
     errors = type_checker.parse_errors(output.splitlines())
 
     differences: list[str] = []
-    for expected_lineno, (expected_count, optional_count) in expected_errors.items():
-        if expected_lineno not in errors:
-            if expected_count > 0:
-                differences.append(f"Line {expected_lineno}: Expected {expected_count} errors")
-            continue
-        actual_count = len(errors[expected_lineno])
-        if not (expected_count <= actual_count <= expected_count + optional_count):
-            expected_text = (
-                str(expected_count)
-                if optional_count == 0
-                else f"{expected_count} to {expected_count + optional_count}"
-            )
-            differences.append(
-                f"Line {expected_lineno}: Expected {expected_text} errors, "
-                f"got {actual_count} ({errors[expected_lineno]})"
-            )
+    for expected_lineno, (expected_count, _) in expected_errors.items():
+        if expected_lineno not in errors and expected_count > 0:
+            differences.append(f"Line {expected_lineno}: Expected {expected_count} errors")
+        # We don't report an issue if the count differs, because type checkers may produce
+        # multiple error messages for a single line.
     for actual_lineno, actual_errors in errors.items():
         if actual_lineno not in expected_errors:
             differences.append(f"Line {actual_lineno}: Unexpected errors {actual_errors}")

@@ -202,7 +202,7 @@ class DataclassProto(Protocol):
     __dataclass_fields__: ClassVar[dict[str, Any]]
 
 
-v2: DataclassProto = dc15
+v7: DataclassProto = dc15
 
 
 @dataclass

@@ -5,8 +5,6 @@ narrowing_typeguard.py:107: error: TypeGuard functions must have a positional ar
 narrowing_typeguard.py:128: error: Argument 1 to "takes_callable_str" has incompatible type "Callable[[object], TypeGuard[int]]"; expected "Callable[[object], str]"  [arg-type]
 narrowing_typeguard.py:148: error: Argument 1 to "takes_callable_str_proto" has incompatible type "Callable[[object], TypeGuard[int]]"; expected "CallableStrProto"  [arg-type]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 102: Unexpected errors ['narrowing_typeguard.py:102: error: TypeGuard functions must have a positional argument  [valid-type]']
-Line 107: Unexpected errors ['narrowing_typeguard.py:107: error: TypeGuard functions must have a positional argument  [valid-type]']
 """
