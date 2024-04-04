@@ -41,10 +41,4 @@ protocols_generic.py:147:25 - error: Expression of type "ConcreteHasProperty4" c
 conformance_automated = "Fail"
 errors_diff = """
 Line 44: Unexpected errors ['protocols_generic.py:44:30 - error: Only one Generic[...] or Protocol[...] base class allowed (reportGeneralTypeIssues)']
-Line 56: Unexpected errors ['protocols_generic.py:56:20 - error: Expression of type "Box[float]" cannot be assigned to declared type "Box[int]"']
-Line 66: Unexpected errors ['protocols_generic.py:66:25 - error: Expression of type "Sender[int]" cannot be assigned to declared type "Sender[float]"']
-Line 74: Unexpected errors ['protocols_generic.py:74:28 - error: Expression of type "AttrProto[int]" cannot be assigned to declared type "AttrProto[float]"']
-Line 75: Unexpected errors ['protocols_generic.py:75:26 - error: Expression of type "AttrProto[float]" cannot be assigned to declared type "AttrProto[int]"']
-Line 146: Unexpected errors ['protocols_generic.py:146:25 - error: Expression of type "ConcreteHasProperty3" cannot be assigned to declared type "HasPropertyProto"']
-Line 147: Unexpected errors ['protocols_generic.py:147:25 - error: Expression of type "ConcreteHasProperty4" cannot be assigned to declared type "HasPropertyProto"']
 """

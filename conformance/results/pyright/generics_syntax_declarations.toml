@@ -15,6 +15,4 @@ generics_syntax_declarations.py:81:23 - error: "S" is not defined (reportUndefin
 conformance_automated = "Fail"
 errors_diff = """
 Line 19: Unexpected errors ['generics_syntax_declarations.py:19:17 - error: "Generic" base class cannot be used with type parameter syntax (reportGeneralTypeIssues)']
-Line 27: Unexpected errors ['generics_syntax_declarations.py:27:20 - error: Type arguments are not allowed with Protocol class when using type parameter syntax (reportGeneralTypeIssues)']
-Line 34: Unexpected errors ['generics_syntax_declarations.py:34:11 - error: Cannot access member "is_integer" for type "str*"']
 """

@@ -8,7 +8,6 @@ specialtypes_none.py:27:19 - error: Expression of type "None" cannot be assigned
 specialtypes_none.py:41:7 - error: Argument of type "None" cannot be assigned to parameter "val1" of type "type[None]" in function "func2"
   Type "None" cannot be assigned to type "type[None]" (reportArgumentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 21: Unexpected errors ['specialtypes_none.py:21:7 - error: Argument of type "type[None]" cannot be assigned to parameter "val1" of type "None" in function "func1"']
 """

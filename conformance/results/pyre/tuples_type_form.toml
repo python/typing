@@ -13,11 +13,6 @@ tuples_type_form.py:45:5 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 12: Unexpected errors ['tuples_type_form.py:12:0 Incompatible variable type [9]: t1 is declared to have type `Tuple[int]` but is used as type `Tuple[int, int]`.']
-Line 14: Unexpected errors ['tuples_type_form.py:14:0 Incompatible variable type [9]: t2 is declared to have type `Tuple[int, int]` but is used as type `Tuple[int]`.']
-Line 15: Unexpected errors ['tuples_type_form.py:15:0 Incompatible variable type [9]: t2 is declared to have type `Tuple[int, int]` but is used as type `Tuple[int, str]`.']
-Line 25: Unexpected errors ['tuples_type_form.py:25:0 Incompatible variable type [9]: t10 is declared to have type `Tuple[]` but is used as type `Tuple[int]`.']
-Line 36: Unexpected errors ['tuples_type_form.py:36:0 Incompatible variable type [9]: t20 is declared to have type `typing.Tuple[int, ...]` but is used as type `Tuple[int, int, int, str]`.']
 Line 44: Unexpected errors ['tuples_type_form.py:44:5 Invalid type [31]: Expression `tuple[(*tuple[str], ...)]` is not a valid type.']
 Line 45: Unexpected errors ['tuples_type_form.py:45:5 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], ...)]` is not a valid type.']
 """

@@ -18,5 +18,4 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 67: Expected 1 errors
 Line 68: Unexpected errors ['protocols_merging.py:68:16 - error: Protocol class "BadProto" cannot derive from non-protocol class "SizedAndClosable3" (reportGeneralTypeIssues)']
-Line 84: Unexpected errors ['protocols_merging.py:84:24 - error: Expression of type "SCConcrete1" cannot be assigned to declared type "SizedAndClosable4"']
 """

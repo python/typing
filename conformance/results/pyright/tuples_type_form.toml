@@ -22,11 +22,6 @@ tuples_type_form.py:45:30 - error: "..." cannot be used with an unpacked TypeVar
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 12: Unexpected errors ['tuples_type_form.py:12:6 - error: Expression of type "tuple[Literal[1], Literal[2]]" cannot be assigned to declared type "tuple[int]"']
-Line 14: Unexpected errors ['tuples_type_form.py:14:6 - error: Expression of type "tuple[Literal[1]]" cannot be assigned to declared type "tuple[int, int]"']
-Line 15: Unexpected errors ['tuples_type_form.py:15:10 - error: Expression of type "tuple[Literal[1], Literal[\\'\\']]" cannot be assigned to declared type "tuple[int, int]"']
-Line 25: Unexpected errors ['tuples_type_form.py:25:7 - error: Expression of type "tuple[Literal[1]]" cannot be assigned to declared type "tuple[()]"']
-Line 36: Unexpected errors ['tuples_type_form.py:36:17 - error: Expression of type "tuple[Literal[1], Literal[2], Literal[3], Literal[\\'\\']]" cannot be assigned to declared type "tuple[int, ...]"']
 Line 40: Unexpected errors ['tuples_type_form.py:40:22 - error: "..." is allowed only as the second of two arguments']
 Line 41: Unexpected errors ['tuples_type_form.py:41:12 - error: "..." is allowed only as the second of two arguments']
 Line 42: Unexpected errors ['tuples_type_form.py:42:12 - error: "..." is allowed only as the second of two arguments']

@@ -12,9 +12,6 @@ protocols_modules.py:48:18 - error: Expression of type "Module("_protocols_modul
 protocols_modules.py:49:18 - error: Expression of type "Module("_protocols_modules2")" cannot be assigned to declared type "Reporter3"
   "not_implemented" is not present (reportAssignmentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 26: Unexpected errors ['protocols_modules.py:26:17 - error: Expression of type "Module("_protocols_modules1")" cannot be assigned to declared type "Options2"']
-Line 48: Unexpected errors ['protocols_modules.py:48:18 - error: Expression of type "Module("_protocols_modules2")" cannot be assigned to declared type "Reporter2"']
-Line 49: Unexpected errors ['protocols_modules.py:49:18 - error: Expression of type "Module("_protocols_modules2")" cannot be assigned to declared type "Reporter3"']
 """

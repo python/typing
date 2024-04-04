@@ -18,7 +18,7 @@ def func1(val1: None) -> None:
 
 
 func1(None)  # OK
-func1(type(None))  # Type error
+func1(type(None))  # E
 
 # None is hashable
 none1: Hashable = None  # OK

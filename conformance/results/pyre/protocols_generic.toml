@@ -13,9 +13,5 @@ protocols_generic.py:146:0 Incompatible variable type [9]: hp3 is declared to ha
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 56: Unexpected errors ['protocols_generic.py:56:4 Incompatible variable type [9]: v2 is declared to have type `Box[int]` but is used as type `Box[float]`.']
-Line 66: Unexpected errors ['protocols_generic.py:66:4 Incompatible variable type [9]: v2 is declared to have type `Sender[float]` but is used as type `Sender[int]`.']
-Line 74: Unexpected errors ['protocols_generic.py:74:4 Incompatible variable type [9]: v1 is declared to have type `AttrProto[float]` but is used as type `AttrProto[int]`.']
-Line 75: Unexpected errors ['protocols_generic.py:75:4 Incompatible variable type [9]: v2 is declared to have type `AttrProto[int]` but is used as type `AttrProto[float]`.']
-Line 146: Unexpected errors ['protocols_generic.py:146:0 Incompatible variable type [9]: hp3 is declared to have type `HasPropertyProto` but is used as type `ConcreteHasProperty3`.']
+Line 147: Expected 1 errors
 """

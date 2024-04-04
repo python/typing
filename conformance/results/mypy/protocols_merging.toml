@@ -15,5 +15,4 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 67: Expected 1 errors
 Line 68: Unexpected errors ['protocols_merging.py:68: error: All bases of a protocol must be protocols  [misc]']
-Line 84: Unexpected errors ['protocols_merging.py:84: error: Incompatible types in assignment (expression has type "SCConcrete1", variable has type "SizedAndClosable4")  [assignment]']
 """

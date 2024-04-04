@@ -25,14 +25,5 @@ literals_literalstring.py:166:21 - error: Expression of type "list[LiteralString
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 36: Unexpected errors ['literals_literalstring.py:36:29 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 37: Unexpected errors ['literals_literalstring.py:37:22 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 43: Unexpected errors ['literals_literalstring.py:43:23 - error: Expression of type "Literal[\\'two\\']" cannot be assigned to declared type "Literal[\\'\\']"']
-Line 66: Unexpected errors ['literals_literalstring.py:66:25 - error: Expression of type "str" cannot be assigned to declared type "LiteralString"']
-Line 74: Unexpected errors ['literals_literalstring.py:74:25 - error: Expression of type "Literal[3]" cannot be assigned to declared type "LiteralString"']
-Line 75: Unexpected errors ['literals_literalstring.py:75:25 - error: Expression of type "Literal[b"test"]" cannot be assigned to declared type "LiteralString"']
-Line 120: Unexpected errors ['literals_literalstring.py:120:22 - error: Argument of type "str" cannot be assigned to parameter "s" of type "TLiteral@literal_identity" in function "literal_identity"']
-Line 134: Unexpected errors ['literals_literalstring.py:134:51 - error: Argument of type "str" cannot be assigned to parameter "value" of type "T@Container" in function "__init__"']
 Line 142: Unexpected errors ['literals_literalstring.py:142:5 - error: Overload 1 for "func8" overlaps overload 2 and returns an incompatible type (reportOverlappingOverload)', 'literals_literalstring.py:142:5 - error: Overload 1 for "func8" overlaps overload 3 and returns an incompatible type (reportOverlappingOverload)']
-Line 166: Unexpected errors ['literals_literalstring.py:166:21 - error: Expression of type "list[LiteralString]" cannot be assigned to declared type "list[str]"']
 """

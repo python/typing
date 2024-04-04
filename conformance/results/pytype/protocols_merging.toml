@@ -13,5 +13,4 @@ File "protocols_merging.py", line 84, in <module>: Type annotation for y does no
 conformance_automated = "Fail"
 errors_diff = """
 Line 67: Expected 1 errors
-Line 84: Unexpected errors ['File "protocols_merging.py", line 84, in <module>: Type annotation for y does not match type of assignment [annotation-type-mismatch]']
 """

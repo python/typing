@@ -23,5 +23,5 @@ class ClassC[V]:
     def method1(self, a: V, b: K) -> V | K:  # OK
         ...
 
-    def method2[M](self, a: M, b: K) -> M | K:  # Type error
+    def method2[M](self, a: M, b: K) -> M | K:  # E
         ...

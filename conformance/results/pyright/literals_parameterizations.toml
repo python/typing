@@ -19,23 +19,6 @@ literals_parameterizations.py:61:12 - error: Type arguments for "Literal" must b
 literals_parameterizations.py:65:32 - error: Expression of type "Literal[Color.RED]" cannot be assigned to declared type "Literal['Color.RED']"
   "Literal[Color.RED]" cannot be assigned to type "Literal['Color.RED']" (reportAssignmentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 41: Unexpected errors ['literals_parameterizations.py:41:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 42: Unexpected errors ['literals_parameterizations.py:42:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 43: Unexpected errors ['literals_parameterizations.py:43:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 44: Unexpected errors ['literals_parameterizations.py:44:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 45: Unexpected errors ['literals_parameterizations.py:45:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 46: Unexpected errors ['literals_parameterizations.py:46:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 47: Unexpected errors ['literals_parameterizations.py:47:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 48: Unexpected errors ['literals_parameterizations.py:48:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 49: Unexpected errors ['literals_parameterizations.py:49:15 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 50: Unexpected errors ['literals_parameterizations.py:50:16 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 51: Unexpected errors ['literals_parameterizations.py:51:16 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 52: Unexpected errors ['literals_parameterizations.py:52:16 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 53: Unexpected errors ['literals_parameterizations.py:53:16 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 56: Unexpected errors ['literals_parameterizations.py:56:28 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 60: Unexpected errors ['literals_parameterizations.py:60:4 - error: "Literal" cannot be used in this context without a type argument']
-Line 61: Unexpected errors ['literals_parameterizations.py:61:12 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value']
-Line 65: Unexpected errors ['literals_parameterizations.py:65:32 - error: Expression of type "Literal[Color.RED]" cannot be assigned to declared type "Literal[\\'Color.RED\\']"']
 """

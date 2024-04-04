@@ -80,29 +80,6 @@ generics_variance_inference.py:194:37 - error: Expression of type "ShouldBeContr
     Type parameter "T@ShouldBeContravariant2" is contravariant, but "int" is not a supertype of "float"
       "float" is incompatible with "int" (reportAssignmentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 24: Unexpected errors ['generics_variance_inference.py:24:33 - error: Expression of type "ClassA[float, int, int]" cannot be assigned to declared type "ClassA[int, int, int]"']
-Line 25: Unexpected errors ['generics_variance_inference.py:25:37 - error: Expression of type "ClassA[float, int, int]" cannot be assigned to declared type "ClassA[float, float, int]"']
-Line 28: Unexpected errors ['generics_variance_inference.py:28:33 - error: Expression of type "ClassA[int, float, float]" cannot be assigned to declared type "ClassA[int, int, int]"']
-Line 41: Unexpected errors ['generics_variance_inference.py:41:35 - error: Expression of type "ShouldBeCovariant1[float]" cannot be assigned to declared type "ShouldBeCovariant1[int]"']
-Line 49: Unexpected errors ['generics_variance_inference.py:49:35 - error: Expression of type "ShouldBeCovariant2[float]" cannot be assigned to declared type "ShouldBeCovariant2[int]"']
-Line 58: Unexpected errors ['generics_variance_inference.py:58:35 - error: Expression of type "ShouldBeCovariant3[float]" cannot be assigned to declared type "ShouldBeCovariant3[int]"']
-Line 67: Unexpected errors ['generics_variance_inference.py:67:34 - error: Expression of type "ShouldBeCovariant4[float]" cannot be assigned to declared type "ShouldBeCovariant4[int]"']
-Line 80: Unexpected errors ['generics_variance_inference.py:80:34 - error: Expression of type "ShouldBeCovariant5[float]" cannot be assigned to declared type "ShouldBeCovariant5[int]"']
-Line 96: Unexpected errors ['generics_variance_inference.py:96:38 - error: Expression of type "ShouldBeInvariant1[int]" cannot be assigned to declared type "ShouldBeInvariant1[float]"']
-Line 97: Unexpected errors ['generics_variance_inference.py:97:36 - error: Expression of type "ShouldBeInvariant1[float]" cannot be assigned to declared type "ShouldBeInvariant1[int]"']
-Line 111: Unexpected errors ['generics_variance_inference.py:111:38 - error: Expression of type "ShouldBeInvariant2[int]" cannot be assigned to declared type "ShouldBeInvariant2[float]"']
-Line 112: Unexpected errors ['generics_variance_inference.py:112:36 - error: Expression of type "ShouldBeInvariant2[float]" cannot be assigned to declared type "ShouldBeInvariant2[int]"']
-Line 119: Unexpected errors ['generics_variance_inference.py:119:43 - error: Expression of type "ShouldBeInvariant3[int, str]" cannot be assigned to declared type "ShouldBeInvariant3[float, str]"']
-Line 120: Unexpected errors ['generics_variance_inference.py:120:41 - error: Expression of type "ShouldBeInvariant3[float, str]" cannot be assigned to declared type "ShouldBeInvariant3[int, str]"']
-Line 121: Unexpected errors ['generics_variance_inference.py:121:43 - error: Expression of type "ShouldBeInvariant3[str, int]" cannot be assigned to declared type "ShouldBeInvariant3[str, float]"']
-Line 122: Unexpected errors ['generics_variance_inference.py:122:41 - error: Expression of type "ShouldBeInvariant3[str, float]" cannot be assigned to declared type "ShouldBeInvariant3[str, int]"']
-Line 130: Unexpected errors ['generics_variance_inference.py:130:38 - error: Expression of type "ShouldBeInvariant4[int]" cannot be assigned to declared type "ShouldBeInvariant4[float]"']
-Line 138: Unexpected errors ['generics_variance_inference.py:138:38 - error: Expression of type "ShouldBeInvariant5[int]" cannot be assigned to declared type "ShouldBeInvariant5[float]"']
-Line 149: Unexpected errors ['generics_variance_inference.py:149:45 - error: Expression of type "ShouldBeContravariant1[int]" cannot be assigned to declared type "ShouldBeContravariant1[float]"']
-Line 169: Unexpected errors ['generics_variance_inference.py:169:31 - error: Expression of type "ShouldBeInvariant6[float]" cannot be assigned to declared type "ShouldBeInvariant6[int]"']
-Line 170: Unexpected errors ['generics_variance_inference.py:170:33 - error: Expression of type "ShouldBeInvariant6[int]" cannot be assigned to declared type "ShouldBeInvariant6[float]"']
-Line 181: Unexpected errors ['generics_variance_inference.py:181:31 - error: Expression of type "ShouldBeCovariant6[float]" cannot be assigned to declared type "ShouldBeCovariant6[int]"']
-Line 194: Unexpected errors ['generics_variance_inference.py:194:37 - error: Expression of type "ShouldBeContravariant2[int]" cannot be assigned to declared type "ShouldBeContravariant2[float]"']
 """

@@ -21,15 +21,10 @@ namedtuples_define_class.py:98:18 Incompatible parameter type [6]: In call `Prop
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 32: Expected 1 errors
+Line 33: Expected 1 errors
+Line 105: Expected 1 errors
 Line 29: Unexpected errors ['namedtuples_define_class.py:29:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[int]]`.']
 Line 30: Unexpected errors ['namedtuples_define_class.py:30:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[int], Type[str]]`.']
-Line 44: Unexpected errors ['namedtuples_define_class.py:44:5 Missing argument [20]: Call `Point.__init__` expects argument `y`.']
-Line 45: Unexpected errors ['namedtuples_define_class.py:45:5 Missing argument [20]: Call `Point.__init__` expects argument `y`.']
-Line 46: Unexpected errors ['namedtuples_define_class.py:46:14 Incompatible parameter type [6]: In call `Point.__init__`, for 2nd positional argument, expected `int` but got `str`.']
-Line 47: Unexpected errors ['namedtuples_define_class.py:47:17 Incompatible parameter type [6]: In call `Point.__init__`, for argument `units`, expected `str` but got `int`.']
-Line 48: Unexpected errors ['namedtuples_define_class.py:48:5 Too many arguments [19]: Call `Point.__init__` expects 3 positional arguments, 4 were provided.']
-Line 49: Unexpected errors ['namedtuples_define_class.py:49:6 Unexpected keyword [28]: Unexpected keyword argument `other` to call `Point.__init__`.']
 Line 73: Unexpected errors ['namedtuples_define_class.py:73:0 Incompatible variable type [9]: Unable to unpack `PointWithName`, expected a tuple.']
-Line 79: Unexpected errors ['namedtuples_define_class.py:79:4 Invalid assignment [41]: Cannot reassign final attribute `x`.']
-Line 98: Unexpected errors ['namedtuples_define_class.py:98:18 Incompatible parameter type [6]: In call `Property.__init__`, for 2nd positional argument, expected `str` but got `float`.']
 """

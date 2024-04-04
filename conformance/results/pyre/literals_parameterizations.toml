@@ -31,21 +31,8 @@ literals_parameterizations.py:65:4 Incompatible variable type [9]: x1 is declare
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 46: Expected 1 errors
+Line 60: Expected 1 errors
 Line 33: Unexpected errors ['literals_parameterizations.py:33:0 Invalid type [31]: Expression `AppendMode` is not a literal value.', 'literals_parameterizations.py:33:0 Invalid type [31]: Expression `ReadOnlyMode` is not a literal value.', 'literals_parameterizations.py:33:0 Invalid type [31]: Expression `WriteAndTruncateMode` is not a literal value.', 'literals_parameterizations.py:33:0 Invalid type [31]: Expression `WriteNoTruncateMode` is not a literal value.', 'literals_parameterizations.py:33:0 Undefined or invalid type [11]: Annotation `` is not defined as a type.']
 Line 35: Unexpected errors ['literals_parameterizations.py:35:8 Invalid type [31]: Expression `typing.Literal[(typing.Literal[(typing.Literal[(1, 2, 3)], "foo")], 5, None)]` is not a valid type.']
-Line 41: Unexpected errors ['literals_parameterizations.py:41:6 Invalid type [31]: Expression `typing.Literal[3.__add__(4)]` is not a valid type.']
-Line 42: Unexpected errors ['literals_parameterizations.py:42:6 Invalid type [31]: Expression `typing.Literal["foo".replace("o", "b")]` is not a valid type.']
-Line 43: Unexpected errors ['literals_parameterizations.py:43:6 Invalid type [31]: Expression `typing.Literal[4.__add__(3.000000j)]` is not a valid type.']
-Line 44: Unexpected errors ['literals_parameterizations.py:44:6 Invalid type [31]: Expression `typing.Literal[~ 5]` is not a valid type.']
-Line 45: Unexpected errors ['literals_parameterizations.py:45:6 Invalid type [31]: Expression `typing.Literal[not False]` is not a valid type.']
-Line 47: Unexpected errors ['literals_parameterizations.py:47:6 Invalid type [31]: Expression `typing.Literal[{ "a":"b","c":"d" }]` is not a valid type.']
-Line 48: Unexpected errors ['literals_parameterizations.py:48:6 Invalid type [31]: Expression `typing.Literal[int]` is not a valid type.']
-Line 49: Unexpected errors ['literals_parameterizations.py:49:6 Invalid type [31]: Expression `variable` is not a literal value.']
-Line 50: Unexpected errors ['literals_parameterizations.py:50:7 Invalid type [31]: Expression `T` is not a literal value.']
-Line 51: Unexpected errors ['literals_parameterizations.py:51:7 Invalid type [31]: Expression `typing.Literal[3.140000]` is not a valid type.']
-Line 52: Unexpected errors ['literals_parameterizations.py:52:7 Invalid type [31]: Expression `Any` is not a literal value.']
-Line 53: Unexpected errors ['literals_parameterizations.py:53:7 Invalid type [31]: Expression `typing.Literal[...]` is not a valid type.']
-Line 56: Unexpected errors ['literals_parameterizations.py:56:19 Invalid type [31]: Expression `typing.Literal[1.__add__(2)]` is not a valid type.']
-Line 61: Unexpected errors ['literals_parameterizations.py:61:3 Invalid type [31]: Expression `my_function` is not a literal value.']
-Line 65: Unexpected errors ["literals_parameterizations.py:65:4 Incompatible variable type [9]: x1 is declared to have type `typing_extensions.Literal['Color.RED']` but is used as type `typing_extensions.Literal[Color.RED]`."]
 """

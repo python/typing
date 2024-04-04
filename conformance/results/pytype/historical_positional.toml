@@ -8,5 +8,7 @@ File "historical_positional.py", line 43, in <module>: Invalid keyword argument 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 43: Unexpected errors ['File "historical_positional.py", line 43, in <module>: Invalid keyword argument __x to function A.m1 [wrong-keyword-args]']
+Line 18: Expected 1 errors
+Line 26: Expected 1 errors
+Line 38: Expected 1 errors
 """

@@ -16,8 +16,8 @@ historical_positional.py:53: error: Unexpected keyword argument "__y" for "f4"  
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 18: Unexpected errors ['historical_positional.py:18: error: Unexpected keyword argument "__x" for "f1"  [call-arg]']
+Line 26: Expected 1 errors
+Line 38: Expected 1 errors
 Line 32: Unexpected errors ['historical_positional.py:32: error: Unexpected keyword argument "__y" for "f3"  [call-arg]']
-Line 43: Unexpected errors ['historical_positional.py:43: error: Unexpected keyword argument "__x" for "m1" of "A"  [call-arg]']
 Line 53: Unexpected errors ['historical_positional.py:53: error: Unexpected keyword argument "__y" for "f4"  [call-arg]']
 """

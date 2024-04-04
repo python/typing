@@ -20,17 +20,10 @@ File "specialtypes_type.py", line 146, in <module>: No attribute 'unknown' on Ty
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 56: Unexpected errors ['File "specialtypes_type.py", line 56, in <module>: Function func4 was called with the wrong arguments [wrong-arg-types]']
+Line 70: Expected 1 errors
 Line 64: Unexpected errors ['File "specialtypes_type.py", line 64, in <module>: Invalid type annotation \\'T\\'  [invalid-annotation]']
-Line 76: Unexpected errors ['File "specialtypes_type.py", line 76, in <module>: Invalid type annotation \\'type[int, str]\\'  [invalid-annotation]']
 Line 98: Unexpected errors ['File "specialtypes_type.py", line 98, in func7: Any [assert-type]']
 Line 102: Unexpected errors ['File "specialtypes_type.py", line 102, in func7: Any [assert-type]']
 Line 106: Unexpected errors ['File "specialtypes_type.py", line 106, in func7: Any [assert-type]']
 Line 110: Unexpected errors ['File "specialtypes_type.py", line 110, in func7: Any [assert-type]']
-Line 117: Unexpected errors ['File "specialtypes_type.py", line 117, in func8: No attribute \\'unknown\\' on Type[object] [attribute-error]']
-Line 120: Unexpected errors ['File "specialtypes_type.py", line 120, in func8: No attribute \\'unknown\\' on Type[object] [attribute-error]']
-Line 143: Unexpected errors ['File "specialtypes_type.py", line 143, in <module>: No attribute \\'unknown\\' on Type[type] [attribute-error]']
-Line 144: Unexpected errors ['File "specialtypes_type.py", line 144, in <module>: No attribute \\'unknown\\' on Type[type] [attribute-error]']
-Line 145: Unexpected errors ['File "specialtypes_type.py", line 145, in <module>: No attribute \\'unknown\\' on Type[type] [attribute-error]']
-Line 146: Unexpected errors ['File "specialtypes_type.py", line 146, in <module>: No attribute \\'unknown\\' on Type[type] [attribute-error]']
 """

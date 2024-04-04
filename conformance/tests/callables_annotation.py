@@ -10,16 +10,16 @@ from typing import Callable, assert_type
 def func1(cb: Callable[[int, str], list[str]]) -> None:
     assert_type(cb(1, ""), list[str])
     
-    cb(1)  # Type error
-    cb(1, 2)  # Type error
-    cb(1, "", 1)  # Type error
-    cb(a=1, b="")  # Type error
+    cb(1)  # E
+    cb(1, 2)  # E
+    cb(1, "", 1)  # E
+    cb(a=1, b="")  # E
 
 
 def func2(cb: Callable[[], dict[str, str]]) -> None:
     assert_type(cb(), dict[str, str])
     
-    cb(1)  # Type error
+    cb(1)  # E
 
 
 # > It is possible to declare the return type of a callable without specifying

@@ -29,8 +29,6 @@ Line 58: Unexpected errors ['specialtypes_never.py:58:0 Uninitialized attribute 
 Line 67: Unexpected errors ['specialtypes_never.py:67:4 Incompatible variable type [9]: v1 is declared to have type `int` but is used as type `Never`.']
 Line 68: Unexpected errors ['specialtypes_never.py:68:4 Incompatible variable type [9]: v2 is declared to have type `str` but is used as type `Never`.']
 Line 69: Unexpected errors ['specialtypes_never.py:69:4 Incompatible variable type [9]: v3 is declared to have type `List[str]` but is used as type `Never`.']
-Line 85: Unexpected errors ['specialtypes_never.py:85:4 Incompatible variable type [9]: v3 is declared to have type `List[int]` but is used as type `List[Never]`.']
 Line 86: Unexpected errors ['specialtypes_never.py:86:4 Incompatible variable type [9]: v4 is declared to have type `Never` but is used as type `NoReturn`.']
 Line 95: Unexpected errors ['specialtypes_never.py:95:4 Incompatible return type [7]: Expected `ClassB[Variable[U]]` but got `ClassB[Never]`.']
-Line 104: Unexpected errors ['specialtypes_never.py:104:4 Incompatible return type [7]: Expected `ClassC[Variable[U]]` but got `ClassC[Never]`.']
 """

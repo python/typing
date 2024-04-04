@@ -21,6 +21,11 @@ aliases_recursive.py:79:0 Incompatible variable type [9]: MutualReference2 is de
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 38: Expected 1 errors
+Line 39: Expected 1 errors
+Line 50: Expected 1 errors
+Line 51: Expected 1 errors
+Line 56: Expected 1 errors
 Line 67: Expected 1 errors
 Line 73: Expected 1 errors
 Line 30: Unexpected errors ['aliases_recursive.py:30:35 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[str, typing.Any]`.']

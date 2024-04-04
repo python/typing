@@ -9,5 +9,22 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 17: Expected 1 errors
 Line 21: Expected 1 errors
+Line 33: Expected 1 errors
+Line 41: Expected 1 errors
+Line 50: Expected 1 errors
+Line 59: Expected 1 errors
+Line 72: Expected 1 errors
+Line 83: Expected 1 errors
+Line 99: Expected 1 errors
+Line 100: Expected 1 errors
+Line 114: Expected 1 errors
+Line 115: Expected 1 errors
+Line 122: Expected 1 errors
+Line 123: Expected 1 errors
+Line 124: Expected 1 errors
+Line 125: Expected 1 errors
+Line 133: Expected 1 errors
+Line 141: Expected 1 errors
+Line 152: Expected 1 errors
 Line 129: Unexpected errors ['generics_syntax_infer_variance.py:129:25 Parsing failure [404]: invalid syntax']
 """

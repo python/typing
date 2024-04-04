@@ -19,13 +19,5 @@ generics_typevartuple_args.py:76:14 - error: Argument of type "tuple[Literal['1'
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 33: Unexpected errors ['generics_typevartuple_args.py:33:16 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter of type "Env" in function "exec_le"']
-Line 34: Unexpected errors ['generics_typevartuple_args.py:34:16 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter of type "Env" in function "exec_le"']
-Line 48: Unexpected errors ['generics_typevartuple_args.py:48:10 - error: Argument of type "Literal[\\'2\\']" cannot be assigned to parameter of type "int" in function "func1"']
-Line 57: Unexpected errors ['generics_typevartuple_args.py:57:10 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str" in function "func2"']
-Line 58: Unexpected errors ['generics_typevartuple_args.py:58:1 - error: Argument missing for parameter "args[2]" (reportCallIssue)']
-Line 59: Unexpected errors ['generics_typevartuple_args.py:59:1 - error: Argument missing for parameter "args[2]" (reportCallIssue)']
-Line 67: Unexpected errors ['generics_typevartuple_args.py:67:1 - error: Argument missing for parameter "args[1]" (reportCallIssue)']
-Line 75: Unexpected errors ['generics_typevartuple_args.py:75:13 - error: Argument of type "tuple[Literal[1], Literal[2]]" cannot be assigned to parameter "args" of type "tuple[*Ts@func4]" in function "func4"']
-Line 76: Unexpected errors ['generics_typevartuple_args.py:76:14 - error: Argument of type "tuple[Literal[\\'1\\']]" cannot be assigned to parameter "args" of type "tuple[*Ts@func4]" in function "func4"']
+Line 80: Expected 1 errors
 """

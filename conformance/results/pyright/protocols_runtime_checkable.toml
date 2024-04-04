@@ -19,7 +19,5 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 93: Expected 1 errors
 Line 96: Expected 1 errors, got 2 (['protocols_runtime_checkable.py:96:19 - error: Class overlaps "Proto3" unsafely and could produce a match at runtime', 'protocols_runtime_checkable.py:96:19 - error: Class overlaps "NonDataProtocol" unsafely and could produce a match at runtime'])
-Line 55: Unexpected errors ['protocols_runtime_checkable.py:55:22 - error: Data protocols (which include non-method attributes) are not allowed in issubclass calls (reportGeneralTypeIssues)']
-Line 61: Unexpected errors ['protocols_runtime_checkable.py:61:22 - error: Data protocols (which include non-method attributes) are not allowed in issubclass calls (reportGeneralTypeIssues)']
 Line 92: Unexpected errors ['protocols_runtime_checkable.py:92:9 - error: Class overlaps "Proto3" unsafely and could produce a match at runtime', 'protocols_runtime_checkable.py:92:9 - error: Class overlaps "NonDataProtocol" unsafely and could produce a match at runtime']
 """

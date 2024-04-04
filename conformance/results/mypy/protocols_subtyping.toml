@@ -10,12 +10,6 @@ protocols_subtyping.py:80: error: Incompatible types in assignment (expression h
 protocols_subtyping.py:102: error: Incompatible types in assignment (expression has type "Proto6[float, float]", variable has type "Proto7[int, float]")  [assignment]
 protocols_subtyping.py:103: error: Incompatible types in assignment (expression has type "Proto6[float, float]", variable has type "Proto7[float, object]")  [assignment]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 38: Unexpected errors ['protocols_subtyping.py:38: error: Incompatible types in assignment (expression has type "Proto2", variable has type "Concrete2")  [assignment]']
-Line 55: Unexpected errors ['protocols_subtyping.py:55: error: Incompatible types in assignment (expression has type "Proto2", variable has type "Proto3")  [assignment]']
-Line 79: Unexpected errors ['protocols_subtyping.py:79: error: Incompatible types in assignment (expression has type "Proto5[int]", variable has type "Proto4[int, float]")  [assignment]']
-Line 80: Unexpected errors ['protocols_subtyping.py:80: error: Incompatible types in assignment (expression has type "Proto4[int, int]", variable has type "Proto5[float]")  [assignment]']
-Line 102: Unexpected errors ['protocols_subtyping.py:102: error: Incompatible types in assignment (expression has type "Proto6[float, float]", variable has type "Proto7[int, float]")  [assignment]']
-Line 103: Unexpected errors ['protocols_subtyping.py:103: error: Incompatible types in assignment (expression has type "Proto6[float, float]", variable has type "Proto7[float, object]")  [assignment]']
 """

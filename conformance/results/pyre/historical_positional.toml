@@ -12,8 +12,8 @@ historical_positional.py:53:0 Unexpected keyword [28]: Unexpected keyword argume
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 18: Unexpected errors ['historical_positional.py:18:0 Unexpected keyword [28]: Unexpected keyword argument `__x` to call `f1`.']
+Line 26: Expected 1 errors
+Line 38: Expected 1 errors
 Line 32: Unexpected errors ['historical_positional.py:32:0 Unexpected keyword [28]: Unexpected keyword argument `__y` to call `f3`.']
-Line 43: Unexpected errors ['historical_positional.py:43:0 Unexpected keyword [28]: Unexpected keyword argument `__x` to call `A.m1`.']
 Line 53: Unexpected errors ['historical_positional.py:53:0 Unexpected keyword [28]: Unexpected keyword argument `__y` to call `f4`.']
 """

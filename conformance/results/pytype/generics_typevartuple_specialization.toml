@@ -81,6 +81,8 @@ File "generics_typevartuple_specialization.py", line 163, in <module>: Invalid t
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 121: Expected 1 errors, got 2 (['File "generics_typevartuple_specialization.py", line 121, in <module>: Invalid type annotation \\'<instance of Tuple[TypeVar, ...]>\\'  [invalid-annotation]', 'File "generics_typevartuple_specialization.py", line 121, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]'])
+Line 122: Expected 1 errors, got 2 (['File "generics_typevartuple_specialization.py", line 122, in <module>: Invalid type annotation \\'<instance of Tuple[TypeVar, ...]>\\'  [invalid-annotation]', 'File "generics_typevartuple_specialization.py", line 122, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]'])
 Line 7: Unexpected errors ['File "generics_typevartuple_specialization.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
 Line 10: Unexpected errors ['File "generics_typevartuple_specialization.py", line 10, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
 Line 16: Unexpected errors ['File "generics_typevartuple_specialization.py", line 16, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
@@ -112,14 +114,10 @@ Line 99: Unexpected errors ['File "generics_typevartuple_specialization.py", lin
 Line 101: Unexpected errors ['File "generics_typevartuple_specialization.py", line 101, in <module>: Invalid type annotation \\'<instance of Tuple[Type[int], ...]>\\'  [invalid-annotation]']
 Line 102: Unexpected errors ['File "generics_typevartuple_specialization.py", line 102, in <module>: Invalid type annotation \\'Tuple[Any][<instance of Tuple[Type[float], ...]>]\\'  [invalid-annotation]']
 Line 103: Unexpected errors ['File "generics_typevartuple_specialization.py", line 103, in <module>: Invalid type annotation \\'Tuple[Any][<instance of tuple>]\\'  [invalid-annotation]']
-Line 109: Unexpected errors ['File "generics_typevartuple_specialization.py", line 109, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
-Line 110: Unexpected errors ['File "generics_typevartuple_specialization.py", line 110, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
 Line 117: Unexpected errors ['File "generics_typevartuple_specialization.py", line 117, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
 Line 118: Unexpected errors ['File "generics_typevartuple_specialization.py", line 118, in <module>: Invalid type annotation \\'<instance of Tuple[TypeVar, ...]>\\'  [invalid-annotation]']
 Line 119: Unexpected errors ['File "generics_typevartuple_specialization.py", line 119, in <module>: Invalid type annotation \\'<instance of Tuple[TypeVar, ...]>\\'  [invalid-annotation]']
 Line 120: Unexpected errors ['File "generics_typevartuple_specialization.py", line 120, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
-Line 121: Unexpected errors ['File "generics_typevartuple_specialization.py", line 121, in <module>: Invalid type annotation \\'<instance of Tuple[TypeVar, ...]>\\'  [invalid-annotation]', 'File "generics_typevartuple_specialization.py", line 121, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]']
-Line 122: Unexpected errors ['File "generics_typevartuple_specialization.py", line 122, in <module>: Invalid type annotation \\'<instance of Tuple[TypeVar, ...]>\\'  [invalid-annotation]', 'File "generics_typevartuple_specialization.py", line 122, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]']
 Line 125: Unexpected errors ['File "generics_typevartuple_specialization.py", line 125, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
 Line 130: Unexpected errors ['File "generics_typevartuple_specialization.py", line 130, in <module>: Invalid type annotation \\'Tuple[Any][<instance of Tuple[nothing, ...]>]\\'  [invalid-annotation]', 'File "generics_typevartuple_specialization.py", line 130, in <module>: Invalid type annotation \\'T2\\'  [invalid-annotation]', 'File "generics_typevartuple_specialization.py", line 130, in <module>: Invalid type annotation \\'T1\\'  [invalid-annotation]', 'File "generics_typevartuple_specialization.py", line 130, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
 Line 131: Unexpected errors ['File "generics_typevartuple_specialization.py", line 131, in func7: bad return type [bad-return-type]']
@@ -140,5 +138,4 @@ Line 157: Unexpected errors ['File "generics_typevartuple_specialization.py", li
 Line 158: Unexpected errors ['File "generics_typevartuple_specialization.py", line 158, in func11: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
 Line 159: Unexpected errors ['File "generics_typevartuple_specialization.py", line 159, in func11: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
 Line 162: Unexpected errors ['File "generics_typevartuple_specialization.py", line 162, in <module>: Invalid type annotation \\'<instance of Tuple[TypeVar, ...]>\\'  [invalid-annotation]']
-Line 163: Unexpected errors ['File "generics_typevartuple_specialization.py", line 163, in <module>: Invalid type annotation \\'Tuple[Any][<instance of Tuple[nothing, ...]>]\\'  [invalid-annotation]']
 """

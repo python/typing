@@ -15,11 +15,6 @@ File "callables_annotation.py", line 43, in <module>: Invalid type annotation 'E
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 13: Unexpected errors ['File "callables_annotation.py", line 13, in func1: Function <callable> expects 2 arg(s), got 1 [wrong-arg-count]']
-Line 14: Unexpected errors ['File "callables_annotation.py", line 14, in func1: Function <callable> was called with the wrong arguments [wrong-arg-types]']
-Line 15: Unexpected errors ['File "callables_annotation.py", line 15, in func1: Function <callable> expects 2 arg(s), got 3 [wrong-arg-count]']
-Line 16: Unexpected errors ['File "callables_annotation.py", line 16, in func1: Invalid keyword arguments (a, b) to function <callable> [wrong-keyword-args]']
-Line 22: Unexpected errors ['File "callables_annotation.py", line 22, in func2: Function <callable> expects 0 arg(s), got 1 [wrong-arg-count]']
 Line 39: Unexpected errors ['File "callables_annotation.py", line 39, in <module>: Invalid type annotation \\'int\\'  [invalid-annotation]', 'File "callables_annotation.py", line 39, in <module>: Invalid type annotation \\'Callable[Any]\\'  [invalid-annotation]']
 Line 40: Unexpected errors ['File "callables_annotation.py", line 40, in <module>: Invalid type annotation \\'int\\'  [invalid-annotation]']
 Line 41: Unexpected errors ['File "callables_annotation.py", line 41, in <module>: Invalid type annotation \\'[int]\\'  [invalid-annotation]']

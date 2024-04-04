@@ -31,16 +31,16 @@ assert_type(p[-1], str)
 assert_type(p[-2], int)
 assert_type(p[-3], int)
 
-print(p[3])  # Type error
-print(p[-4])  # Type error
+print(p[3])  # E
+print(p[-4])  # E
 
 # > Type checkers should enforce that named tuple fields cannot be overwritten
 # > or deleted.
 
-p.x = 3  # Type error
-p[0] = 3  # Type error
-del p.x  # Type error
-del p[0]  # Type error
+p.x = 3  # E
+p[0] = 3  # E
+del p.x  # E
+del p[0]  # E
 
 # > Like regular tuples, named tuples can be unpacked. Type checkers should understand
 # > this.

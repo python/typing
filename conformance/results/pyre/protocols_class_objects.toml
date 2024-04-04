@@ -11,6 +11,13 @@ protocols_class_objects.py:93:0 Uninitialized attribute [13]: Attribute `attr1` 
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 29: Expected 1 errors
+Line 34: Expected 1 errors
+Line 74: Expected 1 errors
+Line 101: Expected 1 errors
+Line 103: Expected 1 errors
+Line 104: Expected 1 errors
+Line 105: Expected 1 errors
 Line 26: Unexpected errors ['protocols_class_objects.py:26:11 Invalid class instantiation [45]: Cannot instantiate abstract class `Proto` with abstract method `meth`.']
 Line 93: Unexpected errors ['protocols_class_objects.py:93:0 Uninitialized attribute [13]: Attribute `attr1` is declared in class `CMeta` to have type `int` but is never initialized.']
 """

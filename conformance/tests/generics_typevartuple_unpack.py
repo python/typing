@@ -27,7 +27,7 @@ def func3(
 ):
     process_batch_channels(x)  # OK
     process_batch_channels(y)  # OK
-    process_batch_channels(z)  # Type error
+    process_batch_channels(z)  # E
 
 
 Shape = TypeVarTuple("Shape")

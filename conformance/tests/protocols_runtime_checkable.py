@@ -52,13 +52,13 @@ def func2(a: Any):
     if isinstance(a, NonDataProtocol):  # OK
         return
 
-    if issubclass(a, DataProtocol):  # Type error
+    if issubclass(a, DataProtocol):  # E
         return
 
     if issubclass(a, NonDataProtocol):  # OK
         return
 
-    if issubclass(a, (NonDataProtocol, DataProtocol)):  # Type error
+    if issubclass(a, (NonDataProtocol, DataProtocol)):  # E
         return
 
 

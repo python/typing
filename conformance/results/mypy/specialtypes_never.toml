@@ -15,6 +15,4 @@ Line 51: Expected 1 errors
 Line 54: Expected 1 errors
 Line 59: Expected 1 errors
 Line 60: Expected 1 errors
-Line 85: Unexpected errors ['specialtypes_never.py:85: error: Incompatible types in assignment (expression has type "list[NoReturn]", variable has type "list[int]")  [assignment]']
-Line 104: Unexpected errors ['specialtypes_never.py:104: error: Incompatible return value type (got "ClassC[NoReturn]", expected "ClassC[U]")  [return-value]']
 """

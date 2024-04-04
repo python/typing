@@ -23,7 +23,7 @@ def func1(arg1: int, arg2: str) -> None:
 
 
 Process(target=func1, args=(0, ""))  # OK
-Process(target=func1, args=("", 0))  # Type error
+Process(target=func1, args=("", 0))  # E
 
 
 def func2(f: Callable[[int, *Ts, T], tuple[T, *Ts]]) -> tuple[*Ts, T]:

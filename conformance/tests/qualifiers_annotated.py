@@ -74,7 +74,7 @@ Nested2: Annotated[list[Annotated[dict[str, Annotated[Literal[1, 2, 3], ""]], ""
 SmallInt: TypeAlias = Annotated[int, ""]
 
 not_type1: type[Any] = Annotated[int, ""]  # Type Error
-not_type2: type[Any] = SmallInt  # Type error
+not_type2: type[Any] = SmallInt  # E
 
 
 def func4(x: type[T]) -> T:

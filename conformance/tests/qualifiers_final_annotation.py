@@ -115,10 +115,10 @@ ClassD.VALUE1  # OK
 # > annotations. Using it in any other position is an error. In particular,
 # > Final can’t be used in annotations for function arguments.
 
-x: list[Final[int]] = []  # Type error
+x: list[Final[int]] = []  # E
 
 
-def func1(x: Final[list[int]]) -> None:  # Type error
+def func1(x: Final[list[int]]) -> None:  # E
     ...
 
 
@@ -131,8 +131,8 @@ Y: Final = "y"
 N = NamedTuple("N", [(X, int), (Y, int)])
 
 N(x=3, y=4)  # OK
-N(a=1)  # Type error
-N(x="", y="")  # Type error
+N(a=1)  # E
+N(x="", y="")  # E
 
 
 def func2() -> None:

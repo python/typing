@@ -106,8 +106,8 @@ IntFloatsTupleVar = IntTupleVar[*tuple[float, ...]]  # OK
 IntTupleGeneric = tuple[int, T]
 
 IntTupleGeneric[str]  # OK
-IntTupleGeneric[*Ts]  # Type error
-IntTupleGeneric[*tuple[float, ...]]  # Type error
+IntTupleGeneric[*Ts]  # E
+IntTupleGeneric[*tuple[float, ...]]  # E
 
 
 T1 = TypeVar("T1")
@@ -118,8 +118,8 @@ TA1 = tuple[*Ts, T1, T2]  # OK
 TA2 = tuple[T1, T2, *Ts]  # OK
 TA3 = tuple[T1, *Ts, T2, T3]  # OK
 TA4 = tuple[T1, T2, *tuple[int, ...]]  # OK
-TA5 = tuple[T1, *Ts, T2, *Ts]  # Type error
-TA6 = tuple[T1, *Ts, T2, *tuple[int, ...]]  # Type error
+TA5 = tuple[T1, *Ts, T2, *Ts]  # E
+TA6 = tuple[T1, *Ts, T2, *tuple[int, ...]]  # E
 
 
 TA7 = tuple[*Ts, T1, T2]
@@ -160,4 +160,4 @@ def func11(a: TA10, b: TA9[*tuple[int, ...], str], c: TA9[*tuple[int, ...], str]
 
 
 TA11 = tuple[T, *Ts1]
-TA12 = TA11[*Ts2]  # Type error
+TA12 = TA11[*Ts2]  # E

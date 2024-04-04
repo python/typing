@@ -33,14 +33,14 @@ type_argument: list[LiteralString]
 T = TypeVar("T", bound=LiteralString)
 
 
-bad_union: Literal["hello", LiteralString]  # Type error
-bad_nesting: Literal[LiteralString]  # Type error
+bad_union: Literal["hello", LiteralString]  # E
+bad_nesting: Literal[LiteralString]  # E
 
 
 def func1(a: Literal["one"], b: Literal["two"]):
     x1: LiteralString = a
 
-    x2: Literal[""] = b  # Type error
+    x2: Literal[""] = b  # E
 
 
 def func2(a: LiteralString, b: LiteralString):
@@ -63,7 +63,7 @@ def func2(a: LiteralString, b: LiteralString):
     assert_type(f"{a} {b}", LiteralString)
 
     variable = 3
-    x1: LiteralString = f"{a} {str(variable)}"  # Type error
+    x1: LiteralString = f"{a} {str(variable)}"  # E
 
     assert_type(a + str(1), str)
 
@@ -71,8 +71,8 @@ def func2(a: LiteralString, b: LiteralString):
     x2: str = a
 
     # > Other literal types, such as literal integers, are not compatible with LiteralString.
-    x3: LiteralString = 3  # Type error
-    x4: LiteralString = b"test"  # Type error
+    x3: LiteralString = 3  # E
+    x4: LiteralString = b"test"  # E
 
 
 # > Conditional statements and expressions work as expected.
@@ -117,7 +117,7 @@ def func4(s: LiteralString):
 
 
 def func5(s: str):
-    literal_identity(s)  # Type error
+    literal_identity(s)  # E
 
 
 # > LiteralString can be used as a type argument for generic classes.
@@ -131,7 +131,7 @@ def func6(s: LiteralString):
 
 
 def func7(s: str):
-    x_error: Container[LiteralString] = Container(s)  # Type error
+    x_error: Container[LiteralString] = Container(s)  # E
 
 
 # > Standard containers like List work as expected.
@@ -163,7 +163,7 @@ assert_type(func8(str(1)), str)  # Third overload
 
 
 def func9(val: list[LiteralString]):
-    x1: list[str] = val  # Type error
+    x1: list[str] = val  # E
 
 
 def func10(val: Sequence[LiteralString]):

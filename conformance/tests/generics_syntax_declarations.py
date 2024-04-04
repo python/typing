@@ -24,14 +24,14 @@ class ClassB[S, T](Protocol):  # OK
     ...
 
 
-class ClassC[S, T](Protocol[S, T]):  # Type error
+class ClassC[S, T](Protocol[S, T]):  # E
     ...
 
 
 class ClassD[T: str]:
     def method1(self, x: T):
         x.capitalize()  # OK
-        x.is_integer()  # Type error
+        x.is_integer()  # E
 
 
 class ClassE[T: dict[str, int]]:  # OK

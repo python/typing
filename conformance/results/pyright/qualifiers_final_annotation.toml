@@ -47,8 +47,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 63: Expected 1 errors, got 2 (['qualifiers_final_annotation.py:63:19 - error: "Final" is not allowed in this context', 'qualifiers_final_annotation.py:63:32 - error: Cannot assign member "id4" for type "ClassA*"'])
 Line 107: Expected 1 errors, got 2 (['qualifiers_final_annotation.py:107:22 - error: "Final" is not allowed in this context', 'qualifiers_final_annotation.py:107:31 - error: Expression of type "Literal[1]" cannot be assigned to declared type "Final"'])
-Line 118: Unexpected errors ['qualifiers_final_annotation.py:118:9 - error: "Final" is not allowed in this context']
-Line 121: Unexpected errors ['qualifiers_final_annotation.py:121:14 - error: "Final" is not allowed in this context']
-Line 134: Unexpected errors ['qualifiers_final_annotation.py:134:1 - error: Arguments missing for parameters "x", "y" (reportCallIssue)', 'qualifiers_final_annotation.py:134:3 - error: No parameter named "a" (reportCallIssue)']
-Line 135: Unexpected errors ['qualifiers_final_annotation.py:135:5 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter "x" of type "int" in function "__new__"', 'qualifiers_final_annotation.py:135:11 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter "y" of type "int" in function "__new__"']
+Line 134: Expected 1 errors, got 2 (['qualifiers_final_annotation.py:134:1 - error: Arguments missing for parameters "x", "y" (reportCallIssue)', 'qualifiers_final_annotation.py:134:3 - error: No parameter named "a" (reportCallIssue)'])
+Line 135: Expected 1 errors, got 2 (['qualifiers_final_annotation.py:135:5 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter "x" of type "int" in function "__new__"', 'qualifiers_final_annotation.py:135:11 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter "y" of type "int" in function "__new__"'])
 """

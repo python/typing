@@ -10,8 +10,6 @@ literals_semantics.py:33:10 - error: Expression of type "Literal[6, 7, 8]" canno
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 10: Unexpected errors ['literals_semantics.py:10:18 - error: Expression of type "Literal[4]" cannot be assigned to declared type "Literal[3]"']
 Line 24: Unexpected errors ['literals_semantics.py:24:26 - error: Expression of type "Literal[0]" cannot be assigned to declared type "Literal[False]"']
 Line 25: Unexpected errors ['literals_semantics.py:25:22 - error: Expression of type "Literal[False]" cannot be assigned to declared type "Literal[0]"']
-Line 33: Unexpected errors ['literals_semantics.py:33:10 - error: Expression of type "Literal[6, 7, 8]" cannot be assigned to declared type "Literal[3, 4, 5]" (reportAssignmentType)']
 """

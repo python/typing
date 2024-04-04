@@ -17,15 +17,6 @@ namedtuples_define_class.py:105: error: NamedTuple should be a single base  [mis
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 32: Unexpected errors ['namedtuples_define_class.py:32: error: Tuple index out of range  [misc]']
-Line 33: Unexpected errors ['namedtuples_define_class.py:33: error: Tuple index out of range  [misc]']
-Line 44: Unexpected errors ['namedtuples_define_class.py:44: error: Missing positional argument "y" in call to "Point"  [call-arg]']
-Line 45: Unexpected errors ['namedtuples_define_class.py:45: error: Missing positional argument "y" in call to "Point"  [call-arg]']
-Line 46: Unexpected errors ['namedtuples_define_class.py:46: error: Argument 2 to "Point" has incompatible type "str"; expected "int"  [arg-type]']
-Line 47: Unexpected errors ['namedtuples_define_class.py:47: error: Argument "units" to "Point" has incompatible type "int"; expected "str"  [arg-type]']
-Line 48: Unexpected errors ['namedtuples_define_class.py:48: error: Too many arguments for "Point"  [call-arg]']
-Line 49: Unexpected errors ['namedtuples_define_class.py:49: error: Unexpected keyword argument "other" for "Point"  [call-arg]']
+Line 79: Expected 1 errors
 Line 59: Unexpected errors ['namedtuples_define_class.py:59: error: Non-default NamedTuple fields cannot follow default fields  [misc]']
-Line 98: Unexpected errors ['namedtuples_define_class.py:98: error: Argument 2 to "Property" has incompatible type "float"; expected "str"  [arg-type]']
-Line 105: Unexpected errors ['namedtuples_define_class.py:105: error: NamedTuple should be a single base  [misc]']
 """

@@ -15,6 +15,7 @@ File "generics_typevartuple_unpack.py", line 44, in <module>: class Array is not
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 30: Expected 1 errors
 Line 7: Unexpected errors ['File "generics_typevartuple_unpack.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
 Line 14: Unexpected errors ['File "generics_typevartuple_unpack.py", line 14, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
 Line 17: Unexpected errors ['File "generics_typevartuple_unpack.py", line 17, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']

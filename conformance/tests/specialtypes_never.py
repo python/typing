@@ -82,7 +82,7 @@ def func7(x: int) -> Never:
 def func8(a: Never, b: Any, c: list[Never]):
     v1: Never = a  # OK
     v2: Never = b  # OK
-    v3: list[int] = c  # Type error
+    v3: list[int] = c  # E
     v4: Never = stop()  # OK
 
 
@@ -101,4 +101,4 @@ class ClassC(Generic[T]):
 
 def func10(x: U) -> ClassC[U]:
     # Never is not compatible in an invariant context.
-    return ClassC[Never]()  # Type error
+    return ClassC[Never]()  # E

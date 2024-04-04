@@ -7,5 +7,6 @@ File "annotations_methods.py", line 42, in <module>: B [assert-type]
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 46: Expected 1 errors
 Line 42: Unexpected errors ['File "annotations_methods.py", line 42, in <module>: B [assert-type]']
 """

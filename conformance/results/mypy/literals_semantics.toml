@@ -7,8 +7,6 @@ literals_semantics.py:33: error: Incompatible types in assignment (expression ha
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 10: Unexpected errors ['literals_semantics.py:10: error: Incompatible types in assignment (expression has type "Literal[4]", variable has type "Literal[3]")  [assignment]']
 Line 24: Unexpected errors ['literals_semantics.py:24: error: Incompatible types in assignment (expression has type "Literal[0]", variable has type "Literal[False]")  [assignment]']
 Line 25: Unexpected errors ['literals_semantics.py:25: error: Incompatible types in assignment (expression has type "Literal[False]", variable has type "Literal[0]")  [assignment]']
-Line 33: Unexpected errors ['literals_semantics.py:33: error: Incompatible types in assignment (expression has type "int", variable has type "Literal[3, 4, 5]")  [assignment]']
 """

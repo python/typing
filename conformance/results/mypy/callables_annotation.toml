@@ -16,11 +16,7 @@ callables_annotation.py:43: error: Unexpected "..."  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 13: Unexpected errors ['callables_annotation.py:13: error: Too few arguments  [call-arg]']
-Line 14: Unexpected errors ['callables_annotation.py:14: error: Argument 2 has incompatible type "int"; expected "str"  [arg-type]']
-Line 15: Unexpected errors ['callables_annotation.py:15: error: Too many arguments  [call-arg]']
-Line 16: Unexpected errors ['callables_annotation.py:16: error: Unexpected keyword argument "a"  [call-arg]', 'callables_annotation.py:16: error: Unexpected keyword argument "b"  [call-arg]']
-Line 22: Unexpected errors ['callables_annotation.py:22: error: Too many arguments  [call-arg]']
+Line 16: Expected 1 errors, got 2 (['callables_annotation.py:16: error: Unexpected keyword argument "a"  [call-arg]', 'callables_annotation.py:16: error: Unexpected keyword argument "b"  [call-arg]'])
 Line 39: Unexpected errors ['callables_annotation.py:39: error: Please use "Callable[[<parameters>], <return type>]" or "Callable"  [misc]']
 Line 40: Unexpected errors ['callables_annotation.py:40: error: The first argument to Callable must be a list of types, parameter specification, or "..."  [valid-type]']
 Line 41: Unexpected errors ['callables_annotation.py:41: error: Bracketed expression "[...]" is not valid as a type  [valid-type]']

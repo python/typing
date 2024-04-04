@@ -11,7 +11,7 @@ from collections.abc import Iterable, Iterator
 # > contravariant type checking is acceptable, type variables accept
 # > keyword arguments covariant=True or contravariant=True. At most one of
 # > these may be passed.
-X1 = TypeVar("X1", covariant=True, contravariant=True)  # Type error
+X1 = TypeVar("X1", covariant=True, contravariant=True)  # E
 
 
 T = TypeVar("T")
@@ -160,11 +160,11 @@ class ContraToCo(Co[Contra[T_contra]]):  # OK
     ...
 
 
-class CoToContraToContra(Contra[Co[Contra[T_contra]]]):  # Type error
+class CoToContraToContra(Contra[Co[Contra[T_contra]]]):  # E
     ...
 
 
-class ContraToContraToContra(Contra[Contra[Contra[T_co]]]):  # Type error
+class ContraToContraToContra(Contra[Contra[Contra[T_co]]]):  # E
     ...
 
 
@@ -188,11 +188,11 @@ class ContraToCo_WithTA(Co_TA[Contra_TA[T_contra]]):  # OK
     ...
 
 
-class CoToContraToContra_WithTA(Contra_TA[Co_TA[Contra_TA[T_contra]]]):  # Type error
+class CoToContraToContra_WithTA(Contra_TA[Co_TA[Contra_TA[T_contra]]]):  # E
     ...
 
 
 class ContraToContraToContra_WithTA(
     Contra_TA[Contra_TA[Contra_TA[T_co]]]
-):  # Type error
+):  # E
     ...

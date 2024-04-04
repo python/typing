@@ -42,11 +42,5 @@ protocols_generic.py:147: note:         def m(self, item: str, callback: Callabl
 conformance_automated = "Fail"
 errors_diff = """
 Line 44: Unexpected errors ['protocols_generic.py:44: error: Only single Generic[...] or Protocol[...] can be in bases  [misc]', 'protocols_generic.py:44: error: Duplicate type variables in Generic[...] or Protocol[...]  [misc]']
-Line 56: Unexpected errors ['protocols_generic.py:56: error: Incompatible types in assignment (expression has type "Box[float]", variable has type "Box[int]")  [assignment]']
-Line 66: Unexpected errors ['protocols_generic.py:66: error: Incompatible types in assignment (expression has type "Sender[int]", variable has type "Sender[float]")  [assignment]']
-Line 74: Unexpected errors ['protocols_generic.py:74: error: Incompatible types in assignment (expression has type "AttrProto[int]", variable has type "AttrProto[float]")  [assignment]']
-Line 75: Unexpected errors ['protocols_generic.py:75: error: Incompatible types in assignment (expression has type "AttrProto[float]", variable has type "AttrProto[int]")  [assignment]']
 Line 145: Unexpected errors ['protocols_generic.py:145: error: Incompatible types in assignment (expression has type "ConcreteHasProperty2", variable has type "HasPropertyProto")  [assignment]']
-Line 146: Unexpected errors ['protocols_generic.py:146: error: Incompatible types in assignment (expression has type "ConcreteHasProperty3", variable has type "HasPropertyProto")  [assignment]']
-Line 147: Unexpected errors ['protocols_generic.py:147: error: Incompatible types in assignment (expression has type "ConcreteHasProperty4", variable has type "HasPropertyProto")  [assignment]']
 """

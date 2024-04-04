@@ -5,6 +5,29 @@ Type parameter syntax not yet support.
 output = """
 SyntaxError: Type parameter lists are only supported in Python 3.12 and greater (<unknown>, line 15)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 24: Expected 1 errors
+Line 25: Expected 1 errors
+Line 28: Expected 1 errors
+Line 41: Expected 1 errors
+Line 49: Expected 1 errors
+Line 58: Expected 1 errors
+Line 67: Expected 1 errors
+Line 80: Expected 1 errors
+Line 96: Expected 1 errors
+Line 97: Expected 1 errors
+Line 111: Expected 1 errors
+Line 112: Expected 1 errors
+Line 119: Expected 1 errors
+Line 120: Expected 1 errors
+Line 121: Expected 1 errors
+Line 122: Expected 1 errors
+Line 130: Expected 1 errors
+Line 138: Expected 1 errors
+Line 149: Expected 1 errors
+Line 169: Expected 1 errors
+Line 170: Expected 1 errors
+Line 181: Expected 1 errors
+Line 194: Expected 1 errors
 """

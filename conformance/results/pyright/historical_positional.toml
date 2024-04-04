@@ -5,10 +5,6 @@ historical_positional.py:26:16 - error: Position-only parameter not allowed afte
 historical_positional.py:38:26 - error: Position-only parameter not allowed after parameter that is not position-only (reportGeneralTypeIssues)
 historical_positional.py:43:10 - error: Expected 1 more positional argument (reportCallIssue)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 18: Unexpected errors ['historical_positional.py:18:8 - error: Expected 1 more positional argument (reportCallIssue)']
-Line 26: Unexpected errors ['historical_positional.py:26:16 - error: Position-only parameter not allowed after parameter that is not position-only (reportGeneralTypeIssues)']
-Line 38: Unexpected errors ['historical_positional.py:38:26 - error: Position-only parameter not allowed after parameter that is not position-only (reportGeneralTypeIssues)']
-Line 43: Unexpected errors ['historical_positional.py:43:10 - error: Expected 1 more positional argument (reportCallIssue)']
 """

@@ -11,8 +11,11 @@ generics_type_erasure.py:38:15 Incompatible parameter type [6]: In call `Node.__
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 40: Expected 1 errors
+Line 41: Expected 1 errors
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
 Line 11: Unexpected errors ['generics_type_erasure.py:11:0 Uninitialized attribute [13]: Attribute `label` is declared in class `Node` to have type `Variable[T]` but is never initialized.']
 Line 17: Unexpected errors ['generics_type_erasure.py:17:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[T]]` but got `object`.']
-Line 36: Unexpected errors ['generics_type_erasure.py:36:15 Incompatible parameter type [6]: In call `Node.__init__`, for 1st positional argument, expected `Optional[int]` but got `str`.']
-Line 38: Unexpected errors ['generics_type_erasure.py:38:15 Incompatible parameter type [6]: In call `Node.__init__`, for 1st positional argument, expected `Optional[str]` but got `int`.']
 """

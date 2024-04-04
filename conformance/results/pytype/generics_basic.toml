@@ -22,16 +22,9 @@ File "generics_basic.py", line 161, in test_my_iterable_any: Iterator[nothing] [
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 167: Expected 1 errors
 Line 31: Unexpected errors ['File "generics_basic.py", line 31, in concat: bad return type [bad-return-type]']
-Line 36: Unexpected errors ['File "generics_basic.py", line 36, in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]']
-Line 37: Unexpected errors ['File "generics_basic.py", line 37, in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]']
-Line 44: Unexpected errors ['File "generics_basic.py", line 44, in <module>: Invalid TypeVar: the number of constraints must be 0 or more than 1 [invalid-typevar]']
-Line 48: Unexpected errors ['File "generics_basic.py", line 48, in <module>: Invalid TypeVar: constraint cannot contain TypeVars [invalid-typevar]']
 Line 57: Unexpected errors ['File "generics_basic.py", line 57, in test_concat_subtype: MyStr [assert-type]']
 Line 58: Unexpected errors ['File "generics_basic.py", line 58, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]', 'File "generics_basic.py", line 58, in test_concat_subtype: Any [assert-type]']
-Line 59: Unexpected errors ['File "generics_basic.py", line 59, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]']
-Line 107: Unexpected errors ['File "generics_basic.py", line 107, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
-Line 140: Unexpected errors ['File "generics_basic.py", line 140, in test_my_map: unsupported operand type(s) for item retrieval: MyMap1[str, int] and int [unsupported-operands]']
-Line 141: Unexpected errors ['File "generics_basic.py", line 141, in test_my_map: unsupported operand type(s) for item retrieval: MyMap2[int, str] and int [unsupported-operands]']
 Line 161: Unexpected errors ['File "generics_basic.py", line 161, in test_my_iterable_any: Iterator[nothing] [assert-type]']
 """

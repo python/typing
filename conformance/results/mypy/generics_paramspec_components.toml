@@ -23,11 +23,18 @@ generics_paramspec_components.py:98: error: Argument 3 to "twice" has incompatib
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 17: Unexpected errors ['generics_paramspec_components.py:17: error: Use "P.args" for variadic "*" parameter  [valid-type]', 'generics_paramspec_components.py:17: error: Use "P.kwargs" for variadic "**" parameter  [valid-type]']
-Line 23: Unexpected errors ['generics_paramspec_components.py:23: error: Use "P.kwargs" for variadic "**" parameter  [valid-type]']
-Line 49: Unexpected errors ['generics_paramspec_components.py:49: error: Argument 1 has incompatible type "*P.kwargs"; expected "P.args"  [arg-type]', 'generics_paramspec_components.py:49: error: Argument 2 has incompatible type "**P.args"; expected "P.kwargs"  [arg-type]']
-Line 51: Unexpected errors ['generics_paramspec_components.py:51: error: Argument 1 has incompatible type "int"; expected "P.args"  [arg-type]']
-Line 70: Unexpected errors ['generics_paramspec_components.py:70: error: Argument 1 has incompatible type "*P.args"; expected "int"  [arg-type]', 'generics_paramspec_components.py:70: error: Argument 2 has incompatible type "int"; expected "P.args"  [arg-type]']
-Line 83: Unexpected errors ['generics_paramspec_components.py:83: error: "foo" gets multiple values for keyword argument "x"  [misc]', 'generics_paramspec_components.py:83: error: Argument 1 to "foo" has incompatible type "*P.args"; expected "int"  [arg-type]', 'generics_paramspec_components.py:83: error: Argument 3 to "foo" has incompatible type "**P.kwargs"; expected "int"  [arg-type]']
-Line 98: Unexpected errors ['generics_paramspec_components.py:98: error: Argument 2 to "twice" has incompatible type "str"; expected "int"  [arg-type]', 'generics_paramspec_components.py:98: error: Argument 3 to "twice" has incompatible type "int"; expected "str"  [arg-type]']
+Line 17: Expected 1 errors, got 2 (['generics_paramspec_components.py:17: error: Use "P.args" for variadic "*" parameter  [valid-type]', 'generics_paramspec_components.py:17: error: Use "P.kwargs" for variadic "**" parameter  [valid-type]'])
+Line 20: Expected 1 errors
+Line 26: Expected 1 errors
+Line 30: Expected 1 errors
+Line 35: Expected 1 errors
+Line 36: Expected 1 errors
+Line 38: Expected 1 errors
+Line 41: Expected 1 errors
+Line 49: Expected 1 errors, got 2 (['generics_paramspec_components.py:49: error: Argument 1 has incompatible type "*P.kwargs"; expected "P.args"  [arg-type]', 'generics_paramspec_components.py:49: error: Argument 2 has incompatible type "**P.args"; expected "P.kwargs"  [arg-type]'])
+Line 60: Expected 1 errors
+Line 70: Expected 1 errors, got 2 (['generics_paramspec_components.py:70: error: Argument 1 has incompatible type "*P.args"; expected "int"  [arg-type]', 'generics_paramspec_components.py:70: error: Argument 2 has incompatible type "int"; expected "P.args"  [arg-type]'])
+Line 72: Expected 1 errors
+Line 83: Expected 1 errors, got 3 (['generics_paramspec_components.py:83: error: "foo" gets multiple values for keyword argument "x"  [misc]', 'generics_paramspec_components.py:83: error: Argument 1 to "foo" has incompatible type "*P.args"; expected "int"  [arg-type]', 'generics_paramspec_components.py:83: error: Argument 3 to "foo" has incompatible type "**P.kwargs"; expected "int"  [arg-type]'])
+Line 98: Expected 1 errors, got 2 (['generics_paramspec_components.py:98: error: Argument 2 to "twice" has incompatible type "str"; expected "int"  [arg-type]', 'generics_paramspec_components.py:98: error: Argument 3 to "twice" has incompatible type "int"; expected "str"  [arg-type]'])
 """

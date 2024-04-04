@@ -29,26 +29,10 @@ tuples_type_compat.py:175: error: Incompatible types in assignment (expression h
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 15: Unexpected errors ['tuples_type_compat.py:15: error: Incompatible types in assignment (expression has type "tuple[float, complex]", variable has type "tuple[int, int]")  [assignment]']
-Line 29: Unexpected errors ['tuples_type_compat.py:29: error: Incompatible types in assignment (expression has type "tuple[int, ...]", variable has type "tuple[int, *tuple[int, ...]]")  [assignment]']
-Line 32: Unexpected errors ['tuples_type_compat.py:32: error: Incompatible types in assignment (expression has type "tuple[int, *tuple[int, ...]]", variable has type "tuple[int]")  [assignment]']
-Line 33: Unexpected errors ['tuples_type_compat.py:33: error: Incompatible types in assignment (expression has type "tuple[int, ...]", variable has type "tuple[int]")  [assignment]']
-Line 43: Unexpected errors ['tuples_type_compat.py:43: error: Incompatible types in assignment (expression has type "tuple[int, ...]", variable has type "tuple[int]")  [assignment]']
-Line 62: Unexpected errors ['tuples_type_compat.py:62: error: Incompatible types in assignment (expression has type "tuple[int, ...]", variable has type "tuple[int, int]")  [assignment]']
 Line 95: Unexpected errors ['tuples_type_compat.py:95: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]", not "tuple[int]"  [assert-type]']
 Line 99: Unexpected errors ['tuples_type_compat.py:99: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]", not "tuple[str, str] | tuple[int, int]"  [assert-type]']
 Line 103: Unexpected errors ['tuples_type_compat.py:103: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]", not "tuple[int, str, int]"  [assert-type]']
 Line 117: Unexpected errors ['tuples_type_compat.py:117: error: Expression is of type "tuple[Never, int]", not "tuple[int | str, int]"  [assert-type]']
 Line 136: Unexpected errors ['tuples_type_compat.py:136: error: Expression is of type "Sequence[object]", not "Sequence[complex | list[int]]"  [assert-type]']
 Line 139: Unexpected errors ['tuples_type_compat.py:139: error: Expression is of type "Sequence[object]", not "Sequence[int | str]"  [assert-type]']
-Line 144: Unexpected errors ['tuples_type_compat.py:144: error: Incompatible types in assignment (expression has type "tuple[int, str, str]", variable has type "tuple[int, str]")  [assignment]']
-Line 149: Unexpected errors ['tuples_type_compat.py:149: error: Incompatible types in assignment (expression has type "tuple[int, int, str]", variable has type "tuple[int, *tuple[str, ...]]")  [assignment]']
-Line 150: Unexpected errors ['tuples_type_compat.py:150: error: Incompatible types in assignment (expression has type "tuple[int, str, int]", variable has type "tuple[int, *tuple[str, ...]]")  [assignment]']
-Line 156: Unexpected errors ['tuples_type_compat.py:156: error: Incompatible types in assignment (expression has type "tuple[int, str, str]", variable has type "tuple[int, *tuple[str, ...], int]")  [assignment]']
-Line 157: Unexpected errors ['tuples_type_compat.py:157: error: Incompatible types in assignment (expression has type "tuple[int, str, str, float]", variable has type "tuple[int, *tuple[str, ...], int]")  [assignment]']
-Line 162: Unexpected errors ['tuples_type_compat.py:162: error: Incompatible types in assignment (expression has type "tuple[int, str, int]", variable has type "tuple[*tuple[str, ...], int]")  [assignment]']
-Line 163: Unexpected errors ['tuples_type_compat.py:163: error: Incompatible types in assignment (expression has type "tuple[str, str, float]", variable has type "tuple[*tuple[str, ...], int]")  [assignment]']
-Line 168: Unexpected errors ['tuples_type_compat.py:168: error: Incompatible types in assignment (expression has type "tuple[str, str]", variable has type "tuple[str, str, int]")  [assignment]']
-Line 171: Unexpected errors ['tuples_type_compat.py:171: error: Incompatible types in assignment (expression has type "tuple[str, str]", variable has type "tuple[str, str, str, *tuple[str, ...]]")  [assignment]']
-Line 175: Unexpected errors ['tuples_type_compat.py:175: error: Incompatible types in assignment (expression has type "tuple[str, str]", variable has type "tuple[*tuple[str, ...], str, str, str]")  [assignment]']
 """

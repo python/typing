@@ -22,7 +22,7 @@ class MyClass(Generic[T]):
 
 a: MyClass[int] = MyClass()
 a.meth_1(1)  # OK
-a.meth_2('a')  # Type error
+a.meth_2('a')  # E
 
 # > A type variable used in a method that does not match any of the variables
 # > that parameterize the class makes this method a generic function in that
@@ -43,11 +43,11 @@ assert_type(x.method(0, b"abc"), bytes)
 
 def fun_3(x: T) -> list[T]:
     y: list[T] = []  # OK
-    z: list[S] = []  # Type error
+    z: list[S] = []  # E
     return y
 
 class Bar(Generic[T]):
-    an_attr: list[S] = []  # Type error
+    an_attr: list[S] = []  # E
 
     def do_something(self, x: S) -> S:  # OK
         ...
@@ -58,7 +58,7 @@ class Bar(Generic[T]):
 def fun_4(x: T) -> list[T]:
     a_list: list[T] = []  # OK
 
-    class MyGeneric(Generic[T]):  # Type error
+    class MyGeneric(Generic[T]):  # E
         ...
 
     return a_list
@@ -68,19 +68,19 @@ def fun_4(x: T) -> list[T]:
 # > doesn't cover the inner one
 
 class Outer(Generic[T]):
-    class Bad(Iterable[T]):  # Type error
+    class Bad(Iterable[T]):  # E
         ...
     class AlsoBad:
-        x: list[T]  # Type error
+        x: list[T]  # E
 
     class Inner(Iterable[S]):  # OK
         ...
     attr: Inner[T]  # OK
 
-    alias: TypeAlias = list[T]  # Type error
+    alias: TypeAlias = list[T]  # E
 
 
 # Test unbound type variables at global scope
-global_var1: T  # Type error
-global_var2: list[T] = []  # Type error
-list[T]()  # Type error
+global_var1: T  # E
+global_var2: list[T] = []  # E
+list[T]()  # E

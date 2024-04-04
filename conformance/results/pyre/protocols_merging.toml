@@ -12,5 +12,4 @@ protocols_merging.py:84:0 Incompatible variable type [9]: y is declared to have 
 conformance_automated = "Fail"
 errors_diff = """
 Line 67: Expected 1 errors
-Line 84: Unexpected errors ['protocols_merging.py:84:0 Incompatible variable type [9]: y is declared to have type `SizedAndClosable4` but is used as type `SCConcrete1`.']
 """

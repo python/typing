@@ -14,6 +14,4 @@ errors_diff = """
 Line 88: Expected 1 errors
 Line 93: Expected 1 errors
 Line 96: Expected 1 errors
-Line 55: Unexpected errors ["protocols_runtime_checkable.py:55: error: Only protocols that don't have non-method members can be used with issubclass()  [misc]"]
-Line 61: Unexpected errors ["protocols_runtime_checkable.py:61: error: Only protocols that don't have non-method members can be used with issubclass()  [misc]"]
 """

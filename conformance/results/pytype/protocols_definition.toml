@@ -28,13 +28,18 @@ File "protocols_definition.py", line 219, in <module>: Type annotation for v4_ba
 conformance_automated = "Fail"
 errors_diff = """
 Line 67: Expected 1 errors
+Line 116: Expected 1 errors
+Line 117: Expected 1 errors
+Line 157: Expected 1 errors
+Line 158: Expected 1 errors
+Line 160: Expected 1 errors
+Line 285: Expected 1 errors
+Line 286: Expected 1 errors
+Line 287: Expected 1 errors
+Line 288: Expected 1 errors
+Line 289: Expected 1 errors
+Line 339: Expected 1 errors
 Line 340: Expected 1 errors
 Line 341: Expected 1 errors
 Line 45: Unexpected errors ['File "protocols_definition.py", line 45, in third: bad return type [bad-return-type]']
-Line 114: Unexpected errors ['File "protocols_definition.py", line 114, in <module>: Type annotation for v2_bad1 does not match type of assignment [annotation-type-mismatch]']
-Line 115: Unexpected errors ['File "protocols_definition.py", line 115, in <module>: Type annotation for v2_bad2 does not match type of assignment [annotation-type-mismatch]']
-Line 156: Unexpected errors ['File "protocols_definition.py", line 156, in <module>: Type annotation for v3_bad1 does not match type of assignment [annotation-type-mismatch]']
-Line 159: Unexpected errors ['File "protocols_definition.py", line 159, in <module>: Type annotation for v3_bad4 does not match type of assignment [annotation-type-mismatch]']
-Line 218: Unexpected errors ['File "protocols_definition.py", line 218, in <module>: Type annotation for v4_bad1 does not match type of assignment [annotation-type-mismatch]']
-Line 219: Unexpected errors ['File "protocols_definition.py", line 219, in <module>: Type annotation for v4_bad2 does not match type of assignment [annotation-type-mismatch]']
 """

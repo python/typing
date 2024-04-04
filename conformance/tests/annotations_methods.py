@@ -43,7 +43,7 @@ assert_type(A.copy(B()), A)
 
 # Similarly, this case is ambiguous in the spec. Pyright currently
 # generates a type error here, but mypy accepts this.
-B.copy(A())  # Type error
+B.copy(A())  # E
 
 assert_type(A.static_method(A), A)
 assert_type(A.static_method(B), B)

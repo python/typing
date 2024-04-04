@@ -20,7 +20,13 @@ File "qualifiers_final_decorator.py", line 125, in <module>: Cannot apply @final
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 56: Expected 1 errors
+Line 60: Expected 1 errors
+Line 64: Expected 1 errors
+Line 75: Expected 1 errors
 Line 85: Expected 1 errors
+Line 89: Expected 1 errors
+Line 102: Expected 1 errors
 Line 126: Expected 1 errors
 Line 8: Unexpected errors ['File "qualifiers_final_decorator.py", line 8, in <module>: Couldn\\'t import pyi for \\'_qualifiers_final_decorator\\' [pyi-error]']
 Line 52: Unexpected errors ['File "qualifiers_final_decorator.py", line 52, in method4: bad return type [bad-return-type]']
@@ -29,6 +35,5 @@ Line 76: Unexpected errors ['File "qualifiers_final_decorator.py", line 76, in m
 Line 90: Unexpected errors ['File "qualifiers_final_decorator.py", line 90, in method: bad return type [bad-return-type]']
 Line 103: Unexpected errors ['File "qualifiers_final_decorator.py", line 103, in method: bad return type [bad-return-type]']
 Line 117: Unexpected errors ['File "qualifiers_final_decorator.py", line 117, in <module>: Class Derived5 overrides final method method, defined in base class Base5_2 [final-error]']
-Line 118: Unexpected errors ['File "qualifiers_final_decorator.py", line 118, in Derived5: Overriding method signature mismatch [signature-mismatch]']
 Line 125: Unexpected errors ['File "qualifiers_final_decorator.py", line 125, in <module>: Cannot apply @final decorator to func1 [final-error]']
 """

@@ -12,7 +12,7 @@ WrongName = ParamSpec("NotIt")  # E: name inconsistency
 
 # > Valid use locations
 
-TA1: TypeAlias = P  # Type error
+TA1: TypeAlias = P  # E
 
 TA2: TypeAlias = Callable[P, None]  # OK
 TA3: TypeAlias = Callable[Concatenate[int, P], None]  # OK
@@ -20,21 +20,21 @@ TA4: TypeAlias = Callable[..., None]  # OK
 TA5: TypeAlias = Callable[..., None]  # OK
 
 
-def func1(x: P) -> P:  # Type error
+def func1(x: P) -> P:  # E
     ...
 
 
-def func2(x: Concatenate[int, P]) -> int:  # Type error
+def func2(x: Concatenate[int, P]) -> int:  # E
     ...
 
 
-def func3(x: list[P]) -> None:  # Type error
+def func3(x: list[P]) -> None:  # E
     ...
 
 
-def func4(x: Callable[[int, str], P]) -> None:  # Type error
+def func4(x: Callable[[int, str], P]) -> None:  # E
     ...
 
 
-def func5(*args: P, **kwargs: P) -> None:  # Type error
+def func5(*args: P, **kwargs: P) -> None:  # E
     ...

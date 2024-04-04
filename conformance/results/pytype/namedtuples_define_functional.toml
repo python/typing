@@ -19,14 +19,6 @@ File "namedtuples_define_functional.py", line 63, in <module>: Function collecti
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 16: Unexpected errors ['File "namedtuples_define_functional.py", line 16, in <module>: Missing parameter \\'y\\' in call to function Point1.__new__ [missing-parameter]']
-Line 21: Unexpected errors ['File "namedtuples_define_functional.py", line 21, in <module>: Missing parameter \\'x\\' in call to function Point2.__new__ [missing-parameter]']
-Line 26: Unexpected errors ['File "namedtuples_define_functional.py", line 26, in <module>: Function Point3.__new__ expects 3 arg(s), got 4 [wrong-arg-count]']
-Line 31: Unexpected errors ['File "namedtuples_define_functional.py", line 31, in <module>: Invalid keyword argument z to function Point4.__new__ [wrong-keyword-args]']
-Line 36: Unexpected errors ['File "namedtuples_define_functional.py", line 36, in <module>: Function Point5.__new__ was called with the wrong arguments [wrong-arg-types]']
-Line 37: Unexpected errors ['File "namedtuples_define_functional.py", line 37, in <module>: Function Point5.__new__ expects 3 arg(s), got 4 [wrong-arg-count]']
-Line 42: Unexpected errors ['File "namedtuples_define_functional.py", line 42, in <module>: Function Point6.__new__ was called with the wrong arguments [wrong-arg-types]']
-Line 43: Unexpected errors ['File "namedtuples_define_functional.py", line 43, in <module>: Function Point6.__new__ was called with the wrong arguments [wrong-arg-types]']
 Line 52: Unexpected errors ['File "namedtuples_define_functional.py", line 52, in <module>: collections.namedtuple argument \\'a\\' is not a valid typename or field name. [invalid-namedtuple-arg]']
 Line 53: Unexpected errors ['File "namedtuples_define_functional.py", line 53, in <module>: collections.namedtuple argument \\'def\\' is not a valid typename or field name. [invalid-namedtuple-arg]']
 Line 54: Unexpected errors ['File "namedtuples_define_functional.py", line 54, in <module>: collections.namedtuple argument \\'def\\' is not a valid typename or field name. [invalid-namedtuple-arg]']

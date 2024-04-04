@@ -7,6 +7,8 @@ SyntaxError: Type parameter lists are only supported in Python 3.12 and greater 
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 27: Expected 1 errors
+Line 34: Expected 1 errors
 Line 46: Expected 1 errors
 Line 50: Expected 1 errors
 Line 62: Expected 1 errors

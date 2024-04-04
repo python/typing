@@ -17,14 +17,6 @@ namedtuples_define_functional.py:66: error: Missing positional argument "a" in c
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 16: Unexpected errors ['namedtuples_define_functional.py:16: error: Missing positional argument "y" in call to "Point1"  [call-arg]']
-Line 21: Unexpected errors ['namedtuples_define_functional.py:21: error: Missing positional arguments "x", "y" in call to "Point2"  [call-arg]']
-Line 26: Unexpected errors ['namedtuples_define_functional.py:26: error: Too many arguments for "Point3"  [call-arg]']
-Line 31: Unexpected errors ['namedtuples_define_functional.py:31: error: Unexpected keyword argument "z" for "Point4"  [call-arg]']
-Line 36: Unexpected errors ['namedtuples_define_functional.py:36: error: Argument 2 to "Point5" has incompatible type "str"; expected "int"  [arg-type]']
-Line 37: Unexpected errors ['namedtuples_define_functional.py:37: error: Too many arguments for "Point5"  [call-arg]']
-Line 42: Unexpected errors ['namedtuples_define_functional.py:42: error: Argument 2 to "Point6" has incompatible type "str"; expected "int"  [arg-type]']
-Line 43: Unexpected errors ['namedtuples_define_functional.py:43: error: Argument "x" to "Point6" has incompatible type "float"; expected "int"  [arg-type]']
 Line 52: Unexpected errors ['namedtuples_define_functional.py:52: error: Name "a" already defined (possibly by an import)  [no-redef]']
 Line 57: Unexpected errors ['namedtuples_define_functional.py:57: error: Unexpected keyword argument "_1" for "NT4"  [call-arg]']
 Line 66: Unexpected errors ['namedtuples_define_functional.py:66: error: Missing positional argument "a" in call to "NT5"  [call-arg]']

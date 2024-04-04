@@ -29,8 +29,8 @@ assert_type(p1[-3], int)
 assert_type(p1[0:2], tuple[int, int])
 assert_type(p1[0:], tuple[int, int, str])
 
-print(p1[3])  # Type error
-print(p1[-4])  # Type error
+print(p1[3])  # E
+print(p1[-4])  # E
 
 p2 = Point(1, 2, "")
 assert_type(p2, Point)
@@ -41,12 +41,12 @@ assert_type(p3, Point)
 p4 = Point(x=1, y=2, units="")
 assert_type(p4, Point)
 
-p5 = Point(1)  # Type error
-p6 = Point(x=1)  # Type error
-p7 = Point(1, "")  # Type error
-p8 = Point(1, 2, units=3)  # Type error
-p9 = Point(1, 2, "", "")  # Type error
-p10 = Point(1, 2, "", other="")  # Type error
+p5 = Point(1)  # E
+p6 = Point(x=1)  # E
+p7 = Point(1, "")  # E
+p8 = Point(1, 2, units=3)  # E
+p9 = Point(1, 2, "", "")  # E
+p10 = Point(1, 2, "", other="")  # E
 
 
 # > The runtime implementation of ``NamedTuple`` enforces that fields with default
@@ -76,7 +76,7 @@ assert_type(pn1.name, str)
 
 class BadPointWithName(Point):
     name: str = ""  # OK
-    x: int = 0  # Type error
+    x: int = 0  # E
 
 
 # > In Python 3.11 and newer, the class syntax supports generic named tuple classes.
@@ -95,12 +95,12 @@ assert_type(pr1, Property[float])
 assert_type(pr1[1], float)
 assert_type(pr1.value, float)
 
-Property[str]("", 3.1)  # Type error
+Property[str]("", 3.1)  # E
 
 
 # > ``NamedTuple`` does not support multiple inheritance. Type checkers should
 # > enforce this limitation.
 
 
-class Unit(NamedTuple, object):  # Type error
+class Unit(NamedTuple, object):  # E
     name: str

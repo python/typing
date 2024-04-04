@@ -26,12 +26,12 @@ def fun(cls: type[Proto]) -> int:
     return cls().meth()  # OK
 
 
-fun(Proto)  # Type error
+fun(Proto)  # E
 fun(Concrete)  # OK
 
 
 var: type[Proto]
-var = Proto  # Type error
+var = Proto  # E
 var = Concrete  # OK
 var().meth()  # OK
 
@@ -71,7 +71,7 @@ class ConcreteB:
         return 0
 
 
-pb1: ProtoB1 = ConcreteB  # Type error
+pb1: ProtoB1 = ConcreteB  # E
 
 
 class ProtoC1(Protocol):
@@ -98,9 +98,9 @@ class ConcreteC3(metaclass=CMeta):
     pass
 
 
-pc1: ProtoC1 = ConcreteC1  # Type error
+pc1: ProtoC1 = ConcreteC1  # E
 pc2: ProtoC2 = ConcreteC1  # OK
-pc3: ProtoC1 = ConcreteC2  # Type error
-pc4: ProtoC2 = ConcreteC2  # Type error
-pc5: ProtoC1 = ConcreteC3  # Type error
+pc3: ProtoC1 = ConcreteC2  # E
+pc4: ProtoC2 = ConcreteC2  # E
+pc5: ProtoC1 = ConcreteC3  # E
 pc6: ProtoC2 = ConcreteC3  # OK

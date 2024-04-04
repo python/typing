@@ -58,7 +58,7 @@ def keyword_only_y(*, y: int) -> int:
     ...
 
 
-func1(keyword_only_x, keyword_only_y)  # Type error
+func1(keyword_only_x, keyword_only_y)  # E
 
 
 U = TypeVar("U")
@@ -94,7 +94,7 @@ def add(x: Callable[P, int]) -> Callable[Concatenate[str, P], bool]:
 a1 = add(bar)  # Should return (a: str, /, x: int, *args: bool) -> bool
 assert_type(a1("", 1, False, True), bool)
 assert_type(a1("", x=1), bool)
-a1(1, x=1)  # Type error
+a1(1, x=1)  # E
 
 
 def remove(x: Callable[Concatenate[int, P], int]) -> Callable[P, bool]:
@@ -104,7 +104,7 @@ def remove(x: Callable[Concatenate[int, P], int]) -> Callable[P, bool]:
 r1 = remove(bar)  # Should return (*args: bool) -> bool
 assert_type(r1(False, True, True), bool)
 assert_type(r1(), bool)
-r1(1)  # Type error
+r1(1)  # E
 
 
 def transform(
@@ -116,24 +116,24 @@ def transform(
 t1 = transform(bar)  # Should return (a: str, /, *args: bool) -> bool
 assert_type(t1("", True, False, True), bool)
 assert_type(t1(""), bool)
-t1(1)  # Type error
+t1(1)  # E
 
 
 def expects_int_first(x: Callable[Concatenate[int, P], int]) -> None:
     ...
 
 
-@expects_int_first  # Type error
+@expects_int_first  # E
 def one(x: str) -> int:
     ...
 
 
-@expects_int_first  # Type error
+@expects_int_first  # E
 def two(*, x: int) -> int:
     ...
 
 
-@expects_int_first  # Type error
+@expects_int_first  # E
 def three(**kwargs: int) -> int:
     ...
 

@@ -53,15 +53,15 @@ class Base2:
 
 
 class Derived2(Base2):
-    def method1(self) -> None:  # Type error
+    def method1(self) -> None:  # E
         pass
 
     @classmethod
-    def method2(cls) -> None:  # Type error
+    def method2(cls) -> None:  # E
         pass
 
     @staticmethod
-    def method3() -> None:  # Type error
+    def method3() -> None:  # E
         pass
 
     @overload
@@ -72,7 +72,7 @@ class Derived2(Base2):
     def method4(self, x: str) -> str:
         ...
 
-    def method4(self, x: int | str) -> int | str:  # Type error
+    def method4(self, x: int | str) -> int | str:  # E
         return 0
 
 
@@ -86,7 +86,7 @@ class Derived3(Base3):
     def method(self, x: str) -> str:
         ...
 
-    def method(self, x: int | str) -> int | str:  # Type error
+    def method(self, x: int | str) -> int | str:  # E
         return 0
 
 
@@ -99,7 +99,7 @@ class Derived4(Base4):
     def method(self, x: str) -> str:
         ...
 
-    def method(self, x: int | str) -> int | str:  # Type error
+    def method(self, x: int | str) -> int | str:  # E
         return 0
 
 
@@ -115,7 +115,7 @@ class Base5_2:
 
 # Test multiple inheritance case.
 class Derived5(Base5_1, Base5_2):
-    def method(self) -> None:  # Type error
+    def method(self) -> None:  # E
         ...
 
 

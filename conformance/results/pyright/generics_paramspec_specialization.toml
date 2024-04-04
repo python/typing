@@ -11,11 +11,6 @@ generics_paramspec_specialization.py:61:9 - error: Argument of type "Literal['']
 generics_paramspec_specialization.py:62:16 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "bool"
   "Literal['']" is incompatible with "bool" (reportArgumentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 45: Unexpected errors ['generics_paramspec_specialization.py:45:27 - error: Type "int" cannot be assigned to type variable "P1@ClassA"']
-Line 55: Unexpected errors ['generics_paramspec_specialization.py:55:9 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter of type "int"']
-Line 56: Unexpected errors ['generics_paramspec_specialization.py:56:16 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter of type "bool"']
-Line 61: Unexpected errors ['generics_paramspec_specialization.py:61:9 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter of type "int"']
-Line 62: Unexpected errors ['generics_paramspec_specialization.py:62:16 - error: Argument of type "Literal[\\'\\']" cannot be assigned to parameter of type "bool"']
 """

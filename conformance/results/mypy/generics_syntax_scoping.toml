@@ -70,8 +70,7 @@ generics_syntax_scoping.py:124: note: "assert_type" expects everything to be "An
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 14: Unexpected errors ['generics_syntax_scoping.py:14: error: PEP 695 generics are not yet supported  [valid-type]']
-Line 18: Unexpected errors ['generics_syntax_scoping.py:18: error: PEP 695 generics are not yet supported  [valid-type]']
+Line 98: Expected 1 errors, got 2 (['generics_syntax_scoping.py:98: error: PEP 695 generics are not yet supported  [valid-type]', 'generics_syntax_scoping.py:98: error: Variable "generics_syntax_scoping.ClassE.T" is not valid as a type  [valid-type]'])
 Line 22: Unexpected errors ['generics_syntax_scoping.py:22: error: PEP 695 generics are not yet supported  [valid-type]']
 Line 26: Unexpected errors ['generics_syntax_scoping.py:26: error: PEP 695 generics are not yet supported  [valid-type]']
 Line 27: Unexpected errors ['generics_syntax_scoping.py:27: error: "Foo" expects no type arguments, but 1 given  [type-arg]', 'generics_syntax_scoping.py:27: error: Variable "generics_syntax_scoping.T" is not valid as a type  [valid-type]']
@@ -90,9 +89,6 @@ Line 74: Unexpected errors ['generics_syntax_scoping.py:74: error: PEP 695 gener
 Line 77: Unexpected errors ['generics_syntax_scoping.py:77: error: PEP 695 generics are not yet supported  [valid-type]', 'generics_syntax_scoping.py:77: error: "Inner" expects no type arguments, but 1 given  [type-arg]', 'generics_syntax_scoping.py:77: error: Variable "generics_syntax_scoping.T" is not valid as a type  [valid-type]']
 Line 81: Unexpected errors ['generics_syntax_scoping.py:81: error: PEP 695 generics are not yet supported  [valid-type]', 'generics_syntax_scoping.py:81: error: The first argument to Callable must be a list of types, parameter specification, or "..."  [valid-type]', 'generics_syntax_scoping.py:81: error: Name "P" is not defined  [name-defined]', 'generics_syntax_scoping.py:81: error: Name "R" is not defined  [name-defined]']
 Line 89: Unexpected errors ['generics_syntax_scoping.py:89: error: PEP 695 generics are not yet supported  [valid-type]', 'generics_syntax_scoping.py:89: error: Variable "generics_syntax_scoping.T" is not valid as a type  [valid-type]']
-Line 92: Unexpected errors ['generics_syntax_scoping.py:92: error: PEP 695 generics are not yet supported  [valid-type]']
-Line 95: Unexpected errors ['generics_syntax_scoping.py:95: error: PEP 695 generics are not yet supported  [valid-type]']
-Line 98: Unexpected errors ['generics_syntax_scoping.py:98: error: PEP 695 generics are not yet supported  [valid-type]', 'generics_syntax_scoping.py:98: error: Variable "generics_syntax_scoping.ClassE.T" is not valid as a type  [valid-type]']
 Line 105: Unexpected errors ['generics_syntax_scoping.py:105: error: PEP 695 generics are not yet supported  [valid-type]']
 Line 116: Unexpected errors ['generics_syntax_scoping.py:116: error: Expression is of type "Any", not "TypeVar"  [assert-type]']
 Line 121: Unexpected errors ['generics_syntax_scoping.py:121: error: Expression is of type "Any", not "complex"  [assert-type]']

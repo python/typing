@@ -18,8 +18,13 @@ generics_paramspec_semantics.py:122:25 Invalid type [31]: Expression `typing.Cal
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 97: Expected 1 errors
+Line 107: Expected 1 errors
+Line 119: Expected 1 errors
+Line 126: Expected 1 errors
+Line 131: Expected 1 errors
+Line 136: Expected 1 errors
 Line 46: Unexpected errors ['generics_paramspec_semantics.py:46:16 Incompatible parameter type [6]: In call `func1`, for 2nd positional argument, expected `typing.Callable[generics_paramspec_semantics.P, int]` but got `typing.Callable(y_x)[[Named(y, int), Named(x, str)], int]`.']
-Line 61: Unexpected errors ['generics_paramspec_semantics.py:61:22 Incompatible parameter type [6]: In call `func1`, for 2nd positional argument, expected `typing.Callable[generics_paramspec_semantics.P, int]` but got `typing.Callable(keyword_only_y)[[KeywordOnly(y, int)], int]`.']
 Line 90: Unexpected errors ['generics_paramspec_semantics.py:90:32 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(str, $local_generics_paramspec_semantics$P)], bool)]` is not a valid type.']
 Line 100: Unexpected errors ['generics_paramspec_semantics.py:100:14 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, $local_generics_paramspec_semantics$P)], int)]` is not a valid type.', "generics_paramspec_semantics.py:100:53 Invalid type variable [34]: The type variable `P` isn't present in the function's parameters."]
 Line 111: Unexpected errors ['generics_paramspec_semantics.py:111:7 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, $local_generics_paramspec_semantics$P)], int)]` is not a valid type.']

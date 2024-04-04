@@ -34,6 +34,7 @@ qualifiers_annotated.py:119: error: Invalid assignment target  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 77: Expected 1 errors
 Line 76: Unexpected errors ['qualifiers_annotated.py:76: error: Incompatible types in assignment (expression has type "object", variable has type "type[Any]")  [assignment]']
 Line 84: Unexpected errors ['qualifiers_annotated.py:84: error: Argument 1 to "func4" has incompatible type "object"; expected "type[Never]"  [arg-type]']
 Line 91: Unexpected errors ['qualifiers_annotated.py:91: error: "<typing special form>" not callable  [operator]']

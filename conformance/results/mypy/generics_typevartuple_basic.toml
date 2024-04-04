@@ -21,14 +21,9 @@ generics_typevartuple_basic.py:106: error: Can only use one type var tuple in a 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 42: Unexpected errors ['generics_typevartuple_basic.py:42: error: Argument 1 to "Array" has incompatible type "Height"; expected "tuple[Height, Width]"  [arg-type]']
-Line 43: Unexpected errors ['generics_typevartuple_basic.py:43: error: Argument 1 to "Array" has incompatible type "tuple[Batch, Width]"; expected "tuple[Batch, Height, Width]"  [arg-type]']
+Line 46: Expected 1 errors
+Line 89: Expected 1 errors
+Line 90: Expected 1 errors
 Line 45: Unexpected errors ['generics_typevartuple_basic.py:45: error: Argument 1 to "Array" has incompatible type "tuple[Time, Batch, Width, Height]"; expected "tuple[Time, Batch, Height, Width]"  [arg-type]']
 Line 57: Unexpected errors ['generics_typevartuple_basic.py:57: error: Incompatible return value type (got "tuple[*Shape]", expected "tuple[Any]")  [return-value]']
-Line 65: Unexpected errors ['generics_typevartuple_basic.py:65: error: Unexpected keyword argument "covariant" for "TypeVarTuple"  [misc]']
-Line 66: Unexpected errors ['generics_typevartuple_basic.py:66: error: Too many positional arguments for "TypeVarTuple"  [misc]']
-Line 67: Unexpected errors ['generics_typevartuple_basic.py:67: error: Unexpected keyword argument "bound" for "TypeVarTuple"  [misc]']
-Line 99: Unexpected errors ['generics_typevartuple_basic.py:99: error: Cannot infer type argument 1 of "multiply"  [misc]']
-Line 100: Unexpected errors ['generics_typevartuple_basic.py:100: error: Cannot infer type argument 1 of "multiply"  [misc]']
-Line 106: Unexpected errors ['generics_typevartuple_basic.py:106: error: Can only use one type var tuple in a class def  [misc]']
 """

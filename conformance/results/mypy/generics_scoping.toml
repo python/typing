@@ -27,13 +27,5 @@ generics_scoping.py:86: note: (Hint: Use "T" in function signature to bind "T" i
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 25: Unexpected errors ['generics_scoping.py:25: error: Argument 1 to "meth_2" of "MyClass" has incompatible type "str"; expected "int"  [arg-type]']
-Line 46: Unexpected errors ['generics_scoping.py:46: error: Type variable "generics_scoping.S" is unbound  [valid-type]']
-Line 50: Unexpected errors ['generics_scoping.py:50: error: Type variable "generics_scoping.S" is unbound  [valid-type]']
-Line 61: Unexpected errors ['generics_scoping.py:61: error: Free type variable expected in Generic[...]  [misc]']
-Line 74: Unexpected errors ['generics_scoping.py:74: error: Type variable "generics_scoping.T" is unbound  [valid-type]']
-Line 80: Unexpected errors ['generics_scoping.py:80: error: Can\\'t use bound type variable "T" to define generic alias  [valid-type]']
-Line 84: Unexpected errors ['generics_scoping.py:84: error: Type variable "generics_scoping.T" is unbound  [valid-type]']
-Line 85: Unexpected errors ['generics_scoping.py:85: error: Type variable "generics_scoping.T" is unbound  [valid-type]']
-Line 86: Unexpected errors ['generics_scoping.py:86: error: Type variable "generics_scoping.T" is unbound  [valid-type]']
+Line 71: Expected 1 errors
 """

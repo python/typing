@@ -11,10 +11,7 @@ generics_base_class.py:68: error: Duplicate type variables in Generic[...] or Pr
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Unexpected errors ['generics_base_class.py:26: error: Argument 1 to "takes_dict_incorrect" has incompatible type "SymbolTable"; expected "dict[str, list[object]]"  [arg-type]']
 Line 29: Unexpected errors ['generics_base_class.py:29: error: Variable "typing.Generic" is not valid as a type  [valid-type]']
 Line 30: Unexpected errors ['generics_base_class.py:30: error: Variable "typing.Generic" is not valid as a type  [valid-type]']
-Line 49: Unexpected errors ['generics_base_class.py:49: error: "LinkedList" expects 1 type argument, but 2 given  [type-arg]']
-Line 61: Unexpected errors ['generics_base_class.py:61: error: "MyDict" expects 1 type argument, but 2 given  [type-arg]']
 Line 68: Unexpected errors ['generics_base_class.py:68: error: Duplicate type variables in Generic[...] or Protocol[...]  [misc]']
 """

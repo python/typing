@@ -35,14 +35,11 @@ Line 62: Expected 1 errors
 Line 63: Expected 1 errors
 Line 94: Expected 1 errors
 Line 107: Expected 1 errors, got 3 (['File "qualifiers_final_annotation.py", line 107, in ClassD: Type annotation for VALUE2 does not match type of assignment [annotation-type-mismatch]', 'File "qualifiers_final_annotation.py", line 107, in ClassD: Invalid use of typing.Final [final-error]', 'File "qualifiers_final_annotation.py", line 107, in ClassD: Invalid type annotation \\'ClassVar[Final]\\'  [invalid-annotation]'])
+Line 118: Expected 1 errors, got 2 (['File "qualifiers_final_annotation.py", line 118, in <module>: Invalid use of typing.Final [final-error]', 'File "qualifiers_final_annotation.py", line 118, in <module>: Invalid type annotation \\'list[Final[int]]\\'  [invalid-annotation]'])
 Line 141: Expected 1 errors
 Line 147: Expected 1 errors
 Line 149: Expected 1 errors
 Line 152: Expected 1 errors
 Line 155: Expected 1 errors
 Line 93: Unexpected errors ['File "qualifiers_final_annotation.py", line 93, in <module>: Class ClassCChild overrides final class attribute BORDER_WIDTH, defined in base class ClassC [final-error]']
-Line 118: Unexpected errors ['File "qualifiers_final_annotation.py", line 118, in <module>: Invalid use of typing.Final [final-error]', 'File "qualifiers_final_annotation.py", line 118, in <module>: Invalid type annotation \\'list[Final[int]]\\'  [invalid-annotation]']
-Line 121: Unexpected errors ['File "qualifiers_final_annotation.py", line 121, in <module>: Invalid use of typing.Final [final-error]']
-Line 134: Unexpected errors ['File "qualifiers_final_annotation.py", line 134, in <module>: Invalid keyword argument a to function N.__new__ [wrong-keyword-args]']
-Line 135: Unexpected errors ['File "qualifiers_final_annotation.py", line 135, in <module>: Function N.__new__ was called with the wrong arguments [wrong-arg-types]']
 """

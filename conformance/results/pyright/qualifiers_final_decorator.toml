@@ -18,12 +18,6 @@ qualifiers_final_decorator.py:126:5 - error: Function "func1" cannot be marked @
 conformance_automated = "Fail"
 errors_diff = """
 Line 85: Expected 1 errors
-Line 56: Unexpected errors ['qualifiers_final_decorator.py:56:9 - error: Method "method1" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)']
-Line 60: Unexpected errors ['qualifiers_final_decorator.py:60:9 - error: Method "method2" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)']
-Line 64: Unexpected errors ['qualifiers_final_decorator.py:64:9 - error: Method "method3" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)']
-Line 75: Unexpected errors ['qualifiers_final_decorator.py:75:9 - error: Method "method4" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)']
+Line 118: Expected 1 errors, got 2 (['qualifiers_final_decorator.py:118:9 - error: Method "method" cannot override final method defined in class "Base5_2" (reportIncompatibleMethodOverride)', 'qualifiers_final_decorator.py:118:9 - error: Method "method" overrides class "Base5_2" in an incompatible manner'])
 Line 86: Unexpected errors ['qualifiers_final_decorator.py:86:9 - error: Overload for "method" is marked @final but implementation is not (reportInconsistentOverload)']
-Line 89: Unexpected errors ['qualifiers_final_decorator.py:89:9 - error: Method "method" cannot override final method defined in class "Base3" (reportIncompatibleMethodOverride)']
-Line 102: Unexpected errors ['qualifiers_final_decorator.py:102:9 - error: Method "method" cannot override final method defined in class "Base4" (reportIncompatibleMethodOverride)']
-Line 118: Unexpected errors ['qualifiers_final_decorator.py:118:9 - error: Method "method" cannot override final method defined in class "Base5_2" (reportIncompatibleMethodOverride)', 'qualifiers_final_decorator.py:118:9 - error: Method "method" overrides class "Base5_2" in an incompatible manner']
 """

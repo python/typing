@@ -33,19 +33,19 @@ def concat(x: AnyStr, y: AnyStr) -> AnyStr:
 def test_concat(s: str, b: bytes, a: Any) -> None:
     concat(s, s)  # OK
     concat(b, b)  # OK
-    concat(s, b)  # Type error
-    concat(b, s)  # Type error
+    concat(s, b)  # E
+    concat(b, s)  # E
 
     concat(s, a)  # OK
     concat(a, b)  # OK
 
 # > Specifying a single constraint is disallowed.
 
-BadConstraint1 = TypeVar('BadConstraint1', str)  # Type error
+BadConstraint1 = TypeVar('BadConstraint1', str)  # E
 
 # > Note: those types cannot be parameterized by type variables
 
-BadConstraint2 = TypeVar('BadConstraint2', str, T)  # Type error
+BadConstraint2 = TypeVar('BadConstraint2', str, T)  # E
 
 # > Subtypes of types constrained by a type variable should be treated
 # > as their respective explicitly listed base types in the context of the
@@ -56,7 +56,7 @@ class MyStr(str): ...
 def test_concat_subtype(s: str, b: bytes, a: Any, m: MyStr) -> None:
     assert_type(concat(m, m), str)
     assert_type(concat(m, s), str)
-    concat(m, b)  # Type error
+    concat(m, b)  # E
 
     # TODO: should these be str or Any?
     # reveal_type(concat(m, a))
@@ -104,7 +104,7 @@ class Pair1(Generic[T, S]):
 
 # > Each type variable argument to ``Generic`` must be distinct.
 
-class Pair2(Generic[T, T]):   # Type error
+class Pair2(Generic[T, T]):   # E
       ...
 
 # > The ``Generic[T]`` base class is redundant in simple cases where you
@@ -137,8 +137,8 @@ def test_my_map(m1: MyMap1[str, int], m2: MyMap2[int, str]):
     assert_type(m1["key"], int)
     assert_type(m2["key"], int)
 
-    m1[0]  # Type error
-    m2[0]  # Type error
+    m1[0]  # E
+    m2[0]  # E
 
 # > You can use multiple inheritance with ``Generic``
 
@@ -164,5 +164,5 @@ def test_my_iterable_any(m: MyIterableAny):
 
 class GenericMeta(type, Generic[T]): ...
 
-class GenericMetaInstance(metaclass=GenericMeta[T]):  # Type error
+class GenericMetaInstance(metaclass=GenericMeta[T]):  # E
     ...

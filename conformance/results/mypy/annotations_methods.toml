@@ -7,5 +7,6 @@ annotations_methods.py:42: error: Expression is of type "B", not "A"  [assert-ty
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 46: Expected 1 errors
 Line 42: Unexpected errors ['annotations_methods.py:42: error: Expression is of type "B", not "A"  [assert-type]']
 """

@@ -35,8 +35,8 @@ t2: RecursiveTuple = (1, "1")  # OK
 t3: RecursiveTuple = (1, "1", 1, "2")  # OK
 t4: RecursiveTuple = (1, ("1", 1), "2")  # OK
 t5: RecursiveTuple = (1, ("1", 1), (1, (1, 2)))  # OK
-t6: RecursiveTuple = (1, ("1", 1), (1, (1, [2])))  # Type error
-t6: RecursiveTuple = (1, [1])  # Type error
+t6: RecursiveTuple = (1, ("1", 1), (1, (1, [2])))  # E
+t6: RecursiveTuple = (1, [1])  # E
 
 
 RecursiveMapping = str | int | Mapping[str, "RecursiveMapping"]
@@ -47,13 +47,13 @@ m3: RecursiveMapping = {"1": "1"}  # OK
 m4: RecursiveMapping = {"1": "1", "2": 1}  # OK
 m5: RecursiveMapping = {"1": "1", "2": 1, "3": {}}  # OK
 m6: RecursiveMapping = {"1": "1", "2": 1, "3": {"0": "0", "1": "2", "2": {}}}  # OK
-m7: RecursiveMapping = {"1": [1]}  # Type error
-m8: RecursiveMapping = {"1": "1", "2": 1, "3": [1, 2]}  # Type error
+m7: RecursiveMapping = {"1": [1]}  # E
+m8: RecursiveMapping = {"1": "1", "2": 1, "3": [1, 2]}  # E
 m9: RecursiveMapping = {
     "1": "1",
     "2": 1,
     "3": {"0": "0", "1": 1, "2": [1, 2, 3]},
-}  # Type error
+}  # E
 
 
 T1 = TypeVar("T1", str, int)

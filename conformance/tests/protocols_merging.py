@@ -81,4 +81,4 @@ class SizedAndClosable4(SizedAndClosable1):
 
 
 x = SizedAndClosable4()  # E: cannot instantiate abstract class
-y: SizedAndClosable4 = SCConcrete1()  # Type error
+y: SizedAndClosable4 = SCConcrete1()  # E

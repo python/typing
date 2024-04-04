@@ -17,9 +17,5 @@ generics_paramspec_basic.py:39: note: You can use ParamSpec as the first argumen
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 23: Unexpected errors ['generics_paramspec_basic.py:23: error: Invalid location for ParamSpec "P"  [valid-type]']
-Line 27: Unexpected errors ['generics_paramspec_basic.py:27: error: Invalid location for Concatenate  [valid-type]']
-Line 31: Unexpected errors ['generics_paramspec_basic.py:31: error: Invalid location for ParamSpec "P"  [misc]']
-Line 35: Unexpected errors ['generics_paramspec_basic.py:35: error: Invalid location for ParamSpec "P"  [valid-type]']
-Line 39: Unexpected errors ['generics_paramspec_basic.py:39: error: Invalid location for ParamSpec "P"  [valid-type]']
+Line 15: Expected 1 errors
 """

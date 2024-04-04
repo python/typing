@@ -27,7 +27,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 64: Expected 1 errors
 Line 76: Unexpected errors ['qualifiers_annotated.py:76:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], str]`. Expected has length 0, but actual has length 2.']
-Line 77: Unexpected errors ['qualifiers_annotated.py:77:0 Incompatible variable type [9]: not_type2 is declared to have type `Type[typing.Any]` but is used as type `TypeAlias`.']
 Line 84: Unexpected errors ['qualifiers_annotated.py:84:16 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[str], str]`. Expected has length 0, but actual has length 2.']
 Line 85: Unexpected errors ['qualifiers_annotated.py:85:6 Incompatible parameter type [6]: In call `func4`, for 1st positional argument, expected `Type[Variable[T]]` but got `TypeAlias`.']
 Line 92: Unexpected errors ['qualifiers_annotated.py:92:10 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], str]`. Expected has length 0, but actual has length 2.']

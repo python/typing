@@ -15,11 +15,6 @@ callables_annotation.py:43:15 - error: "..." is not allowed in this context
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 13: Unexpected errors ['callables_annotation.py:13:5 - error: Expected 1 more positional argument (reportCallIssue)']
-Line 14: Unexpected errors ['callables_annotation.py:14:11 - error: Argument of type "Literal[2]" cannot be assigned to parameter of type "str"']
-Line 15: Unexpected errors ['callables_annotation.py:15:15 - error: Expected 2 positional arguments (reportCallIssue)']
-Line 16: Unexpected errors ['callables_annotation.py:16:10 - error: Expected 2 more positional arguments (reportCallIssue)']
-Line 22: Unexpected errors ['callables_annotation.py:22:8 - error: Expected 0 positional arguments (reportCallIssue)']
 Line 39: Unexpected errors ['callables_annotation.py:39:14 - error: Expected parameter type list or "..."']
 Line 40: Unexpected errors ['callables_annotation.py:40:14 - error: Expected parameter type list or "..."']
 Line 41: Unexpected errors ['callables_annotation.py:41:18 - error: List expression not allowed for this type argument']

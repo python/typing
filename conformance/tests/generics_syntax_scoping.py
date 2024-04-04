@@ -11,11 +11,11 @@ from typing import Any, Callable, Mapping, Sequence, TypeVar, assert_type
 # > if the name is defined in an outer scope.
 
 
-class ClassA[S, T: Sequence[S]]:  # Type error
+class ClassA[S, T: Sequence[S]]:  # E
     ...
 
 
-class ClassB[S: Sequence[T], T]:  # Type error
+class ClassB[S: Sequence[T], T]:  # E
     ...
 
 
@@ -89,13 +89,13 @@ T = int(0)
 class ClassE[T](Sequence[T]):
     T = int(1)
 
-    def method1[T](self):  # Type error
+    def method1[T](self):  # E
         ...
 
-    def method2[T](self, x=T):  # Type error
+    def method2[T](self, x=T):  # E
         ...
 
-    def method3[T](self, x: T):  # Type error
+    def method3[T](self, x: T):  # E
         ...
 
 

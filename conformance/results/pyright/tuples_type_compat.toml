@@ -44,22 +44,6 @@ tuples_type_compat.py:175:50 - error: Expression of type "tuple[str, str]" canno
   "tuple[str, str]" is incompatible with "tuple[*tuple[str, ...], str, str, str]"
     Tuple size mismatch; expected 3 or more but received 2 (reportAssignmentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 15: Unexpected errors ['tuples_type_compat.py:15:27 - error: Expression of type "tuple[float, complex]" cannot be assigned to declared type "tuple[int, int]"']
-Line 29: Unexpected errors ['tuples_type_compat.py:29:10 - error: Expression of type "tuple[int, ...]" cannot be assigned to declared type "tuple[int, *tuple[int, ...]]"']
-Line 32: Unexpected errors ['tuples_type_compat.py:32:10 - error: Expression of type "tuple[int, *tuple[int, ...]]" cannot be assigned to declared type "tuple[int]"']
-Line 33: Unexpected errors ['tuples_type_compat.py:33:10 - error: Expression of type "tuple[int, ...]" cannot be assigned to declared type "tuple[int]"']
-Line 43: Unexpected errors ['tuples_type_compat.py:43:22 - error: Expression of type "tuple[int, ...]" cannot be assigned to declared type "tuple[int]"']
-Line 62: Unexpected errors ['tuples_type_compat.py:62:26 - error: Expression of type "tuple[int, ...]" cannot be assigned to declared type "tuple[int, int]"']
-Line 144: Unexpected errors ['tuples_type_compat.py:144:6 - error: Expression of type "tuple[Literal[1], Literal[\\'\\'], Literal[\\'\\']]" cannot be assigned to declared type "tuple[int, str]"']
-Line 149: Unexpected errors ['tuples_type_compat.py:149:10 - error: Expression of type "tuple[Literal[1], Literal[1], Literal[\\'\\']]" cannot be assigned to declared type "tuple[int, *tuple[str, ...]]"']
-Line 150: Unexpected errors ['tuples_type_compat.py:150:14 - error: Expression of type "tuple[Literal[1], Literal[\\'\\'], Literal[1]]" cannot be assigned to declared type "tuple[int, *tuple[str, ...]]"']
-Line 156: Unexpected errors ['tuples_type_compat.py:156:14 - error: Expression of type "tuple[Literal[1], Literal[\\'\\'], Literal[\\'\\']]" cannot be assigned to declared type "tuple[int, *tuple[str, ...], int]"']
-Line 157: Unexpected errors ['tuples_type_compat.py:157:18 - error: Expression of type "tuple[Literal[1], Literal[\\'\\'], Literal[\\'\\'], float]" cannot be assigned to declared type "tuple[int, *tuple[str, ...], int]"']
-Line 162: Unexpected errors ['tuples_type_compat.py:162:7 - error: Expression of type "tuple[Literal[1], Literal[\\'\\'], Literal[1]]" cannot be assigned to declared type "tuple[*tuple[str, ...], int]"']
-Line 163: Unexpected errors ['tuples_type_compat.py:163:15 - error: Expression of type "tuple[Literal[\\'\\'], Literal[\\'\\'], float]" cannot be assigned to declared type "tuple[*tuple[str, ...], int]"']
-Line 168: Unexpected errors ['tuples_type_compat.py:168:40 - error: Expression of type "tuple[str, str]" cannot be assigned to declared type "tuple[str, str, int]"']
-Line 171: Unexpected errors ['tuples_type_compat.py:171:50 - error: Expression of type "tuple[str, str]" cannot be assigned to declared type "tuple[str, str, str, *tuple[str, ...]]"']
-Line 175: Unexpected errors ['tuples_type_compat.py:175:50 - error: Expression of type "tuple[str, str]" cannot be assigned to declared type "tuple[*tuple[str, ...], str, str, str]"']
 """

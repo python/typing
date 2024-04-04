@@ -14,11 +14,8 @@ generics_typevartuple_args.py:67: error: Too few arguments for "func3"  [call-ar
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 33: Unexpected errors ['generics_typevartuple_args.py:33: error: Argument 3 to "exec_le" has incompatible type "str"; expected "Env"  [arg-type]']
-Line 34: Unexpected errors ['generics_typevartuple_args.py:34: error: Argument 3 to "exec_le" has incompatible type "str"; expected "Env"  [arg-type]']
-Line 48: Unexpected errors ['generics_typevartuple_args.py:48: error: Argument 2 to "func1" has incompatible type "str"; expected "int"  [arg-type]']
-Line 57: Unexpected errors ['generics_typevartuple_args.py:57: error: Argument 2 to "func2" has incompatible type "int"; expected "*tuple[*tuple[str, ...], str]"  [arg-type]']
-Line 58: Unexpected errors ['generics_typevartuple_args.py:58: error: Too few arguments for "func2"  [call-arg]']
-Line 59: Unexpected errors ['generics_typevartuple_args.py:59: error: Too few arguments for "func2"  [call-arg]', 'generics_typevartuple_args.py:59: error: Argument 1 to "func2" has incompatible type "str"; expected "int"  [arg-type]']
-Line 67: Unexpected errors ['generics_typevartuple_args.py:67: error: Too few arguments for "func3"  [call-arg]']
+Line 59: Expected 1 errors, got 2 (['generics_typevartuple_args.py:59: error: Too few arguments for "func2"  [call-arg]', 'generics_typevartuple_args.py:59: error: Argument 1 to "func2" has incompatible type "str"; expected "int"  [arg-type]'])
+Line 75: Expected 1 errors
+Line 76: Expected 1 errors
+Line 80: Expected 1 errors
 """

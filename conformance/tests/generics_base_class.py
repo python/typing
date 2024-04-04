@@ -23,7 +23,7 @@ def takes_dict_incorrect(x: dict[str, list[object]]): ...
 def test_symbol_table(s: SymbolTable):
     takes_dict(s)  # OK
     takes_dict_typed(s)  # OK
-    takes_dict_incorrect(s)  # Type error
+    takes_dict_incorrect(s)  # E
 
 
 def func1(y: Generic[T]):  # Type Error
@@ -46,7 +46,7 @@ def test_linked_list(l: LinkedList[int]):
     assert_type(l.__contains__(1), bool)
 
 
-linked_list_invalid: LinkedList[int, int]  # Type error
+linked_list_invalid: LinkedList[int, int]  # E
 
 from collections.abc import Mapping
 
@@ -58,7 +58,7 @@ def test_my_dict(d: MyDict[int]):
     assert_type(d["a"], int)
 
 
-my_dict_invalid: MyDict[int, int]  # Type error
+my_dict_invalid: MyDict[int, int]  # E
 
 # > Note that we can use T multiple times in the base class list,
 # > as long as we don’t use the same type variable T multiple times
