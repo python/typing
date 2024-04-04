@@ -10,8 +10,4 @@ dataclasses_postinit.py:36:9 - error: Dataclass __post_init__ incorrect paramete
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 19: Unexpected errors ['dataclasses_postinit.py:19:40 - error: Dataclass __post_init__ method parameter type mismatch for field "y"']
-Line 28: Unexpected errors ['dataclasses_postinit.py:28:11 - error: Cannot access member "x" for type "DC1"']
-Line 29: Unexpected errors ['dataclasses_postinit.py:29:11 - error: Cannot access member "y" for type "DC1"']
-Line 36: Unexpected errors ['dataclasses_postinit.py:36:9 - error: Dataclass __post_init__ incorrect parameter count; number of InitVar fields is 2 (reportGeneralTypeIssues)']
 """

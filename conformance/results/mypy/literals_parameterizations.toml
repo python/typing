@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject tuple within Literal.
+notes = """
+Does not reject tuple within Literal.
 """
 output = """
 literals_parameterizations.py:41: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]

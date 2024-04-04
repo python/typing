@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not report out-of-range index access with named tuple instance.
+notes = """
+Does not report out-of-range index access with named tuple instance.
 Does not reject attempt to delete named tuple field by name.
 Does not reject attempt to delete named tuple field by index.
 Incorrectly handles subclasses of named tuples that add more attributes.

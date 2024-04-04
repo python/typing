@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Fails protocol matching when method-scoped TypeVar is used in protocol.
+notes = """
+Fails protocol matching when method-scoped TypeVar is used in protocol.
 """
 output = """
 protocols_generic.py:40: error: Incompatible types in assignment (expression has type "Concrete1", variable has type "Proto1[int, str]")  [assignment]
@@ -40,7 +41,6 @@ protocols_generic.py:147: note:         def m(self, item: str, callback: Callabl
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 40: Unexpected errors ['protocols_generic.py:40: error: Incompatible types in assignment (expression has type "Concrete1", variable has type "Proto1[int, str]")  [assignment]']
 Line 44: Unexpected errors ['protocols_generic.py:44: error: Only single Generic[...] or Protocol[...] can be in bases  [misc]', 'protocols_generic.py:44: error: Duplicate type variables in Generic[...] or Protocol[...]  [misc]']
 Line 56: Unexpected errors ['protocols_generic.py:56: error: Incompatible types in assignment (expression has type "Box[float]", variable has type "Box[int]")  [assignment]']
 Line 66: Unexpected errors ['protocols_generic.py:66: error: Incompatible types in assignment (expression has type "Sender[int]", variable has type "Sender[float]")  [assignment]']

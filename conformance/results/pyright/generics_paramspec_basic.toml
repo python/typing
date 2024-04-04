@@ -13,7 +13,6 @@ generics_paramspec_basic.py:39:31 - error: ParamSpec is not allowed in this cont
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 10: Unexpected errors ['generics_paramspec_basic.py:10:1 - error: ParamSpec must be assigned to a variable named "NotIt"']
 Line 15: Unexpected errors ['generics_paramspec_basic.py:15:18 - error: ParamSpec is not allowed in this context']
 Line 23: Unexpected errors ['generics_paramspec_basic.py:23:14 - error: ParamSpec is not allowed in this context', 'generics_paramspec_basic.py:23:20 - error: ParamSpec is not allowed in this context']
 Line 27: Unexpected errors ['generics_paramspec_basic.py:27:14 - error: "Concatenate" is not allowed in this context']

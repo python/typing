@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject some invalid tuple forms involving ellipsis.
+notes = """
+Does not reject some invalid tuple forms involving ellipsis.
 """
 output = """
 tuples_type_form.py:12:0 Incompatible variable type [9]: t1 is declared to have type `Tuple[int]` but is used as type `Tuple[int, int]`.

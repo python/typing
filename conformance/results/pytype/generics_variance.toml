@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not support covariant or contravariant TypeVars.
+notes = """
+Does not support covariant or contravariant TypeVars.
 """
 output = """
 File "generics_variance.py", line 14, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
@@ -11,6 +12,14 @@ File "generics_variance.py", line 52, in <module>: argument "covariant" to TypeV
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 77: Expected 1 errors
+Line 81: Expected 1 errors
+Line 93: Expected 1 errors
+Line 105: Expected 1 errors
+Line 113: Expected 1 errors
+Line 127: Expected 1 errors
+Line 133: Expected 1 errors
+Line 143: Expected 1 errors
 Line 14: Unexpected errors ['File "generics_variance.py", line 14, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]', 'File "generics_variance.py", line 14, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
 Line 18: Unexpected errors ['File "generics_variance.py", line 18, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
 Line 19: Unexpected errors ['File "generics_variance.py", line 19, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']

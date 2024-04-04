@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not support TypeVarTuple.
+notes = """
+Does not support TypeVarTuple.
 """
 output = """
 generics_typevartuple_callable.py:17:31 Invalid type [31]: Expression `typing.Callable[([*$local_generics_typevartuple_callable$Ts], None)]` is not a valid type.

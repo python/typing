@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not properly handle type compatibility checks with callback protocols.
+notes = """
+Does not properly handle type compatibility checks with callback protocols.
 """
 output = """
 File "callables_protocol.py", line 9, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
@@ -14,11 +15,24 @@ File "callables_protocol.py", line 199, in <module>: Function Proto9.__call__ wa
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 35: Expected 1 errors
+Line 36: Expected 1 errors
+Line 37: Expected 1 errors
+Line 67: Expected 1 errors
+Line 68: Expected 1 errors
+Line 69: Expected 1 errors
+Line 70: Expected 1 errors
+Line 97: Expected 1 errors
+Line 169: Expected 1 errors
+Line 186: Expected 1 errors
+Line 187: Expected 1 errors
+Line 238: Expected 1 errors
+Line 260: Expected 1 errors
+Line 284: Expected 1 errors
+Line 311: Expected 1 errors
 Line 9: Unexpected errors ['File "callables_protocol.py", line 9, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
 Line 10: Unexpected errors ['File "callables_protocol.py", line 10, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
-Line 121: Unexpected errors ['File "callables_protocol.py", line 121, in <module>: Type annotation for cb6 does not match type of assignment [annotation-type-mismatch]']
 Line 173: Unexpected errors ['File "callables_protocol.py", line 173, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
 Line 188: Unexpected errors ['File "callables_protocol.py", line 188, in decorator1: bad return type [bad-return-type]']
-Line 197: Unexpected errors ['File "callables_protocol.py", line 197, in <module>: No attribute \\'other_attribute2\\' on Proto9[Any, str] [attribute-error]']
 Line 199: Unexpected errors ['File "callables_protocol.py", line 199, in <module>: Function Proto9.__call__ was called with the wrong arguments [wrong-arg-types]']
 """

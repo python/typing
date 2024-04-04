@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Reports errors for protocol static method with "..." implementation.
+notes = """
+Reports errors for protocol static method with "..." implementation.
 Does not report error when calling unimplemented protocol method from derived class.
 Does not report type incompatibility when assigning to attribute defined in protocol.
 Does not reject instantiation of class that derives from protocol but doesn't implement attribute.
@@ -14,7 +15,10 @@ File "protocols_explicit.py", line 159, in <module>: Can't instantiate Concrete7
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 27: Expected 1 errors
+Line 56: Expected 1 errors
+Line 86: Expected 1 errors
+Line 104: Expected 1 errors
+Line 129: Expected 1 errors
 Line 14: Unexpected errors ['File "protocols_explicit.py", line 14, in draw: bad return type [bad-return-type]']
-Line 59: Unexpected errors ['File "protocols_explicit.py", line 59, in <module>: Can\\'t instantiate Point with abstract methods intensity [not-instantiable]']
-Line 159: Unexpected errors ['File "protocols_explicit.py", line 159, in <module>: Can\\'t instantiate Concrete7A with abstract methods method1 [not-instantiable]']
 """

@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not understand `Self` type.
+notes = """
+Does not understand `Self` type.
 """
 output = """
 File "generics_self_advanced.py", line 12, in prop1: bad return type [bad-return-type]

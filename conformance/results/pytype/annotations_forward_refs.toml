@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject some illegal type expression forms when quoted.
+notes = """
+Does not reject some illegal type expression forms when quoted.
 Incorrectly generates error for quoted type defined in class scope.
 Evaluates incorrect type for class variable annotated with quoted type expression.
 Does not treat triple-quoted forward reference annotation as implicitly parenthesized.
@@ -35,10 +36,8 @@ Line 24: Unexpected errors ['File "annotations_forward_refs.py", line 24, in <mo
 Line 25: Unexpected errors ['File "annotations_forward_refs.py", line 25, in <module>: Missing parameter \\'y\\' in call to function int.__or__ [missing-parameter]']
 Line 40: Unexpected errors ['File "annotations_forward_refs.py", line 40, in <module>: invalid syntax [python-compiler-error]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'{}\\' for p5 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'[int, str]\\' for p2 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'True\\' for p10 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'<instance of module>\\' for p15 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'<instance of List[Type[int]]>\\' for p4 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'1\\' for p9 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'1\\' for p11 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'-1\\' for p12 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'(int, str)\\' for p3 [invalid-annotation]']
 Line 66: Unexpected errors ['File "annotations_forward_refs.py", line 66, in ClassB: Name \\'ClassB\\' is not defined [name-error]']
-Line 80: Unexpected errors ['File "annotations_forward_refs.py", line 80, in ClassD: Name \\'ClassF\\' is not defined [name-error]']
 Line 82: Unexpected errors ['File "annotations_forward_refs.py", line 82, in ClassD: Invalid type annotation \\'<instance of str>\\' for str [invalid-annotation]']
 Line 87: Unexpected errors ['File "annotations_forward_refs.py", line 87, in ClassD: Invalid type annotation \\'<instance of Callable>\\' for x [invalid-annotation]']
-Line 89: Unexpected errors ['File "annotations_forward_refs.py", line 89, in ClassD: Invalid type annotation \\'<instance of Callable>\\' for y [invalid-annotation]']
 Line 93: Unexpected errors ['File "annotations_forward_refs.py", line 93, in <module>: Any [assert-type]']
 Line 100: Unexpected errors ['File "annotations_forward_refs.py", line 100, in <module>: unexpected indent [python-compiler-error]']
 """

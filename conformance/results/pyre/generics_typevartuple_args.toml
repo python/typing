@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not support TypeVarTuple.
+notes = """
+Does not support TypeVarTuple.
 """
 output = """
 generics_typevartuple_args.py:16:25 Invalid type [31]: Expression `*$local_generics_typevartuple_args$Ts` is not a valid type.

@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not support TypeVarTuple.
+notes = """
+Does not support TypeVarTuple.
 """
 output = """
 File "generics_typevartuple_basic.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
@@ -69,11 +70,7 @@ Line 38: Unexpected errors ['File "generics_typevartuple_basic.py", line 38, in 
 Line 42: Unexpected errors ['File "generics_typevartuple_basic.py", line 42, in <module>: class Array is not indexable [not-indexable]', 'File "generics_typevartuple_basic.py", line 42, in <module>: Invalid type annotation \\'Array[Height, Width]\\'  [invalid-annotation]', 'File "generics_typevartuple_basic.py", line 42, in <module>: Function Array.__init__ was called with the wrong arguments [wrong-arg-types]']
 Line 43: Unexpected errors ['File "generics_typevartuple_basic.py", line 43, in <module>: class Array is not indexable [not-indexable]', 'File "generics_typevartuple_basic.py", line 43, in <module>: Invalid type annotation \\'Array[Batch, Height, Width]\\'  [invalid-annotation]', 'File "generics_typevartuple_basic.py", line 43, in <module>: Function Array.__init__ was called with the wrong arguments [wrong-arg-types]']
 Line 44: Unexpected errors ['File "generics_typevartuple_basic.py", line 44, in <module>: class Array is not indexable [not-indexable]', 'File "generics_typevartuple_basic.py", line 44, in <module>: Invalid type annotation \\'Array[Time, Batch, Height, Width]\\'  [invalid-annotation]', 'File "generics_typevartuple_basic.py", line 44, in <module>: Function Array.__init__ was called with the wrong arguments [wrong-arg-types]']
-Line 52: Unexpected errors ['File "generics_typevartuple_basic.py", line 52, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
-Line 53: Unexpected errors ['File "generics_typevartuple_basic.py", line 53, in ClassA: Invalid type annotation \\'<instance of TypeVarTuple>\\'  [invalid-annotation]']
 Line 54: Unexpected errors ['File "generics_typevartuple_basic.py", line 54, in __init__: Invalid type annotation \\'tuple[*Shape,]\\'  [invalid-annotation]']
-Line 56: Unexpected errors ['File "generics_typevartuple_basic.py", line 56, in ClassA: Invalid type annotation \\'<instance of TypeVarTuple>\\'  [invalid-annotation]']
-Line 59: Unexpected errors ['File "generics_typevartuple_basic.py", line 59, in ClassA: Invalid type annotation \\'<instance of TypeVarTuple>\\' for args [invalid-annotation]']
 Line 65: Unexpected errors ['File "generics_typevartuple_basic.py", line 65, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 3 [wrong-arg-count]']
 Line 66: Unexpected errors ['File "generics_typevartuple_basic.py", line 66, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 4 [wrong-arg-count]']
 Line 67: Unexpected errors ['File "generics_typevartuple_basic.py", line 67, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 3 [wrong-arg-count]']

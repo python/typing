@@ -23,17 +23,12 @@ callables_kwargs.py:121: error: Unpack item in ** argument must be a TypedDict  
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 43: Unexpected errors ['callables_kwargs.py:43: error: Missing named argument "v1" for "func1"  [call-arg]', 'callables_kwargs.py:43: error: Missing named argument "v3" for "func1"  [call-arg]']
-Line 48: Unexpected errors ['callables_kwargs.py:48: error: Unexpected keyword argument "v4" for "func1"  [call-arg]']
-Line 49: Unexpected errors ['callables_kwargs.py:49: error: Too many positional arguments for "func1"  [misc]']
-Line 55: Unexpected errors ['callables_kwargs.py:55: error: Argument 1 to "func1" has incompatible type "**dict[str, str]"; expected "int"  [arg-type]']
+Line 26: Expected 1 errors
+Line 43: Expected 1 errors, got 2 (['callables_kwargs.py:43: error: Missing named argument "v1" for "func1"  [call-arg]', 'callables_kwargs.py:43: error: Missing named argument "v3" for "func1"  [call-arg]'])
+Line 61: Expected 1 errors, got 2 (['callables_kwargs.py:61: error: "func2" gets multiple values for keyword argument "v3"  [misc]', 'callables_kwargs.py:61: error: Argument 1 to "func2" has incompatible type "int"; expected "str"  [arg-type]'])
+Line 108: Expected 1 errors
+Line 120: Expected 1 errors
 Line 58: Unexpected errors ['callables_kwargs.py:58: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "int"  [arg-type]', 'callables_kwargs.py:58: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "str"  [arg-type]']
-Line 60: Unexpected errors ['callables_kwargs.py:60: error: "func1" gets multiple values for keyword argument "v1"  [misc]']
-Line 61: Unexpected errors ['callables_kwargs.py:61: error: "func2" gets multiple values for keyword argument "v3"  [misc]', 'callables_kwargs.py:61: error: Argument 1 to "func2" has incompatible type "int"; expected "str"  [arg-type]']
-Line 62: Unexpected errors ['callables_kwargs.py:62: error: "func2" gets multiple values for keyword argument "v1"  [misc]']
-Line 98: Unexpected errors ['callables_kwargs.py:98: error: Incompatible types in assignment (expression has type "Callable[[KwArg(TD2)], None]", variable has type "TDProtocol3")  [assignment]']
-Line 99: Unexpected errors ['callables_kwargs.py:99: error: Incompatible types in assignment (expression has type "Callable[[KwArg(TD2)], None]", variable has type "TDProtocol4")  [assignment]']
-Line 100: Unexpected errors ['callables_kwargs.py:100: error: Incompatible types in assignment (expression has type "Callable[[KwArg(TD2)], None]", variable has type "TDProtocol5")  [assignment]']
 Line 109: Unexpected errors ['callables_kwargs.py:109: error: Overlap between argument names and ** TypedDict items: "v1"  [misc]']
 Line 121: Unexpected errors ['callables_kwargs.py:121: error: Unpack item in ** argument must be a TypedDict  [misc]']
 """

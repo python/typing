@@ -30,17 +30,8 @@ callables_kwargs.py:121:21 - error: Expected TypedDict type argument for Unpack 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Unexpected errors ['callables_kwargs.py:26:5 - error: Could not access item in TypedDict']
-Line 43: Unexpected errors ['callables_kwargs.py:43:5 - error: Arguments missing for parameters "v1", "v3" (reportCallIssue)']
-Line 48: Unexpected errors ['callables_kwargs.py:48:32 - error: No parameter named "v4" (reportCallIssue)']
-Line 49: Unexpected errors ['callables_kwargs.py:49:11 - error: Expected 0 positional arguments (reportCallIssue)']
-Line 55: Unexpected errors ['callables_kwargs.py:55:13 - error: Argument of type "str" cannot be assigned to parameter "v1" of type "int" in function "func1"']
-Line 60: Unexpected errors ['callables_kwargs.py:60:19 - error: Unable to match unpacked TypedDict argument to parameters']
-Line 61: Unexpected errors ['callables_kwargs.py:61:16 - error: Unable to match unpacked TypedDict argument to parameters']
-Line 62: Unexpected errors ['callables_kwargs.py:62:19 - error: Unable to match unpacked TypedDict argument to parameters']
-Line 98: Unexpected errors ['callables_kwargs.py:98:19 - error: Expression of type "(**kwargs: **TD2) -> None" cannot be assigned to declared type "TDProtocol3"']
-Line 99: Unexpected errors ['callables_kwargs.py:99:19 - error: Expression of type "(**kwargs: **TD2) -> None" cannot be assigned to declared type "TDProtocol4"']
-Line 100: Unexpected errors ['callables_kwargs.py:100:19 - error: Expression of type "(**kwargs: **TD2) -> None" cannot be assigned to declared type "TDProtocol5"']
+Line 108: Expected 1 errors
+Line 120: Expected 1 errors
 Line 109: Unexpected errors ['callables_kwargs.py:109:30 - error: Typed dictionary overlaps with keyword parameter: v1 (reportGeneralTypeIssues)']
 Line 121: Unexpected errors ['callables_kwargs.py:121:21 - error: Expected TypedDict type argument for Unpack (reportGeneralTypeIssues)']
 """

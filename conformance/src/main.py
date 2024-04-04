@@ -105,7 +105,7 @@ def update_output_for_test(
         print(f"New output: {errors_diff}")
         print("")
 
-        existing_results["conformance_automated"] = "Pass" if not errors_diff else "Fail"
+        existing_results["conformance_automated"] = "Fail" if errors_diff.strip() else "Pass"
 
 
     old_output = existing_results.get("output", "")

@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not yet support the @override decorator.
+notes = """
+Does not yet support the @override decorator.
 """
 output = """
 File "classes_override.py", line 7, in <module>: typing.override not supported yet [not-supported-yet]

@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not report some type violations for TypedDict type compatibility.
+notes = """
+Does not report some type violations for TypedDict type compatibility.
 Incorrectly reports type violation in cases where there is none.
 Does not report type incompatibility between TypedDict and `dict[str, Any]`.
 """

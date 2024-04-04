@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Incorrectly reports error for type alias defined with ParamSpec.
+notes = """
+Incorrectly reports error for type alias defined with ParamSpec.
 Incorrectly rejects some valid type aliases when used in annotations.
 Incorrectly evaluates generic type alias with ParamSpec with missing type argument.
 Does not report invalid specialization of generic type aliases.
@@ -33,6 +34,14 @@ aliases_implicit.py:119:9 Undefined or invalid type [11]: Annotation `BadTypeAli
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 76: Expected 1 errors
+Line 77: Expected 1 errors
+Line 78: Expected 1 errors
+Line 79: Expected 1 errors
+Line 80: Expected 1 errors
+Line 81: Expected 1 errors
+Line 133: Expected 1 errors
+Line 135: Expected 1 errors
 Line 38: Unexpected errors ['aliases_implicit.py:38:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[object, TypeVar]`.']
 Line 42: Unexpected errors ['aliases_implicit.py:42:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[ParamSpec, None]`.']
 Line 54: Unexpected errors ['aliases_implicit.py:54:8 Undefined or invalid type [11]: Annotation `GoodTypeAlias9` is not defined as a type.']
@@ -42,18 +51,4 @@ Line 64: Unexpected errors ['aliases_implicit.py:64:26 Incompatible parameter ty
 Line 65: Unexpected errors ['aliases_implicit.py:65:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[int], Type[int], Type[str]]`.']
 Line 68: Unexpected errors ['aliases_implicit.py:68:29 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[List[Type[Union[int, str]]], None]`.']
 Line 72: Unexpected errors ['aliases_implicit.py:72:30 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[typing.Any, None]`.']
-Line 106: Unexpected errors ['aliases_implicit.py:106:8 Undefined or invalid type [11]: Annotation `BadTypeAlias1` is not defined as a type.']
-Line 107: Unexpected errors ['aliases_implicit.py:107:8 Undefined or invalid type [11]: Annotation `BadTypeAlias2` is not defined as a type.']
-Line 108: Unexpected errors ['aliases_implicit.py:108:8 Undefined or invalid type [11]: Annotation `BadTypeAlias3` is not defined as a type.']
-Line 109: Unexpected errors ['aliases_implicit.py:109:8 Undefined or invalid type [11]: Annotation `BadTypeAlias4` is not defined as a type.']
-Line 110: Unexpected errors ['aliases_implicit.py:110:8 Undefined or invalid type [11]: Annotation `BadTypeAlias5` is not defined as a type.']
-Line 111: Unexpected errors ['aliases_implicit.py:111:8 Undefined or invalid type [11]: Annotation `BadTypeAlias6` is not defined as a type.']
-Line 112: Unexpected errors ['aliases_implicit.py:112:8 Undefined or invalid type [11]: Annotation `BadTypeAlias7` is not defined as a type.']
-Line 113: Unexpected errors ['aliases_implicit.py:113:8 Undefined or invalid type [11]: Annotation `BadTypeAlias8` is not defined as a type.']
-Line 114: Unexpected errors ['aliases_implicit.py:114:8 Undefined or invalid type [11]: Annotation `BadTypeAlias9` is not defined as a type.']
-Line 115: Unexpected errors ['aliases_implicit.py:115:9 Undefined or invalid type [11]: Annotation `BadTypeAlias10` is not defined as a type.']
-Line 116: Unexpected errors ['aliases_implicit.py:116:9 Undefined or invalid type [11]: Annotation `BadTypeAlias11` is not defined as a type.']
-Line 117: Unexpected errors ['aliases_implicit.py:117:9 Undefined or invalid type [11]: Annotation `BadTypeAlias12` is not defined as a type.']
-Line 118: Unexpected errors ['aliases_implicit.py:118:9 Undefined or invalid type [11]: Annotation `BadTypeAlias13` is not defined as a type.']
-Line 119: Unexpected errors ['aliases_implicit.py:119:9 Undefined or invalid type [11]: Annotation `BadTypeAlias14` is not defined as a type.']
 """

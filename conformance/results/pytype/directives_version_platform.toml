@@ -1,5 +1,6 @@
 conformant = "Pass"
-notes = """Does not understand three-element form of sys.version checks.
+notes = """
+Does not understand three-element form of sys.version checks.
 Does not understand os.name checks.
 """
 output = """

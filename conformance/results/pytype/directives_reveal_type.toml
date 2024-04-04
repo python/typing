@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject call to reveal_type with zero arguments.
+notes = """
+Does not reject call to reveal_type with zero arguments.
 Does not reject call to reveal_type with too many arguments.
 """
 output = """

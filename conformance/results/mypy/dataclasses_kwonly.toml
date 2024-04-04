@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Incorrectly rejects kw_only field with default before positional field.
+notes = """
+Incorrectly rejects kw_only field with default before positional field.
 """
 output = """
 dataclasses_kwonly.py:23: error: Too many positional arguments for "DC1"  [misc]

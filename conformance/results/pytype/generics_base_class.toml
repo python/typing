@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """False negative on passing SymbolTable to dict[str, list[object]].
+notes = """
+False negative on passing SymbolTable to dict[str, list[object]].
 Does not reject illegal use of Generic.
 """
 output = """

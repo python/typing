@@ -25,21 +25,5 @@ classes_classvar.py:129:13 - error: Expression of type "ProtoAImpl" cannot be as
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 36: Unexpected errors ['classes_classvar.py:36:25 - error: Expected only one type argument after "ClassVar"']
-Line 37: Unexpected errors ['classes_classvar.py:37:14 - error: Expected type expression but received "Literal[3]" (reportGeneralTypeIssues)']
-Line 38: Unexpected errors ['classes_classvar.py:38:14 - error: "var" is not defined (reportUndefinedVariable)']
-Line 43: Unexpected errors ['classes_classvar.py:43:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)']
-Line 44: Unexpected errors ['classes_classvar.py:44:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)']
-Line 45: Unexpected errors ['classes_classvar.py:45:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)']
-Line 50: Unexpected errors ['classes_classvar.py:50:33 - error: Expression of type "dict[Any, Any]" cannot be assigned to declared type "list[str]" (reportAssignmentType)']
-Line 52: Unexpected errors ['classes_classvar.py:52:11 - error: "Final" is not defined (reportUndefinedVariable)']
-Line 53: Unexpected errors ['classes_classvar.py:53:17 - error: "ClassVar" is not allowed in this context']
-Line 61: Unexpected errors ['classes_classvar.py:61:26 - error: "ClassVar" is not allowed in this context']
-Line 62: Unexpected errors ['classes_classvar.py:62:12 - error: "ClassVar" is not allowed in this context']
-Line 63: Unexpected errors ['classes_classvar.py:63:18 - error: "ClassVar" is not allowed in this context']
-Line 65: Unexpected errors ['classes_classvar.py:65:26 - error: "ClassVar" is not allowed in this context']
-Line 69: Unexpected errors ['classes_classvar.py:69:8 - error: "ClassVar" is not allowed in this context']
-Line 70: Unexpected errors ['classes_classvar.py:70:20 - error: "ClassVar" is not allowed in this context']
-Line 100: Unexpected errors ['classes_classvar.py:100:14 - error: Cannot assign member "stats" for type "Starship"']
-Line 129: Unexpected errors ['classes_classvar.py:129:13 - error: Expression of type "ProtoAImpl" cannot be assigned to declared type "ProtoA"']
+Line 48: Expected 1 errors
 """

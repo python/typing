@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not treat missing type argument as Any in generic type.
+notes = """
+Does not treat missing type argument as Any in generic type.
 Does not support Any as a base class.
 """
 output = """

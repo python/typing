@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Incorrectly rejects valid index of named tuple instance when using a negative index.
+notes = """
+Incorrectly rejects valid index of named tuple instance when using a negative index.
 Does not report out-of-range index access with named tuple instance.
 Does not reject attempt to overwrite named tuple entry by name.
 Does not reject attempt to delete named tuple entry by name.

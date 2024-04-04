@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject illegal use of Generic.
+notes = """
+Does not reject illegal use of Generic.
 Does not allow using generic in assert_type expression.
 """
 output = """

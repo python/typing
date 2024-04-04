@@ -25,7 +25,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 29: Unexpected errors ['protocols_class_objects.py:29: error: Only concrete class can be given where "type[Proto]" is expected  [type-abstract]']
 Line 34: Unexpected errors ['protocols_class_objects.py:34: error: Can only assign concrete classes to a variable of type "type[Proto]"  [type-abstract]']
-Line 58: Unexpected errors ['protocols_class_objects.py:58: error: Incompatible types in assignment (expression has type "type[ConcreteA]", variable has type "ProtoA1")  [assignment]']
 Line 74: Unexpected errors ['protocols_class_objects.py:74: error: Incompatible types in assignment (expression has type "type[ConcreteB]", variable has type "ProtoB1")  [assignment]']
 Line 101: Unexpected errors ['protocols_class_objects.py:101: error: Incompatible types in assignment (expression has type "type[ConcreteC1]", variable has type "ProtoC1")  [assignment]']
 Line 103: Unexpected errors ['protocols_class_objects.py:103: error: Incompatible types in assignment (expression has type "type[ConcreteC2]", variable has type "ProtoC1")  [assignment]']

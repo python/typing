@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not support TypeVarTuple.
+notes = """
+Does not support TypeVarTuple.
 """
 output = """
 File "generics_typevartuple_concat.py", line 9, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]

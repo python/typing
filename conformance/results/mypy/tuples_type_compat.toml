@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not support tuple narrowing based on `len()` type guard (optional).
+notes = """
+Does not support tuple narrowing based on `len()` type guard (optional).
 Incorrectly narrows tuple based on sequence patterns.
 """
 output = """

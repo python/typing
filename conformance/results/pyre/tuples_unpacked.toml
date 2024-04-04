@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Rejects some legal tuple type forms involving unpack.
+notes = """
+Rejects some legal tuple type forms involving unpack.
 Does not reject some illegal tuple type forms involving unpack.
 """
 output = """

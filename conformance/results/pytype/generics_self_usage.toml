@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not understand `Self` type.
+notes = """
+Does not understand `Self` type.
 """
 output = """
 File "generics_self_usage.py", line 58, in foo: Invalid type annotation 'Self'  [invalid-annotation]

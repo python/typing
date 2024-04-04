@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not properly handle Self type within a protocol.
+notes = """
+Does not properly handle Self type within a protocol.
 """
 output = """
 File "protocols_self.py", line 36, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]

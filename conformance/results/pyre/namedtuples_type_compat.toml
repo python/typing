@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Rejects valid type compatibility between named tuple and tuple.
+notes = """
+Rejects valid type compatibility between named tuple and tuple.
 """
 output = """
 namedtuples_type_compat.py:20:0 Incompatible variable type [9]: Unable to unpack `Point`, expected a tuple.

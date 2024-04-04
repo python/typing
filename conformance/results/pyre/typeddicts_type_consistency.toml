@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject assignment of TypedDict with missing key.
+notes = """
+Does not reject assignment of TypedDict with missing key.
 Does not return non-Optional value from `get` method for required key.
 Does not properly handle nested TypedDicts.
 """

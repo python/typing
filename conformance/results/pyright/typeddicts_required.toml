@@ -7,8 +7,6 @@ typeddicts_required.py:60:8 - error: "Required" is not allowed in this context
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 12: Unexpected errors ['typeddicts_required.py:12:8 - error: "Required" is not allowed in this context']
+Line 17: Expected 1 errors
 Line 16: Unexpected errors ['typeddicts_required.py:16:8 - error: "NotRequired" is not allowed in this context']
-Line 59: Unexpected errors ['typeddicts_required.py:59:8 - error: "Required" is not allowed in this context']
-Line 60: Unexpected errors ['typeddicts_required.py:60:8 - error: "Required" is not allowed in this context']
 """

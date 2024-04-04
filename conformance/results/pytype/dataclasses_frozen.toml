@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not report assignment to field within frozen dataclass instance.
+notes = """
+Does not report assignment to field within frozen dataclass instance.
 Does not reject frozen dataclass inherited from non-frozen dataclass.
 Does not reject non-frozen dataclass inherited from frozen dataclass.
 """
@@ -8,4 +9,6 @@ output = """
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 16: Expected 1 errors
+Line 17: Expected 1 errors
 """

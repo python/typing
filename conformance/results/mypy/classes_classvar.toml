@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Internal error if TypeVarTuple is used in ClassVar.
+notes = """
+Internal error if TypeVarTuple is used in ClassVar.
 Does not reject use of ParamSpec in ClassVar.
 Rejects ClassVar nested in Annotated.
 Does not reject use of ClassVar in TypeAlias definition.
@@ -30,21 +31,9 @@ classes_classvar.py:129: note: Protocol member ProtoA.y expected class variable,
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 36: Unexpected errors ['classes_classvar.py:36: error: ClassVar[...] must have at most one type argument  [valid-type]']
-Line 37: Unexpected errors ['classes_classvar.py:37: error: Invalid type: try using Literal[3] instead?  [valid-type]']
-Line 38: Unexpected errors ['classes_classvar.py:38: error: Name "var" is not defined  [name-defined]']
-Line 43: Unexpected errors ['classes_classvar.py:43: error: ClassVar cannot contain type variables  [misc]']
-Line 44: Unexpected errors ['classes_classvar.py:44: error: ClassVar cannot contain type variables  [misc]']
-Line 50: Unexpected errors ['classes_classvar.py:50: error: Incompatible types in assignment (expression has type "dict[Never, Never]", variable has type "list[str]")  [assignment]']
-Line 52: Unexpected errors ['classes_classvar.py:52: error: Name "Final" is not defined  [name-defined]']
-Line 53: Unexpected errors ['classes_classvar.py:53: error: Invalid type: ClassVar nested inside other type  [valid-type]']
+Line 45: Expected 1 errors
+Line 48: Expected 1 errors
+Line 70: Expected 1 errors
 Line 59: Unexpected errors ['classes_classvar.py:59: error: Invalid type: ClassVar nested inside other type  [valid-type]']
-Line 61: Unexpected errors ['classes_classvar.py:61: error: ClassVar can only be used for assignments in class body  [misc]']
-Line 62: Unexpected errors ['classes_classvar.py:62: error: ClassVar can only be used for assignments in class body  [misc]']
-Line 63: Unexpected errors ['classes_classvar.py:63: error: ClassVar can only be used for assignments in class body  [misc]']
-Line 65: Unexpected errors ['classes_classvar.py:65: error: ClassVar can only be used for assignments in class body  [misc]']
-Line 69: Unexpected errors ['classes_classvar.py:69: error: ClassVar can only be used for assignments in class body  [misc]']
 Line 76: Unexpected errors ['classes_classvar.py:76: error: Expression is of type "Any", not "float"  [assert-type]']
-Line 100: Unexpected errors ['classes_classvar.py:100: error: Cannot assign to class variable "stats" via instance  [misc]']
-Line 129: Unexpected errors ['classes_classvar.py:129: error: Incompatible types in assignment (expression has type "ProtoAImpl", variable has type "ProtoA")  [assignment]']
 """

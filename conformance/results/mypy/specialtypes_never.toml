@@ -8,7 +8,13 @@ specialtypes_never.py:104: error: Incompatible return value type (got "ClassC[No
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 19: Unexpected errors ['specialtypes_never.py:19: error: Implicit return in function which does not return  [misc]']
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+Line 50: Expected 1 errors
+Line 51: Expected 1 errors
+Line 54: Expected 1 errors
+Line 59: Expected 1 errors
+Line 60: Expected 1 errors
 Line 85: Unexpected errors ['specialtypes_never.py:85: error: Incompatible types in assignment (expression has type "list[NoReturn]", variable has type "list[int]")  [assignment]']
 Line 104: Unexpected errors ['specialtypes_never.py:104: error: Incompatible return value type (got "ClassC[NoReturn]", expected "ClassC[U]")  [return-value]']
 """

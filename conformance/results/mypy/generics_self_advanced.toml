@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not infer the type of an unannotated `self` parameter to be type `Self`.
+notes = """
+Does not infer the type of an unannotated `self` parameter to be type `Self`.
 Does not retain `Self` when calling method that returns `Self`.
 Does not infer the type of an unannotated `cls` parameter to be type `type[Self]`.
 Does not retain `Self` when accessing attribute through `type[Self]`.

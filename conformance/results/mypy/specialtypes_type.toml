@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not treat `type` same as `type[Any]` for assert_type.
+notes = """
+Does not treat `type` same as `type[Any]` for assert_type.
 Does not allow access to unknown attributes from object of type `type[Any]`.
 """
 output = """

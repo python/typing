@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not report incompatibilities for protocol methods.
+notes = """
+Does not report incompatibilities for protocol methods.
 """
 output = """
 File "protocols_modules.py", line 10, in <module>: Can't find module '_protocols_modules1'. [import-error]

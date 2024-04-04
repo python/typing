@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not support sys.platform checks.
+notes = """
+Does not support sys.platform checks.
 Does not support os.name checks.
 """
 output = """

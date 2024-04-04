@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not detect type violation for some deeply-nested types.
+notes = """
+Does not detect type violation for some deeply-nested types.
 Does not properly handle `|` for unions in some recursive type alias definitions.
 Does not detect cyclical references in recursive type alias definition.
 """
@@ -26,8 +27,8 @@ File "aliases_recursive.py", line 73, in <module>: Invalid type annotation 'Gene
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 19: Unexpected errors ['File "aliases_recursive.py", line 19, in <module>: Type annotation for j4 does not match type of assignment [annotation-type-mismatch]']
-Line 20: Unexpected errors ['File "aliases_recursive.py", line 20, in <module>: Type annotation for j5 does not match type of assignment [annotation-type-mismatch]']
+Line 76: Expected 1 errors
+Line 80: Expected 1 errors
 Line 38: Unexpected errors ['File "aliases_recursive.py", line 38, in <module>: Type annotation for t6 does not match type of assignment [annotation-type-mismatch]']
 Line 39: Unexpected errors ['File "aliases_recursive.py", line 39, in <module>: Type annotation for t6 does not match type of assignment [annotation-type-mismatch]']
 Line 50: Unexpected errors ['File "aliases_recursive.py", line 50, in <module>: Type annotation for m7 does not match type of assignment [annotation-type-mismatch]']

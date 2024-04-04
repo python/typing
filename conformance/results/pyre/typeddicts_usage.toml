@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not report errant use of TypedDict in `isinstance` call.
+notes = """
+Does not report errant use of TypedDict in `isinstance` call.
 Does not reject use of TypedDict as TypeVar bound.
 """
 output = """

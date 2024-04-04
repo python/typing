@@ -31,14 +31,12 @@ aliases_typealiastype.py:70:42 - error: Tuple expression not allowed in type ann
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 32: Unexpected errors ['aliases_typealiastype.py:32:18 - error: Cannot access member "other_attrib" for type "TypeAliasType"']
-Line 40: Unexpected errors ['aliases_typealiastype.py:40:5 - error: Could not specialize type "GoodAlias5[S@GoodAlias5, TStr@GoodAlias5, P@GoodAlias5, Ts@GoodAlias5]"']
+Line 45: Expected 1 errors
+Line 49: Expected 1 errors
+Line 53: Expected 1 errors
 Line 44: Unexpected errors ['aliases_typealiastype.py:44:23 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)']
-Line 46: Unexpected errors ['aliases_typealiastype.py:46:45 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)']
 Line 48: Unexpected errors ['aliases_typealiastype.py:48:35 - error: Type parameter list must be a tuple containing only TypeVar, TypeVarTuple, or ParamSpec']
-Line 50: Unexpected errors ['aliases_typealiastype.py:50:40 - error: Type alias "BadAlias4" cannot use itself in its definition (reportGeneralTypeIssues)']
 Line 52: Unexpected errors ['aliases_typealiastype.py:52:18 - error: Type alias "BadAlias5" cannot use itself in its definition (reportGeneralTypeIssues)']
-Line 54: Unexpected errors ['aliases_typealiastype.py:54:40 - error: Type alias "BadAlias6" cannot use itself in its definition (reportGeneralTypeIssues)']
 Line 58: Unexpected errors ['aliases_typealiastype.py:58:40 - error: Call expression not allowed in type expression (reportInvalidTypeForm)']
 Line 59: Unexpected errors ['aliases_typealiastype.py:59:40 - error: Expected type expression but received "list[Unknown]" (reportGeneralTypeIssues)']
 Line 60: Unexpected errors ['aliases_typealiastype.py:60:42 - error: Expected type expression but received "tuple[tuple[type[int], type[str]]]" (reportGeneralTypeIssues)']

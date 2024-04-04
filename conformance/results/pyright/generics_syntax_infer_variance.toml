@@ -63,6 +63,8 @@ generics_syntax_infer_variance.py:152:45 - error: Expression of type "ShouldBeCo
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 17: Expected 1 errors
+Line 21: Expected 1 errors
 Line 16: Unexpected errors ['generics_syntax_infer_variance.py:16:42 - error: TypeVar cannot be both covariant and contravariant']
 Line 20: Unexpected errors ['generics_syntax_infer_variance.py:20:46 - error: TypeVar cannot be both covariant and contravariant']
 Line 33: Unexpected errors ['generics_syntax_infer_variance.py:33:35 - error: Expression of type "ShouldBeCovariant1[float]" cannot be assigned to declared type "ShouldBeCovariant1[int]"']

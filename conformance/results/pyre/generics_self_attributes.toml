@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not understand `Self` type.
+notes = """
+Does not understand `Self` type.
 """
 output = """
 generics_self_attributes.py:16:10 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.

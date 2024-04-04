@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Incorrectly reports error when kw_only field has default value.
+notes = """
+Incorrectly reports error when kw_only field has default value.
 Incorrectly rejects kw_only field with default before positional field.
 """
 output = """

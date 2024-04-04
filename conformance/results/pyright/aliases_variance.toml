@@ -11,8 +11,4 @@ aliases_variance.py:44:26 - error: Could not specialize type "B_Alias_1[T_co@B_A
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 24: Unexpected errors ['aliases_variance.py:24:23 - error: Type "T_co@ClassA_1" cannot be assigned to type variable "T@ClassA"']
-Line 28: Unexpected errors ['aliases_variance.py:28:26 - error: Could not specialize type "A_Alias_1[T_co@A_Alias_1]"']
-Line 32: Unexpected errors ['aliases_variance.py:32:26 - error: Could not specialize type "A_Alias_2[T_co@A_Alias_2]"']
-Line 44: Unexpected errors ['aliases_variance.py:44:26 - error: Could not specialize type "B_Alias_1[T_co@B_Alias_1, T_contra@B_Alias_1]"']
 """

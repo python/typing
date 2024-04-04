@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Incorrectly reports type error for some recursive protocols.
+notes = """
+Incorrectly reports type error for some recursive protocols.
 """
 output = """
 File "protocols_recursive.py", line 11, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]

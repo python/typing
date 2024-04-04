@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Reports error for overloaded method implementation marked @final if its overloads do not.
+notes = """
+Reports error for overloaded method implementation marked @final if its overloads do not.
 Does not report error for overloaded @final method defined in stub file.
 Reports misleading error when overload is marked @final but implementation is not.
 """
@@ -17,7 +18,7 @@ qualifiers_final_decorator.py:126:0 Invalid inheritance [39]: `final` cannot be 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 21: Unexpected errors ['qualifiers_final_decorator.py:21:0 Invalid inheritance [39]: Cannot inherit from final class `Base1`.']
+Line 85: Expected 1 errors
 Line 51: Unexpected errors ['qualifiers_final_decorator.py:51:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
 Line 56: Unexpected errors ['qualifiers_final_decorator.py:56:4 Invalid override [40]: `qualifiers_final_decorator.Derived2.method1` cannot override final method defined in `Base2`.']
 Line 60: Unexpected errors ['qualifiers_final_decorator.py:60:4 Invalid override [40]: `qualifiers_final_decorator.Derived2.method2` cannot override final method defined in `Base2`.']
@@ -25,5 +26,4 @@ Line 64: Unexpected errors ['qualifiers_final_decorator.py:64:4 Invalid override
 Line 75: Unexpected errors ['qualifiers_final_decorator.py:75:4 Invalid override [40]: `qualifiers_final_decorator.Derived2.method4` cannot override final method defined in `Base2`.']
 Line 86: Unexpected errors ['qualifiers_final_decorator.py:86:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
 Line 118: Unexpected errors ['qualifiers_final_decorator.py:118:4 Inconsistent override [14]: `qualifiers_final_decorator.Derived5.method` overrides method defined in `Base5_2` inconsistently. Could not find parameter `v` in overriding signature.', 'qualifiers_final_decorator.py:118:4 Invalid override [40]: `qualifiers_final_decorator.Derived5.method` cannot override final method defined in `Base5_2`.']
-Line 126: Unexpected errors ['qualifiers_final_decorator.py:126:0 Invalid inheritance [39]: `final` cannot be used with non-method functions.']
 """

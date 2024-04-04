@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Incorrectly rejects valid index of named tuple instance when using a negative index.
+notes = """
+Incorrectly rejects valid index of named tuple instance when using a negative index.
 Does not evaluate correct type for indexed named tuple instance with slice.
 Does not reject named tuple element with no default value after one with a default.
 Does not reject override of named tuple attribute in child class.

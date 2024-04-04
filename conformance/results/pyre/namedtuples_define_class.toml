@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not evaluate correct type for indexed named tuple instance with slice.
+notes = """
+Does not evaluate correct type for indexed named tuple instance with slice.
 Does not report out-of-range index access with named tuple instance.
 Does not reject named tuple element with no default value after one with a default.
 Incorrectly rejects assignment of named tuple to a tuple with compatible type.

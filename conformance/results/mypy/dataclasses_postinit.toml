@@ -11,8 +11,4 @@ dataclasses_postinit.py:36: note:          def __post_init__(self: DC2, x: int) 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 19: Unexpected errors ['dataclasses_postinit.py:19: error: Argument 3 of "__post_init__" is incompatible with supertype "dataclass"; supertype defines the argument type as "str"  [override]']
-Line 28: Unexpected errors ['dataclasses_postinit.py:28: error: "DC1" has no attribute "x"  [attr-defined]']
-Line 29: Unexpected errors ['dataclasses_postinit.py:29: error: "DC1" has no attribute "y"  [attr-defined]']
-Line 36: Unexpected errors ['dataclasses_postinit.py:36: error: Signature of "__post_init__" incompatible with supertype "dataclass"  [override]']
 """

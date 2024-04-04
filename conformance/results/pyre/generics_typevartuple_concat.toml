@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not support TypeVarTuple.
+notes = """
+Does not support TypeVarTuple.
 """
 output = """
 generics_typevartuple_concat.py:22:12 Invalid type [31]: Expression `typing.Generic[(*$local_generics_typevartuple_concat$Ts)]` is not a valid type.

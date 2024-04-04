@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Type parameter syntax not yet support.
+notes = """
+Type parameter syntax not yet support.
 """
 output = """
 generics_syntax_scoping.py:14:13 Parsing failure [404]: invalid syntax

@@ -1,5 +1,6 @@
 conformant = "Pass"
-notes = """Does not honor @no_type_check decorator.
+notes = """
+Does not honor @no_type_check decorator.
 """
 output = """
 directives_no_type_check.py:16:4 Incompatible attribute type [8]: Attribute `x` declared in class `ClassA` has type `int` but is used as type `str`.

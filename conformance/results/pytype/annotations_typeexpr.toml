@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject call expressions in type annotation.
+notes = """
+Does not reject call expressions in type annotation.
 Does not reject call lambda expression in type annotation.
 Does not reject list expression in type annotation.
 Does not reject ternary expression in type annotation.

@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not handle `kw_only=False` override when `kw_only_default=True`.
+notes = """
+Does not handle `kw_only=False` override when `kw_only_default=True`.
 Does not report error when `order=False` and comparison operators are used.
 """
 output = """

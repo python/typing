@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not report error when `slots=True` is used with `__slots__` definition.
+notes = """
+Does not report error when `slots=True` is used with `__slots__` definition.
 Does not reject write to instance variable that is not defined in __slots__.
 Incorrectly reports error when accessing `__slots__` when `slots=True`.
 """

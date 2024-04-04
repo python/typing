@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not understand descriptor objects in dataclass.
+notes = """
+Does not understand descriptor objects in dataclass.
 """
 output = """
 File "dataclasses_descriptors.py", line 24, in __get__: bad return type [bad-return-type]

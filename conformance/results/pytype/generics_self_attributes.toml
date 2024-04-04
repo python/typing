@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not understand `Self` type.
+notes = """
+Does not understand `Self` type.
 """
 output = """
 File "generics_self_attributes.py", line 26, in <module>: Function OrdinalLinkedList.__init__ was called with the wrong arguments [wrong-arg-types]

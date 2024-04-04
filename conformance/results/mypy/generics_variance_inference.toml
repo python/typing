@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Type parameter syntax not yet support.
+notes = """
+Type parameter syntax not yet support.
 """
 output = """
 generics_variance_inference.py:15: error: PEP 695 generics are not yet supported  [valid-type]

@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not evaluate correct type for `*args: int` parameter.
+notes = """
+Does not evaluate correct type for `*args: int` parameter.
 Does not reject illegal form `Callable[[...], int]`.
 """
 output = """

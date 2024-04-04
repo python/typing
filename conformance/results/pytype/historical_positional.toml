@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not apply rules for pre-3.8 positional-only parameters in some cases.
+notes = """
+Does not apply rules for pre-3.8 positional-only parameters in some cases.
 Does not reject positional-only parameter after non-positional-only parameter.
 """
 output = """

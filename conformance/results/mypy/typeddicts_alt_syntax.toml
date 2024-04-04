@@ -1,5 +1,6 @@
 conformant = "Pass"
-notes = """Does not support keyword-argument form of alternative syntax (deprecated in 3.11).
+notes = """
+Does not support keyword-argument form of alternative syntax (deprecated in 3.11).
 """
 output = """
 typeddicts_alt_syntax.py:23: error: TypedDict() expects a dictionary literal as the second argument  [misc]
@@ -18,5 +19,4 @@ Line 31: Unexpected errors ['typeddicts_alt_syntax.py:31: error: First argument 
 Line 35: Unexpected errors ['typeddicts_alt_syntax.py:35: error: Too many arguments for TypedDict()  [misc]']
 Line 41: Unexpected errors ['typeddicts_alt_syntax.py:41: error: Unexpected arguments to TypedDict()  [misc]']
 Line 44: Unexpected errors ['typeddicts_alt_syntax.py:44: error: Extra keys ("name", "year") for TypedDict "Movie2"  [typeddict-unknown-key]']
-Line 45: Unexpected errors ['typeddicts_alt_syntax.py:45: error: Extra keys ("name", "year") for TypedDict "Movie2"  [typeddict-unknown-key]']
 """

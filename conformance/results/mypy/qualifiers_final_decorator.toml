@@ -18,7 +18,8 @@ qualifiers_final_decorator.py:125: error: @final cannot be used with non-method 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 21: Unexpected errors ['qualifiers_final_decorator.py:21: error: Cannot inherit from final class "Base1"  [misc]']
+Line 85: Expected 1 errors
+Line 126: Expected 1 errors
 Line 56: Unexpected errors ['qualifiers_final_decorator.py:56: error: Cannot override final attribute "method1" (previously declared in base class "Base2")  [misc]']
 Line 59: Unexpected errors ['qualifiers_final_decorator.py:59: error: Cannot override final attribute "method2" (previously declared in base class "Base2")  [misc]']
 Line 63: Unexpected errors ['qualifiers_final_decorator.py:63: error: Cannot override final attribute "method3" (previously declared in base class "Base2")  [misc]']

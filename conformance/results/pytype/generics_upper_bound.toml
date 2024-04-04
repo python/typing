@@ -1,5 +1,6 @@
 conformant = "Pass"
-notes = """Does not properly support assert_type.
+notes = """
+Does not properly support assert_type.
 """
 output = """
 File "generics_upper_bound.py", line 22, in <module>: Invalid TypeVar: bound cannot contain TypeVars [invalid-typevar]

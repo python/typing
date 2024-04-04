@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject protocol class assigned to type[Proto].
+notes = """
+Does not reject protocol class assigned to type[Proto].
 Incorrectly reports some class objects as incompatible with a protocol.
 Fails to report some class objects as incompatible with a protocol.
 """
@@ -8,5 +9,6 @@ File "protocols_class_objects.py", line 50, in method1: bad return type [bad-ret
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 58: Expected 1 errors
 Line 50: Unexpected errors ['File "protocols_class_objects.py", line 50, in method1: bad return type [bad-return-type]']
 """

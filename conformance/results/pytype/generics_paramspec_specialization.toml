@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Rejects valid specialization of ParamSpec using list expression.
+notes = """
+Rejects valid specialization of ParamSpec using list expression.
 Does not reject invalid specialization of class with both TypeVar and ParamSpec.
 Reports error for valid method call involving ParamSpec.
 """

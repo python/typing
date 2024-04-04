@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not enforce name consistency for ParamSpec assigned to identifier.
+notes = """
+Does not enforce name consistency for ParamSpec assigned to identifier.
 Incorrectly reports error for legitimate use of ParamSpec in generic type alias.
 Does not reject ParamSpec when used in various invalid locations.
 """
@@ -15,6 +16,7 @@ generics_paramspec_basic.py:31:13 Invalid type parameters [24]: Single type para
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 10: Expected 1 errors
 Line 15: Unexpected errors ['generics_paramspec_basic.py:15:0 Undefined or invalid type [11]: Annotation `P` is not defined as a type.']
 Line 17: Unexpected errors ['generics_paramspec_basic.py:17:0 Incompatible variable type [9]: TA2 is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., Variable[$synthetic_attribute_resolution_variable]]]`.', 'generics_paramspec_basic.py:17:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[ParamSpec, None]`.']
 Line 18: Unexpected errors ['generics_paramspec_basic.py:18:0 Incompatible variable type [9]: TA3 is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., Variable[$synthetic_attribute_resolution_variable]]]`.', 'generics_paramspec_basic.py:18:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[object, None]`.']

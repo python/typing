@@ -25,7 +25,6 @@ protocols_subtyping.py:103:33 - error: Expression of type "Proto6[float, float]"
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 16: Unexpected errors ['protocols_subtyping.py:16:6 - error: Cannot instantiate protocol class "Proto1" (reportAbstractUsage)']
 Line 38: Unexpected errors ['protocols_subtyping.py:38:21 - error: Expression of type "Proto2" cannot be assigned to declared type "Concrete2"']
 Line 55: Unexpected errors ['protocols_subtyping.py:55:18 - error: Expression of type "Proto2" cannot be assigned to declared type "Proto3"']
 Line 79: Unexpected errors ['protocols_subtyping.py:79:30 - error: Expression of type "Proto5[int]" cannot be assigned to declared type "Proto4[int, float]"']

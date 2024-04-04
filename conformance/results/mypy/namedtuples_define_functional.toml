@@ -1,5 +1,6 @@
 conformant = "Pass"
-notes = """Does not handle illegal named tuple names the same as runtime.
+notes = """
+Does not handle illegal named tuple names the same as runtime.
 """
 output = """
 namedtuples_define_functional.py:16: error: Missing positional argument "y" in call to "Point1"  [call-arg]

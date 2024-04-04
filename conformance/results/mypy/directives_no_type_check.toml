@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not honor `@no_type_check` class decorator.
+notes = """
+Does not honor `@no_type_check` class decorator.
 Does not reject invalid call of `@no_type_check` function.
 """
 output = """

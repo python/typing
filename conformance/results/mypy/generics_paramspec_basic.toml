@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject ParamSpec when used "bare" in type alias definition.
+notes = """
+Does not reject ParamSpec when used "bare" in type alias definition.
 """
 output = """
 generics_paramspec_basic.py:10: error: String argument 1 "NotIt" to ParamSpec(...) does not match variable name "WrongName"  [misc]
@@ -16,7 +17,6 @@ generics_paramspec_basic.py:39: note: You can use ParamSpec as the first argumen
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 10: Unexpected errors ['generics_paramspec_basic.py:10: error: String argument 1 "NotIt" to ParamSpec(...) does not match variable name "WrongName"  [misc]']
 Line 23: Unexpected errors ['generics_paramspec_basic.py:23: error: Invalid location for ParamSpec "P"  [valid-type]']
 Line 27: Unexpected errors ['generics_paramspec_basic.py:27: error: Invalid location for Concatenate  [valid-type]']
 Line 31: Unexpected errors ['generics_paramspec_basic.py:31: error: Invalid location for ParamSpec "P"  [misc]']

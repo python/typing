@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not understand @dataclass_transform.
+notes = """
+Does not understand @dataclass_transform.
 """
 output = """
 File "dataclasses_transform_class.py", line 23, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]

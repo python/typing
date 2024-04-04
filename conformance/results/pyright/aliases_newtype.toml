@@ -19,17 +19,4 @@ aliases_newtype.py:62:38 - error: The second argument to NewType must be a known
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 11: Unexpected errors ['aliases_newtype.py:11:8 - error: Argument of type "Literal[\\'user\\']" cannot be assigned to parameter "_x" of type "int" in function "__init__"']
-Line 12: Unexpected errors ['aliases_newtype.py:12:14 - error: Expression of type "Literal[42]" cannot be assigned to declared type "UserId"']
-Line 20: Unexpected errors ['aliases_newtype.py:20:16 - error: Second argument to "isinstance" must be a class or tuple of classes']
-Line 23: Unexpected errors ['aliases_newtype.py:23:21 - error: Base class "UserId" is marked final and cannot be subclassed']
-Line 32: Unexpected errors ['aliases_newtype.py:32:1 - error: NewType must be assigned to a variable with the same name (reportGeneralTypeIssues)']
-Line 38: Unexpected errors ['aliases_newtype.py:38:19 - error: Expected no type arguments for class "GoodNewType1" (reportInvalidTypeArguments)']
-Line 44: Unexpected errors ['aliases_newtype.py:44:38 - error: Expected class as second argument to NewType (reportGeneralTypeIssues)']
-Line 47: Unexpected errors ['aliases_newtype.py:47:43 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)']
-Line 49: Unexpected errors ['aliases_newtype.py:49:38 - error: NewType cannot be used with structural type (a protocol or TypedDict class) (reportGeneralTypeIssues)']
-Line 51: Unexpected errors ['aliases_newtype.py:51:38 - error: NewType cannot be used with Literal type (reportGeneralTypeIssues)']
-Line 58: Unexpected errors ['aliases_newtype.py:58:38 - error: NewType cannot be used with structural type (a protocol or TypedDict class) (reportGeneralTypeIssues)']
-Line 60: Unexpected errors ['aliases_newtype.py:60:15 - error: NewType requires two positional arguments (reportCallIssue)']
-Line 62: Unexpected errors ['aliases_newtype.py:62:38 - error: The second argument to NewType must be a known class, not Any or Unknown (reportGeneralTypeIssues)']
 """

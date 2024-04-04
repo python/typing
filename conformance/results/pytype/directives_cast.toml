@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject a call to "cast" with additional arguments.
+notes = """
+Does not reject a call to "cast" with additional arguments.
 """
 output = """
 File "directives_cast.py", line 15, in <module>: Missing parameter 'typ' in call to function typing.cast [missing-parameter]

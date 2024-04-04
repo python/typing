@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject override of named tuple attribute in child class.
+notes = """
+Does not reject override of named tuple attribute in child class.
 """
 output = """
 namedtuples_define_class.py:32: error: Tuple index out of range  [misc]

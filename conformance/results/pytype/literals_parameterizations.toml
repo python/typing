@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not understand `Literal` type annotation.
+notes = """
+Does not understand `Literal` type annotation.
 """
 output = """
 File "literals_parameterizations.py", line 17, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]

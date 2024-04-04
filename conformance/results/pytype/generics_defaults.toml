@@ -52,6 +52,7 @@ File "generics_defaults.py", line 173, in <module>: Any [assert-type]
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 26: Expected 1 errors
 Line 7: Unexpected errors ['File "generics_defaults.py", line 7, in <module>: typing.Unpack not supported yet [not-supported-yet]']
 Line 8: Unexpected errors ['File "generics_defaults.py", line 8, in <module>: typing_extensions.TypeVarTuple not supported yet [not-supported-yet]']
 Line 11: Unexpected errors ['File "generics_defaults.py", line 11, in <module>: wrong arguments [invalid-typevar]']

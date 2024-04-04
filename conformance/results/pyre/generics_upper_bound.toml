@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject use of upper bound with constrained TypeVar.
+notes = """
+Does not reject use of upper bound with constrained TypeVar.
 """
 output = """
 generics_upper_bound.py:22:0 Invalid type [31]: Expression `Variable[T_Bad1 (bound to typing.List[Variable[generics_upper_bound.T]])]` is not a valid type. Type variables cannot contain other type variables in their constraints.

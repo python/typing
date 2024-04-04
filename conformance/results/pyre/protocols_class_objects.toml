@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject protocol class assigned to type[Proto].
+notes = """
+Does not reject protocol class assigned to type[Proto].
 Incorrectly reports some class objects as incompatible with a protocol.
 Fails to report some class objects as incompatible with a protocol.
 """
@@ -11,6 +12,5 @@ protocols_class_objects.py:93:0 Uninitialized attribute [13]: Attribute `attr1` 
 conformance_automated = "Fail"
 errors_diff = """
 Line 26: Unexpected errors ['protocols_class_objects.py:26:11 Invalid class instantiation [45]: Cannot instantiate abstract class `Proto` with abstract method `meth`.']
-Line 58: Unexpected errors ['protocols_class_objects.py:58:0 Incompatible variable type [9]: pa1 is declared to have type `ProtoA1` but is used as type `Type[ConcreteA]`.']
 Line 93: Unexpected errors ['protocols_class_objects.py:93:0 Uninitialized attribute [13]: Attribute `attr1` is declared in class `CMeta` to have type `int` but is never initialized.']
 """

@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not support `tuple` in `assert_type` call.
+notes = """
+Does not support `tuple` in `assert_type` call.
 Does not reject TypeGuard method with too few parameters.
 """
 output = """

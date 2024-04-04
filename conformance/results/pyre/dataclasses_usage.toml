@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not report error when field with no default follows field with default.
+notes = """
+Does not report error when field with no default follows field with default.
 Incorrectly reports error with InitVar that has default value.
 """
 output = """
@@ -22,12 +23,7 @@ errors_diff = """
 Line 62: Expected 1 errors
 Line 68: Expected 1 errors
 Line 74: Expected 1 errors
-Line 51: Unexpected errors ['dataclasses_usage.py:51:5 Missing argument [20]: Call `InventoryItem.__init__` expects argument `unit_price`.']
-Line 52: Unexpected errors ['dataclasses_usage.py:52:27 Incompatible parameter type [6]: In call `InventoryItem.__init__`, for 2nd positional argument, expected `float` but got `str`.']
-Line 53: Unexpected errors ['dataclasses_usage.py:53:5 Too many arguments [19]: Call `InventoryItem.__init__` expects 3 positional arguments, 4 were provided.']
 Line 73: Unexpected errors ['dataclasses_usage.py:73:4 Incompatible attribute type [8]: Attribute `a` declared in class `DC3` has type `InitVar[int]` but is used as type `int`.']
-Line 84: Unexpected errors ['dataclasses_usage.py:84:5 Too many arguments [19]: Call `DC4.__init__` expects 1 positional argument, 2 were provided.']
-Line 89: Unexpected errors ['dataclasses_usage.py:89:4 Incompatible attribute type [8]: Attribute `a` declared in class `DC5` has type `int` but is used as type `str`.']
 Line 116: Unexpected errors ['dataclasses_usage.py:116:0 Uninitialized attribute [13]: Attribute `y` is declared in class `DC8` to have type `int` but is never initialized.']
 Line 127: Unexpected errors ['dataclasses_usage.py:127:0 Too many arguments [19]: Call `DC7.__init__` expects 1 positional argument, 2 were provided.']
 Line 130: Unexpected errors ['dataclasses_usage.py:130:0 Missing argument [20]: Call `DC8.__init__` expects argument `y`.']

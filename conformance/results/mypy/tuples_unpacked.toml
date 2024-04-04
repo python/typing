@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """"More than one unpack" error is missing a line number.
+notes = """
+"More than one unpack" error is missing a line number.
 """
 output = """
 tuples_unpacked.py: error: More than one Unpack in a type is not allowed  [misc]

@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not understand `LiteralString` special form.
+notes = """
+Does not understand `LiteralString` special form.
 """
 output = """
 File "literals_literalstring.py", line 8, in <module>: typing.LiteralString not supported yet [not-supported-yet]

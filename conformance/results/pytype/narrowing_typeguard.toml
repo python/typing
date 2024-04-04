@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject TypeGuard method with too few parameters.
+notes = """
+Does not reject TypeGuard method with too few parameters.
 """
 output = """
 File "narrowing_typeguard.py", line 128, in <module>: Function takes_callable_str was called with the wrong arguments [wrong-arg-types]

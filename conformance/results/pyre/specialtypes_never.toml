@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not treat Never as compatible with all other types.
+notes = """
+Does not treat Never as compatible with all other types.
 """
 output = """
 specialtypes_never.py:21:8 Incompatible return type [7]: Function declared non-returnable, but got `None`.
@@ -15,6 +16,14 @@ specialtypes_never.py:104:4 Incompatible return type [7]: Expected `ClassC[Varia
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 19: Expected 1 errors
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+Line 50: Expected 1 errors
+Line 51: Expected 1 errors
+Line 54: Expected 1 errors
+Line 59: Expected 1 errors
+Line 60: Expected 1 errors
 Line 21: Unexpected errors ['specialtypes_never.py:21:8 Incompatible return type [7]: Function declared non-returnable, but got `None`.']
 Line 58: Unexpected errors ['specialtypes_never.py:58:0 Uninitialized attribute [13]: Attribute `x` is declared in class `ClassA` to have type `NoReturn` but is never initialized.', 'specialtypes_never.py:58:0 Uninitialized attribute [13]: Attribute `y` is declared in class `ClassA` to have type `typing.List[NoReturn]` but is never initialized.']
 Line 67: Unexpected errors ['specialtypes_never.py:67:4 Incompatible variable type [9]: v1 is declared to have type `int` but is used as type `Never`.']

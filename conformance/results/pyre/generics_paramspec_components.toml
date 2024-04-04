@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not report illegal use of "P.args" on normal parameter.
+notes = """
+Does not report illegal use of "P.args" on normal parameter.
 Does not report error when P.args is specified but P.kwargs is missing.
 Does not report error when P is out of scope and P.args and P.kwargs is used.
 Does not report error when calling callback defined with ParamSpec with incorrect arguments.

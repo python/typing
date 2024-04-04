@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not allow ClassVar to be nested within Annotated.
+notes = """
+Does not allow ClassVar to be nested within Annotated.
 Does not allow Final to be nested within Annotated.
 Does not allow Required and NotRequired to be nested within Annotated.
 Does not reject type[T] compatibility for type alias defined with Annotated.
@@ -33,19 +34,6 @@ qualifiers_annotated.py:119: error: Invalid assignment target  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 43: Unexpected errors ['qualifiers_annotated.py:43: error: Bracketed expression "[...]" is not valid as a type  [valid-type]']
-Line 44: Unexpected errors ['qualifiers_annotated.py:44: error: Syntax error in type annotation  [syntax]']
-Line 45: Unexpected errors ['qualifiers_annotated.py:45: error: Invalid type comment or annotation  [valid-type]']
-Line 46: Unexpected errors ['qualifiers_annotated.py:46: error: Invalid type comment or annotation  [valid-type]']
-Line 47: Unexpected errors ['qualifiers_annotated.py:47: error: Invalid type comment or annotation  [valid-type]']
-Line 48: Unexpected errors ['qualifiers_annotated.py:48: error: Invalid type comment or annotation  [valid-type]']
-Line 49: Unexpected errors ['qualifiers_annotated.py:49: error: Invalid type comment or annotation  [valid-type]']
-Line 50: Unexpected errors ['qualifiers_annotated.py:50: error: Name "var1" is not defined  [name-defined]']
-Line 51: Unexpected errors ['qualifiers_annotated.py:51: error: Invalid type: try using Literal[True] instead?  [valid-type]']
-Line 52: Unexpected errors ['qualifiers_annotated.py:52: error: Invalid type: try using Literal[1] instead?  [valid-type]']
-Line 53: Unexpected errors ['qualifiers_annotated.py:53: error: Invalid type comment or annotation  [valid-type]']
-Line 54: Unexpected errors ['qualifiers_annotated.py:54: error: Invalid type comment or annotation  [valid-type]']
-Line 64: Unexpected errors ['qualifiers_annotated.py:64: error: Annotated[...] must have exactly one type argument and at least one annotation  [valid-type]']
 Line 76: Unexpected errors ['qualifiers_annotated.py:76: error: Incompatible types in assignment (expression has type "object", variable has type "type[Any]")  [assignment]']
 Line 84: Unexpected errors ['qualifiers_annotated.py:84: error: Argument 1 to "func4" has incompatible type "object"; expected "type[Never]"  [arg-type]']
 Line 91: Unexpected errors ['qualifiers_annotated.py:91: error: "<typing special form>" not callable  [operator]']

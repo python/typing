@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Reports error for legitimate use of ParamSpec and Concatenate in function signature.
+notes = """
+Reports error for legitimate use of ParamSpec and Concatenate in function signature.
 Reports error for legitimate specialization of generic class parameterized with ParamSpec.
 """
 output = """

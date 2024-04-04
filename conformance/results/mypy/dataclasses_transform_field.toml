@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not properly handle field constructor that has default value for `kw_only` or `init` parameter.
+notes = """
+Does not properly handle field constructor that has default value for `kw_only` or `init` parameter.
 """
 output = """
 dataclasses_transform_field.py:64: error: Unexpected keyword argument "id" for "CustomerModel1"  [call-arg]

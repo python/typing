@@ -24,15 +24,4 @@ typeddicts_operations.py:62:16 - error: Cannot access member "clear" for type "M
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 22: Unexpected errors ['typeddicts_operations.py:22:1 - error: Could not assign item in TypedDict']
-Line 23: Unexpected errors ['typeddicts_operations.py:23:1 - error: Could not assign item in TypedDict']
-Line 24: Unexpected errors ['typeddicts_operations.py:24:1 - error: Could not assign item in TypedDict']
-Line 26: Unexpected errors ['typeddicts_operations.py:26:7 - error: Could not access item in TypedDict']
-Line 28: Unexpected errors ['typeddicts_operations.py:28:9 - error: Expression of type "dict[str, str]" cannot be assigned to declared type "Movie"']
-Line 29: Unexpected errors ['typeddicts_operations.py:29:42 - error: Expression of type "dict[str, str | float]" cannot be assigned to declared type "Movie"']
-Line 32: Unexpected errors ['typeddicts_operations.py:32:36 - error: Expression of type "dict[str, str | int]" cannot be assigned to declared type "Movie"']
-Line 37: Unexpected errors ['typeddicts_operations.py:37:20 - error: Expression of type "dict[str, str | int]" cannot be assigned to declared type "Movie" (reportAssignmentType)']
-Line 47: Unexpected errors ['typeddicts_operations.py:47:7 - error: Cannot access member "clear" for type "Movie"']
-Line 49: Unexpected errors ['typeddicts_operations.py:49:5 - error: Could not delete item in TypedDict']
-Line 62: Unexpected errors ['typeddicts_operations.py:62:16 - error: Cannot access member "clear" for type "MovieOptional"']
 """

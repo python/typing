@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject attempt to delete named tuple field by name.
+notes = """
+Does not reject attempt to delete named tuple field by name.
 """
 output = """
 namedtuples_usage.py:34: error: Tuple index out of range  [misc]

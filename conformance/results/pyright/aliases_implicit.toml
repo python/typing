@@ -29,26 +29,6 @@ aliases_implicit.py:135:5 - error: Type "set[Unknown]" is already specialized (r
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 76: Unexpected errors ['aliases_implicit.py:76:24 - error: Expected no type arguments for class "int" (reportInvalidTypeArguments)', 'aliases_implicit.py:76:24 - error: Expected no type arguments for class "NoneType" (reportInvalidTypeArguments)']
-Line 77: Unexpected errors ['aliases_implicit.py:77:9 - error: Type "list[int | None]" is already specialized (reportInvalidTypeArguments)']
-Line 78: Unexpected errors ['aliases_implicit.py:78:29 - error: Too many type arguments provided for "GoodTypeAlias4[T@GoodTypeAlias4]"; expected 1 but received 2']
-Line 79: Unexpected errors ['aliases_implicit.py:79:29 - error: Too many type arguments provided for "GoodTypeAlias8[T@GoodTypeAlias8]"; expected 1 but received 2']
-Line 80: Unexpected errors ['aliases_implicit.py:80:24 - error: Expected ParamSpec, ellipsis, or list of types']
-Line 81: Unexpected errors ['aliases_implicit.py:81:9 - error: Could not specialize type "GoodTypeAlias12[TFloat@GoodTypeAlias12]"']
-Line 106: Unexpected errors ['aliases_implicit.py:106:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 107: Unexpected errors ['aliases_implicit.py:107:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 108: Unexpected errors ['aliases_implicit.py:108:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 109: Unexpected errors ['aliases_implicit.py:109:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 110: Unexpected errors ['aliases_implicit.py:110:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 111: Unexpected errors ['aliases_implicit.py:111:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 112: Unexpected errors ['aliases_implicit.py:112:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 113: Unexpected errors ['aliases_implicit.py:113:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 114: Unexpected errors ['aliases_implicit.py:114:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 115: Unexpected errors ['aliases_implicit.py:115:10 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 116: Unexpected errors ['aliases_implicit.py:116:10 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 117: Unexpected errors ['aliases_implicit.py:117:10 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 118: Unexpected errors ['aliases_implicit.py:118:10 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 119: Unexpected errors ['aliases_implicit.py:119:10 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 133: Unexpected errors ['aliases_implicit.py:133:6 - error: Object of type "UnionType" is not callable (reportCallIssue)']
-Line 135: Unexpected errors ['aliases_implicit.py:135:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)', 'aliases_implicit.py:135:5 - error: Type "set[Unknown]" is already specialized (reportInvalidTypeArguments)']
+Line 76: Expected 1 errors, got 2 (['aliases_implicit.py:76:24 - error: Expected no type arguments for class "int" (reportInvalidTypeArguments)', 'aliases_implicit.py:76:24 - error: Expected no type arguments for class "NoneType" (reportInvalidTypeArguments)'])
+Line 135: Expected 1 errors, got 2 (['aliases_implicit.py:135:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)', 'aliases_implicit.py:135:5 - error: Type "set[Unknown]" is already specialized (reportInvalidTypeArguments)'])
 """

@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not validate `__post_init__` method.
+notes = """
+Does not validate `__post_init__` method.
 Reports incorrect error for incompatible `__post_init__` method override.
 """
 output = """
@@ -9,7 +10,7 @@ File "dataclasses_postinit.py", line 54, in DC4: Overriding method signature mis
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 28: Unexpected errors ['File "dataclasses_postinit.py", line 28, in <module>: No attribute \\'x\\' on DC1 [attribute-error]']
-Line 29: Unexpected errors ['File "dataclasses_postinit.py", line 29, in <module>: No attribute \\'y\\' on DC1 [attribute-error]']
+Line 19: Expected 1 errors
+Line 36: Expected 1 errors
 Line 54: Unexpected errors ['File "dataclasses_postinit.py", line 54, in DC4: Overriding method signature mismatch [signature-mismatch]']
 """

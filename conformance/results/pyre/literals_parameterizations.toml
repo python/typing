@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not support type aliases in Literal type expression.
+notes = """
+Does not support type aliases in Literal type expression.
 Does not support nested Literal type expression.
 Does not reject unary + operator in Literal type expression.
 Does not reject tuple in Literal type expression.

@@ -1,9 +1,12 @@
 conformant = "Unsupported"
-notes = """Does not support ParamSpec.
+notes = """
+Does not support ParamSpec.
 """
 output = """
 AssertionError: 
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 26: Expected 1 errors
+Line 27: Expected 1 errors
 """

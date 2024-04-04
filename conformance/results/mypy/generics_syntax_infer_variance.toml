@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Type parameter syntax not yet support.
+notes = """
+Type parameter syntax not yet support.
 """
 output = """
 generics_syntax_infer_variance.py:11: error: Unexpected argument to "TypeVar()": "infer_variance"  [misc]
@@ -108,6 +109,8 @@ generics_syntax_infer_variance.py:153: error: The type "type[ShouldBeContravaria
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 17: Expected 1 errors
+Line 21: Expected 1 errors
 Line 11: Unexpected errors ['generics_syntax_infer_variance.py:11: error: Unexpected argument to "TypeVar()": "infer_variance"  [misc]']
 Line 12: Unexpected errors ['generics_syntax_infer_variance.py:12: error: Unexpected argument to "TypeVar()": "infer_variance"  [misc]']
 Line 13: Unexpected errors ['generics_syntax_infer_variance.py:13: error: Unexpected argument to "TypeVar()": "infer_variance"  [misc]']

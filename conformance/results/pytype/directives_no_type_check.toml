@@ -1,5 +1,6 @@
 conformant = "Pass"
-notes = """Does not honor @no_type_check decorator.
+notes = """
+Does not honor @no_type_check decorator.
 """
 output = """
 File "directives_no_type_check.py", line 16, in ClassA: Type annotation for x does not match type of assignment [annotation-type-mismatch]

@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject the use of Protocol and Generic together as base classes.
+notes = """
+Does not reject the use of Protocol and Generic together as base classes.
 Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.
 """
 output = """
@@ -12,7 +13,6 @@ protocols_generic.py:146:0 Incompatible variable type [9]: hp3 is declared to ha
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 40: Unexpected errors ['protocols_generic.py:40:0 Incompatible variable type [9]: p2 is declared to have type `Proto1[int, str]` but is used as type `Concrete1`.']
 Line 56: Unexpected errors ['protocols_generic.py:56:4 Incompatible variable type [9]: v2 is declared to have type `Box[int]` but is used as type `Box[float]`.']
 Line 66: Unexpected errors ['protocols_generic.py:66:4 Incompatible variable type [9]: v2 is declared to have type `Sender[float]` but is used as type `Sender[int]`.']
 Line 74: Unexpected errors ['protocols_generic.py:74:4 Incompatible variable type [9]: v1 is declared to have type `AttrProto[float]` but is used as type `AttrProto[int]`.']

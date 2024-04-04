@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Infers Node[Never] instead of Node[Any] when argument is not provided.
+notes = """
+Infers Node[Never] instead of Node[Any] when argument is not provided.
 False negative on instance attribute access on type(node).
 """
 output = """

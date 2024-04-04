@@ -30,6 +30,7 @@ generics_defaults.py:172:33 Undefined attribute [16]: `Foo7` has no attribute `_
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 26: Expected 1 errors
 Line 25: Unexpected errors ['generics_defaults.py:25:4 Undefined or invalid type [11]: Annotation `DefaultStrT` is not defined as a type.', 'generics_defaults.py:25:4 Undefined or invalid type [11]: Annotation `T` is not defined as a type.']
 Line 29: Unexpected errors ['generics_defaults.py:29:20 Undefined or invalid type [11]: Annotation `DefaultIntT` is not defined as a type.']
 Line 32: Unexpected errors ['generics_defaults.py:32:32 Undefined attribute [16]: `NoNonDefaults` has no attribute `__getitem__`.']

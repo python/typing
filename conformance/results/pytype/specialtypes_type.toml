@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject Callable when passed to type[T].
+notes = """
+Does not reject Callable when passed to type[T].
 Does not allow access to known attributes from object of type `type[Any]`.
 """
 output = """

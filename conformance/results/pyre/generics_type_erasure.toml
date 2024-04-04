@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Doesn't allow using Node[Any] in assert_type expression.
+notes = """
+Doesn't allow using Node[Any] in assert_type expression.
 False negatives on instance attribute access on the type.
 """
 output = """

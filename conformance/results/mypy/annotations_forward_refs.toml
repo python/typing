@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not report error for a forward reference that is not enclosed in quotes.
+notes = """
+Does not report error for a forward reference that is not enclosed in quotes.
 Does not report error for use of quoted type with "|" operator (runtime error).
 Incorrectly generates error for quoted type defined in class scope.
 """
@@ -45,8 +46,6 @@ Line 52: Unexpected errors ['annotations_forward_refs.py:52: error: Invalid type
 Line 53: Unexpected errors ['annotations_forward_refs.py:53: error: Invalid type comment or annotation  [valid-type]']
 Line 54: Unexpected errors ['annotations_forward_refs.py:54: error: Invalid type comment or annotation  [valid-type]']
 Line 55: Unexpected errors ['annotations_forward_refs.py:55: error: Module "types" is not valid as a type  [valid-type]']
-Line 80: Unexpected errors ['annotations_forward_refs.py:80: error: Name "ClassF" is not defined  [name-defined]']
 Line 87: Unexpected errors ['annotations_forward_refs.py:87: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]']
-Line 89: Unexpected errors ['annotations_forward_refs.py:89: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]']
 Line 93: Unexpected errors ['annotations_forward_refs.py:93: error: Expression is of type int?, not "int"  [assert-type]']
 """

@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not handle case where parent class derives from Any.
+notes = """
+Does not handle case where parent class derives from Any.
 """
 output = """
 classes_override.py:53: error: Method "method3" is marked as an override, but no base method was found with this name  [misc]

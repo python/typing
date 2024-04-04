@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not report error for overloaded @final method defined in stub file.
+notes = """
+Does not report error for overloaded @final method defined in stub file.
 Does not report error for overload that is marked @final when implementation is not.
 """
 output = """
@@ -19,8 +20,9 @@ File "qualifiers_final_decorator.py", line 125, in <module>: Cannot apply @final
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 85: Expected 1 errors
+Line 126: Expected 1 errors
 Line 8: Unexpected errors ['File "qualifiers_final_decorator.py", line 8, in <module>: Couldn\\'t import pyi for \\'_qualifiers_final_decorator\\' [pyi-error]']
-Line 21: Unexpected errors ['File "qualifiers_final_decorator.py", line 21, in <module>: Cannot subclass final class: Base1 [final-error]']
 Line 52: Unexpected errors ['File "qualifiers_final_decorator.py", line 52, in method4: bad return type [bad-return-type]']
 Line 55: Unexpected errors ['File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method4, defined in base class Base2 [final-error]', 'File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method3, defined in base class Base2 [final-error]', 'File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method2, defined in base class Base2 [final-error]', 'File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method1, defined in base class Base2 [final-error]']
 Line 76: Unexpected errors ['File "qualifiers_final_decorator.py", line 76, in method4: bad return type [bad-return-type]']

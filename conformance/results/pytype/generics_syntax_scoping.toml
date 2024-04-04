@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Type parameter syntax not yet support.
+notes = """
+Type parameter syntax not yet support.
 """
 output = """
 SyntaxError: Type parameter lists are only supported in Python 3.12 and greater (<unknown>, line 14)

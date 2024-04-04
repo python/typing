@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not reject positional-only parameter after non-positional-only parameter.
+notes = """
+Does not reject positional-only parameter after non-positional-only parameter.
 Treats keyword-only parameter as positional-only.
 Applies legacy positional-only rules when PEP 570 syntax is used.
 """

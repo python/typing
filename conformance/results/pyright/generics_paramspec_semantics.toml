@@ -1,5 +1,6 @@
 conformant = "Pass"
-notes = """Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).
+notes = """
+Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).
 """
 output = """
 generics_paramspec_semantics.py:26:6 - error: Expected 2 more positional arguments (reportCallIssue)
@@ -32,8 +33,6 @@ generics_paramspec_semantics.py:136:2 - error: Argument of type "(**kwargs: int)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Unexpected errors ['generics_paramspec_semantics.py:26:6 - error: Expected 2 more positional arguments (reportCallIssue)']
-Line 27: Unexpected errors ['generics_paramspec_semantics.py:27:9 - error: Argument of type "Literal[\\'A\\']" cannot be assigned to parameter "b" of type "bool"']
 Line 46: Unexpected errors ['generics_paramspec_semantics.py:46:17 - error: Argument of type "(y: int, x: str) -> int" cannot be assigned to parameter "y" of type "(**P@func1) -> int" in function "func1"']
 Line 61: Unexpected errors ['generics_paramspec_semantics.py:61:23 - error: Argument of type "(*, y: int) -> int" cannot be assigned to parameter "y" of type "(**P@func1) -> int" in function "func1"']
 Line 97: Unexpected errors ['generics_paramspec_semantics.py:97:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str"']

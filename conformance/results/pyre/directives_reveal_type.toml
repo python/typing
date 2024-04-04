@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not understand reveal_type call.
+notes = """
+Does not understand reveal_type call.
 """
 output = """
 directives_reveal_type.py:19:4 Missing argument [20]: Call `reveal_type` expects argument in position 0.

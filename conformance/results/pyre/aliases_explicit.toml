@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Incorrectly reports error for type alias defined with ParamSpec.
+notes = """
+Incorrectly reports error for type alias defined with ParamSpec.
 Incorrectly rejects some valid type aliases when used in annotations.
 Incorrectly evaluates generic type alias with ParamSpec with missing type argument.
 Does not report some illegal annotation forms as invalid type aliases.

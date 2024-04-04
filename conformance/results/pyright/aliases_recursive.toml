@@ -66,8 +66,7 @@ aliases_recursive.py:78:31 - error: Type alias "MutualReference1" cannot use its
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 19: Unexpected errors ['aliases_recursive.py:19:12 - error: Expression of type "dict[str, int | complex]" cannot be assigned to declared type "Json"']
-Line 20: Unexpected errors ['aliases_recursive.py:20:16 - error: Expression of type "list[int | complex]" cannot be assigned to declared type "Json"']
+Line 80: Expected 1 errors
 Line 38: Unexpected errors ['aliases_recursive.py:38:22 - error: Expression of type "tuple[Literal[1], tuple[Literal[\\'1\\'], Literal[1]], tuple[Literal[1], tuple[Literal[1], list[int]]]]" cannot be assigned to declared type "RecursiveTuple"']
 Line 39: Unexpected errors ['aliases_recursive.py:39:22 - error: Expression of type "tuple[Literal[1], list[int]]" cannot be assigned to declared type "RecursiveTuple"']
 Line 50: Unexpected errors ['aliases_recursive.py:50:24 - error: Expression of type "dict[str, list[int]]" cannot be assigned to declared type "RecursiveMapping"']
@@ -75,6 +74,5 @@ Line 51: Unexpected errors ['aliases_recursive.py:51:24 - error: Expression of t
 Line 52: Unexpected errors ['aliases_recursive.py:52:24 - error: Expression of type "dict[str, str | int | dict[str, str | int | list[int]]]" cannot be assigned to declared type "RecursiveMapping"']
 Line 67: Unexpected errors ['aliases_recursive.py:67:38 - error: Expression of type "list[str | list[float]]" cannot be assigned to declared type "GenericTypeAlias1[str]"']
 Line 73: Unexpected errors ['aliases_recursive.py:73:51 - error: Expression of type "list[list[int | list[str | int | list[float]]] | str]" cannot be assigned to declared type "GenericTypeAlias2[str, int]"']
-Line 76: Unexpected errors ['aliases_recursive.py:76:29 - error: Type alias "RecursiveUnion" cannot use itself in its definition (reportGeneralTypeIssues)']
 Line 78: Unexpected errors ['aliases_recursive.py:78:31 - error: Type alias "MutualReference1" cannot use itself in its definition (reportGeneralTypeIssues)']
 """

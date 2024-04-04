@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """False positives in examples using constrained type variables.
+notes = """
+False positives in examples using constrained type variables.
 False negative for generic metaclass.
 """
 output = """

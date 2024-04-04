@@ -17,6 +17,5 @@ Line 109: Unexpected errors ['generics_typevartuple_specialization.py:109:18 - e
 Line 110: Unexpected errors ['generics_typevartuple_specialization.py:110:18 - error: Could not specialize type "IntTupleGeneric[T@IntTupleGeneric]"']
 Line 121: Unexpected errors ['generics_typevartuple_specialization.py:121:27 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple']
 Line 122: Unexpected errors ['generics_typevartuple_specialization.py:122:27 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple']
-Line 127: Unexpected errors ['generics_typevartuple_specialization.py:127:9 - error: Too few type arguments provided for "TA7[*Ts@TA7, T1@TA7, T2@TA7]"; expected 3 but received 2']
 Line 163: Unexpected errors ['generics_typevartuple_specialization.py:163:14 - error: Could not specialize type "TA11[T@TA11, *Ts1@TA11]"']
 """

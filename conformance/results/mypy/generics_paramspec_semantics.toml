@@ -14,8 +14,7 @@ generics_paramspec_semantics.py:136: error: Argument 1 to "expects_int_first" ha
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Unexpected errors ['generics_paramspec_semantics.py:26: error: Unexpected keyword argument "a"  [call-arg]', 'generics_paramspec_semantics.py:26: error: Unexpected keyword argument "b"  [call-arg]']
-Line 27: Unexpected errors ['generics_paramspec_semantics.py:27: error: Argument 2 has incompatible type "str"; expected "bool"  [arg-type]']
+Line 26: Expected 1 errors, got 2 (['generics_paramspec_semantics.py:26: error: Unexpected keyword argument "a"  [call-arg]', 'generics_paramspec_semantics.py:26: error: Unexpected keyword argument "b"  [call-arg]'])
 Line 61: Unexpected errors ['generics_paramspec_semantics.py:61: error: Argument 2 to "func1" has incompatible type "Callable[[NamedArg(int, \\'y\\')], int]"; expected "Callable[[NamedArg(int, \\'x\\')], int]"  [arg-type]']
 Line 97: Unexpected errors ['generics_paramspec_semantics.py:97: error: Argument 1 has incompatible type "int"; expected "str"  [arg-type]']
 Line 107: Unexpected errors ['generics_paramspec_semantics.py:107: error: Argument 1 has incompatible type "int"; expected "bool"  [arg-type]']

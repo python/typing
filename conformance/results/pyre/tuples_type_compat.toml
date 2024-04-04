@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not support some unpacked tuple forms.
+notes = """
+Does not support some unpacked tuple forms.
 Does not report type violation when assigning `tuple[int, ...]` to `tuple[int]`.
 Does not support tuple narrowing based on `len()` type guard (optional).
 Does not correctly evaluate `Sequence[Never]` for `tuple[()]`.

@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Incorrectly rejects some legal Literal annotations.
+notes = """
+Incorrectly rejects some legal Literal annotations.
 Does not reject some illegal Literal annotations.
 Does not use Literal to distinguish overloads.
 Does not narrow based on `x is Literal` type guard pattern.
@@ -26,6 +27,10 @@ File "literals_interactions.py", line 109, in parse_status2: Function expects_pe
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 15: Expected 1 errors
+Line 16: Expected 1 errors
+Line 17: Expected 1 errors
+Line 18: Expected 1 errors
 Line 11: Unexpected errors ['File "literals_interactions.py", line 11, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
 Line 46: Unexpected errors ['File "literals_interactions.py", line 46, in open: bad return type [bad-return-type]', 'File "literals_interactions.py", line 46, in open: bad return type [bad-return-type]', 'File "literals_interactions.py", line 46, in open: bad return type [bad-return-type]']
 Line 61: Unexpected errors ['File "literals_interactions.py", line 61, in __add__: bad return type [bad-return-type]']

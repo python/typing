@@ -1,5 +1,6 @@
 conformant = "Partial"
-notes = """Does not support unpacked tuple forms.
+notes = """
+Does not support unpacked tuple forms.
 Does not report type violation when assigning `tuple[int, ...]` to `tuple[int]`.
 Does not support tuple narrowing based on `len()` type guard (optional).
 """

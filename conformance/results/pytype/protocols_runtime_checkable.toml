@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not reject isinstance or issubclass call for protocol that is not runtime_checkable.
+notes = """
+Does not reject isinstance or issubclass call for protocol that is not runtime_checkable.
 Does not reject issubclass call for data protocol.
 Does not report unsafe overlap for runtime_checkable protocol.
 """
@@ -8,4 +9,8 @@ output = """
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 23: Expected 1 errors
+Line 88: Expected 1 errors
+Line 93: Expected 1 errors
+Line 96: Expected 1 errors
 """

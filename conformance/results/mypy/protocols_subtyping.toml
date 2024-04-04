@@ -12,7 +12,6 @@ protocols_subtyping.py:103: error: Incompatible types in assignment (expression 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 16: Unexpected errors ['protocols_subtyping.py:16: error: Cannot instantiate protocol class "Proto1"  [misc]']
 Line 38: Unexpected errors ['protocols_subtyping.py:38: error: Incompatible types in assignment (expression has type "Proto2", variable has type "Concrete2")  [assignment]']
 Line 55: Unexpected errors ['protocols_subtyping.py:55: error: Incompatible types in assignment (expression has type "Proto2", variable has type "Proto3")  [assignment]']
 Line 79: Unexpected errors ['protocols_subtyping.py:79: error: Incompatible types in assignment (expression has type "Proto5[int]", variable has type "Proto4[int, float]")  [assignment]']

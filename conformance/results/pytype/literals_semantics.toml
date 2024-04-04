@@ -1,5 +1,6 @@
 conformant = "Unsupported"
-notes = """Does not understand `Literal` type annotation.
+notes = """
+Does not understand `Literal` type annotation.
 """
 output = """
 File "literals_semantics.py", line 10, in <module>: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
