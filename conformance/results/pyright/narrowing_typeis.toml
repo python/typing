@@ -1,5 +1,7 @@
-conformance = "Partial"
-note = "Does not reject covariant use of TypeIs\n"
+conformance_automated = "Fail"
+errors_diff = """
+Line 191: Expected 1 errors
+"""
 output = """
 narrowing_typeis.py:105:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)
 narrowing_typeis.py:110:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)
@@ -25,8 +27,4 @@ narrowing_typeis.py:170:14 - error: Argument of type "(val: object) -> TypeGuard
       "bool" is incompatible with "TypeIs[int]" (reportArgumentType)
 narrowing_typeis.py:195:27 - error: Return type of TypeIs ("str") is not consistent with value parameter type ("int") (reportGeneralTypeIssues)
 narrowing_typeis.py:199:45 - error: Return type of TypeIs ("list[int]") is not consistent with value parameter type ("list[object]") (reportGeneralTypeIssues)
-"""
-conformance_automated = "Fail"
-errors_diff = """
-Line 191: Expected 1 errors
 """
