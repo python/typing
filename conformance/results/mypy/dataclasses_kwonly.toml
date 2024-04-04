@@ -18,10 +18,7 @@ dataclasses_kwonly.py:53: error: Too many positional arguments for "DC3"  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 23: Unexpected errors ['dataclasses_kwonly.py:23: error: Too many positional arguments for "DC1"  [misc]']
 Line 29: Unexpected errors ['dataclasses_kwonly.py:29: error: Attributes without a default cannot follow attributes with one  [misc]']
 Line 32: Unexpected errors ['dataclasses_kwonly.py:32: error: Too many positional arguments for "DC2"  [misc]', 'dataclasses_kwonly.py:32: error: Too few arguments for "DC2"  [call-arg]', 'dataclasses_kwonly.py:32: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"  [arg-type]']
 Line 35: Unexpected errors ['dataclasses_kwonly.py:35: error: "DC2" gets multiple values for keyword argument "b"  [misc]', 'dataclasses_kwonly.py:35: error: Too few arguments for "DC2"  [call-arg]', 'dataclasses_kwonly.py:35: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"  [arg-type]']
-Line 38: Unexpected errors ['dataclasses_kwonly.py:38: error: Too many positional arguments for "DC2"  [misc]', 'dataclasses_kwonly.py:38: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"  [arg-type]', 'dataclasses_kwonly.py:38: error: Argument 2 to "DC2" has incompatible type "int"; expected "str"  [arg-type]']
-Line 53: Unexpected errors ['dataclasses_kwonly.py:53: error: Too many positional arguments for "DC3"  [misc]']
 """

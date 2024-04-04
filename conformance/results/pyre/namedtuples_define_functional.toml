@@ -1,4 +1,4 @@
-conformant = "Pass"
+conformant = "Partial"
 notes = """
 Does not reject duplicate field names in functional form.
 Does not handle illegal named tuple names the same as runtime.

@@ -41,7 +41,7 @@ def func1(variable_key: str):
 movie.get("name")
 
 # It's not clear from the spec what type this should be.
-movie.get("other")
+movie.get("other")  # E?
 
 
 movie.clear()  # E: clear not allowed
