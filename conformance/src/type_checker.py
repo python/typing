@@ -11,8 +11,8 @@ from pytype import io as pytype_io
 from pytype import analyze as pytype_analyze
 from pytype.errors import errors as pytype_errors
 from pytype import load_pytd as pytype_loader
-from shutil import rmtree
-from subprocess import PIPE, run
+import shutil
+from subprocess import PIPE, CalledProcessError, run
 import sys
 from tqdm import tqdm
 from typing import Sequence
@@ -59,25 +59,24 @@ class MypyTypeChecker(TypeChecker):
     def install(self) -> bool:
         try:
             # Delete the cache for consistent timings.
-            rmtree(".mypy_cache")
-        except:
+            shutil.rmtree(".mypy_cache")
+        except (shutil.Error, OSError):
             # Ignore any errors here.
             pass
 
         try:
             run(
-                f"{sys.executable} -m pip install mypy --upgrade",
+                [sys.executable, "-m", "pip", "install", "mypy", "--upgrade"],
                 check=True,
-                shell=True,
             )
             return True
-        except:
+        except CalledProcessError:
             print("Unable to install mypy")
             return False
 
     def get_version(self) -> str:
         proc = run(
-            f"{sys.executable} -m mypy --version", stdout=PIPE, text=True, shell=True
+            [sys.executable, "-m", "mypy", "--version"], stdout=PIPE, text=True
         )
         version = proc.stdout.strip()
 
@@ -86,11 +85,20 @@ class MypyTypeChecker(TypeChecker):
         return version
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        # Mypy currently crashes when run on the "generics_defaults.py" test case,
-        # so we need to exclude it for now. Remove this once mypy adds support for
-        # this functionality.
-        command = f"{sys.executable} -m mypy . --exclude 'generics_defaults\.py' --disable-error-code empty-body"
-        proc = run(command, stdout=PIPE, text=True, shell=True)
+        command = [
+            sys.executable,
+            "-m",
+            "mypy",
+            ".",
+            # Mypy currently crashes when run on the "generics_defaults.py" test case,
+            # so we need to exclude it for now. Remove this once mypy adds support for
+            # this functionality.
+            "--exclude",
+            r"generics_defaults\.py",
+            "--disable-error-code",
+            "empty-body",
+        ]
+        proc = run(command, stdout=PIPE, text=True)
         lines = proc.stdout.split("\n")
 
         # Add results to a dictionary keyed by the file name.
@@ -111,28 +119,27 @@ class PyrightTypeChecker(TypeChecker):
         try:
             # Install the Python wrapper if it's not installed.
             run(
-                f"{sys.executable} -m pip install pyright --upgrade",
+                [sys.executable, "-m", "pip", "install", "pyright", "--upgrade"],
                 check=True,
-                shell=True,
             )
 
             # Force the Python wrapper to install node if needed
             # and download the latest version of pyright.
             self.get_version()
             return True
-        except:
+        except CalledProcessError:
             print("Unable to install pyright")
             return False
 
     def get_version(self) -> str:
         proc = run(
-            f"{sys.executable} -m pyright --version", stdout=PIPE, text=True, shell=True
+            [sys.executable, "-m", "pyright", "--version"], stdout=PIPE, text=True
         )
         return proc.stdout.strip()
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        command = f"{sys.executable} -m pyright . --outputjson"
-        proc = run(command, stdout=PIPE, text=True, shell=True)
+        command = [sys.executable, "-m", "pyright", ".", "--outputjson"]
+        proc = run(command, stdout=PIPE, text=True)
         output_json = json.loads(proc.stdout)
         diagnostics = output_json["generalDiagnostics"]
 
@@ -161,16 +168,15 @@ class PyreTypeChecker(TypeChecker):
     def install(self) -> bool:
         try:
             # Delete the cache for consistent timings.
-            rmtree(".pyre")
-        except:
+            shutil.rmtree(".pyre")
+        except (shutil.Error, OSError):
             # Ignore any errors here.
             pass
 
         try:
             run(
-                f"{sys.executable} -m pip install pyre-check --upgrade",
+                [sys.executable, "-m", "pip", "install", "pyre-check", "--upgrade"],
                 check=True,
-                shell=True,
             )
 
             # Generate a default config file.
@@ -179,18 +185,18 @@ class PyreTypeChecker(TypeChecker):
                 f.write(pyre_config)
 
             return True
-        except:
+        except CalledProcessError:
             print("Unable to install pyre")
             return False
 
     def get_version(self) -> str:
-        proc = run("pyre --version", stdout=PIPE, text=True, shell=True)
+        proc = run(["pyre", "--version"], stdout=PIPE, text=True)
         version = proc.stdout.strip()
         version = version.replace("Client version:", "pyre")
         return version
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        proc = run("pyre check", stdout=PIPE, text=True, shell=True)
+        proc = run(["pyre", "check"], stdout=PIPE, text=True)
         lines = proc.stdout.split("\n")
 
         # Add results to a dictionary keyed by the file name.
@@ -210,18 +216,17 @@ class PytypeTypeChecker(TypeChecker):
     def install(self) -> bool:
         try:
             run(
-                f"{sys.executable} -m pip install pytype --upgrade",
+                [sys.executable, "-m", "pip", "install", "pytype", "--upgrade"],
                 check=True,
-                shell=True,
             )
             return True
-        except:
+        except CalledProcessError:
             print("Unable to install pytype on this platform")
             return False
 
     def get_version(self) -> str:
         proc = run(
-            f"{sys.executable} -m pytype --version", stdout=PIPE, text=True, shell=True
+            [sys.executable, "-m", "pytype", "--version"], stdout=PIPE, text=True
         )
         version = proc.stdout.strip()
         return f"pytype {version}"
