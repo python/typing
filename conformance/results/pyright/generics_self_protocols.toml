@@ -13,8 +13,6 @@ generics_self_protocols.py:64:19 - error: Argument of type "ReturnDifferentClass
         Function return type "ReturnConcreteShape" is incompatible with type "ReturnDifferentClass"
           "ReturnConcreteShape" is incompatible with "ReturnDifferentClass" (reportArgumentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 61: Unexpected errors ['generics_self_protocols.py:61:19 - error: Argument of type "BadReturnType" cannot be assigned to parameter "shape" of type "ShapeProtocol" in function "accepts_shape"']
-Line 64: Unexpected errors ['generics_self_protocols.py:64:19 - error: Argument of type "ReturnDifferentClass" cannot be assigned to parameter "shape" of type "ShapeProtocol" in function "accepts_shape"']
 """

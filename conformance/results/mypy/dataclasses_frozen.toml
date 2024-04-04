@@ -5,8 +5,6 @@ dataclasses_frozen.py:17: error: Property "b" defined in "DC1" is read-only  [mi
 dataclasses_frozen.py:23: error: Cannot inherit non-frozen dataclass from a frozen one  [misc]
 dataclasses_frozen.py:33: error: Cannot inherit frozen dataclass from a non-frozen one  [misc]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 23: Unexpected errors ['dataclasses_frozen.py:23: error: Cannot inherit non-frozen dataclass from a frozen one  [misc]']
-Line 33: Unexpected errors ['dataclasses_frozen.py:33: error: Cannot inherit frozen dataclass from a non-frozen one  [misc]']
 """

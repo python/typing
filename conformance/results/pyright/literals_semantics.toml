@@ -8,8 +8,6 @@ literals_semantics.py:25:22 - error: Expression of type "Literal[False]" cannot 
   "Literal[False]" cannot be assigned to type "Literal[0]" (reportAssignmentType)
 literals_semantics.py:33:10 - error: Expression of type "Literal[6, 7, 8]" cannot be assigned to declared type "Literal[3, 4, 5]" (reportAssignmentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 24: Unexpected errors ['literals_semantics.py:24:26 - error: Expression of type "Literal[0]" cannot be assigned to declared type "Literal[False]"']
-Line 25: Unexpected errors ['literals_semantics.py:25:22 - error: Expression of type "Literal[False]" cannot be assigned to declared type "Literal[0]"']
 """

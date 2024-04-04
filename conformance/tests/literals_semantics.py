@@ -21,8 +21,8 @@ def func1(a: Literal[20], b: Literal[0x14], c: Literal[0b10100]):
 
 # > Literal[0] and Literal[False] are not equivalent
 def func2(a: Literal[0], b: Literal[False]):
-    x1: Literal[False] = a  # Type Error
-    x2: Literal[0] = b  # Type Error
+    x1: Literal[False] = a  # E
+    x2: Literal[0] = b  # E
 
 
 # > Given some value v that is a member of type T, the type Literal[v] shall

@@ -7,12 +7,6 @@ directives_assert_type.py:31:5 - error: "assert_type" expects two positional arg
 directives_assert_type.py:32:17 - error: "assert_type" mismatch: expected "int" but received "Literal['']" (reportAssertTypeFailure)
 directives_assert_type.py:33:5 - error: "assert_type" expects two positional arguments
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 27: Unexpected errors ['directives_assert_type.py:27:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)']
-Line 28: Unexpected errors ['directives_assert_type.py:28:17 - error: "assert_type" mismatch: expected "int" but received "Any" (reportAssertTypeFailure)']
-Line 29: Unexpected errors ['directives_assert_type.py:29:17 - error: "assert_type" mismatch: expected "int" but received "Literal[4]" (reportAssertTypeFailure)']
-Line 31: Unexpected errors ['directives_assert_type.py:31:5 - error: "assert_type" expects two positional arguments']
-Line 32: Unexpected errors ['directives_assert_type.py:32:17 - error: "assert_type" mismatch: expected "int" but received "Literal[\\'\\']" (reportAssertTypeFailure)']
-Line 33: Unexpected errors ['directives_assert_type.py:33:5 - error: "assert_type" expects two positional arguments']
 """

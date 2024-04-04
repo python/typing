@@ -17,14 +17,7 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 8: Unexpected errors ['typeddicts_readonly_consistency.py:8:0 Undefined import [21]: Could not find a name `ReadOnly` defined in module `typing_extensions`.']
 Line 30: Unexpected errors ['typeddicts_readonly_consistency.py:30:7 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.']
-Line 37: Unexpected errors ['typeddicts_readonly_consistency.py:37:4 Incompatible variable type [9]: v3 is declared to have type `B1` but is used as type `A1`.']
-Line 38: Unexpected errors ['typeddicts_readonly_consistency.py:38:4 Incompatible variable type [9]: v4 is declared to have type `B1` but is used as type `C1`.']
-Line 40: Unexpected errors ['typeddicts_readonly_consistency.py:40:4 Incompatible variable type [9]: v5 is declared to have type `C1` but is used as type `A1`.']
 Line 41: Unexpected errors ['typeddicts_readonly_consistency.py:41:4 Incompatible variable type [9]: v6 is declared to have type `C1` but is used as type `B1`.']
 Line 78: Unexpected errors ['typeddicts_readonly_consistency.py:78:4 Incompatible variable type [9]: v1 is declared to have type `A2` but is used as type `B2`.']
 Line 79: Unexpected errors ['typeddicts_readonly_consistency.py:79:4 Incompatible variable type [9]: v2 is declared to have type `A2` but is used as type `C2`.']
-Line 81: Unexpected errors ['typeddicts_readonly_consistency.py:81:4 Incompatible variable type [9]: v3 is declared to have type `B2` but is used as type `A2`.']
-Line 82: Unexpected errors ['typeddicts_readonly_consistency.py:82:4 Incompatible variable type [9]: v4 is declared to have type `B2` but is used as type `C2`.']
-Line 84: Unexpected errors ['typeddicts_readonly_consistency.py:84:4 Incompatible variable type [9]: v5 is declared to have type `C2` but is used as type `A2`.']
-Line 85: Unexpected errors ['typeddicts_readonly_consistency.py:85:4 Incompatible variable type [9]: v6 is declared to have type `C2` but is used as type `B2`.']
 """

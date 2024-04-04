@@ -5,33 +5,32 @@ Does not understand Unpack in the context of **kwargs annotation.
 output = """
 File "callables_kwargs.py", line 10, in <module>: typing.Unpack not supported yet [not-supported-yet]
 File "callables_kwargs.py", line 24, in func1: Unpack[TD2] [assert-type]
-File "callables_kwargs.py", line 30, in func1: Unpack[TD2] [assert-type]
-File "callables_kwargs.py", line 33, in func1: Unpack[TD2] [assert-type]
-File "callables_kwargs.py", line 39, in func2: Dict[str, Unpack[TD1]] [assert-type]
-File "callables_kwargs.py", line 45, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
-File "callables_kwargs.py", line 47, in func3: Missing parameter 'v2' in call to function TD2.__init__ [missing-parameter]
-File "callables_kwargs.py", line 49, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
-File "callables_kwargs.py", line 50, in func3: Function func1 expects 0 arg(s), got 3 [wrong-arg-count]
-File "callables_kwargs.py", line 56, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
-File "callables_kwargs.py", line 59, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+File "callables_kwargs.py", line 32, in func1: Unpack[TD2] [assert-type]
+File "callables_kwargs.py", line 35, in func1: Unpack[TD2] [assert-type]
+File "callables_kwargs.py", line 41, in func2: Dict[str, Unpack[TD1]] [assert-type]
+File "callables_kwargs.py", line 47, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+File "callables_kwargs.py", line 49, in func3: Missing parameter 'v2' in call to function TD2.__init__ [missing-parameter]
+File "callables_kwargs.py", line 51, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+File "callables_kwargs.py", line 52, in func3: Function func1 expects 0 arg(s), got 3 [wrong-arg-count]
+File "callables_kwargs.py", line 58, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
 File "callables_kwargs.py", line 61, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
-File "callables_kwargs.py", line 62, in func3: Function func2 was called with the wrong arguments [wrong-arg-types]
-File "callables_kwargs.py", line 63, in func3: Function func2 was called with the wrong arguments [wrong-arg-types]
+File "callables_kwargs.py", line 63, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+File "callables_kwargs.py", line 64, in func3: Function func2 was called with the wrong arguments [wrong-arg-types]
+File "callables_kwargs.py", line 65, in func3: Function func2 was called with the wrong arguments [wrong-arg-types]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Expected 1 errors
-Line 44: Expected 1 errors
-Line 99: Expected 1 errors
-Line 100: Expected 1 errors
+Line 46: Expected 1 errors
 Line 101: Expected 1 errors
-Line 109: Expected 1 errors
-Line 120: Expected 1 errors
+Line 102: Expected 1 errors
+Line 103: Expected 1 errors
+Line 111: Expected 1 errors
+Line 122: Expected 1 errors
 Line 10: Unexpected errors ['File "callables_kwargs.py", line 10, in <module>: typing.Unpack not supported yet [not-supported-yet]']
 Line 24: Unexpected errors ['File "callables_kwargs.py", line 24, in func1: Unpack[TD2] [assert-type]']
-Line 30: Unexpected errors ['File "callables_kwargs.py", line 30, in func1: Unpack[TD2] [assert-type]']
-Line 33: Unexpected errors ['File "callables_kwargs.py", line 33, in func1: Unpack[TD2] [assert-type]']
-Line 39: Unexpected errors ['File "callables_kwargs.py", line 39, in func2: Dict[str, Unpack[TD1]] [assert-type]']
-Line 45: Unexpected errors ['File "callables_kwargs.py", line 45, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]']
-Line 47: Unexpected errors ['File "callables_kwargs.py", line 47, in func3: Missing parameter \\'v2\\' in call to function TD2.__init__ [missing-parameter]']
+Line 32: Unexpected errors ['File "callables_kwargs.py", line 32, in func1: Unpack[TD2] [assert-type]']
+Line 35: Unexpected errors ['File "callables_kwargs.py", line 35, in func1: Unpack[TD2] [assert-type]']
+Line 41: Unexpected errors ['File "callables_kwargs.py", line 41, in func2: Dict[str, Unpack[TD1]] [assert-type]']
+Line 47: Unexpected errors ['File "callables_kwargs.py", line 47, in func3: Function func1 was called with the wrong arguments [wrong-arg-types]']
+Line 49: Unexpected errors ['File "callables_kwargs.py", line 49, in func3: Missing parameter \\'v2\\' in call to function TD2.__init__ [missing-parameter]']
 """

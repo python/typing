@@ -8,6 +8,5 @@ File "directives_cast.py", line 16, in <module>: Invalid type annotation '1' for
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 15: Unexpected errors ['File "directives_cast.py", line 15, in <module>: Missing parameter \\'typ\\' in call to function typing.cast [missing-parameter]']
-Line 16: Unexpected errors ['File "directives_cast.py", line 16, in <module>: Invalid type annotation \\'1\\' for typing.cast [invalid-annotation]']
+Line 17: Expected 1 errors
 """

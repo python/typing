@@ -21,7 +21,7 @@ class Band(TypedDict):
 b1: Band = {"name": "blur", "members": []}
 
 b1["name"] = "Blur"  # OK
-b1["members"] = ["Damon Albarn"]  # Type Error
+b1["members"] = ["Damon Albarn"]  # E
 b1["members"].append("Damon Albarn")  # OK
 
 
@@ -33,7 +33,7 @@ Band2 = TypedDict("Band2", {"name": str, "members": ReadOnly[list[str]]})
 b2: Band2 = {"name": "blur", "members": []}
 
 b2["name"] = "Blur"  # OK
-b2["members"] = ["Damon Albarn"]  # Type Error
+b2["members"] = ["Damon Albarn"]  # E
 b2["members"].append("Damon Albarn")  # OK
 
 
@@ -47,8 +47,8 @@ class Movie1(TypedDict):
 
 
 m1: Movie1 = {"title": "", "year": 1991}
-m1["title"] = ""  # Type Error
-m1["year"] = 1992  # Type Error
+m1["title"] = ""  # E
+m1["year"] = 1992  # E
 
 
 class Movie2(TypedDict):
@@ -57,5 +57,5 @@ class Movie2(TypedDict):
 
 
 m2: Movie2 = {"title": "", "year": 1991}
-m2["title"] = ""  # Type Error
-m2["year"] = 1992  # Type Error
+m2["title"] = ""  # E
+m2["year"] = 1992  # E

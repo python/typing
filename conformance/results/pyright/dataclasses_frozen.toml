@@ -11,6 +11,8 @@ dataclasses_frozen.py:32:12 - error: A frozen class cannot inherit from a class 
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 23: Expected 1 errors
+Line 33: Expected 1 errors
 Line 22: Unexpected errors ['dataclasses_frozen.py:22:1 - error: A non-frozen class cannot inherit from a class that is frozen (reportGeneralTypeIssues)']
 Line 32: Unexpected errors ['dataclasses_frozen.py:32:12 - error: A frozen class cannot inherit from a class that is not frozen (reportGeneralTypeIssues)']
 """

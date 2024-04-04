@@ -53,6 +53,8 @@ File "generics_defaults.py", line 173, in <module>: Any [assert-type]
 conformance_automated = "Fail"
 errors_diff = """
 Line 26: Expected 1 errors
+Line 108: Expected 1 errors
+Line 117: Expected 1 errors
 Line 7: Unexpected errors ['File "generics_defaults.py", line 7, in <module>: typing.Unpack not supported yet [not-supported-yet]']
 Line 8: Unexpected errors ['File "generics_defaults.py", line 8, in <module>: typing_extensions.TypeVarTuple not supported yet [not-supported-yet]']
 Line 11: Unexpected errors ['File "generics_defaults.py", line 11, in <module>: wrong arguments [invalid-typevar]']
@@ -69,7 +71,6 @@ Line 41: Unexpected errors ['File "generics_defaults.py", line 41, in <module>: 
 Line 44: Unexpected errors ['File "generics_defaults.py", line 44, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
 Line 47: Unexpected errors ['File "generics_defaults.py", line 47, in <module>: Invalid type annotation \\'AllTheDefaults[Any, Any, str, int, bool]\\'  [invalid-annotation]']
 Line 49: Unexpected errors ['File "generics_defaults.py", line 49, in <module>: Invalid type annotation \\'AllTheDefaults[int, complex, str, int, bool]\\'  [invalid-annotation]']
-Line 52: Unexpected errors ['File "generics_defaults.py", line 52, in <module>: Invalid type annotation \\'AllTheDefaults[int]\\'  [invalid-annotation]']
 Line 55: Unexpected errors ['File "generics_defaults.py", line 55, in <module>: Invalid type annotation \\'AllTheDefaults[int, complex, str, int, bool]\\'  [invalid-annotation]']
 Line 58: Unexpected errors ['File "generics_defaults.py", line 58, in <module>: Invalid type annotation \\'AllTheDefaults[int, complex, str]\\'  [invalid-annotation]']
 Line 59: Unexpected errors ['File "generics_defaults.py", line 59, in <module>: Invalid type annotation \\'AllTheDefaults[int, complex, str, int, bool]\\'  [invalid-annotation]']
@@ -93,7 +94,6 @@ Line 115: Unexpected errors ['File "generics_defaults.py", line 115, in <module>
 Line 127: Unexpected errors ['File "generics_defaults.py", line 127, in <module>: wrong arguments [invalid-typevar]']
 Line 133: Unexpected errors ['File "generics_defaults.py", line 133, in <module>: Any [assert-type]']
 Line 141: Unexpected errors ['File "generics_defaults.py", line 141, in <module>: wrong arguments [invalid-typevar]']
-Line 144: Unexpected errors ['File "generics_defaults.py", line 144, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
 Line 151: Unexpected errors ['File "generics_defaults.py", line 151, in <module>: wrong arguments [invalid-typevar]']
 Line 154: Unexpected errors ['File "generics_defaults.py", line 154, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
 Line 157: Unexpected errors ['File "generics_defaults.py", line 157, in <module>: class Foo6 is not indexable [not-indexable]']

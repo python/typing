@@ -10,9 +10,5 @@ typeddicts_usage.py:40: note: See https://mypy.readthedocs.io/en/stable/common_i
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 23: Unexpected errors ['typeddicts_usage.py:23: error: TypedDict "Movie" has no key "director"  [typeddict-unknown-key]']
-Line 24: Unexpected errors ['typeddicts_usage.py:24: error: Value of "year" has incompatible type "str"; expected "int"  [typeddict-item]']
-Line 28: Unexpected errors ['typeddicts_usage.py:28: error: Missing key "name" for TypedDict "Movie"  [typeddict-item]', 'typeddicts_usage.py:28: error: Extra key "title" for TypedDict "Movie"  [typeddict-unknown-key]']
-Line 35: Unexpected errors ['typeddicts_usage.py:35: error: Cannot use isinstance() with TypedDict type  [misc]']
-Line 40: Unexpected errors ['typeddicts_usage.py:40: error: Variable "typing.TypedDict" is not valid as a type  [valid-type]']
+Line 28: Expected 1 errors, got 2 (['typeddicts_usage.py:28: error: Missing key "name" for TypedDict "Movie"  [typeddict-item]', 'typeddicts_usage.py:28: error: Extra key "title" for TypedDict "Movie"  [typeddict-unknown-key]'])
 """

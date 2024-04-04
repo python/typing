@@ -20,17 +20,6 @@ typeddicts_readonly_inheritance.py:106:5 - error: TypedDict item "c" cannot be r
 typeddicts_readonly_inheritance.py:119:7 - error: Base classes for class "TD_A" define variable "x" in incompatible way (reportIncompatibleVariableOverride)
 typeddicts_readonly_inheritance.py:132:7 - error: TypedDict item "x" cannot be redefined as NotRequired (reportIncompatibleVariableOverride)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 36: Unexpected errors ['typeddicts_readonly_inheritance.py:36:1 - error: Could not assign item in TypedDict']
-Line 50: Unexpected errors ['typeddicts_readonly_inheritance.py:50:5 - error: "alt" overrides symbol of same name in class "AlbumCollection"']
-Line 65: Unexpected errors ['typeddicts_readonly_inheritance.py:65:19 - error: Expression of type "dict[Any, Any]" cannot be assigned to declared type "RequiredName"']
-Line 82: Unexpected errors ['typeddicts_readonly_inheritance.py:82:1 - error: Could not assign item in TypedDict']
-Line 83: Unexpected errors ['typeddicts_readonly_inheritance.py:83:15 - error: Expression of type "dict[str, int]" cannot be assigned to declared type "User"']
-Line 84: Unexpected errors ['typeddicts_readonly_inheritance.py:84:5 - error: Expression of type "dict[Any, Any]" cannot be assigned to declared type "User"']
-Line 94: Unexpected errors ['typeddicts_readonly_inheritance.py:94:5 - error: TypedDict item "a" cannot be redefined as ReadOnly (reportGeneralTypeIssues)']
-Line 98: Unexpected errors ['typeddicts_readonly_inheritance.py:98:5 - error: TypedDict item "a" cannot be redefined as NotRequired (reportGeneralTypeIssues)']
-Line 106: Unexpected errors ['typeddicts_readonly_inheritance.py:106:5 - error: TypedDict item "c" cannot be redefined as NotRequired (reportGeneralTypeIssues)']
-Line 119: Unexpected errors ['typeddicts_readonly_inheritance.py:119:7 - error: Base classes for class "TD_A" define variable "x" in incompatible way (reportIncompatibleVariableOverride)']
-Line 132: Unexpected errors ['typeddicts_readonly_inheritance.py:132:7 - error: TypedDict item "x" cannot be redefined as NotRequired (reportIncompatibleVariableOverride)']
 """

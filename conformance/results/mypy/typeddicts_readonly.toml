@@ -18,6 +18,12 @@ typeddicts_readonly.py:56: error: NotRequired[] can be only used in a TypedDict 
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 24: Expected 1 errors
+Line 36: Expected 1 errors
+Line 50: Expected 1 errors
+Line 51: Expected 1 errors
+Line 60: Expected 1 errors
+Line 61: Expected 1 errors
 Line 18: Unexpected errors ['typeddicts_readonly.py:18: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']
 Line 25: Unexpected errors ['typeddicts_readonly.py:25: error: "ReadOnly?[builtins.list[builtins.str]]" has no attribute "append"  [attr-defined]']
 Line 31: Unexpected errors ['typeddicts_readonly.py:31: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']

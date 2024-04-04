@@ -4,23 +4,22 @@ Does not understand Unpack in the context of **kwargs annotation.
 """
 output = """
 callables_kwargs.py:22:20 Undefined or invalid type [11]: Annotation `Unpack` is not defined as a type.
-callables_kwargs.py:50:4 Too many arguments [19]: Call `func1` expects 1 positional argument, 4 were provided.
-callables_kwargs.py:60:12 Incompatible parameter type [6]: In call `func2`, for 1st positional argument, expected `str` but got `object`.
-callables_kwargs.py:62:10 Incompatible parameter type [6]: In call `func2`, for 1st positional argument, expected `str` but got `int`.
-callables_kwargs.py:63:18 Incompatible parameter type [6]: In call `func2`, for 2nd positional argument, expected `str` but got `object`.
-callables_kwargs.py:120:20 Invalid type variable [34]: The type variable `Variable[T (bound to callables_kwargs.TD2)]` isn't present in the function's parameters.
+callables_kwargs.py:52:4 Too many arguments [19]: Call `func1` expects 1 positional argument, 4 were provided.
+callables_kwargs.py:62:12 Incompatible parameter type [6]: In call `func2`, for 1st positional argument, expected `str` but got `object`.
+callables_kwargs.py:64:10 Incompatible parameter type [6]: In call `func2`, for 1st positional argument, expected `str` but got `int`.
+callables_kwargs.py:65:18 Incompatible parameter type [6]: In call `func2`, for 2nd positional argument, expected `str` but got `object`.
+callables_kwargs.py:122:20 Invalid type variable [34]: The type variable `Variable[T (bound to callables_kwargs.TD2)]` isn't present in the function's parameters.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Expected 1 errors
-Line 44: Expected 1 errors
-Line 49: Expected 1 errors
-Line 56: Expected 1 errors
-Line 61: Expected 1 errors
-Line 99: Expected 1 errors
-Line 100: Expected 1 errors
+Line 46: Expected 1 errors
+Line 51: Expected 1 errors
+Line 58: Expected 1 errors
+Line 63: Expected 1 errors
 Line 101: Expected 1 errors
-Line 109: Expected 1 errors
+Line 102: Expected 1 errors
+Line 103: Expected 1 errors
+Line 111: Expected 1 errors
 Line 22: Unexpected errors ['callables_kwargs.py:22:20 Undefined or invalid type [11]: Annotation `Unpack` is not defined as a type.']
-Line 60: Unexpected errors ['callables_kwargs.py:60:12 Incompatible parameter type [6]: In call `func2`, for 1st positional argument, expected `str` but got `object`.']
+Line 62: Unexpected errors ['callables_kwargs.py:62:12 Incompatible parameter type [6]: In call `func2`, for 1st positional argument, expected `str` but got `object`.']
 """

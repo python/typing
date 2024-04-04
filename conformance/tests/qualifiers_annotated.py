@@ -73,7 +73,7 @@ Nested2: Annotated[list[Annotated[dict[str, Annotated[Literal[1, 2, 3], ""]], ""
 # > Annotated is not type compatible with type or type[T]
 SmallInt: TypeAlias = Annotated[int, ""]
 
-not_type1: type[Any] = Annotated[int, ""]  # Type Error
+not_type1: type[Any] = Annotated[int, ""]  # E
 not_type2: type[Any] = SmallInt  # E
 
 
@@ -81,16 +81,16 @@ def func4(x: type[T]) -> T:
     return x()
 
 
-func4(Annotated[str, ""])  # Type Error
-func4(SmallInt)  # Type Error
+func4(Annotated[str, ""])  # E
+func4(SmallInt)  # E
 
 
 # > An attempt to call Annotated (whether parameterized or not) should be
 # > treated as a type error by type checkers.
 
-Annotated()  # Type Error
-Annotated[int, ""]()  # Type Error
-SmallInt(1)  # Type Error
+Annotated()  # E
+Annotated[int, ""]()  # E
+SmallInt(1)  # E
 
 
 class ClassA:

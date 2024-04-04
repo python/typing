@@ -7,12 +7,6 @@ dataclasses_transform_meta.py:70: error: Unsupported left operand type for < ("C
 dataclasses_transform_meta.py:80: error: Too many positional arguments for "Customer2"  [misc]
 dataclasses_transform_meta.py:100: error: Property "id" defined in "Customer3" is read-only  [misc]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 48: Unexpected errors ['dataclasses_transform_meta.py:48: error: Cannot inherit non-frozen dataclass from a frozen one  [misc]']
-Line 60: Unexpected errors ['dataclasses_transform_meta.py:60: error: Property "id" defined in "Customer1" is read-only  [misc]']
-Line 63: Unexpected errors ['dataclasses_transform_meta.py:63: error: Too many positional arguments for "Customer1"  [misc]']
-Line 70: Unexpected errors ['dataclasses_transform_meta.py:70: error: Unsupported left operand type for < ("Customer1")  [operator]']
-Line 80: Unexpected errors ['dataclasses_transform_meta.py:80: error: Too many positional arguments for "Customer2"  [misc]']
-Line 100: Unexpected errors ['dataclasses_transform_meta.py:100: error: Property "id" defined in "Customer3" is read-only  [misc]']
 """

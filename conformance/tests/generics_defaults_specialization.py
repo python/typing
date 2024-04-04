@@ -27,7 +27,7 @@ def func1(p1: MyAlias, p2: MyAlias[bool]):
     assert_type(p2, SomethingWithNoDefaults[int, bool])
 
 
-MyAlias[bool, int]  # Type Error: too many arguments passed to MyAlias
+MyAlias[bool, int]  # E: too many arguments passed to MyAlias
 
 
 # > Generic classes with type parameters that have defaults behave similarly
@@ -52,7 +52,7 @@ class Foo(SubclassMe[float]): ...
 
 assert_type(Foo().x, str)
 
-Foo[str]  # Type Error: Foo cannot be further subscripted
+Foo[str]  # E: Foo cannot be further subscripted
 
 
 class Baz(Generic[DefaultIntT, DefaultStrT]): ...

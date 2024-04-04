@@ -13,6 +13,13 @@ generics_defaults_referential.py:104: error: Expression is of type "Bar[int, lis
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 38: Expected 1 errors
+Line 41: Expected 1 errors
+Line 57: Expected 1 errors
+Line 64: Expected 1 errors
+Line 72: Expected 1 errors
+Line 80: Expected 1 errors
+Line 86: Expected 1 errors
 Line 23: Unexpected errors ['generics_defaults_referential.py:23: error: Expression is of type "type[slice[Any, Any, Any]]", not "type[slice[int, int, int | None]]"  [assert-type]']
 Line 24: Unexpected errors ['generics_defaults_referential.py:24: error: Expression is of type "slice[int, StartT?, int | None]", not "slice[int, int, int | None]"  [assert-type]']
 Line 25: Unexpected errors ['generics_defaults_referential.py:25: error: Expression is of type "slice[str, StartT?, int | None]", not "slice[str, str, int | None]"  [assert-type]']

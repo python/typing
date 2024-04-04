@@ -4,11 +4,11 @@ Does not reject use of upper bound with constrained TypeVar.
 """
 output = """
 generics_upper_bound.py:22:0 Invalid type [31]: Expression `Variable[T_Bad1 (bound to typing.List[Variable[generics_upper_bound.T]])]` is not a valid type. Type variables cannot contain other type variables in their constraints.
-generics_upper_bound.py:43:7 Incompatible parameter type [6]: In call `longer`, for 1st positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.
-generics_upper_bound.py:43:10 Incompatible parameter type [6]: In call `longer`, for 2nd positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.
+generics_upper_bound.py:48:7 Incompatible parameter type [6]: In call `longer`, for 1st positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.
+generics_upper_bound.py:48:10 Incompatible parameter type [6]: In call `longer`, for 2nd positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 22: Unexpected errors ['generics_upper_bound.py:22:0 Invalid type [31]: Expression `Variable[T_Bad1 (bound to typing.List[Variable[generics_upper_bound.T]])]` is not a valid type. Type variables cannot contain other type variables in their constraints.']
-Line 43: Unexpected errors ['generics_upper_bound.py:43:7 Incompatible parameter type [6]: In call `longer`, for 1st positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.', 'generics_upper_bound.py:43:10 Incompatible parameter type [6]: In call `longer`, for 2nd positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.']
+Line 48: Expected 1 errors, got 2 (['generics_upper_bound.py:48:7 Incompatible parameter type [6]: In call `longer`, for 1st positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.', 'generics_upper_bound.py:48:10 Incompatible parameter type [6]: In call `longer`, for 2nd positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.'])
+Line 53: Expected 1 errors
 """

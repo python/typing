@@ -26,9 +26,5 @@ qualifiers_annotated.py:93:0 Call error [29]: `TypeAlias` is not a function.
 conformance_automated = "Fail"
 errors_diff = """
 Line 64: Expected 1 errors
-Line 76: Unexpected errors ['qualifiers_annotated.py:76:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], str]`. Expected has length 0, but actual has length 2.']
-Line 84: Unexpected errors ['qualifiers_annotated.py:84:16 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[str], str]`. Expected has length 0, but actual has length 2.']
-Line 85: Unexpected errors ['qualifiers_annotated.py:85:6 Incompatible parameter type [6]: In call `func4`, for 1st positional argument, expected `Type[Variable[T]]` but got `TypeAlias`.']
-Line 92: Unexpected errors ['qualifiers_annotated.py:92:10 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], str]`. Expected has length 0, but actual has length 2.']
-Line 93: Unexpected errors ['qualifiers_annotated.py:93:0 Call error [29]: `TypeAlias` is not a function.']
+Line 91: Expected 1 errors
 """

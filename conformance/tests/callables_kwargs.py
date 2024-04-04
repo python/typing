@@ -23,7 +23,9 @@ def func1(**kwargs: Unpack[TD2]) -> None:
     v1 = kwargs["v1"]
     assert_type(v1, int)
 
-    kwargs["v2"]  # E: v2 may not be present
+    # > Type checkers may allow reading an item using ``d['x']`` even if
+    # > the key ``'x'`` is not required
+    kwargs["v2"]  # E?: v2 may not be present
 
     if "v2" in kwargs:
         v2 = kwargs["v2"]

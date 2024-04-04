@@ -34,10 +34,10 @@ def func1(a: A1, b: B1, c: C1):
     v1: A1 = b  # OK
     v2: A1 = c  # OK
 
-    v3: B1 = a  # Type Error
-    v4: B1 = c  # Type Error
+    v3: B1 = a  # E
+    v4: B1 = c  # E
 
-    v5: C1 = a  # Type Error
+    v5: C1 = a  # E
     v6: C1 = b  # OK
 
 
@@ -78,8 +78,8 @@ def func2(a: A2, b: B2, c: C2):
     v1: A2 = b  # OK
     v2: A2 = c  # OK
 
-    v3: B2 = a  # Type Error
-    v4: B2 = c  # Type Error
+    v3: B2 = a  # E
+    v4: B2 = c  # E
 
-    v5: C2 = a  # Type Error
-    v6: C2 = b  # Type Error
+    v5: C2 = a  # E
+    v6: C2 = b  # E

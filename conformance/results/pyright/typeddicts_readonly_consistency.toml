@@ -17,13 +17,6 @@ typeddicts_readonly_consistency.py:84:14 - error: Expression of type "A2" cannot
 typeddicts_readonly_consistency.py:85:14 - error: Expression of type "B2" cannot be assigned to declared type "C2"
   "x" is required in "C2" (reportAssignmentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 37: Unexpected errors ['typeddicts_readonly_consistency.py:37:14 - error: Expression of type "A1" cannot be assigned to declared type "B1"']
-Line 38: Unexpected errors ['typeddicts_readonly_consistency.py:38:14 - error: Expression of type "C1" cannot be assigned to declared type "B1"']
-Line 40: Unexpected errors ['typeddicts_readonly_consistency.py:40:14 - error: Expression of type "A1" cannot be assigned to declared type "C1"']
-Line 81: Unexpected errors ['typeddicts_readonly_consistency.py:81:14 - error: Expression of type "A2" cannot be assigned to declared type "B2"']
-Line 82: Unexpected errors ['typeddicts_readonly_consistency.py:82:14 - error: Expression of type "C2" cannot be assigned to declared type "B2"']
-Line 84: Unexpected errors ['typeddicts_readonly_consistency.py:84:14 - error: Expression of type "A2" cannot be assigned to declared type "C2"']
-Line 85: Unexpected errors ['typeddicts_readonly_consistency.py:85:14 - error: Expression of type "B2" cannot be assigned to declared type "C2"']
 """

@@ -12,6 +12,7 @@ generics_base_class.py:68:0 Duplicate type variables [59]: Duplicate type variab
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 29: Expected 1 errors
+Line 30: Expected 1 errors
 Line 45: Unexpected errors ['generics_base_class.py:45:25 Undefined attribute [16]: `typing.Iterator` has no attribute `__getitem__`.']
-Line 68: Unexpected errors ['generics_base_class.py:68:0 Duplicate type variables [59]: Duplicate type variable `T` in Generic[...].']
 """

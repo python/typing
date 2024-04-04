@@ -10,6 +10,4 @@ literals_semantics.py:25:4 Incompatible variable type [9]: x2 is declared to hav
 conformance_automated = "Fail"
 errors_diff = """
 Line 33: Expected 1 errors
-Line 24: Unexpected errors ['literals_semantics.py:24:4 Incompatible variable type [9]: x1 is declared to have type `typing_extensions.Literal[False]` but is used as type `typing_extensions.Literal[0]`.']
-Line 25: Unexpected errors ['literals_semantics.py:25:4 Incompatible variable type [9]: x2 is declared to have type `typing_extensions.Literal[0]` but is used as type `typing_extensions.Literal[False]`.']
 """

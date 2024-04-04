@@ -10,7 +10,6 @@ typeddicts_usage.py:28:16 TypedDict initialization error [55]: Missing required 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 23: Unexpected errors ['typeddicts_usage.py:23:6 TypedDict accessed with a missing key [27]: TypedDict `Movie` has no key `director`.']
-Line 24: Unexpected errors ['typeddicts_usage.py:24:16 Invalid TypedDict operation [54]: Expected `int` to be assigned to `Movie` field `year` but got `str`.']
-Line 28: Unexpected errors ['typeddicts_usage.py:28:16 TypedDict initialization error [55]: Missing required field `name` for TypedDict `Movie`.']
+Line 35: Expected 1 errors
+Line 40: Expected 1 errors
 """

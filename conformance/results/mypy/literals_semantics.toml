@@ -5,8 +5,6 @@ literals_semantics.py:24: error: Incompatible types in assignment (expression ha
 literals_semantics.py:25: error: Incompatible types in assignment (expression has type "Literal[False]", variable has type "Literal[0]")  [assignment]
 literals_semantics.py:33: error: Incompatible types in assignment (expression has type "int", variable has type "Literal[3, 4, 5]")  [assignment]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 24: Unexpected errors ['literals_semantics.py:24: error: Incompatible types in assignment (expression has type "Literal[0]", variable has type "Literal[False]")  [assignment]']
-Line 25: Unexpected errors ['literals_semantics.py:25: error: Incompatible types in assignment (expression has type "Literal[False]", variable has type "Literal[0]")  [assignment]']
 """

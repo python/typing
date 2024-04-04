@@ -4,7 +4,7 @@ Tests unpack operations for TypeVarTuple.
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#unpacking-tuple-types
 
-from typing import Any, Generic, NewType, TypeVarTuple, assert_type
+from typing import Any, Generic, NewType, TypeVarTuple
 
 Height = NewType("Height", int)
 Width = NewType("Width", int)

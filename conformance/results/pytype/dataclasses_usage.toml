@@ -16,12 +16,13 @@ File "dataclasses_usage.py", line 179, in <module>: Function DC13.__init__ expec
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 62: Expected 1 errors
+Line 68: Expected 1 errors
+Line 74: Expected 1 errors
+Line 228: Expected 1 errors
 Line 59: Unexpected errors ['File "dataclasses_usage.py", line 59, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']
 Line 65: Unexpected errors ['File "dataclasses_usage.py", line 65, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']
 Line 71: Unexpected errors ['File "dataclasses_usage.py", line 71, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']
-Line 127: Unexpected errors ['File "dataclasses_usage.py", line 127, in <module>: Function DC7.__init__ expects 2 arg(s), got 3 [wrong-arg-count]']
-Line 130: Unexpected errors ['File "dataclasses_usage.py", line 130, in <module>: Missing parameter \\'y\\' in call to function DC8.__init__ [missing-parameter]']
 Line 152: Unexpected errors ['File "dataclasses_usage.py", line 152, in __init__: Type annotation for x_squared does not match type of assignment [annotation-type-mismatch]']
 Line 165: Unexpected errors ['File "dataclasses_usage.py", line 165, in __init__: Type annotation for x_squared does not match type of assignment [annotation-type-mismatch]']
-Line 179: Unexpected errors ['File "dataclasses_usage.py", line 179, in <module>: Function DC13.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
 """

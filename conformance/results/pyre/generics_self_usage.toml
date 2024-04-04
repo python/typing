@@ -10,7 +10,15 @@ generics_self_usage.py:106:29 Undefined attribute [16]: Module `typing` has no a
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 73: Expected 1 errors
+Line 76: Expected 1 errors
+Line 82: Expected 1 errors
+Line 101: Expected 1 errors
+Line 103: Expected 1 errors
+Line 106: Expected 1 errors, got 2 (['generics_self_usage.py:106:0 Incompatible variable type [9]: TupleSelf is declared to have type `TypeAlias` but is used as type `Type[tuple[Variable[_T_co](covariant)]]`.', 'generics_self_usage.py:106:29 Undefined attribute [16]: Module `typing` has no attribute `Self`.'])
+Line 111: Expected 1 errors
+Line 116: Expected 1 errors
+Line 121: Expected 1 errors
+Line 125: Expected 1 errors
 Line 20: Unexpected errors ['generics_self_usage.py:20:34 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.']
-Line 86: Unexpected errors ['generics_self_usage.py:86:8 Incompatible return type [7]: Expected `Variable[_Self_generics_self_usage_Foo3__ (bound to Foo3)]` but got `Foo3`.']
-Line 106: Unexpected errors ['generics_self_usage.py:106:0 Incompatible variable type [9]: TupleSelf is declared to have type `TypeAlias` but is used as type `Type[tuple[Variable[_T_co](covariant)]]`.', 'generics_self_usage.py:106:29 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
 """

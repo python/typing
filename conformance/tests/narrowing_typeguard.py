@@ -125,7 +125,7 @@ def simple_typeguard(val: object) -> TypeGuard[int]:
 
 
 takes_callable_bool(simple_typeguard)  # OK
-takes_callable_str(simple_typeguard)   # Error
+takes_callable_str(simple_typeguard)   # E
 
 
 class CallableBoolProto(Protocol):
@@ -145,4 +145,4 @@ def takes_callable_str_proto(f: CallableStrProto) -> None:
 
 
 takes_callable_bool_proto(simple_typeguard)  # OK
-takes_callable_str_proto(simple_typeguard)   # Error
+takes_callable_str_proto(simple_typeguard)   # E

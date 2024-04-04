@@ -3,8 +3,6 @@ output = """
 generics_self_attributes.py:26: error: Argument "next" to "OrdinalLinkedList" has incompatible type "LinkedList[int]"; expected "OrdinalLinkedList | None"  [arg-type]
 generics_self_attributes.py:32: error: Incompatible types in assignment (expression has type "LinkedList[int]", variable has type "OrdinalLinkedList | None")  [assignment]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 26: Unexpected errors ['generics_self_attributes.py:26: error: Argument "next" to "OrdinalLinkedList" has incompatible type "LinkedList[int]"; expected "OrdinalLinkedList | None"  [arg-type]']
-Line 32: Unexpected errors ['generics_self_attributes.py:32: error: Incompatible types in assignment (expression has type "LinkedList[int]", variable has type "OrdinalLinkedList | None")  [assignment]']
 """

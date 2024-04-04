@@ -11,6 +11,12 @@ File "dataclasses_transform_class.py", line 106, in <module>: Arguments to datac
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 48: Expected 1 errors
+Line 60: Expected 1 errors
+Line 63: Expected 1 errors
+Line 69: Expected 1 errors
+Line 79: Expected 1 errors
+Line 119: Expected 1 errors
 Line 23: Unexpected errors ['File "dataclasses_transform_class.py", line 23, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
 Line 57: Unexpected errors ['File "dataclasses_transform_class.py", line 57, in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]']
 Line 82: Unexpected errors ['File "dataclasses_transform_class.py", line 82, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']

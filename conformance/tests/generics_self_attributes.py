@@ -23,12 +23,12 @@ class OrdinalLinkedList(LinkedList[int]):
 
 
 # This should result in a type error.
-xs = OrdinalLinkedList(value=1, next=LinkedList[int](value=2))
+xs = OrdinalLinkedList(value=1, next=LinkedList[int](value=2))  # E
 
 if xs.next is not None:
     xs.next = OrdinalLinkedList(value=3, next=None)  # OK
 
     # This should result in a type error.
-    xs.next = LinkedList[int](value=3, next=None)
+    xs.next = LinkedList[int](value=3, next=None)  # E
 
 

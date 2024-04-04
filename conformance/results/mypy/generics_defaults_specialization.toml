@@ -6,7 +6,5 @@ generics_defaults_specialization.py:55: error: The type "type[Foo]" is not gener
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 30: Unexpected errors ['generics_defaults_specialization.py:30: error: Bad number of arguments for type alias, expected between 0 and 1, given 2  [type-arg]']
 Line 45: Unexpected errors ['generics_defaults_specialization.py:45: error: Expression is of type "type[Bar[Any]]", not "type[Bar[str]]"  [assert-type]']
-Line 55: Unexpected errors ['generics_defaults_specialization.py:55: error: The type "type[Foo]" is not generic and not indexable  [misc]']
 """

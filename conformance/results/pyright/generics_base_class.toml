@@ -13,7 +13,5 @@ generics_base_class.py:68:28 - error: Type arguments for "Generic" must be uniqu
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 29: Unexpected errors ['generics_base_class.py:29:14 - error: "Generic" is not valid in this context (reportGeneralTypeIssues)']
-Line 30: Unexpected errors ['generics_base_class.py:30:8 - error: "Generic" requires at least one type argument', 'generics_base_class.py:30:8 - error: "Generic" is not valid in this context (reportGeneralTypeIssues)']
-Line 68: Unexpected errors ['generics_base_class.py:68:28 - error: Type arguments for "Generic" must be unique']
+Line 30: Expected 1 errors, got 2 (['generics_base_class.py:30:8 - error: "Generic" requires at least one type argument', 'generics_base_class.py:30:8 - error: "Generic" is not valid in this context (reportGeneralTypeIssues)'])
 """

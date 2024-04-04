@@ -4,9 +4,6 @@ directives_cast.py:15:7 Missing argument [20]: Call `cast` expects argument `typ
 directives_cast.py:16:12 Invalid type [31]: Expression `1` is not a valid type.
 directives_cast.py:17:7 Too many arguments [19]: Call `cast` expects 2 positional arguments, 3 were provided.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 15: Unexpected errors ['directives_cast.py:15:7 Missing argument [20]: Call `cast` expects argument `typ`.']
-Line 16: Unexpected errors ['directives_cast.py:16:12 Invalid type [31]: Expression `1` is not a valid type.']
-Line 17: Unexpected errors ['directives_cast.py:17:7 Too many arguments [19]: Call `cast` expects 2 positional arguments, 3 were provided.']
 """

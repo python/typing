@@ -164,5 +164,5 @@ def test_my_iterable_any(m: MyIterableAny):
 
 class GenericMeta(type, Generic[T]): ...
 
-class GenericMetaInstance(metaclass=GenericMeta[T]):  # E
+class GenericMetaInstance(metaclass=GenericMeta[T]):  # E  # E?
     ...

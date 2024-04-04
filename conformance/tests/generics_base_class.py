@@ -26,8 +26,8 @@ def test_symbol_table(s: SymbolTable):
     takes_dict_incorrect(s)  # E
 
 
-def func1(y: Generic[T]):  # Type Error
-    x: Generic  # Type Error
+def func1(y: Generic[T]):  # E
+    x: Generic  # E
 
 
 # > If a generic base class has a type variable as a type argument, this makes
@@ -65,7 +65,7 @@ my_dict_invalid: MyDict[int, int]  # E
 # > within Generic[...].
 
 
-class BadClass1(Generic[T, T]):  # Type Error
+class BadClass1(Generic[T, T]):  # E
     pass
 
 

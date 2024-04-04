@@ -14,9 +14,6 @@ directives_cast.py:17: note:     def [_T] cast(typ: type[_T], val: Any) -> _T
 directives_cast.py:17: note:     def cast(typ: str, val: Any) -> Any
 directives_cast.py:17: note:     def cast(typ: object, val: Any) -> Any
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 15: Unexpected errors ['directives_cast.py:15: error: "cast" expects 2 arguments  [misc]', 'directives_cast.py:15: error: All overload variants of "cast" require at least one argument  [call-overload]']
-Line 16: Unexpected errors ['directives_cast.py:16: error: Invalid type: try using Literal[1] instead?  [valid-type]']
-Line 17: Unexpected errors ['directives_cast.py:17: error: "cast" expects 2 arguments  [misc]', 'directives_cast.py:17: error: No overload variant of "cast" matches argument types "Any", "str", "str"  [call-overload]']
 """

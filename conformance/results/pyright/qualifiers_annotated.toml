@@ -33,10 +33,4 @@ Line 45: Expected 1 errors, got 2 (['qualifiers_annotated.py:45:17 - error: List
 Line 46: Expected 1 errors, got 2 (['qualifiers_annotated.py:46:17 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)', 'qualifiers_annotated.py:46:17 - error: Dictionary expression not allowed in type annotation'])
 Line 48: Expected 1 errors, got 2 (['qualifiers_annotated.py:48:17 - error: List expression not allowed in type annotation', 'qualifiers_annotated.py:48:17 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)'])
 Line 54: Expected 1 errors, got 2 (['qualifiers_annotated.py:54:18 - error: Expected expression', 'qualifiers_annotated.py:54:18 - error: Tuple expression not allowed in type annotation'])
-Line 76: Unexpected errors ['qualifiers_annotated.py:76:24 - error: Expression of type "type[int]" cannot be assigned to declared type "type[Any]" (reportAssignmentType)']
-Line 84: Unexpected errors ['qualifiers_annotated.py:84:7 - error: Argument of type "type[str]" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4" (reportArgumentType)']
-Line 85: Unexpected errors ['qualifiers_annotated.py:85:7 - error: Argument of type "SmallInt" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4" (reportArgumentType)']
-Line 91: Unexpected errors ['qualifiers_annotated.py:91:1 - error: "Annotated" cannot be instantiated (reportCallIssue)']
-Line 92: Unexpected errors ['qualifiers_annotated.py:92:1 - error: Object of type "type[Annotated]" is not callable (reportCallIssue)']
-Line 93: Unexpected errors ['qualifiers_annotated.py:93:1 - error: Object of type "type[Annotated]" is not callable (reportCallIssue)']
 """

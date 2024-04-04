@@ -7,6 +7,8 @@ output = """
 dataclasses_frozen.py:16:0 Invalid assignment [41]: Cannot reassign final attribute `dc1.a`.
 dataclasses_frozen.py:17:0 Invalid assignment [41]: Cannot reassign final attribute `dc1.b`.
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 23: Expected 1 errors
+Line 33: Expected 1 errors
 """

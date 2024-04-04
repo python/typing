@@ -36,6 +36,10 @@ File "generics_defaults_referential.py", line 106, in <module>: Invalid type ann
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 38: Expected 1 errors
+Line 41: Expected 1 errors
+Line 80: Expected 1 errors
+Line 86: Expected 1 errors
 Line 14: Unexpected errors ['File "generics_defaults_referential.py", line 14, in <module>: wrong arguments [invalid-typevar]']
 Line 15: Unexpected errors ['File "generics_defaults_referential.py", line 15, in <module>: wrong arguments [invalid-typevar]']
 Line 16: Unexpected errors ['File "generics_defaults_referential.py", line 16, in <module>: wrong arguments [invalid-typevar]']
@@ -54,11 +58,8 @@ Line 47: Unexpected errors ['File "generics_defaults_referential.py", line 47, i
 Line 50: Unexpected errors ['File "generics_defaults_referential.py", line 50, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
 Line 53: Unexpected errors ['File "generics_defaults_referential.py", line 53, in <module>: wrong arguments [invalid-typevar]']
 Line 54: Unexpected errors ['File "generics_defaults_referential.py", line 54, in <module>: wrong arguments [invalid-typevar]']
-Line 57: Unexpected errors ['File "generics_defaults_referential.py", line 57, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
-Line 64: Unexpected errors ['File "generics_defaults_referential.py", line 64, in Foo3: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
 Line 70: Unexpected errors ['File "generics_defaults_referential.py", line 70, in <module>: wrong arguments [invalid-typevar]']
 Line 71: Unexpected errors ['File "generics_defaults_referential.py", line 71, in <module>: wrong arguments [invalid-typevar]']
-Line 72: Unexpected errors ['File "generics_defaults_referential.py", line 72, in <module>: wrong arguments [invalid-typevar]']
 Line 78: Unexpected errors ['File "generics_defaults_referential.py", line 78, in <module>: wrong arguments [invalid-typevar]']
 Line 83: Unexpected errors ['File "generics_defaults_referential.py", line 83, in <module>: wrong arguments [invalid-typevar]']
 Line 84: Unexpected errors ['File "generics_defaults_referential.py", line 84, in <module>: wrong arguments [invalid-typevar]']

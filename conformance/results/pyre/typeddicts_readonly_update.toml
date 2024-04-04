@@ -6,6 +6,7 @@ typeddicts_readonly_update.py:34:13 Incompatible parameter type [6]: In call `Ty
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 23: Expected 1 errors
 Line 9: Unexpected errors ['typeddicts_readonly_update.py:9:0 Undefined import [21]: Could not find a name `ReadOnly` defined in module `typing_extensions`.']
 Line 17: Unexpected errors ['typeddicts_readonly_update.py:17:7 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.']
 Line 34: Unexpected errors ['typeddicts_readonly_update.py:34:13 Incompatible parameter type [6]: In call `TypedDictionary.update`, for 1st positional argument, expected `A` but got `B`.']

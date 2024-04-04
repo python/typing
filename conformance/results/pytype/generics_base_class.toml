@@ -12,6 +12,5 @@ File "generics_base_class.py", line 68, in <module>: Invalid type annotation 'Ge
 conformance_automated = "Fail"
 errors_diff = """
 Line 26: Expected 1 errors
-Line 29: Unexpected errors ['File "generics_base_class.py", line 29, in <module>: Invalid type annotation \\'T\\'  [invalid-annotation]']
-Line 68: Unexpected errors ['File "generics_base_class.py", line 68, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
+Line 30: Expected 1 errors
 """

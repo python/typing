@@ -23,7 +23,7 @@ assert_type(f1, Callable[[str, bool], str])
 
 v1 = f1("A", True)  # OK
 assert_type(v1, str)
-f1(a="A", b=True)  # E: position-only
+f1(a="A", b=True)  # E: positional-only  # E?
 f1("A", "A")  # E: wrong type
 
 
