@@ -1,0 +1,8 @@
+conformant = "Unsupported"
+output = """
+narrowing_typeis.py:9:0 Undefined import [21]: Could not find a name `TypeIs` defined in module `typing_extensions`.
+narrowing_typeis.py:14:48 Undefined or invalid type [11]: Annotation `TypeIs` is not defined as a type.
+narrowing_typeis.py:19:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.
+narrowing_typeis.py:21:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.
+narrowing_typeis.py:35:17 Incompatible awaitable type [12]: Expected an awaitable but got `typing.Union[typing.Awaitable[int], int]`.
+"""
