@@ -16,7 +16,6 @@ namedtuples_define_class.py:98:19 - error: Argument of type "float" cannot be as
   "float" is incompatible with "str" (reportArgumentType)
 namedtuples_define_class.py:105:7 - error: Multiple inheritance with NamedTuple is not supported (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 59: Unexpected errors ['namedtuples_define_class.py:59:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)']
 """

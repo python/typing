@@ -25,6 +25,7 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 32: Expected 1 errors
 Line 33: Expected 1 errors
+Line 59: Expected 1 errors
 Line 79: Expected 1 errors
 Line 98: Expected 1 errors
 Line 105: Expected 1 errors

@@ -18,7 +18,5 @@ Line 34: Expected 1 errors
 Line 35: Expected 1 errors
 Line 42: Expected 1 errors
 Line 43: Expected 1 errors
-Line 52: Unexpected errors ['namedtuples_usage.py:52:0 Unable to unpack [23]: Unable to unpack 3 values, 2 were expected.']
-Line 53: Unexpected errors ['namedtuples_usage.py:53:0 Unable to unpack [23]: Unable to unpack 3 values, 4 were expected.']
 Line 61: Unexpected errors ['namedtuples_usage.py:61:0 Unable to unpack [23]: Unable to unpack 0 values, 3 were expected.']
 """

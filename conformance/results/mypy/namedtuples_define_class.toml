@@ -18,5 +18,4 @@ namedtuples_define_class.py:105: error: NamedTuple should be a single base  [mis
 conformance_automated = "Fail"
 errors_diff = """
 Line 79: Expected 1 errors
-Line 59: Unexpected errors ['namedtuples_define_class.py:59: error: Non-default NamedTuple fields cannot follow default fields  [misc]']
 """
