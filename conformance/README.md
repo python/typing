@@ -92,7 +92,8 @@ Some common problems with automated checks:
 
 * Sometimes the spec is imprecise or allows multiple options. In this case, use "# E?" to mark an error as optional.
 * Type checkers may produce additional errors for issues unrelated to the topic being tested. In this case, add an extra field `ignore_errors` in the type checker's `.toml` file that contains the text of the irrelevant errors. Any error message that contains a substring in the `ignore_errors` list is ignored. For example, if `ignore_errors = ["Too many arguments"]`, then a mypy error `dataclasses_usage.py:127: error: Too many arguments for "DC7"  [call-arg]` will be ignored.
-* Type checkers may differ in the line on which they report an error. There is no good solution for this yet.
+* Type checkers may differ in the line on which they report an error. In this case, on each of the lines where an error could
+  reasonably be shown, write `# E[<tag>]`, where `<tag>` is an arbitrary string that is unique in the file. The test will be marked as passing if the type checker produces an error on exactly one of the lines where this tag appears.
 
 ## Contributing
 

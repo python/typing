@@ -42,14 +42,34 @@ def run_tests(
     update_type_checker_info(type_checker, root_dir, test_duration)
 
 
-def get_expected_errors(test_case: Path) -> dict[int, tuple[int, int]]:
+def get_expected_errors(test_case: Path) -> tuple[
+    dict[int, tuple[int, int]],
+    dict[str, list[int]],
+]:
     """Return the line numbers where type checkers are expected to produce an error.
 
-    The format is {line number: (expected number of required errors, expected number of optional errors)}.
+    The return value is a tuple of two dictionaries:
+    - The format of the first is {line number: (number of required errors, number of optional errors)}.
+    - The format of the second is {error tag: [lines where the error may appear]}.
+
+    For example, the following test case:
+
+        x: int = "x"  # E
+        y: int = "y"  # E?
+        @final  # E[final]
+        def f(): pass  # E[final]
+
+    will return:
+
+        (
+            {1: (1, 0), 2: (0, 1)},
+            {"final": [3, 4]}
+        )
     """
     with open(test_case, "r") as f:
         lines = f.readlines()
     output: dict[int, tuple[int, int]] = {}
+    groups: dict[str, list[int]] = {}
     for i, line in enumerate(lines, start=1):
         line_without_comment, *_ = line.split("#")
         # Ignore lines with no non-comment content. This allows commenting out test cases.
@@ -64,7 +84,12 @@ def get_expected_errors(test_case: Path) -> dict[int, tuple[int, int]]:
                 optional += 1
         if required or optional:
             output[i] = (required, optional)
-    return output
+        for match in re.finditer(r"# E\[([^\]]+)\]", line):
+            groups.setdefault(match.group(1), []).append(i)
+    for group, linenos in groups.items():
+        if len(linenos) == 1:
+            raise ValueError(f"Error group {group} only appears on a single line in {test_case}")
+    return output, groups
 
 
 def diff_expected_errors(
@@ -74,7 +99,7 @@ def diff_expected_errors(
     ignored_errors: Sequence[str],
 ) -> str:
     """Return a list of errors that were expected but not produced by the type checker."""
-    expected_errors = get_expected_errors(test_case)
+    expected_errors, error_groups = get_expected_errors(test_case)
     errors = type_checker.parse_errors(output.splitlines())
     if ignored_errors:
         errors = {
@@ -92,8 +117,14 @@ def diff_expected_errors(
             differences.append(f"Line {expected_lineno}: Expected {expected_count} errors")
         # We don't report an issue if the count differs, because type checkers may produce
         # multiple error messages for a single line.
+    linenos_used_by_groups: set[int] = set()
+    for group, linenos in error_groups.items():
+        if not any(lineno in errors for lineno in linenos):
+            differences.append(f"Lines {', '.join(map(str, linenos))}: Expected error (tag {group!r})")
+        else:
+            linenos_used_by_groups.update(linenos)
     for actual_lineno, actual_errors in errors.items():
-        if actual_lineno not in expected_errors:
+        if actual_lineno not in expected_errors and actual_lineno not in linenos_used_by_groups:
             differences.append(f"Line {actual_lineno}: Unexpected errors {actual_errors}")
     return "".join(f"{diff}\n" for diff in differences)
 

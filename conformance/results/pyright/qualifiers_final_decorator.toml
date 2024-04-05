@@ -15,14 +15,6 @@ qualifiers_final_decorator.py:118:9 - error: Method "method" overrides class "Ba
   Parameter 2 mismatch: base parameter "v" is keyword parameter, override parameter is position-only (reportIncompatibleMethodOverride)
 qualifiers_final_decorator.py:126:5 - error: Function "func1" cannot be marked @final because it is not a method (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 59: Expected 1 errors
-Line 63: Expected 1 errors
-Line 85: Expected 1 errors
-Line 125: Expected 1 errors
-Line 60: Unexpected errors ['qualifiers_final_decorator.py:60:9 - error: Method "method2" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)']
-Line 64: Unexpected errors ['qualifiers_final_decorator.py:64:9 - error: Method "method3" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)']
-Line 86: Unexpected errors ['qualifiers_final_decorator.py:86:9 - error: Overload for "method" is marked @final but implementation is not (reportInconsistentOverload)']
-Line 126: Unexpected errors ['qualifiers_final_decorator.py:126:5 - error: Function "func1" cannot be marked @final because it is not a method (reportGeneralTypeIssues)']
 """

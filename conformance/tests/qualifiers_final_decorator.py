@@ -56,15 +56,15 @@ class Derived2(Base2):
     def method1(self) -> None:  # E
         pass
 
-    @classmethod  # E
-    def method2(cls) -> None:
+    @classmethod  # E[method2]
+    def method2(cls) -> None:  # E[method2]
         pass
 
-    @staticmethod  # E
-    def method3() -> None:
+    @staticmethod  # E[method3]
+    def method3() -> None:  # E[method3]
         pass
 
-    @overload
+    @overload  # E[method4]
     def method4(self, x: int) -> int:
         ...
 
@@ -72,26 +72,26 @@ class Derived2(Base2):
     def method4(self, x: str) -> str:
         ...
 
-    def method4(self, x: int | str) -> int | str:  # E
+    def method4(self, x: int | str) -> int | str:  # E[method4]
         return 0
 
 
 class Derived3(Base3):
-    @overload
+    @overload  # E[Derived3]
     def method(self, x: int) -> int:
         ...
 
-    @overload
-    @final  # E: should be applied only to implementation
-    def method(self, x: str) -> str:
+    @overload  # E[Derived3-2]
+    @final  # E[Derived3-2]: should be applied only to implementation
+    def method(self, x: str) -> str:  # E[Derived3-2]
         ...
 
-    def method(self, x: int | str) -> int | str:  # E
+    def method(self, x: int | str) -> int | str:  # E[Derived3]
         return 0
 
 
 class Derived4(Base4):
-    @overload
+    @overload  # E[Derived4]
     def method(self, x: int) -> int:
         ...
 
@@ -99,7 +99,7 @@ class Derived4(Base4):
     def method(self, x: str) -> str:
         ...
 
-    def method(self, x: int | str) -> int | str:  # E
+    def method(self, x: int | str) -> int | str:  # E[Derived4]
         return 0
 
 
@@ -122,6 +122,6 @@ class Derived5(Base5_1, Base5_2):
 # > It is an error to use @final on a non-method function.
 
 
-@final  # E: not allowed on non-method function.
-def func1() -> int:
+@final  # E[func]: not allowed on non-method function.
+def func1() -> int:  # E[func]
     return 0
