@@ -1,4 +1,3 @@
-# mypy: disable-error-code="truthy-function"
 """
 Tests explicit type aliases defined with `TypeAlias`.
 """

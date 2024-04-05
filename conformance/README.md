@@ -88,6 +88,12 @@ In addition to manual scoring, we provide an experimental tool that automaticall
 
 This tool does not yet work reliably on all test cases. The script `conformance/src/unexpected_fails.py` can be run to find all test cases where the automated tool's conformance judgment differs from the manual judgment entered in the `.toml` files.
 
+Some common problems with automated checks:
+
+* Sometimes the spec is imprecise or allows multiple options. In this case, use "# E?" to mark an error as optional.
+* Type checkers may produce additional errors for issues unrelated to the topic being tested. In this case, add an extra field `ignore_errors` in the type checker's `.toml` file that contains the text of the irrelevant errors. Any error message that contains a substring in the `ignore_errors` list is ignored. For example, if `ignore_errors = ["Too many arguments"]`, then a mypy error `dataclasses_usage.py:127: error: Too many arguments for "DC7"  [call-arg]` will be ignored.
+* Type checkers may differ in the line on which they report an error. There is no good solution for this yet.
+
 ## Contributing
 
 Contributions are welcome!
