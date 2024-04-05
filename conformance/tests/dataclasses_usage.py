@@ -56,22 +56,22 @@ v4 = InventoryItem("name", 3.1, 3, 4)  # E: too many arguments
 # > TypeError will be raised if a field without a default value follows a
 # > field with a default value. This is true either when this occurs in a
 # > single class, or as a result of class inheritance.
-@dataclass
+@dataclass  # E[DC1]
 class DC1:
     a: int = 0
-    b: int  # E: field with no default cannot follow field with default.
+    b: int  # E[DC1]: field with no default cannot follow field with default.
 
 
-@dataclass
+@dataclass  # E[DC2]
 class DC2:
     a: int = field(default=1)
-    b: int  # E: field with no default cannot follow field with default.
+    b: int  # E[DC2]: field with no default cannot follow field with default.
 
 
-@dataclass
+@dataclass  # E[DC3]
 class DC3:
     a: InitVar[int] = 0
-    b: int  # E: field with no default cannot follow field with default.
+    b: int  # E[DC3]: field with no default cannot follow field with default.
 
 
 @dataclass
@@ -149,7 +149,7 @@ class DC11:
 
     def __init__(self, x: int):
         self.x = x
-        self.x_squared = x**2
+        self.x_squared = x * x
 
 
 DC11(3)
@@ -162,7 +162,7 @@ class DC12:
 
     def __init__(self, x: int):
         self.x = x
-        self.x_squared = x**2
+        self.x_squared = x * x
 
 
 DC12(3)
@@ -223,6 +223,6 @@ assert_type(DC17(""), DC17)
 @dataclass
 class DC18:
     x: int = field()
-    # This should generate an error because an unannotated field
+    # This may generate a type checker error because an unannotated field
     # will result in a runtime exception.
-    y = field()  # E
+    y = field()  # E?

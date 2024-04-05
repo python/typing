@@ -1,4 +1,7 @@
 conformant = "Pass"
+notes = """
+Does not detect unannotated usage of `dataclasses.field()`.
+"""
 output = """
 dataclasses_usage.py:36: error: Accessing "__init__" on an instance is unsound, since instance.__init__ could be from an incompatible subclass  [misc]
 dataclasses_usage.py:51: error: Missing positional argument "unit_price" in call to "InventoryItem"  [call-arg]
@@ -15,6 +18,8 @@ dataclasses_usage.py:179: error: Too many arguments for "DC13"  [call-arg]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 228: Expected 1 errors
+Line 62: Unexpected errors ['dataclasses_usage.py:62: error: Attributes without a default cannot follow attributes with one  [misc]']
+Line 68: Unexpected errors ['dataclasses_usage.py:68: error: Attributes without a default cannot follow attributes with one  [misc]']
+Line 74: Unexpected errors ['dataclasses_usage.py:74: error: Attributes without a default cannot follow attributes with one  [misc]']
 """
 ignore_errors = ["Accessing \"__init__\" on an instance is unsound"]
