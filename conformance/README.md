@@ -40,6 +40,17 @@ Test cases are meant to be human readable. They should include comments that hel
 
 The test suite focuses on static type checking not general Python semantics. Tests should therefore focus on static analysis behaviors, not runtime behaviors.
 
+Test cases use the following conventions:
+
+* Lines that are expected to produce a type checker error should have a comment starting with # E",
+  either by itself or followed by an explanation after a colon (e.g., "# E: int is not a subtype
+  of str"). Such explanatory comments are purely for human understanding, but type checkers are not
+  expected to use their exact wording.
+* Lines that may produce an error (e.g., because the spec allows multiple behaviors) should be
+  marked with "# E?" instead of "# E".
+* If a test case tests conformance with a specific passage in the spec, that passage should be
+  quoted in a comment prefixed with "# > ".
+
 ## Running the Conformance Test Tool
 
 To run the conformance test suite:
@@ -54,7 +65,7 @@ Note that some type checkers may not run on some platforms. For example, pytype 
 
 Different type checkers report errors in different ways (with different wording in error messages and different line numbers or character ranges for errors). This variation makes it difficult to fully automate test validation given that tests will want to check for both false positive and false negative type errors. Some level of manual inspection will therefore be needed to determine whether a type checker is fully conformant with all tests in any given test file. This "scoring" process is required only when the output of a test changes — e.g. when a new version of that type checker is released and the tests are rerun. We assume that the output of a type checker will be the same from one run to the next unless/until a new version is released that fixes or introduces a bug. In this case, the output will need to be manually inspected and the conformance results re-scored for those tests whose output has changed.
 
-Conformance results are reported and summarized for each supported type checker. Initially, results will be reported for mypy and pyright. It is the goal and desire to add additional type checkers over time.
+Conformance results are reported and summarized for each supported type checker. Currently, results are reported for mypy, pyre, pyright, and pytype. It is the goal and desire to add additional type checkers over time.
 
 ## Adding a New Test Case
 
@@ -67,6 +78,15 @@ If a test is updated (augmented or fixed), the process is similar to when adding
 ## Updating a Type Checker
 
 If a new version of a type checker is released, re-run the test tool with the new version. If the type checker output has changed for any test cases, the tool will supply the old and new outputs. Examine these to determine whether the conformance status has changed. Once the conformance status has been updated, re-run the test tool again to regenerate the summary report.
+
+## Automated Conformance Checking
+
+In addition to manual scoring, we provide an experimental tool that automatically checks type checkers for conformance. This tool relies on the "# E" comments present in the stubs and on parsing type checker output. This logic is run automatically as part of the conformance test tool. It produces the following fields in the `.toml` output files:
+
+* `errors_diff`: a string describing all issues found with the type checker's behavior: either expected errors that were not emitted, or extra errors that the conformance test suite does not allow.
+* `conformance_automated`: either "Pass" or "Fail" based on whether there are any discrepancies with the expected behavior.
+
+This tool does not yet work reliably on all test cases. The script `conformance/src/unexpected_fails.py` can be run to find all test cases where the automated tool's conformance judgment differs from the manual judgment entered in the `.toml` files.
 
 ## Contributing
 
