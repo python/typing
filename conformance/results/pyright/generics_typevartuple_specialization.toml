@@ -11,3 +11,6 @@ generics_typevartuple_specialization.py:127:9 - error: Too few type arguments pr
 generics_typevartuple_specialization.py:163:14 - error: Could not specialize type "TA11[T@TA11, *Ts1@TA11]"
   Unpacked arguments cannot be used in type argument lists
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

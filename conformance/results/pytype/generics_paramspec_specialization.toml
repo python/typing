@@ -18,3 +18,14 @@ File "generics_paramspec_specialization.py", line 60, in func31: Function <calla
 File "generics_paramspec_specialization.py", line 61, in func31: Function <callable> expects 1 arg(s), got 3 [wrong-arg-count]
 File "generics_paramspec_specialization.py", line 62, in func31: Function <callable> expects 1 arg(s), got 3 [wrong-arg-count]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 45: Expected 1 errors
+Line 33: Unexpected errors ['File "generics_paramspec_specialization.py", line 33, in <module>: Invalid type annotation \\'[int, bool]\\'  [invalid-annotation]', 'File "generics_paramspec_specialization.py", line 33, in <module>: Invalid type annotation \\'Ellipsis\\'  [invalid-annotation]']
+Line 37: Unexpected errors ['File "generics_paramspec_specialization.py", line 37, in <module>: Invalid type annotation \\'Ellipsis\\'  [invalid-annotation]']
+Line 41: Unexpected errors ['File "generics_paramspec_specialization.py", line 41, in <module>: Invalid type annotation \\'[]\\'  [invalid-annotation]']
+Line 53: Unexpected errors ['File "generics_paramspec_specialization.py", line 53, in <module>: Invalid type annotation \\'[int, str, bool]\\'  [invalid-annotation]']
+Line 54: Unexpected errors ['File "generics_paramspec_specialization.py", line 54, in func30: Function <callable> expects 1 arg(s), got 3 [wrong-arg-count]']
+Line 59: Unexpected errors ['File "generics_paramspec_specialization.py", line 59, in <module>: Invalid type annotation \\'ClassC[int, str, bool]\\'  [invalid-annotation]']
+Line 60: Unexpected errors ['File "generics_paramspec_specialization.py", line 60, in func31: Function <callable> expects 1 arg(s), got 3 [wrong-arg-count]']
+"""

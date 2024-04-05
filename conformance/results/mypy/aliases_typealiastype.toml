@@ -40,18 +40,43 @@ aliases_typealiastype.py:39: error: Unpack is only valid in a variadic position 
 aliases_typealiastype.py:40: error: Unexpected "..."  [misc]
 aliases_typealiastype.py:40: error: Variable "aliases_typealiastype.GoodAlias5" is not valid as a type  [valid-type]
 aliases_typealiastype.py:40: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_typealiastype.py:43: error: Type variable "aliases_typealiastype.S" is unbound  [valid-type]
+aliases_typealiastype.py:43: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
+aliases_typealiastype.py:43: note: (Hint: Use "S" in function signature to bind "S" inside a function)
+aliases_typealiastype.py:43: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
 aliases_typealiastype.py:44: error: Type variable "aliases_typealiastype.S" is unbound  [valid-type]
 aliases_typealiastype.py:44: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
 aliases_typealiastype.py:44: note: (Hint: Use "S" in function signature to bind "S" inside a function)
-aliases_typealiastype.py:44: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
-aliases_typealiastype.py:46: error: Type variable "aliases_typealiastype.S" is unbound  [valid-type]
-aliases_typealiastype.py:46: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
-aliases_typealiastype.py:46: note: (Hint: Use "S" in function signature to bind "S" inside a function)
-aliases_typealiastype.py:48: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object, object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
-aliases_typealiastype.py:50: error: Cannot determine type of "BadAlias4"  [has-type]
-aliases_typealiastype.py:52: error: Cannot determine type of "BadAlias5"  [has-type]
-aliases_typealiastype.py:52: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
-aliases_typealiastype.py:54: error: Cannot determine type of "BadAlias7"  [has-type]
-aliases_typealiastype.py:54: error: Name "BadAlias7" is used before definition  [used-before-def]
-aliases_typealiastype.py:69: error: Function "list" could always be true in boolean context  [truthy-function]
+aliases_typealiastype.py:45: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object, object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
+aliases_typealiastype.py:46: error: Cannot determine type of "BadAlias4"  [has-type]
+aliases_typealiastype.py:47: error: Cannot determine type of "BadAlias5"  [has-type]
+aliases_typealiastype.py:47: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]
+aliases_typealiastype.py:48: error: Cannot determine type of "BadAlias7"  [has-type]
+aliases_typealiastype.py:48: error: Name "BadAlias7" is used before definition  [used-before-def]
+aliases_typealiastype.py:63: error: Function "list" could always be true in boolean context  [truthy-function]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 52: Expected 1 errors
+Line 53: Expected 1 errors
+Line 54: Expected 1 errors
+Line 55: Expected 1 errors
+Line 56: Expected 1 errors
+Line 57: Expected 1 errors
+Line 58: Expected 1 errors
+Line 59: Expected 1 errors
+Line 60: Expected 1 errors
+Line 61: Expected 1 errors
+Line 62: Expected 1 errors
+Line 64: Expected 1 errors
+Line 17: Unexpected errors ['aliases_typealiastype.py:17: error: Type variable "aliases_typealiastype.T" is unbound  [valid-type]', 'aliases_typealiastype.py:17: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]']
+Line 18: Unexpected errors ['aliases_typealiastype.py:18: error: Type variable "aliases_typealiastype.T" is unbound  [valid-type]', 'aliases_typealiastype.py:18: error: Type variable "aliases_typealiastype.S" is unbound  [valid-type]', 'aliases_typealiastype.py:18: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object, object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]']
+Line 19: Unexpected errors ['aliases_typealiastype.py:19: error: Cannot resolve name "GoodAlias4" (possible cyclic definition)  [misc]', 'aliases_typealiastype.py:19: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]']
+Line 22: Unexpected errors ['aliases_typealiastype.py:22: error: Type variable "aliases_typealiastype.S" is unbound  [valid-type]', 'aliases_typealiastype.py:22: error: Cannot resolve name "GoodAlias5" (possible cyclic definition)  [misc]', 'aliases_typealiastype.py:22: error: TypeVarTuple "Ts" is unbound  [valid-type]']
+Line 23: Unexpected errors ['aliases_typealiastype.py:23: error: Argument "type_params" to "TypeAliasType" has incompatible type "tuple[object, object, object, object]"; expected "tuple[TypeVar | ParamSpec | TypeVarTuple, ...]"  [arg-type]']
+Line 35: Unexpected errors ['aliases_typealiastype.py:35: error: Variable "aliases_typealiastype.GoodAlias4" is not valid as a type  [valid-type]']
+Line 36: Unexpected errors ['aliases_typealiastype.py:36: error: Variable "aliases_typealiastype.GoodAlias4" is not valid as a type  [valid-type]']
+Line 37: Unexpected errors ['aliases_typealiastype.py:37: error: Unexpected "..."  [misc]', 'aliases_typealiastype.py:37: error: Variable "aliases_typealiastype.GoodAlias5" is not valid as a type  [valid-type]']
+Line 38: Unexpected errors ['aliases_typealiastype.py:38: error: Unexpected "..."  [misc]', 'aliases_typealiastype.py:38: error: Variable "aliases_typealiastype.GoodAlias5" is not valid as a type  [valid-type]']
+Line 39: Unexpected errors ['aliases_typealiastype.py:39: error: Bracketed expression "[...]" is not valid as a type  [valid-type]', 'aliases_typealiastype.py:39: error: Variable "aliases_typealiastype.GoodAlias5" is not valid as a type  [valid-type]', 'aliases_typealiastype.py:39: error: Unpack is only valid in a variadic position  [valid-type]']
 """

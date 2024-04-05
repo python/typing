@@ -14,3 +14,10 @@ historical_positional.py:43: error: Unexpected keyword argument "__x" for "m1" o
 historical_positional.py:50: note: "f4" defined here
 historical_positional.py:53: error: Unexpected keyword argument "__y" for "f4"  [call-arg]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Expected 1 errors
+Line 38: Expected 1 errors
+Line 32: Unexpected errors ['historical_positional.py:32: error: Unexpected keyword argument "__y" for "f3"  [call-arg]']
+Line 53: Unexpected errors ['historical_positional.py:53: error: Unexpected keyword argument "__y" for "f4"  [call-arg]']
+"""

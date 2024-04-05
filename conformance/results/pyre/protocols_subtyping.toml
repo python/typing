@@ -8,3 +8,6 @@ protocols_subtyping.py:80:4 Incompatible variable type [9]: v4 is declared to ha
 protocols_subtyping.py:102:4 Incompatible variable type [9]: v4 is declared to have type `Proto7[int, float]` but is used as type `Proto6[float, float]`.
 protocols_subtyping.py:103:4 Incompatible variable type [9]: v5 is declared to have type `Proto7[float, object]` but is used as type `Proto6[float, float]`.
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -7,6 +7,10 @@ output = """
 File "protocols_merging.py", line 52, in <module>: Type annotation for s6 does not match type of assignment [annotation-type-mismatch]
 File "protocols_merging.py", line 53, in <module>: Type annotation for s7 does not match type of assignment [annotation-type-mismatch]
 File "protocols_merging.py", line 54, in <module>: Type annotation for s8 does not match type of assignment [annotation-type-mismatch]
-File "protocols_merging.py", line 83, in <module>: Can't instantiate SizedAndClosable4 with abstract methods close [not-instantiable]
-File "protocols_merging.py", line 84, in <module>: Type annotation for y does not match type of assignment [annotation-type-mismatch]
+File "protocols_merging.py", line 82, in <module>: Can't instantiate SizedAndClosable4 with abstract methods close [not-instantiable]
+File "protocols_merging.py", line 83, in <module>: Type annotation for y does not match type of assignment [annotation-type-mismatch]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 67: Expected 1 errors
 """

@@ -38,3 +38,6 @@ protocols_generic.py:147:25 - error: Expression of type "ConcreteHasProperty4" c
         Parameter 2: type "(T@m) -> str" cannot be assigned to type "(int) -> str"
           Type "(str) -> str" cannot be assigned to type "(int) -> str" (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

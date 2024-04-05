@@ -20,3 +20,12 @@ annotations_generators.py:174:35 Incompatible parameter type [6]: In call `typin
 annotations_generators.py:182:48 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_T_co](covariant)], Type[Variable[_T_contra](contravariant)], Type[Variable[_V_co](covariant)]]` but got `Tuple[object, object, typing.Any]`.
 annotations_generators.py:182:58 Undefined attribute [16]: `AsyncIterator` has no attribute `__getitem__`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 51: Expected 1 errors
+Line 86: Expected 1 errors
+Line 88: Unexpected errors ['annotations_generators.py:88:4 Incompatible return type [7]: Expected `int` but got `Generator[typing.Any, typing.Any, int]`.']
+Line 167: Unexpected errors ['annotations_generators.py:167:35 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_T_co](covariant)], Type[Variable[_T_contra](contravariant)]]` but got `Tuple[Type[str], None]`.']
+Line 174: Unexpected errors ['annotations_generators.py:174:35 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_T_co](covariant)], Type[Variable[_T_contra](contravariant)]]` but got `Tuple[Type[str], None]`.']
+Line 182: Unexpected errors ['annotations_generators.py:182:48 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_T_co](covariant)], Type[Variable[_T_contra](contravariant)], Type[Variable[_V_co](covariant)]]` but got `Tuple[object, object, typing.Any]`.', 'annotations_generators.py:182:58 Undefined attribute [16]: `AsyncIterator` has no attribute `__getitem__`.']
+"""

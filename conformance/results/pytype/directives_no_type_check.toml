@@ -3,9 +3,12 @@ notes = """
 Does not honor @no_type_check decorator.
 """
 output = """
-File "directives_no_type_check.py", line 16, in ClassA: Type annotation for x does not match type of assignment [annotation-type-mismatch]
-File "directives_no_type_check.py", line 21, in func1: unsupported operand type(s) for +: int and str [unsupported-operands]
-File "directives_no_type_check.py", line 22, in func1: bad return type [bad-return-type]
-File "directives_no_type_check.py", line 25, in <module>: Function func1 was called with the wrong arguments [wrong-arg-types]
-File "directives_no_type_check.py", line 26, in <module>: Missing parameter 'a' in call to function func1 [missing-parameter]
+File "directives_no_type_check.py", line 15, in ClassA: Type annotation for x does not match type of assignment [annotation-type-mismatch]
+File "directives_no_type_check.py", line 25, in func1: unsupported operand type(s) for +: int and str [unsupported-operands]
+File "directives_no_type_check.py", line 26, in func1: bad return type [bad-return-type]
+File "directives_no_type_check.py", line 29, in <module>: Function func1 was called with the wrong arguments [wrong-arg-types]
+File "directives_no_type_check.py", line 32, in <module>: Missing parameter 'a' in call to function func1 [missing-parameter]
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

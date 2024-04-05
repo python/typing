@@ -58,3 +58,6 @@ callables_protocol.py:311:27 - error: Expression of type "(*, path: str) -> str"
   Type "(*, path: str) -> str" cannot be assigned to type "(*, path: str = ...) -> str"
     Parameter "path" is missing default argument (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

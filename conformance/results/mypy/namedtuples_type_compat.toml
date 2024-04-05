@@ -3,3 +3,6 @@ output = """
 namedtuples_type_compat.py:22: error: Incompatible types in assignment (expression has type "Point", variable has type "tuple[int, int]")  [assignment]
 namedtuples_type_compat.py:23: error: Incompatible types in assignment (expression has type "Point", variable has type "tuple[int, str, str]")  [assignment]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

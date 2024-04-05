@@ -43,3 +43,6 @@ qualifiers_final_annotation.py:149:9 - error: "x" is declared as Final and canno
 qualifiers_final_annotation.py:152:30 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
 qualifiers_final_annotation.py:155:9 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

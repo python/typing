@@ -4,6 +4,7 @@ Type system conformance test for static type checkers.
 
 import os
 from pathlib import Path
+import re
 import sys
 from time import time
 from typing import Sequence
@@ -28,6 +29,9 @@ def run_tests(
     tests_output = type_checker.run_tests([file.name for file in test_cases])
     test_duration = time() - test_start_time
 
+    for _, output in tests_output.items():
+        type_checker.parse_errors(output.splitlines())
+
     results_dir = root_dir / "results" / type_checker.name
 
     for test_case in test_cases:
@@ -36,6 +40,48 @@ def run_tests(
         )
 
     update_type_checker_info(type_checker, root_dir, test_duration)
+
+
+def get_expected_errors(test_case: Path) -> dict[int, tuple[int, int]]:
+    """Return the line numbers where type checkers are expected to produce an error.
+
+    The format is {line number: (expected number of required errors, expected number of optional errors)}.
+    """
+    with open(test_case, "r") as f:
+        lines = f.readlines()
+    output: dict[int, tuple[int, int]] = {}
+    for i, line in enumerate(lines, start=1):
+        line_without_comment, *_ = line.split("#")
+        # Ignore lines with no non-comment content. This allows commenting out test cases.
+        if not line_without_comment.strip():
+            continue
+        required = 0
+        optional = 0
+        for match in re.finditer(r"# E\??(?=:|$| )", line):
+            if match.group() == "# E":
+                required += 1
+            else:
+                optional += 1
+        if required or optional:
+            output[i] = (required, optional)
+    return output
+
+
+def diff_expected_errors(type_checker: TypeChecker, test_case: Path, output: str) -> str:
+    """Return a list of errors that were expected but not produced by the type checker."""
+    expected_errors = get_expected_errors(test_case)
+    errors = type_checker.parse_errors(output.splitlines())
+
+    differences: list[str] = []
+    for expected_lineno, (expected_count, _) in expected_errors.items():
+        if expected_lineno not in errors and expected_count > 0:
+            differences.append(f"Line {expected_lineno}: Expected {expected_count} errors")
+        # We don't report an issue if the count differs, because type checkers may produce
+        # multiple error messages for a single line.
+    for actual_lineno, actual_errors in errors.items():
+        if actual_lineno not in expected_errors:
+            differences.append(f"Line {actual_lineno}: Unexpected errors {actual_errors}")
+    return "".join(f"{diff}\n" for diff in differences)
 
 
 def update_output_for_test(
@@ -55,17 +101,33 @@ def update_output_for_test(
         with open(results_file, "rb") as f:
             existing_results = tomli.load(f)
     except FileNotFoundError:
+        should_write = True
         existing_results = {}
     except tomli.TOMLDecodeError:
         print(f"Error decoding {results_file}")
         existing_results = {}
 
-    old_output = existing_results.get("output", None)
+    should_write = False
+    errors_diff = "\n" + diff_expected_errors(type_checker, test_case, output)
+    old_errors_diff = "\n" + existing_results.get("errors_diff", "")
+
+    if errors_diff != old_errors_diff:
+        should_write = True
+        print(f"Result changed for {test_name} when running {type_checker.name}")
+        print(f"Old output: {old_errors_diff}")
+        print(f"New output: {errors_diff}")
+        print("")
+
+        existing_results["conformance_automated"] = "Fail" if errors_diff.strip() else "Pass"
+
+
+    old_output = existing_results.get("output", "")
     old_output = f"\n{old_output}"
 
     # Did the type checker output change since last time the
     # test was run?
     if old_output != output:
+        should_write = True
         print(f"Output changed for {test_name} when running {type_checker.name}")
         print(f"Old output: {old_output}")
         print(f"New output: {output}")
@@ -76,8 +138,15 @@ def update_output_for_test(
             if isinstance(value, str) and "\n" in value:
                 existing_results[key] = tomlkit.string(f"\n{value}", multiline=True)
 
+    if should_write:
+        # Always reapply tomlkit.string, or it will turn into a single line.
+        existing_results["errors_diff"] = tomlkit.string(errors_diff, multiline=True)
         existing_results["output"] = tomlkit.string(output, multiline=True)
-
+        if "notes" in existing_results:
+            notes = existing_results["notes"]
+            if not notes.startswith("\n"):
+                notes = "\n" + notes
+            existing_results["notes"] = tomlkit.string(notes, multiline=True)
         results_file.parent.mkdir(parents=True, exist_ok=True)
         with open(results_file, "w") as f:
             tomlkit.dump(existing_results, f)

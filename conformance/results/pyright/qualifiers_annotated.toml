@@ -27,3 +27,6 @@ qualifiers_annotated.py:91:1 - error: "Annotated" cannot be instantiated (report
 qualifiers_annotated.py:92:1 - error: Object of type "type[Annotated]" is not callable (reportCallIssue)
 qualifiers_annotated.py:93:1 - error: Object of type "type[Annotated]" is not callable (reportCallIssue)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -5,3 +5,6 @@ typeddicts_readonly_update.py:23:11 - error: Argument of type "A" cannot be assi
   "x" is an incompatible type
     Type "int" cannot be assigned to type "Never" (reportArgumentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

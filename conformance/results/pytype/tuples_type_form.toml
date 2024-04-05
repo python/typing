@@ -14,3 +14,6 @@ File "tuples_type_form.py", line 43, in <module>: Invalid type annotation 'Ellip
 File "tuples_type_form.py", line 44, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
 File "tuples_type_form.py", line 45, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

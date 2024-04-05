@@ -70,20 +70,20 @@ class Outer:
 
 
 # This should generate an error.
-def foo(bar: Self) -> Self: ...  # Rejected (not within a class)
+def foo(bar: Self) -> Self: ...  # E: not within a class
 
 # This should generate an error.
-bar: Self  # Rejected (not within a class)
+bar: Self  # E: not within a class
 
 TFoo2 = TypeVar("TFoo2", bound="Foo2")
 
 class Foo2:
     # Rejected (Self is treated as unknown).
-    def has_existing_self_annotation(self: TFoo2) -> Self: ...
+    def has_existing_self_annotation(self: TFoo2) -> Self: ... # E
 
 class Foo3:
     def return_concrete_type(self) -> Self:
-        return Foo3()  # Rejected (see FooChild below for rationale)
+        return Foo3()  # E (see FooChild below for rationale)
 
 class Foo3Child(Foo3):
     child_value: int = 42
@@ -98,29 +98,29 @@ class Bar(Generic[T]):
     def bar(self) -> T: ...
 
 # This should generate an error.
-class Baz(Bar[Self]): ...  # Rejected
+class Baz(Bar[Self]): ...  # E
 
-class Baz2(Self): ...  # Rejected
+class Baz2(Self): ...  # E
 
 # This should generate an error.
-TupleSelf: TypeAlias = tuple[Self]  # Rejected
+TupleSelf: TypeAlias = tuple[Self]  # E
 
 class Base:
     @staticmethod
     # This should generate an error.
-    def make() -> Self:  # Rejected
+    def make() -> Self:  # E
         ...
 
     @staticmethod
     # This should generate an error.
-    def return_parameter(foo: Self) -> Self:  # Rejected
+    def return_parameter(foo: Self) -> Self:  # E
         ...
 
 class MyMetaclass(type):
     # This should generate an error.
-    def __new__(cls, *args: Any) -> Self:  # Rejected
+    def __new__(cls, *args: Any) -> Self:  # E
         ...
 
     # This should generate an error.
-    def __mul__(cls, count: int) -> list[Self]:  # Rejected
+    def __mul__(cls, count: int) -> list[Self]:  # E
         ...

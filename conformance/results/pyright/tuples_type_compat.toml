@@ -44,3 +44,6 @@ tuples_type_compat.py:175:50 - error: Expression of type "tuple[str, str]" canno
   "tuple[str, str]" is incompatible with "tuple[*tuple[str, ...], str, str, str]"
     Tuple size mismatch; expected 3 or more but received 2 (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

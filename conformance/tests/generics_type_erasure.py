@@ -33,15 +33,15 @@ n4 = Node[str]()
 assert_type(n4, Node[str])
 
 n5 = Node[int](0)   # OK
-n6 = Node[int]("")  # Type error
+n6 = Node[int]("")  # E
 n7 = Node[str]("")  # OK
-n8 = Node[str](0)   # Type error
+n8 = Node[str](0)   # E
 
-Node[int].label = 1  # Type error
-Node[int].label      # Type error
-Node.label = 1       # Type error
-Node.label           # Type error
-type(n1).label       # Type error
+Node[int].label = 1  # E
+Node[int].label      # E
+Node.label = 1       # E
+Node.label           # E
+type(n1).label       # E
 assert_type(n1.label, int)
 assert_type(Node[int]().label, int)
 n1.label = 1         # OK

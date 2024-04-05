@@ -25,3 +25,18 @@ classes_classvar.py:79:0 Uninitialized attribute [13]: Attribute `damage` is dec
 classes_classvar.py:100:0 Invalid assignment [41]: Assigning to class variable through instance, did you mean to assign to `Starship.stats` instead?
 classes_classvar.py:129:0 Incompatible variable type [9]: a is declared to have type `ProtoA` but is used as type `ProtoAImpl`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+Line 53: Expected 1 errors
+Line 61: Expected 1 errors
+Line 62: Expected 1 errors
+Line 65: Expected 1 errors
+Line 69: Expected 1 errors
+Line 70: Expected 1 errors
+Line 33: Unexpected errors ['classes_classvar.py:33:0 Uninitialized attribute [13]: Attribute `bad1` is declared in class `ClassA` to have type `typing.Any` but is never initialized.', 'classes_classvar.py:33:0 Uninitialized attribute [13]: Attribute `bad4` is declared in class `ClassA` to have type `Variable[T]` but is never initialized.', 'classes_classvar.py:33:0 Uninitialized attribute [13]: Attribute `bad5` is declared in class `ClassA` to have type `typing.List[Variable[T]]` but is never initialized.', 'classes_classvar.py:33:0 Uninitialized attribute [13]: Attribute `bad6` is declared in class `ClassA` to have type `typing.Callable[classes_classvar.P, typing.Any]` but is never initialized.']
+Line 66: Unexpected errors ['classes_classvar.py:66:8 Incompatible return type [7]: Expected `CV[int]` but got `int`.']
+Line 79: Unexpected errors ['classes_classvar.py:79:0 Uninitialized attribute [13]: Attribute `damage` is declared in class `BasicStarship` to have type `int` but is never initialized.']
+"""

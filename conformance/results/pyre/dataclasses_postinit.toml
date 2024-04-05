@@ -6,3 +6,11 @@ Does not reject access of `InitVar` from object.
 output = """
 dataclasses_postinit.py:54:4 Inconsistent override [14]: `dataclasses_postinit.DC4.__post_init__` overrides method defined in `DC3` inconsistently. Could not find parameter `_age` in overridden signature.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Expected 1 errors
+Line 28: Expected 1 errors
+Line 29: Expected 1 errors
+Line 36: Expected 1 errors
+Line 54: Unexpected errors ['dataclasses_postinit.py:54:4 Inconsistent override [14]: `dataclasses_postinit.DC4.__post_init__` overrides method defined in `DC3` inconsistently. Could not find parameter `_age` in overridden signature.']
+"""

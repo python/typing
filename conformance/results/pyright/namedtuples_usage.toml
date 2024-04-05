@@ -17,3 +17,6 @@ namedtuples_usage.py:53:1 - error: Expression with type "Point" cannot be assign
   Type "Point" is incompatible with target tuple
     Tuple size mismatch; expected 4 but received 3 (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

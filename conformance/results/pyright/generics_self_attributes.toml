@@ -12,3 +12,6 @@ generics_self_attributes.py:32:8 - error: Cannot assign member "next" for type "
       "LinkedList[int]" is incompatible with "OrdinalLinkedList"
       "LinkedList[int]" is incompatible with "None" (reportAttributeAccessIssue)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

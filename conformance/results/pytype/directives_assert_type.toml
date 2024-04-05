@@ -6,3 +6,7 @@ File "directives_assert_type.py", line 31, in func1: Function assert_type expect
 File "directives_assert_type.py", line 32, in func1: str [assert-type]
 File "directives_assert_type.py", line 33, in func1: Function assert_type expects 2 arg(s), got 3 [wrong-arg-count]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Expected 1 errors
+"""

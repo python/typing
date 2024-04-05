@@ -9,17 +9,18 @@ from typing import Callable, assert_type
 
 def func1(cb: Callable[[int, str], list[str]]) -> None:
     assert_type(cb(1, ""), list[str])
-    
-    cb(1)  # Type error
-    cb(1, 2)  # Type error
-    cb(1, "", 1)  # Type error
-    cb(a=1, b="")  # Type error
+
+    cb(1)  # E
+    cb(1, 2)  # E
+    cb(1, "", 1)  # E
+    # Mypy reports two errors, one for each kwarg.
+    cb(a=1, b="")  # E: bad kwarg 'a'
 
 
 def func2(cb: Callable[[], dict[str, str]]) -> None:
     assert_type(cb(), dict[str, str])
-    
-    cb(1)  # Type error
+
+    cb(1)  # E
 
 
 # > It is possible to declare the return type of a callable without specifying
@@ -36,10 +37,8 @@ def func4(*args: int, **kwargs: int) -> None:
     assert_type(kwargs, dict[str, int])
 
 
-v1: Callable[int]  # Illegal form
-v2: Callable[int, int]  # Illegal form
-v3: Callable[[], [int]]  # Illegal form
-v4: Callable[int, int, int]  # Illegal form
-v5: Callable[[...], int]  # Illegal form
-
-
+v1: Callable[int]  # E
+v2: Callable[int, int]  # E
+v3: Callable[[], [int]]  # E
+v4: Callable[int, int, int]  # E
+v5: Callable[[...], int]  # E

@@ -7,3 +7,6 @@ typeddicts_inheritance.py:55:4 - error: "x" overrides symbol of same name in cla
     Override type "int" is not the same as base type "str" (reportIncompatibleVariableOverride)
 typeddicts_inheritance.py:65:7 - error: Base classes for class "XYZ2" define variable "x" in incompatible way (reportIncompatibleVariableOverride)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

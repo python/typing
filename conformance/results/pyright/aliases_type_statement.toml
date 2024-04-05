@@ -51,3 +51,6 @@ aliases_type_statement.py:84:28 - error: Type alias "RecursiveTypeAlias3" cannot
 aliases_type_statement.py:86:31 - error: Type alias "RecursiveTypeAlias4" cannot use itself in its definition (reportGeneralTypeIssues)
 aliases_type_statement.py:90:28 - error: Type alias "RecursiveTypeAlias6" cannot use itself in its definition (reportGeneralTypeIssues)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

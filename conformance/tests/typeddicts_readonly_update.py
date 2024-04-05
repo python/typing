@@ -20,7 +20,7 @@ class A(TypedDict):
 
 a1: A = {"x": 1, "y": 2}
 a2: A = {"x": 3, "y": 4}
-a1.update(a2)  # Type Error
+a1.update(a2)  # E
 
 # > Unless the declared value is of bottom type (:data:`~typing.Never`).
 

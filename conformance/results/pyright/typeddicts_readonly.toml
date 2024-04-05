@@ -13,3 +13,6 @@ typeddicts_readonly.py:60:1 - error: Could not assign item in TypedDict
 typeddicts_readonly.py:61:1 - error: Could not assign item in TypedDict
   "year" is a read-only key in "Movie2" (reportTypedDictNotRequiredAccess)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

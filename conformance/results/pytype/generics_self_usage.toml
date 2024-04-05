@@ -16,3 +16,13 @@ File "generics_self_usage.py", line 116, in Base: Invalid type annotation 'Self'
 File "generics_self_usage.py", line 122, in __new__: bad return type [bad-return-type]
 File "generics_self_usage.py", line 126, in __mul__: bad return type [bad-return-type]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 101: Expected 1 errors
+Line 106: Expected 1 errors
+Line 121: Expected 1 errors
+Line 125: Expected 1 errors
+Line 58: Unexpected errors ['File "generics_self_usage.py", line 58, in foo: Invalid type annotation \\'Self\\'  [invalid-annotation]']
+Line 122: Unexpected errors ['File "generics_self_usage.py", line 122, in __new__: bad return type [bad-return-type]']
+Line 126: Unexpected errors ['File "generics_self_usage.py", line 126, in __mul__: bad return type [bad-return-type]']
+"""

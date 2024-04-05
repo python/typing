@@ -23,3 +23,6 @@ typeddicts_type_consistency.py:82:25 - error: Expression of type "B3" cannot be 
 typeddicts_type_consistency.py:124:56 - error: Expression of type "dict[str, dict[str, dict[str, int]]]" cannot be assigned to declared type "Outer1"
   "Literal[1]" is incompatible with "str" (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

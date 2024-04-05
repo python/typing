@@ -13,7 +13,7 @@ class Proto1(Protocol):
     pass
 
 
-p1 = Proto1()  # Type error: protocol cannot be instantiated
+p1 = Proto1()  # E: protocol cannot be instantiated
 
 
 # > A protocol is never a subtype of a concrete type.
@@ -35,7 +35,7 @@ class Concrete2:
 
 def func1(p2: Proto2, c2: Concrete2):
     v1: Proto2 = c2  # OK
-    v2: Concrete2 = p2  # Type error
+    v2: Concrete2 = p2  # E
 
 
 # > A protocol P1 is a subtype of another protocol P2 if P1 defines all
@@ -52,7 +52,7 @@ class Proto3(Protocol):
 
 def func2(p2: Proto2, p3: Proto3):
     v1: Proto2 = p3  # OK
-    v2: Proto3 = p2  # Type error
+    v2: Proto3 = p2  # E
 
 
 # > Generic protocols follow the rules for generic abstract classes, except
@@ -76,8 +76,8 @@ class Proto5(Protocol[T]):
 def func3(p4_int: Proto4[int, int], p5_int: Proto5[int]):
     v1: Proto4[int, int] = p5_int  # OK
     v2: Proto5[int] = p4_int  # OK
-    v3: Proto4[int, float] = p5_int  # Type error
-    v4: Proto5[float] = p4_int  # Type error
+    v3: Proto4[int, float] = p5_int  # E
+    v4: Proto5[float] = p4_int  # E
 
 
 S_co = TypeVar("S_co", covariant=True)
@@ -99,8 +99,8 @@ def func4(p6: Proto6[float, float]):
     v2: Proto7[float, float] = p6  # OK
     v3: Proto7[complex, int] = p6  # OK
 
-    v4: Proto7[int, float] = p6  # Type error
-    v5: Proto7[float, object] = p6  # Type error
+    v4: Proto7[int, float] = p6  # E
+    v5: Proto7[float, object] = p6  # E
 
 
 # > Unions of protocol classes behaves the same way as for non-protocol classes.

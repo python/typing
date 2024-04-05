@@ -57,8 +57,8 @@ class DC6:
 class DC7(DC6):
     # This should generate an error because a ClassVar cannot override
     # an instance variable of the same name.
-    x: ClassVar[int]
+    x: ClassVar[int]  # E
 
     # This should generate an error because an instance variable cannot
     # override a class variable of the same name.
-    y: int
+    y: int  # E

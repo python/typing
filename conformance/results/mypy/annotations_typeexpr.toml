@@ -20,3 +20,6 @@ annotations_typeexpr.py:101: error: Invalid type comment or annotation  [valid-t
 annotations_typeexpr.py:102: error: Module "types" is not valid as a type  [valid-type]
 annotations_typeexpr.py:102: note: Perhaps you meant to use a protocol matching the module structure?
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

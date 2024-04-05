@@ -13,3 +13,12 @@ generics_self_basic.py:57:0 Uninitialized attribute [13]: Attribute `value` is d
 generics_self_basic.py:64:25 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.
 generics_self_basic.py:80:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[T]]` but got `TypeVar`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 13: Unexpected errors ['generics_self_basic.py:13:26 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
+Line 26: Unexpected errors ['generics_self_basic.py:26:30 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
+Line 27: Unexpected errors ['generics_self_basic.py:27:15 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 1 was provided.']
+Line 39: Unexpected errors ['generics_self_basic.py:39:27 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
+Line 57: Unexpected errors ['generics_self_basic.py:57:0 Uninitialized attribute [13]: Attribute `value` is declared in class `Container` to have type `Variable[T]` but is never initialized.']
+Line 80: Unexpected errors ['generics_self_basic.py:80:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[T]]` but got `TypeVar`.']
+"""

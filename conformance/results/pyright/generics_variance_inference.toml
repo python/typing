@@ -80,3 +80,6 @@ generics_variance_inference.py:194:37 - error: Expression of type "ShouldBeContr
     Type parameter "T@ShouldBeContravariant2" is contravariant, but "int" is not a supertype of "float"
       "float" is incompatible with "int" (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

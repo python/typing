@@ -13,3 +13,9 @@ annotations_generators.py:91: error: The return type of an async generator funct
 annotations_generators.py:118: error: Incompatible types in "yield from" (actual type "A", expected type "B")  [misc]
 annotations_generators.py:119: error: Incompatible types in "yield from" (actual type "int", expected type "B")  [misc]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 87: Expected 1 errors
+Line 92: Expected 1 errors
+Line 135: Expected 1 errors
+"""

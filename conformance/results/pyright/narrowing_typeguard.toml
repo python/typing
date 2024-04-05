@@ -13,3 +13,6 @@ narrowing_typeguard.py:148:26 - error: Argument of type "(val: object) -> TypeGu
       "TypeGuard[int]" is incompatible with "str"
       "bool" is incompatible with "str" (reportArgumentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

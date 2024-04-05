@@ -5,3 +5,16 @@ Type parameter syntax not yet support.
 output = """
 SyntaxError: Type parameter lists are only supported in Python 3.12 and greater (<unknown>, line 13)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Expected 1 errors
+Line 27: Expected 1 errors
+Line 34: Expected 1 errors
+Line 46: Expected 1 errors
+Line 50: Expected 1 errors
+Line 62: Expected 1 errors
+Line 66: Expected 1 errors
+Line 73: Expected 1 errors
+Line 77: Expected 1 errors
+Line 81: Expected 1 errors
+"""

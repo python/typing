@@ -4,3 +4,6 @@ Type evaluation differs from other type checkers because of ambiguity in the spe
 """
 output = """
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

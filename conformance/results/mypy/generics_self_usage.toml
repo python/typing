@@ -17,3 +17,6 @@ generics_self_usage.py:116: error: Static methods cannot use Self type  [misc]
 generics_self_usage.py:121: error: Self type cannot be used in a metaclass  [misc]
 generics_self_usage.py:125: error: Self type cannot be used in a metaclass  [misc]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

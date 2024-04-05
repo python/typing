@@ -102,12 +102,12 @@ def func3() -> None:
 
 class C:
     # Type checker should emit error here.
-    def tg_1(self) -> TypeIs[int]:
+    def tg_1(self) -> TypeIs[int]:  # E
         return False
 
     @classmethod
     # Type checker should emit error here.
-    def tg_2(cls) -> TypeIs[int]:
+    def tg_2(cls) -> TypeIs[int]:  # E
         return False
 
 # > ``TypeIs`` is also valid as the return type of a callable, for example
@@ -129,7 +129,7 @@ def simple_typeguard(val: object) -> TypeIs[int]:
 
 
 takes_callable_bool(simple_typeguard)  # OK
-takes_callable_str(simple_typeguard)   # Error
+takes_callable_str(simple_typeguard)   # E
 
 
 class CallableBoolProto(Protocol):
@@ -149,7 +149,7 @@ def takes_callable_str_proto(f: CallableStrProto) -> None:
 
 
 takes_callable_bool_proto(simple_typeguard)  # OK
-takes_callable_str_proto(simple_typeguard)   # Error
+takes_callable_str_proto(simple_typeguard)   # E
 
 # TypeIs and TypeGuard are not compatible with each other.
 
@@ -166,8 +166,8 @@ def is_int_typeguard(val: object) -> TypeGuard[int]:
     return isinstance(val, int)
 
 takes_typeguard(is_int_typeguard)  # OK
-takes_typeguard(is_int_typeis)     # Error
-takes_typeis(is_int_typeguard)     # Error
+takes_typeguard(is_int_typeis)     # E
+takes_typeis(is_int_typeguard)     # E
 takes_typeis(is_int_typeis)        # OK
 
 
@@ -188,13 +188,13 @@ def bool_typeis(val: object) -> TypeIs[bool]:
 
 
 takes_int_typeis(int_typeis)  # OK
-takes_int_typeis(bool_typeis)  # Error
+takes_int_typeis(bool_typeis)  # E
 
 # > It is an error to narrow to a type that is not consistent with the input type
 
-def bad_typeis(x: int) -> TypeIs[str]:  # Error
+def bad_typeis(x: int) -> TypeIs[str]:  # E
     return isinstance(x, str)
 
 
-def bad_typeis_variance(x: list[object]) -> TypeIs[list[int]]:  # Error
+def bad_typeis_variance(x: list[object]) -> TypeIs[list[int]]:  # E
     return all(isinstance(x, int) for x in x)

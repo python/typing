@@ -15,3 +15,6 @@ generics_basic.py:167: error: Type variable "generics_basic.T" is unbound  [vali
 generics_basic.py:167: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
 generics_basic.py:167: note: (Hint: Use "T" in function signature to bind "T" inside a function)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -7,3 +7,7 @@ Does not reject access to `__slots__` from dataclass instance when `slots=False`
 output = """
 dataclasses_slots.py:67:0 Undefined attribute [16]: `DC6` has no attribute `__slots__`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 67: Unexpected errors ['dataclasses_slots.py:67:0 Undefined attribute [16]: `DC6` has no attribute `__slots__`.']
+"""

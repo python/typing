@@ -20,3 +20,6 @@ tuples_type_form.py:43:17 - error: "..." is allowed only as the second of two ar
 tuples_type_form.py:44:25 - error: "..." cannot be used with an unpacked TypeVarTuple or tuple
 tuples_type_form.py:45:30 - error: "..." cannot be used with an unpacked TypeVarTuple or tuple
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

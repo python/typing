@@ -52,15 +52,18 @@ aliases_recursive.py:52:24 - error: Expression of type "dict[str, str | int | di
     "dict[str, str | int | dict[str, str | int | list[int]]]" is incompatible with "int"
     "dict[str, str | int | dict[str, str | int | list[int]]]" is incompatible with "Mapping[str, RecursiveMapping]"
       Type parameter "_VT_co@Mapping" is covariant, but "str | int | dict[str, str | int | list[int]]" is not a subtype of "RecursiveMapping" (reportAssignmentType)
-aliases_recursive.py:67:38 - error: Expression of type "list[str | list[float]]" cannot be assigned to declared type "GenericTypeAlias1[str]"
+aliases_recursive.py:63:38 - error: Expression of type "list[str | list[float]]" cannot be assigned to declared type "GenericTypeAlias1[str]"
   Type "float" cannot be assigned to type "GenericTypeAlias1[T1@GenericTypeAlias1] | str"
     "float" is incompatible with "GenericTypeAlias1[T1@GenericTypeAlias1]"
     "float" is incompatible with "str" (reportAssignmentType)
-aliases_recursive.py:73:51 - error: Expression of type "list[list[int | list[str | int | list[float]]] | str]" cannot be assigned to declared type "GenericTypeAlias2[str, int]"
+aliases_recursive.py:69:51 - error: Expression of type "list[list[int | list[str | int | list[float]]] | str]" cannot be assigned to declared type "GenericTypeAlias2[str, int]"
   Type "float" cannot be assigned to type "GenericTypeAlias2[T1@GenericTypeAlias2, T2@GenericTypeAlias2] | str | int"
     "float" is incompatible with "GenericTypeAlias2[T1@GenericTypeAlias2, T2@GenericTypeAlias2]"
     "float" is incompatible with "str"
     "float" is incompatible with "int" (reportAssignmentType)
-aliases_recursive.py:76:29 - error: Type alias "RecursiveUnion" cannot use itself in its definition (reportGeneralTypeIssues)
-aliases_recursive.py:78:31 - error: Type alias "MutualReference1" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_recursive.py:72:29 - error: Type alias "RecursiveUnion" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_recursive.py:75:31 - error: Type alias "MutualReference1" cannot use itself in its definition (reportGeneralTypeIssues)
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

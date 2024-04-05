@@ -15,7 +15,7 @@ def f1(__x: int, __y__: int = 0) -> None: ...
 
 f1(3, __y__=1)  # OK
 
-f1(__x=3)  # Type error
+f1(__x=3)  # E
 
 
 # > Consistent with PEP 570 syntax, positional-only parameters cannot appear
@@ -23,7 +23,7 @@ f1(__x=3)  # Type error
 # > enforce this requirement:
 
 
-def f2(x: int, __y: int) -> None: ...  # Type error
+def f2(x: int, __y: int) -> None: ...  # E
 
 
 def f3(x: int, *args: int, __y: int) -> None: ...  # OK
@@ -35,12 +35,12 @@ f3(3, __y=3)  # OK
 class A:
     def m1(self, __x: int, __y__: int = 0) -> None: ...
 
-    def m2(self, x: int, __y: int) -> None: ...  # Type error
+    def m2(self, x: int, __y: int) -> None: ...  # E
 
 
 a = A()
 a.m1(3, __y__=1)  # OK
-a.m1(__x=3)  # Type error
+a.m1(__x=3)  # E
 
 
 # The historical mechanism should not apply when new-style (PEP 570)

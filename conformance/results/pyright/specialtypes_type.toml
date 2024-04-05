@@ -21,3 +21,6 @@ specialtypes_type.py:145:5 - error: Cannot access member "unknown" for type "TA3
 specialtypes_type.py:146:5 - error: Cannot access member "unknown" for type "TA4"
   Member "unknown" is unknown (reportAttributeAccessIssue)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

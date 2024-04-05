@@ -16,3 +16,6 @@ generics_basic.py:141:5 - error: Argument of type "Literal[0]" cannot be assigne
   "Literal[0]" is incompatible with "str" (reportArgumentType)
 generics_basic.py:167:37 - error: Metaclass cannot be generic (reportGeneralTypeIssues)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -35,3 +35,6 @@ annotations_forward_refs.py:80:14 - error: Type of "ClassF" could not be determi
 annotations_forward_refs.py:80:14 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 annotations_forward_refs.py:89:8 - error: Expected type expression but received "(self: Self@ClassD) -> None" (reportGeneralTypeIssues)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

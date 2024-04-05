@@ -60,3 +60,42 @@ tuples_type_compat.py:174:8 Invalid type [31]: Expression `tuple[(*tuple[(str, .
 tuples_type_compat.py:175:4 Incompatible variable type [9]: t9 is declared to have type `Tuple[unknown, str, str, str]` but is used as type `Tuple[str, str]`.
 tuples_type_compat.py:175:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], str, str, str)]` is not a valid type.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Expected 1 errors
+Line 32: Expected 1 errors
+Line 33: Expected 1 errors
+Line 43: Expected 1 errors
+Line 62: Expected 1 errors
+Line 22: Unexpected errors ['tuples_type_compat.py:22:30 Invalid type [31]: Expression `tuple[(int, *tuple[(int, ...)])]` is not a valid type.']
+Line 27: Unexpected errors ['tuples_type_compat.py:27:8 Invalid type [31]: Expression `tuple[(int, *tuple[(int, ...)])]` is not a valid type.']
+Line 47: Unexpected errors ['tuples_type_compat.py:47:8 Invalid type [31]: Expression `tuple[(int, *tuple[(str, ...)])]` is not a valid type.']
+Line 55: Unexpected errors ['tuples_type_compat.py:55:21 Undefined or invalid type [11]: Annotation `SomeType` is not defined as a type.']
+Line 71: Unexpected errors ['tuples_type_compat.py:71:15 Invalid type [31]: Expression `typing.Union[(tuple[int], tuple[(str, str)], tuple[(int, *tuple[(str, ...)], int)])]` is not a valid type.']
+Line 78: Unexpected errors ['tuples_type_compat.py:78:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.', 'tuples_type_compat.py:78:49 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[int]]`.']
+Line 82: Unexpected errors ['tuples_type_compat.py:82:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[str], Type[int]]`.']
+Line 91: Unexpected errors ['tuples_type_compat.py:91:15 Invalid type [31]: Expression `typing.Union[(tuple[int], tuple[(str, str)], tuple[(int, *tuple[(str, ...)], int)])]` is not a valid type.']
+Line 99: Unexpected errors ['tuples_type_compat.py:99:35 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.', 'tuples_type_compat.py:99:53 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[int]]`.']
+Line 103: Unexpected errors ['tuples_type_compat.py:103:35 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[str], Type[int]]`.']
+Line 115: Unexpected errors ['tuples_type_compat.py:115:36 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[UnionType, Type[str]]`.']
+Line 117: Unexpected errors ['tuples_type_compat.py:117:36 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[UnionType, Type[int]]`.']
+Line 134: Unexpected errors ['tuples_type_compat.py:134:39 Invalid type [31]: Expression `tuple[(int, *tuple[(str, ...)])]` is not a valid type.']
+Line 137: Unexpected errors ['tuples_type_compat.py:137:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `UnionType`.']
+Line 139: Unexpected errors ['tuples_type_compat.py:139:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `UnionType`.']
+Line 143: Unexpected errors ['tuples_type_compat.py:143:4 Invalid type [31]: Expression `tuple[(int, *tuple[str])]` is not a valid type.']
+Line 146: Unexpected errors ['tuples_type_compat.py:146:0 Incompatible variable type [9]: t2 is declared to have type `Tuple[int, unknown]` but is used as type `Tuple[int]`.', 'tuples_type_compat.py:146:4 Invalid type [31]: Expression `tuple[(int, *tuple[(str, ...)])]` is not a valid type.']
+Line 147: Unexpected errors ["tuples_type_compat.py:147:0 Incompatible variable type [9]: t2 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal['']]`."]
+Line 148: Unexpected errors ["tuples_type_compat.py:148:0 Incompatible variable type [9]: t2 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[''], typing_extensions.Literal['']]`."]
+Line 153: Unexpected errors ['tuples_type_compat.py:153:0 Incompatible variable type [9]: t3 is declared to have type `Tuple[int, unknown, int]` but is used as type `Tuple[int, int]`.', 'tuples_type_compat.py:153:4 Invalid type [31]: Expression `tuple[(int, *tuple[(str, ...)], int)]` is not a valid type.']
+Line 154: Unexpected errors ["tuples_type_compat.py:154:0 Incompatible variable type [9]: t3 is declared to have type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[2]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[''], typing_extensions.Literal[2]]`."]
+Line 155: Unexpected errors ["tuples_type_compat.py:155:0 Incompatible variable type [9]: t3 is declared to have type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[2]]` but is used as type `Tuple[typing_extensions.Literal[1], typing_extensions.Literal[''], typing_extensions.Literal[''], typing_extensions.Literal[2]]`."]
+Line 159: Unexpected errors ['tuples_type_compat.py:159:0 Incompatible variable type [9]: t4 is declared to have type `Tuple[unknown, int]` but is used as type `Tuple[int]`.', 'tuples_type_compat.py:159:4 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], int)]` is not a valid type.']
+Line 160: Unexpected errors ["tuples_type_compat.py:160:0 Incompatible variable type [9]: t4 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[''], typing_extensions.Literal[1]]`."]
+Line 161: Unexpected errors ["tuples_type_compat.py:161:0 Incompatible variable type [9]: t4 is declared to have type `Tuple[typing_extensions.Literal[1]]` but is used as type `Tuple[typing_extensions.Literal[''], typing_extensions.Literal[''], typing_extensions.Literal[1]]`."]
+Line 167: Unexpected errors ['tuples_type_compat.py:167:4 Incompatible variable type [9]: t1 is declared to have type `Tuple[str, str, unknown]` but is used as type `Tuple[str, str]`.', 'tuples_type_compat.py:167:8 Invalid type [31]: Expression `tuple[(str, str, *tuple[(int, ...)])]` is not a valid type.']
+Line 169: Unexpected errors ['tuples_type_compat.py:169:8 Invalid type [31]: Expression `tuple[(str, *tuple[(str, ...)])]` is not a valid type.']
+Line 170: Unexpected errors ['tuples_type_compat.py:170:4 Incompatible variable type [9]: t4 is declared to have type `Tuple[str, str, unknown]` but is used as type `Tuple[str, str]`.', 'tuples_type_compat.py:170:8 Invalid type [31]: Expression `tuple[(str, str, *tuple[(str, ...)])]` is not a valid type.']
+Line 172: Unexpected errors ['tuples_type_compat.py:172:4 Incompatible variable type [9]: t6 is declared to have type `Tuple[str, unknown, str]` but is used as type `Tuple[str, str]`.', 'tuples_type_compat.py:172:8 Invalid type [31]: Expression `tuple[(str, *tuple[(int, ...)], str)]` is not a valid type.']
+Line 173: Unexpected errors ['tuples_type_compat.py:173:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], str)]` is not a valid type.']
+Line 174: Unexpected errors ['tuples_type_compat.py:174:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], str)]` is not a valid type.']
+"""

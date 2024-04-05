@@ -1,3 +1,11 @@
 conformant = "Unsupported"
 output = """
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Expected 1 errors
+Line 50: Expected 1 errors
+Line 104: Expected 1 errors
+Line 111: Expected 1 errors
+Line 138: Expected 1 errors
+"""

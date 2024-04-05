@@ -14,59 +14,59 @@ class ClassA:
     type GoodAlias4 = int | None
 
 
-GoodAlias1.bit_count  # Type error: cannot access attribute
+GoodAlias1.bit_count  # E: cannot access attribute
 
-GoodAlias1()  # Type error: cannot call alias
+GoodAlias1()  # E: cannot call alias
 
 print(GoodAlias1.__value__)  # OK
 print(GoodAlias1.__type_params__)  # OK
-print(GoodAlias1.other_attrib)  # Type error: unknown attribute
+print(GoodAlias1.other_attrib)  # E: unknown attribute
 
 
-class DerivedInt(GoodAlias1):  # Type error: cannot use alias as base class
+class DerivedInt(GoodAlias1):  # E: cannot use alias as base class
     pass
 
 
 def func2(x: object):
-    if isinstance(x, GoodAlias1):  # Type error: cannot use alias in isinstance
+    if isinstance(x, GoodAlias1):  # E: cannot use alias in isinstance
         pass
 
 var1 = 1
 
 # The following should not be allowed as type aliases.
-type BadTypeAlias1 = eval("".join(map(chr, [105, 110, 116])))
-type BadTypeAlias2 = [int, str]
-type BadTypeAlias3 = ((int, str),)
-type BadTypeAlias4 = [int for i in range(1)]
-type BadTypeAlias5 = {"a": "b"}
-type BadTypeAlias6 = (lambda: int)()
-type BadTypeAlias7 = [int][0]
-type BadTypeAlias8 = int if 1 < 3 else str
-type BadTypeAlias9 = var1
-type BadTypeAlias10 = True
-type BadTypeAlias11 = 1
-type BadTypeAlias12 = list or set
-type BadTypeAlias13 = f"{'int'}"
+type BadTypeAlias1 = eval("".join(map(chr, [105, 110, 116])))  # E
+type BadTypeAlias2 = [int, str]  # E
+type BadTypeAlias3 = ((int, str),)  # E
+type BadTypeAlias4 = [int for i in range(1)]  # E
+type BadTypeAlias5 = {"a": "b"}  # E
+type BadTypeAlias6 = (lambda: int)()  # E
+type BadTypeAlias7 = [int][0]  # E
+type BadTypeAlias8 = int if 1 < 3 else str  # E
+type BadTypeAlias9 = var1  # E
+type BadTypeAlias10 = True  # E
+type BadTypeAlias11 = 1  # E
+type BadTypeAlias12 = list or set  # E
+type BadTypeAlias13 = f"{'int'}"  # E
 
 if 1 < 2:
-    type BadTypeAlias14 = int  # Type error: redeclared
+    type BadTypeAlias14 = int  # E: redeclared
 else:
     type BadTypeAlias14 = int
 
 
 def func3():
-    type BadTypeAlias15 = int  # Type error alias not allowed in function
+    type BadTypeAlias15 = int  # E: alias not allowed in function
 
 
 
 V = TypeVar("V")
 
-type TA1[K] = dict[K, V] # Type error: combines old and new TypeVars
+type TA1[K] = dict[K, V] # E: combines old and new TypeVars
 
 
 T1 = TypeVar("T1")
 
-type TA2 = list[T1] # Type error: uses old TypeVar
+type TA2 = list[T1] # E: uses old TypeVar
 
 
 type RecursiveTypeAlias1[T] = T | list[RecursiveTypeAlias1[T]]
@@ -76,17 +76,17 @@ r1_2: RecursiveTypeAlias1[int] = [1, [1, 2, 3]]
 
 type RecursiveTypeAlias2[S: int, T: str, **P] = Callable[P, T] | list[S] | list[RecursiveTypeAlias2[S, T, P]]
 
-r2_1: RecursiveTypeAlias2[str, str, ...] # Type error: not compatible with S bound
+r2_1: RecursiveTypeAlias2[str, str, ...] # E: not compatible with S bound
 r2_2: RecursiveTypeAlias2[int, str, ...]
-r2_3: RecursiveTypeAlias2[int, int, ...] # Type error: not compatible with T bound
+r2_3: RecursiveTypeAlias2[int, int, ...] # E: not compatible with T bound
 r2_4: RecursiveTypeAlias2[int, str, [int, str]]
 
-type RecursiveTypeAlias3 = RecursiveTypeAlias3 # Type error: circular definition
+type RecursiveTypeAlias3 = RecursiveTypeAlias3 # E: circular definition
 
-type RecursiveTypeAlias4[T] = T | RecursiveTypeAlias4[str] # Type error: circular definition
+type RecursiveTypeAlias4[T] = T | RecursiveTypeAlias4[str] # E: circular definition
 
 type RecursiveTypeAlias5[T] = T | list[RecursiveTypeAlias5[T]]
 
-type RecursiveTypeAlias6 = RecursiveTypeAlias7 # Type error: circular definition
+type RecursiveTypeAlias6 = RecursiveTypeAlias7 # E: circular definition
 type RecursiveTypeAlias7 = RecursiveTypeAlias6
 

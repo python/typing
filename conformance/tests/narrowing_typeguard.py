@@ -99,12 +99,12 @@ def func3() -> None:
 
 class C:
     # Type checker should emit error here.
-    def tg_1(self) -> TypeGuard[int]:
+    def tg_1(self) -> TypeGuard[int]:  # E
         return False
 
     @classmethod
     # Type checker should emit error here.
-    def tg_2(cls) -> TypeGuard[int]:
+    def tg_2(cls) -> TypeGuard[int]:  # E
         return False
 
 # > ``TypeGuard`` is also valid as the return type of a ``Callable`` type. In that
@@ -125,7 +125,7 @@ def simple_typeguard(val: object) -> TypeGuard[int]:
 
 
 takes_callable_bool(simple_typeguard)  # OK
-takes_callable_str(simple_typeguard)   # Error
+takes_callable_str(simple_typeguard)   # E
 
 
 class CallableBoolProto(Protocol):
@@ -145,23 +145,23 @@ def takes_callable_str_proto(f: CallableStrProto) -> None:
 
 
 takes_callable_bool_proto(simple_typeguard)  # OK
-takes_callable_str_proto(simple_typeguard)   # Error
+takes_callable_str_proto(simple_typeguard)   # E
 
 # > Unlike ``TypeGuard``, ``TypeIs`` is invariant in its argument type:
 # > ``TypeIs[B]`` is not a subtype of ``TypeIs[A]``,
 # > even if ``B`` is a subtype of ``A``.
 
-def takes_int_typeis(f: Callable[[object], TypeGuard[int]]) -> None:
+def takes_int_typeguard(f: Callable[[object], TypeGuard[int]]) -> None:
     pass
 
 
-def int_typeis(val: object) -> TypeGuard[int]:
+def int_typeguard(val: object) -> TypeGuard[int]:
     return isinstance(val, int)
 
 
-def bool_typeis(val: object) -> TypeGuard[bool]:
+def bool_typeguard(val: object) -> TypeGuard[bool]:
     return isinstance(val, bool)
 
 
-takes_int_typeis(int_typeis)  # OK
-takes_int_typeis(bool_typeis)  # OK
+takes_int_typeguard(int_typeguard)  # OK
+takes_int_typeguard(bool_typeguard)  # OK

@@ -7,3 +7,6 @@ typeddicts_alt_syntax.py:35:78 - error: Extra TypedDict arguments not supported 
 typeddicts_alt_syntax.py:45:43 - error: Expression of type "dict[str, str]" cannot be assigned to declared type "Movie2"
   "Literal['']" is incompatible with "int" (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -13,3 +13,13 @@ literals_literalstring.py:142: error: Overloaded function signatures 1 and 3 ove
 literals_literalstring.py:152: error: Overloaded function signature 3 will never be matched: signature 2's parameter type(s) are the same or broader  [misc]
 literals_literalstring.py:162: error: Expression is of type "bool", not "str"  [assert-type]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 66: Expected 1 errors
+Line 120: Expected 1 errors
+Line 134: Expected 1 errors
+Line 166: Expected 1 errors
+Line 142: Unexpected errors ['literals_literalstring.py:142: error: Overloaded function signatures 1 and 2 overlap with incompatible return types  [overload-overlap]', 'literals_literalstring.py:142: error: Overloaded function signatures 1 and 3 overlap with incompatible return types  [overload-overlap]']
+Line 152: Unexpected errors ["literals_literalstring.py:152: error: Overloaded function signature 3 will never be matched: signature 2's parameter type(s) are the same or broader  [misc]"]
+Line 162: Unexpected errors ['literals_literalstring.py:162: error: Expression is of type "bool", not "str"  [assert-type]']
+"""

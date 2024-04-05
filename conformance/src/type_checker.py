@@ -3,9 +3,11 @@ Classes that abstract differences between type checkers.
 """
 
 from abc import ABC, abstractmethod
+from curses.ascii import isspace
 import json
 from pathlib import Path
 import os
+import re
 from pytype import config as pytype_config
 from pytype import io as pytype_io
 from pytype import analyze as pytype_analyze
@@ -47,6 +49,13 @@ class TypeChecker(ABC):
         """
         Runs the type checker on the specified test file and
         returns the output.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        """
+        Parses type checker output to summarize the lines on which errors occurred.
         """
         raise NotImplementedError
 
@@ -109,6 +118,19 @@ class MypyTypeChecker(TypeChecker):
 
         return results_dict
 
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # narrowing_typeguard.py:102: error: TypeGuard functions must have a positional argument  [valid-type]
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            if line.count(":") < 3:
+                continue
+            _, lineno, kind, _ = line.split(":", maxsplit=3)
+            kind = kind.strip()
+            if kind != "error":
+                continue
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
+
 
 class PyrightTypeChecker(TypeChecker):
     @property
@@ -159,6 +181,21 @@ class PyrightTypeChecker(TypeChecker):
 
         return results_dict
 
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # narrowing_typeguard.py:102:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            # Ignore indented notes
+            if not line or line[0].isspace():
+                continue
+            assert line.count(":") >= 3, f"Failed to parse line: {line!r}"
+            _, lineno, kind, _ = line.split(":", maxsplit=3)
+            kind = kind.split()[-1]
+            if kind != "error":
+                continue
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
+
 
 class PyreTypeChecker(TypeChecker):
     @property
@@ -206,6 +243,18 @@ class PyreTypeChecker(TypeChecker):
             results_dict[file_name] = results_dict.get(file_name, "") + line + "\n"
 
         return results_dict
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # narrowing_typeguard.py:17:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            # Ignore multi-line errors
+            if ".py:" not in line:
+                continue
+            assert line.count(":") >= 2, f"Failed to parse line: {line!r}"
+            _, lineno, _ = line.split(":", maxsplit=2)
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
 
 
 class PytypeTypeChecker(TypeChecker):
@@ -293,6 +342,19 @@ class PytypeTypeChecker(TypeChecker):
         ]
         errors.sort(key=ErrorSorter)
         return "\n".join(map(str, errors)) + "\n"
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # File "narrowing_typeguard.py", line 128, in <module>: Function takes_callable_str was called with the wrong arguments [wrong-arg-types]
+        # File "directives_type_ignore.py", line 11: Stray type comment: ignore - additional stuff [ignored-type-comment]'
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            if '.py", line ' not in line:
+                continue
+            match = re.search(r"^File \"[^\"]+?\", line (\d+)", line)
+            assert match is not None, f"Failed to parse line number from: {line!r}"
+            lineno = int(match.group(1))
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
 
 
 TYPE_CHECKERS: Sequence[TypeChecker] = (

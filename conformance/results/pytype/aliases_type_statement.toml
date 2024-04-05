@@ -5,3 +5,33 @@ Does not support `type` statement.
 output = """
 SyntaxError: Type statement is only supported in Python 3.12 and greater (<unknown>, line 8)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 17: Expected 1 errors
+Line 19: Expected 1 errors
+Line 23: Expected 1 errors
+Line 26: Expected 1 errors
+Line 31: Expected 1 errors
+Line 37: Expected 1 errors
+Line 38: Expected 1 errors
+Line 39: Expected 1 errors
+Line 40: Expected 1 errors
+Line 41: Expected 1 errors
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+Line 46: Expected 1 errors
+Line 47: Expected 1 errors
+Line 48: Expected 1 errors
+Line 49: Expected 1 errors
+Line 52: Expected 1 errors
+Line 58: Expected 1 errors
+Line 64: Expected 1 errors
+Line 69: Expected 1 errors
+Line 79: Expected 1 errors
+Line 81: Expected 1 errors
+Line 84: Expected 1 errors
+Line 86: Expected 1 errors
+Line 90: Expected 1 errors
+"""

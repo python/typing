@@ -10,3 +10,22 @@ File "generics_variance.py", line 19, in <module>: argument "contravariant" to T
 File "generics_variance.py", line 27, in __iter__: bad return type [bad-return-type]
 File "generics_variance.py", line 52, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 77: Expected 1 errors
+Line 81: Expected 1 errors
+Line 93: Expected 1 errors
+Line 105: Expected 1 errors
+Line 113: Expected 1 errors
+Line 126: Expected 1 errors
+Line 132: Expected 1 errors
+Line 142: Expected 1 errors
+Line 163: Expected 1 errors
+Line 167: Expected 1 errors
+Line 191: Expected 1 errors
+Line 196: Expected 1 errors
+Line 18: Unexpected errors ['File "generics_variance.py", line 18, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 19: Unexpected errors ['File "generics_variance.py", line 19, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
+Line 27: Unexpected errors ['File "generics_variance.py", line 27, in __iter__: bad return type [bad-return-type]']
+Line 52: Unexpected errors ['File "generics_variance.py", line 52, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+"""

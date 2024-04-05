@@ -23,3 +23,6 @@ protocols_subtyping.py:103:33 - error: Expression of type "Proto6[float, float]"
     Type parameter "T_contra@Proto7" is contravariant, but "float" is not a supertype of "object"
       "object" is incompatible with "float" (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

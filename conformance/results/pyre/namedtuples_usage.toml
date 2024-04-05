@@ -12,3 +12,11 @@ namedtuples_usage.py:52:0 Unable to unpack [23]: Unable to unpack 3 values, 2 we
 namedtuples_usage.py:53:0 Unable to unpack [23]: Unable to unpack 3 values, 4 were expected.
 namedtuples_usage.py:61:0 Unable to unpack [23]: Unable to unpack 0 values, 3 were expected.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 34: Expected 1 errors
+Line 35: Expected 1 errors
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+Line 61: Unexpected errors ['namedtuples_usage.py:61:0 Unable to unpack [23]: Unable to unpack 0 values, 3 were expected.']
+"""

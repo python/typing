@@ -52,3 +52,29 @@ File "generics_typevartuple_basic.py", line 97, in <module>: class Array is not 
 File "generics_typevartuple_basic.py", line 106, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
 File "generics_typevartuple_basic.py", line 106, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 89: Expected 1 errors
+Line 99: Expected 1 errors
+Line 100: Expected 1 errors
+Line 7: Unexpected errors ['File "generics_typevartuple_basic.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
+Line 9: Unexpected errors ['File "generics_typevartuple_basic.py", line 9, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
+Line 12: Unexpected errors ['File "generics_typevartuple_basic.py", line 12, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
+Line 16: Unexpected errors ['File "generics_typevartuple_basic.py", line 16, in <module>: No attribute \\'__iter__\\' on TypeVarTuple [attribute-error]', 'File "generics_typevartuple_basic.py", line 16, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
+Line 17: Unexpected errors ['File "generics_typevartuple_basic.py", line 17, in func1: bad return type [bad-return-type]']
+Line 20: Unexpected errors ['File "generics_typevartuple_basic.py", line 20, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
+Line 23: Unexpected errors ['File "generics_typevartuple_basic.py", line 23, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
+Line 24: Unexpected errors ['File "generics_typevartuple_basic.py", line 24, in Array: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
+Line 25: Unexpected errors ['File "generics_typevartuple_basic.py", line 25, in __init__: Invalid type annotation \\'tuple[*Shape,]\\'  [invalid-annotation]']
+Line 27: Unexpected errors ['File "generics_typevartuple_basic.py", line 27, in Array: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
+Line 36: Unexpected errors ['File "generics_typevartuple_basic.py", line 36, in <module>: class Array is not indexable [not-indexable]', 'File "generics_typevartuple_basic.py", line 36, in <module>: Invalid type annotation \\'Array[Height, Width]\\'  [invalid-annotation]', 'File "generics_typevartuple_basic.py", line 36, in <module>: Function Array.__init__ was called with the wrong arguments [wrong-arg-types]']
+Line 37: Unexpected errors ['File "generics_typevartuple_basic.py", line 37, in <module>: class Array is not indexable [not-indexable]', 'File "generics_typevartuple_basic.py", line 37, in <module>: Invalid type annotation \\'Array[Batch, Height, Width]\\'  [invalid-annotation]', 'File "generics_typevartuple_basic.py", line 37, in <module>: Function Array.__init__ was called with the wrong arguments [wrong-arg-types]']
+Line 38: Unexpected errors ['File "generics_typevartuple_basic.py", line 38, in <module>: class Array is not indexable [not-indexable]', 'File "generics_typevartuple_basic.py", line 38, in <module>: Invalid type annotation \\'Array[Time, Batch, Height, Width]\\'  [invalid-annotation]', 'File "generics_typevartuple_basic.py", line 38, in <module>: Function Array.__init__ was called with the wrong arguments [wrong-arg-types]']
+Line 54: Unexpected errors ['File "generics_typevartuple_basic.py", line 54, in __init__: Invalid type annotation \\'tuple[*Shape,]\\'  [invalid-annotation]']
+Line 75: Unexpected errors ['File "generics_typevartuple_basic.py", line 75, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
+Line 76: Unexpected errors ['File "generics_typevartuple_basic.py", line 76, in func2: bad return type [bad-return-type]']
+Line 84: Unexpected errors ['File "generics_typevartuple_basic.py", line 84, in <module>: Tuple[Any] [assert-type]']
+Line 93: Unexpected errors ['File "generics_typevartuple_basic.py", line 93, in <module>: class Array is not indexable [not-indexable]']
+Line 94: Unexpected errors ['File "generics_typevartuple_basic.py", line 94, in multiply: bad return type [bad-return-type]']
+Line 97: Unexpected errors ['File "generics_typevartuple_basic.py", line 97, in <module>: class Array is not indexable [not-indexable]']
+"""

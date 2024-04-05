@@ -11,3 +11,8 @@ protocols_generic.py:74:4 Incompatible variable type [9]: v1 is declared to have
 protocols_generic.py:75:4 Incompatible variable type [9]: v2 is declared to have type `AttrProto[int]` but is used as type `AttrProto[float]`.
 protocols_generic.py:146:0 Incompatible variable type [9]: hp3 is declared to have type `HasPropertyProto` but is used as type `ConcreteHasProperty3`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 44: Expected 1 errors
+Line 147: Expected 1 errors
+"""

@@ -6,3 +6,6 @@ generics_self_basic.py:32:16 - error: Expression of type "Shape" cannot be assig
   Type "Shape" cannot be assigned to type "Self@Shape" (reportReturnType)
 generics_self_basic.py:64:31 - error: Expected no type arguments for class "Self" (reportInvalidTypeArguments)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

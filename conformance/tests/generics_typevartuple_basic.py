@@ -39,32 +39,32 @@ v3: Array[Time, Batch, Height, Width] = Array(
     (Time(1), Batch(1), Height(1), Width(1))
 )  # OK
 
-v4: Array[Height, Width] = Array(Height(1))  # Type error
-v5: Array[Batch, Height, Width] = Array((Batch(1), Width(1)))  # Type error
-v6: Array[Time, Batch, Height, Width] = Array(
+v4: Array[Height, Width] = Array(Height(1))  # E
+v5: Array[Batch, Height, Width] = Array((Batch(1), Width(1)))  # E
+v6: Array[Time, Batch, Height, Width] = Array(  # E
     (Time(1), Batch(1), Width(1), Height(1))
-)  # Type error
+)
 
 
 # > Type Variable Tuples Must Always be Unpacked
 
 
-class ClassA(Generic[Shape]):  # Type error: not unpacked
-    def __init__(self, shape: tuple[Shape]):  # Type error: not unpacked
+class ClassA(Generic[Shape]):  # E: not unpacked
+    def __init__(self, shape: tuple[Shape]):  # E: not unpacked
         self._shape: tuple[*Shape] = shape
 
-    def get_shape(self) -> tuple[Shape]:  # Type error: not unpacked
+    def get_shape(self) -> tuple[Shape]:  # E: not unpacked
         return self._shape
 
-    def method1(*args: Shape) -> None:  # Type error: not unpacked
+    def method1(*args: Shape) -> None:  # E: not unpacked
         ...
 
 
 # > TypeVarTuple does not yet support specification of variance, bounds, constraints.
 
-Ts1 = TypeVarTuple("Ts1", covariant=True)  # Type error
-Ts2 = TypeVarTuple("Ts2", int, float)  # Type error
-Ts3 = TypeVarTuple("Ts3", bound=int)  # Type error
+Ts1 = TypeVarTuple("Ts1", covariant=True)  # E
+Ts2 = TypeVarTuple("Ts2", int, float)  # E
+Ts3 = TypeVarTuple("Ts3", bound=int)  # E
 
 
 # > If the same TypeVarTuple instance is used in multiple places in a signature
@@ -86,8 +86,8 @@ func2((0,), (0.0,))  # OK
 func2((0.0,), (0,))  # OK
 func2((0,), (1,))  # OK
 
-func2((0,), ("0",))  # Type error
-func2((0, 0), (0,))  # Type error
+func2((0,), ("0",))  # E
+func2((0, 0), (0,))  # E
 
 
 def multiply(x: Array[*Shape], y: Array[*Shape]) -> Array[*Shape]:
@@ -96,12 +96,12 @@ def multiply(x: Array[*Shape], y: Array[*Shape]) -> Array[*Shape]:
 
 def func3(x: Array[Height], y: Array[Width], z: Array[Height, Width]):
     multiply(x, x)  # OK
-    multiply(x, y)  # Type error
-    multiply(x, z)  # Type error
+    multiply(x, y)  # E
+    multiply(x, z)  # E
 
 
 # > Only a single type variable tuple may appear in a type parameter list.
 
 
-class Array3(Generic[*Ts1, *Ts2]):  # Type error
+class Array3(Generic[*Ts1, *Ts2]):  # E
     ...

@@ -20,3 +20,6 @@ typeddicts_readonly_inheritance.py:106:5 - error: TypedDict item "c" cannot be r
 typeddicts_readonly_inheritance.py:119:7 - error: Base classes for class "TD_A" define variable "x" in incompatible way (reportIncompatibleVariableOverride)
 typeddicts_readonly_inheritance.py:132:7 - error: TypedDict item "x" cannot be redefined as NotRequired (reportIncompatibleVariableOverride)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -29,3 +29,10 @@ classes_classvar.py:129: note:     z
 classes_classvar.py:129: note: Protocol member ProtoA.x expected class variable, got instance variable
 classes_classvar.py:129: note: Protocol member ProtoA.y expected class variable, got instance variable
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 45: Expected 1 errors
+Line 70: Expected 1 errors
+Line 59: Unexpected errors ['classes_classvar.py:59: error: Invalid type: ClassVar nested inside other type  [valid-type]']
+Line 76: Unexpected errors ['classes_classvar.py:76: error: Expression is of type "Any", not "float"  [assert-type]']
+"""

@@ -28,3 +28,17 @@ annotations_forward_refs.py:80:12 Undefined or invalid type [11]: Annotation `Cl
 annotations_forward_refs.py:87:7 Undefined or invalid type [11]: Annotation `ClassD.int` is not defined as a type.
 annotations_forward_refs.py:100:7 Undefined or invalid type [11]: Annotation `
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 22: Expected 1 errors
+Line 23: Expected 1 errors
+Line 24: Expected 1 errors
+Line 25: Expected 1 errors
+Line 54: Expected 1 errors
+Line 66: Expected 1 errors
+Line 89: Expected 1 errors
+Line 19: Unexpected errors ['annotations_forward_refs.py:19:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `UnionType`.']
+Line 77: Unexpected errors ['annotations_forward_refs.py:77:0 Uninitialized attribute [13]: Attribute `ClassC` is declared in class `ClassD` to have type `ClassC` but is never initialized.']
+Line 87: Unexpected errors ['annotations_forward_refs.py:87:7 Undefined or invalid type [11]: Annotation `ClassD.int` is not defined as a type.']
+Line 100: Unexpected errors ['annotations_forward_refs.py:100:7 Undefined or invalid type [11]: Annotation `']
+"""

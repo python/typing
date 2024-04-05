@@ -1,30 +1,55 @@
 conformant = "Unsupported"
 output = """
-generics_defaults.py:25:4 Undefined or invalid type [11]: Annotation `DefaultStrT` is not defined as a type.
-generics_defaults.py:25:4 Undefined or invalid type [11]: Annotation `T` is not defined as a type.
-generics_defaults.py:29:20 Undefined or invalid type [11]: Annotation `DefaultIntT` is not defined as a type.
-generics_defaults.py:32:32 Undefined attribute [16]: `NoNonDefaults` has no attribute `__getitem__`.
-generics_defaults.py:37:17 Undefined or invalid type [11]: Annotation `DefaultBoolT` is not defined as a type.
-generics_defaults.py:40:12 Undefined attribute [16]: `OneDefault` has no attribute `__getitem__`.
-generics_defaults.py:44:21 Undefined or invalid type [11]: Annotation `T1` is not defined as a type.
-generics_defaults.py:44:21 Undefined or invalid type [11]: Annotation `T2` is not defined as a type.
-generics_defaults.py:47:33 Undefined attribute [16]: `AllTheDefaults` has no attribute `__getitem__`.
-generics_defaults.py:75:33 Incompatible parameter type [6]: In call `ParamSpec.__init__`, for argument `default`, expected `Union[None, Type[typing.Any], str]` but got `List[Type[Union[int, str]]]`.
-generics_defaults.py:78:22 Undefined or invalid type [11]: Annotation `DefaultP` is not defined as a type.
-generics_defaults.py:81:34 Undefined attribute [16]: `Class_ParamSpec` has no attribute `__getitem__`.
-generics_defaults.py:90:59 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[int]]`.
-generics_defaults.py:93:25 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$DefaultTs)]` is not a valid type.
-generics_defaults.py:96:56 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
-generics_defaults.py:96:63 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[int]]`.
-generics_defaults.py:97:53 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[str], Type[int]]`. Expected has length 0, but actual has length 2.
-generics_defaults.py:98:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], Type[bool]]`. Expected has length 0, but actual has length 2.
-generics_defaults.py:98:64 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], Type[bool]]`. Expected has length 0, but actual has length 2.
-generics_defaults.py:130:13 Undefined or invalid type [11]: Annotation `T4` is not defined as a type.
-generics_defaults.py:144:11 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$Ts, $local_generics_defaults$T5)]` is not a valid type.
-generics_defaults.py:144:11 Undefined or invalid type [11]: Annotation `T5` is not defined as a type.
-generics_defaults.py:151:19 Incompatible parameter type [6]: In call `ParamSpec.__init__`, for argument `default`, expected `Union[None, Type[typing.Any], str]` but got `List[Type[float]]`.
-generics_defaults.py:154:11 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$Ts, $local_generics_defaults$P)]` is not a valid type.
-generics_defaults.py:154:11 Undefined or invalid type [11]: Annotation `P` is not defined as a type.
-generics_defaults.py:157:12 Undefined attribute [16]: `Foo6` has no attribute `__getitem__`.
-generics_defaults.py:172:33 Undefined attribute [16]: `Foo7` has no attribute `__getitem__`.
+generics_defaults.py:24:31 Undefined or invalid type [11]: Annotation `DefaultStrT` is not defined as a type.
+generics_defaults.py:24:31 Undefined or invalid type [11]: Annotation `T` is not defined as a type.
+generics_defaults.py:27:20 Undefined or invalid type [11]: Annotation `DefaultIntT` is not defined as a type.
+generics_defaults.py:30:32 Undefined attribute [16]: `NoNonDefaults` has no attribute `__getitem__`.
+generics_defaults.py:35:17 Undefined or invalid type [11]: Annotation `DefaultBoolT` is not defined as a type.
+generics_defaults.py:38:12 Undefined attribute [16]: `OneDefault` has no attribute `__getitem__`.
+generics_defaults.py:42:21 Undefined or invalid type [11]: Annotation `T1` is not defined as a type.
+generics_defaults.py:42:21 Undefined or invalid type [11]: Annotation `T2` is not defined as a type.
+generics_defaults.py:45:33 Undefined attribute [16]: `AllTheDefaults` has no attribute `__getitem__`.
+generics_defaults.py:73:33 Incompatible parameter type [6]: In call `ParamSpec.__init__`, for argument `default`, expected `Union[None, Type[typing.Any], str]` but got `List[Type[Union[int, str]]]`.
+generics_defaults.py:76:22 Undefined or invalid type [11]: Annotation `DefaultP` is not defined as a type.
+generics_defaults.py:79:34 Undefined attribute [16]: `Class_ParamSpec` has no attribute `__getitem__`.
+generics_defaults.py:88:59 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[int]]`.
+generics_defaults.py:91:25 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$DefaultTs)]` is not a valid type.
+generics_defaults.py:94:56 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
+generics_defaults.py:94:63 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[int]]`.
+generics_defaults.py:95:53 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[str], Type[int]]`. Expected has length 0, but actual has length 2.
+generics_defaults.py:96:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], Type[bool]]`. Expected has length 0, but actual has length 2.
+generics_defaults.py:96:64 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], Type[bool]]`. Expected has length 0, but actual has length 2.
+generics_defaults.py:124:13 Undefined or invalid type [11]: Annotation `T4` is not defined as a type.
+generics_defaults.py:138:11 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$Ts, $local_generics_defaults$T5)]` is not a valid type.
+generics_defaults.py:138:11 Undefined or invalid type [11]: Annotation `T5` is not defined as a type.
+generics_defaults.py:145:19 Incompatible parameter type [6]: In call `ParamSpec.__init__`, for argument `default`, expected `Union[None, Type[typing.Any], str]` but got `List[Type[float]]`.
+generics_defaults.py:148:11 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$Ts, $local_generics_defaults$P)]` is not a valid type.
+generics_defaults.py:148:11 Undefined or invalid type [11]: Annotation `P` is not defined as a type.
+generics_defaults.py:151:12 Undefined attribute [16]: `Foo6` has no attribute `__getitem__`.
+generics_defaults.py:166:33 Undefined attribute [16]: `Foo7` has no attribute `__getitem__`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 50: Expected 1 errors
+Line 104: Expected 1 errors
+Line 111: Expected 1 errors
+Line 27: Unexpected errors ['generics_defaults.py:27:20 Undefined or invalid type [11]: Annotation `DefaultIntT` is not defined as a type.']
+Line 30: Unexpected errors ['generics_defaults.py:30:32 Undefined attribute [16]: `NoNonDefaults` has no attribute `__getitem__`.']
+Line 35: Unexpected errors ['generics_defaults.py:35:17 Undefined or invalid type [11]: Annotation `DefaultBoolT` is not defined as a type.']
+Line 38: Unexpected errors ['generics_defaults.py:38:12 Undefined attribute [16]: `OneDefault` has no attribute `__getitem__`.']
+Line 42: Unexpected errors ['generics_defaults.py:42:21 Undefined or invalid type [11]: Annotation `T1` is not defined as a type.', 'generics_defaults.py:42:21 Undefined or invalid type [11]: Annotation `T2` is not defined as a type.']
+Line 45: Unexpected errors ['generics_defaults.py:45:33 Undefined attribute [16]: `AllTheDefaults` has no attribute `__getitem__`.']
+Line 73: Unexpected errors ['generics_defaults.py:73:33 Incompatible parameter type [6]: In call `ParamSpec.__init__`, for argument `default`, expected `Union[None, Type[typing.Any], str]` but got `List[Type[Union[int, str]]]`.']
+Line 76: Unexpected errors ['generics_defaults.py:76:22 Undefined or invalid type [11]: Annotation `DefaultP` is not defined as a type.']
+Line 79: Unexpected errors ['generics_defaults.py:79:34 Undefined attribute [16]: `Class_ParamSpec` has no attribute `__getitem__`.']
+Line 88: Unexpected errors ['generics_defaults.py:88:59 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[int]]`.']
+Line 91: Unexpected errors ['generics_defaults.py:91:25 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$DefaultTs)]` is not a valid type.']
+Line 94: Unexpected errors ['generics_defaults.py:94:56 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.', 'generics_defaults.py:94:63 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[int]]`.']
+Line 95: Unexpected errors ['generics_defaults.py:95:53 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[str], Type[int]]`. Expected has length 0, but actual has length 2.']
+Line 96: Unexpected errors ['generics_defaults.py:96:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], Type[bool]]`. Expected has length 0, but actual has length 2.', 'generics_defaults.py:96:64 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], Type[bool]]`. Expected has length 0, but actual has length 2.']
+Line 124: Unexpected errors ['generics_defaults.py:124:13 Undefined or invalid type [11]: Annotation `T4` is not defined as a type.']
+Line 145: Unexpected errors ['generics_defaults.py:145:19 Incompatible parameter type [6]: In call `ParamSpec.__init__`, for argument `default`, expected `Union[None, Type[typing.Any], str]` but got `List[Type[float]]`.']
+Line 148: Unexpected errors ['generics_defaults.py:148:11 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$Ts, $local_generics_defaults$P)]` is not a valid type.', 'generics_defaults.py:148:11 Undefined or invalid type [11]: Annotation `P` is not defined as a type.']
+Line 151: Unexpected errors ['generics_defaults.py:151:12 Undefined attribute [16]: `Foo6` has no attribute `__getitem__`.']
+Line 166: Unexpected errors ['generics_defaults.py:166:33 Undefined attribute [16]: `Foo7` has no attribute `__getitem__`.']
 """

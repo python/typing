@@ -4,6 +4,9 @@ generics_upper_bound.py:22: error: Type variable "generics_upper_bound.T" is unb
 generics_upper_bound.py:22: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
 generics_upper_bound.py:22: note: (Hint: Use "T" in function signature to bind "T" inside a function)
 generics_upper_bound.py:41: error: Expression is of type "Collection[int]", not "list[int] | set[int]"  [assert-type]
-generics_upper_bound.py:43: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
-generics_upper_bound.py:48: error: TypeVar cannot have both values and an upper bound  [misc]
+generics_upper_bound.py:48: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
+generics_upper_bound.py:53: error: TypeVar cannot have both values and an upper bound  [misc]
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

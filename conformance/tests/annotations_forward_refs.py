@@ -19,10 +19,10 @@ def func1(
     assert_type(p4, list[ClassA | int])
 
 
-bad1: ClassA  # Runtime error: requires quotes
-bad2: list[ClassA]  # Runtime error: requires quotes
-bad3: "ClassA" | int  # Runtime error
-bad4: int | "ClassA"  # Runtime error
+bad1: ClassA  # E: Runtime error: requires quotes
+bad2: list[ClassA]  # E: Runtime error: requires quotes
+bad3: "ClassA" | int  # E: Runtime error
+bad4: int | "ClassA"  # E: Runtime error
 
 
 class ClassA:
@@ -38,21 +38,21 @@ var1 = 1
 # The following should all generate errors because they are not legal type
 # expressions, despite being enclosed in quotes.
 def invalid_annotations(
-    p1: "eval(" ".join(map(chr, [105, 110, 116])))",
-    p2: "[int, str]",
-    p3: "(int, str)",
-    p4: "[int for i in range(1)]",
-    p5: "{}",
-    p6: "(lambda : int)()",
-    p7: "[int][0]",
-    p8: "int if 1 < 3 else str",
-    p9: "var1",
-    p10: "True",
-    p11: "1",
-    p12: "-1",
-    p13: "int or str",
-    p14: 'f"int"',
-    p15: "types",
+    p1: "eval(" ".join(map(chr, [105, 110, 116])))",  # E
+    p2: "[int, str]",  # E
+    p3: "(int, str)",  # E
+    p4: "[int for i in range(1)]",  # E
+    p5: "{}",  # E
+    p6: "(lambda : int)()",  # E
+    p7: "[int][0]",  # E
+    p8: "int if 1 < 3 else str",  # E
+    p9: "var1",  # E
+    p10: "True",  # E
+    p11: "1",  # E
+    p12: "-1",  # E
+    p13: "int or str",  # E
+    p14: 'f"int"',  # E
+    p15: "types",  # E
 ):
     pass
 
@@ -63,7 +63,7 @@ def invalid_annotations(
 
 
 class ClassB:
-    def method1(self) -> ClassB:  # Runtime error
+    def method1(self) -> ClassB:  # E: Runtime error
         return ClassB()
 
     def method2(self) -> "ClassB":  # OK
@@ -77,7 +77,7 @@ class ClassC:
 class ClassD:
     ClassC: "ClassC"  # OK
 
-    ClassF: "ClassF"  # Type error: circular reference
+    ClassF: "ClassF"  # E: circular reference
 
     str: "str" = ""  # OK
 
@@ -86,7 +86,7 @@ class ClassD:
 
     x: "int" = 0  # OK
 
-    y: int = 0  # Type error: Refers to local int, which isn't a legal type expression
+    y: int = 0  # E: Refers to local int, which isn't a legal type expression
 
 
 assert_type(ClassD.str, str)

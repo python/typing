@@ -5,3 +5,7 @@ Incorrectly generates error when calling constructor of dataclass with descripto
 output = """
 dataclasses_descriptors.py:35:10 Incompatible parameter type [6]: In call `DC1.__init__`, for 1st positional argument, expected `Desc1` but got `int`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 35: Unexpected errors ['dataclasses_descriptors.py:35:10 Incompatible parameter type [6]: In call `DC1.__init__`, for 1st positional argument, expected `Desc1` but got `int`.']
+"""

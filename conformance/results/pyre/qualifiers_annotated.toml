@@ -23,3 +23,8 @@ qualifiers_annotated.py:85:6 Incompatible parameter type [6]: In call `func4`, f
 qualifiers_annotated.py:92:10 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], str]`. Expected has length 0, but actual has length 2.
 qualifiers_annotated.py:93:0 Call error [29]: `TypeAlias` is not a function.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 64: Expected 1 errors
+Line 91: Expected 1 errors
+"""

@@ -16,5 +16,16 @@ dataclasses_usage.py:130:0 Missing argument [20]: Call `DC8.__init__` expects ar
 dataclasses_usage.py:172:0 Uninitialized attribute [13]: Attribute `x` is declared in class `DC13` to have type `int` but is never initialized.
 dataclasses_usage.py:172:0 Uninitialized attribute [13]: Attribute `x_squared` is declared in class `DC13` to have type `int` but is never initialized.
 dataclasses_usage.py:179:0 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 1 was provided.
-dataclasses_usage.py:205:0 Incompatible variable type [9]: v1 is declared to have type `DataclassProto` but is used as type `DC15`.
+dataclasses_usage.py:205:0 Incompatible variable type [9]: v7 is declared to have type `DataclassProto` but is used as type `DC15`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 62: Expected 1 errors
+Line 68: Expected 1 errors
+Line 74: Expected 1 errors
+Line 228: Expected 1 errors
+Line 73: Unexpected errors ['dataclasses_usage.py:73:4 Incompatible attribute type [8]: Attribute `a` declared in class `DC3` has type `InitVar[int]` but is used as type `int`.']
+Line 116: Unexpected errors ['dataclasses_usage.py:116:0 Uninitialized attribute [13]: Attribute `y` is declared in class `DC8` to have type `int` but is never initialized.']
+Line 172: Unexpected errors ['dataclasses_usage.py:172:0 Uninitialized attribute [13]: Attribute `x` is declared in class `DC13` to have type `int` but is never initialized.', 'dataclasses_usage.py:172:0 Uninitialized attribute [13]: Attribute `x_squared` is declared in class `DC13` to have type `int` but is never initialized.']
+Line 205: Unexpected errors ['dataclasses_usage.py:205:0 Incompatible variable type [9]: v7 is declared to have type `DataclassProto` but is used as type `DC15`.']
 """

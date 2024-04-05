@@ -5,3 +5,15 @@ Does not support ParamSpec.
 output = """
 AssertionError: 
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Expected 1 errors
+Line 27: Expected 1 errors
+Line 61: Expected 1 errors
+Line 97: Expected 1 errors
+Line 107: Expected 1 errors
+Line 119: Expected 1 errors
+Line 126: Expected 1 errors
+Line 131: Expected 1 errors
+Line 136: Expected 1 errors
+"""

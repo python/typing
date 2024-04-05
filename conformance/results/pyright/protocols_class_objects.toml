@@ -24,3 +24,6 @@ protocols_class_objects.py:104:16 - error: Expression of type "type[ConcreteC2]"
 protocols_class_objects.py:105:16 - error: Expression of type "type[ConcreteC3]" cannot be assigned to declared type "ProtoC1"
   "attr1" is defined as a ClassVar in protocol (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

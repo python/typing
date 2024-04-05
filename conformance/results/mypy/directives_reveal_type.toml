@@ -9,3 +9,6 @@ directives_reveal_type.py:19: error: Too few arguments for "reveal_type"  [call-
 directives_reveal_type.py:20: error: "reveal_type" expects 1 argument  [misc]
 directives_reveal_type.py:20: error: Too many arguments for "reveal_type"  [call-arg]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -11,3 +11,7 @@ typeddicts_alt_syntax.py:41: error: Unexpected arguments to TypedDict()  [misc]
 typeddicts_alt_syntax.py:44: error: Extra keys ("name", "year") for TypedDict "Movie2"  [typeddict-unknown-key]
 typeddicts_alt_syntax.py:45: error: Extra keys ("name", "year") for TypedDict "Movie2"  [typeddict-unknown-key]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 44: Unexpected errors ['typeddicts_alt_syntax.py:44: error: Extra keys ("name", "year") for TypedDict "Movie2"  [typeddict-unknown-key]']
+"""

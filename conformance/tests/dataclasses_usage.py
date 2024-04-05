@@ -48,9 +48,9 @@ assert_type(v1.name, str)
 assert_type(v1.unit_price, float)
 assert_type(v1.quantity_on_hand, int)
 
-v2 = InventoryItem("name")  # Type error: missing unit_price
-v3 = InventoryItem("name", "price")  # Type error: incorrect type for unit_price
-v4 = InventoryItem("name", 3.1, 3, 4)  # Type error: too many arguments
+v2 = InventoryItem("name")  # E: missing unit_price
+v3 = InventoryItem("name", "price")  # E: incorrect type for unit_price
+v4 = InventoryItem("name", 3.1, 3, 4)  # E: too many arguments
 
 
 # > TypeError will be raised if a field without a default value follows a
@@ -59,19 +59,19 @@ v4 = InventoryItem("name", 3.1, 3, 4)  # Type error: too many arguments
 @dataclass
 class DC1:
     a: int = 0
-    b: int  # Error: field with no default cannot follow field with default.
+    b: int  # E: field with no default cannot follow field with default.
 
 
 @dataclass
 class DC2:
     a: int = field(default=1)
-    b: int  # Error: field with no default cannot follow field with default.
+    b: int  # E: field with no default cannot follow field with default.
 
 
 @dataclass
 class DC3:
     a: InitVar[int] = 0
-    b: int  # Error: field with no default cannot follow field with default.
+    b: int  # E: field with no default cannot follow field with default.
 
 
 @dataclass
@@ -81,12 +81,12 @@ class DC4:
 
 
 v5 = DC4(0)
-v6 = DC4(0, 1)  # Type error: too many parameters
+v6 = DC4(0, 1)  # E: too many parameters
 
 
 @dataclass
 class DC5:
-    a: int = field(default_factory=str)  # Type error: type mismatch
+    a: int = field(default_factory=str)  # E: type mismatch
 
 
 def f(s: str) -> int:
@@ -124,10 +124,10 @@ a = DC7(3)
 b = DC8(a, 5)
 
 # This should generate an error because there is an extra parameter
-DC7(3, 4)
+DC7(3, 4)  # E
 
 # This should generate an error because there is one too few parameters
-DC8(a)
+DC8(a)  # E
 
 
 @dataclass
@@ -176,7 +176,7 @@ class DC13:
 
 # This should generate an error because there is no
 # override __init__ method and no synthesized __init__.
-DC13(3)
+DC13(3)  # E
 
 
 @dataclass
@@ -202,7 +202,7 @@ class DataclassProto(Protocol):
     __dataclass_fields__: ClassVar[dict[str, Any]]
 
 
-v1: DataclassProto = dc15
+v7: DataclassProto = dc15
 
 
 @dataclass
@@ -225,4 +225,4 @@ class DC18:
     x: int = field()
     # This should generate an error because an unannotated field
     # will result in a runtime exception.
-    y = field()
+    y = field()  # E

@@ -10,7 +10,7 @@ v2 = 1
 
 
 def func1(f: float):
-    f.numerator  # Type error
+    f.numerator  # E
 
     if not isinstance(f, float):
         f.numerator  # OK

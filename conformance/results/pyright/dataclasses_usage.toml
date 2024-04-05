@@ -15,3 +15,6 @@ dataclasses_usage.py:130:1 - error: Argument missing for parameter "y" (reportCa
 dataclasses_usage.py:179:1 - error: Expected no arguments to "DC13" constructor (reportCallIssue)
 dataclasses_usage.py:228:9 - error: Dataclass field without type annotation will cause runtime exception (reportGeneralTypeIssues)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

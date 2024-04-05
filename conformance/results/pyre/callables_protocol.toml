@@ -24,3 +24,11 @@ callables_protocol.py:216:0 Incompatible variable type [9]: cb10 is declared to 
 callables_protocol.py:259:0 Incompatible variable type [9]: cb12 is declared to have type `Proto12` but is used as type `typing.Callable(cb12_good2)[[Variable(typing.Any), Keywords(typing.Any)], None]`.
 callables_protocol.py:260:0 Incompatible variable type [9]: cb12 is declared to have type `Proto12` but is used as type `typing.Callable(cb12_bad1)[[Variable(typing.Any), KeywordOnly(kwarg0, typing.Any)], None]`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 238: Expected 1 errors
+Line 284: Expected 1 errors
+Line 311: Expected 1 errors
+Line 216: Unexpected errors ['callables_protocol.py:216:0 Incompatible variable type [9]: cb10 is declared to have type `Proto10` but is used as type `typing.Callable(cb10_good)[[], None]`.']
+Line 259: Unexpected errors ['callables_protocol.py:259:0 Incompatible variable type [9]: cb12 is declared to have type `Proto12` but is used as type `typing.Callable(cb12_good2)[[Variable(typing.Any), Keywords(typing.Any)], None]`.']
+"""

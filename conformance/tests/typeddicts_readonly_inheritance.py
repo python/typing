@@ -33,7 +33,7 @@ class Album2(NamedDict):
 
 
 a2: Album2 = {"name": "Flood", "year": 1990}
-a2["name"] = "Dark Side Of The Moon"  # Type Error
+a2["name"] = "Dark Side Of The Moon"  # E
 
 
 # > Subclasses can narrow value types of read-only items.
@@ -47,7 +47,7 @@ class AlbumCollection(TypedDict):
 class RecordShop(AlbumCollection):
     name: str
     albums: ReadOnly[list[Album1]]  # OK
-    alt: ReadOnly[list[str]]  # Type Error
+    alt: ReadOnly[list[str]]  # E
 
 
 # > Subclasses can require items that are read-only but not required in the
@@ -62,7 +62,7 @@ class RequiredName(OptionalName):
     name: ReadOnly[Required[str]]  # OK
 
 
-d: RequiredName = {}  # Type Error
+d: RequiredName = {}  # E
 
 
 # > Subclasses can combine these rules.
@@ -79,9 +79,9 @@ class User(OptionalIdent):
 u: User
 u = {"ident": ""}  # OK
 u["ident"] = ""  # OK
-u["ident"] = 3  # Type Error
-u = {"ident": 3}  # Type Error
-u = {}  # Type Error
+u["ident"] = 3  # E
+u = {"ident": 3}  # E
+u = {}  # E
 
 
 class F1(TypedDict):
@@ -91,11 +91,11 @@ class F1(TypedDict):
 
 
 class F3(F1):
-    a: ReadOnly[int]  # Type Error
+    a: ReadOnly[int]  # E
 
 
 class F4(F1):
-    a: NotRequired[int]  # Type Error
+    a: NotRequired[int]  # E
 
 
 class F5(F1):
@@ -103,7 +103,7 @@ class F5(F1):
 
 
 class F6(F1):
-    c: ReadOnly[NotRequired[int]]  # Type Error
+    c: ReadOnly[NotRequired[int]]  # E
 
 
 class TD_A1(TypedDict):
@@ -116,7 +116,7 @@ class TD_A2(TypedDict):
     y: ReadOnly[float]
 
 
-class TD_A(TD_A1, TD_A2): ...  # Type Error: x is incompatible
+class TD_A(TD_A1, TD_A2): ...  # E: x is incompatible
 
 
 class TD_B1(TypedDict):
@@ -129,4 +129,4 @@ class TD_B2(TypedDict):
     y: ReadOnly[NotRequired[int]]
 
 
-class TD_B(TD_B1, TD_B2): ...  # Type Error: x is incompatible
+class TD_B(TD_B1, TD_B2): ...  # E: x is incompatible

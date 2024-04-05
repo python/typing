@@ -8,3 +8,8 @@ File "typeddicts_usage.py", line 23, in <module>: TypedDict Movie does not conta
 File "typeddicts_usage.py", line 24, in <module>: Type annotation for key year in TypedDict Movie does not match type of assignment [annotation-type-mismatch]
 File "typeddicts_usage.py", line 28, in <module>: Type annotation for movie2 does not match type of assignment [annotation-type-mismatch]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 35: Expected 1 errors
+Line 40: Expected 1 errors
+"""

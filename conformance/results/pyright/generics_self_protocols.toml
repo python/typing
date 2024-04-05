@@ -13,3 +13,6 @@ generics_self_protocols.py:64:19 - error: Argument of type "ReturnDifferentClass
         Function return type "ReturnConcreteShape" is incompatible with type "ReturnDifferentClass"
           "ReturnConcreteShape" is incompatible with "ReturnDifferentClass" (reportArgumentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

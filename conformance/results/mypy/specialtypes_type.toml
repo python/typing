@@ -18,3 +18,10 @@ specialtypes_type.py:144: error: "<typing special form>" has no attribute "unkno
 specialtypes_type.py:145: error: "type[type]" has no attribute "unknown"  [attr-defined]
 specialtypes_type.py:146: error: "<typing special form>" has no attribute "unknown"  [attr-defined]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 84: Unexpected errors ['specialtypes_type.py:84: error: Expression is of type "type", not "type[Any]"  [assert-type]']
+Line 99: Unexpected errors ['specialtypes_type.py:99: error: "type" has no attribute "unknown"  [attr-defined]']
+Line 100: Unexpected errors ['specialtypes_type.py:100: error: "type" has no attribute "unknown"  [attr-defined]']
+Line 139: Unexpected errors ['specialtypes_type.py:139: error: Expression is of type "type", not "type[Any]"  [assert-type]']
+"""

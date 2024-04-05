@@ -7,21 +7,44 @@ Allows some illegal annotation forms to be interpreted as valid type aliases.
 Does not report invalid specialization of already-specialized generic type alias.
 """
 output = """
-File "aliases_implicit.py", line 54, in <module>: Invalid type annotation '[str, str]'  [invalid-annotation]
-File "aliases_implicit.py", line 54, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][[str, str], None]'  [invalid-annotation]
-File "aliases_implicit.py", line 68, in good_type_aliases: Callable[Concatenate, Any] [assert-type]
-File "aliases_implicit.py", line 72, in good_type_aliases: Callable[[Any], None] [assert-type]
-File "aliases_implicit.py", line 76, in <module>: Invalid type annotation 'Optional[int][int]'  [invalid-annotation]
-File "aliases_implicit.py", line 77, in <module>: Invalid type annotation 'List[Optional[int]][int]'  [invalid-annotation]
-File "aliases_implicit.py", line 78, in <module>: Invalid type annotation 'List[T][int, int]'  [invalid-annotation]
-File "aliases_implicit.py", line 79, in <module>: Invalid type annotation 'Callable[[int, T], T][int, int]'  [invalid-annotation]
-File "aliases_implicit.py", line 80, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][int, int]'  [invalid-annotation]
-File "aliases_implicit.py", line 105, in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]
-File "aliases_implicit.py", line 105, in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]
-File "aliases_implicit.py", line 105, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for p4 [invalid-annotation]
-File "aliases_implicit.py", line 105, in <module>: Invalid type annotation '3' for p9 [invalid-annotation]
-File "aliases_implicit.py", line 105, in <module>: Invalid type annotation '1' for p11 [invalid-annotation]
-File "aliases_implicit.py", line 105, in <module>: Invalid type annotation '((int, str),)' for p3 [invalid-annotation]
-File "aliases_implicit.py", line 105, in <module>: Invalid type annotation "{'a': 'b'}" for p5 [invalid-annotation]
-File "aliases_implicit.py", line 135, in <module>: Invalid type annotation 'Union[list, set][int]'  [invalid-annotation]
+File "aliases_implicit.py", line 55, in <module>: Invalid type annotation '[str, str]'  [invalid-annotation]
+File "aliases_implicit.py", line 55, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][[str, str], None]'  [invalid-annotation]
+File "aliases_implicit.py", line 69, in good_type_aliases: Callable[Concatenate, Any] [assert-type]
+File "aliases_implicit.py", line 73, in good_type_aliases: Callable[[Any], None] [assert-type]
+File "aliases_implicit.py", line 77, in <module>: Invalid type annotation 'Optional[int][int]'  [invalid-annotation]
+File "aliases_implicit.py", line 78, in <module>: Invalid type annotation 'List[Optional[int]][int]'  [invalid-annotation]
+File "aliases_implicit.py", line 79, in <module>: Invalid type annotation 'List[T][int, int]'  [invalid-annotation]
+File "aliases_implicit.py", line 80, in <module>: Invalid type annotation 'Callable[[int, T], T][int, int]'  [invalid-annotation]
+File "aliases_implicit.py", line 81, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][int, int]'  [invalid-annotation]
+File "aliases_implicit.py", line 106, in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]
+File "aliases_implicit.py", line 106, in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]
+File "aliases_implicit.py", line 106, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for p4 [invalid-annotation]
+File "aliases_implicit.py", line 106, in <module>: Invalid type annotation '3' for p9 [invalid-annotation]
+File "aliases_implicit.py", line 106, in <module>: Invalid type annotation '1' for p11 [invalid-annotation]
+File "aliases_implicit.py", line 106, in <module>: Invalid type annotation '((int, str),)' for p3 [invalid-annotation]
+File "aliases_implicit.py", line 106, in <module>: Invalid type annotation "{'a': 'b'}" for p5 [invalid-annotation]
+File "aliases_implicit.py", line 136, in <module>: Invalid type annotation 'Union[list, set][int]'  [invalid-annotation]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 82: Expected 1 errors
+Line 107: Expected 1 errors
+Line 108: Expected 1 errors
+Line 109: Expected 1 errors
+Line 110: Expected 1 errors
+Line 111: Expected 1 errors
+Line 112: Expected 1 errors
+Line 113: Expected 1 errors
+Line 114: Expected 1 errors
+Line 115: Expected 1 errors
+Line 116: Expected 1 errors
+Line 117: Expected 1 errors
+Line 118: Expected 1 errors
+Line 119: Expected 1 errors
+Line 120: Expected 1 errors
+Line 134: Expected 1 errors
+Line 55: Unexpected errors ['File "aliases_implicit.py", line 55, in <module>: Invalid type annotation \\'[str, str]\\'  [invalid-annotation]', 'File "aliases_implicit.py", line 55, in <module>: Invalid type annotation \\'Callable[Concatenate[int, P], R][[str, str], None]\\'  [invalid-annotation]']
+Line 69: Unexpected errors ['File "aliases_implicit.py", line 69, in good_type_aliases: Callable[Concatenate, Any] [assert-type]']
+Line 73: Unexpected errors ['File "aliases_implicit.py", line 73, in good_type_aliases: Callable[[Any], None] [assert-type]']
+Line 106: Unexpected errors ['File "aliases_implicit.py", line 106, in <module>: Invalid type annotation \\'[int, str]\\' for p2 [invalid-annotation]', 'File "aliases_implicit.py", line 106, in <module>: Invalid type annotation \\'True\\' for p10 [invalid-annotation]', 'File "aliases_implicit.py", line 106, in <module>: Invalid type annotation \\'<instance of List[Type[int]]>\\' for p4 [invalid-annotation]', 'File "aliases_implicit.py", line 106, in <module>: Invalid type annotation \\'3\\' for p9 [invalid-annotation]', 'File "aliases_implicit.py", line 106, in <module>: Invalid type annotation \\'1\\' for p11 [invalid-annotation]', 'File "aliases_implicit.py", line 106, in <module>: Invalid type annotation \\'((int, str),)\\' for p3 [invalid-annotation]', 'File "aliases_implicit.py", line 106, in <module>: Invalid type annotation "{\\'a\\': \\'b\\'}" for p5 [invalid-annotation]']
 """

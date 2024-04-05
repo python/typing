@@ -15,3 +15,7 @@ generics_paramspec_basic.py:35: note: You can use ParamSpec as the first argumen
 generics_paramspec_basic.py:39: error: Invalid location for ParamSpec "P"  [valid-type]
 generics_paramspec_basic.py:39: note: You can use ParamSpec as the first argument to Callable, e.g., 'Callable[P, int]'
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 15: Expected 1 errors
+"""

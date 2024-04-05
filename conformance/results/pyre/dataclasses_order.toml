@@ -4,3 +4,7 @@ Does not report type incompatibility with comparison operator.
 """
 output = """
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 50: Expected 1 errors
+"""

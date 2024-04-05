@@ -9,3 +9,8 @@ File "generics_base_class.py", line 49, in <module>: Invalid type annotation 'Li
 File "generics_base_class.py", line 61, in <module>: Invalid type annotation 'MyDict[int, int]'  [invalid-annotation]
 File "generics_base_class.py", line 68, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Expected 1 errors
+Line 30: Expected 1 errors
+"""

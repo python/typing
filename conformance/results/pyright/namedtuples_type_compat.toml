@@ -8,3 +8,6 @@ namedtuples_type_compat.py:23:28 - error: Expression of type "Point" cannot be a
     Tuple entry 2 is incorrect type
       "int" is incompatible with "str" (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

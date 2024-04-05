@@ -25,3 +25,18 @@ File "qualifiers_final_annotation.py", line 134, in <module>: Invalid keyword ar
 File "qualifiers_final_annotation.py", line 135, in <module>: Function N.__new__ was called with the wrong arguments [wrong-arg-types]
 File "qualifiers_final_annotation.py", line 145, in func2: Assigning to variable x, which was annotated with Final [final-error]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 16: Expected 1 errors
+Line 34: Expected 1 errors
+Line 38: Expected 1 errors
+Line 62: Expected 1 errors
+Line 63: Expected 1 errors
+Line 94: Expected 1 errors
+Line 141: Expected 1 errors
+Line 147: Expected 1 errors
+Line 149: Expected 1 errors
+Line 152: Expected 1 errors
+Line 155: Expected 1 errors
+Line 93: Unexpected errors ['File "qualifiers_final_annotation.py", line 93, in <module>: Class ClassCChild overrides final class attribute BORDER_WIDTH, defined in base class ClassC [final-error]']
+"""

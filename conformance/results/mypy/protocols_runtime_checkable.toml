@@ -9,3 +9,9 @@ protocols_runtime_checkable.py:55: note: Protocol "DataProtocol" has non-method 
 protocols_runtime_checkable.py:61: error: Only protocols that don't have non-method members can be used with issubclass()  [misc]
 protocols_runtime_checkable.py:61: note: Protocol "DataProtocol" has non-method member(s): name
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 88: Expected 1 errors
+Line 92: Expected 1 errors
+Line 96: Expected 1 errors
+"""

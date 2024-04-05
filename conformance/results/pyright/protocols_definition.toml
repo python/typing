@@ -93,3 +93,6 @@ protocols_definition.py:341:22 - error: Expression of type "Concrete6_Bad3" cann
   "Concrete6_Bad3" is incompatible with protocol "Template6"
     "val1" is writable in protocol (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

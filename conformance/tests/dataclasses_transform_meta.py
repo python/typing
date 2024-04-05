@@ -45,7 +45,7 @@ class Customer1(ModelBase, frozen=True):
 
 # This should generate an error because a non-frozen class cannot
 # derive from a frozen one.
-class Customer1Subclass(Customer1, frozen=False):
+class Customer1Subclass(Customer1, frozen=False):  # E
     salary: float = model_field()
 
 
@@ -57,17 +57,17 @@ class Customer2(ModelBase, order=True):
 c1_1 = Customer1(id=3, name="Sue", other_name="Susan")
 
 # This should generate an error because the class is frozen.
-c1_1.id = 4
+c1_1.id = 4  # E
 
 # This should generate an error because the class is kw_only.
-c1_2 = Customer1(3, "Sue")
+c1_2 = Customer1(3, "Sue")  # E
 
-# This should generate an error because other_name is missing.
+# OK (other_name is optional).
 c1_3 = Customer1(id=3, name="John")
 
 # This should generate an error because comparison methods are
 # not synthesized.
-v1 = c1_1 < c1_2
+v1 = c1_1 < c1_2  # E
 
 c2_1 = Customer2(id=0, name="John")
 
@@ -77,7 +77,7 @@ v2 = c2_1 < c2_2
 
 # This should generate an error because Customer2 supports
 # keyword-only parameters for its constructor.
-c2_3 = Customer2(0, "John")
+c2_3 = Customer2(0, "John")  # E
 
 
 @dataclass_transform(frozen_default=True)
@@ -97,4 +97,4 @@ class Customer3(ModelBaseFrozen):
 c3_1 = Customer3(id=2, name="hi")
 
 # This should generate an error because Customer3 is frozen.
-c3_1.id = 4
+c3_1.id = 4  # E

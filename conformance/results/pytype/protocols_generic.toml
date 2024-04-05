@@ -14,3 +14,12 @@ File "protocols_generic.py", line 65, in func2: Type annotation for v1 does not 
 File "protocols_generic.py", line 75, in func3: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
 File "protocols_generic.py", line 146, in <module>: Type annotation for hp3 does not match type of assignment [annotation-type-mismatch]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 66: Expected 1 errors
+Line 74: Expected 1 errors
+Line 147: Expected 1 errors
+Line 12: Unexpected errors ['File "protocols_generic.py", line 12, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 13: Unexpected errors ['File "protocols_generic.py", line 13, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
+Line 65: Unexpected errors ['File "protocols_generic.py", line 65, in func2: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]']
+"""

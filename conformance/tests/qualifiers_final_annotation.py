@@ -13,9 +13,9 @@ assert_type(ID2, Literal[1])
 
 # > If the right hand side is omitted, there must be an explicit type argument to Final.
 
-BAD1: Final  # Type error: missing assignment
+BAD1: Final  # E: missing assignment
 
-BAD2: Final[str, int] = ""  # Type error: only one type argument allowed
+BAD2: Final[str, int] = ""  # E: only one type argument allowed
 
 # > There can be at most one final declaration per module or class for a given
 # > attribute.
@@ -31,11 +31,11 @@ class ClassA:
     # > In class bodies and stub files you can omit the right hand side and just
     # > write ID: Final[float]. If the right hand side is omitted, there must be
     # > an explicit type argument to Final.
-    ID2: Final  # Type error: missing initialization
+    ID2: Final  # E: missing initialization
 
     # > A final attribute declared in a class body without an initializer must
     # > be initialized in the __init__ method (except in stub files):
-    ID3: Final[int]  # Type error: missing initialization
+    ID3: Final[int]  # E: missing initialization
 
     ID4: Final[int]  # OK because initialized in __init__
 
@@ -51,7 +51,7 @@ class ClassA:
 
         self.ID4 = 1
 
-        self.ID5 = 0  # Type error: Already initialized
+        self.ID5 = 0  # E: Already initialized
 
         if cond:
             self.ID6 = 1
@@ -59,16 +59,16 @@ class ClassA:
             self.ID6 = 2
 
     def method1(self) -> None:
-        self.id3: Final = 1  # Type error: not allowed outside of __init__ method.
-        self.id4: Final[int] = 1  # Type error: not allowed outside of __init__ method.
+        self.id3: Final = 1  # E: not allowed outside of __init__ method.
+        self.id4: Final[int] = 1  # E: not allowed outside of __init__ method.
 
-        self.ID7 = 0  # Type error: cannot modify Final value
+        self.ID7 = 0  # E: cannot modify Final value
 
-        self.ID7 += 1  # Type error: cannot modify Final value
+        self.ID7 += 1  # E: cannot modify Final value
 
 
 RATE: Final = 3000
-RATE = 300  # Type error: Cannot redefine Final value
+RATE = 300  # E: Cannot redefine Final value
 
 # > There can’t be separate class-level and instance-level constants
 # > with the same name.
@@ -78,7 +78,7 @@ class ClassB:
     DEFAULT_ID: Final = 0
 
 
-ClassB.DEFAULT_ID = 0  # Type error: Cannot redefined value
+ClassB.DEFAULT_ID = 0  # E: Cannot redefined value
 
 
 # > A type checker should prevent final attributes from being overridden in a subclass:
@@ -91,7 +91,7 @@ class ClassC:
 
 
 class ClassCChild(ClassC):
-    BORDER_WIDTH = 2.5  # Type error: Cannot override Final value
+    BORDER_WIDTH = 2.5  # E: Cannot override Final value
 
     __private = 0  # OK
 
@@ -104,8 +104,8 @@ class ClassCChild(ClassC):
 class ClassD:
     VALUE1: Final = 1
 
-    VALUE2: ClassVar[Final] = 1  # Type error: Final cannot be used with ClassVar
-    VALUE3: Final[ClassVar] = 1  # Type error: Final cannot be used with ClassVar
+    VALUE2: ClassVar[Final] = 1  # E: Final cannot be used with ClassVar
+    VALUE3: Final[ClassVar] = 1  # E: Final cannot be used with ClassVar
 
 
 ClassD.VALUE1  # OK
@@ -115,10 +115,10 @@ ClassD.VALUE1  # OK
 # > annotations. Using it in any other position is an error. In particular,
 # > Final can’t be used in annotations for function arguments.
 
-x: list[Final[int]] = []  # Type error
+x: list[Final[int]] = []  # E
 
 
-def func1(x: Final[list[int]]) -> None:  # Type error
+def func1(x: Final[list[int]]) -> None:  # E
     ...
 
 
@@ -131,25 +131,25 @@ Y: Final = "y"
 N = NamedTuple("N", [(X, int), (Y, int)])
 
 N(x=3, y=4)  # OK
-N(a=1)  # Type error
-N(x="", y="")  # Type error
+N(a=1)  # E
+N(x="", y="")  # E
 
 
 def func2() -> None:
     global ID1
 
-    ID1 = 2 # Type error: cannot modify Final value
+    ID1 = 2 # E: cannot modify Final value
 
     x: Final = 3
 
-    x += 1 # Type error: cannot modify Final value
+    x += 1 # E: cannot modify Final value
 
-    a = (x := 4)  # Type error: cannot modify Final value
+    a = (x := 4)  # E: cannot modify Final value
 
-    for x in [1, 2, 3]: # Type error: cannot modify Final value
+    for x in [1, 2, 3]: # E: cannot modify Final value
         pass
 
-    with open("FileName") as x: # Type error: cannot modify Final value
+    with open("FileName") as x: # E: cannot modify Final value
         pass
 
-    (a, x) = (1, 2)  # Type error: cannot modify Final value
+    (a, x) = (1, 2)  # E: cannot modify Final value

@@ -21,3 +21,15 @@ generics_paramspec_components.py:83: error: Argument 3 to "foo" has incompatible
 generics_paramspec_components.py:98: error: Argument 2 to "twice" has incompatible type "str"; expected "int"  [arg-type]
 generics_paramspec_components.py:98: error: Argument 3 to "twice" has incompatible type "int"; expected "str"  [arg-type]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 20: Expected 1 errors
+Line 26: Expected 1 errors
+Line 30: Expected 1 errors
+Line 35: Expected 1 errors
+Line 36: Expected 1 errors
+Line 38: Expected 1 errors
+Line 41: Expected 1 errors
+Line 60: Expected 1 errors
+Line 72: Expected 1 errors
+"""

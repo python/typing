@@ -6,3 +6,12 @@ output = """
 tuples_unpacked.py: error: More than one Unpack in a type is not allowed  [misc]
 tuples_unpacked.py:58: error: More than one Unpack in a type is not allowed  [misc]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 31: Expected 1 errors
+Line 32: Expected 1 errors
+Line 39: Expected 1 errors
+Line 40: Expected 1 errors
+Line 50: Expected 1 errors
+Line 60: Expected 1 errors
+"""

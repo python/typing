@@ -16,3 +16,6 @@ namedtuples_define_class.py:98:19 - error: Argument of type "float" cannot be as
   "float" is incompatible with "str" (reportArgumentType)
 namedtuples_define_class.py:105:7 - error: Multiple inheritance with NamedTuple is not supported (reportGeneralTypeIssues)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

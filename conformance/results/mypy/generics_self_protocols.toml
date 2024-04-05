@@ -13,3 +13,6 @@ generics_self_protocols.py:64: note:         def set_scale(self, scale: float) -
 generics_self_protocols.py:64: note:     Got:
 generics_self_protocols.py:64: note:         def set_scale(self, scale: float) -> ReturnConcreteShape
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

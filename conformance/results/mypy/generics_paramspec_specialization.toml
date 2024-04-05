@@ -6,3 +6,6 @@ generics_paramspec_specialization.py:56: error: Argument 3 has incompatible type
 generics_paramspec_specialization.py:61: error: Argument 1 has incompatible type "str"; expected "int"  [arg-type]
 generics_paramspec_specialization.py:62: error: Argument 3 has incompatible type "str"; expected "bool"  [arg-type]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

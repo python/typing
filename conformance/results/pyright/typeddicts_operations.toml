@@ -22,3 +22,6 @@ typeddicts_operations.py:49:5 - error: Could not delete item in TypedDict
 typeddicts_operations.py:62:16 - error: Cannot access member "clear" for type "MovieOptional"
   Member "clear" is unknown (reportAttributeAccessIssue)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

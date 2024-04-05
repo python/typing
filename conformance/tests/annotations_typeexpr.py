@@ -85,21 +85,21 @@ var1 = 3
 # The following parameter annotations should all be considered
 # invalid and generate errors.
 def invalid_annotations(
-    p1: eval("".join(map(chr, [105, 110, 116]))),
-    p2: [int, str],
-    p3: (int, str),
-    p4: [int for i in range(1)],
-    p5: {},
-    p6: (lambda: int)(),
-    p7: [int][0],
-    p8: int if 1 < 3 else str,
-    p9: var1,
-    p10: True,
-    p11: 1,
-    p12: -1,
-    p13: int or str,
-    p14: f"int",
-    p15: types,
+    p1: eval("".join(map(chr, [105, 110, 116]))),  # E
+    p2: [int, str],  # E
+    p3: (int, str),  # E
+    p4: [int for i in range(1)],  # E
+    p5: {},  # E
+    p6: (lambda: int)(),  # E
+    p7: [int][0],  # E
+    p8: int if 1 < 3 else str,  # E
+    p9: var1,  # E
+    p10: True,  # E
+    p11: 1,  # E
+    p12: -1,  # E
+    p13: int or str,  # E
+    p14: f"int",  # E
+    p15: types,  # E
 ):
     pass
 

@@ -20,26 +20,26 @@ movie_opt2: MovieOptional = {"year": 1982}
 # > the second argument to TypedDict. In particular, a variable that refers to a
 # > dictionary object does not need to be supported, to simplify implementation.
 my_dict = {"name": str}
-BadTypedDict1 = TypedDict("BadTypedDict1", my_dict)
+BadTypedDict1 = TypedDict("BadTypedDict1", my_dict)  # E
 
 
 # This should generate an error because it uses a non-str key.
-BadTypedDict2 = TypedDict("BadTypedDict2", {1: str})
+BadTypedDict2 = TypedDict("BadTypedDict2", {1: str})  # E
 
 
 # This should generate an error because it uses a non-matching name.
-BadTypedDict3 = TypedDict("WrongName", {"name": str})
+BadTypedDict3 = TypedDict("WrongName", {"name": str})  # E
 
 
 # This should generate an error because of the additional parameter.
-BadTypedDict4 = TypedDict("BadTypedDict4", {"name": str}, total=False, other=False)
+BadTypedDict4 = TypedDict("BadTypedDict4", {"name": str}, total=False, other=False)  # E
 
 
 # > The keyword-argument syntax is deprecated in 3.11 and will be removed in 3.13.
 # > It may also be unsupported by static type checkers.
 
-Movie2 = TypedDict("Movie2", name=str, year=int)
+Movie2 = TypedDict("Movie2", name=str, year=int)  # E?
 
 movie2: Movie2
 movie2 = {"name": "Blade Runner", "year": 1982}
-movie2 = {"name": "Blade Runner", "year": ""}  # Type error: Incorrect type for year
+movie2 = {"name": "Blade Runner", "year": ""}  # E: Incorrect type for year

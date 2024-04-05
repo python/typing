@@ -6,3 +6,6 @@ output = """
 annotations_methods.py:46:8 - error: Argument of type "A" cannot be assigned to parameter "self" of type "B" in function "copy"
   "A" is incompatible with "B" (reportArgumentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

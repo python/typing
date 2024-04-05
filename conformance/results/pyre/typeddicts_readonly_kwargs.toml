@@ -4,3 +4,10 @@ typeddicts_readonly_kwargs.py:9:0 Undefined import [21]: Could not find a name `
 typeddicts_readonly_kwargs.py:24:10 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.
 typeddicts_readonly_kwargs.py:29:33 Undefined or invalid type [11]: Annotation `Unpack` is not defined as a type.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 33: Expected 1 errors
+Line 9: Unexpected errors ['typeddicts_readonly_kwargs.py:9:0 Undefined import [21]: Could not find a name `ReadOnly` defined in module `typing_extensions`.']
+Line 24: Unexpected errors ['typeddicts_readonly_kwargs.py:24:10 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.']
+Line 29: Unexpected errors ['typeddicts_readonly_kwargs.py:29:33 Undefined or invalid type [11]: Annotation `Unpack` is not defined as a type.']
+"""

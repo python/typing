@@ -16,8 +16,8 @@ Json = Union[None, int, str, float, list["Json"], dict[str, "Json"]]
 j1: Json = [1, {"a": 1}]  # OK
 j2: Json = 3.4  # OK
 j3: Json = [1.2, None, [1.2, [""]]]  # OK
-j4: Json = {"a": 1, "b": 3j}  # Type error: incompatible type
-j5: Json = [2, 3j]  # Type error: incompatible type
+j4: Json = {"a": 1, "b": 3j}  # E: incompatible type
+j5: Json = [2, 3j]  # E: incompatible type
 
 
 # This type alias should be equivalent to Json.
@@ -35,8 +35,8 @@ t2: RecursiveTuple = (1, "1")  # OK
 t3: RecursiveTuple = (1, "1", 1, "2")  # OK
 t4: RecursiveTuple = (1, ("1", 1), "2")  # OK
 t5: RecursiveTuple = (1, ("1", 1), (1, (1, 2)))  # OK
-t6: RecursiveTuple = (1, ("1", 1), (1, (1, [2])))  # Type error
-t6: RecursiveTuple = (1, [1])  # Type error
+t6: RecursiveTuple = (1, ("1", 1), (1, (1, [2])))  # E
+t6: RecursiveTuple = (1, [1])  # E
 
 
 RecursiveMapping = str | int | Mapping[str, "RecursiveMapping"]
@@ -47,13 +47,9 @@ m3: RecursiveMapping = {"1": "1"}  # OK
 m4: RecursiveMapping = {"1": "1", "2": 1}  # OK
 m5: RecursiveMapping = {"1": "1", "2": 1, "3": {}}  # OK
 m6: RecursiveMapping = {"1": "1", "2": 1, "3": {"0": "0", "1": "2", "2": {}}}  # OK
-m7: RecursiveMapping = {"1": [1]}  # Type error
-m8: RecursiveMapping = {"1": "1", "2": 1, "3": [1, 2]}  # Type error
-m9: RecursiveMapping = {
-    "1": "1",
-    "2": 1,
-    "3": {"0": "0", "1": 1, "2": [1, 2, 3]},
-}  # Type error
+m7: RecursiveMapping = {"1": [1]}  # E
+m8: RecursiveMapping = {"1": "1", "2": 1, "3": [1, 2]}  # E
+m9: RecursiveMapping = {"1": "1", "2": 1, "3": {"0": "0", "1": 1, "2": [1, 2, 3]}}  # E
 
 
 T1 = TypeVar("T1", str, int)
@@ -64,19 +60,17 @@ SpecializedTypeAlias1 = GenericTypeAlias1[str]
 
 g1: SpecializedTypeAlias1 = ["hi", ["hi", "hi"]]  # OK
 g2: GenericTypeAlias1[str] = ["hi", "bye", [""], [["hi"]]]  # OK
-g3: GenericTypeAlias1[str] = ["hi", [2.4]]  # Type error
+g3: GenericTypeAlias1[str] = ["hi", [2.4]]  # E
 
 GenericTypeAlias2 = list["GenericTypeAlias2[T1, T2]" | T1 | T2]
 
 g4: GenericTypeAlias2[str, int] = [[3, ["hi"]], "hi"]  # OK
 g5: GenericTypeAlias2[str, float] = [[3, ["hi", 3.4, [3.4]]], "hi"]  # OK
-g6: GenericTypeAlias2[str, int] = [[3, ["hi", 3, [3.4]]], "hi"]  # Type error
+g6: GenericTypeAlias2[str, int] = [[3, ["hi", 3, [3.4]]], "hi"]  # E
 
 
-RecursiveUnion: TypeAlias = Union["RecursiveUnion", int]  # Type error: cyclical reference
+RecursiveUnion: TypeAlias = Union["RecursiveUnion", int]  # E: cyclical reference
 
-MutualReference1: TypeAlias = Union[
-    "MutualReference2", int
-]  # Type error: cyclical reference
-MutualReference2: TypeAlias = Union["MutualReference1", str]
+# On one line because different type checkers report the error on different lines
+MutualReference1: TypeAlias = Union["MutualReference2", int]; MutualReference2: TypeAlias = Union["MutualReference1", str]  # E: cyclical reference
 

@@ -9,3 +9,6 @@ generics_base_class.py:49: error: "LinkedList" expects 1 type argument, but 2 gi
 generics_base_class.py:61: error: "MyDict" expects 1 type argument, but 2 given  [type-arg]
 generics_base_class.py:68: error: Duplicate type variables in Generic[...] or Protocol[...]  [misc]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

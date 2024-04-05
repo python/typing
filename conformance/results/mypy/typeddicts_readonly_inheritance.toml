@@ -67,3 +67,25 @@ typeddicts_readonly_inheritance.py:129: error: NotRequired[] can be only used in
 typeddicts_readonly_inheritance.py:132: error: Overwriting TypedDict field "x" while merging  [misc]
 typeddicts_readonly_inheritance.py:132: error: Overwriting TypedDict field "y" while merging  [misc]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 36: Expected 1 errors
+Line 15: Unexpected errors ['typeddicts_readonly_inheritance.py:15: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']
+Line 19: Unexpected errors ['typeddicts_readonly_inheritance.py:19: error: Overwriting TypedDict field "name" while extending  [misc]']
+Line 43: Unexpected errors ['typeddicts_readonly_inheritance.py:43: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']
+Line 44: Unexpected errors ['typeddicts_readonly_inheritance.py:44: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']
+Line 49: Unexpected errors ['typeddicts_readonly_inheritance.py:49: error: Overwriting TypedDict field "albums" while extending  [misc]', 'typeddicts_readonly_inheritance.py:49: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']
+Line 58: Unexpected errors ['typeddicts_readonly_inheritance.py:58: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly_inheritance.py:58: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
+Line 62: Unexpected errors ['typeddicts_readonly_inheritance.py:62: error: Overwriting TypedDict field "name" while extending  [misc]', 'typeddicts_readonly_inheritance.py:62: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly_inheritance.py:62: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+Line 72: Unexpected errors ['typeddicts_readonly_inheritance.py:72: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly_inheritance.py:72: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
+Line 76: Unexpected errors ['typeddicts_readonly_inheritance.py:76: error: Overwriting TypedDict field "ident" while extending  [misc]']
+Line 89: Unexpected errors ['typeddicts_readonly_inheritance.py:89: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly_inheritance.py:89: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
+Line 90: Unexpected errors ['typeddicts_readonly_inheritance.py:90: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly_inheritance.py:90: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+Line 102: Unexpected errors ['typeddicts_readonly_inheritance.py:102: error: Overwriting TypedDict field "b" while extending  [misc]', 'typeddicts_readonly_inheritance.py:102: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly_inheritance.py:102: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+Line 111: Unexpected errors ['typeddicts_readonly_inheritance.py:111: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']
+Line 116: Unexpected errors ['typeddicts_readonly_inheritance.py:116: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]']
+Line 123: Unexpected errors ['typeddicts_readonly_inheritance.py:123: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly_inheritance.py:123: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
+Line 124: Unexpected errors ['typeddicts_readonly_inheritance.py:124: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly_inheritance.py:124: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+Line 128: Unexpected errors ['typeddicts_readonly_inheritance.py:128: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly_inheritance.py:128: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+Line 129: Unexpected errors ['typeddicts_readonly_inheritance.py:129: error: Variable "typing_extensions.ReadOnly" is not valid as a type  [valid-type]', 'typeddicts_readonly_inheritance.py:129: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
+"""

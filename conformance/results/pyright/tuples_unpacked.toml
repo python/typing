@@ -6,3 +6,8 @@ tuples_unpacked.py:50:34 - error: Type argument list can have at most one unpack
 tuples_unpacked.py:58:37 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
 tuples_unpacked.py:60:50 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 31: Expected 1 errors
+Line 32: Expected 1 errors
+"""

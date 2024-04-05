@@ -28,3 +28,20 @@ File "tuples_unpacked.py", line 48, in <module>: Invalid type annotation '<insta
 File "tuples_unpacked.py", line 49, in func3: Invalid type annotation 'tuple[*tuple[str], *Ts]'  [invalid-annotation]
 File "tuples_unpacked.py", line 50, in func3: Invalid type annotation 'tuple[*tuple[str, ...], *Ts]'  [invalid-annotation]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 58: Expected 1 errors
+Line 60: Expected 1 errors
+Line 13: Unexpected errors ['File "tuples_unpacked.py", line 13, in <module>: typing.Unpack not supported yet [not-supported-yet]', 'File "tuples_unpacked.py", line 13, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
+Line 16: Unexpected errors ['File "tuples_unpacked.py", line 16, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
+Line 17: Unexpected errors ['File "tuples_unpacked.py", line 17, in func1: Tuple[Any] [assert-type]']
+Line 18: Unexpected errors ['File "tuples_unpacked.py", line 18, in func1: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
+Line 19: Unexpected errors ['File "tuples_unpacked.py", line 19, in func1: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
+Line 25: Unexpected errors ['File "tuples_unpacked.py", line 25, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
+Line 26: Unexpected errors ['File "tuples_unpacked.py", line 26, in func2: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
+Line 37: Unexpected errors ['File "tuples_unpacked.py", line 37, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]', 'File "tuples_unpacked.py", line 37, in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]']
+Line 38: Unexpected errors ['File "tuples_unpacked.py", line 38, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
+Line 45: Unexpected errors ['File "tuples_unpacked.py", line 45, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
+Line 48: Unexpected errors ['File "tuples_unpacked.py", line 48, in <module>: Invalid type annotation \\'<instance of Tuple[nothing, ...]>\\'  [invalid-annotation]']
+Line 49: Unexpected errors ['File "tuples_unpacked.py", line 49, in func3: Invalid type annotation \\'tuple[*tuple[str], *Ts]\\'  [invalid-annotation]']
+"""

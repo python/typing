@@ -6,3 +6,6 @@ directives_cast.py:16:13 - error: Expected type expression but received "Literal
 directives_cast.py:17:8 - error: No overloads for "cast" match the provided arguments
   Argument types: (type[int], Literal[''], Literal['']) (reportCallIssue)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

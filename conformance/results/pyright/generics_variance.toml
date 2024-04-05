@@ -26,3 +26,6 @@ generics_variance.py:191:43 - error: Could not specialize type "Contra_TA[T_cont
 generics_variance.py:196:15 - error: Could not specialize type "Contra_TA[T_contra@Contra_TA]"
   Variance of type argument "Contra_TA[Contra_TA[T_co@ContraToContraToContra_WithTA]]" is incompatible with "T_contra@Contra_TA"
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

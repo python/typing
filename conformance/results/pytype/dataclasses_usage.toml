@@ -14,3 +14,15 @@ File "dataclasses_usage.py", line 152, in __init__: Type annotation for x_square
 File "dataclasses_usage.py", line 165, in __init__: Type annotation for x_squared does not match type of assignment [annotation-type-mismatch]
 File "dataclasses_usage.py", line 179, in <module>: Function DC13.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 62: Expected 1 errors
+Line 68: Expected 1 errors
+Line 74: Expected 1 errors
+Line 228: Expected 1 errors
+Line 59: Unexpected errors ['File "dataclasses_usage.py", line 59, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']
+Line 65: Unexpected errors ['File "dataclasses_usage.py", line 65, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']
+Line 71: Unexpected errors ['File "dataclasses_usage.py", line 71, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']
+Line 152: Unexpected errors ['File "dataclasses_usage.py", line 152, in __init__: Type annotation for x_squared does not match type of assignment [annotation-type-mismatch]']
+Line 165: Unexpected errors ['File "dataclasses_usage.py", line 165, in __init__: Type annotation for x_squared does not match type of assignment [annotation-type-mismatch]']
+"""

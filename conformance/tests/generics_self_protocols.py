@@ -58,7 +58,7 @@ def main(
     accepts_shape(return_concrete_shape)  # OK
 
     # This should generate a type error.
-    accepts_shape(bad_return_type)
+    accepts_shape(bad_return_type)  # E
 
     # Not OK because it returns a non-subclass.
-    accepts_shape(return_different_class)
+    accepts_shape(return_different_class)  # E

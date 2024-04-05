@@ -30,7 +30,7 @@ class Function(Protocol):
 
 
 def impl(**kwargs: Unpack[ReadOnlyArgs]) -> None:
-    kwargs["key1"] = 3  # Type Error
+    kwargs["key1"] = 3  # E
 
 
 fn: Function = impl  # OK

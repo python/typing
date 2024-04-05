@@ -13,3 +13,15 @@ File "generics_typevartuple_overloads.py", line 29, in <module>: class Array is 
 File "generics_typevartuple_overloads.py", line 30, in func1: class Array is not indexable [not-indexable]
 File "generics_typevartuple_overloads.py", line 31, in func1: class Array is not indexable [not-indexable]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 7: Unexpected errors ['File "generics_typevartuple_overloads.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
+Line 10: Unexpected errors ['File "generics_typevartuple_overloads.py", line 10, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
+Line 16: Unexpected errors ['File "generics_typevartuple_overloads.py", line 16, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
+Line 18: Unexpected errors ['File "generics_typevartuple_overloads.py", line 18, in Array: class Array is not indexable [not-indexable]']
+Line 22: Unexpected errors ['File "generics_typevartuple_overloads.py", line 22, in Array: class Array is not indexable [not-indexable]']
+Line 26: Unexpected errors ['File "generics_typevartuple_overloads.py", line 26, in transpose: bad return type [bad-return-type]']
+Line 29: Unexpected errors ['File "generics_typevartuple_overloads.py", line 29, in <module>: class Array is not indexable [not-indexable]']
+Line 30: Unexpected errors ['File "generics_typevartuple_overloads.py", line 30, in func1: class Array is not indexable [not-indexable]']
+Line 31: Unexpected errors ['File "generics_typevartuple_overloads.py", line 31, in func1: class Array is not indexable [not-indexable]']
+"""

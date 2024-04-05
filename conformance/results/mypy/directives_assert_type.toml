@@ -9,3 +9,6 @@ directives_assert_type.py:32: error: Expression is of type "Literal['']", not "i
 directives_assert_type.py:33: error: "assert_type" expects 2 arguments  [misc]
 directives_assert_type.py:33: error: Too many arguments for "assert_type"  [call-arg]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

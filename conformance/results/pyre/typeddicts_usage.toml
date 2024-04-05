@@ -8,3 +8,8 @@ typeddicts_usage.py:23:6 TypedDict accessed with a missing key [27]: TypedDict `
 typeddicts_usage.py:24:16 Invalid TypedDict operation [54]: Expected `int` to be assigned to `Movie` field `year` but got `str`.
 typeddicts_usage.py:28:16 TypedDict initialization error [55]: Missing required field `name` for TypedDict `Movie`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 35: Expected 1 errors
+Line 40: Expected 1 errors
+"""

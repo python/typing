@@ -1,6 +1,10 @@
 conformant = "Partial"
 notes = """
-Does not reject covariant use of TypeIs
+Does not reject covariant use of TypeIs.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 191: Expected 1 errors
 """
 output = """
 narrowing_typeis.py:105:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)

@@ -23,7 +23,7 @@ class Options2(Protocol):
 
 
 op1: Options1 = _protocols_modules1  # OK
-op2: Options2 = _protocols_modules1  # Type error
+op2: Options2 = _protocols_modules1  # E
 
 
 class Reporter1(Protocol):
@@ -45,5 +45,5 @@ class Reporter3(Protocol):
 
 
 rp1: Reporter1 = _protocols_modules2  # OK
-rp2: Reporter2 = _protocols_modules2  # Type error
-rp3: Reporter3 = _protocols_modules2  # Type error
+rp2: Reporter2 = _protocols_modules2  # E
+rp3: Reporter3 = _protocols_modules2  # E

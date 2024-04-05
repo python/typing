@@ -23,3 +23,6 @@ generics_paramspec_components.py:98:20 - error: Argument of type "Literal['A']" 
 generics_paramspec_components.py:98:25 - error: Argument of type "Literal[1]" cannot be assigned to parameter "b" of type "str"
   "Literal[1]" is incompatible with "str" (reportArgumentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

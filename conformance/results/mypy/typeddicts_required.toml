@@ -10,3 +10,8 @@ typeddicts_required.py:60: error: NotRequired[] can be only used in a TypedDict 
 typeddicts_required.py:65: error: Required[] can be only used in a TypedDict definition  [valid-type]
 typeddicts_required.py:67: error: Required[] can be only used in a TypedDict definition  [valid-type]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 65: Unexpected errors ['typeddicts_required.py:65: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+Line 67: Unexpected errors ['typeddicts_required.py:67: error: Required[] can be only used in a TypedDict definition  [valid-type]']
+"""

@@ -27,7 +27,7 @@ def close_all(things: Iterable[SupportsClose]) -> None:
 f = open("foo.txt")
 r = Resource()
 close_all([f, r])  # OK
-close_all([1])  # Type error: 'int' has no 'close' method
+close_all([1])  # E: 'int' has no 'close' method
 
 
 class Example(Protocol):
@@ -64,7 +64,7 @@ class Template(Protocol):
 
     def method(self) -> None:
         self.name = "name"  # OK
-        self.temp: list[int] = []  # Type error: use of self variables not allowed
+        self.temp: list[int] = []  # E: use of self variables not allowed
 
 
 class Concrete:
@@ -111,10 +111,10 @@ class Concrete2_Bad4:
 
 
 v2_good1: Template2 = Concrete2_Good1()  # OK
-v2_bad1: Template2 = Concrete2_Bad1()  # Type error
-v2_bad2: Template2 = Concrete2_Bad2()  # Type error
-v2_bad3: Template2 = Concrete2_Bad3()  # Type error
-v2_bad4: Template2 = Concrete2_Bad4()  # Type error
+v2_bad1: Template2 = Concrete2_Bad1()  # E
+v2_bad2: Template2 = Concrete2_Bad2()  # E
+v2_bad3: Template2 = Concrete2_Bad3()  # E
+v2_bad4: Template2 = Concrete2_Bad4()  # E
 
 
 class Template3(Protocol):
@@ -153,11 +153,11 @@ class Concrete3_Bad5:
 
 
 v3_good1: Template3 = Concrete3_Good1()  # OK
-v3_bad1: Template3 = Concrete3_Bad1()  # Type error
-v3_bad2: Template3 = Concrete3_Bad2()  # Type error
-v3_bad3: Template3 = Concrete3_Bad3()  # Type error
-v3_bad4: Template3 = Concrete3_Bad4()  # Type error
-v3_bad5: Template3 = Concrete3_Bad5()  # Type error
+v3_bad1: Template3 = Concrete3_Bad1()  # E
+v3_bad2: Template3 = Concrete3_Bad2()  # E
+v3_bad3: Template3 = Concrete3_Bad3()  # E
+v3_bad4: Template3 = Concrete3_Bad4()  # E
+v3_bad5: Template3 = Concrete3_Bad5()  # E
 
 
 class Template4(Protocol):
@@ -215,8 +215,8 @@ v4_good4: Template4 = Concrete4_Good4()  # OK
 v4_good5: Template4 = Concrete4_Good5()  # OK
 v4_good6: Template4 = Concrete4_Good6()  # OK
 v4_good7: Template4 = Concrete4_Good7()  # OK
-v4_bad1: Template4 = Concrete4_Bad1()  # Type error
-v4_bad2: Template4 = Concrete4_Bad2()  # Type error
+v4_bad1: Template4 = Concrete4_Bad1()  # E
+v4_bad2: Template4 = Concrete4_Bad2()  # E
 
 
 class Template5(Protocol):
@@ -282,11 +282,11 @@ v5_good2: Template5 = Concrete5_Good2()  # OK
 v5_good3: Template5 = Concrete5_Good3()  # OK
 v5_good4: Template5 = Concrete5_Good4()  # OK
 v5_good5: Template5 = Concrete5_Good5()  # OK
-v5_bad1: Template5 = Concrete5_Bad1()  # Type error
-v5_bad2: Template5 = Concrete5_Bad2()  # Type error
-v5_bad3: Template5 = Concrete5_Bad3()  # Type error
-v5_bad4: Template5 = Concrete5_Bad4()  # Type error
-v5_bad5: Template5 = Concrete5_Bad5()  # Type error
+v5_bad1: Template5 = Concrete5_Bad1()  # E
+v5_bad2: Template5 = Concrete5_Bad2()  # E
+v5_bad3: Template5 = Concrete5_Bad3()  # E
+v5_bad4: Template5 = Concrete5_Bad4()  # E
+v5_bad5: Template5 = Concrete5_Bad5()  # E
 
 
 class Template6(Protocol):
@@ -336,6 +336,6 @@ class Concrete6_Bad3:
 v6_good1: Template6 = Concrete6_Good1()  # OK
 v6_good2: Template6 = Concrete6_Good2()  # OK
 v6_good3: Template6 = Concrete6_Good3()  # OK
-v6_bad1: Template6 = Concrete6_Bad1()  # Type error
-v6_bad2: Template6 = Concrete6_Bad2()  # Type error: named tuple is immutable
-v6_bad3: Template6 = Concrete6_Bad3()  # Type error: dataclass is frozen
+v6_bad1: Template6 = Concrete6_Bad1()  # E
+v6_bad2: Template6 = Concrete6_Bad2()  # E: named tuple is immutable
+v6_bad3: Template6 = Concrete6_Bad3()  # E: dataclass is frozen

@@ -24,7 +24,7 @@ class NiceColor(PColor):
 
 class BadColor(PColor):
     def draw(self) -> str:
-        return super().draw()  # Type error: no default implementation
+        return super().draw()  # E: no default implementation
 
 
 class ImplicitColor:  # Note no 'PColor' base here
@@ -53,10 +53,10 @@ class RGB(Protocol):
 
 class Point(RGB):
     def __init__(self, red: int, green: int, blue: str) -> None:
-        self.rgb = red, green, blue  # Type error: 'blue' must be 'int'
+        self.rgb = red, green, blue  # E: 'blue' must be 'int'
 
 
-p = Point(0, 0, "")  # Type error: Cannot instantiate abstract class
+p = Point(0, 0, "")  # E: Cannot instantiate abstract class
 
 
 class Proto1(Protocol):
@@ -83,7 +83,7 @@ class Concrete1(Proto1):
     ...
 
 
-c1 = Concrete1()  # Type error: cannot instantiate abstract class
+c1 = Concrete1()  # E: cannot instantiate abstract class
 
 
 class Concrete2(Proto1):
@@ -101,7 +101,7 @@ class Concrete3(Proto1, Proto3):
         im1 = 0
 
 
-c3 = Concrete3()  # Type error: cannot instantiate abstract class
+c3 = Concrete3()  # E: cannot instantiate abstract class
 
 
 class Concrete4(Proto1, Proto3):
@@ -126,7 +126,7 @@ class Concrete5(Proto5):
     pass
 
 
-c5 = Concrete5()  # Type error: cannot instantiate abstract class
+c5 = Concrete5()  # E: cannot instantiate abstract class
 
 
 class Proto6(Protocol):
@@ -156,7 +156,7 @@ class Concrete7A(Proto7):
     pass
 
 
-c7a = Concrete7A()  # Type error: cannot instantiate abstract class
+c7a = Concrete7A()  # E: cannot instantiate abstract class
 
 
 class Concrete7B(Mixin7, Proto7):

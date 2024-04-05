@@ -10,3 +10,13 @@ protocols_variance.py:71:7 - warning: Type variable "T1_contra" used in generic 
 protocols_variance.py:72:21 - error: Contravariant type variable cannot be used in return type (reportGeneralTypeIssues)
 protocols_variance.py:104:7 - warning: Type variable "T1" used in generic protocol "Protocol12" should be covariant (reportInvalidTypeVarUse)
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Expected 1 errors
+Line 40: Expected 1 errors
+Line 56: Expected 1 errors
+Line 61: Expected 1 errors
+Line 66: Expected 1 errors
+Line 71: Expected 1 errors
+Line 104: Expected 1 errors
+"""

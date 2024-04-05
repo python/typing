@@ -13,3 +13,25 @@ narrowing_typeis.py:92: error: Expression is of type "object", not "B"  [assert-
 narrowing_typeis.py:96: error: Expression is of type "object", not "B"  [assert-type]
 narrowing_typeis.py:169: error: Argument 1 to "takes_typeguard" has incompatible type "Callable[[object], Any]"; expected "Callable[[object], TypeGuard[int]]"  [arg-type]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 105: Expected 1 errors
+Line 110: Expected 1 errors
+Line 132: Expected 1 errors
+Line 152: Expected 1 errors
+Line 170: Expected 1 errors
+Line 191: Expected 1 errors
+Line 195: Expected 1 errors
+Line 199: Expected 1 errors
+Line 9: Unexpected errors ['narrowing_typeis.py:9: error: Module "typing_extensions" has no attribute "TypeIs"  [attr-defined]']
+Line 19: Unexpected errors ['narrowing_typeis.py:19: error: Expression is of type "tuple[str, ...]", not "tuple[str, str]"  [assert-type]']
+Line 35: Unexpected errors ['narrowing_typeis.py:35: error: Incompatible types in "await" (actual type "int | Awaitable[int]", expected type "Awaitable[Any]")  [misc]']
+Line 38: Unexpected errors ['narrowing_typeis.py:38: error: Expression is of type "int | Awaitable[int]", not "int"  [assert-type]']
+Line 72: Unexpected errors ['narrowing_typeis.py:72: error: Expression is of type "object", not "int"  [assert-type]']
+Line 76: Unexpected errors ['narrowing_typeis.py:76: error: Expression is of type "object", not "int"  [assert-type]']
+Line 80: Unexpected errors ['narrowing_typeis.py:80: error: Expression is of type "object", not "int"  [assert-type]']
+Line 84: Unexpected errors ['narrowing_typeis.py:84: error: Expression is of type "object", not "int"  [assert-type]']
+Line 88: Unexpected errors ['narrowing_typeis.py:88: error: Expression is of type "object", not "int"  [assert-type]']
+Line 92: Unexpected errors ['narrowing_typeis.py:92: error: Expression is of type "object", not "B"  [assert-type]']
+Line 96: Unexpected errors ['narrowing_typeis.py:96: error: Expression is of type "object", not "B"  [assert-type]']
+"""

@@ -20,3 +20,7 @@ literals_parameterizations.py:60: error: Literal[...] must have at least one par
 literals_parameterizations.py:61: error: Parameter 1 of Literal[...] is invalid  [valid-type]
 literals_parameterizations.py:65: error: Incompatible types in assignment (expression has type "Literal[Color.RED]", variable has type "Literal['Color.RED']")  [assignment]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 46: Expected 1 errors
+"""

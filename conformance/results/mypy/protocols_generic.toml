@@ -39,3 +39,7 @@ protocols_generic.py:147: note:         def [T] m(self, item: T, callback: Calla
 protocols_generic.py:147: note:     Got:
 protocols_generic.py:147: note:         def m(self, item: str, callback: Callable[[int], str]) -> str
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 145: Unexpected errors ['protocols_generic.py:145: error: Incompatible types in assignment (expression has type "ConcreteHasProperty2", variable has type "HasPropertyProto")  [assignment]']
+"""

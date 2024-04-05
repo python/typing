@@ -23,3 +23,6 @@ classes_classvar.py:129:13 - error: Expression of type "ProtoAImpl" cannot be as
     "x" is defined as a ClassVar in protocol
     "y" is defined as a ClassVar in protocol (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

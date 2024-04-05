@@ -13,3 +13,9 @@ generics_type_erasure.py:41: error: Access to generic instance variables via cla
 generics_type_erasure.py:42: error: Access to generic instance variables via class is ambiguous  [misc]
 generics_type_erasure.py:43: error: Access to generic instance variables via class is ambiguous  [misc]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 44: Expected 1 errors
+Line 17: Unexpected errors ['generics_type_erasure.py:17: error: Expression is of type "Node[Never]", not "Node[Any]"  [assert-type]']
+Line 20: Unexpected errors ['generics_type_erasure.py:20: error: Expression is of type Never, not "Any"  [assert-type]']
+"""

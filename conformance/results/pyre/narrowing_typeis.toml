@@ -6,3 +6,20 @@ narrowing_typeis.py:19:33 Incompatible parameter type [6]: In call `typing.Gener
 narrowing_typeis.py:21:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.
 narrowing_typeis.py:35:17 Incompatible awaitable type [12]: Expected an awaitable but got `typing.Union[typing.Awaitable[int], int]`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 105: Expected 1 errors
+Line 110: Expected 1 errors
+Line 132: Expected 1 errors
+Line 152: Expected 1 errors
+Line 169: Expected 1 errors
+Line 170: Expected 1 errors
+Line 191: Expected 1 errors
+Line 195: Expected 1 errors
+Line 199: Expected 1 errors
+Line 9: Unexpected errors ['narrowing_typeis.py:9:0 Undefined import [21]: Could not find a name `TypeIs` defined in module `typing_extensions`.']
+Line 14: Unexpected errors ['narrowing_typeis.py:14:48 Undefined or invalid type [11]: Annotation `TypeIs` is not defined as a type.']
+Line 19: Unexpected errors ['narrowing_typeis.py:19:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.']
+Line 21: Unexpected errors ['narrowing_typeis.py:21:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.']
+Line 35: Unexpected errors ['narrowing_typeis.py:35:17 Incompatible awaitable type [12]: Expected an awaitable but got `typing.Union[typing.Awaitable[int], int]`.']
+"""

@@ -17,3 +17,6 @@ typeddicts_readonly_consistency.py:84:14 - error: Expression of type "A2" cannot
 typeddicts_readonly_consistency.py:85:14 - error: Expression of type "B2" cannot be assigned to declared type "C2"
   "x" is required in "C2" (reportAssignmentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

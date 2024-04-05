@@ -1,4 +1,4 @@
-conformant = "Pass"
+conformant = "Partial"
 notes = """
 Does not properly support assert_type.
 """
@@ -7,6 +7,11 @@ File "generics_upper_bound.py", line 22, in <module>: Invalid TypeVar: bound can
 File "generics_upper_bound.py", line 35, in <module>: list [assert-type]
 File "generics_upper_bound.py", line 36, in <module>: set [assert-type]
 File "generics_upper_bound.py", line 41, in <module>: Union[list, set] [assert-type]
-File "generics_upper_bound.py", line 43, in <module>: Function longer was called with the wrong arguments [wrong-arg-types]
-File "generics_upper_bound.py", line 48, in <module>: Invalid TypeVar: constraints and a bound are mutually exclusive [invalid-typevar]
+File "generics_upper_bound.py", line 48, in <module>: Function longer was called with the wrong arguments [wrong-arg-types]
+File "generics_upper_bound.py", line 53, in <module>: Invalid TypeVar: constraints and a bound are mutually exclusive [invalid-typevar]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 35: Unexpected errors ['File "generics_upper_bound.py", line 35, in <module>: list [assert-type]']
+Line 36: Unexpected errors ['File "generics_upper_bound.py", line 36, in <module>: set [assert-type]']
 """

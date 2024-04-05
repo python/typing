@@ -11,3 +11,6 @@ dataclasses_transform_class.py:119:6 - error: Cannot assign member "id" for type
   "Customer3" is frozen
     Member "__set__" is unknown (reportAttributeAccessIssue)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

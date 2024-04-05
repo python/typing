@@ -18,3 +18,12 @@ File "specialtypes_type.py", line 144, in <module>: No attribute 'unknown' on Ty
 File "specialtypes_type.py", line 145, in <module>: No attribute 'unknown' on Type[type] [attribute-error]
 File "specialtypes_type.py", line 146, in <module>: No attribute 'unknown' on Type[type] [attribute-error]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 70: Expected 1 errors
+Line 64: Unexpected errors ['File "specialtypes_type.py", line 64, in <module>: Invalid type annotation \\'T\\'  [invalid-annotation]']
+Line 98: Unexpected errors ['File "specialtypes_type.py", line 98, in func7: Any [assert-type]']
+Line 102: Unexpected errors ['File "specialtypes_type.py", line 102, in func7: Any [assert-type]']
+Line 106: Unexpected errors ['File "specialtypes_type.py", line 106, in func7: Any [assert-type]']
+Line 110: Unexpected errors ['File "specialtypes_type.py", line 110, in func7: Any [assert-type]']
+"""

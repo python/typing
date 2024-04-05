@@ -13,3 +13,12 @@ File "namedtuples_usage.py", line 43, in <module>: unsupported operand type(s) f
 File "namedtuples_usage.py", line 52, in <module>: Cannot unpack 3 values into 2 variables [bad-unpacking]
 File "namedtuples_usage.py", line 53, in <module>: Cannot unpack 3 values into 4 variables [bad-unpacking]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 34: Expected 1 errors
+Line 35: Expected 1 errors
+Line 40: Expected 1 errors
+Line 42: Expected 1 errors
+Line 31: Unexpected errors ['File "namedtuples_usage.py", line 31, in <module>: Union[int, str] [assert-type]']
+Line 32: Unexpected errors ['File "namedtuples_usage.py", line 32, in <module>: Union[int, str] [assert-type]']
+"""

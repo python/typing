@@ -12,7 +12,7 @@ class DC1:
 
 
 # This should generate an error because DC1 isn't hashable.
-v1: Hashable = DC1(0)
+v1: Hashable = DC1(0)  # E
 
 
 @dataclass(eq=True, frozen=True)
@@ -29,7 +29,7 @@ class DC3:
 
 
 # This should generate an error because DC3 isn't hashable.
-v3: Hashable = DC3(0)
+v3: Hashable = DC3(0)  # E
 
 
 @dataclass(frozen=True)
