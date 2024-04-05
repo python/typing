@@ -43,7 +43,7 @@ def func2(v3: str, **kwargs: Unpack[TD1]) -> None:
 
 def func3() -> None:
     # Mypy reports multiple errors here.
-    func1()  # E: missing required keyword args  # E?
+    func1()  # E: missing required keyword args
     func1(v1=1, v2="", v3="5")  # OK
 
     td2 = TD2(v1=2, v3="4")
@@ -58,10 +58,10 @@ def func3() -> None:
     func1(**my_dict)  # E: untyped dict
 
     d1 = {"v1": 2, "v3": "4", "v4": 4}
-    func1(**d1)  # E? # E?: OK or Type error (spec allows either)
+    func1(**d1)  # E?: OK or Type error (spec allows either)
     func2(**td2)  # OK
-    func1(v1=2, **td2)  # E: v1 is already specified  # E?: incompatible type argument 1
-    func2(1, **td2)  # E: v1 is already specified  # E?: incompatible type for argument
+    func1(v1=2, **td2)  # E: v1 is already specified
+    func2(1, **td2)  # E: v1 is already specified
     func2(v1=1, **td2)  # E: v1 is already specified
 
 

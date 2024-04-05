@@ -28,9 +28,9 @@ def func1(
     assert_type(c, int)  # E: Type mismatch
     assert_type(e, int)  # E: Type mismatch
 
-    assert_type()  # E: not enough arguments  # E?
+    assert_type()  # E: not enough arguments
     assert_type("", int)  # E: wrong argument type
-    assert_type(a, int | str, a)  # E: too many arguments  # E?
+    assert_type(a, int | str, a)  # E: too many arguments
 
 
 class ForwardReference:

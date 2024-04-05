@@ -59,7 +59,7 @@ class Protocol4(Protocol[T1]):  # E: T1 should be contravariant
 
 
 class Protocol5(Protocol[T1_co]):  # E: T1_co should be contravariant
-    def m1(self, p0: T1_co) -> None:  # E?
+    def m1(self, p0: T1_co) -> None:  # E?: Incorrect use of covariant TypeVar
         ...
 
 
@@ -69,7 +69,7 @@ class Protocol6(Protocol[T1]):  # E: T1 should be covariant
 
 
 class Protocol7(Protocol[T1_contra]):  # E: T1_contra should be covariant
-    def m1(self) -> T1_contra:  # E?
+    def m1(self) -> T1_contra:  # E?: Incorrect use of contravariant TypeVar
         ...
 
 

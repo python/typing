@@ -16,8 +16,8 @@ def func1(a: int | str, b: list[int], c: Any, d: "ForwardReference"):
     reveal_type(c)  # Revealed type is "Any"
     reveal_type(d)  # Revealed type is "ForwardReference"
 
-    reveal_type()  # E: not enough arguments  # E?
-    reveal_type(a, a)  # E: Too many arguments  # E?
+    reveal_type()  # E: not enough arguments
+    reveal_type(a, a)  # E: Too many arguments
 
 
 class ForwardReference:

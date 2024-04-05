@@ -14,7 +14,7 @@ def func1(cb: Callable[[int, str], list[str]]) -> None:
     cb(1, 2)  # E
     cb(1, "", 1)  # E
     # Mypy reports two errors, one for each kwarg.
-    cb(a=1, b="")  # E: bad kwarg 'a'  # E?: bad kwarg 'b'
+    cb(a=1, b="")  # E: bad kwarg 'a'
 
 
 def func2(cb: Callable[[], dict[str, str]]) -> None:
