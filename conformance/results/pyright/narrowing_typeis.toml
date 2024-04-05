@@ -1,4 +1,7 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Does not reject covariant use of TypeIs.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 191: Expected 1 errors

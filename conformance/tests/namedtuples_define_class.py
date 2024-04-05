@@ -56,7 +56,7 @@ p10 = Point(1, 2, "", other="")  # E
 
 class Location(NamedTuple):
     altitude: float = 0.0
-    latitude: float  # Type error (previous field has a default value)
+    latitude: float  # E: previous field has a default value
 
 
 # > A named tuple class can be subclassed, but any fields added by the subclass

@@ -49,8 +49,8 @@ x1, y1, units1 = p
 assert_type(x1, int)
 assert_type(units1, str)
 
-x2, y2 = p  # Type error (too few values to unpack)
-x3, y3, unit3, other = p  # Type error (too many values to unpack)
+x2, y2 = p  # E: too few values to unpack
+x3, y3, unit3, other = p  # E: too many values to unpack
 
 
 class PointWithName(Point):
