@@ -1,13 +1,12 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
 Does not honor `@no_type_check` class decorator.
 """
 output = """
-directives_no_type_check.py:16:14 - error: Expression of type "Literal['']" cannot be assigned to declared type "int"
+directives_no_type_check.py:15:14 - error: Expression of type "Literal['']" cannot be assigned to declared type "int"
   "Literal['']" is incompatible with "int" (reportAssignmentType)
-directives_no_type_check.py:26:1 - error: Arguments missing for parameters "a", "b" (reportCallIssue)
+directives_no_type_check.py:32:1 - error: Arguments missing for parameters "a", "b" (reportCallIssue)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 16: Unexpected errors ['directives_no_type_check.py:16:14 - error: Expression of type "Literal[\\'\\']" cannot be assigned to declared type "int"']
 """
