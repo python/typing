@@ -33,12 +33,8 @@ class Foo(Generic[DefaultStrT, T2]):
 
 
 assert_type(Foo(1, ""), Foo[int, str])
-Foo[int](
-    1, ""
-)  # E: Foo[int, str] cannot be assigned to self: Foo[int, int] in Foo.__init__
-Foo[int](
-    "", 1
-)  # E: Foo[str, int] cannot be assigned to self: Foo[int, int] in Foo.__init__
+Foo[int](1, "")  # E: Foo[int, str] cannot be assigned to self: Foo[int, int] in Foo.__init__
+Foo[int]("", 1)  # E: Foo[str, int] cannot be assigned to self: Foo[int, int] in Foo.__init__
 
 
 # > ``T1`` must be used before ``T2`` in the parameter list of the generic.
@@ -75,15 +71,11 @@ TypeVar("Invalid1", default=X1, bound=str)  # E: int is not a subtype of str
 # > The constraints of ``T2`` must be a superset of the constraints of ``T1``.
 
 Y1 = TypeVar("Y1", bound=int)
-TypeVar(
-    "Invalid2", float, str, default=Y1
-)  # E: upper bound int is incompatible with constraints float or str
+TypeVar("Invalid2", float, str, default=Y1)  # E: upper bound int is incompatible with constraints float or str
 
 Y2 = TypeVar("Y2", int, str)
 TypeVar("AlsoOk2", int, str, bool, default=Y2)  # OK
-TypeVar(
-    "AlsoInvalid2", bool, complex, default=Y2
-)  # E: {bool, complex} is not a superset of {int, str}
+TypeVar("AlsoInvalid2", bool, complex, default=Y2)  # E: {bool, complex} is not a superset of {int, str}
 
 
 # > Type parameters are valid as parameters to generics inside of a

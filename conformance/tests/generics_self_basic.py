@@ -16,7 +16,7 @@ class Shape:
 
     def method2(self) -> Self:
         # This should result in a type error.
-        return Shape()
+        return Shape()  # E
 
     def method3(self) -> "Shape":
         return self
@@ -29,7 +29,7 @@ class Shape:
     @classmethod
     def cls_method2(cls) -> Self:
         # This should result in a type error.
-        return Shape()
+        return Shape()  # E
 
     @classmethod
     def cls_method3(cls) -> "Shape":
@@ -61,7 +61,7 @@ class Container(Generic[T]):
         ...
 
     # This should generate an error because Self isn't subscriptable.
-    def foo(self, other: Self[int]) -> None:
+    def foo(self, other: Self[int]) -> None:  # E
         pass
 
 

@@ -41,6 +41,5 @@ protocols_generic.py:147: note:         def m(self, item: str, callback: Callabl
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 44: Unexpected errors ['protocols_generic.py:44: error: Only single Generic[...] or Protocol[...] can be in bases  [misc]', 'protocols_generic.py:44: error: Duplicate type variables in Generic[...] or Protocol[...]  [misc]']
 Line 145: Unexpected errors ['protocols_generic.py:145: error: Incompatible types in assignment (expression has type "ConcreteHasProperty2", variable has type "HasPropertyProto")  [assignment]']
 """

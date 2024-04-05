@@ -16,7 +16,7 @@ class ChildClass[T, *Ts, **P]:
     assert_type(P, ParamSpec)
 
 
-class ClassA[T](Generic[T]):  # Runtime error
+class ClassA[T](Generic[T]):  # E: Runtime error
     ...
 
 

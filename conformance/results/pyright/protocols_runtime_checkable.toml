@@ -15,8 +15,6 @@ protocols_runtime_checkable.py:96:19 - error: Class overlaps "Proto3" unsafely a
 protocols_runtime_checkable.py:96:19 - error: Class overlaps "NonDataProtocol" unsafely and could produce a match at runtime
   Attributes of "Concrete3A" have the same names as the protocol (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 93: Expected 1 errors
-Line 92: Unexpected errors ['protocols_runtime_checkable.py:92:9 - error: Class overlaps "Proto3" unsafely and could produce a match at runtime', 'protocols_runtime_checkable.py:92:9 - error: Class overlaps "NonDataProtocol" unsafely and could produce a match at runtime']
 """

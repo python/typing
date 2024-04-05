@@ -31,7 +31,6 @@ generics_paramspec_semantics.py:136:2 - error: Argument of type "(**kwargs: int)
   Type "(**kwargs: int) -> int" cannot be assigned to type "(int, **P@expects_int_first) -> int"
     Function accepts too many positional parameters; expected 0 but received 1 (reportArgumentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 46: Unexpected errors ['generics_paramspec_semantics.py:46:17 - error: Argument of type "(y: int, x: str) -> int" cannot be assigned to parameter "y" of type "(**P@func1) -> int" in function "func1"']
 """

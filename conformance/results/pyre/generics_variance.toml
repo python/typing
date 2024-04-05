@@ -15,13 +15,13 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 14: Expected 1 errors
 Line 113: Expected 1 errors
-Line 127: Expected 1 errors
-Line 133: Expected 1 errors
-Line 143: Expected 1 errors
+Line 126: Expected 1 errors
+Line 132: Expected 1 errors
+Line 142: Expected 1 errors
 Line 163: Expected 1 errors
 Line 167: Expected 1 errors
 Line 191: Expected 1 errors
-Line 197: Expected 1 errors
+Line 196: Expected 1 errors
 Line 125: Unexpected errors ['generics_variance.py:125:0 Invalid type variance [46]: The type variable `Variable[T_co](covariant)` is incompatible with parent class type variable `Variable[T_contra](contravariant)` because subclasses cannot use more permissive type variables than their superclasses.']
 Line 131: Unexpected errors ['generics_variance.py:131:0 Invalid type variance [46]: The type variable `Variable[T_contra](contravariant)` is incompatible with parent class type variable `Variable[T_co](covariant)` because subclasses cannot use more permissive type variables than their superclasses.']
 """

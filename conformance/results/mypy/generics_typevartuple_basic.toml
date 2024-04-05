@@ -21,7 +21,7 @@ generics_typevartuple_basic.py:106: error: Can only use one type var tuple in a 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 46: Expected 1 errors
+Line 44: Expected 1 errors
 Line 89: Expected 1 errors
 Line 90: Expected 1 errors
 Line 45: Unexpected errors ['generics_typevartuple_basic.py:45: error: Argument 1 to "Array" has incompatible type "tuple[Time, Batch, Width, Height]"; expected "tuple[Time, Batch, Height, Width]"  [arg-type]']

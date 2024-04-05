@@ -12,7 +12,6 @@ generics_syntax_declarations.py:73:17 - error: Expected type expression but rece
 generics_syntax_declarations.py:77:18 - error: Expected type expression but received "Literal[3]" (reportGeneralTypeIssues)
 generics_syntax_declarations.py:81:23 - error: "S" is not defined (reportUndefinedVariable)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 19: Unexpected errors ['generics_syntax_declarations.py:19:17 - error: "Generic" base class cannot be used with type parameter syntax (reportGeneralTypeIssues)']
 """

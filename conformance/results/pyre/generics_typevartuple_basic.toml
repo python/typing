@@ -50,7 +50,6 @@ generics_typevartuple_basic.py:106:13 Invalid type [31]: Expression `typing.Gene
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 46: Expected 1 errors
 Line 53: Expected 1 errors
 Line 56: Expected 1 errors
 Line 59: Expected 1 errors
@@ -67,7 +66,6 @@ Line 36: Unexpected errors ['generics_typevartuple_basic.py:36:0 Incompatible va
 Line 37: Unexpected errors ['generics_typevartuple_basic.py:37:0 Incompatible variable type [9]: v2 is declared to have type `Array[]` but is used as type `Array`.', 'generics_typevartuple_basic.py:37:4 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_basic.py:37:40 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Batch, Height, Width]`. Expected has length 1, but actual has length 3.']
 Line 38: Unexpected errors ['generics_typevartuple_basic.py:38:0 Incompatible variable type [9]: v3 is declared to have type `Array[]` but is used as type `Array`.', 'generics_typevartuple_basic.py:38:4 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
 Line 39: Unexpected errors ['generics_typevartuple_basic.py:39:4 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Time, Batch, Height, Width]`. Expected has length 1, but actual has length 4.']
-Line 44: Unexpected errors ['generics_typevartuple_basic.py:44:0 Incompatible variable type [9]: v6 is declared to have type `Array[]` but is used as type `Array`.', 'generics_typevartuple_basic.py:44:4 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
 Line 45: Unexpected errors ['generics_typevartuple_basic.py:45:4 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Time, Batch, Width, Height]`. Expected has length 1, but actual has length 4.']
 Line 54: Unexpected errors ['generics_typevartuple_basic.py:54:21 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.']
 Line 75: Unexpected errors ['generics_typevartuple_basic.py:75:16 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.', 'generics_typevartuple_basic.py:75:34 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.', 'generics_typevartuple_basic.py:75:49 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.']

@@ -30,8 +30,6 @@ generics_typevartuple_basic.py:100:17 - error: Argument of type "Array[Height, W
 generics_typevartuple_basic.py:106:14 - error: Generic class can have at most one TypeVarTuple type parameter but received multiple ("Ts1", "Ts2") (reportGeneralTypeIssues)
 generics_typevartuple_basic.py:106:29 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 46: Expected 1 errors
-Line 44: Unexpected errors ['generics_typevartuple_basic.py:44:41 - error: Expression of type "Array[Time, Batch, Width, Height]" cannot be assigned to declared type "Array[Time, Batch, Height, Width]"']
 """

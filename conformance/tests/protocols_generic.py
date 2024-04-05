@@ -41,7 +41,7 @@ p2: Proto1[int, str] = Concrete1()  # E: incompatible type
 
 
 # Runtime error: Protocol and Generic cannot be used together as base classes.
-class Proto2(Protocol[T_co], Generic[T_co]):
+class Proto2(Protocol[T_co], Generic[T_co]):  # E
     ...
 
 

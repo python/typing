@@ -32,7 +32,7 @@ class ClassC[T](BaseClassC[T], param=Foo[T]):  # OK
     ...
 
 
-print(T)  # Runtime error: 'T' is not defined
+print(T)  # E: Runtime error: 'T' is not defined
 
 
 def decorator1[
@@ -41,7 +41,7 @@ def decorator1[
     ...
 
 
-@decorator1(Foo[T])  # Runtime error: 'T' is not defined
+@decorator1(Foo[T])  # E: Runtime error: 'T' is not defined
 class ClassD[T]:
     ...
 
@@ -49,11 +49,11 @@ class ClassD[T]:
 type Alias1[K, V] = Mapping[K, V] | Sequence[K]
 
 
-S: int = 0
+S: int = int(0)
 
 
-def outer1[S]():
-    S: str = ""
+def outer1[S](x: str):
+    S: str = x
     T: int = 1
 
     def outer2[T]():

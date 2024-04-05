@@ -26,14 +26,6 @@ generics_variance.py:191:43 - error: Could not specialize type "Contra_TA[T_cont
 generics_variance.py:196:15 - error: Could not specialize type "Contra_TA[T_contra@Contra_TA]"
   Variance of type argument "Contra_TA[Contra_TA[T_co@ContraToContraToContra_WithTA]]" is incompatible with "T_contra@Contra_TA"
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 127: Expected 1 errors
-Line 133: Expected 1 errors
-Line 143: Expected 1 errors
-Line 197: Expected 1 errors
-Line 126: Unexpected errors ['generics_variance.py:126:20 - error: Type "T_co@CoContra_Child2" cannot be assigned to type variable "T_contra@CoContra"']
-Line 132: Unexpected errors ['generics_variance.py:132:14 - error: Type "T_contra@CoContra_Child3" cannot be assigned to type variable "T_co@CoContra"']
-Line 142: Unexpected errors ['generics_variance.py:142:24 - error: Type "Co[T_co@CoContra_Child5]" cannot be assigned to type variable "T_contra@CoContra"']
-Line 196: Unexpected errors ['generics_variance.py:196:15 - error: Could not specialize type "Contra_TA[T_contra@Contra_TA]"']
 """

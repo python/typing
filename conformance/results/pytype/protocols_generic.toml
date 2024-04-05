@@ -21,6 +21,5 @@ Line 74: Expected 1 errors
 Line 147: Expected 1 errors
 Line 12: Unexpected errors ['File "protocols_generic.py", line 12, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
 Line 13: Unexpected errors ['File "protocols_generic.py", line 13, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
-Line 44: Unexpected errors ['File "protocols_generic.py", line 44, in <module>: Invalid type annotation \\'Proto2\\'  [invalid-annotation]']
 Line 65: Unexpected errors ['File "protocols_generic.py", line 65, in func2: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]']
 """

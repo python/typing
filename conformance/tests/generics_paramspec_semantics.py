@@ -43,7 +43,7 @@ f2 = func1(x_y, x_y)
 assert_type(f2(1, ""), bool)
 assert_type(f2(y="", x=1), bool)
 
-f3 = func1(x_y, y_x)  # Could return (a: int, b: str, /) -> bool
+f3 = func1(x_y, y_x)  # E?: Could return (a: int, b: str, /) -> bool
 # (a callable with two positional-only parameters)
 # This works because both callables have types that are
 # behavioral subtypes of Callable[[int, str], int]
