@@ -7,35 +7,35 @@ Does not report some illegal annotation forms as invalid type aliases.
 Does not report invalid specialization of already-specialized generic type alias.
 """
 output = """
-File "aliases_explicit.py", line 42, in <module>: Invalid type annotation '[str, str]'  [invalid-annotation]
-File "aliases_explicit.py", line 42, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][[str, str], None]'  [invalid-annotation]
-File "aliases_explicit.py", line 58, in good_type_aliases: Callable[Concatenate, Any] [assert-type]
-File "aliases_explicit.py", line 61, in good_type_aliases: Callable[[Any], None] [assert-type]
-File "aliases_explicit.py", line 68, in <module>: Invalid type annotation 'Optional[int][int]'  [invalid-annotation]
-File "aliases_explicit.py", line 69, in <module>: Invalid type annotation 'List[Optional[int]][int]'  [invalid-annotation]
-File "aliases_explicit.py", line 70, in <module>: Invalid type annotation 'List[T][int, int]'  [invalid-annotation]
-File "aliases_explicit.py", line 71, in <module>: Invalid type annotation 'Callable[[int, T], T][int, int]'  [invalid-annotation]
-File "aliases_explicit.py", line 72, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][int, int]'  [invalid-annotation]
-File "aliases_explicit.py", line 81, in <module>: Invalid type annotation '[int, str]' for BadTypeAlias2 [invalid-annotation]
-File "aliases_explicit.py", line 82, in <module>: Invalid type annotation '((int, str),)' for BadTypeAlias3 [invalid-annotation]
-File "aliases_explicit.py", line 83, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for BadTypeAlias4 [invalid-annotation]
-File "aliases_explicit.py", line 84, in <module>: Invalid type annotation "{'a': 'b'}" for BadTypeAlias5 [invalid-annotation]
-File "aliases_explicit.py", line 88, in <module>: Invalid type annotation '3' for BadTypeAlias9 [invalid-annotation]
-File "aliases_explicit.py", line 89, in <module>: Invalid type annotation 'True' for BadTypeAlias10 [invalid-annotation]
-File "aliases_explicit.py", line 90, in <module>: Invalid type annotation '1' for BadTypeAlias11 [invalid-annotation]
-File "aliases_explicit.py", line 92, in <module>: Invalid type annotation '<instance of str>' for BadTypeAlias13 [invalid-annotation]
-File "aliases_explicit.py", line 103, in <module>: Invalid type annotation 'Union[list, set][int]'  [invalid-annotation]
+File "aliases_explicit.py", line 41, in <module>: Invalid type annotation '[str, str]'  [invalid-annotation]
+File "aliases_explicit.py", line 41, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][[str, str], None]'  [invalid-annotation]
+File "aliases_explicit.py", line 57, in good_type_aliases: Callable[Concatenate, Any] [assert-type]
+File "aliases_explicit.py", line 60, in good_type_aliases: Callable[[Any], None] [assert-type]
+File "aliases_explicit.py", line 67, in <module>: Invalid type annotation 'Optional[int][int]'  [invalid-annotation]
+File "aliases_explicit.py", line 68, in <module>: Invalid type annotation 'List[Optional[int]][int]'  [invalid-annotation]
+File "aliases_explicit.py", line 69, in <module>: Invalid type annotation 'List[T][int, int]'  [invalid-annotation]
+File "aliases_explicit.py", line 70, in <module>: Invalid type annotation 'Callable[[int, T], T][int, int]'  [invalid-annotation]
+File "aliases_explicit.py", line 71, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][int, int]'  [invalid-annotation]
+File "aliases_explicit.py", line 80, in <module>: Invalid type annotation '[int, str]' for BadTypeAlias2 [invalid-annotation]
+File "aliases_explicit.py", line 81, in <module>: Invalid type annotation '((int, str),)' for BadTypeAlias3 [invalid-annotation]
+File "aliases_explicit.py", line 82, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for BadTypeAlias4 [invalid-annotation]
+File "aliases_explicit.py", line 83, in <module>: Invalid type annotation "{'a': 'b'}" for BadTypeAlias5 [invalid-annotation]
+File "aliases_explicit.py", line 87, in <module>: Invalid type annotation '3' for BadTypeAlias9 [invalid-annotation]
+File "aliases_explicit.py", line 88, in <module>: Invalid type annotation 'True' for BadTypeAlias10 [invalid-annotation]
+File "aliases_explicit.py", line 89, in <module>: Invalid type annotation '1' for BadTypeAlias11 [invalid-annotation]
+File "aliases_explicit.py", line 91, in <module>: Invalid type annotation '<instance of str>' for BadTypeAlias13 [invalid-annotation]
+File "aliases_explicit.py", line 102, in <module>: Invalid type annotation 'Union[list, set][int]'  [invalid-annotation]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 80: Expected 1 errors
+Line 79: Expected 1 errors
+Line 84: Expected 1 errors
 Line 85: Expected 1 errors
 Line 86: Expected 1 errors
-Line 87: Expected 1 errors
-Line 91: Expected 1 errors
+Line 90: Expected 1 errors
+Line 100: Expected 1 errors
 Line 101: Expected 1 errors
-Line 102: Expected 1 errors
-Line 42: Unexpected errors ['File "aliases_explicit.py", line 42, in <module>: Invalid type annotation \\'[str, str]\\'  [invalid-annotation]', 'File "aliases_explicit.py", line 42, in <module>: Invalid type annotation \\'Callable[Concatenate[int, P], R][[str, str], None]\\'  [invalid-annotation]']
-Line 58: Unexpected errors ['File "aliases_explicit.py", line 58, in good_type_aliases: Callable[Concatenate, Any] [assert-type]']
-Line 61: Unexpected errors ['File "aliases_explicit.py", line 61, in good_type_aliases: Callable[[Any], None] [assert-type]']
+Line 41: Unexpected errors ['File "aliases_explicit.py", line 41, in <module>: Invalid type annotation \\'[str, str]\\'  [invalid-annotation]', 'File "aliases_explicit.py", line 41, in <module>: Invalid type annotation \\'Callable[Concatenate[int, P], R][[str, str], None]\\'  [invalid-annotation]']
+Line 57: Unexpected errors ['File "aliases_explicit.py", line 57, in good_type_aliases: Callable[Concatenate, Any] [assert-type]']
+Line 60: Unexpected errors ['File "aliases_explicit.py", line 60, in good_type_aliases: Callable[[Any], None] [assert-type]']
 """

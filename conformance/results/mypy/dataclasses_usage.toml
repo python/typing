@@ -16,5 +16,5 @@ dataclasses_usage.py:179: error: Too many arguments for "DC13"  [call-arg]
 conformance_automated = "Fail"
 errors_diff = """
 Line 228: Expected 1 errors
-Line 36: Unexpected errors ['dataclasses_usage.py:36: error: Accessing "__init__" on an instance is unsound, since instance.__init__ could be from an incompatible subclass  [misc]']
 """
+ignore_errors = ["Accessing \"__init__\" on an instance is unsound"]

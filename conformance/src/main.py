@@ -67,10 +67,24 @@ def get_expected_errors(test_case: Path) -> dict[int, tuple[int, int]]:
     return output
 
 
-def diff_expected_errors(type_checker: TypeChecker, test_case: Path, output: str) -> str:
+def diff_expected_errors(
+    type_checker: TypeChecker,
+    test_case: Path,
+    output: str,
+    ignored_errors: Sequence[str],
+) -> str:
     """Return a list of errors that were expected but not produced by the type checker."""
     expected_errors = get_expected_errors(test_case)
     errors = type_checker.parse_errors(output.splitlines())
+    if ignored_errors:
+        errors = {
+            lineno: [
+                error
+                for error in errors_list
+                if not any(ignored in error for ignored in ignored_errors)]
+            for lineno, errors_list in errors.items()
+        }
+        errors = {lineno: errors_list for lineno, errors_list in errors.items() if errors_list}
 
     differences: list[str] = []
     for expected_lineno, (expected_count, _) in expected_errors.items():
@@ -108,7 +122,8 @@ def update_output_for_test(
         existing_results = {}
 
     should_write = False
-    errors_diff = "\n" + diff_expected_errors(type_checker, test_case, output)
+    ignored_errors = existing_results.get("ignore_errors", [])
+    errors_diff = "\n" + diff_expected_errors(type_checker, test_case, output, ignored_errors)
     old_errors_diff = "\n" + existing_results.get("errors_diff", "")
 
     if errors_diff != old_errors_diff:
