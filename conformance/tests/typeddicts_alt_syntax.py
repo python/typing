@@ -41,5 +41,5 @@ BadTypedDict4 = TypedDict("BadTypedDict4", {"name": str}, total=False, other=Fal
 Movie2 = TypedDict("Movie2", name=str, year=int)  # E?
 
 movie2: Movie2
-movie2 = {"name": "Blade Runner", "year": 1982}
+movie2 = {"name": "Blade Runner", "year": 1982}  # E?: May generate errors if keyword-argument syntax is unsupported
 movie2 = {"name": "Blade Runner", "year": ""}  # E: Incorrect type for year
