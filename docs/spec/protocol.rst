@@ -41,7 +41,7 @@ protocol members.
 Defining a protocol
 ^^^^^^^^^^^^^^^^^^^
 
-Protocols are defined by including a special new class ``typing.Protocol``
+Protocols are defined by including a :term:`special form` ``typing.Protocol``
 (an instance of ``abc.ABCMeta``) in the base classes list, typically
 at the end of the list. Here is a simple example::
 

@@ -10,7 +10,7 @@ Class type compatibility
 
 (Originally specified in :pep:`526`.)
 
-A covariant type ``ClassVar[T_co]`` exists in the ``typing``
+A covariant :term:`type qualifier` ``ClassVar[T_co]`` exists in the ``typing``
 module. It accepts only a single argument that should be a valid type,
 and is used to annotate class variables that should not be set on class
 instances. This restriction is ensured by static checkers,
@@ -26,7 +26,7 @@ in ``__init__`` or ``__new__``. The syntax is as follows::
       damage: int                           # instance variable without default
       stats: ClassVar[dict[str, int]] = {}  # class variable
 
-Here ``ClassVar`` is a special class defined by the typing module that
+Here ``ClassVar`` is a :term:`special form` defined by the typing module that
 indicates to the static type checker that this variable should not be
 set on instances.
 

@@ -532,7 +532,9 @@ types.  In particular, they aren't subtypes of dictionary types.
 
 (Originally specified in :pep:`655`.)
 
-The ``typing.Required`` type qualifier is used to indicate that a
+.. _`required`:
+
+The ``typing.Required`` :term:`type qualifier` is used to indicate that a
 variable declared in a TypedDict definition is a required key:
 
 ::
@@ -541,7 +543,9 @@ variable declared in a TypedDict definition is a required key:
        title: Required[str]
        year: int
 
-Additionally the ``typing.NotRequired`` type qualifier is used to
+.. _`notrequired`:
+
+Additionally the ``typing.NotRequired`` :term:`type qualifier` is used to
 indicate that a variable declared in a TypedDict definition is a
 potentially-missing key:
 
@@ -644,10 +648,12 @@ Read-only Items
 
 (Originally specified in :pep:`705`.)
 
+.. _`readonly`:
+
 ``typing.ReadOnly`` type qualifier
 ----------------------------------
 
-The ``typing.ReadOnly`` type qualifier is used to indicate that an item declared in a ``TypedDict`` definition may not be mutated (added, modified, or removed)::
+The ``typing.ReadOnly`` :term:`type qualifier` is used to indicate that an item declared in a ``TypedDict`` definition may not be mutated (added, modified, or removed)::
 
     from typing import ReadOnly
 
@@ -802,7 +808,7 @@ Note: Nothing will ever match the ``Never`` type, so an item annotated with it m
 Keyword argument typing
 -----------------------
 
-As discussed in the section `unpack-kwargs`_, an unpacked ``TypedDict`` can be used to annotate ``**kwargs``. Marking one or more of the items of a ``TypedDict`` used in this way as read-only will have no effect on the type signature of the method. However, it *will* prevent the item from being modified in the body of the function::
+As discussed in the section :ref:`unpack-kwargs`, an unpacked ``TypedDict`` can be used to annotate ``**kwargs``. Marking one or more of the items of a ``TypedDict`` used in this way as read-only will have no effect on the type signature of the method. However, it *will* prevent the item from being modified in the body of the function::
 
     class Args(TypedDict):
         key1: int
