@@ -22,6 +22,7 @@ def run_tests(
     root_dir: Path,
     type_checker: TypeChecker,
     test_cases: Sequence[Path],
+    skip_timing: bool = False,
 ):
     print(f"Running tests for {type_checker.name}")
 
@@ -39,7 +40,7 @@ def run_tests(
             type_checker, results_dir, test_case, tests_output.get(test_case.name, "")
         )
 
-    update_type_checker_info(type_checker, root_dir, test_duration)
+    update_type_checker_info(type_checker, root_dir, test_duration, skip_timing=skip_timing)
 
 
 def get_expected_errors(test_case: Path) -> tuple[
@@ -199,7 +200,7 @@ def update_output_for_test(
 
 
 def update_type_checker_info(
-    type_checker: TypeChecker, root_dir: Path, test_duration: float
+    type_checker: TypeChecker, root_dir: Path, test_duration: float, skip_timing: bool = False
 ):
     # Record the version of the type checker used for the latest run.
     version_file = root_dir / "results" / type_checker.name / "version.toml"
@@ -215,7 +216,8 @@ def update_type_checker_info(
         existing_info = {}
 
     existing_info["version"] = type_checker.get_version()
-    existing_info["test_duration"] = round(test_duration, 1)
+    if not skip_timing:
+        existing_info["test_duration"] = round(test_duration, 1)
 
     version_file.parent.mkdir(parents=True, exist_ok=True)
     with open(version_file, "w") as f:
@@ -246,7 +248,7 @@ def main():
             if not type_checker.install():
                 print(f"Skipping tests for {type_checker.name}")
             else:
-                run_tests(root_dir, type_checker, test_cases)
+                run_tests(root_dir, type_checker, test_cases, skip_timing=options.skip_timing)
 
     # Generate a summary report.
     generate_summary(root_dir)
