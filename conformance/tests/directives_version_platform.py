@@ -16,7 +16,7 @@ else:
 if sys.version_info >= (3, 8, 0):
     pass
 else:
-    val2: int = ""  # Should not generate an error
+    val2: int = ""  # E?: May not generate an error (support for three-element sys.version is optional)
 
 if sys.version_info < (3, 8):
     val3: int = ""  # Should not generate an error
@@ -24,7 +24,7 @@ if sys.version_info < (3, 8):
 if sys.version_info < (3, 100, 0):
     pass
 else:
-    val3: int = ""  # Should not generate an error
+    val3: int = ""  # E?: May not generate an error (support for three-element sys.version is optional)
 
 
 if sys.platform == "bogus_platform":
@@ -37,9 +37,9 @@ else:
 
 
 if os.name == "bogus_os":
-    val7: int = ""  # Should not generate an error
+    val7: int = ""  # E?: May not generate an error (support for os.name is optional)
 
 if os.name != "bogus_platform":
     pass
 else:
-    val8: int = ""  # Should not generate an error
+    val8: int = ""  # E?: May not generate an error (support for os.name is optional)
