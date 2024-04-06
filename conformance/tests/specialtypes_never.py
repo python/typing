@@ -32,32 +32,29 @@ def func2(x: int) -> int:
     return "whatever works"  # No type error
 
 
-# The spec says the following, but it is agreed that this is out of date and
-# should be changed. No type checkers enforce this currently.
-
-# > The NoReturn type is only valid as a return annotation of functions, and
-# > considered an error if it appears in other positions:
+# The spec previously said that NoReturn is only valid in a function return type,
+# but this was removed and it should now be accepted in all of these contexts:
 
 
 def func3(
-    a: NoReturn, b: list[NoReturn]  # E: NoReturn used outside of return annotation
+    a: NoReturn, b: list[NoReturn]
 ) -> None:
-    c: NoReturn = a  # E: NoReturn used outside of return annotation
+    c: NoReturn = a
 
 
 def func4(
     a: list[NoReturn],
-) -> None:  # E: NoReturn used outside of return annotation
-    c: list[NoReturn] = a  # E: NoReturn used outside of return annotation
+) -> None:
+    c: list[NoReturn] = a
 
 
-def func5() -> list[NoReturn]:  # E: NoReturn used outside of return annotation
+def func5() -> list[NoReturn]:
     return []
 
 
 class ClassA:
-    x: NoReturn  # E: NoReturn used outside of return annotation
-    y: list[NoReturn]  # E: NoReturn used outside of return annotation
+    x: NoReturn
+    y: list[NoReturn]
 
 
 # Never is compatible with all types.
