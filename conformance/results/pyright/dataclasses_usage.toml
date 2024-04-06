@@ -15,9 +15,6 @@ dataclasses_usage.py:130:1 - error: Argument missing for parameter "y" (reportCa
 dataclasses_usage.py:179:1 - error: Expected no arguments to "DC13" constructor (reportCallIssue)
 dataclasses_usage.py:228:9 - error: Dataclass field without type annotation will cause runtime exception (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 62: Unexpected errors ['dataclasses_usage.py:62:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)']
-Line 68: Unexpected errors ['dataclasses_usage.py:68:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)']
-Line 74: Unexpected errors ['dataclasses_usage.py:74:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)']
 """

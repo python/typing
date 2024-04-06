@@ -12,9 +12,6 @@ File "dataclasses_usage.py", line 127, in <module>: Function DC7.__init__ expect
 File "dataclasses_usage.py", line 130, in <module>: Missing parameter 'y' in call to function DC8.__init__ [missing-parameter]
 File "dataclasses_usage.py", line 179, in <module>: Function DC13.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 59: Unexpected errors ['File "dataclasses_usage.py", line 59, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']
-Line 65: Unexpected errors ['File "dataclasses_usage.py", line 65, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']
-Line 71: Unexpected errors ['File "dataclasses_usage.py", line 71, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]']
 """

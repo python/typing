@@ -16,10 +16,7 @@ dataclasses_usage.py:127: error: Too many arguments for "DC7"  [call-arg]
 dataclasses_usage.py:130: error: Missing positional argument "y" in call to "DC8"  [call-arg]
 dataclasses_usage.py:179: error: Too many arguments for "DC13"  [call-arg]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 62: Unexpected errors ['dataclasses_usage.py:62: error: Attributes without a default cannot follow attributes with one  [misc]']
-Line 68: Unexpected errors ['dataclasses_usage.py:68: error: Attributes without a default cannot follow attributes with one  [misc]']
-Line 74: Unexpected errors ['dataclasses_usage.py:74: error: Attributes without a default cannot follow attributes with one  [misc]']
 """
 ignore_errors = ["Accessing \"__init__\" on an instance is unsound"]
