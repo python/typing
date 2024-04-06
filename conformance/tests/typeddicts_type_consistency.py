@@ -96,13 +96,15 @@ user2: UserType2 = {"name": "Bob", "age": 40}
 
 name2: str | None = user2.get("name")
 
-name3: str = user2.get("name")
+# The spec does not say whether type checkers should adjust the return type of `.get()`
+# to exclude `None` if it is known that the key exists. Either option is acceptable.
+name3: str = user2.get("name")  # E?
 
 age2: int = user2.get("age", 42)
 
 age3: int | str = user2.get("age", "42")
 
-age4: int = user2.get("age", "42")
+age4: int = user2.get("age", "42")  # E?
 
 # Test nested TypedDicts.
 class Inner1(TypedDict):
