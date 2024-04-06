@@ -21,12 +21,12 @@ File "qualifiers_final_decorator.py", line 125, in <module>: Cannot apply @final
 conformance_automated = "Fail"
 errors_diff = """
 Line 56: Expected 1 errors
-Line 59: Expected 1 errors
-Line 63: Expected 1 errors
-Line 75: Expected 1 errors
-Line 85: Expected 1 errors
-Line 89: Expected 1 errors
-Line 102: Expected 1 errors
+Lines 59, 60: Expected error (tag 'method2')
+Lines 63, 64: Expected error (tag 'method3')
+Lines 67, 75: Expected error (tag 'method4')
+Lines 80, 89: Expected error (tag 'Derived3')
+Lines 84, 85, 86: Expected error (tag 'Derived3-2')
+Lines 94, 102: Expected error (tag 'Derived4')
 Line 8: Unexpected errors ['File "qualifiers_final_decorator.py", line 8, in <module>: Couldn\\'t import pyi for \\'_qualifiers_final_decorator\\' [pyi-error]']
 Line 52: Unexpected errors ['File "qualifiers_final_decorator.py", line 52, in method4: bad return type [bad-return-type]']
 Line 55: Unexpected errors ['File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method4, defined in base class Base2 [final-error]', 'File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method3, defined in base class Base2 [final-error]', 'File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method2, defined in base class Base2 [final-error]', 'File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method1, defined in base class Base2 [final-error]']
