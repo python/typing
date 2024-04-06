@@ -116,4 +116,4 @@ def generate_summary_html(root_dir: Path) -> str:
 
     summary_html.append("</tbody></table></div>\n")
 
-    return "".join(summary_html)
+    return "\n".join(summary_html)
