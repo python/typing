@@ -19,6 +19,8 @@ This states that the expected type of the ``name`` argument is
 Expressions whose type is a subtype of a specific argument type are
 also accepted for that argument.
 
+.. _`missing-annotations`:
+
 Any function without annotations should be treated as having the most
 general type possible, or ignored, by any type checker.
 
@@ -330,6 +332,8 @@ types cannot be specified::
           return spam(42)
       else:
           return asyncio.Future(...)
+
+.. _`annotating-methods`:
 
 Annotating instance and class methods
 -------------------------------------

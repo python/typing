@@ -148,18 +148,18 @@ are the only uses of the type a type checker is expected to allow:
 In particular, TypedDict type objects cannot be used in
 ``isinstance()`` tests such as ``isinstance(d, Movie)``. The reason is
 that there is no existing support for checking types of dictionary
-item values, since ``isinstance()`` does not work with many :pep:`484`
-types, including common ones like ``List[str]``.  This would be needed
+item values, since ``isinstance()`` does not work with many
+types, including common ones like ``list[str]``.  This would be needed
 for cases like this::
 
     class Strings(TypedDict):
-        items: List[str]
+        items: list[str]
 
     print(isinstance({'items': [1]}, Strings))    # Should be False
     print(isinstance({'items': ['x']}, Strings))  # Should be True
 
 The above use case is not supported.  This is consistent with how
-``isinstance()`` is not supported for ``List[str]``.
+``isinstance()`` is not supported for ``list[str]``.
 
 
 Inheritance
@@ -255,6 +255,7 @@ it possible to have a combination of required and non-required keys in
 a single TypedDict type. Alternatively, ``Required`` and ``NotRequired``
 (see below) can be used to mark individual items as required or non-required.
 
+.. _typeddict-functional-syntax:
 
 Alternative Syntax
 ^^^^^^^^^^^^^^^^^^
@@ -490,7 +491,7 @@ alternative is to generate false positive errors for idiomatic code.
 Use of Final Values and Literal Types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Type checkers should allow final names (:pep:`591`) with
+Type checkers should allow :ref:`final names <uppercase-final>` with
 string values to be used instead of string literals in operations on
 TypedDict objects.  For example, this is valid::
 
@@ -499,8 +500,8 @@ TypedDict objects.  For example, this is valid::
    m: Movie = {'name': 'Alien', 'year': 1979}
    years_since_epoch = m[YEAR] - 1970
 
-Similarly, an expression with a suitable literal type
-(:pep:`586`) can be used instead of a literal value::
+Similarly, an expression with a suitable :ref:`literal type <literal>`
+can be used instead of a literal value::
 
    def get_value(movie: Movie,
                  key: Literal['year', 'name']) -> int | str:
@@ -581,7 +582,7 @@ Type checkers must enforce this restriction.
 The runtime implementations of ``Required[]`` and ``NotRequired[]``
 may also enforce this restriction.
 
-The :pep:`alternative functional syntax <589#alternative-syntax>`
+The :ref:`alternative functional syntax <typeddict-functional-syntax>`
 for TypedDict also supports
 ``Required[]``, ``NotRequired[]``, and ``ReadOnly[]``:
 
@@ -593,7 +594,7 @@ for TypedDict also supports
 Interaction with ``total=False``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Any :pep:`589`-style TypedDict declared with ``total=False`` is equivalent
+Any TypedDict declared with ``total=False`` is equivalent
 to a TypedDict with an implicit ``total=True`` definition with all of its
 keys marked as ``NotRequired[]``.
 

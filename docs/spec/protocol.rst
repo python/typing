@@ -29,7 +29,7 @@ with a protocol. If a class is compatible with a protocol but the protocol
 is not included in the MRO, the class is an *implicit* subtype
 of the protocol. (Note that one can explicitly subclass a protocol and
 still not implement it if a protocol attribute is set to ``None``
-in the subclass, see Python `data model <https://docs.python.org/3/reference/datamodel.html#special-method-names>`_
+in the subclass, see Python :py:ref:`data model <specialnames>`
 for details.)
 
 The attributes (variables and methods) of a protocol that are mandatory
@@ -86,7 +86,7 @@ Protocol members
 All methods defined in the protocol class body are protocol members, both
 normal and decorated with ``@abstractmethod``. If any parameters of a
 protocol method are not annotated, then their types are assumed to be ``Any``
-(see :pep:`484`). Bodies of protocol methods are type checked.
+(see :ref:`"The meaning of annotations" <missing-annotations>`). Bodies of protocol methods are type checked.
 An abstract method that should not be called via ``super()`` ought to raise
 ``NotImplementedError``. Example::
 
@@ -104,7 +104,7 @@ An abstract method that should not be called via ``super()`` ought to raise
 Static methods, class methods, and properties are equally allowed
 in protocols.
 
-To define a protocol variable, one can use :pep:`526` variable
+To define a protocol variable, one can use variable
 annotations in the class body. Additional attributes *only* defined in
 the body of a method by assignment via ``self`` are not allowed. The rationale
 for this is that the protocol class implementation is often not shared by
@@ -131,8 +131,8 @@ Examples::
   var: Template = Concrete('value', 42)  # OK
 
 To distinguish between protocol class variables and protocol instance
-variables, the special ``ClassVar`` annotation should be used as specified
-by :pep:`526`. By default, protocol variables as defined above are considered
+variables, the special :ref:`ClassVar <classvar>` annotation should be used.
+By default, protocol variables as defined above are considered
 readable and writable. To define a read-only protocol variable, one can use
 an (abstract) property.
 
@@ -320,7 +320,7 @@ Recursive protocols
 ^^^^^^^^^^^^^^^^^^^
 
 Recursive protocols are also supported. Forward references to the protocol
-class names can be given as strings as specified by :pep:`484`. Recursive
+class names can be :ref:`given as strings <forward-references>`. Recursive
 protocols are useful for representing self-referential data structures
 like trees in an abstract fashion::
 
@@ -352,8 +352,7 @@ Self-types in protocols
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 The self-types in protocols follow the
-:pep:`corresponding specification <484#annotating-instance-and-class-methods>`
-of :pep:`484`. For example::
+:ref:`rules for other methods <annotating-methods>`. For example::
 
   C = TypeVar('C', bound='Copyable')
   class Copyable(Protocol):

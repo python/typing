@@ -34,7 +34,7 @@ it’s safe to do things like ``foo + 5`` since ``foo`` inherits ``int``’s
 ``__add__`` method. The resulting type of ``foo + 5`` is ``int``.
 
 This "inheriting" behavior is identical to how we
-:pep:`handle NewTypes <484#newtype-helper-function>`.
+:ref:`handle NewTypes <newtype>`.
 
 Equivalence of two Literals
 """""""""""""""""""""""""""
@@ -163,7 +163,7 @@ The following parameters are intentionally disallowed by design:
   ``Literal["foo".replace("o", "b")]``.
 
   - Rationale: Literal types are meant to be a
-    minimal extension to the :pep:`484` typing ecosystem and requiring type
+    minimal extension to the typing ecosystem and requiring type
     checkers to interpret potentially expressions inside types adds too
     much complexity.
 
@@ -442,7 +442,7 @@ Interactions with enums and exhaustiveness checks
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 Type checkers should be capable of performing exhaustiveness checks when
-working Literal types that have a closed number of variants, such as
+working with Literal types that have a closed number of variants, such as
 enums. For example, the type checker should be capable of inferring that
 the final ``else`` statement must be of type ``str``, since all three
 values of the ``Status`` enum have already been exhausted::
@@ -463,19 +463,7 @@ values of the ``Status`` enum have already been exhausted::
             # 's' must be of type 'str' since all other options are exhausted
             print("Got custom status: " + s)
 
-The interaction described above is not new: it's already
-:pep:`codified within PEP 484 <484#support-for-singleton-types-in-unions>`.
-However, many type
-checkers (such as mypy) do not yet implement this due to the expected
-complexity of the implementation work.
-
-Some of this complexity will be alleviated once Literal types are introduced:
-rather than entirely special-casing enums, we can instead treat them as being
-approximately equivalent to the union of their values and take advantage of any
-existing logic regarding unions, exhaustibility, type narrowing, reachability,
-and so forth the type checker might have already implemented.
-
-So here, the ``Status`` enum could be treated as being approximately equivalent
+Here, the ``Status`` enum could be treated as being approximately equivalent
 to ``Literal[Status.SUCCESS, Status.INVALID_DATA, Status.FATAL_ERROR]``
 and the type of ``s`` narrowed accordingly.
 

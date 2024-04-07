@@ -203,7 +203,7 @@ For deprecated classes and functions, this includes:
   setter of a property is marked deprecated, attempts to set the property
   should trigger a diagnostic.
 
-If a method is marked with the :func:`typing.override` decorator from :pep:`698`
+If a method is marked with the :ref:`@override decorator <override>`
 and the base class method it overrides is deprecated, the type checker should
 produce a diagnostic.
 
@@ -211,7 +211,7 @@ There are additional scenarios where deprecations could come into play.
 For example, an object may implement a :class:`typing.Protocol`, but one
 of the methods required for protocol compliance is deprecated.
 As scenarios such as this one appear complex and relatively unlikely to come up in practice,
-this PEP does not mandate that type checkers detect them.
+type checkers are not mandated to detect them.
 
 Example
 ^^^^^^^
