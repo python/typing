@@ -108,7 +108,7 @@ https://peps.python.org/topic/typing
 * :pep:`526`, variable annotations and ``ClassVar``
 * :pep:`544`, ``Protocol``
 * :pep:`561`, distributing typed packages
-* :pep:`563`, ``from __future__ import annotations``
+* :pep:`563` (superseded), ``from __future__ import annotations``
 * :pep:`585`, subscriptable generics in the standard library
 * :pep:`586`, ``Literal``
 * :pep:`589`, ``TypedDict``
@@ -119,7 +119,7 @@ https://peps.python.org/topic/typing
 * :pep:`613`, ``TypeAlias``
 * :pep:`646`, variadic generics and ``TypeVarTuple``
 * :pep:`647`, ``TypeGuard``
-* :pep:`649` (draft), lazy evaluation of annotations
+* :pep:`649`, lazy evaluation of annotations
 * :pep:`655`, ``Required`` and ``NotRequired``
 * :pep:`673`, ``Self``
 * :pep:`675`, ``LiteralString``
@@ -128,13 +128,13 @@ https://peps.python.org/topic/typing
 * :pep:`688`, ``Buffer``
 * :pep:`692`, ``Unpack[TypedDict]`` for ``**kwargs``
 * :pep:`695`, ``class Class[T]:`` type parameter syntax and ``type X`` type alias syntax
-* :pep:`696` (draft), defaults for type variables
+* :pep:`696`, defaults for type variables
 * :pep:`698`, ``@override``
 * :pep:`702`, ``@deprecated()``
-* :pep:`705` (draft), ``TypedDict`` with read-only items
+* :pep:`705`, ``TypedDict`` with read-only items
 * :pep:`718` (draft), subscriptable functions
 * :pep:`724` (withdrawn), stricter ``TypeGuard``
 * :pep:`727` (draft), ``Doc`` in ``Annotated``
 * :pep:`728` (draft), ``TypedDict`` with typed extra items
 * :pep:`729`, typing governance process
-* :pep:`742` (draft), ``TypeIs``
+* :pep:`742`, ``TypeIs``
