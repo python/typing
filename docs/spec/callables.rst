@@ -17,6 +17,8 @@ What should the default value look like?  Any of the options ``""``,
 In such cases the default value may be specified as a literal
 ellipsis, i.e. the above example is literally what you would write.
 
+.. _`annotating-args-kwargs`:
+
 Annotating ``*args`` and ``**kwargs``
 -------------------------------------
 
@@ -383,7 +385,7 @@ Callback protocols
 
 Protocols can be used to define flexible callback types that are hard
 (or even impossible) to express using the ``Callable[...]`` syntax
-specified by :pep:`484`, such as variadic, overloaded, and complex generic
+as specified :ref:`above <callable>`, such as variadic, overloaded, and complex generic
 callbacks. They can be defined as protocols with a ``__call__`` member::
 
   from typing import Protocol
