@@ -1300,7 +1300,8 @@ hinder them when migrating a legacy code base to use ``TypeVarTuple``.
 ``*args`` as a Type Variable Tuple
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:pep:`484` states that when a type annotation is provided for ``*args``, every argument
+:ref:`this specification <annotating-args-kwargs>` states that when a
+type annotation is provided for ``*args``, every argument
 must be of the type annotated. That is, if we specify ``*args`` to be type ``int``,
 then *all* arguments must be of type ``int``. This limits our ability to specify
 the type signatures of functions that take heterogeneous argument types.
@@ -1338,8 +1339,8 @@ Note that this is different to
 as this would make ``env`` a keyword-only argument.
 
 Using an unpacked unbounded tuple is equivalent to the
-:pep:`484#arbitrary-argument-lists-and-default-argument-values`
-behavior of ``*args: int``, which accepts zero or
+:ref:`behavior <annotating-args-kwargs>`
+of ``*args: int``, which accepts zero or
 more values of type ``int``:
 
 ::
