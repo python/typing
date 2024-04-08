@@ -8,7 +8,5 @@ overloads_basic.py:75:0 Missing overload implementation [42]: Overloaded functio
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 64: Expected 1 errors
-Line 76: Expected 1 errors
-Line 75: Unexpected errors ['overloads_basic.py:75:0 Missing overload implementation [42]: Overloaded function `func2` must have an implementation.']
+Lines 62, 63: Expected error (tag 'func1')
 """
