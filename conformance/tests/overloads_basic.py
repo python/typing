@@ -59,9 +59,9 @@ def map(func: Any, iter1: Any, iter2: Any = ...) -> Any:
 
 
 # At least two overload signatures should be provided.
-@overload
-def func1() -> None:
-    ...  # E: At least two overloads must be present
+@overload  # E[func1]
+def func1() -> None:  # E[func1]: At least two overloads must be present
+    ...
 
 
 def func1() -> None:
@@ -71,9 +71,9 @@ def func1() -> None:
 # > In regular modules, a series of @overload-decorated definitions must be
 # > followed by exactly one non-@overload-decorated definition (for the same
 # > function/method).
-@overload
-def func2(x: int) -> int:
-    ...  # E: no implementation
+@overload  # E[func2]
+def func2(x: int) -> int:  # E[func2]: no implementation
+    ...
 
 
 @overload
