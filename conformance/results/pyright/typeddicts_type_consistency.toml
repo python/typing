@@ -20,7 +20,7 @@ typeddicts_type_consistency.py:82:25 - error: Expression of type "B3" cannot be 
   "B3" is incompatible with "Mapping[str, int]"
     Type parameter "_VT_co@Mapping" is covariant, but "object" is not a subtype of "int"
       "object" is incompatible with "int" (reportAssignmentType)
-typeddicts_type_consistency.py:124:56 - error: Expression of type "dict[str, dict[str, dict[str, int]]]" cannot be assigned to declared type "Outer1"
+typeddicts_type_consistency.py:126:56 - error: Expression of type "dict[str, dict[str, dict[str, int]]]" cannot be assigned to declared type "Outer1"
   "Literal[1]" is incompatible with "str" (reportAssignmentType)
 """
 conformance_automated = "Pass"
