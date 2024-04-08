@@ -1,21 +1,14 @@
 conformant = "Pass"
 output = """
 specialtypes_never.py:19:22 - error: Function with declared return type "NoReturn" cannot return "None" (reportReturnType)
-specialtypes_never.py:85:21 - error: Expression of type "list[Never]" cannot be assigned to declared type "list[int]"
+specialtypes_never.py:82:21 - error: Expression of type "list[Never]" cannot be assigned to declared type "list[int]"
   "list[Never]" is incompatible with "list[int]"
     Type parameter "_T@list" is invariant, but "Never" is not the same as "int"
     Consider switching from "list" to "Sequence" which is covariant (reportAssignmentType)
-specialtypes_never.py:104:12 - error: Expression of type "ClassC[Never]" cannot be assigned to return type "ClassC[U@func10]"
+specialtypes_never.py:101:12 - error: Expression of type "ClassC[Never]" cannot be assigned to return type "ClassC[U@func10]"
   "ClassC[Never]" is incompatible with "ClassC[U@func10]"
     Type parameter "T@ClassC" is invariant, but "Never" is not the same as "U@func10" (reportReturnType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 43: Expected 1 errors
-Line 45: Expected 1 errors
-Line 50: Expected 1 errors
-Line 51: Expected 1 errors
-Line 54: Expected 1 errors
-Line 59: Expected 1 errors
-Line 60: Expected 1 errors
 """
