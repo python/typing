@@ -199,8 +199,6 @@ String annotations
 
 When a type hint cannot be evaluated at runtime, that
 definition may be expressed as a string literal, to be resolved later.
-Such annotations must be plain string literals, not raw strings, byte
-strings or f-strings.
 
 A situation where this occurs commonly is the definition of a
 container class, where the class being defined occurs in the signature
