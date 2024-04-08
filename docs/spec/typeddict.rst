@@ -803,7 +803,7 @@ Note: Nothing will ever match the ``Never`` type, so an item annotated with it m
 Keyword argument typing
 -----------------------
 
-As discussed in the section `unpack-kwargs`_, an unpacked ``TypedDict`` can be used to annotate ``**kwargs``. Marking one or more of the items of a ``TypedDict`` used in this way as read-only will have no effect on the type signature of the method. However, it *will* prevent the item from being modified in the body of the function::
+As discussed in the section :ref:`unpack-kwargs`, an unpacked ``TypedDict`` can be used to annotate ``**kwargs``. Marking one or more of the items of a ``TypedDict`` used in this way as read-only will have no effect on the type signature of the method. However, it *will* prevent the item from being modified in the body of the function::
 
     class Args(TypedDict):
         key1: int

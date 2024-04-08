@@ -1774,7 +1774,7 @@ Defaults for Type Parameters
 Default values can be provided for a TypeVar, ParamSpec, or TypeVarTuple.
 
 Default Ordering and Subscription Rules
-'''''''''''''''''''''''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The order for defaults should follow the standard function parameter
 rules, so a type parameter with no ``default`` cannot follow one with
@@ -1830,7 +1830,7 @@ be enforced at compile time::
    class GenericClass[DefaultT = int, T]: ...  # SyntaxError: non-default TypeVars cannot follow ones with defaults
 
 ``ParamSpec`` Defaults
-''''''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^^^^
 
 ``ParamSpec`` defaults are defined using the same syntax as
 ``TypeVar`` \ s but use a ``list`` of types or an ellipsis
@@ -1847,7 +1847,7 @@ literal "``...``" or another in-scope ``ParamSpec`` (see `Scoping Rules`_).
    reveal_type(Foo[[bool, bool]]())  # type is Foo[[bool, bool]]
 
 ``TypeVarTuple`` Defaults
-'''''''''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``TypeVarTuple`` defaults are defined using the same syntax as
 ``TypeVar`` \ s but use an unpacked tuple of types instead of a single type
@@ -1864,7 +1864,7 @@ or another in-scope ``TypeVarTuple`` (see `Scoping Rules`_).
    reveal_type(Foo[int, bool]())  # type is Foo[int, bool]
 
 Using Another Type Parameter as ``default``
-''''''''''''''''''''''''''''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This allows for a value to be used again when the type parameter to a
 generic is missing but another type parameter is specified.
@@ -1899,7 +1899,7 @@ When using a type parameter as the default to another type parameter, the
 following rules apply, where ``T1`` is the default for ``T2``.
 
 Scoping Rules
-~~~~~~~~~~~~~
+-------------
 
 ``T1`` must be used before ``T2`` in the parameter list of the generic.
 
@@ -1920,7 +1920,7 @@ Using a type parameter from an outer scope as a default is not supported.
        class Bar(Generic[T2]): ...   # Type Error
 
 Bound Rules
-~~~~~~~~~~~
+-----------
 
 ``T1``'s bound must be a subtype of ``T2``'s bound.
 
@@ -1932,7 +1932,7 @@ Bound Rules
    TypeVar("Invalid", default=T1, bound=str)  # Invalid: int is not a subtype of str
 
 Constraint Rules
-~~~~~~~~~~~~~~~~
+----------------
 
 The constraints of ``T2`` must be a superset of the constraints of ``T1``.
 
@@ -1947,7 +1947,7 @@ The constraints of ``T2`` must be a superset of the constraints of ``T1``.
 
 
 Type Parameters as Parameters to Generics
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------------
 
 Type parameters are valid as parameters to generics inside of a
 ``default`` when the first parameter is in scope as determined by the
@@ -1968,10 +1968,10 @@ Type parameters are valid as parameters to generics inside of a
    reveal_type(Bar[int, str](0, ""))        # type is Bar[int, str]
 
 Specialization Rules
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Generic Type Aliases
-''''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^^
 
 A generic type alias can be further subscripted following normal subscription
 rules. If a type parameter has a default that hasn't been overridden, it should
@@ -1988,7 +1988,7 @@ be treated like it was substituted into the type alias.
    MyAlias[bool, int]  # Invalid: too many arguments passed to MyAlias
 
 Subclassing
-'''''''''''
+^^^^^^^^^^^
 
 Generic classes with type parameters that have defaults behave similarly
 to generic type aliases. That is, subclasses can be further subscripted following
@@ -2016,7 +2016,7 @@ normal subscription rules, non-overridden defaults should be substituted.
    reveal_type(Spam())  # type is <subclass of Baz[int, str]>
 
 Using ``bound`` and ``default``
-'''''''''''''''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If both ``bound`` and ``default`` are passed, ``default`` must be a
 subtype of ``bound``. If not, the type checker should generate an
@@ -2028,7 +2028,7 @@ error.
    TypeVar("Invalid", bound=str, default=int)  # Invalid: the bound and default are incompatible
 
 Constraints
-'''''''''''
+^^^^^^^^^^^
 
 For constrained ``TypeVar``\ s, the default needs to be one of the
 constraints. A type checker should generate an error even if it is a
@@ -2040,7 +2040,7 @@ subtype of one of the constraints.
    TypeVar("Invalid", float, str, default=int)  # Invalid: expected one of float or str got int
 
 Function Defaults
-'''''''''''''''''
+^^^^^^^^^^^^^^^^^
 
 In generic functions, type checkers may use a type parameter's default when the
 type parameter cannot be solved to anything. We leave the semantics of this
@@ -2056,7 +2056,7 @@ support.
    reveal_type(func(0))  # a type checker may reveal T's default of int here
 
 Defaults following ``TypeVarTuple``
-'''''''''''''''''''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A ``TypeVar`` that immediately follows a ``TypeVarTuple`` is not allowed
 to have a default, because it would be ambiguous whether a type argument
@@ -2088,7 +2088,7 @@ for the ``ParamSpec`` and one for the ``TypeVarTuple``.
    Foo[int, str, [bytes]]  # Ts = (int, str), P = [bytes]
 
 Binding rules
-'''''''''''''
+^^^^^^^^^^^^^
 
 Type parameter defaults should be bound by attribute access
 (including call and subscript).
