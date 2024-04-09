@@ -36,7 +36,7 @@ S = TypeVar("S")
 
 class Foo(Generic[T]):
     def method(self, x: T, y: S) -> S:
-        ...
+        return y
 
 x: Foo[int] = Foo()
 assert_type(x.method(0, "abc"), str)
@@ -54,7 +54,7 @@ class Bar(Generic[T]):
     an_attr: list[S] = []  # E
 
     def do_something(self, x: S) -> S:  # OK
-        ...
+        return x
 
 # A generic class definition that appears inside a generic function
 # should not use type variables that parameterize the generic function.

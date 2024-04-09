@@ -1,12 +1,10 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Fails to reject type alias within generic class that uses class's type variable.
+Fails to reject unbound type variable in constructor call in global scope.
+"""
 output = """
 File "generics_scoping.py", line 29, in <module>: Function MyClass.meth_2 was called with the wrong arguments [wrong-arg-types]
-File "generics_scoping.py", line 39, in method: bad return type [bad-return-type]
-Called from (traceback):
-  line 43, in current file
-File "generics_scoping.py", line 39, in method: bad return type [bad-return-type]
-Called from (traceback):
-  line 42, in current file
 File "generics_scoping.py", line 50, in fun_3: Invalid type annotation 'List[S]' for z [invalid-annotation]
 File "generics_scoping.py", line 54, in Bar: Invalid type annotation 'List[S]' for an_attr [invalid-annotation]
 File "generics_scoping.py", line 63, in fun_4: Invalid type annotation 'T'  [invalid-annotation]
@@ -21,7 +19,6 @@ Line 65: Expected 1 errors
 Line 75: Expected 1 errors
 Line 84: Expected 1 errors
 Line 90: Expected 1 errors
-Line 39: Unexpected errors ['File "generics_scoping.py", line 39, in method: bad return type [bad-return-type]', 'File "generics_scoping.py", line 39, in method: bad return type [bad-return-type]']
 Line 63: Unexpected errors ['File "generics_scoping.py", line 63, in fun_4: Invalid type annotation \\'T\\'  [invalid-annotation]']
 Line 74: Unexpected errors ['File "generics_scoping.py", line 74, in <module>: Invalid type annotation \\'Outer\\'  [invalid-annotation]']
 """
