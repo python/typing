@@ -96,3 +96,4 @@ protocols_definition.py:341:22 - error: Expression of type "Concrete6_Bad3" cann
 conformance_automated = "Pass"
 errors_diff = """
 """
+ignore_errors = ["Static methods should not take a \"self\" or \"cls\" parameter"]

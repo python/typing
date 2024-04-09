@@ -18,3 +18,4 @@ qualifiers_final_decorator.py:126:5 - error: Function "func1" cannot be marked @
 conformance_automated = "Pass"
 errors_diff = """
 """
+ignore_errors = ["reportMissingModuleSource"]
