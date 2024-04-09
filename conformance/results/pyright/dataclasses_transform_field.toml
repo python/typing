@@ -3,8 +3,6 @@ output = """
 dataclasses_transform_field.py:64:16 - error: No parameter named "id" (reportCallIssue)
 dataclasses_transform_field.py:75:16 - error: Expected 0 positional arguments (reportCallIssue)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 64: Unexpected errors ['dataclasses_transform_field.py:64:16 - error: No parameter named "id" (reportCallIssue)']
-Line 75: Unexpected errors ['dataclasses_transform_field.py:75:16 - error: Expected 0 positional arguments (reportCallIssue)']
 """

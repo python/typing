@@ -61,7 +61,7 @@ CustomerModel1(name="hi")
 
 # This should generate an error because "id" is not
 # supposed to be part of the init function.
-CustomerModel1(id=1, name="hi")
+CustomerModel1(id=1, name="hi")  # E
 
 
 @create_model()
@@ -72,6 +72,6 @@ class CustomerModel2:
 
 # This should generate an error because kw_only is True
 # by default for field2.
-CustomerModel2(1)
+CustomerModel2(1)  # E
 
 CustomerModel2(name="Fred")

@@ -54,21 +54,21 @@ c1_2 = Customer1(3, "Sue")
 c1_2.name = "Susan"
 
 # This should generate an error because of a type mismatch.
-c1_2.name = 3
+c1_2.name = 3  # E
 
 # This should generate an error because comparison methods are
 # not synthesized.
-v1 = c1_1 < c1_2
+v1 = c1_1 < c1_2   # E
 
 # This should generate an error because salary is not
 # a defined field.
-c1_3 = Customer1(id=3, name="Sue", salary=40000)
+c1_3 = Customer1(id=3, name="Sue", salary=40000)  # E
 
 c2_1 = Customer2(id=0, name="John")
 
 # This should generate an error because Customer2 supports
 # keyword-only parameters for its constructor.
-c2_2 = Customer2(0, "John")
+c2_2 = Customer2(0, "John")  # E
 
 v2 = c2_1 < c2_2
 
@@ -86,12 +86,12 @@ class Customer3:
 
 # This should generate an error because a non-frozen class
 # cannot inherit from a frozen class.
-@create_model
-class Customer3Subclass(Customer3):
+@create_model  # E[Customer3Subclass]
+class Customer3Subclass(Customer3):  # E[Customer3Subclass]
     age: int
 
 
 c3_1 = Customer3(id=2, name="hi")
 
 # This should generate an error because Customer3 is frozen.
-c3_1.id = 4
+c3_1.id = 4  # E
