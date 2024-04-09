@@ -191,7 +191,7 @@ class PyrightTypeChecker(TypeChecker):
             assert line.count(":") >= 3, f"Failed to parse line: {line!r}"
             _, lineno, kind, _ = line.split(":", maxsplit=3)
             kind = kind.split()[-1]
-            if kind != "error":
+            if kind not in ("error", "warning"):
                 continue
             line_to_errors.setdefault(int(lineno), []).append(line)
         return line_to_errors
