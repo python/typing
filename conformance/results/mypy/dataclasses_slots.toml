@@ -3,13 +3,12 @@ notes = """
 Does not reject write to instance variable that is not defined in __slots__.
 """
 output = """
-dataclasses_slots.py:12: error: "DC1" both defines "__slots__" and is used with "slots=True"  [misc]
-dataclasses_slots.py:67: error: "type[DC6]" has no attribute "__slots__"  [attr-defined]
-dataclasses_slots.py:70: error: "DC6" has no attribute "__slots__"  [attr-defined]
+dataclasses_slots.py:11: error: "DC1" both defines "__slots__" and is used with "slots=True"  [misc]
+dataclasses_slots.py:66: error: "type[DC6]" has no attribute "__slots__"  [attr-defined]
+dataclasses_slots.py:69: error: "DC6" has no attribute "__slots__"  [attr-defined]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 12: Unexpected errors ['dataclasses_slots.py:12: error: "DC1" both defines "__slots__" and is used with "slots=True"  [misc]']
-Line 67: Unexpected errors ['dataclasses_slots.py:67: error: "type[DC6]" has no attribute "__slots__"  [attr-defined]']
-Line 70: Unexpected errors ['dataclasses_slots.py:70: error: "DC6" has no attribute "__slots__"  [attr-defined]']
+Line 25: Expected 1 errors
+Line 38: Expected 1 errors
 """
