@@ -51,8 +51,8 @@ class BadTypedDict(TypedDict, NonTypedDict):  # E
 class X1(TypedDict):
    x: str
 
-class Y1(X1):
-   x: int  # E: cannot overwrite TypedDict field "x"
+class Y1(X1):  # E[Y1]
+   x: int  # E[Y1]: cannot overwrite TypedDict field "x"
 
 
 # > Multiple inheritance does not allow conflict types for the same name field:
