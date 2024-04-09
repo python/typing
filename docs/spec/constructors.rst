@@ -25,12 +25,12 @@ method. If so, it should evaluate the call of this method using the supplied
 arguments. If the metaclass is ``type``, this step can be skipped.
 
 If the evaluated return type of the ``__call__`` method is something other than
-``Any`` or an instance of the class being constructed, a type checker should
+an instance of the class being constructed, a type checker should
 assume that the metaclass ``__call__`` method is overriding ``type.__call__``
 in some special manner, and it should not attempt to evaluate the ``__new__``
 or ``__init__`` methods on the class. For example, some metaclass ``__call__``
 methods are annotated to return ``NoReturn`` to indicate that constructor
-calls are not supported for that class.
+calls are not supported for that class. 
 
   ::
 
@@ -43,6 +43,11 @@ calls are not supported for that class.
             return super().__new__(cls, *args, **kwargs)
 
     assert_type(MyClass(), Never)
+
+If no return type annotation is provided for ``__call__``, a type checker may
+assume that it does not override ``type.__call__`` in a special manner and
+proceed as though the return type is an instance of the type specified by
+the ``cls`` parameter.
 
 
 ``__new__`` Method
@@ -91,28 +96,10 @@ them.
       assert_type(MyClass(1), MyClass[int])
       assert_type(MyClass(""), MyClass[str])
 
-For most classes, the return type for ``__new__`` method is typically ``Self``,
-but other types are also allowed. For example, the ``__new__`` method may return
-an instance of a subclass or an instance of some completely unrelated class.
-
-If the return type of the ``__new__`` method evaluates to ``Any`` or a union that
-includes ``Any``, a type checker should proceed to evaluate the ``__init__``
-method as if the return type of ``__new__`` was ``Self``. However, the final
-evaluated type of the constructor call should include ``Any`` in this case,
-unioned with the type informed by the evaluation of the ``__init__`` call.
-
-  ::
-
-    class MyClass:
-        def __new__(cls, *args, **kwargs) -> Any:
-            return super().__new__(*args, **kwargs)
-
-        def __init__(self):
-            pass
-
-    # Constructor call evaluates to `Any` (from __new__ method)
-    # unioned with `MyClass` (from __init__ method).
-    assert_type(MyClass(), Any | MyClass)
+For most classes, the return type for the ``__new__`` method is typically
+``Self``, but other types are also allowed. For example, the ``__new__``
+method may return an instance of a subclass or an instance of some completely
+unrelated class.
 
 If the evaluated return type of ``__new__`` is not an instance of the class
 being constructed (or a subclass thereof) or is a union that includes such
@@ -132,6 +119,27 @@ method.
             pass
 
     assert_type(MyClass(), int)
+
+For purposes of this test, an explicit return type of ``Any`` (or a
+union containing ``Any``) should be treated as a type that is not an instance
+of the class being constructed.
+
+  ::
+
+    class MyClass:
+        def __new__(cls) -> Any:
+            return 0
+
+        # The __init__ method will not be called in this case, so
+        # it should not be evaluated.
+        def __init__(self, x: int):
+            pass
+
+    assert_type(MyClass(), Any)
+
+If the return type of ``__new__`` is not annotated, a type checker may assume
+that the return type is ``Self`` and proceed with the assumption that the
+``__init__`` method will be called.
 
 If the class is generic, it is possible for a ``__new__`` method to override
 the specialized class type and return a class instance that is specialized
@@ -357,16 +365,19 @@ When converting a class to a callable type, a type checker should use the
 following rules:
 
 1. If the class has a custom metaclass that defines a ``__call__`` method
-   that is annotated with a return type other than ``Any`` or a subclass of the
-   class being constructed, a type checker should assume that the metaclass
-   ``__call__`` method is overriding ``type.__call__`` in some special manner.
-   In this case, the callable should be synthesized from the parameters and return
-   type of the metaclass ``__call__`` method after it is bound to the class,
-   and the ``__new__`` or ``__init__`` methods (if present) should be ignored.
-   This is an uncommon case. In the more typical case where there is no custom
-   metaclass that overrides ``type.__call__`` in a special manner, the metaclass
-   ``__call__`` signature should be ignored for purposes of converting to a
-   callable type.
+   that is annotated with a return type other than a subclass of the
+   class being constructed (or a union that contains such a type), a type
+   checker should assume that the metaclass ``__call__`` method is overriding
+   ``type.__call__`` in some special manner. In this case, the callable should
+   be synthesized from the parameters and return type of the metaclass
+   ``__call__`` method after it is bound to the class, and the ``__new__`` or
+   ``__init__`` methods (if present) should be ignored. This is an uncommon
+   case. In the more typical case where there is no custom metaclass that
+   overrides ``type.__call__`` in a special manner, the metaclass ``__call__``
+   signature should be ignored for purposes of converting to a callable type.
+   If a custom metaclass ``__call__`` method is present but does not have an
+   annotated return type, type checkers may assume that the method acts like
+   ``type.__call__`` and proceed to the next step.
 
 2. If the class defines a ``__new__`` method or inherits a ``__new__`` method
    from a base class other than ``object``, a type checker should synthesize a
