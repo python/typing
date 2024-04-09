@@ -26,10 +26,11 @@ def func2(x: tuple[int, *tuple[bool, ...], str]):
     assert_type(x, tuple[int, *tuple[bool, ...], str])
 
 
-# > As with TypeVarTuples, only one unpacking may appear in a tuple:
+# > For example, tuple[int, *tuple[str]] is equivalent to tuple[int, str].
 
-bad1: tuple[*tuple[int], *tuple[int]]  # E
-bad2: tuple[*tuple[int, ...], *tuple[int]]  # E
+u1: tuple[*tuple[int], *tuple[int]] = (int(1), int(1))  # OK
+assert_type(u1, tuple[int, int])
+u2: tuple[*tuple[int, ...], *tuple[int]]  # OK
 
 
 # > Only one unbounded tuple can be used within another tuple:
