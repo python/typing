@@ -20,6 +20,5 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 65: Expected 1 errors
 Line 75: Expected 1 errors
-Line 74: Unexpected errors ['generics_scoping.py:74:0 Uninitialized attribute [13]: Attribute `attr` is declared in class `Outer` to have type `Outer.Inner[Variable[T]]` but is never initialized.']
-Line 77: Unexpected errors ['generics_scoping.py:77:4 Uninitialized attribute [13]: Attribute `x` is declared in class `Outer.AlsoBad` to have type `typing.List[Variable[T]]` but is never initialized.']
 """
+ignore_errors = ["Uninitialized attribute [13]"]
