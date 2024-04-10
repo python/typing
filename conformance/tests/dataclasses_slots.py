@@ -5,11 +5,10 @@ Tests the slots functionality of dataclass added in Python 3.10.
 # Specification: https://docs.python.org/3/library/dataclasses.html#module-contents
 
 from dataclasses import dataclass
-from typing import Iterable, assert_type
 
 # This should generate an error because __slots__ is already defined.
-@dataclass(slots=True)
-class DC1:
+@dataclass(slots=True)  # E[DC1]
+class DC1:  # E[DC1]
     x: int
 
     __slots__ = ()
@@ -23,7 +22,7 @@ class DC2:
         self.x = 3
 
         # This should generate an error because "y" is not in slots.
-        self.y = 3
+        self.y = 3  # E
 
 
 @dataclass(slots=False)
@@ -36,7 +35,7 @@ class DC3:
         self.x = 3
 
         # This should generate an error because "y" is not in slots.
-        self.y = 3
+        self.y = 3  # E
 
 
 @dataclass
@@ -64,7 +63,7 @@ class DC6:
 
 
 # This should generate an error because __slots__ is not defined.
-DC6.__slots__
+DC6.__slots__  # E
 
 # This should generate an error because __slots__ is not defined.
-DC6(1).__slots__
+DC6(1).__slots__  # E

@@ -9,6 +9,6 @@ dataclasses_frozen.py:17:0 Invalid assignment [41]: Cannot reassign final attrib
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 23: Expected 1 errors
-Line 33: Expected 1 errors
+Lines 22, 23: Expected error (tag 'DC2')
+Lines 32, 33: Expected error (tag 'DC4')
 """

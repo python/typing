@@ -298,7 +298,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on generic class nested within generic class with same type variable.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on generic class nested within generic function with same type variable.</p><p>False negative on generic class nested within generic class with same type variable.</p></span></div></th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Fails to reject type alias within generic class that uses class's type variable.</p><p>Fails to reject unbound type variable in constructor call in global scope.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_self_advanced</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not infer the type of an unannotated `self` parameter to be type `Self`.</p><p>Does not retain `Self` when calling method that returns `Self`.</p><p>Does not infer the type of an unannotated `cls` parameter to be type `type[Self]`.</p><p>Does not retain `Self` when accessing attribute through `type[Self]`.</p></span></div></th>
@@ -848,7 +848,7 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;narrowing_typeis</th>
 <th class="column col2 not-conformant">Unsupported</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject covariant use of TypeIs.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not narrow correctly on generic tuple type</p><p>Does not reject covariant use of TypeIs</p><p>Does not reject TypeIs where return type is not consistent with input type due to variance</p></span></div></th>
 </tr>
@@ -859,7 +859,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand "assert_type".</p></span></div></th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly allows assert(x, int) where x is a Literal.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_cast</th>
 <th class="column col2 conformant">Pass</th>

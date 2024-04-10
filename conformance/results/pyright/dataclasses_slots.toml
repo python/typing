@@ -1,18 +1,13 @@
 conformant = "Pass"
 output = """
-dataclasses_slots.py:11:12 - error: __slots__ is already defined in class (reportGeneralTypeIssues)
-dataclasses_slots.py:26:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)
-dataclasses_slots.py:39:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)
-dataclasses_slots.py:67:5 - error: Cannot access member "__slots__" for type "type[DC6]"
+dataclasses_slots.py:10:12 - error: __slots__ is already defined in class (reportGeneralTypeIssues)
+dataclasses_slots.py:25:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)
+dataclasses_slots.py:38:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)
+dataclasses_slots.py:66:5 - error: Cannot access member "__slots__" for type "type[DC6]"
   Member "__slots__" is unknown (reportAttributeAccessIssue)
-dataclasses_slots.py:70:8 - error: Cannot access member "__slots__" for type "DC6"
+dataclasses_slots.py:69:8 - error: Cannot access member "__slots__" for type "DC6"
   Member "__slots__" is unknown (reportAttributeAccessIssue)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 11: Unexpected errors ['dataclasses_slots.py:11:12 - error: __slots__ is already defined in class (reportGeneralTypeIssues)']
-Line 26: Unexpected errors ['dataclasses_slots.py:26:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)']
-Line 39: Unexpected errors ['dataclasses_slots.py:39:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)']
-Line 67: Unexpected errors ['dataclasses_slots.py:67:5 - error: Cannot access member "__slots__" for type "type[DC6]"']
-Line 70: Unexpected errors ['dataclasses_slots.py:70:8 - error: Cannot access member "__slots__" for type "DC6"']
 """
