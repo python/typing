@@ -138,18 +138,23 @@ def func7(s: str):
 xs: list[LiteralString] = ["foo", "bar", "baz"]
 
 
+class A: pass
+class B(A): pass
+class C(B): pass
+
+
 @overload
-def func8(x: Literal["foo"]) -> int:
+def func8(x: Literal["foo"]) -> C:
     ...
 
 
 @overload
-def func8(x: LiteralString) -> bool:
+def func8(x: LiteralString) -> B:
     ...
 
 
 @overload
-def func8(x: str) -> str:
+def func8(x: str) -> A:
     ...
 
 
@@ -157,9 +162,9 @@ def func8(x: Any) -> Any:
     ...
 
 
-assert_type(func8("foo"), int)  # First overload
-assert_type(func8("bar"), bool)  # Second overload
-assert_type(func8(str(1)), str)  # Third overload
+assert_type(func8("foo"), C)  # First overload
+assert_type(func8("bar"), B)  # Second overload
+assert_type(func8(str(1)), A)  # Third overload
 
 
 def func9(val: list[LiteralString]):
