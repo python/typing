@@ -9,7 +9,8 @@ Constructor Calls
 At runtime, a call to a class' constructor typically results in the invocation of
 three methods in the following order:
 1. The ``__call__`` method of the metaclass (which is typically supplied by the
-  ``type`` class but can be overridden by a custom metaclass)
+  ``type`` class but can be overridden by a custom metaclass and which is
+  responsible for calling the next two methods)
 2. The ``__new__`` static method of the class
 3. The ``__init__`` instance method of the class
 
@@ -24,8 +25,8 @@ class has a custom metaclass (a subclass of ``type``) that defines a ``__call__`
 method. If so, it should evaluate the call of this method using the supplied
 arguments. If the metaclass is ``type``, this step can be skipped.
 
-If the evaluated return type of the ``__call__`` method is something other than
-an instance of the class being constructed, a type checker should
+If the evaluated return type of the ``__call__`` method indicates something
+other than an instance of the class being constructed, a type checker should
 assume that the metaclass ``__call__`` method is overriding ``type.__call__``
 in some special manner, and it should not attempt to evaluate the ``__new__``
 or ``__init__`` methods on the class. For example, some metaclass ``__call__``
@@ -101,11 +102,13 @@ For most classes, the return type for the ``__new__`` method is typically
 method may return an instance of a subclass or an instance of some completely
 unrelated class.
 
-If the evaluated return type of ``__new__`` is not an instance of the class
-being constructed (or a subclass thereof) or is a union that includes such
-a class, a type checker should assume that the ``__init__`` method will not be
-called. This is consistent with the runtime behavior of the ``type.__call__``
-method.
+If the evaluated return type of ``__new__`` is not the class being constructed
+(or a subclass thereof), a type checker should assume that the ``__init__``
+method will not be called. This is consistent with the runtime behavior of
+the ``type.__call__`` method. If the ``__new__`` method return type is
+a union with one or more subtypes that are not instances of the class being
+constructed (or a subclass thereof), a type checker should likewise assume that
+the ``__init__`` method will not be called.
 
   ::
 
@@ -113,8 +116,8 @@ method.
         def __new__(cls) -> int:
             return 0
 
-        # The __init__ method will not be called in this case, so
-        # it should not be evaluated.
+        # In this case, the __init__ method should not be considered
+        # by the type checker when evaluating a constructor call.
         def __init__(self, x: int):
             pass
 
@@ -156,8 +159,8 @@ with different type arguments.
 If the ``cls`` parameter within the ``__new__`` method is not annotated, type
 checkers should infer a type of ``type[Self]``. Regardless of whether the
 type of the ``cls`` parameter is explicit or inferred, the type checker should
-bind the class being constructed to this parameter and report any type errors
-that arise during binding.
+bind the class being constructed to the ``cls`` parameter and report any type
+errors that arise during binding.
 
   ::
 
@@ -208,7 +211,7 @@ during binding.
   ::
 
     class MyClass[T]:
-        def __init__(self: "MyClass[int]") -> "None": ...
+        def __init__(self: "MyClass[int]") -> None: ...
 
     MyClass()  # OK
     MyClass[int]()  # OK
@@ -216,10 +219,11 @@ during binding.
 
 The return type for ``__init__`` is always ``None``, which means the
 method cannot influence the return type of the constructor call by specifying
-a return type. To work around this limitation, type checkers should allow
-the ``self`` parameter to be annotated with a type that influences the resulting
-type of the constructor call. This can be used in overloads to influence the
-constructor return type for each overload.
+a return type. There are cases where it is desirable for the ``__init__`` method
+to influence the return type, especially when the ``__init__`` method is
+overloaded. To enable this, type checkers should allow the ``self`` parameter
+to be annotated with a type that influences the resulting type of the
+constructor call.
 
   ::
 
@@ -289,8 +293,8 @@ does not inherit either of these methods from a base class other than
 Constructor Calls for type[T]
 -----------------------------
 
-When a value of type ``type[T]`` (where ``T`` is a type variable or a concrete
-class) is called, a type checker should evaluate the constructor call as if
+When a value of type ``type[T]`` (where ``T`` is a concrete class or a type
+variable) is called, a type checker should evaluate the constructor call as if
 it is being made on the class ``T`` (or the class that represents the upper bound
 of type variable ``T``). This means the type checker should use the ``__call__``
 method of ``T``'s metaclass and the ``__new__`` and ``__init__`` methods of ``T``
@@ -362,7 +366,8 @@ Class objects are callable, which means they are compatible with callable types.
     reveal_type(accepts_callable(MyClass))  # ``def (x: int) -> MyClass``
 
 When converting a class to a callable type, a type checker should use the
-following rules:
+following rules, which reflect the same rules specified above for evaluating
+constructor calls:
 
 1. If the class has a custom metaclass that defines a ``__call__`` method
    that is annotated with a return type other than a subclass of the
