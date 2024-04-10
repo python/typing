@@ -22,9 +22,7 @@ annotations_typeexpr.py:97:10 - error: Expected type expression but received "Li
 annotations_typeexpr.py:98:10 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
 annotations_typeexpr.py:99:10 - error: Unary operator not allowed in type annotation (reportInvalidTypeForm)
 annotations_typeexpr.py:100:10 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)
-annotations_typeexpr.py:101:10 - error: Expected expression
-annotations_typeexpr.py:101:10 - error: Tuple expression not allowed in type annotation
-  Use tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+annotations_typeexpr.py:101:10 - error: Type annotations cannot use format string literals (f-strings) (reportGeneralTypeIssues)
 annotations_typeexpr.py:102:10 - error: Module cannot be used as a type (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
