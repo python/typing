@@ -820,4 +820,3 @@ As discussed in the section :ref:`unpack-kwargs`, an unpacked ``TypedDict`` can 
         kwargs["key1"] = 3  # Type check error: key1 is readonly
 
     fn: Function = impl  # Accepted by type checker: function signatures are identical
-
