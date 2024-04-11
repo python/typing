@@ -18,7 +18,7 @@ Type checkers should mirror this runtime behavior when analyzing a constructor
 call.
 
 Metaclass ``__call__`` Method
-=============================
+-----------------------------
 
 When evaluating a constructor call, a type checker should first check if the
 class has a custom metaclass (a subclass of ``type``) that defines a ``__call__``
@@ -52,7 +52,7 @@ the ``cls`` parameter.
 
 
 ``__new__`` Method
-==================
+------------------
 
 After the metaclass ``__call__`` method has been evaluated, a type checker
 should evaluate the ``__new__`` method of the class (if applicable) using
@@ -173,7 +173,7 @@ errors that arise during binding.
 
 
 ``__init__`` Method
-===================
+-------------------
 
 After evaluating the ``__new__`` method, a type checker should evaluate the
 ``__init__`` method (if applicable) using the supplied arguments. If the class
@@ -274,7 +274,7 @@ within a type annotation for the ``self`` parameter in an ``__init__`` method.
 
 
 Classes Without ``__new__`` and ``__init__`` Methods
-====================================================
+----------------------------------------------------
 
 If a class does not define a ``__new__`` method or ``__init__`` method and
 does not inherit either of these methods from a base class other than
