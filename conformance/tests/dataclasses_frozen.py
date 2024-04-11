@@ -39,4 +39,3 @@ class DC1Child(DC1):
     # This should be allowed because attributes within a frozen
     # dataclass are covariant rather than invariant.
     a: int
-

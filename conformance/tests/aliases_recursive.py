@@ -73,4 +73,3 @@ RecursiveUnion: TypeAlias = Union["RecursiveUnion", int]  # E: cyclical referenc
 
 # On one line because different type checkers report the error on different lines
 MutualReference1: TypeAlias = Union["MutualReference2", int]; MutualReference2: TypeAlias = Union["MutualReference1", str]  # E: cyclical reference
-

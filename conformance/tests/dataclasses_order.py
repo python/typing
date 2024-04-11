@@ -52,4 +52,3 @@ if dc1_1 < dc2_1:  # E:
 
 if dc1_1 != dc2_1:
     pass
-

@@ -100,7 +100,7 @@ specifies default values for the fields. Type checkers may support this::
 Named Tuple Usage
 -----------------
 
-The fields within a named tuple instance can be accessed by name using an 
+The fields within a named tuple instance can be accessed by name using an
 attribute access (``.``) operator. Type checkers should support this::
 
     p = Point(1, 2)

@@ -489,5 +489,3 @@ callable.
         def __init__[V](self, x: T, y: list[V], z: V) -> None: ...
 
     reveal_type(accepts_callable(MyClass))  # ``def [T, V] (x: T, y: list[V], z: V) -> MyClass[T]``
-
-

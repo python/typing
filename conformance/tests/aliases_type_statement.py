@@ -89,4 +89,3 @@ type RecursiveTypeAlias5[T] = T | list[RecursiveTypeAlias5[T]]
 
 type RecursiveTypeAlias6 = RecursiveTypeAlias7 # E: circular definition
 type RecursiveTypeAlias7 = RecursiveTypeAlias6
-

@@ -30,5 +30,3 @@ if xs.next is not None:
 
     # This should result in a type error.
     xs.next = LinkedList[int](value=3, next=None)  # E
-
-

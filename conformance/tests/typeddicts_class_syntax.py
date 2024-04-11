@@ -75,5 +75,3 @@ class MovieTotal(TypedDict, total=True):
 
 class MovieOptional(TypedDict, total=False):
     name: str
-
-
