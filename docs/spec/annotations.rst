@@ -59,7 +59,9 @@ Type and annotation expressions
 -------------------------------
 
 The terms *type expression* and *annotation expression* denote specific
-subsets of Python expressions that are used in the type system.
+subsets of Python expressions that are used in the type system.  All
+type expressions are also annotation expressions, but not all annotation
+expressions are type expressions.
 
 .. _`type-expression`:
 
@@ -105,19 +107,23 @@ The following grammar describes the allowed elements of type and annotation expr
                          : | <ClassVar> '[' `annotation_expression`']'
                          : | <Final> '[' `annotation_expression`']'
                          : | <InitVar> '[' `annotation_expression` ']'
-                         : | <Annotated> '[' `annotation_expression` ',' expression (',' expression)* ']'
+                         : | <Annotated> '[' `annotation_expression` ','
+                         :               expression (',' expression)* ']'
                          : | <TypeAlias>
                          :       (valid only in variable annotations)
                          : | `unpacked`
                          :       (valid only for *args annotations)
                          : | <Unpack> '[' name ']'
-                         :       (where name refers to an in-scope TypedDict; valid only in **kwargs annotations)
+                         :       (where name refers to an in-scope TypedDict;
+                         :        valid only in **kwargs annotations)
                          : | `string_annotation`
                          :       (must evaluate to a valid `annotation_expression`)
                          : | name '.' 'args'
-                         :      (where name must be an in-scope ParamSpec; valid only in *args annotations)
+                         :      (where name must be an in-scope ParamSpec;
+                         :       valid only in *args annotations)
                          : | name '.' 'kwargs'
-                         :       (where name must be an in-scope ParamSpec; valid only in **kwargs annotations)
+                         :       (where name must be an in-scope ParamSpec;
+                         :        valid only in **kwargs annotations)
                          : | `type_expression`
     type_expression: <Any>
                    : | <Self>
@@ -127,9 +133,12 @@ The following grammar describes the allowed elements of type and annotation expr
                    : | <Never>
                    : | <None>
                    : | name
-                   :       (where name must refer to a valid in-scope class, type alias, or TypeVar)
-                   : | name '[' (`maybe_unpacked` | `type_expression_list`) (',' (`maybe_unpacked` | `type_expression_list`))* ']'
-                   :       (the `type_expression_list` form is valid only when specializing a ParamSpec)
+                   :       (where name must refer to a valid in-scope class,
+                   :        type alias, or TypeVar)
+                   : | name '[' (`maybe_unpacked` | `type_expression_list`)
+                   :        (',' (`maybe_unpacked` | `type_expression_list`))* ']'
+                   :       (the `type_expression_list` form is valid only when
+                   :        specializing a ParamSpec)
                    : | name '[' '(' ')' ']'
                    :       (denoting specialization with an empty TypeVarTuple)
                    : | <Literal> '[' expression (',' expression) ']'
@@ -139,15 +148,19 @@ The following grammar describes the allowed elements of type and annotation expr
                    : | <Union> '[' `type_expression` (',' `type_expression`)* ']'
                    : | <type> '[' <Any> ']'
                    : | <type> '[' name ']'
-                   :       (where name must refer to a valid in-scope class or TypeVar)
+                   :       (where name must refer to a valid in-scope class
+                   :        or TypeVar)
                    : | <Callable> '[' '...' ',' `type_expression` ']'
                    : | <Callable> '[' name ',' `type_expression` ']'
                    :       (where name must be a valid in-scope ParamSpec)
-                   : | <Callable> '[' <Concatenate> '[' (`type_expression` ',')+ (name | '...') ']' ',' `type_expression` ']'
+                   : | <Callable> '[' <Concatenate> '[' (`type_expression` ',')+
+                   :              (name | '...') ']' ',' `type_expression` ']'
                    :       (where name must be a valid in-scope ParamSpec)
-                   : | <Callable> '[' '[' `maybe_unpacked` (',' `maybe_unpacked`)* ']' ',' `type_expression` ']'
+                   : | <Callable> '[' '[' `maybe_unpacked` (',' `maybe_unpacked`)*
+                   :              ']' ',' `type_expression` ']'
                    : | `tuple_type_expression`
-                   : | <Annotated> '[' `type_expression` ',' expression (',' expression)* ']'
+                   : | <Annotated> '[' `type_expression` ','
+                   :               expression (',' expression)* ']'
                    : | <TypeGuard> '[' `type_expression` ']'
                    :       (valid only in some contexts)
                    : | <TypeIs> '[' `type_expression` ']'
@@ -155,7 +168,7 @@ The following grammar describes the allowed elements of type and annotation expr
                    : | `string_annotation`
                    :       (must evaluate to a valid `type_expression`)
     maybe_unpacked: `type_expression` | `unpacked`
-    unpacked: '*' `unpackable``
+    unpacked: '*' `unpackable`
             : | <Unpack> '[' `unpackable` ']'
     unpackable: `tuple_type_expression``
               : | name
@@ -166,7 +179,8 @@ The following grammar describes the allowed elements of type and annotation expr
                          :       (representing an arbitrary-length tuple)
                          : | <tuple> '[' `maybe_unpacked` (',' `maybe_unpacked`)* ']'
     string_annotation: string
-                     :     (must be a string literal that is parsable as Python code; see "String annotations")
+                     :     (must be a string literal that is parsable
+                     :      as Python code; see "String annotations")
     type_expression_list: '[' `type_expression` (',' `type_expression`)* ']'
                         : '[' ']'
 
@@ -177,8 +191,8 @@ Notes:
   and whitespace are ignored.
 
 * ``<Name>`` refers to a :term:`special form`. Most special forms must be imported
-  from :py:mod:`typing` or ``typing_extensions``, except for ``None``, ``type``,
-  ``tuple``, and ``InitVar``. The latter two have aliases in :py:mod:`typing`: :py:class:`typing.Type`
+  from :py:mod:`typing` or ``typing_extensions``, except for ``None``,  ``InitVar``,
+  ``type``, and ``tuple``. The latter two have aliases in :py:mod:`typing`: :py:class:`typing.Type`
   and :py:class:`typing.Tuple`.  ``InitVar`` must be imported from :py:mod:`dataclasses`.
   ``Callable`` may be imported from either :py:mod:`typing` or :py:mod:`collections.abc`.
   Special forms may be aliased
@@ -187,7 +201,8 @@ Notes:
   acceptable in any annotation or type expression, including ``Generic``, ``Protocol``,
   and ``TypedDict``.
 
-* Any leaf denoted as ``name`` may also be a qualified name (i.e., ``module '.' name``).
+* Any leaf denoted as ``name`` may also be a qualified name (i.e., ``module '.' name``
+  or ``package '.' module '.' name``, with any level of nesting).
 
 * Comments in parentheses denote additional restrictions not expressed in the
   grammar, or brief descriptions of the meaning of a construct.
