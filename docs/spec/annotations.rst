@@ -182,7 +182,7 @@ The following grammar describes the allowed elements of type and annotation expr
                      :     (must be a string literal that is parsable
                      :      as Python code; see "String annotations")
     type_expression_list: '[' `type_expression` (',' `type_expression`)* ']'
-                        : '[' ']'
+                        : | '[' ']'
 
 Notes:
 
