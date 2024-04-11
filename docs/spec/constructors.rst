@@ -8,11 +8,12 @@ Constructor Calls
 
 At runtime, a call to a class' constructor typically results in the invocation of
 three methods in the following order:
-1. The ``__call__`` method of the metaclass (which is typically supplied by the
-  ``type`` class but can be overridden by a custom metaclass and which is
-  responsible for calling the next two methods)
-2. The ``__new__`` static method of the class
-3. The ``__init__`` instance method of the class
+
+#. The ``__call__`` method of the metaclass (which is typically supplied by the
+   ``type`` class but can be overridden by a custom metaclass and which is
+   responsible for calling the next two methods)
+#. The ``__new__`` static method of the class
+#. The ``__init__`` instance method of the class
 
 Type checkers should mirror this runtime behavior when analyzing a constructor
 call.
@@ -31,7 +32,7 @@ assume that the metaclass ``__call__`` method is overriding ``type.__call__``
 in some special manner, and it should not attempt to evaluate the ``__new__``
 or ``__init__`` methods on the class. For example, some metaclass ``__call__``
 methods are annotated to return ``NoReturn`` to indicate that constructor
-calls are not supported for that class. 
+calls are not supported for that class.
 
   ::
 
@@ -285,7 +286,7 @@ does not inherit either of these methods from a base class other than
 
     class MyClass5:
         pass
-    
+
     MyClass5()  # OK
     MyClass5(1)  # Type error
 
@@ -417,7 +418,7 @@ constructor calls:
     class A:
         """ No __new__ or __init__ """
         pass
-    
+
     class B:
         """ __new__ and __init__ """
         def __new__(cls, *args, **kwargs) -> Self:
@@ -425,7 +426,7 @@ constructor calls:
 
         def __init__(self, x: int) -> None:
             ...
-      
+
     class C:
         """ __new__ but no __init__ """
         def __new__(cls, x: int) -> int:
@@ -451,7 +452,7 @@ constructor calls:
         def __init__(self, x: int) -> None:
             """ This __init__ is ignored for purposes of conversion """
             ...
-      
+
 
     reveal_type(accepts_callable(A))  # ``def () -> A``
     reveal_type(accepts_callable(B))  # ``def (*args, **kwargs) -> B | def (x: int) -> B``
@@ -488,5 +489,3 @@ callable.
         def __init__[V](self, x: T, y: list[V], z: V) -> None: ...
 
     reveal_type(accepts_callable(MyClass))  # ``def [T, V] (x: T, y: list[V], z: V) -> MyClass[T]``
-
-

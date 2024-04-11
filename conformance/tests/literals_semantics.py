@@ -38,5 +38,3 @@ def func3(a: L[3, 4, 5]):
 def func4(a: L[None, 3] | L[3, "foo", b"bar", True]):
     x1: Literal[3, b"bar", True, "foo", None] = a
     a = x1
-
-

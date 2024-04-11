@@ -38,5 +38,3 @@ if isinstance(movie, Movie):  # E
 
 # TypedDict should not be allowed as a bound for a TypeVar.
 T = TypeVar("T", bound=TypedDict) # E
-
-
