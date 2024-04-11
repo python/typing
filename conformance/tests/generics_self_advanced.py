@@ -43,4 +43,3 @@ class ChildB(ParentB):
         assert_type(cls.a, list[Self])
         assert_type(cls.a[0], Self)
         assert_type(cls.method1(), Self)
-

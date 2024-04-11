@@ -79,4 +79,3 @@ def object_with_generic_type(
     val = container.set_value(value)
     assert_type(val, Container[T])
     return val
-

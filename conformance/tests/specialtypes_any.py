@@ -86,5 +86,3 @@ a = ClassA()
 assert_type(a.method1(), int)
 assert_type(a.method2(), Any)
 assert_type(ClassA.method3(), Any)
-
-

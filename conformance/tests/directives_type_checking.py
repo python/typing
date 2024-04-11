@@ -16,4 +16,3 @@ else:
     b: list[str] = ["a", "b", "c"]
 
 assert_type(b, list[int])
-

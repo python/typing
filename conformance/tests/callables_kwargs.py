@@ -121,4 +121,3 @@ T = TypeVar("T", bound=TD2)
 
 def func6(**kwargs: Unpack[T]) -> None:  # E: unpacked value must be a TypedDict, not a TypeVar bound to TypedDict.
     ...
-

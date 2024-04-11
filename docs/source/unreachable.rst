@@ -111,7 +111,7 @@ finds the lowest unused street number in a street:
 
    def is_used(street: str, number: int) -> bool:
        ...
- 
+
    def lowest_unused(street: str) -> int:
        for i in itertools.count(1):
            if not is_used(street, i):

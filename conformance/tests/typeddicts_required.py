@@ -72,5 +72,3 @@ RecursiveMovie = TypedDict(
 )
 
 movie: RecursiveMovie = {"title": "Beethoven 3", "predecessor": {"title": "Beethoven 2"}}
-
-

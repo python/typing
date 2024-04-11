@@ -226,4 +226,3 @@ This code fails at runtime, because the narrower returns ``False`` (1 is not a `
 and the ``else`` branch is taken in ``takes_narrower()``.
 If the call ``takes_narrower(1, is_bool)`` was allowed, type checkers would fail to
 detect this error.
-

@@ -133,4 +133,3 @@ assert_type(x2, list[int])
 x3 = ListOrSetAlias()  # E: cannot instantiate union
 
 x4: ListOrSetAlias[int]  # E: already specialized
-

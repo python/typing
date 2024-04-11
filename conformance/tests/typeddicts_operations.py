@@ -62,4 +62,3 @@ assert_type(movie_optional.get("name"), str | None)
 movie_optional.clear()  # E: clear not allowed
 
 del movie_optional["name"]
-
