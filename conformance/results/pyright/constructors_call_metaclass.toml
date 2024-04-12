@@ -1,0 +1,7 @@
+conformant = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_metaclass.py:51:1 - error: Argument missing for parameter "x" (reportCallIssue)
+constructors_call_metaclass.py:65:1 - error: Argument missing for parameter "x" (reportCallIssue)
+"""

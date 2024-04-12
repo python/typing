@@ -1,0 +1,38 @@
+conformant = "Partial"
+notes = """
+Does not report errors during binding to self parameter of __init__ method.
+Does not infer type of Self for self parameter of __init__ method.
+Rejects valid type annotation for self parameter in __init__ method.
+Does not support function-scoped TypeVars in self annotation in __init__ method.
+Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Expected 1 errors
+Line 42: Expected 1 errors
+Line 56: Expected 1 errors
+Line 107: Expected 1 errors
+Line 51: Unexpected errors ['File "constructors_call_init.py", line 51, in __init__: Invalid type annotation \\'Class4[int]\\' for self [invalid-annotation]']
+Line 72: Unexpected errors ['File "constructors_call_init.py", line 72, in <module>: Class5 [assert-type]']
+Line 74: Unexpected errors ['File "constructors_call_init.py", line 74, in <module>: Class5 [assert-type]']
+Line 88: Unexpected errors ['File "constructors_call_init.py", line 88, in Class6: Invalid type annotation \\'V2\\'  [invalid-annotation]', 'File "constructors_call_init.py", line 88, in Class6: Invalid type annotation \\'V1\\'  [invalid-annotation]', 'File "constructors_call_init.py", line 88, in __init__: Invalid type annotation \\'Class6[V1, V2]\\' for self [invalid-annotation]']
+Line 91: Unexpected errors ['File "constructors_call_init.py", line 91, in <module>: Class6 [assert-type]']
+Line 96: Unexpected errors ['File "constructors_call_init.py", line 96, in Class7: Invalid type annotation \\'V2\\'  [invalid-annotation]', 'File "constructors_call_init.py", line 96, in Class7: Invalid type annotation \\'V1\\'  [invalid-annotation]', 'File "constructors_call_init.py", line 96, in __init__: Invalid type annotation \\'Class7[V2, V1]\\' for self [invalid-annotation]']
+Line 99: Unexpected errors ['File "constructors_call_init.py", line 99, in <module>: Class7 [assert-type]']
+Line 108: Unexpected errors ['File "constructors_call_init.py", line 108, in __init__: Invalid type annotation \\'Class8[T2, T1]\\' for self [invalid-annotation]']
+"""
+output = """
+File "constructors_call_init.py", line 51, in __init__: Invalid type annotation 'Class4[int]' for self [invalid-annotation]
+File "constructors_call_init.py", line 72, in <module>: Class5 [assert-type]
+File "constructors_call_init.py", line 74, in <module>: Class5 [assert-type]
+File "constructors_call_init.py", line 88, in Class6: Invalid type annotation 'V2'  [invalid-annotation]
+File "constructors_call_init.py", line 88, in Class6: Invalid type annotation 'V1'  [invalid-annotation]
+File "constructors_call_init.py", line 88, in __init__: Invalid type annotation 'Class6[V1, V2]' for self [invalid-annotation]
+File "constructors_call_init.py", line 91, in <module>: Class6 [assert-type]
+File "constructors_call_init.py", line 96, in Class7: Invalid type annotation 'V2'  [invalid-annotation]
+File "constructors_call_init.py", line 96, in Class7: Invalid type annotation 'V1'  [invalid-annotation]
+File "constructors_call_init.py", line 96, in __init__: Invalid type annotation 'Class7[V2, V1]' for self [invalid-annotation]
+File "constructors_call_init.py", line 99, in <module>: Class7 [assert-type]
+File "constructors_call_init.py", line 108, in __init__: Invalid type annotation 'Class8[T2, T1]' for self [invalid-annotation]
+File "constructors_call_init.py", line 130, in <module>: Function Class11.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+"""

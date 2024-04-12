@@ -1,0 +1,74 @@
+conformant = "Partial"
+notes = """
+Does not generate a union type for __new__ and __init__ when converting class to callable.
+Does not ignore __init__ based on __new__ return type when converting class to callable.
+Does not support __new__ return type that is different from class being constructed.
+Does not use annotated type of self in __init__ method to generate return type of callable.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 61: Expected 1 errors
+Line 83: Expected 1 errors
+Line 84: Expected 1 errors
+Line 156: Expected 1 errors
+Line 41: Unexpected errors ['File "constructors_callable.py", line 41, in <module>: Callable[[Any], Class1] [reveal-type]']
+Line 58: Unexpected errors ['File "constructors_callable.py", line 58, in <module>: Callable[[Any], Class2] [reveal-type]']
+Line 60: Unexpected errors ['File "constructors_callable.py", line 60, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]', 'File "constructors_callable.py", line 60, in <module>: Any [assert-type]']
+Line 67: Unexpected errors ['File "constructors_callable.py", line 67, in __new__: bad return type [bad-return-type]']
+Line 81: Unexpected errors ['File "constructors_callable.py", line 81, in <module>: Callable[[Any], Class3] [reveal-type]']
+Line 93: Unexpected errors ['File "constructors_callable.py", line 93, in __new__: bad return type [bad-return-type]']
+Line 101: Unexpected errors ['File "constructors_callable.py", line 101, in <module>: Callable[[Any], Class4] [reveal-type]']
+Line 103: Unexpected errors ['File "constructors_callable.py", line 103, in <module>: nothing [assert-type]']
+Line 125: Unexpected errors ['File "constructors_callable.py", line 125, in <module>: Callable[[Any], Class5] [reveal-type]']
+Line 129: Unexpected errors ['File "constructors_callable.py", line 129, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]', 'File "constructors_callable.py", line 129, in <module>: Any [assert-type]']
+Line 141: Unexpected errors ['File "constructors_callable.py", line 141, in __new__: bad return type [bad-return-type]']
+Line 153: Unexpected errors ['File "constructors_callable.py", line 153, in <module>: Callable[[Any], Class6] [reveal-type]']
+Line 155: Unexpected errors ['File "constructors_callable.py", line 155, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]', 'File "constructors_callable.py", line 155, in <module>: Any [assert-type]']
+Line 177: Unexpected errors ['File "constructors_callable.py", line 177, in __call__: @typing.overload-decorated \\'Expected7.__call__\\' object is not callable [not-callable]']
+Line 181: Unexpected errors ['File "constructors_callable.py", line 181, in <module>: Callable[[Any], Class7] [reveal-type]']
+Line 185: Unexpected errors ['File "constructors_callable.py", line 185, in <module>: Class7 [assert-type]']
+Line 186: Unexpected errors ['File "constructors_callable.py", line 186, in <module>: Class7 [assert-type]']
+Line 203: Unexpected errors ['File "constructors_callable.py", line 203, in <module>: Callable[[Any], Class8[nothing]] [reveal-type]']
+Line 204: Unexpected errors ['File "constructors_callable.py", line 204, in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]', 'File "constructors_callable.py", line 204, in <module>: Any [assert-type]']
+Line 213: Unexpected errors ['File "constructors_callable.py", line 213, in <module>: Callable[[Any], Class9] [reveal-type]']
+Line 214: Unexpected errors ['File "constructors_callable.py", line 214, in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]', 'File "constructors_callable.py", line 214, in <module>: Any [assert-type]']
+"""
+output = """
+File "constructors_callable.py", line 41, in <module>: Callable[[Any], Class1] [reveal-type]
+File "constructors_callable.py", line 44, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+File "constructors_callable.py", line 58, in <module>: Callable[[Any], Class2] [reveal-type]
+File "constructors_callable.py", line 60, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+File "constructors_callable.py", line 60, in <module>: Any [assert-type]
+File "constructors_callable.py", line 67, in __new__: bad return type [bad-return-type]
+Called from (traceback):
+  line 85, in current file
+File "constructors_callable.py", line 81, in <module>: Callable[[Any], Class3] [reveal-type]
+File "constructors_callable.py", line 86, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+File "constructors_callable.py", line 87, in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]
+File "constructors_callable.py", line 93, in __new__: bad return type [bad-return-type]
+Called from (traceback):
+  line 103, in current file
+File "constructors_callable.py", line 101, in <module>: Callable[[Any], Class4] [reveal-type]
+File "constructors_callable.py", line 103, in <module>: nothing [assert-type]
+File "constructors_callable.py", line 104, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+File "constructors_callable.py", line 125, in <module>: Callable[[Any], Class5] [reveal-type]
+File "constructors_callable.py", line 129, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+File "constructors_callable.py", line 129, in <module>: Any [assert-type]
+File "constructors_callable.py", line 141, in __new__: bad return type [bad-return-type]
+Called from (traceback):
+  line 156, in current file
+File "constructors_callable.py", line 153, in <module>: Callable[[Any], Class6] [reveal-type]
+File "constructors_callable.py", line 155, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+File "constructors_callable.py", line 155, in <module>: Any [assert-type]
+File "constructors_callable.py", line 177, in __call__: @typing.overload-decorated 'Expected7.__call__' object is not callable [not-callable]
+File "constructors_callable.py", line 181, in <module>: Callable[[Any], Class7] [reveal-type]
+File "constructors_callable.py", line 185, in <module>: Class7 [assert-type]
+File "constructors_callable.py", line 186, in <module>: Class7 [assert-type]
+File "constructors_callable.py", line 203, in <module>: Callable[[Any], Class8[nothing]] [reveal-type]
+File "constructors_callable.py", line 204, in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]
+File "constructors_callable.py", line 204, in <module>: Any [assert-type]
+File "constructors_callable.py", line 213, in <module>: Callable[[Any], Class9] [reveal-type]
+File "constructors_callable.py", line 214, in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]
+File "constructors_callable.py", line 214, in <module>: Any [assert-type]
+File "constructors_callable.py", line 215, in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]
+"""

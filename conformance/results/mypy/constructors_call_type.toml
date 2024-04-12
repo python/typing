@@ -1,0 +1,12 @@
+conformant = "Partial"
+notes = """
+Does not validate call to custom metaclass __call__ method through type[T].
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 30: Expected 1 errors
+"""
+output = """
+constructors_call_type.py:40: error: Missing positional arguments "x", "y" in call to "Class2"  [call-arg]
+constructors_call_type.py:50: error: Missing positional arguments "x", "y" in call to "Class3"  [call-arg]
+"""
