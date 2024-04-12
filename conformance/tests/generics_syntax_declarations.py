@@ -38,7 +38,7 @@ class ClassE[T: dict[str, int]]:  # OK
     pass
 
 
-class ClassF[T: "ForwardReference"]:  # OK
+class ClassF[S: ForwardReference[int], T: "ForwardReference[str]"]:  # OK
     ...
 
 
@@ -55,7 +55,7 @@ class ClassI[AnyStr: (str, bytes)]:  # OK
     ...
 
 
-class ClassJ[T: ("ForwardReference", bytes)]:  # OK
+class ClassJ[T: (ForwardReference[int], "ForwardReference[str]", bytes)]:  # OK
     ...
 
 
@@ -82,5 +82,4 @@ class ClassO[T: (list[S], str)]:  # E: generic type
     ...
 
 
-class ForwardReference:
-    ...
+class ForwardReference[T]: ...

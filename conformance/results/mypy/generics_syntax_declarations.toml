@@ -32,6 +32,7 @@ generics_syntax_declarations.py:66: error: PEP 695 generics are not yet supporte
 generics_syntax_declarations.py:73: error: PEP 695 generics are not yet supported  [valid-type]
 generics_syntax_declarations.py:77: error: PEP 695 generics are not yet supported  [valid-type]
 generics_syntax_declarations.py:81: error: PEP 695 generics are not yet supported  [valid-type]
+generics_syntax_declarations.py:85: error: PEP 695 generics are not yet supported  [valid-type]
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -48,4 +49,5 @@ Line 41: Unexpected errors ['generics_syntax_declarations.py:41: error: PEP 695 
 Line 45: Unexpected errors ['generics_syntax_declarations.py:45: error: PEP 695 generics are not yet supported  [valid-type]']
 Line 54: Unexpected errors ['generics_syntax_declarations.py:54: error: PEP 695 generics are not yet supported  [valid-type]']
 Line 58: Unexpected errors ['generics_syntax_declarations.py:58: error: PEP 695 generics are not yet supported  [valid-type]']
+Line 85: Unexpected errors ['generics_syntax_declarations.py:85: error: PEP 695 generics are not yet supported  [valid-type]']
 """
