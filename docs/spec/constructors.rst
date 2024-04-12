@@ -434,7 +434,7 @@ constructor calls:
 
     class CustomMeta(type):
         def __call__(cls) -> NoReturn:
-            raise NotImplemented("Class not constructable")
+            raise NotImplementedError("Class not constructable")
 
     class D(metaclass=CustomMeta):
         """ Custom metaclass that overrides type.__call__ """
@@ -447,7 +447,7 @@ constructor calls:
         """ __new__ that causes __init__ to be ignored """
 
         def __new__(cls) -> A:
-            return A.__new__()
+            return A.__new__(cls)
 
         def __init__(self, x: int) -> None:
             """ This __init__ is ignored for purposes of conversion """
