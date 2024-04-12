@@ -1,6 +1,6 @@
 conformant = "Pass"
 notes = """
-Does not honor `@no_type_check` class decorator.
+Does not honor `@no_type_check` class decorator (allowed).
 """
 output = """
 directives_no_type_check.py:15:14 - error: Expression of type "Literal['']" cannot be assigned to declared type "int"

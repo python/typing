@@ -1,8 +1,8 @@
 conformant = "Partial"
 notes = """
-Does not narrow correctly on generic tuple type
-Does not reject covariant use of TypeIs
-Does not reject TypeIs where return type is not consistent with input type due to variance
+Does not narrow correctly on generic tuple type.
+Does not reject covariant use of TypeIs.
+Does not reject TypeIs where return type is not consistent with input type due to variance.
 """
 output = """
 File "narrowing_typeis.py", line 19, in func1: Tuple[str, ...] [assert-type]
