@@ -1,0 +1,8 @@
+conformant = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_consistency.py:25:9 - error: Mismatch between signature of __new__ and __init__ in class "Class1"
+  Signature of __init__ is "(x: str)"
+  Signature of __new__ is "()" (reportInconsistentConstructor)
+"""

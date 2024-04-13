@@ -1,0 +1,8 @@
+conformant = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_type.py:30:5 - error: Arguments missing for parameters "x", "y" (reportCallIssue)
+constructors_call_type.py:40:5 - error: Arguments missing for parameters "x", "y" (reportCallIssue)
+constructors_call_type.py:50:5 - error: Arguments missing for parameters "x", "y" (reportCallIssue)
+"""

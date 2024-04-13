@@ -1,0 +1,19 @@
+conformant = "Partial"
+notes = """
+Does not validate call to custom metaclass __call__ method through type[T].
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 30: Expected 1 errors
+Line 25: Unexpected errors ['File "constructors_call_type.py", line 25, in __new__: Missing parameter \\'cls\\' in call to function object.__new__ [missing-parameter]', 'File "constructors_call_type.py", line 25, in __new__: Invalid keyword arguments (x, y) to function object.__new__ [wrong-keyword-args]']
+"""
+output = """
+File "constructors_call_type.py", line 25, in __new__: Missing parameter 'cls' in call to function object.__new__ [missing-parameter]
+Called from (traceback):
+  line 30, in func1
+File "constructors_call_type.py", line 25, in __new__: Invalid keyword arguments (x, y) to function object.__new__ [wrong-keyword-args]
+Called from (traceback):
+  line 29, in func1
+File "constructors_call_type.py", line 40, in func2: Missing parameter 'x' in call to function Class2.__new__ [missing-parameter]
+File "constructors_call_type.py", line 50, in func3: Missing parameter 'x' in call to function Class3.__init__ [missing-parameter]
+"""

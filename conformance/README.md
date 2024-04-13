@@ -20,6 +20,7 @@ This project contains test cases for behaviors defined in the Python typing spec
 * [literals](https://typing.readthedocs.io/en/latest/spec/literal.html)
 * [protocols](https://typing.readthedocs.io/en/latest/spec/protocol.html)
 * [callables](https://typing.readthedocs.io/en/latest/spec/callables.html)
+* [constructors](https://typing.readthedocs.io/en/latest/spec/constructors.html)
 * [overloads](https://typing.readthedocs.io/en/latest/spec/overload.html)
 * [dataclasses](https://typing.readthedocs.io/en/latest/spec/dataclasses.html)
 * [typeddicts](https://typing.readthedocs.io/en/latest/spec/typeddict.html)

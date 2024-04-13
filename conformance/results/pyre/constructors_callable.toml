@@ -1,0 +1,43 @@
+conformant = "Partial"
+notes = """
+Does not generate a union type for __new__ and __init__ when converting class to callable.
+Does not ignore __init__ based on __new__ return type when converting class to callable.
+Does not support __new__ return type that is different from class being constructed.
+Does not use annotated type of self in __init__ method to generate return type of callable.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 84: Expected 1 errors
+Line 156: Expected 1 errors
+Line 215: Expected 1 errors
+Line 102: Unexpected errors ['constructors_callable.py:102:0 Incompatible variable type [9]: t4 is declared to have type `Expected4` but is used as type `typing.Callable[[Named(x, int)], Class4]`.']
+Line 141: Unexpected errors ['constructors_callable.py:141:8 Incompatible return type [7]: Expected `Class6Proxy` but got `Class6`.']
+Line 154: Unexpected errors ['constructors_callable.py:154:0 Incompatible variable type [9]: t6 is declared to have type `Expected6` but is used as type `typing.Callable[[Named(x, int)], Class6]`.']
+Line 155: Unexpected errors ['constructors_callable.py:155:12 Missing argument [20]: PositionalOnly call expects argument `x`.']
+Line 166: Unexpected errors ['constructors_callable.py:166:4 Incompatible overload [43]: The implementation of `Class7.__init__` does not accept all possible arguments of overload defined on line `166`.']
+Line 168: Unexpected errors ['constructors_callable.py:168:4 Incompatible overload [43]: The implementation of `Class7.__init__` does not accept all possible arguments of overload defined on line `168`.']
+Line 175: Unexpected errors ['constructors_callable.py:175:4 Missing overload implementation [42]: Overloaded function `Expected7.__call__` must have an implementation.']
+Line 184: Unexpected errors ['constructors_callable.py:184:0 Incompatible variable type [9]: t7 is declared to have type `Expected7` but is used as type `typing.Callable[[Named(x, int)], Class7[typing.Any]]`.']
+Line 186: Unexpected errors ['constructors_callable.py:186:15 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `int` but got `str`.']
+Line 202: Unexpected errors ['constructors_callable.py:202:22 Incompatible parameter type [6]: In call `accepts_callable`, for 1st positional argument, expected `typing.Callable[constructors_callable.P, Variable[R]]` but got `Type[Class8]`.']
+Line 212: Unexpected errors ['constructors_callable.py:212:22 Incompatible parameter type [6]: In call `accepts_callable`, for 1st positional argument, expected `typing.Callable[constructors_callable.P, Variable[R]]` but got `Type[Class9]`.']
+"""
+output = """
+constructors_callable.py:44:0 Missing argument [20]: PositionalOnly call expects argument `x`.
+constructors_callable.py:61:0 Too many arguments [19]: PositionalOnly call expects 0 positional arguments, 1 was provided.
+constructors_callable.py:83:0 Incompatible variable type [9]: t3_2 is declared to have type `Expected3_1` but is used as type `typing.Callable[[Named(x, int)], Class3]`.
+constructors_callable.py:86:0 Missing argument [20]: PositionalOnly call expects argument `x`.
+constructors_callable.py:87:0 Too many arguments [19]: PositionalOnly call expects 1 positional argument, 2 were provided.
+constructors_callable.py:102:0 Incompatible variable type [9]: t4 is declared to have type `Expected4` but is used as type `typing.Callable[[Named(x, int)], Class4]`.
+constructors_callable.py:104:0 Missing argument [20]: PositionalOnly call expects argument `x`.
+constructors_callable.py:141:8 Incompatible return type [7]: Expected `Class6Proxy` but got `Class6`.
+constructors_callable.py:154:0 Incompatible variable type [9]: t6 is declared to have type `Expected6` but is used as type `typing.Callable[[Named(x, int)], Class6]`.
+constructors_callable.py:155:12 Missing argument [20]: PositionalOnly call expects argument `x`.
+constructors_callable.py:166:4 Incompatible overload [43]: The implementation of `Class7.__init__` does not accept all possible arguments of overload defined on line `166`.
+constructors_callable.py:168:4 Incompatible overload [43]: The implementation of `Class7.__init__` does not accept all possible arguments of overload defined on line `168`.
+constructors_callable.py:175:4 Missing overload implementation [42]: Overloaded function `Expected7.__call__` must have an implementation.
+constructors_callable.py:184:0 Incompatible variable type [9]: t7 is declared to have type `Expected7` but is used as type `typing.Callable[[Named(x, int)], Class7[typing.Any]]`.
+constructors_callable.py:186:15 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `int` but got `str`.
+constructors_callable.py:202:22 Incompatible parameter type [6]: In call `accepts_callable`, for 1st positional argument, expected `typing.Callable[constructors_callable.P, Variable[R]]` but got `Type[Class8]`.
+constructors_callable.py:212:22 Incompatible parameter type [6]: In call `accepts_callable`, for 1st positional argument, expected `typing.Callable[constructors_callable.P, Variable[R]]` but got `Type[Class9]`.
+"""

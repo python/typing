@@ -1,0 +1,20 @@
+conformant = "Partial"
+notes = """
+Does not support __new__ return type that is not a subclass of the class being constructed.
+Does not report errors during binding to cls parameter of __new__ method.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 145: Expected 1 errors
+Line 49: Unexpected errors ['constructors_call_new.py:49:12 Missing argument [20]: Call `Class3.__init__` expects argument `x`.']
+Line 64: Unexpected errors ['constructors_call_new.py:64:12 Missing argument [20]: Call `Class4.__init__` expects argument `x`.']
+Line 76: Unexpected errors ['constructors_call_new.py:76:16 Missing argument [20]: Call `Class5.__init__` expects argument `x`.']
+Line 89: Unexpected errors ['constructors_call_new.py:89:12 Missing argument [20]: Call `Class6.__init__` expects argument `x`.']
+"""
+output = """
+constructors_call_new.py:21:12 Incompatible parameter type [6]: In call `Class1.__new__`, for 1st positional argument, expected `int` but got `float`.
+constructors_call_new.py:49:12 Missing argument [20]: Call `Class3.__init__` expects argument `x`.
+constructors_call_new.py:64:12 Missing argument [20]: Call `Class4.__init__` expects argument `x`.
+constructors_call_new.py:76:16 Missing argument [20]: Call `Class5.__init__` expects argument `x`.
+constructors_call_new.py:89:12 Missing argument [20]: Call `Class6.__init__` expects argument `x`.
+"""
