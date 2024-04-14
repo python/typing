@@ -11,7 +11,6 @@ from typing import (
     Generic,
     NoReturn,
     ParamSpec,
-    Protocol,
     Self,
     TypeVar,
     assert_type,
@@ -33,15 +32,11 @@ class Class1:
         pass
 
 
-class Expected1(Protocol):
-    def __call__(self, x: int) -> Class1: ...
-
-
 r1 = accepts_callable(Class1)
-reveal_type(r1)  # ``def (x: int) -> Class1``
-t1: Expected1 = r1  # OK
+reveal_type(r1)  # `def (x: int) -> Class1`
 assert_type(r1(1), Class1)
 r1()  # E
+r1(y=1)  # E
 
 
 class Class2:
@@ -50,13 +45,8 @@ class Class2:
     pass
 
 
-class Expected2(Protocol):
-    def __call__(self) -> Class2: ...
-
-
 r2 = accepts_callable(Class2)
-reveal_type(r2)  # ``def () -> A``
-t2: Expected2 = r2
+reveal_type(r2)  # `def () -> Class2`
 assert_type(r2(), Class2)
 r2(1)  # E
 
@@ -69,21 +59,11 @@ class Class3:
     def __init__(self, x: int) -> None: ...
 
 
-class Expected3_1(Protocol):
-    def __call__(self, *args: Any, **kwargs: Any) -> Class3: ...
-
-
-class Expected3_2(Protocol):
-    def __call__(self, x: int) -> Class3: ...
-
-
 r3 = accepts_callable(Class3)
-reveal_type(r3)  # ``def (*args, **kwargs) -> Class3 | def (x: int) -> Class3``
-t3_1: Expected3_1 | Expected3_2 = r3  # OK
-t3_2: Expected3_1 = r3  # E
-t3_3: Expected3_2 = r3  # E
+reveal_type(r3)  # `def (x: int) -> Class3`
 assert_type(r3(3), Class3)
 r3()  # E
+r3(y=1)  # E
 r3(1, 2)  # E
 
 
@@ -93,40 +73,36 @@ class Class4:
     def __new__(cls, x: int) -> int: ...
 
 
-class Expected4(Protocol):
-    def __call__(self, x: int) -> int: ...
-
-
 r4 = accepts_callable(Class4)
-reveal_type(r4)  # ``def (x: int) -> int``
-t4: Expected4 = r4  # OK
+reveal_type(r4)  # `def (x: int) -> int`
 assert_type(r4(1), int)
 r4()  # E
+r4(y=1)  # E
 
 
 class Meta1(type):
-    def __call__(cls, *args, **kwargs) -> NoReturn:
+    def __call__(cls, *args: Any, **kwargs: Any) -> NoReturn:
         raise NotImplementedError("Class not constructable")
 
 
 class Class5(metaclass=Meta1):
     """Custom metaclass that overrides type.__call__"""
 
-    def __new__(cls, *args, **kwargs) -> Self:
+    def __new__(cls, *args: Any, **kwargs: Any) -> Self:
         """This __new__ is ignored for purposes of conversion"""
         return super().__new__(cls)
 
 
-class Expected5(Protocol):
-    def __call__(self) -> NoReturn: ...
-
-
 r5 = accepts_callable(Class5)
-reveal_type(r5)  # ``def () -> NoReturn``
-t5: Expected5 = r5  # OK
+reveal_type(r5)  # `def (*args: Any, **kwargs: Any) -> NoReturn`
 
 try:
     assert_type(r5(), NoReturn)
+except:
+    pass
+
+try:
+    assert_type(r5(1, x=1), NoReturn)
 except:
     pass
 
@@ -145,16 +121,27 @@ class Class6:
         pass
 
 
-class Expected6(Protocol):
-    def __call__(self) -> Class6Proxy: ...
-
-
 r6 = accepts_callable(Class6)
-reveal_type(r6)  # ``def () -> Class6Proxy``
-t6: Expected6 = r6  # OK
+reveal_type(r6)  # `def () -> Class6Proxy`
 assert_type(r6(), Class6Proxy)
 r6(1)  # E
 
+
+class Class6Any:
+    """__new__ that causes __init__ to be ignored via Any"""
+
+    def __new__(cls) -> Any:
+        return super().__new__(cls)
+
+    def __init__(self, x: int) -> None:
+        """This __init__ is ignored for purposes of conversion"""
+        pass
+
+
+r6_any = accepts_callable(Class6Any)
+reveal_type(r6_any)  # `def () -> Any`
+assert_type(r6_any(), Any)
+r6_any(1)  # E
 
 # > If the __init__ or __new__ method is overloaded, the callable type should
 # > be synthesized from the overloads. The resulting callable type itself will
@@ -170,18 +157,10 @@ class Class7(Generic[T]):
         pass
 
 
-class Expected7(Protocol):
-    @overload
-    def __call__(self: Class7[int], x: int) -> Class7: ...
-    @overload
-    def __call__(self: Class7[str], x: str) -> Class7: ...
-
-
 r7 = accepts_callable(Class7)
 reveal_type(
     r7
-)  # overload of ``def (x: int) -> Class7[int]`` and ``def (x: str) -> Class7[str]``
-t7: Expected7 = r7  # OK
+)  # overload of `def (x: int) -> Class7[int]` and `def (x: str) -> Class7[str]`
 assert_type(r7(0), Class7[int])
 assert_type(r7(""), Class7[str])
 
@@ -195,13 +174,14 @@ assert_type(r7(""), Class7[str])
 
 
 class Class8(Generic[T]):
-    def __new__(cls, x: T, y: list[T]) -> Self:
+    def __new__(cls, x: list[T], y: list[T]) -> Self:
         return super().__new__(cls)
 
 
 r8 = accepts_callable(Class8)
-reveal_type(r8)  # def [T] (x: T, list[T]) -> Class8[T]
-assert_type(r8("", [""]), Class8[str])
+reveal_type(r8)  # `def [T] (x: T, y: list[T]) -> Class8[T]`
+assert_type(r8([""], [""]), Class8[str])
+r8([1], [""])  # E
 
 
 class Class9:
@@ -210,6 +190,6 @@ class Class9:
 
 
 r9 = accepts_callable(Class9)
-reveal_type(r9)  # def [T] (x: T, list[T]) -> Class9[T]
+reveal_type(r9)  # `def [T] (x: list[T], y: list[T]) -> Class9`
 assert_type(r9([""], [""]), Class9)
 r9([1], [""])  # E

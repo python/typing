@@ -26,8 +26,8 @@ class Class1(metaclass=Meta1):
 
 
 def func1(cls: type[Class1]):
-    Class1(x=1, y="")  # OK
-    Class1()  # E
+    cls(x=1, y="")  # OK
+    cls()  # E
 
 
 class Class2:
@@ -36,8 +36,8 @@ class Class2:
 
 
 def func2(cls: type[Class2]):
-    Class2(x=1, y="")  # OK
-    Class2()  # E
+    cls(x=1, y="")  # OK
+    cls()  # E
 
 
 class Class3:
@@ -46,5 +46,37 @@ class Class3:
 
 
 def func3(cls: type[Class3]):
-    Class3(x=1, y="")  # OK
-    Class3()  # E
+    cls(x=1, y="")  # OK
+    cls()  # E
+
+
+class Class4:
+    pass
+
+
+def func4(cls: type[Class4]):
+    cls()  # OK
+    cls(1)  # E
+
+
+def func5(cls: type[T]):
+    cls()  # OK
+    cls(1)  # E
+
+
+T1 = TypeVar("T1", bound=Class1)
+
+
+def func6(cls: type[T1]):
+    cls(x=1, y="")  # OK
+    cls()  # E
+
+
+T2 = TypeVar("T2", bound=Class2)
+
+
+def func7(cls: type[T2]):
+    cls(1, "")  # OK
+    cls(x=1, y="")  # OK
+    cls(1)  # E
+    cls(1, 2)  # E
