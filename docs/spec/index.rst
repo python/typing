@@ -19,6 +19,7 @@ Specification for the Python type system
    callables
    constructors
    overload
+   exceptions
    dataclasses
    typeddict
    tuples
