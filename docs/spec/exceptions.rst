@@ -36,7 +36,27 @@ between these two cases. This is done by examining the return type
 annotation of the ``__exit__`` method of the context manager.
 
 If the return type of the ``__exit__`` method is specifically ``bool`` or
-``Literal[True]``, a type checker should assume that exceptions *are*
+``Literal[True]``, a type checker should assume that exceptions *can be*
 suppressed. For any other return type, a type checker should assume that
 exceptions *are not* suppressed. Examples include: ``Any``, ``Literal[False]``,
 ``None``, and ``bool | None``.
+
+This convention was chosen because most context managers do not suppress
+exceptions, and it is common for their ``__exit__`` method to be annotated as
+returning ``bool | None``. Context managers that suppress exceptions are
+relatively rare, so they are considered a special case.
+
+For example, the following context manager suppresses exceptions::
+
+    class Suppress:
+        def __enter__(self) -> None:
+            pass
+
+        def __exit__(self, exc_type, exc_value, traceback) -> bool:
+            return True
+
+    with Suppress():
+        raise ValueError("This exception is suppressed")
+
+    # The exception is suppressed, so this line is reachable.
+    print("Code is reachable")
