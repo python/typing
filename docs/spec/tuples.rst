@@ -78,7 +78,7 @@ An unpacked TypeVarTuple counts as an unbounded tuple in the context of this rul
         t6: tuple[*tuple[str, ...], *Ts]  # Type error
 
 The ``*`` syntax requires Python 3.11 or newer. For older versions of Python,
-the ``typing.Unpack`` special form can be used:
+the ``typing.Unpack`` :term:`special form` can be used:
 ``tuple[int, Unpack[tuple[str, ...]], int]``.
 
 Unpacked tuples can also be used for ``*args`` parameters in a function

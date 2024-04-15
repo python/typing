@@ -280,10 +280,10 @@ and type checkers may warn if they are used.
 --------------------------
 
 Before Python 3.10 (:pep:`604`), Python did not support the ``|`` operator
-for creating unions of types. Therefore, the ``typing.Union`` special form can also
+for creating unions of types. Therefore, the ``typing.Union`` :term:`special form` can also
 be used to create union types. Type checkers should treat the two forms as equivalent.
 
-In addition, the ``Optional`` special form provides a shortcut for a union with ``None``.
+In addition, the ``Optional`` :term:`special form` is equivalent to a union with ``None``.
 
 Examples:
 

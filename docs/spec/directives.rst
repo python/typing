@@ -18,6 +18,8 @@ should emit an error if the value is not of the specified type::
         assert_type(name, str)  # OK, inferred type of `name` is `str`
         assert_type(name, int)  # type checker error
 
+The second argument must be a valid :term:`type expression`.
+
 .. _`reveal-type`:
 
 ``reveal_type()``
@@ -79,7 +81,8 @@ Some type checkers may not be able to infer that the type of
 ``a[index]`` is ``str`` and only infer ``object`` or ``Any``, but we
 know that (if the code gets to that point) it must be a string.  The
 ``cast(t, x)`` call tells the type checker that we are confident that
-the type of ``x`` is ``t``.  At runtime a cast always returns the
+the type of ``x`` is ``t``. ``t`` must be a valid :term:`type expression`.
+At runtime a cast always returns the
 expression unchanged -- it does not check the type, and it does not
 convert or coerce the value.
 

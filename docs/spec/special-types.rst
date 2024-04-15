@@ -62,7 +62,7 @@ equivalent to ``type(None)``.
 ``NoReturn``
 ------------
 
-The ``typing`` module provides a special type ``NoReturn`` to annotate functions
+The ``typing`` module provides a :term:`special form` ``NoReturn`` to annotate functions
 that never return normally. For example, a function that unconditionally
 raises an exception::
 
@@ -98,7 +98,7 @@ is unreachable and will behave accordingly::
 ``Never``
 ---------
 
-Since Python 3.11, the ``typing`` module contains a primitive ``Never``. It
+Since Python 3.11, the ``typing`` module contains a :term:`special form` ``Never``. It
 represents the bottom type, a type that has no members.
 
 The ``Never`` type is equivalent to ``NoReturn``, which is discussed above.
@@ -165,7 +165,8 @@ type checker will infer the correct type of the result::
   joe = new_user(BasicUser)  # Inferred type is BasicUser
 
 The value corresponding to ``type[C]`` must be an actual class object
-that's a subtype of ``C``, not a special form.  In other words, in the
+that's a subtype of ``C``, not a :term:`special form` or other kind of type.
+In other words, in the
 above example calling e.g. ``new_user(BasicUser | ProUser)`` is
 rejected by the type checker (in addition to failing at runtime
 because you can't instantiate a union).

@@ -1,3 +1,5 @@
+.. _`namedtuple`:
+
 Named Tuples
 ============
 

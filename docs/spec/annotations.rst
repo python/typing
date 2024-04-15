@@ -55,42 +55,166 @@ decorators ``@property``, ``@staticmethod`` and ``@classmethod``.
 
 .. _valid-types:
 
-Valid type expression forms
----------------------------
+Type and annotation expressions
+-------------------------------
 
-Type hints may be built-in classes (including those defined in
-standard library or third-party extension modules), abstract base
-classes, types available in the ``types`` module, and user-defined
-classes (including those defined in the standard library or
-third-party modules).
+The terms *type expression* and *annotation expression* denote specific
+subsets of Python expressions that are used in the type system.  All
+type expressions are also annotation expressions, but not all annotation
+expressions are type expressions.
 
-While annotations are normally the best format for type hints,
-there are times when it is more appropriate to represent them
-by a special comment, or in a separately distributed stub
-file.  (See below for examples.)
+.. _`type-expression`:
+
+A *type expression* is any expression that validly expresses a type. Type
+expressions are always acceptable in annotations and also in various other
+places. Specifically, type expressions are used in the following locations:
+
+* In a type annotation (always as part of an annotation expression)
+* The first argument to :ref:`cast() <cast>`
+* The second argument to :ref:`assert_type() <assert-type>`
+* The bounds and constraints of a ``TypeVar`` (whether created through the
+  old syntax or the native syntax in Python 3.12)
+* The definition of a type alias (whether created through the ``type`` statement,
+  the old assignment syntax, or the ``TypeAliasType`` constructor)
+* The type arguments of a generic class (which may appear in a base class
+  or in a constructor call)
+* The definitions of fields in the functional forms for creating
+  :ref:`TypedDict <typeddict>` and :ref:`NamedTuple <namedtuple>` types
+* The base type in the definition of a :ref:`NewType <newtype>`
+
+.. _`annotation-expression`:
+
+An *annotation expression* is an expression that is acceptable to use in
+an annotation context (a function parameter annotation, function return
+annotation, or variable annotation). Generally, an annotation expression
+is a type expression, optionally surrounded by one or more :term:`type qualifiers <type qualifier>`
+or by `Annotated`. Each type qualifier is valid only in some contexts. Note
+that while annotation expressions are the only expressions valid as type
+annotations in the type system, the Python language itself makes no such
+restriction: any expression is allowed.
 
 Annotations must be valid expressions that evaluate without raising
-exceptions at the time the function is defined (but see below for
-forward references).
+exceptions at the time the function is defined (but see :ref:`forward-references`).
 
-Annotations should be kept simple or static analysis tools may not be
-able to interpret the values. For example, dynamically computed types
-are unlikely to be understood.  (This is an
-intentionally somewhat vague requirement; specific inclusions and
-exclusions may be added in the future as warranted by the discussion.)
+.. _`expression-grammar`:
 
-In addition to the above, the following special constructs defined
-below may be used: ``None``, ``Any``, ``Union``, ``Tuple``,
-``Callable``, all ABCs and stand-ins for concrete classes exported
-from ``typing`` (e.g. ``Sequence`` and ``Dict``), type variables, and
-type aliases.
+The following grammar describes the allowed elements of type and annotation expressions:
+
+.. productionlist:: expression-grammar
+    annotation_expression: <Required> '[' `annotation_expression` ']'
+                         : | <NotRequired> '[' `annotation_expression` ']'
+                         : | <ReadOnly> '[' `annotation_expression`']'
+                         : | <ClassVar> '[' `annotation_expression`']'
+                         : | <Final> '[' `annotation_expression`']'
+                         : | <InitVar> '[' `annotation_expression` ']'
+                         : | <Annotated> '[' `annotation_expression` ','
+                         :               expression (',' expression)* ']'
+                         : | <TypeAlias>
+                         :       (valid only in variable annotations)
+                         : | `unpacked`
+                         :       (valid only for *args annotations)
+                         : | <Unpack> '[' name ']'
+                         :       (where name refers to an in-scope TypedDict;
+                         :        valid only in **kwargs annotations)
+                         : | `string_annotation`
+                         :       (must evaluate to a valid `annotation_expression`)
+                         : | name '.' 'args'
+                         :      (where name must be an in-scope ParamSpec;
+                         :       valid only in *args annotations)
+                         : | name '.' 'kwargs'
+                         :       (where name must be an in-scope ParamSpec;
+                         :        valid only in **kwargs annotations)
+                         : | `type_expression`
+    type_expression: <Any>
+                   : | <Self>
+                   :       (valid only in some contexts)
+                   : | <LiteralString>
+                   : | <NoReturn>
+                   : | <Never>
+                   : | <None>
+                   : | name
+                   :       (where name must refer to a valid in-scope class,
+                   :        type alias, or TypeVar)
+                   : | name '[' (`maybe_unpacked` | `type_expression_list`)
+                   :        (',' (`maybe_unpacked` | `type_expression_list`))* ']'
+                   :       (the `type_expression_list` form is valid only when
+                   :        specializing a ParamSpec)
+                   : | name '[' '(' ')' ']'
+                   :       (denoting specialization with an empty TypeVarTuple)
+                   : | <Literal> '[' expression (',' expression) ']'
+                   :       (see documentation for Literal for restrictions)
+                   : | `type_expression` '|' `type_expression`
+                   : | <Optional> '[' `type_expression` ']'
+                   : | <Union> '[' `type_expression` (',' `type_expression`)* ']'
+                   : | <type> '[' <Any> ']'
+                   : | <type> '[' name ']'
+                   :       (where name must refer to a valid in-scope class
+                   :        or TypeVar)
+                   : | <Callable> '[' '...' ',' `type_expression` ']'
+                   : | <Callable> '[' name ',' `type_expression` ']'
+                   :       (where name must be a valid in-scope ParamSpec)
+                   : | <Callable> '[' <Concatenate> '[' (`type_expression` ',')+
+                   :              (name | '...') ']' ',' `type_expression` ']'
+                   :       (where name must be a valid in-scope ParamSpec)
+                   : | <Callable> '[' '[' `maybe_unpacked` (',' `maybe_unpacked`)*
+                   :              ']' ',' `type_expression` ']'
+                   : | `tuple_type_expression`
+                   : | <Annotated> '[' `type_expression` ','
+                   :               expression (',' expression)* ']'
+                   : | <TypeGuard> '[' `type_expression` ']'
+                   :       (valid only in some contexts)
+                   : | <TypeIs> '[' `type_expression` ']'
+                   :       (valid only in some contexts)
+                   : | `string_annotation`
+                   :       (must evaluate to a valid `type_expression`)
+    maybe_unpacked: `type_expression` | `unpacked`
+    unpacked: '*' `unpackable`
+            : | <Unpack> '[' `unpackable` ']'
+    unpackable: `tuple_type_expression``
+              : | name
+              :       (where name must refer to an in-scope TypeVarTuple)
+    tuple_type_expression: <tuple> '[' '(' ')' ']'
+                         :      (representing an empty tuple)
+                         : | <tuple> '[' `type_expression` ',' '...' ']'
+                         :       (representing an arbitrary-length tuple)
+                         : | <tuple> '[' `maybe_unpacked` (',' `maybe_unpacked`)* ']'
+    string_annotation: string
+                     :     (must be a string literal that is parsable
+                     :      as Python code; see "String annotations")
+    type_expression_list: '[' `type_expression` (',' `type_expression`)* ']'
+                        : | '[' ']'
+
+Notes:
+
+* The grammar assumes the code has already been parsed as Python code, and
+  loosely follows the structure of the AST. Syntactic details like comments
+  and whitespace are ignored.
+
+* ``<Name>`` refers to a :term:`special form`. Most special forms must be imported
+  from :py:mod:`typing` or ``typing_extensions``, except for ``None``,  ``InitVar``,
+  ``type``, and ``tuple``. The latter two have aliases in :py:mod:`typing`: :py:class:`typing.Type`
+  and :py:class:`typing.Tuple`.  ``InitVar`` must be imported from :py:mod:`dataclasses`.
+  ``Callable`` may be imported from either :py:mod:`typing` or :py:mod:`collections.abc`.
+  Special forms may be aliased
+  (e.g., ``from typing import Literal as L``), and they may be referred to by a
+  qualified name (e.g., ``typing.Literal``). There are other special forms that are not
+  acceptable in any annotation or type expression, including ``Generic``, ``Protocol``,
+  and ``TypedDict``.
+
+* Any leaf denoted as ``name`` may also be a qualified name (i.e., ``module '.' name``
+  or ``package '.' module '.' name``, with any level of nesting).
+
+* Comments in parentheses denote additional restrictions not expressed in the
+  grammar, or brief descriptions of the meaning of a construct.
+
+.. _ `string-annotations`:
 
 .. _`forward-references`:
 
-Forward references
+String annotations
 ------------------
 
-When a type hint contains names that have not been defined yet, that
+When a type hint cannot be evaluated at runtime, that
 definition may be expressed as a string literal, to be resolved later.
 
 A situation where this occurs commonly is the definition of a
@@ -118,7 +242,7 @@ same namespaces in which default arguments to the same function would
 be evaluated.
 
 Moreover, the expression should be parseable as a valid type hint, i.e.,
-it is constrained by the rules from the section on :ref:`valid-types`.
+it is constrained by the rules from :ref:`the expression grammar <expression-grammar>`.
 
 If a triple quote is used, the string should be parsed as though it is
 implicitly surrounded by parentheses. This allows newline characters to be

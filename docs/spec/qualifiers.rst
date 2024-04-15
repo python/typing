@@ -3,6 +3,14 @@
 Type qualifiers
 ===============
 
+This chapter describes the behavior of some :term:`type qualifiers <type qualifier>`.
+Additional type qualifiers are covered in other chapters:
+
+* :ref:`ClassVar <classvar>`
+* :ref:`NotRequired <notrequired>`
+* :ref:`ReadOnly <readonly>`
+* :ref:`Required <required>`
+
 .. _`at-final`:
 
 ``@final``
@@ -67,7 +75,7 @@ It is an error to use ``@final`` on a non-method function.
 
 (Originally specified in :pep:`591`.)
 
-The ``typing.Final`` type qualifier is used to indicate that a
+The ``typing.Final`` :term:`type qualifier` is used to indicate that a
 variable or attribute should not be reassigned, redefined, or overridden.
 
 Syntax
@@ -247,7 +255,7 @@ details of the syntax:
 
     V == Annotated[list[tuple[int, int]], MaxLen(10)]
 
-* As with most special forms, ``Annotated`` is not type compatible with
+* As with most :term:`special forms <special form>`, ``Annotated`` is not type compatible with
   ``type`` or ``type[T]``::
 
     v1: type[int] = Annotated[int, ""]  # Type error

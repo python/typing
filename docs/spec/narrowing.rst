@@ -13,14 +13,14 @@ TypeGuard
 
 (Originally specified in :pep:`647`.)
 
-The symbol ``TypeGuard``, exported from the ``typing`` module, is a special form
+The symbol ``TypeGuard``, exported from the ``typing`` module, is a :term:`special form`
 that accepts a single type argument. It is used to annotate the return type of a
 user-defined type guard function. Return statements within a type guard function
 should return bool values, and type checkers should verify that all return paths
 return a bool.
 
 ``TypeGuard`` is also valid as the return type of a callable, for example
-in callback protocols and in the ``Callable`` special form. In these
+in callback protocols and in the ``Callable`` :term:`special form`. In these
 contexts, it is treated as a subtype of bool. For example, ``Callable[..., TypeGuard[int]]``
 is assignable to ``Callable[..., bool]``.
 
@@ -115,7 +115,7 @@ TypeIs
 
 (Originally specified in :pep:`742`.)
 
-The special form ``TypeIs`` is similar in usage, behavior, and runtime
+The :term:`special form` ``TypeIs`` is similar in usage, behavior, and runtime
 implementation as ``TypeGuard``.
 
 ``TypeIs`` accepts a single type argument and can be used as the return type
@@ -201,7 +201,7 @@ It is an error to narrow to a type that is not consistent with the input type::
         ...
 
 ``TypeIs`` is also valid as the return type of a callable, for example
-in callback protocols and in the ``Callable`` special form. In these
+in callback protocols and in the ``Callable`` :term:`special form`. In these
 contexts, it is treated as a subtype of bool. For example, ``Callable[..., TypeIs[int]]``
 is assignable to ``Callable[..., bool]``.
 
