@@ -1,7 +1,7 @@
 Enumerations
 ============
 
-The ``enum.Enum`` class behaves differently from other Python classes in several 
+The ``enum.Enum`` class behaves differently from other Python classes in several
 ways that require special-case handling in type checkers. This section discusses
 the Enum behaviors that should be supported by type checkers and others which
 may be supported optionally. It is recommended that library and type stub
@@ -42,7 +42,7 @@ checkers should treat such classes as enums::
 
     class CustomEnum1(Enum):
         pass
-    
+
     class Color7(CustomEnum1):  # Supported
         RED = 1
         GREEN = 2
@@ -50,7 +50,7 @@ checkers should treat such classes as enums::
 
     class CustomEnumType(EnumType):
         pass
-    
+
     class CustomEnum2(metaclass=CustomEnumType):
         pass
 
@@ -146,17 +146,17 @@ statically in cases where dynamic values are used.
     class Pet(Enum):
         CAT = 1  # Member attribute
         DOG = 2  # Member attribute
-        
+
         converter = lambda __x: str(__x)  # Non-member attribute
         transform = identity  # Non-member attribute
 
         @property
         def species(self) -> str:  # Non-member property
             return "mammal"
-        
+
         def speak(self) -> None:  # Non-member method
             print("meow" if self is Pet.CAT else "woof")
-        
+
         class Nested: ... # Non-member nested class
 
 * An attribute that is assigned the value of another member of the same enum
@@ -312,7 +312,7 @@ are not within a type stub file, a type checker can use the type of the
         DORIC = ...
         IONIC = ...
         CORINTHIAN = ...
-    
+
     reveal_type(ColumnType.DORIC.value)  # Revealed type is int (or object or Any)
 
 
@@ -332,7 +332,7 @@ literal values during type narrowing and exhaustion detection::
         RED = 1
         GREEN = 2
         BLUE = 3
-    
+
     def print_color1(c: Color):
         if c is Color.RED or c is Color.BLUE:
             print("red or blue")
