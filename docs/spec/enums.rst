@@ -136,9 +136,10 @@ statically in cases where dynamic values are used.
         CAT = 1  # OK
         DOG: int = 2  # Type checker error
 
-* Methods, callables, and descriptors (including properties) that are defined
-  in the class are not treated as enum members by the ``EnumType`` metaclass
-  and should likewise not be treated as enum members by a type checker::
+* Methods, callables, and descriptors (including properties), and nested classes
+  that are defined in the class are not treated as enum members by the
+  ``EnumType`` metaclass and should likewise not be treated as enum members by
+  a type checker::
 
     def identity(__x): return __x
 
@@ -155,6 +156,8 @@ statically in cases where dynamic values are used.
         
         def speak(self) -> None:  # Non-member method
             print("meow" if self is Pet.CAT else "woof")
+        
+        class Nested: ... # Non-member nested class
 
 * An attribute that is assigned the value of another member of the same enum
   is not a member itself. Instead, it is an alias for the first member::
