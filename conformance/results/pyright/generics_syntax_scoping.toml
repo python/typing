@@ -1,7 +1,10 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Does not reject use of type variable in upper bound expression.
+"""
 output = """
-generics_syntax_scoping.py:14:29 - error: "S" is not defined (reportUndefinedVariable)
-generics_syntax_scoping.py:18:26 - error: "T" is not defined (reportUndefinedVariable)
+generics_syntax_scoping.py:14:29 - error: Expected type expression but received "int" (reportGeneralTypeIssues)
+generics_syntax_scoping.py:18:26 - error: Expected type expression but received "int" (reportGeneralTypeIssues)
 generics_syntax_scoping.py:35:7 - error: "T" is not defined (reportUndefinedVariable)
 generics_syntax_scoping.py:44:17 - error: "T" is not defined (reportUndefinedVariable)
 generics_syntax_scoping.py:92:17 - error: Type parameter "T" is already in use

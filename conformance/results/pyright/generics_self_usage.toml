@@ -6,8 +6,8 @@ generics_self_usage.py:76:6 - error: "Self" is not valid in this context (report
 generics_self_usage.py:82:44 - warning: TypeVar "TFoo2" appears only once in generic function signature
   Use "Foo2" instead (reportInvalidTypeVarUse)
 generics_self_usage.py:82:54 - error: "Self" cannot be used in a function with a `self` or `cls` parameter that has a type annotation other than "Self" (reportGeneralTypeIssues)
-generics_self_usage.py:86:16 - error: Expression of type "Foo3" cannot be assigned to return type "Self@Foo3"
-  Type "Foo3" cannot be assigned to type "Self@Foo3" (reportReturnType)
+generics_self_usage.py:86:16 - error: Expression of type "Foo3" is incompatible with return type "Self@Foo3"
+  Type "Foo3" is incompatible with type "Self@Foo3" (reportReturnType)
 generics_self_usage.py:101:15 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
 generics_self_usage.py:103:12 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
 generics_self_usage.py:106:30 - error: "Self" is not valid in this context (reportGeneralTypeIssues)

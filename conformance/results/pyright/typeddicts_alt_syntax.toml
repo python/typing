@@ -4,7 +4,7 @@ typeddicts_alt_syntax.py:23:17 - error: Expected dict or keyword parameter as se
 typeddicts_alt_syntax.py:27:45 - error: Expected string literal for dictionary entry name (reportGeneralTypeIssues)
 typeddicts_alt_syntax.py:31:1 - error: TypedDict must be assigned to a variable named "WrongName" (reportGeneralTypeIssues)
 typeddicts_alt_syntax.py:35:78 - error: Extra TypedDict arguments not supported (reportCallIssue)
-typeddicts_alt_syntax.py:45:43 - error: Expression of type "dict[str, str]" cannot be assigned to declared type "Movie2"
+typeddicts_alt_syntax.py:45:43 - error: Expression of type "dict[str, str]" is incompatible with declared type "Movie2"
   "Literal['']" is incompatible with "int" (reportAssignmentType)
 """
 conformance_automated = "Pass"

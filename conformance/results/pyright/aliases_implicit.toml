@@ -7,7 +7,7 @@ aliases_implicit.py:78:29 - error: Too many type arguments provided for "GoodTyp
 aliases_implicit.py:79:29 - error: Too many type arguments provided for "GoodTypeAlias8[T@GoodTypeAlias8]"; expected 1 but received 2
 aliases_implicit.py:80:24 - error: Expected ParamSpec, ellipsis, or list of types
 aliases_implicit.py:81:9 - error: Could not specialize type "GoodTypeAlias12[TFloat@GoodTypeAlias12]"
-  Type "str" cannot be assigned to type "float"
+  Type "str" is incompatible with type "float"
     "str" is incompatible with "float"
 aliases_implicit.py:106:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 aliases_implicit.py:107:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)

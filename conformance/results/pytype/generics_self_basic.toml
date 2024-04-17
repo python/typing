@@ -3,23 +3,17 @@ notes = """
 Does not understand `Self` type.
 """
 output = """
-File "generics_self_basic.py", line 13, in set_scale: Shape [assert-type]
-File "generics_self_basic.py", line 13, in set_scale: Circle [assert-type]
+File "generics_self_basic.py", line 14, in set_scale: Shape [assert-type]
+File "generics_self_basic.py", line 14, in set_scale: Circle [assert-type]
 Called from (traceback):
-  line 51, in current file
-File "generics_self_basic.py", line 26, in from_config: Type[Shape] [assert-type]
-Called from (traceback):
-  line 53, in current file
-File "generics_self_basic.py", line 26, in from_config: Type[Circle] [assert-type]
+  line 52, in current file
+File "generics_self_basic.py", line 27, in from_config: Type[Shape] [assert-type]
 Called from (traceback):
   line 54, in current file
-File "generics_self_basic.py", line 27, in from_config: Function Shape.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+File "generics_self_basic.py", line 27, in from_config: Type[Circle] [assert-type]
 Called from (traceback):
-  line 53, in current file
-File "generics_self_basic.py", line 27, in from_config: Function Circle.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
-Called from (traceback):
-  line 54, in current file
-File "generics_self_basic.py", line 39, in difference: Shape [assert-type]
+  line 55, in current file
+File "generics_self_basic.py", line 40, in difference: Shape [assert-type]
 File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]
 Called from (traceback):
   line 72, in object_with_concrete_type
@@ -31,11 +25,10 @@ File "generics_self_basic.py", line 64, in Container: unsupported operand type(s
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 19: Expected 1 errors
-Line 32: Expected 1 errors
-Line 13: Unexpected errors ['File "generics_self_basic.py", line 13, in set_scale: Shape [assert-type]', 'File "generics_self_basic.py", line 13, in set_scale: Circle [assert-type]']
-Line 26: Unexpected errors ['File "generics_self_basic.py", line 26, in from_config: Type[Shape] [assert-type]', 'File "generics_self_basic.py", line 26, in from_config: Type[Circle] [assert-type]']
-Line 27: Unexpected errors ['File "generics_self_basic.py", line 27, in from_config: Function Shape.__init__ expects 1 arg(s), got 2 [wrong-arg-count]', 'File "generics_self_basic.py", line 27, in from_config: Function Circle.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
-Line 39: Unexpected errors ['File "generics_self_basic.py", line 39, in difference: Shape [assert-type]']
+Line 20: Expected 1 errors
+Line 33: Expected 1 errors
+Line 14: Unexpected errors ['File "generics_self_basic.py", line 14, in set_scale: Shape [assert-type]', 'File "generics_self_basic.py", line 14, in set_scale: Circle [assert-type]']
+Line 27: Unexpected errors ['File "generics_self_basic.py", line 27, in from_config: Type[Shape] [assert-type]', 'File "generics_self_basic.py", line 27, in from_config: Type[Circle] [assert-type]']
+Line 40: Unexpected errors ['File "generics_self_basic.py", line 40, in difference: Shape [assert-type]']
 Line 61: Unexpected errors ['File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]', 'File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]', 'File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]']
 """
