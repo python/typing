@@ -1,12 +1,13 @@
-conformant = "Pass"
-output = """
-generics_upper_bound.py:22: error: Type variable "generics_upper_bound.T" is unbound  [valid-type]
-generics_upper_bound.py:22: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
-generics_upper_bound.py:22: note: (Hint: Use "T" in function signature to bind "T" inside a function)
-generics_upper_bound.py:41: error: Expression is of type "Collection[int]", not "list[int] | set[int]"  [assert-type]
-generics_upper_bound.py:48: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
-generics_upper_bound.py:53: error: TypeVar cannot have both values and an upper bound  [misc]
+conformant = "Partial"
+notes = """
+Does not reject use of type variable within an upper bound.
 """
-conformance_automated = "Pass"
+output = """
+generics_upper_bound.py:43: error: Expression is of type "Collection[int]", not "list[int] | set[int]"  [assert-type]
+generics_upper_bound.py:51: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
+generics_upper_bound.py:56: error: TypeVar cannot have both values and an upper bound  [misc]
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 24: Expected 1 errors
 """

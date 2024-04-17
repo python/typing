@@ -159,16 +159,16 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.9.0</div>
-<div class='tc-time'>1.6sec</div>
+<div class='tc-time'>1.5sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.359</div>
 <div class='tc-time'>1.5sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.19</div>
-<div class='tc-time'>4.0sec</div>
+<div class='tc-time'>3.2sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.04.11</div>
-<div class='tc-time'>37.5sec</div>
+<div class='tc-time'>35.1sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -247,9 +247,9 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on passing SymbolTable to dict[str, list[object]].</p><p>Does not reject illegal use of Generic.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_basic</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject the use of a constraint parameterized by another type variable.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative in custom map example.</p><p>False positive using `iter`.</p><p>False negative for generic metaclass.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for constraint parameterized by a type variable.</p><p>False negative in custom map example.</p><p>False positive using `iter`.</p><p>False negative for generic metaclass.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for generic metaclass.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults</th>
@@ -403,7 +403,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support TypeVarTuple.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_upper_bound</th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of type variable within an upper bound.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of upper bound with constrained TypeVar.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not properly support assert_type.</p></span></div></th>

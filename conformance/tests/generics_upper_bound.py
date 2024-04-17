@@ -4,7 +4,7 @@ Tests TypeVars with upper bounds.
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#type-variables-with-an-upper-bound
 
-from typing import Collection, Sized, TypeVar, assert_type
+from typing import Collection, Generic, Sized, TypeVar, assert_type
 
 # > A type variable may specify an upper bound using bound=<type>
 
@@ -19,7 +19,9 @@ class ForwardRef: ...
 
 T = TypeVar("T")
 
-T_Bad1 = TypeVar("T_Bad1", bound=list[T])  # E
+
+class Test(Generic[T]):
+    T_Bad1 = TypeVar("T_Bad1", bound=list[T])  # E
 
 
 ST = TypeVar("ST", bound=Sized)
@@ -40,8 +42,9 @@ assert_type(longer({1}, {1, 2}), set[int])
 # Both answers are conformant with the spec.
 assert_type(longer([1], {1, 2}), list[int] | set[int])  # E?
 
-def requires_collection(c: Collection[int]) -> None:
-    ...
+
+def requires_collection(c: Collection[int]) -> None: ...
+
 
 requires_collection(longer([1], [1, 2]))  # OK
 
