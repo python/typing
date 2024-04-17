@@ -1,7 +1,7 @@
 conformant = "Pass"
 output = """
 protocols_explicit.py:27:16 - error: Method "draw" cannot be called because it is abstract and unimplemented (reportAbstractUsage)
-protocols_explicit.py:56:32 - error: Cannot assign member "rgb" for type "Point*"
+protocols_explicit.py:56:32 - error: Cannot assign to attribute "rgb" for class "Point*"
   "str" is incompatible with "int" (reportAttributeAccessIssue)
 protocols_explicit.py:59:5 - error: Cannot instantiate abstract class "Point"
   "RGB.other" is not implemented

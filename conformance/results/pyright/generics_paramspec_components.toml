@@ -1,17 +1,17 @@
 conformant = "Pass"
 output = """
-generics_paramspec_components.py:17:25 - error: "kwargs" member of ParamSpec is valid only when used with **kwargs parameter
-generics_paramspec_components.py:17:45 - error: "args" member of ParamSpec is valid only when used with *args parameter
-generics_paramspec_components.py:20:23 - error: "args" member of ParamSpec is valid only when used with *args parameter
-generics_paramspec_components.py:23:28 - error: "args" and "kwargs" members of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)
-generics_paramspec_components.py:23:46 - error: "args" member of ParamSpec is valid only when used with *args parameter
-generics_paramspec_components.py:26:28 - error: "args" and "kwargs" members of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)
+generics_paramspec_components.py:17:25 - error: "kwargs" attribute of ParamSpec is valid only when used with **kwargs parameter
+generics_paramspec_components.py:17:45 - error: "args" attribute of ParamSpec is valid only when used with *args parameter
+generics_paramspec_components.py:20:23 - error: "args" attribute of ParamSpec is valid only when used with *args parameter
+generics_paramspec_components.py:23:28 - error: "args" and "kwargs" attributes of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)
+generics_paramspec_components.py:23:46 - error: "args" attribute of ParamSpec is valid only when used with *args parameter
+generics_paramspec_components.py:26:28 - error: "args" and "kwargs" attributes of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)
 generics_paramspec_components.py:30:25 - error: ParamSpec "P" has no meaning in this context (reportGeneralTypeIssues)
 generics_paramspec_components.py:30:43 - error: ParamSpec "P" has no meaning in this context (reportGeneralTypeIssues)
-generics_paramspec_components.py:35:18 - error: "args" member of ParamSpec is valid only when used with *args parameter
-generics_paramspec_components.py:36:20 - error: "kwargs" member of ParamSpec is valid only when used with **kwargs parameter
-generics_paramspec_components.py:38:26 - error: "args" and "kwargs" members of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)
-generics_paramspec_components.py:41:31 - error: "args" and "kwargs" members of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)
+generics_paramspec_components.py:35:18 - error: "args" attribute of ParamSpec is valid only when used with *args parameter
+generics_paramspec_components.py:36:20 - error: "kwargs" attribute of ParamSpec is valid only when used with **kwargs parameter
+generics_paramspec_components.py:38:26 - error: "args" and "kwargs" attributes of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)
+generics_paramspec_components.py:41:31 - error: "args" and "kwargs" attributes of ParamSpec must both appear within a function signature (reportGeneralTypeIssues)
 generics_paramspec_components.py:49:9 - error: Arguments for ParamSpec "P@decorator" are missing (reportCallIssue)
 generics_paramspec_components.py:51:11 - error: Expected 0 positional arguments (reportCallIssue)
 generics_paramspec_components.py:60:28 - error: Keyword parameter "s" cannot appear in signature after ParamSpec args parameter (reportGeneralTypeIssues)

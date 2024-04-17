@@ -1,20 +1,6 @@
-conformant = "Partial"
-notes = """
-Does not generate a union type for __new__ and __init__ when converting class to callable.
-Does not ignore __init__ based on __new__ return type when converting class to callable.
-Does not support __new__ return type that is different from class being constructed.
-Does not use annotated type of self in __init__ method to generate return type of callable.
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 127: Expected 1 errors
-Line 144: Expected 1 errors
-Line 100: Unexpected errors ['constructors_callable.py:100:17 - error: "assert_type" mismatch: expected "NoReturn" but received "Class5" (reportAssertTypeFailure)']
-Line 105: Unexpected errors ['constructors_callable.py:105:17 - error: "assert_type" mismatch: expected "NoReturn" but received "Class5" (reportAssertTypeFailure)']
-Line 126: Unexpected errors ['constructors_callable.py:126:13 - error: Argument missing for parameter "x" (reportCallIssue)', 'constructors_callable.py:126:13 - error: "assert_type" mismatch: expected "Class6Proxy" but received "Unknown" (reportAssertTypeFailure)']
-Line 143: Unexpected errors ['constructors_callable.py:143:13 - error: Argument missing for parameter "x" (reportCallIssue)']
-Line 164: Unexpected errors ['constructors_callable.py:164:13 - error: "assert_type" mismatch: expected "Class7[int]" but received "Class7[Unknown]" (reportAssertTypeFailure)']
-Line 165: Unexpected errors ['constructors_callable.py:165:13 - error: "assert_type" mismatch: expected "Class7[str]" but received "Class7[Unknown]" (reportAssertTypeFailure)']
 """
 output = """
 constructors_callable.py:36:13 - information: Type of "r1" is "(x: int) -> Class1"
@@ -32,17 +18,12 @@ constructors_callable.py:77:13 - information: Type of "r4" is "(x: int) -> int"
 constructors_callable.py:79:1 - error: Argument missing for parameter "x" (reportCallIssue)
 constructors_callable.py:80:1 - error: Argument missing for parameter "x" (reportCallIssue)
 constructors_callable.py:80:4 - error: No parameter named "y" (reportCallIssue)
-constructors_callable.py:97:13 - information: Type of "r5" is "(*args: Any, **kwargs: Any) -> Class5"
-constructors_callable.py:100:17 - error: "assert_type" mismatch: expected "NoReturn" but received "Class5" (reportAssertTypeFailure)
-constructors_callable.py:105:17 - error: "assert_type" mismatch: expected "NoReturn" but received "Class5" (reportAssertTypeFailure)
-constructors_callable.py:125:13 - information: Type of "r6" is "(x: int) -> Class6"
-constructors_callable.py:126:13 - error: Argument missing for parameter "x" (reportCallIssue)
-constructors_callable.py:126:13 - error: "assert_type" mismatch: expected "Class6Proxy" but received "Unknown" (reportAssertTypeFailure)
-constructors_callable.py:142:13 - information: Type of "r6_any" is "(x: int) -> Class6Any"
-constructors_callable.py:143:13 - error: Argument missing for parameter "x" (reportCallIssue)
-constructors_callable.py:162:5 - information: Type of "r7" is "Overload[(x: int) -> Class7[Unknown], (x: str) -> Class7[Unknown]]"
-constructors_callable.py:164:13 - error: "assert_type" mismatch: expected "Class7[int]" but received "Class7[Unknown]" (reportAssertTypeFailure)
-constructors_callable.py:165:13 - error: "assert_type" mismatch: expected "Class7[str]" but received "Class7[Unknown]" (reportAssertTypeFailure)
+constructors_callable.py:97:13 - information: Type of "r5" is "(*args: Any, **kwargs: Any) -> NoReturn"
+constructors_callable.py:125:13 - information: Type of "r6" is "() -> Class6Proxy"
+constructors_callable.py:127:4 - error: Expected 0 positional arguments (reportCallIssue)
+constructors_callable.py:142:13 - information: Type of "r6_any" is "() -> Any"
+constructors_callable.py:144:8 - error: Expected 0 positional arguments (reportCallIssue)
+constructors_callable.py:162:5 - information: Type of "r7" is "Overload[(x: int) -> Class7[int], (x: str) -> Class7[str]]"
 constructors_callable.py:182:13 - information: Type of "r8" is "(x: list[T@Class8], y: list[T@Class8]) -> Class8[T@Class8]"
 constructors_callable.py:184:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@Class8]"
   "Literal['']" is incompatible with "int" (reportArgumentType)

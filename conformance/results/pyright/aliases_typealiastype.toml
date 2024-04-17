@@ -1,9 +1,9 @@
 conformant = "Pass"
 output = """
-aliases_typealiastype.py:32:18 - error: Cannot access member "other_attrib" for type "TypeAliasType"
-  Member "other_attrib" is unknown (reportAttributeAccessIssue)
+aliases_typealiastype.py:32:18 - error: Cannot access attribute "other_attrib" for class "TypeAliasType"
+  Attribute "other_attrib" is unknown (reportAttributeAccessIssue)
 aliases_typealiastype.py:40:5 - error: Could not specialize type "GoodAlias5[S@GoodAlias5, TStr@GoodAlias5, P@GoodAlias5, Ts@GoodAlias5]"
-  Type "int" cannot be assigned to type "str"
+  Type "int" is incompatible with type "str"
     "int" is incompatible with "str"
 aliases_typealiastype.py:43:45 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
 aliases_typealiastype.py:44:45 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)

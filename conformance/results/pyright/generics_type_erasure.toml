@@ -1,11 +1,11 @@
 conformant = "Pass"
 output = """
 generics_type_erasure.py:36:16 - error: Argument of type "Literal['']" cannot be assigned to parameter "label" of type "int | None" in function "__init__"
-  Type "Literal['']" cannot be assigned to type "int | None"
+  Type "Literal['']" is incompatible with type "int | None"
     "Literal['']" is incompatible with "int"
     "Literal['']" is incompatible with "None" (reportArgumentType)
 generics_type_erasure.py:38:16 - error: Argument of type "Literal[0]" cannot be assigned to parameter "label" of type "str | None" in function "__init__"
-  Type "Literal[0]" cannot be assigned to type "str | None"
+  Type "Literal[0]" is incompatible with type "str | None"
     "Literal[0]" is incompatible with "str"
     "Literal[0]" is incompatible with "None" (reportArgumentType)
 generics_type_erasure.py:40:11 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)

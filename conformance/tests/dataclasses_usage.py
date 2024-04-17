@@ -28,8 +28,7 @@ v1 = InventoryItem("soap", 2.3)
 class InventoryItemInitProto(Protocol):
     def __call__(
         self, name: str, unit_price: float, quantity_on_hand: int = ...
-    ) -> None:
-        ...
+    ) -> None: ...
 
 
 # Validate the type of the synthesized __init__ method.
@@ -188,7 +187,7 @@ class DC14:
 
 @dataclass
 class DC15(DC14):
-    prop_2: str
+    prop_2: str = ""
 
 
 dc15 = DC15(prop_2="test")

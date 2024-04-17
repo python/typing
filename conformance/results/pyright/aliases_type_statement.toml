@@ -1,13 +1,13 @@
 conformant = "Pass"
 output = """
-aliases_type_statement.py:17:12 - error: Cannot access member "bit_count" for type "TypeAliasType"
-  Member "bit_count" is unknown (reportAttributeAccessIssue)
+aliases_type_statement.py:17:12 - error: Cannot access attribute "bit_count" for class "TypeAliasType"
+  Attribute "bit_count" is unknown (reportAttributeAccessIssue)
 aliases_type_statement.py:19:1 - error: Object of type "TypeAliasType" is not callable (reportCallIssue)
-aliases_type_statement.py:23:18 - error: Cannot access member "other_attrib" for type "TypeAliasType"
-  Member "other_attrib" is unknown (reportAttributeAccessIssue)
+aliases_type_statement.py:23:18 - error: Cannot access attribute "other_attrib" for class "TypeAliasType"
+  Attribute "other_attrib" is unknown (reportAttributeAccessIssue)
 aliases_type_statement.py:26:18 - error: A type alias defined in a "type" statement cannot be used as a base class
 aliases_type_statement.py:31:22 - error: Argument of type "GoodAlias1" cannot be assigned to parameter "class_or_tuple" of type "_ClassInfo" in function "isinstance"
-  Type "TypeAliasType" cannot be assigned to type "_ClassInfo"
+  Type "TypeAliasType" is incompatible with type "_ClassInfo"
     "TypeAliasType" is incompatible with "type"
     "TypeAliasType" is incompatible with "UnionType"
     "TypeAliasType" is incompatible with "tuple[_ClassInfo, ...]" (reportArgumentType)
@@ -40,10 +40,10 @@ aliases_type_statement.py:58:10 - error: A type statement can be used only withi
 aliases_type_statement.py:64:23 - error: Type parameter "V" is not included in the type parameter list for "TA1" (reportGeneralTypeIssues)
 aliases_type_statement.py:69:17 - error: Type parameter "T1" is not included in the type parameter list for "TA2" (reportGeneralTypeIssues)
 aliases_type_statement.py:79:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
-  Type "str" cannot be assigned to type "int"
+  Type "str" is incompatible with type "int"
     "str" is incompatible with "int"
 aliases_type_statement.py:81:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
-  Type "int" cannot be assigned to type "str"
+  Type "int" is incompatible with type "str"
     "int" is incompatible with "str"
 aliases_type_statement.py:84:28 - error: Type alias "RecursiveTypeAlias3" cannot use itself in its definition (reportGeneralTypeIssues)
 aliases_type_statement.py:86:31 - error: Type alias "RecursiveTypeAlias4" cannot use itself in its definition (reportGeneralTypeIssues)

@@ -13,15 +13,15 @@ callables_kwargs.py:64:16 - error: Unable to match unpacked TypedDict argument t
   Parameter "v3" is already assigned (reportCallIssue)
 callables_kwargs.py:65:19 - error: Unable to match unpacked TypedDict argument to parameters
   Parameter "v1" is already assigned (reportCallIssue)
-callables_kwargs.py:101:19 - error: Expression of type "(**kwargs: **TD2) -> None" cannot be assigned to declared type "TDProtocol3"
-  Type "(**kwargs: **TD2) -> None" cannot be assigned to type "(*, v1: int, v2: int, v3: str) -> None"
-    Keyword parameter "v2" of type "int" cannot be assigned to type "str"
+callables_kwargs.py:101:19 - error: Expression of type "(**kwargs: **TD2) -> None" is incompatible with declared type "TDProtocol3"
+  Type "(**kwargs: **TD2) -> None" is incompatible with type "(*, v1: int, v2: int, v3: str) -> None"
+    Keyword parameter "v2" of type "int" is incompatible with type "str"
       "int" is incompatible with "str" (reportAssignmentType)
-callables_kwargs.py:102:19 - error: Expression of type "(**kwargs: **TD2) -> None" cannot be assigned to declared type "TDProtocol4"
-  Type "(**kwargs: **TD2) -> None" cannot be assigned to type "(*, v1: int) -> None"
+callables_kwargs.py:102:19 - error: Expression of type "(**kwargs: **TD2) -> None" is incompatible with declared type "TDProtocol4"
+  Type "(**kwargs: **TD2) -> None" is incompatible with type "(*, v1: int) -> None"
     Keyword parameter "v3" is missing in destination (reportAssignmentType)
-callables_kwargs.py:103:19 - error: Expression of type "(**kwargs: **TD2) -> None" cannot be assigned to declared type "TDProtocol5"
-  Type "(**kwargs: **TD2) -> None" cannot be assigned to type "(v1: int, v3: str) -> None"
+callables_kwargs.py:103:19 - error: Expression of type "(**kwargs: **TD2) -> None" is incompatible with declared type "TDProtocol5"
+  Type "(**kwargs: **TD2) -> None" is incompatible with type "(v1: int, v3: str) -> None"
     Function accepts too many positional parameters; expected 0 but received 2
       Keyword parameter "v1" is missing in destination
       Keyword parameter "v3" is missing in destination (reportAssignmentType)

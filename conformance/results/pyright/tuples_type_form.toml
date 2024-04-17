@@ -1,17 +1,17 @@
 conformant = "Pass"
 output = """
-tuples_type_form.py:12:6 - error: Expression of type "tuple[Literal[1], Literal[2]]" cannot be assigned to declared type "tuple[int]"
+tuples_type_form.py:12:6 - error: Expression of type "tuple[Literal[1], Literal[2]]" is incompatible with declared type "tuple[int]"
   "tuple[Literal[1], Literal[2]]" is incompatible with "tuple[int]"
     Tuple size mismatch; expected 1 but received 2 (reportAssignmentType)
-tuples_type_form.py:14:6 - error: Expression of type "tuple[Literal[1]]" cannot be assigned to declared type "tuple[int, int]"
+tuples_type_form.py:14:6 - error: Expression of type "tuple[Literal[1]]" is incompatible with declared type "tuple[int, int]"
   "tuple[Literal[1]]" is incompatible with "tuple[int, int]"
     Tuple size mismatch; expected 2 but received 1 (reportAssignmentType)
-tuples_type_form.py:15:10 - error: Expression of type "tuple[Literal[1], Literal['']]" cannot be assigned to declared type "tuple[int, int]"
+tuples_type_form.py:15:10 - error: Expression of type "tuple[Literal[1], Literal['']]" is incompatible with declared type "tuple[int, int]"
   "Literal['']" is incompatible with "int" (reportAssignmentType)
-tuples_type_form.py:25:7 - error: Expression of type "tuple[Literal[1]]" cannot be assigned to declared type "tuple[()]"
+tuples_type_form.py:25:7 - error: Expression of type "tuple[Literal[1]]" is incompatible with declared type "tuple[()]"
   "tuple[Literal[1]]" is incompatible with "tuple[()]"
     Tuple size mismatch; expected 0 but received 1 (reportAssignmentType)
-tuples_type_form.py:36:17 - error: Expression of type "tuple[Literal[1], Literal[2], Literal[3], Literal['']]" cannot be assigned to declared type "tuple[int, ...]"
+tuples_type_form.py:36:17 - error: Expression of type "tuple[Literal[1], Literal[2], Literal[3], Literal['']]" is incompatible with declared type "tuple[int, ...]"
   "Literal['']" is incompatible with "int" (reportAssignmentType)
 tuples_type_form.py:40:22 - error: "..." is allowed only as the second of two arguments
 tuples_type_form.py:41:12 - error: "..." is allowed only as the second of two arguments

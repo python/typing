@@ -159,16 +159,16 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.9.0</div>
-<div class='tc-time'>2.3sec</div>
-</th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.358</div>
 <div class='tc-time'>1.6sec</div>
 </th>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.359</div>
+<div class='tc-time'>1.5sec</div>
+</th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.19</div>
-<div class='tc-time'>3.2sec</div>
+<div class='tc-time'>4.0sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.04.11</div>
-<div class='tc-time'>39.3sec</div>
+<div class='tc-time'>37.5sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -313,7 +313,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand `Self` type.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_self_basic</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not properly handle constructor call through `cls` parameter.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand `Self` type.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand `Self` type.</p></span></div></th>
@@ -338,7 +338,7 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_syntax_declarations</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not assume deferred evaluation of bounds and constraints expressions.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 </tr>
@@ -350,7 +350,7 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_syntax_scoping</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of type variable in upper bound expression.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 </tr>
@@ -623,13 +623,13 @@
 </th></tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_call_init</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report errors during binding to self parameter of __init__ method.</p><p>Does not support function-scoped TypeVars in self annotation in __init__ method.</p><p>Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support function-scoped TypeVars in self annotation in __init__ method.</p><p>Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not infer type of Self for self parameter of __init__ method.</p><p>Does not report errors during binding to self parameter of __init__ method.</p><p>Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report errors during binding to self parameter of __init__ method.</p><p>Does not infer type of Self for self parameter of __init__ method.</p><p>Rejects valid type annotation for self parameter in __init__ method.</p><p>Does not support function-scoped TypeVars in self annotation in __init__ method.</p><p>Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_call_metaclass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unupported<span class="tooltip-text" id="bottom"><p>Does not honor metaclass __call__ method when evaluating constructor call.</p><p>Does not skip evaluation of __new__ and __init__ if custom metaclass call returns non-class.</p></span></div></th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not evaluate __new__ method when metaclass call has no return type annotation.</p><p>Evaluates wrong type for constructor call when metaclass call has no return type annotation.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not evaluate __new__ if metaclass __call__ is defined.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unupported<span class="tooltip-text" id="bottom"><p>Does not honor metaclass __call__ method when evaluating constructor call.</p></span></div></th>
 </tr>
@@ -647,7 +647,7 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_callable</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not generate a union type for __new__ and __init__ when converting class to callable.</p><p>Does not ignore __init__ based on __new__ return type when converting class to callable.</p><p>Does not support __new__ return type that is different from class being constructed.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not generate a union type for __new__ and __init__ when converting class to callable.</p><p>Does not ignore __init__ based on __new__ return type when converting class to callable.</p><p>Does not support __new__ return type that is different from class being constructed.</p><p>Does not use annotated type of self in __init__ method to generate return type of callable.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not generate a union type for __new__ and __init__ when converting class to callable.</p><p>Does not ignore __init__ based on __new__ return type when converting class to callable.</p><p>Does not support __new__ return type that is different from class being constructed.</p><p>Does not use annotated type of self in __init__ method to generate return type of callable.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not generate a union type for __new__ and __init__ when converting class to callable.</p><p>Does not ignore __init__ based on __new__ return type when converting class to callable.</p><p>Does not support __new__ return type that is different from class being constructed.</p><p>Does not use annotated type of self in __init__ method to generate return type of callable.</p></span></div></th>
 </tr>

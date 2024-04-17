@@ -1,7 +1,14 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Does not evaluate __new__ method when metaclass call has no return type annotation.
+Evaluates wrong type for constructor call when metaclass call has no return type annotation.
+"""
 errors_diff = """
+Line 65: Expected 1 errors
+Line 66: Unexpected errors ['constructors_call_metaclass.py:66:13 - error: "assert_type" mismatch: expected "Class4" but received "Any" (reportAssertTypeFailure)']
 """
 output = """
 constructors_call_metaclass.py:51:1 - error: Argument missing for parameter "x" (reportCallIssue)
-constructors_call_metaclass.py:65:1 - error: Argument missing for parameter "x" (reportCallIssue)
+constructors_call_metaclass.py:66:13 - error: "assert_type" mismatch: expected "Class4" but received "Any" (reportAssertTypeFailure)
 """
+conformance_automated = "Fail"
