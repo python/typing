@@ -3,47 +3,124 @@
 Callables
 =========
 
-Argument defaults
------------------
+Terminology
+-----------
 
-It may be useful to declare an argument as having a default
-without specifying the actual default value.  For example::
+In this section, and throughout this specification, the term  "parameter"
+refers to a named symbol associated with a function that accepts the value of
+an argument (or multiple arguments) passed to the function. The term
+"argument" refers to a value passed to a function when it is called.
 
-  def foo(x: AnyStr, y: AnyStr = ...) -> AnyStr: ...
+In Python, parameters fall into one of three categories: positional-only,
+keyword-only, and standard (positional + keyword). As implied by the category
+names, positional-only parameters can accept only positional arguments, and
+keyword-only parameters can accept only keyword arguments. Standard parameters
+can accept either positional or keyword arguments. Parameters of the form
+"*args" and "**kwargs" are variadic and accept zero or more positional
+or keyword arguments, respectively.
 
-What should the default value look like?  Any of the options ``""``,
-``b""`` or ``None`` fails to satisfy the type constraint.
+In the example below, ``a`` is a positional-only parameter, ``b`` is
+a standard (positional + keyword) parameter, ``c`` is a keyword-only parameter,
+``args`` is a variadic parameter that accepts additional positional arguments,
+and ``kwargs`` is a variadic parameter that accepts additional keyword
+arguments::
 
-In such cases the default value may be specified as a literal
-ellipsis, i.e. the above example is literally what you would write.
+    def func(a: str, /, b, *args, c=0, **kwargs) -> None:
+        ...
+
+A function's "signature" refers to its list of parameters (including
+the name, category, optional declared type, and whether it has a default
+argument value) plus its return type. The signature of the function above is
+``(a: str, /, b, *args, c=..., **kwargs) -> None``. Note that the default
+argument value for parameter ``c`` is denoted as ``...`` here because the
+presence of a default value is considered part of the signature, but the
+specific value is not.
+
+The term "input signature" is used to refer to only the inputs of a function.
+In the example above, the input signature is ``(a: str, /, b, *args, c=..., **kwargs)``.
+
+
+Positional-only parameters
+--------------------------
+
+Within a function signature, positional-only parameters are separated from
+non-positional-only parameters by a single forward slash ('/'). This
+forward slash does not represent a parameter, but rather a delimiter. In this
+example, ``a`` is a positional-only parameter and ``b`` is a standard
+(positional + keyword) parameter::
+
+    def func(a: int, /, b: int) -> None:
+        ...
+    
+    func(1, 2)  # OK
+    func(1, b=2)  # OK
+    func(a=1, b=2)  # Error
+
+Support for the ``/`` delimiter was introduced in Python 3.8 (:pep:`570`).
+Prior to Python 3.8, positional parameters were specified using a :ref:`naming
+convention <pos-only-double-underscore>`.
+
+Self and cls parameters
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Instance methods and class methods have a first parameter that is, by convention,
+named ``self`` and ``cls``, respectively. Type checkers should always treat
+these parameters as implicitly positional-only even if they are not explicitly
+designated as such. This distinction affects type compatibility checks and
+validation of function calls. For example::
+
+    class A:
+        def instance_method(self) -> None: ...
+
+    A.instance_method(A())  # OK
+    A.instance_method(self=A())  # Error: self is positional-only
+
+
+Default argument values
+-----------------------
+
+In certain cases, it may be desirable to omit the default argument value for
+a parameter. Examples include function definitions in stub files or methods
+within a protocol or abstract base class. In such cases, the default value
+may be specified as an ellipsis. For example::
+
+  def func(x: AnyStr, y: AnyStr = ...) -> AnyStr: ...
+
+If a default value is specified and its type can be statically evaluated,
+a type checker should verify that this type is compatible with the declared
+parameter's type::
+
+    def func(x: int = 0): ...  # OK
+    def func(x: int | None = None): ...  # OK
+    def func(x: int = 0.0): ...  # Error
+    def func(x: int = None): ...  # Error
 
 .. _`annotating-args-kwargs`:
 
 Annotating ``*args`` and ``**kwargs``
 -------------------------------------
 
-Type annotation on variadic positional arguments
-(``*args``) and keyword arguments (``**kwargs``) refer to
-the types of individual arguments, not to the type of the
-entire collection (except if ``Unpack`` is used).
+At runtime, the type of a variadic positional parameter (``*args``) is a
+``tuple``, and the type of a variadic keyword parameter (``**kwargs``) is a
+``dict``. However, when annotating these parameters, the type annotation
+refers to the type of items within the ``tuple`` or ``dict`` (unless
+``Unpack`` is used).
 
 Therefore, the definition::
 
-  def foo(*args: str, **kwds: int): ...
+  def func(*args: str, **kwargs: int): ...
 
-is acceptable and it means that the function accepts an
-arbitrary number of positional arguments of type ``str``
-and an arbitrary number of keyword arguments of type ``int``.
-For example, all of the following
-represent function calls with valid types of arguments::
+means that the function accepts an arbitrary number of positional arguments
+of type ``str`` and an arbitrary number of keyword arguments of type ``int``.
+For example, all of the following represent function calls with valid
+arguments::
 
-  foo('a', 'b', 'c')
-  foo(x=1, y=2)
-  foo('', z=0)
+  func('a', 'b', 'c')
+  func(x=1, y=2)
+  func('', z=0)
 
-In the body of function ``foo``, the type of variable ``args`` is
-deduced as ``tuple[str, ...]`` and the type of variable ``kwds``
-is ``dict[str, int]``.
+In the body of function ``func``, the type of parameter ``args`` is
+``tuple[str, ...]``, and the type of parameter ``kwargs`` is ``dict[str, int]``.
 
 .. _unpack-kwargs:
 
@@ -82,28 +159,24 @@ function body as a ``TypedDict``::
         assert_type(kwargs, Movie)  # OK!
 
 
-Using the new annotation will not have any runtime effect - it should only be
-taken into account by type checkers. Any mention of errors in the following
-sections relates to type checker errors.
-
 Function calls with standard dictionaries
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Passing a dictionary of type ``dict[str, object]`` as a ``**kwargs`` argument
 to a function that has ``**kwargs`` annotated with ``Unpack`` must generate a
-type checker error. On the other hand, the behaviour for functions using
+type checker error. On the other hand, the behavior for functions using
 standard, untyped dictionaries can depend on the type checker. For example::
 
-    def foo(**kwargs: Unpack[Movie]) -> None: ...
+    def func(**kwargs: Unpack[Movie]) -> None: ...
 
     movie: dict[str, object] = {"name": "Life of Brian", "year": 1979}
-    foo(**movie)  # WRONG! Movie is of type dict[str, object]
+    func(**movie)  # WRONG! Movie is of type dict[str, object]
 
     typed_movie: Movie = {"name": "The Meaning of Life", "year": 1983}
-    foo(**typed_movie)  # OK!
+    func(**typed_movie)  # OK!
 
     another_movie = {"name": "Life of Brian", "year": 1979}
-    foo(**another_movie)  # Depends on the type checker.
+    func(**another_movie)  # Depends on the type checker.
 
 Keyword collisions
 ^^^^^^^^^^^^^^^^^^
@@ -126,7 +199,7 @@ generated. For example::
 Required and non-required keys
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default all keys in a ``TypedDict`` are required. This behaviour can be
+By default all keys in a ``TypedDict`` are required. This behavior can be
 overridden by setting the dictionary's ``total`` parameter as ``False``.
 Moreover, :pep:`655` introduced new type qualifiers - ``typing.Required`` and
 ``typing.NotRequired`` - that enable specifying whether a particular key is
@@ -347,60 +420,355 @@ generate errors in such cases.
 Callable
 --------
 
-Frameworks expecting callback functions of specific signatures might be
-type hinted using ``Callable[[Arg1Type, Arg2Type], ReturnType]``.
-Examples::
+The ``Callable`` special form can be used to specify the signature of
+a function within a type expression. The syntax is
+``Callable[[Param1Type, Param2Type], ReturnType]``. For example::
 
-  from collections.abc import Callable
+    from collections.abc import Callable
 
-  def feeder(get_next_item: Callable[[], str]) -> None:
-      # Body
+    def func(cb: Callable[[int], str]) -> None:
+        ...
 
-  def async_query(on_success: Callable[[int], None],
-                  on_error: Callable[[int, Exception], None]) -> None:
-      # Body
+    x: Callable[[], str]
 
-It is possible to declare the return type of a callable without
-specifying the call signature by substituting a literal ellipsis
-(three dots) for the list of arguments::
+Parameters specified using ``Callable`` are assumed to be positional-only.
+The ``Callable`` form provides no way to specify keyword-only parameters,
+variadic parameters, or default argument values. For these use cases, see
+the section on `Callback protocols`_.
 
-  def partial(func: Callable[..., str], *args) -> Callable[..., str]:
-      # Body
+Meaning of ``...`` in ``Callable``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Note that there are no square brackets around the ellipsis.  The
-arguments of the callback are completely unconstrained in this case
-(and keyword arguments are acceptable).
+The ``Callable`` special form supports the use of ``...`` in place of the
+list of parameter types. This indicates that the type is consistent with
+any input signature::
+    
+    cb1: Callable[..., str]
+    cb1 = lambda x: str(x)  # OK
+    cb1 = lambda : ""  # OK
 
-Since using callbacks with keyword arguments is not perceived as a
-common use case, there is currently no support for specifying keyword
-arguments with ``Callable``.  Similarly, ``Callable`` does not support
-specifying callback signatures with a variable number of arguments of a
-specific type. For these use cases, see the section on
-`Callback protocols`_.
+    cb2: Callable[[], str] = cb1  # OK
+
+The input signature ``(...)`` is not the same as ``(*args: Any, **kwargs: Any)``.
+The former is a gradual type form that is consistent with all input signatures,
+and all input signatures are consistent with it. The latter is not a gradual
+type form. It is consistent with all input signatures, but the converse is
+not true. The relationship between ``(...)`` and ``(*args: Any, **kwargs: Any)``
+is similar to the relationship between ``Any`` and ``object``. Just as ``Any``
+means "any conceivable type that could be compatible", ``(...)`` means "any
+conceivable set of parameters that could be compatible".
+
+The ``...`` syntax can also be used to provide a :ref:`specialized value for a
+ParamSpec <paramspec_valid_use_locations>` in a generic class or type alias.
+For example::
+
+    type Callback[**P] = Callable[P, str]
+    
+    def func(cb: Callable[[], str]) -> None:
+        f: Callback[...] = cb  # OK
+
+If ``...`` is used with signature concatenation, the ``...`` portion continues
+to mean "any conceivable set of parameters that could be compatible"::
+
+    type CallbackWithInt[**P] = Callable[Concatenate[int, P], str]
+    type CallbackWithStr[**P] = Callable[Concatenate[str, P], str]
+
+    def func(cb: Callable[[int, str], str]) -> None:
+        f1: CallbackWithInt[...] = cb  # OK
+        f2: CallbackWithStr[...] = cb  # Error
 
 .. _`callback-protocols`:
 
 Callback protocols
 ------------------
 
-Protocols can be used to define flexible callback types that are hard
-(or even impossible) to express using the ``Callable[...]`` syntax
-as specified :ref:`above <callable>`, such as variadic, overloaded, and complex generic
-callbacks. They can be defined as protocols with a ``__call__`` member::
+Protocols can be used to define flexible callback types that are impossible to
+express using the ``Callable`` special form as specified :ref:`above <callable>`.
+This includes keyword parameters, variadic parameters, default argument values,
+and overloads. They can be defined as protocols with a ``__call__`` member::
 
   from typing import Protocol
 
   class Combiner(Protocol):
-      def __call__(self, *vals: bytes,
-                   maxlen: int | None = None) -> list[bytes]: ...
+      def __call__(self, *args: bytes, max_len: int | None = None) -> list[bytes]: ...
 
-  def good_cb(*vals: bytes, maxlen: int | None = None) -> list[bytes]:
+  def good_cb(*args: bytes, max_len: int | None = None) -> list[bytes]:
       ...
-  def bad_cb(*vals: bytes, maxitems: int | None) -> list[bytes]:
+  def bad_cb(*args: bytes, max_items: int | None) -> list[bytes]:
       ...
 
   comb: Combiner = good_cb  # OK
   comb = bad_cb  # Error! Argument 2 has incompatible type because of
-                 # different name and kind in the callback
+                 # different parameter name and kind in the callback
 
-Callback protocols and ``Callable[...]`` types can be used interchangeably.
+Callback protocols and ``Callable[...]`` types can generally be used
+interchangeably.
+
+
+Subtyping rules for callables
+-----------------------------
+
+A callable type ``A`` is a subtype of callable type ``B`` if the return type
+of ``A`` is a subtype of the return type of ``B`` and the input signature
+of ``A`` accepts all possible combinations of arguments that the input
+signature of ``B`` accepts. All of the specific subtyping rules described below
+derive from this general rule.
+
+
+Parameter types
+^^^^^^^^^^^^^^^
+
+Callable types are covariant with respect to their return types but
+contravariant with respect to their parameter types. This means a callable
+``A`` is a subtype of callable ``B`` if the types of the parameters of
+``B`` are subtypes of the parameters of ``A``. For example, 
+``(x: float) -> int`` is a subtype of ``(x: int) -> float``::
+
+    def func(cb: Callable[[float], int]):
+        f1: Callable[[int], float] = cb  # OK
+
+
+Parameter categories
+^^^^^^^^^^^^^^^^^^^^
+
+Callable ``A`` is a subtype of callable ``B`` if all keyword-only parameters
+in ``B`` are present in ``A`` as either keyword-only parameters or standard
+(positional + keyword) parameters. For example, ``(a: int) -> None`` is a
+subtype of ``(*, a: int) -> None``, but the converse is not true. The order
+of keyword-only parameters are ignored for purposes of subtyping::
+
+    class KwOnly(Protocol):
+        def __call__(self, *, b: int, a: int) -> None: ...
+
+    class Standard(Protocol):
+        def __call__(self, a: int, b: int) -> None: ...
+
+    def func(standard: Standard, kw_only: KwOnly):
+        f1: KwOnly = standard  # OK
+        f2: Standard = kw_only  # Error
+
+Likewise, callable ``A`` is a subtype of callable ``B`` if all positional-only
+parameters in ``B`` are present in ``A`` as either positional-only parameters
+or standard (positional + keyword) parameters. The names of positional-only
+parameters are ignored for purposes of subtyping::
+
+    class PosOnly(Protocol):
+        def __call__(self, not_a: int, /) -> None: ...
+
+    class Standard(Protocol):
+        def __call__(self, a: int) -> None: ...
+
+    def func(standard: Standard, pos_only: PosOnly):
+        f1: PosOnly = standard  # OK
+        f2: Standard = pos_only  # Error
+
+
+``*args`` parameters
+^^^^^^^^^^^^^^^^^^^^
+
+If a callable ``B`` has a signature with a ``*args`` parameter, callable ``A``
+must also have a ``*args`` parameter to be a subtype of ``B``, and the type of
+``B``'s ``*args`` parameter must be a subtype of ``A``'s ``*args`` parameter::
+
+    class NoArgs(Protocol):
+        def __call__(self) -> None: ...
+
+    class IntArgs(Protocol):
+        def __call__(self, *args: int) -> None: ...
+
+    class FloatArgs(Protocol):
+        def __call__(self, *args: float) -> None: ...
+
+    def func(no_args: NoArgs, int_args: IntArgs, float_args: FloatArgs):
+        f1: NoArgs = int_args  # OK
+        f2: NoArgs = float_args  # OK
+        
+        f3: IntArgs = no_args  # Error: missing *args parameter
+        f4: IntArgs = float_args  # OK
+
+        f5: FloatArgs = no_args  # Error: missing *args parameter
+        f6: FloatArgs = int_args  # Error: float is not subtype of int
+
+If a callable ``B`` has a signature with one or more positional-only parameters,
+a callable ``A`` is a subtype of ``B`` if ``A`` has an ``*args`` parameter whose
+type is a supertype of the types of any otherwise-unmatched positional-only
+parameters in ``B``::
+
+    class PosOnly(Protocol):
+        def __call__(self, a: int, b: str, /) -> None: ...
+
+    class IntArgs(Protocol):
+        def __call__(self, *args: int) -> None: ...
+
+    class IntStrArgs(Protocol):
+        def __call__(self, *args: int | str) -> None: ...
+
+    class StrArgs(Protocol):
+        def __call__(self, a: int, /, *args: str) -> None: ...
+
+    class Standard(Protocol):
+        def __call__(self, a: int, b: str) -> None: ...
+
+    def func(int_args: IntArgs, int_str_args: IntStrArgs, str_args: StrArgs):
+        f1: PosOnly = int_args  # Error: str is not subtype of int
+        f2: PosOnly = int_str_args  # OK
+        f3: PosOnly = str_args  # OK
+        f4: IntStrArgs = str_args  # Error: int | str is not subtype of str
+        f5: IntStrArgs = int_str_args  # OK
+        f6: StrArgs = int_str_args  # OK
+        f7: StrArgs = int_args  # Error: str is not subtype of int
+        f8: IntArgs = int_str_args  # OK
+        f9: IntArgs = str_args  # Error: int is not subtype of str
+        f10: Standard = int_str_args  # Error: keyword parameters a and b missing
+        f11: Standard = str_args  # Error: keyword parameter b missing
+
+
+``**kwargs`` parameters
+^^^^^^^^^^^^^^^^^^^^^^^
+
+If a callable ``B`` has a signature with a ``**kwargs`` parameter (without
+an unpacked ``TypedDict`` type annotation), callable ``A`` must also have a
+``**kwargs`` parameter to be a subtype of ``B``, and the type of
+``B``'s ``**kwargs`` parameter must be a subtype of ``A``'s ``**kwargs``
+parameter::
+
+    class NoKwargs(Protocol):
+        def __call__(self) -> None: ...
+
+    class IntKwargs(Protocol):
+        def __call__(self, **kwargs: int) -> None: ...
+
+    class FloatKwargs(Protocol):
+        def __call__(self, **kwargs: float) -> None: ...
+
+    def func(no_args: NoKwargs, int_kwargs: IntKwargs, float_kwargs: FloatKwargs):
+        f1: NoKwargs = int_kwargs  # OK
+        f2: NoKwargs = float_kwargs  # OK
+        
+        f3: IntKwargs = no_args  # Error: missing **kwargs parameter
+        f4: IntKwargs = float_kwargs  # OK
+
+        f5: FloatKwargs = no_args  # Error: missing **kwargs parameter
+        f6: FloatKwargs = int_kwargs  # Error: float is not subtype of int
+
+If a callable ``B`` has a signature with one or more keyword-only parameters,
+a callable ``A`` is a subtype of ``B`` if ``A`` has a ``**kwargs`` parameter
+whose type is a supertype of the types of any otherwise-unmatched keyword-only
+parameters in ``B``::
+
+    class KwOnly(Protocol):
+        def __call__(self, *, a: int, b: str) -> None: ...
+
+    class IntKwargs(Protocol):
+        def __call__(self, **kwargs: int) -> None: ...
+
+    class IntStrKwargs(Protocol):
+        def __call__(self, **kwargs: int | str) -> None: ...
+
+    class StrKwargs(Protocol):
+        def __call__(self, *, a: int, **kwargs: str) -> None: ...
+
+    class Standard(Protocol):
+        def __call__(self, a: int, b: str) -> None: ...
+
+    def func(int_args: IntKwargs, int_str_kwargs: IntStrKwargs, str_kwargs: StrKwargs):
+        f1: KwOnly = int_args  # Error: str is not subtype of int
+        f2: KwOnly = int_str_kwargs  # OK
+        f3: KwOnly = str_kwargs  # OK
+        f4: IntStrKwargs = str_kwargs  # Error: int | str is not subtype of str
+        f5: IntStrKwargs = int_str_kwargs  # OK
+        f6: StrKwargs = int_str_kwargs  # OK
+        f7: StrKwargs = int_args  # Error: str is not subtype of int
+        f8: IntKwargs = int_str_kwargs  # OK
+        f9: IntKwargs = str_kwargs  # Error: int is not subtype of str
+        f10: Standard = int_str_kwargs  # Error: Does not accept positional arguments
+        f11: Standard = str_kwargs  # Error: Does not accept positional arguments
+
+Subtyping relationships for callable signatures that contain a ``**kwargs``
+with an unpacked ``TypedDict`` are described in the section :ref:`above <unpack-kwargs>`.
+
+
+Signatures with ParamSpecs
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A signature that includes ``*args: P.args, **kwargs: P.kwargs`` is equivalent
+to a ``Callable`` parameterized by ``P``::
+
+    class ProtocolWithP[**P](Protocol):
+        def __call__(self, *args: P.args, **kwargs: P.kwargs) -> None: ...
+
+    type TypeAliasWithP[**P] = Callable[P, None]
+
+    def func[**P](proto: ProtocolWithP[P], ta: TypeAliasWithP[P]):
+        # These two types are equivalent
+        f1: TypeAliasWithP[P] = proto  # OK
+        f2: ProtocolWithP[P] = ta  # OK
+
+
+Default argument values
+^^^^^^^^^^^^^^^^^^^^^^^
+
+If a callable ``A`` has a parameter ``x`` with a default argument value and
+``B`` is the same as ``A`` except that ``x`` has no default argument, then
+``A`` is a subtype of ``B``. ``A`` is also a subtype of ``C``
+if ``C`` is the same as ``A`` with parameter ``x`` removed::
+
+    class DefaultArg(Protocol):
+        def __call__(self, x: int = 0) -> None: ...
+
+    class NoDefaultArg(Protocol):
+        def __call__(self, x: int) -> None: ...
+
+    class NoX(Protocol):
+        def __call__(self) -> None: ...
+
+    def func(default_arg: DefaultArg):
+        f1: NoDefaultArg = default_arg  # OK
+        f2: NoX = default_arg  # OK
+
+
+Overloads
+^^^^^^^^^
+
+If a callable ``A`` is overloaded with two or more signatures, it is a subtype
+of callable ``B`` if *at least one* of the overloaded signatures in ``A`` is
+a subtype of ``B``::
+
+    class Overloaded(Protocol):
+        @overload
+        def __call__(self, x: int) -> int: ...
+        @overload
+        def __call__(self, x: str) -> str: ...
+
+    class IntArg(Protocol):
+        def __call__(self, x: int) -> int: ...
+
+    class StrArg(Protocol):
+        def __call__(self, x: str) -> str: ...
+
+    class FloatArg(Protocol):
+        def __call__(self, x: float) -> float: ...
+
+    def func(overloaded: Overloaded):
+        f1: IntArg = overloaded  # OK
+        f2: StrArg = overloaded  # OK
+        f3: FloatArg = overloaded  # Error
+
+If a callable ``B`` is overloaded with two or more signatures, callable ``A``
+is a subtype of ``B`` if ``A`` is a subtype of *all* of the signatures in ``B``::
+
+    class Overloaded(Protocol):
+        @overload
+        def __call__(self, x: int, y: str) -> float: ...
+        @overload
+        def __call__(self, x: str) -> complex: ...
+
+    class StrArg(Protocol):
+        def __call__(self, x: str) -> complex: ...
+
+    class IntStrArg(Protocol):
+        def __call__(self, x: int | str, y: str = "") -> int: ...
+
+    def func(int_str_arg: IntStrArg, str_arg: StrArg):
+        f1: Overloaded = int_str_arg  # OK
+        f2: Overloaded = str_arg  # Error
