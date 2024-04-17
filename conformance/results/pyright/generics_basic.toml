@@ -1,20 +1,19 @@
 conformant = "Pass"
 output = """
-generics_basic.py:36:15 - error: Argument of type "bytes" cannot be assigned to parameter "y" of type "AnyStr@concat" in function "concat"
+generics_basic.py:40:15 - error: Argument of type "bytes" cannot be assigned to parameter "y" of type "AnyStr@concat" in function "concat"
   "bytes" is incompatible with "str" (reportArgumentType)
-generics_basic.py:37:15 - error: Argument of type "str" cannot be assigned to parameter "y" of type "AnyStr@concat" in function "concat"
+generics_basic.py:41:15 - error: Argument of type "str" cannot be assigned to parameter "y" of type "AnyStr@concat" in function "concat"
   "str" is incompatible with "bytes" (reportArgumentType)
-generics_basic.py:44:44 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)
-generics_basic.py:48:49 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
-generics_basic.py:48:49 - error: TypeVar constraint type cannot be generic
-generics_basic.py:59:15 - error: Argument of type "bytes" cannot be assigned to parameter "y" of type "AnyStr@concat" in function "concat"
+generics_basic.py:49:44 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)
+generics_basic.py:55:53 - error: TypeVar constraint type cannot be generic
+generics_basic.py:69:15 - error: Argument of type "bytes" cannot be assigned to parameter "y" of type "AnyStr@concat" in function "concat"
   "bytes" is incompatible with "str" (reportArgumentType)
-generics_basic.py:107:24 - error: Type arguments for "Generic" must be unique
-generics_basic.py:140:5 - error: Argument of type "Literal[0]" cannot be assigned to parameter "key" of type "str" in function "__getitem__"
+generics_basic.py:121:24 - error: Type arguments for "Generic" must be unique
+generics_basic.py:157:5 - error: Argument of type "Literal[0]" cannot be assigned to parameter "key" of type "str" in function "__getitem__"
   "Literal[0]" is incompatible with "str" (reportArgumentType)
-generics_basic.py:141:5 - error: Argument of type "Literal[0]" cannot be assigned to parameter "key" of type "str" in function "__getitem__"
+generics_basic.py:158:5 - error: Argument of type "Literal[0]" cannot be assigned to parameter "key" of type "str" in function "__getitem__"
   "Literal[0]" is incompatible with "str" (reportArgumentType)
-generics_basic.py:167:37 - error: Metaclass cannot be generic (reportGeneralTypeIssues)
+generics_basic.py:191:37 - error: Metaclass cannot be generic (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """

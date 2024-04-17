@@ -4,27 +4,27 @@ False positives in examples using constrained type variables.
 False negative for generic metaclass.
 """
 output = """
-File "generics_basic.py", line 31, in concat: bad return type [bad-return-type]
+File "generics_basic.py", line 34, in concat: bad return type [bad-return-type]
 Called from (traceback):
-  line 57, in test_concat_subtype
-File "generics_basic.py", line 36, in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]
-File "generics_basic.py", line 37, in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]
-File "generics_basic.py", line 44, in <module>: Invalid TypeVar: the number of constraints must be 0 or more than 1 [invalid-typevar]
-File "generics_basic.py", line 48, in <module>: Invalid TypeVar: constraint cannot contain TypeVars [invalid-typevar]
-File "generics_basic.py", line 57, in test_concat_subtype: MyStr [assert-type]
-File "generics_basic.py", line 58, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]
-File "generics_basic.py", line 58, in test_concat_subtype: Any [assert-type]
-File "generics_basic.py", line 59, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]
-File "generics_basic.py", line 107, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
-File "generics_basic.py", line 140, in test_my_map: unsupported operand type(s) for item retrieval: MyMap1[str, int] and int [unsupported-operands]
-File "generics_basic.py", line 141, in test_my_map: unsupported operand type(s) for item retrieval: MyMap2[int, str] and int [unsupported-operands]
-File "generics_basic.py", line 161, in test_my_iterable_any: Iterator[nothing] [assert-type]
+  line 67, in test_concat_subtype
+File "generics_basic.py", line 40, in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]
+File "generics_basic.py", line 41, in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]
+File "generics_basic.py", line 49, in <module>: Invalid TypeVar: the number of constraints must be 0 or more than 1 [invalid-typevar]
+File "generics_basic.py", line 55, in Test: Invalid TypeVar: constraint cannot contain TypeVars [invalid-typevar]
+File "generics_basic.py", line 67, in test_concat_subtype: MyStr [assert-type]
+File "generics_basic.py", line 68, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]
+File "generics_basic.py", line 68, in test_concat_subtype: Any [assert-type]
+File "generics_basic.py", line 69, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]
+File "generics_basic.py", line 121, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+File "generics_basic.py", line 157, in test_my_map: unsupported operand type(s) for item retrieval: MyMap1[str, int] and int [unsupported-operands]
+File "generics_basic.py", line 158, in test_my_map: unsupported operand type(s) for item retrieval: MyMap2[int, str] and int [unsupported-operands]
+File "generics_basic.py", line 182, in test_my_iterable_any: Iterator[nothing] [assert-type]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 167: Expected 1 errors
-Line 31: Unexpected errors ['File "generics_basic.py", line 31, in concat: bad return type [bad-return-type]']
-Line 57: Unexpected errors ['File "generics_basic.py", line 57, in test_concat_subtype: MyStr [assert-type]']
-Line 58: Unexpected errors ['File "generics_basic.py", line 58, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]', 'File "generics_basic.py", line 58, in test_concat_subtype: Any [assert-type]']
-Line 161: Unexpected errors ['File "generics_basic.py", line 161, in test_my_iterable_any: Iterator[nothing] [assert-type]']
+Line 191: Expected 1 errors
+Line 34: Unexpected errors ['File "generics_basic.py", line 34, in concat: bad return type [bad-return-type]']
+Line 67: Unexpected errors ['File "generics_basic.py", line 67, in test_concat_subtype: MyStr [assert-type]']
+Line 68: Unexpected errors ['File "generics_basic.py", line 68, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]', 'File "generics_basic.py", line 68, in test_concat_subtype: Any [assert-type]']
+Line 182: Unexpected errors ['File "generics_basic.py", line 182, in test_my_iterable_any: Iterator[nothing] [assert-type]']
 """
