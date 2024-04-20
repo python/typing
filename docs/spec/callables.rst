@@ -60,22 +60,6 @@ Support for the ``/`` delimiter was introduced in Python 3.8 (:pep:`570`).
 Prior to Python 3.8, positional parameters were specified using a :ref:`naming
 convention <pos-only-double-underscore>`.
 
-Self and cls parameters
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Instance methods and class methods have a first parameter that is, by convention,
-named ``self`` and ``cls``, respectively. Type checkers should always treat
-these parameters as implicitly positional-only even if they are not explicitly
-designated as such. This distinction affects type compatibility checks and
-validation of function calls. For example::
-
-    class A:
-        def instance_method(self) -> None: ...
-
-    A.instance_method(A())  # OK
-    A.instance_method(self=A())  # Error: self is positional-only
-
-
 Default argument values
 -----------------------
 
