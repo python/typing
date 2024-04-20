@@ -51,7 +51,7 @@ example, ``a`` is a positional-only parameter and ``b`` is a standard
 
     def func(a: int, /, b: int) -> None:
         ...
-    
+
     func(1, 2)  # OK
     func(1, b=2)  # OK
     func(a=1, b=2)  # Error
@@ -442,7 +442,7 @@ Meaning of ``...`` in ``Callable``
 The ``Callable`` special form supports the use of ``...`` in place of the
 list of parameter types. This indicates that the type is consistent with
 any input signature::
-    
+
     cb1: Callable[..., str]
     cb1 = lambda x: str(x)  # OK
     cb1 = lambda : ""  # OK
@@ -463,7 +463,7 @@ ParamSpec <paramspec_valid_use_locations>` in a generic class or type alias.
 For example::
 
     type Callback[**P] = Callable[P, str]
-    
+
     def func(cb: Callable[[], str]) -> None:
         f: Callback[...] = cb  # OK
 
@@ -521,7 +521,7 @@ Parameter types
 Callable types are covariant with respect to their return types but
 contravariant with respect to their parameter types. This means a callable
 ``A`` is a subtype of callable ``B`` if the types of the parameters of
-``B`` are subtypes of the parameters of ``A``. For example, 
+``B`` are subtypes of the parameters of ``A``. For example,
 ``(x: float) -> int`` is a subtype of ``(x: int) -> float``::
 
     def func(cb: Callable[[float], int]):
@@ -582,7 +582,7 @@ must also have a ``*args`` parameter to be a subtype of ``B``, and the type of
     def func(no_args: NoArgs, int_args: IntArgs, float_args: FloatArgs):
         f1: NoArgs = int_args  # OK
         f2: NoArgs = float_args  # OK
-        
+
         f3: IntArgs = no_args  # Error: missing *args parameter
         f4: IntArgs = float_args  # OK
 
@@ -644,7 +644,7 @@ parameter::
     def func(no_args: NoKwargs, int_kwargs: IntKwargs, float_kwargs: FloatKwargs):
         f1: NoKwargs = int_kwargs  # OK
         f2: NoKwargs = float_kwargs  # OK
-        
+
         f3: IntKwargs = no_args  # Error: missing **kwargs parameter
         f4: IntKwargs = float_kwargs  # OK
 
