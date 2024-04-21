@@ -457,8 +457,10 @@ to mean "any conceivable set of parameters that could be compatible"::
     type CallbackWithStr[**P] = Callable[Concatenate[str, P], str]
 
     def func(cb: Callable[[int, str], str]) -> None:
-        f1: CallbackWithInt[...] = cb  # OK
-        f2: CallbackWithStr[...] = cb  # Error
+        f1: Callable[Concatenate[int, ...], str] = cb # OK
+        f2: Callable[Concatenate[str, ...], str] = cb # Error
+        f3: CallbackWithInt[...] = cb  # OK
+        f4: CallbackWithStr[...] = cb  # Error
 
 .. _`callback-protocols`:
 
