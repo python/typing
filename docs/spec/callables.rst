@@ -11,16 +11,16 @@ refers to a named symbol associated with a function that accepts the value of
 an argument (or multiple arguments) passed to the function. The term
 "argument" refers to a value passed to a function when it is called.
 
-In Python, parameters fall into one of three categories: positional-only,
-keyword-only, and standard (positional + keyword). As implied by the category
-names, positional-only parameters can accept only positional arguments, and
-keyword-only parameters can accept only keyword arguments. Standard parameters
-can accept either positional or keyword arguments. Parameters of the form
-"*args" and "**kwargs" are variadic and accept zero or more positional
-or keyword arguments, respectively.
+Python supports five kinds of parameters: positional-only, keyword-only,
+standard (positional or keyword), variadic positional (``*args``), and
+variadic keyword (``**kwargs``). Positional-only parameters can accept only
+positional arguments, and keyword-only parameters can accept only keyword
+arguments. Standard parameters can accept either positional or keyword
+arguments. Parameters of the form ``*args`` and ``**kwargs`` are variadic
+and accept zero or more positional or keyword arguments, respectively.
 
 In the example below, ``a`` is a positional-only parameter, ``b`` is
-a standard (positional + keyword) parameter, ``c`` is a keyword-only parameter,
+a standard (positional or keyword) parameter, ``c`` is a keyword-only parameter,
 ``args`` is a variadic parameter that accepts additional positional arguments,
 and ``kwargs`` is a variadic parameter that accepts additional keyword
 arguments::
@@ -29,7 +29,7 @@ arguments::
         ...
 
 A function's "signature" refers to its list of parameters (including
-the name, category, optional declared type, and whether it has a default
+the name, kind, optional declared type, and whether it has a default
 argument value) plus its return type. The signature of the function above is
 ``(a: str, /, b, *args, c=..., **kwargs) -> None``. Note that the default
 argument value for parameter ``c`` is denoted as ``...`` here because the
@@ -46,7 +46,7 @@ Within a function signature, positional-only parameters are separated from
 non-positional-only parameters by a single forward slash ('/'). This
 forward slash does not represent a parameter, but rather a delimiter. In this
 example, ``a`` is a positional-only parameter and ``b`` is a standard
-(positional + keyword) parameter::
+(positional or keyword) parameter::
 
     def func(a: int, /, b: int) -> None:
         ...
@@ -513,14 +513,14 @@ contravariant with respect to their parameter types. This means a callable
         f1: Callable[[int], float] = cb  # OK
 
 
-Parameter categories
-^^^^^^^^^^^^^^^^^^^^
+Parameter kinds
+^^^^^^^^^^^^^^^
 
 Callable ``A`` is a subtype of callable ``B`` if all keyword-only parameters
 in ``B`` are present in ``A`` as either keyword-only parameters or standard
-(positional + keyword) parameters. For example, ``(a: int) -> None`` is a
+(positional or keyword) parameters. For example, ``(a: int) -> None`` is a
 subtype of ``(*, a: int) -> None``, but the converse is not true. The order
-of keyword-only parameters are ignored for purposes of subtyping::
+of keyword-only parameters is ignored for purposes of subtyping::
 
     class KwOnly(Protocol):
         def __call__(self, *, b: int, a: int) -> None: ...
@@ -534,7 +534,7 @@ of keyword-only parameters are ignored for purposes of subtyping::
 
 Likewise, callable ``A`` is a subtype of callable ``B`` if all positional-only
 parameters in ``B`` are present in ``A`` as either positional-only parameters
-or standard (positional + keyword) parameters. The names of positional-only
+or standard (positional or keyword) parameters. The names of positional-only
 parameters are ignored for purposes of subtyping::
 
     class PosOnly(Protocol):
@@ -599,7 +599,7 @@ parameters in ``B``::
         f2: PosOnly = int_str_args  # OK
         f3: PosOnly = str_args  # OK
         f4: IntStrArgs = str_args  # Error: int | str is not subtype of str
-        f5: IntStrArgs = int_str_args  # OK
+        f5: IntStrArgs = int_args  # Error: int | str is not subtype of int
         f6: StrArgs = int_str_args  # OK
         f7: StrArgs = int_args  # Error: str is not subtype of int
         f8: IntArgs = int_str_args  # OK
@@ -626,14 +626,14 @@ parameter::
     class FloatKwargs(Protocol):
         def __call__(self, **kwargs: float) -> None: ...
 
-    def func(no_args: NoKwargs, int_kwargs: IntKwargs, float_kwargs: FloatKwargs):
+    def func(no_kwargs: NoKwargs, int_kwargs: IntKwargs, float_kwargs: FloatKwargs):
         f1: NoKwargs = int_kwargs  # OK
         f2: NoKwargs = float_kwargs  # OK
 
-        f3: IntKwargs = no_args  # Error: missing **kwargs parameter
+        f3: IntKwargs = no_kwargs  # Error: missing **kwargs parameter
         f4: IntKwargs = float_kwargs  # OK
 
-        f5: FloatKwargs = no_args  # Error: missing **kwargs parameter
+        f5: FloatKwargs = no_kwargs  # Error: missing **kwargs parameter
         f6: FloatKwargs = int_kwargs  # Error: float is not subtype of int
 
 If a callable ``B`` has a signature with one or more keyword-only parameters,
@@ -656,14 +656,14 @@ parameters in ``B``::
     class Standard(Protocol):
         def __call__(self, a: int, b: str) -> None: ...
 
-    def func(int_args: IntKwargs, int_str_kwargs: IntStrKwargs, str_kwargs: StrKwargs):
-        f1: KwOnly = int_args  # Error: str is not subtype of int
+    def func(int_kwargs: IntKwargs, int_str_kwargs: IntStrKwargs, str_kwargs: StrKwargs):
+        f1: KwOnly = int_kwargs  # Error: str is not subtype of int
         f2: KwOnly = int_str_kwargs  # OK
         f3: KwOnly = str_kwargs  # OK
         f4: IntStrKwargs = str_kwargs  # Error: int | str is not subtype of str
-        f5: IntStrKwargs = int_str_kwargs  # OK
+        f5: IntStrKwargs = int_kwargs  # Error: int | str is not subtype of int
         f6: StrKwargs = int_str_kwargs  # OK
-        f7: StrKwargs = int_args  # Error: str is not subtype of int
+        f7: StrKwargs = int_kwargs  # Error: str is not subtype of int
         f8: IntKwargs = int_str_kwargs  # OK
         f9: IntKwargs = str_kwargs  # Error: int is not subtype of str
         f10: Standard = int_str_kwargs  # Error: Does not accept positional arguments
