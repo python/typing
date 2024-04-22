@@ -11,7 +11,7 @@ statements affect code flow and therefore can affect type evaluation. For exampl
     try:
         some_function()
         x = 1
-    except:
+    except NotImplementedError:
         pass
 
     # The type of `x` at this point could be None if `some_function` raises
@@ -23,7 +23,8 @@ statements affect code flow and therefore can affect type evaluation. For exampl
 Context Managers
 ----------------
 
-Context managers may optionally "suppress" exceptions. When such a context
+A context manager may optionally "suppress" exceptions by returning ``True``
+(or some other truthy value) from its ``__exit__`` method. When such a context
 manager is used, any exceptions that are raised and otherwise uncaught within
 the ``with`` block are caught by the context manager, and control continues
 immediately after the ``with`` block. If a context manager does not suppress
