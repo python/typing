@@ -1,0 +1,9 @@
+conformant = "Pass"
+errors_diff = """
+"""
+output = """
+exceptions_context_managers.py:50:12 - error: Expression of type "Literal[1]" is incompatible with return type "None"
+  "Literal[1]" is incompatible with "None" (reportReturnType)
+exceptions_context_managers.py:57:12 - error: Expression of type "Literal[1]" is incompatible with return type "None"
+  "Literal[1]" is incompatible with "None" (reportReturnType)
+"""

@@ -1,0 +1,11 @@
+conformant = "Unsupported"
+notes = """
+Does not support code flow analysis.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 50: Expected 1 errors
+Line 57: Expected 1 errors
+"""
+output = """
+"""

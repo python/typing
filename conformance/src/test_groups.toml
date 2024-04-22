@@ -47,6 +47,10 @@ href = "https://typing.readthedocs.io/en/latest/spec/constructors.html"
 name = "Overloads"
 href = "https://typing.readthedocs.io/en/latest/spec/overload.html"
 
+[exceptions]
+name = "Exceptions"
+href = "https://typing.readthedocs.io/en/latest/spec/exceptions.html"
+
 [dataclasses]
 name = "Dataclasses"
 href = "https://typing.readthedocs.io/en/latest/spec/dataclasses.html"
