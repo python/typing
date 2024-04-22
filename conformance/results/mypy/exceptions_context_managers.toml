@@ -2,6 +2,4 @@ conformant = "Pass"
 errors_diff = """
 """
 output = """
-exceptions_context_managers.py:50: error: No return value expected  [return-value]
-exceptions_context_managers.py:57: error: No return value expected  [return-value]
 """

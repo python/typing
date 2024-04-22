@@ -5,7 +5,7 @@ Tests the handling of __exit__ return types for context managers.
 # Specification: https://typing.readthedocs.io/en/latest/spec/exceptions.html
 
 
-from typing import Any, Literal
+from typing import Any, Literal, assert_type
 
 
 class CMBase:
@@ -43,43 +43,43 @@ class NoSuppress4(CMBase):
         return None
 
 
-def func1() -> None:
-    with Suppress1():
-        raise ValueError("This exception is suppressed")
-
-    return 1  # E
-
-
-def func2() -> None:
-    with Suppress2():
-        raise ValueError("This exception is suppressed")
-
-    return 1  # E
+def suppress1(x: int | str) -> None:
+    if isinstance(x, int):
+        with Suppress1():
+            raise ValueError
+    assert_type(x, int | str)
 
 
-def func3() -> None:
-    with NoSuppress1():
-        raise ValueError("This exception is not suppressed")
-
-    return 1  # OK
-
-
-def func4() -> None:
-    with NoSuppress2():
-        raise ValueError("This exception is not suppressed")
-
-    return 1  # OK
+def suppress2(x: int | str) -> None:
+    if isinstance(x, int):
+        with Suppress2():
+            raise ValueError
+    assert_type(x, int | str)
 
 
-def func5() -> None:
-    with NoSuppress3():
-        raise ValueError("This exception is not suppressed")
+def no_suppress1(x: int | str) -> None:
+    if isinstance(x, int):
+        with NoSuppress1():
+            raise ValueError
+    assert_type(x, str)
 
-    return 1  # OK
+
+def no_suppress2(x: int | str) -> None:
+    if isinstance(x, int):
+        with NoSuppress2():
+            raise ValueError
+    assert_type(x, str)
 
 
-def func6() -> None:
-    with NoSuppress4():
-        raise ValueError("This exception is not suppressed")
+def no_suppress3(x: int | str) -> None:
+    if isinstance(x, int):
+        with NoSuppress3():
+            raise ValueError
+    assert_type(x, str)
 
-    return 1  # OK
+
+def no_suppress4(x: int | str) -> None:
+    if isinstance(x, int):
+        with NoSuppress4():
+            raise ValueError
+    assert_type(x, str)
