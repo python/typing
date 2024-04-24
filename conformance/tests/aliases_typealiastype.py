@@ -46,7 +46,7 @@ BadAlias3 = TypeAliasType("BadAlias3", int, type_params=my_tuple)  # E: not lite
 BadAlias4 = TypeAliasType("BadAlias4", BadAlias4)  # E: circular dependency
 BadAlias5 = TypeAliasType("BadAlias5", T | BadAlias5[str], type_params=(T,))  # E: circular dependency
 BadAlias6 = TypeAliasType("BadAlias6", BadAlias7)  # E: circular dependency
-BadAlias7 = TypeAliasType("BadAlias7", BadAlias6)
+BadAlias7 = TypeAliasType("BadAlias7", BadAlias6)  # E?: circular dependency
 
 # The following are invalid type expressions for a type alias.
 BadAlias8 = TypeAliasType("BadAlias8", eval("".join(map(chr, [105, 110, 116]))))  # E

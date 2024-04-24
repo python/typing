@@ -68,7 +68,7 @@ def generator3() -> Generator[A, int, Any]:
 
 def generator4() -> Iterable[A]:
     yield A()
-    return True
+    return True  # E?: No return value expected
 
 
 def generator5() -> Iterator[A]:
