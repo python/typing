@@ -4,7 +4,7 @@ Tests the scoping rules for type parameter syntax introduced in PEP 695.
 
 # Specification: https://peps.python.org/pep-0695/#type-parameter-scopes
 
-from typing import Any, Callable, Mapping, Sequence, TypeVar, assert_type
+from typing import Callable, Mapping, Sequence, TypeVar, assert_type
 
 # > A compiler error or runtime exception is generated if the definition
 # > of an earlier type parameter references a later type parameter even

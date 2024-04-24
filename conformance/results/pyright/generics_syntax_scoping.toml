@@ -1,16 +1,14 @@
-conformant = "Partial"
-notes = """
-Does not reject use of type variable in upper bound expression.
-"""
+conformant = "Pass"
 output = """
-generics_syntax_scoping.py:14:29 - error: Expected type expression but received "int" (reportGeneralTypeIssues)
-generics_syntax_scoping.py:18:26 - error: Expected type expression but received "int" (reportGeneralTypeIssues)
+generics_syntax_scoping.py:14:20 - error: TypeVar constraint type cannot be generic
+generics_syntax_scoping.py:18:17 - error: TypeVar constraint type cannot be generic
 generics_syntax_scoping.py:35:7 - error: "T" is not defined (reportUndefinedVariable)
 generics_syntax_scoping.py:44:17 - error: "T" is not defined (reportUndefinedVariable)
-generics_syntax_scoping.py:92:17 - error: Type parameter "T" is already in use
-generics_syntax_scoping.py:95:17 - error: Type parameter "T" is already in use
-generics_syntax_scoping.py:98:17 - error: Type parameter "T" is already in use
-generics_syntax_scoping.py:98:29 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+generics_syntax_scoping.py:92:17 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
+generics_syntax_scoping.py:95:17 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
+generics_syntax_scoping.py:98:17 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
+generics_syntax_scoping.py:98:29 - warning: TypeVar "T" appears only once in generic function signature
+  Use "object" instead (reportInvalidTypeVarUse)
 """
 conformance_automated = "Pass"
 errors_diff = """
