@@ -645,14 +645,14 @@ annotations, which may always want ``Annotated[]`` as the outermost annotation
 
 
 Read-only Items
-===============
+---------------
 
 (Originally specified in :pep:`705`.)
 
 .. _`readonly`:
 
 ``typing.ReadOnly`` type qualifier
-----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``typing.ReadOnly`` :term:`type qualifier` is used to indicate that an item declared in a ``TypedDict`` definition may not be mutated (added, modified, or removed)::
 
@@ -669,7 +669,7 @@ The ``typing.ReadOnly`` :term:`type qualifier` is used to indicate that an item 
 
 
 Interaction with other special types
-------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``ReadOnly[]`` can be used with ``Required[]``, ``NotRequired[]`` and ``Annotated[]``, in any nesting order:
 
@@ -687,7 +687,7 @@ Interaction with other special types
 
 
 Inheritance
------------
+^^^^^^^^^^^
 
 Subclasses can redeclare read-only items as non-read-only, allowing them to be mutated::
 
@@ -740,7 +740,7 @@ Subclasses can combine these rules::
 Note that these are just consequences of structural typing, but they are highlighted here as the behavior now differs from the rules specified in :pep:`589`.
 
 Type consistency
-----------------
+^^^^^^^^^^^^^^^^
 
 *This section updates the type consistency rules described above that were created prior to the introduction of ReadOnly*
 
@@ -783,7 +783,7 @@ Discussion:
     b: B = a  # Accepted by type checker
 
 Update method
--------------
+^^^^^^^^^^^^^
 
 In addition to existing type checking rules, type checkers should error if a TypedDict with a read-only item is updated with another TypedDict that declares that key::
 
@@ -807,7 +807,7 @@ Unless the declared value is of bottom type (:data:`~typing.Never`)::
 Note: Nothing will ever match the ``Never`` type, so an item annotated with it must be absent.
 
 Keyword argument typing
------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 As discussed in the section :ref:`unpack-kwargs`, an unpacked ``TypedDict`` can be used to annotate ``**kwargs``. Marking one or more of the items of a ``TypedDict`` used in this way as read-only will have no effect on the type signature of the method. However, it *will* prevent the item from being modified in the body of the function::
 
