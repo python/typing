@@ -424,7 +424,9 @@ Meaning of ``...`` in ``Callable``
 
 The ``Callable`` special form supports the use of ``...`` in place of the
 list of parameter types. This indicates that the type is consistent with
-any input signature::
+any input signature. Just as ``Any`` means "any conceivable type that could be
+compatible", ``(...)`` means "any conceivable set of parameters that could be
+compatible"::
 
     cb1: Callable[..., str]
     cb1 = lambda x: str(x)  # OK
@@ -432,14 +434,49 @@ any input signature::
 
     cb2: Callable[[], str] = cb1  # OK
 
-The input signature ``(...)`` is not the same as ``(*args: Any, **kwargs: Any)``.
-The former is a gradual type form that is consistent with all input signatures,
-and all input signatures are consistent with it. The latter is not a gradual
-type form. It is consistent with all input signatures, but the converse is
-not true. The relationship between ``(...)`` and ``(*args: Any, **kwargs: Any)``
-is similar to the relationship between ``Any`` and ``object``. Just as ``Any``
-means "any conceivable type that could be compatible", ``(...)`` means "any
-conceivable set of parameters that could be compatible".
+A ``...`` can also be used with ``Concatenate``. In this case, the parameters
+prior to the ``...`` are required to be present in the input signature and
+be compatible in kind and type, but any additional parameters are permitted::
+
+    cb3: Callable[Concatenate[int, ...], str]
+    cb3 = lambda x: str(x)  # OK
+    cb3 = lambda a, b, c: str(a)  # OK
+    cb3 = lambda : ""  # Error
+    cb3 = lambda *, a: str(a)  # Error
+
+
+If the input signature in a def statement includes both a ``*args`` and
+``**kwargs`` parameter and both are typed as ``Any`` (explicitly or implicitly
+because it has no annotation), a type checker should treat this as the
+equivalent of ``...``. Any other parameters in the signature are unaffected
+and are retained as part of the signature::
+
+    def func1(*args: Any, **kwargs: Any) -> None:
+        pass
+
+    def func2(a: int, /, *args, **kwargs) -> None:
+        pass
+
+    def func3(a: int, *args: Any, **kwargs: Any) -> None:
+        pass
+
+    class Proto1[**P](Protocol):
+        def __call__(self, a: int, *args: P.args, **kwargs: P.kwargs) -> None: ...
+
+    assert_type(func1, Callable[..., None])  # OK
+    assert_type(func2, Callable[Concatenate[int, ...], None])  # OK
+    assert_type(func2, Callable[..., None])  # Error
+    assert_type(func3, Proto1[...])  # OK
+
+    class A:
+        def method(self, a: int, /, *args: Any, k: str, **kwargs: Any) -> None:
+            pass
+
+    class B(A):
+        # This override is OK because it is consistent with the parent's method.
+        def method(self, a: float, /, b: int, *, k: str, m: str) -> None:
+            pass
+
 
 The ``...`` syntax can also be used to provide a :ref:`specialized value for a
 ParamSpec <paramspec_valid_use_locations>` in a generic class or type alias.
