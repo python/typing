@@ -56,7 +56,8 @@ example, ``a`` is a positional-only parameter and ``b`` is a standard
     func(a=1, b=2)  # Error
 
 Support for the ``/`` delimiter was introduced in Python 3.8 (:pep:`570`).
-Prior to Python 3.8, positional parameters were specified using a :ref:`naming
+For compatibility with earlier versions of Python, the type system also
+supports specifying positional-only parameters using a :ref:`naming
 convention <pos-only-double-underscore>`.
 
 Default argument values
