@@ -452,22 +452,23 @@ because it has no annotation), a type checker should treat this as the
 equivalent of ``...``. Any other parameters in the signature are unaffected
 and are retained as part of the signature::
 
-    def func1(*args: Any, **kwargs: Any) -> None:
-        pass
+    class Proto1(Protocol):
+        def __call__(self, *args: Any, **kwargs: Any) -> None: ...
 
-    def func2(a: int, /, *args, **kwargs) -> None:
-        pass
+    class Proto2(Protocol):
+        def __call__(self, a: int, /, *args, **kwargs) -> None: ...
 
-    def func3(a: int, *args: Any, **kwargs: Any) -> None:
-        pass
+    class Proto3(Protocol):
+        def __call__(self, a: int, *args: Any, **kwargs: Any) -> None: ...
 
-    class Proto1[**P](Protocol):
+    class Proto4[**P](Protocol):
         def __call__(self, a: int, *args: P.args, **kwargs: P.kwargs) -> None: ...
 
-    assert_type(func1, Callable[..., None])  # OK
-    assert_type(func2, Callable[Concatenate[int, ...], None])  # OK
-    assert_type(func2, Callable[..., None])  # Error
-    assert_type(func3, Proto1[...])  # OK
+    def func(p1: Proto1, p2: Proto2, p3: Proto3):
+        assert_type(p1, Callable[..., None])  # OK
+        assert_type(p2, Callable[Concatenate[int, ...], None])  # OK
+        assert_type(p3, Callable[..., None])  # Error
+        assert_type(p3, Proto4[...])  # OK
 
     class A:
         def method(self, a: int, /, *args: Any, k: str, **kwargs: Any) -> None:
