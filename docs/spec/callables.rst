@@ -7,7 +7,7 @@ Terminology
 -----------
 
 In this section, and throughout this specification, the term  "parameter"
-refers to a named symbol associated with a function that accepts the value of
+refers to a named symbol associated with a function that receives the value of
 an argument (or multiple arguments) passed to the function. The term
 "argument" refers to a value passed to a function when it is called.
 
@@ -36,7 +36,7 @@ argument value for parameter ``c`` is denoted as ``...`` here because the
 presence of a default value is considered part of the signature, but the
 specific value is not.
 
-The term "input signature" is used to refer to only the inputs of a function.
+The term "input signature" is used to refer to only the parameters of a function.
 In the example above, the input signature is ``(a: str, /, b, *args, c=..., **kwargs)``.
 
 Positional-only parameters
@@ -57,8 +57,8 @@ example, ``a`` is a positional-only parameter and ``b`` is a standard
 
 Support for the ``/`` delimiter was introduced in Python 3.8 (:pep:`570`).
 For compatibility with earlier versions of Python, the type system also
-supports specifying positional-only parameters using a :ref:`naming
-convention <pos-only-double-underscore>`.
+supports specifying positional-only parameters using a :ref:`double leading
+underscore <pos-only-double-underscore>`.
 
 Default argument values
 -----------------------
@@ -66,13 +66,13 @@ Default argument values
 In certain cases, it may be desirable to omit the default argument value for
 a parameter. Examples include function definitions in stub files or methods
 within a protocol or abstract base class. In such cases, the default value
-may be specified as an ellipsis. For example::
+may be given as an ellipsis. For example::
 
   def func(x: AnyStr, y: AnyStr = ...) -> AnyStr: ...
 
-If a default value is specified and its type can be statically evaluated,
-a type checker should verify that this type is compatible with the declared
-parameter's type::
+If a non-ellipsis default value is present and its type can be statically
+evaluated, a type checker should verify that this type is compatible with the
+declared parameter's type::
 
     def func(x: int = 0): ...  # OK
     def func(x: int | None = None): ...  # OK
@@ -446,7 +446,7 @@ be compatible in kind and type, but any additional parameters are permitted::
     cb3 = lambda *, a: str(a)  # Error
 
 
-If the input signature in a def statement includes both a ``*args`` and
+If the input signature in a function definition includes both a ``*args`` and
 ``**kwargs`` parameter and both are typed as ``Any`` (explicitly or implicitly
 because it has no annotation), a type checker should treat this as the
 equivalent of ``...``. Any other parameters in the signature are unaffected
