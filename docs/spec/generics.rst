@@ -613,6 +613,8 @@ The runtime should accept ``bound``\ s and ``covariant`` and ``contravariant``
 arguments in the declaration just as ``typing.TypeVar`` does, but for now we
 will defer the standardization of the semantics of those options to a later PEP.
 
+.. _`paramspec_valid_use_locations`:
+
 Valid use locations
 """""""""""""""""""
 
