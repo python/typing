@@ -1,18 +1,53 @@
-conformant = "Pass"
-output = """
-callables_annotation.py:13:5 - error: Expected 1 more positional argument (reportCallIssue)
-callables_annotation.py:14:11 - error: Argument of type "Literal[2]" cannot be assigned to parameter of type "str"
-  "Literal[2]" is incompatible with "str" (reportArgumentType)
-callables_annotation.py:15:15 - error: Expected 2 positional arguments (reportCallIssue)
-callables_annotation.py:17:10 - error: Expected 2 more positional arguments (reportCallIssue)
-callables_annotation.py:23:8 - error: Expected 0 positional arguments (reportCallIssue)
-callables_annotation.py:40:14 - error: Expected parameter type list or "..."
-callables_annotation.py:41:14 - error: Expected parameter type list or "..."
-callables_annotation.py:42:18 - error: List expression not allowed for this type argument
-callables_annotation.py:43:14 - error: Expected parameter type list or "..."
-callables_annotation.py:43:24 - error: Expected only two type arguments to "Callable"
-callables_annotation.py:44:15 - error: "..." is not allowed in this context
+conformant = "Partial"
+notes = """
+Does not treat "*args: Any, **kwargs: Any" as "...".
 """
-conformance_automated = "Pass"
+output = """
+callables_annotation.py:25:5 - error: Expected 1 more positional argument (reportCallIssue)
+callables_annotation.py:26:11 - error: Argument of type "Literal[2]" cannot be assigned to parameter of type "str"
+  "Literal[2]" is incompatible with "str" (reportArgumentType)
+callables_annotation.py:27:15 - error: Expected 2 positional arguments (reportCallIssue)
+callables_annotation.py:29:10 - error: Expected 2 more positional arguments (reportCallIssue)
+callables_annotation.py:35:8 - error: Expected 0 positional arguments (reportCallIssue)
+callables_annotation.py:55:14 - error: Expected parameter type list or "..."
+callables_annotation.py:56:14 - error: Expected parameter type list or "..."
+callables_annotation.py:57:18 - error: List expression not allowed for this type argument
+callables_annotation.py:58:14 - error: Expected parameter type list or "..."
+callables_annotation.py:58:24 - error: Expected only two type arguments to "Callable"
+callables_annotation.py:59:15 - error: "..." is not allowed in this context
+callables_annotation.py:91:7 - error: Expression of type "() -> str" is incompatible with declared type "(int, ...) -> str"
+  Type "() -> str" is incompatible with type "(int, ...) -> str"
+    Function accepts too many positional parameters; expected 0 but received 2 (reportAssignmentType)
+callables_annotation.py:93:7 - error: Expression of type "(*, a: int) -> str" is incompatible with declared type "(int, ...) -> str"
+  Type "(*, a: int) -> str" is incompatible with type "(int, ...) -> str"
+    Function accepts too many positional parameters; expected 0 but received 2 (reportAssignmentType)
+callables_annotation.py:133:17 - error: "assert_type" mismatch: expected "(...) -> None" but received "Proto1" (reportAssertTypeFailure)
+callables_annotation.py:134:17 - error: "assert_type" mismatch: expected "Proto5[Any]" but received "Proto1" (reportAssertTypeFailure)
+callables_annotation.py:135:17 - error: "assert_type" mismatch: expected "(int, ...) -> None" but received "Proto2" (reportAssertTypeFailure)
+callables_annotation.py:136:17 - error: "assert_type" mismatch: expected "(...) -> None" but received "Proto3" (reportAssertTypeFailure)
+callables_annotation.py:137:17 - error: "assert_type" mismatch: expected "Proto4[...]" but received "Proto3" (reportAssertTypeFailure)
+callables_annotation.py:139:18 - error: Expression of type "Proto7" is incompatible with declared type "Proto6"
+  "Proto7" is incompatible with protocol "Proto6"
+    "__call__" is an incompatible type
+      Type "(a: float, /, b: int, *, k: str, m: str) -> None" is incompatible with type "(a: int, /, *args: Any, k: str, **kwargs: Any) -> None"
+        Parameter "*args" has no corresponding parameter
+        Parameter "**kwargs" has no corresponding parameter (reportAssignmentType)
+callables_annotation.py:152:26 - error: Expression of type "() -> str" is incompatible with declared type "Callback2[...]"
+  Type "() -> str" is incompatible with type "Callback2[...]"
+    Function accepts too many positional parameters; expected 0 but received 2 (reportAssignmentType)
+callables_annotation.py:167:48 - error: Expression of type "(int, str) -> str" is incompatible with declared type "(str, ...) -> str"
+  Type "(int, str) -> str" is incompatible with type "(str, ...) -> str"
+    Parameter 1: type "str" is incompatible with type "int"
+      "str" is incompatible with "int" (reportAssignmentType)
+callables_annotation.py:169:32 - error: Expression of type "(int, str) -> str" is incompatible with declared type "CallbackWithStr[...]"
+  Type "(int, str) -> str" is incompatible with type "CallbackWithStr[...]"
+    Parameter 1: type "str" is incompatible with type "int"
+      "str" is incompatible with "int" (reportAssignmentType)
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 133: Unexpected errors ['callables_annotation.py:133:17 - error: "assert_type" mismatch: expected "(...) -> None" but received "Proto1" (reportAssertTypeFailure)']
+Line 135: Unexpected errors ['callables_annotation.py:135:17 - error: "assert_type" mismatch: expected "(int, ...) -> None" but received "Proto2" (reportAssertTypeFailure)']
+Line 137: Unexpected errors ['callables_annotation.py:137:17 - error: "assert_type" mismatch: expected "Proto4[...]" but received "Proto3" (reportAssertTypeFailure)']
+Line 139: Unexpected errors ['callables_annotation.py:139:18 - error: Expression of type "Proto7" is incompatible with declared type "Proto6"']
 """

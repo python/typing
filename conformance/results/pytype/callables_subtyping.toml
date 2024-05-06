@@ -1,0 +1,50 @@
+conformant = "Partial"
+notes = """
+Does not detect many subtyping rule violations for callables.
+Does not correctly handle type alias parameterized by ParamSpec.
+"""
+errors_diff = """
+Line 51: Expected 1 errors
+Line 52: Expected 1 errors
+Line 55: Expected 1 errors
+Line 58: Expected 1 errors
+Line 82: Expected 1 errors
+Line 85: Expected 1 errors
+Line 86: Expected 1 errors
+Line 116: Expected 1 errors
+Line 119: Expected 1 errors
+Line 120: Expected 1 errors
+Line 122: Expected 1 errors
+Line 124: Expected 1 errors
+Line 125: Expected 1 errors
+Line 126: Expected 1 errors
+Line 151: Expected 1 errors
+Line 154: Expected 1 errors
+Line 155: Expected 1 errors
+Line 187: Expected 1 errors
+Line 190: Expected 1 errors
+Line 191: Expected 1 errors
+Line 193: Expected 1 errors
+Line 195: Expected 1 errors
+Line 196: Expected 1 errors
+Line 197: Expected 1 errors
+Line 236: Expected 1 errors
+Line 237: Expected 1 errors
+Line 240: Expected 1 errors
+Line 243: Expected 1 errors
+Line 273: Expected 1 errors
+Line 297: Expected 1 errors
+Line 211: Unexpected errors ['File "callables_subtyping.py", line 211, in <module>: Invalid type annotation \\'Callable[[P], None][P]\\'  [invalid-annotation]']
+Line 213: Unexpected errors ['File "callables_subtyping.py", line 213, in func7: Invalid type annotation \\'TypeAliasWithP[P]\\'  [invalid-annotation]']
+Line 255: Unexpected errors ['File "callables_subtyping.py", line 255, in __call__: @typing.overload-decorated \\'Overloaded9.__call__\\' object is not callable [not-callable]']
+Line 284: Unexpected errors ['File "callables_subtyping.py", line 284, in __call__: @typing.overload-decorated \\'Overloaded10.__call__\\' object is not callable [not-callable]']
+"""
+output = """
+File "callables_subtyping.py", line 26, in func1: Type annotation for f6 does not match type of assignment [annotation-type-mismatch]
+File "callables_subtyping.py", line 29, in func1: Type annotation for f8 does not match type of assignment [annotation-type-mismatch]
+File "callables_subtyping.py", line 211, in <module>: Invalid type annotation 'Callable[[P], None][P]'  [invalid-annotation]
+File "callables_subtyping.py", line 213, in func7: Invalid type annotation 'TypeAliasWithP[P]'  [invalid-annotation]
+File "callables_subtyping.py", line 255, in __call__: @typing.overload-decorated 'Overloaded9.__call__' object is not callable [not-callable]
+File "callables_subtyping.py", line 284, in __call__: @typing.overload-decorated 'Overloaded10.__call__' object is not callable [not-callable]
+"""
+conformance_automated = "Fail"
