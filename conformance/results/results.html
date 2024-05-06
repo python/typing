@@ -165,10 +165,10 @@
 <div class='tc-time'>1.6sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.19</div>
-<div class='tc-time'>3.7sec</div>
+<div class='tc-time'>4.1sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.04.11</div>
-<div class='tc-time'>35.5sec</div>
+<div class='tc-time'>38.5sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -601,10 +601,10 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a>
 </th></tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callables_annotation</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not evaluate correct type for `*args: int` parameter.</p><p>Does not reject illegal form `Callable[[...], int]`.</p></span></div></th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly treats "*args: T, **kwargs: T" as "..." when T is specialized to Any.</p><p>Does not treat "*args: Any, **kargs: Any" as "..." when separated by keyword parameter.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not treat "*args: Any, **kwargs: Any" as "...".</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not evaluate correct type for `*args: int` parameter.</p><p>Does not reject illegal form `Callable[[...], int]`.</p><p>Does not correctly implement type compatibility rules for "...".</p><p>Does not treat "*args: Any, **kwargs: Any" as "...".</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support Concatenate.</p><p>Does not treat "*args: Any, **kwargs: Any" as "...".</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callables_kwargs</th>
 <th class="column col2 conformant">Pass</th>
@@ -617,6 +617,12 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly handle callback protocol that declares attributes in all functions.</p><p>Does not report type incompatibility for callback protocol with positional-only parameters.</p><p>Incorrectly reports type compatibility error with callback that has *args and **kwargs.</p><p>Does not report type incompatibility for callback missing a default argument for positional parameter.</p><p>Does not report type incompatibility for callback missing a default argument for keyword parameter.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not properly handle type compatibility checks with callback protocols.</p></span></div></th>
+</tr>
+<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callables_subtyping</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Rejects standard parameter as incompatible with keyword-only parameter.</p><p>Rejects use of Callable with ParamSpec in TypeAlias definition.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect many subtyping rule violations for callables.</p><p>Does not correctly handle type alias parameterized by ParamSpec.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/constructors.html">Constructors</a>
