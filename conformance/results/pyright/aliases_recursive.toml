@@ -54,11 +54,11 @@ aliases_recursive.py:52:24 - error: Expression of type "dict[str, str | int | di
       Type parameter "_VT_co@Mapping" is covariant, but "str | int | dict[str, str | int | list[int]]" is not a subtype of "RecursiveMapping" (reportAssignmentType)
 aliases_recursive.py:63:38 - error: Expression of type "list[str | list[float]]" is incompatible with declared type "GenericTypeAlias1[str]"
   Type "float" is incompatible with type "GenericTypeAlias1[T1@GenericTypeAlias1] | str"
-    "float" is incompatible with "GenericTypeAlias1[T1@GenericTypeAlias1]"
+    "float" is incompatible with "list[GenericTypeAlias1 | str]"
     "float" is incompatible with "str" (reportAssignmentType)
 aliases_recursive.py:69:51 - error: Expression of type "list[list[int | list[str | int | list[float]]] | str]" is incompatible with declared type "GenericTypeAlias2[str, int]"
   Type "float" is incompatible with type "GenericTypeAlias2[T1@GenericTypeAlias2, T2@GenericTypeAlias2] | str | int"
-    "float" is incompatible with "GenericTypeAlias2[T1@GenericTypeAlias2, T2@GenericTypeAlias2]"
+    "float" is incompatible with "list[GenericTypeAlias2 | str | int]"
     "float" is incompatible with "str"
     "float" is incompatible with "int" (reportAssignmentType)
 aliases_recursive.py:72:29 - error: Type alias "RecursiveUnion" cannot use itself in its definition (reportGeneralTypeIssues)
