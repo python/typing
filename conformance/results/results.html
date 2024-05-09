@@ -159,16 +159,16 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.10.0</div>
-<div class='tc-time'>1.3sec</div>
+<div class='tc-time'>1.0sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.361</div>
-<div class='tc-time'>1.6sec</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.362</div>
+<div class='tc-time'>1.4sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.19</div>
-<div class='tc-time'>4.1sec</div>
+<div class='tc-time'>2.8sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.04.11</div>
-<div class='tc-time'>38.5sec</div>
+<div class='tc-time'>31.9sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -254,7 +254,7 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults</th>
 <th class="column col2 not-conformant">Unsupported</th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly evaluates `assert_type` when type involves a ParamSpec or TypeVarTuple with a default value.</p></span></div></th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
@@ -602,7 +602,7 @@
 </th></tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callables_annotation</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly treats "*args: T, **kwargs: T" as "..." when T is specialized to Any.</p><p>Does not treat "*args: Any, **kargs: Any" as "..." when separated by keyword parameter.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not treat "*args: Any, **kwargs: Any" as "...".</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not evaluate correct type for `*args: int` parameter.</p><p>Does not reject illegal form `Callable[[...], int]`.</p><p>Does not correctly implement type compatibility rules for "...".</p><p>Does not treat "*args: Any, **kwargs: Any" as "...".</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support Concatenate.</p><p>Does not treat "*args: Any, **kwargs: Any" as "...".</p></span></div></th>
 </tr>
@@ -902,7 +902,7 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;narrowing_typeis</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly narrow types in negative (else) case.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not narrow correctly on generic tuple type.</p><p>Does not reject covariant use of TypeIs.</p><p>Does not reject TypeIs where return type is not consistent with input type due to variance.</p></span></div></th>
 </tr>

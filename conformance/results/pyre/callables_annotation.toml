@@ -17,22 +17,21 @@ callables_annotation.py:56:4 Invalid type [31]: Expression `typing.Callable[(int
 callables_annotation.py:57:4 Invalid type [31]: Expression `typing.Callable[([], [int])]` is not a valid type.
 callables_annotation.py:58:4 Invalid type [31]: Expression `typing.Callable[(int, int, int)]` is not a valid type.
 callables_annotation.py:89:5 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, ...)], str)]` is not a valid type.
-callables_annotation.py:133:29 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[typing.Any, None]`.
-callables_annotation.py:134:20 Undefined attribute [16]: `Proto5` has no attribute `__getitem__`.
-callables_annotation.py:135:29 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[object, None]`.
-callables_annotation.py:136:29 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[typing.Any, None]`.
-callables_annotation.py:137:20 Undefined attribute [16]: `Proto4` has no attribute `__getitem__`.
-callables_annotation.py:139:4 Incompatible variable type [9]: f1 is declared to have type `Proto6` but is used as type `Proto7`.
-callables_annotation.py:146:0 Incompatible variable type [9]: Callback1 is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.
-callables_annotation.py:147:0 Incompatible variable type [9]: Callback2 is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.
-callables_annotation.py:151:8 Undefined or invalid type [11]: Annotation `Callback1` is not defined as a type.
-callables_annotation.py:152:8 Undefined or invalid type [11]: Annotation `Callback2` is not defined as a type.
-callables_annotation.py:161:0 Incompatible variable type [9]: CallbackWithInt is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.
-callables_annotation.py:162:0 Incompatible variable type [9]: CallbackWithStr is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.
-callables_annotation.py:166:8 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, ...)], str)]` is not a valid type.
-callables_annotation.py:167:8 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(str, ...)], str)]` is not a valid type.
-callables_annotation.py:168:8 Undefined or invalid type [11]: Annotation `CallbackWithInt` is not defined as a type.
-callables_annotation.py:169:8 Undefined or invalid type [11]: Annotation `CallbackWithStr` is not defined as a type.
+callables_annotation.py:145:8 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, ...)], None)]` is not a valid type.
+callables_annotation.py:151:9 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, ...)], None)]` is not a valid type.
+callables_annotation.py:156:4 Incompatible variable type [9]: ok10 is declared to have type `Proto3` but is used as type `Proto4[[...]]`.
+callables_annotation.py:157:4 Incompatible variable type [9]: ok11 is declared to have type `Proto6` but is used as type `Proto7`.
+callables_annotation.py:159:4 Incompatible variable type [9]: err1 is declared to have type `Proto5[typing.Any]` but is used as type `Proto8`.
+callables_annotation.py:166:0 Incompatible variable type [9]: Callback1 is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.
+callables_annotation.py:167:0 Incompatible variable type [9]: Callback2 is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.
+callables_annotation.py:171:8 Undefined or invalid type [11]: Annotation `Callback1` is not defined as a type.
+callables_annotation.py:172:8 Undefined or invalid type [11]: Annotation `Callback2` is not defined as a type.
+callables_annotation.py:181:0 Incompatible variable type [9]: CallbackWithInt is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.
+callables_annotation.py:182:0 Incompatible variable type [9]: CallbackWithStr is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.
+callables_annotation.py:186:8 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, ...)], str)]` is not a valid type.
+callables_annotation.py:187:8 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(str, ...)], str)]` is not a valid type.
+callables_annotation.py:188:8 Undefined or invalid type [11]: Annotation `CallbackWithInt` is not defined as a type.
+callables_annotation.py:189:8 Undefined or invalid type [11]: Annotation `CallbackWithStr` is not defined as a type.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -41,15 +40,15 @@ Line 91: Expected 1 errors
 Line 93: Expected 1 errors
 Line 51: Unexpected errors ['callables_annotation.py:51:28 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], typing.Any]`.']
 Line 89: Unexpected errors ['callables_annotation.py:89:5 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, ...)], str)]` is not a valid type.']
-Line 133: Unexpected errors ['callables_annotation.py:133:29 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[typing.Any, None]`.']
-Line 135: Unexpected errors ['callables_annotation.py:135:29 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[object, None]`.']
-Line 137: Unexpected errors ['callables_annotation.py:137:20 Undefined attribute [16]: `Proto4` has no attribute `__getitem__`.']
-Line 139: Unexpected errors ['callables_annotation.py:139:4 Incompatible variable type [9]: f1 is declared to have type `Proto6` but is used as type `Proto7`.']
-Line 146: Unexpected errors ['callables_annotation.py:146:0 Incompatible variable type [9]: Callback1 is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.']
-Line 147: Unexpected errors ['callables_annotation.py:147:0 Incompatible variable type [9]: Callback2 is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.']
-Line 151: Unexpected errors ['callables_annotation.py:151:8 Undefined or invalid type [11]: Annotation `Callback1` is not defined as a type.']
-Line 161: Unexpected errors ['callables_annotation.py:161:0 Incompatible variable type [9]: CallbackWithInt is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.']
-Line 162: Unexpected errors ['callables_annotation.py:162:0 Incompatible variable type [9]: CallbackWithStr is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.']
-Line 166: Unexpected errors ['callables_annotation.py:166:8 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, ...)], str)]` is not a valid type.']
-Line 168: Unexpected errors ['callables_annotation.py:168:8 Undefined or invalid type [11]: Annotation `CallbackWithInt` is not defined as a type.']
+Line 145: Unexpected errors ['callables_annotation.py:145:8 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, ...)], None)]` is not a valid type.']
+Line 151: Unexpected errors ['callables_annotation.py:151:9 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, ...)], None)]` is not a valid type.']
+Line 156: Unexpected errors ['callables_annotation.py:156:4 Incompatible variable type [9]: ok10 is declared to have type `Proto3` but is used as type `Proto4[[...]]`.']
+Line 157: Unexpected errors ['callables_annotation.py:157:4 Incompatible variable type [9]: ok11 is declared to have type `Proto6` but is used as type `Proto7`.']
+Line 166: Unexpected errors ['callables_annotation.py:166:0 Incompatible variable type [9]: Callback1 is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.']
+Line 167: Unexpected errors ['callables_annotation.py:167:0 Incompatible variable type [9]: Callback2 is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.']
+Line 171: Unexpected errors ['callables_annotation.py:171:8 Undefined or invalid type [11]: Annotation `Callback1` is not defined as a type.']
+Line 181: Unexpected errors ['callables_annotation.py:181:0 Incompatible variable type [9]: CallbackWithInt is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.']
+Line 182: Unexpected errors ['callables_annotation.py:182:0 Incompatible variable type [9]: CallbackWithStr is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., str]]`.']
+Line 186: Unexpected errors ['callables_annotation.py:186:8 Invalid type [31]: Expression `typing.Callable[(typing.Concatenate[(int, ...)], str)]` is not a valid type.']
+Line 188: Unexpected errors ['callables_annotation.py:188:8 Undefined or invalid type [11]: Annotation `CallbackWithInt` is not defined as a type.']
 """

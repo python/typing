@@ -129,14 +129,34 @@ class Proto7(Protocol):
         pass
 
 
-def func(p1: Proto1, p2: Proto2, p3: Proto3, p7: Proto7):
-    assert_type(p1, Callable[..., None])  # OK
-    assert_type(p1, Proto5[Any])  # E
-    assert_type(p2, Callable[Concatenate[int, ...], None])  # OK
-    assert_type(p3, Callable[..., None])  # E
-    assert_type(p3, Proto4[...])  # OK
+class Proto8(Protocol):
+    def __call__(self) -> None: ...
 
-    f1: Proto6 = p7  # OK
+
+def func5(
+    p1: Proto1,
+    p2: Proto2,
+    p3: Proto3,
+    p4: Proto4[...],
+    p5: Proto5[Any],
+    p7: Proto7,
+    p8: Proto8,
+    c1: Callable[..., None],
+    c2: Callable[Concatenate[int, ...], None],
+):
+    ok1: Callable[..., None] = p1  # OK
+    ok2: Proto1 = c1  # OK
+    ok3: Callable[..., None] = p5  # OK
+    ok4: Proto5[Any] = c1  # OK
+    ok5: Callable[Concatenate[int, ...], None] = p2  # OK
+    ok6: Proto2 = c2  # OK
+    ok7: Callable[..., None] = p3  # OK
+    ok8: Proto3 = c1  # OK
+    ok9: Proto4[...] = p3  # OK
+    ok10: Proto3 = p4  # OK
+    ok11: Proto6 = p7  # OK
+
+    err1: Proto5[Any] = p8  # E
 
 
 # > The ... syntax can also be used to provide a specialized value for a
@@ -147,7 +167,7 @@ Callback1: TypeAlias = Callable[P, str]
 Callback2: TypeAlias = Callable[Concatenate[int, P], str]
 
 
-def func5(cb1: Callable[[], str], cb2: Callable[[int], str]) -> None:
+def func6(cb1: Callable[[], str], cb2: Callable[[int], str]) -> None:
     f1: Callback1[...] = cb1  # OK
     f2: Callback2[...] = cb1  # E
 
@@ -162,7 +182,7 @@ CallbackWithInt: TypeAlias = Callable[Concatenate[int, P], str]
 CallbackWithStr: TypeAlias = Callable[Concatenate[str, P], str]
 
 
-def func6(cb: Callable[[int, str], str]) -> None:
+def func7(cb: Callable[[int, str], str]) -> None:
     f1: Callable[Concatenate[int, ...], str] = cb  # OK
     f2: Callable[Concatenate[str, ...], str] = cb  # E
     f3: CallbackWithInt[...] = cb  # OK
