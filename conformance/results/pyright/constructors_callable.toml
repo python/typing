@@ -18,7 +18,7 @@ constructors_callable.py:77:13 - information: Type of "r4" is "(x: int) -> int"
 constructors_callable.py:79:1 - error: Argument missing for parameter "x" (reportCallIssue)
 constructors_callable.py:80:1 - error: Argument missing for parameter "x" (reportCallIssue)
 constructors_callable.py:80:4 - error: No parameter named "y" (reportCallIssue)
-constructors_callable.py:97:13 - information: Type of "r5" is "(*args: Any, **kwargs: Any) -> NoReturn"
+constructors_callable.py:97:13 - information: Type of "r5" is "(...) -> NoReturn"
 constructors_callable.py:125:13 - information: Type of "r6" is "() -> Class6Proxy"
 constructors_callable.py:127:4 - error: Expected 0 positional arguments (reportCallIssue)
 constructors_callable.py:142:13 - information: Type of "r6_any" is "() -> Any"

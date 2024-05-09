@@ -1,13 +1,22 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Incorrectly evaluates `assert_type` when type involves a ParamSpec or TypeVarTuple with a default value.
+"""
 output = """
 generics_defaults.py:24:7 - error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type (reportGeneralTypeIssues)
 generics_defaults.py:50:16 - error: Too few type arguments provided for "AllTheDefaults"; expected 2 but received 1 (reportInvalidTypeArguments)
+generics_defaults.py:79:13 - error: "assert_type" mismatch: expected "type[Class_ParamSpec[(str, int)]]" but received "type[Class_ParamSpec[(str, int)]]" (reportAssertTypeFailure)
+generics_defaults.py:80:13 - error: "assert_type" mismatch: expected "Class_ParamSpec[(str, int)]" but received "Class_ParamSpec[(str, int)]" (reportAssertTypeFailure)
 generics_defaults.py:104:39 - error: TypeVar default type must be a subtype of the bound type (reportGeneralTypeIssues)
 generics_defaults.py:111:40 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)
 generics_defaults.py:138:7 - error: TypeVar "T5" has a default value and cannot follow TypeVarTuple "Ts" (reportGeneralTypeIssues)
+generics_defaults.py:151:13 - error: "assert_type" mismatch: expected "type[Foo6[int, str, (float, bool)]]" but received "type[Foo6[int, str, (float, bool)]]" (reportAssertTypeFailure)
 generics_defaults.py:167:18 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 79: Unexpected errors ['generics_defaults.py:79:13 - error: "assert_type" mismatch: expected "type[Class_ParamSpec[(str, int)]]" but received "type[Class_ParamSpec[(str, int)]]" (reportAssertTypeFailure)']
+Line 80: Unexpected errors ['generics_defaults.py:80:13 - error: "assert_type" mismatch: expected "Class_ParamSpec[(str, int)]" but received "Class_ParamSpec[(str, int)]" (reportAssertTypeFailure)']
+Line 151: Unexpected errors ['generics_defaults.py:151:13 - error: "assert_type" mismatch: expected "type[Foo6[int, str, (float, bool)]]" but received "type[Foo6[int, str, (float, bool)]]" (reportAssertTypeFailure)']
 """
 ignore_errors = ["Access to generic instance variable through class is ambiguous"]

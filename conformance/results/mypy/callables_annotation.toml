@@ -19,19 +19,18 @@ callables_annotation.py:58: error: Please use "Callable[[<parameters>], <return 
 callables_annotation.py:59: error: Unexpected "..."  [misc]
 callables_annotation.py:91: error: Incompatible types in assignment (expression has type "Callable[[], str]", variable has type "Callable[[int, VarArg(Any), KwArg(Any)], str]")  [assignment]
 callables_annotation.py:93: error: Incompatible types in assignment (expression has type "Callable[[NamedArg(int, 'a')], str]", variable has type "Callable[[int, VarArg(Any), KwArg(Any)], str]")  [assignment]
-callables_annotation.py:136: error: Expression is of type "Proto3", not "Callable[..., None]"  [assert-type]
-callables_annotation.py:139: error: Incompatible types in assignment (expression has type "Proto7", variable has type "Proto6")  [assignment]
-callables_annotation.py:139: note: Following member(s) of "Proto7" have conflicts:
-callables_annotation.py:139: note:     Expected:
-callables_annotation.py:139: note:         def __call__(self, int, /, *args: Any, k: str, **kwargs: Any) -> None
-callables_annotation.py:139: note:     Got:
-callables_annotation.py:139: note:         def __call__(self, float, /, b: int, *, k: str, m: str) -> None
-callables_annotation.py:152: error: Incompatible types in assignment (expression has type "Callable[[], str]", variable has type "Callable[[int, VarArg(Any), KwArg(Any)], str]")  [assignment]
-callables_annotation.py:167: error: Incompatible types in assignment (expression has type "Callable[[int, str], str]", variable has type "Callable[[str, VarArg(Any), KwArg(Any)], str]")  [assignment]
-callables_annotation.py:169: error: Incompatible types in assignment (expression has type "Callable[[int, str], str]", variable has type "Callable[[str, VarArg(Any), KwArg(Any)], str]")  [assignment]
+callables_annotation.py:157: error: Incompatible types in assignment (expression has type "Proto7", variable has type "Proto6")  [assignment]
+callables_annotation.py:157: note: Following member(s) of "Proto7" have conflicts:
+callables_annotation.py:157: note:     Expected:
+callables_annotation.py:157: note:         def __call__(self, int, /, *args: Any, k: str, **kwargs: Any) -> None
+callables_annotation.py:157: note:     Got:
+callables_annotation.py:157: note:         def __call__(self, float, /, b: int, *, k: str, m: str) -> None
+callables_annotation.py:172: error: Incompatible types in assignment (expression has type "Callable[[], str]", variable has type "Callable[[int, VarArg(Any), KwArg(Any)], str]")  [assignment]
+callables_annotation.py:187: error: Incompatible types in assignment (expression has type "Callable[[int, str], str]", variable has type "Callable[[str, VarArg(Any), KwArg(Any)], str]")  [assignment]
+callables_annotation.py:189: error: Incompatible types in assignment (expression has type "Callable[[int, str], str]", variable has type "Callable[[str, VarArg(Any), KwArg(Any)], str]")  [assignment]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 134: Expected 1 errors
-Line 139: Unexpected errors ['callables_annotation.py:139: error: Incompatible types in assignment (expression has type "Proto7", variable has type "Proto6")  [assignment]']
+Line 159: Expected 1 errors
+Line 157: Unexpected errors ['callables_annotation.py:157: error: Incompatible types in assignment (expression has type "Proto7", variable has type "Proto6")  [assignment]']
 """

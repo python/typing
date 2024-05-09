@@ -1,15 +1,8 @@
-conformant = "Partial"
-notes = """
-Does not correctly narrow types in negative (else) case.
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 19: Unexpected errors ['narrowing_typeis.py:19:21 - error: "assert_type" mismatch: expected "tuple[str, str]" but received "tuple[str, ...]" (reportAssertTypeFailure)']
-Line 38: Unexpected errors ['narrowing_typeis.py:38:21 - error: "assert_type" mismatch: expected "int" but received "int | Awaitable[int]" (reportAssertTypeFailure)']
 """
 output = """
-narrowing_typeis.py:19:21 - error: "assert_type" mismatch: expected "tuple[str, str]" but received "tuple[str, ...]" (reportAssertTypeFailure)
-narrowing_typeis.py:38:21 - error: "assert_type" mismatch: expected "int" but received "int | Awaitable[int]" (reportAssertTypeFailure)
 narrowing_typeis.py:105:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)
 narrowing_typeis.py:110:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)
 narrowing_typeis.py:132:20 - error: Argument of type "(val: object) -> TypeIs[int]" cannot be assigned to parameter "f" of type "(object) -> str" in function "takes_callable_str"
