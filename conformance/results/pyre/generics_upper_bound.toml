@@ -3,7 +3,7 @@ notes = """
 Does not reject use of upper bound with constrained TypeVar.
 """
 output = """
-generics_upper_bound.py:24:42 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.
+generics_upper_bound.py:24:37 Undefined attribute [16]: `list` has no attribute `__getitem__`.
 generics_upper_bound.py:51:7 Incompatible parameter type [6]: In call `longer`, for 1st positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.
 generics_upper_bound.py:51:10 Incompatible parameter type [6]: In call `longer`, for 2nd positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.
 """

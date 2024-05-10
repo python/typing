@@ -3,9 +3,7 @@ notes = """
 Does not evaluate correct type for async function.
 """
 output = """
-annotations_coroutines.py:19:45 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_T_co](covariant)], Type[Variable[_T_contra](contravariant)], Type[Variable[_V_co](covariant)]]` but got `Tuple[object, object, Type[str]]`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 19: Unexpected errors ['annotations_coroutines.py:19:45 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_T_co](covariant)], Type[Variable[_T_contra](contravariant)], Type[Variable[_V_co](covariant)]]` but got `Tuple[object, object, Type[str]]`.']
 """

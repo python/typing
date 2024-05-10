@@ -5,11 +5,8 @@ Does not support TypeVarTuple.
 output = """
 generics_typevartuple_args.py:16:25 Invalid type [31]: Expression `*$local_generics_typevartuple_args$Ts` is not a valid type.
 generics_typevartuple_args.py:16:33 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_args$Ts)]` is not a valid type.
-generics_typevartuple_args.py:20:41 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[str]]`.
 generics_typevartuple_args.py:27:30 Invalid type [31]: Expression `*tuple[(*$local_generics_typevartuple_args$Ts, generics_typevartuple_args.Env)]` is not a valid type.
 generics_typevartuple_args.py:27:76 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_args$Ts)]` is not a valid type.
-generics_typevartuple_args.py:31:38 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[]`.
-generics_typevartuple_args.py:32:45 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[str]]`.
 generics_typevartuple_args.py:42:17 Invalid type [31]: Expression `*tuple[(int, ...)]` is not a valid type.
 generics_typevartuple_args.py:51:17 Invalid type [31]: Expression `*tuple[(int, *tuple[(str, ...)], str)]` is not a valid type.
 generics_typevartuple_args.py:62:17 Invalid type [31]: Expression `*tuple[(int, str)]` is not a valid type.
@@ -27,10 +24,7 @@ Line 59: Expected 1 errors
 Line 67: Expected 1 errors
 Line 76: Expected 1 errors
 Line 16: Unexpected errors ['generics_typevartuple_args.py:16:25 Invalid type [31]: Expression `*$local_generics_typevartuple_args$Ts` is not a valid type.', 'generics_typevartuple_args.py:16:33 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_args$Ts)]` is not a valid type.']
-Line 20: Unexpected errors ['generics_typevartuple_args.py:20:41 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[str]]`.']
 Line 27: Unexpected errors ['generics_typevartuple_args.py:27:30 Invalid type [31]: Expression `*tuple[(*$local_generics_typevartuple_args$Ts, generics_typevartuple_args.Env)]` is not a valid type.', 'generics_typevartuple_args.py:27:76 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_args$Ts)]` is not a valid type.']
-Line 31: Unexpected errors ['generics_typevartuple_args.py:31:38 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[]`.']
-Line 32: Unexpected errors ['generics_typevartuple_args.py:32:45 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[str]]`.']
 Line 42: Unexpected errors ['generics_typevartuple_args.py:42:17 Invalid type [31]: Expression `*tuple[(int, ...)]` is not a valid type.']
 Line 51: Unexpected errors ['generics_typevartuple_args.py:51:17 Invalid type [31]: Expression `*tuple[(int, *tuple[(str, ...)], str)]` is not a valid type.']
 Line 62: Unexpected errors ['generics_typevartuple_args.py:62:17 Invalid type [31]: Expression `*tuple[(int, str)]` is not a valid type.']

@@ -3,8 +3,8 @@ notes = """
 Does not report type incompatibility with comparison operator.
 """
 output = """
+dataclasses_order.py:50:3 Unsupported operand [58]: `<` is not supported for operand types `DC1` and `DC2`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 50: Expected 1 errors
 """

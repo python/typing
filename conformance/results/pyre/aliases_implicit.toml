@@ -12,11 +12,6 @@ aliases_implicit.py:38:26 Incompatible parameter type [6]: In call `typing.Gener
 aliases_implicit.py:42:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[ParamSpec, None]`.
 aliases_implicit.py:54:8 Undefined or invalid type [11]: Annotation `GoodTypeAlias9` is not defined as a type.
 aliases_implicit.py:58:9 Undefined or invalid type [11]: Annotation `GoodTypeAlias13` is not defined as a type.
-aliases_implicit.py:62:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `UnionType`.
-aliases_implicit.py:64:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.
-aliases_implicit.py:65:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[int], Type[int], Type[str]]`.
-aliases_implicit.py:68:29 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[List[Type[Union[int, str]]], None]`.
-aliases_implicit.py:72:30 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[typing.Any, None]`.
 aliases_implicit.py:106:8 Undefined or invalid type [11]: Annotation `BadTypeAlias1` is not defined as a type.
 aliases_implicit.py:107:8 Undefined or invalid type [11]: Annotation `BadTypeAlias2` is not defined as a type.
 aliases_implicit.py:108:8 Undefined or invalid type [11]: Annotation `BadTypeAlias3` is not defined as a type.
@@ -31,6 +26,7 @@ aliases_implicit.py:116:9 Undefined or invalid type [11]: Annotation `BadTypeAli
 aliases_implicit.py:117:9 Undefined or invalid type [11]: Annotation `BadTypeAlias12` is not defined as a type.
 aliases_implicit.py:118:9 Undefined or invalid type [11]: Annotation `BadTypeAlias13` is not defined as a type.
 aliases_implicit.py:119:9 Undefined or invalid type [11]: Annotation `BadTypeAlias14` is not defined as a type.
+aliases_implicit.py:131:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `List[int]` but got `typing.Any`.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -46,9 +42,5 @@ Line 38: Unexpected errors ['aliases_implicit.py:38:26 Incompatible parameter ty
 Line 42: Unexpected errors ['aliases_implicit.py:42:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[ParamSpec, None]`.']
 Line 54: Unexpected errors ['aliases_implicit.py:54:8 Undefined or invalid type [11]: Annotation `GoodTypeAlias9` is not defined as a type.']
 Line 58: Unexpected errors ['aliases_implicit.py:58:9 Undefined or invalid type [11]: Annotation `GoodTypeAlias13` is not defined as a type.']
-Line 62: Unexpected errors ['aliases_implicit.py:62:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `UnionType`.']
-Line 64: Unexpected errors ['aliases_implicit.py:64:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.']
-Line 65: Unexpected errors ['aliases_implicit.py:65:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[int], Type[int], Type[str]]`.']
-Line 68: Unexpected errors ['aliases_implicit.py:68:29 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[List[Type[Union[int, str]]], None]`.']
-Line 72: Unexpected errors ['aliases_implicit.py:72:30 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[typing.Any, None]`.']
+Line 131: Unexpected errors ['aliases_implicit.py:131:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `List[int]` but got `typing.Any`.']
 """

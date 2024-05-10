@@ -4,20 +4,12 @@ Does not treat missing type argument as Any in generic type.
 Does not support Any as a base class.
 """
 output = """
-specialtypes_any.py:48:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `object`.
-specialtypes_any.py:49:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_KT]], Type[Variable[_VT]]]` but got `Tuple[object, object]`.
-specialtypes_any.py:62:28 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[object, typing.Any]`.
-specialtypes_any.py:72:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[typing.Any, object]`.
 specialtypes_any.py:81:13 Invalid inheritance [39]: `typing.Any` is not a valid parent class.
 specialtypes_any.py:87:12 Undefined attribute [16]: `ClassA` has no attribute `method2`.
 specialtypes_any.py:88:12 Undefined attribute [16]: `ClassA` has no attribute `method3`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 48: Unexpected errors ['specialtypes_any.py:48:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `object`.']
-Line 49: Unexpected errors ['specialtypes_any.py:49:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_KT]], Type[Variable[_VT]]]` but got `Tuple[object, object]`.']
-Line 62: Unexpected errors ['specialtypes_any.py:62:28 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[object, typing.Any]`.']
-Line 72: Unexpected errors ['specialtypes_any.py:72:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[typing.Any, object]`.']
 Line 81: Unexpected errors ['specialtypes_any.py:81:13 Invalid inheritance [39]: `typing.Any` is not a valid parent class.']
 Line 87: Unexpected errors ['specialtypes_any.py:87:12 Undefined attribute [16]: `ClassA` has no attribute `method2`.']
 Line 88: Unexpected errors ['specialtypes_any.py:88:12 Undefined attribute [16]: `ClassA` has no attribute `method3`.']

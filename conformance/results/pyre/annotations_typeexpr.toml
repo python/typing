@@ -3,8 +3,6 @@ notes = """
 Rejects some generics
 """
 output = """
-annotations_typeexpr.py:75:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `object`.
-annotations_typeexpr.py:77:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[object, typing.Any]`.
 annotations_typeexpr.py:88:8 Invalid type [31]: Expression `eval("".join(map(chr, [105, 110, 116])))` is not a valid type.
 annotations_typeexpr.py:89:8 Invalid type [31]: Expression `[int, str]` is not a valid type.
 annotations_typeexpr.py:90:8 Invalid type [31]: Expression `(int, str)` is not a valid type.
@@ -21,8 +19,6 @@ annotations_typeexpr.py:100:9 Invalid type [31]: Expression `int or str` is not 
 annotations_typeexpr.py:101:9 Invalid type [31]: Expression `"int"` is not a valid type.
 annotations_typeexpr.py:102:9 Undefined or invalid type [11]: Annotation `types` is not defined as a type.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 75: Unexpected errors ['annotations_typeexpr.py:75:26 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `object`.']
-Line 77: Unexpected errors ['annotations_typeexpr.py:77:27 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[object, typing.Any]`.']
 """
