@@ -1,6 +1,6 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not understand @dataclass_transform.
+Does not understand custom field specifiers.
 """
 output = """
 dataclasses_transform_meta.py:25:0 Uninitialized attribute [13]: Attribute `not_a_field` is declared in class `ModelMeta` to have type `str` but is never initialized.

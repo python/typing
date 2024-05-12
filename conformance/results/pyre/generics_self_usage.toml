@@ -1,6 +1,11 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not understand `Self` type.
+Complains in some cases when `self: Self` is used explicitly.
+Does not complain when `Self` is used on a function outside any class definition.
+Does not complain when `self` is annotated explicitly (without `Self`) and `Self` is returned.
+Does not complain on inheritance involving `Self`.
+Does not complain on use of `Self` in static methods.
+Does not complain on use of `Self` in metaclasses.
 """
 output = """
 generics_self_usage.py:20:34 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.

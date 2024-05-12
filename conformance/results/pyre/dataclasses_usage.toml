@@ -2,6 +2,8 @@ conformant = "Partial"
 notes = """
 Does not report error when field with no default follows field with default.
 Incorrectly reports error with InitVar that has default value.
+Complains on `assert_type` when used for bound methods vs `Callable`.
+Does not understand `__dataclass_fields__`.
 """
 output = """
 dataclasses_usage.py:50:5 Missing argument [20]: Call `InventoryItem.__init__` expects argument `unit_price`.

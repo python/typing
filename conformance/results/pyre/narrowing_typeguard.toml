@@ -1,8 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not support `tuple` in `assert_type` call.
 Does not reject TypeGuard method with too few parameters.
-Does not allow covariant use of TypeGuard.
 """
 output = """
 narrowing_typeguard.py:128:19 Incompatible parameter type [6]: In call `takes_callable_str`, for 1st positional argument, expected `typing.Callable[[object], str]` but got `typing.Callable(simple_typeguard)[[Named(val, object)], TypeGuard[int]]`.

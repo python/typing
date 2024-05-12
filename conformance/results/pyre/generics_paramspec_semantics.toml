@@ -1,9 +1,4 @@
-conformant = "Partial"
-notes = """
-Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).
-Reports error for legitimate Callable type annotation that uses Concatenate.
-Does not evaluate the correct type for call of Callable defined with Concatenate.
-"""
+conformant = "Pass"
 output = """
 generics_paramspec_semantics.py:26:0 Unexpected keyword [28]: Unexpected keyword argument `a` to anonymous call.
 generics_paramspec_semantics.py:27:8 Incompatible parameter type [6]: In anonymous call, for 2nd positional argument, expected `bool` but got `str`.

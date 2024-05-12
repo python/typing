@@ -1,6 +1,6 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not understand `Self` type.
+Does not handle use of `Self` as a generic type.
 """
 output = """
 generics_self_basic.py:14:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]`.

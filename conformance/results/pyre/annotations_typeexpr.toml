@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Rejects some generics
-"""
+conformant = "Pass"
 output = """
 annotations_typeexpr.py:88:8 Invalid type [31]: Expression `eval("".join(map(chr, [105, 110, 116])))` is not a valid type.
 annotations_typeexpr.py:89:8 Invalid type [31]: Expression `[int, str]` is not a valid type.

@@ -8,6 +8,7 @@ Does not reject use of ClassVar in local variable annotation.
 Does not reject use of ClassVar in instance variable annotation.
 Does not reject use of ClassVar in return type annotation.
 Does not reject use of ClassVar in type alias definition.
+Does not infer type from initialization for bare ClassVar.
 """
 output = """
 classes_classvar.py:33:0 Uninitialized attribute [13]: Attribute `bad1` is declared in class `ClassA` to have type `typing.Any` but is never initialized.

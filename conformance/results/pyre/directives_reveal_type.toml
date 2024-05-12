@@ -1,6 +1,6 @@
-conformant = "Unsupported"
-notes = """
-Does not understand reveal_type call.
+conformant = "Partial"
+notes = """"
+Produces errors rather than warnings on `reveal_type`.
 """
 output = """
 directives_reveal_type.py:14:4 Revealed type [-1]: Revealed type for `a` is `typing.Union[int, str]`.

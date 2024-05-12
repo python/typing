@@ -1,6 +1,6 @@
 conformant = "Unsupported"
 notes = """
-Does not understand @dataclass_transform.
+Does not understand dataclass transform field specifiers.
 """
 output = """
 dataclasses_transform_field.py:49:42 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters.

@@ -1,4 +1,7 @@
 conformant = "Unsupported"
+notes = """
+Does not support generic defaults.
+"""
 output = """
 generics_defaults.py:24:31 Undefined or invalid type [11]: Annotation `DefaultStrT` is not defined as a type.
 generics_defaults.py:24:31 Undefined or invalid type [11]: Annotation `T` is not defined as a type.

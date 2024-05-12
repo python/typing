@@ -1,6 +1,6 @@
-conformant = "Unsupported"
+conformant = "Pass"
 notes = """
-Does not understand "assert_type".
+Does not weaken literal types in `assert_type`, which some (other) tests rely on.
 """
 output = """
 directives_assert_type.py:27:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Union[int, str]`.

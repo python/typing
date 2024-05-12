@@ -1,4 +1,7 @@
-conformant = "Pass"
+conformant = "Unsupported"
+notes = """
+Does not understand context manager exception rules.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 50: Unexpected errors ['exceptions_context_managers.py:50:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Union[int, str]` but got `str`.']

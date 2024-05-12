@@ -1,6 +1,6 @@
 conformant = "Unsupported"
 notes = """
-Does not support TypeVarTuple.
+Does not support star expressions for `Unpack`.
 """
 output = """
 generics_typevartuple_specialization.py:16:12 Invalid type [31]: Expression `typing.Generic[(*$local_generics_typevartuple_specialization$Ts)]` is not a valid type.

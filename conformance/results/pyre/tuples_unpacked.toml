@@ -1,7 +1,6 @@
 conformant = "Partial"
 notes = """
-Rejects some legal tuple type forms involving unpack.
-Does not reject some illegal tuple type forms involving unpack.
+Does not understand star syntax for `Unpack`.
 """
 output = """
 tuples_unpacked.py:16:13 Invalid type [31]: Expression `tuple[(int, *tuple[(bool, bool)], str)]` is not a valid type.

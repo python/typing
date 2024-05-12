@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Does not correctly handle type annotation type[None].
-"""
+conformant = "Pass"
 output = """
 specialtypes_none.py:21:6 Incompatible parameter type [6]: In call `func1`, for 1st positional argument, expected `None` but got `Type[None]`.
 specialtypes_none.py:27:0 Incompatible variable type [9]: none2 is declared to have type `Iterable[typing.Any]` but is used as type `None`.

@@ -1,8 +1,8 @@
 conformant = "Partial"
 notes = """
 Does not reject positional-only parameter after non-positional-only parameter.
-Treats keyword-only parameter as positional-only.
-Applies legacy positional-only rules when PEP 570 syntax is used.
+Incorrectly applies legacy positional-only rules when explicit *args are used.
+Incorrectly applies legacy positional-only rules when PEP 570 syntax is used.
 """
 output = """
 historical_positional.py:18:0 Unexpected keyword [28]: Unexpected keyword argument `__x` to call `f1`.

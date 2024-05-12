@@ -1,6 +1,6 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not yet support the @override decorator.
+Does not allow Any as a base class, leading to false positives.
 """
 output = """
 classes_override.py:53:4 Invalid override [40]: `classes_override.ChildA.method3` is decorated with @override, but no method of the same name exists in superclasses of `ChildA`.

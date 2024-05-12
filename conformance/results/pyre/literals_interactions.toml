@@ -1,6 +1,7 @@
 conformant = "Partial"
 notes = """
 Does not detect out-of-bound tuple literal index.
+Does not perform exhaustiveness checks on enums.
 Does not narrow type of `x` with `x in Literal` type guard pattern.
 Does not narrow type of `x` with `x == Literal` type guard pattern.
 """

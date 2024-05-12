@@ -1,6 +1,8 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not understand @dataclass_transform.
+Does not understand @dataclass_transform when it is
+applied only to overloads of a decorator but not the
+definition.
 """
 output = """
 dataclasses_transform_func.py:20:0 Incompatible overload [43]: The implementation of `create_model` does not accept all possible arguments of overload defined on line `20`.

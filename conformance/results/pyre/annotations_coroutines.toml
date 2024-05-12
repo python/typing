@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Does not evaluate correct type for async function.
-"""
+conformant = "Pass"
 output = """
 """
 conformance_automated = "Pass"

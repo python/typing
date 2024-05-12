@@ -1,6 +1,7 @@
 conformant = "Partial"
 notes = """
-Does not reject use of upper bound with constrained TypeVar.
+False positives on valid type expression (`list[T]`) in `bound`.
+Does not complain when bound is used alongside type constraints.
 """
 output = """
 generics_upper_bound.py:24:37 Undefined attribute [16]: `list` has no attribute `__getitem__`.

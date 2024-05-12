@@ -1,4 +1,7 @@
 conformant = "Unsupported"
+notes = """
+Does not support generic defaults.
+"""
 output = """
 generics_defaults_specialization.py:19:30 Undefined or invalid type [11]: Annotation `T1` is not defined as a type.
 generics_defaults_specialization.py:19:30 Undefined or invalid type [11]: Annotation `T2` is not defined as a type.

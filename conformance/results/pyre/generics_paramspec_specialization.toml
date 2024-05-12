@@ -1,7 +1,6 @@
 conformant = "Partial"
 notes = """
-Reports error for legitimate use of ParamSpec and Concatenate in function signature.
-Reports error for legitimate specialization of generic class parameterized with ParamSpec.
+Reports error for legitimate use of `...` to specialize ParamSpec
 """
 output = """
 generics_paramspec_specialization.py:14:0 Uninitialized attribute [13]: Attribute `f` is declared in class `ClassA` to have type `typing.Callable[generics_paramspec_specialization.P1, int]` but is never initialized.

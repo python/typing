@@ -1,6 +1,6 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not understand `Self` type.
+Does not handle use of `Self` within class body correctly.
 """
 output = """
 generics_self_advanced.py:25:7 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.

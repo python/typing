@@ -1,7 +1,8 @@
 conformant = "Partial"
 notes = """
-Doesn't allow using Node[Any] in assert_type expression.
+Does not erase unspecified type variables to `Any` prior to `assert_type` handling.
 False negatives on instance attribute access on the type.
+Does not infer type of `DefaultDict` with explicit type parameters on constructor.
 """
 output = """
 generics_type_erasure.py:11:0 Uninitialized attribute [13]: Attribute `label` is declared in class `Node` to have type `Variable[T]` but is never initialized.
