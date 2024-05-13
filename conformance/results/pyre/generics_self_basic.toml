@@ -1,22 +1,21 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not understand `Self` type.
+Does not handle use of `Self` as a generic type.
 """
 output = """
-generics_self_basic.py:14:26 Undefined attribute [16]: Module `typing` has no attribute `Self`.
+generics_self_basic.py:14:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]`.
+generics_self_basic.py:14:26 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.
 generics_self_basic.py:20:8 Incompatible return type [7]: Expected `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]` but got `Shape`.
-generics_self_basic.py:27:30 Undefined attribute [16]: Module `typing` has no attribute `Self`.
+generics_self_basic.py:27:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Type[Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]]`.
 generics_self_basic.py:33:8 Incompatible return type [7]: Expected `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]` but got `Shape`.
-generics_self_basic.py:40:27 Undefined attribute [16]: Module `typing` has no attribute `Self`.
+generics_self_basic.py:40:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]`.
 generics_self_basic.py:58:0 Uninitialized attribute [13]: Attribute `value` is declared in class `Container` to have type `Variable[T]` but is never initialized.
-generics_self_basic.py:64:25 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.
-generics_self_basic.py:80:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[T]]` but got `TypeVar`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 14: Unexpected errors ['generics_self_basic.py:14:26 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
-Line 27: Unexpected errors ['generics_self_basic.py:27:30 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
-Line 40: Unexpected errors ['generics_self_basic.py:40:27 Undefined attribute [16]: Module `typing` has no attribute `Self`.']
+Line 64: Expected 1 errors
+Line 14: Unexpected errors ['generics_self_basic.py:14:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]`.', 'generics_self_basic.py:14:26 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.']
+Line 27: Unexpected errors ['generics_self_basic.py:27:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Type[Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]]`.']
+Line 40: Unexpected errors ['generics_self_basic.py:40:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]`.']
 Line 58: Unexpected errors ['generics_self_basic.py:58:0 Uninitialized attribute [13]: Attribute `value` is declared in class `Container` to have type `Variable[T]` but is never initialized.']
-Line 80: Unexpected errors ['generics_self_basic.py:80:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[T]]` but got `TypeVar`.']
 """

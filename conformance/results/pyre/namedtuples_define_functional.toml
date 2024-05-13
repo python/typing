@@ -1,7 +1,8 @@
-conformant = "Pass"
+conformant = "Partial"
 notes = """
 Does not reject duplicate field names in functional form.
 Does not handle illegal named tuple names the same as runtime.
+Does not handle defined fields correctly when extra flags like `rename` or `default` are used.
 Does not support defaults in functional form.
 """
 output = """

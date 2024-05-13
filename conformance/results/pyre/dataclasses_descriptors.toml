@@ -4,8 +4,16 @@ Incorrectly generates error when calling constructor of dataclass with descripto
 """
 output = """
 dataclasses_descriptors.py:35:10 Incompatible parameter type [6]: In call `DC1.__init__`, for 1st positional argument, expected `Desc1` but got `int`.
+dataclasses_descriptors.py:61:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `List[int]` but got `Desc2[int]`.
+dataclasses_descriptors.py:62:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `List[str]` but got `Desc2[str]`.
+dataclasses_descriptors.py:66:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Desc2[int]`.
+dataclasses_descriptors.py:67:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Desc2[str]`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 35: Unexpected errors ['dataclasses_descriptors.py:35:10 Incompatible parameter type [6]: In call `DC1.__init__`, for 1st positional argument, expected `Desc1` but got `int`.']
+Line 61: Unexpected errors ['dataclasses_descriptors.py:61:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `List[int]` but got `Desc2[int]`.']
+Line 62: Unexpected errors ['dataclasses_descriptors.py:62:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `List[str]` but got `Desc2[str]`.']
+Line 66: Unexpected errors ['dataclasses_descriptors.py:66:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Desc2[int]`.']
+Line 67: Unexpected errors ['dataclasses_descriptors.py:67:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Desc2[str]`.']
 """

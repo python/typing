@@ -1,6 +1,5 @@
 conformant = "Unsupported"
 output = """
-typeddicts_readonly_inheritance.py:8:0 Undefined import [21]: Could not find a name `ReadOnly` defined in module `typing_extensions`.
 typeddicts_readonly_inheritance.py:15:10 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.
 typeddicts_readonly_inheritance.py:18:0 Inconsistent override [15]: `name` overrides attribute defined in `NamedDict` inconsistently. Type `str` is not a subtype of the overridden attribute `unknown`.
 typeddicts_readonly_inheritance.py:65:18 TypedDict initialization error [55]: Missing required field `name` for TypedDict `RequiredName`.
@@ -20,7 +19,6 @@ Line 94: Expected 1 errors
 Line 98: Expected 1 errors
 Line 106: Expected 1 errors
 Line 132: Expected 1 errors
-Line 8: Unexpected errors ['typeddicts_readonly_inheritance.py:8:0 Undefined import [21]: Could not find a name `ReadOnly` defined in module `typing_extensions`.']
 Line 15: Unexpected errors ['typeddicts_readonly_inheritance.py:15:10 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.']
 Line 18: Unexpected errors ['typeddicts_readonly_inheritance.py:18:0 Inconsistent override [15]: `name` overrides attribute defined in `NamedDict` inconsistently. Type `str` is not a subtype of the overridden attribute `unknown`.']
 Line 75: Unexpected errors ['typeddicts_readonly_inheritance.py:75:0 Inconsistent override [15]: `ident` overrides attribute defined in `OptionalIdent` inconsistently. Type `str` is not a subtype of the overridden attribute `unknown`.']

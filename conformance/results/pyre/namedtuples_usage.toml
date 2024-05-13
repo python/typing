@@ -4,8 +4,15 @@ Does not report out-of-range index access with named tuple instance.
 Does not reject attempt to delete named tuple field by name.
 Does not reject attempt to delete named tuple field by index.
 Incorrectly handles subclasses of named tuples that add more attributes.
+Does not handle unpacking of named tuples.
 """
 output = """
+namedtuples_usage.py:27:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.
+namedtuples_usage.py:28:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.
+namedtuples_usage.py:29:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `typing.Any`.
+namedtuples_usage.py:30:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `typing.Any`.
+namedtuples_usage.py:31:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.
+namedtuples_usage.py:32:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.
 namedtuples_usage.py:40:0 Invalid assignment [41]: Cannot reassign final attribute `p.x`.
 namedtuples_usage.py:41:0 Undefined attribute [16]: `Point` has no attribute `__setitem__`.
 namedtuples_usage.py:52:0 Unable to unpack [23]: Unable to unpack 3 values, 2 were expected.
@@ -18,5 +25,11 @@ Line 34: Expected 1 errors
 Line 35: Expected 1 errors
 Line 42: Expected 1 errors
 Line 43: Expected 1 errors
+Line 27: Unexpected errors ['namedtuples_usage.py:27:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.']
+Line 28: Unexpected errors ['namedtuples_usage.py:28:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.']
+Line 29: Unexpected errors ['namedtuples_usage.py:29:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `typing.Any`.']
+Line 30: Unexpected errors ['namedtuples_usage.py:30:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `typing.Any`.']
+Line 31: Unexpected errors ['namedtuples_usage.py:31:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.']
+Line 32: Unexpected errors ['namedtuples_usage.py:32:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.']
 Line 61: Unexpected errors ['namedtuples_usage.py:61:0 Unable to unpack [23]: Unable to unpack 0 values, 3 were expected.']
 """

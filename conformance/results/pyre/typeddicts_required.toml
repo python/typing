@@ -3,6 +3,7 @@ notes = """
 Does not reject use of `Required` in function parameter annotation.
 Does not reject nested use of `Required` in type annotation.
 Does not support recursive TypedDict definitions.
+Incorrectly complains about uninitialized attributes on TypedDict definitions.
 """
 output = """
 typeddicts_required.py:11:0 Uninitialized attribute [13]: Attribute `x` is declared in class `NotTypedDict` to have type `Required[int]` but is never initialized.

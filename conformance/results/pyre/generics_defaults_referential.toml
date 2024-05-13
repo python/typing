@@ -3,34 +3,59 @@ output = """
 generics_defaults_referential.py:20:12 Undefined or invalid type [11]: Annotation `StartT` is not defined as a type.
 generics_defaults_referential.py:20:12 Undefined or invalid type [11]: Annotation `StepT` is not defined as a type.
 generics_defaults_referential.py:20:12 Undefined or invalid type [11]: Annotation `StopT` is not defined as a type.
-generics_defaults_referential.py:23:24 Undefined attribute [16]: `slice` has no attribute `__getitem__`.
+generics_defaults_referential.py:23:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Type[slice[]]` but got `Type[slice]`.
+generics_defaults_referential.py:23:19 Invalid type parameters [24]: Non-generic type `slice` cannot take parameters.
+generics_defaults_referential.py:24:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `slice[]` but got `slice`.
+generics_defaults_referential.py:24:21 Invalid type parameters [24]: Non-generic type `slice` cannot take parameters.
+generics_defaults_referential.py:25:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `slice[]` but got `typing.Any`.
+generics_defaults_referential.py:25:12 Undefined attribute [16]: `slice` has no attribute `__getitem__`.
+generics_defaults_referential.py:25:26 Invalid type parameters [24]: Non-generic type `slice` cannot take parameters.
+generics_defaults_referential.py:26:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `slice[]` but got `typing.Any`.
+generics_defaults_referential.py:26:41 Invalid type parameters [24]: Non-generic type `slice` cannot take parameters.
 generics_defaults_referential.py:31:10 Undefined or invalid type [11]: Annotation `DefaultStrT` is not defined as a type.
 generics_defaults_referential.py:31:10 Undefined or invalid type [11]: Annotation `T2` is not defined as a type.
-generics_defaults_referential.py:35:24 Undefined attribute [16]: `Foo` has no attribute `__getitem__`.
+generics_defaults_referential.py:35:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Foo[]` but got `Foo`.
+generics_defaults_referential.py:35:24 Invalid type parameters [24]: Non-generic type `Foo` cannot take parameters.
+generics_defaults_referential.py:36:0 Undefined attribute [16]: `Foo` has no attribute `__getitem__`.
 generics_defaults_referential.py:46:11 Undefined or invalid type [11]: Annotation `S1` is not defined as a type.
 generics_defaults_referential.py:46:11 Undefined or invalid type [11]: Annotation `S2` is not defined as a type.
 generics_defaults_referential.py:53:13 Undefined or invalid type [11]: Annotation `Start2T` is not defined as a type.
 generics_defaults_referential.py:53:13 Undefined or invalid type [11]: Annotation `Stop2T` is not defined as a type.
-generics_defaults_referential.py:87:52 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.
+generics_defaults_referential.py:87:47 Undefined attribute [16]: `list` has no attribute `__getitem__`.
 generics_defaults_referential.py:90:10 Undefined or invalid type [11]: Annotation `ListDefaultT` is not defined as a type.
 generics_defaults_referential.py:90:10 Undefined or invalid type [11]: Annotation `Z1` is not defined as a type.
-generics_defaults_referential.py:94:22 Undefined attribute [16]: `Bar` has no attribute `__getitem__`.
-generics_defaults_referential.py:94:36 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `object`.
+generics_defaults_referential.py:94:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Type[Bar[]]` but got `Type[Bar]`.
+generics_defaults_referential.py:94:17 Invalid type parameters [24]: Non-generic type `Bar` cannot take parameters.
+generics_defaults_referential.py:95:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Type[Bar[]]` but got `typing.Any`.
+generics_defaults_referential.py:95:12 Undefined attribute [16]: `Bar` has no attribute `__getitem__`.
+generics_defaults_referential.py:95:22 Invalid type parameters [24]: Non-generic type `Bar` cannot take parameters.
+generics_defaults_referential.py:96:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Bar[]` but got `typing.Any`.
+generics_defaults_referential.py:96:29 Invalid type parameters [24]: Non-generic type `Bar` cannot take parameters.
+generics_defaults_referential.py:97:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Bar[]` but got `typing.Any`.
+generics_defaults_referential.py:97:40 Invalid type parameters [24]: Non-generic type `Bar` cannot take parameters.
+generics_defaults_referential.py:98:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Bar[]` but got `typing.Any`.
+generics_defaults_referential.py:98:34 Invalid type parameters [24]: Non-generic type `Bar` cannot take parameters.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 36: Expected 1 errors
 Line 37: Expected 1 errors
 Line 60: Expected 1 errors
 Line 68: Expected 1 errors
 Line 74: Expected 1 errors
 Line 78: Expected 1 errors
 Line 20: Unexpected errors ['generics_defaults_referential.py:20:12 Undefined or invalid type [11]: Annotation `StartT` is not defined as a type.', 'generics_defaults_referential.py:20:12 Undefined or invalid type [11]: Annotation `StepT` is not defined as a type.', 'generics_defaults_referential.py:20:12 Undefined or invalid type [11]: Annotation `StopT` is not defined as a type.']
-Line 23: Unexpected errors ['generics_defaults_referential.py:23:24 Undefined attribute [16]: `slice` has no attribute `__getitem__`.']
+Line 23: Unexpected errors ['generics_defaults_referential.py:23:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Type[slice[]]` but got `Type[slice]`.', 'generics_defaults_referential.py:23:19 Invalid type parameters [24]: Non-generic type `slice` cannot take parameters.']
+Line 24: Unexpected errors ['generics_defaults_referential.py:24:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `slice[]` but got `slice`.', 'generics_defaults_referential.py:24:21 Invalid type parameters [24]: Non-generic type `slice` cannot take parameters.']
+Line 25: Unexpected errors ['generics_defaults_referential.py:25:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `slice[]` but got `typing.Any`.', 'generics_defaults_referential.py:25:12 Undefined attribute [16]: `slice` has no attribute `__getitem__`.', 'generics_defaults_referential.py:25:26 Invalid type parameters [24]: Non-generic type `slice` cannot take parameters.']
+Line 26: Unexpected errors ['generics_defaults_referential.py:26:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `slice[]` but got `typing.Any`.', 'generics_defaults_referential.py:26:41 Invalid type parameters [24]: Non-generic type `slice` cannot take parameters.']
 Line 31: Unexpected errors ['generics_defaults_referential.py:31:10 Undefined or invalid type [11]: Annotation `DefaultStrT` is not defined as a type.', 'generics_defaults_referential.py:31:10 Undefined or invalid type [11]: Annotation `T2` is not defined as a type.']
-Line 35: Unexpected errors ['generics_defaults_referential.py:35:24 Undefined attribute [16]: `Foo` has no attribute `__getitem__`.']
+Line 35: Unexpected errors ['generics_defaults_referential.py:35:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Foo[]` but got `Foo`.', 'generics_defaults_referential.py:35:24 Invalid type parameters [24]: Non-generic type `Foo` cannot take parameters.']
 Line 46: Unexpected errors ['generics_defaults_referential.py:46:11 Undefined or invalid type [11]: Annotation `S1` is not defined as a type.', 'generics_defaults_referential.py:46:11 Undefined or invalid type [11]: Annotation `S2` is not defined as a type.']
-Line 87: Unexpected errors ['generics_defaults_referential.py:87:52 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVar`.']
+Line 87: Unexpected errors ['generics_defaults_referential.py:87:47 Undefined attribute [16]: `list` has no attribute `__getitem__`.']
 Line 90: Unexpected errors ['generics_defaults_referential.py:90:10 Undefined or invalid type [11]: Annotation `ListDefaultT` is not defined as a type.', 'generics_defaults_referential.py:90:10 Undefined or invalid type [11]: Annotation `Z1` is not defined as a type.']
-Line 94: Unexpected errors ['generics_defaults_referential.py:94:22 Undefined attribute [16]: `Bar` has no attribute `__getitem__`.', 'generics_defaults_referential.py:94:36 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `object`.']
+Line 94: Unexpected errors ['generics_defaults_referential.py:94:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Type[Bar[]]` but got `Type[Bar]`.', 'generics_defaults_referential.py:94:17 Invalid type parameters [24]: Non-generic type `Bar` cannot take parameters.']
+Line 95: Unexpected errors ['generics_defaults_referential.py:95:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Type[Bar[]]` but got `typing.Any`.', 'generics_defaults_referential.py:95:12 Undefined attribute [16]: `Bar` has no attribute `__getitem__`.', 'generics_defaults_referential.py:95:22 Invalid type parameters [24]: Non-generic type `Bar` cannot take parameters.']
+Line 96: Unexpected errors ['generics_defaults_referential.py:96:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Bar[]` but got `typing.Any`.', 'generics_defaults_referential.py:96:29 Invalid type parameters [24]: Non-generic type `Bar` cannot take parameters.']
+Line 97: Unexpected errors ['generics_defaults_referential.py:97:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Bar[]` but got `typing.Any`.', 'generics_defaults_referential.py:97:40 Invalid type parameters [24]: Non-generic type `Bar` cannot take parameters.']
+Line 98: Unexpected errors ['generics_defaults_referential.py:98:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Bar[]` but got `typing.Any`.', 'generics_defaults_referential.py:98:34 Invalid type parameters [24]: Non-generic type `Bar` cannot take parameters.']
 """

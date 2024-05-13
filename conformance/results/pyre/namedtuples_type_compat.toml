@@ -1,4 +1,4 @@
-conformant = "Partial"
+conformant = "Unsupported"
 notes = """
 Rejects valid type compatibility between named tuple and tuple.
 """

@@ -1,6 +1,8 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not understand @dataclass_transform.
+Does not understand @dataclass_transform when it is
+applied only to overloads of a decorator but not the
+definition.
 """
 output = """
 dataclasses_transform_func.py:20:0 Incompatible overload [43]: The implementation of `create_model` does not accept all possible arguments of overload defined on line `20`.
@@ -19,14 +21,11 @@ dataclasses_transform_func.py:65:7 Unexpected keyword [28]: Unexpected keyword a
 dataclasses_transform_func.py:67:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
 dataclasses_transform_func.py:71:7 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 2 were provided.
 dataclasses_transform_func.py:73:5 Unsupported operand [58]: `<` is not supported for operand types `Customer2` and `Customer2`.
-dataclasses_transform_func.py:82:0 Uninitialized attribute [13]: Attribute `id` is declared in class `Customer3` to have type `int` but is never initialized.
-dataclasses_transform_func.py:82:0 Uninitialized attribute [13]: Attribute `name` is declared in class `Customer3` to have type `str` but is never initialized.
 dataclasses_transform_func.py:90:0 Uninitialized attribute [13]: Attribute `age` is declared in class `Customer3Subclass` to have type `int` but is never initialized.
-dataclasses_transform_func.py:94:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.
+dataclasses_transform_func.py:97:0 Invalid assignment [41]: Cannot reassign final attribute `c3_1.id`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 97: Expected 1 errors
 Line 20: Unexpected errors ['dataclasses_transform_func.py:20:0 Incompatible overload [43]: The implementation of `create_model` does not accept all possible arguments of overload defined on line `20`.']
 Line 25: Unexpected errors ["dataclasses_transform_func.py:25:5 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters."]
 Line 29: Unexpected errors ['dataclasses_transform_func.py:29:0 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
@@ -37,6 +36,4 @@ Line 50: Unexpected errors ['dataclasses_transform_func.py:50:7 Unexpected keywo
 Line 53: Unexpected errors ['dataclasses_transform_func.py:53:7 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 2 were provided.']
 Line 67: Unexpected errors ['dataclasses_transform_func.py:67:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.']
 Line 73: Unexpected errors ['dataclasses_transform_func.py:73:5 Unsupported operand [58]: `<` is not supported for operand types `Customer2` and `Customer2`.']
-Line 82: Unexpected errors ['dataclasses_transform_func.py:82:0 Uninitialized attribute [13]: Attribute `id` is declared in class `Customer3` to have type `int` but is never initialized.', 'dataclasses_transform_func.py:82:0 Uninitialized attribute [13]: Attribute `name` is declared in class `Customer3` to have type `str` but is never initialized.']
-Line 94: Unexpected errors ['dataclasses_transform_func.py:94:7 Unexpected keyword [28]: Unexpected keyword argument `id` to call `object.__init__`.']
 """

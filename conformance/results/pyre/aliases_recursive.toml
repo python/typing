@@ -6,14 +6,13 @@ Does not properly handle specialization of generic recursive type aliases.
 output = """
 aliases_recursive.py:19:0 Incompatible variable type [9]: j4 is declared to have type `aliases_recursive.Json (resolves to Union[None, Dict[str, Json], List[Json], float, int, str])` but is used as type `Dict[str, complex]`.
 aliases_recursive.py:20:0 Incompatible variable type [9]: j5 is declared to have type `aliases_recursive.Json (resolves to Union[None, Dict[str, Json], List[Json], float, int, str])` but is used as type `List[complex]`.
-aliases_recursive.py:30:35 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[str, typing.Any]`.
+aliases_recursive.py:30:29 Undefined attribute [16]: `tuple` has no attribute `__getitem__`.
 aliases_recursive.py:33:4 Undefined or invalid type [11]: Annotation `RecursiveTuple` is not defined as a type.
 aliases_recursive.py:42:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_KT]], Type[Variable[_VT_co](covariant)]]` but got `Tuple[Type[str], str]`.
 aliases_recursive.py:44:4 Undefined or invalid type [11]: Annotation `RecursiveMapping` is not defined as a type.
-aliases_recursive.py:58:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `_SpecialForm`.
+aliases_recursive.py:58:20 Undefined attribute [16]: `list` has no attribute `__getitem__`.
 aliases_recursive.py:61:4 Undefined or invalid type [11]: Annotation `SpecializedTypeAlias1` is not defined as a type.
 aliases_recursive.py:62:4 Undefined or invalid type [11]: Annotation `GenericTypeAlias1` is not defined as a type.
-aliases_recursive.py:65:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `_SpecialForm`.
 aliases_recursive.py:67:4 Undefined or invalid type [11]: Annotation `GenericTypeAlias2` is not defined as a type.
 aliases_recursive.py:72:0 Incompatible variable type [9]: RecursiveUnion is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.
 aliases_recursive.py:75:0 Incompatible variable type [9]: MutualReference1 is declared to have type `TypeAlias` but is used as type `Type[typing.Any]`.
@@ -28,13 +27,12 @@ Line 51: Expected 1 errors
 Line 52: Expected 1 errors
 Line 63: Expected 1 errors
 Line 69: Expected 1 errors
-Line 30: Unexpected errors ['aliases_recursive.py:30:35 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[str, typing.Any]`.']
+Line 30: Unexpected errors ['aliases_recursive.py:30:29 Undefined attribute [16]: `tuple` has no attribute `__getitem__`.']
 Line 33: Unexpected errors ['aliases_recursive.py:33:4 Undefined or invalid type [11]: Annotation `RecursiveTuple` is not defined as a type.']
 Line 42: Unexpected errors ['aliases_recursive.py:42:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_KT]], Type[Variable[_VT_co](covariant)]]` but got `Tuple[Type[str], str]`.']
 Line 44: Unexpected errors ['aliases_recursive.py:44:4 Undefined or invalid type [11]: Annotation `RecursiveMapping` is not defined as a type.']
-Line 58: Unexpected errors ['aliases_recursive.py:58:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `_SpecialForm`.']
+Line 58: Unexpected errors ['aliases_recursive.py:58:20 Undefined attribute [16]: `list` has no attribute `__getitem__`.']
 Line 61: Unexpected errors ['aliases_recursive.py:61:4 Undefined or invalid type [11]: Annotation `SpecializedTypeAlias1` is not defined as a type.']
 Line 62: Unexpected errors ['aliases_recursive.py:62:4 Undefined or invalid type [11]: Annotation `GenericTypeAlias1` is not defined as a type.']
-Line 65: Unexpected errors ['aliases_recursive.py:65:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `_SpecialForm`.']
 Line 67: Unexpected errors ['aliases_recursive.py:67:4 Undefined or invalid type [11]: Annotation `GenericTypeAlias2` is not defined as a type.']
 """

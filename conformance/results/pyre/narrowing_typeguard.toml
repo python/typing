@@ -1,12 +1,8 @@
 conformant = "Partial"
 notes = """
-Does not support `tuple` in `assert_type` call.
 Does not reject TypeGuard method with too few parameters.
-Does not allow covariant use of TypeGuard.
 """
 output = """
-narrowing_typeguard.py:17:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.
-narrowing_typeguard.py:19:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.
 narrowing_typeguard.py:128:19 Incompatible parameter type [6]: In call `takes_callable_str`, for 1st positional argument, expected `typing.Callable[[object], str]` but got `typing.Callable(simple_typeguard)[[Named(val, object)], TypeGuard[int]]`.
 narrowing_typeguard.py:148:25 Incompatible parameter type [6]: In call `takes_callable_str_proto`, for 1st positional argument, expected `CallableStrProto` but got `typing.Callable(simple_typeguard)[[Named(val, object)], TypeGuard[int]]`.
 narrowing_typeguard.py:167:20 Incompatible parameter type [6]: In call `takes_int_typeguard`, for 1st positional argument, expected `typing.Callable[[object], TypeGuard[int]]` but got `typing.Callable(bool_typeguard)[[Named(val, object)], TypeGuard[bool]]`.
@@ -15,7 +11,5 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 102: Expected 1 errors
 Line 107: Expected 1 errors
-Line 17: Unexpected errors ['narrowing_typeguard.py:17:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.']
-Line 19: Unexpected errors ['narrowing_typeguard.py:19:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], typing.Any]`.']
 Line 167: Unexpected errors ['narrowing_typeguard.py:167:20 Incompatible parameter type [6]: In call `takes_int_typeguard`, for 1st positional argument, expected `typing.Callable[[object], TypeGuard[int]]` but got `typing.Callable(bool_typeguard)[[Named(val, object)], TypeGuard[bool]]`.']
 """
