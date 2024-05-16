@@ -77,6 +77,31 @@ that can't easily be expressed using a union or a type variable::
   def utf8(value):
       <actual implementation>
 
+You should make sure that the overloads don't overlap with a
+different return type::
+
+  @overload
+  def int2str(x: int = ...) -> str:
+      ...
+  @overload
+  def int2str(x: None = ...) -> None:
+      ...
+  def int2str(x=None):
+      <actual implementation>
+
+If no arguments are provided, it's not clear whether a string or ``None``
+will be returned. You can fix this by making the argument required in
+the first signature::
+
+  @overload
+  def int2str(x: int) -> str:
+      ...
+  @overload
+  def int2str(x: None = ...) -> None:
+      ...
+  def int2str(x=None):
+      <actual implementation>
+
 A constrained ``TypeVar`` type can often be used instead of using the
 ``@overload`` decorator.  For example, the definitions of ``concat1``
 and ``concat2`` in this stub file are equivalent::
