@@ -333,7 +333,7 @@ return types should behave covariantly.
 Passing kwargs inside a function to another function
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`A previous point <PEP 692 assignment dest no kwargs>`_
+:ref:`A previous point <PEP 692 assignment dest no kwargs>`
 mentions the problem of possibly passing additional keyword arguments by
 assigning a subclass instance to a variable that has a base class type. Let's
 consider the following example::
