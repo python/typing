@@ -1,4 +1,4 @@
-conformant = "Fail"
+conformant = "Partial"
 notes = """
 Wrongly requires a Final dataclass field to be initialized at class level.
 Doesn't support Final nested inside ClassVar.
