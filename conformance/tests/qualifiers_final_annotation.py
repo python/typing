@@ -98,7 +98,7 @@ class ClassCChild(ClassC):
 
 # > Type checkers should infer a final attribute that is initialized in a class
 # > body as being a class variable. Variables should not be annotated with both
-# > ClassVar and Final.
+# > ClassVar and Final. (Except in a dataclass; see dataclasses_final.py.)
 
 
 class ClassD:
