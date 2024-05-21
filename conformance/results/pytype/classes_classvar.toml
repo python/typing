@@ -13,35 +13,35 @@ Does not reject assignment of ClassVar through instance of class.
 """
 output = """
 File "classes_classvar.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
-File "classes_classvar.py", line 27, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
-File "classes_classvar.py", line 36, in ClassA: Invalid type annotation 'ClassVar[int, str]'  [invalid-annotation]
-File "classes_classvar.py", line 37, in ClassA: class ClassVar is not indexable [not-indexable]
-File "classes_classvar.py", line 38, in ClassA: Name 'var' is not defined [name-error]
-File "classes_classvar.py", line 50, in ClassA: Type annotation for bad8 does not match type of assignment [annotation-type-mismatch]
-File "classes_classvar.py", line 52, in ClassA: Name 'Final' is not defined [name-error]
-File "classes_classvar.py", line 58, in ClassA: Type annotation for good4 does not match type of assignment [annotation-type-mismatch]
-File "classes_classvar.py", line 66, in method2: bad return type [bad-return-type]
-File "classes_classvar.py", line 76, in <module>: ClassVar [assert-type]
-File "classes_classvar.py", line 119, in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]
-File "classes_classvar.py", line 129, in <module>: Type annotation for a does not match type of assignment [annotation-type-mismatch]
+File "classes_classvar.py", line 28, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+File "classes_classvar.py", line 37, in ClassA: Invalid type annotation 'ClassVar[int, str]'  [invalid-annotation]
+File "classes_classvar.py", line 38, in ClassA: class ClassVar is not indexable [not-indexable]
+File "classes_classvar.py", line 39, in ClassA: Name 'var' is not defined [name-error]
+File "classes_classvar.py", line 51, in ClassA: Type annotation for bad8 does not match type of assignment [annotation-type-mismatch]
+File "classes_classvar.py", line 59, in ClassA: Type annotation for good4 does not match type of assignment [annotation-type-mismatch]
+File "classes_classvar.py", line 67, in method2: bad return type [bad-return-type]
+File "classes_classvar.py", line 77, in <module>: ClassVar [assert-type]
+File "classes_classvar.py", line 120, in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]
+File "classes_classvar.py", line 130, in <module>: Type annotation for a does not match type of assignment [annotation-type-mismatch]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 43: Expected 1 errors
 Line 44: Expected 1 errors
 Line 45: Expected 1 errors
+Line 46: Expected 1 errors
 Line 53: Expected 1 errors
-Line 61: Expected 1 errors
+Line 54: Expected 1 errors
 Line 62: Expected 1 errors
 Line 63: Expected 1 errors
-Line 65: Expected 1 errors
-Line 69: Expected 1 errors
+Line 64: Expected 1 errors
+Line 66: Expected 1 errors
 Line 70: Expected 1 errors
-Line 100: Expected 1 errors
+Line 71: Expected 1 errors
+Line 101: Expected 1 errors
 Line 7: Unexpected errors ['File "classes_classvar.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
-Line 27: Unexpected errors ['File "classes_classvar.py", line 27, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
-Line 58: Unexpected errors ['File "classes_classvar.py", line 58, in ClassA: Type annotation for good4 does not match type of assignment [annotation-type-mismatch]']
-Line 66: Unexpected errors ['File "classes_classvar.py", line 66, in method2: bad return type [bad-return-type]']
-Line 76: Unexpected errors ['File "classes_classvar.py", line 76, in <module>: ClassVar [assert-type]']
-Line 119: Unexpected errors ['File "classes_classvar.py", line 119, in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]']
+Line 28: Unexpected errors ['File "classes_classvar.py", line 28, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
+Line 59: Unexpected errors ['File "classes_classvar.py", line 59, in ClassA: Type annotation for good4 does not match type of assignment [annotation-type-mismatch]']
+Line 67: Unexpected errors ['File "classes_classvar.py", line 67, in method2: bad return type [bad-return-type]']
+Line 77: Unexpected errors ['File "classes_classvar.py", line 77, in <module>: ClassVar [assert-type]']
+Line 120: Unexpected errors ['File "classes_classvar.py", line 120, in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]']
 """

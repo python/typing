@@ -1,24 +1,24 @@
 conformant = "Pass"
 output = """
-classes_classvar.py:36:25 - error: Expected only one type argument after "ClassVar"
-classes_classvar.py:37:14 - error: Expected type expression but received "Literal[3]" (reportGeneralTypeIssues)
-classes_classvar.py:38:14 - error: "var" is not defined (reportUndefinedVariable)
-classes_classvar.py:43:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
+classes_classvar.py:37:25 - error: Expected only one type argument after "ClassVar"
+classes_classvar.py:38:14 - error: Expected type expression but received "Literal[3]" (reportGeneralTypeIssues)
+classes_classvar.py:39:14 - error: "var" is not defined (reportUndefinedVariable)
 classes_classvar.py:44:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
 classes_classvar.py:45:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
-classes_classvar.py:50:33 - error: Expression of type "dict[Any, Any]" is incompatible with declared type "list[str]" (reportAssignmentType)
-classes_classvar.py:52:11 - error: "Final" is not defined (reportUndefinedVariable)
+classes_classvar.py:46:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
+classes_classvar.py:51:33 - error: Expression of type "dict[Any, Any]" is incompatible with declared type "list[str]" (reportAssignmentType)
 classes_classvar.py:53:17 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:61:26 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:62:12 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:63:18 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:65:26 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:69:8 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:70:20 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:100:14 - error: Cannot assign to attribute "stats" for class "Starship"
+classes_classvar.py:54:17 - error: "ClassVar" is not allowed in this context
+classes_classvar.py:62:26 - error: "ClassVar" is not allowed in this context
+classes_classvar.py:63:12 - error: "ClassVar" is not allowed in this context
+classes_classvar.py:64:18 - error: "ClassVar" is not allowed in this context
+classes_classvar.py:66:26 - error: "ClassVar" is not allowed in this context
+classes_classvar.py:70:8 - error: "ClassVar" is not allowed in this context
+classes_classvar.py:71:20 - error: "ClassVar" is not allowed in this context
+classes_classvar.py:101:14 - error: Cannot assign to attribute "stats" for class "Starship"
   Attribute "stats" cannot be assigned through a class instance because it is a ClassVar
     Attribute "__set__" is unknown (reportAttributeAccessIssue)
-classes_classvar.py:129:13 - error: Expression of type "ProtoAImpl" is incompatible with declared type "ProtoA"
+classes_classvar.py:130:13 - error: Expression of type "ProtoAImpl" is incompatible with declared type "ProtoA"
   "ProtoAImpl" is incompatible with protocol "ProtoA"
     "x" is defined as a ClassVar in protocol
     "y" is defined as a ClassVar in protocol (reportAssignmentType)

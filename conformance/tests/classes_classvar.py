@@ -9,6 +9,7 @@ from typing import (
     Any,
     Callable,
     ClassVar,
+    Final,
     Generic,
     ParamSpec,
     Protocol,
