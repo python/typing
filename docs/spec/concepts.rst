@@ -157,21 +157,14 @@ The consistency relation is symmetric. If ``A`` is consistent with ``B``, ``B``
 is also consistent with ``A``. It is also reflexive: ``A`` is always consistent
 with ``A``.
 
-The consistent subtype relation
--------------------------------
+The assignable-to (or consistent subtyping) relation
+----------------------------------------------------
 
-Given the materialization relation and the subtyping relation, we define the
+Given the materialization relation and the subtyping relation, we can define the
 **consistent subtype** relation over all types. A type ``A`` is a consistent
 subtype of a type ``B`` if there exists a materialization ``A'`` of ``A`` and a
 materialization ``B'`` of ``B``, where ``A'`` and ``B'`` are both static types,
 and ``A'`` is a subtype of ``B'``.
-
-For example, ``Any`` is a consistent subtype of ``int``, because ``int`` is a
-materialization of ``Any``, and ``int`` is a subtype of ``int``. The same
-materialization also gives that ``int`` is a consistent subtype of ``Any``.
-
-Consistent subtyping defines assignability
-------------------------------------------
 
 Consistent subtyping defines "assignability" for Python.  An expression can be
 assigned to a variable (including passed as a parameter or returned from a
@@ -182,9 +175,19 @@ We can say that a type ``A`` is "assignable to" a type ``B`` if ``A`` is a
 consistent subtype of ``B``.
 
 In the remainder of this specification, we will usually prefer the term
-**assignable to** over "consistent subtype of". The two are synonyms, but
+**assignable to** over "consistent subtype of". The two are synonymous, but
 "assignable to" is shorter, and may communicate a clearer intuition to many
 readers.
+
+For example, ``Any`` is assignable to ``int``, because ``int`` is a
+materialization of ``Any``, and ``int`` is a subtype of ``int``. The same
+materialization also gives that ``int`` is assignable to ``Any``.
+
+The assignable-to relation is not generally symmetric, though. If ``B`` is a
+subtype of ``A``, then ``tuple[Any, B]`` is assignable to ``tuple[int, A]``,
+because ``tuple[Any, B]`` can materialize to ``tuple[int, B]``, which is a
+subtype of ``tuple[int, A]``. But ``tuple[int, A]`` is not assignable to
+``tuple[Any, B]``.
 
 References
 ----------
