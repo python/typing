@@ -92,14 +92,13 @@ The gradual guarantee
 ~~~~~~~~~~~~~~~~~~~~~
 
 :ref:`Any` allows gradually adding static types to a dynamically-typed program.
-For a dynamically-typed program, a static checker has the type :ref:`Any` for
-all terms, and should emit no errors on such a program. Adding more static type
-annotations to the program (making the program more statically typed) may
-result in static type errors, if the program is not correct or if the static
-type annotations aren't able to fully represent the runtime types. Removing
-static type annotations (making the program more dynamic) should not result in
-additional static type errors. This is often referred to as the **gradual
-guarantee**.
+For a fully dynamically-typed program, a static checker has the type :ref:`Any`
+for all terms, and should emit no errors. Adding more static type annotations
+to the program (making the program more statically typed) may result in static
+type errors, if the program is not correct or if the static type annotations
+aren't able to fully represent the runtime types. Removing static type
+annotations (making the program more dynamic) should not result in additional
+static type errors. This is often referred to as the **gradual guarantee**.
 
 In Python's type system, we don't take the gradual guarantee as a strict
 requirement, but it's a useful guideline.
