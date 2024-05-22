@@ -6,13 +6,9 @@ Doesn't support Final nested inside ClassVar.
 conformance_automated = "Fail"
 errors_diff = """
 Line 27: Expected 1 errors
-Line 38: Expected 1 errors
-Line 41: Expected 1 errors
 Line 16: Unexpected errors ['dataclasses_final.py:16: error: Final name must be initialized with a value  [misc]']
 Line 18: Unexpected errors ['dataclasses_final.py:18: error: Final can be only used as an outermost qualifier in a variable annotation  [valid-type]']
 Line 24: Unexpected errors ['dataclasses_final.py:24: error: Expression is of type "Any", not "int"  [assert-type]']
-Line 37: Unexpected errors ['dataclasses_final.py:37: error: Cannot access final instance attribute "final_no_default" on class object  [misc]', 'dataclasses_final.py:37: error: Cannot assign to final attribute "final_no_default"  [misc]']
-Line 40: Unexpected errors ['dataclasses_final.py:40: error: Cannot assign to final attribute "final_with_default"  [misc]']
 """
 output = """
 dataclasses_final.py:16: error: Final name must be initialized with a value  [misc]
@@ -22,5 +18,5 @@ dataclasses_final.py:35: error: Cannot assign to final attribute "final_no_defau
 dataclasses_final.py:36: error: Cannot assign to final attribute "final_with_default"  [misc]
 dataclasses_final.py:37: error: Cannot access final instance attribute "final_no_default" on class object  [misc]
 dataclasses_final.py:37: error: Cannot assign to final attribute "final_no_default"  [misc]
-dataclasses_final.py:40: error: Cannot assign to final attribute "final_with_default"  [misc]
+dataclasses_final.py:38: error: Cannot assign to final attribute "final_with_default"  [misc]
 """

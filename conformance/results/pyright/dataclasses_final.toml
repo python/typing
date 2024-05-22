@@ -1,23 +1,11 @@
-conformant = "Partial"
-notes = """
-Doesn't support Final nested inside ClassVar.
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 38: Expected 1 errors
-Line 41: Expected 1 errors
-Line 18: Unexpected errors ['dataclasses_final.py:18:30 - error: "Final" is not allowed in this context', 'dataclasses_final.py:18:44 - error: Expression of type "Literal[4]" is incompatible with declared type "Final"']
-Line 24: Unexpected errors ['dataclasses_final.py:24:13 - error: "assert_type" mismatch: expected "int" but received "Final" (reportAssertTypeFailure)']
-Line 37: Unexpected errors ['dataclasses_final.py:37:3 - error: Cannot assign to attribute "final_no_default" for class "type[D]"']
-Line 40: Unexpected errors ['dataclasses_final.py:40:3 - error: Cannot assign to attribute "final_with_default" for class "type[D]"']
 """
 output = """
-dataclasses_final.py:18:30 - error: "Final" is not allowed in this context
-dataclasses_final.py:18:44 - error: Expression of type "Literal[4]" is incompatible with declared type "Final"
-  "Literal[4]" is incompatible with "Final" (reportAssignmentType)
-dataclasses_final.py:24:13 - error: "assert_type" mismatch: expected "int" but received "Final" (reportAssertTypeFailure)
-dataclasses_final.py:27:20 - error: Cannot assign to attribute "final_classvar" for class "type[D]"
-  "Literal[10]" is incompatible with "Final" (reportAttributeAccessIssue)
+dataclasses_final.py:27:3 - error: Cannot assign to attribute "final_classvar" for class "type[D]"
+  "final_classvar" is declared as Final and cannot be reassigned
+    Attribute "__set__" is unknown (reportAttributeAccessIssue)
 dataclasses_final.py:35:3 - error: Cannot assign to attribute "final_no_default" for class "D"
   "final_no_default" is declared as Final and cannot be reassigned
     Attribute "__set__" is unknown (reportAttributeAccessIssue)
@@ -27,7 +15,7 @@ dataclasses_final.py:36:3 - error: Cannot assign to attribute "final_with_defaul
 dataclasses_final.py:37:3 - error: Cannot assign to attribute "final_no_default" for class "type[D]"
   "final_no_default" is declared as Final and cannot be reassigned
     Attribute "__set__" is unknown (reportAttributeAccessIssue)
-dataclasses_final.py:40:3 - error: Cannot assign to attribute "final_with_default" for class "type[D]"
+dataclasses_final.py:38:3 - error: Cannot assign to attribute "final_with_default" for class "type[D]"
   "final_with_default" is declared as Final and cannot be reassigned
     Attribute "__set__" is unknown (reportAttributeAccessIssue)
 """

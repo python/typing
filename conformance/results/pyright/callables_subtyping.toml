@@ -14,9 +14,11 @@ callables_subtyping.py:51:21 - error: Expression of type "PosOnly2" is incompati
   "PosOnly2" is incompatible with protocol "Standard2"
     "__call__" is an incompatible type
       Type "(b: int, a: int, /) -> None" is incompatible with type "(a: int, b: int) -> None"
-        Position-only parameter mismatch; parameter "a" is not position-only
-        Position-only parameter mismatch; parameter "b" is not position-only
-        Position-only parameter mismatch; expected 2 but received 0 (reportAssignmentType)
+        Keyword parameter "a" is missing in source
+        Keyword parameter "b" is missing in source
+          Position-only parameter mismatch; parameter "a" is not position-only
+          Position-only parameter mismatch; parameter "b" is not position-only
+          Position-only parameter mismatch; expected 2 but received 0 (reportAssignmentType)
 callables_subtyping.py:52:21 - error: Expression of type "KwOnly2" is incompatible with declared type "Standard2"
   "KwOnly2" is incompatible with protocol "Standard2"
     "__call__" is an incompatible type
@@ -94,13 +96,16 @@ callables_subtyping.py:125:22 - error: Expression of type "IntStrArgs4" is incom
   "IntStrArgs4" is incompatible with protocol "Standard4"
     "__call__" is an incompatible type
       Type "(*args: int | str) -> None" is incompatible with type "(a: int, b: str) -> None"
+        Keyword parameter "a" is missing in source
         Keyword parameter "b" is missing in source (reportAssignmentType)
 callables_subtyping.py:126:22 - error: Expression of type "StrArgs4" is incompatible with declared type "Standard4"
   "StrArgs4" is incompatible with protocol "Standard4"
     "__call__" is an incompatible type
       Type "(a: int, /, *args: str) -> None" is incompatible with type "(a: int, b: str) -> None"
-        Position-only parameter mismatch; parameter "a" is not position-only
-        Position-only parameter mismatch; expected 1 but received 0 (reportAssignmentType)
+        Keyword parameter "a" is missing in source
+        Keyword parameter "b" is missing in source
+          Position-only parameter mismatch; parameter "a" is not position-only
+          Position-only parameter mismatch; expected 1 but received 0 (reportAssignmentType)
 callables_subtyping.py:151:22 - error: Expression of type "NoKwargs5" is incompatible with declared type "IntKwargs5"
   "NoKwargs5" is incompatible with protocol "IntKwargs5"
     "__call__" is an incompatible type

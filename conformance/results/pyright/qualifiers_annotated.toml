@@ -17,9 +17,9 @@ qualifiers_annotated.py:52:18 - error: Expected type expression but received "Li
 qualifiers_annotated.py:53:18 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)
 qualifiers_annotated.py:54:18 - error: Type annotations cannot use format string literals (f-strings) (reportGeneralTypeIssues)
 qualifiers_annotated.py:64:8 - error: Expected one type argument and one or more annotations for "Annotated"
-qualifiers_annotated.py:76:24 - error: Expression of type "type[int]" is incompatible with declared type "type[Any]" (reportAssignmentType)
+qualifiers_annotated.py:76:24 - error: Expression of type "type[Annotated]" is incompatible with declared type "type[Any]" (reportAssignmentType)
 qualifiers_annotated.py:77:24 - error: Expression of type "SmallInt" is incompatible with declared type "type[Any]" (reportAssignmentType)
-qualifiers_annotated.py:84:7 - error: Argument of type "type[str]" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4" (reportArgumentType)
+qualifiers_annotated.py:84:7 - error: Argument of type "type[Annotated]" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4" (reportArgumentType)
 qualifiers_annotated.py:85:7 - error: Argument of type "SmallInt" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4" (reportArgumentType)
 qualifiers_annotated.py:91:1 - error: "Annotated" cannot be instantiated (reportCallIssue)
 qualifiers_annotated.py:92:1 - error: Object of type "type[Annotated]" is not callable (reportCallIssue)
