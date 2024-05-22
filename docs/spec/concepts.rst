@@ -22,12 +22,12 @@ language such as attribute access or arithmetic will be. Python was
 historically a dynamically-typed language.
 
 **Gradual typing** is the name for a specific way to combine static and dynamic
-typing. It allows mixing static and dynamic checking at a fine level of
-granularity. For instance, in type-annotated Python, individual variables,
-parameters, and returns can optionally be given a static type. Data structures
-such as objects can have a mix of static and dynamic-only checking. As an
-example, a Python dictionary could be annotated to have static checking of the
-key type but only dynamic checking of the value type.
+typing. Type-annotated Python allows mixing static and dynamic checking at a
+fine level of granularity. Individual variables, parameters, and returns can
+optionally be given a static type. Data structures such as objects can have a
+mix of static and dynamic-only checking. For example, a dictionary could be
+annotated to have static checking of the key type but only dynamic checking of
+the value type.
 
 In gradual typing, a dynamically typed value is indicated by a special
 "unknown" or "dynamic" type.  In Python, the unknown type is spelled
@@ -118,13 +118,16 @@ Since :ref:`Any` represents an unknown static type, it does not represent any
 known single set of values, and thus it is not in the domain of the subtype,
 supertype, or equivalence relations on static types described above.
 
-We define a **materialization** relation on gradual types as follows: if
-replacing zero or more occurrences of ``Any`` in gradual type ``A`` with some
-gradual type (which can be different for each occurrence of ``Any``) results in
-the gradual type ``B``, then ``B`` is a materialization of ``A``. For instance,
-``tuple[int, str]`` (a static type) and ``tuple[Any, str]`` (a gradual type)
-are both materializations of ``tuple[Any, Any]``. ``tuple[int, str]`` is also a
-materialization of ``tuple[Any, str]``.
+We define a **materialization** relation on gradual types. The intuition for
+materialization is that it transforms a "more dynamic" type to a "more static"
+type. Given a gradual type ``A``, if we replace zero or more occurrences of
+``Any`` in ``A`` with some gradual type (which can be different for each
+occurrence of ``Any``), the resulting gradual type ``B`` is a materialization
+of ``A``.
+
+For instance, ``tuple[int, str]`` (a static type) and ``tuple[Any, str]`` (a
+gradual type) are both materializations of ``tuple[Any, Any]``. ``tuple[int,
+str]`` is also a materialization of ``tuple[Any, str]``.
 
 If ``B`` is a materialization of ``A``, we can say that ``B`` is a "more
 static" type than ``A``, and ``A`` is a "more dynamic" type than ``B``.
@@ -138,15 +141,15 @@ A static type ``A`` is consistent with another static type ``B`` if and only if
 they are the same type (``A`` is equivalent to ``B``.)
 
 A gradual type ``A`` is consistent with a gradual type ``B``, and ``B`` is
-consistent with ``A``, if and only if ``B`` is a materialization of ``A`` or
-``A`` is a materialization of ``B``.
+consistent with ``A``, if and only if there exists some static type ``C`` which
+is a materialization of both ``A`` and ``B``.
 
 The dynamic type ``Any`` is consistent with every type, and every type is
 consistent with ``Any``. (This must follow from the above definitions of
 materialization and consistency, but is worth stating explicitly.)
 
 The consistency relation is not transitive. ``tuple[int, int]`` is consistent
-with ``tuple[Any, int]`` and ``tuple[Any, int]`` is consistent with
+with ``tuple[Any, int]``, and ``tuple[Any, int]`` is consistent with
 ``tuple[str, int]``, but ``tuple[int, int]`` is not consistent with
 ``tuple[str, int]``.
 
