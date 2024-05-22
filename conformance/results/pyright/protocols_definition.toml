@@ -72,9 +72,11 @@ protocols_definition.py:288:22 - error: Expression of type "Concrete5_Bad4" is i
   "Concrete5_Bad4" is incompatible with protocol "Template5"
     "method1" is an incompatible type
       Type "(a: int, b: int, /) -> float" is incompatible with type "(a: int, b: int) -> float"
-        Position-only parameter mismatch; parameter "a" is not position-only
-        Position-only parameter mismatch; parameter "b" is not position-only
-        Position-only parameter mismatch; expected 2 but received 0 (reportAssignmentType)
+        Keyword parameter "a" is missing in source
+        Keyword parameter "b" is missing in source
+          Position-only parameter mismatch; parameter "a" is not position-only
+          Position-only parameter mismatch; parameter "b" is not position-only
+          Position-only parameter mismatch; expected 2 but received 0 (reportAssignmentType)
 protocols_definition.py:289:22 - error: Expression of type "Concrete5_Bad5" is incompatible with declared type "Template5"
   "Concrete5_Bad5" is incompatible with protocol "Template5"
     "method1" is an incompatible type
