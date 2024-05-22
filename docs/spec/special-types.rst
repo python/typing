@@ -11,8 +11,7 @@ Special types in annotations
 ``Any`` is the dynamic type. It represents some unknown static type, whose use
 should not be checked statically.
 
-Every type is consistent with ``Any``, every type is a consistent subtype of
-``Any``, and ``Any`` is a consistent subtype of every type.
+Every type is assignable to ``Any``, and ``Any`` is assignable to every type.
 
 See :ref:`type-system-concepts` for more discussion of ``Any``.
 
