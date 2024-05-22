@@ -73,17 +73,17 @@ unknown set of values.
 At first glance, this may appear similar to the static type ``object``, which
 represents the set of all Python objects. But it is quite different.
 
-If a value has the static type ``object``, a static type checker should ensure
-that all operations on the value are valid for all Python objects, or else emit
-a static type error. This allows very few operations! For example, if ``x`` is
+If a term has the static type ``object``, a static type checker should ensure
+that operations on the term are valid for all Python objects, or else emit a
+static type error. This allows very few operations! For example, if ``x`` is
 typed as ``object``, ``x.foo`` should be a static type error, because not all
 Python objects have an attribute ``foo``.
 
-A value typed as :ref:`Any`, on the other hand, should be assumed to have
+A term typed as :ref:`Any`, on the other hand, should be assumed to have
 _some_ specific static type, but _which_ static type is not known. A static
 checker should not emit any errors that depend on assuming a particular static
 type; a static checker should instead assume that the runtime is responsible
-for checking the type of operations on this value, as in a dynamically-typed
+for checking the type of operations on this term, as in a dynamically-typed
 language.
 
 The subtype relation
