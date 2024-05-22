@@ -29,13 +29,13 @@ mix of static and dynamic-only checking. For example, a dictionary could be
 annotated to have static checking of the key type but only dynamic checking of
 the value type.
 
-In gradual typing, a dynamically typed value is indicated by a special
-"unknown" or "dynamic" type.  In Python, the unknown type is spelled
-:ref:`Any`. It indicates to the static type checker that this value should not
-be subject to static checking.  The system should not signal a static type
-error for use of an expression with type :ref:`Any`.  Instead, the expression's
-value will be dynamically checked, according to the Python runtime's usual
-checks on the types of runtime values.
+In gradual typing, a dynamically typed term is indicated by a special "unknown"
+or "dynamic" type.  In Python, the unknown type is spelled :ref:`Any`. It
+indicates to the static type checker that this term should not be subject to
+static checking.  The system should not signal a static type error for use of a
+term with type :ref:`Any`.  Instead, the term's type will be dynamically
+checked, according to the Python runtime's usual checks on the types of runtime
+values.
 
 This specification describes a gradual type system for Python.
 
@@ -60,9 +60,11 @@ False }``. The Python static type ``str`` is the set of all Python strings;
 more precisely, the set of all Python objects whose runtime type (i.e.
 ``__class__`` attribute) is either ``str`` or a class that inherits ``str``,
 including transitively; i.e. a type with ``str`` in its method resolution
-order. Static types can also be specified in other ways. For example,
-:ref:`Protocols` specify a static type which is the set of all objects which
-share a certain set of attributes and/or methods.
+order.
+
+Static types can also be specified in other ways. For example, :ref:`Protocols`
+specify a static type which is the set of all objects which share a certain set
+of attributes and/or methods.
 
 The dynamic type
 ~~~~~~~~~~~~~~~~
@@ -85,6 +87,22 @@ checker should not emit any errors that depend on assuming a particular static
 type; a static checker should instead assume that the runtime is responsible
 for checking the type of operations on this term, as in a dynamically-typed
 language.
+
+The gradual guarantee
+~~~~~~~~~~~~~~~~~~~~~
+
+:ref:`Any` allows gradually adding static types to a dynamically-typed program.
+For a dynamically-typed program, a static checker has the type :ref:`Any` for
+all terms, and should emit no errors on such a program. Adding more static type
+annotations to the program (making the program more statically typed) may
+result in static type errors, if the program is not correct or if the static
+type annotations aren't able to fully represent the runtime types. Removing
+static type annotations (making the program more dynamic) should not result in
+additional static type errors. This is often referred to as the **gradual
+guarantee**.
+
+In Python's type system, we don't take the gradual guarantee as a strict
+requirement, but it's a useful guideline.
 
 The subtype relation
 --------------------
