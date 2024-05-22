@@ -608,7 +608,7 @@ encouraged to use some of the new type-friendly classes.
 NamedTuple (described in :pep:`484`) is preferred over
 namedtuple.
 
-Data classes (described in :pep:`557`) is preferred over
+Data classes (described in :pep:`557`) are preferred over
 untyped dictionaries.
 
 TypedDict (described in :pep:`589`) is preferred over
@@ -647,8 +647,8 @@ Python 3.6 introduced support for variable type annotations, as
 specified in :pep:`526`.
 
 If you need to support older versions of Python, type annotations can
-still be provided as “type comments”. These comments take the form #
-type: .
+still be provided as “type comments”. These comments take the form
+``# type:``.
 
 .. code:: python
 

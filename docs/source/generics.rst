@@ -259,12 +259,12 @@ For class methods, you can also define generic ``cls``, using :py:class:`type`:
 
 .. code-block:: python
 
-   from typing import TypeVar, Type
+   from typing import Optional, TypeVar, Type
 
    T = TypeVar('T', bound='Friend')
 
    class Friend:
-       other: "Friend" = None
+       other: Optional["Friend"] = None
 
        @classmethod
        def make_pair(cls: Type[T]) -> tuple[T, T]:
@@ -674,19 +674,19 @@ alter the signature of the input function:
    P = ParamSpec('P')
    T = TypeVar('T')
 
-    # We reuse 'P' in the return type, but replace 'T' with 'str'
+   # We reuse 'P' in the return type, but replace 'T' with 'str'
    def stringify(func: Callable[P, T]) -> Callable[P, str]:
        def wrapper(*args: P.args, **kwds: P.kwargs) -> str:
            return str(func(*args, **kwds))
        return wrapper
 
-    @stringify
-    def add_forty_two(value: int) -> int:
-        return value + 42
+   @stringify
+   def add_forty_two(value: int) -> int:
+       return value + 42
 
-    a = add_forty_two(3)
-    reveal_type(a)      # Revealed type is "builtins.str"
-    add_forty_two('x')  # error: Argument 1 to "add_forty_two" has incompatible type "str"; expected "int"
+   a = add_forty_two(3)
+   reveal_type(a)      # Revealed type is "builtins.str"
+   add_forty_two('x')  # error: Argument 1 to "add_forty_two" has incompatible type "str"; expected "int"
 
 Or insert an argument:
 
