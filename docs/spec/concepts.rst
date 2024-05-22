@@ -174,6 +174,11 @@ function) if it is a consistent subtype of the variable's type annotation
 We can say that a type ``A`` is "assignable to" a type ``B`` if ``A`` is a
 consistent subtype of ``B``.
 
+In the remainder of this specification, we will usually prefer the term
+**assignable to** over "consistent subtype of". The two are synonyms, but
+"assignable to" is shorter, and may communicate a clearer intuition to many
+readers.
+
 References
 ----------
 
