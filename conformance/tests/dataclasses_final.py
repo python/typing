@@ -34,9 +34,5 @@ assert_type(d.final_with_default, str)
 # ... but can't be assigned to (on the class or on an instance):
 d.final_no_default = 10  # E: can't assign to final attribute
 d.final_with_default = "baz"  # E: can't assign to final attribute
-D.final_no_default = (
-    10  # E: can't assign to final attribute / can't assign instance attr on class
-)
-D.final_with_default = (
-    "baz"  # E: can't assign to final attribute / can't assign instance attr on class
-)
+D.final_no_default = 10  # E: can't assign to final attribute
+D.final_with_default = "baz"  # E: can't assign to final attribute
