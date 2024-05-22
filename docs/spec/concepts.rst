@@ -116,14 +116,17 @@ The consistency relation
 
 Since :ref:`Any` represents an unknown static type, it does not represent any
 known single set of values, and thus it is not in the domain of the subtype,
-supertype, or equivalence relations on static types described above.
+supertype, or equivalence relations on static types described above. (We do
+find it convenient to say, however, that ``Any`` is both subtype and supertype
+of -- that is, equivalent to -- only itself. This can allow us to simplify
+redundant multiple occurrences of ``Any`` out of more complex types.)
 
-We define a **materialization** relation on gradual types. The intuition for
-materialization is that it transforms a "more dynamic" type to a "more static"
-type. Given a gradual type ``A``, if we replace zero or more occurrences of
-``Any`` in ``A`` with some gradual type (which can be different for each
-occurrence of ``Any``), the resulting gradual type ``B`` is a materialization
-of ``A``.
+To relate gradual types more generally, we define a **materialization**
+relation. The intuition for materialization is that it transforms a "more
+dynamic" type to a "more static" type. Given a gradual type ``A``, if we
+replace zero or more occurrences of ``Any`` in ``A`` with some gradual type
+(which can be different for each occurrence of ``Any``), the resulting gradual
+type ``B`` is a materialization of ``A``.
 
 For instance, ``tuple[int, str]`` (a static type) and ``tuple[Any, str]`` (a
 gradual type) are both materializations of ``tuple[Any, Any]``. ``tuple[int,
