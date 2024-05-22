@@ -43,9 +43,12 @@ Static, dynamic, and gradual types
 ----------------------------------
 
 We will refer to types that do not contain :ref:`Any` as a sub-part as **static
-types**. :ref:`Any` itself is the **dynamic type**. A **gradual type** can be a
-static type, :ref:`Any` itself, or a type that contains :ref:`Any` as a
-sub-part.
+types**.
+
+:ref:`Any` itself is the **dynamic type**.
+
+A **gradual type** can be a static type, :ref:`Any` itself, or a type that
+contains :ref:`Any` as a sub-part.
 
 Static types
 ~~~~~~~~~~~~
@@ -120,7 +123,8 @@ replacing zero or more occurrences of ``Any`` in gradual type ``A`` with some
 gradual type (which can be different for each occurrence of ``Any``) results in
 the gradual type ``B``, then ``B`` is a materialization of ``A``. For instance,
 ``tuple[int, str]`` (a static type) and ``tuple[Any, str]`` (a gradual type)
-are both materializations of ``tuple[Any, Any]``.
+are both materializations of ``tuple[Any, Any]``. ``tuple[int, str]`` is also a
+materialization of ``tuple[Any, str]``.
 
 If ``B`` is a materialization of ``A``, we can say that ``B`` is a "more
 static" type than ``A``, and ``A`` is a "more dynamic" type than ``B``.
