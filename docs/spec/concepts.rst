@@ -14,86 +14,85 @@ not well-typed (i.e., one that contains a type error) will not run. Java and
 C++ are examples of statically-typed object-oriented languages.
 
 A **dynamically-typed** programming language does not run a type-checker before
-running a program. Instead, it will check the types of values before performing
+running a program. Instead, it checks the types of values before performing
 operations on them at runtime. This is not to say that the language is
 "untyped". Values at runtime have a type and their uses obey typing rules. Not
 every operation will be checked, but certain primitive operations in the
-language such as attribute access or arithmetic will be. Python was
-historically a dynamically-typed language.
+language such as attribute access or arithmetic are. Python is a
+dynamically-typed language.
 
-**Gradual typing** is the name for a specific way to combine static and dynamic
-typing. Type-annotated Python allows mixing static and dynamic checking at a
-fine level of granularity. Individual variables, parameters, and returns can
-optionally be given a static type. Data structures such as objects can have a
-mix of static and dynamic-only checking. For example, a dictionary could be
+**Gradual typing** is a way to combine static and dynamic typing.
+Type-annotated Python allows opting in to static type checking at a fine level
+of granularity, so that some type errors can be caught statically, before
+running the program. Variables, parameters, and returns can optionally be given
+a static type annotation. Even within the type of a single data structure,
+static type checking is opt-in and granular. For example, a dictionary can be
 annotated to have static checking of the key type but only dynamic checking of
 the value type.
 
-In gradual typing, a dynamically typed term is indicated by a special "unknown"
-or "dynamic" type.  In Python, the unknown type is spelled :ref:`Any`. It
-indicates to the static type checker that this term should not be subject to
-static checking.  The system should not signal a static type error for use of a
-term with type :ref:`Any`.  Instead, the term's type will be dynamically
-checked, according to the Python runtime's usual checks on the types of runtime
-values.
+In gradual typing, a special "unknown" or "dynamic" type is used in the static
+type system for names or expressions whose type is not known statically.  In
+Python, this type is spelled :ref:`Any`. Because :ref:`Any` indicates a
+statically-unknown type, the static type checker can't check type correctness
+of operations on expressions typed as :ref:`Any`. These operations are only
+dynamically checked, via the Python runtime's usual dynamic checking.
+
+The Python type system also uses ``...`` within :ref:`callable` and :ref:`Tuple
+<tuples>` types to indicate a statically-unknown component of a type. The
+detailed rules for these usages are discussed in their respective sections of
+the specification.
 
 This specification describes a gradual type system for Python.
 
-Static, dynamic, and gradual types
-----------------------------------
+Fully static and gradual types
+------------------------------
 
-We will refer to types that do not contain :ref:`Any` as a sub-part as **static
-types**.
+We will refer to types that do not contain :ref:`Any` (or the ``...`` in
+callable or tuple types) as a sub-part as **fully static types**.
 
-:ref:`Any` itself is the **dynamic type**.
+A **gradual type** can be a fully static type, :ref:`Any` itself, or a type
+that contains :ref:`Any` (or ``...``) as a sub-part.
 
-A **gradual type** can be a static type, :ref:`Any` itself, or a type that
-contains :ref:`Any` as a sub-part.
+Fully static types
+~~~~~~~~~~~~~~~~~~
 
-Static types
-~~~~~~~~~~~~
+A fully static type denotes a set of potential runtime values. For instance,
+the Python static type ``object`` is the set of all Python objects. The Python
+static type ``bool`` is the set of values ``{ True, False }``. The Python
+static type ``str`` is the set of all Python strings; more precisely, the set
+of all Python objects whose runtime type (``__class__`` attribute) is either
+``str`` or a class that inherits directly or indirectly from ``str``. A
+:ref:`Protocol <Protocols>` denotes the set of all objects which share a
+certain set of attributes and/or methods.
 
-A static type can intuitively be understood as denoting a set of runtime
-values. For instance, the Python static type ``object`` is the set of all
-Python objects. The Python static type ``bool`` is the set of values ``{ True,
-False }``. The Python static type ``str`` is the set of all Python strings;
-more precisely, the set of all Python objects whose runtime type (i.e.
-``__class__`` attribute) is either ``str`` or a class that inherits ``str``,
-including transitively; i.e. a type with ``str`` in its method resolution
-order.
+Gradual types
+~~~~~~~~~~~~~
 
-Static types can also be specified in other ways. For example, :ref:`Protocols`
-specify a static type which is the set of all objects which share a certain set
-of attributes and/or methods.
+:ref:`Any` represents an unknown static type. It denotes some unknown set of
+values.
 
-The dynamic type
-~~~~~~~~~~~~~~~~
+This may appear similar to the fully static type ``object``, which represents
+the set of all Python objects, but it is quite different.
 
-The dynamic type :ref:`Any` represents an unknown static type. It denotes some
-unknown set of values.
+If an expression has the type ``object``, a static type checker should ensure
+that operations on the expression are valid for all Python objects, or else
+emit a static type error. This allows very few operations! For example, if
+``x`` is typed as ``object``, ``x.foo`` should be a static type error because
+not all Python objects have an attribute ``foo``.
 
-At first glance, this may appear similar to the static type ``object``, which
-represents the set of all Python objects. But it is quite different.
-
-If a term has the static type ``object``, a static type checker should ensure
-that operations on the term are valid for all Python objects, or else emit a
-static type error. This allows very few operations! For example, if ``x`` is
-typed as ``object``, ``x.foo`` should be a static type error, because not all
-Python objects have an attribute ``foo``.
-
-A term typed as :ref:`Any`, on the other hand, should be assumed to have
+An expression typed as :ref:`Any`, on the other hand, should be assumed to have
 _some_ specific static type, but _which_ static type is not known. A static
-checker should not emit any errors that depend on assuming a particular static
-type; a static checker should instead assume that the runtime is responsible
-for checking the type of operations on this term, as in a dynamically-typed
-language.
+checker should not emit any errors that depend on assuming a particular type. A
+static checker should instead assume that the runtime is responsible for
+checking the type of operations on this expression, as usual in a
+dynamically-typed language.
 
 The gradual guarantee
 ~~~~~~~~~~~~~~~~~~~~~
 
 :ref:`Any` allows gradually adding static types to a dynamically-typed program.
 For a fully dynamically-typed program, a static checker has the type :ref:`Any`
-for all terms, and should emit no errors. Adding more static type annotations
+for all expressions, and should emit no errors. Adding static type annotations
 to the program (making the program more statically typed) may result in static
 type errors, if the program is not correct or if the static type annotations
 aren't able to fully represent the runtime types. Removing static type
@@ -103,14 +102,14 @@ static type errors. This is often referred to as the **gradual guarantee**.
 In Python's type system, we don't take the gradual guarantee as a strict
 requirement, but it's a useful guideline.
 
-The subtype relation
---------------------
+Subtype, supertype, and type equivalence
+----------------------------------------
 
-A static type ``B`` is a **subtype** of another static type ``A`` if and only
-if the set of values represented by ``B`` is a subset of the set of values
-represented by ``A``. Because the subset relation on sets is transitive and
-reflexive, the subtype relation is also transitive (if ``C`` is a subtype of
-``B`` and ``B`` is a subtype of ``A``, then ``C`` is a subtype of ``A``) and
+A fully static type ``B`` is a **subtype** of another fully static type ``A``
+if and only if the set of values represented by ``B`` is a subset of the set of
+values represented by ``A``. Because the subset relation on sets is transitive
+and reflexive, the subtype relation is also transitive (if ``C`` is a subtype
+of ``B`` and ``B`` is a subtype of ``A``, then ``C`` is a subtype of ``A``) and
 reflexive (``A`` is always a subtype of ``A``).
 
 The **supertype** relation is the inverse of subtype: ``A`` is a supertype of
@@ -118,25 +117,24 @@ The **supertype** relation is the inverse of subtype: ``A`` is a supertype of
 if the set of values represented by ``A`` is a superset of the values
 represented by ``B``. The supertype relation is also transitive and reflexive.
 
-We also define an **equivalence** relation on static types: the types ``A`` and
-``B`` are equivalent (or "the same type") if and only if ``A`` is a subtype
-of ``B`` and ``B`` is a subtype of ``A``. This means that the set of values
-represented by ``A`` is both a superset and a subset of the values represented
-by ``B``, meaning ``A`` and ``B`` must represent the same set of values.
+We also define an **equivalence** relation on fully static types: the types
+``A`` and ``B`` are equivalent (or "the same type") if and only if ``A`` is a
+subtype of ``B`` and ``B`` is a subtype of ``A``. This means that the set of
+values represented by ``A`` is both a superset and a subset of the values
+represented by ``B``, meaning ``A`` and ``B`` must represent the same set of
+values.
 
-We may describe a type ``B`` as "narrower" than a type ``A`` (or as a "strict
+We may describe a type ``B`` as "narrower" than a type ``A`` (or as a "proper
 subtype" of ``A``) if ``B`` is a subtype of ``A`` and ``B`` is not equivalent
-to ``A``.
+to ``A``. In the same scenario we can describe the type ``A`` as "wider" than
+``B``, or a "proper supertype" of ``B``.
 
-The consistency relation
-------------------------
+Materialization
+---------------
 
 Since :ref:`Any` represents an unknown static type, it does not represent any
 known single set of values, and thus it is not in the domain of the subtype,
-supertype, or equivalence relations on static types described above. (We do
-find it convenient to say, however, that ``Any`` is both subtype and supertype
-of -- that is, equivalent to -- only itself. This can allow us to simplify
-redundant multiple occurrences of ``Any`` out of more complex types.)
+supertype, or equivalence relations on static types described above.
 
 To relate gradual types more generally, we define a **materialization**
 relation. The intuition for materialization is that it transforms a "more
@@ -155,18 +153,22 @@ static" type than ``A``, and ``A`` is a "more dynamic" type than ``B``.
 The materialization relation is both transitive and reflexive, so it defines a
 preorder on gradual types.
 
-We also define a **consistency** relation on gradual types.
+Consistency
+-----------
 
-A static type ``A`` is consistent with another static type ``B`` if and only if
-they are the same type (``A`` is equivalent to ``B``.)
+We define a **consistency** relation on gradual types, based on
+materialization.
+
+A fully static type ``A`` is consistent with another fully static type ``B`` if
+and only if they are the same type (``A`` is equivalent to ``B``.)
 
 A gradual type ``A`` is consistent with a gradual type ``B``, and ``B`` is
-consistent with ``A``, if and only if there exists some static type ``C`` which
-is a materialization of both ``A`` and ``B``.
+consistent with ``A``, if and only if there exists some fully static type ``C``
+which is a materialization of both ``A`` and ``B``.
 
-The dynamic type ``Any`` is consistent with every type, and every type is
-consistent with ``Any``. (This must follow from the above definitions of
-materialization and consistency, but is worth stating explicitly.)
+``Any`` is consistent with every type, and every type is consistent with
+``Any``. (This follows from the definitions of materialization and consistency
+but is worth stating explicitly.)
 
 The consistency relation is not transitive. ``tuple[int, int]`` is consistent
 with ``tuple[Any, int]``, and ``tuple[Any, int]`` is consistent with
@@ -208,6 +210,105 @@ subtype of ``A``, then ``tuple[Any, B]`` is assignable to ``tuple[int, A]``,
 because ``tuple[Any, B]`` can materialize to ``tuple[int, B]``, which is a
 subtype of ``tuple[int, A]``. But ``tuple[int, A]`` is not assignable to
 ``tuple[Any, B]``.
+
+.. _`union-types`:
+
+Union types
+-----------
+
+Since accepting a small, limited set of expected types for a single
+argument is common, the type system supports union types, created with the
+``|`` operator.
+Example::
+
+  def handle_employees(e: Employee | Sequence[Employee]) -> None:
+      if isinstance(e, Employee):
+          e = [e]
+      ...
+
+A (fully static) union type ``T1 | T2 | ...`` represents the set of values
+formed by the union of all the sets of values represented by ``T1``, ``T2``,
+etc. Thus, by the definition of the supertype relation, the union ``T1 | T2``
+is a supertype of both ``T1`` and ``T2``. Via materialization, the gradual
+types ``S1`` and ``S2`` are both assignable to a gradual union type ``S1 |
+S2``.
+
+One common case of union types are *optional* types, which are a union with
+``None``. Example::
+
+  def handle_employee(e: Employee | None) -> None: ...
+
+Either an instance of ``Employee`` or the value ``None`` are assignable to the
+union ``Employee | None``.
+
+A past version of this specification allowed type checkers to assume an optional
+type when the default value is ``None``, as in this code::
+
+  def handle_employee(e: Employee = None): ...
+
+This would have been treated as equivalent to::
+
+  def handle_employee(e: Employee | None = None) -> None: ...
+
+This is no longer the recommended behavior. Type checkers should move
+towards requiring the optional type to be made explicit.
+
+Support for singleton types in unions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A singleton instance is frequently used to mark some special condition,
+in particular in situations where ``None`` is also a valid value
+for a variable. Example::
+
+  _empty = object()
+
+  def func(x=_empty):
+      if x is _empty:  # default argument value
+          return 0
+      elif x is None:  # argument was provided and it's None
+          return 1
+      else:
+          return x * 2
+
+To allow precise typing in such situations, the user should use
+a union type in conjunction with the ``enum.Enum`` class provided
+by the standard library, so that type errors can be caught statically::
+
+  from enum import Enum
+
+  class Empty(Enum):
+      token = 0
+  _empty = Empty.token
+
+  def func(x: int | None | Empty = _empty) -> int:
+
+      boom = x * 42  # This fails type check
+
+      if x is _empty:
+          return 0
+      elif x is None:
+          return 1
+      else:  # At this point typechecker knows that x can only have type int
+          return x * 2
+
+Since the subclasses of ``Enum`` cannot be further subclassed,
+the type of variable ``x`` can be statically inferred in all branches
+of the above example. The same approach is applicable if more than one
+singleton object is needed: one can use an enumeration that has more than
+one value::
+
+  class Reason(Enum):
+      timeout = 1
+      error = 2
+
+  def process(response: str | Reason = '') -> str:
+      if response is Reason.timeout:
+          return 'TIMEOUT'
+      elif response is Reason.error:
+          return 'ERROR'
+      else:
+          # response can be only str, all other possible values exhausted
+          return 'PROCESSED: ' + response
 
 References
 ----------
