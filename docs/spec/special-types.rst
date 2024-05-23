@@ -118,7 +118,7 @@ system contains a special case.
 When a reference to the built-in type ``float`` appears in a :term:`type expression`,
 it is interpreted as if it were a union of the built-in types ``float`` and ``int``.
 Similarly, when a reference to the type ``complex`` appears, it is interpreted as
-a union of the builtin-types ``complex``, ``float`` and ``int``.
+a union of the built-in types ``complex``, ``float`` and ``int``.
 These implicit unions behave exactly like the corresponding explicit union types,
 but type checkers may choose to display them differently in user-visible output
 for clarity.
