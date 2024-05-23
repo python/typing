@@ -1,8 +1,12 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Does not narrow from float to int after isinstance() check
+"""
 output = """
 specialtypes_promotions.py:17: error: "float" has no attribute "numerator"  [attr-defined]
-specialtypes_promotions.py:29: error: Incompatible return value type (got "complex", expected "float")  [return-value]
+specialtypes_promotions.py:33: error: Incompatible return value type (got "complex", expected "float")  [return-value]
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 26: Expected 1 errors
 """
