@@ -1,6 +1,7 @@
 conformant = "Pass"
 output = """
-specialtypes_promotions.py:13: error: "float" has no attribute "numerator"  [attr-defined]
+specialtypes_promotions.py:15: error: "float" has no attribute "numerator"  [attr-defined]
+specialtypes_promotions.py:27: error: Incompatible return value type (got "complex", expected "float")  [return-value]
 """
 conformance_automated = "Pass"
 errors_diff = """

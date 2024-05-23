@@ -2,6 +2,8 @@
 Tests "type promotions" for float and complex when they appear in annotations.
 """
 
+from typing import assert_type
+
 # Specification: https://typing.readthedocs.io/en/latest/spec/special-types.html#special-cases-for-float-and-complex
 
 v1: float = 1
@@ -10,7 +12,20 @@ v2 = 1
 
 
 def func1(f: float):
-    f.numerator  # E
+    f.numerator  # E: attribute exists on int but not float
 
-    if not isinstance(f, float):
-        f.numerator  # OK
+    if isinstance(f, float):
+        assert_type(f, float)
+    else:
+        assert_type(f, int)
+
+
+def func2(x: int) -> float:
+    if x == 0:
+        return 1
+    elif x == 1:
+        return 1j  # E
+    elif x > 10:
+        return x
+    else:
+        return 1.0
