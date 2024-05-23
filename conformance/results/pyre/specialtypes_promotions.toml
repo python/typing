@@ -3,9 +3,9 @@ notes = """
 Does not reject use of attribute that is compatible only with float.
 """
 output = """
-specialtypes_promotions.py:27:8 Incompatible return type [7]: Expected `float` but got `complex`.
+specialtypes_promotions.py:29:8 Incompatible return type [7]: Expected `float` but got `complex`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 15: Expected 1 errors
+Line 17: Expected 1 errors
 """

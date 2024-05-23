@@ -1,8 +1,8 @@
 conformant = "Pass"
 output = """
-specialtypes_promotions.py:15:7 - error: Cannot access attribute "numerator" for class "float"
+specialtypes_promotions.py:17:7 - error: Cannot access attribute "numerator" for class "float"
   Attribute "numerator" is unknown (reportAttributeAccessIssue)
-specialtypes_promotions.py:27:16 - error: Expression of type "complex" is incompatible with return type "float"
+specialtypes_promotions.py:29:16 - error: Expression of type "complex" is incompatible with return type "float"
   "complex" is incompatible with "float" (reportReturnType)
 """
 conformance_automated = "Pass"
