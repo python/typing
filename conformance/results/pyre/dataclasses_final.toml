@@ -1,0 +1,19 @@
+conformant = "Partial"
+notes = """
+Mis-handles Final nested inside ClassVar.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 18: Unexpected errors ['dataclasses_final.py:18:4 Incompatible attribute type [8]: Attribute `final_classvar` declared in class `D` has type `Final[int]` but is used as type `int`.', 'dataclasses_final.py:18:4 Invalid type [31]: Expression `Final[int]` is not a valid type. Final cannot be nested.']
+Line 24: Unexpected errors ['dataclasses_final.py:24:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Final[int]`.']
+"""
+output = """
+dataclasses_final.py:18:4 Incompatible attribute type [8]: Attribute `final_classvar` declared in class `D` has type `Final[int]` but is used as type `int`.
+dataclasses_final.py:18:4 Invalid type [31]: Expression `Final[int]` is not a valid type. Final cannot be nested.
+dataclasses_final.py:24:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Final[int]`.
+dataclasses_final.py:27:0 Incompatible attribute type [8]: Attribute `final_classvar` declared in class `D` has type `Final[int]` but is used as type `int`.
+dataclasses_final.py:35:0 Invalid assignment [41]: Cannot reassign final attribute `d.final_no_default`.
+dataclasses_final.py:36:0 Invalid assignment [41]: Cannot reassign final attribute `d.final_with_default`.
+dataclasses_final.py:37:0 Invalid assignment [41]: Cannot reassign final attribute `D.final_no_default`.
+dataclasses_final.py:38:0 Invalid assignment [41]: Cannot reassign final attribute `D.final_with_default`.
+"""

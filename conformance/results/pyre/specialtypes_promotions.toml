@@ -4,3 +4,7 @@ Does not reject use of attribute that is compatible only with float.
 """
 output = """
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 13: Expected 1 errors
+"""

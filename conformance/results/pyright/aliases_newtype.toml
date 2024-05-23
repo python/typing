@@ -2,7 +2,7 @@ conformant = "Pass"
 output = """
 aliases_newtype.py:11:8 - error: Argument of type "Literal['user']" cannot be assigned to parameter "_x" of type "int" in function "__init__"
   "Literal['user']" is incompatible with "int" (reportArgumentType)
-aliases_newtype.py:12:14 - error: Expression of type "Literal[42]" cannot be assigned to declared type "UserId"
+aliases_newtype.py:12:14 - error: Expression of type "Literal[42]" is incompatible with declared type "UserId"
   "Literal[42]" is incompatible with "UserId" (reportAssignmentType)
 aliases_newtype.py:20:16 - error: Second argument to "isinstance" must be a class or tuple of classes
   Class created with NewType cannot be used with instance and class checks (reportArgumentType)
@@ -16,4 +16,7 @@ aliases_newtype.py:51:38 - error: NewType cannot be used with Literal type (repo
 aliases_newtype.py:58:38 - error: NewType cannot be used with structural type (a protocol or TypedDict class) (reportGeneralTypeIssues)
 aliases_newtype.py:60:15 - error: NewType requires two positional arguments (reportCallIssue)
 aliases_newtype.py:62:38 - error: The second argument to NewType must be a known class, not Any or Unknown (reportGeneralTypeIssues)
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

@@ -6,3 +6,12 @@ output = """
 File "aliases_variance.py", line 9, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
 File "aliases_variance.py", line 10, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Expected 1 errors
+Line 28: Expected 1 errors
+Line 32: Expected 1 errors
+Line 44: Expected 1 errors
+Line 9: Unexpected errors ['File "aliases_variance.py", line 9, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 10: Unexpected errors ['File "aliases_variance.py", line 10, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
+"""

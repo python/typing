@@ -41,7 +41,7 @@ x1 = XYZ(x=1, y="", z=True)
 class NonTypedDict:
     pass
 
-class BadTypedDict(TypedDict, NonTypedDict):
+class BadTypedDict(TypedDict, NonTypedDict):  # E
     pass
 
 
@@ -51,8 +51,8 @@ class BadTypedDict(TypedDict, NonTypedDict):
 class X1(TypedDict):
    x: str
 
-class Y1(X1):
-   x: int  # Type check error: cannot overwrite TypedDict field "x"
+class Y1(X1):  # E[Y1]
+   x: int  # E[Y1]: cannot overwrite TypedDict field "x"
 
 
 # > Multiple inheritance does not allow conflict types for the same name field:
@@ -62,5 +62,5 @@ class X2(TypedDict):
 class Y2(TypedDict):
    x: str
 
-class XYZ2(X2, Y2):  # Type check error: cannot overwrite TypedDict field "x" while merging
+class XYZ2(X2, Y2):  # E: cannot overwrite TypedDict field "x" while merging
    xyz: bool

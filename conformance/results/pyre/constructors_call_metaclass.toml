@@ -1,0 +1,11 @@
+conformant = "Partial"
+notes = """
+Does not evaluate __new__ if metaclass __call__ is defined.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 51: Expected 1 errors
+Line 65: Expected 1 errors
+"""
+output = """
+"""

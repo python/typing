@@ -11,3 +11,8 @@ dataclasses_transform_func.py:71: error: Too many positional arguments for "Cust
 dataclasses_transform_func.py:90: error: Cannot inherit non-frozen dataclass from a frozen one  [misc]
 dataclasses_transform_func.py:97: error: Property "id" defined in "Customer3" is read-only  [misc]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 61: Expected 1 errors
+Line 53: Unexpected errors ['dataclasses_transform_func.py:53: error: Too many positional arguments for "Customer1"  [misc]']
+"""

@@ -48,13 +48,13 @@ def generator1() -> Generator[A, B, C]:
     return C()
 
 
-def generator2() -> Generator[A, B, C]:  # Type error: missing return
+def generator2() -> Generator[A, B, C]:  # E: missing return
     cont = B()
     if cont.should_continue():
-        return False  # Type error: incompatible return type
+        return False  # E: incompatible return type
 
     while cont.should_continue():
-        yield 3  # Type error: incompatible yield type
+        yield 3  # E: incompatible yield type
 
 
 def generator3() -> Generator[A, int, Any]:
@@ -63,16 +63,16 @@ def generator3() -> Generator[A, int, Any]:
         return 3
 
     while cont.should_continue():
-        yield 3  # Incompatible yield type
+        yield 3  # E: Incompatible yield type
 
 
 def generator4() -> Iterable[A]:
     yield A()
-    return True
+    return True  # E?: No return value expected
 
 
 def generator5() -> Iterator[A]:
-    yield B()  # Type error: incompatible yield type
+    yield B()  # E: incompatible yield type
 
 
 def generator6() -> Generator[None, None, None]:
@@ -83,13 +83,13 @@ def generator7() -> Iterator[dict[str, int]]:
     yield {"": 0}  # OK
 
 
-def generator8() -> int:  # Type error: incompatible return type
-    yield None
+def generator8() -> int:  # E: incompatible return type
+    yield None  # E
     return 0
 
 
-async def generator9() -> int:  # Type error: incompatible return type
-    yield None
+async def generator9() -> int:  # E: incompatible return type
+    yield None  # E
 
 
 class IntIterator(Protocol):
@@ -115,8 +115,8 @@ def generator17() -> Iterator[A]:  # OK
 
 
 def generator18() -> Iterator[B]:
-    yield from generator17()  # Type error: incompatible generator type
-    yield from [1]  # Type error: incompatible generator type
+    yield from generator17()  # E: incompatible generator type
+    yield from [1]  # E: incompatible generator type
 
 
 def generator19() -> Generator[None, float, None]:  # OK
@@ -132,7 +132,7 @@ def generator21() -> Generator[None, int, None]:
 
 
 def generator22() -> Generator[None, str, None]:
-    yield from generator21()  # Type error: incompatible send type
+    yield from generator21()  # E: incompatible send type
 
 
 def generator23() -> Iterable[str]:  # OK

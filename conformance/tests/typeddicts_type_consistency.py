@@ -18,7 +18,7 @@ class B1(TypedDict):
 b1: B1 = {"x": 0}
 
 # > Value types behave invariantly.
-a1: A1 = b1  # Type check error: 'B1' not compatible with 'A1'
+a1: A1 = b1  # E: 'B1' not compatible with 'A1'
 
 # > any TypedDict type is consistent with Mapping[str, object]
 v1: Mapping[str, object] = b1
@@ -35,7 +35,7 @@ class B2(TypedDict):
 
 
 b2: B2 = {"x": 0}
-a2: A2 = b2  # Type check error: 'B2' not compatible with 'A2'
+a2: A2 = b2  # E: 'B2' not compatible with 'A2'
 
 
 # > A TypedDict type A is consistent with TypedDict B if A is structurally
@@ -62,24 +62,24 @@ b3: B3 = {"x": 0, "y": 0}
 a3: A3 = b3
 
 a3 = {"x": 0}
-b3 = a3  # Type checker error
+b3 = a3  # E
 
 
 # This should generate an error because it's a literal assignment.
-a3_1: A3 = {"x": 0, "y": 0}
+a3_1: A3 = {"x": 0, "y": 0}  # E
 
 # This should not generate an error.
 a3_2 = b3
 
 # > A TypedDict isn’t consistent with any Dict[...] type.
 
-d1: dict[str, int] = b3  # Type checker error
-d2: dict[str, object] = b3  # Type checker error
-d3: dict[Any, Any] = b3  # Type checker error
+d1: dict[str, int] = b3  # E
+d2: dict[str, object] = b3  # E
+d3: dict[Any, Any] = b3  # E
 
 # > A TypedDict with all int values is not consistent with Mapping[str, int].
 
-m1: Mapping[str, int] = b3  # Type checker error
+m1: Mapping[str, int] = b3  # E
 m2: Mapping[str, object] = b3  # OK
 m3: Mapping[str, Any] = b3  # OK
 
@@ -96,13 +96,15 @@ user2: UserType2 = {"name": "Bob", "age": 40}
 
 name2: str | None = user2.get("name")
 
-name3: str = user2.get("name")
+# The spec does not say whether type checkers should adjust the return type of `.get()`
+# to exclude `None` if it is known that the key exists. Either option is acceptable.
+name3: str = user2.get("name")  # E?
 
 age2: int = user2.get("age", 42)
 
 age3: int | str = user2.get("age", "42")
 
-age4: int = user2.get("age", "42")
+age4: int = user2.get("age", "42")  # E?
 
 # Test nested TypedDicts.
 class Inner1(TypedDict):
@@ -121,7 +123,7 @@ o1: Outer1 = {"outer_key": {"inner_key": {"inner_key": "hi"}}}
 
 # This should generate an error because the inner-most value
 # should be a string.
-o2: Outer1 = {"outer_key": {"inner_key": {"inner_key": 1}}}
+o2: Outer1 = {"outer_key": {"inner_key": {"inner_key": 1}}}  # E
 
 
 class Inner3(TypedDict):

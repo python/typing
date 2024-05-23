@@ -1,0 +1,14 @@
+conformant = "Partial"
+notes = """
+Does not apply rules for pre-3.8 positional-only parameters in some cases.
+Does not reject positional-only parameter after non-positional-only parameter.
+"""
+output = """
+File "historical_positional.py", line 43, in <module>: Invalid keyword argument __x to function A.m1 [wrong-keyword-args]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 18: Expected 1 errors
+Line 26: Expected 1 errors
+Line 38: Expected 1 errors
+"""

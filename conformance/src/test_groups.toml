@@ -39,9 +39,17 @@ href = "https://typing.readthedocs.io/en/latest/spec/protocol.html"
 name = "Callables"
 href = "https://typing.readthedocs.io/en/latest/spec/callables.html"
 
+[constructors]
+name = "Constructors"
+href = "https://typing.readthedocs.io/en/latest/spec/constructors.html"
+
 [overloads]
 name = "Overloads"
 href = "https://typing.readthedocs.io/en/latest/spec/overload.html"
+
+[exceptions]
+name = "Exceptions"
+href = "https://typing.readthedocs.io/en/latest/spec/exceptions.html"
 
 [dataclasses]
 name = "Dataclasses"

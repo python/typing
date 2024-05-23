@@ -1,0 +1,31 @@
+conformant = "Partial"
+notes = """
+Does not support __new__ return type that is not a subclass of the class being constructed.
+Does not skip evaluation of __init__ based on __new__ return type.
+Does not report errors during binding to cls parameter of __new__ method.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 145: Expected 1 errors
+Line 40: Unexpected errors ['constructors_call_new.py:40: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class3")  [misc]']
+Line 49: Unexpected errors ['constructors_call_new.py:49: error: Expression is of type "Class3", not "int"  [assert-type]', 'constructors_call_new.py:49: error: Missing positional argument "x" in call to "Class3"  [call-arg]']
+Line 57: Unexpected errors ['constructors_call_new.py:57: error: "__new__" must return a class instance (got "Class4 | Any")  [misc]']
+Line 64: Unexpected errors ['constructors_call_new.py:64: error: Expression is of type "Class4", not "Class4 | Any"  [assert-type]', 'constructors_call_new.py:64: error: Missing positional argument "x" in call to "Class4"  [call-arg]']
+Line 76: Unexpected errors ['constructors_call_new.py:76: error: Expression is of type "Class5", not "NoReturn"  [assert-type]', 'constructors_call_new.py:76: error: Missing positional argument "x" in call to "Class5"  [call-arg]']
+Line 82: Unexpected errors ['constructors_call_new.py:82: error: "__new__" must return a class instance (got "int | Class6")  [misc]']
+Line 89: Unexpected errors ['constructors_call_new.py:89: error: Expression is of type "Class6", not "int | Class6"  [assert-type]', 'constructors_call_new.py:89: error: Missing positional argument "x" in call to "Class6"  [call-arg]']
+"""
+output = """
+constructors_call_new.py:21: error: Argument 1 to "Class1" has incompatible type "float"; expected "int"  [arg-type]
+constructors_call_new.py:40: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class3")  [misc]
+constructors_call_new.py:49: error: Expression is of type "Class3", not "int"  [assert-type]
+constructors_call_new.py:49: error: Missing positional argument "x" in call to "Class3"  [call-arg]
+constructors_call_new.py:57: error: "__new__" must return a class instance (got "Class4 | Any")  [misc]
+constructors_call_new.py:64: error: Expression is of type "Class4", not "Class4 | Any"  [assert-type]
+constructors_call_new.py:64: error: Missing positional argument "x" in call to "Class4"  [call-arg]
+constructors_call_new.py:76: error: Expression is of type "Class5", not "NoReturn"  [assert-type]
+constructors_call_new.py:76: error: Missing positional argument "x" in call to "Class5"  [call-arg]
+constructors_call_new.py:82: error: "__new__" must return a class instance (got "int | Class6")  [misc]
+constructors_call_new.py:89: error: Expression is of type "Class6", not "int | Class6"  [assert-type]
+constructors_call_new.py:89: error: Missing positional argument "x" in call to "Class6"  [call-arg]
+"""

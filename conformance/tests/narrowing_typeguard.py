@@ -4,7 +4,7 @@ Tests TypeGuard functionality.
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/narrowing.html#typeguard
 
-from typing import Any, Self, TypeGuard, TypeVar, assert_type
+from typing import Any, Callable, Protocol, Self, TypeGuard, TypeVar, assert_type
 
 
 T = TypeVar("T")
@@ -39,7 +39,7 @@ T_A = TypeVar("T_A", bound="A")
 class A:
     def tg_1(self, val: object) -> TypeGuard[int]:
         return isinstance(val, int)
-    
+
     @classmethod
     def tg_2(cls, val: object) -> TypeGuard[int]:
         return isinstance(val, int)
@@ -47,10 +47,10 @@ class A:
     @staticmethod
     def tg_3(val: object) -> TypeGuard[int]:
         return isinstance(val, int)
-    
+
     def tg4(self, val: object) -> TypeGuard[Self]:
         return isinstance(val, type(self))
-       
+
     def tg5(self: T_A, val: object) -> TypeGuard[T_A]:
         return isinstance(val, type(self))
 
@@ -99,10 +99,69 @@ def func3() -> None:
 
 class C:
     # Type checker should emit error here.
-    def tg_1(self) -> TypeGuard[int]:
+    def tg_1(self) -> TypeGuard[int]:  # E
         return False
-    
+
     @classmethod
     # Type checker should emit error here.
-    def tg_2(cls) -> TypeGuard[int]:
+    def tg_2(cls) -> TypeGuard[int]:  # E
         return False
+
+# > ``TypeGuard`` is also valid as the return type of a ``Callable`` type. In that
+# > context, it is treated as a subtype of bool. For example, ``Callable[..., TypeGuard[int]]``
+# > is assignable to ``Callable[..., bool]``.
+
+
+def takes_callable_bool(f: Callable[[object], bool]) -> None:
+    pass
+
+
+def takes_callable_str(f: Callable[[object], str]) -> None:
+    pass
+
+
+def simple_typeguard(val: object) -> TypeGuard[int]:
+    return isinstance(val, int)
+
+
+takes_callable_bool(simple_typeguard)  # OK
+takes_callable_str(simple_typeguard)   # E
+
+
+class CallableBoolProto(Protocol):
+    def __call__(self, val: object) -> bool: ...
+
+
+class CallableStrProto(Protocol):
+    def __call__(self, val: object) -> str: ...
+
+
+def takes_callable_bool_proto(f: CallableBoolProto) -> None:
+    pass
+
+
+def takes_callable_str_proto(f: CallableStrProto) -> None:
+    pass
+
+
+takes_callable_bool_proto(simple_typeguard)  # OK
+takes_callable_str_proto(simple_typeguard)   # E
+
+# > Unlike ``TypeGuard``, ``TypeIs`` is invariant in its argument type:
+# > ``TypeIs[B]`` is not a subtype of ``TypeIs[A]``,
+# > even if ``B`` is a subtype of ``A``.
+
+def takes_int_typeguard(f: Callable[[object], TypeGuard[int]]) -> None:
+    pass
+
+
+def int_typeguard(val: object) -> TypeGuard[int]:
+    return isinstance(val, int)
+
+
+def bool_typeguard(val: object) -> TypeGuard[bool]:
+    return isinstance(val, bool)
+
+
+takes_int_typeguard(int_typeguard)  # OK
+takes_int_typeguard(bool_typeguard)  # OK

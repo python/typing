@@ -16,3 +16,6 @@ qualifiers_final_decorator.py:118: note:      Subclass:
 qualifiers_final_decorator.py:118: note:          def method(self) -> None
 qualifiers_final_decorator.py:125: error: @final cannot be used with non-method functions  [misc]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

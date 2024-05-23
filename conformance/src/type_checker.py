@@ -3,15 +3,18 @@ Classes that abstract differences between type checkers.
 """
 
 from abc import ABC, abstractmethod
+from curses.ascii import isspace
 import json
 from pathlib import Path
 import os
+import re
 from pytype import config as pytype_config
 from pytype import io as pytype_io
-from pytype import errors as pytype_errors
+from pytype import analyze as pytype_analyze
+from pytype.errors import errors as pytype_errors
 from pytype import load_pytd as pytype_loader
-from shutil import rmtree
-from subprocess import PIPE, run
+import shutil
+from subprocess import PIPE, CalledProcessError, run
 import sys
 from tqdm import tqdm
 from typing import Sequence
@@ -49,6 +52,13 @@ class TypeChecker(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        """
+        Parses type checker output to summarize the lines on which errors occurred.
+        """
+        raise NotImplementedError
+
 
 class MypyTypeChecker(TypeChecker):
     @property
@@ -58,25 +68,24 @@ class MypyTypeChecker(TypeChecker):
     def install(self) -> bool:
         try:
             # Delete the cache for consistent timings.
-            rmtree(".mypy_cache")
-        except:
+            shutil.rmtree(".mypy_cache")
+        except (shutil.Error, OSError):
             # Ignore any errors here.
             pass
 
         try:
             run(
-                f"{sys.executable} -m pip install mypy --upgrade",
+                [sys.executable, "-m", "pip", "install", "mypy", "--upgrade"],
                 check=True,
-                shell=True,
             )
             return True
-        except:
+        except CalledProcessError:
             print("Unable to install mypy")
             return False
 
     def get_version(self) -> str:
         proc = run(
-            f"{sys.executable} -m mypy --version", stdout=PIPE, text=True, shell=True
+            [sys.executable, "-m", "mypy", "--version"], stdout=PIPE, text=True
         )
         version = proc.stdout.strip()
 
@@ -85,8 +94,20 @@ class MypyTypeChecker(TypeChecker):
         return version
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        command = f"{sys.executable} -m mypy . --disable-error-code empty-body"
-        proc = run(command, stdout=PIPE, text=True, shell=True)
+        command = [
+            sys.executable,
+            "-m",
+            "mypy",
+            ".",
+            # Mypy currently crashes when run on the "generics_defaults.py" test case,
+            # so we need to exclude it for now. Remove this once mypy adds support for
+            # this functionality.
+            "--exclude",
+            r"generics_defaults\.py",
+            "--disable-error-code",
+            "empty-body",
+        ]
+        proc = run(command, stdout=PIPE, text=True)
         lines = proc.stdout.split("\n")
 
         # Add results to a dictionary keyed by the file name.
@@ -96,6 +117,19 @@ class MypyTypeChecker(TypeChecker):
             results_dict[file_name] = results_dict.get(file_name, "") + line + "\n"
 
         return results_dict
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # narrowing_typeguard.py:102: error: TypeGuard functions must have a positional argument  [valid-type]
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            if line.count(":") < 3:
+                continue
+            _, lineno, kind, _ = line.split(":", maxsplit=3)
+            kind = kind.strip()
+            if kind != "error":
+                continue
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
 
 
 class PyrightTypeChecker(TypeChecker):
@@ -107,28 +141,27 @@ class PyrightTypeChecker(TypeChecker):
         try:
             # Install the Python wrapper if it's not installed.
             run(
-                f"{sys.executable} -m pip install pyright --upgrade",
+                [sys.executable, "-m", "pip", "install", "pyright", "--upgrade"],
                 check=True,
-                shell=True,
             )
 
             # Force the Python wrapper to install node if needed
             # and download the latest version of pyright.
             self.get_version()
             return True
-        except:
+        except CalledProcessError:
             print("Unable to install pyright")
             return False
 
     def get_version(self) -> str:
         proc = run(
-            f"{sys.executable} -m pyright --version", stdout=PIPE, text=True, shell=True
+            [sys.executable, "-m", "pyright", "--version"], stdout=PIPE, text=True
         )
         return proc.stdout.strip()
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        command = f"{sys.executable} -m pyright . --outputjson"
-        proc = run(command, stdout=PIPE, text=True, shell=True)
+        command = [sys.executable, "-m", "pyright", ".", "--outputjson"]
+        proc = run(command, stdout=PIPE, text=True)
         output_json = json.loads(proc.stdout)
         diagnostics = output_json["generalDiagnostics"]
 
@@ -148,6 +181,21 @@ class PyrightTypeChecker(TypeChecker):
 
         return results_dict
 
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # narrowing_typeguard.py:102:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            # Ignore indented notes
+            if not line or line[0].isspace():
+                continue
+            assert line.count(":") >= 3, f"Failed to parse line: {line!r}"
+            _, lineno, kind, _ = line.split(":", maxsplit=3)
+            kind = kind.split()[-1]
+            if kind not in ("error", "warning"):
+                continue
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
+
 
 class PyreTypeChecker(TypeChecker):
     @property
@@ -157,16 +205,15 @@ class PyreTypeChecker(TypeChecker):
     def install(self) -> bool:
         try:
             # Delete the cache for consistent timings.
-            rmtree(".pyre")
-        except:
+            shutil.rmtree(".pyre")
+        except (shutil.Error, OSError):
             # Ignore any errors here.
             pass
 
         try:
             run(
-                f"{sys.executable} -m pip install pyre-check --upgrade",
+                [sys.executable, "-m", "pip", "install", "pyre-check", "--upgrade"],
                 check=True,
-                shell=True,
             )
 
             # Generate a default config file.
@@ -175,18 +222,18 @@ class PyreTypeChecker(TypeChecker):
                 f.write(pyre_config)
 
             return True
-        except:
+        except CalledProcessError:
             print("Unable to install pyre")
             return False
 
     def get_version(self) -> str:
-        proc = run("pyre --version", stdout=PIPE, text=True, shell=True)
+        proc = run(["pyre", "--version"], stdout=PIPE, text=True)
         version = proc.stdout.strip()
         version = version.replace("Client version:", "pyre")
         return version
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        proc = run("pyre check", stdout=PIPE, text=True, shell=True)
+        proc = run(["pyre", "check"], stdout=PIPE, text=True)
         lines = proc.stdout.split("\n")
 
         # Add results to a dictionary keyed by the file name.
@@ -197,6 +244,18 @@ class PyreTypeChecker(TypeChecker):
 
         return results_dict
 
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # narrowing_typeguard.py:17:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            # Ignore multi-line errors
+            if ".py:" not in line:
+                continue
+            assert line.count(":") >= 2, f"Failed to parse line: {line!r}"
+            _, lineno, _ = line.split(":", maxsplit=2)
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
+
 
 class PytypeTypeChecker(TypeChecker):
     @property
@@ -206,18 +265,17 @@ class PytypeTypeChecker(TypeChecker):
     def install(self) -> bool:
         try:
             run(
-                f"{sys.executable} -m pip install pytype --upgrade",
+                [sys.executable, "-m", "pip", "install", "pytype", "--upgrade"],
                 check=True,
-                shell=True,
             )
             return True
-        except:
+        except CalledProcessError:
             print("Unable to install pytype on this platform")
             return False
 
     def get_version(self) -> str:
         proc = run(
-            f"{sys.executable} -m pytype --version", stdout=PIPE, text=True, shell=True
+            [sys.executable, "-m", "pytype", "--version"], stdout=PIPE, text=True
         )
         version = proc.stdout.strip()
         return f"pytype {version}"
@@ -239,13 +297,15 @@ class PytypeTypeChecker(TypeChecker):
             with open(fi, "r") as test_file:
                 src = test_file.read()
             try:
-                errorlog: pytype_errors.ErrorLog = pytype_io.check_py(
+                analysis: pytype_analyze.Analysis = pytype_io.check_py(
                     src, options=options, loader=loader
                 )
             except Exception as e:
                 results_dict[fi] = f"{e.__class__.__name__}: {e}\n"
             else:
-                results_dict[fi] = self.enforce_consistent_order(errorlog)
+                results_dict[fi] = self.enforce_consistent_order(
+                    analysis.context.errorlog
+                )
         return results_dict
 
     def enforce_consistent_order(self, log: pytype_errors.ErrorLog) -> str:
@@ -282,6 +342,19 @@ class PytypeTypeChecker(TypeChecker):
         ]
         errors.sort(key=ErrorSorter)
         return "\n".join(map(str, errors)) + "\n"
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # File "narrowing_typeguard.py", line 128, in <module>: Function takes_callable_str was called with the wrong arguments [wrong-arg-types]
+        # File "directives_type_ignore.py", line 11: Stray type comment: ignore - additional stuff [ignored-type-comment]'
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            if '.py", line ' not in line:
+                continue
+            match = re.search(r"^File \"[^\"]+?\", line (\d+)", line)
+            assert match is not None, f"Failed to parse line number from: {line!r}"
+            lineno = int(match.group(1))
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
 
 
 TYPE_CHECKERS: Sequence[TypeChecker] = (

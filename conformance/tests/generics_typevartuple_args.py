@@ -30,8 +30,8 @@ def exec_le(path: str, *args: * tuple[*Ts, Env], env: Env | None = None) -> tupl
 
 assert_type(exec_le("", Env()), tuple[()])  # OK
 assert_type(exec_le("", 0, "", Env()), tuple[int, str])  # OK
-exec_le("", 0, "")  # Type error
-exec_le("", 0, "", env=Env())  # Type error
+exec_le("", 0, "")  # E
+exec_le("", 0, "", env=Env())  # E
 
 
 # > Using an unpacked unbounded tuple is equivalent to the
@@ -45,7 +45,7 @@ def func1(*args: * tuple[int, ...]) -> None:
 
 func1()  # OK
 func1(1, 2, 3, 4, 5)  # OK
-func1(1, "2", 3)  # Type error
+func1(1, "2", 3)  # E
 
 
 def func2(*args: * tuple[int, *tuple[str, ...], str]) -> None:
@@ -54,9 +54,9 @@ def func2(*args: * tuple[int, *tuple[str, ...], str]) -> None:
 
 func2(1, "")  # OK
 func2(1, "", "", "", "")  # OK
-func2(1, 1, "")  # Type error
-func2(1)  # Type error
-func2("")  # Type error
+func2(1, 1, "")  # E
+func2(1)  # E
+func2("")  # E
 
 
 def func3(*args: * tuple[int, str]) -> None:
@@ -64,7 +64,7 @@ def func3(*args: * tuple[int, str]) -> None:
 
 
 func3(1, "hello")  # OK
-func3(1)  # Type error
+func3(1)  # E
 
 
 def func4(*args: tuple[*Ts]):
@@ -72,10 +72,10 @@ def func4(*args: tuple[*Ts]):
 
 
 func4((0,), (1,))  # OK
-func4((0,), (1, 2))  # Type error
-func4((0,), ("1",))  # Type error
+func4((0,), (1, 2))  # E
+func4((0,), ("1",))  # E
 
 
 # This is a syntax error, so leave it commented out.
-# def func5(**kwargs: *Ts): # Type error
+# def func5(**kwargs: *Ts): # E
 #     ...

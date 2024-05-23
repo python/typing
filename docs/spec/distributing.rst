@@ -3,6 +3,8 @@
 Distributing type information
 =============================
 
+.. _stub-files:
+
 Stub files
 ----------
 
@@ -119,7 +121,7 @@ type checking as well.
 
 To have this file including with the package, maintainers can use existing packaging
 options such as ``package_data`` in ``setuptools``. For more details, see
-:ref:`the guide to providing type annotations <providing-type-annotations>`_.
+:ref:`the guide to providing type annotations <providing-type-annotations>`.
 
 For namespace packages (see :pep:`420`), the ``py.typed`` file should be in the
 submodules of the namespace, to avoid conflicts and for clarity.
@@ -154,7 +156,7 @@ information.
 Third parties seeking to distribute stub files are encouraged to contact the
 maintainer of the package about distribution alongside the package. If the
 maintainer does not wish to maintain or package stub files or type information
-inline, then a third party stub-only package can be created.
+:term:`inline`, then a third party stub-only package can be created.
 
 In addition, stub-only distributions MAY indicate which version(s)
 of the runtime package are targeted by indicating the runtime distribution's
@@ -192,7 +194,7 @@ Many stub packages will only have part of the type interface for libraries
 completed, especially initially. For the benefit of type checking and code
 editors, packages can be "partial". This means modules not found in the stub
 package SHOULD be searched for in part four of the module resolution
-order below, namely inline packages.
+order below, namely :term:`inline` packages.
 
 Type checkers should merge the stub package and runtime package
 directories. This can be thought of as the functional equivalent of copying the
@@ -220,14 +222,14 @@ The following is the order in which type checkers supporting this specification 
 resolve modules containing type information:
 
 
-1. Stubs or Python source manually put in the beginning of the path. Type
+1. :term:`Stubs <stub>` or Python source manually put in the beginning of the path. Type
    checkers SHOULD provide this to allow the user complete control of which
-   stubs to use, and to patch broken stubs/inline types from packages.
+   stubs to use, and to patch broken stubs or :term:`inline` types from packages.
    In mypy the ``$MYPYPATH`` environment variable can be used for this.
 
 2. User code - the files the type checker is running on.
 
-3. Stub packages - these packages SHOULD supersede any installed inline
+3. :term:`Stub <stub>` packages - these packages SHOULD supersede any installed inline
    package. They can be found in directories named ``foopkg-stubs`` for
    package ``foopkg``.
 

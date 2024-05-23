@@ -1,10 +1,8 @@
 conformant = "Partial"
 notes = """
-Rejects integer Literal with unary `+` operator.
 Does not reject tuple within Literal.
 """
 output = """
-literals_parameterizations.py:20: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
 literals_parameterizations.py:41: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
 literals_parameterizations.py:42: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
 literals_parameterizations.py:43: error: Invalid type: Literal[...] cannot contain arbitrary expressions  [valid-type]
@@ -21,4 +19,8 @@ literals_parameterizations.py:56: error: Invalid type: Literal[...] cannot conta
 literals_parameterizations.py:60: error: Literal[...] must have at least one parameter  [valid-type]
 literals_parameterizations.py:61: error: Parameter 1 of Literal[...] is invalid  [valid-type]
 literals_parameterizations.py:65: error: Incompatible types in assignment (expression has type "Literal[Color.RED]", variable has type "Literal['Color.RED']")  [assignment]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 46: Expected 1 errors
 """

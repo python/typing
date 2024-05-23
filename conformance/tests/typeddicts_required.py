@@ -9,12 +9,12 @@ from typing import Annotated, NotRequired, Required, TypedDict
 
 # Required and NotRequired are valid only within a TypedDict.
 class NotTypedDict:
-    x: Required[int]  # Type error: Required not allowed in this context
+    x: Required[int]  # E: Required not allowed in this context
 
 
 def func1(
-    x: NotRequired[int],
-) -> None:  # Type error: Required not allowed in this context
+    x: NotRequired[int],  # E: NotRequired not allowed in this context
+) -> None:
     pass
 
 
@@ -56,8 +56,8 @@ td5 = td4
 
 
 class TD6(TypedDict):
-    a: Required[Required[int]]  # Type error: Nesting not allowed
-    b: Required[NotRequired[int]]  # Type error: Nesting not allowed
+    a: Required[Required[int]]  # E: Nesting not allowed
+    b: Required[NotRequired[int]]  # E: Nesting not allowed
 
 
 class TD7(TypedDict):
@@ -72,5 +72,3 @@ RecursiveMovie = TypedDict(
 )
 
 movie: RecursiveMovie = {"title": "Beethoven 3", "predecessor": {"title": "Beethoven 2"}}
-
-

@@ -7,7 +7,7 @@ from typing import Literal as L
 
 
 v1: Literal[3] = 3
-v2: Literal[3] = 4  # Type error
+v2: Literal[3] = 4  # E
 
 v3: L[-3] = -3
 
@@ -21,8 +21,8 @@ def func1(a: Literal[20], b: Literal[0x14], c: Literal[0b10100]):
 
 # > Literal[0] and Literal[False] are not equivalent
 def func2(a: Literal[0], b: Literal[False]):
-    x1: Literal[False] = a  # Type Error
-    x2: Literal[0] = b  # Type Error
+    x1: Literal[False] = a  # E
+    x2: Literal[0] = b  # E
 
 
 # > Given some value v that is a member of type T, the type Literal[v] shall
@@ -30,7 +30,7 @@ def func2(a: Literal[0], b: Literal[False]):
 def func3(a: L[3, 4, 5]):
     b = a.__add__(3)
     c = a + 3
-    a += 3 # Type error
+    a += 3 # E
 
 
 # > When a Literal is parameterized with more than one value, it’s treated
@@ -38,5 +38,3 @@ def func3(a: L[3, 4, 5]):
 def func4(a: L[None, 3] | L[3, "foo", b"bar", True]):
     x1: Literal[3, b"bar", True, "foo", None] = a
     a = x1
-
-

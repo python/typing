@@ -1,0 +1,13 @@
+conformant = "Unsupported"
+notes = """
+Does not support code flow analysis.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 50: Unexpected errors ['File "exceptions_context_managers.py", line 50, in suppress1: str [assert-type]']
+Line 57: Unexpected errors ['File "exceptions_context_managers.py", line 57, in suppress2: str [assert-type]']
+"""
+output = """
+File "exceptions_context_managers.py", line 50, in suppress1: str [assert-type]
+File "exceptions_context_managers.py", line 57, in suppress2: str [assert-type]
+"""

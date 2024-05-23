@@ -12,13 +12,9 @@ T = TypeVar("T", infer_variance=True)
 K = TypeVar("K", infer_variance=True)
 V = TypeVar("V", infer_variance=True)
 
-S1 = TypeVar(
-    "S1", covariant=True, infer_variance=True
-)  # Type error: cannot use covariant with infer_variance
+S1 = TypeVar("S1", covariant=True, infer_variance=True)  # E: cannot use covariant with infer_variance
 
-S2 = TypeVar(
-    "S2", contravariant=True, infer_variance=True
-)  # Type error: cannot use contravariant with infer_variance
+S2 = TypeVar("S2", contravariant=True, infer_variance=True)  # E: cannot use contravariant with infer_variance
 
 
 class ShouldBeCovariant1(Generic[T]):
@@ -30,7 +26,7 @@ class ShouldBeCovariant1(Generic[T]):
 
 
 vco1_1: ShouldBeCovariant1[float] = ShouldBeCovariant1[int]()  # OK
-vco1_2: ShouldBeCovariant1[int] = ShouldBeCovariant1[float]()  # Type error
+vco1_2: ShouldBeCovariant1[int] = ShouldBeCovariant1[float]()  # E
 
 
 class ShouldBeCovariant2(Sequence[T]):
@@ -38,7 +34,7 @@ class ShouldBeCovariant2(Sequence[T]):
 
 
 vco2_1: ShouldBeCovariant2[float] = ShouldBeCovariant2[int]()  # OK
-vco2_2: ShouldBeCovariant2[int] = ShouldBeCovariant2[float]()  # Type error
+vco2_2: ShouldBeCovariant2[int] = ShouldBeCovariant2[float]()  # E
 
 
 class ShouldBeCovariant3(Generic[T]):
@@ -47,7 +43,7 @@ class ShouldBeCovariant3(Generic[T]):
 
 
 vco3_1: ShouldBeCovariant3[float] = ShouldBeCovariant3[int]()  # OK
-vco3_2: ShouldBeCovariant3[int] = ShouldBeCovariant3[float]()  # Type error
+vco3_2: ShouldBeCovariant3[int] = ShouldBeCovariant3[float]()  # E
 
 
 @dataclass(frozen=True)
@@ -56,7 +52,7 @@ class ShouldBeCovariant4(Generic[T]):
 
 
 vo4_1: ShouldBeCovariant4[float] = ShouldBeCovariant4[int](1)  # OK
-vo4_4: ShouldBeCovariant4[int] = ShouldBeCovariant4[float](1.0)  # Type error
+vo4_4: ShouldBeCovariant4[int] = ShouldBeCovariant4[float](1.0)  # E
 
 
 class ShouldBeCovariant5(Generic[T]):
@@ -69,7 +65,7 @@ class ShouldBeCovariant5(Generic[T]):
 
 
 vo5_1: ShouldBeCovariant5[float] = ShouldBeCovariant5[int](1)  # OK
-vo5_2: ShouldBeCovariant5[int] = ShouldBeCovariant5[float](1.0)  # Type error
+vo5_2: ShouldBeCovariant5[int] = ShouldBeCovariant5[float](1.0)  # E
 
 
 class ShouldBeCovariant6(Generic[T]):
@@ -80,7 +76,7 @@ class ShouldBeCovariant6(Generic[T]):
 
 
 vo6_1: ShouldBeCovariant6[float] = ShouldBeCovariant6[int](1)  # OK
-vo6_2: ShouldBeCovariant6[int] = ShouldBeCovariant6[float](1.0)  # Type error
+vo6_2: ShouldBeCovariant6[int] = ShouldBeCovariant6[float](1.0)  # E
 
 
 class ShouldBeInvariant1(Generic[T]):
@@ -96,8 +92,8 @@ class ShouldBeInvariant1(Generic[T]):
         self._value = value
 
 
-vinv1_1: ShouldBeInvariant1[float] = ShouldBeInvariant1[int](1)  # Type error
-vinv1_2: ShouldBeInvariant1[int] = ShouldBeInvariant1[float](1.1)  # Type error
+vinv1_1: ShouldBeInvariant1[float] = ShouldBeInvariant1[int](1)  # E
+vinv1_2: ShouldBeInvariant1[int] = ShouldBeInvariant1[float](1.1)  # E
 
 
 class ShouldBeInvariant2(Generic[T]):
@@ -111,18 +107,18 @@ class ShouldBeInvariant2(Generic[T]):
         self._value = value
 
 
-vinv2_1: ShouldBeInvariant2[float] = ShouldBeInvariant2[int](1)  # Type error
-vinv2_2: ShouldBeInvariant2[int] = ShouldBeInvariant2[float](1.1)  # Type error
+vinv2_1: ShouldBeInvariant2[float] = ShouldBeInvariant2[int](1)  # E
+vinv2_2: ShouldBeInvariant2[int] = ShouldBeInvariant2[float](1.1)  # E
 
 
 class ShouldBeInvariant3(dict[K, V]):
     pass
 
 
-vinv3_1: ShouldBeInvariant3[float, str] = ShouldBeInvariant3[int, str]()  # Type error
-vinv3_2: ShouldBeInvariant3[int, str] = ShouldBeInvariant3[float, str]()  # Type error
-vinv3_3: ShouldBeInvariant3[str, float] = ShouldBeInvariant3[str, int]()  # Type error
-vinv3_4: ShouldBeInvariant3[str, int] = ShouldBeInvariant3[str, float]()  # Type error
+vinv3_1: ShouldBeInvariant3[float, str] = ShouldBeInvariant3[int, str]()  # E
+vinv3_2: ShouldBeInvariant3[int, str] = ShouldBeInvariant3[float, str]()  # E
+vinv3_3: ShouldBeInvariant3[str, float] = ShouldBeInvariant3[str, int]()  # E
+vinv3_4: ShouldBeInvariant3[str, int] = ShouldBeInvariant3[str, float]()  # E
 
 
 @dataclass
@@ -130,7 +126,7 @@ class ShouldBeInvariant4[T]:
     x: T
 
 
-vinv4_1: ShouldBeInvariant4[float] = ShouldBeInvariant4[int](1)  # Type error
+vinv4_1: ShouldBeInvariant4[float] = ShouldBeInvariant4[int](1)  # E
 
 
 class ShouldBeInvariant5[T]:
@@ -138,7 +134,7 @@ class ShouldBeInvariant5[T]:
         self.x = x
 
 
-vinv5_1: ShouldBeInvariant5[float] = ShouldBeInvariant5[int](1)  # Type error
+vinv5_1: ShouldBeInvariant5[float] = ShouldBeInvariant5[int](1)  # E
 
 
 class ShouldBeContravariant1(Generic[T]):
@@ -149,5 +145,5 @@ class ShouldBeContravariant1(Generic[T]):
         pass
 
 
-vcontra1_1: ShouldBeContravariant1[float] = ShouldBeContravariant1[int](1)  # Type error
+vcontra1_1: ShouldBeContravariant1[float] = ShouldBeContravariant1[int](1)  # E
 vcontra1_2: ShouldBeContravariant1[int] = ShouldBeContravariant1[float](1.2)  # OK

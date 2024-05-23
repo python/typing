@@ -3,6 +3,14 @@
 Type qualifiers
 ===============
 
+This chapter describes the behavior of some :term:`type qualifiers <type qualifier>`.
+Additional type qualifiers are covered in other chapters:
+
+* :ref:`ClassVar <classvar>`
+* :ref:`NotRequired <notrequired>`
+* :ref:`ReadOnly <readonly>`
+* :ref:`Required <required>`
+
 .. _`at-final`:
 
 ``@final``
@@ -67,7 +75,7 @@ It is an error to use ``@final`` on a non-method function.
 
 (Originally specified in :pep:`591`.)
 
-The ``typing.Final`` type qualifier is used to indicate that a
+The ``typing.Final`` :term:`type qualifier` is used to indicate that a
 variable or attribute should not be reassigned, redefined, or overridden.
 
 Syntax
@@ -147,18 +155,30 @@ be initialized in the ``__init__`` method (except in stub files)::
        def __init__(self) -> None:
            self.x = 1  # Good
 
-Type checkers should infer a final attribute that is initialized in
-a class body as being a class variable. Variables should not be annotated
-with both ``ClassVar`` and ``Final``.
+The generated ``__init__`` method of :doc:`dataclasses` qualifies for this
+requirement: a bare ``x: Final[int]`` is permitted in a dataclass body, because
+the generated ``__init__`` will initialize ``x``.
 
-``Final`` may only be used as the outermost type in assignments or variable
-annotations. Using it in any other position is an error. In particular,
-``Final`` can't be used in annotations for function arguments::
+Type checkers should infer a final attribute that is initialized in a class
+body as being a class variable, except in the case of :doc:`dataclasses`, where
+``x: Final[int] = 3`` creates a dataclass field and instance-level final
+attribute ``x`` with default value ``3``; ``x: ClassVar[Final[int]] = 3`` is
+necessary to create a final class variable with value ``3``. In
+non-dataclasses, combining ``ClassVar`` and ``Final`` is redundant, and type
+checkers may choose to warn or error on the redundancy.
+
+``Final`` may only be used in assignments or variable annotations. Using it in
+any other position is an error. In particular, ``Final`` can't be used in
+annotations for function arguments::
 
    x: list[Final[int]] = []  # Error!
 
    def fun(x: Final[List[int]]) ->  None:  # Error!
        ...
+
+``Final`` may be wrapped only by other type qualifiers (e.g. ``ClassVar`` or
+``Annotation``). It cannot be used in a type parameter (e.g.
+``list[Final[int]]`` is not permitted.)
 
 Note that declaring a name as final only guarantees that the name will
 not be re-bound to another value, but does not make the value
@@ -234,6 +254,24 @@ details of the syntax:
     V = Vec[int]
 
     V == Annotated[list[tuple[int, int]], MaxLen(10)]
+
+* As with most :term:`special forms <special form>`, ``Annotated`` is not type compatible with
+  ``type`` or ``type[T]``::
+
+    v1: type[int] = Annotated[int, ""]  # Type error
+
+    SmallInt: TypeAlias = Annotated[int, ValueRange(0, 100)]
+    v2: type[Any] = SmallInt  # Type error
+
+* An attempt to call ``Annotated`` (whether parameterized or not) should be
+  treated as a type error by type checkers::
+
+    Annotated()  # Type error
+    Annotated[int, ""](0)  # Type error
+
+    SmallInt = Annotated[int, ValueRange(0, 100)]
+    SmallInt(1)  # Type error
+
 
 Consuming annotations
 ^^^^^^^^^^^^^^^^^^^^^

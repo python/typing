@@ -5,3 +5,7 @@ Does not understand `Self` type.
 output = """
 File "generics_self_attributes.py", line 26, in <module>: Function OrdinalLinkedList.__init__ was called with the wrong arguments [wrong-arg-types]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 32: Expected 1 errors
+"""

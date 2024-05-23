@@ -2,9 +2,12 @@ conformant = "Pass"
 output = """
 dataclasses_postinit.py:19:40 - error: Dataclass __post_init__ method parameter type mismatch for field "y"
   "str" is incompatible with "int" (reportGeneralTypeIssues)
-dataclasses_postinit.py:28:11 - error: Cannot access member "x" for type "DC1"
-  Member "x" is an init-only field (reportAttributeAccessIssue)
-dataclasses_postinit.py:29:11 - error: Cannot access member "y" for type "DC1"
-  Member "y" is an init-only field (reportAttributeAccessIssue)
+dataclasses_postinit.py:28:11 - error: Cannot access attribute "x" for class "DC1"
+  "x" is an init-only field (reportAttributeAccessIssue)
+dataclasses_postinit.py:29:11 - error: Cannot access attribute "y" for class "DC1"
+  "y" is an init-only field (reportAttributeAccessIssue)
 dataclasses_postinit.py:36:9 - error: Dataclass __post_init__ incorrect parameter count; number of InitVar fields is 2 (reportGeneralTypeIssues)
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

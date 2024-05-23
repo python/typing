@@ -21,15 +21,15 @@ A_Alias_2: TypeAlias = A_Alias_1[T_co]
 # result in the same variance incompatibility errors as their
 # non-aliased counterparts.
 
-class ClassA_1(ClassA[T_co]):  # Type error: incompatible variance
+class ClassA_1(ClassA[T_co]):  # E: incompatible variance
     ...
 
 
-class ClassA_2(A_Alias_1[T_co]):  # Type error: incompatible variance
+class ClassA_2(A_Alias_1[T_co]):  # E: incompatible variance
     ...
 
 
-class ClassA_3(A_Alias_2[T_co]):  # Type error: incompatible variance
+class ClassA_3(A_Alias_2[T_co]):  # E: incompatible variance
     ...
 
 
@@ -41,5 +41,5 @@ class ClassB(Generic[T, T_co]):
 B_Alias_1 = ClassB[T_co, T_contra]
 
 
-class ClassB_1(B_Alias_1[T_contra, T_co]):  # Type error: incompatible variance
+class ClassB_1(B_Alias_1[T_contra, T_co]):  # E: incompatible variance
     ...

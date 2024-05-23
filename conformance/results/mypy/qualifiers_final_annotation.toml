@@ -36,3 +36,11 @@ qualifiers_final_annotation.py:147: error: Cannot assign to final name "x"  [mis
 qualifiers_final_annotation.py:152: error: Incompatible types in assignment (expression has type "TextIOWrapper", variable has type "int")  [assignment]
 qualifiers_final_annotation.py:155: error: Cannot assign to final name "x"  [misc]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 149: Expected 1 errors
+Line 59: Unexpected errors ['qualifiers_final_annotation.py:59: error: Cannot assign to final attribute "ID6"  [misc]']
+Line 96: Unexpected errors ['qualifiers_final_annotation.py:96: error: Cannot assign to final name "__private"  [misc]']
+Line 131: Unexpected errors ['qualifiers_final_annotation.py:131: error: Invalid "NamedTuple()" field name  [misc]']
+Line 133: Unexpected errors ['qualifiers_final_annotation.py:133: error: Unexpected keyword argument "x" for "N"  [call-arg]', 'qualifiers_final_annotation.py:133: error: Unexpected keyword argument "y" for "N"  [call-arg]']
+"""

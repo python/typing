@@ -11,4 +11,4 @@ Tests a file-level type ignore comment.
 # > Blank lines and other comments, such as shebang lines and coding cookies, may
 # > precede the # type: ignore comment.
 
-x: int = ""  # Error should be reported because comment is not at top of file.
+x: int = ""  # E: should still error because comment is not at top of file.

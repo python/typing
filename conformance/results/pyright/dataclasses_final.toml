@@ -1,0 +1,21 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_final.py:27:3 - error: Cannot assign to attribute "final_classvar" for class "type[D]"
+  "final_classvar" is declared as Final and cannot be reassigned
+    Attribute "__set__" is unknown (reportAttributeAccessIssue)
+dataclasses_final.py:35:3 - error: Cannot assign to attribute "final_no_default" for class "D"
+  "final_no_default" is declared as Final and cannot be reassigned
+    Attribute "__set__" is unknown (reportAttributeAccessIssue)
+dataclasses_final.py:36:3 - error: Cannot assign to attribute "final_with_default" for class "D"
+  "final_with_default" is declared as Final and cannot be reassigned
+    Attribute "__set__" is unknown (reportAttributeAccessIssue)
+dataclasses_final.py:37:3 - error: Cannot assign to attribute "final_no_default" for class "type[D]"
+  "final_no_default" is declared as Final and cannot be reassigned
+    Attribute "__set__" is unknown (reportAttributeAccessIssue)
+dataclasses_final.py:38:3 - error: Cannot assign to attribute "final_with_default" for class "type[D]"
+  "final_with_default" is declared as Final and cannot be reassigned
+    Attribute "__set__" is unknown (reportAttributeAccessIssue)
+"""

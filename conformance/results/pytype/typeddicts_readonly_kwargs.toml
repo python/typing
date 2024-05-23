@@ -1,0 +1,11 @@
+conformant = "Unsupported"
+output = """
+File "typeddicts_readonly_kwargs.py", line 8, in <module>: typing.Unpack not supported yet [not-supported-yet]
+File "typeddicts_readonly_kwargs.py", line 9, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]
+File "typeddicts_readonly_kwargs.py", line 33, in impl: New container type for kwargs does not match type annotation [container-type-mismatch]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 8: Unexpected errors ['File "typeddicts_readonly_kwargs.py", line 8, in <module>: typing.Unpack not supported yet [not-supported-yet]']
+Line 9: Unexpected errors ['File "typeddicts_readonly_kwargs.py", line 9, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]']
+"""

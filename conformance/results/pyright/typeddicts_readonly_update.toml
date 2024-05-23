@@ -1,0 +1,10 @@
+conformant = "Pass"
+output = """
+typeddicts_readonly_update.py:23:1 - error: No overloads for "update" match the provided arguments (reportCallIssue)
+typeddicts_readonly_update.py:23:11 - error: Argument of type "A" cannot be assigned to parameter "__m" of type "Partial[A]" in function "update"
+  "x" is an incompatible type
+    Type "int" is incompatible with type "Never" (reportArgumentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

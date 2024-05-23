@@ -16,7 +16,7 @@ class DC1:
     c: int
     y: InitVar[str]
 
-    def __post_init__(self, x: int, y: int) -> None:  # Type error: wrong type for y
+    def __post_init__(self, x: int, y: int) -> None:  # E: wrong type for y
         pass
 
 
@@ -25,15 +25,15 @@ dc1 = DC1(1, 2, 3, 4, "")
 assert_type(dc1.a, int)
 assert_type(dc1.b, int)
 assert_type(dc1.c, int)
-print(dc1.x)  # Type error: cannot access InitVar
-print(dc1.y)  # Type error: cannot access InitVar
+print(dc1.x)  # E: cannot access InitVar
+print(dc1.y)  # E: cannot access InitVar
 
 @dataclass
 class DC2:
     x: InitVar[int]
     y: InitVar[str]
 
-    def __post_init__(self, x: int) -> None:  # Type error: missing y
+    def __post_init__(self, x: int) -> None:  # E: missing y
         pass
 
 

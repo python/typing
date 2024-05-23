@@ -4,3 +4,6 @@ generics_typevartuple_unpack.py:30:28 - error: Argument of type "Array[Batch]" c
   "Array[Batch]" is incompatible with "Array[Batch, *tuple[Any, ...], Channels]"
     Type parameter "Ts@Array" is invariant, but "*tuple[Batch]" is not the same as "*tuple[Batch, *tuple[Any, ...], Channels]" (reportArgumentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

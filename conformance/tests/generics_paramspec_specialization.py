@@ -42,7 +42,7 @@ def func24(x: ClassB[int, [], []]) -> str:  # OK
     return ""
 
 
-def func25(x: ClassA[int, int]) -> str:  # Type error
+def func25(x: ClassA[int, int]) -> str:  # E
     return ""
 
 
@@ -52,11 +52,11 @@ class ClassC(Generic[P1]):
 
 def func30(x: ClassC[[int, str, bool]]) -> None:  # OK
     x.f(0, "", True)  # OK
-    x.f("", "", True)  # Type error
-    x.f(0, "", "")  # Type error
+    x.f("", "", True)  # E
+    x.f(0, "", "")  # E
 
 
 def func31(x: ClassC[int, str, bool]) -> None:  # OK
     x.f(0, "", True)  # OK
-    x.f("", "", True)  # Type error
-    x.f(0, "", "")  # Type error
+    x.f("", "", True)  # E
+    x.f(0, "", "")  # E

@@ -12,7 +12,7 @@ from typing import Any, Iterable, Never, Sequence, TypeVar, assert_type
 
 def func1(t1: tuple[float, complex], t2: tuple[int, int]):
     v1: tuple[float, complex] = t2  # OK
-    v2: tuple[int, int] = t1  # Type error
+    v2: tuple[int, int] = t1  # E
 
 
 # > A homogeneous tuple of arbitrary length is equivalent
@@ -26,11 +26,11 @@ def func2(t1: tuple[int], t2: tuple[int, *tuple[int, ...]], t3: tuple[int, ...])
 
     v2: tuple[int, *tuple[int, ...]]
     v2 = t1  # OK
-    v2 = t3  # Type error
+    v2 = t3  # E
 
     v3: tuple[int]
-    v3 = t2  # Type error
-    v3 = t3  # Type error
+    v3 = t2  # E
+    v3 = t3  # E
 
 
 # > The type ``tuple[Any, ...]`` is bidirectionally compatible with any tuple::
@@ -40,7 +40,7 @@ def func3(t1: tuple[int], t2: tuple[int, ...], t3: tuple[Any, ...]):
     v1: tuple[int, ...] = t1  # OK
     v2: tuple[Any, ...] = t1  # OK
 
-    v3: tuple[int] = t2  # Type error
+    v3: tuple[int] = t2  # E
     v4: tuple[Any, ...] = t2  # OK
 
     v5: tuple[float, float] = t3  # OK
@@ -59,7 +59,7 @@ def func4(
     a: tuple[int, int] = tuple(untyped_iter)  # OK
     b: tuple[int, int] = some_type_tuple  # OK
     c: tuple[int, int] = any_tuple  # OK
-    d: tuple[int, int] = int_tuple  # Type error
+    d: tuple[int, int] = int_tuple  # E
 
 
 # > The length of a tuple at runtime is immutable, so it is safe for type
@@ -141,35 +141,35 @@ def func8(
 
 
 t1: tuple[int, *tuple[str]] = (1, "")  # OK
-t1 = (1, "", "")  # Type error
+t1 = (1, "", "")  # E
 
 t2: tuple[int, *tuple[str, ...]] = (1,)  # OK
 t2 = (1, "")  # OK
 t2 = (1, "", "")  # OK
-t2 = (1, 1, "")  # Type error
-t2 = (1, "", 1)  # Type error
+t2 = (1, 1, "")  # E
+t2 = (1, "", 1)  # E
 
 
 t3: tuple[int, *tuple[str, ...], int] = (1, 2)  # OK
 t3 = (1, "", 2)  # OK
 t3 = (1, "", "", 2)  # OK
-t3 = (1, "", "")  # Type error
-t3 = (1, "", "", 1.2)  # Type error
+t3 = (1, "", "")  # E
+t3 = (1, "", "", 1.2)  # E
 
 t4: tuple[*tuple[str, ...], int] = (1,)  # OK
 t4 = ("", 1)  # OK
 t4 = ("", "", 1)  # OK
-t4 = (1, "", 1)  # Type error
-t4 = ("", "", 1.2)  # Type error
+t4 = (1, "", 1)  # E
+t4 = ("", "", 1.2)  # E
 
 
 def func9(a: tuple[str, str]):
     t1: tuple[str, str, *tuple[int, ...]] = a  # OK
-    t2: tuple[str, str, *tuple[int]] = a  # Type error
+    t2: tuple[str, str, *tuple[int]] = a  # E
     t3: tuple[str, *tuple[str, ...]] = a  # OK
     t4: tuple[str, str, *tuple[str, ...]] = a  # OK
-    t5: tuple[str, str, str, *tuple[str, ...]] = a  # Type error
+    t5: tuple[str, str, str, *tuple[str, ...]] = a  # E
     t6: tuple[str, *tuple[int, ...], str] = a  # OK
     t7: tuple[*tuple[str, ...], str] = a  # OK
     t8: tuple[*tuple[str, ...], str] = a  # OK
-    t9: tuple[*tuple[str, ...], str, str, str] = a  # Type error
+    t9: tuple[*tuple[str, ...], str, str, str] = a  # E

@@ -16,3 +16,9 @@ qualifiers_final_decorator.py:118:4 Inconsistent override [14]: `qualifiers_fina
 qualifiers_final_decorator.py:118:4 Invalid override [40]: `qualifiers_final_decorator.Derived5.method` cannot override final method defined in `Base5_2`.
 qualifiers_final_decorator.py:126:0 Invalid inheritance [39]: `final` cannot be used with non-method functions.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Lines 80, 89: Expected error (tag 'Derived3')
+Lines 94, 102: Expected error (tag 'Derived4')
+Line 51: Unexpected errors ['qualifiers_final_decorator.py:51:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
+"""

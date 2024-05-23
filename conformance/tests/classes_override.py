@@ -50,10 +50,10 @@ class ChildA(ParentA):
         return 0
 
     @override
-    def method3(self) -> int:  # Type check error: no matching signature in ancestor
+    def method3(self) -> int:  # E: no matching signature in ancestor
         return 1
 
-    @overload
+    @overload  # E[method4]
     def method4(self, x: int) -> int:
         ...
 
@@ -62,7 +62,7 @@ class ChildA(ParentA):
         ...
 
     @override
-    def method4(self, x: int | str) -> int | str:
+    def method4(self, x: int | str) -> int | str:  # E[method4]: no matching signature in ancestor
         return 0
 
     @override
@@ -76,19 +76,17 @@ class ChildA(ParentA):
 
     @staticmethod
     @override
-    def static_method1() -> int:  # Type check error: no matching signature in ancestor
+    def static_method1() -> int:  # E: no matching signature in ancestor
         return 1
 
     @classmethod
     @override
-    def class_method1(
-        cls,
-    ) -> int:  # Type check error: no matching signature in ancestor
+    def class_method1(cls) -> int:  # E: no matching signature in ancestor
         return 1
 
     @property
     @override
-    def property1(self) -> int:  # Type check error: no matching signature in ancestor
+    def property1(self) -> int:  # E: no matching signature in ancestor
         return 1
 
 

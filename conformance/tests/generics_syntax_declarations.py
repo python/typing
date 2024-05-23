@@ -16,7 +16,7 @@ class ChildClass[T, *Ts, **P]:
     assert_type(P, ParamSpec)
 
 
-class ClassA[T](Generic[T]):  # Runtime error
+class ClassA[T](Generic[T]):  # E: Runtime error
     ...
 
 
@@ -24,30 +24,30 @@ class ClassB[S, T](Protocol):  # OK
     ...
 
 
-class ClassC[S, T](Protocol[S, T]):  # Type error
+class ClassC[S, T](Protocol[S, T]):  # E
     ...
 
 
 class ClassD[T: str]:
     def method1(self, x: T):
         x.capitalize()  # OK
-        x.is_integer()  # Type error
+        x.is_integer()  # E
 
 
 class ClassE[T: dict[str, int]]:  # OK
     pass
 
 
-class ClassF[T: "ForwardReference"]:  # OK
+class ClassF[S: ForwardReference[int], T: "ForwardReference[str]"]:  # OK
     ...
 
 
 class ClassG[V]:
-    class ClassD[T: dict[str, V]]:  # Type error: generic type not allowed
+    class ClassD[T: dict[str, V]]:  # E: generic type not allowed
         ...
 
 
-class ClassH[T: [str, int]]:  # Type error: illegal expression form
+class ClassH[T: [str, int]]:  # E: illegal expression form
     ...
 
 
@@ -55,32 +55,31 @@ class ClassI[AnyStr: (str, bytes)]:  # OK
     ...
 
 
-class ClassJ[T: ("ForwardReference", bytes)]:  # OK
+class ClassJ[T: (ForwardReference[int], "ForwardReference[str]", bytes)]:  # OK
     ...
 
 
-class ClassK[T: ()]:  # Type error: two or more types required
+class ClassK[T: ()]:  # E: two or more types required
     ...
 
 
-class ClassL[T: (str,)]:  # Type error: two or more types required
+class ClassL[T: (str,)]:  # E: two or more types required
     ...
 
 
 t1 = (bytes, str)
 
 
-class ClassM[T: t1]:  # Type error: literal tuple expression required
+class ClassM[T: t1]:  # E: literal tuple expression required
     ...
 
 
-class ClassN[T: (3, bytes)]:  # Type error: invalid expression form
+class ClassN[T: (3, bytes)]:  # E: invalid expression form
     ...
 
 
-class ClassO[T: (list[S], str)]:  # Type error: generic type
+class ClassO[T: (list[S], str)]:  # E: generic type
     ...
 
 
-class ForwardReference:
-    ...
+class ForwardReference[T]: ...

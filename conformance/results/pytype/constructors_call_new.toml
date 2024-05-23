@@ -1,0 +1,25 @@
+conformant = "Partial"
+notes = """
+Does not honor explicit specialization of generic class when used in constructor call.
+Does not support __new__ return type that is not a subclass of the class being constructed.
+Does not skip evaluation of __init__ based on __new__ return type.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Expected 1 errors
+Line 76: Unexpected errors ['File "constructors_call_new.py", line 76, in <module>: Any [assert-type]']
+Line 89: Unexpected errors ['File "constructors_call_new.py", line 89, in <module>: Missing parameter \\'x\\' in call to function Class6.__init__ [missing-parameter]']
+Line 113: Unexpected errors ['File "constructors_call_new.py", line 113, in __new__: bad return type [bad-return-type]']
+Line 125: Unexpected errors ['File "constructors_call_new.py", line 125, in __new__: bad return type [bad-return-type]']
+Line 140: Unexpected errors ['File "constructors_call_new.py", line 140, in __new__: bad return type [bad-return-type]']
+"""
+output = """
+File "constructors_call_new.py", line 76, in <module>: Any [assert-type]
+File "constructors_call_new.py", line 89, in <module>: Missing parameter 'x' in call to function Class6.__init__ [missing-parameter]
+File "constructors_call_new.py", line 113, in __new__: bad return type [bad-return-type]
+File "constructors_call_new.py", line 125, in __new__: bad return type [bad-return-type]
+File "constructors_call_new.py", line 140, in __new__: bad return type [bad-return-type]
+Called from (traceback):
+  line 143, in current file
+File "constructors_call_new.py", line 145, in <module>: Function Class11.__new__ was called with the wrong arguments [wrong-arg-types]
+"""

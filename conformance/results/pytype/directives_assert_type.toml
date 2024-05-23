@@ -1,8 +1,15 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Incorrectly allows assert(x, int) where x is a Literal.
+"""
 output = """
 File "directives_assert_type.py", line 27, in func1: Union[int, str] [assert-type]
 File "directives_assert_type.py", line 28, in func1: Any [assert-type]
 File "directives_assert_type.py", line 31, in func1: Function assert_type expects 2 arg(s), got 0 [wrong-arg-count]
 File "directives_assert_type.py", line 32, in func1: str [assert-type]
 File "directives_assert_type.py", line 33, in func1: Function assert_type expects 2 arg(s), got 3 [wrong-arg-count]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Expected 1 errors
 """

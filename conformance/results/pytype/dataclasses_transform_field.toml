@@ -6,3 +6,10 @@ output = """
 File "dataclasses_transform_field.py", line 48, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
 File "dataclasses_transform_field.py", line 50, in create_model: bad return type [bad-return-type]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 64: Expected 1 errors
+Line 75: Expected 1 errors
+Line 48: Unexpected errors ['File "dataclasses_transform_field.py", line 48, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+Line 50: Unexpected errors ['File "dataclasses_transform_field.py", line 50, in create_model: bad return type [bad-return-type]']
+"""

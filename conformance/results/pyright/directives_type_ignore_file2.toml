@@ -1,5 +1,8 @@
 conformant = "Pass"
 output = """
-directives_type_ignore_file2.py:14:10 - error: Expression of type "Literal['']" cannot be assigned to declared type "int"
+directives_type_ignore_file2.py:14:10 - error: Expression of type "Literal['']" is incompatible with declared type "int"
   "Literal['']" is incompatible with "int" (reportAssignmentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

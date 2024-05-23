@@ -21,3 +21,6 @@ protocols_class_objects.py:104: error: Incompatible types in assignment (express
 protocols_class_objects.py:104: note: Only class variables allowed for class object access on protocols, attr1 is an instance variable of "ConcreteC2"
 protocols_class_objects.py:105: error: Incompatible types in assignment (expression has type "type[ConcreteC3]", variable has type "ProtoC1")  [assignment]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

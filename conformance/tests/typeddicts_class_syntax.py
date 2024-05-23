@@ -26,27 +26,27 @@ class BadTypedDict1(TypedDict):
     name: str
 
     # Methods are not allowed, so this should generate an error.
-    def method1(self):
+    def method1(self):  # E
         pass
 
     # Methods are not allowed, so this should generate an error.
-    @classmethod
+    @classmethod  # E
     def method2(cls):
         pass
 
     # Methods are not allowed, so this should generate an error.
-    @staticmethod
+    @staticmethod  # E
     def method3():
         pass
 
 
 # > Specifying a metaclass is not allowed.
-class BadTypedDict2(TypedDict, metaclass=type):
+class BadTypedDict2(TypedDict, metaclass=type):  # E
     name: str
 
 
 # This should generate an error because "other" is not an allowed keyword argument.
-class BadTypedDict3(TypedDict, other=True):
+class BadTypedDict3(TypedDict, other=True):  # E
     name: str
 
 
@@ -75,5 +75,3 @@ class MovieTotal(TypedDict, total=True):
 
 class MovieOptional(TypedDict, total=False):
     name: str
-
-

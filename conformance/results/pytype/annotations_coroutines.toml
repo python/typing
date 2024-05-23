@@ -3,5 +3,8 @@ notes = """
 Does not evaluate correct type for async function.
 """
 output = """
-File "annotations_coroutines.py", line 19, in <module>: Callable[[int], str] [assert-type]
+
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

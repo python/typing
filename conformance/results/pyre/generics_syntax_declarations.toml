@@ -5,3 +5,17 @@ Type parameter syntax not yet support.
 output = """
 generics_syntax_declarations.py:13:17 Parsing failure [404]: invalid syntax
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Expected 1 errors
+Line 27: Expected 1 errors
+Line 34: Expected 1 errors
+Line 46: Expected 1 errors
+Line 50: Expected 1 errors
+Line 62: Expected 1 errors
+Line 66: Expected 1 errors
+Line 73: Expected 1 errors
+Line 77: Expected 1 errors
+Line 81: Expected 1 errors
+Line 13: Unexpected errors ['generics_syntax_declarations.py:13:17 Parsing failure [404]: invalid syntax']
+"""

@@ -1,26 +1,24 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Fails to reject type alias within generic class that uses class's type variable.
+Fails to reject unbound type variable in constructor call in global scope.
+"""
 output = """
-File "generics_scoping.py", line 9, in fun_1: bad return type [bad-return-type]
-Called from (traceback):
-  line 12, in current file
-File "generics_scoping.py", line 10, in fun_2: bad return type [bad-return-type]
-Called from (traceback):
-  line 13, in current file
-File "generics_scoping.py", line 20, in meth_1: bad return type [bad-return-type]
-Called from (traceback):
-  line 24, in current file
-File "generics_scoping.py", line 25, in <module>: Function MyClass.meth_2 was called with the wrong arguments [wrong-arg-types]
-File "generics_scoping.py", line 35, in method: bad return type [bad-return-type]
-Called from (traceback):
-  line 39, in current file
-File "generics_scoping.py", line 35, in method: bad return type [bad-return-type]
-Called from (traceback):
-  line 38, in current file
-File "generics_scoping.py", line 46, in fun_3: Invalid type annotation 'List[S]' for z [invalid-annotation]
-File "generics_scoping.py", line 50, in Bar: Invalid type annotation 'List[S]' for an_attr [invalid-annotation]
-File "generics_scoping.py", line 59, in fun_4: Invalid type annotation 'T'  [invalid-annotation]
-File "generics_scoping.py", line 70, in <module>: Invalid type annotation 'Outer'  [invalid-annotation]
-File "generics_scoping.py", line 74, in AlsoBad: Invalid type annotation 'List[T]' for x [invalid-annotation]
-File "generics_scoping.py", line 84, in <module>: Invalid type annotation 'T' for global_var1 [invalid-annotation]
-File "generics_scoping.py", line 85, in <module>: Invalid type annotation 'List[T]' for global_var2 [invalid-annotation]
+File "generics_scoping.py", line 29, in <module>: Function MyClass.meth_2 was called with the wrong arguments [wrong-arg-types]
+File "generics_scoping.py", line 50, in fun_3: Invalid type annotation 'List[S]' for z [invalid-annotation]
+File "generics_scoping.py", line 54, in Bar: Invalid type annotation 'List[S]' for an_attr [invalid-annotation]
+File "generics_scoping.py", line 63, in fun_4: Invalid type annotation 'T'  [invalid-annotation]
+File "generics_scoping.py", line 74, in <module>: Invalid type annotation 'Outer'  [invalid-annotation]
+File "generics_scoping.py", line 78, in AlsoBad: Invalid type annotation 'List[T]' for x [invalid-annotation]
+File "generics_scoping.py", line 88, in <module>: Invalid type annotation 'T' for global_var1 [invalid-annotation]
+File "generics_scoping.py", line 89, in <module>: Invalid type annotation 'List[T]' for global_var2 [invalid-annotation]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 65: Expected 1 errors
+Line 75: Expected 1 errors
+Line 84: Expected 1 errors
+Line 90: Expected 1 errors
+Line 63: Unexpected errors ['File "generics_scoping.py", line 63, in fun_4: Invalid type annotation \\'T\\'  [invalid-annotation]']
+Line 74: Unexpected errors ['File "generics_scoping.py", line 74, in <module>: Invalid type annotation \\'Outer\\'  [invalid-annotation]']
 """

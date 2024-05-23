@@ -42,31 +42,28 @@ encouraged to experiment with additional features.
 Syntax
 ======
 
-Type stubs are syntactically valid Python 3.7 files with a ``.pyi`` suffix.
+Type stubs are syntactically valid Python 3.8 files with a ``.pyi`` suffix.
 The Python syntax used for type stubs is independent from the Python
 versions supported by the implementation, and from the Python version the type
 checker runs under (if any). Therefore, type stub authors should use the
-latest available syntax features in stubs (up to Python 3.7), even if the
-implementation supports older, pre-3.7 Python versions.
+latest available syntax features in stubs (up to Python 3.8), even if the
+implementation supports older, pre-3.8 Python versions.
 Type checker authors are encouraged to support syntax features from
-post-3.7 Python versions, although type stub authors should not use such
+post-3.8 Python versions, although type stub authors should not use such
 features if they wish to maintain compatibility with all type checkers.
 
 For example, Python 3.7 added the ``async`` keyword (see :pep:`492`).
 Stub authors should use it to mark coroutines, even if the implementation
 still uses the ``@coroutine`` decorator. On the other hand, type stubs should
-not use the positional-only syntax from :pep:`570`, introduced in
-Python 3.8, although type checker authors are encouraged to support it.
+not use the ``type`` soft keyword from :pep:`695`, introduced in
+Python 3.12, although type checker authors are encouraged to support it.
 
 Stubs are treated as if ``from __future__ import annotations`` is enabled.
 In particular, built-in generics, pipe union syntax (``X | Y``), and forward
 references can be used.
 
-Starting with Python 3.8, the :py:mod:`ast` module from the standard library supports
-all syntax features required by this PEP. Older Python versions can use the
-`typed_ast <https://pypi.org/project/typed-ast/>`_ package from the
-Python Package Index, which also supports Python 3.7 syntax and ``# type``
-comments.
+The :py:mod:`ast` module from the standard library supports
+all syntax features required by this document.
 
 Distribution
 ============
@@ -187,9 +184,8 @@ generally possible and recommended::
 Unions
 ------
 
-Declaring unions with ``Union`` and ``Optional`` is supported by all
-type checkers. With a few exceptions [#ts-4819]_, the shorthand syntax
-is also supported::
+Declaring unions with the shorthand syntax or ``Union`` and ``Optional`` is
+supported by all type checkers::
 
     def foo(x: int | str) -> int | None: ...  # recommended
     def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
@@ -261,16 +257,15 @@ Functions and Methods
 ---------------------
 
 Function and method definition syntax follows general Python syntax.
-Unless an argument name is prefixed with two underscores (but not suffixed
-with two underscores), it can be used as a keyword argument (:pep:`484`)::
+For backwards compatibility, positional-only parameters can also be marked by
+prefixing their name with two underscores (but not suffixing it with two
+underscores)::
 
     # x is positional-only
     # y can be used positionally or as keyword argument
     # z is keyword-only
-    def foo(__x, y, *, z): ...
-
-:pep:`570` style positional-only parameters are currently not
-supported.
+    def foo(x, /, y, *, z): ...  # recommended
+    def foo(__x, y, *, z): ...  # backwards compatible syntax
 
 If an argument or return type is unannotated, per :pep:`484` its
 type is assumed to be ``Any``. It is preferred to leave unknown
@@ -509,16 +504,6 @@ No::
         BLUE: int
         rgb_value: int  # no way for type checkers to know that this is not an enum member
 
-Unsupported Features
---------------------
-
-Currently, the following features are not supported by all type checkers
-and should not be used in stubs:
-
-* Positional-only argument syntax (:pep:`570`). Instead, use
-  the syntax described in the section :ref:`supported-functions`.
-  [#ts-4972]_
-
 Type Stub Content
 =================
 
@@ -631,7 +616,7 @@ annotated function ``bar()``::
     def __getattr__(name: str) -> Any: ...  # incomplete
 
     class Foo:
-        def __getattr__(self, name: str) -> Any:  # incomplete
+        def __getattr__(self, name: str) -> Any: ... # incomplete
         x: int
         y: str
 
@@ -979,15 +964,6 @@ No::
     from typing import NamedTuple, TypedDict
     Point = NamedTuple("Point", [('x', float), ('y', float)])
     Thing = TypedDict("Thing", {'stuff': str, 'index': int})
-
-References
-==========
-
-Bugs
-----
-
-.. [#ts-4819] typeshed issue #4819 -- PEP 604 tracker (https://github.com/python/typeshed/issues/4819)
-.. [#ts-4972] typeshed issue #4972 -- PEP 570 tracker (https://github.com/python/typeshed/issues/4972)
 
 Copyright
 =========

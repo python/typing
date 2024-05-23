@@ -7,3 +7,12 @@ Does not report unsafe overlap for runtime_checkable protocol.
 output = """
 
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 23: Expected 1 errors
+Line 55: Expected 1 errors
+Line 61: Expected 1 errors
+Line 88: Expected 1 errors
+Line 92: Expected 1 errors
+Line 96: Expected 1 errors
+"""

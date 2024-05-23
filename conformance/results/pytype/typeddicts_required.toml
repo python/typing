@@ -7,3 +7,10 @@ Does not reject nested use of `Required` in type annotation.
 output = """
 RecursionError: maximum recursion depth exceeded
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 12: Expected 1 errors
+Line 16: Expected 1 errors
+Line 59: Expected 1 errors
+Line 60: Expected 1 errors
+"""

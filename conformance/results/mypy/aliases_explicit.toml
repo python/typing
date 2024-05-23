@@ -3,10 +3,10 @@ notes = """
 Does not reject specialization of type alias that has already been implicitly specialized.
 """
 output = """
-aliases_explicit.py:67: error: Bad number of arguments for type alias, expected: 0, given: 1  [type-arg]
-aliases_explicit.py:68: error: Bad number of arguments for type alias, expected: 0, given: 1  [type-arg]
-aliases_explicit.py:69: error: Bad number of arguments for type alias, expected: 1, given: 2  [type-arg]
-aliases_explicit.py:70: error: Bad number of arguments for type alias, expected: 1, given: 2  [type-arg]
+aliases_explicit.py:67: error: Bad number of arguments for type alias, expected 0, given 1  [type-arg]
+aliases_explicit.py:68: error: Bad number of arguments for type alias, expected 0, given 1  [type-arg]
+aliases_explicit.py:69: error: Bad number of arguments for type alias, expected 1, given 2  [type-arg]
+aliases_explicit.py:70: error: Bad number of arguments for type alias, expected 1, given 2  [type-arg]
 aliases_explicit.py:71: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "int"  [misc]
 aliases_explicit.py:79: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_explicit.py:80: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
@@ -24,5 +24,12 @@ aliases_explicit.py:90: error: Invalid type alias: expression is not a valid typ
 aliases_explicit.py:90: error: Function "list" could always be true in boolean context  [truthy-function]
 aliases_explicit.py:91: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_explicit.py:101: error: "<typing special form>" not callable  [operator]
-aliases_explicit.py:102: error: Bad number of arguments for type alias, expected: 0, given: 1  [type-arg]
+aliases_explicit.py:102: error: Bad number of arguments for type alias, expected 0, given 1  [type-arg]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 100: Expected 1 errors
+"""
+ignore_errors = [
+    'Function "list" could always be true in boolean context',
+]

@@ -37,11 +37,12 @@ aliases_explicit.py:89:22 - error: Invalid expression form for type alias defini
 aliases_explicit.py:89:22 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
 aliases_explicit.py:90:22 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
 aliases_explicit.py:90:22 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)
-aliases_explicit.py:91:22 - error: Expected expression
-aliases_explicit.py:91:22 - error: Tuple expression not allowed in type annotation
-  Use tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+aliases_explicit.py:91:22 - error: Type annotations cannot use format string literals (f-strings) (reportGeneralTypeIssues)
 aliases_explicit.py:100:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)
 aliases_explicit.py:101:6 - error: Object of type "UnionType" is not callable (reportCallIssue)
 aliases_explicit.py:102:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)
 aliases_explicit.py:102:5 - error: Type "set[Unknown]" is already specialized (reportInvalidTypeArguments)
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

@@ -26,18 +26,19 @@ def func2(x: tuple[int, *tuple[bool, ...], str]):
     assert_type(x, tuple[int, *tuple[bool, ...], str])
 
 
-# > As with TypeVarTuples, only one unpacking may appear in a tuple:
+# > For example, tuple[int, *tuple[str]] is equivalent to tuple[int, str].
 
-bad1: tuple[*tuple[int], *tuple[int]]  # Type error
-bad2: tuple[*tuple[int, ...], *tuple[int]]  # Type error
+u1: tuple[*tuple[int], *tuple[int]] = (int(1), int(1))  # OK
+assert_type(u1, tuple[int, int])
+u2: tuple[*tuple[int, ...], *tuple[int]]  # OK
 
 
 # > Only one unbounded tuple can be used within another tuple:
 
 t1: tuple[*tuple[str], *tuple[str]]  # OK
 t2: tuple[*tuple[str, *tuple[str, ...]]]  # OK
-t3: tuple[*tuple[str, ...], *tuple[int, ...]]  # Type error
-t4: tuple[*tuple[str, *tuple[str, ...]], *tuple[int, ...]]  # Type error
+t3: tuple[*tuple[str, ...], *tuple[int, ...]]  # E
+t4: tuple[*tuple[str, *tuple[str, ...]], *tuple[int, ...]]  # E
 
 
 # > An unpacked TypeVarTuple counts as an unbounded tuple in the context of this rule
@@ -47,7 +48,7 @@ Ts = TypeVarTuple("Ts")
 
 def func3(t: tuple[*Ts]):
     t5: tuple[*tuple[str], *Ts]  # OK
-    t6: tuple[*tuple[str, ...], *Ts]  # Type error
+    t6: tuple[*tuple[str, ...], *Ts]  # E
 
 
 # > The ``*`` syntax requires Python 3.11 or newer. For older versions of Python,
@@ -55,7 +56,7 @@ def func3(t: tuple[*Ts]):
 
 t11: tuple[Unpack[tuple[str]], Unpack[tuple[str]]]  # OK
 t12: tuple[Unpack[tuple[str, Unpack[tuple[str, ...]]]]]  # OK
-t13: tuple[Unpack[tuple[str, ...]], Unpack[tuple[int, ...]]]  # Type error
+t13: tuple[Unpack[tuple[str, ...]], Unpack[tuple[int, ...]]]  # E
 t14: tuple[
-    Unpack[tuple[str, Unpack[tuple[str, ...]]]], Unpack[tuple[int, ...]]
-]  # Type error
+    Unpack[tuple[str, Unpack[tuple[str, ...]]]], Unpack[tuple[int, ...]]  # E
+]

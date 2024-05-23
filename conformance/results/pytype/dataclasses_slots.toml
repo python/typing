@@ -5,8 +5,16 @@ Does not reject write to instance variable that is not defined in __slots__.
 Incorrectly reports error when accessing `__slots__` when `slots=True`.
 """
 output = """
-File "dataclasses_slots.py", line 57, in <module>: No attribute '__slots__' on Type[DC5] [attribute-error]
-File "dataclasses_slots.py", line 58, in <module>: No attribute '__slots__' on DC5 [attribute-error]
-File "dataclasses_slots.py", line 67, in <module>: No attribute '__slots__' on Type[DC6] [attribute-error]
-File "dataclasses_slots.py", line 70, in <module>: No attribute '__slots__' on DC6 [attribute-error]
+File "dataclasses_slots.py", line 56, in <module>: No attribute '__slots__' on Type[DC5] [attribute-error]
+File "dataclasses_slots.py", line 57, in <module>: No attribute '__slots__' on DC5 [attribute-error]
+File "dataclasses_slots.py", line 66, in <module>: No attribute '__slots__' on Type[DC6] [attribute-error]
+File "dataclasses_slots.py", line 69, in <module>: No attribute '__slots__' on DC6 [attribute-error]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 25: Expected 1 errors
+Line 38: Expected 1 errors
+Lines 10, 11: Expected error (tag 'DC1')
+Line 56: Unexpected errors ['File "dataclasses_slots.py", line 56, in <module>: No attribute \\'__slots__\\' on Type[DC5] [attribute-error]']
+Line 57: Unexpected errors ['File "dataclasses_slots.py", line 57, in <module>: No attribute \\'__slots__\\' on DC5 [attribute-error]']
 """

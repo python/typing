@@ -6,3 +6,7 @@ output = """
 File "directives_cast.py", line 15, in <module>: Missing parameter 'typ' in call to function typing.cast [missing-parameter]
 File "directives_cast.py", line 16, in <module>: Invalid type annotation '1' for typing.cast [invalid-annotation]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 17: Expected 1 errors
+"""

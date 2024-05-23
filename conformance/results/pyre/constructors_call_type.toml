@@ -1,0 +1,13 @@
+conformant = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_type.py:30:4 Missing argument [20]: Call `Meta1.__call__` expects argument `x`.
+constructors_call_type.py:40:4 Missing argument [20]: Call `Class2.__new__` expects argument `x`.
+constructors_call_type.py:50:4 Missing argument [20]: Call `Class3.__init__` expects argument `x`.
+constructors_call_type.py:59:4 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 1 was provided.
+constructors_call_type.py:64:4 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 1 was provided.
+constructors_call_type.py:72:4 Missing argument [20]: Call `Meta1.__call__` expects argument `x`.
+constructors_call_type.py:81:4 Missing argument [20]: Call `Class2.__new__` expects argument `y`.
+constructors_call_type.py:82:11 Incompatible parameter type [6]: In call `Class2.__new__`, for 2nd positional argument, expected `str` but got `int`.
+"""

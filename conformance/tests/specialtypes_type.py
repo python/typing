@@ -53,7 +53,7 @@ def func4(user_class: type[BasicUser | ProUser]) -> User:
 
 assert_type(func4(BasicUser), User)
 assert_type(func4(ProUser), User)
-func4(TeamUser)  # Type error
+func4(TeamUser)  # E
 
 
 # > Any other special constructs like Callable are not allowed as an argument to type.
@@ -67,13 +67,13 @@ def func5(x: type[T]) -> None:
 
 func5(User)  # OK
 func5(tuple)  # OK
-func5(Callable)  # Type error
+func5(Callable)  # E
 
 
 # > When type is parameterized it requires exactly one parameter. Plain type
 # > without brackets, the root of Python’s metaclass hierarchy, is equivalent to type[Any].
 
-bad_type1: type[int, str]  # Type error
+bad_type1: type[int, str]  # E
 
 
 class MyMetaA(type):
@@ -114,10 +114,10 @@ def func7(a: type, b: type[Any], c: Type, d: Type[Any]):
 
 def func8(a: type[object], b: Type[object]):
     assert_type(a.__name__, str)
-    a.unknown  # Type error
+    a.unknown  # E
 
     assert_type(b.__name__, str)
-    b.unknown  # Type error
+    b.unknown  # E
 
 
 # > type is covariant in its parameter, because type[Derived] is a subtype of type[Base]:
@@ -140,10 +140,10 @@ def func10(a: TA1, b: TA2, c: TA3, d: TA4):
     assert_type(d, type[Any])
 
 
-TA1.unknown  # Type error
-TA2.unknown  # Type error
-TA3.unknown  # Type error
-TA4.unknown  # Type error
+TA1.unknown  # E
+TA2.unknown  # E
+TA3.unknown  # E
+TA4.unknown  # E
 
 TA7: TypeAlias = type[T]
 TA8: TypeAlias = Type[T]

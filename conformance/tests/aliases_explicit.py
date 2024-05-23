@@ -64,11 +64,11 @@ def good_type_aliases(
 
 
 def good_type_aliases_used_badly(
-    p1: GoodTypeAlias2[int],  # Type error: type alias is not generic
-    p2: GoodTypeAlias3[int],  # Type error: type alias is already specialized
-    p3: GoodTypeAlias4[int, int],  # Type error: too many type arguments
-    p4: GoodTypeAlias8[int, int],  # Type error: too many type arguments
-    p5: GoodTypeAlias9[int, int],  # Type error: bad type argument for ParamSpec
+    p1: GoodTypeAlias2[int],  # E: type alias is not generic
+    p2: GoodTypeAlias3[int],  # E: type alias is already specialized
+    p3: GoodTypeAlias4[int, int],  # E: too many type arguments
+    p4: GoodTypeAlias8[int, int],  # E: too many type arguments
+    p5: GoodTypeAlias9[int, int],  # E: bad type argument for ParamSpec
 ):
     pass
 
@@ -76,19 +76,19 @@ def good_type_aliases_used_badly(
 var1 = 3
 
 # The following should not be allowed as type aliases.
-BadTypeAlias1: TA = eval("".join(map(chr, [105, 110, 116])))
-BadTypeAlias2: TA = [int, str]
-BadTypeAlias3: TA = ((int, str),)
-BadTypeAlias4: TA = [int for i in range(1)]
-BadTypeAlias5: TA = {"a": "b"}
-BadTypeAlias6: TA = (lambda: int)()
-BadTypeAlias7: TA = [int][0]
-BadTypeAlias8: TA = int if 1 < 3 else str
-BadTypeAlias9: TA = var1
-BadTypeAlias10: TA = True
-BadTypeAlias11: TA = 1
-BadTypeAlias12: TA = list or set
-BadTypeAlias13: TA = f"{'int'}"
+BadTypeAlias1: TA = eval("".join(map(chr, [105, 110, 116])))  # E
+BadTypeAlias2: TA = [int, str]  # E
+BadTypeAlias3: TA = ((int, str),)  # E
+BadTypeAlias4: TA = [int for i in range(1)]  # E
+BadTypeAlias5: TA = {"a": "b"}  # E
+BadTypeAlias6: TA = (lambda: int)()  # E
+BadTypeAlias7: TA = [int][0]  # E
+BadTypeAlias8: TA = int if 1 < 3 else str  # E
+BadTypeAlias9: TA = var1  # E
+BadTypeAlias10: TA = True  # E
+BadTypeAlias11: TA = 1  # E
+BadTypeAlias12: TA = list or set  # E
+BadTypeAlias13: TA = f"{'int'}"  # E
 
 
 ListAlias: TA = list
@@ -97,6 +97,6 @@ ListOrSetAlias: TA = list | set
 x1: list[str] = ListAlias()  # OK
 assert_type(x1, list[str])
 
-x2: ListAlias[int]  # Type error: already specialized
-x3 = ListOrSetAlias()  # Type error: cannot instantiate union
-x4: ListOrSetAlias[int]  # Type error: already specialized
+x2: ListAlias[int]  # E: already specialized
+x3 = ListOrSetAlias()  # E: cannot instantiate union
+x4: ListOrSetAlias[int]  # E: already specialized

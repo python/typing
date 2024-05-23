@@ -13,3 +13,14 @@ protocols_explicit.py:97:0 Uninitialized attribute [13]: Attribute `cm11` inheri
 protocols_explicit.py:97:0 Uninitialized attribute [13]: Attribute `im1` inherited from protocol `Proto1` in class `Concrete3` to have type `int` but is never initialized.
 protocols_explicit.py:159:6 Invalid class instantiation [45]: Cannot instantiate abstract class `Concrete7A` with abstract method `method1`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 27: Expected 1 errors
+Line 56: Expected 1 errors
+Line 86: Expected 1 errors
+Line 104: Expected 1 errors
+Line 129: Expected 1 errors
+Line 54: Unexpected errors ['protocols_explicit.py:54:0 Uninitialized attribute [13]: Attribute `other` inherited from protocol `RGB` in class `Point` to have type `int` but is never initialized.']
+Line 82: Unexpected errors ['protocols_explicit.py:82:0 Uninitialized attribute [13]: Attribute `cm1` inherited from protocol `Proto1` in class `Concrete1` to have type `int` but is never initialized.', 'protocols_explicit.py:82:0 Uninitialized attribute [13]: Attribute `im1` inherited from protocol `Proto1` in class `Concrete1` to have type `int` but is never initialized.']
+Line 97: Unexpected errors ['protocols_explicit.py:97:0 Uninitialized attribute [13]: Attribute `cm10` inherited from protocol `Proto2` in class `Concrete3` to have type `int` but is never initialized.', 'protocols_explicit.py:97:0 Uninitialized attribute [13]: Attribute `cm11` inherited from protocol `Proto3` in class `Concrete3` to have type `int` but is never initialized.', 'protocols_explicit.py:97:0 Uninitialized attribute [13]: Attribute `im1` inherited from protocol `Proto1` in class `Concrete3` to have type `int` but is never initialized.']
+"""

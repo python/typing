@@ -1,0 +1,27 @@
+conformant = "Unsupported"
+output = """
+typeddicts_readonly_inheritance.py:15:10 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.
+typeddicts_readonly_inheritance.py:18:0 Inconsistent override [15]: `name` overrides attribute defined in `NamedDict` inconsistently. Type `str` is not a subtype of the overridden attribute `unknown`.
+typeddicts_readonly_inheritance.py:65:18 TypedDict initialization error [55]: Missing required field `name` for TypedDict `RequiredName`.
+typeddicts_readonly_inheritance.py:75:0 Inconsistent override [15]: `ident` overrides attribute defined in `OptionalIdent` inconsistently. Type `str` is not a subtype of the overridden attribute `unknown`.
+typeddicts_readonly_inheritance.py:82:13 Invalid TypedDict operation [54]: Expected `str` to be assigned to `User` field `ident` but got `int`.
+typeddicts_readonly_inheritance.py:83:4 TypedDict initialization error [55]: Expected type `str` for `User` field `ident` but got `int`.
+typeddicts_readonly_inheritance.py:84:4 TypedDict initialization error [55]: Missing required field `ident` for TypedDict `User`.
+typeddicts_readonly_inheritance.py:93:0 Inconsistent override [15]: `a` overrides attribute defined in `F1` inconsistently. Type `unknown` is not a subtype of the overridden attribute `int`.
+typeddicts_readonly_inheritance.py:97:0 Inconsistent override [15]: `a` overrides attribute defined in `F1` inconsistently. Type `int` is not a subtype of the overridden attribute `int`.
+typeddicts_readonly_inheritance.py:119:0 Invalid inheritance [39]: Field `x` has type `int` in base class `TD_A1` and type `float` in base class `TD_A2`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 36: Expected 1 errors
+Line 50: Expected 1 errors
+Line 94: Expected 1 errors
+Line 98: Expected 1 errors
+Line 106: Expected 1 errors
+Line 132: Expected 1 errors
+Line 15: Unexpected errors ['typeddicts_readonly_inheritance.py:15:10 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.']
+Line 18: Unexpected errors ['typeddicts_readonly_inheritance.py:18:0 Inconsistent override [15]: `name` overrides attribute defined in `NamedDict` inconsistently. Type `str` is not a subtype of the overridden attribute `unknown`.']
+Line 75: Unexpected errors ['typeddicts_readonly_inheritance.py:75:0 Inconsistent override [15]: `ident` overrides attribute defined in `OptionalIdent` inconsistently. Type `str` is not a subtype of the overridden attribute `unknown`.']
+Line 93: Unexpected errors ['typeddicts_readonly_inheritance.py:93:0 Inconsistent override [15]: `a` overrides attribute defined in `F1` inconsistently. Type `unknown` is not a subtype of the overridden attribute `int`.']
+Line 97: Unexpected errors ['typeddicts_readonly_inheritance.py:97:0 Inconsistent override [15]: `a` overrides attribute defined in `F1` inconsistently. Type `int` is not a subtype of the overridden attribute `int`.']
+"""

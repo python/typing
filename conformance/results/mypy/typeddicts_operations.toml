@@ -12,3 +12,6 @@ typeddicts_operations.py:47: error: "Movie" has no attribute "clear"  [attr-defi
 typeddicts_operations.py:49: error: Key "name" of TypedDict "Movie" cannot be deleted  [misc]
 typeddicts_operations.py:62: error: "MovieOptional" has no attribute "clear"  [attr-defined]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

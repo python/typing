@@ -8,6 +8,13 @@ tuples_type_form.py:14:0 Incompatible variable type [9]: t2 is declared to have 
 tuples_type_form.py:15:0 Incompatible variable type [9]: t2 is declared to have type `Tuple[int, int]` but is used as type `Tuple[int, str]`.
 tuples_type_form.py:25:0 Incompatible variable type [9]: t10 is declared to have type `Tuple[]` but is used as type `Tuple[int]`.
 tuples_type_form.py:36:0 Incompatible variable type [9]: t20 is declared to have type `typing.Tuple[int, ...]` but is used as type `Tuple[int, int, int, str]`.
+tuples_type_form.py:40:5 Undefined or invalid type [11]: Annotation `...` is not defined as a type.
 tuples_type_form.py:44:5 Invalid type [31]: Expression `tuple[(*tuple[str], ...)]` is not a valid type.
 tuples_type_form.py:45:5 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], ...)]` is not a valid type.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 41: Expected 1 errors
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
 """

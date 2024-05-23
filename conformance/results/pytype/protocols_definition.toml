@@ -25,3 +25,21 @@ File "protocols_definition.py", line 159, in <module>: Type annotation for v3_ba
 File "protocols_definition.py", line 218, in <module>: Type annotation for v4_bad1 does not match type of assignment [annotation-type-mismatch]
 File "protocols_definition.py", line 219, in <module>: Type annotation for v4_bad2 does not match type of assignment [annotation-type-mismatch]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 67: Expected 1 errors
+Line 116: Expected 1 errors
+Line 117: Expected 1 errors
+Line 157: Expected 1 errors
+Line 158: Expected 1 errors
+Line 160: Expected 1 errors
+Line 285: Expected 1 errors
+Line 286: Expected 1 errors
+Line 287: Expected 1 errors
+Line 288: Expected 1 errors
+Line 289: Expected 1 errors
+Line 339: Expected 1 errors
+Line 340: Expected 1 errors
+Line 341: Expected 1 errors
+Line 45: Unexpected errors ['File "protocols_definition.py", line 45, in third: bad return type [bad-return-type]']
+"""

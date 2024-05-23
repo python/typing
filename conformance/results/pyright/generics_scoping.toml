@@ -1,14 +1,17 @@
 conformant = "Pass"
 output = """
-generics_scoping.py:25:10 - error: Argument of type "Literal['a']" cannot be assigned to parameter "x" of type "int" in function "meth_2"
+generics_scoping.py:29:10 - error: Argument of type "Literal['a']" cannot be assigned to parameter "x" of type "int" in function "meth_2"
   "Literal['a']" is incompatible with "int" (reportArgumentType)
-generics_scoping.py:46:13 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
-generics_scoping.py:50:19 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
-generics_scoping.py:61:29 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
-generics_scoping.py:71:24 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
-generics_scoping.py:74:17 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
-generics_scoping.py:80:5 - error: Generic type alias within class cannot use bound type variables T
-generics_scoping.py:84:14 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
-generics_scoping.py:85:19 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
-generics_scoping.py:86:6 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
+generics_scoping.py:50:13 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
+generics_scoping.py:54:19 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
+generics_scoping.py:65:29 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
+generics_scoping.py:75:24 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
+generics_scoping.py:78:17 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
+generics_scoping.py:84:5 - error: Generic type alias within class cannot use bound type variables T
+generics_scoping.py:88:14 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
+generics_scoping.py:89:19 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
+generics_scoping.py:90:6 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

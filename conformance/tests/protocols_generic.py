@@ -37,11 +37,11 @@ class Concrete1:
 
 
 p1: Proto1[str, int] = Concrete1()  # OK
-p2: Proto1[int, str] = Concrete1()  # Type error: incompatible type
+p2: Proto1[int, str] = Concrete1()  # E: incompatible type
 
 
 # Runtime error: Protocol and Generic cannot be used together as base classes.
-class Proto2(Protocol[T_co], Generic[T_co]):
+class Proto2(Protocol[T_co], Generic[T_co]):  # E
     ...
 
 
@@ -53,7 +53,7 @@ class Box(Protocol[T_co]):
 
 def func1(box_int: Box[int], box_float: Box[float]):
     v1: Box[float] = box_int  # OK
-    v2: Box[int] = box_float  # Type error
+    v2: Box[int] = box_float  # E
 
 
 class Sender(Protocol[T_contra]):
@@ -63,7 +63,7 @@ class Sender(Protocol[T_contra]):
 
 def func2(sender_int: Sender[int], sender_float: Sender[float]):
     v1: Sender[int] = sender_float  # OK
-    v2: Sender[float] = sender_int  # Type error
+    v2: Sender[float] = sender_int  # E
 
 
 class AttrProto(Protocol[T]):
@@ -71,8 +71,8 @@ class AttrProto(Protocol[T]):
 
 
 def func3(attr_int: AttrProto[int], attr_float: AttrProto[float]):
-    v1: AttrProto[float] = attr_int  # Type error
-    v2: AttrProto[int] = attr_float  # Type error
+    v1: AttrProto[float] = attr_int  # E
+    v2: AttrProto[int] = attr_float  # E
 
 
 class HasParent(Protocol):
@@ -143,5 +143,5 @@ class ConcreteHasProperty4:
 
 hp1: HasPropertyProto = ConcreteHasProperty1()  # OK
 hp2: HasPropertyProto = ConcreteHasProperty2()  # OK
-hp3: HasPropertyProto = ConcreteHasProperty3()  # Type error
-hp4: HasPropertyProto = ConcreteHasProperty4()  # Type error
+hp3: HasPropertyProto = ConcreteHasProperty3()  # E
+hp4: HasPropertyProto = ConcreteHasProperty4()  # E

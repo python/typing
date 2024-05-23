@@ -8,5 +8,15 @@ output = """
 File "typeddicts_type_consistency.py", line 62, in <module>: Type annotation for a3 does not match type of assignment [annotation-type-mismatch]
 File "typeddicts_type_consistency.py", line 65, in <module>: Type annotation for b3 does not match type of assignment [annotation-type-mismatch]
 File "typeddicts_type_consistency.py", line 69, in <module>: Type annotation for a3_1 does not match type of assignment [annotation-type-mismatch]
-File "typeddicts_type_consistency.py", line 124, in <module>: Type annotation for o2 does not match type of assignment [annotation-type-mismatch]
+File "typeddicts_type_consistency.py", line 126, in <module>: Type annotation for o2 does not match type of assignment [annotation-type-mismatch]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Expected 1 errors
+Line 38: Expected 1 errors
+Line 76: Expected 1 errors
+Line 77: Expected 1 errors
+Line 78: Expected 1 errors
+Line 82: Expected 1 errors
+Line 62: Unexpected errors ['File "typeddicts_type_consistency.py", line 62, in <module>: Type annotation for a3 does not match type of assignment [annotation-type-mismatch]']
 """

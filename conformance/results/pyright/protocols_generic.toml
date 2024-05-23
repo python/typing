@@ -1,40 +1,43 @@
 conformant = "Pass"
 output = """
-protocols_generic.py:40:24 - error: Expression of type "Concrete1" cannot be assigned to declared type "Proto1[int, str]"
+protocols_generic.py:40:24 - error: Expression of type "Concrete1" is incompatible with declared type "Proto1[int, str]"
   "Concrete1" is incompatible with protocol "Proto1[int, str]"
     "method1" is an incompatible type
-      Type "(x: str) -> str" cannot be assigned to type "(x: S@Proto1) -> S@Proto1"
-        Parameter 1: type "S@Proto1" cannot be assigned to type "str"
+      Type "(x: str) -> str" is incompatible with type "(x: S@Proto1) -> S@Proto1"
+        Parameter 1: type "S@Proto1" is incompatible with type "str"
           "int" is incompatible with "str"
         Function return type "str" is incompatible with type "S@Proto1"
-          Type "str" cannot be assigned to type "int"
+          Type "str" is incompatible with type "int"
     "__iter__" is an incompatible type
   ... (reportAssignmentType)
 protocols_generic.py:44:30 - error: Only one Generic[...] or Protocol[...] base class allowed (reportGeneralTypeIssues)
-protocols_generic.py:56:20 - error: Expression of type "Box[float]" cannot be assigned to declared type "Box[int]"
+protocols_generic.py:56:20 - error: Expression of type "Box[float]" is incompatible with declared type "Box[int]"
   "Box[float]" is incompatible with "Box[int]"
     Type parameter "T_co@Box" is covariant, but "float" is not a subtype of "int"
       "float" is incompatible with "int" (reportAssignmentType)
-protocols_generic.py:66:25 - error: Expression of type "Sender[int]" cannot be assigned to declared type "Sender[float]"
+protocols_generic.py:66:25 - error: Expression of type "Sender[int]" is incompatible with declared type "Sender[float]"
   "Sender[int]" is incompatible with "Sender[float]"
     Type parameter "T_contra@Sender" is contravariant, but "int" is not a supertype of "float"
       "float" is incompatible with "int" (reportAssignmentType)
-protocols_generic.py:74:28 - error: Expression of type "AttrProto[int]" cannot be assigned to declared type "AttrProto[float]"
+protocols_generic.py:74:28 - error: Expression of type "AttrProto[int]" is incompatible with declared type "AttrProto[float]"
   "AttrProto[int]" is incompatible with "AttrProto[float]"
     Type parameter "T@AttrProto" is invariant, but "int" is not the same as "float" (reportAssignmentType)
-protocols_generic.py:75:26 - error: Expression of type "AttrProto[float]" cannot be assigned to declared type "AttrProto[int]"
+protocols_generic.py:75:26 - error: Expression of type "AttrProto[float]" is incompatible with declared type "AttrProto[int]"
   "AttrProto[float]" is incompatible with "AttrProto[int]"
     Type parameter "T@AttrProto" is invariant, but "float" is not the same as "int" (reportAssignmentType)
-protocols_generic.py:146:25 - error: Expression of type "ConcreteHasProperty3" cannot be assigned to declared type "HasPropertyProto"
+protocols_generic.py:146:25 - error: Expression of type "ConcreteHasProperty3" is incompatible with declared type "HasPropertyProto"
   "ConcreteHasProperty3" is incompatible with protocol "HasPropertyProto"
     "f" is an incompatible type
-      Type "() -> int" cannot be assigned to type "() -> HasPropertyProto"
+      Type "() -> int" is incompatible with type "() -> HasPropertyProto"
         Function return type "int" is incompatible with type "HasPropertyProto"
           "int" is incompatible with protocol "HasPropertyProto" (reportAssignmentType)
-protocols_generic.py:147:25 - error: Expression of type "ConcreteHasProperty4" cannot be assigned to declared type "HasPropertyProto"
+protocols_generic.py:147:25 - error: Expression of type "ConcreteHasProperty4" is incompatible with declared type "HasPropertyProto"
   "ConcreteHasProperty4" is incompatible with protocol "HasPropertyProto"
     "m" is an incompatible type
-      Type "(item: str, callback: (int) -> str) -> str" cannot be assigned to type "(item: T@m, callback: (T@m) -> str) -> str"
-        Parameter 2: type "(T@m) -> str" cannot be assigned to type "(int) -> str"
-          Type "(str) -> str" cannot be assigned to type "(int) -> str" (reportAssignmentType)
+      Type "(item: str, callback: (int) -> str) -> str" is incompatible with type "(item: T@m, callback: (T@m) -> str) -> str"
+        Parameter 2: type "(T@m) -> str" is incompatible with type "(int) -> str"
+          Type "(str) -> str" is incompatible with type "(int) -> str" (reportAssignmentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

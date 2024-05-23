@@ -49,9 +49,9 @@ s3: SizedAndClosable1 = SizedAndClosable3()  # OK
 s4: SizedAndClosable2 = SizedAndClosable3()  # OK
 s5: Sized = SCConcrete1()  # OK
 
-s6: SizedAndClosable1 = SCConcrete2()  # Type error: doesn't implement close
-s7: SizedAndClosable2 = SCConcrete2()  # Type error: doesn't implement close
-s8: SizedAndClosable3 = SCConcrete2()  # Type error: SizedAndClosable3 is not a protocol
+s6: SizedAndClosable1 = SCConcrete2()  # E: doesn't implement close
+s7: SizedAndClosable2 = SCConcrete2()  # E: doesn't implement close
+s8: SizedAndClosable3 = SCConcrete2()  # E: SizedAndClosable3 is not a protocol
 
 
 def func1(s1: SizedAndClosable1, s2: SizedAndClosable2):
@@ -64,8 +64,7 @@ def func1(s1: SizedAndClosable1, s2: SizedAndClosable2):
 # > must be protocols.
 
 
-# Type error: SizedAndClosable3 is not a protocol
-class BadProto(SizedAndClosable3, Protocol):
+class BadProto(SizedAndClosable3, Protocol):  # E: SizedAndClosable3 is not a protocol
     ...
 
 
@@ -80,5 +79,5 @@ class SizedAndClosable4(SizedAndClosable1):
         raise NotImplementedError
 
 
-x = SizedAndClosable4()  # Type error: cannot instantiate abstract class
-y: SizedAndClosable4 = SCConcrete1()  # Type error
+x = SizedAndClosable4()  # E: cannot instantiate abstract class
+y: SizedAndClosable4 = SCConcrete1()  # E

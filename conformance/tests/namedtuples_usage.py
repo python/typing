@@ -31,16 +31,16 @@ assert_type(p[-1], str)
 assert_type(p[-2], int)
 assert_type(p[-3], int)
 
-print(p[3])  # Type error
-print(p[-4])  # Type error
+print(p[3])  # E
+print(p[-4])  # E
 
 # > Type checkers should enforce that named tuple fields cannot be overwritten
 # > or deleted.
 
-p.x = 3  # Type error
-p[0] = 3  # Type error
-del p.x  # Type error
-del p[0]  # Type error
+p.x = 3  # E
+p[0] = 3  # E
+del p.x  # E
+del p[0]  # E
 
 # > Like regular tuples, named tuples can be unpacked. Type checkers should understand
 # > this.
@@ -49,8 +49,8 @@ x1, y1, units1 = p
 assert_type(x1, int)
 assert_type(units1, str)
 
-x2, y2 = p  # Type error (too few values to unpack)
-x3, y3, unit3, other = p  # Type error (too many values to unpack)
+x2, y2 = p  # E: too few values to unpack
+x3, y3, unit3, other = p  # E: too many values to unpack
 
 
 class PointWithName(Point):

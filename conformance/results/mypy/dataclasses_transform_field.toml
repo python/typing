@@ -8,3 +8,7 @@ dataclasses_transform_field.py:75: error: Too many positional arguments for "Cus
 dataclasses_transform_field.py:75: error: Missing named argument "name" for "CustomerModel2"  [call-arg]
 dataclasses_transform_field.py:77: error: Missing named argument "id" for "CustomerModel2"  [call-arg]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 77: Unexpected errors ['dataclasses_transform_field.py:77: error: Missing named argument "id" for "CustomerModel2"  [call-arg]']
+"""

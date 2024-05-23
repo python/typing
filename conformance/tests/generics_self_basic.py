@@ -8,6 +8,7 @@ from typing import Callable, Generic, Self, TypeVar, assert_type
 
 T = TypeVar("T")
 
+
 class Shape:
     def set_scale(self, scale: float) -> Self:
         assert_type(self, Self)
@@ -16,7 +17,7 @@ class Shape:
 
     def method2(self) -> Self:
         # This should result in a type error.
-        return Shape()
+        return Shape()  # E
 
     def method3(self) -> "Shape":
         return self
@@ -24,12 +25,12 @@ class Shape:
     @classmethod
     def from_config(cls, config: dict[str, float]) -> Self:
         assert_type(cls, type[Self])
-        return cls(config["scale"])
+        return cls()
 
     @classmethod
     def cls_method2(cls) -> Self:
         # This should result in a type error.
-        return Shape()
+        return Shape()  # E
 
     @classmethod
     def cls_method3(cls) -> "Shape":
@@ -57,11 +58,10 @@ assert_type(Circle.from_config({}), Circle)
 class Container(Generic[T]):
     value: T
 
-    def set_value(self, value: T) -> Self:
-        ...
+    def set_value(self, value: T) -> Self: ...
 
     # This should generate an error because Self isn't subscriptable.
-    def foo(self, other: Self[int]) -> None:
+    def foo(self, other: Self[int]) -> None:  # E
         pass
 
 
@@ -79,4 +79,3 @@ def object_with_generic_type(
     val = container.set_value(value)
     assert_type(val, Container[T])
     return val
-

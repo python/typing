@@ -10,3 +10,6 @@ protocols_variance.py:71: error: Contravariant type variable "T1_contra" used in
 protocols_variance.py:72: error: Cannot use a contravariant type variable as return type  [misc]
 protocols_variance.py:104: error: Invariant type variable "T1" used in protocol where covariant one is expected  [misc]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

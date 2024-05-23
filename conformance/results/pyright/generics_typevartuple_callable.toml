@@ -4,3 +4,6 @@ generics_typevartuple_callable.py:26:28 - error: Argument of type "tuple[Literal
   "Literal['']" is incompatible with "int"
   "Literal[0]" is incompatible with "str" (reportArgumentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

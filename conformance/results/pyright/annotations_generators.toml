@@ -2,7 +2,7 @@ conformant = "Pass"
 output = """
 annotations_generators.py:51:21 - error: Function with declared return type "C" must return value on all code paths
   "None" is incompatible with "C" (reportReturnType)
-annotations_generators.py:54:16 - error: Expression of type "Literal[False]" cannot be assigned to return type "C"
+annotations_generators.py:54:16 - error: Expression of type "Literal[False]" is incompatible with return type "C"
   "Literal[False]" is incompatible with "C" (reportReturnType)
 annotations_generators.py:57:15 - error: Return type of generator function must be compatible with "Generator[Literal[3], Any, Any]"
   "Literal[3]" is incompatible with "A" (reportReturnType)
@@ -30,4 +30,7 @@ annotations_generators.py:135:16 - error: Return type of generator function must
   "Generator[None, int, Unknown]" is incompatible with "Generator[None, str, None]"
     Type parameter "_SendT_contra@Generator" is contravariant, but "int" is not a supertype of "str"
       "str" is incompatible with "int" (reportReturnType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

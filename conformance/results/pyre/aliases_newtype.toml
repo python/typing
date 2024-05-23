@@ -17,3 +17,12 @@ aliases_newtype.py:51:37 Invalid inheritance [39]: `typing_extensions.Literal[7]
 aliases_newtype.py:60:14 Too many arguments [19]: Call `NewType.__init__` expects 2 positional arguments, 3 were provided.
 aliases_newtype.py:62:37 Invalid inheritance [39]: `typing.Any` is not a valid parent class.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 20: Expected 1 errors
+Line 23: Expected 1 errors
+Line 32: Expected 1 errors
+Line 47: Expected 1 errors
+Line 49: Expected 1 errors
+Line 58: Expected 1 errors
+"""

@@ -3,7 +3,6 @@ notes = """
 Does not report error for a forward reference that is not enclosed in quotes.
 Does not report error for use of quoted type with "|" operator (runtime error).
 Incorrectly generates error for quoted type defined in class scope.
-Does not treat triple-quoted forward reference annotation as implicitly parenthesized.
 """
 output = """
 annotations_forward_refs.py:41: error: Invalid type comment or annotation  [valid-type]
@@ -29,5 +28,14 @@ annotations_forward_refs.py:87: note: Perhaps you need "Callable[...]" or a call
 annotations_forward_refs.py:89: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
 annotations_forward_refs.py:89: note: Perhaps you need "Callable[...]" or a callback protocol?
 annotations_forward_refs.py:93: error: Expression is of type int?, not "int"  [assert-type]
-annotations_forward_refs.py:100: error: Invalid type comment or annotation  [valid-type]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 22: Expected 1 errors
+Line 23: Expected 1 errors
+Line 24: Expected 1 errors
+Line 25: Expected 1 errors
+Line 66: Expected 1 errors
+Line 87: Unexpected errors ['annotations_forward_refs.py:87: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]']
+Line 93: Unexpected errors ['annotations_forward_refs.py:93: error: Expression is of type int?, not "int"  [assert-type]']
 """

@@ -20,3 +20,18 @@ File "literals_parameterizations.py", line 61, in <module>: Invalid type annotat
 File "literals_parameterizations.py", line 61, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
 File "literals_parameterizations.py", line 65, in func2: Type annotation for x1 does not match type of assignment [annotation-type-mismatch]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 41: Expected 1 errors
+Line 45: Expected 1 errors
+Line 46: Expected 1 errors
+Line 49: Expected 1 errors
+Line 52: Expected 1 errors
+Line 56: Expected 1 errors
+Line 60: Expected 1 errors
+Line 17: Unexpected errors ['File "literals_parameterizations.py", line 17, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 18: Unexpected errors ['File "literals_parameterizations.py", line 18, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 19: Unexpected errors ['File "literals_parameterizations.py", line 19, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 33: Unexpected errors ['File "literals_parameterizations.py", line 33, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 35: Unexpected errors ['File "literals_parameterizations.py", line 35, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+"""

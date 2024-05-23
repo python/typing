@@ -16,7 +16,7 @@ def stop() -> NoReturn:
     raise RuntimeError("no way")
 
 
-def func1(x: int) -> NoReturn:  # Type error: implicitly returns None
+def func1(x: int) -> NoReturn:  # E: implicitly returns None
     if x != 0:
         sys.exit(1)
 
@@ -32,32 +32,29 @@ def func2(x: int) -> int:
     return "whatever works"  # No type error
 
 
-# The spec says the following, but it is agreed that this is out of date and
-# should be changed. No type checkers enforce this currently.
-
-# > The NoReturn type is only valid as a return annotation of functions, and
-# > considered an error if it appears in other positions:
+# The spec previously said that NoReturn is only valid in a function return type,
+# but this was removed and it should now be accepted in all of these contexts:
 
 
 def func3(
     a: NoReturn, b: list[NoReturn]
-) -> None:  # Type error: NoReturn used outside of return annotation
-    c: NoReturn = a  # Type error: NoReturn used outside of return annotation
+) -> None:
+    c: NoReturn = a
 
 
 def func4(
     a: list[NoReturn],
-) -> None:  # Type error: NoReturn used outside of return annotation
-    c: list[NoReturn] = a  # Type error: NoReturn used outside of return annotation
+) -> None:
+    c: list[NoReturn] = a
 
 
-def func5() -> list[NoReturn]:  # Type error: NoReturn used outside of return annotation
+def func5() -> list[NoReturn]:
     return []
 
 
 class ClassA:
-    x: NoReturn  # Type error: NoReturn used outside of return annotation
-    y: list[NoReturn]  # Type error: NoReturn used outside of return annotation
+    x: NoReturn
+    y: list[NoReturn]
 
 
 # Never is compatible with all types.
@@ -82,7 +79,7 @@ def func7(x: int) -> Never:
 def func8(a: Never, b: Any, c: list[Never]):
     v1: Never = a  # OK
     v2: Never = b  # OK
-    v3: list[int] = c  # Type error
+    v3: list[int] = c  # E
     v4: Never = stop()  # OK
 
 
@@ -101,4 +98,4 @@ class ClassC(Generic[T]):
 
 def func10(x: U) -> ClassC[U]:
     # Never is not compatible in an invariant context.
-    return ClassC[Never]()  # Type error
+    return ClassC[Never]()  # E

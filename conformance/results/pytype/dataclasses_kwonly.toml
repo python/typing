@@ -12,3 +12,10 @@ File "dataclasses_kwonly.py", line 53, in <module>: Missing parameter 'a' in cal
 File "dataclasses_kwonly.py", line 56, in <module>: In method __init__, non-default argument c follows default argument [invalid-function-definition]
 File "dataclasses_kwonly.py", line 61, in <module>: function DC4.__init__ got multiple values for keyword argument 'b' [duplicate-keyword-argument]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 47: Unexpected errors ['File "dataclasses_kwonly.py", line 47, in <module>: Missing parameter \\'a\\' in call to function DC3.__init__ [missing-parameter]']
+Line 50: Unexpected errors ['File "dataclasses_kwonly.py", line 50, in <module>: Missing parameter \\'a\\' in call to function DC3.__init__ [missing-parameter]']
+Line 56: Unexpected errors ['File "dataclasses_kwonly.py", line 56, in <module>: In method __init__, non-default argument c follows default argument [invalid-function-definition]']
+Line 61: Unexpected errors ['File "dataclasses_kwonly.py", line 61, in <module>: function DC4.__init__ got multiple values for keyword argument \\'b\\' [duplicate-keyword-argument]']
+"""

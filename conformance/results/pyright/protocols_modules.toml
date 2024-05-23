@@ -1,14 +1,17 @@
 conformant = "Pass"
 output = """
-protocols_modules.py:26:17 - error: Expression of type "Module("_protocols_modules1")" cannot be assigned to declared type "Options2"
+protocols_modules.py:26:17 - error: Expression of type "Module("_protocols_modules1")" is incompatible with declared type "Options2"
   "timeout" is invariant because it is mutable
   "timeout" is an incompatible type
     "int" is incompatible with "str" (reportAssignmentType)
-protocols_modules.py:48:18 - error: Expression of type "Module("_protocols_modules2")" cannot be assigned to declared type "Reporter2"
+protocols_modules.py:48:18 - error: Expression of type "Module("_protocols_modules2")" is incompatible with declared type "Reporter2"
   "on_error" is an incompatible type
-    Type "(x: int) -> None" cannot be assigned to type "(x: int) -> int"
+    Type "(x: int) -> None" is incompatible with type "(x: int) -> int"
       Function return type "None" is incompatible with type "int"
         "None" is incompatible with "int" (reportAssignmentType)
-protocols_modules.py:49:18 - error: Expression of type "Module("_protocols_modules2")" cannot be assigned to declared type "Reporter3"
+protocols_modules.py:49:18 - error: Expression of type "Module("_protocols_modules2")" is incompatible with declared type "Reporter3"
   "not_implemented" is not present (reportAssignmentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

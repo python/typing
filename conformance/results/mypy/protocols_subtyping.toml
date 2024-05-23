@@ -10,3 +10,6 @@ protocols_subtyping.py:80: error: Incompatible types in assignment (expression h
 protocols_subtyping.py:102: error: Incompatible types in assignment (expression has type "Proto6[float, float]", variable has type "Proto7[int, float]")  [assignment]
 protocols_subtyping.py:103: error: Incompatible types in assignment (expression has type "Proto6[float, float]", variable has type "Proto7[float, object]")  [assignment]
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

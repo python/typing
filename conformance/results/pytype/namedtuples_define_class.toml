@@ -21,3 +21,17 @@ File "namedtuples_define_class.py", line 48, in <module>: Function Point.__new__
 File "namedtuples_define_class.py", line 49, in <module>: Invalid keyword argument other to function Point.__new__ [wrong-keyword-args]
 File "namedtuples_define_class.py", line 95, in <module>: Any [assert-type]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 32: Expected 1 errors
+Line 33: Expected 1 errors
+Line 59: Expected 1 errors
+Line 79: Expected 1 errors
+Line 98: Expected 1 errors
+Line 105: Expected 1 errors
+Line 27: Unexpected errors ['File "namedtuples_define_class.py", line 27, in <module>: Union[int, str] [assert-type]']
+Line 28: Unexpected errors ['File "namedtuples_define_class.py", line 28, in <module>: Union[int, str] [assert-type]']
+Line 29: Unexpected errors ['File "namedtuples_define_class.py", line 29, in <module>: Tuple[Union[int, str], ...] [assert-type]']
+Line 30: Unexpected errors ['File "namedtuples_define_class.py", line 30, in <module>: Tuple[Union[int, str], ...] [assert-type]']
+Line 95: Unexpected errors ['File "namedtuples_define_class.py", line 95, in <module>: Any [assert-type]']
+"""

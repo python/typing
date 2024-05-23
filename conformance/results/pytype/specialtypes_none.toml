@@ -7,3 +7,7 @@ output = """
 File "specialtypes_none.py", line 21, in <module>: Function func1 was called with the wrong arguments [wrong-arg-types]
 File "specialtypes_none.py", line 41, in <module>: Function func2 was called with the wrong arguments [wrong-arg-types]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 27: Expected 1 errors
+"""

@@ -100,35 +100,4 @@ Type-Hint and Stub Integration
 Typing PEPs
 ===========
 
-https://peps.python.org/topic/typing
-
-* :pep:`482`, literature overview on type hints
-* :pep:`483`, background on type hints
-* :pep:`484`, type hints
-* :pep:`526`, variable annotations and ``ClassVar``
-* :pep:`544`, ``Protocol``
-* :pep:`561`, distributing typed packages
-* :pep:`563`, ``from __future__ import annotations``
-* :pep:`585`, subscriptable generics in the standard library
-* :pep:`586`, ``Literal``
-* :pep:`589`, ``TypedDict``
-* :pep:`591`, ``Final``
-* :pep:`593`, ``Annotated``
-* :pep:`604`, union syntax with ``|``
-* :pep:`612`, ``ParamSpec``
-* :pep:`613`, ``TypeAlias``
-* :pep:`646`, variadic generics and ``TypeVarTuple``
-* :pep:`647`, ``TypeGuard``
-* :pep:`649` (draft), ``from __future__ import co_annotations``
-* :pep:`655`, ``Required`` and ``NotRequired``
-* :pep:`673`, ``Self``
-* :pep:`675`, ``LiteralString``
-* :pep:`677` (rejected), ``(int, str) -> bool`` callable type syntax
-* :pep:`681` ``@dataclass_transform()``
-* :pep:`688` ``Buffer``
-* :pep:`692` ``Unpack[TypedDict]`` for ``**kwargs``
-* :pep:`695` ``class Class[T]:`` type parameter syntax
-* :pep:`696` (draft), defaults for type variables
-* :pep:`698` ``@override``
-* :pep:`702` (draft), ``@deprecated()``
-* :pep:`705` (draft), ``TypedMapping``
+See https://peps.python.org/topic/typing for a list of all typing-related PEPs.

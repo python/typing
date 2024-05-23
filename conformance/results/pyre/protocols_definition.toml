@@ -22,3 +22,14 @@ protocols_definition.py:287:0 Incompatible variable type [9]: v5_bad3 is declare
 protocols_definition.py:288:0 Incompatible variable type [9]: v5_bad4 is declared to have type `Template5` but is used as type `Concrete5_Bad4`.
 protocols_definition.py:289:0 Incompatible variable type [9]: v5_bad5 is declared to have type `Template5` but is used as type `Concrete5_Bad5`.
 """
+conformance_automated = "Fail"
+errors_diff = """
+Line 116: Expected 1 errors
+Line 117: Expected 1 errors
+Line 157: Expected 1 errors
+Line 158: Expected 1 errors
+Line 160: Expected 1 errors
+Line 339: Expected 1 errors
+Line 340: Expected 1 errors
+Line 341: Expected 1 errors
+"""

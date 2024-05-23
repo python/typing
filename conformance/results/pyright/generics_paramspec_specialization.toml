@@ -11,3 +11,6 @@ generics_paramspec_specialization.py:61:9 - error: Argument of type "Literal['']
 generics_paramspec_specialization.py:62:16 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "bool"
   "Literal['']" is incompatible with "bool" (reportArgumentType)
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

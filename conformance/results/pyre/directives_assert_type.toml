@@ -1,8 +1,15 @@
-conformant = "Unsupported"
+conformant = "Pass"
 notes = """
-Does not understand "assert_type".
+Does not weaken literal types in `assert_type`, which some (other) tests rely on.
 """
 output = """
+directives_assert_type.py:27:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Union[int, str]`.
+directives_assert_type.py:28:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.
+directives_assert_type.py:29:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing_extensions.Literal[4]`.
 directives_assert_type.py:31:4 Missing argument [20]: Call `assert_type` expects argument in position 0.
+directives_assert_type.py:32:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `str`.
 directives_assert_type.py:33:4 Too many arguments [19]: Call `assert_type` expects 2 positional arguments, 3 were provided.
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

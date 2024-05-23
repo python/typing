@@ -148,18 +148,18 @@ are the only uses of the type a type checker is expected to allow:
 In particular, TypedDict type objects cannot be used in
 ``isinstance()`` tests such as ``isinstance(d, Movie)``. The reason is
 that there is no existing support for checking types of dictionary
-item values, since ``isinstance()`` does not work with many :pep:`484`
-types, including common ones like ``List[str]``.  This would be needed
+item values, since ``isinstance()`` does not work with many
+types, including common ones like ``list[str]``.  This would be needed
 for cases like this::
 
     class Strings(TypedDict):
-        items: List[str]
+        items: list[str]
 
     print(isinstance({'items': [1]}, Strings))    # Should be False
     print(isinstance({'items': ['x']}, Strings))  # Should be True
 
 The above use case is not supported.  This is consistent with how
-``isinstance()`` is not supported for ``List[str]``.
+``isinstance()`` is not supported for ``list[str]``.
 
 
 Inheritance
@@ -255,6 +255,7 @@ it possible to have a combination of required and non-required keys in
 a single TypedDict type. Alternatively, ``Required`` and ``NotRequired``
 (see below) can be used to mark individual items as required or non-required.
 
+.. _typeddict-functional-syntax:
 
 Alternative Syntax
 ^^^^^^^^^^^^^^^^^^
@@ -490,7 +491,7 @@ alternative is to generate false positive errors for idiomatic code.
 Use of Final Values and Literal Types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Type checkers should allow final names (:pep:`591`) with
+Type checkers should allow :ref:`final names <uppercase-final>` with
 string values to be used instead of string literals in operations on
 TypedDict objects.  For example, this is valid::
 
@@ -499,8 +500,8 @@ TypedDict objects.  For example, this is valid::
    m: Movie = {'name': 'Alien', 'year': 1979}
    years_since_epoch = m[YEAR] - 1970
 
-Similarly, an expression with a suitable literal type
-(:pep:`586`) can be used instead of a literal value::
+Similarly, an expression with a suitable :ref:`literal type <literal>`
+can be used instead of a literal value::
 
    def get_value(movie: Movie,
                  key: Literal['year', 'name']) -> int | str:
@@ -532,7 +533,9 @@ types.  In particular, they aren't subtypes of dictionary types.
 
 (Originally specified in :pep:`655`.)
 
-The ``typing.Required`` type qualifier is used to indicate that a
+.. _`required`:
+
+The ``typing.Required`` :term:`type qualifier` is used to indicate that a
 variable declared in a TypedDict definition is a required key:
 
 ::
@@ -541,7 +544,9 @@ variable declared in a TypedDict definition is a required key:
        title: Required[str]
        year: int
 
-Additionally the ``typing.NotRequired`` type qualifier is used to
+.. _`notrequired`:
+
+Additionally the ``typing.NotRequired`` :term:`type qualifier` is used to
 indicate that a variable declared in a TypedDict definition is a
 potentially-missing key:
 
@@ -577,9 +582,9 @@ Type checkers must enforce this restriction.
 The runtime implementations of ``Required[]`` and ``NotRequired[]``
 may also enforce this restriction.
 
-The :pep:`alternative functional syntax <589#alternative-syntax>`
+The :ref:`alternative functional syntax <typeddict-functional-syntax>`
 for TypedDict also supports
-``Required[]`` and ``NotRequired[]``:
+``Required[]``, ``NotRequired[]``, and ``ReadOnly[]``:
 
 ::
 
@@ -589,7 +594,7 @@ for TypedDict also supports
 Interaction with ``total=False``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Any :pep:`589`-style TypedDict declared with ``total=False`` is equivalent
+Any TypedDict declared with ``total=False`` is equivalent
 to a TypedDict with an implicit ``total=True`` definition with all of its
 keys marked as ``NotRequired[]``.
 
@@ -637,3 +642,187 @@ In particular allowing ``Annotated[]`` to be the outermost annotation
 for an item allows better interoperability with non-typing uses of
 annotations, which may always want ``Annotated[]`` as the outermost annotation
 (`discussion <https://bugs.python.org/issue46491>`__).
+
+
+Read-only Items
+---------------
+
+(Originally specified in :pep:`705`.)
+
+.. _`readonly`:
+
+``typing.ReadOnly`` type qualifier
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``typing.ReadOnly`` :term:`type qualifier` is used to indicate that an item declared in a ``TypedDict`` definition may not be mutated (added, modified, or removed)::
+
+    from typing import ReadOnly
+
+    class Band(TypedDict):
+        name: str
+        members: ReadOnly[list[str]]
+
+    blur: Band = {"name": "blur", "members": []}
+    blur["name"] = "Blur"  # OK: "name" is not read-only
+    blur["members"] = ["Damon Albarn"]  # Type check error: "members" is read-only
+    blur["members"].append("Damon Albarn")  # OK: list is mutable
+
+
+Interaction with other special types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``ReadOnly[]`` can be used with ``Required[]``, ``NotRequired[]`` and ``Annotated[]``, in any nesting order:
+
+::
+
+    class Movie(TypedDict):
+        title: ReadOnly[Required[str]]  # OK
+        year: ReadOnly[NotRequired[Annotated[int, ValueRange(-9999, 9999)]]]  # OK
+
+::
+
+    class Movie(TypedDict):
+        title: Required[ReadOnly[str]]  # OK
+        year: Annotated[NotRequired[ReadOnly[int]], ValueRange(-9999, 9999)]  # OK
+
+
+Inheritance
+^^^^^^^^^^^
+
+Subclasses can redeclare read-only items as non-read-only, allowing them to be mutated::
+
+    class NamedDict(TypedDict):
+        name: ReadOnly[str]
+
+    class Album(NamedDict):
+        name: str
+        year: int
+
+    album: Album = { "name": "Flood", "year": 1990 }
+    album["year"] = 1973
+    album["name"] = "Dark Side Of The Moon"  # OK: "name" is not read-only in Album
+
+If a read-only item is not redeclared, it remains read-only::
+
+    class Album(NamedDict):
+        year: int
+
+    album: Album = { "name": "Flood", "year": 1990 }
+    album["name"] = "Dark Side Of The Moon"  # Type check error: "name" is read-only in Album
+
+Subclasses can narrow value types of read-only items::
+
+    class AlbumCollection(TypedDict):
+        albums: ReadOnly[Collection[Album]]
+
+    class RecordShop(AlbumCollection):
+        name: str
+        albums: ReadOnly[list[Album]]  # OK: "albums" is read-only in AlbumCollection
+
+Subclasses can require items that are read-only but not required in the superclass::
+
+    class OptionalName(TypedDict):
+        name: ReadOnly[NotRequired[str]]
+
+    class RequiredName(OptionalName):
+        name: ReadOnly[Required[str]]
+
+    d: RequiredName = {}  # Type check error: "name" required
+
+Subclasses can combine these rules::
+
+    class OptionalIdent(TypedDict):
+        ident: ReadOnly[NotRequired[str | int]]
+
+    class User(OptionalIdent):
+        ident: str  # Required, mutable, and not an int
+
+Note that these are just consequences of structural typing, but they are highlighted here as the behavior now differs from the rules specified in :pep:`589`.
+
+Type consistency
+^^^^^^^^^^^^^^^^
+
+*This section updates the type consistency rules described above that were created prior to the introduction of ReadOnly*
+
+A TypedDict type ``A`` is consistent with TypedDict ``B`` if ``A`` is structurally compatible with ``B``. This is true if and only if all of the following are satisfied:
+
+* For each item in ``B``, ``A`` has the corresponding key, unless the item in ``B`` is read-only, not required, and of top value type (``ReadOnly[NotRequired[object]]``).
+* For each item in ``B``, if ``A`` has the corresponding key, the corresponding value type in ``A`` is consistent with the value type in ``B``.
+* For each non-read-only item in ``B``, its value type is consistent with the corresponding value type in ``A``.
+* For each required key in ``B``, the corresponding key is required in ``A``.
+* For each non-required key in ``B``, if the item is not read-only in ``B``, the corresponding key is not required in ``A``.
+
+Discussion:
+
+* All non-specified items in a TypedDict implicitly have value type ``ReadOnly[NotRequired[object]]``.
+
+* Read-only items behave covariantly, as they cannot be mutated. This is similar to container types such as ``Sequence``, and different from non-read-only items, which behave invariantly. Example::
+
+    class A(TypedDict):
+        x: ReadOnly[int | None]
+
+    class B(TypedDict):
+        x: int
+
+    def f(a: A) -> None:
+        print(a["x"] or 0)
+
+    b: B = {"x": 1}
+    f(b)  # Accepted by type checker
+
+* A TypedDict type ``A`` with no explicit key ``'x'`` is not consistent with a TypedDict type ``B`` with a non-required key ``'x'``, since at runtime the key ``'x'`` could be present and have an incompatible type (which may not be visible through ``A`` due to structural subtyping). The only exception to this rule is if the item in ``B`` is read-only, and the value type is of top type (``object``). For example::
+
+    class A(TypedDict):
+        x: int
+
+    class B(TypedDict):
+        x: int
+        y: ReadOnly[NotRequired[object]]
+
+    a: A = { "x": 1 }
+    b: B = a  # Accepted by type checker
+
+Update method
+^^^^^^^^^^^^^
+
+In addition to existing type checking rules, type checkers should error if a TypedDict with a read-only item is updated with another TypedDict that declares that key::
+
+    class A(TypedDict):
+        x: ReadOnly[int]
+        y: int
+
+    a1: A = { "x": 1, "y": 2 }
+    a2: A = { "x": 3, "y": 4 }
+    a1.update(a2)  # Type check error: "x" is read-only in A
+
+Unless the declared value is of bottom type (:data:`~typing.Never`)::
+
+    class B(TypedDict):
+        x: NotRequired[typing.Never]
+        y: ReadOnly[int]
+
+    def update_a(a: A, b: B) -> None:
+        a.update(b)  # Accepted by type checker: "x" cannot be set on b
+
+Note: Nothing will ever match the ``Never`` type, so an item annotated with it must be absent.
+
+Keyword argument typing
+^^^^^^^^^^^^^^^^^^^^^^^
+
+As discussed in the section :ref:`unpack-kwargs`, an unpacked ``TypedDict`` can be used to annotate ``**kwargs``. Marking one or more of the items of a ``TypedDict`` used in this way as read-only will have no effect on the type signature of the method. However, it *will* prevent the item from being modified in the body of the function::
+
+    class Args(TypedDict):
+        key1: int
+        key2: str
+
+    class ReadOnlyArgs(TypedDict):
+        key1: ReadOnly[int]
+        key2: ReadOnly[str]
+
+    class Function(Protocol):
+        def __call__(self, **kwargs: Unpack[Args]) -> None: ...
+
+    def impl(**kwargs: Unpack[ReadOnlyArgs]) -> None:
+        kwargs["key1"] = 3  # Type check error: key1 is readonly
+
+    fn: Function = impl  # Accepted by type checker: function signatures are identical

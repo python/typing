@@ -1,0 +1,12 @@
+conformant = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_new.py:21:13 - error: Argument of type "float" cannot be assigned to parameter "x" of type "int" in function "__new__"
+  "float" is incompatible with "int" (reportArgumentType)
+constructors_call_new.py:145:1 - error: 
+  Could not bind method "__new__" because "type[Class11[str]]" is not assignable to parameter "cls"
+    "type[Class11[str]]" is incompatible with "type[Class11[int]]"
+    Type "type[Class11[str]]" is incompatible with type "type[Class11[int]]"
+      Type parameter "T@Class11" is invariant, but "str" is not the same as "int" (reportGeneralTypeIssues)
+"""

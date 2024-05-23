@@ -1,4 +1,7 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Does not reject `del` of required key.
+"""
 output = """
 typeddicts_operations.py:22:16 Invalid TypedDict operation [54]: Expected `str` to be assigned to `Movie` field `name` but got `int`.
 typeddicts_operations.py:23:16 Invalid TypedDict operation [54]: Expected `int` to be assigned to `Movie` field `year` but got `str`.
@@ -11,4 +14,8 @@ typeddicts_operations.py:37:4 Incompatible variable type [9]: movie is declared 
 typeddicts_operations.py:44:10 TypedDict accessed with a missing key [27]: TypedDict `Movie` has no key `other`.
 typeddicts_operations.py:47:0 Undefined attribute [16]: `Movie` has no attribute `clear`.
 typeddicts_operations.py:62:0 Undefined attribute [16]: `MovieOptional` has no attribute `clear`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 49: Expected 1 errors
 """

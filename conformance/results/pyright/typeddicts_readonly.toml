@@ -1,0 +1,18 @@
+conformant = "Pass"
+output = """
+typeddicts_readonly.py:24:1 - error: Could not assign item in TypedDict
+  "members" is a read-only key in "Band" (reportTypedDictNotRequiredAccess)
+typeddicts_readonly.py:36:1 - error: Could not assign item in TypedDict
+  "members" is a read-only key in "Band2" (reportTypedDictNotRequiredAccess)
+typeddicts_readonly.py:50:1 - error: Could not assign item in TypedDict
+  "title" is a read-only key in "Movie1" (reportTypedDictNotRequiredAccess)
+typeddicts_readonly.py:51:1 - error: Could not assign item in TypedDict
+  "year" is a read-only key in "Movie1" (reportTypedDictNotRequiredAccess)
+typeddicts_readonly.py:60:1 - error: Could not assign item in TypedDict
+  "title" is a read-only key in "Movie2" (reportTypedDictNotRequiredAccess)
+typeddicts_readonly.py:61:1 - error: Could not assign item in TypedDict
+  "year" is a read-only key in "Movie2" (reportTypedDictNotRequiredAccess)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

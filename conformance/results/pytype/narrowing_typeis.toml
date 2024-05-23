@@ -1,0 +1,22 @@
+conformant = "Partial"
+notes = """
+Does not narrow correctly on generic tuple type.
+Does not reject covariant use of TypeIs.
+Does not reject TypeIs where return type is not consistent with input type due to variance.
+"""
+output = """
+File "narrowing_typeis.py", line 19, in func1: Tuple[str, ...] [assert-type]
+File "narrowing_typeis.py", line 132, in <module>: Function takes_callable_str was called with the wrong arguments [wrong-arg-types]
+File "narrowing_typeis.py", line 152, in <module>: Function takes_callable_str_proto was called with the wrong arguments [wrong-arg-types]
+File "narrowing_typeis.py", line 169, in <module>: Function takes_typeguard was called with the wrong arguments [wrong-arg-types]
+File "narrowing_typeis.py", line 170, in <module>: Function takes_typeis was called with the wrong arguments [wrong-arg-types]
+File "narrowing_typeis.py", line 195, in <module>: TypeIs[str] is not consistent with input type int [invalid-function-definition]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 105: Expected 1 errors
+Line 110: Expected 1 errors
+Line 191: Expected 1 errors
+Line 199: Expected 1 errors
+Line 19: Unexpected errors ['File "narrowing_typeis.py", line 19, in func1: Tuple[str, ...] [assert-type]']
+"""

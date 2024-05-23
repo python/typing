@@ -73,12 +73,12 @@ def good_type_aliases(
 
 
 def good_type_aliases_used_badly(
-    p1: GoodTypeAlias2[int],  # Type error: type alias is not generic
-    p2: GoodTypeAlias3[int],  # Type error: type alias is already specialized
-    p3: GoodTypeAlias4[int, int],  # Type error: too many type arguments
-    p4: GoodTypeAlias8[int, int],  # Type error: too many type arguments
-    p5: GoodTypeAlias9[int, int],  # Type error: bad type argument for ParamSpec
-    p6: GoodTypeAlias12[str],  # Type error: type argument doesn't match bound
+    p1: GoodTypeAlias2[int],  # E: type alias is not generic
+    p2: GoodTypeAlias3[int],  # E: type alias is already specialized
+    p3: GoodTypeAlias4[int, int],  # E: too many type arguments
+    p4: GoodTypeAlias8[int, int],  # E: too many type arguments
+    p5: GoodTypeAlias9[int, int],  # E: bad type argument for ParamSpec
+    p6: GoodTypeAlias12[str],  # E: type argument doesn't match bound
 ):
     pass
 
@@ -103,20 +103,20 @@ BadTypeAlias14 = "int | str"
 
 
 def bad_type_aliases(
-    p1: BadTypeAlias1,  # Type error: Invalid type annotation
-    p2: BadTypeAlias2,  # Type error: Invalid type annotation
-    p3: BadTypeAlias3,  # Type error: Invalid type annotation
-    p4: BadTypeAlias4,  # Type error: Invalid type annotation
-    p5: BadTypeAlias5,  # Type error: Invalid type annotation
-    p6: BadTypeAlias6,  # Type error: Invalid type annotation
-    p7: BadTypeAlias7,  # Type error: Invalid type annotation
-    p8: BadTypeAlias8,  # Type error: Invalid type annotation
-    p9: BadTypeAlias9,  # Type error: Invalid type annotation
-    p10: BadTypeAlias10,  # Type error: Invalid type annotation
-    p11: BadTypeAlias11,  # Type error: Invalid type annotation
-    p12: BadTypeAlias12,  # Type error: Invalid type annotation
-    p13: BadTypeAlias13,  # Type error: Invalid type annotation
-    p14: BadTypeAlias14,  # Type error: Invalid type annotation
+    p1: BadTypeAlias1,  # E: Invalid type annotation
+    p2: BadTypeAlias2,  # E: Invalid type annotation
+    p3: BadTypeAlias3,  # E: Invalid type annotation
+    p4: BadTypeAlias4,  # E: Invalid type annotation
+    p5: BadTypeAlias5,  # E: Invalid type annotation
+    p6: BadTypeAlias6,  # E: Invalid type annotation
+    p7: BadTypeAlias7,  # E: Invalid type annotation
+    p8: BadTypeAlias8,  # E: Invalid type annotation
+    p9: BadTypeAlias9,  # E: Invalid type annotation
+    p10: BadTypeAlias10,  # E: Invalid type annotation
+    p11: BadTypeAlias11,  # E: Invalid type annotation
+    p12: BadTypeAlias12,  # E: Invalid type annotation
+    p13: BadTypeAlias13,  # E: Invalid type annotation
+    p14: BadTypeAlias14,  # E: Invalid type annotation
 ):
     pass
 
@@ -130,7 +130,6 @@ assert_type(x1, list[str])
 x2 = ListAlias[int]()  # OK
 assert_type(x2, list[int])
 
-x3 = ListOrSetAlias()  # Type error: cannot instantiate union
+x3 = ListOrSetAlias()  # E: cannot instantiate union
 
-x4: ListOrSetAlias[int]  # Type error: already specialized
-
+x4: ListOrSetAlias[int]  # E: already specialized

@@ -1,10 +1,16 @@
-conformant = "Pass"
+conformant = "Partial"
 notes = """
-Doesn't allow using generic in assert_type expression.
+Does not reject illegal use of Generic.
+Does not allow using generic in assert_type expression.
 """
 output = """
-generics_base_class.py:22:25 Incompatible parameter type [6]: In call `takes_dict_incorrect`, for 1st positional argument, expected `Dict[str, List[object]]` but got `SymbolTable`.
-generics_base_class.py:34:25 Undefined attribute [16]: `typing.Iterator` has no attribute `__getitem__`.
-generics_base_class.py:37:21 Invalid type parameters [24]: Generic type `LinkedList` expects 1 type parameter, received 2.
-generics_base_class.py:46:17 Invalid type parameters [24]: Generic type `MyDict` expects 1 type parameter, received 2.
+generics_base_class.py:26:25 Incompatible parameter type [6]: In call `takes_dict_incorrect`, for 1st positional argument, expected `Dict[str, List[object]]` but got `SymbolTable`.
+generics_base_class.py:49:21 Invalid type parameters [24]: Generic type `LinkedList` expects 1 type parameter, received 2.
+generics_base_class.py:61:17 Invalid type parameters [24]: Generic type `MyDict` expects 1 type parameter, received 2.
+generics_base_class.py:68:0 Duplicate type variables [59]: Duplicate type variable `T` in Generic[...].
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Expected 1 errors
+Line 30: Expected 1 errors
 """

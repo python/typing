@@ -1,0 +1,26 @@
+conformant = "Partial"
+notes = """
+Does not infer type of Self for self parameter of __init__ method.
+Does not report errors during binding to self parameter of __init__ method.
+Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 42: Expected 1 errors
+Line 56: Expected 1 errors
+Line 107: Expected 1 errors
+Line 24: Unexpected errors ['constructors_call_init.py:24:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class1[int]` but got `Class1[typing_extensions.Literal[1]]`.']
+Line 61: Unexpected errors ['constructors_call_init.py:61:4 Incompatible overload [43]: The implementation of `Class5.__init__` does not accept all possible arguments of overload defined on line `61`.']
+Line 63: Unexpected errors ['constructors_call_init.py:63:4 Incompatible overload [43]: The implementation of `Class5.__init__` does not accept all possible arguments of overload defined on line `63`.']
+Line 91: Unexpected errors ["constructors_call_init.py:91:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class6[int, str]` but got `Class6[typing_extensions.Literal[0], typing_extensions.Literal['']]`."]
+Line 99: Unexpected errors ["constructors_call_init.py:99:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class7[str, int]` but got `Class7[typing_extensions.Literal[''], typing_extensions.Literal[0]]`."]
+"""
+output = """
+constructors_call_init.py:21:12 Incompatible parameter type [6]: In call `Class1.__init__`, for 1st positional argument, expected `int` but got `float`.
+constructors_call_init.py:24:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class1[int]` but got `Class1[typing_extensions.Literal[1]]`.
+constructors_call_init.py:61:4 Incompatible overload [43]: The implementation of `Class5.__init__` does not accept all possible arguments of overload defined on line `61`.
+constructors_call_init.py:63:4 Incompatible overload [43]: The implementation of `Class5.__init__` does not accept all possible arguments of overload defined on line `63`.
+constructors_call_init.py:91:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class6[int, str]` but got `Class6[typing_extensions.Literal[0], typing_extensions.Literal['']]`.
+constructors_call_init.py:99:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class7[str, int]` but got `Class7[typing_extensions.Literal[''], typing_extensions.Literal[0]]`.
+constructors_call_init.py:130:0 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 1 was provided.
+"""

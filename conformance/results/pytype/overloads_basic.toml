@@ -8,3 +8,10 @@ File "overloads_basic.py", line 31, in __getitem__: bad return type [bad-return-
 File "overloads_basic.py", line 37, in <module>: unsupported operand type(s) for item retrieval: Bytes and str [unsupported-operands]
 File "overloads_basic.py", line 58, in map: bad return type [bad-return-type]
 """
+conformance_automated = "Fail"
+errors_diff = """
+Lines 62, 63: Expected error (tag 'func1')
+Lines 74, 75: Expected error (tag 'func2')
+Line 31: Unexpected errors ['File "overloads_basic.py", line 31, in __getitem__: bad return type [bad-return-type]']
+Line 58: Unexpected errors ['File "overloads_basic.py", line 58, in map: bad return type [bad-return-type]']
+"""

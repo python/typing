@@ -11,3 +11,6 @@ generics_paramspec_basic.py:35:35 - error: ParamSpec is not allowed in this cont
 generics_paramspec_basic.py:39:18 - error: ParamSpec is not allowed in this context
 generics_paramspec_basic.py:39:31 - error: ParamSpec is not allowed in this context
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

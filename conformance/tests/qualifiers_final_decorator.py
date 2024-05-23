@@ -18,7 +18,7 @@ class Base1:
     ...
 
 
-class Derived1(Base1):  # Type error: Cannot inherit from final class "Base"
+class Derived1(Base1):  # E: Cannot inherit from final class "Base"
     ...
 
 
@@ -53,18 +53,18 @@ class Base2:
 
 
 class Derived2(Base2):
-    def method1(self) -> None:  # Type error
+    def method1(self) -> None:  # E
         pass
 
-    @classmethod
-    def method2(cls) -> None:  # Type error
+    @classmethod  # E[method2]
+    def method2(cls) -> None:  # E[method2]
         pass
 
-    @staticmethod
-    def method3() -> None:  # Type error
+    @staticmethod  # E[method3]
+    def method3() -> None:  # E[method3]
         pass
 
-    @overload
+    @overload  # E[method4]
     def method4(self, x: int) -> int:
         ...
 
@@ -72,26 +72,26 @@ class Derived2(Base2):
     def method4(self, x: str) -> str:
         ...
 
-    def method4(self, x: int | str) -> int | str:  # Type error
+    def method4(self, x: int | str) -> int | str:  # E[method4]
         return 0
 
 
 class Derived3(Base3):
-    @overload
+    @overload  # E[Derived3]
     def method(self, x: int) -> int:
         ...
 
-    @overload
-    @final  # Type error: should be applied only to implementation
-    def method(self, x: str) -> str:
+    @overload  # E[Derived3-2]
+    @final  # E[Derived3-2]: should be applied only to implementation
+    def method(self, x: str) -> str:  # E[Derived3-2]
         ...
 
-    def method(self, x: int | str) -> int | str:  # Type error
+    def method(self, x: int | str) -> int | str:  # E[Derived3]
         return 0
 
 
 class Derived4(Base4):
-    @overload
+    @overload  # E[Derived4]
     def method(self, x: int) -> int:
         ...
 
@@ -99,7 +99,7 @@ class Derived4(Base4):
     def method(self, x: str) -> str:
         ...
 
-    def method(self, x: int | str) -> int | str:  # Type error
+    def method(self, x: int | str) -> int | str:  # E[Derived4]
         return 0
 
 
@@ -115,13 +115,13 @@ class Base5_2:
 
 # Test multiple inheritance case.
 class Derived5(Base5_1, Base5_2):
-    def method(self) -> None:  # Type error
+    def method(self) -> None:  # E
         ...
 
 
 # > It is an error to use @final on a non-method function.
 
 
-@final
-def func1() -> int:  # Type error: not allowed on non-method function.
+@final  # E[func]: not allowed on non-method function.
+def func1() -> int:  # E[func]
     return 0

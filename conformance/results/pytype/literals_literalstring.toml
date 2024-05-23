@@ -10,8 +10,22 @@ File "literals_literalstring.py", line 37, in <module>: Invalid type annotation 
 File "literals_literalstring.py", line 43, in func1: Type annotation for x2 does not match type of assignment [annotation-type-mismatch]
 File "literals_literalstring.py", line 74, in func2: Type annotation for x3 does not match type of assignment [annotation-type-mismatch]
 File "literals_literalstring.py", line 75, in func2: Type annotation for x4 does not match type of assignment [annotation-type-mismatch]
-File "literals_literalstring.py", line 157, in func8: bad return type [bad-return-type]
+File "literals_literalstring.py", line 162, in func8: bad return type [bad-return-type]
 Called from (traceback):
-  line 160, in current file
-File "literals_literalstring.py", line 162, in <module>: bool [assert-type]
+  line 166, in current file
+File "literals_literalstring.py", line 162, in func8: bad return type [bad-return-type]
+Called from (traceback):
+  line 165, in current file
+File "literals_literalstring.py", line 167, in <module>: B [assert-type]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 66: Expected 1 errors
+Line 120: Expected 1 errors
+Line 134: Expected 1 errors
+Line 171: Expected 1 errors
+Line 8: Unexpected errors ['File "literals_literalstring.py", line 8, in <module>: typing.LiteralString not supported yet [not-supported-yet]']
+Line 24: Unexpected errors ['File "literals_literalstring.py", line 24, in my_function: bad return type [bad-return-type]']
+Line 162: Unexpected errors ['File "literals_literalstring.py", line 162, in func8: bad return type [bad-return-type]', 'File "literals_literalstring.py", line 162, in func8: bad return type [bad-return-type]']
+Line 167: Unexpected errors ['File "literals_literalstring.py", line 167, in <module>: B [assert-type]']
 """

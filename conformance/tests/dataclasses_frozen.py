@@ -13,14 +13,14 @@ class DC1:
 
 dc1 = DC1(1, "")
 
-dc1.a = 1  # Type error: dataclass is frozen
-dc1.b = "" # Type error: dataclass is frozen
+dc1.a = 1  # E: dataclass is frozen
+dc1.b = "" # E: dataclass is frozen
 
 
 # This should generate an error because a non-frozen dataclass
 # cannot inherit from a frozen dataclass.
-@dataclass
-class DC2(DC1):
+@dataclass  # E[DC2]
+class DC2(DC1):  # E[DC2]
     pass
 
 @dataclass
@@ -29,8 +29,8 @@ class DC3:
 
 # This should generate an error because a frozen dataclass
 # cannot inherit from a non-frozen dataclass.
-@dataclass(frozen=True)
-class DC4(DC3):
+@dataclass(frozen=True)  # E[DC4]
+class DC4(DC3):  # E[DC4]
     pass
 
 
@@ -39,4 +39,3 @@ class DC1Child(DC1):
     # This should be allowed because attributes within a frozen
     # dataclass are covariant rather than invariant.
     a: int
-

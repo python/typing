@@ -9,6 +9,7 @@ from typing import (
     Any,
     Callable,
     ClassVar,
+    Final,
     Generic,
     ParamSpec,
     Protocol,
@@ -33,24 +34,24 @@ Ts = TypeVarTuple("Ts")
 class ClassA(Generic[T, P]):
     # > ClassVar accepts only a single argument that should be a valid type
 
-    bad1: ClassVar[int, str]  # Type error: too many arguments
-    bad2: CV[3]  # Type error: invalid type
-    bad3: CV[var]  # Type error: invalid type
+    bad1: ClassVar[int, str]  # E: too many arguments
+    bad2: CV[3]  # E: invalid type
+    bad3: CV[var]  # E: invalid type
 
     # > Note that a ClassVar parameter cannot include any type variables,
     # > regardless of the level of nesting.
 
-    bad4: ClassVar[T]  # Type error: cannot use TypeVar
-    bad5: ClassVar[list[T]]  # Type error: cannot use TypeVar
-    bad6: ClassVar[Callable[P, Any]]  # Type error: cannot use ParamSpec
+    bad4: ClassVar[T]  # E: cannot use TypeVar
+    bad5: ClassVar[list[T]]  # E: cannot use TypeVar
+    bad6: ClassVar[Callable[P, Any]]  # E: cannot use ParamSpec
 
     # This is currently commented out because it causes mypy to crash.
-    # bad7: ClassVar[tuple[*Ts]]  # Type error: cannot use TypeVarTuple
+    # bad7: ClassVar[tuple[*Ts]]  # E: cannot use TypeVarTuple
 
-    bad8: ClassVar[list[str]] = {}  # Type error: type violation in initialization
+    bad8: ClassVar[list[str]] = {}  # E: type violation in initialization
 
-    bad9: Final[ClassVar[int]] = 3  # Type error: ClassVar cannot be nested with Final
-    bad10: list[ClassVar[int]] = []  # Type error: ClassVar cannot be nested
+    bad9: Final[ClassVar[int]] = 3  # E: ClassVar cannot be nested with Final
+    bad10: list[ClassVar[int]] = []  # E: ClassVar cannot be nested
 
     good1: CV[int] = 1
     good2: ClassVar[list[str]] = []
@@ -58,16 +59,16 @@ class ClassA(Generic[T, P]):
     good4: ClassVar = 3.1
     good5: Annotated[ClassVar[list[int]], ""] = []
 
-    def method1(self, a: ClassVar[int]):  # Type error: ClassVar not allowed here
-        x: ClassVar[str] = ""  # Type error: ClassVar not allowed here
-        self.xx: ClassVar[str] = ""  # Type error: ClassVar not allowed here
+    def method1(self, a: ClassVar[int]):  # E: ClassVar not allowed here
+        x: ClassVar[str] = ""  # E: ClassVar not allowed here
+        self.xx: ClassVar[str] = ""  # E: ClassVar not allowed here
 
-    def method2(self) -> ClassVar[int]:  # Type error: ClassVar not allowed here
+    def method2(self) -> ClassVar[int]:  # E: ClassVar not allowed here
         return 3
 
 
-bad11: ClassVar[int] = 3  # Type error: ClassVar not allowed here
-bad12: TypeAlias = ClassVar[str]  # Type error: ClassVar not allowed here
+bad11: ClassVar[int] = 3  # E: ClassVar not allowed here
+bad12: TypeAlias = ClassVar[str]  # E: ClassVar not allowed here
 
 
 assert_type(ClassA.good1, int)
@@ -97,7 +98,7 @@ class Starship:
 
 
 enterprise_d = Starship(3000)
-enterprise_d.stats = {}  # Type error: cannot access via instance
+enterprise_d.stats = {}  # E: cannot access via instance
 Starship.stats = {}  # OK
 
 
@@ -126,7 +127,7 @@ class ProtoAImpl:
         self.y = ""
 
 
-a: ProtoA = ProtoAImpl()  # Type error: y is not a ClassVar
+a: ProtoA = ProtoAImpl()  # E: y is not a ClassVar
 
 
 class ProtoB(Protocol):

@@ -26,12 +26,13 @@ annotations_forward_refs.py:50:11 - error: Expected type expression but received
 annotations_forward_refs.py:51:11 - error: Expected type expression but received "Literal[1]" (reportGeneralTypeIssues)
 annotations_forward_refs.py:52:11 - error: Unary operator not allowed in type annotation (reportInvalidTypeForm)
 annotations_forward_refs.py:53:11 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)
-annotations_forward_refs.py:54:11 - error: Expected expression
-annotations_forward_refs.py:54:11 - error: Tuple expression not allowed in type annotation
-  Use tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+annotations_forward_refs.py:54:11 - error: Type annotations cannot use format string literals (f-strings) (reportGeneralTypeIssues)
 annotations_forward_refs.py:55:10 - error: Module cannot be used as a type (reportGeneralTypeIssues)
 annotations_forward_refs.py:66:26 - error: "ClassB" is not defined (reportUndefinedVariable)
 annotations_forward_refs.py:80:14 - error: Type of "ClassF" could not be determined because it refers to itself (reportGeneralTypeIssues)
 annotations_forward_refs.py:80:14 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 annotations_forward_refs.py:89:8 - error: Expected type expression but received "(self: Self@ClassD) -> None" (reportGeneralTypeIssues)
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

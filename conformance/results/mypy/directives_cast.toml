@@ -14,3 +14,6 @@ directives_cast.py:17: note:     def [_T] cast(typ: type[_T], val: Any) -> _T
 directives_cast.py:17: note:     def cast(typ: str, val: Any) -> Any
 directives_cast.py:17: note:     def cast(typ: object, val: Any) -> Any
 """
+conformance_automated = "Pass"
+errors_diff = """
+"""

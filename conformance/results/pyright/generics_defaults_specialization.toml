@@ -1,0 +1,8 @@
+conformant = "Pass"
+output = """
+generics_defaults_specialization.py:30:15 - error: Too many type arguments provided for "MyAlias[DefaultStrT@MyAlias]"; expected 1 but received 2
+generics_defaults_specialization.py:55:5 - error: Expected no type arguments for class "Foo" (reportInvalidTypeArguments)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

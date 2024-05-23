@@ -7,7 +7,10 @@ protocols_merging.py:53: error: Incompatible types in assignment (expression has
 protocols_merging.py:53: note: "SCConcrete2" is missing following "SizedAndClosable2" protocol member:
 protocols_merging.py:53: note:     __len__
 protocols_merging.py:54: error: Incompatible types in assignment (expression has type "SCConcrete2", variable has type "SizedAndClosable3")  [assignment]
-protocols_merging.py:68: error: All bases of a protocol must be protocols  [misc]
-protocols_merging.py:83: error: Cannot instantiate abstract class "SizedAndClosable4" with abstract attribute "close"  [abstract]
-protocols_merging.py:84: error: Incompatible types in assignment (expression has type "SCConcrete1", variable has type "SizedAndClosable4")  [assignment]
+protocols_merging.py:67: error: All bases of a protocol must be protocols  [misc]
+protocols_merging.py:82: error: Cannot instantiate abstract class "SizedAndClosable4" with abstract attribute "close"  [abstract]
+protocols_merging.py:83: error: Incompatible types in assignment (expression has type "SCConcrete1", variable has type "SizedAndClosable4")  [assignment]
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

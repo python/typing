@@ -17,7 +17,9 @@ Specification for the Python type system
    literal
    protocol
    callables
+   constructors
    overload
+   exceptions
    dataclasses
    typeddict
    tuples
@@ -27,3 +29,4 @@ Specification for the Python type system
    directives
    distributing
    historical
+   glossary

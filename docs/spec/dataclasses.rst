@@ -19,7 +19,7 @@ Specification
 ^^^^^^^^^^^^^
 
 This specification describes a decorator function in
-the ``typing`` module named ``dataclass_transform``. This decorator
+the :py:mod:`typing` module named :py:func:`~typing.dataclass_transform`. This decorator
 can be applied to either a function that is itself a decorator,
 a class, or a metaclass. The presence of
 ``dataclass_transform`` tells a static type checker that the decorated
@@ -333,7 +333,7 @@ meanings of the parameters that must be understood for static type
 checkers. These standardized parameters must be keyword-only.
 
 These parameters are a superset of those supported by
-``dataclasses.field``, excluding those that do not have an impact on
+:py:func:`dataclasses.field`, excluding those that do not have an impact on
 type checking such as ``compare`` and ``hash``.
 
 Field specifier classes are allowed to use other
@@ -436,7 +436,7 @@ Except where stated otherwise, classes impacted by
 ``dataclass_transform``, either by inheriting from a class that is
 decorated with ``dataclass_transform`` or by being decorated with
 a function decorated with ``dataclass_transform``, are assumed to
-behave like stdlib ``dataclass``.
+behave like stdlib :func:`~dataclasses.dataclass`.
 
 This includes, but is not limited to, the following semantics:
 
@@ -488,7 +488,7 @@ This includes, but is not limited to, the following semantics:
         wheel_count: int
 
 * Field ordering and inheritance is assumed to follow the rules
-  specified in :pep:`557 <557#inheritance>`. This includes the effects of
+  specified in `the Python docs <https://docs.python.org/3/library/dataclasses.html#inheritance>`. This includes the effects of
   overrides (redefining a field in a child class that has already been
   defined in a parent class).
 
@@ -515,6 +515,16 @@ This includes, but is not limited to, the following semantics:
 
 * ClassVar attributes are not considered dataclass fields and are
   `ignored by dataclass mechanisms <https://docs.python.org/3/library/dataclasses.html#class-variables>`_.
+
+* A dataclass field may be annotated with ``Final[...]``. For example, ``x:
+  Final[int]`` in a dataclass body specifies a dataclass field ``x``, which
+  will be initialized in the generated ``__init__`` and cannot be assigned to
+  thereafter. A ``Final`` dataclass field initialized in the class body is not
+  a class attribute unless explicitly annotated with ``ClassVar``. For example,
+  ``x: Final[int] = 3`` is a dataclass field named ``x`` with a default value
+  of ``3`` in the generated ``__init__`` method. A final class variable on a
+  dataclass must be explicitly annotated as e.g. ``x: ClassVar[Final[int]] =
+  3``.
 
 
 Undefined behavior

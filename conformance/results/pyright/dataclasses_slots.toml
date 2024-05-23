@@ -1,10 +1,13 @@
 conformant = "Pass"
 output = """
-dataclasses_slots.py:11:12 - error: __slots__ is already defined in class (reportGeneralTypeIssues)
-dataclasses_slots.py:26:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)
-dataclasses_slots.py:39:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)
-dataclasses_slots.py:67:5 - error: Cannot access member "__slots__" for type "type[DC6]"
-  Member "__slots__" is unknown (reportAttributeAccessIssue)
-dataclasses_slots.py:70:8 - error: Cannot access member "__slots__" for type "DC6"
-  Member "__slots__" is unknown (reportAttributeAccessIssue)
+dataclasses_slots.py:10:12 - error: __slots__ is already defined in class (reportGeneralTypeIssues)
+dataclasses_slots.py:25:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)
+dataclasses_slots.py:38:14 - error: "y" is not specified in __slots__ (reportGeneralTypeIssues)
+dataclasses_slots.py:66:5 - error: Cannot access attribute "__slots__" for class "type[DC6]"
+  Attribute "__slots__" is unknown (reportAttributeAccessIssue)
+dataclasses_slots.py:69:8 - error: Cannot access attribute "__slots__" for class "DC6"
+  Attribute "__slots__" is unknown (reportAttributeAccessIssue)
+"""
+conformance_automated = "Pass"
+errors_diff = """
 """

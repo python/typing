@@ -1,29 +1,36 @@
 conformant = "Partial"
 notes = """
-Rejects some legal tuple type forms involving unpack.
-Does not reject some illegal tuple type forms involving unpack.
+Does not understand star syntax for `Unpack`.
 """
 output = """
 tuples_unpacked.py:16:13 Invalid type [31]: Expression `tuple[(int, *tuple[(bool, bool)], str)]` is not a valid type.
-tuples_unpacked.py:17:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[bool], Type[bool], Type[str]]`.
-tuples_unpacked.py:18:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[*Tuple[typing.Any, ...], Type[bool], Type[str]]`.
-tuples_unpacked.py:18:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
-tuples_unpacked.py:18:32 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[int], Type[bool]]`.
-tuples_unpacked.py:19:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[Type[int], Type[bool], *Tuple[typing.Any, ...]]`.
-tuples_unpacked.py:19:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
-tuples_unpacked.py:19:43 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[bool], Type[str]]`.
+tuples_unpacked.py:18:19 Invalid type [31]: Expression `tuple[(*tuple[(int, bool)], bool, str)]` is not a valid type.
+tuples_unpacked.py:19:19 Invalid type [31]: Expression `tuple[(int, bool, *tuple[(bool, str)])]` is not a valid type.
 tuples_unpacked.py:25:13 Invalid type [31]: Expression `tuple[(int, *tuple[(bool, ...)], str)]` is not a valid type.
-tuples_unpacked.py:26:25 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `typing.Tuple[Type[int], *Tuple[typing.Any, ...], Type[str]]`.
-tuples_unpacked.py:26:25 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `typing.Type[tuple[Variable[_T_co](covariant)]]`.
-tuples_unpacked.py:26:37 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[bool], typing.Any]`.
-tuples_unpacked.py:31:6 Invalid type [31]: Expression `tuple[(*tuple[int], *tuple[int])]` is not a valid type.
-tuples_unpacked.py:32:6 Invalid type [31]: Expression `tuple[(*tuple[(int, ...)], *tuple[int])]` is not a valid type.
-tuples_unpacked.py:37:4 Invalid type [31]: Expression `tuple[(*tuple[str], *tuple[str])]` is not a valid type.
-tuples_unpacked.py:38:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])])]` is not a valid type.
-tuples_unpacked.py:39:4 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *tuple[(int, ...)])]` is not a valid type.
-tuples_unpacked.py:40:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])], *tuple[(int, ...)])]` is not a valid type.
-tuples_unpacked.py:48:13 Invalid type [31]: Expression `tuple[(*$local_tuples_unpacked$Ts)]` is not a valid type.
-tuples_unpacked.py:49:8 Invalid type [31]: Expression `tuple[(*tuple[str], *$local_tuples_unpacked$Ts)]` is not a valid type.
-tuples_unpacked.py:50:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *$local_tuples_unpacked$Ts)]` is not a valid type.
-tuples_unpacked.py:56:5 Undefined or invalid type [11]: Annotation `Unpack` is not defined as a type.
+tuples_unpacked.py:31:4 Invalid type [31]: Expression `tuple[(*tuple[int], *tuple[int])]` is not a valid type.
+tuples_unpacked.py:33:4 Invalid type [31]: Expression `tuple[(*tuple[(int, ...)], *tuple[int])]` is not a valid type.
+tuples_unpacked.py:38:4 Invalid type [31]: Expression `tuple[(*tuple[str], *tuple[str])]` is not a valid type.
+tuples_unpacked.py:39:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])])]` is not a valid type.
+tuples_unpacked.py:40:4 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *tuple[(int, ...)])]` is not a valid type.
+tuples_unpacked.py:41:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])], *tuple[(int, ...)])]` is not a valid type.
+tuples_unpacked.py:49:13 Invalid type [31]: Expression `tuple[(*$local_tuples_unpacked$Ts)]` is not a valid type.
+tuples_unpacked.py:50:8 Invalid type [31]: Expression `tuple[(*tuple[str], *$local_tuples_unpacked$Ts)]` is not a valid type.
+tuples_unpacked.py:51:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *$local_tuples_unpacked$Ts)]` is not a valid type.
+tuples_unpacked.py:59:5 Invalid type [31]: Expression `tuple[(typing.Unpack[tuple[(str, ...)]], typing.Unpack[tuple[(int, ...)]])]` is not a valid type.
+tuples_unpacked.py:60:5 Invalid type [31]: Expression `tuple[(typing.Unpack[tuple[(str, typing.Unpack[tuple[(str, ...)]])]], typing.Unpack[tuple[(int, ...)]])]` is not a valid type.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 61: Expected 1 errors
+Line 16: Unexpected errors ['tuples_unpacked.py:16:13 Invalid type [31]: Expression `tuple[(int, *tuple[(bool, bool)], str)]` is not a valid type.']
+Line 18: Unexpected errors ['tuples_unpacked.py:18:19 Invalid type [31]: Expression `tuple[(*tuple[(int, bool)], bool, str)]` is not a valid type.']
+Line 19: Unexpected errors ['tuples_unpacked.py:19:19 Invalid type [31]: Expression `tuple[(int, bool, *tuple[(bool, str)])]` is not a valid type.']
+Line 25: Unexpected errors ['tuples_unpacked.py:25:13 Invalid type [31]: Expression `tuple[(int, *tuple[(bool, ...)], str)]` is not a valid type.']
+Line 31: Unexpected errors ['tuples_unpacked.py:31:4 Invalid type [31]: Expression `tuple[(*tuple[int], *tuple[int])]` is not a valid type.']
+Line 33: Unexpected errors ['tuples_unpacked.py:33:4 Invalid type [31]: Expression `tuple[(*tuple[(int, ...)], *tuple[int])]` is not a valid type.']
+Line 38: Unexpected errors ['tuples_unpacked.py:38:4 Invalid type [31]: Expression `tuple[(*tuple[str], *tuple[str])]` is not a valid type.']
+Line 39: Unexpected errors ['tuples_unpacked.py:39:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])])]` is not a valid type.']
+Line 49: Unexpected errors ['tuples_unpacked.py:49:13 Invalid type [31]: Expression `tuple[(*$local_tuples_unpacked$Ts)]` is not a valid type.']
+Line 50: Unexpected errors ['tuples_unpacked.py:50:8 Invalid type [31]: Expression `tuple[(*tuple[str], *$local_tuples_unpacked$Ts)]` is not a valid type.']
+Line 60: Unexpected errors ['tuples_unpacked.py:60:5 Invalid type [31]: Expression `tuple[(typing.Unpack[tuple[(str, typing.Unpack[tuple[(str, ...)]])]], typing.Unpack[tuple[(int, ...)]])]` is not a valid type.']
 """
