@@ -15,7 +15,7 @@ def func1(f: float):
     f.numerator  # E: attribute exists on int but not float
 
     if isinstance(f, float):
-        assert_type(f, float)
+        f.hex()  # OK (attribute exists on float but not int)
     else:
         assert_type(f, int)
 
