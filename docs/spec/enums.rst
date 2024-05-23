@@ -136,18 +136,18 @@ statically in cases where dynamic values are used.
         CAT = 1  # OK
         DOG: int = 2  # Type checker error
 
-* Methods, callables, and descriptors (including properties), and nested classes
+* Methods, callables, descriptors (including properties), and nested classes
   that are defined in the class are not treated as enum members by the
   ``EnumType`` metaclass and should likewise not be treated as enum members by
   a type checker::
 
-    def identity(__x): return __x
+    def identity(x): return x
 
     class Pet(Enum):
         CAT = 1  # Member attribute
         DOG = 2  # Member attribute
 
-        converter = lambda __x: str(__x)  # Non-member attribute
+        converter = lambda x: str(x)  # Non-member attribute
         transform = identity  # Non-member attribute
 
         @property
