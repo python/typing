@@ -81,11 +81,11 @@ emit a static type error. This allows very few operations! For example, if
 not all Python objects have an attribute ``foo``.
 
 An expression typed as :ref:`Any`, on the other hand, should be assumed to have
-_some_ specific static type, but _which_ static type is not known. Thus, a
-static checker should not emit errors that depend on assuming a particular
-type. A static checker should instead assume that the runtime is responsible
-for checking the type of operations on this expression, as usual in a
-dynamically-typed language.
+_some_ specific static type, but _which_ static type is not known. A static
+type checker should not emit static type errors on an expression or statement
+if :ref:`Any` might represent a static type which would avoid the error. (This
+intuition is made more precise below, in our definitions of materialization and
+assignability.)
 
 Similarly, a gradual type such as ``tuple[int, Any]`` (see :ref:`tuples`) or
 ``int | Any`` (see :ref:`union-types`) does not represent a single set of
@@ -103,8 +103,8 @@ some other set of tuple values.
 In practice, this difference is seen (for example) in the fact that we can
 assign an expression of type ``tuple[int, Any]`` to a target typed as
 ``tuple[int, int]``, whereas assigning ``tuple[int, object]`` to ``tuple[int,
-int]`` is a static type error. (We formalize this difference in the below
-definitions of materialization and assignability.)
+int]`` is a static type error. (Again, we formalize this difference in the
+below definitions of materialization and assignability.)
 
 In the same way that the fully static type ``object`` is the upper bound for
 the possible sets of values represented by ``Any``, the fully static type
@@ -235,6 +235,33 @@ subtype of ``A``, then ``tuple[Any, B]`` is assignable to ``tuple[int, A]``,
 because ``tuple[Any, B]`` can materialize to ``tuple[int, B]``, which is a
 subtype of ``tuple[int, A]``. But ``tuple[int, A]`` is not assignable to
 ``tuple[Any, B]``.
+
+Attributes and methods
+----------------------
+
+In Python, we can do more with objects at runtime than just assign them to
+names, pass them to functions, or return them from functions. We can also
+get/set attributes and call methods.
+
+In the Python object model, the operations that can be performed on a value all
+de-sugar to method calls. For example, ``a + b`` is syntactic sugar for either
+``a.__add__(b)`` or ``b.__radd__(a)``.
+
+For a static type checker, accessing ``a.foo`` is a type error unless all
+possible objects in the set represented by the type of ``a`` have the ``foo``
+attribute.
+
+If all objects in the set represented by the fully static type ``A`` have a
+``foo`` attribute, we can say that the type ``A`` has the ``foo`` attribute.
+
+If the type ``A`` of ``a`` in ``a.foo`` is a gradual type, it may not represent
+a single set of objects. In this case, ``a.foo`` is not a type error if and
+only if there exists a materialization of ``A`` which has the ``foo``
+attribute.
+
+Equivalently, we can say that ``a.foo`` is a type error unless the type of
+``a`` is assignable to a type that has the ``foo`` attribute.
+
 
 .. _`union-types`:
 
