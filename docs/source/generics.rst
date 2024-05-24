@@ -267,7 +267,7 @@ For class methods, you can also define generic ``cls``, using :py:class:`type`:
        other: Optional["Friend"] = None
 
        @classmethod
-       def make_pair(cls: Type[T]) -> tuple[T, T]:
+       def make_pair(cls: type[T]) -> tuple[T, T]:
            a, b = cls(), cls()
            a.other = b
            b.other = a
