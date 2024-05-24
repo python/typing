@@ -34,7 +34,7 @@ In gradual typing, a special "unknown" or "dynamic" type is used in the static
 type system for names or expressions whose type is not known statically.  In
 Python, this type is spelled :ref:`Any`. Because :ref:`Any` indicates a
 statically-unknown type, the static type checker can't check type correctness
-of operations on expressions typed as :ref:`Any`. These operations are only
+of operations on expressions typed as :ref:`Any`. These operations are
 dynamically checked, via the Python runtime's usual dynamic checking.
 
 The Python type system also uses ``...`` within :ref:`callable` and :ref:`Tuple
@@ -81,11 +81,35 @@ emit a static type error. This allows very few operations! For example, if
 not all Python objects have an attribute ``foo``.
 
 An expression typed as :ref:`Any`, on the other hand, should be assumed to have
-_some_ specific static type, but _which_ static type is not known. A static
-checker should not emit any errors that depend on assuming a particular type. A
-static checker should instead assume that the runtime is responsible for
-checking the type of operations on this expression, as usual in a
+_some_ specific static type, but _which_ static type is not known. Thus, a
+static checker should not emit errors that depend on assuming a particular
+type. A static checker should instead assume that the runtime is responsible
+for checking the type of operations on this expression, as usual in a
 dynamically-typed language.
+
+Similarly, a gradual type such as ``tuple[int, Any]`` (see :ref:`tuples`) or
+``int | Any`` (see :ref:`union-types`) does not represent a single set of
+Python objects; rather, it represents a (bounded) range of possible sets of
+values.
+
+In the same way that ``Any`` does not represent "the set of all Python objects"
+but rather "an unknown set of objects", ``tuple[int, Any]`` does not represent
+"the set of all length-two tuples whose first element is an integer." That is a
+fully static type, spelled ``tuple[int, object]``.  In contrast, ``tuple[int,
+Any]`` represents some unknown set of tuple values; it might be the set of all
+tuples of two integers, or the set of all tuples of an integer and a string, or
+some other set of tuple values.
+
+In practice, this difference is seen (for example) in the fact that we can
+assign an expression of type ``tuple[int, Any]`` to a target typed as
+``tuple[int, int]``, whereas assigning ``tuple[int, object]`` to ``tuple[int,
+int]`` is a static type error. (We formalize this difference in the below
+definitions of materialization and assignability.)
+
+In the same way that the fully static type ``object`` is the upper bound for
+the possible sets of values represented by ``Any``, the fully static type
+``tuple[int, object]`` is the upper bound for the possible sets of values
+represented by ``tuple[int, Any]``.
 
 The gradual guarantee
 ~~~~~~~~~~~~~~~~~~~~~
@@ -133,8 +157,9 @@ Materialization
 ---------------
 
 Since :ref:`Any` represents an unknown static type, it does not represent any
-known single set of values, and thus it is not in the domain of the subtype,
-supertype, or equivalence relations on static types described above.
+known single set of values (it represents an unknown set of values.) Thus it is
+not in the domain of the subtype, supertype, or equivalence relations on static
+types described above.
 
 To relate gradual types more generally, we define a **materialization**
 relation. The intuition for materialization is that it transforms a "more
