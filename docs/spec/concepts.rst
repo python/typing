@@ -226,12 +226,25 @@ Example::
           e = [e]
       ...
 
-A (fully static) union type ``T1 | T2 | ...`` represents the set of values
-formed by the union of all the sets of values represented by ``T1``, ``T2``,
-etc. Thus, by the definition of the supertype relation, the union ``T1 | T2``
-is a supertype of both ``T1`` and ``T2``. Via materialization, the gradual
-types ``S1`` and ``S2`` are both assignable to a gradual union type ``S1 |
-S2``.
+A union type ``T1 | T2``, where ``T1`` and ``T2`` are fully static types,
+represents the set of values formed by the union of all the sets of values
+represented by ``T1`` and ``T2``. Thus, by the definition of the supertype
+relation, the union ``T1 | T2`` is a supertype of both ``T1`` and ``T2``. Via
+materialization, the gradual types ``S1`` and ``S2`` are both assignable to a
+gradual union type ``S1 | S2``.
+
+If ``B`` is a subtype of ``A``, ``B | A`` is equivalent to ``A``.
+
+This rule applies only to subtypes, not assignable-to. The union ``T | Any`` is
+not reducible to a simpler form. It represents an unknown static type with
+lower bound ``T``. That is, it represents an unknown set of objects which may
+be as large as ``object``, or as small as ``T``, but no smaller.
+
+As a special case, the union ``Any | Any`` can be simplified to ``Any``: the
+union of two unknown sets of objects is an unknown set of objects.
+
+Union with None
+~~~~~~~~~~~~~~~
 
 One common case of union types are *optional* types, which are a union with
 ``None``. Example::
@@ -316,4 +329,5 @@ References
 The concepts presented here are derived from the research literature in gradual
 typing. See e.g.:
 
+* `Giuseppe Castagna, Victor Lanvin, Tommaso Petrucciani, and Jeremy G. Siek. 2019. Gradual Typing: A New Perspective. <https://doi.org/10.1145/3290329>`_ Proc. ACM Program. Lang. 3, POPL, Article 16 (January 2019), 112 pages
 * `Victor Lanvin. A semantic foundation for gradual set-theoretic types. <https://theses.hal.science/tel-03853222/file/va_Lanvin_Victor.pdf>`_ Computer science. Université Paris Cité, 2021. English. NNT : 2021UNIP7159. tel-03853222
