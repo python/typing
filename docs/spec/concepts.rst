@@ -37,10 +37,10 @@ statically-unknown type, the static type checker can't check type correctness
 of operations on expressions typed as :ref:`Any`. These operations are
 dynamically checked, via the Python runtime's usual dynamic checking.
 
-The Python type system also uses ``...`` within :ref:`callable` and :ref:`Tuple
-<tuples>` types to indicate a statically-unknown component of a type. The
-detailed rules for these usages are discussed in their respective sections of
-the specification.
+The Python type system also uses ``...`` within :ref:`Callable` types and
+within ``tuple[Any, ...]`` (see :ref:`tuples`) to indicate a statically-unknown
+component of a type. The detailed rules for these usages are discussed in their
+respective sections of the specification.
 
 This specification describes a gradual type system for Python.
 
@@ -48,22 +48,23 @@ Fully static and gradual types
 ------------------------------
 
 We will refer to types that do not contain :ref:`Any` (or the ``...`` in
-callable or tuple types) as a sub-part as **fully static types**.
+``Callable`` or ``tuple[Any, ...]``) as a sub-part as **fully static types**.
 
 A **gradual type** can be a fully static type, :ref:`Any` itself, or a type
-that contains :ref:`Any` (or ``...``) as a sub-part.
+that contains :ref:`Any` (or the ``...`` in ``Callable`` or ``tuple[Any,
+...]``) as a sub-part.
 
 Fully static types
 ~~~~~~~~~~~~~~~~~~
 
 A fully static type denotes a set of potential runtime values. For instance,
-the Python static type ``object`` is the set of all Python objects. The Python
-static type ``bool`` is the set of values ``{ True, False }``. The Python
-static type ``str`` is the set of all Python strings; more precisely, the set
-of all Python objects whose runtime type (``__class__`` attribute) is either
-``str`` or a class that inherits directly or indirectly from ``str``. A
-:ref:`Protocol <Protocols>` denotes the set of all objects which share a
-certain set of attributes and/or methods.
+the fully static type ``object`` is the set of all Python objects. The fully
+static type ``bool`` is the set of values ``{ True, False }``. The fully static
+type ``str`` is the set of all Python strings; more precisely, the set of all
+Python objects whose runtime type (``__class__`` attribute) is either ``str``
+or a class that inherits directly or indirectly from ``str``. A :ref:`Protocol
+<Protocols>` denotes the set of all objects which share a certain set of
+attributes and/or methods.
 
 Gradual types
 ~~~~~~~~~~~~~
@@ -103,7 +104,7 @@ some other set of tuple values.
 In practice, this difference is seen (for example) in the fact that we can
 assign an expression of type ``tuple[int, Any]`` to a target typed as
 ``tuple[int, int]``, whereas assigning ``tuple[int, object]`` to ``tuple[int,
-int]`` is a static type error. (Again, we formalize this difference in the
+int]`` is a static type error. (Again, we formalize this distinction in the
 below definitions of materialization and assignability.)
 
 In the same way that the fully static type ``object`` is the upper bound for
@@ -168,8 +169,8 @@ replace zero or more occurrences of ``Any`` in ``A`` with some gradual type
 (which can be different for each occurrence of ``Any``), the resulting gradual
 type ``B`` is a materialization of ``A``.
 
-For instance, ``tuple[int, str]`` (a static type) and ``tuple[Any, str]`` (a
-gradual type) are both materializations of ``tuple[Any, Any]``. ``tuple[int,
+For instance, ``tuple[int, str]`` (a fully static type) and ``tuple[Any, str]``
+(a gradual type) are both materializations of ``tuple[Any, Any]``. ``tuple[int,
 str]`` is also a materialization of ``tuple[Any, str]``.
 
 If ``B`` is a materialization of ``A``, we can say that ``B`` is a "more
@@ -207,19 +208,19 @@ with ``A``.
 The assignable-to (or consistent subtyping) relation
 ----------------------------------------------------
 
-Given the materialization relation and the subtyping relation, we can define the
-**consistent subtype** relation over all types. A type ``A`` is a consistent
-subtype of a type ``B`` if there exists a materialization ``A'`` of ``A`` and a
-materialization ``B'`` of ``B``, where ``A'`` and ``B'`` are both static types,
-and ``A'`` is a subtype of ``B'``.
+Given the materialization relation and the subtyping relation, we can define
+the **consistent subtype** relation over all types. A type ``B`` is a
+consistent subtype of a type ``A`` if there exists a materialization ``A'`` of
+``A`` and a materialization ``B'`` of ``B``, where ``A'`` and ``B'`` are both
+fully static types, and ``B'`` is a subtype of ``A'``.
 
 Consistent subtyping defines "assignability" for Python.  An expression can be
 assigned to a variable (including passed as a parameter or returned from a
 function) if it is a consistent subtype of the variable's type annotation
 (respectively, parameter's type annotation or return type annotation).
 
-We can say that a type ``A`` is "assignable to" a type ``B`` if ``A`` is a
-consistent subtype of ``B``.
+We can say that a type ``B`` is "assignable to" a type ``A`` if ``B`` is a
+consistent subtype of ``A``.
 
 In the remainder of this specification, we will usually prefer the term
 **assignable to** over "consistent subtype of". The two are synonymous, but
@@ -249,7 +250,8 @@ de-sugar to method calls. For example, ``a + b`` is syntactic sugar for either
 
 For a static type checker, accessing ``a.foo`` is a type error unless all
 possible objects in the set represented by the type of ``a`` have the ``foo``
-attribute.
+attribute. (We consider an implementation of ``__getattr__`` to be a getter for
+all attribute names, and similarly for ``__setattr__`` and ``__delattr__``).
 
 If all objects in the set represented by the fully static type ``A`` have a
 ``foo`` attribute, we can say that the type ``A`` has the ``foo`` attribute.
@@ -279,7 +281,7 @@ Example::
       ...
 
 A union type ``T1 | T2``, where ``T1`` and ``T2`` are fully static types,
-represents the set of values formed by the union of all the sets of values
+represents the set of values formed by the union of the sets of values
 represented by ``T1`` and ``T2``. Thus, by the definition of the supertype
 relation, the union ``T1 | T2`` is a supertype of both ``T1`` and ``T2``. Via
 materialization, the gradual types ``S1`` and ``S2`` are both assignable to a
