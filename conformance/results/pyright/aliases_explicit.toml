@@ -22,7 +22,8 @@ aliases_explicit.py:82:21 - error: Expected type expression but received "list[t
 aliases_explicit.py:83:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
 aliases_explicit.py:83:21 - error: Dictionary expression not allowed in type annotation
   Use Dict[T1, T2] to indicate a dictionary type (reportInvalidTypeForm)
-aliases_explicit.py:83:21 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)
+aliases_explicit.py:83:21 - error: Expected type expression but received "dict[str, Unknown]" (reportGeneralTypeIssues)
+aliases_explicit.py:83:28 - error: "b" is not defined (reportUndefinedVariable)
 aliases_explicit.py:84:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
 aliases_explicit.py:84:21 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 aliases_explicit.py:85:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)

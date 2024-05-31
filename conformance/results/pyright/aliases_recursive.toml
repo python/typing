@@ -18,11 +18,11 @@ aliases_recursive.py:20:16 - error: Expression of type "list[int | complex]" is 
     "complex" is incompatible with "float"
     "complex" is incompatible with "list[Json]"
     "complex" is incompatible with "dict[str, Json]" (reportAssignmentType)
-aliases_recursive.py:38:22 - error: Expression of type "tuple[Literal[1], tuple[Literal['1'], Literal[1]], tuple[Literal[1], tuple[Literal[1], list[int]]]]" is incompatible with declared type "RecursiveTuple"
-  Type "tuple[Literal[1], tuple[Literal['1'], Literal[1]], tuple[Literal[1], tuple[Literal[1], list[int]]]]" is incompatible with type "RecursiveTuple"
-    "tuple[Literal[1], tuple[Literal['1'], Literal[1]], tuple[Literal[1], tuple[Literal[1], list[int]]]]" is incompatible with "str"
-    "tuple[Literal[1], tuple[Literal['1'], Literal[1]], tuple[Literal[1], tuple[Literal[1], list[int]]]]" is incompatible with "int"
-    "tuple[Literal[1], tuple[Literal['1'], Literal[1]], tuple[Literal[1], tuple[Literal[1], list[int]]]]" is incompatible with "tuple[RecursiveTuple, ...]"
+aliases_recursive.py:38:22 - error: Expression of type "tuple[Literal[1], tuple[str, int], tuple[int, tuple[int, list[int]]]]" is incompatible with declared type "RecursiveTuple"
+  Type "tuple[Literal[1], tuple[str, int], tuple[int, tuple[int, list[int]]]]" is incompatible with type "RecursiveTuple"
+    "tuple[Literal[1], tuple[str, int], tuple[int, tuple[int, list[int]]]]" is incompatible with "str"
+    "tuple[Literal[1], tuple[str, int], tuple[int, tuple[int, list[int]]]]" is incompatible with "int"
+    "tuple[Literal[1], tuple[str, int], tuple[int, tuple[int, list[int]]]]" is incompatible with "tuple[RecursiveTuple, ...]"
       Tuple entry 1 is incorrect type (reportAssignmentType)
 aliases_recursive.py:39:22 - error: Expression of type "tuple[Literal[1], list[int]]" is incompatible with declared type "RecursiveTuple"
   Type "tuple[Literal[1], list[int]]" is incompatible with type "RecursiveTuple"
