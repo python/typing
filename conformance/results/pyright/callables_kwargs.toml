@@ -19,12 +19,12 @@ callables_kwargs.py:101:19 - error: Expression of type "(**kwargs: **TD2) -> Non
       "int" is incompatible with "str" (reportAssignmentType)
 callables_kwargs.py:102:19 - error: Expression of type "(**kwargs: **TD2) -> None" is incompatible with declared type "TDProtocol4"
   Type "(**kwargs: **TD2) -> None" is incompatible with type "(*, v1: int) -> None"
-    Keyword parameter "v3" is missing in destination (reportAssignmentType)
+    Extra parameter "v3" (reportAssignmentType)
 callables_kwargs.py:103:19 - error: Expression of type "(**kwargs: **TD2) -> None" is incompatible with declared type "TDProtocol5"
   Type "(**kwargs: **TD2) -> None" is incompatible with type "(v1: int, v3: str) -> None"
     Function accepts too many positional parameters; expected 0 but received 2
-      Keyword parameter "v1" is missing in destination
-      Keyword parameter "v3" is missing in destination (reportAssignmentType)
+      Extra parameter "v1"
+      Extra parameter "v3" (reportAssignmentType)
 callables_kwargs.py:111:30 - error: Typed dictionary overlaps with keyword parameter: v1 (reportGeneralTypeIssues)
 callables_kwargs.py:122:21 - error: Expected TypedDict type argument for Unpack (reportGeneralTypeIssues)
 """
