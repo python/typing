@@ -291,8 +291,11 @@ supertype relation, the union ``T1 | T2`` is a supertype of both ``T1`` and
 A gradual union type ``S1 | S2``, where ``S1`` and ``S2`` are gradual types,
 represents all possible sets of values that could be formed by union of the
 possible sets of values represented by materializations of ``S1`` and ``S2``,
-respectively. Thus, via materialization, the gradual types ``S1`` and ``S2``
-are both assignable to a gradual union type ``S1 | S2``.
+respectively.
+
+For any materialization of ``S1`` to ``T1`` and ``S2`` to ``T2``, ``S1 | S2``
+can likewise be materialized to ``T1 | T2``. Thus, the gradual types ``S1`` and
+``S2`` are both assignable to the gradual union type ``S1 | S2``.
 
 If ``B`` is a subtype of ``A``, ``B | A`` is equivalent to ``A``.
 
