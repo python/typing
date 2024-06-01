@@ -13,7 +13,7 @@ and verifies that their uses obey the typing rules. Normally, a program that is
 not well typed (i.e., one that contains a type error) will not run. Java and
 C++ are examples of statically typed object-oriented languages.
 
-A **dynamically typed** programming language does not run a type-checker before
+A **dynamically typed** programming language does not run a type checker before
 running a program. Instead, it checks the types of values before performing
 operations on them at runtime. This is not to say that the language is
 "untyped". Values at runtime have a type and their uses obey typing rules. Not
@@ -85,7 +85,7 @@ An expression typed as :ref:`Any`, on the other hand, should be assumed to have
 _some_ specific static type, but _which_ static type is not known. A static
 type checker should not emit static type errors on an expression or statement
 if :ref:`Any` might represent a static type which would avoid the error. (This
-intuition is made more precise below, in our definitions of materialization and
+is defined more precisely below, in terms of materialization and
 assignability.)
 
 Similarly, a gradual type such as ``tuple[int, Any]`` (see :ref:`tuples`) or
@@ -96,7 +96,7 @@ values.
 In the same way that ``Any`` does not represent "the set of all Python objects"
 but rather "an unknown set of objects", ``tuple[int, Any]`` does not represent
 "the set of all length-two tuples whose first element is an integer." That is a
-fully static type, spelled ``tuple[int, object]``.  In contrast, ``tuple[int,
+fully static type, spelled ``tuple[int, object]``.  By contrast, ``tuple[int,
 Any]`` represents some unknown set of tuple values; it might be the set of all
 tuples of two integers, or the set of all tuples of an integer and a string, or
 some other set of tuple values.
@@ -246,7 +246,7 @@ names, pass them to functions, or return them from functions. We can also
 get/set attributes and call methods.
 
 In the Python object model, the operations that can be performed on a value all
-de-sugar to method calls. For example, ``a + b`` is (roughly, eliding some
+desugar to method calls. For example, ``a + b`` is (roughly, eliding some
 details) syntactic sugar for either ``type(a).__add__(a, b)`` or
 ``type(b).__radd__(b, a)``.
 
