@@ -6,39 +6,39 @@ Type system concepts
 Static, dynamic, and gradual typing
 -----------------------------------
 
-A **statically-typed** programming language runs a type-checker before running
-a program. The program is required to be well-typed according to the language's
+A **statically typed** programming language runs a type checker before running
+a program. The program is required to be well typed according to the language's
 type system. The type system assigns a type to all expressions in the language
 and verifies that their uses obey the typing rules. Normally, a program that is
-not well-typed (i.e., one that contains a type error) will not run. Java and
-C++ are examples of statically-typed object-oriented languages.
+not well typed (i.e., one that contains a type error) will not run. Java and
+C++ are examples of statically typed object-oriented languages.
 
-A **dynamically-typed** programming language does not run a type-checker before
+A **dynamically typed** programming language does not run a type-checker before
 running a program. Instead, it checks the types of values before performing
 operations on them at runtime. This is not to say that the language is
 "untyped". Values at runtime have a type and their uses obey typing rules. Not
 every operation will be checked, but certain primitive operations in the
 language such as attribute access or arithmetic are. Python is a
-dynamically-typed language.
+dynamically typed language.
 
 **Gradual typing** is a way to combine static and dynamic typing.
 Type-annotated Python allows opting in to static type checking at a fine level
-of granularity, so that some type errors can be caught statically, before
+of granularity, so that some type errors can be caught statically, without
 running the program. Variables, parameters, and returns can optionally be given
 a static type annotation. Even within the type of a single data structure,
-static type checking is opt-in and granular. For example, a dictionary can be
-annotated to have static checking of the key type but only dynamic checking of
-the value type.
+static type checking is optional and granular. For example, a dictionary can be
+annotated to enable static checking of the key type but only have dynamic
+runtime checking of the value type.
 
-In gradual typing, a special "unknown" or "dynamic" type is used in the static
-type system for names or expressions whose type is not known statically.  In
-Python, this type is spelled :ref:`Any`. Because :ref:`Any` indicates a
-statically-unknown type, the static type checker can't check type correctness
-of operations on expressions typed as :ref:`Any`. These operations are
+A **gradual** type system is one in which a special "unknown" or "dynamic" type
+is used to describe names or expressions whose types are not known statically.
+In Python, this type is spelled :ref:`Any`. Because :ref:`Any` indicates a
+statically unknown type, the static type checker can't check type correctness
+of operations on expressions typed as :ref:`Any`. These operations are still
 dynamically checked, via the Python runtime's usual dynamic checking.
 
 The Python type system also uses ``...`` within :ref:`Callable` types and
-within ``tuple[Any, ...]`` (see :ref:`tuples`) to indicate a statically-unknown
+within ``tuple[Any, ...]`` (see :ref:`tuples`) to indicate a statically unknown
 component of a type. The detailed rules for these usages are discussed in their
 respective sections of the specification.
 
@@ -70,7 +70,7 @@ Gradual types
 ~~~~~~~~~~~~~
 
 :ref:`Any` represents an unknown static type. It denotes some unknown set of
-values.
+runtime values.
 
 This may appear similar to the fully static type ``object``, which represents
 the set of all Python objects, but it is quite different.
@@ -115,14 +115,15 @@ represented by ``tuple[int, Any]``.
 The gradual guarantee
 ~~~~~~~~~~~~~~~~~~~~~
 
-:ref:`Any` allows gradually adding static types to a dynamically-typed program.
-For a fully dynamically-typed program, a static checker has the type :ref:`Any`
-for all expressions, and should emit no errors. Adding static type annotations
-to the program (making the program more statically typed) may result in static
-type errors, if the program is not correct or if the static type annotations
-aren't able to fully represent the runtime types. Removing static type
-annotations (making the program more dynamic) should not result in additional
-static type errors. This is often referred to as the **gradual guarantee**.
+:ref:`Any` allows gradually adding static types to a dynamically typed program.
+In a fully dynamically typed program, a static checker assigns the type
+:ref:`Any` to all expressions, and should emit no errors. Inferring static
+types or adding type annotations to the program (making the program more
+statically typed) may result in static type errors, if the program is not
+correct or if the static types aren't able to fully represent the runtime
+types. Removing type annotations (making the program more dynamic) should not
+result in additional static type errors. This is often referred to as the
+**gradual guarantee**.
 
 In Python's type system, we don't take the gradual guarantee as a strict
 requirement, but it's a useful guideline.
@@ -158,16 +159,16 @@ Materialization
 ---------------
 
 Since :ref:`Any` represents an unknown static type, it does not represent any
-known single set of values (it represents an unknown set of values.) Thus it is
+known single set of values (it represents an unknown set of values). Thus it is
 not in the domain of the subtype, supertype, or equivalence relations on static
 types described above.
 
 To relate gradual types more generally, we define a **materialization**
-relation. The intuition for materialization is that it transforms a "more
-dynamic" type to a "more static" type. Given a gradual type ``A``, if we
-replace zero or more occurrences of ``Any`` in ``A`` with some gradual type
-(which can be different for each occurrence of ``Any``), the resulting gradual
-type ``B`` is a materialization of ``A``.
+relation. Materialization transforms a "more dynamic" type to a "more static"
+type. Given a gradual type ``A``, if we replace zero or more occurrences of
+``Any`` in ``A`` with some gradual type (which can be different for each
+occurrence of ``Any``), the resulting gradual type ``B`` is a materialization
+of ``A``.
 
 For instance, ``tuple[int, str]`` (a fully static type) and ``tuple[Any, str]``
 (a gradual type) are both materializations of ``tuple[Any, Any]``. ``tuple[int,
@@ -186,7 +187,7 @@ We define a **consistency** relation on gradual types, based on
 materialization.
 
 A fully static type ``A`` is consistent with another fully static type ``B`` if
-and only if they are the same type (``A`` is equivalent to ``B``.)
+and only if they are the same type (``A`` is equivalent to ``B``).
 
 A gradual type ``A`` is consistent with a gradual type ``B``, and ``B`` is
 consistent with ``A``, if and only if there exists some fully static type ``C``
@@ -216,7 +217,7 @@ fully static types, and ``B'`` is a subtype of ``A'``.
 
 Consistent subtyping defines "assignability" for Python.  An expression can be
 assigned to a variable (including passed as a parameter or returned from a
-function) if it is a consistent subtype of the variable's type annotation
+function) if its type is a consistent subtype of the variable's type annotation
 (respectively, parameter's type annotation or return type annotation).
 
 We can say that a type ``B`` is "assignable to" a type ``A`` if ``B`` is a
@@ -229,9 +230,9 @@ readers.
 
 For example, ``Any`` is assignable to ``int``, because ``int`` is a
 materialization of ``Any``, and ``int`` is a subtype of ``int``. The same
-materialization also gives that ``int`` is assignable to ``Any``.
+materialization also shows that ``int`` is assignable to ``Any``.
 
-The assignable-to relation is not generally symmetric, though. If ``B`` is a
+The assignable-to relation is not generally symmetric, however. If ``B`` is a
 subtype of ``A``, then ``tuple[Any, B]`` is assignable to ``tuple[int, A]``,
 because ``tuple[Any, B]`` can materialize to ``tuple[int, B]``, which is a
 subtype of ``tuple[int, A]``. But ``tuple[int, A]`` is not assignable to
@@ -245,8 +246,9 @@ names, pass them to functions, or return them from functions. We can also
 get/set attributes and call methods.
 
 In the Python object model, the operations that can be performed on a value all
-de-sugar to method calls. For example, ``a + b`` is syntactic sugar for either
-``a.__add__(b)`` or ``b.__radd__(a)``.
+de-sugar to method calls. For example, ``a + b`` is (roughly, eliding some
+details) syntactic sugar for either ``type(a).__add__(a, b)`` or
+``type(b).__radd__(b, a)``.
 
 For a static type checker, accessing ``a.foo`` is a type error unless all
 possible objects in the set represented by the type of ``a`` have the ``foo``
@@ -257,12 +259,12 @@ If all objects in the set represented by the fully static type ``A`` have a
 ``foo`` attribute, we can say that the type ``A`` has the ``foo`` attribute.
 
 If the type ``A`` of ``a`` in ``a.foo`` is a gradual type, it may not represent
-a single set of objects. In this case, ``a.foo`` is not a type error if and
-only if there exists a materialization of ``A`` which has the ``foo``
+a single set of objects. In this case, ``a.foo`` is a type error if and only if
+there does not exist any materialization of ``A`` which has the ``foo``
 attribute.
 
-Equivalently, we can say that ``a.foo`` is a type error unless the type of
-``a`` is assignable to a type that has the ``foo`` attribute.
+Equivalently, ``a.foo`` is a type error unless the type of ``a`` is assignable
+to a type that has the ``foo`` attribute.
 
 
 .. _`union-types`:
@@ -280,12 +282,17 @@ Example::
           e = [e]
       ...
 
-A union type ``T1 | T2``, where ``T1`` and ``T2`` are fully static types,
-represents the set of values formed by the union of the sets of values
-represented by ``T1`` and ``T2``. Thus, by the definition of the supertype
-relation, the union ``T1 | T2`` is a supertype of both ``T1`` and ``T2``. Via
-materialization, the gradual types ``S1`` and ``S2`` are both assignable to a
-gradual union type ``S1 | S2``.
+A fully static union type ``T1 | T2``, where ``T1`` and ``T2`` are fully static
+types, represents the set of values formed by the union of the sets of values
+represented by ``T1`` and ``T2``, respectively. Thus, by the definition of the
+supertype relation, the union ``T1 | T2`` is a supertype of both ``T1`` and
+``T2``, and ``T1`` and ``T2`` are both subtypes of ``T1 | T2``.
+
+A gradual union type ``S1 | S2``, where ``S1`` and ``S2`` are gradual types,
+represents all possible sets of values that could be formed by union of the
+possible sets of values represented by materializations of ``S1`` and ``S2``,
+respectively. Thus, via materialization, the gradual types ``S1`` and ``S2``
+are both assignable to a gradual union type ``S1 | S2``.
 
 If ``B`` is a subtype of ``A``, ``B | A`` is equivalent to ``A``.
 
