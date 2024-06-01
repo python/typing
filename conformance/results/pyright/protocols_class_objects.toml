@@ -11,7 +11,8 @@ protocols_class_objects.py:58:16 - error: Expression of type "type[ConcreteA]" i
     Type "(self: ConcreteA, x: int) -> int" is incompatible with type "(x: int) -> int"
       Parameter name mismatch: "x" versus "self"
       Parameter 1: type "int" is incompatible with type "ConcreteA"
-        "int" is incompatible with "ConcreteA" (reportAssignmentType)
+        "int" is incompatible with "ConcreteA"
+      Extra parameter "x" (reportAssignmentType)
 protocols_class_objects.py:74:16 - error: Expression of type "type[ConcreteB]" is incompatible with declared type "ProtoB1"
   "prop1" is an incompatible type
     "property" is incompatible with "int" (reportAssignmentType)

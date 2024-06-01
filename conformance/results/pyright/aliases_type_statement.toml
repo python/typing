@@ -24,7 +24,8 @@ aliases_type_statement.py:40:22 - error: List expression not allowed in type ann
 aliases_type_statement.py:40:22 - error: Expected type expression but received "list[type[int]]" (reportGeneralTypeIssues)
 aliases_type_statement.py:41:22 - error: Dictionary expression not allowed in type annotation
   Use Dict[T1, T2] to indicate a dictionary type (reportInvalidTypeForm)
-aliases_type_statement.py:41:22 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)
+aliases_type_statement.py:41:22 - error: Expected type expression but received "dict[str, Unknown]" (reportGeneralTypeIssues)
+aliases_type_statement.py:41:29 - error: "b" is not defined (reportUndefinedVariable)
 aliases_type_statement.py:42:22 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 aliases_type_statement.py:43:22 - error: List expression not allowed in type annotation
   Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)

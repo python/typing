@@ -6,6 +6,7 @@ qualifiers_final_annotation.py:34:5 - error: "ID2" is declared Final, but value 
 qualifiers_final_annotation.py:38:5 - error: "ID3" is declared Final, but value is not assigned (reportGeneralTypeIssues)
 qualifiers_final_annotation.py:54:14 - error: Cannot assign to attribute "ID5" for class "ClassA*"
   Attribute "ID5" cannot be assigned through a class instance because it is a ClassVar
+  "ID5" is declared as Final and cannot be reassigned
     Attribute "__set__" is unknown (reportAttributeAccessIssue)
 qualifiers_final_annotation.py:62:19 - error: "Final" is not allowed in this context
 qualifiers_final_annotation.py:63:19 - error: "Final" is not allowed in this context
