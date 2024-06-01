@@ -168,7 +168,9 @@ relation. Materialization transforms a "more dynamic" type to a "more static"
 type. Given a gradual type ``A``, if we replace zero or more occurrences of
 ``Any`` in ``A`` with some gradual type (which can be different for each
 occurrence of ``Any``), the resulting gradual type ``B`` is a materialization
-of ``A``.
+of ``A``. (We can also materialize a :ref:`Callable` type by replacing ``...``
+with a bracketed list of types, and materialize ``tuple[Any, ...]`` by
+replacing it with a determinate-length tuple type.)
 
 For instance, ``tuple[int, str]`` (a fully static type) and ``tuple[Any, str]``
 (a gradual type) are both materializations of ``tuple[Any, Any]``. ``tuple[int,
