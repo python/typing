@@ -40,19 +40,19 @@ dynamically checked, via the Python runtime's usual dynamic checking.
 The Python type system also uses ``...`` within :ref:`Callable` types and
 within ``tuple[Any, ...]`` (see :ref:`tuples`) to indicate a statically unknown
 component of a type. The detailed rules for these usages are discussed in their
-respective sections of the specification.
+respective sections of the specification. Collectively, along with :ref:`Any`,
+these are :term:`gradual forms <gradual form>`.
 
 This specification describes a gradual type system for Python.
 
 Fully static and gradual types
 ------------------------------
 
-We will refer to types that do not contain :ref:`Any` (or the ``...`` in
-``Callable`` or ``tuple[Any, ...]``) as a sub-part as **fully static types**.
+We will refer to types that do not contain a :term:`gradual form` as a sub-part
+as **fully static types**.
 
 A **gradual type** can be a fully static type, :ref:`Any` itself, or a type
-that contains :ref:`Any` (or the ``...`` in ``Callable`` or ``tuple[Any,
-...]``) as a sub-part.
+that contains a gradual form as a sub-part.
 
 Fully static types
 ~~~~~~~~~~~~~~~~~~
@@ -173,8 +173,8 @@ type. Given a gradual type ``A``, if we replace zero or more occurrences of
 ``Any`` in ``A`` with some gradual type (which can be different for each
 occurrence of ``Any``), the resulting gradual type ``B`` is a materialization
 of ``A``. (We can also materialize a :ref:`Callable` type by replacing ``...``
-with a bracketed list of types, and materialize ``tuple[Any, ...]`` by
-replacing it with a determinate-length tuple type.)
+with any type signature, and materialize ``tuple[Any, ...]`` by replacing it
+with a determinate-length tuple type.)
 
 For instance, ``tuple[int, str]`` (a fully static type) and ``tuple[Any, str]``
 (a gradual type) are both materializations of ``tuple[Any, Any]``. ``tuple[int,
@@ -263,7 +263,7 @@ details) syntactic sugar for either ``type(a).__add__(a, b)`` or
 For a static type checker, accessing ``a.foo`` is a type error unless all
 possible objects in the set represented by the type of ``a`` have the ``foo``
 attribute. (We consider an implementation of ``__getattr__`` to be a getter for
-all attribute names, and similarly for ``__setattr__`` and ``__delattr__``).
+all attribute names, and similarly for ``__setattr__`` and ``__delattr__``.)
 
 If all objects in the set represented by the fully static type ``A`` have a
 ``foo`` attribute, we can say that the type ``A`` has the ``foo`` attribute.
