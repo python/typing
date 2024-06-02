@@ -184,7 +184,7 @@ statically in cases where dynamic values are used.
             pass
 
     reveal_type(Example.a)  # Revealed type is Literal[Example.a]
-    reveal_type(Example.b)  # Revealed type is int
+    reveal_type(Example.b)  # Revealed type is int or Literal[2]
     reveal_type(Example.c)  # Revealed type is Literal[Example.c]
 
 * An attribute with a private name (beginning with, but not ending in, a double
