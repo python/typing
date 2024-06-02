@@ -36,7 +36,7 @@ This section defines a few terms that may be used elsewhere in the specification
 
    consistent subtype
       "Consistent subtype" is synonymous with ":term:`assignable` to" (and
-      "consistent supertype" is synonymous with ":term:`assignable` from"). See
+      "consistent supertype" is synonymous with "assignable from"). See
       :ref:`type-system-concepts`.
 
    distribution
@@ -53,7 +53,7 @@ This section defines a few terms that may be used elsewhere in the specification
       A gradual form is a :term:`type expression` which makes the type it is
       part of not a :term:`fully static type`, but rather a representation of a
       set of possible static types. See :ref:`type-system-concepts`. The
-      primary gradual form is :ref:`Any`. The ellipsis (`...`) is a gradual
+      primary gradual form is :ref:`Any`. The ellipsis (``...``) is a gradual
       form in some, but not all, contexts. It is a gradual form when used in a
       :ref:`Callable` type, and when used in ``tuple[Any, ...]`` (but not in
       other :ref:`tuple <tuples>` types).
@@ -64,7 +64,7 @@ This section defines a few terms that may be used elsewhere in the specification
       contains ``Any`` or another :term:`gradual form`. A gradual type does not
       necessarily represent a single set of possible runtime values; instead it
       can represent a set of possible static types (a set of possible sets of
-      possible runtime values!). Gradual types do not participate in the
+      possible runtime values). Gradual types do not participate in the
       :term:`subtype` relation, but they do participate in :term:`consistency
       <consistent>` and :term:`assignability <assignable>`. They can be
       :term:`materialized <materialize>` to a more static, or fully static,
