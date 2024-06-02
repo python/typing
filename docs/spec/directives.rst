@@ -86,12 +86,6 @@ At runtime a cast always returns the
 expression unchanged -- it does not check the type, and it does not
 convert or coerce the value.
 
-Casts differ from type comments (see the previous section).  When using
-a type comment, the type checker should still verify that the inferred
-type is consistent with the stated type.  When using a cast, the type
-checker should blindly believe the programmer.  Also, casts can be used
-in expressions, while type comments only apply to assignments.
-
 .. _`if-type-checking`:
 
 ``TYPE_CHECKING``

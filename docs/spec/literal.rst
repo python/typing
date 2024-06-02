@@ -24,9 +24,8 @@ concrete value. For example, if we define some variable ``foo`` to have
 type ``Literal[3]``, we are declaring that ``foo`` must be exactly equal
 to ``3`` and no other value.
 
-Given some value ``v`` that is a member of type ``T``, the type
-``Literal[v]`` shall be treated as a subtype of ``T``. For example,
-``Literal[3]`` is a subtype of ``int``.
+Given some value ``v`` that is a member of type ``T``, the type ``Literal[v]``
+is a subtype of ``T``. For example, ``Literal[3]`` is a subtype of ``int``.
 
 All methods from the parent type will be directly inherited by the
 literal type. So, if we have some variable ``foo`` of type ``Literal[3]``
@@ -304,13 +303,13 @@ special-casing. For example, programs like the following are type safe::
    # Legal: Literal["foo"] is a subtype of str
    expects_str(var)
 
-This also means non-Literal expressions in general should not automatically
-be cast to Literal. For example::
+This also means non-Literal types in general are not assignable to Literal
+types. For example::
 
    def expects_literal(x: Literal["foo"]) -> None: ...
 
    def runner(my_str: str) -> None:
-       # ILLEGAL: str is not a subclass of Literal["foo"]
+       # ILLEGAL: str is not assignable to Literal["foo"]
        expects_literal(my_str)
 
 **Note:** If the user wants their API to support accepting both literals
@@ -398,9 +397,8 @@ maintain backwards-compatibility.
 Interactions with generics
 """"""""""""""""""""""""""
 
-Types like ``Literal[3]`` are meant to be just plain old subclasses of
-``int``. This means you can use types like ``Literal[3]`` anywhere
-you could use normal types, such as with generics.
+Since a type like ``Literal[3]`` is a subtype of ``int``, you can use
+``Literal[3]`` anywhere you could use ``int``, such as with generics.
 
 This means that it is legal to parameterize generic functions or
 classes using Literal types::
@@ -584,7 +582,7 @@ Type inference
 Inferring ``LiteralString``
 """""""""""""""""""""""""""
 
-Any literal string type is compatible with ``LiteralString``. For
+Any literal string type is assignable to ``LiteralString``. For
 example, ``x: LiteralString = "foo"`` is valid because ``"foo"`` is
 inferred to be of type ``Literal["foo"]``.
 
@@ -592,20 +590,20 @@ We also infer ``LiteralString`` in the
 following cases:
 
 + Addition: ``x + y`` is of type ``LiteralString`` if both ``x`` and
-  ``y`` are compatible with ``LiteralString``.
+  ``y`` are assignable to ``LiteralString``.
 
 + Joining: ``sep.join(xs)`` is of type ``LiteralString`` if ``sep``'s
-  type is compatible with ``LiteralString`` and ``xs``'s type is
-  compatible with ``Iterable[LiteralString]``.
+  type is assignable to ``LiteralString`` and ``xs``'s type is
+  assignable to ``Iterable[LiteralString]``.
 
 + In-place addition: If ``s`` has type ``LiteralString`` and ``x`` has
-  type compatible with ``LiteralString``, then ``s += x`` preserves
+  type assignable to ``LiteralString``, then ``s += x`` preserves
   ``s``'s type as ``LiteralString``.
 
-+ String formatting: An f-string has type ``LiteralString`` if and only
-  if its constituent expressions are literal strings. ``s.format(...)``
-  has type ``LiteralString`` if and only if ``s`` and the arguments have
-  types compatible with ``LiteralString``.
++ String formatting: An f-string has type ``LiteralString`` if and only if its
+  constituent expressions are literal strings. ``s.format(...)`` is assignable
+  to ``LiteralString`` if and only if ``s`` and the arguments have types
+  assignable to ``LiteralString``.
 
 In all other cases, if one or more of the composed values has a
 non-literal type ``str``, the composition of types will have type
@@ -613,7 +611,7 @@ non-literal type ``str``, the composition of types will have type
 has type ``str``. This matches the pre-existing behavior of type
 checkers.
 
-``LiteralString`` is compatible with the type ``str``. It inherits all
+``LiteralString`` is assignable to the type ``str``. It inherits all
 methods from ``str``. So, if we have a variable ``s`` of type
 ``LiteralString``, it is safe to write ``s.startswith("hello")``.
 
@@ -626,7 +624,7 @@ check:
         if s == "bar":
             reveal_type(s)  # => Literal["bar"]
 
-Such a refined type in the if-block is also compatible with
+Such a refined type in the if-block is also assignable to
 ``LiteralString`` because its type is ``Literal["bar"]``.
 
 
@@ -699,7 +697,7 @@ Format strings using literal strings:
 
     expect_literal_string("hello {}".format(username))  # Not OK
 
-Other literal types, such as literal integers, are not compatible with ``LiteralString``:
+Other literal types, such as literal integers, are not assignable to ``LiteralString``:
 
 ::
 

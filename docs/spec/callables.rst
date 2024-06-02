@@ -71,8 +71,8 @@ may be given as an ellipsis. For example::
   def func(x: AnyStr, y: AnyStr = ...) -> AnyStr: ...
 
 If a non-ellipsis default value is present and its type can be statically
-evaluated, a type checker should verify that this type is compatible with the
-declared parameter's type::
+evaluated, a type checker should verify that this type is :term:`assignable` to
+the declared parameter's type::
 
     def func(x: int = 0): ...  # OK
     def func(x: int | None = None): ...  # OK
@@ -282,8 +282,8 @@ unpacked in the destination callable invocation::
     dest = src      # WRONG!
     dest(**animal)  # Fails at runtime.
 
-Similar situation can happen even without inheritance as compatibility
-between ``TypedDict``\s is based on structural subtyping.
+A similar situation can happen even without inheritance as :term:`assignability
+<assignable>` between ``TypedDict``\s is structural.
 
 Source contains untyped ``**kwargs``
 """"""""""""""""""""""""""""""""""""
@@ -423,11 +423,9 @@ the section on `Callback protocols`_.
 Meaning of ``...`` in ``Callable``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``Callable`` special form supports the use of ``...`` in place of the
-list of parameter types. This indicates that the type is consistent with
-any input signature. Just as ``Any`` means "any conceivable type that could be
-compatible", ``(...)`` means "any conceivable set of parameters that could be
-compatible"::
+The ``Callable`` special form supports the use of ``...`` in place of the list
+of parameter types. This is a :term:`gradual form` indicating that the type is
+:term:`consistent` with any input signature::
 
     cb1: Callable[..., str]
     cb1 = lambda x: str(x)  # OK
@@ -475,7 +473,7 @@ and are retained as part of the signature::
             pass
 
     class B(A):
-        # This override is OK because it is consistent with the parent's method.
+        # This override is OK because it is assignable to the parent's method.
         def method(self, a: float, /, b: int, *, k: str, m: str) -> None:
             pass
 
@@ -490,7 +488,7 @@ For example::
         f: Callback[...] = cb  # OK
 
 If ``...`` is used with signature concatenation, the ``...`` portion continues
-to mean "any conceivable set of parameters that could be compatible"::
+to be :term:`consistent` with any input parameters::
 
     type CallbackWithInt[**P] = Callable[Concatenate[int, P], str]
     type CallbackWithStr[**P] = Callable[Concatenate[str, P], str]
@@ -522,21 +520,21 @@ and overloads. They can be defined as protocols with a ``__call__`` member::
       ...
 
   comb: Combiner = good_cb  # OK
-  comb = bad_cb  # Error! Argument 2 has incompatible type because of
+  comb = bad_cb  # Error! Argument 2 is not assignable because of
                  # different parameter name and kind in the callback
 
 Callback protocols and ``Callable[...]`` types can generally be used
 interchangeably.
 
 
-Subtyping rules for callables
------------------------------
+Assignability rules for callables
+---------------------------------
 
-A callable type ``A`` is a subtype of callable type ``B`` if the return type
-of ``A`` is a subtype of the return type of ``B`` and the input signature
-of ``A`` accepts all possible combinations of arguments that the input
-signature of ``B`` accepts. All of the specific subtyping rules described below
-derive from this general rule.
+A callable type ``B`` is :term:`assignable` to callable type ``A`` if the
+return type of ``B`` is assignable to the return type of ``A`` and the input
+signature of ``B`` accepts all possible combinations of arguments that the
+input signature of ``A`` accepts. All of the specific assignability rules
+described below derive from this general rule.
 
 
 Parameter types
@@ -544,9 +542,9 @@ Parameter types
 
 Callable types are covariant with respect to their return types but
 contravariant with respect to their parameter types. This means a callable
-``A`` is a subtype of callable ``B`` if the types of the parameters of
-``B`` are subtypes of the parameters of ``A``. For example,
-``(x: float) -> int`` is a subtype of ``(x: int) -> float``::
+``B`` is assignable to callable ``A`` if the types of the parameters of
+``A`` are assignable to the parameters of ``B``. For example,
+``(x: float) -> int`` is assignable to ``(x: int) -> float``::
 
     def func(cb: Callable[[float], int]):
         f1: Callable[[int], float] = cb  # OK
@@ -555,11 +553,11 @@ contravariant with respect to their parameter types. This means a callable
 Parameter kinds
 ^^^^^^^^^^^^^^^
 
-Callable ``A`` is a subtype of callable ``B`` if all keyword-only parameters
-in ``B`` are present in ``A`` as either keyword-only parameters or standard
-(positional or keyword) parameters. For example, ``(a: int) -> None`` is a
-subtype of ``(*, a: int) -> None``, but the converse is not true. The order
-of keyword-only parameters is ignored for purposes of subtyping::
+Callable ``B`` is assignable to callable ``A`` only if all keyword-only
+parameters in ``A`` are present in ``B`` as either keyword-only parameters or
+standard (positional or keyword) parameters. For example, ``(a: int) -> None``
+is assignable to ``(*, a: int) -> None``, but the converse is not true. The
+order of keyword-only parameters is ignored for purposes of assignability::
 
     class KwOnly(Protocol):
         def __call__(self, *, b: int, a: int) -> None: ...
@@ -571,10 +569,10 @@ of keyword-only parameters is ignored for purposes of subtyping::
         f1: KwOnly = standard  # OK
         f2: Standard = kw_only  # Error
 
-Likewise, callable ``A`` is a subtype of callable ``B`` if all positional-only
-parameters in ``B`` are present in ``A`` as either positional-only parameters
-or standard (positional or keyword) parameters. The names of positional-only
-parameters are ignored for purposes of subtyping::
+Likewise, callable ``B`` is assignable to callable ``A`` only if all
+positional-only parameters in ``A`` are present in ``B`` as either
+positional-only parameters or standard (positional or keyword) parameters. The
+names of positional-only parameters are ignored for purposes of assignability::
 
     class PosOnly(Protocol):
         def __call__(self, not_a: int, /) -> None: ...
@@ -590,9 +588,9 @@ parameters are ignored for purposes of subtyping::
 ``*args`` parameters
 ^^^^^^^^^^^^^^^^^^^^
 
-If a callable ``B`` has a signature with a ``*args`` parameter, callable ``A``
-must also have a ``*args`` parameter to be a subtype of ``B``, and the type of
-``B``'s ``*args`` parameter must be a subtype of ``A``'s ``*args`` parameter::
+If a callable ``A`` has a signature with a ``*args`` parameter, callable ``B``
+must also have a ``*args`` parameter to be assignable to ``A``, and the type of
+``A``'s ``*args`` parameter must be assignable to ``B``'s ``*args`` parameter::
 
     class NoArgs(Protocol):
         def __call__(self) -> None: ...
@@ -611,12 +609,12 @@ must also have a ``*args`` parameter to be a subtype of ``B``, and the type of
         f4: IntArgs = float_args  # OK
 
         f5: FloatArgs = no_args  # Error: missing *args parameter
-        f6: FloatArgs = int_args  # Error: float is not subtype of int
+        f6: FloatArgs = int_args  # Error: float is not assignable to int
 
-If a callable ``B`` has a signature with one or more positional-only parameters,
-a callable ``A`` is a subtype of ``B`` if ``A`` has an ``*args`` parameter whose
-type is a supertype of the types of any otherwise-unmatched positional-only
-parameters in ``B``::
+If a callable ``A`` has a signature with one or more positional-only
+parameters, a callable ``B`` is assignable to ``A`` only if ``B`` has an
+``*args`` parameter whose type is assignable from the types of any
+otherwise-unmatched positional-only parameters in ``A``::
 
     class PosOnly(Protocol):
         def __call__(self, a: int, b: str, /) -> None: ...
@@ -634,15 +632,15 @@ parameters in ``B``::
         def __call__(self, a: int, b: str) -> None: ...
 
     def func(int_args: IntArgs, int_str_args: IntStrArgs, str_args: StrArgs):
-        f1: PosOnly = int_args  # Error: str is not subtype of int
+        f1: PosOnly = int_args  # Error: str is not assignable to int
         f2: PosOnly = int_str_args  # OK
         f3: PosOnly = str_args  # OK
-        f4: IntStrArgs = str_args  # Error: int | str is not subtype of str
-        f5: IntStrArgs = int_args  # Error: int | str is not subtype of int
+        f4: IntStrArgs = str_args  # Error: int | str is not assignable to str
+        f5: IntStrArgs = int_args  # Error: int | str is not assignable to int
         f6: StrArgs = int_str_args  # OK
-        f7: StrArgs = int_args  # Error: str is not subtype of int
+        f7: StrArgs = int_args  # Error: str is not assignable to int
         f8: IntArgs = int_str_args  # OK
-        f9: IntArgs = str_args  # Error: int is not subtype of str
+        f9: IntArgs = str_args  # Error: int is not assignable to str
         f10: Standard = int_str_args  # Error: keyword parameters a and b missing
         f11: Standard = str_args  # Error: keyword parameter b missing
 
@@ -650,10 +648,10 @@ parameters in ``B``::
 ``**kwargs`` parameters
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-If a callable ``B`` has a signature with a ``**kwargs`` parameter (without
-an unpacked ``TypedDict`` type annotation), callable ``A`` must also have a
-``**kwargs`` parameter to be a subtype of ``B``, and the type of
-``B``'s ``**kwargs`` parameter must be a subtype of ``A``'s ``**kwargs``
+If a callable ``A`` has a signature with a ``**kwargs`` parameter (without
+an unpacked ``TypedDict`` type annotation), callable ``B`` must also have a
+``**kwargs`` parameter to be assignable to ``A``, and the type of
+``A``'s ``**kwargs`` parameter must be assignable to ``B``'s ``**kwargs``
 parameter::
 
     class NoKwargs(Protocol):
@@ -673,12 +671,12 @@ parameter::
         f4: IntKwargs = float_kwargs  # OK
 
         f5: FloatKwargs = no_kwargs  # Error: missing **kwargs parameter
-        f6: FloatKwargs = int_kwargs  # Error: float is not subtype of int
+        f6: FloatKwargs = int_kwargs  # Error: float is not assignable to int
 
-If a callable ``B`` has a signature with one or more keyword-only parameters,
-a callable ``A`` is a subtype of ``B`` if ``A`` has a ``**kwargs`` parameter
-whose type is a supertype of the types of any otherwise-unmatched keyword-only
-parameters in ``B``::
+If a callable ``A`` has a signature with one or more keyword-only parameters,
+a callable ``B`` is assignable to ``A`` if ``B`` has a ``**kwargs`` parameter
+whose type is assignable from the types of any otherwise-unmatched keyword-only
+parameters in ``A``::
 
     class KwOnly(Protocol):
         def __call__(self, *, a: int, b: str) -> None: ...
@@ -696,19 +694,19 @@ parameters in ``B``::
         def __call__(self, a: int, b: str) -> None: ...
 
     def func(int_kwargs: IntKwargs, int_str_kwargs: IntStrKwargs, str_kwargs: StrKwargs):
-        f1: KwOnly = int_kwargs  # Error: str is not subtype of int
+        f1: KwOnly = int_kwargs  # Error: str is not assignable to int
         f2: KwOnly = int_str_kwargs  # OK
         f3: KwOnly = str_kwargs  # OK
-        f4: IntStrKwargs = str_kwargs  # Error: int | str is not subtype of str
-        f5: IntStrKwargs = int_kwargs  # Error: int | str is not subtype of int
+        f4: IntStrKwargs = str_kwargs  # Error: int | str is not assignable to str
+        f5: IntStrKwargs = int_kwargs  # Error: int | str is not assignable to int
         f6: StrKwargs = int_str_kwargs  # OK
-        f7: StrKwargs = int_kwargs  # Error: str is not subtype of int
+        f7: StrKwargs = int_kwargs  # Error: str is not assignable to int
         f8: IntKwargs = int_str_kwargs  # OK
-        f9: IntKwargs = str_kwargs  # Error: int is not subtype of str
+        f9: IntKwargs = str_kwargs  # Error: int is not assignable to str
         f10: Standard = int_str_kwargs  # Error: Does not accept positional arguments
         f11: Standard = str_kwargs  # Error: Does not accept positional arguments
 
-Subtyping relationships for callable signatures that contain a ``**kwargs``
+Assignability relationships for callable signatures that contain a ``**kwargs``
 with an unpacked ``TypedDict`` are described in the section :ref:`above <unpack-kwargs>`.
 
 
@@ -732,10 +730,10 @@ to a ``Callable`` parameterized by ``P``::
 Default argument values
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-If a callable ``A`` has a parameter ``x`` with a default argument value and
-``B`` is the same as ``A`` except that ``x`` has no default argument, then
-``A`` is a subtype of ``B``. ``A`` is also a subtype of ``C``
-if ``C`` is the same as ``A`` with parameter ``x`` removed::
+If a callable ``C`` has a parameter ``x`` with a default argument value and
+``A`` is the same as ``C`` except that ``x`` has no default argument, then
+``C`` is assignable to ``A``. ``C`` is also assignable to ``A``
+if ``A`` is the same as ``C`` with parameter ``x`` removed::
 
     class DefaultArg(Protocol):
         def __call__(self, x: int = 0) -> None: ...
@@ -754,9 +752,9 @@ if ``C`` is the same as ``A`` with parameter ``x`` removed::
 Overloads
 ^^^^^^^^^
 
-If a callable ``A`` is overloaded with two or more signatures, it is a subtype
-of callable ``B`` if *at least one* of the overloaded signatures in ``A`` is
-a subtype of ``B``::
+If a callable ``B`` is overloaded with two or more signatures, it is assignable
+to callable ``A`` if *at least one* of the overloaded signatures in ``B`` is
+assignable to ``A``::
 
     class Overloaded(Protocol):
         @overload
@@ -778,8 +776,9 @@ a subtype of ``B``::
         f2: StrArg = overloaded  # OK
         f3: FloatArg = overloaded  # Error
 
-If a callable ``B`` is overloaded with two or more signatures, callable ``A``
-is a subtype of ``B`` if ``A`` is a subtype of *all* of the signatures in ``B``::
+If a callable ``A`` is overloaded with two or more signatures, callable ``B``
+is assignable to ``A`` if ``B`` is assignable to *all* of the signatures in
+``A``::
 
     class Overloaded(Protocol):
         @overload

@@ -16,13 +16,17 @@ hinting is used by filling function annotation slots with classes::
 This states that the expected type of the ``name`` argument is
 ``str``.  Analogically, the expected return type is ``str``.
 
-Expressions whose type is a subtype of a specific argument type are
-also accepted for that argument.
+Expressions whose type is :term:`assignable` to a specific argument type are
+also accepted for that argument. Similarly, an expression whose type is
+assignable to the annotated return type can be returned from the function.
 
 .. _`missing-annotations`:
 
-Any function without annotations should be treated as having the most
-general type possible, or ignored, by any type checker.
+Any function without annotations should be treated as having :ref:`Any`
+annotations on all arguments and the return type.
+
+Type checkers may choose to entirely ignore (not type check) the bodies of
+functions with no annotations, but this behavior is not required.
 
 It is recommended but not required that checked functions have
 annotations for all arguments and the return type.  For a checked

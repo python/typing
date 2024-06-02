@@ -27,13 +27,13 @@ supported by ``typing.NamedTuple``.  Other features include
 TypedDict inheritance and totality (specifying whether keys are
 required or not).
 
-This section also provides a sketch of how a type checker is expected
-to support type checking operations involving TypedDict objects.
-Similar to :pep:`484`, this discussion is left somewhat vague on purpose,
-to allow experimentation with a wide variety of different type
-checking approaches.  In particular, type compatibility should be
-based on structural compatibility: a more specific TypedDict type can
-be compatible with a smaller (more general) TypedDict type.
+This section also provides a sketch of how a type checker is expected to
+support type checking operations involving TypedDict objects. Similar to
+:pep:`484`, this discussion is left somewhat vague on purpose, to allow
+experimentation with a wide variety of different type checking approaches.  In
+particular, :term:`assignability <assignable>` should be structural: a more
+specific TypedDict type can be assignable to a smaller (more general)
+TypedDict type.
 
 
 Class-based Syntax
@@ -284,24 +284,16 @@ refers to a dictionary object does not need to be supported, to simplify
 implementation.
 
 
-Type Consistency
-^^^^^^^^^^^^^^^^
+Assignability
+^^^^^^^^^^^^^
 
-Informally speaking, *type consistency* is a generalization of the
-is-subtype-of relation to support the ``Any`` type.  It is defined
-more formally in :pep:`483`.  This section introduces the
-new, non-trivial rules needed to support type consistency for
-TypedDict types.
+First, any TypedDict type is :term:`assignable` to ``Mapping[str, object]``.
 
-First, any TypedDict type is consistent with ``Mapping[str, object]``.
-Second, a TypedDict type ``A`` is consistent with TypedDict ``B`` if
-``A`` is structurally compatible with ``B``.  This is true if and only
-if both of these conditions are satisfied:
+Second, a TypedDict type ``B`` is :term:`assignable` to a TypedDict ``A`` if
+and only if both of these conditions are satisfied:
 
-* For each key in ``B``, ``A`` has the corresponding key and the
-  corresponding value type in ``A`` is consistent with the value type
-  in ``B``.  For each key in ``B``, the value type in ``B`` is also
-  consistent with the corresponding value type in ``A``.
+* For each key in ``A``, ``B`` has the corresponding key and the corresponding
+  value type in ``B`` is :term:`consistent` with the value type in ``A``.
 
 * For each required key in ``B``, the corresponding key is required
   in ``A``.  For each non-required key in ``B``, the corresponding key
@@ -323,7 +315,7 @@ Discussion:
           a['x'] = None
 
       b: B = {'x': 0}
-      f(b)  # Type check error: 'B' not compatible with 'A'
+      f(b)  # Type check error: 'B' not assignable to 'A'
       b['x'] + 1  # Runtime error: None + 1
 
 * A TypedDict type with a required key is not consistent with a

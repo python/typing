@@ -10,7 +10,8 @@ Special types in annotations
 
 ``Any`` represents an unknown static type.
 
-Every type is assignable to ``Any``, and ``Any`` is assignable to every type.
+Every type is :term:`assignable` to ``Any``, and ``Any`` is assignable to every
+type.
 
 See :ref:`type-system-concepts` for more discussion of ``Any``.
 
@@ -93,8 +94,9 @@ is unreachable and will behave accordingly::
 ``Never``
 ---------
 
-Since Python 3.11, the ``typing`` module contains a :term:`special form` ``Never``. It
-represents the bottom type, a type that has no members.
+Since Python 3.11, the ``typing`` module contains a :term:`special form`
+``Never``. It represents the bottom type, a type that represents the empty set
+of Python objects.
 
 The ``Never`` type is equivalent to ``NoReturn``, which is discussed above.
 The ``NoReturn`` type is conventionally used in return annotations of

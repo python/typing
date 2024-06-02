@@ -66,6 +66,10 @@ or a class that inherits directly or indirectly from ``str``. A :ref:`Protocol
 <Protocols>` denotes the set of all objects which share a certain set of
 attributes and/or methods.
 
+If an object ``v`` is a member of the set of objects denoted by a fully static
+type ``T``, we can say that ``v`` is a "member of" the type ``T``, or ``v``
+"inhabits" ``T``.
+
 Gradual types
 ~~~~~~~~~~~~~
 
@@ -182,6 +186,8 @@ static" type than ``A``, and ``A`` is a "more dynamic" type than ``B``.
 The materialization relation is both transitive and reflexive, so it defines a
 preorder on gradual types.
 
+.. _`consistent`:
+
 Consistency
 -----------
 
@@ -207,6 +213,8 @@ with ``tuple[Any, int]``, and ``tuple[Any, int]`` is consistent with
 The consistency relation is symmetric. If ``A`` is consistent with ``B``, ``B``
 is also consistent with ``A``. It is also reflexive: ``A`` is always consistent
 with ``A``.
+
+.. _`assignable`:
 
 The assignable-to (or consistent subtyping) relation
 ----------------------------------------------------

@@ -479,7 +479,7 @@ using the ``TypeVar`` constructor) or using ``: <type>`` (when using the native
 syntax for generics). The bound itself cannot be parameterized by type variables.
 This means that an
 actual type substituted (explicitly or implicitly) for the type variable must
-be a subtype of the boundary type. Example::
+be :term:`assignable` to the boundary type. Example::
 
   from typing import TypeVar
   from collections.abc import Sized
@@ -496,11 +496,10 @@ be a subtype of the boundary type. Example::
   longer({1}, {1, 2})  # ok, return type set[int]
   longer([1], {1, 2})  # ok, return type a supertype of list[int] and set[int]
 
-An upper bound cannot be combined with type constraints (as used in
-``AnyStr``, see the example earlier); type constraints cause the
-inferred type to be *exactly* one of the constraint types, while an
-upper bound just requires that the actual type is a subtype of the
-boundary type.
+An upper bound cannot be combined with type constraints (as used in ``AnyStr``,
+see the example earlier); type constraints cause the inferred type to be
+*exactly* one of the constraint types, while an upper bound just requires that
+the actual type is :term:`assignable` to the boundary type.
 
 .. _`variance`:
 
@@ -523,13 +522,12 @@ introduction to these concepts can be found on `Wikipedia
 <https://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29>`_ and in :pep:`483`; here we just show how to control
 a type checker's behavior.
 
-By default generic types declared using the old ``TypeVar`` syntax
-are considered *invariant* in all type variables,
-which means that values for variables annotated with types like
-``list[Employee]`` must exactly match the type annotation -- no subclasses or
-superclasses of the type parameter (in this example ``Employee``) are
-allowed. See below for the behavior when using the built-in generic syntax
-in Python 3.12 and higher.
+By default generic types declared using the old ``TypeVar`` syntax are
+considered *invariant* in all type variables, which means that e.g.
+``list[Manager]`` is neither a supertype nor a subtype of ``list[Employee]``.
+
+See below for the behavior when using the built-in generic syntax in Python
+3.12 and higher.
 
 To facilitate the declaration of container types where covariant or
 contravariant type checking is acceptable, type variables accept keyword
@@ -1926,7 +1924,7 @@ Using a type parameter from an outer scope as a default is not supported.
 Bound Rules
 ^^^^^^^^^^^
 
-``T1``'s bound must be a subtype of ``T2``'s bound.
+``T1``'s bound must be a :term:`consistent subtype` of ``T2``'s bound.
 
 ::
 
@@ -2023,8 +2021,8 @@ Using ``bound`` and ``default``
 """""""""""""""""""""""""""""""
 
 If both ``bound`` and ``default`` are passed, ``default`` must be a
-subtype of ``bound``. If not, the type checker should generate an
-error.
+:term:`consistent subtype` of ``bound``. If not, the type checker should
+generate an error.
 
 ::
 
@@ -2268,7 +2266,8 @@ Use in Attribute Annotations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Another use for ``Self`` is to annotate attributes. One example is where we
-have a ``LinkedList`` whose elements must be subclasses of the current class.
+have a ``LinkedList`` whose elements must be consistent subtypes of the current
+class.
 
 ::
 
@@ -2298,8 +2297,8 @@ constructions with subclasses:
         def ordinal_value(self) -> str:
             return as_ordinal(self.value)
 
-    # Should not be OK because LinkedList[int] is not a subclass of
-    # OrdinalLinkedList, # but the type checker allows it.
+    # Should not be OK because LinkedList[int] is not a consistent subtype of
+    # OrdinalLinkedList, but the type checker allows it.
     xs = OrdinalLinkedList(value=1, next=LinkedList[int](value=2))
 
     if xs.next:
@@ -2469,11 +2468,10 @@ See :pep:`PEP 544
 <544#self-types-in-protocols>` for
 details on the behavior of TypeVars bound to protocols.
 
-Checking a class for compatibility with a protocol: If a protocol uses
-``Self`` in methods or attribute annotations, then a class ``Foo`` is
-considered compatible with the protocol if its corresponding methods and
-attribute annotations use either ``Self`` or ``Foo`` or any of ``Foo``’s
-subclasses. See the examples below:
+Checking a class for assignability to a protocol: If a protocol uses ``Self``
+in methods or attribute annotations, then a class ``Foo`` is assignable to the
+protocol if its corresponding methods and attribute annotations use either
+``Self`` or ``Foo`` or any of ``Foo``’s subclasses. See the examples below:
 
 ::
 
@@ -2705,16 +2703,15 @@ by the ``TypeVar`` constructor call. No further inference is needed.
 3. Create two specialized versions of the class. We'll refer to these as
 ``upper`` and ``lower`` specializations. In both of these specializations,
 replace all type parameters other than the one being inferred by a dummy type
-instance (a concrete anonymous class that is type compatible with itself and
-assumed to meet the bounds or constraints of the type parameter). In
-the ``upper`` specialized class, specialize the target type parameter with
-an ``object`` instance. This specialization ignores the type parameter's
-upper bound or constraints. In the ``lower`` specialized class, specialize
-the target type parameter with itself (i.e. the corresponding type argument
-is the type parameter itself).
+instance (a concrete anonymous class that is assumed to meet the bounds or
+constraints of the type parameter). In the ``upper`` specialized class,
+specialize the target type parameter with an ``object`` instance. This
+specialization ignores the type parameter's upper bound or constraints. In the
+``lower`` specialized class, specialize the target type parameter with itself
+(i.e. the corresponding type argument is the type parameter itself).
 
-4. Determine whether ``lower`` can be assigned to ``upper`` using normal type
-compatibility rules. If so, the target type parameter is covariant. If not,
+4. Determine whether ``lower`` can be assigned to ``upper`` using normal
+assignability rules. If so, the target type parameter is covariant. If not,
 determine whether ``upper`` can be assigned to ``lower``. If so, the target
 type parameter is contravariant. If neither of these combinations are
 assignable, the target type parameter is invariant.
@@ -2737,9 +2734,8 @@ To determine the variance of ``T1``, we specialize ``ClassA`` as follows:
     upper = ClassA[object, Dummy, Dummy]
     lower = ClassA[T1, Dummy, Dummy]
 
-We find that ``upper`` is not assignable to ``lower`` using normal type
-compatibility rules defined in :pep:`484`. Likewise, ``lower`` is not assignable
-to ``upper``, so we conclude that ``T1`` is invariant.
+We find that ``upper`` is not assignable to ``lower``. Likewise, ``lower`` is
+not assignable to ``upper``, so we conclude that ``T1`` is invariant.
 
 To determine the variance of ``T2``, we specialize ``ClassA`` as follows:
 
