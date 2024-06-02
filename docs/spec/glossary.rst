@@ -58,7 +58,7 @@ This section defines a few terms that may be used elsewhere in the specification
       other :ref:`tuple <tuples>` types).
 
    gradual type
-      Types in the Python type system are "gradual types". A gradual type may
+      Types in the Python type system are "gradual". A gradual type may
       be a :term:`fully static type`, or it may be :ref:`Any`, or a type that
       contains :ref:`Any` or another :term:`gradual form`. Unlike :term:`fully
       static types <fully static type>`, gradual types do not necessarily
