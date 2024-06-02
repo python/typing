@@ -22,16 +22,17 @@ This section defines a few terms that may be used elsewhere in the specification
       static types <fully static type>`, "assignable to" is equivalent to
       ":term:`subtype` of" and "assignable from" is equivalent to
       ":term:`supertype` of". For :term:`gradual types <gradual type>`, a type
-      ``B`` is assignable to a type ``A`` if there exist :term:`fully static
-      <fully static type>` :term:`materializations <materialize>` ``A'`` and
-      ``B'`` of ``A`` and ``B``, respectively, such that ``B'`` is a
-      :term:`subtype` of ``A'``. See :ref:`type-system-concepts`.
+      ``B`` is assignable to a type ``A`` if there exist fully static
+      :term:`materializations <materialize>` ``A'`` and ``B'`` of ``A`` and
+      ``B``, respectively, such that ``B'`` is a subtype of ``A'``. See
+      :ref:`type-system-concepts`.
 
    consistent
       Two :term:`fully static types <fully static type>` are "consistent with"
       each other if they are the same type. Two gradual types are "consistent
       with" each other if they could :term:`materialize` to the same type. See
-      :ref:`type-system-concepts`.
+      :ref:`type-system-concepts`. If two types are consistent, they are both
+      :term:`assignable` to and from each other.
 
    consistent subtype
       "Consistent subtype" is synonymous with ":term:`assignable` to" (and
@@ -50,24 +51,24 @@ This section defines a few terms that may be used elsewhere in the specification
 
    gradual form
       A gradual form is a :term:`type expression` which makes the type it is
-      part of not a :term:`fully static type`, but rather represent a set of
-      possible static types. See :ref:`type-system-concepts`. The primary
-      gradual form is :ref:`Any`. The ellipsis (`...`) is a gradual form in
-      some, but not all, contexts. It is a gradual form when used in a
+      part of not a :term:`fully static type`, but rather a representation of a
+      set of possible static types. See :ref:`type-system-concepts`. The
+      primary gradual form is :ref:`Any`. The ellipsis (`...`) is a gradual
+      form in some, but not all, contexts. It is a gradual form when used in a
       :ref:`Callable` type, and when used in ``tuple[Any, ...]`` (but not in
       other :ref:`tuple <tuples>` types).
 
    gradual type
-      Types in the Python type system are "gradual". A gradual type may
+      Types in the Python type system are "gradual types". A gradual type may
       be a :term:`fully static type`, or it may be :ref:`Any`, or a type that
-      contains :ref:`Any` or another :term:`gradual form`. Unlike :term:`fully
-      static types <fully static type>`, gradual types do not necessarily
-      represent a single set of possible runtime values; instead they represent
-      a set of possible static types. Gradual types do not participate in the
+      contains ``Any`` or another :term:`gradual form`. A gradual type does not
+      necessarily represent a single set of possible runtime values; instead it
+      can represent a set of possible static types (a set of possible sets of
+      possible runtime values!). Gradual types do not participate in the
       :term:`subtype` relation, but they do participate in :term:`consistency
       <consistent>` and :term:`assignability <assignable>`. They can be
-      :term:`materialized <materialize>` to a fully static type. See
-      :ref:`type-system-concepts`.
+      :term:`materialized <materialize>` to a more static, or fully static,
+      type. See :ref:`type-system-concepts`.
 
    inline
       Inline type annotations are annotations that are included in the
@@ -105,19 +106,19 @@ This section defines a few terms that may be used elsewhere in the specification
       (the filename ends in ``.pyi``). See :ref:`stub-files`.
 
    subtype
-      A :term:`fully static type` ``B`` is a subtype of a :term:`fully static
-      type` ``A`` if and only if the set of possible runtime values represented
-      by ``B`` is a subset of the set of possible runtime values represented by
+      A :term:`fully static type` ``B`` is a subtype of a fully static type
+      ``A`` if and only if the set of possible runtime values represented by
+      ``B`` is a subset of the set of possible runtime values represented by
       ``A``. For nominal types (classes), subtyping is defined by inheritance.
-      For structural types (see :ref:`Protocols`), subtyping is defined by a
-      shared set of attributes and methods. Subtype is the inverse of
-      :term:`supertype`. See :ref:`type-system-concepts`.
+      For structural types (see :ref:`Protocols`, :ref:`TypedDict`), subtyping
+      is defined by a shared set of attributes/methods or keys. Subtype is the
+      inverse of :term:`supertype`. See :ref:`type-system-concepts`.
 
    supertype
-      A :term:`fully static type` ``A`` is a supertype of a :term:`fully static
-      type` ``B`` if and only if the set of possible runtime values represented
-      by ``A`` is a superset of the set of possible runtime values represented
-      by ``B``. Supertype is the inverse of :term:`subtype`. See
+      A :term:`fully static type` ``A`` is a supertype of a fully static type
+      ``B`` if and only if the set of possible runtime values represented by
+      ``A`` is a superset of the set of possible runtime values represented by
+      ``B``. Supertype is the inverse of :term:`subtype`. See
       :ref:`type-system-concepts`.
 
    type expression
