@@ -179,10 +179,10 @@ Examples::
     represent(nice) # OK
     represent(another) # Also OK
 
-Note that there is little difference between explicit and implicit consistent
-subtypes; the main benefit of explicit subclassing is to get some protocol
-methods "for free". In addition, type checkers can statically verify that the
-class actually implements the protocol correctly::
+Note that there is little difference between explicitly subclassing and
+implicitly implementing the protocol; the main benefit of explicit subclassing
+is to get some protocol methods "for free". In addition, type checkers can
+statically verify that the class actually implements the protocol correctly::
 
     class RGB(Protocol):
         rgb: tuple[int, int, int]
