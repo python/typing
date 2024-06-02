@@ -55,7 +55,7 @@ This section defines a few terms that may be used elsewhere in the specification
       gradual form is :ref:`Any`. The ellipsis (`...`) is a gradual form in
       some, but not all, contexts. It is a gradual form when used in a
       :ref:`Callable` type, and when used in ``tuple[Any, ...]`` (but not in
-      other :ref:`tuple <tuples>` types.)
+      other :ref:`tuple <tuples>` types).
 
    gradual type
       Types in the Python type system are "gradual types". A gradual type may
