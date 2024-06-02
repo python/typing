@@ -397,10 +397,9 @@ maintain backwards-compatibility.
 Interactions with generics
 """"""""""""""""""""""""""
 
-Since a type like ``Literal[3]`` is a subtype of ``int``, you can use
-``Literal[3]`` anywhere you could use ``int``, such as with generics.
+Literal types are types, and can be used anywhere a type is expected.
 
-This means that it is legal to parameterize generic functions or
+For example, it is legal to parameterize generic functions or
 classes using Literal types::
 
    A = TypeVar('A', bound=int)

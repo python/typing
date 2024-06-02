@@ -474,12 +474,12 @@ classes without a metaclass conflict.
 Type variables with an upper bound
 ----------------------------------
 
-A type variable may specify an upper bound using ``bound=<type>`` (when
-using the ``TypeVar`` constructor) or using ``: <type>`` (when using the native
-syntax for generics). The bound itself cannot be parameterized by type variables.
-This means that an
-actual type substituted (explicitly or implicitly) for the type variable must
-be :term:`assignable` to the boundary type. Example::
+A type variable may specify an upper bound using ``bound=<type>`` (when using
+the ``TypeVar`` constructor) or using ``: <type>`` (when using the native
+syntax for generics). The bound itself cannot be parameterized by type
+variables. This means that an actual type substituted (explicitly or
+implicitly) for the type variable must be :term:`assignable` to the bound.
+Example::
 
   from typing import TypeVar
   from collections.abc import Sized
@@ -499,7 +499,7 @@ be :term:`assignable` to the boundary type. Example::
 An upper bound cannot be combined with type constraints (as used in ``AnyStr``,
 see the example earlier); type constraints cause the inferred type to be
 *exactly* one of the constraint types, while an upper bound just requires that
-the actual type is :term:`assignable` to the boundary type.
+the actual type is :term:`assignable` to the bound.
 
 .. _`variance`:
 
@@ -1924,7 +1924,7 @@ Using a type parameter from an outer scope as a default is not supported.
 Bound Rules
 ^^^^^^^^^^^
 
-``T1``'s bound must be a :term:`consistent subtype` of ``T2``'s bound.
+``T1``'s bound must be :term:`assignable` to ``T2``'s bound.
 
 ::
 
