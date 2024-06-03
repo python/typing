@@ -11,3 +11,4 @@ constructors_call_type.py:72:4 Missing argument [20]: Call `Meta1.__call__` expe
 constructors_call_type.py:81:4 Missing argument [20]: Call `Class2.__new__` expects argument `y`.
 constructors_call_type.py:82:11 Incompatible parameter type [6]: In call `Class2.__new__`, for 2nd positional argument, expected `str` but got `int`.
 """
+conformance_automated = "Pass"
