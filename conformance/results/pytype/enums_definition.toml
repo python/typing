@@ -1,0 +1,10 @@
+conformant = "Pass"
+notes = """
+Does not support some functional forms for Enum class definitions (optional).
+"""
+errors_diff = """
+"""
+output = """
+File "enums_definition.py", line 24, in <module>: Function unsolveable.__new__ was called with the wrong arguments [wrong-arg-types]
+"""
+conformance_automated = "Pass"

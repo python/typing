@@ -1,0 +1,18 @@
+conformant = "Partial"
+notes = """
+Does not enforce declared type of `_value_`.
+Does not correctly enforce assigned tuple types for enum members (optional).
+Does not evaluate literal types for enum member values (optional).
+Does not evaluate literal types for auto values (optional).
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 78: Expected 1 errors
+Line 41: Unexpected errors ['File "enums_member_values.py", line 41, in <module>: Missing parameter \\'mass\\' in call to function Planet.__init__ [missing-parameter]', 'File "enums_member_values.py", line 41, in <module>: Function Planet.__init__ was called with the wrong arguments [wrong-arg-types]']
+"""
+output = """
+File "enums_member_values.py", line 41, in <module>: Missing parameter 'mass' in call to function Planet.__init__ [missing-parameter]
+File "enums_member_values.py", line 41, in <module>: Function Planet.__init__ was called with the wrong arguments [wrong-arg-types]
+File "enums_member_values.py", line 85, in __init__: Type annotation for _value_ does not match type of assignment [annotation-type-mismatch]
+File "enums_member_values.py", line 96, in <module>: Any [assert-type]
+"""
