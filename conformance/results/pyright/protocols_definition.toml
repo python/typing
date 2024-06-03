@@ -66,14 +66,14 @@ protocols_definition.py:287:22 - error: Expression of type "Concrete5_Bad3" is i
     "method1" is an incompatible type
       Type "(*, a: int, b: int) -> float" is incompatible with type "(a: int, b: int) -> float"
         Function accepts too many positional parameters; expected 0 but received 2
-          Keyword parameter "a" is missing in destination
-          Keyword parameter "b" is missing in destination (reportAssignmentType)
+          Extra parameter "a"
+          Extra parameter "b" (reportAssignmentType)
 protocols_definition.py:288:22 - error: Expression of type "Concrete5_Bad4" is incompatible with declared type "Template5"
   "Concrete5_Bad4" is incompatible with protocol "Template5"
     "method1" is an incompatible type
       Type "(a: int, b: int, /) -> float" is incompatible with type "(a: int, b: int) -> float"
-        Keyword parameter "a" is missing in source
-        Keyword parameter "b" is missing in source
+        Missing keyword parameter "a"
+        Missing keyword parameter "b"
           Position-only parameter mismatch; parameter "a" is not position-only
           Position-only parameter mismatch; parameter "b" is not position-only
           Position-only parameter mismatch; expected 2 but received 0 (reportAssignmentType)
@@ -82,7 +82,8 @@ protocols_definition.py:289:22 - error: Expression of type "Concrete5_Bad5" is i
     "method1" is an incompatible type
       Type "(self: Unknown, a: int, b: int) -> float" is incompatible with type "(a: int, b: int) -> float"
         Parameter name mismatch: "a" versus "self"
-        Parameter name mismatch: "b" versus "a" (reportAssignmentType)
+        Parameter name mismatch: "b" versus "a"
+        Extra parameter "b" (reportAssignmentType)
 protocols_definition.py:339:22 - error: Expression of type "Concrete6_Bad1" is incompatible with declared type "Template6"
   "Concrete6_Bad1" is incompatible with protocol "Template6"
     "val1" is an incompatible type

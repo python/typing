@@ -4,8 +4,9 @@ qualifiers_annotated.py:43:17 - error: List expression not allowed for this type
 qualifiers_annotated.py:44:17 - error: Expected type expression but received "tuple[tuple[type[int], type[str]]]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:45:17 - error: List expression not allowed for this type argument
 qualifiers_annotated.py:45:18 - error: Expected type expression but received "Generator[type[int], None, None]" (reportGeneralTypeIssues)
-qualifiers_annotated.py:46:17 - error: Expected type expression but received "dict[str, str]" (reportGeneralTypeIssues)
+qualifiers_annotated.py:46:17 - error: Expected type expression but received "dict[str, Unknown]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:46:17 - error: Dictionary expression not allowed in type annotation
+qualifiers_annotated.py:46:24 - error: "b" is not defined (reportUndefinedVariable)
 qualifiers_annotated.py:47:17 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 qualifiers_annotated.py:48:17 - error: List expression not allowed in type annotation
   Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)

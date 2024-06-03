@@ -52,4 +52,4 @@ This section defines a few terms that may be used elsewhere in the specification
       form an :term:`annotation expression`. For example, the type qualifier :ref:`Final <uppercase-final>`
       can be used around a type to indicate that the annotated value may not be overridden or modified.
       This term is also used for other special forms that modify a type, but using a different
-      syntactic context, such as the `@final <at-final>` decorator.
+      syntactic context, such as the :ref:`@final <at-final>` decorator.
