@@ -94,4 +94,3 @@ from _enums_member_values import ColumnType
 # > _value_ attribute.
 
 assert_type(ColumnType.DORIC.value, int)  # E?
-

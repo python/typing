@@ -27,7 +27,7 @@ assert_type(Color["RED"], Color)  # 'Literal[Color.RED]' is also acceptable
 assert_type(Color(3), Color)  # 'Literal[Color.BLUE]' is also acceptable
 
 
-# > An Enum class with one or more defined members cannot be subclassed. 
+# > An Enum class with one or more defined members cannot be subclassed.
 
 class EnumWithNoMembers(Enum):
     pass
