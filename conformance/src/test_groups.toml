@@ -67,6 +67,10 @@ href = "https://typing.readthedocs.io/en/latest/spec/tuples.html"
 name = "Named tuples"
 href = "https://typing.readthedocs.io/en/latest/spec/namedtuples.html"
 
+[enums]
+name = "Enumerations"
+href = "https://typing.readthedocs.io/en/latest/spec/enums.html"
+
 [narrowing]
 name = "Type narrowing"
 href = "https://typing.readthedocs.io/en/latest/spec/narrowing.html"

@@ -1,0 +1,13 @@
+conformant = "Partial"
+notes = """
+Applies type narrowing incorrectly for `a is E` pattern where `E` is an enum member.
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 77: Unexpected errors ['enums_expansion.py:77:17 - error: "assert_type" mismatch: expected "Answer" but received "Never" (reportAssertTypeFailure)']
+"""
+output = """
+enums_expansion.py:53:21 - error: "assert_type" mismatch: expected "Literal[CustomFlags.FLAG3]" but received "CustomFlags" (reportAssertTypeFailure)
+enums_expansion.py:77:17 - error: "assert_type" mismatch: expected "Answer" but received "Never" (reportAssertTypeFailure)
+"""

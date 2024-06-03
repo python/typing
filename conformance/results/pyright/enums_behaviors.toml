@@ -1,0 +1,7 @@
+conformant = "Pass"
+errors_diff = """
+"""
+output = """
+enums_behaviors.py:39:21 - error: Enum class "Shape" is final and cannot be subclassed (reportGeneralTypeIssues)
+"""
+conformance_automated = "Pass"
