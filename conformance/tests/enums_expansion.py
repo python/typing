@@ -72,7 +72,7 @@ class Answer(Enum):
     No = 2
 
 
-def test3(val: object) -> Answer:
+def test3(val: object) -> list[Answer]:
     assert val is Answer.Yes or val is Answer.No
-    assert_type(val, Answer)
-    return val
+    x = [val]
+    return x
