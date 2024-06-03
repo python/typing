@@ -31,8 +31,8 @@ its various forms) is optional::
     Color4 = Enum('Color4', ('RED', 'GREEN', 'BLUE'))  # Optional
     Color5 = Enum('Color5', 'RED, GREEN, BLUE')  # Optional
     Color6 = Enum('Color6', 'RED GREEN BLUE')  # Optional
-    Color7 = Enum('Color7', [('RED': 1), ('GREEN': 2), ('BLUE': 3)])  # Optional
-    Color8 = Enum('Color8', (('RED': 1), ('GREEN': 2), ('BLUE': 3)))  # Optional
+    Color7 = Enum('Color7', [('RED', 1), ('GREEN', 2), ('BLUE', 3)])  # Optional
+    Color8 = Enum('Color8', (('RED', 1), ('GREEN', 2), ('BLUE', 3)))  # Optional
     Color9 = Enum('Color9', {'RED': 1, 'GREEN': 2, 'BLUE': 3})  # Optional
 
 Enum classes can also be defined using a subclass of ``enum.Enum`` or any class
@@ -188,7 +188,7 @@ statically in cases where dynamic values are used.
     reveal_type(Example.c)  # Revealed type is Literal[Example.c]
 
 * An attribute with a private name (beginning with, but not ending in, a double
-  underscore) is treated as a non-member.
+  underscore) is treated as a non-member::
 
     class Example(Enum):
         A = 1  # Member attribute
