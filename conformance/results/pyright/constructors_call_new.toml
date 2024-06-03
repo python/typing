@@ -10,3 +10,4 @@ constructors_call_new.py:145:1 - error:
     Type "type[Class11[str]]" is incompatible with type "type[Class11[int]]"
       Type parameter "T@Class11" is invariant, but "str" is not the same as "int" (reportGeneralTypeIssues)
 """
+conformance_automated = "Pass"

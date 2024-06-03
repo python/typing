@@ -141,6 +141,7 @@ def update_output_for_test(
 
     results_file = results_dir / f"{test_name}.toml"
     results_file.parent.mkdir(parents=True, exist_ok=True)
+    should_write = False
 
     # Read the existing results file if present.
     try:
@@ -153,7 +154,6 @@ def update_output_for_test(
         print(f"Error decoding {results_file}")
         existing_results = {}
 
-    should_write = False
     ignored_errors = existing_results.get("ignore_errors", [])
     errors_diff = "\n" + diff_expected_errors(type_checker, test_case, output, ignored_errors)
     old_errors_diff = "\n" + existing_results.get("errors_diff", "")
@@ -165,8 +165,10 @@ def update_output_for_test(
         print(f"New output: {errors_diff}")
         print("")
 
-        existing_results["conformance_automated"] = "Fail" if errors_diff.strip() else "Pass"
-
+    conformance_automated = "Fail" if errors_diff.strip() else "Pass"
+    if existing_results.get("conformance_automated") != conformance_automated:
+        should_write = True
+        existing_results["conformance_automated"] = conformance_automated
 
     old_output = existing_results.get("output", "")
     old_output = f"\n{old_output}"
