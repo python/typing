@@ -1,0 +1,16 @@
+conformant = "Partial"
+notes = """
+Applies type narrowing incorrectly for `a is E` pattern where `E` is an enum member.
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 78: Unexpected errors ['enums_expansion.py:78:12 - error: Expression of type "list[Never]" is incompatible with return type "list[Answer]"']
+"""
+output = """
+enums_expansion.py:53:21 - error: "assert_type" mismatch: expected "Literal[CustomFlags.FLAG3]" but received "CustomFlags" (reportAssertTypeFailure)
+enums_expansion.py:78:12 - error: Expression of type "list[Never]" is incompatible with return type "list[Answer]"
+  "list[Never]" is incompatible with "list[Answer]"
+    Type parameter "_T@list" is invariant, but "Never" is not the same as "Answer"
+    Consider switching from "list" to "Sequence" which is covariant (reportReturnType)
+"""

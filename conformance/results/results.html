@@ -159,16 +159,16 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.10.0</div>
-<div class='tc-time'>1.5sec</div>
+<div class='tc-time'>0.9sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.365</div>
 <div class='tc-time'>1.4sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.21</div>
-<div class='tc-time'>4.1sec</div>
+<div class='tc-time'>2.6sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.04.11</div>
-<div class='tc-time'>29.7sec</div>
+<div class='tc-time'>29.9sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -896,6 +896,45 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report out-of-range index access with named tuple instance.</p><p>Does not reject attempt to delete named tuple field by name.</p><p>Does not reject attempt to delete named tuple field by index.</p><p>Incorrectly handles subclasses of named tuples that add more attributes.</p><p>Does not handle unpacking of named tuples.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects valid index of named tuple instance when using a negative index.</p><p>Does not report out-of-range index access with named tuple instance.</p><p>Does not reject attempt to overwrite named tuple entry by name.</p><p>Does not reject attempt to delete named tuple entry by name.</p></span></div></th>
+</tr>
+<tr><th class="column" colspan="5">
+<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/enums.html">Enumerations</a>
+</th></tr>
+<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_behaviors</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce that Enum classes are implicitly final.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce that Enum classes are implicitly final.</p></span></div></th>
+</tr>
+<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_definition</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support custom Enum classes based on EnumType metaclass.</p><p>Does not support some functional forms for Enum class definitions (optional).</p></span></div></th>
+<th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not support some functional forms for Enum class definitions (optional).</p></span></div></th>
+</tr>
+<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_expansion</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Improperly applies narrowing to Flag subclass.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Applies type narrowing incorrectly for `a is E` pattern where `E` is an enum member.</p></span></div></th>
+<th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not perform type narrowing based on enum literal expansion (optional).</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Improperly applies narrowing to Flag subclass.</p></span></div></th>
+</tr>
+<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_member_names</th>
+<th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not support special-cased handling of member name literal types in some cases (optional).</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not support special-cased handling of member name literal types (optional).</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
+</tr>
+<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_member_values</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce declared type of `_value_`.</p><p>Does not enforce assigned tuple types for enum members (optional).</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce declared type of `_value_`.</p><p>Does not enforce assigned tuple types for enum members (optional).</p><p>Does not evaluate literal types for enum member values (optional).</p><p>Does not evaluate literal types for auto values (optional).</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce declared type of `_value_`.</p><p>Does not correctly enforce assigned tuple types for enum members (optional).</p><p>Does not evaluate literal types for enum member values (optional).</p><p>Does not evaluate literal types for auto values (optional).</p></span></div></th>
+</tr>
+<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_members</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not treat attribute with annotation and no assignment as non-member.</p><p>Does not reject use of annotation with enum member.</p><p>Does not treat callables as non-members.</p><p>Does not honor `enum.nonmember` to define non-member attribute.</p><p>Does not honor `enum.member` as method decorator.</p><p>Does not properly handle aliased enum members.</p><p>Does not support `_ignore_` mechanism (optional).</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of annotation with enum member.</p><p>Does not treat annotated attributes as non-members in stub.</p><p>Does not support `_ignore_` mechanism (optional).</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of annotation with enum member.</p><p>Does not treat callables as non-members.</p><p>Does not treat annotated attributes as non-members.</p><p>Does not honor `enum.nonmember` to define non-member attribute.</p><p>Does not honor `enum.member` as method decorator.</p><p>Does not properly handle aliased enum members.</p><p>Rejects use of `_ignore_`.</p><p>Does not support `_ignore_` mechanism (optional).</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of annotation with enum member.</p><p>Does not support `enum.member` and `enum.nonmember`.</p><p>Does not support `_ignore_` mechanism (optional).</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a>
