@@ -35,8 +35,8 @@ def print_color2(c: Color):
             assert_type(c, Never)  # E?
 
 
-# > This rule does not apply to classes that derive from enum.Flag because
-# > these enums allow flags to be combined in arbitrary ways.)
+# > This rule does not apply to classes that derive from enum. Flag because
+# > these enums allow flags to be combined in arbitrary ways.
 
 
 class CustomFlags(Flag):
@@ -46,7 +46,7 @@ class CustomFlags(Flag):
 
 
 def test1(f: CustomFlags):
-    if f is CustomFlags.FLAG1 | CustomFlags.FLAG2:
+    if f is CustomFlags.FLAG1 or f is CustomFlags.FLAG2:
         print("flag1 and flag2")
     else:
         assert_type(f, CustomFlags)

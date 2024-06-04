@@ -23,8 +23,9 @@ enums_members.py:81:13 - error: "assert_type" mismatch: expected "Unknown" but r
 enums_members.py:81:33 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
 enums_members.py:112:13 - error: "assert_type" mismatch: expected "Unknown" but received "int" (reportAssertTypeFailure)
 enums_members.py:112:32 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
-enums_members.py:126:9 - error: Cannot access attribute "__B" for class "type[Example]"
-  Attribute "__B" is unknown (reportAttributeAccessIssue)
-enums_members.py:143:13 - error: "assert_type" mismatch: expected "int" but received "Literal[Pet5.DOG]" (reportAssertTypeFailure)
-enums_members.py:144:13 - error: "assert_type" mismatch: expected "int" but received "Literal[Pet5.FISH]" (reportAssertTypeFailure)
+enums_members.py:124:21 - information: Type of "Example2.__B" is "Literal[2]"
+enums_members.py:125:21 - error: "assert_type" mismatch: expected "Unknown" but received "Literal[2]" (reportAssertTypeFailure)
+enums_members.py:125:43 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:142:13 - error: "assert_type" mismatch: expected "int" but received "Literal[Pet5.DOG]" (reportAssertTypeFailure)
+enums_members.py:143:13 - error: "assert_type" mismatch: expected "int" but received "Literal[Pet5.FISH]" (reportAssertTypeFailure)
 """

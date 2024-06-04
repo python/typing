@@ -8,12 +8,14 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 46: Expected 1 errors
 Line 112: Expected 1 errors
+Line 125: Expected 1 errors
 Line 7: Unexpected errors ['File "enums_members.py", line 7, in <module>: enum.nonmember not supported yet [not-supported-yet]', 'File "enums_members.py", line 7, in <module>: enum.member not supported yet [not-supported-yet]']
 Line 31: Unexpected errors ['File "enums_members.py", line 31, in <module>: _enums_members.Pet2 [assert-type]']
 Line 32: Unexpected errors ['File "enums_members.py", line 32, in <module>: _enums_members.Pet2 [assert-type]']
 Line 103: Unexpected errors ['File "enums_members.py", line 103, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]']
 Line 104: Unexpected errors ['File "enums_members.py", line 104, in Example: Function enum.nonmember expects 0 arg(s), got 1 [wrong-arg-count]']
 Line 106: Unexpected errors ['File "enums_members.py", line 106, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]']
+Line 124: Unexpected errors ['File "enums_members.py", line 124, in method: Example2 [reveal-type]']
 """
 output = """
 File "enums_members.py", line 7, in <module>: enum.nonmember not supported yet [not-supported-yet]
@@ -31,7 +33,7 @@ File "enums_members.py", line 81, in <module>: Callable[[Any], None] [assert-typ
 File "enums_members.py", line 103, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]
 File "enums_members.py", line 104, in Example: Function enum.nonmember expects 0 arg(s), got 1 [wrong-arg-count]
 File "enums_members.py", line 106, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]
-File "enums_members.py", line 126, in <module>: No attribute '__B' on Type[Example] [attribute-error]
+File "enums_members.py", line 124, in method: Example2 [reveal-type]
+File "enums_members.py", line 142, in <module>: Pet5 [assert-type]
 File "enums_members.py", line 143, in <module>: Pet5 [assert-type]
-File "enums_members.py", line 144, in <module>: Pet5 [assert-type]
 """

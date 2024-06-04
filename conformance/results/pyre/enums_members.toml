@@ -15,13 +15,15 @@ Line 46: Expected 1 errors
 Line 78: Expected 1 errors
 Line 79: Expected 1 errors
 Line 112: Expected 1 errors
+Line 125: Expected 1 errors
 Line 23: Unexpected errors ['enums_members.py:23:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Pet`.']
 Line 24: Unexpected errors ['enums_members.py:24:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Pet`.']
 Line 31: Unexpected errors ['enums_members.py:31:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Pet2`.']
 Line 32: Unexpected errors ['enums_members.py:32:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Pet2`.']
 Line 96: Unexpected errors ['enums_members.py:96:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[TrafficLight.YELLOW]` but got `typing_extensions.Literal[TrafficLight.AMBER]`.']
 Line 113: Unexpected errors ['enums_members.py:113:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[Example.c]` but got `member[typing.Callable(Example.c)[[Named(self, Example)], None]]`.']
-Line 136: Unexpected errors ['enums_members.py:136:4 Inconsistent override [15]: `_ignore_` overrides attribute defined in `Enum` inconsistently. Type `Pet5` is not a subtype of the overridden attribute `typing.Union[typing.List[str], str]`.']
+Line 124: Unexpected errors ['enums_members.py:124:8 Revealed type [-1]: Revealed type for `enums_members.Example2._Example2__B` is `typing_extensions.Literal[Example2._Example2__B]` (final).']
+Line 135: Unexpected errors ['enums_members.py:135:4 Inconsistent override [15]: `_ignore_` overrides attribute defined in `Enum` inconsistently. Type `Pet5` is not a subtype of the overridden attribute `typing.Union[typing.List[str], str]`.']
 """
 output = """
 enums_members.py:15:0 Uninitialized attribute [13]: Attribute `genus` is declared in class `Pet` to have type `Pet` but is never initialized.
@@ -34,8 +36,8 @@ enums_members.py:80:0 Incompatible parameter type [6]: In call `assert_type`, fo
 enums_members.py:81:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[Pet4.speak]` but got `typing.Callable(Pet4.speak)[[Named(self, Pet4)], None]`.
 enums_members.py:96:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[TrafficLight.YELLOW]` but got `typing_extensions.Literal[TrafficLight.AMBER]`.
 enums_members.py:113:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[Example.c]` but got `member[typing.Callable(Example.c)[[Named(self, Example)], None]]`.
-enums_members.py:126:0 Undefined attribute [16]: `Example` has no attribute `__B`. `__B` looks like a private attribute, which is not accessible from outside its parent class.
-enums_members.py:136:4 Inconsistent override [15]: `_ignore_` overrides attribute defined in `Enum` inconsistently. Type `Pet5` is not a subtype of the overridden attribute `typing.Union[typing.List[str], str]`.
+enums_members.py:124:8 Revealed type [-1]: Revealed type for `enums_members.Example2._Example2__B` is `typing_extensions.Literal[Example2._Example2__B]` (final).
+enums_members.py:135:4 Inconsistent override [15]: `_ignore_` overrides attribute defined in `Enum` inconsistently. Type `Pet5` is not a subtype of the overridden attribute `typing.Union[typing.List[str], str]`.
+enums_members.py:142:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Pet5`.
 enums_members.py:143:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Pet5`.
-enums_members.py:144:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Pet5`.
 """

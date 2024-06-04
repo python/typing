@@ -118,12 +118,11 @@ assert_type(Example.c, Literal[Example.c])
 
 
 class Example2(Enum):
-    A = 1  # Member attribute
     __B = 2  # Non-member attribute
 
-
-assert_type(Example2.A, Literal[Example2.A])
-Example.__B  # E
+    def method(self):
+        reveal_type(Example2.__B)
+        assert_type(Example2.__B, Literal[Example2.__B])  # E
 
 
 # > An enum class can define a class symbol named _ignore_. This can be
