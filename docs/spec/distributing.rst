@@ -8,6 +8,8 @@ Distributing type information
 Stub files
 ----------
 
+(Originally specified in :pep:`484`.)
+
 Stub files are files containing type hints that are only for use by
 the type checker, not at runtime.  There are several use cases for
 stub files:
@@ -85,8 +87,12 @@ and type stubs for third-party libraries that don't ship their own type informat
 stubs collected there are decided separately and described in the project's
 documentation.
 
+.. _packaging-typed-libraries:
+
 Type information in libraries
 -----------------------------
+
+(Originally specified in :pep:`561`.)
 
 There are several motivations and methods of supporting typing in a package.
 This specification recognizes three types of packages that users of typing wish to
