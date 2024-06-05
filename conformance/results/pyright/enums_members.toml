@@ -1,18 +1,12 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
-Does not reject use of annotation with enum member.
-Does not treat annotated attributes as non-members in stub.
 Does not support `_ignore_` mechanism (optional).
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 46: Expected 1 errors
-Line 31: Unexpected errors ['enums_members.py:31:13 - error: "assert_type" mismatch: expected "str" but received "Literal[Pet2.genus]" (reportAssertTypeFailure)']
-Line 32: Unexpected errors ['enums_members.py:32:13 - error: "assert_type" mismatch: expected "str" but received "Literal[Pet2.species]" (reportAssertTypeFailure)']
 """
 output = """
-enums_members.py:31:13 - error: "assert_type" mismatch: expected "str" but received "Literal[Pet2.genus]" (reportAssertTypeFailure)
-enums_members.py:32:13 - error: "assert_type" mismatch: expected "str" but received "Literal[Pet2.species]" (reportAssertTypeFailure)
+enums_members.py:46:5 - error: Type annotations are not allowed for enum members (reportGeneralTypeIssues)
 enums_members.py:78:13 - error: "assert_type" mismatch: expected "Unknown" but received "(x: Unknown) -> str" (reportAssertTypeFailure)
 enums_members.py:78:37 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
 enums_members.py:79:13 - error: "assert_type" mismatch: expected "Unknown" but received "(x: int) -> int" (reportAssertTypeFailure)
