@@ -213,16 +213,17 @@ following should be allowed::
 Syntax
 ^^^^^^
 
-``Annotated`` is parameterized with a *base type* and an arbitrary list of
-Python values that represent *metadata* for the type::
+``Annotated`` is parameterized with a *base expression* and an arbitrary list of
+Python values that represent associated *metadata*::
 
     from typing import Annotated
 
-    Annotated[BaseType, Metadata1, Metadata2, ...]
+    Annotated[BaseExpr, Metadata1, Metadata2, ...]
 
 Here are the specific details of the syntax:
 
-* The base type (the first argument to ``Annotated``) must be a valid type
+* The base expression (the first argument to ``Annotated``) must be valid
+  in the context where it is being used:
 
     * If ``Annotated`` is used in a place where arbitrary
       :term:`annotation expressions <annotation expression>` are allowed,
@@ -286,6 +287,21 @@ Here are the specific details of the syntax:
 ``Annotated``. The term "annotations" is deprecated to avoid confusion
 with the parameter, return, and variable annotations that are part of
 the Python syntax.
+
+Meaning
+^^^^^^^
+
+The metadata provided by ``Annotated`` can be used for either static
+analysis or at runtime. If a library (or tool) encounters an instance of
+``Annotated[T, x]`` and has no special logic for metadata ``x``, it
+should ignore it and simply treat the type as ``T``. Thus, in general,
+any :term:`type expression` or :term:`annotation expression` may be
+wrapped in ``Annotated`` without changing its meaning. However, type
+checkers may choose to recognize particular metadata objects and use
+them to implement extensions to the standard type system.
+
+``Annotated`` metadata may apply either to the type or to the symbol
+being annotated, or even to some other aspect of the program.
 
 Consuming metadata
 ^^^^^^^^^^^^^^^^^^
