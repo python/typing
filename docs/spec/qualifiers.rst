@@ -306,7 +306,7 @@ for a name (e.g., ``Annotated[str, 'foo', struct2.ctype("<10s")]``), the
 **Namespacing metadata:** Namespaces are not needed for metadata since
 the class used by the metadata object acts as a namespace.
 
-**Multiple metadata object:** It's up to the tool consuming the metadata
+**Multiple metadata objects:** It's up to the tool consuming the metadata
 to decide whether the client is allowed to have several metadata objects on
 one type and how to merge those objects.
 
