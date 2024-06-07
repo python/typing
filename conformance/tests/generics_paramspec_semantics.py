@@ -77,10 +77,11 @@ def callback_a(q: int, /) -> str:
     ...
 
 
-y1 = Y(callback_a, 1)
-assert_type(y1, Y[int, [int]])
-y2 = y1.f
-assert_type(y2, Callable[[int], str])
+def func(x: int) -> None:
+    y1 = Y(callback_a, x)
+    assert_type(y1, Y[int, [int]])
+    y2 = y1.f
+    assert_type(y2, Callable[[int], str])
 
 
 def bar(x: int, *args: bool) -> int:
