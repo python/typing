@@ -252,7 +252,8 @@ resolve modules containing type information:
    stub files or inline in ``.py`` files).
 
 6. If the type checker chooses to additionally vendor any third-party stubs
-   from typeshed, these SHOULD come last in the module resolution order.
+   (from typeshed or elsewhere), these SHOULD come last in the module
+   resolution order.
 
 If typecheckers identify a stub-only namespace package without the desired module
 in step 4, they should continue to step 5/6. Typecheckers should identify namespace packages
