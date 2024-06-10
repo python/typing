@@ -227,8 +227,8 @@ Here are the specific details of the syntax:
 
     * If ``Annotated`` is used in a place where arbitrary
       :term:`annotation expressions <annotation expression>` are allowed,
-      the base type may also be an annotation expression
-    * Otherwise, the base type must be a valid :term:`type expression`.
+      the base expression may also be an annotation expression
+    * Otherwise, the base expression must be a valid :term:`type expression`.
 
 * Multiple metadata objects are supported (``Annotated`` supports variadic
   arguments)::
@@ -294,13 +294,13 @@ Meaning
 The metadata provided by ``Annotated`` can be used for either static
 analysis or at runtime. If a library (or tool) encounters an instance of
 ``Annotated[T, x]`` and has no special logic for metadata ``x``, it
-should ignore it and simply treat the type as ``T``. Thus, in general,
+should ignore it and simply treat the annotation as ``T``. Thus, in general,
 any :term:`type expression` or :term:`annotation expression` may be
 wrapped in ``Annotated`` without changing its meaning. However, type
 checkers may choose to recognize particular metadata objects and use
 them to implement extensions to the standard type system.
 
-``Annotated`` metadata may apply either to the type or to the symbol
+``Annotated`` metadata may apply either to the base expression or to the symbol
 being annotated, or even to some other aspect of the program.
 
 Consuming metadata
@@ -314,20 +314,20 @@ can scan through the metadata to determine if they are of interest
 
 **Unknown metadata:** When a tool or a library does not support
 metadata or encounters an unknown metadata object it should ignore it
-and treat the annotated type as the base type. For example, when encountering
+and treat the annotation as the base expression. For example, when encountering
 a metadata object that is not an instance of ``struct2.ctype`` in the metadata
 for a name (e.g., ``Annotated[str, 'foo', struct2.ctype("<10s")]``), the
 ``struct2`` unpack method should ignore it.
 
 **Namespacing metadata:** Namespaces are not needed for metadata since
-the class used by the metadata object acts as a namespace.
+the class of the metadata object acts as a namespace.
 
 **Multiple metadata objects:** It's up to the tool consuming the metadata
 to decide whether the client is allowed to have several metadata objects on
-one type and how to merge those objects.
+one annotation and how to merge those objects.
 
 Since the ``Annotated`` type allows you to put several metadata objects of
-the same (or different) type(s) on any type, the tools or libraries
+the same (or different) type(s) on any annotation, the tools or libraries
 consuming the metadata are in charge of dealing with potential
 duplicates. For example, if you are doing value range analysis you might
 allow this::
