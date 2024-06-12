@@ -588,16 +588,16 @@ inferred to be of type ``Literal["foo"]``.
 We also infer ``LiteralString`` in the
 following cases:
 
-+ Addition: ``x + y`` is of type ``LiteralString`` if both ``x`` and
-  ``y`` are assignable to ``LiteralString``.
++ Addition: ``x + y`` is of type ``LiteralString`` if the types of both ``x``
+  and ``y`` are assignable to ``LiteralString``.
 
 + Joining: ``sep.join(xs)`` is of type ``LiteralString`` if ``sep``'s
   type is assignable to ``LiteralString`` and ``xs``'s type is
   assignable to ``Iterable[LiteralString]``.
 
-+ In-place addition: If ``s`` has type ``LiteralString`` and ``x`` has
-  type assignable to ``LiteralString``, then ``s += x`` preserves
-  ``s``'s type as ``LiteralString``.
++ In-place addition: If ``s`` has type ``LiteralString`` and ``x`` has a type
+  assignable to ``LiteralString``, then ``s += x`` preserves ``s``'s type as
+  ``LiteralString``.
 
 + String formatting: An f-string has type ``LiteralString`` if and only if its
   constituent expressions are literal strings. ``s.format(...)`` is assignable

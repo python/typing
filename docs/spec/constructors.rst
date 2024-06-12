@@ -353,8 +353,8 @@ methods for a class have :term:`consistent` signatures.
 Converting a Constructor to Callable
 ------------------------------------
 
-Class objects are callable, which means they are :term:`assignable` to callable
-types.
+Class objects are callable, which means the type of a class object can be
+:term:`assignable` to a callable type.
 
   ::
 

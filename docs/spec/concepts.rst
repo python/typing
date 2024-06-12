@@ -231,7 +231,8 @@ function) if its type is a consistent subtype of the variable's type annotation
 (respectively, parameter's type annotation or return type annotation).
 
 We can say that a type ``B`` is "assignable to" a type ``A`` if ``B`` is a
-consistent subtype of ``A``.
+consistent subtype of ``A``. In this case we can also say that ``A`` is
+"assignable from" ``B``.
 
 In the remainder of this specification, we will usually prefer the term
 **assignable to** over "consistent subtype of". The two are synonymous, but
@@ -346,7 +347,7 @@ One common case of union types are *optional* types, which are a union with
 
   def handle_employee(e: Employee | None) -> None: ...
 
-Either an instance of ``Employee`` or the value ``None`` are assignable to the
+Either the type ``Employee`` or the type of ``None`` are assignable to the
 union ``Employee | None``.
 
 A past version of this specification allowed type checkers to assume an optional
