@@ -22,8 +22,9 @@ assignable to the annotated return type can be returned from the function.
 
 .. _`missing-annotations`:
 
-Any function without annotations should be treated as having :ref:`Any`
-annotations on all arguments and the return type.
+Any function without annotations can be treated as having :ref:`Any`
+annotations on all arguments and the return type. Type checkers may also
+optionally infer more precise types for missing annotations.
 
 Type checkers may choose to entirely ignore (not type check) the bodies of
 functions with no annotations, but this behavior is not required.
