@@ -43,6 +43,12 @@ This section defines a few terms that may be used elsewhere in the specification
       The packaged file which is used to publish and distribute
       a release. (:pep:`426`)
 
+   equivalent
+      Two :term:`fully static types <fully static type>` ``A`` and ``B`` are
+      equivalent if ``A`` is a :term:`subtype` of ``B`` and ``B`` is a
+      :term:`subtype` of ``A``. This implies that ``A`` and ``B`` represent the
+      same set of possible runtime objects.
+
    fully static type
       A type is "fully static" if it does not contain any :term:`gradual form`.
       Fully static types represent a set of possible runtime values. Fully
@@ -86,6 +92,15 @@ This section defines a few terms that may be used elsewhere in the specification
 
    module
       A file containing Python runtime code or stubbed type information.
+
+   narrow
+      A :term:`fully static type` ``B`` is narrower than a fully static type
+      ``A`` if ``B`` is a :term:`subtype` of ``A`` and ``B`` is not
+      :term:`equivalent` to ``A``. This means that ``B`` represents a proper
+      subset of the possible objects represented by ``A``. "Type narrowing" is
+      when a type checker infers that a name or expression must have a narrower
+      type at some locations in control flow, due to some runtime check of its
+      value.
 
    package
       A directory or directories that namespace Python modules.
@@ -132,3 +147,10 @@ This section defines a few terms that may be used elsewhere in the specification
       can be used around a type to indicate that the annotated value may not be overridden or modified.
       This term is also used for other special forms that modify a type, but using a different
       syntactic context, such as the :ref:`@final <at-final>` decorator.
+
+   wide
+      A :term:`fully static type` ``A`` is wider than a fully static type ``B``
+      if and only if ``B`` is a :term:`subtype` of ``A`` and ``B`` is not
+      :term:`equivalent` to ``A``. This means that ``A`` represents a proper
+      superset of the possible values represented by ``B``. See also
+      ":term:`narrow`".
