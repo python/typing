@@ -2,5 +2,6 @@ conformant = "Pass"
 errors_diff = """
 """
 output = """
+enums_behaviors.py:39: error: Cannot extend enum with existing members: "Shape"  [misc]
 """
 conformance_automated = "Pass"

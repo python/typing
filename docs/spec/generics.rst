@@ -1572,8 +1572,8 @@ First, type arguments to generic aliases can be variadic. For example, a
 
 ::
 
-    Ts1 = TypeVar('Ts1')
-    Ts2 = TypeVar('Ts2')
+    Ts1 = TypeVarTuple('Ts1')
+    Ts2 = TypeVarTuple('Ts2')
 
     IntTuple = tuple[int, *Ts1]
     IntFloatTuple = IntTuple[float, *Ts2]  # Valid

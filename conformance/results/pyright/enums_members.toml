@@ -1,0 +1,25 @@
+conformant = "Pass"
+notes = """
+Does not support `_ignore_` mechanism (optional).
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_members.py:46:5 - error: Type annotations are not allowed for enum members (reportGeneralTypeIssues)
+enums_members.py:78:13 - error: "assert_type" mismatch: expected "Unknown" but received "(x: Unknown) -> str" (reportAssertTypeFailure)
+enums_members.py:78:37 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:79:13 - error: "assert_type" mismatch: expected "Unknown" but received "(x: int) -> int" (reportAssertTypeFailure)
+enums_members.py:79:37 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:80:13 - error: "assert_type" mismatch: expected "Unknown" but received "property" (reportAssertTypeFailure)
+enums_members.py:80:35 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:81:13 - error: "assert_type" mismatch: expected "Unknown" but received "(self: Pet4) -> None" (reportAssertTypeFailure)
+enums_members.py:81:33 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:112:13 - error: "assert_type" mismatch: expected "Unknown" but received "int" (reportAssertTypeFailure)
+enums_members.py:112:32 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:124:21 - information: Type of "Example2.__B" is "Literal[2]"
+enums_members.py:125:21 - error: "assert_type" mismatch: expected "Unknown" but received "Literal[2]" (reportAssertTypeFailure)
+enums_members.py:125:43 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:142:13 - error: "assert_type" mismatch: expected "int" but received "Literal[Pet5.DOG]" (reportAssertTypeFailure)
+enums_members.py:143:13 - error: "assert_type" mismatch: expected "int" but received "Literal[Pet5.FISH]" (reportAssertTypeFailure)
+"""

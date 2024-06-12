@@ -1,0 +1,10 @@
+conformant = "Partial"
+notes = """
+Does not enforce that Enum classes are implicitly final.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 39: Expected 1 errors
+"""
+output = """
+"""

@@ -6,3 +6,4 @@ constructors_consistency.py:25:9 - error: Mismatch between signature of __new__ 
   Signature of __init__ is "(x: str)"
   Signature of __new__ is "()" (reportInconsistentConstructor)
 """
+conformance_automated = "Pass"
