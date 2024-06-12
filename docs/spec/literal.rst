@@ -303,8 +303,8 @@ special-casing. For example, programs like the following are type safe::
    # Legal: Literal["foo"] is a subtype of str
    expects_str(var)
 
-This also means non-Literal types in general are not assignable to Literal
-types. For example::
+This also means non-Literal types in general are not :term:`assignable` to
+Literal types. For example::
 
    def expects_literal(x: Literal["foo"]) -> None: ...
 

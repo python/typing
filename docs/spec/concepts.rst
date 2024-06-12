@@ -253,9 +253,9 @@ Summary of type relations
 
 The subtype, supertype, and equivalence relations establish a partial order on
 fully static types. The analogous relations on gradual types (via
-materialization) are "assignable-to" (or consistent subtype), "assignable-from"
-(or consistent supertype), and "consistent with". We can visualize this analogy
-in the following table:
+materialization) are "assignable-to" (or "consistent subtype"),
+"assignable-from" (or "consistent supertype"), and "consistent with". We can
+visualize this analogy in the following table:
 
 .. list-table::
    :header-rows: 1

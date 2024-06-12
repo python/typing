@@ -99,7 +99,7 @@ annotated in ``__init__`` or other methods, rather than in the class::
 When type checkers encounter a method decorated with ``@typing.override`` they
 should treat it as a type error unless that method is overriding a method or
 attribute in some ancestor class, and the type of the overriding method is
-assignable to the type of the overridden method.
+:term:`assignable` to the type of the overridden method.
 
 
 .. code-block:: python

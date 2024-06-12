@@ -29,11 +29,12 @@ attributes and methods, it is said to implement the protocol and to be
 assignable to the protocol. If a class is assignable to a protocol but the
 protocol is not included in the MRO, the class is *implicitly* assignable to
 the protocol. (Note that one can explicitly subclass a protocol and still not
-implement it if a protocol attribute is set to ``None`` in the subclass, see
+implement it if a protocol attribute is set to ``None`` in the subclass. See
 Python :py:ref:`data model <specialnames>` for details.)
 
 The attributes (variables and methods) of a protocol that are mandatory for
-another class to be assignable to the protocol are called protocol members.
+another class for it to be assignable to the protocol are called "protocol
+members".
 
 .. _protocol-definition:
 
@@ -75,7 +76,7 @@ be used in every context where normal types can::
 
 Note that both the user-defined class ``Resource`` and the built-in ``IO`` type
 (the return type of ``open()``) are assignable to ``SupportsClose``, because
-they provide a ``close()`` method with an assignable type signature.
+each provides a ``close()`` method with an assignable type signature.
 
 
 Protocol members
@@ -621,10 +622,10 @@ the risks for this feature, the following rules are applied.
   ``Iterator``, etc). A protocol that contains at least one non-method member
   (like ``x: int``) is called a data protocol.
 * *Unsafe overlap*: A type ``X`` is called unsafely overlapping with a protocol
-  ``P``, if ``X`` is not assignable to ``P``, but it is assignable to the type
-  erased version of ``P`` where all members have type ``Any``. In addition, if
-  at least one element of a union unsafely overlaps with a protocol ``P``, then
-  the whole union is unsafely overlapping with ``P``.
+  ``P``, if ``X`` is not assignable to ``P``, but it is assignable to the
+  type-erased version of ``P`` where all members have type ``Any``. In
+  addition, if at least one element of a union unsafely overlaps with a
+  protocol ``P``, then the whole union is unsafely overlapping with ``P``.
 
 **Specification**:
 

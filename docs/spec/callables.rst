@@ -1,4 +1,4 @@
-.. _`callables`:
+`.. _`callables`:
 
 Callables
 =========
@@ -530,7 +530,7 @@ interchangeably.
 Assignability rules for callables
 ---------------------------------
 
-A callable type ``B`` is :term:`assignable` to callable type ``A`` if the
+A callable type ``B`` is :term:`assignable` to a callable type ``A`` if the
 return type of ``B`` is assignable to the return type of ``A`` and the input
 signature of ``B`` accepts all possible combinations of arguments that the
 input signature of ``A`` accepts. All of the specific assignability rules

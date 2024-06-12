@@ -2266,7 +2266,7 @@ Use in Attribute Annotations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Another use for ``Self`` is to annotate attributes. One example is where we
-have a ``LinkedList`` whose elements must be consistent subtypes of the current
+have a ``LinkedList`` whose elements must be :term:`assignable` to the current
 class.
 
 ::
