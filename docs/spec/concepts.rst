@@ -248,6 +248,27 @@ because ``tuple[Any, B]`` can materialize to ``tuple[int, B]``, which is a
 subtype of ``tuple[int, A]``. But ``tuple[int, A]`` is not assignable to
 ``tuple[Any, B]``.
 
+Summary of type relations
+-------------------------
+
+The subtype, supertype, and equivalence relations establish a partial order on
+fully static types. The analogous relations on gradual types (via
+materialization) are "assignable-to" (or consistent subtype), "assignable-from"
+(or consistent supertype), and "consistent with". We can visualize this analogy
+in the following table:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Fully static types
+     - Gradual types
+   * - ``B`` is a :term:`subtype` of ``A``
+     - ``B`` is :term:`assignable` to (or a consistent subtype of) ``A``
+   * - ``A`` is a :term:`supertype` of ``B``
+     - ``A`` is assignable from (or a consistent supertype of) ``B``
+   * - ``B`` is :term:`equivalent` to ``A``
+     - ``B`` is :term:`consistent` with ``A``
+
 Attributes and methods
 ----------------------
 
