@@ -159,6 +159,29 @@ subtype" of ``A``) if ``B`` is a subtype of ``A`` and ``B`` is not equivalent
 to ``A``. In the same scenario we can describe the type ``A`` as "wider" than
 ``B``, or a "proper supertype" of ``B``.
 
+Nominal and structural types
+----------------------------
+
+For a type such as ``str`` (or any other class), which describes the set of
+values whose ``__class__`` is ``str`` or a direct or indirect subclass of it,
+subtyping corresponds directly to subclassing. A subclass ``MyStr`` of ``str``
+is a subtype of ``str``, because ``MyStr`` represents a subset of the values
+represented by ``str``. Such types can be called "nominal types" and this is
+"nominal subtyping."
+
+Other types (e.g. :ref:`Protocols` and :ref:`TypedDict`) instead describe a set
+of values by the types of their attributes and methods, or the types of their
+dictionary keys and values. These are called "structural types." A structural
+type may be a subtype of another type without any inheritance or subclassing
+relationship, simply because it shares all the attributes/methods (or
+keys/values) of the supertype, and adds additional requirements, thus
+representing a subset of the possible values. This is "structural subtyping."
+
+Although the means of specifying the set of values represented by the types
+differs, the fundamental concepts are the same for both nominal and structural
+types: the type represents a set of possible values and a subtype represents a
+subset of the values.
+
 Materialization
 ---------------
 
@@ -248,6 +271,11 @@ subtype of ``A``, then ``tuple[Any, B]`` is assignable to ``tuple[int, A]``,
 because ``tuple[Any, B]`` can materialize to ``tuple[int, B]``, which is a
 subtype of ``tuple[int, A]``. But ``tuple[int, A]`` is not assignable to
 ``tuple[Any, B]``.
+
+For a gradual structural type, consistency and assignability are also
+structural. For example, the structural type "all objects with an attribute
+``x`` of type ``Any``" is consistent with (and assignable to) the structural
+type "all objects with an attribute ``x`` of type ``int``".
 
 Summary of type relations
 -------------------------

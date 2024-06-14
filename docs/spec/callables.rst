@@ -283,7 +283,7 @@ unpacked in the destination callable invocation::
     dest(**animal)  # Fails at runtime.
 
 A similar situation can happen even without inheritance as :term:`assignability
-<assignable>` between ``TypedDict``\s is structural.
+<assignable>` between ``TypedDict``\s is :term:`structural`.
 
 Source contains untyped ``**kwargs``
 """"""""""""""""""""""""""""""""""""

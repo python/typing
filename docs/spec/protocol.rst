@@ -8,7 +8,7 @@ Protocols
 Terminology
 ^^^^^^^^^^^
 
-The term *protocols* is used for types supporting structural
+The term *protocols* is used for some types supporting :term:`structural`
 subtyping. The reason is that the term *iterator protocol*,
 for example, is widely understood in the community, and coming up with
 a new term for this concept in a statically typed context would just create
@@ -52,9 +52,9 @@ at the end of the list. Here is a simple example::
           ...
 
 Now if one defines a class ``Resource`` with a ``close()`` method whose type
-signature is assignable to ``SupportsClose.close``, it would implicitly be
-assignable to ``SupportsClose``, since structural assignability is used for
-protocol types::
+signature is :term:`assignable` to ``SupportsClose.close``, it would implicitly
+be assignable to ``SupportsClose``, since :term:`structural` assignability is
+used for protocol types::
 
   class Resource:
       ...
@@ -147,8 +147,8 @@ So while it's possible to subclass a protocol explicitly, it's *not necessary*
 to do so for the sake of type-checking.
 
 The default implementations cannot be used if the assignable-to relationship is
-implicit and only structural -- the semantics of inheritance is not changed.
-Examples::
+implicit and only :term:`structural` -- the semantics of inheritance is not
+changed. Examples::
 
     class PColor(Protocol):
         @abstractmethod
@@ -208,14 +208,14 @@ explicit subclass before it can be instantiated.
 Merging and extending protocols
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The general philosophy is that protocols are mostly like regular ABCs,
-but a static type checker will handle them specially. Subclassing a protocol
-class would not turn the subclass into a protocol unless it also has
-``typing.Protocol`` as an explicit base class. Without this base, the class
-is "downgraded" to a regular ABC that cannot be used with structural
+The general philosophy is that protocols are mostly like regular ABCs, but a
+static type checker will handle them specially. Subclassing a protocol class
+would not turn the subclass into a protocol unless it also has
+``typing.Protocol`` as an explicit base class. Without this base, the class is
+"downgraded" to a regular ABC that cannot be used with :term:`structural`
 subtyping. The rationale for this rule is that we don't want to accidentally
-have some class act as a protocol just because one of its base classes
-happens to be one. We still slightly prefer nominal subtyping over structural
+have some class act as a protocol just because one of its base classes happens
+to be one. We still slightly prefer :term:`nominal` subtyping over structural
 subtyping in the static typing world.
 
 A subprotocol can be defined by having *both* one or more protocols as
@@ -245,9 +245,9 @@ with ``typing.Sized``::
   class SizedAndClosable(Sized, SupportsClose, Protocol):
       pass
 
-The two definitions of ``SizedAndClosable`` are equivalent.
-Subclass relationships between protocols are not meaningful when
-considering assignability, since structural assignability is
+The two definitions of ``SizedAndClosable`` are equivalent. Subclass
+relationships between protocols are not meaningful when considering
+assignability, since :term:`structural` :term:`assignability <assignable>` is
 the criterion, not the MRO.
 
 If ``Protocol`` is included in the base class list, all the other base classes
@@ -378,10 +378,10 @@ runtime type is a protocol. For variables and parameters with protocol types,
 assignability relationships are subject to the following rules:
 
 * A protocol is never assignable to a concrete type.
-* A concrete type ``X`` is assignable to a protocol ``P``
-  if and only if ``X`` implements all protocol members of ``P`` with
-  assignable types. In other words, assignability with respect to a protocol is
-  always structural.
+* A concrete type ``X`` is assignable to a protocol ``P`` if and only if ``X``
+  implements all protocol members of ``P`` with assignable types. In other
+  words, :term:`assignability <assignable>` with respect to a protocol is
+  always :term:`structural`.
 * A protocol ``P1`` is assignable to another protocol ``P2`` if ``P1`` defines
   all protocol members of ``P2`` with assignable types.
 
@@ -459,8 +459,9 @@ Example::
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Variables and parameters annotated with ``type[Proto]`` accept only concrete
-(non-protocol) consistent subtypes of ``Proto``. The main reason for this is to
-allow instantiation of parameters with such types. For example::
+(non-protocol) :term:`consistent subtypes <consistent subtype>` of ``Proto``.
+The main reason for this is to allow instantiation of parameters with such
+types. For example::
 
   class Proto(Protocol):
       @abstractmethod

@@ -102,6 +102,11 @@ This section defines a few terms that may be used elsewhere in the specification
       type at some locations in control flow, due to some runtime check of its
       value.
 
+   nominal
+      A nominal type (e.g. a class name) represents the set of values whose
+      ``__class__`` is that type, or any of its subclasses, transitively. In
+      contrast, see :term:`structural` types.
+
    package
       A directory or directories that namespace Python modules.
       (Note the distinction between packages and :term:`distributions <distribution>`.
@@ -116,6 +121,14 @@ This section defines a few terms that may be used elsewhere in the specification
       be imported from the :py:mod:`typing` module or equivalently from ``typing_extensions``,
       but some special forms are placed in other modules.
 
+   structural
+      A structural type (see e.g. :ref:`Protocols`, :ref:`TypedDict`) defines a
+      set of values not by their ``__class__``, but by their properties (e.g.
+      attributes, methods, dictionary key/value types). :ref:`Callable` types
+      are also structural; a callable type is a subtype of another callable
+      type based on their signatures, not a subclass relationship. In contrast,
+      see :term:`nominal` types.
+
    stub
       A file containing only type information, empty of runtime code
       (the filename ends in ``.pyi``). See :ref:`stub-files`.
@@ -124,10 +137,10 @@ This section defines a few terms that may be used elsewhere in the specification
       A :term:`fully static type` ``B`` is a subtype of a fully static type
       ``A`` if and only if the set of possible runtime values represented by
       ``B`` is a subset of the set of possible runtime values represented by
-      ``A``. For nominal types (classes), subtyping is defined by inheritance.
-      For structural types (see :ref:`Protocols`, :ref:`TypedDict`), subtyping
-      is defined by a shared set of attributes/methods or keys. Subtype is the
-      inverse of :term:`supertype`. See :ref:`type-system-concepts`.
+      ``A``. For :term:`nominal` types (classes), subtyping is defined by
+      inheritance. For :term:`structural` types, subtyping is defined by a
+      shared set of attributes/methods or keys. Subtype is the inverse of
+      :term:`supertype`. See :ref:`type-system-concepts`.
 
    supertype
       A :term:`fully static type` ``A`` is a supertype of a fully static type
