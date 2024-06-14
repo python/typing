@@ -201,9 +201,8 @@ caller, then an error must be reported by type checkers.
 Assignment
 ^^^^^^^^^^
 
-Assignments of a function typed with ``**kwargs: Unpack[Movie]`` and
-another callable type should pass type checking only if they are compatible.
-This can happen for the scenarios described below.
+Assignments of a function typed with ``**kwargs: Unpack[Movie]`` and another
+callable type should pass type checking only for the scenarios described below.
 
 Source and destination contain ``**kwargs``
 """""""""""""""""""""""""""""""""""""""""""
@@ -211,7 +210,7 @@ Source and destination contain ``**kwargs``
 Both destination and source functions have a ``**kwargs: Unpack[TypedDict]``
 parameter and the destination function's ``TypedDict`` is :term:`assignable` to
 the source function's ``TypedDict`` and the rest of the parameters are
-compatible::
+assignable::
 
     class Animal(TypedDict):
         name: str
@@ -238,7 +237,7 @@ contains ``**kwargs: Unpack[TypedDict]`` and the destination function's keyword
 arguments are :term:`assignable` to the corresponding keys in source function's
 ``TypedDict``. Moreover, not required keys should correspond to optional
 function arguments, whereas required keys should correspond to required
-function arguments. Again, the rest of the parameters have to be compatible.
+function arguments. Again, the rest of the parameters have to be assignable.
 Continuing the previous example::
 
     class Example(TypedDict):
@@ -252,7 +251,7 @@ Continuing the previous example::
     dest = src  # OK!
 
 It is worth pointing out that the destination function's parameters that are to
-be compatible with the keys and values from the ``TypedDict`` must be keyword
+be assignable to the keys and values from the ``TypedDict`` must be keyword
 only::
 
     def dest(dog: Dog, string: str, number: int = ...): ...
@@ -435,7 +434,7 @@ of parameter types. This is a :term:`gradual form` indicating that the type is
 
 A ``...`` can also be used with ``Concatenate``. In this case, the parameters
 prior to the ``...`` are required to be present in the input signature and
-be compatible in kind and type, but any additional parameters are permitted::
+be assignable, but any additional parameters are permitted::
 
     cb3: Callable[Concatenate[int, ...], str]
     cb3 = lambda x: str(x)  # OK
