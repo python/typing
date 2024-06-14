@@ -209,8 +209,8 @@ Source and destination contain ``**kwargs``
 """""""""""""""""""""""""""""""""""""""""""
 
 Both destination and source functions have a ``**kwargs: Unpack[TypedDict]``
-parameter and the destination function's ``TypedDict`` is assignable to the
-source function's ``TypedDict`` and the rest of the parameters are
+parameter and the destination function's ``TypedDict`` is :term:`assignable` to
+the source function's ``TypedDict`` and the rest of the parameters are
 compatible::
 
     class Animal(TypedDict):
@@ -235,7 +235,7 @@ Source contains ``**kwargs`` and destination doesn't
 
 The destination callable doesn't contain ``**kwargs``, the source callable
 contains ``**kwargs: Unpack[TypedDict]`` and the destination function's keyword
-arguments are assignable to the corresponding keys in source function's
+arguments are :term:`assignable` to the corresponding keys in source function's
 ``TypedDict``. Moreover, not required keys should correspond to optional
 function arguments, whereas required keys should correspond to required
 function arguments. Again, the rest of the parameters have to be compatible.
@@ -301,8 +301,8 @@ Source contains traditionally typed ``**kwargs: T``
 
 The destination callable contains ``**kwargs: Unpack[TypedDict]``, the source
 callable contains traditionally typed ``**kwargs: T`` and each of the
-destination function ``TypedDict``'s fields is assignable to a variable of
-type ``T``::
+destination function ``TypedDict``'s fields is :term:`assignable` to a variable
+of type ``T``::
 
     class Vehicle:
         ...
@@ -542,9 +542,9 @@ Parameter types
 
 Callable types are covariant with respect to their return types but
 contravariant with respect to their parameter types. This means a callable
-``B`` is assignable to callable ``A`` if the types of the parameters of
-``A`` are assignable to the parameters of ``B``. For example,
-``(x: float) -> int`` is assignable to ``(x: int) -> float``::
+``B`` is :term:`assignable` to callable ``A`` if the types of the parameters of
+``A`` are assignable to the parameters of ``B``. For example, ``(x: float) ->
+int`` is assignable to ``(x: int) -> float``::
 
     def func(cb: Callable[[float], int]):
         f1: Callable[[int], float] = cb  # OK
@@ -553,7 +553,7 @@ contravariant with respect to their parameter types. This means a callable
 Parameter kinds
 ^^^^^^^^^^^^^^^
 
-Callable ``B`` is assignable to callable ``A`` only if all keyword-only
+Callable ``B`` is :term:`assignable` to callable ``A`` only if all keyword-only
 parameters in ``A`` are present in ``B`` as either keyword-only parameters or
 standard (positional or keyword) parameters. For example, ``(a: int) -> None``
 is assignable to ``(*, a: int) -> None``, but the converse is not true. The
@@ -589,8 +589,9 @@ names of positional-only parameters are ignored for purposes of assignability::
 ^^^^^^^^^^^^^^^^^^^^
 
 If a callable ``A`` has a signature with a ``*args`` parameter, callable ``B``
-must also have a ``*args`` parameter to be assignable to ``A``, and the type of
-``A``'s ``*args`` parameter must be assignable to ``B``'s ``*args`` parameter::
+must also have a ``*args`` parameter to be :term:`assignable` to ``A``, and the
+type of ``A``'s ``*args`` parameter must be assignable to ``B``'s ``*args``
+parameter::
 
     class NoArgs(Protocol):
         def __call__(self) -> None: ...
@@ -648,9 +649,9 @@ otherwise-unmatched positional-only parameters in ``A``::
 ``**kwargs`` parameters
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-If a callable ``A`` has a signature with a ``**kwargs`` parameter (without
-an unpacked ``TypedDict`` type annotation), callable ``B`` must also have a
-``**kwargs`` parameter to be assignable to ``A``, and the type of
+If a callable ``A`` has a signature with a ``**kwargs`` parameter (without an
+unpacked ``TypedDict`` type annotation), callable ``B`` must also have a
+``**kwargs`` parameter to be :term:`assignable` to ``A``, and the type of
 ``A``'s ``**kwargs`` parameter must be assignable to ``B``'s ``**kwargs``
 parameter::
 
@@ -732,8 +733,8 @@ Default argument values
 
 If a callable ``C`` has a parameter ``x`` with a default argument value and
 ``A`` is the same as ``C`` except that ``x`` has no default argument, then
-``C`` is assignable to ``A``. ``C`` is also assignable to ``A``
-if ``A`` is the same as ``C`` with parameter ``x`` removed::
+``C`` is :term:`assignable` to ``A``. ``C`` is also assignable to ``A`` if
+``A`` is the same as ``C`` with parameter ``x`` removed::
 
     class DefaultArg(Protocol):
         def __call__(self, x: int = 0) -> None: ...
@@ -752,9 +753,9 @@ if ``A`` is the same as ``C`` with parameter ``x`` removed::
 Overloads
 ^^^^^^^^^
 
-If a callable ``B`` is overloaded with two or more signatures, it is assignable
-to callable ``A`` if *at least one* of the overloaded signatures in ``B`` is
-assignable to ``A``::
+If a callable ``B`` is overloaded with two or more signatures, it is
+:term:`assignable` to callable ``A`` if *at least one* of the overloaded
+signatures in ``B`` is assignable to ``A``::
 
     class Overloaded(Protocol):
         @overload
