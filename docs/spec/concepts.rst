@@ -298,6 +298,12 @@ visualize this analogy in the following table:
    * - ``B`` is :term:`equivalent` to ``A``
      - ``B`` is :term:`consistent` with ``A``
 
+In addition to these analogous relations, we can also define equivalence on
+gradual types. Two gradual types ``A`` and ``B`` are equivalent (that is, the
+same gradual type, not merely consistent with one another) if and only if all
+materializations of ``A`` are also materializations of ``B``, and all
+materializations of ``B`` are also materializations of ``A``.
+
 Attributes and methods
 ----------------------
 
@@ -364,8 +370,10 @@ not reducible to a simpler form. It represents an unknown static type with
 lower bound ``T``. That is, it represents an unknown set of objects which may
 be as large as ``object``, or as small as ``T``, but no smaller.
 
-As a special case, the union ``Any | Any`` can be simplified to ``Any``: the
-union of two unknown sets of objects is an unknown set of objects.
+Equivalent gradual types can, however, be simplified from unions; e.g.
+``list[Any] | list[Any]`` is equivalent to ``list[Any]``. Similarly, the union
+``Any | Any`` can be simplified to ``Any``: the union of two unknown sets of
+objects is an unknown set of objects.
 
 Union with None
 ~~~~~~~~~~~~~~~
