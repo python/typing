@@ -227,7 +227,7 @@ Here are the specific details of the syntax:
 
     * If ``Annotated`` is used in a place where arbitrary
       :term:`annotation expressions <annotation expression>` are allowed,
-      the base expression may also be an annotation expression
+      the base expression may be an annotation expression.
     * Otherwise, the base expression must be a valid :term:`type expression`.
 
 * Multiple metadata elements are supported (``Annotated`` supports variadic
@@ -245,7 +245,7 @@ Here are the specific details of the syntax:
     ]
 
 * Nested ``Annotated`` types are flattened, with metadata ordered
-  starting with the innermost::
+  starting with the innermost ``Annotated`` expression::
 
     Annotated[Annotated[int, ValueRange(3, 10)], ctype("char")] == Annotated[
         int, ValueRange(3, 10), ctype("char")
@@ -258,7 +258,7 @@ Here are the specific details of the syntax:
     ]
 
 * ``Annotated`` can be used with nested and generic aliases, but only if it
-  wraps a type expression::
+  wraps a :term:`type expression`::
 
     T = TypeVar("T")
     Vec = Annotated[list[tuple[T, T]], MaxLen(10)]
@@ -293,12 +293,13 @@ Meaning
 ^^^^^^^
 
 The metadata provided by ``Annotated`` can be used for either static
-analysis or at runtime. If a library (or tool) encounters an instance of
+or runtime analysis. If a library (or tool) encounters an instance of
 ``Annotated[T, x]`` and has no special logic for metadata element ``x``, it
 should ignore it and treat the expression as equivalent to ``T``. Thus, in general,
 any :term:`type expression` or :term:`annotation expression` may be
-wrapped in ``Annotated`` without changing its meaning. However, type
-checkers may choose to recognize particular metadata elements and use
+wrapped in ``Annotated`` without changing the meaning of the
+wrapped expression. However, type
+checkers may additionally choose to recognize particular metadata elements and use
 them to implement extensions to the standard type system.
 
 ``Annotated`` metadata may apply either to the base expression or to the symbol
