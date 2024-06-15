@@ -4,15 +4,13 @@ generics_paramspec_semantics.py:26:0 Unexpected keyword [28]: Unexpected keyword
 generics_paramspec_semantics.py:27:8 Incompatible parameter type [6]: In anonymous call, for 2nd positional argument, expected `bool` but got `str`.
 generics_paramspec_semantics.py:46:16 Incompatible parameter type [6]: In call `func1`, for 2nd positional argument, expected `typing.Callable[generics_paramspec_semantics.P, int]` but got `typing.Callable(y_x)[[Named(y, int), Named(x, str)], int]`.
 generics_paramspec_semantics.py:61:22 Incompatible parameter type [6]: In call `func1`, for 2nd positional argument, expected `typing.Callable[generics_paramspec_semantics.P, int]` but got `typing.Callable(keyword_only_y)[[KeywordOnly(y, int)], int]`.
-generics_paramspec_semantics.py:81:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Y[int, [int]]` but got `Y[typing_extensions.Literal[1], [int]]`.
-generics_paramspec_semantics.py:97:3 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `str` but got `int`.
-generics_paramspec_semantics.py:107:3 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `bool` but got `int`.
-generics_paramspec_semantics.py:119:3 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `str` but got `int`.
-generics_paramspec_semantics.py:126:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions Please add # pyre-ignore[56] to `generics_paramspec_semantics.expects_int_first`.
-generics_paramspec_semantics.py:131:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions Please add # pyre-ignore[56] to `generics_paramspec_semantics.expects_int_first`.
-generics_paramspec_semantics.py:136:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions Please add # pyre-ignore[56] to `generics_paramspec_semantics.expects_int_first`.
+generics_paramspec_semantics.py:98:3 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `str` but got `int`.
+generics_paramspec_semantics.py:108:3 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `bool` but got `int`.
+generics_paramspec_semantics.py:120:3 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `str` but got `int`.
+generics_paramspec_semantics.py:127:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions Please add # pyre-ignore[56] to `generics_paramspec_semantics.expects_int_first`.
+generics_paramspec_semantics.py:132:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions Please add # pyre-ignore[56] to `generics_paramspec_semantics.expects_int_first`.
+generics_paramspec_semantics.py:137:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions Please add # pyre-ignore[56] to `generics_paramspec_semantics.expects_int_first`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 81: Unexpected errors ['generics_paramspec_semantics.py:81:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Y[int, [int]]` but got `Y[typing_extensions.Literal[1], [int]]`.']
 """
