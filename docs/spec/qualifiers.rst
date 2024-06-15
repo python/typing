@@ -230,12 +230,12 @@ Here are the specific details of the syntax:
       the base expression may also be an annotation expression
     * Otherwise, the base expression must be a valid :term:`type expression`.
 
-* Multiple metadata objects are supported (``Annotated`` supports variadic
+* Multiple metadata elements are supported (``Annotated`` supports variadic
   arguments)::
 
     Annotated[int, ValueRange(3, 10), ctype("char")]
 
-* There must be at least one metadata object (``Annotated[int]`` is not valid)
+* There must be at least one metadata element (``Annotated[int]`` is not valid)
 
 * The order of the metadata is preserved and matters for equality
   checks::
@@ -251,13 +251,14 @@ Here are the specific details of the syntax:
         int, ValueRange(3, 10), ctype("char")
     ]
 
-* Duplicated metadata is not removed::
+* Duplicated metadata elements are not removed::
 
     Annotated[int, ValueRange(3, 10)] != Annotated[
         int, ValueRange(3, 10), ValueRange(3, 10)
     ]
 
-* ``Annotated`` can be used with nested and generic aliases::
+* ``Annotated`` can be used with nested and generic aliases, but only if it
+  wraps a type expression::
 
     T = TypeVar("T")
     Vec = Annotated[list[tuple[T, T]], MaxLen(10)]
@@ -293,11 +294,11 @@ Meaning
 
 The metadata provided by ``Annotated`` can be used for either static
 analysis or at runtime. If a library (or tool) encounters an instance of
-``Annotated[T, x]`` and has no special logic for metadata ``x``, it
-should ignore it and simply treat the annotation as ``T``. Thus, in general,
+``Annotated[T, x]`` and has no special logic for metadata element ``x``, it
+should ignore it and treat the expression as equivalent to ``T``. Thus, in general,
 any :term:`type expression` or :term:`annotation expression` may be
 wrapped in ``Annotated`` without changing its meaning. However, type
-checkers may choose to recognize particular metadata objects and use
+checkers may choose to recognize particular metadata elements and use
 them to implement extensions to the standard type system.
 
 ``Annotated`` metadata may apply either to the base expression or to the symbol
@@ -313,7 +314,7 @@ can scan through the metadata to determine if they are of interest
 (e.g., using ``isinstance()``).
 
 **Unknown metadata:** When a tool or a library does not support
-metadata or encounters an unknown metadata object it should ignore it
+metadata or encounters an unknown metadata element, it should ignore it
 and treat the annotation as the base expression. For example, when encountering
 a metadata object that is not an instance of ``struct2.ctype`` in the metadata
 for a name (e.g., ``Annotated[str, 'foo', struct2.ctype("<10s")]``), the
@@ -322,11 +323,11 @@ for a name (e.g., ``Annotated[str, 'foo', struct2.ctype("<10s")]``), the
 **Namespacing metadata:** Namespaces are not needed for metadata since
 the class of the metadata object acts as a namespace.
 
-**Multiple metadata objects:** It's up to the tool consuming the metadata
-to decide whether the client is allowed to have several metadata objects on
-one annotation and how to merge those objects.
+**Multiple metadata elements:** It's up to the tool consuming the metadata
+to decide whether the client is allowed to have several metadata elements on
+one annotation and how to merge those elements.
 
-Since the ``Annotated`` type allows you to put several metadata objects of
+Since the ``Annotated`` type allows you to put several metadata elements of
 the same (or different) type(s) on any annotation, the tools or libraries
 consuming the metadata are in charge of dealing with potential
 duplicates. For example, if you are doing value range analysis you might
@@ -346,9 +347,8 @@ Writing ``typing.Annotated`` everywhere can be quite verbose;
 fortunately, the ability to alias types means that in practice we
 don't expect clients to have to write lots of boilerplate code::
 
-    T = TypeVar('T')
-    Const = Annotated[T, my_annotations.CONST]
+    type Const[T] = Annotated[T, my_annotations.CONST]
 
     class C:
-        def const_method(self: Const[List[int]]) -> int:
+        def const_method(self, x: Const[list[int]]) -> int:
             ...
