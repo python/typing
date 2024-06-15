@@ -47,7 +47,10 @@ This section defines a few terms that may be used elsewhere in the specification
       Two :term:`fully static types <fully static type>` ``A`` and ``B`` are
       equivalent if ``A`` is a :term:`subtype` of ``B`` and ``B`` is a
       :term:`subtype` of ``A``. This implies that ``A`` and ``B`` represent the
-      same set of possible runtime objects.
+      same set of possible runtime objects. Two gradual types ``A`` and ``B``
+      are equivalent if all :term:`materializations <materialize>` of ``A`` are
+      also materializations of ``B``, and all materializations of ``B`` are
+      also materializations of ``A``.
 
    fully static type
       A type is "fully static" if it does not contain any :term:`gradual form`.
