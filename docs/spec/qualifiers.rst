@@ -214,7 +214,7 @@ Syntax
 ^^^^^^
 
 ``Annotated`` is parameterized with a *base expression* and at least one
-Python values representing associated *metadata*::
+Python value representing associated *metadata*::
 
     from typing import Annotated
 
