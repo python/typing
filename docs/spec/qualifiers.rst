@@ -213,8 +213,8 @@ following should be allowed::
 Syntax
 ^^^^^^
 
-``Annotated`` is parameterized with a *base expression* and an arbitrary list of
-Python values that represent associated *metadata*::
+``Annotated`` is parameterized with a *base expression* and at least one
+Python values representing associated *metadata*::
 
     from typing import Annotated
 
