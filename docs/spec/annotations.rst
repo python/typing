@@ -310,7 +310,7 @@ the generic type ``Generator[yield_type, send_type,
 return_type]`` provided by ``typing.py`` module::
 
   def echo_round() -> Generator[int, float, str]:
-      res = yield
+      res = yield 0
       while res:
           res = yield round(res)
       return 'OK'
