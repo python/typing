@@ -173,9 +173,9 @@ Other types (e.g. :ref:`Protocols` and :ref:`TypedDict`) instead describe a set
 of values by the types of their attributes and methods, or the types of their
 dictionary keys and values. These are called "structural types." A structural
 type may be a subtype of another type without any inheritance or subclassing
-relationship, simply because it shares all the attributes/methods (or
-keys/values) of the supertype, and adds additional requirements, thus
-representing a subset of the possible values. This is "structural subtyping."
+relationship, simply because it meets all the requirements of the supertype,
+and perhaps adds more, thus representing a subset of the possible values of the
+supertype. This is "structural subtyping."
 
 Although the means of specifying the set of values represented by the types
 differs, the fundamental concepts are the same for both nominal and structural
