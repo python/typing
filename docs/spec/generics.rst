@@ -2020,9 +2020,9 @@ normal subscription rules, non-overridden defaults should be substituted.
 Using ``bound`` and ``default``
 """""""""""""""""""""""""""""""
 
-If both ``bound`` and ``default`` are passed, ``default`` must be a
-:term:`consistent subtype` of ``bound``. If not, the type checker should
-generate an error.
+If both ``bound`` and ``default`` are passed, ``default`` must be
+:term:`assignable` to ``bound``. If not, the type checker should generate an
+error.
 
 ::
 
@@ -2297,7 +2297,7 @@ constructions with subclasses:
         def ordinal_value(self) -> str:
             return as_ordinal(self.value)
 
-    # Should not be OK because LinkedList[int] is not a consistent subtype of
+    # Should not be OK because LinkedList[int] is not assignable to
     # OrdinalLinkedList, but the type checker allows it.
     xs = OrdinalLinkedList(value=1, next=LinkedList[int](value=2))
 

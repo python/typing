@@ -29,10 +29,10 @@ This section defines a few terms that may be used elsewhere in the specification
 
    consistent
       Two :term:`fully static types <fully static type>` are "consistent with"
-      each other if they are the same type. Two gradual types are "consistent
-      with" each other if they could :term:`materialize` to the same type. See
-      :ref:`type-system-concepts`. If two types are consistent, they are both
-      :term:`assignable` to and from each other.
+      each other if they are :term:`equivalent`. Two gradual types are
+      "consistent with" each other if they could :term:`materialize` to the
+      same type. See :ref:`type-system-concepts`. If two types are consistent,
+      they are both :term:`assignable` to and from each other.
 
    consistent subtype
       "Consistent subtype" is synonymous with ":term:`assignable` to" (and

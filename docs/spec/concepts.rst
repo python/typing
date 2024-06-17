@@ -298,11 +298,11 @@ visualize this analogy in the following table:
    * - ``B`` is :term:`equivalent` to ``A``
      - ``B`` is :term:`consistent` with ``A``
 
-In addition to these analogous relations, we can also define equivalence on
-gradual types. Two gradual types ``A`` and ``B`` are equivalent (that is, the
-same gradual type, not merely consistent with one another) if and only if all
-materializations of ``A`` are also materializations of ``B``, and all
-materializations of ``B`` are also materializations of ``A``.
+We can also define equivalence on gradual types. Two gradual types ``A`` and
+``B`` are equivalent (that is, the same gradual type, not merely consistent
+with one another) if and only if all materializations of ``A`` are also
+materializations of ``B``, and all materializations of ``B`` are also
+materializations of ``A``.
 
 Attributes and methods
 ----------------------
