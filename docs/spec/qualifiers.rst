@@ -308,7 +308,7 @@ being annotated, or even to some other aspect of the program.
 Consuming metadata
 ^^^^^^^^^^^^^^^^^^
 
-Ultimately, the responsibility of how to interpret the metadata (if
+Ultimately, deciding how to interpret the metadata (if
 at all) is the responsibility of the tool or library encountering the
 ``Annotated`` type. A tool or library encountering an ``Annotated`` type
 can scan through the metadata to determine if they are of interest
