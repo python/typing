@@ -199,8 +199,9 @@ Partial Stub Packages
 Many stub packages will only have part of the type interface for libraries
 completed, especially initially. For the benefit of type checking and code
 editors, packages can be "partial". This means modules not found in the stub
-package SHOULD be searched for in part four of the module resolution
-order below, namely :term:`inline` packages.
+package SHOULD be searched for in parts five and six of the module resolution
+order below, namely :term:`inline` packages and any third-party stubs the type
+checker chooses to vendor.
 
 Type checkers should merge the stub package and runtime package
 directories. This can be thought of as the functional equivalent of copying the
@@ -235,19 +236,27 @@ resolve modules containing type information:
 
 2. User code - the files the type checker is running on.
 
-3. :term:`Stub <stub>` packages - these packages SHOULD supersede any installed inline
+3. Typeshed stubs for the standard library. These will usually be vendored by
+   type checkers, but type checkers SHOULD provide an option for users to
+   provide a path to a directory containing a custom or modified version of
+   typeshed; if this option is provided, type checkers SHOULD use this as the
+   canonical source for standard-library types in this step.
+
+4. :term:`Stub <stub>` packages - these packages SHOULD supersede any installed inline
    package. They can be found in directories named ``foopkg-stubs`` for
    package ``foopkg``.
 
-4. Packages with a ``py.typed`` marker file - if there is nothing overriding
+5. Packages with a ``py.typed`` marker file - if there is nothing overriding
    the installed package, *and* it opts into type checking, the types
    bundled with the package SHOULD be used (be they in ``.pyi`` type
    stub files or inline in ``.py`` files).
 
-5. Typeshed - only for modules in the standard library.
+6. If the type checker chooses to additionally vendor any third-party stubs
+   (from typeshed or elsewhere), these SHOULD come last in the module
+   resolution order.
 
 If typecheckers identify a stub-only namespace package without the desired module
-in step 3, they should continue to step 4/5. Typecheckers should identify namespace packages
+in step 4, they should continue to step 5/6. Typecheckers should identify namespace packages
 by the absence of ``__init__.pyi``.  This allows different subpackages to
 independently opt for inline vs stub-only.
 
