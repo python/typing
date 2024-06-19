@@ -25,16 +25,16 @@ dynamically typed language.
 Type-annotated Python allows opting in to static type checking at a fine level
 of granularity, so that some type errors can be caught statically, without
 running the program. Variables, parameters, and returns can optionally be given
-a static type annotation. Even within the type of a single data structure,
+static type annotations. Even within the type of a single data structure,
 static type checking is optional and granular. For example, a dictionary can be
 annotated to enable static checking of the key type but only have dynamic
 runtime checking of the value type.
 
 A **gradual** type system is one in which a special "unknown" or "dynamic" type
 is used to describe names or expressions whose types are not known statically.
-In Python, this type is spelled :ref:`Any`. Because :ref:`Any` indicates a
+In Python, this type is spelled :ref:`Any`. Because :ref:`!Any` indicates a
 statically unknown type, the static type checker can't check type correctness
-of operations on expressions typed as :ref:`Any`. These operations are still
+of operations on expressions typed as :ref:`!Any`. These operations are still
 dynamically checked, via the Python runtime's usual dynamic checking.
 
 The Python type system also uses ``...`` within :ref:`Callable` types and
@@ -88,7 +88,7 @@ not all Python objects have an attribute ``foo``.
 An expression typed as :ref:`Any`, on the other hand, should be assumed to have
 _some_ specific static type, but _which_ static type is not known. A static
 type checker should not emit static type errors on an expression or statement
-if :ref:`Any` might represent a static type which would avoid the error. (This
+if :ref:`!Any` might represent a static type which would avoid the error. (This
 is defined more precisely below, in terms of materialization and
 assignability.)
 
@@ -97,13 +97,13 @@ Similarly, a gradual type such as ``tuple[int, Any]`` (see :ref:`tuples`) or
 Python objects; rather, it represents a (bounded) range of possible sets of
 values.
 
-In the same way that ``Any`` does not represent "the set of all Python objects"
-but rather "an unknown set of objects", ``tuple[int, Any]`` does not represent
-"the set of all length-two tuples whose first element is an integer." That is a
-fully static type, spelled ``tuple[int, object]``.  By contrast, ``tuple[int,
-Any]`` represents some unknown set of tuple values; it might be the set of all
-tuples of two integers, or the set of all tuples of an integer and a string, or
-some other set of tuple values.
+In the same way that :ref:`Any` does not represent "the set of all Python
+objects" but rather "an unknown set of objects", ``tuple[int, Any]`` does not
+represent "the set of all length-two tuples whose first element is an integer".
+That is a fully static type, spelled ``tuple[int, object]``.  By contrast,
+``tuple[int, Any]`` represents some unknown set of tuple values; it might be
+the set of all tuples of two integers, or the set of all tuples of an integer
+and a string, or some other set of tuple values.
 
 In practice, this difference is seen (for example) in the fact that we can
 assign an expression of type ``tuple[int, Any]`` to a target typed as
@@ -112,7 +112,7 @@ int]`` is a static type error. (Again, we formalize this distinction in the
 below definitions of materialization and assignability.)
 
 In the same way that the fully static type ``object`` is the upper bound for
-the possible sets of values represented by ``Any``, the fully static type
+the possible sets of values represented by :ref:`Any`, the fully static type
 ``tuple[int, object]`` is the upper bound for the possible sets of values
 represented by ``tuple[int, Any]``.
 
@@ -121,7 +121,7 @@ The gradual guarantee
 
 :ref:`Any` allows gradually adding static types to a dynamically typed program.
 In a fully dynamically typed program, a static checker assigns the type
-:ref:`Any` to all expressions, and should emit no errors. Inferring static
+:ref:`!Any` to all expressions, and should emit no errors. Inferring static
 types or adding type annotations to the program (making the program more
 statically typed) may result in static type errors, if the program is not
 correct or if the static types aren't able to fully represent the runtime
@@ -171,16 +171,16 @@ represented by ``str``. Such types can be called "nominal types" and this is
 
 Other types (e.g. :ref:`Protocols` and :ref:`TypedDict`) instead describe a set
 of values by the types of their attributes and methods, or the types of their
-dictionary keys and values. These are called "structural types." A structural
+dictionary keys and values. These are called "structural types". A structural
 type may be a subtype of another type without any inheritance or subclassing
 relationship, simply because it meets all the requirements of the supertype,
 and perhaps adds more, thus representing a subset of the possible values of the
-supertype. This is "structural subtyping."
+supertype. This is "structural subtyping".
 
 Although the means of specifying the set of values represented by the types
 differs, the fundamental concepts are the same for both nominal and structural
-types: the type represents a set of possible values and a subtype represents a
-subset of the values.
+types: a type represents a set of possible values and a subtype represents a
+subset of those values.
 
 Materialization
 ---------------
@@ -224,7 +224,7 @@ A gradual type ``A`` is consistent with a gradual type ``B``, and ``B`` is
 consistent with ``A``, if and only if there exists some fully static type ``C``
 which is a materialization of both ``A`` and ``B``.
 
-``Any`` is consistent with every type, and every type is consistent with
+:ref:`Any` is consistent with every type, and every type is consistent with
 ``Any``. (This follows from the definitions of materialization and consistency
 but is worth stating explicitly.)
 
@@ -249,7 +249,7 @@ consistent subtype of a type ``A`` if there exists a materialization ``A'`` of
 fully static types, and ``B'`` is a subtype of ``A'``.
 
 Consistent subtyping defines "assignability" for Python.  An expression can be
-assigned to a variable (including passed as a parameter or returned from a
+assigned to a variable (including passed as an argument or returned from a
 function) if its type is a consistent subtype of the variable's type annotation
 (respectively, parameter's type annotation or return type annotation).
 
@@ -262,7 +262,7 @@ In the remainder of this specification, we will usually prefer the term
 "assignable to" is shorter, and may communicate a clearer intuition to many
 readers.
 
-For example, ``Any`` is assignable to ``int``, because ``int`` is a
+For example, ``Any`` is :term:`assignable` to ``int``, because ``int`` is a
 materialization of ``Any``, and ``int`` is a subtype of ``int``. The same
 materialization also shows that ``int`` is assignable to ``Any``.
 
@@ -378,7 +378,7 @@ objects is an unknown set of objects.
 Union with None
 ~~~~~~~~~~~~~~~
 
-One common case of union types are *optional* types, which are a union with
+One common case of union types are *optional* types, which are unions with
 ``None``. Example::
 
   def handle_employee(e: Employee | None) -> None: ...

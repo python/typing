@@ -16,9 +16,9 @@ This section defines a few terms that may be used elsewhere in the specification
       If a type ``B`` is "assignable to" a type ``A``, a  type checker should
       not error on the assignment ``x: A = b``, where ``b`` is some expression
       whose type is ``B``. Similarly for function calls and returns: ``f(b)``
-      where ``def f(x: A): ...`` and ``return b`` inside ``def f(...) -> A:``
-      are both valid (not a type error) if and only if ``B`` is assignable to
-      ``A``. In this case ``A`` is "assignable from" ``B``. For :term:`fully
+      where ``def f(x: A): ...`` and ``return b`` inside ``def f(...) -> A:
+      ...`` are both valid (not type errors) if and only if ``B`` is assignable
+      to ``A``. In this case ``A`` is "assignable from" ``B``. For :term:`fully
       static types <fully static type>`, "assignable to" is equivalent to
       ":term:`subtype` of" and "assignable from" is equivalent to
       ":term:`supertype` of". For :term:`gradual types <gradual type>`, a type
@@ -86,10 +86,10 @@ This section defines a few terms that may be used elsewhere in the specification
 
    materialize
       A :term:`gradual type` can be materialized to a more static type
-      (possibly a :term:`fully static type`) by replacing :ref:`Any` with a
-      type, or by replacing the `...` in a :ref:`Callable` type with a list of
-      types, or by replacing ``tuple[Any, ...]`` with a specific-length tuple
-      type. This materialization relation is key to defining
+      (possibly a :term:`fully static type`) by replacing :ref:`Any` with any
+      other type, or by replacing the `...` in a :ref:`Callable` type with a
+      list of types, or by replacing ``tuple[Any, ...]`` with a specific-length
+      tuple type. This materialization relation is key to defining
       :term:`assignability <assignable>` for gradual types. See
       :ref:`type-system-concepts`.
 
@@ -102,8 +102,8 @@ This section defines a few terms that may be used elsewhere in the specification
       :term:`equivalent` to ``A``. This means that ``B`` represents a proper
       subset of the possible objects represented by ``A``. "Type narrowing" is
       when a type checker infers that a name or expression must have a narrower
-      type at some locations in control flow, due to some runtime check of its
-      value.
+      type at some locations in control flow, due to an assignment or a runtime
+      check of its value.
 
    nominal
       A nominal type (e.g. a class name) represents the set of values whose
@@ -143,7 +143,10 @@ This section defines a few terms that may be used elsewhere in the specification
       ``A``. For :term:`nominal` types (classes), subtyping is defined by
       inheritance. For :term:`structural` types, subtyping is defined by a
       shared set of attributes/methods or keys. Subtype is the inverse of
-      :term:`supertype`. See :ref:`type-system-concepts`.
+      :term:`supertype`. Types that are not fully static are not a subtype or
+      supertype of any other type, but via :term:`materialization
+      <materialize>` they can be :term:`assignable` to another type. See
+      :ref:`type-system-concepts`.
 
    supertype
       A :term:`fully static type` ``A`` is a supertype of a fully static type

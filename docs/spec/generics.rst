@@ -2469,9 +2469,10 @@ See :pep:`PEP 544
 details on the behavior of TypeVars bound to protocols.
 
 Checking a class for assignability to a protocol: If a protocol uses ``Self``
-in methods or attribute annotations, then a class ``Foo`` is assignable to the
-protocol if its corresponding methods and attribute annotations use either
-``Self`` or ``Foo`` or any of ``Foo``’s subclasses. See the examples below:
+in methods or attribute annotations, then a class ``Foo`` is :term:`assignable`
+to the protocol if its corresponding methods and attribute annotations use
+either ``Self`` or ``Foo`` or any of ``Foo``’s subclasses. See the examples
+below:
 
 ::
 

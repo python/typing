@@ -706,8 +706,9 @@ parameters in ``A``::
         f10: Standard = int_str_kwargs  # Error: Does not accept positional arguments
         f11: Standard = str_kwargs  # Error: Does not accept positional arguments
 
-Assignability relationships for callable signatures that contain a ``**kwargs``
-with an unpacked ``TypedDict`` are described in the section :ref:`above <unpack-kwargs>`.
+Assignability rules for callable signatures that contain a ``**kwargs`` with an
+unpacked ``TypedDict`` are described in the section :ref:`above
+<unpack-kwargs>`.
 
 
 Signatures with ParamSpecs

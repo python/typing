@@ -24,7 +24,7 @@ when referring to the static type concept.
 
 If a class includes a protocol in its MRO, the class is called an *explicit*
 subclass of the protocol. If a class defines all attributes and methods of a
-protocol with types that are assignable to the types of the protocol's
+protocol with types that are :term:`assignable` to the types of the protocol's
 attributes and methods, it is said to implement the protocol and to be
 assignable to the protocol. If a class is assignable to a protocol but the
 protocol is not included in the MRO, the class is *implicitly* assignable to
