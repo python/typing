@@ -143,9 +143,9 @@ This section defines a few terms that may be used elsewhere in the specification
       ``A``. For :term:`nominal` types (classes), subtyping is defined by
       inheritance. For :term:`structural` types, subtyping is defined by a
       shared set of attributes/methods or keys. Subtype is the inverse of
-      :term:`supertype`. Types that are not fully static are not a subtype or
+      :term:`supertype`. A type that is not fully static is not a subtype or
       supertype of any other type, but via :term:`materialization
-      <materialize>` they can be :term:`assignable` to another type. See
+      <materialize>` can be :term:`assignable` to another type. See
       :ref:`type-system-concepts`.
 
    supertype
