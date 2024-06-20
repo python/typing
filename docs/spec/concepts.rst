@@ -52,7 +52,8 @@ We will refer to types that do not contain a :term:`gradual form` as a sub-part
 as **fully static types**.
 
 A **gradual type** can be a fully static type, :ref:`Any` itself, or a type
-that contains a gradual form as a sub-part.
+that contains a gradual form as a sub-part. All Python types are gradual types;
+fully static types are a subset.
 
 Fully static types
 ~~~~~~~~~~~~~~~~~~
@@ -92,10 +93,9 @@ if :ref:`!Any` might represent a static type which would avoid the error. (This
 is defined more precisely below, in terms of materialization and
 assignability.)
 
-Similarly, a gradual type such as ``tuple[int, Any]`` (see :ref:`tuples`) or
-``int | Any`` (see :ref:`union-types`) does not represent a single set of
-Python objects; rather, it represents a (bounded) range of possible sets of
-values.
+Similarly, a type such as ``tuple[int, Any]`` (see :ref:`tuples`) or ``int |
+Any`` (see :ref:`union-types`) does not represent a single set of Python
+objects; rather, it represents a (bounded) range of possible sets of values.
 
 In the same way that :ref:`Any` does not represent "the set of all Python
 objects" but rather "an unknown set of objects", ``tuple[int, Any]`` does not
@@ -193,11 +193,11 @@ types described above.
 To relate gradual types more generally, we define a **materialization**
 relation. Materialization transforms a "more dynamic" type to a "more static"
 type. Given a gradual type ``A``, if we replace zero or more occurrences of
-``Any`` in ``A`` with some gradual type (which can be different for each
-occurrence of ``Any``), the resulting gradual type ``B`` is a materialization
-of ``A``. (We can also materialize a :ref:`Callable` type by replacing ``...``
-with any type signature, and materialize ``tuple[Any, ...]`` by replacing it
-with a determinate-length tuple type.)
+``Any`` in ``A`` with some type (which can be different for each occurrence of
+``Any``), the resulting gradual type ``B`` is a materialization of ``A``. (We
+can also materialize a :ref:`Callable` type by replacing ``...`` with any type
+signature, and materialize ``tuple[Any, ...]`` by replacing it with a
+determinate-length tuple type.)
 
 For instance, ``tuple[int, str]`` (a fully static type) and ``tuple[Any, str]``
 (a gradual type) are both materializations of ``tuple[Any, Any]``. ``tuple[int,
@@ -225,8 +225,8 @@ consistent with ``A``, if and only if there exists some fully static type ``C``
 which is a materialization of both ``A`` and ``B``.
 
 :ref:`Any` is consistent with every type, and every type is consistent with
-``Any``. (This follows from the definitions of materialization and consistency
-but is worth stating explicitly.)
+:ref:`!Any`. (This follows from the definitions of materialization and
+consistency but is worth stating explicitly.)
 
 The consistency relation is not transitive. ``tuple[int, int]`` is consistent
 with ``tuple[Any, int]``, and ``tuple[Any, int]`` is consistent with
@@ -311,7 +311,7 @@ In Python, we can do more with objects at runtime than just assign them to
 names, pass them to functions, or return them from functions. We can also
 get/set attributes and call methods.
 
-In the Python object model, the operations that can be performed on a value all
+In the Python data model, the operations that can be performed on a value all
 desugar to method calls. For example, ``a + b`` is (roughly, eliding some
 details) syntactic sugar for either ``type(a).__add__(a, b)`` or
 ``type(b).__radd__(b, a)``.
@@ -319,7 +319,10 @@ details) syntactic sugar for either ``type(a).__add__(a, b)`` or
 For a static type checker, accessing ``a.foo`` is a type error unless all
 possible objects in the set represented by the type of ``a`` have the ``foo``
 attribute. (We consider an implementation of ``__getattr__`` to be a getter for
-all attribute names, and similarly for ``__setattr__`` and ``__delattr__``.)
+all attribute names, and similarly for ``__setattr__`` and ``__delattr__``.
+There are more `complexities
+<https://docs.python.org/3/reference/datamodel.html#customizing-attribute-access>`_;
+a full specification of attribute access belongs in its own chapter.)
 
 If all objects in the set represented by the fully static type ``A`` have a
 ``foo`` attribute, we can say that the type ``A`` has the ``foo`` attribute.

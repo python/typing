@@ -54,7 +54,7 @@ This section defines a few terms that may be used elsewhere in the specification
 
    fully static type
       A type is "fully static" if it does not contain any :term:`gradual form`.
-      Fully static types represent a set of possible runtime values. Fully
+      A fully static type represents a set of possible runtime values. Fully
       static types participate in the :term:`subtype` relation. See
       :ref:`type-system-concepts`.
 
@@ -68,8 +68,8 @@ This section defines a few terms that may be used elsewhere in the specification
       other :ref:`tuple <tuples>` types).
 
    gradual type
-      Types in the Python type system are "gradual". A gradual type may be a
-      :term:`fully static type`, or it may be :ref:`Any`, or a type that
+      All types in the Python type system are "gradual". A gradual type may be
+      a :term:`fully static type`, or it may be :ref:`Any`, or a type that
       contains ``Any`` or another :term:`gradual form`. A gradual type does not
       necessarily represent a single set of possible runtime values; instead it
       can represent a set of possible static types (a set of possible sets of
