@@ -257,8 +257,8 @@ Here are the specific details of the syntax:
         int, ValueRange(3, 10), ValueRange(3, 10)
     ]
 
-* ``Annotated`` can be used with nested and generic aliases, but only if it
-  wraps a :term:`type expression`::
+* ``Annotated`` can be used in definition of nested and generic aliases,
+  but only if it wraps a :term:`type expression`::
 
     T = TypeVar("T")
     Vec = Annotated[list[tuple[T, T]], MaxLen(10)]
@@ -316,10 +316,7 @@ can scan through the metadata to determine if they are of interest
 
 **Unknown metadata:** When a tool or a library does not support
 metadata or encounters an unknown metadata element, it should ignore it
-and treat the annotation as the base expression. For example, when encountering
-a metadata object that is not an instance of ``struct2.ctype`` in the metadata
-for a name (e.g., ``Annotated[str, 'foo', struct2.ctype("<10s")]``), the
-``struct2`` unpack method should ignore it.
+and treat the annotation as the base expression.
 
 **Namespacing metadata:** Namespaces are not needed for metadata since
 the class of the metadata object acts as a namespace.
