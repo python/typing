@@ -329,7 +329,7 @@ Literals can be used to "intelligently index" into structured types like
 tuples, NamedTuple, and classes. (Note: this is not an exhaustive list).
 
 For example, type checkers should infer the correct value type when
-indexing into a tuple using an int key that corresponds a valid index::
+indexing into a tuple using an int key that corresponds to a valid index::
 
    a: Literal[0] = 0
    b: Literal[5] = 5
