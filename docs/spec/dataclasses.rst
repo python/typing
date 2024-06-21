@@ -365,11 +365,11 @@ positional and may use other names.
 * ``alias`` is an optional str parameter that provides an alternative
   name for the field. This alternative name is used in the synthesized
   ``__init__`` method.
-* ``converter`` is an optional parameter that specifies a single-argument 
-  callable used to convert values when assigning to the associated 
-  attribute (Including the assignment in in ``__init__``). The parameter 
-  type of this single argument provides the type of the synthesized 
-  ``__init__`` parameter associated with the field. The return type of 
+* ``converter`` is an optional parameter that specifies a single-argument
+  callable used to convert values when assigning to the associated
+  attribute (Including the assignment in in ``__init__``). The parameter
+  type of this single argument provides the type of the synthesized
+  ``__init__`` parameter associated with the field. The return type of
   the callable must be compatible with the field's declared type.
 
 It is an error to specify more than one of ``default``,
@@ -535,28 +535,28 @@ This includes, but is not limited to, the following semantics:
 Converters
 ^^^^^^^^^^
 
-The ``converter`` parameter can be specified in a field definition to provide a single-argument callable 
-used to convert values when assigning to the associated attribute. This feature allows for automatic type 
+The ``converter`` parameter can be specified in a field definition to provide a single-argument callable
+used to convert values when assigning to the associated attribute. This feature allows for automatic type
 conversion and validation during object initialization and attribute assignment.
 
 Converter behavior:
 
 * For non-frozen dataclasses, the converter is used for all attribute assignment, including assignment
   of default values and direct attribute setting (e.g., ``obj.attr = value``).
-* For frozen dataclasses, the converter is only used inside a ``dataclass``-synthesized ``__init__`` 
+* For frozen dataclasses, the converter is only used inside a ``dataclass``-synthesized ``__init__``
   when setting the attribute.
 * The converter is not used when reading attributes, as the attributes should already have been converted.
 
 Typing rules for converters:
 
 * The ``converter`` must be a callable that accepts a single positional argument.
-* The parameter type of this single argument provides the type of the synthesized ``__init__`` parameter 
+* The parameter type of this single argument provides the type of the synthesized ``__init__`` parameter
   associated with the field.
 * The return type of the callable must be compatible with the field's declared type.
 
 When used with ``default`` or ``default_factory``:
 
-* If a ``converter`` is provided alongside ``default`` or ``default_factory``, the type of the default 
+* If a ``converter`` is provided alongside ``default`` or ``default_factory``, the type of the default
   value should be compatible with the type of the single argument to the ``converter`` callable.
 * Default values are unconditionally converted using the ``converter`` if provided.
 
