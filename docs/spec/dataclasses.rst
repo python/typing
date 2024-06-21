@@ -367,10 +367,10 @@ positional and may use other names.
   ``__init__`` method.
 * ``converter`` is an optional parameter that specifies a single-argument
   callable used to convert values when assigning to the associated
-  attribute (Including the assignment in in ``__init__``). The parameter
+  attribute (Including the assignment in ``__init__``). The parameter
   type of this single argument provides the type of the synthesized
   ``__init__`` parameter associated with the field. The return type of
-  the callable must be compatible with the field's declared type.
+  the callable must be assignable to the field's declared type.
 
 It is an error to specify more than one of ``default``,
 ``default_factory`` and ``factory``.
@@ -552,12 +552,12 @@ Typing rules for converters:
 * The ``converter`` must be a callable that accepts a single positional argument.
 * The parameter type of this single argument provides the type of the synthesized ``__init__`` parameter
   associated with the field.
-* The return type of the callable must be compatible with the field's declared type.
+* The return type of the callable must be assignable to the field's declared type.
 
 When used with ``default`` or ``default_factory``:
 
 * If a ``converter`` is provided alongside ``default`` or ``default_factory``, the type of the default
-  value should be compatible with the type of the single argument to the ``converter`` callable.
+  value should be assignable to the type of the single argument to the ``converter`` callable.
 * Default values are unconditionally converted using the ``converter`` if provided.
 
 Example usage:
