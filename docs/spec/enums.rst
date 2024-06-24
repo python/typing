@@ -350,7 +350,7 @@ literal values during type narrowing and exhaustion detection::
 
 
 Likewise, a type checker should treat a complete union of all literal members
-as compatible with the enum type::
+as :term:`equivalent` to the enum type::
 
     class Answer(Enum):
         Yes = 1

@@ -149,8 +149,8 @@ To specify the behavior of ``TypeIs``, we use the following terminology:
         else:
             assert_type(val, NN)
 
-The return type ``R`` must be consistent with ``I``. The type checker should
-emit an error if this condition is not met.
+The return type ``R`` must be :term:`assignable` to ``I``. The type checker
+should emit an error if this condition is not met.
 
 Formally, type *NP* should be narrowed to :math:`A \land R`,
 the intersection of *A* and *R*, and type *NN* should be narrowed to
@@ -193,7 +193,8 @@ argument's previously-known type::
         else:
             assert_type(x, int)
 
-It is an error to narrow to a type that is not consistent with the input type::
+It is an error to narrow to a type that is not :term:`assignable` to the input
+type::
 
     from typing import TypeIs
 

@@ -255,7 +255,7 @@ details of the syntax:
 
     V == Annotated[list[tuple[int, int]], MaxLen(10)]
 
-* As with most :term:`special forms <special form>`, ``Annotated`` is not type compatible with
+* As with most :term:`special forms <special form>`, ``Annotated`` is not assignable to
   ``type`` or ``type[T]``::
 
     v1: type[int] = Annotated[int, ""]  # Type error
