@@ -365,10 +365,10 @@ positional and may use other names.
 * ``alias`` is an optional str parameter that provides an alternative
   name for the field. This alternative name is used in the synthesized
   ``__init__`` method.
-* ``converter`` is an optional parameter that specifies a single-argument
-  callable used to convert values when assigning to the associated
-  attribute (Including the assignment in ``__init__``). The parameter
-  type of this single argument provides the type of the synthesized
+* ``converter`` is an optional parameter that specifies a single-parameter
+* ``converter`` is an optional parameter that specifies a single-parameter
+  attribute (including the assignment in ``__init__``). The type
+  of this argument provides the type of the synthesized
   ``__init__`` parameter associated with the field. The return type of
   the callable must be assignable to the field's declared type.
 
@@ -535,7 +535,7 @@ This includes, but is not limited to, the following semantics:
 Converters
 ^^^^^^^^^^
 
-The ``converter`` parameter can be specified in a field definition to provide a single-argument callable
+The ``converter`` parameter can be specified in a field definition to provide a single-parameter callable
 used to convert values when assigning to the associated attribute. This feature allows for automatic type
 conversion and validation during object initialization and attribute assignment.
 
@@ -550,14 +550,14 @@ Converter behavior:
 Typing rules for converters:
 
 * The ``converter`` must be a callable that accepts a single positional argument.
-* The parameter type of this single argument provides the type of the synthesized ``__init__`` parameter
+* The parameter type of the parameter provides the type of the synthesized ``__init__`` parameter
   associated with the field.
 * The return type of the callable must be assignable to the field's declared type.
 
 When used with ``default`` or ``default_factory``:
 
 * If a ``converter`` is provided alongside ``default`` or ``default_factory``, the type of the default
-  value should be assignable to the type of the single argument to the ``converter`` callable.
+  value should be assignable to the the ``converter`` parameter.
 * Default values are unconditionally converted using the ``converter`` if provided.
 
 Example usage:
