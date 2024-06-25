@@ -553,7 +553,7 @@ Typing rules for converters:
 * The parameter type of the parameter provides the type of the synthesized ``__init__`` parameter
   associated with the field.
 * The return type of the callable must be assignable to the field's declared type.
-* If ``default`` or ``default_factory`` are provided, the type of the default value should be 
+* If ``default`` or ``default_factory`` are provided, the type of the default value should be
   assignable to the single-parameter of the ``converter``
 
 Example usage:
