@@ -541,10 +541,8 @@ conversion and validation during object initialization and attribute assignment.
 
 Converter behavior:
 
-* For non-frozen dataclasses, the converter is used for all attribute assignment, including assignment
+* The converter is used for all attribute assignment, including: assignment
   of default values and direct attribute setting (e.g., ``obj.attr = value``).
-* For frozen dataclasses, the converter is only used inside a ``dataclass``-synthesized ``__init__``
-  when setting the attribute.
 * The converter is not used when reading attributes, as the attributes should already have been converted.
 
 Typing rules for converters:
@@ -556,9 +554,9 @@ Typing rules for converters:
 
 When used with ``default`` or ``default_factory``:
 
-* If a ``converter`` is provided alongside ``default`` or ``default_factory``, the type of the default
-  value should be assignable to the the ``converter`` parameter.
-* Default values are unconditionally converted using the ``converter`` if provided.
+* If a ``converter`` is provided alongside ``default`` or ``default_factory``, 
+  default values are converted using the ``converter``.
+* The type of the default value should be assignable to the single-parameter of the ``converter``
 
 Example usage:
 
@@ -567,11 +565,11 @@ Example usage:
     def str_or_none(x: Any) -> str | None:
         return str(x) if x is not None else None
 
-    @dataclasses.dataclass
+    @custom_dataclass
     class Example:
-        int_field: int = dataclasses.field(converter=int)
-        str_field: str | None = dataclasses.field(converter=str_or_none)
-        path_field: pathlib.Path = dataclasses.field(
+        int_field: int = field(converter=int)
+        str_field: str | None = field(converter=str_or_none)
+        path_field: pathlib.Path = field(
             converter=pathlib.Path,
             default="default/path.txt"
         )
