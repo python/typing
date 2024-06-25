@@ -213,21 +213,31 @@ following should be allowed::
 Syntax
 ^^^^^^
 
-``Annotated`` is parameterized with a type and an arbitrary list of
-Python values that represent the annotations. Here are the specific
-details of the syntax:
+``Annotated`` is parameterized with a *base expression* and at least one
+Python value representing associated *metadata*::
 
-* The first argument to ``Annotated`` must be a valid type
+    from typing import Annotated
 
-* Multiple type annotations are supported (``Annotated`` supports variadic
+    Annotated[BaseExpr, Metadata1, Metadata2, ...]
+
+Here are the specific details of the syntax:
+
+* The base expression (the first argument to ``Annotated``) must be valid
+  in the context where it is being used:
+
+    * If ``Annotated`` is used in a place where arbitrary
+      :term:`annotation expressions <annotation expression>` are allowed,
+      the base expression may be an annotation expression.
+    * Otherwise, the base expression must be a valid :term:`type expression`.
+
+* Multiple metadata elements are supported (``Annotated`` supports variadic
   arguments)::
 
     Annotated[int, ValueRange(3, 10), ctype("char")]
 
-* ``Annotated`` must be called with at least two arguments (
-  ``Annotated[int]`` is not valid)
+* There must be at least one metadata element (``Annotated[int]`` is not valid)
 
-* The order of the annotations is preserved and matters for equality
+* The order of the metadata is preserved and matters for equality
   checks::
 
     Annotated[int, ValueRange(3, 10), ctype("char")] != Annotated[
@@ -235,19 +245,20 @@ details of the syntax:
     ]
 
 * Nested ``Annotated`` types are flattened, with metadata ordered
-  starting with the innermost annotation::
+  starting with the innermost ``Annotated`` expression::
 
     Annotated[Annotated[int, ValueRange(3, 10)], ctype("char")] == Annotated[
         int, ValueRange(3, 10), ctype("char")
     ]
 
-* Duplicated annotations are not removed::
+* Duplicated metadata elements are not removed::
 
     Annotated[int, ValueRange(3, 10)] != Annotated[
         int, ValueRange(3, 10), ValueRange(3, 10)
     ]
 
-* ``Annotated`` can be used with nested and generic aliases::
+* ``Annotated`` can be used in definition of nested and generic aliases,
+  but only if it wraps a :term:`type expression`::
 
     T = TypeVar("T")
     Vec = Annotated[list[tuple[T, T]], MaxLen(10)]
@@ -272,33 +283,51 @@ details of the syntax:
     SmallInt = Annotated[int, ValueRange(0, 100)]
     SmallInt(1)  # Type error
 
+:pep:`593` and an earlier version of this specification used the term
+"annotations" instead of "metadata" for the extra arguments to
+``Annotated``. The term "annotations" is deprecated to avoid confusion
+with the parameter, return, and variable annotations that are part of
+the Python syntax.
 
-Consuming annotations
-^^^^^^^^^^^^^^^^^^^^^
+Meaning
+^^^^^^^
 
-Ultimately, the responsibility of how to interpret the annotations (if
+The metadata provided by ``Annotated`` can be used for either static
+or runtime analysis. If a library (or tool) encounters an instance of
+``Annotated[T, x]`` and has no special logic for metadata element ``x``, it
+should ignore it and treat the expression as equivalent to ``T``. Thus, in general,
+any :term:`type expression` or :term:`annotation expression` may be
+wrapped in ``Annotated`` without changing the meaning of the
+wrapped expression. However, type
+checkers may additionally choose to recognize particular metadata elements and use
+them to implement extensions to the standard type system.
+
+``Annotated`` metadata may apply either to the base expression or to the symbol
+being annotated, or even to some other aspect of the program.
+
+Consuming metadata
+^^^^^^^^^^^^^^^^^^
+
+Ultimately, deciding how to interpret the metadata (if
 at all) is the responsibility of the tool or library encountering the
 ``Annotated`` type. A tool or library encountering an ``Annotated`` type
-can scan through the annotations to determine if they are of interest
+can scan through the metadata to determine if they are of interest
 (e.g., using ``isinstance()``).
 
-**Unknown annotations:** When a tool or a library does not support
-annotations or encounters an unknown annotation it should just ignore it
-and treat annotated type as the underlying type. For example, when encountering
-an annotation that is not an instance of ``struct2.ctype`` to the annotations
-for name (e.g., ``Annotated[str, 'foo', struct2.ctype("<10s")]``), the unpack
-method should ignore it.
+**Unknown metadata:** When a tool or a library does not support
+metadata or encounters an unknown metadata element, it should ignore it
+and treat the annotation as the base expression.
 
-**Namespacing annotations:** Namespaces are not needed for annotations since
-the class used by the annotations acts as a namespace.
+**Namespacing metadata:** Namespaces are not needed for metadata since
+the class of the metadata object acts as a namespace.
 
-**Multiple annotations:** It's up to the tool consuming the annotations
-to decide whether the client is allowed to have several annotations on
-one type and how to merge those annotations.
+**Multiple metadata elements:** It's up to the tool consuming the metadata
+to decide whether the client is allowed to have several metadata elements on
+one annotation and how to merge those elements.
 
-Since the ``Annotated`` type allows you to put several annotations of
-the same (or different) type(s) on any node, the tools or libraries
-consuming those annotations are in charge of dealing with potential
+Since the ``Annotated`` type allows you to put several metadata elements of
+the same (or different) type(s) on any annotation, the tools or libraries
+consuming the metadata are in charge of dealing with potential
 duplicates. For example, if you are doing value range analysis you might
 allow this::
 
@@ -313,12 +342,11 @@ Aliases & Concerns over verbosity
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Writing ``typing.Annotated`` everywhere can be quite verbose;
-fortunately, the ability to alias annotations means that in practice we
+fortunately, the ability to alias types means that in practice we
 don't expect clients to have to write lots of boilerplate code::
 
-    T = TypeVar('T')
-    Const = Annotated[T, my_annotations.CONST]
+    type Const[T] = Annotated[T, my_annotations.CONST]
 
     class C:
-        def const_method(self: Const[List[int]]) -> int:
+        def const_method(self, x: Const[list[int]]) -> int:
             ...
