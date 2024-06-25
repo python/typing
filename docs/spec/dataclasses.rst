@@ -554,7 +554,7 @@ Typing rules for converters:
 
 When used with ``default`` or ``default_factory``:
 
-* If a ``converter`` is provided alongside ``default`` or ``default_factory``, 
+* If a ``converter`` is provided alongside ``default`` or ``default_factory``,
   default values are converted using the ``converter``.
 * The type of the default value should be assignable to the single-parameter of the ``converter``
 
