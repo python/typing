@@ -544,6 +544,8 @@ Converter behavior:
 * The converter is used for all attribute assignment, including: assignment
   of default values and direct attribute setting (e.g., ``obj.attr = value``).
 * The converter is not used when reading attributes, as the attributes should already have been converted.
+* If a ``converter`` is provided alongside ``default`` or ``default_factory``,
+  default values are converted using the ``converter``.
 
 Typing rules for converters:
 
@@ -551,12 +553,8 @@ Typing rules for converters:
 * The parameter type of the parameter provides the type of the synthesized ``__init__`` parameter
   associated with the field.
 * The return type of the callable must be assignable to the field's declared type.
-
-When used with ``default`` or ``default_factory``:
-
-* If a ``converter`` is provided alongside ``default`` or ``default_factory``,
-  default values are converted using the ``converter``.
-* The type of the default value should be assignable to the single-parameter of the ``converter``
+* If ``default`` or ``default_factory`` are provided, the type of the default value should be 
+  assignable to the single-parameter of the ``converter``
 
 Example usage:
 
