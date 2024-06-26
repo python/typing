@@ -1918,6 +1918,8 @@ Scoping Rules
 
 Using a type parameter from an outer scope as a default is not supported.
 
+::
+
    class Foo(Generic[T1]):
        class Bar(Generic[T2]): ...   # Type Error
 
