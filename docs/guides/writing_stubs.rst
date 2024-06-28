@@ -9,7 +9,7 @@ For a full reference, refer to :ref:`stubs`.
 
 Maintaining stubs can be a little cumbersome because they are separated from the
 implementation. This page lists some tools that make writing and maintaining
-stubs less painful.
+stubs less painful, as well as some best practices on stub contents and style.
 
 Tools for generating stubs
 ==========================
@@ -106,3 +106,9 @@ particularly with false positives.
 If your package has some particularly complex aspects, you could even consider
 writing dedicated typing tests for tricky definitions. For more details, see
 :ref:`testing`.
+
+Stub Content
+============
+
+Style Guide
+===========

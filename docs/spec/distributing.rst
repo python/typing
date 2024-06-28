@@ -10,72 +10,111 @@ Stub files
 
 (Originally specified in :pep:`484`.)
 
-Stub files are files containing type hints that are only for use by
-the type checker, not at runtime.  There are several use cases for
-stub files:
+*Stub files*, also called *type stubs*, provide type information for untyped
+Python packages and modules. Stub files serve multiple purposes:
 
-* Extension modules
+* They are the only way to add type information to extension modules.
+* They can provide type information for packages that do not wish to
+  add them inline.
+* They can be distributed separately from the implementation.
+  This allows stubs to be developed at a different pace or by different
+  authors, which is especially useful when adding type annotations to
+  existing packages.
+* They can act as documentation, succinctly explaining the external
+  API of a package, without including the implementation or private
+  members.
 
-* Third-party modules whose authors have not yet added type hints
+Stub files that only use the constructs described in :ref:`Supported Constructs`
+below should work with all type checkers that conform to this specification. A
+conformant type checker will parse a stub that only uses such constructs without
+error and will not interpret any construct in a contradictory manner. However,
+type checkers are not required to implement checks for all these constructs and
+can elect to ignore unsupported ones. Additionally, type checkers can support
+constructs not decribed here, and tool authors are encouraged to experiment with
+additional features.
 
-* Standard library modules for which type hints have not yet been
-  written
 
-* Modules that must be compatible with Python 2 and 3
+Syntax
+^^^^^^
 
-* Modules that use annotations for other purposes
+Stub files are syntactically valid Python files in the earliest Python version
+that is not yet end-of-life. They use a ``.pyi`` suffix. The Python syntax used
+by stub files is independent from the Python versions supported by the
+implementation, and from the Python version the type checker runs under (if
+any). Therefore, stub authors should use the latest syntax features available in
+the earliest supported version, even if the implementation supports older
+versions. Type checker authors are encouraged to support syntax features from
+newer versions, although stub authors should not use such features if they wish
+to maintain compatibility with all type checkers.
 
-Stub files have the same syntax as regular Python modules.  There is one
-feature of the ``typing`` module that is different in stub files:
-the ``@overload`` decorator described below.
+For example, Python 3.7 added the ``async`` keyword (see :pep:`492`).
+Stub authors should use it to mark coroutines, even if the implementation
+still uses the ``@coroutine`` decorator. On the other hand, stubs should not use
+the ``type`` soft keyword from :pep:`695`, introduced in Python 3.12, util
+Python 3.11 reaches end-of-life in October 2027.
 
-The type checker should only check function signatures in stub files;
-It is recommended that function bodies in stub files just be a single
-ellipsis (``...``).
+Stubs are treated as if ``from __future__ import annotations`` is enabled. In
+particular, built-in generics, pipe union syntax (``X | Y``), and forward
+references can be used.
 
-The type checker should have a configurable search path for stub files.
-If a stub file is found the type checker should not read the
-corresponding "real" module.
+Type checkers should have a configurable search path for stub files. If a stub
+file is found, the type checker should not read the corresponding "real" module.
+See :ref:`Import resolution ordering` for more information.
 
-While stub files are syntactically valid Python modules, they use the
-``.pyi`` extension to make it possible to maintain stub files in the
-same directory as the corresponding real module.  This also reinforces
-the notion that no runtime behavior should be expected of stub files.
 
-Additional notes on stub files:
+Supported Constructs
+^^^^^^^^^^^^^^^^^^^^
 
-* Modules and variables imported into the stub are not considered
-  exported from the stub unless the import uses the ``import ... as
-  ...`` form or the equivalent ``from ... import ... as ...`` form.
-  (*UPDATE:* To clarify, the intention here is that only names
-  imported using the form ``X as X`` will be exported, i.e. the name
-  before and after ``as`` must be the same.)
+This section lists constructs that type checkers will accept in stub files. Stub
+authors can safely use these constructs. If a construct is marked as
+"unspecified", type checkers may handle it as they best see fit or report an
+error. Linters should usually flag those constructs. Stub authors should avoid
+using them to ensure compatibility across type checkers.
 
-* However, as an exception to the previous bullet, all objects
-  imported into a stub using ``from ... import *`` are considered
-  exported.  (This makes it easier to re-export all objects from a
-  given module that may vary by Python version.)
+Unless otherwise mentioned, stub files support all features from the ``typing``
+module of the latest released Python version. If a stub uses typing features
+from a later Python version than what the implementation supports, these
+features can be imported from ``typing_extensions`` instead of ``typing``.
 
-* Just like in `normal Python files <https://docs.python.org/3/reference/import.html#submodules>`_, submodules
-  automatically become exported attributes of their parent module
-  when imported. For example, if the ``spam`` package has the
-  following directory structure::
+For example, a stub could use ``Literal``, introduced in Python 3.8,
+for a library supporting Python 3.7+::
 
-      spam/
-          __init__.pyi
-          ham.pyi
+    from typing_extensions import Literal
 
-  where ``__init__.pyi`` contains a line such as ``from . import ham``
-  or ``from .ham import Ham``, then ``ham`` is an exported attribute
-  of ``spam``.
+    def foo(x: Literal[""]) -> int: ...
 
-* Stub files may be incomplete. To make type checkers aware of this, the file
-  can contain the following code::
+Comments
+""""""""
 
-    def __getattr__(name) -> Any: ...
+Imports
+"""""""
 
-  Any identifier not defined in the stub is therefore assumed to be of type
-  ``Any``.
+Built-in Generics
+"""""""""""""""""
+
+Unions
+""""""
+
+Module Level Attributes
+"""""""""""""""""""""""
+
+Classes
+"""""""
+
+Functions and Methods
+"""""""""""""""""""""
+
+Aliases and NewType
+"""""""""""""""""""
+
+Decorators
+""""""""""
+
+Version and Platform Checks
+"""""""""""""""""""""""""""
+
+Enums
+"""""
 
 The Typeshed Project
 ^^^^^^^^^^^^^^^^^^^^

@@ -4,96 +4,8 @@
 Type Stubs
 **********
 
-Introduction
-============
-
-*type stubs*, also called *stub files*, provide type information for untyped
-Python packages and modules. Type stubs serve multiple purposes:
-
-* They are the only way to add type information to extension modules.
-* They can provide type information for packages that do not wish to
-  add them inline.
-* They can be distributed separately from the implementation.
-  This allows stubs to be developed at a different pace or by different
-  authors, which is especially useful when adding type annotations to
-  existing packages.
-* They can act as documentation, succinctly explaining the external
-  API of a package, without including the implementation or private
-  members.
-
-This document aims to give guidance to both authors of type stubs and developers
-of type checkers and other tools. It describes the constructs that can be used safely in type stubs,
-suggests a style guide for them, and lists constructs that type
-checkers are expected to support.
-
-Type stubs that only use constructs described in this document should work with
-all type checkers that also follow this document.
-Type stub authors can elect to use additional constructs, but
-must be prepared that some type checkers will not parse them as expected.
-
-A type checker that conforms to this document will parse a type stub that only uses
-constructs described here without error and will not interpret any
-construct in a contradictory manner. However, type checkers are not
-required to implement checks for all these constructs, and
-can elect to ignore unsupported ones. Additionally type checkers
-can support constructs not described in this document and tool authors are
-encouraged to experiment with additional features.
-
-Syntax
-======
-
-Type stubs are syntactically valid Python 3.8 files with a ``.pyi`` suffix.
-The Python syntax used for type stubs is independent from the Python
-versions supported by the implementation, and from the Python version the type
-checker runs under (if any). Therefore, type stub authors should use the
-latest available syntax features in stubs (up to Python 3.8), even if the
-implementation supports older, pre-3.8 Python versions.
-Type checker authors are encouraged to support syntax features from
-post-3.8 Python versions, although type stub authors should not use such
-features if they wish to maintain compatibility with all type checkers.
-
-For example, Python 3.7 added the ``async`` keyword (see :pep:`492`).
-Stub authors should use it to mark coroutines, even if the implementation
-still uses the ``@coroutine`` decorator. On the other hand, type stubs should
-not use the ``type`` soft keyword from :pep:`695`, introduced in
-Python 3.12, although type checker authors are encouraged to support it.
-
-Stubs are treated as if ``from __future__ import annotations`` is enabled.
-In particular, built-in generics, pipe union syntax (``X | Y``), and forward
-references can be used.
-
-The :py:mod:`ast` module from the standard library supports
-all syntax features required by this document.
-
-Distribution
-============
-
-Type stubs can be distributed with or separately from the implementation;
-see :ref:`distributing-type` and :ref:`providing-type-annotations`
-for more information.
-
 Supported Constructs
 ====================
-
-This sections lists constructs that type checkers will accept in type stubs.
-Type stub authors can safely use these constructs. If a
-construct is marked as "unspecified", type checkers may handle it
-as they best see fit or report an error. Linters should usually
-flag those constructs. Type stub authors should avoid using them to
-ensure compatibility across type checkers.
-
-Unless otherwise mentioned, type stubs support all features from the
-``typing`` module of the latest released Python version. If a stub uses
-typing features from a later Python version than what the implementation
-supports, these features can be imported from ``typing_extensions`` instead
-of ``typing``.
-
-For example, a stub could use ``Literal``, introduced in Python 3.8,
-for a library supporting Python 3.7+::
-
-    from typing_extensions import Literal
-
-    def foo(x: Literal[""]) -> int: ...
 
 Comments
 --------
@@ -964,8 +876,3 @@ No::
     from typing import NamedTuple, TypedDict
     Point = NamedTuple("Point", [('x', float), ('y', float)])
     Thing = TypedDict("Thing", {'stuff': str, 'index': int})
-
-Copyright
-=========
-
-This document is placed in the public domain or under the CC0-1.0-Universal license, whichever is more permissive.
