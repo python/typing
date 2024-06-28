@@ -342,3 +342,237 @@ If in doubt, consider asking the library maintainers about their intent.
 
 Style Guide
 ===========
+
+The recommendations in this section are aimed at stub authors who wish to
+provide a consistent style for stubs. Type checkers should not reject stubs that
+do not follow these recommendations, but linters can warn about them.
+
+Stub files should generally follow the Style Guide for Python Code (:pep:`8`)
+and the :ref:`best-practices`. There are a few exceptions, outlined below, that take the
+different structure of stub files into account and aim to create
+more concise files.
+
+Maximum Line Length
+-------------------
+
+Stub files should be limited to 130 characters per line.
+
+Blank Lines
+-----------
+
+Do not use empty lines between functions, methods, and fields, except to
+group them with one empty line. Use one empty line around classes with non-empty
+bodies. Do not use empty lines between body-less classes, except for grouping.
+
+Yes::
+
+    def time_func() -> None: ...
+    def date_func() -> None: ...
+
+    def ip_func() -> None: ...
+
+    class Foo:
+        x: int
+        y: int
+        def __init__(self) -> None: ...
+
+    class MyError(Exception): ...
+    class AnotherError(Exception): ...
+
+No::
+
+    def time_func() -> None: ...
+
+    def date_func() -> None: ...  # do no leave unnecessary empty lines
+
+    def ip_func() -> None: ...
+
+
+    class Foo:  # leave only one empty line above
+        x: int
+    class MyError(Exception): ...  # leave an empty line between the classes
+
+Module Level Attributes
+-----------------------
+
+Do not unnecessarily use an assignment for module-level attributes.
+
+Yes::
+
+    CONST: Literal["const"]
+    x: int
+    y: Final = 0  # this assignment conveys additional type information
+
+No::
+
+    CONST = "const"
+    x: int = 0
+    y: float = ...
+    z = 0  # type: int
+    a = ...  # type: int
+
+.. _stub-style-classes:
+
+Classes
+-------
+
+Classes without bodies should use the ellipsis literal ``...`` in place
+of the body on the same line as the class definition.
+
+Yes::
+
+    class MyError(Exception): ...
+
+No::
+
+    class MyError(Exception):
+        ...
+    class AnotherError(Exception): pass
+
+Instance attributes and class variables follow the same recommendations as
+module level attributes:
+
+Yes::
+
+    class Foo:
+        c: ClassVar[str]
+        x: int
+
+    class Color(Enum):
+        # An assignment with no type annotation is a convention used to indicate
+	# an enum member.
+        RED = 1
+
+No::
+
+    class Foo:
+        c: ClassVar[str] = ""
+        d: ClassVar[int] = ...
+        x = 4
+        y: int = ...
+
+Functions and Methods
+---------------------
+
+Use the same argument names as in the implementation, because
+otherwise using keyword arguments will fail. Of course, this
+does not apply to positional-only arguments marked with the historical double
+underscore convention.
+
+Use the ellipsis literal ``...`` in place of actual default argument
+values. Use an explicit ``X | None`` annotation instead of
+a ``None`` default.
+
+Yes::
+
+    def foo(x: int = ...) -> None: ...
+    def bar(y: str | None = ...) -> None: ...
+
+No::
+
+    def foo(x: int = 0) -> None: ...
+    def bar(y: str = None) -> None: ...
+    def baz(z: str | None = None) -> None: ...
+
+Do not annotate ``self`` and ``cls`` in method definitions, except when
+referencing a type variable.
+
+Yes::
+
+    _T = TypeVar("_T")
+
+    class Foo:
+        def bar(self) -> None: ...
+        @classmethod
+        def create(cls: type[_T]) -> _T: ...
+
+No::
+
+    class Foo:
+        def bar(self: Foo) -> None: ...
+        @classmethod
+        def baz(cls: type[Foo]) -> int: ...
+
+The bodies of functions and methods should consist of only the ellipsis
+literal ``...`` on the same line as the closing parenthesis and colon.
+
+Yes::
+
+    def to_int1(x: str) -> int: ...
+    def to_int2(
+        x: str,
+    ) -> int: ...
+
+No::
+
+    def to_int1(x: str) -> int:
+        return int(x)
+    def to_int2(x: str) -> int:
+        ...
+    def to_int3(x: str) -> int: pass
+
+.. _private-definitions:
+
+Private Definitions
+-------------------
+
+Type variables, type aliases, and other definitions that should not
+be used outside the stub should be marked as private by prefixing them
+with an underscore.
+
+Yes::
+
+    _T = TypeVar("_T")
+    _DictList = Dict[str, List[Optional[int]]
+
+No::
+
+    T = TypeVar("T")
+    DictList = Dict[str, List[Optional[int]]]
+
+Language Features
+-----------------
+
+Use the latest language features available, even for stubs targeting older
+Python versions. Do not use quotes around forward references and do not use
+``__future__`` imports. See :ref:`stub-file-syntax` for more information.
+
+Yes::
+
+    class Py35Class:
+        x: int
+        forward_reference: OtherClass
+
+    class OtherClass: ...
+
+No::
+
+    class Py35Class:
+        x = 0  # type: int
+        forward_reference: 'OtherClass'
+
+    class OtherClass: ...
+
+NamedTuple and TypedDict
+------------------------
+
+Use the class-based syntax for ``typing.NamedTuple`` and
+``typing.TypedDict``, following the :ref:`stub-style-classes` section of this style guide.
+
+Yes::
+
+    from typing import NamedTuple, TypedDict
+
+    class Point(NamedTuple):
+        x: float
+        y: float
+
+    class Thing(TypedDict):
+        stuff: str
+        index: int
+
+No::
+
+    from typing import NamedTuple, TypedDict
+    Point = NamedTuple("Point", [('x', float), ('y', float)])
+    Thing = TypedDict("Thing", {'stuff': str, 'index': int})

@@ -33,6 +33,7 @@ can elect to ignore unsupported ones. Additionally, type checkers can support
 constructs not decribed here, and tool authors are encouraged to experiment with
 additional features.
 
+.. _stub-file-syntax:
 
 Syntax
 ^^^^^^
