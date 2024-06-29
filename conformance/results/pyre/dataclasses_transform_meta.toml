@@ -1,9 +1,13 @@
 conformant = "Partial"
 notes = """
 Does not understand custom field specifiers.
+Incorrectly rejects frozen dataclass that inherits from non-frozen.
+Emits "attribute not initialized" error for dataclass field.
 """
 output = """
-dataclasses_transform_meta.py:25:0 Uninitialized attribute [13]: Attribute `not_a_field` is declared in class `ModelMeta` to have type `str` but is never initialized.
+dataclasses_transform_meta.py:26:4 Uninitialized attribute [13]: Attribute `not_a_field` is declared in class `ModelMeta` to have type `str` but is never initialized.
+dataclasses_transform_meta.py:40:0 Invalid inheritance [39]: Frozen dataclass `Customer1` cannot inherit from non-frozen dataclass `ModelBase`.
+dataclasses_transform_meta.py:48:0 Invalid inheritance [39]: Non-frozen dataclass `Customer1Subclass` cannot inherit from frozen dataclass `Customer1`.
 dataclasses_transform_meta.py:57:7 Unexpected keyword [28]: Unexpected keyword argument `other_name` to call `Customer1.__init__`.
 dataclasses_transform_meta.py:60:0 Invalid assignment [41]: Cannot reassign final attribute `c1_1.id`.
 dataclasses_transform_meta.py:63:7 Too many arguments [19]: Call `Customer1.__init__` expects 0 positional arguments, 2 were provided.
@@ -13,7 +17,7 @@ dataclasses_transform_meta.py:100:0 Invalid assignment [41]: Cannot reassign fin
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 48: Expected 1 errors
-Line 25: Unexpected errors ['dataclasses_transform_meta.py:25:0 Uninitialized attribute [13]: Attribute `not_a_field` is declared in class `ModelMeta` to have type `str` but is never initialized.']
+Line 26: Unexpected errors ['dataclasses_transform_meta.py:26:4 Uninitialized attribute [13]: Attribute `not_a_field` is declared in class `ModelMeta` to have type `str` but is never initialized.']
+Line 40: Unexpected errors ['dataclasses_transform_meta.py:40:0 Invalid inheritance [39]: Frozen dataclass `Customer1` cannot inherit from non-frozen dataclass `ModelBase`.']
 Line 57: Unexpected errors ['dataclasses_transform_meta.py:57:7 Unexpected keyword [28]: Unexpected keyword argument `other_name` to call `Customer1.__init__`.']
 """

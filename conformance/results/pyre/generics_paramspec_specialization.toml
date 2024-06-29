@@ -3,23 +3,20 @@ notes = """
 Reports error for legitimate use of `...` to specialize ParamSpec
 """
 output = """
-generics_paramspec_specialization.py:14:0 Uninitialized attribute [13]: Attribute `f` is declared in class `ClassA` to have type `typing.Callable[generics_paramspec_specialization.P1, int]` but is never initialized.
-generics_paramspec_specialization.py:14:0 Uninitialized attribute [13]: Attribute `x` is declared in class `ClassA` to have type `Variable[T]` but is never initialized.
-generics_paramspec_specialization.py:19:0 Uninitialized attribute [13]: Attribute `f1` is declared in class `ClassB` to have type `typing.Callable[generics_paramspec_specialization.P1, int]` but is never initialized.
-generics_paramspec_specialization.py:19:0 Uninitialized attribute [13]: Attribute `f2` is declared in class `ClassB` to have type `typing.Callable[generics_paramspec_specialization.P2, int]` but is never initialized.
-generics_paramspec_specialization.py:19:0 Uninitialized attribute [13]: Attribute `x` is declared in class `ClassB` to have type `Variable[T]` but is never initialized.
-generics_paramspec_specialization.py:33:14 Undefined or invalid type [11]: Annotation `...` is not defined as a type.
-generics_paramspec_specialization.py:45:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P1`, but a single type `int` was given for generic type ClassA.
-generics_paramspec_specialization.py:49:0 Uninitialized attribute [13]: Attribute `f` is declared in class `ClassC` to have type `typing.Callable[generics_paramspec_specialization.P1, int]` but is never initialized.
-generics_paramspec_specialization.py:55:8 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `int` but got `str`.
-generics_paramspec_specialization.py:56:15 Incompatible parameter type [6]: In anonymous call, for 3rd positional argument, expected `bool` but got `str`.
-generics_paramspec_specialization.py:61:8 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `int` but got `str`.
-generics_paramspec_specialization.py:62:15 Incompatible parameter type [6]: In anonymous call, for 3rd positional argument, expected `bool` but got `str`.
+generics_paramspec_specialization.py:32:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P2`, but a single type `...` was given for generic type ClassB.
+generics_paramspec_specialization.py:36:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P1`, but a single type `...` was given for generic type ClassA.
+generics_paramspec_specialization.py:44:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P1`, but a single type `int` was given for generic type ClassA.
+generics_paramspec_specialization.py:53:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.
+generics_paramspec_specialization.py:54:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.
+generics_paramspec_specialization.py:55:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.
+generics_paramspec_specialization.py:59:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.
+generics_paramspec_specialization.py:60:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.
+generics_paramspec_specialization.py:61:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 14: Unexpected errors ['generics_paramspec_specialization.py:14:0 Uninitialized attribute [13]: Attribute `f` is declared in class `ClassA` to have type `typing.Callable[generics_paramspec_specialization.P1, int]` but is never initialized.', 'generics_paramspec_specialization.py:14:0 Uninitialized attribute [13]: Attribute `x` is declared in class `ClassA` to have type `Variable[T]` but is never initialized.']
-Line 19: Unexpected errors ['generics_paramspec_specialization.py:19:0 Uninitialized attribute [13]: Attribute `f1` is declared in class `ClassB` to have type `typing.Callable[generics_paramspec_specialization.P1, int]` but is never initialized.', 'generics_paramspec_specialization.py:19:0 Uninitialized attribute [13]: Attribute `f2` is declared in class `ClassB` to have type `typing.Callable[generics_paramspec_specialization.P2, int]` but is never initialized.', 'generics_paramspec_specialization.py:19:0 Uninitialized attribute [13]: Attribute `x` is declared in class `ClassB` to have type `Variable[T]` but is never initialized.']
-Line 33: Unexpected errors ['generics_paramspec_specialization.py:33:14 Undefined or invalid type [11]: Annotation `...` is not defined as a type.']
-Line 49: Unexpected errors ['generics_paramspec_specialization.py:49:0 Uninitialized attribute [13]: Attribute `f` is declared in class `ClassC` to have type `typing.Callable[generics_paramspec_specialization.P1, int]` but is never initialized.']
+Line 32: Unexpected errors ['generics_paramspec_specialization.py:32:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P2`, but a single type `...` was given for generic type ClassB.']
+Line 36: Unexpected errors ['generics_paramspec_specialization.py:36:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P1`, but a single type `...` was given for generic type ClassA.']
+Line 53: Unexpected errors ['generics_paramspec_specialization.py:53:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.']
+Line 59: Unexpected errors ['generics_paramspec_specialization.py:59:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.']
 """

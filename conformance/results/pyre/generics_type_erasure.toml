@@ -5,7 +5,7 @@ False negatives on instance attribute access on the type.
 Does not infer type of `DefaultDict` with explicit type parameters on constructor.
 """
 output = """
-generics_type_erasure.py:11:0 Uninitialized attribute [13]: Attribute `label` is declared in class `Node` to have type `Variable[T]` but is never initialized.
+generics_type_erasure.py:12:4 Uninitialized attribute [13]: Attribute `label` is declared in class `Node` to have type `Variable[T]` but is never initialized.
 generics_type_erasure.py:15:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[str]` but got `Node[typing_extensions.Literal['']]`.
 generics_type_erasure.py:16:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[int]` but got `Node[typing_extensions.Literal[0]]`.
 generics_type_erasure.py:17:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[typing.Any]` but got `Node[Variable[T]]`.
@@ -21,7 +21,7 @@ Line 41: Expected 1 errors
 Line 42: Expected 1 errors
 Line 43: Expected 1 errors
 Line 44: Expected 1 errors
-Line 11: Unexpected errors ['generics_type_erasure.py:11:0 Uninitialized attribute [13]: Attribute `label` is declared in class `Node` to have type `Variable[T]` but is never initialized.']
+Line 12: Unexpected errors ['generics_type_erasure.py:12:4 Uninitialized attribute [13]: Attribute `label` is declared in class `Node` to have type `Variable[T]` but is never initialized.']
 Line 15: Unexpected errors ["generics_type_erasure.py:15:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[str]` but got `Node[typing_extensions.Literal['']]`."]
 Line 16: Unexpected errors ['generics_type_erasure.py:16:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[int]` but got `Node[typing_extensions.Literal[0]]`.']
 Line 17: Unexpected errors ['generics_type_erasure.py:17:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[typing.Any]` but got `Node[Variable[T]]`.']

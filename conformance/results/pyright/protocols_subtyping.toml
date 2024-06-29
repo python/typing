@@ -8,10 +8,18 @@ protocols_subtyping.py:55:18 - error: Expression of type "Proto2" is incompatibl
     "method2" is not present (reportAssignmentType)
 protocols_subtyping.py:79:30 - error: Expression of type "Proto5[int]" is incompatible with declared type "Proto4[int, float]"
   "Proto5[int]" is incompatible with protocol "Proto4[int, float]"
-    Type parameter "T@Proto4" is invariant, but "int" is not the same as "float" (reportAssignmentType)
+    "method1" is an incompatible type
+      Type "(a: int, b: int) -> tuple[int, int]" is incompatible with type "(a: S@Proto4, b: T@Proto4) -> tuple[S@Proto4, T@Proto4]"
+        Parameter 2: type "T@Proto4" is incompatible with type "int"
+          "float" is incompatible with "int" (reportAssignmentType)
 protocols_subtyping.py:80:25 - error: Expression of type "Proto4[int, int]" is incompatible with declared type "Proto5[float]"
   "Proto4[int, int]" is incompatible with protocol "Proto5[float]"
-    Type parameter "T@Proto5" is invariant, but "int" is not the same as "float" (reportAssignmentType)
+    "method1" is an incompatible type
+      Type "(a: int, b: int) -> tuple[int, int]" is incompatible with type "(a: T@Proto5, b: T@Proto5) -> tuple[T@Proto5, T@Proto5]"
+        Parameter 1: type "T@Proto5" is incompatible with type "int"
+          "float" is incompatible with "int"
+        Parameter 2: type "T@Proto5" is incompatible with type "int"
+          "float" is incompatible with "int" (reportAssignmentType)
 protocols_subtyping.py:102:30 - error: Expression of type "Proto6[float, float]" is incompatible with declared type "Proto7[int, float]"
   "Proto6[float, float]" is incompatible with protocol "Proto7[int, float]"
     "method1" is an incompatible type
@@ -20,8 +28,10 @@ protocols_subtyping.py:102:30 - error: Expression of type "Proto6[float, float]"
           "Sequence[float]" is incompatible with "Sequence[S_co@Proto7]" (reportAssignmentType)
 protocols_subtyping.py:103:33 - error: Expression of type "Proto6[float, float]" is incompatible with declared type "Proto7[float, object]"
   "Proto6[float, float]" is incompatible with protocol "Proto7[float, object]"
-    Type parameter "T_contra@Proto7" is contravariant, but "float" is not a supertype of "object"
-      "object" is incompatible with "float" (reportAssignmentType)
+    "method1" is an incompatible type
+      Type "(a: float) -> Sequence[float]" is incompatible with type "(a: T_contra@Proto7) -> Sequence[S_co@Proto7]"
+        Parameter 1: type "T_contra@Proto7" is incompatible with type "float"
+          "object" is incompatible with "float" (reportAssignmentType)
 """
 conformance_automated = "Pass"
 errors_diff = """

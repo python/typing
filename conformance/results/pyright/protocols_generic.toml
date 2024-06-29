@@ -7,7 +7,7 @@ protocols_generic.py:40:24 - error: Expression of type "Concrete1" is incompatib
         Parameter 1: type "S@Proto1" is incompatible with type "str"
           "int" is incompatible with "str"
         Function return type "str" is incompatible with type "S@Proto1"
-          Type "str" is incompatible with type "int"
+          Type "int | str" is incompatible with type "int"
     "__iter__" is an incompatible type
   ... (reportAssignmentType)
 protocols_generic.py:44:30 - error: Only one Generic[...] or Protocol[...] base class allowed (reportGeneralTypeIssues)

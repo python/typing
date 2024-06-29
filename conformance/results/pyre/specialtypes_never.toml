@@ -4,8 +4,8 @@ Does not treat Never as compatible with all other types.
 """
 output = """
 specialtypes_never.py:21:8 Incompatible return type [7]: Function declared non-returnable, but got `None`.
-specialtypes_never.py:55:0 Uninitialized attribute [13]: Attribute `x` is declared in class `ClassA` to have type `NoReturn` but is never initialized.
-specialtypes_never.py:55:0 Uninitialized attribute [13]: Attribute `y` is declared in class `ClassA` to have type `typing.List[NoReturn]` but is never initialized.
+specialtypes_never.py:56:4 Uninitialized attribute [13]: Attribute `x` is declared in class `ClassA` to have type `NoReturn` but is never initialized.
+specialtypes_never.py:57:4 Uninitialized attribute [13]: Attribute `y` is declared in class `ClassA` to have type `typing.List[NoReturn]` but is never initialized.
 specialtypes_never.py:64:4 Incompatible variable type [9]: v1 is declared to have type `int` but is used as type `Never`.
 specialtypes_never.py:65:4 Incompatible variable type [9]: v2 is declared to have type `str` but is used as type `Never`.
 specialtypes_never.py:66:4 Incompatible variable type [9]: v3 is declared to have type `List[str]` but is used as type `Never`.
@@ -18,7 +18,8 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 19: Expected 1 errors
 Line 21: Unexpected errors ['specialtypes_never.py:21:8 Incompatible return type [7]: Function declared non-returnable, but got `None`.']
-Line 55: Unexpected errors ['specialtypes_never.py:55:0 Uninitialized attribute [13]: Attribute `x` is declared in class `ClassA` to have type `NoReturn` but is never initialized.', 'specialtypes_never.py:55:0 Uninitialized attribute [13]: Attribute `y` is declared in class `ClassA` to have type `typing.List[NoReturn]` but is never initialized.']
+Line 56: Unexpected errors ['specialtypes_never.py:56:4 Uninitialized attribute [13]: Attribute `x` is declared in class `ClassA` to have type `NoReturn` but is never initialized.']
+Line 57: Unexpected errors ['specialtypes_never.py:57:4 Uninitialized attribute [13]: Attribute `y` is declared in class `ClassA` to have type `typing.List[NoReturn]` but is never initialized.']
 Line 64: Unexpected errors ['specialtypes_never.py:64:4 Incompatible variable type [9]: v1 is declared to have type `int` but is used as type `Never`.']
 Line 65: Unexpected errors ['specialtypes_never.py:65:4 Incompatible variable type [9]: v2 is declared to have type `str` but is used as type `Never`.']
 Line 66: Unexpected errors ['specialtypes_never.py:66:4 Incompatible variable type [9]: v3 is declared to have type `List[str]` but is used as type `Never`.']

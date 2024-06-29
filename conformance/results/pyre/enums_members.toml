@@ -16,6 +16,8 @@ Line 78: Expected 1 errors
 Line 79: Expected 1 errors
 Line 112: Expected 1 errors
 Line 125: Expected 1 errors
+Line 16: Unexpected errors ['enums_members.py:16:4 Uninitialized attribute [13]: Attribute `genus` is declared in class `Pet` to have type `Pet` but is never initialized.']
+Line 17: Unexpected errors ['enums_members.py:17:4 Uninitialized attribute [13]: Attribute `species` is declared in class `Pet` to have type `Pet` but is never initialized.']
 Line 23: Unexpected errors ['enums_members.py:23:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Pet`.']
 Line 24: Unexpected errors ['enums_members.py:24:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Pet`.']
 Line 31: Unexpected errors ['enums_members.py:31:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Pet2`.']
@@ -26,8 +28,8 @@ Line 124: Unexpected errors ['enums_members.py:124:8 Revealed type [-1]: Reveale
 Line 135: Unexpected errors ['enums_members.py:135:4 Inconsistent override [15]: `_ignore_` overrides attribute defined in `Enum` inconsistently. Type `Pet5` is not a subtype of the overridden attribute `typing.Union[typing.List[str], str]`.']
 """
 output = """
-enums_members.py:15:0 Uninitialized attribute [13]: Attribute `genus` is declared in class `Pet` to have type `Pet` but is never initialized.
-enums_members.py:15:0 Uninitialized attribute [13]: Attribute `species` is declared in class `Pet` to have type `Pet` but is never initialized.
+enums_members.py:16:4 Uninitialized attribute [13]: Attribute `genus` is declared in class `Pet` to have type `Pet` but is never initialized.
+enums_members.py:17:4 Uninitialized attribute [13]: Attribute `species` is declared in class `Pet` to have type `Pet` but is never initialized.
 enums_members.py:23:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Pet`.
 enums_members.py:24:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Pet`.
 enums_members.py:31:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Pet2`.

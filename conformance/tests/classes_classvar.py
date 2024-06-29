@@ -17,6 +17,7 @@ from typing import (
     TypeVar,
     TypeVarTuple,
     assert_type,
+    cast,
 )
 from typing import ClassVar as CV
 
@@ -34,16 +35,16 @@ Ts = TypeVarTuple("Ts")
 class ClassA(Generic[T, P]):
     # > ClassVar accepts only a single argument that should be a valid type
 
-    bad1: ClassVar[int, str]  # E: too many arguments
-    bad2: CV[3]  # E: invalid type
-    bad3: CV[var]  # E: invalid type
+    bad1: ClassVar[int, str] = cast(Any, 0)  # E: too many arguments
+    bad2: CV[3] = cast(Any, 0)  # E: invalid type
+    bad3: CV[var] = cast(Any, 0)  # E: invalid type
 
     # > Note that a ClassVar parameter cannot include any type variables,
     # > regardless of the level of nesting.
 
-    bad4: ClassVar[T]  # E: cannot use TypeVar
-    bad5: ClassVar[list[T]]  # E: cannot use TypeVar
-    bad6: ClassVar[Callable[P, Any]]  # E: cannot use ParamSpec
+    bad4: ClassVar[T] = cast(Any, 0)  # E: cannot use TypeVar
+    bad5: ClassVar[list[T]] = cast(Any, 0)  # E: cannot use TypeVar
+    bad6: ClassVar[Callable[P, Any]] = cast(Any, 0)  # E: cannot use ParamSpec
 
     # This is currently commented out because it causes mypy to crash.
     # bad7: ClassVar[tuple[*Ts]]  # E: cannot use TypeVarTuple
