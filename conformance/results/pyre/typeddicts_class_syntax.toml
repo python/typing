@@ -6,8 +6,8 @@ Does not report when other keyword argument is provided.
 Does not support generic TypedDict class.
 """
 output = """
-typeddicts_class_syntax.py:57:0 Uninitialized attribute [13]: Attribute `name` is declared in class `GenericTypedDict` to have type `str` but is never initialized.
-typeddicts_class_syntax.py:57:0 Uninitialized attribute [13]: Attribute `value` is declared in class `GenericTypedDict` to have type `Variable[T]` but is never initialized.
+typeddicts_class_syntax.py:58:4 Uninitialized attribute [13]: Attribute `name` is declared in class `GenericTypedDict` to have type `str` but is never initialized.
+typeddicts_class_syntax.py:59:4 Uninitialized attribute [13]: Attribute `value` is declared in class `GenericTypedDict` to have type `Variable[T]` but is never initialized.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -16,5 +16,6 @@ Line 33: Expected 1 errors
 Line 38: Expected 1 errors
 Line 44: Expected 1 errors
 Line 49: Expected 1 errors
-Line 57: Unexpected errors ['typeddicts_class_syntax.py:57:0 Uninitialized attribute [13]: Attribute `name` is declared in class `GenericTypedDict` to have type `str` but is never initialized.', 'typeddicts_class_syntax.py:57:0 Uninitialized attribute [13]: Attribute `value` is declared in class `GenericTypedDict` to have type `Variable[T]` but is never initialized.']
+Line 58: Unexpected errors ['typeddicts_class_syntax.py:58:4 Uninitialized attribute [13]: Attribute `name` is declared in class `GenericTypedDict` to have type `str` but is never initialized.']
+Line 59: Unexpected errors ['typeddicts_class_syntax.py:59:4 Uninitialized attribute [13]: Attribute `value` is declared in class `GenericTypedDict` to have type `Variable[T]` but is never initialized.']
 """

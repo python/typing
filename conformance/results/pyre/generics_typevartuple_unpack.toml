@@ -3,25 +3,25 @@ notes = """
 Does not support star expressions for `Unpack`.
 """
 output = """
-generics_typevartuple_unpack.py:17:12 Invalid type [31]: Expression `typing.Generic[(*$local_generics_typevartuple_unpack$Ts)]` is not a valid type.
-generics_typevartuple_unpack.py:21:30 Invalid type [31]: Expression `Array[(generics_typevartuple_unpack.Batch, *tuple[(typing.Any, ...)], generics_typevartuple_unpack.Channels)]` is not a valid type.
+generics_typevartuple_unpack.py:17:12 Invalid type [31]: Expression `typing.Generic[(*Ts)]` is not a valid type.
+generics_typevartuple_unpack.py:21:30 Invalid type [31]: Expression `generics_typevartuple_unpack.Array[(generics_typevartuple_unpack.Batch, *tuple[(typing.Any, ...)], generics_typevartuple_unpack.Channels)]` is not a valid type.
 generics_typevartuple_unpack.py:21:30 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
 generics_typevartuple_unpack.py:26:7 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
 generics_typevartuple_unpack.py:26:49 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
 generics_typevartuple_unpack.py:26:76 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
-generics_typevartuple_unpack.py:36:29 Invalid type [31]: Expression `Array[(generics_typevartuple_unpack.Batch, *$local_generics_typevartuple_unpack$Shape)]` is not a valid type.
+generics_typevartuple_unpack.py:36:29 Invalid type [31]: Expression `generics_typevartuple_unpack.Array[(generics_typevartuple_unpack.Batch, *Shape)]` is not a valid type.
 generics_typevartuple_unpack.py:36:29 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
 generics_typevartuple_unpack.py:40:28 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
-generics_typevartuple_unpack.py:44:13 Invalid type [31]: Expression `Array[(*tuple[(typing.Any, ...)])]` is not a valid type.
+generics_typevartuple_unpack.py:44:13 Invalid type [31]: Expression `generics_typevartuple_unpack.Array[(*tuple[(typing.Any, ...)])]` is not a valid type.
 generics_typevartuple_unpack.py:44:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 30: Expected 1 errors
-Line 17: Unexpected errors ['generics_typevartuple_unpack.py:17:12 Invalid type [31]: Expression `typing.Generic[(*$local_generics_typevartuple_unpack$Ts)]` is not a valid type.']
-Line 21: Unexpected errors ['generics_typevartuple_unpack.py:21:30 Invalid type [31]: Expression `Array[(generics_typevartuple_unpack.Batch, *tuple[(typing.Any, ...)], generics_typevartuple_unpack.Channels)]` is not a valid type.', 'generics_typevartuple_unpack.py:21:30 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
+Line 17: Unexpected errors ['generics_typevartuple_unpack.py:17:12 Invalid type [31]: Expression `typing.Generic[(*Ts)]` is not a valid type.']
+Line 21: Unexpected errors ['generics_typevartuple_unpack.py:21:30 Invalid type [31]: Expression `generics_typevartuple_unpack.Array[(generics_typevartuple_unpack.Batch, *tuple[(typing.Any, ...)], generics_typevartuple_unpack.Channels)]` is not a valid type.', 'generics_typevartuple_unpack.py:21:30 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
 Line 26: Unexpected errors ['generics_typevartuple_unpack.py:26:7 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_unpack.py:26:49 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_unpack.py:26:76 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
-Line 36: Unexpected errors ['generics_typevartuple_unpack.py:36:29 Invalid type [31]: Expression `Array[(generics_typevartuple_unpack.Batch, *$local_generics_typevartuple_unpack$Shape)]` is not a valid type.', 'generics_typevartuple_unpack.py:36:29 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
+Line 36: Unexpected errors ['generics_typevartuple_unpack.py:36:29 Invalid type [31]: Expression `generics_typevartuple_unpack.Array[(generics_typevartuple_unpack.Batch, *Shape)]` is not a valid type.', 'generics_typevartuple_unpack.py:36:29 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
 Line 40: Unexpected errors ['generics_typevartuple_unpack.py:40:28 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
-Line 44: Unexpected errors ['generics_typevartuple_unpack.py:44:13 Invalid type [31]: Expression `Array[(*tuple[(typing.Any, ...)])]` is not a valid type.', 'generics_typevartuple_unpack.py:44:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
+Line 44: Unexpected errors ['generics_typevartuple_unpack.py:44:13 Invalid type [31]: Expression `generics_typevartuple_unpack.Array[(*tuple[(typing.Any, ...)])]` is not a valid type.', 'generics_typevartuple_unpack.py:44:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
 """

@@ -44,7 +44,7 @@ generics_defaults.py:81:0 Incompatible parameter type [6]: In call `assert_type`
 generics_defaults.py:81:12 Undefined attribute [16]: `Class_ParamSpec` has no attribute `__getitem__`.
 generics_defaults.py:81:45 Invalid type parameters [24]: Non-generic type `Class_ParamSpec` cannot take parameters.
 generics_defaults.py:88:53 Undefined attribute [16]: `tuple` has no attribute `__getitem__`.
-generics_defaults.py:91:25 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$DefaultTs)]` is not a valid type.
+generics_defaults.py:91:25 Invalid type [31]: Expression `typing.Generic[(*DefaultTs)]` is not a valid type.
 generics_defaults.py:94:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Type[Class_TypeVarTuple[]]` but got `Type[Class_TypeVarTuple]`.
 generics_defaults.py:94:32 Invalid type [31]: Expression `type[generics_defaults.Class_TypeVarTuple[(*tuple[(str, int)])]]` is not a valid type.
 generics_defaults.py:94:32 Invalid type parameters [24]: Non-generic type `Class_TypeVarTuple` cannot take parameters.
@@ -52,10 +52,10 @@ generics_defaults.py:95:0 Incompatible parameter type [6]: In call `assert_type`
 generics_defaults.py:95:34 Invalid type parameters [24]: Non-generic type `Class_TypeVarTuple` cannot take parameters.
 generics_defaults.py:96:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], Type[bool]]`. Expected has length 0, but actual has length 2.
 generics_defaults.py:124:13 Undefined or invalid type [11]: Annotation `T4` is not defined as a type.
-generics_defaults.py:138:11 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$Ts, $local_generics_defaults$T5)]` is not a valid type.
+generics_defaults.py:138:11 Invalid type [31]: Expression `typing.Generic[(*Ts, T5)]` is not a valid type.
 generics_defaults.py:138:11 Undefined or invalid type [11]: Annotation `T5` is not defined as a type.
 generics_defaults.py:145:19 Incompatible parameter type [6]: In call `ParamSpec.__init__`, for argument `default`, expected `Union[None, Type[typing.Any], str]` but got `List[Type[float]]`.
-generics_defaults.py:148:11 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$Ts, $local_generics_defaults$P)]` is not a valid type.
+generics_defaults.py:148:11 Invalid type [31]: Expression `typing.Generic[(*Ts, P)]` is not a valid type.
 generics_defaults.py:148:11 Undefined or invalid type [11]: Annotation `P` is not defined as a type.
 generics_defaults.py:151:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Type[Foo6[]]` but got `typing.Any`.
 generics_defaults.py:151:12 Undefined attribute [16]: `Foo6` has no attribute `__getitem__`.
@@ -95,13 +95,13 @@ Line 79: Unexpected errors ['generics_defaults.py:79:0 Incompatible parameter ty
 Line 80: Unexpected errors ['generics_defaults.py:80:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class_ParamSpec[]` but got `Class_ParamSpec`.', 'generics_defaults.py:80:31 Invalid type parameters [24]: Non-generic type `Class_ParamSpec` cannot take parameters.']
 Line 81: Unexpected errors ['generics_defaults.py:81:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class_ParamSpec[]` but got `typing.Any`.', 'generics_defaults.py:81:12 Undefined attribute [16]: `Class_ParamSpec` has no attribute `__getitem__`.', 'generics_defaults.py:81:45 Invalid type parameters [24]: Non-generic type `Class_ParamSpec` cannot take parameters.']
 Line 88: Unexpected errors ['generics_defaults.py:88:53 Undefined attribute [16]: `tuple` has no attribute `__getitem__`.']
-Line 91: Unexpected errors ['generics_defaults.py:91:25 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$DefaultTs)]` is not a valid type.']
+Line 91: Unexpected errors ['generics_defaults.py:91:25 Invalid type [31]: Expression `typing.Generic[(*DefaultTs)]` is not a valid type.']
 Line 94: Unexpected errors ['generics_defaults.py:94:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Type[Class_TypeVarTuple[]]` but got `Type[Class_TypeVarTuple]`.', 'generics_defaults.py:94:32 Invalid type [31]: Expression `type[generics_defaults.Class_TypeVarTuple[(*tuple[(str, int)])]]` is not a valid type.', 'generics_defaults.py:94:32 Invalid type parameters [24]: Non-generic type `Class_TypeVarTuple` cannot take parameters.']
 Line 95: Unexpected errors ['generics_defaults.py:95:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class_TypeVarTuple[]` but got `Class_TypeVarTuple`.', 'generics_defaults.py:95:34 Invalid type parameters [24]: Non-generic type `Class_TypeVarTuple` cannot take parameters.']
 Line 96: Unexpected errors ['generics_defaults.py:96:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Type[int], Type[bool]]`. Expected has length 0, but actual has length 2.']
 Line 124: Unexpected errors ['generics_defaults.py:124:13 Undefined or invalid type [11]: Annotation `T4` is not defined as a type.']
 Line 145: Unexpected errors ['generics_defaults.py:145:19 Incompatible parameter type [6]: In call `ParamSpec.__init__`, for argument `default`, expected `Union[None, Type[typing.Any], str]` but got `List[Type[float]]`.']
-Line 148: Unexpected errors ['generics_defaults.py:148:11 Invalid type [31]: Expression `typing.Generic[(*$local_generics_defaults$Ts, $local_generics_defaults$P)]` is not a valid type.', 'generics_defaults.py:148:11 Undefined or invalid type [11]: Annotation `P` is not defined as a type.']
+Line 148: Unexpected errors ['generics_defaults.py:148:11 Invalid type [31]: Expression `typing.Generic[(*Ts, P)]` is not a valid type.', 'generics_defaults.py:148:11 Undefined or invalid type [11]: Annotation `P` is not defined as a type.']
 Line 151: Unexpected errors ['generics_defaults.py:151:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Type[Foo6[]]` but got `typing.Any`.', 'generics_defaults.py:151:12 Undefined attribute [16]: `Foo6` has no attribute `__getitem__`.', 'generics_defaults.py:151:28 Invalid type parameters [24]: Non-generic type `Foo6` cannot take parameters.']
 Line 152: Unexpected errors ['generics_defaults.py:152:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Type[Foo6[]]` but got `typing.Any`.', 'generics_defaults.py:152:37 Invalid type parameters [24]: Non-generic type `Foo6` cannot take parameters.']
 Line 166: Unexpected errors ['generics_defaults.py:166:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing.Callable[[Foo7[]], Foo7[]]` but got `typing.Callable(Foo7.meth)[[Variable[_Self_generics_defaults_Foo7__ (bound to Foo7)]], Variable[_Self_generics_defaults_Foo7__ (bound to Foo7)]]`.', 'generics_defaults.py:166:23 Invalid type parameters [24]: Non-generic type `Foo7` cannot take parameters.']

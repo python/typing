@@ -158,17 +158,17 @@
         </header>
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
-<th class='tc-header'><div class='tc-name'>mypy 1.10.0</div>
-<div class='tc-time'>1.1sec</div>
+<th class='tc-header'><div class='tc-name'>mypy 1.10.1</div>
+<div class='tc-time'>1.4sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.366</div>
-<div class='tc-time'>1.3sec</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.369</div>
+<div class='tc-time'>1.4sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyre 0.9.21</div>
-<div class='tc-time'>1.7sec</div>
+<th class='tc-header'><div class='tc-name'>pyre 0.9.22</div>
+<div class='tc-time'>2.8sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.04.11</div>
-<div class='tc-time'>27.9sec</div>
+<div class='tc-time'>31.4sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -525,7 +525,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;literals_semantics</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject augmented operation that modifies literal value.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand `Literal` type annotation.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -603,7 +603,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callables_annotation</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly treats "*args: T, **kwargs: T" as "..." when T is specialized to Any.</p><p>Does not treat "*args: Any, **kargs: Any" as "..." when separated by keyword parameter.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not evaluate correct type for `*args: int` parameter.</p><p>Does not reject illegal form `Callable[[...], int]`.</p><p>Does not correctly implement type compatibility rules for "...".</p><p>Does not treat "*args: Any, **kwargs: Any" as "...".</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not evaluate correct type for `*args: int` parameter.</p><p>Does not correctly implement type compatibility rules for "...".</p><p>Does not treat "*args: Any, **kwargs: Any" as "...".</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support Concatenate.</p><p>Does not treat "*args: Any, **kwargs: Any" as "...".</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callables_kwargs</th>
@@ -693,13 +693,13 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_final</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Wrongly requires a Final dataclass field to be initialized at class level.</p><p>Doesn't support Final nested inside ClassVar.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Mis-handles Final nested inside ClassVar.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Doesn't handle Final nested inside ClassVar.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_frozen</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject frozen dataclass inherited from non-frozen dataclass.</p><p>Does not reject non-frozen dataclass inherited from frozen dataclass.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not report assignment to field within frozen dataclass instance.</p><p>Does not reject frozen dataclass inherited from non-frozen dataclass.</p><p>Does not reject non-frozen dataclass inherited from frozen dataclass.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_hash</th>
@@ -717,7 +717,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_kwonly</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects kw_only field with default before positional field.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Rejects legitimate use of dataclass field with `kw_only=True`.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly reports error when kw_only field has default value.</p><p>Incorrectly rejects kw_only field with default before positional field.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_order</th>
@@ -741,7 +741,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_transform_class</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not validate when a non-frozen model derives from a frozen one.</p><p>Does not support field specifiers.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support field specifiers.</p><p>Emits "attribute not initialized" error for dataclass field.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand @dataclass_transform.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_transform_field</th>
@@ -753,19 +753,19 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_transform_func</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not handle `kw_only=False` override when `kw_only_default=True`.</p><p>Does not report error when `order=False` and comparison operators are used.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not understand @dataclass_transform when it is</p><p>applied only to overloads of a decorator but not the</p><p>definition.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not understand @dataclass_transform when it is applied only to overloads of a decorator but not the definition.</p><p>Does not detect non-frozen class inheriting from frozen class.</p><p>Emits "attribute not initialized" error for dataclass field.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand @dataclass_transform.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_transform_meta</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not understand custom field specifiers.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not understand custom field specifiers.</p><p>Incorrectly rejects frozen dataclass that inherits from non-frozen.</p><p>Emits "attribute not initialized" error for dataclass field.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand @dataclass_transform.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_usage</th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not detect unannotated usage of `dataclasses.field()`.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report error when field with no default follows field with default.</p><p>Incorrectly reports error with InitVar that has default value.</p><p>Complains on `assert_type` when used for bound methods vs `Callable`.</p><p>Does not understand `__dataclass_fields__`.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report error when field with no default follows field with default.</p><p>Complains on `assert_type` when used for bound methods vs `Callable`.</p><p>Does not understand `__dataclass_fields__`.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -834,7 +834,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_required</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support nesting of `Annotated` and `Required` or `NotRequired`.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of `Required` in function parameter annotation.</p><p>Does not reject nested use of `Required` in type annotation.</p><p>Does not support recursive TypedDict definitions.</p><p>Incorrectly complains about uninitialized attributes on TypedDict definitions.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of `Required` in function parameter annotation.</p><p>Does not reject nested use of `Required` in type annotation.</p><p>Does not support recursive TypedDict definitions.</p><p>Incorrectly complains about uninitialized attributes on TypedDict definitions.</p><p>Incorrectly generates "attribute not initialized" errors for TypedDict fields.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of `Required` in non-TypedDict class.</p><p>Does not reject use of `Required` in function parameter annotation.</p><p>Does not reject nested use of `Required` in type annotation.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_type_consistency</th>
@@ -861,7 +861,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tuples_type_form</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject some invalid tuple forms involving ellipsis.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tuples_unpacked</th>
@@ -882,7 +882,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namedtuples_define_functional</th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not handle illegal named tuple names the same as runtime.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject duplicate field names in functional form.</p><p>Does not handle illegal named tuple names the same as runtime.</p><p>Does not handle defined fields correctly when extra flags like `rename` or `default` are used.</p><p>Does not support defaults in functional form.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not handle illegal named tuple names the same as runtime.</p><p>Does not handle defined fields correctly when extra flags like `rename` or `default` are used.</p><p>Does not support defaults in functional form.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not handle illegal named tuple names the same as runtime.</p><p>Does not support defaults in functional form.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namedtuples_type_compat</th>

@@ -3,7 +3,7 @@ output = """
 annotations_typeexpr.py:88:8 Invalid type [31]: Expression `eval("".join(map(chr, [105, 110, 116])))` is not a valid type.
 annotations_typeexpr.py:89:8 Invalid type [31]: Expression `[int, str]` is not a valid type.
 annotations_typeexpr.py:90:8 Invalid type [31]: Expression `(int, str)` is not a valid type.
-annotations_typeexpr.py:91:8 Invalid type [31]: Expression `comprehension(int for generators(generator($target$i in range(1) if )))` is not a valid type.
+annotations_typeexpr.py:91:8 Invalid type [31]: Expression `comprehension(int for generators(generator(i in range(1) if )))` is not a valid type.
 annotations_typeexpr.py:92:8 Invalid type [31]: Expression `{  }` is not a valid type.
 annotations_typeexpr.py:93:8 Invalid type [31]: Expression `lambda () (int)()` is not a valid type.
 annotations_typeexpr.py:94:8 Invalid type [31]: Expression `[int][0]` is not a valid type.

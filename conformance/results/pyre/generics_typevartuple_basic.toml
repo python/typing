@@ -3,13 +3,13 @@ notes = """
 Does not support TypeVarTuple.
 """
 output = """
-generics_typevartuple_basic.py:12:13 Invalid type [31]: Expression `typing.Generic[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.
-generics_typevartuple_basic.py:16:17 Invalid type [31]: Expression `*$local_generics_typevartuple_basic$Ts` is not a valid type.
-generics_typevartuple_basic.py:16:25 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.
-generics_typevartuple_basic.py:23:12 Invalid type [31]: Expression `typing.Generic[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.
-generics_typevartuple_basic.py:24:30 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.
-generics_typevartuple_basic.py:25:21 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.
-generics_typevartuple_basic.py:27:27 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.
+generics_typevartuple_basic.py:12:13 Invalid type [31]: Expression `typing.Generic[(*Ts)]` is not a valid type.
+generics_typevartuple_basic.py:16:17 Invalid type [31]: Expression `*Ts` is not a valid type.
+generics_typevartuple_basic.py:16:25 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
+generics_typevartuple_basic.py:23:12 Invalid type [31]: Expression `typing.Generic[(*Shape)]` is not a valid type.
+generics_typevartuple_basic.py:24:30 Invalid type [31]: Expression `tuple[(*Shape)]` is not a valid type.
+generics_typevartuple_basic.py:25:21 Invalid type [31]: Expression `tuple[(*Shape)]` is not a valid type.
+generics_typevartuple_basic.py:27:27 Invalid type [31]: Expression `tuple[(*Shape)]` is not a valid type.
 generics_typevartuple_basic.py:36:0 Incompatible variable type [9]: v1 is declared to have type `Array[]` but is used as type `Array`.
 generics_typevartuple_basic.py:36:4 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
 generics_typevartuple_basic.py:36:33 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Height, Width]`. Expected has length 1, but actual has length 2.
@@ -29,24 +29,24 @@ generics_typevartuple_basic.py:44:0 Incompatible variable type [9]: v6 is declar
 generics_typevartuple_basic.py:44:4 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
 generics_typevartuple_basic.py:45:4 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Time, Batch, Width, Height]`. Expected has length 1, but actual has length 4.
 generics_typevartuple_basic.py:52:13 Undefined or invalid type [11]: Annotation `Shape` is not defined as a type.
-generics_typevartuple_basic.py:54:21 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.
+generics_typevartuple_basic.py:54:21 Invalid type [31]: Expression `tuple[(*Shape)]` is not a valid type.
 generics_typevartuple_basic.py:65:6 Unexpected keyword [28]: Unexpected keyword argument `covariant` to call `TypeVarTuple.__init__`.
 generics_typevartuple_basic.py:66:6 Too many arguments [19]: Call `TypeVarTuple.__init__` expects 1 positional argument, 3 were provided.
 generics_typevartuple_basic.py:67:6 Unexpected keyword [28]: Unexpected keyword argument `bound` to call `TypeVarTuple.__init__`.
-generics_typevartuple_basic.py:75:16 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.
-generics_typevartuple_basic.py:75:34 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.
-generics_typevartuple_basic.py:75:49 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.
+generics_typevartuple_basic.py:75:16 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
+generics_typevartuple_basic.py:75:34 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
+generics_typevartuple_basic.py:75:49 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
 generics_typevartuple_basic.py:90:6 Incompatible parameter type [6]: In call `func2`, for 1st positional argument, expected `Tuple[]` but got `Tuple[int, int]`. Expected has length 1, but actual has length 2.
-generics_typevartuple_basic.py:93:16 Invalid type [31]: Expression `Array[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.
+generics_typevartuple_basic.py:93:16 Invalid type [31]: Expression `generics_typevartuple_basic.Array[(*Shape)]` is not a valid type.
 generics_typevartuple_basic.py:93:16 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
-generics_typevartuple_basic.py:93:34 Invalid type [31]: Expression `Array[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.
+generics_typevartuple_basic.py:93:34 Invalid type [31]: Expression `generics_typevartuple_basic.Array[(*Shape)]` is not a valid type.
 generics_typevartuple_basic.py:93:34 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
-generics_typevartuple_basic.py:93:52 Invalid type [31]: Expression `Array[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.
+generics_typevartuple_basic.py:93:52 Invalid type [31]: Expression `generics_typevartuple_basic.Array[(*Shape)]` is not a valid type.
 generics_typevartuple_basic.py:93:52 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
 generics_typevartuple_basic.py:97:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
 generics_typevartuple_basic.py:97:31 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
 generics_typevartuple_basic.py:97:48 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
-generics_typevartuple_basic.py:106:13 Invalid type [31]: Expression `typing.Generic[(*$local_generics_typevartuple_basic$Ts1, *$local_generics_typevartuple_basic$Ts2)]` is not a valid type.
+generics_typevartuple_basic.py:106:13 Invalid type [31]: Expression `typing.Generic[(*Ts1, *Ts2)]` is not a valid type.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -56,19 +56,19 @@ Line 59: Expected 1 errors
 Line 89: Expected 1 errors
 Line 99: Expected 1 errors
 Line 100: Expected 1 errors
-Line 12: Unexpected errors ['generics_typevartuple_basic.py:12:13 Invalid type [31]: Expression `typing.Generic[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.']
-Line 16: Unexpected errors ['generics_typevartuple_basic.py:16:17 Invalid type [31]: Expression `*$local_generics_typevartuple_basic$Ts` is not a valid type.', 'generics_typevartuple_basic.py:16:25 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.']
-Line 23: Unexpected errors ['generics_typevartuple_basic.py:23:12 Invalid type [31]: Expression `typing.Generic[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.']
-Line 24: Unexpected errors ['generics_typevartuple_basic.py:24:30 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.']
-Line 25: Unexpected errors ['generics_typevartuple_basic.py:25:21 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.']
-Line 27: Unexpected errors ['generics_typevartuple_basic.py:27:27 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.']
+Line 12: Unexpected errors ['generics_typevartuple_basic.py:12:13 Invalid type [31]: Expression `typing.Generic[(*Ts)]` is not a valid type.']
+Line 16: Unexpected errors ['generics_typevartuple_basic.py:16:17 Invalid type [31]: Expression `*Ts` is not a valid type.', 'generics_typevartuple_basic.py:16:25 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.']
+Line 23: Unexpected errors ['generics_typevartuple_basic.py:23:12 Invalid type [31]: Expression `typing.Generic[(*Shape)]` is not a valid type.']
+Line 24: Unexpected errors ['generics_typevartuple_basic.py:24:30 Invalid type [31]: Expression `tuple[(*Shape)]` is not a valid type.']
+Line 25: Unexpected errors ['generics_typevartuple_basic.py:25:21 Invalid type [31]: Expression `tuple[(*Shape)]` is not a valid type.']
+Line 27: Unexpected errors ['generics_typevartuple_basic.py:27:27 Invalid type [31]: Expression `tuple[(*Shape)]` is not a valid type.']
 Line 36: Unexpected errors ['generics_typevartuple_basic.py:36:0 Incompatible variable type [9]: v1 is declared to have type `Array[]` but is used as type `Array`.', 'generics_typevartuple_basic.py:36:4 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_basic.py:36:33 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Height, Width]`. Expected has length 1, but actual has length 2.']
 Line 37: Unexpected errors ['generics_typevartuple_basic.py:37:0 Incompatible variable type [9]: v2 is declared to have type `Array[]` but is used as type `Array`.', 'generics_typevartuple_basic.py:37:4 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_basic.py:37:40 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Batch, Height, Width]`. Expected has length 1, but actual has length 3.']
 Line 38: Unexpected errors ['generics_typevartuple_basic.py:38:0 Incompatible variable type [9]: v3 is declared to have type `Array[]` but is used as type `Array`.', 'generics_typevartuple_basic.py:38:4 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
 Line 39: Unexpected errors ['generics_typevartuple_basic.py:39:4 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Time, Batch, Height, Width]`. Expected has length 1, but actual has length 4.']
 Line 45: Unexpected errors ['generics_typevartuple_basic.py:45:4 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `Tuple[]` but got `Tuple[Time, Batch, Width, Height]`. Expected has length 1, but actual has length 4.']
-Line 54: Unexpected errors ['generics_typevartuple_basic.py:54:21 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.']
-Line 75: Unexpected errors ['generics_typevartuple_basic.py:75:16 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.', 'generics_typevartuple_basic.py:75:34 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.', 'generics_typevartuple_basic.py:75:49 Invalid type [31]: Expression `tuple[(*$local_generics_typevartuple_basic$Ts)]` is not a valid type.']
-Line 93: Unexpected errors ['generics_typevartuple_basic.py:93:16 Invalid type [31]: Expression `Array[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.', 'generics_typevartuple_basic.py:93:16 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_basic.py:93:34 Invalid type [31]: Expression `Array[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.', 'generics_typevartuple_basic.py:93:34 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_basic.py:93:52 Invalid type [31]: Expression `Array[(*$local_generics_typevartuple_basic$Shape)]` is not a valid type.', 'generics_typevartuple_basic.py:93:52 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
+Line 54: Unexpected errors ['generics_typevartuple_basic.py:54:21 Invalid type [31]: Expression `tuple[(*Shape)]` is not a valid type.']
+Line 75: Unexpected errors ['generics_typevartuple_basic.py:75:16 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.', 'generics_typevartuple_basic.py:75:34 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.', 'generics_typevartuple_basic.py:75:49 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.']
+Line 93: Unexpected errors ['generics_typevartuple_basic.py:93:16 Invalid type [31]: Expression `generics_typevartuple_basic.Array[(*Shape)]` is not a valid type.', 'generics_typevartuple_basic.py:93:16 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_basic.py:93:34 Invalid type [31]: Expression `generics_typevartuple_basic.Array[(*Shape)]` is not a valid type.', 'generics_typevartuple_basic.py:93:34 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_basic.py:93:52 Invalid type [31]: Expression `generics_typevartuple_basic.Array[(*Shape)]` is not a valid type.', 'generics_typevartuple_basic.py:93:52 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
 Line 97: Unexpected errors ['generics_typevartuple_basic.py:97:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_basic.py:97:31 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_basic.py:97:48 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
 """

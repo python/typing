@@ -6,7 +6,7 @@ Does not reject call of Annotated with no type arguments.
 output = """
 qualifiers_annotated.py:43:6 Undefined or invalid type [11]: Annotation `` is not defined as a type.
 qualifiers_annotated.py:44:6 Invalid type [31]: Expression `typing.Annotated[(((int, str)), "")]` is not a valid type.
-qualifiers_annotated.py:45:6 Invalid type [31]: Expression `typing.Annotated[(comprehension(int for generators(generator($target$i in range(1) if ))), "")]` is not a valid type.
+qualifiers_annotated.py:45:6 Invalid type [31]: Expression `typing.Annotated[(comprehension(int for generators(generator(i in range(1) if ))), "")]` is not a valid type.
 qualifiers_annotated.py:46:6 Invalid type [31]: Expression `typing.Annotated[({ "a":"b" }, "")]` is not a valid type.
 qualifiers_annotated.py:47:6 Invalid type [31]: Expression `typing.Annotated[(lambda () (int)(), "")]` is not a valid type.
 qualifiers_annotated.py:48:6 Invalid type [31]: Expression `typing.Annotated[([int][0], "")]` is not a valid type.

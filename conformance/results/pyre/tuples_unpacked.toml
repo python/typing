@@ -13,9 +13,9 @@ tuples_unpacked.py:38:4 Invalid type [31]: Expression `tuple[(*tuple[str], *tupl
 tuples_unpacked.py:39:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])])]` is not a valid type.
 tuples_unpacked.py:40:4 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *tuple[(int, ...)])]` is not a valid type.
 tuples_unpacked.py:41:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])], *tuple[(int, ...)])]` is not a valid type.
-tuples_unpacked.py:49:13 Invalid type [31]: Expression `tuple[(*$local_tuples_unpacked$Ts)]` is not a valid type.
-tuples_unpacked.py:50:8 Invalid type [31]: Expression `tuple[(*tuple[str], *$local_tuples_unpacked$Ts)]` is not a valid type.
-tuples_unpacked.py:51:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *$local_tuples_unpacked$Ts)]` is not a valid type.
+tuples_unpacked.py:49:13 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
+tuples_unpacked.py:50:8 Invalid type [31]: Expression `tuple[(*tuple[str], *Ts)]` is not a valid type.
+tuples_unpacked.py:51:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *Ts)]` is not a valid type.
 tuples_unpacked.py:59:5 Invalid type [31]: Expression `tuple[(typing.Unpack[tuple[(str, ...)]], typing.Unpack[tuple[(int, ...)]])]` is not a valid type.
 tuples_unpacked.py:60:5 Invalid type [31]: Expression `tuple[(typing.Unpack[tuple[(str, typing.Unpack[tuple[(str, ...)]])]], typing.Unpack[tuple[(int, ...)]])]` is not a valid type.
 """
@@ -30,7 +30,7 @@ Line 31: Unexpected errors ['tuples_unpacked.py:31:4 Invalid type [31]: Expressi
 Line 33: Unexpected errors ['tuples_unpacked.py:33:4 Invalid type [31]: Expression `tuple[(*tuple[(int, ...)], *tuple[int])]` is not a valid type.']
 Line 38: Unexpected errors ['tuples_unpacked.py:38:4 Invalid type [31]: Expression `tuple[(*tuple[str], *tuple[str])]` is not a valid type.']
 Line 39: Unexpected errors ['tuples_unpacked.py:39:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])])]` is not a valid type.']
-Line 49: Unexpected errors ['tuples_unpacked.py:49:13 Invalid type [31]: Expression `tuple[(*$local_tuples_unpacked$Ts)]` is not a valid type.']
-Line 50: Unexpected errors ['tuples_unpacked.py:50:8 Invalid type [31]: Expression `tuple[(*tuple[str], *$local_tuples_unpacked$Ts)]` is not a valid type.']
+Line 49: Unexpected errors ['tuples_unpacked.py:49:13 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.']
+Line 50: Unexpected errors ['tuples_unpacked.py:50:8 Invalid type [31]: Expression `tuple[(*tuple[str], *Ts)]` is not a valid type.']
 Line 60: Unexpected errors ['tuples_unpacked.py:60:5 Invalid type [31]: Expression `tuple[(typing.Unpack[tuple[(str, typing.Unpack[tuple[(str, ...)]])]], typing.Unpack[tuple[(int, ...)]])]` is not a valid type.']
 """
