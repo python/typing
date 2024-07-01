@@ -534,7 +534,7 @@ Converters
 
 The ``converter`` parameter can be specified in a field definition to provide a callable
 used to convert values when assigning to the associated attribute. This feature allows for automatic type
-conversion and validation attribute assignment.
+conversion and validation during attribute assignment.
 
 Converter behavior:
 
