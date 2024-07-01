@@ -545,7 +545,7 @@ Converter behavior:
 
 Typing rules for converters:
 
-* The ``converter`` must be a callable that must accept a single positional argument 
+* The ``converter`` must be a callable that must accept a single positional argument
   (but may optionally accept other arguments, which are ignored for typing purposes).
 * The type of the first positional parameter provides the type of the synthesized ``__init__`` parameter
   associated with the field.
