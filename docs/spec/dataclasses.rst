@@ -365,12 +365,9 @@ positional and may use other names.
 * ``alias`` is an optional str parameter that provides an alternative
   name for the field. This alternative name is used in the synthesized
   ``__init__`` method.
-* ``converter`` is an optional parameter that specifies a single-parameter
-* ``converter`` is an optional parameter that specifies a single-parameter
-  attribute (including the assignment in ``__init__``). The type
-  of this argument provides the type of the synthesized
-  ``__init__`` parameter associated with the field. The return type of
-  the callable must be assignable to the field's declared type.
+* ``converter`` is an optional parameter that specifies a
+  callable used to convert values when assigning to the associated
+  attribute.
 
 It is an error to specify more than one of ``default``,
 ``default_factory`` and ``factory``.
@@ -535,26 +532,26 @@ This includes, but is not limited to, the following semantics:
 Converters
 ^^^^^^^^^^
 
-The ``converter`` parameter can be specified in a field definition to provide a single-parameter callable
+The ``converter`` parameter can be specified in a field definition to provide a callable
 used to convert values when assigning to the associated attribute. This feature allows for automatic type
-conversion and validation during object initialization and attribute assignment.
+conversion and validation attribute assignment.
 
 Converter behavior:
 
-* The converter is used for all attribute assignment, including: assignment
-  of default values and direct attribute setting (e.g., ``obj.attr = value``).
+* The converter is used for all attribute assignment, including assignment
+  of default values, assignment in synthesized ``__init__`` methods
+  and direct attribute setting (e.g., ``obj.attr = value``).
 * The converter is not used when reading attributes, as the attributes should already have been converted.
-* If a ``converter`` is provided alongside ``default`` or ``default_factory``,
-  default values are converted using the ``converter``.
 
 Typing rules for converters:
 
-* The ``converter`` must be a callable that accepts a single positional argument.
-* The parameter type of the parameter provides the type of the synthesized ``__init__`` parameter
+* The ``converter`` must be a callable that must accept a single positional argument 
+  (but may optionally accept other arguments, which are ignored for typing purposes).
+* The type of the first positional parameter provides the type of the synthesized ``__init__`` parameter
   associated with the field.
 * The return type of the callable must be assignable to the field's declared type.
 * If ``default`` or ``default_factory`` are provided, the type of the default value should be
-  assignable to the single-parameter of the ``converter``
+  assignable to the first positional parameter of the ``converter``
 
 Example usage:
 
