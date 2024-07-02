@@ -562,9 +562,9 @@ Example usage:
 
     @custom_dataclass
     class Example:
-        int_field: int = field(converter=int)
-        str_field: str | None = field(converter=str_or_none)
-        path_field: pathlib.Path = field(
+        int_field: int = custom_field(converter=int)
+        str_field: str | None = custom_field(converter=str_or_none)
+        path_field: pathlib.Path = custom_field(
             converter=pathlib.Path,
             default="default/path.txt"
         )
