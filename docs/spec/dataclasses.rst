@@ -551,7 +551,7 @@ Typing rules for converters:
   associated with the field.
 * The return type of the callable must be assignable to the field's declared type.
 * If ``default`` or ``default_factory`` are provided, the type of the default value should be
-  assignable to the first positional parameter of the ``converter``
+  assignable to the first positional parameter of the ``converter``.
 
 Example usage:
 
