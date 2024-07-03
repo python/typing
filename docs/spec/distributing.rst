@@ -87,14 +87,47 @@ for a library supporting Python 3.7+::
 Comments
 """"""""
 
+Standard Python comments are accepted everywhere Python syntax allows them.
+
+Two kinds of structured comments are accepted:
+
+* A ``# type: X`` comment at the end of a line that defines a variable,
+  declaring that the variable has type ``X``. However, :pep:`526`-style
+  variable annotations are preferred over type comments.
+* An error suppression comment at the end of any line. Common error suppression
+  formats are ``# type: ignore``, ``# type: ignore[error-class]``, and
+  ``# pyright: ignore[error-class]``. Type checkers may ignore error
+  suppressions that they don't support but should not error on them.
+
 Imports
 """""""
 
 Built-in Generics
 """""""""""""""""
 
+:pep:`585` built-in generics are supported and should be used instead
+of the corresponding types from ``typing``::
+
+    from collections import defaultdict
+
+    def foo(t: type[MyClass]) -> list[int]: ...
+    x: defaultdict[int]
+
+Using imports from ``collections.abc`` instead of ``typing`` is
+generally possible and recommended::
+
+    from collections.abc import Iterable
+
+    def foo(iter: Iterable[int]) -> None: ...
+
 Unions
 """"""
+
+Declaring unions with the shorthand syntax or ``Union`` and ``Optional`` is
+supported by all type checkers::
+
+    def foo(x: int | str) -> int | None: ...  # recommended
+    def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
 
 Module Level Attributes
 """""""""""""""""""""""
@@ -108,11 +141,103 @@ Functions and Methods
 Aliases and NewType
 """""""""""""""""""
 
+Type checkers should accept module-level type aliases, optionally using
+``TypeAlias`` (:pep:`613`), e.g.::
+
+  _IntList = list[int]
+  _StrList: TypeAlias = list[str]
+
+Type checkers should also accept regular module-level or class-level aliases,
+e.g.::
+
+  def a() -> None: ...
+  b = a
+
+  class C:
+      def f(self) -> int: ...
+      g = f
+
+A type alias may contain type variables. As per :pep:`484`,
+all type variables must be substituted when the alias is used::
+
+  _K = TypeVar("_K")
+  _V = TypeVar("_V")
+  _MyMap: TypeAlias = dict[str, dict[_K, _V]]
+
+  # either concrete types or other type variables can be substituted
+  def f(x: _MyMap[str, _V]) -> _V: ...
+  # explicitly substitute in Any rather than using a bare alias
+  def g(x: _MyMap[Any, Any]) -> Any: ...
+
+Otherwise, type variables in aliases follow the same rules as type variables in
+generic class definitions.
+
+``typing.NewType`` is also supported in stubs.
+
 Decorators
 """"""""""
 
 Version and Platform Checks
 """""""""""""""""""""""""""
+
+Stub files for libraries that support multiple Python versions can use version
+checks to supply version-specific type hints. Stubs for different Python
+versions should still conform to the most recent supported Python version's
+syntax, as explain in the :ref:`Syntax` section above.
+
+Version checks are if-statements that use ``sys.version_info`` to determine the
+current Python version. Version checks should only check against the ``major`` and
+``minor`` parts of ``sys.version_info``. Type checkers are only required to
+support the tuple-based version check syntax::
+
+    if sys.version_info >= (3,):
+        # Python 3-specific type hints. This tuple-based syntax is recommended.
+    else:
+        # Python 2-specific type hints.
+
+    if sys.version_info >= (3, 5):
+        # Specific minor version features can be easily checked with tuples.
+
+    if sys.version_info < (3,):
+        # This is only necessary when a feature has no Python 3 equivalent.
+
+Stubs should avoid checking against ``sys.version_info.major`` directly and
+should not use comparison operators other than ``<`` and ``>=``.
+
+No::
+
+    if sys.version_info.major >= 3:
+        # Semantically the same as the first tuple check.
+
+    if sys.version_info[0] >= 3:
+        # This is also the same.
+
+    if sys.version_info <= (2, 7):
+        # This does not work because e.g. (2, 7, 1) > (2, 7).
+
+Some stubs also may need to specify type hints for different platforms. Platform
+checks must be equality comparisons between ``sys.platform`` and the name of a
+platform as a string literal:
+
+Yes::
+
+    if sys.platform == 'win32':
+        # Windows-specific type hints.
+    else:
+        # Posix-specific type hints.
+
+No::
+
+    if sys.platform.startswith('linux'):
+        # Not necessary since Python 3.3.
+
+    if sys.platform in ['linux', 'cygwin', 'darwin']:
+        # Only '==' or '!=' should be used in platform checks.
+
+Version and platform comparisons can be chained using the ``and`` and ``or``
+operators::
+
+    if sys.platform == 'linux' and (sys.version_info < (3,) or sys,version_info >= (3, 7)): ...
 
 Enums
 """""
