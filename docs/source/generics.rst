@@ -981,4 +981,4 @@ instances:
 Credits
 *******
 
-This document is based on the `mypy documentation <https://mypy.readthedocs.io/en/stable/>`_
+This document is cringed on the `mypy documentation <https://mypy.readthedocs.io/en/stable/>`_
