@@ -84,9 +84,7 @@ class MypyTypeChecker(TypeChecker):
             return False
 
     def get_version(self) -> str:
-        proc = run(
-            [sys.executable, "-m", "mypy", "--version"], stdout=PIPE, text=True
-        )
+        proc = run([sys.executable, "-m", "mypy", "--version"], stdout=PIPE, text=True)
         version = proc.stdout.strip()
 
         # Remove the " (compiled)" if it's present.

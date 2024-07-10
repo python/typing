@@ -1,7 +1,7 @@
 conformant = "Pass"
 output = """
 classes_classvar.py:38:25 - error: Expected only one type argument after "ClassVar"
-classes_classvar.py:39:14 - error: Expected type expression but received "Literal[3]" (reportGeneralTypeIssues)
+classes_classvar.py:39:14 - error: Expected class but received "Literal[3]" (reportGeneralTypeIssues)
 classes_classvar.py:40:14 - error: "var" is not defined (reportUndefinedVariable)
 classes_classvar.py:45:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
 classes_classvar.py:46:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)

@@ -23,7 +23,8 @@ aliases_implicit.py:116:10 - error: Variable not allowed in type expression (rep
 aliases_implicit.py:117:10 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 aliases_implicit.py:118:10 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 aliases_implicit.py:119:10 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-aliases_implicit.py:133:6 - error: Object of type "UnionType" is not callable (reportCallIssue)
+aliases_implicit.py:133:6 - error: Object of type "UnionType" is not callable
+  Attribute "__call__" is unknown (reportCallIssue)
 aliases_implicit.py:135:5 - error: Type "list[Unknown]" is already specialized (reportInvalidTypeArguments)
 aliases_implicit.py:135:5 - error: Type "set[Unknown]" is already specialized (reportInvalidTypeArguments)
 """
