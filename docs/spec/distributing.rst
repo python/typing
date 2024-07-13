@@ -316,6 +316,13 @@ operators::
 Enums
 """""
 
+Enum classes are supported in stubs, regardless of the Python version targeted by
+the stubs.
+
+Enum members should be specified with an unannotated assignment, for example as
+``x = 0`` or ``x = ...``. Non-member attributes should be specified with a type
+annotation and no assigned value. See :ref:`enum-members` for details.
+
 The Typeshed Project
 ^^^^^^^^^^^^^^^^^^^^
 
