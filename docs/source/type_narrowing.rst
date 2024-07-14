@@ -2,10 +2,10 @@
 Type Narrowing
 **************
 
-Python programs often contain values that can take on multiple types and
-that are distinguished by a conditional check at runtime. For example, here
-the variable *name* can be either a ``str`` or ``None``, and the
-``if name is not None`` narrows it down to just ``str``::
+Python programs often contain symbols that take on multiple types within a
+single given scope and that are distinguished by a conditional check at
+runtime. For example, here the variable *name* can be either a ``str`` or
+``None``, and the ``if name is not None`` narrows it down to just ``str``::
 
     def maybe_greet(name: str | None) -> None:
         if name is not None:
@@ -66,11 +66,11 @@ type narrowing behavior is different, as dicussed in :ref:`the section below <gu
 
 Depending on the version of Python you are running, you will be able to
 import ``TypeIs`` and ``TypeGuard`` either from the standard library :py:mod:`typing`
-module or from the third-party ``typing_extension`` module:
+module or from the third-party ``typing_extensions`` module:
 
-* ``TypeIs`` is in ``typing`` starting from Python 3.13 and in ``typing_extension``
+* ``TypeIs`` is in ``typing`` starting from Python 3.13 and in ``typing_extensions``
   starting from version 4.10.0.
-* ``TypeGuard`` is in ``typing`` starting from Python 3.10 and in ``typing_extension``
+* ``TypeGuard`` is in ``typing`` starting from Python 3.10 and in ``typing_extensions``
   starting from version 3.10.0.0.
 
 
@@ -126,14 +126,12 @@ Here is an example of a correct ``TypeIs`` function for a more complicated type:
         x: int
         y: int
 
-    def is_point(x: object) -> TypeIs[Point]:
+    def is_point(obj: object) -> TypeIs[Point]:
         return (
-            isinstance(x, dict)
-            and all(isinstance(key, str) for key in x)
-            and "x" in x
-            and "y" in x
-            and isinstance(x["x"], int)
-            and isinstance(x["y"], int)
+            isinstance(obj, dict)
+            and all(isinstance(key, str) for key in obj)
+            and isinstance(obj.get("x"), int)
+            and isinstance(obj.get("y"), int)
         )
 
 .. _`guide-type-narrowing-typeis-typeguard`:
@@ -147,7 +145,7 @@ argument and return a boolean depending on whether the input argument is compati
 the narrowed type. These function can then be used in ``if`` checks to narrow the type
 of a variable.
 
-``TypeIs`` usually has the most intuitive behavior, but it
+``TypeIs`` usually has the more intuitive behavior, but it
 introduces more restrictions. ``TypeGuard`` is the right tool to use if:
 
 * You want to narrow to a type that is not compatible with the input type, for example
@@ -164,7 +162,7 @@ introduces more restrictions. ``TypeGuard`` is the right tool to use if:
 * When a ``TypeGuard`` function returns ``True``, type checkers narrow the type of the
   variable to exactly the ``TypeGuard`` type. When a ``TypeIs`` function returns ``True``,
   type checkers can infer a more precise type combining the previously known type of the
-  variable with the ``TypeIs`` type. (Technically, this is known as an intersection type.)
+  variable with the ``TypeIs`` type. (This is known as an "intersection type".)
 * When a ``TypeGuard`` function returns ``False``, type checkers cannot narrow the type of
   the variable at all. When a ``TypeIs`` function returns ``False``, type checkers can narrow
   the type of the variable to exclude the ``TypeIs`` type.
