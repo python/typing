@@ -58,6 +58,10 @@ class GenericTypedDict(Generic[T]):
     name: str
     value: T
 
+    def __init__(self, name: str, value: T) -> None:
+        self.name = name
+        self.value = value
+
 
 # > An empty TypedDict can be created by only including pass in the
 # > body (if there is a docstring, pass can be omitted):

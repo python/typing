@@ -23,8 +23,8 @@ File "classes_classvar.py", line 52, in ClassA: Type annotation for bad8 does no
 File "classes_classvar.py", line 60, in ClassA: Type annotation for good4 does not match type of assignment [annotation-type-mismatch]
 File "classes_classvar.py", line 68, in method2: bad return type [bad-return-type]
 File "classes_classvar.py", line 78, in <module>: ClassVar [assert-type]
-File "classes_classvar.py", line 121, in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]
-File "classes_classvar.py", line 131, in <module>: Type annotation for a does not match type of assignment [annotation-type-mismatch]
+File "classes_classvar.py", line 124, in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]
+File "classes_classvar.py", line 134, in <module>: Type annotation for a does not match type of assignment [annotation-type-mismatch]
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -39,11 +39,11 @@ Line 65: Expected 1 errors
 Line 67: Expected 1 errors
 Line 71: Expected 1 errors
 Line 72: Expected 1 errors
-Line 102: Expected 1 errors
+Line 105: Expected 1 errors
 Line 7: Unexpected errors ['File "classes_classvar.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
 Line 29: Unexpected errors ['File "classes_classvar.py", line 29, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
 Line 60: Unexpected errors ['File "classes_classvar.py", line 60, in ClassA: Type annotation for good4 does not match type of assignment [annotation-type-mismatch]']
 Line 68: Unexpected errors ['File "classes_classvar.py", line 68, in method2: bad return type [bad-return-type]']
 Line 78: Unexpected errors ['File "classes_classvar.py", line 78, in <module>: ClassVar [assert-type]']
-Line 121: Unexpected errors ['File "classes_classvar.py", line 121, in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]']
+Line 124: Unexpected errors ['File "classes_classvar.py", line 124, in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]']
 """

@@ -10,10 +10,10 @@ dataclasses_usage.py:73:5 - error: Fields without default values cannot appear a
 dataclasses_usage.py:83:13 - error: Expected 1 positional argument (reportCallIssue)
 dataclasses_usage.py:88:36 - error: Argument of type "type[str]" cannot be assigned to parameter "default_factory" of type "() -> _T@field" in function "field"
   No overloaded function matches type "() -> int" (reportArgumentType)
-dataclasses_usage.py:126:8 - error: Expected 1 positional argument (reportCallIssue)
-dataclasses_usage.py:129:1 - error: Argument missing for parameter "y" (reportCallIssue)
-dataclasses_usage.py:178:1 - error: Expected no arguments to "DC13" constructor (reportCallIssue)
-dataclasses_usage.py:227:9 - error: Dataclass field without type annotation will cause runtime exception (reportGeneralTypeIssues)
+dataclasses_usage.py:127:8 - error: Expected 1 positional argument (reportCallIssue)
+dataclasses_usage.py:130:1 - error: Argument missing for parameter "y" (reportCallIssue)
+dataclasses_usage.py:183:1 - error: Argument missing for parameter "x_squared" (reportCallIssue)
+dataclasses_usage.py:232:9 - error: Dataclass field without type annotation will cause runtime exception (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """

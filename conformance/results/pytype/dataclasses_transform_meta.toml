@@ -4,18 +4,18 @@ Does not understand @dataclass_transform.
 """
 output = """
 File "dataclasses_transform_meta.py", line 21, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
-File "dataclasses_transform_meta.py", line 57, in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]
-File "dataclasses_transform_meta.py", line 83, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+File "dataclasses_transform_meta.py", line 60, in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]
+File "dataclasses_transform_meta.py", line 86, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 48: Expected 1 errors
-Line 60: Expected 1 errors
+Line 51: Expected 1 errors
 Line 63: Expected 1 errors
-Line 70: Expected 1 errors
-Line 80: Expected 1 errors
-Line 100: Expected 1 errors
+Line 66: Expected 1 errors
+Line 73: Expected 1 errors
+Line 83: Expected 1 errors
+Line 103: Expected 1 errors
 Line 21: Unexpected errors ['File "dataclasses_transform_meta.py", line 21, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
-Line 57: Unexpected errors ['File "dataclasses_transform_meta.py", line 57, in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]']
-Line 83: Unexpected errors ['File "dataclasses_transform_meta.py", line 83, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+Line 60: Unexpected errors ['File "dataclasses_transform_meta.py", line 60, in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]']
+Line 86: Unexpected errors ['File "dataclasses_transform_meta.py", line 86, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
 """

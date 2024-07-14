@@ -8,9 +8,9 @@ File "dataclasses_usage.py", line 64, in <module>: In method __init__, non-defau
 File "dataclasses_usage.py", line 70, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
 File "dataclasses_usage.py", line 83, in <module>: Function DC4.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
 File "dataclasses_usage.py", line 88, in DC5: Type annotation for a does not match type of assignment [annotation-type-mismatch]
-File "dataclasses_usage.py", line 126, in <module>: Function DC7.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
-File "dataclasses_usage.py", line 129, in <module>: Missing parameter 'y' in call to function DC8.__init__ [missing-parameter]
-File "dataclasses_usage.py", line 178, in <module>: Function DC13.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+File "dataclasses_usage.py", line 127, in <module>: Function DC7.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
+File "dataclasses_usage.py", line 130, in <module>: Missing parameter 'y' in call to function DC8.__init__ [missing-parameter]
+File "dataclasses_usage.py", line 183, in <module>: Missing parameter 'x_squared' in call to function DC13.__init__ [missing-parameter]
 """
 conformance_automated = "Pass"
 errors_diff = """

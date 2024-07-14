@@ -14,14 +14,14 @@ File "generics_self_basic.py", line 27, in from_config: Type[Circle] [assert-typ
 Called from (traceback):
   line 55, in current file
 File "generics_self_basic.py", line 40, in difference: Shape [assert-type]
-File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]
+File "generics_self_basic.py", line 64, in set_value: bad return type [bad-return-type]
 Called from (traceback):
-  line 72, in object_with_concrete_type
-File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]
+  line 75, in object_with_concrete_type
+File "generics_self_basic.py", line 64, in set_value: bad return type [bad-return-type]
 Called from (traceback):
-  line 71, in object_with_concrete_type
-File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]
-File "generics_self_basic.py", line 64, in Container: unsupported operand type(s) for item retrieval: 'Self: TypeVar' and 'int: Type[int]' [unsupported-operands]
+  line 74, in object_with_concrete_type
+File "generics_self_basic.py", line 64, in set_value: bad return type [bad-return-type]
+File "generics_self_basic.py", line 67, in Container: unsupported operand type(s) for item retrieval: 'Self: TypeVar' and 'int: Type[int]' [unsupported-operands]
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -30,5 +30,5 @@ Line 33: Expected 1 errors
 Line 14: Unexpected errors ['File "generics_self_basic.py", line 14, in set_scale: Shape [assert-type]', 'File "generics_self_basic.py", line 14, in set_scale: Circle [assert-type]']
 Line 27: Unexpected errors ['File "generics_self_basic.py", line 27, in from_config: Type[Shape] [assert-type]', 'File "generics_self_basic.py", line 27, in from_config: Type[Circle] [assert-type]']
 Line 40: Unexpected errors ['File "generics_self_basic.py", line 40, in difference: Shape [assert-type]']
-Line 61: Unexpected errors ['File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]', 'File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]', 'File "generics_self_basic.py", line 61, in set_value: bad return type [bad-return-type]']
+Line 64: Unexpected errors ['File "generics_self_basic.py", line 64, in set_value: bad return type [bad-return-type]', 'File "generics_self_basic.py", line 64, in set_value: bad return type [bad-return-type]', 'File "generics_self_basic.py", line 64, in set_value: bad return type [bad-return-type]']
 """

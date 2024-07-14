@@ -1,10 +1,13 @@
 conformant = "Pass"
 output = """
 typeddicts_required.py:12:8 - error: "Required" is not allowed in this context
-typeddicts_required.py:16:8 - error: "NotRequired" is not allowed in this context
-typeddicts_required.py:59:8 - error: "Required" is not allowed in this context
-typeddicts_required.py:60:8 - error: "Required" is not allowed in this context
+typeddicts_required.py:15:18 - error: Cannot assign to attribute "x" for class "NotTypedDict*"
+  "int" is incompatible with "Required[int]" (reportAttributeAccessIssue)
+typeddicts_required.py:19:8 - error: "NotRequired" is not allowed in this context
+typeddicts_required.py:62:8 - error: "Required" is not allowed in this context
+typeddicts_required.py:63:8 - error: "Required" is not allowed in this context
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 15: Unexpected errors ['typeddicts_required.py:15:18 - error: Cannot assign to attribute "x" for class "NotTypedDict*"']
 """

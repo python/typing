@@ -1,10 +1,10 @@
 conformant = "Pass"
 output = """
 specialtypes_never.py:19: error: Implicit return in function which does not return  [misc]
-specialtypes_never.py:82: error: Incompatible types in assignment (expression has type "list[NoReturn]", variable has type "list[int]")  [assignment]
-specialtypes_never.py:82: note: "List" is invariant -- see https://mypy.readthedocs.io/en/stable/common_issues.html#variance
-specialtypes_never.py:82: note: Consider using "Sequence" instead, which is covariant
-specialtypes_never.py:101: error: Incompatible return value type (got "ClassC[NoReturn]", expected "ClassC[U]")  [return-value]
+specialtypes_never.py:86: error: Incompatible types in assignment (expression has type "list[NoReturn]", variable has type "list[int]")  [assignment]
+specialtypes_never.py:86: note: "List" is invariant -- see https://mypy.readthedocs.io/en/stable/common_issues.html#variance
+specialtypes_never.py:86: note: Consider using "Sequence" instead, which is covariant
+specialtypes_never.py:105: error: Incompatible return value type (got "ClassC[NoReturn]", expected "ClassC[U]")  [return-value]
 """
 conformance_automated = "Pass"
 errors_diff = """

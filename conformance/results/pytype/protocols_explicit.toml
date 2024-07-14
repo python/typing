@@ -10,15 +10,15 @@ output = """
 File "protocols_explicit.py", line 14, in draw: bad return type [bad-return-type]
 Called from (traceback):
   line 27, in draw
-File "protocols_explicit.py", line 59, in <module>: Can't instantiate Point with abstract methods intensity [not-instantiable]
-File "protocols_explicit.py", line 159, in <module>: Can't instantiate Concrete7A with abstract methods method1 [not-instantiable]
+File "protocols_explicit.py", line 60, in <module>: Can't instantiate Point with abstract methods intensity [not-instantiable]
+File "protocols_explicit.py", line 165, in <module>: Can't instantiate Concrete7A with abstract methods method1 [not-instantiable]
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 27: Expected 1 errors
 Line 56: Expected 1 errors
-Line 86: Expected 1 errors
-Line 104: Expected 1 errors
-Line 129: Expected 1 errors
+Line 90: Expected 1 errors
+Line 110: Expected 1 errors
+Line 135: Expected 1 errors
 Line 14: Unexpected errors ['File "protocols_explicit.py", line 14, in draw: bad return type [bad-return-type]']
 """

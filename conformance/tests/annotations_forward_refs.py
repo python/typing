@@ -88,6 +88,9 @@ class ClassD:
 
     y: int = 0  # E: Refers to local int, which isn't a legal type expression
 
+    def __init__(self, ClassC: "ClassC") -> None:
+        self.ClassC = ClassC
+
 
 assert_type(ClassD.str, str)
 assert_type(ClassD.x, int)

@@ -22,12 +22,12 @@ classes_classvar.py:65: error: ClassVar can only be used for assignments in clas
 classes_classvar.py:67: error: ClassVar can only be used for assignments in class body  [misc]
 classes_classvar.py:71: error: ClassVar can only be used for assignments in class body  [misc]
 classes_classvar.py:78: error: Expression is of type "Any", not "float"  [assert-type]
-classes_classvar.py:102: error: Cannot assign to class variable "stats" via instance  [misc]
-classes_classvar.py:131: error: Incompatible types in assignment (expression has type "ProtoAImpl", variable has type "ProtoA")  [assignment]
-classes_classvar.py:131: note: "ProtoAImpl" is missing following "ProtoA" protocol member:
-classes_classvar.py:131: note:     z
-classes_classvar.py:131: note: Protocol member ProtoA.x expected class variable, got instance variable
-classes_classvar.py:131: note: Protocol member ProtoA.y expected class variable, got instance variable
+classes_classvar.py:105: error: Cannot assign to class variable "stats" via instance  [misc]
+classes_classvar.py:134: error: Incompatible types in assignment (expression has type "ProtoAImpl", variable has type "ProtoA")  [assignment]
+classes_classvar.py:134: note: "ProtoAImpl" is missing following "ProtoA" protocol member:
+classes_classvar.py:134: note:     z
+classes_classvar.py:134: note: Protocol member ProtoA.x expected class variable, got instance variable
+classes_classvar.py:134: note: Protocol member ProtoA.y expected class variable, got instance variable
 """
 conformance_automated = "Fail"
 errors_diff = """

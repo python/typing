@@ -4,22 +4,22 @@ Does not understand @dataclass_transform.
 """
 output = """
 File "dataclasses_transform_class.py", line 23, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
-File "dataclasses_transform_class.py", line 57, in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]
-File "dataclasses_transform_class.py", line 82, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
-File "dataclasses_transform_class.py", line 103, in <module>: Invalid keyword argument id to function GenericCustomer.__init__ [wrong-keyword-args]
-File "dataclasses_transform_class.py", line 106, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+File "dataclasses_transform_class.py", line 60, in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]
+File "dataclasses_transform_class.py", line 85, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+File "dataclasses_transform_class.py", line 106, in <module>: Invalid keyword argument id to function GenericCustomer.__init__ [wrong-keyword-args]
+File "dataclasses_transform_class.py", line 109, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 48: Expected 1 errors
-Line 60: Expected 1 errors
+Line 51: Expected 1 errors
 Line 63: Expected 1 errors
-Line 69: Expected 1 errors
-Line 79: Expected 1 errors
-Line 119: Expected 1 errors
+Line 66: Expected 1 errors
+Line 72: Expected 1 errors
+Line 82: Expected 1 errors
+Line 122: Expected 1 errors
 Line 23: Unexpected errors ['File "dataclasses_transform_class.py", line 23, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
-Line 57: Unexpected errors ['File "dataclasses_transform_class.py", line 57, in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]']
-Line 82: Unexpected errors ['File "dataclasses_transform_class.py", line 82, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
-Line 103: Unexpected errors ['File "dataclasses_transform_class.py", line 103, in <module>: Invalid keyword argument id to function GenericCustomer.__init__ [wrong-keyword-args]']
-Line 106: Unexpected errors ['File "dataclasses_transform_class.py", line 106, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+Line 60: Unexpected errors ['File "dataclasses_transform_class.py", line 60, in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]']
+Line 85: Unexpected errors ['File "dataclasses_transform_class.py", line 85, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+Line 106: Unexpected errors ['File "dataclasses_transform_class.py", line 106, in <module>: Invalid keyword argument id to function GenericCustomer.__init__ [wrong-keyword-args]']
+Line 109: Unexpected errors ['File "dataclasses_transform_class.py", line 109, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
 """

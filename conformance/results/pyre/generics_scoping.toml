@@ -11,13 +11,11 @@ generics_scoping.py:42:0 Incompatible parameter type [6]: In call `assert_type`,
 generics_scoping.py:43:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `bytes` but got `typing_extensions.Literal[b'abc']`.
 generics_scoping.py:50:7 Invalid type variable [34]: The type variable `Variable[S]` isn't present in the function's parameters.
 generics_scoping.py:54:13 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[S]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[S]`.
-generics_scoping.py:78:8 Uninitialized attribute [13]: Attribute `x` is declared in class `Outer.AlsoBad` to have type `typing.List[Variable[T]]` but is never initialized.
 generics_scoping.py:78:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T]`.
-generics_scoping.py:82:4 Uninitialized attribute [13]: Attribute `attr` is declared in class `Outer` to have type `Outer.Inner[Variable[T]]` but is never initialized.
-generics_scoping.py:84:23 Undefined attribute [16]: `list` has no attribute `__getitem__`.
-generics_scoping.py:88:13 Invalid type variable [34]: The type variable `Variable[T]` can only be used to annotate generic classes or functions.
-generics_scoping.py:89:13 Invalid type variable [34]: The type variable `Variable[T]` can only be used to annotate generic classes or functions.
-generics_scoping.py:90:0 Undefined attribute [16]: `list` has no attribute `__getitem__`.
+generics_scoping.py:87:23 Undefined attribute [16]: `list` has no attribute `__getitem__`.
+generics_scoping.py:94:13 Invalid type variable [34]: The type variable `Variable[T]` can only be used to annotate generic classes or functions.
+generics_scoping.py:95:13 Invalid type variable [34]: The type variable `Variable[T]` can only be used to annotate generic classes or functions.
+generics_scoping.py:96:0 Undefined attribute [16]: `list` has no attribute `__getitem__`.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -28,4 +26,3 @@ Line 15: Unexpected errors ["generics_scoping.py:15:0 Incompatible parameter typ
 Line 42: Unexpected errors ["generics_scoping.py:42:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `typing_extensions.Literal['abc']`."]
 Line 43: Unexpected errors ["generics_scoping.py:43:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `bytes` but got `typing_extensions.Literal[b'abc']`."]
 """
-ignore_errors = ["Uninitialized attribute [13]"]

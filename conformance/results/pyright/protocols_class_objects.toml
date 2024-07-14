@@ -16,13 +16,13 @@ protocols_class_objects.py:58:16 - error: Expression of type "type[ConcreteA]" i
 protocols_class_objects.py:74:16 - error: Expression of type "type[ConcreteB]" is incompatible with declared type "ProtoB1"
   "prop1" is an incompatible type
     "property" is incompatible with "int" (reportAssignmentType)
-protocols_class_objects.py:101:16 - error: Expression of type "type[ConcreteC1]" is incompatible with declared type "ProtoC1"
+protocols_class_objects.py:104:16 - error: Expression of type "type[ConcreteC1]" is incompatible with declared type "ProtoC1"
   "attr1" is defined as a ClassVar in protocol (reportAssignmentType)
-protocols_class_objects.py:103:16 - error: Expression of type "type[ConcreteC2]" is incompatible with declared type "ProtoC1"
+protocols_class_objects.py:106:16 - error: Expression of type "type[ConcreteC2]" is incompatible with declared type "ProtoC1"
   "attr1" is defined as a ClassVar in protocol (reportAssignmentType)
-protocols_class_objects.py:104:16 - error: Expression of type "type[ConcreteC2]" is incompatible with declared type "ProtoC2"
+protocols_class_objects.py:107:16 - error: Expression of type "type[ConcreteC2]" is incompatible with declared type "ProtoC2"
   "attr1" must be defined as a ClassVar to be compatible with protocol (reportAssignmentType)
-protocols_class_objects.py:105:16 - error: Expression of type "type[ConcreteC3]" is incompatible with declared type "ProtoC1"
+protocols_class_objects.py:108:16 - error: Expression of type "type[ConcreteC3]" is incompatible with declared type "ProtoC1"
   "attr1" is defined as a ClassVar in protocol (reportAssignmentType)
 """
 conformance_automated = "Pass"

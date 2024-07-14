@@ -12,9 +12,9 @@ dataclasses_usage.py:67: error: Attributes without a default cannot follow attri
 dataclasses_usage.py:73: error: Attributes without a default cannot follow attributes with one  [misc]
 dataclasses_usage.py:83: error: Too many arguments for "DC4"  [call-arg]
 dataclasses_usage.py:88: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
-dataclasses_usage.py:126: error: Too many arguments for "DC7"  [call-arg]
-dataclasses_usage.py:129: error: Missing positional argument "y" in call to "DC8"  [call-arg]
-dataclasses_usage.py:178: error: Too many arguments for "DC13"  [call-arg]
+dataclasses_usage.py:127: error: Too many arguments for "DC7"  [call-arg]
+dataclasses_usage.py:130: error: Missing positional argument "y" in call to "DC8"  [call-arg]
+dataclasses_usage.py:183: error: Missing positional argument "x_squared" in call to "DC13"  [call-arg]
 """
 conformance_automated = "Pass"
 errors_diff = """

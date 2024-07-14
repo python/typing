@@ -83,6 +83,9 @@ class BasicStarship:
     damage: int  # Instance variable without default
     stats: ClassVar[dict[str, int]] = {}  # Class variable
 
+    def __init__(self, damage: int) -> None:
+        self.damage = damage
+
 
 class Starship:
     captain: str = "Picard"
