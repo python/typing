@@ -25,7 +25,8 @@ patterns include:
 
 In addition to narrowing local variables, type checkers usually also support
 narrowing instance attributes and sequence members, such as
-``if x.some_attribute is not None`` or ``if x[0] is not None``.
+``if x.some_attribute is not None`` or ``if x[0] is not None``, though the exact
+conditions for this behavior differ between type checkers.
 
 Consult your type checker's documentation for more information on the type
 narrowing constructs it supports.
