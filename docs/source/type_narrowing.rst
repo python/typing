@@ -12,10 +12,10 @@ runtime. For example, here the variable *name* can be either a ``str`` or
             print("Hello, " + name)
 
 This technique is called *type narrowing*.
-In order to avoid false positives on such code, type checkers understand
-various kinds of conditionals that are used to narrow types in Python code.
+To avoid false positives on such code, type checkers understand
+various kinds of conditional checks that are used to narrow types in Python code.
 The exact set of type narrowing constructs that a type checker understands
-is not specified and varies across type checkers. Commonly understood type
+is not specified and varies across type checkers. Commonly understood
 patterns include:
 
 * ``if x is not None``
@@ -91,27 +91,27 @@ Below are some examples of correct and incorrect ``TypeIs`` functions::
     from typing import TypeIs
 
     # Correct
-    def good_typeis(x: object) -> TypeIs[int]:
+    def is_int(x: object) -> TypeIs[int]:
         return isinstance(x, int)
 
     # Incorrect: does not return True for all ints
-    def bad_typeis1(x: object) -> TypeIs[int]:
+    def is_positive_int(x: object) -> TypeIs[int]:
         return isinstance(x, int) and x > 0
 
     # Incorrect: returns True for some non-ints
-    def bad_typeis2(x: object) -> TypeIs[int]:
+    def is_real_number(x: object) -> TypeIs[int]:
         return isinstance(x, (int, float))
 
 This function demonstrates some errors that can occur when using a poorly written
 ``TypeIs`` function. These errors are not detected by type checkers::
 
     def caller(x: int | str, y: int | float) -> None:
-        if bad_typeis1(x):  # narrowed to int
+        if is_positive_int(x):  # narrowed to int
             print(x + 1)
         else:  # narrowed to str (incorrectly)
             print("Hello " + x)  # runtime error if x is a negative int
 
-        if bad_typeis2(y):  # narrowed to int
+        if is_real_number(y):  # narrowed to int
             # Because of the incorrect TypeIs, this branch is taken at runtime if
             # y is a float.
             print(y.bit_count())  # runtime error: this method exists only on int, not float
@@ -157,7 +157,7 @@ introduces more restrictions. ``TypeGuard`` is the right tool to use if:
 
 ``TypeIs`` and ``TypeGuard`` differ in the following ways:
 
-* ``TypeIs`` requires the narrowed type to be a subtype of the input type, while
+* ``TypeIs`` requires the narrowed type to be :term:`assignable` to the input type, while
   ``TypeGuard`` does not.
 * When a ``TypeGuard`` function returns ``True``, type checkers narrow the type of the
   variable to exactly the ``TypeGuard`` type. When a ``TypeIs`` function returns ``True``,
