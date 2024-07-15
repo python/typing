@@ -2,14 +2,6 @@
 Static Typing with Python
 *************************
 
-.. Introduction
-.. ============
-..
-.. .. toctree::
-..    :maxdepth: 2
-..
-..    source/introduction
-
 Guides
 ======
 
