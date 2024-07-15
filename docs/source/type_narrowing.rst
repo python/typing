@@ -36,7 +36,7 @@ functions: :py:data:`typing.TypeIs` and :py:data:`typing.TypeGuard`. These
 are useful if you want to reuse a more complicated check in multiple places, or
 you use a check that the type checker doesn't understand. In these cases, you
 can define a ``TypeIs`` or ``TypeGuard`` function to perform the check and allow type checkers
-to use it to narrow the type of a variable. Among the two, ``TypeIs`` usually
+to use it to narrow the type of a variable. Between the two, ``TypeIs`` usually
 has the more intuitive behavior, so we'll talk about it more; see
 :ref:`below <guide-type-narrowing-typeis-typeguard>` for a comparison.
 
@@ -84,7 +84,7 @@ written ``TypeIs`` function can lead to unsound type checking, and type checkers
 cannot detect such errors.
 
 For a function returning ``TypeIs[T]`` to be correct, it must return ``True`` if and only if
-the argument is compatible with type ``T``, and ``False`` otherwise. If this condition is
+the argument is of type ``T``, and ``False`` otherwise. If this condition is
 not met, the type checker may infer incorrect types.
 
 Below are some examples of correct and incorrect ``TypeIs`` functions::
@@ -149,10 +149,10 @@ of a variable.
 ``TypeIs`` usually has the more intuitive behavior, but it
 introduces more restrictions. ``TypeGuard`` is the right tool to use if:
 
-* You want to narrow to a type that is not compatible with the input type, for example
+* You want to narrow to a type that is not :term:`assignable` to the input type, for example
   from ``list[object]`` to ``list[int]``.  ``TypeIs`` only allows narrowing between
   compatible types.
-* Your function does not return ``True`` for all input values that are compatible with
+* Your function does not return ``True`` for all input values that are members of
   the narrowed type. For example, you could have a ``TypeGuard[int]`` that returns ``True``
   only for positive integers.
 
