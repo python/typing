@@ -204,6 +204,22 @@ forms of type narrowing are unsafe in the presence of mutability. Type checkers
 attempt to limit type narrowing in a way that minimizes unsafety while remaining
 useful, but not all safety violations can be detected.
 
+``isinstance()`` and ``issubclass()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+While the exact behavior is not standardized, type checkers usually support
+narrowing terms based on calls to ``isinstance()`` and ``issubclass()``. However,
+these functions have complex runtime behavior that type checkers cannot fully
+capture: they call the :py:meth:`__instancecheck__` and :py:meth:`__subclasscheck__`
+special methods, which may include arbitrarily complex logic.
+
+This affects some parts of the standard library that rely on these methods.
+:py:class:`abc.ABC` allows registration of subclasses using the ``.register()`` method,
+but type checkers usually will not recognize this method. :ref:`Runtime-checkable
+protocols <runtime-checkable>` support runtime ``isinstance()`` checks, but their
+behavior does not exactly match the type system (for example, the types of method
+parameters are not checked).
+
 Incorrect ``TypeIs`` and ``TypeGuard`` functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
