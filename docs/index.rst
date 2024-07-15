@@ -8,7 +8,7 @@ Guides
 .. toctree::
    :maxdepth: 2
 
-   source/guides
+   guides/index
 
 Reference
 =========
@@ -16,7 +16,7 @@ Reference
 .. toctree::
    :maxdepth: 2
 
-   source/reference
+   reference/index
 
 .. seealso::
 
