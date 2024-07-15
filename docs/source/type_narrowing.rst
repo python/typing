@@ -249,6 +249,9 @@ original type. This allows for unsafe behavior with invariant data structures::
 
 To avoid this problem, use ``TypeIs`` instead of ``TypeGuard`` where possible.
 If you must use ``TypeGuard``, avoid narrowing across incompatible types.
+Prefer using covariant, immutable types in parameter annotations (e.g.,
+``Sequence`` or ``Iterable`` instead of ``list``). If you do this, it is more likely
+that you'll be able to use ``TypeIs`` to implement your type narrowing functions.
 
 Invalidated assumptions
 ~~~~~~~~~~~~~~~~~~~~~~~
