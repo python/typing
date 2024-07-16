@@ -7,20 +7,26 @@ File "dataclasses_transform_func.py", line 13, in <module>: Arguments to datacla
 File "dataclasses_transform_func.py", line 19, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
 File "dataclasses_transform_func.py", line 30, in create_model: bad return type [bad-return-type]
 Called from (traceback):
-  line 100, in current file
+  line 89, in current file
 File "dataclasses_transform_func.py", line 30, in create_model: bad return type [bad-return-type]
-File "dataclasses_transform_func.py", line 68, in <module>: Type annotation for name does not match type of assignment [annotation-type-mismatch]
-File "dataclasses_transform_func.py", line 76, in <module>: Invalid keyword argument salary to function Customer1.__init__ [wrong-keyword-args]
-File "dataclasses_transform_func.py", line 87, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+File "dataclasses_transform_func.py", line 50, in <module>: Invalid keyword arguments (id, name) to function Customer1.__init__ [wrong-keyword-args]
+File "dataclasses_transform_func.py", line 53, in <module>: Function Customer1.__init__ expects 1 arg(s), got 3 [wrong-arg-count]
+File "dataclasses_transform_func.py", line 57, in <module>: Type annotation for name does not match type of assignment [annotation-type-mismatch]
+File "dataclasses_transform_func.py", line 65, in <module>: Invalid keyword arguments (id, name, salary) to function Customer1.__init__ [wrong-keyword-args]
+File "dataclasses_transform_func.py", line 67, in <module>: Invalid keyword arguments (id, name) to function Customer2.__init__ [wrong-keyword-args]
+File "dataclasses_transform_func.py", line 71, in <module>: Function Customer2.__init__ expects 1 arg(s), got 3 [wrong-arg-count]
+File "dataclasses_transform_func.py", line 76, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 72: Expected 1 errors
-Line 82: Expected 1 errors
-Line 111: Expected 1 errors
-Lines 100, 101: Expected error (tag 'Customer3Subclass')
+Line 61: Expected 1 errors
+Line 97: Expected 1 errors
+Lines 89, 90: Expected error (tag 'Customer3Subclass')
 Line 13: Unexpected errors ['File "dataclasses_transform_func.py", line 13, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
 Line 19: Unexpected errors ['File "dataclasses_transform_func.py", line 19, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
 Line 30: Unexpected errors ['File "dataclasses_transform_func.py", line 30, in create_model: bad return type [bad-return-type]', 'File "dataclasses_transform_func.py", line 30, in create_model: bad return type [bad-return-type]']
-Line 87: Unexpected errors ['File "dataclasses_transform_func.py", line 87, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+Line 50: Unexpected errors ['File "dataclasses_transform_func.py", line 50, in <module>: Invalid keyword arguments (id, name) to function Customer1.__init__ [wrong-keyword-args]']
+Line 53: Unexpected errors ['File "dataclasses_transform_func.py", line 53, in <module>: Function Customer1.__init__ expects 1 arg(s), got 3 [wrong-arg-count]']
+Line 67: Unexpected errors ['File "dataclasses_transform_func.py", line 67, in <module>: Invalid keyword arguments (id, name) to function Customer2.__init__ [wrong-keyword-args]']
+Line 76: Unexpected errors ['File "dataclasses_transform_func.py", line 76, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
 """

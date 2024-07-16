@@ -173,10 +173,6 @@ class DC13:
     x: int
     x_squared: int
 
-    def __init__(self, x: int, x_squared: int):
-        self.x = x
-        self.x_squared = x_squared
-
 
 # This should generate an error because there is no matching
 # override __init__ method and no synthesized __init__.

@@ -35,27 +35,16 @@ class Customer1:
     id: int
     name: str
 
-    def __init__(self, id: int, name: str) -> None:
-        self.id = id
-        self.name = name
-
 
 @create_model(frozen=True)
 class Customer2:
     id: int
     name: str
 
-    def __init__(self, id: int, name: str) -> None:
-        self.id = id
-        self.name = name
-
 
 @create_model(frozen=True)
 class Customer2Subclass(Customer2):
     salary: float
-
-    def __init__(self, salary: float) -> None:
-        self.salary = salary
 
 
 c1_1 = Customer1(id=3, name="Sue")
@@ -100,9 +89,6 @@ class Customer3:
 @create_model  # E[Customer3Subclass]
 class Customer3Subclass(Customer3):  # E[Customer3Subclass]
     age: int
-
-    def __init__(self, age: int) -> None:
-        self.age = age
 
 
 c3_1 = Customer3(id=2, name="hi")

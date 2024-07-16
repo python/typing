@@ -77,9 +77,6 @@ class Color3(Enum):
     RED = 1  # OK
     GREEN = "green"  # E
 
-    def __init__(self, value: int) -> None:
-        self._value_ = value
-
 
 class Planet2(Enum):
     _value_: str

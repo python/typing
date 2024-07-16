@@ -5,7 +5,7 @@ Does not report when metaclass is provided.
 Does not report when other keyword argument is provided.
 """
 output = """
-
+File "typeddicts_class_syntax.py", line 57, in <module>: Invalid base class: Generic[T] [base-class-error]
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -14,4 +14,5 @@ Line 33: Expected 1 errors
 Line 38: Expected 1 errors
 Line 44: Expected 1 errors
 Line 49: Expected 1 errors
+Line 57: Unexpected errors ['File "typeddicts_class_syntax.py", line 57, in <module>: Invalid base class: Generic[T] [base-class-error]']
 """
