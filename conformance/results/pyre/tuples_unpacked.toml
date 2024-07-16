@@ -21,7 +21,6 @@ tuples_unpacked.py:60:5 Invalid type [31]: Expression `tuple[(typing.Unpack[tupl
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 61: Expected 1 errors
 Line 16: Unexpected errors ['tuples_unpacked.py:16:13 Invalid type [31]: Expression `tuple[(int, *tuple[(bool, bool)], str)]` is not a valid type.']
 Line 18: Unexpected errors ['tuples_unpacked.py:18:19 Invalid type [31]: Expression `tuple[(*tuple[(int, bool)], bool, str)]` is not a valid type.']
 Line 19: Unexpected errors ['tuples_unpacked.py:19:19 Invalid type [31]: Expression `tuple[(int, bool, *tuple[(bool, str)])]` is not a valid type.']
@@ -32,5 +31,4 @@ Line 38: Unexpected errors ['tuples_unpacked.py:38:4 Invalid type [31]: Expressi
 Line 39: Unexpected errors ['tuples_unpacked.py:39:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])])]` is not a valid type.']
 Line 49: Unexpected errors ['tuples_unpacked.py:49:13 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.']
 Line 50: Unexpected errors ['tuples_unpacked.py:50:8 Invalid type [31]: Expression `tuple[(*tuple[str], *Ts)]` is not a valid type.']
-Line 60: Unexpected errors ['tuples_unpacked.py:60:5 Invalid type [31]: Expression `tuple[(typing.Unpack[tuple[(str, typing.Unpack[tuple[(str, ...)]])]], typing.Unpack[tuple[(int, ...)]])]` is not a valid type.']
 """

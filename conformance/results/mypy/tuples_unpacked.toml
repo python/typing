@@ -11,5 +11,5 @@ errors_diff = """
 Line 40: Expected 1 errors
 Line 41: Expected 1 errors
 Line 51: Expected 1 errors
-Line 61: Expected 1 errors
+Lines 60, 61: Expected error (tag 't14')
 """
