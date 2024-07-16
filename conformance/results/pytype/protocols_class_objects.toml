@@ -6,6 +6,7 @@ Fails to report some class objects as incompatible with a protocol.
 """
 output = """
 File "protocols_class_objects.py", line 50, in method1: bad return type [bad-return-type]
+File "protocols_class_objects.py", line 100, in <module>: Function CMeta.__init__ was called with the wrong arguments [wrong-arg-types]
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -13,9 +14,10 @@ Line 29: Expected 1 errors
 Line 34: Expected 1 errors
 Line 58: Expected 1 errors
 Line 74: Expected 1 errors
-Line 101: Expected 1 errors
-Line 103: Expected 1 errors
 Line 104: Expected 1 errors
-Line 105: Expected 1 errors
+Line 106: Expected 1 errors
+Line 107: Expected 1 errors
+Line 108: Expected 1 errors
 Line 50: Unexpected errors ['File "protocols_class_objects.py", line 50, in method1: bad return type [bad-return-type]']
+Line 100: Unexpected errors ['File "protocols_class_objects.py", line 100, in <module>: Function CMeta.__init__ was called with the wrong arguments [wrong-arg-types]']
 """

@@ -15,10 +15,10 @@ classes_classvar.py:65:18 - error: "ClassVar" is not allowed in this context
 classes_classvar.py:67:26 - error: "ClassVar" is not allowed in this context
 classes_classvar.py:71:8 - error: "ClassVar" is not allowed in this context
 classes_classvar.py:72:20 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:102:14 - error: Cannot assign to attribute "stats" for class "Starship"
+classes_classvar.py:105:14 - error: Cannot assign to attribute "stats" for class "Starship"
   Attribute "stats" cannot be assigned through a class instance because it is a ClassVar
     Attribute "__set__" is unknown (reportAttributeAccessIssue)
-classes_classvar.py:131:13 - error: Expression of type "ProtoAImpl" is incompatible with declared type "ProtoA"
+classes_classvar.py:134:13 - error: Expression of type "ProtoAImpl" is incompatible with declared type "ProtoA"
   "ProtoAImpl" is incompatible with protocol "ProtoA"
     "x" is defined as a ClassVar in protocol
     "y" is defined as a ClassVar in protocol (reportAssignmentType)

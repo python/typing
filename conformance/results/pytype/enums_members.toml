@@ -6,34 +6,35 @@ Does not support `_ignore_` mechanism (optional).
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 46: Expected 1 errors
-Line 112: Expected 1 errors
-Line 125: Expected 1 errors
+Line 50: Expected 1 errors
+Line 116: Expected 1 errors
+Line 129: Expected 1 errors
 Line 7: Unexpected errors ['File "enums_members.py", line 7, in <module>: enum.nonmember not supported yet [not-supported-yet]', 'File "enums_members.py", line 7, in <module>: enum.member not supported yet [not-supported-yet]']
-Line 31: Unexpected errors ['File "enums_members.py", line 31, in <module>: _enums_members.Pet2 [assert-type]']
-Line 32: Unexpected errors ['File "enums_members.py", line 32, in <module>: _enums_members.Pet2 [assert-type]']
-Line 103: Unexpected errors ['File "enums_members.py", line 103, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]']
-Line 104: Unexpected errors ['File "enums_members.py", line 104, in Example: Function enum.nonmember expects 0 arg(s), got 1 [wrong-arg-count]']
-Line 106: Unexpected errors ['File "enums_members.py", line 106, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]']
-Line 124: Unexpected errors ['File "enums_members.py", line 124, in method: Example2 [reveal-type]']
+Line 35: Unexpected errors ['File "enums_members.py", line 35, in <module>: _enums_members.Pet2 [assert-type]']
+Line 36: Unexpected errors ['File "enums_members.py", line 36, in <module>: _enums_members.Pet2 [assert-type]']
+Line 107: Unexpected errors ['File "enums_members.py", line 107, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]']
+Line 108: Unexpected errors ['File "enums_members.py", line 108, in Example: Function enum.nonmember expects 0 arg(s), got 1 [wrong-arg-count]']
+Line 110: Unexpected errors ['File "enums_members.py", line 110, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]']
+Line 128: Unexpected errors ['File "enums_members.py", line 128, in method: Example2 [reveal-type]']
 """
 output = """
 File "enums_members.py", line 7, in <module>: enum.nonmember not supported yet [not-supported-yet]
 File "enums_members.py", line 7, in <module>: enum.member not supported yet [not-supported-yet]
-File "enums_members.py", line 31, in <module>: _enums_members.Pet2 [assert-type]
-File "enums_members.py", line 32, in <module>: _enums_members.Pet2 [assert-type]
-File "enums_members.py", line 78, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "enums_members.py", line 78, in <module>: Callable[[Any], Any] [assert-type]
-File "enums_members.py", line 79, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "enums_members.py", line 79, in <module>: Callable[[int], int] [assert-type]
-File "enums_members.py", line 80, in <module>: property [assert-type]
-File "enums_members.py", line 80, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "enums_members.py", line 81, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "enums_members.py", line 81, in <module>: Callable[[Any], None] [assert-type]
-File "enums_members.py", line 103, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]
-File "enums_members.py", line 104, in Example: Function enum.nonmember expects 0 arg(s), got 1 [wrong-arg-count]
-File "enums_members.py", line 106, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]
-File "enums_members.py", line 124, in method: Example2 [reveal-type]
-File "enums_members.py", line 142, in <module>: Pet5 [assert-type]
-File "enums_members.py", line 143, in <module>: Pet5 [assert-type]
+File "enums_members.py", line 15, in <module>: Function Pet.__init__ was called with the wrong arguments [wrong-arg-types]
+File "enums_members.py", line 35, in <module>: _enums_members.Pet2 [assert-type]
+File "enums_members.py", line 36, in <module>: _enums_members.Pet2 [assert-type]
+File "enums_members.py", line 82, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+File "enums_members.py", line 82, in <module>: Callable[[Any], Any] [assert-type]
+File "enums_members.py", line 83, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+File "enums_members.py", line 83, in <module>: Callable[[int], int] [assert-type]
+File "enums_members.py", line 84, in <module>: property [assert-type]
+File "enums_members.py", line 84, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+File "enums_members.py", line 85, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+File "enums_members.py", line 85, in <module>: Callable[[Any], None] [assert-type]
+File "enums_members.py", line 107, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]
+File "enums_members.py", line 108, in Example: Function enum.nonmember expects 0 arg(s), got 1 [wrong-arg-count]
+File "enums_members.py", line 110, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]
+File "enums_members.py", line 128, in method: Example2 [reveal-type]
+File "enums_members.py", line 146, in <module>: Pet5 [assert-type]
+File "enums_members.py", line 147, in <module>: Pet5 [assert-type]
 """

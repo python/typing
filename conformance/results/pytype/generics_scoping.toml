@@ -10,15 +10,17 @@ File "generics_scoping.py", line 54, in Bar: Invalid type annotation 'List[S]' f
 File "generics_scoping.py", line 63, in fun_4: Invalid type annotation 'T'  [invalid-annotation]
 File "generics_scoping.py", line 74, in <module>: Invalid type annotation 'Outer'  [invalid-annotation]
 File "generics_scoping.py", line 78, in AlsoBad: Invalid type annotation 'List[T]' for x [invalid-annotation]
-File "generics_scoping.py", line 88, in <module>: Invalid type annotation 'T' for global_var1 [invalid-annotation]
-File "generics_scoping.py", line 89, in <module>: Invalid type annotation 'List[T]' for global_var2 [invalid-annotation]
+File "generics_scoping.py", line 80, in AlsoBad: Invalid type annotation 'T'  [invalid-annotation]
+File "generics_scoping.py", line 94, in <module>: Invalid type annotation 'T' for global_var1 [invalid-annotation]
+File "generics_scoping.py", line 95, in <module>: Invalid type annotation 'List[T]' for global_var2 [invalid-annotation]
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 65: Expected 1 errors
 Line 75: Expected 1 errors
-Line 84: Expected 1 errors
-Line 90: Expected 1 errors
+Line 87: Expected 1 errors
+Line 96: Expected 1 errors
 Line 63: Unexpected errors ['File "generics_scoping.py", line 63, in fun_4: Invalid type annotation \\'T\\'  [invalid-annotation]']
 Line 74: Unexpected errors ['File "generics_scoping.py", line 74, in <module>: Invalid type annotation \\'Outer\\'  [invalid-annotation]']
+Line 80: Unexpected errors ['File "generics_scoping.py", line 80, in AlsoBad: Invalid type annotation \\'T\\'  [invalid-annotation]']
 """

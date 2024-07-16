@@ -7,10 +7,10 @@ generics_scoping.py:54:19 - error: Type variable "S" has no meaning in this cont
 generics_scoping.py:65:29 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
 generics_scoping.py:75:24 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
 generics_scoping.py:78:17 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
-generics_scoping.py:84:5 - error: Generic type alias within class cannot use bound type variables T
-generics_scoping.py:88:14 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
-generics_scoping.py:89:19 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
-generics_scoping.py:90:6 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
+generics_scoping.py:87:5 - error: Generic type alias within class cannot use bound type variables T
+generics_scoping.py:94:14 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
+generics_scoping.py:95:19 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
+generics_scoping.py:96:6 - error: Type variable "T" has no meaning in this context (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """

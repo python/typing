@@ -54,7 +54,7 @@ class BadTypedDict3(TypedDict, other=True):  # E
 T = TypeVar("T")
 
 
-class GenericTypedDict(Generic[T]):
+class GenericTypedDict(TypedDict, Generic[T]):
     name: str
     value: T
 
