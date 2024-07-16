@@ -59,7 +59,7 @@ This section defines a few terms that may be used elsewhere in the specification
       :ref:`type-system-concepts`.
 
    gradual form
-      A gradual form is a :term:`type expression` which makes the type it is
+      A gradual form is an element of a :term:`type expression` which makes the type it is
       part of not a :term:`fully static type`, but rather a representation of a
       set of possible static types. See :ref:`type-system-concepts`. The
       primary gradual form is :ref:`Any`. The ellipsis (``...``) is a gradual
