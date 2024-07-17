@@ -177,7 +177,7 @@ annotations for function arguments::
        ...
 
 ``Final`` may be wrapped only by other type qualifiers (e.g. ``ClassVar`` or
-``Annotation``). It cannot be used in a type parameter (e.g.
+``Annotated``). It cannot be used in a type parameter (e.g.
 ``list[Final[int]]`` is not permitted.)
 
 Note that declaring a name as final only guarantees that the name will
