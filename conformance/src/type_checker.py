@@ -97,11 +97,16 @@ class MypyTypeChecker(TypeChecker):
             "-m",
             "mypy",
             ".",
-            # Mypy currently crashes when run on the "generics_defaults.py" test case,
-            # so we need to exclude it for now. Remove this once mypy adds support for
-            # this functionality.
+            # Enable experimental support for PEP 695 syntax.
+            # This can be removed once it's no longer experimental.
+            "--enable-incomplete-feature=NewGenericSyntax",
+            # Mypy currently crashes when run on a couple of test cases,
+            # so we need to exclude them for now. Remove this once mypy adds
+            # support for this functionality.
             "--exclude",
             r"generics_defaults\.py",
+            "--exclude",
+            r"generics_syntax_declarations\.py",
             "--disable-error-code",
             "empty-body",
         ]

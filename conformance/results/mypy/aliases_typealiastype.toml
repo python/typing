@@ -2,15 +2,13 @@ conformant = "Partial"
 notes = """
 Incorrectly rejects some recursive type aliases using TypeAliasType.
 Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.
-Generates error when accessing `__value__` attribute of TypeAliasType.
 """
 output = """
 aliases_typealiastype.py:19: error: Cannot resolve name "GoodAlias4" (possible cyclic definition)  [misc]
 aliases_typealiastype.py:20: error: Cannot resolve name "GoodAlias5" (possible cyclic definition)  [misc]
 aliases_typealiastype.py:22: error: Cannot resolve name "GoodAlias5" (possible cyclic definition)  [misc]
 aliases_typealiastype.py:27: error: Type variable "T" is not included in type_params  [valid-type]
-aliases_typealiastype.py:30: error: "type[int]" has no attribute "__value__"  [attr-defined]
-aliases_typealiastype.py:32: error: "type[int]" has no attribute "other_attrib"  [attr-defined]
+aliases_typealiastype.py:32: error: "TypeAliasType" has no attribute "other_attrib"  [attr-defined]
 aliases_typealiastype.py:40: error: Type argument "int" of "GoodAlias5" must be a subtype of "str"  [type-var]
 aliases_typealiastype.py:43: error: Type variable "S" is not included in type_params  [valid-type]
 aliases_typealiastype.py:44: error: Type variable "S" is not included in type_params  [valid-type]
@@ -43,5 +41,4 @@ Line 19: Unexpected errors ['aliases_typealiastype.py:19: error: Cannot resolve 
 Line 20: Unexpected errors ['aliases_typealiastype.py:20: error: Cannot resolve name "GoodAlias5" (possible cyclic definition)  [misc]']
 Line 22: Unexpected errors ['aliases_typealiastype.py:22: error: Cannot resolve name "GoodAlias5" (possible cyclic definition)  [misc]']
 Line 27: Unexpected errors ['aliases_typealiastype.py:27: error: Type variable "T" is not included in type_params  [valid-type]']
-Line 30: Unexpected errors ['aliases_typealiastype.py:30: error: "type[int]" has no attribute "__value__"  [attr-defined]']
 """

@@ -5,7 +5,7 @@ Does not reject the use of a constraint parameterized by another type variable.
 output = """
 generics_basic.py:40: error: Value of type variable "AnyStr" of "concat" cannot be "Sequence[object]"  [type-var]
 generics_basic.py:41: error: Value of type variable "AnyStr" of "concat" cannot be "Sequence[object]"  [type-var]
-generics_basic.py:49: error: TypeVar cannot have only a single constraint  [misc]
+generics_basic.py:49: error: Type variable must have at least two constrained types  [misc]
 generics_basic.py:69: error: Value of type variable "AnyStr" of "concat" cannot be "Sequence[object]"  [type-var]
 generics_basic.py:121: error: Duplicate type variables in Generic[...] or Protocol[...]  [misc]
 generics_basic.py:157: error: Invalid index type "int" for "MyMap1[str, int]"; expected type "str"  [index]
