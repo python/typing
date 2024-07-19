@@ -10,4 +10,5 @@ Type System Guides
    writing_stubs
    modernizing
    unreachable
+   type_narrowing
    typing_anti_pitch
