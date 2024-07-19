@@ -488,7 +488,7 @@ This includes, but is not limited to, the following semantics:
         wheel_count: int
 
 * Field ordering and inheritance is assumed to follow the rules
-  specified in `the Python docs <https://docs.python.org/3/library/dataclasses.html#inheritance>`. This includes the effects of
+  specified in `the Python docs <https://docs.python.org/3/library/dataclasses.html#inheritance>`_. This includes the effects of
   overrides (redefining a field in a child class that has already been
   defined in a parent class).
 
