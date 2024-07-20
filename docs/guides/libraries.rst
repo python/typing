@@ -211,13 +211,8 @@ to determine which symbols are visible outside of the package.
 
 -  Symbols whose names begin with an underscore (but are not dunder
    names) are considered private.
--  Imported symbols are considered private by default. If they use the
-   ``import A as A`` (a redundant module alias), ``from X import A as A`` (a
-   redundant symbol alias), or ``from . import A`` forms, symbol ``A`` is
-   not private unless the name begins with an underscore. If a file
-   ``__init__.py`` uses form ``from .A import X``, symbol ``A`` is treated
-   likewise. If a wildcard import (of the form ``from X import *``) is
-   used, all symbols referenced by the wildcard are not private.
+-  Imported symbols are considered private by default. A fixed set of
+   :ref:`import forms <import-conventions>` re-export imported symbols.
 -  A module can expose an ``__all__`` symbol at the module level that
    provides a list of names that are considered part of the interface.
    This overrides all other rules above, allowing imported symbols or
@@ -226,7 +221,8 @@ to determine which symbols are visible outside of the package.
 -  Local variables within a function (including nested functions) are
    always considered private.
 
-The following idioms are supported for defining the values contained
+In stub files, ``__all__`` must be a string list literal. In ``.py`` files,
+the following idioms are supported for defining the values contained
 within ``__all__``. These restrictions allow type checkers to statically
 determine the value of ``__all__``.
 

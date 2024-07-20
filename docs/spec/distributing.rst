@@ -105,46 +105,20 @@ Imports
 """""""
 
 Stub files distinguish between imports that are re-exported and those
-that are only used internally. Imports are re-exported if they use one of these
-forms (:pep:`484`):
-
-* ``import X as X``
-* ``from Y import X as X``
-* ``from Y import *``
-
-Here are some examples of imports that make names available for internal use in
-a stub but do not re-export them::
-
-    import X
-    from Y import X
-    from Y import X as OtherX
+that are only used internally. See :ref:`import-conventions`.
 
 Type aliases can be used to re-export an import under a different name::
 
     from foo import bar as _bar
     new_bar = _bar  # "bar" gets re-exported with the name "new_bar"
 
-Sub-modules are always exported when they are imported in a module.
-For example, consider the following file structure::
-
-    foo/
-        __init__.pyi
-        bar.pyi
-
-Then ``foo`` will export ``bar`` when one of the following constructs is used in
-``__init__.pyi``::
-
-    from . import bar
-    from .bar import Bar
-
 Stubs support customizing star import semantics by defining a module-level
 variable called ``__all__``. In stubs, this must be a string list literal.
 Other types are not supported. Neither is the dynamic creation of this
 variable (for example by concatenation).
 
-By default, ``from foo import *`` imports all names in ``foo`` that
-do not begin with an underscore. When ``__all__`` is defined, only those names
-specified in ``__all__`` are imported::
+When ``__all__`` is defined, exactly those names specified in ``__all__`` are
+imported::
 
     __all__ = ['public_attr', '_private_looking_public_attr']
 
@@ -647,3 +621,23 @@ of that Python version. This can be queried e.g.
 ``pythonX.Y -c 'import site; print(site.getsitepackages())'``. It is also recommended
 that the type checker allow for the user to point to a particular Python
 binary, in case it is not in the path.
+
+.. _import-conventions:
+
+Import Conventions
+------------------
+
+By convention, certain import forms indicate to type checkers that an imported
+symbol is re-exported and should be considered part of the importing module's
+public interface. All other imported symbols are considered private by default.
+
+The following import forms re-export symbols:
+
+* ``import X as X`` (a redundant module alias): re-exports ``X``.
+* ``from Y import X as X`` (a redundant symbol alias): re-exports ``X``.
+* ``from Y import *``: re-exports all symbols in ``Y`` that do not begin with
+  an underscore.
+* ``from . import bar`` in an ``__init__`` module: re-exports ``bar`` if it does
+  not begin with an underscore.
+* ``from .bar import Bar`` in an ``__init__`` module: re-exports ``Bar`` if it
+  does not begin with an underscore.
