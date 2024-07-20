@@ -1,0 +1,77 @@
+conformant = "Unsupported"
+notes = """
+Converter parameter not yet supported.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 47: Expected 1 errors
+Line 48: Expected 1 errors
+Line 117: Expected 1 errors
+Line 129: Expected 1 errors
+Line 132: Expected 1 errors
+Line 111: Unexpected errors ['dataclasses_transform_converter.py:111:11 - error: Argument of type "Literal[\\'f0\\']" cannot be assigned to parameter "field0" of type "int" in function "__init__"', 'dataclasses_transform_converter.py:111:17 - error: Argument of type "Literal[\\'f1\\']" cannot be assigned to parameter "field1" of type "int" in function "__init__"', 'dataclasses_transform_converter.py:111:23 - error: Argument of type "Literal[\\'f2\\']" cannot be assigned to parameter "field2" of type "int" in function "__init__"', 'dataclasses_transform_converter.py:111:29 - error: Argument of type "Literal[b"f6"]" cannot be assigned to parameter "field3" of type "ConverterClass" in function "__init__"', 'dataclasses_transform_converter.py:111:36 - error: Argument of type "list[Any]" cannot be assigned to parameter "field4" of type "int" in function "__init__"']
+Line 113: Unexpected errors ['dataclasses_transform_converter.py:113:14 - error: Cannot assign to attribute "field0" for class "DC2"']
+Line 114: Unexpected errors ['dataclasses_transform_converter.py:114:14 - error: Cannot assign to attribute "field3" for class "DC2"']
+Line 115: Unexpected errors ['dataclasses_transform_converter.py:115:14 - error: Cannot assign to attribute "field3" for class "DC2"']
+Line 120: Unexpected errors ['dataclasses_transform_converter.py:120:11 - error: Argument of type "Literal[\\'f0\\']" cannot be assigned to parameter "field0" of type "int" in function "__init__"', 'dataclasses_transform_converter.py:120:17 - error: Argument of type "Literal[\\'f1\\']" cannot be assigned to parameter "field1" of type "int" in function "__init__"', 'dataclasses_transform_converter.py:120:23 - error: Argument of type "Literal[\\'f2\\']" cannot be assigned to parameter "field2" of type "int" in function "__init__"', 'dataclasses_transform_converter.py:120:29 - error: Argument of type "Literal[\\'f6\\']" cannot be assigned to parameter "field3" of type "ConverterClass" in function "__init__"', 'dataclasses_transform_converter.py:120:35 - error: Argument of type "Literal[\\'1\\']" cannot be assigned to parameter "field4" of type "int" in function "__init__"', 'dataclasses_transform_converter.py:120:40 - error: Argument of type "tuple[tuple[str, str], tuple[str, str]]" cannot be assigned to parameter "field5" of type "dict[str, str]" in function "__init__"']
+"""
+output = """
+dataclasses_transform_converter.py:106:8 - error: Argument of type "Literal['f1']" cannot be assigned to parameter "field1" of type "int" in function "__init__"
+  "Literal['f1']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:106:14 - error: Argument of type "Literal['f2']" cannot be assigned to parameter "field2" of type "int" in function "__init__"
+  "Literal['f2']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:106:20 - error: Argument of type "Literal[b"f3"]" cannot be assigned to parameter "field3" of type "ConverterClass" in function "__init__"
+  "Literal[b"f3"]" is incompatible with "ConverterClass" (reportArgumentType)
+dataclasses_transform_converter.py:106:27 - error: Argument of type "list[Any]" cannot be assigned to parameter "field4" of type "int" in function "__init__"
+  "list[Any]" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:107:5 - error: Argument of type "Literal['f0']" cannot be assigned to parameter "field0" of type "int" in function "__init__"
+  "Literal['f0']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:107:11 - error: Argument of type "Literal['f1']" cannot be assigned to parameter "field1" of type "int" in function "__init__"
+  "Literal['f1']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:107:17 - error: Argument of type "Literal['f2']" cannot be assigned to parameter "field2" of type "int" in function "__init__"
+  "Literal['f2']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:107:23 - error: Argument of type "Literal[1]" cannot be assigned to parameter "field3" of type "ConverterClass" in function "__init__"
+  "Literal[1]" is incompatible with "ConverterClass" (reportArgumentType)
+dataclasses_transform_converter.py:107:26 - error: Argument of type "list[Any]" cannot be assigned to parameter "field4" of type "int" in function "__init__"
+  "list[Any]" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:108:5 - error: Argument of type "Literal['f0']" cannot be assigned to parameter "field0" of type "int" in function "__init__"
+  "Literal['f0']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:108:11 - error: Argument of type "Literal['f1']" cannot be assigned to parameter "field1" of type "int" in function "__init__"
+  "Literal['f1']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:108:17 - error: Argument of type "Literal['f2']" cannot be assigned to parameter "field2" of type "int" in function "__init__"
+  "Literal['f2']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:108:23 - error: Argument of type "Literal['f3']" cannot be assigned to parameter "field3" of type "ConverterClass" in function "__init__"
+  "Literal['f3']" is incompatible with "ConverterClass" (reportArgumentType)
+dataclasses_transform_converter.py:108:29 - error: Argument of type "complex" cannot be assigned to parameter "field4" of type "int" in function "__init__"
+  "complex" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:111:11 - error: Argument of type "Literal['f0']" cannot be assigned to parameter "field0" of type "int" in function "__init__"
+  "Literal['f0']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:111:17 - error: Argument of type "Literal['f1']" cannot be assigned to parameter "field1" of type "int" in function "__init__"
+  "Literal['f1']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:111:23 - error: Argument of type "Literal['f2']" cannot be assigned to parameter "field2" of type "int" in function "__init__"
+  "Literal['f2']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:111:29 - error: Argument of type "Literal[b"f6"]" cannot be assigned to parameter "field3" of type "ConverterClass" in function "__init__"
+  "Literal[b"f6"]" is incompatible with "ConverterClass" (reportArgumentType)
+dataclasses_transform_converter.py:111:36 - error: Argument of type "list[Any]" cannot be assigned to parameter "field4" of type "int" in function "__init__"
+  "list[Any]" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:113:14 - error: Cannot assign to attribute "field0" for class "DC2"
+  "Literal['f1']" is incompatible with "int" (reportAttributeAccessIssue)
+dataclasses_transform_converter.py:114:14 - error: Cannot assign to attribute "field3" for class "DC2"
+  "Literal['f6']" is incompatible with "ConverterClass" (reportAttributeAccessIssue)
+dataclasses_transform_converter.py:115:14 - error: Cannot assign to attribute "field3" for class "DC2"
+  "Literal[b"f6"]" is incompatible with "ConverterClass" (reportAttributeAccessIssue)
+dataclasses_transform_converter.py:118:14 - error: Cannot assign to attribute "field3" for class "DC2"
+  "Literal[1]" is incompatible with "ConverterClass" (reportAttributeAccessIssue)
+dataclasses_transform_converter.py:120:11 - error: Argument of type "Literal['f0']" cannot be assigned to parameter "field0" of type "int" in function "__init__"
+  "Literal['f0']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:120:17 - error: Argument of type "Literal['f1']" cannot be assigned to parameter "field1" of type "int" in function "__init__"
+  "Literal['f1']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:120:23 - error: Argument of type "Literal['f2']" cannot be assigned to parameter "field2" of type "int" in function "__init__"
+  "Literal['f2']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:120:29 - error: Argument of type "Literal['f6']" cannot be assigned to parameter "field3" of type "ConverterClass" in function "__init__"
+  "Literal['f6']" is incompatible with "ConverterClass" (reportArgumentType)
+dataclasses_transform_converter.py:120:35 - error: Argument of type "Literal['1']" cannot be assigned to parameter "field4" of type "int" in function "__init__"
+  "Literal['1']" is incompatible with "int" (reportArgumentType)
+dataclasses_transform_converter.py:120:40 - error: Argument of type "tuple[tuple[str, str], tuple[str, str]]" cannot be assigned to parameter "field5" of type "dict[str, str]" in function "__init__"
+  "tuple[tuple[str, str], tuple[str, str]]" is incompatible with "dict[str, str]" (reportArgumentType)
+"""

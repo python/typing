@@ -1,0 +1,48 @@
+conformant = "Unsupported"
+notes = """
+Converter parameter not yet supported.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 47: Expected 1 errors
+Line 48: Expected 1 errors
+Line 117: Expected 1 errors
+Line 129: Expected 1 errors
+Line 132: Expected 1 errors
+Line 111: Unexpected errors ['dataclasses_transform_converter.py:111: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"  [arg-type]', 'dataclasses_transform_converter.py:111: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"  [arg-type]', 'dataclasses_transform_converter.py:111: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"  [arg-type]', 'dataclasses_transform_converter.py:111: error: Argument 4 to "DC2" has incompatible type "bytes"; expected "ConverterClass"  [arg-type]', 'dataclasses_transform_converter.py:111: error: Argument 5 to "DC2" has incompatible type "list[Never]"; expected "int"  [arg-type]']
+Line 113: Unexpected errors ['dataclasses_transform_converter.py:113: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+Line 114: Unexpected errors ['dataclasses_transform_converter.py:114: error: Incompatible types in assignment (expression has type "str", variable has type "ConverterClass")  [assignment]']
+Line 115: Unexpected errors ['dataclasses_transform_converter.py:115: error: Incompatible types in assignment (expression has type "bytes", variable has type "ConverterClass")  [assignment]']
+Line 120: Unexpected errors ['dataclasses_transform_converter.py:120: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"  [arg-type]', 'dataclasses_transform_converter.py:120: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"  [arg-type]', 'dataclasses_transform_converter.py:120: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"  [arg-type]', 'dataclasses_transform_converter.py:120: error: Argument 4 to "DC2" has incompatible type "str"; expected "ConverterClass"  [arg-type]', 'dataclasses_transform_converter.py:120: error: Argument 5 to "DC2" has incompatible type "str"; expected "int"  [arg-type]', 'dataclasses_transform_converter.py:120: error: Argument 6 to "DC2" has incompatible type "tuple[tuple[str, str], tuple[str, str]]"; expected "dict[str, str]"  [arg-type]']
+"""
+output = """
+dataclasses_transform_converter.py:106: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:106: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:106: error: Argument 4 to "DC2" has incompatible type "bytes"; expected "ConverterClass"  [arg-type]
+dataclasses_transform_converter.py:106: error: Argument 5 to "DC2" has incompatible type "list[Never]"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:107: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:107: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:107: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:107: error: Argument 4 to "DC2" has incompatible type "int"; expected "ConverterClass"  [arg-type]
+dataclasses_transform_converter.py:107: error: Argument 5 to "DC2" has incompatible type "list[Never]"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:108: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:108: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:108: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:108: error: Argument 4 to "DC2" has incompatible type "str"; expected "ConverterClass"  [arg-type]
+dataclasses_transform_converter.py:108: error: Argument 5 to "DC2" has incompatible type "complex"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:111: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:111: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:111: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:111: error: Argument 4 to "DC2" has incompatible type "bytes"; expected "ConverterClass"  [arg-type]
+dataclasses_transform_converter.py:111: error: Argument 5 to "DC2" has incompatible type "list[Never]"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:113: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+dataclasses_transform_converter.py:114: error: Incompatible types in assignment (expression has type "str", variable has type "ConverterClass")  [assignment]
+dataclasses_transform_converter.py:115: error: Incompatible types in assignment (expression has type "bytes", variable has type "ConverterClass")  [assignment]
+dataclasses_transform_converter.py:118: error: Incompatible types in assignment (expression has type "int", variable has type "ConverterClass")  [assignment]
+dataclasses_transform_converter.py:120: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:120: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:120: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:120: error: Argument 4 to "DC2" has incompatible type "str"; expected "ConverterClass"  [arg-type]
+dataclasses_transform_converter.py:120: error: Argument 5 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
+dataclasses_transform_converter.py:120: error: Argument 6 to "DC2" has incompatible type "tuple[tuple[str, str], tuple[str, str]]"; expected "dict[str, str]"  [arg-type]
+"""
