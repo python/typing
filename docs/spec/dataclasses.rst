@@ -366,8 +366,7 @@ positional and may use other names.
   name for the field. This alternative name is used in the synthesized
   ``__init__`` method.
 * ``converter`` is an optional parameter that specifies a
-  callable used to convert values when assigning to the associated
-  attribute.
+  callable used to convert values when assigning to the field.
 
 It is an error to specify more than one of ``default``,
 ``default_factory`` and ``factory``.
@@ -546,9 +545,9 @@ Converter behavior:
 Typing rules for converters:
 
 * The ``converter`` must be a callable that must accept a single positional argument
-  (but may optionally accept other arguments, which are ignored for typing purposes).
+  (but may accept other optional arguments, which are ignored for typing purposes).
 * The type of the first positional parameter provides the type of the synthesized ``__init__`` parameter
-  associated with the field.
+  for the field.
 * The return type of the callable must be assignable to the field's declared type.
 * If ``default`` or ``default_factory`` are provided, the type of the default value should be
   assignable to the first positional parameter of the ``converter``.
