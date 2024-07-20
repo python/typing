@@ -7,46 +7,6 @@ Type Stubs
 Supported Constructs
 ====================
 
-Classes
--------
-
-Class definition syntax follows general Python syntax, but type checkers
-are only expected to understand the following constructs in class bodies:
-
-* The ellipsis literal ``...`` is ignored and used for empty
-  class bodies. Using ``pass`` in class bodies is undefined.
-* Instance attributes follow the same rules as module level attributes
-  (see above).
-* Method definitions (see below) and properties.
-* Method aliases.
-* Inner class definitions.
-
-More complex statements don't need to be supported::
-
-    class Simple: ...
-
-    class Complex(Base):
-        read_write: int
-        @property
-        def read_only(self) -> int: ...
-        def do_stuff(self, y: str) -> None: ...
-        doStuff = do_stuff
-
-The type of generic classes can be narrowed by annotating the ``self``
-argument of the ``__init__`` method::
-
-    class Foo(Generic[_T]):
-        @overload
-        def __init__(self: Foo[str], type: Literal["s"]) -> None: ...
-        @overload
-        def __init__(self: Foo[int], type: Literal["i"]) -> None: ...
-        @overload
-        def __init__(self, type: str) -> None: ...
-
-The class must match the class in which it is declared. Using other classes,
-including sub or super classes, will not work. In addition, the ``self``
-annotation cannot contain type variables.
-
 .. _supported-functions:
 
 Functions and Methods
@@ -135,29 +95,3 @@ type stubs::
     @overload
     def foo(x: float) -> int: ...
     def foo(x: str | float) -> Any: ...
-
-Decorators
-----------
-
-Type stubs may only use decorators defined in the ``typing`` module, plus a
-fixed set of additional ones:
-
-* ``classmethod``
-* ``staticmethod``
-* ``property`` (including ``.setter``)
-* ``abc.abstractmethod``
-* ``dataclasses.dataclass``
-* ``asyncio.coroutine`` (although ``async`` should be used instead)
-
-The behavior of other decorators should instead be incorporated into the types.
-For example, for the following function::
-
-  import contextlib
-  @contextlib.contextmanager
-  def f():
-      yield 42
-
-the stub definition should be::
-
-  from contextlib import AbstractContextManager
-  def f() -> AbstractContextManager[int]: ...
