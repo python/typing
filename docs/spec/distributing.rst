@@ -24,7 +24,7 @@ Python packages and modules. Stub files serve multiple purposes:
   API of a package, without including the implementation or private
   members.
 
-Stub files that only use the constructs described in :ref:`Supported Constructs`
+Stub files that only use the constructs described in :ref:`stub-file-supported-constructs`
 below should work with all type checkers that conform to this specification. A
 conformant type checker will parse a stub that only uses such constructs without
 error and will not interpret any construct in a contradictory manner. However,
@@ -60,8 +60,9 @@ references can be used.
 
 Type checkers should have a configurable search path for stub files. If a stub
 file is found, the type checker should not read the corresponding "real" module.
-See :ref:`Import resolution ordering` for more information.
+See :ref:`mro` for more information.
 
+.. _stub-file-supported-constructs:
 
 Supported Constructs
 ^^^^^^^^^^^^^^^^^^^^
@@ -366,7 +367,7 @@ Version and Platform Checks
 Stub files for libraries that support multiple Python versions can use version
 checks to supply version-specific type hints. Stubs for different Python
 versions should still conform to the most recent supported Python version's
-syntax, as explain in the :ref:`Syntax` section above.
+syntax, as explain in the :ref:`stub-file-syntax` section above.
 
 Version checks are if-statements that use ``sys.version_info`` to determine the
 current Python version. Version checks should only check against the ``major`` and
