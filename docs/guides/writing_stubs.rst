@@ -522,12 +522,12 @@ with an underscore.
 Yes::
 
     _T = TypeVar("_T")
-    _DictList = Dict[str, List[Optional[int]]
+    _DictList: TypeAlias = dict[str, list[int | None]]
 
 No::
 
     T = TypeVar("T")
-    DictList = Dict[str, List[Optional[int]]]
+    DictList: TypeAlias = dict[str, list[int | None]]
 
 Language Features
 -----------------
