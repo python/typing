@@ -51,7 +51,7 @@ to maintain compatibility with all type checkers.
 For example, Python 3.7 added the ``async`` keyword (see :pep:`492`).
 Stub authors should use it to mark coroutines, even if the implementation
 still uses the ``@coroutine`` decorator. On the other hand, stubs should not use
-the ``type`` soft keyword from :pep:`695`, introduced in Python 3.12, util
+the ``type`` soft keyword from :pep:`695`, introduced in Python 3.12, until
 Python 3.11 reaches end-of-life in October 2027.
 
 Stubs are treated as if ``from __future__ import annotations`` is enabled. In
