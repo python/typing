@@ -174,7 +174,7 @@ Stub-Only Objects
 
 Definitions that do not exist at runtime may be included in stubs to aid in
 expressing types. Sometimes, it is desirable to make a stub-only class available
-to a stub's users - for example, to allow them to type the return value of a
+to a stub's users — for example, to allow them to type the return value of a
 public method for which a library does not provided a usable runtime type::
 
   from typing import Protocol
