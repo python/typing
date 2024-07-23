@@ -367,7 +367,7 @@ Version and Platform Checks
 Stub files for libraries that support multiple Python versions can use version
 checks to supply version-specific type hints. Stubs for different Python
 versions should still conform to the most recent supported Python version's
-syntax, as explain in the :ref:`stub-file-syntax` section above.
+syntax, as explained in the :ref:`stub-file-syntax` section above.
 
 Version checks are if-statements that use ``sys.version_info`` to determine the
 current Python version. Version checks should only check against the ``major`` and
