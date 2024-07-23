@@ -24,9 +24,9 @@ Python packages and modules. Stub files serve multiple purposes:
   API of a package, without including the implementation or private
   members.
 
-Stub files that only use the constructs described in :ref:`stub-file-supported-constructs`
+Stub files that use only the constructs described in :ref:`stub-file-supported-constructs`
 below should work with all type checkers that conform to this specification. A
-conformant type checker will parse a stub that only uses such constructs without
+conformant type checker will parse a stub that uses only such constructs without
 error and will not interpret any construct in a contradictory manner. However,
 type checkers are not required to implement checks for all these constructs and
 can elect to ignore unsupported ones. Additionally, type checkers can support
@@ -187,7 +187,7 @@ Classes
 """""""
 
 Class definition syntax follows general Python syntax, but type checkers
-are only expected to understand the following constructs in class bodies:
+are expected to understand only the following constructs in class bodies:
 
 * The ellipsis literal ``...`` is ignored and used for empty
   class bodies. Using ``pass`` in class bodies is undefined.
