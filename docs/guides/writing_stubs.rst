@@ -515,8 +515,8 @@ No::
 Private Definitions
 -------------------
 
-Type variables, type aliases, and other definitions that should not
-be used outside the stub should be marked as private by prefixing them
+Type variables, type aliases, and other definitions that don't exist at
+runtime should be marked as private by prefixing them
 with an underscore.
 
 Yes::
