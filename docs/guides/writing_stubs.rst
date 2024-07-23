@@ -454,10 +454,9 @@ No::
 Functions and Methods
 ---------------------
 
-Use the same argument names as in the implementation, because
-otherwise using keyword arguments will fail. Of course, this
-does not apply to positional-only arguments marked with the historical double
-underscore convention.
+For keyword-only and positional-or-keyword arguments, use the same
+argument names as in the implementation, because otherwise using
+keyword arguments will fail.
 
 Use the ellipsis literal ``...`` in place of actual default argument
 values. Use an explicit ``X | None`` annotation instead of
