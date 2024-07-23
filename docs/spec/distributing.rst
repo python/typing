@@ -343,7 +343,7 @@ in the ``typing`` module, plus these additional ones:
 
  * ``classmethod``
  * ``staticmethod``
- * ``property`` (including ``.setter``)
+ * ``property`` (including ``.setter`` and ``.deleter``)
  * ``abc.abstractmethod``
  * ``dataclasses.dataclass``
  * functions decorated with ``@typing.dataclass_transform``
