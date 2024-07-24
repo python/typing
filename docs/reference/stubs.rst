@@ -39,6 +39,8 @@ can elect to ignore unsupported ones. Additionally type checkers
 can support constructs not described in this document and tool authors are
 encouraged to experiment with additional features.
 
+.. _stub-file-syntax:
+
 Syntax
 ======
 
