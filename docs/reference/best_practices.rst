@@ -59,6 +59,8 @@ annotate it with ``object``::
         if isinstance(o, int):
             cb(o)
 
+.. _argument-return-practices:
+
 Arguments and Return Types
 --------------------------
 
