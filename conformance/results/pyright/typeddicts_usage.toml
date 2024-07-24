@@ -8,7 +8,7 @@ typeddicts_usage.py:28:18 - error: Expression of type "dict[str, str | int]" is 
   "title" is an undefined item in type "Movie" (reportAssignmentType)
 typeddicts_usage.py:35:22 - error: Second argument to "isinstance" must be a class or tuple of classes
   TypedDict class not allowed for instance or class checks (reportArgumentType)
-typeddicts_usage.py:40:24 - error: "TypedDict" cannot be used in this context
+typeddicts_usage.py:40:24 - error: "TypedDict" cannot be used in this context (reportInvalidTypeForm)
 """
 conformance_automated = "Pass"
 errors_diff = """

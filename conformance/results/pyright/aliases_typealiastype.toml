@@ -4,10 +4,10 @@ aliases_typealiastype.py:32:18 - error: Cannot access attribute "other_attrib" f
   Attribute "other_attrib" is unknown (reportAttributeAccessIssue)
 aliases_typealiastype.py:40:5 - error: Could not specialize type "GoodAlias5[S@GoodAlias5, TStr@GoodAlias5, P@GoodAlias5, Ts@GoodAlias5]"
   Type "int" is incompatible with type "str"
-    "int" is incompatible with "str"
+    "int" is incompatible with "str" (reportInvalidTypeForm)
 aliases_typealiastype.py:43:45 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
 aliases_typealiastype.py:44:45 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
-aliases_typealiastype.py:45:57 - error: Type parameter list must be a tuple containing only TypeVar, TypeVarTuple, or ParamSpec
+aliases_typealiastype.py:45:57 - error: Type parameter list must be a tuple containing only TypeVar, TypeVarTuple, or ParamSpec (reportGeneralTypeIssues)
 aliases_typealiastype.py:46:40 - error: Type alias "BadAlias4" cannot use itself in its definition (reportGeneralTypeIssues)
 aliases_typealiastype.py:47:40 - error: Type alias "BadAlias5" cannot use itself in its definition (reportGeneralTypeIssues)
 aliases_typealiastype.py:48:40 - error: Type alias "BadAlias6" cannot use itself in its definition (reportGeneralTypeIssues)

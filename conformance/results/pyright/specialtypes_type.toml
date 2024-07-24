@@ -7,7 +7,7 @@ specialtypes_type.py:56:7 - error: Argument of type "type[TeamUser]" cannot be a
     "type[TeamUser]" is incompatible with "type[ProUser]"
     Type "type[TeamUser]" is incompatible with type "type[ProUser]" (reportArgumentType)
 specialtypes_type.py:70:7 - error: Argument of type "type[Callable]" cannot be assigned to parameter "x" of type "type[T@func5]" in function "func5" (reportArgumentType)
-specialtypes_type.py:76:22 - error: Too many type arguments provided for "type"; expected 1 but received 2
+specialtypes_type.py:76:22 - error: Too many type arguments provided for "type"; expected 1 but received 2 (reportInvalidTypeForm)
 specialtypes_type.py:117:7 - error: Cannot access attribute "unknown" for class "type[object]"
   Attribute "unknown" is unknown (reportAttributeAccessIssue)
 specialtypes_type.py:120:7 - error: Cannot access attribute "unknown" for class "type[object]"

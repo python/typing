@@ -1,7 +1,7 @@
 conformant = "Pass"
 output = """
-generics_syntax_infer_variance.py:15:51 - error: TypeVar cannot be both covariant and contravariant
-generics_syntax_infer_variance.py:17:55 - error: TypeVar cannot be both covariant and contravariant
+generics_syntax_infer_variance.py:15:51 - error: TypeVar cannot be both covariant and contravariant (reportGeneralTypeIssues)
+generics_syntax_infer_variance.py:17:55 - error: TypeVar cannot be both covariant and contravariant (reportGeneralTypeIssues)
 generics_syntax_infer_variance.py:29:35 - error: Expression of type "ShouldBeCovariant1[float]" is incompatible with declared type "ShouldBeCovariant1[int]"
   "ShouldBeCovariant1[float]" is incompatible with "ShouldBeCovariant1[int]"
     Type parameter "T@ShouldBeCovariant1" is covariant, but "float" is not a subtype of "int"

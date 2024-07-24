@@ -6,7 +6,7 @@ aliases_type_statement.py:19:1 - error: Object of type "TypeAliasType" is not ca
   Attribute "__call__" is unknown (reportCallIssue)
 aliases_type_statement.py:23:18 - error: Cannot access attribute "other_attrib" for class "TypeAliasType"
   Attribute "other_attrib" is unknown (reportAttributeAccessIssue)
-aliases_type_statement.py:26:18 - error: A type alias defined in a "type" statement cannot be used as a base class
+aliases_type_statement.py:26:18 - error: A type alias defined in a "type" statement cannot be used as a base class (reportGeneralTypeIssues)
 aliases_type_statement.py:31:22 - error: Argument of type "TypeAliasType" cannot be assigned to parameter "class_or_tuple" of type "_ClassInfo" in function "isinstance"
   Type "TypeAliasType" is incompatible with type "_ClassInfo"
     "TypeAliasType" is incompatible with "type"
@@ -42,10 +42,10 @@ aliases_type_statement.py:64:23 - error: Type parameter "V" is not included in t
 aliases_type_statement.py:69:17 - error: Type parameter "T1" is not included in the type parameter list for "TA2" (reportGeneralTypeIssues)
 aliases_type_statement.py:79:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
   Type "str" is incompatible with type "int"
-    "str" is incompatible with "int"
+    "str" is incompatible with "int" (reportInvalidTypeForm)
 aliases_type_statement.py:81:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
   Type "int" is incompatible with type "str"
-    "int" is incompatible with "str"
+    "int" is incompatible with "str" (reportInvalidTypeForm)
 aliases_type_statement.py:84:28 - error: Type alias "RecursiveTypeAlias3" cannot use itself in its definition (reportGeneralTypeIssues)
 aliases_type_statement.py:86:31 - error: Type alias "RecursiveTypeAlias4" cannot use itself in its definition (reportGeneralTypeIssues)
 aliases_type_statement.py:90:28 - error: Type alias "RecursiveTypeAlias6" cannot use itself in its definition (reportGeneralTypeIssues)

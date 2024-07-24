@@ -3,8 +3,8 @@ output = """
 typeddicts_class_syntax.py:29:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)
 typeddicts_class_syntax.py:33:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)
 typeddicts_class_syntax.py:38:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)
-typeddicts_class_syntax.py:44:32 - error: TypedDict does not support __init_subclass__ parameter "metaclass"
-typeddicts_class_syntax.py:49:32 - error: TypedDict does not support __init_subclass__ parameter "other"
+typeddicts_class_syntax.py:44:32 - error: TypedDict does not support __init_subclass__ parameter "metaclass" (reportGeneralTypeIssues)
+typeddicts_class_syntax.py:49:32 - error: TypedDict does not support __init_subclass__ parameter "other" (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """
