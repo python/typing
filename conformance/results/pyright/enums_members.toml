@@ -12,20 +12,20 @@ enums_members.py:19:11 - error: Argument missing for parameter "species" (report
 enums_members.py:20:11 - error: Argument missing for parameter "species" (reportCallIssue)
 enums_members.py:50:5 - error: Type annotations are not allowed for enum members (reportGeneralTypeIssues)
 enums_members.py:82:13 - error: "assert_type" mismatch: expected "Unknown" but received "(x: Unknown) -> str" (reportAssertTypeFailure)
-enums_members.py:82:37 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:82:37 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
 enums_members.py:82:42 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 enums_members.py:83:13 - error: "assert_type" mismatch: expected "Unknown" but received "(x: int) -> int" (reportAssertTypeFailure)
-enums_members.py:83:37 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:83:37 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
 enums_members.py:83:42 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 enums_members.py:84:13 - error: "assert_type" mismatch: expected "Unknown" but received "property" (reportAssertTypeFailure)
-enums_members.py:84:35 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:84:35 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
 enums_members.py:85:13 - error: "assert_type" mismatch: expected "Unknown" but received "(self: Pet4) -> None" (reportAssertTypeFailure)
-enums_members.py:85:33 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:85:33 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
 enums_members.py:116:13 - error: "assert_type" mismatch: expected "Unknown" but received "int" (reportAssertTypeFailure)
-enums_members.py:116:32 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:116:32 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
 enums_members.py:128:21 - information: Type of "Example2.__B" is "Literal[2]"
 enums_members.py:129:21 - error: "assert_type" mismatch: expected "Unknown" but received "Literal[2]" (reportAssertTypeFailure)
-enums_members.py:129:43 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value
+enums_members.py:129:43 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
 enums_members.py:129:52 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 enums_members.py:146:13 - error: "assert_type" mismatch: expected "int" but received "Literal[Pet5.DOG]" (reportAssertTypeFailure)
 enums_members.py:147:13 - error: "assert_type" mismatch: expected "int" but received "Literal[Pet5.FISH]" (reportAssertTypeFailure)

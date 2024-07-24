@@ -3,9 +3,9 @@ output = """
 aliases_explicit.py:67:24 - error: Expected no type arguments for class "int" (reportInvalidTypeArguments)
 aliases_explicit.py:67:24 - error: Expected no type arguments for class "NoneType" (reportInvalidTypeArguments)
 aliases_explicit.py:68:9 - error: Type "list[int | None]" is already specialized (reportInvalidTypeArguments)
-aliases_explicit.py:69:29 - error: Too many type arguments provided for "GoodTypeAlias4[T@GoodTypeAlias4]"; expected 1 but received 2
-aliases_explicit.py:70:29 - error: Too many type arguments provided for "GoodTypeAlias8[T@GoodTypeAlias8]"; expected 1 but received 2
-aliases_explicit.py:71:24 - error: Expected ParamSpec, ellipsis, or list of types
+aliases_explicit.py:69:29 - error: Too many type arguments provided for "GoodTypeAlias4[T@GoodTypeAlias4]"; expected 1 but received 2 (reportInvalidTypeForm)
+aliases_explicit.py:70:29 - error: Too many type arguments provided for "GoodTypeAlias8[T@GoodTypeAlias8]"; expected 1 but received 2 (reportInvalidTypeForm)
+aliases_explicit.py:71:24 - error: Expected ParamSpec, ellipsis, or list of types (reportInvalidTypeForm)
 aliases_explicit.py:79:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)
 aliases_explicit.py:79:21 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 aliases_explicit.py:80:21 - error: Invalid expression form for type alias definition (reportInvalidTypeForm)

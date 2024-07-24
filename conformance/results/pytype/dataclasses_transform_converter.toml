@@ -4,27 +4,48 @@ Converter parameter not yet supported.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 47: Expected 1 errors
-Line 48: Expected 1 errors
-Line 117: Expected 1 errors
-Line 129: Expected 1 errors
-Line 132: Expected 1 errors
-Line 28: Unexpected errors ['File "dataclasses_transform_converter.py", line 28, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
-Line 111: Unexpected errors ['File "dataclasses_transform_converter.py", line 111, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]']
-Line 113: Unexpected errors ['File "dataclasses_transform_converter.py", line 113, in <module>: Type annotation for field0 does not match type of assignment [annotation-type-mismatch]']
-Line 114: Unexpected errors ['File "dataclasses_transform_converter.py", line 114, in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]']
+Line 49: Expected 1 errors
+Line 118: Expected 1 errors
+Line 26: Unexpected errors ['File "dataclasses_transform_converter.py", line 26, in model_field: bad return type [bad-return-type]', 'File "dataclasses_transform_converter.py", line 26, in model_field: bad return type [bad-return-type]', 'File "dataclasses_transform_converter.py", line 26, in model_field: bad return type [bad-return-type]', 'File "dataclasses_transform_converter.py", line 26, in model_field: bad return type [bad-return-type]', 'File "dataclasses_transform_converter.py", line 26, in model_field: bad return type [bad-return-type]']
+Line 29: Unexpected errors ['File "dataclasses_transform_converter.py", line 29, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+Line 112: Unexpected errors ['File "dataclasses_transform_converter.py", line 112, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]']
+Line 114: Unexpected errors ['File "dataclasses_transform_converter.py", line 114, in <module>: Type annotation for field0 does not match type of assignment [annotation-type-mismatch]']
 Line 115: Unexpected errors ['File "dataclasses_transform_converter.py", line 115, in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]']
-Line 120: Unexpected errors ['File "dataclasses_transform_converter.py", line 120, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]']
+Line 116: Unexpected errors ['File "dataclasses_transform_converter.py", line 116, in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]']
+Line 121: Unexpected errors ['File "dataclasses_transform_converter.py", line 121, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]']
 """
 output = """
-File "dataclasses_transform_converter.py", line 28, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
-File "dataclasses_transform_converter.py", line 106, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
+File "dataclasses_transform_converter.py", line 26, in model_field: bad return type [bad-return-type]
+Called from (traceback):
+  line 98, in current file
+  line 99, in DC2
+File "dataclasses_transform_converter.py", line 26, in model_field: bad return type [bad-return-type]
+Called from (traceback):
+  line 98, in current file
+  line 104, in DC2
+File "dataclasses_transform_converter.py", line 26, in model_field: bad return type [bad-return-type]
+Called from (traceback):
+  line 98, in current file
+  line 102, in DC2
+File "dataclasses_transform_converter.py", line 26, in model_field: bad return type [bad-return-type]
+Called from (traceback):
+  line 98, in current file
+  line 100, in DC2
+File "dataclasses_transform_converter.py", line 26, in model_field: bad return type [bad-return-type]
+Called from (traceback):
+  line 47, in current file
+  line 49, in DC1
+File "dataclasses_transform_converter.py", line 29, in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+File "dataclasses_transform_converter.py", line 48, in DC1: Function model_field was called with the wrong arguments [wrong-arg-types]
 File "dataclasses_transform_converter.py", line 107, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
 File "dataclasses_transform_converter.py", line 108, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
-File "dataclasses_transform_converter.py", line 111, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
-File "dataclasses_transform_converter.py", line 113, in <module>: Type annotation for field0 does not match type of assignment [annotation-type-mismatch]
-File "dataclasses_transform_converter.py", line 114, in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]
+File "dataclasses_transform_converter.py", line 109, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
+File "dataclasses_transform_converter.py", line 112, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
+File "dataclasses_transform_converter.py", line 114, in <module>: Type annotation for field0 does not match type of assignment [annotation-type-mismatch]
 File "dataclasses_transform_converter.py", line 115, in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]
-File "dataclasses_transform_converter.py", line 118, in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]
-File "dataclasses_transform_converter.py", line 120, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
+File "dataclasses_transform_converter.py", line 116, in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]
+File "dataclasses_transform_converter.py", line 119, in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]
+File "dataclasses_transform_converter.py", line 121, in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
+File "dataclasses_transform_converter.py", line 130, in DC3: Function model_field was called with the wrong arguments [wrong-arg-types]
+File "dataclasses_transform_converter.py", line 133, in DC3: Function model_field was called with the wrong arguments [wrong-arg-types]
 """

@@ -17,7 +17,6 @@ Line 63: Unexpected errors ['constructors_callable.py:63:0 Revealed type [-1]: R
 Line 77: Unexpected errors ['constructors_callable.py:77:0 Revealed type [-1]: Revealed type for `r4` is `typing.Callable[[Named(x, int)], Class4]`.']
 Line 78: Unexpected errors ['constructors_callable.py:78:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Class4`.']
 Line 97: Unexpected errors ['constructors_callable.py:97:0 Revealed type [-1]: Revealed type for `r5` is `typing.Callable[[Variable(typing.Any), Keywords(typing.Any)], NoReturn]`.']
-Line 117: Unexpected errors ['constructors_callable.py:117:8 Incompatible return type [7]: Expected `Class6Proxy` but got `Class6`.']
 Line 125: Unexpected errors ['constructors_callable.py:125:0 Revealed type [-1]: Revealed type for `r6` is `typing.Callable[[Named(x, int)], Class6]`.']
 Line 126: Unexpected errors ['constructors_callable.py:126:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class6Proxy` but got `Class6`.', 'constructors_callable.py:126:12 Missing argument [20]: PositionalOnly call expects argument `x`.']
 Line 142: Unexpected errors ['constructors_callable.py:142:0 Revealed type [-1]: Revealed type for `r6_any` is `typing.Callable[[Named(x, int)], Class6Any]`.']
@@ -49,7 +48,6 @@ constructors_callable.py:78:0 Incompatible parameter type [6]: In call `assert_t
 constructors_callable.py:79:0 Missing argument [20]: PositionalOnly call expects argument `x`.
 constructors_callable.py:80:0 Unexpected keyword [28]: Unexpected keyword argument `y` to anonymous call.
 constructors_callable.py:97:0 Revealed type [-1]: Revealed type for `r5` is `typing.Callable[[Variable(typing.Any), Keywords(typing.Any)], NoReturn]`.
-constructors_callable.py:117:8 Incompatible return type [7]: Expected `Class6Proxy` but got `Class6`.
 constructors_callable.py:125:0 Revealed type [-1]: Revealed type for `r6` is `typing.Callable[[Named(x, int)], Class6]`.
 constructors_callable.py:126:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class6Proxy` but got `Class6`.
 constructors_callable.py:126:12 Missing argument [20]: PositionalOnly call expects argument `x`.

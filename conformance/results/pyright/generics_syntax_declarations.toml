@@ -4,7 +4,7 @@ generics_syntax_declarations.py:19:17 - error: "Generic" base class cannot be us
 generics_syntax_declarations.py:27:20 - error: Type arguments are not allowed with Protocol class when using type parameter syntax (reportGeneralTypeIssues)
 generics_syntax_declarations.py:34:11 - error: Cannot access attribute "is_integer" for class "str*"
   Attribute "is_integer" is unknown (reportAttributeAccessIssue)
-generics_syntax_declarations.py:46:21 - error: TypeVar constraint type cannot be generic
+generics_syntax_declarations.py:46:21 - error: TypeVar constraint type cannot be generic (reportGeneralTypeIssues)
 generics_syntax_declarations.py:50:17 - error: Expected class but received "list[Unknown]" (reportGeneralTypeIssues)
 generics_syntax_declarations.py:62:17 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)
 generics_syntax_declarations.py:66:17 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)

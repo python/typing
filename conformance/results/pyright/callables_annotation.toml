@@ -6,12 +6,12 @@ callables_annotation.py:26:11 - error: Argument of type "Literal[2]" cannot be a
 callables_annotation.py:27:15 - error: Expected 2 positional arguments (reportCallIssue)
 callables_annotation.py:29:10 - error: Expected 2 more positional arguments (reportCallIssue)
 callables_annotation.py:35:8 - error: Expected 0 positional arguments (reportCallIssue)
-callables_annotation.py:55:14 - error: Expected parameter type list or "..."
-callables_annotation.py:56:14 - error: Expected parameter type list or "..."
-callables_annotation.py:57:18 - error: List expression not allowed for this type argument
-callables_annotation.py:58:14 - error: Expected parameter type list or "..."
-callables_annotation.py:58:24 - error: Expected only two type arguments to "Callable"
-callables_annotation.py:59:15 - error: "..." is not allowed in this context
+callables_annotation.py:55:14 - error: Expected parameter type list or "..." (reportInvalidTypeForm)
+callables_annotation.py:56:14 - error: Expected parameter type list or "..." (reportInvalidTypeForm)
+callables_annotation.py:57:18 - error: List expression not allowed for this type argument (reportInvalidTypeForm)
+callables_annotation.py:58:14 - error: Expected parameter type list or "..." (reportInvalidTypeForm)
+callables_annotation.py:58:24 - error: Expected only two type arguments to "Callable" (reportInvalidTypeForm)
+callables_annotation.py:59:15 - error: "..." is not allowed in this context (reportInvalidTypeForm)
 callables_annotation.py:91:7 - error: Expression of type "() -> str" is incompatible with declared type "(int, ...) -> str"
   Type "() -> str" is incompatible with type "(int, ...) -> str"
     Function accepts too many positional parameters; expected 0 but received 2 (reportAssignmentType)

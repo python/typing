@@ -1,11 +1,11 @@
 conformant = "Pass"
 output = """
-qualifiers_annotated.py:43:17 - error: List expression not allowed for this type argument
+qualifiers_annotated.py:43:17 - error: List expression not allowed for this type argument (reportInvalidTypeForm)
 qualifiers_annotated.py:44:17 - error: Expected class but received "tuple[tuple[type[int], type[str]]]" (reportGeneralTypeIssues)
-qualifiers_annotated.py:45:17 - error: List expression not allowed for this type argument
+qualifiers_annotated.py:45:17 - error: List expression not allowed for this type argument (reportInvalidTypeForm)
 qualifiers_annotated.py:45:18 - error: Expected class but received "Generator[type[int], None, None]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:46:17 - error: Expected class but received "dict[str, Unknown]" (reportGeneralTypeIssues)
-qualifiers_annotated.py:46:17 - error: Dictionary expression not allowed in type annotation
+qualifiers_annotated.py:46:17 - error: Dictionary expression not allowed in type annotation (reportInvalidTypeForm)
 qualifiers_annotated.py:46:24 - error: "b" is not defined (reportUndefinedVariable)
 qualifiers_annotated.py:47:17 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 qualifiers_annotated.py:48:17 - error: List expression not allowed in type annotation
@@ -18,7 +18,7 @@ qualifiers_annotated.py:51:17 - error: Expected class but received "Literal[True
 qualifiers_annotated.py:52:18 - error: Expected class but received "Literal[1]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:53:18 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)
 qualifiers_annotated.py:54:18 - error: Type annotations cannot use format string literals (f-strings) (reportGeneralTypeIssues)
-qualifiers_annotated.py:64:8 - error: Expected one type argument and one or more annotations for "Annotated"
+qualifiers_annotated.py:64:8 - error: Expected one type argument and one or more annotations for "Annotated" (reportInvalidTypeForm)
 qualifiers_annotated.py:76:24 - error: Expression of type "type[Annotated]" is incompatible with declared type "type[Any]" (reportAssignmentType)
 qualifiers_annotated.py:77:24 - error: Expression of type "type[Annotated]" is incompatible with declared type "type[Any]" (reportAssignmentType)
 qualifiers_annotated.py:84:7 - error: Argument of type "type[Annotated]" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4" (reportArgumentType)

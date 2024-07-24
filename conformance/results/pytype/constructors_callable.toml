@@ -21,7 +21,6 @@ Line 78: Unexpected errors ['File "constructors_callable.py", line 78, in <modul
 Line 97: Unexpected errors ['File "constructors_callable.py", line 97, in <module>: Callable[[Any], Class5] [reveal-type]']
 Line 100: Unexpected errors ['File "constructors_callable.py", line 100, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]', 'File "constructors_callable.py", line 100, in <module>: Any [assert-type]']
 Line 105: Unexpected errors ['File "constructors_callable.py", line 105, in <module>: Invalid keyword argument x to function <callable> [wrong-keyword-args]', 'File "constructors_callable.py", line 105, in <module>: Any [assert-type]']
-Line 117: Unexpected errors ['File "constructors_callable.py", line 117, in __new__: bad return type [bad-return-type]']
 Line 125: Unexpected errors ['File "constructors_callable.py", line 125, in <module>: Callable[[Any], Class6] [reveal-type]']
 Line 126: Unexpected errors ['File "constructors_callable.py", line 126, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]', 'File "constructors_callable.py", line 126, in <module>: Any [assert-type]']
 Line 142: Unexpected errors ['File "constructors_callable.py", line 142, in <module>: Callable[[Any], Class6Any] [reveal-type]']
@@ -60,9 +59,6 @@ File "constructors_callable.py", line 100, in <module>: Function <callable> expe
 File "constructors_callable.py", line 100, in <module>: Any [assert-type]
 File "constructors_callable.py", line 105, in <module>: Invalid keyword argument x to function <callable> [wrong-keyword-args]
 File "constructors_callable.py", line 105, in <module>: Any [assert-type]
-File "constructors_callable.py", line 117, in __new__: bad return type [bad-return-type]
-Called from (traceback):
-  line 127, in current file
 File "constructors_callable.py", line 125, in <module>: Callable[[Any], Class6] [reveal-type]
 File "constructors_callable.py", line 126, in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
 File "constructors_callable.py", line 126, in <module>: Any [assert-type]
