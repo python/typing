@@ -123,6 +123,7 @@ It is recommended to exclude:
 1. Implementation details, with `multiprocessing/popen_spawn_win32.py <https://github.com/python/cpython/blob/main/Lib/multiprocessing/popen_spawn_win32.py>`_ as a notable example
 2. Modules that are not supposed to be imported, such as ``__main__.py``
 3. Protected modules that start with a single ``_`` char. However, when needed protected modules can still be added (see :ref:`undocumented-objects` section below)
+4. Tests
 
 Public Interface
 ----------------
@@ -175,14 +176,16 @@ Stub-Only Objects
 Definitions that do not exist at runtime may be included in stubs to aid in
 expressing types. Sometimes, it is desirable to make a stub-only class available
 to a stub's users — for example, to allow them to type the return value of a
-public method for which a library does not provided a usable runtime type::
+public method for which a library does not provided a usable runtime type. Use
+the ``typing.type_check_only`` decorator to mark such objects::
 
-  from typing import Protocol
+  from typing import Protocol, type_check_only
 
-  class _Readable(Protocol):
+  @type_check_only
+  class Readable(Protocol):
       def read(self) -> str: ...
 
-  def get_reader() -> _Readable: ...
+  def get_reader() -> Readable: ...
 
 Structural Types
 ----------------
@@ -202,12 +205,25 @@ follow the following guidelines:
 
 * Included functions and methods should list all arguments, but the arguments
   can be left unannotated.
-* Do not use ``Any`` to mark unannotated arguments or return values.
-* Partial classes should include a ``__getattr__()`` method marked with an
-  ``# incomplete`` comment (see example below).
+* Do not use ``Any`` to mark unannotated or partially annotated values. Leave
+  function parameters and return values unannotated and mark the function with
+  an ``# incomplete`` comment. This comment is mainly intended as a reminder for
+  stub authors, but can be used by tools to flag such functions. In all other
+  cases, use ``_typeshed.Incomplete``
+  (`documentation <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_)::
+
+    from _typeshed import Incomplete
+
+    field1: Incomplete
+    field2: dict[str, Incomplete]
+
+    def foo(x): ...  # incomplete
+
+* Partial classes should include a ``__getattr__()`` method marked with
+  ``_typeshed.Incomplete`` (see example below).
 * Partial modules (i.e. modules that are missing some or all classes,
   functions, or attributes) should include a top-level ``__getattr__()``
-  function marked with an ``# incomplete`` comment (see example below).
+  function marked with ``_typeshed.Incomplete`` (see example below).
 * Partial packages (i.e. packages that are missing one or more sub-modules)
   should have a ``__init__.pyi`` stub that is marked as incomplete (see above).
   A better alternative is to create empty stubs for all sub-modules and
@@ -216,17 +232,16 @@ follow the following guidelines:
 Example of a partial module with a partial class ``Foo`` and a partially
 annotated function ``bar()``::
 
-    def __getattr__(name: str) -> Any: ...  # incomplete
+    from _typeshed import Incomplete
+
+    def __getattr__(name: str) -> Incomplete: ...
 
     class Foo:
-        def __getattr__(self, name: str) -> Any: ... # incomplete
+        def __getattr__(self, name: str) -> Incomplete: ...
         x: int
         y: str
 
     def bar(x: str, y, *, z=...): ...
-
-The ``# incomplete`` comment is mainly intended as a reminder for stub
-authors, but can be used by tools to flag such items.
 
 Attribute Access
 ----------------
@@ -295,15 +310,15 @@ still recommended to separately define known attributes.
 Constants
 ---------
 
-When the value of a constant is important, annotate it using ``Literal``
-instead of its type.
+When the value of a constant is important,  mark it as ``Final`` and assign it
+to its value::
 
 Yes::
 
-    TEL_LANDLINE: Literal["landline"]
-    TEL_MOBILE: Literal["mobile"]
-    DAY_FLAG: Literal[0x01]
-    NIGHT_FLAG: Literal[0x02]
+    TEL_LANDLINE: Final = "landline"
+    TEL_MOBILE: Final = "mobile"
+    DAY_FLAG: Final = 0x01
+    NIGHT_FLAG: Final = 0x02
 
 No::
 
@@ -458,20 +473,20 @@ For keyword-only and positional-or-keyword arguments, use the same
 argument names as in the implementation, because otherwise using
 keyword arguments will fail.
 
-Use the ellipsis literal ``...`` in place of actual default argument
-values. Use an explicit ``X | None`` annotation instead of
-a ``None`` default.
+For default values, use the literal values of "simple" default values (``None``,
+bools, ints, bytes, strings, and floats). Use the ellipsis literal ``...`` in
+place of more complex default values. Use an explicit ``X | None`` annotation
+when the default is ``None``.
 
 Yes::
 
-    def foo(x: int = ...) -> None: ...
-    def bar(y: str | None = ...) -> None: ...
+    def foo(x: int = 0) -> None: ...
+    def bar(y: str | None = None) -> None: ...
 
 No::
 
-    def foo(x: int = 0) -> None: ...
+    def foo(x: X = X()) -> None: ...
     def bar(y: str = None) -> None: ...
-    def baz(z: str | None = None) -> None: ...
 
 Do not annotate ``self`` and ``cls`` in method definitions, except when
 referencing a type variable.
