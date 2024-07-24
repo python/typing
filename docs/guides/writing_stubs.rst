@@ -311,7 +311,7 @@ Constants
 ---------
 
 When the value of a constant is important,  mark it as ``Final`` and assign it
-to its value::
+to its value.
 
 Yes::
 
