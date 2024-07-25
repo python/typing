@@ -175,7 +175,8 @@ Stub-Only Objects
 
 Definitions that do not exist at runtime may be included in stubs to aid in
 expressing types. Unless intentionally exposed to users (see below), such
-definitions should be marked as private by prefixing them with an underscore.
+definitions should be marked as private by prefixing their names with an
+underscore.
 
 Yes::
 
@@ -217,10 +218,8 @@ follow the following guidelines:
 * Included functions and methods should list all arguments, but the arguments
   can be left unannotated.
 * Do not use ``Any`` to mark unannotated or partially annotated values. Leave
-  function parameters and return values unannotated and mark the function with
-  an ``# incomplete`` comment. This comment is mainly intended as a reminder for
-  stub authors, but can be used by tools to flag such functions. In all other
-  cases, use ``_typeshed.Incomplete``
+  function parameters and return values unannotated. In all other cases, use
+  ``_typeshed.Incomplete``
   (`documentation <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_)::
 
     from _typeshed import Incomplete
@@ -228,7 +227,7 @@ follow the following guidelines:
     field1: Incomplete
     field2: dict[str, Incomplete]
 
-    def foo(x): ...  # incomplete
+    def foo(x): ...
 
 * Partial classes should include a ``__getattr__()`` method marked with
   ``_typeshed.Incomplete`` (see example below).
