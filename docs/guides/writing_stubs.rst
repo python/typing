@@ -190,7 +190,7 @@ the ``typing.type_check_only`` decorator to mark such objects::
 Structural Types
 ----------------
 
-As seen in the example with ``_Readable`` in the previous section, a common use
+As seen in the example with ``Readable`` in the previous section, a common use
 of stub-only objects is to model types that are best described by their
 structure. These objects are called protocols (:pep:`544`), and it is encouraged
 to use them freely to describe simple structural types.
