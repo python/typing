@@ -116,7 +116,7 @@ leave out of stub files.
 Modules excluded fom stubs
 --------------------------
 
-Not all modules should be included into stubs.
+Not all modules should be included in stubs.
 
 It is recommended to exclude:
 
