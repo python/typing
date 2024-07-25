@@ -174,7 +174,20 @@ Stub-Only Objects
 -----------------
 
 Definitions that do not exist at runtime may be included in stubs to aid in
-expressing types. Sometimes, it is desirable to make a stub-only class available
+expressing types. Unless intentionally exposed to users (see below), such
+definitions should be marked as private by prefixing them with an underscore.
+
+Yes::
+
+    _T = TypeVar("_T")
+    _DictList: TypeAlias = dict[str, list[int | None]]
+
+No::
+
+    T = TypeVar("T")
+    DictList: TypeAlias = dict[str, list[int | None]]
+
+Sometimes, it is desirable to make a stub-only class available
 to a stub's users — for example, to allow them to type the return value of a
 public method for which a library does not provided a usable runtime type. Use
 the ``typing.type_check_only`` decorator to mark such objects::
@@ -194,8 +207,6 @@ As seen in the example with ``Readable`` in the previous section, a common use
 of stub-only objects is to model types that are best described by their
 structure. These objects are called protocols (:pep:`544`), and it is encouraged
 to use them freely to describe simple structural types.
-
-It is `recommended <#private-definitions>`_ to prefix stub-only object names with ``_``.
 
 Incomplete Stubs
 ----------------
@@ -524,25 +535,6 @@ No::
     def to_int2(x: str) -> int:
         ...
     def to_int3(x: str) -> int: pass
-
-.. _private-definitions:
-
-Private Definitions
--------------------
-
-Type variables, type aliases, and other definitions that don't exist at
-runtime should be marked as private by prefixing them
-with an underscore.
-
-Yes::
-
-    _T = TypeVar("_T")
-    _DictList: TypeAlias = dict[str, list[int | None]]
-
-No::
-
-    T = TypeVar("T")
-    DictList: TypeAlias = dict[str, list[int | None]]
 
 Language Features
 -----------------
