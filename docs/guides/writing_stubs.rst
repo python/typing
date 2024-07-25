@@ -346,7 +346,7 @@ two examples::
 
 The implementation of ``print_elements`` takes any iterable, despite the
 documented type of ``list``. In this case, annotate the argument as
-``Iterable[Any]``, to follow the :ref:`best practice<argument-return-practices>`
+``Iterable[object]``, to follow the :ref:`best practice<argument-return-practices>`
 of preferring abstract types for arguments.
 
 For ``maybe_raise``, on the other hand, it is better to annotate the argument as
