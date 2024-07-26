@@ -1,10 +1,10 @@
 conformant = "Pass"
 output = """
-tuples_unpacked.py:40:30 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
-tuples_unpacked.py:41:43 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
-tuples_unpacked.py:51:34 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
-tuples_unpacked.py:59:37 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
-tuples_unpacked.py:61:50 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
+tuples_unpacked.py:40:30 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple (reportInvalidTypeForm)
+tuples_unpacked.py:41:43 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple (reportInvalidTypeForm)
+tuples_unpacked.py:51:34 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple (reportInvalidTypeForm)
+tuples_unpacked.py:59:37 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple (reportInvalidTypeForm)
+tuples_unpacked.py:61:50 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple (reportInvalidTypeForm)
 """
 conformance_automated = "Pass"
 errors_diff = """

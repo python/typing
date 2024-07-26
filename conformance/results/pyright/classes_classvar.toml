@@ -1,20 +1,20 @@
 conformant = "Pass"
 output = """
-classes_classvar.py:38:25 - error: Expected only one type argument after "ClassVar"
+classes_classvar.py:38:25 - error: Expected only one type argument after "ClassVar" (reportInvalidTypeForm)
 classes_classvar.py:39:14 - error: Expected class but received "Literal[3]" (reportGeneralTypeIssues)
 classes_classvar.py:40:14 - error: "var" is not defined (reportUndefinedVariable)
 classes_classvar.py:45:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
 classes_classvar.py:46:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
 classes_classvar.py:47:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
 classes_classvar.py:52:33 - error: Expression of type "dict[Any, Any]" is incompatible with declared type "list[str]" (reportAssignmentType)
-classes_classvar.py:54:17 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:55:17 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:63:26 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:64:12 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:65:18 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:67:26 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:71:8 - error: "ClassVar" is not allowed in this context
-classes_classvar.py:72:20 - error: "ClassVar" is not allowed in this context
+classes_classvar.py:54:17 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:55:17 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:63:26 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:64:12 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:65:18 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:67:26 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:71:8 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:72:20 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
 classes_classvar.py:105:14 - error: Cannot assign to attribute "stats" for class "Starship"
   Attribute "stats" cannot be assigned through a class instance because it is a ClassVar
     Attribute "__set__" is unknown (reportAttributeAccessIssue)

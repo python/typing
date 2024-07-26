@@ -14,14 +14,15 @@ from typing import (
 )
 
 T = TypeVar("T")
+S = TypeVar("S")
 
 
 def model_field(
     *,
-    converter: Callable[..., Any],
-    default: object = None,
-    default_factory: Callable[..., object] | None = None,
-) -> Any:
+    converter: Callable[[S], T],
+    default: S | None = None,
+    default_factory: Callable[[], S] | None = None,
+) -> T:
     ...
 
 

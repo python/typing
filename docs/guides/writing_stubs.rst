@@ -116,7 +116,7 @@ leave out of stub files.
 Modules excluded fom stubs
 --------------------------
 
-Not all modules should be included into stubs.
+Not all modules should be included in stubs.
 
 It is recommended to exclude:
 
@@ -164,17 +164,31 @@ can be helpful in pointing out that an incorrect type was used.
 ``__all__``
 ------------
 
-A stub file should contain an ``__all__`` variable if and only if it also
+A stub file should contain an ``__all__`` variable if and only if it is also
 present at runtime. In that case, the contents of ``__all__`` should be
 identical in the stub and at runtime. If the runtime dynamically adds
 or removes elements (for example if certain functions are only available on
-some platforms), include all possible elements in the stubs.
+some system configurations), include all possible elements in the stubs.
 
 Stub-Only Objects
 -----------------
 
 Definitions that do not exist at runtime may be included in stubs to aid in
-expressing types. Sometimes, it is desirable to make a stub-only class available
+expressing types. Unless intentionally exposed to users (see below), such
+definitions should be marked as private by prefixing their names with an
+underscore.
+
+Yes::
+
+    _T = TypeVar("_T")
+    _DictList: TypeAlias = dict[str, list[int | None]]
+
+No::
+
+    T = TypeVar("T")
+    DictList: TypeAlias = dict[str, list[int | None]]
+
+Sometimes, it is desirable to make a stub-only class available
 to a stub's users — for example, to allow them to type the return value of a
 public method for which a library does not provided a usable runtime type. Use
 the ``typing.type_check_only`` decorator to mark such objects::
@@ -190,12 +204,10 @@ the ``typing.type_check_only`` decorator to mark such objects::
 Structural Types
 ----------------
 
-As seen in the example with ``_Readable`` in the previous section, a common use
+As seen in the example with ``Readable`` in the previous section, a common use
 of stub-only objects is to model types that are best described by their
 structure. These objects are called protocols (:pep:`544`), and it is encouraged
 to use them freely to describe simple structural types.
-
-It is `recommended <#private-definitions>`_ to prefix stub-only object names with ``_``.
 
 Incomplete Stubs
 ----------------
@@ -206,10 +218,8 @@ follow the following guidelines:
 * Included functions and methods should list all arguments, but the arguments
   can be left unannotated.
 * Do not use ``Any`` to mark unannotated or partially annotated values. Leave
-  function parameters and return values unannotated and mark the function with
-  an ``# incomplete`` comment. This comment is mainly intended as a reminder for
-  stub authors, but can be used by tools to flag such functions. In all other
-  cases, use ``_typeshed.Incomplete``
+  function parameters and return values unannotated. In all other cases, use
+  ``_typeshed.Incomplete``
   (`documentation <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_)::
 
     from _typeshed import Incomplete
@@ -217,7 +227,7 @@ follow the following guidelines:
     field1: Incomplete
     field2: dict[str, Incomplete]
 
-    def foo(x): ...  # incomplete
+    def foo(x): ...
 
 * Partial classes should include a ``__getattr__()`` method marked with
   ``_typeshed.Incomplete`` (see example below).
@@ -346,7 +356,7 @@ two examples::
 
 The implementation of ``print_elements`` takes any iterable, despite the
 documented type of ``list``. In this case, annotate the argument as
-``Iterable[Any]``, to follow the :ref:`best practice<argument-return-practices>`
+``Iterable[object]``, to follow the :ref:`best practice<argument-return-practices>`
 of preferring abstract types for arguments.
 
 For ``maybe_raise``, on the other hand, it is better to annotate the argument as
@@ -524,25 +534,6 @@ No::
     def to_int2(x: str) -> int:
         ...
     def to_int3(x: str) -> int: pass
-
-.. _private-definitions:
-
-Private Definitions
--------------------
-
-Type variables, type aliases, and other definitions that don't exist at
-runtime should be marked as private by prefixing them
-with an underscore.
-
-Yes::
-
-    _T = TypeVar("_T")
-    _DictList: TypeAlias = dict[str, list[int | None]]
-
-No::
-
-    T = TypeVar("T")
-    DictList: TypeAlias = dict[str, list[int | None]]
 
 Language Features
 -----------------

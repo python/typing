@@ -3,12 +3,12 @@ output = """
 aliases_implicit.py:76:24 - error: Expected no type arguments for class "int" (reportInvalidTypeArguments)
 aliases_implicit.py:76:24 - error: Expected no type arguments for class "NoneType" (reportInvalidTypeArguments)
 aliases_implicit.py:77:9 - error: Type "list[int | None]" is already specialized (reportInvalidTypeArguments)
-aliases_implicit.py:78:29 - error: Too many type arguments provided for "GoodTypeAlias4[T@GoodTypeAlias4]"; expected 1 but received 2
-aliases_implicit.py:79:29 - error: Too many type arguments provided for "GoodTypeAlias8[T@GoodTypeAlias8]"; expected 1 but received 2
-aliases_implicit.py:80:24 - error: Expected ParamSpec, ellipsis, or list of types
+aliases_implicit.py:78:29 - error: Too many type arguments provided for "GoodTypeAlias4[T@GoodTypeAlias4]"; expected 1 but received 2 (reportInvalidTypeForm)
+aliases_implicit.py:79:29 - error: Too many type arguments provided for "GoodTypeAlias8[T@GoodTypeAlias8]"; expected 1 but received 2 (reportInvalidTypeForm)
+aliases_implicit.py:80:24 - error: Expected ParamSpec, ellipsis, or list of types (reportInvalidTypeForm)
 aliases_implicit.py:81:9 - error: Could not specialize type "GoodTypeAlias12[TFloat@GoodTypeAlias12]"
   Type "str" is incompatible with type "float"
-    "str" is incompatible with "float"
+    "str" is incompatible with "float" (reportInvalidTypeForm)
 aliases_implicit.py:106:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 aliases_implicit.py:107:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 aliases_implicit.py:108:9 - error: Variable not allowed in type expression (reportInvalidTypeForm)

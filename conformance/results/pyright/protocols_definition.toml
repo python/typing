@@ -3,7 +3,7 @@ output = """
 protocols_definition.py:30:12 - error: Argument of type "list[int]" cannot be assigned to parameter "things" of type "Iterable[SupportsClose]" in function "close_all"
   "Literal[1]" is incompatible with protocol "SupportsClose"
     "close" is not present (reportArgumentType)
-protocols_definition.py:67:14 - error: Instance or class variables within a Protocol class must be explicitly declared within the class body
+protocols_definition.py:67:14 - error: Instance or class variables within a Protocol class must be explicitly declared within the class body (reportGeneralTypeIssues)
 protocols_definition.py:114:22 - error: Expression of type "Concrete2_Bad1" is incompatible with declared type "Template2"
   "Concrete2_Bad1" is incompatible with protocol "Template2"
     "val1" is not present (reportAssignmentType)
