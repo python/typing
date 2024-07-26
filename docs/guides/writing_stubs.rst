@@ -164,7 +164,7 @@ can be helpful in pointing out that an incorrect type was used.
 ``__all__``
 ------------
 
-A stub file should contain an ``__all__`` variable if and only if it also
+A stub file should contain an ``__all__`` variable if and only if it is also
 present at runtime. In that case, the contents of ``__all__`` should be
 identical in the stub and at runtime. If the runtime dynamically adds
 or removes elements (for example if certain functions are only available on
