@@ -168,7 +168,7 @@ A stub file should contain an ``__all__`` variable if and only if it is also
 present at runtime. In that case, the contents of ``__all__`` should be
 identical in the stub and at runtime. If the runtime dynamically adds
 or removes elements (for example if certain functions are only available on
-some platforms), include all possible elements in the stubs.
+some system configurations), include all possible elements in the stubs.
 
 Stub-Only Objects
 -----------------
