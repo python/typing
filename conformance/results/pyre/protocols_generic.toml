@@ -4,15 +4,15 @@ Does not reject the use of Protocol and Generic together as base classes.
 Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.
 """
 output = """
+protocols_generic.py:40:0 Incompatible variable type [9]: p2 is declared to have type `Proto1[int, str]` but is used as type `Concrete1`.
+protocols_generic.py:56:4 Incompatible variable type [9]: v2 is declared to have type `Box[int]` but is used as type `Box[float]`.
+protocols_generic.py:66:4 Incompatible variable type [9]: v2 is declared to have type `Sender[float]` but is used as type `Sender[int]`.
+protocols_generic.py:74:4 Incompatible variable type [9]: v1 is declared to have type `AttrProto[float]` but is used as type `AttrProto[int]`.
+protocols_generic.py:75:4 Incompatible variable type [9]: v2 is declared to have type `AttrProto[int]` but is used as type `AttrProto[float]`.
+protocols_generic.py:146:0 Incompatible variable type [9]: hp3 is declared to have type `HasPropertyProto` but is used as type `ConcreteHasProperty3`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 40: Expected 1 errors
 Line 44: Expected 1 errors
-Line 56: Expected 1 errors
-Line 66: Expected 1 errors
-Line 74: Expected 1 errors
-Line 75: Expected 1 errors
-Line 146: Expected 1 errors
 Line 147: Expected 1 errors
 """

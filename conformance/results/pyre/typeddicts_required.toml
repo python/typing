@@ -7,6 +7,9 @@ Incorrectly complains about uninitialized attributes on TypedDict definitions.
 Incorrectly generates "attribute not initialized" errors for TypedDict fields.
 """
 output = """
+typeddicts_required.py:15:8 Incompatible attribute type [8]: Attribute `x` declared in class `NotTypedDict` has type `Required[int]` but is used as type `int`.
+typeddicts_required.py:74:62 Undefined or invalid type [11]: Annotation `RecursiveMovie` is not defined as a type.
+typeddicts_required.py:77:24 TypedDict initialization error [55]: Expected type `unknown` for `RecursiveMovie` field `predecessor` but got `typing.Dict[str, str]`.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -14,4 +17,7 @@ Line 12: Expected 1 errors
 Line 19: Expected 1 errors
 Line 62: Expected 1 errors
 Line 63: Expected 1 errors
+Line 15: Unexpected errors ['typeddicts_required.py:15:8 Incompatible attribute type [8]: Attribute `x` declared in class `NotTypedDict` has type `Required[int]` but is used as type `int`.']
+Line 74: Unexpected errors ['typeddicts_required.py:74:62 Undefined or invalid type [11]: Annotation `RecursiveMovie` is not defined as a type.']
+Line 77: Unexpected errors ['typeddicts_required.py:77:24 TypedDict initialization error [55]: Expected type `unknown` for `RecursiveMovie` field `predecessor` but got `typing.Dict[str, str]`.']
 """

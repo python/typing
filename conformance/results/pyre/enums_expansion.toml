@@ -2,9 +2,11 @@ conformant = "Pass"
 notes = """
 Does not perform type narrowing based on enum literal expansion (optional).
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 53: Expected 1 errors
 """
 output = """
+enums_expansion.py:25:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[Color.GREEN]` but got `Color`.
+enums_expansion.py:35:12 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Never` but got `Color`.
+enums_expansion.py:53:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[CustomFlags.FLAG3]` but got `CustomFlags`.
 """

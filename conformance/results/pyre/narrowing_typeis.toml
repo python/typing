@@ -1,5 +1,17 @@
 conformant = "Unsupported"
 output = """
+narrowing_typeis.py:9:0 Undefined import [21]: Could not find a name `TypeIs` defined in module `typing_extensions`.
+narrowing_typeis.py:14:48 Undefined or invalid type [11]: Annotation `TypeIs` is not defined as a type.
+narrowing_typeis.py:19:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Tuple[str, str]` but got `typing.Tuple[str, ...]`.
+narrowing_typeis.py:35:17 Incompatible awaitable type [12]: Expected an awaitable but got `typing.Union[typing.Awaitable[int], int]`.
+narrowing_typeis.py:38:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Union[Awaitable[int], int]`.
+narrowing_typeis.py:72:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `object`.
+narrowing_typeis.py:76:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `object`.
+narrowing_typeis.py:80:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `object`.
+narrowing_typeis.py:84:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `object`.
+narrowing_typeis.py:88:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `object`.
+narrowing_typeis.py:92:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `B` but got `object`.
+narrowing_typeis.py:96:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `B` but got `object`.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -12,4 +24,16 @@ Line 170: Expected 1 errors
 Line 191: Expected 1 errors
 Line 195: Expected 1 errors
 Line 199: Expected 1 errors
+Line 9: Unexpected errors ['narrowing_typeis.py:9:0 Undefined import [21]: Could not find a name `TypeIs` defined in module `typing_extensions`.']
+Line 14: Unexpected errors ['narrowing_typeis.py:14:48 Undefined or invalid type [11]: Annotation `TypeIs` is not defined as a type.']
+Line 19: Unexpected errors ['narrowing_typeis.py:19:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Tuple[str, str]` but got `typing.Tuple[str, ...]`.']
+Line 35: Unexpected errors ['narrowing_typeis.py:35:17 Incompatible awaitable type [12]: Expected an awaitable but got `typing.Union[typing.Awaitable[int], int]`.']
+Line 38: Unexpected errors ['narrowing_typeis.py:38:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Union[Awaitable[int], int]`.']
+Line 72: Unexpected errors ['narrowing_typeis.py:72:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `object`.']
+Line 76: Unexpected errors ['narrowing_typeis.py:76:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `object`.']
+Line 80: Unexpected errors ['narrowing_typeis.py:80:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `object`.']
+Line 84: Unexpected errors ['narrowing_typeis.py:84:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `object`.']
+Line 88: Unexpected errors ['narrowing_typeis.py:88:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `object`.']
+Line 92: Unexpected errors ['narrowing_typeis.py:92:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `B` but got `object`.']
+Line 96: Unexpected errors ['narrowing_typeis.py:96:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `B` but got `object`.']
 """

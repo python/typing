@@ -3,10 +3,17 @@ notes = """
 Does not handle use of `Self` as a generic type.
 """
 output = """
+generics_self_basic.py:14:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]`.
+generics_self_basic.py:14:26 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.
+generics_self_basic.py:20:8 Incompatible return type [7]: Expected `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]` but got `Shape`.
+generics_self_basic.py:27:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Type[Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]]`.
+generics_self_basic.py:33:8 Incompatible return type [7]: Expected `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]` but got `Shape`.
+generics_self_basic.py:40:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 20: Expected 1 errors
-Line 33: Expected 1 errors
 Line 67: Expected 1 errors
+Line 14: Unexpected errors ['generics_self_basic.py:14:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]`.', 'generics_self_basic.py:14:26 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.']
+Line 27: Unexpected errors ['generics_self_basic.py:27:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Type[Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]]`.']
+Line 40: Unexpected errors ['generics_self_basic.py:40:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Variable[_Self_generics_self_basic_Shape__ (bound to Shape)]`.']
 """

@@ -1,13 +1,13 @@
 conformant = "Pass"
 output = """
+protocols_subtyping.py:16:5 Invalid class instantiation [45]: Cannot instantiate protocol `Proto1`.
+protocols_subtyping.py:38:4 Incompatible variable type [9]: v2 is declared to have type `Concrete2` but is used as type `Proto2`.
+protocols_subtyping.py:55:4 Incompatible variable type [9]: v2 is declared to have type `Proto3` but is used as type `Proto2`.
+protocols_subtyping.py:79:4 Incompatible variable type [9]: v3 is declared to have type `Proto4[int, float]` but is used as type `Proto5[int]`.
+protocols_subtyping.py:80:4 Incompatible variable type [9]: v4 is declared to have type `Proto5[float]` but is used as type `Proto4[int, int]`.
+protocols_subtyping.py:102:4 Incompatible variable type [9]: v4 is declared to have type `Proto7[int, float]` but is used as type `Proto6[float, float]`.
+protocols_subtyping.py:103:4 Incompatible variable type [9]: v5 is declared to have type `Proto7[float, object]` but is used as type `Proto6[float, float]`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 16: Expected 1 errors
-Line 38: Expected 1 errors
-Line 55: Expected 1 errors
-Line 79: Expected 1 errors
-Line 80: Expected 1 errors
-Line 102: Expected 1 errors
-Line 103: Expected 1 errors
 """

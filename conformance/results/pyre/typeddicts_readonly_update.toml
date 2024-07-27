@@ -1,7 +1,11 @@
 conformant = "Unsupported"
 output = """
+typeddicts_readonly_update.py:17:7 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.
+typeddicts_readonly_update.py:34:13 Incompatible parameter type [6]: In call `TypedDictionary.update`, for 1st positional argument, expected `A` but got `B`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 23: Expected 1 errors
+Line 17: Unexpected errors ['typeddicts_readonly_update.py:17:7 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.']
+Line 34: Unexpected errors ['typeddicts_readonly_update.py:34:13 Incompatible parameter type [6]: In call `TypedDictionary.update`, for 1st positional argument, expected `A` but got `B`.']
 """

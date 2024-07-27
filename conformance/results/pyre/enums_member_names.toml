@@ -6,4 +6,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
+enums_member_names.py:21:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal['RED']` but got `str`.
+enums_member_names.py:22:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal['RED']` but got `typing.Any`.
+enums_member_names.py:26:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Union[typing_extensions.Literal['BLUE'], typing_extensions.Literal['RED']]` but got `typing.Any`.
+enums_member_names.py:30:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Union[typing_extensions.Literal['BLUE'], typing_extensions.Literal['GREEN'], typing_extensions.Literal['RED']]` but got `typing.Any`.
 """

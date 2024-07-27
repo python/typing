@@ -5,12 +5,12 @@ Does not reject write to instance variable that is not defined in __slots__.
 Does not reject access to `__slots__` from dataclass instance when `slots=False`.
 """
 output = """
+dataclasses_slots.py:66:0 Undefined attribute [16]: `DC6` has no attribute `__slots__`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 25: Expected 1 errors
 Line 38: Expected 1 errors
-Line 66: Expected 1 errors
 Line 69: Expected 1 errors
 Lines 10, 11: Expected error (tag 'DC1')
 """

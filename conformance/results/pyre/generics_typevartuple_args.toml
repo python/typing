@@ -3,6 +3,15 @@ notes = """
 Does not support star expressions for `Unpack`.
 """
 output = """
+generics_typevartuple_args.py:16:25 Invalid type [31]: Expression `*Ts` is not a valid type.
+generics_typevartuple_args.py:16:33 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
+generics_typevartuple_args.py:27:30 Invalid type [31]: Expression `*tuple[(*Ts, generics_typevartuple_args.Env)]` is not a valid type.
+generics_typevartuple_args.py:27:76 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
+generics_typevartuple_args.py:42:17 Invalid type [31]: Expression `*tuple[(int, ...)]` is not a valid type.
+generics_typevartuple_args.py:51:17 Invalid type [31]: Expression `*tuple[(int, *tuple[(str, ...)], str)]` is not a valid type.
+generics_typevartuple_args.py:62:17 Invalid type [31]: Expression `*tuple[(int, str)]` is not a valid type.
+generics_typevartuple_args.py:70:17 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
+generics_typevartuple_args.py:75:12 Incompatible parameter type [6]: In call `func4`, for 2nd positional argument, expected `Tuple[]` but got `Tuple[int, int]`. Expected has length 1, but actual has length 2.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -13,6 +22,11 @@ Line 57: Expected 1 errors
 Line 58: Expected 1 errors
 Line 59: Expected 1 errors
 Line 67: Expected 1 errors
-Line 75: Expected 1 errors
 Line 76: Expected 1 errors
+Line 16: Unexpected errors ['generics_typevartuple_args.py:16:25 Invalid type [31]: Expression `*Ts` is not a valid type.', 'generics_typevartuple_args.py:16:33 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.']
+Line 27: Unexpected errors ['generics_typevartuple_args.py:27:30 Invalid type [31]: Expression `*tuple[(*Ts, generics_typevartuple_args.Env)]` is not a valid type.', 'generics_typevartuple_args.py:27:76 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.']
+Line 42: Unexpected errors ['generics_typevartuple_args.py:42:17 Invalid type [31]: Expression `*tuple[(int, ...)]` is not a valid type.']
+Line 51: Unexpected errors ['generics_typevartuple_args.py:51:17 Invalid type [31]: Expression `*tuple[(int, *tuple[(str, ...)], str)]` is not a valid type.']
+Line 62: Unexpected errors ['generics_typevartuple_args.py:62:17 Invalid type [31]: Expression `*tuple[(int, str)]` is not a valid type.']
+Line 70: Unexpected errors ['generics_typevartuple_args.py:70:17 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.']
 """

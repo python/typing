@@ -3,10 +3,10 @@ notes = """
 Type parameter syntax not yet support.
 """
 output = """
+generics_syntax_scoping.py:14:13 Parsing failure [404]: invalid syntax
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 14: Expected 1 errors
 Line 18: Expected 1 errors
 Line 35: Expected 1 errors
 Line 44: Expected 1 errors

@@ -8,18 +8,21 @@ Does not complain on use of `Self` in static methods.
 Does not complain on use of `Self` in metaclasses.
 """
 output = """
+generics_self_usage.py:20:34 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.
+generics_self_usage.py:86:8 Incompatible return type [7]: Expected `Variable[_Self_generics_self_usage_Foo3__ (bound to Foo3)]` but got `Foo3`.
+generics_self_usage.py:106:23 Undefined attribute [16]: `tuple` has no attribute `__getitem__`.
+generics_self_usage.py:106:29 Undefined attribute [16]: Module `typing` has no attribute `Self`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 73: Expected 1 errors
 Line 76: Expected 1 errors
 Line 82: Expected 1 errors
-Line 86: Expected 1 errors
 Line 101: Expected 1 errors
 Line 103: Expected 1 errors
-Line 106: Expected 1 errors
 Line 111: Expected 1 errors
 Line 116: Expected 1 errors
 Line 121: Expected 1 errors
 Line 125: Expected 1 errors
+Line 20: Unexpected errors ['generics_self_usage.py:20:34 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.']
 """

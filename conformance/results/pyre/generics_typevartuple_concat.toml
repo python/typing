@@ -3,7 +3,37 @@ notes = """
 Does not support TypeVarTuple.
 """
 output = """
+generics_typevartuple_concat.py:22:12 Invalid type [31]: Expression `typing.Generic[(*Ts)]` is not a valid type.
+generics_typevartuple_concat.py:26:22 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(*Shape)]` is not a valid type.
+generics_typevartuple_concat.py:26:22 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_concat.py:26:40 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(generics_typevartuple_concat.Batch, *Shape)]` is not a valid type.
+generics_typevartuple_concat.py:26:40 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_concat.py:30:22 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(generics_typevartuple_concat.Batch, *Shape)]` is not a valid type.
+generics_typevartuple_concat.py:30:22 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_concat.py:30:47 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(*Shape)]` is not a valid type.
+generics_typevartuple_concat.py:30:47 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_concat.py:34:26 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(*Shape)]` is not a valid type.
+generics_typevartuple_concat.py:34:26 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_concat.py:34:44 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(generics_typevartuple_concat.Batch, *Shape, generics_typevartuple_concat.Channels)]` is not a valid type.
+generics_typevartuple_concat.py:34:44 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_concat.py:38:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_concat.py:47:26 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
+generics_typevartuple_concat.py:47:41 Invalid type [31]: Expression `tuple[(T, *Ts)]` is not a valid type.
+generics_typevartuple_concat.py:51:22 Incompatible parameter type [6]: In call `prefix_tuple`, for argument `y`, expected `Tuple[]` but got `Tuple[bool, str]`. Expected has length 1, but actual has length 2.
+generics_typevartuple_concat.py:55:36 Invalid type [31]: Expression `tuple[(T, *Ts)]` is not a valid type.
+generics_typevartuple_concat.py:55:54 Invalid type [31]: Expression `tuple[(*Ts, T)]` is not a valid type.
+generics_typevartuple_concat.py:56:11 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `Variable[generics_typevartuple_concat.T]`.
+generics_typevartuple_concat.py:56:17 Incompatible parameter type [6]: In call `tuple.__getitem__`, for 1st positional argument, expected `typing_extensions.Literal[0]` but got `slice`.
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 22: Unexpected errors ['generics_typevartuple_concat.py:22:12 Invalid type [31]: Expression `typing.Generic[(*Ts)]` is not a valid type.']
+Line 26: Unexpected errors ['generics_typevartuple_concat.py:26:22 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(*Shape)]` is not a valid type.', 'generics_typevartuple_concat.py:26:22 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_concat.py:26:40 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(generics_typevartuple_concat.Batch, *Shape)]` is not a valid type.', 'generics_typevartuple_concat.py:26:40 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
+Line 30: Unexpected errors ['generics_typevartuple_concat.py:30:22 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(generics_typevartuple_concat.Batch, *Shape)]` is not a valid type.', 'generics_typevartuple_concat.py:30:22 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_concat.py:30:47 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(*Shape)]` is not a valid type.', 'generics_typevartuple_concat.py:30:47 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
+Line 34: Unexpected errors ['generics_typevartuple_concat.py:34:26 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(*Shape)]` is not a valid type.', 'generics_typevartuple_concat.py:34:26 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_concat.py:34:44 Invalid type [31]: Expression `generics_typevartuple_concat.Array[(generics_typevartuple_concat.Batch, *Shape, generics_typevartuple_concat.Channels)]` is not a valid type.', 'generics_typevartuple_concat.py:34:44 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
+Line 38: Unexpected errors ['generics_typevartuple_concat.py:38:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
+Line 47: Unexpected errors ['generics_typevartuple_concat.py:47:26 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.', 'generics_typevartuple_concat.py:47:41 Invalid type [31]: Expression `tuple[(T, *Ts)]` is not a valid type.']
+Line 51: Unexpected errors ['generics_typevartuple_concat.py:51:22 Incompatible parameter type [6]: In call `prefix_tuple`, for argument `y`, expected `Tuple[]` but got `Tuple[bool, str]`. Expected has length 1, but actual has length 2.']
+Line 55: Unexpected errors ['generics_typevartuple_concat.py:55:36 Invalid type [31]: Expression `tuple[(T, *Ts)]` is not a valid type.', 'generics_typevartuple_concat.py:55:54 Invalid type [31]: Expression `tuple[(*Ts, T)]` is not a valid type.']
+Line 56: Unexpected errors ['generics_typevartuple_concat.py:56:11 Unable to concatenate tuple [60]: Expected to unpack an iterable, but got `Variable[generics_typevartuple_concat.T]`.', 'generics_typevartuple_concat.py:56:17 Incompatible parameter type [6]: In call `tuple.__getitem__`, for 1st positional argument, expected `typing_extensions.Literal[0]` but got `slice`.']
 """

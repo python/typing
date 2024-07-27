@@ -3,6 +3,7 @@ notes = """
 Does not support `type` statement.
 """
 output = """
+aliases_type_statement.py:8:6 Parsing failure [404]: invalid syntax
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -33,4 +34,5 @@ Line 81: Expected 1 errors
 Line 84: Expected 1 errors
 Line 86: Expected 1 errors
 Line 90: Expected 1 errors
+Line 8: Unexpected errors ['aliases_type_statement.py:8:6 Parsing failure [404]: invalid syntax']
 """
