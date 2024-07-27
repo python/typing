@@ -2,6 +2,8 @@
 Tests the warnings.deprecated function.
 """
 
+# pyright: reportDeprecated=true
+
 # Specification: https://typing.readthedocs.io/en/latest/spec/directives.html#deprecated
 # See also https://peps.python.org/pep-0702/
 
@@ -10,8 +12,8 @@ Tests the warnings.deprecated function.
 
 # > * `from` imports
 
-from _directives_deprecated_pep702_example import Ham  # E: Use of deprecated class Ham
-import _directives_deprecated_pep702_example as library
+from _directives_deprecated_library import Ham  # E: Use of deprecated class Ham
+import _directives_deprecated_library as library
 
 from typing_extensions import deprecated
 
