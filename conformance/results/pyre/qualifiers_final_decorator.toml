@@ -5,20 +5,17 @@ Does not report error for overloaded @final method defined in stub file.
 Reports misleading error when overload is marked @final but implementation is not.
 """
 output = """
-qualifiers_final_decorator.py:21:0 Invalid inheritance [39]: Cannot inherit from final class `Base1`.
-qualifiers_final_decorator.py:51:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
-qualifiers_final_decorator.py:56:4 Invalid override [40]: `qualifiers_final_decorator.Derived2.method1` cannot override final method defined in `Base2`.
-qualifiers_final_decorator.py:60:4 Invalid override [40]: `qualifiers_final_decorator.Derived2.method2` cannot override final method defined in `Base2`.
-qualifiers_final_decorator.py:64:4 Invalid override [40]: `qualifiers_final_decorator.Derived2.method3` cannot override final method defined in `Base2`.
-qualifiers_final_decorator.py:75:4 Invalid override [40]: `qualifiers_final_decorator.Derived2.method4` cannot override final method defined in `Base2`.
-qualifiers_final_decorator.py:86:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
-qualifiers_final_decorator.py:118:4 Inconsistent override [14]: `qualifiers_final_decorator.Derived5.method` overrides method defined in `Base5_2` inconsistently. Could not find parameter `v` in overriding signature.
-qualifiers_final_decorator.py:118:4 Invalid override [40]: `qualifiers_final_decorator.Derived5.method` cannot override final method defined in `Base5_2`.
-qualifiers_final_decorator.py:126:0 Invalid inheritance [39]: `final` cannot be used with non-method functions.
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 21: Expected 1 errors
+Line 56: Expected 1 errors
+Line 118: Expected 1 errors
+Lines 59, 60: Expected error (tag 'method2')
+Lines 63, 64: Expected error (tag 'method3')
+Lines 67, 75: Expected error (tag 'method4')
 Lines 80, 89: Expected error (tag 'Derived3')
+Lines 84, 85, 86: Expected error (tag 'Derived3-2')
 Lines 94, 102: Expected error (tag 'Derived4')
-Line 51: Unexpected errors ['qualifiers_final_decorator.py:51:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
+Lines 125, 126: Expected error (tag 'func')
 """

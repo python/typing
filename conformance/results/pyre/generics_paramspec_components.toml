@@ -8,17 +8,10 @@ Does not report error when keyword argument is specified between P.args and P.kw
 Does not report error when calling callable and argument is missing for concatenated parameters.
 """
 output = """
-generics_paramspec_components.py:17:24 Undefined or invalid type [11]: Annotation `P.kwargs` is not defined as a type.
-generics_paramspec_components.py:17:44 Undefined or invalid type [11]: Annotation `P.args` is not defined as a type.
-generics_paramspec_components.py:49:8 Call error [29]: `typing.Callable[generics_paramspec_components.P, int]` cannot be safely called because the types and kinds of its parameters depend on a type variable.
-generics_paramspec_components.py:70:8 Call error [29]: `typing.Callable[typing.Concatenate[int, generics_paramspec_components.P], int]` cannot be safely called because the types and kinds of its parameters depend on a type variable.
-generics_paramspec_components.py:72:8 Missing argument [20]: PositionalOnly call expects argument in position 0.
-generics_paramspec_components.py:83:8 Unexpected keyword [28]: Unexpected keyword argument `x` to call `foo`.
-generics_paramspec_components.py:98:19 Incompatible parameter type [6]: In call `twice`, for 2nd positional argument, expected `int` but got `str`.
-generics_paramspec_components.py:98:24 Incompatible parameter type [6]: In call `twice`, for 3rd positional argument, expected `str` but got `int`.
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 17: Expected 1 errors
 Line 20: Expected 1 errors
 Line 23: Expected 1 errors
 Line 26: Expected 1 errors
@@ -27,6 +20,11 @@ Line 35: Expected 1 errors
 Line 36: Expected 1 errors
 Line 38: Expected 1 errors
 Line 41: Expected 1 errors
+Line 49: Expected 1 errors
 Line 51: Expected 1 errors
 Line 60: Expected 1 errors
+Line 70: Expected 1 errors
+Line 72: Expected 1 errors
+Line 83: Expected 1 errors
+Line 98: Expected 1 errors
 """

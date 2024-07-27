@@ -5,33 +5,16 @@ Does not handle defined fields correctly when extra flags like `rename` or `defa
 Does not support defaults in functional form.
 """
 output = """
-namedtuples_define_functional.py:16:7 Missing argument [20]: Call `Point1.__init__` expects argument `y`.
-namedtuples_define_functional.py:21:7 Missing argument [20]: Call `Point2.__init__` expects argument `x`.
-namedtuples_define_functional.py:26:7 Too many arguments [19]: Call `Point3.__init__` expects 2 positional arguments, 3 were provided.
-namedtuples_define_functional.py:31:7 Unexpected keyword [28]: Unexpected keyword argument `z` to call `Point4.__init__`.
-namedtuples_define_functional.py:36:17 Incompatible parameter type [6]: In call `Point5.__init__`, for 2nd positional argument, expected `int` but got `str`.
-namedtuples_define_functional.py:37:7 Too many arguments [19]: Call `Point5.__init__` expects 2 positional arguments, 3 were provided.
-namedtuples_define_functional.py:42:17 Incompatible parameter type [6]: In call `Point6.__init__`, for 2nd positional argument, expected `int` but got `str`.
-namedtuples_define_functional.py:43:14 Incompatible parameter type [6]: In call `Point6.__init__`, for argument `x`, expected `int` but got `float`.
-namedtuples_define_functional.py:52:0 Duplicate parameter [65]: Duplicate parameter name `a`.
-namedtuples_define_functional.py:54:47 Invalid type [31]: Expression `False` is not a valid type.
-namedtuples_define_functional.py:54:47 Invalid type [31]: Expression `False` is not a valid type.
-namedtuples_define_functional.py:54:47 Invalid type [31]: Expression `typing.Final[False]` is not a valid type.
-namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `True` is not a valid type.
-namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `True` is not a valid type.
-namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `typing.Final[True]` is not a valid type.
-namedtuples_define_functional.py:57:0 Unexpected keyword [28]: Unexpected keyword argument `abc` to call `NT4.__init__`.
-namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `typing.Final[(1, 2)]` is not a valid type.
-namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `(1, 2)` is not a valid type.
-namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `(1, 2)` is not a valid type.
-namedtuples_define_functional.py:63:42 Invalid type parameters [24]: Generic type `typing.Final` expects 1 type parameter, received 2.
-namedtuples_define_functional.py:65:0 Too many arguments [19]: Call `NT5.__init__` expects 1 positional argument, 3 were provided.
-namedtuples_define_functional.py:66:0 Missing argument [20]: Call `NT5.__init__` expects argument `defaults`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 56: Unexpected errors ['namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `True` is not a valid type.', 'namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `True` is not a valid type.', 'namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `typing.Final[True]` is not a valid type.']
-Line 57: Unexpected errors ['namedtuples_define_functional.py:57:0 Unexpected keyword [28]: Unexpected keyword argument `abc` to call `NT4.__init__`.']
-Line 63: Unexpected errors ['namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `typing.Final[(1, 2)]` is not a valid type.', 'namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `(1, 2)` is not a valid type.', 'namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `(1, 2)` is not a valid type.', 'namedtuples_define_functional.py:63:42 Invalid type parameters [24]: Generic type `typing.Final` expects 1 type parameter, received 2.']
-Line 65: Unexpected errors ['namedtuples_define_functional.py:65:0 Too many arguments [19]: Call `NT5.__init__` expects 1 positional argument, 3 were provided.']
+Line 16: Expected 1 errors
+Line 21: Expected 1 errors
+Line 26: Expected 1 errors
+Line 31: Expected 1 errors
+Line 36: Expected 1 errors
+Line 37: Expected 1 errors
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+Line 66: Expected 1 errors
 """

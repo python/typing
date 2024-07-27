@@ -1,9 +1,9 @@
 conformant = "Pass"
 output = """
-specialtypes_none.py:21:6 Incompatible parameter type [6]: In call `func1`, for 1st positional argument, expected `None` but got `Type[None]`.
-specialtypes_none.py:27:0 Incompatible variable type [9]: none2 is declared to have type `Iterable[typing.Any]` but is used as type `None`.
-specialtypes_none.py:41:6 Incompatible parameter type [6]: In call `func2`, for 1st positional argument, expected `Type[None]` but got `None`.
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 21: Expected 1 errors
+Line 27: Expected 1 errors
+Line 41: Expected 1 errors
 """

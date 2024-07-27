@@ -3,13 +3,9 @@ notes = """
 Does not understand `Self` type.
 """
 output = """
-generics_self_attributes.py:16:10 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.
-generics_self_attributes.py:26:5 Unexpected keyword [28]: Unexpected keyword argument `next` to call `OrdinalLinkedList.__init__`.
-generics_self_attributes.py:29:14 Unexpected keyword [28]: Unexpected keyword argument `next` to call `OrdinalLinkedList.__init__`.
-generics_self_attributes.py:32:14 Unexpected keyword [28]: Unexpected keyword argument `next` to call `LinkedList.__init__`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 16: Unexpected errors ['generics_self_attributes.py:16:10 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.']
-Line 29: Unexpected errors ['generics_self_attributes.py:29:14 Unexpected keyword [28]: Unexpected keyword argument `next` to call `OrdinalLinkedList.__init__`.']
+Line 26: Expected 1 errors
+Line 32: Expected 1 errors
 """

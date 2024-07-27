@@ -5,33 +5,31 @@ Does not report error for invalid nesting of Final and ClassVar.
 Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.
 """
 output = """
-qualifiers_final_annotation.py:18:6 Invalid type parameters [24]: Generic type `Final` expects 1 type parameter, received 2.
-qualifiers_final_annotation.py:34:4 Invalid assignment [41]: Cannot reassign final attribute `ClassA.ID2`.
-qualifiers_final_annotation.py:38:4 Uninitialized attribute [13]: Attribute `ID3` is declared in class `ClassA` to have type `int` but is never initialized.
-qualifiers_final_annotation.py:54:8 Invalid assignment [41]: Cannot reassign final attribute `self.ID5`.
-qualifiers_final_annotation.py:62:8 Undefined attribute [16]: `ClassA` has no attribute `id3`.
-qualifiers_final_annotation.py:63:8 Undefined attribute [16]: `ClassA` has no attribute `id4`.
-qualifiers_final_annotation.py:65:8 Invalid assignment [41]: Cannot reassign final attribute `self.ID7`.
-qualifiers_final_annotation.py:67:8 Invalid assignment [41]: Cannot reassign final attribute `self.ID7`.
-qualifiers_final_annotation.py:71:0 Invalid assignment [41]: Cannot reassign final attribute `RATE`.
-qualifiers_final_annotation.py:81:0 Invalid assignment [41]: Cannot reassign final attribute `ClassB.DEFAULT_ID`.
-qualifiers_final_annotation.py:94:4 Invalid assignment [41]: Cannot reassign final attribute `BORDER_WIDTH`.
-qualifiers_final_annotation.py:118:0 Invalid type [31]: Expression `typing.List[Final[int]]` is not a valid type. Final cannot be nested.
-qualifiers_final_annotation.py:121:10 Invalid type [31]: Parameter `x` cannot be annotated with Final.
-qualifiers_final_annotation.py:133:0 Unexpected keyword [28]: Unexpected keyword argument `x` to call `N.__init__`.
-qualifiers_final_annotation.py:134:0 Unexpected keyword [28]: Unexpected keyword argument `a` to call `N.__init__`.
-qualifiers_final_annotation.py:135:0 Unexpected keyword [28]: Unexpected keyword argument `x` to call `N.__init__`.
-qualifiers_final_annotation.py:141:4 Invalid assignment [41]: Cannot reassign final attribute `ID1`.
-qualifiers_final_annotation.py:145:4 Invalid assignment [41]: Cannot reassign final attribute `x`.
-qualifiers_final_annotation.py:147:9 Invalid assignment [41]: Cannot reassign final attribute `x`.
-qualifiers_final_annotation.py:149:8 Invalid assignment [41]: Cannot reassign final attribute `x`.
-qualifiers_final_annotation.py:152:29 Invalid assignment [41]: Cannot reassign final attribute `x`.
-qualifiers_final_annotation.py:155:8 Invalid assignment [41]: Cannot reassign final attribute `x`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 16: Expected 1 errors
+Line 18: Expected 1 errors
+Line 34: Expected 1 errors
+Line 38: Expected 1 errors
+Line 54: Expected 1 errors
+Line 62: Expected 1 errors
+Line 63: Expected 1 errors
+Line 65: Expected 1 errors
+Line 67: Expected 1 errors
+Line 71: Expected 1 errors
+Line 81: Expected 1 errors
+Line 94: Expected 1 errors
 Line 107: Expected 1 errors
 Line 108: Expected 1 errors
-Line 133: Unexpected errors ['qualifiers_final_annotation.py:133:0 Unexpected keyword [28]: Unexpected keyword argument `x` to call `N.__init__`.']
+Line 118: Expected 1 errors
+Line 121: Expected 1 errors
+Line 134: Expected 1 errors
+Line 135: Expected 1 errors
+Line 141: Expected 1 errors
+Line 145: Expected 1 errors
+Line 147: Expected 1 errors
+Line 149: Expected 1 errors
+Line 152: Expected 1 errors
+Line 155: Expected 1 errors
 """

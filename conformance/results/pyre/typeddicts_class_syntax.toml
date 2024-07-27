@@ -6,7 +6,6 @@ Does not report when other keyword argument is provided.
 Does not support generic TypedDict class.
 """
 output = """
-typeddicts_class_syntax.py:59:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T]`.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -15,5 +14,4 @@ Line 33: Expected 1 errors
 Line 38: Expected 1 errors
 Line 44: Expected 1 errors
 Line 49: Expected 1 errors
-Line 59: Unexpected errors ["typeddicts_class_syntax.py:59:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T]`."]
 """

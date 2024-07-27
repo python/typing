@@ -7,19 +7,16 @@ False positive using `iter`.
 False negative for generic metaclass.
 """
 output = """
-generics_basic.py:34:4 Incompatible return type [7]: Expected `Variable[AnyStr <: [str, bytes]]` but got `str`.
-generics_basic.py:34:15 Incompatible parameter type [6]: In call `str.__add__`, for 1st positional argument, expected `str` but got `Variable[AnyStr <: [str, bytes]]`.
-generics_basic.py:40:14 Incompatible parameter type [6]: In call `concat`, for 2nd positional argument, expected `Variable[AnyStr <: [str, bytes]]` but got `bytes`.
-generics_basic.py:41:14 Incompatible parameter type [6]: In call `concat`, for 2nd positional argument, expected `Variable[AnyStr <: [str, bytes]]` but got `str`.
-generics_basic.py:49:0 Invalid type [31]: TypeVar can't have a single explicit constraint. Did you mean `bound=str`?
-generics_basic.py:55:52 Undefined attribute [16]: `list` has no attribute `__getitem__`.
-generics_basic.py:69:14 Incompatible parameter type [6]: In call `concat`, for 2nd positional argument, expected `Variable[AnyStr <: [str, bytes]]` but got `bytes`.
-generics_basic.py:121:0 Duplicate type variables [59]: Duplicate type variable `T` in Generic[...].
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 40: Expected 1 errors
+Line 41: Expected 1 errors
+Line 49: Expected 1 errors
+Line 55: Expected 1 errors
+Line 69: Expected 1 errors
+Line 121: Expected 1 errors
 Line 157: Expected 1 errors
 Line 158: Expected 1 errors
 Line 191: Expected 1 errors
-Line 34: Unexpected errors ['generics_basic.py:34:4 Incompatible return type [7]: Expected `Variable[AnyStr <: [str, bytes]]` but got `str`.', 'generics_basic.py:34:15 Incompatible parameter type [6]: In call `str.__add__`, for 1st positional argument, expected `str` but got `Variable[AnyStr <: [str, bytes]]`.']
 """

@@ -1,0 +1,20 @@
+conformant = "Unsupported"
+notes = """
+Does not support @deprecated
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 15: Expected 1 errors
+Line 23: Expected 1 errors
+Line 24: Expected 1 errors
+Line 29: Expected 1 errors
+Line 40: Expected 1 errors
+Line 41: Expected 1 errors
+Line 43: Expected 1 errors
+Line 46: Expected 1 errors
+Line 47: Expected 1 errors
+Line 57: Expected 1 errors
+Line 87: Expected 1 errors
+"""
+output = """
+"""

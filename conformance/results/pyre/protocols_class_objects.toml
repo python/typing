@@ -5,17 +5,15 @@ Incorrectly reports some class objects as incompatible with a protocol.
 Fails to report some class objects as incompatible with a protocol.
 """
 output = """
-protocols_class_objects.py:26:11 Invalid class instantiation [45]: Cannot instantiate abstract class `Proto` with abstract method `meth`.
-protocols_class_objects.py:58:0 Incompatible variable type [9]: pa1 is declared to have type `ProtoA1` but is used as type `Type[ConcreteA]`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 29: Expected 1 errors
 Line 34: Expected 1 errors
+Line 58: Expected 1 errors
 Line 74: Expected 1 errors
 Line 104: Expected 1 errors
 Line 106: Expected 1 errors
 Line 107: Expected 1 errors
 Line 108: Expected 1 errors
-Line 26: Unexpected errors ['protocols_class_objects.py:26:11 Invalid class instantiation [45]: Cannot instantiate abstract class `Proto` with abstract method `meth`.']
 """

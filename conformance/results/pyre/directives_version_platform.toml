@@ -4,13 +4,7 @@ Does not support sys.platform checks.
 Does not support os.name checks.
 """
 output = """
-directives_version_platform.py:31:4 Incompatible variable type [9]: val5 is declared to have type `int` but is used as type `str`.
-directives_version_platform.py:36:4 Incompatible variable type [9]: val6 is declared to have type `int` but is used as type `str`.
-directives_version_platform.py:40:4 Incompatible variable type [9]: val7 is declared to have type `int` but is used as type `str`.
-directives_version_platform.py:45:4 Incompatible variable type [9]: val8 is declared to have type `int` but is used as type `str`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 31: Unexpected errors ['directives_version_platform.py:31:4 Incompatible variable type [9]: val5 is declared to have type `int` but is used as type `str`.']
-Line 36: Unexpected errors ['directives_version_platform.py:36:4 Incompatible variable type [9]: val6 is declared to have type `int` but is used as type `str`.']
 """

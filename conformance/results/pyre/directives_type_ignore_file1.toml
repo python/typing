@@ -3,9 +3,7 @@ notes = """
 Does not support file-level `#type: ignore` comment.
 """
 output = """
-directives_type_ignore_file1.py:16:0 Incompatible variable type [9]: x is declared to have type `int` but is used as type `str`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 16: Unexpected errors ['directives_type_ignore_file1.py:16:0 Incompatible variable type [9]: x is declared to have type `int` but is used as type `str`.']
 """

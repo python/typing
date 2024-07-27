@@ -1,6 +1,5 @@
 conformant = "Unsupported"
 output = """
-typeddicts_readonly.py:18:13 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -10,5 +9,4 @@ Line 50: Expected 1 errors
 Line 51: Expected 1 errors
 Line 60: Expected 1 errors
 Line 61: Expected 1 errors
-Line 18: Unexpected errors ['typeddicts_readonly.py:18:13 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.']
 """

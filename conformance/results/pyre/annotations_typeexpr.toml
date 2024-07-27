@@ -1,21 +1,21 @@
 conformant = "Pass"
 output = """
-annotations_typeexpr.py:88:8 Invalid type [31]: Expression `eval("".join(map(chr, [105, 110, 116])))` is not a valid type.
-annotations_typeexpr.py:89:8 Invalid type [31]: Expression `[int, str]` is not a valid type.
-annotations_typeexpr.py:90:8 Invalid type [31]: Expression `(int, str)` is not a valid type.
-annotations_typeexpr.py:91:8 Invalid type [31]: Expression `comprehension(int for generators(generator(i in range(1) if )))` is not a valid type.
-annotations_typeexpr.py:92:8 Invalid type [31]: Expression `{  }` is not a valid type.
-annotations_typeexpr.py:93:8 Invalid type [31]: Expression `lambda () (int)()` is not a valid type.
-annotations_typeexpr.py:94:8 Invalid type [31]: Expression `[int][0]` is not a valid type.
-annotations_typeexpr.py:95:8 Invalid type [31]: Expression `int if 1 < 3 else str` is not a valid type.
-annotations_typeexpr.py:96:8 Undefined or invalid type [11]: Annotation `var1` is not defined as a type.
-annotations_typeexpr.py:97:9 Invalid type [31]: Expression `True` is not a valid type.
-annotations_typeexpr.py:98:9 Invalid type [31]: Expression `1` is not a valid type.
-annotations_typeexpr.py:99:9 Invalid type [31]: Expression `-1` is not a valid type.
-annotations_typeexpr.py:100:9 Invalid type [31]: Expression `int or str` is not a valid type.
-annotations_typeexpr.py:101:9 Invalid type [31]: Expression `"int"` is not a valid type.
-annotations_typeexpr.py:102:9 Undefined or invalid type [11]: Annotation `types` is not defined as a type.
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 88: Expected 1 errors
+Line 89: Expected 1 errors
+Line 90: Expected 1 errors
+Line 91: Expected 1 errors
+Line 92: Expected 1 errors
+Line 93: Expected 1 errors
+Line 94: Expected 1 errors
+Line 95: Expected 1 errors
+Line 96: Expected 1 errors
+Line 97: Expected 1 errors
+Line 98: Expected 1 errors
+Line 99: Expected 1 errors
+Line 100: Expected 1 errors
+Line 101: Expected 1 errors
+Line 102: Expected 1 errors
 """

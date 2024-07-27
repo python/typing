@@ -4,12 +4,12 @@ Does not report errant use of TypedDict in `isinstance` call.
 Does not reject use of TypedDict as TypeVar bound.
 """
 output = """
-typeddicts_usage.py:23:6 TypedDict accessed with a missing key [27]: TypedDict `Movie` has no key `director`.
-typeddicts_usage.py:24:16 Invalid TypedDict operation [54]: Expected `int` to be assigned to `Movie` field `year` but got `str`.
-typeddicts_usage.py:28:16 TypedDict initialization error [55]: Missing required field `name` for TypedDict `Movie`.
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 23: Expected 1 errors
+Line 24: Expected 1 errors
+Line 28: Expected 1 errors
 Line 35: Expected 1 errors
 Line 40: Expected 1 errors
 """
