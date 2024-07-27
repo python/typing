@@ -1,5 +1,5 @@
 """
-Support module for directive_deprecated_pep702_example.
+Support module for directive_deprecated.
 """
 
 from typing import Self, overload

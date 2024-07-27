@@ -33,7 +33,13 @@ library.foo("x")  # no error
 ham = Ham()  # no error (already reported above)
 
 
-# > Any syntax that indirectly triggers a call to the function.
+# > * Any syntax that indirectly triggers a call to the function.
+
+class Invocable:
+
+    @deprecated("Deprecated")
+    def __call__(self) -> None: ...
+
 
 spam = library.Spam()
 
@@ -46,9 +52,11 @@ spam.shape  # no error
 spam.shape = "cube"  # E: Use of deprecated property setter Spam.shape
 spam.shape += "cube"  # E: Use of deprecated property setter Spam.shape
 
+invocable = Invocable()
+invocable()  # E: Use of deprecated method __call__
+
 
 # > * Any usage of deprecated objects in their defining module
-
 
 @deprecated("Deprecated")
 def lorem() -> None: ...
