@@ -1,6 +1,6 @@
 conformant = "Unsupported"
 notes = """
-Does not support @deprecated
+Does not support @deprecated.
 """
 conformance_automated = "Fail"
 errors_diff = """
