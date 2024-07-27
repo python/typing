@@ -1,7 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not report error for deprecated magic methods
-Outputs an extra diagnostic when the imported symbol is used
+Does not report error for deprecated magic methods.
 """
 conformance_automated = "Fail"
 errors_diff = """
