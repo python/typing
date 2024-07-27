@@ -35,14 +35,14 @@ ham = Ham()  # no error (already reported above)
 
 spam = library.Spam()
 
+_ = spam + 1  # E: Use of deprecated method Spam.__add__
+spam += 1  # E: Use of deprecated method Spam.__add__
+
 spam.greasy  # E: Use of deprecated property Spam.greasy
 spam.shape  # no error
 
 spam.shape = "cube"  # E: Use of deprecated property setter Spam.shape
 spam.shape += "cube"  # E: Use of deprecated property setter Spam.shape
-
-spam + 1  # E: Use of deprecated method Spam.__add__
-spam += 1  # E: Use of deprecated method Spam.__add__
 
 
 # > * Any usage of deprecated objects in their defining module
@@ -87,7 +87,6 @@ def foo_it(fooable: Fooable) -> None:
 
 
 # https://github.com/python/typing/pull/1822#discussion_r1693991644
-
 
 class Fooable2(Protocol):
 

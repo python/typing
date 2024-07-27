@@ -2,7 +2,7 @@
 Support module for directive_deprecated_pep702_example.
 """
 
-from typing import overload
+from typing import Self, overload
 
 from typing_extensions import deprecated
 
@@ -30,7 +30,7 @@ def foo(x: int | str) -> str: ...
 class Spam:
 
     @deprecated("There is enough spam in the world")
-    def __add__(self, other: object) -> object: ...
+    def __add__(self, other: object) -> Self: ...
 
     @property
     @deprecated("All spam will be equally greasy")
