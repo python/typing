@@ -27,19 +27,13 @@ map(library.norwegian_blue, [1, 2, 3])  # E: Use of deprecated function norwegia
 # > For deprecated overloads, this includes all calls that resolve to the deprecated overload.
 
 library.foo(1)  # E: Use of deprecated overload for foo
-library.foo("x")  # no error
+library.foo("x")  # OK
 
 
-ham = Ham()  # no error (already reported above)
+ham = Ham()  # OK (already reported above)
 
 
 # > * Any syntax that indirectly triggers a call to the function.
-
-class Invocable:
-
-    @deprecated("Deprecated")
-    def __call__(self) -> None: ...
-
 
 spam = library.Spam()
 
@@ -47,10 +41,16 @@ _ = spam + 1  # E: Use of deprecated method Spam.__add__
 spam += 1  # E: Use of deprecated method Spam.__add__
 
 spam.greasy  # E: Use of deprecated property Spam.greasy
-spam.shape  # no error
+spam.shape  # OK
 
 spam.shape = "cube"  # E: Use of deprecated property setter Spam.shape
 spam.shape += "cube"  # E: Use of deprecated property setter Spam.shape
+
+
+class Invocable:
+
+    @deprecated("Deprecated")
+    def __call__(self) -> None: ...
 
 invocable = Invocable()
 invocable()  # E: Use of deprecated method __call__
