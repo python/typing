@@ -34,11 +34,11 @@ ham = Ham()  # no error (already reported above)
 
 spam = library.Spam()
 
-spam + 1  # E: Use of deprecated method Spam.__add__
-spam += 1  # E: Use of deprecated method Spam.__add__
-
 spam.greasy  # E: Use of deprecated property Spam.greasy
 spam.shape  # no error
 
 spam.shape = "cube"  # E: Use of deprecated property setter Spam.shape
 spam.shape += "cube"  # E: Use of deprecated property setter Spam.shape
+
+spam + 1  # E: Use of deprecated method Spam.__add__
+spam += 1  # E: Use of deprecated method Spam.__add__
