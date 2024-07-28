@@ -4,17 +4,18 @@ Does not support @deprecated.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 15: Expected 1 errors
-Line 23: Expected 1 errors
+Line 18: Expected 1 errors
 Line 24: Expected 1 errors
-Line 29: Expected 1 errors
-Line 40: Expected 1 errors
+Line 25: Expected 1 errors
+Line 30: Expected 1 errors
 Line 41: Expected 1 errors
-Line 43: Expected 1 errors
-Line 46: Expected 1 errors
+Line 42: Expected 1 errors
+Line 44: Expected 1 errors
 Line 47: Expected 1 errors
-Line 57: Expected 1 errors
-Line 87: Expected 1 errors
+Line 48: Expected 1 errors
+Line 58: Expected 1 errors
+Line 69: Expected 1 errors
+Line 98: Expected 1 errors
 """
 output = """
 """
