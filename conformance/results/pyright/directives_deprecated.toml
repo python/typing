@@ -1,0 +1,31 @@
+conformant = "Partial"
+notes = """
+Does not report error for deprecated magic methods.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 40: Expected 1 errors
+Line 41: Expected 1 errors
+Line 47: Expected 1 errors
+Line 33: Unexpected errors ['directives_deprecated.py:33:7 - error: The class "Ham" is deprecated']
+"""
+output = """
+directives_deprecated.py:15:44 - error: The class "Ham" is deprecated
+  Use Spam instead (reportDeprecated)
+directives_deprecated.py:23:9 - error: The function "norwegian_blue" is deprecated
+  It is pining for the fiords (reportDeprecated)
+directives_deprecated.py:24:13 - error: The function "norwegian_blue" is deprecated
+  It is pining for the fiords (reportDeprecated)
+directives_deprecated.py:29:9 - error: The function "foo" is deprecated
+  Only str will be allowed (reportDeprecated)
+directives_deprecated.py:33:7 - error: The class "Ham" is deprecated
+  Use Spam instead (reportDeprecated)
+directives_deprecated.py:43:6 - error: The getter for property "greasy" is deprecated
+  All spam will be equally greasy (reportDeprecated)
+directives_deprecated.py:46:6 - error: The setter for property "shape" is deprecated
+  Shapes are becoming immutable (reportDeprecated)
+directives_deprecated.py:57:9 - error: The function "lorem" is deprecated
+  Deprecated (reportDeprecated)
+directives_deprecated.py:87:13 - error: The method "foo" in class "Fooable" is deprecated
+  Deprecated (reportDeprecated)
+"""

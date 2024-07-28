@@ -1,5 +1,5 @@
 conformant = "Partial"
-notes = """"
+notes = """
 Produces errors rather than warnings on `reveal_type`.
 """
 output = """
