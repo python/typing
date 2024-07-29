@@ -24,14 +24,16 @@ Python packages and modules. Stub files serve multiple purposes:
   API of a package, without including the implementation or private
   members.
 
-Stub files that use only the constructs described in :ref:`stub-file-supported-constructs`
-below should work with all type checkers that conform to this specification. A
-conformant type checker will parse a stub that uses only such constructs without
-error and will not interpret any construct in a contradictory manner. However,
-type checkers are not required to implement checks for all these constructs and
-can elect to ignore unsupported ones. Additionally, type checkers can support
-constructs not decribed here, and tool authors are encouraged to experiment with
-additional features.
+Stub files use a subset of the constructs used in Python source files, as
+described in :ref:`stub-file-supported-constructs` below. Type checkers should
+parse a stub that uses only such constructs without error and not interpret any
+construct in a contradictory manner. However, type checkers are not required to
+implement checks for all of these constructs and can elect to ignore unsupported
+ones. Additionally, type checkers can support constructs not described here.
+
+Type checkers should have a configurable search path for stub files. If a stub
+file is found, the type checker should not read the corresponding "real" module.
+See :ref:`mro` for more information.
 
 .. _stub-file-syntax:
 
@@ -42,65 +44,43 @@ Stub files are syntactically valid Python files in the earliest Python version
 that is not yet end-of-life. They use a ``.pyi`` suffix. The Python syntax used
 by stub files is independent from the Python versions supported by the
 implementation, and from the Python version the type checker runs under (if
-any). Therefore, stub authors should use the latest syntax features available in
+any). Therefore, stubs may use the latest syntax features available in
 the earliest supported version, even if the implementation supports older
-versions. Type checker authors are encouraged to support syntax features from
-newer versions, although stub authors should not use such features if they wish
-to maintain compatibility with all type checkers.
+versions.
 
-For example, Python 3.7 added the ``async`` keyword (see :pep:`492`).
-Stub authors should use it to mark coroutines, even if the implementation
-still uses the ``@coroutine`` decorator. On the other hand, stubs should not use
-the ``type`` soft keyword from :pep:`695`, introduced in Python 3.12, until
-Python 3.11 reaches end-of-life in October 2027.
+For example, Python 3.7 added the ``async`` keyword (see :pep:`492`). Stubs may
+use it to mark coroutines, even if the implementation still uses the
+``@coroutine`` decorator. On the other hand, the ``type`` soft keyword from
+:pep:`695`, introduced in Python 3.12, is not valid in stubs until Python 3.11
+reaches end-of-life in October 2027.
 
 Stubs are treated as if ``from __future__ import annotations`` is enabled. In
-particular, built-in generics, pipe union syntax (``X | Y``), and forward
-references can be used.
-
-Type checkers should have a configurable search path for stub files. If a stub
-file is found, the type checker should not read the corresponding "real" module.
-See :ref:`mro` for more information.
+particular, forward references do not need to be quoted, and syntax from newer
+versions than otherwise supported may be used in annotation contexts. For
+example, the pipe union syntax (``X | Y``) introduced in Python 3.10 may be used
+in annotation contexts even before Python 3.9 reaches end-of-life.
 
 .. _stub-file-supported-constructs:
 
 Supported Constructs
 ^^^^^^^^^^^^^^^^^^^^
 
-This section lists constructs that type checkers will accept in stub files. Stub
-authors can safely use these constructs. If a construct is marked as
-"unspecified", type checkers may handle it as they best see fit or report an
-error. Linters should usually flag those constructs. Stub authors should avoid
-using them to ensure compatibility across type checkers.
+This section lists constructs that type checkers should accept in stub files. If
+a construct is marked as "unspecified", type checkers may handle it as they best
+see fit or report an error.
 
-The `typeshed feature tracker <https://github.com/python/typeshed/labels/project%3A%20feature%20tracker>`_ tracks features from the ``typing`` module that are
-not yet supported by all major type checkers. Unless otherwise noted in this
-tracker, stub files support all features from the ``typing`` module of the
-latest released Python version. If a stub uses typing features from a later
-Python version than what the implementation supports, these features can be
-imported from ``typing_extensions`` instead of ``typing``
+Typing Features
+"""""""""""""""
 
-For example, a stub could use ``Literal``, introduced in Python 3.8,
-for a library supporting Python 3.7+::
-
-    from typing_extensions import Literal
-
-    def foo(x: Literal[""]) -> int: ...
+Type checkers should support all features from the ``typing`` module of the
+latest released Python version.
 
 Comments
 """"""""
 
-Standard Python comments are accepted everywhere Python syntax allows them.
-
-Two kinds of structured comments are accepted:
-
-* A ``# type: X`` comment at the end of a line that defines a variable,
-  declaring that the variable has type ``X``. However, :pep:`526`-style
-  variable annotations are preferred over type comments.
-* An error suppression comment at the end of any line. Common error suppression
-  formats are ``# type: ignore``, ``# type: ignore[error-class]``, and
-  ``# pyright: ignore[error-class]``. Type checkers may ignore error
-  suppressions that they don't support but should not error on them.
+Standard Python comments should be accepted everywhere Python syntax allows
+them. Type declaration (``# type: X``) and error suppression (``type: ignore``)
+comments should be supported.
 
 Imports
 """""""
@@ -128,33 +108,6 @@ imported::
     private_attr: int
 
 Type checkers support cyclic imports in stub files.
-
-Built-in Generics
-"""""""""""""""""
-
-:pep:`585` built-in generics are supported and should be used instead
-of the corresponding types from ``typing``::
-
-    from collections import defaultdict
-
-    def foo(t: type[MyClass]) -> list[int]: ...
-    x: defaultdict[int]
-
-Using imports from ``collections.abc`` instead of ``typing`` is
-generally possible and recommended::
-
-    from collections.abc import Iterable
-
-    def foo(iter: Iterable[int]) -> None: ...
-
-Unions
-""""""
-
-Declaring unions with the shorthand syntax or ``Union`` and ``Optional`` is
-supported by all type checkers::
-
-    def foo(x: int | str) -> int | None: ...  # recommended
-    def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
 
 Module Level Attributes
 """""""""""""""""""""""
@@ -422,16 +375,6 @@ Version and platform comparisons can be chained using the ``and`` and ``or``
 operators::
 
     if sys.platform == 'linux' and (sys.version_info < (3,) or sys,version_info >= (3, 7)): ...
-
-Enums
-"""""
-
-Enum classes are supported in stubs, regardless of the Python version targeted by
-the stubs.
-
-Enum members should be specified with an unannotated assignment, for example as
-``x = 0`` or ``x = ...``. Non-member attributes should be specified with a type
-annotation and no assigned value. See :ref:`enum-members` for details.
 
 The Typeshed Project
 ^^^^^^^^^^^^^^^^^^^^

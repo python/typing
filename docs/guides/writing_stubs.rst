@@ -581,3 +581,30 @@ No::
     from typing import NamedTuple, TypedDict
     Point = NamedTuple("Point", [('x', float), ('y', float)])
     Thing = TypedDict("Thing", {'stuff': str, 'index': int})
+
+Built-in Generics
+"""""""""""""""""
+
+:pep:`585` built-in generics are supported and should be used instead
+of the corresponding types from ``typing``::
+
+    from collections import defaultdict
+
+    def foo(t: type[MyClass]) -> list[int]: ...
+    x: defaultdict[int]
+
+Using imports from ``collections.abc`` instead of ``typing`` is
+generally possible and recommended::
+
+    from collections.abc import Iterable
+
+    def foo(iter: Iterable[int]) -> None: ...
+
+Unions
+""""""
+
+Declaring unions with the shorthand `|` syntax is recommended and supported by
+all type checkers::
+
+  def foo(x: int | str) -> int | None: ...  # recommended
+  def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
