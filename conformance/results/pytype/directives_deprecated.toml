@@ -1,0 +1,27 @@
+conformant = "Unsupported"
+notes = """
+Does not support @deprecated.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Expected 1 errors
+Line 25: Expected 1 errors
+Line 30: Expected 1 errors
+Line 41: Expected 1 errors
+Line 42: Expected 1 errors
+Line 44: Expected 1 errors
+Line 47: Expected 1 errors
+Line 48: Expected 1 errors
+Line 58: Expected 1 errors
+Line 69: Expected 1 errors
+Line 98: Expected 1 errors
+Line 10: Unexpected errors ['File "directives_deprecated.py", line 10, in <module>: typing.override not supported yet [not-supported-yet]']
+Line 11: Unexpected errors ['File "directives_deprecated.py", line 11, in <module>: typing_extensions.deprecated not supported yet [not-supported-yet]']
+Line 19: Unexpected errors ['File "directives_deprecated.py", line 19, in <module>: Can\\'t find module \\'_directives_deprecated_library\\'. [import-error]']
+"""
+output = """
+File "directives_deprecated.py", line 10, in <module>: typing.override not supported yet [not-supported-yet]
+File "directives_deprecated.py", line 11, in <module>: typing_extensions.deprecated not supported yet [not-supported-yet]
+File "directives_deprecated.py", line 18, in <module>: Can't find module '_directives_deprecated_library'. [import-error]
+File "directives_deprecated.py", line 19, in <module>: Can't find module '_directives_deprecated_library'. [import-error]
+"""
