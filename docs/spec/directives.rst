@@ -128,6 +128,8 @@ and return type annotations and treat the function as if it were unannotated.
 The behavior for the ``no_type_check`` decorator when applied to a class is
 left undefined by the typing spec at this time.
 
+.. _`version-and-platform-checks`:
+
 Version and platform checking
 -----------------------------
 

@@ -337,6 +337,45 @@ No::
     DAY_FLAG: int
     NIGHT_FLAG: int
 
+Overloads
+---------
+
+All variants of overloaded functions and methods must have an ``@overload``
+decorator. Do not include the implementation's final non-`@overload`-decorated
+definition.
+
+Yes::
+
+  @overload
+  def foo(x: str) -> str: ...
+  @overload
+  def foo(x: float) -> int: ...
+
+No::
+
+  @overload
+  def foo(x: str) -> str: ...
+  @overload
+  def foo(x: float) -> int: ...
+  def foo(x: str | float) -> Any: ...
+
+Decorators
+----------
+
+Include only those decorators whose effects type checkers understand, enumerated
+:ref:`here <stub-decorators>`. The behavior of other decorators should instead
+be incorporated into the types. For example, for the following function::
+
+  import contextlib
+  @contextlib.contextmanager
+  def f():
+      yield 42
+
+the stub definition should be::
+
+  from contextlib import AbstractContextManager
+  def f() -> AbstractContextManager[int]: ...
+
 Documentation or Implementation
 -------------------------------
 
@@ -583,7 +622,7 @@ No::
     Thing = TypedDict("Thing", {'stuff': str, 'index': int})
 
 Built-in Generics
-"""""""""""""""""
+-----------------
 
 :pep:`585` built-in generics are supported and should be used instead
 of the corresponding types from ``typing``::
@@ -601,7 +640,7 @@ generally possible and recommended::
     def foo(iter: Iterable[int]) -> None: ...
 
 Unions
-""""""
+------
 
 Declaring unions with the shorthand `|` syntax is recommended and supported by
 all type checkers::

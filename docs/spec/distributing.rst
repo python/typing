@@ -69,45 +69,22 @@ This section lists constructs that type checkers should accept in stub files. If
 a construct is marked as "unspecified", type checkers may handle it as they best
 see fit or report an error.
 
-Typing Features
-"""""""""""""""
+Type checkers should fully support all features from the ``typing`` module of
+the latest released Python version, as well as these constructs:
 
-Type checkers should support all features from the ``typing`` module of the
-latest released Python version.
+* Comments, including type declaration (``# type: X``) and error suppression
+  (``type: ignore``) comments.
+* Import statements, including the standard :ref:`import-conventions` and cyclic
+  imports.
+* Module-level type aliases (e.g., ``X: TypeAlias = int``,
+  ``Y: TypeAlias = dict[str, _V]``).
+* Regular aliases (e.g., ``function_alias = some_function``) at both the module-
+  and class-level.
+* Simple version and platform checks, as described
+  :ref:`here <version-and-platform-checks>`.
 
-Comments
-""""""""
-
-Standard Python comments should be accepted everywhere Python syntax allows
-them. Type declaration (``# type: X``) and error suppression (``type: ignore``)
-comments should be supported.
-
-Imports
-"""""""
-
-Stub files distinguish between imports that are re-exported and those
-that are only used internally. See :ref:`import-conventions`.
-
-Type aliases can be used to re-export an import under a different name::
-
-    from foo import bar as _bar
-    new_bar = _bar  # "bar" gets re-exported with the name "new_bar"
-
-Stubs support customizing star import semantics by defining a module-level
-variable called ``__all__``. In stubs, this must be a string list literal.
-Other types are not supported. Neither is the dynamic creation of this
-variable (for example by concatenation).
-
-When ``__all__`` is defined, exactly those names specified in ``__all__`` are
-imported::
-
-    __all__ = ['public_attr', '_private_looking_public_attr']
-
-    public_attr: int
-    _private_looking_public_attr: int
-    private_attr: int
-
-Type checkers support cyclic imports in stub files.
+The constructs in the following subsections may be supported in a more limited
+fashion, as described below.
 
 Module Level Attributes
 """""""""""""""""""""""
@@ -162,41 +139,12 @@ Yes::
         doStuff = do_stuff
         class Inner: ...
 
-More complex statements don't need to be supported.
-
-The type of generic classes can be narrowed by annotating the ``self``
-argument of the ``__init__`` method::
-
-    class Foo(Generic[_T]):
-        @overload
-        def __init__(self: Foo[str], type: Literal["s"]) -> None: ...
-        @overload
-        def __init__(self: Foo[int], type: Literal["i"]) -> None: ...
-        @overload
-        def __init__(self, type: str) -> None: ...
-
-The class must match the class in which it is declared. Using other classes,
-including sub or super classes, will not work. In addition, the ``self``
-annotation cannot contain type variables.
-
 Functions and Methods
 """""""""""""""""""""
 
 Function and method definition syntax follows general Python syntax.
-For backwards compatibility, positional-only parameters can also be marked by
-prefixing their name with two underscores (but not suffixing it with two
-underscores)::
-
-    # x is positional-only
-    # y can be used positionally or as keyword argument
-    # z is keyword-only
-    def foo(x, /, y, *, z): ...  # recommended
-    def foo(__x, y, *, z): ...  # backwards compatible syntax
-
 If an argument or return type is unannotated, per :pep:`484` its
-type is assumed to be ``Any``. It is preferred to leave unknown
-types unannotated rather than explicitly marking them as ``Any``, as some
-type checkers can optionally warn about unannotated arguments.
+type is assumed to be ``Any``.
 
 If an argument has a literal or constant default value, it must match the implementation
 and the type of the argument (if specified) must match the default value.
@@ -209,26 +157,6 @@ Alternatively, ``...`` can be used in place of any default value::
     # The following default values are invalid and the types are unspecified.
     def invalid(a: int = "", b: Foo = Foo()): ...
 
-For a class ``C``, the type of the first argument to a classmethod is
-assumed to be ``type[C]``, if unannotated. For other non-static methods,
-its type is assumed to be ``C``::
-
-    class Foo:
-        def do_things(self): ...  # self has type Foo
-        @classmethod
-        def create_it(cls): ...  # cls has type type[Foo]
-        @staticmethod
-        def utility(x): ...  # x has type Any
-
-But::
-
-    _T = TypeVar("_T")
-
-    class Foo:
-        def do_things(self: _T) -> _T: ...  # self has type _T
-        @classmethod
-        def create_it(cls: _T) -> _T: ...  # cls has type _T
-
 Using a function or method body other than the ellipsis literal is currently
 unspecified. Stub authors may experiment with other bodies, but it is up to
 individual type checkers how to interpret them::
@@ -236,57 +164,7 @@ individual type checkers how to interpret them::
     def foo(): ...  # compatible
     def bar(): pass  # behavior undefined
 
-All variants of overloaded functions and methods must have an ``@overload``
-decorator::
-
-    @overload
-    def foo(x: str) -> str: ...
-    @overload
-    def foo(x: float) -> int: ...
-
-The following (which would be used in the implementation) is wrong in stubs::
-
-    @overload
-    def foo(x: str) -> str: ...
-    @overload
-    def foo(x: float) -> int: ...
-    def foo(x: str | float) -> Any: ...
-
-Aliases and NewType
-"""""""""""""""""""
-
-Type checkers should accept module-level type aliases, optionally using
-``TypeAlias`` (:pep:`613`), e.g.::
-
-  _IntList = list[int]
-  _StrList: TypeAlias = list[str]
-
-Type checkers should also accept regular module-level or class-level aliases,
-e.g.::
-
-  def a() -> None: ...
-  b = a
-
-  class C:
-      def f(self) -> int: ...
-      g = f
-
-A type alias may contain type variables. As per :pep:`484`,
-all type variables must be substituted when the alias is used::
-
-  _K = TypeVar("_K")
-  _V = TypeVar("_V")
-  _MyMap: TypeAlias = dict[str, dict[_K, _V]]
-
-  # either concrete types or other type variables can be substituted
-  def f(x: _MyMap[str, _V]) -> _V: ...
-  # explicitly substitute in Any rather than using a bare alias
-  def g(x: _MyMap[Any, Any]) -> Any: ...
-
-Otherwise, type variables in aliases follow the same rules as type variables in
-generic class definitions.
-
-``typing.NewType`` is also supported in stubs.
+.. _stub-decorators:
 
 Decorators
 """"""""""
@@ -300,81 +178,6 @@ in the ``typing`` module, plus these additional ones:
  * ``abc.abstractmethod``
  * ``dataclasses.dataclass``
  * functions decorated with ``@typing.dataclass_transform``
-
-The behavior of other decorators should instead be incorporated into the types.
-For example, for the following function::
-
-  import contextlib
-  @contextlib.contextmanager
-  def f():
-      yield 42
-
-the stub definition should be::
-
-  from contextlib import AbstractContextManager
-  def f() -> AbstractContextManager[int]: ...
-
-Version and Platform Checks
-"""""""""""""""""""""""""""
-
-Stub files for libraries that support multiple Python versions can use version
-checks to supply version-specific type hints. Stubs for different Python
-versions should still conform to the most recent supported Python version's
-syntax, as explained in the :ref:`stub-file-syntax` section above.
-
-Version checks are if-statements that use ``sys.version_info`` to determine the
-current Python version. Version checks should only check against the ``major`` and
-``minor`` parts of ``sys.version_info``. Type checkers are only required to
-support the tuple-based version check syntax::
-
-    if sys.version_info >= (3,):
-        # Python 3-specific type hints. This tuple-based syntax is recommended.
-    else:
-        # Python 2-specific type hints.
-
-    if sys.version_info >= (3, 5):
-        # Specific minor version features can be easily checked with tuples.
-
-    if sys.version_info < (3,):
-        # This is only necessary when a feature has no Python 3 equivalent.
-
-Stubs should avoid checking against ``sys.version_info.major`` directly and
-should not use comparison operators other than ``<`` and ``>=``.
-
-No::
-
-    if sys.version_info.major >= 3:
-        # Semantically the same as the first tuple check.
-
-    if sys.version_info[0] >= 3:
-        # This is also the same.
-
-    if sys.version_info <= (2, 7):
-        # This does not work because e.g. (2, 7, 1) > (2, 7).
-
-Some stubs also may need to specify type hints for different platforms. Platform
-checks must be equality comparisons between ``sys.platform`` and the name of a
-platform as a string literal:
-
-Yes::
-
-    if sys.platform == 'win32':
-        # Windows-specific type hints.
-    else:
-        # Posix-specific type hints.
-
-No::
-
-    if sys.platform.startswith('linux'):
-        # Not necessary since Python 3.3.
-
-    if sys.platform in ['linux', 'cygwin', 'darwin']:
-        # Only '==' or '!=' should be used in platform checks.
-
-Version and platform comparisons can be chained using the ``and`` and ``or``
-operators::
-
-    if sys.platform == 'linux' and (sys.version_info < (3,) or sys,version_info >= (3, 7)): ...
 
 The Typeshed Project
 ^^^^^^^^^^^^^^^^^^^^
