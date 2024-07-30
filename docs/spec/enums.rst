@@ -94,8 +94,6 @@ implicitly "final". Type checkers should enforce this::
     class ExtendedShape(Shape):  # Type checker error: Shape is implicitly final
         TRIANGLE = 3
 
-.. _enum-members:
-
 Defining Members
 ----------------
 
