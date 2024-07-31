@@ -165,33 +165,6 @@ specified in ``__all__`` are imported::
 
 Type checkers support cyclic imports in stub files.
 
-Built-in Generics
------------------
-
-:pep:`585` built-in generics are supported and should be used instead
-of the corresponding types from ``typing``::
-
-    from collections import defaultdict
-
-    def foo(t: type[MyClass]) -> list[int]: ...
-    x: defaultdict[int]
-
-Using imports from ``collections.abc`` instead of ``typing`` is
-generally possible and recommended::
-
-    from collections.abc import Iterable
-
-    def foo(iter: Iterable[int]) -> None: ...
-
-Unions
-------
-
-Declaring unions with the shorthand syntax or ``Union`` and ``Optional`` is
-supported by all type checkers::
-
-    def foo(x: int | str) -> int | None: ...  # recommended
-    def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
-
 Module Level Attributes
 -----------------------
 
@@ -325,23 +298,6 @@ individual type checkers how to interpret them::
     def foo(): ...  # compatible
     def bar(): pass  # behavior undefined
 
-All variants of overloaded functions and methods must have an ``@overload``
-decorator::
-
-    @overload
-    def foo(x: str) -> str: ...
-    @overload
-    def foo(x: float) -> int: ...
-
-The following (which would be used in the implementation) is wrong in
-type stubs::
-
-    @overload
-    def foo(x: str) -> str: ...
-    @overload
-    def foo(x: float) -> int: ...
-    def foo(x: str | float) -> Any: ...
-
 Aliases and NewType
 -------------------
 
@@ -378,6 +334,8 @@ generic class definitions.
 
 ``typing.NewType`` is also supported in stubs.
 
+.. _stub-decorators:
+
 Decorators
 ----------
 
@@ -390,19 +348,6 @@ fixed set of additional ones:
 * ``abc.abstractmethod``
 * ``dataclasses.dataclass``
 * ``asyncio.coroutine`` (although ``async`` should be used instead)
-
-The behavior of other decorators should instead be incorporated into the types.
-For example, for the following function::
-
-  import contextlib
-  @contextlib.contextmanager
-  def f():
-      yield 42
-
-the stub definition should be::
-
-  from contextlib import AbstractContextManager
-  def f() -> AbstractContextManager[int]: ...
 
 Version and Platform Checks
 ---------------------------
