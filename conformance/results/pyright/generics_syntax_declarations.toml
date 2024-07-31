@@ -5,10 +5,12 @@ generics_syntax_declarations.py:27:20 - error: Type arguments are not allowed wi
 generics_syntax_declarations.py:34:11 - error: Cannot access attribute "is_integer" for class "str*"
   Attribute "is_integer" is unknown (reportAttributeAccessIssue)
 generics_syntax_declarations.py:46:21 - error: TypeVar constraint type cannot be generic (reportGeneralTypeIssues)
+generics_syntax_declarations.py:50:17 - error: List expression not allowed in type annotation
+  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
 generics_syntax_declarations.py:50:17 - error: Expected class but received "list[Unknown]" (reportGeneralTypeIssues)
 generics_syntax_declarations.py:62:17 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)
 generics_syntax_declarations.py:66:17 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)
-generics_syntax_declarations.py:73:17 - error: Expected class but received "tuple[type[bytes], type[str]]" (reportGeneralTypeIssues)
+generics_syntax_declarations.py:73:17 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 generics_syntax_declarations.py:77:18 - error: Expected class but received "Literal[3]" (reportGeneralTypeIssues)
 generics_syntax_declarations.py:81:23 - error: "S" is not defined (reportUndefinedVariable)
 """

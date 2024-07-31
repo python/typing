@@ -14,7 +14,8 @@ literals_literalstring.py:120:22 - error: Argument of type "str" cannot be assig
   Type "str" is incompatible with type "LiteralString"
     "str" is incompatible with "LiteralString" (reportArgumentType)
 literals_literalstring.py:134:51 - error: Argument of type "str" cannot be assigned to parameter "value" of type "T@Container" in function "__init__"
-  "str" is incompatible with "LiteralString" (reportArgumentType)
+  Type "str" is incompatible with type "LiteralString"
+    "str" is incompatible with "LiteralString" (reportArgumentType)
 literals_literalstring.py:171:21 - error: Expression of type "list[LiteralString]" is incompatible with declared type "list[str]"
   "list[LiteralString]" is incompatible with "list[str]"
     Type parameter "_T@list" is invariant, but "LiteralString" is not the same as "str"
