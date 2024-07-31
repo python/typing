@@ -93,6 +93,7 @@ what values may and may not be used as parameters.
 In short, a ``Literal[...]`` type may be parameterized by one or more literal
 expressions, and nothing else.
 
+.. _literal-legal-parameters:
 
 Legal parameters for ``Literal`` at type check time
 """""""""""""""""""""""""""""""""""""""""""""""""""

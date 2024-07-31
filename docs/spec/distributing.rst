@@ -65,53 +65,55 @@ in annotation contexts even before Python 3.9 reaches end-of-life.
 Supported Constructs
 ^^^^^^^^^^^^^^^^^^^^
 
-This section lists constructs that type checkers should accept in stub files. If
-a construct is marked as "unspecified", type checkers may handle it as they best
-see fit or report an error.
+Type checkers should fully support these constructs::
 
-Type checkers should fully support all features from the ``typing`` module of
-the latest released Python version, as well as these constructs:
-
+* All features from the ``typing`` module of the latest released Python version
 * Comments, including type declaration (``# type: X``) and error suppression
-  (``type: ignore``) comments.
+  (``type: ignore``) comments
 * Import statements, including the standard :ref:`import-conventions` and cyclic
-  imports.
+  imports
 * Module-level type aliases (e.g., ``X: TypeAlias = int``,
-  ``Y: TypeAlias = dict[str, _V]``).
+  ``Y: TypeAlias = dict[str, _V]``)
 * Regular aliases (e.g., ``function_alias = some_function``) at both the module-
-  and class-level.
-* Simple version and platform checks, as described
-  :ref:`here <version-and-platform-checks>`.
+  and class-level
+* :ref:`Simple version and platform checks <version-and-platform-checks>`
 
 The constructs in the following subsections may be supported in a more limited
 fashion, as described below.
 
+Value Expressions
+"""""""""""""""""
+
+In locations where value expressions can appear, such as the right-hand side of
+assignment statements and function parameter defaults, type checkers should
+support the following expressions:
+
+* The ellipsis literal, ``...``, which can stand in for any value
+* Any value that is a
+  :ref:`legal parameter for typing.Literal <literal-legal-parameters>`
+
 Module Level Attributes
 """""""""""""""""""""""
 
-Module level variables and constants can be annotated using either
-type comments or variable annotation syntax::
+Type checkers should support module-level variable annotations, with and without
+assignments::
 
-    x: int  # recommended
+    x: int
     x: int = 0
     x = 0  # type: int
     x = ...  # type: int
-
-The ellipsis literal can stand in for any value::
-
-    x: int = ...  # type is int
 
 A variable annotated as ``Final`` and assigned a literal value has the
 corresponding ``Literal`` type::
 
     x: Final = 0  # type is Literal[0]
 
-In all other cases, the type of a variable is unspecified when the variable is
-unannotated or when the annotation and the assigned value disagree::
+When the type of a variable is omitted or disagrees from the assigned value,
+type checker behavior is undefined::
 
-    x = 0  # type is unspecified
-    x = ...  # type is unspecified
-    x: int = ""  # type is unspecified
+    x = 0  # behavior undefined
+    x: Final = ...  # behavior undefined
+    x: int = ""  # behavior undefined
 
 Classes
 """""""
@@ -119,8 +121,8 @@ Classes
 Class definition syntax follows general Python syntax, but type checkers
 are expected to understand only the following constructs in class bodies:
 
-* The ellipsis literal ``...`` is ignored and used for empty
-  class bodies. Using ``pass`` in class bodies is undefined.
+* The ellipsis literal ``...`` is used for empty class bodies. Using ``pass`` in
+  class bodies is undefined.
 * Instance attributes follow the same rules as module level attributes
   (see above).
 * Method definitions (see below) and properties.
@@ -142,24 +144,8 @@ Yes::
 Functions and Methods
 """""""""""""""""""""
 
-Function and method definition syntax follows general Python syntax.
-If an argument or return type is unannotated, per :pep:`484` its
-type is assumed to be ``Any``.
-
-If an argument has a literal or constant default value, it must match the implementation
-and the type of the argument (if specified) must match the default value.
-Alternatively, ``...`` can be used in place of any default value::
-
-    # The following arguments all have type Any.
-    def unannotated(a, b=42, c=...): ...
-    # The following arguments all have type int.
-    def annotated(a: int, b: int = 42, c: int = ...): ...
-    # The following default values are invalid and the types are unspecified.
-    def invalid(a: int = "", b: Foo = Foo()): ...
-
-Using a function or method body other than the ellipsis literal is currently
-unspecified. Stub authors may experiment with other bodies, but it is up to
-individual type checkers how to interpret them::
+Function and method definition follows general Python syntax. Using a function
+or method body other than the ellipsis literal is undefined::
 
     def foo(): ...  # compatible
     def bar(): pass  # behavior undefined
@@ -369,6 +355,46 @@ of that Python version. This can be queried e.g.
 that the type checker allow for the user to point to a particular Python
 binary, in case it is not in the path.
 
+.. _library-interface:
+
+Library interface (public and private symbols)
+----------------------------------------------
+
+If a ``py.typed`` module is present, a type checker will treat all modules
+within that package (i.e. all files that end in ``.py`` or ``.pyi``) as
+importable unless the file name begins with an underscore. These modules
+comprise the supported interface for the library.
+
+Each module exposes a set of symbols. Some of these symbols are
+considered "private” — implementation details that are not part of the
+library’s interface. Type checkers can use the following rules
+to determine which symbols are visible outside of the package.
+
+-  Symbols whose names begin with an underscore (but are not dunder
+   names) are considered private.
+-  Imported symbols are considered private by default. A fixed set of
+   :ref:`import forms <import-conventions>` re-export imported symbols.
+-  A module can expose an ``__all__`` symbol at the module level that
+   provides a list of names that are considered part of the interface.
+   This overrides all other rules above, allowing imported symbols or
+   symbols whose names begin with an underscore to be included in the
+   interface.
+-  Local variables within a function (including nested functions) are
+   always considered private.
+
+The following idioms are supported for defining the values contained
+within ``__all__``. These restrictions allow type checkers to statically
+determine the value of ``__all__``.
+
+-  ``__all__ = ('a', b')``
+-  ``__all__ = ['a', b']``
+-  ``__all__ += ['a', b']``
+-  ``__all__ += submodule.__all__``
+-  ``__all__.extend(['a', b'])``
+-  ``__all__.extend(submodule.__all__)``
+-  ``__all__.append('a')``
+-  ``__all__.remove('a')``
+
 .. _import-conventions:
 
 Import Conventions
@@ -382,8 +408,9 @@ The following import forms re-export symbols:
 
 * ``import X as X`` (a redundant module alias): re-exports ``X``.
 * ``from Y import X as X`` (a redundant symbol alias): re-exports ``X``.
-* ``from Y import *``: re-exports all symbols in ``Y`` that do not begin with
-  an underscore.
+* ``from Y import *``: if ``Y`` defines a module-level ``__all__`` list,
+  re-exports all names in ``__all__``; otherwise, re-exports  all symbols in
+  ``Y`` that do not begin with an underscore.
 * ``from . import bar`` in an ``__init__`` module: re-exports ``bar`` if it does
   not begin with an underscore.
 * ``from .bar import Bar`` in an ``__init__`` module: re-exports ``Bar`` if it
