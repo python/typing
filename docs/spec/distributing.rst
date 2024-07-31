@@ -65,7 +65,7 @@ in annotation contexts even before Python 3.9 reaches end-of-life.
 Supported Constructs
 ^^^^^^^^^^^^^^^^^^^^
 
-Type checkers should fully support these constructs::
+Type checkers should fully support these constructs:
 
 * All features from the ``typing`` module of the latest released Python version
 * Comments, including type declaration (``# type: X``) and error suppression
