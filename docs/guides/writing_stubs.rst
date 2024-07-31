@@ -362,9 +362,10 @@ No::
 Decorators
 ----------
 
-Include only those decorators whose effects type checkers understand, enumerated
-:ref:`here <stub-decorators>`. The behavior of other decorators should instead
-be incorporated into the types. For example, for the following function::
+Include only the decorators listed :ref:`here <stub-decorators>`, whose effects
+are understood by all of the major type checkers. The behavior of other
+decorators should instead be incorporated into the types. For example, for the
+following function::
 
   import contextlib
   @contextlib.contextmanager
