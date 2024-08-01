@@ -5,10 +5,10 @@ errors_diff = """
 output = """
 constructors_call_init.py:21:13 - error: Argument of type "float" cannot be assigned to parameter "x" of type "int" in function "__init__"
   "float" is incompatible with "int" (reportArgumentType)
-constructors_call_init.py:42:8 - error: Argument of type "Class2[int]" cannot be assigned to parameter "x" of type "Class3 | None" in function "__init__"
-  Type "Class2[int]" is incompatible with type "Class3 | None"
-    "Class2[int]" is incompatible with "Class3"
-    "Class2[int]" is incompatible with "None" (reportArgumentType)
+constructors_call_init.py:42:8 - error: Argument of type "Class2[Unknown]" cannot be assigned to parameter "x" of type "Class3 | None" in function "__init__"
+  Type "Class2[Unknown]" is incompatible with type "Class3 | None"
+    "Class2[Unknown]" is incompatible with "Class3"
+    "Class2[Unknown]" is incompatible with "None" (reportArgumentType)
 constructors_call_init.py:56:1 - error: 
   Could not bind method "__init__" because "Class4[str]" is not assignable to parameter "self"
     "Class4[str]" is incompatible with "Class4[int]"

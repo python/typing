@@ -337,6 +337,46 @@ No::
     DAY_FLAG: int
     NIGHT_FLAG: int
 
+Overloads
+---------
+
+All variants of overloaded functions and methods must have an ``@overload``
+decorator. Do not include the implementation's final non-`@overload`-decorated
+definition.
+
+Yes::
+
+  @overload
+  def foo(x: str) -> str: ...
+  @overload
+  def foo(x: float) -> int: ...
+
+No::
+
+  @overload
+  def foo(x: str) -> str: ...
+  @overload
+  def foo(x: float) -> int: ...
+  def foo(x: str | float) -> Any: ...
+
+Decorators
+----------
+
+Include only the decorators listed :ref:`here <stub-decorators>`, whose effects
+are understood by all of the major type checkers. The behavior of other
+decorators should instead be incorporated into the types. For example, for the
+following function::
+
+  import contextlib
+  @contextlib.contextmanager
+  def f():
+      yield 42
+
+the stub definition should be::
+
+  from contextlib import AbstractContextManager
+  def f() -> AbstractContextManager[int]: ...
+
 Documentation or Implementation
 -------------------------------
 
@@ -581,3 +621,30 @@ No::
     from typing import NamedTuple, TypedDict
     Point = NamedTuple("Point", [('x', float), ('y', float)])
     Thing = TypedDict("Thing", {'stuff': str, 'index': int})
+
+Built-in Generics
+-----------------
+
+:pep:`585` built-in generics are supported and should be used instead
+of the corresponding types from ``typing``::
+
+    from collections import defaultdict
+
+    def foo(t: type[MyClass]) -> list[int]: ...
+    x: defaultdict[int]
+
+Using imports from ``collections.abc`` instead of ``typing`` is
+generally possible and recommended::
+
+    from collections.abc import Iterable
+
+    def foo(iter: Iterable[int]) -> None: ...
+
+Unions
+------
+
+Declaring unions with the shorthand `|` syntax is recommended and supported by
+all type checkers::
+
+  def foo(x: int | str) -> int | None: ...  # recommended
+  def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
