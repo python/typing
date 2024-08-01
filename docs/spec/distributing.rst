@@ -31,8 +31,8 @@ construct in a contradictory manner. However, type checkers are not required to
 implement checks for all of these constructs and can elect to ignore unsupported
 ones. Additionally, type checkers can support constructs not described here.
 
-Type checkers should have a configurable search path for stub files. If a stub
-file is found, the type checker should not read the corresponding "real" module.
+If a stub
+file is found for a module, the type checker should not read the corresponding "real" module.
 See :ref:`mro` for more information.
 
 .. _stub-file-syntax:
