@@ -16,24 +16,25 @@ Python packages and modules. Stub files serve multiple purposes:
 * They are the only way to add type information to extension modules.
 * They can provide type information for packages that do not wish to
   add them inline.
-* They can be distributed separately from the implementation.
+* They can be distributed separately from the package or module that they
+  provide types for. The latter is referred to as the *implementation*.
   This allows stubs to be developed at a different pace or by different
   authors, which is especially useful when adding type annotations to
   existing packages.
 * They can act as documentation, succinctly explaining the external
-  API of a package, without including the implementation or private
+  API of a package, without including implementation details or private
   members.
 
 Stub files use a subset of the constructs used in Python source files, as
 described in :ref:`stub-file-supported-constructs` below. Type checkers should
 parse a stub that uses only such constructs without error and not interpret any
-construct in a contradictory manner. However, type checkers are not required to
-implement checks for all of these constructs and can elect to ignore unsupported
-ones. Additionally, type checkers can support constructs not described here.
+construct in a manner contradictory to this specification. However, type
+checkers are not required to implement checks for all of these constructs and
+can elect to ignore unsupported ones. Additionally, type checkers can support
+constructs not described here.
 
-If a stub
-file is found for a module, the type checker should not read the corresponding "real" module.
-See :ref:`mro` for more information.
+If a stub file is found for a module, the type checker should not read the
+corresponding "real" module. See :ref:`mro` for more information.
 
 .. _stub-file-syntax:
 
