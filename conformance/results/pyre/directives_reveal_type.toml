@@ -12,8 +12,5 @@ directives_reveal_type.py:20:4 Revealed type [-1]: Revealed type for `a` is `typ
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 14: Unexpected errors ['directives_reveal_type.py:14:4 Revealed type [-1]: Revealed type for `a` is `typing.Union[int, str]`.']
-Line 15: Unexpected errors ['directives_reveal_type.py:15:4 Revealed type [-1]: Revealed type for `b` is `typing.List[int]`.']
-Line 16: Unexpected errors ['directives_reveal_type.py:16:4 Revealed type [-1]: Revealed type for `c` is `typing.Any`.']
-Line 17: Unexpected errors ['directives_reveal_type.py:17:4 Revealed type [-1]: Revealed type for `d` is `ForwardReference`.']
+Line 20: Expected 1 errors
 """

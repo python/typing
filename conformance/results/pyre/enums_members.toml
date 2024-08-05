@@ -22,7 +22,6 @@ Line 35: Unexpected errors ['enums_members.py:35:0 Incompatible parameter type [
 Line 36: Unexpected errors ['enums_members.py:36:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `Pet2`.']
 Line 100: Unexpected errors ['enums_members.py:100:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[TrafficLight.YELLOW]` but got `typing_extensions.Literal[TrafficLight.AMBER]`.']
 Line 117: Unexpected errors ['enums_members.py:117:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[Example.c]` but got `member[typing.Callable(Example.c)[[Named(self, Example)], None]]`.']
-Line 128: Unexpected errors ['enums_members.py:128:8 Revealed type [-1]: Revealed type for `enums_members.Example2._Example2__B` is `typing_extensions.Literal[Example2._Example2__B]` (final).']
 Line 139: Unexpected errors ['enums_members.py:139:4 Inconsistent override [15]: `_ignore_` overrides attribute defined in `Enum` inconsistently. Type `Pet5` is not a subtype of the overridden attribute `typing.Union[typing.List[str], str]`.']
 """
 output = """

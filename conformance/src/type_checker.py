@@ -254,6 +254,9 @@ class PyreTypeChecker(TypeChecker):
             # Ignore multi-line errors
             if ".py:" not in line:
                 continue
+            # Ignore reveal_type errors
+            if "Revealed type [-1]" in line:
+                continue
             assert line.count(":") >= 2, f"Failed to parse line: {line!r}"
             _, lineno, _ = line.split(":", maxsplit=2)
             line_to_errors.setdefault(int(lineno), []).append(line)
