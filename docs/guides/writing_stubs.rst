@@ -579,8 +579,14 @@ Language Features
 -----------------
 
 Use the latest language features available, even for stubs targeting older
-Python versions. Do not use quotes around forward references and do not use
-``__future__`` imports. See :ref:`stub-file-syntax` for more information.
+Python versions. For example, Python 3.7 added the ``async`` keyword (see
+:pep:`492`). Stubs should use it to mark coroutines, even if the implementation
+still uses the ``@coroutine`` decorator. On the other hand, the ``type`` soft
+keyword from :pep:`695`, introduced in Python 3.12, should not be used in stubs
+until Python 3.11 reaches end-of-life in October 2027.
+
+Do not use quotes around forward references and do not use ``__future__``
+imports. See :ref:`stub-file-syntax` for more information.
 
 Yes::
 
