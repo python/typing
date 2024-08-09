@@ -506,6 +506,8 @@ involving Literal bools. For example, we can combine ``Literal[True]``,
    else:
        scalar += "foo"  # Type checks: type of 'scalar' is narrowed to 'str'
 
+.. _literal-final-interactions:
+
 Interactions with Final
 """""""""""""""""""""""
 

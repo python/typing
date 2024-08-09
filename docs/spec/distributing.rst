@@ -45,21 +45,13 @@ Stub files are syntactically valid Python files in the earliest Python version
 that is not yet end-of-life. They use a ``.pyi`` suffix. The Python syntax used
 by stub files is independent from the Python versions supported by the
 implementation, and from the Python version the type checker runs under (if
-any). Therefore, stubs may use the latest syntax features available in
-the earliest supported version, even if the implementation supports older
-versions.
+any).
 
-For example, Python 3.7 added the ``async`` keyword (see :pep:`492`). Stubs may
-use it to mark coroutines, even if the implementation still uses the
-``@coroutine`` decorator. On the other hand, the ``type`` soft keyword from
-:pep:`695`, introduced in Python 3.12, is not valid in stubs until Python 3.11
-reaches end-of-life in October 2027.
-
-Stubs are treated as if ``from __future__ import annotations`` is enabled. In
-particular, forward references do not need to be quoted, and syntax from newer
-versions than otherwise supported may be used in annotation contexts. For
-example, the pipe union syntax (``X | Y``) introduced in Python 3.10 may be used
-in annotation contexts even before Python 3.9 reaches end-of-life.
+Type checkers should treat stubs as if ``from __future__ import annotations`` is
+enabled. In particular, forward references do not need to be quoted, and syntax
+from newer versions than otherwise supported may be used in annotation contexts.
+For example, the pipe union syntax (``X | Y``) introduced in Python 3.10 may be
+used in annotation contexts even before Python 3.9 reaches end-of-life.
 
 .. _stub-file-supported-constructs:
 
@@ -73,10 +65,7 @@ Type checkers should fully support these constructs:
   (``type: ignore``) comments
 * Import statements, including the standard :ref:`import-conventions` and cyclic
   imports
-* Module-level type aliases (e.g., ``X: TypeAlias = int``,
-  ``Y: TypeAlias = dict[str, _V]``)
-* Regular aliases (e.g., ``function_alias = some_function``) at both the module-
-  and class-level
+* Aliases, including type aliases, at both the module and class level
 * :ref:`Simple version and platform checks <version-and-platform-checks>`
 
 The constructs in the following subsections may be supported in a more limited
@@ -92,6 +81,8 @@ support the following expressions:
 * The ellipsis literal, ``...``, which can stand in for any value
 * Any value that is a
   :ref:`legal parameter for typing.Literal <literal-legal-parameters>`
+* Floating point literals, such as `3.14`
+* Complex literals, such as `1 + 2j`
 
 Module Level Attributes
 """""""""""""""""""""""
@@ -104,8 +95,8 @@ assignments::
     x = 0  # type: int
     x = ...  # type: int
 
-A variable annotated as ``Final`` and assigned a literal value has the
-corresponding ``Literal`` type::
+The :ref:`Literal shortcut using Final <literal-final-interactions>` should be
+supported::
 
     x: Final = 0  # type is Literal[0]
 
@@ -127,7 +118,7 @@ are expected to understand only the following constructs in class bodies:
 * Instance attributes follow the same rules as module level attributes
   (see above).
 * Method definitions (see below) and properties.
-* Method aliases.
+* Aliases.
 * Inner class definitions.
 
 Yes::
@@ -140,6 +131,7 @@ Yes::
         def read_only(self) -> int: ...
         def do_stuff(self, y: str) -> None: ...
         doStuff = do_stuff
+        IntList: TypeAlias = list[int]
         class Inner: ...
 
 Functions and Methods
@@ -164,6 +156,7 @@ in the ``typing`` module, plus these additional ones:
  * ``property`` (including ``.setter`` and ``.deleter``)
  * ``abc.abstractmethod``
  * ``dataclasses.dataclass``
+ * ``warnings.deprecated``
  * functions decorated with ``@typing.dataclass_transform``
 
 The Typeshed Project
@@ -410,9 +403,5 @@ The following import forms re-export symbols:
 * ``import X as X`` (a redundant module alias): re-exports ``X``.
 * ``from Y import X as X`` (a redundant symbol alias): re-exports ``X``.
 * ``from Y import *``: if ``Y`` defines a module-level ``__all__`` list,
-  re-exports all names in ``__all__``; otherwise, re-exports  all symbols in
-  ``Y`` that do not begin with an underscore.
-* ``from . import bar`` in an ``__init__`` module: re-exports ``bar`` if it does
-  not begin with an underscore.
-* ``from .bar import Bar`` in an ``__init__`` module: re-exports ``Bar`` if it
-  does not begin with an underscore.
+  re-exports all names in ``__all__``; otherwise, re-exports  all public symbols
+  in ``Y``'s global scope.
