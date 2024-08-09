@@ -49,9 +49,9 @@ any).
 
 Type checkers should treat stubs as if ``from __future__ import annotations`` is
 enabled. In particular, forward references do not need to be quoted, and syntax
-from newer versions than otherwise supported may be used. For example, the pipe
-union syntax (``X | Y``) introduced in Python 3.10 may be used even before
-Python 3.9 reaches end-of-life.
+from newer versions than otherwise supported may be used in annotation
+expressions. For example, the pipe union syntax (``X | Y``) introduced in Python
+3.10 may be used even before Python 3.9 reaches end-of-life.
 
 .. _stub-file-supported-constructs:
 
