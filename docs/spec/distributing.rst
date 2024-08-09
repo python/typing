@@ -81,8 +81,8 @@ support the following expressions:
 * The ellipsis literal, ``...``, which can stand in for any value
 * Any value that is a
   :ref:`legal parameter for typing.Literal <literal-legal-parameters>`
-* Floating point literals, such as `3.14`
-* Complex literals, such as `1 + 2j`
+* Floating point literals, such as ``3.14``
+* Complex literals, such as ``1 + 2j``
 
 Module Level Attributes
 """""""""""""""""""""""
