@@ -1,11 +1,21 @@
 .. _`overload`:
 
-``@overload``
+``Overloads``
 =============
 
+In Python, it is common for callable objects to be polymorphic, meaning
+they accept different types of arguments. It is also common for such
+callables to return different types depending on the arguments passed to
+them. Overloads provide a way to describe the accepted input signatures
+and corresponding return types.
+
+
+Overload definitions
+^^^^^^^^^^^^^^^^^^^^
+
 The ``@overload`` decorator allows describing functions and methods
-that support multiple different combinations of argument types.  This
-pattern is used frequently in builtin modules and types.  For example,
+that support multiple different combinations of argument types. This
+pattern is used frequently in builtin modules and types. For example,
 the ``__getitem__()`` method of the ``bytes`` type can be described as
 follows::
 
@@ -18,9 +28,9 @@ follows::
       @overload
       def __getitem__(self, s: slice) -> bytes: ...
 
-This description is more precise than would be possible using unions
-(which cannot express the relationship between the argument and return
-types)::
+This description is more precise than would be possible using unions,
+which cannot express the relationship between the argument and return
+types::
 
   class bytes:
       ...
@@ -54,15 +64,15 @@ Note that we could also easily add items to support ``map(None, ...)``::
           iter2: Iterable[T2]) -> Iterable[tuple[T1, T2]]: ...
 
 Uses of the ``@overload`` decorator as shown above are suitable for
-stub files.  In regular modules, a series of ``@overload``-decorated
+stub files. In regular modules, a series of ``@overload``-decorated
 definitions must be followed by exactly one
 non-``@overload``-decorated definition (for the same function/method).
 The ``@overload``-decorated definitions are for the benefit of the
 type checker only, since they will be overwritten by the
 non-``@overload``-decorated definition, while the latter is used at
-runtime but should be ignored by a type checker.  At runtime, calling
-a ``@overload``-decorated function directly will raise
-``NotImplementedError``.  Here's an example of a non-stub overload
+runtime but should be ignored by a type checker. At runtime, calling
+an ``@overload``-decorated function directly will raise
+``NotImplementedError``. Here's an example of a non-stub overload
 that can't easily be expressed using a union or a type variable::
 
   @overload
@@ -77,9 +87,9 @@ that can't easily be expressed using a union or a type variable::
   def utf8(value):
       <actual implementation>
 
-A constrained ``TypeVar`` type can often be used instead of using the
-``@overload`` decorator.  For example, the definitions of ``concat1``
-and ``concat2`` in this stub file are equivalent::
+A constrained ``TypeVar`` type can sometimes be used instead of
+using the ``@overload`` decorator. For example, the definitions
+of ``concat1`` and ``concat2`` in this stub file are equivalent::
 
   from typing import TypeVar
 
@@ -99,8 +109,376 @@ variable is not sufficient.
 
 Another important difference between type variables such as ``AnyStr``
 and using ``@overload`` is that the prior can also be used to define
-constraints for generic class type parameters.  For example, the type
+constraints for generic class type parameters. For example, the type
 parameter of the generic class ``typing.IO`` is constrained (only
 ``IO[str]``, ``IO[bytes]`` and ``IO[Any]`` are valid)::
 
   class IO(Generic[AnyStr]): ...
+
+
+Invalid overload definitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Type checkers should enforce the following rules for overload definitions.
+
+At least two ``@overload``-decorated definitions must be present. If only
+one is present, an error should be reported.
+
+An overload implementation should be present for all overload function
+definitions. Type checkers should report an error or warning if an
+implementation is missing. Overload definitions within stub files,
+protocols, and abstract base classes are exempt from this check.
+
+If an overload is decorated with ``@staticmethod`` or ``@classmethod``,
+all overloads must be similarly decorated. The implementation,
+if present, must be decorated in the same manner. Similarly, if one overload
+is ``async``, all overloads must be ``async`` as well as the implementation.
+Type checkers should report an error if these conditions are not met.
+
+If one or more overloads are decorated with ``@final`` but the
+implementation is not, an error should be reported.
+
+
+Implementation consistency
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If an overload implementation is defined, type checkers should validate
+that its signature is consistent with all of its associated overload
+signatures. The implementation should accept all potential argument lists
+that are accepted by the overloads and should produce all potential return
+types produced by the overloads. In typing terms, this means the input
+signature of the implementation should be assignable to the input signatures
+of all overloads, and the return type of all overloads should be assignable to
+the return type of the implementation.
+
+If the implementation is inconsistent with its overloads, a type checker
+should report an error::
+
+  @overload
+  def func(x: str, /) -> str: ...
+  @overload
+  def func(x: int) -> int: ...
+  
+  # This implementation is inconsistent with the second overload
+  # because it does not accept a keyword argument ``x`` and the
+  # the overload's return type ``int`` is not assignable to the
+  implementation's return type ``str``.
+  def func(x: int | str, /) -> str:
+    return str(x)
+
+Overlapping overloads
+^^^^^^^^^^^^^^^^^^^^^
+
+If two overloads can accept the same set of arguments but have 
+different return types, the overloads are said to "partially overlap".
+This condition is indicative of a programming error and should
+be reported by type checkers::
+
+  # These overloads partially overlap because both accept an
+  # argument of type ``Literal[0]``, but their return types
+  # differ.
+
+  @overload
+  def func(x: Literal[0]) -> int: ...
+  @overload
+  def func(x: int) -> str: ...
+
+If all arguments accepted by an overload are also always accepted by
+an earlier overload, the two overloads are said to "fully overlap". 
+In this case, the latter overload will never be used. This condition
+is indicative of a programming error and should be reported by type
+checkers::
+
+  # These overloads fully overlap because the second overload
+  # accepts all arguments accepted by the first overload.
+
+  @overload
+  def func[T](x: T) -> T: ...
+  @overload
+  def func(x: int) -> int: ...
+
+
+Overload call evaluation
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+When a type checker evaluates the call of an overloaded function, it
+attempts to "match" the supplied arguments with one or more overloads.
+This section describes the algorithm that type checkers should use
+for overload matching.
+
+Only the overloads (the ``@overload``-decorated signatures) should be
+considered for matching purposes. The implementation, if provided,
+should be ignored for purposes of overload matching.
+
+
+Step 1: Examine the argument list to determine the number of
+positional and keyword arguments. Use this information to eliminate any
+overload candidates that are not plausible based on their
+input signatures.
+
+- If no candidate overloads remain, generate an error and stop.
+- If only one candidate overload remains, it is the winning match. Evaluate
+it as if it were a non-overloaded function call and stop.
+- If two or more candidate overloads remain, proceed to step 2.
+
+
+Step 2: Evaluate each remaining overload as a regular (non-overloaded)
+call to determine whether it is compatible with the supplied
+argument list. Unlike step 1, this step considers the types of the parameters
+and arguments. During this step, do not generate any user-visible errors.
+Simply record which of the overloads result in evaluation errors.
+
+- If all overloads result in errors, proceed to step 3.
+- If only one overload evaluates without error, it is the winning match.
+Evaluate it as if it were a non-overloaded function call and stop.
+- If two or more candidate overloads remain, proceed to step 4.
+
+
+Step 3: If step 2 produces errors for all overloads, perform
+"argument type expansion". Some types can be decomposed
+into two or more subtypes. For example, the type ``int | str`` can be
+expanded into ``int`` and ``str``.
+
+Expansion should be performed one argument at a time from left to
+right. Each expansion results in sets of effective argument types.
+For example, if there are two arguments whose types evaluate to
+``int | str`` and ``int | bytes``, expanding the first argument type
+results in two sets of argument types: ``(int, ?)`` and ``(str, ?)``.
+Here ``?`` represents an unexpanded argument type.
+If expansion of the second argument is required, four sets of
+argument types are produced: ``(int, int)``, ``(int, bytes)``,
+``(str, int)``, and ``(str, bytes)``.
+
+After each argument expansion, return to step 2 and evaluate all
+expanded argument lists.
+
+- If all argument lists evaluate successfully, combine their
+respective return types by union to determine the final return type
+for the call, and stop.
+- If argument expansion has been applied to all arguments and one or
+more of the expanded argument lists cannot be evaluated successfully,
+generate an error and stop.
+
+For additional details about argument type expansion, see
+:ref:`argument-type-expansion` below.
+
+
+Step 4: If the argument list is compatible with two or more overloads,
+determine whether one or more of the overloads has a variadic parameter
+(either ``*args`` or ``**kwargs``) that maps to a corresponding argument
+that supplies an indeterminate number of positional or keyword arguments.
+If so, eliminate overloads that do not have a variadic parameter.
+
+- If this results in only one remaining candidate overload, it is
+the winning match. Evaluate it as if it were a non-overloaded function
+call and stop.
+- If two or more candidate overloads remain, proceed to step 5.
+
+
+Step 5: If the type of one or more arguments evaluates to a
+:ref:`gradual type` (e.g. ``list[Any]`` or ``str | Any``), determine
+whether some theoretical :ref:`materialization` of these gradual types
+could be used to disambiguate between two or more of the remaining
+overloads.
+
+- If none of the arguments evaluate to a gradual type, proceed to step 6.
+- If one or more arguments evaluate to a gradual type but no possible
+materializations of these types would disambiguate between the remaining
+overloads, proceed to step 6.
+- If possible materializations of these types would disambiguate between
+two or more of the remaining overloads and this subset of overloads have
+consistent return types, proceed to step 6. If the return types include
+type variables, constraint solving should be applied here before testing
+for consistency.
+- If none of the above conditions are met, the presence of gradual types
+leads to an ambiguous overload selection. Assume a return type of ``Any``
+and stop. This preserves the "gradual guarantee".
+
+[Eric's note for reviewers: I'm struggling to come up with an
+understandable and unambiguous way to describe this step.
+Suggestions are welcome.]
+
+[Eric's note for reviewers: Pyright currently does not use return type
+consistency in the above check. Instead, it looks for non-overlapping
+return types. If return types are overlapping (that is, one is a consistent
+subtype of another), it uses the wider return type. Only if there is no
+consistency relationship between return types does it consider it an
+"ambiguous" situation and turns it into an Any. This produces better
+results for users of language servers, but it doesn't strictly preserve
+the gradual guarantee. I'm willing to abandon this in favor of a
+strict consistency check.]
+
+
+Step 6: Choose the first remaining candidate overload as the winning
+match. Evaluate it as if it were a non-overloaded function call and stop.
+
+
+Example 1::
+
+  @overload
+  def example1(x: int, y: str) -> int: ...
+  @overload
+  def example1(x: str) -> str: ...
+
+  example1()  # Error in step 1: no plausible overloads
+  example1(1, "")  # Step 1 eliminates second overload
+  example1("")  # Step 1 eliminates first overload
+
+  example1("", "")  # Error in step 2: no compatible overloads
+  example1(1)  # Error in step 2: no compatible overloads
+
+
+Example 2::
+
+  @overload
+  def example2(x: int, y: str, z: int) -> str: ...
+  @overload
+  def example2(x: int, y: int, z: int) -> int: ...
+
+  def test(val: str | int):
+      # In this example, argument type expansion is
+      # performed on the first two arguments. Expansion
+      # of the third is unnecessary.
+      r1 = example2(1, val, 1)
+      reveal_type(r1)  # Should reveal str | int
+
+      # Here, the types of all three arguments are expanded
+      # without success.
+      example2(val, val, val)  # Error in step 3
+
+
+Example 3::
+
+  @overload
+  def example3(x: int) -> int: ...
+  @overload
+  def example3(x: int, y: int) -> tuple[int, int]: ...
+  @overload
+  def example3(*args: int) -> tuple[int, ...]: ...
+  
+  def test():
+      # Step 1 eliminates second overload. Step 4 and
+      # step 5 do not apply. Step 6 picks the first
+      # overload.
+      r1 = example3(1)
+      reveal_type(r1)  # Should reveal int
+
+      # Step 1 eliminates first overload. Step 4 and
+      # step 5 do not apply. Step 6 picks the second
+      # overload.
+      r2 = example3(1, 2)
+      reveal_type(r2)  # Should reveal tuple[int, int]
+
+      # Step 1 doesn't eliminate any overloads. Step 4
+      # picks the third overload.
+      val = [1, 2, 3, 4]
+      r3 = example3(*val)
+      reveal_type(r3)  # Should reveal tuple[int, ...]
+
+
+Example 4::
+
+  @overload
+  def example4(x: list[int], y: int) -> int: ...
+  @overload
+  def example4(x: list[str], y: str) -> int: ...
+  @overload
+  def example4(x: int, y: int) -> list[int]: ...
+
+  def test(v1: list[Any], v2: Any):
+      # Step 4 eliminates third overload. Step 5
+      # determines that first and second overloads
+      # both apply and are ambiguous due to Any, but
+      # return types are consistent.
+      r1 = example4(v1, 1)
+      reveal_type(r1)  # Should reveal int
+
+      # Step 4 eliminates third overload. Step 5
+      # determines that first and second overloads
+      # both apply and are ambiguous due to Any, but
+      # return types are consistent.
+      r2 = example4([1], v2)
+      reveal_type(r2)  # Should reveal int
+
+      # Step 5 determines that first, second, and third
+      # overloads all apply and are ambiguous due to Any.
+      # These have inconsistent return types, so evaluated
+      # type is Any.
+      r3 = example4(v2, v2)
+      reveal_type(r3)  # Should reveal Any
+
+
+
+Argument type expansion
+^^^^^^^^^^^^^^^^^^^^^^^
+
+When performing argument type expansion, the following types should be
+expanded:
+
+1. Unions: Each subtype of the union should be considered as a separate
+argument type. For example, the type ``int | str`` should be expanded
+into ``int`` and ``str``.
+
+2. ``bool`` should be expanded into ``Literal[True]`` and ``Literal[False]``.
+
+3. ``Enum`` types (other than those that derive from ``enum.Flag``) should
+be expanded into their literal members.
+
+4. ``type[A | B]`` should be expanded into ``type[A]`` and ``type[B]``.
+
+5. Tuples of known length that contain expandable types should be expanded
+into all possible combinations of their subtypes. For example, the type
+``tuple[int | str, bool]`` should be expanded into ``(int, Literal[True])``,
+``(int, Literal[False])``, ``(str, Literal[True])``, and
+``(str, Literal[False])``.
+
+
+[Eric's note for reviewers: I'm not 100% convinced we should
+support argument expansion in all of these cases. Tuple expansion,
+in particular, can be very costly and can quickly blow up in complexity.
+Currently, pyright and mypy support only the case 1 in the list above,
+but I have had requests to support 2 and 3.]
+
+When performing type expansion for an argument, the argument that
+is targeted for expansion should be evaluated without the use of
+any context. All arguments that are not yet expanded should
+continue to be evaluated with the benefit of context supplied by parameter
+types within each overload signature.
+
+Example::
+
+  class MyDict[T](TypedDict):
+      x: T
+
+  @overload
+  def func[T](a: int, b: MyDict[T]) -> T: ...
+
+  @overload
+  def func(a: str, b: dict[str, int]) -> str: ...
+
+
+  def test(val: int | str):
+      result = func(val, {'x': 1})
+      reveal_type(result)  # Should reveal "int | str"
+
+In this case, type expansion is performed on the first argument,
+which expands its type from ``int | str`` to ``int`` and ``str``.
+The expression for the second argument is evaluated in the context
+of both overloads. For the first overload, the second argument evaluates
+to ``MyDict[int]``, and for the second overload it evaluates to
+``dict[str, int]``. Both overloads are used to evaluate this call,
+and the final type of ``result`` is ``int | str``.
+
+[Eric's note: mypy apparently doesn't do this currently. It evaluates all
+arguments without the benefit of context, which produces less-than-ideal
+results in some cases.]
+
+
+[Eric's note for reviewers: We may want to provide for argument type expansion
+for regular (non-overloaded) calls as well. This came up recently in
+[this thread](https://discuss.python.org/t/proposal-relax-un-correlated-constrained-typevars/59658).
+I'm a bit hesitant to add this to the spec because it adds significant
+complexity to call evaluations and would likely result in a measurable slowdown
+in type evaluation, but it's worth considering. We could perhaps mitigate the
+slowdown by applying this behavior only when a constrained type variable is
+used in the call's signature.]
