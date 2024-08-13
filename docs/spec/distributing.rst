@@ -62,7 +62,7 @@ Type checkers should fully support these constructs:
 
 * All features from the ``typing`` module of the latest released Python version
 * Comments, including type declaration (``# type: X``) and error suppression
-  (``type: ignore``) comments
+  (``# type: ignore``) comments
 * Import statements, including the standard :ref:`import-conventions` and cyclic
   imports
 * Aliases, including type aliases, at both the module and class level
