@@ -176,7 +176,7 @@ Note that it is legal to use a union of classes as the parameter for
       ...
 
 ``type[]`` distributes over unions:
-``type[A | B]`` is the same as ``type[A] | type[B]``.
+``type[A | B]`` is consistent with ``type[A] | type[B]``.
 
 However, the actual argument passed in at runtime must still be a
 concrete class object, e.g. in the above example::
