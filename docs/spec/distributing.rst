@@ -47,11 +47,12 @@ by stub files is independent from the Python versions supported by the
 implementation, and from the Python version the type checker runs under (if
 any).
 
-Type checkers should treat stubs as if ``from __future__ import annotations`` is
-enabled. In particular, forward references do not need to be quoted, and syntax
-from newer versions than otherwise supported may be used in annotation
-expressions. For example, the pipe union syntax (``X | Y``) introduced in Python
-3.10 may be used even before Python 3.9 reaches end-of-life.
+Type checkers should evaluate all annotation expressions as if they are quoted.
+Consequently, forward references do not need to be quoted, and syntax from newer
+versions than otherwise supported may be used in annotations. For example, the
+pipe union syntax (``X | Y``) introduced in Python 3.10 may be used even before
+Python 3.9 reaches end-of-life. Outside of annotations, type checkers may but
+are not required to support type system features that use newer syntax.
 
 .. _stub-file-supported-constructs:
 
@@ -61,6 +62,7 @@ Supported Constructs
 Type checkers should fully support these constructs:
 
 * All features from the ``typing`` module of the latest released Python version
+  that use :ref:`supported syntax <stub-file-syntax>`
 * Comments, including type declaration (``# type: X``) and error suppression
   (``# type: ignore``) comments
 * Import statements, including the standard :ref:`import-conventions` and cyclic
