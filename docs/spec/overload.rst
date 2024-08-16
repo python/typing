@@ -298,7 +298,7 @@ If so, eliminate overloads that do not have a variadic parameter.
 Step 5: If the type of one or more arguments evaluates to a
 type that includes a :term:`gradual form` (e.g. ``list[Any]`` or
 ``str | Any``), determine whether some theoretical
-:ref:`materialization` of these gradual types could be used to disambiguate
+:term:`materialization` of these gradual types could be used to disambiguate
 between two or more of the remaining overloads.
 
 - If none of the arguments evaluate to a gradual type, proceed to step 6.
