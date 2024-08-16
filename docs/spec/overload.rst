@@ -280,7 +280,7 @@ expanded argument lists.
 
 
 For additional details about argument type expansion, see
-:ref:`argument-type-expansion` below.
+`argument-type-expansion`_ below.
 
 
 Step 4: If the argument list is compatible with two or more overloads,
@@ -421,6 +421,8 @@ Example 4::
       r2 = example4(v2, 1)
       reveal_type(r2)  # Should reveal Any
 
+
+.. _argument-type-expansion:
 
 Argument type expansion
 ^^^^^^^^^^^^^^^^^^^^^^^
