@@ -196,7 +196,7 @@ programming error and should be reported by type checkers::
   @overload
   def func1(x: int) -> str: ...
 
-[Eric's note for reviewers: Mypy exempts `__get__` from the above check. 
+[Eric's note for reviewers: Mypy exempts `__get__` from the above check.
 Refer to https://github.com/python/typing/issues/253#issuecomment-389262904
 for Ivan's explanation. I'm not convinced this exemption is necessary.
 Currently pyright copies the exemption. Do we want to codify this or leave it
@@ -501,4 +501,3 @@ For example, if class C inherits from A and B, should we expand C into A and B
 for purposes of overload matching? This could get very expensive and difficult
 to spec, and it feels like a significant edge case, so I'm inclined to leave it
 out. No one has asked for this, to my knowledge.]
-
