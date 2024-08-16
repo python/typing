@@ -124,27 +124,32 @@ Type checkers should enforce the following rules for overload definitions.
 At least two ``@overload``-decorated definitions must be present. If only
 one is present, an error should be reported.
 
-An overload implementation should be present for all overload function
-definitions. Type checkers should report an error or warning if an
-implementation is missing. Overload definitions within stub files,
-protocols, and abstract base classes are exempt from this check.
+The ``@overload``-decorated definitions must be followed by an overload
+implementation, which does not include an ``@overload`` decorator. Type
+checkers should report an error or warning if an implementation is missing.
+Overload definitions within stub files, protocols, and abstract base classes
+are exempt from this check.
 
 If an overload is decorated with ``@staticmethod`` or ``@classmethod``,
 all overloads must be similarly decorated. The implementation,
-if present, must be decorated in the same manner. Similarly, if one overload
-is ``async``, all overloads must be ``async`` as well as the implementation.
-Type checkers should report an error if these conditions are not met.
+if present, must be decorated in the same manner. Type checkers should report
+an error if these conditions are not met.
 
-If one or more overloads are decorated with ``@final`` but the
+If one or more overloads are decorated with ``@final`` or ``@override`` but the
 implementation is not, an error should be reported.
+
+Overloads are allowed to use a mixture of ``async def`` and ``def`` statements
+within the same overload definition. Type checkers should desugar all
+``async def`` statements before testing for implementation consistency
+and overlapping overloads (described below).
 
 
 Implementation consistency
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If an overload implementation is defined, type checkers should validate
-that its signature is consistent with all of its associated overload
-signatures. The implementation should accept all potential argument lists
+that it is consistent with all of its associated overload signatures.
+The implementation should accept all potential sets of arguments
 that are accepted by the overloads and should produce all potential return
 types produced by the overloads. In typing terms, this means the input
 signature of the implementation should be assignable to the input signatures
@@ -166,22 +171,36 @@ should report an error::
   def func(x: int | str, /) -> str:
     return str(x)
 
+When a type checker checks the implementation for consistency with overloads,
+it should first apply any transforms that change the effective type of the
+implementation including the presence of a ``yield`` statement in the
+implementation body, the use of ``async def``, and the presence of additional
+decorators.
+
+
 Overlapping overloads
 ^^^^^^^^^^^^^^^^^^^^^
 
-If two overloads can accept the same set of arguments but have 
-different return types, the overloads are said to "partially overlap".
-This condition is indicative of a programming error and should
-be reported by type checkers::
+If two overloads can accept the same set of arguments, they are said
+to "partially overlap". If two overloads partially overlap, the return type
+of the latter overload should be assignable to the return type of the
+former overload. If this condition doesn't hold, it is indicative of a
+programming error and should be reported by type checkers::
 
   # These overloads partially overlap because both accept an
   # argument of type ``Literal[0]``, but their return types
   # differ.
 
   @overload
-  def func(x: Literal[0]) -> int: ...
+  def func1(x: Literal[0]) -> int: ...
   @overload
-  def func(x: int) -> str: ...
+  def func1(x: int) -> str: ...
+
+[Eric's note for reviewers: Mypy exempts `__get__` from the above check. 
+Refer to https://github.com/python/typing/issues/253#issuecomment-389262904
+for Ivan's explanation. I'm not convinced this exemption is necessary.
+Currently pyright copies the exemption. Do we want to codify this or leave it
+out?]
 
 If all arguments accepted by an overload are also always accepted by
 an earlier overload, the two overloads are said to "fully overlap". 
@@ -218,7 +237,7 @@ input signatures.
 
 - If no candidate overloads remain, generate an error and stop.
 - If only one candidate overload remains, it is the winning match. Evaluate
-it as if it were a non-overloaded function call and stop.
+  it as if it were a non-overloaded function call and stop.
 - If two or more candidate overloads remain, proceed to step 2.
 
 
@@ -230,7 +249,7 @@ Simply record which of the overloads result in evaluation errors.
 
 - If all overloads result in errors, proceed to step 3.
 - If only one overload evaluates without error, it is the winning match.
-Evaluate it as if it were a non-overloaded function call and stop.
+  Evaluate it as if it were a non-overloaded function call and stop.
 - If two or more candidate overloads remain, proceed to step 4.
 
 
@@ -253,11 +272,12 @@ After each argument expansion, return to step 2 and evaluate all
 expanded argument lists.
 
 - If all argument lists evaluate successfully, combine their
-respective return types by union to determine the final return type
-for the call, and stop.
+  respective return types by union to determine the final return type
+  for the call, and stop.
 - If argument expansion has been applied to all arguments and one or
-more of the expanded argument lists cannot be evaluated successfully,
-generate an error and stop.
+  more of the expanded argument lists cannot be evaluated successfully,
+  generate an error and stop.
+
 
 For additional details about argument type expansion, see
 :ref:`argument-type-expansion` below.
@@ -270,29 +290,30 @@ that supplies an indeterminate number of positional or keyword arguments.
 If so, eliminate overloads that do not have a variadic parameter.
 
 - If this results in only one remaining candidate overload, it is
-the winning match. Evaluate it as if it were a non-overloaded function
-call and stop.
+  the winning match. Evaluate it as if it were a non-overloaded function
+  call and stop.
 - If two or more candidate overloads remain, proceed to step 5.
 
 
 Step 5: If the type of one or more arguments evaluates to a
-:ref:`gradual type` (e.g. ``list[Any]`` or ``str | Any``), determine
-whether some theoretical :ref:`materialization` of these gradual types
-could be used to disambiguate between two or more of the remaining
-overloads.
+type that includes a :term:`gradual form` (e.g. ``list[Any]`` or
+``str | Any``), determine whether some theoretical
+:ref:`materialization` of these gradual types could be used to disambiguate
+between two or more of the remaining overloads.
 
 - If none of the arguments evaluate to a gradual type, proceed to step 6.
 - If one or more arguments evaluate to a gradual type but no possible
-materializations of these types would disambiguate between the remaining
-overloads, proceed to step 6.
+  materializations of these types would disambiguate between the remaining
+  overloads, proceed to step 6.
 - If possible materializations of these types would disambiguate between
-two or more of the remaining overloads and this subset of overloads have
-consistent return types, proceed to step 6. If the return types include
-type variables, constraint solving should be applied here before testing
-for consistency.
+  two or more of the remaining overloads and this subset of overloads have
+  consistent return types, proceed to step 6. If the return types include
+  type variables, constraint solving should be applied here before testing
+  for consistency.
 - If none of the above conditions are met, the presence of gradual types
-leads to an ambiguous overload selection. Assume a return type of ``Any``
-and stop. This preserves the "gradual guarantee".
+  leads to an ambiguous overload selection. Assume a return type of ``Any``
+  and stop. This preserves the "gradual guarantee".
+
 
 [Eric's note for reviewers: I'm struggling to come up with an
 understandable and unambiguous way to describe this step.
@@ -386,27 +407,19 @@ Example 4::
   def example4(x: int, y: int) -> list[int]: ...
 
   def test(v1: list[Any], v2: Any):
-      # Step 4 eliminates third overload. Step 5
+      # Step 2 eliminates the third overload. Step 5
       # determines that first and second overloads
       # both apply and are ambiguous due to Any, but
       # return types are consistent.
-      r1 = example4(v1, 1)
-      reveal_type(r1)  # Should reveal int
+      r1 = example4(v1, v2)
+      reveal_type(r1)  # Reveals int
 
-      # Step 4 eliminates third overload. Step 5
-      # determines that first and second overloads
-      # both apply and are ambiguous due to Any, but
-      # return types are consistent.
-      r2 = example4([1], v2)
-      reveal_type(r2)  # Should reveal int
-
-      # Step 5 determines that first, second, and third
-      # overloads all apply and are ambiguous due to Any.
-      # These have inconsistent return types, so evaluated
-      # type is Any.
-      r3 = example4(v2, v2)
-      reveal_type(r3)  # Should reveal Any
-
+      # Step 2 eliminates the second overload. Step 5
+      # determines that first and third overloads
+      # both apply and are ambiguous due to Any, and
+      # the return types are inconsistent.
+      r2 = example4(v2, 1)
+      reveal_type(r2)  # Should reveal Any
 
 
 Argument type expansion
@@ -482,3 +495,10 @@ complexity to call evaluations and would likely result in a measurable slowdown
 in type evaluation, but it's worth considering. We could perhaps mitigate the
 slowdown by applying this behavior only when a constrained type variable is
 used in the call's signature.]
+
+[Eric's note for reviewers: What about expansion based on multiple inheritance?
+For example, if class C inherits from A and B, should we expand C into A and B
+for purposes of overload matching? This could get very expensive and difficult
+to spec, and it feels like a significant edge case, so I'm inclined to leave it
+out. No one has asked for this, to my knowledge.]
+
