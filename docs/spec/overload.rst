@@ -163,7 +163,7 @@ should report an error::
   def func(x: str, /) -> str: ...
   @overload
   def func(x: int) -> int: ...
-  
+
   # This implementation is inconsistent with the second overload
   # because it does not accept a keyword argument ``x`` and the
   # the overload's return type ``int`` is not assignable to the
@@ -203,7 +203,7 @@ Currently pyright copies the exemption. Do we want to codify this or leave it
 out?]
 
 If all arguments accepted by an overload are also always accepted by
-an earlier overload, the two overloads are said to "fully overlap". 
+an earlier overload, the two overloads are said to "fully overlap".
 In this case, the latter overload will never be used. This condition
 is indicative of a programming error and should be reported by type
 checkers::
@@ -376,7 +376,7 @@ Example 3::
   def example3(x: int, y: int) -> tuple[int, int]: ...
   @overload
   def example3(*args: int) -> tuple[int, ...]: ...
-  
+
   def test():
       # Step 1 eliminates second overload. Step 4 and
       # step 5 do not apply. Step 6 picks the first
