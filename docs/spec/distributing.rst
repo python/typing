@@ -41,18 +41,26 @@ corresponding "real" module. See :ref:`mro` for more information.
 Syntax
 ^^^^^^
 
-Stub files are syntactically valid Python files in the earliest Python version
-that is not yet end-of-life. They use a ``.pyi`` suffix. The Python syntax used
-by stub files is independent from the Python versions supported by the
-implementation, and from the Python version the type checker runs under (if
-any).
+Stub files are syntactically valid Python files with a ``.pyi`` suffix. They
+should be parseable (e.g., with :py:func:`ast.parse`) in all Python versions
+that are supported by the implementation and that are still supported
+by the CPython project. For example, defining a type alias using the
+``type`` keyword is only accepted by the Python parser in Python 3.12 and later,
+so stubs supporting Python 3.11 or earlier versions should not use this syntax.
+This allows type checkers implemented in Python to parse stub files using
+functionality from the standard library.
+Type checkers may choose to support syntactic features from newer Python versions
+in stub files, but stubs that rely on such features may not be portable to all
+type checkers. Type checkers may also choose to support Python versions that
+are no longer supported by CPython; if so, they cannot rely on standard library
+functionality to parse stub files.
 
-Type checkers should evaluate all annotation expressions as if they are quoted.
-Consequently, forward references do not need to be quoted, and syntax from newer
-versions than otherwise supported may be used in annotations. For example, the
-pipe union syntax (``X | Y``) introduced in Python 3.10 may be used even before
-Python 3.9 reaches end-of-life. Outside of annotations, type checkers may but
-are not required to support type system features that use newer syntax.
+Type checkers should evaluate all :term:`annotation expressions <annotation expression>` as if they are quoted.
+Consequently, forward references do not need to be quoted, and type system
+features that do not depend on Python syntax changes are supported in stubs regardless
+of the Python version supported. For example, the use of the ``|`` operator
+to create unions (``X | Y``) was introduced in Python 3.10, but may be used
+even in stubs that support Python 3.9 and older versions. 
 
 .. _stub-file-supported-constructs:
 
