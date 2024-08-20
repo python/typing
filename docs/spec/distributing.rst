@@ -60,7 +60,7 @@ Consequently, forward references do not need to be quoted, and type system
 features that do not depend on Python syntax changes are supported in stubs regardless
 of the Python version supported. For example, the use of the ``|`` operator
 to create unions (``X | Y``) was introduced in Python 3.10, but may be used
-even in stubs that support Python 3.9 and older versions. 
+even in stubs that support Python 3.9 and older versions.
 
 .. _stub-file-supported-constructs:
 
