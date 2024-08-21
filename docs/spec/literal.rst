@@ -93,6 +93,7 @@ what values may and may not be used as parameters.
 In short, a ``Literal[...]`` type may be parameterized by one or more literal
 expressions, and nothing else.
 
+.. _literal-legal-parameters:
 
 Legal parameters for ``Literal`` at type check time
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -504,6 +505,8 @@ involving Literal bools. For example, we can combine ``Literal[True]``,
        scalar += 3      # Type checks: type of 'scalar' is narrowed to 'int'
    else:
        scalar += "foo"  # Type checks: type of 'scalar' is narrowed to 'str'
+
+.. _literal-final-interactions:
 
 Interactions with Final
 """""""""""""""""""""""
