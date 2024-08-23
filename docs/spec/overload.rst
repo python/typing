@@ -377,7 +377,7 @@ Example 3::
   @overload
   def example3(*args: int) -> tuple[int, ...]: ...
 
-  def test():
+  def test(val: list[int]):
       # Step 1 eliminates second overload. Step 4 and
       # step 5 do not apply. Step 6 picks the first
       # overload.
@@ -392,7 +392,6 @@ Example 3::
 
       # Step 1 doesn't eliminate any overloads. Step 4
       # picks the third overload.
-      val = [1, 2, 3, 4]
       r3 = example3(*val)
       reveal_type(r3)  # Should reveal tuple[int, ...]
 
