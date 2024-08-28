@@ -139,8 +139,9 @@ If one or more overloads are decorated with ``@final`` or ``@override`` but the
 implementation is not, an error should be reported.
 
 Overloads are allowed to use a mixture of ``async def`` and ``def`` statements
-within the same overload definition. Type checkers should desugar all
-``async def`` statements before testing for implementation consistency
+within the same overload definition. Type checkers should convert
+``async def`` statements to a non-async signature (wrapping the return
+type in a ``Coroutine``) before testing for implementation consistency
 and overlapping overloads (described below).
 
 
@@ -152,9 +153,9 @@ that it is consistent with all of its associated overload signatures.
 The implementation should accept all potential sets of arguments
 that are accepted by the overloads and should produce all potential return
 types produced by the overloads. In typing terms, this means the input
-signature of the implementation should be assignable to the input signatures
-of all overloads, and the return type of all overloads should be assignable to
-the return type of the implementation.
+signature of the implementation should be :term:<assignable> to the input
+signatures of all overloads, and the return type of all overloads should be
+assignable to the return type of the implementation.
 
 If the implementation is inconsistent with its overloads, a type checker
 should report an error::
@@ -183,38 +184,45 @@ Overlapping overloads
 
 If two overloads can accept the same set of arguments, they are said
 to "partially overlap". If two overloads partially overlap, the return type
-of the latter overload should be assignable to the return type of the
-former overload. If this condition doesn't hold, it is indicative of a
+of the former overload should be assignable to the return type of the
+latter overload. If this condition doesn't hold, it is indicative of a
 programming error and should be reported by type checkers::
 
   # These overloads partially overlap because both accept an
-  # argument of type ``Literal[0]``, but their return types
-  # differ.
+  # argument of type Literal[0], but the return type int is
+  # not assignable to str.
 
   @overload
   def func1(x: Literal[0]) -> int: ...
   @overload
   def func1(x: int) -> str: ...
 
-[Eric's note for reviewers: Mypy exempts `__get__` from the above check.
-Refer to https://github.com/python/typing/issues/253#issuecomment-389262904
-for Ivan's explanation. I'm not convinced this exemption is necessary.
-Currently pyright copies the exemption. Do we want to codify this or leave it
-out?]
+Type checkers may exempt certain magic methods from the above check
+for conditions that are mandated by their usage in the runtime. For example,
+the ``__get__`` method of a descriptor is often defined using overloads
+that would partially overlap if the above rule is enforced.
 
-If all arguments accepted by an overload are also always accepted by
-an earlier overload, the two overloads are said to "fully overlap".
+If all possible sets of arguments accepted by an overload are also always
+accepted by an earlier overload, the two overloads are said to "fully overlap".
 In this case, the latter overload will never be used. This condition
 is indicative of a programming error and should be reported by type
 checkers::
 
-  # These overloads fully overlap because the second overload
-  # accepts all arguments accepted by the first overload.
+  # These overloads fully overlap because the first overload
+  # accepts all arguments accepted by the second overload.
 
   @overload
   def func[T](x: T) -> T: ...
   @overload
   def func(x: int) -> int: ...
+
+
+[Eric's note for reviewers: We've identified a number of subtle issues and
+cases where current type checkers do not honor the above rules, especially
+for partially-overlapping overloads. At this point, I'm tempted to delete
+this section entirely. We could always add it back to the spec later
+if and when we find that there's a need for it and we achieve consensus on
+the details.]
 
 
 Overload call evaluation
@@ -254,21 +262,20 @@ Simply record which of the overloads result in evaluation errors.
 
 
 Step 3: If step 2 produces errors for all overloads, perform
-"argument type expansion". Some types can be decomposed
-into two or more subtypes. For example, the type ``int | str`` can be
-expanded into ``int`` and ``str``.
+"argument type expansion". Union types can be expanded
+into their constituent subtypes. For example, the type ``int | str`` can
+be expanded into ``int`` and ``str``.
 
-Expansion should be performed one argument at a time from left to
+Type expansion should be performed one argument at a time from left to
 right. Each expansion results in sets of effective argument types.
 For example, if there are two arguments whose types evaluate to
 ``int | str`` and ``int | bytes``, expanding the first argument type
-results in two sets of argument types: ``(int, ?)`` and ``(str, ?)``.
-Here ``?`` represents an unexpanded argument type.
-If expansion of the second argument is required, four sets of
-argument types are produced: ``(int, int)``, ``(int, bytes)``,
+results in two sets of argument types: ``(int, int | bytes)`` and
+``(str, int | bytes)``. If type expansion for the second argument is required,
+four sets of argument types are produced: ``(int, int)``, ``(int, bytes)``,
 ``(str, int)``, and ``(str, bytes)``.
 
-After each argument expansion, return to step 2 and evaluate all
+After each argument's expansion, return to step 2 and evaluate all
 expanded argument lists.
 
 - If all argument lists evaluate successfully, combine their
@@ -295,44 +302,30 @@ If so, eliminate overloads that do not have a variadic parameter.
 - If two or more candidate overloads remain, proceed to step 5.
 
 
-Step 5: If the type of one or more arguments evaluates to a
-type that includes a :term:`gradual form` (e.g. ``list[Any]`` or
-``str | Any``), determine whether some theoretical
-:term:`materialization <materialize>` of these gradual types could be used
-to disambiguate between two or more of the remaining overloads.
+Step 5: For each argument, determine whether all possible
+:term:`materializations <materialize>` of the argument's type are assignable to
+the corresponding parameter type for each of the remaining overloads. If so,
+eliminate all of the subsequent remaining overloads.
 
-- If none of the arguments evaluate to a gradual type, proceed to step 6.
-- If one or more arguments evaluate to a gradual type but no possible
-  materializations of these types would disambiguate between the remaining
-  overloads, proceed to step 6.
-- If possible materializations of these types would disambiguate between
-  two or more of the remaining overloads and this subset of overloads have
-  consistent return types, proceed to step 6. If the return types include
-  type variables, constraint solving should be applied here before testing
-  for consistency.
-- If none of the above conditions are met, the presence of gradual types
-  leads to an ambiguous overload selection. Assume a return type of ``Any``
-  and stop. This preserves the "gradual guarantee".
+For example, if the argument type is ``list[Any]`` and there are three remaining
+overloads with corresponding parameter types of ``list[int]``, ``list[Any]``
+and ``Any``. We can eliminate the third of the remaining overloads because
+all manifestations of ``list[Any]`` are assignable to ``list[Any]``, the parameter
+in the second overload. We cannot eliminate the second overload because there
+are possible manifestations of ``list[Any]`` (for example, ``list[str]``) that
+are not assignable to ``list[int]``.
 
+Once this filtering process is applied for all arguments, examine the return
+types of the remaining overloads. If these return types include type variables,
+they should be replaced with their solved types. If the resulting return types
+for all remaining overloads are :term:<equivalent>, proceed to step 6.
 
-[Eric's note for reviewers: I'm struggling to come up with an
-understandable and unambiguous way to describe this step.
-Suggestions are welcome.]
-
-[Eric's note for reviewers: Pyright currently does not use return type
-consistency in the above check. Instead, it looks for non-overlapping
-return types. If return types are overlapping (that is, one is a consistent
-subtype of another), it uses the wider return type. Only if there is no
-consistency relationship between return types does it consider it an
-"ambiguous" situation and turns it into an Any. This produces better
-results for users of language servers, but it doesn't strictly preserve
-the gradual guarantee. I'm willing to abandon this in favor of a
-strict consistency check.]
+If the return types are not equivalent, overload matching is ambiguous. In
+this case, assume a return type of ``Any`` and stop.
 
 
 Step 6: Choose the first remaining candidate overload as the winning
 match. Evaluate it as if it were a non-overloaded function call and stop.
-
 
 Example 1::
 
@@ -356,24 +349,24 @@ Example 2::
   @overload
   def example2(x: int, y: int, z: int) -> int: ...
 
-  def test(val: str | int):
+  def test(values: list[str | int]):
       # In this example, argument type expansion is
       # performed on the first two arguments. Expansion
       # of the third is unnecessary.
-      r1 = example2(1, val, 1)
+      r1 = example2(1, values[0], 1)
       reveal_type(r1)  # Should reveal str | int
 
       # Here, the types of all three arguments are expanded
       # without success.
-      example2(val, val, val)  # Error in step 3
+      example2(values[0], values[1], values[2])  # Error in step 3
 
 
 Example 3::
 
   @overload
-  def example3(x: int) -> int: ...
+  def example3(x: int, /) -> tuple[int]: ...
   @overload
-  def example3(x: int, y: int) -> tuple[int, int]: ...
+  def example3(x: int, y: int, /) -> tuple[int, int]: ...
   @overload
   def example3(*args: int) -> tuple[int, ...]: ...
 
@@ -426,11 +419,12 @@ Example 4::
 Argument type expansion
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-When performing argument type expansion, the following types should be
-expanded:
+When performing argument type expansion, a type that is equivalent to
+a union of a finite set of subtypes should be expanded into its constituent
+subtypes. This includes the following cases.
 
-1. Unions: Each subtype of the union should be considered as a separate
-argument type. For example, the type ``int | str`` should be expanded
+1. Explicit unions: Each subtype of the union should be considered as a
+separate argument type. For example, the type ``int | str`` should be expanded
 into ``int`` and ``str``.
 
 2. ``bool`` should be expanded into ``Literal[True]`` and ``Literal[False]``.
@@ -441,64 +435,10 @@ be expanded into their literal members.
 4. ``type[A | B]`` should be expanded into ``type[A]`` and ``type[B]``.
 
 5. Tuples of known length that contain expandable types should be expanded
-into all possible combinations of their subtypes. For example, the type
+into all possible combinations of their element types. For example, the type
 ``tuple[int | str, bool]`` should be expanded into ``(int, Literal[True])``,
 ``(int, Literal[False])``, ``(str, Literal[True])``, and
 ``(str, Literal[False])``.
 
-
-[Eric's note for reviewers: I'm not 100% convinced we should
-support argument expansion in all of these cases. Tuple expansion,
-in particular, can be very costly and can quickly blow up in complexity.
-Currently, pyright and mypy support only the case 1 in the list above,
-but I have had requests to support 2 and 3.]
-
-When performing type expansion for an argument, the argument that
-is targeted for expansion should be evaluated without the use of
-any context. All arguments that are not yet expanded should
-continue to be evaluated with the benefit of context supplied by parameter
-types within each overload signature.
-
-Example::
-
-  class MyDict[T](TypedDict):
-      x: T
-
-  @overload
-  def func[T](a: int, b: MyDict[T]) -> T: ...
-
-  @overload
-  def func(a: str, b: dict[str, int]) -> str: ...
-
-
-  def test(val: int | str):
-      result = func(val, {'x': 1})
-      reveal_type(result)  # Should reveal "int | str"
-
-In this case, type expansion is performed on the first argument,
-which expands its type from ``int | str`` to ``int`` and ``str``.
-The expression for the second argument is evaluated in the context
-of both overloads. For the first overload, the second argument evaluates
-to ``MyDict[int]``, and for the second overload it evaluates to
-``dict[str, int]``. Both overloads are used to evaluate this call,
-and the final type of ``result`` is ``int | str``.
-
-[Eric's note: mypy apparently doesn't do this currently. It evaluates all
-arguments without the benefit of context, which produces less-than-ideal
-results in some cases.]
-
-
-[Eric's note for reviewers: We may want to provide for argument type expansion
-for regular (non-overloaded) calls as well. This came up recently in
-[this thread](https://discuss.python.org/t/proposal-relax-un-correlated-constrained-typevars/59658).
-I'm a bit hesitant to add this to the spec because it adds significant
-complexity to call evaluations and would likely result in a measurable slowdown
-in type evaluation, but it's worth considering. We could perhaps mitigate the
-slowdown by applying this behavior only when a constrained type variable is
-used in the call's signature.]
-
-[Eric's note for reviewers: What about expansion based on multiple inheritance?
-For example, if class C inherits from A and B, should we expand C into A and B
-for purposes of overload matching? This could get very expensive and difficult
-to spec, and it feels like a significant edge case, so I'm inclined to leave it
-out. No one has asked for this, to my knowledge.]
+The above list may not be exhaustive, and additional cases may be added in
+the future as the type system evolves.
