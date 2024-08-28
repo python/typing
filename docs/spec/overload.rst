@@ -130,13 +130,19 @@ checkers should report an error or warning if an implementation is missing.
 Overload definitions within stub files, protocols, and abstract base classes
 are exempt from this check.
 
-If an overload is decorated with ``@staticmethod`` or ``@classmethod``,
-all overloads must be similarly decorated. The implementation,
-if present, must be decorated in the same manner. Type checkers should report
-an error if these conditions are not met.
+If one overload signature is decorated with ``@staticmethod`` or
+``@classmethod``, all overload signatures must be similarly decorated. The
+implementation, if present, must also have a consistent decorator. Type
+checkers should report an error if these conditions are not met.
 
-If one or more overloads are decorated with ``@final`` or ``@override`` but the
-implementation is not, an error should be reported.
+If a ``@final`` or ``@override`` decorator is supplied for a function with
+overloads, the decorator should be applied only to the overload implementation
+if it is present. If an overload implementation isn't present (for example, in
+a stub file), the ``@final`` or ``@override`` decorator should be applied only
+to the first overload. Type checkers should enforce these rules and generate
+an error when they are violated. If a ``@final`` or ``@override`` decorator
+follows these rules, a type checker should treat the decorator as if it is
+present on all overloads.
 
 Overloads are allowed to use a mixture of ``async def`` and ``def`` statements
 within the same overload definition. Type checkers should convert
@@ -202,6 +208,21 @@ for conditions that are mandated by their usage in the runtime. For example,
 the ``__get__`` method of a descriptor is often defined using overloads
 that would partially overlap if the above rule is enforced.
 
+Type checkers may ignore the possibility of multiple inheritance or
+intersections involving structural types for purposes of computing overlap.
+In the following example, classes ``A`` and ``B`` could theoretically overlap
+because there could be a common type ``C`` that derives from both ``A`` and
+``B``, but type checkers may choose not to flag this as an overlapping
+overload::
+
+  class A: ...
+  class B: ...
+
+  @overload
+  def func(x: A) -> int: ...
+  @overload
+  def func(x: B) -> str: ...
+
 If all possible sets of arguments accepted by an overload are also always
 accepted by an earlier overload, the two overloads are said to "fully overlap".
 In this case, the latter overload will never be used. This condition
@@ -217,21 +238,14 @@ checkers::
   def func(x: int) -> int: ...
 
 
-[Eric's note for reviewers: We've identified a number of subtle issues and
-cases where current type checkers do not honor the above rules, especially
-for partially-overlapping overloads. At this point, I'm tempted to delete
-this section entirely. We could always add it back to the spec later
-if and when we find that there's a need for it and we achieve consensus on
-the details.]
-
-
 Overload call evaluation
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 When a type checker evaluates the call of an overloaded function, it
 attempts to "match" the supplied arguments with one or more overloads.
 This section describes the algorithm that type checkers should use
-for overload matching.
+for overload matching. This algorithm should be applied even in the
+presence of :ref:<overlapping overloads>.
 
 Only the overloads (the ``@overload``-decorated signatures) should be
 considered for matching purposes. The implementation, if provided,
@@ -310,10 +324,10 @@ eliminate all of the subsequent remaining overloads.
 For example, if the argument type is ``list[Any]`` and there are three remaining
 overloads with corresponding parameter types of ``list[int]``, ``list[Any]``
 and ``Any``. We can eliminate the third of the remaining overloads because
-all manifestations of ``list[Any]`` are assignable to ``list[Any]``, the parameter
-in the second overload. We cannot eliminate the second overload because there
-are possible manifestations of ``list[Any]`` (for example, ``list[str]``) that
-are not assignable to ``list[int]``.
+all materializations of ``list[Any]`` are assignable to ``list[Any]``, the
+parameter in the second overload. We cannot eliminate the second overload
+because there are possible materializations of ``list[Any]`` (for example,
+``list[str]``) that are not assignable to ``list[int]``.
 
 Once this filtering process is applied for all arguments, examine the return
 types of the remaining overloads. If these return types include type variables,
