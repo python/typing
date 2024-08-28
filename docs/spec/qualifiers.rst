@@ -225,10 +225,10 @@ Here are the specific details of the syntax:
 * The base expression (the first argument to ``Annotated``) must be valid
   in the context where it is being used:
 
-    * If ``Annotated`` is used in a place where arbitrary
-      :term:`annotation expressions <annotation expression>` are allowed,
-      the base expression may be an annotation expression.
-    * Otherwise, the base expression must be a valid :term:`type expression`.
+  * If ``Annotated`` is used in a place where arbitrary
+    :term:`annotation expressions <annotation expression>` are allowed,
+    the base expression may be an annotation expression.
+  * Otherwise, the base expression must be a valid :term:`type expression`.
 
 * Multiple metadata elements are supported (``Annotated`` supports variadic
   arguments)::
