@@ -192,16 +192,15 @@ If two overloads can accept the same set of arguments, they are said
 to "partially overlap". If two overloads partially overlap, the return type
 of the former overload should be assignable to the return type of the
 latter overload. If this condition doesn't hold, it is indicative of a
-programming error and should be reported by type checkers::
-
-  # These overloads partially overlap because both accept an
-  # argument of type Literal[0], but the return type int is
-  # not assignable to str.
+programming error and should be reported by type checkers. The purpose of
+this check is to prevent unsoundness of this form::
 
   @overload
-  def func1(x: Literal[0]) -> int: ...
+  def is_one(x: Literal[0]) -> Literal[True]: ...
   @overload
-  def func1(x: int) -> str: ...
+  def is_one(x: int) -> Literal[False]: ...
+
+  reveal_type(is_one(int(1)))  # Reveals Literal[False], but True at runtime
 
 Type checkers may exempt certain magic methods from the above check
 for conditions that are mandated by their usage in the runtime. For example,
