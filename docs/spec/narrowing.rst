@@ -110,6 +110,8 @@ is not narrowed in the negative case.
             reveal_type(val)  # tuple[str, str]
             ...
 
+.. _`typeis`:
+
 TypeIs
 ------
 
