@@ -38,7 +38,7 @@ var1 = 1
 # The following should all generate errors because they are not legal type
 # expressions, despite being enclosed in quotes.
 def invalid_annotations(
-    p1: "eval(" ".join(map(chr, [105, 110, 116])))",  # E
+    p1: "eval(''.join(map(chr, [105, 110, 116])))",  # E
     p2: "[int, str]",  # E
     p3: "(int, str)",  # E
     p4: "[int for i in range(1)]",  # E
