@@ -749,7 +749,8 @@ only if all of the following are satisfied:
 * For each item in ``A``, if ``B`` has the corresponding key, the corresponding
   value type in ``B`` is assignable to the value type in ``A``.
 * For each non-read-only item in ``A``, its value type is assignable to the
-  corresponding value type in ``B``.
+  corresponding value type in ``B``, and the corresponding key is not read-only
+  in ``B``.
 * For each required key in ``A``, the corresponding key is required in ``B``.
 * For each non-required key in ``A``, if the item is not read-only in ``A``,
   the corresponding key is not required in ``B``.
