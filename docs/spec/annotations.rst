@@ -349,16 +349,15 @@ types cannot be specified::
 Annotating instance and class methods
 -------------------------------------
 
-In most cases the first argument of class and instance methods
+In most cases the first argument of instance and class methods
 (conventionally named ``self`` or ``cls``) does not need to be annotated.
 
 If the argument is not annotated, then for instance methods it is
 assumed to have the type of the containing class or :ref:`Self
 <self>`, and for class methods the type object type corresponding to
-the containing class object or ``type[Self]``. For example, in class
-``A`` the first argument of an instance method has the implicit type
-``A``. In a class method, the precise type of the first argument
-cannot be represented using the available type notation.
+the containing class object or ``type[Self]``. In a class method, the
+precise type of the first argument cannot be represented using the
+available type notation.
 
 In addition, the first argument in an instance method can be annotated
 with a type variable. In this case the return type may use the same
