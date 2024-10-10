@@ -3,7 +3,11 @@ notes = """
 Type evaluation differs from other type checkers because of ambiguity in the spec related to method bindings.
 """
 output = """
-File "annotations_methods.py", line 42, in <module>: B [assert-type]
+annotations_methods.py:42:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: B [assert-type]
+
+assert_type(A.copy(B()), A)  # E?
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Pass"
 errors_diff = """

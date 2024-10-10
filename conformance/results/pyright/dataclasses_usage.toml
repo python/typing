@@ -2,14 +2,14 @@ conformant = "Pass"
 output = """
 dataclasses_usage.py:50:6 - error: Argument missing for parameter "unit_price" (reportCallIssue)
 dataclasses_usage.py:51:28 - error: Argument of type "Literal['price']" cannot be assigned to parameter "unit_price" of type "float" in function "__init__"
-  "Literal['price']" is incompatible with "float" (reportArgumentType)
+  "Literal['price']" is not assignable to "float" (reportArgumentType)
 dataclasses_usage.py:52:36 - error: Expected 3 positional arguments (reportCallIssue)
 dataclasses_usage.py:61:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
 dataclasses_usage.py:67:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
 dataclasses_usage.py:73:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
 dataclasses_usage.py:83:13 - error: Expected 1 positional argument (reportCallIssue)
-dataclasses_usage.py:88:14 - error: Expression of type "str" is incompatible with declared type "int"
-  "str" is incompatible with "int" (reportAssignmentType)
+dataclasses_usage.py:88:14 - error: Type "str" is not assignable to declared type "int"
+  "str" is not assignable to "int" (reportAssignmentType)
 dataclasses_usage.py:127:8 - error: Expected 1 positional argument (reportCallIssue)
 dataclasses_usage.py:130:1 - error: Argument missing for parameter "y" (reportCallIssue)
 dataclasses_usage.py:179:6 - error: Expected 0 positional arguments (reportCallIssue)

@@ -6,11 +6,31 @@ Does not reject `clear` method on TypedDict with required keys.
 Does not reject delete operation for required key in TypedDict.
 """
 output = """
-File "typeddicts_operations.py", line 28, in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
-File "typeddicts_operations.py", line 29, in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
-File "typeddicts_operations.py", line 32, in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
-File "typeddicts_operations.py", line 37, in func1: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
-File "typeddicts_operations.py", line 60, in <module>: str [assert-type]
+typeddicts_operations.py:28:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
+
+movie = {"name": "Blade Runner"}  # E: year is missing
+\u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:29:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
+
+movie = {"name": "Blade Runner", "year": 1982.1}  # E: year is wrong type
+\u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:32:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
+
+movie = {"name": "", "year": 1900, "other": 2}  # E: extra key
+\u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:37:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Type annotation for movie does not match type of assignment [annotation-type-mismatch]
+
+    movie: Movie = {variable_key: "", "year": 1900}  # E: variable key
+    \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:60:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: str [assert-type]
+
+assert_type(movie_optional.get("name"), str | None)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -21,5 +41,5 @@ Line 26: Expected 1 errors
 Line 47: Expected 1 errors
 Line 49: Expected 1 errors
 Line 62: Expected 1 errors
-Line 60: Unexpected errors ['File "typeddicts_operations.py", line 60, in <module>: str [assert-type]']
+Line 60: Unexpected errors ['typeddicts_operations.py:60:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: str [assert-type]']
 """

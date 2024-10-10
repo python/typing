@@ -3,37 +3,89 @@ notes = """
 Does not understand `Self` type.
 """
 output = """
-File "generics_self_advanced.py", line 12, in prop1: bad return type [bad-return-type]
+generics_self_advanced.py:12:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in prop1: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
 Called from (traceback):
   line 19, in current file
-File "generics_self_advanced.py", line 12, in prop1: bad return type [bad-return-type]
+generics_self_advanced.py:12:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in prop1: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
 Called from (traceback):
   line 18, in current file
-File "generics_self_advanced.py", line 19, in <module>: ParentA [assert-type]
-File "generics_self_advanced.py", line 29, in method1: bad return type [bad-return-type]
+generics_self_advanced.py:19:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: ParentA [assert-type]
+
+assert_type(ChildA().prop1, ChildA)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_self_advanced.py:29:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method1: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
 Called from (traceback):
   line 38, in method2
-File "generics_self_advanced.py", line 29, in method1: bad return type [bad-return-type]
-File "generics_self_advanced.py", line 35, in method2: ChildB [assert-type]
-File "generics_self_advanced.py", line 36, in method2: List[ChildB] [assert-type]
-File "generics_self_advanced.py", line 37, in method2: ChildB [assert-type]
-File "generics_self_advanced.py", line 38, in method2: ChildB [assert-type]
-File "generics_self_advanced.py", line 42, in method3: Type[ChildB] [assert-type]
-File "generics_self_advanced.py", line 43, in method3: List[ChildB] [assert-type]
-File "generics_self_advanced.py", line 44, in method3: ChildB [assert-type]
-File "generics_self_advanced.py", line 45, in method3: ChildB [assert-type]
+generics_self_advanced.py:29:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method1: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+generics_self_advanced.py:35:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method2: ChildB [assert-type]
+
+        assert_type(self, Self)
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_self_advanced.py:36:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method2: List[ChildB] [assert-type]
+
+        assert_type(self.a, list[Self])
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_self_advanced.py:37:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method2: ChildB [assert-type]
+
+        assert_type(self.a[0], Self)
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_self_advanced.py:38:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method2: ChildB [assert-type]
+
+        assert_type(self.method1(), Self)
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_self_advanced.py:42:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method3: Type[ChildB] [assert-type]
+
+        assert_type(cls, type[Self])
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_self_advanced.py:43:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method3: List[ChildB] [assert-type]
+
+        assert_type(cls.a, list[Self])
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_self_advanced.py:44:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method3: ChildB [assert-type]
+
+        assert_type(cls.a[0], Self)
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_self_advanced.py:45:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method3: ChildB [assert-type]
+
+        assert_type(cls.method1(), Self)
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 12: Unexpected errors ['File "generics_self_advanced.py", line 12, in prop1: bad return type [bad-return-type]', 'File "generics_self_advanced.py", line 12, in prop1: bad return type [bad-return-type]']
-Line 19: Unexpected errors ['File "generics_self_advanced.py", line 19, in <module>: ParentA [assert-type]']
-Line 29: Unexpected errors ['File "generics_self_advanced.py", line 29, in method1: bad return type [bad-return-type]', 'File "generics_self_advanced.py", line 29, in method1: bad return type [bad-return-type]']
-Line 35: Unexpected errors ['File "generics_self_advanced.py", line 35, in method2: ChildB [assert-type]']
-Line 36: Unexpected errors ['File "generics_self_advanced.py", line 36, in method2: List[ChildB] [assert-type]']
-Line 37: Unexpected errors ['File "generics_self_advanced.py", line 37, in method2: ChildB [assert-type]']
-Line 38: Unexpected errors ['File "generics_self_advanced.py", line 38, in method2: ChildB [assert-type]']
-Line 42: Unexpected errors ['File "generics_self_advanced.py", line 42, in method3: Type[ChildB] [assert-type]']
-Line 43: Unexpected errors ['File "generics_self_advanced.py", line 43, in method3: List[ChildB] [assert-type]']
-Line 44: Unexpected errors ['File "generics_self_advanced.py", line 44, in method3: ChildB [assert-type]']
-Line 45: Unexpected errors ['File "generics_self_advanced.py", line 45, in method3: ChildB [assert-type]']
+Line 12: Unexpected errors ['generics_self_advanced.py:12:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in prop1: bad return type [bad-return-type]', 'generics_self_advanced.py:12:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in prop1: bad return type [bad-return-type]']
+Line 19: Unexpected errors ['generics_self_advanced.py:19:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: ParentA [assert-type]']
+Line 29: Unexpected errors ['generics_self_advanced.py:29:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method1: bad return type [bad-return-type]', 'generics_self_advanced.py:29:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method1: bad return type [bad-return-type]']
+Line 35: Unexpected errors ['generics_self_advanced.py:35:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method2: ChildB [assert-type]']
+Line 36: Unexpected errors ['generics_self_advanced.py:36:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method2: List[ChildB] [assert-type]']
+Line 37: Unexpected errors ['generics_self_advanced.py:37:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method2: ChildB [assert-type]']
+Line 38: Unexpected errors ['generics_self_advanced.py:38:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method2: ChildB [assert-type]']
+Line 42: Unexpected errors ['generics_self_advanced.py:42:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method3: Type[ChildB] [assert-type]']
+Line 43: Unexpected errors ['generics_self_advanced.py:43:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method3: List[ChildB] [assert-type]']
+Line 44: Unexpected errors ['generics_self_advanced.py:44:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method3: ChildB [assert-type]']
+Line 45: Unexpected errors ['generics_self_advanced.py:45:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method3: ChildB [assert-type]']
 """

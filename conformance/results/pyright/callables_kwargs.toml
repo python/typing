@@ -1,33 +1,38 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Incorrectly handles assert_type for unpacked TypedDict.
+"""
 output = """
 callables_kwargs.py:28:5 - error: Could not access item in TypedDict
   "v2" is not a required key in "*TD2", so access may result in runtime exception (reportTypedDictNotRequiredAccess)
+callables_kwargs.py:41:17 - error: "assert_type" mismatch: expected "TD1" but received "*TD1" (reportAssertTypeFailure)
 callables_kwargs.py:46:5 - error: Arguments missing for parameters "v1", "v3" (reportCallIssue)
 callables_kwargs.py:51:32 - error: No parameter named "v4" (reportCallIssue)
 callables_kwargs.py:52:11 - error: Expected 0 positional arguments (reportCallIssue)
 callables_kwargs.py:58:13 - error: Argument of type "str" cannot be assigned to parameter "v1" of type "int" in function "func1"
-  "str" is incompatible with "int" (reportArgumentType)
+  "str" is not assignable to "int" (reportArgumentType)
 callables_kwargs.py:63:19 - error: Unable to match unpacked TypedDict argument to parameters
   Parameter "v1" is already assigned (reportCallIssue)
 callables_kwargs.py:64:16 - error: Unable to match unpacked TypedDict argument to parameters
   Parameter "v3" is already assigned (reportCallIssue)
 callables_kwargs.py:65:19 - error: Unable to match unpacked TypedDict argument to parameters
   Parameter "v1" is already assigned (reportCallIssue)
-callables_kwargs.py:101:19 - error: Expression of type "(**kwargs: **TD2) -> None" is incompatible with declared type "TDProtocol3"
-  Type "(**kwargs: **TD2) -> None" is incompatible with type "(*, v1: int, v2: int, v3: str) -> None"
+callables_kwargs.py:101:19 - error: Type "(**kwargs: **TD2) -> None" is not assignable to declared type "TDProtocol3"
+  Type "(**kwargs: **TD2) -> None" is not assignable to type "(*, v1: int, v2: int, v3: str) -> None"
     Keyword parameter "v2" of type "int" is incompatible with type "str"
-      "int" is incompatible with "str" (reportAssignmentType)
-callables_kwargs.py:102:19 - error: Expression of type "(**kwargs: **TD2) -> None" is incompatible with declared type "TDProtocol4"
-  Type "(**kwargs: **TD2) -> None" is incompatible with type "(*, v1: int) -> None"
+      "int" is not assignable to "str" (reportAssignmentType)
+callables_kwargs.py:102:19 - error: Type "(**kwargs: **TD2) -> None" is not assignable to declared type "TDProtocol4"
+  Type "(**kwargs: **TD2) -> None" is not assignable to type "(*, v1: int) -> None"
     Extra parameter "v3" (reportAssignmentType)
-callables_kwargs.py:103:19 - error: Expression of type "(**kwargs: **TD2) -> None" is incompatible with declared type "TDProtocol5"
-  Type "(**kwargs: **TD2) -> None" is incompatible with type "(v1: int, v3: str) -> None"
+callables_kwargs.py:103:19 - error: Type "(**kwargs: **TD2) -> None" is not assignable to declared type "TDProtocol5"
+  Type "(**kwargs: **TD2) -> None" is not assignable to type "(v1: int, v3: str) -> None"
     Function accepts too many positional parameters; expected 0 but received 2
       Extra parameter "v1"
       Extra parameter "v3" (reportAssignmentType)
 callables_kwargs.py:111:30 - error: Typed dictionary overlaps with keyword parameter: v1 (reportGeneralTypeIssues)
 callables_kwargs.py:122:21 - error: Expected TypedDict type argument for Unpack (reportGeneralTypeIssues)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 41: Unexpected errors ['callables_kwargs.py:41:17 - error: "assert_type" mismatch: expected "TD1" but received "*TD1" (reportAssertTypeFailure)']
 """

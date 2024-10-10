@@ -4,9 +4,21 @@ Does not report errant use of TypedDict in `isinstance` call.
 Does not reject use of TypedDict as TypeVar bound.
 """
 output = """
-File "typeddicts_usage.py", line 23, in <module>: TypedDict Movie does not contain key director [typed-dict-error]
-File "typeddicts_usage.py", line 24, in <module>: Type annotation for key year in TypedDict Movie does not match type of assignment [annotation-type-mismatch]
-File "typeddicts_usage.py", line 28, in <module>: Type annotation for movie2 does not match type of assignment [annotation-type-mismatch]
+typeddicts_usage.py:23:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: TypedDict Movie does not contain key director [typed-dict-error]
+
+movie["director"] = "Ridley Scott"  # E: invalid key 'director'
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_usage.py:24:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for key year in TypedDict Movie does not match type of assignment [annotation-type-mismatch]
+
+movie["year"] = "1982"  # E: invalid value type ("int" expected)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_usage.py:28:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for movie2 does not match type of assignment [annotation-type-mismatch]
+
+movie2: Movie = {"title": "Blade Runner", "year": 1982}  # E
+\u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """

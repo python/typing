@@ -8,7 +8,7 @@ Does not generate error for unquoted type defined in class scope.
 Does not treat triple-quoted forward reference annotation as implicitly parenthesized.
 """
 output = """
-annotations_forward_refs.py:41:8 Undefined or invalid type [11]: Annotation `eval(.join(map(chr, [105, 110, 116])))` is not defined as a type.
+annotations_forward_refs.py:41:8 Invalid type [31]: Expression `eval("".join(map(chr, [105, 110, 116])))` is not a valid type.
 annotations_forward_refs.py:42:8 Invalid type [31]: Expression `"[int, str]"` is not a valid type.
 annotations_forward_refs.py:43:8 Invalid type [31]: Expression `"(int, str)"` is not a valid type.
 annotations_forward_refs.py:44:8 Undefined or invalid type [11]: Annotation `comprehension(int for generators(generator($target$i in range(1) if )))` is not defined as a type.

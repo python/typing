@@ -5,7 +5,15 @@ Does not report when metaclass is provided.
 Does not report when other keyword argument is provided.
 """
 output = """
-File "typeddicts_class_syntax.py", line 57, in <module>: Invalid base class: Generic[T] [base-class-error]
+typeddicts_class_syntax.py:57:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid base class: Generic[T] [base-class-error]
+
+class GenericTypedDict(TypedDict, Generic[T]):
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    name: str
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    value: T
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -14,5 +22,5 @@ Line 33: Expected 1 errors
 Line 38: Expected 1 errors
 Line 44: Expected 1 errors
 Line 49: Expected 1 errors
-Line 57: Unexpected errors ['File "typeddicts_class_syntax.py", line 57, in <module>: Invalid base class: Generic[T] [base-class-error]']
+Line 57: Unexpected errors ['typeddicts_class_syntax.py:57:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid base class: Generic[T] [base-class-error]']
 """

@@ -6,31 +6,31 @@ output = """
 narrowing_typeis.py:105:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)
 narrowing_typeis.py:110:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)
 narrowing_typeis.py:132:20 - error: Argument of type "(val: object) -> TypeIs[int]" cannot be assigned to parameter "f" of type "(object) -> str" in function "takes_callable_str"
-  Type "(val: object) -> TypeIs[int]" is incompatible with type "(object) -> str"
+  Type "(val: object) -> TypeIs[int]" is not assignable to type "(object) -> str"
     Function return type "TypeIs[int]" is incompatible with type "str"
-      "TypeIs[int]" is incompatible with "str"
-      "bool" is incompatible with "str" (reportArgumentType)
+      "TypeIs[int]" is not assignable to "str"
+      "bool" is not assignable to "str" (reportArgumentType)
 narrowing_typeis.py:152:26 - error: Argument of type "(val: object) -> TypeIs[int]" cannot be assigned to parameter "f" of type "CallableStrProto" in function "takes_callable_str_proto"
-  Type "(val: object) -> TypeIs[int]" is incompatible with type "(val: object) -> str"
+  Type "(val: object) -> TypeIs[int]" is not assignable to type "(val: object) -> str"
     Function return type "TypeIs[int]" is incompatible with type "str"
-      "TypeIs[int]" is incompatible with "str"
-      "bool" is incompatible with "str" (reportArgumentType)
+      "TypeIs[int]" is not assignable to "str"
+      "bool" is not assignable to "str" (reportArgumentType)
 narrowing_typeis.py:169:17 - error: Argument of type "(val: object) -> TypeIs[int]" cannot be assigned to parameter "f" of type "(object) -> TypeGuard[int]" in function "takes_typeguard"
-  Type "(val: object) -> TypeIs[int]" is incompatible with type "(object) -> TypeGuard[int]"
+  Type "(val: object) -> TypeIs[int]" is not assignable to type "(object) -> TypeGuard[int]"
     Function return type "TypeIs[int]" is incompatible with type "TypeGuard[int]"
-      "TypeIs[int]" is incompatible with "TypeGuard[int]"
-      "bool" is incompatible with "TypeGuard[int]" (reportArgumentType)
+      "TypeIs[int]" is not assignable to "TypeGuard[int]"
+      "bool" is not assignable to "TypeGuard[int]" (reportArgumentType)
 narrowing_typeis.py:170:14 - error: Argument of type "(val: object) -> TypeGuard[int]" cannot be assigned to parameter "f" of type "(object) -> TypeIs[int]" in function "takes_typeis"
-  Type "(val: object) -> TypeGuard[int]" is incompatible with type "(object) -> TypeIs[int]"
+  Type "(val: object) -> TypeGuard[int]" is not assignable to type "(object) -> TypeIs[int]"
     Function return type "TypeGuard[int]" is incompatible with type "TypeIs[int]"
-      "TypeGuard[int]" is incompatible with "TypeIs[int]"
-      "bool" is incompatible with "TypeIs[int]" (reportArgumentType)
+      "TypeGuard[int]" is not assignable to "TypeIs[int]"
+      "bool" is not assignable to "TypeIs[int]" (reportArgumentType)
 narrowing_typeis.py:191:18 - error: Argument of type "(val: object) -> TypeIs[bool]" cannot be assigned to parameter "f" of type "(object) -> TypeIs[int]" in function "takes_int_typeis"
-  Type "(val: object) -> TypeIs[bool]" is incompatible with type "(object) -> TypeIs[int]"
+  Type "(val: object) -> TypeIs[bool]" is not assignable to type "(object) -> TypeIs[int]"
     Function return type "TypeIs[bool]" is incompatible with type "TypeIs[int]"
-      "TypeIs[bool]" is incompatible with "TypeIs[int]"
+      "TypeIs[bool]" is not assignable to "TypeIs[int]"
         Type parameter "T@TypeIs" is invariant, but "bool" is not the same as "int"
-      "bool" is incompatible with "TypeIs[int]" (reportArgumentType)
+      "bool" is not assignable to "TypeIs[int]" (reportArgumentType)
 narrowing_typeis.py:195:27 - error: Return type of TypeIs ("str") is not consistent with value parameter type ("int") (reportGeneralTypeIssues)
 narrowing_typeis.py:199:45 - error: Return type of TypeIs ("list[int]") is not consistent with value parameter type ("list[object]") (reportGeneralTypeIssues)
 """

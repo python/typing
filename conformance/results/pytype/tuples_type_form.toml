@@ -1,18 +1,70 @@
 conformant = "Pass"
 output = """
-File "tuples_type_form.py", line 12, in <module>: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_form.py", line 14, in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_form.py", line 15, in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_form.py", line 25, in <module>: Type annotation for t10 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_form.py", line 36, in <module>: Type annotation for t20 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_form.py", line 40, in <module>: Invalid type annotation 'tuple[int, int, Any]'  [invalid-annotation]
-File "tuples_type_form.py", line 41, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
-File "tuples_type_form.py", line 42, in <module>: Invalid type annotation 'tuple[Any, int]'  [invalid-annotation]
-File "tuples_type_form.py", line 42, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
-File "tuples_type_form.py", line 43, in <module>: Invalid type annotation 'tuple[int, Any, int]'  [invalid-annotation]
-File "tuples_type_form.py", line 43, in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
-File "tuples_type_form.py", line 44, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
-File "tuples_type_form.py", line 45, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+tuples_type_form.py:12:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]
+
+t1 = (1, 2)  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:14:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
+
+t2 = (1,)  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:15:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
+
+t2 = (1, "")  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:25:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t10 does not match type of assignment [annotation-type-mismatch]
+
+t10 = (1,)  # E
+\u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:36:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t20 does not match type of assignment [annotation-type-mismatch]
+
+t20 = (1, 2, 3, "")  # E
+\u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:40:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[int, int, Any]'  [invalid-annotation]
+
+t31: tuple[int, int, ...]  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:41:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
+
+t32: tuple[...]  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:42:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any, int]'  [invalid-annotation]
+
+t33: tuple[..., int]  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:42:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
+
+t33: tuple[..., int]  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:43:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[int, Any, int]'  [invalid-annotation]
+
+t34: tuple[int, ..., int]  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:43:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Ellipsis'  [invalid-annotation]
+
+t34: tuple[int, ..., int]  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:44:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t35: tuple[*tuple[str], ...]  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_form.py:45:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t36: tuple[*tuple[str, ...], ...]  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Pass"
 errors_diff = """

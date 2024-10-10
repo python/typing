@@ -1,35 +1,104 @@
 conformant = "Unsupported"
 output = """
-File "generics_defaults_specialization.py", line 15, in <module>: wrong arguments [invalid-typevar]
-File "generics_defaults_specialization.py", line 16, in <module>: wrong arguments [invalid-typevar]
-File "generics_defaults_specialization.py", line 25, in <module>: Invalid type annotation 'SomethingWithNoDefaults[int, Any][bool]'  [invalid-annotation]
-File "generics_defaults_specialization.py", line 26, in func1: SomethingWithNoDefaults[int, Any] [assert-type]
-File "generics_defaults_specialization.py", line 27, in func1: SomethingWithNoDefaults[int, Any] [assert-type]
-File "generics_defaults_specialization.py", line 30, in <module>: Invalid type annotation 'SomethingWithNoDefaults[int, Any][bool, int]'  [invalid-annotation]
-File "generics_defaults_specialization.py", line 38, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
-File "generics_defaults_specialization.py", line 42, in <module>: Invalid type annotation 'SubclassMe[int, Any]'  [invalid-annotation]
-File "generics_defaults_specialization.py", line 45, in <module>: class Bar is not indexable [not-indexable]
-File "generics_defaults_specialization.py", line 46, in <module>: class Bar is not indexable [not-indexable]
-File "generics_defaults_specialization.py", line 47, in <module>: class Bar is not indexable [not-indexable]
-File "generics_defaults_specialization.py", line 53, in <module>: Any [assert-type]
-File "generics_defaults_specialization.py", line 55, in <module>: class Foo is not indexable [not-indexable]
-File "generics_defaults_specialization.py", line 58, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
-File "generics_defaults_specialization.py", line 65, in <module>: class Baz is not indexable [not-indexable]
-File "generics_defaults_specialization.py", line 65, in <module>: Invalid type annotation 'Baz[int, str]'  [invalid-annotation]
+generics_defaults_specialization.py:15:15: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+
+DefaultIntT = TypeVar("DefaultIntT", default=int)
+              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:16:15: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+
+DefaultStrT = TypeVar("DefaultStrT", default=str)
+              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:25:28: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'SomethingWithNoDefaults[int, Any][bool]'  [invalid-annotation]
+
+def func1(p1: MyAlias, p2: MyAlias[bool]):
+                           \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:26:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: SomethingWithNoDefaults[int, Any] [assert-type]
+
+    assert_type(p1, SomethingWithNoDefaults[int, str])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:27:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: SomethingWithNoDefaults[int, Any] [assert-type]
+
+    assert_type(p2, SomethingWithNoDefaults[int, bool])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:30:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'SomethingWithNoDefaults[int, Any][bool, int]'  [invalid-annotation]
+
+MyAlias[bool, int]  # E: too many arguments passed to MyAlias
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:38:18: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+
+class SubclassMe(Generic[T1, DefaultStrT]):
+                 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:42:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'SubclassMe[int, Any]'  [invalid-annotation]
+
+class Bar(SubclassMe[int, DefaultStrT]): ...
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:45:23: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: class Bar is not indexable [not-indexable]
+
+assert_type(Bar, type[Bar[str]])
+                      \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:46:20: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: class Bar is not indexable [not-indexable]
+
+assert_type(Bar(), Bar[str])
+                   \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:47:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: class Bar is not indexable [not-indexable]
+
+assert_type(Bar[bool](), Bar[bool])
+            \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:47:26: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: class Bar is not indexable [not-indexable]
+
+assert_type(Bar[bool](), Bar[bool])
+                         \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:53:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+assert_type(Foo().x, str)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:55:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: class Foo is not indexable [not-indexable]
+
+Foo[str]  # E: Foo cannot be further subscripted
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:58:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+
+class Baz(Generic[DefaultIntT, DefaultStrT]): ...
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:65:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: class Baz is not indexable [not-indexable]
+
+v1: Baz[int, str] = Spam()
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_defaults_specialization.py:65:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Baz[int, str]'  [invalid-annotation]
+
+v1: Baz[int, str] = Spam()
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 15: Unexpected errors ['File "generics_defaults_specialization.py", line 15, in <module>: wrong arguments [invalid-typevar]']
-Line 16: Unexpected errors ['File "generics_defaults_specialization.py", line 16, in <module>: wrong arguments [invalid-typevar]']
-Line 25: Unexpected errors ['File "generics_defaults_specialization.py", line 25, in <module>: Invalid type annotation \\'SomethingWithNoDefaults[int, Any][bool]\\'  [invalid-annotation]']
-Line 26: Unexpected errors ['File "generics_defaults_specialization.py", line 26, in func1: SomethingWithNoDefaults[int, Any] [assert-type]']
-Line 27: Unexpected errors ['File "generics_defaults_specialization.py", line 27, in func1: SomethingWithNoDefaults[int, Any] [assert-type]']
-Line 38: Unexpected errors ['File "generics_defaults_specialization.py", line 38, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
-Line 42: Unexpected errors ['File "generics_defaults_specialization.py", line 42, in <module>: Invalid type annotation \\'SubclassMe[int, Any]\\'  [invalid-annotation]']
-Line 45: Unexpected errors ['File "generics_defaults_specialization.py", line 45, in <module>: class Bar is not indexable [not-indexable]']
-Line 46: Unexpected errors ['File "generics_defaults_specialization.py", line 46, in <module>: class Bar is not indexable [not-indexable]']
-Line 47: Unexpected errors ['File "generics_defaults_specialization.py", line 47, in <module>: class Bar is not indexable [not-indexable]']
-Line 53: Unexpected errors ['File "generics_defaults_specialization.py", line 53, in <module>: Any [assert-type]']
-Line 58: Unexpected errors ['File "generics_defaults_specialization.py", line 58, in <module>: Invalid type annotation \\'Generic\\'  [invalid-annotation]']
-Line 65: Unexpected errors ['File "generics_defaults_specialization.py", line 65, in <module>: class Baz is not indexable [not-indexable]', 'File "generics_defaults_specialization.py", line 65, in <module>: Invalid type annotation \\'Baz[int, str]\\'  [invalid-annotation]']
+Line 15: Unexpected errors ['generics_defaults_specialization.py:15:15: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
+Line 16: Unexpected errors ['generics_defaults_specialization.py:16:15: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
+Line 25: Unexpected errors ["generics_defaults_specialization.py:25:28: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'SomethingWithNoDefaults[int, Any][bool]'  [invalid-annotation]"]
+Line 26: Unexpected errors ['generics_defaults_specialization.py:26:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: SomethingWithNoDefaults[int, Any] [assert-type]']
+Line 27: Unexpected errors ['generics_defaults_specialization.py:27:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: SomethingWithNoDefaults[int, Any] [assert-type]']
+Line 38: Unexpected errors ["generics_defaults_specialization.py:38:18: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]"]
+Line 42: Unexpected errors ["generics_defaults_specialization.py:42:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'SubclassMe[int, Any]'  [invalid-annotation]"]
+Line 45: Unexpected errors ['generics_defaults_specialization.py:45:23: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Bar is not indexable [not-indexable]']
+Line 46: Unexpected errors ['generics_defaults_specialization.py:46:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Bar is not indexable [not-indexable]']
+Line 47: Unexpected errors ['generics_defaults_specialization.py:47:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Bar is not indexable [not-indexable]', 'generics_defaults_specialization.py:47:26: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Bar is not indexable [not-indexable]']
+Line 53: Unexpected errors ['generics_defaults_specialization.py:53:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 58: Unexpected errors ["generics_defaults_specialization.py:58:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]"]
+Line 65: Unexpected errors ['generics_defaults_specialization.py:65:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Baz is not indexable [not-indexable]', "generics_defaults_specialization.py:65:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Baz[int, str]'  [invalid-annotation]"]
 """

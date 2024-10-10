@@ -3,12 +3,10 @@ output = """
 namedtuples_usage.py:34:7 - error: Index 3 is out of range for type Point (reportGeneralTypeIssues)
 namedtuples_usage.py:35:7 - error: Index -4 is out of range for type Point (reportGeneralTypeIssues)
 namedtuples_usage.py:40:3 - error: Cannot assign to attribute "x" for class "Point"
-  Attribute "x" is read-only
-    Attribute "__set__" is unknown (reportAttributeAccessIssue)
+  Attribute "x" is read-only (reportAttributeAccessIssue)
 namedtuples_usage.py:41:1 - error: "__setitem__" method not defined on type "Point" (reportIndexIssue)
 namedtuples_usage.py:42:7 - error: Cannot delete attribute "x" for class "Point"
-  Attribute "x" is read-only
-    Attribute "__delete__" is unknown (reportAttributeAccessIssue)
+  Attribute "x" is read-only (reportAttributeAccessIssue)
 namedtuples_usage.py:43:5 - error: "__delitem__" method not defined on type "Point" (reportIndexIssue)
 namedtuples_usage.py:52:1 - error: Expression with type "Point" cannot be assigned to target tuple
   Type "Point" is incompatible with target tuple

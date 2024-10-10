@@ -12,19 +12,104 @@ Does not reject use of ClassVar in type alias definition.
 Does not reject assignment of ClassVar through instance of class.
 """
 output = """
-File "classes_classvar.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
-File "classes_classvar.py", line 29, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
-File "classes_classvar.py", line 38, in ClassA: Invalid type annotation 'ClassVar[int, str]'  [invalid-annotation]
-File "classes_classvar.py", line 38, in ClassA: Invalid type annotation 'ClassVar[int, str]'  [invalid-annotation]
-File "classes_classvar.py", line 39, in ClassA: class ClassVar is not indexable [not-indexable]
-File "classes_classvar.py", line 39, in ClassA: Invalid type annotation 'CV[3]'  [invalid-annotation]
-File "classes_classvar.py", line 40, in ClassA: Name 'var' is not defined [name-error]
-File "classes_classvar.py", line 52, in ClassA: Type annotation for bad8 does not match type of assignment [annotation-type-mismatch]
-File "classes_classvar.py", line 60, in ClassA: Type annotation for good4 does not match type of assignment [annotation-type-mismatch]
-File "classes_classvar.py", line 68, in method2: bad return type [bad-return-type]
-File "classes_classvar.py", line 78, in <module>: ClassVar [assert-type]
-File "classes_classvar.py", line 124, in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]
-File "classes_classvar.py", line 134, in <module>: Type annotation for a does not match type of assignment [annotation-type-mismatch]
+classes_classvar.py:7:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
+
+from typing import (
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    Annotated,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    Any,
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+    Callable,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    ClassVar,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    Final,
+\u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+    Generic,
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+    ParamSpec,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    Protocol,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    TypeAlias,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    TypeVar,
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+    TypeVarTuple,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    assert_type,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    cast,
+\u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+)
+\u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+classes_classvar.py:29:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+
+Ts = TypeVarTuple("Ts")
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+classes_classvar.py:38:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassA: Invalid type annotation 'ClassVar[int, str]'  [invalid-annotation]
+
+    bad1: ClassVar[int, str] = cast(Any, 0)  # E: too many arguments
+    \u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+classes_classvar.py:38:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassA: Invalid type annotation 'ClassVar[int, str]'  [invalid-annotation]
+
+    bad1: ClassVar[int, str] = cast(Any, 0)  # E: too many arguments
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+classes_classvar.py:39:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassA: class ClassVar is not indexable [not-indexable]
+
+    bad2: CV[3] = cast(Any, 0)  # E: invalid type
+          \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+classes_classvar.py:39:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassA: Invalid type annotation 'CV[3]'  [invalid-annotation]
+
+    bad2: CV[3] = cast(Any, 0)  # E: invalid type
+    \u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+classes_classvar.py:40:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassA: Name 'var' is not defined [name-error]
+
+    bad3: CV[var] = cast(Any, 0)  # E: invalid type
+             \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+classes_classvar.py:40:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassA: Name 'var' is not defined [name-error]
+
+    bad3: CV[var] = cast(Any, 0)  # E: invalid type
+    \u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+classes_classvar.py:52:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassA: Type annotation for bad8 does not match type of assignment [annotation-type-mismatch]
+
+    bad8: ClassVar[list[str]] = {}  # E: type violation in initialization
+    \u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+classes_classvar.py:60:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassA: Type annotation for good4 does not match type of assignment [annotation-type-mismatch]
+
+    good4: ClassVar = 3.1
+    \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+classes_classvar.py:68:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method2: bad return type [bad-return-type]
+
+        return 3
+               \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+classes_classvar.py:78:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: ClassVar [assert-type]
+
+assert_type(ClassA.good4, float)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+classes_classvar.py:124:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]
+
+    z: CV = [""]
+    \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+classes_classvar.py:134:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for a does not match type of assignment [annotation-type-mismatch]
+
+a: ProtoA = ProtoAImpl()  # E: y is not a ClassVar
+\u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -40,10 +125,10 @@ Line 67: Expected 1 errors
 Line 71: Expected 1 errors
 Line 72: Expected 1 errors
 Line 105: Expected 1 errors
-Line 7: Unexpected errors ['File "classes_classvar.py", line 7, in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
-Line 29: Unexpected errors ['File "classes_classvar.py", line 29, in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
-Line 60: Unexpected errors ['File "classes_classvar.py", line 60, in ClassA: Type annotation for good4 does not match type of assignment [annotation-type-mismatch]']
-Line 68: Unexpected errors ['File "classes_classvar.py", line 68, in method2: bad return type [bad-return-type]']
-Line 78: Unexpected errors ['File "classes_classvar.py", line 78, in <module>: ClassVar [assert-type]']
-Line 124: Unexpected errors ['File "classes_classvar.py", line 124, in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]']
+Line 7: Unexpected errors ['classes_classvar.py:7:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
+Line 29: Unexpected errors ['classes_classvar.py:29:6: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
+Line 60: Unexpected errors ['classes_classvar.py:60:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in ClassA: Type annotation for good4 does not match type of assignment [annotation-type-mismatch]']
+Line 68: Unexpected errors ['classes_classvar.py:68:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method2: bad return type [bad-return-type]']
+Line 78: Unexpected errors ['classes_classvar.py:78:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: ClassVar [assert-type]']
+Line 124: Unexpected errors ['classes_classvar.py:124:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in ProtoA: Type annotation for z does not match type of assignment [annotation-type-mismatch]']
 """

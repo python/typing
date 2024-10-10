@@ -5,61 +5,281 @@ Does not report type violation when assigning `tuple[int, ...]` to `tuple[int]`.
 Does not support tuple narrowing based on `len()` type guard (optional).
 """
 output = """
-File "tuples_type_compat.py", line 15, in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 22, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
-File "tuples_type_compat.py", line 27, in func2: Invalid type annotation 'tuple[int, *tuple[int, ...]]'  [invalid-annotation]
-File "tuples_type_compat.py", line 47, in func3: Invalid type annotation 'tuple[int, *tuple[str, ...]]'  [invalid-annotation]
-File "tuples_type_compat.py", line 71, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
-File "tuples_type_compat.py", line 74, in func5: tuple [assert-type]
-File "tuples_type_compat.py", line 78, in func5: tuple [assert-type]
-File "tuples_type_compat.py", line 82, in func5: tuple [assert-type]
-File "tuples_type_compat.py", line 91, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
-File "tuples_type_compat.py", line 115, in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]
-File "tuples_type_compat.py", line 117, in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]
-File "tuples_type_compat.py", line 134, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
-File "tuples_type_compat.py", line 139, in func8: Sequence [assert-type]
-File "tuples_type_compat.py", line 140, in func8: Sequence [assert-type]
-File "tuples_type_compat.py", line 143, in <module>: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 143, in <module>: Invalid type annotation 'tuple[int, *tuple[str]]'  [invalid-annotation]
-File "tuples_type_compat.py", line 143, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
-File "tuples_type_compat.py", line 144, in <module>: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 146, in <module>: Invalid type annotation 'tuple[int, *tuple[str, ...]]'  [invalid-annotation]
-File "tuples_type_compat.py", line 146, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
-File "tuples_type_compat.py", line 147, in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 148, in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 149, in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 150, in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 153, in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 153, in <module>: Invalid type annotation 'tuple[int, *tuple[str, ...], int]'  [invalid-annotation]
-File "tuples_type_compat.py", line 153, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
-File "tuples_type_compat.py", line 154, in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 155, in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 156, in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 157, in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 159, in <module>: Invalid type annotation 'tuple[*tuple[str, ...], int]'  [invalid-annotation]
-File "tuples_type_compat.py", line 159, in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
-File "tuples_type_compat.py", line 160, in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 161, in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 162, in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 163, in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 167, in func9: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 167, in func9: Invalid type annotation 'tuple[str, str, *tuple[int, ...]]'  [invalid-annotation]
-File "tuples_type_compat.py", line 168, in func9: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 168, in func9: Invalid type annotation 'tuple[str, str, *tuple[int]]'  [invalid-annotation]
-File "tuples_type_compat.py", line 169, in func9: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 169, in func9: Invalid type annotation 'tuple[str, *tuple[str, ...]]'  [invalid-annotation]
-File "tuples_type_compat.py", line 170, in func9: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 170, in func9: Invalid type annotation 'tuple[str, str, *tuple[str, ...]]'  [invalid-annotation]
-File "tuples_type_compat.py", line 171, in func9: Type annotation for t5 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 171, in func9: Invalid type annotation 'tuple[str, str, str, *tuple[str, ...]]'  [invalid-annotation]
-File "tuples_type_compat.py", line 172, in func9: Type annotation for t6 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 172, in func9: Invalid type annotation 'tuple[str, *tuple[int, ...], str]'  [invalid-annotation]
-File "tuples_type_compat.py", line 173, in func9: Type annotation for t7 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 173, in func9: Invalid type annotation 'tuple[*tuple[str, ...], str]'  [invalid-annotation]
-File "tuples_type_compat.py", line 174, in func9: Type annotation for t8 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 174, in func9: Invalid type annotation 'tuple[*tuple[str, ...], str]'  [invalid-annotation]
-File "tuples_type_compat.py", line 175, in func9: Type annotation for t9 does not match type of assignment [annotation-type-mismatch]
-File "tuples_type_compat.py", line 175, in func9: Invalid type annotation 'tuple[*tuple[str, ...], str, str, str]'  [invalid-annotation]
+tuples_type_compat.py:15:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
+
+    v2: tuple[int, int] = t1  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:22:31: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+def func2(t1: tuple[int], t2: tuple[int, *tuple[int, ...]], t3: tuple[int, ...]):
+                              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:27:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: Invalid type annotation 'tuple[int, *tuple[int, ...]]'  [invalid-annotation]
+
+    v2: tuple[int, *tuple[int, ...]]
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:47:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Invalid type annotation 'tuple[int, *tuple[str, ...]]'  [invalid-annotation]
+
+    v6: tuple[int, *tuple[str, ...]] = t3  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:71:47: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+def func5(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]):
+                                              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:74:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func5: tuple [assert-type]
+
+        assert_type(val, tuple[int])  # tuple[int]
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:78:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func5: tuple [assert-type]
+
+        assert_type(val, tuple[str, str] | tuple[int, int])
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:82:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func5: tuple [assert-type]
+
+        assert_type(val, tuple[int, str, int])
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:91:47: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+def func6(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]):
+                                              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:115:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]
+
+            assert_type(subj, tuple[int | str, str])
+            \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:117:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]
+
+            assert_type(subj, tuple[int | str, int])
+            \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:134:40: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+    t1: tuple[complex, list[int]], t2: tuple[int, *tuple[str, ...]], t3: tuple[()]
+                                       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:139:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: Sequence [assert-type]
+
+    assert_type(test_seq(t2), Sequence[int | str])  # Could be Sequence[object]
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:140:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: Sequence [assert-type]
+
+    assert_type(test_seq(t3), Sequence[Never])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:143:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]
+
+t1: tuple[int, *tuple[str]] = (1, "")  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:143:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[int, *tuple[str]]'  [invalid-annotation]
+
+t1: tuple[int, *tuple[str]] = (1, "")  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:143:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t1: tuple[int, *tuple[str]] = (1, "")  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:144:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]
+
+t1 = (1, "", "")  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:146:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[int, *tuple[str, ...]]'  [invalid-annotation]
+
+t2: tuple[int, *tuple[str, ...]] = (1,)  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:146:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t2: tuple[int, *tuple[str, ...]] = (1,)  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:147:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
+
+t2 = (1, "")  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:148:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
+
+t2 = (1, "", "")  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:149:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
+
+t2 = (1, 1, "")  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:150:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
+
+t2 = (1, "", 1)  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:153:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
+
+t3: tuple[int, *tuple[str, ...], int] = (1, 2)  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:153:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[int, *tuple[str, ...], int]'  [invalid-annotation]
+
+t3: tuple[int, *tuple[str, ...], int] = (1, 2)  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:153:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t3: tuple[int, *tuple[str, ...], int] = (1, 2)  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:154:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
+
+t3 = (1, "", 2)  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:155:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
+
+t3 = (1, "", "", 2)  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:156:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
+
+t3 = (1, "", "")  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:157:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
+
+t3 = (1, "", "", 1.2)  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:159:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[*tuple[str, ...], int]'  [invalid-annotation]
+
+t4: tuple[*tuple[str, ...], int] = (1,)  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:159:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t4: tuple[*tuple[str, ...], int] = (1,)  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:160:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]
+
+t4 = ("", 1)  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:161:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]
+
+t4 = ("", "", 1)  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:162:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]
+
+t4 = (1, "", 1)  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:163:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]
+
+t4 = ("", "", 1.2)  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:167:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]
+
+    t1: tuple[str, str, *tuple[int, ...]] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:167:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Invalid type annotation 'tuple[str, str, *tuple[int, ...]]'  [invalid-annotation]
+
+    t1: tuple[str, str, *tuple[int, ...]] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:168:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]
+
+    t2: tuple[str, str, *tuple[int]] = a  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:168:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Invalid type annotation 'tuple[str, str, *tuple[int]]'  [invalid-annotation]
+
+    t2: tuple[str, str, *tuple[int]] = a  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:169:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]
+
+    t3: tuple[str, *tuple[str, ...]] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:169:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Invalid type annotation 'tuple[str, *tuple[str, ...]]'  [invalid-annotation]
+
+    t3: tuple[str, *tuple[str, ...]] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:170:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]
+
+    t4: tuple[str, str, *tuple[str, ...]] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:170:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Invalid type annotation 'tuple[str, str, *tuple[str, ...]]'  [invalid-annotation]
+
+    t4: tuple[str, str, *tuple[str, ...]] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:171:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Type annotation for t5 does not match type of assignment [annotation-type-mismatch]
+
+    t5: tuple[str, str, str, *tuple[str, ...]] = a  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:171:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Invalid type annotation 'tuple[str, str, str, *tuple[str, ...]]'  [invalid-annotation]
+
+    t5: tuple[str, str, str, *tuple[str, ...]] = a  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:172:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Type annotation for t6 does not match type of assignment [annotation-type-mismatch]
+
+    t6: tuple[str, *tuple[int, ...], str] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:172:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Invalid type annotation 'tuple[str, *tuple[int, ...], str]'  [invalid-annotation]
+
+    t6: tuple[str, *tuple[int, ...], str] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:173:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Type annotation for t7 does not match type of assignment [annotation-type-mismatch]
+
+    t7: tuple[*tuple[str, ...], str] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:173:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Invalid type annotation 'tuple[*tuple[str, ...], str]'  [invalid-annotation]
+
+    t7: tuple[*tuple[str, ...], str] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:174:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Type annotation for t8 does not match type of assignment [annotation-type-mismatch]
+
+    t8: tuple[*tuple[str, ...], str] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:174:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Invalid type annotation 'tuple[*tuple[str, ...], str]'  [invalid-annotation]
+
+    t8: tuple[*tuple[str, ...], str] = a  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:175:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Type annotation for t9 does not match type of assignment [annotation-type-mismatch]
+
+    t9: tuple[*tuple[str, ...], str, str, str] = a  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_type_compat.py:175:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func9: Invalid type annotation 'tuple[*tuple[str, ...], str, str, str]'  [invalid-annotation]
+
+    t9: tuple[*tuple[str, ...], str, str, str] = a  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -68,33 +288,33 @@ Line 32: Expected 1 errors
 Line 33: Expected 1 errors
 Line 43: Expected 1 errors
 Line 62: Expected 1 errors
-Line 22: Unexpected errors ['File "tuples_type_compat.py", line 22, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
-Line 27: Unexpected errors ['File "tuples_type_compat.py", line 27, in func2: Invalid type annotation \\'tuple[int, *tuple[int, ...]]\\'  [invalid-annotation]']
-Line 47: Unexpected errors ['File "tuples_type_compat.py", line 47, in func3: Invalid type annotation \\'tuple[int, *tuple[str, ...]]\\'  [invalid-annotation]']
-Line 71: Unexpected errors ['File "tuples_type_compat.py", line 71, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
-Line 74: Unexpected errors ['File "tuples_type_compat.py", line 74, in func5: tuple [assert-type]']
-Line 78: Unexpected errors ['File "tuples_type_compat.py", line 78, in func5: tuple [assert-type]']
-Line 82: Unexpected errors ['File "tuples_type_compat.py", line 82, in func5: tuple [assert-type]']
-Line 91: Unexpected errors ['File "tuples_type_compat.py", line 91, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
-Line 115: Unexpected errors ['File "tuples_type_compat.py", line 115, in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]']
-Line 117: Unexpected errors ['File "tuples_type_compat.py", line 117, in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]']
-Line 134: Unexpected errors ['File "tuples_type_compat.py", line 134, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
-Line 139: Unexpected errors ['File "tuples_type_compat.py", line 139, in func8: Sequence [assert-type]']
-Line 140: Unexpected errors ['File "tuples_type_compat.py", line 140, in func8: Sequence [assert-type]']
-Line 143: Unexpected errors ['File "tuples_type_compat.py", line 143, in <module>: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]', 'File "tuples_type_compat.py", line 143, in <module>: Invalid type annotation \\'tuple[int, *tuple[str]]\\'  [invalid-annotation]', 'File "tuples_type_compat.py", line 143, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
-Line 146: Unexpected errors ['File "tuples_type_compat.py", line 146, in <module>: Invalid type annotation \\'tuple[int, *tuple[str, ...]]\\'  [invalid-annotation]', 'File "tuples_type_compat.py", line 146, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
-Line 147: Unexpected errors ['File "tuples_type_compat.py", line 147, in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]']
-Line 148: Unexpected errors ['File "tuples_type_compat.py", line 148, in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]']
-Line 153: Unexpected errors ['File "tuples_type_compat.py", line 153, in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]', 'File "tuples_type_compat.py", line 153, in <module>: Invalid type annotation \\'tuple[int, *tuple[str, ...], int]\\'  [invalid-annotation]', 'File "tuples_type_compat.py", line 153, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
-Line 154: Unexpected errors ['File "tuples_type_compat.py", line 154, in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]']
-Line 155: Unexpected errors ['File "tuples_type_compat.py", line 155, in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]']
-Line 159: Unexpected errors ['File "tuples_type_compat.py", line 159, in <module>: Invalid type annotation \\'tuple[*tuple[str, ...], int]\\'  [invalid-annotation]', 'File "tuples_type_compat.py", line 159, in <module>: Invalid type annotation \\'<instance of tuple>\\'  [invalid-annotation]']
-Line 160: Unexpected errors ['File "tuples_type_compat.py", line 160, in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]']
-Line 161: Unexpected errors ['File "tuples_type_compat.py", line 161, in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]']
-Line 167: Unexpected errors ['File "tuples_type_compat.py", line 167, in func9: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]', 'File "tuples_type_compat.py", line 167, in func9: Invalid type annotation \\'tuple[str, str, *tuple[int, ...]]\\'  [invalid-annotation]']
-Line 169: Unexpected errors ['File "tuples_type_compat.py", line 169, in func9: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]', 'File "tuples_type_compat.py", line 169, in func9: Invalid type annotation \\'tuple[str, *tuple[str, ...]]\\'  [invalid-annotation]']
-Line 170: Unexpected errors ['File "tuples_type_compat.py", line 170, in func9: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]', 'File "tuples_type_compat.py", line 170, in func9: Invalid type annotation \\'tuple[str, str, *tuple[str, ...]]\\'  [invalid-annotation]']
-Line 172: Unexpected errors ['File "tuples_type_compat.py", line 172, in func9: Type annotation for t6 does not match type of assignment [annotation-type-mismatch]', 'File "tuples_type_compat.py", line 172, in func9: Invalid type annotation \\'tuple[str, *tuple[int, ...], str]\\'  [invalid-annotation]']
-Line 173: Unexpected errors ['File "tuples_type_compat.py", line 173, in func9: Type annotation for t7 does not match type of assignment [annotation-type-mismatch]', 'File "tuples_type_compat.py", line 173, in func9: Invalid type annotation \\'tuple[*tuple[str, ...], str]\\'  [invalid-annotation]']
-Line 174: Unexpected errors ['File "tuples_type_compat.py", line 174, in func9: Type annotation for t8 does not match type of assignment [annotation-type-mismatch]', 'File "tuples_type_compat.py", line 174, in func9: Invalid type annotation \\'tuple[*tuple[str, ...], str]\\'  [invalid-annotation]']
+Line 22: Unexpected errors ["tuples_type_compat.py:22:31: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 27: Unexpected errors ["tuples_type_compat.py:27:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func2: Invalid type annotation 'tuple[int, *tuple[int, ...]]'  [invalid-annotation]"]
+Line 47: Unexpected errors ["tuples_type_compat.py:47:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: Invalid type annotation 'tuple[int, *tuple[str, ...]]'  [invalid-annotation]"]
+Line 71: Unexpected errors ["tuples_type_compat.py:71:47: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 74: Unexpected errors ['tuples_type_compat.py:74:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: tuple [assert-type]']
+Line 78: Unexpected errors ['tuples_type_compat.py:78:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: tuple [assert-type]']
+Line 82: Unexpected errors ['tuples_type_compat.py:82:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: tuple [assert-type]']
+Line 91: Unexpected errors ["tuples_type_compat.py:91:47: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 115: Unexpected errors ['tuples_type_compat.py:115:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]']
+Line 117: Unexpected errors ['tuples_type_compat.py:117:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]']
+Line 134: Unexpected errors ["tuples_type_compat.py:134:40: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 139: Unexpected errors ['tuples_type_compat.py:139:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: Sequence [assert-type]']
+Line 140: Unexpected errors ['tuples_type_compat.py:140:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: Sequence [assert-type]']
+Line 143: Unexpected errors ['tuples_type_compat.py:143:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]', "tuples_type_compat.py:143:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[int, *tuple[str]]'  [invalid-annotation]", "tuples_type_compat.py:143:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 146: Unexpected errors ["tuples_type_compat.py:146:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[int, *tuple[str, ...]]'  [invalid-annotation]", "tuples_type_compat.py:146:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 147: Unexpected errors ['tuples_type_compat.py:147:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]']
+Line 148: Unexpected errors ['tuples_type_compat.py:148:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for t2 does not match type of assignment [annotation-type-mismatch]']
+Line 153: Unexpected errors ['tuples_type_compat.py:153:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]', "tuples_type_compat.py:153:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[int, *tuple[str, ...], int]'  [invalid-annotation]", "tuples_type_compat.py:153:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 154: Unexpected errors ['tuples_type_compat.py:154:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]']
+Line 155: Unexpected errors ['tuples_type_compat.py:155:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]']
+Line 159: Unexpected errors ["tuples_type_compat.py:159:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[*tuple[str, ...], int]'  [invalid-annotation]", "tuples_type_compat.py:159:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 160: Unexpected errors ['tuples_type_compat.py:160:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]']
+Line 161: Unexpected errors ['tuples_type_compat.py:161:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]']
+Line 167: Unexpected errors ['tuples_type_compat.py:167:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Type annotation for t1 does not match type of assignment [annotation-type-mismatch]', "tuples_type_compat.py:167:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Invalid type annotation 'tuple[str, str, *tuple[int, ...]]'  [invalid-annotation]"]
+Line 169: Unexpected errors ['tuples_type_compat.py:169:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Type annotation for t3 does not match type of assignment [annotation-type-mismatch]', "tuples_type_compat.py:169:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Invalid type annotation 'tuple[str, *tuple[str, ...]]'  [invalid-annotation]"]
+Line 170: Unexpected errors ['tuples_type_compat.py:170:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Type annotation for t4 does not match type of assignment [annotation-type-mismatch]', "tuples_type_compat.py:170:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Invalid type annotation 'tuple[str, str, *tuple[str, ...]]'  [invalid-annotation]"]
+Line 172: Unexpected errors ['tuples_type_compat.py:172:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Type annotation for t6 does not match type of assignment [annotation-type-mismatch]', "tuples_type_compat.py:172:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Invalid type annotation 'tuple[str, *tuple[int, ...], str]'  [invalid-annotation]"]
+Line 173: Unexpected errors ['tuples_type_compat.py:173:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Type annotation for t7 does not match type of assignment [annotation-type-mismatch]', "tuples_type_compat.py:173:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Invalid type annotation 'tuple[*tuple[str, ...], str]'  [invalid-annotation]"]
+Line 174: Unexpected errors ['tuples_type_compat.py:174:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Type annotation for t8 does not match type of assignment [annotation-type-mismatch]', "tuples_type_compat.py:174:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: Invalid type annotation 'tuple[*tuple[str, ...], str]'  [invalid-annotation]"]
 """

@@ -5,27 +5,32 @@ qualifiers_annotated.py:44:17 - error: Expected class but received "tuple[tuple[
 qualifiers_annotated.py:45:17 - error: List expression not allowed for this type argument (reportInvalidTypeForm)
 qualifiers_annotated.py:45:18 - error: Expected class but received "Generator[type[int], None, None]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:46:17 - error: Expected class but received "dict[str, Unknown]" (reportGeneralTypeIssues)
-qualifiers_annotated.py:46:17 - error: Dictionary expression not allowed in type annotation (reportInvalidTypeForm)
+qualifiers_annotated.py:46:17 - error: Dictionary expression not allowed in type expression (reportInvalidTypeForm)
 qualifiers_annotated.py:46:24 - error: "b" is not defined (reportUndefinedVariable)
 qualifiers_annotated.py:47:17 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
-qualifiers_annotated.py:48:17 - error: List expression not allowed in type annotation
+qualifiers_annotated.py:48:17 - error: List expression not allowed in type expression
   Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
 qualifiers_annotated.py:48:17 - error: Expected class but received "list[type[int]]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:48:23 - error: Expected class but received "Literal[0]" (reportGeneralTypeIssues)
-qualifiers_annotated.py:49:17 - error: Ternary expression not allowed in type annotation (reportInvalidTypeForm)
+qualifiers_annotated.py:49:17 - error: Ternary expression not allowed in type expression (reportInvalidTypeForm)
 qualifiers_annotated.py:50:17 - error: "var1" is not defined (reportUndefinedVariable)
 qualifiers_annotated.py:51:17 - error: Expected class but received "Literal[True]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:52:18 - error: Expected class but received "Literal[1]" (reportGeneralTypeIssues)
-qualifiers_annotated.py:53:18 - error: Binary operator not allowed in type annotation (reportInvalidTypeForm)
-qualifiers_annotated.py:54:18 - error: Type annotations cannot use format string literals (f-strings) (reportGeneralTypeIssues)
+qualifiers_annotated.py:53:18 - error: Binary operator not allowed in type expression (reportInvalidTypeForm)
+qualifiers_annotated.py:54:18 - error: Type expressions cannot use format string literals (f-strings) (reportGeneralTypeIssues)
 qualifiers_annotated.py:64:8 - error: Expected one type argument and one or more annotations for "Annotated" (reportInvalidTypeForm)
-qualifiers_annotated.py:76:24 - error: Expression of type "type[Annotated]" is incompatible with declared type "type[Any]" (reportAssignmentType)
-qualifiers_annotated.py:77:24 - error: Expression of type "type[Annotated]" is incompatible with declared type "type[Any]" (reportAssignmentType)
-qualifiers_annotated.py:84:7 - error: Argument of type "type[Annotated]" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4" (reportArgumentType)
-qualifiers_annotated.py:85:7 - error: Argument of type "type[Annotated]" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4" (reportArgumentType)
+qualifiers_annotated.py:76:24 - error: Type "Annotated" is not assignable to declared type "type[Any]"
+  "Annotated" is not assignable to "type[Any]" (reportAssignmentType)
+qualifiers_annotated.py:77:24 - error: Type "SmallInt" is not assignable to declared type "type[Any]"
+  "Annotated" is not assignable to "type[Any]" (reportAssignmentType)
+qualifiers_annotated.py:84:7 - error: Argument of type "Annotated" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4"
+  Type "Annotated" is not assignable to type "type[T@func4]" (reportArgumentType)
+qualifiers_annotated.py:85:7 - error: Argument of type "SmallInt" cannot be assigned to parameter "x" of type "type[T@func4]" in function "func4"
+  Type "Annotated" is not assignable to type "type[T@func4]" (reportArgumentType)
 qualifiers_annotated.py:91:1 - error: "Annotated" cannot be instantiated (reportCallIssue)
-qualifiers_annotated.py:92:1 - error: "Annotated" cannot be instantiated (reportCallIssue)
-qualifiers_annotated.py:93:1 - error: "Annotated" cannot be instantiated (reportCallIssue)
+qualifiers_annotated.py:92:1 - error: Object of type "Annotated" is not callable
+  Attribute "__call__" is unknown (reportCallIssue)
+qualifiers_annotated.py:93:1 - error: Object of type "Annotated" is not callable (reportCallIssue)
 """
 conformance_automated = "Pass"
 errors_diff = """

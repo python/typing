@@ -7,11 +7,23 @@ Does not reject instantiation of class that derives from protocol but doesn't im
 Does not report instantiation of class that derives from protocol but doesn't implement method.
 """
 output = """
-File "protocols_explicit.py", line 14, in draw: bad return type [bad-return-type]
+protocols_explicit.py:14:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in draw: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
 Called from (traceback):
   line 27, in draw
-File "protocols_explicit.py", line 60, in <module>: Can't instantiate Point with abstract methods intensity [not-instantiable]
-File "protocols_explicit.py", line 165, in <module>: Can't instantiate Concrete7A with abstract methods method1 [not-instantiable]
+protocols_explicit.py:60:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Can't instantiate Point with abstract methods intensity [not-instantiable]
+
+p = Point(0, 0, "")  # E: Cannot instantiate abstract class
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+protocols_explicit.py:165:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Can't instantiate Concrete7A with abstract methods method1 [not-instantiable]
+
+c7a = Concrete7A()  # E: cannot instantiate abstract class
+      \u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -20,5 +32,5 @@ Line 56: Expected 1 errors
 Line 90: Expected 1 errors
 Line 110: Expected 1 errors
 Line 135: Expected 1 errors
-Line 14: Unexpected errors ['File "protocols_explicit.py", line 14, in draw: bad return type [bad-return-type]']
+Line 14: Unexpected errors ['protocols_explicit.py:14:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in draw: bad return type [bad-return-type]']
 """

@@ -5,30 +5,30 @@ Constraint solver doesn't find common type for two signatures captured by a sing
 output = """
 generics_paramspec_semantics.py:26:6 - error: Expected 2 more positional arguments (reportCallIssue)
 generics_paramspec_semantics.py:27:9 - error: Argument of type "Literal['A']" cannot be assigned to parameter "b" of type "bool"
-  "Literal['A']" is incompatible with "bool" (reportArgumentType)
+  "Literal['A']" is not assignable to "bool" (reportArgumentType)
 generics_paramspec_semantics.py:46:17 - error: Argument of type "(y: int, x: str) -> int" cannot be assigned to parameter "y" of type "(**P@func1) -> int" in function "func1"
-  Type "(y: int, x: str) -> int" is incompatible with type "(x: int, y: str) -> int"
+  Type "(y: int, x: str) -> int" is not assignable to type "(x: int, y: str) -> int"
     Parameter name mismatch: "x" versus "y"
     Parameter name mismatch: "y" versus "x" (reportArgumentType)
 generics_paramspec_semantics.py:61:23 - error: Argument of type "(*, y: int) -> int" cannot be assigned to parameter "y" of type "(**P@func1) -> int" in function "func1"
-  Type "(*, y: int) -> int" is incompatible with type "(*, x: int) -> int"
+  Type "(*, y: int) -> int" is not assignable to type "(*, x: int) -> int"
     Extra parameter "y"
     Missing keyword parameter "x" (reportArgumentType)
 generics_paramspec_semantics.py:98:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str"
-  "Literal[1]" is incompatible with "str" (reportArgumentType)
+  "Literal[1]" is not assignable to "str" (reportArgumentType)
 generics_paramspec_semantics.py:108:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter "args" of type "bool"
-  "Literal[1]" is incompatible with "bool" (reportArgumentType)
+  "Literal[1]" is not assignable to "bool" (reportArgumentType)
 generics_paramspec_semantics.py:120:4 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str"
-  "Literal[1]" is incompatible with "str" (reportArgumentType)
+  "Literal[1]" is not assignable to "str" (reportArgumentType)
 generics_paramspec_semantics.py:127:2 - error: Argument of type "(x: str) -> int" cannot be assigned to parameter "x" of type "(int, **P@expects_int_first) -> int" in function "expects_int_first"
-  Type "(x: str) -> int" is incompatible with type "(int, **P@expects_int_first) -> int"
+  Type "(x: str) -> int" is not assignable to type "(int, **P@expects_int_first) -> int"
     Parameter 1: type "int" is incompatible with type "str"
-      "int" is incompatible with "str" (reportArgumentType)
+      "int" is not assignable to "str" (reportArgumentType)
 generics_paramspec_semantics.py:132:2 - error: Argument of type "(*, x: int) -> int" cannot be assigned to parameter "x" of type "(int, **P@expects_int_first) -> int" in function "expects_int_first"
-  Type "(*, x: int) -> int" is incompatible with type "(int, **P@expects_int_first) -> int"
+  Type "(*, x: int) -> int" is not assignable to type "(int, **P@expects_int_first) -> int"
     Function accepts too many positional parameters; expected 0 but received 1 (reportArgumentType)
 generics_paramspec_semantics.py:137:2 - error: Argument of type "(**kwargs: int) -> int" cannot be assigned to parameter "x" of type "(int, **P@expects_int_first) -> int" in function "expects_int_first"
-  Type "(**kwargs: int) -> int" is incompatible with type "(int, **P@expects_int_first) -> int"
+  Type "(**kwargs: int) -> int" is not assignable to type "(int, **P@expects_int_first) -> int"
     Function accepts too many positional parameters; expected 0 but received 1 (reportArgumentType)
 """
 conformance_automated = "Pass"

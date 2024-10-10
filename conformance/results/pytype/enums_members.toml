@@ -9,32 +9,126 @@ errors_diff = """
 Line 50: Expected 1 errors
 Line 116: Expected 1 errors
 Line 129: Expected 1 errors
-Line 7: Unexpected errors ['File "enums_members.py", line 7, in <module>: enum.nonmember not supported yet [not-supported-yet]', 'File "enums_members.py", line 7, in <module>: enum.member not supported yet [not-supported-yet]']
-Line 35: Unexpected errors ['File "enums_members.py", line 35, in <module>: _enums_members.Pet2 [assert-type]']
-Line 36: Unexpected errors ['File "enums_members.py", line 36, in <module>: _enums_members.Pet2 [assert-type]']
-Line 107: Unexpected errors ['File "enums_members.py", line 107, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]']
-Line 108: Unexpected errors ['File "enums_members.py", line 108, in Example: Function enum.nonmember expects 0 arg(s), got 1 [wrong-arg-count]']
-Line 110: Unexpected errors ['File "enums_members.py", line 110, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]']
-Line 128: Unexpected errors ['File "enums_members.py", line 128, in method: Example2 [reveal-type]']
+Line 7: Unexpected errors ['enums_members.py:7:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: enum.nonmember not supported yet [not-supported-yet]', 'enums_members.py:7:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: enum.member not supported yet [not-supported-yet]']
+Line 35: Unexpected errors ['enums_members.py:35:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: _enums_members.Pet2 [assert-type]']
+Line 36: Unexpected errors ['enums_members.py:36:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: _enums_members.Pet2 [assert-type]']
+Line 107: Unexpected errors ['enums_members.py:107:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]']
+Line 108: Unexpected errors ['enums_members.py:108:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in Example: Function enum.nonmember expects 0 arg(s), got 1 [wrong-arg-count]']
+Line 110: Unexpected errors ['enums_members.py:110:6: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]']
+Line 128: Unexpected errors ['enums_members.py:128:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method: Example2 [reveal-type]']
 """
 output = """
-File "enums_members.py", line 7, in <module>: enum.nonmember not supported yet [not-supported-yet]
-File "enums_members.py", line 7, in <module>: enum.member not supported yet [not-supported-yet]
-File "enums_members.py", line 15, in <module>: Function Pet.__init__ was called with the wrong arguments [wrong-arg-types]
-File "enums_members.py", line 35, in <module>: _enums_members.Pet2 [assert-type]
-File "enums_members.py", line 36, in <module>: _enums_members.Pet2 [assert-type]
-File "enums_members.py", line 82, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "enums_members.py", line 82, in <module>: Callable[[Any], Any] [assert-type]
-File "enums_members.py", line 83, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "enums_members.py", line 83, in <module>: Callable[[int], int] [assert-type]
-File "enums_members.py", line 84, in <module>: property [assert-type]
-File "enums_members.py", line 84, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "enums_members.py", line 85, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "enums_members.py", line 85, in <module>: Callable[[Any], None] [assert-type]
-File "enums_members.py", line 107, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]
-File "enums_members.py", line 108, in Example: Function enum.nonmember expects 0 arg(s), got 1 [wrong-arg-count]
-File "enums_members.py", line 110, in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]
-File "enums_members.py", line 128, in method: Example2 [reveal-type]
-File "enums_members.py", line 146, in <module>: Pet5 [assert-type]
-File "enums_members.py", line 147, in <module>: Pet5 [assert-type]
+enums_members.py:7:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: enum.nonmember not supported yet [not-supported-yet]
+
+from enum import Enum, member, nonmember
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:7:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: enum.member not supported yet [not-supported-yet]
+
+from enum import Enum, member, nonmember
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:15:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Pet.__init__ was called with the wrong arguments [wrong-arg-types]
+
+class Pet(Enum):  # E?: Uninitialized attributes (pyre)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    genus: str  # Non-member attribute
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    species: str  # Non-member attribute
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    CAT = 1  # Member attribute
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    DOG = 2  # Member attribute
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    def __init__(self, genus: str, species: str) -> None:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        self.genus = genus
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        self.species = species
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:35:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: _enums_members.Pet2 [assert-type]
+
+assert_type(Pet2.genus, str)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:36:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: _enums_members.Pet2 [assert-type]
+
+assert_type(Pet2.species, str)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:82:29: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+assert_type(Pet4.converter, Literal[Pet4.converter])  # E
+                            \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:82:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], Any] [assert-type]
+
+assert_type(Pet4.converter, Literal[Pet4.converter])  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:83:29: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+assert_type(Pet4.transform, Literal[Pet4.transform])  # E
+                            \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:83:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[int], int] [assert-type]
+
+assert_type(Pet4.transform, Literal[Pet4.transform])  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:84:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: property [assert-type]
+
+assert_type(Pet4.species, Literal[Pet4.species])  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:84:27: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+assert_type(Pet4.species, Literal[Pet4.species])  # E
+                          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:85:25: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+assert_type(Pet4.speak, Literal[Pet4.speak])  # E
+                        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:85:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], None] [assert-type]
+
+assert_type(Pet4.speak, Literal[Pet4.speak])  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:107:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]
+
+    a = member(1)  # Member attribute
+        \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:108:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Example: Function enum.nonmember expects 0 arg(s), got 1 [wrong-arg-count]
+
+    b = nonmember(2)  # Non-member attribute
+        \u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:110:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Example: Function enum.member expects 0 arg(s), got 1 [wrong-arg-count]
+
+    @member
+     \u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:128:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method: Example2 [reveal-type]
+
+        reveal_type(Example2.__B)
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:146:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Pet5 [assert-type]
+
+assert_type(Pet5.DOG, int)  # E?: Literal[2] is also acceptable
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+enums_members.py:147:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Pet5 [assert-type]
+
+assert_type(Pet5.FISH, int)  # E?: Literal[3] is also acceptable
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
