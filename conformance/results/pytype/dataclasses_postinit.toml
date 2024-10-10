@@ -4,13 +4,27 @@ Does not validate `__post_init__` method.
 Reports incorrect error for incompatible `__post_init__` method override.
 """
 output = """
-File "dataclasses_postinit.py", line 28, in <module>: No attribute 'x' on DC1 [attribute-error]
-File "dataclasses_postinit.py", line 29, in <module>: No attribute 'y' on DC1 [attribute-error]
-File "dataclasses_postinit.py", line 54, in DC4: Overriding method signature mismatch [signature-mismatch]
+dataclasses_postinit.py:28:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'x' on DC1 [attribute-error]
+
+print(dc1.x)  # E: cannot access InitVar
+      \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+dataclasses_postinit.py:29:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'y' on DC1 [attribute-error]
+
+print(dc1.y)  # E: cannot access InitVar
+      \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+dataclasses_postinit.py:54:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in DC4: Overriding method signature mismatch [signature-mismatch]
+
+    def __post_init__(self, _name: str, _age: int):
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 19: Expected 1 errors
 Line 36: Expected 1 errors
-Line 54: Unexpected errors ['File "dataclasses_postinit.py", line 54, in DC4: Overriding method signature mismatch [signature-mismatch]']
+Line 54: Unexpected errors ['dataclasses_postinit.py:54:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in DC4: Overriding method signature mismatch [signature-mismatch]']
 """

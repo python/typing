@@ -4,26 +4,80 @@ Does not reject Callable when passed to type[T].
 Does not allow access to known attributes from object of type `type[Any]`.
 """
 output = """
-File "specialtypes_type.py", line 56, in <module>: Function func4 was called with the wrong arguments [wrong-arg-types]
-File "specialtypes_type.py", line 64, in <module>: Invalid type annotation 'T'  [invalid-annotation]
-File "specialtypes_type.py", line 76, in <module>: Invalid type annotation 'type[int, str]'  [invalid-annotation]
-File "specialtypes_type.py", line 98, in func7: Any [assert-type]
-File "specialtypes_type.py", line 102, in func7: Any [assert-type]
-File "specialtypes_type.py", line 106, in func7: Any [assert-type]
-File "specialtypes_type.py", line 110, in func7: Any [assert-type]
-File "specialtypes_type.py", line 117, in func8: No attribute 'unknown' on Type[object] [attribute-error]
-File "specialtypes_type.py", line 120, in func8: No attribute 'unknown' on Type[object] [attribute-error]
-File "specialtypes_type.py", line 143, in <module>: No attribute 'unknown' on Type[type] [attribute-error]
-File "specialtypes_type.py", line 144, in <module>: No attribute 'unknown' on Type[type] [attribute-error]
-File "specialtypes_type.py", line 145, in <module>: No attribute 'unknown' on Type[type] [attribute-error]
-File "specialtypes_type.py", line 146, in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+specialtypes_type.py:56:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function func4 was called with the wrong arguments [wrong-arg-types]
+
+func4(TeamUser)  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:64:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'T'  [invalid-annotation]
+
+def func5(x: type[T]) -> None:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:76:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'type[int, str]'  [invalid-annotation]
+
+bad_type1: type[int, str]  # E
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:98:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func7: Any [assert-type]
+
+    assert_type(a.__mro__, tuple[type, ...])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:102:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func7: Any [assert-type]
+
+    assert_type(b.__mro__, tuple[type, ...])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:106:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func7: Any [assert-type]
+
+    assert_type(c.__mro__, tuple[type, ...])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:110:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func7: Any [assert-type]
+
+    assert_type(d.__mro__, tuple[type, ...])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:117:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: No attribute 'unknown' on Type[object] [attribute-error]
+
+    a.unknown  # E
+    \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:120:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: No attribute 'unknown' on Type[object] [attribute-error]
+
+    b.unknown  # E
+    \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:143:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+
+TA1.unknown  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:144:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+
+TA2.unknown  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:145:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+
+TA3.unknown  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+specialtypes_type.py:146:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+
+TA4.unknown  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 70: Expected 1 errors
-Line 64: Unexpected errors ['File "specialtypes_type.py", line 64, in <module>: Invalid type annotation \\'T\\'  [invalid-annotation]']
-Line 98: Unexpected errors ['File "specialtypes_type.py", line 98, in func7: Any [assert-type]']
-Line 102: Unexpected errors ['File "specialtypes_type.py", line 102, in func7: Any [assert-type]']
-Line 106: Unexpected errors ['File "specialtypes_type.py", line 106, in func7: Any [assert-type]']
-Line 110: Unexpected errors ['File "specialtypes_type.py", line 110, in func7: Any [assert-type]']
+Line 64: Unexpected errors ["specialtypes_type.py:64:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T'  [invalid-annotation]"]
+Line 98: Unexpected errors ['specialtypes_type.py:98:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: Any [assert-type]']
+Line 102: Unexpected errors ['specialtypes_type.py:102:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: Any [assert-type]']
+Line 106: Unexpected errors ['specialtypes_type.py:106:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: Any [assert-type]']
+Line 110: Unexpected errors ['specialtypes_type.py:110:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: Any [assert-type]']
 """

@@ -1,7 +1,15 @@
 conformant = "Pass"
 output = """
-File "namedtuples_type_compat.py", line 22, in <module>: Type annotation for v3 does not match type of assignment [annotation-type-mismatch]
-File "namedtuples_type_compat.py", line 23, in <module>: Type annotation for v4 does not match type of assignment [annotation-type-mismatch]
+namedtuples_type_compat.py:22:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for v3 does not match type of assignment [annotation-type-mismatch]
+
+v3: tuple[int, int] = p  # E: too few elements
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+namedtuples_type_compat.py:23:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for v4 does not match type of assignment [annotation-type-mismatch]
+
+v4: tuple[int, str, str] = p  # E: incompatible element type
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Pass"
 errors_diff = """

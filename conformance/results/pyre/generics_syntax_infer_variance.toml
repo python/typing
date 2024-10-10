@@ -3,7 +3,7 @@ notes = """
 Type parameter syntax not yet support.
 """
 output = """
-generics_syntax_infer_variance.py:125:25 Parsing failure [404]: invalid syntax
+generics_syntax_infer_variance.py:132:25 Parsing failure [404]: invalid syntax
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -12,19 +12,18 @@ Line 17: Expected 1 errors
 Line 29: Expected 1 errors
 Line 37: Expected 1 errors
 Line 46: Expected 1 errors
-Line 55: Expected 1 errors
-Line 68: Expected 1 errors
-Line 79: Expected 1 errors
-Line 95: Expected 1 errors
-Line 96: Expected 1 errors
-Line 110: Expected 1 errors
-Line 111: Expected 1 errors
+Line 75: Expected 1 errors
+Line 86: Expected 1 errors
+Line 102: Expected 1 errors
+Line 103: Expected 1 errors
+Line 117: Expected 1 errors
 Line 118: Expected 1 errors
-Line 119: Expected 1 errors
-Line 120: Expected 1 errors
-Line 121: Expected 1 errors
-Line 129: Expected 1 errors
-Line 137: Expected 1 errors
-Line 148: Expected 1 errors
-Line 125: Unexpected errors ['generics_syntax_infer_variance.py:125:25 Parsing failure [404]: invalid syntax']
+Line 125: Expected 1 errors
+Line 126: Expected 1 errors
+Line 127: Expected 1 errors
+Line 128: Expected 1 errors
+Line 136: Expected 1 errors
+Line 144: Expected 1 errors
+Line 155: Expected 1 errors
+Line 132: Unexpected errors ['generics_syntax_infer_variance.py:132:25 Parsing failure [404]: invalid syntax']
 """

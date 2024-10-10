@@ -4,19 +4,247 @@ Does not report error for overloaded @final method defined in stub file.
 Does not report error for overload that is marked @final when implementation is not.
 """
 output = """
-File "qualifiers_final_decorator.py", line 8, in <module>: Couldn't import pyi for '_qualifiers_final_decorator' [pyi-error]
-File "qualifiers_final_decorator.py", line 21, in <module>: Cannot subclass final class: Base1 [final-error]
-File "qualifiers_final_decorator.py", line 52, in method4: bad return type [bad-return-type]
-File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method4, defined in base class Base2 [final-error]
-File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method3, defined in base class Base2 [final-error]
-File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method2, defined in base class Base2 [final-error]
-File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method1, defined in base class Base2 [final-error]
-File "qualifiers_final_decorator.py", line 76, in method4: bad return type [bad-return-type]
-File "qualifiers_final_decorator.py", line 90, in method: bad return type [bad-return-type]
-File "qualifiers_final_decorator.py", line 103, in method: bad return type [bad-return-type]
-File "qualifiers_final_decorator.py", line 117, in <module>: Class Derived5 overrides final method method, defined in base class Base5_2 [final-error]
-File "qualifiers_final_decorator.py", line 118, in Derived5: Overriding method signature mismatch [signature-mismatch]
-File "qualifiers_final_decorator.py", line 125, in <module>: Cannot apply @final decorator to func1 [final-error]
+qualifiers_final_decorator.py:8:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Couldn't import pyi for '_qualifiers_final_decorator' [pyi-error]
+
+from _qualifiers_final_decorator import Base3, Base4
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:21:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Cannot subclass final class: Base1 [final-error]
+
+class Derived1(Base1):  # E: Cannot inherit from final class "Base"
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    ...
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:52:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method4: bad return type [bad-return-type]
+
+        return 0
+               \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:55:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class Derived2 overrides final method method4, defined in base class Base2 [final-error]
+
+class Derived2(Base2):
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method1(self) -> None:  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @classmethod  # E[method2]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method2(cls) -> None:  # E[method2]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @staticmethod  # E[method3]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method3() -> None:  # E[method3]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @overload  # E[method4]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method4(self, x: int) -> int:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @overload
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method4(self, x: str) -> str:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    def method4(self, x: int | str) -> int | str:  # E[method4]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        return 0
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:55:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class Derived2 overrides final method method3, defined in base class Base2 [final-error]
+
+class Derived2(Base2):
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method1(self) -> None:  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @classmethod  # E[method2]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method2(cls) -> None:  # E[method2]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @staticmethod  # E[method3]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method3() -> None:  # E[method3]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @overload  # E[method4]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method4(self, x: int) -> int:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @overload
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method4(self, x: str) -> str:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    def method4(self, x: int | str) -> int | str:  # E[method4]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        return 0
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:55:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class Derived2 overrides final method method2, defined in base class Base2 [final-error]
+
+class Derived2(Base2):
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method1(self) -> None:  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @classmethod  # E[method2]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method2(cls) -> None:  # E[method2]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @staticmethod  # E[method3]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method3() -> None:  # E[method3]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @overload  # E[method4]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method4(self, x: int) -> int:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @overload
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method4(self, x: str) -> str:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    def method4(self, x: int | str) -> int | str:  # E[method4]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        return 0
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:55:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class Derived2 overrides final method method1, defined in base class Base2 [final-error]
+
+class Derived2(Base2):
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method1(self) -> None:  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @classmethod  # E[method2]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method2(cls) -> None:  # E[method2]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @staticmethod  # E[method3]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method3() -> None:  # E[method3]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @overload  # E[method4]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method4(self, x: int) -> int:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @overload
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method4(self, x: str) -> str:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    def method4(self, x: int | str) -> int | str:  # E[method4]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        return 0
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:76:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method4: bad return type [bad-return-type]
+
+        return 0
+               \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:90:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method: bad return type [bad-return-type]
+
+        return 0
+               \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:103:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method: bad return type [bad-return-type]
+
+        return 0
+               \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:117:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class Derived5 overrides final method method, defined in base class Base5_2 [final-error]
+
+class Derived5(Base5_1, Base5_2):
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method(self) -> None:  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:118:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Derived5: Overriding method signature mismatch [signature-mismatch]
+
+    def method(self) -> None:  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_decorator.py:125:2: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Cannot apply @final decorator to func1 [final-error]
+
+@final  # E[func]: not allowed on non-method function.
+ \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -27,11 +255,11 @@ Lines 67, 75: Expected error (tag 'method4')
 Lines 80, 89: Expected error (tag 'Derived3')
 Lines 84, 85, 86: Expected error (tag 'Derived3-2')
 Lines 94, 102: Expected error (tag 'Derived4')
-Line 8: Unexpected errors ['File "qualifiers_final_decorator.py", line 8, in <module>: Couldn\\'t import pyi for \\'_qualifiers_final_decorator\\' [pyi-error]']
-Line 52: Unexpected errors ['File "qualifiers_final_decorator.py", line 52, in method4: bad return type [bad-return-type]']
-Line 55: Unexpected errors ['File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method4, defined in base class Base2 [final-error]', 'File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method3, defined in base class Base2 [final-error]', 'File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method2, defined in base class Base2 [final-error]', 'File "qualifiers_final_decorator.py", line 55, in <module>: Class Derived2 overrides final method method1, defined in base class Base2 [final-error]']
-Line 76: Unexpected errors ['File "qualifiers_final_decorator.py", line 76, in method4: bad return type [bad-return-type]']
-Line 90: Unexpected errors ['File "qualifiers_final_decorator.py", line 90, in method: bad return type [bad-return-type]']
-Line 103: Unexpected errors ['File "qualifiers_final_decorator.py", line 103, in method: bad return type [bad-return-type]']
-Line 117: Unexpected errors ['File "qualifiers_final_decorator.py", line 117, in <module>: Class Derived5 overrides final method method, defined in base class Base5_2 [final-error]']
+Line 8: Unexpected errors ["qualifiers_final_decorator.py:8:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Couldn't import pyi for '_qualifiers_final_decorator' [pyi-error]"]
+Line 52: Unexpected errors ['qualifiers_final_decorator.py:52:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method4: bad return type [bad-return-type]']
+Line 55: Unexpected errors ['qualifiers_final_decorator.py:55:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Class Derived2 overrides final method method4, defined in base class Base2 [final-error]', 'qualifiers_final_decorator.py:55:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Class Derived2 overrides final method method3, defined in base class Base2 [final-error]', 'qualifiers_final_decorator.py:55:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Class Derived2 overrides final method method2, defined in base class Base2 [final-error]', 'qualifiers_final_decorator.py:55:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Class Derived2 overrides final method method1, defined in base class Base2 [final-error]']
+Line 76: Unexpected errors ['qualifiers_final_decorator.py:76:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method4: bad return type [bad-return-type]']
+Line 90: Unexpected errors ['qualifiers_final_decorator.py:90:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method: bad return type [bad-return-type]']
+Line 103: Unexpected errors ['qualifiers_final_decorator.py:103:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method: bad return type [bad-return-type]']
+Line 117: Unexpected errors ['qualifiers_final_decorator.py:117:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Class Derived5 overrides final method method, defined in base class Base5_2 [final-error]']
 """

@@ -6,12 +6,36 @@ Does not reject attempt to overwrite named tuple entry by name.
 Does not reject attempt to delete named tuple entry by name.
 """
 output = """
-File "namedtuples_usage.py", line 31, in <module>: Union[int, str] [assert-type]
-File "namedtuples_usage.py", line 32, in <module>: Union[int, str] [assert-type]
-File "namedtuples_usage.py", line 41, in <module>: unsupported operand type(s) for item assignment: Point [unsupported-operands]
-File "namedtuples_usage.py", line 43, in <module>: unsupported operand type(s) for item deletion: Point [unsupported-operands]
-File "namedtuples_usage.py", line 52, in <module>: Cannot unpack 3 values into 2 variables [bad-unpacking]
-File "namedtuples_usage.py", line 53, in <module>: Cannot unpack 3 values into 4 variables [bad-unpacking]
+namedtuples_usage.py:31:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Union[int, str] [assert-type]
+
+assert_type(p[-2], int)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_usage.py:32:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Union[int, str] [assert-type]
+
+assert_type(p[-3], int)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_usage.py:41:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: unsupported operand type(s) for item assignment: Point [unsupported-operands]
+
+p[0] = 3  # E
+\u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+namedtuples_usage.py:43:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: unsupported operand type(s) for item deletion: Point [unsupported-operands]
+
+del p[0]  # E
+    \u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+namedtuples_usage.py:52:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Cannot unpack 3 values into 2 variables [bad-unpacking]
+
+x2, y2 = p  # E: too few values to unpack
+\u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_usage.py:53:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Cannot unpack 3 values into 4 variables [bad-unpacking]
+
+x3, y3, unit3, other = p  # E: too many values to unpack
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -19,6 +43,6 @@ Line 34: Expected 1 errors
 Line 35: Expected 1 errors
 Line 40: Expected 1 errors
 Line 42: Expected 1 errors
-Line 31: Unexpected errors ['File "namedtuples_usage.py", line 31, in <module>: Union[int, str] [assert-type]']
-Line 32: Unexpected errors ['File "namedtuples_usage.py", line 32, in <module>: Union[int, str] [assert-type]']
+Line 31: Unexpected errors ['namedtuples_usage.py:31:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Union[int, str] [assert-type]']
+Line 32: Unexpected errors ['namedtuples_usage.py:32:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Union[int, str] [assert-type]']
 """

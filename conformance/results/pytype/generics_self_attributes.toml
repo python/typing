@@ -3,7 +3,11 @@ notes = """
 Does not understand `Self` type.
 """
 output = """
-File "generics_self_attributes.py", line 26, in <module>: Function OrdinalLinkedList.__init__ was called with the wrong arguments [wrong-arg-types]
+generics_self_attributes.py:26:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function OrdinalLinkedList.__init__ was called with the wrong arguments [wrong-arg-types]
+
+xs = OrdinalLinkedList(value=1, next=LinkedList[int](value=2))  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """

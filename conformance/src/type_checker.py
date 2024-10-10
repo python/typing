@@ -74,10 +74,22 @@ class MypyTypeChecker(TypeChecker):
             pass
 
         try:
+            # Uninstall any existing version if present.
             run(
-                [sys.executable, "-m", "pip", "install", "mypy", "--upgrade"],
+                [sys.executable, "-m", "pip", "uninstall", "mypy", "-y"],
                 check=True,
             )
+
+            # Install the latest version.
+            run(
+                [sys.executable, "-m", "pip", "install", "mypy"],
+                check=True,
+            )
+
+            # Run "mypy --version" to ensure that it's installed and to work
+            # around timing issues caused by malware scanners on some systems.
+            self.get_version()
+
             return True
         except CalledProcessError:
             print("Unable to install mypy")
@@ -142,9 +154,15 @@ class PyrightTypeChecker(TypeChecker):
 
     def install(self) -> bool:
         try:
-            # Install the Python wrapper if it's not installed.
+            # Uninstall any old version if present.
             run(
-                [sys.executable, "-m", "pip", "install", "pyright", "--upgrade"],
+                [sys.executable, "-m", "pip", "uninstall", "pyright", "-y"],
+                check=True,
+            )
+
+            # Install the latest version.
+            run(
+                [sys.executable, "-m", "pip", "install", "pyright"],
                 check=True,
             )
 
@@ -214,8 +232,15 @@ class PyreTypeChecker(TypeChecker):
             pass
 
         try:
+            # Uninstall any existing version if present.
             run(
-                [sys.executable, "-m", "pip", "install", "pyre-check", "--upgrade"],
+                [sys.executable, "-m", "pip", "uninstall", "pyre-check", "-y"],
+                check=True,
+            )
+
+            # Install the latest version.
+            run(
+                [sys.executable, "-m", "pip", "install", "pyre-check"],
                 check=True,
             )
 
@@ -270,10 +295,18 @@ class PytypeTypeChecker(TypeChecker):
 
     def install(self) -> bool:
         try:
+            # Uninstall any existing version if present.
             run(
-                [sys.executable, "-m", "pip", "install", "pytype", "--upgrade"],
+                [sys.executable, "-m", "pip", "uninstall", "pytype", "-y"],
                 check=True,
             )
+
+            # Install the latest version.
+            run(
+                [sys.executable, "-m", "pip", "install", "pytype"],
+                check=True,
+            )
+
             return True
         except CalledProcessError:
             print("Unable to install pytype on this platform")
@@ -331,7 +364,7 @@ class PytypeTypeChecker(TypeChecker):
                 self._err = err
 
             def __lt__(self, other: "ErrorSorter", /) -> bool:
-                lineno_diff = self._err.lineno - other._err.lineno
+                lineno_diff = self._err.line - other._err.line
                 if lineno_diff != 0:
                     return lineno_diff < 0
                 return other._err.message < self._err.message
@@ -339,7 +372,7 @@ class PytypeTypeChecker(TypeChecker):
             def __eq__(self, other: object, /) -> bool:
                 return (
                     isinstance(other, ErrorSorter)
-                    and self._err.lineno == other._err.lineno
+                    and self._err.line == other._err.line
                     and other._err.message == self._err.message
                 )
 
@@ -350,16 +383,13 @@ class PytypeTypeChecker(TypeChecker):
         return "\n".join(map(str, errors)) + "\n"
 
     def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
-        # File "narrowing_typeguard.py", line 128, in <module>: Function takes_callable_str was called with the wrong arguments [wrong-arg-types]
-        # File "directives_type_ignore.py", line 11: Stray type comment: ignore - additional stuff [ignored-type-comment]'
+        # annotations_forward_refs.py:103:1: unexpected indent [python-compiler-error]
         line_to_errors: dict[int, list[str]] = {}
         for line in output:
-            if '.py", line ' not in line:
-                continue
-            match = re.search(r"^File \"[^\"]+?\", line (\d+)", line)
-            assert match is not None, f"Failed to parse line number from: {line!r}"
-            lineno = int(match.group(1))
-            line_to_errors.setdefault(int(lineno), []).append(line)
+            match = re.search(r"^[a-zA-Z0-9_]+.py:(\d+):(\d+): ", line)
+            if match is not None:
+                lineno = int(match.group(1))
+                line_to_errors.setdefault(int(lineno), []).append(line)
         return line_to_errors
 
 

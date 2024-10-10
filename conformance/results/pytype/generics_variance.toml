@@ -3,12 +3,36 @@ notes = """
 Does not support covariant or contravariant TypeVars.
 """
 output = """
-File "generics_variance.py", line 14, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
-File "generics_variance.py", line 14, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
-File "generics_variance.py", line 18, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
-File "generics_variance.py", line 19, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
-File "generics_variance.py", line 27, in __iter__: bad return type [bad-return-type]
-File "generics_variance.py", line 52, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+generics_variance.py:14:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+
+X1 = TypeVar("X1", covariant=True, contravariant=True)  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_variance.py:14:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+
+X1 = TypeVar("X1", covariant=True, contravariant=True)  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_variance.py:18:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+
+T_co = TypeVar("T_co", covariant=True)
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_variance.py:19:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+
+T_contra = TypeVar("T_contra", contravariant=True)
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_variance.py:27:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in __iter__: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+generics_variance.py:52:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+
+B_co = TypeVar("B_co", covariant=True)
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -24,8 +48,8 @@ Lines 125, 126: Expected error (tag 'CoContra_Child2')
 Lines 131, 132: Expected error (tag 'CoContra_Child3')
 Lines 141, 142: Expected error (tag 'CoContra_Child5')
 Lines 195, 196: Expected error (tag 'ContraToContraToContra_WithTA')
-Line 18: Unexpected errors ['File "generics_variance.py", line 18, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
-Line 19: Unexpected errors ['File "generics_variance.py", line 19, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
-Line 27: Unexpected errors ['File "generics_variance.py", line 27, in __iter__: bad return type [bad-return-type]']
-Line 52: Unexpected errors ['File "generics_variance.py", line 52, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 18: Unexpected errors ['generics_variance.py:18:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 19: Unexpected errors ['generics_variance.py:19:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
+Line 27: Unexpected errors ['generics_variance.py:27:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __iter__: bad return type [bad-return-type]']
+Line 52: Unexpected errors ['generics_variance.py:52:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
 """

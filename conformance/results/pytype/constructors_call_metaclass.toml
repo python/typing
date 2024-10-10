@@ -4,14 +4,38 @@ Does not honor metaclass __call__ method when evaluating constructor call.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 23: Unexpected errors ['File "constructors_call_metaclass.py", line 23, in <module>: Missing parameter \\'x\\' in call to function Class1.__new__ [missing-parameter]', 'File "constructors_call_metaclass.py", line 23, in <module>: Any [assert-type]']
-Line 36: Unexpected errors ['File "constructors_call_metaclass.py", line 36, in <module>: Missing parameter \\'x\\' in call to function Class2.__new__ [missing-parameter]', 'File "constructors_call_metaclass.py", line 36, in <module>: Any [assert-type]']
+Line 23: Unexpected errors ["constructors_call_metaclass.py:23:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Missing parameter 'x' in call to function Class1.__new__ [missing-parameter]", 'constructors_call_metaclass.py:23:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 36: Unexpected errors ["constructors_call_metaclass.py:36:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Missing parameter 'x' in call to function Class2.__new__ [missing-parameter]", 'constructors_call_metaclass.py:36:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
 """
 output = """
-File "constructors_call_metaclass.py", line 23, in <module>: Missing parameter 'x' in call to function Class1.__new__ [missing-parameter]
-File "constructors_call_metaclass.py", line 23, in <module>: Any [assert-type]
-File "constructors_call_metaclass.py", line 36, in <module>: Missing parameter 'x' in call to function Class2.__new__ [missing-parameter]
-File "constructors_call_metaclass.py", line 36, in <module>: Any [assert-type]
-File "constructors_call_metaclass.py", line 51, in <module>: Missing parameter 'x' in call to function Class3.__new__ [missing-parameter]
-File "constructors_call_metaclass.py", line 65, in <module>: Missing parameter 'x' in call to function Class4.__new__ [missing-parameter]
+constructors_call_metaclass.py:23:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'x' in call to function Class1.__new__ [missing-parameter]
+
+assert_type(Class1(), NoReturn)
+            \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_call_metaclass.py:23:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+assert_type(Class1(), NoReturn)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_call_metaclass.py:36:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'x' in call to function Class2.__new__ [missing-parameter]
+
+assert_type(Class2(), int | Meta2)
+            \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_call_metaclass.py:36:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+assert_type(Class2(), int | Meta2)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_call_metaclass.py:51:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'x' in call to function Class3.__new__ [missing-parameter]
+
+Class3()  # E: Missing argument for 'x' parameter in __new__
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_call_metaclass.py:65:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'x' in call to function Class4.__new__ [missing-parameter]
+
+Class4()  # E: Missing argument for 'x' parameter in __new__
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
 """

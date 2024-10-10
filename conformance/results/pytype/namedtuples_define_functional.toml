@@ -4,21 +4,69 @@ Does not handle illegal named tuple names the same as runtime.
 Does not support defaults in functional form.
 """
 output = """
-File "namedtuples_define_functional.py", line 16, in <module>: Missing parameter 'y' in call to function Point1.__new__ [missing-parameter]
-File "namedtuples_define_functional.py", line 21, in <module>: Missing parameter 'x' in call to function Point2.__new__ [missing-parameter]
-File "namedtuples_define_functional.py", line 26, in <module>: Function Point3.__new__ expects 3 arg(s), got 4 [wrong-arg-count]
-File "namedtuples_define_functional.py", line 31, in <module>: Invalid keyword argument z to function Point4.__new__ [wrong-keyword-args]
-File "namedtuples_define_functional.py", line 36, in <module>: Function Point5.__new__ was called with the wrong arguments [wrong-arg-types]
-File "namedtuples_define_functional.py", line 37, in <module>: Function Point5.__new__ expects 3 arg(s), got 4 [wrong-arg-count]
-File "namedtuples_define_functional.py", line 42, in <module>: Function Point6.__new__ was called with the wrong arguments [wrong-arg-types]
-File "namedtuples_define_functional.py", line 43, in <module>: Function Point6.__new__ was called with the wrong arguments [wrong-arg-types]
-File "namedtuples_define_functional.py", line 52, in <module>: collections.namedtuple argument 'a' is not a valid typename or field name. [invalid-namedtuple-arg]
-File "namedtuples_define_functional.py", line 53, in <module>: collections.namedtuple argument 'def' is not a valid typename or field name. [invalid-namedtuple-arg]
-File "namedtuples_define_functional.py", line 54, in <module>: collections.namedtuple argument 'def' is not a valid typename or field name. [invalid-namedtuple-arg]
-File "namedtuples_define_functional.py", line 63, in <module>: Function collections.namedtuple was called with the wrong arguments [wrong-arg-types]
+namedtuples_define_functional.py:16:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'y' in call to function Point1.__new__ [missing-parameter]
+
+p1_3 = Point1(2.3)  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:21:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'x' in call to function Point2.__new__ [missing-parameter]
+
+p2_3 = Point2()  # E
+       \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:26:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Point3.__new__ expects 3 arg(s), got 4 [wrong-arg-count]
+
+p3_3 = Point3(1, 2, 3)  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:31:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword argument z to function Point4.__new__ [wrong-keyword-args]
+
+p4_3 = Point4(1, z=3)  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:36:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Point5.__new__ was called with the wrong arguments [wrong-arg-types]
+
+p5_3 = Point5(2, "1")  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:37:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Point5.__new__ expects 3 arg(s), got 4 [wrong-arg-count]
+
+p5_4 = Point5(1, 2, 3)  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:42:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Point6.__new__ was called with the wrong arguments [wrong-arg-types]
+
+p6_3 = Point6(2, "1")  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:43:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Point6.__new__ was called with the wrong arguments [wrong-arg-types]
+
+p6_4 = Point6(x=1.1, y=2)  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:52:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: collections.namedtuple argument 'a' is not a valid typename or field name. [invalid-namedtuple-arg]
+
+NT1 = namedtuple("NT1", ["a", "a"])  # E?: duplicate field name
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:53:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: collections.namedtuple argument 'def' is not a valid typename or field name. [invalid-namedtuple-arg]
+
+NT2 = namedtuple("NT2", ["abc", "def"])  # E?: illegal field name
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:54:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: collections.namedtuple argument 'def' is not a valid typename or field name. [invalid-namedtuple-arg]
+
+NT3 = namedtuple("NT3", ["abc", "def"], rename=False)  # E?: illegal field name
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:63:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function collections.namedtuple was called with the wrong arguments [wrong-arg-types]
+
+NT5 = namedtuple("NT5", "a b c", defaults=(1, 2))
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 66: Expected 1 errors
-Line 63: Unexpected errors ['File "namedtuples_define_functional.py", line 63, in <module>: Function collections.namedtuple was called with the wrong arguments [wrong-arg-types]']
+Line 63: Unexpected errors ['namedtuples_define_functional.py:63:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function collections.namedtuple was called with the wrong arguments [wrong-arg-types]']
 """

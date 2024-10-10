@@ -1,6 +1,10 @@
 conformant = "Unsupported"
 output = """
-File "typeddicts_readonly.py", line 8, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]
+typeddicts_readonly.py:8:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]
+
+from typing_extensions import ReadOnly
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -10,5 +14,5 @@ Line 50: Expected 1 errors
 Line 51: Expected 1 errors
 Line 60: Expected 1 errors
 Line 61: Expected 1 errors
-Line 8: Unexpected errors ['File "typeddicts_readonly.py", line 8, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]']
+Line 8: Unexpected errors ['typeddicts_readonly.py:8:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]']
 """

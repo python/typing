@@ -1,37 +1,37 @@
 conformant = "Pass"
 output = """
-protocols_subtyping.py:16:6 - error: Cannot instantiate protocol class "Proto1" (reportAbstractUsage)
-protocols_subtyping.py:38:21 - error: Expression of type "Proto2" is incompatible with declared type "Concrete2"
-  "Proto2" is incompatible with "Concrete2" (reportAssignmentType)
-protocols_subtyping.py:55:18 - error: Expression of type "Proto2" is incompatible with declared type "Proto3"
+protocols_subtyping.py:16:6 - error: Cannot instantiate Protocol class "Proto1" (reportAbstractUsage)
+protocols_subtyping.py:38:21 - error: Type "Proto2" is not assignable to declared type "Concrete2"
+  "Proto2" is not assignable to "Concrete2" (reportAssignmentType)
+protocols_subtyping.py:55:18 - error: Type "Proto2" is not assignable to declared type "Proto3"
   "Proto2" is incompatible with protocol "Proto3"
     "method2" is not present (reportAssignmentType)
-protocols_subtyping.py:79:30 - error: Expression of type "Proto5[int]" is incompatible with declared type "Proto4[int, float]"
+protocols_subtyping.py:79:30 - error: Type "Proto5[int]" is not assignable to declared type "Proto4[int, float]"
   "Proto5[int]" is incompatible with protocol "Proto4[int, float]"
     "method1" is an incompatible type
-      Type "(a: int, b: int) -> tuple[int, int]" is incompatible with type "(a: S@Proto4, b: T@Proto4) -> tuple[S@Proto4, T@Proto4]"
+      Type "(a: int, b: int) -> tuple[int, int]" is not assignable to type "(a: S@Proto4, b: T@Proto4) -> tuple[S@Proto4, T@Proto4]"
         Parameter 2: type "T@Proto4" is incompatible with type "int"
-          "float" is incompatible with "int" (reportAssignmentType)
-protocols_subtyping.py:80:25 - error: Expression of type "Proto4[int, int]" is incompatible with declared type "Proto5[float]"
+          "float" is not assignable to "int" (reportAssignmentType)
+protocols_subtyping.py:80:25 - error: Type "Proto4[int, int]" is not assignable to declared type "Proto5[float]"
   "Proto4[int, int]" is incompatible with protocol "Proto5[float]"
     "method1" is an incompatible type
-      Type "(a: int, b: int) -> tuple[int, int]" is incompatible with type "(a: T@Proto5, b: T@Proto5) -> tuple[T@Proto5, T@Proto5]"
+      Type "(a: int, b: int) -> tuple[int, int]" is not assignable to type "(a: T@Proto5, b: T@Proto5) -> tuple[T@Proto5, T@Proto5]"
         Parameter 1: type "T@Proto5" is incompatible with type "int"
-          "float" is incompatible with "int"
+          "float" is not assignable to "int"
         Parameter 2: type "T@Proto5" is incompatible with type "int"
-          "float" is incompatible with "int" (reportAssignmentType)
-protocols_subtyping.py:102:30 - error: Expression of type "Proto6[float, float]" is incompatible with declared type "Proto7[int, float]"
+          "float" is not assignable to "int" (reportAssignmentType)
+protocols_subtyping.py:102:30 - error: Type "Proto6[float, float]" is not assignable to declared type "Proto7[int, float]"
   "Proto6[float, float]" is incompatible with protocol "Proto7[int, float]"
     "method1" is an incompatible type
-      Type "(a: float) -> Sequence[float]" is incompatible with type "(a: T_contra@Proto7) -> Sequence[S_co@Proto7]"
+      Type "(a: float) -> Sequence[float]" is not assignable to type "(a: T_contra@Proto7) -> Sequence[S_co@Proto7]"
         Function return type "Sequence[float]" is incompatible with type "Sequence[S_co@Proto7]"
-          "Sequence[float]" is incompatible with "Sequence[S_co@Proto7]" (reportAssignmentType)
-protocols_subtyping.py:103:33 - error: Expression of type "Proto6[float, float]" is incompatible with declared type "Proto7[float, object]"
+          "Sequence[float]" is not assignable to "Sequence[S_co@Proto7]" (reportAssignmentType)
+protocols_subtyping.py:103:33 - error: Type "Proto6[float, float]" is not assignable to declared type "Proto7[float, object]"
   "Proto6[float, float]" is incompatible with protocol "Proto7[float, object]"
     "method1" is an incompatible type
-      Type "(a: float) -> Sequence[float]" is incompatible with type "(a: T_contra@Proto7) -> Sequence[S_co@Proto7]"
+      Type "(a: float) -> Sequence[float]" is not assignable to type "(a: T_contra@Proto7) -> Sequence[S_co@Proto7]"
         Parameter 1: type "T_contra@Proto7" is incompatible with type "float"
-          "object" is incompatible with "float" (reportAssignmentType)
+          "object" is not assignable to "float" (reportAssignmentType)
 """
 conformance_automated = "Pass"
 errors_diff = """

@@ -34,17 +34,41 @@ Line 240: Expected 1 errors
 Line 243: Expected 1 errors
 Line 273: Expected 1 errors
 Line 297: Expected 1 errors
-Line 211: Unexpected errors ['File "callables_subtyping.py", line 211, in <module>: Invalid type annotation \\'Callable[[P], None][P]\\'  [invalid-annotation]']
-Line 213: Unexpected errors ['File "callables_subtyping.py", line 213, in func7: Invalid type annotation \\'TypeAliasWithP[P]\\'  [invalid-annotation]']
-Line 255: Unexpected errors ['File "callables_subtyping.py", line 255, in __call__: @typing.overload-decorated \\'Overloaded9.__call__\\' object is not callable [not-callable]']
-Line 284: Unexpected errors ['File "callables_subtyping.py", line 284, in __call__: @typing.overload-decorated \\'Overloaded10.__call__\\' object is not callable [not-callable]']
+Line 211: Unexpected errors ["callables_subtyping.py:211:40: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Callable[[P], None][P]'  [invalid-annotation]"]
+Line 213: Unexpected errors ["callables_subtyping.py:213:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: Invalid type annotation 'TypeAliasWithP[P]'  [invalid-annotation]"]
+Line 255: Unexpected errors ["callables_subtyping.py:255:40: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __call__: @typing.overload-decorated 'Overloaded9.__call__' object is not callable [not-callable]"]
+Line 284: Unexpected errors ["callables_subtyping.py:284:44: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __call__: @typing.overload-decorated 'Overloaded10.__call__' object is not callable [not-callable]"]
 """
 output = """
-File "callables_subtyping.py", line 26, in func1: Type annotation for f6 does not match type of assignment [annotation-type-mismatch]
-File "callables_subtyping.py", line 29, in func1: Type annotation for f8 does not match type of assignment [annotation-type-mismatch]
-File "callables_subtyping.py", line 211, in <module>: Invalid type annotation 'Callable[[P], None][P]'  [invalid-annotation]
-File "callables_subtyping.py", line 213, in func7: Invalid type annotation 'TypeAliasWithP[P]'  [invalid-annotation]
-File "callables_subtyping.py", line 255, in __call__: @typing.overload-decorated 'Overloaded9.__call__' object is not callable [not-callable]
-File "callables_subtyping.py", line 284, in __call__: @typing.overload-decorated 'Overloaded10.__call__' object is not callable [not-callable]
+callables_subtyping.py:26:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Type annotation for f6 does not match type of assignment [annotation-type-mismatch]
+
+    f6: Callable[[float], float] = cb3  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+callables_subtyping.py:29:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Type annotation for f8 does not match type of assignment [annotation-type-mismatch]
+
+    f8: Callable[[int], int] = cb2  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+callables_subtyping.py:211:40: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Callable[[P], None][P]'  [invalid-annotation]
+
+def func7(proto: ProtocolWithP[P], ta: TypeAliasWithP[P]):
+                                       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_subtyping.py:213:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func7: Invalid type annotation 'TypeAliasWithP[P]'  [invalid-annotation]
+
+    f1: TypeAliasWithP[P] = proto  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+callables_subtyping.py:255:40: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in __call__: @typing.overload-decorated 'Overloaded9.__call__' object is not callable [not-callable]
+
+    def __call__(self, x: str) -> str: ...
+                                       \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+callables_subtyping.py:284:44: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in __call__: @typing.overload-decorated 'Overloaded10.__call__' object is not callable [not-callable]
+
+    def __call__(self, x: str) -> complex: ...
+                                           \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"

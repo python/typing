@@ -1,18 +1,18 @@
 conformant = "Pass"
 output = """
-protocols_merging.py:52:25 - error: Expression of type "SCConcrete2" is incompatible with declared type "SizedAndClosable1"
+protocols_merging.py:52:25 - error: Type "SCConcrete2" is not assignable to declared type "SizedAndClosable1"
   "SCConcrete2" is incompatible with protocol "SizedAndClosable1"
     "__len__" is not present (reportAssignmentType)
-protocols_merging.py:53:25 - error: Expression of type "SCConcrete2" is incompatible with declared type "SizedAndClosable2"
+protocols_merging.py:53:25 - error: Type "SCConcrete2" is not assignable to declared type "SizedAndClosable2"
   "SCConcrete2" is incompatible with protocol "SizedAndClosable2"
     "__len__" is not present (reportAssignmentType)
-protocols_merging.py:54:25 - error: Expression of type "SCConcrete2" is incompatible with declared type "SizedAndClosable3"
-  "SCConcrete2" is incompatible with "SizedAndClosable3" (reportAssignmentType)
-protocols_merging.py:67:16 - error: Protocol class "BadProto" cannot derive from non-protocol class "SizedAndClosable3" (reportGeneralTypeIssues)
+protocols_merging.py:54:25 - error: Type "SCConcrete2" is not assignable to declared type "SizedAndClosable3"
+  "SCConcrete2" is not assignable to "SizedAndClosable3" (reportAssignmentType)
+protocols_merging.py:67:16 - error: Protocol class "BadProto" cannot derive from non-Protocol class "SizedAndClosable3" (reportGeneralTypeIssues)
 protocols_merging.py:82:5 - error: Cannot instantiate abstract class "SizedAndClosable4"
   "SizedAndClosable4.close" is not implemented (reportAbstractUsage)
-protocols_merging.py:83:24 - error: Expression of type "SCConcrete1" is incompatible with declared type "SizedAndClosable4"
-  "SCConcrete1" is incompatible with "SizedAndClosable4" (reportAssignmentType)
+protocols_merging.py:83:24 - error: Type "SCConcrete1" is not assignable to declared type "SizedAndClosable4"
+  "SCConcrete1" is not assignable to "SizedAndClosable4" (reportAssignmentType)
 """
 conformance_automated = "Pass"
 errors_diff = """

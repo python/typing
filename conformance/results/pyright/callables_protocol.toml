@@ -1,62 +1,66 @@
 conformant = "Pass"
 output = """
-callables_protocol.py:35:7 - error: Expression of type "(*vals: bytes, max_items: int | None) -> list[bytes]" is incompatible with declared type "Proto1"
-  Type "(*vals: bytes, max_items: int | None) -> list[bytes]" is incompatible with type "(*vals: bytes, max_len: int | None = None) -> list[bytes]"
+callables_protocol.py:35:7 - error: Type "(*vals: bytes, max_items: int | None) -> list[bytes]" is not assignable to declared type "Proto1"
+  Type "(*vals: bytes, max_items: int | None) -> list[bytes]" is not assignable to type "(*vals: bytes, max_len: int | None = None) -> list[bytes]"
     Extra parameter "max_items"
     Missing keyword parameter "max_len" (reportAssignmentType)
-callables_protocol.py:36:7 - error: Expression of type "(*vals: bytes) -> list[bytes]" is incompatible with declared type "Proto1"
-  Type "(*vals: bytes) -> list[bytes]" is incompatible with type "(*vals: bytes, max_len: int | None = None) -> list[bytes]"
+callables_protocol.py:36:7 - error: Type "(*vals: bytes) -> list[bytes]" is not assignable to declared type "Proto1"
+  Type "(*vals: bytes) -> list[bytes]" is not assignable to type "(*vals: bytes, max_len: int | None = None) -> list[bytes]"
     Missing keyword parameter "max_len" (reportAssignmentType)
-callables_protocol.py:37:7 - error: Expression of type "(*vals: bytes, max_len: str | None) -> list[bytes]" is incompatible with declared type "Proto1"
-  Type "(*vals: bytes, max_len: str | None) -> list[bytes]" is incompatible with type "(*vals: bytes, max_len: int | None = None) -> list[bytes]"
+callables_protocol.py:37:7 - error: Type "(*vals: bytes, max_len: str | None) -> list[bytes]" is not assignable to declared type "Proto1"
+  Type "(*vals: bytes, max_len: str | None) -> list[bytes]" is not assignable to type "(*vals: bytes, max_len: int | None = None) -> list[bytes]"
     Keyword parameter "max_len" of type "int | None" is incompatible with type "str | None"
+      Type "int | None" is not assignable to type "str | None"
+        Type "int" is not assignable to type "str | None"
+          "int" is not assignable to "str"
+          "int" is not assignable to "None"
     Parameter "max_len" is missing default argument (reportAssignmentType)
-callables_protocol.py:67:7 - error: Expression of type "(*a: bytes) -> None" is incompatible with declared type "Proto2"
-  Type "(*a: bytes) -> None" is incompatible with type "(*vals: bytes, **kwargs: str) -> None"
+callables_protocol.py:67:7 - error: Type "(*a: bytes) -> None" is not assignable to declared type "Proto2"
+  Type "(*a: bytes) -> None" is not assignable to type "(*vals: bytes, **kwargs: str) -> None"
     Parameter "**kwargs" has no corresponding parameter (reportAssignmentType)
-callables_protocol.py:68:7 - error: Expression of type "(*a: str, **b: str) -> None" is incompatible with declared type "Proto2"
-  Type "(*a: str, **b: str) -> None" is incompatible with type "(*vals: bytes, **kwargs: str) -> None"
+callables_protocol.py:68:7 - error: Type "(*a: str, **b: str) -> None" is not assignable to declared type "Proto2"
+  Type "(*a: str, **b: str) -> None" is not assignable to type "(*vals: bytes, **kwargs: str) -> None"
     Parameter 1: type "*tuple[bytes, ...]" is incompatible with type "*tuple[str, ...]"
-      "*tuple[bytes, ...]" is incompatible with "*tuple[str, ...]"
+      "*tuple[bytes, ...]" is not assignable to "*tuple[str, ...]"
         Tuple entry 1 is incorrect type
-          "bytes" is incompatible with "str" (reportAssignmentType)
-callables_protocol.py:69:7 - error: Expression of type "(*a: bytes, **b: bytes) -> None" is incompatible with declared type "Proto2"
-  Type "(*a: bytes, **b: bytes) -> None" is incompatible with type "(*vals: bytes, **kwargs: str) -> None"
+          "bytes" is not assignable to "str" (reportAssignmentType)
+callables_protocol.py:69:7 - error: Type "(*a: bytes, **b: bytes) -> None" is not assignable to declared type "Proto2"
+  Type "(*a: bytes, **b: bytes) -> None" is not assignable to type "(*vals: bytes, **kwargs: str) -> None"
     Parameter 2: type "str" is incompatible with type "bytes"
-      "str" is incompatible with "bytes" (reportAssignmentType)
-callables_protocol.py:70:7 - error: Expression of type "(**b: str) -> None" is incompatible with declared type "Proto2"
-  Type "(**b: str) -> None" is incompatible with type "(*vals: bytes, **kwargs: str) -> None"
+      "str" is not assignable to "bytes" (reportAssignmentType)
+callables_protocol.py:70:7 - error: Type "(**b: str) -> None" is not assignable to declared type "Proto2"
+  Type "(**b: str) -> None" is not assignable to type "(*vals: bytes, **kwargs: str) -> None"
     Parameter "*vals" has no corresponding parameter (reportAssignmentType)
-callables_protocol.py:97:16 - error: Expression of type "(x: int) -> None" is incompatible with declared type "Proto4"
+callables_protocol.py:97:16 - error: Type "(x: int) -> None" is not assignable to declared type "Proto4"
   "function" is incompatible with protocol "Proto4"
     "other_attribute" is not present
     "__call__" is not present (reportAssignmentType)
-callables_protocol.py:121:18 - error: Expression of type "(*vals: bytes, max_len: int | None = None) -> list[bytes]" is incompatible with declared type "NotProto6"
-  "function" is incompatible with "NotProto6" (reportAssignmentType)
-callables_protocol.py:169:7 - error: Expression of type "(x: int) -> Any" is incompatible with declared type "Proto8"
+callables_protocol.py:121:18 - error: Type "(*vals: bytes, max_len: int | None = None) -> list[bytes]" is not assignable to declared type "NotProto6"
+  "function" is not assignable to "NotProto6" (reportAssignmentType)
+callables_protocol.py:169:7 - error: Type "(x: int) -> Any" is not assignable to declared type "Proto8"
   One or more overloads of "__call__" is not assignable
-    Type "(x: int) -> Any" is incompatible with type "(x: str) -> str"
+    Type "(x: int) -> Any" is not assignable to type "(x: str) -> str"
       Parameter 1: type "str" is incompatible with type "int"
-        "str" is incompatible with "int" (reportAssignmentType)
+        "str" is not assignable to "int" (reportAssignmentType)
 callables_protocol.py:186:33 - error: Cannot assign to attribute "other_attribute" for class "Proto9[P@decorator1, R@decorator1]"
-  "Literal['str']" is incompatible with "int" (reportAttributeAccessIssue)
+  "Literal['str']" is not assignable to "int" (reportAttributeAccessIssue)
 callables_protocol.py:187:15 - error: Cannot assign to attribute "xxx" for class "Proto9[P@decorator1, R@decorator1]"
   Attribute "xxx" is unknown (reportAttributeAccessIssue)
 callables_protocol.py:197:16 - error: Cannot access attribute "other_attribute2" for class "Proto9[(x: int), str]"
   Attribute "other_attribute2" is unknown (reportAttributeAccessIssue)
-callables_protocol.py:238:8 - error: Expression of type "(x: int, y: str, /) -> Any" is incompatible with declared type "Proto11"
-  Type "(x: int, y: str, /) -> Any" is incompatible with type "(x: int, /, y: str) -> Any"
+callables_protocol.py:238:8 - error: Type "(x: int, y: str, /) -> Any" is not assignable to declared type "Proto11"
+  Type "(x: int, y: str, /) -> Any" is not assignable to type "(x: int, /, y: str) -> Any"
     Missing keyword parameter "y"
       Position-only parameter mismatch; parameter "y" is not position-only
       Position-only parameter mismatch; expected 2 but received 1 (reportAssignmentType)
-callables_protocol.py:260:8 - error: Expression of type "(*args: Any, kwarg0: Any) -> None" is incompatible with declared type "Proto12"
-  Type "(*args: Any, kwarg0: Any) -> None" is incompatible with type "(*args: Any, kwarg0: Any, kwarg1: Any) -> None"
+callables_protocol.py:260:8 - error: Type "(*args: Any, kwarg0: Any) -> None" is not assignable to declared type "Proto12"
+  Type "(*args: Any, kwarg0: Any) -> None" is not assignable to type "(*args: Any, kwarg0: Any, kwarg1: Any) -> None"
     Missing keyword parameter "kwarg1" (reportAssignmentType)
-callables_protocol.py:284:27 - error: Expression of type "(path: str) -> str" is incompatible with declared type "Proto13_Default"
-  Type "(path: str) -> str" is incompatible with type "(path: str = ...) -> str"
+callables_protocol.py:284:27 - error: Type "(path: str) -> str" is not assignable to declared type "Proto13_Default"
+  Type "(path: str) -> str" is not assignable to type "(path: str = ...) -> str"
     Parameter "path" is missing default argument (reportAssignmentType)
-callables_protocol.py:311:27 - error: Expression of type "(*, path: str) -> str" is incompatible with declared type "Proto14_Default"
-  Type "(*, path: str) -> str" is incompatible with type "(*, path: str = ...) -> str"
+callables_protocol.py:311:27 - error: Type "(*, path: str) -> str" is not assignable to declared type "Proto14_Default"
+  Type "(*, path: str) -> str" is not assignable to type "(*, path: str = ...) -> str"
     Parameter "path" is missing default argument (reportAssignmentType)
 """
 conformance_automated = "Pass"

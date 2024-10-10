@@ -5,8 +5,18 @@ Incorrectly reports some class objects as incompatible with a protocol.
 Fails to report some class objects as incompatible with a protocol.
 """
 output = """
-File "protocols_class_objects.py", line 50, in method1: bad return type [bad-return-type]
-File "protocols_class_objects.py", line 100, in <module>: Function CMeta.__init__ was called with the wrong arguments [wrong-arg-types]
+protocols_class_objects.py:50:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method1: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+protocols_class_objects.py:100:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function CMeta.__init__ was called with the wrong arguments [wrong-arg-types]
+
+class ConcreteC3(metaclass=CMeta):
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -18,6 +28,6 @@ Line 104: Expected 1 errors
 Line 106: Expected 1 errors
 Line 107: Expected 1 errors
 Line 108: Expected 1 errors
-Line 50: Unexpected errors ['File "protocols_class_objects.py", line 50, in method1: bad return type [bad-return-type]']
-Line 100: Unexpected errors ['File "protocols_class_objects.py", line 100, in <module>: Function CMeta.__init__ was called with the wrong arguments [wrong-arg-types]']
+Line 50: Unexpected errors ['protocols_class_objects.py:50:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method1: bad return type [bad-return-type]']
+Line 100: Unexpected errors ['protocols_class_objects.py:100:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function CMeta.__init__ was called with the wrong arguments [wrong-arg-types]']
 """

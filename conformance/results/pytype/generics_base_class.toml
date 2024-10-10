@@ -4,10 +4,28 @@ False negative on passing SymbolTable to dict[str, list[object]].
 Does not reject illegal use of Generic.
 """
 output = """
-File "generics_base_class.py", line 29, in <module>: Invalid type annotation 'T'  [invalid-annotation]
-File "generics_base_class.py", line 49, in <module>: Invalid type annotation 'LinkedList[int, int]'  [invalid-annotation]
-File "generics_base_class.py", line 61, in <module>: Invalid type annotation 'MyDict[int, int]'  [invalid-annotation]
-File "generics_base_class.py", line 68, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+generics_base_class.py:29:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'T'  [invalid-annotation]
+
+def func1(y: Generic[T]):  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    x: Generic  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_base_class.py:49:22: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'LinkedList[int, int]'  [invalid-annotation]
+
+linked_list_invalid: LinkedList[int, int]  # E
+                     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_base_class.py:61:18: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'MyDict[int, int]'  [invalid-annotation]
+
+my_dict_invalid: MyDict[int, int]  # E
+                 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_base_class.py:68:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+
+class BadClass1(Generic[T, T]):  # E
+                \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """

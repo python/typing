@@ -1,7 +1,7 @@
 conformant = "Pass"
 output = """
 generics_base_class.py:26:26 - error: Argument of type "SymbolTable" cannot be assigned to parameter "x" of type "dict[str, list[object]]" in function "takes_dict_incorrect"
-  "SymbolTable" is incompatible with "dict[str, list[object]]"
+  "SymbolTable" is not assignable to "dict[str, list[object]]"
     Type parameter "_VT@dict" is invariant, but "list[Node]" is not the same as "list[object]"
     Consider switching from "dict" to "Mapping" which is covariant in the value type (reportArgumentType)
 generics_base_class.py:29:14 - error: "Generic" is not valid in this context (reportGeneralTypeIssues)

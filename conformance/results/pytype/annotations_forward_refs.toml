@@ -6,27 +6,420 @@ Evaluates incorrect type for class variable annotated with quoted type expressio
 Does not treat triple-quoted forward reference annotation as implicitly parenthesized.
 """
 output = """
-File "annotations_forward_refs.py", line 22, in <module>: Name 'ClassA' is not defined [name-error]
-File "annotations_forward_refs.py", line 23, in <module>: Name 'ClassA' is not defined [name-error]
-File "annotations_forward_refs.py", line 24, in <module>: unsupported operand type(s) for |: ''ClassA': str' and 'int: Type[int]' [unsupported-operands]
-File "annotations_forward_refs.py", line 25, in <module>: Missing parameter 'y' in call to function int.__or__ [missing-parameter]
-File "annotations_forward_refs.py", line 40, in <module>: invalid syntax [python-compiler-error]
-File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '{}' for p5 [invalid-annotation]
-File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]
-File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]
-File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '<instance of module>' for p15 [invalid-annotation]
-File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for p4 [invalid-annotation]
-File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '1' for p9 [invalid-annotation]
-File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '1' for p11 [invalid-annotation]
-File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '-1' for p12 [invalid-annotation]
-File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation '(int, str)' for p3 [invalid-annotation]
-File "annotations_forward_refs.py", line 66, in ClassB: Name 'ClassB' is not defined [name-error]
-File "annotations_forward_refs.py", line 80, in ClassD: Name 'ClassF' is not defined [name-error]
-File "annotations_forward_refs.py", line 82, in ClassD: Invalid type annotation '<instance of str>' for str [invalid-annotation]
-File "annotations_forward_refs.py", line 87, in ClassD: Invalid type annotation '<instance of Callable>' for x [invalid-annotation]
-File "annotations_forward_refs.py", line 89, in ClassD: Invalid type annotation '<instance of Callable>' for y [invalid-annotation]
-File "annotations_forward_refs.py", line 96, in <module>: Any [assert-type]
-File "annotations_forward_refs.py", line 103, in <module>: unexpected indent [python-compiler-error]
+annotations_forward_refs.py:22:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Name 'ClassA' is not defined [name-error]
+
+bad1: ClassA  # E: Runtime error: requires quotes
+      \u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:23:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Name 'ClassA' is not defined [name-error]
+
+bad2: list[ClassA]  # E: Runtime error: requires quotes
+           \u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:24:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: unsupported operand type(s) for |: ''ClassA': str' and 'int: Type[int]' [unsupported-operands]
+
+bad3: "ClassA" | int  # E: Runtime error
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:25:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'y' in call to function int.__or__ [missing-parameter]
+
+bad4: int | "ClassA"  # E: Runtime error
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '{}' for p5 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: "eval(''.join(map(chr, [105, 110, 116])))",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: "[int, str]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: "(int, str)",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: "[int for i in range(1)]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: "{}",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: "(lambda : int)()",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: "[int][0]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: "int if 1 < 3 else str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: "var1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: "True",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: "1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: "-1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: "int or str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: 'f"int"',  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: "types",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: "eval(''.join(map(chr, [105, 110, 116])))",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: "[int, str]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: "(int, str)",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: "[int for i in range(1)]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: "{}",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: "(lambda : int)()",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: "[int][0]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: "int if 1 < 3 else str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: "var1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: "True",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: "1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: "-1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: "int or str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: 'f"int"',  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: "types",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: "eval(''.join(map(chr, [105, 110, 116])))",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: "[int, str]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: "(int, str)",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: "[int for i in range(1)]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: "{}",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: "(lambda : int)()",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: "[int][0]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: "int if 1 < 3 else str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: "var1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: "True",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: "1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: "-1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: "int or str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: 'f"int"',  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: "types",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of module>' for p15 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: "eval(''.join(map(chr, [105, 110, 116])))",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: "[int, str]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: "(int, str)",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: "[int for i in range(1)]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: "{}",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: "(lambda : int)()",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: "[int][0]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: "int if 1 < 3 else str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: "var1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: "True",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: "1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: "-1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: "int or str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: 'f"int"',  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: "types",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of List[Type[int]]>' for p4 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: "eval(''.join(map(chr, [105, 110, 116])))",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: "[int, str]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: "(int, str)",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: "[int for i in range(1)]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: "{}",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: "(lambda : int)()",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: "[int][0]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: "int if 1 < 3 else str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: "var1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: "True",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: "1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: "-1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: "int or str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: 'f"int"',  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: "types",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '1' for p9 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: "eval(''.join(map(chr, [105, 110, 116])))",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: "[int, str]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: "(int, str)",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: "[int for i in range(1)]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: "{}",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: "(lambda : int)()",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: "[int][0]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: "int if 1 < 3 else str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: "var1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: "True",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: "1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: "-1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: "int or str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: 'f"int"',  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: "types",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '1' for p11 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: "eval(''.join(map(chr, [105, 110, 116])))",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: "[int, str]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: "(int, str)",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: "[int for i in range(1)]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: "{}",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: "(lambda : int)()",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: "[int][0]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: "int if 1 < 3 else str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: "var1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: "True",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: "1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: "-1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: "int or str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: 'f"int"',  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: "types",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '-1' for p12 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: "eval(''.join(map(chr, [105, 110, 116])))",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: "[int, str]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: "(int, str)",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: "[int for i in range(1)]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: "{}",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: "(lambda : int)()",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: "[int][0]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: "int if 1 < 3 else str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: "var1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: "True",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: "1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: "-1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: "int or str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: 'f"int"',  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: "types",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '(int, str)' for p3 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: "eval(''.join(map(chr, [105, 110, 116])))",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: "[int, str]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: "(int, str)",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: "[int for i in range(1)]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: "{}",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: "(lambda : int)()",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: "[int][0]",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: "int if 1 < 3 else str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: "var1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: "True",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: "1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: "-1",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: "int or str",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: 'f"int"',  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: "types",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:66:26: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassB: Name 'ClassB' is not defined [name-error]
+
+    def method1(self) -> ClassB:  # E: Runtime error
+                         \u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:80:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassD: Name 'ClassF' is not defined [name-error]
+
+    ClassF: "ClassF"  # E: circular reference
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:82:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassD: Invalid type annotation '<instance of str>' for str [invalid-annotation]
+
+    str: "str" = ""  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:87:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassD: Invalid type annotation '<instance of Callable>' for x [invalid-annotation]
+
+    x: "int" = 0  # OK
+    \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:89:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassD: Invalid type annotation '<instance of Callable>' for y [invalid-annotation]
+
+    y: int = 0  # E: Refers to local int, which isn't a legal type expression
+    \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:96:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+assert_type(ClassD.x, int)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_forward_refs.py:103:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: unexpected indent [python-compiler-error]
+
+value: ""\"
+\u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+    int |
+\u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+    str |
+\u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+    list[int]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+""\"
+\u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -45,9 +438,9 @@ Line 52: Expected 1 errors
 Line 53: Expected 1 errors
 Line 54: Expected 1 errors
 Line 55: Expected 1 errors
-Line 40: Unexpected errors ['File "annotations_forward_refs.py", line 40, in <module>: invalid syntax [python-compiler-error]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'{}\\' for p5 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'[int, str]\\' for p2 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'True\\' for p10 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'<instance of module>\\' for p15 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'<instance of List[Type[int]]>\\' for p4 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'1\\' for p9 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'1\\' for p11 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'-1\\' for p12 [invalid-annotation]', 'File "annotations_forward_refs.py", line 40, in <module>: Invalid type annotation \\'(int, str)\\' for p3 [invalid-annotation]']
-Line 82: Unexpected errors ['File "annotations_forward_refs.py", line 82, in ClassD: Invalid type annotation \\'<instance of str>\\' for str [invalid-annotation]']
-Line 87: Unexpected errors ['File "annotations_forward_refs.py", line 87, in ClassD: Invalid type annotation \\'<instance of Callable>\\' for x [invalid-annotation]']
-Line 96: Unexpected errors ['File "annotations_forward_refs.py", line 96, in <module>: Any [assert-type]']
-Line 103: Unexpected errors ['File "annotations_forward_refs.py", line 103, in <module>: unexpected indent [python-compiler-error]']
+Line 40: Unexpected errors ["annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '{}' for p5 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of module>' for p15 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of List[Type[int]]>' for p4 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '1' for p9 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '1' for p11 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '-1' for p12 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '(int, str)' for p3 [invalid-annotation]"]
+Line 82: Unexpected errors ["annotations_forward_refs.py:82:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in ClassD: Invalid type annotation '<instance of str>' for str [invalid-annotation]"]
+Line 87: Unexpected errors ["annotations_forward_refs.py:87:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in ClassD: Invalid type annotation '<instance of Callable>' for x [invalid-annotation]"]
+Line 96: Unexpected errors ['annotations_forward_refs.py:96:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 103: Unexpected errors ['annotations_forward_refs.py:103:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: unexpected indent [python-compiler-error]']
 """

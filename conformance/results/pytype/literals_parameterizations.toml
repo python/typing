@@ -3,22 +3,91 @@ notes = """
 Does not understand `Literal` type annotation.
 """
 output = """
-File "literals_parameterizations.py", line 17, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 18, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 19, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 33, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 35, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 42, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 43, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 44, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 47, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 48, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 50, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 51, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 53, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 61, in <module>: Invalid type annotation 'Literal[my_function]'  [invalid-annotation]
-File "literals_parameterizations.py", line 61, in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
-File "literals_parameterizations.py", line 65, in func2: Type annotation for x1 does not match type of assignment [annotation-type-mismatch]
+literals_parameterizations.py:17:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+good1: Literal[26]
+       \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:18:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+good2: Literal[0x1A]
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:19:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+good3: Literal[-4]
+       \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:33:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+AllModes = Literal[ReadOnlyMode, WriteAndTruncateMode, WriteNoTruncateMode, AppendMode]
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:35:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+good11: Literal[Literal[Literal[1, 2, 3], "foo"], 5, None]
+                \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:35:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+good11: Literal[Literal[Literal[1, 2, 3], "foo"], 5, None]
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:42:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+bad2: Literal["foo".replace("o", "b")]  # E
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:43:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+bad3: Literal[4 + 3j]  # E
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:44:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+bad4: Literal[~5]  # E
+      \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:47:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+bad7: Literal[{"a": "b", "c": "d"}]  # E
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:48:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+bad8: Literal[int]  # E
+      \u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:50:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+bad10: Literal[T]  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:51:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+bad11: Literal[3.14]  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:53:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+bad13: Literal[...]  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:61:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal[my_function]'  [invalid-annotation]
+
+y: Literal[my_function] = my_function  # E
+\u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:61:4: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+y: Literal[my_function] = my_function  # E
+   \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_parameterizations.py:65:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: Type annotation for x1 does not match type of assignment [annotation-type-mismatch]
+
+    x1: Literal["Color.RED"] = a  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -29,9 +98,9 @@ Line 49: Expected 1 errors
 Line 52: Expected 1 errors
 Line 56: Expected 1 errors
 Line 60: Expected 1 errors
-Line 17: Unexpected errors ['File "literals_parameterizations.py", line 17, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
-Line 18: Unexpected errors ['File "literals_parameterizations.py", line 18, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
-Line 19: Unexpected errors ['File "literals_parameterizations.py", line 19, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
-Line 33: Unexpected errors ['File "literals_parameterizations.py", line 33, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
-Line 35: Unexpected errors ['File "literals_parameterizations.py", line 35, in <module>: Invalid type annotation \\'Literal\\'  [invalid-annotation]']
+Line 17: Unexpected errors ["literals_parameterizations.py:17:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]"]
+Line 18: Unexpected errors ["literals_parameterizations.py:18:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]"]
+Line 19: Unexpected errors ["literals_parameterizations.py:19:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]"]
+Line 33: Unexpected errors ["literals_parameterizations.py:33:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]"]
+Line 35: Unexpected errors ["literals_parameterizations.py:35:17: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]", "literals_parameterizations.py:35:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]"]
 """

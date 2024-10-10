@@ -1,16 +1,60 @@
 conformant = "Pass"
 output = """
-File "dataclasses_usage.py", line 50, in <module>: Missing parameter 'unit_price' in call to function InventoryItem.__init__ [missing-parameter]
-File "dataclasses_usage.py", line 51, in <module>: Function InventoryItem.__init__ was called with the wrong arguments [wrong-arg-types]
-File "dataclasses_usage.py", line 52, in <module>: Function InventoryItem.__init__ expects 3 arg(s), got 5 [wrong-arg-count]
-File "dataclasses_usage.py", line 58, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
-File "dataclasses_usage.py", line 64, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
-File "dataclasses_usage.py", line 70, in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
-File "dataclasses_usage.py", line 83, in <module>: Function DC4.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
-File "dataclasses_usage.py", line 88, in DC5: Type annotation for a does not match type of assignment [annotation-type-mismatch]
-File "dataclasses_usage.py", line 127, in <module>: Function DC7.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
-File "dataclasses_usage.py", line 130, in <module>: Missing parameter 'y' in call to function DC8.__init__ [missing-parameter]
-File "dataclasses_usage.py", line 179, in <module>: Function DC13.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+dataclasses_usage.py:50:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'unit_price' in call to function InventoryItem.__init__ [missing-parameter]
+
+v2 = InventoryItem("name")  # E: missing unit_price
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_usage.py:51:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function InventoryItem.__init__ was called with the wrong arguments [wrong-arg-types]
+
+v3 = InventoryItem("name", "price")  # E: incorrect type for unit_price
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_usage.py:52:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function InventoryItem.__init__ expects 3 arg(s), got 5 [wrong-arg-count]
+
+v4 = InventoryItem("name", 3.1, 3, 4)  # E: too many arguments
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_usage.py:58:2: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
+
+@dataclass  # E[DC1]
+ \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_usage.py:64:2: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
+
+@dataclass  # E[DC2]
+ \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_usage.py:70:2: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: In method __init__, non-default argument b follows default argument [invalid-function-definition]
+
+@dataclass  # E[DC3]
+ \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_usage.py:83:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function DC4.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
+
+v6 = DC4(0, 1)  # E: too many parameters
+     \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_usage.py:88:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in DC5: Type annotation for a does not match type of assignment [annotation-type-mismatch]
+
+    a: int = field(default_factory=str)  # E: type mismatch
+    \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+dataclasses_usage.py:127:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function DC7.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
+
+DC7(3, 4)  # E
+\u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_usage.py:130:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'y' in call to function DC8.__init__ [missing-parameter]
+
+DC8(a)  # E
+\u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_usage.py:179:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function DC13.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+
+DC13(3)  # E
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Pass"
 errors_diff = """

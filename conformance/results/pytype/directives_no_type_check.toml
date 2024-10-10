@@ -3,11 +3,31 @@ notes = """
 Does not honor @no_type_check decorator.
 """
 output = """
-File "directives_no_type_check.py", line 15, in ClassA: Type annotation for x does not match type of assignment [annotation-type-mismatch]
-File "directives_no_type_check.py", line 25, in func1: unsupported operand type(s) for +: int and str [unsupported-operands]
-File "directives_no_type_check.py", line 26, in func1: bad return type [bad-return-type]
-File "directives_no_type_check.py", line 29, in <module>: Function func1 was called with the wrong arguments [wrong-arg-types]
-File "directives_no_type_check.py", line 32, in <module>: Missing parameter 'a' in call to function func1 [missing-parameter]
+directives_no_type_check.py:15:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassA: Type annotation for x does not match type of assignment [annotation-type-mismatch]
+
+    x: int = ""  # E?: No error should be reported
+    \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+directives_no_type_check.py:25:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: unsupported operand type(s) for +: int and str [unsupported-operands]
+
+    c = a + b  # E?: No error should be reported
+        \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+directives_no_type_check.py:26:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: bad return type [bad-return-type]
+
+    return 1  # E?: No error should be reported
+           \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+directives_no_type_check.py:29:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function func1 was called with the wrong arguments [wrong-arg-types]
+
+func1(b"invalid", b"arguments")  # E?: No error should be reported
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+directives_no_type_check.py:32:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'a' in call to function func1 [missing-parameter]
+
+func1()  # E: incorrect arguments for parameters
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Pass"
 errors_diff = """

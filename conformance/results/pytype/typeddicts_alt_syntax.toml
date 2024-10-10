@@ -5,8 +5,16 @@ Does not report when name of TypedDict doesn't match assigned identifier name.
 Does not support keyword-argument form of alternative syntax (deprecated in 3.11).
 """
 output = """
-File "typeddicts_alt_syntax.py", line 27, in <module>: Function typing.TypedDict was called with the wrong arguments [wrong-arg-types]
-File "typeddicts_alt_syntax.py", line 41, in <module>: Function typing.TypedDict expects 2 arg(s), got 3 [wrong-arg-count]
+typeddicts_alt_syntax.py:27:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function typing.TypedDict was called with the wrong arguments [wrong-arg-types]
+
+BadTypedDict2 = TypedDict("BadTypedDict2", {1: str})  # E
+                \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_alt_syntax.py:41:10: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function typing.TypedDict expects 2 arg(s), got 3 [wrong-arg-count]
+
+Movie2 = TypedDict("Movie2", name=str, year=int)  # E?
+         \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
