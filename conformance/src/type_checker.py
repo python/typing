@@ -85,6 +85,11 @@ class MypyTypeChecker(TypeChecker):
                 [sys.executable, "-m", "pip", "install", "mypy"],
                 check=True,
             )
+
+            # Run "mypy --version" to ensure that it's installed and to work
+            # around timing issues caused by malware scanners on some systems.
+            self.get_version()
+
             return True
         except CalledProcessError:
             print("Unable to install mypy")
