@@ -23,7 +23,7 @@ callables_kwargs.py:35:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1:
     assert_type(v3, str)
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-callables_kwargs.py:41:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: Dict[str, Unpack[TD1]] [assert-type]
+callables_kwargs.py:41:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: dict[str, Unpack[TD1]] [assert-type]
 
     assert_type(kwargs, TD1)
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -86,7 +86,7 @@ Line 10: Unexpected errors ['callables_kwargs.py:10:1: \\x1b[1m\\x1b[31merror\\x
 Line 24: Unexpected errors ['callables_kwargs.py:24:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Unpack[TD2] [assert-type]']
 Line 32: Unexpected errors ['callables_kwargs.py:32:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Unpack[TD2] [assert-type]']
 Line 35: Unexpected errors ['callables_kwargs.py:35:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Unpack[TD2] [assert-type]']
-Line 41: Unexpected errors ['callables_kwargs.py:41:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func2: Dict[str, Unpack[TD1]] [assert-type]']
+Line 41: Unexpected errors ['callables_kwargs.py:41:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func2: dict[str, Unpack[TD1]] [assert-type]']
 Line 47: Unexpected errors ['callables_kwargs.py:47:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: Function func1 was called with the wrong arguments [wrong-arg-types]']
 Line 49: Unexpected errors ["callables_kwargs.py:49:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: Missing parameter 'v2' in call to function TD2.__init__ [missing-parameter]"]
 """

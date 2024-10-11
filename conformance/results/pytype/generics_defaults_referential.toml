@@ -155,22 +155,22 @@ generics_defaults_referential.py:94:23: \u001b[1m\u001b[31merror\u001b[39m\u001b
 assert_type(Bar, type[Bar[Any, list[Any]]])
                       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults_referential.py:95:28: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Bar[int, List[int]]'  [invalid-annotation]
+generics_defaults_referential.py:95:28: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Bar[int, list[int]]'  [invalid-annotation]
 
 assert_type(Bar[int], type[Bar[int, list[int]]])
                            \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults_referential.py:96:30: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Bar[int, List[int]]'  [invalid-annotation]
+generics_defaults_referential.py:96:30: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Bar[int, list[int]]'  [invalid-annotation]
 
 assert_type(Bar[int](0, []), Bar[int, list[int]])
                              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults_referential.py:97:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Bar[int, List[str]]'  [invalid-annotation]
+generics_defaults_referential.py:97:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Bar[int, list[str]]'  [invalid-annotation]
 
 assert_type(Bar[int, list[str]](0, []), Bar[int, list[str]])
             \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults_referential.py:97:41: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Bar[int, List[str]]'  [invalid-annotation]
+generics_defaults_referential.py:97:41: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Bar[int, list[str]]'  [invalid-annotation]
 
 assert_type(Bar[int, list[str]](0, []), Bar[int, list[str]])
                                         \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -210,8 +210,8 @@ Line 77: Unexpected errors ['generics_defaults_referential.py:77:1: \\x1b[1m\\x1
 Line 87: Unexpected errors ['generics_defaults_referential.py:87:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
 Line 90: Unexpected errors ["generics_defaults_referential.py:90:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]"]
 Line 94: Unexpected errors ["generics_defaults_referential.py:94:23: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[Any, list]'  [invalid-annotation]"]
-Line 95: Unexpected errors ["generics_defaults_referential.py:95:28: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[int, List[int]]'  [invalid-annotation]"]
-Line 96: Unexpected errors ["generics_defaults_referential.py:96:30: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[int, List[int]]'  [invalid-annotation]"]
-Line 97: Unexpected errors ["generics_defaults_referential.py:97:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[int, List[str]]'  [invalid-annotation]", "generics_defaults_referential.py:97:41: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[int, List[str]]'  [invalid-annotation]"]
+Line 95: Unexpected errors ["generics_defaults_referential.py:95:28: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[int, list[int]]'  [invalid-annotation]"]
+Line 96: Unexpected errors ["generics_defaults_referential.py:96:30: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[int, list[int]]'  [invalid-annotation]"]
+Line 97: Unexpected errors ["generics_defaults_referential.py:97:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[int, list[str]]'  [invalid-annotation]", "generics_defaults_referential.py:97:41: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[int, list[str]]'  [invalid-annotation]"]
 Line 98: Unexpected errors ["generics_defaults_referential.py:98:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[int, str]'  [invalid-annotation]", "generics_defaults_referential.py:98:35: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[int, str]'  [invalid-annotation]"]
 """

@@ -52,6 +52,7 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 66: Expected 1 errors
 Line 74: Expected 1 errors
+Line 145: Expected 1 errors
 Line 147: Expected 1 errors
 Line 12: Unexpected errors ['protocols_generic.py:12:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
 Line 13: Unexpected errors ['protocols_generic.py:13:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']

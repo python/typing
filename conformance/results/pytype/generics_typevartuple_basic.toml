@@ -25,7 +25,7 @@ def func1(*args: *Ts) -> tuple[*Ts]:
     ...
 \u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_basic.py:16:26: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_basic.py:16:26: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 def func1(*args: *Ts) -> tuple[*Ts]:
                          \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
@@ -45,7 +45,7 @@ generics_typevartuple_basic.py:23:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0
 class Array(Generic[*Shape]):
             \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_basic.py:24:31: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Array: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_basic.py:24:31: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Array: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
     def __init__(self, shape: tuple[*Shape]):
                               \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -55,7 +55,7 @@ generics_typevartuple_basic.py:25:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m
         self._shape: tuple[*Shape] = shape
         \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_basic.py:27:28: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Array: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_basic.py:27:28: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Array: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
     def get_shape(self) -> tuple[*Shape]:
                            \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -200,17 +200,17 @@ generics_typevartuple_basic.py:67:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m
 Ts3 = TypeVarTuple("Ts3", bound=int)  # E
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_basic.py:75:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_basic.py:75:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 def func2(arg1: tuple[*Ts], arg2: tuple[*Ts]) -> tuple[*Ts]:
                 \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_basic.py:75:35: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_basic.py:75:35: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 def func2(arg1: tuple[*Ts], arg2: tuple[*Ts]) -> tuple[*Ts]:
                                   \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_basic.py:75:50: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_basic.py:75:50: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 def func2(arg1: tuple[*Ts], arg2: tuple[*Ts]) -> tuple[*Ts]:
                                                  \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
@@ -222,7 +222,7 @@ generics_typevartuple_basic.py:76:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m
 
 Called from (traceback):
   line 84, in current file
-generics_typevartuple_basic.py:84:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Tuple[Any] [assert-type]
+generics_typevartuple_basic.py:84:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: tuple[Any] [assert-type]
 
 assert_type(func2((0,), (1,)), tuple[int])  # OK
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -286,20 +286,20 @@ Line 100: Expected 1 errors
 Line 7: Unexpected errors ['generics_typevartuple_basic.py:7:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
 Line 9: Unexpected errors ['generics_typevartuple_basic.py:9:6: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
 Line 12: Unexpected errors ["generics_typevartuple_basic.py:12:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]"]
-Line 16: Unexpected errors ["generics_typevartuple_basic.py:16:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: No attribute '__iter__' on TypeVarTuple [attribute-error]", "generics_typevartuple_basic.py:16:26: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]"]
+Line 16: Unexpected errors ["generics_typevartuple_basic.py:16:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: No attribute '__iter__' on TypeVarTuple [attribute-error]", "generics_typevartuple_basic.py:16:26: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]"]
 Line 17: Unexpected errors ['generics_typevartuple_basic.py:17:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: bad return type [bad-return-type]']
 Line 20: Unexpected errors ['generics_typevartuple_basic.py:20:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
 Line 23: Unexpected errors ["generics_typevartuple_basic.py:23:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]"]
-Line 24: Unexpected errors ["generics_typevartuple_basic.py:24:31: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in Array: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]"]
+Line 24: Unexpected errors ["generics_typevartuple_basic.py:24:31: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in Array: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]"]
 Line 25: Unexpected errors ["generics_typevartuple_basic.py:25:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __init__: Invalid type annotation 'tuple[*Shape,]'  [invalid-annotation]"]
-Line 27: Unexpected errors ["generics_typevartuple_basic.py:27:28: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in Array: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]"]
+Line 27: Unexpected errors ["generics_typevartuple_basic.py:27:28: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in Array: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]"]
 Line 36: Unexpected errors ['generics_typevartuple_basic.py:36:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]', "generics_typevartuple_basic.py:36:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Array[Height, Width]'  [invalid-annotation]", 'generics_typevartuple_basic.py:36:28: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function Array.__init__ was called with the wrong arguments [wrong-arg-types]']
 Line 37: Unexpected errors ['generics_typevartuple_basic.py:37:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]', "generics_typevartuple_basic.py:37:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Array[Batch, Height, Width]'  [invalid-annotation]", 'generics_typevartuple_basic.py:37:35: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function Array.__init__ was called with the wrong arguments [wrong-arg-types]']
 Line 38: Unexpected errors ['generics_typevartuple_basic.py:38:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]', "generics_typevartuple_basic.py:38:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Array[Time, Batch, Height, Width]'  [invalid-annotation]", 'generics_typevartuple_basic.py:38:41: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function Array.__init__ was called with the wrong arguments [wrong-arg-types]']
 Line 54: Unexpected errors ["generics_typevartuple_basic.py:54:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __init__: Invalid type annotation 'tuple[*Shape,]'  [invalid-annotation]"]
-Line 75: Unexpected errors ["generics_typevartuple_basic.py:75:17: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]", "generics_typevartuple_basic.py:75:35: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]", "generics_typevartuple_basic.py:75:50: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]"]
+Line 75: Unexpected errors ["generics_typevartuple_basic.py:75:17: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]", "generics_typevartuple_basic.py:75:35: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]", "generics_typevartuple_basic.py:75:50: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]"]
 Line 76: Unexpected errors ['generics_typevartuple_basic.py:76:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func2: bad return type [bad-return-type]']
-Line 84: Unexpected errors ['generics_typevartuple_basic.py:84:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Tuple[Any] [assert-type]']
+Line 84: Unexpected errors ['generics_typevartuple_basic.py:84:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: tuple[Any] [assert-type]']
 Line 93: Unexpected errors ['generics_typevartuple_basic.py:93:17: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]', 'generics_typevartuple_basic.py:93:35: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]', 'generics_typevartuple_basic.py:93:53: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]']
 Line 94: Unexpected errors ['generics_typevartuple_basic.py:94:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in multiply: bad return type [bad-return-type]']
 Line 97: Unexpected errors ['generics_typevartuple_basic.py:97:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]', 'generics_typevartuple_basic.py:97:32: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]', 'generics_typevartuple_basic.py:97:49: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]']

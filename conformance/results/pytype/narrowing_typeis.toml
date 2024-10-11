@@ -5,7 +5,7 @@ Does not reject covariant use of TypeIs.
 Does not reject TypeIs where return type is not consistent with input type due to variance.
 """
 output = """
-narrowing_typeis.py:19:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Tuple[str, ...] [assert-type]
+narrowing_typeis.py:19:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: tuple[str, ...] [assert-type]
 
         assert_type(names, tuple[str, str])
         \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -44,5 +44,5 @@ Line 105: Expected 1 errors
 Line 110: Expected 1 errors
 Line 191: Expected 1 errors
 Line 199: Expected 1 errors
-Line 19: Unexpected errors ['narrowing_typeis.py:19:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Tuple[str, ...] [assert-type]']
+Line 19: Unexpected errors ['narrowing_typeis.py:19:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: tuple[str, ...] [assert-type]']
 """

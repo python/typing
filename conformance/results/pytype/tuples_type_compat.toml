@@ -50,12 +50,12 @@ tuples_type_compat.py:91:47: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <mo
 def func6(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]):
                                               \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-tuples_type_compat.py:115:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]
+tuples_type_compat.py:115:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func7: tuple[Union[int, str], Union[int, str]] [assert-type]
 
             assert_type(subj, tuple[int | str, str])
             \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-tuples_type_compat.py:117:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]
+tuples_type_compat.py:117:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func7: tuple[Union[int, str], Union[int, str]] [assert-type]
 
             assert_type(subj, tuple[int | str, int])
             \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -296,8 +296,8 @@ Line 74: Unexpected errors ['tuples_type_compat.py:74:9: \\x1b[1m\\x1b[31merror\
 Line 78: Unexpected errors ['tuples_type_compat.py:78:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: tuple [assert-type]']
 Line 82: Unexpected errors ['tuples_type_compat.py:82:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: tuple [assert-type]']
 Line 91: Unexpected errors ["tuples_type_compat.py:91:47: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
-Line 115: Unexpected errors ['tuples_type_compat.py:115:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]']
-Line 117: Unexpected errors ['tuples_type_compat.py:117:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: Tuple[Union[int, str], Union[int, str]] [assert-type]']
+Line 115: Unexpected errors ['tuples_type_compat.py:115:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: tuple[Union[int, str], Union[int, str]] [assert-type]']
+Line 117: Unexpected errors ['tuples_type_compat.py:117:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: tuple[Union[int, str], Union[int, str]] [assert-type]']
 Line 134: Unexpected errors ["tuples_type_compat.py:134:40: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
 Line 139: Unexpected errors ['tuples_type_compat.py:139:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: Sequence [assert-type]']
 Line 140: Unexpected errors ['tuples_type_compat.py:140:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: Sequence [assert-type]']

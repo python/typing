@@ -16,7 +16,7 @@ qualifiers_annotated.py:44:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <m
 Bad2: Annotated[((int, str),), ""]  # E: invalid type expression
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-qualifiers_annotated.py:45:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of List[Type[int]]>' for Bad3 [invalid-annotation]
+qualifiers_annotated.py:45:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of list[type[int]]>' for Bad3 [invalid-annotation]
 
 Bad3: Annotated[[int for i in range(1)], ""]  # E: invalid type expression
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m

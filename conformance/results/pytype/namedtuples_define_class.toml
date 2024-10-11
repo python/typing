@@ -19,12 +19,12 @@ namedtuples_define_class.py:28:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: i
 assert_type(p1[-3], int)
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-namedtuples_define_class.py:29:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Tuple[Union[int, str], ...] [assert-type]
+namedtuples_define_class.py:29:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: tuple[Union[int, str], ...] [assert-type]
 
 assert_type(p1[0:2], tuple[int, int])
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-namedtuples_define_class.py:30:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Tuple[Union[int, str], ...] [assert-type]
+namedtuples_define_class.py:30:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: tuple[Union[int, str], ...] [assert-type]
 
 assert_type(p1[0:], tuple[int, int, str])
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -75,7 +75,7 @@ Line 98: Expected 1 errors
 Line 105: Expected 1 errors
 Line 27: Unexpected errors ['namedtuples_define_class.py:27:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Union[int, str] [assert-type]']
 Line 28: Unexpected errors ['namedtuples_define_class.py:28:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Union[int, str] [assert-type]']
-Line 29: Unexpected errors ['namedtuples_define_class.py:29:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Tuple[Union[int, str], ...] [assert-type]']
-Line 30: Unexpected errors ['namedtuples_define_class.py:30:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Tuple[Union[int, str], ...] [assert-type]']
+Line 29: Unexpected errors ['namedtuples_define_class.py:29:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: tuple[Union[int, str], ...] [assert-type]']
+Line 30: Unexpected errors ['namedtuples_define_class.py:30:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: tuple[Union[int, str], ...] [assert-type]']
 Line 95: Unexpected errors ['namedtuples_define_class.py:95:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
 """

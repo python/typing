@@ -16,7 +16,7 @@ annotations_forward_refs.py:23:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: 
 bad2: list[ClassA]  # E: Runtime error: requires quotes
            \u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
 
-annotations_forward_refs.py:24:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: unsupported operand type(s) for |: ''ClassA': str' and 'int: Type[int]' [unsupported-operands]
+annotations_forward_refs.py:24:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: unsupported operand type(s) for |: ''ClassA': str' and 'int: type[int]' [unsupported-operands]
 
 bad3: "ClassA" | int  # E: Runtime error
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -182,7 +182,7 @@ def invalid_annotations(
     pass
 \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
 
-annotations_forward_refs.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of List[Type[int]]>' for p4 [invalid-annotation]
+annotations_forward_refs.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of list[type[int]]>' for p4 [invalid-annotation]
 
 def invalid_annotations(
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -438,7 +438,7 @@ Line 52: Expected 1 errors
 Line 53: Expected 1 errors
 Line 54: Expected 1 errors
 Line 55: Expected 1 errors
-Line 40: Unexpected errors ["annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '{}' for p5 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of module>' for p15 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of List[Type[int]]>' for p4 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '1' for p9 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '1' for p11 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '-1' for p12 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '(int, str)' for p3 [invalid-annotation]"]
+Line 40: Unexpected errors ["annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '{}' for p5 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of module>' for p15 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of list[type[int]]>' for p4 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '1' for p9 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '1' for p11 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '-1' for p12 [invalid-annotation]", "annotations_forward_refs.py:40:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '(int, str)' for p3 [invalid-annotation]"]
 Line 82: Unexpected errors ["annotations_forward_refs.py:82:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in ClassD: Invalid type annotation '<instance of str>' for str [invalid-annotation]"]
 Line 87: Unexpected errors ["annotations_forward_refs.py:87:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in ClassD: Invalid type annotation '<instance of Callable>' for x [invalid-annotation]"]
 Line 96: Unexpected errors ['annotations_forward_refs.py:96:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']

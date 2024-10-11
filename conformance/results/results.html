@@ -159,16 +159,16 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.11.2</div>
-<div class='tc-time'>1.9sec</div>
+<div class='tc-time'>1.6sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.384</div>
-<div class='tc-time'>1.3sec</div>
+<div class='tc-time'>1.2sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.22</div>
 <div class='tc-time'>4.5sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pytype 2024.09.13</div>
-<div class='tc-time'>32.8sec</div>
+<th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
+<div class='tc-time'>31.9sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -550,8 +550,8 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Reports errors for protocol static method with "..." implementation.</p><p>Does not report error when calling unimplemented protocol method from derived class.</p><p>Does not report type incompatibility when assigning to attribute defined in protocol.</p><p>Does not reject instantiation of class that derives from protocol but doesn't implement attribute.</p><p>Does not report instantiation of class that derives from protocol but doesn't implement method.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protocols_generic</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Fails protocol matching when method-scoped TypeVar is used in protocol.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly generates type violation for protocol that uses method-scoped type variables.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject the use of Protocol and Generic together as base classes.</p><p>Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly enforce contravariance in protocol type compatibility tests.</p><p>Does not correctly enforce invariance in protocol type compatibility tests.</p><p>Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.</p></span></div></th>
 </tr>

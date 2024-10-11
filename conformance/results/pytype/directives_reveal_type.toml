@@ -9,7 +9,7 @@ directives_reveal_type.py:14:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in 
     reveal_type(a)  # Revealed type is "int | str"
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-directives_reveal_type.py:15:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: List[int] [reveal-type]
+directives_reveal_type.py:15:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: list[int] [reveal-type]
 
     reveal_type(b)  # Revealed type is "list[int]"
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -34,7 +34,7 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 19: Expected 1 errors
 Line 14: Unexpected errors ['directives_reveal_type.py:14:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Union[int, str] [reveal-type]']
-Line 15: Unexpected errors ['directives_reveal_type.py:15:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: List[int] [reveal-type]']
+Line 15: Unexpected errors ['directives_reveal_type.py:15:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: list[int] [reveal-type]']
 Line 16: Unexpected errors ['directives_reveal_type.py:16:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Any [reveal-type]']
 Line 17: Unexpected errors ['directives_reveal_type.py:17:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: ForwardReference [reveal-type]']
 """
