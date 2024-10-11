@@ -28,7 +28,7 @@ aliases_typealiastype.py:22:40: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in 
     Callable[P, TStr] | list[S] | list[GoodAlias5[S, TStr, P]] | tuple[*Ts],
                                        \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
 
-aliases_typealiastype.py:22:66: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+aliases_typealiastype.py:22:66: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
     Callable[P, TStr] | list[S] | list[GoodAlias5[S, TStr, P]] | tuple[*Ts],
                                                                  \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
@@ -77,5 +77,5 @@ Line 5: Unexpected errors ['aliases_typealiastype.py:5:1: \\x1b[1m\\x1b[31merror
 Line 11: Unexpected errors ['aliases_typealiastype.py:11:6: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
 Line 16: Unexpected errors ["aliases_typealiastype.py:16:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Callable>'  [invalid-annotation]"]
 Line 19: Unexpected errors ["aliases_typealiastype.py:19:51: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Name 'GoodAlias4' is not defined [name-error]"]
-Line 22: Unexpected errors ["aliases_typealiastype.py:22:40: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Name 'GoodAlias5' is not defined [name-error]", "aliases_typealiastype.py:22:66: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]"]
+Line 22: Unexpected errors ["aliases_typealiastype.py:22:40: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Name 'GoodAlias5' is not defined [name-error]", "aliases_typealiastype.py:22:66: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]"]
 """

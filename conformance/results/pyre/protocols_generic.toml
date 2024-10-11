@@ -14,5 +14,6 @@ protocols_generic.py:146:0 Incompatible variable type [9]: hp3 is declared to ha
 conformance_automated = "Fail"
 errors_diff = """
 Line 44: Expected 1 errors
+Line 145: Expected 1 errors
 Line 147: Expected 1 errors
 """

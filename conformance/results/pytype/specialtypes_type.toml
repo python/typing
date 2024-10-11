@@ -41,32 +41,32 @@ specialtypes_type.py:110:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func
     assert_type(d.__mro__, tuple[type, ...])
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-specialtypes_type.py:117:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: No attribute 'unknown' on Type[object] [attribute-error]
+specialtypes_type.py:117:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: No attribute 'unknown' on type[object] [attribute-error]
 
     a.unknown  # E
     \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
 
-specialtypes_type.py:120:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: No attribute 'unknown' on Type[object] [attribute-error]
+specialtypes_type.py:120:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: No attribute 'unknown' on type[object] [attribute-error]
 
     b.unknown  # E
     \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
 
-specialtypes_type.py:143:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+specialtypes_type.py:143:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on type[type] [attribute-error]
 
 TA1.unknown  # E
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-specialtypes_type.py:144:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+specialtypes_type.py:144:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on type[type] [attribute-error]
 
 TA2.unknown  # E
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-specialtypes_type.py:145:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+specialtypes_type.py:145:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on type[type] [attribute-error]
 
 TA3.unknown  # E
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-specialtypes_type.py:146:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on Type[type] [attribute-error]
+specialtypes_type.py:146:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'unknown' on type[type] [attribute-error]
 
 TA4.unknown  # E
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m

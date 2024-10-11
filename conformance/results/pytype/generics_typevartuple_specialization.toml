@@ -33,7 +33,7 @@ generics_typevartuple_specialization.py:33:14: \u001b[1m\u001b[31merror\u001b[39
 def func2(y: Array[Time, Height, Width]):
              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:41:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[Type[int], ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:41:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[type[int], ...]>'  [invalid-annotation]
 
 IntTuple = tuple[int, *Ts]
            \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -43,17 +43,17 @@ generics_typevartuple_specialization.py:42:25: \u001b[1m\u001b[31merror\u001b[39
 NamedArray = tuple[str, Array[*Ts]]
                         \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:45:40: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[str, Array][Height]'  [invalid-annotation]
+generics_typevartuple_specialization.py:45:40: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[str, Array][Height]'  [invalid-annotation]
 
 def func3(a: IntTuple[float, bool], b: NamedArray[Height]):
                                        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:45:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][float, bool]'  [invalid-annotation]
+generics_typevartuple_specialization.py:45:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][float, bool]'  [invalid-annotation]
 
 def func3(a: IntTuple[float, bool], b: NamedArray[Height]):
              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:46:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Tuple[Any] [assert-type]
+generics_typevartuple_specialization.py:46:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: tuple[Any] [assert-type]
 
     assert_type(a, tuple[int, float, bool])
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -63,7 +63,7 @@ generics_typevartuple_specialization.py:47:31: \u001b[1m\u001b[31merror\u001b[39
     assert_type(b, tuple[str, Array[Height]])
                               \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:51:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func4: Tuple[Any] [assert-type]
+generics_typevartuple_specialization.py:51:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func4: tuple[Any] [assert-type]
 
     assert_type(a, tuple[int])
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -113,27 +113,27 @@ generics_typevartuple_specialization.py:80:46: \u001b[1m\u001b[31merror\u001b[39
 def takes_float_array_with_specific_shape(y: FloatArray[Height, Width]):
                                              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:89:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:89:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]
 
 VariadicTuple = tuple[T, *Ts]
                 \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:92:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, int]'  [invalid-annotation]
+generics_typevartuple_specialization.py:92:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][str, int]'  [invalid-annotation]
 
 def func6(a: VariadicTuple[str, int], b: VariadicTuple[float], c: VariadicTuple):
              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:92:42: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][float]'  [invalid-annotation]
+generics_typevartuple_specialization.py:92:42: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][float]'  [invalid-annotation]
 
 def func6(a: VariadicTuple[str, int], b: VariadicTuple[float], c: VariadicTuple):
                                          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:93:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func6: Tuple[Any] [assert-type]
+generics_typevartuple_specialization.py:93:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func6: tuple[Any] [assert-type]
 
     assert_type(a, tuple[str, int])
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:94:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func6: Tuple[Any] [assert-type]
+generics_typevartuple_specialization.py:94:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func6: tuple[Any] [assert-type]
 
     assert_type(b, tuple[float])
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -153,22 +153,22 @@ generics_typevartuple_specialization.py:99:7: \u001b[1m\u001b[31merror\u001b[39m
 Ts2 = TypeVarTuple("Ts2")
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:101:15: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[Type[int], ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:101:15: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[type[int], ...]>'  [invalid-annotation]
 
 IntTupleVar = tuple[int, *Ts1]  # OK
               \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:102:20: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of Tuple[Type[float], ...]>]'  [invalid-annotation]
+generics_typevartuple_specialization.py:102:20: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple[type[float], ...]>]'  [invalid-annotation]
 
 IntFloatTupleVar = IntTupleVar[float, *Ts2]  # OK
                    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:103:21: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of tuple>]'  [invalid-annotation]
+generics_typevartuple_specialization.py:103:21: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple>]'  [invalid-annotation]
 
 IntFloatsTupleVar = IntTupleVar[*tuple[float, ...]]  # OK
                     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:109:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:109:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 IntTupleGeneric[*Ts]  # E
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -178,17 +178,17 @@ generics_typevartuple_specialization.py:110:1: \u001b[1m\u001b[31merror\u001b[39
 IntTupleGeneric[*tuple[float, ...]]  # E
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:117:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:117:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 TA1 = tuple[*Ts, T1, T2]  # OK
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:118:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:118:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]
 
 TA2 = tuple[T1, T2, *Ts]  # OK
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:119:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:119:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]
 
 TA3 = tuple[T1, *Ts, T2, T3]  # OK
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -198,7 +198,7 @@ generics_typevartuple_specialization.py:120:7: \u001b[1m\u001b[31merror\u001b[39
 TA4 = tuple[T1, T2, *tuple[int, ...]]  # OK
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:121:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:121:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]
 
 TA5 = tuple[T1, *Ts, T2, *Ts]  # E
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -208,7 +208,7 @@ generics_typevartuple_specialization.py:121:13: \u001b[1m\u001b[31merror\u001b[3
 TA5 = tuple[T1, *Ts, T2, *Ts]  # E
             \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:122:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:122:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]
 
 TA6 = tuple[T1, *Ts, T2, *tuple[int, ...]]  # E
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -218,17 +218,17 @@ generics_typevartuple_specialization.py:122:13: \u001b[1m\u001b[31merror\u001b[3
 TA6 = tuple[T1, *Ts, T2, *tuple[int, ...]]  # E
             \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:125:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:125:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 TA7 = tuple[*Ts, T1, T2]
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:127:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][int]'  [invalid-annotation]
+generics_typevartuple_specialization.py:127:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][int]'  [invalid-annotation]
 
 v1: TA7[int]  # E: requires at least two type arguments
     \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:130:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of Tuple[nothing, ...]>]'  [invalid-annotation]
+generics_typevartuple_specialization.py:130:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple[nothing, ...]>]'  [invalid-annotation]
 
 def func7(a: TA7[*Ts, T1, T2]) -> tuple[tuple[*Ts], T1, T2]:
              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -247,7 +247,7 @@ def func7(a: TA7[*Ts, T1, T2]) -> tuple[tuple[*Ts], T1, T2]:
     ...
 \u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:130:41: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:130:41: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 def func7(a: TA7[*Ts, T1, T2]) -> tuple[tuple[*Ts], T1, T2]:
                                         \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
@@ -257,42 +257,42 @@ generics_typevartuple_specialization.py:131:5: \u001b[1m\u001b[31merror\u001b[39
     ...
     \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:134:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, bool]'  [invalid-annotation]
+generics_typevartuple_specialization.py:134:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][str, bool]'  [invalid-annotation]
 
 def func8(a: TA7[str, bool], b: TA7[str, bool, float], c: TA7[str, bool, float, int]):
              \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:134:33: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, bool, float]'  [invalid-annotation]
+generics_typevartuple_specialization.py:134:33: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][str, bool, float]'  [invalid-annotation]
 
 def func8(a: TA7[str, bool], b: TA7[str, bool, float], c: TA7[str, bool, float, int]):
                                 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:134:59: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, bool, float, int]'  [invalid-annotation]
+generics_typevartuple_specialization.py:134:59: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][str, bool, float, int]'  [invalid-annotation]
 
 def func8(a: TA7[str, bool], b: TA7[str, bool, float], c: TA7[str, bool, float, int]):
                                                           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:135:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: Tuple[Tuple[Any], Any, Any] [assert-type]
+generics_typevartuple_specialization.py:135:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: tuple[tuple[Any], Any, Any] [assert-type]
 
     assert_type(func7(a), tuple[tuple[()], str, bool])
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:136:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: Tuple[Tuple[Any], Any, Any] [assert-type]
+generics_typevartuple_specialization.py:136:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: tuple[tuple[Any], Any, Any] [assert-type]
 
     assert_type(func7(b), tuple[tuple[str], bool, float])
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:137:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: Tuple[Tuple[Any], Any, Any] [assert-type]
+generics_typevartuple_specialization.py:137:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: tuple[tuple[Any], Any, Any] [assert-type]
 
     assert_type(func7(c), tuple[tuple[str, bool], float, int])
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:140:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:140:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]
 
 TA8 = tuple[T1, *Ts, T2, T3]
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:143:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of Tuple[TypeVar, ...]>]'  [invalid-annotation]
+generics_typevartuple_specialization.py:143:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple[TypeVar, ...]>]'  [invalid-annotation]
 
 def func9(a: TA8[T1, *Ts, T2, T3]) -> tuple[tuple[*Ts], T1, T2, T3]:
              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -318,7 +318,7 @@ def func9(a: TA8[T1, *Ts, T2, T3]) -> tuple[tuple[*Ts], T1, T2, T3]:
     ...
 \u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:143:45: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:143:45: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 def func9(a: TA8[T1, *Ts, T2, T3]) -> tuple[tuple[*Ts], T1, T2, T3]:
                                             \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
@@ -328,42 +328,42 @@ generics_typevartuple_specialization.py:144:5: \u001b[1m\u001b[31merror\u001b[39
     ...
     \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:147:15: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, bool, float]'  [invalid-annotation]
+generics_typevartuple_specialization.py:147:15: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][str, bool, float]'  [invalid-annotation]
 
 def func10(a: TA8[str, bool, float], b: TA8[str, bool, float, int]):
               \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:147:41: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, bool, float, int]'  [invalid-annotation]
+generics_typevartuple_specialization.py:147:41: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][str, bool, float, int]'  [invalid-annotation]
 
 def func10(a: TA8[str, bool, float], b: TA8[str, bool, float, int]):
                                         \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:148:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func10: Tuple[Tuple[Any], Any, Any, Any] [assert-type]
+generics_typevartuple_specialization.py:148:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func10: tuple[tuple[Any], Any, Any, Any] [assert-type]
 
     assert_type(func9(a), tuple[tuple[()], str, bool, float])
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:149:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func10: Tuple[Tuple[Any], Any, Any, Any] [assert-type]
+generics_typevartuple_specialization.py:149:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func10: tuple[tuple[Any], Any, Any, Any] [assert-type]
 
     assert_type(func9(b), tuple[tuple[bool], str, float, int])
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:152:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:152:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 TA9 = tuple[*Ts, T1]
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:153:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of tuple>]'  [invalid-annotation]
+generics_typevartuple_specialization.py:153:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple>]'  [invalid-annotation]
 
 TA10 = TA9[*tuple[int, ...]]  # OK
        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:156:24: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of tuple>]'  [invalid-annotation]
+generics_typevartuple_specialization.py:156:24: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple>]'  [invalid-annotation]
 
 def func11(a: TA10, b: TA9[*tuple[int, ...], str], c: TA9[*tuple[int, ...], str]):
                        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:156:55: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of tuple>]'  [invalid-annotation]
+generics_typevartuple_specialization.py:156:55: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple>]'  [invalid-annotation]
 
 def func11(a: TA10, b: TA9[*tuple[int, ...], str], c: TA9[*tuple[int, ...], str]):
                                                       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -383,12 +383,12 @@ generics_typevartuple_specialization.py:159:20: \u001b[1m\u001b[31merror\u001b[3
     assert_type(c, tuple[*tuple[int, ...], str])
                    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:162:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
+generics_typevartuple_specialization.py:162:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]
 
 TA11 = tuple[T, *Ts1]
        \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_specialization.py:163:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of Tuple[nothing, ...]>]'  [invalid-annotation]
+generics_typevartuple_specialization.py:163:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple[nothing, ...]>]'  [invalid-annotation]
 
 TA12 = TA11[*Ts2]  # E
        \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
@@ -402,12 +402,12 @@ Line 16: Unexpected errors ["generics_typevartuple_specialization.py:16:13: \\x1
 Line 24: Unexpected errors ['generics_typevartuple_specialization.py:24:27: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]']
 Line 28: Unexpected errors ['generics_typevartuple_specialization.py:28:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]']
 Line 33: Unexpected errors ['generics_typevartuple_specialization.py:33:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]']
-Line 41: Unexpected errors ["generics_typevartuple_specialization.py:41:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[Type[int], ...]>'  [invalid-annotation]"]
+Line 41: Unexpected errors ["generics_typevartuple_specialization.py:41:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[type[int], ...]>'  [invalid-annotation]"]
 Line 42: Unexpected errors ['generics_typevartuple_specialization.py:42:25: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array is not indexable [not-indexable]']
-Line 45: Unexpected errors ["generics_typevartuple_specialization.py:45:40: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[str, Array][Height]'  [invalid-annotation]", "generics_typevartuple_specialization.py:45:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][float, bool]'  [invalid-annotation]"]
-Line 46: Unexpected errors ['generics_typevartuple_specialization.py:46:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: Tuple[Any] [assert-type]']
+Line 45: Unexpected errors ["generics_typevartuple_specialization.py:45:40: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[str, Array][Height]'  [invalid-annotation]", "generics_typevartuple_specialization.py:45:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][float, bool]'  [invalid-annotation]"]
+Line 46: Unexpected errors ['generics_typevartuple_specialization.py:46:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: tuple[Any] [assert-type]']
 Line 47: Unexpected errors ['generics_typevartuple_specialization.py:47:31: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: class Array is not indexable [not-indexable]']
-Line 51: Unexpected errors ['generics_typevartuple_specialization.py:51:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func4: Tuple[Any] [assert-type]']
+Line 51: Unexpected errors ['generics_typevartuple_specialization.py:51:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func4: tuple[Any] [assert-type]']
 Line 55: Unexpected errors ['generics_typevartuple_specialization.py:55:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
 Line 59: Unexpected errors ["generics_typevartuple_specialization.py:59:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]"]
 Line 63: Unexpected errors ['generics_typevartuple_specialization.py:63:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array2 is not indexable [not-indexable]']
@@ -417,38 +417,38 @@ Line 68: Unexpected errors ['generics_typevartuple_specialization.py:68:20: \\x1
 Line 69: Unexpected errors ['generics_typevartuple_specialization.py:69:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5_0: class Array2 is not indexable [not-indexable]']
 Line 76: Unexpected errors ['generics_typevartuple_specialization.py:76:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array2 is not indexable [not-indexable]']
 Line 80: Unexpected errors ['generics_typevartuple_specialization.py:80:46: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Array2 is not indexable [not-indexable]']
-Line 89: Unexpected errors ["generics_typevartuple_specialization.py:89:17: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]"]
-Line 92: Unexpected errors ["generics_typevartuple_specialization.py:92:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, int]'  [invalid-annotation]", "generics_typevartuple_specialization.py:92:42: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][float]'  [invalid-annotation]"]
-Line 93: Unexpected errors ['generics_typevartuple_specialization.py:93:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func6: Tuple[Any] [assert-type]']
-Line 94: Unexpected errors ['generics_typevartuple_specialization.py:94:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func6: Tuple[Any] [assert-type]']
+Line 89: Unexpected errors ["generics_typevartuple_specialization.py:89:17: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]"]
+Line 92: Unexpected errors ["generics_typevartuple_specialization.py:92:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][str, int]'  [invalid-annotation]", "generics_typevartuple_specialization.py:92:42: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][float]'  [invalid-annotation]"]
+Line 93: Unexpected errors ['generics_typevartuple_specialization.py:93:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func6: tuple[Any] [assert-type]']
+Line 94: Unexpected errors ['generics_typevartuple_specialization.py:94:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func6: tuple[Any] [assert-type]']
 Line 95: Unexpected errors ["generics_typevartuple_specialization.py:95:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func6: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
 Line 98: Unexpected errors ['generics_typevartuple_specialization.py:98:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
 Line 99: Unexpected errors ['generics_typevartuple_specialization.py:99:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
-Line 101: Unexpected errors ["generics_typevartuple_specialization.py:101:15: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[Type[int], ...]>'  [invalid-annotation]"]
-Line 102: Unexpected errors ["generics_typevartuple_specialization.py:102:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of Tuple[Type[float], ...]>]'  [invalid-annotation]"]
-Line 103: Unexpected errors ["generics_typevartuple_specialization.py:103:21: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of tuple>]'  [invalid-annotation]"]
-Line 117: Unexpected errors ["generics_typevartuple_specialization.py:117:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]"]
-Line 118: Unexpected errors ["generics_typevartuple_specialization.py:118:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]"]
-Line 119: Unexpected errors ["generics_typevartuple_specialization.py:119:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]"]
+Line 101: Unexpected errors ["generics_typevartuple_specialization.py:101:15: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[type[int], ...]>'  [invalid-annotation]"]
+Line 102: Unexpected errors ["generics_typevartuple_specialization.py:102:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple[type[float], ...]>]'  [invalid-annotation]"]
+Line 103: Unexpected errors ["generics_typevartuple_specialization.py:103:21: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple>]'  [invalid-annotation]"]
+Line 117: Unexpected errors ["generics_typevartuple_specialization.py:117:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]"]
+Line 118: Unexpected errors ["generics_typevartuple_specialization.py:118:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]"]
+Line 119: Unexpected errors ["generics_typevartuple_specialization.py:119:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]"]
 Line 120: Unexpected errors ["generics_typevartuple_specialization.py:120:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
-Line 125: Unexpected errors ["generics_typevartuple_specialization.py:125:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]"]
-Line 130: Unexpected errors ["generics_typevartuple_specialization.py:130:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of Tuple[nothing, ...]>]'  [invalid-annotation]", "generics_typevartuple_specialization.py:130:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T2'  [invalid-annotation]", "generics_typevartuple_specialization.py:130:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T1'  [invalid-annotation]", "generics_typevartuple_specialization.py:130:41: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]"]
+Line 125: Unexpected errors ["generics_typevartuple_specialization.py:125:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]"]
+Line 130: Unexpected errors ["generics_typevartuple_specialization.py:130:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple[nothing, ...]>]'  [invalid-annotation]", "generics_typevartuple_specialization.py:130:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T2'  [invalid-annotation]", "generics_typevartuple_specialization.py:130:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T1'  [invalid-annotation]", "generics_typevartuple_specialization.py:130:41: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]"]
 Line 131: Unexpected errors ['generics_typevartuple_specialization.py:131:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func7: bad return type [bad-return-type]']
-Line 134: Unexpected errors ["generics_typevartuple_specialization.py:134:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, bool]'  [invalid-annotation]", "generics_typevartuple_specialization.py:134:33: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, bool, float]'  [invalid-annotation]", "generics_typevartuple_specialization.py:134:59: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, bool, float, int]'  [invalid-annotation]"]
-Line 135: Unexpected errors ['generics_typevartuple_specialization.py:135:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: Tuple[Tuple[Any], Any, Any] [assert-type]']
-Line 136: Unexpected errors ['generics_typevartuple_specialization.py:136:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: Tuple[Tuple[Any], Any, Any] [assert-type]']
-Line 137: Unexpected errors ['generics_typevartuple_specialization.py:137:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: Tuple[Tuple[Any], Any, Any] [assert-type]']
-Line 140: Unexpected errors ["generics_typevartuple_specialization.py:140:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]"]
-Line 143: Unexpected errors ["generics_typevartuple_specialization.py:143:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of Tuple[TypeVar, ...]>]'  [invalid-annotation]", "generics_typevartuple_specialization.py:143:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T3'  [invalid-annotation]", "generics_typevartuple_specialization.py:143:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T2'  [invalid-annotation]", "generics_typevartuple_specialization.py:143:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T1'  [invalid-annotation]", "generics_typevartuple_specialization.py:143:45: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]"]
+Line 134: Unexpected errors ["generics_typevartuple_specialization.py:134:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][str, bool]'  [invalid-annotation]", "generics_typevartuple_specialization.py:134:33: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][str, bool, float]'  [invalid-annotation]", "generics_typevartuple_specialization.py:134:59: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][str, bool, float, int]'  [invalid-annotation]"]
+Line 135: Unexpected errors ['generics_typevartuple_specialization.py:135:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: tuple[tuple[Any], Any, Any] [assert-type]']
+Line 136: Unexpected errors ['generics_typevartuple_specialization.py:136:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: tuple[tuple[Any], Any, Any] [assert-type]']
+Line 137: Unexpected errors ['generics_typevartuple_specialization.py:137:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: tuple[tuple[Any], Any, Any] [assert-type]']
+Line 140: Unexpected errors ["generics_typevartuple_specialization.py:140:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]"]
+Line 143: Unexpected errors ["generics_typevartuple_specialization.py:143:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple[TypeVar, ...]>]'  [invalid-annotation]", "generics_typevartuple_specialization.py:143:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T3'  [invalid-annotation]", "generics_typevartuple_specialization.py:143:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T2'  [invalid-annotation]", "generics_typevartuple_specialization.py:143:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T1'  [invalid-annotation]", "generics_typevartuple_specialization.py:143:45: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]"]
 Line 144: Unexpected errors ['generics_typevartuple_specialization.py:144:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func9: bad return type [bad-return-type]']
-Line 147: Unexpected errors ["generics_typevartuple_specialization.py:147:15: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, bool, float]'  [invalid-annotation]", "generics_typevartuple_specialization.py:147:41: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][str, bool, float, int]'  [invalid-annotation]"]
-Line 148: Unexpected errors ['generics_typevartuple_specialization.py:148:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func10: Tuple[Tuple[Any], Any, Any, Any] [assert-type]']
-Line 149: Unexpected errors ['generics_typevartuple_specialization.py:149:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func10: Tuple[Tuple[Any], Any, Any, Any] [assert-type]']
-Line 152: Unexpected errors ["generics_typevartuple_specialization.py:152:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]"]
-Line 153: Unexpected errors ["generics_typevartuple_specialization.py:153:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of tuple>]'  [invalid-annotation]"]
-Line 156: Unexpected errors ["generics_typevartuple_specialization.py:156:24: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of tuple>]'  [invalid-annotation]", "generics_typevartuple_specialization.py:156:55: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Tuple[Any][<instance of tuple>]'  [invalid-annotation]"]
+Line 147: Unexpected errors ["generics_typevartuple_specialization.py:147:15: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][str, bool, float]'  [invalid-annotation]", "generics_typevartuple_specialization.py:147:41: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][str, bool, float, int]'  [invalid-annotation]"]
+Line 148: Unexpected errors ['generics_typevartuple_specialization.py:148:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func10: tuple[tuple[Any], Any, Any, Any] [assert-type]']
+Line 149: Unexpected errors ['generics_typevartuple_specialization.py:149:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func10: tuple[tuple[Any], Any, Any, Any] [assert-type]']
+Line 152: Unexpected errors ["generics_typevartuple_specialization.py:152:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]"]
+Line 153: Unexpected errors ["generics_typevartuple_specialization.py:153:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple>]'  [invalid-annotation]"]
+Line 156: Unexpected errors ["generics_typevartuple_specialization.py:156:24: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple>]'  [invalid-annotation]", "generics_typevartuple_specialization.py:156:55: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[Any][<instance of tuple>]'  [invalid-annotation]"]
 Line 157: Unexpected errors ["generics_typevartuple_specialization.py:157:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func11: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
 Line 158: Unexpected errors ["generics_typevartuple_specialization.py:158:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func11: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
 Line 159: Unexpected errors ["generics_typevartuple_specialization.py:159:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func11: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
-Line 162: Unexpected errors ["generics_typevartuple_specialization.py:162:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]"]
+Line 162: Unexpected errors ["generics_typevartuple_specialization.py:162:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]"]
 """

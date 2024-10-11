@@ -9,12 +9,12 @@ generics_scoping.py:29:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <modul
 a.meth_2('a')  # E
 \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_scoping.py:50:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in fun_3: Invalid type annotation 'List[S]' for z [invalid-annotation]
+generics_scoping.py:50:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in fun_3: Invalid type annotation 'list[S]' for z [invalid-annotation]
 
     z: list[S] = []  # E
     \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
 
-generics_scoping.py:54:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Bar: Invalid type annotation 'List[S]' for an_attr [invalid-annotation]
+generics_scoping.py:54:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Bar: Invalid type annotation 'list[S]' for an_attr [invalid-annotation]
 
     an_attr: list[S] = []  # E
     \u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
@@ -61,7 +61,7 @@ class Outer(Generic[T]):
         self.attr = attr
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_scoping.py:78:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in AlsoBad: Invalid type annotation 'List[T]' for x [invalid-annotation]
+generics_scoping.py:78:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in AlsoBad: Invalid type annotation 'list[T]' for x [invalid-annotation]
 
         x: list[T]  # E
         \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
@@ -78,7 +78,7 @@ generics_scoping.py:94:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <modul
 global_var1: T  # E
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_scoping.py:95:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'List[T]' for global_var2 [invalid-annotation]
+generics_scoping.py:95:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'list[T]' for global_var2 [invalid-annotation]
 
 global_var2: list[T] = []  # E
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m

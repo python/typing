@@ -95,12 +95,12 @@ def prefix_tuple(x: T, y: tuple[*Ts]) -> tuple[T, *Ts]:
     ...
 \u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_concat.py:47:27: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_concat.py:47:27: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 def prefix_tuple(x: T, y: tuple[*Ts]) -> tuple[T, *Ts]:
                           \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_concat.py:47:42: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
+generics_typevartuple_concat.py:47:42: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]
 
 def prefix_tuple(x: T, y: tuple[*Ts]) -> tuple[T, *Ts]:
                                          \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -120,12 +120,12 @@ generics_typevartuple_concat.py:52:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0
 assert_type(z, tuple[int, bool, str])
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_concat.py:55:55: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]
+generics_typevartuple_concat.py:55:55: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
 
 def move_first_element_to_last(tup: tuple[T, *Ts]) -> tuple[*Ts, T]:
                                                       \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_typevartuple_concat.py:55:37: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]
+generics_typevartuple_concat.py:55:37: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]
 
 def move_first_element_to_last(tup: tuple[T, *Ts]) -> tuple[*Ts, T]:
                                     \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -147,9 +147,9 @@ Line 38: Unexpected errors ['generics_typevartuple_concat.py:38:14: \\x1b[1m\\x1
 Line 40: Unexpected errors ['generics_typevartuple_concat.py:40:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: class Array is not indexable [not-indexable]']
 Line 42: Unexpected errors ['generics_typevartuple_concat.py:42:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: class Array is not indexable [not-indexable]']
 Line 44: Unexpected errors ['generics_typevartuple_concat.py:44:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: class Array is not indexable [not-indexable]']
-Line 47: Unexpected errors ["generics_typevartuple_concat.py:47:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T'  [invalid-annotation]", "generics_typevartuple_concat.py:47:27: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]", "generics_typevartuple_concat.py:47:42: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]"]
+Line 47: Unexpected errors ["generics_typevartuple_concat.py:47:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T'  [invalid-annotation]", "generics_typevartuple_concat.py:47:27: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]", "generics_typevartuple_concat.py:47:42: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]"]
 Line 48: Unexpected errors ['generics_typevartuple_concat.py:48:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in prefix_tuple: bad return type [bad-return-type]']
 Line 51: Unexpected errors ['generics_typevartuple_concat.py:51:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function prefix_tuple was called with the wrong arguments [wrong-arg-types]']
 Line 52: Unexpected errors ['generics_typevartuple_concat.py:52:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
-Line 55: Unexpected errors ["generics_typevartuple_concat.py:55:55: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[nothing, ...]>'  [invalid-annotation]", "generics_typevartuple_concat.py:55:37: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of Tuple[TypeVar, ...]>'  [invalid-annotation]"]
+Line 55: Unexpected errors ["generics_typevartuple_concat.py:55:55: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]", "generics_typevartuple_concat.py:55:37: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]"]
 """

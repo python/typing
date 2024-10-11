@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Incorrectly generates type violation for protocol that uses method-scoped type variables.
-"""
+conformant = "Pass"
 output = """
 protocols_generic.py:40:24 - error: Type "Concrete1" is not assignable to declared type "Proto1[int, str]"
   "Concrete1" is incompatible with protocol "Proto1[int, str]"
@@ -55,7 +52,6 @@ protocols_generic.py:147:25 - error: Type "ConcreteHasProperty4" is not assignab
         Parameter 2: type "(T@m) -> str" is incompatible with type "(int) -> str"
           Type "(T@m) -> str" is not assignable to type "(int) -> str" (reportAssignmentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 145: Unexpected errors ['protocols_generic.py:145:25 - error: Type "ConcreteHasProperty2" is not assignable to declared type "HasPropertyProto"']
 """

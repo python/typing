@@ -15,14 +15,14 @@ generics_self_basic.py:14:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in set
 
 Called from (traceback):
   line 52, in current file
-generics_self_basic.py:27:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in from_config: Type[Shape] [assert-type]
+generics_self_basic.py:27:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in from_config: type[Shape] [assert-type]
 
         assert_type(cls, type[Self])
         \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 Called from (traceback):
   line 54, in current file
-generics_self_basic.py:27:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in from_config: Type[Circle] [assert-type]
+generics_self_basic.py:27:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in from_config: type[Circle] [assert-type]
 
         assert_type(cls, type[Self])
         \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -53,7 +53,7 @@ generics_self_basic.py:64:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in set
     def set_value(self, value: T) -> Self: ...
 \u001b[1m\u001b[31m\u001b[39m\u001b[0m
 
-generics_self_basic.py:67:26: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Container: unsupported operand type(s) for item retrieval: 'Self: TypeVar' and 'int: Type[int]' [unsupported-operands]
+generics_self_basic.py:67:26: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Container: unsupported operand type(s) for item retrieval: 'Self: TypeVar' and 'int: type[int]' [unsupported-operands]
 
     def foo(self, other: Self[int]) -> None:  # E
                          \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
@@ -64,7 +64,7 @@ errors_diff = """
 Line 20: Expected 1 errors
 Line 33: Expected 1 errors
 Line 14: Unexpected errors ['generics_self_basic.py:14:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in set_scale: Shape [assert-type]', 'generics_self_basic.py:14:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in set_scale: Circle [assert-type]']
-Line 27: Unexpected errors ['generics_self_basic.py:27:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in from_config: Type[Shape] [assert-type]', 'generics_self_basic.py:27:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in from_config: Type[Circle] [assert-type]']
+Line 27: Unexpected errors ['generics_self_basic.py:27:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in from_config: type[Shape] [assert-type]', 'generics_self_basic.py:27:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in from_config: type[Circle] [assert-type]']
 Line 40: Unexpected errors ['generics_self_basic.py:40:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in difference: Shape [assert-type]']
 Line 64: Unexpected errors ['generics_self_basic.py:64:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in set_value: bad return type [bad-return-type]', 'generics_self_basic.py:64:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in set_value: bad return type [bad-return-type]', 'generics_self_basic.py:64:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in set_value: bad return type [bad-return-type]']
 """
