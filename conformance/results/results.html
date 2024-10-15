@@ -158,17 +158,17 @@
         </header>
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
-<th class='tc-header'><div class='tc-name'>mypy 1.11.2</div>
-<div class='tc-time'>1.6sec</div>
+<th class='tc-header'><div class='tc-name'>mypy 1.12.0</div>
+<div class='tc-time'>1.7sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.384</div>
-<div class='tc-time'>1.2sec</div>
+<div class='tc-time'>1.3sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.22</div>
-<div class='tc-time'>4.5sec</div>
+<div class='tc-time'>4.6sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>31.9sec</div>
+<div class='tc-time'>33.1sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -277,7 +277,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support ParamSpec.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_paramspec_components</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report illegal use of "P.args" on normal parameter.</p><p>Does not report error when P.args is specified but P.kwargs is missing.</p><p>Does not report error when P is out of scope and P.args and P.kwargs is used.</p><p>Does not report error when keyword argument is specified between P.args and P.kwargs.</p><p>Does not report error when calling callable and argument is missing for concatenated parameters.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report illegal use of "P.args" on normal parameter.</p><p>Does not report error when P.args is specified but P.kwargs is missing.</p><p>Does not report error when P is out of scope and P.args and P.kwargs is used.</p><p>Does not report error when keyword argument is specified between P.args and P.kwargs.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report illegal use of "P.args" on normal parameter.</p><p>Does not report error when P.args is specified but P.kwargs is missing.</p><p>Does not report error when P is out of scope and P.args and P.kwargs is used.</p><p>Does not report error when calling callback defined with ParamSpec with incorrect arguments.</p><p>Does not report error when keyword argument is specified between P.args and P.kwargs.</p><p>Does not report error when calling callable and argument is missing for concatenated parameters.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support ParamSpec.</p></span></div></th>
@@ -337,7 +337,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_syntax_declarations</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect many illegal usages of type parameter syntax.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
@@ -415,7 +415,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support covariant or contravariant TypeVars.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_variance_inference</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Computes incorrect variance in some cases.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
@@ -484,7 +484,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect type violation for some deeply-nested types.</p><p>Does not properly handle `|` for unions in some recursive type alias definitions.</p><p>Does not detect cyclical references in recursive type alias definition.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_type_statement</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of TypeAliasType as base class.</p><p>Does not reject redefinition of type alias defined with type statement.</p><p>Does not reject type alias defined in function scope.</p><p>Does not reject type alias with circular definition.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject type alias defined in function scope.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support `type` statement.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support `type` statement.</p></span></div></th>
@@ -808,31 +808,31 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report type violation with TypedDict value assignment.</p><p>Does not report reference to unknown key in TypedDict.</p><p>Does not reject `clear` method on TypedDict with required keys.</p><p>Does not reject delete operation for required key in TypedDict.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects NotRequired directive when used in an Annotated annotation.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly_consistency</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects assignment of required item to not-required read-only item.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly_inheritance</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects non-ReadOnly override of ReadOnly item.</p><p>Incorrectly rejects override of ReadOnly item with another ReadOnly item with narrower type.</p><p>Incorrectly rejects override of NotRequired ReadOnly item with a Required ReadOnly item.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly_kwargs</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly_update</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly allows update of ReadOnly item.</p><p>Incorrectly rejects update involving an item with Never type.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 not-conformant">Unsupported</th>
@@ -859,7 +859,7 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/tuples.html">Tuples</a>
 </th></tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tuples_type_compat</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support tuple narrowing based on `len()` type guard (optional).</p><p>Incorrectly narrows tuple based on sequence patterns.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support tuple narrowing based on `len()` type guard (optional).</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support some unpacked tuple forms.</p><p>Does not report type violation when assigning `tuple[int, ...]` to `tuple[int]`.</p><p>Does not support tuple narrowing based on `len()` type guard (optional).</p><p>Does not correctly evaluate `Sequence[Never]` for `tuple[()]`.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support unpacked tuple forms.</p><p>Does not report type violation when assigning `tuple[int, ...]` to `tuple[int]`.</p><p>Does not support tuple narrowing based on `len()` type guard (optional).</p></span></div></th>

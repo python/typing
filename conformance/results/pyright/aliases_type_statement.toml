@@ -36,19 +36,19 @@ aliases_type_statement.py:46:23 - error: Expected class but received "Literal[Tr
 aliases_type_statement.py:47:23 - error: Expected class but received "Literal[1]" (reportGeneralTypeIssues)
 aliases_type_statement.py:48:23 - error: Binary operator not allowed in type expression (reportInvalidTypeForm)
 aliases_type_statement.py:49:23 - error: Type expressions cannot use format string literals (f-strings) (reportGeneralTypeIssues)
-aliases_type_statement.py:52:10 - error: Type alias declaration "BadTypeAlias14" is obscured by a declaration of the same name (reportRedeclaration)
-aliases_type_statement.py:58:10 - error: A type statement can be used only within a module or class scope (reportGeneralTypeIssues)
-aliases_type_statement.py:64:23 - error: Type parameter "V" is not included in the type parameter list for "TA1" (reportGeneralTypeIssues)
-aliases_type_statement.py:69:17 - error: Type parameter "T1" is not included in the type parameter list for "TA2" (reportGeneralTypeIssues)
-aliases_type_statement.py:79:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
+aliases_type_statement.py:51:6 - error: Type alias declaration "BadTypeAlias14" is obscured by a declaration of the same name (reportRedeclaration)
+aliases_type_statement.py:56:10 - error: A type statement can be used only within a module or class scope (reportGeneralTypeIssues)
+aliases_type_statement.py:62:23 - error: Type parameter "V" is not included in the type parameter list for "TA1" (reportGeneralTypeIssues)
+aliases_type_statement.py:67:17 - error: Type parameter "T1" is not included in the type parameter list for "TA2" (reportGeneralTypeIssues)
+aliases_type_statement.py:77:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
   Type "str" is not assignable to type "int"
     "str" is not assignable to "int" (reportInvalidTypeForm)
-aliases_type_statement.py:81:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
+aliases_type_statement.py:79:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
   Type "int" is not assignable to type "str"
     "int" is not assignable to "str" (reportInvalidTypeForm)
-aliases_type_statement.py:84:28 - error: Type alias "RecursiveTypeAlias3" cannot use itself in its definition (reportGeneralTypeIssues)
-aliases_type_statement.py:86:31 - error: Type alias "RecursiveTypeAlias4" cannot use itself in its definition (reportGeneralTypeIssues)
-aliases_type_statement.py:90:28 - error: Type alias "RecursiveTypeAlias6" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_type_statement.py:82:28 - error: Type alias "RecursiveTypeAlias3" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_type_statement.py:84:31 - error: Type alias "RecursiveTypeAlias4" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_type_statement.py:88:28 - error: Type alias "RecursiveTypeAlias6" cannot use itself in its definition (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """

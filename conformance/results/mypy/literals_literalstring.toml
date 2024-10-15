@@ -8,7 +8,7 @@ literals_literalstring.py:37: error: Parameter 1 of Literal[...] is invalid  [va
 literals_literalstring.py:43: error: Incompatible types in assignment (expression has type "Literal['two']", variable has type "Literal['']")  [assignment]
 literals_literalstring.py:74: error: Incompatible types in assignment (expression has type "int", variable has type "str")  [assignment]
 literals_literalstring.py:75: error: Incompatible types in assignment (expression has type "bytes", variable has type "str")  [assignment]
-literals_literalstring.py:157: error: Overloaded function signature 3 will never be matched: signature 2's parameter type(s) are the same or broader  [misc]
+literals_literalstring.py:157: error: Overloaded function signature 3 will never be matched: signature 2's parameter type(s) are the same or broader  [overload-cannot-match]
 literals_literalstring.py:167: error: Expression is of type "B", not "A"  [assert-type]
 """
 conformance_automated = "Fail"
@@ -17,6 +17,6 @@ Line 66: Expected 1 errors
 Line 120: Expected 1 errors
 Line 134: Expected 1 errors
 Line 171: Expected 1 errors
-Line 157: Unexpected errors ["literals_literalstring.py:157: error: Overloaded function signature 3 will never be matched: signature 2's parameter type(s) are the same or broader  [misc]"]
+Line 157: Unexpected errors ["literals_literalstring.py:157: error: Overloaded function signature 3 will never be matched: signature 2's parameter type(s) are the same or broader  [overload-cannot-match]"]
 Line 167: Unexpected errors ['literals_literalstring.py:167: error: Expression is of type "B", not "A"  [assert-type]']
 """
