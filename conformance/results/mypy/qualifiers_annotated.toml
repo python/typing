@@ -11,7 +11,8 @@ qualifiers_annotated.py:43: error: Bracketed expression "[...]" is not valid as 
 qualifiers_annotated.py:44: error: Syntax error in type annotation  [syntax]
 qualifiers_annotated.py:44: note: Suggestion: Is there a spurious trailing comma?
 qualifiers_annotated.py:45: error: Invalid type comment or annotation  [valid-type]
-qualifiers_annotated.py:46: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:46: error: Inline TypedDict is experimental, must be enabled with --enable-incomplete-feature=InlineTypedDict  [misc]
+qualifiers_annotated.py:46: error: Name "b" is not defined  [name-defined]
 qualifiers_annotated.py:47: error: Invalid type comment or annotation  [valid-type]
 qualifiers_annotated.py:48: error: Invalid type comment or annotation  [valid-type]
 qualifiers_annotated.py:49: error: Invalid type comment or annotation  [valid-type]

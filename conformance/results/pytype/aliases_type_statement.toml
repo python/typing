@@ -25,13 +25,13 @@ Line 46: Expected 1 errors
 Line 47: Expected 1 errors
 Line 48: Expected 1 errors
 Line 49: Expected 1 errors
-Line 52: Expected 1 errors
-Line 58: Expected 1 errors
-Line 64: Expected 1 errors
-Line 69: Expected 1 errors
+Line 56: Expected 1 errors
+Line 62: Expected 1 errors
+Line 67: Expected 1 errors
+Line 77: Expected 1 errors
 Line 79: Expected 1 errors
-Line 81: Expected 1 errors
+Line 82: Expected 1 errors
 Line 84: Expected 1 errors
-Line 86: Expected 1 errors
-Line 90: Expected 1 errors
+Lines 51, 52: Expected error (tag 'TA14')
+Lines 88, 89: Expected error (tag 'RTA6')
 """
