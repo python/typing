@@ -24,6 +24,12 @@ Each section states the minimum Python version required to use the
 feature, whether it is available in typing-extensions, and whether it is
 available using quoting.
 
+.. tip::
+
+    Tools such as `pyupgrade <https://pypi.org/project/pyupgrade/>`__ or
+    `ruff <https://pypi.org/project/ruff/>`__ can automatically perform
+    these refactorings for you.
+
 .. note::
 
     The latest version of typing-extensions is available for all Python
