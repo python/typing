@@ -1,11 +1,7 @@
-conformant = "Partial"
-notes = """
-Incorrectly handles assert_type for unpacked TypedDict.
-"""
+conformant = "Pass"
 output = """
 callables_kwargs.py:28:5 - error: Could not access item in TypedDict
-  "v2" is not a required key in "*TD2", so access may result in runtime exception (reportTypedDictNotRequiredAccess)
-callables_kwargs.py:41:17 - error: "assert_type" mismatch: expected "TD1" but received "*TD1" (reportAssertTypeFailure)
+  "v2" is not a required key in "TD2", so access may result in runtime exception (reportTypedDictNotRequiredAccess)
 callables_kwargs.py:46:5 - error: Arguments missing for parameters "v1", "v3" (reportCallIssue)
 callables_kwargs.py:51:32 - error: No parameter named "v4" (reportCallIssue)
 callables_kwargs.py:52:11 - error: Expected 0 positional arguments (reportCallIssue)
@@ -32,7 +28,6 @@ callables_kwargs.py:103:19 - error: Type "(**kwargs: **TD2) -> None" is not assi
 callables_kwargs.py:111:30 - error: Typed dictionary overlaps with keyword parameter: v1 (reportGeneralTypeIssues)
 callables_kwargs.py:122:21 - error: Expected TypedDict type argument for Unpack (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 41: Unexpected errors ['callables_kwargs.py:41:17 - error: "assert_type" mismatch: expected "TD1" but received "*TD1" (reportAssertTypeFailure)']
 """
