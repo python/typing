@@ -26,8 +26,9 @@ available using quoting.
 
 .. tip::
 
-    Tools such as `pyupgrade <https://pypi.org/project/pyupgrade/>`__ or
-    `ruff <https://pypi.org/project/ruff/>`__ can automatically perform
+    Tools such as `pyupgrade <https://pypi.org/project/pyupgrade/>`__,
+    `ruff <https://pypi.org/project/ruff/>`__ and/or
+    `com2ann <https://pypi.org/project/com2ann/>`__ can automatically perform
     these refactorings for you.
 
 .. note::
