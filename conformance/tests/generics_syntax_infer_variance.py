@@ -91,7 +91,7 @@ class ShouldBeInvariant1(Generic[T]):
         self._value = value
 
     @property
-    def value(self):
+    def value(self) -> T:
         return self._value
 
     @value.setter
