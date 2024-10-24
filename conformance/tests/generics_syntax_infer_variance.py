@@ -2,30 +2,27 @@
 Tests the handling of "infer_variance" parameter for TypeVar.
 """
 
-from dataclasses import dataclass
-
 # Specification: https://peps.python.org/pep-0695/#auto-variance-for-typevar
 
 from typing import Final, Generic, Iterator, Sequence, TypeVar
+from dataclasses import dataclass
 
 
 T = TypeVar("T", infer_variance=True)
 K = TypeVar("K", infer_variance=True)
 V = TypeVar("V", infer_variance=True)
 
-S1 = TypeVar(
-    "S1", covariant=True, infer_variance=True
-)  # E: cannot use covariant with infer_variance
+S1 = TypeVar("S1", covariant=True, infer_variance=True)  # E: cannot use covariant with infer_variance
 
-S2 = TypeVar(
-    "S2", contravariant=True, infer_variance=True
-)  # E: cannot use contravariant with infer_variance
+S2 = TypeVar("S2", contravariant=True, infer_variance=True)  # E: cannot use contravariant with infer_variance
 
 
 class ShouldBeCovariant1(Generic[T]):
-    def __getitem__(self, index: int) -> T: ...
+    def __getitem__(self, index: int) -> T:
+        ...
 
-    def __iter__(self) -> Iterator[T]: ...
+    def __iter__(self) -> Iterator[T]:
+        ...
 
 
 vco1_1: ShouldBeCovariant1[float] = ShouldBeCovariant1[int]()  # OK
@@ -41,7 +38,8 @@ vco2_2: ShouldBeCovariant2[int] = ShouldBeCovariant2[float]()  # E
 
 
 class ShouldBeCovariant3(Generic[T]):
-    def method1(self) -> "ShouldBeCovariant2[T]": ...
+    def method1(self) -> "ShouldBeCovariant2[T]":
+        ...
 
 
 vco3_1: ShouldBeCovariant3[float] = ShouldBeCovariant3[int]()  # OK

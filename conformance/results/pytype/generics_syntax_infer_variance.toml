@@ -3,26 +3,26 @@ notes = """
 Type parameter syntax not yet support.
 """
 output = """
-SyntaxError: Type parameter lists are only supported in Python 3.12 and greater (<unknown>, line 134)
+SyntaxError: Type parameter lists are only supported in Python 3.12 and greater (<unknown>, line 132)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 18: Expected 1 errors
-Line 22: Expected 1 errors
-Line 32: Expected 1 errors
-Line 40: Expected 1 errors
-Line 48: Expected 1 errors
-Line 77: Expected 1 errors
-Line 88: Expected 1 errors
-Line 104: Expected 1 errors
-Line 105: Expected 1 errors
-Line 119: Expected 1 errors
-Line 120: Expected 1 errors
+Line 15: Expected 1 errors
+Line 17: Expected 1 errors
+Line 29: Expected 1 errors
+Line 37: Expected 1 errors
+Line 46: Expected 1 errors
+Line 75: Expected 1 errors
+Line 86: Expected 1 errors
+Line 102: Expected 1 errors
+Line 103: Expected 1 errors
+Line 117: Expected 1 errors
+Line 118: Expected 1 errors
+Line 125: Expected 1 errors
+Line 126: Expected 1 errors
 Line 127: Expected 1 errors
 Line 128: Expected 1 errors
-Line 129: Expected 1 errors
-Line 130: Expected 1 errors
-Line 138: Expected 1 errors
-Line 146: Expected 1 errors
-Line 157: Expected 1 errors
+Line 136: Expected 1 errors
+Line 144: Expected 1 errors
+Line 155: Expected 1 errors
 """
