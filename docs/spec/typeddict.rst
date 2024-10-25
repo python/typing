@@ -35,6 +35,7 @@ particular, :term:`assignability <assignable>` should be :term:`structural`: a
 more specific TypedDict type can be assignable to a more general TypedDict
 type, without any inheritance relationship between them.
 
+.. _typeddict-class-based-syntax:
 
 Class-based Syntax
 ^^^^^^^^^^^^^^^^^^
