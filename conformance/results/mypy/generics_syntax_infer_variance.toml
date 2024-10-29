@@ -55,6 +55,8 @@ generics_syntax_infer_variance.py:86: error: The type "type[ShouldBeCovariant6]"
 generics_syntax_infer_variance.py:89: error: Free type variable expected in Generic[...]  [misc]
 generics_syntax_infer_variance.py:90: error: Variable "generics_syntax_infer_variance.T" is not valid as a type  [valid-type]
 generics_syntax_infer_variance.py:90: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+generics_syntax_infer_variance.py:94: error: Variable "generics_syntax_infer_variance.T" is not valid as a type  [valid-type]
+generics_syntax_infer_variance.py:94: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
 generics_syntax_infer_variance.py:98: error: Variable "generics_syntax_infer_variance.T" is not valid as a type  [valid-type]
 generics_syntax_infer_variance.py:98: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
 generics_syntax_infer_variance.py:102: error: "ShouldBeInvariant1" expects no type arguments, but 1 given  [type-arg]
@@ -121,6 +123,7 @@ Line 81: Unexpected errors ['generics_syntax_infer_variance.py:81: error: Variab
 Line 85: Unexpected errors ['generics_syntax_infer_variance.py:85: error: "ShouldBeCovariant6" expects no type arguments, but 1 given  [type-arg]', 'generics_syntax_infer_variance.py:85: error: The type "type[ShouldBeCovariant6]" is not generic and not indexable  [misc]']
 Line 89: Unexpected errors ['generics_syntax_infer_variance.py:89: error: Free type variable expected in Generic[...]  [misc]']
 Line 90: Unexpected errors ['generics_syntax_infer_variance.py:90: error: Variable "generics_syntax_infer_variance.T" is not valid as a type  [valid-type]']
+Line 94: Unexpected errors ['generics_syntax_infer_variance.py:94: error: Variable "generics_syntax_infer_variance.T" is not valid as a type  [valid-type]']
 Line 98: Unexpected errors ['generics_syntax_infer_variance.py:98: error: Variable "generics_syntax_infer_variance.T" is not valid as a type  [valid-type]']
 Line 106: Unexpected errors ['generics_syntax_infer_variance.py:106: error: Free type variable expected in Generic[...]  [misc]']
 Line 107: Unexpected errors ['generics_syntax_infer_variance.py:107: error: Variable "generics_syntax_infer_variance.T" is not valid as a type  [valid-type]']
