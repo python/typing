@@ -11,7 +11,6 @@ literals_parameterizations.py:33:0 Invalid type [31]: Expression `ReadOnlyMode` 
 literals_parameterizations.py:33:0 Invalid type [31]: Expression `WriteAndTruncateMode` is not a literal value.
 literals_parameterizations.py:33:0 Invalid type [31]: Expression `WriteNoTruncateMode` is not a literal value.
 literals_parameterizations.py:33:0 Undefined or invalid type [11]: Annotation `` is not defined as a type.
-literals_parameterizations.py:35:8 Invalid type [31]: Expression `typing.Literal[(typing.Literal[(typing.Literal[(1, 2, 3)], "foo")], 5, None)]` is not a valid type.
 literals_parameterizations.py:41:6 Invalid type [31]: Expression `typing.Literal[3 + 4]` is not a valid type.
 literals_parameterizations.py:42:6 Invalid type [31]: Expression `typing.Literal["foo".replace("o", "b")]` is not a valid type.
 literals_parameterizations.py:43:6 Invalid type [31]: Expression `typing.Literal[4 + 3.000000j]` is not a valid type.
@@ -33,5 +32,4 @@ errors_diff = """
 Line 46: Expected 1 errors
 Line 60: Expected 1 errors
 Line 33: Unexpected errors ['literals_parameterizations.py:33:0 Invalid type [31]: Expression `AppendMode` is not a literal value.', 'literals_parameterizations.py:33:0 Invalid type [31]: Expression `ReadOnlyMode` is not a literal value.', 'literals_parameterizations.py:33:0 Invalid type [31]: Expression `WriteAndTruncateMode` is not a literal value.', 'literals_parameterizations.py:33:0 Invalid type [31]: Expression `WriteNoTruncateMode` is not a literal value.', 'literals_parameterizations.py:33:0 Undefined or invalid type [11]: Annotation `` is not defined as a type.']
-Line 35: Unexpected errors ['literals_parameterizations.py:35:8 Invalid type [31]: Expression `typing.Literal[(typing.Literal[(typing.Literal[(1, 2, 3)], "foo")], 5, None)]` is not a valid type.']
 """

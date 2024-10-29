@@ -5,6 +5,7 @@ Does not detect protocol mismatch when method-scoped TypeVar is used in protocol
 """
 output = """
 protocols_generic.py:40:0 Incompatible variable type [9]: p2 is declared to have type `Proto1[int, str]` but is used as type `Concrete1`.
+protocols_generic.py:44:29 Invalid inheritance [39]: Subscripted Protocol and Generic may not appear in the same base class list
 protocols_generic.py:56:4 Incompatible variable type [9]: v2 is declared to have type `Box[int]` but is used as type `Box[float]`.
 protocols_generic.py:66:4 Incompatible variable type [9]: v2 is declared to have type `Sender[float]` but is used as type `Sender[int]`.
 protocols_generic.py:74:4 Incompatible variable type [9]: v1 is declared to have type `AttrProto[float]` but is used as type `AttrProto[int]`.
@@ -13,7 +14,6 @@ protocols_generic.py:146:0 Incompatible variable type [9]: hp3 is declared to ha
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 44: Expected 1 errors
 Line 145: Expected 1 errors
 Line 147: Expected 1 errors
 """

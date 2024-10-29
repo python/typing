@@ -8,7 +8,7 @@ aliases_recursive.py:19:0 Incompatible variable type [9]: j4 is declared to have
 aliases_recursive.py:20:0 Incompatible variable type [9]: j5 is declared to have type `aliases_recursive.Json (resolves to Union[None, Dict[str, Json], List[Json], float, int, str])` but is used as type `List[complex]`.
 aliases_recursive.py:30:29 Undefined attribute [16]: `tuple` has no attribute `__getitem__`.
 aliases_recursive.py:33:4 Undefined or invalid type [11]: Annotation `RecursiveTuple` is not defined as a type.
-aliases_recursive.py:42:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_KT]], Type[Variable[_VT_co](covariant)]]` but got `Tuple[Type[str], str]`.
+aliases_recursive.py:42:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_KT]], Type[Variable[_VT_co]]]` but got `Tuple[Type[str], str]`.
 aliases_recursive.py:44:4 Undefined or invalid type [11]: Annotation `RecursiveMapping` is not defined as a type.
 aliases_recursive.py:58:20 Undefined attribute [16]: `list` has no attribute `__getitem__`.
 aliases_recursive.py:61:4 Undefined or invalid type [11]: Annotation `SpecializedTypeAlias1` is not defined as a type.
@@ -29,7 +29,7 @@ Line 63: Expected 1 errors
 Line 69: Expected 1 errors
 Line 30: Unexpected errors ['aliases_recursive.py:30:29 Undefined attribute [16]: `tuple` has no attribute `__getitem__`.']
 Line 33: Unexpected errors ['aliases_recursive.py:33:4 Undefined or invalid type [11]: Annotation `RecursiveTuple` is not defined as a type.']
-Line 42: Unexpected errors ['aliases_recursive.py:42:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_KT]], Type[Variable[_VT_co](covariant)]]` but got `Tuple[Type[str], str]`.']
+Line 42: Unexpected errors ['aliases_recursive.py:42:39 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[Type[Variable[_KT]], Type[Variable[_VT_co]]]` but got `Tuple[Type[str], str]`.']
 Line 44: Unexpected errors ['aliases_recursive.py:44:4 Undefined or invalid type [11]: Annotation `RecursiveMapping` is not defined as a type.']
 Line 58: Unexpected errors ['aliases_recursive.py:58:20 Undefined attribute [16]: `list` has no attribute `__getitem__`.']
 Line 61: Unexpected errors ['aliases_recursive.py:61:4 Undefined or invalid type [11]: Annotation `SpecializedTypeAlias1` is not defined as a type.']

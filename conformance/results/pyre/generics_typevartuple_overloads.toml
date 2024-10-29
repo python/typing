@@ -3,18 +3,11 @@ notes = """
 Does not support star expressions for `Unpack`.
 """
 output = """
-generics_typevartuple_overloads.py:16:12 Invalid type [31]: Expression `typing.Generic[(*Shape)]` is not a valid type.
-generics_typevartuple_overloads.py:18:24 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
-generics_typevartuple_overloads.py:18:50 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
-generics_typevartuple_overloads.py:22:24 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
-generics_typevartuple_overloads.py:22:57 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
-generics_typevartuple_overloads.py:29:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
-generics_typevartuple_overloads.py:29:37 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.
+generics_typevartuple_overloads.py:18:4 Incompatible overload [43]: The implementation of `Array.transpose` does not accept all possible arguments of overload defined on line `18`.
+generics_typevartuple_overloads.py:22:4 Incompatible overload [43]: The implementation of `Array.transpose` does not accept all possible arguments of overload defined on line `22`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 16: Unexpected errors ['generics_typevartuple_overloads.py:16:12 Invalid type [31]: Expression `typing.Generic[(*Shape)]` is not a valid type.']
-Line 18: Unexpected errors ['generics_typevartuple_overloads.py:18:24 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_overloads.py:18:50 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
-Line 22: Unexpected errors ['generics_typevartuple_overloads.py:22:24 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_overloads.py:22:57 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
-Line 29: Unexpected errors ['generics_typevartuple_overloads.py:29:13 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.', 'generics_typevartuple_overloads.py:29:37 Invalid type parameters [24]: Non-generic type `Array` cannot take parameters.']
+Line 18: Unexpected errors ['generics_typevartuple_overloads.py:18:4 Incompatible overload [43]: The implementation of `Array.transpose` does not accept all possible arguments of overload defined on line `18`.']
+Line 22: Unexpected errors ['generics_typevartuple_overloads.py:22:4 Incompatible overload [43]: The implementation of `Array.transpose` does not accept all possible arguments of overload defined on line `22`.']
 """

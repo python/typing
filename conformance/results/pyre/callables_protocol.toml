@@ -21,14 +21,12 @@ callables_protocol.py:186:4 Incompatible attribute type [8]: Attribute `other_at
 callables_protocol.py:187:4 Undefined attribute [16]: `Proto9` has no attribute `xxx`.
 callables_protocol.py:197:6 Undefined attribute [16]: `Proto9` has no attribute `other_attribute2`.
 callables_protocol.py:216:0 Incompatible variable type [9]: cb10 is declared to have type `Proto10` but is used as type `typing.Callable(cb10_good)[[], None]`.
-callables_protocol.py:259:0 Incompatible variable type [9]: cb12 is declared to have type `Proto12` but is used as type `typing.Callable(cb12_good2)[[Variable(typing.Any), Keywords(typing.Any)], None]`.
 callables_protocol.py:260:0 Incompatible variable type [9]: cb12 is declared to have type `Proto12` but is used as type `typing.Callable(cb12_bad1)[[Variable(typing.Any), KeywordOnly(kwarg0, typing.Any)], None]`.
+callables_protocol.py:284:0 Incompatible variable type [9]: cb13_2 is declared to have type `Proto13_Default` but is used as type `typing.Callable(cb13_no_default)[[Named(path, str)], str]`.
+callables_protocol.py:311:0 Incompatible variable type [9]: cb14_2 is declared to have type `Proto14_Default` but is used as type `typing.Callable(cb14_no_default)[[KeywordOnly(path, str)], str]`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 238: Expected 1 errors
-Line 284: Expected 1 errors
-Line 311: Expected 1 errors
 Line 216: Unexpected errors ['callables_protocol.py:216:0 Incompatible variable type [9]: cb10 is declared to have type `Proto10` but is used as type `typing.Callable(cb10_good)[[], None]`.']
-Line 259: Unexpected errors ['callables_protocol.py:259:0 Incompatible variable type [9]: cb12 is declared to have type `Proto12` but is used as type `typing.Callable(cb12_good2)[[Variable(typing.Any), Keywords(typing.Any)], None]`.']
 """

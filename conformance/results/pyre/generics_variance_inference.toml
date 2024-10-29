@@ -1,17 +1,36 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Type parameter syntax not yet support.
+Does not properly handle mixing legacy and PEP695 syntax.
+False negative about a type variable not being present in the function's parameters.
 """
 output = """
-generics_variance_inference.py:15:13 Parsing failure [404]: invalid syntax
+generics_variance_inference.py:24:4 Incompatible variable type [9]: v1 is declared to have type `ClassA[int, int, int]` but is used as type `ClassA[float, int, int]`.
+generics_variance_inference.py:25:4 Incompatible variable type [9]: v2 is declared to have type `ClassA[float, float, int]` but is used as type `ClassA[float, int, int]`.
+generics_variance_inference.py:28:4 Incompatible variable type [9]: v4 is declared to have type `ClassA[int, int, int]` but is used as type `ClassA[int, float, float]`.
+generics_variance_inference.py:33:41 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters.
+generics_variance_inference.py:36:26 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters.
+generics_variance_inference.py:48:0 Incompatible variable type [9]: vco2_1 is declared to have type `ShouldBeCovariant2[float]` but is used as type `ShouldBeCovariant2[int]`.
+generics_variance_inference.py:49:0 Incompatible variable type [9]: vco2_2 is declared to have type `ShouldBeCovariant2[int]` but is used as type `ShouldBeCovariant2[float]`.
+generics_variance_inference.py:53:25 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters.
+generics_variance_inference.py:63:7 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T]`.
+generics_variance_inference.py:75:19 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters.
+generics_variance_inference.py:88:23 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters.
+generics_variance_inference.py:104:27 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters.
+generics_variance_inference.py:119:0 Incompatible variable type [9]: vinv3_1 is declared to have type `ShouldBeInvariant3[float, str]` but is used as type `ShouldBeInvariant3[int, str]`.
+generics_variance_inference.py:120:0 Incompatible variable type [9]: vinv3_2 is declared to have type `ShouldBeInvariant3[int, str]` but is used as type `ShouldBeInvariant3[float, str]`.
+generics_variance_inference.py:121:0 Incompatible variable type [9]: vinv3_3 is declared to have type `ShouldBeInvariant3[str, float]` but is used as type `ShouldBeInvariant3[str, int]`.
+generics_variance_inference.py:122:0 Incompatible variable type [9]: vinv3_4 is declared to have type `ShouldBeInvariant3[str, int]` but is used as type `ShouldBeInvariant3[str, float]`.
+generics_variance_inference.py:127:7 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T]`.
+generics_variance_inference.py:169:0 Incompatible variable type [9]: a1 is declared to have type `ShouldBeInvariant6[int]` but is used as type `ShouldBeInvariant6[float]`.
+generics_variance_inference.py:170:0 Incompatible variable type [9]: a2 is declared to have type `ShouldBeInvariant6[float]` but is used as type `ShouldBeInvariant6[int]`.
+generics_variance_inference.py:181:0 Incompatible variable type [9]: b1 is declared to have type `ShouldBeCovariant6[int]` but is used as type `ShouldBeCovariant6[float]`.
+generics_variance_inference.py:182:0 Incompatible variable type [9]: b2 is declared to have type `ShouldBeCovariant6[float]` but is used as type `ShouldBeCovariant6[int]`.
+generics_variance_inference.py:193:0 Incompatible variable type [9]: c1 is declared to have type `ShouldBeContravariant2[int]` but is used as type `ShouldBeContravariant2[float]`.
+generics_variance_inference.py:194:0 Incompatible variable type [9]: c2 is declared to have type `ShouldBeContravariant2[float]` but is used as type `ShouldBeContravariant2[int]`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 24: Expected 1 errors
-Line 25: Expected 1 errors
-Line 28: Expected 1 errors
 Line 41: Expected 1 errors
-Line 49: Expected 1 errors
 Line 58: Expected 1 errors
 Line 67: Expected 1 errors
 Line 80: Expected 1 errors
@@ -19,16 +38,18 @@ Line 96: Expected 1 errors
 Line 97: Expected 1 errors
 Line 111: Expected 1 errors
 Line 112: Expected 1 errors
-Line 119: Expected 1 errors
-Line 120: Expected 1 errors
-Line 121: Expected 1 errors
-Line 122: Expected 1 errors
 Line 130: Expected 1 errors
 Line 138: Expected 1 errors
 Line 149: Expected 1 errors
-Line 169: Expected 1 errors
-Line 170: Expected 1 errors
-Line 181: Expected 1 errors
-Line 194: Expected 1 errors
-Line 15: Unexpected errors ['generics_variance_inference.py:15:13 Parsing failure [404]: invalid syntax']
+Line 33: Unexpected errors ["generics_variance_inference.py:33:41 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters."]
+Line 36: Unexpected errors ["generics_variance_inference.py:36:26 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters."]
+Line 48: Unexpected errors ['generics_variance_inference.py:48:0 Incompatible variable type [9]: vco2_1 is declared to have type `ShouldBeCovariant2[float]` but is used as type `ShouldBeCovariant2[int]`.']
+Line 53: Unexpected errors ["generics_variance_inference.py:53:25 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters."]
+Line 63: Unexpected errors ["generics_variance_inference.py:63:7 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T]`."]
+Line 75: Unexpected errors ["generics_variance_inference.py:75:19 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters."]
+Line 88: Unexpected errors ["generics_variance_inference.py:88:23 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters."]
+Line 104: Unexpected errors ["generics_variance_inference.py:104:27 Invalid type variable [34]: The type variable `Variable[T]` isn't present in the function's parameters."]
+Line 127: Unexpected errors ["generics_variance_inference.py:127:7 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T]`."]
+Line 182: Unexpected errors ['generics_variance_inference.py:182:0 Incompatible variable type [9]: b2 is declared to have type `ShouldBeCovariant6[float]` but is used as type `ShouldBeCovariant6[int]`.']
+Line 193: Unexpected errors ['generics_variance_inference.py:193:0 Incompatible variable type [9]: c1 is declared to have type `ShouldBeContravariant2[int]` but is used as type `ShouldBeContravariant2[float]`.']
 """

@@ -1,15 +1,8 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
-Does not support Any as a base class.
 """
 output = """
-specialtypes_any.py:81:13 Invalid inheritance [39]: `typing.Any` is not a valid parent class.
-specialtypes_any.py:87:12 Undefined attribute [16]: `ClassA` has no attribute `method2`.
-specialtypes_any.py:88:12 Undefined attribute [16]: `ClassA` has no attribute `method3`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 81: Unexpected errors ['specialtypes_any.py:81:13 Invalid inheritance [39]: `typing.Any` is not a valid parent class.']
-Line 87: Unexpected errors ['specialtypes_any.py:87:12 Undefined attribute [16]: `ClassA` has no attribute `method2`.']
-Line 88: Unexpected errors ['specialtypes_any.py:88:12 Undefined attribute [16]: `ClassA` has no attribute `method3`.']
 """

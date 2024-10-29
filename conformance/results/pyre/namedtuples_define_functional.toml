@@ -1,8 +1,5 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
-Does not handle illegal named tuple names the same as runtime.
-Does not handle defined fields correctly when extra flags like `rename` or `default` are used.
-Does not support defaults in functional form.
 """
 output = """
 namedtuples_define_functional.py:16:7 Missing argument [20]: Call `Point1.__init__` expects argument `y`.
@@ -14,24 +11,9 @@ namedtuples_define_functional.py:37:7 Too many arguments [19]: Call `Point5.__in
 namedtuples_define_functional.py:42:17 Incompatible parameter type [6]: In call `Point6.__init__`, for 2nd positional argument, expected `int` but got `str`.
 namedtuples_define_functional.py:43:14 Incompatible parameter type [6]: In call `Point6.__init__`, for argument `x`, expected `int` but got `float`.
 namedtuples_define_functional.py:52:0 Duplicate parameter [65]: Duplicate parameter name `a`.
-namedtuples_define_functional.py:54:47 Invalid type [31]: Expression `False` is not a valid type.
-namedtuples_define_functional.py:54:47 Invalid type [31]: Expression `False` is not a valid type.
-namedtuples_define_functional.py:54:47 Invalid type [31]: Expression `typing.Final[False]` is not a valid type.
-namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `True` is not a valid type.
-namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `True` is not a valid type.
-namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `typing.Final[True]` is not a valid type.
-namedtuples_define_functional.py:57:0 Unexpected keyword [28]: Unexpected keyword argument `abc` to call `NT4.__init__`.
-namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `typing.Final[(1, 2)]` is not a valid type.
-namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `(1, 2)` is not a valid type.
-namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `(1, 2)` is not a valid type.
-namedtuples_define_functional.py:63:42 Invalid type parameters [24]: Generic type `typing.Final` expects 1 type parameter, received 2.
-namedtuples_define_functional.py:65:0 Too many arguments [19]: Call `NT5.__init__` expects 1 positional argument, 3 were provided.
-namedtuples_define_functional.py:66:0 Missing argument [20]: Call `NT5.__init__` expects argument `defaults`.
+namedtuples_define_functional.py:52:0 Duplicate parameter [65]: Duplicate parameter name `a`.
+namedtuples_define_functional.py:66:0 Missing argument [20]: Call `NT5.__init__` expects argument `a`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 56: Unexpected errors ['namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `True` is not a valid type.', 'namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `True` is not a valid type.', 'namedtuples_define_functional.py:56:47 Invalid type [31]: Expression `typing.Final[True]` is not a valid type.']
-Line 57: Unexpected errors ['namedtuples_define_functional.py:57:0 Unexpected keyword [28]: Unexpected keyword argument `abc` to call `NT4.__init__`.']
-Line 63: Unexpected errors ['namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `typing.Final[(1, 2)]` is not a valid type.', 'namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `(1, 2)` is not a valid type.', 'namedtuples_define_functional.py:63:42 Invalid type [31]: Expression `(1, 2)` is not a valid type.', 'namedtuples_define_functional.py:63:42 Invalid type parameters [24]: Generic type `typing.Final` expects 1 type parameter, received 2.']
-Line 65: Unexpected errors ['namedtuples_define_functional.py:65:0 Too many arguments [19]: Call `NT5.__init__` expects 1 positional argument, 3 were provided.']
 """

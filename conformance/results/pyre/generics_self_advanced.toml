@@ -1,23 +1,24 @@
 conformant = "Partial"
 notes = """
 Does not handle use of `Self` within class body correctly.
+False negatives on assert_type uses.
 """
 output = """
 generics_self_advanced.py:25:7 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.
-generics_self_advanced.py:35:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `ChildB`.
-generics_self_advanced.py:37:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `typing.Any`.
-generics_self_advanced.py:38:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `ChildB`.
-generics_self_advanced.py:42:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Type[ChildB]`.
-generics_self_advanced.py:44:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `typing.Any`.
-generics_self_advanced.py:45:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `ChildB`.
+generics_self_advanced.py:35:8 Assert type [70]: Expected `unknown` but got `ChildB`.
+generics_self_advanced.py:37:8 Assert type [70]: Expected `unknown` but got `typing.Any`.
+generics_self_advanced.py:38:8 Assert type [70]: Expected `unknown` but got `ChildB`.
+generics_self_advanced.py:42:8 Assert type [70]: Expected `unknown` but got `Type[ChildB]`.
+generics_self_advanced.py:44:8 Assert type [70]: Expected `unknown` but got `typing.Any`.
+generics_self_advanced.py:45:8 Assert type [70]: Expected `unknown` but got `ChildB`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 25: Unexpected errors ['generics_self_advanced.py:25:7 Undefined or invalid type [11]: Annotation `Self` is not defined as a type.']
-Line 35: Unexpected errors ['generics_self_advanced.py:35:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `ChildB`.']
-Line 37: Unexpected errors ['generics_self_advanced.py:37:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `typing.Any`.']
-Line 38: Unexpected errors ['generics_self_advanced.py:38:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `ChildB`.']
-Line 42: Unexpected errors ['generics_self_advanced.py:42:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `Type[ChildB]`.']
-Line 44: Unexpected errors ['generics_self_advanced.py:44:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `typing.Any`.']
-Line 45: Unexpected errors ['generics_self_advanced.py:45:8 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `unknown` but got `ChildB`.']
+Line 35: Unexpected errors ['generics_self_advanced.py:35:8 Assert type [70]: Expected `unknown` but got `ChildB`.']
+Line 37: Unexpected errors ['generics_self_advanced.py:37:8 Assert type [70]: Expected `unknown` but got `typing.Any`.']
+Line 38: Unexpected errors ['generics_self_advanced.py:38:8 Assert type [70]: Expected `unknown` but got `ChildB`.']
+Line 42: Unexpected errors ['generics_self_advanced.py:42:8 Assert type [70]: Expected `unknown` but got `Type[ChildB]`.']
+Line 44: Unexpected errors ['generics_self_advanced.py:44:8 Assert type [70]: Expected `unknown` but got `typing.Any`.']
+Line 45: Unexpected errors ['generics_self_advanced.py:45:8 Assert type [70]: Expected `unknown` but got `ChildB`.']
 """

@@ -4,6 +4,7 @@ Does not generate a union type for __new__ and __init__ when converting class to
 Does not ignore __init__ based on __new__ return type when converting class to callable.
 Does not support __new__ return type that is different from class being constructed.
 Does not use annotated type of self in __init__ method to generate return type of callable.
+Incorrectly raises incompatibility type errors.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -11,17 +12,17 @@ Line 127: Expected 1 errors
 Line 144: Expected 1 errors
 Line 184: Expected 1 errors
 Line 195: Expected 1 errors
-Line 78: Unexpected errors ['constructors_callable.py:78:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Class4`.']
-Line 126: Unexpected errors ['constructors_callable.py:126:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class6Proxy` but got `Class6`.', 'constructors_callable.py:126:12 Missing argument [20]: PositionalOnly call expects argument `x`.']
-Line 143: Unexpected errors ['constructors_callable.py:143:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing.Any` but got `Class6Any`.', 'constructors_callable.py:143:12 Missing argument [20]: PositionalOnly call expects argument `x`.']
+Line 78: Unexpected errors ['constructors_callable.py:78:0 Assert type [70]: Expected `int` but got `Class4`.']
+Line 126: Unexpected errors ['constructors_callable.py:126:0 Assert type [70]: Expected `Class6Proxy` but got `Class6`.', 'constructors_callable.py:126:12 Missing argument [20]: PositionalOnly call expects argument `x`.']
+Line 143: Unexpected errors ['constructors_callable.py:143:0 Assert type [70]: Expected `typing.Any` but got `Class6Any`.', 'constructors_callable.py:143:12 Missing argument [20]: PositionalOnly call expects argument `x`.']
 Line 153: Unexpected errors ['constructors_callable.py:153:4 Incompatible overload [43]: The implementation of `Class7.__init__` does not accept all possible arguments of overload defined on line `153`.']
 Line 155: Unexpected errors ['constructors_callable.py:155:4 Incompatible overload [43]: The implementation of `Class7.__init__` does not accept all possible arguments of overload defined on line `155`.']
-Line 164: Unexpected errors ['constructors_callable.py:164:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class7[int]` but got `Class7[typing.Any]`.']
-Line 165: Unexpected errors ['constructors_callable.py:165:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class7[str]` but got `Class7[typing.Any]`.', 'constructors_callable.py:165:15 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `int` but got `str`.']
+Line 164: Unexpected errors ['constructors_callable.py:164:0 Assert type [70]: Expected `Class7[int]` but got `Class7[typing.Any]`.']
+Line 165: Unexpected errors ['constructors_callable.py:165:0 Assert type [70]: Expected `Class7[str]` but got `Class7[typing.Any]`.', 'constructors_callable.py:165:15 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `int` but got `str`.']
 Line 181: Unexpected errors ['constructors_callable.py:181:22 Incompatible parameter type [6]: In call `accepts_callable`, for 1st positional argument, expected `typing.Callable[constructors_callable.P, Variable[R]]` but got `Type[Class8]`.']
-Line 183: Unexpected errors ['constructors_callable.py:183:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class8[str]` but got `typing.Any`.']
+Line 183: Unexpected errors ['constructors_callable.py:183:0 Assert type [70]: Expected `Class8[str]` but got `typing.Any`.']
 Line 192: Unexpected errors ['constructors_callable.py:192:22 Incompatible parameter type [6]: In call `accepts_callable`, for 1st positional argument, expected `typing.Callable[constructors_callable.P, Variable[R]]` but got `Type[Class9]`.']
-Line 194: Unexpected errors ['constructors_callable.py:194:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class9` but got `typing.Any`.']
+Line 194: Unexpected errors ['constructors_callable.py:194:0 Assert type [70]: Expected `Class9` but got `typing.Any`.']
 """
 output = """
 constructors_callable.py:36:0 Revealed type [-1]: Revealed type for `r1` is `typing.Callable[[Named(x, int)], Class1]`.
@@ -34,26 +35,26 @@ constructors_callable.py:65:0 Missing argument [20]: PositionalOnly call expects
 constructors_callable.py:66:0 Unexpected keyword [28]: Unexpected keyword argument `y` to anonymous call.
 constructors_callable.py:67:0 Too many arguments [19]: PositionalOnly call expects 1 positional argument, 2 were provided.
 constructors_callable.py:77:0 Revealed type [-1]: Revealed type for `r4` is `typing.Callable[[Named(x, int)], Class4]`.
-constructors_callable.py:78:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `Class4`.
+constructors_callable.py:78:0 Assert type [70]: Expected `int` but got `Class4`.
 constructors_callable.py:79:0 Missing argument [20]: PositionalOnly call expects argument `x`.
 constructors_callable.py:80:0 Unexpected keyword [28]: Unexpected keyword argument `y` to anonymous call.
 constructors_callable.py:97:0 Revealed type [-1]: Revealed type for `r5` is `typing.Callable[[Variable(typing.Any), Keywords(typing.Any)], NoReturn]`.
 constructors_callable.py:125:0 Revealed type [-1]: Revealed type for `r6` is `typing.Callable[[Named(x, int)], Class6]`.
-constructors_callable.py:126:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class6Proxy` but got `Class6`.
+constructors_callable.py:126:0 Assert type [70]: Expected `Class6Proxy` but got `Class6`.
 constructors_callable.py:126:12 Missing argument [20]: PositionalOnly call expects argument `x`.
 constructors_callable.py:142:0 Revealed type [-1]: Revealed type for `r6_any` is `typing.Callable[[Named(x, int)], Class6Any]`.
-constructors_callable.py:143:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing.Any` but got `Class6Any`.
+constructors_callable.py:143:0 Assert type [70]: Expected `typing.Any` but got `Class6Any`.
 constructors_callable.py:143:12 Missing argument [20]: PositionalOnly call expects argument `x`.
 constructors_callable.py:153:4 Incompatible overload [43]: The implementation of `Class7.__init__` does not accept all possible arguments of overload defined on line `153`.
 constructors_callable.py:155:4 Incompatible overload [43]: The implementation of `Class7.__init__` does not accept all possible arguments of overload defined on line `155`.
 constructors_callable.py:161:0 Revealed type [-1]: Revealed type for `r7` is `typing.Callable[[Named(x, int)], Class7[typing.Any]]`.
-constructors_callable.py:164:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class7[int]` but got `Class7[typing.Any]`.
-constructors_callable.py:165:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class7[str]` but got `Class7[typing.Any]`.
+constructors_callable.py:164:0 Assert type [70]: Expected `Class7[int]` but got `Class7[typing.Any]`.
+constructors_callable.py:165:0 Assert type [70]: Expected `Class7[str]` but got `Class7[typing.Any]`.
 constructors_callable.py:165:15 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `int` but got `str`.
 constructors_callable.py:181:22 Incompatible parameter type [6]: In call `accepts_callable`, for 1st positional argument, expected `typing.Callable[constructors_callable.P, Variable[R]]` but got `Type[Class8]`.
 constructors_callable.py:182:0 Revealed type [-1]: Revealed type for `r8` is `typing.Callable[..., typing.Any]`.
-constructors_callable.py:183:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class8[str]` but got `typing.Any`.
+constructors_callable.py:183:0 Assert type [70]: Expected `Class8[str]` but got `typing.Any`.
 constructors_callable.py:192:22 Incompatible parameter type [6]: In call `accepts_callable`, for 1st positional argument, expected `typing.Callable[constructors_callable.P, Variable[R]]` but got `Type[Class9]`.
 constructors_callable.py:193:0 Revealed type [-1]: Revealed type for `r9` is `typing.Callable[..., typing.Any]`.
-constructors_callable.py:194:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Class9` but got `typing.Any`.
+constructors_callable.py:194:0 Assert type [70]: Expected `Class9` but got `typing.Any`.
 """

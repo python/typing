@@ -1,6 +1,5 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
-Produces errors rather than warnings on `reveal_type`.
 """
 output = """
 directives_reveal_type.py:14:4 Revealed type [-1]: Revealed type for `a` is `typing.Union[int, str]`.
@@ -8,9 +7,8 @@ directives_reveal_type.py:15:4 Revealed type [-1]: Revealed type for `b` is `typ
 directives_reveal_type.py:16:4 Revealed type [-1]: Revealed type for `c` is `typing.Any`.
 directives_reveal_type.py:17:4 Revealed type [-1]: Revealed type for `d` is `ForwardReference`.
 directives_reveal_type.py:19:4 Missing argument [20]: Call `reveal_type` expects argument in position 0.
-directives_reveal_type.py:20:4 Revealed type [-1]: Revealed type for `a` is `typing.Union[int, str]`.
+directives_reveal_type.py:20:4 Too many arguments [19]: Call `reveal_type` expects 1 positional argument, 2 were provided.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 20: Expected 1 errors
 """

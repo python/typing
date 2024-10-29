@@ -1,32 +1,25 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not support star expressions for `Unpack`.
+Does not property handle TypeVarTuple.
 """
 output = """
-generics_typevartuple_args.py:16:25 Invalid type [31]: Expression `*Ts` is not a valid type.
-generics_typevartuple_args.py:16:33 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
-generics_typevartuple_args.py:27:30 Invalid type [31]: Expression `*tuple[(*Ts, generics_typevartuple_args.Env)]` is not a valid type.
-generics_typevartuple_args.py:27:76 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
-generics_typevartuple_args.py:42:17 Invalid type [31]: Expression `*tuple[(int, ...)]` is not a valid type.
-generics_typevartuple_args.py:51:17 Invalid type [31]: Expression `*tuple[(int, *tuple[(str, ...)], str)]` is not a valid type.
-generics_typevartuple_args.py:62:17 Invalid type [31]: Expression `*tuple[(int, str)]` is not a valid type.
-generics_typevartuple_args.py:70:17 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.
-generics_typevartuple_args.py:75:12 Incompatible parameter type [6]: In call `func4`, for 2nd positional argument, expected `Tuple[]` but got `Tuple[int, int]`. Expected has length 1, but actual has length 2.
+generics_typevartuple_args.py:20:0 Assert type [70]: Expected `Tuple[int, str]` but got `Tuple[typing_extensions.Literal[1], typing_extensions.Literal['a']]`.
+generics_typevartuple_args.py:32:0 Assert type [70]: Expected `Tuple[int, str]` but got `Tuple[typing_extensions.Literal[0], typing_extensions.Literal['']]`.
+generics_typevartuple_args.py:33:0 Invalid argument [32]: Argument types `typing_extensions.Literal[0], typing_extensions.Literal['']` are not compatible with expected variadic elements `*generics_typevartuple_args.Ts, generics_typevartuple_args.Env`.
+generics_typevartuple_args.py:34:0 Invalid argument [32]: Argument types `typing_extensions.Literal[0], typing_extensions.Literal['']` are not compatible with expected variadic elements `*generics_typevartuple_args.Ts, generics_typevartuple_args.Env`.
+generics_typevartuple_args.py:48:9 Incompatible parameter type [6]: In call `func1`, for 2nd positional argument, expected `int` but got `str`.
+generics_typevartuple_args.py:57:0 Invalid argument [32]: Argument types `typing_extensions.Literal[1], typing_extensions.Literal[1], typing_extensions.Literal['']` are not compatible with expected variadic elements `int, *Tuple[str, ...], str`.
+generics_typevartuple_args.py:58:0 Invalid argument [32]: Argument types `typing_extensions.Literal[1]` are not compatible with expected variadic elements `int, *Tuple[str, ...], str`.
+generics_typevartuple_args.py:59:0 Invalid argument [32]: Argument types `typing_extensions.Literal['']` are not compatible with expected variadic elements `int, *Tuple[str, ...], str`.
+generics_typevartuple_args.py:66:6 Incompatible parameter type [6]: In call `func3`, for 1st positional argument, expected `Unpack[Tuple[int, str]]` but got `int`.
+generics_typevartuple_args.py:66:9 Incompatible parameter type [6]: In call `func3`, for 2nd positional argument, expected `Unpack[Tuple[int, str]]` but got `str`.
+generics_typevartuple_args.py:67:6 Incompatible parameter type [6]: In call `func3`, for 1st positional argument, expected `Unpack[Tuple[int, str]]` but got `int`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 33: Expected 1 errors
-Line 34: Expected 1 errors
-Line 48: Expected 1 errors
-Line 57: Expected 1 errors
-Line 58: Expected 1 errors
-Line 59: Expected 1 errors
-Line 67: Expected 1 errors
+Line 75: Expected 1 errors
 Line 76: Expected 1 errors
-Line 16: Unexpected errors ['generics_typevartuple_args.py:16:25 Invalid type [31]: Expression `*Ts` is not a valid type.', 'generics_typevartuple_args.py:16:33 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.']
-Line 27: Unexpected errors ['generics_typevartuple_args.py:27:30 Invalid type [31]: Expression `*tuple[(*Ts, generics_typevartuple_args.Env)]` is not a valid type.', 'generics_typevartuple_args.py:27:76 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.']
-Line 42: Unexpected errors ['generics_typevartuple_args.py:42:17 Invalid type [31]: Expression `*tuple[(int, ...)]` is not a valid type.']
-Line 51: Unexpected errors ['generics_typevartuple_args.py:51:17 Invalid type [31]: Expression `*tuple[(int, *tuple[(str, ...)], str)]` is not a valid type.']
-Line 62: Unexpected errors ['generics_typevartuple_args.py:62:17 Invalid type [31]: Expression `*tuple[(int, str)]` is not a valid type.']
-Line 70: Unexpected errors ['generics_typevartuple_args.py:70:17 Invalid type [31]: Expression `tuple[(*Ts)]` is not a valid type.']
+Line 20: Unexpected errors ["generics_typevartuple_args.py:20:0 Assert type [70]: Expected `Tuple[int, str]` but got `Tuple[typing_extensions.Literal[1], typing_extensions.Literal['a']]`."]
+Line 32: Unexpected errors ["generics_typevartuple_args.py:32:0 Assert type [70]: Expected `Tuple[int, str]` but got `Tuple[typing_extensions.Literal[0], typing_extensions.Literal['']]`."]
+Line 66: Unexpected errors ['generics_typevartuple_args.py:66:6 Incompatible parameter type [6]: In call `func3`, for 1st positional argument, expected `Unpack[Tuple[int, str]]` but got `int`.', 'generics_typevartuple_args.py:66:9 Incompatible parameter type [6]: In call `func3`, for 2nd positional argument, expected `Unpack[Tuple[int, str]]` but got `str`.']
 """

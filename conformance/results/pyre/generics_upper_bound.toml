@@ -4,11 +4,11 @@ False positives on valid type expression (`list[T]`) in `bound`.
 Does not complain when bound is used alongside type constraints.
 """
 output = """
-generics_upper_bound.py:24:37 Undefined attribute [16]: `list` has no attribute `__getitem__`.
 generics_upper_bound.py:51:7 Incompatible parameter type [6]: In call `longer`, for 1st positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.
 generics_upper_bound.py:51:10 Incompatible parameter type [6]: In call `longer`, for 2nd positional argument, expected `Variable[ST (bound to Sized)]` but got `int`.
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 24: Expected 1 errors
 Line 56: Expected 1 errors
 """

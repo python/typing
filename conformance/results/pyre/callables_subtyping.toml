@@ -4,11 +4,8 @@ Rejects standard parameter as incompatible with keyword-only parameter.
 Rejects use of Callable with ParamSpec in TypeAlias definition.
 """
 errors_diff = """
-Line 236: Expected 1 errors
+Line 196: Expected 1 errors
 Line 57: Unexpected errors ['callables_subtyping.py:57:4 Incompatible variable type [9]: f5 is declared to have type `KwOnly2` but is used as type `Standard2`.']
-Line 188: Unexpected errors ['callables_subtyping.py:188:4 Incompatible variable type [9]: f2 is declared to have type `KwOnly6` but is used as type `IntStrKwargs6`.']
-Line 189: Unexpected errors ['callables_subtyping.py:189:4 Incompatible variable type [9]: f3 is declared to have type `KwOnly6` but is used as type `StrKwargs6`.']
-Line 192: Unexpected errors ['callables_subtyping.py:192:4 Incompatible variable type [9]: f6 is declared to have type `StrKwargs6` but is used as type `IntStrKwargs6`.']
 Line 208: Unexpected errors ['callables_subtyping.py:208:0 Incompatible variable type [9]: TypeAliasWithP is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., Variable[$synthetic_attribute_resolution_variable]]]`.', 'callables_subtyping.py:208:37 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[ParamSpec, None]`.']
 Line 211: Unexpected errors ['callables_subtyping.py:211:39 Undefined or invalid type [11]: Annotation `TypeAliasWithP` is not defined as a type.']
 Line 253: Unexpected errors ['callables_subtyping.py:253:4 Missing overload implementation [42]: Overloaded function `Overloaded9.__call__` must have an implementation.']
@@ -36,18 +33,15 @@ callables_subtyping.py:151:4 Incompatible variable type [9]: f3 is declared to h
 callables_subtyping.py:154:4 Incompatible variable type [9]: f5 is declared to have type `FloatKwargs5` but is used as type `NoKwargs5`.
 callables_subtyping.py:155:4 Incompatible variable type [9]: f6 is declared to have type `FloatKwargs5` but is used as type `IntKwargs5`.
 callables_subtyping.py:187:4 Incompatible variable type [9]: f1 is declared to have type `KwOnly6` but is used as type `IntKwargs6`.
-callables_subtyping.py:188:4 Incompatible variable type [9]: f2 is declared to have type `KwOnly6` but is used as type `IntStrKwargs6`.
-callables_subtyping.py:189:4 Incompatible variable type [9]: f3 is declared to have type `KwOnly6` but is used as type `StrKwargs6`.
 callables_subtyping.py:190:4 Incompatible variable type [9]: f4 is declared to have type `IntStrKwargs6` but is used as type `StrKwargs6`.
 callables_subtyping.py:191:4 Incompatible variable type [9]: f5 is declared to have type `IntStrKwargs6` but is used as type `IntKwargs6`.
-callables_subtyping.py:192:4 Incompatible variable type [9]: f6 is declared to have type `StrKwargs6` but is used as type `IntStrKwargs6`.
 callables_subtyping.py:193:4 Incompatible variable type [9]: f7 is declared to have type `StrKwargs6` but is used as type `IntKwargs6`.
 callables_subtyping.py:195:4 Incompatible variable type [9]: f9 is declared to have type `IntKwargs6` but is used as type `StrKwargs6`.
-callables_subtyping.py:196:4 Incompatible variable type [9]: f10 is declared to have type `Standard6` but is used as type `IntStrKwargs6`.
 callables_subtyping.py:197:4 Incompatible variable type [9]: f11 is declared to have type `Standard6` but is used as type `StrKwargs6`.
 callables_subtyping.py:208:0 Incompatible variable type [9]: TypeAliasWithP is declared to have type `TypeAlias` but is used as type `Type[typing.Callable[..., Variable[$synthetic_attribute_resolution_variable]]]`.
 callables_subtyping.py:208:37 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[ParamSpec, None]`.
 callables_subtyping.py:211:39 Undefined or invalid type [11]: Annotation `TypeAliasWithP` is not defined as a type.
+callables_subtyping.py:236:4 Incompatible variable type [9]: f1 is declared to have type `DefaultArg8` but is used as type `NoDefaultArg8`.
 callables_subtyping.py:237:4 Incompatible variable type [9]: f2 is declared to have type `DefaultArg8` but is used as type `NoX8`.
 callables_subtyping.py:240:4 Incompatible variable type [9]: f4 is declared to have type `NoDefaultArg8` but is used as type `NoX8`.
 callables_subtyping.py:243:4 Incompatible variable type [9]: f6 is declared to have type `NoX8` but is used as type `NoDefaultArg8`.

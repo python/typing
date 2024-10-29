@@ -1,19 +1,12 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
-Does not reject positional-only parameter after non-positional-only parameter.
-Incorrectly applies legacy positional-only rules when explicit *args are used.
-Incorrectly applies legacy positional-only rules when PEP 570 syntax is used.
 """
 output = """
 historical_positional.py:18:0 Unexpected keyword [28]: Unexpected keyword argument `__x` to call `f1`.
-historical_positional.py:32:0 Unexpected keyword [28]: Unexpected keyword argument `__y` to call `f3`.
+historical_positional.py:26:15 Invalid positional-only parameter [69]: Positional-only parameters cannot appear after parameters that accept keyword arguments.
+historical_positional.py:38:25 Invalid positional-only parameter [69]: Positional-only parameters cannot appear after parameters that accept keyword arguments.
 historical_positional.py:43:0 Unexpected keyword [28]: Unexpected keyword argument `__x` to call `A.m1`.
-historical_positional.py:53:0 Unexpected keyword [28]: Unexpected keyword argument `__y` to call `f4`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 26: Expected 1 errors
-Line 38: Expected 1 errors
-Line 32: Unexpected errors ['historical_positional.py:32:0 Unexpected keyword [28]: Unexpected keyword argument `__y` to call `f3`.']
-Line 53: Unexpected errors ['historical_positional.py:53:0 Unexpected keyword [28]: Unexpected keyword argument `__y` to call `f4`.']
 """

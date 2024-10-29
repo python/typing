@@ -3,7 +3,7 @@ notes = """
 Does not treat Never as compatible with all other types.
 """
 output = """
-specialtypes_never.py:21:8 Incompatible return type [7]: Function declared non-returnable, but got `None`.
+specialtypes_never.py:19:21 Incompatible return type [7]: Function declared non-returnable, but got implicit return value of `None`.
 specialtypes_never.py:68:4 Incompatible variable type [9]: v1 is declared to have type `int` but is used as type `Never`.
 specialtypes_never.py:69:4 Incompatible variable type [9]: v2 is declared to have type `str` but is used as type `Never`.
 specialtypes_never.py:70:4 Incompatible variable type [9]: v3 is declared to have type `List[str]` but is used as type `Never`.
@@ -14,8 +14,6 @@ specialtypes_never.py:105:4 Incompatible return type [7]: Expected `ClassC[Varia
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 19: Expected 1 errors
-Line 21: Unexpected errors ['specialtypes_never.py:21:8 Incompatible return type [7]: Function declared non-returnable, but got `None`.']
 Line 68: Unexpected errors ['specialtypes_never.py:68:4 Incompatible variable type [9]: v1 is declared to have type `int` but is used as type `Never`.']
 Line 69: Unexpected errors ['specialtypes_never.py:69:4 Incompatible variable type [9]: v2 is declared to have type `str` but is used as type `Never`.']
 Line 70: Unexpected errors ['specialtypes_never.py:70:4 Incompatible variable type [9]: v3 is declared to have type `List[str]` but is used as type `Never`.']
