@@ -1,29 +1,33 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Type parameter syntax not yet support.
+Incorrectly determines that a class cannot be instantiated with __getitem__.
+Incorrectly handles mixing legacy and PEP695 syntax.
 """
 output = """
-generics_syntax_infer_variance.py:132:25 Parsing failure [404]: invalid syntax
+generics_syntax_infer_variance.py:15:0 Invalid variance definition [77]: Cannot use infer_variance with predefined variance.
+generics_syntax_infer_variance.py:17:0 Invalid variance definition [77]: Cannot use infer_variance with predefined variance.
+generics_syntax_infer_variance.py:29:0 Incompatible variable type [9]: vco1_2 is declared to have type `ShouldBeCovariant1[int]` but is used as type `ShouldBeCovariant1[float]`.
+generics_syntax_infer_variance.py:36:36 Invalid class instantiation [45]: Cannot instantiate abstract class `ShouldBeCovariant2` with abstract methods `__getitem__`, `__len__`.
+generics_syntax_infer_variance.py:37:0 Incompatible variable type [9]: vco2_2 is declared to have type `ShouldBeCovariant2[int]` but is used as type `ShouldBeCovariant2[float]`.
+generics_syntax_infer_variance.py:37:34 Invalid class instantiation [45]: Cannot instantiate abstract class `ShouldBeCovariant2` with abstract methods `__getitem__`, `__len__`.
+generics_syntax_infer_variance.py:46:0 Incompatible variable type [9]: vco3_2 is declared to have type `ShouldBeCovariant3[int]` but is used as type `ShouldBeCovariant3[float]`.
+generics_syntax_infer_variance.py:75:0 Incompatible variable type [9]: vo5_2 is declared to have type `ShouldBeCovariant5[int]` but is used as type `ShouldBeCovariant5[float]`.
+generics_syntax_infer_variance.py:86:0 Incompatible variable type [9]: vo6_2 is declared to have type `ShouldBeCovariant6[int]` but is used as type `ShouldBeCovariant6[float]`.
+generics_syntax_infer_variance.py:102:0 Incompatible variable type [9]: vinv1_1 is declared to have type `ShouldBeInvariant1[float]` but is used as type `ShouldBeInvariant1[int]`.
+generics_syntax_infer_variance.py:103:0 Incompatible variable type [9]: vinv1_2 is declared to have type `ShouldBeInvariant1[int]` but is used as type `ShouldBeInvariant1[float]`.
+generics_syntax_infer_variance.py:117:0 Incompatible variable type [9]: vinv2_1 is declared to have type `ShouldBeInvariant2[float]` but is used as type `ShouldBeInvariant2[int]`.
+generics_syntax_infer_variance.py:118:0 Incompatible variable type [9]: vinv2_2 is declared to have type `ShouldBeInvariant2[int]` but is used as type `ShouldBeInvariant2[float]`.
+generics_syntax_infer_variance.py:125:0 Incompatible variable type [9]: vinv3_1 is declared to have type `ShouldBeInvariant3[float, str]` but is used as type `ShouldBeInvariant3[int, str]`.
+generics_syntax_infer_variance.py:126:0 Incompatible variable type [9]: vinv3_2 is declared to have type `ShouldBeInvariant3[int, str]` but is used as type `ShouldBeInvariant3[float, str]`.
+generics_syntax_infer_variance.py:127:0 Incompatible variable type [9]: vinv3_3 is declared to have type `ShouldBeInvariant3[str, float]` but is used as type `ShouldBeInvariant3[str, int]`.
+generics_syntax_infer_variance.py:128:0 Incompatible variable type [9]: vinv3_4 is declared to have type `ShouldBeInvariant3[str, int]` but is used as type `ShouldBeInvariant3[str, float]`.
+generics_syntax_infer_variance.py:133:7 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T]`.
+generics_syntax_infer_variance.py:155:0 Incompatible variable type [9]: vcontra1_1 is declared to have type `ShouldBeContravariant1[float]` but is used as type `ShouldBeContravariant1[int]`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 15: Expected 1 errors
-Line 17: Expected 1 errors
-Line 29: Expected 1 errors
-Line 37: Expected 1 errors
-Line 46: Expected 1 errors
-Line 75: Expected 1 errors
-Line 86: Expected 1 errors
-Line 102: Expected 1 errors
-Line 103: Expected 1 errors
-Line 117: Expected 1 errors
-Line 118: Expected 1 errors
-Line 125: Expected 1 errors
-Line 126: Expected 1 errors
-Line 127: Expected 1 errors
-Line 128: Expected 1 errors
 Line 136: Expected 1 errors
 Line 144: Expected 1 errors
-Line 155: Expected 1 errors
-Line 132: Unexpected errors ['generics_syntax_infer_variance.py:132:25 Parsing failure [404]: invalid syntax']
+Line 36: Unexpected errors ['generics_syntax_infer_variance.py:36:36 Invalid class instantiation [45]: Cannot instantiate abstract class `ShouldBeCovariant2` with abstract methods `__getitem__`, `__len__`.']
+Line 133: Unexpected errors ["generics_syntax_infer_variance.py:133:7 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T]`."]
 """

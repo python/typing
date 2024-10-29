@@ -1,13 +1,13 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not understand context manager exception rules.
+assert_type causes failures.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 50: Unexpected errors ['exceptions_context_managers.py:50:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Union[int, str]` but got `str`.']
-Line 57: Unexpected errors ['exceptions_context_managers.py:57:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Union[int, str]` but got `str`.']
+Line 50: Unexpected errors ['exceptions_context_managers.py:50:4 Assert type [70]: Expected `Union[int, str]` but got `str`.']
+Line 57: Unexpected errors ['exceptions_context_managers.py:57:4 Assert type [70]: Expected `Union[int, str]` but got `str`.']
 """
 output = """
-exceptions_context_managers.py:50:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Union[int, str]` but got `str`.
-exceptions_context_managers.py:57:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Union[int, str]` but got `str`.
+exceptions_context_managers.py:50:4 Assert type [70]: Expected `Union[int, str]` but got `str`.
+exceptions_context_managers.py:57:4 Assert type [70]: Expected `Union[int, str]` but got `str`.
 """

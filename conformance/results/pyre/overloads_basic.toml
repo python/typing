@@ -1,12 +1,11 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
-Does not reject a function with a single @overload signature.
 """
 output = """
 overloads_basic.py:37:2 Incompatible parameter type [6]: In call `Bytes.__getitem__`, for 1st positional argument, expected `int` but got `str`.
+overloads_basic.py:63:0 Incompatible overload [43]: At least two overload signatures must be present.
 overloads_basic.py:75:0 Missing overload implementation [42]: Overloaded function `func2` must have an implementation.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Lines 62, 63: Expected error (tag 'func1')
 """

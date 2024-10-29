@@ -1,10 +1,9 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
-Does not enforce that Enum classes are implicitly final.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 39: Expected 1 errors
 """
 output = """
+enums_behaviors.py:39:0 Invalid inheritance [39]: Cannot inherit from final enum `Shape`. Enums with defined members cannot be extended.
 """

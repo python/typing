@@ -7,9 +7,9 @@ generics_paramspec_semantics.py:61:22 Incompatible parameter type [6]: In call `
 generics_paramspec_semantics.py:98:3 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `str` but got `int`.
 generics_paramspec_semantics.py:108:3 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `bool` but got `int`.
 generics_paramspec_semantics.py:120:3 Incompatible parameter type [6]: In anonymous call, for 1st positional argument, expected `str` but got `int`.
-generics_paramspec_semantics.py:127:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions Please add # pyre-ignore[56] to `generics_paramspec_semantics.expects_int_first`.
-generics_paramspec_semantics.py:132:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions Please add # pyre-ignore[56] to `generics_paramspec_semantics.expects_int_first`.
-generics_paramspec_semantics.py:137:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions Please add # pyre-ignore[56] to `generics_paramspec_semantics.expects_int_first`.
+generics_paramspec_semantics.py:127:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions. Consider using a context manager instead of a decorator, if possible.
+generics_paramspec_semantics.py:132:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions. Consider using a context manager instead of a decorator, if possible.
+generics_paramspec_semantics.py:137:1 Invalid decoration [56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions. Consider using a context manager instead of a decorator, if possible.
 """
 conformance_automated = "Pass"
 errors_diff = """
