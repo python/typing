@@ -131,7 +131,7 @@ should treat the two largely equivalently (except for variance, see below).
 takes a single type parameter ``T``. This also makes ``T`` valid as
 a type within the class body.
 
-The ``Generic`` base class implements the :func:`~object__class_getitem__`
+The ``Generic`` base class implements the :func:`~object.__class_getitem__`
 classmethod so that ``LoggedVar[t]`` is valid as a type::
 
   from collections.abc import Iterable
