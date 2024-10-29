@@ -123,8 +123,9 @@ statically in cases where dynamic values are used.
         genus: str  # Non-member attribute
         species: str  # Non-member attribute
 
-        CAT = ...  # Member attribute
-        DOG = ...  # Member attribute
+        CAT = 1  # Member attribute with known value and type
+        DOG = cast(str, ...)  # Member attribute with unknown value and known type
+        BIRD = ...  # Member attribute with unknown value and type
 
 * Members defined within an enum class should not include explicit type
   annotations. Type checkers should infer a literal type for all members.
