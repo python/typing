@@ -257,6 +257,7 @@ from regular ABCs, where abstractness is simply defined by having at least one
 abstract method being unimplemented. Protocol classes must be marked
 *explicitly*.
 
+.. _`generic-protocols`:
 
 Generic protocols
 ^^^^^^^^^^^^^^^^^
@@ -271,7 +272,8 @@ non-protocol generic types::
           ...
 
 ``Protocol[T, S, ...]`` is allowed as a shorthand for
-``Protocol, Generic[T, S, ...]``.
+``Protocol, Generic[T, S, ...]``. It is an error to include both
+``Protocol[T, S, ...]`` and ``Generic[T, S, ...]`` in a class definition.
 
 User-defined generic protocols support explicitly declared variance.
 Type checkers will warn if the inferred variance is different from
