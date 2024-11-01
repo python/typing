@@ -93,9 +93,13 @@ This is equivalent to omitting the generic notation and just saying
 User-defined generic types
 --------------------------
 
-You can define a user-defined class as generic by including a ``Generic``
-base class, either explicitly or implicitly via the ``Protocol[T]``
-shorthand for :ref:`generic protocols<generic-protocols>`. Example::
+You can define a user-defined class as generic in three ways: by including a
+``Generic`` base class, by using the  new generic class syntax in Python 3.12
+and higher, or by including a ``Protocol`` base class parameterized with type
+variables. The third approach also marks the class as a protocol - see
+:ref:`generic protocols<generic-protocols>` for more information.
+
+Example using ``Generic``::
 
   from typing import TypeVar, Generic
   from logging import Logger
@@ -119,14 +123,14 @@ shorthand for :ref:`generic protocols<generic-protocols>`. Example::
       def log(self, message: str) -> None:
           self.logger.info('{}: {}'.format(self.name, message))
 
-Or, in Python 3.12 and higher, by using the new syntax for generic
-classes::
+Or, using the new generic class syntax::
 
   class LoggedVar[T]:
       # methods as in previous example
 
 This implicitly adds ``Generic[T]`` as a base class and type checkers
-should treat the two largely equivalently (except for variance, see below).
+should treat the two definitions of ``LoggedVar`` largely equivalently (except
+for variance, see below).
 
 ``Generic[T]`` as a base class defines that the class ``LoggedVar``
 takes a single type parameter ``T``. This also makes ``T`` valid as
