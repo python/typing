@@ -166,8 +166,44 @@ thus invalid::
   class Pair(Generic[T, T]):   # INVALID
       ...
 
-When no ``Generic[T]`` or ``Protocol[T]`` base class is present, a defined
-class is generic if you subclass one or more other generic classes and
+All arguments to ``Generic`` or ``Protocol`` must be type variables::
+
+  from typing import Generic, Protocol
+
+  class Bad1(Generic[int]):   # INVALID
+      ...
+  class Bad2(Protocol[int]):   # INVALID
+      ...
+
+When a ``Generic`` or parameterized ``Protocol`` base class is present, all type
+parameters for the class must appear within the ``Generic`` or
+``Protocol`` type argument list, respectively. A type checker should report an
+error if a type variable that is not included in the type argument list appears
+elsewhere in the base class list::
+
+  from typing import Generic, Protocol, TypeVar
+  from collections.abc import Iterable
+
+  T = TypeVar('T')
+  S = TypeVar('S')
+
+  class Bad1(Iterable[T], Generic[S]):   # INVALID
+      ...
+  class Bad2(Iterable[T], Protocol[S]):   # INVALID
+      ...
+
+Note that the above rule does not apply to a bare ``Protocol`` base class. This
+is valid (see below)::
+
+  from typing import Protocol, TypeVar
+  from collections.abc import Iterator
+
+  T = TypeVar('T')
+
+  class MyIterator(Iterator[T], Protocol): ...
+
+When no ``Generic`` or parameterized ``Protocol`` base class is present, a
+defined class is generic if you subclass one or more other generic classes and
 specify type variables for their parameters. See :ref:`generic-base-classes`
 for details.
 
