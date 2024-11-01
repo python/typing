@@ -477,7 +477,7 @@ Type checkers may warn when the type variable order is inconsistent::
 
   from typing import Generic, TypeVar
 
-  T1 = TypeVar('T2')
+  T1 = TypeVar('T1')
   T2 = TypeVar('T2')
   T3 = TypeVar('T3')
 
