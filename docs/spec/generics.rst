@@ -128,7 +128,7 @@ Or, using the new generic class syntax::
   class LoggedVar[T]:
       # methods as in previous example
 
-This implicitly adds ``Generic[T]`` as a base class and type checkers
+This implicitly adds ``Generic[T]`` as a base class, and type checkers
 should treat the two definitions of ``LoggedVar`` largely equivalently (except
 for variance, see below).
 
@@ -450,7 +450,7 @@ Also consider the following example::
   class MyDict(Mapping[str, T]):
       ...
 
-In this case ``MyDict`` has a single parameter, ``T``.
+In this case ``MyDict`` has a single type parameter, ``T``.
 
 Type variables are applied to the defined class in the order in which
 they first appear in any generic base classes::
