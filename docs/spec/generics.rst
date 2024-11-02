@@ -509,7 +509,8 @@ That ``Child`` definition is equivalent to::
   class Child(Parent1[T1, T3], Parent2[T2, T3], Generic[T1, T3, T2]):
       ...
 
-Type checkers may warn when the type variable order is inconsistent::
+A type checker should report an error when the type variable order is
+inconsistent::
 
   from typing import Generic, TypeVar
 
@@ -521,7 +522,7 @@ Type checkers may warn when the type variable order is inconsistent::
       ...
   class Parent(Grandparent[T1, T2]):
       ...
-  class Child(Parent[T1, T2], Grandparent[T2, T1]):   # Inconsistent order
+  class Child(Parent[T1, T2], Grandparent[T2, T1]):   # INVALID
       ...
 
 Abstract generic types
