@@ -94,13 +94,9 @@ It may be instructive to examine `typeshed <https://github.com/python/typeshed/>
 `setup for testing stubs <https://github.com/python/typeshed/blob/main/tests/README.md>`__.
 
 To suppress type errors on stubs:
-* use mypy error codes for mypy-specific `# type: ignore` annotations,
-  e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
-* use pyright error codes for pyright-specific suppressions,
-  e.g. `# pyright: ignore[reportGeneralTypeIssues]`.
-  - pyright is configured to discard `# type: ignore` annotations.
-  If you need both on the same line, mypy's annotation needs to go first,
-  e.g. `# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]`.
+* use mypy error codes for mypy-specific `# type: ignore` annotations, e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
+* use pyright error codes for pyright-specific suppressions, e.g. `# pyright: ignore[reportGeneralTypeIssues]`. Pyright is configured to discard `# type: ignore` annotations.
+* If you need both on the same line, mypy's annotation needs to go first, e.g. `# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]`.
 
 ..
    TODO: consider adding examples and configurations for specific type checkers
@@ -146,6 +142,8 @@ The following should not be included in stubs:
 2. Modules that are not supposed to be imported, such as ``__main__.py``
 3. Protected modules that start with a single ``_`` char. However, when needed protected modules can still be added (see :ref:`undocumented-objects` section below)
 4. Tests
+
+.. _undocumented-objects:
 
 Undocumented Objects
 --------------------
@@ -532,7 +530,7 @@ Yes::
 
     class Color(Enum):
         # An assignment with no type annotation is a convention used to indicate
-	# an enum member.
+        # an enum member.
         RED = 1
 
 No::
@@ -770,10 +768,8 @@ Imports
 
 Imports in stubs are considered private (not part of the exported API)
 unless:
-* they use the form ``from library import name as name`` (sic, using
-  explicit ``as`` even if the name stays the same); or
-* they use the form ``from library import *`` which means all names
-  from that library are exported.
+* they use the form ``from library import name as name`` (sic, using explicit ``as`` even if the name stays the same); or
+* they use the form ``from library import *`` which means all names from that library are exported.
 
 Forward References
 ------------------
