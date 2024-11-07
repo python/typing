@@ -93,6 +93,15 @@ Liskov substitutability or detecting problematic overloads.
 It may be instructive to examine `typeshed <https://github.com/python/typeshed/>`__'s
 `setup for testing stubs <https://github.com/python/typeshed/blob/main/tests/README.md>`__.
 
+To suppress type errors on stubs:
+* use mypy error codes for mypy-specific `# type: ignore` annotations,
+  e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
+* use pyright error codes for pyright-specific suppressions,
+  e.g. `# pyright: ignore[reportGeneralTypeIssues]`.
+  - pyright is configured to discard `# type: ignore` annotations.
+  If you need both on the same line, mypy's annotation needs to go first,
+  e.g. `# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]`.
+
 ..
    TODO: consider adding examples and configurations for specific type checkers
 
@@ -113,18 +122,6 @@ Stub Content
 This section documents best practices on what elements to include or
 leave out of stub files.
 
-Modules excluded fom stubs
---------------------------
-
-Not all modules should be included in stubs.
-
-It is recommended to exclude:
-
-1. Implementation details, with `multiprocessing/popen_spawn_win32.py <https://github.com/python/cpython/blob/main/Lib/multiprocessing/popen_spawn_win32.py>`_ as a notable example
-2. Modules that are not supposed to be imported, such as ``__main__.py``
-3. Protected modules that start with a single ``_`` char. However, when needed protected modules can still be added (see :ref:`undocumented-objects` section below)
-4. Tests
-
 Public Interface
 ----------------
 
@@ -138,9 +135,17 @@ The following should always be included:
 * All objects included in ``__all__`` (if present).
 
 Other objects may be included if they are not prefixed with an underscore
-or if they are being used in practice. (See the next section.)
+or if they are being used in practice.
 
-.. _undocumented-objects:
+Modules excluded from stubs
+---------------------------
+
+The following should not be included in stubs:
+
+1. Implementation details, with `multiprocessing/popen_spawn_win32.py <https://github.com/python/cpython/blob/main/Lib/multiprocessing/popen_spawn_win32.py>`_ as a notable example
+2. Modules that are not supposed to be imported, such as ``__main__.py``
+3. Protected modules that start with a single ``_`` char. However, when needed protected modules can still be added (see :ref:`undocumented-objects` section below)
+4. Tests
 
 Undocumented Objects
 --------------------
@@ -417,6 +422,28 @@ and the :ref:`best-practices`. There are a few exceptions, outlined below, that 
 different structure of stub files into account and aim to create
 more concise files.
 
+Syntax Example
+--------------
+
+The below is an excerpt from the types for the `datetime` module.
+
+  MAXYEAR: int
+  MINYEAR: int
+
+  class date:
+      def __new__(cls, year: SupportsIndex, month: SupportsIndex, day: SupportsIndex) -> Self: ...
+      @classmethod
+      def fromtimestamp(cls, timestamp: float, /) -> Self: ...
+      @classmethod
+      def today(cls) -> Self: ...
+      @classmethod
+      def fromordinal(cls, n: int, /) -> Self: ...
+      @property
+      def year(self) -> int: ...
+      def replace(self, year: SupportsIndex = ..., month: SupportsIndex = ..., day: SupportsIndex = ...) -> Self: ...
+      def ctime(self) -> str: ...
+      def weekday(self) -> int: ...
+
 Maximum Line Length
 -------------------
 
@@ -448,14 +475,14 @@ No::
 
     def time_func() -> None: ...
 
-    def date_func() -> None: ...  # do no leave unnecessary empty lines
+    def date_func() -> None: ...  # do not leave unnecessary empty lines
 
     def ip_func() -> None: ...
 
 
     class Foo:  # leave only one empty line above
         x: int
-    class MyError(Exception): ...  # leave an empty line between the classes
+    class MyError(Exception): ...
 
 Module Level Attributes
 -----------------------
@@ -575,6 +602,14 @@ No::
         ...
     def to_int3(x: str) -> int: pass
 
+Avoid invariant collection types (`list`, `dict`) for function parameters,
+in favor of covariant types like `Mapping` or `Sequence`.
+
+Avoid union return types. See https://github.com/python/mypy/issues/1693
+
+Use `float` instead of `int | float` for parameter annotations.
+See [PEP 484](https://peps.python.org/pep-0484/#the-numeric-tower).
+
 Language Features
 -----------------
 
@@ -604,6 +639,14 @@ No::
 
     class OtherClass: ...
 
+Use variable annotations instead of type comments, even for stubs that target
+older versions of Python.
+
+Platform-dependent APIs
+-----------------------
+
+Use platform checks like `if sys.platform == 'win32'` to denote platform-dependent APIs.
+
 NamedTuple and TypedDict
 ------------------------
 
@@ -631,7 +674,7 @@ No::
 Built-in Generics
 -----------------
 
-:pep:`585` built-in generics are supported and should be used instead
+:pep:`585` built-in generics (such as `list`, `dict`, `tuple`, `set`) are supported and should be used instead
 of the corresponding types from ``typing``::
 
     from collections import defaultdict
@@ -654,3 +697,88 @@ all type checkers::
 
   def foo(x: int | str) -> int | None: ...  # recommended
   def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
+
+Using `Any` and `object`
+------------------------
+
+When adding type hints, avoid using the `Any` type when possible. Reserve
+the use of `Any` for when:
+* the correct type cannot be expressed in the current type system; and
+* to avoid union returns (see above).
+
+Note that `Any` is not the correct type to use if you want to indicate
+that some function can accept literally anything: in those cases use
+`object` instead.
+
+When using `Any`, document the reason for using it in a comment. Ideally,
+document what types could be used.
+
+Context Managers
+----------------
+
+When adding type annotations for context manager classes, annotate
+the return type of `__exit__` as bool only if the context manager
+sometimes suppresses exceptions -- if it sometimes returns `True`
+at runtime. If the context manager never suppresses exceptions,
+have the return type be either `None` or `bool | None`. If you
+are not sure whether exceptions are suppressed or not or if the
+context manager is meant to be subclassed, pick `bool | None`.
+See https://github.com/python/mypy/issues/7214 for more details.
+
+`__enter__` methods and other methods that return instances of the
+current class should be annotated with `typing_extensions.Self`
+([example](https://github.com/python/typeshed/blob/3581846/stdlib/contextlib.pyi#L151)).
+
+Naming
+------
+
+Type variables and aliases you introduce purely for legibility reasons
+should be prefixed with an underscore to make it obvious to the reader
+they are not part of the stubbed API.
+
+A few guidelines for protocol names below. In cases that don't fall
+into any of those categories, use your best judgement.
+
+* Use plain names for protocols that represent a clear concept
+  (e.g. `Iterator`, `Container`).
+* Use `SupportsX` for protocols that provide callable methods (e.g.
+  `SupportsInt`, `SupportsRead`, `SupportsReadSeek`).
+* Use `HasX` for protocols that have readable and/or writable attributes
+  or getter/setter methods (e.g. `HasItems`, `HasFileno`).
+
+`@deprecated`
+-------------
+
+The `@typing_extensions.deprecated` decorator (`@warnings.deprecated`
+since Python 3.13) can be used to mark deprecated functionality; see
+[PEP 702](https://peps.python.org/pep-0702/).
+
+A few guidelines for how to use it:
+
+* In the standard library, apply the decorator only in Python versions
+  where an appropriate replacement for the deprecated functionality
+  exists. If in doubt, apply the decorator only on versions where the
+  functionality has been explicitly deprecated, either through runtime
+  warnings or in the documentation. Use `if sys.version_info` checks to
+  apply the decorator only to some versions.
+* Keep the deprecation message concise, but try to mention the projected
+  version when the functionality is to be removed, and a suggested
+  replacement.
+
+Imports
+-------
+
+Imports in stubs are considered private (not part of the exported API)
+unless:
+* they use the form ``from library import name as name`` (sic, using
+  explicit ``as`` even if the name stays the same); or
+* they use the form ``from library import *`` which means all names
+  from that library are exported.
+
+Forward References
+------------------
+
+Stub files support forward references natively. In other words, the
+order of class declarations and type aliases does not matter in
+a stub file. Unlike regular Python files, you can use the name of the class within its own
+body without writing it as a comment.
