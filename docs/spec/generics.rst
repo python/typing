@@ -93,11 +93,14 @@ This is equivalent to omitting the generic notation and just saying
 User-defined generic types
 --------------------------
 
-You can define a user-defined class as generic in three ways: by including a
-``Generic`` base class, by using the  new generic class syntax in Python 3.12
-and higher, or by including a ``Protocol`` base class parameterized with type
-variables. The third approach also marks the class as a protocol - see
-:ref:`generic protocols<generic-protocols>` for more information.
+There are several ways to define a user-defined class as generic:
+
+* Include a ``Generic`` base class.
+* Use the new generic class syntax in Python 3.12 and higher.
+* Include a `` Protocol`` base class parameterized with type variables. This
+  approach also marks the class as a protocol - see
+  :ref:`generic protocols<generic-protocols>` for more information.
+* Include a generic base class parameterized with type variables.
 
 Example using ``Generic``::
 
