@@ -203,6 +203,10 @@ following should be allowed::
    Y: Final = "y"
    N = NamedTuple("N", [(X, int), (Y, int)])
 
+``Final`` cannot be used as a qualifier for a :ref:`TypedDict <typeddict>`
+item or a :ref:`NamedTuple <namedtuple>`field. Such usages are also hard
+errors at runtime.
+
 .. _`annotated`:
 
 ``Annotated``

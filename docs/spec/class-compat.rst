@@ -89,6 +89,10 @@ annotated in ``__init__`` or other methods, rather than in the class::
       def __init__(self, content):
           self.content: T = content
 
+``ClassVar`` cannot be used as a qualifier for a :ref:`TypedDict <typeddict>`
+item or a :ref:`NamedTuple <namedtuple>`field. Such usages are also hard
+errors at runtime.
+
 .. _`override`:
 
 ``@override``

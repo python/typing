@@ -508,13 +508,6 @@ make type declarations self-contained, and to simplify the
 implementation of type checkers.
 
 
-ClassVar and Final items
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-``ClassVar`` and ``Final`` are not allowed as qualifiers for an item
-of a ``TypedDict``. Such an item also causes a hard error at runtime.
-
-
 Backwards Compatibility
 ^^^^^^^^^^^^^^^^^^^^^^^
 
