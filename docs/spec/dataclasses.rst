@@ -192,12 +192,6 @@ customization of default behaviors:
   in ``typing.py``. Type checkers should report errors for any
   unrecognized parameters.
 
-In the future, we may add additional parameters to
-``dataclass_transform`` as needed to support common behaviors in user
-code. These additions will be made after reaching consensus on
-the `Python Discourse <https://discuss.python.org/c/typing/32>`__
-rather than via additional PEPs.
-
 The following sections provide additional examples showing how these
 parameters are used.
 
