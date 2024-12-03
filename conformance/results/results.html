@@ -162,13 +162,13 @@
 <div class='tc-time'>2.5sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.389</div>
-<div class='tc-time'>2.6sec</div>
+<div class='tc-time'>2.5sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>4.4sec</div>
+<div class='tc-time'>4.3sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>45.1sec</div>
+<div class='tc-time'>45.2sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -249,8 +249,8 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_basic</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject the use of a constraint parameterized by another type variable.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for constraint parameterized by a type variable.</p><p>False negative in custom map example.</p><p>False positive using `iter`.</p><p>False negative for generic metaclass.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for generic metaclass.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for constraint parameterized by a type variable.</p><p>False negative in custom map example.</p><p>False positive using `iter`.</p><p>False negative for bad type arguments to Generic/Protocol.</p><p>False negative for generic metaclass.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>Argument 'covariant' to TypeVar not supported.</p><p>False negative for type variables missing from Generic/Protocol base class.</p><p>False negative for generic metaclass.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults</th>
 <th class="column col2 not-conformant">Unsupported</th>
