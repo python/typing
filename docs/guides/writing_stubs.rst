@@ -113,8 +113,8 @@ Stub Content
 This section documents best practices on what elements to include or
 leave out of stub files.
 
-Modules excluded fom stubs
---------------------------
+Modules excluded from stubs
+---------------------------
 
 Not all modules should be included in stubs.
 
