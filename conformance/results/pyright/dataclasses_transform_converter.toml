@@ -40,5 +40,5 @@ dataclasses_transform_converter.py:130:67 - error: Argument of type "Literal[1]"
 dataclasses_transform_converter.py:133:75 - error: Argument of type "type[int]" cannot be assigned to parameter "default_factory" of type "(() -> S@model_field) | None" in function "model_field"
   Type "type[int]" is not assignable to type "(() -> str) | None"
     No overloaded function matches type "() -> str"
-    "type[type]" is not assignable to "type[None]" (reportArgumentType)
+    Type is not assignable to "None" (reportArgumentType)
 """

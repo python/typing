@@ -4,6 +4,7 @@ False positives in examples using constrained type variables.
 False negative for constraint parameterized by a type variable.
 False negative in custom map example.
 False positive using `iter`.
+False negative for bad type arguments to Generic/Protocol.
 False negative for generic metaclass.
 """
 output = """
@@ -16,10 +17,14 @@ generics_basic.py:69:14 Incompatible parameter type [6]: In call `concat`, for 2
 generics_basic.py:121:0 Duplicate type variables [59]: Duplicate type variable `T` in Generic[...].
 generics_basic.py:157:7 Incompatible parameter type [6]: In call `typing.Mapping.__getitem__`, for 1st positional argument, expected `str` but got `int`.
 generics_basic.py:158:7 Incompatible parameter type [6]: In call `typing.Mapping.__getitem__`, for 1st positional argument, expected `str` but got `int`.
+generics_basic.py:171:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T_co]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T_co]`.
+generics_basic.py:172:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T_co]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T_co]`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 55: Expected 1 errors
-Line 191: Expected 1 errors
+Line 162: Expected 1 errors
+Line 163: Expected 1 errors
+Line 208: Expected 1 errors
 Line 34: Unexpected errors ['generics_basic.py:34:4 Incompatible return type [7]: Expected `Variable[AnyStr <: [str, bytes]]` but got `str`.', 'generics_basic.py:34:15 Incompatible parameter type [6]: In call `str.__add__`, for 1st positional argument, expected `str` but got `Variable[AnyStr <: [str, bytes]]`.']
 """
