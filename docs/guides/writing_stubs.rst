@@ -93,10 +93,8 @@ Liskov substitutability or detecting problematic overloads.
 It may be instructive to examine `typeshed <https://github.com/python/typeshed/>`__'s
 `setup for testing stubs <https://github.com/python/typeshed/blob/main/tests/README.md>`__.
 
-To suppress type errors on stubs:
-* use mypy error codes for mypy-specific `# type: ignore` annotations, e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
-* use pyright error codes for pyright-specific suppressions, e.g. `# pyright: ignore[reportGeneralTypeIssues]`. Pyright is configured to discard `# type: ignore` annotations.
-* If you need both on the same line, mypy's annotation needs to go first, e.g. `# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]`.
+To suppress type errors on stubs, use a `# type: ignore` comment. Refer to the style guide for
+error suppression formats specific to individual typecheckers.
 
 ..
    TODO: consider adding examples and configurations for specific type checkers
@@ -538,7 +536,7 @@ No::
 
     class Foo:  # leave only one empty line above
         x: int
-    class MyError(Exception): ...
+    class MyError(Exception): ...  # leave an empty line between the classes
 
 Module Level Attributes
 -----------------------
@@ -802,6 +800,14 @@ into any of those categories, use your best judgement.
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
+Type Checker Error Suppression formats
+--------------------------------------
+
+* Use mypy error codes for mypy-specific `# type: ignore` annotations, e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
+* Use pyright error codes for pyright-specific suppressions, e.g. `# pyright: ignore[reportGeneralTypeIssues]`. Pyright is configured to discard `# type: ignore` annotations.
+* If you need both on the same line, mypy's annotation needs to go first, e.g. `# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]`.
+
+
 `@deprecated`
 -------------
 
@@ -809,30 +815,6 @@ The `@typing_extensions.deprecated` decorator (`@warnings.deprecated`
 since Python 3.13) can be used to mark deprecated functionality; see
 [PEP 702](https://peps.python.org/pep-0702/).
 
-A few guidelines for how to use it:
-
-* In the standard library, apply the decorator only in Python versions
-  where an appropriate replacement for the deprecated functionality
-  exists. If in doubt, apply the decorator only on versions where the
-  functionality has been explicitly deprecated, either through runtime
-  warnings or in the documentation. Use `if sys.version_info` checks to
-  apply the decorator only to some versions.
-* Keep the deprecation message concise, but try to mention the projected
-  version when the functionality is to be removed, and a suggested
-  replacement.
-
-Imports
--------
-
-Imports in stubs are considered private (not part of the exported API)
-unless:
-* they use the form ``from library import name as name`` (sic, using explicit ``as`` even if the name stays the same); or
-* they use the form ``from library import *`` which means all names from that library are exported.
-
-Forward References
-------------------
-
-Stub files support forward references natively. In other words, the
-order of class declarations and type aliases does not matter in
-a stub file. Unlike regular Python files, you can use the name of the class within its own
-body without writing it as a comment.
+Keep the deprecation message concise, but try to mention the projected
+version when the functionality is to be removed, and a suggested
+replacement.
