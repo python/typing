@@ -5,8 +5,8 @@ protocols_class_objects.py:29:5 - error: Argument of type "type[Proto]" cannot b
 protocols_class_objects.py:34:7 - error: Type "type[Proto]" is not assignable to declared type "type[Proto]"
   "Proto" is not a concrete class type and cannot be assigned to type "type[Proto]" (reportAssignmentType)
 protocols_class_objects.py:58:16 - error: Type "type[ConcreteA]" is not assignable to declared type "ProtoA1"
-  "type[type]" is not assignable to "type[ConcreteA]"
-  "type[type]" is not assignable to "type[ConcreteA]"
+  Type "type[ConcreteA]" is not assignable to type "ConcreteA"
+  Type "type[ConcreteA]" is not assignable to type "ConcreteA"
   "method1" is an incompatible type
     Type "(self: ConcreteA, x: int) -> int" is not assignable to type "(x: int) -> int"
       Parameter name mismatch: "x" versus "self"

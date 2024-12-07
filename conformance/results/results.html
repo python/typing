@@ -159,16 +159,16 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.13.0</div>
-<div class='tc-time'>2.7sec</div>
+<div class='tc-time'>2.5sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.386</div>
-<div class='tc-time'>2.0sec</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.389</div>
+<div class='tc-time'>2.5sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>9.1sec</div>
+<div class='tc-time'>4.3sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>50.2sec</div>
+<div class='tc-time'>45.2sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -241,16 +241,16 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a>
 </th></tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_base_class</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect inconsistent type variable ordering.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject illegal use of Generic.</p><p>Does not allow using generic in assert_type expression.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on passing SymbolTable to dict[str, list[object]].</p><p>Does not reject illegal use of Generic.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject illegal use of Generic.</p><p>Does not allow using generic in assert_type expression.</p><p>Does not detect inconsistent type variable ordering.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on passing SymbolTable to dict[str, list[object]].</p><p>Does not reject illegal use of Generic.</p><p>Wrong type variable order when inheriting from multiple generic base classes.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_basic</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject the use of a constraint parameterized by another type variable.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for constraint parameterized by a type variable.</p><p>False negative in custom map example.</p><p>False positive using `iter`.</p><p>False negative for generic metaclass.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for generic metaclass.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for constraint parameterized by a type variable.</p><p>False negative in custom map example.</p><p>False positive using `iter`.</p><p>False negative for bad type arguments to Generic/Protocol.</p><p>False negative for generic metaclass.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>Argument 'covariant' to TypeVar not supported.</p><p>False negative for type variables missing from Generic/Protocol base class.</p><p>False negative for generic metaclass.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults</th>
 <th class="column col2 not-conformant">Unsupported</th>

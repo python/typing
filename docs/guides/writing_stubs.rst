@@ -408,6 +408,64 @@ common mistakes like unintentionally passing in ``None``.
 
 If in doubt, consider asking the library maintainers about their intent.
 
+Common Patterns
+===============
+
+.. _stub-patterns:
+
+This section documents common patterns that are useful in stub files.
+
+Overloads and Flags
+-------------------
+
+.. _overloads-and-flags:
+
+Sometimes a function or method has a flag argument that changes the return type
+or other accepted argument types. For example, take the following function::
+
+  def open(name: str, mode: Literal["r", "w"] = "r") -> Reader | Writer:
+      ...
+
+We can express this case easily with two overloads::
+
+  @overload
+  def open(name: str, mode: Literal["r"] = "r") -> Reader: ...
+  @overload
+  def open(name: str, mode: Literal["w"]) -> Writer: ...
+
+The first overload is picked when the mode is ``"r"`` or not given, and the
+second overload is picked when the mode is ``"w"``. But what if the first
+argument is optional?
+
+::
+
+  def open(name: str | None = None, mode: Literal["r", "w"] = "r") -> Reader | Writer:
+      ...
+
+Ideally we would be able to use the following overloads::
+
+  @overload
+  def open(name: str | None = None, mode: Literal["r"] = "r") -> Reader: ...
+  @overload
+  def open(name: str | None = None, mode: Literal["w"]) -> Writer: ...
+
+And while the first overload is fine, the second is a syntax error in Python,
+because non-default arguments cannot follow default arguments. To work around
+this, we need an extra overload::
+
+  @overload
+  def open(name: str | None = None, mode: Literal["r"] = "r") -> Reader: ...
+  @overload
+  def open(name: str | None, mode: Literal["w"]) -> Writer: ...
+  @overload
+  def open(*, mode: Literal["w"]) -> Writer: ...
+
+As before, the first overload is picked when the mode is ``"r"`` or not given.
+Otherwise, the second overload is used when ``open`` is called with an explicit
+``name``, e.g. ``open("file.txt", "w")`` or ``open(None, "w")``. The third
+overload is used when ``open`` is called without a name , e.g.
+``open(mode="w")``.
+
 Style Guide
 ===========
 

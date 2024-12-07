@@ -93,8 +93,16 @@ This is equivalent to omitting the generic notation and just saying
 User-defined generic types
 --------------------------
 
-You can include a ``Generic`` base class to define a user-defined class
-as generic.  Example::
+There are several ways to define a user-defined class as generic:
+
+* Include a ``Generic`` base class.
+* Use the new generic class syntax in Python 3.12 and higher.
+* Include a `` Protocol`` base class parameterized with type variables. This
+  approach also marks the class as a protocol - see
+  :ref:`generic protocols<generic-protocols>` for more information.
+* Include a generic base class parameterized with type variables.
+
+Example using ``Generic``::
 
   from typing import TypeVar, Generic
   from logging import Logger
@@ -118,14 +126,14 @@ as generic.  Example::
       def log(self, message: str) -> None:
           self.logger.info('{}: {}'.format(self.name, message))
 
-Or, in Python 3.12 and higher, by using the new syntax for generic
-classes::
+Or, using the new generic class syntax::
 
   class LoggedVar[T]:
       # methods as in previous example
 
-This implicitly adds ``Generic[T]`` as a base class and type checkers
-should treat the two largely equivalently (except for variance, see below).
+This implicitly adds ``Generic[T]`` as a base class, and type checkers
+should treat the two definitions of ``LoggedVar`` largely equivalently (except
+for variance, see below).
 
 ``Generic[T]`` as a base class defines that the class ``LoggedVar``
 takes a single type parameter ``T``. This also makes ``T`` valid as
@@ -144,7 +152,6 @@ A generic type can have any number of type variables, and type variables
 may be constrained. This is valid::
 
   from typing import TypeVar, Generic
-  ...
 
   T = TypeVar('T')
   S = TypeVar('S')
@@ -156,29 +163,52 @@ Each type variable argument to ``Generic`` must be distinct. This is
 thus invalid::
 
   from typing import TypeVar, Generic
-  ...
 
   T = TypeVar('T')
 
   class Pair(Generic[T, T]):   # INVALID
       ...
 
-The ``Generic[T]`` base class is redundant in simple cases where you
-subclass some other generic class and specify type variables for its
-parameters::
+All arguments to ``Generic`` or ``Protocol`` must be type variables::
 
-  from typing import TypeVar
+  from typing import Generic, Protocol
+
+  class Bad1(Generic[int]):   # INVALID
+      ...
+  class Bad2(Protocol[int]):   # INVALID
+      ...
+
+When a ``Generic`` or parameterized ``Protocol`` base class is present, all type
+parameters for the class must appear within the ``Generic`` or
+``Protocol`` type argument list, respectively. A type checker should report an
+error if a type variable that is not included in the type argument list appears
+elsewhere in the base class list::
+
+  from typing import Generic, Protocol, TypeVar
+  from collections.abc import Iterable
+
+  T = TypeVar('T')
+  S = TypeVar('S')
+
+  class Bad1(Iterable[T], Generic[S]):   # INVALID
+      ...
+  class Bad2(Iterable[T], Protocol[S]):   # INVALID
+      ...
+
+Note that the above rule does not apply to a bare ``Protocol`` base class. This
+is valid (see below)::
+
+  from typing import Protocol, TypeVar
   from collections.abc import Iterator
 
   T = TypeVar('T')
 
-  class MyIter(Iterator[T]):
-      ...
+  class MyIterator(Iterator[T], Protocol): ...
 
-That class definition is equivalent to::
-
-  class MyIter(Iterator[T], Generic[T]):
-      ...
+When no ``Generic`` or parameterized ``Protocol`` base class is present, a
+defined class is generic if you subclass one or more other generic classes and
+specify type variables for their parameters. See :ref:`generic-base-classes`
+for details.
 
 You can use multiple inheritance with ``Generic``::
 
@@ -402,6 +432,7 @@ instead is preferred. (First, creating the subscripted class,
 e.g. ``Node[int]``, has a runtime cost. Second, using a type alias
 is more readable.)
 
+.. _`generic-base-classes`:
 
 Arbitrary generic types as base classes
 ---------------------------------------
@@ -458,8 +489,44 @@ Also consider the following example::
   class MyDict(Mapping[str, T]):
       ...
 
-In this case MyDict has a single parameter, T.
+In this case ``MyDict`` has a single type parameter, ``T``.
 
+Type variables are applied to the defined class in the order in which
+they first appear in any generic base classes::
+
+  from typing import Generic, TypeVar
+
+  T1 = TypeVar('T1')
+  T2 = TypeVar('T2')
+  T3 = TypeVar('T3')
+
+  class Parent1(Generic[T1, T2]):
+      ...
+  class Parent2(Generic[T1, T2]):
+      ...
+  class Child(Parent1[T1, T3], Parent2[T2, T3]):
+      ...
+
+That ``Child`` definition is equivalent to::
+
+  class Child(Parent1[T1, T3], Parent2[T2, T3], Generic[T1, T3, T2]):
+      ...
+
+A type checker should report an error when the type variable order is
+inconsistent::
+
+  from typing import Generic, TypeVar
+
+  T1 = TypeVar('T1')
+  T2 = TypeVar('T2')
+  T3 = TypeVar('T3')
+
+  class Grandparent(Generic[T1, T2]):
+      ...
+  class Parent(Grandparent[T1, T2]):
+      ...
+  class Child(Parent[T1, T2], Grandparent[T2, T1]):   # INVALID
+      ...
 
 Abstract generic types
 ----------------------
