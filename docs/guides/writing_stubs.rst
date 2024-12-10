@@ -93,7 +93,7 @@ Liskov substitutability or detecting problematic overloads.
 It may be instructive to examine `typeshed <https://github.com/python/typeshed/>`__'s
 `setup for testing stubs <https://github.com/python/typeshed/blob/main/tests/README.md>`__.
 
-To suppress type errors on stubs, use a `# type: ignore` comment. Refer to the style guide for
+To suppress type errors in stubs, use `# type: ignore` comments. Refer to the style guide for
 error suppression formats specific to individual typecheckers.
 
 ..
