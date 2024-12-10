@@ -804,7 +804,7 @@ Type Checker Error Suppression formats
 --------------------------------------
 
 * Use mypy error codes for mypy-specific `# type: ignore` annotations, e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
-* Use pyright error codes for pyright-specific suppressions, e.g. `# pyright: ignore[reportGeneralTypeIssues]`. Pyright is configured to discard `# type: ignore` annotations.
+* Use pyright error codes for pyright-specific suppressions, e.g. `# pyright: ignore[reportGeneralTypeIssues]`.
 * If you need both on the same line, mypy's annotation needs to go first, e.g. `# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]`.
 
 
