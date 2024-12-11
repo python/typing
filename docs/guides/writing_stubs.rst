@@ -847,7 +847,7 @@ into any of those categories, use your best judgement.
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
-:: _type-checker-error-suppression:
+.. _type-checker-error-suppression:
 
 Type Checker Error Suppression Formats
 --------------------------------------
