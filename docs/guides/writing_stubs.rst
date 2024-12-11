@@ -93,7 +93,7 @@ Liskov substitutability or detecting problematic overloads.
 It may be instructive to examine `typeshed <https://github.com/python/typeshed/>`__'s
 `setup for testing stubs <https://github.com/python/typeshed/blob/main/tests/README.md>`__.
 
-To suppress type errors in stubs, use `# type: ignore` comments. Refer to the style guide for
+To suppress type errors in stubs, use `# type: ignore` comments. Refer to the :ref:`type-checker-error-suppression` section of the style guide for
 error suppression formats specific to individual typecheckers.
 
 ..
@@ -213,6 +213,20 @@ to use them freely to describe simple structural types.
 Incomplete Stubs
 ----------------
 
+When writing new stubs, it is not necessary to fully annotate all arguments,
+return types, and fields. Some items may be left unannotated or
+annotated with `_typeshed.Incomplete` (`documentation <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_).::
+
+    from _typeshed import Incomplete
+
+    field: Incomplete  # unannotated
+
+    def foo(x): ...  # unannotated argument and return type
+
+`Incomplete` can also be used for partially known types::
+
+    def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
+
 Partial stubs can be useful, especially for larger packages, but they should
 follow the following guidelines:
 
@@ -220,8 +234,7 @@ follow the following guidelines:
   can be left unannotated.
 * Do not use ``Any`` to mark unannotated or partially annotated values. Leave
   function parameters and return values unannotated. In all other cases, use
-  ``_typeshed.Incomplete``
-  (`documentation <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_)::
+  ``_typeshed.Incomplete``::
 
     from _typeshed import Incomplete
 
@@ -253,6 +266,40 @@ annotated function ``bar()``::
         y: str
 
     def bar(x: str, y, *, z=...): ...
+
+`Any` vs. `Incomplete`
+----------------------
+
+While `Incomplete` is a type alias of `Any`, they serve difference purposes:
+`Incomplete` is a placeholder where a proper type might be substituted.
+It's a "to do" item and should be replaced if possible. `Any` is used when
+it's not possible to accurately type an item using the current type system.
+It should be used sparingly.
+
+The `Any` trick
+---------------
+
+In cases where a function or method can return `None`, but where forcing the
+user to explicitly check for `None` can be detrimental, use
+`_typeshed.MaybeNone` (an alias to `Any`), instead of `None`.
+
+Consider the following (simplified) signature of `re.Match[str].group`::
+
+    class Match:
+        def group(self, group: str | int, /) -> str | MaybeNone: ...
+
+This avoid forcing the user to check for `None`::
+
+    match = re.fullmatch(r"\d+_(.*)", some_string)
+    assert match is not None
+    name_group = match.group(1)  # The user knows that this will never be None
+    return name_group.uper()  # This typo will be flagged by the type checker
+
+In this case, the user of `match.group()` must be prepared to handle a `str`,
+but type checkers are happy with `if name_group is None` checks, because we're
+saying it can also be something else than an `str`.
+
+This is sometimes called "the Any trick".
 
 Attribute Access
 ----------------
@@ -800,7 +847,9 @@ into any of those categories, use your best judgement.
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
-Type Checker Error Suppression formats
+:: _type-checker-error-suppression:
+
+Type Checker Error Suppression Formats
 --------------------------------------
 
 * Use mypy error codes for mypy-specific `# type: ignore` annotations, e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
