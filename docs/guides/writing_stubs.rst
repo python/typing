@@ -503,7 +503,7 @@ more concise files.
 Syntax Example
 --------------
 
-The below is an excerpt from the types for the `datetime` module.
+The below is an excerpt from the types for the ``datetime`` module.
 
   MAXYEAR: int
   MINYEAR: int
@@ -680,13 +680,12 @@ No::
         ...
     def to_int3(x: str) -> int: pass
 
-Avoid invariant collection types (`list`, `dict`) for function parameters,
-in favor of covariant types like `Mapping` or `Sequence`.
+Avoid invariant collection types (``list``, ``dict``) for function parameters,
+in favor of covariant types like ``Mapping`` or ``Sequence``.
 
 Avoid union return types. See https://github.com/python/mypy/issues/1693
 
-Use `float` instead of `int | float` for parameter annotations.
-See [PEP 484](https://peps.python.org/pep-0484/#the-numeric-tower).
+Use ``float`` instead of ``int | float`` for parameter annotations. See :pep:`484` for more details.
 
 Language Features
 -----------------
@@ -723,7 +722,7 @@ older versions of Python.
 Platform-dependent APIs
 -----------------------
 
-Use platform checks like `if sys.platform == 'win32'` to denote platform-dependent APIs.
+Use :ref:`version-and-platform-checks<platform checks>` like ``if sys.platform == 'win32'`` to denote platform-dependent APIs.
 
 NamedTuple and TypedDict
 ------------------------
@@ -752,7 +751,7 @@ No::
 Built-in Generics
 -----------------
 
-:pep:`585` built-in generics (such as `list`, `dict`, `tuple`, `set`) are supported and should be used instead
+:pep:`585` built-in generics (such as ``list``, ``dict``, ``tuple``, ``set``) are supported and should be used instead
 of the corresponding types from ``typing``::
 
     from collections import defaultdict
@@ -770,7 +769,7 @@ generally possible and recommended::
 Unions
 ------
 
-Declaring unions with the shorthand `|` syntax is recommended and supported by
+Declaring unions with the shorthand ``|`` syntax is recommended and supported by
 all type checkers::
 
   def foo(x: int | str) -> int | None: ...  # recommended
@@ -778,22 +777,22 @@ all type checkers::
 
 .. _using-any:
 
-Using `Any` and `object`
-------------------------
+Using ``Any`` and ``object``
+----------------------------
 
-When adding type hints, avoid using the `Any` type when possible. Reserve
-the use of `Any` for when:
+When adding type hints, avoid using the ``Any`` type when possible. Reserve
+the use of ``Any`` for when:
 * the correct type cannot be expressed in the current type system; and
 * to avoid union returns (see above).
 
-Note that `Any` is not the correct type to use if you want to indicate
+Note that ``Any`` is not the correct type to use if you want to indicate
 that some function can accept literally anything: in those cases use
-`object` instead.
+``object`` instead.
 
-When using `Any`, document the reason for using it in a comment. Ideally,
+When using ``Any``, document the reason for using it in a comment. Ideally,
 document what types could be used.
 
-The `Any` Trick
+The ``Any`` Trick
 -----------------
 
 In cases where a function or method can return ``None``, but where forcing the
@@ -822,17 +821,17 @@ Context Managers
 ----------------
 
 When adding type annotations for context manager classes, annotate
-the return type of `__exit__` as bool only if the context manager
-sometimes suppresses exceptions -- if it sometimes returns `True`
+the return type of ``__exit__`` as bool only if the context manager
+sometimes suppresses exceptions -- if it sometimes returns ``True``
 at runtime. If the context manager never suppresses exceptions,
-have the return type be either `None` or `bool | None`. If you
+have the return type be either ``None`` or ``bool | None``. If you
 are not sure whether exceptions are suppressed or not or if the
-context manager is meant to be subclassed, pick `bool | None`.
+context manager is meant to be subclassed, pick ``bool | None``.
 See https://github.com/python/mypy/issues/7214 for more details.
 
-`__enter__` methods and other methods that return instances of the
-current class should be annotated with `typing_extensions.Self`
-([example](https://github.com/python/typeshed/blob/3581846/stdlib/contextlib.pyi#L151)).
+``__enter__`` methods and other methods that return ``self`` or ``cls(...)``
+should be annotated with the `typing.Self`
+(`example <https://github.com/python/typeshed/blob/3581846/stdlib/contextlib.pyi#L151>`_).
 
 Naming
 ------
@@ -845,29 +844,39 @@ A few guidelines for protocol names below. In cases that don't fall
 into any of those categories, use your best judgement.
 
 * Use plain names for protocols that represent a clear concept
-  (e.g. `Iterator`, `Container`).
-* Use `SupportsX` for protocols that provide callable methods (e.g.
-  `SupportsInt`, `SupportsRead`, `SupportsReadSeek`).
-* Use `HasX` for protocols that have readable and/or writable attributes
-  or getter/setter methods (e.g. `HasItems`, `HasFileno`).
+  (e.g. ``Iterator``, ``Container``).
+* Use ``SupportsX`` for protocols that provide callable methods (e.g.
+  ``SupportsInt``, ``SupportsRead``, ``SupportsReadSeek``).
+* Use ``HasX`` for protocols that have readable and/or writable attributes
+  or getter/setter methods (e.g. ``HasItems``, ``HasFileno``).
 
 .. _type-checker-error-suppression:
 
 Type Checker Error Suppression Formats
 --------------------------------------
 
-* Use mypy error codes for mypy-specific `# type: ignore` annotations, e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
-* Use pyright error codes for pyright-specific suppressions, e.g. `# pyright: ignore[reportGeneralTypeIssues]`.
-* If you need both on the same line, mypy's annotation needs to go first, e.g. `# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]`.
+* Use mypy error codes for mypy-specific ``# type: ignore`` annotations, e.g. ``# type: ignore[override]`` for Liskov Substitution Principle violations.
+* Use pyright error codes for pyright-specific suppressions, e.g. ``# pyright: ignore[reportGeneralTypeIssues]``.
+* If you need both on the same line, mypy's annotation needs to go first, e.g. ``# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]``.
 
 
-`@deprecated`
--------------
+``@deprecated``
+---------------
 
-The `@typing_extensions.deprecated` decorator (`@warnings.deprecated`
+The ``@typing_extensions.deprecated`` decorator (``@warnings.deprecated``
 since Python 3.13) can be used to mark deprecated functionality; see
-[PEP 702](https://peps.python.org/pep-0702/).
+:pep:`702`.
 
 Keep the deprecation message concise, but try to mention the projected
 version when the functionality is to be removed, and a suggested
 replacement.
+
+Docstrings
+----------
+
+There are several tradeoffs around including docstrings in type stubs. Consider the intended purpose
+of your stubs when deciding whether to include docstrings in your project's stubs.
+
+* They do not affect type checking results and will be ignored by type checkers.
+* Docstrings can improve certain IDE functionality, such as hover info.
+* Duplicating docstrings between source code and stubs requires extra work to keep them in sync.
