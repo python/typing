@@ -270,7 +270,7 @@ annotated function ``bar()``::
 ``Any`` vs. ``Incomplete``
 --------------------------
 
-While ``Incomplete`` is a type alias of ``Any``, they serve difference purposes:
+While ``Incomplete`` is a type alias of ``Any``, they serve different purposes:
 ``Incomplete`` is a placeholder where a proper type might be substituted.
 It's a "to do" item and should be replaced if possible.
 
