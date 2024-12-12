@@ -215,7 +215,7 @@ Incomplete Stubs
 
 When writing new stubs, it is not necessary to fully annotate all arguments,
 return types, and fields. Some items may be left unannotated or
-annotated with `_typeshed.Incomplete` (`documentation <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_).::
+annotated with ``_typeshed.Incomplete`` (`documentation <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_)::
 
     from _typeshed import Incomplete
 
@@ -223,7 +223,7 @@ annotated with `_typeshed.Incomplete` (`documentation <https://github.com/python
 
     def foo(x): ...  # unannotated argument and return type
 
-`Incomplete` can also be used for partially known types::
+``_typeshed.Incomplete`` can also be used for partially known types::
 
     def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
 
@@ -267,39 +267,16 @@ annotated function ``bar()``::
 
     def bar(x: str, y, *, z=...): ...
 
-`Any` vs. `Incomplete`
-----------------------
+``Any`` vs. ``Incomplete``
+--------------------------
 
-While `Incomplete` is a type alias of `Any`, they serve difference purposes:
-`Incomplete` is a placeholder where a proper type might be substituted.
-It's a "to do" item and should be replaced if possible. `Any` is used when
-it's not possible to accurately type an item using the current type system.
-It should be used sparingly.
+While ``Incomplete`` is a type alias of ``Any``, they serve difference purposes:
+``Incomplete`` is a placeholder where a proper type might be substituted.
+It's a "to do" item and should be replaced if possible.
 
-The `Any` trick
----------------
-
-In cases where a function or method can return `None`, but where forcing the
-user to explicitly check for `None` can be detrimental, use
-`_typeshed.MaybeNone` (an alias to `Any`), instead of `None`.
-
-Consider the following (simplified) signature of `re.Match[str].group`::
-
-    class Match:
-        def group(self, group: str | int, /) -> str | MaybeNone: ...
-
-This avoid forcing the user to check for `None`::
-
-    match = re.fullmatch(r"\d+_(.*)", some_string)
-    assert match is not None
-    name_group = match.group(1)  # The user knows that this will never be None
-    return name_group.uper()  # This typo will be flagged by the type checker
-
-In this case, the user of `match.group()` must be prepared to handle a `str`,
-but type checkers are happy with `if name_group is None` checks, because we're
-saying it can also be something else than an `str`.
-
-This is sometimes called "the Any trick".
+``Any`` is used when it's not possible to accurately type an item using the current
+type system. It should be used sparingly, as described in the :ref:`using-any`
+section of the style guide.
 
 Attribute Access
 ----------------
@@ -799,6 +776,8 @@ all type checkers::
   def foo(x: int | str) -> int | None: ...  # recommended
   def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
 
+.. _using-any:
+
 Using `Any` and `object`
 ------------------------
 
@@ -813,6 +792,31 @@ that some function can accept literally anything: in those cases use
 
 When using `Any`, document the reason for using it in a comment. Ideally,
 document what types could be used.
+
+The `Any` Trick
+-----------------
+
+In cases where a function or method can return ``None``, but where forcing the
+user to explicitly check for ``None`` can be detrimental, use
+``_typeshed.MaybeNone`` (an alias to ``Any``), instead of ``None``.
+
+Consider the following (simplified) signature of ``re.Match[str].group``::
+
+    class Match:
+        def group(self, group: str | int, /) -> str | MaybeNone: ...
+
+This avoid forcing the user to check for ``None``::
+
+    match = re.fullmatch(r"\d+_(.*)", some_string)
+    assert match is not None
+    name_group = match.group(1)  # The user knows that this will never be None
+    return name_group.uper()  # This typo will be flagged by the type checker
+
+In this case, the user of ``match.group()`` must be prepared to handle a ``str``,
+but type checkers are happy with ``if name_group is None`` checks, because we're
+saying it can also be something else than an ``str``.
+
+This is sometimes called "the Any trick".
 
 Context Managers
 ----------------
