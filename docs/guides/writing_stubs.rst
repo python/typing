@@ -722,7 +722,7 @@ older versions of Python.
 Platform-dependent APIs
 -----------------------
 
-Use :ref:`version-and-platform-checks<platform checks>` like ``if sys.platform == 'win32'`` to denote platform-dependent APIs.
+Use :ref:`platform checks<version-and-platform-checks>` like ``if sys.platform == 'win32'`` to denote platform-dependent APIs.
 
 NamedTuple and TypedDict
 ------------------------
