@@ -388,7 +388,7 @@ Example 3::
       # step 5 do not apply. Step 6 picks the first
       # overload.
       r1 = example3(1)
-      reveal_type(r1)  # Should reveal int
+      reveal_type(r1)  # Should reveal tuple[int]
 
       # Step 1 eliminates first overload. Step 4 and
       # step 5 do not apply. Step 6 picks the second
