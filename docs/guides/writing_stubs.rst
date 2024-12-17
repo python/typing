@@ -234,15 +234,7 @@ follow the following guidelines:
   can be left unannotated.
 * Do not use ``Any`` to mark unannotated or partially annotated values. Leave
   function parameters and return values unannotated. In all other cases, use
-  ``_typeshed.Incomplete``::
-
-    from _typeshed import Incomplete
-
-    field1: Incomplete
-    field2: dict[str, Incomplete]
-
-    def foo(x): ...
-
+  ``_typeshed.Incomplete``.
 * Partial classes should include a ``__getattr__()`` method marked with
   ``_typeshed.Incomplete`` (see example below).
 * Partial modules (i.e. modules that are missing some or all classes,
@@ -782,6 +774,7 @@ Using ``Any`` and ``object``
 
 When adding type hints, avoid using the ``Any`` type when possible. Reserve
 the use of ``Any`` for when:
+
 * the correct type cannot be expressed in the current type system; and
 * to avoid union returns (see above).
 
@@ -830,7 +823,7 @@ context manager is meant to be subclassed, pick ``bool | None``.
 See https://github.com/python/mypy/issues/7214 for more details.
 
 ``__enter__`` methods and other methods that return ``self`` or ``cls(...)``
-should be annotated with the `typing.Self`
+should be annotated with ``typing.Self``
 (`example <https://github.com/python/typeshed/blob/3581846/stdlib/contextlib.pyi#L151>`_).
 
 Naming
