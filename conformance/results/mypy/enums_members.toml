@@ -1,7 +1,6 @@
 conformant = "Partial"
 notes = """
 Does not treat attribute with annotation and no assignment as non-member.
-Does not reject use of annotation with enum member.
 Does not treat callables as non-members.
 Does not honor `enum.member` as method decorator.
 Does not properly handle aliased enum members.
@@ -10,7 +9,6 @@ Does not treat attributes with private names as non-members.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 50: Expected 1 errors
 Line 82: Expected 1 errors
 Line 83: Expected 1 errors
 Line 129: Expected 1 errors
@@ -26,6 +24,8 @@ enums_members.py:27: error: Expression is of type "Literal[Pet.genus]", not "str
 enums_members.py:28: error: Expression is of type "Literal[Pet.species]", not "str"  [assert-type]
 enums_members.py:35: error: Expression is of type "Literal[Pet2.genus]", not "str"  [assert-type]
 enums_members.py:36: error: Expression is of type "Literal[Pet2.species]", not "str"  [assert-type]
+enums_members.py:50: error: Enum members must be left unannotated  [misc]
+enums_members.py:50: note: See https://typing.readthedocs.io/en/latest/spec/enums.html#defining-members
 enums_members.py:84: error: Expression is of type "Callable[[Pet4], str]", not "Any"  [assert-type]
 enums_members.py:84: error: Parameter 1 of Literal[...] is invalid  [valid-type]
 enums_members.py:85: error: Expression is of type "Callable[[Pet4], None]", not "Any"  [assert-type]

@@ -1,4 +1,4 @@
-conformant = "Unsupported"
+conformant = "Partial"
 output = """
 generics_defaults.py:24: error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type  [misc]
 generics_defaults.py:30: error: Expression is of type "type[NoNonDefaults[Any, Any]]", not "type[NoNonDefaults[str, int]]"  [assert-type]

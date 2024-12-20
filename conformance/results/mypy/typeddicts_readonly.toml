@@ -1,17 +1,12 @@
-conformant = "Partial"
-notes = """
-Incorrectly rejects NotRequired directive when used in an Annotated annotation.
-"""
+conformant = "Pass"
 output = """
 typeddicts_readonly.py:24: error: ReadOnly TypedDict key "members" TypedDict is mutated  [typeddict-readonly-mutated]
 typeddicts_readonly.py:36: error: ReadOnly TypedDict key "members" TypedDict is mutated  [typeddict-readonly-mutated]
 typeddicts_readonly.py:50: error: ReadOnly TypedDict key "title" TypedDict is mutated  [typeddict-readonly-mutated]
 typeddicts_readonly.py:51: error: ReadOnly TypedDict key "year" TypedDict is mutated  [typeddict-readonly-mutated]
-typeddicts_readonly.py:56: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]
 typeddicts_readonly.py:60: error: ReadOnly TypedDict key "title" TypedDict is mutated  [typeddict-readonly-mutated]
+typeddicts_readonly.py:61: error: ReadOnly TypedDict key "year" TypedDict is mutated  [typeddict-readonly-mutated]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 61: Expected 1 errors
-Line 56: Unexpected errors ['typeddicts_readonly.py:56: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]']
 """

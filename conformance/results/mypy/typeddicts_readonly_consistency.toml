@@ -1,18 +1,13 @@
-conformant = "Partial"
-notes = """
-Incorrectly rejects assignment of required item to not-required read-only item.
-"""
+conformant = "Pass"
 output = """
 typeddicts_readonly_consistency.py:37: error: Incompatible types in assignment (expression has type "A1", variable has type "B1")  [assignment]
 typeddicts_readonly_consistency.py:38: error: Incompatible types in assignment (expression has type "C1", variable has type "B1")  [assignment]
 typeddicts_readonly_consistency.py:40: error: Incompatible types in assignment (expression has type "A1", variable has type "C1")  [assignment]
-typeddicts_readonly_consistency.py:79: error: Incompatible types in assignment (expression has type "C2", variable has type "A2")  [assignment]
 typeddicts_readonly_consistency.py:81: error: Incompatible types in assignment (expression has type "A2", variable has type "B2")  [assignment]
 typeddicts_readonly_consistency.py:82: error: Incompatible types in assignment (expression has type "C2", variable has type "B2")  [assignment]
 typeddicts_readonly_consistency.py:84: error: Incompatible types in assignment (expression has type "A2", variable has type "C2")  [assignment]
 typeddicts_readonly_consistency.py:85: error: Incompatible types in assignment (expression has type "B2", variable has type "C2")  [assignment]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 79: Unexpected errors ['typeddicts_readonly_consistency.py:79: error: Incompatible types in assignment (expression has type "C2", variable has type "A2")  [assignment]']
 """

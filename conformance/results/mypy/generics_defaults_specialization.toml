@@ -1,4 +1,4 @@
-conformant = "Unsupported"
+conformant = "Partial"
 output = """
 generics_defaults_specialization.py:30: error: Bad number of arguments for type alias, expected between 0 and 1, given 2  [type-arg]
 generics_defaults_specialization.py:45: error: Expression is of type "type[Bar[Any]]", not "type[Bar[str]]"  [assert-type]
