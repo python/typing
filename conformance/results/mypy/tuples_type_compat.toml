@@ -1,7 +1,6 @@
 conformant = "Partial"
 notes = """
 Does not support tuple narrowing based on `len()` type guard (optional).
-Incorrectly narrows tuple based on sequence patterns.
 """
 output = """
 tuples_type_compat.py:15: error: Incompatible types in assignment (expression has type "tuple[float, complex]", variable has type "tuple[int, int]")  [assignment]
@@ -13,7 +12,6 @@ tuples_type_compat.py:62: error: Incompatible types in assignment (expression ha
 tuples_type_compat.py:95: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]", not "tuple[int]"  [assert-type]
 tuples_type_compat.py:99: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]", not "tuple[str, str] | tuple[int, int]"  [assert-type]
 tuples_type_compat.py:103: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]", not "tuple[int, str, int]"  [assert-type]
-tuples_type_compat.py:117: error: Expression is of type "tuple[Never, int]", not "tuple[int | str, int]"  [assert-type]
 tuples_type_compat.py:136: error: Expression is of type "Sequence[object]", not "Sequence[complex | list[int]]"  [assert-type]
 tuples_type_compat.py:139: error: Expression is of type "Sequence[object]", not "Sequence[int | str]"  [assert-type]
 tuples_type_compat.py:144: error: Incompatible types in assignment (expression has type "tuple[int, str, str]", variable has type "tuple[int, str]")  [assignment]
@@ -32,7 +30,6 @@ errors_diff = """
 Line 95: Unexpected errors ['tuples_type_compat.py:95: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]", not "tuple[int]"  [assert-type]']
 Line 99: Unexpected errors ['tuples_type_compat.py:99: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]", not "tuple[str, str] | tuple[int, int]"  [assert-type]']
 Line 103: Unexpected errors ['tuples_type_compat.py:103: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]", not "tuple[int, str, int]"  [assert-type]']
-Line 117: Unexpected errors ['tuples_type_compat.py:117: error: Expression is of type "tuple[Never, int]", not "tuple[int | str, int]"  [assert-type]']
 Line 136: Unexpected errors ['tuples_type_compat.py:136: error: Expression is of type "Sequence[object]", not "Sequence[complex | list[int]]"  [assert-type]']
 Line 139: Unexpected errors ['tuples_type_compat.py:139: error: Expression is of type "Sequence[object]", not "Sequence[int | str]"  [assert-type]']
 """

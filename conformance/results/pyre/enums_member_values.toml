@@ -1,23 +1,17 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
-Does not enforce declared type of `_value_`.
-Does not enforce assigned tuple types for enum members (optional).
-Does not evaluate literal types for enum member values (optional).
-Does not evaluate literal types for auto values (optional).
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 78: Expected 1 errors
-Line 85: Expected 1 errors
-Line 76: Unexpected errors ['enums_member_values.py:76:4 Uninitialized attribute [13]: Attribute `_value_` is declared in class `Color3` to have type `Color3` but is never initialized.']
 """
 output = """
-enums_member_values.py:21:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[1]` but got `typing.Any`.
-enums_member_values.py:22:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[1]` but got `typing.Any`.
-enums_member_values.py:26:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Union[typing_extensions.Literal[1], typing_extensions.Literal[3]]` but got `typing.Any`.
-enums_member_values.py:30:4 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Union[typing_extensions.Literal[1], typing_extensions.Literal[2], typing_extensions.Literal[3]]` but got `typing.Any`.
-enums_member_values.py:54:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[1]` but got `typing.Any`.
-enums_member_values.py:68:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing_extensions.Literal[1]` but got `typing.Any`.
-enums_member_values.py:76:4 Uninitialized attribute [13]: Attribute `_value_` is declared in class `Color3` to have type `Color3` but is never initialized.
-enums_member_values.py:96:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.
+enums_member_values.py:21:0 Assert type [70]: Expected `typing_extensions.Literal[1]` but got `typing.Any`.
+enums_member_values.py:22:0 Assert type [70]: Expected `typing_extensions.Literal[1]` but got `typing.Any`.
+enums_member_values.py:26:4 Assert type [70]: Expected `Union[typing_extensions.Literal[1], typing_extensions.Literal[3]]` but got `typing.Any`.
+enums_member_values.py:30:4 Assert type [70]: Expected `Union[typing_extensions.Literal[1], typing_extensions.Literal[2], typing_extensions.Literal[3]]` but got `typing.Any`.
+enums_member_values.py:54:0 Assert type [70]: Expected `typing_extensions.Literal[1]` but got `typing.Any`.
+enums_member_values.py:68:0 Assert type [70]: Expected `typing_extensions.Literal[1]` but got `typing.Any`.
+enums_member_values.py:78:4 Incompatible attribute type [8]: Attribute `GREEN` declared in class `Color3` has type `int` but is used as type `str`.
+enums_member_values.py:85:8 Incompatible attribute type [8]: Attribute `_value_` declared in class `Planet2` has type `str` but is used as type `int`.
+enums_member_values.py:96:0 Assert type [70]: Expected `int` but got `typing.Any`.
 """

@@ -7,8 +7,8 @@ enums_member_values.py:50:12 - error: Argument missing for parameter "radius" (r
 enums_member_values.py:51:15 - error: Arguments missing for parameters "mass", "radius" (reportCallIssue)
 enums_member_values.py:54:13 - error: "assert_type" mismatch: expected "Literal[1]" but received "Any" (reportAssertTypeFailure)
 enums_member_values.py:68:13 - error: "assert_type" mismatch: expected "Literal[1]" but received "int" (reportAssertTypeFailure)
-enums_member_values.py:78:13 - error: Expression of type "Literal['green']" is incompatible with declared type "int"
-  "Literal['green']" is incompatible with "int" (reportAssignmentType)
+enums_member_values.py:78:13 - error: Type "Literal['green']" is not assignable to declared type "int"
+  "Literal['green']" is not assignable to "int" (reportAssignmentType)
 enums_member_values.py:85:24 - error: Cannot assign to attribute "_value_" for class "Planet2*"
-  "int" is incompatible with "str" (reportAttributeAccessIssue)
+  "int" is not assignable to "str" (reportAttributeAccessIssue)
 """

@@ -1,47 +1,47 @@
 conformant = "Pass"
 output = """
-tuples_type_compat.py:15:27 - error: Expression of type "tuple[float, complex]" is incompatible with declared type "tuple[int, int]"
-  "tuple[float, complex]" is incompatible with "tuple[int, int]"
+tuples_type_compat.py:15:27 - error: Type "tuple[float, complex]" is not assignable to declared type "tuple[int, int]"
+  "tuple[float, complex]" is not assignable to "tuple[int, int]"
     Tuple entry 1 is incorrect type
-      "float" is incompatible with "int" (reportAssignmentType)
-tuples_type_compat.py:29:10 - error: Expression of type "tuple[int, ...]" is incompatible with declared type "tuple[int, *tuple[int, ...]]"
-  "tuple[int, ...]" is incompatible with "tuple[int, *tuple[int, ...]]"
+      "float" is not assignable to "int" (reportAssignmentType)
+tuples_type_compat.py:29:10 - error: Type "tuple[int, ...]" is not assignable to declared type "tuple[int, *tuple[int, ...]]"
+  "tuple[int, ...]" is not assignable to "tuple[int, *tuple[int, ...]]"
     Tuple size mismatch; expected 1 or more but received indeterminate (reportAssignmentType)
-tuples_type_compat.py:32:10 - error: Expression of type "tuple[int, *tuple[int, ...]]" is incompatible with declared type "tuple[int]"
-  "tuple[int, *tuple[int, ...]]" is incompatible with "tuple[int]"
+tuples_type_compat.py:32:10 - error: Type "tuple[int, *tuple[int, ...]]" is not assignable to declared type "tuple[int]"
+  "tuple[int, *tuple[int, ...]]" is not assignable to "tuple[int]"
     Tuple size mismatch; expected 1 but received indeterminate (reportAssignmentType)
-tuples_type_compat.py:33:10 - error: Expression of type "tuple[int, ...]" is incompatible with declared type "tuple[int]"
-  "tuple[int, ...]" is incompatible with "tuple[int]"
+tuples_type_compat.py:33:10 - error: Type "tuple[int, ...]" is not assignable to declared type "tuple[int]"
+  "tuple[int, ...]" is not assignable to "tuple[int]"
     Tuple size mismatch; expected 1 but received indeterminate (reportAssignmentType)
-tuples_type_compat.py:43:22 - error: Expression of type "tuple[int, ...]" is incompatible with declared type "tuple[int]"
-  "tuple[int, ...]" is incompatible with "tuple[int]"
+tuples_type_compat.py:43:22 - error: Type "tuple[int, ...]" is not assignable to declared type "tuple[int]"
+  "tuple[int, ...]" is not assignable to "tuple[int]"
     Tuple size mismatch; expected 1 but received indeterminate (reportAssignmentType)
-tuples_type_compat.py:62:26 - error: Expression of type "tuple[int, ...]" is incompatible with declared type "tuple[int, int]"
-  "tuple[int, ...]" is incompatible with "tuple[int, int]"
+tuples_type_compat.py:62:26 - error: Type "tuple[int, ...]" is not assignable to declared type "tuple[int, int]"
+  "tuple[int, ...]" is not assignable to "tuple[int, int]"
     Tuple size mismatch; expected 2 but received indeterminate (reportAssignmentType)
-tuples_type_compat.py:144:6 - error: Expression of type "tuple[Literal[1], Literal[''], Literal['']]" is incompatible with declared type "tuple[int, str]"
-  "tuple[Literal[1], Literal[''], Literal['']]" is incompatible with "tuple[int, str]"
+tuples_type_compat.py:144:6 - error: Type "tuple[Literal[1], Literal[''], Literal['']]" is not assignable to declared type "tuple[int, str]"
+  "tuple[Literal[1], Literal[''], Literal['']]" is not assignable to "tuple[int, str]"
     Tuple size mismatch; expected 2 but received 3 (reportAssignmentType)
-tuples_type_compat.py:149:10 - error: Expression of type "tuple[Literal[1], Literal[1], Literal['']]" is incompatible with declared type "tuple[int, *tuple[str, ...]]"
-  "Literal[1]" is incompatible with "str" (reportAssignmentType)
-tuples_type_compat.py:150:14 - error: Expression of type "tuple[Literal[1], Literal[''], Literal[1]]" is incompatible with declared type "tuple[int, *tuple[str, ...]]"
-  "Literal[1]" is incompatible with "str" (reportAssignmentType)
-tuples_type_compat.py:156:14 - error: Expression of type "tuple[Literal[1], Literal[''], Literal['']]" is incompatible with declared type "tuple[int, *tuple[str, ...], int]"
-  "Literal['']" is incompatible with "int" (reportAssignmentType)
-tuples_type_compat.py:157:18 - error: Expression of type "tuple[Literal[1], Literal[''], Literal[''], float]" is incompatible with declared type "tuple[int, *tuple[str, ...], int]"
-  "float" is incompatible with "int" (reportAssignmentType)
-tuples_type_compat.py:162:7 - error: Expression of type "tuple[Literal[1], Literal[''], Literal[1]]" is incompatible with declared type "tuple[*tuple[str, ...], int]"
-  "Literal[1]" is incompatible with "str" (reportAssignmentType)
-tuples_type_compat.py:163:15 - error: Expression of type "tuple[Literal[''], Literal[''], float]" is incompatible with declared type "tuple[*tuple[str, ...], int]"
-  "float" is incompatible with "int" (reportAssignmentType)
-tuples_type_compat.py:168:40 - error: Expression of type "tuple[str, str]" is incompatible with declared type "tuple[str, str, int]"
-  "tuple[str, str]" is incompatible with "tuple[str, str, int]"
+tuples_type_compat.py:149:10 - error: Type "tuple[Literal[1], Literal[1], Literal['']]" is not assignable to declared type "tuple[int, *tuple[str, ...]]"
+  "Literal[1]" is not assignable to "str" (reportAssignmentType)
+tuples_type_compat.py:150:14 - error: Type "tuple[Literal[1], Literal[''], Literal[1]]" is not assignable to declared type "tuple[int, *tuple[str, ...]]"
+  "Literal[1]" is not assignable to "str" (reportAssignmentType)
+tuples_type_compat.py:156:14 - error: Type "tuple[Literal[1], Literal[''], Literal['']]" is not assignable to declared type "tuple[int, *tuple[str, ...], int]"
+  "Literal['']" is not assignable to "int" (reportAssignmentType)
+tuples_type_compat.py:157:18 - error: Type "tuple[Literal[1], Literal[''], Literal[''], float]" is not assignable to declared type "tuple[int, *tuple[str, ...], int]"
+  "float" is not assignable to "int" (reportAssignmentType)
+tuples_type_compat.py:162:7 - error: Type "tuple[Literal[1], Literal[''], Literal[1]]" is not assignable to declared type "tuple[*tuple[str, ...], int]"
+  "Literal[1]" is not assignable to "str" (reportAssignmentType)
+tuples_type_compat.py:163:15 - error: Type "tuple[Literal[''], Literal[''], float]" is not assignable to declared type "tuple[*tuple[str, ...], int]"
+  "float" is not assignable to "int" (reportAssignmentType)
+tuples_type_compat.py:168:40 - error: Type "tuple[str, str]" is not assignable to declared type "tuple[str, str, int]"
+  "tuple[str, str]" is not assignable to "tuple[str, str, int]"
     Tuple size mismatch; expected 3 but received 2 (reportAssignmentType)
-tuples_type_compat.py:171:50 - error: Expression of type "tuple[str, str]" is incompatible with declared type "tuple[str, str, str, *tuple[str, ...]]"
-  "tuple[str, str]" is incompatible with "tuple[str, str, str, *tuple[str, ...]]"
+tuples_type_compat.py:171:50 - error: Type "tuple[str, str]" is not assignable to declared type "tuple[str, str, str, *tuple[str, ...]]"
+  "tuple[str, str]" is not assignable to "tuple[str, str, str, *tuple[str, ...]]"
     Tuple size mismatch; expected 3 or more but received 2 (reportAssignmentType)
-tuples_type_compat.py:175:50 - error: Expression of type "tuple[str, str]" is incompatible with declared type "tuple[*tuple[str, ...], str, str, str]"
-  "tuple[str, str]" is incompatible with "tuple[*tuple[str, ...], str, str, str]"
+tuples_type_compat.py:175:50 - error: Type "tuple[str, str]" is not assignable to declared type "tuple[*tuple[str, ...], str, str, str]"
+  "tuple[str, str]" is not assignable to "tuple[*tuple[str, ...], str, str, str]"
     Tuple size mismatch; expected 3 or more but received 2 (reportAssignmentType)
 """
 conformance_automated = "Pass"

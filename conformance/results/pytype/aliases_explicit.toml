@@ -7,24 +7,96 @@ Does not report some illegal annotation forms as invalid type aliases.
 Does not report invalid specialization of already-specialized generic type alias.
 """
 output = """
-File "aliases_explicit.py", line 41, in <module>: Invalid type annotation '[str, str]'  [invalid-annotation]
-File "aliases_explicit.py", line 41, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][[str, str], None]'  [invalid-annotation]
-File "aliases_explicit.py", line 57, in good_type_aliases: Callable[Concatenate, Any] [assert-type]
-File "aliases_explicit.py", line 60, in good_type_aliases: Callable[[Any], None] [assert-type]
-File "aliases_explicit.py", line 67, in <module>: Invalid type annotation 'Optional[int][int]'  [invalid-annotation]
-File "aliases_explicit.py", line 68, in <module>: Invalid type annotation 'List[Optional[int]][int]'  [invalid-annotation]
-File "aliases_explicit.py", line 69, in <module>: Invalid type annotation 'List[T][int, int]'  [invalid-annotation]
-File "aliases_explicit.py", line 70, in <module>: Invalid type annotation 'Callable[[int, T], T][int, int]'  [invalid-annotation]
-File "aliases_explicit.py", line 71, in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][int, int]'  [invalid-annotation]
-File "aliases_explicit.py", line 80, in <module>: Invalid type annotation '[int, str]' for BadTypeAlias2 [invalid-annotation]
-File "aliases_explicit.py", line 81, in <module>: Invalid type annotation '((int, str),)' for BadTypeAlias3 [invalid-annotation]
-File "aliases_explicit.py", line 82, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for BadTypeAlias4 [invalid-annotation]
-File "aliases_explicit.py", line 83, in <module>: Invalid type annotation "{'a': 'b'}" for BadTypeAlias5 [invalid-annotation]
-File "aliases_explicit.py", line 87, in <module>: Invalid type annotation '3' for BadTypeAlias9 [invalid-annotation]
-File "aliases_explicit.py", line 88, in <module>: Invalid type annotation 'True' for BadTypeAlias10 [invalid-annotation]
-File "aliases_explicit.py", line 89, in <module>: Invalid type annotation '1' for BadTypeAlias11 [invalid-annotation]
-File "aliases_explicit.py", line 91, in <module>: Invalid type annotation '<instance of str>' for BadTypeAlias13 [invalid-annotation]
-File "aliases_explicit.py", line 102, in <module>: Invalid type annotation 'Union[list, set][int]'  [invalid-annotation]
+aliases_explicit.py:41:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '[str, str]'  [invalid-annotation]
+
+    p9: GoodTypeAlias9[[str, str], None],
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:41:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][[str, str], None]'  [invalid-annotation]
+
+    p9: GoodTypeAlias9[[str, str], None],
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:57:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_type_aliases: Callable[Concatenate, Any] [assert-type]
+
+    assert_type(p9, Callable[[int, str, str], None])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:60:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_type_aliases: Callable[[Any], None] [assert-type]
+
+    assert_type(p12, Callable[..., None])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:67:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Optional[int][int]'  [invalid-annotation]
+
+    p1: GoodTypeAlias2[int],  # E: type alias is not generic
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:68:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'list[Optional[int]][int]'  [invalid-annotation]
+
+    p2: GoodTypeAlias3[int],  # E: type alias is already specialized
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:69:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'list[T][int, int]'  [invalid-annotation]
+
+    p3: GoodTypeAlias4[int, int],  # E: too many type arguments
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:70:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Callable[[int, T], T][int, int]'  [invalid-annotation]
+
+    p4: GoodTypeAlias8[int, int],  # E: too many type arguments
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:71:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][int, int]'  [invalid-annotation]
+
+    p5: GoodTypeAlias9[int, int],  # E: bad type argument for ParamSpec
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:80:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '[int, str]' for BadTypeAlias2 [invalid-annotation]
+
+BadTypeAlias2: TA = [int, str]  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:81:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '((int, str),)' for BadTypeAlias3 [invalid-annotation]
+
+BadTypeAlias3: TA = ((int, str),)  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:82:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of list[type[int]]>' for BadTypeAlias4 [invalid-annotation]
+
+BadTypeAlias4: TA = [int for i in range(1)]  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:83:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation "{'a': 'b'}" for BadTypeAlias5 [invalid-annotation]
+
+BadTypeAlias5: TA = {"a": "b"}  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:87:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '3' for BadTypeAlias9 [invalid-annotation]
+
+BadTypeAlias9: TA = var1  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:88:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'True' for BadTypeAlias10 [invalid-annotation]
+
+BadTypeAlias10: TA = True  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:89:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '1' for BadTypeAlias11 [invalid-annotation]
+
+BadTypeAlias11: TA = 1  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:91:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of str>' for BadTypeAlias13 [invalid-annotation]
+
+BadTypeAlias13: TA = f"{'int'}"  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_explicit.py:102:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Union[list, set][int]'  [invalid-annotation]
+
+x4: ListOrSetAlias[int]  # E: already specialized
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -35,7 +107,7 @@ Line 86: Expected 1 errors
 Line 90: Expected 1 errors
 Line 100: Expected 1 errors
 Line 101: Expected 1 errors
-Line 41: Unexpected errors ['File "aliases_explicit.py", line 41, in <module>: Invalid type annotation \\'[str, str]\\'  [invalid-annotation]', 'File "aliases_explicit.py", line 41, in <module>: Invalid type annotation \\'Callable[Concatenate[int, P], R][[str, str], None]\\'  [invalid-annotation]']
-Line 57: Unexpected errors ['File "aliases_explicit.py", line 57, in good_type_aliases: Callable[Concatenate, Any] [assert-type]']
-Line 60: Unexpected errors ['File "aliases_explicit.py", line 60, in good_type_aliases: Callable[[Any], None] [assert-type]']
+Line 41: Unexpected errors ["aliases_explicit.py:41:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '[str, str]'  [invalid-annotation]", "aliases_explicit.py:41:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Callable[Concatenate[int, P], R][[str, str], None]'  [invalid-annotation]"]
+Line 57: Unexpected errors ['aliases_explicit.py:57:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_type_aliases: Callable[Concatenate, Any] [assert-type]']
+Line 60: Unexpected errors ['aliases_explicit.py:60:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_type_aliases: Callable[[Any], None] [assert-type]']
 """

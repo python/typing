@@ -4,14 +4,26 @@ Does not reject a function with a single @overload signature.
 Does not reject a function with @overload signature but no implementation.
 """
 output = """
-File "overloads_basic.py", line 31, in __getitem__: bad return type [bad-return-type]
-File "overloads_basic.py", line 37, in <module>: unsupported operand type(s) for item retrieval: Bytes and str [unsupported-operands]
-File "overloads_basic.py", line 58, in map: bad return type [bad-return-type]
+overloads_basic.py:31:20: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in __getitem__: bad return type [bad-return-type]
+
+            return b""
+                   \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_basic.py:37:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: unsupported operand type(s) for item retrieval: Bytes and str [unsupported-operands]
+
+b[""]  # E: no matching overload
+\u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+overloads_basic.py:58:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in map: bad return type [bad-return-type]
+
+    pass
+    \u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
 Lines 62, 63: Expected error (tag 'func1')
 Lines 74, 75: Expected error (tag 'func2')
-Line 31: Unexpected errors ['File "overloads_basic.py", line 31, in __getitem__: bad return type [bad-return-type]']
-Line 58: Unexpected errors ['File "overloads_basic.py", line 58, in map: bad return type [bad-return-type]']
+Line 31: Unexpected errors ['overloads_basic.py:31:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __getitem__: bad return type [bad-return-type]']
+Line 58: Unexpected errors ['overloads_basic.py:58:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in map: bad return type [bad-return-type]']
 """

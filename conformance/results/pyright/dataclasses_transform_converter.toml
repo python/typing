@@ -4,41 +4,41 @@ errors_diff = """
 """
 output = """
 dataclasses_transform_converter.py:48:31 - error: Argument of type "() -> int" is not a valid converter for field "field1" of type "int"
-  Type "() -> int" is incompatible with type "(__converterInput) -> int"
+  Type "() -> int" is not assignable to type "(__converterInput) -> int"
     Function accepts too many positional parameters; expected 0 but received 1 (reportGeneralTypeIssues)
 dataclasses_transform_converter.py:48:41 - error: Argument of type "() -> int" cannot be assigned to parameter "converter" of type "(S@model_field) -> T@model_field" in function "model_field"
-  Type "() -> int" is incompatible with type "(S@model_field) -> int"
+  Type "() -> int" is not assignable to type "(S@model_field) -> int"
     Function accepts too many positional parameters; expected 0 but received 1 (reportArgumentType)
 dataclasses_transform_converter.py:49:31 - error: Argument of type "(*, x: int) -> int" is not a valid converter for field "field2" of type "int"
-  Type "(*, x: int) -> int" is incompatible with type "(__converterInput) -> int"
+  Type "(*, x: int) -> int" is not assignable to type "(__converterInput) -> int"
     Function accepts too many positional parameters; expected 0 but received 1
       Extra parameter "x" (reportGeneralTypeIssues)
 dataclasses_transform_converter.py:49:41 - error: Argument of type "(*, x: int) -> int" cannot be assigned to parameter "converter" of type "(S@model_field) -> T@model_field" in function "model_field"
-  Type "(*, x: int) -> int" is incompatible with type "(S@model_field) -> int"
+  Type "(*, x: int) -> int" is not assignable to type "(S@model_field) -> int"
     Function accepts too many positional parameters; expected 0 but received 1
       Extra parameter "x" (reportArgumentType)
 dataclasses_transform_converter.py:107:5 - error: Argument of type "Literal[1]" cannot be assigned to parameter "field0" of type "str" in function "__init__"
-  "Literal[1]" is incompatible with "str" (reportArgumentType)
+  "Literal[1]" is not assignable to "str" (reportArgumentType)
 dataclasses_transform_converter.py:108:23 - error: Argument of type "Literal[1]" cannot be assigned to parameter "field3" of type "str | bytes" in function "__init__"
-  Type "Literal[1]" is incompatible with type "str | bytes"
-    "Literal[1]" is incompatible with "str"
-    "Literal[1]" is incompatible with "bytes" (reportArgumentType)
+  Type "Literal[1]" is not assignable to type "str | bytes"
+    "Literal[1]" is not assignable to "str"
+    "Literal[1]" is not assignable to "bytes" (reportArgumentType)
 dataclasses_transform_converter.py:109:29 - error: Argument of type "complex" cannot be assigned to parameter "field4" of type "str | list[str]" in function "__init__"
-  Type "complex" is incompatible with type "str | list[str]"
-    "complex" is incompatible with "str"
-    "complex" is incompatible with "list[str]" (reportArgumentType)
+  Type "complex" is not assignable to type "str | list[str]"
+    "complex" is not assignable to "str"
+    "complex" is not assignable to "list[str]" (reportArgumentType)
 dataclasses_transform_converter.py:118:14 - error: Cannot assign to attribute "field0" for class "DC2"
-  "Literal[1]" is incompatible with "str" (reportAttributeAccessIssue)
+  "Literal[1]" is not assignable to "str" (reportAttributeAccessIssue)
 dataclasses_transform_converter.py:119:14 - error: Cannot assign to attribute "field3" for class "DC2"
-  Type "Literal[1]" is incompatible with type "str | bytes"
-    "Literal[1]" is incompatible with "str"
-    "Literal[1]" is incompatible with "bytes" (reportAttributeAccessIssue)
+  Type "Literal[1]" is not assignable to type "str | bytes"
+    "Literal[1]" is not assignable to "str"
+    "Literal[1]" is not assignable to "bytes" (reportAttributeAccessIssue)
 dataclasses_transform_converter.py:130:67 - error: Argument of type "Literal[1]" cannot be assigned to parameter "default" of type "S@model_field | None" in function "model_field"
-  Type "Literal[1]" is incompatible with type "str | None"
-    "Literal[1]" is incompatible with "str"
-    "Literal[1]" is incompatible with "None" (reportArgumentType)
+  Type "Literal[1]" is not assignable to type "str | None"
+    "Literal[1]" is not assignable to "str"
+    "Literal[1]" is not assignable to "None" (reportArgumentType)
 dataclasses_transform_converter.py:133:75 - error: Argument of type "type[int]" cannot be assigned to parameter "default_factory" of type "(() -> S@model_field) | None" in function "model_field"
-  Type "type[int]" is incompatible with type "(() -> str) | None"
+  Type "type[int]" is not assignable to type "(() -> str) | None"
     No overloaded function matches type "() -> str"
-    "type[type]" is incompatible with "type[None]" (reportArgumentType)
+    Type is not assignable to "None" (reportArgumentType)
 """

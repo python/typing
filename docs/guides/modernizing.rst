@@ -24,6 +24,13 @@ Each section states the minimum Python version required to use the
 feature, whether it is available in typing-extensions, and whether it is
 available using quoting.
 
+.. tip::
+
+    Tools such as `pyupgrade <https://pypi.org/project/pyupgrade/>`__,
+    `ruff <https://pypi.org/project/ruff/>`__ and/or
+    `com2ann <https://pypi.org/project/com2ann/>`__ can automatically perform
+    some of these refactorings for you.
+
 .. note::
 
     The latest version of typing-extensions is available for all Python
@@ -334,3 +341,16 @@ Update your imports to use the new locations::
     from collections.abc import Hashable, Sized
 
     def f(x: Hashable) -> Sized: ...
+
+``typing.TypeGuard``
+====================
+
+*Available since:* Python 3.13, typing-extensions
+
+:data:`TypeIs <typing.TypeIs>` is an alternative to
+:data:`TypeGuard <typing.TypeGuard>` that usually has more intuitive
+behavior, but has other restrictions. See the documentation for
+:data:`TypeIs <typing.TypeIs>` for more information.
+
+Review existing uses of :data:`TypeGuard <typing.TypeGuard>` to see if they
+should be replaced with :data:`TypeIs <typing.TypeIs>`.

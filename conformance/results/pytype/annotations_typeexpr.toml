@@ -8,15 +8,357 @@ Does not reject f-string in type annotation.
 Does not reject module in type annotation.
 """
 output = """
-File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation '{}' for p5 [invalid-annotation]
-File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]
-File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]
-File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation '<instance of module>' for p15 [invalid-annotation]
-File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation '<instance of List[Type[int]]>' for p4 [invalid-annotation]
-File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation '3' for p9 [invalid-annotation]
-File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation '1' for p11 [invalid-annotation]
-File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation '-1' for p12 [invalid-annotation]
-File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation '(int, str)' for p3 [invalid-annotation]
+annotations_typeexpr.py:87:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '{}' for p5 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: eval("".join(map(chr, [105, 110, 116]))),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: [int, str],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: (int, str),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: [int for i in range(1)],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: {},  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: (lambda: int)(),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: [int][0],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: int if 1 < 3 else str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: var1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: True,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: 1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: -1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: int or str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: f"int",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: types,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_typeexpr.py:87:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: eval("".join(map(chr, [105, 110, 116]))),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: [int, str],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: (int, str),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: [int for i in range(1)],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: {},  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: (lambda: int)(),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: [int][0],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: int if 1 < 3 else str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: var1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: True,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: 1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: -1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: int or str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: f"int",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: types,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_typeexpr.py:87:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: eval("".join(map(chr, [105, 110, 116]))),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: [int, str],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: (int, str),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: [int for i in range(1)],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: {},  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: (lambda: int)(),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: [int][0],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: int if 1 < 3 else str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: var1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: True,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: 1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: -1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: int or str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: f"int",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: types,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_typeexpr.py:87:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of module>' for p15 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: eval("".join(map(chr, [105, 110, 116]))),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: [int, str],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: (int, str),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: [int for i in range(1)],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: {},  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: (lambda: int)(),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: [int][0],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: int if 1 < 3 else str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: var1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: True,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: 1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: -1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: int or str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: f"int",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: types,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_typeexpr.py:87:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of list[type[int]]>' for p4 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: eval("".join(map(chr, [105, 110, 116]))),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: [int, str],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: (int, str),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: [int for i in range(1)],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: {},  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: (lambda: int)(),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: [int][0],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: int if 1 < 3 else str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: var1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: True,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: 1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: -1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: int or str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: f"int",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: types,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_typeexpr.py:87:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '3' for p9 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: eval("".join(map(chr, [105, 110, 116]))),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: [int, str],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: (int, str),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: [int for i in range(1)],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: {},  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: (lambda: int)(),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: [int][0],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: int if 1 < 3 else str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: var1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: True,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: 1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: -1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: int or str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: f"int",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: types,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_typeexpr.py:87:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '1' for p11 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: eval("".join(map(chr, [105, 110, 116]))),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: [int, str],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: (int, str),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: [int for i in range(1)],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: {},  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: (lambda: int)(),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: [int][0],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: int if 1 < 3 else str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: var1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: True,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: 1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: -1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: int or str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: f"int",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: types,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_typeexpr.py:87:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '-1' for p12 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: eval("".join(map(chr, [105, 110, 116]))),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: [int, str],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: (int, str),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: [int for i in range(1)],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: {},  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: (lambda: int)(),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: [int][0],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: int if 1 < 3 else str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: var1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: True,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: 1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: -1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: int or str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: f"int",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: types,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+annotations_typeexpr.py:87:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '(int, str)' for p3 [invalid-annotation]
+
+def invalid_annotations(
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p1: eval("".join(map(chr, [105, 110, 116]))),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p2: [int, str],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p3: (int, str),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p4: [int for i in range(1)],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p5: {},  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p6: (lambda: int)(),  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p7: [int][0],  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p8: int if 1 < 3 else str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p9: var1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p10: True,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p11: 1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p12: -1,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p13: int or str,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p14: f"int",  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    p15: types,  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+):
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+    pass
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -35,5 +377,5 @@ Line 99: Expected 1 errors
 Line 100: Expected 1 errors
 Line 101: Expected 1 errors
 Line 102: Expected 1 errors
-Line 87: Unexpected errors ['File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation \\'{}\\' for p5 [invalid-annotation]', 'File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation \\'[int, str]\\' for p2 [invalid-annotation]', 'File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation \\'True\\' for p10 [invalid-annotation]', 'File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation \\'<instance of module>\\' for p15 [invalid-annotation]', 'File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation \\'<instance of List[Type[int]]>\\' for p4 [invalid-annotation]', 'File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation \\'3\\' for p9 [invalid-annotation]', 'File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation \\'1\\' for p11 [invalid-annotation]', 'File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation \\'-1\\' for p12 [invalid-annotation]', 'File "annotations_typeexpr.py", line 87, in <module>: Invalid type annotation \\'(int, str)\\' for p3 [invalid-annotation]']
+Line 87: Unexpected errors ["annotations_typeexpr.py:87:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '{}' for p5 [invalid-annotation]", "annotations_typeexpr.py:87:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '[int, str]' for p2 [invalid-annotation]", "annotations_typeexpr.py:87:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'True' for p10 [invalid-annotation]", "annotations_typeexpr.py:87:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of module>' for p15 [invalid-annotation]", "annotations_typeexpr.py:87:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of list[type[int]]>' for p4 [invalid-annotation]", "annotations_typeexpr.py:87:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '3' for p9 [invalid-annotation]", "annotations_typeexpr.py:87:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '1' for p11 [invalid-annotation]", "annotations_typeexpr.py:87:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '-1' for p12 [invalid-annotation]", "annotations_typeexpr.py:87:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '(int, str)' for p3 [invalid-annotation]"]
 """

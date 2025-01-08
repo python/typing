@@ -3,15 +3,43 @@ notes = """
 Does not properly handle type compatibility checks with callback protocols.
 """
 output = """
-File "callables_protocol.py", line 9, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
-File "callables_protocol.py", line 10, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
-File "callables_protocol.py", line 121, in <module>: Type annotation for cb6 does not match type of assignment [annotation-type-mismatch]
-File "callables_protocol.py", line 173, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
-File "callables_protocol.py", line 188, in decorator1: bad return type [bad-return-type]
+callables_protocol.py:9:10: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+
+InputT = TypeVar("InputT", contravariant=True)
+         \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_protocol.py:10:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+
+OutputT = TypeVar("OutputT", covariant=True)
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_protocol.py:121:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for cb6 does not match type of assignment [annotation-type-mismatch]
+
+cb6: NotProto6 = cb6_bad1  # E: NotProto6 isn't a protocol class
+\u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+callables_protocol.py:173:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+
+R = TypeVar("R", covariant=True)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_protocol.py:188:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in decorator1: bad return type [bad-return-type]
+
+    return converted
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 Called from (traceback):
   line 191, in current file
-File "callables_protocol.py", line 197, in <module>: No attribute 'other_attribute2' on Proto9[Any, str] [attribute-error]
-File "callables_protocol.py", line 199, in <module>: Function Proto9.__call__ was called with the wrong arguments [wrong-arg-types]
+callables_protocol.py:197:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: No attribute 'other_attribute2' on Proto9[Any, str] [attribute-error]
+
+print(cb9_good.other_attribute2)  # E: unknown attribute
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_protocol.py:199:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Proto9.__call__ was called with the wrong arguments [wrong-arg-types]
+
+cb9_good(x=3)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -30,9 +58,9 @@ Line 238: Expected 1 errors
 Line 260: Expected 1 errors
 Line 284: Expected 1 errors
 Line 311: Expected 1 errors
-Line 9: Unexpected errors ['File "callables_protocol.py", line 9, in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
-Line 10: Unexpected errors ['File "callables_protocol.py", line 10, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
-Line 173: Unexpected errors ['File "callables_protocol.py", line 173, in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
-Line 188: Unexpected errors ['File "callables_protocol.py", line 188, in decorator1: bad return type [bad-return-type]']
-Line 199: Unexpected errors ['File "callables_protocol.py", line 199, in <module>: Function Proto9.__call__ was called with the wrong arguments [wrong-arg-types]']
+Line 9: Unexpected errors ['callables_protocol.py:9:10: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
+Line 10: Unexpected errors ['callables_protocol.py:10:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 173: Unexpected errors ['callables_protocol.py:173:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 188: Unexpected errors ['callables_protocol.py:188:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in decorator1: bad return type [bad-return-type]']
+Line 199: Unexpected errors ['callables_protocol.py:199:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function Proto9.__call__ was called with the wrong arguments [wrong-arg-types]']
 """

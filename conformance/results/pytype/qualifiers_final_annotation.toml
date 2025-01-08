@@ -6,24 +6,109 @@ Does not reject modification of global variable declared Final.
 Does not reject modification of local variable declared Final.
 """
 output = """
-File "qualifiers_final_annotation.py", line 18, in <module>: Invalid type annotation 'Final[str, int]'  [invalid-annotation]
-File "qualifiers_final_annotation.py", line 18, in <module>: Invalid type annotation 'Final'  [invalid-annotation]
-File "qualifiers_final_annotation.py", line 54, in __init__: Assigning to attribute ID5, which was annotated with Final [final-error]
-File "qualifiers_final_annotation.py", line 65, in method1: Assigning to attribute ID7, which was annotated with Final [final-error]
-File "qualifiers_final_annotation.py", line 67, in method1: Assigning to attribute ID7, which was annotated with Final [final-error]
-File "qualifiers_final_annotation.py", line 71, in <module>: Assigning to variable RATE, which was annotated with Final [final-error]
-File "qualifiers_final_annotation.py", line 81, in <module>: Assigning to attribute DEFAULT_ID, which was annotated with Final [final-error]
-File "qualifiers_final_annotation.py", line 93, in <module>: Class ClassCChild overrides final class attribute BORDER_WIDTH, defined in base class ClassC [final-error]
-File "qualifiers_final_annotation.py", line 107, in ClassD: Type annotation for VALUE2 does not match type of assignment [annotation-type-mismatch]
-File "qualifiers_final_annotation.py", line 107, in ClassD: Invalid use of typing.Final [final-error]
-File "qualifiers_final_annotation.py", line 107, in ClassD: Invalid type annotation 'ClassVar[Final]'  [invalid-annotation]
-File "qualifiers_final_annotation.py", line 108, in ClassD: Type annotation for VALUE3 does not match type of assignment [annotation-type-mismatch]
-File "qualifiers_final_annotation.py", line 118, in <module>: Invalid use of typing.Final [final-error]
-File "qualifiers_final_annotation.py", line 118, in <module>: Invalid type annotation 'list[Final[int]]'  [invalid-annotation]
-File "qualifiers_final_annotation.py", line 121, in <module>: Invalid use of typing.Final [final-error]
-File "qualifiers_final_annotation.py", line 134, in <module>: Invalid keyword argument a to function N.__new__ [wrong-keyword-args]
-File "qualifiers_final_annotation.py", line 135, in <module>: Function N.__new__ was called with the wrong arguments [wrong-arg-types]
-File "qualifiers_final_annotation.py", line 145, in func2: Assigning to variable x, which was annotated with Final [final-error]
+qualifiers_final_annotation.py:18:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Final[str, int]'  [invalid-annotation]
+
+BAD2: Final[str, int] = ""  # E: only one type argument allowed
+\u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:18:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Final'  [invalid-annotation]
+
+BAD2: Final[str, int] = ""  # E: only one type argument allowed
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:54:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in __init__: Assigning to attribute ID5, which was annotated with Final [final-error]
+
+        self.ID5 = 0  # E: Already initialized
+        \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:65:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method1: Assigning to attribute ID7, which was annotated with Final [final-error]
+
+        self.ID7 = 0  # E: cannot modify Final value
+        \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:67:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method1: Assigning to attribute ID7, which was annotated with Final [final-error]
+
+        self.ID7 += 1  # E: cannot modify Final value
+        \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:71:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Assigning to variable RATE, which was annotated with Final [final-error]
+
+RATE = 300  # E: Cannot redefine Final value
+\u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:81:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Assigning to attribute DEFAULT_ID, which was annotated with Final [final-error]
+
+ClassB.DEFAULT_ID = 0  # E: Cannot redefined value
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:93:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class ClassCChild overrides final class attribute BORDER_WIDTH, defined in base class ClassC [final-error]
+
+class ClassCChild(ClassC):
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    BORDER_WIDTH = 2.5  # E: Cannot override Final value
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    __private = 0  # OK
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:107:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassD: Type annotation for VALUE2 does not match type of assignment [annotation-type-mismatch]
+
+    VALUE2: ClassVar[Final] = 1  # E: Final cannot be used with ClassVar
+    \u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:107:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassD: Invalid use of typing.Final [final-error]
+
+    VALUE2: ClassVar[Final] = 1  # E: Final cannot be used with ClassVar
+    \u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:107:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassD: Invalid use of typing.Final [final-error]
+
+    VALUE2: ClassVar[Final] = 1  # E: Final cannot be used with ClassVar
+            \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:107:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassD: Invalid type annotation 'ClassVar[Final]'  [invalid-annotation]
+
+    VALUE2: ClassVar[Final] = 1  # E: Final cannot be used with ClassVar
+    \u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:108:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ClassD: Type annotation for VALUE3 does not match type of assignment [annotation-type-mismatch]
+
+    VALUE3: Final[ClassVar] = 1  # E: Final cannot be used with ClassVar
+    \u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:118:4: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid use of typing.Final [final-error]
+
+x: list[Final[int]] = []  # E
+   \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:118:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'list[Final[int]]'  [invalid-annotation]
+
+x: list[Final[int]] = []  # E
+\u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:121:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid use of typing.Final [final-error]
+
+def func1(x: Final[list[int]]) -> None:  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    ...
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:134:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword argument a to function N.__new__ [wrong-keyword-args]
+
+N(a=1)  # E
+\u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:135:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function N.__new__ was called with the wrong arguments [wrong-arg-types]
+
+N(x="", y="")  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_final_annotation.py:145:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: Assigning to variable x, which was annotated with Final [final-error]
+
+    x += 1 # E: cannot modify Final value
+    \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -38,5 +123,5 @@ Line 147: Expected 1 errors
 Line 149: Expected 1 errors
 Line 152: Expected 1 errors
 Line 155: Expected 1 errors
-Line 93: Unexpected errors ['File "qualifiers_final_annotation.py", line 93, in <module>: Class ClassCChild overrides final class attribute BORDER_WIDTH, defined in base class ClassC [final-error]']
+Line 93: Unexpected errors ['qualifiers_final_annotation.py:93:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Class ClassCChild overrides final class attribute BORDER_WIDTH, defined in base class ClassC [final-error]']
 """

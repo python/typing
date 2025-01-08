@@ -2,13 +2,12 @@ conformant = "Pass"
 output = """
 protocols_explicit.py:27:16 - error: Method "draw" cannot be called because it is abstract and unimplemented (reportAbstractUsage)
 protocols_explicit.py:56:32 - error: Cannot assign to attribute "rgb" for class "Point*"
-  "str" is incompatible with "int" (reportAttributeAccessIssue)
+  "str" is not assignable to "int" (reportAttributeAccessIssue)
 protocols_explicit.py:60:5 - error: Cannot instantiate abstract class "Point"
   "RGB.intensity" is not implemented
   "RGB.transparency" is not implemented (reportAbstractUsage)
 protocols_explicit.py:85:14 - error: Cannot assign to attribute "cm1" for class "Concrete1*"
-  Attribute "cm1" cannot be assigned through a class instance because it is a ClassVar
-    Attribute "__set__" is unknown (reportAttributeAccessIssue)
+  Attribute "cm1" cannot be assigned through a class instance because it is a ClassVar (reportAttributeAccessIssue)
 protocols_explicit.py:135:6 - error: Cannot instantiate abstract class "Concrete5"
   "Proto5.method1" is not implemented (reportAbstractUsage)
 protocols_explicit.py:165:7 - error: Cannot instantiate abstract class "Concrete7A"

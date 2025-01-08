@@ -5,12 +5,38 @@ Does not reject covariant use of TypeIs.
 Does not reject TypeIs where return type is not consistent with input type due to variance.
 """
 output = """
-File "narrowing_typeis.py", line 19, in func1: Tuple[str, ...] [assert-type]
-File "narrowing_typeis.py", line 132, in <module>: Function takes_callable_str was called with the wrong arguments [wrong-arg-types]
-File "narrowing_typeis.py", line 152, in <module>: Function takes_callable_str_proto was called with the wrong arguments [wrong-arg-types]
-File "narrowing_typeis.py", line 169, in <module>: Function takes_typeguard was called with the wrong arguments [wrong-arg-types]
-File "narrowing_typeis.py", line 170, in <module>: Function takes_typeis was called with the wrong arguments [wrong-arg-types]
-File "narrowing_typeis.py", line 195, in <module>: TypeIs[str] is not consistent with input type int [invalid-function-definition]
+narrowing_typeis.py:19:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: tuple[str, ...] [assert-type]
+
+        assert_type(names, tuple[str, str])
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+narrowing_typeis.py:132:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function takes_callable_str was called with the wrong arguments [wrong-arg-types]
+
+takes_callable_str(simple_typeguard)   # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+narrowing_typeis.py:152:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function takes_callable_str_proto was called with the wrong arguments [wrong-arg-types]
+
+takes_callable_str_proto(simple_typeguard)   # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+narrowing_typeis.py:169:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function takes_typeguard was called with the wrong arguments [wrong-arg-types]
+
+takes_typeguard(is_int_typeis)     # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+narrowing_typeis.py:170:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function takes_typeis was called with the wrong arguments [wrong-arg-types]
+
+takes_typeis(is_int_typeguard)     # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+narrowing_typeis.py:195:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: TypeIs[str] is not consistent with input type int [invalid-function-definition]
+
+def bad_typeis(x: int) -> TypeIs[str]:  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    return isinstance(x, str)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -18,5 +44,5 @@ Line 105: Expected 1 errors
 Line 110: Expected 1 errors
 Line 191: Expected 1 errors
 Line 199: Expected 1 errors
-Line 19: Unexpected errors ['File "narrowing_typeis.py", line 19, in func1: Tuple[str, ...] [assert-type]']
+Line 19: Unexpected errors ['narrowing_typeis.py:19:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: tuple[str, ...] [assert-type]']
 """

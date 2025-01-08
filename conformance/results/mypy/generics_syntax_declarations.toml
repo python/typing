@@ -1,19 +1,17 @@
-conformant = "Partial"
-notes = """
-Does not detect many illegal usages of type parameter syntax.
-"""
+conformant = "Pass"
 output = """
+generics_syntax_declarations.py:17: error: Generic[...] base class is redundant  [misc]
+generics_syntax_declarations.py:25: error: No arguments expected for "Protocol" base class  [misc]
+generics_syntax_declarations.py:32: error: "T" has no attribute "is_integer"  [attr-defined]
+generics_syntax_declarations.py:44: error: Name "V" is not defined  [name-defined]
+generics_syntax_declarations.py:48: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
+generics_syntax_declarations.py:60: error: Type variable must have at least two constrained types  [misc]
+generics_syntax_declarations.py:64: error: Type variable must have at least two constrained types  [misc]
+generics_syntax_declarations.py:71: error: Variable "generics_syntax_declarations.t1" is not valid as a type  [valid-type]
+generics_syntax_declarations.py:71: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+generics_syntax_declarations.py:75: error: Invalid type: try using Literal[3] instead?  [valid-type]
+generics_syntax_declarations.py:79: error: Name "S" is not defined  [name-defined]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 19: Expected 1 errors
-Line 27: Expected 1 errors
-Line 34: Expected 1 errors
-Line 46: Expected 1 errors
-Line 50: Expected 1 errors
-Line 62: Expected 1 errors
-Line 66: Expected 1 errors
-Line 73: Expected 1 errors
-Line 77: Expected 1 errors
-Line 81: Expected 1 errors
 """

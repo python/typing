@@ -43,7 +43,7 @@ library:
 
 Inline type annotations simply refers to the use of annotations within your
 ``.py`` files. In contrast, with type stub files, type information lives in
-separate ``.pyi`` files; see :ref:`stubs` and :ref:`writing_stubs` for more
+separate ``.pyi`` files; see :ref:`stub-files` and :ref:`writing_stubs` for more
 details.
 
 We recommend using the inline type annotations approach, since it has the
@@ -193,51 +193,8 @@ How much of my library needs types?
 A "py.typed" library should aim to be type complete so that type
 checking and inspection can work to their full extent. Here we say that a
 library is “type complete” if all of the symbols
-that comprise its interface have type annotations that refer to types
-that are fully known. Private symbols are exempt.
-
-Library interface (public and private symbols)
-----------------------------------------------
-
-If a ``py.typed`` module is present, a type checker will treat all modules
-within that package (i.e. all files that end in ``.py`` or ``.pyi``) as
-importable unless the file name begins with an underscore. These modules
-comprise the supported interface for the library.
-
-Each module exposes a set of symbols. Some of these symbols are
-considered "private” — implementation details that are not part of the
-library’s interface. Type checkers can use the following rules
-to determine which symbols are visible outside of the package.
-
--  Symbols whose names begin with an underscore (but are not dunder
-   names) are considered private.
--  Imported symbols are considered private by default. If they use the
-   ``import A as A`` (a redundant module alias), ``from X import A as A`` (a
-   redundant symbol alias), or ``from . import A`` forms, symbol ``A`` is
-   not private unless the name begins with an underscore. If a file
-   ``__init__.py`` uses form ``from .A import X``, symbol ``A`` is treated
-   likewise. If a wildcard import (of the form ``from X import *``) is
-   used, all symbols referenced by the wildcard are not private.
--  A module can expose an ``__all__`` symbol at the module level that
-   provides a list of names that are considered part of the interface.
-   This overrides all other rules above, allowing imported symbols or
-   symbols whose names begin with an underscore to be included in the
-   interface.
--  Local variables within a function (including nested functions) are
-   always considered private.
-
-The following idioms are supported for defining the values contained
-within ``__all__``. These restrictions allow type checkers to statically
-determine the value of ``__all__``.
-
--  ``__all__ = ('a', b')``
--  ``__all__ = ['a', b']``
--  ``__all__ += ['a', b']``
--  ``__all__ += submodule.__all__``
--  ``__all__.extend(['a', b'])``
--  ``__all__.extend(submodule.__all__)``
--  ``__all__.append('a')``
--  ``__all__.remove('a')``
+that comprise its :ref:`interface <library-interface>` have type annotations
+that refer to types that are fully known. Private symbols are exempt.
 
 Type Completeness
 -----------------

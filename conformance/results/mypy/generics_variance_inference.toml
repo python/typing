@@ -1,20 +1,12 @@
-conformant = "Partial"
-notes = """
-Computes incorrect variance in some cases.
-"""
+conformant = "Pass"
 output = """
 generics_variance_inference.py:24: error: Incompatible types in assignment (expression has type "ClassA[float, int, int]", variable has type "ClassA[int, int, int]")  [assignment]
 generics_variance_inference.py:25: error: Incompatible types in assignment (expression has type "ClassA[float, int, int]", variable has type "ClassA[float, float, int]")  [assignment]
 generics_variance_inference.py:28: error: Incompatible types in assignment (expression has type "ClassA[int, float, float]", variable has type "ClassA[int, int, int]")  [assignment]
-generics_variance_inference.py:29: error: Incompatible types in assignment (expression has type "ClassA[int, float, float]", variable has type "ClassA[int, int, float]")  [assignment]
 generics_variance_inference.py:41: error: Incompatible types in assignment (expression has type "ShouldBeCovariant1[float]", variable has type "ShouldBeCovariant1[int]")  [assignment]
-generics_variance_inference.py:48: error: Cannot instantiate abstract class "ShouldBeCovariant2" with abstract attributes "__getitem__" and "__len__"  [abstract]
-generics_variance_inference.py:49: error: Cannot instantiate abstract class "ShouldBeCovariant2" with abstract attributes "__getitem__" and "__len__"  [abstract]
 generics_variance_inference.py:49: error: Incompatible types in assignment (expression has type "ShouldBeCovariant2[float]", variable has type "ShouldBeCovariant2[int]")  [assignment]
 generics_variance_inference.py:58: error: Incompatible types in assignment (expression has type "ShouldBeCovariant3[float]", variable has type "ShouldBeCovariant3[int]")  [assignment]
-generics_variance_inference.py:66: error: Incompatible types in assignment (expression has type "ShouldBeCovariant4[int]", variable has type "ShouldBeCovariant4[float]")  [assignment]
 generics_variance_inference.py:67: error: Incompatible types in assignment (expression has type "ShouldBeCovariant4[float]", variable has type "ShouldBeCovariant4[int]")  [assignment]
-generics_variance_inference.py:79: error: Incompatible types in assignment (expression has type "ShouldBeCovariant5[int]", variable has type "ShouldBeCovariant5[float]")  [assignment]
 generics_variance_inference.py:80: error: Incompatible types in assignment (expression has type "ShouldBeCovariant5[float]", variable has type "ShouldBeCovariant5[int]")  [assignment]
 generics_variance_inference.py:96: error: Incompatible types in assignment (expression has type "ShouldBeInvariant1[int]", variable has type "ShouldBeInvariant1[float]")  [assignment]
 generics_variance_inference.py:97: error: Incompatible types in assignment (expression has type "ShouldBeInvariant1[float]", variable has type "ShouldBeInvariant1[int]")  [assignment]
@@ -28,16 +20,10 @@ generics_variance_inference.py:130: error: Incompatible types in assignment (exp
 generics_variance_inference.py:138: error: Incompatible types in assignment (expression has type "ShouldBeInvariant5[int]", variable has type "ShouldBeInvariant5[float]")  [assignment]
 generics_variance_inference.py:149: error: Incompatible types in assignment (expression has type "ShouldBeContravariant1[int]", variable has type "ShouldBeContravariant1[float]")  [assignment]
 generics_variance_inference.py:169: error: Incompatible types in assignment (expression has type "ShouldBeInvariant6[float]", variable has type "ShouldBeInvariant6[int]")  [assignment]
+generics_variance_inference.py:170: error: Incompatible types in assignment (expression has type "ShouldBeInvariant6[int]", variable has type "ShouldBeInvariant6[float]")  [assignment]
 generics_variance_inference.py:181: error: Incompatible types in assignment (expression has type "ShouldBeCovariant6[float]", variable has type "ShouldBeCovariant6[int]")  [assignment]
-generics_variance_inference.py:193: error: Incompatible types in assignment (expression has type "ShouldBeContravariant2[float]", variable has type "ShouldBeContravariant2[int]")  [assignment]
+generics_variance_inference.py:194: error: Incompatible types in assignment (expression has type "ShouldBeContravariant2[int]", variable has type "ShouldBeContravariant2[float]")  [assignment]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 170: Expected 1 errors
-Line 194: Expected 1 errors
-Line 29: Unexpected errors ['generics_variance_inference.py:29: error: Incompatible types in assignment (expression has type "ClassA[int, float, float]", variable has type "ClassA[int, int, float]")  [assignment]']
-Line 48: Unexpected errors ['generics_variance_inference.py:48: error: Cannot instantiate abstract class "ShouldBeCovariant2" with abstract attributes "__getitem__" and "__len__"  [abstract]']
-Line 66: Unexpected errors ['generics_variance_inference.py:66: error: Incompatible types in assignment (expression has type "ShouldBeCovariant4[int]", variable has type "ShouldBeCovariant4[float]")  [assignment]']
-Line 79: Unexpected errors ['generics_variance_inference.py:79: error: Incompatible types in assignment (expression has type "ShouldBeCovariant5[int]", variable has type "ShouldBeCovariant5[float]")  [assignment]']
-Line 193: Unexpected errors ['generics_variance_inference.py:193: error: Incompatible types in assignment (expression has type "ShouldBeContravariant2[float]", variable has type "ShouldBeContravariant2[int]")  [assignment]']
 """

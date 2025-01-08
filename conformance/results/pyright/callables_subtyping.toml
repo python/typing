@@ -2,199 +2,199 @@ conformant = "Pass"
 errors_diff = """
 """
 output = """
-callables_subtyping.py:26:36 - error: Expression of type "(int) -> int" is incompatible with declared type "(float) -> float"
-  Type "(int) -> int" is incompatible with type "(float) -> float"
+callables_subtyping.py:26:36 - error: Type "(int) -> int" is not assignable to declared type "(float) -> float"
+  Type "(int) -> int" is not assignable to type "(float) -> float"
     Parameter 1: type "float" is incompatible with type "int"
-      "float" is incompatible with "int" (reportAssignmentType)
-callables_subtyping.py:29:32 - error: Expression of type "(float) -> float" is incompatible with declared type "(int) -> int"
-  Type "(float) -> float" is incompatible with type "(int) -> int"
+      "float" is not assignable to "int" (reportAssignmentType)
+callables_subtyping.py:29:32 - error: Type "(float) -> float" is not assignable to declared type "(int) -> int"
+  Type "(float) -> float" is not assignable to type "(int) -> int"
     Function return type "float" is incompatible with type "int"
-      "float" is incompatible with "int" (reportAssignmentType)
-callables_subtyping.py:51:21 - error: Expression of type "PosOnly2" is incompatible with declared type "Standard2"
+      "float" is not assignable to "int" (reportAssignmentType)
+callables_subtyping.py:51:21 - error: Type "PosOnly2" is not assignable to declared type "Standard2"
   "PosOnly2" is incompatible with protocol "Standard2"
     "__call__" is an incompatible type
-      Type "(b: int, a: int, /) -> None" is incompatible with type "(a: int, b: int) -> None"
+      Type "(b: int, a: int, /) -> None" is not assignable to type "(a: int, b: int) -> None"
         Missing keyword parameter "a"
         Missing keyword parameter "b"
           Position-only parameter mismatch; parameter "a" is not position-only
           Position-only parameter mismatch; parameter "b" is not position-only
           Position-only parameter mismatch; expected 2 but received 0 (reportAssignmentType)
-callables_subtyping.py:52:21 - error: Expression of type "KwOnly2" is incompatible with declared type "Standard2"
+callables_subtyping.py:52:21 - error: Type "KwOnly2" is not assignable to declared type "Standard2"
   "KwOnly2" is incompatible with protocol "Standard2"
     "__call__" is an incompatible type
-      Type "(*, b: int, a: int) -> None" is incompatible with type "(a: int, b: int) -> None"
+      Type "(*, b: int, a: int) -> None" is not assignable to type "(a: int, b: int) -> None"
         Function accepts too many positional parameters; expected 0 but received 2
           Extra parameter "b"
           Extra parameter "a" (reportAssignmentType)
-callables_subtyping.py:55:20 - error: Expression of type "KwOnly2" is incompatible with declared type "PosOnly2"
+callables_subtyping.py:55:20 - error: Type "KwOnly2" is not assignable to declared type "PosOnly2"
   "KwOnly2" is incompatible with protocol "PosOnly2"
     "__call__" is an incompatible type
-      Type "(*, b: int, a: int) -> None" is incompatible with type "(b: int, a: int, /) -> None"
+      Type "(*, b: int, a: int) -> None" is not assignable to type "(b: int, a: int, /) -> None"
         Function accepts too many positional parameters; expected 0 but received 2
           Extra parameter "b"
           Extra parameter "a" (reportAssignmentType)
-callables_subtyping.py:58:19 - error: Expression of type "PosOnly2" is incompatible with declared type "KwOnly2"
+callables_subtyping.py:58:19 - error: Type "PosOnly2" is not assignable to declared type "KwOnly2"
   "PosOnly2" is incompatible with protocol "KwOnly2"
     "__call__" is an incompatible type
-      Type "(b: int, a: int, /) -> None" is incompatible with type "(*, b: int, a: int) -> None"
+      Type "(b: int, a: int, /) -> None" is not assignable to type "(*, b: int, a: int) -> None"
         Position-only parameter mismatch; expected 2 but received 0
         Function accepts too few positional parameters; expected 2 but received 0
         Missing keyword parameter "b"
         Missing keyword parameter "a" (reportAssignmentType)
-callables_subtyping.py:82:20 - error: Expression of type "NoArgs3" is incompatible with declared type "IntArgs3"
+callables_subtyping.py:82:20 - error: Type "NoArgs3" is not assignable to declared type "IntArgs3"
   "NoArgs3" is incompatible with protocol "IntArgs3"
     "__call__" is an incompatible type
-      Type "() -> None" is incompatible with type "(*args: int) -> None"
+      Type "() -> None" is not assignable to type "(*args: int) -> None"
         Parameter "*args" has no corresponding parameter (reportAssignmentType)
-callables_subtyping.py:85:22 - error: Expression of type "NoArgs3" is incompatible with declared type "FloatArgs3"
+callables_subtyping.py:85:22 - error: Type "NoArgs3" is not assignable to declared type "FloatArgs3"
   "NoArgs3" is incompatible with protocol "FloatArgs3"
     "__call__" is an incompatible type
-      Type "() -> None" is incompatible with type "(*args: float) -> None"
+      Type "() -> None" is not assignable to type "(*args: float) -> None"
         Parameter "*args" has no corresponding parameter (reportAssignmentType)
-callables_subtyping.py:86:22 - error: Expression of type "IntArgs3" is incompatible with declared type "FloatArgs3"
+callables_subtyping.py:86:22 - error: Type "IntArgs3" is not assignable to declared type "FloatArgs3"
   "IntArgs3" is incompatible with protocol "FloatArgs3"
     "__call__" is an incompatible type
-      Type "(*args: int) -> None" is incompatible with type "(*args: float) -> None"
+      Type "(*args: int) -> None" is not assignable to type "(*args: float) -> None"
         Parameter 1: type "*tuple[float, ...]" is incompatible with type "*tuple[int, ...]"
-          "*tuple[float, ...]" is incompatible with "*tuple[int, ...]" (reportAssignmentType)
-callables_subtyping.py:116:20 - error: Expression of type "IntArgs4" is incompatible with declared type "PosOnly4"
+          "*tuple[float, ...]" is not assignable to "*tuple[int, ...]" (reportAssignmentType)
+callables_subtyping.py:116:20 - error: Type "IntArgs4" is not assignable to declared type "PosOnly4"
   "IntArgs4" is incompatible with protocol "PosOnly4"
     "__call__" is an incompatible type
-      Type "(*args: int) -> None" is incompatible with type "(a: int, b: str, /) -> None"
+      Type "(*args: int) -> None" is not assignable to type "(a: int, b: str, /) -> None"
         Parameter 2: type "str" is incompatible with type "int"
-          "str" is incompatible with "int" (reportAssignmentType)
-callables_subtyping.py:119:23 - error: Expression of type "StrArgs4" is incompatible with declared type "IntStrArgs4"
+          "str" is not assignable to "int" (reportAssignmentType)
+callables_subtyping.py:119:23 - error: Type "StrArgs4" is not assignable to declared type "IntStrArgs4"
   "StrArgs4" is incompatible with protocol "IntStrArgs4"
     "__call__" is an incompatible type
-      Type "(a: int, /, *args: str) -> None" is incompatible with type "(*args: int | str) -> None"
+      Type "(a: int, /, *args: str) -> None" is not assignable to type "(*args: int | str) -> None"
         Parameter 2: type "int | str" is incompatible with type "str"
-          Type "int | str" is incompatible with type "str"
+          Type "int | str" is not assignable to type "str"
         Parameter 1: type "*tuple[int | str, ...]" is incompatible with type "*tuple[str, ...]"
-          "*tuple[int | str, ...]" is incompatible with "*tuple[str, ...]" (reportAssignmentType)
-callables_subtyping.py:120:23 - error: Expression of type "IntArgs4" is incompatible with declared type "IntStrArgs4"
+          "*tuple[int | str, ...]" is not assignable to "*tuple[str, ...]" (reportAssignmentType)
+callables_subtyping.py:120:23 - error: Type "IntArgs4" is not assignable to declared type "IntStrArgs4"
   "IntArgs4" is incompatible with protocol "IntStrArgs4"
     "__call__" is an incompatible type
-      Type "(*args: int) -> None" is incompatible with type "(*args: int | str) -> None"
+      Type "(*args: int) -> None" is not assignable to type "(*args: int | str) -> None"
         Parameter 1: type "*tuple[int | str, ...]" is incompatible with type "*tuple[int, ...]"
-          "*tuple[int | str, ...]" is incompatible with "*tuple[int, ...]" (reportAssignmentType)
-callables_subtyping.py:122:20 - error: Expression of type "IntArgs4" is incompatible with declared type "StrArgs4"
+          "*tuple[int | str, ...]" is not assignable to "*tuple[int, ...]" (reportAssignmentType)
+callables_subtyping.py:122:20 - error: Type "IntArgs4" is not assignable to declared type "StrArgs4"
   "IntArgs4" is incompatible with protocol "StrArgs4"
     "__call__" is an incompatible type
-      Type "(*args: int) -> None" is incompatible with type "(a: int, /, *args: str) -> None"
+      Type "(*args: int) -> None" is not assignable to type "(a: int, /, *args: str) -> None"
         Parameter 2: type "str" is incompatible with type "int"
-          "str" is incompatible with "int"
+          "str" is not assignable to "int"
         Parameter 3: type "*tuple[str, ...]" is incompatible with type "*tuple[int, ...]"
-          "*tuple[str, ...]" is incompatible with "*tuple[int, ...]" (reportAssignmentType)
-callables_subtyping.py:124:20 - error: Expression of type "StrArgs4" is incompatible with declared type "IntArgs4"
+          "*tuple[str, ...]" is not assignable to "*tuple[int, ...]" (reportAssignmentType)
+callables_subtyping.py:124:20 - error: Type "StrArgs4" is not assignable to declared type "IntArgs4"
   "StrArgs4" is incompatible with protocol "IntArgs4"
     "__call__" is an incompatible type
-      Type "(a: int, /, *args: str) -> None" is incompatible with type "(*args: int) -> None"
+      Type "(a: int, /, *args: str) -> None" is not assignable to type "(*args: int) -> None"
         Parameter 2: type "int" is incompatible with type "str"
-          "int" is incompatible with "str"
+          "int" is not assignable to "str"
         Parameter 1: type "*tuple[int, ...]" is incompatible with type "*tuple[str, ...]"
-          "*tuple[int, ...]" is incompatible with "*tuple[str, ...]" (reportAssignmentType)
-callables_subtyping.py:125:22 - error: Expression of type "IntStrArgs4" is incompatible with declared type "Standard4"
+          "*tuple[int, ...]" is not assignable to "*tuple[str, ...]" (reportAssignmentType)
+callables_subtyping.py:125:22 - error: Type "IntStrArgs4" is not assignable to declared type "Standard4"
   "IntStrArgs4" is incompatible with protocol "Standard4"
     "__call__" is an incompatible type
-      Type "(*args: int | str) -> None" is incompatible with type "(a: int, b: str) -> None"
+      Type "(*args: int | str) -> None" is not assignable to type "(a: int, b: str) -> None"
         Missing keyword parameter "a"
         Missing keyword parameter "b" (reportAssignmentType)
-callables_subtyping.py:126:22 - error: Expression of type "StrArgs4" is incompatible with declared type "Standard4"
+callables_subtyping.py:126:22 - error: Type "StrArgs4" is not assignable to declared type "Standard4"
   "StrArgs4" is incompatible with protocol "Standard4"
     "__call__" is an incompatible type
-      Type "(a: int, /, *args: str) -> None" is incompatible with type "(a: int, b: str) -> None"
+      Type "(a: int, /, *args: str) -> None" is not assignable to type "(a: int, b: str) -> None"
         Missing keyword parameter "a"
         Missing keyword parameter "b"
           Position-only parameter mismatch; parameter "a" is not position-only
           Position-only parameter mismatch; expected 1 but received 0 (reportAssignmentType)
-callables_subtyping.py:151:22 - error: Expression of type "NoKwargs5" is incompatible with declared type "IntKwargs5"
+callables_subtyping.py:151:22 - error: Type "NoKwargs5" is not assignable to declared type "IntKwargs5"
   "NoKwargs5" is incompatible with protocol "IntKwargs5"
     "__call__" is an incompatible type
-      Type "() -> None" is incompatible with type "(**kwargs: int) -> None"
+      Type "() -> None" is not assignable to type "(**kwargs: int) -> None"
         Parameter "**kwargs" has no corresponding parameter (reportAssignmentType)
-callables_subtyping.py:154:24 - error: Expression of type "NoKwargs5" is incompatible with declared type "FloatKwargs5"
+callables_subtyping.py:154:24 - error: Type "NoKwargs5" is not assignable to declared type "FloatKwargs5"
   "NoKwargs5" is incompatible with protocol "FloatKwargs5"
     "__call__" is an incompatible type
-      Type "() -> None" is incompatible with type "(**kwargs: float) -> None"
+      Type "() -> None" is not assignable to type "(**kwargs: float) -> None"
         Parameter "**kwargs" has no corresponding parameter (reportAssignmentType)
-callables_subtyping.py:155:24 - error: Expression of type "IntKwargs5" is incompatible with declared type "FloatKwargs5"
+callables_subtyping.py:155:24 - error: Type "IntKwargs5" is not assignable to declared type "FloatKwargs5"
   "IntKwargs5" is incompatible with protocol "FloatKwargs5"
     "__call__" is an incompatible type
-      Type "(**kwargs: int) -> None" is incompatible with type "(**kwargs: float) -> None"
+      Type "(**kwargs: int) -> None" is not assignable to type "(**kwargs: float) -> None"
         Parameter 1: type "float" is incompatible with type "int"
-          "float" is incompatible with "int" (reportAssignmentType)
-callables_subtyping.py:187:19 - error: Expression of type "IntKwargs6" is incompatible with declared type "KwOnly6"
+          "float" is not assignable to "int" (reportAssignmentType)
+callables_subtyping.py:187:19 - error: Type "IntKwargs6" is not assignable to declared type "KwOnly6"
   "IntKwargs6" is incompatible with protocol "KwOnly6"
     "__call__" is an incompatible type
-      Type "(**kwargs: int) -> None" is incompatible with type "(*, a: int, b: str) -> None"
+      Type "(**kwargs: int) -> None" is not assignable to type "(*, a: int, b: str) -> None"
         Parameter 3: type "str" is incompatible with type "int"
-          "str" is incompatible with "int" (reportAssignmentType)
-callables_subtyping.py:190:25 - error: Expression of type "StrKwargs6" is incompatible with declared type "IntStrKwargs6"
+          "str" is not assignable to "int" (reportAssignmentType)
+callables_subtyping.py:190:25 - error: Type "StrKwargs6" is not assignable to declared type "IntStrKwargs6"
   "StrKwargs6" is incompatible with protocol "IntStrKwargs6"
     "__call__" is an incompatible type
-      Type "(*, a: int, **kwargs: str) -> None" is incompatible with type "(**kwargs: int | str) -> None"
+      Type "(*, a: int, **kwargs: str) -> None" is not assignable to type "(**kwargs: int | str) -> None"
         Parameter 1: type "int | str" is incompatible with type "int"
-          Type "int | str" is incompatible with type "int"
+          Type "int | str" is not assignable to type "int"
         Parameter 1: type "int | str" is incompatible with type "str"
-          Type "int | str" is incompatible with type "str" (reportAssignmentType)
-callables_subtyping.py:191:25 - error: Expression of type "IntKwargs6" is incompatible with declared type "IntStrKwargs6"
+          Type "int | str" is not assignable to type "str" (reportAssignmentType)
+callables_subtyping.py:191:25 - error: Type "IntKwargs6" is not assignable to declared type "IntStrKwargs6"
   "IntKwargs6" is incompatible with protocol "IntStrKwargs6"
     "__call__" is an incompatible type
-      Type "(**kwargs: int) -> None" is incompatible with type "(**kwargs: int | str) -> None"
+      Type "(**kwargs: int) -> None" is not assignable to type "(**kwargs: int | str) -> None"
         Parameter 1: type "int | str" is incompatible with type "int"
-          Type "int | str" is incompatible with type "int" (reportAssignmentType)
-callables_subtyping.py:193:22 - error: Expression of type "IntKwargs6" is incompatible with declared type "StrKwargs6"
+          Type "int | str" is not assignable to type "int" (reportAssignmentType)
+callables_subtyping.py:193:22 - error: Type "IntKwargs6" is not assignable to declared type "StrKwargs6"
   "IntKwargs6" is incompatible with protocol "StrKwargs6"
     "__call__" is an incompatible type
-      Type "(**kwargs: int) -> None" is incompatible with type "(*, a: int, **kwargs: str) -> None"
+      Type "(**kwargs: int) -> None" is not assignable to type "(*, a: int, **kwargs: str) -> None"
         Parameter 3: type "str" is incompatible with type "int"
-          "str" is incompatible with "int" (reportAssignmentType)
-callables_subtyping.py:195:22 - error: Expression of type "StrKwargs6" is incompatible with declared type "IntKwargs6"
+          "str" is not assignable to "int" (reportAssignmentType)
+callables_subtyping.py:195:22 - error: Type "StrKwargs6" is not assignable to declared type "IntKwargs6"
   "StrKwargs6" is incompatible with protocol "IntKwargs6"
     "__call__" is an incompatible type
-      Type "(*, a: int, **kwargs: str) -> None" is incompatible with type "(**kwargs: int) -> None"
+      Type "(*, a: int, **kwargs: str) -> None" is not assignable to type "(**kwargs: int) -> None"
         Parameter 1: type "int" is incompatible with type "str"
-          "int" is incompatible with "str" (reportAssignmentType)
-callables_subtyping.py:196:22 - error: Expression of type "IntStrKwargs6" is incompatible with declared type "Standard6"
+          "int" is not assignable to "str" (reportAssignmentType)
+callables_subtyping.py:196:22 - error: Type "IntStrKwargs6" is not assignable to declared type "Standard6"
   "IntStrKwargs6" is incompatible with protocol "Standard6"
     "__call__" is an incompatible type
-      Type "(**kwargs: int | str) -> None" is incompatible with type "(a: int, b: str) -> None"
+      Type "(**kwargs: int | str) -> None" is not assignable to type "(a: int, b: str) -> None"
         Function accepts too many positional parameters; expected 0 but received 2 (reportAssignmentType)
-callables_subtyping.py:197:22 - error: Expression of type "StrKwargs6" is incompatible with declared type "Standard6"
+callables_subtyping.py:197:22 - error: Type "StrKwargs6" is not assignable to declared type "Standard6"
   "StrKwargs6" is incompatible with protocol "Standard6"
     "__call__" is an incompatible type
-      Type "(*, a: int, **kwargs: str) -> None" is incompatible with type "(a: int, b: str) -> None"
+      Type "(*, a: int, **kwargs: str) -> None" is not assignable to type "(a: int, b: str) -> None"
         Function accepts too many positional parameters; expected 0 but received 2
           Extra parameter "a" (reportAssignmentType)
-callables_subtyping.py:236:23 - error: Expression of type "NoDefaultArg8" is incompatible with declared type "DefaultArg8"
+callables_subtyping.py:236:23 - error: Type "NoDefaultArg8" is not assignable to declared type "DefaultArg8"
   "NoDefaultArg8" is incompatible with protocol "DefaultArg8"
     "__call__" is an incompatible type
-      Type "(x: int) -> None" is incompatible with type "(x: int = 0) -> None"
+      Type "(x: int) -> None" is not assignable to type "(x: int = 0) -> None"
         Parameter "x" is missing default argument (reportAssignmentType)
-callables_subtyping.py:237:23 - error: Expression of type "NoX8" is incompatible with declared type "DefaultArg8"
+callables_subtyping.py:237:23 - error: Type "NoX8" is not assignable to declared type "DefaultArg8"
   "NoX8" is incompatible with protocol "DefaultArg8"
     "__call__" is an incompatible type
-      Type "() -> None" is incompatible with type "(x: int = 0) -> None"
+      Type "() -> None" is not assignable to type "(x: int = 0) -> None"
         Function accepts too many positional parameters; expected 0 but received 1 (reportAssignmentType)
-callables_subtyping.py:240:25 - error: Expression of type "NoX8" is incompatible with declared type "NoDefaultArg8"
+callables_subtyping.py:240:25 - error: Type "NoX8" is not assignable to declared type "NoDefaultArg8"
   "NoX8" is incompatible with protocol "NoDefaultArg8"
     "__call__" is an incompatible type
-      Type "() -> None" is incompatible with type "(x: int) -> None"
+      Type "() -> None" is not assignable to type "(x: int) -> None"
         Function accepts too many positional parameters; expected 0 but received 1 (reportAssignmentType)
-callables_subtyping.py:243:16 - error: Expression of type "NoDefaultArg8" is incompatible with declared type "NoX8"
+callables_subtyping.py:243:16 - error: Type "NoDefaultArg8" is not assignable to declared type "NoX8"
   "NoDefaultArg8" is incompatible with protocol "NoX8"
     "__call__" is an incompatible type
-      Type "(x: int) -> None" is incompatible with type "() -> None"
+      Type "(x: int) -> None" is not assignable to type "() -> None"
         Extra parameter "x" (reportAssignmentType)
-callables_subtyping.py:273:21 - error: Expression of type "Overloaded9" is incompatible with declared type "FloatArg9"
+callables_subtyping.py:273:21 - error: Type "Overloaded9" is not assignable to declared type "FloatArg9"
   "Overloaded9" is incompatible with protocol "FloatArg9"
     "__call__" is an incompatible type
       No overloaded function matches type "(x: float) -> float" (reportAssignmentType)
-callables_subtyping.py:297:24 - error: Expression of type "StrArg10" is incompatible with declared type "Overloaded10"
+callables_subtyping.py:297:24 - error: Type "StrArg10" is not assignable to declared type "Overloaded10"
   "StrArg10" is incompatible with protocol "Overloaded10"
     "__call__" is an incompatible type
       One or more overloads of "__call__" is not assignable
-        Type "(x: str) -> complex" is incompatible with type "(x: int, y: str) -> float"
+        Type "(x: str) -> complex" is not assignable to type "(x: int, y: str) -> float"
           Function accepts too many positional parameters; expected 1 but received 2 (reportAssignmentType)
 """
 conformance_automated = "Pass"

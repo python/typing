@@ -18,9 +18,9 @@ generics_paramspec_components.py:70:12 - error: Expected 1 positional argument (
 generics_paramspec_components.py:72:12 - error: Expected 1 positional argument (reportCallIssue)
 generics_paramspec_components.py:83:19 - error: Expected 1 positional argument (reportCallIssue)
 generics_paramspec_components.py:98:20 - error: Argument of type "Literal['A']" cannot be assigned to parameter "a" of type "int"
-  "Literal['A']" is incompatible with "int" (reportArgumentType)
+  "Literal['A']" is not assignable to "int" (reportArgumentType)
 generics_paramspec_components.py:98:25 - error: Argument of type "Literal[1]" cannot be assigned to parameter "b" of type "str"
-  "Literal[1]" is incompatible with "str" (reportArgumentType)
+  "Literal[1]" is not assignable to "str" (reportArgumentType)
 """
 conformance_automated = "Pass"
 errors_diff = """

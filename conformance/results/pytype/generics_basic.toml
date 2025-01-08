@@ -1,30 +1,108 @@
 conformant = "Partial"
 notes = """
 False positives in examples using constrained type variables.
+Argument 'covariant' to TypeVar not supported.
+False negative for type variables missing from Generic/Protocol base class.
 False negative for generic metaclass.
 """
 output = """
-File "generics_basic.py", line 34, in concat: bad return type [bad-return-type]
+generics_basic.py:34:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in concat: bad return type [bad-return-type]
+
+    return x + y
+    \u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 Called from (traceback):
   line 67, in test_concat_subtype
-File "generics_basic.py", line 40, in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]
-File "generics_basic.py", line 41, in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]
-File "generics_basic.py", line 49, in <module>: Invalid TypeVar: the number of constraints must be 0 or more than 1 [invalid-typevar]
-File "generics_basic.py", line 55, in Test: Invalid TypeVar: constraint cannot contain TypeVars [invalid-typevar]
-File "generics_basic.py", line 67, in test_concat_subtype: MyStr [assert-type]
-File "generics_basic.py", line 68, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]
-File "generics_basic.py", line 68, in test_concat_subtype: Any [assert-type]
-File "generics_basic.py", line 69, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]
-File "generics_basic.py", line 121, in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
-File "generics_basic.py", line 157, in test_my_map: unsupported operand type(s) for item retrieval: MyMap1[str, int] and int [unsupported-operands]
-File "generics_basic.py", line 158, in test_my_map: unsupported operand type(s) for item retrieval: MyMap2[int, str] and int [unsupported-operands]
-File "generics_basic.py", line 182, in test_my_iterable_any: Iterator[nothing] [assert-type]
+generics_basic.py:40:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]
+
+    concat(s, b)  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:41:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in test_concat: Function concat was called with the wrong arguments [wrong-arg-types]
+
+    concat(b, s)  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:49:18: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid TypeVar: the number of constraints must be 0 or more than 1 [invalid-typevar]
+
+BadConstraint1 = TypeVar("BadConstraint1", str)  # E
+                 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:55:22: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Test: Invalid TypeVar: constraint cannot contain TypeVars [invalid-typevar]
+
+    BadConstraint2 = TypeVar("BadConstraint2", str, list[T])  # E
+                     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:67:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in test_concat_subtype: MyStr [assert-type]
+
+    assert_type(concat(m, m), str)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:68:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]
+
+    assert_type(concat(m, s), str)
+                \u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:68:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in test_concat_subtype: Any [assert-type]
+
+    assert_type(concat(m, s), str)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:69:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]
+
+    concat(m, b)  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:121:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+
+class Pair2(Generic[T, T]):  # E
+            \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:157:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in test_my_map: unsupported operand type(s) for item retrieval: MyMap1[str, int] and int [unsupported-operands]
+
+    m1[0]  # E
+    \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:158:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in test_my_map: unsupported operand type(s) for item retrieval: MyMap2[int, str] and int [unsupported-operands]
+
+    m2[0]  # E
+    \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:162:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]
+
+class Bad1(Generic[int]): ...  # E
+           \u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:163:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Protocol'  [invalid-annotation]
+
+class Bad2(Protocol[int]): ...  # E
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:168:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+
+T_co = TypeVar("T_co", covariant=True)
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:169:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+
+S_co = TypeVar("S_co", covariant=True)
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_basic.py:199:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in test_my_iterable_any: Iterator[nothing] [assert-type]
+
+    assert_type(iter(m), Iterator[Any])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 191: Expected 1 errors
-Line 34: Unexpected errors ['File "generics_basic.py", line 34, in concat: bad return type [bad-return-type]']
-Line 67: Unexpected errors ['File "generics_basic.py", line 67, in test_concat_subtype: MyStr [assert-type]']
-Line 68: Unexpected errors ['File "generics_basic.py", line 68, in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]', 'File "generics_basic.py", line 68, in test_concat_subtype: Any [assert-type]']
-Line 182: Unexpected errors ['File "generics_basic.py", line 182, in test_my_iterable_any: Iterator[nothing] [assert-type]']
+Line 171: Expected 1 errors
+Line 172: Expected 1 errors
+Line 208: Expected 1 errors
+Line 34: Unexpected errors ['generics_basic.py:34:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in concat: bad return type [bad-return-type]']
+Line 67: Unexpected errors ['generics_basic.py:67:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in test_concat_subtype: MyStr [assert-type]']
+Line 68: Unexpected errors ['generics_basic.py:68:17: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in test_concat_subtype: Function concat was called with the wrong arguments [wrong-arg-types]', 'generics_basic.py:68:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in test_concat_subtype: Any [assert-type]']
+Line 168: Unexpected errors ['generics_basic.py:168:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 169: Unexpected errors ['generics_basic.py:169:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 199: Unexpected errors ['generics_basic.py:199:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in test_my_iterable_any: Iterator[nothing] [assert-type]']
 """

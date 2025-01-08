@@ -26,8 +26,8 @@ constructors_callable.py:144:8 - error: Expected 0 positional arguments (reportC
 constructors_callable.py:162:5 - information: Type of "r7" is "Overload[(x: int) -> Class7[int], (x: str) -> Class7[str]]"
 constructors_callable.py:182:13 - information: Type of "r8" is "(x: list[T@Class8], y: list[T@Class8]) -> Class8[T@Class8]"
 constructors_callable.py:184:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@Class8]"
-  "Literal['']" is incompatible with "int" (reportArgumentType)
+  "Literal['']" is not assignable to "int" (reportArgumentType)
 constructors_callable.py:193:13 - information: Type of "r9" is "(x: list[T@__init__], y: list[T@__init__]) -> Class9"
 constructors_callable.py:195:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@__init__]"
-  "Literal['']" is incompatible with "int" (reportArgumentType)
+  "Literal['']" is not assignable to "int" (reportArgumentType)
 """

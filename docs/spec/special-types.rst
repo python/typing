@@ -175,7 +175,10 @@ Note that it is legal to use a union of classes as the parameter for
       user = new_user(user_class)
       ...
 
-However the actual argument passed in at runtime must still be a
+``type[]`` distributes over unions:
+``type[A | B]`` is :term:`equivalent` to ``type[A] | type[B]``.
+
+However, the actual argument passed in at runtime must still be a
 concrete class object, e.g. in the above example::
 
   new_non_team_user(ProUser)  # OK

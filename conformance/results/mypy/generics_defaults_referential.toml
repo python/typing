@@ -1,4 +1,4 @@
-conformant = "Unsupported"
+conformant = "Partial"
 output = """
 generics_defaults_referential.py:23: error: Expression is of type "type[slice[Any, Any, Any]]", not "type[slice[int, int, int | None]]"  [assert-type]
 generics_defaults_referential.py:37: error: Argument 1 to "Foo" has incompatible type "str"; expected "int"  [arg-type]

@@ -3,13 +3,47 @@ notes = """
 Does not yet support the @override decorator.
 """
 output = """
-File "classes_override.py", line 7, in <module>: typing.override not supported yet [not-supported-yet]
-File "classes_override.py", line 30, in method2: bad return type [bad-return-type]
-File "classes_override.py", line 50, in method2: bad return type [bad-return-type]
-File "classes_override.py", line 53, in ChildA: Attribute 'method3' not found on any parent class [override-error]
-File "classes_override.py", line 57, in ChildA: Attribute 'method4' not found on any parent class [override-error]
-File "classes_override.py", line 66, in method4: bad return type [bad-return-type]
-File "classes_override.py", line 101, in ChildB: Attribute 'method1' not found on any parent class [override-error]
+classes_override.py:7:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.override not supported yet [not-supported-yet]
+
+from typing import Any, Callable, overload, override
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+classes_override.py:30:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method2: bad return type [bad-return-type]
+
+        return 0
+               \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+classes_override.py:50:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method2: bad return type [bad-return-type]
+
+        return 0
+               \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+classes_override.py:53:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ChildA: Attribute 'method3' not found on any parent class [override-error]
+
+    def method3(self) -> int:  # E: no matching signature in ancestor
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        return 1
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+classes_override.py:57:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ChildA: Attribute 'method4' not found on any parent class [override-error]
+
+    def method4(self, x: int) -> int:
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+classes_override.py:66:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in method4: bad return type [bad-return-type]
+
+        return 0
+               \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+classes_override.py:101:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ChildB: Attribute 'method1' not found on any parent class [override-error]
+
+    def method1(self) -> None:  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        pass
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -17,10 +51,10 @@ Line 79: Expected 1 errors
 Line 84: Expected 1 errors
 Line 89: Expected 1 errors
 Lines 56, 65: Expected error (tag 'method4')
-Line 7: Unexpected errors ['File "classes_override.py", line 7, in <module>: typing.override not supported yet [not-supported-yet]']
-Line 30: Unexpected errors ['File "classes_override.py", line 30, in method2: bad return type [bad-return-type]']
-Line 50: Unexpected errors ['File "classes_override.py", line 50, in method2: bad return type [bad-return-type]']
-Line 57: Unexpected errors ['File "classes_override.py", line 57, in ChildA: Attribute \\'method4\\' not found on any parent class [override-error]']
-Line 66: Unexpected errors ['File "classes_override.py", line 66, in method4: bad return type [bad-return-type]']
-Line 101: Unexpected errors ['File "classes_override.py", line 101, in ChildB: Attribute \\'method1\\' not found on any parent class [override-error]']
+Line 7: Unexpected errors ['classes_override.py:7:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.override not supported yet [not-supported-yet]']
+Line 30: Unexpected errors ['classes_override.py:30:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method2: bad return type [bad-return-type]']
+Line 50: Unexpected errors ['classes_override.py:50:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method2: bad return type [bad-return-type]']
+Line 57: Unexpected errors ["classes_override.py:57:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in ChildA: Attribute 'method4' not found on any parent class [override-error]"]
+Line 66: Unexpected errors ['classes_override.py:66:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method4: bad return type [bad-return-type]']
+Line 101: Unexpected errors ["classes_override.py:101:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in ChildB: Attribute 'method1' not found on any parent class [override-error]"]
 """

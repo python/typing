@@ -1,14 +1,12 @@
-conformant = "Unsupported"
+conformant = "Pass"
 output = """
-typeddicts_readonly.py:18:13 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.
+typeddicts_readonly.py:24:16 Invalid TypedDict operation [54]: Cannot write to `Band` read-only field `members`.
+typeddicts_readonly.py:36:16 Invalid TypedDict operation [54]: Cannot write to `Band2` read-only field `members`.
+typeddicts_readonly.py:50:14 Invalid TypedDict operation [54]: Cannot write to `Movie1` read-only field `title`.
+typeddicts_readonly.py:51:13 Invalid TypedDict operation [54]: Cannot write to `Movie1` read-only field `year`.
+typeddicts_readonly.py:60:14 Invalid TypedDict operation [54]: Cannot write to `Movie2` read-only field `title`.
+typeddicts_readonly.py:61:13 Invalid TypedDict operation [54]: Cannot write to `Movie2` read-only field `year`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 24: Expected 1 errors
-Line 36: Expected 1 errors
-Line 50: Expected 1 errors
-Line 51: Expected 1 errors
-Line 60: Expected 1 errors
-Line 61: Expected 1 errors
-Line 18: Unexpected errors ['typeddicts_readonly.py:18:13 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.']
 """

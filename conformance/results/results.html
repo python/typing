@@ -158,17 +158,17 @@
         </header>
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
-<th class='tc-header'><div class='tc-name'>mypy 1.11.1</div>
-<div class='tc-time'>13.2sec</div>
+<th class='tc-header'><div class='tc-name'>mypy 1.14.0</div>
+<div class='tc-time'>1.6sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.374</div>
-<div class='tc-time'>1.5sec</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.391</div>
+<div class='tc-time'>1.2sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyre 0.9.22</div>
-<div class='tc-time'>5.4sec</div>
+<th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
+<div class='tc-time'>7.3sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pytype 2024.04.11</div>
-<div class='tc-time'>35.2sec</div>
+<th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
+<div class='tc-time'>37.2sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -210,7 +210,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;specialtypes_any</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support Any as a base class.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;specialtypes_never</th>
@@ -241,43 +241,43 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a>
 </th></tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_base_class</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect inconsistent type variable ordering.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject illegal use of Generic.</p><p>Does not allow using generic in assert_type expression.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on passing SymbolTable to dict[str, list[object]].</p><p>Does not reject illegal use of Generic.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject illegal use of Generic.</p><p>Does not allow using generic in assert_type expression.</p><p>Does not detect inconsistent type variable ordering.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on passing SymbolTable to dict[str, list[object]].</p><p>Does not reject illegal use of Generic.</p><p>Wrong type variable order when inheriting from multiple generic base classes.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_basic</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject the use of a constraint parameterized by another type variable.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for constraint parameterized by a type variable.</p><p>False negative in custom map example.</p><p>False positive using `iter`.</p><p>False negative for generic metaclass.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for generic metaclass.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for constraint parameterized by a type variable.</p><p>False negative in custom map example.</p><p>False positive using `iter`.</p><p>False negative for bad type arguments to Generic/Protocol.</p><p>False negative for generic metaclass.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>Argument 'covariant' to TypeVar not supported.</p><p>False negative for type variables missing from Generic/Protocol base class.</p><p>False negative for generic metaclass.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant">Partial</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support generic defaults.</p></span></div></th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults_referential</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant">Partial</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults_specialization</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant">Partial</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support generic defaults.</p></span></div></th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_paramspec_basic</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject ParamSpec when used "bare" in type alias definition.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce name consistency for ParamSpec assigned to identifier.</p><p>Incorrectly reports error for legitimate use of ParamSpec in generic type alias.</p><p>Does not reject ParamSpec when used in various invalid locations.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support ParamSpec.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_paramspec_components</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report illegal use of "P.args" on normal parameter.</p><p>Does not report error when P.args is specified but P.kwargs is missing.</p><p>Does not report error when P is out of scope and P.args and P.kwargs is used.</p><p>Does not report error when keyword argument is specified between P.args and P.kwargs.</p><p>Does not report error when calling callable and argument is missing for concatenated parameters.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report illegal use of "P.args" on normal parameter.</p><p>Does not report error when P.args is specified but P.kwargs is missing.</p><p>Does not report error when P is out of scope and P.args and P.kwargs is used.</p><p>Does not report error when keyword argument is specified between P.args and P.kwargs.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report illegal use of "P.args" on normal parameter.</p><p>Does not report error when P.args is specified but P.kwargs is missing.</p><p>Does not report error when P is out of scope and P.args and P.kwargs is used.</p><p>Does not report error when calling callback defined with ParamSpec with incorrect arguments.</p><p>Does not report error when keyword argument is specified between P.args and P.kwargs.</p><p>Does not report error when calling callable and argument is missing for concatenated parameters.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support ParamSpec.</p></span></div></th>
@@ -297,13 +297,13 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_scoping</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on generic class nested within generic class with same type variable.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on generic class nested within generic function with same type variable.</p><p>False negative on generic class nested within generic class with same type variable.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on generic class nested within generic function with same type variable.</p><p>False negative on generic class nested within generic class with same type variable.</p><p>False negative on assert_type uses.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Fails to reject type alias within generic class that uses class's type variable.</p><p>Fails to reject unbound type variable in constructor call in global scope.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_self_advanced</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not infer the type of an unannotated `self` parameter to be type `Self`.</p><p>Does not retain `Self` when calling method that returns `Self`.</p><p>Does not infer the type of an unannotated `cls` parameter to be type `type[Self]`.</p><p>Does not retain `Self` when accessing attribute through `type[Self]`.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not handle use of `Self` within class body correctly.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not handle use of `Self` within class body correctly.</p><p>False negatives on assert_type uses.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand `Self` type.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_self_attributes</th>
@@ -333,55 +333,55 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_syntax_compatibility</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on mixing legacy and PEP695 syntax.</p><p>Does not detect mixing legacy and PEP695 syntax in methods.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_syntax_declarations</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect many illegal usages of type parameter syntax.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect incorrect use of legacy style syntax mixed with PEP695 syntax.</p><p>False negatives due to assert_type use.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_syntax_infer_variance</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly determines that a class cannot be instantiated with __getitem__.</p><p>Incorrectly handles mixing legacy and PEP695 syntax.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_syntax_scoping</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not following runtime scoping rules for type parameters in all cases.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not properly handle mixing legacy syntax with PEP695 syntax.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_type_erasure</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Infers Node[Never] instead of Node[Any] when argument is not provided.</p><p>False negative on instance attribute access on type(node).</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not erase unspecified type variables to `Any` prior to `assert_type` handling.</p><p>False negatives on instance attribute access on the type.</p><p>Does not infer type of `DefaultDict` with explicit type parameters on constructor.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not erase unspecified type variables to `Any` prior to `assert_type` handling.</p><p>False negatives on instance attribute access on the type.</p><p>Does not infer type of `DefaultDict` with explicit type parameters on constructor.</p><p>False negatives on assert_type uses.</p></span></div></th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_typevartuple_args</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce that tuples captured by TypeVarTuple are same type.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support star expressions for `Unpack`.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not property handle TypeVarTuple.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support TypeVarTuple.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_typevartuple_basic</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce that tuples captured by TypeVarTuple are same length.</p><p>Does not enforce that tuples captured by TypeVarTuple are same type.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support TypeVarTuple.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support TypeVarTuple.</p><p>False negatives due to assert_type.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support TypeVarTuple.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_typevartuple_callable</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support TypeVarTuple.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negatives due to assert_type.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support TypeVarTuple.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_typevartuple_concat</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support TypeVarTuple.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negatives due to assert_type.</p><p>False compatability error message.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support TypeVarTuple.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_typevartuple_overloads</th>
@@ -399,7 +399,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_typevartuple_unpack</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support star expressions for `Unpack`.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support TypeVarTuple.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_upper_bound</th>
@@ -415,9 +415,9 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support covariant or contravariant TypeVars.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_variance_inference</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Computes incorrect variance in some cases.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not properly handle mixing legacy and PEP695 syntax.</p><p>False negative about a type variable not being present in the function's parameters.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -453,7 +453,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;classes_override</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not handle case where parent class derives from Any.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not allow Any as a base class, leading to false positives.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not yet support the @override decorator.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -484,9 +484,9 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect type violation for some deeply-nested types.</p><p>Does not properly handle `|` for unions in some recursive type alias definitions.</p><p>Does not detect cyclical references in recursive type alias definition.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_type_statement</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of TypeAliasType as base class.</p><p>Does not reject redefinition of type alias defined with type statement.</p><p>Does not reject type alias defined in function scope.</p><p>Does not reject type alias with circular definition.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject type alias defined in function scope.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support `type` statement.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not complain when a type alias cannot be used as a base class.</p><p>Does not complain when a type alias cannot be used as a function.</p><p>Does not complain when a type statement definition combines new and old TypeVars.</p><p>Does not complain when a type statement definition uses old TypeVars.</p><p>Does not properly support recursive aliases.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support `type` statement.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_typealiastype</th>
@@ -550,7 +550,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Reports errors for protocol static method with "..." implementation.</p><p>Does not report error when calling unimplemented protocol method from derived class.</p><p>Does not report type incompatibility when assigning to attribute defined in protocol.</p><p>Does not reject instantiation of class that derives from protocol but doesn't implement attribute.</p><p>Does not report instantiation of class that derives from protocol but doesn't implement method.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protocols_generic</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Fails protocol matching when method-scoped TypeVar is used in protocol.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject the use of Protocol and Generic together as base classes.</p><p>Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly enforce contravariance in protocol type compatibility tests.</p><p>Does not correctly enforce invariance in protocol type compatibility tests.</p><p>Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.</p></span></div></th>
@@ -558,7 +558,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protocols_merging</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject a protocol class that derives from a non-protocol class.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject a protocol class that derives from a non-protocol class.</p><p>Does not report attempt to instantiate abstract class downgraded from protocol class.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protocols_modules</th>
@@ -609,7 +609,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callables_kwargs</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand Unpack in the context of **kwargs annotation.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand Unpack in the context of **kwargs annotation.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callables_protocol</th>
@@ -630,7 +630,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_call_init</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report errors during binding to self parameter of __init__ method.</p><p>Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not infer type of Self for self parameter of __init__ method.</p><p>Does not report errors during binding to self parameter of __init__ method.</p><p>Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not infer type of Self for self parameter of __init__ method.</p><p>Does not report errors during binding to self parameter of __init__ method.</p><p>Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.</p><p>Incorrectly raises Incompatible overload type errors.</p><p>Incorrectly raises compatibility type errors.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report errors during binding to self parameter of __init__ method.</p><p>Does not infer type of Self for self parameter of __init__ method.</p><p>Rejects valid type annotation for self parameter in __init__ method.</p><p>Does not support function-scoped TypeVars in self annotation in __init__ method.</p><p>Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_call_metaclass</th>
@@ -642,7 +642,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_call_new</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support __new__ return type that is not a subclass of the class being constructed.</p><p>Does not skip evaluation of __init__ based on __new__ return type.</p><p>Does not report errors during binding to cls parameter of __new__ method.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support __new__ return type that is not a subclass of the class being constructed.</p><p>Does not report errors during binding to cls parameter of __new__ method.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support __new__ return type that is not a subclass of the class being constructed.</p><p>Does not report errors during binding to cls parameter of __new__ method.</p><p>Incorrectly raises compatibility type errors.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not honor explicit specialization of generic class when used in constructor call.</p><p>Does not support __new__ return type that is not a subclass of the class being constructed.</p><p>Does not skip evaluation of __init__ based on __new__ return type.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_call_type</th>
@@ -654,7 +654,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_callable</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not generate a union type for __new__ and __init__ when converting class to callable.</p><p>Does not ignore __init__ based on __new__ return type when converting class to callable.</p><p>Does not support __new__ return type that is different from class being constructed.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not generate a union type for __new__ and __init__ when converting class to callable.</p><p>Does not ignore __init__ based on __new__ return type when converting class to callable.</p><p>Does not support __new__ return type that is different from class being constructed.</p><p>Does not use annotated type of self in __init__ method to generate return type of callable.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not generate a union type for __new__ and __init__ when converting class to callable.</p><p>Does not ignore __init__ based on __new__ return type when converting class to callable.</p><p>Does not support __new__ return type that is different from class being constructed.</p><p>Does not use annotated type of self in __init__ method to generate return type of callable.</p><p>Incorrectly raises incompatibility type errors.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not generate a union type for __new__ and __init__ when converting class to callable.</p><p>Does not ignore __init__ based on __new__ return type when converting class to callable.</p><p>Does not support __new__ return type that is different from class being constructed.</p><p>Does not use annotated type of self in __init__ method to generate return type of callable.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_consistency</th>
@@ -669,7 +669,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_basic</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject a function with a single @overload signature.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject a function with a single @overload signature.</p><p>Does not reject a function with @overload signature but no implementation.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -678,7 +678,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exceptions_context_managers</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand context manager exception rules.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>assert_type causes failures.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support code flow analysis.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -687,7 +687,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_descriptors</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly evaluate type of descriptor access.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly generates error when calling constructor of dataclass with descriptor.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly generates error when calling constructor of dataclass with descriptor.</p><p>Incorrectly raises incompatibility type errors.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand descriptor objects in dataclass.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_final</th>
@@ -771,7 +771,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_usage</th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not detect unannotated usage of `dataclasses.field()`.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report error when field with no default follows field with default.</p><p>Complains on `assert_type` when used for bound methods vs `Callable`.</p><p>Does not understand `__dataclass_fields__`.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report error when field with no default follows field with default.</p><p>Complains on `assert_type` when used for bound methods vs `Callable`.</p><p>Does not understand `__dataclass_fields__`.</p><p>Incorrectly raises incompatibility type errors.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -798,47 +798,47 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_inheritance</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject TypedDict class that inherits from non-TypedDict class.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_operations</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject `del` of required key.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report type violation with TypedDict value assignment.</p><p>Does not report reference to unknown key in TypedDict.</p><p>Does not reject `clear` method on TypedDict with required keys.</p><p>Does not reject delete operation for required key in TypedDict.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly</th>
-<th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly_consistency</th>
-<th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly_inheritance</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects non-ReadOnly override of ReadOnly item.</p><p>Incorrectly rejects override of ReadOnly item with another ReadOnly item with narrower type.</p><p>Incorrectly rejects override of NotRequired ReadOnly item with a Required ReadOnly item.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly_kwargs</th>
-<th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly_update</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly allows update of ReadOnly item.</p><p>Incorrectly rejects update involving an item with Never type.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_required</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support nesting of `Annotated` and `Required` or `NotRequired`.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of `Required` in function parameter annotation.</p><p>Does not reject nested use of `Required` in type annotation.</p><p>Does not support recursive TypedDict definitions.</p><p>Incorrectly complains about uninitialized attributes on TypedDict definitions.</p><p>Incorrectly generates "attribute not initialized" errors for TypedDict fields.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of `Required` in non-TypedDict class.</p><p>Does not reject use of `Required` in function parameter annotation.</p><p>Does not reject nested use of `Required` in type annotation.</p></span></div></th>
@@ -852,14 +852,14 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_usage</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report errant use of TypedDict in `isinstance` call.</p><p>Does not reject use of TypedDict as TypeVar bound.</p></span></div></th>
+<th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not report errant use of TypedDict in `isinstance` call.</p><p>Does not reject use of TypedDict as TypeVar bound.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report errant use of TypedDict in `isinstance` call.</p><p>Does not reject use of TypedDict as TypeVar bound.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/tuples.html">Tuples</a>
 </th></tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tuples_type_compat</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support tuple narrowing based on `len()` type guard (optional).</p><p>Incorrectly narrows tuple based on sequence patterns.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support tuple narrowing based on `len()` type guard (optional).</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support some unpacked tuple forms.</p><p>Does not report type violation when assigning `tuple[int, ...]` to `tuple[int]`.</p><p>Does not support tuple narrowing based on `len()` type guard (optional).</p><p>Does not correctly evaluate `Sequence[Never]` for `tuple[()]`.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support unpacked tuple forms.</p><p>Does not report type violation when assigning `tuple[int, ...]` to `tuple[int]`.</p><p>Does not support tuple narrowing based on `len()` type guard (optional).</p></span></div></th>
@@ -873,7 +873,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tuples_unpacked</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>"More than one unpack" error is missing a line number.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not understand star syntax for `Unpack`.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support `typing.Unpack`.</p><p>Does not support unpacked tuples within a tuple type form.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -888,19 +888,19 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namedtuples_define_functional</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not handle illegal named tuple names the same as runtime.</p><p>Does not handle defined fields correctly when extra flags like `rename` or `default` are used.</p><p>Does not support defaults in functional form.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not handle illegal named tuple names the same as runtime.</p><p>Does not support defaults in functional form.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namedtuples_type_compat</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Rejects valid type compatibility between named tuple and tuple.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namedtuples_usage</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject attempt to delete named tuple field by name.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report out-of-range index access with named tuple instance.</p><p>Does not reject attempt to delete named tuple field by name.</p><p>Does not reject attempt to delete named tuple field by index.</p><p>Incorrectly handles subclasses of named tuples that add more attributes.</p><p>Does not handle unpacking of named tuples.</p></span></div></th>
+<th class="column col2 partially-conformant">Partial</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects valid index of named tuple instance when using a negative index.</p><p>Does not report out-of-range index access with named tuple instance.</p><p>Does not reject attempt to overwrite named tuple entry by name.</p><p>Does not reject attempt to delete named tuple entry by name.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -909,19 +909,19 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_behaviors</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce that Enum classes are implicitly final.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce that Enum classes are implicitly final.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_definition</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support custom Enum classes based on EnumType metaclass.</p><p>Does not support some functional forms for Enum class definitions (optional).</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not support some functional forms for Enum class definitions (optional).</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_expansion</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Improperly applies narrowing to Flag subclass.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not perform type narrowing based on enum literal expansion (optional).</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Improperly applies narrowing to Flag subclass.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_member_names</th>
@@ -933,11 +933,11 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_member_values</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce declared type of `_value_`.</p><p>Does not enforce assigned tuple types for enum members (optional).</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce declared type of `_value_`.</p><p>Does not enforce assigned tuple types for enum members (optional).</p><p>Does not evaluate literal types for enum member values (optional).</p><p>Does not evaluate literal types for auto values (optional).</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce declared type of `_value_`.</p><p>Does not correctly enforce assigned tuple types for enum members (optional).</p><p>Does not evaluate literal types for enum member values (optional).</p><p>Does not evaluate literal types for auto values (optional).</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_members</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not treat attribute with annotation and no assignment as non-member.</p><p>Does not reject use of annotation with enum member.</p><p>Does not treat callables as non-members.</p><p>Does not honor `enum.member` as method decorator.</p><p>Does not properly handle aliased enum members.</p><p>Does not support `_ignore_` mechanism (optional).</p><p>Does not treat attributes with private names as non-members.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not treat attribute with annotation and no assignment as non-member.</p><p>Does not treat callables as non-members.</p><p>Does not honor `enum.member` as method decorator.</p><p>Does not properly handle aliased enum members.</p><p>Does not support `_ignore_` mechanism (optional).</p><p>Does not treat attributes with private names as non-members.</p></span></div></th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not support `_ignore_` mechanism (optional).</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of annotation with enum member.</p><p>Does not treat callables as non-members.</p><p>Does not treat annotated attributes as non-members.</p><p>Does not honor `enum.nonmember` to define non-member attribute.</p><p>Does not honor `enum.member` as method decorator.</p><p>Does not properly handle aliased enum members.</p><p>Rejects use of `_ignore_`.</p><p>Does not support `_ignore_` mechanism (optional).</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of annotation with enum member.</p><p>Does not support `enum.member` and `enum.nonmember`.</p><p>Does not support `_ignore_` mechanism (optional).</p></span></div></th>
@@ -948,13 +948,13 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;narrowing_typeguard</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject TypeGuard method with too few parameters.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject TypeGuard method with too few parameters.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;narrowing_typeis</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not narrow correctly on generic tuple type.</p><p>Does not reject covariant use of TypeIs.</p><p>Does not reject TypeIs where return type is not consistent with input type due to variance.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -963,7 +963,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_assert_type</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not weaken literal types in `assert_type`, which some (other) tests rely on.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly allows assert(x, int) where x is a Literal.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_cast</th>
@@ -973,7 +973,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject a call to "cast" with additional arguments.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_deprecated</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support @deprecated.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support @deprecated.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support @deprecated.</p></span></div></th>
@@ -987,7 +987,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_reveal_type</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Produces errors rather than warnings on `reveal_type`.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject call to reveal_type with zero arguments.</p><p>Does not reject call to reveal_type with too many arguments.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_type_checking</th>
@@ -1005,7 +1005,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_type_ignore_file1</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support file-level `#type: ignore` comment.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_type_ignore_file2</th>
@@ -1017,7 +1017,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_version_platform</th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not understand three-element form of sys.version checks.</p><p>Does not understand os.name checks.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support sys.platform checks.</p><p>Does not support os.name checks.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not understand three-element form of sys.version checks.</p><p>Does not understand os.name checks.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -1026,7 +1026,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;historical_positional</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject positional-only parameter after non-positional-only parameter.</p><p>Treats keyword-only parameter as positional-only.</p><p>Applies legacy positional-only rules when PEP 570 syntax is used.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject positional-only parameter after non-positional-only parameter.</p><p>Incorrectly applies legacy positional-only rules when explicit *args are used.</p><p>Incorrectly applies legacy positional-only rules when PEP 570 syntax is used.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not apply rules for pre-3.8 positional-only parameters in some cases.</p><p>Does not reject positional-only parameter after non-positional-only parameter.</p></span></div></th>
 </tr>
 </tbody></table></div>

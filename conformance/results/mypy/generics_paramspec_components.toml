@@ -4,7 +4,6 @@ Does not report illegal use of "P.args" on normal parameter.
 Does not report error when P.args is specified but P.kwargs is missing.
 Does not report error when P is out of scope and P.args and P.kwargs is used.
 Does not report error when keyword argument is specified between P.args and P.kwargs.
-Does not report error when calling callable and argument is missing for concatenated parameters.
 """
 output = """
 generics_paramspec_components.py:17: error: Use "P.args" for variadic "*" parameter  [valid-type]
@@ -15,6 +14,7 @@ generics_paramspec_components.py:49: error: Argument 2 has incompatible type "**
 generics_paramspec_components.py:51: error: Argument 1 has incompatible type "int"; expected "P.args"  [arg-type]
 generics_paramspec_components.py:70: error: Argument 1 has incompatible type "*P.args"; expected "int"  [arg-type]
 generics_paramspec_components.py:70: error: Argument 2 has incompatible type "int"; expected "P.args"  [arg-type]
+generics_paramspec_components.py:72: error: Argument 1 has incompatible type "*P.args"; expected "int"  [arg-type]
 generics_paramspec_components.py:83: error: "foo" gets multiple values for keyword argument "x"  [misc]
 generics_paramspec_components.py:83: error: Argument 1 to "foo" has incompatible type "*P.args"; expected "int"  [arg-type]
 generics_paramspec_components.py:83: error: Argument 3 to "foo" has incompatible type "**P.kwargs"; expected "int"  [arg-type]
@@ -31,5 +31,4 @@ Line 36: Expected 1 errors
 Line 38: Expected 1 errors
 Line 41: Expected 1 errors
 Line 60: Expected 1 errors
-Line 72: Expected 1 errors
 """

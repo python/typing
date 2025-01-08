@@ -3,15 +3,16 @@ notes = """
 Does not erase unspecified type variables to `Any` prior to `assert_type` handling.
 False negatives on instance attribute access on the type.
 Does not infer type of `DefaultDict` with explicit type parameters on constructor.
+False negatives on assert_type uses.
 """
 output = """
-generics_type_erasure.py:17:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[str]` but got `Node[typing_extensions.Literal['']]`.
-generics_type_erasure.py:18:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[int]` but got `Node[typing_extensions.Literal[0]]`.
-generics_type_erasure.py:19:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[typing.Any]` but got `Node[Variable[T]]`.
-generics_type_erasure.py:21:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing_extensions.Literal[0]`.
+generics_type_erasure.py:17:0 Assert type [70]: Expected `Node[str]` but got `Node[typing_extensions.Literal['']]`.
+generics_type_erasure.py:18:0 Assert type [70]: Expected `Node[int]` but got `Node[typing_extensions.Literal[0]]`.
+generics_type_erasure.py:19:0 Assert type [70]: Expected `Node[typing.Any]` but got `Node[Variable[T]]`.
+generics_type_erasure.py:21:0 Assert type [70]: Expected `int` but got `typing_extensions.Literal[0]`.
 generics_type_erasure.py:38:15 Incompatible parameter type [6]: In call `Node.__init__`, for 1st positional argument, expected `Optional[int]` but got `str`.
 generics_type_erasure.py:40:15 Incompatible parameter type [6]: In call `Node.__init__`, for 1st positional argument, expected `Optional[str]` but got `int`.
-generics_type_erasure.py:56:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `bytes` but got `typing.Any`.
+generics_type_erasure.py:56:0 Assert type [70]: Expected `bytes` but got `typing.Any`.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -20,9 +21,9 @@ Line 43: Expected 1 errors
 Line 44: Expected 1 errors
 Line 45: Expected 1 errors
 Line 46: Expected 1 errors
-Line 17: Unexpected errors ["generics_type_erasure.py:17:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[str]` but got `Node[typing_extensions.Literal['']]`."]
-Line 18: Unexpected errors ['generics_type_erasure.py:18:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[int]` but got `Node[typing_extensions.Literal[0]]`.']
-Line 19: Unexpected errors ['generics_type_erasure.py:19:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Node[typing.Any]` but got `Node[Variable[T]]`.']
-Line 21: Unexpected errors ['generics_type_erasure.py:21:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing_extensions.Literal[0]`.']
-Line 56: Unexpected errors ['generics_type_erasure.py:56:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `bytes` but got `typing.Any`.']
+Line 17: Unexpected errors ["generics_type_erasure.py:17:0 Assert type [70]: Expected `Node[str]` but got `Node[typing_extensions.Literal['']]`."]
+Line 18: Unexpected errors ['generics_type_erasure.py:18:0 Assert type [70]: Expected `Node[int]` but got `Node[typing_extensions.Literal[0]]`.']
+Line 19: Unexpected errors ['generics_type_erasure.py:19:0 Assert type [70]: Expected `Node[typing.Any]` but got `Node[Variable[T]]`.']
+Line 21: Unexpected errors ['generics_type_erasure.py:21:0 Assert type [70]: Expected `int` but got `typing_extensions.Literal[0]`.']
+Line 56: Unexpected errors ['generics_type_erasure.py:56:0 Assert type [70]: Expected `bytes` but got `typing.Any`.']
 """

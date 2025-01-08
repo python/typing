@@ -2,7 +2,7 @@ conformant = "Pass"
 output = """
 typeddicts_required.py:12:8 - error: "Required" is not allowed in this context (reportInvalidTypeForm)
 typeddicts_required.py:15:18 - error: Cannot assign to attribute "x" for class "NotTypedDict*"
-  "int" is incompatible with "Required[int]" (reportAttributeAccessIssue)
+  "int" is not assignable to "Required" (reportAttributeAccessIssue)
 typeddicts_required.py:19:8 - error: "NotRequired" is not allowed in this context (reportInvalidTypeForm)
 typeddicts_required.py:62:8 - error: "Required" is not allowed in this context (reportInvalidTypeForm)
 typeddicts_required.py:63:8 - error: "Required" is not allowed in this context (reportInvalidTypeForm)

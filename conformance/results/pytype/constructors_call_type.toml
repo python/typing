@@ -9,18 +9,46 @@ Line 64: Expected 1 errors
 Line 72: Expected 1 errors
 Line 81: Expected 1 errors
 Line 82: Expected 1 errors
-Line 25: Unexpected errors ['File "constructors_call_type.py", line 25, in __new__: Missing parameter \\'cls\\' in call to function object.__new__ [missing-parameter]', 'File "constructors_call_type.py", line 25, in __new__: Invalid keyword arguments (x, y) to function object.__new__ [wrong-keyword-args]']
-Line 62: Unexpected errors ['File "constructors_call_type.py", line 62, in <module>: Invalid type annotation \\'T\\'  [invalid-annotation]']
+Line 25: Unexpected errors ["constructors_call_type.py:25:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __new__: Missing parameter 'cls' in call to function object.__new__ [missing-parameter]", 'constructors_call_type.py:25:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __new__: Invalid keyword arguments (x, y) to function object.__new__ [wrong-keyword-args]']
+Line 62: Unexpected errors ["constructors_call_type.py:62:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'T'  [invalid-annotation]"]
 """
 output = """
-File "constructors_call_type.py", line 25, in __new__: Missing parameter 'cls' in call to function object.__new__ [missing-parameter]
+constructors_call_type.py:25:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in __new__: Missing parameter 'cls' in call to function object.__new__ [missing-parameter]
+
+        return super().__new__(*args, **kwargs)
+               \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 Called from (traceback):
   line 30, in func1
-File "constructors_call_type.py", line 25, in __new__: Invalid keyword arguments (x, y) to function object.__new__ [wrong-keyword-args]
+constructors_call_type.py:25:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in __new__: Invalid keyword arguments (x, y) to function object.__new__ [wrong-keyword-args]
+
+        return super().__new__(*args, **kwargs)
+               \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
 Called from (traceback):
   line 29, in func1
-File "constructors_call_type.py", line 40, in func2: Missing parameter 'x' in call to function Class2.__new__ [missing-parameter]
-File "constructors_call_type.py", line 50, in func3: Missing parameter 'x' in call to function Class3.__init__ [missing-parameter]
-File "constructors_call_type.py", line 59, in func4: Function Class4.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
-File "constructors_call_type.py", line 62, in <module>: Invalid type annotation 'T'  [invalid-annotation]
+constructors_call_type.py:40:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: Missing parameter 'x' in call to function Class2.__new__ [missing-parameter]
+
+    cls()  # E
+    \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+constructors_call_type.py:50:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Missing parameter 'x' in call to function Class3.__init__ [missing-parameter]
+
+    cls()  # E
+    \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+constructors_call_type.py:59:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func4: Function Class4.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+
+    cls(1)  # E
+    \u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+
+constructors_call_type.py:62:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'T'  [invalid-annotation]
+
+def func5(cls: type[T]):
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    cls()  # OK
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    cls(1)  # E
+\u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
 """
