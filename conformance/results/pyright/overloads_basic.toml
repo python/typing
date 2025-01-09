@@ -1,11 +1,31 @@
-conformant = "Pass"
-output = """
-overloads_basic.py:37:1 - error: No overloads for "__getitem__" match the provided arguments (reportCallIssue)
-overloads_basic.py:37:1 - error: Argument of type "Literal['']" cannot be assigned to parameter "__s" of type "slice[Any, Any, Any]" in function "__getitem__"
-  "Literal['']" is not assignable to "slice[Any, Any, Any]" (reportArgumentType)
-overloads_basic.py:63:5 - error: "func1" is marked as overload, but additional overloads are missing (reportInconsistentOverload)
-overloads_basic.py:75:5 - error: "func2" is marked as overload, but no implementation is provided (reportNoOverloadImplementation)
+conformant = "Partial"
+notes = """
+Does not allow an overload with no implementation in an abstract base class.
 """
-conformance_automated = "Pass"
+output = """
+overloads_basic.py:41:1 - error: No overloads for "__getitem__" match the provided arguments (reportCallIssue)
+overloads_basic.py:41:1 - error: Argument of type "Literal['']" cannot be assigned to parameter "__s" of type "slice[Any, Any, Any]" in function "__getitem__"
+  "Literal['']" is not assignable to "slice[Any, Any, Any]" (reportArgumentType)
+overloads_basic.py:67:5 - error: "func1" is marked as overload, but additional overloads are missing (reportInconsistentOverload)
+overloads_basic.py:79:5 - error: "func2" is marked as overload, but no implementation is provided (reportNoOverloadImplementation)
+overloads_basic.py:102:9 - error: "func4" is marked as overload, but no implementation is provided (reportNoOverloadImplementation)
+overloads_basic.py:118:9 - error: Overloads for "func5" use @staticmethod inconsistently (reportInconsistentOverload)
+overloads_basic.py:126:9 - error: Overloaded implementation is not consistent with signature of overload 1
+  Type "(self: Self@C, x: int | str) -> (int | str)" is not assignable to type "(x: int) -> int"
+    Parameter name mismatch: "x" versus "self"
+    Parameter 1: type "int" is incompatible with type "Self@C"
+      Type "int" is not assignable to type "Self@C"
+    Extra parameter "x" (reportInconsistentOverload)
+overloads_basic.py:126:9 - error: Overloaded implementation is not consistent with signature of overload 2
+  Type "(self: Self@C, x: int | str) -> (int | str)" is not assignable to type "(x: str) -> str"
+    Parameter name mismatch: "x" versus "self"
+    Parameter 1: type "str" is incompatible with type "Self@C"
+      Type "str" is not assignable to type "Self@C"
+    Extra parameter "x" (reportInconsistentOverload)
+overloads_basic.py:131:9 - error: Overloads for "func6" use @classmethod inconsistently (reportInconsistentOverload)
+overloads_basic.py:139:15 - warning: Instance methods should take a "self" parameter (reportSelfClsParameterName)
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 102: Unexpected errors ['overloads_basic.py:102:9 - error: "func4" is marked as overload, but no implementation is provided (reportNoOverloadImplementation)']
 """

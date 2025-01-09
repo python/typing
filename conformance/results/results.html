@@ -158,17 +158,17 @@
         </header>
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
-<th class='tc-header'><div class='tc-name'>mypy 1.14.0</div>
-<div class='tc-time'>1.6sec</div>
+<th class='tc-header'><div class='tc-name'>mypy 1.14.1</div>
+<div class='tc-time'>1.7sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.391</div>
-<div class='tc-time'>1.2sec</div>
+<div class='tc-time'>1.5sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>7.3sec</div>
+<div class='tc-time'>5.9sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>37.2sec</div>
+<div class='tc-time'>30.3sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -667,10 +667,10 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/overload.html">Overloads</a>
 </th></tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_basic</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject a function with a single @overload signature.</p><p>Does not reject a function with @overload signature but no implementation.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not allow an overload with no implementation in an abstract base class.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not allow an overload with no implementation in an abstract base class.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not allow an overload with no implementation in a Protocol or an abstract base class.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject a function with a single @overload signature.</p><p>Does not reject a function with @overload signature but no implementation.</p><p>Does not allow an overload with no implementation in a Protocol or an abstract base class.</p><p>Does not exempt overloads from checking of return type in body, when also decorated with `@staticmethod`.</p><p>Does not error on overloads inconsistently decorated with `@staticmethod`.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/exceptions.html">Exceptions</a>

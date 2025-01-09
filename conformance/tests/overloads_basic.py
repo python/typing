@@ -1,16 +1,20 @@
 """
-Tests the basic typing.overload behavior described in PEP 484.
+Tests the behavior of typing.overload.
 """
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/overload.html#overload
 
-# Note: The behavior of @overload is severely under-specified by PEP 484 leading
-# to significant divergence in behavior across type checkers. This is something
-# we will likely want to address in a future update to the typing spec. For now,
-# this conformance test will cover only the most basic functionality described
-# in PEP 484.
-
-from typing import Any, Callable, Iterable, Iterator, TypeVar, assert_type, overload
+from abc import ABC
+from typing import (
+    Any,
+    Callable,
+    Iterable,
+    Iterator,
+    Protocol,
+    TypeVar,
+    assert_type,
+    overload,
+)
 
 
 class Bytes:
@@ -58,7 +62,7 @@ def map(func: Any, iter1: Any, iter2: Any = ...) -> Any:
     pass
 
 
-# At least two overload signatures should be provided.
+# > At least two @overload-decorated definitions must be present.
 @overload  # E[func1]
 def func1() -> None:  # E[func1]: At least two overloads must be present
     ...
@@ -68,9 +72,9 @@ def func1() -> None:
     pass
 
 
-# > In regular modules, a series of @overload-decorated definitions must be
-# > followed by exactly one non-@overload-decorated definition (for the same
-# > function/method).
+# > The ``@overload``-decorated definitions must be followed by an overload
+# > implementation, which does not include an ``@overload`` decorator. Type
+# > checkers should report an error or warning if an implementation is missing.
 @overload  # E[func2]
 def func2(x: int) -> int:  # E[func2]: no implementation
     ...
@@ -79,3 +83,58 @@ def func2(x: int) -> int:  # E[func2]: no implementation
 @overload
 def func2(x: str) -> str:
     ...
+
+
+# > Overload definitions within stub files, protocols, and abstract base classes
+# > are exempt from this check.
+class MyProto(Protocol):
+    @overload
+    def func3(self, x: int) -> int:
+        ...
+
+
+    @overload
+    def func3(self, x: str) -> str:
+        ...
+
+class MyAbstractBase(ABC):
+    @overload
+    def func4(self, x: int) -> int:
+        ...
+
+
+    @overload
+    def func4(self, x: str) -> str:
+        ...
+
+
+# > If one overload signature is decorated with ``@staticmethod`` or
+# > ``@classmethod``, all overload signatures must be similarly decorated. The
+# > implementation, if present, must also have a consistent decorator. Type
+# > checkers should report an error if these conditions are not met.
+class C:
+    @overload  # E[func5]
+    @staticmethod
+    def func5(x: int) -> int:  # E[func5]
+        ...
+
+    @overload
+    @staticmethod
+    def func5(x: str) -> str:  # E[func5]
+        ...
+
+    def func5(self, x: int | str) -> int | str:  # E[func5]
+        return 1
+
+    @overload  # E[func6]
+    @classmethod
+    def func6(cls, x: int) -> int:  # E[func6]
+        ...
+
+    @overload
+    @classmethod
+    def func6(cls, x: str) -> str:  # E[func6]
+        ...
+
+    def func6(cls, x: int | str) -> int | str:  # E[func6]
+        return 1

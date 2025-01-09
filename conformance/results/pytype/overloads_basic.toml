@@ -2,28 +2,57 @@ conformant = "Partial"
 notes = """
 Does not reject a function with a single @overload signature.
 Does not reject a function with @overload signature but no implementation.
+Does not allow an overload with no implementation in a Protocol or an abstract base class.
+Does not exempt overloads from checking of return type in body, when also decorated with `@staticmethod`.
+Does not error on overloads inconsistently decorated with `@staticmethod` or `@classmethod`.
 """
 output = """
-overloads_basic.py:31:20: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in __getitem__: bad return type [bad-return-type]
+overloads_basic.py:35:20: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in __getitem__: bad return type [bad-return-type]
 
             return b""
                    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_basic.py:37:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: unsupported operand type(s) for item retrieval: Bytes and str [unsupported-operands]
+overloads_basic.py:41:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: unsupported operand type(s) for item retrieval: Bytes and str [unsupported-operands]
 
 b[""]  # E: no matching overload
 \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
 
-overloads_basic.py:58:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in map: bad return type [bad-return-type]
+overloads_basic.py:62:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in map: bad return type [bad-return-type]
 
     pass
     \u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
 
+overloads_basic.py:98:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: @typing.overload-decorated 'MyProto.func3' object is not callable [not-callable]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_basic.py:108:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func4: @typing.overload-decorated 'MyAbstractBase.func4' object is not callable [not-callable]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_basic.py:119:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func5: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_basic.py:124:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func5: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
 """
 conformance_automated = "Fail"
 errors_diff = """
-Lines 62, 63: Expected error (tag 'func1')
-Lines 74, 75: Expected error (tag 'func2')
-Line 31: Unexpected errors ['overloads_basic.py:31:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __getitem__: bad return type [bad-return-type]']
-Line 58: Unexpected errors ['overloads_basic.py:58:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in map: bad return type [bad-return-type]']
+Lines 66, 67: Expected error (tag 'func1')
+Lines 78, 79: Expected error (tag 'func2')
+Lines 116, 118, 123, 126: Expected error (tag 'func5')
+Lines 129, 131, 136, 139: Expected error (tag 'func6')
+Line 35: Unexpected errors ['overloads_basic.py:35:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __getitem__: bad return type [bad-return-type]']
+Line 62: Unexpected errors ['overloads_basic.py:62:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in map: bad return type [bad-return-type]']
+Line 98: Unexpected errors ["overloads_basic.py:98:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: @typing.overload-decorated 'MyProto.func3' object is not callable [not-callable]"]
+Line 108: Unexpected errors ["overloads_basic.py:108:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func4: @typing.overload-decorated 'MyAbstractBase.func4' object is not callable [not-callable]"]
+Line 119: Unexpected errors ['overloads_basic.py:119:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: bad return type [bad-return-type]']
+Line 124: Unexpected errors ['overloads_basic.py:124:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: bad return type [bad-return-type]']
 """

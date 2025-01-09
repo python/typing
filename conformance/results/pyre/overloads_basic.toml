@@ -1,11 +1,22 @@
-conformant = "Pass"
+conformant = "Partial"
 notes = """
+Does not allow an overload with no implementation in a Protocol or an abstract base class.
 """
 output = """
-overloads_basic.py:37:2 Incompatible parameter type [6]: In call `Bytes.__getitem__`, for 1st positional argument, expected `int` but got `str`.
-overloads_basic.py:63:0 Incompatible overload [43]: At least two overload signatures must be present.
-overloads_basic.py:75:0 Missing overload implementation [42]: Overloaded function `func2` must have an implementation.
+overloads_basic.py:41:2 Incompatible parameter type [6]: In call `Bytes.__getitem__`, for 1st positional argument, expected `int` but got `str`.
+overloads_basic.py:67:0 Incompatible overload [43]: At least two overload signatures must be present.
+overloads_basic.py:79:0 Missing overload implementation [42]: Overloaded function `func2` must have an implementation.
+overloads_basic.py:92:4 Missing overload implementation [42]: Overloaded function `MyProto.func3` must have an implementation.
+overloads_basic.py:102:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.func4` must have an implementation.
+overloads_basic.py:118:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `118`.
+overloads_basic.py:123:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `123`.
+overloads_basic.py:126:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
+overloads_basic.py:131:4 Incompatible overload [43]: The implementation of `C.func6` does not accept all possible arguments of overload defined on line `131`.
+overloads_basic.py:136:4 Incompatible overload [43]: The implementation of `C.func6` does not accept all possible arguments of overload defined on line `136`.
+overloads_basic.py:139:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 92: Unexpected errors ['overloads_basic.py:92:4 Missing overload implementation [42]: Overloaded function `MyProto.func3` must have an implementation.']
+Line 102: Unexpected errors ['overloads_basic.py:102:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.func4` must have an implementation.']
 """
