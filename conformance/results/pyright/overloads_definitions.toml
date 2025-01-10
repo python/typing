@@ -4,7 +4,7 @@ Allows @final/@override on all overloads and implementation; should be implement
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 217: Expected 1 errors
+Line 245: Expected 1 errors
 Lines 148, 150: Expected error (tag 'invalid_final_2')
 """
 output = """
@@ -27,10 +27,6 @@ overloads_definitions.py:88:9 - error: Overloaded implementation is not consiste
 overloads_definitions.py:93:9 - error: Overloads for "func6" use @classmethod inconsistently (reportInconsistentOverload)
 overloads_definitions.py:97:15 - warning: Instance methods should take a "self" parameter (reportSelfClsParameterName)
 overloads_definitions.py:135:9 - error: Overload for "invalid_final" is marked @final but implementation is not (reportInconsistentOverload)
-overloads_definitions.py:176:9 - error: Method "final_method" cannot override final method defined in class "Base" (reportIncompatibleMethodOverride)
-overloads_definitions.py:176:9 - error: Method "final_method" overrides class "Base" in an incompatible manner
-  Return type mismatch: base method returns type "int", override returns type "int | str"
-    Type "int | str" is not assignable to type "int"
-      "str" is not assignable to "int" (reportIncompatibleMethodOverride)
-overloads_definitions.py:192:9 - error: Method "bad_override" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
+overloads_definitions.py:204:9 - error: Method "final_method" cannot override final method defined in class "Base" (reportIncompatibleMethodOverride)
+overloads_definitions.py:220:9 - error: Method "bad_override" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
 """
