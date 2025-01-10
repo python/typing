@@ -4,8 +4,10 @@ Tests errors on invalid `@typing.overload` usage.
 
 from abc import ABC, abstractmethod
 from typing import (
+    final,
     Protocol,
     overload,
+    override,
 )
 
 # > At least two @overload-decorated definitions must be present.
@@ -92,9 +94,63 @@ class C:
         ...
 
     @overload
-    @classmethod
     def func6(cls, x: str) -> str:  # E[func6]
         ...
 
+    @classmethod
     def func6(cls, x: int | str) -> int | str:  # E[func6]
         return 1
+
+
+
+# > If a ``@final`` or ``@override`` decorator is supplied for a function with
+# > overloads, the decorator should be applied only to the overload
+# > implementation if it is present. If an overload implementation isn't present
+# > (for example, in a stub file), the ``@final`` or ``@override`` decorator
+# > should be applied only to the first overload. Type checkers should enforce
+# > these rules and generate an error when they are violated. If a ``@final`` or
+# > ``@override`` decorator follows these rules, a type checker should treat the
+# > decorator as if it is present on all overloads.
+class Base:
+    @overload
+    def final_method(self, x: int) -> int:
+        ...
+
+    @overload
+    def final_method(self, x: str) -> str:
+        ...
+
+    @final
+    def final_method(self, x: int | str) -> int | str:
+        ...
+
+    @overload  # E[invalid_final] @final should be on implementation only
+    @final
+    def invalid_final(self, x: int) -> int:  # E[invalid_final]
+        ...
+
+    @overload
+    def invalid_final(self, x: str) -> str:  # E[invalid_final]
+        ...
+
+    def invalid_final(self, x: int | str) -> int | str:
+        ...
+
+    @overload  # E[invalid_final_2] @final should be on implementation only
+    @final
+    def invalid_final_2(self, x: int) -> int:  # E[invalid_final_2]
+        ...
+
+    @overload
+    @final
+    def invalid_final_2(self, x: str) -> str:
+        ...
+
+    @final
+    def invalid_final_2(self, x: int | str) -> int | str:
+        ...
+
+
+class Child(Base):  # E[override-final]
+    def final_method(self, x: int | str) -> int | str:  # E[override-final] can't override final method
+        ...
