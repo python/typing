@@ -112,6 +112,10 @@ class C:
 # > ``@override`` decorator follows these rules, a type checker should treat the
 # > decorator as if it is present on all overloads.
 class Base:
+
+    # This is a good definition of an overloaded final method (@final decorator
+    # on implementation only):
+
     @overload
     def final_method(self, x: int) -> int:
         ...
@@ -124,6 +128,8 @@ class Base:
     def final_method(self, x: int | str) -> int | str:
         ...
 
+    # The @final decorator should not be on one of the overloads:
+
     @overload  # E[invalid_final] @final should be on implementation only
     @final
     def invalid_final(self, x: int) -> int:  # E[invalid_final]
@@ -135,6 +141,9 @@ class Base:
 
     def invalid_final(self, x: int | str) -> int | str:
         ...
+
+    # The @final decorator should not be on multiple overloads and
+    # implementation:
 
     @overload  # E[invalid_final_2] @final should be on implementation only
     @final
@@ -150,7 +159,51 @@ class Base:
     def invalid_final_2(self, x: int | str) -> int | str:
         ...
 
+    # This method is just here for the @override test below:
+
+    def good_override(self, x: int | str) -> int | str:
+        ...
+
 
 class Child(Base):  # E[override-final]
+
+    # The correctly-decorated @final method `Base.final_method` should cause an
+    # error if overridden in a child class:
+
     def final_method(self, x: int | str) -> int | str:  # E[override-final] can't override final method
+        ...
+
+    # This is the right way to mark an overload as @override (decorate
+    # implementation only), so the use of @override should cause an error
+    # (because there's no `Base.bad_override` method):
+
+    @overload  # E[bad_override] marked as override but doesn't exist in base
+    def bad_override(self, x: int) -> int:  # E[bad_override]
+        ...
+
+    @overload
+    def bad_override(self, x: str) -> str:
+        ...
+
+    @override
+    def bad_override(self, x: int | str) -> int | str: # E[bad_override]
+        ...
+
+    # This is also a correctly-decorated overloaded @override, which is
+    # overriding a method that does exist in the base, so there should be no
+    # error. We need both this test and the previous one, because in the
+    # previous test, an incorrect error about the use of @override decorator
+    # could appear on the same line as the expected error about overriding a
+    # method that doesn't exist in base:
+
+    @overload
+    def good_override(self, x: int) -> int:
+        ...
+
+    @overload
+    def good_override(self, x: str) -> str:
+        ...
+
+    @override
+    def good_override(self, x: int | str) -> int | str:
         ...

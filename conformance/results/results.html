@@ -168,7 +168,7 @@
 <div class='tc-time'>5.9sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>30.4sec</div>
+<div class='tc-time'>30.6sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -675,7 +675,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_invalid</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not allow an overload with no implementation in an abstract base class.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Allows @final on all overloads and implementation; should be implementation-only.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not allow an overload with no implementation in a Protocol or an abstract base class.</p><p>Expects @final on all overloads and implementation, instead of implementation only.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not allow an overload with no implementation in a Protocol or an abstract base class.</p><p>Expects @final/@override on all overloads and implementation, instead of implementation only.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Fail<span class="tooltip-text" id="bottom"><p>Does not reject a function with a single @overload signature.</p><p>Does not reject a function with @overload signature but no implementation.</p><p>Does not allow an overload with no implementation in a Protocol or an abstract base class.</p><p>Does not error on overloads inconsistently decorated with `@staticmethod` or `@classmethod`.</p><p>Does not enforce any rules on location of @final decorator.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
