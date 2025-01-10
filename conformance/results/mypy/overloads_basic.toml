@@ -10,10 +10,11 @@ overloads_basic.py:41: note:     def __getitem__(self, slice[Any, Any, Any], /) 
 overloads_basic.py:66: error: Single overload definition, multiple required  [misc]
 overloads_basic.py:78: error: An overloaded function outside a stub file must have an implementation  [no-overload-impl]
 overloads_basic.py:101: error: An overloaded function outside a stub file must have an implementation  [no-overload-impl]
-overloads_basic.py:116: error: Overload does not consistently use the "@staticmethod" decorator on all function signatures.  [misc]
-overloads_basic.py:126: error: Overloaded function implementation does not accept all possible arguments of signature 1  [misc]
-overloads_basic.py:126: error: Overloaded function implementation does not accept all possible arguments of signature 2  [misc]
-overloads_basic.py:129: error: Overload does not consistently use the "@classmethod" decorator on all function signatures.  [misc]
+overloads_basic.py:115: error: An overloaded function outside a stub file must have an implementation  [no-overload-impl]
+overloads_basic.py:130: error: Overload does not consistently use the "@staticmethod" decorator on all function signatures.  [misc]
+overloads_basic.py:140: error: Overloaded function implementation does not accept all possible arguments of signature 1  [misc]
+overloads_basic.py:140: error: Overloaded function implementation does not accept all possible arguments of signature 2  [misc]
+overloads_basic.py:143: error: Overload does not consistently use the "@classmethod" decorator on all function signatures.  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """

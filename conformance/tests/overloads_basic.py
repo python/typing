@@ -4,7 +4,7 @@ Tests the behavior of typing.overload.
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/overload.html#overload
 
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import (
     Any,
     Callable,
@@ -85,8 +85,8 @@ def func2(x: str) -> str:
     ...
 
 
-# > Overload definitions within stub files, protocols, and abstract base classes
-# > are exempt from this check.
+# > Overload definitions within stub files, protocols, and on abstract methods
+# > within abstract base classes are exempt from this check.
 class MyProto(Protocol):
     @overload
     def func3(self, x: int) -> int:
@@ -99,12 +99,26 @@ class MyProto(Protocol):
 
 class MyAbstractBase(ABC):
     @overload
+    @abstractmethod
     def func4(self, x: int) -> int:
         ...
 
 
     @overload
+    @abstractmethod
     def func4(self, x: str) -> str:
+        ...
+
+    # A non-abstract method in an abstract base class still requires an
+    # implementation:
+
+    @overload  # E[not_abstract]
+    def not_abstract(self, x: int) -> int:  # E[not_abstract] no implementation
+        ...
+
+
+    @overload
+    def not_abstract(self, x: str) -> str:
         ...
 
 

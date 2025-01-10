@@ -7,16 +7,17 @@ overloads_basic.py:41:2 Incompatible parameter type [6]: In call `Bytes.__getite
 overloads_basic.py:67:0 Incompatible overload [43]: At least two overload signatures must be present.
 overloads_basic.py:79:0 Missing overload implementation [42]: Overloaded function `func2` must have an implementation.
 overloads_basic.py:92:4 Missing overload implementation [42]: Overloaded function `MyProto.func3` must have an implementation.
-overloads_basic.py:102:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.func4` must have an implementation.
-overloads_basic.py:118:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `118`.
-overloads_basic.py:123:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `123`.
-overloads_basic.py:126:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
-overloads_basic.py:131:4 Incompatible overload [43]: The implementation of `C.func6` does not accept all possible arguments of overload defined on line `131`.
-overloads_basic.py:136:4 Incompatible overload [43]: The implementation of `C.func6` does not accept all possible arguments of overload defined on line `136`.
-overloads_basic.py:139:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
+overloads_basic.py:103:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.func4` must have an implementation.
+overloads_basic.py:116:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.not_abstract` must have an implementation.
+overloads_basic.py:132:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `132`.
+overloads_basic.py:137:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `137`.
+overloads_basic.py:140:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
+overloads_basic.py:145:4 Incompatible overload [43]: The implementation of `C.func6` does not accept all possible arguments of overload defined on line `145`.
+overloads_basic.py:150:4 Incompatible overload [43]: The implementation of `C.func6` does not accept all possible arguments of overload defined on line `150`.
+overloads_basic.py:153:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 92: Unexpected errors ['overloads_basic.py:92:4 Missing overload implementation [42]: Overloaded function `MyProto.func3` must have an implementation.']
-Line 102: Unexpected errors ['overloads_basic.py:102:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.func4` must have an implementation.']
+Line 103: Unexpected errors ['overloads_basic.py:103:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.func4` must have an implementation.']
 """

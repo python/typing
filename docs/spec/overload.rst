@@ -127,8 +127,8 @@ one is present, an error should be reported.
 The ``@overload``-decorated definitions must be followed by an overload
 implementation, which does not include an ``@overload`` decorator. Type
 checkers should report an error or warning if an implementation is missing.
-Overload definitions within stub files, protocols, and abstract base classes
-are exempt from this check.
+Overload definitions within stub files, protocols, and on abstract methods
+within abstract base classes are exempt from this check.
 
 If one overload signature is decorated with ``@staticmethod`` or
 ``@classmethod``, all overload signatures must be similarly decorated. The
