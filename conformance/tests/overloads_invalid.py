@@ -159,9 +159,12 @@ class Base:
     def invalid_final_2(self, x: int | str) -> int | str:
         ...
 
-    # This method is just here for the @override test below:
+    # These methods are just here for the @override test below:
 
     def good_override(self, x: int | str) -> int | str:
+        ...
+
+    def to_override(self, x: int | str) -> int | str:
         ...
 
 
@@ -207,3 +210,21 @@ class Child(Base):  # E[override-final]
     @override
     def good_override(self, x: int | str) -> int | str:
         ...
+
+    # This is the wrong way to use @override with an overloaded method, and
+    # should emit an error:
+
+    @overload  # E: @override should appear only on implementation
+    @override
+    def to_override(self, x: int) -> int:
+        ...
+
+    @overload
+    @override
+    def to_override(self, x: str) -> str:
+        ...
+
+    @override
+    def to_override(self, x: int | str) -> int | str:
+        ...
+

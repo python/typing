@@ -4,10 +4,11 @@ Does not reject a function with a single @overload signature.
 Does not reject a function with @overload signature but no implementation.
 Does not allow an overload with no implementation in a Protocol or an abstract base class.
 Does not error on overloads inconsistently decorated with `@staticmethod` or `@classmethod`.
-Does not enforce any rules on location of @final decorator.
+Does not enforce any rules on location of @final or @override decorators.
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 217: Expected 1 errors
 Lines 14, 15: Expected error (tag 'func1')
 Lines 26, 27: Expected error (tag 'func2')
 Lines 63, 64: Expected error (tag 'not_abstract')
@@ -25,9 +26,11 @@ Line 129: Unexpected errors ['overloads_invalid.py:129:9: \\x1b[1m\\x1b[31merror
 Line 143: Unexpected errors ['overloads_invalid.py:143:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final: bad return type [bad-return-type]', 'overloads_invalid.py:143:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final: bad return type [bad-return-type]']
 Line 160: Unexpected errors ['overloads_invalid.py:160:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final_2: bad return type [bad-return-type]', 'overloads_invalid.py:160:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final_2: bad return type [bad-return-type]']
 Line 165: Unexpected errors ['overloads_invalid.py:165:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_override: bad return type [bad-return-type]']
-Line 174: Unexpected errors ['overloads_invalid.py:174:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in final_method: bad return type [bad-return-type]']
-Line 190: Unexpected errors ['overloads_invalid.py:190:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in bad_override: bad return type [bad-return-type]', 'overloads_invalid.py:190:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in bad_override: bad return type [bad-return-type]']
-Line 209: Unexpected errors ['overloads_invalid.py:209:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_override: bad return type [bad-return-type]', 'overloads_invalid.py:209:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_override: bad return type [bad-return-type]']
+Line 168: Unexpected errors ['overloads_invalid.py:168:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in to_override: bad return type [bad-return-type]']
+Line 177: Unexpected errors ['overloads_invalid.py:177:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in final_method: bad return type [bad-return-type]']
+Line 193: Unexpected errors ['overloads_invalid.py:193:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in bad_override: bad return type [bad-return-type]', 'overloads_invalid.py:193:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in bad_override: bad return type [bad-return-type]']
+Line 212: Unexpected errors ['overloads_invalid.py:212:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_override: bad return type [bad-return-type]', 'overloads_invalid.py:212:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_override: bad return type [bad-return-type]']
+Line 229: Unexpected errors ['overloads_invalid.py:229:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in to_override: bad return type [bad-return-type]', 'overloads_invalid.py:229:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in to_override: bad return type [bad-return-type]']
 """
 output = """
 overloads_invalid.py:6:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.override not supported yet [not-supported-yet]
@@ -105,7 +108,12 @@ overloads_invalid.py:165:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:168:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class Child overrides final method final_method, defined in base class Base [final-error]
+overloads_invalid.py:168:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in to_override: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_invalid.py:171:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class Child overrides final method final_method, defined in base class Base [final-error]
 
 class Child(Base):  # E[override-final]
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -192,34 +200,78 @@ class Child(Base):  # E[override-final]
         ...
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:174:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in final_method: bad return type [bad-return-type]
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    # This is the wrong way to use @override with an overloaded method, and
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    # should emit an error:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @overload  # E: @override should appear only on implementation
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    @override
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def to_override(self, x: int) -> int:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @overload
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    @override
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def to_override(self, x: str) -> str:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    @override
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def to_override(self, x: int | str) -> int | str:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+overloads_invalid.py:177:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in final_method: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:181:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Child: Attribute 'bad_override' not found on any parent class [override-error]
+overloads_invalid.py:184:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Child: Attribute 'bad_override' not found on any parent class [override-error]
 
     def bad_override(self, x: int) -> int:  # E[bad_override]
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
         ...
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:190:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in bad_override: bad return type [bad-return-type]
+overloads_invalid.py:193:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in bad_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:190:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in bad_override: bad return type [bad-return-type]
+overloads_invalid.py:193:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in bad_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:209:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_override: bad return type [bad-return-type]
+overloads_invalid.py:212:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:209:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_override: bad return type [bad-return-type]
+overloads_invalid.py:212:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_override: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_invalid.py:229:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in to_override: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_invalid.py:229:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in to_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m

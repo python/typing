@@ -5,11 +5,12 @@ Does not allow an overload with no implementation in a Protocol or an abstract b
 Expects @final/@override on all overloads and implementation, instead of implementation only.
 """
 errors_diff = """
+Line 217: Expected 1 errors
 Lines 148, 150: Expected error (tag 'invalid_final_2')
 Line 40: Unexpected errors ['overloads_invalid.py:40:4 Missing overload implementation [42]: Overloaded function `MyProto.func3` must have an implementation.']
 Line 51: Unexpected errors ['overloads_invalid.py:51:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.func4` must have an implementation.']
 Line 128: Unexpected errors ['overloads_invalid.py:128:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
-Line 208: Unexpected errors ['overloads_invalid.py:208:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
+Line 211: Unexpected errors ['overloads_invalid.py:211:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
 """
 output = """
 overloads_invalid.py:15:0 Incompatible overload [43]: At least two overload signatures must be present.
@@ -24,8 +25,8 @@ overloads_invalid.py:97:4 Incompatible overload [43]: The implementation of `C.f
 overloads_invalid.py:97:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
 overloads_invalid.py:128:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
 overloads_invalid.py:139:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
-overloads_invalid.py:173:4 Invalid override [40]: `overloads_invalid.Child.final_method` cannot override final method defined in `Base`.
-overloads_invalid.py:189:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
-overloads_invalid.py:189:4 Invalid override [40]: `overloads_invalid.Child.bad_override` is decorated with @override, but no method of the same name exists in superclasses of `Child`.
-overloads_invalid.py:208:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
+overloads_invalid.py:176:4 Invalid override [40]: `overloads_invalid.Child.final_method` cannot override final method defined in `Base`.
+overloads_invalid.py:192:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
+overloads_invalid.py:192:4 Invalid override [40]: `overloads_invalid.Child.bad_override` is decorated with @override, but no method of the same name exists in superclasses of `Child`.
+overloads_invalid.py:211:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
 """
