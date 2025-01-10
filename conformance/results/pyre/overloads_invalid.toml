@@ -1,0 +1,22 @@
+conformant = "Partial"
+conformance_automated = "Fail"
+notes = """
+Does not allow an overload with no implementation in a Protocol or an abstract base class.
+"""
+errors_diff = """
+Line 38: Unexpected errors ['overloads_invalid.py:38:4 Missing overload implementation [42]: Overloaded function `MyProto.func3` must have an implementation.']
+Line 49: Unexpected errors ['overloads_invalid.py:49:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.func4` must have an implementation.']
+"""
+output = """
+overloads_invalid.py:13:0 Incompatible overload [43]: At least two overload signatures must be present.
+overloads_invalid.py:25:0 Missing overload implementation [42]: Overloaded function `func2` must have an implementation.
+overloads_invalid.py:38:4 Missing overload implementation [42]: Overloaded function `MyProto.func3` must have an implementation.
+overloads_invalid.py:49:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.func4` must have an implementation.
+overloads_invalid.py:62:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.not_abstract` must have an implementation.
+overloads_invalid.py:78:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `78`.
+overloads_invalid.py:83:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `83`.
+overloads_invalid.py:86:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
+overloads_invalid.py:91:4 Incompatible overload [43]: The implementation of `C.func6` does not accept all possible arguments of overload defined on line `91`.
+overloads_invalid.py:96:4 Incompatible overload [43]: The implementation of `C.func6` does not accept all possible arguments of overload defined on line `96`.
+overloads_invalid.py:99:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
+"""

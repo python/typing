@@ -1,0 +1,47 @@
+conformant = "Fail"
+notes = """
+Does not reject a function with a single @overload signature.
+Does not reject a function with @overload signature but no implementation.
+Does not allow an overload with no implementation in a Protocol or an abstract base class.
+Does not error on overloads inconsistently decorated with `@staticmethod` or `@classmethod`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Lines 12, 13: Expected error (tag 'func1')
+Lines 24, 25: Expected error (tag 'func2')
+Lines 61, 62: Expected error (tag 'not_abstract')
+Lines 76, 78, 83, 86: Expected error (tag 'func5')
+Lines 89, 91, 96, 99: Expected error (tag 'func6')
+Line 44: Unexpected errors ["overloads_invalid.py:44:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: @typing.overload-decorated 'MyProto.func3' object is not callable [not-callable]"]
+Line 56: Unexpected errors ["overloads_invalid.py:56:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func4: @typing.overload-decorated 'MyAbstractBase.func4' object is not callable [not-callable]"]
+Line 68: Unexpected errors ["overloads_invalid.py:68:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in not_abstract: @typing.overload-decorated 'MyAbstractBase.not_abstract' object is not callable [not-callable]"]
+Line 79: Unexpected errors ['overloads_invalid.py:79:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: bad return type [bad-return-type]']
+Line 84: Unexpected errors ['overloads_invalid.py:84:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: bad return type [bad-return-type]']
+"""
+output = """
+overloads_invalid.py:44:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: @typing.overload-decorated 'MyProto.func3' object is not callable [not-callable]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_invalid.py:56:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func4: @typing.overload-decorated 'MyAbstractBase.func4' object is not callable [not-callable]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_invalid.py:68:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in not_abstract: @typing.overload-decorated 'MyAbstractBase.not_abstract' object is not callable [not-callable]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_invalid.py:79:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func5: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_invalid.py:84:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func5: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+"""
