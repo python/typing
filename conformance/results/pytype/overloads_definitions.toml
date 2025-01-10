@@ -139,16 +139,16 @@ class Child(Base):  # E[override-final]
 \u001b[1m\u001b[31m\u001b[39m\u001b[0m
     @overload # E[override-final]
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
-    def final_method(self, x: int) -> int:  # E[override-final]
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def final_method(self, x: int) -> int:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
         ...
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
 \u001b[1m\u001b[31m\u001b[39m\u001b[0m
     @overload
 \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
-    def final_method(self, x: str) -> str:  # E[override-final]
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def final_method(self, x: str) -> str:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
         ...
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 

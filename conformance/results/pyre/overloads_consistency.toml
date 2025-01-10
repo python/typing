@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_consistency.py:24:0 Incompatible overload [43]: The return type of overloaded function `return_type` (`str`) is incompatible with the return type of the implementation (`int`).
+overloads_consistency.py:39:0 Incompatible overload [43]: The implementation of `parameter_type` does not accept all possible arguments of overload defined on line `39`.
+"""

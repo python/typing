@@ -1,0 +1,23 @@
+conformant = "Fail"
+notes = """
+Doesn't appear to validate overload consistency at all.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Lines 24, 27: Expected error (tag 'return_type')
+Lines 39, 42: Expected error (tag 'parameter_type')
+Line 28: Unexpected errors ['overloads_consistency.py:28:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in return_type: bad return type [bad-return-type]']
+Line 43: Unexpected errors ['overloads_consistency.py:43:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in parameter_type: bad return type [bad-return-type]']
+"""
+output = """
+overloads_consistency.py:28:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in return_type: bad return type [bad-return-type]
+
+    return 1
+           \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+overloads_consistency.py:43:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in parameter_type: bad return type [bad-return-type]
+
+    return 1
+           \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+"""
