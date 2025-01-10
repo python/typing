@@ -16,24 +16,24 @@ Lines 78, 80, 85, 88: Expected error (tag 'func5')
 Lines 91, 93, 97, 101: Expected error (tag 'func6')
 Lines 133, 135, 139: Expected error (tag 'invalid_final')
 Lines 148, 150: Expected error (tag 'invalid_final_2')
-Line 6: Unexpected errors ['overloads_invalid.py:6:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.override not supported yet [not-supported-yet]']
-Line 46: Unexpected errors ["overloads_invalid.py:46:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: @typing.overload-decorated 'MyProto.func3' object is not callable [not-callable]"]
-Line 58: Unexpected errors ["overloads_invalid.py:58:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func4: @typing.overload-decorated 'MyAbstractBase.func4' object is not callable [not-callable]"]
-Line 70: Unexpected errors ["overloads_invalid.py:70:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in not_abstract: @typing.overload-decorated 'MyAbstractBase.not_abstract' object is not callable [not-callable]"]
-Line 81: Unexpected errors ['overloads_invalid.py:81:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: bad return type [bad-return-type]']
-Line 86: Unexpected errors ['overloads_invalid.py:86:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: bad return type [bad-return-type]']
-Line 129: Unexpected errors ['overloads_invalid.py:129:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in final_method: bad return type [bad-return-type]', 'overloads_invalid.py:129:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in final_method: bad return type [bad-return-type]']
-Line 143: Unexpected errors ['overloads_invalid.py:143:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final: bad return type [bad-return-type]', 'overloads_invalid.py:143:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final: bad return type [bad-return-type]']
-Line 160: Unexpected errors ['overloads_invalid.py:160:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final_2: bad return type [bad-return-type]', 'overloads_invalid.py:160:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final_2: bad return type [bad-return-type]']
-Line 165: Unexpected errors ['overloads_invalid.py:165:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_override: bad return type [bad-return-type]']
-Line 168: Unexpected errors ['overloads_invalid.py:168:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in to_override: bad return type [bad-return-type]']
-Line 177: Unexpected errors ['overloads_invalid.py:177:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in final_method: bad return type [bad-return-type]']
-Line 193: Unexpected errors ['overloads_invalid.py:193:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in bad_override: bad return type [bad-return-type]', 'overloads_invalid.py:193:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in bad_override: bad return type [bad-return-type]']
-Line 212: Unexpected errors ['overloads_invalid.py:212:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_override: bad return type [bad-return-type]', 'overloads_invalid.py:212:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_override: bad return type [bad-return-type]']
-Line 229: Unexpected errors ['overloads_invalid.py:229:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in to_override: bad return type [bad-return-type]', 'overloads_invalid.py:229:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in to_override: bad return type [bad-return-type]']
+Line 6: Unexpected errors ['overloads_definitions.py:6:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.override not supported yet [not-supported-yet]']
+Line 46: Unexpected errors ["overloads_definitions.py:46:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: @typing.overload-decorated 'MyProto.func3' object is not callable [not-callable]"]
+Line 58: Unexpected errors ["overloads_definitions.py:58:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func4: @typing.overload-decorated 'MyAbstractBase.func4' object is not callable [not-callable]"]
+Line 70: Unexpected errors ["overloads_definitions.py:70:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in not_abstract: @typing.overload-decorated 'MyAbstractBase.not_abstract' object is not callable [not-callable]"]
+Line 81: Unexpected errors ['overloads_definitions.py:81:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: bad return type [bad-return-type]']
+Line 86: Unexpected errors ['overloads_definitions.py:86:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: bad return type [bad-return-type]']
+Line 129: Unexpected errors ['overloads_definitions.py:129:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in final_method: bad return type [bad-return-type]', 'overloads_definitions.py:129:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in final_method: bad return type [bad-return-type]']
+Line 143: Unexpected errors ['overloads_definitions.py:143:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final: bad return type [bad-return-type]', 'overloads_definitions.py:143:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final: bad return type [bad-return-type]']
+Line 160: Unexpected errors ['overloads_definitions.py:160:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final_2: bad return type [bad-return-type]', 'overloads_definitions.py:160:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final_2: bad return type [bad-return-type]']
+Line 165: Unexpected errors ['overloads_definitions.py:165:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_override: bad return type [bad-return-type]']
+Line 168: Unexpected errors ['overloads_definitions.py:168:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in to_override: bad return type [bad-return-type]']
+Line 177: Unexpected errors ['overloads_definitions.py:177:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in final_method: bad return type [bad-return-type]']
+Line 193: Unexpected errors ['overloads_definitions.py:193:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in bad_override: bad return type [bad-return-type]', 'overloads_definitions.py:193:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in bad_override: bad return type [bad-return-type]']
+Line 212: Unexpected errors ['overloads_definitions.py:212:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_override: bad return type [bad-return-type]', 'overloads_definitions.py:212:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in good_override: bad return type [bad-return-type]']
+Line 229: Unexpected errors ['overloads_definitions.py:229:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in to_override: bad return type [bad-return-type]', 'overloads_definitions.py:229:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in to_override: bad return type [bad-return-type]']
 """
 output = """
-overloads_invalid.py:6:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.override not supported yet [not-supported-yet]
+overloads_definitions.py:6:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.override not supported yet [not-supported-yet]
 
 from typing import (
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -48,72 +48,72 @@ from typing import (
 )
 \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
 
-overloads_invalid.py:46:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: @typing.overload-decorated 'MyProto.func3' object is not callable [not-callable]
+overloads_definitions.py:46:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: @typing.overload-decorated 'MyProto.func3' object is not callable [not-callable]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:58:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func4: @typing.overload-decorated 'MyAbstractBase.func4' object is not callable [not-callable]
+overloads_definitions.py:58:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func4: @typing.overload-decorated 'MyAbstractBase.func4' object is not callable [not-callable]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:70:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in not_abstract: @typing.overload-decorated 'MyAbstractBase.not_abstract' object is not callable [not-callable]
+overloads_definitions.py:70:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in not_abstract: @typing.overload-decorated 'MyAbstractBase.not_abstract' object is not callable [not-callable]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:81:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func5: bad return type [bad-return-type]
+overloads_definitions.py:81:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func5: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:86:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func5: bad return type [bad-return-type]
+overloads_definitions.py:86:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func5: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:129:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in final_method: bad return type [bad-return-type]
+overloads_definitions.py:129:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in final_method: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:129:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in final_method: bad return type [bad-return-type]
+overloads_definitions.py:129:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in final_method: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:143:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in invalid_final: bad return type [bad-return-type]
+overloads_definitions.py:143:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in invalid_final: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:143:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in invalid_final: bad return type [bad-return-type]
+overloads_definitions.py:143:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in invalid_final: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:160:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in invalid_final_2: bad return type [bad-return-type]
+overloads_definitions.py:160:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in invalid_final_2: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:160:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in invalid_final_2: bad return type [bad-return-type]
+overloads_definitions.py:160:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in invalid_final_2: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:165:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_override: bad return type [bad-return-type]
+overloads_definitions.py:165:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:168:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in to_override: bad return type [bad-return-type]
+overloads_definitions.py:168:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in to_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:171:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class Child overrides final method final_method, defined in base class Base [final-error]
+overloads_definitions.py:171:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class Child overrides final method final_method, defined in base class Base [final-error]
 
 class Child(Base):  # E[override-final]
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -234,44 +234,44 @@ class Child(Base):  # E[override-final]
         ...
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:177:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in final_method: bad return type [bad-return-type]
+overloads_definitions.py:177:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in final_method: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:184:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Child: Attribute 'bad_override' not found on any parent class [override-error]
+overloads_definitions.py:184:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Child: Attribute 'bad_override' not found on any parent class [override-error]
 
     def bad_override(self, x: int) -> int:  # E[bad_override]
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
         ...
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:193:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in bad_override: bad return type [bad-return-type]
+overloads_definitions.py:193:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in bad_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:193:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in bad_override: bad return type [bad-return-type]
+overloads_definitions.py:193:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in bad_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:212:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_override: bad return type [bad-return-type]
+overloads_definitions.py:212:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:212:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_override: bad return type [bad-return-type]
+overloads_definitions.py:212:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in good_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:229:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in to_override: bad return type [bad-return-type]
+overloads_definitions.py:229:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in to_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
 
-overloads_invalid.py:229:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in to_override: bad return type [bad-return-type]
+overloads_definitions.py:229:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in to_override: bad return type [bad-return-type]
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m

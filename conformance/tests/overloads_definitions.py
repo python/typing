@@ -1,5 +1,5 @@
 """
-Tests errors on invalid `@typing.overload` usage.
+Tests valid/invalid definition of overloaded functions.
 """
 
 from abc import ABC, abstractmethod
