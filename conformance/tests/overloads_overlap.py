@@ -20,3 +20,21 @@ def is_one(x: int) -> Literal[False]:
 
 def is_one(x: int) -> bool:
     return x == 1
+
+
+# > If all possible sets of arguments accepted by an overload are also always
+# > accepted by an earlier overload, the two overloads are said to "fully overlap".
+# > In this case, the latter overload will never be used. This condition
+# > is indicative of a programming error and should be reported by type
+# > checkers.
+
+@overload
+def full_overlap(x: bool) -> bool:
+    ...
+
+@overload
+def full_overlap(x: Literal[False]) -> int:  # E: overload will never be used due to full overlap
+    ...
+
+def full_overlap(x: bool) -> int:
+    return 1
