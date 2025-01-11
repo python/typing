@@ -10,8 +10,8 @@ Line 103: Unexpected errors ['overloads_evaluation.py:103:12 - error: No overloa
 Line 104: Unexpected errors ['overloads_evaluation.py:104:17 - error: "assert_type" mismatch: expected "Literal[0, 1]" but received "Unknown" (reportAssertTypeFailure)']
 Line 126: Unexpected errors ['overloads_evaluation.py:126:12 - error: No overloads for "expand_enum" match the provided arguments (reportCallIssue)', 'overloads_evaluation.py:126:24 - error: Argument of type "Color" cannot be assigned to parameter "x" of type "Literal[Color.BLUE]" in function "expand_enum"']
 Line 127: Unexpected errors ['overloads_evaluation.py:127:17 - error: "assert_type" mismatch: expected "Literal[0, 1]" but received "Unknown" (reportAssertTypeFailure)']
-Line 147: Unexpected errors ['overloads_evaluation.py:147:12 - error: No overloads for "expand_tuple" match the provided arguments (reportCallIssue)', 'overloads_evaluation.py:147:29 - error: Argument of type "tuple[Literal[1], int | str]" cannot be assigned to parameter "x" of type "tuple[int, str]" in function "expand_tuple"']
-Line 148: Unexpected errors ['overloads_evaluation.py:148:17 - error: "assert_type" mismatch: expected "int | str" but received "Unknown" (reportAssertTypeFailure)']
+Line 166: Unexpected errors ['overloads_evaluation.py:166:12 - error: No overloads for "expand_tuple" match the provided arguments (reportCallIssue)', 'overloads_evaluation.py:166:29 - error: Argument of type "tuple[Literal[1], int | str]" cannot be assigned to parameter "x" of type "tuple[int, str]" in function "expand_tuple"']
+Line 167: Unexpected errors ['overloads_evaluation.py:167:17 - error: "assert_type" mismatch: expected "int | str" but received "Unknown" (reportAssertTypeFailure)']
 """
 output = """
 overloads_evaluation.py:27:1 - error: No overloads for "example1" match the provided arguments
@@ -35,9 +35,9 @@ overloads_evaluation.py:126:12 - error: No overloads for "expand_enum" match the
 overloads_evaluation.py:126:24 - error: Argument of type "Color" cannot be assigned to parameter "x" of type "Literal[Color.BLUE]" in function "expand_enum"
   "Color" is not assignable to type "Literal[Color.BLUE]" (reportArgumentType)
 overloads_evaluation.py:127:17 - error: "assert_type" mismatch: expected "Literal[0, 1]" but received "Unknown" (reportAssertTypeFailure)
-overloads_evaluation.py:147:12 - error: No overloads for "expand_tuple" match the provided arguments (reportCallIssue)
-overloads_evaluation.py:147:29 - error: Argument of type "tuple[Literal[1], int | str]" cannot be assigned to parameter "x" of type "tuple[int, str]" in function "expand_tuple"
+overloads_evaluation.py:166:12 - error: No overloads for "expand_tuple" match the provided arguments (reportCallIssue)
+overloads_evaluation.py:166:29 - error: Argument of type "tuple[Literal[1], int | str]" cannot be assigned to parameter "x" of type "tuple[int, str]" in function "expand_tuple"
   Type "int | str" is not assignable to type "str"
     "int" is not assignable to "str" (reportArgumentType)
-overloads_evaluation.py:148:17 - error: "assert_type" mismatch: expected "int | str" but received "Unknown" (reportAssertTypeFailure)
+overloads_evaluation.py:167:17 - error: "assert_type" mismatch: expected "int | str" but received "Unknown" (reportAssertTypeFailure)
 """

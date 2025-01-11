@@ -17,8 +17,10 @@ Line 104: Unexpected errors ['overloads_evaluation.py:104:5: \\x1b[1m\\x1b[31mer
 Line 123: Unexpected errors ['overloads_evaluation.py:123:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in expand_enum: bad return type [bad-return-type]']
 Line 126: Unexpected errors ['overloads_evaluation.py:126:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_expand_enum: Function expand_enum was called with the wrong arguments [wrong-arg-types]']
 Line 127: Unexpected errors ['overloads_evaluation.py:127:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_expand_enum: Any [assert-type]']
-Line 144: Unexpected errors ['overloads_evaluation.py:144:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in expand_tuple: bad return type [bad-return-type]']
-Line 148: Unexpected errors ['overloads_evaluation.py:148:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_expand_tuple: int [assert-type]']
+Line 141: Unexpected errors ['overloads_evaluation.py:141:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in expand_type_union: bad return type [bad-return-type]']
+Line 145: Unexpected errors ['overloads_evaluation.py:145:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_expand_type_union: int [assert-type]']
+Line 163: Unexpected errors ['overloads_evaluation.py:163:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in expand_tuple: bad return type [bad-return-type]']
+Line 167: Unexpected errors ['overloads_evaluation.py:167:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_expand_tuple: int [assert-type]']
 """
 output = """
 overloads_evaluation.py:23:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in example1: bad return type [bad-return-type]
@@ -98,12 +100,22 @@ overloads_evaluation.py:127:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in c
     assert_type(ret1, Literal[0, 1])
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-overloads_evaluation.py:144:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in expand_tuple: bad return type [bad-return-type]
+overloads_evaluation.py:141:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in expand_type_union: bad return type [bad-return-type]
 
     return 1
            \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
 
-overloads_evaluation.py:148:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in check_expand_tuple: int [assert-type]
+overloads_evaluation.py:145:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in check_expand_type_union: int [assert-type]
+
+    assert_type(ret1, int | str)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+overloads_evaluation.py:163:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in expand_tuple: bad return type [bad-return-type]
+
+    return 1
+           \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+overloads_evaluation.py:167:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in check_expand_tuple: int [assert-type]
 
     assert_type(ret1, int | str)
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m

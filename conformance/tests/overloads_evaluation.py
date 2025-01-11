@@ -126,6 +126,25 @@ def check_expand_enum(v: Color) -> None:
     ret1 = expand_enum(v)
     assert_type(ret1, Literal[0, 1])
 
+
+# > 4. ``type[A | B]`` should be expanded into ``type[A]`` and ``type[B]``.
+
+@overload
+def expand_type_union(x: type[int]) -> int:
+    ...
+
+@overload
+def expand_type_union(x: type[str]) -> str:
+    ...
+
+def expand_type_union(x: type[int] | type[str]) -> int | str:
+    return 1
+
+def check_expand_type_union(v: type[int | str]) -> None:
+    ret1 = expand_type_union(v)
+    assert_type(ret1, int | str)
+
+
 # > 5. Tuples of known length that contain expandable types should be expanded
 # > into all possible combinations of their element types. For example, the type
 # > ``tuple[int | str, bool]`` should be expanded into ``(int, Literal[True])``,
