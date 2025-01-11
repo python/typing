@@ -1,0 +1,16 @@
+conformant = "Fail"
+notes = """
+Does not check for overlapping overloads with inconsistent return type.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 14: Expected 1 errors
+Line 22: Unexpected errors ['overloads_overlap.py:22:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in is_one: bad return type [bad-return-type]']
+"""
+output = """
+overloads_overlap.py:22:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in is_one: bad return type [bad-return-type]
+
+    return x == 1
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""

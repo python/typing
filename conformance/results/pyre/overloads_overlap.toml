@@ -1,0 +1,10 @@
+conformant = "Fail"
+notes = """
+Does not check for overlapping overloads with inconsistent return type.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 14: Expected 1 errors
+"""
+output = """
+"""

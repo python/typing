@@ -1,0 +1,7 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_overlap.py:14: error: Overloaded function signatures 1 and 2 overlap with incompatible return types  [overload-overlap]
+"""

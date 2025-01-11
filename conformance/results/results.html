@@ -159,16 +159,16 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.14.1</div>
-<div class='tc-time'>1.8sec</div>
-</th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.391</div>
 <div class='tc-time'>1.7sec</div>
 </th>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.391</div>
+<div class='tc-time'>1.5sec</div>
+</th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>6.0sec</div>
+<div class='tc-time'>6.7sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>31.1sec</div>
+<div class='tc-time'>32.1sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -675,7 +675,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_consistency</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not apply decorator transforms before checking overload consistency.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Fail<span class="tooltip-text" id="bottom"><p>Doesn't appear to validate overload consistency at all.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_definitions</th>
@@ -689,6 +689,12 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce that @final/@override in a stub should be only on first overload.</p><p>Does not enforce @override when correctly used with an overloaded method in a stub file.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Expects @final and @override to be present on all overloads, not just first.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Fail<span class="tooltip-text" id="bottom"><p>Does not enforce any of the specified rules regarding overload definitions.</p></span></div></th>
+</tr>
+<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_overlap</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 not-conformant"><div class="hover-text">Fail<span class="tooltip-text" id="bottom"><p>Does not check for overlapping overloads with inconsistent return type.</p></span></div></th>
+<th class="column col2 not-conformant"><div class="hover-text">Fail<span class="tooltip-text" id="bottom"><p>Does not check for overlapping overloads with inconsistent return type.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/exceptions.html">Exceptions</a>
