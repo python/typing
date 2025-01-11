@@ -2,7 +2,7 @@
 Tests for evaluation of calls to overloaded functions.
 """
 
-from typing import assert_type, overload
+from typing import assert_type, Literal, overload
 
 
 # > Step 1: Examine the argument list to determine the number of
@@ -84,3 +84,20 @@ def _(v: int | str) -> None:
 def _(v: int | str) -> None:
     example2(v, v, 1)  # E: no overload matches (str, ..., ...)
 
+
+# > 2. ``bool`` should be expanded into ``Literal[True]`` and ``Literal[False]``.
+
+@overload
+def expand_bool(x: Literal[False]) -> Literal[0]:
+    ...
+
+@overload
+def expand_bool(x: Literal[True]) -> Literal[1]:
+    ...
+
+def expand_bool(x: bool) -> int:
+    return int(x)
+
+def _(v: bool) -> None:
+    ret1 = expand_bool(v)
+    assert_type(ret1, Literal[0, 1])

@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
 Does not pick a winning overload based on arity, prior to considering argument types.
-Does not perform argument expansion on unions and union return types of all matching overloads.
+Does not perform argument expansion and union return types of all matching overloads.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -11,6 +11,9 @@ Line 35: Unexpected errors ['overloads_evaluation.py:35:1: \\x1b[1m\\x1b[31merro
 Line 41: Unexpected errors ['overloads_evaluation.py:41:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
 Line 59: Unexpected errors ['overloads_evaluation.py:59:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in example2: bad return type [bad-return-type]']
 Line 78: Unexpected errors ['overloads_evaluation.py:78:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in _: str [assert-type]']
+Line 99: Unexpected errors ['overloads_evaluation.py:99:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in expand_bool: bad return type [bad-return-type]', 'overloads_evaluation.py:99:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in expand_bool: bad return type [bad-return-type]']
+Line 102: Unexpected errors ['overloads_evaluation.py:102:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in _: Function expand_bool was called with the wrong arguments [wrong-arg-types]']
+Line 103: Unexpected errors ['overloads_evaluation.py:103:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in _: Any [assert-type]']
 """
 output = """
 overloads_evaluation.py:22:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in example1: bad return type [bad-return-type]
@@ -54,5 +57,25 @@ overloads_evaluation.py:78:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in _:
 
     assert_type(ret1, int | str)
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+overloads_evaluation.py:99:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in expand_bool: bad return type [bad-return-type]
+
+    return int(x)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+overloads_evaluation.py:99:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in expand_bool: bad return type [bad-return-type]
+
+    return int(x)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+overloads_evaluation.py:102:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in _: Function expand_bool was called with the wrong arguments [wrong-arg-types]
+
+    ret1 = expand_bool(v)
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+overloads_evaluation.py:103:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in _: Any [assert-type]
+
+    assert_type(ret1, Literal[0, 1])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 """

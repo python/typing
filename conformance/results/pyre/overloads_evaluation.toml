@@ -1,11 +1,17 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not expand boolean arguments to Literal[True] and Literal[False].
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 85: Expected 1 errors
+Line 102: Unexpected errors ['overloads_evaluation.py:102:23 Incompatible parameter type [6]: In call `expand_bool`, for 1st positional argument, expected `typing_extensions.Literal[False]` but got `bool`.']
+Line 103: Unexpected errors ['overloads_evaluation.py:103:4 Assert type [70]: Expected `Union[typing_extensions.Literal[0], typing_extensions.Literal[1]]` but got `typing_extensions.Literal[0]`.']
 """
 output = """
 overloads_evaluation.py:26:0 Missing argument [20]: Call `example1` expects argument `x`.
 overloads_evaluation.py:34:19 Incompatible parameter type [6]: In call `example1`, for 2nd positional argument, expected `str` but got `int`.
 overloads_evaluation.py:40:16 Incompatible parameter type [6]: In call `example1`, for 1st positional argument, expected `str` but got `int`.
-overloads_evaluation.py:85:13 Incompatible parameter type [6]: In call `example2`, for 1st positional argument, expected `int` but got `Union[int, str]`.
-overloads_evaluation.py:85:16 Incompatible parameter type [6]: In call `example2`, for 2nd positional argument, expected `str` but got `Union[int, str]`.
+overloads_evaluation.py:102:23 Incompatible parameter type [6]: In call `expand_bool`, for 1st positional argument, expected `typing_extensions.Literal[False]` but got `bool`.
+overloads_evaluation.py:103:4 Assert type [70]: Expected `Union[typing_extensions.Literal[0], typing_extensions.Literal[1]]` but got `typing_extensions.Literal[0]`.
 """
