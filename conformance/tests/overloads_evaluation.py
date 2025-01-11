@@ -2,6 +2,7 @@
 Tests for evaluation of calls to overloaded functions.
 """
 
+from enum import Enum
 from typing import assert_type, Literal, overload
 
 
@@ -73,7 +74,7 @@ assert_type(ret5, int)
 # >   respective return types by union to determine the final return type
 # >   for the call, and stop.
 
-def _(v: int | str) -> None:
+def check_expand_union(v: int | str) -> None:
     ret1 = example2(1, v, 1)
     assert_type(ret1, int | str)
 
@@ -81,7 +82,7 @@ def _(v: int | str) -> None:
 # >   more of the expanded argument lists cannot be evaluated successfully,
 # >   generate an error and stop.
 
-def _(v: int | str) -> None:
+def check_expand_union_2(v: int | str) -> None:
     example2(v, v, 1)  # E: no overload matches (str, ..., ...)
 
 
@@ -98,6 +99,51 @@ def expand_bool(x: Literal[True]) -> Literal[1]:
 def expand_bool(x: bool) -> int:
     return int(x)
 
-def _(v: bool) -> None:
+def check_expand_bool(v: bool) -> None:
     ret1 = expand_bool(v)
     assert_type(ret1, Literal[0, 1])
+
+
+# > 3. ``Enum`` types (other than those that derive from ``enum.Flag``) should
+# > be expanded into their literal members.
+
+class Color(Enum):
+    RED = 1
+    BLUE = 1
+
+@overload
+def expand_enum(x: Literal[Color.RED]) -> Literal[0]:
+    ...
+
+@overload
+def expand_enum(x: Literal[Color.BLUE]) -> Literal[1]:
+    ...
+
+def expand_enum(x: Color) -> int:
+    return x.value
+
+def check_expand_enum(v: Color) -> None:
+    ret1 = expand_enum(v)
+    assert_type(ret1, Literal[0, 1])
+
+# > 5. Tuples of known length that contain expandable types should be expanded
+# > into all possible combinations of their element types. For example, the type
+# > ``tuple[int | str, bool]`` should be expanded into ``(int, Literal[True])``,
+# > ``(int, Literal[False])``, ``(str, Literal[True])``, and
+# > ``(str, Literal[False])``.
+
+@overload
+def expand_tuple(x: tuple[int, int]) -> int:
+    ...
+
+@overload
+def expand_tuple(x: tuple[int, str]) -> str:
+    ...
+
+def expand_tuple(x: tuple[int, int | str]) -> int | str:
+    return 1
+
+def check_expand_tuple(v: int | str) -> None:
+    ret1 = expand_tuple((1, v))
+    assert_type(ret1, int | str)
+
