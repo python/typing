@@ -2,7 +2,7 @@
 Tests consistency of overloads with implementation.
 """
 
-from typing import Coroutine, overload
+from typing import Callable, Coroutine, overload
 
 # > If an overload implementation is defined, type checkers should validate
 # > that it is consistent with all of its associated overload signatures.
@@ -89,3 +89,29 @@ def returns_coroutine_2(x: int | str) -> Coroutine[None, None, int | str]:
 
 async def _wrapped(x: int | str) -> int | str:
     return 2
+
+# Decorator transforms are applied before checking overload consistency:
+
+def _deco_1(f: Callable) -> Callable[[int], int]:
+    def wrapped(_x: int, /) -> int:
+        return 1
+    return wrapped
+
+def _deco_2(f: Callable) -> Callable[[int | str], int | str]:
+    def wrapped(_x: int | str, /) -> int | str:
+        return 1
+    return wrapped
+
+@overload
+@_deco_1
+def decorated() -> None:
+    ...
+
+@overload
+def decorated(x: str, /) -> str:
+    ...
+
+@_deco_2
+def decorated(y: bytes, z: bytes) -> bytes:
+    return b""
+
