@@ -3,7 +3,7 @@ Tests for evaluation of calls to overloaded functions.
 """
 
 from enum import Enum
-from typing import assert_type, Literal, overload
+from typing import Any, assert_type, Literal, overload
 
 
 # > Step 1: Examine the argument list to determine the number of
@@ -191,3 +191,31 @@ def variadic(*args: int) -> int | str:
 def check_variadic(v: list[int]) -> None:
     ret1 = variadic(*v)
     assert_type(ret1, int)
+
+
+# > Step 5: For each argument, determine whether all possible
+# > :term:`materializations <materialize>` of the argument's type are assignable to
+# > the corresponding parameter type for each of the remaining overloads. If so,
+# > eliminate all of the subsequent remaining overloads.
+
+@overload
+def example4(x: list[int], y: int) -> int:
+   ...
+
+@overload
+def example4(x: list[str], y: str) -> int:
+    ...
+
+@overload
+def example4(x: int, y: int) -> list[int]:
+    ...
+
+def example4(x: list[int] | list[str] | int, y: int | str) -> int | list[int]:
+    return 1
+
+def check_example4(v1: list[Any], v2: Any):
+    ret1 = example4(v1, v2)
+    assert_type(ret1, int)
+
+    ret2 = example4(v2, 1)
+    assert_type(ret2, Any)
