@@ -1,44 +1,58 @@
 conformant = "Partial"
 notes = """
 Does not pick a winning overload based on arity, prior to considering argument types.
+Does not perform argument expansion on unions and union return types of all matching overloads.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 24: Unexpected errors ['overloads_evaluation.py:24:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in num_args: bad return type [bad-return-type]']
-Line 36: Unexpected errors ['overloads_evaluation.py:36:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
-Line 42: Unexpected errors ['overloads_evaluation.py:42:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 85: Expected 1 errors
+Line 22: Unexpected errors ['overloads_evaluation.py:22:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in example1: bad return type [bad-return-type]']
+Line 35: Unexpected errors ['overloads_evaluation.py:35:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 41: Unexpected errors ['overloads_evaluation.py:41:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 59: Unexpected errors ['overloads_evaluation.py:59:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in example2: bad return type [bad-return-type]']
+Line 78: Unexpected errors ['overloads_evaluation.py:78:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in _: str [assert-type]']
 """
 output = """
-overloads_evaluation.py:24:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in num_args: bad return type [bad-return-type]
+overloads_evaluation.py:22:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in example1: bad return type [bad-return-type]
 
     return 1
            \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
 
 Called from (traceback):
-  line 38, in current file
-overloads_evaluation.py:26:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'x' in call to function num_args [missing-parameter]
+  line 37, in current file
+overloads_evaluation.py:26:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'x' in call to function example1 [missing-parameter]
 
-num_args()  # E: no matching overload
+example1()  # E: no matching overload
 \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
 
-overloads_evaluation.py:35:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function num_args was called with the wrong arguments [wrong-arg-types]
+overloads_evaluation.py:34:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function example1 was called with the wrong arguments [wrong-arg-types]
 
-ret2 = num_args(1, 1)  # E: Literal[1] not assignable to str
+ret2 = example1(1, 1)  # E: Literal[1] not assignable to str
        \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-overloads_evaluation.py:36:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+overloads_evaluation.py:35:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
 
 assert_type(ret2, int)
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-overloads_evaluation.py:41:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function num_args was called with the wrong arguments [wrong-arg-types]
+overloads_evaluation.py:40:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function example1 was called with the wrong arguments [wrong-arg-types]
 
-ret4 = num_args(1)  # E: Literal[1] not assignable to str
+ret4 = example1(1)  # E: Literal[1] not assignable to str
        \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-overloads_evaluation.py:42:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+overloads_evaluation.py:41:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
 
 assert_type(ret4, str)
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+overloads_evaluation.py:59:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in example2: bad return type [bad-return-type]
+
+    return 1
+           \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+overloads_evaluation.py:78:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in _: str [assert-type]
+
+    assert_type(ret1, int | str)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 """

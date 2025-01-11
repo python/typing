@@ -3,10 +3,17 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-overloads_evaluation.py:26:1 - error: No overloads for "num_args" match the provided arguments
+overloads_evaluation.py:26:1 - error: No overloads for "example1" match the provided arguments
   Argument types: () (reportCallIssue)
-overloads_evaluation.py:35:20 - error: Argument of type "Literal[1]" cannot be assigned to parameter "y" of type "str" in function "num_args"
+overloads_evaluation.py:34:20 - error: Argument of type "Literal[1]" cannot be assigned to parameter "y" of type "str" in function "example1"
   "Literal[1]" is not assignable to "str" (reportArgumentType)
-overloads_evaluation.py:41:17 - error: Argument of type "Literal[1]" cannot be assigned to parameter "x" of type "str" in function "num_args"
+overloads_evaluation.py:40:17 - error: Argument of type "Literal[1]" cannot be assigned to parameter "x" of type "str" in function "example1"
   "Literal[1]" is not assignable to "str" (reportArgumentType)
+overloads_evaluation.py:85:5 - error: No overloads for "example2" match the provided arguments (reportCallIssue)
+overloads_evaluation.py:85:14 - error: Argument of type "int | str" cannot be assigned to parameter "x" of type "int" in function "example2"
+  Type "int | str" is not assignable to type "int"
+    "str" is not assignable to "int" (reportArgumentType)
+overloads_evaluation.py:85:17 - error: Argument of type "int | str" cannot be assigned to parameter "y" of type "int" in function "example2"
+  Type "int | str" is not assignable to type "int"
+    "str" is not assignable to "int" (reportArgumentType)
 """

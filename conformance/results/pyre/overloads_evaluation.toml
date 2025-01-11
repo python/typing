@@ -3,7 +3,9 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-overloads_evaluation.py:26:0 Missing argument [20]: Call `num_args` expects argument `x`.
-overloads_evaluation.py:35:19 Incompatible parameter type [6]: In call `num_args`, for 2nd positional argument, expected `str` but got `int`.
-overloads_evaluation.py:41:16 Incompatible parameter type [6]: In call `num_args`, for 1st positional argument, expected `str` but got `int`.
+overloads_evaluation.py:26:0 Missing argument [20]: Call `example1` expects argument `x`.
+overloads_evaluation.py:34:19 Incompatible parameter type [6]: In call `example1`, for 2nd positional argument, expected `str` but got `int`.
+overloads_evaluation.py:40:16 Incompatible parameter type [6]: In call `example1`, for 1st positional argument, expected `str` but got `int`.
+overloads_evaluation.py:85:13 Incompatible parameter type [6]: In call `example2`, for 1st positional argument, expected `int` but got `Union[int, str]`.
+overloads_evaluation.py:85:16 Incompatible parameter type [6]: In call `example2`, for 2nd positional argument, expected `str` but got `Union[int, str]`.
 """
