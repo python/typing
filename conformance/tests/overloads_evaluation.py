@@ -166,3 +166,28 @@ def check_expand_tuple(v: int | str) -> None:
     ret1 = expand_tuple((1, v))
     assert_type(ret1, int | str)
 
+
+# > Step 4: If the argument list is compatible with two or more overloads,
+# > determine whether one or more of the overloads has a variadic parameter
+# > (either ``*args`` or ``**kwargs``) that maps to a corresponding argument
+# > that supplies an indeterminate number of positional or keyword arguments.
+# > If so, eliminate overloads that do not have a variadic parameter.
+
+@overload
+def variadic(x: int, /) -> Literal[0]:
+    ...
+
+@overload
+def variadic(*args: int) -> int:
+    ...
+
+def variadic(*args: int) -> int | str:
+    return 1
+
+# > - If this results in only one remaining candidate overload, it is
+# >   the winning match. Evaluate it as if it were a non-overloaded function
+# >   call and stop.
+
+def check_variadic(v: list[int]) -> None:
+    ret1 = variadic(*v)
+    assert_type(ret1, int)

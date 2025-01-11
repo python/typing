@@ -4,6 +4,7 @@ Does not expand boolean arguments to Literal[True] and Literal[False].
 Does not expand enum arguments to literal variants.
 Does not expand type[A | B] to type[A] and type[B].
 Does not expand tuple arguments to possible combinations.
+Does not prefer variadic match to indeterminate-length unpacked argument.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -17,6 +18,7 @@ Line 144: Unexpected errors ['overloads_evaluation.py:144:29 Incompatible parame
 Line 145: Unexpected errors ['overloads_evaluation.py:145:4 Assert type [70]: Expected `Union[int, str]` but got `int`.']
 Line 166: Unexpected errors ['overloads_evaluation.py:166:24 Incompatible parameter type [6]: In call `expand_tuple`, for 1st positional argument, expected `Tuple[int, int]` but got `Tuple[int, Union[int, str]]`.']
 Line 167: Unexpected errors ['overloads_evaluation.py:167:4 Assert type [70]: Expected `Union[int, str]` but got `int`.']
+Line 193: Unexpected errors ['overloads_evaluation.py:193:4 Assert type [70]: Expected `int` but got `typing_extensions.Literal[0]`.']
 """
 output = """
 overloads_evaluation.py:27:0 Missing argument [20]: Call `example1` expects argument `x`.
@@ -34,4 +36,5 @@ overloads_evaluation.py:144:29 Incompatible parameter type [6]: In call `expand_
 overloads_evaluation.py:145:4 Assert type [70]: Expected `Union[int, str]` but got `int`.
 overloads_evaluation.py:166:24 Incompatible parameter type [6]: In call `expand_tuple`, for 1st positional argument, expected `Tuple[int, int]` but got `Tuple[int, Union[int, str]]`.
 overloads_evaluation.py:167:4 Assert type [70]: Expected `Union[int, str]` but got `int`.
+overloads_evaluation.py:193:4 Assert type [70]: Expected `int` but got `typing_extensions.Literal[0]`.
 """

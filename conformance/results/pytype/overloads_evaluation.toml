@@ -21,6 +21,7 @@ Line 141: Unexpected errors ['overloads_evaluation.py:141:12: \\x1b[1m\\x1b[31me
 Line 145: Unexpected errors ['overloads_evaluation.py:145:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_expand_type_union: int [assert-type]']
 Line 163: Unexpected errors ['overloads_evaluation.py:163:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in expand_tuple: bad return type [bad-return-type]']
 Line 167: Unexpected errors ['overloads_evaluation.py:167:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_expand_tuple: int [assert-type]']
+Line 185: Unexpected errors ['overloads_evaluation.py:185:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in variadic: bad return type [bad-return-type]']
 """
 output = """
 overloads_evaluation.py:23:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in example1: bad return type [bad-return-type]
@@ -119,5 +120,10 @@ overloads_evaluation.py:167:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in c
 
     assert_type(ret1, int | str)
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+overloads_evaluation.py:185:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in variadic: bad return type [bad-return-type]
+
+    return 1
+           \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
 
 """
