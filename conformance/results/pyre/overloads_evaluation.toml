@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_evaluation.py:26:0 Missing argument [20]: Call `num_args` expects argument `x`.
+overloads_evaluation.py:35:19 Incompatible parameter type [6]: In call `num_args`, for 2nd positional argument, expected `str` but got `int`.
+overloads_evaluation.py:41:16 Incompatible parameter type [6]: In call `num_args`, for 1st positional argument, expected `str` but got `int`.
+"""

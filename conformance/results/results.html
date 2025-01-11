@@ -165,10 +165,10 @@
 <div class='tc-time'>1.5sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>6.6sec</div>
+<div class='tc-time'>6.7sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>30.1sec</div>
+<div class='tc-time'>30.7sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -689,6 +689,12 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce that @final/@override in a stub should be only on first overload.</p><p>Does not enforce @override when correctly used with an overloaded method in a stub file.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Expects @final and @override to be present on all overloads, not just first.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Fail<span class="tooltip-text" id="bottom"><p>Does not enforce any of the specified rules regarding overload definitions.</p></span></div></th>
+</tr>
+<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_evaluation</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not pick a winning overload based on arity, prior to considering argument types.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not pick a winning overload based on arity, prior to considering argument types.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_overlap</th>
 <th class="column col2 conformant">Pass</th>

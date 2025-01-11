@@ -1,0 +1,25 @@
+conformant = "Partial"
+notes = """
+Does not pick a winning overload based on arity, prior to considering argument types.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 36: Unexpected errors ['overloads_evaluation.py:36: error: Expression is of type "Any", not "int"  [assert-type]']
+Line 42: Unexpected errors ['overloads_evaluation.py:42: error: Expression is of type "Any", not "str"  [assert-type]']
+"""
+output = """
+overloads_evaluation.py:26: error: All overload variants of "num_args" require at least one argument  [call-overload]
+overloads_evaluation.py:26: note: Possible overload variants:
+overloads_evaluation.py:26: note:     def num_args(x: int, y: str) -> int
+overloads_evaluation.py:26: note:     def num_args(x: str) -> str
+overloads_evaluation.py:35: error: No overload variant of "num_args" matches argument types "int", "int"  [call-overload]
+overloads_evaluation.py:35: note: Possible overload variants:
+overloads_evaluation.py:35: note:     def num_args(x: int, y: str) -> int
+overloads_evaluation.py:35: note:     def num_args(x: str) -> str
+overloads_evaluation.py:36: error: Expression is of type "Any", not "int"  [assert-type]
+overloads_evaluation.py:41: error: No overload variant of "num_args" matches argument type "int"  [call-overload]
+overloads_evaluation.py:41: note: Possible overload variants:
+overloads_evaluation.py:41: note:     def num_args(x: int, y: str) -> int
+overloads_evaluation.py:41: note:     def num_args(x: str) -> str
+overloads_evaluation.py:42: error: Expression is of type "Any", not "str"  [assert-type]
+"""

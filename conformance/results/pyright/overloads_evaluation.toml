@@ -1,0 +1,12 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_evaluation.py:26:1 - error: No overloads for "num_args" match the provided arguments
+  Argument types: () (reportCallIssue)
+overloads_evaluation.py:35:20 - error: Argument of type "Literal[1]" cannot be assigned to parameter "y" of type "str" in function "num_args"
+  "Literal[1]" is not assignable to "str" (reportArgumentType)
+overloads_evaluation.py:41:17 - error: Argument of type "Literal[1]" cannot be assigned to parameter "x" of type "str" in function "num_args"
+  "Literal[1]" is not assignable to "str" (reportArgumentType)
+"""
