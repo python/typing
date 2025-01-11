@@ -4,5 +4,5 @@ errors_diff = """
 """
 output = """
 overloads_consistency.py:27: error: Overloaded function implementation cannot produce return type of signature 2  [misc]
-overloads_consistency.py:42: error: Overloaded function implementation does not accept all possible arguments of signature 2  [misc]
+overloads_consistency.py:43: error: Overloaded function implementation does not accept all possible arguments of signature 2  [misc]
 """

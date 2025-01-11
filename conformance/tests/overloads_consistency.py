@@ -2,7 +2,7 @@
 Tests consistency of overloads with implementation.
 """
 
-from typing import overload
+from typing import Coroutine, overload
 
 # > If an overload implementation is defined, type checkers should validate
 # > that it is consistent with all of its associated overload signatures.
@@ -29,7 +29,8 @@ def return_type(x: int | str) -> int:  # E[return_type] an overload returns `str
 
 
 # Input signature of implementation must be assignable to signature of each
-# overload:
+# overload. We don't attempt a thorough testing of input signature
+# assignability here; see `callables_subtyping.py` for that:
 
 @overload
 def parameter_type(x: int) -> int:
@@ -41,3 +42,50 @@ def parameter_type(x: str) -> str:  # E[parameter_type]
 
 def parameter_type(x: int) -> int | str:  # E[parameter_type] impl type of `x` must be assignable from overload types of `x`
     return 1
+
+
+# > Overloads are allowed to use a mixture of ``async def`` and ``def`` statements
+# > within the same overload definition. Type checkers should convert
+# > ``async def`` statements to a non-async signature (wrapping the return
+# > type in a ``Coroutine``) before testing for implementation consistency
+# > and overlapping overloads (described below).
+
+# ...and also...
+
+# > When a type checker checks the implementation for consistency with overloads,
+# > it should first apply any transforms that change the effective type of the
+# > implementation including the presence of a ``yield`` statement in the
+# > implementation body, the use of ``async def``, and the presence of additional
+# > decorators.
+
+# An overload can explicitly return `Coroutine`, while the implementation is an
+# `async def`:
+
+@overload
+def returns_coroutine(x: int) -> Coroutine[None, None, int]:
+    ...
+
+@overload
+async def returns_coroutine(x: str) -> str:
+    ...
+
+async def returns_coroutine(x: int | str) -> int | str:
+    return 1
+
+
+# The implementation can explicitly return `Coroutine`, while overloads are
+# `async def`:
+
+@overload
+async def returns_coroutine_2(x: int) -> int:
+    ...
+
+@overload
+async def returns_coroutine_2(x: str) -> str:
+    ...
+
+def returns_coroutine_2(x: int | str) -> Coroutine[None, None, int | str]:
+    return _wrapped(x)
+
+async def _wrapped(x: int | str) -> int | str:
+    return 2
