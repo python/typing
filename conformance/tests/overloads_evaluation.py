@@ -11,6 +11,11 @@ from typing import Any, assert_type, Literal, overload
 # > overload candidates that are not plausible based on their
 # > input signatures.
 
+# (There is no way to observe via conformance tests whether an implementation
+# performs this step separately from the argument-type-testing step 2 below, so
+# the separation of step 1 from step 2 is purely a presentation choice for the
+# algorithm, not a conformance requirement.)
+
 @overload
 def example1(x: int, y: str) -> int:
     ...
@@ -32,14 +37,12 @@ example1()  # E: no matching overload
 ret1 = example1(1, "")
 assert_type(ret1, int)
 
-ret2 = example1(1, 1)  # E: Literal[1] not assignable to str
-assert_type(ret2, int)
+example1(1, 1)  # E: Literal[1] not assignable to str
 
 ret3 = example1("")
 assert_type(ret3, str)
 
-ret4 = example1(1)  # E: Literal[1] not assignable to str
-assert_type(ret4, str)
+example1(1)  # E: Literal[1] not assignable to str
 
 
 # > Step 2: Evaluate each remaining overload as a regular (non-overloaded)
