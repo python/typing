@@ -1,8 +1,8 @@
 conformant = "Partial"
 notes = """
-Does not pick a winning overload based on arity, prior to considering argument types.
 Does not perform argument expansion (on any types) when matching overloads.
 Does not treat multiple matches due to gradual types as ambiguous.
+Does not prefer variadic match to indeterminate-length unpacked argument.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -21,6 +21,7 @@ Line 148: Unexpected errors ['overloads_evaluation.py:148:5: \\x1b[1m\\x1b[31mer
 Line 166: Unexpected errors ['overloads_evaluation.py:166:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in expand_tuple: bad return type [bad-return-type]']
 Line 170: Unexpected errors ['overloads_evaluation.py:170:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_expand_tuple: int [assert-type]']
 Line 188: Unexpected errors ['overloads_evaluation.py:188:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in variadic: bad return type [bad-return-type]']
+Line 196: Unexpected errors ['overloads_evaluation.py:196:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_variadic: str [assert-type]']
 Line 217: Unexpected errors ['overloads_evaluation.py:217:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in example4: bad return type [bad-return-type]']
 Line 224: Unexpected errors ['overloads_evaluation.py:224:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_example4: int [assert-type]']
 """
@@ -116,6 +117,11 @@ overloads_evaluation.py:188:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in 
 
     return 1
            \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+overloads_evaluation.py:196:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in check_variadic: str [assert-type]
+
+    assert_type(ret1, int)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 overloads_evaluation.py:217:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in example4: bad return type [bad-return-type]
 

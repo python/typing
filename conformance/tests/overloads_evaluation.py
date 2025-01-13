@@ -177,11 +177,11 @@ def check_expand_tuple(v: int | str) -> None:
 # > If so, eliminate overloads that do not have a variadic parameter.
 
 @overload
-def variadic(x: int, /) -> Literal[0]:
+def variadic(x: int, /) -> str:
     ...
 
 @overload
-def variadic(*args: int) -> int:
+def variadic(x: int, y: int, /, *args: int) -> int:
     ...
 
 def variadic(*args: int) -> int | str:

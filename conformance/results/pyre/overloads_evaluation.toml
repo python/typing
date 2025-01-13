@@ -19,7 +19,7 @@ Line 147: Unexpected errors ['overloads_evaluation.py:147:29 Incompatible parame
 Line 148: Unexpected errors ['overloads_evaluation.py:148:4 Assert type [70]: Expected `Union[int, str]` but got `int`.']
 Line 169: Unexpected errors ['overloads_evaluation.py:169:24 Incompatible parameter type [6]: In call `expand_tuple`, for 1st positional argument, expected `Tuple[int, int]` but got `Tuple[int, Union[int, str]]`.']
 Line 170: Unexpected errors ['overloads_evaluation.py:170:4 Assert type [70]: Expected `Union[int, str]` but got `int`.']
-Line 196: Unexpected errors ['overloads_evaluation.py:196:4 Assert type [70]: Expected `int` but got `typing_extensions.Literal[0]`.']
+Line 196: Unexpected errors ['overloads_evaluation.py:196:4 Assert type [70]: Expected `int` but got `str`.']
 Line 224: Unexpected errors ['overloads_evaluation.py:224:4 Assert type [70]: Expected `typing.Any` but got `int`.']
 """
 output = """
@@ -38,6 +38,6 @@ overloads_evaluation.py:147:29 Incompatible parameter type [6]: In call `expand_
 overloads_evaluation.py:148:4 Assert type [70]: Expected `Union[int, str]` but got `int`.
 overloads_evaluation.py:169:24 Incompatible parameter type [6]: In call `expand_tuple`, for 1st positional argument, expected `Tuple[int, int]` but got `Tuple[int, Union[int, str]]`.
 overloads_evaluation.py:170:4 Assert type [70]: Expected `Union[int, str]` but got `int`.
-overloads_evaluation.py:196:4 Assert type [70]: Expected `int` but got `typing_extensions.Literal[0]`.
+overloads_evaluation.py:196:4 Assert type [70]: Expected `int` but got `str`.
 overloads_evaluation.py:224:4 Assert type [70]: Expected `typing.Any` but got `int`.
 """

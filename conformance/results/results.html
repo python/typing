@@ -159,16 +159,16 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.14.1</div>
-<div class='tc-time'>1.8sec</div>
-</th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.391</div>
 <div class='tc-time'>1.7sec</div>
 </th>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.391</div>
+<div class='tc-time'>1.5sec</div>
+</th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>6.7sec</div>
+<div class='tc-time'>6.0sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>31.1sec</div>
+<div class='tc-time'>30.8sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -692,9 +692,9 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_evaluation</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not expand boolean arguments to Literal[True] and Literal[False].</p><p>Does not expand enum arguments to literal variants.</p><p>Does not expand tuple arguments to possible combinations.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not expand boolean arguments to Literal[True] and Literal[False].</p><p>Does not expand enum arguments to literal variants.</p><p>Does not expand tuple arguments to possible combinations.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not expand boolean arguments to Literal[True] and Literal[False].</p><p>Does not expand enum arguments to literal variants.</p><p>Does not expand tuple arguments to possible combinations.</p><p>Does not prefer variadic match to indeterminate-length unpacked argument.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not expand boolean arguments to Literal[True] and Literal[False].</p><p>Does not expand enum arguments to literal variants.</p><p>Does not expand type[A | B] to type[A] and type[B].</p><p>Does not expand tuple arguments to possible combinations.</p><p>Does not prefer variadic match to indeterminate-length unpacked argument.</p><p>Does not treat multiple matches due to gradual types as ambiguous.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not pick a winning overload based on arity, prior to considering argument types.</p><p>Does not perform argument expansion (on any types) when matching overloads.</p><p>Does not treat multiple matches due to gradual types as ambiguous.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not perform argument expansion (on any types) when matching overloads.</p><p>Does not treat multiple matches due to gradual types as ambiguous.</p><p>Does not prefer variadic match to indeterminate-length unpacked argument.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_overlap</th>
 <th class="column col2 conformant">Pass</th>

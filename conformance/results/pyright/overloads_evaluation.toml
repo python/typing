@@ -3,6 +3,7 @@ notes = """
 Does not expand boolean arguments to Literal[True] and Literal[False].
 Does not expand enum arguments to literal variants.
 Does not expand tuple arguments to possible combinations.
+Does not prefer variadic match to indeterminate-length unpacked argument.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -12,6 +13,7 @@ Line 129: Unexpected errors ['overloads_evaluation.py:129:12 - error: No overloa
 Line 130: Unexpected errors ['overloads_evaluation.py:130:17 - error: "assert_type" mismatch: expected "Literal[0, 1]" but received "Unknown" (reportAssertTypeFailure)']
 Line 169: Unexpected errors ['overloads_evaluation.py:169:12 - error: No overloads for "expand_tuple" match the provided arguments (reportCallIssue)', 'overloads_evaluation.py:169:29 - error: Argument of type "tuple[Literal[1], int | str]" cannot be assigned to parameter "x" of type "tuple[int, str]" in function "expand_tuple"']
 Line 170: Unexpected errors ['overloads_evaluation.py:170:17 - error: "assert_type" mismatch: expected "int | str" but received "Unknown" (reportAssertTypeFailure)']
+Line 196: Unexpected errors ['overloads_evaluation.py:196:17 - error: "assert_type" mismatch: expected "int" but received "str" (reportAssertTypeFailure)']
 """
 output = """
 overloads_evaluation.py:32:1 - error: No overloads for "example1" match the provided arguments
@@ -40,4 +42,5 @@ overloads_evaluation.py:169:29 - error: Argument of type "tuple[Literal[1], int 
   Type "int | str" is not assignable to type "str"
     "int" is not assignable to "str" (reportArgumentType)
 overloads_evaluation.py:170:17 - error: "assert_type" mismatch: expected "int | str" but received "Unknown" (reportAssertTypeFailure)
+overloads_evaluation.py:196:17 - error: "assert_type" mismatch: expected "int" but received "str" (reportAssertTypeFailure)
 """
