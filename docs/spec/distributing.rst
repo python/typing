@@ -390,11 +390,11 @@ The following idioms are supported for defining the values contained
 within ``__all__``. These restrictions allow type checkers to statically
 determine the value of ``__all__``.
 
--  ``__all__ = ('a', b')``
--  ``__all__ = ['a', b']``
--  ``__all__ += ['a', b']``
+-  ``__all__ = ('a', 'b')``
+-  ``__all__ = ['a', 'b']``
+-  ``__all__ += ['a', 'b']``
 -  ``__all__ += submodule.__all__``
--  ``__all__.extend(['a', b'])``
+-  ``__all__.extend(['a', 'b'])``
 -  ``__all__.extend(submodule.__all__)``
 -  ``__all__.append('a')``
 -  ``__all__.remove('a')``
