@@ -1071,7 +1071,7 @@ outer ``Callable``.  This has the following semantics:
 .. code-block::
 
    def a_int_b_str(a: int, b: str) -> int:
-     pass
+     return a
 
    twice(a_int_b_str, 1, "A")       # Accepted
 
