@@ -110,7 +110,7 @@ The following grammar describes the allowed elements of type and annotation expr
                          : | <NotRequired> '[' `annotation_expression` ']'
                          : | <ReadOnly> '[' `annotation_expression`']'
                          : | <ClassVar> '[' `annotation_expression`']'
-                         : | <Final> '[' `annotation_expression`']'
+                         : | <Final> ('[' `annotation_expression`']')?
                          : | <InitVar> '[' `annotation_expression` ']'
                          : | <Annotated> '[' `annotation_expression` ','
                          :               expression (',' expression)* ']'
