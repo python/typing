@@ -66,6 +66,22 @@ implementation (or on the first overload, for stubs)::
        def method(self, x=None):
            ...
 
+The ``@final`` decorator can be combined with previous decorators, like
+``@property``. Example::
+
+    from typing import final
+
+    class Base:
+        @final
+        @property
+        def foo(self) -> None:
+            ...
+
+    class Derived(Base):
+        @property
+        def foo(self) -> None:  # Error: Cannot override final attribute "foo"
+            ...
+
 It is an error to use ``@final`` on a non-method function.
 
 .. _`uppercase-final`:
