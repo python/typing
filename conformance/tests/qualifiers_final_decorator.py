@@ -51,6 +51,14 @@ class Base2:
     def method4(self, x: int | str) -> int | str:
         return 0
 
+    # > @final may be chained with decorators that return a non-function, like a
+    # property descriptor.
+
+    @final
+    @property
+    def method5(self) -> int:
+        return 0
+
 
 class Derived2(Base2):
     def method1(self) -> None:  # E
@@ -74,6 +82,10 @@ class Derived2(Base2):
 
     def method4(self, x: int | str) -> int | str:  # E[method4]
         return 0
+
+    @property # E[method5]
+    def method5(self) -> bool: # E[method5]
+        return True
 
 
 class Derived3(Base3):

@@ -19,7 +19,7 @@ aliases_typealiastype.py:56:42 - error: Expected class but received "dict[str, U
 aliases_typealiastype.py:56:49 - error: "b" is not defined (reportUndefinedVariable)
 aliases_typealiastype.py:57:42 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 aliases_typealiastype.py:58:42 - error: List expression not allowed in type expression
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+  Use list[T] to indicate a list type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
 aliases_typealiastype.py:58:42 - error: Expected class but received "list[type[int]]" (reportGeneralTypeIssues)
 aliases_typealiastype.py:58:48 - error: Expected class but received "Literal[0]" (reportGeneralTypeIssues)
 aliases_typealiastype.py:59:42 - error: Ternary expression not allowed in type expression (reportInvalidTypeForm)
