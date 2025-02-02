@@ -97,7 +97,7 @@ There are several ways to define a user-defined class as generic:
 
 * Include a ``Generic`` base class.
 * Use the new generic class syntax in Python 3.12 and higher.
-* Include a `` Protocol`` base class parameterized with type variables. This
+* Include a ``Protocol`` base class parameterized with type variables. This
   approach also marks the class as a protocol - see
   :ref:`generic protocols<generic-protocols>` for more information.
 * Include a generic base class parameterized with type variables.
@@ -1071,7 +1071,7 @@ outer ``Callable``.  This has the following semantics:
 .. code-block::
 
    def a_int_b_str(a: int, b: str) -> int:
-     pass
+     return a
 
    twice(a_int_b_str, 1, "A")       # Accepted
 

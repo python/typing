@@ -158,17 +158,17 @@
         </header>
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
-<th class='tc-header'><div class='tc-name'>mypy 1.13.0</div>
-<div class='tc-time'>2.5sec</div>
+<th class='tc-header'><div class='tc-name'>mypy 1.14.0</div>
+<div class='tc-time'>1.6sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.389</div>
-<div class='tc-time'>2.5sec</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.391</div>
+<div class='tc-time'>1.2sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>4.3sec</div>
+<div class='tc-time'>7.3sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>45.2sec</div>
+<div class='tc-time'>37.2sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -247,31 +247,31 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False negative on passing SymbolTable to dict[str, list[object]].</p><p>Does not reject illegal use of Generic.</p><p>Wrong type variable order when inheriting from multiple generic base classes.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_basic</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject the use of a constraint parameterized by another type variable.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>False negative for constraint parameterized by a type variable.</p><p>False negative in custom map example.</p><p>False positive using `iter`.</p><p>False negative for bad type arguments to Generic/Protocol.</p><p>False negative for generic metaclass.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>False positives in examples using constrained type variables.</p><p>Argument 'covariant' to TypeVar not supported.</p><p>False negative for type variables missing from Generic/Protocol base class.</p><p>False negative for generic metaclass.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant">Partial</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support generic defaults.</p></span></div></th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults_referential</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant">Partial</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults_specialization</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant">Partial</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support generic defaults.</p></span></div></th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_paramspec_basic</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject ParamSpec when used "bare" in type alias definition.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce name consistency for ParamSpec assigned to identifier.</p><p>Incorrectly reports error for legitimate use of ParamSpec in generic type alias.</p><p>Does not reject ParamSpec when used in various invalid locations.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support ParamSpec.</p></span></div></th>
@@ -808,13 +808,13 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report type violation with TypedDict value assignment.</p><p>Does not report reference to unknown key in TypedDict.</p><p>Does not reject `clear` method on TypedDict with required keys.</p><p>Does not reject delete operation for required key in TypedDict.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects NotRequired directive when used in an Annotated annotation.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly_consistency</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects assignment of required item to not-required read-only item.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
@@ -838,7 +838,7 @@
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_required</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support nesting of `Annotated` and `Required` or `NotRequired`.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of `Required` in function parameter annotation.</p><p>Does not reject nested use of `Required` in type annotation.</p><p>Does not support recursive TypedDict definitions.</p><p>Incorrectly complains about uninitialized attributes on TypedDict definitions.</p><p>Incorrectly generates "attribute not initialized" errors for TypedDict fields.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of `Required` in non-TypedDict class.</p><p>Does not reject use of `Required` in function parameter annotation.</p><p>Does not reject nested use of `Required` in type annotation.</p></span></div></th>
@@ -937,7 +937,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce declared type of `_value_`.</p><p>Does not correctly enforce assigned tuple types for enum members (optional).</p><p>Does not evaluate literal types for enum member values (optional).</p><p>Does not evaluate literal types for auto values (optional).</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enums_members</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not treat attribute with annotation and no assignment as non-member.</p><p>Does not reject use of annotation with enum member.</p><p>Does not treat callables as non-members.</p><p>Does not honor `enum.member` as method decorator.</p><p>Does not properly handle aliased enum members.</p><p>Does not support `_ignore_` mechanism (optional).</p><p>Does not treat attributes with private names as non-members.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not treat attribute with annotation and no assignment as non-member.</p><p>Does not treat callables as non-members.</p><p>Does not honor `enum.member` as method decorator.</p><p>Does not properly handle aliased enum members.</p><p>Does not support `_ignore_` mechanism (optional).</p><p>Does not treat attributes with private names as non-members.</p></span></div></th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not support `_ignore_` mechanism (optional).</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of annotation with enum member.</p><p>Does not treat callables as non-members.</p><p>Does not treat annotated attributes as non-members.</p><p>Does not honor `enum.nonmember` to define non-member attribute.</p><p>Does not honor `enum.member` as method decorator.</p><p>Does not properly handle aliased enum members.</p><p>Rejects use of `_ignore_`.</p><p>Does not support `_ignore_` mechanism (optional).</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of annotation with enum member.</p><p>Does not support `enum.member` and `enum.nonmember`.</p><p>Does not support `_ignore_` mechanism (optional).</p></span></div></th>
@@ -973,7 +973,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject a call to "cast" with additional arguments.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_deprecated</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support @deprecated.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support @deprecated.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support @deprecated.</p></span></div></th>

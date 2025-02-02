@@ -111,6 +111,8 @@ class MypyTypeChecker(TypeChecker):
             ".",
             "--disable-error-code",
             "empty-body",
+            "--enable-error-code",
+            "deprecated",
         ]
         proc = run(command, stdout=PIPE, text=True)
         lines = proc.stdout.split("\n")
