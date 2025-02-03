@@ -15,6 +15,8 @@ callables_kwargs.py:102:0 Incompatible variable type [9]: v4 is declared to have
 callables_kwargs.py:103:0 Incompatible variable type [9]: v5 is declared to have type `TDProtocol5` but is used as type `typing.Callable(func1)[[Keywords(Unpack[TD2])], None]`.
 callables_kwargs.py:111:21 Duplicate parameter [65]: Duplicate parameter name `v1`.
 callables_kwargs.py:122:12 Invalid type [31]: `Unpack` in kwargs may only be used with typed dictionaries. `Variable[T (bound to TD2)]` is not a typed dictionary.
+callables_kwargs.py:130:0 Incompatible variable type [9]: v7 is declared to have type `TDProtocol6` but is used as type `typing.Callable(func7)[[KeywordOnly(v1, int), KeywordOnly(v3, str), KeywordOnly(v2, str, default)], None]`.
+callables_kwargs.py:138:4 Missing argument [20]: Call `func7` expects argument `v2` to be a required typed dictionary key, as the corresponding parameter has no default.
 """
 conformance_automated = "Pass"
 errors_diff = """

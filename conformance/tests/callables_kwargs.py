@@ -121,3 +121,19 @@ T = TypeVar("T", bound=TD2)
 
 def func6(**kwargs: Unpack[T]) -> None:  # E: unpacked value must be a TypedDict, not a TypeVar bound to TypedDict.
     ...
+
+
+def func7(*, v1: int, v3: str, v2: str = "") -> None:
+    ...
+
+
+v7: TDProtocol6 = func7  # E: source does not have kwargs
+
+
+def func8(**kwargs) -> None:
+    ...
+
+def func9(**kwargs: Unpack[TD2]) -> None:
+    # Kwargs hinted with an unpacked TypedDict can only be passed to another function that has **kwargs in its signature.
+    func7(**kwargs)  # E
+    func8(**kwargs)  # OK
