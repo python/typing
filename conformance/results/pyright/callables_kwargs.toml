@@ -1,4 +1,8 @@
 conformant = "Partial"
+notes="""
+Allows callable without kwargs to be assigned to callable with unpacked kwargs
+Allows unpacked kwargs to be used when invoking function without kwargs
+"""
 output = """
 callables_kwargs.py:28:5 - error: Could not access item in TypedDict
   "v2" is not a required key in "TD2", so access may result in runtime exception (reportTypedDictNotRequiredAccess)
