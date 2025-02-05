@@ -158,17 +158,17 @@
         </header>
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
-<th class='tc-header'><div class='tc-name'>mypy 1.14.0</div>
-<div class='tc-time'>1.6sec</div>
+<th class='tc-header'><div class='tc-name'>mypy 1.15.0</div>
+<div class='tc-time'>2.0sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.391</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.393</div>
 <div class='tc-time'>1.2sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>7.3sec</div>
+<div class='tc-time'>6.5sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>37.2sec</div>
+<div class='tc-time'>36.6sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -277,7 +277,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support ParamSpec.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_paramspec_components</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report illegal use of "P.args" on normal parameter.</p><p>Does not report error when P.args is specified but P.kwargs is missing.</p><p>Does not report error when P is out of scope and P.args and P.kwargs is used.</p><p>Does not report error when keyword argument is specified between P.args and P.kwargs.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report illegal use of "P.args" on normal parameter.</p><p>Does not report error when P.args is specified but P.kwargs is missing.</p><p>Does not report error when P is out of scope and P.args and P.kwargs is used.</p><p>Does not report error when calling callback defined with ParamSpec with incorrect arguments.</p><p>Does not report error when keyword argument is specified between P.args and P.kwargs.</p><p>Does not report error when calling callable and argument is missing for concatenated parameters.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support ParamSpec.</p></span></div></th>
