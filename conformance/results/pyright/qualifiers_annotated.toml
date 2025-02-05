@@ -9,7 +9,7 @@ qualifiers_annotated.py:46:17 - error: Dictionary expression not allowed in type
 qualifiers_annotated.py:46:24 - error: "b" is not defined (reportUndefinedVariable)
 qualifiers_annotated.py:47:17 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 qualifiers_annotated.py:48:17 - error: List expression not allowed in type expression
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+  Use list[T] to indicate a list type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
 qualifiers_annotated.py:48:17 - error: Expected class but received "list[type[int]]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:48:23 - error: Expected class but received "Literal[0]" (reportGeneralTypeIssues)
 qualifiers_annotated.py:49:17 - error: Ternary expression not allowed in type expression (reportInvalidTypeForm)
