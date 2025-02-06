@@ -1,10 +1,4 @@
-conformant = "Partial"
-notes = """
-Does not report illegal use of "P.args" on normal parameter.
-Does not report error when P.args is specified but P.kwargs is missing.
-Does not report error when P is out of scope and P.args and P.kwargs is used.
-Does not report error when keyword argument is specified between P.args and P.kwargs.
-"""
+conformant = "Pass"
 output = """
 generics_paramspec_components.py:17: error: Use "P.args" for variadic "*" parameter  [valid-type]
 generics_paramspec_components.py:17: error: Use "P.kwargs" for variadic "**" parameter  [valid-type]
