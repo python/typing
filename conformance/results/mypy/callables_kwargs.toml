@@ -1,7 +1,6 @@
 conformant = "Partial"
-notes="""
+notes = """
 Allows callable without kwargs to be assigned to callable with unpacked kwargs
-Allows unpacked kwargs to be used when invoking function without kwargs
 """
 output = """
 callables_kwargs.py:22: note: "func1" defined here
@@ -27,6 +26,5 @@ callables_kwargs.py:122: error: Unpack item in ** argument must be a TypedDict  
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 130: Expected 1 errors
-Line 138: Expected 1 errors
+Line 134: Expected 1 errors
 """

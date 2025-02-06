@@ -8,10 +8,18 @@ Does not report error when keyword argument is specified between P.args and P.kw
 output = """
 generics_paramspec_components.py:17: error: Use "P.args" for variadic "*" parameter  [valid-type]
 generics_paramspec_components.py:17: error: Use "P.kwargs" for variadic "**" parameter  [valid-type]
+generics_paramspec_components.py:20: error: ParamSpec components are not allowed here  [valid-type]
 generics_paramspec_components.py:23: error: Use "P.kwargs" for variadic "**" parameter  [valid-type]
+generics_paramspec_components.py:26: error: ParamSpec must have "*args" typed as "P.args" and "**kwargs" typed as "P.kwargs"  [valid-type]
+generics_paramspec_components.py:30: error: ParamSpec "P" is unbound  [valid-type]
+generics_paramspec_components.py:35: error: ParamSpec components are not allowed here  [valid-type]
+generics_paramspec_components.py:36: error: ParamSpec components are not allowed here  [valid-type]
+generics_paramspec_components.py:38: error: ParamSpec must have "*args" typed as "P.args" and "**kwargs" typed as "P.kwargs"  [valid-type]
+generics_paramspec_components.py:41: error: ParamSpec must have "*args" typed as "P.args" and "**kwargs" typed as "P.kwargs"  [valid-type]
 generics_paramspec_components.py:49: error: Argument 1 has incompatible type "*P.kwargs"; expected "P.args"  [arg-type]
 generics_paramspec_components.py:49: error: Argument 2 has incompatible type "**P.args"; expected "P.kwargs"  [arg-type]
 generics_paramspec_components.py:51: error: Argument 1 has incompatible type "int"; expected "P.args"  [arg-type]
+generics_paramspec_components.py:60: error: Arguments not allowed after ParamSpec.args  [valid-type]
 generics_paramspec_components.py:70: error: Argument 1 has incompatible type "*P.args"; expected "int"  [arg-type]
 generics_paramspec_components.py:70: error: Argument 2 has incompatible type "int"; expected "P.args"  [arg-type]
 generics_paramspec_components.py:72: error: Argument 1 has incompatible type "*P.args"; expected "int"  [arg-type]
@@ -21,14 +29,6 @@ generics_paramspec_components.py:83: error: Argument 3 to "foo" has incompatible
 generics_paramspec_components.py:98: error: Argument 2 to "twice" has incompatible type "str"; expected "int"  [arg-type]
 generics_paramspec_components.py:98: error: Argument 3 to "twice" has incompatible type "int"; expected "str"  [arg-type]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 20: Expected 1 errors
-Line 26: Expected 1 errors
-Line 30: Expected 1 errors
-Line 35: Expected 1 errors
-Line 36: Expected 1 errors
-Line 38: Expected 1 errors
-Line 41: Expected 1 errors
-Line 60: Expected 1 errors
 """

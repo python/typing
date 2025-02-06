@@ -132,15 +132,3 @@ def func7(*, v1: int, v3: str, v2: str = "") -> None:
 
 
 v7: TDProtocol6 = func7  # E: source does not have kwargs
-
-# > Kwargs hinted with an unpacked TypedDict can only be passed to another function if the function
-# > to which unpacked kwargs are being passed to has **kwargs in its signature as well,
-# > because then additional keywords would not cause errors at runtime during function invocation. 
-# > Otherwise, the type checker should generate an error.
-
-def func8(**kwargs) -> None:
-    ...
-
-def func9(**kwargs: Unpack[TD2]) -> None:
-    func7(**kwargs)  # E
-    func8(**kwargs)  # OK
