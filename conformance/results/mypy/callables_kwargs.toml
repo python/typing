@@ -1,4 +1,7 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Allows callable without kwargs to be assigned to callable with unpacked kwargs
+"""
 output = """
 callables_kwargs.py:22: note: "func1" defined here
 callables_kwargs.py:46: error: Missing named argument "v1" for "func1"  [call-arg]
@@ -21,6 +24,7 @@ callables_kwargs.py:103: note: "TDProtocol5.__call__" has type "Callable[[Arg(in
 callables_kwargs.py:111: error: Overlap between argument names and ** TypedDict items: "v1"  [misc]
 callables_kwargs.py:122: error: Unpack item in ** argument must be a TypedDict  [misc]
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 134: Expected 1 errors
 """

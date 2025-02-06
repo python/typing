@@ -1,4 +1,7 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Allows callable without kwargs to be assigned to callable with unpacked kwargs
+"""
 output = """
 callables_kwargs.py:28:5 - error: Could not access item in TypedDict
   "v2" is not a required key in "TD2", so access may result in runtime exception (reportTypedDictNotRequiredAccess)
@@ -28,6 +31,7 @@ callables_kwargs.py:103:19 - error: Type "(**kwargs: **TD2) -> None" is not assi
 callables_kwargs.py:111:30 - error: Typed dictionary overlaps with keyword parameter: v1 (reportGeneralTypeIssues)
 callables_kwargs.py:122:21 - error: Expected TypedDict type argument for Unpack (reportGeneralTypeIssues)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 134: Expected 1 errors
 """
