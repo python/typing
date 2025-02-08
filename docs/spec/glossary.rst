@@ -65,11 +65,7 @@ This section defines a few terms that may be used elsewhere in the specification
       primary gradual form is :ref:`Any`. The ellipsis (``...``) is a gradual
       form in some, but not all, contexts. It is a gradual form when used in a
       :ref:`Callable` type, and when used in ``tuple[Any, ...]`` (but not in
-      other :ref:`tuple <tuples>` types). Types that contain gradual forms do not participate
-      in the :term:`subtype` relation, but they do participate in
-      :term:`consistency <consistent>` and :term:`assignability <assignable>`.
-      They can be :term:`materialized <materialize>` to a more static, or fully static,
-      type. See :ref:`type-system-concepts`.
+      other :ref:`tuple <tuples>` types).
 
    gradual type
       All types in the Python type system are "gradual". A gradual type may be
@@ -77,7 +73,11 @@ This section defines a few terms that may be used elsewhere in the specification
       contains ``Any`` or another :term:`gradual form`. A gradual type does not
       necessarily represent a single set of possible runtime values; instead it
       can represent a set of possible static types (a set of possible sets of
-      possible runtime values).
+      possible runtime values). Gradual types which are not fully static do not
+      participate in the :term:`subtype` relation, but they do participate in
+      :term:`consistency <consistent>` and :term:`assignability <assignable>`.
+      They can be :term:`materialized <materialize>` to a more static, or fully static,
+      type. See :ref:`type-system-concepts`.
 
    inline
       Inline type annotations are annotations that are included in the
