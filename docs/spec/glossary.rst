@@ -73,10 +73,10 @@ This section defines a few terms that may be used elsewhere in the specification
       contains ``Any`` or another :term:`gradual form`. A gradual type does not
       necessarily represent a single set of possible runtime values; instead it
       can represent a set of possible static types (a set of possible sets of
-      possible runtime values). Gradual types do not participate in the
-      :term:`subtype` relation, but they do participate in :term:`consistency
-      <consistent>` and :term:`assignability <assignable>`. They can be
-      :term:`materialized <materialize>` to a more static, or fully static,
+      possible runtime values). Gradual types which are not fully static do not
+      participate in the :term:`subtype` relation, but they do participate in
+      :term:`consistency <consistent>` and :term:`assignability <assignable>`.
+      They can be :term:`materialized <materialize>` to a more static, or fully static,
       type. See :ref:`type-system-concepts`.
 
    inline
