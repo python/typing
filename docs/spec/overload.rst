@@ -159,7 +159,7 @@ that it is consistent with all of its associated overload signatures.
 The implementation should accept all potential sets of arguments
 that are accepted by the overloads and should produce all potential return
 types produced by the overloads. In typing terms, this means the input
-signature of the implementation should be :term:<assignable> to the input
+signature of the implementation should be :term:`assignable` to the input
 signatures of all overloads, and the return type of all overloads should be
 assignable to the return type of the implementation.
 
@@ -174,7 +174,7 @@ should report an error::
   # This implementation is inconsistent with the second overload
   # because it does not accept a keyword argument ``x`` and the
   # the overload's return type ``int`` is not assignable to the
-  implementation's return type ``str``.
+  # implementation's return type ``str``.
   def func(x: int | str, /) -> str:
     return str(x)
 
@@ -244,7 +244,7 @@ When a type checker evaluates the call of an overloaded function, it
 attempts to "match" the supplied arguments with one or more overloads.
 This section describes the algorithm that type checkers should use
 for overload matching. This algorithm should be applied even in the
-presence of :ref:<overlapping overloads>.
+presence of :ref:`overlapping overloads`.
 
 Only the overloads (the ``@overload``-decorated signatures) should be
 considered for matching purposes. The implementation, if provided,
@@ -331,7 +331,7 @@ because there are possible materializations of ``list[Any]`` (for example,
 Once this filtering process is applied for all arguments, examine the return
 types of the remaining overloads. If these return types include type variables,
 they should be replaced with their solved types. If the resulting return types
-for all remaining overloads are :term:<equivalent>, proceed to step 6.
+for all remaining overloads are :term:`equivalent`, proceed to step 6.
 
 If the return types are not equivalent, overload matching is ambiguous. In
 this case, assume a return type of ``Any`` and stop.
@@ -437,21 +437,21 @@ a union of a finite set of subtypes should be expanded into its constituent
 subtypes. This includes the following cases.
 
 1. Explicit unions: Each subtype of the union should be considered as a
-separate argument type. For example, the type ``int | str`` should be expanded
-into ``int`` and ``str``.
+   separate argument type. For example, the type ``int | str`` should be expanded
+   into ``int`` and ``str``.
 
 2. ``bool`` should be expanded into ``Literal[True]`` and ``Literal[False]``.
 
 3. ``Enum`` types (other than those that derive from ``enum.Flag``) should
-be expanded into their literal members.
+   be expanded into their literal members.
 
 4. ``type[A | B]`` should be expanded into ``type[A]`` and ``type[B]``.
 
 5. Tuples of known length that contain expandable types should be expanded
-into all possible combinations of their element types. For example, the type
-``tuple[int | str, bool]`` should be expanded into ``(int, Literal[True])``,
-``(int, Literal[False])``, ``(str, Literal[True])``, and
-``(str, Literal[False])``.
+   into all possible combinations of their element types. For example, the type
+   ``tuple[int | str, bool]`` should be expanded into ``(int, Literal[True])``,
+   ``(int, Literal[False])``, ``(str, Literal[True])``, and
+   ``(str, Literal[False])``.
 
 The above list may not be exhaustive, and additional cases may be added in
 the future as the type system evolves.
