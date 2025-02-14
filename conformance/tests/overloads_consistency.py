@@ -9,7 +9,7 @@ from typing import Callable, Coroutine, overload
 # > The implementation should accept all potential sets of arguments
 # > that are accepted by the overloads and should produce all potential return
 # > types produced by the overloads. In typing terms, this means the input
-# > signature of the implementation should be :term:<assignable> to the input
+# > signature of the implementation should be :term:`assignable` to the input
 # > signatures of all overloads, and the return type of all overloads should be
 # > assignable to the return type of the implementation.
 
