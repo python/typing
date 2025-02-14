@@ -185,58 +185,6 @@ implementation body, the use of ``async def``, and the presence of additional
 decorators.
 
 
-Overlapping overloads
-^^^^^^^^^^^^^^^^^^^^^
-
-If two overloads can accept the same set of arguments, they are said
-to "partially overlap". If two overloads partially overlap, the return type
-of the former overload should be assignable to the return type of the
-latter overload. If this condition doesn't hold, it is indicative of a
-programming error and should be reported by type checkers. The purpose of
-this check is to prevent unsoundness of this form::
-
-  @overload
-  def is_one(x: Literal[1]) -> Literal[True]: ...
-  @overload
-  def is_one(x: int) -> Literal[False]: ...
-
-  reveal_type(is_one(int(1)))  # Reveals Literal[False], but True at runtime
-
-Type checkers may exempt certain magic methods from the above check
-for conditions that are mandated by their usage in the runtime. For example,
-the ``__get__`` method of a descriptor is often defined using overloads
-that would partially overlap if the above rule is enforced.
-
-Type checkers may ignore the possibility of multiple inheritance or
-intersections involving structural types for purposes of computing overlap.
-In the following example, classes ``A`` and ``B`` could theoretically overlap
-because there could be a common type ``C`` that derives from both ``A`` and
-``B``, but type checkers may choose not to flag this as an overlapping
-overload::
-
-  class A: ...
-  class B: ...
-
-  @overload
-  def func(x: A) -> int: ...
-  @overload
-  def func(x: B) -> str: ...
-
-If all possible sets of arguments accepted by an overload are also always
-accepted by an earlier overload, the two overloads are said to "fully overlap".
-In this case, the latter overload will never be used. This condition
-is indicative of a programming error and should be reported by type
-checkers::
-
-  # These overloads fully overlap because the first overload
-  # accepts all arguments accepted by the second overload.
-
-  @overload
-  def func[T](x: T) -> T: ...
-  @overload
-  def func(x: int) -> int: ...
-
-
 Overload call evaluation
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
