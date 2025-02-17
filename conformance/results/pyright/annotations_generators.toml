@@ -18,15 +18,15 @@ annotations_generators.py:91:27 - error: Return type of async generator function
   "AsyncGenerator[Any, Any, Any]" is not assignable to "int" (reportInvalidTypeForm)
 annotations_generators.py:92:11 - error: Return type of async generator function must be compatible with "AsyncGenerator[None, Any]"
   "AsyncGenerator[None, Unknown, Unknown]" is not assignable to "int" (reportReturnType)
-annotations_generators.py:118:16 - error: Return type of generator function must be compatible with "Generator[A, Any, Any]"
+annotations_generators.py:116:16 - error: Return type of generator function must be compatible with "Generator[A, Any, Any]"
   "Generator[A, Unknown, Unknown]" is not assignable to "Iterator[B]"
     Type parameter "_T_co@Iterator" is covariant, but "A" is not a subtype of "B"
       "A" is not assignable to "B" (reportReturnType)
-annotations_generators.py:119:16 - error: Return type of generator function must be compatible with "Generator[int, Any, Any]"
+annotations_generators.py:117:16 - error: Return type of generator function must be compatible with "Generator[int, Any, Any]"
   "Generator[int, Unknown, Unknown]" is not assignable to "Iterator[B]"
     Type parameter "_T_co@Iterator" is covariant, but "int" is not a subtype of "B"
       "int" is not assignable to "B" (reportReturnType)
-annotations_generators.py:135:16 - error: Return type of generator function must be compatible with "Generator[None, Any, Any]"
+annotations_generators.py:133:16 - error: Return type of generator function must be compatible with "Generator[None, Any, Any]"
   "Generator[None, int, Unknown]" is not assignable to "Generator[None, str, None]"
     Type parameter "_SendT_contra@Generator" is contravariant, but "int" is not a supertype of "str"
       "str" is not assignable to "int" (reportReturnType)
