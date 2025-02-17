@@ -1,4 +1,4 @@
-conformant = "Partial"
+conformant = "Pass"
 output = """
 callables_kwargs.py:28:5 - error: Could not access item in TypedDict
   "v2" is not a required key in "TD2", so access may result in runtime exception (reportTypedDictNotRequiredAccess)
