@@ -1,5 +1,5 @@
 """
-Tests TypeIs functionality.
+Tests TypeIs functionality, including async support.
 """
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/narrowing.html#typeis
@@ -20,7 +20,6 @@ def func1(names: tuple[str, ...]):
     else:
         assert_type(names, tuple[str, ...])
 
-
 # > The final narrowed type may be narrower than **R**, due to the constraints of the
 # > argument's previously-known type
 
@@ -36,7 +35,6 @@ async def func2(val: int | Awaitable[int]):
         return x
     else:
         assert_type(val, int)
-
 
 T_A = TypeVar("T_A", bound="A")
 
@@ -64,7 +62,6 @@ class B(A):
 # > The type narrowing behavior is applied to the first positional argument
 # > passed to the function. The function may accept additional arguments,
 # > but they are not affected by type narrowing.
-
 
 def func3() -> None:
     val1 = object()
@@ -95,7 +92,6 @@ def func3() -> None:
     if B().tg4(val7):
         assert_type(val7, B)
 
-
 # > If a type narrowing function
 # > is implemented as an instance method or class method, the first positional
 # > argument maps to the second parameter (after self or cls).
@@ -115,38 +111,29 @@ class C:
 # > contexts, it is treated as a subtype of bool. For example, ``Callable[..., TypeIs[int]]``
 # > is assignable to ``Callable[..., bool]``.
 
-
 def takes_callable_bool(f: Callable[[object], bool]) -> None:
     pass
-
 
 def takes_callable_str(f: Callable[[object], str]) -> None:
     pass
 
-
 def simple_typeguard(val: object) -> TypeIs[int]:
     return isinstance(val, int)
-
 
 takes_callable_bool(simple_typeguard)  # OK
 takes_callable_str(simple_typeguard)   # E
 
-
 class CallableBoolProto(Protocol):
     def __call__(self, val: object) -> bool: ...
-
 
 class CallableStrProto(Protocol):
     def __call__(self, val: object) -> str: ...
 
-
 def takes_callable_bool_proto(f: CallableBoolProto) -> None:
     pass
 
-
 def takes_callable_str_proto(f: CallableStrProto) -> None:
     pass
-
 
 takes_callable_bool_proto(simple_typeguard)  # OK
 takes_callable_str_proto(simple_typeguard)   # E
@@ -170,7 +157,6 @@ takes_typeguard(is_int_typeis)     # E
 takes_typeis(is_int_typeguard)     # E
 takes_typeis(is_int_typeis)        # OK
 
-
 # > Unlike ``TypeGuard``, ``TypeIs`` is invariant in its argument type:
 # > ``TypeIs[B]`` is not a subtype of ``TypeIs[A]``,
 # > even if ``B`` is a subtype of ``A``.
@@ -178,14 +164,11 @@ takes_typeis(is_int_typeis)        # OK
 def takes_int_typeis(f: Callable[[object], TypeIs[int]]) -> None:
     pass
 
-
 def int_typeis(val: object) -> TypeIs[int]:
     return isinstance(val, int)
 
-
 def bool_typeis(val: object) -> TypeIs[bool]:
     return isinstance(val, bool)
-
 
 takes_int_typeis(int_typeis)  # OK
 takes_int_typeis(bool_typeis)  # E
@@ -195,6 +178,18 @@ takes_int_typeis(bool_typeis)  # E
 def bad_typeis(x: int) -> TypeIs[str]:  # E
     return isinstance(x, str)
 
-
 def bad_typeis_variance(x: list[object]) -> TypeIs[list[int]]:  # E
     return all(isinstance(x, int) for x in x)
+
+# -------------------- ASYNC TYPEIS SUPPORT --------------------
+
+async def async_typeis_test(val: object) -> TypeIs[int]:
+    return isinstance(val, int)
+
+async def test_async_typeis():
+    val: int | str = 10
+    if await async_typeis_test(val):  # Ensure narrowing works here
+        assert_type(val, int)
+    else:
+        assert_type(val, str)
+

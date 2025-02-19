@@ -1,10 +1,10 @@
 """
-Tests TypeGuard functionality.
+Tests TypeGuard functionality, including async support.
 """
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/narrowing.html#typeguard
 
-from typing import Any, Callable, Protocol, Self, TypeGuard, TypeVar, assert_type
+from typing import Any, Callable, Protocol, Self, TypeGuard, TypeVar, assert_type, Awaitable
 
 
 T = TypeVar("T")
@@ -165,3 +165,16 @@ def bool_typeguard(val: object) -> TypeGuard[bool]:
 
 takes_int_typeguard(int_typeguard)  # OK
 takes_int_typeguard(bool_typeguard)  # OK
+
+# -------------------- ASYNC TYPEGUARD SUPPORT --------------------
+
+async def async_typeguard_test(val: object) -> TypeGuard[int]:
+    return isinstance(val, int)
+
+async def test_async_typeguard():
+    val: int | str = 10
+    if await async_typeguard_test(val):  # Ensure narrowing works here
+        assert_type(val, int)
+    else:
+        assert_type(val, str)
+
