@@ -14,9 +14,6 @@ The :py:data:`typing.ClassVar` :term:`type qualifier` is used to annotate
 class variables that should not be set on class instances. This restriction
 is enforced by static checkers, but not at runtime.
 
-Syntax
-^^^^^^
-
 :py:data:`~typing.ClassVar` may be used in one of several forms:
 
 * With an explicit type, using the syntax ``ClassVar[<type>]``. Example::
@@ -31,14 +28,11 @@ Syntax
         z: ClassVar
 
   If an assigned value is available (e.g. with ``y``), the type should be
-  inferred as some type to which this value is :term:`assignable` (in this
-  case, either ``int``, ``Literal[2]``, or ``Any``).
+  inferred as some type to which this value is :term:`assignable` (for example,
+  ``int``, ``Literal[2]``, or ``Any``).
 
   If the ``ClassVar`` qualifier is used without any assigned value, the type
-  should be inferred to an unknown static type (such as :ref:`Any`).
-
-Semantics and examples
-^^^^^^^^^^^^^^^^^^^^^^
+  should be inferred as :ref:`any`.
 
 Type annotations can be used to annotate class and instance variables
 in class bodies and methods. In particular, the value-less notation ``a: int``
