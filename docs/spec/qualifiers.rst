@@ -207,6 +207,34 @@ following should be allowed::
 item or a :ref:`NamedTuple <namedtuple>` field. Such usage also generates
 an error at runtime.
 
+
+Importing ``Final`` Variables
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If a module declares a ``Final`` variable and another module imports that
+variable by name or by wildcard import, the imported symbol inherits the
+``Final`` type qualifier. Any attempt to assign a different value to this
+symbol should be flagged as an error by a type checker::
+
+    # lib/submodule.py
+    from typing import Final
+    PI: Final = 3.14
+
+    # lib/__init__.py
+    from .submodule import PI  # PI is Final
+
+    # test1.py
+    from lib import PI
+    PI = 0  # Error: Can't assign to Final value
+
+    from lib import PI as PI2
+    PI2 = 0  # Error: Can't assign to Final value
+
+    # test2.py
+    from lib import *
+    PI = 0  # Error: Can't assign to Final value
+
+
 .. _`annotated`:
 
 ``Annotated``
