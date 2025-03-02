@@ -31,8 +31,9 @@ is enforced by static checkers, but not at runtime.
   inferred as some type to which this value is :term:`assignable` (for example,
   ``int``, ``Literal[2]``, or ``Any``).
 
-  If the ``ClassVar`` qualifier is used without any assigned value, the type
-  should be inferred as :ref:`any`.
+  If the bare ``ClassVar`` qualifier is used without any assigned value, the type
+  should be inferred as :ref:`Any <any>`. Type checkers may error if no assigned
+  value is present.
 
 Type annotations can be used to annotate class and instance variables
 in class bodies and methods. In particular, the value-less notation ``a: int``

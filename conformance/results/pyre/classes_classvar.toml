@@ -3,7 +3,6 @@ notes = """
 Does not reject use of TypeVar in ClassVar.
 Does not reject use of ParamSpec in ClassVar.
 Does not reject use of ClassVar as a generic type argument.
-Does not allow ClassVar to be used without an assigned value.
 Does not reject use of ClassVar in parameter type annotation.
 Does not reject use of ClassVar in local variable annotation.
 Does not reject use of ClassVar in instance variable annotation.
