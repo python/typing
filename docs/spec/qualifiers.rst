@@ -212,9 +212,9 @@ Importing ``Final`` Variables
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If a module declares a ``Final`` variable and another module imports that
-variable by name or by wildcard import, the imported symbol inherits the
-``Final`` type qualifier. Any attempt to assign a different value to this
-symbol should be flagged as an error by a type checker::
+variable in an import statement by name or wildcard, the imported symbol
+inherits the ``Final`` type qualifier. Any attempt to assign a different value
+to this symbol should be flagged as an error by a type checker::
 
     # lib/submodule.py
     from typing import Final
