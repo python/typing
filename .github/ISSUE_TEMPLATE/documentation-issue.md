@@ -1,6 +1,6 @@
 ---
 name: Documentation issue
-about: Report a problem or suggest changes for the documentation at https://typing.readthedocs.io/
+about: Report a problem or suggest changes for the documentation at https://typing.python.org/
 title: ''
 labels: 'topic: documentation'
 assignees: ''
