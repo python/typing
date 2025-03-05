@@ -3,7 +3,7 @@
 ## Documentation and Support
 
 The documentation for Python's static typing can be found at
-[typing.readthedocs.io](https://typing.readthedocs.io/). You can get
+[typing.python.org](https://typing.python.org/). You can get
 help in our [support forum](https://github.com/python/typing/discussions).
 
 Improvements to the type system should be discussed on
@@ -20,10 +20,10 @@ For conversations that are more suitable to a chat platform, you can use one of 
 
 This GitHub repository is used for several things:
 
-- The documentation at [typing.readthedocs.io](https://typing.readthedocs.io/)
+- The documentation at [typing.python.org](https://typing.python.org/)
   is maintained in the [docs directory](./docs). This includes the
-  [specification](https://typing.readthedocs.io/en/latest/spec/index.html) for the
-  type system. See especially [the update procedure](https://typing.readthedocs.io/en/latest/spec/meta.html)
+  [specification](https://typing.python.org/en/latest/spec/index.html) for the
+  type system. See especially [the update procedure](https://typing.python.org/en/latest/spec/meta.html)
   for the spec.
 
 - A [discussion forum](https://github.com/python/typing/discussions) for typing-related user

@@ -2,7 +2,7 @@
 
 ## Motivation
 
-[PEP 729](https://peps.python.org/pep-0729/) provides a structured and documented way to specify and evolve the Python type system. In support of this effort, an official [Python typing spec](https://github.com/python/typing/tree/main/docs/spec) has been drafted. This spec consolidates details from various historical typing-related PEPs. The spec will be modified over time to clarify unspecified and under-specified parts of the type system. It will also be extended to cover new features of the type system.
+[PEP 729](https://peps.python.org/pep-0729/) provides a structured and documented way to specify and evolve the Python type system. In support of this effort, an official [Python typing spec](https://typing.python.org/en/latest/spec/) has been drafted. This spec consolidates details from various historical typing-related PEPs. The spec will be modified over time to clarify unspecified and under-specified parts of the type system. It will also be extended to cover new features of the type system.
 
 Accompanying the typing specification is this conformance test suite which validates the behavior of static type checkers against the specification.
 
@@ -10,26 +10,26 @@ Accompanying the typing specification is this conformance test suite which valid
 
 This project contains test cases for behaviors defined in the Python typing spec. Tests are structured and grouped in accordance with the specification's chapter headings.
 
-* [concepts](https://typing.readthedocs.io/en/latest/spec/concepts.html)
-* [annotations](https://typing.readthedocs.io/en/latest/spec/annotations.html)
-* [specialtypes](https://typing.readthedocs.io/en/latest/spec/special-types.html)
-* [generics](https://typing.readthedocs.io/en/latest/spec/generics.html)
-* [qualifiers](https://typing.readthedocs.io/en/latest/spec/qualifiers.html)
-* [classes](https://typing.readthedocs.io/en/latest/spec/class-compat.html)
-* [aliases](https://typing.readthedocs.io/en/latest/spec/aliases.html)
-* [literals](https://typing.readthedocs.io/en/latest/spec/literal.html)
-* [protocols](https://typing.readthedocs.io/en/latest/spec/protocol.html)
-* [callables](https://typing.readthedocs.io/en/latest/spec/callables.html)
-* [constructors](https://typing.readthedocs.io/en/latest/spec/constructors.html)
-* [overloads](https://typing.readthedocs.io/en/latest/spec/overload.html)
-* [dataclasses](https://typing.readthedocs.io/en/latest/spec/dataclasses.html)
-* [typeddicts](https://typing.readthedocs.io/en/latest/spec/typeddict.html)
-* [tuples](https://typing.readthedocs.io/en/latest/spec/tuples.html)
-* [namedtuples](https://typing.readthedocs.io/en/latest/spec/namedtuples.html)
-* [narrowing](https://typing.readthedocs.io/en/latest/spec/narrowing.html)
-* [directives](https://typing.readthedocs.io/en/latest/spec/directives.html)
-* [distribution](https://typing.readthedocs.io/en/latest/spec/distributing.html)
-* [historical](https://typing.readthedocs.io/en/latest/spec/historical.html)
+* [concepts](https://typing.python.org/en/latest/spec/concepts.html)
+* [annotations](https://typing.python.org/en/latest/spec/annotations.html)
+* [specialtypes](https://typing.python.org/en/latest/spec/special-types.html)
+* [generics](https://typing.python.org/en/latest/spec/generics.html)
+* [qualifiers](https://typing.python.org/en/latest/spec/qualifiers.html)
+* [classes](https://typing.python.org/en/latest/spec/class-compat.html)
+* [aliases](https://typing.python.org/en/latest/spec/aliases.html)
+* [literals](https://typing.python.org/en/latest/spec/literal.html)
+* [protocols](https://typing.python.org/en/latest/spec/protocol.html)
+* [callables](https://typing.python.org/en/latest/spec/callables.html)
+* [constructors](https://typing.python.org/en/latest/spec/constructors.html)
+* [overloads](https://typing.python.org/en/latest/spec/overload.html)
+* [dataclasses](https://typing.python.org/en/latest/spec/dataclasses.html)
+* [typeddicts](https://typing.python.org/en/latest/spec/typeddict.html)
+* [tuples](https://typing.python.org/en/latest/spec/tuples.html)
+* [namedtuples](https://typing.python.org/en/latest/spec/namedtuples.html)
+* [narrowing](https://typing.python.org/en/latest/spec/narrowing.html)
+* [directives](https://typing.python.org/en/latest/spec/directives.html)
+* [distribution](https://typing.python.org/en/latest/spec/distributing.html)
+* [historical](https://typing.python.org/en/latest/spec/historical.html)
 
 A test file is a ".py" file. The file name should start with one of the above names followed by a description of the test (with words separated by underscores). For example, `generics_paramspec_basic_usage.py` would contain the basic usage tests for `ParamSpec`. Each test file can contain multiple individual unit tests, but these tests should be related to each other. If the number of unit tests in a single test file exceeds ten, it may be desirable to split it into separate test files. This will help maintain a consistent level of granularity across tests.
 
