@@ -9,15 +9,15 @@ classes_classvar.py:47:20 - error: "ClassVar" type cannot include type variables
 classes_classvar.py:52:33 - error: Type "dict[Any, Any]" is not assignable to declared type "list[str]" (reportAssignmentType)
 classes_classvar.py:54:17 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
 classes_classvar.py:55:17 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:63:26 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:64:12 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:65:18 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:67:26 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:71:8 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:72:20 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:105:14 - error: Cannot assign to attribute "stats" for class "Starship"
+classes_classvar.py:69:26 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:70:12 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:71:18 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:73:26 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:77:8 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:78:20 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:111:14 - error: Cannot assign to attribute "stats" for class "Starship"
   Attribute "stats" cannot be assigned through a class instance because it is a ClassVar (reportAttributeAccessIssue)
-classes_classvar.py:134:13 - error: Type "ProtoAImpl" is not assignable to declared type "ProtoA"
+classes_classvar.py:140:13 - error: Type "ProtoAImpl" is not assignable to declared type "ProtoA"
   "ProtoAImpl" is incompatible with protocol "ProtoA"
     "x" is defined as a ClassVar in protocol
     "y" is defined as a ClassVar in protocol (reportAssignmentType)
