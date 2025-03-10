@@ -35,6 +35,8 @@ qualifiers_final_annotation.py:145: error: Cannot assign to final name "x"  [mis
 qualifiers_final_annotation.py:147: error: Cannot assign to final name "x"  [misc]
 qualifiers_final_annotation.py:152: error: Incompatible types in assignment (expression has type "TextIOWrapper[_WrappedBuffer]", variable has type "int")  [assignment]
 qualifiers_final_annotation.py:155: error: Cannot assign to final name "x"  [misc]
+qualifiers_final_annotation.py:166: error: Cannot assign to final name "TEN"  [misc]
+qualifiers_final_annotation.py:170: error: Cannot assign to final name "PI"  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """

@@ -46,26 +46,26 @@ async def generator9() -> int:  # E: incompatible return type
     yield None  # E
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-annotations_generators.py:99:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Bad return type 'IntIterator' for generator function generator15 [bad-yield-annotation]
+annotations_generators.py:100:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Bad return type 'IntIterator' for generator function generator15 [bad-yield-annotation]
 
 def generator15() -> IntIterator:  # OK
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
     yield 0
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-annotations_generators.py:107:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Bad return type 'AsyncIntIterator' for async generator function generator16 [bad-yield-annotation]
+annotations_generators.py:109:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Bad return type 'AsyncIntIterator' for async generator function generator16 [bad-yield-annotation]
 
 async def generator16() -> AsyncIntIterator:  # OK
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
     yield 0
 \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-annotations_generators.py:116:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in generator18: bad return type [bad-return-type]
+annotations_generators.py:118:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in generator18: bad return type [bad-return-type]
 
     yield from generator17()  # E: incompatible generator type
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-annotations_generators.py:117:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in generator18: bad return type [bad-return-type]
+annotations_generators.py:119:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in generator18: bad return type [bad-return-type]
 
     yield from [1]  # E: incompatible generator type
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -76,7 +76,7 @@ errors_diff = """
 Line 51: Expected 1 errors
 Line 87: Expected 1 errors
 Line 92: Expected 1 errors
-Line 133: Expected 1 errors
-Line 99: Unexpected errors ["annotations_generators.py:99:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Bad return type 'IntIterator' for generator function generator15 [bad-yield-annotation]"]
-Line 107: Unexpected errors ["annotations_generators.py:107:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Bad return type 'AsyncIntIterator' for async generator function generator16 [bad-yield-annotation]"]
+Line 135: Expected 1 errors
+Line 100: Unexpected errors ["annotations_generators.py:100:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Bad return type 'IntIterator' for generator function generator15 [bad-yield-annotation]"]
+Line 109: Unexpected errors ["annotations_generators.py:109:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Bad return type 'AsyncIntIterator' for async generator function generator16 [bad-yield-annotation]"]
 """

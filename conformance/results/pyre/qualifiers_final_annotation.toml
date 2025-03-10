@@ -3,6 +3,7 @@ notes = """
 Does not report Final variable with missing initialization in module scope.
 Does not report error for invalid nesting of Final and ClassVar.
 Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.
+Does not reject modification of imported variable declared Final.
 """
 output = """
 qualifiers_final_annotation.py:18:6 Invalid type parameters [24]: Generic type `Final` expects 1 type parameter, received 2.
@@ -33,5 +34,7 @@ errors_diff = """
 Line 16: Expected 1 errors
 Line 107: Expected 1 errors
 Line 108: Expected 1 errors
+Line 166: Expected 1 errors
+Line 170: Expected 1 errors
 Line 133: Unexpected errors ['qualifiers_final_annotation.py:133:0 Unexpected keyword [28]: Unexpected keyword argument `x` to call `N.__init__`.']
 """

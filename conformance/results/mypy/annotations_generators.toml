@@ -11,12 +11,12 @@ annotations_generators.py:71: error: No return value expected  [return-value]
 annotations_generators.py:75: error: Incompatible types in "yield" (actual type "B", expected type "A")  [misc]
 annotations_generators.py:86: error: The return type of a generator function should be "Generator" or one of its supertypes  [misc]
 annotations_generators.py:91: error: The return type of an async generator function should be "AsyncGenerator" or one of its supertypes  [misc]
-annotations_generators.py:116: error: Incompatible types in "yield from" (actual type "A", expected type "B")  [misc]
-annotations_generators.py:117: error: Incompatible types in "yield from" (actual type "int", expected type "B")  [misc]
+annotations_generators.py:118: error: Incompatible types in "yield from" (actual type "A", expected type "B")  [misc]
+annotations_generators.py:119: error: Incompatible types in "yield from" (actual type "int", expected type "B")  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 87: Expected 1 errors
 Line 92: Expected 1 errors
-Line 133: Expected 1 errors
+Line 135: Expected 1 errors
 """

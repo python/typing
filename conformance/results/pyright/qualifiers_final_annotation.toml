@@ -37,6 +37,8 @@ qualifiers_final_annotation.py:147:10 - error: "x" is declared as Final and cann
 qualifiers_final_annotation.py:149:9 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
 qualifiers_final_annotation.py:152:30 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
 qualifiers_final_annotation.py:155:9 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:166:1 - error: "TEN" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:170:1 - error: "PI" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """
