@@ -159,16 +159,16 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.15.0</div>
-<div class='tc-time'>1.8sec</div>
+<div class='tc-time'>1.7sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.394</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.396</div>
 <div class='tc-time'>1.3sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>6.5sec</div>
+<div class='tc-time'>6.8sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>34.9sec</div>
+<div class='tc-time'>34.7sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -432,8 +432,8 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qualifiers_final_annotation</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.</p><p>Does not allow conditional assignment of Final instance variable in __init__ method.</p><p>Does not allow redefinition of private class variable that is marked Final in parent class.</p><p>Does not report modification of local Final variable via "for" statement.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report Final variable with missing initialization in module scope.</p><p>Does not report error for invalid nesting of Final and ClassVar.</p><p>Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report Final variable with missing initialization.</p><p>Does not reject Final instance variable declared outside of __init__ method.</p><p>Does not reject modification of global variable declared Final.</p><p>Does not reject modification of local variable declared Final.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report Final variable with missing initialization in module scope.</p><p>Does not report error for invalid nesting of Final and ClassVar.</p><p>Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.</p><p>Does not reject modification of imported variable declared Final.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report Final variable with missing initialization.</p><p>Does not reject Final instance variable declared outside of __init__ method.</p><p>Does not reject modification of global variable declared Final.</p><p>Does not reject modification of local variable declared Final.</p><p>Does not reject modification of imported variable declared Final.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qualifiers_final_decorator</th>
 <th class="column col2 conformant">Pass</th>
