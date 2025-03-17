@@ -1,0 +1,13 @@
+conformant = "Partial"
+notes = """
+Incorrectly allows update of ReadOnly item.
+Incorrectly rejects update involving an item with Never type.
+"""
+output = """
+typeddicts_readonly_update.py:34: error: Argument 1 to "update" of "TypedDict" has incompatible type "B"; expected "TypedDict({'x'?=: int, 'y': int})"  [typeddict-item]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 23: Expected 1 errors
+Line 34: Unexpected errors ['typeddicts_readonly_update.py:34: error: Argument 1 to "update" of "TypedDict" has incompatible type "B"; expected "TypedDict({\\'x\\'?=: int, \\'y\\': int})"  [typeddict-item]']
+"""

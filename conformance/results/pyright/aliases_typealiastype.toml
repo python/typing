@@ -1,0 +1,34 @@
+conformant = "Pass"
+output = """
+aliases_typealiastype.py:32:18 - error: Cannot access attribute "other_attrib" for class "TypeAliasType"
+  Attribute "other_attrib" is unknown (reportAttributeAccessIssue)
+aliases_typealiastype.py:40:5 - error: Could not specialize type "GoodAlias5[S@GoodAlias5, TStr@GoodAlias5, P@GoodAlias5, Ts@GoodAlias5]"
+  Type "int" is not assignable to type "str"
+    "int" is not assignable to "str" (reportInvalidTypeForm)
+aliases_typealiastype.py:43:45 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
+aliases_typealiastype.py:44:45 - error: Type variable "S" has no meaning in this context (reportGeneralTypeIssues)
+aliases_typealiastype.py:45:57 - error: Type parameter list must be a tuple containing only TypeVar, TypeVarTuple, or ParamSpec (reportGeneralTypeIssues)
+aliases_typealiastype.py:46:40 - error: Type alias "BadAlias4" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:47:40 - error: Type alias "BadAlias5" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:48:40 - error: Type alias "BadAlias6" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_typealiastype.py:52:40 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
+aliases_typealiastype.py:53:40 - error: Expected class but received "list[Unknown]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:54:42 - error: Expected class but received "tuple[tuple[type[int], type[str]]]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:55:42 - error: Expected class but received "list[type[int]]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:56:42 - error: Expected class but received "dict[str, Unknown]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:56:49 - error: "b" is not defined (reportUndefinedVariable)
+aliases_typealiastype.py:57:42 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
+aliases_typealiastype.py:58:42 - error: List expression not allowed in type expression
+  Use list[T] to indicate a list type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
+aliases_typealiastype.py:58:42 - error: Expected class but received "list[type[int]]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:58:48 - error: Expected class but received "Literal[0]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:59:42 - error: Ternary expression not allowed in type expression (reportInvalidTypeForm)
+aliases_typealiastype.py:60:42 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+aliases_typealiastype.py:61:42 - error: Expected class but received "Literal[True]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:62:42 - error: Expected class but received "Literal[1]" (reportGeneralTypeIssues)
+aliases_typealiastype.py:63:42 - error: Binary operator not allowed in type expression (reportInvalidTypeForm)
+aliases_typealiastype.py:64:42 - error: Type expressions cannot use format string literals (f-strings) (reportGeneralTypeIssues)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

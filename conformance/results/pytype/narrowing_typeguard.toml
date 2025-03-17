@@ -1,0 +1,21 @@
+conformant = "Partial"
+notes = """
+Does not reject TypeGuard method with too few parameters.
+"""
+output = """
+narrowing_typeguard.py:128:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function takes_callable_str was called with the wrong arguments [wrong-arg-types]
+
+takes_callable_str(simple_typeguard)   # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+narrowing_typeguard.py:148:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function takes_callable_str_proto was called with the wrong arguments [wrong-arg-types]
+
+takes_callable_str_proto(simple_typeguard)   # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 102: Expected 1 errors
+Line 107: Expected 1 errors
+"""

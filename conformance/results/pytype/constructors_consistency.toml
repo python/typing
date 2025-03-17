@@ -1,0 +1,10 @@
+conformant = "Pass"
+notes = """
+Does not report inconsistency between __new__ and __init__ (optional).
+"""
+errors_diff = """
+"""
+output = """
+
+"""
+conformance_automated = "Pass"

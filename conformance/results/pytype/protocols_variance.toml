@@ -1,0 +1,34 @@
+conformant = "Unsupported"
+notes = """
+Does not detect incorrect TypeVar variance within generic protocols.
+"""
+output = """
+protocols_variance.py:12:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+
+T1_co = TypeVar("T1_co", covariant=True)
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+protocols_variance.py:13:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+
+T1_contra = TypeVar("T1_contra", contravariant=True)
+            \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+protocols_variance.py:15:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+
+R = TypeVar("R", covariant=True)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Expected 1 errors
+Line 40: Expected 1 errors
+Line 56: Expected 1 errors
+Line 61: Expected 1 errors
+Line 66: Expected 1 errors
+Line 71: Expected 1 errors
+Line 104: Expected 1 errors
+Line 12: Unexpected errors ['protocols_variance.py:12:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 13: Unexpected errors ['protocols_variance.py:13:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
+Line 15: Unexpected errors ['protocols_variance.py:15:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+"""

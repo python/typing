@@ -1,0 +1,26 @@
+conformant = "Partial"
+notes = """
+Does not report invalid return type for generator when function implicitly returns None.
+Incorrectly evaluates type of call to async generator.
+"""
+output = """
+annotations_generators.py:54:8 Incompatible return type [7]: Expected `Generator[A, B, C]` but got `Generator[typing.Any, typing.Any, bool]`.
+annotations_generators.py:57:8 Incompatible return type [7]: Expected `Generator[A, B, C]` but got `Generator[int, typing.Any, typing.Any]`.
+annotations_generators.py:66:8 Incompatible return type [7]: Expected `Generator[A, int, typing.Any]` but got `Generator[int, typing.Any, typing.Any]`.
+annotations_generators.py:75:4 Incompatible return type [7]: Expected `Iterator[A]` but got `Generator[B, typing.Any, typing.Any]`.
+annotations_generators.py:87:4 Incompatible return type [7]: Expected `int` but got `Generator[None, typing.Any, typing.Any]`.
+annotations_generators.py:88:4 Incompatible return type [7]: Expected `int` but got `Generator[typing.Any, typing.Any, int]`.
+annotations_generators.py:91:0 Incompatible async generator return type [57]: Expected return annotation to be AsyncGenerator or a superclass but got `int`.
+annotations_generators.py:92:4 Incompatible return type [7]: Expected `int` but got `AsyncGenerator[None, typing.Any]`.
+annotations_generators.py:118:4 Incompatible return type [7]: Expected `Iterator[B]` but got `Generator[A, None, typing.Any]`.
+annotations_generators.py:119:4 Incompatible return type [7]: Expected `Iterator[B]` but got `Generator[int, None, typing.Any]`.
+annotations_generators.py:135:4 Incompatible return type [7]: Expected `Generator[None, str, None]` but got `Generator[None, int, typing.Any]`.
+annotations_generators.py:185:0 Incompatible variable type [9]: v1 is declared to have type `typing.Callable[[], Coroutine[typing.Any, typing.Any, AsyncIterator[int]]]` but is used as type `typing.Callable(generator29)[[], AsyncIterator[int]]`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 51: Expected 1 errors
+Line 86: Expected 1 errors
+Line 88: Unexpected errors ['annotations_generators.py:88:4 Incompatible return type [7]: Expected `int` but got `Generator[typing.Any, typing.Any, int]`.']
+Line 185: Unexpected errors ['annotations_generators.py:185:0 Incompatible variable type [9]: v1 is declared to have type `typing.Callable[[], Coroutine[typing.Any, typing.Any, AsyncIterator[int]]]` but is used as type `typing.Callable(generator29)[[], AsyncIterator[int]]`.']
+"""

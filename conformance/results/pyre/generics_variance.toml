@@ -1,0 +1,23 @@
+conformant = "Partial"
+notes = """
+Does not reject a TypeVar that is defined as both covariant and contravariant.
+Does not reject use of class-scoped TypeVar used in a base class when variance is incompatible.
+"""
+output = """
+generics_variance.py:77:0 Invalid type variance [46]: The type variable `Variable[T_co](covariant)` is incompatible with parent class type variable `Variable[T](invariant)` because subclasses cannot use more permissive type variables than their superclasses.
+generics_variance.py:81:0 Invalid type variance [46]: The type variable `Variable[T_contra](contravariant)` is incompatible with parent class type variable `Variable[T](invariant)` because subclasses cannot use more permissive type variables than their superclasses.
+generics_variance.py:93:0 Invalid type variance [46]: The type variable `Variable[T_contra](contravariant)` is incompatible with parent class type variable `Variable[T_co](covariant)` because subclasses cannot use more permissive type variables than their superclasses.
+generics_variance.py:105:0 Invalid type variance [46]: The type variable `Variable[T_co](covariant)` is incompatible with parent class type variable `Variable[T_contra](contravariant)` because subclasses cannot use more permissive type variables than their superclasses.
+generics_variance.py:125:0 Invalid type variance [46]: The type variable `Variable[T_co](covariant)` is incompatible with parent class type variable `Variable[T_contra](contravariant)` because subclasses cannot use more permissive type variables than their superclasses.
+generics_variance.py:131:0 Invalid type variance [46]: The type variable `Variable[T_contra](contravariant)` is incompatible with parent class type variable `Variable[T_co](covariant)` because subclasses cannot use more permissive type variables than their superclasses.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 14: Expected 1 errors
+Line 113: Expected 1 errors
+Line 163: Expected 1 errors
+Line 167: Expected 1 errors
+Line 191: Expected 1 errors
+Lines 141, 142: Expected error (tag 'CoContra_Child5')
+Lines 195, 196: Expected error (tag 'ContraToContraToContra_WithTA')
+"""

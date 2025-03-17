@@ -1,0 +1,13 @@
+conformant = "Unsupported"
+notes = """
+Does not support star expressions for `Unpack`.
+"""
+output = """
+generics_typevartuple_overloads.py:18:4 Incompatible overload [43]: The implementation of `Array.transpose` does not accept all possible arguments of overload defined on line `18`.
+generics_typevartuple_overloads.py:22:4 Incompatible overload [43]: The implementation of `Array.transpose` does not accept all possible arguments of overload defined on line `22`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 18: Unexpected errors ['generics_typevartuple_overloads.py:18:4 Incompatible overload [43]: The implementation of `Array.transpose` does not accept all possible arguments of overload defined on line `18`.']
+Line 22: Unexpected errors ['generics_typevartuple_overloads.py:22:4 Incompatible overload [43]: The implementation of `Array.transpose` does not accept all possible arguments of overload defined on line `22`.']
+"""

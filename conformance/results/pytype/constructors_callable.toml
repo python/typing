@@ -1,0 +1,230 @@
+conformant = "Partial"
+notes = """
+Does not generate a union type for __new__ and __init__ when converting class to callable.
+Does not ignore __init__ based on __new__ return type when converting class to callable.
+Does not support __new__ return type that is different from class being constructed.
+Does not use annotated type of self in __init__ method to generate return type of callable.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 51: Expected 1 errors
+Line 127: Expected 1 errors
+Line 144: Expected 1 errors
+Line 36: Unexpected errors ['constructors_callable.py:36:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Callable[[Any], Class1] [reveal-type]']
+Line 49: Unexpected errors ['constructors_callable.py:49:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Callable[[Any], Class2] [reveal-type]']
+Line 50: Unexpected errors ['constructors_callable.py:50:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]', 'constructors_callable.py:50:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 57: Unexpected errors ['constructors_callable.py:57:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __new__: bad return type [bad-return-type]']
+Line 63: Unexpected errors ['constructors_callable.py:63:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Callable[[Any], Class3] [reveal-type]']
+Line 73: Unexpected errors ['constructors_callable.py:73:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in __new__: bad return type [bad-return-type]']
+Line 77: Unexpected errors ['constructors_callable.py:77:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Callable[[Any], Class4] [reveal-type]']
+Line 78: Unexpected errors ['constructors_callable.py:78:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: nothing [assert-type]']
+Line 97: Unexpected errors ['constructors_callable.py:97:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Callable[[Any], Class5] [reveal-type]']
+Line 100: Unexpected errors ['constructors_callable.py:100:17: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]', 'constructors_callable.py:100:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 105: Unexpected errors ['constructors_callable.py:105:17: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid keyword argument x to function <callable> [wrong-keyword-args]', 'constructors_callable.py:105:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 125: Unexpected errors ['constructors_callable.py:125:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Callable[[Any], Class6] [reveal-type]']
+Line 126: Unexpected errors ['constructors_callable.py:126:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]', 'constructors_callable.py:126:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 142: Unexpected errors ['constructors_callable.py:142:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Callable[[Any], Class6Any] [reveal-type]']
+Line 143: Unexpected errors ['constructors_callable.py:143:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]']
+Line 161: Unexpected errors ['constructors_callable.py:161:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Callable[[Any], Class7] [reveal-type]']
+Line 164: Unexpected errors ['constructors_callable.py:164:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Class7 [assert-type]']
+Line 165: Unexpected errors ['constructors_callable.py:165:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Class7 [assert-type]']
+Line 182: Unexpected errors ['constructors_callable.py:182:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Callable[[Any], Class8[nothing]] [reveal-type]']
+Line 183: Unexpected errors ['constructors_callable.py:183:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]', 'constructors_callable.py:183:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 193: Unexpected errors ['constructors_callable.py:193:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Callable[[Any], Class9] [reveal-type]']
+Line 194: Unexpected errors ['constructors_callable.py:194:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]', 'constructors_callable.py:194:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+"""
+output = """
+constructors_callable.py:36:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], Class1] [reveal-type]
+
+reveal_type(r1)  # `def (x: int) -> Class1`
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:38:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+
+r1()  # E
+\u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:39:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword argument y to function <callable> [wrong-keyword-args]
+
+r1(y=1)  # E
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:49:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], Class2] [reveal-type]
+
+reveal_type(r2)  # `def () -> Class2`
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:50:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+
+assert_type(r2(), Class2)
+            \u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:50:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+assert_type(r2(), Class2)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:57:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in __new__: bad return type [bad-return-type]
+
+    def __new__(cls, *args, **kwargs) -> Self: ...
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 64, in current file
+constructors_callable.py:63:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], Class3] [reveal-type]
+
+reveal_type(r3)  # `def (x: int) -> Class3`
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:65:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+
+r3()  # E
+\u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:66:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword argument y to function <callable> [wrong-keyword-args]
+
+r3(y=1)  # E
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:67:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]
+
+r3(1, 2)  # E
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:73:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in __new__: bad return type [bad-return-type]
+
+    def __new__(cls, x: int) -> int: ...
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 78, in current file
+constructors_callable.py:77:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], Class4] [reveal-type]
+
+reveal_type(r4)  # `def (x: int) -> int`
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:78:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: nothing [assert-type]
+
+assert_type(r4(1), int)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:79:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+
+r4()  # E
+\u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:80:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword argument y to function <callable> [wrong-keyword-args]
+
+r4(y=1)  # E
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:97:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], Class5] [reveal-type]
+
+reveal_type(r5)  # `def (*args: Any, **kwargs: Any) -> NoReturn`
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:100:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+
+    assert_type(r5(), NoReturn)
+                \u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:100:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+    assert_type(r5(), NoReturn)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:105:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword argument x to function <callable> [wrong-keyword-args]
+
+    assert_type(r5(1, x=1), NoReturn)
+                \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:105:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+    assert_type(r5(1, x=1), NoReturn)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:125:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], Class6] [reveal-type]
+
+reveal_type(r6)  # `def () -> Class6Proxy`
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:126:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+
+assert_type(r6(), Class6Proxy)
+            \u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:126:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+assert_type(r6(), Class6Proxy)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:142:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], Class6Any] [reveal-type]
+
+reveal_type(r6_any)  # `def () -> Any`
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:143:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 0 [wrong-arg-count]
+
+assert_type(r6_any(), Any)
+            \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:161:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], Class7] [reveal-type]
+
+reveal_type(
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+    r7
+\u001b[1m\u001b[31m~~~~~~\u001b[39m\u001b[0m
+)  # overload of `def (x: int) -> Class7[int]` and `def (x: str) -> Class7[str]`
+\u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+constructors_callable.py:164:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class7 [assert-type]
+
+assert_type(r7(0), Class7[int])
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:165:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Class7 [assert-type]
+
+assert_type(r7(""), Class7[str])
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:182:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], Class8[nothing]] [reveal-type]
+
+reveal_type(r8)  # `def [T] (x: T, y: list[T]) -> Class8[T]`
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:183:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]
+
+assert_type(r8([""], [""]), Class8[str])
+            \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:183:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+assert_type(r8([""], [""]), Class8[str])
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:184:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]
+
+r8([1], [""])  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:193:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Callable[[Any], Class9] [reveal-type]
+
+reveal_type(r9)  # `def [T] (x: list[T], y: list[T]) -> Class9`
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:194:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]
+
+assert_type(r9([""], [""]), Class9)
+            \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:194:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+assert_type(r9([""], [""]), Class9)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+constructors_callable.py:195:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function <callable> expects 1 arg(s), got 2 [wrong-arg-count]
+
+r9([1], [""])  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""

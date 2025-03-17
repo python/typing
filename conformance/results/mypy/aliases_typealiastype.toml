@@ -1,0 +1,45 @@
+conformant = "Partial"
+notes = """
+Incorrectly rejects some recursive type aliases using TypeAliasType.
+Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.
+"""
+output = """
+aliases_typealiastype.py:19: error: Cannot resolve name "GoodAlias4" (possible cyclic definition)  [misc]
+aliases_typealiastype.py:20: error: Cannot resolve name "GoodAlias5" (possible cyclic definition)  [misc]
+aliases_typealiastype.py:22: error: Cannot resolve name "GoodAlias5" (possible cyclic definition)  [misc]
+aliases_typealiastype.py:27: error: Type variable "T" is not included in type_params  [valid-type]
+aliases_typealiastype.py:32: error: "TypeAliasType" has no attribute "other_attrib"  [attr-defined]
+aliases_typealiastype.py:40: error: Type argument "int" of "GoodAlias5" must be a subtype of "str"  [type-var]
+aliases_typealiastype.py:43: error: Type variable "S" is not included in type_params  [valid-type]
+aliases_typealiastype.py:44: error: Type variable "S" is not included in type_params  [valid-type]
+aliases_typealiastype.py:45: error: Tuple literal expected as the type_params argument to TypeAliasType  [misc]
+aliases_typealiastype.py:46: error: Cannot resolve name "BadAlias4" (possible cyclic definition)  [misc]
+aliases_typealiastype.py:47: error: Invalid recursive alias: a union item of itself  [misc]
+aliases_typealiastype.py:48: error: Cannot resolve name "BadAlias6" (possible cyclic definition)  [misc]
+aliases_typealiastype.py:48: error: Cannot resolve name "BadAlias7" (possible cyclic definition)  [misc]
+aliases_typealiastype.py:48: error: Name "BadAlias7" is used before definition  [used-before-def]
+aliases_typealiastype.py:49: error: Cannot resolve name "BadAlias7" (possible cyclic definition)  [misc]
+aliases_typealiastype.py:52: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_typealiastype.py:53: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
+aliases_typealiastype.py:54: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_typealiastype.py:55: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_typealiastype.py:56: error: Inline TypedDict is experimental, must be enabled with --enable-incomplete-feature=InlineTypedDict  [misc]
+aliases_typealiastype.py:56: error: Name "b" is not defined  [name-defined]
+aliases_typealiastype.py:57: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_typealiastype.py:58: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_typealiastype.py:59: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_typealiastype.py:60: error: Variable "aliases_typealiastype.var1" is not valid as a type  [valid-type]
+aliases_typealiastype.py:60: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_typealiastype.py:61: error: Invalid type: try using Literal[True] instead?  [valid-type]
+aliases_typealiastype.py:62: error: Invalid type: try using Literal[1] instead?  [valid-type]
+aliases_typealiastype.py:63: error: Invalid type alias: expression is not a valid type  [valid-type]
+aliases_typealiastype.py:63: error: Function "list" could always be true in boolean context  [truthy-function]
+aliases_typealiastype.py:64: error: Invalid type alias: expression is not a valid type  [valid-type]
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Unexpected errors ['aliases_typealiastype.py:19: error: Cannot resolve name "GoodAlias4" (possible cyclic definition)  [misc]']
+Line 20: Unexpected errors ['aliases_typealiastype.py:20: error: Cannot resolve name "GoodAlias5" (possible cyclic definition)  [misc]']
+Line 22: Unexpected errors ['aliases_typealiastype.py:22: error: Cannot resolve name "GoodAlias5" (possible cyclic definition)  [misc]']
+Line 27: Unexpected errors ['aliases_typealiastype.py:27: error: Type variable "T" is not included in type_params  [valid-type]']
+"""

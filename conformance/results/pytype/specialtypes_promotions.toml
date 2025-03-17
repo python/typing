@@ -1,0 +1,11 @@
+conformant = "Pass"
+output = """
+specialtypes_promotions.py:13:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: No attribute 'numerator' on float [attribute-error]
+
+    f.numerator  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

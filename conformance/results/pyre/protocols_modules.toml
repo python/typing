@@ -1,0 +1,12 @@
+conformant = "Unsupported"
+notes = """
+Does not perform protocol checks for modules.
+"""
+output = """
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Expected 1 errors
+Line 48: Expected 1 errors
+Line 49: Expected 1 errors
+"""

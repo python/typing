@@ -1,0 +1,15 @@
+conformant = "Pass"
+output = """
+narrowing_typeis.py:105:22 Invalid type guard [68]: User-defined type guard functions or methods must have at least one input parameter.
+narrowing_typeis.py:110:21 Invalid type guard [68]: User-defined type guard functions or methods must have at least one input parameter.
+narrowing_typeis.py:132:19 Incompatible parameter type [6]: In call `takes_callable_str`, for 1st positional argument, expected `typing.Callable[[object], str]` but got `typing.Callable(simple_typeguard)[[Named(val, object)], TypeIs[int]]`.
+narrowing_typeis.py:152:25 Incompatible parameter type [6]: In call `takes_callable_str_proto`, for 1st positional argument, expected `CallableStrProto` but got `typing.Callable(simple_typeguard)[[Named(val, object)], TypeIs[int]]`.
+narrowing_typeis.py:169:16 Incompatible parameter type [6]: In call `takes_typeguard`, for 1st positional argument, expected `typing.Callable[[object], TypeGuard[int]]` but got `typing.Callable(is_int_typeis)[[Named(val, object)], TypeIs[int]]`.
+narrowing_typeis.py:170:13 Incompatible parameter type [6]: In call `takes_typeis`, for 1st positional argument, expected `typing.Callable[[object], TypeIs[int]]` but got `typing.Callable(is_int_typeguard)[[Named(val, object)], TypeGuard[int]]`.
+narrowing_typeis.py:191:17 Incompatible parameter type [6]: In call `takes_int_typeis`, for 1st positional argument, expected `typing.Callable[[object], TypeIs[int]]` but got `typing.Callable(bool_typeis)[[Named(val, object)], TypeIs[bool]]`.
+narrowing_typeis.py:195:26 Invalid type guard [68]: The narrowed type str of this type guard is not a subtype of the first positional parameter type int.
+narrowing_typeis.py:199:44 Invalid type guard [68]: The narrowed type typing.List[int] of this type guard is not a subtype of the first positional parameter type typing.List[object].
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

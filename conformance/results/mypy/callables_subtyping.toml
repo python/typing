@@ -1,0 +1,179 @@
+conformant = "Pass"
+errors_diff = """
+"""
+output = """
+callables_subtyping.py:26: error: Incompatible types in assignment (expression has type "Callable[[int], int]", variable has type "Callable[[float], float]")  [assignment]
+callables_subtyping.py:29: error: Incompatible types in assignment (expression has type "Callable[[float], float]", variable has type "Callable[[int], int]")  [assignment]
+callables_subtyping.py:51: error: Incompatible types in assignment (expression has type "PosOnly2", variable has type "Standard2")  [assignment]
+callables_subtyping.py:52: error: Incompatible types in assignment (expression has type "KwOnly2", variable has type "Standard2")  [assignment]
+callables_subtyping.py:52: note: Following member(s) of "KwOnly2" have conflicts:
+callables_subtyping.py:52: note:     Expected:
+callables_subtyping.py:52: note:         def __call__(self, a: int, b: int) -> None
+callables_subtyping.py:52: note:     Got:
+callables_subtyping.py:52: note:         def __call__(self, *, b: int, a: int) -> None
+callables_subtyping.py:55: error: Incompatible types in assignment (expression has type "KwOnly2", variable has type "PosOnly2")  [assignment]
+callables_subtyping.py:55: note: Following member(s) of "KwOnly2" have conflicts:
+callables_subtyping.py:55: note:     Expected:
+callables_subtyping.py:55: note:         def __call__(self, int, int, /) -> None
+callables_subtyping.py:55: note:     Got:
+callables_subtyping.py:55: note:         def __call__(self, *, b: int, a: int) -> None
+callables_subtyping.py:58: error: Incompatible types in assignment (expression has type "PosOnly2", variable has type "KwOnly2")  [assignment]
+callables_subtyping.py:58: note: Following member(s) of "PosOnly2" have conflicts:
+callables_subtyping.py:58: note:     Expected:
+callables_subtyping.py:58: note:         def __call__(self, *, b: int, a: int) -> None
+callables_subtyping.py:58: note:     Got:
+callables_subtyping.py:58: note:         def __call__(self, int, int, /) -> None
+callables_subtyping.py:82: error: Incompatible types in assignment (expression has type "NoArgs3", variable has type "IntArgs3")  [assignment]
+callables_subtyping.py:82: note: Following member(s) of "NoArgs3" have conflicts:
+callables_subtyping.py:82: note:     Expected:
+callables_subtyping.py:82: note:         def __call__(self, *args: int) -> None
+callables_subtyping.py:82: note:     Got:
+callables_subtyping.py:82: note:         def __call__(self) -> None
+callables_subtyping.py:85: error: Incompatible types in assignment (expression has type "NoArgs3", variable has type "FloatArgs3")  [assignment]
+callables_subtyping.py:85: note: Following member(s) of "NoArgs3" have conflicts:
+callables_subtyping.py:85: note:     Expected:
+callables_subtyping.py:85: note:         def __call__(self, *args: float) -> None
+callables_subtyping.py:85: note:     Got:
+callables_subtyping.py:85: note:         def __call__(self) -> None
+callables_subtyping.py:86: error: Incompatible types in assignment (expression has type "IntArgs3", variable has type "FloatArgs3")  [assignment]
+callables_subtyping.py:86: note: Following member(s) of "IntArgs3" have conflicts:
+callables_subtyping.py:86: note:     Expected:
+callables_subtyping.py:86: note:         def __call__(self, *args: float) -> None
+callables_subtyping.py:86: note:     Got:
+callables_subtyping.py:86: note:         def __call__(self, *args: int) -> None
+callables_subtyping.py:116: error: Incompatible types in assignment (expression has type "IntArgs4", variable has type "PosOnly4")  [assignment]
+callables_subtyping.py:116: note: Following member(s) of "IntArgs4" have conflicts:
+callables_subtyping.py:116: note:     Expected:
+callables_subtyping.py:116: note:         def __call__(self, int, str, /) -> None
+callables_subtyping.py:116: note:     Got:
+callables_subtyping.py:116: note:         def __call__(self, *args: int) -> None
+callables_subtyping.py:119: error: Incompatible types in assignment (expression has type "StrArgs4", variable has type "IntStrArgs4")  [assignment]
+callables_subtyping.py:119: note: Following member(s) of "StrArgs4" have conflicts:
+callables_subtyping.py:119: note:     Expected:
+callables_subtyping.py:119: note:         def __call__(self, *args: int | str) -> None
+callables_subtyping.py:119: note:     Got:
+callables_subtyping.py:119: note:         def __call__(self, int, /, *args: str) -> None
+callables_subtyping.py:120: error: Incompatible types in assignment (expression has type "IntArgs4", variable has type "IntStrArgs4")  [assignment]
+callables_subtyping.py:120: note: Following member(s) of "IntArgs4" have conflicts:
+callables_subtyping.py:120: note:     Expected:
+callables_subtyping.py:120: note:         def __call__(self, *args: int | str) -> None
+callables_subtyping.py:120: note:     Got:
+callables_subtyping.py:120: note:         def __call__(self, *args: int) -> None
+callables_subtyping.py:122: error: Incompatible types in assignment (expression has type "IntArgs4", variable has type "StrArgs4")  [assignment]
+callables_subtyping.py:122: note: Following member(s) of "IntArgs4" have conflicts:
+callables_subtyping.py:122: note:     Expected:
+callables_subtyping.py:122: note:         def __call__(self, int, /, *args: str) -> None
+callables_subtyping.py:122: note:     Got:
+callables_subtyping.py:122: note:         def __call__(self, *args: int) -> None
+callables_subtyping.py:124: error: Incompatible types in assignment (expression has type "StrArgs4", variable has type "IntArgs4")  [assignment]
+callables_subtyping.py:124: note: Following member(s) of "StrArgs4" have conflicts:
+callables_subtyping.py:124: note:     Expected:
+callables_subtyping.py:124: note:         def __call__(self, *args: int) -> None
+callables_subtyping.py:124: note:     Got:
+callables_subtyping.py:124: note:         def __call__(self, int, /, *args: str) -> None
+callables_subtyping.py:125: error: Incompatible types in assignment (expression has type "IntStrArgs4", variable has type "Standard4")  [assignment]
+callables_subtyping.py:126: error: Incompatible types in assignment (expression has type "StrArgs4", variable has type "Standard4")  [assignment]
+callables_subtyping.py:151: error: Incompatible types in assignment (expression has type "NoKwargs5", variable has type "IntKwargs5")  [assignment]
+callables_subtyping.py:151: note: Following member(s) of "NoKwargs5" have conflicts:
+callables_subtyping.py:151: note:     Expected:
+callables_subtyping.py:151: note:         def __call__(self, **kwargs: int) -> None
+callables_subtyping.py:151: note:     Got:
+callables_subtyping.py:151: note:         def __call__(self) -> None
+callables_subtyping.py:154: error: Incompatible types in assignment (expression has type "NoKwargs5", variable has type "FloatKwargs5")  [assignment]
+callables_subtyping.py:154: note: Following member(s) of "NoKwargs5" have conflicts:
+callables_subtyping.py:154: note:     Expected:
+callables_subtyping.py:154: note:         def __call__(self, **kwargs: float) -> None
+callables_subtyping.py:154: note:     Got:
+callables_subtyping.py:154: note:         def __call__(self) -> None
+callables_subtyping.py:155: error: Incompatible types in assignment (expression has type "IntKwargs5", variable has type "FloatKwargs5")  [assignment]
+callables_subtyping.py:155: note: Following member(s) of "IntKwargs5" have conflicts:
+callables_subtyping.py:155: note:     Expected:
+callables_subtyping.py:155: note:         def __call__(self, **kwargs: float) -> None
+callables_subtyping.py:155: note:     Got:
+callables_subtyping.py:155: note:         def __call__(self, **kwargs: int) -> None
+callables_subtyping.py:187: error: Incompatible types in assignment (expression has type "IntKwargs6", variable has type "KwOnly6")  [assignment]
+callables_subtyping.py:187: note: Following member(s) of "IntKwargs6" have conflicts:
+callables_subtyping.py:187: note:     Expected:
+callables_subtyping.py:187: note:         def __call__(self, *, a: int, b: str) -> None
+callables_subtyping.py:187: note:     Got:
+callables_subtyping.py:187: note:         def __call__(self, **kwargs: int) -> None
+callables_subtyping.py:190: error: Incompatible types in assignment (expression has type "StrKwargs6", variable has type "IntStrKwargs6")  [assignment]
+callables_subtyping.py:190: note: Following member(s) of "StrKwargs6" have conflicts:
+callables_subtyping.py:190: note:     Expected:
+callables_subtyping.py:190: note:         def __call__(self, **kwargs: int | str) -> None
+callables_subtyping.py:190: note:     Got:
+callables_subtyping.py:190: note:         def __call__(self, *, a: int, **kwargs: str) -> None
+callables_subtyping.py:191: error: Incompatible types in assignment (expression has type "IntKwargs6", variable has type "IntStrKwargs6")  [assignment]
+callables_subtyping.py:191: note: Following member(s) of "IntKwargs6" have conflicts:
+callables_subtyping.py:191: note:     Expected:
+callables_subtyping.py:191: note:         def __call__(self, **kwargs: int | str) -> None
+callables_subtyping.py:191: note:     Got:
+callables_subtyping.py:191: note:         def __call__(self, **kwargs: int) -> None
+callables_subtyping.py:193: error: Incompatible types in assignment (expression has type "IntKwargs6", variable has type "StrKwargs6")  [assignment]
+callables_subtyping.py:193: note: Following member(s) of "IntKwargs6" have conflicts:
+callables_subtyping.py:193: note:     Expected:
+callables_subtyping.py:193: note:         def __call__(self, *, a: int, **kwargs: str) -> None
+callables_subtyping.py:193: note:     Got:
+callables_subtyping.py:193: note:         def __call__(self, **kwargs: int) -> None
+callables_subtyping.py:195: error: Incompatible types in assignment (expression has type "StrKwargs6", variable has type "IntKwargs6")  [assignment]
+callables_subtyping.py:195: note: Following member(s) of "StrKwargs6" have conflicts:
+callables_subtyping.py:195: note:     Expected:
+callables_subtyping.py:195: note:         def __call__(self, **kwargs: int) -> None
+callables_subtyping.py:195: note:     Got:
+callables_subtyping.py:195: note:         def __call__(self, *, a: int, **kwargs: str) -> None
+callables_subtyping.py:196: error: Incompatible types in assignment (expression has type "IntStrKwargs6", variable has type "Standard6")  [assignment]
+callables_subtyping.py:196: note: Following member(s) of "IntStrKwargs6" have conflicts:
+callables_subtyping.py:196: note:     Expected:
+callables_subtyping.py:196: note:         def __call__(self, a: int, b: str) -> None
+callables_subtyping.py:196: note:     Got:
+callables_subtyping.py:196: note:         def __call__(self, **kwargs: int | str) -> None
+callables_subtyping.py:197: error: Incompatible types in assignment (expression has type "StrKwargs6", variable has type "Standard6")  [assignment]
+callables_subtyping.py:197: note: Following member(s) of "StrKwargs6" have conflicts:
+callables_subtyping.py:197: note:     Expected:
+callables_subtyping.py:197: note:         def __call__(self, a: int, b: str) -> None
+callables_subtyping.py:197: note:     Got:
+callables_subtyping.py:197: note:         def __call__(self, *, a: int, **kwargs: str) -> None
+callables_subtyping.py:236: error: Incompatible types in assignment (expression has type "NoDefaultArg8", variable has type "DefaultArg8")  [assignment]
+callables_subtyping.py:236: note: Following member(s) of "NoDefaultArg8" have conflicts:
+callables_subtyping.py:236: note:     Expected:
+callables_subtyping.py:236: note:         def __call__(self, x: int = ...) -> None
+callables_subtyping.py:236: note:     Got:
+callables_subtyping.py:236: note:         def __call__(self, x: int) -> None
+callables_subtyping.py:237: error: Incompatible types in assignment (expression has type "NoX8", variable has type "DefaultArg8")  [assignment]
+callables_subtyping.py:237: note: Following member(s) of "NoX8" have conflicts:
+callables_subtyping.py:237: note:     Expected:
+callables_subtyping.py:237: note:         def __call__(self, x: int = ...) -> None
+callables_subtyping.py:237: note:     Got:
+callables_subtyping.py:237: note:         def __call__(self) -> None
+callables_subtyping.py:240: error: Incompatible types in assignment (expression has type "NoX8", variable has type "NoDefaultArg8")  [assignment]
+callables_subtyping.py:240: note: Following member(s) of "NoX8" have conflicts:
+callables_subtyping.py:240: note:     Expected:
+callables_subtyping.py:240: note:         def __call__(self, x: int) -> None
+callables_subtyping.py:240: note:     Got:
+callables_subtyping.py:240: note:         def __call__(self) -> None
+callables_subtyping.py:243: error: Incompatible types in assignment (expression has type "NoDefaultArg8", variable has type "NoX8")  [assignment]
+callables_subtyping.py:243: note: Following member(s) of "NoDefaultArg8" have conflicts:
+callables_subtyping.py:243: note:     Expected:
+callables_subtyping.py:243: note:         def __call__(self) -> None
+callables_subtyping.py:243: note:     Got:
+callables_subtyping.py:243: note:         def __call__(self, x: int) -> None
+callables_subtyping.py:273: error: Incompatible types in assignment (expression has type "Overloaded9", variable has type "FloatArg9")  [assignment]
+callables_subtyping.py:273: note: Following member(s) of "Overloaded9" have conflicts:
+callables_subtyping.py:273: note:     Expected:
+callables_subtyping.py:273: note:         def __call__(self, x: float) -> float
+callables_subtyping.py:273: note:     Got:
+callables_subtyping.py:273: note:         @overload
+callables_subtyping.py:273: note:         def __call__(self, x: int) -> int
+callables_subtyping.py:273: note:         @overload
+callables_subtyping.py:273: note:         def __call__(self, x: str) -> str
+callables_subtyping.py:297: error: Incompatible types in assignment (expression has type "StrArg10", variable has type "Overloaded10")  [assignment]
+callables_subtyping.py:297: note: Following member(s) of "StrArg10" have conflicts:
+callables_subtyping.py:297: note:     Expected:
+callables_subtyping.py:297: note:         @overload
+callables_subtyping.py:297: note:         def __call__(self, x: int, y: str) -> float
+callables_subtyping.py:297: note:         @overload
+callables_subtyping.py:297: note:         def __call__(self, x: str) -> complex
+callables_subtyping.py:297: note:     Got:
+callables_subtyping.py:297: note:         def __call__(self, x: str) -> complex
+"""
+conformance_automated = "Pass"

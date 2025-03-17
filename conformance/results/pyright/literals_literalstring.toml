@@ -1,0 +1,26 @@
+conformant = "Pass"
+output = """
+literals_literalstring.py:36:29 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
+literals_literalstring.py:37:22 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
+literals_literalstring.py:43:23 - error: Type "Literal['two']" is not assignable to declared type "Literal['']"
+  "Literal['two']" is not assignable to type "Literal['']" (reportAssignmentType)
+literals_literalstring.py:66:25 - error: Type "str" is not assignable to declared type "LiteralString"
+  "str" is not assignable to "LiteralString" (reportAssignmentType)
+literals_literalstring.py:74:25 - error: Type "Literal[3]" is not assignable to declared type "LiteralString"
+  "Literal[3]" is not assignable to "LiteralString" (reportAssignmentType)
+literals_literalstring.py:75:25 - error: Type "Literal[b"test"]" is not assignable to declared type "LiteralString"
+  "Literal[b"test"]" is not assignable to "LiteralString" (reportAssignmentType)
+literals_literalstring.py:120:22 - error: Argument of type "str" cannot be assigned to parameter "s" of type "TLiteral@literal_identity" in function "literal_identity"
+  Type "str" is not assignable to type "LiteralString"
+    "str" is not assignable to "LiteralString" (reportArgumentType)
+literals_literalstring.py:134:51 - error: Argument of type "str" cannot be assigned to parameter "value" of type "T@Container" in function "__init__"
+  Type "str" is not assignable to type "LiteralString"
+    "str" is not assignable to "LiteralString" (reportArgumentType)
+literals_literalstring.py:171:21 - error: Type "list[LiteralString]" is not assignable to declared type "list[str]"
+  "list[LiteralString]" is not assignable to "list[str]"
+    Type parameter "_T@list" is invariant, but "LiteralString" is not the same as "str"
+    Consider switching from "list" to "Sequence" which is covariant (reportAssignmentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

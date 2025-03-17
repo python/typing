@@ -1,0 +1,43 @@
+conformant = "Unsupported"
+notes = """
+Does not support @deprecated.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Expected 1 errors
+Line 25: Expected 1 errors
+Line 30: Expected 1 errors
+Line 41: Expected 1 errors
+Line 42: Expected 1 errors
+Line 44: Expected 1 errors
+Line 47: Expected 1 errors
+Line 48: Expected 1 errors
+Line 58: Expected 1 errors
+Line 69: Expected 1 errors
+Line 98: Expected 1 errors
+Line 10: Unexpected errors ['directives_deprecated.py:10:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.override not supported yet [not-supported-yet]']
+Line 11: Unexpected errors ['directives_deprecated.py:11:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing_extensions.deprecated not supported yet [not-supported-yet]']
+Line 19: Unexpected errors ["directives_deprecated.py:19:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Can't find module '_directives_deprecated_library'. [import-error]"]
+"""
+output = """
+directives_deprecated.py:10:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.override not supported yet [not-supported-yet]
+
+from typing import Protocol, override
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+directives_deprecated.py:11:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing_extensions.deprecated not supported yet [not-supported-yet]
+
+from typing_extensions import deprecated
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+directives_deprecated.py:18:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Can't find module '_directives_deprecated_library'. [import-error]
+
+from _directives_deprecated_library import Ham  # E: Use of deprecated class Ham
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+directives_deprecated.py:19:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Can't find module '_directives_deprecated_library'. [import-error]
+
+import _directives_deprecated_library as library
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""

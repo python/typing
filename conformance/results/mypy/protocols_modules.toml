@@ -1,0 +1,16 @@
+conformant = "Pass"
+output = """
+protocols_modules.py:26: error: Incompatible types in assignment (expression has type Module, variable has type "Options2")  [assignment]
+protocols_modules.py:26: note: Following member(s) of Module "_protocols_modules1" have conflicts:
+protocols_modules.py:26: note:     timeout: expected "str", got "int"
+protocols_modules.py:48: error: Incompatible types in assignment (expression has type Module, variable has type "Reporter2")  [assignment]
+protocols_modules.py:48: note: Following member(s) of Module "_protocols_modules2" have conflicts:
+protocols_modules.py:48: note:     Expected:
+protocols_modules.py:48: note:         def on_error(x: int) -> int
+protocols_modules.py:48: note:     Got:
+protocols_modules.py:48: note:         def on_error(x: int) -> None
+protocols_modules.py:49: error: Incompatible types in assignment (expression has type Module, variable has type "Reporter3")  [assignment]
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

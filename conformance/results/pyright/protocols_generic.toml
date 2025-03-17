@@ -1,0 +1,57 @@
+conformant = "Pass"
+output = """
+protocols_generic.py:40:24 - error: Type "Concrete1" is not assignable to declared type "Proto1[int, str]"
+  "Concrete1" is incompatible with protocol "Proto1[int, str]"
+    "method1" is an incompatible type
+      Type "(x: str) -> str" is not assignable to type "(x: S@Proto1) -> S@Proto1"
+        Parameter 1: type "S@Proto1" is incompatible with type "str"
+          "int" is not assignable to "str"
+        Function return type "str" is incompatible with type "S@Proto1"
+          Type "int | str" is not assignable to type "int"
+    "__iter__" is an incompatible type
+  ... (reportAssignmentType)
+protocols_generic.py:44:30 - error: Only one Generic[...] or Protocol[...] base class allowed (reportGeneralTypeIssues)
+protocols_generic.py:56:20 - error: Type "Box[float]" is not assignable to declared type "Box[int]"
+  "Box[float]" is not assignable to "Box[int]"
+    Type parameter "T_co@Box" is covariant, but "float" is not a subtype of "int"
+      "float" is not assignable to "int" (reportAssignmentType)
+protocols_generic.py:66:25 - error: Type "Sender[int]" is not assignable to declared type "Sender[float]"
+  "Sender[int]" is not assignable to "Sender[float]"
+    Type parameter "T_contra@Sender" is contravariant, but "int" is not a supertype of "float"
+      "float" is not assignable to "int" (reportAssignmentType)
+protocols_generic.py:74:28 - error: Type "AttrProto[int]" is not assignable to declared type "AttrProto[float]"
+  "AttrProto[int]" is not assignable to "AttrProto[float]"
+    Type parameter "T@AttrProto" is invariant, but "int" is not the same as "float" (reportAssignmentType)
+protocols_generic.py:75:26 - error: Type "AttrProto[float]" is not assignable to declared type "AttrProto[int]"
+  "AttrProto[float]" is not assignable to "AttrProto[int]"
+    Type parameter "T@AttrProto" is invariant, but "float" is not the same as "int" (reportAssignmentType)
+protocols_generic.py:145:25 - error: Type "ConcreteHasProperty2" is not assignable to declared type "HasPropertyProto"
+  "ConcreteHasProperty2" is incompatible with protocol "HasPropertyProto"
+    "m" is an incompatible type
+      Type "(item: int, callback: (int) -> str) -> str" is not assignable to type "(item: T@m, callback: (T@m) -> str) -> str"
+        Parameter 1: type "T@m" is incompatible with type "int"
+          "object*" is not assignable to "int"
+        Parameter 2: type "(T@m) -> str" is incompatible with type "(int) -> str"
+          Type "(T@m) -> str" is not assignable to type "(int) -> str" (reportAssignmentType)
+protocols_generic.py:146:25 - error: Type "ConcreteHasProperty3" is not assignable to declared type "HasPropertyProto"
+  "ConcreteHasProperty3" is incompatible with protocol "HasPropertyProto"
+    "f" is an incompatible type
+      Type "() -> int" is not assignable to type "() -> HasPropertyProto"
+        Function return type "int" is incompatible with type "HasPropertyProto"
+          "int" is incompatible with protocol "HasPropertyProto"
+    "m" is an incompatible type
+      Type "(item: int, callback: (int) -> str) -> str" is not assignable to type "(item: T@m, callback: (T@m) -> str) -> str"
+        Parameter 1: type "T@m" is incompatible with type "int"
+  ... (reportAssignmentType)
+protocols_generic.py:147:25 - error: Type "ConcreteHasProperty4" is not assignable to declared type "HasPropertyProto"
+  "ConcreteHasProperty4" is incompatible with protocol "HasPropertyProto"
+    "m" is an incompatible type
+      Type "(item: str, callback: (int) -> str) -> str" is not assignable to type "(item: T@m, callback: (T@m) -> str) -> str"
+        Parameter 1: type "T@m" is incompatible with type "str"
+          "object*" is not assignable to "str"
+        Parameter 2: type "(T@m) -> str" is incompatible with type "(int) -> str"
+          Type "(T@m) -> str" is not assignable to type "(int) -> str" (reportAssignmentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -1,0 +1,41 @@
+conformant = "Partial"
+notes = """
+Does not treat attribute with annotation and no assignment as non-member.
+Does not treat callables as non-members.
+Does not honor `enum.member` as method decorator.
+Does not properly handle aliased enum members.
+Does not support `_ignore_` mechanism (optional).
+Does not treat attributes with private names as non-members.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 82: Expected 1 errors
+Line 83: Expected 1 errors
+Line 129: Expected 1 errors
+Line 27: Unexpected errors ['enums_members.py:27: error: Expression is of type "Literal[Pet.genus]", not "str"  [assert-type]']
+Line 28: Unexpected errors ['enums_members.py:28: error: Expression is of type "Literal[Pet.species]", not "str"  [assert-type]']
+Line 35: Unexpected errors ['enums_members.py:35: error: Expression is of type "Literal[Pet2.genus]", not "str"  [assert-type]']
+Line 36: Unexpected errors ['enums_members.py:36: error: Expression is of type "Literal[Pet2.species]", not "str"  [assert-type]']
+Line 100: Unexpected errors ['enums_members.py:100: error: Expression is of type "Literal[TrafficLight.AMBER]", not "Literal[TrafficLight.YELLOW]"  [assert-type]']
+Line 117: Unexpected errors ['enums_members.py:117: error: Expression is of type "member[Callable[[Example], None]]", not "Any"  [assert-type]', 'enums_members.py:117: error: Parameter 1 of Literal[...] is invalid  [valid-type]']
+"""
+output = """
+enums_members.py:27: error: Expression is of type "Literal[Pet.genus]", not "str"  [assert-type]
+enums_members.py:28: error: Expression is of type "Literal[Pet.species]", not "str"  [assert-type]
+enums_members.py:35: error: Expression is of type "Literal[Pet2.genus]", not "str"  [assert-type]
+enums_members.py:36: error: Expression is of type "Literal[Pet2.species]", not "str"  [assert-type]
+enums_members.py:50: error: Enum members must be left unannotated  [misc]
+enums_members.py:50: note: See https://typing.readthedocs.io/en/latest/spec/enums.html#defining-members
+enums_members.py:84: error: Expression is of type "Callable[[Pet4], str]", not "Any"  [assert-type]
+enums_members.py:84: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+enums_members.py:85: error: Expression is of type "Callable[[Pet4], None]", not "Any"  [assert-type]
+enums_members.py:85: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+enums_members.py:100: error: Expression is of type "Literal[TrafficLight.AMBER]", not "Literal[TrafficLight.YELLOW]"  [assert-type]
+enums_members.py:116: error: Expression is of type "int", not "Literal[Example.b]"  [assert-type]
+enums_members.py:117: error: Expression is of type "member[Callable[[Example], None]]", not "Any"  [assert-type]
+enums_members.py:117: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+enums_members.py:128: note: Revealed type is "Any"
+enums_members.py:128: note: 'reveal_type' always outputs 'Any' in unchecked functions
+enums_members.py:146: error: Expression is of type "Literal[Pet5.DOG]", not "int"  [assert-type]
+enums_members.py:147: error: Expression is of type "Literal[Pet5.FISH]", not "int"  [assert-type]
+"""

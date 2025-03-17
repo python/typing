@@ -1,0 +1,60 @@
+conformant = "Partial"
+notes = """
+Does not correctly enforce contravariance in protocol type compatibility tests.
+Does not correctly enforce invariance in protocol type compatibility tests.
+Does not detect protocol mismatch when method-scoped TypeVar is used in protocol.
+"""
+output = """
+protocols_generic.py:12:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+
+T_co = TypeVar("T_co", covariant=True)
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+protocols_generic.py:13:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+
+T_contra = TypeVar("T_contra", contravariant=True)
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+protocols_generic.py:40:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for p2 does not match type of assignment [annotation-type-mismatch]
+
+p2: Proto1[int, str] = Concrete1()  # E: incompatible type
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+protocols_generic.py:44:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Proto2'  [invalid-annotation]
+
+class Proto2(Protocol[T_co], Generic[T_co]):  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    ...
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+protocols_generic.py:56:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
+
+    v2: Box[int] = box_float  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+protocols_generic.py:65:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]
+
+    v1: Sender[int] = sender_float  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+protocols_generic.py:75:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
+
+    v2: AttrProto[int] = attr_float  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+protocols_generic.py:146:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for hp3 does not match type of assignment [annotation-type-mismatch]
+
+hp3: HasPropertyProto = ConcreteHasProperty3()  # E
+\u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 66: Expected 1 errors
+Line 74: Expected 1 errors
+Line 145: Expected 1 errors
+Line 147: Expected 1 errors
+Line 12: Unexpected errors ['protocols_generic.py:12:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 13: Unexpected errors ['protocols_generic.py:13:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
+Line 65: Unexpected errors ['protocols_generic.py:65:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func2: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]']
+"""

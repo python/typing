@@ -1,0 +1,15 @@
+conformant = "Pass"
+notes = """
+Does not report errant use of TypedDict in `isinstance` call.
+Does not reject use of TypedDict as TypeVar bound.
+"""
+output = """
+typeddicts_usage.py:23:6 TypedDict accessed with a missing key [27]: TypedDict `Movie` has no key `director`.
+typeddicts_usage.py:24:16 Invalid TypedDict operation [54]: Expected `int` to be assigned to `Movie` field `year` but got `str`.
+typeddicts_usage.py:28:16 TypedDict initialization error [55]: Missing required field `name` for TypedDict `Movie`.
+typeddicts_usage.py:35:21 TypedDict used in isinstance [71]: TypedDict classes may not be used for instance checks.
+typeddicts_usage.py:40:0 Undefined or invalid type [11]: Annotation `TypedDict` is not defined as a type.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

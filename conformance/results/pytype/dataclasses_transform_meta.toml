@@ -1,0 +1,39 @@
+conformant = "Unsupported"
+notes = """
+Does not understand @dataclass_transform.
+"""
+output = """
+dataclasses_transform_meta.py:21:2: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+
+@dataclass_transform(
+ \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    kw_only_default=True,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    field_specifiers=(ModelField, model_field),
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+)
+\u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+dataclasses_transform_meta.py:60:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]
+
+c1_1 = Customer1(id=3, name="Sue", other_name="Susan")
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_meta.py:86:2: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+
+@dataclass_transform(frozen_default=True)
+ \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 51: Expected 1 errors
+Line 63: Expected 1 errors
+Line 66: Expected 1 errors
+Line 73: Expected 1 errors
+Line 83: Expected 1 errors
+Line 103: Expected 1 errors
+Line 21: Unexpected errors ['dataclasses_transform_meta.py:21:2: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+Line 60: Unexpected errors ['dataclasses_transform_meta.py:60:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid keyword argument other_name to function Customer1.__init__ [wrong-keyword-args]']
+Line 86: Unexpected errors ['dataclasses_transform_meta.py:86:2: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+"""

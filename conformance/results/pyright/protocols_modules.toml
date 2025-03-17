@@ -1,0 +1,17 @@
+conformant = "Pass"
+output = """
+protocols_modules.py:26:17 - error: Type "Module("_protocols_modules1")" is not assignable to declared type "Options2"
+  "timeout" is invariant because it is mutable
+  "timeout" is an incompatible type
+    "int" is not assignable to "str" (reportAssignmentType)
+protocols_modules.py:48:18 - error: Type "Module("_protocols_modules2")" is not assignable to declared type "Reporter2"
+  "on_error" is an incompatible type
+    Type "(x: int) -> None" is not assignable to type "(x: int) -> int"
+      Function return type "None" is incompatible with type "int"
+        "None" is not assignable to "int" (reportAssignmentType)
+protocols_modules.py:49:18 - error: Type "Module("_protocols_modules2")" is not assignable to declared type "Reporter3"
+  "not_implemented" is not present (reportAssignmentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

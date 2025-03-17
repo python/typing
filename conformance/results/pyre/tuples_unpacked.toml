@@ -1,0 +1,13 @@
+conformant = "Pass"
+notes = """
+"""
+output = """
+tuples_unpacked.py:40:4 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *tuple[(int, ...)])]` is not a valid type.
+tuples_unpacked.py:41:4 Invalid type [31]: Expression `tuple[(*tuple[(str, *tuple[(str, ...)])], *tuple[(int, ...)])]` is not a valid type.
+tuples_unpacked.py:51:8 Invalid type [31]: Expression `tuple[(*tuple[(str, ...)], *Ts)]` is not a valid type.
+tuples_unpacked.py:59:5 Invalid type [31]: Expression `tuple[(typing.Unpack[tuple[(str, ...)]], typing.Unpack[tuple[(int, ...)]])]` is not a valid type.
+tuples_unpacked.py:60:5 Invalid type [31]: Expression `tuple[(typing.Unpack[tuple[(str, typing.Unpack[tuple[(str, ...)]])]], typing.Unpack[tuple[(int, ...)]])]` is not a valid type.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

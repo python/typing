@@ -1,0 +1,18 @@
+conformant = "Pass"
+output = """
+literals_semantics.py:10:18 - error: Type "Literal[4]" is not assignable to declared type "Literal[3]"
+  "Literal[4]" is not assignable to type "Literal[3]" (reportAssignmentType)
+literals_semantics.py:24:26 - error: Type "Literal[0]" is not assignable to declared type "Literal[False]"
+  "Literal[0]" is not assignable to "Literal[False]" (reportAssignmentType)
+literals_semantics.py:25:22 - error: Type "Literal[False]" is not assignable to declared type "Literal[0]"
+  "Literal[False]" is not assignable to "Literal[0]" (reportAssignmentType)
+literals_semantics.py:33:10 - error: Type "Literal[6, 7, 8]" is not assignable to declared type "Literal[3, 4, 5]"
+  Type "Literal[6, 7, 8]" is not assignable to type "Literal[3, 4, 5]"
+    Type "Literal[6]" is not assignable to type "Literal[3, 4, 5]"
+      "Literal[6]" is not assignable to type "Literal[3]"
+      "Literal[6]" is not assignable to type "Literal[4]"
+      "Literal[6]" is not assignable to type "Literal[5]" (reportAssignmentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

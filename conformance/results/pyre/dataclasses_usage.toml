@@ -1,0 +1,33 @@
+conformant = "Partial"
+notes = """
+Does not report error when field with no default follows field with default.
+Complains on `assert_type` when used for bound methods vs `Callable`.
+Does not understand `__dataclass_fields__`.
+Incorrectly raises incompatibility type errors.
+"""
+output = """
+dataclasses_usage.py:50:5 Missing argument [20]: Call `InventoryItem.__init__` expects argument `unit_price`.
+dataclasses_usage.py:51:27 Incompatible parameter type [6]: In call `InventoryItem.__init__`, for 2nd positional argument, expected `float` but got `str`.
+dataclasses_usage.py:52:5 Too many arguments [19]: Call `InventoryItem.__init__` expects 3 positional arguments, 4 were provided.
+dataclasses_usage.py:72:4 Undefined attribute [16]: `typing.Type` has no attribute `a`.
+dataclasses_usage.py:83:5 Too many arguments [19]: Call `DC4.__init__` expects 1 positional argument, 2 were provided.
+dataclasses_usage.py:88:4 Incompatible attribute type [8]: Attribute `a` declared in class `DC5` has type `int` but is used as type `str`.
+dataclasses_usage.py:127:0 Too many arguments [19]: Call `DC7.__init__` expects 1 positional argument, 2 were provided.
+dataclasses_usage.py:130:0 Missing argument [20]: Call `DC8.__init__` expects argument `y`.
+dataclasses_usage.py:173:4 Uninitialized attribute [13]: Attribute `x` is declared in class `DC13` to have type `int` but is never initialized.
+dataclasses_usage.py:174:4 Uninitialized attribute [13]: Attribute `x_squared` is declared in class `DC13` to have type `int` but is never initialized.
+dataclasses_usage.py:179:0 Too many arguments [19]: Call `object.__init__` expects 0 positional arguments, 1 was provided.
+dataclasses_usage.py:205:0 Incompatible variable type [9]: v7 is declared to have type `DataclassProto` but is used as type `DC15`.
+dataclasses_usage.py:213:0 Assert type [70]: Expected `DC16[int]` but got `DC16[typing_extensions.Literal[1]]`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Lines 58, 61: Expected error (tag 'DC1')
+Lines 64, 67: Expected error (tag 'DC2')
+Lines 70, 73: Expected error (tag 'DC3')
+Line 72: Unexpected errors ['dataclasses_usage.py:72:4 Undefined attribute [16]: `typing.Type` has no attribute `a`.']
+Line 173: Unexpected errors ['dataclasses_usage.py:173:4 Uninitialized attribute [13]: Attribute `x` is declared in class `DC13` to have type `int` but is never initialized.']
+Line 174: Unexpected errors ['dataclasses_usage.py:174:4 Uninitialized attribute [13]: Attribute `x_squared` is declared in class `DC13` to have type `int` but is never initialized.']
+Line 205: Unexpected errors ['dataclasses_usage.py:205:0 Incompatible variable type [9]: v7 is declared to have type `DataclassProto` but is used as type `DC15`.']
+Line 213: Unexpected errors ['dataclasses_usage.py:213:0 Assert type [70]: Expected `DC16[int]` but got `DC16[typing_extensions.Literal[1]]`.']
+"""

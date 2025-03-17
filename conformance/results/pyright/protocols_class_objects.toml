@@ -1,0 +1,30 @@
+conformant = "Pass"
+output = """
+protocols_class_objects.py:29:5 - error: Argument of type "type[Proto]" cannot be assigned to parameter "cls" of type "type[Proto]" in function "fun"
+  "Proto" is not a concrete class type and cannot be assigned to type "type[Proto]" (reportArgumentType)
+protocols_class_objects.py:34:7 - error: Type "type[Proto]" is not assignable to declared type "type[Proto]"
+  "Proto" is not a concrete class type and cannot be assigned to type "type[Proto]" (reportAssignmentType)
+protocols_class_objects.py:58:16 - error: Type "type[ConcreteA]" is not assignable to declared type "ProtoA1"
+  Type "type[ConcreteA]" is not assignable to type "ConcreteA"
+  Type "type[ConcreteA]" is not assignable to type "ConcreteA"
+  "method1" is an incompatible type
+    Type "(self: ConcreteA, x: int) -> int" is not assignable to type "(x: int) -> int"
+      Parameter name mismatch: "x" versus "self"
+      Parameter 1: type "int" is incompatible with type "ConcreteA"
+        "int" is not assignable to "ConcreteA"
+      Extra parameter "x" (reportAssignmentType)
+protocols_class_objects.py:74:16 - error: Type "type[ConcreteB]" is not assignable to declared type "ProtoB1"
+  "prop1" is an incompatible type
+    "property" is not assignable to "int" (reportAssignmentType)
+protocols_class_objects.py:104:16 - error: Type "type[ConcreteC1]" is not assignable to declared type "ProtoC1"
+  "attr1" is defined as a ClassVar in protocol (reportAssignmentType)
+protocols_class_objects.py:106:16 - error: Type "type[ConcreteC2]" is not assignable to declared type "ProtoC1"
+  "attr1" is defined as a ClassVar in protocol (reportAssignmentType)
+protocols_class_objects.py:107:16 - error: Type "type[ConcreteC2]" is not assignable to declared type "ProtoC2"
+  "attr1" must be defined as a ClassVar to be compatible with protocol (reportAssignmentType)
+protocols_class_objects.py:108:16 - error: Type "type[ConcreteC3]" is not assignable to declared type "ProtoC1"
+  "attr1" is defined as a ClassVar in protocol (reportAssignmentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

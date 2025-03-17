@@ -1,0 +1,77 @@
+conformant = "Partial"
+notes = """
+Reports errors for protocol static method with "..." implementation.
+Does not report error when instance variable is set through "self" access in protocol class.
+Does not report protocol mismatch when concrete class has attribute with covariant type and protocol attribute is mutable.
+Does not reject ClassVar in concrete class when attribute in protocol is not ClassVar.
+Does not reject read-only property in concrete class when attribute in protocol is mutable.
+Does not reject covariant attribute type when protocol attribute is mutable.
+Does not detect protocol mismatch if concrete method is missing annotations.
+Does not detect protocol mismatch if concrete method's parameters are keyword-only.
+Does not detect protocol mismatch if concrete method's parameters are position-only.
+Does not detect protocol mismatch if concrete method is a classmethod.
+Does not detect protocol mismatch if concrete method is a staticmethod.
+Does not reject read-only property in concrete class when protocol has settable property.
+Does not reject immutable named tuple attribute in concrete class when protocol attribute is mutable.
+Does not reject immutable frozen dataclass attribute in concrete class when protocol attribute is mutable.
+"""
+output = """
+protocols_definition.py:30:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function close_all was called with the wrong arguments [wrong-arg-types]
+
+close_all([1])  # E: 'int' has no 'close' method
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+protocols_definition.py:45:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in third: bad return type [bad-return-type]
+
+        ...
+        \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+protocols_definition.py:114:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for v2_bad1 does not match type of assignment [annotation-type-mismatch]
+
+v2_bad1: Template2 = Concrete2_Bad1()  # E
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+protocols_definition.py:115:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for v2_bad2 does not match type of assignment [annotation-type-mismatch]
+
+v2_bad2: Template2 = Concrete2_Bad2()  # E
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+protocols_definition.py:156:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for v3_bad1 does not match type of assignment [annotation-type-mismatch]
+
+v3_bad1: Template3 = Concrete3_Bad1()  # E
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+protocols_definition.py:159:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for v3_bad4 does not match type of assignment [annotation-type-mismatch]
+
+v3_bad4: Template3 = Concrete3_Bad4()  # E
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+protocols_definition.py:218:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for v4_bad1 does not match type of assignment [annotation-type-mismatch]
+
+v4_bad1: Template4 = Concrete4_Bad1()  # E
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+protocols_definition.py:219:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for v4_bad2 does not match type of assignment [annotation-type-mismatch]
+
+v4_bad2: Template4 = Concrete4_Bad2()  # E
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 67: Expected 1 errors
+Line 116: Expected 1 errors
+Line 117: Expected 1 errors
+Line 157: Expected 1 errors
+Line 158: Expected 1 errors
+Line 160: Expected 1 errors
+Line 285: Expected 1 errors
+Line 286: Expected 1 errors
+Line 287: Expected 1 errors
+Line 288: Expected 1 errors
+Line 289: Expected 1 errors
+Line 339: Expected 1 errors
+Line 340: Expected 1 errors
+Line 341: Expected 1 errors
+Line 45: Unexpected errors ['protocols_definition.py:45:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in third: bad return type [bad-return-type]']
+"""

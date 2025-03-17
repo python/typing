@@ -1,0 +1,15 @@
+conformant = "Partial"
+notes = """
+Does not honor "# type: ignore" comment if comment includes additional text.
+"""
+output = """
+directives_type_ignore.py:11: error: Invalid "type: ignore" comment  [syntax]
+directives_type_ignore.py:11: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_type_ignore.py:14: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_type_ignore.py:14: note: Error code "assignment" not covered by "type: ignore" comment
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 11: Unexpected errors ['directives_type_ignore.py:11: error: Invalid "type: ignore" comment  [syntax]', 'directives_type_ignore.py:11: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+Line 14: Unexpected errors ['directives_type_ignore.py:14: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+"""

@@ -1,0 +1,49 @@
+conformant = "Partial"
+notes = """
+Incorrectly reports error when kw_only field has default value.
+Incorrectly rejects kw_only field with default before positional field.
+"""
+output = """
+dataclasses_kwonly.py:23:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function DC1.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
+
+DC1("hi", 1)  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_kwonly.py:38:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function DC2.__init__ expects 2 arg(s), got 3 [wrong-arg-count]
+
+DC2("hi", 1)  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_kwonly.py:47:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'a' in call to function DC3.__init__ [missing-parameter]
+
+DC3("hi")
+\u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_kwonly.py:50:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'a' in call to function DC3.__init__ [missing-parameter]
+
+DC3("hi", b=1)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_kwonly.py:53:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'a' in call to function DC3.__init__ [missing-parameter]
+
+DC3("hi", 1)  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_kwonly.py:56:2: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: In method __init__, non-default argument c follows default argument [invalid-function-definition]
+
+@dataclass
+ \u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_kwonly.py:61:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: function DC4.__init__ got multiple values for keyword argument 'b' [duplicate-keyword-argument]
+
+DC4("", 0.2, b=3)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 47: Unexpected errors ["dataclasses_kwonly.py:47:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Missing parameter 'a' in call to function DC3.__init__ [missing-parameter]"]
+Line 50: Unexpected errors ["dataclasses_kwonly.py:50:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Missing parameter 'a' in call to function DC3.__init__ [missing-parameter]"]
+Line 56: Unexpected errors ['dataclasses_kwonly.py:56:2: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: In method __init__, non-default argument c follows default argument [invalid-function-definition]']
+Line 61: Unexpected errors ["dataclasses_kwonly.py:61:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: function DC4.__init__ got multiple values for keyword argument 'b' [duplicate-keyword-argument]"]
+"""

@@ -1,0 +1,19 @@
+conformant = "Pass"
+output = """
+directives_cast.py:15: error: "cast" expects 2 arguments  [misc]
+directives_cast.py:15: error: All overload variants of "cast" require at least one argument  [call-overload]
+directives_cast.py:15: note: Possible overload variants:
+directives_cast.py:15: note:     def [_T] cast(typ: type[_T], val: Any) -> _T
+directives_cast.py:15: note:     def cast(typ: str, val: Any) -> Any
+directives_cast.py:15: note:     def cast(typ: object, val: Any) -> Any
+directives_cast.py:16: error: Invalid type: try using Literal[1] instead?  [valid-type]
+directives_cast.py:17: error: "cast" expects 2 arguments  [misc]
+directives_cast.py:17: error: No overload variant of "cast" matches argument types "Any", "str", "str"  [call-overload]
+directives_cast.py:17: note: Possible overload variants:
+directives_cast.py:17: note:     def [_T] cast(typ: type[_T], val: Any) -> _T
+directives_cast.py:17: note:     def cast(typ: str, val: Any) -> Any
+directives_cast.py:17: note:     def cast(typ: object, val: Any) -> Any
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

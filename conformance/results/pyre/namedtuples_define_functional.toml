@@ -1,0 +1,19 @@
+conformant = "Pass"
+notes = """
+"""
+output = """
+namedtuples_define_functional.py:16:7 Missing argument [20]: Call `Point1.__init__` expects argument `y`.
+namedtuples_define_functional.py:21:7 Missing argument [20]: Call `Point2.__init__` expects argument `x`.
+namedtuples_define_functional.py:26:7 Too many arguments [19]: Call `Point3.__init__` expects 2 positional arguments, 3 were provided.
+namedtuples_define_functional.py:31:7 Unexpected keyword [28]: Unexpected keyword argument `z` to call `Point4.__init__`.
+namedtuples_define_functional.py:36:17 Incompatible parameter type [6]: In call `Point5.__init__`, for 2nd positional argument, expected `int` but got `str`.
+namedtuples_define_functional.py:37:7 Too many arguments [19]: Call `Point5.__init__` expects 2 positional arguments, 3 were provided.
+namedtuples_define_functional.py:42:17 Incompatible parameter type [6]: In call `Point6.__init__`, for 2nd positional argument, expected `int` but got `str`.
+namedtuples_define_functional.py:43:14 Incompatible parameter type [6]: In call `Point6.__init__`, for argument `x`, expected `int` but got `float`.
+namedtuples_define_functional.py:52:0 Duplicate parameter [65]: Duplicate parameter name `a`.
+namedtuples_define_functional.py:52:0 Duplicate parameter [65]: Duplicate parameter name `a`.
+namedtuples_define_functional.py:66:0 Missing argument [20]: Call `NT5.__init__` expects argument `a`.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -1,0 +1,10 @@
+conformant = "Pass"
+notes = """
+Type evaluation differs from other type checkers because of ambiguity in the spec related to method bindings.
+"""
+output = """
+annotations_methods.py:42:0 Assert type [70]: Expected `A` but got `B`.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

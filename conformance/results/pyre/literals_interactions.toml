@@ -1,0 +1,18 @@
+conformant = "Partial"
+notes = """
+Does not detect out-of-bound tuple literal index.
+Does not perform exhaustiveness checks on enums.
+Does not narrow type of `x` with `x in Literal` type guard pattern.
+Does not narrow type of `x` with `x == Literal` type guard pattern.
+"""
+output = """
+literals_interactions.py:15:4 Invalid tuple index [73]: Index 5 is out of bounds for concrete tuple with 3 members.
+literals_interactions.py:16:4 Invalid tuple index [73]: Index -5 is out of bounds for concrete tuple with 3 members.
+literals_interactions.py:17:4 Invalid tuple index [73]: Index 4 is out of bounds for concrete tuple with 3 members.
+literals_interactions.py:18:4 Invalid tuple index [73]: Index -4 is out of bounds for concrete tuple with 3 members.
+literals_interactions.py:93:8 Assert type [70]: Expected `str` but got `Union[Status, str]`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 93: Unexpected errors ['literals_interactions.py:93:8 Assert type [70]: Expected `str` but got `Union[Status, str]`.']
+"""

@@ -1,0 +1,15 @@
+conformant = "Pass"
+output = """
+protocols_variance.py:21:7 - warning: Type variable "T1" used in generic Protocol "AnotherBox" should be covariant (reportInvalidTypeVarUse)
+protocols_variance.py:40:7 - warning: Type variable "T3" used in generic Protocol "Protocol2" should be contravariant (reportInvalidTypeVarUse)
+protocols_variance.py:56:7 - warning: Type variable "T1" used in generic Protocol "Protocol4" should be contravariant (reportInvalidTypeVarUse)
+protocols_variance.py:61:7 - warning: Type variable "T1_co" used in generic Protocol "Protocol5" should be contravariant (reportInvalidTypeVarUse)
+protocols_variance.py:62:22 - error: Covariant type variable cannot be used in parameter type (reportGeneralTypeIssues)
+protocols_variance.py:66:7 - warning: Type variable "T1" used in generic Protocol "Protocol6" should be covariant (reportInvalidTypeVarUse)
+protocols_variance.py:71:7 - warning: Type variable "T1_contra" used in generic Protocol "Protocol7" should be covariant (reportInvalidTypeVarUse)
+protocols_variance.py:72:21 - error: Contravariant type variable cannot be used in return type (reportGeneralTypeIssues)
+protocols_variance.py:104:7 - warning: Type variable "T1" used in generic Protocol "Protocol12" should be covariant (reportInvalidTypeVarUse)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -1,0 +1,7 @@
+conformant = "Pass"
+output = """
+typeddicts_readonly_kwargs.py:33:21 Invalid TypedDict operation [54]: Cannot write to `ReadOnlyArgs` read-only field `key1`.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

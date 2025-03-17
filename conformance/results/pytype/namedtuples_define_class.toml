@@ -1,0 +1,81 @@
+conformant = "Partial"
+notes = """
+Incorrectly rejects valid index of named tuple instance when using a negative index.
+Does not evaluate correct type for indexed named tuple instance with slice.
+Does not reject named tuple element with no default value after one with a default.
+Does not reject override of named tuple attribute in child class.
+Evaluates incorrect type for named tuple entry with a generic type.
+Does not reject incorrect argument type passed to specialized generic named tuple constructor.
+Does not reject attempt to use NamedTuple with multiple inheritance.
+"""
+output = """
+namedtuples_define_class.py:27:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Union[int, str] [assert-type]
+
+assert_type(p1[-2], int)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_class.py:28:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Union[int, str] [assert-type]
+
+assert_type(p1[-3], int)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_class.py:29:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: tuple[Union[int, str], ...] [assert-type]
+
+assert_type(p1[0:2], tuple[int, int])
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_class.py:30:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: tuple[Union[int, str], ...] [assert-type]
+
+assert_type(p1[0:], tuple[int, int, str])
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_class.py:44:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'y' in call to function Point.__new__ [missing-parameter]
+
+p5 = Point(1)  # E
+     \u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_class.py:45:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'y' in call to function Point.__new__ [missing-parameter]
+
+p6 = Point(x=1)  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_class.py:46:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Point.__new__ was called with the wrong arguments [wrong-arg-types]
+
+p7 = Point(1, "")  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_class.py:47:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Point.__new__ was called with the wrong arguments [wrong-arg-types]
+
+p8 = Point(1, 2, units=3)  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_class.py:48:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Point.__new__ expects 3 arg(s), got 5 [wrong-arg-count]
+
+p9 = Point(1, 2, "", "")  # E
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_class.py:49:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword argument other to function Point.__new__ [wrong-keyword-args]
+
+p10 = Point(1, 2, "", other="")  # E
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_class.py:95:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+assert_type(pr1[1], float)
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 32: Expected 1 errors
+Line 33: Expected 1 errors
+Line 59: Expected 1 errors
+Line 79: Expected 1 errors
+Line 98: Expected 1 errors
+Line 105: Expected 1 errors
+Line 27: Unexpected errors ['namedtuples_define_class.py:27:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Union[int, str] [assert-type]']
+Line 28: Unexpected errors ['namedtuples_define_class.py:28:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Union[int, str] [assert-type]']
+Line 29: Unexpected errors ['namedtuples_define_class.py:29:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: tuple[Union[int, str], ...] [assert-type]']
+Line 30: Unexpected errors ['namedtuples_define_class.py:30:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: tuple[Union[int, str], ...] [assert-type]']
+Line 95: Unexpected errors ['namedtuples_define_class.py:95:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+"""

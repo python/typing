@@ -1,0 +1,18 @@
+conformant = "Pass"
+output = """
+generics_base_class.py:26:26 - error: Argument of type "SymbolTable" cannot be assigned to parameter "x" of type "dict[str, list[object]]" in function "takes_dict_incorrect"
+  "SymbolTable" is not assignable to "dict[str, list[object]]"
+    Type parameter "_VT@dict" is invariant, but "list[Node]" is not the same as "list[object]"
+    Consider switching from "dict" to "Mapping" which is covariant in the value type (reportArgumentType)
+generics_base_class.py:29:14 - error: "Generic" is not valid in this context (reportGeneralTypeIssues)
+generics_base_class.py:30:8 - error: "Generic" requires at least one type argument (reportInvalidTypeForm)
+generics_base_class.py:30:8 - error: "Generic" is not valid in this context (reportGeneralTypeIssues)
+generics_base_class.py:49:38 - error: Too many type arguments provided for "LinkedList"; expected 1 but received 2 (reportInvalidTypeArguments)
+generics_base_class.py:61:30 - error: Too many type arguments provided for "MyDict"; expected 1 but received 2 (reportInvalidTypeArguments)
+generics_base_class.py:68:28 - error: Type arguments for "Generic" must be unique (reportInvalidTypeForm)
+generics_base_class.py:98:7 - error: Base classes of BadChild are mutually incompatible
+  Base class "Grandparent[T2@BadChild, T1@BadChild]" derives from "Grandparent[T2@BadChild, T1@BadChild]" which is incompatible with type "Grandparent[T1@BadChild, T2@BadChild]" (reportGeneralTypeIssues)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

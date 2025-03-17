@@ -1,0 +1,31 @@
+conformant = "Pass"
+output = """
+generics_variance.py:14:50 - error: TypeVar cannot be both covariant and contravariant (reportGeneralTypeIssues)
+generics_variance.py:77:18 - error: Type "T_co@Class1" cannot be assigned to type variable "T@Inv"
+  Variance of type argument "T_co@Class1" is incompatible with base class "Inv" (reportInvalidTypeArguments)
+generics_variance.py:81:18 - error: Type "T_contra@Class2" cannot be assigned to type variable "T@Inv"
+  Variance of type argument "T_contra@Class2" is incompatible with base class "Inv" (reportInvalidTypeArguments)
+generics_variance.py:93:20 - error: Type "T_contra@Co_Child3" cannot be assigned to type variable "T_co@Co"
+  Variance of type argument "T_contra@Co_Child3" is incompatible with base class "Co" (reportInvalidTypeArguments)
+generics_variance.py:105:28 - error: Type "T_co@Contra_Child3" cannot be assigned to type variable "T_contra@Contra"
+  Variance of type argument "T_co@Contra_Child3" is incompatible with base class "Contra" (reportInvalidTypeArguments)
+generics_variance.py:113:28 - error: Type "Co[T_co@Contra_Child5]" cannot be assigned to type variable "T_contra@Contra"
+  Variance of type argument "Co[T_co@Contra_Child5]" is incompatible with base class "Contra" (reportInvalidTypeArguments)
+generics_variance.py:126:20 - error: Type "T_co@CoContra_Child2" cannot be assigned to type variable "T_contra@CoContra"
+  Variance of type argument "T_co@CoContra_Child2" is incompatible with base class "CoContra" (reportInvalidTypeArguments)
+generics_variance.py:132:14 - error: Type "T_contra@CoContra_Child3" cannot be assigned to type variable "T_co@CoContra"
+  Variance of type argument "T_contra@CoContra_Child3" is incompatible with base class "CoContra" (reportInvalidTypeArguments)
+generics_variance.py:142:24 - error: Type "Co[T_co@CoContra_Child5]" cannot be assigned to type variable "T_contra@CoContra"
+  Variance of type argument "Co[T_co@CoContra_Child5]" is incompatible with base class "CoContra" (reportInvalidTypeArguments)
+generics_variance.py:163:33 - error: Type "Co[Contra[T_contra@CoToContraToContra]]" cannot be assigned to type variable "T_contra@Contra"
+  Variance of type argument "Co[Contra[T_contra@CoToContraToContra]]" is incompatible with base class "Contra" (reportInvalidTypeArguments)
+generics_variance.py:167:37 - error: Type "Contra[Contra[T_co@ContraToContraToContra]]" cannot be assigned to type variable "T_contra@Contra"
+  Variance of type argument "Contra[Contra[T_co@ContraToContraToContra]]" is incompatible with base class "Contra" (reportInvalidTypeArguments)
+generics_variance.py:191:43 - error: Could not specialize type "Contra_TA[T_contra@Contra_TA]"
+  Variance of type argument "Co_TA[Contra_TA[T_contra@CoToContraToContra_WithTA]]" is incompatible with "T_contra@Contra_TA" (reportInvalidTypeForm)
+generics_variance.py:196:15 - error: Could not specialize type "Contra_TA[T_contra@Contra_TA]"
+  Variance of type argument "Contra_TA[Contra_TA[T_co@ContraToContraToContra_WithTA]]" is incompatible with "T_contra@Contra_TA" (reportInvalidTypeForm)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

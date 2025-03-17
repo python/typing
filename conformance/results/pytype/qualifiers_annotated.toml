@@ -1,0 +1,78 @@
+conformant = "Partial"
+notes = """
+Does not reject some illegal type expression forms used in Annotated.
+Does not report type incompatibility between Annotated and type[T].
+Does not reject call of Annotated.
+Does not allow TypeVar to be used in type alias when wrapped with Annotated.
+"""
+output = """
+qualifiers_annotated.py:43:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '[int, str]' for Bad1 [invalid-annotation]
+
+Bad1: Annotated[[int, str], ""]  # E: invalid type expression
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_annotated.py:44:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '((int, str),)' for Bad2 [invalid-annotation]
+
+Bad2: Annotated[((int, str),), ""]  # E: invalid type expression
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_annotated.py:45:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of list[type[int]]>' for Bad3 [invalid-annotation]
+
+Bad3: Annotated[[int for i in range(1)], ""]  # E: invalid type expression
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_annotated.py:46:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation "{'a': 'b'}" for Bad4 [invalid-annotation]
+
+Bad4: Annotated[{"a": "b"}, ""]  # E: invalid type expression
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_annotated.py:50:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Name 'var1' is not defined [name-error]
+
+Bad8: Annotated[var1, ""]  # E: invalid type expression
+                \u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+qualifiers_annotated.py:51:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'True' for Bad9 [invalid-annotation]
+
+Bad9: Annotated[True, ""]  # E: invalid type expression
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_annotated.py:52:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '1' for Bad10 [invalid-annotation]
+
+Bad10: Annotated[1, ""]  # E: invalid type expression
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_annotated.py:54:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of str>' for Bad12 [invalid-annotation]
+
+Bad12: Annotated[f"{'int'}", ""]  # E: invalid type expression
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_annotated.py:64:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Annotated'  [invalid-annotation]
+
+Bad13: Annotated[int]  # E: requires at least two arguments
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_annotated.py:91:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: 'Annotated' object is not callable [not-callable]
+
+Annotated()  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+qualifiers_annotated.py:121:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid TypeVar: TypeVar('T') must be stored as 'T', not 'TA3' [invalid-typevar]
+
+TA3 = Annotated[T, ""]
+\u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 47: Expected 1 errors
+Line 48: Expected 1 errors
+Line 49: Expected 1 errors
+Line 53: Expected 1 errors
+Line 76: Expected 1 errors
+Line 77: Expected 1 errors
+Line 84: Expected 1 errors
+Line 85: Expected 1 errors
+Line 92: Expected 1 errors
+Line 93: Expected 1 errors
+Line 121: Unexpected errors ["qualifiers_annotated.py:121:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid TypeVar: TypeVar('T') must be stored as 'T', not 'TA3' [invalid-typevar]"]
+"""

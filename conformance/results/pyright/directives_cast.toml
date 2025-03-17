@@ -1,0 +1,11 @@
+conformant = "Pass"
+output = """
+directives_cast.py:15:8 - error: No overloads for "cast" match the provided arguments
+  Argument types: () (reportCallIssue)
+directives_cast.py:16:13 - error: Expected class but received "Literal[1]" (reportGeneralTypeIssues)
+directives_cast.py:17:8 - error: No overloads for "cast" match the provided arguments
+  Argument types: (type[int], Literal[''], Literal['']) (reportCallIssue)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

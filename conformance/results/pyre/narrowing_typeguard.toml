@@ -1,0 +1,12 @@
+conformant = "Pass"
+notes = """
+"""
+output = """
+narrowing_typeguard.py:102:22 Invalid type guard [68]: User-defined type guard functions or methods must have at least one input parameter.
+narrowing_typeguard.py:107:21 Invalid type guard [68]: User-defined type guard functions or methods must have at least one input parameter.
+narrowing_typeguard.py:128:19 Incompatible parameter type [6]: In call `takes_callable_str`, for 1st positional argument, expected `typing.Callable[[object], str]` but got `typing.Callable(simple_typeguard)[[Named(val, object)], TypeGuard[int]]`.
+narrowing_typeguard.py:148:25 Incompatible parameter type [6]: In call `takes_callable_str_proto`, for 1st positional argument, expected `CallableStrProto` but got `typing.Callable(simple_typeguard)[[Named(val, object)], TypeGuard[int]]`.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

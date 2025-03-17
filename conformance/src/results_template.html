@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type System Test Results</title>
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        p,
+        table {
+            font-family: "system-ui", "Segoe UI", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+        }
+
+        table {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            border-collapse: collapse;
+            font-family: "system-ui", "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 10pt;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        th,
+        td {
+            margin: 0px;
+            padding: 0px;
+            text-align: left;
+            border-bottom: 0px solid #000;
+            font-weight: normal;
+        }
+
+        .content_container {
+            margin: 20px;
+        }
+
+        .table_container {
+            margin-left: 20px;
+        }
+
+        .column {
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+
+            margin-left: 8px;
+            margin-right: 8px;
+            margin-top: 4px;
+            margin-bottom: 4px;
+
+            border-style: solid;
+            border-color: white;
+            border-left-width: 8px;
+            border-right-width: 8px;
+            border-top-width: 0;
+            border-bottom-width: 0;
+        }
+
+        .col1 {
+            width: 28%;
+            vertical-align: top;
+        }
+
+        .col2 {
+            width: 18%;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .tc-header {
+            padding-top: 4px;
+            text-align: center;
+        }
+
+        .tc-name {
+            font-size: 16px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+
+        .tc-time {
+            font-size: 12px;
+        }
+
+        .test_group {
+            font-size: 10pt;
+            font-weight: bold;
+        }
+
+        .conformant {
+            background-color: rgb(203, 255, 203);
+        }
+
+        .partially-conformant {
+            background-color: rgb(251, 244, 166);
+        }
+
+        .not-conformant {
+            background-color: rgb(242, 171, 171);
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            position: absolute;
+            z-index: 2;
+            width: 400px;
+            color: black;
+            font-size: 12px;
+            background-color: white;
+            border: 1px solid black;
+            padding: 10px 15px 10px 15px;
+            text-align: left;
+        }
+
+        .hover-text:hover .tooltip-text {
+            visibility: visible;
+        }
+
+        .hover-text .tooltip-text p {
+            margin: 4px;
+        }
+
+        #bottom {
+            top: 25px;
+            left: -80%;
+        }
+
+        #bottom::before {
+            top: -5%;
+            left: 94%;
+        }
+
+        .hover-text {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content_container">
+        <header>
+            <h3>Python Type System Conformance Test Results</h3>
+        </header>
+        {{summary}}
+        <!-- <div>
+        <h4>Mypy 1.8.0</h4>
+        </div>
+        <table>
+            <tr>
+                <th class="column" colspan="3">Test Category 1</th>
+            </tr>
+            <tr>
+                <th class="column">xxx</th>
+                <th class="column">Pass</th>
+                <th class="column"></th>
+            </tr>
+        </table> -->
+    </div>
+</body>
+
+</html>

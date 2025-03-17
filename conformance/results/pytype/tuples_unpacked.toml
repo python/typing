@@ -1,0 +1,167 @@
+conformant = "Unsupported"
+notes = """
+Does not support `typing.Unpack`.
+Does not support unpacked tuples within a tuple type form.
+"""
+output = """
+tuples_unpacked.py:13:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.Unpack not supported yet [not-supported-yet]
+
+from typing import TypeVarTuple, Unpack, assert_type
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:13:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
+
+from typing import TypeVarTuple, Unpack, assert_type
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:16:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+def func1(x: tuple[int, *tuple[bool, bool], str]):
+             \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:17:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: tuple[Any] [assert-type]
+
+    assert_type(x, tuple[int, bool, bool, str])
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:18:20: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+    assert_type(x, tuple[*tuple[int, bool], bool, str])
+                   \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:19:20: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+    assert_type(x, tuple[int, bool, *tuple[bool, str]])
+                   \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:25:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+def func2(x: tuple[int, *tuple[bool, ...], str]):
+             \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:26:20: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+    assert_type(x, tuple[int, *tuple[bool, ...], str])
+                   \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:31:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for u1 does not match type of assignment [annotation-type-mismatch]
+
+u1: tuple[*tuple[int], *tuple[int]] = (int(1), int(1))  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:31:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'tuple[*tuple[int], *tuple[int]]'  [invalid-annotation]
+
+u1: tuple[*tuple[int], *tuple[int]] = (int(1), int(1))  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:31:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+u1: tuple[*tuple[int], *tuple[int]] = (int(1), int(1))  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:31:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
+
+u1: tuple[*tuple[int], *tuple[int]] = (int(1), int(1))  # OK
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:32:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: tuple[Any] [assert-type]
+
+assert_type(u1, tuple[int, int])
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:33:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+u2: tuple[*tuple[int, ...], *tuple[int]]  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:33:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
+
+u2: tuple[*tuple[int, ...], *tuple[int]]  # OK
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:38:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t1: tuple[*tuple[str], *tuple[str]]  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:38:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
+
+t1: tuple[*tuple[str], *tuple[str]]  # OK
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:39:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t2: tuple[*tuple[str, *tuple[str, ...]]]  # OK
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:39:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t2: tuple[*tuple[str, *tuple[str, ...]]]  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:40:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t3: tuple[*tuple[str, ...], *tuple[int, ...]]  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:40:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
+
+t3: tuple[*tuple[str, ...], *tuple[int, ...]]  # E
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:41:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t4: tuple[*tuple[str, *tuple[str, ...]], *tuple[int, ...]]  # E
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:41:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]
+
+t4: tuple[*tuple[str, *tuple[str, ...]], *tuple[int, ...]]  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:41:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]
+
+t4: tuple[*tuple[str, *tuple[str, ...]], *tuple[int, ...]]  # E
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:46:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+
+Ts = TypeVarTuple("Ts")
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:49:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
+
+def func3(t: tuple[*Ts]):
+             \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:50:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Invalid type annotation 'tuple[*tuple[str], *Ts]'  [invalid-annotation]
+
+    t5: tuple[*tuple[str], *Ts]  # OK
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+tuples_unpacked.py:51:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Invalid type annotation 'tuple[*tuple[str, ...], *Ts]'  [invalid-annotation]
+
+    t6: tuple[*tuple[str, ...], *Ts]  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 59: Expected 1 errors
+Lines 60, 61: Expected error (tag 't14')
+Line 13: Unexpected errors ['tuples_unpacked.py:13:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.Unpack not supported yet [not-supported-yet]', 'tuples_unpacked.py:13:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
+Line 16: Unexpected errors ["tuples_unpacked.py:16:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 17: Unexpected errors ['tuples_unpacked.py:17:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: tuple[Any] [assert-type]']
+Line 18: Unexpected errors ["tuples_unpacked.py:18:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 19: Unexpected errors ["tuples_unpacked.py:19:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 25: Unexpected errors ["tuples_unpacked.py:25:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 26: Unexpected errors ["tuples_unpacked.py:26:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func2: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 31: Unexpected errors ['tuples_unpacked.py:31:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for u1 does not match type of assignment [annotation-type-mismatch]', "tuples_unpacked.py:31:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'tuple[*tuple[int], *tuple[int]]'  [invalid-annotation]", "tuples_unpacked.py:31:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]", 'tuples_unpacked.py:31:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]']
+Line 32: Unexpected errors ['tuples_unpacked.py:32:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: tuple[Any] [assert-type]']
+Line 33: Unexpected errors ["tuples_unpacked.py:33:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]", 'tuples_unpacked.py:33:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]']
+Line 38: Unexpected errors ["tuples_unpacked.py:38:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]", 'tuples_unpacked.py:38:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function list.extend was called with the wrong arguments [wrong-arg-types]']
+Line 39: Unexpected errors ["tuples_unpacked.py:39:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]", "tuples_unpacked.py:39:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple>'  [invalid-annotation]"]
+Line 46: Unexpected errors ['tuples_unpacked.py:46:6: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
+Line 49: Unexpected errors ["tuples_unpacked.py:49:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]"]
+Line 50: Unexpected errors ["tuples_unpacked.py:50:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: Invalid type annotation 'tuple[*tuple[str], *Ts]'  [invalid-annotation]"]
+"""

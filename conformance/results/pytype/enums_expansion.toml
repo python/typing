@@ -1,0 +1,11 @@
+conformant = "Partial"
+notes = """
+Improperly applies narrowing to Flag subclass.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 53: Expected 1 errors
+"""
+output = """
+
+"""
