@@ -15,11 +15,11 @@ classes_classvar.py:38:10 Invalid type parameters [24]: Generic type `CV` expect
 classes_classvar.py:39:10 Invalid type [31]: Expression `typing.ClassVar[3]` is not a valid type.
 classes_classvar.py:40:13 Unbound name [10]: Name `var` is used but not defined in the current scope.
 classes_classvar.py:52:4 Incompatible attribute type [8]: Attribute `bad8` declared in class `ClassA` has type `List[str]` but is used as type `Dict[Variable[_KT], Variable[_VT]]`.
-classes_classvar.py:65:8 Undefined attribute [16]: `ClassA` has no attribute `xx`.
-classes_classvar.py:68:8 Incompatible return type [7]: Expected `CV[int]` but got `int`.
-classes_classvar.py:78:0 Assert type [70]: Expected `float` but got `typing.Any`.
-classes_classvar.py:105:0 Invalid assignment [41]: Assigning to class variable through instance, did you mean to assign to `Starship.stats` instead?
-classes_classvar.py:134:0 Incompatible variable type [9]: a is declared to have type `ProtoA` but is used as type `ProtoAImpl`.
+classes_classvar.py:66:4 Uninitialized attribute [13]: Attribute `good5` is declared in class `ClassA` to have type `typing.Any` but is never initialized.
+classes_classvar.py:71:8 Undefined attribute [16]: `ClassA` has no attribute `xx`.
+classes_classvar.py:74:8 Incompatible return type [7]: Expected `CV[int]` but got `int`.
+classes_classvar.py:111:0 Invalid assignment [41]: Assigning to class variable through instance, did you mean to assign to `Starship.stats` instead?
+classes_classvar.py:140:0 Incompatible variable type [9]: a is declared to have type `ProtoA` but is used as type `ProtoAImpl`.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -28,11 +28,11 @@ Line 46: Expected 1 errors
 Line 47: Expected 1 errors
 Line 54: Expected 1 errors
 Line 55: Expected 1 errors
-Line 63: Expected 1 errors
-Line 64: Expected 1 errors
-Line 67: Expected 1 errors
-Line 71: Expected 1 errors
-Line 72: Expected 1 errors
-Line 68: Unexpected errors ['classes_classvar.py:68:8 Incompatible return type [7]: Expected `CV[int]` but got `int`.']
-Line 78: Unexpected errors ['classes_classvar.py:78:0 Assert type [70]: Expected `float` but got `typing.Any`.']
+Line 69: Expected 1 errors
+Line 70: Expected 1 errors
+Line 73: Expected 1 errors
+Line 77: Expected 1 errors
+Line 78: Expected 1 errors
+Line 66: Unexpected errors ['classes_classvar.py:66:4 Uninitialized attribute [13]: Attribute `good5` is declared in class `ClassA` to have type `typing.Any` but is never initialized.']
+Line 74: Unexpected errors ['classes_classvar.py:74:8 Incompatible return type [7]: Expected `CV[int]` but got `int`.']
 """

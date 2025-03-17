@@ -10,11 +10,30 @@ Class type assignability
 
 (Originally specified in :pep:`526`.)
 
-A :term:`type qualifier` ``ClassVar[T]`` exists in the :py:mod:`typing`
-module. It accepts only a single argument that should be a valid type,
-and is used to annotate class variables that should not be set on class
-instances. This restriction is enforced by static checkers,
-but not at runtime.
+The :py:data:`typing.ClassVar` :term:`type qualifier` is used to annotate
+class variables that should not be set on class instances. This restriction
+is enforced by static checkers, but not at runtime.
+
+:py:data:`~typing.ClassVar` may be used in one of several forms:
+
+* With an explicit type, using the syntax ``ClassVar[<type>]``. Example::
+
+    class C:
+        x: ClassVar[float] = 1
+
+* With no type annotation. Example::
+
+    class C:
+        y: ClassVar = 2
+        z: ClassVar
+
+  If an assigned value is available (e.g. with ``y``), the type should be
+  inferred as some type to which this value is :term:`assignable` (for example,
+  ``int``, ``Literal[2]``, or ``Any``).
+
+  If the bare ``ClassVar`` qualifier is used without any assigned value, the type
+  should be inferred as :ref:`Any <any>`. Type checkers may error if no assigned
+  value is present.
 
 Type annotations can be used to annotate class and instance variables
 in class bodies and methods. In particular, the value-less notation ``a: int``
