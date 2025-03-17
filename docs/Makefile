@@ -29,6 +29,8 @@ build:
 html: BUILDER = html
 html: build
 	@echo "Build finished. The HTML pages are in build/html."
+	@echo "file://$(shell pwd)/build/html"
+	@echo
 
 text: BUILDER = text
 text: build
