@@ -456,11 +456,11 @@ Aliasing Decorators
 -------------------
 
 When writing a library with a couple of decorator factories 
-(i.e. functions returning decorators, like ``complex_decorator`` from 
+(i.e. functions returning decorators, like ``complex_decorator`` from the
 :ref:`annotating-decorators` section) it may be tempting to create a shortcut 
 for a decorator. 
 
-Different type checkers handle :class:`TypeAlias <typing.TypeAlias>` involving
+Different type checkers handle :data:`TypeAlias <typing.TypeAlias>` involving
 :class:`Callable <collections.abc.Callable>` in a
 different manner, so the most portable and easy way to create a shortcut 
 is to define a callable :class:`Protocol <typing.Protocol>` as described in the
@@ -487,7 +487,7 @@ There is already a :class:`Protocol <typing.Protocol>` called
 
 For non-trivial decorators with custom logic, it is still possible 
 to define a custom protocol using :class:`ParamSpec <typing.ParamSpec>`
-and :class:`Concatenate <typing.Concatenate>` mechanisms:
+and :data:`Concatenate <typing.Concatenate>` mechanisms:
 
 .. code:: python
 
