@@ -460,14 +460,19 @@ When writing a library with a couple of decorator factories
 :ref:`annotating-decorators` section) it may be tempting to create a shortcut 
 for a decorator. 
 
-Different type checkers handle ``TypeAlias`` involving ``Callable`` in a 
+Different type checkers handle :class:`TypeAlias <typing.TypeAlias>` involving
+:class:`Callable <collections.abc.Callable>` in a
 different manner, so the most portable and easy way to create a shortcut 
-is to define a callable ``Protocol`` as described in `PEP 
-544 <https://peps.python.org/pep-0544/#callback-protocols>`_.
+is to define a callable :class:`Protocol <typing.Protocol>` as described in the
+:ref:`callback-protocols` section of the Typing Specification.
 
-There is already a ``Protocol`` called ``IdentityFunction`` defined in `_typeshed <https://github.com/python/typeshed/blob/master/stdlib/_typeshed/README.md>`_:
+There is already a :class:`Protocol <typing.Protocol>` called
+``IdentityFunction`` defined in
+`_typeshed <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_:
 
 .. code:: python
+   
+   from typing import TYPE_CHECKING
 
    if TYPE_CHECKING:
        from _typeshed import IdentityFunction
@@ -481,9 +486,8 @@ There is already a ``Protocol`` called ``IdentityFunction`` defined in `_typeshe
         ...
 
 For non-trivial decorators with custom logic, it is still possible 
-to define a custom protocol using ``ParamSpec`` and ``Concatenate``
-mechanisms described in `PEP 612 
-<https://www.python.org/dev/peps/pep-0612/>`__:
+to define a custom protocol using :class:`ParamSpec <typing.ParamSpec>`
+and :class:`Concatenate <typing.Concatenate>` mechanisms:
 
 .. code:: python
 
