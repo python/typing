@@ -1,0 +1,123 @@
+conformant = "Unsupported"
+notes = """
+Converter parameter not yet supported.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 49: Expected 1 errors
+Line 118: Expected 1 errors
+Line 26: Unexpected errors ['dataclasses_transform_converter.py:26:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in model_field: bad return type [bad-return-type]', 'dataclasses_transform_converter.py:26:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in model_field: bad return type [bad-return-type]', 'dataclasses_transform_converter.py:26:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in model_field: bad return type [bad-return-type]', 'dataclasses_transform_converter.py:26:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in model_field: bad return type [bad-return-type]', 'dataclasses_transform_converter.py:26:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in model_field: bad return type [bad-return-type]']
+Line 29: Unexpected errors ['dataclasses_transform_converter.py:29:2: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+Line 112: Unexpected errors ['dataclasses_transform_converter.py:112:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]']
+Line 114: Unexpected errors ['dataclasses_transform_converter.py:114:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for field0 does not match type of assignment [annotation-type-mismatch]']
+Line 115: Unexpected errors ['dataclasses_transform_converter.py:115:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]']
+Line 116: Unexpected errors ['dataclasses_transform_converter.py:116:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]']
+Line 121: Unexpected errors ['dataclasses_transform_converter.py:121:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]']
+"""
+output = """
+dataclasses_transform_converter.py:26:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in model_field: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 98, in current file
+  line 99, in DC2
+dataclasses_transform_converter.py:26:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in model_field: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 98, in current file
+  line 104, in DC2
+dataclasses_transform_converter.py:26:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in model_field: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 98, in current file
+  line 102, in DC2
+dataclasses_transform_converter.py:26:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in model_field: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 98, in current file
+  line 100, in DC2
+dataclasses_transform_converter.py:26:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in model_field: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 47, in current file
+  line 49, in DC1
+dataclasses_transform_converter.py:29:2: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+
+@dataclass_transform(field_specifiers=(model_field,))
+ \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:48:19: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in DC1: Function model_field was called with the wrong arguments [wrong-arg-types]
+
+    field1: int = model_field(converter=bad_converter1)  # E
+                  \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:107:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
+
+DC2(1, "f1", "f2", b"f3", [])  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:108:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
+
+DC2("f0", "f1", "f2", 1, [])  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:109:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
+
+DC2("f0", "f1", "f2", "f3", 3j)  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:112:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
+
+dc1 = DC2("f0", "f1", "f2", b"f6", [])
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:114:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for field0 does not match type of assignment [annotation-type-mismatch]
+
+dc1.field0 = "f1"
+\u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:115:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]
+
+dc1.field3 = "f6"
+\u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:116:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]
+
+dc1.field3 = b"f6"
+\u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:119:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for field3 does not match type of assignment [annotation-type-mismatch]
+
+dc1.field3 = 1  # E
+\u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:121:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function DC2.__init__ was called with the wrong arguments [wrong-arg-types]
+
+dc2 = DC2("f0", "f1", "f2", "f6", "1", (("a", "1"), ("b", "2")))
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:130:19: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in DC3: Function model_field was called with the wrong arguments [wrong-arg-types]
+
+    field1: int = model_field(converter=converter_simple, default=1)  # E
+                  \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_converter.py:133:19: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in DC3: Function model_field was called with the wrong arguments [wrong-arg-types]
+
+    field3: int = model_field(converter=converter_simple, default_factory=int)  # E
+                  \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""

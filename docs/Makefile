@@ -10,7 +10,7 @@ PYTHON       = python3
 VENVDIR      = ./venv
 SPHINXBUILD  = PATH=$(VENVDIR)/bin:$$PATH sphinx-build
 
-ALLSPHINXOPTS = -b $(BUILDER) -d build/doctrees $(SPHINXOPTS) . build/$(BUILDER) $(SOURCES)
+ALLSPHINXOPTS = -W -b $(BUILDER) -d build/doctrees $(SPHINXOPTS) . build/$(BUILDER) $(SOURCES)
 
 .PHONY: help clean build html text venv Makefile
 

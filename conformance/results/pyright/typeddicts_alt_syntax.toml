@@ -1,0 +1,12 @@
+conformant = "Pass"
+output = """
+typeddicts_alt_syntax.py:23:17 - error: Expected dict or keyword parameter as second parameter (reportArgumentType)
+typeddicts_alt_syntax.py:27:45 - error: Expected string literal for dictionary entry name (reportGeneralTypeIssues)
+typeddicts_alt_syntax.py:31:1 - error: TypedDict must be assigned to a variable named "WrongName" (reportGeneralTypeIssues)
+typeddicts_alt_syntax.py:35:78 - error: Extra TypedDict arguments not supported (reportCallIssue)
+typeddicts_alt_syntax.py:45:43 - error: Type "dict[str, str]" is not assignable to declared type "Movie2"
+  "Literal['']" is not assignable to "int" (reportAssignmentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

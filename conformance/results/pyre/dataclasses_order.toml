@@ -1,0 +1,7 @@
+conformant = "Pass"
+output = """
+dataclasses_order.py:50:3 Unsupported operand [58]: `<` is not supported for operand types `DC1` and `DC2`.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

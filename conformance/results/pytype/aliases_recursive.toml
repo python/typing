@@ -1,0 +1,115 @@
+conformant = "Partial"
+notes = """
+Does not detect type violation for some deeply-nested types.
+Does not properly handle `|` for unions in some recursive type alias definitions.
+Does not detect cyclical references in recursive type alias definition.
+"""
+output = """
+aliases_recursive.py:19:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for j4 does not match type of assignment [annotation-type-mismatch]
+
+j4: Json = {"a": 1, "b": 3j}  # E: incompatible type
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:20:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for j5 does not match type of assignment [annotation-type-mismatch]
+
+j5: Json = [2, 3j]  # E: incompatible type
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:38:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t6 does not match type of assignment [annotation-type-mismatch]
+
+t6: RecursiveTuple = (1, ("1", 1), (1, (1, [2])))  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:39:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for t6 does not match type of assignment [annotation-type-mismatch]
+
+t6: RecursiveTuple = (1, [1])  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:50:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for m7 does not match type of assignment [annotation-type-mismatch]
+
+m7: RecursiveMapping = {"1": [1]}  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:51:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for m8 does not match type of assignment [annotation-type-mismatch]
+
+m8: RecursiveMapping = {"1": "1", "2": 1, "3": [1, 2]}  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:58:26: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: unsupported operand type(s) for |: ''GenericTypeAlias1[T1]': str' and 'T1: TypeVar' [unsupported-operands]
+
+GenericTypeAlias1 = list["GenericTypeAlias1[T1]" | T1]
+                         \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:59:25: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'list[str]'  [invalid-annotation]
+
+SpecializedTypeAlias1 = GenericTypeAlias1[str]
+                        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:62:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'list[str]'  [invalid-annotation]
+
+g2: GenericTypeAlias1[str] = ["hi", "bye", [""], [["hi"]]]  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:62:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'GenericTypeAlias1[str]'  [invalid-annotation]
+
+g2: GenericTypeAlias1[str] = ["hi", "bye", [""], [["hi"]]]  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:63:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'list[str]'  [invalid-annotation]
+
+g3: GenericTypeAlias1[str] = ["hi", [2.4]]  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:63:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'GenericTypeAlias1[str]'  [invalid-annotation]
+
+g3: GenericTypeAlias1[str] = ["hi", [2.4]]  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:65:26: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: unsupported operand type(s) for |: ''GenericTypeAlias2[T1, T2]': str' and 'T1: TypeVar' [unsupported-operands]
+
+GenericTypeAlias2 = list["GenericTypeAlias2[T1, T2]" | T1 | T2]
+                         \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:67:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'list[str, int]'  [invalid-annotation]
+
+g4: GenericTypeAlias2[str, int] = [[3, ["hi"]], "hi"]  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:67:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'GenericTypeAlias2[str, int]'  [invalid-annotation]
+
+g4: GenericTypeAlias2[str, int] = [[3, ["hi"]], "hi"]  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:68:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'list[str, float]'  [invalid-annotation]
+
+g5: GenericTypeAlias2[str, float] = [[3, ["hi", 3.4, [3.4]]], "hi"]  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:68:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'GenericTypeAlias2[str, float]'  [invalid-annotation]
+
+g5: GenericTypeAlias2[str, float] = [[3, ["hi", 3.4, [3.4]]], "hi"]  # OK
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:69:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'list[str, int]'  [invalid-annotation]
+
+g6: GenericTypeAlias2[str, int] = [[3, ["hi", 3, [3.4]]], "hi"]  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+aliases_recursive.py:69:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'GenericTypeAlias2[str, int]'  [invalid-annotation]
+
+g6: GenericTypeAlias2[str, int] = [[3, ["hi", 3, [3.4]]], "hi"]  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 52: Expected 1 errors
+Line 72: Expected 1 errors
+Line 75: Expected 1 errors
+Line 58: Unexpected errors ["aliases_recursive.py:58:26: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: unsupported operand type(s) for |: ''GenericTypeAlias1[T1]': str' and 'T1: TypeVar' [unsupported-operands]"]
+Line 59: Unexpected errors ["aliases_recursive.py:59:25: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'list[str]'  [invalid-annotation]"]
+Line 62: Unexpected errors ["aliases_recursive.py:62:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'list[str]'  [invalid-annotation]", "aliases_recursive.py:62:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'GenericTypeAlias1[str]'  [invalid-annotation]"]
+Line 65: Unexpected errors ["aliases_recursive.py:65:26: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: unsupported operand type(s) for |: ''GenericTypeAlias2[T1, T2]': str' and 'T1: TypeVar' [unsupported-operands]"]
+Line 67: Unexpected errors ["aliases_recursive.py:67:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'list[str, int]'  [invalid-annotation]", "aliases_recursive.py:67:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'GenericTypeAlias2[str, int]'  [invalid-annotation]"]
+Line 68: Unexpected errors ["aliases_recursive.py:68:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'list[str, float]'  [invalid-annotation]", "aliases_recursive.py:68:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'GenericTypeAlias2[str, float]'  [invalid-annotation]"]
+"""

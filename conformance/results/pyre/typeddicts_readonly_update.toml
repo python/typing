@@ -1,0 +1,7 @@
+conformant = "Pass"
+output = """
+typeddicts_readonly_update.py:23:10 Incompatible parameter type [6]: In call `TypedDictionary.update`, for 1st positional argument, cannot update read-only fields of `A`.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -1,0 +1,36 @@
+conformant = "Partial"
+notes = """
+Does not reject a protocol class that derives from a non-protocol class.
+Does not report attempt to instantiate abstract class downgraded from protocol class.
+"""
+output = """
+protocols_merging.py:52:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for s6 does not match type of assignment [annotation-type-mismatch]
+
+s6: SizedAndClosable1 = SCConcrete2()  # E: doesn't implement close
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+protocols_merging.py:53:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for s7 does not match type of assignment [annotation-type-mismatch]
+
+s7: SizedAndClosable2 = SCConcrete2()  # E: doesn't implement close
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+protocols_merging.py:54:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for s8 does not match type of assignment [annotation-type-mismatch]
+
+s8: SizedAndClosable3 = SCConcrete2()  # E: SizedAndClosable3 is not a protocol
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+protocols_merging.py:82:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Can't instantiate SizedAndClosable4 with abstract methods close [not-instantiable]
+
+x = SizedAndClosable4()  # E: cannot instantiate abstract class
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+protocols_merging.py:83:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for y does not match type of assignment [annotation-type-mismatch]
+
+y: SizedAndClosable4 = SCConcrete1()  # E
+\u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 67: Expected 1 errors
+"""

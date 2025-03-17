@@ -1,0 +1,37 @@
+conformant = "Partial"
+notes = """
+Does not following runtime scoping rules for type parameters in all cases.
+"""
+output = """
+generics_syntax_scoping.py:14: error: Variable "generics_syntax_scoping.S" is not valid as a type  [valid-type]
+generics_syntax_scoping.py:14: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+generics_syntax_scoping.py:18: error: Variable "generics_syntax_scoping.T" is not valid as a type  [valid-type]
+generics_syntax_scoping.py:18: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+generics_syntax_scoping.py:35: error: Cannot determine type of "T"  [has-type]
+generics_syntax_scoping.py:35: error: Name "T" is used before definition  [used-before-def]
+generics_syntax_scoping.py:44: error: Variable "generics_syntax_scoping.T" is not valid as a type  [valid-type]
+generics_syntax_scoping.py:44: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+generics_syntax_scoping.py:62: error: Expression is of type "Any", not "str"  [assert-type]
+generics_syntax_scoping.py:62: note: "assert_type" expects everything to be "Any" in unchecked functions
+generics_syntax_scoping.py:67: error: Expression is of type "Any", not "int"  [assert-type]
+generics_syntax_scoping.py:67: note: "assert_type" expects everything to be "Any" in unchecked functions
+generics_syntax_scoping.py:92: error: "T" already defined as a type parameter  [misc]
+generics_syntax_scoping.py:95: error: "T" already defined as a type parameter  [misc]
+generics_syntax_scoping.py:98: error: "T" already defined as a type parameter  [misc]
+generics_syntax_scoping.py:98: error: Variable "generics_syntax_scoping.ClassE.T" is not valid as a type  [valid-type]
+generics_syntax_scoping.py:98: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+generics_syntax_scoping.py:116: error: Expression is of type "Any", not "TypeVar"  [assert-type]
+generics_syntax_scoping.py:116: note: "assert_type" expects everything to be "Any" in unchecked functions
+generics_syntax_scoping.py:121: error: Expression is of type "Any", not "complex"  [assert-type]
+generics_syntax_scoping.py:121: note: "assert_type" expects everything to be "Any" in unchecked functions
+generics_syntax_scoping.py:124: error: Expression is of type "Any", not "complex"  [assert-type]
+generics_syntax_scoping.py:124: note: "assert_type" expects everything to be "Any" in unchecked functions
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 62: Unexpected errors ['generics_syntax_scoping.py:62: error: Expression is of type "Any", not "str"  [assert-type]']
+Line 67: Unexpected errors ['generics_syntax_scoping.py:67: error: Expression is of type "Any", not "int"  [assert-type]']
+Line 116: Unexpected errors ['generics_syntax_scoping.py:116: error: Expression is of type "Any", not "TypeVar"  [assert-type]']
+Line 121: Unexpected errors ['generics_syntax_scoping.py:121: error: Expression is of type "Any", not "complex"  [assert-type]']
+Line 124: Unexpected errors ['generics_syntax_scoping.py:124: error: Expression is of type "Any", not "complex"  [assert-type]']
+"""

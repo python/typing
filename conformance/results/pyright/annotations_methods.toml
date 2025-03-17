@@ -1,0 +1,11 @@
+conformant = "Pass"
+notes = """
+Type evaluation differs from other type checkers because of ambiguity in the spec related to method bindings.
+"""
+output = """
+annotations_methods.py:46:8 - error: Argument of type "A" cannot be assigned to parameter "self" of type "B" in function "copy"
+  "A" is not assignable to "B" (reportArgumentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

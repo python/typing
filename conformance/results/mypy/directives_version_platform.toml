@@ -1,0 +1,14 @@
+conformant = "Pass"
+notes = """
+Does not understand three-element form of sys.version checks.
+Does not understand os.name checks.
+"""
+output = """
+directives_version_platform.py:19: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform.py:27: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform.py:40: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform.py:45: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

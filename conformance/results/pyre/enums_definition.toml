@@ -1,0 +1,17 @@
+conformant = "Pass"
+notes = """
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_definition.py:24:9 Too many arguments [19]: Call `Enum.__new__` expects 1 positional argument, 4 were provided.
+enums_definition.py:27:9 Too many arguments [19]: Call `Enum.__new__` expects 1 positional argument, 2 were provided.
+enums_definition.py:28:9 Too many arguments [19]: Call `Enum.__new__` expects 1 positional argument, 2 were provided.
+enums_definition.py:31:9 Too many arguments [19]: Call `Enum.__new__` expects 1 positional argument, 2 were provided.
+enums_definition.py:33:12 Undefined attribute [16]: `Enum` has no attribute `RED`.
+enums_definition.py:38:0 Assert type [70]: Expected `typing_extensions.Literal[Color7.RED]` but got `unknown`.
+enums_definition.py:38:12 Undefined attribute [16]: `Color7` has no attribute `RED`.
+enums_definition.py:39:0 Assert type [70]: Expected `typing_extensions.Literal[Color8.RED]` but got `unknown`.
+enums_definition.py:39:12 Undefined attribute [16]: `Color8` has no attribute `RED`.
+"""

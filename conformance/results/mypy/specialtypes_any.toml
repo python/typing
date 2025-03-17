@@ -1,0 +1,8 @@
+conformant = "Pass"
+output = """
+specialtypes_any.py:37: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+specialtypes_any.py:38: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -1,0 +1,128 @@
+conformant = "Unsupported"
+notes = """
+Does not support TypeVarTuple.
+"""
+output = """
+generics_typevartuple_callable.py:10:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]
+
+from typing import Callable, TypeVar, TypeVarTuple, assert_type
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:12:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]
+
+Ts = TypeVarTuple("Ts")
+     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:17:61: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Process: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
+
+    def __init__(self, target: Callable[[*Ts], None], args: tuple[*Ts]) -> None:
+                                                            \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:17:32: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Process: Invalid type annotation '<instance of list[nothing]>'  [invalid-annotation]
+
+    def __init__(self, target: Callable[[*Ts], None], args: tuple[*Ts]) -> None:
+                               \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:25:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Process.__init__ was called with the wrong arguments [wrong-arg-types]
+
+Process(target=func1, args=(0, ""))  # OK
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:26:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Process.__init__ was called with the wrong arguments [wrong-arg-types]
+
+Process(target=func1, args=("", 0))  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:29:57: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]
+
+def func2(f: Callable[[int, *Ts, T], tuple[T, *Ts]]) -> tuple[*Ts, T]:
+                                                        \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:29:38: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]
+
+def func2(f: Callable[[int, *Ts, T], tuple[T, *Ts]]) -> tuple[*Ts, T]:
+                                     \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:29:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of list[type[int]]>'  [invalid-annotation]
+
+def func2(f: Callable[[int, *Ts, T], tuple[T, *Ts]]) -> tuple[*Ts, T]:
+             \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:30:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 42, in current file
+generics_typevartuple_callable.py:34:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in callback1: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:38:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in callback2: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:41:13: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function func2 was called with the wrong arguments [wrong-arg-types]
+
+assert_type(func2(callback1), tuple[str, int, complex])
+            \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:41:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Any [assert-type]
+
+assert_type(func2(callback1), tuple[str, int, complex])
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:42:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: tuple[Any] [assert-type]
+
+assert_type(func2(callback2), tuple[str])
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:45:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Missing parameter 'self' in call to function tuple.__iter__ [missing-parameter]
+
+def func3(*args: * tuple[int, *Ts, T]) -> tuple[T, *Ts]:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    ...
+\u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:45:20: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[type[int], ...]>'  [invalid-annotation]
+
+def func3(*args: * tuple[int, *Ts, T]) -> tuple[T, *Ts]:
+                   \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:45:43: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]
+
+def func3(*args: * tuple[int, *Ts, T]) -> tuple[T, *Ts]:
+                                          \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_typevartuple_callable.py:46:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 49, in current file
+generics_typevartuple_callable.py:49:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: tuple[Any] [assert-type]
+
+assert_type(func3(1, "", 3j, 3.4), tuple[float, str, complex])
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 10: Unexpected errors ['generics_typevartuple_callable.py:10:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.TypeVarTuple not supported yet [not-supported-yet]']
+Line 12: Unexpected errors ['generics_typevartuple_callable.py:12:6: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function TypeVarTuple.__init__ expects 1 arg(s), got 2 [wrong-arg-count]']
+Line 17: Unexpected errors ["generics_typevartuple_callable.py:17:61: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in Process: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]", "generics_typevartuple_callable.py:17:32: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in Process: Invalid type annotation '<instance of list[nothing]>'  [invalid-annotation]"]
+Line 25: Unexpected errors ['generics_typevartuple_callable.py:25:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function Process.__init__ was called with the wrong arguments [wrong-arg-types]']
+Line 29: Unexpected errors ["generics_typevartuple_callable.py:29:57: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[nothing, ...]>'  [invalid-annotation]", "generics_typevartuple_callable.py:29:38: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]", "generics_typevartuple_callable.py:29:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of list[type[int]]>'  [invalid-annotation]"]
+Line 30: Unexpected errors ['generics_typevartuple_callable.py:30:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func2: bad return type [bad-return-type]']
+Line 34: Unexpected errors ['generics_typevartuple_callable.py:34:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in callback1: bad return type [bad-return-type]']
+Line 38: Unexpected errors ['generics_typevartuple_callable.py:38:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in callback2: bad return type [bad-return-type]']
+Line 41: Unexpected errors ['generics_typevartuple_callable.py:41:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function func2 was called with the wrong arguments [wrong-arg-types]', 'generics_typevartuple_callable.py:41:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
+Line 42: Unexpected errors ['generics_typevartuple_callable.py:42:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: tuple[Any] [assert-type]']
+Line 45: Unexpected errors ["generics_typevartuple_callable.py:45:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Missing parameter 'self' in call to function tuple.__iter__ [missing-parameter]", "generics_typevartuple_callable.py:45:20: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[type[int], ...]>'  [invalid-annotation]", "generics_typevartuple_callable.py:45:43: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation '<instance of tuple[TypeVar, ...]>'  [invalid-annotation]"]
+Line 46: Unexpected errors ['generics_typevartuple_callable.py:46:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: bad return type [bad-return-type]']
+Line 49: Unexpected errors ['generics_typevartuple_callable.py:49:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: tuple[Any] [assert-type]']
+"""

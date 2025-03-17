@@ -1,0 +1,50 @@
+conformant = "Partial"
+notes = """
+Does not complain when a type alias cannot be used as a base class.
+Does not complain when a type alias cannot be used as a function.
+Does not complain when a type statement definition combines new and old TypeVars.
+Does not complain when a type statement definition uses old TypeVars.
+Does not properly support recursive aliases.
+"""
+output = """
+aliases_type_statement.py:37:0 Invalid type [31]: Expression `eval("".join(map(chr, [105, 110, 116])))` is not a valid type.
+aliases_type_statement.py:38:0 Invalid type [31]: Expression `[int, str]` is not a valid type.
+aliases_type_statement.py:39:0 Invalid type [31]: Expression `((int, str))` is not a valid type.
+aliases_type_statement.py:40:0 Invalid type [31]: Expression `comprehension(int for generators(generator(i in range(1) if )))` is not a valid type.
+aliases_type_statement.py:41:0 Invalid type [31]: Expression `{ "a":"b" }` is not a valid type.
+aliases_type_statement.py:42:0 Invalid type [31]: Expression `lambda () (int)()` is not a valid type.
+aliases_type_statement.py:43:0 Invalid type [31]: Expression `[int][0]` is not a valid type.
+aliases_type_statement.py:44:0 Invalid type [31]: Expression `int if 1 < 3 else str` is not a valid type.
+aliases_type_statement.py:45:0 Undefined or invalid type [11]: Annotation `var1` is not defined as a type.
+aliases_type_statement.py:46:0 Invalid type [31]: Expression `True` is not a valid type.
+aliases_type_statement.py:47:0 Invalid type [31]: Expression `1` is not a valid type.
+aliases_type_statement.py:48:0 Invalid type [31]: Expression `list or set` is not a valid type.
+aliases_type_statement.py:49:0 Invalid type [31]: Expression `f"{"int"}"` is not a valid type.
+aliases_type_statement.py:72:0 Incompatible variable type [9]: r1_1 is declared to have type `aliases_type_statement.RecursiveTypeAlias1 (resolves to Union[List[aliases_type_statement.RecursiveTypeAlias1 (resolves to Union[List[RecursiveTypeAlias1], T])], T])` but is used as type `int`.
+aliases_type_statement.py:73:0 Incompatible variable type [9]: r1_2 is declared to have type `aliases_type_statement.RecursiveTypeAlias1 (resolves to Union[List[aliases_type_statement.RecursiveTypeAlias1 (resolves to Union[List[RecursiveTypeAlias1], T])], T])` but is used as type `List[Union[List[int], int]]`.
+aliases_type_statement.py:77:6 Invalid type [31]: Expression `RecursiveTypeAlias2[(str, str, ...)]` is not a valid type.
+aliases_type_statement.py:78:6 Invalid type [31]: Expression `RecursiveTypeAlias2[(int, str, ...)]` is not a valid type.
+aliases_type_statement.py:79:6 Invalid type [31]: Expression `RecursiveTypeAlias2[(int, int, ...)]` is not a valid type.
+aliases_type_statement.py:80:6 Invalid type [31]: Expression `RecursiveTypeAlias2[(int, str, [int, str])]` is not a valid type.
+aliases_type_statement.py:82:0 Undefined or invalid type [11]: Annotation `RecursiveTypeAlias3` is not defined as a type.
+aliases_type_statement.py:84:0 Invalid type parameters [24]: Non-generic type `RecursiveTypeAlias4` cannot take parameters.
+aliases_type_statement.py:84:0 Undefined or invalid type [11]: Annotation `RecursiveTypeAlias4` is not defined as a type.
+aliases_type_statement.py:88:0 Undefined or invalid type [11]: Annotation `RecursiveTypeAlias7` is not defined as a type.
+aliases_type_statement.py:89:0 Undefined or invalid type [11]: Annotation `RecursiveTypeAlias6` is not defined as a type.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 17: Expected 1 errors
+Line 19: Expected 1 errors
+Line 23: Expected 1 errors
+Line 26: Expected 1 errors
+Line 31: Expected 1 errors
+Line 56: Expected 1 errors
+Line 62: Expected 1 errors
+Line 67: Expected 1 errors
+Lines 51, 52: Expected error (tag 'TA14')
+Line 72: Unexpected errors ['aliases_type_statement.py:72:0 Incompatible variable type [9]: r1_1 is declared to have type `aliases_type_statement.RecursiveTypeAlias1 (resolves to Union[List[aliases_type_statement.RecursiveTypeAlias1 (resolves to Union[List[RecursiveTypeAlias1], T])], T])` but is used as type `int`.']
+Line 73: Unexpected errors ['aliases_type_statement.py:73:0 Incompatible variable type [9]: r1_2 is declared to have type `aliases_type_statement.RecursiveTypeAlias1 (resolves to Union[List[aliases_type_statement.RecursiveTypeAlias1 (resolves to Union[List[RecursiveTypeAlias1], T])], T])` but is used as type `List[Union[List[int], int]]`.']
+Line 78: Unexpected errors ['aliases_type_statement.py:78:6 Invalid type [31]: Expression `RecursiveTypeAlias2[(int, str, ...)]` is not a valid type.']
+Line 80: Unexpected errors ['aliases_type_statement.py:80:6 Invalid type [31]: Expression `RecursiveTypeAlias2[(int, str, [int, str])]` is not a valid type.']
+"""

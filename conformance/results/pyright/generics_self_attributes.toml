@@ -1,0 +1,15 @@
+conformant = "Pass"
+output = """
+generics_self_attributes.py:26:38 - error: Argument of type "LinkedList[int]" cannot be assigned to parameter "next" of type "OrdinalLinkedList | None" in function "__init__"
+  Type "LinkedList[int]" is not assignable to type "OrdinalLinkedList | None"
+    "LinkedList[int]" is not assignable to "OrdinalLinkedList"
+    "LinkedList[int]" is not assignable to "None" (reportArgumentType)
+generics_self_attributes.py:32:8 - error: Cannot assign to attribute "next" for class "OrdinalLinkedList"
+  Expression of type "LinkedList[int]" cannot be assigned to attribute "next" of class "OrdinalLinkedList"
+    Type "LinkedList[int]" is not assignable to type "OrdinalLinkedList | None"
+      "LinkedList[int]" is not assignable to "OrdinalLinkedList"
+      "LinkedList[int]" is not assignable to "None" (reportAttributeAccessIssue)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

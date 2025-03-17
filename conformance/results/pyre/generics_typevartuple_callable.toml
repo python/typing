@@ -1,0 +1,12 @@
+conformant = "Partial"
+notes = """
+False negatives due to assert_type.
+"""
+output = """
+generics_typevartuple_callable.py:26:8 Incompatible parameter type [6]: In call `Process.__init__`, for argument `target`, expected `typing.Callable[[Variable(*generics_typevartuple_callable.Ts)], None]` but got `typing.Callable(func1)[[Named(arg1, int), Named(arg2, str)], None]`.
+generics_typevartuple_callable.py:49:0 Assert type [70]: Expected `Tuple[float, str, complex]` but got `Tuple[float, typing_extensions.Literal[''], complex]`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 49: Unexpected errors ["generics_typevartuple_callable.py:49:0 Assert type [70]: Expected `Tuple[float, str, complex]` but got `Tuple[float, typing_extensions.Literal[''], complex]`."]
+"""

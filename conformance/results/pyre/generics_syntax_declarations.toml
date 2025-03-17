@@ -1,0 +1,20 @@
+conformant = "Partial"
+notes = """
+Does not detect incorrect use of legacy style syntax mixed with PEP695 syntax.
+False negatives due to assert_type use.
+"""
+output = """
+generics_syntax_declarations.py:32:8 Undefined attribute [16]: `Variable[T (bound to str)]` has no attribute `is_integer`.
+generics_syntax_declarations.py:44:20 Invalid bound [75]: `dict[(str, V)]` is not valid bound.
+generics_syntax_declarations.py:48:16 Invalid bound [75]: `[str, int]` is not valid bound.
+generics_syntax_declarations.py:60:16 Invalid bound [75]: `()` is not valid bound.
+generics_syntax_declarations.py:64:16 Invalid bound [75]: `(str)` is not valid bound.
+generics_syntax_declarations.py:71:16 Invalid bound [75]: `$local_generics_syntax_declarations$t1` is not valid bound.
+generics_syntax_declarations.py:75:16 Invalid bound [75]: `(3, bytes)` is not valid bound.
+generics_syntax_declarations.py:79:16 Invalid bound [75]: `(list[S], str)` is not valid bound.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 17: Expected 1 errors
+Line 25: Expected 1 errors
+"""

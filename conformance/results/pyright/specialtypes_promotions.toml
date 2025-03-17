@@ -1,0 +1,8 @@
+conformant = "Pass"
+output = """
+specialtypes_promotions.py:13:7 - error: Cannot access attribute "numerator" for class "float"
+  Attribute "numerator" is unknown (reportAttributeAccessIssue)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

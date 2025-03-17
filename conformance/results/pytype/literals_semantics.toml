@@ -1,0 +1,62 @@
+conformant = "Unsupported"
+notes = """
+Does not understand `Literal` type annotation.
+"""
+output = """
+literals_semantics.py:10:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
+
+v2: Literal[3] = 4  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+literals_semantics.py:12:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+v3: L[-3] = -3
+    \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
+
+literals_semantics.py:12:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'L[-3]'  [invalid-annotation]
+
+v3: L[-3] = -3
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+literals_semantics.py:16:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+def func1(a: Literal[20], b: Literal[0x14], c: Literal[0b10100]):
+             \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_semantics.py:16:30: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+def func1(a: Literal[20], b: Literal[0x14], c: Literal[0b10100]):
+                             \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_semantics.py:16:48: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+def func1(a: Literal[20], b: Literal[0x14], c: Literal[0b10100]):
+                                               \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_semantics.py:17:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Invalid type annotation 'Literal[20]'  [invalid-annotation]
+
+    x1: Literal[0x14] = a
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+literals_semantics.py:18:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Invalid type annotation 'Literal[20]'  [invalid-annotation]
+
+    x2: Literal[0x14] = b
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+literals_semantics.py:19:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Invalid type annotation 'Literal[20]'  [invalid-annotation]
+
+    x3: Literal[0x14] = c
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Expected 1 errors
+Line 25: Expected 1 errors
+Line 33: Expected 1 errors
+Line 12: Unexpected errors ["literals_semantics.py:12:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]", "literals_semantics.py:12:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'L[-3]'  [invalid-annotation]"]
+Line 16: Unexpected errors ["literals_semantics.py:16:14: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]", "literals_semantics.py:16:30: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]", "literals_semantics.py:16:48: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]"]
+Line 17: Unexpected errors ["literals_semantics.py:17:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Invalid type annotation 'Literal[20]'  [invalid-annotation]"]
+Line 18: Unexpected errors ["literals_semantics.py:18:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Invalid type annotation 'Literal[20]'  [invalid-annotation]"]
+Line 19: Unexpected errors ["literals_semantics.py:19:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Invalid type annotation 'Literal[20]'  [invalid-annotation]"]
+"""

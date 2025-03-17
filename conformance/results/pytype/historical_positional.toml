@@ -1,0 +1,18 @@
+conformant = "Partial"
+notes = """
+Does not apply rules for pre-3.8 positional-only parameters in some cases.
+Does not reject positional-only parameter after non-positional-only parameter.
+"""
+output = """
+historical_positional.py:43:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword argument __x to function A.m1 [wrong-keyword-args]
+
+a.m1(__x=3)  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 18: Expected 1 errors
+Line 26: Expected 1 errors
+Line 38: Expected 1 errors
+"""

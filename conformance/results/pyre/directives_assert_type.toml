@@ -1,0 +1,14 @@
+conformant = "Pass"
+notes = """
+"""
+output = """
+directives_assert_type.py:27:4 Assert type [70]: Expected `int` but got `Union[int, str]`.
+directives_assert_type.py:28:4 Assert type [70]: Expected `int` but got `typing.Any`.
+directives_assert_type.py:29:4 Assert type [70]: Expected `int` but got `typing_extensions.Literal[4]`.
+directives_assert_type.py:31:4 Missing argument [20]: Call `assert_type` expects argument in position 0.
+directives_assert_type.py:32:4 Assert type [70]: Expected `int` but got `typing_extensions.Literal['']`.
+directives_assert_type.py:33:4 Too many arguments [19]: Call `assert_type` expects 2 positional arguments, 3 were provided.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

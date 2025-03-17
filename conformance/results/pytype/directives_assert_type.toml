@@ -1,0 +1,35 @@
+conformant = "Partial"
+notes = """
+Incorrectly allows assert(x, int) where x is a Literal.
+"""
+output = """
+directives_assert_type.py:27:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Union[int, str] [assert-type]
+
+    assert_type(a, int)  # E: Type mismatch
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+directives_assert_type.py:28:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Any [assert-type]
+
+    assert_type(c, int)  # E: Type mismatch
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+directives_assert_type.py:31:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Function assert_type expects 2 arg(s), got 0 [wrong-arg-count]
+
+    assert_type()  # E: not enough arguments
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+directives_assert_type.py:32:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: str [assert-type]
+
+    assert_type("", int)  # E: wrong argument type
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+directives_assert_type.py:33:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Function assert_type expects 2 arg(s), got 3 [wrong-arg-count]
+
+    assert_type(a, int | str, a)  # E: too many arguments
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Expected 1 errors
+"""

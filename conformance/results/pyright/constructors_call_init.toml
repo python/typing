@@ -1,0 +1,18 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_init.py:21:13 - error: Argument of type "float" cannot be assigned to parameter "x" of type "int" in function "__init__"
+  "float" is not assignable to "int" (reportArgumentType)
+constructors_call_init.py:42:8 - error: Argument of type "Class2[Unknown]" cannot be assigned to parameter "x" of type "Class3 | None" in function "__init__"
+  Type "Class2[Unknown]" is not assignable to type "Class3 | None"
+    "Class2[Unknown]" is not assignable to "Class3"
+    "Class2[Unknown]" is not assignable to "None" (reportArgumentType)
+constructors_call_init.py:56:1 - error: 
+  Could not bind method "__init__" because "Class4[str]" is not assignable to parameter "self"
+    "Class4[str]" is not assignable to "Class4[int]"
+      Type parameter "T@Class4" is invariant, but "str" is not the same as "int" (reportGeneralTypeIssues)
+constructors_call_init.py:107:24 - warning: Type annotation for "self" parameter of "__init__" method cannot contain class-scoped type variables (reportInvalidTypeVarUse)
+constructors_call_init.py:130:9 - error: Expected 0 positional arguments (reportCallIssue)
+"""

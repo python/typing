@@ -1,0 +1,27 @@
+conformant = "Unsupported"
+output = """
+typeddicts_readonly_inheritance.py:36:13 Invalid TypedDict operation [54]: Cannot write to `Album2` read-only field `name`.
+typeddicts_readonly_inheritance.py:47:0 Inconsistent override [15]: `alt` overrides attribute defined in `AlbumCollection` inconsistently. Type `typing.List[str]` is not a subtype of the overridden attribute `typing.List[typing.Union[int, str]]`.
+typeddicts_readonly_inheritance.py:65:18 TypedDict initialization error [55]: Missing required field `name` for TypedDict `RequiredName`.
+typeddicts_readonly_inheritance.py:82:13 Invalid TypedDict operation [54]: Expected `str` to be assigned to `User` field `ident` but got `int`.
+typeddicts_readonly_inheritance.py:83:4 TypedDict initialization error [55]: Expected type `str` for `User` field `ident` but got `int`.
+typeddicts_readonly_inheritance.py:84:4 TypedDict initialization error [55]: Missing required field `ident` for TypedDict `User`.
+typeddicts_readonly_inheritance.py:93:0 Inconsistent override [15]: `a` overrides attribute defined in `F1` inconsistently. Type `int` is not a subtype of the overridden attribute `int`.
+typeddicts_readonly_inheritance.py:97:0 Inconsistent override [15]: `a` overrides attribute defined in `F1` inconsistently. Type `int` is not a subtype of the overridden attribute `int`.
+typeddicts_readonly_inheritance.py:105:0 Inconsistent override [15]: `c` overrides attribute defined in `F1` inconsistently. Type `int` is not a subtype of the overridden attribute `int`.
+typeddicts_readonly_inheritance.py:119:0 Invalid inheritance [39]: Field `x` has type `int` in base class `TD_A1` and type `float` in base class `TD_A2`.
+typeddicts_readonly_inheritance.py:119:0 Invalid inheritance [39]: Field `y` has type `int` in base class `TD_A1` and type `float` in base class `TD_A2`.
+typeddicts_readonly_inheritance.py:132:0 Invalid inheritance [39]: `y` is a required field in base class `TD_B1` and a non-required field in base class `TD_B2` (because of `total=False`).
+typeddicts_readonly_inheritance.py:132:0 Invalid inheritance [39]: `x` is a required field in base class `TD_B2` and a non-required field in base class `TD_B1` (because of `total=False`).
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 50: Expected 1 errors
+Line 94: Expected 1 errors
+Line 98: Expected 1 errors
+Line 106: Expected 1 errors
+Line 47: Unexpected errors ['typeddicts_readonly_inheritance.py:47:0 Inconsistent override [15]: `alt` overrides attribute defined in `AlbumCollection` inconsistently. Type `typing.List[str]` is not a subtype of the overridden attribute `typing.List[typing.Union[int, str]]`.']
+Line 93: Unexpected errors ['typeddicts_readonly_inheritance.py:93:0 Inconsistent override [15]: `a` overrides attribute defined in `F1` inconsistently. Type `int` is not a subtype of the overridden attribute `int`.']
+Line 97: Unexpected errors ['typeddicts_readonly_inheritance.py:97:0 Inconsistent override [15]: `a` overrides attribute defined in `F1` inconsistently. Type `int` is not a subtype of the overridden attribute `int`.']
+Line 105: Unexpected errors ['typeddicts_readonly_inheritance.py:105:0 Inconsistent override [15]: `c` overrides attribute defined in `F1` inconsistently. Type `int` is not a subtype of the overridden attribute `int`.']
+"""

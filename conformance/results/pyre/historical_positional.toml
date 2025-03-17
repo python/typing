@@ -1,0 +1,12 @@
+conformant = "Pass"
+notes = """
+"""
+output = """
+historical_positional.py:18:0 Unexpected keyword [28]: Unexpected keyword argument `__x` to call `f1`.
+historical_positional.py:26:15 Invalid positional-only parameter [69]: Positional-only parameters cannot appear after parameters that accept keyword arguments.
+historical_positional.py:38:25 Invalid positional-only parameter [69]: Positional-only parameters cannot appear after parameters that accept keyword arguments.
+historical_positional.py:43:0 Unexpected keyword [28]: Unexpected keyword argument `__x` to call `A.m1`.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

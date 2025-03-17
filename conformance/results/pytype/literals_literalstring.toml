@@ -1,0 +1,89 @@
+conformant = "Unsupported"
+notes = """
+Does not understand `LiteralString` special form.
+"""
+output = """
+literals_literalstring.py:8:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.LiteralString not supported yet [not-supported-yet]
+
+from typing import (
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    Any,
+\u001b[1m\u001b[31m~~~~~~~~\u001b[39m\u001b[0m
+    Generic,
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+    Literal,
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+    LiteralString,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    Sequence,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    TypeVar,
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+    assert_type,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    overload,
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+)
+\u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+literals_literalstring.py:24:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in my_function: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+literals_literalstring.py:36:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+bad_union: Literal["hello", LiteralString]  # E
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_literalstring.py:37:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Literal'  [invalid-annotation]
+
+bad_nesting: Literal[LiteralString]  # E
+             \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+literals_literalstring.py:43:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Type annotation for x2 does not match type of assignment [annotation-type-mismatch]
+
+    x2: Literal[""] = b  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+literals_literalstring.py:74:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: Type annotation for x3 does not match type of assignment [annotation-type-mismatch]
+
+    x3: LiteralString = 3  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+literals_literalstring.py:75:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: Type annotation for x4 does not match type of assignment [annotation-type-mismatch]
+
+    x4: LiteralString = b"test"  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+literals_literalstring.py:162:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 166, in current file
+literals_literalstring.py:162:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func8: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 165, in current file
+literals_literalstring.py:167:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: B [assert-type]
+
+assert_type(func8(str(1)), A)  # Third overload
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 66: Expected 1 errors
+Line 120: Expected 1 errors
+Line 134: Expected 1 errors
+Line 171: Expected 1 errors
+Line 8: Unexpected errors ['literals_literalstring.py:8:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.LiteralString not supported yet [not-supported-yet]']
+Line 24: Unexpected errors ['literals_literalstring.py:24:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in my_function: bad return type [bad-return-type]']
+Line 162: Unexpected errors ['literals_literalstring.py:162:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: bad return type [bad-return-type]', 'literals_literalstring.py:162:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func8: bad return type [bad-return-type]']
+Line 167: Unexpected errors ['literals_literalstring.py:167:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: B [assert-type]']
+"""

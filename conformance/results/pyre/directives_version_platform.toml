@@ -1,0 +1,10 @@
+conformant = "Pass"
+notes = """
+"""
+output = """
+directives_version_platform.py:40:4 Incompatible variable type [9]: val7 is declared to have type `int` but is used as type `str`.
+directives_version_platform.py:45:4 Incompatible variable type [9]: val8 is declared to have type `int` but is used as type `str`.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

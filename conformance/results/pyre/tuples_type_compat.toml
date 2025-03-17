@@ -1,0 +1,54 @@
+conformant = "Partial"
+notes = """
+Does not support some unpacked tuple forms.
+Does not report type violation when assigning `tuple[int, ...]` to `tuple[int]`.
+Does not support tuple narrowing based on `len()` type guard (optional).
+Does not correctly evaluate `Sequence[Never]` for `tuple[()]`.
+"""
+output = """
+tuples_type_compat.py:15:4 Incompatible variable type [9]: v2 is declared to have type `Tuple[int, int]` but is used as type `Tuple[float, complex]`.
+tuples_type_compat.py:55:21 Undefined or invalid type [11]: Annotation `SomeType` is not defined as a type.
+tuples_type_compat.py:72:11 Incompatible parameter type [6]: In call `len`, for 1st positional argument, expected `pyre_extensions.PyreReadOnly[Sized]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.
+tuples_type_compat.py:74:8 Assert type [70]: Expected `Tuple[int]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.
+tuples_type_compat.py:76:11 Incompatible parameter type [6]: In call `len`, for 1st positional argument, expected `pyre_extensions.PyreReadOnly[Sized]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.
+tuples_type_compat.py:78:8 Assert type [70]: Expected `Union[Tuple[int, int], Tuple[str, str]]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.
+tuples_type_compat.py:80:11 Incompatible parameter type [6]: In call `len`, for 1st positional argument, expected `pyre_extensions.PyreReadOnly[Sized]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.
+tuples_type_compat.py:82:8 Assert type [70]: Expected `Tuple[int, str, int]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.
+tuples_type_compat.py:95:12 Assert type [70]: Expected `Tuple[int]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.
+tuples_type_compat.py:99:12 Assert type [70]: Expected `Union[Tuple[int, int], Tuple[str, str]]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.
+tuples_type_compat.py:103:12 Assert type [70]: Expected `Tuple[int, str, int]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.
+tuples_type_compat.py:115:12 Assert type [70]: Expected `Tuple[Union[int, str], str]` but got `Tuple[Union[int, str], Union[int, str]]`.
+tuples_type_compat.py:117:12 Assert type [70]: Expected `Tuple[Union[int, str], int]` but got `Tuple[Union[int, str], Union[int, str]]`.
+tuples_type_compat.py:140:4 Assert type [70]: Expected `Sequence[Never]` but got `Sequence[Variable[T]]`.
+tuples_type_compat.py:144:0 Incompatible variable type [9]: t1 is declared to have type `Tuple[int, str]` but is used as type `Tuple[int, str, str]`.
+tuples_type_compat.py:149:0 Incompatible variable type [9]: t2 is declared to have type `typing.Tuple[int, *Tuple[str, ...]]` but is used as type `Tuple[int, int, str]`.
+tuples_type_compat.py:150:0 Incompatible variable type [9]: t2 is declared to have type `typing.Tuple[int, *Tuple[str, ...]]` but is used as type `Tuple[int, str, int]`.
+tuples_type_compat.py:156:0 Incompatible variable type [9]: t3 is declared to have type `typing.Tuple[int, *Tuple[str, ...], int]` but is used as type `Tuple[int, str, str]`.
+tuples_type_compat.py:157:0 Incompatible variable type [9]: t3 is declared to have type `typing.Tuple[int, *Tuple[str, ...], int]` but is used as type `Tuple[int, str, str, float]`.
+tuples_type_compat.py:162:0 Incompatible variable type [9]: t4 is declared to have type `typing.Tuple[*Tuple[str, ...], int]` but is used as type `Tuple[int, str, int]`.
+tuples_type_compat.py:163:0 Incompatible variable type [9]: t4 is declared to have type `typing.Tuple[*Tuple[str, ...], int]` but is used as type `Tuple[str, str, float]`.
+tuples_type_compat.py:168:4 Incompatible variable type [9]: t2 is declared to have type `Tuple[str, str, int]` but is used as type `Tuple[str, str]`.
+tuples_type_compat.py:171:4 Incompatible variable type [9]: t5 is declared to have type `typing.Tuple[str, str, str, *Tuple[str, ...]]` but is used as type `Tuple[str, str]`.
+tuples_type_compat.py:175:4 Incompatible variable type [9]: t9 is declared to have type `typing.Tuple[*Tuple[str, ...], str, str, str]` but is used as type `Tuple[str, str]`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Expected 1 errors
+Line 32: Expected 1 errors
+Line 33: Expected 1 errors
+Line 43: Expected 1 errors
+Line 62: Expected 1 errors
+Line 55: Unexpected errors ['tuples_type_compat.py:55:21 Undefined or invalid type [11]: Annotation `SomeType` is not defined as a type.']
+Line 72: Unexpected errors ['tuples_type_compat.py:72:11 Incompatible parameter type [6]: In call `len`, for 1st positional argument, expected `pyre_extensions.PyreReadOnly[Sized]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.']
+Line 74: Unexpected errors ['tuples_type_compat.py:74:8 Assert type [70]: Expected `Tuple[int]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.']
+Line 76: Unexpected errors ['tuples_type_compat.py:76:11 Incompatible parameter type [6]: In call `len`, for 1st positional argument, expected `pyre_extensions.PyreReadOnly[Sized]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.']
+Line 78: Unexpected errors ['tuples_type_compat.py:78:8 Assert type [70]: Expected `Union[Tuple[int, int], Tuple[str, str]]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.']
+Line 80: Unexpected errors ['tuples_type_compat.py:80:11 Incompatible parameter type [6]: In call `len`, for 1st positional argument, expected `pyre_extensions.PyreReadOnly[Sized]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.']
+Line 82: Unexpected errors ['tuples_type_compat.py:82:8 Assert type [70]: Expected `Tuple[int, str, int]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.']
+Line 95: Unexpected errors ['tuples_type_compat.py:95:12 Assert type [70]: Expected `Tuple[int]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.']
+Line 99: Unexpected errors ['tuples_type_compat.py:99:12 Assert type [70]: Expected `Union[Tuple[int, int], Tuple[str, str]]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.']
+Line 103: Unexpected errors ['tuples_type_compat.py:103:12 Assert type [70]: Expected `Tuple[int, str, int]` but got `Union[Tuple[int], Tuple[str, str], typing.Tuple[int, *Tuple[str, ...], int]]`.']
+Line 115: Unexpected errors ['tuples_type_compat.py:115:12 Assert type [70]: Expected `Tuple[Union[int, str], str]` but got `Tuple[Union[int, str], Union[int, str]]`.']
+Line 117: Unexpected errors ['tuples_type_compat.py:117:12 Assert type [70]: Expected `Tuple[Union[int, str], int]` but got `Tuple[Union[int, str], Union[int, str]]`.']
+Line 140: Unexpected errors ['tuples_type_compat.py:140:4 Assert type [70]: Expected `Sequence[Never]` but got `Sequence[Variable[T]]`.']
+"""

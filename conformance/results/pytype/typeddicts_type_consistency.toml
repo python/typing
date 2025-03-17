@@ -1,0 +1,38 @@
+conformant = "Partial"
+notes = """
+Does not report some type violations for TypedDict type compatibility.
+Incorrectly reports type violation in cases where there is none.
+Does not report type incompatibility between TypedDict and `dict[str, Any]`.
+"""
+output = """
+typeddicts_type_consistency.py:62:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for a3 does not match type of assignment [annotation-type-mismatch]
+
+a3: A3 = b3
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+typeddicts_type_consistency.py:65:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for b3 does not match type of assignment [annotation-type-mismatch]
+
+b3 = a3  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+typeddicts_type_consistency.py:69:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for a3_1 does not match type of assignment [annotation-type-mismatch]
+
+a3_1: A3 = {"x": 0, "y": 0}  # E
+\u001b[1m\u001b[31m~~~~\u001b[39m\u001b[0m
+
+typeddicts_type_consistency.py:126:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for o2 does not match type of assignment [annotation-type-mismatch]
+
+o2: Outer1 = {"outer_key": {"inner_key": {"inner_key": 1}}}  # E
+\u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Expected 1 errors
+Line 38: Expected 1 errors
+Line 76: Expected 1 errors
+Line 77: Expected 1 errors
+Line 78: Expected 1 errors
+Line 82: Expected 1 errors
+Line 62: Unexpected errors ['typeddicts_type_consistency.py:62:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Type annotation for a3 does not match type of assignment [annotation-type-mismatch]']
+"""

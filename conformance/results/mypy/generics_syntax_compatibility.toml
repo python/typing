@@ -1,0 +1,8 @@
+conformant = "Pass"
+output = """
+generics_syntax_compatibility.py:14: error: All type parameters should be declared ("K" not declared)  [valid-type]
+generics_syntax_compatibility.py:26: error: All type parameters should be declared ("K" not declared)  [valid-type]
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

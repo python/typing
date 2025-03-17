@@ -1,0 +1,11 @@
+conformant = "Pass"
+notes = """
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_expansion.py:25:8 Assert type [70]: Expected `typing_extensions.Literal[Color.GREEN]` but got `Color`.
+enums_expansion.py:35:12 Assert type [70]: Expected `Never` but got `Color`.
+enums_expansion.py:53:8 Assert type [70]: Expected `typing_extensions.Literal[CustomFlags.FLAG3]` but got `CustomFlags`.
+"""

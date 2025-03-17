@@ -1,0 +1,14 @@
+conformant = "Unsupported"
+output = """
+NotImplementedError: ParameterizedClass
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 38: Expected 1 errors
+Line 40: Expected 1 errors
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+Line 46: Expected 1 errors
+"""

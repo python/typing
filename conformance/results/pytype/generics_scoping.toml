@@ -1,0 +1,96 @@
+conformant = "Partial"
+notes = """
+Fails to reject type alias within generic class that uses class's type variable.
+Fails to reject unbound type variable in constructor call in global scope.
+"""
+output = """
+generics_scoping.py:29:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function MyClass.meth_2 was called with the wrong arguments [wrong-arg-types]
+
+a.meth_2('a')  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_scoping.py:50:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in fun_3: Invalid type annotation 'list[S]' for z [invalid-annotation]
+
+    z: list[S] = []  # E
+    \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
+
+generics_scoping.py:54:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Bar: Invalid type annotation 'list[S]' for an_attr [invalid-annotation]
+
+    an_attr: list[S] = []  # E
+    \u001b[1m\u001b[31m~~~~~~~\u001b[39m\u001b[0m
+
+generics_scoping.py:63:23: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in fun_4: Invalid type annotation 'T'  [invalid-annotation]
+
+    a_list: list[T] = []  # OK
+                      \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+generics_scoping.py:74:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'Outer'  [invalid-annotation]
+
+class Outer(Generic[T]):
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    class Bad(Iterable[T]):  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+    class AlsoBad:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        x: list[T]  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+        def __init__(self, x: list[T]) -> None:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+            self.x = x
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    class Inner(Iterable[S]):  # OK
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        ...
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+    attr: Inner[T]  # OK
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    alias: TypeAlias = list[T]  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+\u001b[1m\u001b[31m\u001b[39m\u001b[0m
+    def __init__(self, attr: Inner[T]) -> None:
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+        self.attr = attr
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_scoping.py:78:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in AlsoBad: Invalid type annotation 'list[T]' for x [invalid-annotation]
+
+        x: list[T]  # E
+        \u001b[1m\u001b[31m~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_scoping.py:80:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in AlsoBad: Invalid type annotation 'T'  [invalid-annotation]
+
+        def __init__(self, x: list[T]) -> None:
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+            self.x = x
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_scoping.py:94:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'T' for global_var1 [invalid-annotation]
+
+global_var1: T  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_scoping.py:95:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid type annotation 'list[T]' for global_var2 [invalid-annotation]
+
+global_var2: list[T] = []  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 65: Expected 1 errors
+Line 75: Expected 1 errors
+Line 87: Expected 1 errors
+Line 96: Expected 1 errors
+Line 63: Unexpected errors ["generics_scoping.py:63:23: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in fun_4: Invalid type annotation 'T'  [invalid-annotation]"]
+Line 74: Unexpected errors ["generics_scoping.py:74:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Outer'  [invalid-annotation]"]
+Line 80: Unexpected errors ["generics_scoping.py:80:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in AlsoBad: Invalid type annotation 'T'  [invalid-annotation]"]
+"""

@@ -1,0 +1,25 @@
+conformant = "Pass"
+output = """
+tuples_type_form.py:12:6 - error: Type "tuple[Literal[1], Literal[2]]" is not assignable to declared type "tuple[int]"
+  "tuple[Literal[1], Literal[2]]" is not assignable to "tuple[int]"
+    Tuple size mismatch; expected 1 but received 2 (reportAssignmentType)
+tuples_type_form.py:14:6 - error: Type "tuple[Literal[1]]" is not assignable to declared type "tuple[int, int]"
+  "tuple[Literal[1]]" is not assignable to "tuple[int, int]"
+    Tuple size mismatch; expected 2 but received 1 (reportAssignmentType)
+tuples_type_form.py:15:10 - error: Type "tuple[Literal[1], Literal['']]" is not assignable to declared type "tuple[int, int]"
+  "Literal['']" is not assignable to "int" (reportAssignmentType)
+tuples_type_form.py:25:7 - error: Type "tuple[Literal[1]]" is not assignable to declared type "tuple[()]"
+  "tuple[Literal[1]]" is not assignable to "tuple[()]"
+    Tuple size mismatch; expected 0 but received 1 (reportAssignmentType)
+tuples_type_form.py:36:17 - error: Type "tuple[Literal[1], Literal[2], Literal[3], Literal['']]" is not assignable to declared type "tuple[int, ...]"
+  "Literal['']" is not assignable to "int" (reportAssignmentType)
+tuples_type_form.py:40:22 - error: "..." is allowed only as the second of two arguments (reportInvalidTypeForm)
+tuples_type_form.py:41:12 - error: "..." is allowed only as the second of two arguments (reportInvalidTypeForm)
+tuples_type_form.py:42:12 - error: "..." is allowed only as the second of two arguments (reportInvalidTypeForm)
+tuples_type_form.py:43:17 - error: "..." is allowed only as the second of two arguments (reportInvalidTypeForm)
+tuples_type_form.py:44:25 - error: "..." cannot be used with an unpacked TypeVarTuple or tuple (reportInvalidTypeForm)
+tuples_type_form.py:45:30 - error: "..." cannot be used with an unpacked TypeVarTuple or tuple (reportInvalidTypeForm)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -1,0 +1,41 @@
+conformant = "Partial"
+notes = """
+Does not properly support assert_type.
+"""
+output = """
+generics_upper_bound.py:24:14: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Test: Invalid TypeVar: bound cannot contain TypeVars [invalid-typevar]
+
+    T_Bad1 = TypeVar("T_Bad1", bound=list[T])  # E
+             \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_upper_bound.py:37:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: list [assert-type]
+
+assert_type(longer([1], [1, 2]), list[int])
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_upper_bound.py:38:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: set [assert-type]
+
+assert_type(longer({1}, {1, 2}), set[int])
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_upper_bound.py:43:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Union[list, set] [assert-type]
+
+assert_type(longer([1], {1, 2}), list[int] | set[int])  # E?
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_upper_bound.py:51:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function longer was called with the wrong arguments [wrong-arg-types]
+
+longer(3, 3)  # E
+\u001b[1m\u001b[31m~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+generics_upper_bound.py:56:10: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid TypeVar: constraints and a bound are mutually exclusive [invalid-typevar]
+
+T_Bad2 = TypeVar("T_Bad2", str, int, bound="int")  # E
+         \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 37: Unexpected errors ['generics_upper_bound.py:37:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: list [assert-type]']
+Line 38: Unexpected errors ['generics_upper_bound.py:38:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: set [assert-type]']
+"""

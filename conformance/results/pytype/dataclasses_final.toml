@@ -1,0 +1,33 @@
+conformant = "Partial"
+notes = """
+Doesn't handle Final nested inside ClassVar.
+"""
+errors_diff = """
+Line 27: Expected 1 errors
+Line 35: Expected 1 errors
+Line 37: Expected 1 errors
+Line 18: Unexpected errors ['dataclasses_final.py:18:21: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in D: Invalid use of typing.Final [final-error]', "dataclasses_final.py:18:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in D: Invalid type annotation 'ClassVar[Final[int]]'  [invalid-annotation]"]
+"""
+output = """
+dataclasses_final.py:18:21: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in D: Invalid use of typing.Final [final-error]
+
+    final_classvar: ClassVar[Final[int]] = 4
+                    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_final.py:18:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in D: Invalid type annotation 'ClassVar[Final[int]]'  [invalid-annotation]
+
+    final_classvar: ClassVar[Final[int]] = 4
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_final.py:36:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Assigning to attribute final_with_default, which was annotated with Final [final-error]
+
+d.final_with_default = "baz"  # E: can't assign to final attribute
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_final.py:38:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Assigning to attribute final_with_default, which was annotated with Final [final-error]
+
+D.final_with_default = "baz"  # E: can't assign to final attribute
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"

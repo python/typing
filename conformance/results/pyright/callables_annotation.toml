@@ -1,0 +1,41 @@
+conformant = "Pass"
+output = """
+callables_annotation.py:25:5 - error: Expected 1 more positional argument (reportCallIssue)
+callables_annotation.py:26:11 - error: Argument of type "Literal[2]" cannot be assigned to parameter of type "str"
+  "Literal[2]" is not assignable to "str" (reportArgumentType)
+callables_annotation.py:27:15 - error: Expected 2 positional arguments (reportCallIssue)
+callables_annotation.py:29:10 - error: Expected 2 more positional arguments (reportCallIssue)
+callables_annotation.py:35:8 - error: Expected 0 positional arguments (reportCallIssue)
+callables_annotation.py:55:14 - error: Expected parameter type list or "..." (reportInvalidTypeForm)
+callables_annotation.py:56:14 - error: Expected parameter type list or "..." (reportInvalidTypeForm)
+callables_annotation.py:57:18 - error: List expression not allowed for this type argument (reportInvalidTypeForm)
+callables_annotation.py:58:14 - error: Expected parameter type list or "..." (reportInvalidTypeForm)
+callables_annotation.py:58:24 - error: Expected only two type arguments to "Callable" (reportInvalidTypeForm)
+callables_annotation.py:59:15 - error: "..." is not allowed in this context (reportInvalidTypeForm)
+callables_annotation.py:91:7 - error: Type "() -> str" is not assignable to declared type "(int, ...) -> str"
+  Type "() -> str" is not assignable to type "(int, ...) -> str"
+    Function accepts too many positional parameters; expected 0 but received 2 (reportAssignmentType)
+callables_annotation.py:93:7 - error: Type "(*, a: int) -> str" is not assignable to declared type "(int, ...) -> str"
+  Type "(*, a: int) -> str" is not assignable to type "(int, ...) -> str"
+    Function accepts too many positional parameters; expected 0 but received 2 (reportAssignmentType)
+callables_annotation.py:159:25 - error: Type "Proto8" is not assignable to declared type "Proto5[Any]"
+  "Proto8" is incompatible with protocol "Proto5[Any]"
+    "__call__" is an incompatible type
+      Type "() -> None" is not assignable to type "(*args: T_contra@Proto5, **kwargs: T_contra@Proto5) -> None"
+        Parameter "*args" has no corresponding parameter
+        Parameter "**kwargs" has no corresponding parameter (reportAssignmentType)
+callables_annotation.py:172:26 - error: Type "() -> str" is not assignable to declared type "Callback2[...]"
+  Type "() -> str" is not assignable to type "Callback2[...]"
+    Function accepts too many positional parameters; expected 0 but received 2 (reportAssignmentType)
+callables_annotation.py:187:48 - error: Type "(int, str) -> str" is not assignable to declared type "(str, ...) -> str"
+  Type "(int, str) -> str" is not assignable to type "(str, ...) -> str"
+    Parameter 1: type "str" is incompatible with type "int"
+      "str" is not assignable to "int" (reportAssignmentType)
+callables_annotation.py:189:32 - error: Type "(int, str) -> str" is not assignable to declared type "CallbackWithStr[...]"
+  Type "(int, str) -> str" is not assignable to type "CallbackWithStr[...]"
+    Parameter 1: type "str" is incompatible with type "int"
+      "str" is not assignable to "int" (reportAssignmentType)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

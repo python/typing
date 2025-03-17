@@ -1,0 +1,76 @@
+conformant = "Unsupported"
+notes = """
+Does not understand @dataclass_transform.
+"""
+output = """
+dataclasses_transform_func.py:13:2: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+
+@dataclass_transform(kw_only_default=True, order_default=True)
+ \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_func.py:19:2: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+
+@dataclass_transform(kw_only_default=True, order_default=True)
+ \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_func.py:30:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in create_model: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+Called from (traceback):
+  line 89, in current file
+dataclasses_transform_func.py:30:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in create_model: bad return type [bad-return-type]
+
+    ...
+    \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_func.py:50:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword arguments (id, name) to function Customer1.__init__ [wrong-keyword-args]
+
+c1_1 = Customer1(id=3, name="Sue")
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_func.py:53:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Customer1.__init__ expects 1 arg(s), got 3 [wrong-arg-count]
+
+c1_2 = Customer1(3, "Sue")
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_func.py:57:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for name does not match type of assignment [annotation-type-mismatch]
+
+c1_2.name = 3  # E
+\u001b[1m\u001b[31m~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_func.py:65:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword arguments (id, name, salary) to function Customer1.__init__ [wrong-keyword-args]
+
+c1_3 = Customer1(id=3, name="Sue", salary=40000)  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_func.py:67:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Invalid keyword arguments (id, name) to function Customer2.__init__ [wrong-keyword-args]
+
+c2_1 = Customer2(id=0, name="John")
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_func.py:71:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function Customer2.__init__ expects 1 arg(s), got 3 [wrong-arg-count]
+
+c2_2 = Customer2(0, "John")  # E
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+dataclasses_transform_func.py:76:2: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]
+
+@dataclass_transform(kw_only_default=True, order_default=True, frozen_default=True)
+ \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 61: Expected 1 errors
+Line 97: Expected 1 errors
+Lines 89, 90: Expected error (tag 'Customer3Subclass')
+Line 13: Unexpected errors ['dataclasses_transform_func.py:13:2: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+Line 19: Unexpected errors ['dataclasses_transform_func.py:19:2: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+Line 30: Unexpected errors ['dataclasses_transform_func.py:30:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in create_model: bad return type [bad-return-type]', 'dataclasses_transform_func.py:30:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in create_model: bad return type [bad-return-type]']
+Line 50: Unexpected errors ['dataclasses_transform_func.py:50:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid keyword arguments (id, name) to function Customer1.__init__ [wrong-keyword-args]']
+Line 53: Unexpected errors ['dataclasses_transform_func.py:53:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function Customer1.__init__ expects 1 arg(s), got 3 [wrong-arg-count]']
+Line 67: Unexpected errors ['dataclasses_transform_func.py:67:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid keyword arguments (id, name) to function Customer2.__init__ [wrong-keyword-args]']
+Line 76: Unexpected errors ['dataclasses_transform_func.py:76:2: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Arguments to dataclass_transform not supported yet [not-supported-yet]']
+"""

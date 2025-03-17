@@ -1,0 +1,16 @@
+conformant = "Partial"
+notes = """
+Does not reject use of `Required` in non-TypedDict class.
+Does not reject use of `Required` in function parameter annotation.
+Does not reject nested use of `Required` in type annotation.
+"""
+output = """
+RecursionError: maximum recursion depth exceeded
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 12: Expected 1 errors
+Line 19: Expected 1 errors
+Line 62: Expected 1 errors
+Line 63: Expected 1 errors
+"""

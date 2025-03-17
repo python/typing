@@ -1,0 +1,13 @@
+conformant = "Pass"
+output = """
+typeddicts_readonly_consistency.py:37:4 Incompatible variable type [9]: v3 is declared to have type `B1` but is used as type `A1`.
+typeddicts_readonly_consistency.py:38:4 Incompatible variable type [9]: v4 is declared to have type `B1` but is used as type `C1`.
+typeddicts_readonly_consistency.py:40:4 Incompatible variable type [9]: v5 is declared to have type `C1` but is used as type `A1`.
+typeddicts_readonly_consistency.py:81:4 Incompatible variable type [9]: v3 is declared to have type `B2` but is used as type `A2`.
+typeddicts_readonly_consistency.py:82:4 Incompatible variable type [9]: v4 is declared to have type `B2` but is used as type `C2`.
+typeddicts_readonly_consistency.py:84:4 Incompatible variable type [9]: v5 is declared to have type `C2` but is used as type `A2`.
+typeddicts_readonly_consistency.py:85:4 Incompatible variable type [9]: v6 is declared to have type `C2` but is used as type `B2`.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

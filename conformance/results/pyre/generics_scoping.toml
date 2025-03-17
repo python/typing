@@ -1,0 +1,29 @@
+conformant = "Partial"
+notes = """
+False negative on generic class nested within generic function with same type variable.
+False negative on generic class nested within generic class with same type variable.
+False negative on assert_type uses.
+"""
+output = """
+generics_scoping.py:14:0 Assert type [70]: Expected `int` but got `typing_extensions.Literal[1]`.
+generics_scoping.py:15:0 Assert type [70]: Expected `str` but got `typing_extensions.Literal['a']`.
+generics_scoping.py:29:9 Incompatible parameter type [6]: In call `MyClass.meth_2`, for 1st positional argument, expected `int` but got `str`.
+generics_scoping.py:42:0 Assert type [70]: Expected `str` but got `typing_extensions.Literal['abc']`.
+generics_scoping.py:43:0 Assert type [70]: Expected `bytes` but got `typing_extensions.Literal[b'abc']`.
+generics_scoping.py:50:7 Invalid type variable [34]: The type variable `Variable[S]` isn't present in the function's parameters.
+generics_scoping.py:54:13 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[S]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[S]`.
+generics_scoping.py:78:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Variable[T]`. To reference the type variable, you can modify the class to inherit from `typing.Generic[T]`.
+generics_scoping.py:87:4 Incompatible attribute type [8]: Attribute `alias` declared in class `Outer` has type `TypeAlias` but is used as type `Type[List[Variable[T]]]`.
+generics_scoping.py:94:13 Invalid type variable [34]: The type variable `Variable[T]` can only be used to annotate generic classes or functions.
+generics_scoping.py:95:13 Invalid type variable [34]: The type variable `Variable[T]` can only be used to annotate generic classes or functions.
+generics_scoping.py:96:0 Undefined attribute [16]: `list` has no attribute `__getitem__`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 65: Expected 1 errors
+Line 75: Expected 1 errors
+Line 14: Unexpected errors ['generics_scoping.py:14:0 Assert type [70]: Expected `int` but got `typing_extensions.Literal[1]`.']
+Line 15: Unexpected errors ["generics_scoping.py:15:0 Assert type [70]: Expected `str` but got `typing_extensions.Literal['a']`."]
+Line 42: Unexpected errors ["generics_scoping.py:42:0 Assert type [70]: Expected `str` but got `typing_extensions.Literal['abc']`."]
+Line 43: Unexpected errors ["generics_scoping.py:43:0 Assert type [70]: Expected `bytes` but got `typing_extensions.Literal[b'abc']`."]
+"""

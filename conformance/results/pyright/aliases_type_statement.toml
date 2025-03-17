@@ -1,0 +1,55 @@
+conformant = "Pass"
+output = """
+aliases_type_statement.py:17:12 - error: Cannot access attribute "bit_count" for class "TypeAliasType"
+  Attribute "bit_count" is unknown (reportAttributeAccessIssue)
+aliases_type_statement.py:19:1 - error: Object of type "TypeAliasType" is not callable
+  Attribute "__call__" is unknown (reportCallIssue)
+aliases_type_statement.py:23:18 - error: Cannot access attribute "other_attrib" for class "TypeAliasType"
+  Attribute "other_attrib" is unknown (reportAttributeAccessIssue)
+aliases_type_statement.py:26:18 - error: A type alias defined in a "type" statement cannot be used as a base class (reportGeneralTypeIssues)
+aliases_type_statement.py:31:22 - error: Argument of type "TypeAliasType" cannot be assigned to parameter "class_or_tuple" of type "_ClassInfo" in function "isinstance"
+  Type "TypeAliasType" is not assignable to type "_ClassInfo"
+    "TypeAliasType" is not assignable to "type"
+    "TypeAliasType" is not assignable to "UnionType"
+    "TypeAliasType" is not assignable to "tuple[_ClassInfo, ...]" (reportArgumentType)
+aliases_type_statement.py:37:22 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
+aliases_type_statement.py:38:22 - error: List expression not allowed in type expression
+  Use list[T] to indicate a list type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
+aliases_type_statement.py:38:22 - error: Expected class but received "list[Unknown]" (reportGeneralTypeIssues)
+aliases_type_statement.py:39:22 - error: Tuple expression not allowed in type expression
+  Use tuple[T1, ..., Tn] to indicate a tuple type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
+aliases_type_statement.py:40:22 - error: List expression not allowed in type expression
+  Use list[T] to indicate a list type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
+aliases_type_statement.py:40:22 - error: Expected class but received "list[type[int]]" (reportGeneralTypeIssues)
+aliases_type_statement.py:41:22 - error: Dictionary expression not allowed in type expression
+  Use dict[T1, T2] to indicate a dictionary type (reportInvalidTypeForm)
+aliases_type_statement.py:41:22 - error: Expected class but received "dict[str, Unknown]" (reportGeneralTypeIssues)
+aliases_type_statement.py:41:29 - error: "b" is not defined (reportUndefinedVariable)
+aliases_type_statement.py:42:22 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
+aliases_type_statement.py:43:22 - error: List expression not allowed in type expression
+  Use list[T] to indicate a list type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
+aliases_type_statement.py:43:22 - error: Expected class but received "list[type[int]]" (reportGeneralTypeIssues)
+aliases_type_statement.py:43:28 - error: Expected class but received "Literal[0]" (reportGeneralTypeIssues)
+aliases_type_statement.py:44:22 - error: Ternary expression not allowed in type expression (reportInvalidTypeForm)
+aliases_type_statement.py:45:22 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+aliases_type_statement.py:46:23 - error: Expected class but received "Literal[True]" (reportGeneralTypeIssues)
+aliases_type_statement.py:47:23 - error: Expected class but received "Literal[1]" (reportGeneralTypeIssues)
+aliases_type_statement.py:48:23 - error: Binary operator not allowed in type expression (reportInvalidTypeForm)
+aliases_type_statement.py:49:23 - error: Type expressions cannot use format string literals (f-strings) (reportGeneralTypeIssues)
+aliases_type_statement.py:51:6 - error: Type alias declaration "BadTypeAlias14" is obscured by a declaration of the same name (reportRedeclaration)
+aliases_type_statement.py:56:10 - error: A type statement can be used only within a module or class scope (reportGeneralTypeIssues)
+aliases_type_statement.py:62:23 - error: Type parameter "V" is not included in the type parameter list for "TA1" (reportGeneralTypeIssues)
+aliases_type_statement.py:67:17 - error: Type parameter "T1" is not included in the type parameter list for "TA2" (reportGeneralTypeIssues)
+aliases_type_statement.py:77:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
+  Type "str" is not assignable to type "int"
+    "str" is not assignable to "int" (reportInvalidTypeForm)
+aliases_type_statement.py:79:7 - error: Could not specialize type "RecursiveTypeAlias2[S@RecursiveTypeAlias2, T@RecursiveTypeAlias2, P@RecursiveTypeAlias2]"
+  Type "int" is not assignable to type "str"
+    "int" is not assignable to "str" (reportInvalidTypeForm)
+aliases_type_statement.py:82:28 - error: Type alias "RecursiveTypeAlias3" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_type_statement.py:84:31 - error: Type alias "RecursiveTypeAlias4" cannot use itself in its definition (reportGeneralTypeIssues)
+aliases_type_statement.py:88:28 - error: Type alias "RecursiveTypeAlias6" cannot use itself in its definition (reportGeneralTypeIssues)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

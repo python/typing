@@ -1,0 +1,26 @@
+conformant = "Partial"
+notes = """
+Does not evaluate correct type for indexed named tuple instance with integer.
+Does not evaluate correct type for indexed named tuple instance with slice.
+Does not report out-of-range index access with named tuple instance.
+Does not reject named tuple element with no default value after one with a default.
+Incorrectly rejects assignment of named tuple to a tuple with compatible type.
+Does not reject attempt to use NamedTuple with multiple inheritance.
+"""
+output = """
+namedtuples_define_class.py:32:6 Invalid tuple index [73]: Index 3 is out of bounds for concrete tuple with 3 members.
+namedtuples_define_class.py:33:6 Invalid tuple index [73]: Index -4 is out of bounds for concrete tuple with 3 members.
+namedtuples_define_class.py:44:5 Missing argument [20]: Call `Point.__init__` expects argument `y`.
+namedtuples_define_class.py:45:5 Missing argument [20]: Call `Point.__init__` expects argument `y`.
+namedtuples_define_class.py:46:14 Incompatible parameter type [6]: In call `Point.__init__`, for 2nd positional argument, expected `int` but got `str`.
+namedtuples_define_class.py:47:17 Incompatible parameter type [6]: In call `Point.__init__`, for argument `units`, expected `str` but got `int`.
+namedtuples_define_class.py:48:5 Too many arguments [19]: Call `Point.__init__` expects 3 positional arguments, 4 were provided.
+namedtuples_define_class.py:49:6 Unexpected keyword [28]: Unexpected keyword argument `other` to call `Point.__init__`.
+namedtuples_define_class.py:59:4 Missing named tuple default [74]: Named tuple field without default value may not be preceded by a field with default value.
+namedtuples_define_class.py:79:4 Invalid assignment [41]: Cannot reassign final attribute `x`.
+namedtuples_define_class.py:98:18 Incompatible parameter type [6]: In call `Property.__init__`, for 2nd positional argument, expected `str` but got `float`.
+namedtuples_define_class.py:105:23 Invalid inheritance [39]: If NamedTuple is included as a base class, the class may not extend anything else besides Generic.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

@@ -1,0 +1,23 @@
+conformant = "Unsupported"
+output = """
+typeddicts_readonly_kwargs.py:8:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.Unpack not supported yet [not-supported-yet]
+
+from typing import Protocol, TypedDict, Unpack
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_readonly_kwargs.py:9:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]
+
+from typing_extensions import ReadOnly
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_readonly_kwargs.py:33:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in impl: New container type for kwargs does not match type annotation [container-type-mismatch]
+
+    kwargs["key1"] = 3  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 8: Unexpected errors ['typeddicts_readonly_kwargs.py:8:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.Unpack not supported yet [not-supported-yet]']
+Line 9: Unexpected errors ['typeddicts_readonly_kwargs.py:9:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]']
+"""

@@ -1,0 +1,19 @@
+conformant = "Pass"
+output = """
+generics_type_erasure.py:38:16 - error: Argument of type "Literal['']" cannot be assigned to parameter "label" of type "int | None" in function "__init__"
+  Type "Literal['']" is not assignable to type "int | None"
+    "Literal['']" is not assignable to "int"
+    "Literal['']" is not assignable to "None" (reportArgumentType)
+generics_type_erasure.py:40:16 - error: Argument of type "Literal[0]" cannot be assigned to parameter "label" of type "str | None" in function "__init__"
+  Type "Literal[0]" is not assignable to type "str | None"
+    "Literal[0]" is not assignable to "str"
+    "Literal[0]" is not assignable to "None" (reportArgumentType)
+generics_type_erasure.py:42:11 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
+generics_type_erasure.py:43:11 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
+generics_type_erasure.py:44:6 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
+generics_type_erasure.py:45:6 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
+generics_type_erasure.py:46:10 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

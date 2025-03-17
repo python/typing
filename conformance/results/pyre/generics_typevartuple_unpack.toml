@@ -1,0 +1,9 @@
+conformant = "Pass"
+notes = """
+"""
+output = """
+generics_typevartuple_unpack.py:30:27 Incompatible parameter type [6]: In call `process_batch_channels`, for 1st positional argument, expected `Array[Batch, *Tuple[typing.Any, ...], Channels]` but got `Array[Batch]`.
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""

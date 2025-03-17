@@ -1,0 +1,33 @@
+conformant = "Partial"
+notes = """
+Does not support TypeVarTuple.
+False negatives due to assert_type.
+"""
+output = """
+generics_typevartuple_basic.py:42:33 Incompatible parameter type [6]: In call `Array.__init__`, for 1st positional argument, expected `typing.Tuple[*generics_typevartuple_basic.Shape]` but got `Height`.
+generics_typevartuple_basic.py:43:0 Incompatible variable type [9]: v5 is declared to have type `Array[Batch, Height, Width]` but is used as type `Array[Batch, Width]`.
+generics_typevartuple_basic.py:44:0 Incompatible variable type [9]: v6 is declared to have type `Array[Time, Batch, Height, Width]` but is used as type `Array[Time, Batch, Width, Height]`.
+generics_typevartuple_basic.py:52:13 Undefined or invalid type [11]: Annotation `Shape` is not defined as a type.
+generics_typevartuple_basic.py:54:21 Invalid type variable [34]: The type variable `Shape` isn't present in the function's parameters.
+generics_typevartuple_basic.py:65:6 Unexpected keyword [28]: Unexpected keyword argument `covariant` to call `TypeVarTuple.__init__`.
+generics_typevartuple_basic.py:66:6 Too many arguments [19]: Call `TypeVarTuple.__init__` expects 1 positional argument, 3 were provided.
+generics_typevartuple_basic.py:67:6 Unexpected keyword [28]: Unexpected keyword argument `bound` to call `TypeVarTuple.__init__`.
+generics_typevartuple_basic.py:84:0 Assert type [70]: Expected `Tuple[int]` but got `Tuple[typing_extensions.Literal[0]]`.
+generics_typevartuple_basic.py:84:24 Incompatible parameter type [6]: In call `func2`, for 2nd positional argument, expected `typing.Tuple[*generics_typevartuple_basic.Ts]` but got `Tuple[int]`.
+generics_typevartuple_basic.py:87:12 Incompatible parameter type [6]: In call `func2`, for 2nd positional argument, expected `typing.Tuple[*generics_typevartuple_basic.Ts]` but got `Tuple[int]`.
+generics_typevartuple_basic.py:89:12 Incompatible parameter type [6]: In call `func2`, for 2nd positional argument, expected `typing.Tuple[*generics_typevartuple_basic.Ts]` but got `Tuple[str]`.
+generics_typevartuple_basic.py:90:14 Incompatible parameter type [6]: In call `func2`, for 2nd positional argument, expected `typing.Tuple[*generics_typevartuple_basic.Ts]` but got `Tuple[int]`.
+generics_typevartuple_basic.py:99:16 Incompatible parameter type [6]: In call `multiply`, for 2nd positional argument, expected `Array[*generics_typevartuple_basic.Shape]` but got `Array[Width]`.
+generics_typevartuple_basic.py:100:16 Incompatible parameter type [6]: In call `multiply`, for 2nd positional argument, expected `Array[*generics_typevartuple_basic.Shape]` but got `Array[Height, Width]`.
+generics_typevartuple_basic.py:106:13 Undefined or invalid type [11]: Annotation `Ts1` is not defined as a type.
+generics_typevartuple_basic.py:106:13 Undefined or invalid type [11]: Annotation `Ts2` is not defined as a type.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 53: Expected 1 errors
+Line 56: Expected 1 errors
+Line 59: Expected 1 errors
+Line 54: Unexpected errors ["generics_typevartuple_basic.py:54:21 Invalid type variable [34]: The type variable `Shape` isn't present in the function's parameters."]
+Line 84: Unexpected errors ['generics_typevartuple_basic.py:84:0 Assert type [70]: Expected `Tuple[int]` but got `Tuple[typing_extensions.Literal[0]]`.', 'generics_typevartuple_basic.py:84:24 Incompatible parameter type [6]: In call `func2`, for 2nd positional argument, expected `typing.Tuple[*generics_typevartuple_basic.Ts]` but got `Tuple[int]`.']
+Line 87: Unexpected errors ['generics_typevartuple_basic.py:87:12 Incompatible parameter type [6]: In call `func2`, for 2nd positional argument, expected `typing.Tuple[*generics_typevartuple_basic.Ts]` but got `Tuple[int]`.']
+"""

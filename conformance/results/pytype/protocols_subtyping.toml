@@ -1,0 +1,37 @@
+conformant = "Partial"
+notes = """
+Does not reject attempt to instantiate protocol class.
+Does not report some protocol type compatibility violations involving contravariance.
+"""
+output = """
+protocols_subtyping.py:38:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
+
+    v2: Concrete2 = p2  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+protocols_subtyping.py:55:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]
+
+    v2: Proto3 = p2  # E
+    \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
+
+protocols_subtyping.py:83:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]
+
+S_co = TypeVar("S_co", covariant=True)
+       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+protocols_subtyping.py:84:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]
+
+T_contra = TypeVar("T_contra", contravariant=True)
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 16: Expected 1 errors
+Line 79: Expected 1 errors
+Line 80: Expected 1 errors
+Line 102: Expected 1 errors
+Line 103: Expected 1 errors
+Line 83: Unexpected errors ['protocols_subtyping.py:83:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
+Line 84: Unexpected errors ['protocols_subtyping.py:84:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "contravariant" to TypeVar not supported yet [not-supported-yet]']
+"""

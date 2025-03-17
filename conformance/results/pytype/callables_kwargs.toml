@@ -1,0 +1,93 @@
+conformant = "Unsupported"
+notes = """
+Does not understand Unpack in the context of **kwargs annotation.
+"""
+output = """
+callables_kwargs.py:10:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: typing.Unpack not supported yet [not-supported-yet]
+
+from typing import Protocol, TypeVar, TypedDict, NotRequired, Required, Unpack, assert_type
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:24:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Unpack[TD2] [assert-type]
+
+    assert_type(v1, int)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:32:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Unpack[TD2] [assert-type]
+
+        assert_type(v2, str)
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:35:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Unpack[TD2] [assert-type]
+
+    assert_type(v3, str)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:41:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: dict[str, Unpack[TD1]] [assert-type]
+
+    assert_type(kwargs, TD1)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:47:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+
+    func1(v1=1, v2="", v3="5")  # OK
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:49:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Missing parameter 'v2' in call to function TD2.__init__ [missing-parameter]
+
+    td2 = TD2(v1=2, v3="4")
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:51:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+
+    func1(v1=1, v2="", v3="5", v4=5)  # E: v4 is not in TD2
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:52:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Function func1 expects 0 arg(s), got 3 [wrong-arg-count]
+
+    func1(1, "", "5")  # E: args not passed by position
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:58:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+
+    func1(**my_dict)  # E: untyped dict
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:61:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+
+    func1(**d1)  # E?: OK or Type error (spec allows either)
+    \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:63:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Function func1 was called with the wrong arguments [wrong-arg-types]
+
+    func1(v1=2, **td2)  # E: v1 is already specified
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:64:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Function func2 was called with the wrong arguments [wrong-arg-types]
+
+    func2(1, **td2)  # E: v1 is already specified
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+callables_kwargs.py:65:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func3: Function func2 was called with the wrong arguments [wrong-arg-types]
+
+    func2(v1=1, **td2)  # E: v1 is already specified
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 46: Expected 1 errors
+Line 101: Expected 1 errors
+Line 102: Expected 1 errors
+Line 103: Expected 1 errors
+Line 111: Expected 1 errors
+Line 122: Expected 1 errors
+Line 134: Expected 1 errors
+Line 10: Unexpected errors ['callables_kwargs.py:10:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.Unpack not supported yet [not-supported-yet]']
+Line 24: Unexpected errors ['callables_kwargs.py:24:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Unpack[TD2] [assert-type]']
+Line 32: Unexpected errors ['callables_kwargs.py:32:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Unpack[TD2] [assert-type]']
+Line 35: Unexpected errors ['callables_kwargs.py:35:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: Unpack[TD2] [assert-type]']
+Line 41: Unexpected errors ['callables_kwargs.py:41:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func2: dict[str, Unpack[TD1]] [assert-type]']
+Line 47: Unexpected errors ['callables_kwargs.py:47:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: Function func1 was called with the wrong arguments [wrong-arg-types]']
+Line 49: Unexpected errors ["callables_kwargs.py:49:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: Missing parameter 'v2' in call to function TD2.__init__ [missing-parameter]"]
+"""

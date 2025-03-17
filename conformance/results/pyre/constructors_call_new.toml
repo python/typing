@@ -1,0 +1,31 @@
+conformant = "Partial"
+notes = """
+Does not support __new__ return type that is not a subclass of the class being constructed.
+Does not report errors during binding to cls parameter of __new__ method.
+Incorrectly raises compatibility type errors.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 145: Expected 1 errors
+Line 23: Unexpected errors ['constructors_call_new.py:23:0 Assert type [70]: Expected `Class1[int]` but got `Class1[typing_extensions.Literal[1]]`.']
+Line 35: Unexpected errors ['constructors_call_new.py:35:0 Assert type [70]: Expected `Class2[int]` but got `Class2[typing_extensions.Literal[1]]`.']
+Line 36: Unexpected errors ["constructors_call_new.py:36:0 Assert type [70]: Expected `Class2[str]` but got `Class2[typing_extensions.Literal['']]`."]
+Line 49: Unexpected errors ['constructors_call_new.py:49:0 Assert type [70]: Expected `int` but got `Class3`.', 'constructors_call_new.py:49:12 Missing argument [20]: Call `Class3.__init__` expects argument `x`.']
+Line 64: Unexpected errors ['constructors_call_new.py:64:0 Assert type [70]: Expected `typing.Any` but got `Class4`.', 'constructors_call_new.py:64:12 Missing argument [20]: Call `Class4.__init__` expects argument `x`.']
+Line 76: Unexpected errors ['constructors_call_new.py:76:4 Assert type [70]: Expected `NoReturn` but got `Class5`.', 'constructors_call_new.py:76:16 Missing argument [20]: Call `Class5.__init__` expects argument `x`.']
+Line 89: Unexpected errors ['constructors_call_new.py:89:0 Assert type [70]: Expected `Union[Class6, int]` but got `Class6`.', 'constructors_call_new.py:89:12 Missing argument [20]: Call `Class6.__init__` expects argument `x`.']
+"""
+output = """
+constructors_call_new.py:21:12 Incompatible parameter type [6]: In call `Class1.__new__`, for 1st positional argument, expected `int` but got `float`.
+constructors_call_new.py:23:0 Assert type [70]: Expected `Class1[int]` but got `Class1[typing_extensions.Literal[1]]`.
+constructors_call_new.py:35:0 Assert type [70]: Expected `Class2[int]` but got `Class2[typing_extensions.Literal[1]]`.
+constructors_call_new.py:36:0 Assert type [70]: Expected `Class2[str]` but got `Class2[typing_extensions.Literal['']]`.
+constructors_call_new.py:49:0 Assert type [70]: Expected `int` but got `Class3`.
+constructors_call_new.py:49:12 Missing argument [20]: Call `Class3.__init__` expects argument `x`.
+constructors_call_new.py:64:0 Assert type [70]: Expected `typing.Any` but got `Class4`.
+constructors_call_new.py:64:12 Missing argument [20]: Call `Class4.__init__` expects argument `x`.
+constructors_call_new.py:76:4 Assert type [70]: Expected `NoReturn` but got `Class5`.
+constructors_call_new.py:76:16 Missing argument [20]: Call `Class5.__init__` expects argument `x`.
+constructors_call_new.py:89:0 Assert type [70]: Expected `Union[Class6, int]` but got `Class6`.
+constructors_call_new.py:89:12 Missing argument [20]: Call `Class6.__init__` expects argument `x`.
+"""
