@@ -412,6 +412,8 @@ specified only by name, use the keyword-only separator (``*``).
    def create_user(age: int, *, dob: Optional[date] = None):
        ...
 
+.. _annotating-decorators:
+
 Annotating Decorators
 ---------------------
 
@@ -447,6 +449,66 @@ complex signature mutations may require type annotations that erase the
 original signature, thus blinding type checkers and other tools that
 provide signature assistance. As such, library authors are discouraged
 from creating decorators that mutate function signatures in this manner.
+
+.. _aliasing-decorators:
+
+Aliasing Decorators
+-------------------
+
+When writing a library with a couple of decorator factories 
+(i.e. functions returning decorators, like ``complex_decorator`` from the
+:ref:`annotating-decorators` section) it may be tempting to create a shortcut 
+for a decorator. 
+
+Different type checkers handle :data:`TypeAlias <typing.TypeAlias>` involving
+:class:`Callable <collections.abc.Callable>` in a
+different manner, so the most portable and easy way to create a shortcut 
+is to define a callable :class:`Protocol <typing.Protocol>` as described in the
+:ref:`callback-protocols` section of the Typing Specification.
+
+There is already a :class:`Protocol <typing.Protocol>` called
+``IdentityFunction`` defined in
+`_typeshed <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_:
+
+.. code:: python
+   
+   from typing import TYPE_CHECKING
+
+   if TYPE_CHECKING:
+       from _typeshed import IdentityFunction
+
+   def decorator_factory(*, mode: str) -> "IdentityFunction":
+      """
+       Decorator factory is invoked with arguments like this:
+         @decorator_factory(mode="easy")
+         def my_function(): ...
+      """
+        ...
+
+For non-trivial decorators with custom logic, it is still possible 
+to define a custom protocol using :class:`ParamSpec <typing.ParamSpec>`
+and :data:`Concatenate <typing.Concatenate>` mechanisms:
+
+.. code:: python
+
+   class Client: ...
+   
+   P = ParamSpec("P")
+   R = TypeVar("R")
+  
+   class PClientInjector(Protocol):
+       def __call__(self, _: Callable[Concatenate[Client, P], R], /) -> Callable[P, R]:
+           ...
+
+   def inject_client(service: str) -> PClientInjector:
+      """
+       Decorator factory is invoked with arguments like this:
+         @inject_client("testing")
+         def my_function(client: Client, value: int): ...
+         
+         my_function then takes only value
+      """
+
 
 Generic Classes and Functions
 -----------------------------
