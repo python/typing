@@ -160,14 +160,14 @@ pytest-mypy-testing
 -------------------
 
 `pytest-mypy-testing <https://github.com/davidfritzsche/pytest-mypy-testing>`_ is another
-plugin for ``pytest``. The main difference between :ref:`pytest-mypy-plugins` is that
-:ref:`pytest-mypy-testing` allows writing tests inside Python code and/or
+plugin for ``pytest``. The main difference to ``pytest-mypy-plugins`` is that
+``pytest-mypy-testing`` allows writing tests inside Python code and/or
 mixed with actual tests.
 
 .. warning::
 
     pytest-mypy-testing uses the Python
-    `ast<https://docs.python.org/3/library/ast.html>`_ module to parse
+    :mod:`ast` module to parse
     candidate files and does not import any file, i.e., the decorator must be
     exactly named ``@pytest.mark.mypy_testing``!
 
