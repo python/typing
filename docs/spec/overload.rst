@@ -263,18 +263,31 @@ If so, eliminate overloads that do not have a variadic parameter.
 - If two or more candidate overloads remain, proceed to step 5.
 
 
-Step 5: For each argument, determine whether all possible
+Step 5: For all arguments, determine whether all possible
 :term:`materializations <materialize>` of the argument's type are assignable to
 the corresponding parameter type for each of the remaining overloads. If so,
 eliminate all of the subsequent remaining overloads.
 
-For example, if the argument type is ``list[Any]`` and there are three remaining
-overloads with corresponding parameter types of ``list[int]``, ``list[Any]``
-and ``Any``. We can eliminate the third of the remaining overloads because
-all materializations of ``list[Any]`` are assignable to ``list[Any]``, the
-parameter in the second overload. We cannot eliminate the second overload
-because there are possible materializations of ``list[Any]`` (for example,
-``list[str]``) that are not assignable to ``list[int]``.
+Consider the following example::
+
+  @overload
+  def example(x: list[int]) -> int: ...
+  @overload
+  def example(x: list[Any]) -> str: ...
+  @overload
+  def example(x: Any) -> Any: ...
+
+  def test(a: list[Any]):
+      # All materializations of list[Any] will match either the first or
+      # second overload, so the third overload can be eliminated.
+      example(a)
+
+This rule eliminates overloads that will never be chosen even if the
+caller eliminates types that include ``Any``.
+
+If the call involves more than one argument, all possible materializations of
+every argument type must be assignable to its corresponding parameter type.
+If this condition exists, all subsequent remaining overloads should be eliminated.
 
 Once this filtering process is applied for all arguments, examine the return
 types of the remaining overloads. If these return types include type variables,
