@@ -1071,7 +1071,7 @@ outer ``Callable``.  This has the following semantics:
 .. code-block::
 
    def a_int_b_str(a: int, b: str) -> int:
-     pass
+     return a
 
    twice(a_int_b_str, 1, "A")       # Accepted
 
@@ -1329,7 +1329,7 @@ unnecessary ``TypeVarTuple``:
     process_batch_channels(z)  # Error: Expected Channels.
 
 
-We can also pass a ``*tuple[int, ...]`` wherever a ``*Ts`` is
+We can also pass a ``*tuple[Any, ...]`` wherever a ``*Ts`` is
 expected. This is useful when we have particularly dynamic code and
 cannot state the precise number of dimensions or the precise types for
 each of the dimensions. In those cases, we can smoothly fall back to

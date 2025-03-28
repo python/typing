@@ -158,17 +158,17 @@
         </header>
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
-<th class='tc-header'><div class='tc-name'>mypy 1.14.1</div>
+<th class='tc-header'><div class='tc-name'>mypy 1.15.0</div>
 <div class='tc-time'>1.7sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.391</div>
-<div class='tc-time'>1.5sec</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.396</div>
+<div class='tc-time'>1.3sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>6.0sec</div>
+<div class='tc-time'>6.8sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>30.8sec</div>
+<div class='tc-time'>34.7sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -277,7 +277,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support ParamSpec.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_paramspec_components</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report illegal use of "P.args" on normal parameter.</p><p>Does not report error when P.args is specified but P.kwargs is missing.</p><p>Does not report error when P is out of scope and P.args and P.kwargs is used.</p><p>Does not report error when keyword argument is specified between P.args and P.kwargs.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report illegal use of "P.args" on normal parameter.</p><p>Does not report error when P.args is specified but P.kwargs is missing.</p><p>Does not report error when P is out of scope and P.args and P.kwargs is used.</p><p>Does not report error when calling callback defined with ParamSpec with incorrect arguments.</p><p>Does not report error when keyword argument is specified between P.args and P.kwargs.</p><p>Does not report error when calling callable and argument is missing for concatenated parameters.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support ParamSpec.</p></span></div></th>
@@ -432,8 +432,8 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qualifiers_final_annotation</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.</p><p>Does not allow conditional assignment of Final instance variable in __init__ method.</p><p>Does not allow redefinition of private class variable that is marked Final in parent class.</p><p>Does not report modification of local Final variable via "for" statement.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report Final variable with missing initialization in module scope.</p><p>Does not report error for invalid nesting of Final and ClassVar.</p><p>Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report Final variable with missing initialization.</p><p>Does not reject Final instance variable declared outside of __init__ method.</p><p>Does not reject modification of global variable declared Final.</p><p>Does not reject modification of local variable declared Final.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report Final variable with missing initialization in module scope.</p><p>Does not report error for invalid nesting of Final and ClassVar.</p><p>Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.</p><p>Does not reject modification of imported variable declared Final.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report Final variable with missing initialization.</p><p>Does not reject Final instance variable declared outside of __init__ method.</p><p>Does not reject modification of global variable declared Final.</p><p>Does not reject modification of local variable declared Final.</p><p>Does not reject modification of imported variable declared Final.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qualifiers_final_decorator</th>
 <th class="column col2 conformant">Pass</th>
@@ -607,7 +607,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support Concatenate.</p><p>Does not treat "*args: Any, **kwargs: Any" as "...".</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callables_kwargs</th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Allows callable without kwargs to be assigned to callable with unpacked kwargs</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not understand Unpack in the context of **kwargs annotation.</p></span></div></th>

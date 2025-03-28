@@ -6,7 +6,7 @@ qualifiers_final_decorator.py:56:9 - error: Method "method1" cannot override fin
 qualifiers_final_decorator.py:60:9 - error: Method "method2" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)
 qualifiers_final_decorator.py:64:9 - error: Method "method3" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)
 qualifiers_final_decorator.py:75:9 - error: Method "method4" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)
-qualifiers_final_decorator.py:86:9 - error: Overload for "method" is marked @final but implementation is not (reportInconsistentOverload)
+qualifiers_final_decorator.py:86:9 - error: @final decorator should be applied only to the implementation (reportInconsistentOverload)
 qualifiers_final_decorator.py:89:9 - error: Method "method" cannot override final method defined in class "Base3" (reportIncompatibleMethodOverride)
 qualifiers_final_decorator.py:102:9 - error: Method "method" cannot override final method defined in class "Base4" (reportIncompatibleMethodOverride)
 qualifiers_final_decorator.py:118:9 - error: Method "method" cannot override final method defined in class "Base5_2" (reportIncompatibleMethodOverride)

@@ -27,6 +27,9 @@ callables_kwargs.py:103:19 - error: Type "(**kwargs: **TD2) -> None" is not assi
       Extra parameter "v3" (reportAssignmentType)
 callables_kwargs.py:111:30 - error: Typed dictionary overlaps with keyword parameter: v1 (reportGeneralTypeIssues)
 callables_kwargs.py:122:21 - error: Expected TypedDict type argument for Unpack (reportGeneralTypeIssues)
+callables_kwargs.py:134:19 - error: Type "(*, v1: int, v3: str, v2: str = "") -> None" is not assignable to declared type "TDProtocol6"
+  Type "(*, v1: int, v3: str, v2: str = "") -> None" is not assignable to type "(**kwargs: **TD2) -> None"
+    Parameter "**kwargs" has no corresponding parameter (reportAssignmentType)
 """
 conformance_automated = "Pass"
 errors_diff = """
