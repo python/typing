@@ -159,16 +159,16 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.15.0</div>
-<div class='tc-time'>1.7sec</div>
+<div class='tc-time'>1.6sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.396</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.398</div>
 <div class='tc-time'>1.3sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>6.8sec</div>
+<div class='tc-time'>7.4sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>34.7sec</div>
+<div class='tc-time'>35.2sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -695,12 +695,6 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not expand boolean arguments to Literal[True] and Literal[False].</p><p>Does not expand enum arguments to literal variants.</p><p>Does not expand tuple arguments to possible combinations.</p><p>Does not prefer variadic match to indeterminate-length unpacked argument.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not expand boolean arguments to Literal[True] and Literal[False].</p><p>Does not expand enum arguments to literal variants.</p><p>Does not expand type[A | B] to type[A] and type[B].</p><p>Does not expand tuple arguments to possible combinations.</p><p>Does not prefer variadic match to indeterminate-length unpacked argument.</p><p>Does not treat multiple matches due to gradual types as ambiguous.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not perform argument expansion (on any types) when matching overloads.</p><p>Does not treat multiple matches due to gradual types as ambiguous.</p><p>Does not prefer variadic match to indeterminate-length unpacked argument.</p></span></div></th>
-</tr>
-<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_overlap</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not check for partially overlapping overloads with inconsistent return type.</p></span></div></th>
-<th class="column col2 not-conformant"><div class="hover-text">Fail<span class="tooltip-text" id="bottom"><p>Does not check for partially or fully overlapping overloads.</p></span></div></th>
 </tr>
 <tr><th class="column" colspan="5">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/exceptions.html">Exceptions</a>

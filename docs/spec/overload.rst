@@ -147,8 +147,7 @@ present on all overloads.
 Overloads are allowed to use a mixture of ``async def`` and ``def`` statements
 within the same overload definition. Type checkers should convert
 ``async def`` statements to a non-async signature (wrapping the return
-type in a ``Coroutine``) before testing for implementation consistency
-and overlapping overloads (described below).
+type in a ``Coroutine``) before testing for implementation consistency.
 
 
 Implementation consistency
@@ -191,8 +190,7 @@ Overload call evaluation
 When a type checker evaluates the call of an overloaded function, it
 attempts to "match" the supplied arguments with one or more overloads.
 This section describes the algorithm that type checkers should use
-for overload matching. This algorithm should be applied even in the
-presence of :ref:`overlapping overloads`.
+for overload matching.
 
 Only the overloads (the ``@overload``-decorated signatures) should be
 considered for matching purposes. The implementation, if provided,

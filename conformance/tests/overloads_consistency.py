@@ -3,6 +3,7 @@ Tests consistency of overloads with implementation.
 """
 
 from typing import Callable, Coroutine, overload
+from types import CoroutineType
 
 # > If an overload implementation is defined, type checkers should validate
 # > that it is consistent with all of its associated overload signatures.
@@ -62,7 +63,7 @@ def parameter_type(x: int) -> int | str:  # E[parameter_type] impl type of `x` m
 # `async def`:
 
 @overload
-def returns_coroutine(x: int) -> Coroutine[None, None, int]:
+def returns_coroutine(x: int) -> CoroutineType[None, None, int]:
     ...
 
 @overload

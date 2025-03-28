@@ -3,10 +3,10 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-overloads_consistency.py:27:5 - error: Overloaded implementation is not consistent with signature of overload 2
+overloads_consistency.py:28:5 - error: Overloaded implementation is not consistent with signature of overload 2
   Function return type "str" is incompatible with type "int"
     "str" is not assignable to "int" (reportInconsistentOverload)
-overloads_consistency.py:43:5 - error: Overloaded implementation is not consistent with signature of overload 2
+overloads_consistency.py:44:5 - error: Overloaded implementation is not consistent with signature of overload 2
   Type "(x: int) -> (int | str)" is not assignable to type "(x: str) -> str"
     Parameter 1: type "str" is incompatible with type "int"
       "str" is not assignable to "int" (reportInconsistentOverload)
