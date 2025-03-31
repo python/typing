@@ -1,24 +1,16 @@
-conformant = "Partial"
-notes = """
-Does not enforce that @final/@override in a stub should be only on first overload.
-Does not enforce @override when correctly used with an overloaded method in a stub file.
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 168: Expected 1 errors
-Lines 96, 98, 101: Expected error (tag 'invalid_final_2')
-Line 103: Unexpected errors ['overloads_definitions_stub.pyi:103:9 - error: Only the first overload should be marked @final (reportInconsistentOverload)']
-Line 174: Unexpected errors ['overloads_definitions_stub.pyi:174:9 - error: Only the first overload should be marked @override (reportInconsistentOverload)']
 """
 output = """
 overloads_definitions_stub.pyi:14:5 - error: "func1" is marked as overload, but additional overloads are missing (reportInconsistentOverload)
-overloads_definitions_stub.pyi:38:9 - error: Overloads for "func5" use @staticmethod inconsistently (reportInconsistentOverload)
-overloads_definitions_stub.pyi:38:15 - warning: Instance methods should take a "self" parameter (reportSelfClsParameterName)
-overloads_definitions_stub.pyi:48:9 - error: Overloads for "func6" use @classmethod inconsistently (reportInconsistentOverload)
-overloads_definitions_stub.pyi:52:15 - warning: Instance methods should take a "self" parameter (reportSelfClsParameterName)
-overloads_definitions_stub.pyi:87:9 - error: Only the first overload should be marked @final (reportInconsistentOverload)
-overloads_definitions_stub.pyi:103:9 - error: Only the first overload should be marked @final (reportInconsistentOverload)
-overloads_definitions_stub.pyi:133:9 - error: Method "final_method" cannot override final method defined in class "Base" (reportIncompatibleMethodOverride)
-overloads_definitions_stub.pyi:142:9 - error: Method "bad_override" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
-overloads_definitions_stub.pyi:174:9 - error: Only the first overload should be marked @override (reportInconsistentOverload)
+overloads_definitions_stub.pyi:33:9 - error: Overloads for "func5" use @staticmethod inconsistently (reportInconsistentOverload)
+overloads_definitions_stub.pyi:33:15 - warning: Instance methods should take a "self" parameter (reportSelfClsParameterName)
+overloads_definitions_stub.pyi:41:9 - error: Overloads for "func6" use @classmethod inconsistently (reportInconsistentOverload)
+overloads_definitions_stub.pyi:44:15 - warning: Instance methods should take a "self" parameter (reportSelfClsParameterName)
+overloads_definitions_stub.pyi:73:9 - error: Only the first overload should be marked @final (reportInconsistentOverload)
+overloads_definitions_stub.pyi:86:9 - error: Only the first overload should be marked @final (reportInconsistentOverload)
+overloads_definitions_stub.pyi:111:9 - error: Method "final_method" cannot override final method defined in class "Base" (reportIncompatibleMethodOverride)
+overloads_definitions_stub.pyi:122:9 - error: Method "bad_override" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
+overloads_definitions_stub.pyi:147:9 - error: Only the first overload should be marked @override (reportInconsistentOverload)
 """

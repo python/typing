@@ -10,6 +10,7 @@ from typing import (
     override,
 )
 
+
 # > At least two @overload-decorated definitions must be present.
 @overload  # E[func1]
 def func1() -> None:  # E[func1]: At least two overloads must be present
@@ -29,33 +30,27 @@ def func2(x: int) -> int:  # E[func2]: no implementation
 
 
 @overload
-def func2(x: str) -> str:
-    ...
+def func2(x: str) -> str: ...
 
 
 # > Overload definitions within stub files, protocols, and on abstract methods
 # > within abstract base classes are exempt from this check.
 class MyProto(Protocol):
     @overload
-    def func3(self, x: int) -> int:
-        ...
-
+    def func3(self, x: int) -> int: ...
 
     @overload
-    def func3(self, x: str) -> str:
-        ...
+    def func3(self, x: str) -> str: ...
+
 
 class MyAbstractBase(ABC):
     @overload
     @abstractmethod
-    def func4(self, x: int) -> int:
-        ...
-
+    def func4(self, x: int) -> int: ...
 
     @overload
     @abstractmethod
-    def func4(self, x: str) -> str:
-        ...
+    def func4(self, x: str) -> str: ...
 
     # A non-abstract method in an abstract base class still requires an
     # implementation:
@@ -64,10 +59,8 @@ class MyAbstractBase(ABC):
     def not_abstract(self, x: int) -> int:  # E[not_abstract] no implementation
         ...
 
-
     @overload
-    def not_abstract(self, x: str) -> str:
-        ...
+    def not_abstract(self, x: str) -> str: ...
 
 
 # > If one overload signature is decorated with ``@staticmethod`` or
@@ -102,7 +95,6 @@ class C:
         return 1
 
 
-
 # > If a ``@final`` or ``@override`` decorator is supplied for a function with
 # > overloads, the decorator should be applied only to the overload
 # > implementation if it is present. If an overload implementation isn't present
@@ -112,21 +104,17 @@ class C:
 # > ``@override`` decorator follows these rules, a type checker should treat the
 # > decorator as if it is present on all overloads.
 class Base:
-
     # This is a good definition of an overloaded final method (@final decorator
     # on implementation only):
 
     @overload
-    def final_method(self, x: int) -> int:
-        ...
+    def final_method(self, x: int) -> int: ...
 
     @overload
-    def final_method(self, x: str) -> str:
-        ...
+    def final_method(self, x: str) -> str: ...
 
     @final
-    def final_method(self, x: int | str) -> int | str:
-        ...
+    def final_method(self, x: int | str) -> int | str: ...
 
     # The @final decorator should not be on one of the overloads:
 
@@ -139,8 +127,7 @@ class Base:
     def invalid_final(self, x: str) -> str:  # E[invalid_final]
         ...
 
-    def invalid_final(self, x: int | str) -> int | str:
-        ...
+    def invalid_final(self, x: int | str) -> int | str: ...
 
     # The @final decorator should not be on multiple overloads and
     # implementation:
@@ -152,12 +139,11 @@ class Base:
 
     @overload
     @final
-    def invalid_final_2(self, x: str) -> str:
+    def invalid_final_2(self, x: str) -> str:  # E[invalid_final_2]
         ...
 
     @final
-    def invalid_final_2(self, x: int | str) -> int | str:
-        ...
+    def invalid_final_2(self, x: int | str) -> int | str: ...
 
     # These methods are just here for the @override test below. We use an
     # overload because mypy doesn't like overriding a non-overloaded method
@@ -165,43 +151,36 @@ class Base:
     # specification question, but it's not what we're trying to test here:
 
     @overload
-    def good_override(self, x: int) -> int:
-        ...
+    def good_override(self, x: int) -> int: ...
 
     @overload
-    def good_override(self, x: str) -> str:
-        ...
+    def good_override(self, x: str) -> str: ...
 
-    def good_override(self, x: int | str) -> int | str:
-        ...
+    def good_override(self, x: int | str) -> int | str: ...
 
     @overload
-    def to_override(self, x: int) -> int:
-        ...
+    def to_override(self, x: int) -> int: ...
 
     @overload
-    def to_override(self, x: str) -> str:
-        ...
+    def to_override(self, x: str) -> str: ...
 
-    def to_override(self, x: int | str) -> int | str:
-        ...
+    def to_override(self, x: int | str) -> int | str: ...
 
 
 class Child(Base):  # E[override-final]
-
     # The correctly-decorated @final method `Base.final_method` should cause an
     # error if overridden in a child class (we use an overload here to avoid
     # questions of override LSP compatibility and focus only on the override):
 
-    @overload # E[override-final]
-    def final_method(self, x: int) -> int:
-        ...
+    @overload  # E[override-final]
+    def final_method(self, x: int) -> int: ...
 
     @overload
-    def final_method(self, x: str) -> str:
-        ...
+    def final_method(self, x: str) -> str: ...
 
-    def final_method(self, x: int | str) -> int | str:  # E[override-final] can't override final method
+    def final_method(  # E[override-final] can't override final method
+        self, x: int | str
+    ) -> int | str:  # E[override-final] can't override final method
         ...
 
     # This is the right way to mark an overload as @override (decorate
@@ -213,11 +192,10 @@ class Child(Base):  # E[override-final]
         ...
 
     @overload
-    def bad_override(self, x: str) -> str:
-        ...
+    def bad_override(self, x: str) -> str: ...
 
     @override
-    def bad_override(self, x: int | str) -> int | str: # E[bad_override]
+    def bad_override(self, x: int | str) -> int | str:  # E[bad_override]
         ...
 
     # This is also a correctly-decorated overloaded @override, which is
@@ -228,31 +206,24 @@ class Child(Base):  # E[override-final]
     # method that doesn't exist in base:
 
     @overload
-    def good_override(self, x: int) -> int:
-        ...
+    def good_override(self, x: int) -> int: ...
 
     @overload
-    def good_override(self, x: str) -> str:
-        ...
+    def good_override(self, x: str) -> str: ...
 
     @override
-    def good_override(self, x: int | str) -> int | str:
-        ...
+    def good_override(self, x: int | str) -> int | str: ...
 
     # This is the wrong way to use @override with an overloaded method, and
     # should emit an error:
 
-    @overload  # E: @override should appear only on implementation
+    @overload  # E[override_impl]: @override should appear only on implementation
     @override
-    def to_override(self, x: int) -> int:
-        ...
+    def to_override(self, x: int) -> int: ...  # E[override_impl]
 
     @overload
     @override
-    def to_override(self, x: str) -> str:
-        ...
+    def to_override(self, x: str) -> str: ...  # E[override_impl]
 
     @override
-    def to_override(self, x: int | str) -> int | str:
-        ...
-
+    def to_override(self, x: int | str) -> int | str: ...

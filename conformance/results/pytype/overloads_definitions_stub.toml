@@ -4,14 +4,14 @@ Does not enforce any of the specified rules regarding overload definitions.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 168: Expected 1 errors
 Lines 13, 14: Expected error (tag 'func1')
-Lines 37, 38, 43: Expected error (tag 'func5')
-Lines 46, 48, 52: Expected error (tag 'func6')
-Lines 80, 82, 85, 87: Expected error (tag 'invalid_final')
-Lines 96, 98, 101: Expected error (tag 'invalid_final_2')
-Lines 122, 128, 129, 133: Expected error (tag 'override-final')
-Lines 140, 142: Expected error (tag 'bad_override')
+Lines 32, 33, 37: Expected error (tag 'func5')
+Lines 39, 41, 44: Expected error (tag 'func6')
+Lines 67, 69, 71, 73: Expected error (tag 'invalid_final')
+Lines 80, 82, 84, 86: Expected error (tag 'invalid_final_2')
+Lines 102, 107, 108, 111, 113: Expected error (tag 'override-final')
+Lines 120, 122: Expected error (tag 'bad_override')
+Lines 143, 147, 149: Expected error (tag 'override_impl')
 """
 output = """
 """
