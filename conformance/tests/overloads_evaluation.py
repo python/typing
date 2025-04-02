@@ -291,19 +291,28 @@ def example6(a: float, b: T) -> T: ...
 def example6(a: float, b: T) -> T: ...
 
 
-def check_example6(a: list, b: Any) -> None:
+def check_example6(a: list[Any], b: Any, c: str) -> None:
     m: list[int] = []
 
+    # All possible materializations of list[Any] are
+    # assignable to Any, so this matches the first overload
+    # and eliminates all subsequent overloads.
     v1 = example6(1, a)
     assert_type(v1, float)
 
+    # All possible materializations of Any are
+    # assignable to Any, so this matches the first overload
+    # and eliminates all subsequent overloads.
     v2 = example6(1, b)
     assert_type(v2, float)
 
+    # All possible materializations of list[int] are
+    # assignable to Any, so this matches the first overload
+    # and eliminates all subsequent overloads.
     v3 = example6(1, m)
     assert_type(v3, float)
 
-    v4 = example6(1.0, "")
+    v4 = example6(1.0, c)
     assert_type(v4, str)
 
     v5 = example6(1.0, b)

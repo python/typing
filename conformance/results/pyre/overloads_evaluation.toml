@@ -22,8 +22,7 @@ Line 205: Unexpected errors ['overloads_evaluation.py:205:4 Assert type [70]: Ex
 Line 234: Unexpected errors ['overloads_evaluation.py:234:4 Assert type [70]: Expected `int` but got `str`.']
 Line 264: Unexpected errors ['overloads_evaluation.py:264:4 Assert type [70]: Expected `typing.Any` but got `List[int]`.']
 Line 280: Unexpected errors ['overloads_evaluation.py:280:4 Assert type [70]: Expected `typing.Any` but got `List[int]`.']
-Line 307: Unexpected errors ["overloads_evaluation.py:307:4 Assert type [70]: Expected `str` but got `typing_extensions.Literal['']`."]
-Line 336: Unexpected errors ['overloads_evaluation.py:336:4 Assert type [70]: Expected `typing.Any` but got `List[int]`.']
+Line 345: Unexpected errors ['overloads_evaluation.py:345:4 Assert type [70]: Expected `typing.Any` but got `List[int]`.']
 """
 output = """
 overloads_evaluation.py:38:0 Missing argument [20]: Call `example1_1` expects argument `x`.
@@ -44,6 +43,5 @@ overloads_evaluation.py:205:4 Assert type [70]: Expected `Union[int, str]` but g
 overloads_evaluation.py:234:4 Assert type [70]: Expected `int` but got `str`.
 overloads_evaluation.py:264:4 Assert type [70]: Expected `typing.Any` but got `List[int]`.
 overloads_evaluation.py:280:4 Assert type [70]: Expected `typing.Any` but got `List[int]`.
-overloads_evaluation.py:307:4 Assert type [70]: Expected `str` but got `typing_extensions.Literal['']`.
-overloads_evaluation.py:336:4 Assert type [70]: Expected `typing.Any` but got `List[int]`.
+overloads_evaluation.py:345:4 Assert type [70]: Expected `typing.Any` but got `List[int]`.
 """

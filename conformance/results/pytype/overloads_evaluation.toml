@@ -26,7 +26,7 @@ Line 234: Unexpected errors ['overloads_evaluation.py:234:5: \\x1b[1m\\x1b[31mer
 Line 264: Unexpected errors ['overloads_evaluation.py:264:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_example4: list[int] [assert-type]']
 Line 280: Unexpected errors ['overloads_evaluation.py:280:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_example5: list[int] [assert-type]']
 Line 291: Unexpected errors ['overloads_evaluation.py:291:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in example6: bad return type [bad-return-type]', 'overloads_evaluation.py:291:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in example6: bad return type [bad-return-type]', 'overloads_evaluation.py:291:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in example6: bad return type [bad-return-type]']
-Line 336: Unexpected errors ['overloads_evaluation.py:336:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_example7: list[int] [assert-type]']
+Line 345: Unexpected errors ['overloads_evaluation.py:345:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in check_example7: list[int] [assert-type]']
 """
 output = """
 overloads_evaluation.py:33:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in example1_1: bad return type [bad-return-type]
@@ -152,20 +152,20 @@ def example6(a: float, b: T) -> T: ...
 \u001b[1m\u001b[31m\u001b[39m\u001b[0m
 
 Called from (traceback):
-  line 312, in check_example6
+  line 321, in check_example6
 overloads_evaluation.py:291:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in example6: bad return type [bad-return-type]
 
 def example6(a: float, b: T) -> T: ...
 \u001b[1m\u001b[31m\u001b[39m\u001b[0m
 
 Called from (traceback):
-  line 306, in check_example6
+  line 315, in check_example6
 overloads_evaluation.py:291:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in example6: bad return type [bad-return-type]
 
 def example6(a: float, b: T) -> T: ...
 \u001b[1m\u001b[31m\u001b[39m\u001b[0m
 
-overloads_evaluation.py:336:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in check_example7: list[int] [assert-type]
+overloads_evaluation.py:345:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in check_example7: list[int] [assert-type]
 
     assert_type(ret3, Any)
     \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m

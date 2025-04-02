@@ -4,7 +4,7 @@ Does not expand boolean arguments to Literal[True] and Literal[False].
 Does not expand enum arguments to literal variants.
 Does not expand tuple arguments to possible combinations.
 Does not evaluate Any in some cases where overload is ambiguous.
-Evaluates Any is some cases where overload is not ambiguous.
+Evaluates Any in some cases where overload is not ambiguous.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -16,8 +16,8 @@ Line 204: Unexpected errors ['overloads_evaluation.py:204: error: Argument 1 to 
 Line 205: Unexpected errors ['overloads_evaluation.py:205: error: Expression is of type "int", not "int | str"  [assert-type]']
 Line 264: Unexpected errors ['overloads_evaluation.py:264: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
 Line 280: Unexpected errors ['overloads_evaluation.py:280: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
-Line 298: Unexpected errors ['overloads_evaluation.py:298: error: Expression is of type "Any", not "float"  [assert-type]']
-Line 336: Unexpected errors ['overloads_evaluation.py:336: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
+Line 301: Unexpected errors ['overloads_evaluation.py:301: error: Expression is of type "Any", not "float"  [assert-type]']
+Line 345: Unexpected errors ['overloads_evaluation.py:345: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
 """
 output = """
 overloads_evaluation.py:38: error: All overload variants of "example1_1" require at least one argument  [call-overload]
@@ -48,6 +48,6 @@ overloads_evaluation.py:204: error: Argument 1 to "expand_tuple" has incompatibl
 overloads_evaluation.py:205: error: Expression is of type "int", not "int | str"  [assert-type]
 overloads_evaluation.py:264: error: Expression is of type "list[Any]", not "Any"  [assert-type]
 overloads_evaluation.py:280: error: Expression is of type "list[Any]", not "Any"  [assert-type]
-overloads_evaluation.py:298: error: Expression is of type "Any", not "float"  [assert-type]
-overloads_evaluation.py:336: error: Expression is of type "list[Any]", not "Any"  [assert-type]
+overloads_evaluation.py:301: error: Expression is of type "Any", not "float"  [assert-type]
+overloads_evaluation.py:345: error: Expression is of type "list[Any]", not "Any"  [assert-type]
 """
