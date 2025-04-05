@@ -110,35 +110,35 @@ generics_defaults_referential.py:60:16: \u001b[1m\u001b[31merror\u001b[39m\u001b
     class Bar2(Generic[S2]): ...  # E
                \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults_referential.py:66:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+generics_defaults_referential.py:66:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
-TypeVar("Ok1", default=X1, bound=float)  # OK
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+Ok1 = TypeVar("Ok1", default=X1, bound=float)  # OK
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults_referential.py:67:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+generics_defaults_referential.py:67:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
-TypeVar("AlsoOk1", default=X1, bound=int)  # OK
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+AlsoOk1 = TypeVar("AlsoOk1", default=X1, bound=int)  # OK
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults_referential.py:68:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+generics_defaults_referential.py:68:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
-TypeVar("Invalid1", default=X1, bound=str)  # E: int is not a subtype of str
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+Invalid1 = TypeVar("Invalid1", default=X1, bound=str)  # E: int is not a subtype of str
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults_referential.py:74:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+generics_defaults_referential.py:74:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
-TypeVar("Invalid2", float, str, default=Y1)  # E: upper bound int is incompatible with constraints float or str
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+Invalid2 = TypeVar("Invalid2", float, str, default=Y1)  # E: upper bound int is incompatible with constraints float or str
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults_referential.py:77:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+generics_defaults_referential.py:77:11: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
-TypeVar("AlsoOk2", int, str, bool, default=Y2)  # OK
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+AlsoOk2 = TypeVar("AlsoOk2", int, str, bool, default=Y2)  # OK
+          \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults_referential.py:78:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+generics_defaults_referential.py:78:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
-TypeVar("AlsoInvalid2", bool, complex, default=Y2)  # E: {bool, complex} is not a superset of {int, str}
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+AlsoInvalid2 = TypeVar("AlsoInvalid2", bool, complex, default=Y2)  # E: {bool, complex} is not a superset of {int, str}
+               \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 generics_defaults_referential.py:87:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
@@ -204,9 +204,9 @@ Line 43: Unexpected errors ['generics_defaults_referential.py:43:6: \\x1b[1m\\x1
 Line 46: Unexpected errors ["generics_defaults_referential.py:46:12: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]"]
 Line 49: Unexpected errors ['generics_defaults_referential.py:49:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
 Line 50: Unexpected errors ['generics_defaults_referential.py:50:10: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
-Line 66: Unexpected errors ['generics_defaults_referential.py:66:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
-Line 67: Unexpected errors ['generics_defaults_referential.py:67:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
-Line 77: Unexpected errors ['generics_defaults_referential.py:77:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
+Line 66: Unexpected errors ['generics_defaults_referential.py:66:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
+Line 67: Unexpected errors ['generics_defaults_referential.py:67:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
+Line 77: Unexpected errors ['generics_defaults_referential.py:77:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
 Line 87: Unexpected errors ['generics_defaults_referential.py:87:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
 Line 90: Unexpected errors ["generics_defaults_referential.py:90:11: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Generic'  [invalid-annotation]"]
 Line 94: Unexpected errors ["generics_defaults_referential.py:94:23: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Invalid type annotation 'Bar[Any, list]'  [invalid-annotation]"]
