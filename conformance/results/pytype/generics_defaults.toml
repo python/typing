@@ -185,25 +185,25 @@ generics_defaults.py:96:46: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <mod
 assert_type(Class_TypeVarTuple[int, bool](), Class_TypeVarTuple[int, bool])
                                              \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults.py:103:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+generics_defaults.py:103:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
-TypeVar("Ok", bound=float, default=int)  # OK
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+Ok1 = TypeVar("Ok1", bound=float, default=int)  # OK
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults.py:104:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+generics_defaults.py:104:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
-TypeVar("Invalid", bound=str, default=int)  # E: the bound and default are incompatible
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+Invalid1 = TypeVar("Invalid1", bound=str, default=int)  # E: the bound and default are incompatible
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults.py:110:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+generics_defaults.py:110:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
-TypeVar("Ok", float, str, default=float)  # OK
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+Ok2 = TypeVar("Ok2", float, str, default=float)  # OK
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-generics_defaults.py:111:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
+generics_defaults.py:111:12: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
-TypeVar("Invalid", float, str, default=int)  # E: expected one of float or str got int
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+Invalid2 = TypeVar("Invalid2", float, str, default=int)  # E: expected one of float or str got int
+           \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 generics_defaults.py:121:6: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: wrong arguments [invalid-typevar]
 
@@ -314,8 +314,8 @@ Line 91: Unexpected errors ["generics_defaults.py:91:26: \\x1b[1m\\x1b[31merror\
 Line 94: Unexpected errors ['generics_defaults.py:94:38: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Class_TypeVarTuple is not indexable [not-indexable]']
 Line 95: Unexpected errors ['generics_defaults.py:95:35: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Class_TypeVarTuple is not indexable [not-indexable]']
 Line 96: Unexpected errors ['generics_defaults.py:96:13: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Class_TypeVarTuple is not indexable [not-indexable]', 'generics_defaults.py:96:46: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: class Class_TypeVarTuple is not indexable [not-indexable]']
-Line 103: Unexpected errors ['generics_defaults.py:103:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
-Line 110: Unexpected errors ['generics_defaults.py:110:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
+Line 103: Unexpected errors ['generics_defaults.py:103:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
+Line 110: Unexpected errors ['generics_defaults.py:110:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
 Line 121: Unexpected errors ['generics_defaults.py:121:6: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']
 Line 127: Unexpected errors ['generics_defaults.py:127:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Any [assert-type]']
 Line 135: Unexpected errors ['generics_defaults.py:135:6: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: wrong arguments [invalid-typevar]']

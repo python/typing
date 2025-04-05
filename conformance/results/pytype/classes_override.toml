@@ -20,8 +20,8 @@ classes_override.py:50:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in metho
 
 classes_override.py:53:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in ChildA: Attribute 'method3' not found on any parent class [override-error]
 
-    def method3(self) -> int:  # E: no matching signature in ancestor
-    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def method3(self) -> int:  # E[method3]: no matching signature in ancestor
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
         return 1
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
@@ -47,10 +47,10 @@ classes_override.py:101:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in Child
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 79: Expected 1 errors
-Line 84: Expected 1 errors
-Line 89: Expected 1 errors
-Lines 56, 65: Expected error (tag 'method4')
+Lines 56, 64, 65: Expected error (tag 'method4')
+Lines 78, 79: Expected error (tag 'static_method1')
+Lines 83, 84: Expected error (tag 'class_method1')
+Lines 88, 89: Expected error (tag 'property1')
 Line 7: Unexpected errors ['classes_override.py:7:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.override not supported yet [not-supported-yet]']
 Line 30: Unexpected errors ['classes_override.py:30:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method2: bad return type [bad-return-type]']
 Line 50: Unexpected errors ['classes_override.py:50:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in method2: bad return type [bad-return-type]']
