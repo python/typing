@@ -353,15 +353,15 @@ Discussion:
           x: int
           y: str
 
-       def f(a: A) -> None:
-           a['y'] = 1
+      def f(a: A) -> None:
+          a['y'] = 1
 
-       def g(b: B) -> None:
-           f(b)  # Type check error: 'B' not assignable to 'A'
+      def g(b: B) -> None:
+          f(b)  # Type check error: 'B' not assignable to 'A'
 
-       c: C = {'x': 0, 'y': 'foo'}
-       g(c)
-       c['y'] + 'bar'  # Runtime error: int + str
+      c: C = {'x': 0, 'y': 'foo'}
+      g(c)
+      c['y'] + 'bar'  # Runtime error: int + str
 
 * A TypedDict isn't :term:`assignable` to any ``Dict[...]`` type, since
   dictionary types allow destructive operations, including ``clear()``.  They
