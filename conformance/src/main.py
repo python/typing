@@ -67,7 +67,7 @@ def get_expected_errors(test_case: Path) -> tuple[
             {"final": [3, 4]}
         )
     """
-    with open(test_case, "r") as f:
+    with open(test_case, "r", encoding="utf-8") as f:
         lines = f.readlines()
     output: dict[int, tuple[int, int]] = {}
     groups: dict[str, list[int]] = {}

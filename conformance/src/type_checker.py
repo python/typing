@@ -325,7 +325,7 @@ class PytypeTypeChecker(TypeChecker):
             if not fi.endswith(".py"):
                 continue
             options.tweak(input=fi)
-            with open(fi, "r") as test_file:
+            with open(fi, "r", encoding="utf-8") as test_file:
                 src = test_file.read()
             try:
                 analysis: pytype_analyze.Analysis = pytype_io.check_py(
