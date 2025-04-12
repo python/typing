@@ -114,7 +114,7 @@ class MypyTypeChecker(TypeChecker):
             "--enable-error-code",
             "deprecated",
         ]
-        proc = run(command, stdout=PIPE, text=True)
+        proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
         lines = proc.stdout.split("\n")
 
         # Add results to a dictionary keyed by the file name.
@@ -174,7 +174,7 @@ class PyrightTypeChecker(TypeChecker):
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         command = [sys.executable, "-m", "pyright", ".", "--outputjson"]
-        proc = run(command, stdout=PIPE, text=True)
+        proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
         output_json = json.loads(proc.stdout)
         diagnostics = output_json["generalDiagnostics"]
 
@@ -253,7 +253,7 @@ class PyreTypeChecker(TypeChecker):
         return version
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        proc = run(["pyre", "check"], stdout=PIPE, text=True)
+        proc = run(["pyre", "check"], stdout=PIPE, text=True, encoding="utf-8")
         lines = proc.stdout.split("\n")
 
         # Add results to a dictionary keyed by the file name.
