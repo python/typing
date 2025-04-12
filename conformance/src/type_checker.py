@@ -3,7 +3,6 @@ Classes that abstract differences between type checkers.
 """
 
 from abc import ABC, abstractmethod
-from curses.ascii import isspace
 import json
 from pathlib import Path
 import os
