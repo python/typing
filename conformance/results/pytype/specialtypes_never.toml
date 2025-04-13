@@ -8,11 +8,10 @@ specialtypes_never.py:11:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <mod
 T_co = TypeVar("T_co", covariant=True)
        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-specialtypes_never.py:21:8: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: bad return type [bad-return-type]
+specialtypes_never.py:21:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: bad return type [bad-return-type]
 
-        sys.exit(1)       \u001b[1m\u001b[31m~~~~~~~~~~~\u001b[39m\u001b[0m
         sys.exit(1)
-\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 specialtypes_never.py:68:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func6: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]
 
@@ -40,7 +39,7 @@ errors_diff = """
 Line 19: Expected 1 errors
 Line 105: Expected 1 errors
 Line 11: Unexpected errors ['specialtypes_never.py:11:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: argument "covariant" to TypeVar not supported yet [not-supported-yet]']
-Line 21: Unexpected errors ['specialtypes_never.py:21:8: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: bad return type [bad-return-type]']
+Line 21: Unexpected errors ['specialtypes_never.py:21:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: bad return type [bad-return-type]']
 Line 68: Unexpected errors ['specialtypes_never.py:68:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func6: Type annotation for v1 does not match type of assignment [annotation-type-mismatch]']
 Line 69: Unexpected errors ['specialtypes_never.py:69:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func6: Type annotation for v2 does not match type of assignment [annotation-type-mismatch]']
 Line 70: Unexpected errors ['specialtypes_never.py:70:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func6: Type annotation for v3 does not match type of assignment [annotation-type-mismatch]']
