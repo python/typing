@@ -32,9 +32,20 @@ movie = {"name": "Blade Runner", "year": 1982.1}  # E: year is wrong type
 movie = {"name": "", "year": 1900, "other": 2}  # E: extra key
 
 
-def func1(variable_key: str):
+def func1(variable_key: str, existing_movie: Movie):
     # > A key that is not a literal should generally be rejected.
     movie: Movie = {variable_key: "", "year": 1900}  # E: variable key
+
+    # Destructive operations.
+    existing_movie[variable_key] = 1982  # E: variable key
+    del existing_movie[variable_key]  # E
+
+    # Read-only operations.
+    reveal_type(existing_movie[variable_key])  # E
+
+    # Exceptions.
+    reveal_type(variable_key in existing_movie)  # `bool`
+    assert_type(existing_movie.get(variable_key), object | None)
 
 
 # It's not clear from the spec what type this should be.
@@ -64,3 +75,19 @@ movie_optional.clear()  # E: clear not allowed
 movie_optional.popitem()  # E: popitem not allowed
 
 del movie_optional["name"]
+
+
+def func2(variable_key: str, existing_optional_movie: MovieOptional):
+    # > A key that is not a literal should generally be rejected.
+    movie_optional: MovieOptional = {variable_key: "", "year": 1900}  # E: variable key
+
+    # Destructive operations.
+    existing_optional_movie[variable_key] = 1982  # E: variable key
+    del existing_optional_movie[variable_key]  # E: variable key
+
+    # Read-only operations.
+    reveal_type(existing_optional_movie[variable_key])  # E
+
+    # Exceptions.
+    reveal_type(variable_key in existing_optional_movie)  # `bool`
+    assert_type(existing_optional_movie.get(variable_key), object | None)
