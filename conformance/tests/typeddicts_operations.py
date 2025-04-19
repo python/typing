@@ -69,7 +69,13 @@ class MovieOptional(TypedDict, total=False):
 
 movie_optional: MovieOptional = {}
 
+# > Type checkers may allow reading an item using d['x']
+# even if the key 'x' is not required.
+movie_optional["name"]  # E?
 assert_type(movie_optional.get("name"), str | None)
+
+# > Type checkers may allow 'x' in d even if the key 'x' is not required.
+reveal_type("name" in movie_optional)  # E?
 
 movie_optional.clear()  # E: clear not allowed
 movie_optional.popitem()  # E: popitem not allowed
