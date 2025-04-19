@@ -26,10 +26,90 @@ typeddicts_operations.py:37:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in f
     movie: Movie = {variable_key: "", "year": 1900}  # E: variable key
     \u001b[1m\u001b[31m~~~~~\u001b[39m\u001b[0m
 
-typeddicts_operations.py:60:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: str [assert-type]
+typeddicts_operations.py:40:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: TypedDict Movie requires all keys to be constant strings [typed-dict-error]
+
+    existing_movie[variable_key] = 1982  # E: variable key
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:41:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: TypedDict Movie requires all keys to be constant strings [typed-dict-error]
+
+    del existing_movie[variable_key]  # E
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:44:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: TypedDict Movie requires all keys to be constant strings [typed-dict-error]
+
+    reveal_type(existing_movie[variable_key])  # E
+                \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:44:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: Any [reveal-type]
+
+    reveal_type(existing_movie[variable_key])  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:47:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: bool [reveal-type]
+
+    reveal_type(variable_key in existing_movie)  # `bool`
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:48:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func1: None [assert-type]
+
+    assert_type(existing_movie.get(variable_key), object | None)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:58:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: bool [reveal-type]
+
+reveal_type("other" in movie)  # E?
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:77:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: str [assert-type]
 
 assert_type(movie_optional.get("name"), str | None)
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:80:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: None [reveal-type]
+
+reveal_type(movie_optional.get("other"))  # E?
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:83:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: bool [reveal-type]
+
+reveal_type("name" in movie_optional)  # E?
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:86:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: bool [reveal-type]
+
+reveal_type("other" in movie_optional)  # E?
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:99:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: TypedDict MovieOptional requires all keys to be constant strings [typed-dict-error]
+
+    existing_optional_movie[variable_key] = 1982  # E: variable key
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:100:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: TypedDict MovieOptional requires all keys to be constant strings [typed-dict-error]
+
+    del existing_optional_movie[variable_key]  # E: variable key
+        \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:103:17: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: TypedDict MovieOptional requires all keys to be constant strings [typed-dict-error]
+
+    reveal_type(existing_optional_movie[variable_key])  # E
+                \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:103:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: Any [reveal-type]
+
+    reveal_type(existing_optional_movie[variable_key])  # E
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:106:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: bool [reveal-type]
+
+    reveal_type(variable_key in existing_optional_movie)  # `bool`
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+typeddicts_operations.py:107:5: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func2: None [assert-type]
+
+    assert_type(existing_optional_movie.get(variable_key), object | None)
+    \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 """
 conformance_automated = "Fail"
@@ -38,8 +118,15 @@ Line 22: Expected 1 errors
 Line 23: Expected 1 errors
 Line 24: Expected 1 errors
 Line 26: Expected 1 errors
-Line 47: Expected 1 errors
-Line 49: Expected 1 errors
-Line 62: Expected 1 errors
-Line 60: Unexpected errors ['typeddicts_operations.py:60:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: str [assert-type]']
+Line 60: Expected 1 errors
+Line 61: Expected 1 errors
+Line 63: Expected 1 errors
+Line 88: Expected 1 errors
+Line 89: Expected 1 errors
+Line 96: Expected 1 errors
+Line 47: Unexpected errors ['typeddicts_operations.py:47:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: bool [reveal-type]']
+Line 48: Unexpected errors ['typeddicts_operations.py:48:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func1: None [assert-type]']
+Line 77: Unexpected errors ['typeddicts_operations.py:77:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: str [assert-type]']
+Line 106: Unexpected errors ['typeddicts_operations.py:106:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func2: bool [reveal-type]']
+Line 107: Unexpected errors ['typeddicts_operations.py:107:5: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func2: None [assert-type]']
 """
