@@ -12,8 +12,12 @@ namedtuples_define_functional.py:42:17 Incompatible parameter type [6]: In call 
 namedtuples_define_functional.py:43:14 Incompatible parameter type [6]: In call `Point6.__init__`, for argument `x`, expected `int` but got `float`.
 namedtuples_define_functional.py:52:0 Duplicate parameter [65]: Duplicate parameter name `a`.
 namedtuples_define_functional.py:52:0 Duplicate parameter [65]: Duplicate parameter name `a`.
-namedtuples_define_functional.py:66:0 Missing argument [20]: Call `NT5.__init__` expects argument `a`.
+namedtuples_define_functional.py:58:0 Unexpected keyword [28]: Unexpected keyword argument `abc` to call `NT5.__init__`.
+namedtuples_define_functional.py:60:0 Unexpected keyword [28]: Unexpected keyword argument `_1` to call `NT6.__init__`.
+namedtuples_define_functional.py:69:0 Missing argument [20]: Call `NT5.__init__` expects argument `a`.
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 58: Unexpected errors ['namedtuples_define_functional.py:58:0 Unexpected keyword [28]: Unexpected keyword argument `abc` to call `NT5.__init__`.']
+Line 60: Unexpected errors ['namedtuples_define_functional.py:60:0 Unexpected keyword [28]: Unexpected keyword argument `_1` to call `NT6.__init__`.']
 """

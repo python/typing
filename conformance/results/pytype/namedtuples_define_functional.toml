@@ -59,7 +59,12 @@ namedtuples_define_functional.py:54:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[
 NT3 = namedtuple("NT3", ["abc", "def"], rename=False)  # E?: illegal field name
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
-namedtuples_define_functional.py:63:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function collections.namedtuple was called with the wrong arguments [wrong-arg-types]
+namedtuples_define_functional.py:55:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: collections.namedtuple argument '_d' is not a valid typename or field name. [invalid-namedtuple-arg]
+
+NT4 = namedtuple("NT4", ["abc", "_d"], rename=False)  # E?: illegal field name
+      \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+
+namedtuples_define_functional.py:66:7: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Function collections.namedtuple was called with the wrong arguments [wrong-arg-types]
 
 NT5 = namedtuple("NT5", "a b c", defaults=(1, 2))
       \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
@@ -67,6 +72,6 @@ NT5 = namedtuple("NT5", "a b c", defaults=(1, 2))
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 66: Expected 1 errors
-Line 63: Unexpected errors ['namedtuples_define_functional.py:63:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function collections.namedtuple was called with the wrong arguments [wrong-arg-types]']
+Line 69: Expected 1 errors
+Line 66: Unexpected errors ['namedtuples_define_functional.py:66:7: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: Function collections.namedtuple was called with the wrong arguments [wrong-arg-types]']
 """
