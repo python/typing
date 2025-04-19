@@ -15,8 +15,13 @@ namedtuples_define_functional.py:43:17 - error: Argument of type "float" cannot 
 namedtuples_define_functional.py:52:31 - error: Names within a named tuple must be unique (reportGeneralTypeIssues)
 namedtuples_define_functional.py:53:33 - error: Field names cannot be a keyword (reportGeneralTypeIssues)
 namedtuples_define_functional.py:54:33 - error: Field names cannot be a keyword (reportGeneralTypeIssues)
-namedtuples_define_functional.py:66:1 - error: Argument missing for parameter "a" (reportCallIssue)
+namedtuples_define_functional.py:55:33 - error: Named tuple field names cannot start with an underscore (reportGeneralTypeIssues)
+namedtuples_define_functional.py:59:33 - error: Named tuple field names cannot start with an underscore (reportGeneralTypeIssues)
+namedtuples_define_functional.py:60:13 - error: No parameter named "_1" (reportCallIssue)
+namedtuples_define_functional.py:69:1 - error: Argument missing for parameter "a" (reportCallIssue)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 59: Unexpected errors ['namedtuples_define_functional.py:59:33 - error: Named tuple field names cannot start with an underscore (reportGeneralTypeIssues)']
+Line 60: Unexpected errors ['namedtuples_define_functional.py:60:13 - error: No parameter named "_1" (reportCallIssue)']
 """

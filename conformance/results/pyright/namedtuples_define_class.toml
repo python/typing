@@ -10,11 +10,13 @@ namedtuples_define_class.py:47:24 - error: Argument of type "Literal[3]" cannot 
   "Literal[3]" is not assignable to "str" (reportArgumentType)
 namedtuples_define_class.py:48:22 - error: Expected 3 positional arguments (reportCallIssue)
 namedtuples_define_class.py:49:23 - error: No parameter named "other" (reportCallIssue)
-namedtuples_define_class.py:59:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
-namedtuples_define_class.py:79:5 - error: Cannot override "x" because parent class "Point" is a named tuple (reportIncompatibleVariableOverride)
-namedtuples_define_class.py:98:19 - error: Argument of type "float" cannot be assigned to parameter "value" of type "str" in function "__new__"
+namedtuples_define_class.py:69:20 - error: Expected 2 positional arguments (reportCallIssue)
+namedtuples_define_class.py:76:5 - error: Named tuple field names cannot start with an underscore (reportGeneralTypeIssues)
+namedtuples_define_class.py:86:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
+namedtuples_define_class.py:106:5 - error: Cannot override "x" because parent class "Point" is a named tuple (reportIncompatibleVariableOverride)
+namedtuples_define_class.py:125:19 - error: Argument of type "float" cannot be assigned to parameter "value" of type "str" in function "__new__"
   "float" is not assignable to "str" (reportArgumentType)
-namedtuples_define_class.py:105:7 - error: Multiple inheritance with NamedTuple is not supported (reportGeneralTypeIssues)
+namedtuples_define_class.py:132:7 - error: Multiple inheritance with NamedTuple is not supported (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """

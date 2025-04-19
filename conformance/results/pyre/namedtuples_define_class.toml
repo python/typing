@@ -16,11 +16,15 @@ namedtuples_define_class.py:46:14 Incompatible parameter type [6]: In call `Poin
 namedtuples_define_class.py:47:17 Incompatible parameter type [6]: In call `Point.__init__`, for argument `units`, expected `str` but got `int`.
 namedtuples_define_class.py:48:5 Too many arguments [19]: Call `Point.__init__` expects 3 positional arguments, 4 were provided.
 namedtuples_define_class.py:49:6 Unexpected keyword [28]: Unexpected keyword argument `other` to call `Point.__init__`.
-namedtuples_define_class.py:59:4 Missing named tuple default [74]: Named tuple field without default value may not be preceded by a field with default value.
-namedtuples_define_class.py:79:4 Invalid assignment [41]: Cannot reassign final attribute `x`.
-namedtuples_define_class.py:98:18 Incompatible parameter type [6]: In call `Property.__init__`, for 2nd positional argument, expected `str` but got `float`.
-namedtuples_define_class.py:105:23 Invalid inheritance [39]: If NamedTuple is included as a base class, the class may not extend anything else besides Generic.
+namedtuples_define_class.py:67:0 Unable to unpack [23]: Unable to unpack 3 values, 2 were expected.
+namedtuples_define_class.py:86:4 Missing named tuple default [74]: Named tuple field without default value may not be preceded by a field with default value.
+namedtuples_define_class.py:106:4 Invalid assignment [41]: Cannot reassign final attribute `x`.
+namedtuples_define_class.py:125:18 Incompatible parameter type [6]: In call `Property.__init__`, for 2nd positional argument, expected `str` but got `float`.
+namedtuples_define_class.py:132:23 Invalid inheritance [39]: If NamedTuple is included as a base class, the class may not extend anything else besides Generic.
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 69: Expected 1 errors
+Line 76: Expected 1 errors
+Line 67: Unexpected errors ['namedtuples_define_class.py:67:0 Unable to unpack [23]: Unable to unpack 3 values, 2 were expected.']
 """

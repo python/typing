@@ -11,8 +11,15 @@ namedtuples_define_functional.py:43: error: Argument "x" to "Point6" has incompa
 namedtuples_define_functional.py:52: error: "namedtuple()" has duplicate field name "a"  [misc]
 namedtuples_define_functional.py:53: error: "namedtuple()" field name "def" is a keyword  [misc]
 namedtuples_define_functional.py:54: error: "namedtuple()" field name "def" is a keyword  [misc]
-namedtuples_define_functional.py:66: error: Missing positional argument "a" in call to "NT5"  [call-arg]
+namedtuples_define_functional.py:55: error: "namedtuple()" field name "_d" starts with an underscore  [misc]
+namedtuples_define_functional.py:66: error: Name "NT5" already defined on line 57  [no-redef]
+namedtuples_define_functional.py:67: error: Missing positional argument "_1" in call to "NT5"  [call-arg]
+namedtuples_define_functional.py:68: error: Too many arguments for "NT5"  [call-arg]
+namedtuples_define_functional.py:69: error: Missing positional arguments "abc", "_1" in call to "NT5"  [call-arg]
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 66: Unexpected errors ['namedtuples_define_functional.py:66: error: Name "NT5" already defined on line 57  [no-redef]']
+Line 67: Unexpected errors ['namedtuples_define_functional.py:67: error: Missing positional argument "_1" in call to "NT5"  [call-arg]']
+Line 68: Unexpected errors ['namedtuples_define_functional.py:68: error: Too many arguments for "NT5"  [call-arg]']
 """
