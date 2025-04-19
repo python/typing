@@ -54,6 +54,8 @@ movie.get("name")
 # It's not clear from the spec what type this should be.
 movie.get("other")  # E?
 
+# It's not clear from the spec whether it's allowed.
+reveal_type("other" in movie)  # E?
 
 movie.clear()  # E: clear not allowed
 movie.popitem()  # E: popitem not allowed
@@ -74,8 +76,14 @@ movie_optional: MovieOptional = {}
 movie_optional["name"]  # E?
 assert_type(movie_optional.get("name"), str | None)
 
+# It's not clear from the spec what type this should be.
+reveal_type(movie_optional.get("other"))  # E?
+
 # > Type checkers may allow 'x' in d even if the key 'x' is not required.
 reveal_type("name" in movie_optional)  # E?
+
+# It's not clear from the spec whether it's allowed.
+reveal_type("other" in movie_optional)  # E?
 
 movie_optional.clear()  # E: clear not allowed
 movie_optional.popitem()  # E: popitem not allowed
