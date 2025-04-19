@@ -387,6 +387,6 @@ class PytypeTypeChecker(TypeChecker):
 TYPE_CHECKERS: Sequence[TypeChecker] = (
     MypyTypeChecker(),
     PyrightTypeChecker(),
-    PyreTypeChecker(),
+    *([] if os.name == "nt" else [PyreTypeChecker()]),
     PytypeTypeChecker(),
 )
