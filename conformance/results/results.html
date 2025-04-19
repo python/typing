@@ -159,16 +159,16 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.15.0</div>
-<div class='tc-time'>2.1sec</div>
-</th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.398</div>
 <div class='tc-time'>2.3sec</div>
 </th>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.399</div>
+<div class='tc-time'>1.4sec</div>
+</th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>3.9sec</div>
+<div class='tc-time'>8.2sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pytype 2024.10.11</div>
-<div class='tc-time'>43.3sec</div>
+<div class='tc-time'>35.2sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -445,10 +445,10 @@
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a>
 </th></tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;classes_classvar</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Internal error if TypeVarTuple is used in ClassVar.</p><p>Does not reject use of ParamSpec in ClassVar.</p><p>Rejects ClassVar nested in Annotated.</p><p>Does not reject use of ClassVar in TypeAlias definition.</p><p>Does not infer type of ClassVar from assignment if no type is provided.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Internal error if TypeVarTuple is used in ClassVar.</p><p>Does not reject use of ParamSpec in ClassVar.</p><p>Rejects ClassVar nested in Annotated.</p><p>Does not reject use of ClassVar in TypeAlias definition.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of TypeVar in ClassVar.</p><p>Does not reject use of ParamSpec in ClassVar.</p><p>Does not reject use of ClassVar as a generic type argument.</p><p>Does not reject use of ClassVar in parameter type annotation.</p><p>Does not reject use of ClassVar in local variable annotation.</p><p>Does not reject use of ClassVar in instance variable annotation.</p><p>Does not reject use of ClassVar in return type annotation.</p><p>Does not reject use of ClassVar in type alias definition.</p><p>Does not infer type from initialization for bare ClassVar.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of TypeVar in ClassVar.</p><p>Does not reject use of ParamSpec in ClassVar.</p><p>Does not reject use of ClassVar as a generic type argument.</p><p>Rejects initialization of ClassVar if no type argument is provided.</p><p>Does not reject use of ClassVar in parameter type annotation.</p><p>Does not reject use of ClassVar in local variable annotation.</p><p>Does not reject use of ClassVar in instance variable annotation.</p><p>Does not reject use of ClassVar in return type annotation.</p><p>Does not reject use of ClassVar in type alias definition.</p><p>Does not reject assignment of ClassVar through instance of class.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of TypeVar in ClassVar.</p><p>Does not reject use of ParamSpec in ClassVar.</p><p>Does not reject use of ClassVar as a generic type argument.</p><p>Rejects initialization of ClassVar if no type argument is provided.</p><p>Does not infer ClassVar with no type argument and no assigned value as Any.</p><p>Does not reject use of ClassVar in parameter type annotation.</p><p>Does not reject use of ClassVar in local variable annotation.</p><p>Does not reject use of ClassVar in instance variable annotation.</p><p>Does not reject use of ClassVar in return type annotation.</p><p>Does not reject use of ClassVar in type alias definition.</p><p>Does not reject assignment of ClassVar through instance of class.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;classes_override</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not handle case where parent class derives from Any.</p></span></div></th>
