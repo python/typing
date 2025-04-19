@@ -45,6 +45,7 @@ movie.get("other")  # E?
 
 
 movie.clear()  # E: clear not allowed
+movie.popitem()  # E: popitem not allowed
 
 del movie["name"]  # E: del not allowed for required key
 
@@ -60,5 +61,6 @@ movie_optional: MovieOptional = {}
 assert_type(movie_optional.get("name"), str | None)
 
 movie_optional.clear()  # E: clear not allowed
+movie_optional.popitem()  # E: popitem not allowed
 
 del movie_optional["name"]
