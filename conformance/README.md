@@ -60,7 +60,8 @@ To run the conformance test suite:
 * Switch to the `conformance` subdirectory and install all dependencies (`pip install -r requirements.txt`).
 * Switch to the `src` subdirectory and run `python main.py`.
 
-Note that some type checkers may not run on some platforms. If a type checker fails to install, tests will be skipped for that type checker.
+Note that some type checkers may not run on some platforms. If a type checker fails to install, tests will be skipped for that type checker.  
+Currently, the only unsupported type checker is Pyre on Windows.
 
 ## Reporting Conformance Results
 

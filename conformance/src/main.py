@@ -197,7 +197,7 @@ def update_output_for_test(
                 notes = "\n" + notes
             existing_results["notes"] = tomlkit.string(notes, multiline=True)
         results_file.parent.mkdir(parents=True, exist_ok=True)
-        with open(results_file, "w") as f:
+        with open(results_file, "w", encoding="utf-8") as f:
             tomlkit.dump(existing_results, f)
 
 

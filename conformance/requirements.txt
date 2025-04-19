@@ -4,5 +4,5 @@ tqdm
 pyright
 mypy
 pip
-pyre-check
+pyre-check; platform_system != "Windows"
 pytype
