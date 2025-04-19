@@ -11,11 +11,19 @@ namedtuples_define_class.py:46: error: Argument 2 to "Point" has incompatible ty
 namedtuples_define_class.py:47: error: Argument "units" to "Point" has incompatible type "int"; expected "str"  [arg-type]
 namedtuples_define_class.py:48: error: Too many arguments for "Point"  [call-arg]
 namedtuples_define_class.py:49: error: Unexpected keyword argument "other" for "Point"  [call-arg]
-namedtuples_define_class.py:59: error: Non-default NamedTuple fields cannot follow default fields  [misc]
-namedtuples_define_class.py:98: error: Argument 2 to "Property" has incompatible type "float"; expected "str"  [arg-type]
-namedtuples_define_class.py:105: error: NamedTuple should be a single base  [misc]
+namedtuples_define_class.py:59: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"  [misc]
+namedtuples_define_class.py:65: error: Missing positional argument "units" in call to "Point2"  [call-arg]
+namedtuples_define_class.py:67: error: Too many values to unpack (2 expected, 3 provided)  [misc]
+namedtuples_define_class.py:76: error: NamedTuple field name cannot start with an underscore: _y  [misc]
+namedtuples_define_class.py:86: error: Non-default NamedTuple fields cannot follow default fields  [misc]
+namedtuples_define_class.py:125: error: Argument 2 to "Property" has incompatible type "float"; expected "str"  [arg-type]
+namedtuples_define_class.py:132: error: NamedTuple should be a single base  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 79: Expected 1 errors
+Line 69: Expected 1 errors
+Line 106: Expected 1 errors
+Line 59: Unexpected errors ['namedtuples_define_class.py:59: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"  [misc]']
+Line 65: Unexpected errors ['namedtuples_define_class.py:65: error: Missing positional argument "units" in call to "Point2"  [call-arg]']
+Line 67: Unexpected errors ['namedtuples_define_class.py:67: error: Too many values to unpack (2 expected, 3 provided)  [misc]']
 """

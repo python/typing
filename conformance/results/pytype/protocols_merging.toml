@@ -6,12 +6,12 @@ Does not report attempt to instantiate abstract class downgraded from protocol c
 output = """
 protocols_merging.py:52:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for s6 does not match type of assignment [annotation-type-mismatch]
 
-s6: SizedAndClosable1 = SCConcrete2()  # E: doesn't implement close
+s6: SizedAndClosable1 = SCConcrete2()  # E: doesn't implement `__len__`
 \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
 
 protocols_merging.py:53:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for s7 does not match type of assignment [annotation-type-mismatch]
 
-s7: SizedAndClosable2 = SCConcrete2()  # E: doesn't implement close
+s7: SizedAndClosable2 = SCConcrete2()  # E: doesn't implement `__len__`
 \u001b[1m\u001b[31m~~\u001b[39m\u001b[0m
 
 protocols_merging.py:54:1: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in <module>: Type annotation for s8 does not match type of assignment [annotation-type-mismatch]
