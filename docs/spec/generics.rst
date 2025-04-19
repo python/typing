@@ -1919,8 +1919,8 @@ literal "``...``" or another in-scope ``ParamSpec`` (see `Scoping Rules`_).
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``TypeVarTuple`` defaults are defined using the same syntax as
-``TypeVar`` \ s but use an unpacked tuple of types instead of a single type
-or another in-scope ``TypeVarTuple`` (see `Scoping Rules`_).
+``TypeVar`` \ s, but instead of a single type, they use an unpacked tuple of
+types or an unpacked, in-scope ``TypeVarTuple`` (see `Scoping Rules`_).
 
 ::
 

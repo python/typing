@@ -12,19 +12,19 @@ generics_defaults.py:55: error: Expression is of type "type[AllTheDefaults[int, 
 generics_defaults.py:59: error: Expression is of type "type[AllTheDefaults[int, complex, str, int, DefaultBoolT]]", not "type[AllTheDefaults[int, complex, str, int, bool]]"  [assert-type]
 generics_defaults.py:79: error: Expression is of type "type[Class_ParamSpec[DefaultP]]", not "type[Class_ParamSpec[[str, int]]]"  [assert-type]
 generics_defaults.py:94: error: Expression is of type "type[Class_TypeVarTuple[*DefaultTs]]", not "type[Class_TypeVarTuple[str, int]]"  [assert-type]
-generics_defaults.py:104: error: TypeVar default must be a subtype of the bound type  [misc]
-generics_defaults.py:111: error: TypeVar default must be one of the constraint types  [misc]
-generics_defaults.py:151: error: Expression is of type "type[Foo6[*tuple[Any, ...], Any]]", not "type[Foo6[int, str, [float, bool]]]"  [assert-type]
-generics_defaults.py:151: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]
-generics_defaults.py:152: error: Expression is of type "type[Foo6[*tuple[Any, ...], Any]]", not "type[Foo6[int, str, [bytes]]]"  [assert-type]
-generics_defaults.py:152: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]
-generics_defaults.py:166: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"  [assert-type]
-generics_defaults.py:167: error: Expression is of type "Any", not "int"  [assert-type]
-generics_defaults.py:167: error: Access to generic instance variables via class is ambiguous  [misc]
+generics_defaults.py:107: error: TypeVar default must be a subtype of the bound type  [misc]
+generics_defaults.py:114: error: TypeVar default must be one of the constraint types  [misc]
+generics_defaults.py:154: error: Expression is of type "type[Foo6[*tuple[Any, ...], Any]]", not "type[Foo6[int, str, [float, bool]]]"  [assert-type]
+generics_defaults.py:154: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]
+generics_defaults.py:155: error: Expression is of type "type[Foo6[*tuple[Any, ...], Any]]", not "type[Foo6[int, str, [bytes]]]"  [assert-type]
+generics_defaults.py:155: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]
+generics_defaults.py:169: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"  [assert-type]
+generics_defaults.py:170: error: Expression is of type "Any", not "int"  [assert-type]
+generics_defaults.py:170: error: Access to generic instance variables via class is ambiguous  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 138: Expected 1 errors
+Line 141: Expected 1 errors
 Line 30: Unexpected errors ['generics_defaults.py:30: error: Expression is of type "type[NoNonDefaults[DefaultStrT, DefaultIntT]]", not "type[NoNonDefaults[str, int]]"  [assert-type]']
 Line 31: Unexpected errors ['generics_defaults.py:31: error: Expression is of type "type[NoNonDefaults[str, DefaultIntT]]", not "type[NoNonDefaults[str, int]]"  [assert-type]']
 Line 38: Unexpected errors ['generics_defaults.py:38: error: Expression is of type "type[OneDefault[float, DefaultBoolT]]", not "type[OneDefault[float, bool]]"  [assert-type]']
@@ -35,8 +35,8 @@ Line 55: Unexpected errors ['generics_defaults.py:55: error: Expression is of ty
 Line 59: Unexpected errors ['generics_defaults.py:59: error: Expression is of type "type[AllTheDefaults[int, complex, str, int, DefaultBoolT]]", not "type[AllTheDefaults[int, complex, str, int, bool]]"  [assert-type]']
 Line 79: Unexpected errors ['generics_defaults.py:79: error: Expression is of type "type[Class_ParamSpec[DefaultP]]", not "type[Class_ParamSpec[[str, int]]]"  [assert-type]']
 Line 94: Unexpected errors ['generics_defaults.py:94: error: Expression is of type "type[Class_TypeVarTuple[*DefaultTs]]", not "type[Class_TypeVarTuple[str, int]]"  [assert-type]']
-Line 151: Unexpected errors ['generics_defaults.py:151: error: Expression is of type "type[Foo6[*tuple[Any, ...], Any]]", not "type[Foo6[int, str, [float, bool]]]"  [assert-type]', 'generics_defaults.py:151: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]']
-Line 152: Unexpected errors ['generics_defaults.py:152: error: Expression is of type "type[Foo6[*tuple[Any, ...], Any]]", not "type[Foo6[int, str, [bytes]]]"  [assert-type]', 'generics_defaults.py:152: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]']
-Line 166: Unexpected errors ['generics_defaults.py:166: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"  [assert-type]']
-Line 167: Unexpected errors ['generics_defaults.py:167: error: Expression is of type "Any", not "int"  [assert-type]', 'generics_defaults.py:167: error: Access to generic instance variables via class is ambiguous  [misc]']
+Line 154: Unexpected errors ['generics_defaults.py:154: error: Expression is of type "type[Foo6[*tuple[Any, ...], Any]]", not "type[Foo6[int, str, [float, bool]]]"  [assert-type]', 'generics_defaults.py:154: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]']
+Line 155: Unexpected errors ['generics_defaults.py:155: error: Expression is of type "type[Foo6[*tuple[Any, ...], Any]]", not "type[Foo6[int, str, [bytes]]]"  [assert-type]', 'generics_defaults.py:155: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]']
+Line 169: Unexpected errors ['generics_defaults.py:169: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"  [assert-type]']
+Line 170: Unexpected errors ['generics_defaults.py:170: error: Expression is of type "Any", not "int"  [assert-type]', 'generics_defaults.py:170: error: Access to generic instance variables via class is ambiguous  [misc]']
 """
