@@ -1,4 +1,4 @@
-conformant = "Pass"
+conformant = "Fail"
 output = """
 typeddicts_operations.py:22:1 - error: Could not assign item in TypedDict
   "Literal[1982]" is not assignable to "str" (reportGeneralTypeIssues)
@@ -15,13 +15,38 @@ typeddicts_operations.py:29:42 - error: Type "dict[str, str | float]" is not ass
 typeddicts_operations.py:32:36 - error: Type "dict[str, str | int]" is not assignable to declared type "Movie"
   "other" is an undefined item in type "Movie" (reportAssignmentType)
 typeddicts_operations.py:37:20 - error: Type "dict[str, str | int]" is not assignable to declared type "Movie" (reportAssignmentType)
-typeddicts_operations.py:47:7 - error: Cannot access attribute "clear" for class "Movie"
+typeddicts_operations.py:44:17 - information: Type of "existing_movie[variable_key]" is "Unknown"
+typeddicts_operations.py:47:17 - information: Type of "variable_key in existing_movie" is "bool"
+typeddicts_operations.py:48:17 - error: "assert_type" mismatch: expected "object | None" but received "Any | None" (reportAssertTypeFailure)
+typeddicts_operations.py:58:13 - information: Type of ""other" in movie" is "bool"
+typeddicts_operations.py:60:7 - error: Cannot access attribute "clear" for class "Movie"
   Attribute "clear" is unknown (reportAttributeAccessIssue)
-typeddicts_operations.py:49:5 - error: Could not delete item in TypedDict
+typeddicts_operations.py:61:7 - error: Cannot access attribute "popitem" for class "Movie"
+  Attribute "popitem" is unknown (reportAttributeAccessIssue)
+typeddicts_operations.py:63:5 - error: Could not delete item in TypedDict
   "name" is a required key and cannot be deleted (reportGeneralTypeIssues)
-typeddicts_operations.py:62:16 - error: Cannot access attribute "clear" for class "MovieOptional"
+typeddicts_operations.py:76:1 - error: Could not access item in TypedDict
+  "name" is not a required key in "MovieOptional", so access may result in runtime exception (reportTypedDictNotRequiredAccess)
+typeddicts_operations.py:80:13 - information: Type of "movie_optional.get("other")" is "Any | None"
+typeddicts_operations.py:83:13 - information: Type of ""name" in movie_optional" is "bool"
+typeddicts_operations.py:86:13 - information: Type of ""other" in movie_optional" is "bool"
+typeddicts_operations.py:88:16 - error: Cannot access attribute "clear" for class "MovieOptional"
   Attribute "clear" is unknown (reportAttributeAccessIssue)
+typeddicts_operations.py:89:16 - error: Cannot access attribute "popitem" for class "MovieOptional"
+  Attribute "popitem" is unknown (reportAttributeAccessIssue)
+typeddicts_operations.py:96:37 - error: Type "dict[str, str | int]" is not assignable to declared type "MovieOptional" (reportAssignmentType)
+typeddicts_operations.py:103:17 - information: Type of "existing_optional_movie[variable_key]" is "Unknown"
+typeddicts_operations.py:106:17 - information: Type of "variable_key in existing_optional_movie" is "bool"
+typeddicts_operations.py:107:17 - error: "assert_type" mismatch: expected "object | None" but received "Any | None" (reportAssertTypeFailure)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 40: Expected 1 errors
+Line 41: Expected 1 errors
+Line 44: Expected 1 errors
+Line 99: Expected 1 errors
+Line 100: Expected 1 errors
+Line 103: Expected 1 errors
+Line 48: Unexpected errors ['typeddicts_operations.py:48:17 - error: "assert_type" mismatch: expected "object | None" but received "Any | None" (reportAssertTypeFailure)']
+Line 107: Unexpected errors ['typeddicts_operations.py:107:17 - error: "assert_type" mismatch: expected "object | None" but received "Any | None" (reportAssertTypeFailure)']
 """

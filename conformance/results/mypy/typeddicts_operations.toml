@@ -8,9 +8,26 @@ typeddicts_operations.py:28: error: Missing key "year" for TypedDict "Movie"  [t
 typeddicts_operations.py:29: error: Incompatible types (expression has type "float", TypedDict item "year" has type "int")  [typeddict-item]
 typeddicts_operations.py:32: error: Extra key "other" for TypedDict "Movie"  [typeddict-unknown-key]
 typeddicts_operations.py:37: error: Expected TypedDict key to be string literal  [misc]
-typeddicts_operations.py:47: error: "Movie" has no attribute "clear"  [attr-defined]
-typeddicts_operations.py:49: error: Key "name" of TypedDict "Movie" cannot be deleted  [misc]
-typeddicts_operations.py:62: error: "MovieOptional" has no attribute "clear"  [attr-defined]
+typeddicts_operations.py:40: error: TypedDict key must be a string literal; expected one of ("name", "year")  [literal-required]
+typeddicts_operations.py:41: error: Expected TypedDict key to be string literal  [misc]
+typeddicts_operations.py:44: note: Revealed type is "Any"
+typeddicts_operations.py:44: error: TypedDict key must be a string literal; expected one of ("name", "year")  [literal-required]
+typeddicts_operations.py:47: note: Revealed type is "builtins.bool"
+typeddicts_operations.py:58: note: Revealed type is "builtins.bool"
+typeddicts_operations.py:60: error: "Movie" has no attribute "clear"  [attr-defined]
+typeddicts_operations.py:61: error: "Movie" has no attribute "popitem"  [attr-defined]
+typeddicts_operations.py:63: error: Key "name" of TypedDict "Movie" cannot be deleted  [misc]
+typeddicts_operations.py:80: note: Revealed type is "builtins.object"
+typeddicts_operations.py:83: note: Revealed type is "builtins.bool"
+typeddicts_operations.py:86: note: Revealed type is "builtins.bool"
+typeddicts_operations.py:88: error: "MovieOptional" has no attribute "clear"  [attr-defined]
+typeddicts_operations.py:89: error: "MovieOptional" has no attribute "popitem"  [attr-defined]
+typeddicts_operations.py:96: error: Expected TypedDict key to be string literal  [misc]
+typeddicts_operations.py:99: error: TypedDict key must be a string literal; expected one of ("name", "year")  [literal-required]
+typeddicts_operations.py:100: error: Expected TypedDict key to be string literal  [misc]
+typeddicts_operations.py:103: note: Revealed type is "Any"
+typeddicts_operations.py:103: error: TypedDict key must be a string literal; expected one of ("name", "year")  [literal-required]
+typeddicts_operations.py:106: note: Revealed type is "builtins.bool"
 """
 conformance_automated = "Pass"
 errors_diff = """
