@@ -71,15 +71,15 @@ def func4(
 def func5(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]):
     if len(val) == 1:
         # Type can be narrowed to tuple[int].
-        assert_type(val, tuple[int])  # tuple[int]
+        assert_type(val, tuple[int])  # E?: tuple[int]
 
     if len(val) == 2:
         # Type can be narrowed to tuple[str, str] | tuple[int, int].
-        assert_type(val, tuple[str, str] | tuple[int, int])
+        assert_type(val, tuple[str, str] | tuple[int, int]) # E?
 
     if len(val) == 3:
         # Type can be narrowed to tuple[int, str, int].
-        assert_type(val, tuple[int, str, int])
+        assert_type(val, tuple[int, str, int]) # E?
 
 
 # > This property may also be used to safely narrow tuple types within a match
@@ -92,15 +92,15 @@ def func6(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int])
     match val:
         case (x,):
             # Type can be narrowed to tuple[int].
-            assert_type(val, tuple[int])  # tuple[int]
+            assert_type(val, tuple[int])  # E?: tuple[int]
 
         case (x, y):
             # Type can be narrowed to tuple[str, str] | tuple[int, int].
-            assert_type(val, tuple[str, str] | tuple[int, int])
+            assert_type(val, tuple[str, str] | tuple[int, int]) # E?
 
         case (x, y, z):
             # Type can be narrowed to tuple[int, str, int].
-            assert_type(val, tuple[int, str, int])
+            assert_type(val, tuple[int, str, int]) # E?
 
 
 # > Type checkers may safely use this equivalency rule (tuple expansion)
@@ -112,9 +112,9 @@ def func6(val: tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int])
 def func7(subj: tuple[int | str, int | str]):
     match subj:
         case x, str():
-            assert_type(subj, tuple[int | str, str])
+            assert_type(subj, tuple[int | str, str]) # E?
         case y:
-            assert_type(subj, tuple[int | str, int])
+            assert_type(subj, tuple[int | str, int]) # E?
 
 
 # > The tuple class derives from Sequence[T_co] where ``T_co`` is a covariant
