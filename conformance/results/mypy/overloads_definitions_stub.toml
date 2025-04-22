@@ -9,7 +9,6 @@ Lines 143, 147, 149: Expected error (tag 'override_impl')
 output = """
 overloads_definitions_stub.pyi:13: error: Single overload definition, multiple required  [misc]
 overloads_definitions_stub.pyi:32: error: Overload does not consistently use the "@staticmethod" decorator on all function signatures.  [misc]
-overloads_definitions_stub.pyi:33: error: Self argument missing for a non-static method (or an invalid type for self)  [misc]
 overloads_definitions_stub.pyi:39: error: Overload does not consistently use the "@classmethod" decorator on all function signatures.  [misc]
 overloads_definitions_stub.pyi:71: error: In a stub file @final must be applied only to the first overload  [misc]
 overloads_definitions_stub.pyi:84: error: In a stub file @final must be applied only to the first overload  [misc]
