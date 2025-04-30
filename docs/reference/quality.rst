@@ -44,6 +44,11 @@ then the following file tests ``foo.py``:
 
     assert_type(bar(42), str)
 
+.. note::
+
+   To use this feature on Python versions earlier than 3.11, you will need to
+   import ``assert_type`` from ``typing_extensions`` (version 4.2 or newer).
+
 Clever use of ``mypy --warn-unused-ignores`` can be used to check that certain
 expressions are or are not well-typed. The idea is to have valid expressions along
 with invalid expressions annotated with ``type: ignore`` comments. When
