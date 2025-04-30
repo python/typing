@@ -662,6 +662,11 @@ for a more faithful type annotation:
            return func(*args, **kwds)
        return wrapper
 
+.. note::
+
+   To use this feature on Python versions earlier than 3.10, you will need to
+   import ``ParamSpec`` from ``typing_extensions``.
+
 Parameter specifications also allow you to describe decorators that
 alter the signature of the input function:
 
