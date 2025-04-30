@@ -651,8 +651,7 @@ for a more faithful type annotation:
 
 .. code-block:: python
 
-   from typing import Callable, TypeVar
-   from typing_extensions import ParamSpec
+   from typing import Callable, ParamSpec, TypeVar
 
    P = ParamSpec('P')
    T = TypeVar('T')
@@ -668,8 +667,7 @@ alter the signature of the input function:
 
 .. code-block:: python
 
-   from typing import Callable, TypeVar
-   from typing_extensions import ParamSpec
+   from typing import Callable, ParamSpec, TypeVar
 
    P = ParamSpec('P')
    T = TypeVar('T')
@@ -692,8 +690,7 @@ Or insert an argument:
 
 .. code-block:: python
 
-    from typing import Callable, TypeVar
-    from typing_extensions import Concatenate, ParamSpec
+    from typing import Callable, Concatenate, ParamSpec, TypeVar
 
     P = ParamSpec('P')
     T = TypeVar('T')
@@ -774,8 +771,7 @@ Example:
 
 .. code-block:: python
 
-   from typing import TypeVar
-   from typing_extensions import Protocol
+   from typing import Protocol, TypeVar
 
    T = TypeVar('T')
 

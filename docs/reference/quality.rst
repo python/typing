@@ -40,7 +40,7 @@ then the following file tests ``foo.py``:
 
 .. code-block:: python
 
-    from typing_extensions import assert_type
+    from typing import assert_type
 
     assert_type(bar(42), str)
 
