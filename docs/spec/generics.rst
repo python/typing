@@ -397,6 +397,17 @@ the runtime class of the objects created by instantiating them doesn't
 record the distinction. This behavior is called "type erasure"; it is
 common practice in languages with generics (e.g. Java, TypeScript).
 
+Additionally, at the runtime, objects like ``Node[int]`` will not be considered as a class,
+even though they behave like them. This is because these objects are instances of ``GenericAlias``::
+
+    import inspect
+
+    inspect.isclass(Node)  # True
+    inspect.isclass(Node[int])  # False
+    inspect.isclass(Node[str])  # False
+
+    type(Node[int]) # <class 'typing._GenericAlias'>
+
 Using generic classes (parameterized or not) to access attributes will result
 in type check failure. Outside the class definition body, a class attribute
 cannot be assigned, and can only be looked up by accessing it through a
