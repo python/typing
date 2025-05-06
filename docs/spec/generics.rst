@@ -397,8 +397,8 @@ the runtime class of the objects created by instantiating them doesn't
 record the distinction. This behavior is called "type erasure"; it is
 common practice in languages with generics (e.g. Java, TypeScript).
 
-Additionally, at the runtime, objects like ``Node[int]`` will not be considered as a class,
-even though they behave like them. This is because these objects are instances of ``GenericAlias``::
+Additionally, objects like ``Node[int]`` will not be considered as a class at the runtime,
+even though they behave like them (e.g they can be instantiated). This is because these objects are instances of ``GenericAlias``::
 
     import inspect
 
