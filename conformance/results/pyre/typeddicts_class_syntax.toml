@@ -11,7 +11,7 @@ typeddicts_class_syntax.py:49:0 Unexpected keyword [28]: Unexpected keyword argu
 conformance_automated = "Fail"
 errors_diff = """
 Line 29: Expected 1 errors
-Line 33: Expected 1 errors
-Line 38: Expected 1 errors
 Line 44: Expected 1 errors
+Lines 33, 34: Expected error (tag 'method2')
+Lines 38, 39: Expected error (tag 'method3')
 """

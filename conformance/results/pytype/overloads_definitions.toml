@@ -14,14 +14,15 @@ Lines 58, 59: Expected error (tag 'not_abstract')
 Lines 71, 73, 78, 81: Expected error (tag 'func5')
 Lines 84, 86, 90, 94: Expected error (tag 'func6')
 Lines 121, 123, 127: Expected error (tag 'invalid_final')
-Lines 135, 137, 142: Expected error (tag 'invalid_final_2')
-Lines 220, 222, 226: Expected error (tag 'override_impl')
+Lines 135, 136, 137, 141, 142: Expected error (tag 'invalid_final_2')
+Lines 220, 221, 222, 225, 226: Expected error (tag 'override_impl')
 Line 6: Unexpected errors ['overloads_definitions.py:6:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in <module>: typing.override not supported yet [not-supported-yet]']
 Line 43: Unexpected errors ["overloads_definitions.py:43:37: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func3: @typing.overload-decorated 'MyProto.func3' object is not callable [not-callable]"]
 Line 53: Unexpected errors ["overloads_definitions.py:53:37: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func4: @typing.overload-decorated 'MyAbstractBase.func4' object is not callable [not-callable]"]
 Line 63: Unexpected errors ["overloads_definitions.py:63:44: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in not_abstract: @typing.overload-decorated 'MyAbstractBase.not_abstract' object is not callable [not-callable]"]
 Line 74: Unexpected errors ['overloads_definitions.py:74:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: bad return type [bad-return-type]']
 Line 79: Unexpected errors ['overloads_definitions.py:79:9: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func5: bad return type [bad-return-type]']
+Line 95: Unexpected errors ['overloads_definitions.py:95:16: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in func6: bad return type [bad-return-type]']
 Line 117: Unexpected errors ['overloads_definitions.py:117:56: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in final_method: bad return type [bad-return-type]', 'overloads_definitions.py:117:56: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in final_method: bad return type [bad-return-type]']
 Line 130: Unexpected errors ['overloads_definitions.py:130:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final: bad return type [bad-return-type]', 'overloads_definitions.py:130:1: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final: bad return type [bad-return-type]']
 Line 146: Unexpected errors ['overloads_definitions.py:146:59: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final_2: bad return type [bad-return-type]', 'overloads_definitions.py:146:59: \\x1b[1m\\x1b[31merror\\x1b[39m\\x1b[0m: in invalid_final_2: bad return type [bad-return-type]']
@@ -72,6 +73,11 @@ overloads_definitions.py:79:9: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in f
 
         ...
         \u001b[1m\u001b[31m~~~\u001b[39m\u001b[0m
+
+overloads_definitions.py:95:16: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in func6: bad return type [bad-return-type]
+
+        return 1
+               \u001b[1m\u001b[31m~\u001b[39m\u001b[0m
 
 overloads_definitions.py:117:56: \u001b[1m\u001b[31merror\u001b[39m\u001b[0m: in final_method: bad return type [bad-return-type]
 
@@ -225,20 +231,20 @@ class Child(Base):  # E[override-final]
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 \u001b[1m\u001b[31m\u001b[39m\u001b[0m
-    @overload  # E[override_impl]: @override should appear only on implementation
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
-    @override
-\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
-    def to_override(self, x: int) -> int: ...  # E[override_impl]
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    @overload  # E[override_impl+]: @override should appear only on implementation
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    @override  # E[override_impl+]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def to_override(self, x: int) -> int: ...  # E[override_impl+]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 \u001b[1m\u001b[31m\u001b[39m\u001b[0m
     @overload
 \u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
-    @override
-\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
-    def to_override(self, x: str) -> str: ...  # E[override_impl]
-\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    @override  # E[override_impl+]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    def to_override(self, x: str) -> str: ...  # E[override_impl+]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 \u001b[1m\u001b[31m\u001b[39m\u001b[0m
     @override

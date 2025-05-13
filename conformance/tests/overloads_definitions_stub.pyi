@@ -30,18 +30,18 @@ def func2(x: str) -> str: ...
 # > checkers should report an error if these conditions are not met.
 class C:
     @overload  # E[func5]
-    def func5(x: int) -> int:  # E[func5]
+    def func5(self, x: int, /) -> int:  # E[func5]
         ...
     @overload
     @staticmethod
-    def func5(x: str) -> str:  # E[func5]
+    def func5(x: str, /) -> str:  # E[func5]
         ...
     @overload  # E[func6]
     @classmethod
-    def func6(cls, x: int) -> int:  # E[func6]
+    def func6(cls, x: int, /) -> int:  # E[func6]
         ...
     @overload
-    def func6(cls, x: str) -> str:  # E[func6]
+    def func6(self, *args: str) -> str:  # E[func6]
         ...
 
 # > If a ``@final`` or ``@override`` decorator is supplied for a function with

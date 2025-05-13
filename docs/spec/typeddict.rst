@@ -296,9 +296,9 @@ and only if both of these conditions are satisfied:
 * For each key in ``A``, ``B`` has the corresponding key and the corresponding
   value type in ``B`` is :term:`consistent` with the value type in ``A``.
 
-* For each required key in ``B``, the corresponding key is required
-  in ``A``.  For each non-required key in ``B``, the corresponding key
-  is not required in ``A``.
+* For each required key in ``A``, the corresponding key is required
+  in ``B``.  For each non-required key in ``A``, the corresponding key
+  is not required in ``B``.
 
 Discussion:
 

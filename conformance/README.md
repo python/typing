@@ -46,11 +46,25 @@ Test cases use the following conventions:
 * Lines that are expected to produce a type checker error should have a comment starting with # E",
   either by itself or followed by an explanation after a colon (e.g., "# E: int is not a subtype
   of str"). Such explanatory comments are purely for human understanding, but type checkers are not
-  expected to use their exact wording.
+  expected to use their exact wording. There are several syntactic variations; see "Test Case Syntax"
+  below.
 * Lines that may produce an error (e.g., because the spec allows multiple behaviors) should be
   marked with "# E?" instead of "# E".
 * If a test case tests conformance with a specific passage in the spec, that passage should be
   quoted in a comment prefixed with "# > ".
+
+## Test Case Syntax
+
+Test cases support the following special comments for declaring where errors should be raised:
+
+* `# E`: an error must be raised on this line
+* `# E?`: an error may be raised on this line
+* `# E[tag]`, where `tag` is an arbitrary string: must appear multiple times in a file with the same tag.
+  Exactly one line with this tag must raise an error.
+* `# E[tag+]`: like `# E[tag]`, but errors may be raised on multiple lines.
+
+Each comment may be followed by a colon plus an explanation of the error; the explanation is ignored
+by the scoring system.
 
 ## Running the Conformance Test Tool
 
@@ -61,6 +75,7 @@ To run the conformance test suite:
 * Switch to the `src` subdirectory and run `python main.py`.
 
 Note that some type checkers may not run on some platforms. If a type checker fails to install, tests will be skipped for that type checker.
+Currently, the only unsupported type checker is Pyre on Windows.
 
 ## Reporting Conformance Results
 
