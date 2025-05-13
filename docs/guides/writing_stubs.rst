@@ -772,18 +772,26 @@ all type checkers::
 Using ``Any`` and ``object``
 ----------------------------
 
-When adding type hints, avoid using the ``Any`` type when possible. Reserve
-the use of ``Any`` for when:
+When adding type hints, avoid using the :ref:`Any` type when possible. Reserve
+the use of :ref:`Any` for when:
 
 * the correct type cannot be expressed in the current type system; and
 * to avoid union returns (see above).
 
-Note that ``Any`` is not the correct type to use if you want to indicate
+Note that :ref:`Any` is not the correct type to use if you want to indicate
 that some function can accept literally anything: in those cases use
-``object`` instead.
+:class:`object` instead.
 
-When using ``Any``, document the reason for using it in a comment. Ideally,
-document what types could be used.
+When using :ref:`Any`, document the reason for using it in a comment, unless the
+reason is obvious. Ideally, document what types could be used. Obvious
+reasons can include:
+
+* Using :ref:`Any` as a type argument for a generic to say "any object of this
+  type is allowed", e.g. ``type[Any]``.
+* Using ``dict[str, Any]`` or ``Mapping[str, Any]`` when the value types
+  depends on the keys. But consider using :ref:`TypedDict` or
+  ``dict[str, Incomplete]`` (temporarily) when the keys of the dictionary are
+  fixed.
 
 The ``Any`` Trick
 -----------------
