@@ -71,6 +71,7 @@ by the scoring system.
 To run the conformance test suite:
 * Clone the https://github.com/python/typing repo.
 * Create and activate a Python 3.12 virtual environment.
+* Ensure Python 3.11 is also installed (required for pytype tests to run).
 * Switch to the `conformance` subdirectory and install all dependencies (`pip install -r requirements.txt`).
 * Switch to the `src` subdirectory and run `python main.py`.
 
