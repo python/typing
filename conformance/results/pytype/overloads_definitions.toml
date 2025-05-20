@@ -185,8 +185,8 @@ class Child(Base):  # E[override-final]
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
 
 \u001b[1m\u001b[31m\u001b[39m\u001b[0m
-    @override
-\u001b[1m\u001b[31m~~~~~~~~~~~~~\u001b[39m\u001b[0m
+    @override  # E[bad_override]
+\u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
     def bad_override(self, x: int | str) -> int | str:  # E[bad_override]
 \u001b[1m\u001b[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[39m\u001b[0m
         ...

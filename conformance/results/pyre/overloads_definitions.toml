@@ -5,14 +5,10 @@ Does not allow an overload with no implementation in a Protocol or an abstract b
 Expects @final/@override on all overloads and implementation, instead of implementation only.
 """
 errors_diff = """
-Lines 71, 73, 78, 81: Expected exactly one error (tag 'func5')
 Lines 135, 136, 137, 141, 142: Expected error (tag 'invalid_final_2')
 Lines 220, 221, 222, 225, 226: Expected error (tag 'override_impl')
 Line 40: Unexpected errors ['overloads_definitions.py:40:4 Missing overload implementation [42]: Overloaded function `MyProto.func3` must have an implementation.']
 Line 49: Unexpected errors ['overloads_definitions.py:49:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.func4` must have an implementation.']
-Line 73: Unexpected errors ['overloads_definitions.py:73:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `73`.']
-Line 78: Unexpected errors ['overloads_definitions.py:78:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `78`.']
-Line 81: Unexpected errors ['overloads_definitions.py:81:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
 Line 117: Unexpected errors ['overloads_definitions.py:117:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
 Line 215: Unexpected errors ['overloads_definitions.py:215:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
 """
@@ -22,8 +18,6 @@ overloads_definitions.py:28:0 Missing overload implementation [42]: Overloaded f
 overloads_definitions.py:40:4 Missing overload implementation [42]: Overloaded function `MyProto.func3` must have an implementation.
 overloads_definitions.py:49:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.func4` must have an implementation.
 overloads_definitions.py:59:4 Missing overload implementation [42]: Overloaded function `MyAbstractBase.not_abstract` must have an implementation.
-overloads_definitions.py:73:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `73`.
-overloads_definitions.py:78:4 Incompatible overload [43]: The implementation of `C.func5` does not accept all possible arguments of overload defined on line `78`.
 overloads_definitions.py:81:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
 overloads_definitions.py:90:4 Incompatible overload [43]: The implementation of `C.func6` does not accept all possible arguments of overload defined on line `90`.
 overloads_definitions.py:90:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).
