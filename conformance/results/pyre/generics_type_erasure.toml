@@ -20,7 +20,6 @@ Line 42: Expected 1 errors
 Line 43: Expected 1 errors
 Line 44: Expected 1 errors
 Line 45: Expected 1 errors
-Line 46: Expected 1 errors
 Line 17: Unexpected errors ["generics_type_erasure.py:17:0 Assert type [70]: Expected `Node[str]` but got `Node[typing_extensions.Literal['']]`."]
 Line 18: Unexpected errors ['generics_type_erasure.py:18:0 Assert type [70]: Expected `Node[int]` but got `Node[typing_extensions.Literal[0]]`.']
 Line 19: Unexpected errors ['generics_type_erasure.py:19:0 Assert type [70]: Expected `Node[typing.Any]` but got `Node[Variable[T]]`.']

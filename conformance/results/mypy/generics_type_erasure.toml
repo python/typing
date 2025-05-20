@@ -15,7 +15,6 @@ generics_type_erasure.py:45: error: Access to generic instance variables via cla
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 46: Expected 1 errors
 Line 19: Unexpected errors ['generics_type_erasure.py:19: error: Expression is of type "Node[Never]", not "Node[Any]"  [assert-type]']
 Line 22: Unexpected errors ['generics_type_erasure.py:22: error: Expression is of type "Never", not "Any"  [assert-type]']
 """
