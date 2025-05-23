@@ -19,6 +19,7 @@ def func1(
     e: Annotated[Literal[4], ""],
 ):
     assert_type(a, int | str)  # OK
+    assert_type(a, int | bool | str)  # OK (equivalent type)
     assert_type(b, list[int])  # OK
     assert_type(c, Any)  # OK
     assert_type(d, "ForwardReference")  # OK
