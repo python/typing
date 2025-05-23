@@ -6,6 +6,12 @@ generics_syntax_infer_variance.py:29:35 - error: Type "ShouldBeCovariant1[float]
   "ShouldBeCovariant1[float]" is not assignable to "ShouldBeCovariant1[int]"
     Type parameter "T@ShouldBeCovariant1" is covariant, but "float" is not a subtype of "int"
       "float" is not assignable to "int" (reportAssignmentType)
+generics_syntax_infer_variance.py:36:37 - error: Cannot instantiate abstract class "ShouldBeCovariant2"
+  "Collection.__len__" is not implemented
+  "Sequence.__getitem__" is not implemented (reportAbstractUsage)
+generics_syntax_infer_variance.py:37:35 - error: Cannot instantiate abstract class "ShouldBeCovariant2"
+  "Collection.__len__" is not implemented
+  "Sequence.__getitem__" is not implemented (reportAbstractUsage)
 generics_syntax_infer_variance.py:37:35 - error: Type "ShouldBeCovariant2[float]" is not assignable to declared type "ShouldBeCovariant2[int]"
   "ShouldBeCovariant2[float]" is not assignable to "ShouldBeCovariant2[int]"
     Type parameter "T@ShouldBeCovariant2" is covariant, but "float" is not a subtype of "int"
@@ -57,6 +63,7 @@ generics_syntax_infer_variance.py:155:45 - error: Type "ShouldBeContravariant1[i
     Type parameter "T@ShouldBeContravariant1" is contravariant, but "int" is not a supertype of "float"
       "float" is not assignable to "int" (reportAssignmentType)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 36: Unexpected errors ['generics_syntax_infer_variance.py:36:37 - error: Cannot instantiate abstract class "ShouldBeCovariant2"']
 """
