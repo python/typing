@@ -2000,7 +2000,7 @@ Bound Rules
    T1 = TypeVar("T1", bound=int)
    TypeVar("Ok", default=T1, bound=float)     # Valid
    TypeVar("AlsoOk", default=T1, bound=int)   # Valid
-   TypeVar("Invalid", default=T1, bound=str)  # Invalid: int is not a subtype of str
+   TypeVar("Invalid", default=T1, bound=str)  # Invalid: int is not assignable to str
 
 Constraint Rules
 ^^^^^^^^^^^^^^^^
