@@ -98,7 +98,7 @@ expressions, and nothing else.
 Legal parameters for ``Literal`` at type check time
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
-``Literal`` may be parameterized with literal ints, byte and unicode strings,
+``Literal`` may be parameterized with literal ints, strings, `bytes` objects,
 bools, Enum values and ``None``. So for example, all of
 the following would be legal::
 
@@ -106,8 +106,8 @@ the following would be legal::
    Literal[0x1A]  # Exactly equivalent to Literal[26]
    Literal[-4]
    Literal["hello world"]
+   Literal[u"hello world"]  # Exactly equivalent to Literal["hello world"]
    Literal[b"hello world"]
-   Literal[u"hello world"]
    Literal[True]
    Literal[Color.RED]  # Assuming Color is some enum
    Literal[None]
@@ -142,17 +142,6 @@ This should be exactly equivalent to the following type::
 ...and also to the following type::
 
     Literal[1, 2, 3, "foo", 5] | None
-
-**Note:** String literal types like ``Literal["foo"]`` should subtype either
-bytes or unicode in the same way regular string literals do at runtime.
-
-For example, in Python 3, the type ``Literal["foo"]`` is equivalent to
-``Literal[u"foo"]``, since ``"foo"`` is equivalent to ``u"foo"`` in Python 3.
-
-Similarly, in Python 2, the type ``Literal["foo"]`` is equivalent to
-``Literal[b"foo"]`` -- unless the file includes a
-``from __future__ import unicode_literals`` import, in which case it would be
-equivalent to ``Literal[u"foo"]``.
 
 Illegal parameters for ``Literal`` at type check time
 """""""""""""""""""""""""""""""""""""""""""""""""""""
