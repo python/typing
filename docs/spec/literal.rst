@@ -98,18 +98,23 @@ expressions, and nothing else.
 Legal parameters for ``Literal`` at type check time
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
-``Literal`` may be parameterized with literal ints, strings, `bytes` objects,
-bools, Enum values and ``None``. So for example, all of
+``Literal`` may be parameterized with literal ``int``, ``str``, ``bytes``,
+and ``bool`` objects, instances of ``enum.Enum`` subclasses, and ``None``. So for example, all of
 the following would be legal::
 
    Literal[26]
-   Literal[0x1A]  # Exactly equivalent to Literal[26]
+   Literal[0x1A]  # Equivalent to Literal[26]
    Literal[-4]
    Literal["hello world"]
-   Literal[u"hello world"]  # Exactly equivalent to Literal["hello world"]
+   Literal[u"hello world"]  # Equivalent to Literal["hello world"]
    Literal[b"hello world"]
    Literal[True]
-   Literal[Color.RED]  # Assuming Color is some enum
+
+   class Color(enum.Enum):
+       RED = 1
+       GREEN = 2
+
+   Literal[Color.RED]
    Literal[None]
 
 **Note:** Since the type ``None`` is inhabited by just a single
