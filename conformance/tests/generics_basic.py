@@ -72,6 +72,7 @@ def test_concat_subtype(s: str, b: bytes, a: Any, m: MyStr) -> None:
     # reveal_type(concat(m, a))
     # reveal_type(concat(a, m))
 
+BadConstraint3 = TypeVar("BadConstraint3", str, int, covariant=True)  # E: constraints can't have variance
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#user-defined-generic-classes
 
