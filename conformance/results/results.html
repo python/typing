@@ -159,13 +159,13 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.16.0</div>
-<div class='tc-time'>1.7sec</div>
+<div class='tc-time'>2.0sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.401</div>
-<div class='tc-time'>1.1sec</div>
+<div class='tc-time'>1.4sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>5.7sec</div>
+<div class='tc-time'>9.1sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="4">
@@ -353,7 +353,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support star expressions for `Unpack`.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_typevartuple_specialization</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly specializes generic alias that includes a TypeVar and TypeVarTuple if no type arguments are provided.</p><p>Rejects specialization of generic type alias defined as a tuple containing a TypeVar.</p><p>"More than one Unpack" error message has no line number.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly specializes generic alias that includes a TypeVar and TypeVarTuple if no type arguments are provided.</p><p>Rejects specialization of generic type alias defined as a tuple containing a TypeVar.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support star expressions for `Unpack`.</p></span></div></th>
 </tr>
@@ -404,7 +404,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of TypeVar in ClassVar.</p><p>Does not reject use of ParamSpec in ClassVar.</p><p>Does not reject use of ClassVar as a generic type argument.</p><p>Does not reject use of ClassVar in parameter type annotation.</p><p>Does not reject use of ClassVar in local variable annotation.</p><p>Does not reject use of ClassVar in instance variable annotation.</p><p>Does not reject use of ClassVar in return type annotation.</p><p>Does not reject use of ClassVar in type alias definition.</p><p>Does not infer type from initialization for bare ClassVar.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;classes_override</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not handle case where parent class derives from Any.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>
@@ -597,7 +597,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not apply decorator transforms before checking overload consistency.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloads_definitions</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not allow an overload with no implementation in an abstract base class.</p><p>Allows @override to be on all overloads and implementation, instead of just implementation.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Allows @override to be on all overloads and implementation, instead of just implementation.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not allow an overload with no implementation in a Protocol or an abstract base class.</p><p>Expects @final/@override on all overloads and implementation, instead of implementation only.</p></span></div></th>
 </tr>
@@ -643,9 +643,9 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when dataclass is not compatible with Hashable protocol.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_inheritance</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject ClassVar that is overridden by instance variable.</p><p>Does not reject instance variable that is overridden by ClassVar.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when the default value of dataclass field is mutable (is of type list, dict, or set).</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when the default value of dataclass field is mutable (is of type list, dict, or set).</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when the default value of dataclass field is mutable (is of type list, dict, or set).</p><p>Does not reject ClassVar that is overridden by instance variable.</p><p>Does not reject instance variable that is overridden by ClassVar.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_kwonly</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects kw_only field with default before positional field.</p></span></div></th>
@@ -779,7 +779,7 @@
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tuples_unpacked</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>"More than one unpack" error is missing a line number.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>"More than one unpack" error is missing in some cases.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>
