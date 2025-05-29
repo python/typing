@@ -159,13 +159,13 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.15.0</div>
-<div class='tc-time'>1.5sec</div>
+<div class='tc-time'>2.0sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.400</div>
-<div class='tc-time'>1.1sec</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.401</div>
+<div class='tc-time'>1.3sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>10.7sec</div>
+<div class='tc-time'>9.2sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="4">
@@ -643,8 +643,8 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when dataclass is not compatible with Hashable protocol.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_inheritance</th>
-<th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when the default value of dataclass field is mutable (is of type list, dict, or set).</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when the default value of dataclass field is mutable (is of type list, dict, or set).</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject ClassVar that is overridden by instance variable.</p><p>Does not reject instance variable that is overridden by ClassVar.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_kwonly</th>
