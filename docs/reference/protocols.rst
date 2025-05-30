@@ -71,8 +71,7 @@ You can define your own protocol class by inheriting from the special
 
 .. code-block:: python
 
-   from typing import Iterable
-   from typing_extensions import Protocol
+   from typing import Iterable, Protocol
 
    class SupportsClose(Protocol):
        # Empty method body (explicit '...')
@@ -231,8 +230,7 @@ such as trees and linked lists:
 
 .. code-block:: python
 
-   from typing import TypeVar, Optional
-   from typing_extensions import Protocol
+   from typing import TypeVar, Optional, Protocol
 
    class TreeLike(Protocol):
        value: int
@@ -260,7 +258,7 @@ rudimentary support for runtime structural checks:
 
 .. code-block:: python
 
-   from typing_extensions import Protocol, runtime_checkable
+   from typing import Protocol, runtime_checkable
 
    @runtime_checkable
    class Portable(Protocol):
@@ -303,8 +301,7 @@ member:
 
 .. code-block:: python
 
-   from typing import Optional, Iterable
-   from typing_extensions import Protocol
+   from typing import Optional, Iterable, Protocol
 
    class Combiner(Protocol):
        def __call__(self, *vals: bytes, maxlen: Optional[int] = None) -> list[bytes]: ...
@@ -328,8 +325,7 @@ a double underscore prefix is used. For example:
 
 .. code-block:: python
 
-   from typing import Callable, TypeVar
-   from typing_extensions import Protocol
+   from typing import Callable, TypeVar, Protocol
 
    T = TypeVar('T')
 
