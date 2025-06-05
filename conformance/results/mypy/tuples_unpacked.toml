@@ -1,15 +1,14 @@
 conformant = "Partial"
 notes = """
-"More than one unpack" error is missing a line number.
+"More than one unpack" error is missing in some cases.
 """
 output = """
-tuples_unpacked.py: error: More than one Unpack in a type is not allowed  [misc]
+tuples_unpacked.py:40: error: More than one Unpack in a type is not allowed  [misc]
+tuples_unpacked.py:51: error: More than one Unpack in a type is not allowed  [misc]
 tuples_unpacked.py:59: error: More than one Unpack in a type is not allowed  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 40: Expected 1 errors
 Line 41: Expected 1 errors
-Line 51: Expected 1 errors
 Lines 60, 61: Expected error (tag 't14')
 """

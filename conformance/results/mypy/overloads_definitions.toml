@@ -1,17 +1,14 @@
 conformant = "Partial"
 conformance_automated = "Fail"
 notes = """
-Does not allow an overload with no implementation in an abstract base class.
 Allows @override to be on all overloads and implementation, instead of just implementation.
 """
 errors_diff = """
 Lines 220, 221, 222, 225, 226: Expected error (tag 'override_impl')
-Line 47: Unexpected errors ['overloads_definitions.py:47: error: An overloaded function outside a stub file must have an implementation  [no-overload-impl]']
 """
 output = """
 overloads_definitions.py:15: error: Single overload definition, multiple required  [misc]
 overloads_definitions.py:27: error: An overloaded function outside a stub file must have an implementation  [no-overload-impl]
-overloads_definitions.py:47: error: An overloaded function outside a stub file must have an implementation  [no-overload-impl]
 overloads_definitions.py:58: error: An overloaded function outside a stub file must have an implementation  [no-overload-impl]
 overloads_definitions.py:71: error: Overload does not consistently use the "@staticmethod" decorator on all function signatures.  [misc]
 overloads_definitions.py:84: error: Overload does not consistently use the "@classmethod" decorator on all function signatures.  [misc]
