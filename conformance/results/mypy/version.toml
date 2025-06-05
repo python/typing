@@ -1,2 +1,2 @@
-version = "mypy 1.15.0"
-test_duration = 1.4
+version = "mypy 1.16.0"
+test_duration = 1.7
