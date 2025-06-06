@@ -1,8 +1,12 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Does not report when the default value of dataclass field is mutable (is of type list, dict, or set).
+"""
 output = """
 dataclasses_inheritance.py:60:5 - error: Class variable "x" overrides instance variable of same name in class "DC6" (reportIncompatibleVariableOverride)
 dataclasses_inheritance.py:64:5 - error: Instance variable "y" overrides class variable of same name in class "DC6" (reportIncompatibleVariableOverride)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 47: Expected 1 errors
 """

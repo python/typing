@@ -1,5 +1,6 @@
 conformant = "Partial"
 notes = """
+Does not report when the default value of dataclass field is mutable (is of type list, dict, or set).
 Does not reject ClassVar that is overridden by instance variable.
 Does not reject instance variable that is overridden by ClassVar.
 """
@@ -7,6 +8,7 @@ output = """
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 47: Expected 1 errors
 Line 60: Expected 1 errors
 Line 64: Expected 1 errors
 """
