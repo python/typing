@@ -159,13 +159,13 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.16.0</div>
-<div class='tc-time'>2.0sec</div>
+<div class='tc-time'>1.7sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.401</div>
-<div class='tc-time'>1.4sec</div>
+<div class='tc-time'>1.0sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>9.1sec</div>
+<div class='tc-time'>6.6sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="4">
@@ -438,7 +438,7 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_typealiastype</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects some recursive type aliases using TypeAliasType.</p><p>Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly allows undefined self reference.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Support for TypeAliasType is not implemented.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_variance</th>
@@ -643,9 +643,9 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when dataclass is not compatible with Hashable protocol.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_inheritance</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when the default value of dataclass field is mutable (is of type list, dict, or set).</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when the default value of dataclass field is mutable (is of type list, dict, or set).</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when the default value of dataclass field is mutable (is of type list, dict, or set).</p><p>Does not reject ClassVar that is overridden by instance variable.</p><p>Does not reject instance variable that is overridden by ClassVar.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject ClassVar that is overridden by instance variable.</p><p>Does not reject instance variable that is overridden by ClassVar.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_kwonly</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects kw_only field with default before positional field.</p></span></div></th>
