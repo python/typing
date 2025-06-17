@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Incorrectly allows undefined self reference.
-"""
+conformant = "Pass"
 output = """
 aliases_typealiastype.py:32:18 - error: Cannot access attribute "other_attrib" for class "TypeAliasType"
   Attribute "other_attrib" is unknown (reportAttributeAccessIssue)
