@@ -352,10 +352,10 @@ Annotating instance and class methods
 In most cases the first argument of instance and class methods
 (conventionally named ``self`` or ``cls``) does not need to be annotated.
 
-If the argument is not annotated, then for instance methods it is
-assumed to have the type of the containing class or :ref:`Self
-<self>`, and for class methods the type object type corresponding to
-the containing class object or ``type[Self]``.
+If the argument is not annotated, then for instance methods it may be
+inferred to have either the type of the containing class, or the type :ref:`Self
+<self>`. For class methods it may be inferred to have either the type object
+type corresponding to the containing class object, or ``type[Self]``.
 
 In addition, the first argument in an instance method can be annotated
 with a type variable. In this case the return type may use the same
