@@ -3,15 +3,15 @@ notes = """
 Fails to treat equivalent unions as equivalent.
 """
 output = """
-directives_assert_type.py:22:17 - error: "assert_type" mismatch: expected "int | bool | str" but received "int | str" (reportAssertTypeFailure)
-directives_assert_type.py:28:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)
+directives_assert_type.py:27:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)
+directives_assert_type.py:28:17 - error: "assert_type" mismatch: expected "Any" but received "int | str" (reportAssertTypeFailure)
 directives_assert_type.py:29:17 - error: "assert_type" mismatch: expected "int" but received "Any" (reportAssertTypeFailure)
 directives_assert_type.py:30:17 - error: "assert_type" mismatch: expected "int" but received "Literal[4]" (reportAssertTypeFailure)
 directives_assert_type.py:32:5 - error: "assert_type" expects two positional arguments (reportCallIssue)
 directives_assert_type.py:33:17 - error: "assert_type" mismatch: expected "int" but received "Literal['']" (reportAssertTypeFailure)
 directives_assert_type.py:34:5 - error: "assert_type" expects two positional arguments (reportCallIssue)
+directives_assert_type.py:41:17 - error: "assert_type" mismatch: expected "str | Literal['spam']" but received "str" (reportAssertTypeFailure)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 22: Unexpected errors ['directives_assert_type.py:22:17 - error: "assert_type" mismatch: expected "int | bool | str" but received "int | str" (reportAssertTypeFailure)']
 """

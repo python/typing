@@ -7,6 +7,13 @@ aliases_newtype.py:11:8 - error: Argument of type "Literal['user']" cannot be as
   "Literal['user']" is not assignable to "int" (reportArgumentType)
 aliases_newtype.py:12:14 - error: Type "Literal[42]" is not assignable to declared type "UserId"
   "Literal[42]" is not assignable to "UserId" (reportAssignmentType)
+aliases_newtype.py:18:11 - error: Type "type[UserId]" is not assignable to declared type "type"
+  "FunctionType" is not assignable to "type" (reportAssignmentType)
+aliases_newtype.py:23:16 - error: Argument of type "type[UserId]" cannot be assigned to parameter "class_or_tuple" of type "_ClassInfo" in function "isinstance"
+  Type "FunctionType" is not assignable to type "_ClassInfo"
+    "FunctionType" is not assignable to "type"
+    "FunctionType" is not assignable to "UnionType"
+    "FunctionType" is not assignable to "tuple[_ClassInfo, ...]" (reportArgumentType)
 aliases_newtype.py:23:16 - error: Second argument to "isinstance" must be a class or tuple of classes
   Class created with NewType cannot be used with instance and class checks (reportArgumentType)
 aliases_newtype.py:26:21 - error: Base class "UserId" is marked final and cannot be subclassed (reportGeneralTypeIssues)
@@ -20,7 +27,6 @@ aliases_newtype.py:61:38 - error: NewType cannot be used with structural type (a
 aliases_newtype.py:63:15 - error: NewType requires two positional arguments (reportCallIssue)
 aliases_newtype.py:65:38 - error: The second argument to NewType must be a known class, not Any or Unknown (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 18: Expected 1 errors
 """

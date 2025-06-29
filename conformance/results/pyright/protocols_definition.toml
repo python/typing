@@ -46,7 +46,7 @@ protocols_definition.py:160:22 - error: Type "Concrete3_Bad5" is not assignable 
 protocols_definition.py:218:22 - error: Type "Concrete4_Bad1" is not assignable to declared type "Template4"
   "Concrete4_Bad1" is incompatible with protocol "Template4"
     "val1" is an incompatible type
-      "FunctionType" is not assignable to "Sequence[float]" (reportAssignmentType)
+      "MethodType" is not assignable to "Sequence[float]" (reportAssignmentType)
 protocols_definition.py:219:22 - error: Type "Concrete4_Bad2" is not assignable to declared type "Template4"
   "Concrete4_Bad2" is incompatible with protocol "Template4"
     "val1" is not present (reportAssignmentType)
