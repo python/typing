@@ -17,8 +17,18 @@ should emit an error if the value is not of the specified type::
 
     def greet(name: str) -> None:
         assert_type(name, str)  # OK, inferred type of `name` is `str`
-        assert_type(name, str | Literal["spam"])  # OK, this type is equivalent to `str`
         assert_type(name, int)  # type checker error
+
+If the two types are :term:`equivalent` but syntactically different,
+the type checker may reject the ``assert_type()`` call::
+
+  from typing import assert_type, Literal
+
+  def greet(name: str) -> None:
+      assert_type(name, str | Literal["spam"])  # type checker may error
+
+Type checkers should aim to minimize cases where they reject
+``assert_type()`` calls that use equivalent types.
 
 The second argument must be a valid :term:`type expression`.
 
