@@ -1,7 +1,4 @@
-conformant = "Fail"
-notes = """
-Fails to treat equivalent unions as equivalent.
-"""
+conformant = "Pass"
 output = """
 directives_assert_type.py:27:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)
 directives_assert_type.py:28:17 - error: "assert_type" mismatch: expected "Any" but received "int | str" (reportAssertTypeFailure)
