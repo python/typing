@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Missing error regarding `type(instance).generic_attribute`.
-"""
+conformant = "Pass"
 output = """
 generics_type_erasure.py:38:16 - error: Argument of type "Literal['']" cannot be assigned to parameter "label" of type "int | None" in function "__init__"
   Type "Literal['']" is not assignable to type "int | None"
@@ -15,8 +12,8 @@ generics_type_erasure.py:42:11 - error: Access to generic instance variable thro
 generics_type_erasure.py:43:11 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
 generics_type_erasure.py:44:6 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
 generics_type_erasure.py:45:6 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
+generics_type_erasure.py:46:10 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 46: Expected 1 errors
 """
