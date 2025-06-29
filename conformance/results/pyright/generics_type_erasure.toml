@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Missing error regarding `type(instance).generic_attribute`.
-"""
+conformant = "Pass"
 output = """
 generics_type_erasure.py:38:16 - error: Argument of type "Literal['']" cannot be assigned to parameter "label" of type "int | None" in function "__init__"
   Type "Literal['']" is not assignable to type "int | None"

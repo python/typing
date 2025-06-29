@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-`NewType`s are considered classes, not functions.
-"""
+conformant = "Pass"
 output = """
 aliases_newtype.py:11:8 - error: Argument of type "Literal['user']" cannot be assigned to parameter "_x" of type "int" in function "__init__"
   "Literal['user']" is not assignable to "int" (reportArgumentType)
