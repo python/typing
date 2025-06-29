@@ -2,23 +2,21 @@ conformant = "Partial"
 notes = """
 Incorrectly specializes generic alias that includes a TypeVar and TypeVarTuple if no type arguments are provided.
 Rejects specialization of generic type alias defined as a tuple containing a TypeVar.
-"More than one Unpack" error message has no line number.
 """
 output = """
-generics_typevartuple_specialization.py: error: More than one Unpack in a type is not allowed  [misc]
 generics_typevartuple_specialization.py:85: error: Argument 1 to "takes_float_array_with_specific_shape" has incompatible type "Array2[float, *tuple[Any, ...]]"; expected "Array2[float, Height, Width]"  [arg-type]
 generics_typevartuple_specialization.py:108: error: Type application is only supported for generic classes  [misc]
 generics_typevartuple_specialization.py:109: error: Type application is only supported for generic classes  [misc]
 generics_typevartuple_specialization.py:109: error: Unpack is only valid in a variadic position  [valid-type]
 generics_typevartuple_specialization.py:110: error: Type application is only supported for generic classes  [misc]
 generics_typevartuple_specialization.py:110: error: Unpack is only valid in a variadic position  [valid-type]
+generics_typevartuple_specialization.py:121: error: More than one Unpack in a type is not allowed  [misc]
+generics_typevartuple_specialization.py:122: error: More than one Unpack in a type is not allowed  [misc]
 generics_typevartuple_specialization.py:127: error: Bad number of arguments for type alias, expected at least 2, given 1  [type-arg]
 generics_typevartuple_specialization.py:163: error: TypeVarTuple cannot be split  [type-arg]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 121: Expected 1 errors
-Line 122: Expected 1 errors
 Line 85: Unexpected errors ['generics_typevartuple_specialization.py:85: error: Argument 1 to "takes_float_array_with_specific_shape" has incompatible type "Array2[float, *tuple[Any, ...]]"; expected "Array2[float, Height, Width]"  [arg-type]']
 Line 108: Unexpected errors ['generics_typevartuple_specialization.py:108: error: Type application is only supported for generic classes  [misc]']
 """

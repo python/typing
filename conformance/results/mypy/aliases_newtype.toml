@@ -1,21 +1,25 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+`NewType`s are considered classes, not functions.
+"""
 output = """
 aliases_newtype.py:11: error: Argument 1 to "UserId" has incompatible type "str"; expected "int"  [arg-type]
 aliases_newtype.py:12: error: Incompatible types in assignment (expression has type "int", variable has type "UserId")  [assignment]
-aliases_newtype.py:20: error: Cannot use isinstance() with NewType type  [misc]
-aliases_newtype.py:23: error: Cannot subclass "NewType"  [misc]
-aliases_newtype.py:32: error: String argument 1 "BadName" to NewType(...) does not match variable name "GoodName"  [misc]
-aliases_newtype.py:38: error: "GoodNewType1" expects no type arguments, but 1 given  [type-arg]
-aliases_newtype.py:44: error: Argument 2 to NewType(...) must be subclassable (got "int | str")  [valid-newtype]
-aliases_newtype.py:47: error: Type variable "aliases_newtype.T" is unbound  [valid-type]
-aliases_newtype.py:47: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
-aliases_newtype.py:47: note: (Hint: Use "T" in function signature to bind "T" inside a function)
-aliases_newtype.py:49: error: NewType cannot be used with protocol classes  [misc]
-aliases_newtype.py:51: error: Argument 2 to NewType(...) must be subclassable (got "Literal[7]")  [valid-newtype]
-aliases_newtype.py:58: error: Argument 2 to NewType(...) must be subclassable (got "TD1")  [valid-newtype]
-aliases_newtype.py:60: error: NewType(...) expects exactly two positional arguments  [misc]
-aliases_newtype.py:62: error: Argument 2 to NewType(...) must be subclassable (got "Any")  [valid-newtype]
+aliases_newtype.py:23: error: Cannot use isinstance() with NewType type  [misc]
+aliases_newtype.py:26: error: Cannot subclass "NewType"  [misc]
+aliases_newtype.py:35: error: String argument 1 "BadName" to NewType(...) does not match variable name "GoodName"  [misc]
+aliases_newtype.py:41: error: "GoodNewType1" expects no type arguments, but 1 given  [type-arg]
+aliases_newtype.py:47: error: Argument 2 to NewType(...) must be subclassable (got "int | str")  [valid-newtype]
+aliases_newtype.py:50: error: Type variable "aliases_newtype.T" is unbound  [valid-type]
+aliases_newtype.py:50: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+aliases_newtype.py:50: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+aliases_newtype.py:52: error: NewType cannot be used with protocol classes  [misc]
+aliases_newtype.py:54: error: Argument 2 to NewType(...) must be subclassable (got "Literal[7]")  [valid-newtype]
+aliases_newtype.py:61: error: Argument 2 to NewType(...) must be subclassable (got "TD1")  [valid-newtype]
+aliases_newtype.py:63: error: NewType(...) expects exactly two positional arguments  [misc]
+aliases_newtype.py:65: error: Argument 2 to NewType(...) must be subclassable (got "Any")  [valid-newtype]
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 18: Expected 1 errors
 """

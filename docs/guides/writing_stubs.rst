@@ -495,7 +495,7 @@ more concise files.
 Syntax Example
 --------------
 
-The below is an excerpt from the types for the ``datetime`` module.
+The below is an excerpt from the types for the ``datetime`` module::
 
   MAXYEAR: int
   MINYEAR: int
