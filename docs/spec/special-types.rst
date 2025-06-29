@@ -8,16 +8,12 @@ Special types in annotations
 ``Any``
 -------
 
-A special kind of type is ``Any``.  Every type is consistent with
-``Any``.  It can be considered a type that has all values and all methods.
-Note that ``Any`` and builtin type ``object`` are completely different.
+``Any`` represents an unknown static type.
 
-When the type of a value is ``object``, the type checker will reject
-almost all operations on it, and assigning it to a variable (or using
-it as a return value) of a more specialized type is a type error.  On
-the other hand, when a value has type ``Any``, the type checker will
-allow all operations on it, and a value of type ``Any`` can be assigned
-to a variable (or used as a return value) of a more constrained type.
+Every type is :term:`assignable` to ``Any``, and ``Any`` is assignable to every
+type.
+
+See :ref:`type-system-concepts` for more discussion of ``Any``.
 
 A function parameter without an annotation is assumed to be annotated with
 ``Any``. If a generic type is used without specifying type parameters,
@@ -98,8 +94,9 @@ is unreachable and will behave accordingly::
 ``Never``
 ---------
 
-Since Python 3.11, the ``typing`` module contains a :term:`special form` ``Never``. It
-represents the bottom type, a type that has no members.
+Since Python 3.11, the ``typing`` module contains a :term:`special form`
+``Never``. It represents the bottom type, a type that represents the empty set
+of Python objects.
 
 The ``Never`` type is equivalent to ``NoReturn``, which is discussed above.
 The ``NoReturn`` type is conventionally used in return annotations of
@@ -192,7 +189,10 @@ Note that it is legal to use a union of classes as the parameter for
       user = new_user(user_class)
       ...
 
-However the actual argument passed in at runtime must still be a
+``type[]`` distributes over unions:
+``type[A | B]`` is :term:`equivalent` to ``type[A] | type[B]``.
+
+However, the actual argument passed in at runtime must still be a
 concrete class object, e.g. in the above example::
 
   new_non_team_user(ProUser)  # OK

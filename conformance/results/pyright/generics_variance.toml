@@ -1,6 +1,6 @@
 conformant = "Pass"
 output = """
-generics_variance.py:14:50 - error: TypeVar cannot be both covariant and contravariant
+generics_variance.py:14:50 - error: TypeVar cannot be both covariant and contravariant (reportGeneralTypeIssues)
 generics_variance.py:77:18 - error: Type "T_co@Class1" cannot be assigned to type variable "T@Inv"
   Variance of type argument "T_co@Class1" is incompatible with base class "Inv" (reportInvalidTypeArguments)
 generics_variance.py:81:18 - error: Type "T_contra@Class2" cannot be assigned to type variable "T@Inv"
@@ -22,9 +22,9 @@ generics_variance.py:163:33 - error: Type "Co[Contra[T_contra@CoToContraToContra
 generics_variance.py:167:37 - error: Type "Contra[Contra[T_co@ContraToContraToContra]]" cannot be assigned to type variable "T_contra@Contra"
   Variance of type argument "Contra[Contra[T_co@ContraToContraToContra]]" is incompatible with base class "Contra" (reportInvalidTypeArguments)
 generics_variance.py:191:43 - error: Could not specialize type "Contra_TA[T_contra@Contra_TA]"
-  Variance of type argument "Co_TA[Contra_TA[T_contra@CoToContraToContra_WithTA]]" is incompatible with "T_contra@Contra_TA"
+  Variance of type argument "Co_TA[Contra_TA[T_contra@CoToContraToContra_WithTA]]" is incompatible with "T_contra@Contra_TA" (reportInvalidTypeForm)
 generics_variance.py:196:15 - error: Could not specialize type "Contra_TA[T_contra@Contra_TA]"
-  Variance of type argument "Contra_TA[Contra_TA[T_co@ContraToContraToContra_WithTA]]" is incompatible with "T_contra@Contra_TA"
+  Variance of type argument "Contra_TA[Contra_TA[T_co@ContraToContraToContra_WithTA]]" is incompatible with "T_contra@Contra_TA" (reportInvalidTypeForm)
 """
 conformance_automated = "Pass"
 errors_diff = """

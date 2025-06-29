@@ -2,10 +2,10 @@ conformant = "Pass"
 output = """
 generics_defaults.py:24:7 - error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type (reportGeneralTypeIssues)
 generics_defaults.py:50:16 - error: Too few type arguments provided for "AllTheDefaults"; expected 2 but received 1 (reportInvalidTypeArguments)
-generics_defaults.py:104:39 - error: TypeVar default type must be a subtype of the bound type (reportGeneralTypeIssues)
-generics_defaults.py:111:40 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)
-generics_defaults.py:138:7 - error: TypeVar "T5" has a default value and cannot follow TypeVarTuple "Ts" (reportGeneralTypeIssues)
-generics_defaults.py:167:18 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
+generics_defaults.py:107:51 - error: TypeVar default type must be a subtype of the bound type (reportGeneralTypeIssues)
+generics_defaults.py:114:52 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)
+generics_defaults.py:141:7 - error: TypeVar "T5" has a default value and cannot follow TypeVarTuple "Ts" (reportGeneralTypeIssues)
+generics_defaults.py:170:18 - error: Access to generic instance variable through class is ambiguous (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """

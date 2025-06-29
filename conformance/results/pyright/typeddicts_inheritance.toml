@@ -1,7 +1,7 @@
 conformant = "Pass"
 output = """
 typeddicts_inheritance.py:44:7 - error: All base classes for TypedDict classes must also be TypedDict classes
-  Class "NonTypedDict" is not a TypedDict
+  Class "NonTypedDict" is not a TypedDict (reportGeneralTypeIssues)
 typeddicts_inheritance.py:55:4 - error: "x" overrides symbol of same name in class "X1"
   Variable is mutable so its type is invariant
     Override type "int" is not the same as base type "str" (reportIncompatibleVariableOverride)

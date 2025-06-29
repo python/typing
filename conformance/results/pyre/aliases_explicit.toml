@@ -15,6 +15,8 @@ aliases_explicit.py:26:0 Incompatible variable type [9]: GoodTypeAlias12 is decl
 aliases_explicit.py:26:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[ParamSpec, None]`.
 aliases_explicit.py:41:8 Undefined or invalid type [11]: Annotation `GoodTypeAlias9` is not defined as a type.
 aliases_explicit.py:44:9 Undefined or invalid type [11]: Annotation `GoodTypeAlias12` is not defined as a type.
+aliases_explicit.py:57:4 Assert type [70]: Expected `typing.Callable[[int, str, str], None]` but got `unknown`.
+aliases_explicit.py:60:4 Assert type [70]: Expected `typing.Callable[..., None]` but got `unknown`.
 aliases_explicit.py:80:0 Incompatible variable type [9]: BadTypeAlias2 is declared to have type `TA` but is used as type `List[Type[Union[int, str]]]`.
 aliases_explicit.py:81:0 Incompatible variable type [9]: BadTypeAlias3 is declared to have type `TA` but is used as type `Tuple[Tuple[Type[int], Type[str]]]`.
 aliases_explicit.py:82:0 Incompatible variable type [9]: BadTypeAlias4 is declared to have type `TA` but is used as type `List[Type[int]]`.
@@ -44,5 +46,7 @@ Line 23: Unexpected errors ['aliases_explicit.py:23:0 Incompatible variable type
 Line 26: Unexpected errors ['aliases_explicit.py:26:0 Incompatible variable type [9]: GoodTypeAlias12 is declared to have type `TA` but is used as type `Type[typing.Callable[..., Variable[$synthetic_attribute_resolution_variable]]]`.', 'aliases_explicit.py:26:31 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Tuple[typing.Any, Type[Variable[$synthetic_attribute_resolution_variable]]]` but got `Tuple[ParamSpec, None]`.']
 Line 41: Unexpected errors ['aliases_explicit.py:41:8 Undefined or invalid type [11]: Annotation `GoodTypeAlias9` is not defined as a type.']
 Line 44: Unexpected errors ['aliases_explicit.py:44:9 Undefined or invalid type [11]: Annotation `GoodTypeAlias12` is not defined as a type.']
+Line 57: Unexpected errors ['aliases_explicit.py:57:4 Assert type [70]: Expected `typing.Callable[[int, str, str], None]` but got `unknown`.']
+Line 60: Unexpected errors ['aliases_explicit.py:60:4 Assert type [70]: Expected `typing.Callable[..., None]` but got `unknown`.']
 Line 97: Unexpected errors ['aliases_explicit.py:97:16 Call error [29]: `TA` is not a function.']
 """

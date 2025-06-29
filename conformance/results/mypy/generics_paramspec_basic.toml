@@ -1,21 +1,19 @@
-conformant = "Partial"
-notes = """
-Does not reject ParamSpec when used "bare" in type alias definition.
-"""
+conformant = "Pass"
 output = """
 generics_paramspec_basic.py:10: error: String argument 1 "NotIt" to ParamSpec(...) does not match variable name "WrongName"  [misc]
+generics_paramspec_basic.py:15: error: Invalid location for ParamSpec "P"  [valid-type]
+generics_paramspec_basic.py:15: note: You can use ParamSpec as the first argument to Callable, e.g., "Callable[P, int]"
 generics_paramspec_basic.py:23: error: Invalid location for ParamSpec "P"  [valid-type]
-generics_paramspec_basic.py:23: note: You can use ParamSpec as the first argument to Callable, e.g., 'Callable[P, int]'
+generics_paramspec_basic.py:23: note: You can use ParamSpec as the first argument to Callable, e.g., "Callable[P, int]"
 generics_paramspec_basic.py:27: error: Invalid location for Concatenate  [valid-type]
 generics_paramspec_basic.py:27: note: You can use Concatenate as the first argument to Callable
-generics_paramspec_basic.py:31: error: Invalid location for ParamSpec "P"  [misc]
-generics_paramspec_basic.py:31: note: You can use ParamSpec as the first argument to Callable, e.g., 'Callable[P, int]'
+generics_paramspec_basic.py:31: error: Invalid location for ParamSpec "P"  [valid-type]
+generics_paramspec_basic.py:31: note: You can use ParamSpec as the first argument to Callable, e.g., "Callable[P, int]"
 generics_paramspec_basic.py:35: error: Invalid location for ParamSpec "P"  [valid-type]
-generics_paramspec_basic.py:35: note: You can use ParamSpec as the first argument to Callable, e.g., 'Callable[P, int]'
+generics_paramspec_basic.py:35: note: You can use ParamSpec as the first argument to Callable, e.g., "Callable[P, int]"
 generics_paramspec_basic.py:39: error: Invalid location for ParamSpec "P"  [valid-type]
-generics_paramspec_basic.py:39: note: You can use ParamSpec as the first argument to Callable, e.g., 'Callable[P, int]'
+generics_paramspec_basic.py:39: note: You can use ParamSpec as the first argument to Callable, e.g., "Callable[P, int]"
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 15: Expected 1 errors
 """

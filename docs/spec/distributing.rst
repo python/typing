@@ -8,72 +8,166 @@ Distributing type information
 Stub files
 ----------
 
-Stub files are files containing type hints that are only for use by
-the type checker, not at runtime.  There are several use cases for
-stub files:
+(Originally specified in :pep:`484`.)
 
-* Extension modules
+*Stub files*, also called *type stubs*, provide type information for untyped
+Python packages and modules. Stub files serve multiple purposes:
 
-* Third-party modules whose authors have not yet added type hints
+* They are the only way to add type information to extension modules.
+* They can provide type information for packages that do not wish to
+  add them inline.
+* They can be distributed separately from the package or module that they
+  provide types for. The latter is referred to as the *implementation*.
+  This allows stubs to be developed at a different pace or by different
+  authors, which is especially useful when adding type annotations to
+  existing packages.
+* They can act as documentation, succinctly explaining the external
+  API of a package, without including implementation details or private
+  members.
 
-* Standard library modules for which type hints have not yet been
-  written
+Stub files use a subset of the constructs used in Python source files, as
+described in :ref:`stub-file-supported-constructs` below. Type checkers should
+parse a stub that uses only such constructs without error and not interpret any
+construct in a manner contradictory to this specification. However, type
+checkers are not required to implement checks for all of these constructs and
+can elect to ignore unsupported ones. Additionally, type checkers can support
+constructs not described here.
 
-* Modules that must be compatible with Python 2 and 3
+If a stub file is found for a module, the type checker should not read the
+corresponding "real" module. See :ref:`mro` for more information.
 
-* Modules that use annotations for other purposes
+.. _stub-file-syntax:
 
-Stub files have the same syntax as regular Python modules.  There is one
-feature of the ``typing`` module that is different in stub files:
-the ``@overload`` decorator described below.
+Syntax
+^^^^^^
 
-The type checker should only check function signatures in stub files;
-It is recommended that function bodies in stub files just be a single
-ellipsis (``...``).
+Stub files are syntactically valid Python files with a ``.pyi`` suffix. They
+should be parseable (e.g., with :py:func:`ast.parse`) in all Python versions
+that are supported by the implementation and that are still supported
+by the CPython project. For example, defining a type alias using the
+``type`` keyword is only accepted by the Python parser in Python 3.12 and later,
+so stubs supporting Python 3.11 or earlier versions should not use this syntax.
+This allows type checkers implemented in Python to parse stub files using
+functionality from the standard library.
+Type checkers may choose to support syntactic features from newer Python versions
+in stub files, but stubs that rely on such features may not be portable to all
+type checkers. Type checkers may also choose to support Python versions that
+are no longer supported by CPython; if so, they cannot rely on standard library
+functionality to parse stub files.
 
-The type checker should have a configurable search path for stub files.
-If a stub file is found the type checker should not read the
-corresponding "real" module.
+Type checkers should evaluate all :term:`annotation expressions <annotation expression>` as if they are quoted.
+Consequently, forward references do not need to be quoted, and type system
+features that do not depend on Python syntax changes are supported in stubs regardless
+of the Python version supported. For example, the use of the ``|`` operator
+to create unions (``X | Y``) was introduced in Python 3.10, but may be used
+even in stubs that support Python 3.9 and older versions.
 
-While stub files are syntactically valid Python modules, they use the
-``.pyi`` extension to make it possible to maintain stub files in the
-same directory as the corresponding real module.  This also reinforces
-the notion that no runtime behavior should be expected of stub files.
+.. _stub-file-supported-constructs:
 
-Additional notes on stub files:
+Supported Constructs
+^^^^^^^^^^^^^^^^^^^^
 
-* Modules and variables imported into the stub are not considered
-  exported from the stub unless the import uses the ``import ... as
-  ...`` form or the equivalent ``from ... import ... as ...`` form.
-  (*UPDATE:* To clarify, the intention here is that only names
-  imported using the form ``X as X`` will be exported, i.e. the name
-  before and after ``as`` must be the same.)
+Type checkers should fully support these constructs:
 
-* However, as an exception to the previous bullet, all objects
-  imported into a stub using ``from ... import *`` are considered
-  exported.  (This makes it easier to re-export all objects from a
-  given module that may vary by Python version.)
+* All features from the ``typing`` module of the latest released Python version
+  that use :ref:`supported syntax <stub-file-syntax>`
+* Comments, including type declaration (``# type: X``) and error suppression
+  (``# type: ignore``) comments
+* Import statements, including the standard :ref:`import-conventions` and cyclic
+  imports
+* Aliases, including type aliases, at both the module and class level
+* :ref:`Simple version and platform checks <version-and-platform-checks>`
 
-* Just like in `normal Python files <https://docs.python.org/3/reference/import.html#submodules>`_, submodules
-  automatically become exported attributes of their parent module
-  when imported. For example, if the ``spam`` package has the
-  following directory structure::
+The constructs in the following subsections may be supported in a more limited
+fashion, as described below.
 
-      spam/
-          __init__.pyi
-          ham.pyi
+Value Expressions
+"""""""""""""""""
 
-  where ``__init__.pyi`` contains a line such as ``from . import ham``
-  or ``from .ham import Ham``, then ``ham`` is an exported attribute
-  of ``spam``.
+In locations where value expressions can appear, such as the right-hand side of
+assignment statements and function parameter defaults, type checkers should
+support the following expressions:
 
-* Stub files may be incomplete. To make type checkers aware of this, the file
-  can contain the following code::
+* The ellipsis literal, ``...``, which can stand in for any value
+* Any value that is a
+  :ref:`legal parameter for typing.Literal <literal-legal-parameters>`
+* Floating point literals, such as ``3.14``
+* Complex literals, such as ``1 + 2j``
 
-    def __getattr__(name) -> Any: ...
+Module Level Attributes
+"""""""""""""""""""""""
 
-  Any identifier not defined in the stub is therefore assumed to be of type
-  ``Any``.
+Type checkers should support module-level variable annotations, with and without
+assignments::
+
+    x: int
+    x: int = 0
+    x = 0  # type: int
+    x = ...  # type: int
+
+The :ref:`Literal shortcut using Final <literal-final-interactions>` should be
+supported::
+
+    x: Final = 0  # type is Literal[0]
+
+When the type of a variable is omitted or disagrees from the assigned value,
+type checker behavior is undefined::
+
+    x = 0  # behavior undefined
+    x: Final = ...  # behavior undefined
+    x: int = ""  # behavior undefined
+
+Classes
+"""""""
+
+Class definition syntax follows general Python syntax, but type checkers
+are expected to understand only the following constructs in class bodies:
+
+* The ellipsis literal ``...`` is used for empty class bodies. Using ``pass`` in
+  class bodies is undefined.
+* Instance attributes follow the same rules as module level attributes
+  (see above).
+* Method definitions (see below) and properties.
+* Aliases.
+* Inner class definitions.
+
+Yes::
+
+    class Simple: ...
+
+    class Complex(Base):
+        read_write: int
+        @property
+        def read_only(self) -> int: ...
+        def do_stuff(self, y: str) -> None: ...
+        doStuff = do_stuff
+        IntList: TypeAlias = list[int]
+        class Inner: ...
+
+Functions and Methods
+"""""""""""""""""""""
+
+Function and method definition follows general Python syntax. Using a function
+or method body other than the ellipsis literal is undefined::
+
+    def foo(): ...  # compatible
+    def bar(): pass  # behavior undefined
+
+.. _stub-decorators:
+
+Decorators
+""""""""""
+
+Type checkers are expected to understand the effects of all decorators defined
+in the ``typing`` module, plus these additional ones:
+
+ * ``classmethod``
+ * ``staticmethod``
+ * ``property`` (including ``.setter`` and ``.deleter``)
+ * ``abc.abstractmethod``
+ * ``dataclasses.dataclass``
+ * ``warnings.deprecated``
+ * functions decorated with ``@typing.dataclass_transform``
 
 The Typeshed Project
 ^^^^^^^^^^^^^^^^^^^^
@@ -85,8 +179,12 @@ and type stubs for third-party libraries that don't ship their own type informat
 stubs collected there are decided separately and described in the project's
 documentation.
 
+.. _packaging-typed-libraries:
+
 Type information in libraries
 -----------------------------
+
+(Originally specified in :pep:`561`.)
 
 There are several motivations and methods of supporting typing in a package.
 This specification recognizes three types of packages that users of typing wish to
@@ -193,8 +291,9 @@ Partial Stub Packages
 Many stub packages will only have part of the type interface for libraries
 completed, especially initially. For the benefit of type checking and code
 editors, packages can be "partial". This means modules not found in the stub
-package SHOULD be searched for in part four of the module resolution
-order below, namely :term:`inline` packages.
+package SHOULD be searched for in parts five and six of the module resolution
+order below, namely :term:`inline` packages and any third-party stubs the type
+checker chooses to vendor.
 
 Type checkers should merge the stub package and runtime package
 directories. This can be thought of as the functional equivalent of copying the
@@ -229,19 +328,27 @@ resolve modules containing type information:
 
 2. User code - the files the type checker is running on.
 
-3. :term:`Stub <stub>` packages - these packages SHOULD supersede any installed inline
+3. Typeshed stubs for the standard library. These will usually be vendored by
+   type checkers, but type checkers SHOULD provide an option for users to
+   provide a path to a directory containing a custom or modified version of
+   typeshed; if this option is provided, type checkers SHOULD use this as the
+   canonical source for standard-library types in this step.
+
+4. :term:`Stub <stub>` packages - these packages SHOULD supersede any installed inline
    package. They can be found in directories named ``foopkg-stubs`` for
    package ``foopkg``.
 
-4. Packages with a ``py.typed`` marker file - if there is nothing overriding
+5. Packages with a ``py.typed`` marker file - if there is nothing overriding
    the installed package, *and* it opts into type checking, the types
    bundled with the package SHOULD be used (be they in ``.pyi`` type
    stub files or inline in ``.py`` files).
 
-5. Typeshed - only for modules in the standard library.
+6. If the type checker chooses to additionally vendor any third-party stubs
+   (from typeshed or elsewhere), these SHOULD come last in the module
+   resolution order.
 
 If typecheckers identify a stub-only namespace package without the desired module
-in step 3, they should continue to step 4/5. Typecheckers should identify namespace packages
+in step 4, they should continue to step 5/6. Typecheckers should identify namespace packages
 by the absence of ``__init__.pyi``.  This allows different subpackages to
 independently opt for inline vs stub-only.
 
@@ -251,3 +358,60 @@ of that Python version. This can be queried e.g.
 ``pythonX.Y -c 'import site; print(site.getsitepackages())'``. It is also recommended
 that the type checker allow for the user to point to a particular Python
 binary, in case it is not in the path.
+
+.. _library-interface:
+
+Library interface (public and private symbols)
+----------------------------------------------
+
+If a ``py.typed`` module is present, a type checker will treat all modules
+within that package (i.e. all files that end in ``.py`` or ``.pyi``) as
+importable unless the file name begins with an underscore. These modules
+comprise the supported interface for the library.
+
+Each module exposes a set of symbols. Some of these symbols are
+considered "private” — implementation details that are not part of the
+library’s interface. Type checkers can use the following rules
+to determine which symbols are visible outside of the package.
+
+-  Symbols whose names begin with an underscore (but are not dunder
+   names) are considered private.
+-  Imported symbols are considered private by default. A fixed set of
+   :ref:`import forms <import-conventions>` re-export imported symbols.
+-  A module can expose an ``__all__`` symbol at the module level that
+   provides a list of names that are considered part of the interface.
+   This overrides all other rules above, allowing imported symbols or
+   symbols whose names begin with an underscore to be included in the
+   interface.
+-  Local variables within a function (including nested functions) are
+   always considered private.
+
+The following idioms are supported for defining the values contained
+within ``__all__``. These restrictions allow type checkers to statically
+determine the value of ``__all__``.
+
+-  ``__all__ = ('a', 'b')``
+-  ``__all__ = ['a', 'b']``
+-  ``__all__ += ['a', 'b']``
+-  ``__all__ += submodule.__all__``
+-  ``__all__.extend(['a', 'b'])``
+-  ``__all__.extend(submodule.__all__)``
+-  ``__all__.append('a')``
+-  ``__all__.remove('a')``
+
+.. _import-conventions:
+
+Import Conventions
+------------------
+
+By convention, certain import forms indicate to type checkers that an imported
+symbol is re-exported and should be considered part of the importing module's
+public interface. All other imported symbols are considered private by default.
+
+The following import forms re-export symbols:
+
+* ``import X as X`` (a redundant module alias): re-exports ``X``.
+* ``from Y import X as X`` (a redundant symbol alias): re-exports ``X``.
+* ``from Y import *``: if ``Y`` defines a module-level ``__all__`` list,
+  re-exports all names in ``__all__``; otherwise, re-exports  all public symbols
+  in ``Y``'s global scope.

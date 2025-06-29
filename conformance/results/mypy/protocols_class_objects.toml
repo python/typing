@@ -12,14 +12,14 @@ protocols_class_objects.py:74: error: Incompatible types in assignment (expressi
 protocols_class_objects.py:74: note: Following member(s) of "ConcreteB" have conflicts:
 protocols_class_objects.py:74: note:     prop1: expected "int", got "Callable[[ConcreteB], int]"
 protocols_class_objects.py:74: note: Only class variables allowed for class object access on protocols, prop1 is an instance variable of "ConcreteB"
-protocols_class_objects.py:101: error: Incompatible types in assignment (expression has type "type[ConcreteC1]", variable has type "ProtoC1")  [assignment]
-protocols_class_objects.py:101: note: ClassVar protocol member ProtoC1.attr1 can never be matched by a class object
-protocols_class_objects.py:103: error: Incompatible types in assignment (expression has type "type[ConcreteC2]", variable has type "ProtoC1")  [assignment]
-protocols_class_objects.py:103: note: Only class variables allowed for class object access on protocols, attr1 is an instance variable of "ConcreteC2"
-protocols_class_objects.py:103: note: ClassVar protocol member ProtoC1.attr1 can never be matched by a class object
-protocols_class_objects.py:104: error: Incompatible types in assignment (expression has type "type[ConcreteC2]", variable has type "ProtoC2")  [assignment]
-protocols_class_objects.py:104: note: Only class variables allowed for class object access on protocols, attr1 is an instance variable of "ConcreteC2"
-protocols_class_objects.py:105: error: Incompatible types in assignment (expression has type "type[ConcreteC3]", variable has type "ProtoC1")  [assignment]
+protocols_class_objects.py:104: error: Incompatible types in assignment (expression has type "type[ConcreteC1]", variable has type "ProtoC1")  [assignment]
+protocols_class_objects.py:104: note: ClassVar protocol member ProtoC1.attr1 can never be matched by a class object
+protocols_class_objects.py:106: error: Incompatible types in assignment (expression has type "type[ConcreteC2]", variable has type "ProtoC1")  [assignment]
+protocols_class_objects.py:106: note: Only class variables allowed for class object access on protocols, attr1 is an instance variable of "ConcreteC2"
+protocols_class_objects.py:106: note: ClassVar protocol member ProtoC1.attr1 can never be matched by a class object
+protocols_class_objects.py:107: error: Incompatible types in assignment (expression has type "type[ConcreteC2]", variable has type "ProtoC2")  [assignment]
+protocols_class_objects.py:107: note: Only class variables allowed for class object access on protocols, attr1 is an instance variable of "ConcreteC2"
+protocols_class_objects.py:108: error: Incompatible types in assignment (expression has type "type[ConcreteC3]", variable has type "ProtoC1")  [assignment]
 """
 conformance_automated = "Pass"
 errors_diff = """

@@ -4,19 +4,16 @@ Does not reject use of `Required` in function parameter annotation.
 Does not reject nested use of `Required` in type annotation.
 Does not support recursive TypedDict definitions.
 Incorrectly complains about uninitialized attributes on TypedDict definitions.
+Incorrectly generates "attribute not initialized" errors for TypedDict fields.
 """
 output = """
-typeddicts_required.py:11:0 Uninitialized attribute [13]: Attribute `x` is declared in class `NotTypedDict` to have type `Required[int]` but is never initialized.
-typeddicts_required.py:71:62 Undefined or invalid type [11]: Annotation `RecursiveMovie` is not defined as a type.
-typeddicts_required.py:74:24 TypedDict initialization error [55]: Expected type `unknown` for `RecursiveMovie` field `predecessor` but got `typing.Dict[str, str]`.
+typeddicts_required.py:15:8 Incompatible attribute type [8]: Attribute `x` declared in class `NotTypedDict` has type `Required[int]` but is used as type `int`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 12: Expected 1 errors
-Line 16: Expected 1 errors
-Line 59: Expected 1 errors
-Line 60: Expected 1 errors
-Line 11: Unexpected errors ['typeddicts_required.py:11:0 Uninitialized attribute [13]: Attribute `x` is declared in class `NotTypedDict` to have type `Required[int]` but is never initialized.']
-Line 71: Unexpected errors ['typeddicts_required.py:71:62 Undefined or invalid type [11]: Annotation `RecursiveMovie` is not defined as a type.']
-Line 74: Unexpected errors ['typeddicts_required.py:74:24 TypedDict initialization error [55]: Expected type `unknown` for `RecursiveMovie` field `predecessor` but got `typing.Dict[str, str]`.']
+Line 19: Expected 1 errors
+Line 62: Expected 1 errors
+Line 63: Expected 1 errors
+Line 15: Unexpected errors ['typeddicts_required.py:15:8 Incompatible attribute type [8]: Attribute `x` declared in class `NotTypedDict` has type `Required[int]` but is used as type `int`.']
 """

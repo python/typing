@@ -1,7 +1,4 @@
 conformant = "Pass"
-notes = """
-Does not handle illegal named tuple names the same as runtime.
-"""
 output = """
 namedtuples_define_functional.py:16: error: Missing positional argument "y" in call to "Point1"  [call-arg]
 namedtuples_define_functional.py:21: error: Missing positional arguments "x", "y" in call to "Point2"  [call-arg]
@@ -11,11 +8,11 @@ namedtuples_define_functional.py:36: error: Argument 2 to "Point5" has incompati
 namedtuples_define_functional.py:37: error: Too many arguments for "Point5"  [call-arg]
 namedtuples_define_functional.py:42: error: Argument 2 to "Point6" has incompatible type "str"; expected "int"  [arg-type]
 namedtuples_define_functional.py:43: error: Argument "x" to "Point6" has incompatible type "float"; expected "int"  [arg-type]
-namedtuples_define_functional.py:52: error: Name "a" already defined (possibly by an import)  [no-redef]
-namedtuples_define_functional.py:57: error: Unexpected keyword argument "_1" for "NT4"  [call-arg]
+namedtuples_define_functional.py:52: error: "namedtuple()" has duplicate field name "a"  [misc]
+namedtuples_define_functional.py:53: error: "namedtuple()" field name "def" is a keyword  [misc]
+namedtuples_define_functional.py:54: error: "namedtuple()" field name "def" is a keyword  [misc]
 namedtuples_define_functional.py:66: error: Missing positional argument "a" in call to "NT5"  [call-arg]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 57: Unexpected errors ['namedtuples_define_functional.py:57: error: Unexpected keyword argument "_1" for "NT4"  [call-arg]']
 """

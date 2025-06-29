@@ -192,11 +192,6 @@ customization of default behaviors:
   in ``typing.py``. Type checkers should report errors for any
   unrecognized parameters.
 
-In the future, we may add additional parameters to
-``dataclass_transform`` as needed to support common behaviors in user
-code. These additions will be made after reaching consensus on
-typing-sig rather than via additional PEPs.
-
 The following sections provide additional examples showing how these
 parameters are used.
 
@@ -365,6 +360,8 @@ positional and may use other names.
 * ``alias`` is an optional str parameter that provides an alternative
   name for the field. This alternative name is used in the synthesized
   ``__init__`` method.
+* ``converter`` is an optional parameter that specifies a
+  callable used to convert values when assigning to the field.
 
 It is an error to specify more than one of ``default``,
 ``default_factory`` and ``factory``.
@@ -488,7 +485,7 @@ This includes, but is not limited to, the following semantics:
         wheel_count: int
 
 * Field ordering and inheritance is assumed to follow the rules
-  specified in `the Python docs <https://docs.python.org/3/library/dataclasses.html#inheritance>`. This includes the effects of
+  specified in `the Python docs <https://docs.python.org/3/library/dataclasses.html#inheritance>`__. This includes the effects of
   overrides (redefining a field in a child class that has already been
   defined in a parent class).
 
@@ -525,6 +522,52 @@ This includes, but is not limited to, the following semantics:
   of ``3`` in the generated ``__init__`` method. A final class variable on a
   dataclass must be explicitly annotated as e.g. ``x: ClassVar[Final[int]] =
   3``.
+
+Converters
+^^^^^^^^^^
+
+The ``converter`` parameter can be specified in a field definition to provide a callable
+used to convert values when assigning to the associated attribute. This feature allows for automatic type
+conversion and validation during attribute assignment.
+
+Converter behavior:
+
+* The converter is used for all attribute assignment, including assignment
+  of default values, assignment in synthesized ``__init__`` methods
+  and direct attribute setting (e.g., ``obj.attr = value``).
+* The converter is not used when reading attributes, as the attributes should already have been converted.
+
+Typing rules for converters:
+
+* The ``converter`` must be a callable that must accept a single positional argument
+  (but may accept other optional arguments, which are ignored for typing purposes).
+* The type of the first positional parameter provides the type of the synthesized ``__init__`` parameter
+  for the field.
+* The return type of the callable must be assignable to the field's declared type.
+* If ``default`` or ``default_factory`` are provided, the type of the default value should be
+  assignable to the first positional parameter of the ``converter``.
+
+Example usage:
+
+.. code-block:: python
+
+    def str_or_none(x: Any) -> str | None:
+        return str(x) if x is not None else None
+
+    @custom_dataclass
+    class Example:
+        int_field: int = custom_field(converter=int)
+        str_field: str | None = custom_field(converter=str_or_none)
+        path_field: pathlib.Path = custom_field(
+            converter=pathlib.Path,
+            default="default/path.txt"
+        )
+
+    # Usage
+    example = Example("123", None, "some/path")
+    # example.int_field == 123
+    # example.str_field == None
+    # example.path_field == pathlib.Path("some/path")
 
 
 Undefined behavior

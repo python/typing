@@ -16,25 +16,26 @@ hinting is used by filling function annotation slots with classes::
 This states that the expected type of the ``name`` argument is
 ``str``.  Analogically, the expected return type is ``str``.
 
-Expressions whose type is a subtype of a specific argument type are
-also accepted for that argument.
+Expressions whose type is :term:`assignable` to a specific argument type are
+also accepted for that argument. Similarly, an expression whose type is
+assignable to the annotated return type can be returned from the function.
 
 .. _`missing-annotations`:
 
-Any function without annotations should be treated as having the most
-general type possible, or ignored, by any type checker.
+Any function without annotations can be treated as having :ref:`Any`
+annotations on all arguments and the return type. Type checkers may also
+optionally infer more precise types for missing annotations.
+
+Type checkers may choose to entirely ignore (not type check) the bodies of
+functions with no annotations, but this behavior is not required.
 
 It is recommended but not required that checked functions have
 annotations for all arguments and the return type.  For a checked
 function, the default annotation for arguments and for the return type
-is ``Any``.  An exception is the first argument of instance and
-class methods. If it is not annotated, then it is assumed to have the
-type of the containing class for instance methods, and a type object
-type corresponding to the containing class object for class methods.
-For example, in class ``A`` the first argument of an instance method
-has the implicit type ``A``. In a class method, the precise type of
-the first argument cannot be represented using the available type
-notation.
+is ``Any``. An exception to the above is the first argument of
+instance and class methods (conventionally named ``self`` or ``cls``),
+which type checkers should assume to have an appropriate type, as per
+:ref:`annotating-methods`.
 
 (Note that the return type of ``__init__`` ought to be annotated with
 ``-> None``.  The reason for this is subtle.  If ``__init__`` assumed
@@ -104,8 +105,8 @@ The following grammar describes the allowed elements of type and annotation expr
     annotation_expression: <Required> '[' `annotation_expression` ']'
                          : | <NotRequired> '[' `annotation_expression` ']'
                          : | <ReadOnly> '[' `annotation_expression`']'
-                         : | <ClassVar> '[' `annotation_expression`']'
-                         : | <Final> '[' `annotation_expression`']'
+                         : | <ClassVar> ('[' `annotation_expression`']')?
+                         : | <Final> ('[' `annotation_expression`']')?
                          : | <InitVar> '[' `annotation_expression` ']'
                          : | <Annotated> '[' `annotation_expression` ','
                          :               expression (',' expression)* ']'
@@ -310,7 +311,7 @@ the generic type ``Generator[yield_type, send_type,
 return_type]`` provided by ``typing.py`` module::
 
   def echo_round() -> Generator[int, float, str]:
-      res = yield
+      res = yield 0
       while res:
           res = yield round(res)
       return 'OK'
@@ -353,10 +354,14 @@ types cannot be specified::
 Annotating instance and class methods
 -------------------------------------
 
-In most cases the first argument of class and instance methods
-does not need to be annotated, and it is assumed to have the
-type of the containing class for instance methods, and a type object
-type corresponding to the containing class object for class methods.
+In most cases the first argument of instance and class methods
+(conventionally named ``self`` or ``cls``) does not need to be annotated.
+
+If the argument is not annotated, then for instance methods it may be
+inferred to have either the type of the containing class, or the type :ref:`Self
+<self>`. For class methods it may be inferred to have either the type object
+type corresponding to the containing class object, or ``type[Self]``.
+
 In addition, the first argument in an instance method can be annotated
 with a type variable. In this case the return type may use the same
 type variable, thus making that method a generic function. For example::

@@ -29,10 +29,10 @@ Arbitrary-length homogeneous tuples are sometimes referred to as "unbounded
 tuples". Both of these terms appear within the typing spec, and they refer to
 the same concept.
 
-The type ``tuple[Any, ...]`` is special in that it is bidirectionally
-compatible with any tuple of any length. This is useful for gradual typing.
-The type ``tuple`` (with no type arguments provided) is equivalent to
-``tuple[Any, ...]``.
+The type ``tuple[Any, ...]`` is special in that it is :term:`consistent` with
+all tuple types, and :term:`assignable` to a tuple of any length. This is
+useful for gradual typing. The type ``tuple`` (with no type arguments provided)
+is equivalent to ``tuple[Any, ...]``.
 
 Arbitrary-length tuples have exactly two type arguments -- the type and
 an ellipsis. Any other tuple form that uses an ellipsis is invalid::
@@ -61,8 +61,7 @@ more elements of type ``str``. The type ``tuple[*tuple[int, ...]]`` is
 equivalent to ``tuple[int, ...]``.
 
 If an unpacked ``*tuple[Any, ...]`` is embedded within another tuple, that
-portion of the tuple is bidirectionally type compatible with any tuple of
-any length.
+portion of the tuple is :term:`consistent` with any tuple of any length.
 
 Only one unbounded tuple can be used within another tuple::
 
@@ -92,7 +91,7 @@ Type Compatibility Rules
 ------------------------
 
 Because tuple contents are immutable, the element types of a tuple are covariant.
-For example, ``tuple[int, int]`` is a subtype of ``tuple[float, complex]``.
+For example, ``tuple[bool, int]`` is a subtype of ``tuple[int, object]``.
 
 As discussed above, a homogeneous tuple of arbitrary length is equivalent
 to a union of tuples of different lengths. That means ``tuple[()]``,
@@ -100,7 +99,7 @@ to a union of tuples of different lengths. That means ``tuple[()]``,
 ``tuple[int, ...]``. The converse is not true; ``tuple[int, ...]`` is not a
 subtype of ``tuple[int]``.
 
-The type ``tuple[Any, ...]`` is bidirectionally compatible with any tuple::
+The type ``tuple[Any, ...]`` is :term:`consistent` with any tuple::
 
     def func(t1: tuple[int], t2: tuple[int, ...], t3: tuple[Any, ...]):
         v1: tuple[int, ...] = t1  # OK

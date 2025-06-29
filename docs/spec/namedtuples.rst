@@ -133,11 +133,12 @@ this::
     x, y = p  # Type error (too few values to unpack)
 
 
-Type Compatibility Rules
-------------------------
+Assignability
+-------------
 
-A named tuple is a subtype of a ``tuple`` with a known length and parameterized
-by types corresponding to the named tuple's individual field types::
+A named tuple is :term:`assignable` to a ``tuple`` with a known length and
+parameterized by types corresponding to the named tuple's individual field
+types::
 
     p = Point(x=1, y=2, units="inches")
     v1: tuple[int, int, str] = p  # OK

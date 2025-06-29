@@ -14,13 +14,9 @@ generics_variance.py:131: error: Variance of TypeVar "T_contra" incompatible wit
 conformance_automated = "Fail"
 errors_diff = """
 Line 113: Expected 1 errors
-Line 126: Expected 1 errors
-Line 132: Expected 1 errors
-Line 142: Expected 1 errors
 Line 163: Expected 1 errors
 Line 167: Expected 1 errors
 Line 191: Expected 1 errors
-Line 196: Expected 1 errors
-Line 125: Unexpected errors ['generics_variance.py:125: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]']
-Line 131: Unexpected errors ['generics_variance.py:131: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]']
+Lines 141, 142: Expected error (tag 'CoContra_Child5')
+Lines 195, 196: Expected error (tag 'ContraToContraToContra_WithTA')
 """

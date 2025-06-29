@@ -2,14 +2,14 @@ conformant = "Pass"
 output = """
 generics_typevartuple_specialization.py:109:18 - error: Type variable "Ts" has no meaning in this context (reportGeneralTypeIssues)
 generics_typevartuple_specialization.py:109:18 - error: Could not specialize type "IntTupleGeneric[T@IntTupleGeneric]"
-  Unpacked arguments cannot be used in this context
+  Unpacked arguments cannot be used in this context (reportInvalidTypeForm)
 generics_typevartuple_specialization.py:110:18 - error: Could not specialize type "IntTupleGeneric[T@IntTupleGeneric]"
-  Unpacked arguments cannot be used in this context
-generics_typevartuple_specialization.py:121:27 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
-generics_typevartuple_specialization.py:122:27 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple
-generics_typevartuple_specialization.py:127:9 - error: Too few type arguments provided for "TA7[*Ts@TA7, T1@TA7, T2@TA7]"; expected 3 but received 2
+  Unpacked arguments cannot be used in this context (reportInvalidTypeForm)
+generics_typevartuple_specialization.py:121:27 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple (reportInvalidTypeForm)
+generics_typevartuple_specialization.py:122:27 - error: Type argument list can have at most one unpacked TypeVarTuple or tuple (reportInvalidTypeForm)
+generics_typevartuple_specialization.py:127:9 - error: Too few type arguments provided for "TA7[*Ts@TA7, T1@TA7, T2@TA7]"; expected 3 but received 2 (reportInvalidTypeForm)
 generics_typevartuple_specialization.py:163:14 - error: Could not specialize type "TA11[T@TA11, *Ts1@TA11]"
-  Unpacked arguments cannot be used in this context
+  Unpacked arguments cannot be used in this context (reportInvalidTypeForm)
 """
 conformance_automated = "Pass"
 errors_diff = """

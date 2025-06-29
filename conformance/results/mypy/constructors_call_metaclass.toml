@@ -5,12 +5,12 @@ Does not skip evaluation of __new__ and __init__ if custom metaclass call return
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 23: Unexpected errors ['constructors_call_metaclass.py:23: error: Expression is of type "Class1", not "NoReturn"  [assert-type]', 'constructors_call_metaclass.py:23: error: Missing positional argument "x" in call to "Class1"  [call-arg]']
+Line 23: Unexpected errors ['constructors_call_metaclass.py:23: error: Expression is of type "Class1", not "Never"  [assert-type]', 'constructors_call_metaclass.py:23: error: Missing positional argument "x" in call to "Class1"  [call-arg]']
 Line 36: Unexpected errors ['constructors_call_metaclass.py:36: error: Expression is of type "Class2", not "int | Meta2"  [assert-type]', 'constructors_call_metaclass.py:36: error: Missing positional argument "x" in call to "Class2"  [call-arg]']
 Line 43: Unexpected errors ['constructors_call_metaclass.py:43: error: Argument 2 for "super" not an instance of argument 1  [misc]']
 """
 output = """
-constructors_call_metaclass.py:23: error: Expression is of type "Class1", not "NoReturn"  [assert-type]
+constructors_call_metaclass.py:23: error: Expression is of type "Class1", not "Never"  [assert-type]
 constructors_call_metaclass.py:23: error: Missing positional argument "x" in call to "Class1"  [call-arg]
 constructors_call_metaclass.py:36: error: Expression is of type "Class2", not "int | Meta2"  [assert-type]
 constructors_call_metaclass.py:36: error: Missing positional argument "x" in call to "Class2"  [call-arg]

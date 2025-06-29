@@ -14,16 +14,16 @@ generics_scoping.py:65: error: Free type variable expected in Generic[...]  [mis
 generics_scoping.py:78: error: Type variable "generics_scoping.T" is unbound  [valid-type]
 generics_scoping.py:78: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
 generics_scoping.py:78: note: (Hint: Use "T" in function signature to bind "T" inside a function)
-generics_scoping.py:84: error: Can't use bound type variable "T" to define generic alias  [valid-type]
-generics_scoping.py:88: error: Type variable "generics_scoping.T" is unbound  [valid-type]
-generics_scoping.py:88: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
-generics_scoping.py:88: note: (Hint: Use "T" in function signature to bind "T" inside a function)
-generics_scoping.py:89: error: Type variable "generics_scoping.T" is unbound  [valid-type]
-generics_scoping.py:89: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
-generics_scoping.py:89: note: (Hint: Use "T" in function signature to bind "T" inside a function)
-generics_scoping.py:90: error: Type variable "generics_scoping.T" is unbound  [valid-type]
-generics_scoping.py:90: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
-generics_scoping.py:90: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+generics_scoping.py:87: error: Can't use bound type variable "T" to define generic alias  [valid-type]
+generics_scoping.py:94: error: Type variable "generics_scoping.T" is unbound  [valid-type]
+generics_scoping.py:94: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+generics_scoping.py:94: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+generics_scoping.py:95: error: Type variable "generics_scoping.T" is unbound  [valid-type]
+generics_scoping.py:95: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+generics_scoping.py:95: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+generics_scoping.py:96: error: Type variable "generics_scoping.T" is unbound  [valid-type]
+generics_scoping.py:96: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+generics_scoping.py:96: note: (Hint: Use "T" in function signature to bind "T" inside a function)
 """
 conformance_automated = "Fail"
 errors_diff = """

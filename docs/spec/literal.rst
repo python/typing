@@ -24,9 +24,8 @@ concrete value. For example, if we define some variable ``foo`` to have
 type ``Literal[3]``, we are declaring that ``foo`` must be exactly equal
 to ``3`` and no other value.
 
-Given some value ``v`` that is a member of type ``T``, the type
-``Literal[v]`` shall be treated as a subtype of ``T``. For example,
-``Literal[3]`` is a subtype of ``int``.
+Given some value ``v`` that is a member of type ``T``, the type ``Literal[v]``
+is a subtype of ``T``. For example, ``Literal[3]`` is a subtype of ``int``.
 
 All methods from the parent type will be directly inherited by the
 literal type. So, if we have some variable ``foo`` of type ``Literal[3]``
@@ -94,22 +93,28 @@ what values may and may not be used as parameters.
 In short, a ``Literal[...]`` type may be parameterized by one or more literal
 expressions, and nothing else.
 
+.. _literal-legal-parameters:
 
 Legal parameters for ``Literal`` at type check time
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
-``Literal`` may be parameterized with literal ints, byte and unicode strings,
-bools, Enum values and ``None``. So for example, all of
+``Literal`` may be parameterized with literal ``int``, ``str``, ``bytes``,
+and ``bool`` objects, instances of ``enum.Enum`` subclasses, and ``None``. So for example, all of
 the following would be legal::
 
    Literal[26]
-   Literal[0x1A]  # Exactly equivalent to Literal[26]
+   Literal[0x1A]  # Equivalent to Literal[26]
    Literal[-4]
    Literal["hello world"]
+   Literal[u"hello world"]  # Equivalent to Literal["hello world"]
    Literal[b"hello world"]
-   Literal[u"hello world"]
    Literal[True]
-   Literal[Color.RED]  # Assuming Color is some enum
+
+   class Color(enum.Enum):
+       RED = 1
+       GREEN = 2
+
+   Literal[Color.RED]
    Literal[None]
 
 **Note:** Since the type ``None`` is inhabited by just a single
@@ -142,17 +147,6 @@ This should be exactly equivalent to the following type::
 ...and also to the following type::
 
     Literal[1, 2, 3, "foo", 5] | None
-
-**Note:** String literal types like ``Literal["foo"]`` should subtype either
-bytes or unicode in the same way regular string literals do at runtime.
-
-For example, in Python 3, the type ``Literal["foo"]`` is equivalent to
-``Literal[u"foo"]``, since ``"foo"`` is equivalent to ``u"foo"`` in Python 3.
-
-Similarly, in Python 2, the type ``Literal["foo"]`` is equivalent to
-``Literal[b"foo"]`` -- unless the file includes a
-``from __future__ import unicode_literals`` import, in which case it would be
-equivalent to ``Literal[u"foo"]``.
 
 Illegal parameters for ``Literal`` at type check time
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -304,13 +298,13 @@ special-casing. For example, programs like the following are type safe::
    # Legal: Literal["foo"] is a subtype of str
    expects_str(var)
 
-This also means non-Literal expressions in general should not automatically
-be cast to Literal. For example::
+This also means non-Literal types in general are not :term:`assignable` to
+Literal types. For example::
 
    def expects_literal(x: Literal["foo"]) -> None: ...
 
    def runner(my_str: str) -> None:
-       # ILLEGAL: str is not a subclass of Literal["foo"]
+       # ILLEGAL: str is not assignable to Literal["foo"]
        expects_literal(my_str)
 
 **Note:** If the user wants their API to support accepting both literals
@@ -329,7 +323,7 @@ Literals can be used to "intelligently index" into structured types like
 tuples, NamedTuple, and classes. (Note: this is not an exhaustive list).
 
 For example, type checkers should infer the correct value type when
-indexing into a tuple using an int key that corresponds a valid index::
+indexing into a tuple using an int key that corresponds to a valid index::
 
    a: Literal[0] = 0
    b: Literal[5] = 5
@@ -398,11 +392,9 @@ maintain backwards-compatibility.
 Interactions with generics
 """"""""""""""""""""""""""
 
-Types like ``Literal[3]`` are meant to be just plain old subclasses of
-``int``. This means you can use types like ``Literal[3]`` anywhere
-you could use normal types, such as with generics.
+Literal types are types, and can be used anywhere a type is expected.
 
-This means that it is legal to parameterize generic functions or
+For example, it is legal to parameterize generic functions or
 classes using Literal types::
 
    A = TypeVar('A', bound=int)
@@ -508,6 +500,8 @@ involving Literal bools. For example, we can combine ``Literal[True]``,
    else:
        scalar += "foo"  # Type checks: type of 'scalar' is narrowed to 'str'
 
+.. _literal-final-interactions:
+
 Interactions with Final
 """""""""""""""""""""""
 
@@ -584,28 +578,28 @@ Type inference
 Inferring ``LiteralString``
 """""""""""""""""""""""""""
 
-Any literal string type is compatible with ``LiteralString``. For
+Any literal string type is assignable to ``LiteralString``. For
 example, ``x: LiteralString = "foo"`` is valid because ``"foo"`` is
 inferred to be of type ``Literal["foo"]``.
 
 We also infer ``LiteralString`` in the
 following cases:
 
-+ Addition: ``x + y`` is of type ``LiteralString`` if both ``x`` and
-  ``y`` are compatible with ``LiteralString``.
++ Addition: ``x + y`` is of type ``LiteralString`` if the types of both ``x``
+  and ``y`` are assignable to ``LiteralString``.
 
 + Joining: ``sep.join(xs)`` is of type ``LiteralString`` if ``sep``'s
-  type is compatible with ``LiteralString`` and ``xs``'s type is
-  compatible with ``Iterable[LiteralString]``.
+  type is assignable to ``LiteralString`` and ``xs``'s type is
+  assignable to ``Iterable[LiteralString]``.
 
-+ In-place addition: If ``s`` has type ``LiteralString`` and ``x`` has
-  type compatible with ``LiteralString``, then ``s += x`` preserves
-  ``s``'s type as ``LiteralString``.
++ In-place addition: If ``s`` has type ``LiteralString`` and ``x`` has a type
+  assignable to ``LiteralString``, then ``s += x`` preserves ``s``'s type as
+  ``LiteralString``.
 
-+ String formatting: An f-string has type ``LiteralString`` if and only
-  if its constituent expressions are literal strings. ``s.format(...)``
-  has type ``LiteralString`` if and only if ``s`` and the arguments have
-  types compatible with ``LiteralString``.
++ String formatting: An f-string has type ``LiteralString`` if and only if its
+  constituent expressions are literal strings. ``s.format(...)`` is assignable
+  to ``LiteralString`` if and only if ``s`` and the arguments have types
+  assignable to ``LiteralString``.
 
 In all other cases, if one or more of the composed values has a
 non-literal type ``str``, the composition of types will have type
@@ -613,7 +607,7 @@ non-literal type ``str``, the composition of types will have type
 has type ``str``. This matches the pre-existing behavior of type
 checkers.
 
-``LiteralString`` is compatible with the type ``str``. It inherits all
+``LiteralString`` is assignable to the type ``str``. It inherits all
 methods from ``str``. So, if we have a variable ``s`` of type
 ``LiteralString``, it is safe to write ``s.startswith("hello")``.
 
@@ -626,7 +620,7 @@ check:
         if s == "bar":
             reveal_type(s)  # => Literal["bar"]
 
-Such a refined type in the if-block is also compatible with
+Such a refined type in the if-block is also assignable to
 ``LiteralString`` because its type is ``Literal["bar"]``.
 
 
@@ -699,7 +693,7 @@ Format strings using literal strings:
 
     expect_literal_string("hello {}".format(username))  # Not OK
 
-Other literal types, such as literal integers, are not compatible with ``LiteralString``:
+Other literal types, such as literal integers, are not assignable to ``LiteralString``:
 
 ::
 

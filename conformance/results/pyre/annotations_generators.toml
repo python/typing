@@ -15,12 +15,12 @@ annotations_generators.py:92:4 Incompatible return type [7]: Expected `int` but 
 annotations_generators.py:118:4 Incompatible return type [7]: Expected `Iterator[B]` but got `Generator[A, None, typing.Any]`.
 annotations_generators.py:119:4 Incompatible return type [7]: Expected `Iterator[B]` but got `Generator[int, None, typing.Any]`.
 annotations_generators.py:135:4 Incompatible return type [7]: Expected `Generator[None, str, None]` but got `Generator[None, int, typing.Any]`.
-annotations_generators.py:182:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing.Callable[[], Coroutine[typing.Any, typing.Any, AsyncIterator[int]]]` but got `typing.Callable(generator29)[[], AsyncIterator[int]]`.
+annotations_generators.py:185:0 Incompatible variable type [9]: v1 is declared to have type `typing.Callable[[], Coroutine[typing.Any, typing.Any, AsyncIterator[int]]]` but is used as type `typing.Callable(generator29)[[], AsyncIterator[int]]`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 51: Expected 1 errors
 Line 86: Expected 1 errors
 Line 88: Unexpected errors ['annotations_generators.py:88:4 Incompatible return type [7]: Expected `int` but got `Generator[typing.Any, typing.Any, int]`.']
-Line 182: Unexpected errors ['annotations_generators.py:182:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `typing.Callable[[], Coroutine[typing.Any, typing.Any, AsyncIterator[int]]]` but got `typing.Callable(generator29)[[], AsyncIterator[int]]`.']
+Line 185: Unexpected errors ['annotations_generators.py:185:0 Incompatible variable type [9]: v1 is declared to have type `typing.Callable[[], Coroutine[typing.Any, typing.Any, AsyncIterator[int]]]` but is used as type `typing.Callable(generator29)[[], AsyncIterator[int]]`.']
 """

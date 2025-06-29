@@ -1,10 +1,10 @@
 conformant = "Pass"
 output = """
-generics_self_basic.py:20:16 - error: Expression of type "Shape" is incompatible with return type "Self@Shape"
-  Type "Shape" is incompatible with type "Self@Shape" (reportReturnType)
-generics_self_basic.py:33:16 - error: Expression of type "Shape" is incompatible with return type "Self@Shape"
-  Type "Shape" is incompatible with type "Self@Shape" (reportReturnType)
-generics_self_basic.py:64:31 - error: Expected no type arguments for class "Self" (reportInvalidTypeArguments)
+generics_self_basic.py:20:16 - error: Type "Shape" is not assignable to return type "Self@Shape"
+  Type "Shape" is not assignable to type "Self@Shape" (reportReturnType)
+generics_self_basic.py:33:16 - error: Type "Shape" is not assignable to return type "Self@Shape"
+  Type "Shape" is not assignable to type "Self@Shape" (reportReturnType)
+generics_self_basic.py:67:31 - error: Expected no type arguments for class "Self" (reportInvalidTypeArguments)
 """
 conformance_automated = "Pass"
 errors_diff = """

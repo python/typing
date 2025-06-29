@@ -1,0 +1,48 @@
+conformant = "Unsupported"
+notes = """
+Converter parameter not yet supported.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 118: Expected 1 errors
+Line 112: Unexpected errors ['dataclasses_transform_converter.py:112:10 Incompatible parameter type [6]: In call `DC2.__init__`, for 1st positional argument, expected `int` but got `str`.', 'dataclasses_transform_converter.py:112:16 Incompatible parameter type [6]: In call `DC2.__init__`, for 2nd positional argument, expected `int` but got `str`.', 'dataclasses_transform_converter.py:112:22 Incompatible parameter type [6]: In call `DC2.__init__`, for 3rd positional argument, expected `int` but got `str`.', 'dataclasses_transform_converter.py:112:28 Incompatible parameter type [6]: In call `DC2.__init__`, for 4th positional argument, expected `ConverterClass` but got `bytes`.', 'dataclasses_transform_converter.py:112:35 Incompatible parameter type [6]: In call `DC2.__init__`, for 5th positional argument, expected `int` but got `List[Variable[_T]]`.']
+Line 114: Unexpected errors ['dataclasses_transform_converter.py:114:0 Incompatible attribute type [8]: Attribute `field0` declared in class `DC2` has type `int` but is used as type `str`.']
+Line 115: Unexpected errors ['dataclasses_transform_converter.py:115:0 Incompatible attribute type [8]: Attribute `field3` declared in class `DC2` has type `ConverterClass` but is used as type `str`.']
+Line 116: Unexpected errors ['dataclasses_transform_converter.py:116:0 Incompatible attribute type [8]: Attribute `field3` declared in class `DC2` has type `ConverterClass` but is used as type `bytes`.']
+Line 121: Unexpected errors ['dataclasses_transform_converter.py:121:10 Incompatible parameter type [6]: In call `DC2.__init__`, for 1st positional argument, expected `int` but got `str`.', 'dataclasses_transform_converter.py:121:16 Incompatible parameter type [6]: In call `DC2.__init__`, for 2nd positional argument, expected `int` but got `str`.', 'dataclasses_transform_converter.py:121:22 Incompatible parameter type [6]: In call `DC2.__init__`, for 3rd positional argument, expected `int` but got `str`.', 'dataclasses_transform_converter.py:121:28 Incompatible parameter type [6]: In call `DC2.__init__`, for 4th positional argument, expected `ConverterClass` but got `str`.', 'dataclasses_transform_converter.py:121:34 Incompatible parameter type [6]: In call `DC2.__init__`, for 5th positional argument, expected `int` but got `str`.', 'dataclasses_transform_converter.py:121:39 Incompatible parameter type [6]: In call `DC2.__init__`, for 6th positional argument, expected `Dict[str, str]` but got `Tuple[Tuple[str, str], Tuple[str, str]]`.']
+"""
+output = """
+dataclasses_transform_converter.py:48:30 Incompatible parameter type [6]: In call `model_field`, for argument `converter`, expected `typing.Callable[[Variable[S]], Variable[T]]` but got `typing.Callable(bad_converter1)[[], int]`.
+dataclasses_transform_converter.py:49:30 Incompatible parameter type [6]: In call `model_field`, for argument `converter`, expected `typing.Callable[[Variable[S]], Variable[T]]` but got `typing.Callable(bad_converter2)[[KeywordOnly(x, int)], int]`.
+dataclasses_transform_converter.py:107:7 Incompatible parameter type [6]: In call `DC2.__init__`, for 2nd positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:107:13 Incompatible parameter type [6]: In call `DC2.__init__`, for 3rd positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:107:19 Incompatible parameter type [6]: In call `DC2.__init__`, for 4th positional argument, expected `ConverterClass` but got `bytes`.
+dataclasses_transform_converter.py:107:26 Incompatible parameter type [6]: In call `DC2.__init__`, for 5th positional argument, expected `int` but got `List[Variable[_T]]`.
+dataclasses_transform_converter.py:108:4 Incompatible parameter type [6]: In call `DC2.__init__`, for 1st positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:108:10 Incompatible parameter type [6]: In call `DC2.__init__`, for 2nd positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:108:16 Incompatible parameter type [6]: In call `DC2.__init__`, for 3rd positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:108:22 Incompatible parameter type [6]: In call `DC2.__init__`, for 4th positional argument, expected `ConverterClass` but got `int`.
+dataclasses_transform_converter.py:108:25 Incompatible parameter type [6]: In call `DC2.__init__`, for 5th positional argument, expected `int` but got `List[Variable[_T]]`.
+dataclasses_transform_converter.py:109:4 Incompatible parameter type [6]: In call `DC2.__init__`, for 1st positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:109:10 Incompatible parameter type [6]: In call `DC2.__init__`, for 2nd positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:109:16 Incompatible parameter type [6]: In call `DC2.__init__`, for 3rd positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:109:22 Incompatible parameter type [6]: In call `DC2.__init__`, for 4th positional argument, expected `ConverterClass` but got `str`.
+dataclasses_transform_converter.py:109:28 Incompatible parameter type [6]: In call `DC2.__init__`, for 5th positional argument, expected `int` but got `complex`.
+dataclasses_transform_converter.py:112:10 Incompatible parameter type [6]: In call `DC2.__init__`, for 1st positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:112:16 Incompatible parameter type [6]: In call `DC2.__init__`, for 2nd positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:112:22 Incompatible parameter type [6]: In call `DC2.__init__`, for 3rd positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:112:28 Incompatible parameter type [6]: In call `DC2.__init__`, for 4th positional argument, expected `ConverterClass` but got `bytes`.
+dataclasses_transform_converter.py:112:35 Incompatible parameter type [6]: In call `DC2.__init__`, for 5th positional argument, expected `int` but got `List[Variable[_T]]`.
+dataclasses_transform_converter.py:114:0 Incompatible attribute type [8]: Attribute `field0` declared in class `DC2` has type `int` but is used as type `str`.
+dataclasses_transform_converter.py:115:0 Incompatible attribute type [8]: Attribute `field3` declared in class `DC2` has type `ConverterClass` but is used as type `str`.
+dataclasses_transform_converter.py:116:0 Incompatible attribute type [8]: Attribute `field3` declared in class `DC2` has type `ConverterClass` but is used as type `bytes`.
+dataclasses_transform_converter.py:119:0 Incompatible attribute type [8]: Attribute `field3` declared in class `DC2` has type `ConverterClass` but is used as type `int`.
+dataclasses_transform_converter.py:121:10 Incompatible parameter type [6]: In call `DC2.__init__`, for 1st positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:121:16 Incompatible parameter type [6]: In call `DC2.__init__`, for 2nd positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:121:22 Incompatible parameter type [6]: In call `DC2.__init__`, for 3rd positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:121:28 Incompatible parameter type [6]: In call `DC2.__init__`, for 4th positional argument, expected `ConverterClass` but got `str`.
+dataclasses_transform_converter.py:121:34 Incompatible parameter type [6]: In call `DC2.__init__`, for 5th positional argument, expected `int` but got `str`.
+dataclasses_transform_converter.py:121:39 Incompatible parameter type [6]: In call `DC2.__init__`, for 6th positional argument, expected `Dict[str, str]` but got `Tuple[Tuple[str, str], Tuple[str, str]]`.
+dataclasses_transform_converter.py:130:58 Incompatible parameter type [6]: In call `model_field`, for argument `default`, expected `Optional[Variable[S]]` but got `int`.
+dataclasses_transform_converter.py:133:58 Incompatible parameter type [6]: In call `model_field`, for argument `default_factory`, expected `Optional[typing.Callable[[], Variable[S]]]` but got `Type[int]`.
+"""

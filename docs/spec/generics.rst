@@ -93,8 +93,16 @@ This is equivalent to omitting the generic notation and just saying
 User-defined generic types
 --------------------------
 
-You can include a ``Generic`` base class to define a user-defined class
-as generic.  Example::
+There are several ways to define a user-defined class as generic:
+
+* Include a ``Generic`` base class.
+* Use the new generic class syntax in Python 3.12 and higher.
+* Include a ``Protocol`` base class parameterized with type variables. This
+  approach also marks the class as a protocol - see
+  :ref:`generic protocols<generic-protocols>` for more information.
+* Include a generic base class parameterized with type variables.
+
+Example using ``Generic``::
 
   from typing import TypeVar, Generic
   from logging import Logger
@@ -118,14 +126,14 @@ as generic.  Example::
       def log(self, message: str) -> None:
           self.logger.info('{}: {}'.format(self.name, message))
 
-Or, in Python 3.12 and higher, by using the new syntax for generic
-classes::
+Or, using the new generic class syntax::
 
   class LoggedVar[T]:
       # methods as in previous example
 
-This implicitly adds ``Generic[T]`` as a base class and type checkers
-should treat the two largely equivalently (except for variance, see below).
+This implicitly adds ``Generic[T]`` as a base class, and type checkers
+should treat the two definitions of ``LoggedVar`` largely equivalently (except
+for variance, see below).
 
 ``Generic[T]`` as a base class defines that the class ``LoggedVar``
 takes a single type parameter ``T``. This also makes ``T`` valid as
@@ -144,7 +152,6 @@ A generic type can have any number of type variables, and type variables
 may be constrained. This is valid::
 
   from typing import TypeVar, Generic
-  ...
 
   T = TypeVar('T')
   S = TypeVar('S')
@@ -156,29 +163,52 @@ Each type variable argument to ``Generic`` must be distinct. This is
 thus invalid::
 
   from typing import TypeVar, Generic
-  ...
 
   T = TypeVar('T')
 
   class Pair(Generic[T, T]):   # INVALID
       ...
 
-The ``Generic[T]`` base class is redundant in simple cases where you
-subclass some other generic class and specify type variables for its
-parameters::
+All arguments to ``Generic`` or ``Protocol`` must be type variables::
 
-  from typing import TypeVar
+  from typing import Generic, Protocol
+
+  class Bad1(Generic[int]):   # INVALID
+      ...
+  class Bad2(Protocol[int]):   # INVALID
+      ...
+
+When a ``Generic`` or parameterized ``Protocol`` base class is present, all type
+parameters for the class must appear within the ``Generic`` or
+``Protocol`` type argument list, respectively. A type checker should report an
+error if a type variable that is not included in the type argument list appears
+elsewhere in the base class list::
+
+  from typing import Generic, Protocol, TypeVar
+  from collections.abc import Iterable
+
+  T = TypeVar('T')
+  S = TypeVar('S')
+
+  class Bad1(Iterable[T], Generic[S]):   # INVALID
+      ...
+  class Bad2(Iterable[T], Protocol[S]):   # INVALID
+      ...
+
+Note that the above rule does not apply to a bare ``Protocol`` base class. This
+is valid (see below)::
+
+  from typing import Protocol, TypeVar
   from collections.abc import Iterator
 
   T = TypeVar('T')
 
-  class MyIter(Iterator[T]):
-      ...
+  class MyIterator(Iterator[T], Protocol): ...
 
-That class definition is equivalent to::
-
-  class MyIter(Iterator[T], Generic[T]):
-      ...
+When no ``Generic`` or parameterized ``Protocol`` base class is present, a
+defined class is generic if you subclass one or more other generic classes and
+specify type variables for their parameters. See :ref:`generic-base-classes`
+for details.
 
 You can use multiple inheritance with ``Generic``::
 
@@ -402,6 +432,7 @@ instead is preferred. (First, creating the subscripted class,
 e.g. ``Node[int]``, has a runtime cost. Second, using a type alias
 is more readable.)
 
+.. _`generic-base-classes`:
 
 Arbitrary generic types as base classes
 ---------------------------------------
@@ -458,8 +489,44 @@ Also consider the following example::
   class MyDict(Mapping[str, T]):
       ...
 
-In this case MyDict has a single parameter, T.
+In this case ``MyDict`` has a single type parameter, ``T``.
 
+Type variables are applied to the defined class in the order in which
+they first appear in any generic base classes::
+
+  from typing import Generic, TypeVar
+
+  T1 = TypeVar('T1')
+  T2 = TypeVar('T2')
+  T3 = TypeVar('T3')
+
+  class Parent1(Generic[T1, T2]):
+      ...
+  class Parent2(Generic[T1, T2]):
+      ...
+  class Child(Parent1[T1, T3], Parent2[T2, T3]):
+      ...
+
+That ``Child`` definition is equivalent to::
+
+  class Child(Parent1[T1, T3], Parent2[T2, T3], Generic[T1, T3, T2]):
+      ...
+
+A type checker should report an error when the type variable order is
+inconsistent::
+
+  from typing import Generic, TypeVar
+
+  T1 = TypeVar('T1')
+  T2 = TypeVar('T2')
+  T3 = TypeVar('T3')
+
+  class Grandparent(Generic[T1, T2]):
+      ...
+  class Parent(Grandparent[T1, T2]):
+      ...
+  class Child(Parent[T1, T2], Grandparent[T2, T1]):   # INVALID
+      ...
 
 Abstract generic types
 ----------------------
@@ -474,12 +541,12 @@ classes without a metaclass conflict.
 Type variables with an upper bound
 ----------------------------------
 
-A type variable may specify an upper bound using ``bound=<type>`` (when
-using the ``TypeVar`` constructor) or using ``: <type>`` (when using the native
-syntax for generics). The bound itself cannot be parameterized by type variables.
-This means that an
-actual type substituted (explicitly or implicitly) for the type variable must
-be a subtype of the boundary type. Example::
+A type variable may specify an upper bound using ``bound=<type>`` (when using
+the ``TypeVar`` constructor) or using ``: <type>`` (when using the native
+syntax for generics). The bound itself cannot be parameterized by type
+variables. This means that an actual type substituted (explicitly or
+implicitly) for the type variable must be :term:`assignable` to the bound.
+Example::
 
   from typing import TypeVar
   from collections.abc import Sized
@@ -496,11 +563,10 @@ be a subtype of the boundary type. Example::
   longer({1}, {1, 2})  # ok, return type set[int]
   longer([1], {1, 2})  # ok, return type a supertype of list[int] and set[int]
 
-An upper bound cannot be combined with type constraints (as used in
-``AnyStr``, see the example earlier); type constraints cause the
-inferred type to be *exactly* one of the constraint types, while an
-upper bound just requires that the actual type is a subtype of the
-boundary type.
+An upper bound cannot be combined with type constraints (as used in ``AnyStr``,
+see the example earlier); type constraints cause the inferred type to be
+*exactly* one of the constraint types, while an upper bound just requires that
+the actual type is :term:`assignable` to the bound.
 
 .. _`variance`:
 
@@ -523,13 +589,12 @@ introduction to these concepts can be found on `Wikipedia
 <https://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29>`_ and in :pep:`483`; here we just show how to control
 a type checker's behavior.
 
-By default generic types declared using the old ``TypeVar`` syntax
-are considered *invariant* in all type variables,
-which means that values for variables annotated with types like
-``list[Employee]`` must exactly match the type annotation -- no subclasses or
-superclasses of the type parameter (in this example ``Employee``) are
-allowed. See below for the behavior when using the built-in generic syntax
-in Python 3.12 and higher.
+By default generic types declared using the old ``TypeVar`` syntax are
+considered *invariant* in all type variables, which means that e.g.
+``list[Manager]`` is neither a supertype nor a subtype of ``list[Employee]``.
+
+See below for the behavior when using the built-in generic syntax in Python
+3.12 and higher.
 
 To facilitate the declaration of container types where covariant or
 contravariant type checking is acceptable, type variables accept keyword
@@ -1006,7 +1071,7 @@ outer ``Callable``.  This has the following semantics:
 .. code-block::
 
    def a_int_b_str(a: int, b: str) -> int:
-     pass
+     return a
 
    twice(a_int_b_str, 1, "A")       # Accepted
 
@@ -1264,7 +1329,7 @@ unnecessary ``TypeVarTuple``:
     process_batch_channels(z)  # Error: Expected Channels.
 
 
-We can also pass a ``*tuple[int, ...]`` wherever a ``*Ts`` is
+We can also pass a ``*tuple[Any, ...]`` wherever a ``*Ts`` is
 expected. This is useful when we have particularly dynamic code and
 cannot state the precise number of dimensions or the precise types for
 each of the dimensions. In those cases, we can smoothly fall back to
@@ -1574,8 +1639,8 @@ First, type arguments to generic aliases can be variadic. For example, a
 
 ::
 
-    Ts1 = TypeVar('Ts1')
-    Ts2 = TypeVar('Ts2')
+    Ts1 = TypeVarTuple('Ts1')
+    Ts2 = TypeVarTuple('Ts2')
 
     IntTuple = tuple[int, *Ts1]
     IntFloatTuple = IntTuple[float, *Ts2]  # Valid
@@ -1854,8 +1919,8 @@ literal "``...``" or another in-scope ``ParamSpec`` (see `Scoping Rules`_).
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``TypeVarTuple`` defaults are defined using the same syntax as
-``TypeVar`` \ s but use an unpacked tuple of types instead of a single type
-or another in-scope ``TypeVarTuple`` (see `Scoping Rules`_).
+``TypeVar`` \ s, but instead of a single type, they use an unpacked tuple of
+types or an unpacked, in-scope ``TypeVarTuple`` (see `Scoping Rules`_).
 
 ::
 
@@ -1920,20 +1985,22 @@ Scoping Rules
 
 Using a type parameter from an outer scope as a default is not supported.
 
+::
+
    class Foo(Generic[T1]):
        class Bar(Generic[T2]): ...   # Type Error
 
 Bound Rules
 ^^^^^^^^^^^
 
-``T1``'s bound must be a subtype of ``T2``'s bound.
+``T1``'s bound must be :term:`assignable` to ``T2``'s bound.
 
 ::
 
    T1 = TypeVar("T1", bound=int)
    TypeVar("Ok", default=T1, bound=float)     # Valid
    TypeVar("AlsoOk", default=T1, bound=int)   # Valid
-   TypeVar("Invalid", default=T1, bound=str)  # Invalid: int is not a subtype of str
+   TypeVar("Invalid", default=T1, bound=str)  # Invalid: int is not assignable to str
 
 Constraint Rules
 ^^^^^^^^^^^^^^^^
@@ -2022,8 +2089,8 @@ normal subscription rules, non-overridden defaults should be substituted.
 Using ``bound`` and ``default``
 """""""""""""""""""""""""""""""
 
-If both ``bound`` and ``default`` are passed, ``default`` must be a
-subtype of ``bound``. If not, the type checker should generate an
+If both ``bound`` and ``default`` are passed, ``default`` must be
+:term:`assignable` to ``bound``. If not, the type checker should generate an
 error.
 
 ::
@@ -2268,7 +2335,8 @@ Use in Attribute Annotations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Another use for ``Self`` is to annotate attributes. One example is where we
-have a ``LinkedList`` whose elements must be subclasses of the current class.
+have a ``LinkedList`` whose elements must be :term:`assignable` to the current
+class.
 
 ::
 
@@ -2298,8 +2366,8 @@ constructions with subclasses:
         def ordinal_value(self) -> str:
             return as_ordinal(self.value)
 
-    # Should not be OK because LinkedList[int] is not a subclass of
-    # OrdinalLinkedList, # but the type checker allows it.
+    # Should not be OK because LinkedList[int] is not assignable to
+    # OrdinalLinkedList, but the type checker allows it.
     xs = OrdinalLinkedList(value=1, next=LinkedList[int](value=2))
 
     if xs.next:
@@ -2469,11 +2537,11 @@ See :pep:`PEP 544
 <544#self-types-in-protocols>` for
 details on the behavior of TypeVars bound to protocols.
 
-Checking a class for compatibility with a protocol: If a protocol uses
-``Self`` in methods or attribute annotations, then a class ``Foo`` is
-considered compatible with the protocol if its corresponding methods and
-attribute annotations use either ``Self`` or ``Foo`` or any of ``Foo``’s
-subclasses. See the examples below:
+Checking a class for assignability to a protocol: If a protocol uses ``Self``
+in methods or attribute annotations, then a class ``Foo`` is :term:`assignable`
+to the protocol if its corresponding methods and attribute annotations use
+either ``Self`` or ``Foo`` or any of ``Foo``’s subclasses. See the examples
+below:
 
 ::
 
@@ -2705,16 +2773,15 @@ by the ``TypeVar`` constructor call. No further inference is needed.
 3. Create two specialized versions of the class. We'll refer to these as
 ``upper`` and ``lower`` specializations. In both of these specializations,
 replace all type parameters other than the one being inferred by a dummy type
-instance (a concrete anonymous class that is type compatible with itself and
-assumed to meet the bounds or constraints of the type parameter). In
-the ``upper`` specialized class, specialize the target type parameter with
-an ``object`` instance. This specialization ignores the type parameter's
-upper bound or constraints. In the ``lower`` specialized class, specialize
-the target type parameter with itself (i.e. the corresponding type argument
-is the type parameter itself).
+instance (a concrete anonymous class that is assumed to meet the bounds or
+constraints of the type parameter). In the ``upper`` specialized class,
+specialize the target type parameter with an ``object`` instance. This
+specialization ignores the type parameter's upper bound or constraints. In the
+``lower`` specialized class, specialize the target type parameter with itself
+(i.e. the corresponding type argument is the type parameter itself).
 
-4. Determine whether ``lower`` can be assigned to ``upper`` using normal type
-compatibility rules. If so, the target type parameter is covariant. If not,
+4. Determine whether ``lower`` can be assigned to ``upper`` using normal
+assignability rules. If so, the target type parameter is covariant. If not,
 determine whether ``upper`` can be assigned to ``lower``. If so, the target
 type parameter is contravariant. If neither of these combinations are
 assignable, the target type parameter is invariant.
@@ -2737,9 +2804,8 @@ To determine the variance of ``T1``, we specialize ``ClassA`` as follows:
     upper = ClassA[object, Dummy, Dummy]
     lower = ClassA[T1, Dummy, Dummy]
 
-We find that ``upper`` is not assignable to ``lower`` using normal type
-compatibility rules defined in :pep:`484`. Likewise, ``lower`` is not assignable
-to ``upper``, so we conclude that ``T1`` is invariant.
+We find that ``upper`` is not assignable to ``lower``. Likewise, ``lower`` is
+not assignable to ``upper``, so we conclude that ``T1`` is invariant.
 
 To determine the variance of ``T2``, we specialize ``ClassA`` as follows:
 

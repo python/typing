@@ -1,10 +1,13 @@
-conformant = "Unsupported"
+conformant = "Partial"
 output = """
-generics_defaults_referential.py:23: error: Expression is of type "type[slice[Any, Any, Any]]", not "type[slice[int, int, int | None]]"  [assert-type]
+generics_defaults_referential.py:23: error: Expression is of type "type[slice[StartT, StopT, StepT]]", not "type[slice[int, int, int | None]]"  [assert-type]
 generics_defaults_referential.py:37: error: Argument 1 to "Foo" has incompatible type "str"; expected "int"  [arg-type]
 generics_defaults_referential.py:53: error: Type parameter "Start2T" has a default type that refers to one or more type variables that are out of scope  [misc]
-generics_defaults_referential.py:94: error: Expression is of type "type[Bar[Any, Any]]", not "type[Bar[Any, list[Any]]]"  [assert-type]
-generics_defaults_referential.py:95: error: Expression is of type "type[Bar[Any, Any]]", not "type[Bar[int, list[int]]]"  [assert-type]
+generics_defaults_referential.py:74: error: TypeVar default must be one of the constraint types  [misc]
+generics_defaults_referential.py:77: error: TypeVar default must be one of the constraint types  [misc]
+generics_defaults_referential.py:78: error: TypeVar default must be one of the constraint types  [misc]
+generics_defaults_referential.py:94: error: Expression is of type "type[Bar[Z1, ListDefaultT]]", not "type[Bar[Any, list[Any]]]"  [assert-type]
+generics_defaults_referential.py:95: error: Expression is of type "type[Bar[int, ListDefaultT]]", not "type[Bar[int, list[int]]]"  [assert-type]
 generics_defaults_referential.py:96: error: Expression is of type "Bar[int, list[Never]]", not "Bar[int, list[int]]"  [assert-type]
 """
 conformance_automated = "Fail"
@@ -12,10 +15,9 @@ errors_diff = """
 Line 36: Expected 1 errors
 Line 60: Expected 1 errors
 Line 68: Expected 1 errors
-Line 74: Expected 1 errors
-Line 78: Expected 1 errors
-Line 23: Unexpected errors ['generics_defaults_referential.py:23: error: Expression is of type "type[slice[Any, Any, Any]]", not "type[slice[int, int, int | None]]"  [assert-type]']
-Line 94: Unexpected errors ['generics_defaults_referential.py:94: error: Expression is of type "type[Bar[Any, Any]]", not "type[Bar[Any, list[Any]]]"  [assert-type]']
-Line 95: Unexpected errors ['generics_defaults_referential.py:95: error: Expression is of type "type[Bar[Any, Any]]", not "type[Bar[int, list[int]]]"  [assert-type]']
+Line 23: Unexpected errors ['generics_defaults_referential.py:23: error: Expression is of type "type[slice[StartT, StopT, StepT]]", not "type[slice[int, int, int | None]]"  [assert-type]']
+Line 77: Unexpected errors ['generics_defaults_referential.py:77: error: TypeVar default must be one of the constraint types  [misc]']
+Line 94: Unexpected errors ['generics_defaults_referential.py:94: error: Expression is of type "type[Bar[Z1, ListDefaultT]]", not "type[Bar[Any, list[Any]]]"  [assert-type]']
+Line 95: Unexpected errors ['generics_defaults_referential.py:95: error: Expression is of type "type[Bar[int, ListDefaultT]]", not "type[Bar[int, list[int]]]"  [assert-type]']
 Line 96: Unexpected errors ['generics_defaults_referential.py:96: error: Expression is of type "Bar[int, list[Never]]", not "Bar[int, list[int]]"  [assert-type]']
 """

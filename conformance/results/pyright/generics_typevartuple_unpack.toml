@@ -1,7 +1,7 @@
 conformant = "Pass"
 output = """
 generics_typevartuple_unpack.py:30:28 - error: Argument of type "Array[Batch]" cannot be assigned to parameter "x" of type "Array[Batch, *tuple[Any, ...], Channels]" in function "process_batch_channels"
-  "Array[Batch]" is incompatible with "Array[Batch, *tuple[Any, ...], Channels]"
+  "Array[Batch]" is not assignable to "Array[Batch, *tuple[Any, ...], Channels]"
     Type parameter "Ts@Array" is invariant, but "*tuple[Batch]" is not the same as "*tuple[Batch, *tuple[Any, ...], Channels]" (reportArgumentType)
 """
 conformance_automated = "Pass"

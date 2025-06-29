@@ -8,39 +8,19 @@ Incorrectly rejects assignment of named tuple to a tuple with compatible type.
 Does not reject attempt to use NamedTuple with multiple inheritance.
 """
 output = """
-namedtuples_define_class.py:23:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.
-namedtuples_define_class.py:24:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.
-namedtuples_define_class.py:25:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `typing.Any`.
-namedtuples_define_class.py:26:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `typing.Any`.
-namedtuples_define_class.py:27:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.
-namedtuples_define_class.py:28:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.
-namedtuples_define_class.py:29:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Tuple[int, int]` but got `typing.Tuple[typing.Any, ...]`.
-namedtuples_define_class.py:30:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Tuple[int, int, str]` but got `typing.Tuple[typing.Any, ...]`.
+namedtuples_define_class.py:32:6 Invalid tuple index [73]: Index 3 is out of bounds for concrete tuple with 3 members.
+namedtuples_define_class.py:33:6 Invalid tuple index [73]: Index -4 is out of bounds for concrete tuple with 3 members.
 namedtuples_define_class.py:44:5 Missing argument [20]: Call `Point.__init__` expects argument `y`.
 namedtuples_define_class.py:45:5 Missing argument [20]: Call `Point.__init__` expects argument `y`.
 namedtuples_define_class.py:46:14 Incompatible parameter type [6]: In call `Point.__init__`, for 2nd positional argument, expected `int` but got `str`.
 namedtuples_define_class.py:47:17 Incompatible parameter type [6]: In call `Point.__init__`, for argument `units`, expected `str` but got `int`.
 namedtuples_define_class.py:48:5 Too many arguments [19]: Call `Point.__init__` expects 3 positional arguments, 4 were provided.
 namedtuples_define_class.py:49:6 Unexpected keyword [28]: Unexpected keyword argument `other` to call `Point.__init__`.
-namedtuples_define_class.py:73:0 Incompatible variable type [9]: Unable to unpack `PointWithName`, expected a tuple.
+namedtuples_define_class.py:59:4 Missing named tuple default [74]: Named tuple field without default value may not be preceded by a field with default value.
 namedtuples_define_class.py:79:4 Invalid assignment [41]: Cannot reassign final attribute `x`.
-namedtuples_define_class.py:95:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `float` but got `typing.Any`.
 namedtuples_define_class.py:98:18 Incompatible parameter type [6]: In call `Property.__init__`, for 2nd positional argument, expected `str` but got `float`.
+namedtuples_define_class.py:105:23 Invalid inheritance [39]: If NamedTuple is included as a base class, the class may not extend anything else besides Generic.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 32: Expected 1 errors
-Line 33: Expected 1 errors
-Line 59: Expected 1 errors
-Line 105: Expected 1 errors
-Line 23: Unexpected errors ['namedtuples_define_class.py:23:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.']
-Line 24: Unexpected errors ['namedtuples_define_class.py:24:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.']
-Line 25: Unexpected errors ['namedtuples_define_class.py:25:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `typing.Any`.']
-Line 26: Unexpected errors ['namedtuples_define_class.py:26:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `str` but got `typing.Any`.']
-Line 27: Unexpected errors ['namedtuples_define_class.py:27:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.']
-Line 28: Unexpected errors ['namedtuples_define_class.py:28:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `int` but got `typing.Any`.']
-Line 29: Unexpected errors ['namedtuples_define_class.py:29:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Tuple[int, int]` but got `typing.Tuple[typing.Any, ...]`.']
-Line 30: Unexpected errors ['namedtuples_define_class.py:30:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `Tuple[int, int, str]` but got `typing.Tuple[typing.Any, ...]`.']
-Line 73: Unexpected errors ['namedtuples_define_class.py:73:0 Incompatible variable type [9]: Unable to unpack `PointWithName`, expected a tuple.']
-Line 95: Unexpected errors ['namedtuples_define_class.py:95:0 Incompatible parameter type [6]: In call `assert_type`, for 1st positional argument, expected `float` but got `typing.Any`.']
 """

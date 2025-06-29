@@ -1,9 +1,0 @@
-conformant = "Unsupported"
-output = """
-File "typeddicts_readonly_update.py", line 9, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]
-"""
-conformance_automated = "Fail"
-errors_diff = """
-Line 23: Expected 1 errors
-Line 9: Unexpected errors ['File "typeddicts_readonly_update.py", line 9, in <module>: typing_extensions.ReadOnly not supported yet [not-supported-yet]']
-"""

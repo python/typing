@@ -1,0 +1,11 @@
+conformant = "Pass"
+notes = """
+Does not support special-cased handling of member name literal types in some cases (optional).
+"""
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_member_names.py:26: error: Expression is of type "str", not "Literal['RED', 'BLUE']"  [assert-type]
+enums_member_names.py:30: error: Expression is of type "str", not "Literal['RED', 'BLUE', 'GREEN']"  [assert-type]
+"""

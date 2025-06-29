@@ -27,14 +27,15 @@ supported by ``typing.NamedTuple``.  Other features include
 TypedDict inheritance and totality (specifying whether keys are
 required or not).
 
-This section also provides a sketch of how a type checker is expected
-to support type checking operations involving TypedDict objects.
-Similar to :pep:`484`, this discussion is left somewhat vague on purpose,
-to allow experimentation with a wide variety of different type
-checking approaches.  In particular, type compatibility should be
-based on structural compatibility: a more specific TypedDict type can
-be compatible with a smaller (more general) TypedDict type.
+This section also provides a sketch of how a type checker is expected to
+support type checking operations involving TypedDict objects. Similar to
+:pep:`484`, this discussion is left somewhat vague on purpose, to allow
+experimentation with a wide variety of different type checking approaches. In
+particular, :term:`assignability <assignable>` should be :term:`structural`: a
+more specific TypedDict type can be assignable to a more general TypedDict
+type, without any inheritance relationship between them.
 
+.. _typeddict-class-based-syntax:
 
 Class-based Syntax
 ^^^^^^^^^^^^^^^^^^
@@ -172,9 +173,9 @@ TypedDict types using the class-based syntax.  In this case the
     class BookBasedMovie(Movie):
         based_on: str
 
-Now ``BookBasedMovie`` has keys ``name``, ``year``, and ``based_on``.
-It is equivalent to this definition, since TypedDict types use
-structural compatibility::
+Now ``BookBasedMovie`` has keys ``name``, ``year``, and ``based_on``. It is
+equivalent to this definition, since TypedDict types use :term:`structural`
+:term:`assignability <assignable>`::
 
     class BookBasedMovie(TypedDict):
         name: str
@@ -284,28 +285,20 @@ refers to a dictionary object does not need to be supported, to simplify
 implementation.
 
 
-Type Consistency
-^^^^^^^^^^^^^^^^
+Assignability
+^^^^^^^^^^^^^
 
-Informally speaking, *type consistency* is a generalization of the
-is-subtype-of relation to support the ``Any`` type.  It is defined
-more formally in :pep:`483`.  This section introduces the
-new, non-trivial rules needed to support type consistency for
-TypedDict types.
+First, any TypedDict type is :term:`assignable` to ``Mapping[str, object]``.
 
-First, any TypedDict type is consistent with ``Mapping[str, object]``.
-Second, a TypedDict type ``A`` is consistent with TypedDict ``B`` if
-``A`` is structurally compatible with ``B``.  This is true if and only
-if both of these conditions are satisfied:
+Second, a TypedDict type ``B`` is :term:`assignable` to a TypedDict ``A`` if
+and only if both of these conditions are satisfied:
 
-* For each key in ``B``, ``A`` has the corresponding key and the
-  corresponding value type in ``A`` is consistent with the value type
-  in ``B``.  For each key in ``B``, the value type in ``B`` is also
-  consistent with the corresponding value type in ``A``.
+* For each key in ``A``, ``B`` has the corresponding key and the corresponding
+  value type in ``B`` is :term:`consistent` with the value type in ``A``.
 
-* For each required key in ``B``, the corresponding key is required
-  in ``A``.  For each non-required key in ``B``, the corresponding key
-  is not required in ``A``.
+* For each required key in ``A``, the corresponding key is required
+  in ``B``.  For each non-required key in ``A``, the corresponding key
+  is not required in ``B``.
 
 Discussion:
 
@@ -323,12 +316,12 @@ Discussion:
           a['x'] = None
 
       b: B = {'x': 0}
-      f(b)  # Type check error: 'B' not compatible with 'A'
+      f(b)  # Type check error: 'B' not assignable to 'A'
       b['x'] + 1  # Runtime error: None + 1
 
-* A TypedDict type with a required key is not consistent with a
-  TypedDict type where the same key is a non-required key, since the
-  latter allows keys to be deleted.  Example where this is relevant::
+* A TypedDict type with a required key is not :term:`assignable` to a TypedDict
+  type where the same key is a non-required key, since the latter allows keys
+  to be deleted.  Example where this is relevant::
 
       class A(TypedDict, total=False):
           x: int
@@ -340,14 +333,14 @@ Discussion:
           del a['x']
 
       b: B = {'x': 0}
-      f(b)  # Type check error: 'B' not compatible with 'A'
+      f(b)  # Type check error: 'B' not assignable to 'A'
       b['x'] + 1  # Runtime KeyError: 'x'
 
-* A TypedDict type ``A`` with no key ``'x'`` is not consistent with a
-  TypedDict type with a non-required key ``'x'``, since at runtime
-  the key ``'x'`` could be present and have an incompatible type
-  (which may not be visible through ``A`` due to structural subtyping).
-  Example::
+* A TypedDict type ``A`` with no key ``'x'`` is not :term:`assignable` to a
+  TypedDict type with a non-required key ``'x'``, since at runtime the key
+  ``'x'`` could be present and have an :term:`inconsistent <consistent>` type
+  (which may not be visible through ``A`` due to :term:`structural`
+  assignability). Example::
 
       class A(TypedDict, total=False):
           x: int
@@ -360,20 +353,20 @@ Discussion:
           x: int
           y: str
 
-       def f(a: A) -> None:
-           a['y'] = 1
+      def f(a: A) -> None:
+          a['y'] = 1
 
-       def g(b: B) -> None:
-           f(b)  # Type check error: 'B' incompatible with 'A'
+      def g(b: B) -> None:
+          f(b)  # Type check error: 'B' not assignable to 'A'
 
-       c: C = {'x': 0, 'y': 'foo'}
-       g(c)
-       c['y'] + 'bar'  # Runtime error: int + str
+      c: C = {'x': 0, 'y': 'foo'}
+      g(c)
+      c['y'] + 'bar'  # Runtime error: int + str
 
-* A TypedDict isn't consistent with any ``Dict[...]`` type, since
-  dictionary types allow destructive operations, including
-  ``clear()``.  They also allow arbitrary keys to be set, which
-  would compromise type safety.  Example::
+* A TypedDict isn't :term:`assignable` to any ``Dict[...]`` type, since
+  dictionary types allow destructive operations, including ``clear()``.  They
+  also allow arbitrary keys to be set, which would compromise type safety.
+  Example::
 
       class A(TypedDict):
           x: int
@@ -385,17 +378,17 @@ Discussion:
           d['y'] = 0
 
       def g(a: A) -> None:
-          f(a)  # Type check error: 'A' incompatible with Dict[str, int]
+          f(a)  # Type check error: 'A' not assignable to Dict[str, int]
 
       b: B = {'x': 0, 'y': 'foo'}
       g(b)
       b['y'] + 'bar'  # Runtime error: int + str
 
-* A TypedDict with all ``int`` values is not consistent with
-  ``Mapping[str, int]``, since there may be additional non-``int``
-  values not visible through the type, due to structural subtyping.
-  These can be accessed using the ``values()`` and ``items()``
-  methods in ``Mapping``, for example.  Example::
+* A TypedDict with all ``int`` values is not :term:`assignable` to
+  ``Mapping[str, int]``, since there may be additional non-``int`` values not
+  visible through the type, due to :term:`structural` assignability. These can
+  be accessed using the ``values()`` and ``items()`` methods in ``Mapping``,
+  for example.  Example::
 
       class A(TypedDict):
           x: int
@@ -411,7 +404,7 @@ Discussion:
           return n
 
       def f(a: A) -> None:
-          sum_values(a)  # Error: 'A' incompatible with Mapping[str, int]
+          sum_values(a)  # Error: 'A' not assignable to Mapping[str, int]
 
       b: B = {'x': 0, 'y': 'foo'}
       f(b)
@@ -437,13 +430,13 @@ value is unknown during type checking, and thus can cause some of the
 above violations.  (`Use of Final Values and Literal Types`_
 generalizes this to cover final names and literal types.)
 
-The use of a key that is not known to exist should be reported as an
-error, even if this wouldn't necessarily generate a runtime type
-error.  These are often mistakes, and these may insert values with an
-invalid type if structural subtyping hides the types of certain items.
-For example, ``d['x'] = 1`` should generate a type check error if
-``'x'`` is not a valid key for ``d`` (which is assumed to be a
-TypedDict type).
+The use of a key that is not known to exist should be reported as an error,
+even if this wouldn't necessarily generate a runtime type error.  These are
+often mistakes, and these may insert values with an invalid type if
+:term:`structural` :term:`assignability <assignable>` hides the types of
+certain items. For example, ``d['x'] = 1`` should generate a type check error
+if ``'x'`` is not a valid key for ``d`` (which is assumed to be a TypedDict
+type).
 
 Extra keys included in TypedDict object construction should also be
 caught.  In this example, the ``director`` key is not defined in
@@ -468,10 +461,10 @@ objects as unsafe, even though they are valid for normal dictionaries:
   of ``d.get(e)`` should be ``object`` if the string value of ``e``
   cannot be determined statically.
 
-* ``clear()`` is not safe since it could remove required keys, some of
-  which may not be directly visible because of structural
-  subtyping.  ``popitem()`` is similarly unsafe, even if all known
-  keys are not required (``total=False``).
+* ``clear()`` is not safe since it could remove required keys, some of which
+  may not be directly visible because of :term:`structural`
+  :term:`assignability <assignable>`.  ``popitem()`` is similarly unsafe, even
+  if all known keys are not required (``total=False``).
 
 * ``del obj['key']`` should be rejected unless ``'key'`` is a
   non-required key.
@@ -737,26 +730,40 @@ Subclasses can combine these rules::
     class User(OptionalIdent):
         ident: str  # Required, mutable, and not an int
 
-Note that these are just consequences of structural typing, but they are highlighted here as the behavior now differs from the rules specified in :pep:`589`.
+Note that these are just consequences of :term:`structural` typing, but they
+are highlighted here as the behavior now differs from the rules specified in
+:pep:`589`.
 
-Type consistency
-^^^^^^^^^^^^^^^^
+Assignability
+^^^^^^^^^^^^^
 
-*This section updates the type consistency rules described above that were created prior to the introduction of ReadOnly*
+*This section updates the assignability rules described above that were created
+prior to the introduction of ReadOnly*
 
-A TypedDict type ``A`` is consistent with TypedDict ``B`` if ``A`` is structurally compatible with ``B``. This is true if and only if all of the following are satisfied:
+A TypedDict type ``B`` is :term:`assignable` to a TypedDict type ``A`` if ``B``
+is :term:`structurally <structural>` assignable to ``A``. This is true if and
+only if all of the following are satisfied:
 
-* For each item in ``B``, ``A`` has the corresponding key, unless the item in ``B`` is read-only, not required, and of top value type (``ReadOnly[NotRequired[object]]``).
-* For each item in ``B``, if ``A`` has the corresponding key, the corresponding value type in ``A`` is consistent with the value type in ``B``.
-* For each non-read-only item in ``B``, its value type is consistent with the corresponding value type in ``A``.
-* For each required key in ``B``, the corresponding key is required in ``A``.
-* For each non-required key in ``B``, if the item is not read-only in ``B``, the corresponding key is not required in ``A``.
+* For each item in ``A``, ``B`` has the corresponding key, unless the item in
+  ``A`` is read-only, not required, and of top value type
+  (``ReadOnly[NotRequired[object]]``).
+* For each item in ``A``, if ``B`` has the corresponding key, the corresponding
+  value type in ``B`` is assignable to the value type in ``A``.
+* For each non-read-only item in ``A``, its value type is assignable to the
+  corresponding value type in ``B``, and the corresponding key is not read-only
+  in ``B``.
+* For each required key in ``A``, the corresponding key is required in ``B``.
+* For each non-required key in ``A``, if the item is not read-only in ``A``,
+  the corresponding key is not required in ``B``.
 
 Discussion:
 
-* All non-specified items in a TypedDict implicitly have value type ``ReadOnly[NotRequired[object]]``.
+* All non-specified items in a TypedDict implicitly have value type
+  ``ReadOnly[NotRequired[object]]``.
 
-* Read-only items behave covariantly, as they cannot be mutated. This is similar to container types such as ``Sequence``, and different from non-read-only items, which behave invariantly. Example::
+* Read-only items behave covariantly, as they cannot be mutated. This is
+  similar to container types such as ``Sequence``, and different from
+  non-read-only items, which behave invariantly. Example::
 
     class A(TypedDict):
         x: ReadOnly[int | None]
@@ -770,7 +777,13 @@ Discussion:
     b: B = {"x": 1}
     f(b)  # Accepted by type checker
 
-* A TypedDict type ``A`` with no explicit key ``'x'`` is not consistent with a TypedDict type ``B`` with a non-required key ``'x'``, since at runtime the key ``'x'`` could be present and have an incompatible type (which may not be visible through ``A`` due to structural subtyping). The only exception to this rule is if the item in ``B`` is read-only, and the value type is of top type (``object``). For example::
+* A TypedDict type ``A`` with no explicit key ``'x'`` is not :term:`assignable`
+  to a TypedDict type ``B`` with a non-required key ``'x'``, since at runtime
+  the key ``'x'`` could be present and have an :term:`inconsistent
+  <consistent>` type (which may not be visible through ``A`` due to
+  :term:`structural` typing). The only exception to this rule is if the item in
+  ``B`` is read-only, and the value type is of top type (``object``). For
+  example::
 
     class A(TypedDict):
         x: int
@@ -785,7 +798,9 @@ Discussion:
 Update method
 ^^^^^^^^^^^^^
 
-In addition to existing type checking rules, type checkers should error if a TypedDict with a read-only item is updated with another TypedDict that declares that key::
+In addition to existing type checking rules, type checkers should error if a
+TypedDict with a read-only item is updated with another TypedDict that declares
+that key::
 
     class A(TypedDict):
         x: ReadOnly[int]

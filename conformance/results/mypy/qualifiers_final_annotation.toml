@@ -33,8 +33,10 @@ qualifiers_final_annotation.py:135: error: Unexpected keyword argument "y" for "
 qualifiers_final_annotation.py:141: error: Cannot assign to final name "ID1"  [misc]
 qualifiers_final_annotation.py:145: error: Cannot assign to final name "x"  [misc]
 qualifiers_final_annotation.py:147: error: Cannot assign to final name "x"  [misc]
-qualifiers_final_annotation.py:152: error: Incompatible types in assignment (expression has type "TextIOWrapper", variable has type "int")  [assignment]
+qualifiers_final_annotation.py:152: error: Incompatible types in assignment (expression has type "TextIOWrapper[_WrappedBuffer]", variable has type "int")  [assignment]
 qualifiers_final_annotation.py:155: error: Cannot assign to final name "x"  [misc]
+qualifiers_final_annotation.py:166: error: Cannot assign to final name "TEN"  [misc]
+qualifiers_final_annotation.py:170: error: Cannot assign to final name "PI"  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """

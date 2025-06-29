@@ -1,9 +1,0 @@
-conformant = "Pass"
-output = """
-File "typeddicts_inheritance.py", line 44, in <module>: Invalid base class: NonTypedDict [base-class-error]
-File "typeddicts_inheritance.py", line 54, in <module>: Invalid base class: X1 [base-class-error]
-File "typeddicts_inheritance.py", line 65, in <module>: Invalid base class: Y2 [base-class-error]
-"""
-conformance_automated = "Pass"
-errors_diff = """
-"""

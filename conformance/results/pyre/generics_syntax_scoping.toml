@@ -1,16 +1,20 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Type parameter syntax not yet support.
+Does not properly handle mixing legacy syntax with PEP695 syntax.
 """
 output = """
-generics_syntax_scoping.py:14:13 Parsing failure [404]: invalid syntax
+generics_syntax_scoping.py:14:19 Invalid bound [75]: `typing.Sequence[$local_generics_syntax_scoping$S]` is not valid bound.
+generics_syntax_scoping.py:18:16 Invalid bound [75]: `typing.Sequence[$local_generics_syntax_scoping$T]` is not valid bound.
+generics_syntax_scoping.py:27:38 Undefined or invalid type [11]: Annotation `T` is not defined as a type.
+generics_syntax_scoping.py:31:41 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[T]]` but got `int`.
+generics_syntax_scoping.py:98:28 Undefined or invalid type [11]: Annotation `ClassE.T` is not defined as a type.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 18: Expected 1 errors
 Line 35: Expected 1 errors
 Line 44: Expected 1 errors
 Line 92: Expected 1 errors
 Line 95: Expected 1 errors
-Line 98: Expected 1 errors
+Line 27: Unexpected errors ['generics_syntax_scoping.py:27:38 Undefined or invalid type [11]: Annotation `T` is not defined as a type.']
+Line 31: Unexpected errors ['generics_syntax_scoping.py:31:41 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[T]]` but got `int`.']
 """

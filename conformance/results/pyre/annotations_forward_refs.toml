@@ -8,12 +8,12 @@ Does not generate error for unquoted type defined in class scope.
 Does not treat triple-quoted forward reference annotation as implicitly parenthesized.
 """
 output = """
-annotations_forward_refs.py:41:8 Undefined or invalid type [11]: Annotation `eval(.join(map(chr, [105, 110, 116])))` is not defined as a type.
+annotations_forward_refs.py:41:8 Invalid type [31]: Expression `eval("".join(map(chr, [105, 110, 116])))` is not a valid type.
 annotations_forward_refs.py:42:8 Invalid type [31]: Expression `"[int, str]"` is not a valid type.
 annotations_forward_refs.py:43:8 Invalid type [31]: Expression `"(int, str)"` is not a valid type.
 annotations_forward_refs.py:44:8 Undefined or invalid type [11]: Annotation `comprehension(int for generators(generator($target$i in range(1) if )))` is not defined as a type.
 annotations_forward_refs.py:45:8 Invalid type [31]: Expression `"{  }"` is not a valid type.
-annotations_forward_refs.py:46:8 Undefined or invalid type [11]: Annotation `lambda () (int)()` is not defined as a type.
+annotations_forward_refs.py:46:8 Invalid type [31]: Expression `lambda () (int)()` is not a valid type.
 annotations_forward_refs.py:47:8 Invalid type [31]: Expression `[int][0]` is not a valid type.
 annotations_forward_refs.py:48:8 Invalid type [31]: Expression `"int if 1 < 3 else str"` is not a valid type.
 annotations_forward_refs.py:49:8 Undefined or invalid type [11]: Annotation `var1` is not defined as a type.
@@ -22,10 +22,10 @@ annotations_forward_refs.py:51:9 Invalid type [31]: Expression `"1"` is not a va
 annotations_forward_refs.py:52:9 Invalid type [31]: Expression `"-1"` is not a valid type.
 annotations_forward_refs.py:53:9 Invalid type [31]: Expression `"int or str"` is not a valid type.
 annotations_forward_refs.py:55:9 Undefined or invalid type [11]: Annotation `types` is not defined as a type.
-annotations_forward_refs.py:77:0 Uninitialized attribute [13]: Attribute `ClassC` is declared in class `ClassD` to have type `ClassC` but is never initialized.
 annotations_forward_refs.py:80:12 Undefined or invalid type [11]: Annotation `ClassF` is not defined as a type.
 annotations_forward_refs.py:87:7 Undefined or invalid type [11]: Annotation `ClassD.int` is not defined as a type.
-annotations_forward_refs.py:100:7 Undefined or invalid type [11]: Annotation `
+annotations_forward_refs.py:96:0 Assert type [70]: Expected `int` but got `unknown`.
+annotations_forward_refs.py:103:7 Undefined or invalid type [11]: Annotation `
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -36,7 +36,7 @@ Line 25: Expected 1 errors
 Line 54: Expected 1 errors
 Line 66: Expected 1 errors
 Line 89: Expected 1 errors
-Line 77: Unexpected errors ['annotations_forward_refs.py:77:0 Uninitialized attribute [13]: Attribute `ClassC` is declared in class `ClassD` to have type `ClassC` but is never initialized.']
 Line 87: Unexpected errors ['annotations_forward_refs.py:87:7 Undefined or invalid type [11]: Annotation `ClassD.int` is not defined as a type.']
-Line 100: Unexpected errors ['annotations_forward_refs.py:100:7 Undefined or invalid type [11]: Annotation `']
+Line 96: Unexpected errors ['annotations_forward_refs.py:96:0 Assert type [70]: Expected `int` but got `unknown`.']
+Line 103: Unexpected errors ['annotations_forward_refs.py:103:7 Undefined or invalid type [11]: Annotation `']
 """

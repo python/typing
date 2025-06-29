@@ -17,6 +17,7 @@ from typing import (
     TypeVar,
     TypeVarTuple,
     assert_type,
+    cast,
 )
 from typing import ClassVar as CV
 
@@ -34,16 +35,16 @@ Ts = TypeVarTuple("Ts")
 class ClassA(Generic[T, P]):
     # > ClassVar accepts only a single argument that should be a valid type
 
-    bad1: ClassVar[int, str]  # E: too many arguments
-    bad2: CV[3]  # E: invalid type
-    bad3: CV[var]  # E: invalid type
+    bad1: ClassVar[int, str] = cast(Any, 0)  # E: too many arguments
+    bad2: CV[3] = cast(Any, 0)  # E: invalid type
+    bad3: CV[var] = cast(Any, 0)  # E: invalid type
 
     # > Note that a ClassVar parameter cannot include any type variables,
     # > regardless of the level of nesting.
 
-    bad4: ClassVar[T]  # E: cannot use TypeVar
-    bad5: ClassVar[list[T]]  # E: cannot use TypeVar
-    bad6: ClassVar[Callable[P, Any]]  # E: cannot use ParamSpec
+    bad4: ClassVar[T] = cast(Any, 0)  # E: cannot use TypeVar
+    bad5: ClassVar[list[T]] = cast(Any, 0)  # E: cannot use TypeVar
+    bad6: ClassVar[Callable[P, Any]] = cast(Any, 0)  # E: cannot use ParamSpec
 
     # This is currently commented out because it causes mypy to crash.
     # bad7: ClassVar[tuple[*Ts]]  # E: cannot use TypeVarTuple
@@ -56,8 +57,14 @@ class ClassA(Generic[T, P]):
     good1: CV[int] = 1
     good2: ClassVar[list[str]] = []
     good3: ClassVar[Any] = 1
+    # > If an assigned value is available, the type should be inferred as some type
+    # > to which this value is assignable.
+    # Here, type checkers could infer good4 as `float` or `Any`, for example.
     good4: ClassVar = 3.1
-    good5: Annotated[ClassVar[list[int]], ""] = []
+    # > If the `ClassVar` qualifier is used without any assigned value, the type
+    # > should be inferred as `Any`:
+    good5: ClassVar  #E? Type checkers may error on uninitialized ClassVar
+    good6: Annotated[ClassVar[list[int]], ""] = []
 
     def method1(self, a: ClassVar[int]):  # E: ClassVar not allowed here
         x: ClassVar[str] = ""  # E: ClassVar not allowed here
@@ -74,13 +81,16 @@ bad12: TypeAlias = ClassVar[str]  # E: ClassVar not allowed here
 assert_type(ClassA.good1, int)
 assert_type(ClassA.good2, list[str])
 assert_type(ClassA.good3, Any)
-assert_type(ClassA.good4, float)
+assert_type(ClassA.good5, Any)
 
 
 class BasicStarship:
     captain: str = "Picard"  # Instance variable with default
     damage: int  # Instance variable without default
     stats: ClassVar[dict[str, int]] = {}  # Class variable
+
+    def __init__(self, damage: int) -> None:
+        self.damage = damage
 
 
 class Starship:

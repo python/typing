@@ -8,7 +8,7 @@ Protocols
 Terminology
 ^^^^^^^^^^^
 
-The term *protocols* is used for types supporting structural
+The term *protocols* is used for some types supporting :term:`structural`
 subtyping. The reason is that the term *iterator protocol*,
 for example, is widely understood in the community, and coming up with
 a new term for this concept in a statically typed context would just create
@@ -22,19 +22,19 @@ The distinction is not important most of the time, and in other
 cases we can just add a qualifier such as *protocol classes*
 when referring to the static type concept.
 
-If a class includes a protocol in its MRO, the class is called
-an *explicit* subclass of the protocol. If a class is a structural subtype
-of a protocol, it is said to implement the protocol and to be compatible
-with a protocol. If a class is compatible with a protocol but the protocol
-is not included in the MRO, the class is an *implicit* subtype
-of the protocol. (Note that one can explicitly subclass a protocol and
-still not implement it if a protocol attribute is set to ``None``
-in the subclass, see Python :py:ref:`data model <specialnames>`
-for details.)
+If a class includes a protocol in its MRO, the class is called an *explicit*
+subclass of the protocol. If a class defines all attributes and methods of a
+protocol with types that are :term:`assignable` to the types of the protocol's
+attributes and methods, it is said to implement the protocol and to be
+assignable to the protocol. If a class is assignable to a protocol but the
+protocol is not included in the MRO, the class is *implicitly* assignable to
+the protocol. (Note that one can explicitly subclass a protocol and still not
+implement it if a protocol attribute is set to ``None`` in the subclass. See
+Python :py:ref:`data model <specialnames>` for details.)
 
-The attributes (variables and methods) of a protocol that are mandatory
-for another class in order to be considered a structural subtype are called
-protocol members.
+The attributes (variables and methods) of a protocol that are mandatory for
+another class for it to be assignable to the protocol are called "protocol
+members".
 
 .. _protocol-definition:
 
@@ -51,10 +51,10 @@ at the end of the list. Here is a simple example::
       def close(self) -> None:
           ...
 
-Now if one defines a class ``Resource`` with a ``close()`` method that has
-a compatible signature, it would implicitly be a subtype of
-``SupportsClose``, since the structural subtyping is used for
-protocol types::
+Now if one defines a class ``Resource`` with a ``close()`` method whose type
+signature is :term:`assignable` to ``SupportsClose.close``, it would implicitly
+be assignable to ``SupportsClose``, since :term:`structural` assignability is
+used for protocol types::
 
   class Resource:
       ...
@@ -74,10 +74,9 @@ be used in every context where normal types can::
   close_all([f, r])  # OK!
   close_all([1])     # Error: 'int' has no 'close' method
 
-Note that both the user-defined class ``Resource`` and the built-in
-``IO`` type (the return type of ``open()``) are considered subtypes of
-``SupportsClose``, because they provide a ``close()`` method with
-a compatible type signature.
+Note that both the user-defined class ``Resource`` and the built-in ``IO`` type
+(the return type of ``open()``) are assignable to ``SupportsClose``, because
+each provides a ``close()`` method with an assignable type signature.
 
 
 Protocol members
@@ -147,9 +146,9 @@ expected to automatically detect that a class implements a given protocol.
 So while it's possible to subclass a protocol explicitly, it's *not necessary*
 to do so for the sake of type-checking.
 
-The default implementations cannot be used if
-the subtype relationship is implicit and only via structural
-subtyping -- the semantics of inheritance is not changed. Examples::
+The default implementations cannot be used if the assignable-to relationship is
+implicit and only :term:`structural` -- the semantics of inheritance is not
+changed. Examples::
 
     class PColor(Protocol):
         @abstractmethod
@@ -181,10 +180,10 @@ subtyping -- the semantics of inheritance is not changed. Examples::
     represent(nice) # OK
     represent(another) # Also OK
 
-Note that there is little difference between explicit and implicit
-subtypes; the main benefit of explicit subclassing is to get some protocol
-methods "for free". In addition, type checkers can statically verify that
-the class actually implements the protocol correctly::
+Note that there is little difference between explicitly subclassing and
+implicitly implementing the protocol; the main benefit of explicit subclassing
+is to get some protocol methods "for free". In addition, type checkers can
+statically verify that the class actually implements the protocol correctly::
 
     class RGB(Protocol):
         rgb: tuple[int, int, int]
@@ -201,22 +200,22 @@ the class actually implements the protocol correctly::
 
 A class can explicitly inherit from multiple protocols and also from normal
 classes. In this case methods are resolved using normal MRO and a type checker
-verifies that all subtyping are correct. The semantics of ``@abstractmethod``
-is not changed; all of them must be implemented by an explicit subclass
-before it can be instantiated.
+verifies that all member assignability is correct. The semantics of
+``@abstractmethod`` is not changed; all of them must be implemented by an
+explicit subclass before it can be instantiated.
 
 
 Merging and extending protocols
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The general philosophy is that protocols are mostly like regular ABCs,
-but a static type checker will handle them specially. Subclassing a protocol
-class would not turn the subclass into a protocol unless it also has
-``typing.Protocol`` as an explicit base class. Without this base, the class
-is "downgraded" to a regular ABC that cannot be used with structural
+The general philosophy is that protocols are mostly like regular ABCs, but a
+static type checker will handle them specially. Subclassing a protocol class
+would not turn the subclass into a protocol unless it also has
+``typing.Protocol`` as an explicit base class. Without this base, the class is
+"downgraded" to a regular ABC that cannot be used with :term:`structural`
 subtyping. The rationale for this rule is that we don't want to accidentally
-have some class act as a protocol just because one of its base classes
-happens to be one. We still slightly prefer nominal subtyping over structural
+have some class act as a protocol just because one of its base classes happens
+to be one. We still slightly prefer :term:`nominal` subtyping over structural
 subtyping in the static typing world.
 
 A subprotocol can be defined by having *both* one or more protocols as
@@ -246,9 +245,9 @@ with ``typing.Sized``::
   class SizedAndClosable(Sized, SupportsClose, Protocol):
       pass
 
-The two definitions of ``SizedAndClosable`` are equivalent.
-Subclass relationships between protocols are not meaningful when
-considering subtyping, since structural compatibility is
+The two definitions of ``SizedAndClosable`` are equivalent. Subclass
+relationships between protocols are not meaningful when considering
+assignability, since :term:`structural` :term:`assignability <assignable>` is
 the criterion, not the MRO.
 
 If ``Protocol`` is included in the base class list, all the other base classes
@@ -258,6 +257,7 @@ from regular ABCs, where abstractness is simply defined by having at least one
 abstract method being unimplemented. Protocol classes must be marked
 *explicitly*.
 
+.. _`generic-protocols`:
 
 Generic protocols
 ^^^^^^^^^^^^^^^^^
@@ -272,7 +272,15 @@ non-protocol generic types::
           ...
 
 ``Protocol[T, S, ...]`` is allowed as a shorthand for
-``Protocol, Generic[T, S, ...]``.
+``Protocol, Generic[T, S, ...]``. It is an error to combine
+``Protocol[T, S, ...]`` with ``Generic[T, S, ...]``, or with the new syntax for
+generic classes in Python 3.12 and above::
+
+  class Iterable(Protocol[T], Generic[T]):   # INVALID
+      ...
+
+  class Iterable[T](Protocol[T]):   # INVALID
+      ...
 
 User-defined generic protocols support explicitly declared variance.
 Type checkers will warn if the inferred variance is different from
@@ -303,7 +311,7 @@ the declared variance. Examples::
 
   var: Proto[float]
   another_var: Proto[int]
-  var = another_var  # Error! 'Proto[float]' is incompatible with 'Proto[int]'.
+  var = another_var  # Error! 'Proto[float]' is not assignable to 'Proto[int]'.
 
 Note that unlike nominal classes, de facto covariant protocols cannot be
 declared as invariant, since this can break transitivity of subtyping.
@@ -328,7 +336,7 @@ like trees in an abstract fashion::
       def leaves(self) -> Iterable['Traversable']:
           ...
 
-Note that for recursive protocols, a class is considered a subtype of
+Note that for recursive protocols, a class is considered assignable to
 the protocol in situations where the decision depends on itself.
 Continuing the previous example::
 
@@ -345,7 +353,7 @@ Continuing the previous example::
   def walk(graph: Traversable) -> None:
       ...
   tree: Tree[float] = Tree()
-  walk(tree)  # OK, 'Tree[float]' is a subtype of 'Traversable'
+  walk(tree)  # OK, 'Tree[float]' is assignable to 'Traversable'
 
 
 Self-types in protocols
@@ -371,26 +379,26 @@ The self-types in protocols follow the
   c = One()  # OK
   c = Other()  # Also OK
 
-Subtyping relationships with other types
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Assignability relationships with other types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Protocols cannot be instantiated, so there are no values whose
 runtime type is a protocol. For variables and parameters with protocol types,
-subtyping relationships are subject to the following rules:
+assignability relationships are subject to the following rules:
 
-* A protocol is never a subtype of a concrete type.
-* A concrete type ``X`` is a subtype of protocol ``P``
-  if and only if ``X`` implements all protocol members of ``P`` with
-  compatible types. In other words, subtyping with respect to a protocol is
-  always structural.
-* A protocol ``P1`` is a subtype of another protocol ``P2`` if ``P1`` defines
-  all protocol members of ``P2`` with compatible types.
+* A protocol is never assignable to a concrete type.
+* A concrete type ``X`` is assignable to a protocol ``P`` if and only if ``X``
+  implements all protocol members of ``P`` with assignable types. In other
+  words, :term:`assignability <assignable>` with respect to a protocol is
+  always :term:`structural`.
+* A protocol ``P1`` is assignable to another protocol ``P2`` if ``P1`` defines
+  all protocol members of ``P2`` with assignable types.
 
 Generic protocol types follow the same rules of variance as non-protocol
 types. Protocol types can be used in all contexts where any other types
 can be used, such as in unions, ``ClassVar``, type variables bounds, etc.
 Generic protocols follow the rules for generic abstract classes, except for
-using structural compatibility instead of compatibility defined by
+using structural assignability instead of assignability defined by
 inheritance relationships.
 
 Static type checkers will recognize protocol implementations, even if the
@@ -460,8 +468,9 @@ Example::
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Variables and parameters annotated with ``type[Proto]`` accept only concrete
-(non-protocol) subtypes of ``Proto``. The main reason for this is to allow
-instantiation of parameters with such types. For example::
+(non-protocol) :term:`consistent subtypes <consistent subtype>` of ``Proto``.
+The main reason for this is to allow instantiation of parameters with such
+types. For example::
 
   class Proto(Protocol):
       @abstractmethod
@@ -489,7 +498,7 @@ For normal (non-abstract) classes, the behavior of ``type[]`` is
 not changed.
 
 A class object is considered an implementation of a protocol if accessing
-all members on it results in types compatible with the protocol members.
+all members on it results in types assignable to the types of the protocol members.
 For example::
 
   from typing import Any, Protocol
@@ -538,7 +547,7 @@ Modules as implementations of protocols
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A module object is accepted where a protocol is expected if the public
-interface of the given module is compatible with the expected protocol.
+interface of the given module is assignable to the expected protocol.
 For example::
 
   # file default_config.py
@@ -560,7 +569,7 @@ For example::
 
   setup(default_config)  # OK
 
-To determine compatibility of module level functions, the ``self`` argument
+To determine assignability of module level functions, the ``self`` argument
 of the corresponding protocol methods is dropped. For example::
 
   # callbacks.py
@@ -622,11 +631,11 @@ the risks for this feature, the following rules are applied.
   if it only contains methods as members (for example ``Sized``,
   ``Iterator``, etc). A protocol that contains at least one non-method member
   (like ``x: int``) is called a data protocol.
-* *Unsafe overlap*: A type ``X`` is called unsafely overlapping with
-  a protocol ``P``, if ``X`` is not a subtype of ``P``, but it is a subtype
-  of the type erased version of ``P`` where all members have type ``Any``.
-  In addition, if at least one element of a union unsafely overlaps with
-  a protocol ``P``, then the whole union is unsafely overlapping with ``P``.
+* *Unsafe overlap*: A type ``X`` is called unsafely overlapping with a protocol
+  ``P``, if ``X`` is not assignable to ``P``, but it is assignable to the
+  type-erased version of ``P`` where all members have type ``Any``. In
+  addition, if at least one element of a union unsafely overlaps with a
+  protocol ``P``, then the whole union is unsafely overlapping with ``P``.
 
 **Specification**:
 

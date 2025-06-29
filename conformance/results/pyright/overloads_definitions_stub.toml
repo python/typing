@@ -1,0 +1,14 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_definitions_stub.pyi:14:5 - error: "func1" is marked as overload, but additional overloads are missing (reportInconsistentOverload)
+overloads_definitions_stub.pyi:33:9 - error: Overloads for "func5" use @staticmethod inconsistently (reportInconsistentOverload)
+overloads_definitions_stub.pyi:41:9 - error: Overloads for "func6" use @classmethod inconsistently (reportInconsistentOverload)
+overloads_definitions_stub.pyi:73:9 - error: Only the first overload should be marked @final (reportInconsistentOverload)
+overloads_definitions_stub.pyi:86:9 - error: Only the first overload should be marked @final (reportInconsistentOverload)
+overloads_definitions_stub.pyi:111:9 - error: Method "final_method" cannot override final method defined in class "Base" (reportIncompatibleMethodOverride)
+overloads_definitions_stub.pyi:122:9 - error: Method "bad_override" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
+overloads_definitions_stub.pyi:147:9 - error: Only the first overload should be marked @override (reportInconsistentOverload)
+"""

@@ -45,13 +45,15 @@ def run_tests(
 
 def get_expected_errors(test_case: Path) -> tuple[
     dict[int, tuple[int, int]],
-    dict[str, list[int]],
+    dict[str, tuple[list[int], bool]],
 ]:
     """Return the line numbers where type checkers are expected to produce an error.
 
     The return value is a tuple of two dictionaries:
     - The format of the first is {line number: (number of required errors, number of optional errors)}.
-    - The format of the second is {error tag: [lines where the error may appear]}.
+    - The format of the second is {error tag: ([lines where the error may appear], allow multiple}.
+      If allow multiple is True, the error may appear on multiple lines; otherwise, it must
+      appear exactly once.
 
     For example, the following test case:
 
@@ -64,13 +66,13 @@ def get_expected_errors(test_case: Path) -> tuple[
 
         (
             {1: (1, 0), 2: (0, 1)},
-            {"final": [3, 4]}
+            {"final": ([3, 4], False)}
         )
     """
-    with open(test_case, "r") as f:
+    with open(test_case, "r", encoding="utf-8") as f:
         lines = f.readlines()
     output: dict[int, tuple[int, int]] = {}
-    groups: dict[str, list[int]] = {}
+    groups: dict[str, tuple[list[int], bool]] = {}
     for i, line in enumerate(lines, start=1):
         line_without_comment, *_ = line.split("#")
         # Ignore lines with no non-comment content. This allows commenting out test cases.
@@ -86,7 +88,18 @@ def get_expected_errors(test_case: Path) -> tuple[
         if required or optional:
             output[i] = (required, optional)
         for match in re.finditer(r"# E\[([^\]]+)\]", line):
-            groups.setdefault(match.group(1), []).append(i)
+            tag = match.group(1)
+            if tag.endswith("+"):
+                allow_multiple = True
+                tag = tag[:-1]
+            else:
+                allow_multiple = False
+            if tag not in groups:
+                groups[tag] = ([i], allow_multiple)
+            else:
+                if groups[tag][1] != allow_multiple:
+                    raise ValueError(f"Error group {tag} has inconsistent allow_multiple value in {test_case}")
+                groups[tag][0].append(i)
     for group, linenos in groups.items():
         if len(linenos) == 1:
             raise ValueError(f"Error group {group} only appears on a single line in {test_case}")
@@ -119,11 +132,14 @@ def diff_expected_errors(
         # We don't report an issue if the count differs, because type checkers may produce
         # multiple error messages for a single line.
     linenos_used_by_groups: set[int] = set()
-    for group, linenos in error_groups.items():
-        if not any(lineno in errors for lineno in linenos):
+    for group, (linenos, allow_multiple) in error_groups.items():
+        num_errors = sum(1 for lineno in linenos if lineno in errors)
+        if num_errors == 0:
             differences.append(f"Lines {', '.join(map(str, linenos))}: Expected error (tag {group!r})")
-        else:
+        elif num_errors == 1 or allow_multiple:
             linenos_used_by_groups.update(linenos)
+        else:
+            differences.append(f"Lines {', '.join(map(str, linenos))}: Expected exactly one error (tag {group!r})")
     for actual_lineno, actual_errors in errors.items():
         if actual_lineno not in expected_errors and actual_lineno not in linenos_used_by_groups:
             differences.append(f"Line {actual_lineno}: Unexpected errors {actual_errors}")
@@ -141,6 +157,7 @@ def update_output_for_test(
 
     results_file = results_dir / f"{test_name}.toml"
     results_file.parent.mkdir(parents=True, exist_ok=True)
+    should_write = False
 
     # Read the existing results file if present.
     try:
@@ -153,7 +170,6 @@ def update_output_for_test(
         print(f"Error decoding {results_file}")
         existing_results = {}
 
-    should_write = False
     ignored_errors = existing_results.get("ignore_errors", [])
     errors_diff = "\n" + diff_expected_errors(type_checker, test_case, output, ignored_errors)
     old_errors_diff = "\n" + existing_results.get("errors_diff", "")
@@ -165,8 +181,10 @@ def update_output_for_test(
         print(f"New output: {errors_diff}")
         print("")
 
-        existing_results["conformance_automated"] = "Fail" if errors_diff.strip() else "Pass"
-
+    conformance_automated = "Fail" if errors_diff.strip() else "Pass"
+    if existing_results.get("conformance_automated") != conformance_automated:
+        should_write = True
+        existing_results["conformance_automated"] = conformance_automated
 
     old_output = existing_results.get("output", "")
     old_output = f"\n{old_output}"
@@ -195,7 +213,7 @@ def update_output_for_test(
                 notes = "\n" + notes
             existing_results["notes"] = tomlkit.string(notes, multiline=True)
         results_file.parent.mkdir(parents=True, exist_ok=True)
-        with open(results_file, "w") as f:
+        with open(results_file, "w", encoding="utf-8") as f:
             tomlkit.dump(existing_results, f)
 
 

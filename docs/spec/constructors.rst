@@ -105,11 +105,11 @@ unrelated class.
 
 If the evaluated return type of ``__new__`` is not the class being constructed
 (or a subclass thereof), a type checker should assume that the ``__init__``
-method will not be called. This is consistent with the runtime behavior of
-the ``type.__call__`` method. If the ``__new__`` method return type is
-a union with one or more subtypes that are not instances of the class being
-constructed (or a subclass thereof), a type checker should likewise assume that
-the ``__init__`` method will not be called.
+method will not be called. This is consistent with the runtime behavior of the
+``type.__call__`` method. If the ``__new__`` method return type is a union with
+one or more members that are not the class being constructed (or a subclass
+thereof), a type checker should likewise assume that the ``__init__`` method
+will not be called.
 
   ::
 
@@ -337,7 +337,7 @@ Consistency of ``__new__`` and ``__init__``
 -------------------------------------------
 
 Type checkers may optionally validate that the ``__new__`` and ``__init__``
-methods for a class have consistent signatures.
+methods for a class have :term:`consistent` signatures.
 
   ::
 
@@ -353,7 +353,8 @@ methods for a class have consistent signatures.
 Converting a Constructor to Callable
 ------------------------------------
 
-Class objects are callable, which means they are compatible with callable types.
+Class objects are callable, which means the type of a class object can be
+:term:`assignable` to a callable type.
 
   ::
 

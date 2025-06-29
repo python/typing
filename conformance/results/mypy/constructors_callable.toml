@@ -10,10 +10,9 @@ Line 127: Expected 1 errors
 Line 144: Expected 1 errors
 Line 73: Unexpected errors ['constructors_callable.py:73: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class4")  [misc]']
 Line 78: Unexpected errors ['constructors_callable.py:78: error: Expression is of type "Class4", not "int"  [assert-type]']
-Line 100: Unexpected errors ['constructors_callable.py:100: error: Expression is of type "Class5", not "NoReturn"  [assert-type]']
-Line 105: Unexpected errors ['constructors_callable.py:105: error: Expression is of type "Class5", not "NoReturn"  [assert-type]']
+Line 100: Unexpected errors ['constructors_callable.py:100: error: Expression is of type "Class5", not "Never"  [assert-type]']
+Line 105: Unexpected errors ['constructors_callable.py:105: error: Expression is of type "Class5", not "Never"  [assert-type]']
 Line 116: Unexpected errors ['constructors_callable.py:116: error: Incompatible return type for "__new__" (returns "Class6Proxy", but must return a subtype of "Class6")  [misc]']
-Line 117: Unexpected errors ['constructors_callable.py:117: error: Incompatible return value type (got "Class6", expected "Class6Proxy")  [return-value]']
 Line 126: Unexpected errors ['constructors_callable.py:126: error: Expression is of type "Class6", not "Class6Proxy"  [assert-type]', 'constructors_callable.py:126: error: Too few arguments  [call-arg]']
 Line 143: Unexpected errors ['constructors_callable.py:143: error: Expression is of type "Class6Any", not "Any"  [assert-type]', 'constructors_callable.py:143: error: Too few arguments  [call-arg]']
 """
@@ -33,10 +32,9 @@ constructors_callable.py:78: error: Expression is of type "Class4", not "int"  [
 constructors_callable.py:79: error: Too few arguments  [call-arg]
 constructors_callable.py:80: error: Unexpected keyword argument "y"  [call-arg]
 constructors_callable.py:97: note: Revealed type is "def (*args: Any, **kwargs: Any) -> constructors_callable.Class5"
-constructors_callable.py:100: error: Expression is of type "Class5", not "NoReturn"  [assert-type]
-constructors_callable.py:105: error: Expression is of type "Class5", not "NoReturn"  [assert-type]
+constructors_callable.py:100: error: Expression is of type "Class5", not "Never"  [assert-type]
+constructors_callable.py:105: error: Expression is of type "Class5", not "Never"  [assert-type]
 constructors_callable.py:116: error: Incompatible return type for "__new__" (returns "Class6Proxy", but must return a subtype of "Class6")  [misc]
-constructors_callable.py:117: error: Incompatible return value type (got "Class6", expected "Class6Proxy")  [return-value]
 constructors_callable.py:125: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class6"
 constructors_callable.py:126: error: Expression is of type "Class6", not "Class6Proxy"  [assert-type]
 constructors_callable.py:126: error: Too few arguments  [call-arg]

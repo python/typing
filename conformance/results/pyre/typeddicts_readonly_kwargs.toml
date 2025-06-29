@@ -1,11 +1,7 @@
-conformant = "Unsupported"
+conformant = "Pass"
 output = """
-typeddicts_readonly_kwargs.py:24:10 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.
-typeddicts_readonly_kwargs.py:29:33 Undefined or invalid type [11]: Annotation `Unpack` is not defined as a type.
+typeddicts_readonly_kwargs.py:33:21 Invalid TypedDict operation [54]: Cannot write to `ReadOnlyArgs` read-only field `key1`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 33: Expected 1 errors
-Line 24: Unexpected errors ['typeddicts_readonly_kwargs.py:24:10 Undefined or invalid type [11]: Annotation `ReadOnly` is not defined as a type.']
-Line 29: Unexpected errors ['typeddicts_readonly_kwargs.py:29:33 Undefined or invalid type [11]: Annotation `Unpack` is not defined as a type.']
 """

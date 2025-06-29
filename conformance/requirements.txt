@@ -3,5 +3,5 @@ tomlkit
 tqdm
 pyright
 mypy
-pyre-check
-pytype; platform_system != "Windows"
+pip
+pyre-check; platform_system != "Windows"

@@ -1,7 +1,6 @@
 conformant = "Partial"
 notes = """
 Does not report errors during binding to self parameter of __init__ method.
-Does not support function-scoped TypeVars in self annotation in __init__ method.
 Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.
 """
 conformance_automated = "Fail"
@@ -9,18 +8,10 @@ errors_diff = """
 Line 56: Expected 1 errors
 Line 107: Expected 1 errors
 Line 73: Unexpected errors ['constructors_call_init.py:73: error: Expression is of type "Class5[list[int]]", not "Class5[int]"  [assert-type]']
-Line 91: Unexpected errors ['constructors_call_init.py:91: error: Expression is of type "Class6[V1, V2]", not "Class6[int, str]"  [assert-type]']
-Line 92: Unexpected errors ['constructors_call_init.py:92: error: Expression is of type "Class6[V1, V2]", not "Class6[int, str]"  [assert-type]']
-Line 99: Unexpected errors ['constructors_call_init.py:99: error: Expression is of type "Class7[V2, V1]", not "Class7[str, int]"  [assert-type]']
-Line 100: Unexpected errors ['constructors_call_init.py:100: error: Expression is of type "Class7[V2, V1]", not "Class7[str, int]"  [assert-type]']
 """
 output = """
 constructors_call_init.py:21: error: Argument 1 to "Class1" has incompatible type "float"; expected "int"  [arg-type]
 constructors_call_init.py:42: error: Argument 1 to "Class3" has incompatible type "Class2[Never]"; expected "Class3 | None"  [arg-type]
 constructors_call_init.py:73: error: Expression is of type "Class5[list[int]]", not "Class5[int]"  [assert-type]
-constructors_call_init.py:91: error: Expression is of type "Class6[V1, V2]", not "Class6[int, str]"  [assert-type]
-constructors_call_init.py:92: error: Expression is of type "Class6[V1, V2]", not "Class6[int, str]"  [assert-type]
-constructors_call_init.py:99: error: Expression is of type "Class7[V2, V1]", not "Class7[str, int]"  [assert-type]
-constructors_call_init.py:100: error: Expression is of type "Class7[V2, V1]", not "Class7[str, int]"  [assert-type]
 constructors_call_init.py:130: error: Too many arguments for "Class11"  [call-arg]
 """

@@ -1,21 +1,22 @@
-conformant = "Partial"
-notes = """
-Does not reject the use of a constraint parameterized by another type variable.
-"""
+conformant = "Pass"
 output = """
 generics_basic.py:40: error: Value of type variable "AnyStr" of "concat" cannot be "Sequence[object]"  [type-var]
 generics_basic.py:41: error: Value of type variable "AnyStr" of "concat" cannot be "Sequence[object]"  [type-var]
-generics_basic.py:49: error: TypeVar cannot have only a single constraint  [misc]
+generics_basic.py:49: error: Type variable must have at least two constrained types  [misc]
+generics_basic.py:55: error: TypeVar constraint type cannot be parametrized by type variables  [misc]
 generics_basic.py:69: error: Value of type variable "AnyStr" of "concat" cannot be "Sequence[object]"  [type-var]
 generics_basic.py:121: error: Duplicate type variables in Generic[...] or Protocol[...]  [misc]
 generics_basic.py:157: error: Invalid index type "int" for "MyMap1[str, int]"; expected type "str"  [index]
 generics_basic.py:158: error: Invalid index type "int" for "MyMap2[int, str]"; expected type "str"  [index]
-generics_basic.py:191: error: Dynamic metaclass not supported for "GenericMetaInstance"  [misc]
-generics_basic.py:191: error: Type variable "generics_basic.T" is unbound  [valid-type]
-generics_basic.py:191: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
-generics_basic.py:191: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+generics_basic.py:162: error: Free type variable expected in Generic[...]  [misc]
+generics_basic.py:163: error: Free type variable expected in Protocol[...]  [misc]
+generics_basic.py:171: error: If Generic[...] or Protocol[...] is present it should list all type variables  [misc]
+generics_basic.py:172: error: If Generic[...] or Protocol[...] is present it should list all type variables  [misc]
+generics_basic.py:208: error: Dynamic metaclass not supported for "GenericMetaInstance"  [misc]
+generics_basic.py:208: error: Type variable "generics_basic.T" is unbound  [valid-type]
+generics_basic.py:208: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
+generics_basic.py:208: note: (Hint: Use "T" in function signature to bind "T" inside a function)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 55: Expected 1 errors
 """

@@ -1,6 +1,5 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
-Does not allow Any as a base class, leading to false positives.
 """
 output = """
 classes_override.py:53:4 Invalid override [40]: `classes_override.ChildA.method3` is decorated with @override, but no method of the same name exists in superclasses of `ChildA`.
@@ -9,11 +8,7 @@ classes_override.py:65:4 Invalid override [40]: `classes_override.ChildA.method4
 classes_override.py:79:4 Invalid override [40]: `classes_override.ChildA.static_method1` is decorated with @override, but no method of the same name exists in superclasses of `ChildA`.
 classes_override.py:84:4 Invalid override [40]: `classes_override.ChildA.class_method1` is decorated with @override, but no method of the same name exists in superclasses of `ChildA`.
 classes_override.py:89:4 Invalid override [40]: `classes_override.ChildA.property1` is decorated with @override, but no method of the same name exists in superclasses of `ChildA`.
-classes_override.py:95:14 Invalid inheritance [39]: `typing.Any` is not a valid parent class.
-classes_override.py:101:4 Invalid override [40]: `classes_override.ChildB.method1` is decorated with @override, but no method of the same name exists in superclasses of `ChildB`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 95: Unexpected errors ['classes_override.py:95:14 Invalid inheritance [39]: `typing.Any` is not a valid parent class.']
-Line 101: Unexpected errors ['classes_override.py:101:4 Invalid override [40]: `classes_override.ChildB.method1` is decorated with @override, but no method of the same name exists in superclasses of `ChildB`.']
 """

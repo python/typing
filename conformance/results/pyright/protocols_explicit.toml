@@ -2,23 +2,20 @@ conformant = "Pass"
 output = """
 protocols_explicit.py:27:16 - error: Method "draw" cannot be called because it is abstract and unimplemented (reportAbstractUsage)
 protocols_explicit.py:56:32 - error: Cannot assign to attribute "rgb" for class "Point*"
-  "str" is incompatible with "int" (reportAttributeAccessIssue)
-protocols_explicit.py:59:5 - error: Cannot instantiate abstract class "Point"
-  "RGB.other" is not implemented
+  "str" is not assignable to "int" (reportAttributeAccessIssue)
+protocols_explicit.py:60:5 - error: Cannot instantiate abstract class "Point"
   "RGB.intensity" is not implemented
-  and 1 more... (reportAbstractUsage)
-protocols_explicit.py:86:6 - error: Cannot instantiate abstract class "Concrete1"
-  "Proto1.cm1" is not implemented
-  "Proto1.im1" is not implemented (reportAbstractUsage)
-protocols_explicit.py:104:6 - error: Cannot instantiate abstract class "Concrete3"
-  "Proto2.cm10" is not implemented
-  "Proto3.cm11" is not implemented
-  and 1 more... (reportAbstractUsage)
-protocols_explicit.py:129:6 - error: Cannot instantiate abstract class "Concrete5"
+  "RGB.transparency" is not implemented (reportAbstractUsage)
+protocols_explicit.py:85:14 - error: Cannot assign to attribute "cm1" for class "Concrete1*"
+  Attribute "cm1" cannot be assigned through a class instance because it is a ClassVar (reportAttributeAccessIssue)
+protocols_explicit.py:135:6 - error: Cannot instantiate abstract class "Concrete5"
   "Proto5.method1" is not implemented (reportAbstractUsage)
-protocols_explicit.py:159:7 - error: Cannot instantiate abstract class "Concrete7A"
+protocols_explicit.py:165:7 - error: Cannot instantiate abstract class "Concrete7A"
   "Proto7.method1" is not implemented (reportAbstractUsage)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 90: Expected 1 errors
+Line 110: Expected 1 errors
+Line 85: Unexpected errors ['protocols_explicit.py:85:14 - error: Cannot assign to attribute "cm1" for class "Concrete1*"']
 """

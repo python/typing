@@ -1,6 +1,6 @@
 .. _`class-compat`:
 
-Class type compatibility
+Class type assignability
 ========================
 
 .. _`classvar`:
@@ -10,11 +10,30 @@ Class type compatibility
 
 (Originally specified in :pep:`526`.)
 
-A :term:`type qualifier` ``ClassVar[T]`` exists in the :py:mod:`typing`
-module. It accepts only a single argument that should be a valid type,
-and is used to annotate class variables that should not be set on class
-instances. This restriction is enforced by static checkers,
-but not at runtime.
+The :py:data:`typing.ClassVar` :term:`type qualifier` is used to annotate
+class variables that should not be set on class instances. This restriction
+is enforced by static checkers, but not at runtime.
+
+:py:data:`~typing.ClassVar` may be used in one of several forms:
+
+* With an explicit type, using the syntax ``ClassVar[<type>]``. Example::
+
+    class C:
+        x: ClassVar[float] = 1
+
+* With no type annotation. Example::
+
+    class C:
+        y: ClassVar = 2
+        z: ClassVar
+
+  If an assigned value is available (e.g. with ``y``), the type should be
+  inferred as some type to which this value is :term:`assignable` (for example,
+  ``int``, ``Literal[2]``, or ``Any``).
+
+  If the bare ``ClassVar`` qualifier is used without any assigned value, the type
+  should be inferred as :ref:`Any <any>`. Type checkers may error if no assigned
+  value is present.
 
 Type annotations can be used to annotate class and instance variables
 in class bodies and methods. In particular, the value-less notation ``a: int``
@@ -89,6 +108,10 @@ annotated in ``__init__`` or other methods, rather than in the class::
       def __init__(self, content):
           self.content: T = content
 
+``ClassVar`` cannot be used as a qualifier for a :ref:`TypedDict <typeddict>`
+item or a :ref:`NamedTuple <namedtuple>` field. Such usage also generates
+an error at runtime.
+
 .. _`override`:
 
 ``@override``
@@ -97,8 +120,9 @@ annotated in ``__init__`` or other methods, rather than in the class::
 (Originally specified by :pep:`698`.)
 
 When type checkers encounter a method decorated with ``@typing.override`` they
-should treat it as a type error unless that method is overriding a compatible
-method or attribute in some ancestor class.
+should treat it as a type error unless that method is overriding a method or
+attribute in some ancestor class, and the type of the overriding method is
+:term:`assignable` to the type of the overridden method.
 
 
 .. code-block:: python
