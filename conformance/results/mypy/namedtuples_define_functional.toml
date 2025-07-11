@@ -1,4 +1,4 @@
-conformant = "Pass"
+conformant = "Partial"
 output = """
 namedtuples_define_functional.py:16: error: Missing positional argument "y" in call to "Point1"  [call-arg]
 namedtuples_define_functional.py:21: error: Missing positional arguments "x", "y" in call to "Point2"  [call-arg]
@@ -17,7 +17,7 @@ namedtuples_define_functional.py:67: error: Missing positional argument "_1" in 
 namedtuples_define_functional.py:68: error: Too many arguments for "NT5"  [call-arg]
 namedtuples_define_functional.py:69: error: Missing positional arguments "abc", "_1" in call to "NT5"  [call-arg]
 """
-conformance_automated = "Partial"
+conformance_automated = "Fail"
 errors_diff = """
 Line 66: Unexpected errors ['namedtuples_define_functional.py:66: error: Name "NT5" already defined on line 57  [no-redef]']
 Line 67: Unexpected errors ['namedtuples_define_functional.py:67: error: Missing positional argument "_1" in call to "NT5"  [call-arg]']

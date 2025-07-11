@@ -22,7 +22,7 @@ namedtuples_define_class.py:106:4 Invalid assignment [41]: Cannot reassign final
 namedtuples_define_class.py:125:18 Incompatible parameter type [6]: In call `Property.__init__`, for 2nd positional argument, expected `str` but got `float`.
 namedtuples_define_class.py:132:23 Invalid inheritance [39]: If NamedTuple is included as a base class, the class may not extend anything else besides Generic.
 """
-conformance_automated = "Partial"
+conformance_automated = "Fail"
 errors_diff = """
 Line 69: Expected 1 errors
 Line 76: Expected 1 errors
