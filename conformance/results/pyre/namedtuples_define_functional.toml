@@ -16,7 +16,7 @@ namedtuples_define_functional.py:58:0 Unexpected keyword [28]: Unexpected keywor
 namedtuples_define_functional.py:60:0 Unexpected keyword [28]: Unexpected keyword argument `_1` to call `NT6.__init__`.
 namedtuples_define_functional.py:69:0 Missing argument [20]: Call `NT5.__init__` expects argument `a`.
 """
-conformance_automated = "Fail"
+conformance_automated = "Partial"
 errors_diff = """
 Line 58: Unexpected errors ['namedtuples_define_functional.py:58:0 Unexpected keyword [28]: Unexpected keyword argument `abc` to call `NT5.__init__`.']
 Line 60: Unexpected errors ['namedtuples_define_functional.py:60:0 Unexpected keyword [28]: Unexpected keyword argument `_1` to call `NT6.__init__`.']

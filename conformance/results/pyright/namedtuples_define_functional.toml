@@ -20,7 +20,7 @@ namedtuples_define_functional.py:59:33 - error: Named tuple field names cannot s
 namedtuples_define_functional.py:60:13 - error: No parameter named "_1" (reportCallIssue)
 namedtuples_define_functional.py:69:1 - error: Argument missing for parameter "a" (reportCallIssue)
 """
-conformance_automated = "Fail"
+conformance_automated = "Partial"
 errors_diff = """
 Line 59: Unexpected errors ['namedtuples_define_functional.py:59:33 - error: Named tuple field names cannot start with an underscore (reportGeneralTypeIssues)']
 Line 60: Unexpected errors ['namedtuples_define_functional.py:60:13 - error: No parameter named "_1" (reportCallIssue)']

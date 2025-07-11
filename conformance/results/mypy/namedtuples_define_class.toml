@@ -19,7 +19,7 @@ namedtuples_define_class.py:86: error: Non-default NamedTuple fields cannot foll
 namedtuples_define_class.py:125: error: Argument 2 to "Property" has incompatible type "float"; expected "str"  [arg-type]
 namedtuples_define_class.py:132: error: NamedTuple should be a single base  [misc]
 """
-conformance_automated = "Fail"
+conformance_automated = "Partial"
 errors_diff = """
 Line 69: Expected 1 errors
 Line 106: Expected 1 errors
