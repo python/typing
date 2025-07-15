@@ -3,8 +3,6 @@ notes = """
 Reports error for legitimate use of `...` to specialize ParamSpec
 """
 output = """
-generics_paramspec_specialization.py:32:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P2`, but a single type `...` was given for generic type ClassB.
-generics_paramspec_specialization.py:36:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P1`, but a single type `...` was given for generic type ClassA.
 generics_paramspec_specialization.py:44:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P1`, but a single type `int` was given for generic type ClassA.
 generics_paramspec_specialization.py:53:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.
 generics_paramspec_specialization.py:54:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.
@@ -15,8 +13,6 @@ generics_paramspec_specialization.py:61:4 Too many arguments [19]: PositionalOnl
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 32: Unexpected errors ['generics_paramspec_specialization.py:32:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P2`, but a single type `...` was given for generic type ClassB.']
-Line 36: Unexpected errors ['generics_paramspec_specialization.py:36:14 Invalid type parameters [24]: Callable parameters expected for parameter specification `P1`, but a single type `...` was given for generic type ClassA.']
 Line 53: Unexpected errors ['generics_paramspec_specialization.py:53:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.']
 Line 59: Unexpected errors ['generics_paramspec_specialization.py:59:4 Too many arguments [19]: PositionalOnly call expects 2 positional arguments, 3 were provided.']
 """
