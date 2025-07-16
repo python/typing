@@ -5,7 +5,8 @@ Writing and Maintaining Stub Files
 **********************************
 
 Stub files are a means of providing type information for Python modules.
-For a full reference, refer to :ref:`stub-files`.
+For a quick introduction, see :ref:`external_libraries`. For a full reference,
+refer to :ref:`distributing-type`.
 
 Maintaining stubs can be a little cumbersome because they are separated from the
 implementation. This page lists some tools that make writing and maintaining
