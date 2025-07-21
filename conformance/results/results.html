@@ -159,13 +159,13 @@
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 1.17.0</div>
-<div class='tc-time'>2.8sec</div>
+<div class='tc-time'>2.7sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.403</div>
-<div class='tc-time'>5.9sec</div>
+<div class='tc-time'>5.6sec</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.25</div>
-<div class='tc-time'>4.0sec</div>
+<div class='tc-time'>3.9sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="4">
@@ -648,7 +648,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject ClassVar that is overridden by instance variable.</p><p>Does not reject instance variable that is overridden by ClassVar.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_kwonly</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects kw_only field with default before positional field.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Rejects legitimate use of dataclass field with `kw_only=True`.</p></span></div></th>
 </tr>
