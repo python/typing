@@ -1,4 +1,4 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
 Incorrectly rejects kw_only field with default before positional field.
 """
