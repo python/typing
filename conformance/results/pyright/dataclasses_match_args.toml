@@ -1,0 +1,10 @@
+conformant = "Partial"
+notes = """
+Generates __match_args__ when match_args=False.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 42: Expected 1 errors
+"""
+output = """
+"""
