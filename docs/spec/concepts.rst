@@ -369,7 +369,7 @@ can likewise be materialized to ``T1 | T2``. Thus, the gradual types ``S1`` and
 If ``B`` is a subtype of ``A``, ``B | A`` is equivalent to ``A``.
 
 This rule applies only to subtypes, not assignable-to. For any type ``T``
-other than the top and bottom types (``object`` and ``Never``), the union ``T | Any`` is
+(other than the top and bottom types ``object`` and ``Never``), the union ``T | Any`` is
 not reducible to a simpler form. It represents an unknown static type with
 lower bound ``T``. That is, it represents an unknown set of objects which may
 be as large as ``object``, or as small as ``T``, but no smaller.
