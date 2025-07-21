@@ -1,7 +1,4 @@
 conformant = "Pass"
-notes = """
-Incorrectly rejects kw_only field with default before positional field.
-"""
 output = """
 dataclasses_kwonly.py:23: error: Too many positional arguments for "DC1"  [misc]
 dataclasses_kwonly.py:38: error: Too many positional arguments for "DC2"  [misc]
