@@ -158,14 +158,14 @@
         </header>
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
-<th class='tc-header'><div class='tc-name'>mypy 1.16.1</div>
-<div class='tc-time'>2.2sec</div>
+<th class='tc-header'><div class='tc-name'>mypy 1.17.0</div>
+<div class='tc-time'>2.7sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.402</div>
-<div class='tc-time'>1.8sec</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.403</div>
+<div class='tc-time'>5.6sec</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyre 0.9.23</div>
-<div class='tc-time'>10.7sec</div>
+<th class='tc-header'><div class='tc-name'>pyre 0.9.25</div>
+<div class='tc-time'>3.9sec</div>
 </th>
 </tr>
 <tr><th class="column" colspan="4">
@@ -324,7 +324,7 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_type_erasure</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Infers Node[Never] instead of Node[Any] when argument is not provided.</p><p>False negative on instance attribute access on type(node).</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Missing error regarding `type(instance).generic_attribute`.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not erase unspecified type variables to `Any` prior to `assert_type` handling.</p><p>False negatives on instance attribute access on the type.</p><p>Does not infer type of `DefaultDict` with explicit type parameters on constructor.</p><p>False negatives on assert_type uses.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_typevartuple_args</th>
@@ -423,7 +423,7 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_newtype</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>`NewType`s are considered classes, not functions.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>`NewType`s are considered classes, not functions.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of NewType in `isinstance` call.</p><p>Does not reject use of NewType in class definition statement.</p><p>Does not report inconsistency between name of NewType and assigned identifier name.</p><p>Does not reject use of NewType with generic class with TypeVar.</p><p>Does not reject use of NewType with protocol class.</p><p>Does not reject use of NewType with TypedDict class.</p><p>Does not reject use of NewType with Any.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_recursive</th>
@@ -648,7 +648,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject ClassVar that is overridden by instance variable.</p><p>Does not reject instance variable that is overridden by ClassVar.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_kwonly</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects kw_only field with default before positional field.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Rejects legitimate use of dataclass field with `kw_only=True`.</p></span></div></th>
 </tr>

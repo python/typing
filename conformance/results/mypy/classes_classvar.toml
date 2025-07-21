@@ -20,6 +20,7 @@ classes_classvar.py:70: error: ClassVar can only be used for assignments in clas
 classes_classvar.py:71: error: ClassVar can only be used for assignments in class body  [misc]
 classes_classvar.py:73: error: ClassVar can only be used for assignments in class body  [misc]
 classes_classvar.py:77: error: ClassVar can only be used for assignments in class body  [misc]
+classes_classvar.py:78: error: ClassVar[...] can't be used inside a type alias  [valid-type]
 classes_classvar.py:111: error: Cannot assign to class variable "stats" via instance  [misc]
 classes_classvar.py:140: error: Incompatible types in assignment (expression has type "ProtoAImpl", variable has type "ProtoA")  [assignment]
 classes_classvar.py:140: note: "ProtoAImpl" is missing following "ProtoA" protocol member:
@@ -30,6 +31,5 @@ classes_classvar.py:140: note: Protocol member ProtoA.y expected class variable,
 conformance_automated = "Fail"
 errors_diff = """
 Line 47: Expected 1 errors
-Line 78: Expected 1 errors
 Line 67: Unexpected errors ['classes_classvar.py:67: error: Invalid type: ClassVar nested inside other type  [valid-type]']
 """
