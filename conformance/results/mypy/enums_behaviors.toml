@@ -2,6 +2,8 @@ conformant = "Pass"
 errors_diff = """
 """
 output = """
-enums_behaviors.py:39: error: Cannot extend enum with existing members: "Shape"  [misc]
+enums_behaviors.py:28: error: Expression is of type "Color", not "Literal[Color.RED]"  [assert-type]
+enums_behaviors.py:32: error: Expression is of type "Color", not "Literal[Color.BLUE]"  [assert-type]
+enums_behaviors.py:44: error: Cannot extend enum with existing members: "Shape"  [misc]
 """
 conformance_automated = "Pass"
