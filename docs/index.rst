@@ -2,6 +2,17 @@
 Static Typing with Python
 *************************
 
+Tutorials
+=========
+
+..
+   Keep in sync with tutorials/index.rst.
+
+.. toctree::
+   :maxdepth: 1
+
+   tutorials/external_libraries
+
 Guides
 ======
 
