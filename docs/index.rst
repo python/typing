@@ -5,18 +5,33 @@ Static Typing with Python
 Guides
 ======
 
-.. toctree::
-   :maxdepth: 2
+..
+   Keep in sync with docs/guides/index.rst.
 
-   guides/index
+.. toctree::
+   :maxdepth: 1
+
+   guides/libraries
+   guides/writing_stubs
+   guides/modernizing
+   guides/unreachable
+   guides/type_narrowing
+   guides/typing_anti_pitch
 
 Reference
 =========
 
-.. toctree::
-   :maxdepth: 2
+..
+   Keep in sync with docs/reference/index.rst.
 
-   reference/index
+.. toctree::
+   :maxdepth: 1
+
+   reference/generics
+   reference/protocols
+   reference/best_practices
+   reference/quality
+   typing Module Documentation <https://docs.python.org/3/library/typing.html>
 
 .. seealso::
 
@@ -27,7 +42,7 @@ Specification
 =============
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    spec/index
 
