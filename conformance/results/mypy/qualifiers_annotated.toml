@@ -38,5 +38,4 @@ Line 85: Expected 1 errors
 Line 93: Expected 1 errors
 Line 98: Unexpected errors ['qualifiers_annotated.py:98: error: Invalid type: ClassVar nested inside other type  [valid-type]']
 Line 100: Unexpected errors ['qualifiers_annotated.py:100: error: Final can be only used as an outermost qualifier in a variable annotation  [valid-type]']
-Line 119: Unexpected errors ['qualifiers_annotated.py:119: error: Cannot redefine "T" as a type variable  [misc]', 'qualifiers_annotated.py:119: error: Invalid assignment target  [misc]']
 """

@@ -13,6 +13,5 @@ errors_diff = """
 Line 27: Expected 1 errors
 Line 31: Expected 1 errors
 Line 35: Expected 1 errors
-Line 45: Expected 1 errors
 Line 43: Unexpected errors ['typeddicts_alt_syntax.py:43:8 Undefined or invalid type [11]: Annotation `Movie2` is not defined as a type.']
 """
