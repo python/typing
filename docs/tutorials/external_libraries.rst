@@ -21,13 +21,12 @@ as in your own code, or they can be provided in separate so-called
 hints, without any implementation.
 
 For libraries that don't include their own type hints, a separate
-*stub package* may provice them. These stub packages are often written by the
+*stub package* may provide them. These stub packages are often written by the
 library authors themselves, by the contributors to the
 `typeshed <https://github.com/python/typeshed>`_ project, or by third-party
 contributors. These packages are usually named ``types-<library>``
-or ``<library>-stubs``, where ``<library>`` is the name of the library. These
-packages can be installed from PyPI as usual, and they will be automatically
-discovered by type checkers::
+or ``<library>-stubs``. These packages can be installed from PyPI as usual, and
+they will be automatically discovered by type checkers::
 
     pip install requests types-requests
 
