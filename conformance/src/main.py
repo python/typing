@@ -235,7 +235,7 @@ def update_type_checker_info(
 
     existing_info["version"] = type_checker.get_version()
     if not skip_timing:
-        existing_info["test_duration"] = round(test_duration, 1)
+        existing_info["test_duration"] = round(test_duration, 2)
 
     version_file.parent.mkdir(parents=True, exist_ok=True)
     with open(version_file, "w") as f:

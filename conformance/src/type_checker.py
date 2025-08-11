@@ -273,9 +273,78 @@ class PyreTypeChecker(TypeChecker):
             line_to_errors.setdefault(int(lineno), []).append(line)
         return line_to_errors
 
+class ZubanLSTypeChecker(MypyTypeChecker):
+    @property
+    def name(self) -> str:
+        return "zuban"
+
+    def install(self) -> bool:
+        try:
+            # Uninstall any existing version if present.
+            run(
+                [sys.executable, "-m", "pip", "uninstall", "zuban", "-y"],
+                check=True,
+            )
+
+            # Install the latest version.
+            run(
+                [sys.executable, "-m", "pip", "install", "zuban"],
+                check=True,
+            )
+
+            # Run "mypy --version" to ensure that it's installed and to work
+            # around timing issues caused by malware scanners on some systems.
+            self.get_version()
+
+            return True
+        except CalledProcessError:
+            print("Unable to install zuban")
+            return False
+
+    def get_version(self) -> str:
+        proc = run(["zmypy", "--version"], stdout=PIPE, text=True)
+        return proc.stdout.strip().replace("zmypy", "zuban")
+
+    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
+        command = [
+            "zmypy",
+            ".",
+            "--disable-error-code",
+            "empty-body",
+            "--enable-error-code",
+            "deprecated",
+            "--no-warn-unreachable",
+            "--no-mypy-compatible",
+        ]
+        proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
+        lines = proc.stdout.split("\n")
+
+        # Add results to a dictionary keyed by the file name.
+        results_dict: dict[str, str] = {}
+        for line in lines:
+            file_name = line.split(":")[0].strip()
+            results_dict[file_name] = results_dict.get(file_name, "") + line + "\n"
+
+        return results_dict
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # narrowing_typeguard.py:102: error: TypeGuard functions must have a positional argument  [valid-type]
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            if line.count(":") < 3:
+                continue
+            _, lineno, kind, _ = line.split(":", maxsplit=3)
+            kind = kind.strip()
+            if kind != "error":
+                continue
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
+
+
 
 TYPE_CHECKERS: Sequence[TypeChecker] = (
     MypyTypeChecker(),
     PyrightTypeChecker(),
     *([] if os.name == "nt" else [PyreTypeChecker()]),
+    ZubanLSTypeChecker(),
 )
