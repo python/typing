@@ -18,7 +18,7 @@ qualifiers_final_decorator.py:126:0 Invalid inheritance [39]: `final` cannot be 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Lines 80, 89: Expected error (tag 'Derived3')
-Lines 94, 102: Expected error (tag 'Derived4')
+Lines 80, 81, 89: Expected error (tag 'Derived3')
+Lines 94, 95, 102: Expected error (tag 'Derived4')
 Line 51: Unexpected errors ['qualifiers_final_decorator.py:51:4 Incompatible overload [43]: This definition does not have the same decorators as the preceding overload(s).']
 """

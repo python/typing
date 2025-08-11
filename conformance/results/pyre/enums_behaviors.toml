@@ -5,5 +5,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-enums_behaviors.py:39:0 Invalid inheritance [39]: Cannot inherit from final enum `Shape`. Enums with defined members cannot be extended.
+enums_behaviors.py:28:0 Assert type [70]: Expected `typing_extensions.Literal[Color.RED]` but got `Color`.
+enums_behaviors.py:32:0 Assert type [70]: Expected `typing_extensions.Literal[Color.BLUE]` but got `Color`.
+enums_behaviors.py:44:0 Invalid inheritance [39]: Cannot inherit from final enum `Shape`. Enums with defined members cannot be extended.
 """
