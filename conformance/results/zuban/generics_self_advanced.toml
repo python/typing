@@ -1,0 +1,13 @@
+conformant = "Pass"
+notes = """
+True positive: Writing to a variable that contains Self (with a class) should error
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 43: Unexpected errors ['generics_self_advanced.py:43: error: Access to generic instance variables via class is ambiguous']
+Line 44: Unexpected errors ['generics_self_advanced.py:44: error: Access to generic instance variables via class is ambiguous']
+"""
+output = """
+generics_self_advanced.py:43: error: Access to generic instance variables via class is ambiguous
+generics_self_advanced.py:44: error: Access to generic instance variables via class is ambiguous
+"""

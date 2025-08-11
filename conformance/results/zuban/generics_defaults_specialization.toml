@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_defaults_specialization.py:30: error: Bad number of arguments for type alias, expected between 0 and 1, given 2
+generics_defaults_specialization.py:55: error: "Foo" expects no type arguments, but 1 given
+"""

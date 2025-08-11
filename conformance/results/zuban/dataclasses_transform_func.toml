@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_transform_func.py:57: error: Incompatible types in assignment (expression has type "int", variable has type "str")
+dataclasses_transform_func.py:61: error: Unsupported left operand type for < ("Customer1")
+dataclasses_transform_func.py:65: error: Unexpected keyword argument "salary" for "Customer1"
+dataclasses_transform_func.py:71: error: Too many positional arguments for "Customer2"
+dataclasses_transform_func.py:90: error: Non-frozen dataclass cannot inherit from a frozen dataclass
+dataclasses_transform_func.py:97: error: Property "id" defined in "Customer3" is read-only
+"""

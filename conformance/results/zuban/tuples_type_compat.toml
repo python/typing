@@ -1,0 +1,37 @@
+conformant = "Pass"
+notes = """
+Does not support tuple narrowing based on `len()` type guard (optional).
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Lines 80, 81: Expected exactly one error (tag 'func5_2')
+Line 80: Unexpected errors ['tuples_type_compat.py:80: error: Expression is of type "tuple[str, str]", not "tuple[str, str] | tuple[int, int]"']
+Line 81: Unexpected errors ['tuples_type_compat.py:81: error: Expression is of type "tuple[str, str]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"']
+"""
+output = """
+tuples_type_compat.py:15: error: Incompatible types in assignment (expression has type "tuple[float, complex]", variable has type "tuple[int, int]")
+tuples_type_compat.py:29: error: Incompatible types in assignment (expression has type "tuple[int, ...]", variable has type "tuple[int, Unpack[Tuple[int, ...]]]")
+tuples_type_compat.py:32: error: Incompatible types in assignment (expression has type "tuple[int, Unpack[Tuple[int, ...]]]", variable has type "tuple[int]")
+tuples_type_compat.py:33: error: Incompatible types in assignment (expression has type "tuple[int, ...]", variable has type "tuple[int]")
+tuples_type_compat.py:43: error: Incompatible types in assignment (expression has type "tuple[int, ...]", variable has type "tuple[int]")
+tuples_type_compat.py:62: error: Incompatible types in assignment (expression has type "tuple[int, ...]", variable has type "tuple[int, int]")
+tuples_type_compat.py:76: error: Expression is of type "tuple[int]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"
+tuples_type_compat.py:80: error: Expression is of type "tuple[str, str]", not "tuple[str, str] | tuple[int, int]"
+tuples_type_compat.py:81: error: Expression is of type "tuple[str, str]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"
+tuples_type_compat.py:86: error: Expression is of type "tuple[int, str, int]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"
+tuples_type_compat.py:101: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]", not "tuple[int]"
+tuples_type_compat.py:106: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]", not "tuple[str, str] | tuple[int, int]"
+tuples_type_compat.py:111: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]", not "tuple[int, str, int]"
+tuples_type_compat.py:126: error: Expression is of type "tuple[int | str, int | str]", not "tuple[int | str, str]"
+tuples_type_compat.py:129: error: Expression is of type "tuple[int | str, int | str]", not "tuple[int | str, int]"
+tuples_type_compat.py:157: error: Incompatible types in assignment (expression has type "tuple[int, str, str]", variable has type "tuple[int, str]")
+tuples_type_compat.py:162: error: Incompatible types in assignment (expression has type "tuple[int, int, str]", variable has type "tuple[int, Unpack[Tuple[str, ...]]]")
+tuples_type_compat.py:163: error: Incompatible types in assignment (expression has type "tuple[int, str, int]", variable has type "tuple[int, Unpack[Tuple[str, ...]]]")
+tuples_type_compat.py:169: error: Incompatible types in assignment (expression has type "tuple[int, str, str]", variable has type "tuple[int, Unpack[Tuple[str, ...]], int]")
+tuples_type_compat.py:170: error: Incompatible types in assignment (expression has type "tuple[int, str, str, float]", variable has type "tuple[int, Unpack[Tuple[str, ...]], int]")
+tuples_type_compat.py:175: error: Incompatible types in assignment (expression has type "tuple[int, str, int]", variable has type "tuple[Unpack[Tuple[str, ...]], int]")
+tuples_type_compat.py:176: error: Incompatible types in assignment (expression has type "tuple[str, str, float]", variable has type "tuple[Unpack[Tuple[str, ...]], int]")
+tuples_type_compat.py:181: error: Incompatible types in assignment (expression has type "tuple[str, str]", variable has type "tuple[str, str, int]")
+tuples_type_compat.py:184: error: Incompatible types in assignment (expression has type "tuple[str, str]", variable has type "tuple[str, str, str, Unpack[Tuple[str, ...]]]")
+tuples_type_compat.py:188: error: Incompatible types in assignment (expression has type "tuple[str, str]", variable has type "tuple[Unpack[Tuple[str, ...]], str, str, str]")
+"""

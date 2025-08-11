@@ -1,0 +1,28 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+qualifiers_annotated.py:43: error: Bracketed expression "[...]" is not valid as a type
+qualifiers_annotated.py:43: note: Did you mean "List[...]"?
+qualifiers_annotated.py:44: error: Syntax error in type annotation
+qualifiers_annotated.py:44: note: Suggestion: Is there a spurious trailing comma?
+qualifiers_annotated.py:45: error: Invalid type comment or annotation
+qualifiers_annotated.py:46: error: Invalid type comment or annotation
+qualifiers_annotated.py:47: error: Invalid type comment or annotation
+qualifiers_annotated.py:48: error: Invalid type comment or annotation
+qualifiers_annotated.py:49: error: Invalid type comment or annotation
+qualifiers_annotated.py:50: error: Name "var1" is not defined
+qualifiers_annotated.py:51: error: Invalid type comment or annotation
+qualifiers_annotated.py:52: error: Invalid type: try using Literal[1] instead?
+qualifiers_annotated.py:53: error: Invalid type comment or annotation
+qualifiers_annotated.py:54: error: Invalid type comment or annotation
+qualifiers_annotated.py:64: error: Annotated[...] must have exactly one type argument and at least one annotation
+qualifiers_annotated.py:76: error: Incompatible types in assignment (expression has type "_SpecialForm", variable has type "Type[Any]")
+qualifiers_annotated.py:77: error: Incompatible types in assignment (expression has type "_SpecialForm", variable has type "Type[Any]")
+qualifiers_annotated.py:84: error: Argument 1 to "func4" has incompatible type "_SpecialForm"; expected "Type[Never]"
+qualifiers_annotated.py:85: error: Argument 1 to "func4" has incompatible type "_SpecialForm"; expected "Type[Never]"
+qualifiers_annotated.py:91: error: "_SpecialForm" not callable
+qualifiers_annotated.py:92: error: "_SpecialForm" not callable
+qualifiers_annotated.py:93: error: "<typing special form>" not callable
+qualifiers_annotated.py:119: error: Name "T" already defined on line 25
+"""

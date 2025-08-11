@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_defaults_referential.py:36: error: Argument 2 to "Foo" has incompatible type "str"; expected "int"
+generics_defaults_referential.py:37: error: Argument 1 to "Foo" has incompatible type "str"; expected "int"
+generics_defaults_referential.py:53: error: Type parameter "Start2T" has a default type that refers to one or more type variables that are out of scope
+generics_defaults_referential.py:60: error: Type parameter "S2" has a default type that refers to one or more type variables that are out of scope
+generics_defaults_referential.py:68: error: TypeVar default must be a subtype of the bound type
+generics_defaults_referential.py:74: error: TypeVar default must be one of the constraint types
+generics_defaults_referential.py:78: error: TypeVar default must be one of the constraint types
+"""

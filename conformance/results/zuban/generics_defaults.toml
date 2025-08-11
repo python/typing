@@ -1,0 +1,18 @@
+conformant = "Partial"
+conformance_automated = "Fail"
+errors_diff = """
+Line 141: Expected 1 errors
+Line 154: Unexpected errors ['generics_defaults.py:154: error: Expression is of type "Type[Foo6[int, [*Any, **Any]]]", not "Type[Foo6[int, str, [float, bool]]]"', 'generics_defaults.py:154: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"']
+Line 169: Unexpected errors ['generics_defaults.py:169: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"']
+Line 170: Unexpected errors ['generics_defaults.py:170: error: Access to generic instance variables via class is ambiguous']
+"""
+output = """
+generics_defaults.py:24: error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type
+generics_defaults.py:50: error: "AllTheDefaults" expects between 2 and 5 type arguments, but 1 given
+generics_defaults.py:107: error: TypeVar default must be a subtype of the bound type
+generics_defaults.py:114: error: TypeVar default must be one of the constraint types
+generics_defaults.py:154: error: Expression is of type "Type[Foo6[int, [*Any, **Any]]]", not "Type[Foo6[int, str, [float, bool]]]"
+generics_defaults.py:154: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"
+generics_defaults.py:169: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"
+generics_defaults.py:170: error: Access to generic instance variables via class is ambiguous
+"""

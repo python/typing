@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_type_ignore_file2.py:14: error: Incompatible types in assignment (expression has type "str", variable has type "int")
+"""
