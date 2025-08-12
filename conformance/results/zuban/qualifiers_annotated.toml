@@ -24,5 +24,4 @@ qualifiers_annotated.py:85: error: Argument 1 to "func4" has incompatible type "
 qualifiers_annotated.py:91: error: "_SpecialForm" not callable
 qualifiers_annotated.py:92: error: "_SpecialForm" not callable
 qualifiers_annotated.py:93: error: "<typing special form>" not callable
-qualifiers_annotated.py:119: error: Name "T" already defined on line 25
 """
