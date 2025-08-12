@@ -54,7 +54,7 @@ As an example, consider this simple calculator:
 .. code:: python
 
    import enum
-   from typing_extensions import Never
+   from typing import Never
 
    def assert_never(arg: Never) -> Never:
        raise AssertionError("Expected code to be unreachable")
