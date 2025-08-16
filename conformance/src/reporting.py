@@ -46,15 +46,8 @@ def generate_summary_html(root_dir: Path) -> str:
             existing_info = {}
 
         version = existing_info["version"] or "Unknown version"
-        test_duration = existing_info.get("test_duration")
 
         summary_html.append(f"<th class='tc-header'><div class='tc-name'>{version}</div>")
-        if test_duration is not None:
-            if test_duration < 1:
-                duration = f"{test_duration:.2f}"
-            else:
-                duration = f"{test_duration:.1f}"
-            summary_html.append(f"<div class='tc-time'>{duration}sec</div>")
         summary_html.append("</th>")
 
     summary_html.append("</tr>")
