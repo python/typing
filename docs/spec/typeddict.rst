@@ -285,6 +285,8 @@ refers to a dictionary object does not need to be supported, to simplify
 implementation.
 
 
+.. _typeddict-assignability:
+
 Assignability
 ^^^^^^^^^^^^^
 
@@ -409,6 +411,8 @@ Discussion:
       b: B = {'x': 0, 'y': 'foo'}
       f(b)
 
+
+.. _typeddict-operations:
 
 Supported and Unsupported Operations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -841,3 +845,553 @@ As discussed in the section :ref:`unpack-kwargs`, an unpacked ``TypedDict`` can 
         kwargs["key1"] = 3  # Type check error: key1 is readonly
 
     fn: Function = impl  # Accepted by type checker: function signatures are identical
+
+Extra Items and Closed TypedDicts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(Originally specified in :pep:`728`.)
+
+This section discusses the ``extra_items`` and ``closed`` class parameters.
+
+If ``extra_items`` is specified, extra items are treated as :ref:`non-required
+<required-notrequired>`
+items matching the ``extra_items`` argument, whose keys are allowed when
+determining :ref:`supported and unsupported operations
+<typeddict-operations>`.
+
+The ``extra_items`` Class Parameter
+-----------------------------------
+
+By default ``extra_items`` is unset.  For a TypedDict type that specifies
+``extra_items``, during construction, the value type of each unknown item
+is expected to be non-required and assignable to the ``extra_items`` argument.
+For example::
+
+    class Movie(TypedDict, extra_items=bool):
+        name: str
+
+    a: Movie = {"name": "Blade Runner", "novel_adaptation": True}  # OK
+    b: Movie = {
+        "name": "Blade Runner",
+        "year": 1982,  # Not OK. 'int' is not assignable to 'bool'
+    }
+
+Here, ``extra_items=bool`` specifies that items other than ``'name'``
+have a value type of ``bool`` and are non-required.
+
+The alternative inline syntax is also supported::
+
+    Movie = TypedDict("Movie", {"name": str}, extra_items=bool)
+
+Accessing extra items is allowed. Type checkers must infer their value type from
+the ``extra_items`` argument::
+
+    def f(movie: Movie) -> None:
+        reveal_type(movie["name"])              # Revealed type is 'str'
+        reveal_type(movie["novel_adaptation"])  # Revealed type is 'bool'
+
+``extra_items`` is inherited through subclassing::
+
+    class MovieBase(TypedDict, extra_items=ReadOnly[int | None]):
+        name: str
+
+    class Movie(MovieBase):
+        year: int
+
+    a: Movie = {"name": "Blade Runner", "year": None}  # Not OK. 'None' is incompatible with 'int'
+    b: Movie = {
+        "name": "Blade Runner",
+        "year": 1982,
+        "other_extra_key": None,
+    }  # OK
+
+Here, ``'year'`` in ``a`` is an extra key defined on ``Movie`` whose value type
+is ``int``. ``'other_extra_key'`` in ``b`` is another extra key whose value type
+must be assignable to the value of ``extra_items`` defined on ``MovieBase``.
+
+.. _typed-dict-closed:
+
+The ``closed`` Class Parameter
+------------------------------
+
+When neither ``extra_items`` nor ``closed=True`` is specified, ``closed=False``
+is assumed. The TypedDict should allow non-required extra items of value type
+``ReadOnly[object]`` during inheritance or assignability checks, to
+preserve the default TypedDict behavior. Extra keys included in TypedDict
+object construction should still be caught, as mentioned :ref:`above <typeddict-operations>`.
+
+When ``closed=True`` is set, no extra items are allowed. This is equivalent to
+``extra_items=Never``, because there can't be a value type that is assignable to
+:class:`~typing.Never`. It is a runtime error to use the ``closed`` and
+``extra_items`` parameters in the same TypedDict definition.
+
+Similar to ``total``, only a literal ``True`` or ``False`` is supported as the
+value of the ``closed`` argument. Type checkers should reject any non-literal value.
+
+Passing ``closed=False`` explicitly requests the default TypedDict behavior,
+where arbitrary other keys may be present and subclasses may add arbitrary items.
+It is a type checker error to pass ``closed=False`` if a superclass has
+``closed=True`` or sets ``extra_items``.
+
+If ``closed`` is not provided, the behavior is inherited from the superclass.
+If the superclass is TypedDict itself or the superclass does not have ``closed=True``
+or the ``extra_items`` parameter, the previous TypedDict behavior is preserved:
+arbitrary extra items are allowed. If the superclass has ``closed=True``, the
+child class is also closed::
+
+    class BaseMovie(TypedDict, closed=True):
+        name: str
+
+    class MovieA(BaseMovie):  # OK, still closed
+        pass
+
+    class MovieB(BaseMovie, closed=True):  # OK, but redundant
+        pass
+
+    class MovieC(BaseMovie, closed=False):  # Type checker error
+        pass
+
+As a consequence of ``closed=True`` being equivalent to ``extra_items=Never``,
+the same rules that apply to ``extra_items=Never`` also apply to
+``closed=True``. While they both have the same effect, ``closed=True`` is
+preferred over ``extra_items=Never``.
+
+It is possible to use ``closed=True`` when subclassing if the ``extra_items``
+argument is a read-only type::
+
+    class Movie(TypedDict, extra_items=ReadOnly[str]):
+        pass
+
+    class MovieClosed(Movie, closed=True):  # OK
+        pass
+
+    class MovieNever(Movie, extra_items=Never):  # OK, but 'closed=True' is preferred
+        pass
+
+This will be further discussed in
+:ref:`a later section <pep728-inheritance-read-only>`.
+
+``closed`` is also supported with the functional syntax::
+
+    Movie = TypedDict("Movie", {"name": str}, closed=True)
+
+Interaction with Totality
+-------------------------
+
+It is an error to use ``Required[]`` or ``NotRequired[]`` with ``extra_items``.
+``total=False`` and ``total=True`` have no effect on ``extra_items`` itself.
+
+The extra items are non-required, regardless of the `totality
+<https://typing.python.org/en/latest/spec/typeddict.html#totality>`__ of the
+TypedDict. :ref:`Operations <typeddict-operations>`
+that are available to ``NotRequired`` items should also be available to the
+extra items::
+
+    class Movie(TypedDict, extra_items=int):
+        name: str
+
+    def f(movie: Movie) -> None:
+        del movie["name"]  # Not OK. The value type of 'name' is 'Required[int]'
+        del movie["year"]  # OK. The value type of 'year' is 'NotRequired[int]'
+
+Interaction with ``Unpack``
+---------------------------
+
+For type checking purposes, ``Unpack[SomeTypedDict]`` with extra items should be
+treated as its equivalent in regular parameters, and the existing rules for
+function parameters still apply::
+
+    class MovieNoExtra(TypedDict):
+        name: str
+
+    class MovieExtra(TypedDict, extra_items=int):
+        name: str
+
+    def f(**kwargs: Unpack[MovieNoExtra]) -> None: ...
+    def g(**kwargs: Unpack[MovieExtra]) -> None: ...
+
+    # Should be equivalent to:
+    def f(*, name: str) -> None: ...
+    def g(*, name: str, **kwargs: int) -> None: ...
+
+    f(name="No Country for Old Men", year=2007) # Not OK. Unrecognized item
+    g(name="No Country for Old Men", year=2007) # OK
+
+Interaction with Read-only Items
+--------------------------------
+
+When the ``extra_items`` argument is annotated with the ``ReadOnly[]``
+:term:`type qualifier`, the extra items on the TypedDict have the
+properties of read-only items. This interacts with inheritance rules specified
+in :ref:`Read-only Items <readonly>`.
+
+Notably, if the TypedDict type specifies ``extra_items`` to be read-only,
+subclasses of the TypedDict type may redeclare ``extra_items``.
+
+Because a non-closed TypedDict type implicitly allows non-required extra items
+of value type ``ReadOnly[object]``, its subclass can override the
+``extra_items`` argument with more specific types.
+
+More details are discussed in the later sections.
+
+Inheritance
+-----------
+
+``extra_items`` is inherited in a similar way as a regular ``key: value_type``
+item. As with the other keys, the `inheritance rules
+<https://typing.python.org/en/latest/spec/typeddict.html#inheritance>`__
+and :ref:`Read-only Items <readonly>` inheritance rules apply.
+
+We need to reinterpret these rules to define how ``extra_items`` interacts with
+them.
+
+    * Changing a field type of a parent TypedDict class in a subclass is not allowed.
+
+First, it is not allowed to change the value of ``extra_items`` in a subclass
+unless it is declared to be ``ReadOnly`` in the superclass::
+
+    class Parent(TypedDict, extra_items=int | None):
+        pass
+
+    class Child(Parent, extra_items=int): # Not OK. Like any other TypedDict item, extra_items's type cannot be changed
+        pass
+
+Second, ``extra_items=T`` effectively defines the value type of any unnamed
+items accepted to the TypedDict and marks them as non-required. Thus, the above
+restriction applies to any additional items defined in a subclass. For each item
+added in a subclass, all of the following conditions should apply:
+
+.. _pep728-inheritance-read-only:
+
+- If ``extra_items`` is read-only
+
+  - The item can be either required or non-required
+
+  - The item's value type is :term:`assignable` to ``T``
+
+- If ``extra_items`` is not read-only
+
+  - The item is non-required
+
+  - The item's value type is :term:`consistent` with ``T``
+
+- If ``extra_items`` is not overridden, the subclass inherits it as-is.
+
+For example::
+
+    class MovieBase(TypedDict, extra_items=int | None):
+        name: str
+
+    class MovieRequiredYear(MovieBase):  # Not OK. Required key 'year' is not known to 'MovieBase'
+        year: int | None
+
+    class MovieNotRequiredYear(MovieBase):  # Not OK. 'int | None' is not consistent with 'int'
+        year: NotRequired[int]
+
+    class MovieWithYear(MovieBase):  # OK
+        year: NotRequired[int | None]
+
+    class BookBase(TypedDict, extra_items=ReadOnly[int | str]):
+        title: str
+
+    class Book(BookBase, extra_items=str):  # OK
+        year: int  # OK
+
+An important side effect of the inheritance rules is that we can define a
+TypedDict type that disallows additional items::
+
+    class MovieClosed(TypedDict, extra_items=Never):
+        name: str
+
+Here, passing the value :class:`~typing.Never` to ``extra_items`` specifies that
+there can be no other keys in ``MovieFinal`` other than the known ones.
+Because of its potential common use, there is a preferred alternative::
+
+    class MovieClosed(TypedDict, closed=True):
+        name: str
+
+where we implicitly assume that ``extra_items=Never``.
+
+Assignability
+-------------
+
+Let ``S`` be the set of keys of the explicitly defined items on a TypedDict
+type. If it specifies ``extra_items=T``, the TypedDict type is considered to
+have an infinite set of items that all satisfy the following conditions.
+
+- If ``extra_items`` is read-only:
+
+  - The key's value type is :term:`assignable` to ``T``.
+
+  - The key is not in ``S``.
+
+- If ``extra_items`` is not read-only:
+
+  - The key is non-required.
+
+  - The key's value type is :term:`consistent` with ``T``.
+
+  - The key is not in ``S``.
+
+For type checking purposes, let ``extra_items`` be a non-required pseudo-item
+when checking for assignability according to rules defined in the
+:ref:`Read-only Items <readonly>` section, with a new rule added in bold
+text as follows:
+
+    A TypedDict type ``B`` is :term:`assignable` to a TypedDict type
+    ``A`` if ``B`` is :term:`structurally <structural>` assignable to
+    ``A``. This is true if and only if all of the following are satisfied:
+
+    * **[If no key with the same name can be found in ``B``, the 'extra_items'
+      argument is considered the value type of the corresponding key.]**
+
+    * For each item in ``A``, ``B`` has the corresponding key, unless the item in
+      ``A`` is read-only, not required, and of top value type
+      (``ReadOnly[NotRequired[object]]``).
+
+    * For each item in ``A``, if ``B`` has the corresponding key, the corresponding
+      value type in ``B`` is assignable to the value type in ``A``.
+
+    * For each non-read-only item in ``A``, its value type is assignable to the
+      corresponding value type in ``B``, and the corresponding key is not read-only
+      in ``B``.
+
+    * For each required key in ``A``, the corresponding key is required in ``B``.
+
+    * For each non-required key in ``A``, if the item is not read-only in ``A``,
+      the corresponding key is not required in ``B``.
+
+The following examples illustrate these checks in action.
+
+``extra_items`` puts various restrictions on additional items for assignability
+checks::
+
+    class Movie(TypedDict, extra_items=int | None):
+        name: str
+
+    class MovieDetails(TypedDict, extra_items=int | None):
+        name: str
+        year: NotRequired[int]
+
+    details: MovieDetails = {"name": "Kill Bill Vol. 1", "year": 2003}
+    movie: Movie = details  # Not OK. While 'int' is assignable to 'int | None',
+                            # 'int | None' is not assignable to 'int'
+
+    class MovieWithYear(TypedDict, extra_items=int | None):
+        name: str
+        year: int | None
+
+    details: MovieWithYear = {"name": "Kill Bill Vol. 1", "year": 2003}
+    movie: Movie = details  # Not OK. 'year' is not required in 'Movie',
+                            # but it is required in 'MovieWithYear'
+
+where ``MovieWithYear`` (B) is not assignable to ``Movie`` (A)
+according to this rule:
+
+    * For each non-required key in ``A``, if the item is not read-only in ``A``,
+      the corresponding key is not required in ``B``.
+
+When ``extra_items`` is specified to be read-only on a TypedDict type, it is
+possible for an item to have a :term:`narrower <narrow>` type than the
+``extra_items`` argument::
+
+    class Movie(TypedDict, extra_items=ReadOnly[str | int]):
+        name: str
+
+    class MovieDetails(TypedDict, extra_items=int):
+        name: str
+        year: NotRequired[int]
+
+    details: MovieDetails = {"name": "Kill Bill Vol. 2", "year": 2004}
+    movie: Movie = details  # OK. 'int' is assignable to 'str | int'.
+
+This behaves the same way as if ``year: ReadOnly[str | int]`` is an item
+explicitly defined in ``Movie``.
+
+``extra_items`` as a pseudo-item follows the same rules that other items have,
+so when both TypedDicts types specify ``extra_items``, this check is naturally
+enforced::
+
+    class MovieExtraInt(TypedDict, extra_items=int):
+        name: str
+
+    class MovieExtraStr(TypedDict, extra_items=str):
+        name: str
+
+    extra_int: MovieExtraInt = {"name": "No Country for Old Men", "year": 2007}
+    extra_str: MovieExtraStr = {"name": "No Country for Old Men", "description": ""}
+    extra_int = extra_str  # Not OK. 'str' is not assignable to extra items type 'int'
+    extra_str = extra_int  # Not OK. 'int' is not assignable to extra items type 'str'
+
+A non-closed TypedDict type implicitly allows non-required extra keys of value
+type ``ReadOnly[object]``. Applying the assignability rules between this type
+and a closed TypedDict type is allowed::
+
+    class MovieNotClosed(TypedDict):
+        name: str
+
+    extra_int: MovieExtraInt = {"name": "No Country for Old Men", "year": 2007}
+    not_closed: MovieNotClosed = {"name": "No Country for Old Men"}
+    extra_int = not_closed  # Not OK.
+                            # 'extra_items=ReadOnly[object]' implicitly on 'MovieNotClosed'
+                            # is not assignable to with 'extra_items=int'
+    not_closed = extra_int  # OK
+
+Interaction with Constructors
+-----------------------------
+
+TypedDicts that allow extra items of type ``T`` also allow arbitrary keyword
+arguments of this type when constructed by calling the class object::
+
+    class NonClosedMovie(TypedDict):
+        name: str
+
+    NonClosedMovie(name="No Country for Old Men")  # OK
+    NonClosedMovie(name="No Country for Old Men", year=2007)  # Not OK. Unrecognized item
+
+    class ExtraMovie(TypedDict, extra_items=int):
+        name: str
+
+    ExtraMovie(name="No Country for Old Men")  # OK
+    ExtraMovie(name="No Country for Old Men", year=2007)  # OK
+    ExtraMovie(
+        name="No Country for Old Men",
+        language="English",
+    )  # Not OK. Wrong type for extra item 'language'
+
+    # This implies 'extra_items=Never',
+    # so extra keyword arguments would produce an error
+    class ClosedMovie(TypedDict, closed=True):
+        name: str
+
+    ClosedMovie(name="No Country for Old Men")  # OK
+    ClosedMovie(
+        name="No Country for Old Men",
+        year=2007,
+    )  # Not OK. Extra items not allowed
+
+Supported and Unsupported Operations
+------------------------------------
+
+This statement from :ref:`above <typeddict-operations>` still holds true.
+
+    Operations with arbitrary str keys (instead of string literals or other
+    expressions with known string values) should generally be rejected.
+
+Operations that already apply to ``NotRequired`` items should generally also
+apply to extra items, following the same rationale from :ref:`above <typeddict-operations>`:
+
+    The exact type checking rules are up to each type checker to decide. In some
+    cases potentially unsafe operations may be accepted if the alternative is to
+    generate false positive errors for idiomatic code.
+
+Some operations, including indexed accesses and assignments with arbitrary str keys,
+may be allowed due to the TypedDict being :term:`assignable` to
+``Mapping[str, VT]`` or ``dict[str, VT]``. The two following sections will expand
+on that.
+
+Interaction with Mapping[str, VT]
+---------------------------------
+
+A TypedDict type is :term:`assignable` to a type of the form ``Mapping[str, VT]``
+when all value types of the items in the TypedDict
+are assignable to ``VT``. For the purpose of this rule, a
+TypedDict that does not have ``extra_items=`` or ``closed=`` set is considered
+to have an item with a value of type ``ReadOnly[object]``. This extends the
+general rule for :ref:`TypedDict assignability <typeddict-assignability>`.
+
+For example::
+
+    class MovieExtraStr(TypedDict, extra_items=str):
+        name: str
+
+    extra_str: MovieExtraStr = {"name": "Blade Runner", "summary": ""}
+    str_mapping: Mapping[str, str] = extra_str  # OK
+
+    class MovieExtraInt(TypedDict, extra_items=int):
+        name: str
+
+    extra_int: MovieExtraInt = {"name": "Blade Runner", "year": 1982}
+    int_mapping: Mapping[str, int] = extra_int  # Not OK. 'int | str' is not assignable with 'int'
+    int_str_mapping: Mapping[str, int | str] = extra_int  # OK
+
+Type checkers should infer the precise signatures of ``values()`` and ``items()``
+on such TypedDict types::
+
+    def foo(movie: MovieExtraInt) -> None:
+        reveal_type(movie.items())  # Revealed type is 'dict_items[str, str | int]'
+        reveal_type(movie.values())  # Revealed type is 'dict_values[str, str | int]'
+
+By extension of this assignability rule, type checkers may allow indexed accesses
+with arbitrary str keys when ``extra_items`` or ``closed=True`` is specified.
+For example::
+
+    def bar(movie: MovieExtraInt, key: str) -> None:
+        reveal_type(movie[key])  # Revealed type is 'str | int'
+
+.. _pep728-type-narrowing:
+
+Defining the type narrowing behavior for TypedDict is out-of-scope for this spec.
+This leaves flexibility for a type checker to be more/less restrictive about
+indexed accesses with arbitrary str keys. For example, a type checker may opt
+for more restriction by requiring an explicit ``'x' in d`` check.
+
+Interaction with dict[str, VT]
+------------------------------
+
+Because the presence of ``extra_items`` on a closed TypedDict type
+prohibits additional required keys in its :term:`structural`
+:term:`subtypes <subtype>`, we can determine if the TypedDict type and
+its structural subtypes will ever have any required key during static analysis.
+
+The TypedDict type is :term:`assignable` to ``dict[str, VT]`` if all
+items on the TypedDict type satisfy the following conditions:
+
+- The value type of the item is :term:`consistent` with ``VT``.
+
+- The item is not read-only.
+
+- The item is not required.
+
+For example::
+
+    class IntDict(TypedDict, extra_items=int):
+        pass
+
+    class IntDictWithNum(IntDict):
+        num: NotRequired[int]
+
+    def f(x: IntDict) -> None:
+        v: dict[str, int] = x  # OK
+        v.clear()  # OK
+
+    not_required_num_dict: IntDictWithNum = {"num": 1, "bar": 2}
+    regular_dict: dict[str, int] = not_required_num_dict  # OK
+    f(not_required_num_dict)  # OK
+
+In this case, methods that are previously unavailable on a TypedDict are allowed,
+with signatures matching ``dict[str, VT]``
+(e.g.: ``__setitem__(self, key: str, value: VT) -> None``)::
+
+    not_required_num_dict.clear()  # OK
+
+    reveal_type(not_required_num_dict.popitem())  # OK. Revealed type is 'tuple[str, int]'
+
+    def f(not_required_num_dict: IntDictWithNum, key: str):
+        not_required_num_dict[key] = 42  # OK
+        del not_required_num_dict[key]  # OK
+
+:ref:`Notes on indexed accesses <pep728-type-narrowing>` from the previous section
+still apply.
+
+``dict[str, VT]`` is not assignable to a TypedDict type,
+because such dict can be a subtype of dict::
+
+    class CustomDict(dict[str, int]):
+        pass
+
+    def f(might_not_be_a_builtin_dict: dict[str, int]):
+        int_dict: IntDict = might_not_be_a_builtin_dict # Not OK
+
+    not_a_builtin_dict = CustomDict({"num": 1})
+    f(not_a_builtin_dict)
