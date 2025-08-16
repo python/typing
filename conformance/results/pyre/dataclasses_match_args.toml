@@ -1,0 +1,12 @@
+conformant = "Partial"
+notes = """
+Adds kw-only fields to __match_args__.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 18: Unexpected errors ["dataclasses_match_args.py:18:0 Assert type [70]: Expected `Tuple[typing_extensions.Literal['x']]` but got `Tuple[typing_extensions.Literal['x'], typing_extensions.Literal['*'], typing_extensions.Literal['y']]`."]
+"""
+output = """
+dataclasses_match_args.py:18:0 Assert type [70]: Expected `Tuple[typing_extensions.Literal['x']]` but got `Tuple[typing_extensions.Literal['x'], typing_extensions.Literal['*'], typing_extensions.Literal['y']]`.
+dataclasses_match_args.py:42:0 Undefined attribute [16]: `DC4` has no attribute `__match_args__`.
+"""
