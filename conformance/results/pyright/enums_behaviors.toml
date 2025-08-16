@@ -2,6 +2,8 @@ conformant = "Pass"
 errors_diff = """
 """
 output = """
-enums_behaviors.py:39:21 - error: Enum class "Shape" is final and cannot be subclassed (reportGeneralTypeIssues)
+enums_behaviors.py:28:13 - error: "assert_type" mismatch: expected "Literal[Color.RED]" but received "Color" (reportAssertTypeFailure)
+enums_behaviors.py:32:13 - error: "assert_type" mismatch: expected "Literal[Color.BLUE]" but received "Color" (reportAssertTypeFailure)
+enums_behaviors.py:44:21 - error: Enum class "Shape" is final and cannot be subclassed (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"

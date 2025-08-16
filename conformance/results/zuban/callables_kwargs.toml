@@ -1,0 +1,23 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+callables_kwargs.py:46: error: Missing named argument "v1" for "func1"
+callables_kwargs.py:46: error: Missing named argument "v3" for "func1"
+callables_kwargs.py:51: error: Unexpected keyword argument "v4" for "func1"
+callables_kwargs.py:52: error: Too many positional arguments for "func1"
+callables_kwargs.py:58: error: Argument 1 to "func1" has incompatible type "**dict[str, str]"; expected "int"
+callables_kwargs.py:61: error: Argument 1 to "func1" has incompatible type "**dict[str, int | str]"; expected "int"
+callables_kwargs.py:61: error: Argument 1 to "func1" has incompatible type "**dict[str, int | str]"; expected "str"
+callables_kwargs.py:61: error: Argument 1 to "func1" has incompatible type "**dict[str, int | str]"; expected "str"
+callables_kwargs.py:63: error: "func1" gets multiple values for keyword argument "v1"
+callables_kwargs.py:64: error: Argument 1 to "func2" has incompatible type "int"; expected "str"
+callables_kwargs.py:64: error: "func2" gets multiple values for keyword argument "v3"
+callables_kwargs.py:65: error: "func2" gets multiple values for keyword argument "v1"
+callables_kwargs.py:101: error: Incompatible types in assignment (expression has type "Callable[[**Unpack[TD2]], None]", variable has type "TDProtocol3")
+callables_kwargs.py:102: error: Incompatible types in assignment (expression has type "Callable[[**Unpack[TD2]], None]", variable has type "TDProtocol4")
+callables_kwargs.py:103: error: Incompatible types in assignment (expression has type "Callable[[**Unpack[TD2]], None]", variable has type "TDProtocol5")
+callables_kwargs.py:111: error: Overlap between argument names and ** TypedDict items: "v1"
+callables_kwargs.py:122: error: Unpack item in ** argument must be a TypedDict
+callables_kwargs.py:134: error: Incompatible types in assignment (expression has type "Callable[[NamedArg(int, 'v1'), NamedArg(str, 'v3'), DefaultNamedArg(str, 'v2')], None]", variable has type "TDProtocol6")
+"""

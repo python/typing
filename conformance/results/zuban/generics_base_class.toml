@@ -1,0 +1,18 @@
+conformant = "Partial"
+notes = """
+Does not detect inconsistent type variable ordering in multi-inheritance.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 98: Expected 1 errors
+Line 38: Unexpected errors ['generics_base_class.py:38: error: Can only assign concrete classes to a variable of type "Type[Iterable]"']
+"""
+output = """
+generics_base_class.py:26: error: Argument 1 to "takes_dict_incorrect" has incompatible type "SymbolTable"; expected "dict[str, list[object]]"
+generics_base_class.py:29: error: Invalid type
+generics_base_class.py:30: error: Invalid type
+generics_base_class.py:38: error: Can only assign concrete classes to a variable of type "Type[Iterable]"
+generics_base_class.py:49: error: "LinkedList" expects 1 type argument, but 2 given
+generics_base_class.py:61: error: "MyDict" expects 1 type argument, but 2 given
+generics_base_class.py:68: error: Duplicate type variables in Generic[...] or Protocol[...]
+"""

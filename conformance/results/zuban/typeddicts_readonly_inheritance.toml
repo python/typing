@@ -1,0 +1,34 @@
+conformant = "Partial"
+notes = """
+Incorrectly rejects non-ReadOnly override of ReadOnly item.
+Incorrectly rejects override of ReadOnly item with another ReadOnly item with narrower type.
+Incorrectly rejects override of NotRequired ReadOnly item with a Required ReadOnly item.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Unexpected errors ['typeddicts_readonly_inheritance.py:19: error: Overwriting TypedDict field "name" while extending']
+Line 49: Unexpected errors ['typeddicts_readonly_inheritance.py:49: error: Overwriting TypedDict field "albums" while extending']
+Line 62: Unexpected errors ['typeddicts_readonly_inheritance.py:62: error: Overwriting TypedDict field "name" while extending']
+Line 76: Unexpected errors ['typeddicts_readonly_inheritance.py:76: error: Overwriting TypedDict field "ident" while extending']
+Line 102: Unexpected errors ['typeddicts_readonly_inheritance.py:102: error: Overwriting TypedDict field "b" while extending']
+"""
+output = """
+typeddicts_readonly_inheritance.py:19: error: Overwriting TypedDict field "name" while extending
+typeddicts_readonly_inheritance.py:36: error: ReadOnly TypedDict key "name" TypedDict is mutated
+typeddicts_readonly_inheritance.py:49: error: Overwriting TypedDict field "albums" while extending
+typeddicts_readonly_inheritance.py:50: error: Overwriting TypedDict field "alt" while extending
+typeddicts_readonly_inheritance.py:62: error: Overwriting TypedDict field "name" while extending
+typeddicts_readonly_inheritance.py:65: error: Missing key "name" for TypedDict "RequiredName"
+typeddicts_readonly_inheritance.py:76: error: Overwriting TypedDict field "ident" while extending
+typeddicts_readonly_inheritance.py:82: error: Value of "ident" has incompatible type "int"; expected "str"
+typeddicts_readonly_inheritance.py:83: error: Incompatible types (expression has type "int", TypedDict item "ident" has type "str")
+typeddicts_readonly_inheritance.py:84: error: Missing key "ident" for TypedDict "User"
+typeddicts_readonly_inheritance.py:94: error: Overwriting TypedDict field "a" while extending
+typeddicts_readonly_inheritance.py:98: error: Overwriting TypedDict field "a" while extending
+typeddicts_readonly_inheritance.py:102: error: Overwriting TypedDict field "b" while extending
+typeddicts_readonly_inheritance.py:106: error: Overwriting TypedDict field "c" while extending
+typeddicts_readonly_inheritance.py:119: error: Overwriting TypedDict field "x" while merging
+typeddicts_readonly_inheritance.py:119: error: Overwriting TypedDict field "y" while merging
+typeddicts_readonly_inheritance.py:132: error: Overwriting TypedDict field "x" while merging
+typeddicts_readonly_inheritance.py:132: error: Overwriting TypedDict field "y" while merging
+"""

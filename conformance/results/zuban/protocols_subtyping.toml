@@ -1,0 +1,34 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_subtyping.py:16: error: Cannot instantiate protocol class "Proto1"
+protocols_subtyping.py:38: error: Incompatible types in assignment (expression has type "Proto2", variable has type "Concrete2")
+protocols_subtyping.py:55: error: Incompatible types in assignment (expression has type "Proto2", variable has type "Proto3")
+protocols_subtyping.py:55: note: "Proto2" is missing following "Proto3" protocol member:
+protocols_subtyping.py:55: note:     method2
+protocols_subtyping.py:79: error: Incompatible types in assignment (expression has type "Proto5[int]", variable has type "Proto4[int, float]")
+protocols_subtyping.py:79: note: Following member(s) of "Proto5[int]" have conflicts:
+protocols_subtyping.py:79: note:     Expected:
+protocols_subtyping.py:79: note:         def method1(self, a: int, b: float) -> tuple[int, float]
+protocols_subtyping.py:79: note:     Got:
+protocols_subtyping.py:79: note:         def method1(self, a: int, b: int) -> tuple[int, int]
+protocols_subtyping.py:80: error: Incompatible types in assignment (expression has type "Proto4[int, int]", variable has type "Proto5[float]")
+protocols_subtyping.py:80: note: Following member(s) of "Proto4[int, int]" have conflicts:
+protocols_subtyping.py:80: note:     Expected:
+protocols_subtyping.py:80: note:         def method1(self, a: float, b: float) -> tuple[float, float]
+protocols_subtyping.py:80: note:     Got:
+protocols_subtyping.py:80: note:         def method1(self, a: int, b: int) -> tuple[int, int]
+protocols_subtyping.py:102: error: Incompatible types in assignment (expression has type "Proto6[float, float]", variable has type "Proto7[int, float]")
+protocols_subtyping.py:102: note: Following member(s) of "Proto6[float, float]" have conflicts:
+protocols_subtyping.py:102: note:     Expected:
+protocols_subtyping.py:102: note:         def method1(self, a: float) -> Sequence[int]
+protocols_subtyping.py:102: note:     Got:
+protocols_subtyping.py:102: note:         def method1(self, a: float) -> Sequence[float]
+protocols_subtyping.py:103: error: Incompatible types in assignment (expression has type "Proto6[float, float]", variable has type "Proto7[float, object]")
+protocols_subtyping.py:103: note: Following member(s) of "Proto6[float, float]" have conflicts:
+protocols_subtyping.py:103: note:     Expected:
+protocols_subtyping.py:103: note:         def method1(self, a: object) -> Sequence[float]
+protocols_subtyping.py:103: note:     Got:
+protocols_subtyping.py:103: note:         def method1(self, a: float) -> Sequence[float]
+"""

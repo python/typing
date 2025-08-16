@@ -1,0 +1,17 @@
+conformant = "Partial"
+notes = """
+Does not report unsafe overlap for runtime_checkable protocol.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 88: Expected 1 errors
+Line 92: Expected 1 errors
+Line 96: Expected 1 errors
+"""
+output = """
+protocols_runtime_checkable.py:23: error: Only @runtime_checkable protocols can be used with instance and class checks
+protocols_runtime_checkable.py:55: error: Only protocols that don't have non-method members can be used with issubclass()
+protocols_runtime_checkable.py:55: note: Protocol "DataProtocol" has non-method member(s): name
+protocols_runtime_checkable.py:61: error: Only protocols that don't have non-method members can be used with issubclass()
+protocols_runtime_checkable.py:61: note: Protocol "DataProtocol" has non-method member(s): name
+"""

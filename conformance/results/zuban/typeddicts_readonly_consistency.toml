@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly_consistency.py:37: error: Incompatible types in assignment (expression has type "A1", variable has type "B1")
+typeddicts_readonly_consistency.py:38: error: Incompatible types in assignment (expression has type "C1", variable has type "B1")
+typeddicts_readonly_consistency.py:40: error: Incompatible types in assignment (expression has type "A1", variable has type "C1")
+typeddicts_readonly_consistency.py:81: error: Incompatible types in assignment (expression has type "A2", variable has type "B2")
+typeddicts_readonly_consistency.py:82: error: Incompatible types in assignment (expression has type "C2", variable has type "B2")
+typeddicts_readonly_consistency.py:84: error: Incompatible types in assignment (expression has type "A2", variable has type "C2")
+typeddicts_readonly_consistency.py:85: error: Incompatible types in assignment (expression has type "B2", variable has type "C2")
+"""

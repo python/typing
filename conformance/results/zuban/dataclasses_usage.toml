@@ -1,0 +1,16 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_usage.py:50: error: Missing positional argument "unit_price" in call to "InventoryItem"
+dataclasses_usage.py:51: error: Argument 2 to "InventoryItem" has incompatible type "str"; expected "float"
+dataclasses_usage.py:52: error: Too many arguments for "InventoryItem"
+dataclasses_usage.py:61: error: Attributes without a default cannot follow attributes with one
+dataclasses_usage.py:67: error: Attributes without a default cannot follow attributes with one
+dataclasses_usage.py:73: error: Attributes without a default cannot follow attributes with one
+dataclasses_usage.py:83: error: Too many arguments for "DC4"
+dataclasses_usage.py:88: error: Argument "default_factory" to "field" has incompatible type "Type[str]"; expected "Callable[[], int]"
+dataclasses_usage.py:127: error: Too many arguments for "DC7"
+dataclasses_usage.py:130: error: Missing positional argument "y" in call to "DC8"
+dataclasses_usage.py:179: error: Too many arguments for "DC13"
+"""

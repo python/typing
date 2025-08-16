@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_frozen.py:16: error: Property "a" defined in "DC1" is read-only
+dataclasses_frozen.py:17: error: Property "b" defined in "DC1" is read-only
+dataclasses_frozen.py:23: error: Non-frozen dataclass cannot inherit from a frozen dataclass
+dataclasses_frozen.py:33: error: Frozen dataclass cannot inherit from a non-frozen dataclass
+"""
