@@ -1,0 +1,7 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_match_args.py:42: error: "Type[DC4]" has no attribute "__match_args__"
+"""
