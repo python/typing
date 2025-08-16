@@ -1,0 +1,17 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_self_protocols.py:61: error: Argument 1 to "accepts_shape" has incompatible type "BadReturnType"; expected "ShapeProtocol"
+generics_self_protocols.py:61: note: Following member(s) of "BadReturnType" have conflicts:
+generics_self_protocols.py:61: note:     Expected:
+generics_self_protocols.py:61: note:         def [Self: BadReturnType] set_scale(self, scale: float) -> Self
+generics_self_protocols.py:61: note:     Got:
+generics_self_protocols.py:61: note:         def set_scale(self, scale: float) -> int
+generics_self_protocols.py:64: error: Argument 1 to "accepts_shape" has incompatible type "ReturnDifferentClass"; expected "ShapeProtocol"
+generics_self_protocols.py:64: note: Following member(s) of "ReturnDifferentClass" have conflicts:
+generics_self_protocols.py:64: note:     Expected:
+generics_self_protocols.py:64: note:         def [Self: ReturnDifferentClass] set_scale(self, scale: float) -> Self
+generics_self_protocols.py:64: note:     Got:
+generics_self_protocols.py:64: note:         def set_scale(self, scale: float) -> ReturnConcreteShape
+"""

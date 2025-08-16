@@ -1,0 +1,20 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+qualifiers_final_decorator.py:21: error: Cannot inherit from final class "Base1"
+qualifiers_final_decorator.py:56: error: Cannot override final attribute "method1" (previously declared in base class "Base2")
+qualifiers_final_decorator.py:59: error: Cannot override final attribute "method2" (previously declared in base class "Base2")
+qualifiers_final_decorator.py:63: error: Cannot override final attribute "method3" (previously declared in base class "Base2")
+qualifiers_final_decorator.py:67: error: Cannot override final attribute "method4" (previously declared in base class "Base2")
+qualifiers_final_decorator.py:80: error: Cannot override final attribute "method" (previously declared in base class "Base3")
+qualifiers_final_decorator.py:85: error: @final should be applied only to overload implementation
+qualifiers_final_decorator.py:94: error: Cannot override final attribute "method" (previously declared in base class "Base4")
+qualifiers_final_decorator.py:118: error: Cannot override final attribute "method" (previously declared in base class "Base5_2")
+qualifiers_final_decorator.py:118: error: Signature of "method" incompatible with supertype "Base5_2"
+qualifiers_final_decorator.py:118: note:      Superclass:
+qualifiers_final_decorator.py:118: note:          def method(self, v: int) -> None
+qualifiers_final_decorator.py:118: note:      Subclass:
+qualifiers_final_decorator.py:118: note:          def method(self) -> None
+qualifiers_final_decorator.py:125: error: @final cannot be used with non-method functions
+"""

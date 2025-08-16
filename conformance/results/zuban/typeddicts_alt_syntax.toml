@@ -1,0 +1,13 @@
+conformance_automated = "Pass"
+notes = """
+Does not support keyword-argument form of alternative syntax (deprecated in 3.11).
+"""
+errors_diff = """
+"""
+output = """
+typeddicts_alt_syntax.py:23: error: TypedDict() expects a dictionary literal as the second argument
+typeddicts_alt_syntax.py:27: error: Invalid TypedDict() field name
+typeddicts_alt_syntax.py:31: error: First argument "WrongName" to TypedDict() does not match variable name "BadTypedDict3"
+typeddicts_alt_syntax.py:35: error: Too many arguments for "TODO()"
+typeddicts_alt_syntax.py:41: error: TypedDict() expects a dictionary literal as the second argument
+"""

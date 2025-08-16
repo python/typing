@@ -1,0 +1,13 @@
+conformant = "Partial"
+notes = """
+Does not reject use of type variable within an upper bound.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Expected 1 errors
+"""
+output = """
+generics_upper_bound.py:51: error: Value of type variable "ST" of "longer" cannot be "int"
+generics_upper_bound.py:51: error: Value of type variable "ST" of "longer" cannot be "int"
+generics_upper_bound.py:56: error: TypeVar cannot have both values and an upper bound
+"""

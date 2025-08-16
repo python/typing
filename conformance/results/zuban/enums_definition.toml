@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_definition.py:24: error: Too many arguments for Enum()
+"""

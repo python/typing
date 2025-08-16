@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+literals_semantics.py:10: error: Incompatible types in assignment (expression has type "Literal[4]", variable has type "Literal[3]")
+literals_semantics.py:24: error: Incompatible types in assignment (expression has type "Literal[0]", variable has type "Literal[False]")
+literals_semantics.py:25: error: Incompatible types in assignment (expression has type "Literal[False]", variable has type "Literal[0]")
+literals_semantics.py:33: error: Incompatible types in assignment (expression has type "int", variable has type "Literal[3, 4, 5]")
+"""

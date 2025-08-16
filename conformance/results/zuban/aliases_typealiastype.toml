@@ -1,0 +1,38 @@
+conformant = "Partial"
+notes = """
+Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.
+Incorrectly allows type_params= to be an arbitrary tuple.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 45: Expected 1 errors
+Line 27: Unexpected errors ['aliases_typealiastype.py:27: error: Can\\'t use bound type variable "T" to define generic alias']
+"""
+output = """
+aliases_typealiastype.py:27: error: Can't use bound type variable "T" to define generic alias
+aliases_typealiastype.py:32: error: "TypeAliasType" has no attribute "other_attrib"
+aliases_typealiastype.py:40: error: Type argument "int" of "GoodAlias5" must be a subtype of "str"
+aliases_typealiastype.py:43: error: All type parameters should be declared ("S" not declared)
+aliases_typealiastype.py:44: error: All type parameters should be declared ("S" not declared)
+aliases_typealiastype.py:46: error: Invalid recursive alias: a union item of itself
+aliases_typealiastype.py:47: error: Invalid recursive alias: a union item of itself
+aliases_typealiastype.py:48: error: Variable "aliases_typealiastype.BadAlias7" is not valid as a type
+aliases_typealiastype.py:48: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_typealiastype.py:52: error: Invalid type alias: expression is not a valid type
+aliases_typealiastype.py:53: error: Bracketed expression "[...]" is not valid as a type
+aliases_typealiastype.py:53: note: Did you mean "List[...]"?
+aliases_typealiastype.py:54: error: Syntax error in type annotation
+aliases_typealiastype.py:54: note: Suggestion: Is there a spurious trailing comma?
+aliases_typealiastype.py:55: error: Invalid type alias: expression is not a valid type
+aliases_typealiastype.py:56: error: Invalid type alias: expression is not a valid type
+aliases_typealiastype.py:57: error: Invalid type alias: expression is not a valid type
+aliases_typealiastype.py:58: error: Invalid type alias: expression is not a valid type
+aliases_typealiastype.py:59: error: Invalid type alias: expression is not a valid type
+aliases_typealiastype.py:60: error: Variable "aliases_typealiastype.var1" is not valid as a type
+aliases_typealiastype.py:60: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_typealiastype.py:61: error: Invalid type alias: expression is not a valid type
+aliases_typealiastype.py:62: error: Invalid type: try using Literal[1] instead?
+aliases_typealiastype.py:63: error: Invalid type alias: expression is not a valid type
+aliases_typealiastype.py:64: error: Invalid type alias: expression is not a valid type
+aliases_typealiastype.py:66: error: Name "BadAlias21" is used before definition
+"""

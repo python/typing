@@ -1,0 +1,13 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_definitions_stub.pyi:13: error: Single overload definition, multiple required
+overloads_definitions_stub.pyi:32: error: Overload does not consistently use the "@staticmethod" decorator on all function signatures.
+overloads_definitions_stub.pyi:39: error: Overload does not consistently use the "@classmethod" decorator on all function signatures.
+overloads_definitions_stub.pyi:72: error: In a stub file @final must be applied only to the first overload
+overloads_definitions_stub.pyi:85: error: In a stub file @final must be applied only to the first overload
+overloads_definitions_stub.pyi:107: error: Cannot override final attribute "final_method" (previously declared in base class "Base")
+overloads_definitions_stub.pyi:120: error: Method "bad_override" is marked as an override, but no base method was found with this name
+overloads_definitions_stub.pyi:146: error: In a stub file @override must be applied only to the first overload
+"""

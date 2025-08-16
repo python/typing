@@ -33,6 +33,5 @@ Line 70: Expected 1 errors
 Line 73: Expected 1 errors
 Line 77: Expected 1 errors
 Line 78: Expected 1 errors
-Line 66: Unexpected errors ['classes_classvar.py:66:4 Uninitialized attribute [13]: Attribute `good5` is declared in class `ClassA` to have type `typing.Any` but is never initialized.']
 Line 74: Unexpected errors ['classes_classvar.py:74:8 Incompatible return type [7]: Expected `CV[int]` but got `int`.']
 """

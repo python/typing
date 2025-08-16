@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+tuples_unpacked.py:40: error: More than one Unpack in a type is not allowed
+tuples_unpacked.py:41: error: More than one Unpack in a type is not allowed
+tuples_unpacked.py:51: error: More than one Unpack in a type is not allowed
+tuples_unpacked.py:59: error: More than one Unpack in a type is not allowed
+tuples_unpacked.py:61: error: More than one Unpack in a type is not allowed
+"""

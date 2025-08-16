@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_assert_type.py:27: error: Expression is of type "int | str", not "int"
+directives_assert_type.py:28: error: Expression is of type "Any", not "int"
+directives_assert_type.py:29: error: Expression is of type "Literal[4]", not "int"
+directives_assert_type.py:31: error: "assert_type" expects 2 arguments
+directives_assert_type.py:32: error: Expression is of type "Literal['']", not "int"
+directives_assert_type.py:33: error: "assert_type" expects 2 arguments
+"""

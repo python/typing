@@ -1,0 +1,50 @@
+conformant = "Unsupported"
+notes = """
+Converter parameter not yet supported.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 118: Expected 1 errors
+Line 104: Unexpected errors ['dataclasses_transform_converter.py:104: error: Incompatible callable argument with type vars']
+Line 112: Unexpected errors ['dataclasses_transform_converter.py:112: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"', 'dataclasses_transform_converter.py:112: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"', 'dataclasses_transform_converter.py:112: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"', 'dataclasses_transform_converter.py:112: error: Argument 4 to "DC2" has incompatible type "bytes"; expected "ConverterClass"', 'dataclasses_transform_converter.py:112: error: Argument 5 to "DC2" has incompatible type "list[Never]"; expected "int"']
+Line 114: Unexpected errors ['dataclasses_transform_converter.py:114: error: Incompatible types in assignment (expression has type "str", variable has type "int")']
+Line 115: Unexpected errors ['dataclasses_transform_converter.py:115: error: Incompatible types in assignment (expression has type "str", variable has type "ConverterClass")']
+Line 116: Unexpected errors ['dataclasses_transform_converter.py:116: error: Incompatible types in assignment (expression has type "bytes", variable has type "ConverterClass")']
+Line 121: Unexpected errors ['dataclasses_transform_converter.py:121: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"', 'dataclasses_transform_converter.py:121: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"', 'dataclasses_transform_converter.py:121: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"', 'dataclasses_transform_converter.py:121: error: Argument 4 to "DC2" has incompatible type "str"; expected "ConverterClass"', 'dataclasses_transform_converter.py:121: error: Argument 5 to "DC2" has incompatible type "str"; expected "int"', 'dataclasses_transform_converter.py:121: error: Argument 6 to "DC2" has incompatible type "tuple[tuple[str, str], tuple[str, str]]"; expected "dict[str, str]"']
+"""
+output = """
+dataclasses_transform_converter.py:48: error: Argument "converter" to "model_field" has incompatible type "Callable[[], int]"; expected "Callable[[Never], int]"
+dataclasses_transform_converter.py:49: error: Argument "converter" to "model_field" has incompatible type "Callable[[NamedArg(int, 'x')], int]"; expected "Callable[[Never], int]"
+dataclasses_transform_converter.py:104: error: Incompatible callable argument with type vars
+dataclasses_transform_converter.py:107: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:107: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:107: error: Argument 4 to "DC2" has incompatible type "bytes"; expected "ConverterClass"
+dataclasses_transform_converter.py:107: error: Argument 5 to "DC2" has incompatible type "list[Never]"; expected "int"
+dataclasses_transform_converter.py:108: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:108: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:108: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:108: error: Argument 4 to "DC2" has incompatible type "int"; expected "ConverterClass"
+dataclasses_transform_converter.py:108: error: Argument 5 to "DC2" has incompatible type "list[Never]"; expected "int"
+dataclasses_transform_converter.py:109: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:109: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:109: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:109: error: Argument 4 to "DC2" has incompatible type "str"; expected "ConverterClass"
+dataclasses_transform_converter.py:109: error: Argument 5 to "DC2" has incompatible type "complex"; expected "int"
+dataclasses_transform_converter.py:112: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:112: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:112: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:112: error: Argument 4 to "DC2" has incompatible type "bytes"; expected "ConverterClass"
+dataclasses_transform_converter.py:112: error: Argument 5 to "DC2" has incompatible type "list[Never]"; expected "int"
+dataclasses_transform_converter.py:114: error: Incompatible types in assignment (expression has type "str", variable has type "int")
+dataclasses_transform_converter.py:115: error: Incompatible types in assignment (expression has type "str", variable has type "ConverterClass")
+dataclasses_transform_converter.py:116: error: Incompatible types in assignment (expression has type "bytes", variable has type "ConverterClass")
+dataclasses_transform_converter.py:119: error: Incompatible types in assignment (expression has type "int", variable has type "ConverterClass")
+dataclasses_transform_converter.py:121: error: Argument 1 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:121: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:121: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:121: error: Argument 4 to "DC2" has incompatible type "str"; expected "ConverterClass"
+dataclasses_transform_converter.py:121: error: Argument 5 to "DC2" has incompatible type "str"; expected "int"
+dataclasses_transform_converter.py:121: error: Argument 6 to "DC2" has incompatible type "tuple[tuple[str, str], tuple[str, str]]"; expected "dict[str, str]"
+dataclasses_transform_converter.py:130: error: Argument "default" to "model_field" has incompatible type "int"; expected "str | None"
+dataclasses_transform_converter.py:133: error: Argument "default_factory" to "model_field" has incompatible type "Type[int]"; expected "Callable[[], str] | None"
+"""

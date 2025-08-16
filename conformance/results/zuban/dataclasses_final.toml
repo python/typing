@@ -1,0 +1,21 @@
+conformant = "Partial"
+notes = """
+Wrongly requires a Final dataclass field to be initialized at class level.
+Doesn't support Final nested inside ClassVar.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 27: Expected 1 errors
+Line 16: Unexpected errors ['dataclasses_final.py:16: error: Final name must be initialized with a value']
+Line 18: Unexpected errors ['dataclasses_final.py:18: error: Final can be only used as an outermost qualifier in a variable annotation']
+Line 24: Unexpected errors ['dataclasses_final.py:24: error: Expression is of type "Any", not "int"']
+"""
+output = """
+dataclasses_final.py:16: error: Final name must be initialized with a value
+dataclasses_final.py:18: error: Final can be only used as an outermost qualifier in a variable annotation
+dataclasses_final.py:24: error: Expression is of type "Any", not "int"
+dataclasses_final.py:35: error: Cannot assign to final attribute "final_no_default"
+dataclasses_final.py:36: error: Cannot assign to final attribute "final_with_default"
+dataclasses_final.py:37: error: Cannot assign to final attribute "final_no_default"
+dataclasses_final.py:38: error: Cannot assign to final attribute "final_with_default"
+"""
