@@ -122,7 +122,7 @@ class MovieEI(TypedDict, extra_items=int):
     name: str
 
 def del_items(movie: MovieEI) -> None:
-    del movie["name"]  # E: The value type of 'name' is 'Required[int]'
+    del movie["name"]  # E: The value type of 'name' is 'Required[str]'
     del movie["year"]  # OK: The value type of 'year' is 'NotRequired[int]'
 
 # > For type checking purposes, ``Unpack[SomeTypedDict]`` with extra items should be
