@@ -27,6 +27,13 @@ This section defines a few terms that may be used elsewhere in the specification
       ``B``, respectively, such that ``B'`` is a subtype of ``A'``. See
       :ref:`type-system-concepts`.
 
+   closed
+      A :ref:`TypedDict <typeddict>` type is closed if it may not contain any
+      additional :term:`items <item>` beyond those specified in the TypedDict definition.
+      A closed TypedDict can be created using the ``closed=True`` argument to
+      :py:func:`typing.TypedDict`.
+      Compare :term:`extra items` and :term:`open`.
+
    consistent
       Two :term:`fully static types <fully static type>` are "consistent with"
       each other if they are :term:`equivalent`. Two gradual types are
@@ -51,6 +58,14 @@ This section defines a few terms that may be used elsewhere in the specification
       are equivalent if all :term:`materializations <materialize>` of ``A`` are
       also materializations of ``B``, and all materializations of ``B`` are
       also materializations of ``A``.
+
+   extra items
+      A :ref:`TypedDict <typeddict>` type with extra items may contain arbitrary
+      additional :term:`items <item>` beyond those specified in the TypedDict definition, but those
+      items must be of the type specified by the TypedDict definition.
+      A TypedDict with extra items can be created using the ``extra_items=``
+      argument to :py:func:`typing.TypedDict`. Extra items may or may not be
+      :term:`read-only`. Compare :term:`closed` and :term:`open`.
 
    fully static type
       A type is "fully static" if it does not contain any :term:`gradual form`.
@@ -84,6 +99,12 @@ This section defines a few terms that may be used elsewhere in the specification
       runtime code using :pep:`526` and
       :pep:`3107` syntax (the filename ends in ``.py``).
 
+   item
+      In the context of a :ref:`TypedDict <typeddict>`, an item is a key/value
+      pair defined in the TypedDict definition. Each item has a name (the key)
+      and a type (the value). Items may be :term:`required` or
+      :term:`non-required`, and may be :term:`read-only` or writable.
+
    materialize
       A :term:`gradual type` can be materialized to a more static type
       (possibly a :term:`fully static type`) by replacing :ref:`Any` with any
@@ -110,11 +131,40 @@ This section defines a few terms that may be used elsewhere in the specification
       ``__class__`` is that type, or any of its subclasses, transitively. In
       contrast, see :term:`structural` types.
 
+   non-required
+      If an :term:`item` in a :ref:`TypedDict <typeddict>` is non-required, it may or
+      may not be present on an object of that TypedDict type, but if it is present
+      it must be of the type specified by the TypedDict definition.
+      Items can be marked as non-required using the :py:data:`typing.NotRequired` qualifier
+      or the ``total=False`` argument to :py:func:`typing.TypedDict`. Compare :term:`required`.
+
+   open
+      A :ref:`TypedDict <typeddict>` type is open if it may contain arbitrary
+      additional :term:`items <item>` beyond those specified in the TypedDict definition.
+      This is the default behavior for TypedDicts that do not use the ``closed=True``
+      or ``extra_items=`` arguments to :py:func:`typing.TypedDict`.
+      Open TypedDicts behave similarly to TypedDicts with :term:`extra items` of type
+      ``ReadOnly[object]``, but differ in some behaviors; see the TypedDict specification
+      chapter for details.
+      Compare :term:`extra items` and :term:`closed`.
+
    package
       A directory or directories that namespace Python modules.
       (Note the distinction between packages and :term:`distributions <distribution>`.
       While most distributions are named after the one package they install, some
       distributions install multiple packages.)
+
+   read-only
+      A read-only :term:`item` in a :ref:`TypedDict <typeddict>` may not be modified.
+      Attempts to assign to or delete that item
+      should be reported as type errors by a type checker. Read-only items are created
+      using the :py:data:`typing.ReadOnly` qualifier.
+
+   required
+      If an :term:`item` in a :ref:`TypedDict <typeddict>` is required, it must be present
+      in any object of that TypedDict type. Items are
+      required by default, but items can also be explicitly marked as required using
+      the :py:data:`typing.Required` qualifier. Compare :term:`non-required`.
 
    special form
       A special form is an object that has a special meaning within the type system,
