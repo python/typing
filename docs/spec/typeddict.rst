@@ -17,7 +17,7 @@ TypedDict types can define any number of :term:`items <item>`, which are string
 keys associated with values of a specified type. For example,
 a TypedDict may contain the item ``a: str``, indicating that the key ``a``
 must map to a value of type ``str``. Items may be either :term:`required`,
-meaning they must be present in any instance of the TypedDict type, or
+meaning they must be present in every instance of the TypedDict type, or
 :term:`non-required`, meaning they may be omitted, but if they are present,
 they must be of the type specified in the TypedDict definition. By default,
 all items in a TypedDict are mutable, but items
@@ -395,14 +395,19 @@ is inherited from its superclass by default::
         pass
 
 However, subclasses may also explicitly use the ``closed`` and ``extra_items`` arguments
-to change the openness of the TypedDict, but in some cases this yields a type checker error.
-If the base class is open, all possible states are allowed in the subclass: it may remain open,
-it may be closed (with ``closed=True``), or it may have extra items (with ``extra_items=...``).
-If the base class is closed, any child classes must also be closed.
-If the base class has extra items, but they are not read-only, the child class must also allow
-the same extra items. If the base class has read-only extra items, the child class may be closed,
-or it may redeclare its extra items with a type that is :term:`assignable` to the base class type.
-Child classes may also have mutable extra items if the base class has read-only extra items.
+to change the openness of the TypedDict, but in some cases this yields a type checker error:
+
+- If the base class is open, all possible states are allowed in the subclass: it may remain open,
+  it may be closed (with ``closed=True``), or it may have extra items (with ``extra_items=...``).
+
+- If the base class is closed, any child classes must also be closed.
+
+- If the base class has extra items, but they are not read-only, the child class must also allow
+  the same extra items.
+
+- If the base class has read-only extra items, the child class may be closed,
+  or it may redeclare its extra items with a type that is :term:`assignable` to the base class type.
+  Child classes may also have mutable extra items if the base class has read-only extra items.
 
 For example::
 
@@ -607,6 +612,7 @@ A TypedDict type is a subtype of ``dict[str, VT]`` if the following conditions a
 
 - The TypedDict type has mutable :term:`extra items` of a type that is :term:`equivalent` to ``VT``.
 - All items on the TypedDict satisfy the following conditions:
+
   - The value type of the item is :term:`equivalent` to ``VT``.
   - The item is not read-only.
   - The item is not required.
@@ -627,7 +633,7 @@ For example::
     regular_dict: dict[str, int] = not_required_num_dict  # OK
     f(not_required_num_dict)  # OK
 
-In this case, methods that are previously unavailable on a TypedDict are allowed,
+In this case, some methods that are otherwise unavailable on a TypedDict are allowed,
 with signatures matching ``dict[str, VT]``
 (e.g.: ``__setitem__(self, key: str, value: VT) -> None``)::
 
@@ -742,7 +748,7 @@ This section discusses some specific operations in more detail.
   if the string value of ``e`` cannot be determined statically.
   (This simplifies to ``object`` if ``d`` is :term:`open`.)
 
-* ``clear()`` is not safe on :term:`open` TypedDicts since it could remove required keys, some of which
+* ``clear()`` is not safe on :term:`open` TypedDicts since it could remove required items, some of which
   may not be directly visible because of :term:`structural`
   :term:`assignability <assignable>`. However, this method is safe on
   :term:`closed` TypedDicts and TypedDicts with :term:`extra items` if
@@ -750,7 +756,7 @@ This section discusses some specific operations in more detail.
   or read-only items.
 
 * ``popitem()`` is similarly unsafe on many TypedDicts, even
-  if all known keys are not required (``total=False``).
+  if all known items are :term:`non-required`.
 
 * ``del obj['key']`` should be rejected unless ``'key'`` is a
   non-required, mutable key.
@@ -785,14 +791,14 @@ This section discusses some specific operations in more detail.
 * The ``update()`` method should not allow mutating a read-only item.
   Therefore, type checkers should error if a
   TypedDict with a read-only item is updated with another TypedDict that declares
-  that key::
+  that item::
 
     class A(TypedDict):
         x: ReadOnly[int]
         y: int
 
-    a1: A = { "x": 1, "y": 2 }
-    a2: A = { "x": 3, "y": 4 }
+    a1: A = {"x": 1, "y": 2}
+    a2: A = {"x": 3, "y": 4}
     a1.update(a2)  # Type check error: "x" is read-only in A
 
   Unless the declared value is of bottom type (:data:`~typing.Never`)::

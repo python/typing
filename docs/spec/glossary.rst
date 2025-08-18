@@ -31,7 +31,7 @@ This section defines a few terms that may be used elsewhere in the specification
       A :ref:`TypedDict <typeddict>` type is closed if it may not contain any
       additional :term:`items <item>` beyond those specified in the TypedDict definition.
       A closed TypedDict can be created using the ``closed=True`` argument to
-      :py:func:`typing.TypedDict`.
+      :py:func:`typing.TypedDict`, or equivalently by setting ``extra_items=Never``.
       Compare :term:`extra items` and :term:`open`.
 
    consistent
@@ -100,10 +100,9 @@ This section defines a few terms that may be used elsewhere in the specification
       :pep:`3107` syntax (the filename ends in ``.py``).
 
    item
-      In the context of a :ref:`TypedDict <typeddict>`, an item is a key/value
-      pair defined in the TypedDict definition. Each item has a name (the key)
-      and a type (the value). Items may be :term:`required` or
-      :term:`non-required`, and may be :term:`read-only` or writable.
+      In the context of a :ref:`TypedDict <typeddict>`, an item consists of a name
+      (the dictionary key) and a type (representing the type that values corresponding to the key must have).
+      Items may be :term:`required` or :term:`non-required`, and may be :term:`read-only` or writable.
 
    materialize
       A :term:`gradual type` can be materialized to a more static type
