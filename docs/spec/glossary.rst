@@ -62,7 +62,7 @@ This section defines a few terms that may be used elsewhere in the specification
    extra items
       A :ref:`TypedDict <typeddict>` type with extra items may contain arbitrary
       additional :term:`items <item>` beyond those specified in the TypedDict definition, but those
-      items must be of the type specified by the TypedDict definition.
+      items must be of the type specified by that definition.
       A TypedDict with extra items can be created using the ``extra_items=``
       argument to :py:func:`typing.TypedDict`. Extra items may or may not be
       :term:`read-only`. Compare :term:`closed` and :term:`open`.
@@ -156,7 +156,7 @@ This section defines a few terms that may be used elsewhere in the specification
 
    read-only
       A read-only :term:`item` in a :ref:`TypedDict <typeddict>` may not be modified.
-      Attempts to assign to or delete that item
+      Attempts to delete or assign to that item
       should be reported as type errors by a type checker. Read-only items are created
       using the :py:data:`typing.ReadOnly` qualifier.
 
