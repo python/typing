@@ -10,7 +10,7 @@ and ``NotRequired`` in :pep:`655`, use with ``Unpack`` in :pep:`692`,
 
 A TypedDict type represents ``dict`` objects that contain only keys of
 type ``str``. There are restrictions on which string keys are valid, and
-which values can be associated with each key. Values that are members of a
+which values can be associated with each key. Values that :term:`inhabit` a
 TypedDict type must be instances of ``dict`` itself, not a subclass.
 
 TypedDict types can define any number of :term:`items <item>`, which are string
@@ -371,10 +371,12 @@ Example::
    class X(TypedDict):
        x: str
        y: ReadOnly[int]
+       z: int
 
    class Y(X):
        x: int  # Type check error: cannot overwrite TypedDict field "x"
        y: bool  # OK: bool is assignable to int, and a mutable item can override a read-only one
+       z: bool  # Type check error: key is mutable, so subclass type must be consistent with superclass
 
 Openness
 ^^^^^^^^

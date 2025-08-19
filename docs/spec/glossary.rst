@@ -61,8 +61,8 @@ This section defines a few terms that may be used elsewhere in the specification
 
    extra items
       A :ref:`TypedDict <typeddict>` type with extra items may contain arbitrary
-      additional :term:`items <item>` beyond those specified in the TypedDict definition, but those
-      items must be of the type specified by that definition.
+      additional key-value pairs beyond those specified in the TypedDict definition, but those
+      values must be of the type specified by the ``extra_items=`` argument to the definition.
       A TypedDict with extra items can be created using the ``extra_items=``
       argument to :py:func:`typing.TypedDict`. Extra items may or may not be
       :term:`read-only`. Compare :term:`closed` and :term:`open`.
@@ -93,6 +93,11 @@ This section defines a few terms that may be used elsewhere in the specification
       :term:`consistency <consistent>` and :term:`assignability <assignable>`.
       They can be :term:`materialized <materialize>` to a more static, or fully static,
       type. See :ref:`type-system-concepts`.
+
+   inhabit
+      A value is said to inhabit a type if it is a member of the set of values
+      represented by that type. For example, the value ``42`` inhabits the type
+      ``int``, and the value ``"hello"`` inhabits the type ``str``.
 
    inline
       Inline type annotations are annotations that are included in the
