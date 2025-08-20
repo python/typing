@@ -72,6 +72,11 @@ As an example, consider this simple calculator:
            case _:
                assert_never(op)
 
+.. note::
+
+   To use this feature on Python versions earlier than 3.11, you will need to
+   import ``Never`` from ``typing_extensions`` (version 4.1 or newer).
+
 The ``match`` statement covers all members of the ``Op`` enum,
 so the ``assert_never()`` call is unreachable and the type checker
 will accept this code. However, if you add another member to the
