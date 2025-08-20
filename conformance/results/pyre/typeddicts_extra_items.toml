@@ -4,17 +4,17 @@ Not supported.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 212: Expected 1 errors
-Line 219: Expected 1 errors
-Line 239: Expected 1 errors
-Line 253: Expected 1 errors
-Line 254: Expected 1 errors
-Line 265: Expected 1 errors
+Line 215: Expected 1 errors
+Line 222: Expected 1 errors
+Line 242: Expected 1 errors
+Line 256: Expected 1 errors
+Line 257: Expected 1 errors
+Line 268: Expected 1 errors
 Lines 91, 92: Expected error (tag 'MovieC')
 Lines 94, 95: Expected error (tag 'MovieD')
 Lines 184, 185: Expected error (tag 'MovieRequiredYear')
 Lines 187, 188: Expected error (tag 'MovieNotRequiredYear')
-Lines 193, 194: Expected error (tag 'MovieWithDirector')
+Lines 196, 197: Expected error (tag 'BookWithPublisher')
 Line 11: Unexpected errors ['typeddicts_extra_items.py:11:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
 Line 14: Unexpected errors ['typeddicts_extra_items.py:14:11 TypedDict initialization error [55]: TypedDict `Movie` has no field `novel_adaptation`.']
 Line 21: Unexpected errors ['typeddicts_extra_items.py:21:21 TypedDict initialization error [55]: TypedDict `MovieFunctional` has no field `novel_adaptation`.']
@@ -39,33 +39,34 @@ Line 155: Unexpected errors ['typeddicts_extra_items.py:155:0 Unexpected keyword
 Line 165: Unexpected errors ['typeddicts_extra_items.py:165:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
 Line 171: Unexpected errors ['typeddicts_extra_items.py:171:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
 Line 181: Unexpected errors ['typeddicts_extra_items.py:181:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
-Line 207: Unexpected errors ['typeddicts_extra_items.py:207:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
-Line 214: Unexpected errors ['typeddicts_extra_items.py:214:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
-Line 225: Unexpected errors ['typeddicts_extra_items.py:225:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
+Line 193: Unexpected errors ['typeddicts_extra_items.py:193:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
+Line 210: Unexpected errors ['typeddicts_extra_items.py:210:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
+Line 217: Unexpected errors ['typeddicts_extra_items.py:217:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
 Line 228: Unexpected errors ['typeddicts_extra_items.py:228:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
-Line 232: Unexpected errors ['typeddicts_extra_items.py:232:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
-Line 245: Unexpected errors ['typeddicts_extra_items.py:245:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
+Line 231: Unexpected errors ['typeddicts_extra_items.py:231:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
+Line 235: Unexpected errors ['typeddicts_extra_items.py:235:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
 Line 248: Unexpected errors ['typeddicts_extra_items.py:248:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
-Line 251: Unexpected errors ['typeddicts_extra_items.py:251:27 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.']
-Line 252: Unexpected errors ['typeddicts_extra_items.py:252:27 TypedDict initialization error [55]: TypedDict `MovieExtraStr` has no field `description`.']
-Line 263: Unexpected errors ['typeddicts_extra_items.py:263:28 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.']
-Line 277: Unexpected errors ['typeddicts_extra_items.py:277:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
-Line 281: Unexpected errors ['typeddicts_extra_items.py:281:0 Unexpected keyword [28]: Unexpected keyword argument `year` to call `ExtraMovie.__init__`.']
-Line 286: Unexpected errors ['typeddicts_extra_items.py:286:0 Unexpected keyword [28]: Unexpected keyword argument `closed` to call `object.__init_subclass__`.']
-Line 296: Unexpected errors ['typeddicts_extra_items.py:296:28 TypedDict initialization error [55]: TypedDict `MovieExtraStr` has no field `summary`.']
-Line 297: Unexpected errors ['typeddicts_extra_items.py:297:0 Incompatible variable type [9]: str_mapping is declared to have type `Mapping[str, str]` but is used as type `MovieExtraStr`.']
-Line 299: Unexpected errors ['typeddicts_extra_items.py:299:28 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.']
-Line 301: Unexpected errors ['typeddicts_extra_items.py:301:0 Incompatible variable type [9]: int_str_mapping is declared to have type `Mapping[str, Union[int, str]]` but is used as type `MovieExtraInt`.']
-Line 307: Unexpected errors ['typeddicts_extra_items.py:307:4 Assert type [70]: Expected `List[Tuple[str, Union[int, str]]]` but got `List[Tuple[str, object]]`.']
-Line 308: Unexpected errors ['typeddicts_extra_items.py:308:4 Assert type [70]: Expected `List[Union[int, str]]` but got `List[object]`.']
-Line 316: Unexpected errors ['typeddicts_extra_items.py:316:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
-Line 323: Unexpected errors ['typeddicts_extra_items.py:323:4 Incompatible variable type [9]: v is declared to have type `Dict[str, int]` but is used as type `IntDict`.']
-Line 326: Unexpected errors ['typeddicts_extra_items.py:326:40 TypedDict initialization error [55]: TypedDict `IntDictWithNum` has no field `bar`.']
-Line 327: Unexpected errors ['typeddicts_extra_items.py:327:0 Incompatible variable type [9]: regular_dict is declared to have type `Dict[str, int]` but is used as type `IntDictWithNum`.']
-Line 334: Unexpected errors ['typeddicts_extra_items.py:334:0 Undefined attribute [16]: `IntDictWithNum` has no attribute `clear`.']
-Line 336: Unexpected errors ['typeddicts_extra_items.py:336:0 Assert type [70]: Expected `Tuple[str, int]` but got `typing.Any`.', 'typeddicts_extra_items.py:336:12 Undefined attribute [16]: `IntDictWithNum` has no attribute `popitem`.']
-Line 339: Unexpected errors ["typeddicts_extra_items.py:339:26 TypedDict accessed with a non-literal [26]: TypedDict key must be a string literal. Expected one of ('num')."]
-Line 340: Unexpected errors ["typeddicts_extra_items.py:340:30 TypedDict accessed with a non-literal [26]: TypedDict key must be a string literal. Expected one of ('num')."]
+Line 251: Unexpected errors ['typeddicts_extra_items.py:251:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
+Line 254: Unexpected errors ['typeddicts_extra_items.py:254:27 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.']
+Line 255: Unexpected errors ['typeddicts_extra_items.py:255:27 TypedDict initialization error [55]: TypedDict `MovieExtraStr` has no field `description`.']
+Line 266: Unexpected errors ['typeddicts_extra_items.py:266:28 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.']
+Line 280: Unexpected errors ['typeddicts_extra_items.py:280:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
+Line 284: Unexpected errors ['typeddicts_extra_items.py:284:0 Unexpected keyword [28]: Unexpected keyword argument `year` to call `ExtraMovie.__init__`.']
+Line 289: Unexpected errors ['typeddicts_extra_items.py:289:0 Unexpected keyword [28]: Unexpected keyword argument `closed` to call `object.__init_subclass__`.']
+Line 299: Unexpected errors ['typeddicts_extra_items.py:299:28 TypedDict initialization error [55]: TypedDict `MovieExtraStr` has no field `summary`.']
+Line 300: Unexpected errors ['typeddicts_extra_items.py:300:0 Incompatible variable type [9]: str_mapping is declared to have type `Mapping[str, str]` but is used as type `MovieExtraStr`.']
+Line 302: Unexpected errors ['typeddicts_extra_items.py:302:28 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.']
+Line 304: Unexpected errors ['typeddicts_extra_items.py:304:0 Incompatible variable type [9]: int_str_mapping is declared to have type `Mapping[str, Union[int, str]]` but is used as type `MovieExtraInt`.']
+Line 310: Unexpected errors ['typeddicts_extra_items.py:310:4 Assert type [70]: Expected `List[Tuple[str, Union[int, str]]]` but got `List[Tuple[str, object]]`.']
+Line 311: Unexpected errors ['typeddicts_extra_items.py:311:4 Assert type [70]: Expected `List[Union[int, str]]` but got `List[object]`.']
+Line 319: Unexpected errors ['typeddicts_extra_items.py:319:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.']
+Line 326: Unexpected errors ['typeddicts_extra_items.py:326:4 Incompatible variable type [9]: v is declared to have type `Dict[str, int]` but is used as type `IntDict`.']
+Line 329: Unexpected errors ['typeddicts_extra_items.py:329:40 TypedDict initialization error [55]: TypedDict `IntDictWithNum` has no field `bar`.']
+Line 330: Unexpected errors ['typeddicts_extra_items.py:330:0 Incompatible variable type [9]: regular_dict is declared to have type `Dict[str, int]` but is used as type `IntDictWithNum`.']
+Line 337: Unexpected errors ['typeddicts_extra_items.py:337:0 Undefined attribute [16]: `IntDictWithNum` has no attribute `clear`.']
+Line 339: Unexpected errors ['typeddicts_extra_items.py:339:0 Assert type [70]: Expected `Tuple[str, int]` but got `typing.Any`.', 'typeddicts_extra_items.py:339:12 Undefined attribute [16]: `IntDictWithNum` has no attribute `popitem`.']
+Line 342: Unexpected errors ["typeddicts_extra_items.py:342:26 TypedDict accessed with a non-literal [26]: TypedDict key must be a string literal. Expected one of ('num')."]
+Line 343: Unexpected errors ["typeddicts_extra_items.py:343:30 TypedDict accessed with a non-literal [26]: TypedDict key must be a string literal. Expected one of ('num')."]
 """
 output = """
 typeddicts_extra_items.py:11:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
@@ -105,37 +106,38 @@ typeddicts_extra_items.py:165:0 Unexpected keyword [28]: Unexpected keyword argu
 typeddicts_extra_items.py:171:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
 typeddicts_extra_items.py:174:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
 typeddicts_extra_items.py:181:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
-typeddicts_extra_items.py:207:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
-typeddicts_extra_items.py:214:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
-typeddicts_extra_items.py:225:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
+typeddicts_extra_items.py:193:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
+typeddicts_extra_items.py:210:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
+typeddicts_extra_items.py:217:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
 typeddicts_extra_items.py:228:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
-typeddicts_extra_items.py:232:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
-typeddicts_extra_items.py:245:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
+typeddicts_extra_items.py:231:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
+typeddicts_extra_items.py:235:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
 typeddicts_extra_items.py:248:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
-typeddicts_extra_items.py:251:27 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.
-typeddicts_extra_items.py:252:27 TypedDict initialization error [55]: TypedDict `MovieExtraStr` has no field `description`.
-typeddicts_extra_items.py:263:28 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.
-typeddicts_extra_items.py:275:0 Unexpected keyword [28]: Unexpected keyword argument `year` to call `NonClosedMovie.__init__`.
-typeddicts_extra_items.py:277:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
-typeddicts_extra_items.py:281:0 Unexpected keyword [28]: Unexpected keyword argument `year` to call `ExtraMovie.__init__`.
-typeddicts_extra_items.py:282:0 Unexpected keyword [28]: Unexpected keyword argument `language` to call `ExtraMovie.__init__`.
-typeddicts_extra_items.py:286:0 Unexpected keyword [28]: Unexpected keyword argument `closed` to call `object.__init_subclass__`.
-typeddicts_extra_items.py:290:0 Unexpected keyword [28]: Unexpected keyword argument `year` to call `ClosedMovie.__init__`.
-typeddicts_extra_items.py:296:28 TypedDict initialization error [55]: TypedDict `MovieExtraStr` has no field `summary`.
-typeddicts_extra_items.py:297:0 Incompatible variable type [9]: str_mapping is declared to have type `Mapping[str, str]` but is used as type `MovieExtraStr`.
-typeddicts_extra_items.py:299:28 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.
-typeddicts_extra_items.py:300:0 Incompatible variable type [9]: int_mapping is declared to have type `Mapping[str, int]` but is used as type `MovieExtraInt`.
-typeddicts_extra_items.py:301:0 Incompatible variable type [9]: int_str_mapping is declared to have type `Mapping[str, Union[int, str]]` but is used as type `MovieExtraInt`.
-typeddicts_extra_items.py:307:4 Assert type [70]: Expected `List[Tuple[str, Union[int, str]]]` but got `List[Tuple[str, object]]`.
-typeddicts_extra_items.py:308:4 Assert type [70]: Expected `List[Union[int, str]]` but got `List[object]`.
-typeddicts_extra_items.py:316:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
-typeddicts_extra_items.py:323:4 Incompatible variable type [9]: v is declared to have type `Dict[str, int]` but is used as type `IntDict`.
-typeddicts_extra_items.py:326:40 TypedDict initialization error [55]: TypedDict `IntDictWithNum` has no field `bar`.
-typeddicts_extra_items.py:327:0 Incompatible variable type [9]: regular_dict is declared to have type `Dict[str, int]` but is used as type `IntDictWithNum`.
-typeddicts_extra_items.py:334:0 Undefined attribute [16]: `IntDictWithNum` has no attribute `clear`.
-typeddicts_extra_items.py:336:0 Assert type [70]: Expected `Tuple[str, int]` but got `typing.Any`.
-typeddicts_extra_items.py:336:12 Undefined attribute [16]: `IntDictWithNum` has no attribute `popitem`.
-typeddicts_extra_items.py:339:26 TypedDict accessed with a non-literal [26]: TypedDict key must be a string literal. Expected one of ('num').
-typeddicts_extra_items.py:340:30 TypedDict accessed with a non-literal [26]: TypedDict key must be a string literal. Expected one of ('num').
-typeddicts_extra_items.py:349:4 Incompatible variable type [9]: int_dict is declared to have type `IntDict` but is used as type `Dict[str, int]`.
+typeddicts_extra_items.py:251:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
+typeddicts_extra_items.py:254:27 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.
+typeddicts_extra_items.py:255:27 TypedDict initialization error [55]: TypedDict `MovieExtraStr` has no field `description`.
+typeddicts_extra_items.py:266:28 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.
+typeddicts_extra_items.py:278:0 Unexpected keyword [28]: Unexpected keyword argument `year` to call `NonClosedMovie.__init__`.
+typeddicts_extra_items.py:280:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
+typeddicts_extra_items.py:284:0 Unexpected keyword [28]: Unexpected keyword argument `year` to call `ExtraMovie.__init__`.
+typeddicts_extra_items.py:285:0 Unexpected keyword [28]: Unexpected keyword argument `language` to call `ExtraMovie.__init__`.
+typeddicts_extra_items.py:289:0 Unexpected keyword [28]: Unexpected keyword argument `closed` to call `object.__init_subclass__`.
+typeddicts_extra_items.py:293:0 Unexpected keyword [28]: Unexpected keyword argument `year` to call `ClosedMovie.__init__`.
+typeddicts_extra_items.py:299:28 TypedDict initialization error [55]: TypedDict `MovieExtraStr` has no field `summary`.
+typeddicts_extra_items.py:300:0 Incompatible variable type [9]: str_mapping is declared to have type `Mapping[str, str]` but is used as type `MovieExtraStr`.
+typeddicts_extra_items.py:302:28 TypedDict initialization error [55]: TypedDict `MovieExtraInt` has no field `year`.
+typeddicts_extra_items.py:303:0 Incompatible variable type [9]: int_mapping is declared to have type `Mapping[str, int]` but is used as type `MovieExtraInt`.
+typeddicts_extra_items.py:304:0 Incompatible variable type [9]: int_str_mapping is declared to have type `Mapping[str, Union[int, str]]` but is used as type `MovieExtraInt`.
+typeddicts_extra_items.py:310:4 Assert type [70]: Expected `List[Tuple[str, Union[int, str]]]` but got `List[Tuple[str, object]]`.
+typeddicts_extra_items.py:311:4 Assert type [70]: Expected `List[Union[int, str]]` but got `List[object]`.
+typeddicts_extra_items.py:319:0 Unexpected keyword [28]: Unexpected keyword argument `extra_items` to call `object.__init_subclass__`.
+typeddicts_extra_items.py:326:4 Incompatible variable type [9]: v is declared to have type `Dict[str, int]` but is used as type `IntDict`.
+typeddicts_extra_items.py:329:40 TypedDict initialization error [55]: TypedDict `IntDictWithNum` has no field `bar`.
+typeddicts_extra_items.py:330:0 Incompatible variable type [9]: regular_dict is declared to have type `Dict[str, int]` but is used as type `IntDictWithNum`.
+typeddicts_extra_items.py:337:0 Undefined attribute [16]: `IntDictWithNum` has no attribute `clear`.
+typeddicts_extra_items.py:339:0 Assert type [70]: Expected `Tuple[str, int]` but got `typing.Any`.
+typeddicts_extra_items.py:339:12 Undefined attribute [16]: `IntDictWithNum` has no attribute `popitem`.
+typeddicts_extra_items.py:342:26 TypedDict accessed with a non-literal [26]: TypedDict key must be a string literal. Expected one of ('num').
+typeddicts_extra_items.py:343:30 TypedDict accessed with a non-literal [26]: TypedDict key must be a string literal. Expected one of ('num').
+typeddicts_extra_items.py:352:4 Incompatible variable type [9]: int_dict is declared to have type `IntDict` but is used as type `Dict[str, int]`.
 """

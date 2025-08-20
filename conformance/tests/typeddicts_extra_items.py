@@ -187,11 +187,14 @@ class MovieRequiredYear(MovieBase2):  # E[MovieRequiredYear]: Required key 'year
 class MovieNotRequiredYear(MovieBase2):  # E[MovieNotRequiredYear]: 'int | None' is not consistent with 'int'
     year: NotRequired[int]  # E[MovieNotRequiredYear]
 
-class MovieWithYear(MovieBase):  # OK
+class MovieWithYear(MovieBase2):  # OK
     year: NotRequired[int | None]
 
-class MovieWithDirector(MovieBase):  # E[MovieWithDirector]: 'str' is not assignable to 'int | None'
-    director: str  # E[MovieWithDirector]
+class BookBase(TypedDict, extra_items=ReadOnly[int | None]):
+    name: str
+
+class BookWithPublisher(BookBase):  # E[BookWithPublisher]: 'str' is not assignable to 'int | None'
+    publisher: str  # E[BookWithPublisher]
 
 # > Let ``S`` be the set of keys of the explicitly defined items on a TypedDict
 # > type. If it specifies ``extra_items=T``, the TypedDict type is considered to

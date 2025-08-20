@@ -5,17 +5,17 @@ Not supported.
 conformance_automated = "Fail"
 errors_diff = """
 Line 22: Expected 1 errors
-Line 212: Expected 1 errors
-Line 219: Expected 1 errors
-Line 239: Expected 1 errors
-Line 253: Expected 1 errors
-Line 254: Expected 1 errors
-Line 265: Expected 1 errors
+Line 215: Expected 1 errors
+Line 222: Expected 1 errors
+Line 242: Expected 1 errors
+Line 256: Expected 1 errors
+Line 257: Expected 1 errors
+Line 268: Expected 1 errors
 Lines 91, 92: Expected error (tag 'MovieC')
 Lines 94, 95: Expected error (tag 'MovieD')
 Lines 184, 185: Expected error (tag 'MovieRequiredYear')
 Lines 187, 188: Expected error (tag 'MovieNotRequiredYear')
-Lines 193, 194: Expected error (tag 'MovieWithDirector')
+Lines 196, 197: Expected error (tag 'BookWithPublisher')
 Line 11: Unexpected errors ['typeddicts_extra_items.py:11: error: Unexpected keyword argument "extra_items" for TypedDict']
 Line 14: Unexpected errors ['typeddicts_extra_items.py:14: error: Extra key "novel_adaptation" for TypedDict "Movie"']
 Line 19: Unexpected errors ['typeddicts_extra_items.py:19: error: Unexpected keyword argument "extra_items" for "TypedDict"']
@@ -40,33 +40,34 @@ Line 155: Unexpected errors ['typeddicts_extra_items.py:155: error: Unexpected k
 Line 165: Unexpected errors ['typeddicts_extra_items.py:165: error: Unexpected keyword argument "extra_items" for TypedDict']
 Line 171: Unexpected errors ['typeddicts_extra_items.py:171: error: Unexpected keyword argument "extra_items" for TypedDict']
 Line 181: Unexpected errors ['typeddicts_extra_items.py:181: error: Unexpected keyword argument "extra_items" for TypedDict']
-Line 207: Unexpected errors ['typeddicts_extra_items.py:207: error: Unexpected keyword argument "extra_items" for TypedDict']
-Line 214: Unexpected errors ['typeddicts_extra_items.py:214: error: Unexpected keyword argument "extra_items" for TypedDict']
-Line 225: Unexpected errors ['typeddicts_extra_items.py:225: error: Unexpected keyword argument "extra_items" for TypedDict']
+Line 193: Unexpected errors ['typeddicts_extra_items.py:193: error: Unexpected keyword argument "extra_items" for TypedDict']
+Line 210: Unexpected errors ['typeddicts_extra_items.py:210: error: Unexpected keyword argument "extra_items" for TypedDict']
+Line 217: Unexpected errors ['typeddicts_extra_items.py:217: error: Unexpected keyword argument "extra_items" for TypedDict']
 Line 228: Unexpected errors ['typeddicts_extra_items.py:228: error: Unexpected keyword argument "extra_items" for TypedDict']
-Line 232: Unexpected errors ['typeddicts_extra_items.py:232: error: Unexpected keyword argument "extra_items" for TypedDict']
-Line 245: Unexpected errors ['typeddicts_extra_items.py:245: error: Unexpected keyword argument "extra_items" for TypedDict']
+Line 231: Unexpected errors ['typeddicts_extra_items.py:231: error: Unexpected keyword argument "extra_items" for TypedDict']
+Line 235: Unexpected errors ['typeddicts_extra_items.py:235: error: Unexpected keyword argument "extra_items" for TypedDict']
 Line 248: Unexpected errors ['typeddicts_extra_items.py:248: error: Unexpected keyword argument "extra_items" for TypedDict']
-Line 251: Unexpected errors ['typeddicts_extra_items.py:251: error: Extra key "year" for TypedDict "MovieExtraInt"']
-Line 252: Unexpected errors ['typeddicts_extra_items.py:252: error: Extra key "description" for TypedDict "MovieExtraStr"']
-Line 263: Unexpected errors ['typeddicts_extra_items.py:263: error: Extra key "year" for TypedDict "MovieExtraInt"']
-Line 277: Unexpected errors ['typeddicts_extra_items.py:277: error: Unexpected keyword argument "extra_items" for TypedDict']
-Line 281: Unexpected errors ['typeddicts_extra_items.py:281: error: Extra key "year" for TypedDict "ExtraMovie"']
-Line 286: Unexpected errors ['typeddicts_extra_items.py:286: error: Unexpected keyword argument "closed" for TypedDict']
-Line 296: Unexpected errors ['typeddicts_extra_items.py:296: error: Extra key "summary" for TypedDict "MovieExtraStr"']
-Line 297: Unexpected errors ['typeddicts_extra_items.py:297: error: Incompatible types in assignment (expression has type "MovieExtraStr", variable has type "Mapping[str, str]")']
-Line 299: Unexpected errors ['typeddicts_extra_items.py:299: error: Extra key "year" for TypedDict "MovieExtraInt"']
-Line 301: Unexpected errors ['typeddicts_extra_items.py:301: error: Incompatible types in assignment (expression has type "MovieExtraInt", variable has type "Mapping[str, int | str]")']
-Line 307: Unexpected errors ['typeddicts_extra_items.py:307: error: Expression is of type "list[tuple[str, object]]", not "list[tuple[str, int | str]]"']
-Line 308: Unexpected errors ['typeddicts_extra_items.py:308: error: Expression is of type "list[object]", not "list[int | str]"']
-Line 316: Unexpected errors ['typeddicts_extra_items.py:316: error: Unexpected keyword argument "extra_items" for TypedDict']
-Line 323: Unexpected errors ['typeddicts_extra_items.py:323: error: Incompatible types in assignment (expression has type "IntDict", variable has type "dict[str, int]")']
-Line 326: Unexpected errors ['typeddicts_extra_items.py:326: error: Extra key "bar" for TypedDict "IntDictWithNum"']
-Line 327: Unexpected errors ['typeddicts_extra_items.py:327: error: Incompatible types in assignment (expression has type "IntDictWithNum", variable has type "dict[str, int]")']
-Line 334: Unexpected errors ['typeddicts_extra_items.py:334: error: "IntDictWithNum" has no attribute "clear"']
-Line 336: Unexpected errors ['typeddicts_extra_items.py:336: error: Expression is of type "Any", not "tuple[str, int]"', 'typeddicts_extra_items.py:336: error: "IntDictWithNum" has no attribute "popitem"']
-Line 339: Unexpected errors ['typeddicts_extra_items.py:339: error: TypedDict key must be a string literal; expected one of ("num")']
-Line 340: Unexpected errors ['typeddicts_extra_items.py:340: error: Expected TypedDict key to be string literal']
+Line 251: Unexpected errors ['typeddicts_extra_items.py:251: error: Unexpected keyword argument "extra_items" for TypedDict']
+Line 254: Unexpected errors ['typeddicts_extra_items.py:254: error: Extra key "year" for TypedDict "MovieExtraInt"']
+Line 255: Unexpected errors ['typeddicts_extra_items.py:255: error: Extra key "description" for TypedDict "MovieExtraStr"']
+Line 266: Unexpected errors ['typeddicts_extra_items.py:266: error: Extra key "year" for TypedDict "MovieExtraInt"']
+Line 280: Unexpected errors ['typeddicts_extra_items.py:280: error: Unexpected keyword argument "extra_items" for TypedDict']
+Line 284: Unexpected errors ['typeddicts_extra_items.py:284: error: Extra key "year" for TypedDict "ExtraMovie"']
+Line 289: Unexpected errors ['typeddicts_extra_items.py:289: error: Unexpected keyword argument "closed" for TypedDict']
+Line 299: Unexpected errors ['typeddicts_extra_items.py:299: error: Extra key "summary" for TypedDict "MovieExtraStr"']
+Line 300: Unexpected errors ['typeddicts_extra_items.py:300: error: Incompatible types in assignment (expression has type "MovieExtraStr", variable has type "Mapping[str, str]")']
+Line 302: Unexpected errors ['typeddicts_extra_items.py:302: error: Extra key "year" for TypedDict "MovieExtraInt"']
+Line 304: Unexpected errors ['typeddicts_extra_items.py:304: error: Incompatible types in assignment (expression has type "MovieExtraInt", variable has type "Mapping[str, int | str]")']
+Line 310: Unexpected errors ['typeddicts_extra_items.py:310: error: Expression is of type "list[tuple[str, object]]", not "list[tuple[str, int | str]]"']
+Line 311: Unexpected errors ['typeddicts_extra_items.py:311: error: Expression is of type "list[object]", not "list[int | str]"']
+Line 319: Unexpected errors ['typeddicts_extra_items.py:319: error: Unexpected keyword argument "extra_items" for TypedDict']
+Line 326: Unexpected errors ['typeddicts_extra_items.py:326: error: Incompatible types in assignment (expression has type "IntDict", variable has type "dict[str, int]")']
+Line 329: Unexpected errors ['typeddicts_extra_items.py:329: error: Extra key "bar" for TypedDict "IntDictWithNum"']
+Line 330: Unexpected errors ['typeddicts_extra_items.py:330: error: Incompatible types in assignment (expression has type "IntDictWithNum", variable has type "dict[str, int]")']
+Line 337: Unexpected errors ['typeddicts_extra_items.py:337: error: "IntDictWithNum" has no attribute "clear"']
+Line 339: Unexpected errors ['typeddicts_extra_items.py:339: error: Expression is of type "Any", not "tuple[str, int]"', 'typeddicts_extra_items.py:339: error: "IntDictWithNum" has no attribute "popitem"']
+Line 342: Unexpected errors ['typeddicts_extra_items.py:342: error: TypedDict key must be a string literal; expected one of ("num")']
+Line 343: Unexpected errors ['typeddicts_extra_items.py:343: error: Expected TypedDict key to be string literal']
 """
 output = """
 typeddicts_extra_items.py:11: error: Unexpected keyword argument "extra_items" for TypedDict
@@ -105,37 +106,38 @@ typeddicts_extra_items.py:165: error: Unexpected keyword argument "extra_items" 
 typeddicts_extra_items.py:171: error: Unexpected keyword argument "extra_items" for TypedDict
 typeddicts_extra_items.py:174: error: Unexpected keyword argument "extra_items" for TypedDict
 typeddicts_extra_items.py:181: error: Unexpected keyword argument "extra_items" for TypedDict
-typeddicts_extra_items.py:207: error: Unexpected keyword argument "extra_items" for TypedDict
-typeddicts_extra_items.py:214: error: Unexpected keyword argument "extra_items" for TypedDict
-typeddicts_extra_items.py:225: error: Unexpected keyword argument "extra_items" for TypedDict
+typeddicts_extra_items.py:193: error: Unexpected keyword argument "extra_items" for TypedDict
+typeddicts_extra_items.py:210: error: Unexpected keyword argument "extra_items" for TypedDict
+typeddicts_extra_items.py:217: error: Unexpected keyword argument "extra_items" for TypedDict
 typeddicts_extra_items.py:228: error: Unexpected keyword argument "extra_items" for TypedDict
-typeddicts_extra_items.py:232: error: Unexpected keyword argument "extra_items" for TypedDict
-typeddicts_extra_items.py:245: error: Unexpected keyword argument "extra_items" for TypedDict
+typeddicts_extra_items.py:231: error: Unexpected keyword argument "extra_items" for TypedDict
+typeddicts_extra_items.py:235: error: Unexpected keyword argument "extra_items" for TypedDict
 typeddicts_extra_items.py:248: error: Unexpected keyword argument "extra_items" for TypedDict
-typeddicts_extra_items.py:251: error: Extra key "year" for TypedDict "MovieExtraInt"
-typeddicts_extra_items.py:252: error: Extra key "description" for TypedDict "MovieExtraStr"
-typeddicts_extra_items.py:263: error: Extra key "year" for TypedDict "MovieExtraInt"
-typeddicts_extra_items.py:275: error: Extra key "year" for TypedDict "NonClosedMovie"
-typeddicts_extra_items.py:277: error: Unexpected keyword argument "extra_items" for TypedDict
-typeddicts_extra_items.py:281: error: Extra key "year" for TypedDict "ExtraMovie"
-typeddicts_extra_items.py:282: error: Extra key "language" for TypedDict "ExtraMovie"
-typeddicts_extra_items.py:286: error: Unexpected keyword argument "closed" for TypedDict
-typeddicts_extra_items.py:290: error: Extra key "year" for TypedDict "ClosedMovie"
-typeddicts_extra_items.py:296: error: Extra key "summary" for TypedDict "MovieExtraStr"
-typeddicts_extra_items.py:297: error: Incompatible types in assignment (expression has type "MovieExtraStr", variable has type "Mapping[str, str]")
-typeddicts_extra_items.py:299: error: Extra key "year" for TypedDict "MovieExtraInt"
-typeddicts_extra_items.py:300: error: Incompatible types in assignment (expression has type "MovieExtraInt", variable has type "Mapping[str, int]")
-typeddicts_extra_items.py:301: error: Incompatible types in assignment (expression has type "MovieExtraInt", variable has type "Mapping[str, int | str]")
-typeddicts_extra_items.py:307: error: Expression is of type "list[tuple[str, object]]", not "list[tuple[str, int | str]]"
-typeddicts_extra_items.py:308: error: Expression is of type "list[object]", not "list[int | str]"
-typeddicts_extra_items.py:316: error: Unexpected keyword argument "extra_items" for TypedDict
-typeddicts_extra_items.py:323: error: Incompatible types in assignment (expression has type "IntDict", variable has type "dict[str, int]")
-typeddicts_extra_items.py:326: error: Extra key "bar" for TypedDict "IntDictWithNum"
-typeddicts_extra_items.py:327: error: Incompatible types in assignment (expression has type "IntDictWithNum", variable has type "dict[str, int]")
-typeddicts_extra_items.py:334: error: "IntDictWithNum" has no attribute "clear"
-typeddicts_extra_items.py:336: error: Expression is of type "Any", not "tuple[str, int]"
-typeddicts_extra_items.py:336: error: "IntDictWithNum" has no attribute "popitem"
-typeddicts_extra_items.py:339: error: TypedDict key must be a string literal; expected one of ("num")
-typeddicts_extra_items.py:340: error: Expected TypedDict key to be string literal
-typeddicts_extra_items.py:349: error: Incompatible types in assignment (expression has type "dict[str, int]", variable has type "IntDict")
+typeddicts_extra_items.py:251: error: Unexpected keyword argument "extra_items" for TypedDict
+typeddicts_extra_items.py:254: error: Extra key "year" for TypedDict "MovieExtraInt"
+typeddicts_extra_items.py:255: error: Extra key "description" for TypedDict "MovieExtraStr"
+typeddicts_extra_items.py:266: error: Extra key "year" for TypedDict "MovieExtraInt"
+typeddicts_extra_items.py:278: error: Extra key "year" for TypedDict "NonClosedMovie"
+typeddicts_extra_items.py:280: error: Unexpected keyword argument "extra_items" for TypedDict
+typeddicts_extra_items.py:284: error: Extra key "year" for TypedDict "ExtraMovie"
+typeddicts_extra_items.py:285: error: Extra key "language" for TypedDict "ExtraMovie"
+typeddicts_extra_items.py:289: error: Unexpected keyword argument "closed" for TypedDict
+typeddicts_extra_items.py:293: error: Extra key "year" for TypedDict "ClosedMovie"
+typeddicts_extra_items.py:299: error: Extra key "summary" for TypedDict "MovieExtraStr"
+typeddicts_extra_items.py:300: error: Incompatible types in assignment (expression has type "MovieExtraStr", variable has type "Mapping[str, str]")
+typeddicts_extra_items.py:302: error: Extra key "year" for TypedDict "MovieExtraInt"
+typeddicts_extra_items.py:303: error: Incompatible types in assignment (expression has type "MovieExtraInt", variable has type "Mapping[str, int]")
+typeddicts_extra_items.py:304: error: Incompatible types in assignment (expression has type "MovieExtraInt", variable has type "Mapping[str, int | str]")
+typeddicts_extra_items.py:310: error: Expression is of type "list[tuple[str, object]]", not "list[tuple[str, int | str]]"
+typeddicts_extra_items.py:311: error: Expression is of type "list[object]", not "list[int | str]"
+typeddicts_extra_items.py:319: error: Unexpected keyword argument "extra_items" for TypedDict
+typeddicts_extra_items.py:326: error: Incompatible types in assignment (expression has type "IntDict", variable has type "dict[str, int]")
+typeddicts_extra_items.py:329: error: Extra key "bar" for TypedDict "IntDictWithNum"
+typeddicts_extra_items.py:330: error: Incompatible types in assignment (expression has type "IntDictWithNum", variable has type "dict[str, int]")
+typeddicts_extra_items.py:337: error: "IntDictWithNum" has no attribute "clear"
+typeddicts_extra_items.py:339: error: Expression is of type "Any", not "tuple[str, int]"
+typeddicts_extra_items.py:339: error: "IntDictWithNum" has no attribute "popitem"
+typeddicts_extra_items.py:342: error: TypedDict key must be a string literal; expected one of ("num")
+typeddicts_extra_items.py:343: error: Expected TypedDict key to be string literal
+typeddicts_extra_items.py:352: error: Incompatible types in assignment (expression has type "dict[str, int]", variable has type "IntDict")
 """
