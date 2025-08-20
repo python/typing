@@ -54,7 +54,7 @@ As an example, consider this simple calculator:
 .. code:: python
 
    import enum
-   from typing_extensions import Never
+   from typing import Never
 
    def assert_never(arg: Never) -> Never:
        raise AssertionError("Expected code to be unreachable")
@@ -71,6 +71,11 @@ As an example, consider this simple calculator:
                return left - right
            case _:
                assert_never(op)
+
+.. note::
+
+   To use this feature on Python versions earlier than 3.11, you will need to
+   import ``Never`` from ``typing_extensions`` (version 4.1 or newer).
 
 The ``match`` statement covers all members of the ``Op`` enum,
 so the ``assert_never()`` call is unreachable and the type checker
