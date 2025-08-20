@@ -514,6 +514,7 @@ For example::
   a: ProtoA = C  # Type check error, signatures don't match!
   b: ProtoB = C  # OK
 
+.. _`protocol-newtype-aliases`:
 
 ``NewType()`` and type aliases
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
