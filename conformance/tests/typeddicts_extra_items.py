@@ -65,13 +65,13 @@ class ClosedBase(TypedDict, closed=True):
     name: str
 
 class IllegalChild1(ClosedBase, closed=False):  # E: Cannot set 'closed=False' when superclass is 'closed=True'
-    age: int
+    pass
 
 class ExtraItemsBase(TypedDict, extra_items=int):
     name: str
 
 class IllegalChild2(ExtraItemsBase, closed=False):  # E: Cannot set 'closed=False' when superclass has 'extra_items'
-    age: int
+    pass
 
 # > If ``closed`` is not provided, the behavior is inherited from the superclass.
 # > If the superclass is TypedDict itself or the superclass does not have ``closed=True``
@@ -104,6 +104,9 @@ class MovieClosed(MovieES, closed=True):  # OK
     pass
 
 class MovieNever(MovieES, extra_items=Never):  # OK, but 'closed=True' is preferred
+    pass
+
+class IllegalCloseNonReadOnly(ExtraItemsBase, closed=True):  # E: Cannot set 'closed=True' when superclass has non-read-only 'extra_items'
     pass
 
 # > It is an error to use ``Required[]`` or ``NotRequired[]`` with ``extra_items``.
@@ -178,14 +181,17 @@ class Child(Parent, extra_items=int): # E: Cannot change 'extra_items' type unle
 class MovieBase2(TypedDict, extra_items=int | None):
     name: str
 
-class MovieRequiredYear(MovieBase2):  # E: Required key 'year' is not known to 'MovieBase'
-    year: int | None
+class MovieRequiredYear(MovieBase2):  # E[MovieRequiredYear]: Required key 'year' is not known to 'MovieBase'
+    year: int | None  # E[MovieRequiredYear]
 
-class MovieNotRequiredYear(MovieBase2):  # E: 'int | None' is not consistent with 'int'
-    year: NotRequired[int]
+class MovieNotRequiredYear(MovieBase2):  # E[MovieNotRequiredYear]: 'int | None' is not consistent with 'int'
+    year: NotRequired[int]  # E[MovieNotRequiredYear]
 
 class MovieWithYear(MovieBase):  # OK
     year: NotRequired[int | None]
+
+class MovieWithDirector(MovieBase):  # E[MovieWithDirector]: 'str' is not assignable to 'int | None'
+    director: str  # E[MovieWithDirector]
 
 # > Let ``S`` be the set of keys of the explicitly defined items on a TypedDict
 # > type. If it specifies ``extra_items=T``, the TypedDict type is considered to
