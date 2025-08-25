@@ -1,6 +1,11 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not flag illegal use of `closed=False` when inheriting from a non-open TypedDict.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 67: Expected 1 errors
+Line 73: Expected 1 errors
 """
 output = """
 typeddicts_extra_items.py:15:45 - error: Type "dict[str, str | int]" is not assignable to declared type "Movie"
@@ -10,56 +15,56 @@ typeddicts_extra_items.py:22:55 - error: Type "dict[str, str | int]" is not assi
 typeddicts_extra_items.py:39:54 - error: Type "dict[str, str | None]" is not assignable to declared type "InheritedMovie"
   "None" is not assignable to "int" (reportAssignmentType)
 typeddicts_extra_items.py:49:35 - error: Expected "closed" parameter to have a value of True or False (reportGeneralTypeIssues)
-typeddicts_extra_items.py:67:7 - error: Base class "ClosedBase" is a TypedDict that limits the type of extra items to type "Never"
-  Cannot add item "age" (reportIncompatibleVariableOverride)
-typeddicts_extra_items.py:73:7 - error: Base class "ExtraItemsBase" is a TypedDict that limits the type of extra items to type "int"
-  Cannot add item "age" because it must be NotRequired (reportIncompatibleVariableOverride)
 typeddicts_extra_items.py:91:7 - error: Base class "MovieA" is a TypedDict that limits the type of extra items to type "Never"
   Cannot add item "age" (reportIncompatibleVariableOverride)
 typeddicts_extra_items.py:94:7 - error: Base class "MovieB" is a TypedDict that limits the type of extra items to type "Never"
   Cannot add item "age" (reportIncompatibleVariableOverride)
-typeddicts_extra_items.py:111:50 - error: "Required" is not allowed in this context (reportInvalidTypeForm)
-typeddicts_extra_items.py:114:57 - error: "NotRequired" is not allowed in this context (reportInvalidTypeForm)
-typeddicts_extra_items.py:125:9 - error: Could not delete item in TypedDict
+typeddicts_extra_items.py:109:7 - error: Base class "ExtraItemsBase" is a TypedDict that limits the type of extra items to type "int"
+  Cannot add item "extra_items" with type "Never" (reportIncompatibleVariableOverride)
+typeddicts_extra_items.py:114:50 - error: "Required" is not allowed in this context (reportInvalidTypeForm)
+typeddicts_extra_items.py:117:57 - error: "NotRequired" is not allowed in this context (reportInvalidTypeForm)
+typeddicts_extra_items.py:128:9 - error: Could not delete item in TypedDict
   "name" is a required key and cannot be deleted (reportGeneralTypeIssues)
-typeddicts_extra_items.py:140:48 - error: No parameter named "year" (reportCallIssue)
-typeddicts_extra_items.py:171:7 - error: Base class "Parent" is a TypedDict that limits the type of extra items to type "int | None"
+typeddicts_extra_items.py:143:48 - error: No parameter named "year" (reportCallIssue)
+typeddicts_extra_items.py:174:7 - error: Base class "Parent" is a TypedDict that limits the type of extra items to type "int | None"
   Cannot add item "extra_items" with type "int" (reportIncompatibleVariableOverride)
-typeddicts_extra_items.py:181:7 - error: Base class "MovieBase2" is a TypedDict that limits the type of extra items to type "int | None"
-  Cannot add item "year" because it must be NotRequired (reportIncompatibleVariableOverride)
 typeddicts_extra_items.py:184:7 - error: Base class "MovieBase2" is a TypedDict that limits the type of extra items to type "int | None"
+  Cannot add item "year" because it must be NotRequired (reportIncompatibleVariableOverride)
+typeddicts_extra_items.py:187:7 - error: Base class "MovieBase2" is a TypedDict that limits the type of extra items to type "int | None"
   Cannot add item "year" with type "int" (reportIncompatibleVariableOverride)
-typeddicts_extra_items.py:206:22 - error: Type "MovieDetails" is not assignable to declared type "MovieBase2"
+typeddicts_extra_items.py:196:7 - error: Base class "BookBase" is a TypedDict that limits the type of extra items to type "int | None"
+  Cannot add item "publisher" with type "str" (reportIncompatibleVariableOverride)
+typeddicts_extra_items.py:215:22 - error: Type "MovieDetails" is not assignable to declared type "MovieBase2"
   Type of "year" is incompatible with type of "extra_items" in "MovieBase2"
     Type "int" is not assignable to type "int | None"
       "int" is not assignable to "None" (reportAssignmentType)
-typeddicts_extra_items.py:213:22 - error: Type "MovieWithYear2" is not assignable to declared type "MovieBase2"
+typeddicts_extra_items.py:222:22 - error: Type "MovieWithYear2" is not assignable to declared type "MovieBase2"
   "year" is not required in "MovieBase2" (reportAssignmentType)
-typeddicts_extra_items.py:233:19 - error: Type "MovieDetails5" is not assignable to declared type "MovieSI"
+typeddicts_extra_items.py:242:19 - error: Type "MovieDetails5" is not assignable to declared type "MovieSI"
   Type of "actors" is incompatible with type of "extra_items" in "MovieSI"
     Type "list[str]" is not assignable to type "str | int"
       "list[str]" is not assignable to "str"
       "list[str]" is not assignable to "int" (reportAssignmentType)
-typeddicts_extra_items.py:247:13 - error: Type "MovieExtraStr" is not assignable to declared type "MovieExtraInt"
+typeddicts_extra_items.py:256:13 - error: Type "MovieExtraStr" is not assignable to declared type "MovieExtraInt"
   Type of "extra_items" is incompatible with type of "extra_items" in "MovieExtraStr"
     "str" is not assignable to "int" (reportAssignmentType)
-typeddicts_extra_items.py:248:13 - error: Type "MovieExtraInt" is not assignable to declared type "MovieExtraStr"
+typeddicts_extra_items.py:257:13 - error: Type "MovieExtraInt" is not assignable to declared type "MovieExtraStr"
   Type of "extra_items" is incompatible with type of "extra_items" in "MovieExtraInt"
     "int" is not assignable to "str" (reportAssignmentType)
-typeddicts_extra_items.py:259:14 - error: Type "MovieNotClosed" is not assignable to declared type "MovieExtraInt"
+typeddicts_extra_items.py:268:14 - error: Type "MovieNotClosed" is not assignable to declared type "MovieExtraInt"
   Type of "extra_items" is incompatible with type of "extra_items" in "MovieNotClosed"
     "object" is not assignable to "int" (reportAssignmentType)
-typeddicts_extra_items.py:269:1 - error: No overloads for "__init__" match the provided arguments
+typeddicts_extra_items.py:278:1 - error: No overloads for "__init__" match the provided arguments
   Argument types: (Literal['No Country for Old Men'], Literal[2007]) (reportCallIssue)
-typeddicts_extra_items.py:276:52 - error: Argument of type "Literal['English']" cannot be assigned to parameter "language" of type "int" in function "__init__"
+typeddicts_extra_items.py:285:52 - error: Argument of type "Literal['English']" cannot be assigned to parameter "language" of type "int" in function "__init__"
   "Literal['English']" is not assignable to "int" (reportArgumentType)
-typeddicts_extra_items.py:284:1 - error: No overloads for "__init__" match the provided arguments
+typeddicts_extra_items.py:293:1 - error: No overloads for "__init__" match the provided arguments
   Argument types: (Literal['No Country for Old Men'], Literal[2007]) (reportCallIssue)
-typeddicts_extra_items.py:294:34 - error: Type "MovieExtraInt" is not assignable to declared type "Mapping[str, int]"
+typeddicts_extra_items.py:303:34 - error: Type "MovieExtraInt" is not assignable to declared type "Mapping[str, int]"
   "Mapping[str, str | int]" is not assignable to "Mapping[str, int]"
     Type parameter "_VT_co@Mapping" is covariant, but "str | int" is not a subtype of "int"
       Type "str | int" is not assignable to type "int"
         "str" is not assignable to "int" (reportAssignmentType)
-typeddicts_extra_items.py:343:25 - error: Type "dict[str, int]" is not assignable to declared type "IntDict"
+typeddicts_extra_items.py:352:25 - error: Type "dict[str, int]" is not assignable to declared type "IntDict"
   "dict[str, int]" is not assignable to "IntDict" (reportAssignmentType)
 """
