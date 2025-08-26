@@ -196,8 +196,10 @@ Only the overloads (the ``@overload``-decorated signatures) should be
 considered for matching purposes. The implementation, if provided,
 should be ignored for purposes of overload matching.
 
+Step 1
+~~~~~~
 
-Step 1: Examine the argument list to determine the number of
+Examine the argument list to determine the number of
 positional and keyword arguments. Use this information to eliminate any
 overload candidates that are not plausible based on their
 input signatures.
@@ -207,8 +209,10 @@ input signatures.
   it as if it were a non-overloaded function call and stop.
 - If two or more candidate overloads remain, proceed to step 2.
 
+Step 2
+~~~~~~
 
-Step 2: Evaluate each remaining overload as a regular (non-overloaded)
+Evaluate each remaining overload as a regular (non-overloaded)
 call to determine whether it is compatible with the supplied
 argument list. Unlike step 1, this step considers the types of the parameters
 and arguments. During this step, do not generate any user-visible errors.
@@ -219,8 +223,10 @@ Simply record which of the overloads result in evaluation errors.
   Evaluate it as if it were a non-overloaded function call and stop.
 - If two or more candidate overloads remain, proceed to step 4.
 
+Step 3
+~~~~~~
 
-Step 3: If step 2 produces errors for all overloads, perform
+If step 2 produces errors for all overloads, perform
 "argument type expansion". Union types can be expanded
 into their constituent subtypes. For example, the type ``int | str`` can
 be expanded into ``int`` and ``str``.
@@ -248,8 +254,10 @@ expanded argument lists.
 For additional details about argument type expansion, see
 `argument-type-expansion`_ below.
 
+Step 4
+~~~~~~
 
-Step 4: If the argument list is compatible with two or more overloads,
+If the argument list is compatible with two or more overloads,
 determine whether one or more of the overloads has a variadic parameter
 (either ``*args`` or ``**kwargs``) that maps to a corresponding argument
 that supplies an indeterminate number of positional or keyword arguments.
@@ -260,8 +268,10 @@ If so, eliminate overloads that do not have a variadic parameter.
   call and stop.
 - If two or more candidate overloads remain, proceed to step 5.
 
+Step 5
+~~~~~~
 
-Step 5: For all arguments, determine whether all possible
+For all arguments, determine whether all possible
 :term:`materializations <materialize>` of the argument's type are assignable to
 the corresponding parameter type for each of the remaining overloads. If so,
 eliminate all of the subsequent remaining overloads.
@@ -295,8 +305,10 @@ for all remaining overloads are :term:`equivalent`, proceed to step 6.
 If the return types are not equivalent, overload matching is ambiguous. In
 this case, assume a return type of ``Any`` and stop.
 
+Step 6
+~~~~~~
 
-Step 6: Choose the first remaining candidate overload as the winning
+Choose the first remaining candidate overload as the winning
 match. Evaluate it as if it were a non-overloaded function call and stop.
 
 Example 1::
