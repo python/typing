@@ -112,7 +112,8 @@ in the class definition:
 * ``closed``: a boolean literal (``True`` or ``False``) indicating whether
   the TypedDict is :term:`closed` (``True``) or :term:`open` (``False``).
   The latter is the default, except when inheriting from another TypedDict that
-  is not open (see :ref:`typeddict-inheritance`).
+  is not open (see :ref:`typeddict-inheritance`), or when the ``extra_items``
+  argument is also used.
   As with ``total``, the value must be exactly ``True`` or ``False``. It is an error
   to use this argument together with ``extra_items=``.
 * ``extra_items``: indicates that the TypedDict has :term:`extra items`. The argument
@@ -492,7 +493,7 @@ Multiple inheritance does not allow conflicting types for the same item::
 Subtyping and assignability
 ---------------------------
 
-Because TypedDict types are :term:`structural` types, a TypedDict ``T1`` is assignable to another
+Because TypedDict types are :term:`structural` types, a TypedDict ``T1`` is :term:`assignable` to another
 TypedDict type ``T2`` if the two are structurally compatible, meaning that all operations that
 are allowed on ``T2`` are also allowed on ``T1``. For similar reasons, TypedDict types are
 generally not assignable to any specialization of ``dict`` or ``Mapping``, other than ``Mapping[str, object]``,
@@ -501,7 +502,10 @@ to these types.
 
 The rest of this section discusses the :term:`subtyping <subtype>` rules for TypedDict in more detail.
 As with any type, the rules for :term:`assignability <assignable>` can be derived from the subtyping
-rules using the :term:`materialization <materialize>` procedure.
+rules using the :term:`materialization <materialize>` procedure. Generally, this means that where
+":term:`equivalent`" is mentioned below, the :term:`consistency <consistent>` relation can be used instead
+when implementing assignability, and where ":term:`subtyping <subtype>`" between elements of a
+TypedDict is mentioned, assignability can be used instead when implementing assignability between TypedDicts.
 
 Subtyping between TypedDict types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -518,6 +522,8 @@ The conditions are as follows:
 
     - It must also be required in ``B``.
     - If it is read-only in ``A``, the item type in ``B`` must be a subtype of the item type in ``A``.
+      (For :term:`assignability <assignable>` between two TypedDicts, the first item must instead
+      be assignable to the second.)
 
     - If it is mutable in ``A``, it must also be mutable in ``B``, and the item type in ``B`` must be
       :term:`equivalent` to the item type in ``A``. (It follows that for assignability, the two item types
@@ -536,14 +542,14 @@ The conditions are as follows:
     - If it is mutable in ``A``:
 
       - If ``B`` has an item with the same key, it must also be mutable, and its item type must be
-        :term:`equivalent` to the item type in ``A``. (As before, it follows that for assignability, the two item types
-        must be :term:`consistent`.)
+        :term:`equivalent` to the item type in ``A``.
 
       - Else:
 
         - If ``B`` is closed, the check fails.
         - If ``B`` has extra items, the extra items type must not be read-only and must
           be :term:`equivalent` to the item type in ``A``.
+
 - If ``A`` is closed, ``B`` must also be closed, and it must not contain any items that are not present in ``A``.
 - If ``A`` has read-only extra items, ``B`` must either be closed or also have extra items, and the extra items type in ``B``
   must be a subtype of the extra items type in ``A``. Additionally, for any items in ``B`` that are not present in ``A``,
