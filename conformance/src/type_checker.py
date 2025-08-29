@@ -10,7 +10,6 @@ import re
 import shutil
 from subprocess import PIPE, CalledProcessError, run
 import sys
-from tqdm import tqdm
 from typing import Sequence
 
 

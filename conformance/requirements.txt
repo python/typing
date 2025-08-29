@@ -1,6 +1,5 @@
 tomli
 tomlkit
-tqdm
 pyright
 mypy
 pip
