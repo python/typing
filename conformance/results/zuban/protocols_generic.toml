@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-protocols_generic.py:40: error: Incompatible types in assignment (expression has type "Concrete1", variable has type "Proto1[int, str]")
+protocols_generic.py:40: error: Incompatible types in assignment (expression has type "Concrete1", variable has type "Proto1[int, str]")  [assignment]
 protocols_generic.py:40: note: Following member(s) of "Concrete1" have conflicts:
 protocols_generic.py:40: note:     Expected:
 protocols_generic.py:40: note:         def method1(self, x: int) -> int
@@ -12,25 +12,25 @@ protocols_generic.py:40: note:     Expected:
 protocols_generic.py:40: note:         def __iter__(self) -> Iterator[str]
 protocols_generic.py:40: note:     Got:
 protocols_generic.py:40: note:         def __iter__(self) -> Iterator[int]
-protocols_generic.py:44: error: Only single Generic[...] or Protocol[...] can be in bases
-protocols_generic.py:56: error: Incompatible types in assignment (expression has type "Box[float]", variable has type "Box[int]")
-protocols_generic.py:66: error: Incompatible types in assignment (expression has type "Sender[int]", variable has type "Sender[float]")
-protocols_generic.py:74: error: Incompatible types in assignment (expression has type "AttrProto[int]", variable has type "AttrProto[float]")
-protocols_generic.py:75: error: Incompatible types in assignment (expression has type "AttrProto[float]", variable has type "AttrProto[int]")
-protocols_generic.py:145: error: Incompatible types in assignment (expression has type "ConcreteHasProperty2", variable has type "HasPropertyProto")
+protocols_generic.py:44: error: Only single Generic[...] or Protocol[...] can be in bases  [misc]
+protocols_generic.py:56: error: Incompatible types in assignment (expression has type "Box[float]", variable has type "Box[int]")  [assignment]
+protocols_generic.py:66: error: Incompatible types in assignment (expression has type "Sender[int]", variable has type "Sender[float]")  [assignment]
+protocols_generic.py:74: error: Incompatible types in assignment (expression has type "AttrProto[int]", variable has type "AttrProto[float]")  [assignment]
+protocols_generic.py:75: error: Incompatible types in assignment (expression has type "AttrProto[float]", variable has type "AttrProto[int]")  [assignment]
+protocols_generic.py:145: error: Incompatible types in assignment (expression has type "ConcreteHasProperty2", variable has type "HasPropertyProto")  [assignment]
 protocols_generic.py:145: note: Following member(s) of "ConcreteHasProperty2" have conflicts:
 protocols_generic.py:145: note:     Expected:
 protocols_generic.py:145: note:         def [T] m(self, item: T, callback: Callable[[T], str]) -> str
 protocols_generic.py:145: note:     Got:
 protocols_generic.py:145: note:         def m(self, item: int, callback: Callable[[int], str]) -> str
-protocols_generic.py:146: error: Incompatible types in assignment (expression has type "ConcreteHasProperty3", variable has type "HasPropertyProto")
+protocols_generic.py:146: error: Incompatible types in assignment (expression has type "ConcreteHasProperty3", variable has type "HasPropertyProto")  [assignment]
 protocols_generic.py:146: note: Following member(s) of "ConcreteHasProperty3" have conflicts:
 protocols_generic.py:146: note:     f: expected "ConcreteHasProperty3", got "int"
 protocols_generic.py:146: note:     Expected:
 protocols_generic.py:146: note:         def [T] m(self, item: T, callback: Callable[[T], str]) -> str
 protocols_generic.py:146: note:     Got:
 protocols_generic.py:146: note:         def m(self, item: int, callback: Callable[[int], str]) -> str
-protocols_generic.py:147: error: Incompatible types in assignment (expression has type "ConcreteHasProperty4", variable has type "HasPropertyProto")
+protocols_generic.py:147: error: Incompatible types in assignment (expression has type "ConcreteHasProperty4", variable has type "HasPropertyProto")  [assignment]
 protocols_generic.py:147: note: Following member(s) of "ConcreteHasProperty4" have conflicts:
 protocols_generic.py:147: note:     Expected:
 protocols_generic.py:147: note:         def [T] m(self, item: T, callback: Callable[[T], str]) -> str

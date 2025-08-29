@@ -2,26 +2,26 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-generics_paramspec_components.py:17: error: Use "P.args" for variadic "*" parameter
-generics_paramspec_components.py:17: error: Use "P.kwargs" for variadic "**" parameter
-generics_paramspec_components.py:20: error: ParamSpec components are not allowed here
-generics_paramspec_components.py:23: error: Use "P.kwargs" for variadic "**" parameter
-generics_paramspec_components.py:26: error: ParamSpec must have "*args" typed as "P.args" and "**kwargs" typed as "P.kwargs"
-generics_paramspec_components.py:30: error: ParamSpec "P" is unbound
-generics_paramspec_components.py:35: error: ParamSpec components are not allowed here
-generics_paramspec_components.py:36: error: ParamSpec components are not allowed here
-generics_paramspec_components.py:38: error: ParamSpec must have "*args" typed as "P.args" and "**kwargs" typed as "P.kwargs"
-generics_paramspec_components.py:41: error: ParamSpec must have "*args" typed as "P.args" and "**kwargs" typed as "P.kwargs"
-generics_paramspec_components.py:49: error: Argument 1 has incompatible type "*P.kwargs"; expected "P.args"
-generics_paramspec_components.py:49: error: Argument after ** must be a mapping, not "P.args"
-generics_paramspec_components.py:51: error: Argument 1 has incompatible type "int"; expected "P.args"
-generics_paramspec_components.py:60: error: Arguments not allowed after ParamSpec.args
-generics_paramspec_components.py:70: error: Too few arguments
-generics_paramspec_components.py:70: error: ParamSpec arguments must be of types "*P.args, **P.kwargs"
-generics_paramspec_components.py:70: error: Argument 3 has incompatible type "**P.kwargs"; expected "P.kwargs"
-generics_paramspec_components.py:72: error: Too few arguments
-generics_paramspec_components.py:83: error: Argument "x" to "foo" has incompatible type "int"; expected "P.args"
-generics_paramspec_components.py:83: error: Argument 2 to "foo" has incompatible type "*P.args"; expected "int"
-generics_paramspec_components.py:98: error: Argument 2 to "twice" has incompatible type "str"; expected "int"
-generics_paramspec_components.py:98: error: Argument 3 to "twice" has incompatible type "int"; expected "str"
+generics_paramspec_components.py:17: error: Use "P.args" for variadic "*" parameter  [misc]
+generics_paramspec_components.py:17: error: Use "P.kwargs" for variadic "**" parameter  [misc]
+generics_paramspec_components.py:20: error: ParamSpec components are not allowed here  [misc]
+generics_paramspec_components.py:23: error: Use "P.kwargs" for variadic "**" parameter  [misc]
+generics_paramspec_components.py:26: error: ParamSpec must have "*args" typed as "P.args" and "**kwargs" typed as "P.kwargs"  [misc]
+generics_paramspec_components.py:30: error: ParamSpec "P" is unbound  [misc]
+generics_paramspec_components.py:35: error: ParamSpec components are not allowed here  [misc]
+generics_paramspec_components.py:36: error: ParamSpec components are not allowed here  [misc]
+generics_paramspec_components.py:38: error: ParamSpec must have "*args" typed as "P.args" and "**kwargs" typed as "P.kwargs"  [misc]
+generics_paramspec_components.py:41: error: ParamSpec must have "*args" typed as "P.args" and "**kwargs" typed as "P.kwargs"  [misc]
+generics_paramspec_components.py:49: error: Argument 1 has incompatible type "*P.kwargs"; expected "P.args"  [arg-type]
+generics_paramspec_components.py:49: error: Argument after ** must be a mapping, not "P.args"  [arg-type]
+generics_paramspec_components.py:51: error: Argument 1 has incompatible type "int"; expected "P.args"  [arg-type]
+generics_paramspec_components.py:60: error: Arguments not allowed after ParamSpec.args  [misc]
+generics_paramspec_components.py:70: error: Too few arguments  [call-arg]
+generics_paramspec_components.py:70: error: ParamSpec arguments must be of types "*P.args, **P.kwargs"  [misc]
+generics_paramspec_components.py:70: error: Argument 3 has incompatible type "**P.kwargs"; expected "P.kwargs"  [arg-type]
+generics_paramspec_components.py:72: error: Too few arguments  [call-arg]
+generics_paramspec_components.py:83: error: Argument "x" to "foo" has incompatible type "int"; expected "P.args"  [arg-type]
+generics_paramspec_components.py:83: error: Argument 2 to "foo" has incompatible type "*P.args"; expected "int"  [arg-type]
+generics_paramspec_components.py:98: error: Argument 2 to "twice" has incompatible type "str"; expected "int"  [arg-type]
+generics_paramspec_components.py:98: error: Argument 3 to "twice" has incompatible type "int"; expected "str"  [arg-type]
 """

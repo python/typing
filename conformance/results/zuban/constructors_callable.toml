@@ -9,51 +9,51 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 127: Expected 1 errors
 Line 144: Expected 1 errors
-Line 73: Unexpected errors ['constructors_callable.py:73: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class4")']
-Line 100: Unexpected errors ['constructors_callable.py:100: error: Expression is of type "Class5", not "Never"']
-Line 105: Unexpected errors ['constructors_callable.py:105: error: Expression is of type "Class5", not "Never"']
-Line 116: Unexpected errors ['constructors_callable.py:116: error: Incompatible return type for "__new__" (returns "Class6Proxy", but must return a subtype of "Class6")']
-Line 126: Unexpected errors ['constructors_callable.py:126: error: Expression is of type "Class6", not "Class6Proxy"', 'constructors_callable.py:126: error: Missing positional argument "x" in call']
-Line 143: Unexpected errors ['constructors_callable.py:143: error: Expression is of type "Class6Any", not "Any"', 'constructors_callable.py:143: error: Missing positional argument "x" in call']
-Line 160: Unexpected errors ['constructors_callable.py:160: error: Need type annotation for "r7"']
-Line 164: Unexpected errors ['constructors_callable.py:164: error: Expression is of type "Class7[Any]", not "Class7[int]"']
-Line 165: Unexpected errors ['constructors_callable.py:165: error: Expression is of type "Class7[Any]", not "Class7[str]"', 'constructors_callable.py:165: error: Argument 1 has incompatible type "str"; expected "int"']
-Line 194: Unexpected errors ['constructors_callable.py:194: error: List item 0 has incompatible type "str"; expected "T"', 'constructors_callable.py:194: error: List item 0 has incompatible type "str"; expected "T"']
+Line 73: Unexpected errors ['constructors_callable.py:73: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class4")  [misc]']
+Line 100: Unexpected errors ['constructors_callable.py:100: error: Expression is of type "Class5", not "Never"  [misc]']
+Line 105: Unexpected errors ['constructors_callable.py:105: error: Expression is of type "Class5", not "Never"  [misc]']
+Line 116: Unexpected errors ['constructors_callable.py:116: error: Incompatible return type for "__new__" (returns "Class6Proxy", but must return a subtype of "Class6")  [misc]']
+Line 126: Unexpected errors ['constructors_callable.py:126: error: Expression is of type "Class6", not "Class6Proxy"  [misc]', 'constructors_callable.py:126: error: Missing positional argument "x" in call  [call-arg]']
+Line 143: Unexpected errors ['constructors_callable.py:143: error: Expression is of type "Class6Any", not "Any"  [misc]', 'constructors_callable.py:143: error: Missing positional argument "x" in call  [call-arg]']
+Line 160: Unexpected errors ['constructors_callable.py:160: error: Need type annotation for "r7"  [var-annotated]']
+Line 164: Unexpected errors ['constructors_callable.py:164: error: Expression is of type "Class7[Any]", not "Class7[int]"  [misc]']
+Line 165: Unexpected errors ['constructors_callable.py:165: error: Expression is of type "Class7[Any]", not "Class7[str]"  [misc]', 'constructors_callable.py:165: error: Argument 1 has incompatible type "str"; expected "int"  [arg-type]']
+Line 194: Unexpected errors ['constructors_callable.py:194: error: List item 0 has incompatible type "str"; expected "T"  [list-item]', 'constructors_callable.py:194: error: List item 0 has incompatible type "str"; expected "T"  [list-item]']
 """
 output = """
 constructors_callable.py:36: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class1"
-constructors_callable.py:38: error: Missing positional argument "x" in call
-constructors_callable.py:39: error: Unexpected keyword argument "y"
+constructors_callable.py:38: error: Missing positional argument "x" in call  [call-arg]
+constructors_callable.py:39: error: Unexpected keyword argument "y"  [call-arg]
 constructors_callable.py:49: note: Revealed type is "def () -> constructors_callable.Class2"
-constructors_callable.py:51: error: Too many arguments
+constructors_callable.py:51: error: Too many arguments  [call-arg]
 constructors_callable.py:63: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class3"
-constructors_callable.py:65: error: Missing positional argument "x" in call
-constructors_callable.py:66: error: Unexpected keyword argument "y"
-constructors_callable.py:67: error: Too many arguments
-constructors_callable.py:73: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class4")
+constructors_callable.py:65: error: Missing positional argument "x" in call  [call-arg]
+constructors_callable.py:66: error: Unexpected keyword argument "y"  [call-arg]
+constructors_callable.py:67: error: Too many arguments  [call-arg]
+constructors_callable.py:73: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class4")  [misc]
 constructors_callable.py:77: note: Revealed type is "def (x: builtins.int) -> builtins.int"
-constructors_callable.py:79: error: Missing positional argument "x" in call
-constructors_callable.py:80: error: Unexpected keyword argument "y"
+constructors_callable.py:79: error: Missing positional argument "x" in call  [call-arg]
+constructors_callable.py:80: error: Unexpected keyword argument "y"  [call-arg]
 constructors_callable.py:97: note: Revealed type is "def (*args: Any, **kwargs: Any) -> constructors_callable.Class5"
-constructors_callable.py:100: error: Expression is of type "Class5", not "Never"
-constructors_callable.py:105: error: Expression is of type "Class5", not "Never"
-constructors_callable.py:116: error: Incompatible return type for "__new__" (returns "Class6Proxy", but must return a subtype of "Class6")
+constructors_callable.py:100: error: Expression is of type "Class5", not "Never"  [misc]
+constructors_callable.py:105: error: Expression is of type "Class5", not "Never"  [misc]
+constructors_callable.py:116: error: Incompatible return type for "__new__" (returns "Class6Proxy", but must return a subtype of "Class6")  [misc]
 constructors_callable.py:125: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class6"
-constructors_callable.py:126: error: Expression is of type "Class6", not "Class6Proxy"
-constructors_callable.py:126: error: Missing positional argument "x" in call
+constructors_callable.py:126: error: Expression is of type "Class6", not "Class6Proxy"  [misc]
+constructors_callable.py:126: error: Missing positional argument "x" in call  [call-arg]
 constructors_callable.py:142: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class6Any"
-constructors_callable.py:143: error: Expression is of type "Class6Any", not "Any"
-constructors_callable.py:143: error: Missing positional argument "x" in call
-constructors_callable.py:160: error: Need type annotation for "r7"
+constructors_callable.py:143: error: Expression is of type "Class6Any", not "Any"  [misc]
+constructors_callable.py:143: error: Missing positional argument "x" in call  [call-arg]
+constructors_callable.py:160: error: Need type annotation for "r7"  [var-annotated]
 constructors_callable.py:162: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class7[Any]"
-constructors_callable.py:164: error: Expression is of type "Class7[Any]", not "Class7[int]"
-constructors_callable.py:165: error: Expression is of type "Class7[Any]", not "Class7[str]"
-constructors_callable.py:165: error: Argument 1 has incompatible type "str"; expected "int"
+constructors_callable.py:164: error: Expression is of type "Class7[Any]", not "Class7[int]"  [misc]
+constructors_callable.py:165: error: Expression is of type "Class7[Any]", not "Class7[str]"  [misc]
+constructors_callable.py:165: error: Argument 1 has incompatible type "str"; expected "int"  [arg-type]
 constructors_callable.py:182: note: Revealed type is "def [T] (x: builtins.list[T], y: builtins.list[T]) -> constructors_callable.Class8[T]"
-constructors_callable.py:184: error: List item 0 has incompatible type "str"; expected "int"
+constructors_callable.py:184: error: List item 0 has incompatible type "str"; expected "int"  [list-item]
 constructors_callable.py:193: note: Revealed type is "def (x: builtins.list[T], y: builtins.list[T]) -> constructors_callable.Class9"
-constructors_callable.py:194: error: List item 0 has incompatible type "str"; expected "T"
-constructors_callable.py:194: error: List item 0 has incompatible type "str"; expected "T"
-constructors_callable.py:195: error: List item 0 has incompatible type "int"; expected "T"
-constructors_callable.py:195: error: List item 0 has incompatible type "str"; expected "T"
+constructors_callable.py:194: error: List item 0 has incompatible type "str"; expected "T"  [list-item]
+constructors_callable.py:194: error: List item 0 has incompatible type "str"; expected "T"  [list-item]
+constructors_callable.py:195: error: List item 0 has incompatible type "int"; expected "T"  [list-item]
+constructors_callable.py:195: error: List item 0 has incompatible type "str"; expected "T"  [list-item]
 """

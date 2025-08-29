@@ -5,14 +5,14 @@ Does not skip evaluation of __new__ and __init__ if custom metaclass call return
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 23: Unexpected errors ['constructors_call_metaclass.py:23: error: Expression is of type "Class1", not "Never"', 'constructors_call_metaclass.py:23: error: Missing positional argument "x" in call to "Class1"']
-Line 36: Unexpected errors ['constructors_call_metaclass.py:36: error: Expression is of type "Class2", not "int | Meta2"', 'constructors_call_metaclass.py:36: error: Missing positional argument "x" in call to "Class2"']
+Line 23: Unexpected errors ['constructors_call_metaclass.py:23: error: Expression is of type "Class1", not "Never"  [misc]', 'constructors_call_metaclass.py:23: error: Missing positional argument "x" in call to "Class1"  [call-arg]']
+Line 36: Unexpected errors ['constructors_call_metaclass.py:36: error: Expression is of type "Class2", not "int | Meta2"  [misc]', 'constructors_call_metaclass.py:36: error: Missing positional argument "x" in call to "Class2"  [call-arg]']
 """
 output = """
-constructors_call_metaclass.py:23: error: Expression is of type "Class1", not "Never"
-constructors_call_metaclass.py:23: error: Missing positional argument "x" in call to "Class1"
-constructors_call_metaclass.py:36: error: Expression is of type "Class2", not "int | Meta2"
-constructors_call_metaclass.py:36: error: Missing positional argument "x" in call to "Class2"
-constructors_call_metaclass.py:51: error: Missing positional argument "x" in call to "Class3"
-constructors_call_metaclass.py:65: error: Missing positional argument "x" in call to "Class4"
+constructors_call_metaclass.py:23: error: Expression is of type "Class1", not "Never"  [misc]
+constructors_call_metaclass.py:23: error: Missing positional argument "x" in call to "Class1"  [call-arg]
+constructors_call_metaclass.py:36: error: Expression is of type "Class2", not "int | Meta2"  [misc]
+constructors_call_metaclass.py:36: error: Missing positional argument "x" in call to "Class2"  [call-arg]
+constructors_call_metaclass.py:51: error: Missing positional argument "x" in call to "Class3"  [call-arg]
+constructors_call_metaclass.py:65: error: Missing positional argument "x" in call to "Class4"  [call-arg]
 """

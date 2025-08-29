@@ -2,6 +2,6 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-generics_syntax_compatibility.py:14: error: All type parameters should be declared ("K" not declared)
-generics_syntax_compatibility.py:26: error: All type parameters should be declared ("K" not declared)
+generics_syntax_compatibility.py:14: error: All type parameters should be declared ("K" not declared)  [misc]
+generics_syntax_compatibility.py:26: error: All type parameters should be declared ("K" not declared)  [misc]
 """

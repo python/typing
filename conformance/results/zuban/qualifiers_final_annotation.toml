@@ -7,35 +7,35 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 134: Expected 1 errors
 Line 135: Expected 1 errors
-Line 59: Unexpected errors ['qualifiers_final_annotation.py:59: error: Cannot assign to final attribute "ID6"']
-Line 131: Unexpected errors ['qualifiers_final_annotation.py:131: error: Invalid "NamedTuple()" field name']
+Line 59: Unexpected errors ['qualifiers_final_annotation.py:59: error: Cannot assign to final attribute "ID6"  [misc]']
+Line 131: Unexpected errors ['qualifiers_final_annotation.py:131: error: Invalid "NamedTuple()" field name  [misc]']
 """
 output = """
-qualifiers_final_annotation.py:16: error: Type in Final[...] can only be omitted if there is an initializer
-qualifiers_final_annotation.py:18: error: Final[...] takes at most one type argument
-qualifiers_final_annotation.py:34: error: Type in Final[...] can only be omitted if there is an initializer
-qualifiers_final_annotation.py:38: error: Final name must be initialized with a value
-qualifiers_final_annotation.py:54: error: Cannot assign to final attribute "ID5"
-qualifiers_final_annotation.py:59: error: Cannot assign to final attribute "ID6"
-qualifiers_final_annotation.py:62: error: Can only declare a final attribute in class body or __init__
-qualifiers_final_annotation.py:63: error: Can only declare a final attribute in class body or __init__
-qualifiers_final_annotation.py:65: error: Cannot assign to final attribute "ID7"
-qualifiers_final_annotation.py:67: error: Cannot assign to final attribute "ID7"
-qualifiers_final_annotation.py:71: error: Cannot assign to final name "RATE"
-qualifiers_final_annotation.py:81: error: Cannot assign to final attribute "DEFAULT_ID"
-qualifiers_final_annotation.py:94: error: Cannot assign to final name "BORDER_WIDTH"
-qualifiers_final_annotation.py:107: error: Final can be only used as an outermost qualifier in a variable annotation
-qualifiers_final_annotation.py:108: error: Invalid Type: ClassVar nested inside other type
-qualifiers_final_annotation.py:118: error: Final can be only used as an outermost qualifier in a variable annotation
-qualifiers_final_annotation.py:121: error: Final can be only used as an outermost qualifier in a variable annotation
-qualifiers_final_annotation.py:131: error: Invalid "NamedTuple()" field name
-qualifiers_final_annotation.py:141: error: Cannot assign to final name "ID1"
-qualifiers_final_annotation.py:145: error: Cannot assign to final name "x"
-qualifiers_final_annotation.py:147: error: Cannot assign to final name "x"
-qualifiers_final_annotation.py:149: error: Cannot assign to final name "x"
-qualifiers_final_annotation.py:152: error: Cannot assign to final name "x"
-qualifiers_final_annotation.py:152: error: Incompatible types in assignment (expression has type "TextIOWrapper[_WrappedBuffer]", variable has type "int")
-qualifiers_final_annotation.py:155: error: Cannot assign to final name "x"
-qualifiers_final_annotation.py:166: error: Cannot assign to final name "TEN"
-qualifiers_final_annotation.py:170: error: Cannot assign to final name "PI"
+qualifiers_final_annotation.py:16: error: Type in Final[...] can only be omitted if there is an initializer  [misc]
+qualifiers_final_annotation.py:18: error: Final[...] takes at most one type argument  [misc]
+qualifiers_final_annotation.py:34: error: Type in Final[...] can only be omitted if there is an initializer  [misc]
+qualifiers_final_annotation.py:38: error: Final name must be initialized with a value  [misc]
+qualifiers_final_annotation.py:54: error: Cannot assign to final attribute "ID5"  [misc]
+qualifiers_final_annotation.py:59: error: Cannot assign to final attribute "ID6"  [misc]
+qualifiers_final_annotation.py:62: error: Can only declare a final attribute in class body or __init__  [misc]
+qualifiers_final_annotation.py:63: error: Can only declare a final attribute in class body or __init__  [misc]
+qualifiers_final_annotation.py:65: error: Cannot assign to final attribute "ID7"  [misc]
+qualifiers_final_annotation.py:67: error: Cannot assign to final attribute "ID7"  [misc]
+qualifiers_final_annotation.py:71: error: Cannot assign to final name "RATE"  [misc]
+qualifiers_final_annotation.py:81: error: Cannot assign to final attribute "DEFAULT_ID"  [misc]
+qualifiers_final_annotation.py:94: error: Cannot assign to final name "BORDER_WIDTH"  [misc]
+qualifiers_final_annotation.py:107: error: Final can be only used as an outermost qualifier in a variable annotation  [misc]
+qualifiers_final_annotation.py:108: error: Invalid Type: ClassVar nested inside other type  [misc]
+qualifiers_final_annotation.py:118: error: Final can be only used as an outermost qualifier in a variable annotation  [misc]
+qualifiers_final_annotation.py:121: error: Final can be only used as an outermost qualifier in a variable annotation  [misc]
+qualifiers_final_annotation.py:131: error: Invalid "NamedTuple()" field name  [misc]
+qualifiers_final_annotation.py:141: error: Cannot assign to final name "ID1"  [misc]
+qualifiers_final_annotation.py:145: error: Cannot assign to final name "x"  [misc]
+qualifiers_final_annotation.py:147: error: Cannot assign to final name "x"  [misc]
+qualifiers_final_annotation.py:149: error: Cannot assign to final name "x"  [misc]
+qualifiers_final_annotation.py:152: error: Cannot assign to final name "x"  [misc]
+qualifiers_final_annotation.py:152: error: Incompatible types in assignment (expression has type "TextIOWrapper[_WrappedBuffer]", variable has type "int")  [assignment]
+qualifiers_final_annotation.py:155: error: Cannot assign to final name "x"  [misc]
+qualifiers_final_annotation.py:166: error: Cannot assign to final name "TEN"  [misc]
+qualifiers_final_annotation.py:170: error: Cannot assign to final name "PI"  [misc]
 """

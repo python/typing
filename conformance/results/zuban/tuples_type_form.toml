@@ -2,15 +2,15 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-tuples_type_form.py:12: error: Incompatible types in assignment (expression has type "tuple[int, int]", variable has type "tuple[int]")
-tuples_type_form.py:14: error: Incompatible types in assignment (expression has type "tuple[int]", variable has type "tuple[int, int]")
-tuples_type_form.py:15: error: Incompatible types in assignment (expression has type "tuple[int, str]", variable has type "tuple[int, int]")
-tuples_type_form.py:25: error: Incompatible types in assignment (expression has type "tuple[int]", variable has type "tuple[()]")
-tuples_type_form.py:36: error: Incompatible types in assignment (expression has type "tuple[int, int, int, str]", variable has type "tuple[int, ...]")
-tuples_type_form.py:40: error: Unexpected "..."
-tuples_type_form.py:41: error: Unexpected "..."
-tuples_type_form.py:42: error: Unexpected "..."
-tuples_type_form.py:43: error: Unexpected "..."
-tuples_type_form.py:44: error: Unpack is only valid in a variadic position
-tuples_type_form.py:45: error: Unpack is only valid in a variadic position
+tuples_type_form.py:12: error: Incompatible types in assignment (expression has type "tuple[int, int]", variable has type "tuple[int]")  [assignment]
+tuples_type_form.py:14: error: Incompatible types in assignment (expression has type "tuple[int]", variable has type "tuple[int, int]")  [assignment]
+tuples_type_form.py:15: error: Incompatible types in assignment (expression has type "tuple[int, str]", variable has type "tuple[int, int]")  [assignment]
+tuples_type_form.py:25: error: Incompatible types in assignment (expression has type "tuple[int]", variable has type "tuple[()]")  [assignment]
+tuples_type_form.py:36: error: Incompatible types in assignment (expression has type "tuple[int, int, int, str]", variable has type "tuple[int, ...]")  [assignment]
+tuples_type_form.py:40: error: Unexpected "..."  [valid-type]
+tuples_type_form.py:41: error: Unexpected "..."  [valid-type]
+tuples_type_form.py:42: error: Unexpected "..."  [valid-type]
+tuples_type_form.py:43: error: Unexpected "..."  [valid-type]
+tuples_type_form.py:44: error: Unpack is only valid in a variadic position  [misc]
+tuples_type_form.py:45: error: Unpack is only valid in a variadic position  [misc]
 """

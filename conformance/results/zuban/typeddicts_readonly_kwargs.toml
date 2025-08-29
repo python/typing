@@ -2,5 +2,5 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-typeddicts_readonly_kwargs.py:33: error: ReadOnly TypedDict key "key1" TypedDict is mutated
+typeddicts_readonly_kwargs.py:33: error: ReadOnly TypedDict key "key1" TypedDict is mutated  [typeddict-readonly-mutated]
 """

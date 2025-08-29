@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-generics_self_basic.py:20: error: Incompatible return value type (got "Shape", expected "Self")
-generics_self_basic.py:33: error: Incompatible return value type (got "Shape", expected "Self")
-generics_self_basic.py:67: error: Self type cannot have type arguments
+generics_self_basic.py:20: error: Incompatible return value type (got "Shape", expected "Self")  [return-value]
+generics_self_basic.py:33: error: Incompatible return value type (got "Shape", expected "Self")  [return-value]
+generics_self_basic.py:67: error: Self type cannot have type arguments  [valid-type]
 """

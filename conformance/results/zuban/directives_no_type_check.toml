@@ -2,6 +2,6 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-directives_no_type_check.py:15: error: Incompatible types in assignment (expression has type "str", variable has type "int")
-directives_no_type_check.py:32: error: Missing positional arguments "a", "b" in call to "func1"
+directives_no_type_check.py:15: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_no_type_check.py:32: error: Missing positional arguments "a", "b" in call to "func1"  [call-arg]
 """

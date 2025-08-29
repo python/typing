@@ -2,5 +2,5 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-specialtypes_promotions.py:13: error: "float" has no attribute "numerator"
+specialtypes_promotions.py:13: error: "float" has no attribute "numerator"  [attr-defined]
 """

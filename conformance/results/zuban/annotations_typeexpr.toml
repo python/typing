@@ -2,23 +2,23 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-annotations_typeexpr.py:88: error: Invalid type comment or annotation
-annotations_typeexpr.py:89: error: Bracketed expression "[...]" is not valid as a type
+annotations_typeexpr.py:88: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:89: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
 annotations_typeexpr.py:89: note: Did you mean "List[...]"?
-annotations_typeexpr.py:90: error: Syntax error in type annotation
+annotations_typeexpr.py:90: error: Syntax error in type annotation  [valid-type]
 annotations_typeexpr.py:90: note: Suggestion: Use Tuple[T1, ..., Tn] instead of (T1, ..., Tn)
-annotations_typeexpr.py:91: error: Invalid type comment or annotation
-annotations_typeexpr.py:92: error: Invalid type comment or annotation
-annotations_typeexpr.py:93: error: Invalid type comment or annotation
-annotations_typeexpr.py:94: error: Invalid type comment or annotation
-annotations_typeexpr.py:95: error: Invalid type comment or annotation
-annotations_typeexpr.py:96: error: Variable "annotations_typeexpr.var1" is not valid as a type
+annotations_typeexpr.py:91: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:92: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:93: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:94: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:95: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:96: error: Variable "annotations_typeexpr.var1" is not valid as a type  [valid-type]
 annotations_typeexpr.py:96: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
-annotations_typeexpr.py:97: error: Invalid type comment or annotation
-annotations_typeexpr.py:98: error: Invalid type: try using Literal[1] instead?
-annotations_typeexpr.py:99: error: Invalid type comment or annotation
-annotations_typeexpr.py:100: error: Invalid type comment or annotation
-annotations_typeexpr.py:101: error: Invalid type comment or annotation
-annotations_typeexpr.py:102: error: Module "types" is not valid as a type
+annotations_typeexpr.py:97: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:98: error: Invalid type: try using Literal[1] instead?  [valid-type]
+annotations_typeexpr.py:99: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:100: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:101: error: Invalid type comment or annotation  [valid-type]
+annotations_typeexpr.py:102: error: Module "types" is not valid as a type  [valid-type]
 annotations_typeexpr.py:102: note: Perhaps you meant to use a protocol matching the module structure?
 """

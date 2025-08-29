@@ -2,6 +2,6 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-dataclasses_transform_field.py:64: error: Unexpected keyword argument "id" for "CustomerModel1"
-dataclasses_transform_field.py:75: error: Too many positional arguments for "CustomerModel2"
+dataclasses_transform_field.py:64: error: Unexpected keyword argument "id" for "CustomerModel1"  [call-arg]
+dataclasses_transform_field.py:75: error: Too many positional arguments for "CustomerModel2"  [call-arg]
 """
