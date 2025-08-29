@@ -8,9 +8,9 @@ Line 90: Expected 1 errors
 Line 110: Expected 1 errors
 """
 output = """
-protocols_explicit.py:27: error: Call to abstract method "draw" of "PColor" with trivial body via super() is unsafe
-protocols_explicit.py:56: error: Incompatible types in assignment (expression has type "tuple[int, int, str]", variable has type "tuple[int, int, int]")
-protocols_explicit.py:60: error: Cannot instantiate abstract class "Point" with abstract attributes "intensity" and "transparency"
-protocols_explicit.py:135: error: Cannot instantiate abstract class "Concrete5" with abstract attribute "method1"
-protocols_explicit.py:165: error: Cannot instantiate abstract class "Concrete7A" with abstract attribute "method1"
+protocols_explicit.py:27: error: Call to abstract method "draw" of "PColor" with trivial body via super() is unsafe  [safe-super]
+protocols_explicit.py:56: error: Incompatible types in assignment (expression has type "tuple[int, int, str]", variable has type "tuple[int, int, int]")  [assignment]
+protocols_explicit.py:60: error: Cannot instantiate abstract class "Point" with abstract attributes "intensity" and "transparency"  [abstract]
+protocols_explicit.py:135: error: Cannot instantiate abstract class "Concrete5" with abstract attribute "method1"  [abstract]
+protocols_explicit.py:165: error: Cannot instantiate abstract class "Concrete7A" with abstract attribute "method1"  [abstract]
 """

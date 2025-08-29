@@ -8,15 +8,15 @@ Line 66: Expected 1 errors
 Line 120: Expected 1 errors
 Line 134: Expected 1 errors
 Line 171: Expected 1 errors
-Line 157: Unexpected errors ["literals_literalstring.py:157: error: Overloaded function signature 3 will never be matched: signature 2's parameter type(s) are the same or broader"]
-Line 167: Unexpected errors ['literals_literalstring.py:167: error: Expression is of type "B", not "A"']
+Line 157: Unexpected errors ["literals_literalstring.py:157: error: Overloaded function signature 3 will never be matched: signature 2's parameter type(s) are the same or broader  [overload-cannot-match]"]
+Line 167: Unexpected errors ['literals_literalstring.py:167: error: Expression is of type "B", not "A"  [misc]']
 """
 output = """
-literals_literalstring.py:36: error: Parameter 2 of Literal[...] is invalid
-literals_literalstring.py:37: error: Parameter 1 of Literal[...] is invalid
-literals_literalstring.py:43: error: Incompatible types in assignment (expression has type "Literal['two']", variable has type "Literal['']")
-literals_literalstring.py:74: error: Incompatible types in assignment (expression has type "int", variable has type "str")
-literals_literalstring.py:75: error: Incompatible types in assignment (expression has type "bytes", variable has type "str")
-literals_literalstring.py:157: error: Overloaded function signature 3 will never be matched: signature 2's parameter type(s) are the same or broader
-literals_literalstring.py:167: error: Expression is of type "B", not "A"
+literals_literalstring.py:36: error: Parameter 2 of Literal[...] is invalid  [valid-type]
+literals_literalstring.py:37: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+literals_literalstring.py:43: error: Incompatible types in assignment (expression has type "Literal['two']", variable has type "Literal['']")  [assignment]
+literals_literalstring.py:74: error: Incompatible types in assignment (expression has type "int", variable has type "str")  [assignment]
+literals_literalstring.py:75: error: Incompatible types in assignment (expression has type "bytes", variable has type "str")  [assignment]
+literals_literalstring.py:157: error: Overloaded function signature 3 will never be matched: signature 2's parameter type(s) are the same or broader  [overload-cannot-match]
+literals_literalstring.py:167: error: Expression is of type "B", not "A"  [misc]
 """

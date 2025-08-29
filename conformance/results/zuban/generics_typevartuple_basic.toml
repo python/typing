@@ -9,23 +9,23 @@ Line 89: Expected 1 errors
 Line 90: Expected 1 errors
 Line 99: Expected 1 errors
 Line 100: Expected 1 errors
-Line 54: Unexpected errors ['generics_typevartuple_basic.py:54: error: Incompatible types in assignment (expression has type "tuple[Any]", variable has type "tuple[Unpack[Shape]]")']
-Line 57: Unexpected errors ['generics_typevartuple_basic.py:57: error: Incompatible return value type (got "tuple[Unpack[Shape]]", expected "tuple[Any]")']
-Line 84: Unexpected errors ['generics_typevartuple_basic.py:84: error: Expression is of type "tuple[Literal[0, 1]]", not "tuple[int]"']
+Line 54: Unexpected errors ['generics_typevartuple_basic.py:54: error: Incompatible types in assignment (expression has type "tuple[Any]", variable has type "tuple[Unpack[Shape]]")  [assignment]']
+Line 57: Unexpected errors ['generics_typevartuple_basic.py:57: error: Incompatible return value type (got "tuple[Unpack[Shape]]", expected "tuple[Any]")  [return-value]']
+Line 84: Unexpected errors ['generics_typevartuple_basic.py:84: error: Expression is of type "tuple[Literal[0, 1]]", not "tuple[int]"  [misc]']
 """
 output = """
-generics_typevartuple_basic.py:42: error: Argument 1 to "Array" has incompatible type "Height"; expected "tuple[Height, Width]"
-generics_typevartuple_basic.py:43: error: Argument 1 to "Array" has incompatible type "tuple[Batch, Width]"; expected "tuple[Batch, Height, Width]"
-generics_typevartuple_basic.py:45: error: Argument 1 to "Array" has incompatible type "tuple[Time, Batch, Width, Height]"; expected "tuple[Time, Batch, Height, Width]"
-generics_typevartuple_basic.py:52: error: Free type variable expected in Generic[...]
-generics_typevartuple_basic.py:53: error: TypeVarTuple "Shape" is only valid with an unpack
-generics_typevartuple_basic.py:54: error: Incompatible types in assignment (expression has type "tuple[Any]", variable has type "tuple[Unpack[Shape]]")
-generics_typevartuple_basic.py:56: error: TypeVarTuple "Shape" is only valid with an unpack
-generics_typevartuple_basic.py:57: error: Incompatible return value type (got "tuple[Unpack[Shape]]", expected "tuple[Any]")
-generics_typevartuple_basic.py:59: error: TypeVarTuple "Shape" is only valid with an unpack
-generics_typevartuple_basic.py:65: error: Unexpected keyword argument "covariant" for "TypeVarTuple"
-generics_typevartuple_basic.py:66: error: Too many positional arguments for "TypeVarTuple"
-generics_typevartuple_basic.py:67: error: Unexpected keyword argument "bound" for "TypeVarTuple"
-generics_typevartuple_basic.py:84: error: Expression is of type "tuple[Literal[0, 1]]", not "tuple[int]"
-generics_typevartuple_basic.py:106: error: Can only use one type var tuple in a class def
+generics_typevartuple_basic.py:42: error: Argument 1 to "Array" has incompatible type "Height"; expected "tuple[Height, Width]"  [arg-type]
+generics_typevartuple_basic.py:43: error: Argument 1 to "Array" has incompatible type "tuple[Batch, Width]"; expected "tuple[Batch, Height, Width]"  [arg-type]
+generics_typevartuple_basic.py:45: error: Argument 1 to "Array" has incompatible type "tuple[Time, Batch, Width, Height]"; expected "tuple[Time, Batch, Height, Width]"  [arg-type]
+generics_typevartuple_basic.py:52: error: Free type variable expected in Generic[...]  [misc]
+generics_typevartuple_basic.py:53: error: TypeVarTuple "Shape" is only valid with an unpack  [valid-type]
+generics_typevartuple_basic.py:54: error: Incompatible types in assignment (expression has type "tuple[Any]", variable has type "tuple[Unpack[Shape]]")  [assignment]
+generics_typevartuple_basic.py:56: error: TypeVarTuple "Shape" is only valid with an unpack  [valid-type]
+generics_typevartuple_basic.py:57: error: Incompatible return value type (got "tuple[Unpack[Shape]]", expected "tuple[Any]")  [return-value]
+generics_typevartuple_basic.py:59: error: TypeVarTuple "Shape" is only valid with an unpack  [valid-type]
+generics_typevartuple_basic.py:65: error: Unexpected keyword argument "covariant" for "TypeVarTuple"  [call-arg]
+generics_typevartuple_basic.py:66: error: Too many positional arguments for "TypeVarTuple"  [call-arg]
+generics_typevartuple_basic.py:67: error: Unexpected keyword argument "bound" for "TypeVarTuple"  [call-arg]
+generics_typevartuple_basic.py:84: error: Expression is of type "tuple[Literal[0, 1]]", not "tuple[int]"  [misc]
+generics_typevartuple_basic.py:106: error: Can only use one type var tuple in a class def  [misc]
 """

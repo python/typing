@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-overloads_basic.py:39: error: No overload variant of "__getitem__" of "Bytes" matches argument type "str"
+overloads_basic.py:39: error: No overload variant of "__getitem__" of "Bytes" matches argument type "str"  [call-overload]
 overloads_basic.py:39: note: Possible overload variants:
 overloads_basic.py:39: note:     def __getitem__(self, int, /) -> int
 overloads_basic.py:39: note:     def __getitem__(self, slice[Any, Any, Any], /) -> bytes

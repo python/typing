@@ -309,7 +309,6 @@ class ZubanLSTypeChecker(MypyTypeChecker):
             "--enable-error-code",
             "deprecated",
             "--no-warn-unreachable",
-            "--hide-error-codes",
         ]
         proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
         lines = proc.stdout.split("\n")

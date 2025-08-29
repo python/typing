@@ -11,42 +11,42 @@ Line 23: Expected 1 errors
 Line 24: Expected 1 errors
 Line 25: Expected 1 errors
 Line 66: Expected 1 errors
-Line 82: Unexpected errors ['annotations_forward_refs.py:82: error: Name "str" is not defined']
-Line 87: Unexpected errors ['annotations_forward_refs.py:87: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type']
-Line 95: Unexpected errors ['annotations_forward_refs.py:95: error: Expression is of type "Any", not "str"']
-Line 96: Unexpected errors ['annotations_forward_refs.py:96: error: Expression is of type "Any", not "int"']
-Line 104: Unexpected errors ['annotations_forward_refs.py:104: error: invalid syntax']
-Line 105: Unexpected errors ['annotations_forward_refs.py:105: error: invalid syntax', 'annotations_forward_refs.py:105: error: invalid syntax']
+Line 82: Unexpected errors ['annotations_forward_refs.py:82: error: Name "str" is not defined  [name-defined]']
+Line 87: Unexpected errors ['annotations_forward_refs.py:87: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]']
+Line 95: Unexpected errors ['annotations_forward_refs.py:95: error: Expression is of type "Any", not "str"  [misc]']
+Line 96: Unexpected errors ['annotations_forward_refs.py:96: error: Expression is of type "Any", not "int"  [misc]']
+Line 104: Unexpected errors ['annotations_forward_refs.py:104: error: invalid syntax  [syntax]']
+Line 105: Unexpected errors ['annotations_forward_refs.py:105: error: invalid syntax  [syntax]', 'annotations_forward_refs.py:105: error: invalid syntax  [syntax]']
 """
 output = """
-annotations_forward_refs.py:41: error: Invalid type comment or annotation
-annotations_forward_refs.py:42: error: Bracketed expression "[...]" is not valid as a type
+annotations_forward_refs.py:41: error: Invalid type comment or annotation  [valid-type]
+annotations_forward_refs.py:42: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
 annotations_forward_refs.py:42: note: Did you mean "List[...]"?
-annotations_forward_refs.py:43: error: Syntax error in type annotation
+annotations_forward_refs.py:43: error: Syntax error in type annotation  [valid-type]
 annotations_forward_refs.py:43: note: Suggestion: Use Tuple[T1, ..., Tn] instead of (T1, ..., Tn)
-annotations_forward_refs.py:44: error: Invalid type comment or annotation
-annotations_forward_refs.py:45: error: Invalid type comment or annotation
-annotations_forward_refs.py:46: error: Invalid type comment or annotation
-annotations_forward_refs.py:47: error: Invalid type comment or annotation
-annotations_forward_refs.py:48: error: Invalid type comment or annotation
-annotations_forward_refs.py:49: error: Variable "annotations_forward_refs.var1" is not valid as a type
+annotations_forward_refs.py:44: error: Invalid type comment or annotation  [valid-type]
+annotations_forward_refs.py:45: error: Invalid type comment or annotation  [valid-type]
+annotations_forward_refs.py:46: error: Invalid type comment or annotation  [valid-type]
+annotations_forward_refs.py:47: error: Invalid type comment or annotation  [valid-type]
+annotations_forward_refs.py:48: error: Invalid type comment or annotation  [valid-type]
+annotations_forward_refs.py:49: error: Variable "annotations_forward_refs.var1" is not valid as a type  [valid-type]
 annotations_forward_refs.py:49: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
-annotations_forward_refs.py:50: error: Invalid type comment or annotation
-annotations_forward_refs.py:51: error: Invalid type: try using Literal[1] instead?
-annotations_forward_refs.py:52: error: Invalid type comment or annotation
-annotations_forward_refs.py:53: error: Invalid type comment or annotation
-annotations_forward_refs.py:54: error: Invalid type comment or annotation
-annotations_forward_refs.py:55: error: Module "types" is not valid as a type
+annotations_forward_refs.py:50: error: Invalid type comment or annotation  [valid-type]
+annotations_forward_refs.py:51: error: Invalid type: try using Literal[1] instead?  [valid-type]
+annotations_forward_refs.py:52: error: Invalid type comment or annotation  [valid-type]
+annotations_forward_refs.py:53: error: Invalid type comment or annotation  [valid-type]
+annotations_forward_refs.py:54: error: Invalid type comment or annotation  [valid-type]
+annotations_forward_refs.py:55: error: Module "types" is not valid as a type  [valid-type]
 annotations_forward_refs.py:55: note: Perhaps you meant to use a protocol matching the module structure?
-annotations_forward_refs.py:80: error: Name "ClassF" is not defined
-annotations_forward_refs.py:82: error: Name "str" is not defined
-annotations_forward_refs.py:87: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type
+annotations_forward_refs.py:80: error: Name "ClassF" is not defined  [name-defined]
+annotations_forward_refs.py:82: error: Name "str" is not defined  [name-defined]
+annotations_forward_refs.py:87: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
 annotations_forward_refs.py:87: note: Perhaps you need "Callable[...]" or a callback protocol?
-annotations_forward_refs.py:89: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type
+annotations_forward_refs.py:89: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
 annotations_forward_refs.py:89: note: Perhaps you need "Callable[...]" or a callback protocol?
-annotations_forward_refs.py:95: error: Expression is of type "Any", not "str"
-annotations_forward_refs.py:96: error: Expression is of type "Any", not "int"
-annotations_forward_refs.py:104: error: invalid syntax
-annotations_forward_refs.py:105: error: invalid syntax
-annotations_forward_refs.py:105: error: invalid syntax
+annotations_forward_refs.py:95: error: Expression is of type "Any", not "str"  [misc]
+annotations_forward_refs.py:96: error: Expression is of type "Any", not "int"  [misc]
+annotations_forward_refs.py:104: error: invalid syntax  [syntax]
+annotations_forward_refs.py:105: error: invalid syntax  [syntax]
+annotations_forward_refs.py:105: error: invalid syntax  [syntax]
 """

@@ -9,7 +9,7 @@ Line 56: Expected 1 errors
 Line 107: Expected 1 errors
 """
 output = """
-constructors_call_init.py:21: error: Argument 1 to "Class1" has incompatible type "float"; expected "int"
-constructors_call_init.py:42: error: Argument 1 to "Class3" has incompatible type "Class2[Never]"; expected "Self | None"
-constructors_call_init.py:130: error: Too many arguments for "Class11"
+constructors_call_init.py:21: error: Argument 1 to "Class1" has incompatible type "float"; expected "int"  [arg-type]
+constructors_call_init.py:42: error: Argument 1 to "Class3" has incompatible type "Class2[Never]"; expected "Self | None"  [arg-type]
+constructors_call_init.py:130: error: Too many arguments for "Class11"  [call-arg]
 """
