@@ -296,19 +296,20 @@ class ZubanLSTypeChecker(MypyTypeChecker):
             return False
 
     def get_version(self) -> str:
-        proc = run(["zmypy", "--version"], stdout=PIPE, text=True)
-        return proc.stdout.strip().replace("zmypy", "zuban")
+        proc = run(["zuban", "--version"], stdout=PIPE, text=True)
+        return proc.stdout.strip()
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         command = [
-            "zmypy",
+            "zuban",
+            "check",
             ".",
             "--disable-error-code",
             "empty-body",
             "--enable-error-code",
             "deprecated",
             "--no-warn-unreachable",
-            "--no-mypy-compatible",
+            "--hide-error-codes",
         ]
         proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
         lines = proc.stdout.split("\n")
