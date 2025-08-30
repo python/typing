@@ -274,7 +274,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unknown</th>
+<th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults_specialization</th>
 <th class="column col2 partially-conformant">Partial</th>
@@ -449,7 +449,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject a TypeVar that is defined as both covariant and contravariant.</p><p>Does not reject use of class-scoped TypeVar used in a base class when variance is incompatible.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of class-scoped TypeVar used in a base class when variance is incompatible.</p></span></div></th>
-<th class="column col2 not-conformant">Unknown</th>
+<th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_variance_inference</th>
 <th class="column col2 conformant">Pass</th>
@@ -528,7 +528,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not properly handle some recursive type aliases.</p><p>Does not properly handle specialization of generic recursive type aliases.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unknown</th>
+<th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_type_statement</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject type alias defined in function scope.</p></span></div></th>
@@ -542,14 +542,14 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Support for TypeAliasType is not implemented.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.</p><p>Incorrectly allows type_params= to be an arbitrary tuple.</p></span></div></th>
-<th class="column col2 not-conformant">Unknown</th>
+<th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_variance</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unknown</th>
+<th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column" colspan="6">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/literal.html">Literals</a>
@@ -604,7 +604,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report error when calling unimplemented protocol method from derived class.</p><p>Does not report error when method is not implemented in derived class.</p></span></div></th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not report unimplemented attributes for class that explicitly derives from protocol until it is instantiated.</p></span></div></th>
-<th class="column col2 not-conformant"><div class="hover-text">Fail<span class="tooltip-text" id="bottom"><p>Does not check against abstract class instantiations</p></span></div></th>
+<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not check against abstract class instantiations</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protocols_generic</th>
 <th class="column col2 conformant">Pass</th>
@@ -1141,7 +1141,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support @deprecated.</p></span></div></th>
 <th class="column col2 not-conformant">Unsupported</th>
-<th class="column col2 not-conformant">Unknown</th>
+<th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_no_type_check</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not honor `@no_type_check` class decorator (allowed).</p><p>Does not reject invalid call of `@no_type_check` function.</p></span></div></th>
