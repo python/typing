@@ -1,3 +1,7 @@
+conformant = "Pass"
+notes = """
+Unsolved type var is not always resolved to default (optional)
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 130: Unexpected errors ['assert_type(Any, int) failed [assert-type]']

@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not reject incorrect direct assignment to attribute w/ Self
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 32: Expected 1 errors

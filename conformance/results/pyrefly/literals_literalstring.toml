@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+LiteralString is sometimes converted to str
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 120: Expected 1 errors

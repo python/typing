@@ -1,3 +1,9 @@
+conformant = "Partial"
+notes = """
+Does not reject type alias defined with type statement in base class list
+Does not reject redeclaration of type alias with the same name.
+Does not detect circular definitions.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 26: Expected 1 errors

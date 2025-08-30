@@ -1,3 +1,8 @@
+conformant = "Partial"
+notes = """
+Does not restrict some decorators to implementation
+Does not require some decorators that need to appear on every overload
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Lines 71, 73, 78, 81: Expected error (tag 'func5')

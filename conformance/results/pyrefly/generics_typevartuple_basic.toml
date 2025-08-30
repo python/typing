@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+TypeVarTuple is pinned too early when calling generic function
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 85: Unexpected errors ['Argument `tuple[float]` is not assignable to parameter `arg2` with type `tuple[int]` in function `func2` [bad-argument-type]']

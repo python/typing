@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Fails some protocol subtyping examples when self is annotated with a type var
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 32: Unexpected errors ['`One` is not assignable to variable `c` with type `Copyable` [bad-assignment]']

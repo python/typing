@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not check for unsafe overlap in runtime_checkable protocols
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 88: Expected 1 errors

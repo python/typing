@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Protocol subtyping does not work with Self in return annotation
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 58: Unexpected errors ['Argument `ReturnConcreteShape` is not assignable to parameter `shape` with type `ShapeProtocol` in function `accepts_shape` [bad-argument-type]']

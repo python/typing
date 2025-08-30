@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not handle recursive typed dicts in functional syntax
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 74: Unexpected errors ["Expected a type form, got instance of `Literal['RecursiveMovie']` [not-a-type]"]

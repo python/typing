@@ -1,3 +1,8 @@
+conformant = "Partial"
+notes = """
+Types in quotes incorrectly refer to shadowing class member.
+Does not reject some type forms that require quotes.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 22: Expected 1 errors

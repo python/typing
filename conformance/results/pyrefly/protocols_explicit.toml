@@ -1,3 +1,7 @@
+conformant = "Fail"
+notes = """
+Does not check against abstract class instantiations
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 27: Expected 1 errors

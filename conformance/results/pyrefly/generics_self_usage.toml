@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not implement some restrictions on where Self can be used
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 73: Expected 1 errors

@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not check against inconsistent multiple inheritance
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 65: Expected 1 errors

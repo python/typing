@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Fails one protocol subtyping example involving @property
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 144: Unexpected errors ['`ConcreteHasProperty1` is not assignable to `HasPropertyProto` [bad-assignment]']

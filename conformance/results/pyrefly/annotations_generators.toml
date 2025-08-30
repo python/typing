@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not detect that invalid yield is unreachable
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 190: Unexpected errors ['Expected to yield a value of type `int`, but a bare `yield` gives `None` instead [invalid-yield]']

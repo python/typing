@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Some error suppressing context managers are not detected
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 50: Unexpected errors ['assert_type(str, int | str) failed [assert-type]']

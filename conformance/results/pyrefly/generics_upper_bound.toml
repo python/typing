@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Instantiation is not validated against bound
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 51: Expected 1 errors

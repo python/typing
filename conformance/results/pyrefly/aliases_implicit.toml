@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not reject invalid syntax in implicit type aliases.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 106: Expected 1 errors

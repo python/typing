@@ -1,3 +1,7 @@
+conformant = "Pass"
+notes = """
+Treats attributes not initialized on the class as instance-only
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 43: Unexpected errors ['assert_type(Any, list[Self]) failed [assert-type]', 'Instance-only attribute `a` of class `ChildB` is not visible on the class [missing-attribute]']

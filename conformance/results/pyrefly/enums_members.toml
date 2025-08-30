@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Enum members that are aliases of other members do not resolved to the aliased member's type
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 27: Unexpected errors ['assert_type(Any, str) failed [assert-type]', 'Instance-only attribute `genus` of class `Pet` is not visible on the class [missing-attribute]']

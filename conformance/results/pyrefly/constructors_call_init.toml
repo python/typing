@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not reject class-scoped type var in self param annotation
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 107: Expected 1 errors

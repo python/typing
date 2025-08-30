@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Two instances parameterized with different literals are not compatible
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 71: Unexpected errors ['`@` is not supported between `Matrix[Literal[2], Literal[3]]` and `Matrix[Literal[3], Literal[7]]` [unsupported-operation]']

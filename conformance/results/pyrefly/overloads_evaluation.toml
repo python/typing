@@ -1,3 +1,8 @@
+conformant = "Partial"
+notes = """
+Does not exclude overloads based on arity first
+Does not perform argument expansion
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 105: Unexpected errors ['No matching overload found for function `example2` [no-matching-overload]']

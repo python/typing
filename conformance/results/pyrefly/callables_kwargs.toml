@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not reject overlap between unpacked TypedDict kwarg and named parameters
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 111: Expected 1 errors

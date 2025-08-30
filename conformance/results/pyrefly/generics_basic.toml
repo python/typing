@@ -1,3 +1,9 @@
+conformant = "Partial"
+notes = """
+Does not reject Type Var definition with only 1 constraint
+Incorrect rejects + between two AnyStr
+Constrained type var resolves to subtype instead of explcitly listed constraint
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 49: Expected 1 errors

@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not fully support extra_items for typed dicts
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 129: Unexpected errors ['TypedDict `MovieEI` does not have key `year` [typed-dict-key-error]']

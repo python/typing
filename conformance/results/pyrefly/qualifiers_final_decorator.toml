@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not ban final decorator on overload when implementation exists
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Lines 84, 85, 86: Expected error (tag 'Derived3-2')

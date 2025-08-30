@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Final attributes not initialized on the class can be assigned to
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 34: Expected 1 errors

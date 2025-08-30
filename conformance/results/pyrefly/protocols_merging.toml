@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not check against abstract class instantiations
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 82: Expected 1 errors
