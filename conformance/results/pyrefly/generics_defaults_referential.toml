@@ -1,3 +1,4 @@
+conformant = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
 Line 66: Unexpected errors ['Expected default `TypeVar[X1]` of `Ok1` to be assignable to the upper bound of `float` [invalid-type-var]']
