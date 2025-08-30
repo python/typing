@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_reveal_type.py:19:16-18: reveal_type needs 1 positional argument, got 0 [bad-argument-count]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_reveal_type.py:20:16-22: reveal_type needs 1 positional argument, got 2 [bad-argument-count]
+"""

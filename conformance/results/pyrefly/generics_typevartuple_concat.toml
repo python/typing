@@ -1,0 +1,7 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 56: Unexpected errors ['Returned type `tuple[*tuple[object | T, ...], object | T]` is not assignable to declared return type `tuple[*Ts, T]` [bad-return]']
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_typevartuple_concat.py:56:12-30: Returned type `tuple[*tuple[object | T, ...], object | T]` is not assignable to declared return type `tuple[*Ts, T]` [bad-return]
+"""

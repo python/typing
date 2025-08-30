@@ -1,0 +1,10 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 25: Unexpected errors ['`Module[_protocols_modules1]` is not assignable to `Options1` [bad-assignment]']
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_modules.py:25:17-36: `Module[_protocols_modules1]` is not assignable to `Options1` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_modules.py:26:17-36: `Module[_protocols_modules1]` is not assignable to `Options2` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_modules.py:48:18-37: `Module[_protocols_modules2]` is not assignable to `Reporter2` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_modules.py:49:18-37: `Module[_protocols_modules2]` is not assignable to `Reporter3` [bad-assignment]
+"""

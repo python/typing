@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_expansion.py:53:20-51: assert_type(CustomFlags, Literal[CustomFlags.FLAG3]) failed [assert-type]
+"""

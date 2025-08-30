@@ -1,0 +1,7 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 32: Expected 1 errors
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_self_attributes.py:26:38-62: Argument `LinkedList[int]` is not assignable to parameter `next` with type `OrdinalLinkedList | None` in function `OrdinalLinkedList.__init__` [bad-argument-type]
+"""

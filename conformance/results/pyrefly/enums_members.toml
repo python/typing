@@ -1,0 +1,28 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 27: Unexpected errors ['assert_type(Any, str) failed [assert-type]', 'Instance-only attribute `genus` of class `Pet` is not visible on the class [missing-attribute]']
+Line 28: Unexpected errors ['assert_type(Any, str) failed [assert-type]', 'Instance-only attribute `species` of class `Pet` is not visible on the class [missing-attribute]']
+Line 100: Unexpected errors ['assert_type(Literal[TrafficLight.AMBER], Literal[TrafficLight.YELLOW]) failed [assert-type]']
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:27:12-28: assert_type(Any, str) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:27:13-22: Instance-only attribute `genus` of class `Pet` is not visible on the class [missing-attribute]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:28:12-30: assert_type(Any, str) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:28:13-24: Instance-only attribute `species` of class `Pet` is not visible on the class [missing-attribute]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:50:5-8: Enum member `DOG` may not be annotated directly. Instead, annotate the `_value_` attribute. [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:82:12-53: assert_type((x: Any) -> str, Any) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:82:37-51: `Pet4.converter` is not a valid enum member [invalid-literal]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:83:12-53: assert_type((x: int) -> int, Any) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:83:37-51: `Pet4.transform` is not a valid enum member [invalid-literal]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:84:12-49: assert_type((self: Self) -> str, Any) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:84:35-47: `Pet4.species` is not a valid enum member [invalid-literal]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:85:12-45: assert_type((self: Self) -> None, Any) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:85:33-43: `Pet4.speak` is not a valid enum member [invalid-literal]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:100:12-62: assert_type(Literal[TrafficLight.AMBER], Literal[TrafficLight.YELLOW]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:116:12-43: assert_type(nonmember[int], Any) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:116:32-41: `Example.b` is not a valid enum member [invalid-literal]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:129:20-57: assert_type(int, Any) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:129:43-55: `Example2.__B` is not a valid enum member [invalid-literal]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:146:12-27: assert_type(Literal[Pet5.DOG], int) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_members.py:147:12-28: assert_type(Literal[Pet5.FISH], int) failed [assert-type]
+"""

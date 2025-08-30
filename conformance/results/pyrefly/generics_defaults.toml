@@ -1,0 +1,17 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 130: Unexpected errors ['assert_type(Any, int) failed [assert-type]']
+Line 169: Unexpected errors ['assert_type([DefaultIntT](Foo7[DefaultIntT]) -> Foo7[DefaultIntT], (Foo7[int]) -> Foo7[int]) failed [assert-type]']
+Line 170: Unexpected errors ['assert_type(Any, int) failed [assert-type]', 'Instance-only attribute `attr` of class `Foo7` is not visible on the class [missing-attribute]']
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults.py:24:7-31: Type parameter `T` without a default cannot follow type parameter `DefaultStrT` with a default [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults.py:50:1-20: Expected 5 type arguments for `AllTheDefaults`, got 1 [bad-specialization]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults.py:107:51-54: Expected default `int` of `Invalid1` to be assignable to the upper bound of `str` [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults.py:114:52-55: Expected default `int` of `Invalid2` to be one of the following constraints: `float`, `str` [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults.py:130:12-27: assert_type(Any, int) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults.py:141:7-11: TypeVar `T5` with a default cannot follow TypeVarTuple `Ts` [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults.py:169:12-57: assert_type([DefaultIntT](Foo7[DefaultIntT]) -> Foo7[DefaultIntT], (Foo7[int]) -> Foo7[int]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults.py:170:12-28: assert_type(Any, int) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults.py:170:13-22: Instance-only attribute `attr` of class `Foo7` is not visible on the class [missing-attribute]
+"""

@@ -1,0 +1,10 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 35: Expected 1 errors
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_final.py:27:1-17: Cannot set field `final_classvar` [read-only]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_final.py:36:1-21: Cannot set field `final_with_default` [read-only]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_final.py:37:1-19: Instance-only attribute `final_no_default` of class `D` is not visible on the class [no-access]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_final.py:38:1-21: Cannot set field `final_with_default` [read-only]
+"""

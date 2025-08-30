@@ -1,0 +1,16 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 144: Unexpected errors ['`ConcreteHasProperty1` is not assignable to `HasPropertyProto` [bad-assignment]']
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_generic.py:40:24-35: `Concrete1` is not assignable to `Proto1[int, str]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_generic.py:44:7-13: Class `Proto2` specifies type parameters in both `Generic` and `Protocol` bases [invalid-inheritance]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_generic.py:56:20-29: `Box[float]` is not assignable to `Box[int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_generic.py:66:25-35: `Sender[int]` is not assignable to `Sender[float]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_generic.py:74:28-36: `AttrProto[int]` is not assignable to `AttrProto[float]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_generic.py:75:26-36: `AttrProto[float]` is not assignable to `AttrProto[int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_generic.py:144:25-47: `ConcreteHasProperty1` is not assignable to `HasPropertyProto` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_generic.py:145:25-47: `ConcreteHasProperty2` is not assignable to `HasPropertyProto` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_generic.py:146:25-47: `ConcreteHasProperty3` is not assignable to `HasPropertyProto` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_generic.py:147:25-47: `ConcreteHasProperty4` is not assignable to `HasPropertyProto` [bad-assignment]
+"""

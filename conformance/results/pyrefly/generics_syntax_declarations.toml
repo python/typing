@@ -1,0 +1,15 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_syntax_declarations.py:17:7-13: Redundant type parameter declaration [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_syntax_declarations.py:25:7-13: Redundant type parameter declaration [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_syntax_declarations.py:32:9-21: Object of class `str` has no attribute `is_integer` [missing-attribute]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_syntax_declarations.py:44:21-33: Type variable bounds and constraints must be concrete [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_syntax_declarations.py:48:17-27: Expected a type form, got instance of `list[type[int] | type[str]]` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_syntax_declarations.py:60:17-19: Expected at least 2 constraints in TypeVar `T`, got 0 [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_syntax_declarations.py:64:17-23: Expected at least 2 constraints in TypeVar `T`, got 1 [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_syntax_declarations.py:71:17-19: Expected a type form, got instance of `tuple[type[bytes], type[str]]` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_syntax_declarations.py:75:18-19: Expected a type form, got instance of `Literal[3]` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_syntax_declarations.py:79:23-24: Could not find name `S` [unknown-name]
+"""

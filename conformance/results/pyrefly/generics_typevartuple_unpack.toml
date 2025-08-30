@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_typevartuple_unpack.py:30:28-29: Argument `Array[Batch]` is not assignable to parameter `x` with type `Array[Batch, *tuple[Any, ...], Channels]` in function `process_batch_channels` [bad-argument-type]
+"""

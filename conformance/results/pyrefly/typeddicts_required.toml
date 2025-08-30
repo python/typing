@@ -1,0 +1,12 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 74: Unexpected errors ["Expected a type form, got instance of `Literal['RecursiveMovie']` [not-a-type]"]
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_required.py:12:5-6: `Required` may only be used for TypedDict members [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_required.py:19:8-19: `NotRequired` is only allowed inside a class body [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_required.py:19:8-24: `NotRequired` is not allowed in this context [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_required.py:62:8-31: Duplicate qualifier `Required` [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_required.py:63:8-34: Cannot combine `Required` and `NotRequired` for a TypedDict field [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_required.py:74:75-91: Expected a type form, got instance of `Literal['RecursiveMovie']` [not-a-type]
+"""

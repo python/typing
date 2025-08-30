@@ -1,0 +1,31 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 22: Expected 1 errors
+Line 23: Expected 1 errors
+Line 24: Expected 1 errors
+Line 25: Expected 1 errors
+Line 66: Expected 1 errors
+Line 87: Unexpected errors ['Expected a type form, got instance of `(self: Self@ClassD) -> None` [not-a-type]']
+Line 96: Unexpected errors ['assert_type(Any, int) failed [assert-type]']
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:41:10-50: function call cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:42:10-20: list literal cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:43:10-20: tuple literal cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:44:10-33: list comprehension cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:45:10-12: dict literal cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:46:10-26: function call cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:47:10-18: invalid subscript expression cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:48:10-31: if expression cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:49:10-14: Expected a type form, got instance of `Literal[1]` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:50:11-15: bool literal cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:51:11-12: number literal cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:52:11-13: unary operation cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:53:11-21: boolean operation cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:54:11-17: f-string cannot be used in annotations [invalid-annotation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:55:11-16: Expected a type form, got instance of `Module[types]` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:80:14-20: Could not find name `ClassF` [unknown-name]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:87:9-12: Expected a type form, got instance of `(self: Self@ClassD) -> None` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:89:8-11: Expected a type form, got instance of `(self: Self@ClassD) -> None` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_forward_refs.py:96:12-27: assert_type(Any, int) failed [assert-type]
+"""

@@ -1,0 +1,12 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 27: Expected 1 errors
+Line 60: Expected 1 errors
+Line 90: Expected 1 errors
+Line 110: Expected 1 errors
+Line 135: Expected 1 errors
+Line 165: Expected 1 errors
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_explicit.py:56:20-36: `tuple[int, int, str]` is not assignable to attribute `rgb` with type `tuple[int, int, int]` [bad-assignment]
+"""

@@ -1,0 +1,16 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_converter.py:48:41-55: Argument `() -> int` is not assignable to parameter `converter` with type `(@_) -> int` in function `model_field` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_converter.py:48:41-55: Argument `() -> int` is not assignable to parameter `converter` with type `(@_) -> @_` in function `model_field` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_converter.py:49:41-55: Argument `(*, x: int) -> int` is not assignable to parameter `converter` with type `(@_) -> int` in function `model_field` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_converter.py:49:41-55: Argument `(*, x: int) -> int` is not assignable to parameter `converter` with type `(@_) -> @_` in function `model_field` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_converter.py:107:5-6: Argument `Literal[1]` is not assignable to parameter `field0` with type `str` in function `DC2.__init__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_converter.py:108:23-24: Argument `Literal[1]` is not assignable to parameter `field3` with type `bytes | str` in function `DC2.__init__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_converter.py:109:29-31: Argument `complex` is not assignable to parameter `field4` with type `list[str] | str` in function `DC2.__init__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_converter.py:118:14-15: `Literal[1]` is not assignable to attribute `field0` with type `str` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_converter.py:119:14-15: `Literal[1]` is not assignable to attribute `field3` with type `bytes | str` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_converter.py:130:67-68: Argument `Literal[1]` is not assignable to parameter `default` with type `str | None` in function `model_field` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_converter.py:133:75-78: Argument `type[int]` is not assignable to parameter `default_factory` with type `(() -> str) | None` in function `model_field` [bad-argument-type]
+"""
