@@ -1,0 +1,15 @@
+conformant = "Partial"
+notes = """
+Does not check against abstract class instantiations
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 82: Expected 1 errors
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_merging.py:52:25-38: `SCConcrete2` is not assignable to `SizedAndClosable1` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_merging.py:53:25-38: `SCConcrete2` is not assignable to `SizedAndClosable2` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_merging.py:54:25-38: `SCConcrete2` is not assignable to `SizedAndClosable3` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_merging.py:67:16-33: If `Protocol` is included as a base class, all other bases must be protocols [invalid-inheritance]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_merging.py:83:24-37: `SCConcrete1` is not assignable to `SizedAndClosable4` [bad-assignment]
+"""

@@ -272,6 +272,7 @@ class PyreTypeChecker(TypeChecker):
             line_to_errors.setdefault(int(lineno), []).append(line)
         return line_to_errors
 
+
 class ZubanLSTypeChecker(MypyTypeChecker):
     @property
     def name(self) -> str:
@@ -335,10 +336,66 @@ class ZubanLSTypeChecker(MypyTypeChecker):
         return line_to_errors
 
 
+class PyreflyTypeChecker(TypeChecker):
+    @property
+    def name(self) -> str:
+        return "pyrefly"
+
+    def install(self) -> bool:
+        try:
+            # Uninstall any existing version if present.
+            run(
+                [sys.executable, "-m", "pip", "uninstall", "pyrefly", "-y"],
+                check=True,
+            )
+            # Install the latest version.
+            run(
+                [sys.executable, "-m", "pip", "install", "pyrefly"],
+                check=True,
+            )
+            return True
+        except CalledProcessError:
+            print("Unable to install pyrefly")
+            return False
+
+    def get_version(self) -> str:
+        proc = run(["pyrefly", "--version"], stdout=PIPE, text=True)
+        version = proc.stdout.strip()
+        return version
+
+    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
+        proc = run(["pyrefly", "check", "--output-format", "min-text", "--no-summary"], stdout=PIPE, text=True, encoding="utf-8")
+        lines = proc.stdout.split("\n")
+
+        # Add results to a dictionary keyed by the file name.
+        results_dict: dict[str, str] = {}
+        for line in lines:
+            if not line.strip():
+                continue
+            file_name = line.split(":")[0].split(" ")[1].split("conformance/tests/")[-1].strip()
+            results_dict[file_name] = results_dict.get(file_name, "") + line + "\n"
+
+        return results_dict
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            # Ignore multi-line errors
+            if ".py:" not in line and ".pyi:" not in line:
+                continue
+            # Ignore reveal_type errors
+            if "revealed type: " in line:
+                continue
+            assert line.count(":") >= 3, f"Failed to parse line: {line!r}"
+            _, lineno, _, error_msg = line.split(":", maxsplit=3)
+            line_to_errors.setdefault(int(lineno), []).append(error_msg.strip())
+        return line_to_errors
+
 
 TYPE_CHECKERS: Sequence[TypeChecker] = (
     MypyTypeChecker(),
     PyrightTypeChecker(),
     *([] if os.name == "nt" else [PyreTypeChecker()]),
     ZubanLSTypeChecker(),
+    PyreflyTypeChecker(),
 )

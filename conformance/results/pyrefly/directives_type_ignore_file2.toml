@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_type_ignore_file2.py:14:10-12: `Literal['']` is not assignable to `int` [bad-assignment]
+"""

@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_field.py:64:16-18: Unexpected keyword argument `id` in function `CustomerModel1.__init__` [unexpected-keyword]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_field.py:75:16-17: Expected argument `name` to be passed by name in function `CustomerModel2.__init__` [unexpected-positional-argument]
+"""

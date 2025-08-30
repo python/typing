@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/specialtypes_none.py:21:7-17: Argument `type` is not assignable to parameter `val1` with type `None` in function `func1` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/specialtypes_none.py:27:19-23: `None` is not assignable to `Iterable[Unknown]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/specialtypes_none.py:41:7-11: Argument `None` is not assignable to parameter `val1` with type `type[None]` in function `func2` [bad-argument-type]
+"""

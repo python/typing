@@ -1,0 +1,13 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/namedtuples_usage.py:34:7-11: Index 3 out of range for tuple with 3 elements [index-error]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/namedtuples_usage.py:35:7-12: Index -4 out of range for tuple with 3 elements [index-error]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/namedtuples_usage.py:40:1-4: Cannot set field `x` [read-only]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/namedtuples_usage.py:41:1-5: Cannot set item in `Point` [unsupported-operation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/namedtuples_usage.py:42:5-8: Cannot delete field `x` [read-only]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/namedtuples_usage.py:43:5-9: Cannot delete item in `Point` [unsupported-operation]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/namedtuples_usage.py:52:1-7: Cannot unpack Point (of size 3) into 2 values [bad-unpacking]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/namedtuples_usage.py:53:1-21: Cannot unpack Point (of size 3) into 4 values [bad-unpacking]
+"""

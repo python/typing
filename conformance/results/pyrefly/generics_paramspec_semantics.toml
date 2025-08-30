@@ -1,0 +1,16 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_semantics.py:26:4-5: Expected argument `a` to be positional [unexpected-keyword]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_semantics.py:26:11-12: Expected argument `b` to be positional [unexpected-keyword]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_semantics.py:27:9-12: Argument `Literal['A']` is not assignable to parameter `b` with type `bool` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_semantics.py:46:17-20: Argument `(y: int, x: str) -> int` is not assignable to parameter `y` with type `(x: int, y: str) -> int` in function `func1` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_semantics.py:61:23-37: Argument `(*, y: int) -> int` is not assignable to parameter `y` with type `(*, x: int) -> int` in function `func1` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_semantics.py:98:4-5: Argument `Literal[1]` is not assignable to parameter with type `str` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_semantics.py:108:4-5: Argument `Literal[1]` is not assignable to parameter `*args` with type `bool` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_semantics.py:120:4-5: Argument `Literal[1]` is not assignable to parameter with type `str` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_semantics.py:127:1-19: Argument `(x: str) -> int` is not assignable to parameter `x` with type `(int, ParamSpec(@_)) -> int` in function `expects_int_first` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_semantics.py:132:1-19: Argument `(*, x: int) -> int` is not assignable to parameter `x` with type `(int, ParamSpec(@_)) -> int` in function `expects_int_first` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_semantics.py:137:1-19: Argument `(**kwargs: int) -> int` is not assignable to parameter `x` with type `(int, ParamSpec(@_)) -> int` in function `expects_int_first` [bad-argument-type]
+"""

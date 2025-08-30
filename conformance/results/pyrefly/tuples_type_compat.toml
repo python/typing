@@ -1,0 +1,29 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:15:27-29: `tuple[float, complex]` is not assignable to `tuple[int, int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:29:10-12: `tuple[int, ...]` is not assignable to variable `v2` with type `tuple[int, *tuple[int, ...]]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:32:10-12: `tuple[int, *tuple[int, ...]]` is not assignable to variable `v3` with type `tuple[int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:33:10-12: `tuple[int, ...]` is not assignable to variable `v3` with type `tuple[int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:43:22-24: `tuple[int, ...]` is not assignable to `tuple[int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:62:26-35: `tuple[int, ...]` is not assignable to `tuple[int, int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:76:20-37: assert_type(tuple[int], tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:81:20-37: assert_type(tuple[int, int] | tuple[str, str], tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:86:20-37: assert_type(tuple[int, str, int], tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:102:24-41: assert_type(tuple[int], tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:107:24-41: assert_type(tuple[int, int] | tuple[str, str], tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:112:24-41: assert_type(tuple[int, str, int], tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:126:24-53: assert_type(tuple[int | str, int | str], tuple[int | str, str]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:129:24-53: assert_type(tuple[int | str, int | str], tuple[int | str, int]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:157:6-17: `tuple[Literal[1], Literal[''], Literal['']]` is not assignable to variable `t1` with type `tuple[int, str]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:162:6-16: `tuple[Literal[1], Literal[1], Literal['']]` is not assignable to variable `t2` with type `tuple[int, *tuple[str, ...]]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:163:6-16: `tuple[Literal[1], Literal[''], Literal[1]]` is not assignable to variable `t2` with type `tuple[int, *tuple[str, ...]]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:169:6-17: `tuple[Literal[1], Literal[''], Literal['']]` is not assignable to variable `t3` with type `tuple[int, *tuple[str, ...], int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:170:6-22: `tuple[Literal[1], Literal[''], Literal[''], float]` is not assignable to variable `t3` with type `tuple[int, *tuple[str, ...], int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:175:6-16: `tuple[Literal[1], Literal[''], Literal[1]]` is not assignable to variable `t4` with type `tuple[*tuple[str, ...], int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:176:6-19: `tuple[Literal[''], Literal[''], float]` is not assignable to variable `t4` with type `tuple[*tuple[str, ...], int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:181:40-41: `tuple[str, str]` is not assignable to `tuple[str, str, int]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:184:50-51: `tuple[str, str]` is not assignable to `tuple[str, str, str, *tuple[str, ...]]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_compat.py:188:50-51: `tuple[str, str]` is not assignable to `tuple[*tuple[str, ...], str, str, str]` [bad-assignment]
+"""

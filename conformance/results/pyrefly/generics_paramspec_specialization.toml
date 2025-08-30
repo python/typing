@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_specialization.py:44:15-31: Expected a valid ParamSpec expression, got `int` [invalid-param-spec]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_specialization.py:54:9-11: Argument `Literal['']` is not assignable to parameter with type `int` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_specialization.py:55:16-18: Argument `Literal['']` is not assignable to parameter with type `bool` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_specialization.py:60:9-11: Argument `Literal['']` is not assignable to parameter with type `int` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_paramspec_specialization.py:61:16-18: Argument `Literal['']` is not assignable to parameter with type `bool` [bad-argument-type]
+"""

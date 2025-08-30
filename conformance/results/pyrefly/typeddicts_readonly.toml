@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly.py:24:1-14: Key `members` in TypedDict `Band` is read-only [read-only]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly.py:36:1-14: Key `members` in TypedDict `Band2` is read-only [read-only]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly.py:50:1-12: Key `title` in TypedDict `Movie1` is read-only [read-only]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly.py:51:1-11: Key `year` in TypedDict `Movie1` is read-only [read-only]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly.py:60:1-12: Key `title` in TypedDict `Movie2` is read-only [read-only]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly.py:61:1-11: Key `year` in TypedDict `Movie2` is read-only [read-only]
+"""

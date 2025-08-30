@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_methods.py:42:12-28: assert_type(B, A) failed [assert-type]
+"""

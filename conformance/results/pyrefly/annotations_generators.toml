@@ -1,0 +1,22 @@
+conformant = "Partial"
+notes = """
+Does not detect that invalid yield is unreachable
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 190: Unexpected errors ['Expected to yield a value of type `int`, but a bare `yield` gives `None` instead [invalid-yield]']
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:51:21-39: Function declared to return `C`, but one or more paths are missing an explicit `return` [bad-return]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:54:16-21: Returned type `Literal[False]` is not assignable to declared return type `C` [bad-return]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:57:15-16: Type of yielded value `Literal[3]` is not assignable to declared return type `A` [invalid-yield]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:66:15-16: Type of yielded value `Literal[3]` is not assignable to declared return type `A` [invalid-yield]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:71:12-16: Returned type `Literal[True]` is not assignable to declared return type `None` [bad-return]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:75:11-14: Type of yielded value `B` is not assignable to declared return type `A` [invalid-yield]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:86:21-24: Generator function should return `Generator` [bad-return]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:91:27-30: Async generator function should return `AsyncGenerator` [bad-return]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:118:5-29: Cannot yield from a generator of type `Generator[A, None, None]` because it does not match the declared return type `Generator[B, None, Unknown]` [invalid-yield]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:119:5-19: Cannot yield from a generator of type `Generator[int, None, None]` because it does not match the declared return type `Generator[B, None, Unknown]` [invalid-yield]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:135:5-29: Cannot yield from a generator of type `Generator[None, int, None]` because it does not match the declared return type `Generator[None, str, Unknown]` [invalid-yield]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/annotations_generators.py:190:5-10: Expected to yield a value of type `int`, but a bare `yield` gives `None` instead [invalid-yield]
+"""

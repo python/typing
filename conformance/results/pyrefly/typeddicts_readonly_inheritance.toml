@@ -1,0 +1,20 @@
+conformant = "Partial"
+notes = """
+Does not restrictions around overriding for ReadOnly fields
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 98: Expected 1 errors
+Line 106: Expected 1 errors
+Line 119: Expected 1 errors
+Line 132: Expected 1 errors
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_inheritance.py:36:1-11: Key `name` in TypedDict `Album2` is read-only [read-only]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_inheritance.py:50:5-8: Class member `RecordShop.alt` overrides parent class `AlbumCollection` in an inconsistent manner [bad-override]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_inheritance.py:65:19-21: Missing required key `name` for TypedDict `RequiredName` [typed-dict-key-error]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_inheritance.py:82:14-15: `Literal[3]` is not assignable to TypedDict key `ident` with type `str` [typed-dict-key-error]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_inheritance.py:83:15-16: `Literal[3]` is not assignable to TypedDict key `ident` with type `str` [typed-dict-key-error]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_inheritance.py:84:5-7: Missing required key `ident` for TypedDict `User` [typed-dict-key-error]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_inheritance.py:94:5-6: Class member `F3.a` overrides parent class `F1` in an inconsistent manner [bad-override]
+"""

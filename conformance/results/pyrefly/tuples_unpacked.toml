@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_unpacked.py:40:29-45: Only one unbounded type is allowed to be unpacked [bad-unpacking]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_unpacked.py:41:42-58: Only one unbounded type is allowed to be unpacked [bad-unpacking]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_unpacked.py:51:33-36: Only one unbounded type is allowed to be unpacked [bad-unpacking]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_unpacked.py:59:37-60: Only one unbounded type is allowed to be unpacked [bad-unpacking]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_unpacked.py:61:50-73: Only one unbounded type is allowed to be unpacked [bad-unpacking]
+"""

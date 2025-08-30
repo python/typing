@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_match_args.py:42:1-19: Class `DC4` has no class attribute `__match_args__` [missing-attribute]
+"""

@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_assert_type.py:27:16-24: assert_type(int | str, int) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_assert_type.py:28:16-24: assert_type(Any, int) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_assert_type.py:29:16-24: assert_type(Literal[4], int) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_assert_type.py:31:16-18: assert_type needs 2 positional arguments, got 0 [bad-argument-count]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_assert_type.py:32:16-25: assert_type(Literal[''], int) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_assert_type.py:33:16-33: assert_type needs 2 positional arguments, got 3 [bad-argument-count]
+"""

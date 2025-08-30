@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_usage.py:23:7-17: TypedDict `Movie` does not have key `director` [typed-dict-key-error]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_usage.py:24:17-23: `Literal['1982']` is not assignable to TypedDict key `year` with type `int` [typed-dict-key-error]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_usage.py:28:17-56: Missing required key `name` for TypedDict `Movie` [typed-dict-key-error]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_usage.py:28:18-25: Key `title` is not defined in TypedDict `Movie` [typed-dict-key-error]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_usage.py:35:22-27: TypedDict `Movie` not allowed as second argument to isinstance() [invalid-argument]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_usage.py:40:24-33: `TypedDict` is not allowed in this context [invalid-annotation]
+"""
