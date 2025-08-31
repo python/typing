@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_postinit.py:19:9-22: `__post_init__` type `BoundMethod[DC1, (self: Self@DC1, x: int, y: int) -> None]` is not assignable to expected type `(x: int, y: str) -> object` generated from the dataclass's `InitVar` fields [bad-function-definition]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_postinit.py:28:7-12: Object of class `DC1` has no attribute `x` [missing-attribute]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_postinit.py:29:7-12: Object of class `DC1` has no attribute `y` [missing-attribute]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_postinit.py:36:9-22: `__post_init__` type `BoundMethod[DC2, (self: Self@DC2, x: int) -> None]` is not assignable to expected type `(x: int, y: str) -> object` generated from the dataclass's `InitVar` fields [bad-function-definition]
+"""

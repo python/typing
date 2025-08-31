@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_consistency.py:37:14-15: `TypedDict[A1]` is not assignable to `TypedDict[B1]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_consistency.py:38:14-15: `TypedDict[C1]` is not assignable to `TypedDict[B1]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_consistency.py:40:14-15: `TypedDict[A1]` is not assignable to `TypedDict[C1]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_consistency.py:81:14-15: `TypedDict[A2]` is not assignable to `TypedDict[B2]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_consistency.py:82:14-15: `TypedDict[C2]` is not assignable to `TypedDict[B2]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_consistency.py:84:14-15: `TypedDict[A2]` is not assignable to `TypedDict[C2]` [bad-assignment]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_consistency.py:85:14-15: `TypedDict[B2]` is not assignable to `TypedDict[C2]` [bad-assignment]
+"""

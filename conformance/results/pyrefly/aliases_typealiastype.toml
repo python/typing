@@ -1,0 +1,49 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 44: Expected 1 errors
+Line 46: Expected 1 errors
+Line 48: Expected 1 errors
+Line 52: Expected 1 errors
+Line 53: Expected 1 errors
+Line 54: Expected 1 errors
+Line 55: Expected 1 errors
+Line 56: Expected 1 errors
+Line 57: Expected 1 errors
+Line 58: Expected 1 errors
+Line 59: Expected 1 errors
+Line 60: Expected 1 errors
+Line 61: Expected 1 errors
+Line 62: Expected 1 errors
+Line 63: Expected 1 errors
+Line 64: Expected 1 errors
+Line 17: Unexpected errors ['Argument `tuple[type[TypeVar[T]]]` is not assignable to parameter `type_params` with type `tuple[ParamSpec | TypeVar | TypeVarTuple, ...]` in function `typing.TypeAliasType.__new__` [bad-argument-type]']
+Line 18: Unexpected errors ['Argument `tuple[type[TypeVar[S]], type[TypeVar[T]]]` is not assignable to parameter `type_params` with type `tuple[ParamSpec | TypeVar | TypeVarTuple, ...]` in function `typing.TypeAliasType.__new__` [bad-argument-type]']
+Line 19: Unexpected errors ['Argument `tuple[type[TypeVar[T]]]` is not assignable to parameter `type_params` with type `tuple[ParamSpec | TypeVar | TypeVarTuple, ...]` in function `typing.TypeAliasType.__new__` [bad-argument-type]']
+Line 22: Unexpected errors ["Expected a type form, got instance of `Literal['GoodAlias5[S, TStr, P]']` [not-a-type]"]
+Line 23: Unexpected errors ['Argument `tuple[type[TypeVar[S]], type[TypeVar[TStr]], type[ParamSpec[P]], type[TypeVarTuple[Ts]]]` is not assignable to parameter `type_params` with type `tuple[ParamSpec | TypeVar | TypeVarTuple, ...]` in function `typing.TypeAliasType.__new__` [bad-argument-type]']
+Line 35: Unexpected errors ['Expected a type form, got instance of `GenericAlias` [not-a-type]']
+Line 36: Unexpected errors ['Expected a type form, got instance of `GenericAlias` [not-a-type]']
+Line 37: Unexpected errors ['Expected a type form, got instance of `GenericAlias` [not-a-type]']
+Line 38: Unexpected errors ['Expected a type form, got instance of `GenericAlias` [not-a-type]']
+Line 39: Unexpected errors ['Expected a type form, got instance of `GenericAlias` [not-a-type]', 'Expected an iterable, got `type[tuple[int, str, int]]` [not-iterable]']
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:17:63-67: Argument `tuple[type[TypeVar[T]]]` is not assignable to parameter `type_params` with type `tuple[ParamSpec | TypeVar | TypeVarTuple, ...]` in function `typing.TypeAliasType.__new__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:18:73-79: Argument `tuple[type[TypeVar[S]], type[TypeVar[T]]]` is not assignable to parameter `type_params` with type `tuple[ParamSpec | TypeVar | TypeVarTuple, ...]` in function `typing.TypeAliasType.__new__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:19:81-85: Argument `tuple[type[TypeVar[T]]]` is not assignable to parameter `type_params` with type `tuple[ParamSpec | TypeVar | TypeVarTuple, ...]` in function `typing.TypeAliasType.__new__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:22:40-64: Expected a type form, got instance of `Literal['GoodAlias5[S, TStr, P]']` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:23:17-33: Argument `tuple[type[TypeVar[S]], type[TypeVar[TStr]], type[ParamSpec[P]], type[TypeVarTuple[Ts]]]` is not assignable to parameter `type_params` with type `tuple[ParamSpec | TypeVar | TypeVarTuple, ...]` in function `typing.TypeAliasType.__new__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:32:7-30: Object of class `TypeAliasType` has no attribute `other_attrib` [missing-attribute]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:35:5-20: Expected a type form, got instance of `GenericAlias` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:36:5-20: Expected a type form, got instance of `GenericAlias` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:37:5-40: Expected a type form, got instance of `GenericAlias` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:38:5-40: Expected a type form, got instance of `GenericAlias` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:39:5-60: Expected a type form, got instance of `GenericAlias` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:39:16-59: Expected an iterable, got `type[tuple[int, str, int]]` [not-iterable]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:40:5-30: Expected a type form, got instance of `GenericAlias` [not-a-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:43:61-65: Argument `tuple[type[TypeVar[T]]]` is not assignable to parameter `type_params` with type `tuple[ParamSpec | TypeVar | TypeVarTuple, ...]` in function `typing.TypeAliasType.__new__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:45:57-65: Argument `tuple[type[TypeVar[S]], type[TypeVar[T]]]` is not assignable to parameter `type_params` with type `tuple[ParamSpec | TypeVar | TypeVarTuple, ...]` in function `typing.TypeAliasType.__new__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:47:74-78: Argument `tuple[type[TypeVar[T]]]` is not assignable to parameter `type_params` with type `tuple[ParamSpec | TypeVar | TypeVarTuple, ...]` in function `typing.TypeAliasType.__new__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/aliases_typealiastype.py:66:47-57: `BadAlias21` is uninitialized [unbound-name]
+"""

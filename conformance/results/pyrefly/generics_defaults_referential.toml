@@ -1,0 +1,19 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 66: Unexpected errors ['Expected default `TypeVar[X1]` of `Ok1` to be assignable to the upper bound of `float` [invalid-type-var]']
+Line 67: Unexpected errors ['Expected default `TypeVar[X1]` of `AlsoOk1` to be assignable to the upper bound of `int` [invalid-type-var]']
+Line 77: Unexpected errors ['Expected default `TypeVar[Y2]` of `AlsoOk2` to be one of the following constraints: `int`, `str`, `bool` [invalid-type-var]']
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults_referential.py:36:13-15: Argument `Literal['']` is not assignable to parameter `b` with type `int` in function `Foo.__init__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults_referential.py:37:10-12: Argument `Literal['']` is not assignable to parameter `a` with type `int` in function `Foo.__init__` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults_referential.py:53:7-13: Default of type parameter `Start2T` refers to out-of-scope type parameter `StopT` [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults_referential.py:60:11-15: Default of type parameter `S2` refers to out-of-scope type parameter `S1` [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults_referential.py:66:30-32: Expected default `TypeVar[X1]` of `Ok1` to be assignable to the upper bound of `float` [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults_referential.py:67:38-40: Expected default `TypeVar[X1]` of `AlsoOk1` to be assignable to the upper bound of `int` [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults_referential.py:68:40-42: Expected default `TypeVar[X1]` of `Invalid1` to be assignable to the upper bound of `str` [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults_referential.py:74:52-54: Expected default `TypeVar[Y1]` of `Invalid2` to be one of the following constraints: `float`, `str` [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults_referential.py:77:54-56: Expected default `TypeVar[Y2]` of `AlsoOk2` to be one of the following constraints: `int`, `str`, `bool` [invalid-type-var]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_defaults_referential.py:78:63-65: Expected default `TypeVar[Y2]` of `AlsoInvalid2` to be one of the following constraints: `bool`, `complex` [invalid-type-var]
+"""

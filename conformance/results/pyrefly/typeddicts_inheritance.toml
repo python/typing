@@ -1,0 +1,12 @@
+conformant = "Partial"
+notes = """
+Does not check against inconsistent multiple inheritance
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 65: Expected 1 errors
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_inheritance.py:44:7-19: `NonTypedDict` is not a typed dictionary. Typed dictionary definitions may only extend other typed dictionaries. [invalid-inheritance]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_inheritance.py:55:4-5: Class member `Y1.x` overrides parent class `X1` in an inconsistent manner [bad-override]
+"""

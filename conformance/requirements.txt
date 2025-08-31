@@ -5,3 +5,4 @@ mypy
 pip
 pyre-check; platform_system != "Windows"
 zuban
+pyrefly

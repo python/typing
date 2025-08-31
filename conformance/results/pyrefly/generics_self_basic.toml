@@ -1,0 +1,12 @@
+conformant = "Partial"
+notes = """
+Return annotation of Self allows returning the concrete instance of the current class.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 20: Expected 1 errors
+Line 33: Expected 1 errors
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_self_basic.py:67:26-35: `type[Self@Container]` is not subscriptable [unsupported-operation]
+"""

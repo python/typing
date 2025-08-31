@@ -1,0 +1,19 @@
+conformant = "Partial"
+notes = """
+Does not ban final decorator on overload when implementation exists
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Lines 84, 85, 86: Expected error (tag 'Derived3-2')
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/qualifiers_final_decorator.py:21:16-21: Cannot extend final class `Base1` [invalid-inheritance]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/qualifiers_final_decorator.py:56:9-16: `method1` is declared as final in parent class `Base2` [bad-override]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/qualifiers_final_decorator.py:60:9-16: `method2` is declared as final in parent class `Base2` [bad-override]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/qualifiers_final_decorator.py:64:9-16: `method3` is declared as final in parent class `Base2` [bad-override]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/qualifiers_final_decorator.py:68:9-16: `method4` is declared as final in parent class `Base2` [bad-override]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/qualifiers_final_decorator.py:81:9-15: `method` is declared as final in parent class `Base3` [bad-override]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/qualifiers_final_decorator.py:95:9-15: `method` is declared as final in parent class `Base4` [bad-override]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/qualifiers_final_decorator.py:118:9-15: `method` is declared as final in parent class `Base5_2` [bad-override]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/qualifiers_final_decorator.py:125:1-7: Decorator `@final` can only be used on methods. [invalid-decorator]
+"""

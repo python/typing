@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_cast.py:15:12-14: `typing.cast` missing required argument `typ` [missing-argument]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_cast.py:15:12-14: `typing.cast` missing required argument `val` [missing-argument]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_cast.py:16:12-19: First argument to `typing.cast` must be a type [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_cast.py:17:12-25: `typing.cast` expected 2 arguments, got 3 [bad-argument-count]
+"""

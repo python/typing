@@ -1,0 +1,24 @@
+conformant = "Partial"
+notes = """
+Does not restrict some decorators to implementation
+Does not require some decorators that need to appear on every overload
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Lines 71, 73, 78, 81: Expected error (tag 'func5')
+Lines 121, 122, 123, 127: Expected error (tag 'invalid_final')
+Lines 135, 136, 137, 141, 142: Expected error (tag 'invalid_final_2')
+Lines 170, 175, 181, 183: Expected error (tag 'override-final')
+Lines 220, 221, 222, 225, 226: Expected error (tag 'override_impl')
+Line 49: Unexpected errors ['Overloaded function must have an implementation [invalid-overload]']
+Line 176: Unexpected errors ['`final_method` is declared as final in parent class `Base` [bad-override]']
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:16:5-10: Overloaded function needs at least two @overload declarations [invalid-overload]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:28:5-10: Overloaded function must have an implementation [invalid-overload]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:49:9-14: Overloaded function must have an implementation [invalid-overload]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:59:9-21: Overloaded function must have an implementation [invalid-overload]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:90:9-14: Implementation signature `(cls: type[Self@C], *args: int | str) -> int | str` does not accept all arguments that overload signature `(self: Self@C, x: str, /) -> str` accepts [invalid-overload]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:176:9-21: `final_method` is declared as final in parent class `Base` [bad-override]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:191:9-21: Class member `Child.bad_override` is marked as an override, but no parent class has a matching attribute [bad-override]
+"""

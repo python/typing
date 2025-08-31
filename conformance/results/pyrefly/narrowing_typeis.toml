@@ -1,0 +1,14 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeis.py:105:9-13: Type guard functions must accept at least one positional argument [bad-function-definition]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeis.py:110:9-13: Type guard functions must accept at least one positional argument [bad-function-definition]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeis.py:132:20-36: Argument `(val: object) -> TypeIs[int]` is not assignable to parameter `f` with type `(object) -> str` in function `takes_callable_str` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeis.py:152:26-42: Argument `(val: object) -> TypeIs[int]` is not assignable to parameter `f` with type `CallableStrProto` in function `takes_callable_str_proto` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeis.py:169:17-30: Argument `(val: object) -> TypeIs[int]` is not assignable to parameter `f` with type `(object) -> TypeGuard[int]` in function `takes_typeguard` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeis.py:170:14-30: Argument `(val: object) -> TypeGuard[int]` is not assignable to parameter `f` with type `(object) -> TypeIs[int]` in function `takes_typeis` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeis.py:191:18-29: Argument `(val: object) -> TypeIs[bool]` is not assignable to parameter `f` with type `(object) -> TypeIs[int]` in function `takes_int_typeis` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeis.py:195:5-15: Return type `str` must be assignable to the first argument type `int` [bad-function-definition]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeis.py:199:5-24: Return type `list[int]` must be assignable to the first argument type `list[object]` [bad-function-definition]
+"""

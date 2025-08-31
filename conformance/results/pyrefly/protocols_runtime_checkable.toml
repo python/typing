@@ -1,0 +1,15 @@
+conformant = "Partial"
+notes = """
+Does not check for unsafe overlap in runtime_checkable protocols
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 88: Expected 1 errors
+Line 92: Expected 1 errors
+Line 96: Expected 1 errors
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_runtime_checkable.py:23:22-28: Protocol `Proto1` is not decorated with @runtime_checkable and cannot be used with isinstance() [invalid-argument]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_runtime_checkable.py:55:22-34: Protocol `DataProtocol` has non-method members and cannot be used with issubclass() [invalid-argument]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_runtime_checkable.py:61:22-53: Protocol `DataProtocol` has non-method members and cannot be used with issubclass() [invalid-argument]
+"""

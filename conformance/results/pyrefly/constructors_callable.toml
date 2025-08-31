@@ -1,0 +1,35 @@
+conformant = "Partial"
+notes = """
+Some overloaded constructors are not resolved correctly.
+Converting constructor to callable does not preserve class-scoped type params.
+Converting constructor to callable does not substitute Self in __new__
+Converting constructor to callable uses __new__ signature instead of __init__
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 65: Expected 1 errors
+Line 66: Expected 1 errors
+Line 67: Expected 1 errors
+Line 184: Expected 1 errors
+Line 195: Expected 1 errors
+Line 62: Unexpected errors ['Argument `type[Class3]` is not assignable to parameter `cb` with type `(*args: Unknown, **kwargs: Unknown) -> Class3` in function `accepts_callable` [bad-argument-type]']
+Line 164: Unexpected errors ['assert_type(Class7[Any], Class7[int]) failed [assert-type]']
+Line 165: Unexpected errors ['assert_type(Class7[Any], Class7[str]) failed [assert-type]', "Argument `Literal['']` is not assignable to parameter `x` with type `int` [bad-argument-type]"]
+Line 183: Unexpected errors ['assert_type(Class8[Any], Class8[str]) failed [assert-type]']
+"""
+output = """
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:38:3-5: Missing argument `x` [missing-argument]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:39:3-8: Missing argument `x` [missing-argument]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:39:4-5: Unexpected keyword argument `y` [unexpected-keyword]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:51:4-5: Expected 0 positional arguments, got 1 [bad-argument-count]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:62:23-29: Argument `type[Class3]` is not assignable to parameter `cb` with type `(*args: Unknown, **kwargs: Unknown) -> Class3` in function `accepts_callable` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:79:3-5: Missing argument `x` [missing-argument]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:80:3-8: Missing argument `x` [missing-argument]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:80:4-5: Unexpected keyword argument `y` [unexpected-keyword]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:127:4-5: Expected 0 positional arguments, got 1 [bad-argument-count]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:144:8-9: Expected 0 positional arguments, got 1 [bad-argument-count]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:164:12-32: assert_type(Class7[Any], Class7[int]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:165:12-33: assert_type(Class7[Any], Class7[str]) failed [assert-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:165:16-18: Argument `Literal['']` is not assignable to parameter `x` with type `int` [bad-argument-type]
+ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_callable.py:183:12-41: assert_type(Class8[Any], Class8[str]) failed [assert-type]
+"""
