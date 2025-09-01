@@ -7,8 +7,8 @@ errors_diff = """
 Line 32: Unexpected errors ["Returned type `Literal['whatever works']` is not assignable to declared return type `int` [bad-return]"]
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/specialtypes_never.py:19:22-30: Function declared to return `NoReturn` but is missing an explicit `return` [bad-return]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/specialtypes_never.py:32:12-28: Returned type `Literal['whatever works']` is not assignable to declared return type `int` [bad-return]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/specialtypes_never.py:86:21-22: `list[Never]` is not assignable to `list[int]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/specialtypes_never.py:105:12-27: Returned type `ClassC[Never]` is not assignable to declared return type `ClassC[U]` [bad-return]
+ERROR specialtypes_never.py:19:22-30: Function declared to return `NoReturn` but is missing an explicit `return` [bad-return]
+ERROR specialtypes_never.py:32:12-28: Returned type `Literal['whatever works']` is not assignable to declared return type `int` [bad-return]
+ERROR specialtypes_never.py:86:21-22: `list[Never]` is not assignable to `list[int]` [bad-assignment]
+ERROR specialtypes_never.py:105:12-27: Returned type `ClassC[Never]` is not assignable to declared return type `ClassC[U]` [bad-return]
 """

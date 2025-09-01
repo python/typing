@@ -1,16 +1,17 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_form.py:12:6-12: `tuple[Literal[1], Literal[2]]` is not assignable to variable `t1` with type `tuple[int]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_form.py:14:6-10: `tuple[Literal[1]]` is not assignable to variable `t2` with type `tuple[int, int]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_form.py:15:6-13: `tuple[Literal[1], Literal['']]` is not assignable to variable `t2` with type `tuple[int, int]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_form.py:25:7-11: `tuple[Literal[1]]` is not assignable to variable `t10` with type `tuple[()]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_form.py:36:7-20: `tuple[Literal[1], Literal[2], Literal[3], Literal['']]` is not assignable to variable `t20` with type `tuple[int, ...]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_form.py:40:22-25: Invalid position for `...` [invalid-argument]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_form.py:41:12-15: Invalid position for `...` [invalid-argument]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_form.py:42:12-15: Invalid position for `...` [invalid-argument]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_form.py:43:17-20: Invalid position for `...` [invalid-argument]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_form.py:44:25-28: `...` cannot be used with an unpacked `TypeVarTuple` or tuple [invalid-argument]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/tuples_type_form.py:45:30-33: Invalid position for `...` [invalid-argument]
+ERROR tuples_type_form.py:12:6-12: `tuple[Literal[1], Literal[2]]` is not assignable to variable `t1` with type `tuple[int]` [bad-assignment]
+ERROR tuples_type_form.py:14:6-10: `tuple[Literal[1]]` is not assignable to variable `t2` with type `tuple[int, int]` [bad-assignment]
+ERROR tuples_type_form.py:15:6-13: `tuple[Literal[1], Literal['']]` is not assignable to variable `t2` with type `tuple[int, int]` [bad-assignment]
+ERROR tuples_type_form.py:25:7-11: `tuple[Literal[1]]` is not assignable to variable `t10` with type `tuple[()]` [bad-assignment]
+ERROR tuples_type_form.py:36:7-20: `tuple[Literal[1], Literal[2], Literal[3], Literal['']]` is not assignable to variable `t20` with type `tuple[int, ...]` [bad-assignment]
+ERROR tuples_type_form.py:40:22-25: Invalid position for `...` [invalid-argument]
+ERROR tuples_type_form.py:41:12-15: Invalid position for `...` [invalid-argument]
+ERROR tuples_type_form.py:42:12-15: Invalid position for `...` [invalid-argument]
+ERROR tuples_type_form.py:43:17-20: Invalid position for `...` [invalid-argument]
+ERROR tuples_type_form.py:44:25-28: `...` cannot be used with an unpacked `TypeVarTuple` or tuple [invalid-argument]
+ERROR tuples_type_form.py:45:30-33: Invalid position for `...` [invalid-argument]
 """

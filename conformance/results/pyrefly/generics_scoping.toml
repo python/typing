@@ -14,6 +14,6 @@ Line 95: Expected 1 errors
 Line 96: Expected 1 errors
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_scoping.py:29:10-13: Argument `Literal['a']` is not assignable to parameter `x` with type `int` in function `MyClass.meth_2` [bad-argument-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_scoping.py:65:11-20: Redundant type parameter declaration [invalid-type-var]
+ERROR generics_scoping.py:29:10-13: Argument `Literal['a']` is not assignable to parameter `x` with type `int` in function `MyClass.meth_2` [bad-argument-type]
+ERROR generics_scoping.py:65:11-20: Redundant type parameter declaration [invalid-type-var]
 """

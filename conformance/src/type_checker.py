@@ -364,7 +364,12 @@ class PyreflyTypeChecker(TypeChecker):
         return version
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        proc = run(["pyrefly", "check", "--output-format", "min-text", "--no-summary"], stdout=PIPE, text=True, encoding="utf-8")
+        proc = run(
+            ["pyrefly", "check", "--output-format", "min-text", "--no-summary"],
+            stdout=PIPE,
+            text=True,
+            encoding="utf-8",
+        )
         lines = proc.stdout.split("\n")
 
         # Add results to a dictionary keyed by the file name.
@@ -372,8 +377,23 @@ class PyreflyTypeChecker(TypeChecker):
         for line in lines:
             if not line.strip():
                 continue
-            file_name = line.split(":")[0].split(" ")[1].split("conformance/tests/")[-1].strip()
-            results_dict[file_name] = results_dict.get(file_name, "") + line + "\n"
+            # Extract the absolute path reported by pyrefly and convert it to a
+            # stable relative path (filename only) so results are consistent.
+            # Example input line:
+            #   "ERROR /abs/.../conformance/tests/foo.py:12:3-5: message [code]"
+            # We replace the absolute path with just "foo.py".
+            try:
+                abs_path = line.split(":", 1)[0].split(" ", 1)[1].strip()
+            except IndexError:
+                # If parsing fails, fall back to original line and grouping.
+                abs_path = ""
+            file_name = Path(abs_path).name if abs_path else line.split(":")[0]
+
+            # Replace only the first occurrence to avoid touching the message text.
+            display_line = line.replace(abs_path, file_name, 1) if abs_path else line
+            results_dict[file_name] = (
+                results_dict.get(file_name, "") + display_line + "\n"
+            )
 
         return results_dict
 

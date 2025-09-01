@@ -1,6 +1,7 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_readonly_kwargs.py:33:5-19: Key `key1` in TypedDict `ReadOnlyArgs` is read-only [read-only]
+ERROR typeddicts_readonly_kwargs.py:33:5-19: Key `key1` in TypedDict `ReadOnlyArgs` is read-only [read-only]
 """

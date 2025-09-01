@@ -1,17 +1,18 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:22:17-21: `Literal[1982]` is not assignable to TypedDict key `name` with type `str` [typed-dict-key-error]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:23:17-19: `Literal['']` is not assignable to TypedDict key `year` with type `int` [typed-dict-key-error]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:24:7-14: TypedDict `Movie` does not have key `other` [typed-dict-key-error]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:26:13-20: TypedDict `Movie` does not have key `other` [typed-dict-key-error]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:28:9-33: Missing required key `year` for TypedDict `Movie` [typed-dict-key-error]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:29:42-48: `float` is not assignable to TypedDict key `year` with type `int` [typed-dict-key-error]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:32:36-43: Key `other` is not defined in TypedDict `Movie` [typed-dict-key-error]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:37:20-52: Missing required key `name` for TypedDict `Movie` [typed-dict-key-error]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:37:21-33: Expected string literal key, got `str` [typed-dict-key-error]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:47:1-12: Object of class `Movie` has no attribute `clear` [missing-attribute]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:49:11-17: Key `name` in TypedDict `Movie` may not be deleted [delete-error]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_operations.py:62:1-21: Object of class `MovieOptional` has no attribute `clear` [missing-attribute]
+ERROR typeddicts_operations.py:22:17-21: `Literal[1982]` is not assignable to TypedDict key `name` with type `str` [typed-dict-key-error]
+ERROR typeddicts_operations.py:23:17-19: `Literal['']` is not assignable to TypedDict key `year` with type `int` [typed-dict-key-error]
+ERROR typeddicts_operations.py:24:7-14: TypedDict `Movie` does not have key `other` [typed-dict-key-error]
+ERROR typeddicts_operations.py:26:13-20: TypedDict `Movie` does not have key `other` [typed-dict-key-error]
+ERROR typeddicts_operations.py:28:9-33: Missing required key `year` for TypedDict `Movie` [typed-dict-key-error]
+ERROR typeddicts_operations.py:29:42-48: `float` is not assignable to TypedDict key `year` with type `int` [typed-dict-key-error]
+ERROR typeddicts_operations.py:32:36-43: Key `other` is not defined in TypedDict `Movie` [typed-dict-key-error]
+ERROR typeddicts_operations.py:37:20-52: Missing required key `name` for TypedDict `Movie` [typed-dict-key-error]
+ERROR typeddicts_operations.py:37:21-33: Expected string literal key, got `str` [typed-dict-key-error]
+ERROR typeddicts_operations.py:47:1-12: Object of class `Movie` has no attribute `clear` [missing-attribute]
+ERROR typeddicts_operations.py:49:11-17: Key `name` in TypedDict `Movie` may not be deleted [delete-error]
+ERROR typeddicts_operations.py:62:1-21: Object of class `MovieOptional` has no attribute `clear` [missing-attribute]
 """

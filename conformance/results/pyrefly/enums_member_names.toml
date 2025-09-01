@@ -1,6 +1,7 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_member_names.py:30:16-65: assert_type(str, Literal['BLUE', 'GREEN', 'RED']) failed [assert-type]
+ERROR enums_member_names.py:30:16-65: assert_type(str, Literal['BLUE', 'GREEN', 'RED']) failed [assert-type]
 """

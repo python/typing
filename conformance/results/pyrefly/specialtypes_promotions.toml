@@ -1,6 +1,7 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/specialtypes_promotions.py:13:5-16: Object of class `float` has no attribute `numerator` [missing-attribute]
+ERROR specialtypes_promotions.py:13:5-16: Object of class `float` has no attribute `numerator` [missing-attribute]
 """

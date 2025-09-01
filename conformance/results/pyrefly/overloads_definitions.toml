@@ -14,11 +14,11 @@ Line 49: Unexpected errors ['Overloaded function must have an implementation [in
 Line 176: Unexpected errors ['`final_method` is declared as final in parent class `Base` [bad-override]']
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:16:5-10: Overloaded function needs at least two @overload declarations [invalid-overload]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:28:5-10: Overloaded function must have an implementation [invalid-overload]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:49:9-14: Overloaded function must have an implementation [invalid-overload]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:59:9-21: Overloaded function must have an implementation [invalid-overload]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:90:9-14: Implementation signature `(cls: type[Self@C], *args: int | str) -> int | str` does not accept all arguments that overload signature `(self: Self@C, x: str, /) -> str` accepts [invalid-overload]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:176:9-21: `final_method` is declared as final in parent class `Base` [bad-override]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions.py:191:9-21: Class member `Child.bad_override` is marked as an override, but no parent class has a matching attribute [bad-override]
+ERROR overloads_definitions.py:16:5-10: Overloaded function needs at least two @overload declarations [invalid-overload]
+ERROR overloads_definitions.py:28:5-10: Overloaded function must have an implementation [invalid-overload]
+ERROR overloads_definitions.py:49:9-14: Overloaded function must have an implementation [invalid-overload]
+ERROR overloads_definitions.py:59:9-21: Overloaded function must have an implementation [invalid-overload]
+ERROR overloads_definitions.py:90:9-14: Implementation signature `(cls: type[Self@C], *args: int | str) -> int | str` does not accept all arguments that overload signature `(self: Self@C, x: str, /) -> str` accepts [invalid-overload]
+ERROR overloads_definitions.py:176:9-21: `final_method` is declared as final in parent class `Base` [bad-override]
+ERROR overloads_definitions.py:191:9-21: Class member `Child.bad_override` is marked as an override, but no parent class has a matching attribute [bad-override]
 """

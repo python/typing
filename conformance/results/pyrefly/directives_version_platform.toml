@@ -1,7 +1,8 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_version_platform.py:40:17-19: `Literal['']` is not assignable to `int` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_version_platform.py:45:17-19: `Literal['']` is not assignable to `int` [bad-assignment]
+ERROR directives_version_platform.py:40:17-19: `Literal['']` is not assignable to `int` [bad-assignment]
+ERROR directives_version_platform.py:45:17-19: `Literal['']` is not assignable to `int` [bad-assignment]
 """

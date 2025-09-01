@@ -1,7 +1,8 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_call_metaclass.py:51:7-9: Missing argument `x` in function `Class3.__new__` [missing-argument]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/constructors_call_metaclass.py:65:7-9: Missing argument `x` in function `Class4.__new__` [missing-argument]
+ERROR constructors_call_metaclass.py:51:7-9: Missing argument `x` in function `Class3.__new__` [missing-argument]
+ERROR constructors_call_metaclass.py:65:7-9: Missing argument `x` in function `Class4.__new__` [missing-argument]
 """

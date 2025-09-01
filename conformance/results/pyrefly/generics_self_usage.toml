@@ -16,5 +16,5 @@ Line 121: Expected 1 errors
 Line 125: Expected 1 errors
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_self_usage.py:103:12-16: Invalid base class: `Self` [invalid-inheritance]
+ERROR generics_self_usage.py:103:12-16: Invalid base class: `Self` [invalid-inheritance]
 """

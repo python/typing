@@ -15,5 +15,5 @@ Lines 141, 142: Expected error (tag 'CoContra_Child5')
 Lines 195, 196: Expected error (tag 'ContraToContraToContra_WithTA')
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_variance.py:14:36-54: Contradictory variance specifications [invalid-type-var]
+ERROR generics_variance.py:14:36-54: Contradictory variance specifications [invalid-type-var]
 """
