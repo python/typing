@@ -1,14 +1,15 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_member_values.py:21:12-43: assert_type(int, Literal[1]) failed [assert-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_member_values.py:22:12-41: assert_type(int, Literal[1]) failed [assert-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_member_values.py:26:16-50: assert_type(int, Literal[1, 3]) failed [assert-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_member_values.py:30:16-51: assert_type(int, Literal[1, 2, 3]) failed [assert-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_member_values.py:54:12-46: assert_type(tuple[Literal[1], float, float], Literal[1]) failed [assert-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_member_values.py:68:12-42: assert_type(auto, Literal[1]) failed [assert-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_member_values.py:78:5-10: Enum member `GREEN` has type `str`, must match the `_value_` attribute annotation of `int` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_member_values.py:85:24-29: `int` is not assignable to attribute `_value_` with type `str` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/enums_member_values.py:96:12-41: assert_type(Ellipsis, int) failed [assert-type]
+ERROR enums_member_values.py:21:12-43: assert_type(int, Literal[1]) failed [assert-type]
+ERROR enums_member_values.py:22:12-41: assert_type(int, Literal[1]) failed [assert-type]
+ERROR enums_member_values.py:26:16-50: assert_type(int, Literal[1, 3]) failed [assert-type]
+ERROR enums_member_values.py:30:16-51: assert_type(int, Literal[1, 2, 3]) failed [assert-type]
+ERROR enums_member_values.py:54:12-46: assert_type(tuple[Literal[1], float, float], Literal[1]) failed [assert-type]
+ERROR enums_member_values.py:68:12-42: assert_type(auto, Literal[1]) failed [assert-type]
+ERROR enums_member_values.py:78:5-10: Enum member `GREEN` has type `str`, must match the `_value_` attribute annotation of `int` [bad-assignment]
+ERROR enums_member_values.py:85:24-29: `int` is not assignable to attribute `_value_` with type `str` [bad-assignment]
+ERROR enums_member_values.py:96:12-41: assert_type(Ellipsis, int) failed [assert-type]
 """

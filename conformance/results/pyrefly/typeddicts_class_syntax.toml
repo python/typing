@@ -1,10 +1,11 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_class_syntax.py:29:9-16: TypedDict item `method1` may not be initialized [bad-class-definition]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_class_syntax.py:34:9-16: TypedDict item `method2` may not be initialized [bad-class-definition]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_class_syntax.py:39:9-16: TypedDict item `method3` may not be initialized [bad-class-definition]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_class_syntax.py:44:7-20: Typed dictionary definitions may not specify a metaclass [invalid-inheritance]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_class_syntax.py:49:7-20: TypedDict does not support keyword argument `other` [bad-typed-dict]
+ERROR typeddicts_class_syntax.py:29:9-16: TypedDict item `method1` may not be initialized [bad-class-definition]
+ERROR typeddicts_class_syntax.py:34:9-16: TypedDict item `method2` may not be initialized [bad-class-definition]
+ERROR typeddicts_class_syntax.py:39:9-16: TypedDict item `method3` may not be initialized [bad-class-definition]
+ERROR typeddicts_class_syntax.py:44:7-20: Typed dictionary definitions may not specify a metaclass [invalid-inheritance]
+ERROR typeddicts_class_syntax.py:49:7-20: TypedDict does not support keyword argument `other` [bad-typed-dict]
 """

@@ -12,7 +12,7 @@ Lines 80, 82, 84, 85, 86: Expected error (tag 'invalid_final_2')
 Lines 143, 146, 147, 149: Expected error (tag 'override_impl')
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions_stub.pyi:14:5-10: Overloaded function needs at least two @overload declarations [invalid-overload]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions_stub.pyi:108:9-21: `final_method` is declared as final in parent class `Base` [bad-override]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/overloads_definitions_stub.pyi:122:9-21: Class member `Child.bad_override` is marked as an override, but no parent class has a matching attribute [bad-override]
+ERROR overloads_definitions_stub.pyi:14:5-10: Overloaded function needs at least two @overload declarations [invalid-overload]
+ERROR overloads_definitions_stub.pyi:108:9-21: `final_method` is declared as final in parent class `Base` [bad-override]
+ERROR overloads_definitions_stub.pyi:122:9-21: Class member `Child.bad_override` is marked as an override, but no parent class has a matching attribute [bad-override]
 """

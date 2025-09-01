@@ -1,7 +1,12 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_reveal_type.py:19:16-18: reveal_type needs 1 positional argument, got 0 [bad-argument-count]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/directives_reveal_type.py:20:16-22: reveal_type needs 1 positional argument, got 2 [bad-argument-count]
+ directives_reveal_type.py:14:16-19: revealed type: int | str [reveal-type]
+ directives_reveal_type.py:15:16-19: revealed type: list[int] [reveal-type]
+ directives_reveal_type.py:16:16-19: revealed type: Any [reveal-type]
+ directives_reveal_type.py:17:16-19: revealed type: ForwardReference [reveal-type]
+ERROR directives_reveal_type.py:19:16-18: reveal_type needs 1 positional argument, got 0 [bad-argument-count]
+ERROR directives_reveal_type.py:20:16-22: reveal_type needs 1 positional argument, got 2 [bad-argument-count]
 """

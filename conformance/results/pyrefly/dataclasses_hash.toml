@@ -1,7 +1,8 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_hash.py:15:16-22: `DC1` is not assignable to `Hashable` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_hash.py:32:16-22: `DC3` is not assignable to `Hashable` [bad-assignment]
+ERROR dataclasses_hash.py:15:16-22: `DC1` is not assignable to `Hashable` [bad-assignment]
+ERROR dataclasses_hash.py:32:16-22: `DC3` is not assignable to `Hashable` [bad-assignment]
 """

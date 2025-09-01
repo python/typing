@@ -1,6 +1,7 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_order.py:50:4-17: `<` is not supported between `DC1` and `DC2` [unsupported-operation]
+ERROR dataclasses_order.py:50:4-17: `<` is not supported between `DC1` and `DC2` [unsupported-operation]
 """

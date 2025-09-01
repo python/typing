@@ -13,7 +13,7 @@ Line 108: Expected 1 errors
 Line 26: Unexpected errors ['Cannot instantiate `Proto` because it is a protocol [bad-instantiation]']
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_class_objects.py:26:15-17: Cannot instantiate `Proto` because it is a protocol [bad-instantiation]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_class_objects.py:58:16-25: `type[ConcreteA]` is not assignable to `ProtoA1` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/protocols_class_objects.py:74:16-25: `type[ConcreteB]` is not assignable to `ProtoB1` [bad-assignment]
+ERROR protocols_class_objects.py:26:15-17: Cannot instantiate `Proto` because it is a protocol [bad-instantiation]
+ERROR protocols_class_objects.py:58:16-25: `type[ConcreteA]` is not assignable to `ProtoA1` [bad-assignment]
+ERROR protocols_class_objects.py:74:16-25: `type[ConcreteB]` is not assignable to `ProtoB1` [bad-assignment]
 """

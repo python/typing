@@ -1,9 +1,10 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeguard.py:102:9-13: Type guard functions must accept at least one positional argument [bad-function-definition]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeguard.py:107:9-13: Type guard functions must accept at least one positional argument [bad-function-definition]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeguard.py:128:20-36: Argument `(val: object) -> TypeGuard[int]` is not assignable to parameter `f` with type `(object) -> str` in function `takes_callable_str` [bad-argument-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/narrowing_typeguard.py:148:26-42: Argument `(val: object) -> TypeGuard[int]` is not assignable to parameter `f` with type `CallableStrProto` in function `takes_callable_str_proto` [bad-argument-type]
+ERROR narrowing_typeguard.py:102:9-13: Type guard functions must accept at least one positional argument [bad-function-definition]
+ERROR narrowing_typeguard.py:107:9-13: Type guard functions must accept at least one positional argument [bad-function-definition]
+ERROR narrowing_typeguard.py:128:20-36: Argument `(val: object) -> TypeGuard[int]` is not assignable to parameter `f` with type `(object) -> str` in function `takes_callable_str` [bad-argument-type]
+ERROR narrowing_typeguard.py:148:26-42: Argument `(val: object) -> TypeGuard[int]` is not assignable to parameter `f` with type `CallableStrProto` in function `takes_callable_str_proto` [bad-argument-type]
 """

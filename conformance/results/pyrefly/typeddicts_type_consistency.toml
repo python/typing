@@ -1,14 +1,15 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_type_consistency.py:21:10-12: `TypedDict[B1]` is not assignable to `TypedDict[A1]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_type_consistency.py:38:10-12: `TypedDict[B2]` is not assignable to `TypedDict[A2]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_type_consistency.py:65:6-8: `TypedDict[A3]` is not assignable to variable `b3` with type `TypedDict[B3]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_type_consistency.py:69:21-24: Key `y` is not defined in TypedDict `A3` [typed-dict-key-error]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_type_consistency.py:76:22-24: `TypedDict[B3]` is not assignable to `dict[str, int]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_type_consistency.py:77:25-27: `TypedDict[B3]` is not assignable to `dict[str, object]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_type_consistency.py:78:22-24: `TypedDict[B3]` is not assignable to `dict[Any, Any]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_type_consistency.py:82:25-27: `TypedDict[B3]` is not assignable to `Mapping[str, int]` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/typeddicts_type_consistency.py:126:56-57: `Literal[1]` is not assignable to TypedDict key `inner_key` with type `str` [typed-dict-key-error]
+ERROR typeddicts_type_consistency.py:21:10-12: `TypedDict[B1]` is not assignable to `TypedDict[A1]` [bad-assignment]
+ERROR typeddicts_type_consistency.py:38:10-12: `TypedDict[B2]` is not assignable to `TypedDict[A2]` [bad-assignment]
+ERROR typeddicts_type_consistency.py:65:6-8: `TypedDict[A3]` is not assignable to variable `b3` with type `TypedDict[B3]` [bad-assignment]
+ERROR typeddicts_type_consistency.py:69:21-24: Key `y` is not defined in TypedDict `A3` [typed-dict-key-error]
+ERROR typeddicts_type_consistency.py:76:22-24: `TypedDict[B3]` is not assignable to `dict[str, int]` [bad-assignment]
+ERROR typeddicts_type_consistency.py:77:25-27: `TypedDict[B3]` is not assignable to `dict[str, object]` [bad-assignment]
+ERROR typeddicts_type_consistency.py:78:22-24: `TypedDict[B3]` is not assignable to `dict[Any, Any]` [bad-assignment]
+ERROR typeddicts_type_consistency.py:82:25-27: `TypedDict[B3]` is not assignable to `Mapping[str, int]` [bad-assignment]
+ERROR typeddicts_type_consistency.py:126:56-57: `Literal[1]` is not assignable to TypedDict key `inner_key` with type `str` [typed-dict-key-error]
 """

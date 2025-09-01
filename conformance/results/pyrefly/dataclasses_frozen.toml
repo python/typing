@@ -1,9 +1,10 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_frozen.py:16:1-6: Cannot set field `a` [read-only]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_frozen.py:17:1-6: Cannot set field `b` [read-only]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_frozen.py:23:7-10: Cannot inherit non-frozen dataclass `DC2` from frozen dataclass `DC1` [invalid-inheritance]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_frozen.py:33:7-10: Cannot inherit frozen dataclass `DC4` from non-frozen dataclass `DC3` [invalid-inheritance]
+ERROR dataclasses_frozen.py:16:1-6: Cannot set field `a` [read-only]
+ERROR dataclasses_frozen.py:17:1-6: Cannot set field `b` [read-only]
+ERROR dataclasses_frozen.py:23:7-10: Cannot inherit non-frozen dataclass `DC2` from frozen dataclass `DC1` [invalid-inheritance]
+ERROR dataclasses_frozen.py:33:7-10: Cannot inherit frozen dataclass `DC4` from non-frozen dataclass `DC3` [invalid-inheritance]
 """

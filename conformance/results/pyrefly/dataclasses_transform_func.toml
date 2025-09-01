@@ -1,12 +1,13 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_func.py:56:13-14: `Literal[3]` is not assignable to attribute `name` with type `str` [bad-assignment]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_func.py:60:6-17: `<` is not supported between `Customer1` and `Customer1` [unsupported-operation]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_func.py:64:36-42: Unexpected keyword argument `salary` in function `Customer1.__init__` [unexpected-keyword]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_func.py:70:18-19: Expected argument `id` to be passed by name in function `Customer2.__init__` [unexpected-positional-argument]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_func.py:70:21-27: Expected argument `name` to be passed by name in function `Customer2.__init__` [unexpected-positional-argument]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_func.py:89:7-24: Cannot inherit non-frozen dataclass `Customer3Subclass` from frozen dataclass `Customer3` [invalid-inheritance]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/dataclasses_transform_func.py:96:1-8: Cannot set field `id` [read-only]
+ERROR dataclasses_transform_func.py:56:13-14: `Literal[3]` is not assignable to attribute `name` with type `str` [bad-assignment]
+ERROR dataclasses_transform_func.py:60:6-17: `<` is not supported between `Customer1` and `Customer1` [unsupported-operation]
+ERROR dataclasses_transform_func.py:64:36-42: Unexpected keyword argument `salary` in function `Customer1.__init__` [unexpected-keyword]
+ERROR dataclasses_transform_func.py:70:18-19: Expected argument `id` to be passed by name in function `Customer2.__init__` [unexpected-positional-argument]
+ERROR dataclasses_transform_func.py:70:21-27: Expected argument `name` to be passed by name in function `Customer2.__init__` [unexpected-positional-argument]
+ERROR dataclasses_transform_func.py:89:7-24: Cannot inherit non-frozen dataclass `Customer3Subclass` from frozen dataclass `Customer3` [invalid-inheritance]
+ERROR dataclasses_transform_func.py:96:1-8: Cannot set field `id` [read-only]
 """

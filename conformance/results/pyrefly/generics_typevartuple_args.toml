@@ -1,14 +1,15 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_typevartuple_args.py:33:8-19: Unpacked argument `tuple[Literal[0], Literal['']]` is not assignable to parameter `*args` with type `tuple[*@_, Env]` in function `exec_le` [bad-argument-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_typevartuple_args.py:34:8-30: Unpacked argument `tuple[Literal[0], Literal['']]` is not assignable to parameter `*args` with type `tuple[*@_, Env]` in function `exec_le` [bad-argument-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_typevartuple_args.py:48:6-17: Unpacked argument `tuple[Literal[1], Literal['2'], Literal[3]]` is not assignable to parameter `*args` with type `tuple[int, ...]` in function `func1` [bad-argument-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_typevartuple_args.py:57:6-16: Unpacked argument `tuple[Literal[1], Literal[1], Literal['']]` is not assignable to parameter `*args` with type `tuple[int, *tuple[str, ...], str]` in function `func2` [bad-argument-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_typevartuple_args.py:58:6-9: Unpacked argument `tuple[Literal[1]]` is not assignable to parameter `*args` with type `tuple[int, *tuple[str, ...], str]` in function `func2` [bad-argument-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_typevartuple_args.py:59:6-10: Unpacked argument `tuple[Literal['']]` is not assignable to parameter `*args` with type `tuple[int, *tuple[str, ...], str]` in function `func2` [bad-argument-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_typevartuple_args.py:67:6-9: Unpacked argument `tuple[Literal[1]]` is not assignable to parameter `*args` with type `tuple[int, str]` in function `func3` [bad-argument-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_typevartuple_args.py:75:13-19: Argument `tuple[Literal[1], Literal[2]]` is not assignable to parameter `*args` with type `tuple[int]` in function `func4` [bad-argument-type]
-ERROR /Users/dannyyang/Documents/Documents/GitHub/typing/conformance/tests/generics_typevartuple_args.py:76:13-19: Argument `tuple[Literal['1']]` is not assignable to parameter `*args` with type `tuple[int]` in function `func4` [bad-argument-type]
+ERROR generics_typevartuple_args.py:33:8-19: Unpacked argument `tuple[Literal[0], Literal['']]` is not assignable to parameter `*args` with type `tuple[*@_, Env]` in function `exec_le` [bad-argument-type]
+ERROR generics_typevartuple_args.py:34:8-30: Unpacked argument `tuple[Literal[0], Literal['']]` is not assignable to parameter `*args` with type `tuple[*@_, Env]` in function `exec_le` [bad-argument-type]
+ERROR generics_typevartuple_args.py:48:6-17: Unpacked argument `tuple[Literal[1], Literal['2'], Literal[3]]` is not assignable to parameter `*args` with type `tuple[int, ...]` in function `func1` [bad-argument-type]
+ERROR generics_typevartuple_args.py:57:6-16: Unpacked argument `tuple[Literal[1], Literal[1], Literal['']]` is not assignable to parameter `*args` with type `tuple[int, *tuple[str, ...], str]` in function `func2` [bad-argument-type]
+ERROR generics_typevartuple_args.py:58:6-9: Unpacked argument `tuple[Literal[1]]` is not assignable to parameter `*args` with type `tuple[int, *tuple[str, ...], str]` in function `func2` [bad-argument-type]
+ERROR generics_typevartuple_args.py:59:6-10: Unpacked argument `tuple[Literal['']]` is not assignable to parameter `*args` with type `tuple[int, *tuple[str, ...], str]` in function `func2` [bad-argument-type]
+ERROR generics_typevartuple_args.py:67:6-9: Unpacked argument `tuple[Literal[1]]` is not assignable to parameter `*args` with type `tuple[int, str]` in function `func3` [bad-argument-type]
+ERROR generics_typevartuple_args.py:75:13-19: Argument `tuple[Literal[1], Literal[2]]` is not assignable to parameter `*args` with type `tuple[int]` in function `func4` [bad-argument-type]
+ERROR generics_typevartuple_args.py:76:13-19: Argument `tuple[Literal['1']]` is not assignable to parameter `*args` with type `tuple[int]` in function `func4` [bad-argument-type]
 """
