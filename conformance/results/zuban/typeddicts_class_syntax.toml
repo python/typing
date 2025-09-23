@@ -5,6 +5,6 @@ output = """
 typeddicts_class_syntax.py:29: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
 typeddicts_class_syntax.py:33: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
 typeddicts_class_syntax.py:38: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
-typeddicts_class_syntax.py:44: error: Unexpected keyword argument "metaclass" for TypedDict  [call-arg]
-typeddicts_class_syntax.py:49: error: Unexpected keyword argument "other" for TypedDict  [call-arg]
+typeddicts_class_syntax.py:44: error: Unexpected keyword argument "metaclass" for "TypedDict"  [call-arg]
+typeddicts_class_syntax.py:49: error: Unexpected keyword argument "other" for "TypedDict"  [call-arg]
 """

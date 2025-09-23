@@ -260,6 +260,8 @@ def main():
 
         # Run each test case with each type checker.
         for type_checker in TYPE_CHECKERS:
+            if options.only_run and options.only_run != type_checker.name:
+                continue
             if not type_checker.install():
                 print(f"Skipping tests for {type_checker.name}")
             else:

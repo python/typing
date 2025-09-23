@@ -9,14 +9,10 @@ errors_diff = """
 Line 82: Expected 1 errors
 Line 83: Expected 1 errors
 Line 116: Expected 1 errors
-Line 35: Unexpected errors ['enums_members.py:35: error: Expression is of type "Literal[Pet2.genus]", not "str"  [misc]']
-Line 36: Unexpected errors ['enums_members.py:36: error: Expression is of type "Literal[Pet2.species]", not "str"  [misc]']
 Line 100: Unexpected errors ['enums_members.py:100: error: Expression is of type "Literal[TrafficLight.AMBER]", not "Literal[TrafficLight.YELLOW]"  [misc]']
 Line 117: Unexpected errors ['enums_members.py:117: error: Parameter 1 of Literal[...] is invalid  [valid-type]']
 """
 output = """
-enums_members.py:35: error: Expression is of type "Literal[Pet2.genus]", not "str"  [misc]
-enums_members.py:36: error: Expression is of type "Literal[Pet2.species]", not "str"  [misc]
 enums_members.py:50: error: Enum members must be left unannotated  [misc]
 enums_members.py:50: note: See https://typing.readthedocs.io/en/latest/spec/enums.html#defining-members
 enums_members.py:84: error: Parameter 1 of Literal[...] is invalid  [valid-type]
