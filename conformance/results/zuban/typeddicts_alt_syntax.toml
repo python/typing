@@ -8,6 +8,6 @@ output = """
 typeddicts_alt_syntax.py:23: error: TypedDict() expects a dictionary literal as the second argument  [misc]
 typeddicts_alt_syntax.py:27: error: Invalid TypedDict() field name  [misc]
 typeddicts_alt_syntax.py:31: error: First argument "WrongName" to TypedDict() does not match variable name "BadTypedDict3"  [name-match]
-typeddicts_alt_syntax.py:35: error: Too many arguments for "TODO()"  [call-arg]
+typeddicts_alt_syntax.py:35: error: Unexpected keyword argument "other" for "TypedDict"  [call-arg]
 typeddicts_alt_syntax.py:41: error: TypedDict() expects a dictionary literal as the second argument  [misc]
 """

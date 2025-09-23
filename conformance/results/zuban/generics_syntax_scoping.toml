@@ -4,9 +4,6 @@ Does not following runtime scoping rules for type parameters in all cases.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 92: Expected 1 errors
-Line 95: Expected 1 errors
-Line 98: Expected 1 errors
 Line 31: Unexpected errors ['generics_syntax_scoping.py:31: error: Type variable "generics_syntax_scoping.T" is unbound  [misc]']
 Line 56: Unexpected errors ['generics_syntax_scoping.py:56: error: Name "S" already defined on line 55  [no-redef]']
 Line 62: Unexpected errors ['generics_syntax_scoping.py:62: error: Expression is of type "TypeVar", not "str"  [misc]']
@@ -35,6 +32,9 @@ generics_syntax_scoping.py:56: error: Name "S" already defined on line 55  [no-r
 generics_syntax_scoping.py:62: error: Expression is of type "TypeVar", not "str"  [misc]
 generics_syntax_scoping.py:88: error: Argument 1 has incompatible type "Type[ClassE]"; expected "Callable[Never, Never]"  [arg-type]
 generics_syntax_scoping.py:90: error: Name "T" already defined on line 89  [no-redef]
+generics_syntax_scoping.py:92: error: "T" already defined as a type parameter  [misc]
+generics_syntax_scoping.py:95: error: "T" already defined as a type parameter  [misc]
+generics_syntax_scoping.py:98: error: "T" already defined as a type parameter  [misc]
 generics_syntax_scoping.py:106: error: Name "T" already defined on line 105  [no-redef]
 generics_syntax_scoping.py:108: error: Expression is of type "TypeVar", not "int"  [misc]
 generics_syntax_scoping.py:116: error: Expression is of type "int", not "TypeVar"  [misc]
