@@ -266,25 +266,25 @@ Generic protocols are important. For example, ``SupportsAbs``, ``Iterable``
 and ``Iterator`` are generic protocols. They are defined similar to normal
 non-protocol generic types::
 
-  class Iterable(Protocol[T]):
+  class Iterable[T](Protocol):
       @abstractmethod
       def __iter__(self) -> Iterator[T]:
           ...
 
-``Protocol[T, S, ...]`` is allowed as a shorthand for
-``Protocol, Generic[T, S, ...]``. It is an error to combine
-``Protocol[T, S, ...]`` with ``Generic[T, S, ...]``, or with the new syntax for
-generic classes in Python 3.12 and above::
+The older syntax ``Protocol[T, S, ...]`` remains available as a shorthand for
+``Protocol, Generic[T, S, ...]``. It is an error to combine the shorthand with
+``Generic[T, S, ...]`` or to mix it with the new ``class Iterable[T]`` form::
 
-  class Iterable(Protocol[T], Generic[T]):   # INVALID
+  class Iterable[T](Protocol, Generic[T]):   # INVALID
       ...
 
   class Iterable[T](Protocol[T]):   # INVALID
       ...
 
-User-defined generic protocols support explicitly declared variance.
-Type checkers will warn if the inferred variance is different from
-the declared variance. Examples::
+When using the generics syntax introduced in Python 3.12, the variance of
+type variables is inferred. When using the pre-3.12 generics syntax, variance
+must be specified. Type checkers will warn if the declared variance does not
+match the protocol definition. Examples::
 
   T = TypeVar('T')
   T_co = TypeVar('T_co', covariant=True)
@@ -362,17 +362,15 @@ Self-types in protocols
 The self-types in protocols follow the
 :ref:`rules for other methods <annotating-methods>`. For example::
 
-  C = TypeVar('C', bound='Copyable')
   class Copyable(Protocol):
-      def copy(self: C) -> C:
+      def copy[C: Copyable](self: C) -> C:
 
   class One:
       def copy(self) -> 'One':
           ...
 
-  T = TypeVar('T', bound='Other')
   class Other:
-      def copy(self: T) -> T:
+      def copy[T: Other](self: T) -> T:
           ...
 
   c: Copyable
@@ -407,8 +405,7 @@ corresponding protocols are *not imported*::
   # file lib.py
   from collections.abc import Sized
 
-  T = TypeVar('T', contravariant=True)
-  class ListLike(Sized, Protocol[T]):
+  class ListLike[T](Sized, Protocol):
       def append(self, x: T) -> None:
           pass
 
@@ -535,13 +532,12 @@ illusion that a distinct type is provided::
 In contrast, type aliases are fully supported, including generic type
 aliases::
 
-  from typing import TypeVar
   from collections.abc import Reversible, Iterable, Sized
 
-  T = TypeVar('T')
-  class SizedIterable(Iterable[T], Sized, Protocol):
+  class SizedIterable[T](Iterable[T], Sized, Protocol):
       pass
-  CompatReversible = Reversible[T] | SizedIterable[T]
+
+  type CompatReversible[T] = Reversible[T] | SizedIterable[T]
 
 
 Modules as implementations of protocols

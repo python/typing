@@ -210,22 +210,15 @@ defined class is generic if you subclass one or more other generic classes and
 specify type variables for their parameters. See :ref:`generic-base-classes`
 for details.
 
-You can use multiple inheritance with ``Generic``::
+You can use multiple inheritance with generic classes::
 
-  from typing import TypeVar, Generic
-  from collections.abc import Sized, Iterable, Container
+  from collections.abc import Container, Iterable, Sized
 
-  T = TypeVar('T')
-
-  class LinkedList(Sized, Generic[T]):
+  class LinkedList[T](Sized):
       ...
 
-  K = TypeVar('K')
-  V = TypeVar('V')
-
-  class MyMapping(Iterable[tuple[K, V]],
-                  Container[tuple[K, V]],
-                  Generic[K, V]):
+  class MyMapping[K, V](Iterable[tuple[K, V]],
+                        Container[tuple[K, V]]):
       ...
 
 Subclassing a generic class without specifying type parameters assumes
@@ -245,8 +238,9 @@ Generic metaclasses are not supported.
 Scoping rules for type variables
 --------------------------------
 
-Type variables follow normal name resolution rules.
-However, there are some special cases in the static typechecking context:
+When using the generic class syntax introduced in Python 3.12, the location of
+its declaration defines its scope. When using the older syntax, the scoping
+rules are more subtle and complex.
 
 * A type variable used in a generic function could be inferred to represent
   different types in the same code block. Example::
@@ -344,13 +338,9 @@ Instantiating generic classes and type erasure
 ----------------------------------------------
 
 User-defined generic classes can be instantiated. Suppose we write
-a ``Node`` class inheriting from ``Generic[T]``::
+a ``Node`` class using the new generic class syntax::
 
-  from typing import TypeVar, Generic
-
-  T = TypeVar('T')
-
-  class Node(Generic[T]):
+  class Node[T]:
       ...
 
 To create ``Node`` instances you call ``Node()`` just as for a regular
@@ -362,12 +352,8 @@ corresponding argument value is passed, the type of the corresponding
 argument(s) is substituted.  Otherwise, the default value for the type
 parameter (or ``Any``, if no default is provided) is assumed.  Example::
 
-  from typing import TypeVar, Generic
-
-  T = TypeVar('T')
-
-  class Node(Generic[T]):
-      x: T # Instance attribute (see below)
+  class Node[T]:
+      x: T  # Instance attribute (see below)
       def __init__(self, label: T | None = None) -> None:
           ...
 
@@ -665,8 +651,18 @@ ParamSpec
 Declaration
 """"""""""""
 
-A parameter specification variable is defined in a similar manner to how a
-normal type variable is defined with ``typing.TypeVar``.
+In Python 3.12 and newer, a parameter specification variable can be introduced
+inline by prefixing its name with ``**`` inside a generic parameter list
+(for a function, class, or type alias).
+
+.. code-block::
+
+   def decorator[**P](func: Callable[P, int]) -> Callable[P, str]: ...
+
+   class CallbackWrapper[T, **P]:
+       callback: Callable[P, T]
+
+Prior to 3.12, the ``ParamSpec`` constructor can be used::
 
 .. code-block::
 
@@ -702,8 +698,8 @@ parameter specification variable (``Callable[Concatenate[int, P], int]``\ ).
                       parameter_specification_variable
                    "]"
 
-where ``parameter_specification_variable`` is a ``typing.ParamSpec`` variable,
-declared in the manner as defined above, and ``concatenate`` is
+where ``parameter_specification_variable`` is introduced either inline (using
+``**``) or via ``typing.ParamSpec`` as shown above, and ``concatenate`` is
 ``typing.Concatenate``.
 
 As before, ``parameters_expression``\ s by themselves are not acceptable in
@@ -711,53 +707,45 @@ places where a type is expected
 
 .. code-block::
 
-   def foo(x: P) -> P: ...                           # Rejected
-   def foo(x: Concatenate[int, P]) -> int: ...       # Rejected
-   def foo(x: list[P]) -> None: ...                  # Rejected
-   def foo(x: Callable[[int, str], P]) -> None: ...  # Rejected
+   def foo[**P](x: P) -> P: ...                           # Rejected
+   def foo[**P](x: Concatenate[int, P]) -> int: ...       # Rejected
+   def foo[**P](x: list[P]) -> None: ...                  # Rejected
+   def foo[**P](x: Callable[[int, str], P]) -> None: ...  # Rejected
 
 
 User-Defined Generic Classes
 """"""""""""""""""""""""""""
 
-Just as defining a class as inheriting from ``Generic[T]`` makes a class generic
-for a single parameter (when ``T`` is a ``TypeVar``\ ), defining a class as
-inheriting from ``Generic[P]`` makes a class generic on
-``parameters_expression``\ s (when ``P`` is a ``ParamSpec``).
+Just as defining a class with ``class C[T]: ...`` makes that class generic over
+the type parameter ``T``, adding ``**P`` makes it generic over a parameter
+specification.
 
 .. code-block::
 
-   T = TypeVar("T")
-   P_2 = ParamSpec("P_2")
+   from collections.abc import Callable
+   from typing import Concatenate, ParamSpec
 
-   class X(Generic[T, P]):
-     f: Callable[P, int]
-     x: T
+   class X[T, **P]:
+       f: Callable[P, int]
+       x: T
 
-   def f(x: X[int, P_2]) -> str: ...                    # Accepted
-   def f(x: X[int, Concatenate[int, P_2]]) -> str: ...  # Accepted
-   def f(x: X[int, [int, bool]]) -> str: ...            # Accepted
-   def f(x: X[int, ...]) -> str: ...                    # Accepted
-   def f(x: X[int, int]) -> str: ...                    # Rejected
-
-Or, equivalently, using the built-in syntax for generics in Python 3.12
-and higher::
-
-  class X[T, **P]:
-    f: Callable[P, int]
-    x: T
+   def accept_params[**P](x: X[int, P]) -> str: ...                         # Accepted
+   def accept_concatenate[**P](x: X[int, Concatenate[int, P]]) -> str: ...  # Accepted
+   def accept_concrete(x: X[int, [int, bool]]) -> str: ...                  # Accepted
+   def accept_unspecified(x: X[int, ...]) -> str: ...                       # Accepted
+   def reject_bad(x: X[int, int]) -> str: ...                               # Rejected
 
 By the rules defined above, spelling a concrete instance of a class generic
 with respect to only a single ``ParamSpec`` would require unsightly double
-brackets.  For aesthetic purposes we allow these to be omitted.
+brackets. For aesthetic purposes we allow these to be omitted.
 
 .. code-block::
 
-   class Z(Generic[P]):
-     f: Callable[P, int]
+   class Z[**P]:
+       f: Callable[P, int]
 
-   def f(x: Z[[int, str, bool]]) -> str: ...   # Accepted
-   def f(x: Z[int, str, bool]) -> str: ...     # Equivalent
+   def accept_list(x: Z[[int, str, bool]]) -> str: ...   # Accepted
+   def accept_flat(x: Z[int, str, bool]) -> str: ...     # Equivalent
 
    # Both Z[[int, str, bool]] and Z[int, str, bool] express this:
    class Z_instantiated:
@@ -772,7 +760,7 @@ evaluating ones with ``TypeVar``\ s.
 
 .. code-block::
 
-   def changes_return_type_to_str(x: Callable[P, int]) -> Callable[P, str]: ...
+   def changes_return_type_to_str[**P](x: Callable[P, int]) -> Callable[P, str]: ...
 
    def returns_int(a: str, b: bool) -> int: ...
 
@@ -795,9 +783,7 @@ but is not obligated to do so.
 
 .. code-block::
 
-   P = ParamSpec("P")
-
-   def foo(x: Callable[P, int], y: Callable[P, int]) -> Callable[P, bool]: ...
+   def foo[**P](x: Callable[P, int], y: Callable[P, int]) -> Callable[P, bool]: ...
 
    def x_y(x: int, y: str) -> int: ...
    def y_x(y: int, x: str) -> int: ...
@@ -820,9 +806,7 @@ evaluated in the same way.
 
 .. code-block::
 
-   U = TypeVar("U")
-
-   class Y(Generic[U, P]):
+   class Y[U, **P]:
      f: Callable[P, str]
      prop: U
 
@@ -844,15 +828,15 @@ transform a finite number of parameters of a callable.
 
    def bar(x: int, *args: bool) -> int: ...
 
-   def add(x: Callable[P, int]) -> Callable[Concatenate[str, P], bool]: ...
+   def add[**P](x: Callable[P, int]) -> Callable[Concatenate[str, P], bool]: ...
 
    add(bar)       # Should return (a: str, /, x: int, *args: bool) -> bool
 
-   def remove(x: Callable[Concatenate[int, P], int]) -> Callable[P, bool]: ...
+   def remove[**P](x: Callable[Concatenate[int, P], int]) -> Callable[P, bool]: ...
 
    remove(bar)    # Should return (*args: bool) -> bool
 
-   def transform(
+   def transform[**P](
      x: Callable[Concatenate[int, P], int]
    ) -> Callable[Concatenate[str, P], bool]: ...
 
@@ -865,7 +849,7 @@ their first position with a ``X`` can satisfy
 
 .. code-block::
 
-   def expects_int_first(x: Callable[Concatenate[int, P], int]) -> None: ...
+   def expects_int_first[**P](x: Callable[Concatenate[int, P], int]) -> None: ...
 
    @expects_int_first # Rejected
    def one(x: str) -> int: ...
@@ -907,7 +891,7 @@ These "properties" can only be used as the annotated types for
 
 .. code-block::
 
-   def puts_p_into_scope(f: Callable[P, int]) -> None:
+   def p_in_scope[**P](f: Callable[P, int]) -> None:
 
      def inner(*args: P.args, **kwargs: P.kwargs) -> None:      # Accepted
        pass
@@ -918,7 +902,7 @@ These "properties" can only be used as the annotated types for
      def misplaced(x: P.args) -> None:                          # Rejected
        pass
 
-   def out_of_scope(*args: P.args, **kwargs: P.kwargs) -> None: # Rejected
+   def p_not_in_scope(*args: P.args, **kwargs: P.kwargs) -> None: # Rejected
      pass
 
 
@@ -931,7 +915,7 @@ together, so that our usage is valid for all possible partitions.
 
 .. code-block::
 
-   def puts_p_into_scope(f: Callable[P, int]) -> None:
+   def p_in_scope[**P](f: Callable[P, int]) -> None:
 
      stored_args: P.args                           # Rejected
 
@@ -971,7 +955,7 @@ parameter preserving decorators.
 
 .. code-block::
 
-   def decorator(f: Callable[P, int]) -> Callable[P, None]:
+   def decorator[**P](f: Callable[P, int]) -> Callable[P, None]:
 
      def foo(*args: P.args, **kwargs: P.kwargs) -> None:
 
@@ -996,7 +980,7 @@ To extend this to include ``Concatenate``, we declare the following properties:
 
 .. code-block::
 
-   def add(f: Callable[P, int]) -> Callable[Concatenate[str, P], None]:
+   def add[**P](f: Callable[P, int]) -> Callable[Concatenate[str, P], None]:
 
      def foo(s: str, *args: P.args, **kwargs: P.kwargs) -> None:  # Accepted
        pass
@@ -1007,7 +991,7 @@ To extend this to include ``Concatenate``, we declare the following properties:
      return foo                                                   # Accepted
 
 
-   def remove(f: Callable[Concatenate[int, P], int]) -> Callable[P, None]:
+   def remove[**P](f: Callable[Concatenate[int, P], int]) -> Callable[P, None]:
 
      def foo(*args: P.args, **kwargs: P.kwargs) -> None:
        f(1, *args, **kwargs) # Accepted
@@ -1024,7 +1008,7 @@ these parameters can not be addressed via a named argument:
 
 .. code-block::
 
-   def outer(f: Callable[P, None]) -> Callable[P, None]:
+   def outer[**P](f: Callable[P, None]) -> Callable[P, None]:
      def foo(x: int, *args: P.args, **kwargs: P.kwargs) -> None:
        f(*args, **kwargs)
 
@@ -1061,7 +1045,7 @@ of that ``ParamSpec``.  That allows us to spell things like this:
 
 .. code-block::
 
-   def twice(f: Callable[P, int], *args: P.args, **kwargs: P.kwargs) -> int:
+   def twice[**P](f: Callable[P, int], *args: P.args, **kwargs: P.kwargs) -> int:
      return f(*args, **kwargs) + f(*args, **kwargs)
 
 The type of ``twice`` in the above example is
@@ -1101,7 +1085,18 @@ In the same way that a normal type variable is a stand-in for a single
 type such as ``int``, a type variable *tuple* is a stand-in for a *tuple* type such as
 ``tuple[int, str]``.
 
-Type variable tuples are created and used with:
+In Python 3.12 and newer, type variable tuples can be introduced inline by prefixing
+their name with ``*`` inside a generic parameter list.
+
+::
+
+    class Array[*Ts]:
+        ...
+
+    def pack[*Ts](*values: *Ts) -> tuple[*Ts]:
+        ...
+
+Prior to 3.12, the ``TypeVarTuple`` constructor can be used.
 
 ::
 
@@ -1110,18 +1105,7 @@ Type variable tuples are created and used with:
     Ts = TypeVarTuple('Ts')
 
     class Array(Generic[*Ts]):
-      ...
-
-    def foo(*args: *Ts):
-      ...
-
-Or when using the built-in syntax for generics in Python 3.12 and higher::
-
-    class Array[*Ts]:
-      ...
-
-    def foo[*Ts](*args: *Ts):
-      ...
+        ...
 
 Using Type Variable Tuples in Generic Classes
 """""""""""""""""""""""""""""""""""""""""""""
@@ -1131,9 +1115,9 @@ Type variable tuples behave like a number of individual type variables packed in
 
 ::
 
-  Shape = TypeVarTuple('Shape')
+  from typing import NewType
 
-  class Array(Generic[*Shape]): ...
+  class Array[*Shape]: ...
 
   Height = NewType('Height', int)
   Width = NewType('Width', int)
@@ -1143,9 +1127,9 @@ The ``Shape`` type variable tuple here behaves like ``tuple[T1, T2]``,
 where ``T1`` and ``T2`` are type variables. To use these type variables
 as type parameters of ``Array``, we must *unpack* the type variable tuple using
 the star operator: ``*Shape``. The signature of ``Array`` then behaves
-as if we had simply written ``class Array(Generic[T1, T2]): ...``.
+as if we had simply written ``class Array[T1, T2]: ...``.
 
-In contrast to ``Generic[T1, T2]``, however, ``Generic[*Shape]`` allows
+In contrast to ``class Array[T1, T2]``, however, ``class Array[*Shape]`` allows
 us to parameterize the class with an *arbitrary* number of type parameters.
 That is, in addition to being able to define rank-2 arrays such as
 ``Array[Height, Width]``, we could also define rank-3 arrays, rank-4 arrays,
@@ -1167,7 +1151,7 @@ signatures and variable annotations:
 
 ::
 
-    class Array(Generic[*Shape]):
+    class Array[*Shape]:
 
         def __init__(self, shape: tuple[*Shape]):
             self._shape: tuple[*Shape] = shape
@@ -1251,7 +1235,7 @@ Only a single type variable tuple may appear in a type parameter list:
 
 ::
 
-    class Array(Generic[*Ts1, *Ts2]): ...  # Error
+    class Array[*Ts1, *Ts2]: ...  # Error
 
 The reason is that multiple type variable tuples make it ambiguous
 which parameters get bound to which type variable tuple: ::
@@ -1266,13 +1250,12 @@ prefixed and/or suffixed:
 
 ::
 
-    Shape = TypeVarTuple('Shape')
     Batch = NewType('Batch', int)
     Channels = NewType('Channels', int)
 
-    def add_batch_axis(x: Array[*Shape]) -> Array[Batch, *Shape]: ...
-    def del_batch_axis(x: Array[Batch, *Shape]) -> Array[*Shape]: ...
-    def add_batch_channels(
+    def add_batch_axis[*Shape](x: Array[*Shape]) -> Array[Batch, *Shape]: ...
+    def del_batch_axis[*Shape](x: Array[Batch, *Shape]) -> Array[*Shape]: ...
+    def add_batch_channels[*Shape](
       x: Array[*Shape]
     ) -> Array[Batch, *Shape, Channels]: ...
 
@@ -1286,10 +1269,7 @@ Normal ``TypeVar`` instances can also be prefixed and/or suffixed:
 
 ::
 
-    T = TypeVar('T')
-    Ts = TypeVarTuple('Ts')
-
-    def prefix_tuple(
+    def prefix_tuple[T, *Ts](
         x: T,
         y: tuple[*Ts]
     ) -> tuple[T, *Ts]: ...
@@ -1560,8 +1540,8 @@ a similar way to regular type variables:
 
 ::
 
-    IntTuple = tuple[int, *Ts]
-    NamedArray = tuple[str, Array[*Ts]]
+    type IntTuple[*Ts] = tuple[int, *Ts]
+    type NamedArray[*Ts] = tuple[str, Array[*Ts]]
 
     IntTuple[float, bool]  # Equivalent to tuple[int, float, bool]
     NamedArray[Height]     # Equivalent to tuple[str, Array[Height]]
@@ -1574,15 +1554,14 @@ or datatype:
 
 ::
 
-    Shape = TypeVarTuple('Shape')
-    DType = TypeVar('DType')
-    class Array(Generic[DType, *Shape]):
+    class Array[DType, *Shape]:
+        ...
 
     # E.g. Float32Array[Height, Width, Channels]
-    Float32Array = Array[np.float32, *Shape]
+    type Float32Array[*Shape] = Array[np.float32, *Shape]
 
     # E.g. Array1D[np.uint8]
-    Array1D = Array[DType, Any]
+    type Array1D[DType] = Array[DType, Any]
 
 If an explicitly empty type parameter list is given, the type variable
 tuple in the alias is set empty:
@@ -1612,8 +1591,7 @@ Normal ``TypeVar`` instances can also be used in such aliases:
 
 ::
 
-    T = TypeVar('T')
-    Foo = tuple[T, *Ts]
+    type Foo[T, *Ts] = tuple[T, *Ts]
 
     # T bound to str, Ts to tuple[int]
     Foo[str, int]
@@ -1639,11 +1617,8 @@ First, type arguments to generic aliases can be variadic. For example, a
 
 ::
 
-    Ts1 = TypeVarTuple('Ts1')
-    Ts2 = TypeVarTuple('Ts2')
-
-    IntTuple = tuple[int, *Ts1]
-    IntFloatTuple = IntTuple[float, *Ts2]  # Valid
+    type IntTuple[*Ts1] = tuple[int, *Ts1]
+    type IntFloatTuple[*Ts2] = IntTuple[float, *Ts2]  # Valid
 
 Here, ``*Ts1`` in the ``IntTuple`` alias is bound to ``tuple[float, *Ts2]``,
 resulting in an alias ``IntFloatTuple`` equivalent to
@@ -1669,9 +1644,7 @@ themselves variadic. For example:
 
 ::
 
-    T = TypeVar('T')
-
-    IntTuple = tuple[int, T]
+    type IntTuple[T] = tuple[int, T]
 
     IntTuple[str]                 # Valid
     IntTuple[*Ts]                 # NOT valid
@@ -1792,11 +1765,9 @@ true of ``TypeVarTuple``\s in the argument list:
 
 ::
 
-    Ts1 = TypeVarTuple('Ts1')
-    Ts2 = TypeVarTuple('Ts2')
-
-    Camelot = tuple[T, *Ts1]
-    Camelot[*Ts2]  # NOT valid
+    type Camelot[T, *Ts] = tuple[T, *Ts]
+    Camelot[int, *tuple[str, ...]]  # Valid
+    Camelot[*tuple[str, ...]]       # NOT valid
 
 This is not possible because, unlike in the case of an unpacked arbitrary-length
 tuple, there is no way to 'peer inside' the ``TypeVarTuple`` to see what its
@@ -1811,12 +1782,11 @@ overloads can be used with individual ``TypeVar`` instances in place of the type
 
 ::
 
-    Shape = TypeVarTuple('Shape')
     Axis1 = TypeVar('Axis1')
     Axis2 = TypeVar('Axis2')
     Axis3 = TypeVar('Axis3')
 
-    class Array(Generic[*Shape]):
+    class Array[*Shape]:
 
       @overload
       def transpose(
@@ -1907,11 +1877,9 @@ literal "``...``" or another in-scope ``ParamSpec`` (see `Scoping Rules`_).
 
 ::
 
-   DefaultP = ParamSpec("DefaultP", default=[str, int])
+   class Foo[**P = [str, int]]: ...
 
-   class Foo(Generic[DefaultP]): ...
-
-   reveal_type(Foo)                  # type is type[Foo[DefaultP = [str, int]]]
+   reveal_type(Foo)                  # type is type[Foo[P = [str, int]]]
    reveal_type(Foo())                # type is Foo[[str, int]]
    reveal_type(Foo[[bool, bool]]())  # type is Foo[[bool, bool]]
 
@@ -1924,11 +1892,9 @@ types or an unpacked, in-scope ``TypeVarTuple`` (see `Scoping Rules`_).
 
 ::
 
-   DefaultTs = TypeVarTuple("DefaultTs", default=Unpack[tuple[str, int]])
+   class Foo[*Ts = *tuple[str, int]]: ...
 
-   class Foo(Generic[*DefaultTs]): ...
-
-   reveal_type(Foo)               # type is type[Foo[DefaultTs = *tuple[str, int]]]
+   reveal_type(Foo)               # type is type[Foo[Ts = *tuple[str, int]]]
    reveal_type(Foo())             # type is Foo[str, int]
    reveal_type(Foo[int, bool]())  # type is Foo[int, bool]
 
@@ -2135,10 +2101,7 @@ should be bound to the ``TypeVarTuple`` or the defaulted ``TypeVar``.
 
 ::
 
-   Ts = TypeVarTuple("Ts")
-   T = TypeVar("T", default=bool)
-
-   class Foo(Generic[*Ts, T]): ...  # Type checker error
+   class Foo[*Ts, T = bool]: ...  # Type checker error
 
    # Could be reasonably interpreted as either Ts = (int, str, float), T = bool
    # or Ts = (int, str), T = float
@@ -2150,13 +2113,10 @@ for the ``ParamSpec`` and one for the ``TypeVarTuple``.
 
 ::
 
-   Ts = TypeVarTuple("Ts")
-   P = ParamSpec("P", default=[float, bool])
+   class Foo[*Ts = *tuple[int, str], **P = [float, bool]]: ...  # Valid
 
-   class Foo(Generic[*Ts, P]): ...  # Valid
-
-   Foo[int, str]  # Ts = (int, str), P = [float, bool]
-   Foo[int, str, [bytes]]  # Ts = (int, str), P = [bytes]
+   Foo[int, str]            # Ts = (int, str), P = [float, bool]
+   Foo[int, str, [bytes]]   # Ts = (int, str), P = [bytes]
 
 Binding rules
 """""""""""""

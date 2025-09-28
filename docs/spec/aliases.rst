@@ -34,29 +34,24 @@ Type aliases may be as complex as type hints in annotations --
 anything that is acceptable as a type hint is acceptable in a type
 alias::
 
-    from typing import TypeVar
     from collections.abc import Iterable
 
-    T = TypeVar('T', bound=float)
-    Vector = Iterable[tuple[T, T]]
+    type Vector[T: float] = Iterable[tuple[T, T]]
 
-    def inproduct(v: Vector[T]) -> T:
+    def inproduct[T: float](v: Vector[T]) -> T:
         return sum(x*y for x, y in v)
-    def dilate(v: Vector[T], scale: T) -> Vector[T]:
+    def dilate[T: float](v: Vector[T], scale: T) -> Vector[T]:
         return ((x * scale, y * scale) for x, y in v)
     vec: Vector[float] = []
 
 
 This is equivalent to::
 
-    from typing import TypeVar
     from collections.abc import Iterable
 
-    T = TypeVar('T', bound=float)
-
-    def inproduct(v: Iterable[tuple[T, T]]) -> T:
+    def inproduct[T: float](v: Iterable[tuple[T, T]]) -> T:
         return sum(x*y for x, y in v)
-    def dilate(v: Iterable[tuple[T, T]], scale: T) -> Iterable[tuple[T, T]]:
+    def dilate[T: float](v: Iterable[tuple[T, T]], scale: T) -> Iterable[tuple[T, T]]:
         return ((x * scale, y * scale) for x, y in v)
     vec: Iterable[tuple[float, float]] = []
 
