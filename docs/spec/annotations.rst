@@ -367,7 +367,7 @@ with a type variable. In this case the return type may use the same
 type variable, thus making that method a generic function. For example::
 
   class Copyable:
-      def copy[T: 'Copyable'](self: T) -> T:
+      def copy[T: Copyable](self: T) -> T:
           # return a copy of self
 
   class C(Copyable): ...
