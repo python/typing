@@ -210,15 +210,22 @@ defined class is generic if you subclass one or more other generic classes and
 specify type variables for their parameters. See :ref:`generic-base-classes`
 for details.
 
-You can use multiple inheritance with generic classes::
+You can use multiple inheritance with ``Generic``::
 
-  from collections.abc import Container, Iterable, Sized
+  from typing import TypeVar, Generic
+  from collections.abc import Sized, Iterable, Container
 
-  class LinkedList[T](Sized):
+  T = TypeVar('T')
+
+  class LinkedList(Sized, Generic[T]):
       ...
 
-  class MyMapping[K, V](Iterable[tuple[K, V]],
-                        Container[tuple[K, V]]):
+  K = TypeVar('K')
+  V = TypeVar('V')
+
+  class MyMapping(Iterable[tuple[K, V]],
+                  Container[tuple[K, V]],
+                  Generic[K, V]):
       ...
 
 Subclassing a generic class without specifying type parameters assumes
@@ -240,7 +247,7 @@ Scoping rules for type variables
 
 When using the generic class syntax introduced in Python 3.12, the location of
 its declaration defines its scope. When using the older syntax, the scoping
-rules are more subtle and complex.
+rules are more subtle and complex:
 
 * A type variable used in a generic function could be inferred to represent
   different types in the same code block. Example::
@@ -662,7 +669,7 @@ inline by prefixing its name with ``**`` inside a generic parameter list
    class CallbackWrapper[T, **P]:
        callback: Callable[P, T]
 
-Prior to 3.12, the ``ParamSpec`` constructor can be used::
+Prior to 3.12, the ``ParamSpec`` constructor can be used.
 
 .. code-block::
 
@@ -699,8 +706,8 @@ parameter specification variable (``Callable[Concatenate[int, P], int]``\ ).
                    "]"
 
 where ``parameter_specification_variable`` is introduced either inline (using
-``**``) or via ``typing.ParamSpec`` as shown above, and ``concatenate`` is
-``typing.Concatenate``.
+``**`` in a type parameter list) or via ``typing.ParamSpec`` as shown above,
+and ``concatenate`` is ``typing.Concatenate``.
 
 As before, ``parameters_expression``\ s by themselves are not acceptable in
 places where a type is expected
@@ -1086,7 +1093,7 @@ type such as ``int``, a type variable *tuple* is a stand-in for a *tuple* type s
 ``tuple[int, str]``.
 
 In Python 3.12 and newer, type variable tuples can be introduced inline by prefixing
-their name with ``*`` inside a generic parameter list.
+their name with ``*`` inside a type parameter list.
 
 ::
 

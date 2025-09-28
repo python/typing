@@ -48,7 +48,8 @@ arguments depending on the type of the callable::
   @overload
   def map[T1, T2, S](
       func: Callable[[T1, T2], S],
-      iter1: Iterable[T1], iter2: Iterable[T2],
+      iter1: Iterable[T1],
+      iter2: Iterable[T2],
   ) -> Iterator[S]: ...
   # ... and we could add more items to support more than two iterables
 
@@ -91,7 +92,7 @@ A constrained ``TypeVar`` type can sometimes be used instead of
 using the ``@overload`` decorator. For example, the definitions
 of ``concat1`` and ``concat2`` in this stub file are equivalent::
 
-  def concat1[AnyStr: (str, bytes)](x: AnyStr, y: AnyStr) -> AnyStr: ...
+  def concat1[S: (str, bytes)](x: S, y: S) -> S: ...
 
   @overload
   def concat2(x: str, y: str) -> str: ...
@@ -103,13 +104,13 @@ be represented precisely using type variables. We
 recommend that ``@overload`` is only used in cases where a type
 variable is not sufficient.
 
-Another important difference between type variables such as ``AnyStr``
-and using ``@overload`` is that the prior can also be used to define
-constraints for generic class type parameters. For example, the type
-parameter of the generic class ``typing.IO`` is constrained (only
-``IO[str]``, ``IO[bytes]`` and ``IO[Any]`` are valid)::
+Another important difference between type variables and an ``@overload``
+is that the former can also be used to define constraints for generic
+class type parameters. For example, the type parameter of the generic
+class ``typing.IO`` is constrained (only ``IO[str]``, ``IO[bytes]``
+and ``IO[Any]`` are valid)::
 
-  class IO[AnyStr: (str, bytes)]: ...
+  class IO[S: (str, bytes)]: ...
 
 
 Invalid overload definitions

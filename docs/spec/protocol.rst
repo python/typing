@@ -271,11 +271,12 @@ non-protocol generic types::
       def __iter__(self) -> Iterator[T]:
           ...
 
-The older syntax ``Protocol[T, S, ...]`` remains available as a shorthand for
-``Protocol, Generic[T, S, ...]``. It is an error to combine the shorthand with
-``Generic[T, S, ...]`` or to mix it with the new ``class Iterable[T]`` form::
+The older (pre-3.12) syntax ``Protocol[T, S, ...]`` remains available as a
+shorthand for ``Protocol, Generic[T, S, ...]``. It is an error to combine the
+shorthand with ``Generic[T, S, ...]`` or to mix it with the new
+``class Iterable[T]`` form::
 
-  class Iterable[T](Protocol, Generic[T]):   # INVALID
+  class Iterable(Protocol[T], Generic[T]):   # INVALID
       ...
 
   class Iterable[T](Protocol[T]):   # INVALID

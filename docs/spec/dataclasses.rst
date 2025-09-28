@@ -146,7 +146,11 @@ customization of default behaviors:
 
 .. code-block:: python
 
-  def dataclass_transform[T](
+  class _IdentityCallable(Protocol):
+      def __call__[T](self, arg: T, /) -> T:
+          ...
+
+  def dataclass_transform(
       *,
       eq_default: bool = True,
       order_default: bool = False,
@@ -154,7 +158,7 @@ customization of default behaviors:
       frozen_default: bool = False,
       field_specifiers: tuple[type | Callable[..., Any], ...] = (),
       **kwargs: Any,
-  ) -> Callable[[T], T]: ...
+  ) -> _IdentityCallable: ...
 
 * ``eq_default`` indicates whether the ``eq`` parameter is assumed to
   be True or False if it is omitted by the caller. If not specified,
