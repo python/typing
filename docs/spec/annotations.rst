@@ -379,7 +379,7 @@ of the first argument::
 
   class C:
       @classmethod
-      def factory[T: 'C'](cls: type[T]) -> T:
+      def factory[T: C](cls: type[T]) -> T:
           # make a new instance of cls
 
   class D(C): ...
