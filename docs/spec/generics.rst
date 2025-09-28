@@ -338,7 +338,7 @@ Instantiating generic classes and type erasure
 ----------------------------------------------
 
 User-defined generic classes can be instantiated. Suppose we write
-a ``Node`` class using the new generic class syntax::
+a ``Node`` class::
 
   class Node[T]:
       ...
