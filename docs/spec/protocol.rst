@@ -284,8 +284,8 @@ shorthand with ``Generic[T, S, ...]`` or to mix it with the new
 
 When using the generics syntax introduced in Python 3.12, the variance of
 type variables is inferred. When using the pre-3.12 generics syntax, variance
-must be specified. Type checkers will warn if the declared variance does not
-match the protocol definition. Examples::
+must be specified (unless ``infer_variance=True`` is used). Type checkers will
+warn if the declared variance does not match the protocol definition. Examples::
 
   T = TypeVar('T')
   T_co = TypeVar('T_co', covariant=True)
