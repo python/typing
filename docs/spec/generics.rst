@@ -659,7 +659,7 @@ Declaration
 """"""""""""
 
 In Python 3.12 and newer, a parameter specification variable can be introduced
-inline by prefixing its name with ``**`` inside a generic parameter list
+inline by prefixing its name with ``**`` inside a type parameter list
 (for a function, class, or type alias).
 
 .. code-block::
@@ -730,7 +730,7 @@ specification.
 .. code-block::
 
    from collections.abc import Callable
-   from typing import Concatenate, ParamSpec
+   from typing import Concatenate
 
    class X[T, **P]:
        f: Callable[P, int]
@@ -1886,9 +1886,9 @@ literal "``...``" or another in-scope ``ParamSpec`` (see `Scoping Rules`_).
 
    class Foo[**P = [str, int]]: ...
 
-   reveal_type(Foo)                  # type is type[Foo[P = [str, int]]]
-   reveal_type(Foo())                # type is Foo[[str, int]]
-   reveal_type(Foo[[bool, bool]]())  # type is Foo[[bool, bool]]
+   reveal_type(Foo)                  # type is type[Foo[str, int]]
+   reveal_type(Foo())                # type is Foo[str, int]
+   reveal_type(Foo[[bool, bool]]())  # type is Foo[bool, bool]
 
 ``TypeVarTuple`` Defaults
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1901,7 +1901,7 @@ types or an unpacked, in-scope ``TypeVarTuple`` (see `Scoping Rules`_).
 
    class Foo[*Ts = *tuple[str, int]]: ...
 
-   reveal_type(Foo)               # type is type[Foo[Ts = *tuple[str, int]]]
+   reveal_type(Foo)               # type is type[Foo[str, int]]
    reveal_type(Foo())             # type is Foo[str, int]
    reveal_type(Foo[int, bool]())  # type is Foo[int, bool]
 
