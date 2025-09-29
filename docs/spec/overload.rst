@@ -40,28 +40,29 @@ Another example where ``@overload`` comes in handy is the type of the
 builtin ``map()`` function, which takes a different number of
 arguments depending on the type of the callable::
 
-  from typing import TypeVar, overload
+  from typing import overload
   from collections.abc import Callable, Iterable, Iterator
 
-  T1 = TypeVar('T1')
-  T2 = TypeVar('T2')
-  S = TypeVar('S')
-
   @overload
-  def map(func: Callable[[T1], S], iter1: Iterable[T1]) -> Iterator[S]: ...
+  def map[T1, S](func: Callable[[T1], S], iter1: Iterable[T1]) -> Iterator[S]: ...
   @overload
-  def map(func: Callable[[T1, T2], S],
-          iter1: Iterable[T1], iter2: Iterable[T2]) -> Iterator[S]: ...
+  def map[T1, T2, S](
+      func: Callable[[T1, T2], S],
+      iter1: Iterable[T1],
+      iter2: Iterable[T2],
+  ) -> Iterator[S]: ...
   # ... and we could add more items to support more than two iterables
 
 Note that we could also easily add items to support ``map(None, ...)``::
 
   @overload
-  def map(func: None, iter1: Iterable[T1]) -> Iterable[T1]: ...
+  def map[T1](func: None, iter1: Iterable[T1]) -> Iterable[T1]: ...
   @overload
-  def map(func: None,
-          iter1: Iterable[T1],
-          iter2: Iterable[T2]) -> Iterable[tuple[T1, T2]]: ...
+  def map[T1, T2](
+      func: None,
+      iter1: Iterable[T1],
+      iter2: Iterable[T2],
+  ) -> Iterable[tuple[T1, T2]]: ...
 
 Uses of the ``@overload`` decorator as shown above are suitable for
 stub files. In regular modules, a series of ``@overload``-decorated
@@ -91,11 +92,7 @@ A constrained ``TypeVar`` type can sometimes be used instead of
 using the ``@overload`` decorator. For example, the definitions
 of ``concat1`` and ``concat2`` in this stub file are equivalent::
 
-  from typing import TypeVar
-
-  AnyStr = TypeVar('AnyStr', str, bytes)
-
-  def concat1(x: AnyStr, y: AnyStr) -> AnyStr: ...
+  def concat1[S: (str, bytes)](x: S, y: S) -> S: ...
 
   @overload
   def concat2(x: str, y: str) -> str: ...
@@ -107,13 +104,13 @@ be represented precisely using type variables. We
 recommend that ``@overload`` is only used in cases where a type
 variable is not sufficient.
 
-Another important difference between type variables such as ``AnyStr``
-and using ``@overload`` is that the prior can also be used to define
-constraints for generic class type parameters. For example, the type
-parameter of the generic class ``typing.IO`` is constrained (only
-``IO[str]``, ``IO[bytes]`` and ``IO[Any]`` are valid)::
+Another important difference between type variables and an ``@overload``
+is that the former can also be used to define constraints for generic
+class type parameters. For example, the type parameter of the generic
+class ``typing.IO`` is constrained (only ``IO[str]``, ``IO[bytes]``
+and ``IO[Any]`` are valid)::
 
-  class IO(Generic[AnyStr]): ...
+  class IO[S: (str, bytes)]: ...
 
 
 Invalid overload definitions

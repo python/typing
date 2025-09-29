@@ -152,8 +152,7 @@ would be::
 However using ``type[]`` and a type variable with an upper bound we
 can do much better::
 
-  U = TypeVar('U', bound=User)
-  def new_user(user_class: type[U]) -> U:
+  def new_user[U: User](user_class: type[U]) -> U:
       ...
 
 Now when we call ``new_user()`` with a specific subclass of ``User`` a
