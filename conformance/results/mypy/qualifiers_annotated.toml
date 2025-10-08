@@ -7,33 +7,33 @@ Does not reject type[T] compatibility for type alias defined with Annotated.
 Does not reject call of type alias defined with Annotated.
 """
 output = """
-qualifiers_annotated.py:43: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
-qualifiers_annotated.py:44: error: Syntax error in type annotation  [syntax]
-qualifiers_annotated.py:44: note: Suggestion: Is there a spurious trailing comma?
-qualifiers_annotated.py:45: error: Invalid type comment or annotation  [valid-type]
-qualifiers_annotated.py:46: error: Inline TypedDict is experimental, must be enabled with --enable-incomplete-feature=InlineTypedDict  [misc]
-qualifiers_annotated.py:46: error: Name "b" is not defined  [name-defined]
-qualifiers_annotated.py:47: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:38: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
+qualifiers_annotated.py:39: error: Syntax error in type annotation  [syntax]
+qualifiers_annotated.py:39: note: Suggestion: Is there a spurious trailing comma?
+qualifiers_annotated.py:40: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:41: error: Inline TypedDict is experimental, must be enabled with --enable-incomplete-feature=InlineTypedDict  [misc]
+qualifiers_annotated.py:41: error: Name "b" is not defined  [name-defined]
+qualifiers_annotated.py:42: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:43: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:44: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:45: error: Name "var1" is not defined  [name-defined]
+qualifiers_annotated.py:46: error: Invalid type: try using Literal[True] instead?  [valid-type]
+qualifiers_annotated.py:47: error: Invalid type: try using Literal[1] instead?  [valid-type]
 qualifiers_annotated.py:48: error: Invalid type comment or annotation  [valid-type]
 qualifiers_annotated.py:49: error: Invalid type comment or annotation  [valid-type]
-qualifiers_annotated.py:50: error: Name "var1" is not defined  [name-defined]
-qualifiers_annotated.py:51: error: Invalid type: try using Literal[True] instead?  [valid-type]
-qualifiers_annotated.py:52: error: Invalid type: try using Literal[1] instead?  [valid-type]
-qualifiers_annotated.py:53: error: Invalid type comment or annotation  [valid-type]
-qualifiers_annotated.py:54: error: Invalid type comment or annotation  [valid-type]
-qualifiers_annotated.py:64: error: Annotated[...] must have exactly one type argument and at least one annotation  [valid-type]
-qualifiers_annotated.py:76: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "type[Any]")  [assignment]
-qualifiers_annotated.py:84: error: Argument 1 to "func4" has incompatible type "<typing special form>"; expected "type[Never]"  [arg-type]
-qualifiers_annotated.py:91: error: "<typing special form>" not callable  [operator]
-qualifiers_annotated.py:92: error: "<typing special form>" not callable  [operator]
-qualifiers_annotated.py:98: error: Invalid type: ClassVar nested inside other type  [valid-type]
-qualifiers_annotated.py:100: error: Final can be only used as an outermost qualifier in a variable annotation  [valid-type]
+qualifiers_annotated.py:59: error: Annotated[...] must have exactly one type argument and at least one annotation  [valid-type]
+qualifiers_annotated.py:71: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "type[Any]")  [assignment]
+qualifiers_annotated.py:79: error: Argument 1 to "func4" has incompatible type "<typing special form>"; expected "type[Never]"  [arg-type]
+qualifiers_annotated.py:86: error: "<typing special form>" not callable  [operator]
+qualifiers_annotated.py:87: error: "<typing special form>" not callable  [operator]
+qualifiers_annotated.py:93: error: Invalid type: ClassVar nested inside other type  [valid-type]
+qualifiers_annotated.py:95: error: Final can be only used as an outermost qualifier in a variable annotation  [valid-type]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 77: Expected 1 errors
-Line 85: Expected 1 errors
-Line 93: Expected 1 errors
-Line 98: Unexpected errors ['qualifiers_annotated.py:98: error: Invalid type: ClassVar nested inside other type  [valid-type]']
-Line 100: Unexpected errors ['qualifiers_annotated.py:100: error: Final can be only used as an outermost qualifier in a variable annotation  [valid-type]']
+Line 72: Expected 1 errors
+Line 80: Expected 1 errors
+Line 88: Expected 1 errors
+Line 93: Unexpected errors ['qualifiers_annotated.py:93: error: Invalid type: ClassVar nested inside other type  [valid-type]']
+Line 95: Unexpected errors ['qualifiers_annotated.py:95: error: Final can be only used as an outermost qualifier in a variable annotation  [valid-type]']
 """
