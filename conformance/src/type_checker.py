@@ -365,7 +365,7 @@ class PyreflyTypeChecker(TypeChecker):
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         proc = run(
-            ["pyrefly", "check", "--output-format", "min-text", "--no-summary"],
+            ["pyrefly", "check", "--output-format", "min-text", "--summary=none"],
             stdout=PIPE,
             text=True,
             encoding="utf-8",
