@@ -1,18 +1,17 @@
-conformant = "Unsupported"
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 18: Expected 1 errors
-Line 24: Expected 1 errors
-Line 25: Expected 1 errors
-Line 30: Expected 1 errors
-Line 41: Expected 1 errors
-Line 42: Expected 1 errors
-Line 44: Expected 1 errors
-Line 47: Expected 1 errors
-Line 48: Expected 1 errors
-Line 58: Expected 1 errors
-Line 69: Expected 1 errors
-Line 98: Expected 1 errors
 """
 output = """
+directives_deprecated.py:18: error: class _directives_deprecated_library.Ham is deprecated: Use Spam instead  [deprecated]
+directives_deprecated.py:24: error: function _directives_deprecated_library.norwegian_blue is deprecated: It is pining for the fjords  [deprecated]
+directives_deprecated.py:25: error: function _directives_deprecated_library.norwegian_blue is deprecated: It is pining for the fjords  [deprecated]
+directives_deprecated.py:30: error: overload def (x: builtins.int) -> builtins.str of function _directives_deprecated_library.foo is deprecated: Only str will be allowed  [deprecated]
+directives_deprecated.py:41: error: function _directives_deprecated_library.Spam.__add__ is deprecated: There is enough spam in the world  [deprecated]
+directives_deprecated.py:42: error: function _directives_deprecated_library.Spam.__add__ is deprecated: There is enough spam in the world  [deprecated]
+directives_deprecated.py:44: error: function _directives_deprecated_library.Spam.greasy is deprecated: All spam will be equally greasy  [deprecated]
+directives_deprecated.py:47: error: function _directives_deprecated_library.Spam.shape is deprecated: Shapes are becoming immutable  [deprecated]
+directives_deprecated.py:48: error: function _directives_deprecated_library.Spam.shape is deprecated: Shapes are becoming immutable  [deprecated]
+directives_deprecated.py:58: error: function directives_deprecated.Invocable.__call__ is deprecated: Deprecated  [deprecated]
+directives_deprecated.py:69: error: function directives_deprecated.lorem is deprecated: Deprecated  [deprecated]
+directives_deprecated.py:98: error: function directives_deprecated.SupportsFoo1.foo is deprecated: Deprecated  [deprecated]
 """

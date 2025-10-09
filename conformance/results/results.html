@@ -164,7 +164,7 @@
 </th>
 <th class='tc-header'><div class='tc-name'>pyre 0.9.25</div>
 </th>
-<th class='tc-header'><div class='tc-name'>zuban 0.0.20</div>
+<th class='tc-header'><div class='tc-name'>zuban 0.0.24</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyrefly 0.30.0</div>
 </th>
@@ -371,7 +371,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly determines that a class cannot be instantiated with __getitem__.</p><p>Incorrectly handles mixing legacy and PEP695 syntax.</p></span></div></th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Final is handled a bit different (questionable if this is an issue)</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_syntax_scoping</th>
@@ -565,7 +565,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Support for `LiteralString` is not implemented.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly infers `str` rather than `LiteralString` when literal string `join` is used.</p></span></div></th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Support for `LiteralString` is not implemented.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>LiteralString is sometimes converted to str</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;literals_parameterizations</th>
@@ -707,7 +707,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unupported<span class="tooltip-text" id="bottom"><p>Does not honor metaclass __call__ method when evaluating constructor call.</p><p>Does not skip evaluation of __new__ and __init__ if custom metaclass call returns non-class.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not evaluate __new__ if metaclass __call__ is defined.</p></span></div></th>
-<th class="column col2 not-conformant"><div class="hover-text">Unupported<span class="tooltip-text" id="bottom"><p>Does not honor metaclass __call__ method when evaluating constructor call.</p><p>Does not skip evaluation of __new__ and __init__ if custom metaclass call returns non-class.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_call_new</th>
@@ -870,7 +870,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Converter parameter not yet supported.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Converter parameter not yet supported.</p></span></div></th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Converter parameter not yet supported.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Converters are fully supported, failed to match generic overloads against other generics</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_transform_field</th>
@@ -922,7 +922,7 @@
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Not supported.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not flag illegal use of `closed=False` when inheriting from a non-open TypedDict.</p></span></div></th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Not supported.</p></span></div></th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Not supported.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not fully support extra_items for typed dicts</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_final</th>
@@ -1140,7 +1140,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support @deprecated.</p></span></div></th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_no_type_check</th>
