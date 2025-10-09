@@ -21,8 +21,11 @@ for type_checker_dir in sorted(results_dir.iterdir()):
                 except Exception as e:
                     raise Exception(f"Error decoding {file}") from e
             try:
-                previous_pass = info["conformant"] == "Pass"
                 new_pass = info["conformance_automated"] == "Pass"
+                if new_pass and "conformant" not in info:
+                    previous_pass = True
+                else:
+                    previous_pass = info["conformant"] == "Pass"
             except KeyError as e:
                 raise Exception(f"Missing key in {file}") from e
             if previous_pass != new_pass:
