@@ -14,7 +14,7 @@ repository.
 For conversations that are more suitable to a chat platform, you can use one of the following:
 
 - [gitter](https://gitter.im/python/typing)
-- [discord](https://discord.com/channels/267624335836053506/891788761371906108) `#type-hinting` channel
+- [discord](https://discord.com/invite/python) [#type-hinting](https://discord.com/channels/267624335836053506/891788761371906108) channel
 
 ## Repository Content
 
