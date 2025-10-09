@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Protocol subtyping does not work with Self in return annotation
-"""
 conformance_automated = "Pass"
 errors_diff = """
 """

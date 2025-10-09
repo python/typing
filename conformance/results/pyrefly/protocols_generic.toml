@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Fails one protocol subtyping example involving @property
-"""
 conformance_automated = "Pass"
 errors_diff = """
 """

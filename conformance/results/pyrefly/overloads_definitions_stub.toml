@@ -1,8 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not restrict some decorators to the first overload
-Does not require some decorators that need to appear on every overload
-"""
 conformance_automated = "Pass"
 errors_diff = """
 """

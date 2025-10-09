@@ -1,6 +1,8 @@
-conformant = "Pass"
+conformant = "Partial"
 notes = """
 Unsolved type var is not always resolved to default (optional)
+Defaults are not bound by attribute access
+Generic attribute is not visible on class
 """
 conformance_automated = "Fail"
 errors_diff = """

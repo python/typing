@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not ban final decorator on overload when implementation exists
-"""
 conformance_automated = "Pass"
 errors_diff = """
 """

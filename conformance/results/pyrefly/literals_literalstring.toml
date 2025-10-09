@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-LiteralString is sometimes converted to str
-"""
 conformance_automated = "Pass"
 errors_diff = """
 """

@@ -1,6 +1,3 @@
-conformant = "Partial"
-notes = """
-"""
 output = """
 namedtuples_usage.py:34:6 Invalid tuple index [73]: Index 3 is out of bounds for concrete tuple with 3 members.
 namedtuples_usage.py:35:6 Invalid tuple index [73]: Index -4 is out of bounds for concrete tuple with 3 members.

@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not reject incorrect direct assignment to attribute w/ Self
-"""
 conformance_automated = "Pass"
 errors_diff = """
 """
