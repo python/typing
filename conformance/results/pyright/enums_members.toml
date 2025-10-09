@@ -2,14 +2,10 @@ conformant = "Pass"
 notes = """
 Does not support `_ignore_` mechanism (optional).
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 19: Unexpected errors ['enums_members.py:19:11 - error: Argument missing for parameter "species" (reportCallIssue)']
-Line 20: Unexpected errors ['enums_members.py:20:11 - error: Argument missing for parameter "species" (reportCallIssue)']
 """
 output = """
-enums_members.py:19:11 - error: Argument missing for parameter "species" (reportCallIssue)
-enums_members.py:20:11 - error: Argument missing for parameter "species" (reportCallIssue)
 enums_members.py:50:5 - error: Type annotations are not allowed for enum members (reportGeneralTypeIssues)
 enums_members.py:82:13 - error: "assert_type" mismatch: expected "Unknown" but received "(x: Unknown) -> str" (reportAssertTypeFailure)
 enums_members.py:82:37 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)

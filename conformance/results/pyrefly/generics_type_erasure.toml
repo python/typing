@@ -3,11 +3,13 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR generics_type_erasure.py:38:16-18: Argument `Literal['']` is not assignable to parameter `label` with type `int | None` in function `Node.__init__` [bad-argument-type]
-ERROR generics_type_erasure.py:40:16-17: Argument `Literal[0]` is not assignable to parameter `label` with type `str | None` in function `Node.__init__` [bad-argument-type]
-ERROR generics_type_erasure.py:42:1-16: Generic attribute `label` of class `Node` is not visible on the class [no-access]
-ERROR generics_type_erasure.py:43:1-16: Generic attribute `label` of class `Node` is not visible on the class [missing-attribute]
-ERROR generics_type_erasure.py:44:1-11: Generic attribute `label` of class `Node` is not visible on the class [no-access]
-ERROR generics_type_erasure.py:45:1-11: Generic attribute `label` of class `Node` is not visible on the class [missing-attribute]
-ERROR generics_type_erasure.py:46:1-15: Generic attribute `label` of class `Node` is not visible on the class [missing-attribute]
+ERROR generics_type_erasure.py:20:12-33: assert_type(Node[Any], Node[Never]) failed [assert-type]
+ERROR generics_type_erasure.py:24:12-33: assert_type(Any, Never) failed [assert-type]
+ERROR generics_type_erasure.py:40:16-18: Argument `Literal['']` is not assignable to parameter `label` with type `int | None` in function `Node.__init__` [bad-argument-type]
+ERROR generics_type_erasure.py:42:16-17: Argument `Literal[0]` is not assignable to parameter `label` with type `str | None` in function `Node.__init__` [bad-argument-type]
+ERROR generics_type_erasure.py:44:1-16: Generic attribute `label` of class `Node` is not visible on the class [no-access]
+ERROR generics_type_erasure.py:45:1-16: Generic attribute `label` of class `Node` is not visible on the class [missing-attribute]
+ERROR generics_type_erasure.py:46:1-11: Generic attribute `label` of class `Node` is not visible on the class [no-access]
+ERROR generics_type_erasure.py:47:1-11: Generic attribute `label` of class `Node` is not visible on the class [missing-attribute]
+ERROR generics_type_erasure.py:48:1-15: Generic attribute `label` of class `Node` is not visible on the class [missing-attribute]
 """

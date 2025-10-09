@@ -53,24 +53,26 @@ generics_defaults.py:96:45 Invalid type parameters [24]: Non-generic type `Class
 generics_defaults.py:99:67 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVarTuple`.
 generics_defaults.py:127:13 Undefined or invalid type [11]: Annotation `T4` is not defined as a type.
 generics_defaults.py:130:0 Assert type [70]: Expected `int` but got `unknown`.
-generics_defaults.py:141:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Ts`.
-generics_defaults.py:141:11 Undefined or invalid type [11]: Annotation `T5` is not defined as a type.
-generics_defaults.py:151:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Ts`.
-generics_defaults.py:151:11 Undefined or invalid type [11]: Annotation `P` is not defined as a type.
-generics_defaults.py:154:0 Assert type [70]: Expected `Type[Foo6[]]` but got `typing.Any`.
-generics_defaults.py:154:12 Undefined attribute [16]: `Foo6` has no attribute `__getitem__`.
-generics_defaults.py:154:28 Invalid type parameters [24]: Non-generic type `Foo6` cannot take parameters.
+generics_defaults.py:131:0 Assert type [70]: Expected `typing.Any` but got `unknown`.
+generics_defaults.py:142:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Ts`.
+generics_defaults.py:142:11 Undefined or invalid type [11]: Annotation `T5` is not defined as a type.
+generics_defaults.py:152:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Ts`.
+generics_defaults.py:152:11 Undefined or invalid type [11]: Annotation `P` is not defined as a type.
 generics_defaults.py:155:0 Assert type [70]: Expected `Type[Foo6[]]` but got `typing.Any`.
-generics_defaults.py:155:37 Invalid type parameters [24]: Non-generic type `Foo6` cannot take parameters.
-generics_defaults.py:169:0 Assert type [70]: Expected `typing.Callable[[Foo7[]], Foo7[]]` but got `typing.Callable(Foo7.meth)[[Variable[_Self_generics_defaults_Foo7__ (bound to Foo7)]], Variable[_Self_generics_defaults_Foo7__ (bound to Foo7)]]`.
-generics_defaults.py:169:23 Invalid type parameters [24]: Non-generic type `Foo7` cannot take parameters.
-generics_defaults.py:170:0 Assert type [70]: Expected `int` but got `unknown`.
+generics_defaults.py:155:12 Undefined attribute [16]: `Foo6` has no attribute `__getitem__`.
+generics_defaults.py:155:28 Invalid type parameters [24]: Non-generic type `Foo6` cannot take parameters.
+generics_defaults.py:156:0 Assert type [70]: Expected `Type[Foo6[]]` but got `typing.Any`.
+generics_defaults.py:156:37 Invalid type parameters [24]: Non-generic type `Foo6` cannot take parameters.
+generics_defaults.py:170:0 Assert type [70]: Expected `typing.Callable[[Foo7[]], Foo7[]]` but got `typing.Callable(Foo7.meth)[[Variable[_Self_generics_defaults_Foo7__ (bound to Foo7)]], Variable[_Self_generics_defaults_Foo7__ (bound to Foo7)]]`.
+generics_defaults.py:170:23 Invalid type parameters [24]: Non-generic type `Foo7` cannot take parameters.
+generics_defaults.py:171:0 Assert type [70]: Expected `int` but got `unknown`.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 50: Expected 1 errors
 Line 107: Expected 1 errors
 Line 114: Expected 1 errors
+Lines 130, 131: Expected exactly one error (tag 'optional-default-use')
 Line 27: Unexpected errors ['generics_defaults.py:27:20 Undefined or invalid type [11]: Annotation `DefaultIntT` is not defined as a type.']
 Line 30: Unexpected errors ['generics_defaults.py:30:0 Assert type [70]: Expected `Type[NoNonDefaults[]]` but got `Type[NoNonDefaults]`.', 'generics_defaults.py:30:27 Invalid type parameters [24]: Non-generic type `NoNonDefaults` cannot take parameters.']
 Line 31: Unexpected errors ['generics_defaults.py:31:0 Assert type [70]: Expected `Type[NoNonDefaults[]]` but got `typing.Any`.', 'generics_defaults.py:31:12 Undefined attribute [16]: `NoNonDefaults` has no attribute `__getitem__`.', 'generics_defaults.py:31:32 Invalid type parameters [24]: Non-generic type `NoNonDefaults` cannot take parameters.']
@@ -101,9 +103,10 @@ Line 96: Unexpected errors ['generics_defaults.py:96:0 Assert type [70]: Expecte
 Line 99: Unexpected errors ['generics_defaults.py:99:67 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T]]` but got `TypeVarTuple`.']
 Line 127: Unexpected errors ['generics_defaults.py:127:13 Undefined or invalid type [11]: Annotation `T4` is not defined as a type.']
 Line 130: Unexpected errors ['generics_defaults.py:130:0 Assert type [70]: Expected `int` but got `unknown`.']
-Line 151: Unexpected errors ["generics_defaults.py:151:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Ts`.", 'generics_defaults.py:151:11 Undefined or invalid type [11]: Annotation `P` is not defined as a type.']
-Line 154: Unexpected errors ['generics_defaults.py:154:0 Assert type [70]: Expected `Type[Foo6[]]` but got `typing.Any`.', 'generics_defaults.py:154:12 Undefined attribute [16]: `Foo6` has no attribute `__getitem__`.', 'generics_defaults.py:154:28 Invalid type parameters [24]: Non-generic type `Foo6` cannot take parameters.']
-Line 155: Unexpected errors ['generics_defaults.py:155:0 Assert type [70]: Expected `Type[Foo6[]]` but got `typing.Any`.', 'generics_defaults.py:155:37 Invalid type parameters [24]: Non-generic type `Foo6` cannot take parameters.']
-Line 169: Unexpected errors ['generics_defaults.py:169:0 Assert type [70]: Expected `typing.Callable[[Foo7[]], Foo7[]]` but got `typing.Callable(Foo7.meth)[[Variable[_Self_generics_defaults_Foo7__ (bound to Foo7)]], Variable[_Self_generics_defaults_Foo7__ (bound to Foo7)]]`.', 'generics_defaults.py:169:23 Invalid type parameters [24]: Non-generic type `Foo7` cannot take parameters.']
-Line 170: Unexpected errors ['generics_defaults.py:170:0 Assert type [70]: Expected `int` but got `unknown`.']
+Line 131: Unexpected errors ['generics_defaults.py:131:0 Assert type [70]: Expected `typing.Any` but got `unknown`.']
+Line 152: Unexpected errors ["generics_defaults.py:152:11 Invalid type variable [34]: The current class isn't generic with respect to the type variable `Ts`.", 'generics_defaults.py:152:11 Undefined or invalid type [11]: Annotation `P` is not defined as a type.']
+Line 155: Unexpected errors ['generics_defaults.py:155:0 Assert type [70]: Expected `Type[Foo6[]]` but got `typing.Any`.', 'generics_defaults.py:155:12 Undefined attribute [16]: `Foo6` has no attribute `__getitem__`.', 'generics_defaults.py:155:28 Invalid type parameters [24]: Non-generic type `Foo6` cannot take parameters.']
+Line 156: Unexpected errors ['generics_defaults.py:156:0 Assert type [70]: Expected `Type[Foo6[]]` but got `typing.Any`.', 'generics_defaults.py:156:37 Invalid type parameters [24]: Non-generic type `Foo6` cannot take parameters.']
+Line 170: Unexpected errors ['generics_defaults.py:170:0 Assert type [70]: Expected `typing.Callable[[Foo7[]], Foo7[]]` but got `typing.Callable(Foo7.meth)[[Variable[_Self_generics_defaults_Foo7__ (bound to Foo7)]], Variable[_Self_generics_defaults_Foo7__ (bound to Foo7)]]`.', 'generics_defaults.py:170:23 Invalid type parameters [24]: Non-generic type `Foo7` cannot take parameters.']
+Line 171: Unexpected errors ['generics_defaults.py:171:0 Assert type [70]: Expected `int` but got `unknown`.']
 """

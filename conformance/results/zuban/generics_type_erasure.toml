@@ -2,19 +2,17 @@ conformant = "Pass"
 notes = """
 True positive: Undefined type vars should be inferred as Never not Any (avoiding to introduce Any)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 19: Unexpected errors ['generics_type_erasure.py:19: error: Expression is of type "Node[Never]", not "Node[Any]"  [misc]']
-Line 22: Unexpected errors ['generics_type_erasure.py:22: error: Expression is of type "Never", not "Any"  [misc]']
 """
 output = """
 generics_type_erasure.py:19: error: Expression is of type "Node[Never]", not "Node[Any]"  [misc]
-generics_type_erasure.py:22: error: Expression is of type "Never", not "Any"  [misc]
-generics_type_erasure.py:38: error: Argument 1 to "Node" has incompatible type "str"; expected "int | None"  [arg-type]
-generics_type_erasure.py:40: error: Argument 1 to "Node" has incompatible type "int"; expected "str | None"  [arg-type]
-generics_type_erasure.py:42: error: Access to generic instance variables via class is ambiguous  [misc]
-generics_type_erasure.py:43: error: Access to generic instance variables via class is ambiguous  [misc]
+generics_type_erasure.py:23: error: Expression is of type "Never", not "Any"  [misc]
+generics_type_erasure.py:40: error: Argument 1 to "Node" has incompatible type "str"; expected "int | None"  [arg-type]
+generics_type_erasure.py:42: error: Argument 1 to "Node" has incompatible type "int"; expected "str | None"  [arg-type]
 generics_type_erasure.py:44: error: Access to generic instance variables via class is ambiguous  [misc]
 generics_type_erasure.py:45: error: Access to generic instance variables via class is ambiguous  [misc]
 generics_type_erasure.py:46: error: Access to generic instance variables via class is ambiguous  [misc]
+generics_type_erasure.py:47: error: Access to generic instance variables via class is ambiguous  [misc]
+generics_type_erasure.py:48: error: Access to generic instance variables via class is ambiguous  [misc]
 """

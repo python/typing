@@ -5,9 +5,7 @@ Does not require some decorators that need to appear on every overload
 """
 conformance_automated = "Fail"
 errors_diff = """
-Lines 170, 175, 181, 183: Expected error (tag 'override-final')
 Line 49: Unexpected errors ['Overloaded function must have an implementation [invalid-overload]']
-Line 176: Unexpected errors ['`final_method` is declared as final in parent class `Base` [bad-override]']
 """
 output = """
 ERROR overloads_definitions.py:16:5-10: Overloaded function needs at least two @overload declarations [invalid-overload]

@@ -6,18 +6,17 @@ ParamSpec after TypeVarTuple is not always handled correctly
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 141: Expected 1 errors
-Line 154: Unexpected errors ['generics_defaults.py:154: error: Expression is of type "Type[Foo6[int, [*Any, **Any]]]", not "Type[Foo6[int, str, [float, bool]]]"  [misc]', 'generics_defaults.py:154: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]']
-Line 169: Unexpected errors ['generics_defaults.py:169: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"  [misc]']
-Line 170: Unexpected errors ['generics_defaults.py:170: error: Access to generic instance variables via class is ambiguous  [misc]']
+Line 142: Expected 1 errors
+Line 155: Unexpected errors ['generics_defaults.py:155: error: Expression is of type "Type[Foo6[int, [*Any, **Any]]]", not "Type[Foo6[int, str, [float, bool]]]"  [misc]', 'generics_defaults.py:155: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]']
+Line 170: Unexpected errors ['generics_defaults.py:170: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"  [misc]']
 """
 output = """
 generics_defaults.py:24: error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type  [misc]
 generics_defaults.py:50: error: "AllTheDefaults" expects between 2 and 5 type arguments, but 1 given  [type-arg]
 generics_defaults.py:107: error: TypeVar default must be a subtype of the bound type  [misc]
 generics_defaults.py:114: error: TypeVar default must be one of the constraint types  [misc]
-generics_defaults.py:154: error: Expression is of type "Type[Foo6[int, [*Any, **Any]]]", not "Type[Foo6[int, str, [float, bool]]]"  [misc]
-generics_defaults.py:154: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]
-generics_defaults.py:169: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"  [misc]
-generics_defaults.py:170: error: Access to generic instance variables via class is ambiguous  [misc]
+generics_defaults.py:131: error: Expression is of type "int", not "Any"  [misc]
+generics_defaults.py:155: error: Expression is of type "Type[Foo6[int, [*Any, **Any]]]", not "Type[Foo6[int, str, [float, bool]]]"  [misc]
+generics_defaults.py:155: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]
+generics_defaults.py:170: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"  [misc]
 """
