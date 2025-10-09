@@ -2,14 +2,8 @@ conformant = "Pass"
 notes = """
 Treats attributes not initialized on the class as instance-only
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 43: Unexpected errors ['assert_type(Any, list[Self]) failed [assert-type]', 'Instance-only attribute `a` of class `ChildB` is not visible on the class [missing-attribute]']
-Line 44: Unexpected errors ['assert_type(Any, Self) failed [assert-type]', 'Instance-only attribute `a` of class `ChildB` is not visible on the class [missing-attribute]']
 """
 output = """
-ERROR generics_self_advanced.py:43:20-39: assert_type(Any, list[Self]) failed [assert-type]
-ERROR generics_self_advanced.py:43:21-26: Instance-only attribute `a` of class `ChildB` is not visible on the class [missing-attribute]
-ERROR generics_self_advanced.py:44:20-36: assert_type(Any, Self) failed [assert-type]
-ERROR generics_self_advanced.py:44:21-26: Instance-only attribute `a` of class `ChildB` is not visible on the class [missing-attribute]
 """

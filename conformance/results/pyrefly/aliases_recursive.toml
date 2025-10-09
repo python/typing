@@ -8,26 +8,12 @@ Line 39: Expected 1 errors
 Line 50: Expected 1 errors
 Line 51: Expected 1 errors
 Line 52: Expected 1 errors
+Line 63: Expected 1 errors
+Line 69: Expected 1 errors
 Line 72: Expected 1 errors
 Line 75: Expected 1 errors
-Line 30: Unexpected errors ["Expected a type form, got instance of `Literal['RecursiveTuple']` [not-a-type]"]
 Line 42: Unexpected errors ["Expected a type form, got instance of `Literal['RecursiveMapping']` [not-a-type]"]
-Line 58: Unexpected errors ['Expected a type form, got instance of `_SpecialForm` [not-a-type]']
-Line 59: Unexpected errors ['`type[list[Unknown]]` is not subscriptable [unsupported-operation]']
-Line 62: Unexpected errors ['`type[list[Unknown]]` is not subscriptable [unsupported-operation]']
-Line 65: Unexpected errors ['Expected a type form, got instance of `_SpecialForm` [not-a-type]']
-Line 67: Unexpected errors ['`type[list[Unknown]]` is not subscriptable [unsupported-operation]']
-Line 68: Unexpected errors ['`type[list[Unknown]]` is not subscriptable [unsupported-operation]']
 """
 output = """
-ERROR aliases_recursive.py:30:36-52: Expected a type form, got instance of `Literal['RecursiveTuple']` [not-a-type]
 ERROR aliases_recursive.py:42:45-63: Expected a type form, got instance of `Literal['RecursiveMapping']` [not-a-type]
-ERROR aliases_recursive.py:58:26-54: Expected a type form, got instance of `_SpecialForm` [not-a-type]
-ERROR aliases_recursive.py:59:25-47: `type[list[Unknown]]` is not subscriptable [unsupported-operation]
-ERROR aliases_recursive.py:62:5-27: `type[list[Unknown]]` is not subscriptable [unsupported-operation]
-ERROR aliases_recursive.py:63:5-27: `type[list[Unknown]]` is not subscriptable [unsupported-operation]
-ERROR aliases_recursive.py:65:26-63: Expected a type form, got instance of `_SpecialForm` [not-a-type]
-ERROR aliases_recursive.py:67:5-32: `type[list[Unknown]]` is not subscriptable [unsupported-operation]
-ERROR aliases_recursive.py:68:5-34: `type[list[Unknown]]` is not subscriptable [unsupported-operation]
-ERROR aliases_recursive.py:69:5-32: `type[list[Unknown]]` is not subscriptable [unsupported-operation]
 """

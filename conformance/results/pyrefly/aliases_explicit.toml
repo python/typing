@@ -24,6 +24,6 @@ ERROR aliases_explicit.py:89:22-23: number literal cannot be used in annotations
 ERROR aliases_explicit.py:90:22-33: boolean operation cannot be used in annotations [invalid-annotation]
 ERROR aliases_explicit.py:91:22-32: f-string cannot be used in annotations [invalid-annotation]
 ERROR aliases_explicit.py:100:5-19: `TypeAlias[ListAlias, type[list[Unknown]]]` is not subscriptable [unsupported-operation]
-ERROR aliases_explicit.py:101:6-20: Expected a callable, got TypeAlias[ListOrSetAlias, type[list[Unknown] | set[Unknown]]] [not-callable]
+ERROR aliases_explicit.py:101:6-20: Expected a callable, got `TypeAlias[ListOrSetAlias, type[list[Unknown] | set[Unknown]]]` [not-callable]
 ERROR aliases_explicit.py:102:5-24: `TypeAlias[ListOrSetAlias, type[list[Unknown] | set[Unknown]]]` is not subscriptable [unsupported-operation]
 """

@@ -2,9 +2,8 @@ conformant = "Partial"
 notes = """
 Does not reject overlap between unpacked TypedDict kwarg and named parameters
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 111: Expected 1 errors
 """
 output = """
 ERROR callables_kwargs.py:46:10-12: Missing argument `v1` in function `func1` [missing-argument]
@@ -24,6 +23,7 @@ ERROR callables_kwargs.py:65:17-22: Multiple values for argument `v1` in functio
 ERROR callables_kwargs.py:101:19-24: `(**kwargs: Unpack[TypedDict[TD2]]) -> None` is not assignable to `TDProtocol3` [bad-assignment]
 ERROR callables_kwargs.py:102:19-24: `(**kwargs: Unpack[TypedDict[TD2]]) -> None` is not assignable to `TDProtocol4` [bad-assignment]
 ERROR callables_kwargs.py:103:19-24: `(**kwargs: Unpack[TypedDict[TD2]]) -> None` is not assignable to `TDProtocol5` [bad-assignment]
+ERROR callables_kwargs.py:111:20-41: TypedDict key 'v1' in **kwargs overlaps with parameter 'v1' [bad-function-definition]
 ERROR callables_kwargs.py:122:21-30: `Unpack` in **kwargs annotation must be used only with a `TypedDict` [invalid-annotation]
 ERROR callables_kwargs.py:134:19-24: `(*, v1: int, v3: str, v2: str = '') -> None` is not assignable to `TDProtocol6` [bad-assignment]
 """

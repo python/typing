@@ -2,14 +2,14 @@ conformant = "Partial"
 notes = """
 Does not check against abstract class instantiations
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 82: Expected 1 errors
 """
 output = """
 ERROR protocols_merging.py:52:25-38: `SCConcrete2` is not assignable to `SizedAndClosable1` [bad-assignment]
 ERROR protocols_merging.py:53:25-38: `SCConcrete2` is not assignable to `SizedAndClosable2` [bad-assignment]
 ERROR protocols_merging.py:54:25-38: `SCConcrete2` is not assignable to `SizedAndClosable3` [bad-assignment]
 ERROR protocols_merging.py:67:16-33: If `Protocol` is included as a base class, all other bases must be protocols [invalid-inheritance]
+ERROR protocols_merging.py:82:22-24: Cannot instantiate `SizedAndClosable4` because the following members are abstract: `close` [bad-instantiation]
 ERROR protocols_merging.py:83:24-37: `SCConcrete1` is not assignable to `SizedAndClosable4` [bad-assignment]
 """

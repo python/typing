@@ -6,7 +6,6 @@ Constrained type var resolves to subtype instead of explcitly listed constraint
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 49: Expected 1 errors
 Line 34: Unexpected errors ['`+` is not supported between `AnyStr` and `AnyStr` [unsupported-operation]', '`+` is not supported between `AnyStr` and `AnyStr` [unsupported-operation]', 'Returned type `bytes | Unknown` is not assignable to declared return type `AnyStr` [bad-return]']
 Line 67: Unexpected errors ['assert_type(MyStr, str) failed [assert-type]']
 Line 68: Unexpected errors ['assert_type(MyStr, str) failed [assert-type]', 'Argument `str` is not assignable to parameter `y` with type `MyStr` in function `concat` [bad-argument-type]']
@@ -17,6 +16,7 @@ ERROR generics_basic.py:34:12-17: `+` is not supported between `AnyStr` and `Any
 ERROR generics_basic.py:34:12-17: Returned type `bytes | Unknown` is not assignable to declared return type `AnyStr` [bad-return]
 ERROR generics_basic.py:40:15-16: Argument `bytes` is not assignable to parameter `y` with type `str` in function `concat` [bad-argument-type]
 ERROR generics_basic.py:41:15-16: Argument `str` is not assignable to parameter `y` with type `bytes` in function `concat` [bad-argument-type]
+ERROR generics_basic.py:49:18-48: Expected at least 2 constraints in TypeVar `BadConstraint1`, got 1 [invalid-type-var]
 ERROR generics_basic.py:55:53-60: Type variable bounds and constraints must be concrete [invalid-annotation]
 ERROR generics_basic.py:67:16-35: assert_type(MyStr, str) failed [assert-type]
 ERROR generics_basic.py:68:16-35: assert_type(MyStr, str) failed [assert-type]

@@ -26,6 +26,6 @@ ERROR aliases_implicit.py:115:10-24: Expected a type form, got instance of `Lite
 ERROR aliases_implicit.py:116:10-24: Expected a type form, got instance of `Literal[1]` [not-a-type]
 ERROR aliases_implicit.py:118:10-24: Expected a type form, got instance of `Literal['int']` [not-a-type]
 ERROR aliases_implicit.py:119:10-24: Expected a type form, got instance of `Literal['int | str']` [not-a-type]
-ERROR aliases_implicit.py:133:6-20: Expected a callable, got type[list[Unknown] | set[Unknown]] [not-callable]
+ERROR aliases_implicit.py:133:6-20: Expected a callable, got `type[list[Unknown] | set[Unknown]]` [not-callable]
 ERROR aliases_implicit.py:135:5-24: `type[list[Unknown] | set[Unknown]]` is not subscriptable [unsupported-operation]
 """

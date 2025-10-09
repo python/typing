@@ -3,16 +3,16 @@ notes = """
 Does not restrict some decorators to the first overload
 Does not require some decorators that need to appear on every overload
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Lines 32, 33, 37: Expected error (tag 'func5')
-Lines 39, 41, 44: Expected error (tag 'func6')
-Lines 67, 69, 71, 72, 73: Expected error (tag 'invalid_final')
-Lines 80, 82, 84, 85, 86: Expected error (tag 'invalid_final_2')
-Lines 143, 146, 147, 149: Expected error (tag 'override_impl')
 """
 output = """
 ERROR overloads_definitions_stub.pyi:14:5-10: Overloaded function needs at least two @overload declarations [invalid-overload]
+ERROR overloads_definitions_stub.pyi:33:9-14: If `@staticmethod` is present on one overload, all overloads must have that decorator. [invalid-overload]
+ERROR overloads_definitions_stub.pyi:44:9-14: If `@classmethod` is present on one overload, all overloads must have that decorator. [invalid-overload]
+ERROR overloads_definitions_stub.pyi:73:9-22: If an overloaded function has no implementation, `@final` should be applied to the first overload only. [invalid-overload]
+ERROR overloads_definitions_stub.pyi:86:9-24: If an overloaded function has no implementation, `@final` should be applied to the first overload only. [invalid-overload]
 ERROR overloads_definitions_stub.pyi:108:9-21: `final_method` is declared as final in parent class `Base` [bad-override]
 ERROR overloads_definitions_stub.pyi:122:9-21: Class member `Child.bad_override` is marked as an override, but no parent class has a matching attribute [bad-override]
+ERROR overloads_definitions_stub.pyi:147:9-20: If an overloaded function has no implementation, `@override` should be applied to the first overload only. [invalid-overload]
 """

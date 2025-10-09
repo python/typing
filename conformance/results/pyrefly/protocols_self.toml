@@ -2,12 +2,8 @@ conformant = "Partial"
 notes = """
 Fails some protocol subtyping examples when self is annotated with a type var
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 32: Unexpected errors ['`One` is not assignable to variable `c` with type `Copyable` [bad-assignment]']
-Line 33: Unexpected errors ['`Other` is not assignable to variable `c` with type `Copyable` [bad-assignment]']
 """
 output = """
-ERROR protocols_self.py:32:5-10: `One` is not assignable to variable `c` with type `Copyable` [bad-assignment]
-ERROR protocols_self.py:33:5-12: `Other` is not assignable to variable `c` with type `Copyable` [bad-assignment]
 """

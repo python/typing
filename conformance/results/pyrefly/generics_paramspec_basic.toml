@@ -4,7 +4,7 @@ errors_diff = """
 """
 output = """
 ERROR generics_paramspec_basic.py:10:13-31: ParamSpec must be assigned to a variable named `NotIt` [invalid-param-spec]
-ERROR generics_paramspec_basic.py:15:18-19: `ParamSpec[P]` is not allowed in this context [invalid-annotation]
+ERROR generics_paramspec_basic.py:15:18-19: `ParamSpec` is not allowed in this context [invalid-annotation]
 ERROR generics_paramspec_basic.py:23:14-15: `ParamSpec` is not allowed in this context [invalid-annotation]
 ERROR generics_paramspec_basic.py:23:20-21: `ParamSpec` is not allowed in this context [invalid-annotation]
 ERROR generics_paramspec_basic.py:27:14-33: `Concatenate[int, P]` is not allowed in this context [invalid-annotation]

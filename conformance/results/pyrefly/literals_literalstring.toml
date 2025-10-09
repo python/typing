@@ -2,11 +2,8 @@ conformant = "Partial"
 notes = """
 LiteralString is sometimes converted to str
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 120: Expected 1 errors
-Line 111: Unexpected errors ["assert_type(str, Literal['hello']) failed [assert-type]"]
-Line 116: Unexpected errors ['assert_type(str, LiteralString) failed [assert-type]']
 """
 output = """
 ERROR literals_literalstring.py:36:29-42: Invalid type inside literal, `LiteralString` [invalid-literal]
@@ -15,8 +12,7 @@ ERROR literals_literalstring.py:43:23-24: `Literal['two']` is not assignable to 
 ERROR literals_literalstring.py:66:25-47: `str` is not assignable to `LiteralString` [bad-assignment]
 ERROR literals_literalstring.py:74:25-26: `Literal[3]` is not assignable to `LiteralString` [bad-assignment]
 ERROR literals_literalstring.py:75:25-32: `Literal[b'test']` is not assignable to `LiteralString` [bad-assignment]
-ERROR literals_literalstring.py:111:16-37: assert_type(str, Literal['hello']) failed [assert-type]
-ERROR literals_literalstring.py:116:16-35: assert_type(str, LiteralString) failed [assert-type]
+ERROR literals_literalstring.py:120:21-24: Type `str` is not assignable to upper bound `LiteralString` of type variable `TLiteral` [bad-specialization]
 ERROR literals_literalstring.py:134:51-52: Argument `str` is not assignable to parameter `value` with type `LiteralString` in function `Container.__init__` [bad-argument-type]
 ERROR literals_literalstring.py:171:21-24: `list[LiteralString]` is not assignable to `list[str]` [bad-assignment]
 """

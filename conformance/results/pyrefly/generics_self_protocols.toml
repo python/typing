@@ -2,12 +2,10 @@ conformant = "Partial"
 notes = """
 Protocol subtyping does not work with Self in return annotation
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 58: Unexpected errors ['Argument `ReturnConcreteShape` is not assignable to parameter `shape` with type `ShapeProtocol` in function `accepts_shape` [bad-argument-type]']
 """
 output = """
-ERROR generics_self_protocols.py:58:19-40: Argument `ReturnConcreteShape` is not assignable to parameter `shape` with type `ShapeProtocol` in function `accepts_shape` [bad-argument-type]
 ERROR generics_self_protocols.py:61:19-34: Argument `BadReturnType` is not assignable to parameter `shape` with type `ShapeProtocol` in function `accepts_shape` [bad-argument-type]
 ERROR generics_self_protocols.py:64:19-41: Argument `ReturnDifferentClass` is not assignable to parameter `shape` with type `ShapeProtocol` in function `accepts_shape` [bad-argument-type]
 """
