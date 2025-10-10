@@ -1,6 +1,6 @@
 # Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#instantiating-generic-classes-and-type-erasure
 
-from typing import Any, Never, TypeVar, Generic, assert_type
+from typing import Any, TypeVar, Generic, assert_type
 
 T = TypeVar("T")
 
