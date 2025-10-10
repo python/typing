@@ -16,12 +16,10 @@ class Node(Generic[T]):
 
 assert_type(Node(''), Node[str])
 assert_type(Node(0), Node[int])
-assert_type(Node(), Node[Any])  # E[any-or-never1]
-assert_type(Node(), Node[Never])  # E[any-or-never1]
+assert_type(Node(), Node[Any])
 
 assert_type(Node(0).label, int)
-assert_type(Node().label, Any)  # E[any-or-never2]
-assert_type(Node().label, Never)  # E[any-or-never2]
+assert_type(Node().label, Any)
 
 # > In case the inferred type uses [Any] but the intended type is more specific,
 # > you can use an annotation to force the type of the variable, e.g.:

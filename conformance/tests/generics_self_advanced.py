@@ -39,9 +39,7 @@ class ChildB(ParentB):
 
     @classmethod
     def method3(cls) -> None:
-        a = cls.a  # E?: zuban errors on accessing `Self` in a classmethod
-        a_elem = cls.a[0]  # E?: zuban errors on accessing `Self` in a classmethod
         assert_type(cls, type[Self])
-        assert_type(a, list[Self])
-        assert_type(a_elem, Self)
+        assert_type(cls.a, list[Self])
+        assert_type(cls.a[0], Self)
         assert_type(cls.method1(), Self)
