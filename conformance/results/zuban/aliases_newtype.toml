@@ -4,7 +4,7 @@ errors_diff = """
 output = """
 aliases_newtype.py:11: error: Argument 1 to "UserId" has incompatible type "str"; expected "int"  [arg-type]
 aliases_newtype.py:12: error: Incompatible types in assignment (expression has type "int", variable has type "UserId")  [assignment]
-aliases_newtype.py:18: error: Incompatible types in assignment (expression has type "Type[UserId]", variable has type "Type[Any]")  [assignment]
+aliases_newtype.py:18: error: Incompatible types in assignment (expression has type "type[UserId]", variable has type "type[Any]")  [assignment]
 aliases_newtype.py:23: error: Cannot use isinstance() with NewType type  [misc]
 aliases_newtype.py:26: error: Cannot subclass "NewType"  [misc]
 aliases_newtype.py:35: error: String argument 1 "BadName" to NewType(...) does not match variable name "GoodName"  [misc]

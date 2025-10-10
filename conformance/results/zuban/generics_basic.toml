@@ -14,5 +14,5 @@ generics_basic.py:162: error: Free type variable expected in Generic[...]  [misc
 generics_basic.py:163: error: Free type variable expected in Protocol[...]  [misc]
 generics_basic.py:171: error: If Generic[...] or Protocol[...] is present it should list all type variables  [misc]
 generics_basic.py:172: error: If Generic[...] or Protocol[...] is present it should list all type variables  [misc]
-generics_basic.py:208: error: Invalid metaclass "GenericMeta[T]"  [misc]
+generics_basic.py:208: error: Invalid metaclass "GenericMeta[T]"  [metaclass]
 """

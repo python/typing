@@ -6,17 +6,14 @@ Does not ignore newlines in multi-line unions
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 22: Expected 1 errors
-Line 23: Expected 1 errors
 Line 24: Expected 1 errors
 Line 25: Expected 1 errors
-Line 66: Expected 1 errors
 Line 82: Unexpected errors ['annotations_forward_refs.py:82: error: Name "str" is not defined  [name-defined]']
 Line 87: Unexpected errors ['annotations_forward_refs.py:87: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]']
 Line 95: Unexpected errors ['annotations_forward_refs.py:95: error: Expression is of type "Any", not "str"  [misc]']
 Line 96: Unexpected errors ['annotations_forward_refs.py:96: error: Expression is of type "Any", not "int"  [misc]']
-Line 104: Unexpected errors ['annotations_forward_refs.py:104: error: invalid syntax  [syntax]']
-Line 105: Unexpected errors ['annotations_forward_refs.py:105: error: invalid syntax  [syntax]', 'annotations_forward_refs.py:105: error: invalid syntax  [syntax]']
+Line 104: Unexpected errors ['annotations_forward_refs.py:104: error: Invalid syntax  [syntax]']
+Line 105: Unexpected errors ['annotations_forward_refs.py:105: error: Invalid syntax  [syntax]', 'annotations_forward_refs.py:105: error: Invalid syntax  [syntax]']
 """
 output = """
 annotations_forward_refs.py:41: error: Invalid type comment or annotation  [valid-type]
@@ -46,7 +43,7 @@ annotations_forward_refs.py:89: error: Function "annotations_forward_refs.ClassD
 annotations_forward_refs.py:89: note: Perhaps you need "Callable[...]" or a callback protocol?
 annotations_forward_refs.py:95: error: Expression is of type "Any", not "str"  [misc]
 annotations_forward_refs.py:96: error: Expression is of type "Any", not "int"  [misc]
-annotations_forward_refs.py:104: error: invalid syntax  [syntax]
-annotations_forward_refs.py:105: error: invalid syntax  [syntax]
-annotations_forward_refs.py:105: error: invalid syntax  [syntax]
+annotations_forward_refs.py:104: error: Invalid syntax  [syntax]
+annotations_forward_refs.py:105: error: Invalid syntax  [syntax]
+annotations_forward_refs.py:105: error: Invalid syntax  [syntax]
 """

@@ -9,7 +9,7 @@ dataclasses_usage.py:61: error: Attributes without a default cannot follow attri
 dataclasses_usage.py:67: error: Attributes without a default cannot follow attributes with one  [misc]
 dataclasses_usage.py:73: error: Attributes without a default cannot follow attributes with one  [misc]
 dataclasses_usage.py:83: error: Too many arguments for "DC4"  [call-arg]
-dataclasses_usage.py:88: error: Argument "default_factory" to "field" has incompatible type "Type[str]"; expected "Callable[[], int]"  [arg-type]
+dataclasses_usage.py:88: error: Argument "default_factory" to "field" has incompatible type "type[str]"; expected "Callable[[], int]"  [arg-type]
 dataclasses_usage.py:127: error: Too many arguments for "DC7"  [call-arg]
 dataclasses_usage.py:130: error: Missing positional argument "y" in call to "DC8"  [call-arg]
 dataclasses_usage.py:179: error: Too many arguments for "DC13"  [call-arg]

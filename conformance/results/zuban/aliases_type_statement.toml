@@ -6,7 +6,7 @@ aliases_type_statement.py:17: error: "TypeAliasType" has no attribute "bit_count
 aliases_type_statement.py:19: error: "TypeAliasType" not callable  [operator]
 aliases_type_statement.py:23: error: "TypeAliasType" has no attribute "other_attrib"  [attr-defined]
 aliases_type_statement.py:26: error: Type alias defined using "type" statement not valid as base class  [misc]
-aliases_type_statement.py:31: error: Argument 2 to "isinstance" has incompatible type "TypeAliasType"; expected "Type[Any] | UnionType | tuple[_ClassInfo, ...]"  [arg-type]
+aliases_type_statement.py:31: error: Argument 2 to "isinstance" has incompatible type "TypeAliasType"; expected "type[Any] | UnionType | tuple[_ClassInfo, ...]"  [arg-type]
 aliases_type_statement.py:37: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_type_statement.py:38: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
 aliases_type_statement.py:38: note: Did you mean "List[...]"?

@@ -8,6 +8,5 @@ Line 53: Expected 1 errors
 Line 52: Unexpected errors ['enums_expansion.py:52: error: Expression is of type "Literal[CustomFlags.FLAG3]", not "CustomFlags"  [misc]']
 """
 output = """
-enums_expansion.py:35: error: Expression is of type "Color", not "Never"  [misc]
 enums_expansion.py:52: error: Expression is of type "Literal[CustomFlags.FLAG3]", not "CustomFlags"  [misc]
 """

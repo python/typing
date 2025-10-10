@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-annotations_generators.py:51: error: Missing return statement  [return]
+annotations_generators.py:51: error: Incompatible return value type (implicitly returns "None", expected "C")  [return-value]
 annotations_generators.py:54: error: Incompatible return value type (got "bool", expected "C")  [return-value]
 annotations_generators.py:57: error: Incompatible types in "yield" (actual type "int", expected type "A")  [misc]
 annotations_generators.py:66: error: Incompatible types in "yield" (actual type "int", expected type "A")  [misc]

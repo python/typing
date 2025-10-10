@@ -16,5 +16,5 @@ dataclasses_transform_converter.py:109: error: Argument 5 to "DC2" has incompati
 dataclasses_transform_converter.py:118: error: Incompatible types in assignment of a dataclass converter (expression has type "int", expected type "str")  [assignment]
 dataclasses_transform_converter.py:119: error: Incompatible types in assignment of a dataclass converter (expression has type "int", expected type "str | bytes")  [assignment]
 dataclasses_transform_converter.py:130: error: Argument "default" to "model_field" has incompatible type "int"; expected "str | None"  [arg-type]
-dataclasses_transform_converter.py:133: error: Argument "default_factory" to "model_field" has incompatible type "Type[int]"; expected "Callable[[], str] | None"  [arg-type]
+dataclasses_transform_converter.py:133: error: Argument "default_factory" to "model_field" has incompatible type "type[int]"; expected "Callable[[], str] | None"  [arg-type]
 """

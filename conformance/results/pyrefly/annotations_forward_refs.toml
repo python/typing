@@ -5,11 +5,8 @@ Does not reject some type forms that require quotes.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 22: Expected 1 errors
-Line 23: Expected 1 errors
 Line 24: Expected 1 errors
 Line 25: Expected 1 errors
-Line 66: Expected 1 errors
 Line 87: Unexpected errors ['Expected a type form, got instance of `(self: Self@ClassD) -> None` [not-a-type]']
 Line 96: Unexpected errors ['assert_type(Any, int) failed [assert-type]']
 """

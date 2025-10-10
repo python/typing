@@ -2,11 +2,11 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-specialtypes_type.py:56: error: Argument 1 to "func4" has incompatible type "Type[TeamUser]"; expected "Type[BasicUser | ProUser]"  [arg-type]
-specialtypes_type.py:70: error: Argument 1 to "func5" has incompatible type "_SpecialForm"; expected "Type[Never]"  [arg-type]
+specialtypes_type.py:56: error: Argument 1 to "func4" has incompatible type "type[TeamUser]"; expected "type[BasicUser | ProUser]"  [arg-type]
+specialtypes_type.py:70: error: Argument 1 to "func5" has incompatible type "_SpecialForm"; expected "type[Never]"  [arg-type]
 specialtypes_type.py:76: error: Invalid type comment or annotation  [valid-type]
-specialtypes_type.py:117: error: "Type[object]" has no attribute "unknown"  [attr-defined]
-specialtypes_type.py:120: error: "Type[object]" has no attribute "unknown"  [attr-defined]
+specialtypes_type.py:117: error: "type[object]" has no attribute "unknown"  [attr-defined]
+specialtypes_type.py:120: error: "type[object]" has no attribute "unknown"  [attr-defined]
 specialtypes_type.py:143: error: "_SpecialForm" has no attribute "unknown"  [attr-defined]
 specialtypes_type.py:144: error: "_SpecialForm" has no attribute "unknown"  [attr-defined]
 specialtypes_type.py:145: error: "_SpecialForm" has no attribute "unknown"  [attr-defined]
