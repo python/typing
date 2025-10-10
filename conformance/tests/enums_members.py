@@ -12,7 +12,7 @@ from typing import Literal, assert_type, reveal_type
 # > attribute
 
 
-class Pet(Enum):  # E?: Uninitialized attributes (pyre)
+class Pet(Enum):
     genus: str  # Non-member attribute
     species: str  # Non-member attribute
 

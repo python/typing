@@ -81,12 +81,10 @@ Type Checkers
 
 * `mypy <http://mypy-lang.org/>`_, the reference implementation for type
   checkers.
-* `pyre <https://pyre-check.org/>`_, a type checker written in OCaml and
-  optimized for performance.
+* `pyrefly <https://pyrefly.org//>`_, a fast type checker and language
+  server.
 * `pyright <https://github.com/microsoft/pyright>`_, a type checker that
   emphasizes speed.
-* `pytype <https://google.github.io/pytype/>`_, a type checker that
-  checks and infers types for unannotated code.
 
 Development Environments
 ------------------------

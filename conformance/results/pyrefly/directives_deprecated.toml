@@ -5,8 +5,6 @@ Line 18: Expected 1 errors
 Line 24: Expected 1 errors
 Line 25: Expected 1 errors
 Line 30: Expected 1 errors
-Line 41: Expected 1 errors
-Line 42: Expected 1 errors
 Line 44: Expected 1 errors
 Line 47: Expected 1 errors
 Line 48: Expected 1 errors
@@ -15,4 +13,6 @@ Line 69: Expected 1 errors
 Line 98: Expected 1 errors
 """
 output = """
+ERROR directives_deprecated.py:41:5-13: `+` is not supported between `Spam` and `Literal[1]` [unsupported-operation]
+ERROR directives_deprecated.py:42:1-10: `+=` is not supported between `Spam` and `Literal[1]` [unsupported-operation]
 """

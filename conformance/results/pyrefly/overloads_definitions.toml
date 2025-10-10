@@ -1,16 +1,9 @@
-conformant = "Partial"
-notes = """
-Does not restrict some decorators to implementation
-Does not require some decorators that need to appear on every overload
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 49: Unexpected errors ['Overloaded function must have an implementation [invalid-overload]']
 """
 output = """
 ERROR overloads_definitions.py:16:5-10: Overloaded function needs at least two @overload declarations [invalid-overload]
 ERROR overloads_definitions.py:28:5-10: Overloaded function must have an implementation [invalid-overload]
-ERROR overloads_definitions.py:49:9-14: Overloaded function must have an implementation [invalid-overload]
 ERROR overloads_definitions.py:59:9-21: Overloaded function must have an implementation [invalid-overload]
 ERROR overloads_definitions.py:81:9-14: If `@staticmethod` is present on any overload or the implementation, it should be on every overload and the implementation. [invalid-overload]
 ERROR overloads_definitions.py:90:9-14: If `@classmethod` is present on any overload or the implementation, it should be on every overload and the implementation. [invalid-overload]
