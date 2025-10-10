@@ -6,7 +6,6 @@ Does not detect circular definitions.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Expected 1 errors
 Line 82: Expected 1 errors
 Line 84: Expected 1 errors
 Lines 51, 52: Expected error (tag 'TA14')
@@ -14,8 +13,9 @@ Lines 88, 89: Expected error (tag 'RTA6')
 """
 output = """
 ERROR aliases_type_statement.py:17:1-21: Object of class `TypeAliasType` has no attribute `bit_count` [missing-attribute]
-ERROR aliases_type_statement.py:19:1-11: Expected a callable, got TypeAlias[GoodAlias1, type[int]] [not-callable]
+ERROR aliases_type_statement.py:19:1-11: Expected a callable, got `TypeAlias[GoodAlias1, type[int]]` [not-callable]
 ERROR aliases_type_statement.py:23:7-30: Object of class `TypeAliasType` has no attribute `other_attrib` [missing-attribute]
+ERROR aliases_type_statement.py:26:18-28: Cannot use scoped type alias `GoodAlias1` as a base class. Use a legacy type alias instead: `GoodAlias1: TypeAlias = type[int]` [invalid-inheritance]
 ERROR aliases_type_statement.py:31:22-32: Expected class object, got `TypeAliasType` [invalid-argument]
 ERROR aliases_type_statement.py:37:22-62: function call cannot be used in annotations [invalid-annotation]
 ERROR aliases_type_statement.py:38:22-32: list literal cannot be used in annotations [invalid-annotation]

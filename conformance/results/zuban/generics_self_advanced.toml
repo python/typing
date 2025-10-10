@@ -1,6 +1,6 @@
-conformant = "Pass"
+conformant = "Partial"
 notes = """
-True positive: Writing to a variable that contains Self (with a class) should error
+Doesn't allow accessing `Self` in a classmethod
 """
 conformance_automated = "Fail"
 errors_diff = """

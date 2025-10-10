@@ -1,12 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not evaluate correct type for indexed named tuple instance with integer.
-Does not evaluate correct type for indexed named tuple instance with slice.
-Does not report out-of-range index access with named tuple instance.
-Does not reject named tuple element with no default value after one with a default.
-Incorrectly rejects assignment of named tuple to a tuple with compatible type.
-Does not reject attempt to use NamedTuple with multiple inheritance.
-"""
 output = """
 namedtuples_define_class.py:32:6 Invalid tuple index [73]: Index 3 is out of bounds for concrete tuple with 3 members.
 namedtuples_define_class.py:33:6 Invalid tuple index [73]: Index -4 is out of bounds for concrete tuple with 3 members.

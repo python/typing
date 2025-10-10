@@ -1,14 +1,10 @@
-conformant = "Partial"
-notes = """
-Instantiation is not validated against bound
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 51: Expected 1 errors
 """
 output = """
 ERROR generics_upper_bound.py:24:38-45: Type variable bounds and constraints must be concrete [invalid-annotation]
 ERROR generics_upper_bound.py:43:12-55: assert_type(list[int], list[int] | set[int]) failed [assert-type]
 ERROR generics_upper_bound.py:43:25-31: Argument `set[int]` is not assignable to parameter `y` with type `list[int]` in function `longer` [bad-argument-type]
+ERROR generics_upper_bound.py:51:7-13: Type `int` is not assignable to upper bound `Sized` of type variable `ST` [bad-specialization]
 ERROR generics_upper_bound.py:56:38-49: TypeVar cannot have both constraints and bound [invalid-type-var]
 """

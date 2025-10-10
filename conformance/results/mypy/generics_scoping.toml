@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-False negative on generic class nested within generic class with same type variable.
-"""
 output = """
 generics_scoping.py:29: error: Argument 1 to "meth_2" of "MyClass" has incompatible type "str"; expected "int"  [arg-type]
 generics_scoping.py:50: error: Type variable "generics_scoping.S" is unbound  [valid-type]
@@ -11,6 +7,7 @@ generics_scoping.py:54: error: Type variable "generics_scoping.S" is unbound  [v
 generics_scoping.py:54: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
 generics_scoping.py:54: note: (Hint: Use "S" in function signature to bind "S" inside a function)
 generics_scoping.py:65: error: Free type variable expected in Generic[...]  [misc]
+generics_scoping.py:75: error: Type variable "T" is bound by an outer class  [valid-type]
 generics_scoping.py:78: error: Type variable "generics_scoping.T" is unbound  [valid-type]
 generics_scoping.py:78: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
 generics_scoping.py:78: note: (Hint: Use "T" in function signature to bind "T" inside a function)
@@ -25,7 +22,6 @@ generics_scoping.py:96: error: Type variable "generics_scoping.T" is unbound  [v
 generics_scoping.py:96: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
 generics_scoping.py:96: note: (Hint: Use "T" in function signature to bind "T" inside a function)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 75: Expected 1 errors
 """

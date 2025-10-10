@@ -1,10 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not ban final decorator on overload when implementation exists
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Lines 84, 85, 86: Expected error (tag 'Derived3-2')
 """
 output = """
 ERROR qualifiers_final_decorator.py:21:16-21: Cannot extend final class `Base1` [invalid-inheritance]
@@ -13,6 +8,7 @@ ERROR qualifiers_final_decorator.py:60:9-16: `method2` is declared as final in p
 ERROR qualifiers_final_decorator.py:64:9-16: `method3` is declared as final in parent class `Base2` [bad-override]
 ERROR qualifiers_final_decorator.py:68:9-16: `method4` is declared as final in parent class `Base2` [bad-override]
 ERROR qualifiers_final_decorator.py:81:9-15: `method` is declared as final in parent class `Base3` [bad-override]
+ERROR qualifiers_final_decorator.py:86:9-15: `@final` should only be applied to the implementation of an overloaded function. [invalid-overload]
 ERROR qualifiers_final_decorator.py:95:9-15: `method` is declared as final in parent class `Base4` [bad-override]
 ERROR qualifiers_final_decorator.py:118:9-15: `method` is declared as final in parent class `Base5_2` [bad-override]
 ERROR qualifiers_final_decorator.py:125:1-7: Decorator `@final` can only be used on methods. [invalid-decorator]

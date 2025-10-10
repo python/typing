@@ -1,11 +1,7 @@
-conformant = "Partial"
-notes = """
-Does not reject incorrect direct assignment to attribute w/ Self
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 32: Expected 1 errors
 """
 output = """
 ERROR generics_self_attributes.py:26:38-62: Argument `LinkedList[int]` is not assignable to parameter `next` with type `OrdinalLinkedList | None` in function `OrdinalLinkedList.__init__` [bad-argument-type]
+ERROR generics_self_attributes.py:32:15-50: `LinkedList[int]` is not assignable to attribute `next` with type `OrdinalLinkedList | None` [bad-assignment]
 """

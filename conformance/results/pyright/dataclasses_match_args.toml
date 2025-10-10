@@ -1,10 +1,7 @@
-conformant = "Partial"
-notes = """
-Generates __match_args__ when match_args=False.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 42: Expected 1 errors
 """
 output = """
+dataclasses_match_args.py:42:5 - error: Cannot access attribute "__match_args__" for class "type[DC4]"
+  Attribute "__match_args__" is unknown (reportAttributeAccessIssue)
 """

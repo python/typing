@@ -1,6 +1,6 @@
-conformant = "Pass"
+conformant = "Partial"
 notes = """
-True positive: Undefined type vars should be inferred as Never not Any (avoiding to introduce Any)
+Infers Node[Never] instead of Node[Any] when argument is not provided.
 """
 conformance_automated = "Fail"
 errors_diff = """

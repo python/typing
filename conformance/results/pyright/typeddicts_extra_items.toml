@@ -1,11 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not flag illegal use of `closed=False` when inheriting from a non-open TypedDict.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 67: Expected 1 errors
-Line 73: Expected 1 errors
 """
 output = """
 typeddicts_extra_items.py:15:45 - error: Type "dict[str, str | int]" is not assignable to declared type "Movie"
@@ -15,6 +9,8 @@ typeddicts_extra_items.py:22:55 - error: Type "dict[str, str | int]" is not assi
 typeddicts_extra_items.py:39:54 - error: Type "dict[str, str | None]" is not assignable to declared type "InheritedMovie"
   "None" is not assignable to "int" (reportAssignmentType)
 typeddicts_extra_items.py:49:35 - error: Expected "closed" parameter to have a value of True or False (reportGeneralTypeIssues)
+typeddicts_extra_items.py:67:40 - error: Base class "ClosedBase" is not an open TypedDict; closed=False is not allowed (reportGeneralTypeIssues)
+typeddicts_extra_items.py:73:44 - error: Base class "ExtraItemsBase" is not an open TypedDict; closed=False is not allowed (reportGeneralTypeIssues)
 typeddicts_extra_items.py:91:7 - error: Base class "MovieA" is a TypedDict that limits the type of extra items to type "Never"
   Cannot add item "age" (reportIncompatibleVariableOverride)
 typeddicts_extra_items.py:94:7 - error: Base class "MovieB" is a TypedDict that limits the type of extra items to type "Never"

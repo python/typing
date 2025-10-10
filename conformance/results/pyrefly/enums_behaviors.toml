@@ -1,13 +1,7 @@
-conformant = "Partial"
-notes = """
-Iterating an enum class gives Any
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 20: Unexpected errors ['assert_type(Any, Color) failed [assert-type]']
 """
 output = """
-ERROR enums_behaviors.py:20:16-30: assert_type(Any, Color) failed [assert-type]
 ERROR enums_behaviors.py:27:12-33: assert_type(Literal[Color.RED], Color) failed [assert-type]
 ERROR enums_behaviors.py:32:12-43: assert_type(Color, Literal[Color.BLUE]) failed [assert-type]
 ERROR enums_behaviors.py:44:21-26: Cannot extend final class `Shape` [invalid-inheritance]
