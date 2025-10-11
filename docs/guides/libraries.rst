@@ -239,8 +239,8 @@ is obvious from the context:
    that is defined at a module level with a single assignment where the
    assigned value is an instantiable type, as opposed to a class
    instance
-   (e.g. ``Foo = Callable[[Literal["a", "b"]], Union[int, str]]`` or
-   ``Bar = Optional[MyGenericClass[int]]``).
+   (e.g. ``Foo = Callable[[Literal["a", "b"]], int | str]`` or
+   ``Bar = MyGenericClass[int] | None``).
 -  The “self” parameter in an instance method and the “cls” parameter in
    a class method do not require an explicit annotation.
 -  The return type for an ``__init__`` method does not need to be
@@ -266,17 +266,17 @@ Examples of known and unknown types
 
    # Type alias with partially unknown type (because type
    # arguments are missing for list and dict)
-   DictOrList = Union[list, dict]
+   DictOrList = list | dict
 
    # Type alias with known type
-   DictOrList = Union[list[Any], dict[str, Any]]
+   DictOrList = list[Any] | dict[str, Any]
 
    # Generic type alias with known type
    _T = TypeVar("_T")
-   DictOrList = Union[list[_T], dict[str, _T]]
+   DictOrList = list[_T] | dict[str, _T]
 
    # Function with known type
-   def func(a: Optional[int], b: dict[str, float] = {}) -> None:
+   def func(a: int | None, b: dict[str, float] = {}) -> None:
        pass
 
    # Function with partially unknown type (because type annotations
@@ -386,10 +386,10 @@ instead of mutable forms (unless the function needs to modify the
 container). Use ``Sequence`` rather than ``list``, ``Mapping`` rather
 than ``dict``, etc. Immutable containers allow for more flexibility
 because their type parameters are covariant rather than invariant. A
-parameter that is typed as ``Sequence[Union[str, int]]`` can accept a
+parameter that is typed as ``Sequence[str | int]`` can accept a
 ``list[int]``, ``Sequence[str]``, and a ``Sequence[int]``. But a
-parameter typed as ``list[Union[str, int]]`` is much more restrictive
-and accepts only a ``list[Union[str, int]]``.
+parameter typed as ``list[str | int]`` is much more restrictive
+and accepts only a ``list[str | int]``.
 
 Overloads
 ---------
@@ -409,7 +409,7 @@ specified only by name, use the keyword-only separator (``*``).
 
 .. code:: python
 
-   def create_user(age: int, *, dob: Optional[date] = None):
+   def create_user(age: int, *, dob: date | None = None):
        ...
 
 .. _annotating-decorators:
@@ -534,16 +534,16 @@ annotation.
 .. code:: python
 
    # Simple type alias
-   FamilyPet = Union[Cat, Dog, GoldFish]
+   FamilyPet = Cat | Dog | GoldFish
 
    # Generic type alias
-   ListOrTuple = Union[list[_T], tuple[_T, ...]]
+   ListOrTuple = list[_T] | tuple[_T, ...]
 
    # Recursive type alias
-   TreeNode = Union[LeafNode, list["TreeNode"]]
+   TreeNode = LeafNode | list["TreeNode"]
 
    # Explicit type alias using PEP 613 syntax
-   StrOrInt: TypeAlias = Union[str, int]
+   StrOrInt: TypeAlias = str | int
 
 Abstract Classes and Methods
 ----------------------------
