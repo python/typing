@@ -2,8 +2,9 @@ conformant = "Pass"
 notes = """
 Does not support tuple narrowing based on `len()` type guard (optional).
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Lines 111, 112: Expected error (tag 'func6_3')
 """
 output = """
 tuples_type_compat.py:15: error: Incompatible types in assignment (expression has type "tuple[float, complex]", variable has type "tuple[int, int]")  [assignment]
@@ -15,10 +16,9 @@ tuples_type_compat.py:62: error: Incompatible types in assignment (expression ha
 tuples_type_compat.py:76: error: Expression is of type "tuple[int]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"  [misc]
 tuples_type_compat.py:81: error: Expression is of type "tuple[str, str] | tuple[int, int]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"  [misc]
 tuples_type_compat.py:86: error: Expression is of type "tuple[int, str, int]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"  [misc]
-tuples_type_compat.py:101: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]", not "tuple[int]"  [misc]
-tuples_type_compat.py:106: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]", not "tuple[str, str] | tuple[int, int]"  [misc]
-tuples_type_compat.py:111: error: Expression is of type "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]", not "tuple[int, str, int]"  [misc]
-tuples_type_compat.py:126: error: Expression is of type "tuple[int | str, int | str]", not "tuple[int | str, str]"  [misc]
+tuples_type_compat.py:102: error: Expression is of type "tuple[int]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"  [misc]
+tuples_type_compat.py:107: error: Expression is of type "tuple[str, str] | tuple[int, int]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"  [misc]
+tuples_type_compat.py:127: error: Expression is of type "tuple[int | str, str]", not "tuple[int | str, int | str]"  [misc]
 tuples_type_compat.py:129: error: Expression is of type "tuple[int | str, int | str]", not "tuple[int | str, int]"  [misc]
 tuples_type_compat.py:157: error: Incompatible types in assignment (expression has type "tuple[int, str, str]", variable has type "tuple[int, str]")  [assignment]
 tuples_type_compat.py:162: error: Incompatible types in assignment (expression has type "tuple[int, int, str]", variable has type "tuple[int, Unpack[Tuple[str, ...]]]")  [assignment]

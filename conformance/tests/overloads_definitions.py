@@ -81,17 +81,17 @@ class C:
     def func5(*args: object) -> int | str:  # E[func5]
         return 1
 
-    @overload  # E[func6]
+    @overload  # E[func6+]
     @classmethod
-    def func6(cls, x: int, /) -> int:  # E[func6]
+    def func6(cls, x: int, /) -> int:  # E[func6+]
         ...
 
     @overload
-    def func6(self, x: str, /) -> str:  # E[func6]
+    def func6(self, x: str, /) -> str:  # E[func6+]
         ...
 
-    @classmethod
-    def func6(cls, *args: int | str) -> int | str:  # E[func6]
+    @classmethod  # E[func6+]
+    def func6(cls, *args: int | str) -> int | str:  # E[func6+]
         return 1
 
 

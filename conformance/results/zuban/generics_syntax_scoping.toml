@@ -7,7 +7,7 @@ errors_diff = """
 Line 31: Unexpected errors ['generics_syntax_scoping.py:31: error: Type variable "generics_syntax_scoping.T" is unbound  [misc]']
 Line 56: Unexpected errors ['generics_syntax_scoping.py:56: error: Name "S" already defined on line 55  [no-redef]']
 Line 62: Unexpected errors ['generics_syntax_scoping.py:62: error: Expression is of type "TypeVar", not "str"  [misc]']
-Line 88: Unexpected errors ['generics_syntax_scoping.py:88: error: Argument 1 has incompatible type "Type[ClassE]"; expected "Callable[Never, Never]"  [arg-type]']
+Line 88: Unexpected errors ['generics_syntax_scoping.py:88: error: Argument 1 has incompatible type "type[ClassE]"; expected "Callable[Never, Never]"  [arg-type]']
 Line 90: Unexpected errors ['generics_syntax_scoping.py:90: error: Name "T" already defined on line 89  [no-redef]']
 Line 106: Unexpected errors ['generics_syntax_scoping.py:106: error: Name "T" already defined on line 105  [no-redef]']
 Line 108: Unexpected errors ['generics_syntax_scoping.py:108: error: Expression is of type "TypeVar", not "int"  [misc]']
@@ -24,13 +24,13 @@ generics_syntax_scoping.py:31: error: Type variable "generics_syntax_scoping.T" 
 generics_syntax_scoping.py:31: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
 generics_syntax_scoping.py:31: note: (Hint: Use "T" in function signature to bind "T" inside a function)
 generics_syntax_scoping.py:35: error: Name "T" is used before definition  [used-before-def]
-generics_syntax_scoping.py:44: error: Argument 1 has incompatible type "Type[ClassD]"; expected "Callable[Never, Never]"  [arg-type]
+generics_syntax_scoping.py:44: error: Argument 1 has incompatible type "type[ClassD]"; expected "Callable[Never, Never]"  [arg-type]
 generics_syntax_scoping.py:44: error: Name "T" is used before definition  [used-before-def]
 generics_syntax_scoping.py:44: error: Variable "generics_syntax_scoping.T" is not valid as a type  [valid-type]
 generics_syntax_scoping.py:44: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
 generics_syntax_scoping.py:56: error: Name "S" already defined on line 55  [no-redef]
 generics_syntax_scoping.py:62: error: Expression is of type "TypeVar", not "str"  [misc]
-generics_syntax_scoping.py:88: error: Argument 1 has incompatible type "Type[ClassE]"; expected "Callable[Never, Never]"  [arg-type]
+generics_syntax_scoping.py:88: error: Argument 1 has incompatible type "type[ClassE]"; expected "Callable[Never, Never]"  [arg-type]
 generics_syntax_scoping.py:90: error: Name "T" already defined on line 89  [no-redef]
 generics_syntax_scoping.py:92: error: "T" already defined as a type parameter  [misc]
 generics_syntax_scoping.py:95: error: "T" already defined as a type parameter  [misc]

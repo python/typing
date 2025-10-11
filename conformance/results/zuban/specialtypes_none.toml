@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-specialtypes_none.py:21: error: Argument 1 to "func1" has incompatible type "Type[None]"; expected "None"  [arg-type]
+specialtypes_none.py:21: error: Argument 1 to "func1" has incompatible type "type[None]"; expected "None"  [arg-type]
 specialtypes_none.py:27: error: Incompatible types in assignment (expression has type "None", variable has type "Iterable[Any]")  [assignment]
-specialtypes_none.py:41: error: Argument 1 to "func2" has incompatible type "None"; expected "Type[None]"  [arg-type]
+specialtypes_none.py:41: error: Argument 1 to "func2" has incompatible type "None"; expected "type[None]"  [arg-type]
 """
