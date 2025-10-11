@@ -232,7 +232,7 @@ is obvious from the context:
    assigned only once and is either annotated with ``Final`` or is named
    in all-caps. A constant that is not assigned a simple literal value
    requires explicit annotations, preferably with a ``Final`` annotation
-   (e.g. ``WOODWINDS: Final[List[str]] = ['Oboe', 'Bassoon']``).
+   (e.g. ``WOODWINDS: Final[list[str]] = ['Oboe', 'Bassoon']``).
 -  Enum values within an Enum class do not require annotations because
    they take on the type of the Enum class.
 -  Type aliases do not require annotations. A type alias is a symbol
@@ -262,21 +262,21 @@ Examples of known and unknown types
    a = [3, 4, 5]
 
    # Variable with known type
-   a: List[int] = [3, 4, 5]
+   a: list[int] = [3, 4, 5]
 
    # Type alias with partially unknown type (because type
    # arguments are missing for list and dict)
    DictOrList = Union[list, dict]
 
    # Type alias with known type
-   DictOrList = Union[List[Any], Dict[str, Any]]
+   DictOrList = Union[list[Any], dict[str, Any]]
 
    # Generic type alias with known type
    _T = TypeVar("_T")
-   DictOrList = Union[List[_T], Dict[str, _T]]
+   DictOrList = Union[list[_T], dict[str, _T]]
 
    # Function with known type
-   def func(a: Optional[int], b: Dict[str, float] = {}) -> None:
+   def func(a: Optional[int], b: dict[str, float] = {}) -> None:
        pass
 
    # Function with partially unknown type (because type annotations
@@ -291,7 +291,7 @@ Examples of known and unknown types
 
    # Function with partially unknown type (because return type
    # annotation is missing)
-   def func(a: int, b: Dict[str, float]):
+   def func(a: int, b: dict[str, float]):
        pass
 
    # Decorator with partially unknown type (because type annotations
@@ -366,7 +366,7 @@ Wide vs. Narrow Types
 In type theory, when comparing two types that are related to each other,
 the “wider” type is the one that is more general, and the “narrower”
 type is more specific. For example, ``Sequence[str]`` is a wider type
-than ``List[str]`` because all ``List`` objects are also ``Sequence``
+than ``list[str]`` because all ``list`` objects are also ``Sequence``
 objects, but the converse is not true. A subclass is narrower than a
 class it derives from. A union of types is wider than the individual
 types that comprise the union.
@@ -375,7 +375,7 @@ In general, a function input parameter should be annotated with the
 widest possible type supported by the implementation. For example, if
 the implementation requires the caller to provide an iterable collection
 of strings, the parameter should be annotated as ``Iterable[str]``, not
-as ``List[str]``. The latter type is narrower than necessary, so if a
+as ``list[str]``. The latter type is narrower than necessary, so if a
 user attempts to pass a tuple of strings (which is supported by the
 implementation), a type checker will complain about a type
 incompatibility.
@@ -383,13 +383,13 @@ incompatibility.
 As a specific application of the “use the widest type possible” rule,
 libraries should generally use immutable forms of container types
 instead of mutable forms (unless the function needs to modify the
-container). Use ``Sequence`` rather than ``List``, ``Mapping`` rather
-than ``Dict``, etc. Immutable containers allow for more flexibility
+container). Use ``Sequence`` rather than ``list``, ``Mapping`` rather
+than ``dict``, etc. Immutable containers allow for more flexibility
 because their type parameters are covariant rather than invariant. A
 parameter that is typed as ``Sequence[Union[str, int]]`` can accept a
-``List[int]``, ``Sequence[str]``, and a ``Sequence[int]``. But a
-parameter typed as ``List[Union[str, int]]`` is much more restrictive
-and accepts only a ``List[Union[str, int]]``.
+``list[int]``, ``Sequence[str]``, and a ``Sequence[int]``. But a
+parameter typed as ``list[Union[str, int]]`` is much more restrictive
+and accepts only a ``list[Union[str, int]]``.
 
 Overloads
 ---------
@@ -455,14 +455,14 @@ from creating decorators that mutate function signatures in this manner.
 Aliasing Decorators
 -------------------
 
-When writing a library with a couple of decorator factories 
+When writing a library with a couple of decorator factories
 (i.e. functions returning decorators, like ``complex_decorator`` from the
-:ref:`annotating-decorators` section) it may be tempting to create a shortcut 
-for a decorator. 
+:ref:`annotating-decorators` section) it may be tempting to create a shortcut
+for a decorator.
 
 Different type checkers handle :data:`TypeAlias <typing.TypeAlias>` involving
 :class:`Callable <collections.abc.Callable>` in a
-different manner, so the most portable and easy way to create a shortcut 
+different manner, so the most portable and easy way to create a shortcut
 is to define a callable :class:`Protocol <typing.Protocol>` as described in the
 :ref:`callback-protocols` section of the Typing Specification.
 
@@ -471,7 +471,7 @@ There is already a :class:`Protocol <typing.Protocol>` called
 `_typeshed <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_:
 
 .. code:: python
-   
+
    from typing import TYPE_CHECKING
 
    if TYPE_CHECKING:
@@ -485,17 +485,17 @@ There is already a :class:`Protocol <typing.Protocol>` called
       """
         ...
 
-For non-trivial decorators with custom logic, it is still possible 
+For non-trivial decorators with custom logic, it is still possible
 to define a custom protocol using :class:`ParamSpec <typing.ParamSpec>`
 and :data:`Concatenate <typing.Concatenate>` mechanisms:
 
 .. code:: python
 
    class Client: ...
-   
+
    P = ParamSpec("P")
    R = TypeVar("R")
-  
+
    class PClientInjector(Protocol):
        def __call__(self, _: Callable[Concatenate[Client, P], R], /) -> Callable[P, R]:
            ...
@@ -505,7 +505,7 @@ and :data:`Concatenate <typing.Concatenate>` mechanisms:
        Decorator factory is invoked with arguments like this:
          @inject_client("testing")
          def my_function(client: Client, value: int): ...
-         
+
          my_function then takes only value
       """
 
@@ -537,10 +537,10 @@ annotation.
    FamilyPet = Union[Cat, Dog, GoldFish]
 
    # Generic type alias
-   ListOrTuple = Union[List[_T], Tuple[_T, ...]]
+   ListOrTuple = Union[list[_T], tuple[_T, ...]]
 
    # Recursive type alias
-   TreeNode = Union[LeafNode, List["TreeNode"]]
+   TreeNode = Union[LeafNode, list["TreeNode"]]
 
    # Explicit type alias using PEP 613 syntax
    StrOrInt: TypeAlias = Union[str, int]
@@ -609,14 +609,14 @@ type annotation would be redundant.
 
    # All-caps constant with explicit type
    COLOR_FORMAT_RGB: Literal["rgb"] = "rgb"
-   LATEST_VERSION: Tuple[int, int] = (4, 5)
+   LATEST_VERSION: tuple[int, int] = (4, 5)
 
    # Final variable with inferred type
    ColorFormatRgb: Final = "rgb"
 
    # Final variable with explicit type
    ColorFormatRgb: Final[Literal["rgb"]] = "rgb"
-   LATEST_VERSION: Final[Tuple[int, int]] = (4, 5)
+   LATEST_VERSION: Final[tuple[int, int]] = (4, 5)
 
 Typed Dictionaries, Data Classes, and Named Tuples
 --------------------------------------------------
