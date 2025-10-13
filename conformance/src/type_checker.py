@@ -203,76 +203,6 @@ class PyrightTypeChecker(TypeChecker):
         return line_to_errors
 
 
-class PyreTypeChecker(TypeChecker):
-    @property
-    def name(self) -> str:
-        return "pyre"
-
-    def install(self) -> bool:
-        try:
-            # Delete the cache for consistent timings.
-            shutil.rmtree(".pyre")
-        except (shutil.Error, OSError):
-            # Ignore any errors here.
-            pass
-
-        try:
-            # Uninstall any existing version if present.
-            run(
-                [sys.executable, "-m", "pip", "uninstall", "pyre-check", "-y"],
-                check=True,
-            )
-
-            # Install the latest version.
-            run(
-                [sys.executable, "-m", "pip", "install", "pyre-check"],
-                check=True,
-            )
-
-            # Generate a default config file.
-            pyre_config = '{"site_package_search_strategy": "pep561", "source_directories": ["."]}\n'
-            with open(".pyre_configuration", "w") as f:
-                f.write(pyre_config)
-
-            return True
-        except CalledProcessError:
-            print("Unable to install pyre")
-            return False
-
-    def get_version(self) -> str:
-        proc = run(["pyre", "--version"], stdout=PIPE, text=True)
-        version = proc.stdout.strip()
-        version = version.replace("Client version:", "pyre")
-        return version
-
-    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        proc = run(["pyre", "check"], stdout=PIPE, text=True, encoding="utf-8")
-        lines = proc.stdout.split("\n")
-
-        # Add results to a dictionary keyed by the file name.
-        results_dict: dict[str, str] = {}
-        for line in lines:
-            file_name = line.split(":")[0].strip()
-            results_dict[file_name] = results_dict.get(file_name, "") + line + "\n"
-
-        return results_dict
-
-    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
-        # narrowing_typeguard.py:17:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.
-        line_to_errors: dict[int, list[str]] = {}
-        for line in output:
-            # Ignore multi-line errors
-            if ".py:" not in line and ".pyi:" not in line:
-                continue
-            # Ignore reveal_type errors
-            if "Revealed type [-1]" in line:
-                continue
-            assert line.count(":") >= 2, f"Failed to parse line: {line!r}"
-            _, lineno, _ = line.split(":", maxsplit=2)
-            line_to_errors.setdefault(int(lineno), []).append(line)
-        return line_to_errors
-
-
 class ZubanLSTypeChecker(MypyTypeChecker):
     @property
     def name(self) -> str:
@@ -415,7 +345,6 @@ class PyreflyTypeChecker(TypeChecker):
 TYPE_CHECKERS: Sequence[TypeChecker] = (
     MypyTypeChecker(),
     PyrightTypeChecker(),
-    *([] if os.name == "nt" else [PyreTypeChecker()]),
     ZubanLSTypeChecker(),
     PyreflyTypeChecker(),
 )
