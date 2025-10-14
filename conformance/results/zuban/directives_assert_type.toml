@@ -3,9 +3,11 @@ errors_diff = """
 """
 output = """
 directives_assert_type.py:27: error: Expression is of type "int | str", not "int"  [misc]
-directives_assert_type.py:28: error: Expression is of type "Any", not "int"  [misc]
-directives_assert_type.py:29: error: Expression is of type "Literal[4]", not "int"  [misc]
-directives_assert_type.py:31: error: "assert_type" expects 2 arguments  [call-arg]
-directives_assert_type.py:32: error: Expression is of type "Literal['']", not "int"  [misc]
-directives_assert_type.py:33: error: "assert_type" expects 2 arguments  [call-arg]
+directives_assert_type.py:28: error: Expression is of type "int | str", not "Any"  [misc]
+directives_assert_type.py:29: error: Expression is of type "Any", not "int"  [misc]
+directives_assert_type.py:30: error: Expression is of type "Literal[4]", not "int"  [misc]
+directives_assert_type.py:32: error: "assert_type" expects 2 arguments  [call-arg]
+directives_assert_type.py:33: error: Expression is of type "Literal['']", not "int"  [misc]
+directives_assert_type.py:34: error: "assert_type" expects 2 arguments  [call-arg]
+directives_assert_type.py:41: error: Expression is of type "str", not "str | Literal['spam']"  [misc]
 """
