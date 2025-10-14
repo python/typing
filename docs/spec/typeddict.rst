@@ -1,39 +1,54 @@
+.. _`typeddict`:
 .. _`typed-dictionaries`:
 
 Typed dictionaries
 ==================
 
-.. _`typeddict`:
+(Originally specified in :pep:`589`, with later additions: ``Required``
+and ``NotRequired`` in :pep:`655`, use with ``Unpack`` in :pep:`692`,
+``ReadOnly`` in :pep:`705`, and ``closed=True`` and ``extra_items=`` in :pep:`728`.)
 
-TypedDict
----------
+A TypedDict type represents ``dict`` objects that contain only keys of
+type ``str``. There are restrictions on which string keys are valid, and
+which values can be associated with each key. Values that :term:`inhabit` a
+TypedDict type must be instances of ``dict`` itself, not a subclass.
 
-(Originally specified in :pep:`589`.)
+TypedDict types can define any number of :term:`items <item>`, which are string
+keys associated with values of a specified type. For example,
+a TypedDict may contain the item ``a: str``, indicating that the key ``a``
+must map to a value of type ``str``. Items may be either :term:`required`,
+meaning they must be present in every instance of the TypedDict type, or
+:term:`non-required`, meaning they may be omitted, but if they are present,
+they must be of the type specified in the TypedDict definition. By default,
+all items in a TypedDict are mutable, but items
+may also be marked as :term:`read-only`, indicating that they may not be
+modified.
 
-A TypedDict type represents dictionary objects with a specific set of
-string keys, and with specific value types for each valid key.  Each
-string key can be either required (it must be present) or
-non-required (it doesn't need to exist).
+In addition to explicitly specified items, TypedDicts may allow additional
+items. By default, TypedDicts are :term:`open`, meaning they may contain an
+unknown set of additional items. They may also be marked as :term:`closed`,
+in which case they may not contain any keys beyond those explicitly specified.
+As a third option, they may be defined with :term:`extra items` of a specific type.
+In this case, there may be any number of additional items present at runtime, but
+their values must be of the specified type. Extra items may or may not be
+:term:`read-only`. Thus, a TypedDict may be open, closed, or have extra items;
+we refer to this property as the *openness* of the TypedDict. For many purposes,
+an open TypedDict is equivalent to a TypedDict with read-only extra items of
+type ``object``, but certain behaviors differ; for example, the
+:ref:`TypedDict constructor <typeddict-constructor>` of open TypedDicts does not
+allow unrecognized keys.
 
-There are two ways of defining TypedDict types.  The first uses
-a class-based syntax.  The second is an alternative
-assignment-based syntax that is provided for backwards compatibility,
-to allow the feature to be backported to older Python versions.  The
-rationale is similar to why :pep:`484` supports a comment-based
-annotation syntax for Python 2.7: type hinting is particularly useful
-for large existing codebases, and these often need to run on older
-Python versions.  The two syntax options parallel the syntax variants
-supported by ``typing.NamedTuple``.  Other features include
-TypedDict inheritance and totality (specifying whether keys are
-required or not).
+A TypedDict is a :term:`structural` type: independent TypedDict types may be
+:term:`assignable` to each other based on their structure, even if they do not
+share a common base class. For example, two TypedDict types that contain the same
+items are :term:`equivalent`. Nevertheless, TypedDict types may inherit from other
+TypedDict types to share common items. TypedDict types may also be generic.
 
-This section also provides a sketch of how a type checker is expected to
-support type checking operations involving TypedDict objects. Similar to
-:pep:`484`, this discussion is left somewhat vague on purpose, to allow
-experimentation with a wide variety of different type checking approaches. In
-particular, :term:`assignability <assignable>` should be :term:`structural`: a
-more specific TypedDict type can be assignable to a more general TypedDict
-type, without any inheritance relationship between them.
+Syntax
+------
+
+This section outlines the syntax for creating TypedDict types. There are two
+syntaxes: the class-based syntax and the functional syntax.
 
 .. _typeddict-class-based-syntax:
 
@@ -41,7 +56,7 @@ Class-based Syntax
 ^^^^^^^^^^^^^^^^^^
 
 A TypedDict type can be defined using the class definition syntax with
-``typing.TypedDict`` as the sole base class::
+``typing.TypedDict`` as a direct or indirect base class::
 
     from typing import TypedDict
 
@@ -52,41 +67,143 @@ A TypedDict type can be defined using the class definition syntax with
 ``Movie`` is a TypedDict type with two items: ``'name'`` (with type
 ``str``) and ``'year'`` (with type ``int``).
 
-A type checker should validate that the body of a class-based
-TypedDict definition conforms to the following rules:
+A TypedDict can also be created through inheritance from one or more
+other TypedDict types::
 
-* The class body should only contain lines with item definitions of the
-  form ``key: value_type``, optionally preceded by a docstring.  The
-  syntax for item definitions is identical to attribute annotations,
-  but there must be no initializer, and the key name actually refers
-  to the string value of the key instead of an attribute name.
+    class BookBasedMovie(Movie):
+        based_on: str
 
-* Type comments cannot be used with the class-based syntax, for
-  consistency with the class-based ``NamedTuple`` syntax.  Instead,
-  `Alternative Syntax`_ provides an
-  alternative, assignment-based syntax for backwards compatibility.
+This creates a TypedDict type ``BookBasedMovie`` with three items:
+``'name'`` (type ``str``), ``'year'`` (type ``int``), and ``'based_on'`` (type ``str``).
+See :ref:`Inheritance <typeddict-inheritance>` for more details.
 
-* String literal forward references are valid in the value types.
+A generic TypedDict can be created by inheriting from ``Generic`` with a list
+of type parameters::
 
-* Methods are not allowed, since the runtime type of a TypedDict
-  object will always be just ``dict`` (it is never a subclass of
-  ``dict``).
+    from typing import Generic, TypeVar
 
-* Specifying a metaclass is not allowed.
+    T = TypeVar('T')
 
-* TypedDicts may be made generic by adding ``Generic[T]`` among the
-  bases (or, in Python 3.12 and higher, by using the new
-  syntax for generic classes).
+    class Response(TypedDict, Generic[T]):
+        status: int
+        payload: T
 
-An empty TypedDict can be created by only including ``pass`` in the
-body (if there is a docstring, ``pass`` can be omitted)::
+Or, in Python 3.12 and newer, by using the native syntax for generic classes::
 
-    class EmptyDict(TypedDict):
-        pass
+    from typing import TypedDict
 
+    class Response[T](TypedDict):
+        status: int
+        payload: T
+
+It is invalid to specify a base class other than ``TypedDict``, ``Generic``,
+or another TypedDict type in a class-based TypedDict definition.
+It is also invalid to specify a custom metaclass.
+
+A TypedDict definition may also contain the following keyword arguments
+in the class definition:
+
+* ``total``: a boolean literal (``True`` or ``False``) indicating whether
+  all items are :term:`required` (``True``, the default) or :term:`non-required`
+  (``False``). This affects only items defined in this class, not in any
+  base classes, and it does not affect any items that use an explicit
+  ``Required[]`` or ``NotRequired[]`` qualifier. The value must be exactly
+  ``True`` or ``False``; other expressions are not allowed.
+* ``closed``: a boolean literal (``True`` or ``False``) indicating whether
+  the TypedDict is :term:`closed` (``True``) or :term:`open` (``False``).
+  The latter is the default, except when inheriting from another TypedDict that
+  is not open (see :ref:`typeddict-inheritance`), or when the ``extra_items``
+  argument is also used.
+  As with ``total``, the value must be exactly ``True`` or ``False``. It is an error
+  to use this argument together with ``extra_items=``.
+* ``extra_items``: indicates that the TypedDict has :term:`extra items`. The argument
+  must be a :term:`annotation expression` specifying the type of the extra items.
+  The :term:`type qualifier` ``ReadOnly[]`` may be used to indicate that the extra items are
+  :term:`read-only`. Other type qualifiers are not allowed. If the extra items type
+  is ``Never``, no extra items are allowed, so this is equivalent to ``closed=True``.
+
+The body of the class definition defines the :term:`items <item>` of the TypedDict type.
+It may also contain a docstring or ``pass`` statements (primarily to allow the creation of
+an empty TypedDict). No other statements are allowed, and type checkers should report an
+error if any are present. Type comments are not supported for creating TypedDict items.
+
+.. _`required-notrequired`:
+.. _`required`:
+.. _`notrequired`:
+
+An item definition takes the form of an attribute annotation, ``key: T``. ``key`` is
+an identifier and corresponds to the string key of the item, and ``T`` is an
+:term:`annotation expression` specifying the type of the item value. This annotation
+expression contains a :term:`type expression`, optionally qualified with one of the
+:term:`type qualifiers <type qualifier>` ``Required``, ``NotRequired``, or ``ReadOnly``.
+These type qualifiers may be nested arbitrarily or wrapped in ``Annotated[]``. It is
+an error to use both ``Required`` and ``NotRequired`` in the same item definition.
+An item is :term:`read-only` if and only if the ``ReadOnly`` qualifier is used.
+
+To determine whether an item is :term:`required` or :term:`non-required`, the following
+procedure is used:
+
+* If the ``Required`` qualifier is present, the item is required.
+* If the ``NotRequired`` qualifier is present, the item is non-required.
+* If the ``total`` argument of the TypedDict definition is ``False``, the item is non-required.
+* Else, the item is required.
+
+It is valid to use ``Required[]`` and ``NotRequired[]`` even for
+items where it is redundant, to enable additional explicitness if desired.
+Note that the value of ``total`` only affects items defined in the current class body,
+not in any base classes. Thus, inheritance can be used to create a TypedDict that mixes
+required and non-required items without using ``Required[]`` or ``NotRequired[]``.
+
+The following example demonstrates some of these rules::
+
+    from typing import TypedDict, NotRequired, Required, ReadOnly, Annotated
+
+    class Movie(TypedDict):
+        name: str  # required, not read-only
+        year: int  # required, not read-only
+        director: NotRequired[str]  # non-required, not read-only
+        rating: NotRequired[ReadOnly[float]]  # non-required, read-only
+        invalid: Required[NotRequired[int]]  # type checker error: both Required and NotRequired used
+
+    class PartialMovie(TypedDict, total=False):
+        name: str  # non-required, not read-only
+        year: Required[int]  # required, not read-only
+        score: ReadOnly[float]  # non-required, read-only
+
+.. _typeddict-functional-syntax:
+
+Functional syntax
+^^^^^^^^^^^^^^^^^
+
+In addition to the class-based syntax, TypedDict types can be created
+using an alternative functional syntax. This syntax allows defining
+items with keys that are not valid Python identifiers, and it is compatible
+with older Python versions such as 3.5 and 2.7 that don't support the
+variable definition syntax introduced in :pep:`526`. On the other hand, this syntax
+does not support inheritance.
+
+The functional syntax resembles the traditional syntax for defining named tuples::
+
+    from typing import TypedDict
+
+    Movie = TypedDict('Movie', {'name': str, 'year': int})
+
+The syntax comprises a call to ``TypedDict()``, the result of which must be immediately
+assigned to a variable with the same name as the first argument to ``TypedDict()``.
+
+The call to ``TypedDict()`` must have two positional arguments. The first is a string
+literal specifying the name of the TypedDict type. The second is a dictionary specifying
+the :term:`items <item>` of the TypedDict. It must be a dictionary display expression,
+not a variable or other expression that evaluates to a dictionary at runtime.
+The keys of the dictionary must be string literals and the values must be
+:term:`annotation expressions <annotation expression>` following the same rules as
+the class-based syntax (i.e., the qualifiers ``Required``, ``NotRequired``, and
+``ReadOnly`` are allowed). In addition to the two positional arguments, ``total``,
+``closed``, and ``extra_items`` keyword arguments are also supported, with the same
+semantics as in the class-based syntax.
 
 Using TypedDict Types
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 Here is an example of how the type ``Movie`` can be used::
 
@@ -128,322 +245,69 @@ key, and the ``'name'`` key is missing::
 The created TypedDict type object is not a real class object.  Here
 are the only uses of the type a type checker is expected to allow:
 
-* It can be used in type annotations and in any context where an
-  arbitrary type hint is valid, such as in type aliases and as the
-  target type of a cast.
+* It can be used in :term:`type expressions <type expression>` to
+  represent the TypedDict type.
 
 * It can be used as a callable object with keyword arguments
-  corresponding to the TypedDict items.  Non-keyword arguments are not
-  allowed.  Example::
-
-      m = Movie(name='Blade Runner', year=1982)
-
-  When called, the TypedDict type object returns an ordinary
-  dictionary object at runtime::
-
-      print(type(m))  # <class 'dict'>
+  corresponding to the TypedDict items; see :ref:`typeddict-constructor`.
 
 * It can be used as a base class, but only when defining a derived
-  TypedDict.  This is discussed in more detail below.
+  TypedDict (see :ref:`above <typeddict-class-based-syntax>`).
 
 In particular, TypedDict type objects cannot be used in
-``isinstance()`` tests such as ``isinstance(d, Movie)``. The reason is
-that there is no existing support for checking types of dictionary
-item values, since ``isinstance()`` does not work with many
-types, including common ones like ``list[str]``.  This would be needed
-for cases like this::
+``isinstance()`` tests such as ``isinstance(d, Movie)``. This is
+consistent with how ``isinstance()`` is not supported for
+other type forms such as ``list[str]``.
 
-    class Strings(TypedDict):
-        items: list[str]
+.. _typeddict-constructor:
 
-    print(isinstance({'items': [1]}, Strings))    # Should be False
-    print(isinstance({'items': ['x']}, Strings))  # Should be True
+The TypedDict constructor
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The above use case is not supported.  This is consistent with how
-``isinstance()`` is not supported for ``list[str]``.
+TypedDict types are callable at runtime and can be used as a constructor
+to create values that conform to the TypedDict type. The constructor
+takes only keyword arguments, corresponding to the items of the TypedDict.
+Example::
 
+    m = Movie(name='Blade Runner', year=1982)
 
-Inheritance
-^^^^^^^^^^^
+When called, the TypedDict type object returns an ordinary
+dictionary object at runtime::
 
-It is possible for a TypedDict type to inherit from one or more
-TypedDict types using the class-based syntax.  In this case the
-``TypedDict`` base class should not be included.  Example::
+    print(type(m))  # <class 'dict'>
 
-    class BookBasedMovie(Movie):
-        based_on: str
+Every :term:`required` item must be provided as a keyword argument. :term:`Non-required`
+items may be omitted. Whether an item is read-only has no effect on the
+constructor.
 
-Now ``BookBasedMovie`` has keys ``name``, ``year``, and ``based_on``. It is
-equivalent to this definition, since TypedDict types use :term:`structural`
-:term:`assignability <assignable>`::
+Closed and open TypedDicts allow no additional items beyond those explicitly
+defined, but TypedDicts with extra items allow arbitrary keyword arguments,
+which must be of the specified type. Example::
 
-    class BookBasedMovie(TypedDict):
-        name: str
-        year: int
-        based_on: str
+    from typing import TypedDict, ReadOnly
 
-Here is an example of multiple inheritance::
-
-    class X(TypedDict):
-        x: int
-
-    class Y(TypedDict):
-        y: str
-
-    class XYZ(X, Y):
-        z: bool
-
-The TypedDict ``XYZ`` has three items: ``x`` (type ``int``), ``y``
-(type ``str``), and ``z`` (type ``bool``).
-
-A TypedDict cannot inherit from both a TypedDict type and a
-non-TypedDict base class other than ``Generic``.
-
-Additional notes on TypedDict class inheritance:
-
-* Changing a field type of a parent TypedDict class in a subclass is not allowed.
-  Example::
-
-   class X(TypedDict):
-      x: str
-
-   class Y(X):
-      x: int  # Type check error: cannot overwrite TypedDict field "x"
-
-  In the example outlined above TypedDict class annotations returns
-  type ``str`` for key ``x``::
-
-   print(Y.__annotations__)  # {'x': <class 'str'>}
-
-
-* Multiple inheritance does not allow conflict types for the same name field::
-
-   class X(TypedDict):
-      x: int
-
-   class Y(TypedDict):
-      x: str
-
-   class XYZ(X, Y):  # Type check error: cannot overwrite TypedDict field "x" while merging
-      xyz: bool
-
-
-Totality
-^^^^^^^^
-
-By default, all keys must be present in a TypedDict.  It is possible
-to override this by specifying *totality*.  Here is how to do this
-using the class-based syntax::
-
-    class Movie(TypedDict, total=False):
+    class MovieWithExtras(TypedDict, extra_items=ReadOnly[int | str]):
         name: str
         year: int
 
-This means that a ``Movie`` TypedDict can have any of the keys omitted. Thus
-these are valid::
+    m1 = MovieWithExtras(name='Blade Runner', year=1982)  # OK
+    m2 = MovieWithExtras(name='The Godfather', year=1972, director='Francis Ford Coppola', rating=9)  # OK
+    m3 = MovieWithExtras(name='Inception', year=2010, budget=160.0)  # Type check error: budget must be int or str
 
-    m: Movie = {}
-    m2: Movie = {'year': 2015}
+Initialization from dictionary literals
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A type checker is only expected to support a literal ``False`` or
-``True`` as the value of the ``total`` argument.  ``True`` is the
-default, and makes all items defined in the class body be required.
+Type checkers should also allow initializing a value of TypedDict type from
+a dictionary literal::
 
-The totality flag only applies to items defined in the body of the
-TypedDict definition.  Inherited items won't be affected, and instead
-use totality of the TypedDict type where they were defined.  This makes
-it possible to have a combination of required and non-required keys in
-a single TypedDict type. Alternatively, ``Required`` and ``NotRequired``
-(see below) can be used to mark individual items as required or non-required.
+    m: Movie = {'name': 'Blade Runner', 'year': 1982}  # OK
 
-.. _typeddict-functional-syntax:
+Or from a call to ``dict()`` with keyword arguments::
 
-Alternative Syntax
-^^^^^^^^^^^^^^^^^^
+    m: Movie = dict(name='Blade Runner', year=1982)  # OK
 
-This section provides an alternative syntax that can be backported to
-older Python versions such as 3.5 and 2.7 that don't support the
-variable definition syntax introduced in :pep:`526`.  It
-resembles the traditional syntax for defining named tuples::
-
-    Movie = TypedDict('Movie', {'name': str, 'year': int})
-
-It is also possible to specify totality using the alternative syntax::
-
-    Movie = TypedDict('Movie',
-                      {'name': str, 'year': int},
-                      total=False)
-
-The semantics are equivalent to the class-based syntax.  This syntax
-doesn't support inheritance, however.  The
-motivation for this is keeping the backwards compatible syntax as
-simple as possible while covering the most common use cases.
-
-A type checker is only expected to accept a dictionary display expression
-as the second argument to ``TypedDict``.  In particular, a variable that
-refers to a dictionary object does not need to be supported, to simplify
-implementation.
-
-
-.. _typeddict-assignability:
-
-Assignability
-^^^^^^^^^^^^^
-
-First, any TypedDict type is :term:`assignable` to ``Mapping[str, object]``.
-
-Second, a TypedDict type ``B`` is :term:`assignable` to a TypedDict ``A`` if
-and only if both of these conditions are satisfied:
-
-* For each key in ``A``, ``B`` has the corresponding key and the corresponding
-  value type in ``B`` is :term:`consistent` with the value type in ``A``.
-
-* For each required key in ``A``, the corresponding key is required
-  in ``B``.  For each non-required key in ``A``, the corresponding key
-  is not required in ``B``.
-
-Discussion:
-
-* Value types behave invariantly, since TypedDict objects are mutable.
-  This is similar to mutable container types such as ``List`` and
-  ``Dict``.  Example where this is relevant::
-
-      class A(TypedDict):
-          x: int | None
-
-      class B(TypedDict):
-          x: int
-
-      def f(a: A) -> None:
-          a['x'] = None
-
-      b: B = {'x': 0}
-      f(b)  # Type check error: 'B' not assignable to 'A'
-      b['x'] + 1  # Runtime error: None + 1
-
-* A TypedDict type with a required key is not :term:`assignable` to a TypedDict
-  type where the same key is a non-required key, since the latter allows keys
-  to be deleted.  Example where this is relevant::
-
-      class A(TypedDict, total=False):
-          x: int
-
-      class B(TypedDict):
-          x: int
-
-      def f(a: A) -> None:
-          del a['x']
-
-      b: B = {'x': 0}
-      f(b)  # Type check error: 'B' not assignable to 'A'
-      b['x'] + 1  # Runtime KeyError: 'x'
-
-* A TypedDict type ``A`` with no key ``'x'`` is not :term:`assignable` to a
-  TypedDict type with a non-required key ``'x'``, since at runtime the key
-  ``'x'`` could be present and have an :term:`inconsistent <consistent>` type
-  (which may not be visible through ``A`` due to :term:`structural`
-  assignability). Example::
-
-      class A(TypedDict, total=False):
-          x: int
-          y: int
-
-      class B(TypedDict, total=False):
-          x: int
-
-      class C(TypedDict, total=False):
-          x: int
-          y: str
-
-      def f(a: A) -> None:
-          a['y'] = 1
-
-      def g(b: B) -> None:
-          f(b)  # Type check error: 'B' not assignable to 'A'
-
-      c: C = {'x': 0, 'y': 'foo'}
-      g(c)
-      c['y'] + 'bar'  # Runtime error: int + str
-
-* A TypedDict isn't :term:`assignable` to any ``Dict[...]`` type, since
-  dictionary types allow destructive operations, including ``clear()``.  They
-  also allow arbitrary keys to be set, which would compromise type safety.
-  Example::
-
-      class A(TypedDict):
-          x: int
-
-      class B(A):
-          y: str
-
-      def f(d: Dict[str, int]) -> None:
-          d['y'] = 0
-
-      def g(a: A) -> None:
-          f(a)  # Type check error: 'A' not assignable to Dict[str, int]
-
-      b: B = {'x': 0, 'y': 'foo'}
-      g(b)
-      b['y'] + 'bar'  # Runtime error: int + str
-
-* A TypedDict with all ``int`` values is not :term:`assignable` to
-  ``Mapping[str, int]``, since there may be additional non-``int`` values not
-  visible through the type, due to :term:`structural` assignability. These can
-  be accessed using the ``values()`` and ``items()`` methods in ``Mapping``,
-  for example.  Example::
-
-      class A(TypedDict):
-          x: int
-
-      class B(TypedDict):
-          x: int
-          y: str
-
-      def sum_values(m: Mapping[str, int]) -> int:
-          n = 0
-          for v in m.values():
-              n += v  # Runtime error
-          return n
-
-      def f(a: A) -> None:
-          sum_values(a)  # Error: 'A' not assignable to Mapping[str, int]
-
-      b: B = {'x': 0, 'y': 'foo'}
-      f(b)
-
-
-.. _typeddict-operations:
-
-Supported and Unsupported Operations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Type checkers should support restricted forms of most ``dict``
-operations on TypedDict objects.  The guiding principle is that
-operations not involving ``Any`` types should be rejected by type
-checkers if they may violate runtime type safety.  Here are some of
-the most important type safety violations to prevent:
-
-1. A required key is missing.
-
-2. A value has an invalid type.
-
-3. A key that is not defined in the TypedDict type is added.
-
-A key that is not a literal should generally be rejected, since its
-value is unknown during type checking, and thus can cause some of the
-above violations.  (`Use of Final Values and Literal Types`_
-generalizes this to cover final names and literal types.)
-
-The use of a key that is not known to exist should be reported as an error,
-even if this wouldn't necessarily generate a runtime type error.  These are
-often mistakes, and these may insert values with an invalid type if
-:term:`structural` :term:`assignability <assignable>` hides the types of
-certain items. For example, ``d['x'] = 1`` should generate a type check error
-if ``'x'`` is not a valid key for ``d`` (which is assumed to be a TypedDict
-type).
-
-Extra keys included in TypedDict object construction should also be
-caught.  In this example, the ``director`` key is not defined in
+In these cases, extra keys should not be allowed unless the TypedDict
+is defined to allow :term:`extra items`. In this example, the ``director`` key is not defined in
 ``Movie`` and is expected to generate an error from a type checker::
 
     m: Movie = dict(
@@ -451,427 +315,14 @@ caught.  In this example, the ``director`` key is not defined in
         year=1979,
         director='Ridley Scott')  # error: Unexpected key 'director'
 
-Type checkers should reject the following operations on TypedDict
-objects as unsafe, even though they are valid for normal dictionaries:
+If a TypedDict has extra items, extra keys are allowed, provided their value
+matches the extra items type::
 
-* Operations with arbitrary ``str`` keys (instead of string literals
-  or other expressions with known string values) should generally be
-  rejected.  This involves both destructive operations such as setting
-  an item and read-only operations such as subscription expressions.
-  As an exception to the above rule, ``d.get(e)`` and ``e in d``
-  should be allowed for TypedDict objects, for an arbitrary expression
-  ``e`` with type ``str``.  The motivation is that these are safe and
-  can be useful for introspecting TypedDict objects.  The static type
-  of ``d.get(e)`` should be ``object`` if the string value of ``e``
-  cannot be determined statically.
-
-* ``clear()`` is not safe since it could remove required keys, some of which
-  may not be directly visible because of :term:`structural`
-  :term:`assignability <assignable>`.  ``popitem()`` is similarly unsafe, even
-  if all known keys are not required (``total=False``).
-
-* ``del obj['key']`` should be rejected unless ``'key'`` is a
-  non-required key.
-
-Type checkers may allow reading an item using ``d['x']`` even if
-the key ``'x'`` is not required, instead of requiring the use of
-``d.get('x')`` or an explicit ``'x' in d`` check.  The rationale is
-that tracking the existence of keys is difficult to implement in full
-generality, and that disallowing this could require many changes to
-existing code.
-
-The exact type checking rules are up to each type checker to decide.
-In some cases potentially unsafe operations may be accepted if the
-alternative is to generate false positive errors for idiomatic code.
-
-
-Use of Final Values and Literal Types
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Type checkers should allow :ref:`final names <uppercase-final>` with
-string values to be used instead of string literals in operations on
-TypedDict objects.  For example, this is valid::
-
-   YEAR: Final = 'year'
-
-   m: Movie = {'name': 'Alien', 'year': 1979}
-   years_since_epoch = m[YEAR] - 1970
-
-Similarly, an expression with a suitable :ref:`literal type <literal>`
-can be used instead of a literal value::
-
-   def get_value(movie: Movie,
-                 key: Literal['year', 'name']) -> int | str:
-       return movie[key]
-
-Type checkers are only expected to support actual string literals, not
-final names or literal types, for specifying keys in a TypedDict type
-definition.  Also, only a boolean literal can be used to specify
-totality in a TypedDict definition.  The motivation for this is to
-make type declarations self-contained, and to simplify the
-implementation of type checkers.
-
-
-Backwards Compatibility
-^^^^^^^^^^^^^^^^^^^^^^^
-
-To retain backwards compatibility, type checkers should not infer a
-TypedDict type unless it is sufficiently clear that this is desired by
-the programmer.  When unsure, an ordinary dictionary type should be
-inferred.  Otherwise existing code that type checks without errors may
-start generating errors once TypedDict support is added to the type
-checker, since TypedDict types are more restrictive than dictionary
-types.  In particular, they aren't subtypes of dictionary types.
-
-.. _`required-notrequired`:
-
-``Required`` and ``NotRequired``
---------------------------------
-
-(Originally specified in :pep:`655`.)
-
-.. _`required`:
-
-The ``typing.Required`` :term:`type qualifier` is used to indicate that a
-variable declared in a TypedDict definition is a required key:
-
-::
-
-   class Movie(TypedDict, total=False):
-       title: Required[str]
-       year: int
-
-.. _`notrequired`:
-
-Additionally the ``typing.NotRequired`` :term:`type qualifier` is used to
-indicate that a variable declared in a TypedDict definition is a
-potentially-missing key:
-
-::
-
-   class Movie(TypedDict):  # implicitly total=True
-       title: str
-       year: NotRequired[int]
-
-It is an error to use ``Required[]`` or ``NotRequired[]`` in any
-location that is not an item of a TypedDict.
-Type checkers must enforce this restriction.
-
-It is valid to use ``Required[]`` and ``NotRequired[]`` even for
-items where it is redundant, to enable additional explicitness if desired:
-
-::
-
-   class Movie(TypedDict):
-       title: Required[str]  # redundant
-       year: NotRequired[int]
-
-It is an error to use both ``Required[]`` and ``NotRequired[]`` at the
-same time:
-
-::
-
-   class Movie(TypedDict):
-       title: str
-       year: NotRequired[Required[int]]  # ERROR
-
-Type checkers must enforce this restriction.
-The runtime implementations of ``Required[]`` and ``NotRequired[]``
-may also enforce this restriction.
-
-The :ref:`alternative functional syntax <typeddict-functional-syntax>`
-for TypedDict also supports
-``Required[]``, ``NotRequired[]``, and ``ReadOnly[]``:
-
-::
-
-   Movie = TypedDict('Movie', {'name': str, 'year': NotRequired[int]})
-
-
-Interaction with ``total=False``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Any TypedDict declared with ``total=False`` is equivalent
-to a TypedDict with an implicit ``total=True`` definition with all of its
-keys marked as ``NotRequired[]``.
-
-Therefore:
-
-::
-
-   class _MovieBase(TypedDict):  # implicitly total=True
-       title: str
-
-   class Movie(_MovieBase, total=False):
-       year: int
-
-
-is equivalent to:
-
-::
-
-   class _MovieBase(TypedDict):
-       title: str
-
-   class Movie(_MovieBase):
-       year: NotRequired[int]
-
-
-Interaction with ``Annotated[]``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-``Required[]`` and ``NotRequired[]`` can be used with ``Annotated[]``,
-in any nesting order:
-
-::
-
-   class Movie(TypedDict):
-       title: str
-       year: NotRequired[Annotated[int, ValueRange(-9999, 9999)]]  # ok
-
-::
-
-   class Movie(TypedDict):
-       title: str
-       year: Annotated[NotRequired[int], ValueRange(-9999, 9999)]  # ok
-
-In particular allowing ``Annotated[]`` to be the outermost annotation
-for an item allows better interoperability with non-typing uses of
-annotations, which may always want ``Annotated[]`` as the outermost annotation
-(`discussion <https://bugs.python.org/issue46491>`__).
-
-
-Read-only Items
----------------
-
-(Originally specified in :pep:`705`.)
-
-.. _`readonly`:
-
-``typing.ReadOnly`` type qualifier
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The ``typing.ReadOnly`` :term:`type qualifier` is used to indicate that an item declared in a ``TypedDict`` definition may not be mutated (added, modified, or removed)::
-
-    from typing import ReadOnly
-
-    class Band(TypedDict):
-        name: str
-        members: ReadOnly[list[str]]
-
-    blur: Band = {"name": "blur", "members": []}
-    blur["name"] = "Blur"  # OK: "name" is not read-only
-    blur["members"] = ["Damon Albarn"]  # Type check error: "members" is read-only
-    blur["members"].append("Damon Albarn")  # OK: list is mutable
-
-
-Interaction with other special types
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-``ReadOnly[]`` can be used with ``Required[]``, ``NotRequired[]`` and ``Annotated[]``, in any nesting order:
-
-::
-
-    class Movie(TypedDict):
-        title: ReadOnly[Required[str]]  # OK
-        year: ReadOnly[NotRequired[Annotated[int, ValueRange(-9999, 9999)]]]  # OK
-
-::
-
-    class Movie(TypedDict):
-        title: Required[ReadOnly[str]]  # OK
-        year: Annotated[NotRequired[ReadOnly[int]], ValueRange(-9999, 9999)]  # OK
-
-
-Inheritance
-^^^^^^^^^^^
-
-Subclasses can redeclare read-only items as non-read-only, allowing them to be mutated::
-
-    class NamedDict(TypedDict):
-        name: ReadOnly[str]
-
-    class Album(NamedDict):
-        name: str
-        year: int
-
-    album: Album = { "name": "Flood", "year": 1990 }
-    album["year"] = 1973
-    album["name"] = "Dark Side Of The Moon"  # OK: "name" is not read-only in Album
-
-If a read-only item is not redeclared, it remains read-only::
-
-    class Album(NamedDict):
-        year: int
-
-    album: Album = { "name": "Flood", "year": 1990 }
-    album["name"] = "Dark Side Of The Moon"  # Type check error: "name" is read-only in Album
-
-Subclasses can narrow value types of read-only items::
-
-    class AlbumCollection(TypedDict):
-        albums: ReadOnly[Collection[Album]]
-
-    class RecordShop(AlbumCollection):
-        name: str
-        albums: ReadOnly[list[Album]]  # OK: "albums" is read-only in AlbumCollection
-
-Subclasses can require items that are read-only but not required in the superclass::
-
-    class OptionalName(TypedDict):
-        name: ReadOnly[NotRequired[str]]
-
-    class RequiredName(OptionalName):
-        name: ReadOnly[Required[str]]
-
-    d: RequiredName = {}  # Type check error: "name" required
-
-Subclasses can combine these rules::
-
-    class OptionalIdent(TypedDict):
-        ident: ReadOnly[NotRequired[str | int]]
-
-    class User(OptionalIdent):
-        ident: str  # Required, mutable, and not an int
-
-Note that these are just consequences of :term:`structural` typing, but they
-are highlighted here as the behavior now differs from the rules specified in
-:pep:`589`.
-
-Assignability
-^^^^^^^^^^^^^
-
-*This section updates the assignability rules described above that were created
-prior to the introduction of ReadOnly*
-
-A TypedDict type ``B`` is :term:`assignable` to a TypedDict type ``A`` if ``B``
-is :term:`structurally <structural>` assignable to ``A``. This is true if and
-only if all of the following are satisfied:
-
-* For each item in ``A``, ``B`` has the corresponding key, unless the item in
-  ``A`` is read-only, not required, and of top value type
-  (``ReadOnly[NotRequired[object]]``).
-* For each item in ``A``, if ``B`` has the corresponding key, the corresponding
-  value type in ``B`` is assignable to the value type in ``A``.
-* For each non-read-only item in ``A``, its value type is assignable to the
-  corresponding value type in ``B``, and the corresponding key is not read-only
-  in ``B``.
-* For each required key in ``A``, the corresponding key is required in ``B``.
-* For each non-required key in ``A``, if the item is not read-only in ``A``,
-  the corresponding key is not required in ``B``.
-
-Discussion:
-
-* All non-specified items in a TypedDict implicitly have value type
-  ``ReadOnly[NotRequired[object]]``.
-
-* Read-only items behave covariantly, as they cannot be mutated. This is
-  similar to container types such as ``Sequence``, and different from
-  non-read-only items, which behave invariantly. Example::
-
-    class A(TypedDict):
-        x: ReadOnly[int | None]
-
-    class B(TypedDict):
-        x: int
-
-    def f(a: A) -> None:
-        print(a["x"] or 0)
-
-    b: B = {"x": 1}
-    f(b)  # Accepted by type checker
-
-* A TypedDict type ``A`` with no explicit key ``'x'`` is not :term:`assignable`
-  to a TypedDict type ``B`` with a non-required key ``'x'``, since at runtime
-  the key ``'x'`` could be present and have an :term:`inconsistent
-  <consistent>` type (which may not be visible through ``A`` due to
-  :term:`structural` typing). The only exception to this rule is if the item in
-  ``B`` is read-only, and the value type is of top type (``object``). For
-  example::
-
-    class A(TypedDict):
-        x: int
-
-    class B(TypedDict):
-        x: int
-        y: ReadOnly[NotRequired[object]]
-
-    a: A = { "x": 1 }
-    b: B = a  # Accepted by type checker
-
-Update method
-^^^^^^^^^^^^^
-
-In addition to existing type checking rules, type checkers should error if a
-TypedDict with a read-only item is updated with another TypedDict that declares
-that key::
-
-    class A(TypedDict):
-        x: ReadOnly[int]
-        y: int
-
-    a1: A = { "x": 1, "y": 2 }
-    a2: A = { "x": 3, "y": 4 }
-    a1.update(a2)  # Type check error: "x" is read-only in A
-
-Unless the declared value is of bottom type (:data:`~typing.Never`)::
-
-    class B(TypedDict):
-        x: NotRequired[typing.Never]
-        y: ReadOnly[int]
-
-    def update_a(a: A, b: B) -> None:
-        a.update(b)  # Accepted by type checker: "x" cannot be set on b
-
-Note: Nothing will ever match the ``Never`` type, so an item annotated with it must be absent.
-
-Keyword argument typing
-^^^^^^^^^^^^^^^^^^^^^^^
-
-As discussed in the section :ref:`unpack-kwargs`, an unpacked ``TypedDict`` can be used to annotate ``**kwargs``. Marking one or more of the items of a ``TypedDict`` used in this way as read-only will have no effect on the type signature of the method. However, it *will* prevent the item from being modified in the body of the function::
-
-    class Args(TypedDict):
-        key1: int
-        key2: str
-
-    class ReadOnlyArgs(TypedDict):
-        key1: ReadOnly[int]
-        key2: ReadOnly[str]
-
-    class Function(Protocol):
-        def __call__(self, **kwargs: Unpack[Args]) -> None: ...
-
-    def impl(**kwargs: Unpack[ReadOnlyArgs]) -> None:
-        kwargs["key1"] = 3  # Type check error: key1 is readonly
-
-    fn: Function = impl  # Accepted by type checker: function signatures are identical
-
-Extra Items and Closed TypedDicts
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-(Originally specified in :pep:`728`.)
-
-This section discusses the ``extra_items`` and ``closed`` class parameters.
-
-If ``extra_items`` is specified, extra items are treated as :ref:`non-required
-<required-notrequired>`
-items matching the ``extra_items`` argument, whose keys are allowed when
-determining :ref:`supported and unsupported operations
-<typeddict-operations>`.
-
-The ``extra_items`` Class Parameter
------------------------------------
-
-By default ``extra_items`` is unset.  For a TypedDict type that specifies
-``extra_items``, during construction, the value type of each unknown item
-is expected to be non-required and assignable to the ``extra_items`` argument.
-For example::
-
-    class Movie(TypedDict, extra_items=bool):
+    class ExtraMovie(TypedDict, extra_items=bool):
         name: str
 
-    a: Movie = {"name": "Blade Runner", "novel_adaptation": True}  # OK
-    b: Movie = {
+    a: ExtraMovie = {"name": "Blade Runner", "novel_adaptation": True}  # OK
+    b: ExtraMovie = {
         "name": "Blade Runner",
         "year": 1982,  # Not OK. 'int' is not assignable to 'bool'
     }
@@ -879,203 +330,114 @@ For example::
 Here, ``extra_items=bool`` specifies that items other than ``'name'``
 have a value type of ``bool`` and are non-required.
 
-The alternative inline syntax is also supported::
-
-    Movie = TypedDict("Movie", {"name": str}, extra_items=bool)
-
-Accessing extra items is allowed. Type checkers must infer their value type from
-the ``extra_items`` argument::
-
-    def f(movie: Movie) -> None:
-        reveal_type(movie["name"])              # Revealed type is 'str'
-        reveal_type(movie["novel_adaptation"])  # Revealed type is 'bool'
-
-``extra_items`` is inherited through subclassing::
-
-    class MovieBase(TypedDict, extra_items=ReadOnly[int | None]):
-        name: str
-
-    class Movie(MovieBase):
-        year: int
-
-    a: Movie = {"name": "Blade Runner", "year": None}  # Not OK. 'None' is incompatible with 'int'
-    b: Movie = {
-        "name": "Blade Runner",
-        "year": 1982,
-        "other_extra_key": None,
-    }  # OK
-
-Here, ``'year'`` in ``a`` is an extra key defined on ``Movie`` whose value type
-is ``int``. ``'other_extra_key'`` in ``b`` is another extra key whose value type
-must be assignable to the value of ``extra_items`` defined on ``MovieBase``.
-
-.. _typed-dict-closed:
-
-The ``closed`` Class Parameter
-------------------------------
-
-When neither ``extra_items`` nor ``closed=True`` is specified, ``closed=False``
-is assumed. The TypedDict should allow non-required extra items of value type
-``ReadOnly[object]`` during inheritance or assignability checks, to
-preserve the default TypedDict behavior. Extra keys included in TypedDict
-object construction should still be caught, as mentioned :ref:`above <typeddict-operations>`.
-
-When ``closed=True`` is set, no extra items are allowed. This is equivalent to
-``extra_items=Never``, because there can't be a value type that is assignable to
-:class:`~typing.Never`. It is a runtime error to use the ``closed`` and
-``extra_items`` parameters in the same TypedDict definition.
-
-Similar to ``total``, only a literal ``True`` or ``False`` is supported as the
-value of the ``closed`` argument. Type checkers should reject any non-literal value.
-
-Passing ``closed=False`` explicitly requests the default TypedDict behavior,
-where arbitrary other keys may be present and subclasses may add arbitrary items.
-It is a type checker error to pass ``closed=False`` if a superclass has
-``closed=True`` or sets ``extra_items``.
-
-If ``closed`` is not provided, the behavior is inherited from the superclass.
-If the superclass is TypedDict itself or the superclass does not have ``closed=True``
-or the ``extra_items`` parameter, the previous TypedDict behavior is preserved:
-arbitrary extra items are allowed. If the superclass has ``closed=True``, the
-child class is also closed::
-
-    class BaseMovie(TypedDict, closed=True):
-        name: str
-
-    class MovieA(BaseMovie):  # OK, still closed
-        pass
-
-    class MovieB(BaseMovie, closed=True):  # OK, but redundant
-        pass
-
-    class MovieC(BaseMovie, closed=False):  # Type checker error
-        pass
-
-As a consequence of ``closed=True`` being equivalent to ``extra_items=Never``,
-the same rules that apply to ``extra_items=Never`` also apply to
-``closed=True``. While they both have the same effect, ``closed=True`` is
-preferred over ``extra_items=Never``.
-
-It is possible to use ``closed=True`` when subclassing if the ``extra_items``
-argument is a read-only type::
-
-    class Movie(TypedDict, extra_items=ReadOnly[str]):
-        pass
-
-    class MovieClosed(Movie, closed=True):  # OK
-        pass
-
-    class MovieNever(Movie, extra_items=Never):  # OK, but 'closed=True' is preferred
-        pass
-
-This will be further discussed in
-:ref:`a later section <pep728-inheritance-read-only>`.
-
-``closed`` is also supported with the functional syntax::
-
-    Movie = TypedDict("Movie", {"name": str}, closed=True)
-
-Interaction with Totality
--------------------------
-
-It is an error to use ``Required[]`` or ``NotRequired[]`` with ``extra_items``.
-``total=False`` and ``total=True`` have no effect on ``extra_items`` itself.
-
-The extra items are non-required, regardless of the `totality
-<https://typing.python.org/en/latest/spec/typeddict.html#totality>`__ of the
-TypedDict. :ref:`Operations <typeddict-operations>`
-that are available to ``NotRequired`` items should also be available to the
-extra items::
-
-    class Movie(TypedDict, extra_items=int):
-        name: str
-
-    def f(movie: Movie) -> None:
-        del movie["name"]  # Not OK. The value type of 'name' is 'Required[int]'
-        del movie["year"]  # OK. The value type of 'year' is 'NotRequired[int]'
-
-Interaction with ``Unpack``
----------------------------
-
-For type checking purposes, ``Unpack[SomeTypedDict]`` with extra items should be
-treated as its equivalent in regular parameters, and the existing rules for
-function parameters still apply::
-
-    class MovieNoExtra(TypedDict):
-        name: str
-
-    class MovieExtra(TypedDict, extra_items=int):
-        name: str
-
-    def f(**kwargs: Unpack[MovieNoExtra]) -> None: ...
-    def g(**kwargs: Unpack[MovieExtra]) -> None: ...
-
-    # Should be equivalent to:
-    def f(*, name: str) -> None: ...
-    def g(*, name: str, **kwargs: int) -> None: ...
-
-    f(name="No Country for Old Men", year=2007) # Not OK. Unrecognized item
-    g(name="No Country for Old Men", year=2007) # OK
-
-Interaction with Read-only Items
---------------------------------
-
-When the ``extra_items`` argument is annotated with the ``ReadOnly[]``
-:term:`type qualifier`, the extra items on the TypedDict have the
-properties of read-only items. This interacts with inheritance rules specified
-in :ref:`Read-only Items <readonly>`.
-
-Notably, if the TypedDict type specifies ``extra_items`` to be read-only,
-subclasses of the TypedDict type may redeclare ``extra_items``.
-
-Because a non-closed TypedDict type implicitly allows non-required extra items
-of value type ``ReadOnly[object]``, its subclass can override the
-``extra_items`` argument with more specific types.
-
-More details are discussed in the later sections.
+.. _typeddict-inheritance:
 
 Inheritance
 -----------
 
-``extra_items`` is inherited in a similar way as a regular ``key: value_type``
-item. As with the other keys, the `inheritance rules
-<https://typing.python.org/en/latest/spec/typeddict.html#inheritance>`__
-and :ref:`Read-only Items <readonly>` inheritance rules apply.
+As discussed under :ref:`typeddict-class-based-syntax`, TypedDict types
+can inherit from one or more other TypedDict types.  In this case the
+``TypedDict`` base class should not be included.  Example::
 
-We need to reinterpret these rules to define how ``extra_items`` interacts with
-them.
+    class BookBasedMovie(Movie):
+        based_on: str
 
-    * Changing a field type of a parent TypedDict class in a subclass is not allowed.
+Now ``BookBasedMovie`` has keys ``name``, ``year``, and ``based_on``. It is
+equivalent to this definition, since TypedDict types are :term:`structural` types::
 
-First, it is not allowed to change the value of ``extra_items`` in a subclass
-unless it is declared to be ``ReadOnly`` in the superclass::
+    class BookBasedMovie(TypedDict):
+        name: str
+        year: int
+        based_on: str
 
-    class Parent(TypedDict, extra_items=int | None):
+Overriding items
+^^^^^^^^^^^^^^^^
+
+Under limited circumstances, subclasses may redeclare items defined in a superclass with
+a different type or different qualifiers. Redeclaring an item with the same type and qualifiers
+is always allowed, although it is redundant.
+
+If an item is mutable in a superclass, it must remain mutable in the subclass. Similarly,
+mutable items that are :term:`required` in a superclass must remain required in the subclass,
+and mutable :term:`non-required` items in the superclass must remain non-required in the subclass.
+However, if the superclass item is :term:`read-only`, a superclass item that is non-required
+may be overridden with a required item in the subclass. A read-only item in a superclass
+may be redeclared as mutable (that is, without the ``ReadOnly`` qualifier) in a subclass.
+These rules are necessary for type safety.
+
+If an item is read-only in the superclass, the subclass may redeclare it with a different type
+that is :term:`assignable` to the superclass type. Otherwise, changing the type of an item is not allowed.
+Example::
+
+   class X(TypedDict):
+       x: str
+       y: ReadOnly[int]
+       z: int
+
+   class Y(X):
+       x: int  # Type check error: cannot overwrite TypedDict field "x"
+       y: bool  # OK: bool is assignable to int, and a mutable item can override a read-only one
+       z: bool  # Type check error: key is mutable, so subclass type must be consistent with superclass
+
+Openness
+^^^^^^^^
+
+The openness of a TypedDict (whether it is :term:`open`, :term:`closed`, or has :term:`extra items`)
+is inherited from its superclass by default::
+
+    class ClosedBase(TypedDict, closed=True):
+        name: str
+
+    class ClosedChild(ClosedBase):  # also closed
         pass
 
-    class Child(Parent, extra_items=int): # Not OK. Like any other TypedDict item, extra_items's type cannot be changed
+    class ExtraItemsBase(TypedDict, extra_items=int | None):
+        name: str
+
+    class ExtraItemsChild(ExtraItemsBase):  # also has extra_items=int | None
         pass
 
-Second, ``extra_items=T`` effectively defines the value type of any unnamed
-items accepted to the TypedDict and marks them as non-required. Thus, the above
-restriction applies to any additional items defined in a subclass. For each item
-added in a subclass, all of the following conditions should apply:
+However, subclasses may also explicitly use the ``closed`` and ``extra_items`` arguments
+to change the openness of the TypedDict, but in some cases this yields a type checker error:
 
-.. _pep728-inheritance-read-only:
+- If the base class is open, all possible states are allowed in the subclass: it may remain open,
+  it may be closed (with ``closed=True``), or it may have extra items (with ``extra_items=...``).
+
+- If the base class is closed, any child classes must also be closed.
+
+- If the base class has extra items, but they are not read-only, the child class must also allow
+  the same extra items.
+
+- If the base class has read-only extra items, the child class may be closed,
+  or it may redeclare its extra items with a type that is :term:`assignable` to the base class type.
+  Child classes may also have mutable extra items if the base class has read-only extra items.
+
+For example::
+
+    class ExtraItemsRO(TypedDict, extra_items=ReadOnly[int | str]):
+        name: str
+
+    class ClosedChild(ExtraItemsRO, closed=True):  # OK
+        pass
+
+    # OK, str is assignable to int | str, and mutable extra items can override read-only ones
+    class NarrowerChild(ExtraItemsRO, extra_items=str):
+        pass
+
+When a TypedDict has extra items, this effectively defines the value type of any unnamed
+items accepted to the TypedDict and marks them as non-required. Thus, there are some
+restrictions on the items that can be added in subclasses. For each item
+added in a subclass of a class with extra items of type ``T``, the following rules must be followed:
 
 - If ``extra_items`` is read-only
 
   - The item can be either required or non-required
-
-  - The item's value type is :term:`assignable` to ``T``
+  - The item's value type must be :term:`assignable` to ``T``
 
 - If ``extra_items`` is not read-only
 
-  - The item is non-required
-
-  - The item's value type is :term:`consistent` with ``T``
-
-- If ``extra_items`` is not overridden, the subclass inherits it as-is.
+  - The item must be non-required
+  - The item's value type must be :term:`consistent` with ``T``
 
 For example::
 
@@ -1095,210 +457,135 @@ For example::
         title: str
 
     class Book(BookBase, extra_items=str):  # OK
-        year: int  # OK
+        year: int  # OK, since extra_items is read-only
 
-An important side effect of the inheritance rules is that we can define a
-TypedDict type that disallows additional items::
+Multiple inheritance
+^^^^^^^^^^^^^^^^^^^^
 
-    class MovieClosed(TypedDict, extra_items=Never):
-        name: str
+TypedDict types may use multiple inheritance to inherit items from multiple
+base classes. Here is an example::
 
-Here, passing the value :class:`~typing.Never` to ``extra_items`` specifies that
-there can be no other keys in ``MovieFinal`` other than the known ones.
-Because of its potential common use, there is a preferred alternative::
+    class X(TypedDict):
+        x: int
 
-    class MovieClosed(TypedDict, closed=True):
-        name: str
+    class Y(TypedDict):
+        y: str
 
-where we implicitly assume that ``extra_items=Never``.
+    class XYZ(X, Y):
+        z: bool
 
-Assignability
--------------
+The TypedDict ``XYZ`` has three items: ``x`` (type ``int``), ``y``
+(type ``str``), and ``z`` (type ``bool``).
 
-Let ``S`` be the set of keys of the explicitly defined items on a TypedDict
-type. If it specifies ``extra_items=T``, the TypedDict type is considered to
-have an infinite set of items that all satisfy the following conditions.
+Multiple inheritance does not allow conflicting types for the same item::
 
-- If ``extra_items`` is read-only:
+   class X(TypedDict):
+      x: int
 
-  - The key's value type is :term:`assignable` to ``T``.
+   class Y(TypedDict):
+      x: str
 
-  - The key is not in ``S``.
+   class XYZ(X, Y):  # Type check error: cannot overwrite TypedDict field "x" while merging
+      xyz: bool
 
-- If ``extra_items`` is not read-only:
+.. _typeddict-assignability:
 
-  - The key is non-required.
+Subtyping and assignability
+---------------------------
 
-  - The key's value type is :term:`consistent` with ``T``.
+Because TypedDict types are :term:`structural` types, a TypedDict ``T1`` is :term:`assignable` to another
+TypedDict type ``T2`` if the two are structurally compatible, meaning that all operations that
+are allowed on ``T2`` are also allowed on ``T1``. For similar reasons, TypedDict types are
+generally not assignable to any specialization of ``dict`` or ``Mapping``, other than ``Mapping[str, object]``,
+though certain :term:`closed` TypedDicts and TypedDicts with :term:`extra items` may be assignable
+to these types.
 
-  - The key is not in ``S``.
+The rest of this section discusses the :term:`subtyping <subtype>` rules for TypedDict in more detail.
+As with any type, the rules for :term:`assignability <assignable>` can be derived from the subtyping
+rules using the :term:`materialization <materialize>` procedure. Generally, this means that where
+":term:`equivalent`" is mentioned below, the :term:`consistency <consistent>` relation can be used instead
+when implementing assignability, and where ":term:`subtyping <subtype>`" between elements of a
+TypedDict is mentioned, assignability can be used instead when implementing assignability between TypedDicts.
 
-For type checking purposes, let ``extra_items`` be a non-required pseudo-item
-when checking for assignability according to rules defined in the
-:ref:`Read-only Items <readonly>` section, with a new rule added in bold
-text as follows:
+Subtyping between TypedDict types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    A TypedDict type ``B`` is :term:`assignable` to a TypedDict type
-    ``A`` if ``B`` is :term:`structurally <structural>` assignable to
-    ``A``. This is true if and only if all of the following are satisfied:
+A TypedDict type ``B`` is a :term:`subtype` of a TypedDict type ``A`` if
+and only if all of the conditions below are satisfied. For the purposes of these conditions,
+an :term:`open` TypedDict is treated as if it had read-only :term:`extra items` of type ``object``.
 
-    * **[If no key with the same name can be found in ``B``, the 'extra_items'
-      argument is considered the value type of the corresponding key.]**
+The conditions are as follows:
 
-    * For each item in ``A``, ``B`` has the corresponding key, unless the item in
-      ``A`` is read-only, not required, and of top value type
-      (``ReadOnly[NotRequired[object]]``).
+- For each item in ``A``:
 
-    * For each item in ``A``, if ``B`` has the corresponding key, the corresponding
-      value type in ``B`` is assignable to the value type in ``A``.
+  - If it is required in ``A``:
 
-    * For each non-read-only item in ``A``, its value type is assignable to the
-      corresponding value type in ``B``, and the corresponding key is not read-only
-      in ``B``.
+    - It must also be required in ``B``.
+    - If it is read-only in ``A``, the item type in ``B`` must be a subtype of the item type in ``A``.
+      (For :term:`assignability <assignable>` between two TypedDicts, the first item must instead
+      be assignable to the second.)
 
-    * For each required key in ``A``, the corresponding key is required in ``B``.
+    - If it is mutable in ``A``, it must also be mutable in ``B``, and the item type in ``B`` must be
+      :term:`equivalent` to the item type in ``A``. (It follows that for assignability, the two item types
+      must be :term:`consistent`.)
 
-    * For each non-required key in ``A``, if the item is not read-only in ``A``,
-      the corresponding key is not required in ``B``.
+  - If it is non-required in ``A``:
 
-The following examples illustrate these checks in action.
+    - If it is read-only in ``A``:
 
-``extra_items`` puts various restrictions on additional items for assignability
-checks::
+      - If ``B`` has an item with the same key, its item type must be a subtype of the item type in ``A``.
+      - Else:
 
-    class Movie(TypedDict, extra_items=int | None):
-        name: str
+        - If ``B`` is closed, the check succeeds.
+        - If ``B`` has extra items, the extra items type must be a subtype of the item type in ``A``.
 
-    class MovieDetails(TypedDict, extra_items=int | None):
-        name: str
-        year: NotRequired[int]
+    - If it is mutable in ``A``:
 
-    details: MovieDetails = {"name": "Kill Bill Vol. 1", "year": 2003}
-    movie: Movie = details  # Not OK. While 'int' is assignable to 'int | None',
-                            # 'int | None' is not assignable to 'int'
+      - If ``B`` has an item with the same key, it must also be mutable, and its item type must be
+        :term:`equivalent` to the item type in ``A``.
 
-    class MovieWithYear(TypedDict, extra_items=int | None):
-        name: str
-        year: int | None
+      - Else:
 
-    details: MovieWithYear = {"name": "Kill Bill Vol. 1", "year": 2003}
-    movie: Movie = details  # Not OK. 'year' is not required in 'Movie',
-                            # but it is required in 'MovieWithYear'
+        - If ``B`` is closed, the check fails.
+        - If ``B`` has extra items, the extra items type must not be read-only and must
+          be :term:`equivalent` to the item type in ``A``.
 
-where ``MovieWithYear`` (B) is not assignable to ``Movie`` (A)
-according to this rule:
+- If ``A`` is closed, ``B`` must also be closed, and it must not contain any items that are not present in ``A``.
+- If ``A`` has read-only extra items, ``B`` must either be closed or also have extra items, and the extra items type in ``B``
+  must be a subtype of the extra items type in ``A``. Additionally, for any items in ``B`` that are not present in ``A``,
+  the item type must be a subtype of the extra items type in ``A``.
+- If ``A`` has mutable extra items, ``B`` must also have mutable extra items, and the extra items type in ``B``
+  must be :term:`equivalent` to the extra items type in ``A``. Additionally, for any items in ``B`` that are not present in ``A``,
+  the item type must be :term:`equivalent` to the extra items type in ``A``.
 
-    * For each non-required key in ``A``, if the item is not read-only in ``A``,
-      the corresponding key is not required in ``B``.
+The intuition behind these rules is that any operation that is valid on ``A`` must also be valid and safe on ``B``.
+For example, any key access on ``A`` that is guaranteed to succeed (because the item is required) must also succeed on ``B``,
+and any mutating operation (such as setting or deleting a key) that is allowed on ``A`` must also be allowed on ``B``.
 
-When ``extra_items`` is specified to be read-only on a TypedDict type, it is
-possible for an item to have a :term:`narrower <narrow>` type than the
-``extra_items`` argument::
+An example where mutability is relevant::
 
-    class Movie(TypedDict, extra_items=ReadOnly[str | int]):
-        name: str
+    class A(TypedDict):
+        x: int | None
 
-    class MovieDetails(TypedDict, extra_items=int):
-        name: str
-        year: NotRequired[int]
+    class B(TypedDict):
+        x: int
 
-    details: MovieDetails = {"name": "Kill Bill Vol. 2", "year": 2004}
-    movie: Movie = details  # OK. 'int' is assignable to 'str | int'.
+    def f(a: A) -> None:
+        a['x'] = None
 
-This behaves the same way as if ``year: ReadOnly[str | int]`` is an item
-explicitly defined in ``Movie``.
+    b: B = {'x': 0}
+    f(b)  # Type check error: 'B' not assignable to 'A'
+    b['x'] + 1  # Runtime error: None + 1
 
-``extra_items`` as a pseudo-item follows the same rules that other items have,
-so when both TypedDicts types specify ``extra_items``, this check is naturally
-enforced::
+.. _typeddict-mapping:
 
-    class MovieExtraInt(TypedDict, extra_items=int):
-        name: str
+Subtyping with ``Mapping``
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    class MovieExtraStr(TypedDict, extra_items=str):
-        name: str
-
-    extra_int: MovieExtraInt = {"name": "No Country for Old Men", "year": 2007}
-    extra_str: MovieExtraStr = {"name": "No Country for Old Men", "description": ""}
-    extra_int = extra_str  # Not OK. 'str' is not assignable to extra items type 'int'
-    extra_str = extra_int  # Not OK. 'int' is not assignable to extra items type 'str'
-
-A non-closed TypedDict type implicitly allows non-required extra keys of value
-type ``ReadOnly[object]``. Applying the assignability rules between this type
-and a closed TypedDict type is allowed::
-
-    class MovieNotClosed(TypedDict):
-        name: str
-
-    extra_int: MovieExtraInt = {"name": "No Country for Old Men", "year": 2007}
-    not_closed: MovieNotClosed = {"name": "No Country for Old Men"}
-    extra_int = not_closed  # Not OK.
-                            # 'extra_items=ReadOnly[object]' implicitly on 'MovieNotClosed'
-                            # is not assignable to with 'extra_items=int'
-    not_closed = extra_int  # OK
-
-Interaction with Constructors
------------------------------
-
-TypedDicts that allow extra items of type ``T`` also allow arbitrary keyword
-arguments of this type when constructed by calling the class object::
-
-    class NonClosedMovie(TypedDict):
-        name: str
-
-    NonClosedMovie(name="No Country for Old Men")  # OK
-    NonClosedMovie(name="No Country for Old Men", year=2007)  # Not OK. Unrecognized item
-
-    class ExtraMovie(TypedDict, extra_items=int):
-        name: str
-
-    ExtraMovie(name="No Country for Old Men")  # OK
-    ExtraMovie(name="No Country for Old Men", year=2007)  # OK
-    ExtraMovie(
-        name="No Country for Old Men",
-        language="English",
-    )  # Not OK. Wrong type for extra item 'language'
-
-    # This implies 'extra_items=Never',
-    # so extra keyword arguments would produce an error
-    class ClosedMovie(TypedDict, closed=True):
-        name: str
-
-    ClosedMovie(name="No Country for Old Men")  # OK
-    ClosedMovie(
-        name="No Country for Old Men",
-        year=2007,
-    )  # Not OK. Extra items not allowed
-
-Supported and Unsupported Operations
-------------------------------------
-
-This statement from :ref:`above <typeddict-operations>` still holds true.
-
-    Operations with arbitrary str keys (instead of string literals or other
-    expressions with known string values) should generally be rejected.
-
-Operations that already apply to ``NotRequired`` items should generally also
-apply to extra items, following the same rationale from :ref:`above <typeddict-operations>`:
-
-    The exact type checking rules are up to each type checker to decide. In some
-    cases potentially unsafe operations may be accepted if the alternative is to
-    generate false positive errors for idiomatic code.
-
-Some operations, including indexed accesses and assignments with arbitrary str keys,
-may be allowed due to the TypedDict being :term:`assignable` to
-``Mapping[str, VT]`` or ``dict[str, VT]``. The two following sections will expand
-on that.
-
-Interaction with Mapping[str, VT]
----------------------------------
-
-A TypedDict type is :term:`assignable` to a type of the form ``Mapping[str, VT]``
+A TypedDict type is a :term:`subtype` of a type of the form ``Mapping[str, VT]``
 when all value types of the items in the TypedDict
-are assignable to ``VT``. For the purpose of this rule, a
-TypedDict that does not have ``extra_items=`` or ``closed=`` set is considered
-to have an item with a value of type ``ReadOnly[object]``. This extends the
-general rule for :ref:`TypedDict assignability <typeddict-assignability>`.
+are subtypes of ``VT``. For the purpose of this rule, an :term:`open` TypedDict is considered
+to have read-only :term:`extra items` of type ``object``.
 
 For example::
 
@@ -1315,43 +602,28 @@ For example::
     int_mapping: Mapping[str, int] = extra_int  # Not OK. 'int | str' is not assignable with 'int'
     int_str_mapping: Mapping[str, int | str] = extra_int  # OK
 
-Type checkers should infer the precise signatures of ``values()`` and ``items()``
-on such TypedDict types::
+As a consequence, every TypedDict type is :term:`assignable` to ``Mapping[str, object]``.
 
-    def foo(movie: MovieExtraInt) -> None:
-        reveal_type(movie.items())  # Revealed type is 'dict_items[str, str | int]'
-        reveal_type(movie.values())  # Revealed type is 'dict_values[str, str | int]'
+.. _typeddict-dict:
 
-By extension of this assignability rule, type checkers may allow indexed accesses
-with arbitrary str keys when ``extra_items`` or ``closed=True`` is specified.
-For example::
+Subtyping with ``dict``
+^^^^^^^^^^^^^^^^^^^^^^^
 
-    def bar(movie: MovieExtraInt, key: str) -> None:
-        reveal_type(movie[key])  # Revealed type is 'str | int'
+Generally, TypedDict types are not subtypes of any specialization of ``dict[...]`` type, since
+dictionary types allow destructive operations, including ``clear()``. They
+also allow arbitrary keys to be set, which would compromise type safety.
 
-.. _pep728-type-narrowing:
+However, a TypedDict with :term:`extra items` may be a subtype of ``dict[str, VT]``,
+provided certain conditions are met, because it introduces sufficient restrictions
+for this subtyping relation to be safe.
+A TypedDict type is a subtype of ``dict[str, VT]`` if the following conditions are met:
 
-Defining the type narrowing behavior for TypedDict is out-of-scope for this spec.
-This leaves flexibility for a type checker to be more/less restrictive about
-indexed accesses with arbitrary str keys. For example, a type checker may opt
-for more restriction by requiring an explicit ``'x' in d`` check.
+- The TypedDict type has mutable :term:`extra items` of a type that is :term:`equivalent` to ``VT``.
+- All items on the TypedDict satisfy the following conditions:
 
-Interaction with dict[str, VT]
-------------------------------
-
-Because the presence of ``extra_items`` on a closed TypedDict type
-prohibits additional required keys in its :term:`structural`
-:term:`subtypes <subtype>`, we can determine if the TypedDict type and
-its structural subtypes will ever have any required key during static analysis.
-
-The TypedDict type is :term:`assignable` to ``dict[str, VT]`` if all
-items on the TypedDict type satisfy the following conditions:
-
-- The value type of the item is :term:`consistent` with ``VT``.
-
-- The item is not read-only.
-
-- The item is not required.
+  - The value type of the item is :term:`equivalent` to ``VT``.
+  - The item is not read-only.
+  - The item is not required.
 
 For example::
 
@@ -1369,7 +641,7 @@ For example::
     regular_dict: dict[str, int] = not_required_num_dict  # OK
     f(not_required_num_dict)  # OK
 
-In this case, methods that are previously unavailable on a TypedDict are allowed,
+In this case, some methods that are otherwise unavailable on a TypedDict are allowed,
 with signatures matching ``dict[str, VT]``
 (e.g.: ``__setitem__(self, key: str, value: VT) -> None``)::
 
@@ -1381,11 +653,8 @@ with signatures matching ``dict[str, VT]``
         not_required_num_dict[key] = 42  # OK
         del not_required_num_dict[key]  # OK
 
-:ref:`Notes on indexed accesses <pep728-type-narrowing>` from the previous section
-still apply.
-
-``dict[str, VT]`` is not assignable to a TypedDict type,
-because such dict can be a subtype of dict::
+On the other hand, ``dict[str, VT]`` is not assignable to any TypedDict type,
+because such a type includes instances of subclasses of ``dict``::
 
     class CustomDict(dict[str, int]):
         pass
@@ -1395,3 +664,169 @@ because such dict can be a subtype of dict::
 
     not_a_builtin_dict = CustomDict({"num": 1})
     f(not_a_builtin_dict)
+
+.. _typeddict-operations:
+
+Supported and Unsupported Operations
+------------------------------------
+
+Type checkers should support restricted forms of most ``dict``
+operations on TypedDict objects.  The guiding principle is that
+operations not involving ``Any`` types should be rejected by type
+checkers if they may violate runtime type safety.  Here are some of
+the most important type safety violations to prevent:
+
+1. A required key is missing.
+
+2. A value has an invalid type.
+
+3. A key that is not defined in the TypedDict type is added.
+
+4. Read-only items are modified or deleted.
+
+.. _`readonly`:
+
+Items that are :term:`read-only` may not be mutated (added, modified, or removed)::
+
+    from typing import ReadOnly
+
+    class Band(TypedDict):
+        name: str
+        members: ReadOnly[list[str]]
+
+    blur: Band = {"name": "blur", "members": []}
+    blur["name"] = "Blur"  # OK: "name" is not read-only
+    blur["members"] = ["Damon Albarn"]  # Type check error: "members" is read-only
+    blur["members"].append("Damon Albarn")  # OK: list is mutable
+
+The exact type checking rules are up to each type checker to decide.
+In some cases potentially unsafe operations may be accepted if the
+alternative is to generate false positive errors for idiomatic code.
+Sometimes, operations on :term:`closed` TypedDicts or TypedDicts with
+:term:`extra items` are safe even if they would be unsafe on
+:term:`open` TypedDicts, so type checker behavior may depend on the
+openness of the TypedDict.
+
+Allowed keys
+^^^^^^^^^^^^
+
+Many operations on TypedDict objects involve specifying a dictionary key.
+Examples include accessing an item with ``d['key']`` or setting an item with
+``d['key'] = value``.
+
+A key that is not a literal should generally be rejected, since its
+value is unknown during type checking, and thus can cause some of the
+above violations. This involves both destructive operations such as setting
+an item and read-only operations such as subscription expressions.
+
+The use of a key that is not known to exist should be reported as an error,
+even if this wouldn't necessarily generate a runtime type error.  These are
+often mistakes, and these may insert values with an invalid type if
+:term:`structural` :term:`assignability <assignable>` hides the types of
+certain items. For example, ``d['x'] = 1`` should generate a type check error
+if ``'x'`` is not a valid key for ``d`` (which is assumed to be a TypedDict
+type), unless ``d`` has mutable :term:`extra items` of a compatible type.
+
+Type checkers should allow :ref:`final names <uppercase-final>` with
+string values to be used instead of string literals in operations on
+TypedDict objects.  For example, this is valid::
+
+   YEAR: Final = 'year'
+
+   m: Movie = {'name': 'Alien', 'year': 1979}
+   years_since_epoch = m[YEAR] - 1970
+
+Similarly, an expression with a suitable :ref:`literal type <literal>`
+can be used instead of a literal value::
+
+   def get_value(movie: Movie,
+                 key: Literal['year', 'name']) -> int | str:
+       return movie[key]
+
+Specific operations
+^^^^^^^^^^^^^^^^^^^
+
+This section discusses some specific operations in more detail.
+
+* As an exception to the general rule around non-literal keys, ``d.get(e)`` and ``e in d``
+  should be allowed for TypedDict objects, for an arbitrary expression
+  ``e`` with type ``str``.  The motivation is that these are safe and
+  can be useful for introspecting TypedDict objects.  The static type
+  of ``d.get(e)`` should be the union of all possible item types in ``d``
+  if the string value of ``e`` cannot be determined statically.
+  (This simplifies to ``object`` if ``d`` is :term:`open`.)
+
+* ``clear()`` is not safe on :term:`open` TypedDicts since it could remove required items, some of which
+  may not be directly visible because of :term:`structural`
+  :term:`assignability <assignable>`. However, this method is safe on
+  :term:`closed` TypedDicts and TypedDicts with :term:`extra items` if
+  there are no required or read-only items and there cannot be any subclasses with required
+  or read-only items.
+
+* ``popitem()`` is similarly unsafe on many TypedDicts, even
+  if all known items are :term:`non-required`.
+
+* ``del obj['key']`` should be rejected unless ``'key'`` is a
+  non-required, mutable key.
+
+* Type checkers may allow reading an item using ``d['x']`` even if
+  the key ``'x'`` is not required, instead of requiring the use of
+  ``d.get('x')`` or an explicit ``'x' in d`` check.  The rationale is
+  that tracking the existence of keys is difficult to implement in full
+  generality, and that disallowing this could require many changes to
+  existing code.
+  Similarly, type checkers may allow indexed accesses
+  with arbitrary str keys when a TypedDict is :term:`closed` or has :term:`extra items`.
+  For example::
+
+    def bar(movie: MovieExtraInt, key: str) -> None:
+        reveal_type(movie[key])  # Revealed type is 'str | int'
+
+* The return types of the ``items()`` and ``values()`` methods can be determined
+  from the union of all item types in the TypedDict (which would include ``object``
+  for :term:`open` TypedDicts). Therefore, type checkers should infer more precise
+  types for TypedDicts that are not open::
+
+    from typing import TypedDict
+
+    class MovieExtraInt(TypedDict, extra_items=int):
+        name: str
+
+    def foo(movie: MovieExtraInt) -> None:
+        reveal_type(movie.items())  # Revealed type is 'dict_items[str, str | int]'
+        reveal_type(movie.values())  # Revealed type is 'dict_values[str, str | int]'
+
+* The ``update()`` method should not allow mutating a read-only item.
+  Therefore, type checkers should error if a
+  TypedDict with a read-only item is updated with another TypedDict that declares
+  that item::
+
+    class A(TypedDict):
+        x: ReadOnly[int]
+        y: int
+
+    a1: A = {"x": 1, "y": 2}
+    a2: A = {"x": 3, "y": 4}
+    a1.update(a2)  # Type check error: "x" is read-only in A
+
+  Unless the declared value is of bottom type (:data:`~typing.Never`)::
+
+    class B(TypedDict):
+        x: NotRequired[typing.Never]
+        y: ReadOnly[int]
+
+    def update_a(a: A, b: B) -> None:
+        a.update(b)  # Accepted by type checker: "x" cannot be set on b
+
+  Note: Nothing will ever match the ``Never`` type, so an item annotated with it must be absent.
+
+Backwards Compatibility
+-----------------------
+
+To retain backwards compatibility, type checkers should not infer a
+TypedDict type unless it is sufficiently clear that this is desired by
+the programmer.  When unsure, an ordinary dictionary type should be
+inferred.  Otherwise existing code that type checks without errors may
+start generating errors once TypedDict support is added to the type
+checker, since TypedDict types are more restrictive than dictionary
+types.  In particular, they aren't subtypes of dictionary types.
