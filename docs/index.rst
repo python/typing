@@ -2,21 +2,47 @@
 Static Typing with Python
 *************************
 
+Tutorials
+=========
+
+..
+   Keep in sync with tutorials/index.rst.
+
+.. toctree::
+   :maxdepth: 1
+
+   tutorials/external_libraries
+
 Guides
 ======
 
-.. toctree::
-   :maxdepth: 2
+..
+   Keep in sync with docs/guides/index.rst.
 
-   guides/index
+.. toctree::
+   :maxdepth: 1
+
+   guides/libraries
+   guides/writing_stubs
+   guides/modernizing
+   guides/unreachable
+   guides/type_narrowing
+   guides/typing_anti_pitch
 
 Reference
 =========
 
-.. toctree::
-   :maxdepth: 2
+..
+   Keep in sync with docs/reference/index.rst.
 
-   reference/index
+.. toctree::
+   :maxdepth: 1
+
+   reference/generics
+   reference/protocols
+   reference/best_practices
+   reference/quality
+   typing Module Documentation <https://docs.python.org/3/library/typing.html>
 
 .. seealso::
 
@@ -55,12 +81,10 @@ Type Checkers
 
 * `mypy <http://mypy-lang.org/>`_, the reference implementation for type
   checkers.
-* `pyre <https://pyre-check.org/>`_, a type checker written in OCaml and
-  optimized for performance.
+* `pyrefly <https://pyrefly.org//>`_, a fast type checker and language
+  server.
 * `pyright <https://github.com/microsoft/pyright>`_, a type checker that
   emphasizes speed.
-* `pytype <https://google.github.io/pytype/>`_, a type checker that
-  checks and infers types for unannotated code.
 
 Development Environments
 ------------------------

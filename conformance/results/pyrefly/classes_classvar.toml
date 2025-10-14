@@ -1,0 +1,27 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR classes_classvar.py:38:11-29: Expected 1 type argument for `ClassVar`, got 2 [invalid-annotation]
+ERROR classes_classvar.py:39:14-15: number literal cannot be used in annotations [invalid-annotation]
+ERROR classes_classvar.py:40:14-17: Could not find name `var` [unknown-name]
+ERROR classes_classvar.py:45:20-21: `ClassVar` arguments may not contain any type variables [invalid-annotation]
+ERROR classes_classvar.py:46:20-27: `ClassVar` arguments may not contain any type variables [invalid-annotation]
+ERROR classes_classvar.py:47:20-36: `ClassVar` arguments may not contain any type variables [invalid-annotation]
+ERROR classes_classvar.py:52:33-35: `dict[@_, @_]` is not assignable to `list[str]` [bad-assignment]
+ERROR classes_classvar.py:54:17-30: `ClassVar` may not be nested inside `Final` [invalid-annotation]
+ERROR classes_classvar.py:55:17-30: `ClassVar` is not allowed in this context [invalid-annotation]
+ERROR classes_classvar.py:69:26-34: `ClassVar` is only allowed inside a class body [invalid-annotation]
+ERROR classes_classvar.py:69:26-39: `ClassVar` is not allowed in this context [invalid-annotation]
+ERROR classes_classvar.py:70:12-20: `ClassVar` is only allowed inside a class body [invalid-annotation]
+ERROR classes_classvar.py:70:12-25: `ClassVar` is not allowed in this context [invalid-annotation]
+ERROR classes_classvar.py:71:9-16: Cannot set field `xx` [read-only]
+ERROR classes_classvar.py:73:26-34: `ClassVar` is only allowed inside a class body [invalid-annotation]
+ERROR classes_classvar.py:73:26-39: `ClassVar` is not allowed in this context [invalid-annotation]
+ERROR classes_classvar.py:77:8-16: `ClassVar` is only allowed inside a class body [invalid-annotation]
+ERROR classes_classvar.py:77:8-21: `ClassVar` is not allowed in this context [invalid-annotation]
+ERROR classes_classvar.py:78:20-33: `ClassVar` is not allowed in this context [invalid-annotation]
+ERROR classes_classvar.py:111:1-19: Cannot set field `stats` [read-only]
+ERROR classes_classvar.py:140:13-25: `ProtoAImpl` is not assignable to `ProtoA` [bad-assignment]
+"""

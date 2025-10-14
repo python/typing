@@ -182,7 +182,8 @@ The decorator takes the following arguments:
 
 * A required positional-only argument representing the deprecation message.
 * Two keyword-only arguments, ``category`` and ``stacklevel``, controlling
-  runtime behavior (see under "Runtime behavior" below).
+  runtime behavior. These are not relevant to type checker behavior so they are
+  not further described in this specification.
 
 The positional-only argument is of type ``str`` and contains a message that should
 be shown by the type checker when it encounters a usage of the decorated object.

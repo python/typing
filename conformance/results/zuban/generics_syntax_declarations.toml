@@ -1,0 +1,17 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_syntax_declarations.py:17: error: Generic[...] base class is redundant  [misc]
+generics_syntax_declarations.py:25: error: No arguments expected for "Protocol" base class  [misc]
+generics_syntax_declarations.py:32: error: "T" has no attribute "is_integer"  [attr-defined]
+generics_syntax_declarations.py:44: error: "V" may not be used, because it's defined in an outer class  [misc]
+generics_syntax_declarations.py:48: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
+generics_syntax_declarations.py:48: note: Did you mean "List[...]"?
+generics_syntax_declarations.py:60: error: Type variable must have at least two constrained types  [misc]
+generics_syntax_declarations.py:64: error: Type variable must have at least two constrained types  [misc]
+generics_syntax_declarations.py:71: error: Variable "generics_syntax_declarations.t1" is not valid as a type  [valid-type]
+generics_syntax_declarations.py:71: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+generics_syntax_declarations.py:75: error: Invalid type: try using Literal[3] instead?  [valid-type]
+generics_syntax_declarations.py:79: error: Name "S" is not defined  [name-defined]
+"""

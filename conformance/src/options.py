@@ -5,11 +5,12 @@ Command-line options for the test tool.
 import argparse
 from dataclasses import dataclass
 
+from type_checker import TYPE_CHECKERS
 
 @dataclass
 class _Options:
     report_only: bool | None
-    skip_timing: bool
+    only_run: str | None
 
 
 def parse_options(argv: list[str]) -> _Options:
@@ -21,9 +22,9 @@ def parse_options(argv: list[str]) -> _Options:
         help="regenerates the test suite report from past results",
     )
     reporting_group.add_argument(
-        "--skip-timing",
-        action="store_true",
-        help="do not update timing information in the output files",
+        "--only-run",
+        help="Only runs the type checker",
+        choices=[tc.name for tc in TYPE_CHECKERS]
     )
     ret = _Options(**vars(parser.parse_args(argv)))
     return ret

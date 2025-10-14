@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-`NewType`s are considered classes, not functions.
+`NewType`s are incorrectly considered to be classes.
 """
 output = """
 aliases_newtype.py:11: error: Argument 1 to "UserId" has incompatible type "str"; expected "int"  [arg-type]

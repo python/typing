@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_metaclass.py:54: error: Missing positional argument "x" in call to "Class3"  [call-arg]
+constructors_call_metaclass.py:68: error: Missing positional argument "x" in call to "Class4"  [call-arg]
+"""

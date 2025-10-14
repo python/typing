@@ -1,0 +1,20 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR aliases_newtype.py:11:8-14: Argument `Literal['user']` is not assignable to parameter `_x` with type `int` in function `UserId.__new__` [bad-argument-type]
+ERROR aliases_newtype.py:12:14-16: `Literal[42]` is not assignable to `UserId` [bad-assignment]
+ERROR aliases_newtype.py:18:11-17: `type[UserId]` is not assignable to `type` [bad-assignment]
+ERROR aliases_newtype.py:23:16-22: NewType `UserId` not allowed in isinstance() [invalid-argument]
+ERROR aliases_newtype.py:26:21-27: Subclassing a NewType not allowed [invalid-inheritance]
+ERROR aliases_newtype.py:35:20-29: Expected string literal "GoodName" [invalid-argument]
+ERROR aliases_newtype.py:41:6-23: Expected 0 type arguments for `GoodNewType1`, got 1 [bad-specialization]
+ERROR aliases_newtype.py:47:38-47: Second argument to NewType is invalid [invalid-argument]
+ERROR aliases_newtype.py:50:38-45: Second argument to NewType cannot be an unbound generic [invalid-argument]
+ERROR aliases_newtype.py:52:38-46: Second argument to NewType cannot be a protocol [invalid-argument]
+ERROR aliases_newtype.py:54:38-48: Second argument to NewType is invalid [invalid-argument]
+ERROR aliases_newtype.py:61:38-41: Second argument to NewType is invalid [invalid-argument]
+ERROR aliases_newtype.py:63:43-46: Expected 2 positional arguments, got 3 in function `typing.NewType.__init__` [bad-argument-count]
+ERROR aliases_newtype.py:65:38-41: Second argument to NewType is invalid [invalid-argument]
+"""

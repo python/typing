@@ -1,0 +1,20 @@
+conformant = "Partial"
+notes = """
+Converters are fully supported, failed to match generic overloads against other generics
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 104: Unexpected errors ['dataclasses_transform_converter.py:104: error: Incompatible callable argument with type vars  [arg-type]']
+"""
+output = """
+dataclasses_transform_converter.py:48: error: Argument "converter" to "model_field" has incompatible type "Callable[[], int]"; expected "Callable[[Never], int]"  [arg-type]
+dataclasses_transform_converter.py:49: error: Argument "converter" to "model_field" has incompatible type "Callable[[NamedArg(int, 'x')], int]"; expected "Callable[[Never], int]"  [arg-type]
+dataclasses_transform_converter.py:104: error: Incompatible callable argument with type vars  [arg-type]
+dataclasses_transform_converter.py:107: error: Argument 1 to "DC2" has incompatible type "int"; expected "str"  [arg-type]
+dataclasses_transform_converter.py:108: error: Argument 4 to "DC2" has incompatible type "int"; expected "str | bytes"  [arg-type]
+dataclasses_transform_converter.py:109: error: Argument 5 to "DC2" has incompatible type "complex"; expected "str | list[str]"  [arg-type]
+dataclasses_transform_converter.py:118: error: Incompatible types in assignment of a dataclass converter (expression has type "int", expected type "str")  [assignment]
+dataclasses_transform_converter.py:119: error: Incompatible types in assignment of a dataclass converter (expression has type "int", expected type "str | bytes")  [assignment]
+dataclasses_transform_converter.py:130: error: Argument "default" to "model_field" has incompatible type "int"; expected "str | None"  [arg-type]
+dataclasses_transform_converter.py:133: error: Argument "default_factory" to "model_field" has incompatible type "type[int]"; expected "Callable[[], str] | None"  [arg-type]
+"""

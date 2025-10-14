@@ -1,0 +1,11 @@
+conformant = "Partial"
+notes = """
+Fails to handle move_first_element_to_last example
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 56: Unexpected errors ['Returned type `tuple[*tuple[object | T, ...], object | T]` is not assignable to declared return type `tuple[*Ts, T]` [bad-return]']
+"""
+output = """
+ERROR generics_typevartuple_concat.py:56:12-30: Returned type `tuple[*tuple[object | T, ...], object | T]` is not assignable to declared return type `tuple[*Ts, T]` [bad-return]
+"""

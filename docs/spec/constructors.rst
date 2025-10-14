@@ -318,16 +318,14 @@ these method evaluations, they should take on their default values.
 
   ::
 
-    T1 = TypeVar("T1")
-    T2 = TypeVar("T2")
-    T3 = TypeVar("T3", default=str)
+    from typing import Any, Self, assert_type
 
-    class MyClass1(Generic[T1, T2]):
+    class MyClass1[T1, T2]:
         def __new__(cls, x: T1) -> Self: ...
 
     assert_type(MyClass1(1), MyClass1[int, Any])
 
-    class MyClass2(Generic[T1, T3]):
+    class MyClass2[T1, T3 = str]:
         def __new__(cls, x: T1) -> Self: ...
 
     assert_type(MyClass2(1), MyClass2[int, str])

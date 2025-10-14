@@ -1,0 +1,17 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR dataclasses_usage.py:50:19-27: Missing argument `unit_price` in function `InventoryItem.__init__` [missing-argument]
+ERROR dataclasses_usage.py:51:28-35: Argument `Literal['price']` is not assignable to parameter `unit_price` with type `float` in function `InventoryItem.__init__` [bad-argument-type]
+ERROR dataclasses_usage.py:52:36-37: Expected 3 positional arguments, got 4 in function `InventoryItem.__init__` [bad-argument-count]
+ERROR dataclasses_usage.py:61:5-6: Dataclass field `b` without a default may not follow dataclass field with a default [bad-class-definition]
+ERROR dataclasses_usage.py:67:5-6: Dataclass field `b` without a default may not follow dataclass field with a default [bad-class-definition]
+ERROR dataclasses_usage.py:73:5-6: Dataclass field `b` without a default may not follow dataclass field with a default [bad-class-definition]
+ERROR dataclasses_usage.py:83:13-14: Expected 1 positional argument, got 2 in function `DC4.__init__` [bad-argument-count]
+ERROR dataclasses_usage.py:88:14-40: `str` is not assignable to `int` [bad-assignment]
+ERROR dataclasses_usage.py:127:8-9: Expected 1 positional argument, got 2 in function `DC7.__init__` [bad-argument-count]
+ERROR dataclasses_usage.py:130:4-7: Missing argument `y` in function `DC8.__init__` [missing-argument]
+ERROR dataclasses_usage.py:179:6-7: Expected 0 positional arguments, got 1 in function `object.__init__` [bad-argument-count]
+"""

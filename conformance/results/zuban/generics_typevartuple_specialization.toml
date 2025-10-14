@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_typevartuple_specialization.py:109: error: Unpack is only valid in a variadic position  [misc]
+generics_typevartuple_specialization.py:109: error: TypeVarTuple "Ts" is unbound  [misc]
+generics_typevartuple_specialization.py:110: error: Unpack is only valid in a variadic position  [misc]
+generics_typevartuple_specialization.py:121: error: More than one Unpack in a type is not allowed  [misc]
+generics_typevartuple_specialization.py:122: error: More than one Unpack in a type is not allowed  [misc]
+generics_typevartuple_specialization.py:127: error: Bad number of arguments for type alias, expected at least 2, given 2  [misc]
+generics_typevartuple_specialization.py:163: error: TypeVarTuple cannot be split  [misc]
+"""

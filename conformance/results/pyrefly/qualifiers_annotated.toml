@@ -1,0 +1,31 @@
+conformant = "Partial"
+notes = """
+Allows Annotated in some contexts where it should not be allowed
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 71: Expected 1 errors
+Line 72: Expected 1 errors
+Line 79: Expected 1 errors
+Line 80: Expected 1 errors
+Line 87: Expected 1 errors
+Line 88: Expected 1 errors
+"""
+output = """
+ERROR qualifiers_annotated.py:38:17-27: list literal cannot be used in annotations [invalid-annotation]
+ERROR qualifiers_annotated.py:39:17-30: tuple literal cannot be used in annotations [invalid-annotation]
+ERROR qualifiers_annotated.py:40:17-40: list comprehension cannot be used in annotations [invalid-annotation]
+ERROR qualifiers_annotated.py:41:17-27: dict literal cannot be used in annotations [invalid-annotation]
+ERROR qualifiers_annotated.py:41:19-20: Could not find name `a` [unknown-name]
+ERROR qualifiers_annotated.py:41:24-25: Could not find name `b` [unknown-name]
+ERROR qualifiers_annotated.py:42:17-32: function call cannot be used in annotations [invalid-annotation]
+ERROR qualifiers_annotated.py:43:17-25: invalid subscript expression cannot be used in annotations [invalid-annotation]
+ERROR qualifiers_annotated.py:44:17-38: if expression cannot be used in annotations [invalid-annotation]
+ERROR qualifiers_annotated.py:45:17-21: Could not find name `var1` [unknown-name]
+ERROR qualifiers_annotated.py:46:17-21: bool literal cannot be used in annotations [invalid-annotation]
+ERROR qualifiers_annotated.py:47:18-19: number literal cannot be used in annotations [invalid-annotation]
+ERROR qualifiers_annotated.py:48:18-29: boolean operation cannot be used in annotations [invalid-annotation]
+ERROR qualifiers_annotated.py:49:18-28: f-string cannot be used in annotations [invalid-annotation]
+ERROR qualifiers_annotated.py:59:8-22: `Annotated` needs at least one piece of metadata in addition to the type [invalid-annotation]
+ERROR qualifiers_annotated.py:86:1-10: Expected a callable, got `type[Annotated]` [not-callable]
+"""

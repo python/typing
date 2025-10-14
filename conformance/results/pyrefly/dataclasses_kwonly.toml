@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR dataclasses_kwonly.py:23:11-12: Expected 1 positional argument, got 2 in function `DC1.__init__` [bad-argument-count]
+ERROR dataclasses_kwonly.py:38:11-12: Expected 1 positional argument, got 2 in function `DC2.__init__` [bad-argument-count]
+ERROR dataclasses_kwonly.py:53:11-12: Expected 1 positional argument, got 2 in function `DC3.__init__` [bad-argument-count]
+"""

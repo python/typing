@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_match_args.py:42:5 - error: Cannot access attribute "__match_args__" for class "type[DC4]"
+  Attribute "__match_args__" is unknown (reportAttributeAccessIssue)
+"""

@@ -1,0 +1,21 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR namedtuples_define_functional.py:16:14-19: Missing argument `y` in function `Point1.__new__` [missing-argument]
+ERROR namedtuples_define_functional.py:21:14-16: Missing argument `x` in function `Point2.__new__` [missing-argument]
+ERROR namedtuples_define_functional.py:21:14-16: Missing argument `y` in function `Point2.__new__` [missing-argument]
+ERROR namedtuples_define_functional.py:26:21-22: Expected 2 positional arguments, got 3 in function `Point3.__new__` [bad-argument-count]
+ERROR namedtuples_define_functional.py:31:14-22: Missing argument `y` in function `Point4.__new__` [missing-argument]
+ERROR namedtuples_define_functional.py:31:18-19: Unexpected keyword argument `z` in function `Point4.__new__` [unexpected-keyword]
+ERROR namedtuples_define_functional.py:36:18-21: Argument `Literal['1']` is not assignable to parameter `y` with type `int` in function `Point5.__new__` [bad-argument-type]
+ERROR namedtuples_define_functional.py:37:21-22: Expected 2 positional arguments, got 3 in function `Point5.__new__` [bad-argument-count]
+ERROR namedtuples_define_functional.py:42:18-21: Argument `Literal['1']` is not assignable to parameter `y` with type `int` in function `Point6.__new__` [bad-argument-type]
+ERROR namedtuples_define_functional.py:43:17-20: Argument `float` is not assignable to parameter `x` with type `int` in function `Point6.__new__` [bad-argument-type]
+ERROR namedtuples_define_functional.py:52:31-34: Duplicate field `a` [bad-class-definition]
+ERROR namedtuples_define_functional.py:53:33-38: `def` is not a valid identifier [bad-class-definition]
+ERROR namedtuples_define_functional.py:54:33-38: `def` is not a valid identifier [bad-class-definition]
+ERROR namedtuples_define_functional.py:55:33-37: NamedTuple field name may not start with an underscore: `_d` [bad-class-definition]
+ERROR namedtuples_define_functional.py:69:4-6: Missing argument `a` in function `NT7.__new__` [missing-argument]
+"""

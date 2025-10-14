@@ -1,0 +1,25 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR callables_kwargs.py:46:10-12: Missing argument `v1` in function `func1` [missing-argument]
+ERROR callables_kwargs.py:46:10-12: Missing argument `v3` in function `func1` [missing-argument]
+ERROR callables_kwargs.py:51:32-34: Unexpected keyword argument `v4` in function `func1` [unexpected-keyword]
+ERROR callables_kwargs.py:52:11-12: Expected argument `v1` to be passed by name in function `func1` [unexpected-positional-argument]
+ERROR callables_kwargs.py:52:11-12: Expected 0 positional arguments, got 3 in function `func1` [bad-argument-count]
+ERROR callables_kwargs.py:52:14-16: Expected argument `v3` to be passed by name in function `func1` [unexpected-positional-argument]
+ERROR callables_kwargs.py:58:11-20: Unpacked keyword argument `str` is not assignable to parameter `v1` with type `int` in function `func1` [bad-argument-type]
+ERROR callables_kwargs.py:61:11-15: Unpacked keyword argument `int | str` is not assignable to parameter `v1` with type `int` in function `func1` [bad-argument-type]
+ERROR callables_kwargs.py:61:11-15: Unpacked keyword argument `int | str` is not assignable to parameter `v2` with type `str` in function `func1` [bad-argument-type]
+ERROR callables_kwargs.py:61:11-15: Unpacked keyword argument `int | str` is not assignable to parameter `v3` with type `str` in function `func1` [bad-argument-type]
+ERROR callables_kwargs.py:63:17-22: Multiple values for argument `v1` in function `func1` [bad-keyword-argument]
+ERROR callables_kwargs.py:64:11-12: Argument `Literal[1]` is not assignable to parameter `v3` with type `str` in function `func2` [bad-argument-type]
+ERROR callables_kwargs.py:64:14-19: Multiple values for argument `v3` in function `func2` [bad-keyword-argument]
+ERROR callables_kwargs.py:65:17-22: Multiple values for argument `v1` in function `func2` [bad-keyword-argument]
+ERROR callables_kwargs.py:101:19-24: `(**kwargs: Unpack[TypedDict[TD2]]) -> None` is not assignable to `TDProtocol3` [bad-assignment]
+ERROR callables_kwargs.py:102:19-24: `(**kwargs: Unpack[TypedDict[TD2]]) -> None` is not assignable to `TDProtocol4` [bad-assignment]
+ERROR callables_kwargs.py:103:19-24: `(**kwargs: Unpack[TypedDict[TD2]]) -> None` is not assignable to `TDProtocol5` [bad-assignment]
+ERROR callables_kwargs.py:111:20-41: TypedDict key 'v1' in **kwargs overlaps with parameter 'v1' [bad-function-definition]
+ERROR callables_kwargs.py:122:21-30: `Unpack` in **kwargs annotation must be used only with a `TypedDict` [invalid-annotation]
+ERROR callables_kwargs.py:134:19-24: `(*, v1: int, v3: str, v2: str = '') -> None` is not assignable to `TDProtocol6` [bad-assignment]
+"""

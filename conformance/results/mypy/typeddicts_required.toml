@@ -1,9 +1,9 @@
 conformant = "Pass"
 output = """
 typeddicts_required.py:12: error: Required[] can be only used in a TypedDict definition  [valid-type]
-typeddicts_required.py:19: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]
-typeddicts_required.py:62: error: "Required[]" type cannot be nested  [valid-type]
-typeddicts_required.py:63: error: "NotRequired[]" type cannot be nested  [valid-type]
+typeddicts_required.py:16: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]
+typeddicts_required.py:59: error: "Required[]" type cannot be nested  [valid-type]
+typeddicts_required.py:60: error: "NotRequired[]" type cannot be nested  [valid-type]
 """
 conformance_automated = "Pass"
 errors_diff = """

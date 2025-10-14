@@ -34,9 +34,7 @@ User-defined type guards can be generic functions, as shown in this example:
 
 ::
 
-    _T = TypeVar("_T")
-
-    def is_two_element_tuple(val: Tuple[_T, ...]) -> TypeGuard[tuple[_T, _T]]:
+    def is_two_element_tuple[T](val: tuple[T, ...]) -> TypeGuard[tuple[T, T]]:
         return len(val) == 2
 
     def func(names: tuple[str, ...]):
@@ -65,9 +63,7 @@ than one argument:
             return allow_empty
         return all(isinstance(x, str) for x in val)
 
-    _T = TypeVar("_T")
-
-    def is_set_of(val: set[Any], type: type[_T]) -> TypeGuard[Set[_T]]:
+    def is_set_of[T](val: set[Any], type: type[T]) -> TypeGuard[set[T]]:
         return all(isinstance(x, type) for x in val)
 
 

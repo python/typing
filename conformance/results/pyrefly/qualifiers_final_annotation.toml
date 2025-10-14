@@ -1,0 +1,43 @@
+conformant = "Partial"
+notes = """
+Final attributes not initialized on the class can be assigned to
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 34: Expected 1 errors
+Line 38: Expected 1 errors
+Line 62: Expected 1 errors
+Line 63: Expected 1 errors
+Line 107: Expected 1 errors
+Line 149: Expected 1 errors
+Line 152: Expected 1 errors
+Line 155: Expected 1 errors
+Line 166: Expected 1 errors
+Line 170: Expected 1 errors
+Line 131: Unexpected errors ['Expected first item to be a string literal [invalid-argument]', 'Expected first item to be a string literal [invalid-argument]']
+Line 133: Unexpected errors ['Unexpected keyword argument `x` in function `N.__new__` [unexpected-keyword]', 'Unexpected keyword argument `y` in function `N.__new__` [unexpected-keyword]']
+"""
+output = """
+ERROR qualifiers_final_annotation.py:16:7-12: Expected a type argument for `Final` [invalid-annotation]
+ERROR qualifiers_final_annotation.py:18:7-22: Expected 1 type argument for `Final`, got 2 [invalid-annotation]
+ERROR qualifiers_final_annotation.py:54:9-17: Cannot set field `ID5` [read-only]
+ERROR qualifiers_final_annotation.py:65:9-17: Cannot set field `ID7` [read-only]
+ERROR qualifiers_final_annotation.py:67:9-17: Cannot set field `ID7` [read-only]
+ERROR qualifiers_final_annotation.py:71:8-11: `RATE` is marked final [bad-assignment]
+ERROR qualifiers_final_annotation.py:81:1-18: Cannot set field `DEFAULT_ID` [read-only]
+ERROR qualifiers_final_annotation.py:94:5-17: `BORDER_WIDTH` is declared as final in parent class `ClassC` [bad-override]
+ERROR qualifiers_final_annotation.py:108:19-27: `ClassVar` may not be nested inside `Final` [invalid-annotation]
+ERROR qualifiers_final_annotation.py:118:9-19: `Final` is not allowed in this context [invalid-annotation]
+ERROR qualifiers_final_annotation.py:121:14-19: `Final` is only allowed on a class or local variable annotation [invalid-annotation]
+ERROR qualifiers_final_annotation.py:121:14-30: `Final` is not allowed in this context [invalid-annotation]
+ERROR qualifiers_final_annotation.py:131:23-24: Expected first item to be a string literal [invalid-argument]
+ERROR qualifiers_final_annotation.py:131:33-34: Expected first item to be a string literal [invalid-argument]
+ERROR qualifiers_final_annotation.py:133:3-4: Unexpected keyword argument `x` in function `N.__new__` [unexpected-keyword]
+ERROR qualifiers_final_annotation.py:133:8-9: Unexpected keyword argument `y` in function `N.__new__` [unexpected-keyword]
+ERROR qualifiers_final_annotation.py:134:3-4: Unexpected keyword argument `a` in function `N.__new__` [unexpected-keyword]
+ERROR qualifiers_final_annotation.py:135:3-4: Unexpected keyword argument `x` in function `N.__new__` [unexpected-keyword]
+ERROR qualifiers_final_annotation.py:135:9-10: Unexpected keyword argument `y` in function `N.__new__` [unexpected-keyword]
+ERROR qualifiers_final_annotation.py:141:11-12: `ID1` is marked final [bad-assignment]
+ERROR qualifiers_final_annotation.py:145:5-11: Cannot assign to var x because it is marked final [bad-assignment]
+ERROR qualifiers_final_annotation.py:147:15-16: Assignment target is marked final [bad-assignment]
+"""

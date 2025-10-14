@@ -1,0 +1,33 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_extra_items.py:15: error: Incompatible types (expression has type "int", TypedDict item "year" has type "bool")  [typeddict-item]
+typeddicts_extra_items.py:22: error: Incompatible types (expression has type "int", TypedDict item "year" has type "bool")  [typeddict-item]
+typeddicts_extra_items.py:39: error: Incompatible types (expression has type "None", TypedDict item "year" has type "int")  [typeddict-item]
+typeddicts_extra_items.py:49: error: "closed" argument must be a True or False literal  [misc]
+typeddicts_extra_items.py:67: error: Cannot set "closed=False" when superclass is "closed=True"  [misc]
+typeddicts_extra_items.py:73: error: Cannot set "closed=False" when superclass has "extra_items"  [misc]
+typeddicts_extra_items.py:92: error: TypedDict member "age" is required, but the extra_items of the super class are not  [misc]
+typeddicts_extra_items.py:95: error: TypedDict member "age" is required, but the extra_items of the super class are not  [misc]
+typeddicts_extra_items.py:109: error: Cannot set "closed=True" when superclass has non-read-only "extra_items"  [misc]
+typeddicts_extra_items.py:114: error: "extra_items" value cannot be "Required[...]"  [misc]
+typeddicts_extra_items.py:117: error: "extra_items" value cannot be "NotRequired[...]"  [misc]
+typeddicts_extra_items.py:128: error: Key "name" of TypedDict "MovieEI" cannot be deleted  [misc]
+typeddicts_extra_items.py:143: error: Unexpected keyword argument "year" for "unpack_no_extra"  [call-arg]
+typeddicts_extra_items.py:174: error: Cannot change "extra_items" type unless it is "ReadOnly" in the superclass  [misc]
+typeddicts_extra_items.py:185: error: TypedDict member "year" is required, but the extra_items of the super class are not  [misc]
+typeddicts_extra_items.py:188: error: TypedDict member "year" type "int" is not assignable, but the extra_items of the super class are of type "int | None"  [misc]
+typeddicts_extra_items.py:197: error: TypedDict member "publisher" type "str" is not assignable, but the extra_items of the super class are of type "int | None"  [misc]
+typeddicts_extra_items.py:215: error: Incompatible types in assignment (expression has type "MovieDetails", variable has type "MovieBase2")  [assignment]
+typeddicts_extra_items.py:222: error: Incompatible types in assignment (expression has type "MovieWithYear2", variable has type "MovieBase2")  [assignment]
+typeddicts_extra_items.py:242: error: Incompatible types in assignment (expression has type "MovieDetails5", variable has type "MovieSI")  [assignment]
+typeddicts_extra_items.py:256: error: Incompatible types in assignment (expression has type "MovieExtraStr", variable has type "MovieExtraInt")  [assignment]
+typeddicts_extra_items.py:257: error: Incompatible types in assignment (expression has type "MovieExtraInt", variable has type "MovieExtraStr")  [assignment]
+typeddicts_extra_items.py:268: error: Incompatible types in assignment (expression has type "MovieNotClosed", variable has type "MovieExtraInt")  [assignment]
+typeddicts_extra_items.py:278: error: Extra key "year" for TypedDict "NonClosedMovie"  [typeddict-unknown-key]
+typeddicts_extra_items.py:285: error: Incompatible types (expression has type "str", TypedDict item "language" has type "int")  [typeddict-item]
+typeddicts_extra_items.py:293: error: Incompatible types (expression has type "int", TypedDict item "year" has type "Never")  [typeddict-item]
+typeddicts_extra_items.py:303: error: Incompatible types in assignment (expression has type "MovieExtraInt", variable has type "Mapping[str, int]")  [assignment]
+typeddicts_extra_items.py:352: error: Incompatible types in assignment (expression has type "dict[str, int]", variable has type "IntDict")  [assignment]
+"""

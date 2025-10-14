@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_member_names.py:30: error: Expression is of type "str", not "Literal['RED', 'BLUE', 'GREEN']"  [misc]
+"""

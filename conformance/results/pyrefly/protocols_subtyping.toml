@@ -1,0 +1,13 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR protocols_subtyping.py:16:12-14: Cannot instantiate `Proto1` because it is a protocol [bad-instantiation]
+ERROR protocols_subtyping.py:38:21-23: `Proto2` is not assignable to `Concrete2` [bad-assignment]
+ERROR protocols_subtyping.py:55:18-20: `Proto2` is not assignable to `Proto3` [bad-assignment]
+ERROR protocols_subtyping.py:79:30-36: `Proto5[int]` is not assignable to `Proto4[int, float]` [bad-assignment]
+ERROR protocols_subtyping.py:80:25-31: `Proto4[int, int]` is not assignable to `Proto5[float]` [bad-assignment]
+ERROR protocols_subtyping.py:102:30-32: `Proto6[float, float]` is not assignable to `Proto7[int, float]` [bad-assignment]
+ERROR protocols_subtyping.py:103:33-35: `Proto6[float, float]` is not assignable to `Proto7[float, object]` [bad-assignment]
+"""
