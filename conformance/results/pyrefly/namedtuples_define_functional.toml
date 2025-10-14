@@ -16,5 +16,6 @@ ERROR namedtuples_define_functional.py:43:17-20: Argument `float` is not assigna
 ERROR namedtuples_define_functional.py:52:31-34: Duplicate field `a` [bad-class-definition]
 ERROR namedtuples_define_functional.py:53:33-38: `def` is not a valid identifier [bad-class-definition]
 ERROR namedtuples_define_functional.py:54:33-38: `def` is not a valid identifier [bad-class-definition]
-ERROR namedtuples_define_functional.py:66:4-6: Missing argument `a` in function `NT5.__new__` [missing-argument]
+ERROR namedtuples_define_functional.py:55:33-37: NamedTuple field name may not start with an underscore: `_d` [bad-class-definition]
+ERROR namedtuples_define_functional.py:69:4-6: Missing argument `a` in function `NT7.__new__` [missing-argument]
 """

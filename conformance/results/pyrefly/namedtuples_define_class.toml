@@ -1,6 +1,10 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Doesn't catch illegal field name starting with underscore
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 76: Expected 1 errors
 """
 output = """
 ERROR namedtuples_define_class.py:32:7-12: Index 3 out of range for tuple with 3 elements [index-error]
@@ -11,8 +15,9 @@ ERROR namedtuples_define_class.py:46:15-17: Argument `Literal['']` is not assign
 ERROR namedtuples_define_class.py:47:24-25: Argument `Literal[3]` is not assignable to parameter `units` with type `str` in function `Point.__new__` [bad-argument-type]
 ERROR namedtuples_define_class.py:48:22-24: Expected 3 positional arguments, got 4 in function `Point.__new__` [bad-argument-count]
 ERROR namedtuples_define_class.py:49:23-28: Unexpected keyword argument `other` in function `Point.__new__` [unexpected-keyword]
-ERROR namedtuples_define_class.py:59:5-13: NamedTuple field 'latitude' without a default may not follow NamedTuple field with a default [bad-class-definition]
-ERROR namedtuples_define_class.py:79:5-6: Cannot override named tuple element `x` [bad-override]
-ERROR namedtuples_define_class.py:98:19-22: Argument `float` is not assignable to parameter `value` with type `str` in function `Property.__new__` [bad-argument-type]
-ERROR namedtuples_define_class.py:105:7-11: Named tuples do not support multiple inheritance [invalid-inheritance]
+ERROR namedtuples_define_class.py:69:20-22: Expected 2 positional arguments, got 3 in function `Point2.__new__` [bad-argument-count]
+ERROR namedtuples_define_class.py:86:5-13: NamedTuple field 'latitude' without a default may not follow NamedTuple field with a default [bad-class-definition]
+ERROR namedtuples_define_class.py:106:5-6: Cannot override named tuple element `x` [bad-override]
+ERROR namedtuples_define_class.py:125:19-22: Argument `float` is not assignable to parameter `value` with type `str` in function `Property.__new__` [bad-argument-type]
+ERROR namedtuples_define_class.py:132:7-11: Named tuples do not support multiple inheritance [invalid-inheritance]
 """
