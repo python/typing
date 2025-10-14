@@ -63,7 +63,7 @@ NT6(abc="", _1="")  # OK
 # > The ``namedtuple`` function also supports a ``defaults`` keyword argument that
 # > specifies default values for the fields. Type checkers may support this.
 
-NT5 = namedtuple("NT5", "a b c", defaults=(1, 2))
-NT5(1)  # OK
-NT5(1, 2, 3)  # OK
-NT5()  # E: too few arguments
+NT7 = namedtuple("NT7", "a b c", defaults=(1, 2))
+NT7(1)  # OK
+NT7(1, 2, 3)  # OK
+NT7()  # E: too few arguments
