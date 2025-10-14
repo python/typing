@@ -9,7 +9,8 @@ Type checker directives
 -----------------
 
 The function ``typing.assert_type(val, typ)`` allows users to
-ask a static type checker to confirm that *val* has an inferred type of *typ*.
+ask a static type checker to confirm that the inferred type of *val*
+is :term:`equivalent` to *typ*.
 
 When a type checker encounters a call to ``assert_type()``, it
 should emit an error if the value is not of the specified type::
@@ -17,6 +18,17 @@ should emit an error if the value is not of the specified type::
     def greet(name: str) -> None:
         assert_type(name, str)  # OK, inferred type of `name` is `str`
         assert_type(name, int)  # type checker error
+
+If the two types are :term:`equivalent` but syntactically different,
+the type checker may reject the ``assert_type()`` call::
+
+  from typing import assert_type, Literal
+
+  def greet(name: str) -> None:
+      assert_type(name, str | Literal["spam"])  # type checker may error
+
+Type checkers should aim to minimize cases where they reject
+``assert_type()`` calls that use equivalent types.
 
 The second argument must be a valid :term:`type expression`.
 
