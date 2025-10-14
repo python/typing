@@ -3,9 +3,9 @@ notes = """
 "More than one unpack" error is missing in some cases.
 """
 output = """
-tuples_unpacked.py:40: error: More than one Unpack in a type is not allowed  [misc]
-tuples_unpacked.py:51: error: More than one Unpack in a type is not allowed  [misc]
-tuples_unpacked.py:59: error: More than one Unpack in a type is not allowed  [misc]
+tuples_unpacked.py:40: error: More than one variadic Unpack in a type is not allowed  [misc]
+tuples_unpacked.py:51: error: More than one variadic Unpack in a type is not allowed  [misc]
+tuples_unpacked.py:59: error: More than one variadic Unpack in a type is not allowed  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """

@@ -1,0 +1,19 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 77: Expected 1 errors
+Line 81: Expected 1 errors
+Line 93: Expected 1 errors
+Line 105: Expected 1 errors
+Line 113: Expected 1 errors
+Line 163: Expected 1 errors
+Line 167: Expected 1 errors
+Line 191: Expected 1 errors
+Lines 125, 126: Expected error (tag 'CoContra_Child2')
+Lines 131, 132: Expected error (tag 'CoContra_Child3')
+Lines 141, 142: Expected error (tag 'CoContra_Child5')
+Lines 195, 196: Expected error (tag 'ContraToContraToContra_WithTA')
+"""
+output = """
+ERROR generics_variance.py:14:36-54: Contradictory variance specifications [invalid-type-var]
+"""

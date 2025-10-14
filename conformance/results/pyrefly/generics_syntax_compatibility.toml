@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR generics_syntax_compatibility.py:14:7-13: Class `ClassA` uses type variables not specified in `Generic` or `Protocol` base [invalid-type-var]
+ERROR generics_syntax_compatibility.py:14:22-23: Type parameter K is not included in the type parameter list [invalid-type-var]
+ERROR generics_syntax_compatibility.py:26:35-36: Type parameter K is not included in the type parameter list [invalid-type-var]
+"""

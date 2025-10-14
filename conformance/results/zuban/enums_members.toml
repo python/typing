@@ -1,0 +1,26 @@
+conformant = "Partial"
+notes = """
+Does not honor `enum.member` as method decorator.
+Does not properly handle aliased enum members.
+Does not treat somecallables as non-members.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 82: Expected 1 errors
+Line 83: Expected 1 errors
+Line 116: Expected 1 errors
+Line 100: Unexpected errors ['enums_members.py:100: error: Expression is of type "Literal[TrafficLight.AMBER]", not "Literal[TrafficLight.YELLOW]"  [misc]']
+Line 117: Unexpected errors ['enums_members.py:117: error: Parameter 1 of Literal[...] is invalid  [valid-type]']
+"""
+output = """
+enums_members.py:50: error: Enum members must be left unannotated  [misc]
+enums_members.py:50: note: See https://typing.readthedocs.io/en/latest/spec/enums.html#defining-members
+enums_members.py:84: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+enums_members.py:85: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+enums_members.py:100: error: Expression is of type "Literal[TrafficLight.AMBER]", not "Literal[TrafficLight.YELLOW]"  [misc]
+enums_members.py:117: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+enums_members.py:128: note: Revealed type is "builtins.int"
+enums_members.py:129: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+enums_members.py:146: error: Expression is of type "Literal[Pet5.DOG]", not "int"  [misc]
+enums_members.py:147: error: Expression is of type "Literal[Pet5.FISH]", not "int"  [misc]
+"""

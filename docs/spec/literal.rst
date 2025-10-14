@@ -397,14 +397,10 @@ Literal types are types, and can be used anywhere a type is expected.
 For example, it is legal to parameterize generic functions or
 classes using Literal types::
 
-   A = TypeVar('A', bound=int)
-   B = TypeVar('B', bound=int)
-   C = TypeVar('C', bound=int)
-
    # A simplified definition for Matrix[row, column]
-   class Matrix(Generic[A, B]):
+   class Matrix[A: int, B: int]:
        def __add__(self, other: Matrix[A, B]) -> Matrix[A, B]: ...
-       def __matmul__(self, other: Matrix[B, C]) -> Matrix[A, C]: ...
+       def __matmul__[C: int](self, other: Matrix[B, C]) -> Matrix[A, C]: ...
        def transpose(self) -> Matrix[B, A]: ...
 
    foo: Matrix[Literal[2], Literal[3]] = Matrix(...)
@@ -413,11 +409,14 @@ classes using Literal types::
    baz = foo @ bar
    reveal_type(baz)  # Revealed type is 'Matrix[Literal[2], Literal[7]]'
 
-Similarly, it is legal to construct TypeVars with value restrictions
+Similarly, it is legal to use type variables with value restrictions
 or bounds involving Literal types::
 
-   T = TypeVar('T', Literal["a"], Literal["b"], Literal["c"])
-   S = TypeVar('S', bound=Literal["foo"])
+   def takes_letter[T: (Literal["a"], Literal["b"], Literal["c"])](value: T) -> T:
+       return value
+
+   def takes_foo[S: Literal["foo"]](value: S) -> S:
+       return value
 
 ...although it is unclear when it would ever be useful to construct a
 TypeVar with a Literal upper bound. For example, the ``S`` TypeVar in
@@ -562,7 +561,8 @@ Valid locations for ``LiteralString``
 
     type_argument: List[LiteralString]
 
-    T = TypeVar("T", bound=LiteralString)
+    def enforce_literal[T: LiteralString](value: T) -> T:
+        return value
 
 It cannot be nested within unions of ``Literal`` types:
 
@@ -733,18 +733,16 @@ Conditional statements and expressions work as expected:
         return result  # OK
 
 
-Interaction with TypeVars and Generics
-""""""""""""""""""""""""""""""""""""""
+Interaction with Type Variables and Generics
+""""""""""""""""""""""""""""""""""""""""""""
 
-TypeVars can be bound to ``LiteralString``:
+Type variables can use ``LiteralString`` as an upper bound:
 
 ::
 
-    from typing import Literal, LiteralString, TypeVar
+    from typing import Literal, LiteralString
 
-    TLiteral = TypeVar("TLiteral", bound=LiteralString)
-
-    def literal_identity(s: TLiteral) -> TLiteral:
+    def literal_identity[T: LiteralString](s: T) -> T:
         return s
 
     hello: Literal["hello"] = "hello"
@@ -757,14 +755,14 @@ TypeVars can be bound to ``LiteralString``:
 
     s_error: str
     literal_identity(s_error)
-    # Error: Expected TLiteral (bound to LiteralString), got str.
+    # Error: Expected T (bound to LiteralString), got str.
 
 
 ``LiteralString`` can be used as a type argument for generic classes:
 
 ::
 
-    class Container(Generic[T]):
+    class Container[T]:
         def __init__(self, value: T) -> None:
             self.value = value
 

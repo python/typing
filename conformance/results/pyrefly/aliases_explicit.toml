@@ -1,0 +1,29 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR aliases_explicit.py:67:9-28: `TypeAlias[GoodTypeAlias2, type[int | None]]` is not subscriptable [unsupported-operation]
+ERROR aliases_explicit.py:68:9-28: `TypeAlias[GoodTypeAlias3, type[list[int | None]]]` is not subscriptable [unsupported-operation]
+ERROR aliases_explicit.py:69:9-33: Expected 1 type argument for `GoodTypeAlias4`, got 2 [bad-specialization]
+ERROR aliases_explicit.py:70:9-33: Expected 1 type argument for `GoodTypeAlias8`, got 2 [bad-specialization]
+ERROR aliases_explicit.py:71:9-33: Expected a valid ParamSpec expression, got `int` [invalid-param-spec]
+ERROR aliases_explicit.py:79:21-61: function call cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:80:21-31: list literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:81:21-34: tuple literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:82:21-44: list comprehension cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:83:21-31: dict literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:83:23-24: Could not find name `a` [unknown-name]
+ERROR aliases_explicit.py:83:28-29: Could not find name `b` [unknown-name]
+ERROR aliases_explicit.py:84:21-36: function call cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:85:21-29: invalid subscript expression cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:86:21-42: if expression cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:87:21-25: Expected `BadTypeAlias9` to be a type alias, got `Literal[3]` [type-alias-error]
+ERROR aliases_explicit.py:88:22-26: bool literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:89:22-23: number literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:90:22-33: boolean operation cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:91:22-32: f-string cannot be used in annotations [invalid-annotation]
+ERROR aliases_explicit.py:100:5-19: `TypeAlias[ListAlias, type[list[Unknown]]]` is not subscriptable [unsupported-operation]
+ERROR aliases_explicit.py:101:6-20: Expected a callable, got `TypeAlias[ListOrSetAlias, type[list[Unknown] | set[Unknown]]]` [not-callable]
+ERROR aliases_explicit.py:102:5-24: `TypeAlias[ListOrSetAlias, type[list[Unknown] | set[Unknown]]]` is not subscriptable [unsupported-operation]
+"""

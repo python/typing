@@ -1,0 +1,14 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR literals_literalstring.py:36:29-42: Invalid type inside literal, `LiteralString` [invalid-literal]
+ERROR literals_literalstring.py:37:22-35: Invalid type inside literal, `LiteralString` [invalid-literal]
+ERROR literals_literalstring.py:43:23-24: `Literal['two']` is not assignable to `Literal['']` [bad-assignment]
+ERROR literals_literalstring.py:66:25-47: `str` is not assignable to `LiteralString` [bad-assignment]
+ERROR literals_literalstring.py:74:25-26: `Literal[3]` is not assignable to `LiteralString` [bad-assignment]
+ERROR literals_literalstring.py:75:25-32: `Literal[b'test']` is not assignable to `LiteralString` [bad-assignment]
+ERROR literals_literalstring.py:120:21-24: Type `str` is not assignable to upper bound `LiteralString` of type variable `TLiteral` [bad-specialization]
+ERROR literals_literalstring.py:134:51-52: Argument `str` is not assignable to parameter `value` with type `LiteralString` in function `Container.__init__` [bad-argument-type]
+ERROR literals_literalstring.py:171:21-24: `list[LiteralString]` is not assignable to `list[str]` [bad-assignment]
+"""

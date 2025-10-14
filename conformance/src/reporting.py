@@ -46,11 +46,8 @@ def generate_summary_html(root_dir: Path) -> str:
             existing_info = {}
 
         version = existing_info["version"] or "Unknown version"
-        test_duration = existing_info.get("test_duration")
 
         summary_html.append(f"<th class='tc-header'><div class='tc-name'>{version}</div>")
-        if test_duration is not None:
-            summary_html.append(f"<div class='tc-time'>{test_duration:.1f}sec</div>")
         summary_html.append("</th>")
 
     summary_html.append("</tr>")
@@ -90,6 +87,12 @@ def generate_summary_html(root_dir: Path) -> str:
 
                     raw_notes = results.get("notes", "").strip()
                     conformance = results.get("conformant", "Unknown")
+                    if conformance == "Unknown":
+                        # Try to look up the automated test results and use
+                        # that if the test passes
+                        automated = results.get("conformance_automated")
+                        if automated == "Pass":
+                            conformance = "Pass"
                     notes = "".join(
                         [f"<p>{note}</p>" for note in raw_notes.split("\n")]
                     )

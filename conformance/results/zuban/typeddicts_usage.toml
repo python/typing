@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_usage.py:23: error: TypedDict "Movie" has no key "director"  [typeddict-unknown-key]
+typeddicts_usage.py:24: error: Value of "year" has incompatible type "str"; expected "int"  [typeddict-item]
+typeddicts_usage.py:28: error: Extra key "title" for TypedDict "Movie"  [typeddict-unknown-key]
+typeddicts_usage.py:28: error: Missing key "name" for TypedDict "Movie"  [typeddict-item]
+typeddicts_usage.py:35: error: Cannot use isinstance() with TypedDict type  [misc]
+typeddicts_usage.py:40: error: Invalid type  [valid-type]
+"""

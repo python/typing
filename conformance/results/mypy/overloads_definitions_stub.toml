@@ -4,7 +4,7 @@ Allows @override to appear in a stub file not on the first overload.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Lines 143, 147, 149: Expected error (tag 'override_impl')
+Lines 143, 146, 147, 149: Expected error (tag 'override_impl')
 """
 output = """
 overloads_definitions_stub.pyi:13: error: Single overload definition, multiple required  [misc]

@@ -1,0 +1,17 @@
+conformant = "Partial"
+notes = """
+Does not implement some scoping restrictions for PEP695 generic syntax
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 92: Expected 1 errors
+Line 95: Expected 1 errors
+Line 98: Expected 1 errors
+"""
+output = """
+ERROR generics_syntax_scoping.py:14:20-31: Type variable bounds and constraints must be concrete [invalid-annotation]
+ERROR generics_syntax_scoping.py:18:26-27: Expected a type form, got instance of `int` [not-a-type]
+ERROR generics_syntax_scoping.py:35:7-8: `T` is uninitialized [unbound-name]
+ERROR generics_syntax_scoping.py:44:17-18: `T` is uninitialized [unbound-name]
+ERROR generics_syntax_scoping.py:44:17-18: Expected a type form, got instance of `int` [not-a-type]
+"""

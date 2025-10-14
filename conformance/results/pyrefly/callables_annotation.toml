@@ -1,0 +1,31 @@
+conformant = "Partial"
+notes = """
+Parameter names are lost when resolving ParamSpec
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 156: Unexpected errors ['`Proto4[Ellipsis]` is not assignable to `Proto3` [bad-assignment]']
+Line 157: Unexpected errors ['`Proto7` is not assignable to `Proto6` [bad-assignment]']
+"""
+output = """
+ERROR callables_annotation.py:25:7-10: Expected 1 more positional argument [bad-argument-count]
+ERROR callables_annotation.py:26:11-12: Argument `Literal[2]` is not assignable to parameter with type `str` [bad-argument-type]
+ERROR callables_annotation.py:27:15-16: Expected 2 positional arguments, got 3 [bad-argument-count]
+ERROR callables_annotation.py:29:8-9: Unexpected keyword argument `a` [unexpected-keyword]
+ERROR callables_annotation.py:29:8-11: Expected 2 more positional arguments [bad-argument-count]
+ERROR callables_annotation.py:29:13-14: Unexpected keyword argument `b` [unexpected-keyword]
+ERROR callables_annotation.py:35:8-9: Expected 0 positional arguments, got 1 [bad-argument-count]
+ERROR callables_annotation.py:55:5-18: `Callable` requires exactly two arguments but 1 was found [bad-specialization]
+ERROR callables_annotation.py:56:14-17: Callable types can only have `ParamSpec` in this position, got `int` [bad-specialization]
+ERROR callables_annotation.py:57:18-23: Expected a type form, got instance of `list[type[int]]` [not-a-type]
+ERROR callables_annotation.py:58:5-28: `Callable` requires exactly two arguments but 3 was found [bad-specialization]
+ERROR callables_annotation.py:59:15-18: Invalid position for `...` [invalid-argument]
+ERROR callables_annotation.py:91:7-15: `() -> str` is not assignable to variable `cb3` with type `(int, ...) -> str` [bad-assignment]
+ERROR callables_annotation.py:93:7-15: `(*, a: int) -> str` is not assignable to variable `cb3` with type `(int, ...) -> str` [bad-assignment]
+ERROR callables_annotation.py:156:20-22: `Proto4[Ellipsis]` is not assignable to `Proto3` [bad-assignment]
+ERROR callables_annotation.py:157:20-22: `Proto7` is not assignable to `Proto6` [bad-assignment]
+ERROR callables_annotation.py:159:25-27: `Proto8` is not assignable to `Proto5[Any]` [bad-assignment]
+ERROR callables_annotation.py:172:26-29: `() -> str` is not assignable to `(int, ...) -> str` [bad-assignment]
+ERROR callables_annotation.py:187:48-50: `(int, str) -> str` is not assignable to `(str, ...) -> str` [bad-assignment]
+ERROR callables_annotation.py:189:32-34: `(int, str) -> str` is not assignable to `(str, ...) -> str` [bad-assignment]
+"""

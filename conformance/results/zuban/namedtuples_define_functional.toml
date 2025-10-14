@@ -1,0 +1,17 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+namedtuples_define_functional.py:16: error: Missing positional argument "y" in call to "Point1"  [call-arg]
+namedtuples_define_functional.py:21: error: Missing positional arguments "x", "y" in call to "Point2"  [call-arg]
+namedtuples_define_functional.py:26: error: Too many arguments for "Point3"  [call-arg]
+namedtuples_define_functional.py:31: error: Unexpected keyword argument "z" for "Point4"  [call-arg]
+namedtuples_define_functional.py:36: error: Argument 2 to "Point5" has incompatible type "str"; expected "int"  [arg-type]
+namedtuples_define_functional.py:37: error: Too many arguments for "Point5"  [call-arg]
+namedtuples_define_functional.py:42: error: Argument 2 to "Point6" has incompatible type "str"; expected "int"  [arg-type]
+namedtuples_define_functional.py:43: error: Argument "x" to "Point6" has incompatible type "float"; expected "int"  [arg-type]
+namedtuples_define_functional.py:52: error: "namedtuple()" has duplicate field name "a"  [misc]
+namedtuples_define_functional.py:53: error: "namedtuple()" field name "def" is a keyword  [misc]
+namedtuples_define_functional.py:54: error: "namedtuple()" field name "def" is a keyword  [misc]
+namedtuples_define_functional.py:66: error: Missing positional argument "a" in call to "NT5"  [call-arg]
+"""

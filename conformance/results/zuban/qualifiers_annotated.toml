@@ -1,0 +1,27 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+qualifiers_annotated.py:38: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
+qualifiers_annotated.py:38: note: Did you mean "List[...]"?
+qualifiers_annotated.py:39: error: Syntax error in type annotation  [valid-type]
+qualifiers_annotated.py:39: note: Suggestion: Is there a spurious trailing comma?
+qualifiers_annotated.py:40: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:41: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:42: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:43: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:44: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:45: error: Name "var1" is not defined  [name-defined]
+qualifiers_annotated.py:46: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:47: error: Invalid type: try using Literal[1] instead?  [valid-type]
+qualifiers_annotated.py:48: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:49: error: Invalid type comment or annotation  [valid-type]
+qualifiers_annotated.py:59: error: Annotated[...] must have exactly one type argument and at least one annotation  [valid-type]
+qualifiers_annotated.py:71: error: Incompatible types in assignment (expression has type "_SpecialForm", variable has type "type[Any]")  [assignment]
+qualifiers_annotated.py:72: error: Incompatible types in assignment (expression has type "_SpecialForm", variable has type "type[Any]")  [assignment]
+qualifiers_annotated.py:79: error: Argument 1 to "func4" has incompatible type "_SpecialForm"; expected "type[Never]"  [arg-type]
+qualifiers_annotated.py:80: error: Argument 1 to "func4" has incompatible type "_SpecialForm"; expected "type[Never]"  [arg-type]
+qualifiers_annotated.py:86: error: "_SpecialForm" not callable  [operator]
+qualifiers_annotated.py:87: error: "_SpecialForm" not callable  [operator]
+qualifiers_annotated.py:88: error: "<typing special form>" not callable  [operator]
+"""

@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_cast.py:15: error: "cast" expects 2 arguments  [call-arg]
+directives_cast.py:16: error: Invalid type: try using Literal[1] instead?  [valid-type]
+directives_cast.py:17: error: "cast" expects 2 arguments  [call-arg]
+"""

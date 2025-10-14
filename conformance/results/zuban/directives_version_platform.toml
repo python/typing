@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_version_platform.py:19: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform.py:27: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform.py:40: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform.py:45: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+"""

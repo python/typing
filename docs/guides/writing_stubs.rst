@@ -5,7 +5,8 @@ Writing and Maintaining Stub Files
 **********************************
 
 Stub files are a means of providing type information for Python modules.
-For a full reference, refer to :ref:`stub-files`.
+For a quick introduction, see :ref:`external_libraries`. For a full reference,
+refer to :ref:`distributing-type`.
 
 Maintaining stubs can be a little cumbersome because they are separated from the
 implementation. This page lists some tools that make writing and maintaining
@@ -810,7 +811,7 @@ This avoid forcing the user to check for ``None``::
     match = re.fullmatch(r"\d+_(.*)", some_string)
     assert match is not None
     name_group = match.group(1)  # The user knows that this will never be None
-    return name_group.uper()  # This typo will be flagged by the type checker
+    name_group.uper()  # This typo will be flagged by the type checker
 
 In this case, the user of ``match.group()`` must be prepared to handle a ``str``,
 but type checkers are happy with ``if name_group is None`` checks, because we're

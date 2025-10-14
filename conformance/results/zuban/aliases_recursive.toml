@@ -1,0 +1,17 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+aliases_recursive.py:19: error: Dict entry 1 has incompatible type "str": "complex"; expected "str": "None | int | str | float | list[Json] | dict[str, Json]"  [dict-item]
+aliases_recursive.py:20: error: List item 1 has incompatible type "complex"; expected "None | int | str | float | list[Json] | dict[str, Json]"  [list-item]
+aliases_recursive.py:38: error: Incompatible types in assignment (expression has type "tuple[int, tuple[str, int], tuple[int, tuple[int, list[int]]]]", variable has type "str | int | tuple[RecursiveTuple, ...]")  [assignment]
+aliases_recursive.py:39: error: Name "t6" already defined on line 38  [no-redef]
+aliases_recursive.py:39: error: Incompatible types in assignment (expression has type "tuple[int, list[int]]", variable has type "str | int | tuple[RecursiveTuple, ...]")  [assignment]
+aliases_recursive.py:50: error: Dict entry 0 has incompatible type "str": "list[int]"; expected "str": "str | int | Mapping[str, str | int | Mapping[str, RecursiveMapping]]"  [dict-item]
+aliases_recursive.py:51: error: Dict entry 2 has incompatible type "str": "list[int]"; expected "str": "str | int | Mapping[str, str | int | Mapping[str, RecursiveMapping]]"  [dict-item]
+aliases_recursive.py:52: error: Dict entry 2 has incompatible type "str": "list[int]"; expected "str": "str | int | Mapping[str, str | int | Mapping[str, RecursiveMapping]]"  [dict-item]
+aliases_recursive.py:63: error: List item 0 has incompatible type "float"; expected "GenericTypeAlias1[str] | str"  [list-item]
+aliases_recursive.py:69: error: List item 0 has incompatible type "float"; expected "GenericTypeAlias2[str, int] | str | int"  [list-item]
+aliases_recursive.py:72: error: Invalid recursive alias: a union item of itself  [misc]
+aliases_recursive.py:75: error: Invalid recursive alias: a union item of itself  [misc]
+"""

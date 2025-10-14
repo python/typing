@@ -1,0 +1,12 @@
+conformant = "Partial"
+notes = """
+Improperly applies narrowing to Flag subclass.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 53: Expected 1 errors
+Line 52: Unexpected errors ['enums_expansion.py:52: error: Expression is of type "Literal[CustomFlags.FLAG3]", not "CustomFlags"  [misc]']
+"""
+output = """
+enums_expansion.py:52: error: Expression is of type "Literal[CustomFlags.FLAG3]", not "CustomFlags"  [misc]
+"""

@@ -72,12 +72,10 @@ Decorator function example
 
 .. code-block:: python
 
-  _T = TypeVar("_T")
-
   # The ``create_model`` decorator is defined by a library.
   # This could be in a type stub or inline.
   @typing.dataclass_transform()
-  def create_model(cls: Type[_T]) -> Type[_T]:
+  def create_model[T](cls: type[T]) -> type[T]:
       cls.__init__ = ...
       cls.__eq__ = ...
       cls.__ne__ = ...
@@ -148,7 +146,9 @@ customization of default behaviors:
 
 .. code-block:: python
 
-  _T = TypeVar("_T")
+  class _IdentityCallable(Protocol):
+      def __call__[T](self, arg: T, /) -> T:
+          ...
 
   def dataclass_transform(
       *,
@@ -158,7 +158,7 @@ customization of default behaviors:
       frozen_default: bool = False,
       field_specifiers: tuple[type | Callable[..., Any], ...] = (),
       **kwargs: Any,
-  ) -> Callable[[_T], _T]: ...
+  ) -> _IdentityCallable: ...
 
 * ``eq_default`` indicates whether the ``eq`` parameter is assumed to
   be True or False if it is omitted by the caller. If not specified,

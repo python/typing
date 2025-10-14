@@ -34,29 +34,24 @@ Type aliases may be as complex as type hints in annotations --
 anything that is acceptable as a type hint is acceptable in a type
 alias::
 
-    from typing import TypeVar
     from collections.abc import Iterable
 
-    T = TypeVar('T', bound=float)
-    Vector = Iterable[tuple[T, T]]
+    type Vector[T: float] = Iterable[tuple[T, T]]
 
-    def inproduct(v: Vector[T]) -> T:
+    def inproduct[T: float](v: Vector[T]) -> T:
         return sum(x*y for x, y in v)
-    def dilate(v: Vector[T], scale: T) -> Vector[T]:
+    def dilate[T: float](v: Vector[T], scale: T) -> Vector[T]:
         return ((x * scale, y * scale) for x, y in v)
     vec: Vector[float] = []
 
 
 This is equivalent to::
 
-    from typing import TypeVar
     from collections.abc import Iterable
 
-    T = TypeVar('T', bound=float)
-
-    def inproduct(v: Iterable[tuple[T, T]]) -> T:
+    def inproduct[T: float](v: Iterable[tuple[T, T]]) -> T:
         return sum(x*y for x, y in v)
-    def dilate(v: Iterable[tuple[T, T]], scale: T) -> Iterable[tuple[T, T]]:
+    def dilate[T: float](v: Iterable[tuple[T, T]], scale: T) -> Iterable[tuple[T, T]]:
         return ((x * scale, y * scale) for x, y in v)
     vec: Iterable[tuple[float, float]] = []
 
@@ -156,9 +151,9 @@ to a definition::
       def __init__(self, _x: Base) -> None:
           ...
 
-While at runtime, ``NewType('Derived', Base)`` returns a dummy function
-that simply returns its argument. Type checkers require explicit casts
-from ``int`` where ``UserId`` is expected, while implicitly casting
+While at runtime, ``NewType('Derived', Base)`` returns a dummy object
+that simply returns its argument when called. Type checkers require explicit
+casts from ``int`` where ``UserId`` is expected, while implicitly casting
 from ``UserId`` where ``int`` is expected. Examples::
 
         UserId = NewType('UserId', int)
@@ -176,7 +171,7 @@ from ``UserId`` where ``int`` is expected. Examples::
 ``NewType`` accepts exactly two arguments: a name for the new unique type,
 and a base class. The latter should be a proper class (i.e.,
 not a type construct like ``Union``, etc.), or another unique type created
-by calling ``NewType``. The function returned by ``NewType``
+by calling ``NewType``. The callable returned by ``NewType``
 accepts only one argument; this is equivalent to supporting only one
 constructor accepting an instance of the base class (see above). Example::
 
@@ -193,5 +188,8 @@ constructor accepting an instance of the base class (see above). Example::
   tcp_packet = TcpPacketId(127, 0)  # Fails in type checker and at runtime
 
 Both ``isinstance`` and ``issubclass``, as well as subclassing will fail
-for ``NewType('Derived', Base)`` since function objects don't support
-these operations.
+for ``NewType('Derived', Base)``, since the object returned by a call to
+``NewType`` is not a class.
+
+See also :ref:`protocol-newtype-aliases` for a discussion of how
+``NewType`` interacts with protocol definitions.

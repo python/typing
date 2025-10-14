@@ -366,9 +366,8 @@ In addition, the first argument in an instance method can be annotated
 with a type variable. In this case the return type may use the same
 type variable, thus making that method a generic function. For example::
 
-  T = TypeVar('T', bound='Copyable')
   class Copyable:
-      def copy(self: T) -> T:
+      def copy[T: Copyable](self: T) -> T:
           # return a copy of self
 
   class C(Copyable): ...
@@ -378,10 +377,9 @@ type variable, thus making that method a generic function. For example::
 The same applies to class methods using ``type[]`` in an annotation
 of the first argument::
 
-  T = TypeVar('T', bound='C')
   class C:
       @classmethod
-      def factory(cls: type[T]) -> T:
+      def factory[T: C](cls: type[T]) -> T:
           # make a new instance of cls
 
   class D(C): ...

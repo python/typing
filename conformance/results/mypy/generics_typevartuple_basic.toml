@@ -15,8 +15,8 @@ generics_typevartuple_basic.py:59: error: TypeVarTuple "Shape" is only valid wit
 generics_typevartuple_basic.py:65: error: Unexpected keyword argument "covariant" for "TypeVarTuple"  [misc]
 generics_typevartuple_basic.py:66: error: Too many positional arguments for "TypeVarTuple"  [misc]
 generics_typevartuple_basic.py:67: error: Unexpected keyword argument "bound" for "TypeVarTuple"  [misc]
-generics_typevartuple_basic.py:99: error: Cannot infer type argument 1 of "multiply"  [misc]
-generics_typevartuple_basic.py:100: error: Cannot infer type argument 1 of "multiply"  [misc]
+generics_typevartuple_basic.py:99: error: Cannot infer value of type parameter "Shape" of "multiply"  [misc]
+generics_typevartuple_basic.py:100: error: Cannot infer value of type parameter "Shape" of "multiply"  [misc]
 generics_typevartuple_basic.py:106: error: Can only use one type var tuple in a class def  [misc]
 """
 conformance_automated = "Fail"

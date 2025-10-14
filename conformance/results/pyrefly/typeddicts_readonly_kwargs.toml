@@ -1,0 +1,7 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR typeddicts_readonly_kwargs.py:33:12-18: Key `key1` in TypedDict `ReadOnlyArgs` is read-only [read-only]
+"""

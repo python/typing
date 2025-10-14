@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR historical_positional.py:18:4-7: Expected argument `__x` to be positional in function `f1` [unexpected-keyword]
+ERROR historical_positional.py:26:16-19: Positional-only parameter `__y` cannot appear after keyword parameters [bad-function-definition]
+ERROR historical_positional.py:38:26-29: Positional-only parameter `__y` cannot appear after keyword parameters [bad-function-definition]
+ERROR historical_positional.py:43:6-9: Expected argument `__x` to be positional in function `A.m1` [unexpected-keyword]
+"""

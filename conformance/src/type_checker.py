@@ -10,7 +10,6 @@ import re
 import shutil
 from subprocess import PIPE, CalledProcessError, run
 import sys
-from tqdm import tqdm
 from typing import Sequence
 
 
@@ -204,50 +203,45 @@ class PyrightTypeChecker(TypeChecker):
         return line_to_errors
 
 
-class PyreTypeChecker(TypeChecker):
+class ZubanLSTypeChecker(MypyTypeChecker):
     @property
     def name(self) -> str:
-        return "pyre"
+        return "zuban"
 
     def install(self) -> bool:
         try:
-            # Delete the cache for consistent timings.
-            shutil.rmtree(".pyre")
-        except (shutil.Error, OSError):
-            # Ignore any errors here.
-            pass
-
-        try:
             # Uninstall any existing version if present.
             run(
-                [sys.executable, "-m", "pip", "uninstall", "pyre-check", "-y"],
+                [sys.executable, "-m", "pip", "uninstall", "zuban", "-y"],
                 check=True,
             )
 
             # Install the latest version.
             run(
-                [sys.executable, "-m", "pip", "install", "pyre-check"],
+                [sys.executable, "-m", "pip", "install", "zuban"],
                 check=True,
             )
-
-            # Generate a default config file.
-            pyre_config = '{"site_package_search_strategy": "pep561", "source_directories": ["."]}\n'
-            with open(".pyre_configuration", "w") as f:
-                f.write(pyre_config)
-
             return True
         except CalledProcessError:
-            print("Unable to install pyre")
+            print("Unable to install zuban")
             return False
 
     def get_version(self) -> str:
-        proc = run(["pyre", "--version"], stdout=PIPE, text=True)
-        version = proc.stdout.strip()
-        version = version.replace("Client version:", "pyre")
-        return version
+        proc = run(["zuban", "--version"], stdout=PIPE, text=True)
+        return proc.stdout.strip()
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        proc = run(["pyre", "check"], stdout=PIPE, text=True, encoding="utf-8")
+        command = [
+            "zuban",
+            "check",
+            ".",
+            "--disable-error-code",
+            "empty-body",
+            "--enable-error-code",
+            "deprecated",
+            "--no-warn-unreachable",
+        ]
+        proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
         lines = proc.stdout.split("\n")
 
         # Add results to a dictionary keyed by the file name.
@@ -259,23 +253,98 @@ class PyreTypeChecker(TypeChecker):
         return results_dict
 
     def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
-        # narrowing_typeguard.py:17:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.
+        # narrowing_typeguard.py:102: error: TypeGuard functions must have a positional argument  [valid-type]
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            if line.count(":") < 3:
+                continue
+            _, lineno, kind, _ = line.split(":", maxsplit=3)
+            kind = kind.strip()
+            if kind != "error":
+                continue
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
+
+
+class PyreflyTypeChecker(TypeChecker):
+    @property
+    def name(self) -> str:
+        return "pyrefly"
+
+    def install(self) -> bool:
+        try:
+            # Uninstall any existing version if present.
+            run(
+                [sys.executable, "-m", "pip", "uninstall", "pyrefly", "-y"],
+                check=True,
+            )
+            # Install the latest version.
+            run(
+                [sys.executable, "-m", "pip", "install", "pyrefly"],
+                check=True,
+            )
+            return True
+        except CalledProcessError:
+            print("Unable to install pyrefly")
+            return False
+
+    def get_version(self) -> str:
+        proc = run(["pyrefly", "--version"], stdout=PIPE, text=True)
+        version = proc.stdout.strip()
+        return version
+
+    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
+        proc = run(
+            ["pyrefly", "check", "--output-format", "min-text", "--summary=none"],
+            stdout=PIPE,
+            text=True,
+            encoding="utf-8",
+        )
+        lines = proc.stdout.split("\n")
+
+        # Add results to a dictionary keyed by the file name.
+        results_dict: dict[str, str] = {}
+        for line in lines:
+            if not line.strip():
+                continue
+            # Extract the absolute path reported by pyrefly and convert it to a
+            # stable relative path (filename only) so results are consistent.
+            # Example input line:
+            #   "ERROR /abs/.../conformance/tests/foo.py:12:3-5: message [code]"
+            # We replace the absolute path with just "foo.py".
+            try:
+                abs_path = line.split(":", 1)[0].split(" ", 1)[1].strip()
+            except IndexError:
+                # If parsing fails, fall back to original line and grouping.
+                abs_path = ""
+            file_name = Path(abs_path).name if abs_path else line.split(":")[0]
+
+            # Replace only the first occurrence to avoid touching the message text.
+            display_line = line.replace(abs_path, file_name, 1) if abs_path else line
+            results_dict[file_name] = (
+                results_dict.get(file_name, "") + display_line + "\n"
+            )
+
+        return results_dict
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
         line_to_errors: dict[int, list[str]] = {}
         for line in output:
             # Ignore multi-line errors
             if ".py:" not in line and ".pyi:" not in line:
                 continue
             # Ignore reveal_type errors
-            if "Revealed type [-1]" in line:
+            if "revealed type: " in line:
                 continue
-            assert line.count(":") >= 2, f"Failed to parse line: {line!r}"
-            _, lineno, _ = line.split(":", maxsplit=2)
-            line_to_errors.setdefault(int(lineno), []).append(line)
+            assert line.count(":") >= 3, f"Failed to parse line: {line!r}"
+            _, lineno, _, error_msg = line.split(":", maxsplit=3)
+            line_to_errors.setdefault(int(lineno), []).append(error_msg.strip())
         return line_to_errors
 
 
 TYPE_CHECKERS: Sequence[TypeChecker] = (
     MypyTypeChecker(),
     PyrightTypeChecker(),
-    *([] if os.name == "nt" else [PyreTypeChecker()]),
+    ZubanLSTypeChecker(),
+    PyreflyTypeChecker(),
 )

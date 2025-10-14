@@ -1,0 +1,18 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR namedtuples_define_class.py:32:7-12: Index 3 out of range for tuple with 3 elements [index-error]
+ERROR namedtuples_define_class.py:33:7-13: Index -4 out of range for tuple with 3 elements [index-error]
+ERROR namedtuples_define_class.py:44:11-14: Missing argument `y` in function `Point.__new__` [missing-argument]
+ERROR namedtuples_define_class.py:45:11-16: Missing argument `y` in function `Point.__new__` [missing-argument]
+ERROR namedtuples_define_class.py:46:15-17: Argument `Literal['']` is not assignable to parameter `y` with type `int` in function `Point.__new__` [bad-argument-type]
+ERROR namedtuples_define_class.py:47:24-25: Argument `Literal[3]` is not assignable to parameter `units` with type `str` in function `Point.__new__` [bad-argument-type]
+ERROR namedtuples_define_class.py:48:22-24: Expected 3 positional arguments, got 4 in function `Point.__new__` [bad-argument-count]
+ERROR namedtuples_define_class.py:49:23-28: Unexpected keyword argument `other` in function `Point.__new__` [unexpected-keyword]
+ERROR namedtuples_define_class.py:59:5-13: NamedTuple field 'latitude' without a default may not follow NamedTuple field with a default [bad-class-definition]
+ERROR namedtuples_define_class.py:79:5-6: Cannot override named tuple element `x` [bad-override]
+ERROR namedtuples_define_class.py:98:19-22: Argument `float` is not assignable to parameter `value` with type `str` in function `Property.__new__` [bad-argument-type]
+ERROR namedtuples_define_class.py:105:7-11: Named tuples do not support multiple inheritance [invalid-inheritance]
+"""

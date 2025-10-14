@@ -1,0 +1,16 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+literals_literalstring.py:36: error: Parameter 2 of Literal[...] is invalid  [valid-type]
+literals_literalstring.py:37: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+literals_literalstring.py:43: error: Incompatible types in assignment (expression has type "Literal['two']", variable has type "Literal['']")  [assignment]
+literals_literalstring.py:66: error: Incompatible types in assignment (expression has type "str", variable has type "LiteralString")  [assignment]
+literals_literalstring.py:74: error: Incompatible types in assignment (expression has type "Literal[3]", variable has type "LiteralString")  [assignment]
+literals_literalstring.py:75: error: Incompatible types in assignment (expression has type "Literal[b'test']", variable has type "LiteralString")  [assignment]
+literals_literalstring.py:120: error: Value of type variable "TLiteral" of "literal_identity" cannot be "str"  [type-var]
+literals_literalstring.py:134: error: Value of type variable "T" of "Container" cannot be "str"  [type-var]
+literals_literalstring.py:171: error: Incompatible types in assignment (expression has type "list[LiteralString]", variable has type "list[str]")  [assignment]
+literals_literalstring.py:171: note: "List" is invariant -- see https://mypy.readthedocs.io/en/stable/common_issues.html#variance
+literals_literalstring.py:171: note: Consider using "Sequence" instead, which is covariant
+"""

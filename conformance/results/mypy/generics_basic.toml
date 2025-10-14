@@ -12,7 +12,7 @@ generics_basic.py:162: error: Free type variable expected in Generic[...]  [misc
 generics_basic.py:163: error: Free type variable expected in Protocol[...]  [misc]
 generics_basic.py:171: error: If Generic[...] or Protocol[...] is present it should list all type variables  [misc]
 generics_basic.py:172: error: If Generic[...] or Protocol[...] is present it should list all type variables  [misc]
-generics_basic.py:208: error: Dynamic metaclass not supported for "GenericMetaInstance"  [misc]
+generics_basic.py:208: error: Dynamic metaclass not supported for "GenericMetaInstance"  [metaclass]
 generics_basic.py:208: error: Type variable "generics_basic.T" is unbound  [valid-type]
 generics_basic.py:208: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
 generics_basic.py:208: note: (Hint: Use "T" in function signature to bind "T" inside a function)

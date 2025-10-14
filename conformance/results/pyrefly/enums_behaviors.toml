@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR enums_behaviors.py:27:12-33: assert_type(Literal[Color.RED], Color) failed [assert-type]
+ERROR enums_behaviors.py:32:12-43: assert_type(Color, Literal[Color.BLUE]) failed [assert-type]
+ERROR enums_behaviors.py:44:21-26: Cannot extend final class `Shape` [invalid-inheritance]
+"""

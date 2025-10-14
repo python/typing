@@ -1,0 +1,14 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+narrowing_typeis.py:105: error: "TypeIs" functions must have a positional argument  [misc]
+narrowing_typeis.py:110: error: "TypeIs" functions must have a positional argument  [misc]
+narrowing_typeis.py:132: error: Argument 1 to "takes_callable_str" has incompatible type "Callable[[object], TypeIs[int]]"; expected "Callable[[object], str]"  [arg-type]
+narrowing_typeis.py:152: error: Argument 1 to "takes_callable_str_proto" has incompatible type "Callable[[object], TypeIs[int]]"; expected "CallableStrProto"  [arg-type]
+narrowing_typeis.py:169: error: Argument 1 to "takes_typeguard" has incompatible type "Callable[[object], TypeIs[int]]"; expected "Callable[[object], TypeGuard[int]]"  [arg-type]
+narrowing_typeis.py:170: error: Argument 1 to "takes_typeis" has incompatible type "Callable[[object], TypeGuard[int]]"; expected "Callable[[object], TypeIs[int]]"  [arg-type]
+narrowing_typeis.py:191: error: Argument 1 to "takes_int_typeis" has incompatible type "Callable[[object], TypeIs[bool]]"; expected "Callable[[object], TypeIs[int]]"  [arg-type]
+narrowing_typeis.py:195: error: Narrowed type "str" is not a subtype of input type "int"  [narrowed-type-not-subtype]
+narrowing_typeis.py:199: error: Narrowed type "list[int]" is not a subtype of input type "list[object]"  [narrowed-type-not-subtype]
+"""

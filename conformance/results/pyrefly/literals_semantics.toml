@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR literals_semantics.py:10:18-19: `Literal[4]` is not assignable to `Literal[3]` [bad-assignment]
+ERROR literals_semantics.py:24:26-27: `Literal[0]` is not assignable to `Literal[False]` [bad-assignment]
+ERROR literals_semantics.py:25:22-23: `Literal[False]` is not assignable to `Literal[0]` [bad-assignment]
+ERROR literals_semantics.py:33:5-11: Augmented assignment produces a value of type `int`, which is not assignable to `Literal[3, 4, 5]` [bad-assignment]
+"""
