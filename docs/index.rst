@@ -81,7 +81,7 @@ Type Checkers
 
 * `mypy <http://mypy-lang.org/>`_, the reference implementation for type
   checkers.
-* `pyrefly <https://pyrefly.org//>`_, a fast type checker and language
+* `pyrefly <https://pyrefly.org/>`_, a fast type checker and language
   server.
 * `pyright <https://github.com/microsoft/pyright>`_, a type checker that
   emphasizes speed.
