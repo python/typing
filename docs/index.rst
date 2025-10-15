@@ -79,12 +79,11 @@ Typing-related Tools
 Type Checkers
 -------------
 
-* `mypy <http://mypy-lang.org/>`_, the reference implementation for type
-  checkers.
-* `pyrefly <https://pyrefly.org/>`_, a fast type checker and language
-  server.
-* `pyright <https://github.com/microsoft/pyright>`_, a type checker that
-  emphasizes speed.
+* `mypy <http://mypy-lang.org/>`_
+* `pyrefly <https://pyrefly.org/>`_
+* `pyright <https://github.com/microsoft/pyright>`_
+* `ty <https://docs.astral.sh/ty/>`_
+* `Zuban <https://docs.zubanls.com/en/latest/>`_
 
 Development Environments
 ------------------------
