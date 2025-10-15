@@ -85,6 +85,8 @@ Type Checkers
   server.
 * `pyright <https://github.com/microsoft/pyright>`_, a type checker that
   emphasizes speed.
+* `ty <https://docs.astral.sh/ty/>`_, a fast type checker and language
+  server.
 
 Development Environments
 ------------------------
