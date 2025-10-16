@@ -21,7 +21,7 @@ Type checkers should support the class syntax::
         units: str = "meters"
 
 Fields must be annotated attributes - methods and un-annotated attributes are not
-considered fields. Field names may not start with an underscore.
+considered fields. Field names may not start with an underscore::
 
     class MyTuple(NamedTuple):
         x1 = 1  # Not a field
