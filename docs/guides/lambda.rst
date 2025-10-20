@@ -35,10 +35,10 @@ you might as well just define a normal function. Let's call that our first worka
 The second workaround is equivalent: assigning the lambda to a variable, and annotating
 the type of that variable with a Callable.
 
-``f: Callable[[object], object] lambda x: x``
+``f: Callable[[object], object] = lambda x: x``
 
 Type comments on function definitions do not actually work on lambda, nor do
-normal type comments help (although you can use a type commment on an assignment
+normal type comments help (although you can use a type comment on an assignment
 to a variable with a lambda, of course; however this will have to be the Callable
 syntax and not the function-arrow special one).
 
@@ -48,8 +48,8 @@ type errors resulting from lambda expressions being deduced as ``Any``.
 
 In conclusion:
 
-1. There is no way to explicitly annotation lambda arguments or return values in the
-lmabdas themselves.
+1. There is no way to explicitly annotate lambda arguments or return values in the
+lambdas themselves.
 
 2. However, static typing rules still apply to lambdas, including type deduction.
 
