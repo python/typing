@@ -2,7 +2,7 @@
 The Trouble (Or Lack Thereof) With Lambda
 *****************************************
 
-:ref:`Lambda` expressions are a common and useful part of the Python programming language.
+Lambda expressions are a common and useful part of the Python programming language.
 However, there is one problem with them: syntactically, they do not allow for type
 annotations. While it is perfectly simple to write ``lambda x: x``, you cannot directly
 indicate a type for x. (Type annotations are indicated by a colon, and so is the end
@@ -33,12 +33,12 @@ you might as well just define a normal function. Let's call that our first worka
 ``def f(x: object) -> object: return x``
 
 The second workaround is equivalent: assigning the lambda to a variable, and annotating
-the type of that variable with a :ref:`Callable`
+the type of that variable with a Callable.
 
 ``f: Callable[[object], object] lambda x: x``
 
-:ref:`Type comments on function definitions` do not actually work on lambda, nor do
-normal :ref:`Type comments` help (although you can use a type commment on an assignment
+Type comments on function definitions do not actually work on lambda, nor do
+normal type comments help (although you can use a type commment on an assignment
 to a variable with a lambda, of course; however this will have to be the Callable
 syntax and not the function-arrow special one).
 
