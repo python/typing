@@ -19,7 +19,8 @@ but they are superseded by more modern alternatives, which are recommended to us
 These newer features are not available in all Python versions, although
 some features are available as backports from the
 `typing-extensions <https://pypi.org/project/typing-extensions/>`_
-package, or require quoting or using :python:`from __future__ import annotations`.
+package, or require quoting or using :python:`from __future__ import annotations`
+when running on Python 3.13 or below.
 Each section states the minimum Python version required to use the
 feature, whether it is available in typing-extensions, and whether it is
 available using quoting.
@@ -39,16 +40,18 @@ available using quoting.
 
 .. note::
 
-    :python:`from __future__ import annotations` is available since Python 3.7.
+    :python:`from __future__ import annotations` is available since Python 3.7
+    and became unnecessary starting with Python 3.14.
     This only has an effect inside type annotations, while quoting is still
-    required outside. For example, this example runs on Python 3.7 and up,
-    although the pipe operator was only introduced in Python 3.10::
+    required outside. For example::
 
         from __future__ import annotations
         from typing_extensions import TypeAlias
 
-        def f(x: int | None) -> int | str: ...  # the future import is sufficient
-        Alias: TypeAlias = "int | str"  # this requires quoting
+        def f(x: Foo) -> Foo: ...  # the future import is sufficient
+        Alias: TypeAlias = "Foo"  # this forward reference requires quoting
+
+        class Foo: pass
 
 .. _modernizing-type-comments:
 
@@ -81,6 +84,9 @@ it's necessary to either use :python:`from __future__ import annotations`
     def f(x: "Parrot") -> int: ...
 
     class Parrot: ...
+
+When using Python 3.14 and up, quoting forward references is no longer
+necessary inside type annotations.
 
 .. _modernizing-typing-text:
 
@@ -354,3 +360,18 @@ behavior, but has other restrictions. See the documentation for
 
 Review existing uses of :data:`TypeGuard <typing.TypeGuard>` to see if they
 should be replaced with :data:`TypeIs <typing.TypeIs>`.
+
+``from __future__ import annotations``
+======================================
+
+*Available since:* Python 3.14
+
+Starting with Python 3.14, behavior similar to using
+``from __future__ import annotations`` became the default. When running on
+Python 3.14 and up, it's no longer necessary to use the future import to defer
+evaluation of annotations. However, quoting is still necessary for types used
+outside of annotations and :keyword:`type` statements, for example when using
+:data:`TypeAlias <typing.TypeAlias>`.
+
+Remove unnecessary uses of ``from __future__ import annotations`` for code
+only supporting Python 3.14 and up.
