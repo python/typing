@@ -246,7 +246,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject Type Var definition with only 1 constraint</p><p>Incorrect rejects + between two AnyStr</p><p>Constrained type var resolves to subtype instead of explcitly listed constraint</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrect rejects + between two AnyStr</p><p>Constrained type var resolves to subtype instead of explcitly listed constraint</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults</th>
 <th class="column col2 partially-conformant">Partial</th>
@@ -483,13 +483,13 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject type alias defined in function scope.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject type alias defined with type statement in base class list</p><p>Does not reject redeclaration of type alias with the same name.</p><p>Does not detect circular definitions.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject redeclaration of type alias with the same name.</p><p>Does not detect circular definitions.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_typealiastype</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects some recursive type aliases using TypeAliasType.</p><p>Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.</p><p>Incorrectly allows type_params= to be an arbitrary tuple.</p></span></div></th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect circular definitions.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_variance</th>
 <th class="column col2 conformant">Pass</th>
@@ -537,13 +537,13 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect protocol mismatch if concrete method is missing annotations.</p><p>Does not detect protocol mismatch if concrete method's parameters are position-only.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect protocol mismatch if concrete method is missing annotations.</p><p>Does not detect protocol mismatch if concrete method's parameters are position-only.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Allows attributes defined by assignment via self in Protocols</p><p>Incorrectly handles some ClassVar examples in Protocol subtyping</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly handles some ClassVar examples in Protocol subtyping</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protocols_explicit</th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not report unimplemented attributes for class that explicitly derives from protocol until it is instantiated.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not check against abstract class instantiations</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject call to super method with no default implementation.</p><p>Does not detect stub methods inherited from protocols as abstract.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protocols_generic</th>
 <th class="column col2 conformant">Pass</th>
@@ -651,7 +651,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not generate a union type for __new__ and __init__ when converting class to callable.</p><p>Does not ignore __init__ based on __new__ return type when converting class to callable.</p><p>Does not support __new__ return type that is different from class being constructed.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not generate a union type for __new__ and __init__ when converting class to callable.</p><p>Does not ignore __init__ based on __new__ return type when converting class to callable.</p><p>Does not support __new__ return type that is different from class being constructed.</p><p>Struggles with some cases of self types</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Some overloaded constructors are not resolved correctly.</p><p>Converting constructor to callable does not preserve class-scoped type params.</p><p>Converting constructor to callable does not substitute Self in __new__</p><p>Converting constructor to callable uses __new__ signature instead of __init__</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Converting constructor to callable does not preserve class-scoped type params.</p><p>Converting constructor to callable does not substitute Self in __new__</p><p>Converting constructor to callable uses __new__ signature instead of __init__</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_consistency</th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not report inconsistency between __new__ and __init__ (optional).</p></span></div></th>
@@ -915,7 +915,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject override of named tuple attribute in child class.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject override of named tuple attribute in child class.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Doesn't catch illegal field name starting with underscore</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namedtuples_define_functional</th>
 <th class="column col2 conformant">Pass</th>
