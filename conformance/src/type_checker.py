@@ -307,13 +307,15 @@ class PyreflyTypeChecker(TypeChecker):
         for line in lines:
             if not line.strip():
                 continue
+            if line.startswith(" INFO "):
+                continue
             # Extract the absolute path reported by pyrefly and convert it to a
             # stable relative path (filename only) so results are consistent.
             # Example input line:
             #   "ERROR /abs/.../conformance/tests/foo.py:12:3-5: message [code]"
             # We replace the absolute path with just "foo.py".
             try:
-                abs_path = line.split(":", 1)[0].split(" ", 1)[1].strip()
+                abs_path = line.split(":", 1)[0].strip().split(" ", 1)[1].strip()
             except IndexError:
                 # If parsing fails, fall back to original line and grouping.
                 abs_path = ""
@@ -324,7 +326,6 @@ class PyreflyTypeChecker(TypeChecker):
             results_dict[file_name] = (
                 results_dict.get(file_name, "") + display_line + "\n"
             )
-
         return results_dict
 
     def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:

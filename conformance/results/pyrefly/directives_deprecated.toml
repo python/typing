@@ -1,18 +1,18 @@
-conformant = "Unsupported"
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 18: Expected 1 errors
-Line 24: Expected 1 errors
-Line 25: Expected 1 errors
-Line 30: Expected 1 errors
-Line 41: Expected 1 errors
-Line 42: Expected 1 errors
-Line 44: Expected 1 errors
-Line 47: Expected 1 errors
-Line 48: Expected 1 errors
-Line 58: Expected 1 errors
-Line 69: Expected 1 errors
-Line 98: Expected 1 errors
 """
 output = """
+ WARN directives_deprecated.py:18:44-47: `Ham` is deprecated [deprecated]
+ WARN directives_deprecated.py:24:1-23: `_directives_deprecated_library.norwegian_blue` is deprecated [deprecated]
+ WARN directives_deprecated.py:25:5-27: `_directives_deprecated_library.norwegian_blue` is deprecated [deprecated]
+ WARN directives_deprecated.py:30:12-15: Call to deprecated overload `_directives_deprecated_library.foo` [deprecated]
+ WARN directives_deprecated.py:41:5-13: `+` is not supported between `Spam` and `Literal[1]` [deprecated]
+ WARN directives_deprecated.py:42:1-10: `+=` is not supported between `Spam` and `Literal[1]` [deprecated]
+ WARN directives_deprecated.py:44:1-12: `_directives_deprecated_library.Spam.greasy` is deprecated [deprecated]
+ WARN directives_deprecated.py:47:1-11: `_directives_deprecated_library.Spam.shape` is deprecated [deprecated]
+ WARN directives_deprecated.py:48:1-11: `_directives_deprecated_library.Spam.shape` is deprecated [deprecated]
+ WARN directives_deprecated.py:58:1-10: `Invocable.__call__` is deprecated [deprecated]
+ WARN directives_deprecated.py:69:1-6: `lorem` is deprecated [deprecated]
+ WARN directives_deprecated.py:98:5-10: `SupportsFoo1.foo` is deprecated [deprecated]
 """
