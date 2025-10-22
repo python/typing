@@ -1,6 +1,7 @@
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Does not check against abstract class instantiations
+Does not reject call to super method with no default implementation.
+Does not detect stub methods inherited from protocols as abstract.
 """
 conformance_automated = "Fail"
 errors_diff = """

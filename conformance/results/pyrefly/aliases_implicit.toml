@@ -16,7 +16,7 @@ ERROR aliases_implicit.py:77:9-28: `type[list[int | None]]` is not subscriptable
 ERROR aliases_implicit.py:78:9-33: Expected 1 type argument for `GoodTypeAlias4`, got 2 [bad-specialization]
 ERROR aliases_implicit.py:79:9-33: Expected 1 type argument for `GoodTypeAlias8`, got 2 [bad-specialization]
 ERROR aliases_implicit.py:80:9-33: Expected a valid ParamSpec expression, got `int` [invalid-param-spec]
-ERROR aliases_implicit.py:81:9-29: Type `str` is not assignable to upper bound `float` of type variable `TFloat` [bad-specialization]
+ERROR aliases_implicit.py:81:9-29: `str` is not assignable to upper bound `float` of type variable `TFloat` [bad-specialization]
 ERROR aliases_implicit.py:107:9-22: Expected a type form, got instance of `list[type[int] | type[str]]` [not-a-type]
 ERROR aliases_implicit.py:108:9-22: Expected a type form, got instance of `tuple[tuple[type[int], type[str]]]` [not-a-type]
 ERROR aliases_implicit.py:109:9-22: Expected a type form, got instance of `list[type[int]]` [not-a-type]

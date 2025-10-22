@@ -1,6 +1,5 @@
 conformant = "Partial"
 notes = """
-Does not reject type alias defined with type statement in base class list
 Does not reject redeclaration of type alias with the same name.
 Does not detect circular definitions.
 """
@@ -27,7 +26,7 @@ ERROR aliases_type_statement.py:41:29-30: Could not find name `b` [unknown-name]
 ERROR aliases_type_statement.py:42:22-37: function call cannot be used in annotations [invalid-annotation]
 ERROR aliases_type_statement.py:43:22-30: invalid subscript expression cannot be used in annotations [invalid-annotation]
 ERROR aliases_type_statement.py:44:22-43: if expression cannot be used in annotations [invalid-annotation]
-ERROR aliases_type_statement.py:45:22-26: Expected `BadTypeAlias9` to be a type alias, got `Literal[1]` [type-alias-error]
+ERROR aliases_type_statement.py:45:22-26: Expected `BadTypeAlias9` to be a type alias, got `Literal[1]` [invalid-type-alias]
 ERROR aliases_type_statement.py:46:23-27: bool literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_type_statement.py:47:23-24: number literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_type_statement.py:48:23-34: boolean operation cannot be used in annotations [invalid-annotation]
@@ -35,6 +34,6 @@ ERROR aliases_type_statement.py:49:23-33: f-string cannot be used in annotations
 ERROR aliases_type_statement.py:56:5-30: `type` statement is not allowed in this context [invalid-syntax]
 ERROR aliases_type_statement.py:62:15-25: Type parameters used in `TA1` but not declared [invalid-type-var]
 ERROR aliases_type_statement.py:67:12-20: Type parameters used in `TA2` but not declared [invalid-type-var]
-ERROR aliases_type_statement.py:77:7-41: Type `str` is not assignable to upper bound `int` of type variable `S` [bad-specialization]
-ERROR aliases_type_statement.py:79:7-41: Type `int` is not assignable to upper bound `str` of type variable `T` [bad-specialization]
+ERROR aliases_type_statement.py:77:7-41: `str` is not assignable to upper bound `int` of type variable `S` [bad-specialization]
+ERROR aliases_type_statement.py:79:7-41: `int` is not assignable to upper bound `str` of type variable `T` [bad-specialization]
 """

@@ -1,6 +1,5 @@
 conformant = "Partial"
 notes = """
-Some overloaded constructors are not resolved correctly.
 Converting constructor to callable does not preserve class-scoped type params.
 Converting constructor to callable does not substitute Self in __new__
 Converting constructor to callable uses __new__ signature instead of __init__
