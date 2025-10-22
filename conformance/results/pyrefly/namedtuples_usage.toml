@@ -3,8 +3,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR namedtuples_usage.py:34:7-11: Index 3 out of range for tuple with 3 elements [index-error]
-ERROR namedtuples_usage.py:35:7-12: Index -4 out of range for tuple with 3 elements [index-error]
+ERROR namedtuples_usage.py:34:7-11: Index 3 out of range for tuple with 3 elements [bad-index]
+ERROR namedtuples_usage.py:35:7-12: Index -4 out of range for tuple with 3 elements [bad-index]
 ERROR namedtuples_usage.py:40:1-4: Cannot set field `x` [read-only]
 ERROR namedtuples_usage.py:41:1-5: Cannot set item in `Point` [unsupported-operation]
 ERROR namedtuples_usage.py:42:5-8: Cannot delete field `x` [read-only]

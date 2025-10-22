@@ -10,8 +10,8 @@ ERROR typeddicts_alt_syntax.py:35:72-83: Unrecognized argument `other` for typed
 ERROR typeddicts_alt_syntax.py:41:1-7: Expected valid functional typed dictionary definition [invalid-argument]
 ERROR typeddicts_alt_syntax.py:41:30-38: Unrecognized argument `name` for typed dictionary definition [invalid-argument]
 ERROR typeddicts_alt_syntax.py:41:40-48: Unrecognized argument `year` for typed dictionary definition [invalid-argument]
-ERROR typeddicts_alt_syntax.py:44:11-17: Key `name` is not defined in TypedDict `Movie2` [typed-dict-key-error]
-ERROR typeddicts_alt_syntax.py:44:35-41: Key `year` is not defined in TypedDict `Movie2` [typed-dict-key-error]
-ERROR typeddicts_alt_syntax.py:45:11-17: Key `name` is not defined in TypedDict `Movie2` [typed-dict-key-error]
-ERROR typeddicts_alt_syntax.py:45:35-41: Key `year` is not defined in TypedDict `Movie2` [typed-dict-key-error]
+ERROR typeddicts_alt_syntax.py:44:11-17: Key `name` is not defined in TypedDict `Movie2` [bad-typed-dict-key]
+ERROR typeddicts_alt_syntax.py:44:35-41: Key `year` is not defined in TypedDict `Movie2` [bad-typed-dict-key]
+ERROR typeddicts_alt_syntax.py:45:11-17: Key `name` is not defined in TypedDict `Movie2` [bad-typed-dict-key]
+ERROR typeddicts_alt_syntax.py:45:35-41: Key `year` is not defined in TypedDict `Movie2` [bad-typed-dict-key]
 """

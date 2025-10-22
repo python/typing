@@ -1,6 +1,5 @@
 conformant = "Partial"
 notes = """
-Does not reject Type Var definition with only 1 constraint
 Incorrect rejects + between two AnyStr
 Constrained type var resolves to subtype instead of explcitly listed constraint
 """
@@ -23,8 +22,8 @@ ERROR generics_basic.py:68:16-35: assert_type(MyStr, str) failed [assert-type]
 ERROR generics_basic.py:68:27-28: Argument `str` is not assignable to parameter `y` with type `MyStr` in function `concat` [bad-argument-type]
 ERROR generics_basic.py:69:15-16: Argument `bytes` is not assignable to parameter `y` with type `MyStr` in function `concat` [bad-argument-type]
 ERROR generics_basic.py:121:24-25: Duplicated type parameter declaration `T` [invalid-inheritance]
-ERROR generics_basic.py:157:8-9: Cannot index into `MyMap1[str, int]` [index-error]
-ERROR generics_basic.py:158:8-9: Cannot index into `MyMap2[int, str]` [index-error]
+ERROR generics_basic.py:157:8-9: Cannot index into `MyMap1[str, int]` [bad-index]
+ERROR generics_basic.py:158:8-9: Cannot index into `MyMap2[int, str]` [bad-index]
 ERROR generics_basic.py:162:7-11: Expected a type variable, got `int` [invalid-type-var]
 ERROR generics_basic.py:163:7-11: Expected a type variable, got `int` [invalid-type-var]
 ERROR generics_basic.py:171:7-11: Class `Bad3` uses type variables not specified in `Generic` or `Protocol` base [invalid-type-var]

@@ -1,4 +1,7 @@
-conformant = "Unsupported"
+conformant = "Partial"
+notes = """
+Does not detect circular definitions.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 46: Expected 1 errors
@@ -8,10 +11,10 @@ Line 66: Expected 1 errors
 """
 output = """
 ERROR aliases_typealiastype.py:32:7-30: Object of class `TypeAliasType` has no attribute `other_attrib` [missing-attribute]
-ERROR aliases_typealiastype.py:40:5-30: Type `int` is not assignable to upper bound `str` of type variable `TStr` [bad-specialization]
-ERROR aliases_typealiastype.py:43:40-47: Type variable `S` is out of scope for this `TypeAliasType` [type-alias-error]
-ERROR aliases_typealiastype.py:44:40-47: Type variable `S` is out of scope for this `TypeAliasType` [type-alias-error]
-ERROR aliases_typealiastype.py:45:45-65: Value for argument `type_params` must be a tuple literal [type-alias-error]
+ERROR aliases_typealiastype.py:40:5-30: `int` is not assignable to upper bound `str` of type variable `TStr` [bad-specialization]
+ERROR aliases_typealiastype.py:43:40-47: Type variable `S` is out of scope for this `TypeAliasType` [invalid-type-alias]
+ERROR aliases_typealiastype.py:44:40-47: Type variable `S` is out of scope for this `TypeAliasType` [invalid-type-alias]
+ERROR aliases_typealiastype.py:45:45-65: Value for argument `type_params` must be a tuple literal [invalid-type-alias]
 ERROR aliases_typealiastype.py:52:40-80: function call cannot be used in annotations [invalid-annotation]
 ERROR aliases_typealiastype.py:53:40-50: list literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_typealiastype.py:54:42-55: tuple literal cannot be used in annotations [invalid-annotation]
@@ -22,7 +25,7 @@ ERROR aliases_typealiastype.py:56:49-50: Could not find name `b` [unknown-name]
 ERROR aliases_typealiastype.py:57:42-57: function call cannot be used in annotations [invalid-annotation]
 ERROR aliases_typealiastype.py:58:42-50: invalid subscript expression cannot be used in annotations [invalid-annotation]
 ERROR aliases_typealiastype.py:59:42-63: if expression cannot be used in annotations [invalid-annotation]
-ERROR aliases_typealiastype.py:60:42-46: Expected `BadAlias16` to be a type alias, got `Literal[3]` [type-alias-error]
+ERROR aliases_typealiastype.py:60:42-46: Expected `BadAlias16` to be a type alias, got `Literal[3]` [invalid-type-alias]
 ERROR aliases_typealiastype.py:61:42-46: bool literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_typealiastype.py:62:42-43: number literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_typealiastype.py:63:42-53: boolean operation cannot be used in annotations [invalid-annotation]
