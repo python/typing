@@ -18,12 +18,26 @@ error, but is uncaught in most (perhaps all) type checkers:
 
 .. code-block:: python
 
-   f1 = lambda a, b: a * b
+   f1 = lambda a, b: a + b
    f1(1, "a")
 
 (The alternative way of writing this, ``(lambda a, b: a + b)(1, "a")``, is typically
 caught by type checkers, because it is simple and immediate enough that they are able
 to deduce that a type error will occur.)
+
+..
+   (This is an RST comment.)
+   A slightly more realistic example of an uncaught lambda type error is
+
+   .. code-block :: python
+      def apply(f, *x):
+         f(*x)
+      apply((lambda a, b: a + b), 1, "a")
+
+   since it doesn't immediately defeat the purpose of a lambda by binding it.
+   It also fails to get caught by mypy and pyright in their default modes, as
+   required for the example. However, it's a little bit harder to understand,
+   so we went with the other one.
 
 There are some workarounds to this problem, which all involve assigning the lambda to
 something, in one way or another, and annotating that. This is a bit unfortunate,
@@ -37,14 +51,23 @@ the type of that variable with a Callable.
 
 ``f: Callable[[object], object] = lambda x: x``
 
-Type comments on function definitions do not actually work on lambda, nor do
-normal type comments help (although you can use a type comment on an assignment
-to a variable with a lambda, of course; however this will have to be the Callable
-syntax and not the function-arrow special one).
+..
+   (This is an RST comment. The following paragraph has been excised from the guide,
+   as most beginners will not know what a type comment is anyway — especially a function
+   type comment. However, the paragraph is left in this comment for greater context for
+   you, the future editor:)
+
+   Type comments on function definitions do not actually work on lambda, nor do
+   normal type comments help (although you can use a type comment on an assignment
+   to a variable with a lambda, of course; however this will have to be the Callable
+   syntax and not the function-arrow special one).
 
 Most type checkers include an option to emit a warning if they aren't able to deduce
 the type of an expression; this should be helpful if you want to avoid silent uncaught
-type errors resulting from lambda expressions being deduced as ``Any``.
+type errors resulting from lambda expressions being deduced as ``Any``. For instance,
+Mypy includes ``disallow_any_expr``/``--disallow-any-expr`` and Pyright includes
+``reportUnknownLambdaType``. Both of those options are set to true in the respective
+strict modes of those type checkers.
 
 In conclusion:
 
