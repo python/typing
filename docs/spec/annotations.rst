@@ -75,12 +75,16 @@ places. Specifically, type expressions are used in the following locations:
 * The second argument to :ref:`assert_type() <assert-type>`
 * The bounds and constraints of a ``TypeVar`` (whether created through the
   old syntax or the native syntax in Python 3.12)
+* The default of a ``TypeVar``, ``ParamSpec``, or ``TypeVarTuple`` (whether
+  created through the old syntax or the native syntax in Python 3.12)
 * The definition of a type alias (whether created through the ``type`` statement,
   the old assignment syntax, or the ``TypeAliasType`` constructor)
 * The type arguments of a generic class (which may appear in a base class
   or in a constructor call)
 * The definitions of fields in the functional forms for creating
   :ref:`TypedDict <typeddict>` and :ref:`NamedTuple <namedtuple>` types
+* The value passed to the ``extra_items`` argument in the :ref:`TypedDict <typeddict>`
+  constructor
 * The base type in the definition of a :ref:`NewType <newtype>`
 
 .. _`annotation-expression`:
