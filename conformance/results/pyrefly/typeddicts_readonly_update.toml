@@ -3,5 +3,5 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR typeddicts_readonly_update.py:23:10-14: No matching overload found for function `A.update` [no-matching-overload]
+ERROR typeddicts_readonly_update.py:23:10-14: No matching overload found for function `A.update` called with arguments: (TypedDict[A]) [no-matching-overload]
 """

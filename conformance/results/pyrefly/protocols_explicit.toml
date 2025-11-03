@@ -7,10 +7,10 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 27: Expected 1 errors
 Line 89: Expected 1 errors
-Line 134: Expected 1 errors
 """
 output = """
 ERROR protocols_explicit.py:56:20-36: `tuple[int, int, str]` is not assignable to attribute `rgb` with type `tuple[int, int, int]` [bad-assignment]
-ERROR protocols_explicit.py:60:10-20: Cannot instantiate `Point` because the following members are abstract: `intensity` [bad-instantiation]
+ERROR protocols_explicit.py:60:10-20: Cannot instantiate `Point` because the following members are abstract: `intensity`, `transparency` [bad-instantiation]
+ERROR protocols_explicit.py:134:15-17: Cannot instantiate `Concrete5` because the following members are abstract: `method1` [bad-instantiation]
 ERROR protocols_explicit.py:164:17-19: Cannot instantiate `Concrete7A` because the following members are abstract: `method1` [bad-instantiation]
 """

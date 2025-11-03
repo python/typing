@@ -7,16 +7,12 @@ errors_diff = """
 """
 output = """
 enums_members.py:50:5 - error: Type annotations are not allowed for enum members (reportGeneralTypeIssues)
-enums_members.py:82:13 - error: "assert_type" mismatch: expected "Unknown" but received "(x: Unknown) -> str" (reportAssertTypeFailure)
-enums_members.py:82:37 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
-enums_members.py:82:42 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-enums_members.py:83:13 - error: "assert_type" mismatch: expected "Unknown" but received "(x: int) -> int" (reportAssertTypeFailure)
-enums_members.py:83:37 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
-enums_members.py:83:42 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-enums_members.py:84:13 - error: "assert_type" mismatch: expected "Unknown" but received "property" (reportAssertTypeFailure)
-enums_members.py:84:35 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
-enums_members.py:85:13 - error: "assert_type" mismatch: expected "Unknown" but received "(self: Pet4) -> None" (reportAssertTypeFailure)
-enums_members.py:85:33 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
+enums_members.py:82:20 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
+enums_members.py:82:25 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+enums_members.py:83:20 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
+enums_members.py:83:25 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+enums_members.py:84:18 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
+enums_members.py:85:16 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
 enums_members.py:116:13 - error: "assert_type" mismatch: expected "Unknown" but received "int" (reportAssertTypeFailure)
 enums_members.py:116:32 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
 enums_members.py:128:21 - information: Type of "Example2.__B" is "Literal[2]"

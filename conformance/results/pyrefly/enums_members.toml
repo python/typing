@@ -8,14 +8,10 @@ Line 100: Unexpected errors ['assert_type(Literal[TrafficLight.AMBER], Literal[T
 """
 output = """
 ERROR enums_members.py:50:5-8: Enum member `DOG` may not be annotated directly. Instead, annotate the `_value_` attribute. [invalid-annotation]
-ERROR enums_members.py:82:12-53: assert_type((x: Any) -> str, Any) failed [assert-type]
-ERROR enums_members.py:82:37-51: `Pet4.converter` is not a valid enum member [invalid-literal]
-ERROR enums_members.py:83:12-53: assert_type((x: int) -> int, Any) failed [assert-type]
-ERROR enums_members.py:83:37-51: `Pet4.transform` is not a valid enum member [invalid-literal]
-ERROR enums_members.py:84:12-49: assert_type((self: Pet4) -> str, Any) failed [assert-type]
-ERROR enums_members.py:84:35-47: `Pet4.species` is not a valid enum member [invalid-literal]
-ERROR enums_members.py:85:12-45: assert_type((self: Pet4) -> None, Any) failed [assert-type]
-ERROR enums_members.py:85:33-43: `Pet4.speak` is not a valid enum member [invalid-literal]
+ERROR enums_members.py:82:20-34: `Pet4.converter` is not a valid enum member [invalid-literal]
+ERROR enums_members.py:83:20-34: `Pet4.transform` is not a valid enum member [invalid-literal]
+ERROR enums_members.py:84:18-30: `Pet4.species` is not a valid enum member [invalid-literal]
+ERROR enums_members.py:85:16-26: `Pet4.speak` is not a valid enum member [invalid-literal]
 ERROR enums_members.py:100:12-62: assert_type(Literal[TrafficLight.AMBER], Literal[TrafficLight.YELLOW]) failed [assert-type]
 ERROR enums_members.py:116:12-43: assert_type(nonmember[int], Any) failed [assert-type]
 ERROR enums_members.py:116:32-41: `Example.b` is not a valid enum member [invalid-literal]

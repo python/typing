@@ -2,8 +2,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR overloads_evaluation.py:38:11-13: No matching overload found for function `example1_1` [no-matching-overload]
-ERROR overloads_evaluation.py:46:11-17: No matching overload found for function `example1_1` [no-matching-overload]
-ERROR overloads_evaluation.py:51:11-14: No matching overload found for function `example1_1` [no-matching-overload]
-ERROR overloads_evaluation.py:115:13-22: No matching overload found for function `example2` [no-matching-overload]
+ERROR overloads_evaluation.py:38:11-13: No matching overload found for function `example1_1` called with arguments: () [no-matching-overload]
+ERROR overloads_evaluation.py:46:11-17: No matching overload found for function `example1_1` called with arguments: (Literal[1], Literal[1]) [no-matching-overload]
+ERROR overloads_evaluation.py:51:11-14: No matching overload found for function `example1_1` called with arguments: (Literal[1]) [no-matching-overload]
+ERROR overloads_evaluation.py:115:13-22: No matching overload found for function `example2` called with arguments: (int | str, int | str, Literal[1]) [no-matching-overload]
 """
