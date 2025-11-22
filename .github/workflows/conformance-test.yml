@@ -1,0 +1,121 @@
+name: Update Typing Conformance Tests Results
+
+on:
+  schedule:
+    - cron: "45 11 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-versions:
+    runs-on: ubuntu-latest
+    outputs:
+      has_updates: ${{ steps.compare.outputs.has_updates }}
+    steps:
+      - name: Restore previous version state
+        id: restore-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: tool_versions.json
+          # We use a key that will mis  s, forcing it to look at restore-keys
+          key: tool-state-placeholder-${{ github.run_id }}
+          # This picks the most recent cache matching this prefix
+          restore-keys: |
+            tool-state-
+
+      - name: Check and Compare Versions
+        id: compare
+        run: |
+          TOOLS=("zuban" "pyrefly" "pyright" "mypy")
+          STATE_FILE="tool_versions.json"
+          UPDATED=false
+
+          # Load previous state or create empty if first run
+          if [ -f "$STATE_FILE" ]; then
+            echo "Found previous state."
+          else
+            echo "{}" > "$STATE_FILE"
+            echo "No previous state found (First Run). Treating as updated."
+            # We force update to true on first run to populate the cache
+            UPDATED=true
+          fi
+
+          # Temp file for the new state
+          NEW_STATE=$(mktemp)
+          echo "{}" > "$NEW_STATE"
+
+          echo "Fetching versions from PyPI..."
+
+          for tool in "${TOOLS[@]}"; do
+            # Fetch latest version string
+            LATEST=$(curl -sL "https://pypi.org/pypi/$tool/json" | jq -r '.info.version')
+
+            # Get old version from JSON
+            OLD=$(jq -r --arg t "$tool" '.[$t] // ""' "$STATE_FILE")
+
+            echo "Checking $tool: Old=$OLD | New=$LATEST"
+
+            # Write to new state object
+            jq --arg t "$tool" --arg v "$LATEST" '.[$t] = $v' "$NEW_STATE" > "$NEW_STATE.tmp" && mv "$NEW_STATE.tmp" "$NEW_STATE"
+
+            if [ "$LATEST" != "$OLD" ]; then
+              echo ">> UPDATE DETECTED for $tool"
+              UPDATED=true
+            fi
+          done
+
+          if [ "$UPDATED" = "true" ]; then
+            echo "has_updates=true" >> $GITHUB_OUTPUT
+            # Replace the state file with the new one so Cache Save picks it up
+            mv "$NEW_STATE" "$STATE_FILE"
+            cat "$STATE_FILE"
+          else
+            echo "has_updates=false" >> $GITHUB_OUTPUT
+            echo "No updates found."
+          fi
+
+      - name: Save new state to cache
+        if: steps.compare.outputs.has_updates == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: tool_versions.json
+          # Unique key ensures a new cache entry is created
+          key: tool-state-${{ github.run_id }}
+
+  run-conformance-tests:
+    needs: check-versions
+    if: needs.check-versions.outputs.has_updates == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          sparse-checkout: |
+            conformance
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install Dependencies
+        run: |
+          cd conformance
+          pip install -r requirements.txt
+
+      - name: Run Main Script (Src)
+        run: |
+          cd conformance/src
+          python main.py --skip-install-check
+
+      - name: Commit and Push results
+        run: |
+          # go dir `conformance`
+          cd conformance
+          echo "Typing static type checkers has updated, commit and push new results"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ./results/*
+          git commit -m "chore: update conformance test results"
+          git push
