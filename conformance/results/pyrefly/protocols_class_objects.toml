@@ -4,16 +4,14 @@ Does not require concrete classes to be passed to type[Proto]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 29: Expected 1 errors
-Line 34: Expected 1 errors
 Line 104: Expected 1 errors
 Line 106: Expected 1 errors
 Line 107: Expected 1 errors
 Line 108: Expected 1 errors
-Line 26: Unexpected errors ['Cannot instantiate `Proto` because it is a protocol [bad-instantiation]']
 """
 output = """
-ERROR protocols_class_objects.py:26:15-17: Cannot instantiate `Proto` because it is a protocol [bad-instantiation]
+ERROR protocols_class_objects.py:29:5-10: Argument `type[Proto]` is not assignable to parameter `cls` with type `type[Proto]` in function `fun` [bad-argument-type]
+ERROR protocols_class_objects.py:34:7-12: `type[Proto]` is not assignable to variable `var` with type `type[Proto]` [bad-assignment]
 ERROR protocols_class_objects.py:58:16-25: `type[ConcreteA]` is not assignable to `ProtoA1` [bad-assignment]
 ERROR protocols_class_objects.py:74:16-25: `type[ConcreteB]` is not assignable to `ProtoB1` [bad-assignment]
 """
