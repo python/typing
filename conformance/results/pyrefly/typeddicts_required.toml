@@ -1,10 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not handle recursive typed dicts in functional syntax
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 71: Unexpected errors ["Expected a type form, got instance of `Literal['RecursiveMovie']` [not-a-type]"]
 """
 output = """
 ERROR typeddicts_required.py:12:5-6: `Required` may only be used for TypedDict members [invalid-annotation]
@@ -12,5 +7,4 @@ ERROR typeddicts_required.py:16:8-19: `NotRequired` is only allowed inside a cla
 ERROR typeddicts_required.py:16:8-24: `NotRequired` is not allowed in this context [invalid-annotation]
 ERROR typeddicts_required.py:59:8-31: Duplicate qualifier `Required` [invalid-annotation]
 ERROR typeddicts_required.py:60:8-34: Cannot combine `Required` and `NotRequired` for a TypedDict field [invalid-annotation]
-ERROR typeddicts_required.py:71:75-91: Expected a type form, got instance of `Literal['RecursiveMovie']` [not-a-type]
 """

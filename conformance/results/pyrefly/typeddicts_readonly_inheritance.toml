@@ -1,10 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not restrictions around overriding for ReadOnly fields
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 119: Expected 1 errors
 """
 output = """
 ERROR typeddicts_readonly_inheritance.py:36:4-10: Key `name` in TypedDict `Album2` is read-only [read-only]
@@ -16,5 +11,6 @@ ERROR typeddicts_readonly_inheritance.py:84:5-7: Missing required key `ident` fo
 ERROR typeddicts_readonly_inheritance.py:94:5-6: TypedDict field `a` in `F3` cannot be marked read-only; parent TypedDict `F1` defines it as mutable [bad-typed-dict-key]
 ERROR typeddicts_readonly_inheritance.py:98:5-6: TypedDict field `a` in `F4` must remain required because parent TypedDict `F1` defines it as required [bad-typed-dict-key]
 ERROR typeddicts_readonly_inheritance.py:106:5-6: TypedDict field `c` in `F6` cannot be made non-required; parent TypedDict `F1` defines it as required [bad-typed-dict-key]
+ERROR typeddicts_readonly_inheritance.py:119:7-11: Field `x` is declared `float` in ancestor `class TD_A2: ...
 ERROR typeddicts_readonly_inheritance.py:132:7-11: TypedDict field `x` in `TD_B` cannot be made non-required; parent TypedDict `TD_B2` defines it as required [bad-typed-dict-key]
 """

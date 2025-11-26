@@ -1,4 +1,3 @@
-conformant = "Partial"
 output = """
 namedtuples_define_functional.py:16:8 - error: Argument missing for parameter "y" (reportCallIssue)
 namedtuples_define_functional.py:21:8 - error: Arguments missing for parameters "x", "y" (reportCallIssue)
