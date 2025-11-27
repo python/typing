@@ -541,7 +541,7 @@ The conditions are as follows:
 
     - If it is mutable in ``A``:
 
-      - If ``B`` has an item with the same key, it must also be mutable, and its item type must be
+      - If ``B`` has an item with the same key, it must also be mutable and non-required, and its item type must be
         :term:`equivalent` to the item type in ``A``.
 
       - Else:
