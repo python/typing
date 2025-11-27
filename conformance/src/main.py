@@ -3,15 +3,14 @@ Type system conformance test for static type checkers.
 """
 
 import os
-from pathlib import Path
 import re
 import sys
+from pathlib import Path
 from time import time
 from typing import Sequence
 
 import tomli
 import tomlkit
-
 from options import parse_options
 from reporting import generate_summary
 from test_groups import get_test_cases, get_test_groups
@@ -262,10 +261,14 @@ def main():
         for type_checker in TYPE_CHECKERS:
             if options.only_run and options.only_run != type_checker.name:
                 continue
-            if not type_checker.install():
-                print(f"Skipping tests for {type_checker.name}")
+            if options.skip_install_check:
+                print("Skipping install check")
             else:
-                run_tests(root_dir, type_checker, test_cases)
+                if not type_checker.install():
+                    print(f"Skipping tests for {type_checker.name}")
+                    continue
+
+            run_tests(root_dir, type_checker, test_cases)
 
     # Generate a summary report.
     generate_summary(root_dir)
