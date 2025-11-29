@@ -162,9 +162,9 @@
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.407</div>
 </th>
-<th class='tc-header'><div class='tc-name'>zuban 0.2.1</div>
+<th class='tc-header'><div class='tc-name'>zuban 0.2.3</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyrefly 0.39.4</div>
+<th class='tc-header'><div class='tc-name'>pyrefly 0.43.1</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -348,7 +348,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not following runtime scoping rules for type parameters in all cases.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not following runtime scoping rules for type parameters in all cases.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not implement some scoping restrictions for PEP695 generic syntax</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_type_erasure</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Infers Node[Never] instead of Node[Any] when argument is not provided.</p><p>False negative on instance attribute access on type(node).</p></span></div></th>
@@ -714,7 +714,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Wrongly requires a Final dataclass field to be initialized at class level.</p><p>Doesn't support Final nested inside ClassVar.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Wrongly requires a Final dataclass field to be initialized at class level.</p><p>Doesn't support Final nested inside ClassVar.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Allows assignment to final attributes that are not initialized on the class</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_frozen</th>
 <th class="column col2 conformant">Pass</th>
@@ -855,7 +855,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects non-ReadOnly override of ReadOnly item.</p><p>Incorrectly rejects override of ReadOnly item with another ReadOnly item with narrower type.</p><p>Incorrectly rejects override of NotRequired ReadOnly item with a Required ReadOnly item.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects non-ReadOnly override of ReadOnly item.</p><p>Incorrectly rejects override of ReadOnly item with another ReadOnly item with narrower type.</p><p>Incorrectly rejects override of NotRequired ReadOnly item with a Required ReadOnly item.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not restrictions around overriding for ReadOnly fields</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly_kwargs</th>
 <th class="column col2 conformant">Pass</th>
@@ -873,7 +873,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not handle recursive typed dicts in functional syntax</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_type_consistency</th>
 <th class="column col2 conformant">Pass</th>
@@ -893,7 +893,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tuples_type_compat</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support tuple narrowing based on `len()` type guard (optional).</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not support tuple narrowing based on `len()` type guard (optional).</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly marks a match case as unreachable.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tuples_type_form</th>
@@ -919,7 +919,7 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namedtuples_define_functional</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant">Partial</th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>

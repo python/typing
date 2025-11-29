@@ -4,9 +4,7 @@ errors_diff = """
 """
 output = """
 ERROR dataclasses_transform_converter.py:48:41-55: Argument `() -> int` is not assignable to parameter `converter` with type `(@_) -> int` in function `model_field` [bad-argument-type]
-ERROR dataclasses_transform_converter.py:48:41-55: Argument `() -> int` is not assignable to parameter `converter` with type `(@_) -> @_` in function `model_field` [bad-argument-type]
 ERROR dataclasses_transform_converter.py:49:41-55: Argument `(*, x: int) -> int` is not assignable to parameter `converter` with type `(@_) -> int` in function `model_field` [bad-argument-type]
-ERROR dataclasses_transform_converter.py:49:41-55: Argument `(*, x: int) -> int` is not assignable to parameter `converter` with type `(@_) -> @_` in function `model_field` [bad-argument-type]
 ERROR dataclasses_transform_converter.py:107:5-6: Argument `Literal[1]` is not assignable to parameter `field0` with type `str` in function `DC2.__init__` [bad-argument-type]
 ERROR dataclasses_transform_converter.py:108:23-24: Argument `Literal[1]` is not assignable to parameter `field3` with type `bytes | str` in function `DC2.__init__` [bad-argument-type]
 ERROR dataclasses_transform_converter.py:109:29-31: Argument `complex` is not assignable to parameter `field4` with type `list[str] | str` in function `DC2.__init__` [bad-argument-type]

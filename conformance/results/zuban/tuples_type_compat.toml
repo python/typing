@@ -1,6 +1,6 @@
-conformant = "Pass"
+conformant = "Partial"
 notes = """
-Does not support tuple narrowing based on `len()` type guard (optional).
+Incorrectly marks a match case as unreachable.
 """
 conformance_automated = "Fail"
 errors_diff = """
