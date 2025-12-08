@@ -4,7 +4,7 @@ errors_diff = """
 """
 output = """
 ERROR aliases_explicit.py:67:9-28: `TypeAlias[GoodTypeAlias2, type[int | None]]` is not subscriptable [unsupported-operation]
-ERROR aliases_explicit.py:68:9-28: `TypeAlias[GoodTypeAlias3, type[list[int | None]]]` is not subscriptable [unsupported-operation]
+ERROR aliases_explicit.py:68:9-28: `TypeAlias[GoodTypeAlias3, type[list[GoodTypeAlias2]]]` is not subscriptable [unsupported-operation]
 ERROR aliases_explicit.py:69:9-33: Expected 1 type argument for `GoodTypeAlias4`, got 2 [bad-specialization]
 ERROR aliases_explicit.py:70:9-33: Expected 1 type argument for `GoodTypeAlias8`, got 2 [bad-specialization]
 ERROR aliases_explicit.py:71:9-33: Expected a valid ParamSpec expression, got `int` [invalid-param-spec]
