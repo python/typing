@@ -18,7 +18,8 @@ For conversations that are more suitable to a chat platform, you can use one of 
 
 ## Repository Content
 
-This GitHub repository is used for several things:
+This GitHub repository serves multiple purposes related to Python's static type system:
+
 
 - The documentation at [typing.python.org](https://typing.python.org/)
   is maintained in the [docs directory](./docs). This includes the
