@@ -24,6 +24,24 @@ concrete value. For example, if we define some variable ``foo`` to have
 type ``Literal[3]``, we are declaring that ``foo`` must be exactly equal
 to ``3`` and no other value.
 
+Example
+^^^^^^^
+
+Literal types are most useful when a function accepts only a fixed set of
+allowed constant values. Type checkers can then verify that callers provide
+only those values.
+
+.. code-block:: python
+
+   from typing import Literal
+
+   def set_mode(mode: Literal["fast", "slow"]) -> None:
+       print(f"Running in {mode} mode")
+
+   set_mode("fast")   # OK
+   set_mode("other")  # Type checker error
+
+
 Given some value ``v`` that is a member of type ``T``, the type ``Literal[v]``
 is a subtype of ``T``. For example, ``Literal[3]`` is a subtype of ``int``.
 
