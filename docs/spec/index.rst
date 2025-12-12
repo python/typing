@@ -1,5 +1,10 @@
 Specification for the Python type system
+
 ========================================
+
+This section provides the official specification for Python’s static type system.
+It defines the rules, terminology, and behaviors that type checkers and typing-related tools are expected to follow.
+
 
 .. toctree::
    :maxdepth: 2
