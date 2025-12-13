@@ -6,7 +6,7 @@ Does not report errors during binding to cls parameter of __new__ method.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 145: Expected 1 errors
+Line 148: Expected 1 errors
 Line 40: Unexpected errors ['constructors_call_new.py:40: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class3")  [misc]']
 Line 49: Unexpected errors ['constructors_call_new.py:49: error: Expression is of type "Class3", not "int"  [assert-type]', 'constructors_call_new.py:49: error: Missing positional argument "x" in call to "Class3"  [call-arg]']
 Line 57: Unexpected errors ['constructors_call_new.py:57: error: "__new__" must return a class instance (got "Class4 | Any")  [misc]']

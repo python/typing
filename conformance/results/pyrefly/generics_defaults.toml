@@ -4,14 +4,14 @@ Defaults are not bound by attribute access
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 170: Unexpected errors ['assert_type([DefaultIntT](Foo7[DefaultIntT]) -> Foo7[DefaultIntT], (Foo7[int]) -> Foo7[int]) failed [assert-type]']
+Line 171: Unexpected errors ['assert_type([DefaultIntT](Foo7[DefaultIntT]) -> Foo7[DefaultIntT], (Foo7[int]) -> Foo7[int]) failed [assert-type]']
 """
 output = """
 ERROR generics_defaults.py:24:7-31: Type parameter `T` without a default cannot follow type parameter `DefaultStrT` with a default [invalid-type-var]
 ERROR generics_defaults.py:50:1-20: Expected 5 type arguments for `AllTheDefaults`, got 1 [bad-specialization]
 ERROR generics_defaults.py:107:51-54: Expected default `int` of `Invalid1` to be assignable to the upper bound of `str` [invalid-type-var]
 ERROR generics_defaults.py:114:52-55: Expected default `int` of `Invalid2` to be one of the following constraints: `float`, `str` [invalid-type-var]
-ERROR generics_defaults.py:131:12-27: assert_type(int, Any) failed [assert-type]
-ERROR generics_defaults.py:142:7-11: TypeVar `T5` with a default cannot follow TypeVarTuple `Ts` [invalid-type-var]
-ERROR generics_defaults.py:170:12-57: assert_type([DefaultIntT](Foo7[DefaultIntT]) -> Foo7[DefaultIntT], (Foo7[int]) -> Foo7[int]) failed [assert-type]
+ERROR generics_defaults.py:132:12-27: assert_type(int, Any) failed [assert-type]
+ERROR generics_defaults.py:143:7-11: TypeVar `T5` with a default cannot follow TypeVarTuple `Ts` [invalid-type-var]
+ERROR generics_defaults.py:171:12-57: assert_type([DefaultIntT](Foo7[DefaultIntT]) -> Foo7[DefaultIntT], (Foo7[int]) -> Foo7[int]) failed [assert-type]
 """

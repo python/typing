@@ -6,15 +6,15 @@ Does not support __new__ return type that is different from class being construc
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 127: Expected 1 errors
-Line 144: Expected 1 errors
-Line 73: Unexpected errors ['constructors_callable.py:73: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class4")  [misc]']
-Line 78: Unexpected errors ['constructors_callable.py:78: error: Expression is of type "Class4", not "int"  [assert-type]']
-Line 100: Unexpected errors ['constructors_callable.py:100: error: Expression is of type "Class5", not "Never"  [assert-type]']
-Line 105: Unexpected errors ['constructors_callable.py:105: error: Expression is of type "Class5", not "Never"  [assert-type]']
-Line 116: Unexpected errors ['constructors_callable.py:116: error: Incompatible return type for "__new__" (returns "Class6Proxy", but must return a subtype of "Class6")  [misc]']
-Line 126: Unexpected errors ['constructors_callable.py:126: error: Expression is of type "Class6", not "Class6Proxy"  [assert-type]', 'constructors_callable.py:126: error: Too few arguments  [call-arg]']
-Line 143: Unexpected errors ['constructors_callable.py:143: error: Expression is of type "Class6Any", not "Any"  [assert-type]', 'constructors_callable.py:143: error: Too few arguments  [call-arg]']
+Line 129: Expected 1 errors
+Line 146: Expected 1 errors
+Line 74: Unexpected errors ['constructors_callable.py:74: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class4")  [misc]']
+Line 80: Unexpected errors ['constructors_callable.py:80: error: Expression is of type "Class4", not "int"  [assert-type]']
+Line 102: Unexpected errors ['constructors_callable.py:102: error: Expression is of type "Class5", not "Never"  [assert-type]']
+Line 107: Unexpected errors ['constructors_callable.py:107: error: Expression is of type "Class5", not "Never"  [assert-type]']
+Line 118: Unexpected errors ['constructors_callable.py:118: error: Incompatible return type for "__new__" (returns "Class6Proxy", but must return a subtype of "Class6")  [misc]']
+Line 128: Unexpected errors ['constructors_callable.py:128: error: Expression is of type "Class6", not "Class6Proxy"  [assert-type]', 'constructors_callable.py:128: error: Too few arguments  [call-arg]']
+Line 145: Unexpected errors ['constructors_callable.py:145: error: Expression is of type "Class6Any", not "Any"  [assert-type]', 'constructors_callable.py:145: error: Too few arguments  [call-arg]']
 """
 output = """
 constructors_callable.py:36: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class1"
@@ -22,28 +22,28 @@ constructors_callable.py:38: error: Too few arguments  [call-arg]
 constructors_callable.py:39: error: Unexpected keyword argument "y"  [call-arg]
 constructors_callable.py:49: note: Revealed type is "def () -> constructors_callable.Class2"
 constructors_callable.py:51: error: Too many arguments  [call-arg]
-constructors_callable.py:63: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class3"
-constructors_callable.py:65: error: Too few arguments  [call-arg]
-constructors_callable.py:66: error: Unexpected keyword argument "y"  [call-arg]
-constructors_callable.py:67: error: Too many arguments  [call-arg]
-constructors_callable.py:73: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class4")  [misc]
-constructors_callable.py:77: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class4"
-constructors_callable.py:78: error: Expression is of type "Class4", not "int"  [assert-type]
-constructors_callable.py:79: error: Too few arguments  [call-arg]
-constructors_callable.py:80: error: Unexpected keyword argument "y"  [call-arg]
-constructors_callable.py:97: note: Revealed type is "def (*args: Any, **kwargs: Any) -> constructors_callable.Class5"
-constructors_callable.py:100: error: Expression is of type "Class5", not "Never"  [assert-type]
-constructors_callable.py:105: error: Expression is of type "Class5", not "Never"  [assert-type]
-constructors_callable.py:116: error: Incompatible return type for "__new__" (returns "Class6Proxy", but must return a subtype of "Class6")  [misc]
-constructors_callable.py:125: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class6"
-constructors_callable.py:126: error: Expression is of type "Class6", not "Class6Proxy"  [assert-type]
-constructors_callable.py:126: error: Too few arguments  [call-arg]
-constructors_callable.py:142: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class6Any"
-constructors_callable.py:143: error: Expression is of type "Class6Any", not "Any"  [assert-type]
-constructors_callable.py:143: error: Too few arguments  [call-arg]
-constructors_callable.py:162: note: Revealed type is "Overload(def (x: builtins.int) -> constructors_callable.Class7[builtins.int], def (x: builtins.str) -> constructors_callable.Class7[builtins.str])"
-constructors_callable.py:182: note: Revealed type is "def [T] (x: builtins.list[T`1], y: builtins.list[T`1]) -> constructors_callable.Class8[T`1]"
-constructors_callable.py:184: error: Cannot infer function type argument  [misc]
-constructors_callable.py:193: note: Revealed type is "def [T] (x: builtins.list[T`-1], y: builtins.list[T`-1]) -> constructors_callable.Class9"
-constructors_callable.py:195: error: Cannot infer function type argument  [misc]
+constructors_callable.py:64: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class3"
+constructors_callable.py:66: error: Too few arguments  [call-arg]
+constructors_callable.py:67: error: Unexpected keyword argument "y"  [call-arg]
+constructors_callable.py:68: error: Too many arguments  [call-arg]
+constructors_callable.py:74: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "Class4")  [misc]
+constructors_callable.py:79: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class4"
+constructors_callable.py:80: error: Expression is of type "Class4", not "int"  [assert-type]
+constructors_callable.py:81: error: Too few arguments  [call-arg]
+constructors_callable.py:82: error: Unexpected keyword argument "y"  [call-arg]
+constructors_callable.py:99: note: Revealed type is "def (*args: Any, **kwargs: Any) -> constructors_callable.Class5"
+constructors_callable.py:102: error: Expression is of type "Class5", not "Never"  [assert-type]
+constructors_callable.py:107: error: Expression is of type "Class5", not "Never"  [assert-type]
+constructors_callable.py:118: error: Incompatible return type for "__new__" (returns "Class6Proxy", but must return a subtype of "Class6")  [misc]
+constructors_callable.py:127: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class6"
+constructors_callable.py:128: error: Expression is of type "Class6", not "Class6Proxy"  [assert-type]
+constructors_callable.py:128: error: Too few arguments  [call-arg]
+constructors_callable.py:144: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class6Any"
+constructors_callable.py:145: error: Expression is of type "Class6Any", not "Any"  [assert-type]
+constructors_callable.py:145: error: Too few arguments  [call-arg]
+constructors_callable.py:164: note: Revealed type is "Overload(def (x: builtins.int) -> constructors_callable.Class7[builtins.int], def (x: builtins.str) -> constructors_callable.Class7[builtins.str])"
+constructors_callable.py:184: note: Revealed type is "def [T] (x: builtins.list[T`1], y: builtins.list[T`1]) -> constructors_callable.Class8[T`1]"
+constructors_callable.py:186: error: Cannot infer function type argument  [misc]
+constructors_callable.py:195: note: Revealed type is "def [T] (x: builtins.list[T`-1], y: builtins.list[T`-1]) -> constructors_callable.Class9"
+constructors_callable.py:197: error: Cannot infer function type argument  [misc]
 """
