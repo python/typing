@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Fails to handle move_first_element_to_last example
-"""
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
