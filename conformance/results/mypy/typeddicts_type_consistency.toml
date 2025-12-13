@@ -8,8 +8,6 @@ typeddicts_type_consistency.py:76: error: Incompatible types in assignment (expr
 typeddicts_type_consistency.py:77: error: Incompatible types in assignment (expression has type "B3", variable has type "dict[str, object]")  [assignment]
 typeddicts_type_consistency.py:78: error: Incompatible types in assignment (expression has type "B3", variable has type "dict[Any, Any]")  [assignment]
 typeddicts_type_consistency.py:82: error: Incompatible types in assignment (expression has type "B3", variable has type "Mapping[str, int]")  [assignment]
-typeddicts_type_consistency.py:101: error: Incompatible types in assignment (expression has type "str | None", variable has type "str")  [assignment]
-typeddicts_type_consistency.py:107: error: Incompatible types in assignment (expression has type "int | str", variable has type "int")  [assignment]
 typeddicts_type_consistency.py:126: error: Incompatible types (expression has type "int", TypedDict item "inner_key" has type "str")  [typeddict-item]
 """
 conformance_automated = "Pass"

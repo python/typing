@@ -1,15 +1,14 @@
-conformant = "Partial"
-notes = """
-Does not check for unsafe overlap in runtime_checkable protocols
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 88: Expected 1 errors
-Line 92: Expected 1 errors
-Line 96: Expected 1 errors
 """
 output = """
 ERROR protocols_runtime_checkable.py:23:22-28: Protocol `Proto1` is not decorated with @runtime_checkable and cannot be used with isinstance() [invalid-argument]
 ERROR protocols_runtime_checkable.py:55:22-34: Protocol `DataProtocol` has non-method members and cannot be used with issubclass() [invalid-argument]
 ERROR protocols_runtime_checkable.py:61:22-53: Protocol `DataProtocol` has non-method members and cannot be used with issubclass() [invalid-argument]
+ERROR protocols_runtime_checkable.py:88:33-39: Runtime checkable protocol `Proto3` has an unsafe overlap with type `Concrete3A` [invalid-argument]
+ERROR protocols_runtime_checkable.py:92:23-48: Runtime checkable protocol `Proto3` has an unsafe overlap with type `Concrete3B` [invalid-argument]
+ERROR protocols_runtime_checkable.py:92:23-48: Runtime checkable protocol `NonDataProtocol` has an unsafe overlap with type `Concrete3B` [invalid-argument]
+ERROR protocols_runtime_checkable.py:96:31-56: Runtime checkable protocol `Proto3` has an unsafe overlap with type `Concrete3A` [invalid-argument]
+ERROR protocols_runtime_checkable.py:96:31-56: Runtime checkable protocol `NonDataProtocol` has an unsafe overlap with type `Concrete3A` [invalid-argument]
 """

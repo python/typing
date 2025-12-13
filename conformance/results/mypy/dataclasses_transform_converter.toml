@@ -13,7 +13,7 @@ Line 121: Unexpected errors ['dataclasses_transform_converter.py:121: error: Arg
 """
 output = """
 dataclasses_transform_converter.py:48: error: Argument "converter" to "model_field" has incompatible type "Callable[[], int]"; expected "Callable[[Never], int]"  [arg-type]
-dataclasses_transform_converter.py:49: error: Argument "converter" to "model_field" has incompatible type "Callable[[NamedArg(int, 'x')], int]"; expected "Callable[[Never], int]"  [arg-type]
+dataclasses_transform_converter.py:49: error: Argument "converter" to "model_field" has incompatible type "def bad_converter2(*, x: int) -> int"; expected "Callable[[Never], int]"  [arg-type]
 dataclasses_transform_converter.py:107: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
 dataclasses_transform_converter.py:107: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
 dataclasses_transform_converter.py:107: error: Argument 4 to "DC2" has incompatible type "bytes"; expected "ConverterClass"  [arg-type]

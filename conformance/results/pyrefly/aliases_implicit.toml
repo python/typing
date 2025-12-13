@@ -12,7 +12,7 @@ Line 117: Expected 1 errors
 """
 output = """
 ERROR aliases_implicit.py:76:9-28: `type[int | None]` is not subscriptable [unsupported-operation]
-ERROR aliases_implicit.py:77:9-28: `type[list[int | None]]` is not subscriptable [unsupported-operation]
+ERROR aliases_implicit.py:77:9-28: `type[list[GoodTypeAlias2]]` is not subscriptable [unsupported-operation]
 ERROR aliases_implicit.py:78:9-33: Expected 1 type argument for `GoodTypeAlias4`, got 2 [bad-specialization]
 ERROR aliases_implicit.py:79:9-33: Expected 1 type argument for `GoodTypeAlias8`, got 2 [bad-specialization]
 ERROR aliases_implicit.py:80:9-33: Expected a valid ParamSpec expression, got `int` [invalid-param-spec]
