@@ -8,7 +8,7 @@ Literals
 ``Literal``
 -----------
 
-(Originally specified in :pep:`586`.)
+(Originally specified in :pep:`586`, which introduced ``Literal`` types.)
 
 
 Core Semantics
