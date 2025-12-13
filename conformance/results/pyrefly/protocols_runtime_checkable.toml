@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Does not check for unsafe overlap in runtime_checkable protocols
-"""
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
