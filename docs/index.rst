@@ -69,7 +69,7 @@ Discussions and Support
 =======================
 
 * `User help forum <https://github.com/python/typing/discussions>`_
-* `User chat on Gitter <http://gitter.im/python/typing>`_
+* `User chat on Gitter <https://gitter.im/python/typing>`_
 * `Developer forum <https://discuss.python.org/c/typing/32>`_
 * `Developer mailing list (archived) <https://mail.python.org/archives/list/typing-sig@python.org/>`_
 
