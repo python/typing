@@ -3,8 +3,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR namedtuples_define_class.py:32:7-12: Index 3 out of range for tuple with 3 elements [bad-index]
-ERROR namedtuples_define_class.py:33:7-13: Index -4 out of range for tuple with 3 elements [bad-index]
+ERROR namedtuples_define_class.py:32:10-11: Index 3 out of range for tuple with 3 elements [bad-index]
+ERROR namedtuples_define_class.py:33:10-12: Index -4 out of range for tuple with 3 elements [bad-index]
 ERROR namedtuples_define_class.py:44:11-14: Missing argument `y` in function `Point.__new__` [missing-argument]
 ERROR namedtuples_define_class.py:45:11-16: Missing argument `y` in function `Point.__new__` [missing-argument]
 ERROR namedtuples_define_class.py:46:15-17: Argument `Literal['']` is not assignable to parameter `y` with type `int` in function `Point.__new__` [bad-argument-type]

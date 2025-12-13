@@ -2,9 +2,8 @@ conformant = "Partial"
 notes = """
 Incorrectly marks a match case as unreachable.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Lines 111, 112: Expected error (tag 'func6_3')
 """
 output = """
 tuples_type_compat.py:15: error: Incompatible types in assignment (expression has type "tuple[float, complex]", variable has type "tuple[int, int]")  [assignment]
@@ -18,6 +17,7 @@ tuples_type_compat.py:81: error: Expression is of type "tuple[str, str] | tuple[
 tuples_type_compat.py:86: error: Expression is of type "tuple[int, str, int]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"  [misc]
 tuples_type_compat.py:102: error: Expression is of type "tuple[int]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"  [misc]
 tuples_type_compat.py:107: error: Expression is of type "tuple[str, str] | tuple[int, int]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"  [misc]
+tuples_type_compat.py:112: error: Expression is of type "tuple[int, str, int]", not "tuple[int] | tuple[str, str] | tuple[int, Unpack[Tuple[str, ...]], int]"  [misc]
 tuples_type_compat.py:127: error: Expression is of type "tuple[int | str, str]", not "tuple[int | str, int | str]"  [misc]
 tuples_type_compat.py:129: error: Expression is of type "tuple[int | str, int | str]", not "tuple[int | str, int]"  [misc]
 tuples_type_compat.py:157: error: Incompatible types in assignment (expression has type "tuple[int, str, str]", variable has type "tuple[int, str]")  [assignment]
