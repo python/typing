@@ -50,6 +50,9 @@ literal type. So, if we have some variable ``foo`` of type ``Literal[3]``
 it’s safe to do things like ``foo + 5`` since ``foo`` inherits ``int``’s
 ``__add__`` method. The resulting type of ``foo + 5`` is ``int``.
 
+The specification does not mandate the level of precision required for such inference, and type checkers may choose to infer a more precise ``Literal`` result where possible.
+
+
 This "inheriting" behavior is identical to how we
 :ref:`handle NewTypes <newtype>`.
 
