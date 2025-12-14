@@ -4,5 +4,5 @@ errors_diff = """
 """
 output = """
 ERROR constructors_call_new.py:21:13-16: Argument `float` is not assignable to parameter `x` with type `int` in function `Class1.__new__` [bad-argument-type]
-ERROR constructors_call_new.py:145:13-15: Argument `type[Class11[str]]` is not assignable to parameter `cls` with type `type[Class11[int]]` in function `Class11.__new__` [bad-argument-type]
+ERROR constructors_call_new.py:148:13-15: Argument `type[Class11[str]]` is not assignable to parameter `cls` with type `type[Class11[int]]` in function `Class11.__new__` [bad-argument-type]
 """

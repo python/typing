@@ -11,8 +11,6 @@ output = """
 generics_syntax_infer_variance.py:15: error: Cannot use covariant with infer_variance  [misc]
 generics_syntax_infer_variance.py:17: error: Cannot use contravariant with infer_variance  [misc]
 generics_syntax_infer_variance.py:29: error: Incompatible types in assignment (expression has type "ShouldBeCovariant1[float]", variable has type "ShouldBeCovariant1[int]")  [assignment]
-generics_syntax_infer_variance.py:39: note: If the method is meant to be abstract, use @abc.abstractmethod
-generics_syntax_infer_variance.py:42: note: If the method is meant to be abstract, use @abc.abstractmethod
 generics_syntax_infer_variance.py:47: error: Incompatible types in assignment (expression has type "ShouldBeCovariant2[float]", variable has type "ShouldBeCovariant2[int]")  [assignment]
 generics_syntax_infer_variance.py:56: error: Incompatible types in assignment (expression has type "ShouldBeCovariant3[float]", variable has type "ShouldBeCovariant3[int]")  [assignment]
 generics_syntax_infer_variance.py:85: error: Incompatible types in assignment (expression has type "ShouldBeCovariant5[float]", variable has type "ShouldBeCovariant5[int]")  [assignment]

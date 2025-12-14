@@ -4,7 +4,7 @@ notes = """
 Allows @override to be on all overloads and implementation, instead of just implementation.
 """
 errors_diff = """
-Lines 220, 221, 222, 225, 226: Expected error (tag 'override_impl')
+Lines 226, 227, 228, 231, 232: Expected error (tag 'override_impl')
 """
 output = """
 overloads_definitions.py:15: error: Single overload definition, multiple required  [misc]
@@ -12,8 +12,8 @@ overloads_definitions.py:27: error: An overloaded function outside a stub file m
 overloads_definitions.py:58: error: An overloaded function outside a stub file must have an implementation  [no-overload-impl]
 overloads_definitions.py:71: error: Overload does not consistently use the "@staticmethod" decorator on all function signatures.  [misc]
 overloads_definitions.py:84: error: Overload does not consistently use the "@classmethod" decorator on all function signatures.  [misc]
-overloads_definitions.py:121: error: @final should be applied only to overload implementation  [misc]
-overloads_definitions.py:135: error: @final should be applied only to overload implementation  [misc]
-overloads_definitions.py:175: error: Cannot override final attribute "final_method" (previously declared in base class "Base")  [misc]
-overloads_definitions.py:190: error: Method "bad_override" is marked as an override, but no base method was found with this name  [misc]
+overloads_definitions.py:122: error: @final should be applied only to overload implementation  [misc]
+overloads_definitions.py:137: error: @final should be applied only to overload implementation  [misc]
+overloads_definitions.py:180: error: Cannot override final attribute "final_method" (previously declared in base class "Base")  [misc]
+overloads_definitions.py:195: error: Method "bad_override" is marked as an override, but no base method was found with this name  [misc]
 """

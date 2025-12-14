@@ -9,25 +9,25 @@ constructors_callable.py:39:1 - error: Argument missing for parameter "x" (repor
 constructors_callable.py:39:4 - error: No parameter named "y" (reportCallIssue)
 constructors_callable.py:49:13 - information: Type of "r2" is "() -> Class2"
 constructors_callable.py:51:4 - error: Expected 0 positional arguments (reportCallIssue)
-constructors_callable.py:63:13 - information: Type of "r3" is "(x: int) -> Class3"
-constructors_callable.py:65:1 - error: Argument missing for parameter "x" (reportCallIssue)
+constructors_callable.py:64:13 - information: Type of "r3" is "(x: int) -> Class3"
 constructors_callable.py:66:1 - error: Argument missing for parameter "x" (reportCallIssue)
-constructors_callable.py:66:4 - error: No parameter named "y" (reportCallIssue)
-constructors_callable.py:67:7 - error: Expected 1 positional argument (reportCallIssue)
-constructors_callable.py:77:13 - information: Type of "r4" is "(x: int) -> int"
-constructors_callable.py:79:1 - error: Argument missing for parameter "x" (reportCallIssue)
-constructors_callable.py:80:1 - error: Argument missing for parameter "x" (reportCallIssue)
-constructors_callable.py:80:4 - error: No parameter named "y" (reportCallIssue)
-constructors_callable.py:97:13 - information: Type of "r5" is "(...) -> NoReturn"
-constructors_callable.py:125:13 - information: Type of "r6" is "() -> Class6Proxy"
-constructors_callable.py:127:4 - error: Expected 0 positional arguments (reportCallIssue)
-constructors_callable.py:142:13 - information: Type of "r6_any" is "() -> Any"
-constructors_callable.py:144:8 - error: Expected 0 positional arguments (reportCallIssue)
-constructors_callable.py:162:5 - information: Type of "r7" is "Overload[(x: int) -> Class7[int], (x: str) -> Class7[str]]"
-constructors_callable.py:182:13 - information: Type of "r8" is "(x: list[T@Class8], y: list[T@Class8]) -> Class8[T@Class8]"
-constructors_callable.py:184:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@Class8]"
+constructors_callable.py:67:1 - error: Argument missing for parameter "x" (reportCallIssue)
+constructors_callable.py:67:4 - error: No parameter named "y" (reportCallIssue)
+constructors_callable.py:68:7 - error: Expected 1 positional argument (reportCallIssue)
+constructors_callable.py:79:13 - information: Type of "r4" is "(x: int) -> int"
+constructors_callable.py:81:1 - error: Argument missing for parameter "x" (reportCallIssue)
+constructors_callable.py:82:1 - error: Argument missing for parameter "x" (reportCallIssue)
+constructors_callable.py:82:4 - error: No parameter named "y" (reportCallIssue)
+constructors_callable.py:99:13 - information: Type of "r5" is "(...) -> NoReturn"
+constructors_callable.py:127:13 - information: Type of "r6" is "() -> Class6Proxy"
+constructors_callable.py:129:4 - error: Expected 0 positional arguments (reportCallIssue)
+constructors_callable.py:144:13 - information: Type of "r6_any" is "() -> Any"
+constructors_callable.py:146:8 - error: Expected 0 positional arguments (reportCallIssue)
+constructors_callable.py:164:5 - information: Type of "r7" is "Overload[(x: int) -> Class7[int], (x: str) -> Class7[str]]"
+constructors_callable.py:184:13 - information: Type of "r8" is "(x: list[T@Class8], y: list[T@Class8]) -> Class8[T@Class8]"
+constructors_callable.py:186:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@Class8]"
   "Literal['']" is not assignable to "int" (reportArgumentType)
-constructors_callable.py:193:13 - information: Type of "r9" is "(x: list[T@__init__], y: list[T@__init__]) -> Class9"
-constructors_callable.py:195:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@__init__]"
+constructors_callable.py:195:13 - information: Type of "r9" is "(x: list[T@__init__], y: list[T@__init__]) -> Class9"
+constructors_callable.py:197:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@__init__]"
   "Literal['']" is not assignable to "int" (reportArgumentType)
 """

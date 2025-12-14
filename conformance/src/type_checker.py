@@ -102,8 +102,6 @@ class MypyTypeChecker(TypeChecker):
             "-m",
             "mypy",
             ".",
-            "--disable-error-code",
-            "empty-body",
             "--enable-error-code",
             "deprecated",
         ]
