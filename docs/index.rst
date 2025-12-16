@@ -23,6 +23,7 @@ Guides
    :maxdepth: 1
 
    guides/libraries
+   guides/lambda
    guides/writing_stubs
    guides/modernizing
    guides/unreachable
