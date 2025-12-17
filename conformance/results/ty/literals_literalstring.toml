@@ -1,0 +1,23 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 53: Unexpected errors ['literals_literalstring.py:53:5 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)']
+Line 63: Unexpected errors ['literals_literalstring.py:63:5 - major: type-assertion-failure: Argument does not have asserted type `LiteralString` (type-assertion-failure)']
+Line 68: Unexpected errors ['literals_literalstring.py:68:5 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)']
+Line 167: Unexpected errors ['literals_literalstring.py:167:1 - major: type-assertion-failure: Argument does not have asserted type `A` (type-assertion-failure)']
+"""
+output = """
+literals_literalstring.py:36:29 - major: invalid-type-form: Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member (invalid-type-form)
+literals_literalstring.py:37:22 - major: invalid-type-form: Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member (invalid-type-form)
+literals_literalstring.py:43:23 - major: invalid-assignment: Object of type `Literal["two"]` is not assignable to `Literal[""]` (invalid-assignment)
+literals_literalstring.py:53:5 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)
+literals_literalstring.py:63:5 - major: type-assertion-failure: Argument does not have asserted type `LiteralString` (type-assertion-failure)
+literals_literalstring.py:66:25 - major: invalid-assignment: Object of type `str` is not assignable to `LiteralString` (invalid-assignment)
+literals_literalstring.py:68:5 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)
+literals_literalstring.py:74:25 - major: invalid-assignment: Object of type `Literal[3]` is not assignable to `LiteralString` (invalid-assignment)
+literals_literalstring.py:75:25 - major: invalid-assignment: Object of type `Literal[b"test"]` is not assignable to `LiteralString` (invalid-assignment)
+literals_literalstring.py:120:22 - major: invalid-argument-type: Argument to function `literal_identity` is incorrect (invalid-argument-type)
+literals_literalstring.py:134:51 - major: invalid-argument-type: Argument to bound method `__init__` is incorrect (invalid-argument-type)
+literals_literalstring.py:134:51 - major: invalid-argument-type: Argument to bound method `__init__` is incorrect (invalid-argument-type)
+literals_literalstring.py:167:1 - major: type-assertion-failure: Argument does not have asserted type `A` (type-assertion-failure)
+literals_literalstring.py:171:21 - major: invalid-assignment: Object of type `list[LiteralString]` is not assignable to `list[str]` (invalid-assignment)
+"""

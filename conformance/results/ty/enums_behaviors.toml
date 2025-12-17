@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_behaviors.py:28:1 - major: type-assertion-failure: Argument does not have asserted type `Literal[Color.RED]` (type-assertion-failure)
+enums_behaviors.py:32:1 - major: type-assertion-failure: Argument does not have asserted type `Literal[Color.BLUE]` (type-assertion-failure)
+enums_behaviors.py:44:21 - major: subclass-of-final-class: Class `ExtendedShape` cannot inherit from final class `Shape` (subclass-of-final-class)
+"""

@@ -1,0 +1,12 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 25: Unexpected errors ["protocols_modules.py:25:17 - major: invalid-assignment: Object of type `<module '_protocols_modules1'>` is not assignable to `Options1` (invalid-assignment)"]
+Line 47: Unexpected errors ["protocols_modules.py:47:18 - major: invalid-assignment: Object of type `<module '_protocols_modules2'>` is not assignable to `Reporter1` (invalid-assignment)"]
+"""
+output = """
+protocols_modules.py:25:17 - major: invalid-assignment: Object of type `<module '_protocols_modules1'>` is not assignable to `Options1` (invalid-assignment)
+protocols_modules.py:26:17 - major: invalid-assignment: Object of type `<module '_protocols_modules1'>` is not assignable to `Options2` (invalid-assignment)
+protocols_modules.py:47:18 - major: invalid-assignment: Object of type `<module '_protocols_modules2'>` is not assignable to `Reporter1` (invalid-assignment)
+protocols_modules.py:48:18 - major: invalid-assignment: Object of type `<module '_protocols_modules2'>` is not assignable to `Reporter2` (invalid-assignment)
+protocols_modules.py:49:18 - major: invalid-assignment: Object of type `<module '_protocols_modules2'>` is not assignable to `Reporter3` (invalid-assignment)
+"""

@@ -1,0 +1,9 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Expected 1 errors
+Line 38: Expected 1 errors
+"""
+output = """
+historical_positional.py:18:4 - major: positional-only-parameter-as-kwarg: Positional-only parameter 1 (`__x`) passed as keyword argument of function `f1` (positional-only-parameter-as-kwarg)
+historical_positional.py:43:6 - major: positional-only-parameter-as-kwarg: Positional-only parameter 2 (`__x`) passed as keyword argument of bound method `m1` (positional-only-parameter-as-kwarg)
+"""

@@ -1,0 +1,31 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 40: Expected 1 errors
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+Line 46: Expected 1 errors
+Line 47: Expected 1 errors
+Line 48: Expected 1 errors
+Line 23: Unexpected errors ['aliases_typealiastype.py:23:5 - major: invalid-argument-type: Argument to class `TypeAliasType` is incorrect (invalid-argument-type)']
+"""
+output = """
+aliases_typealiastype.py:23:5 - major: invalid-argument-type: Argument to class `TypeAliasType` is incorrect (invalid-argument-type)
+aliases_typealiastype.py:32:7 - major: unresolved-attribute: Object of type `TypeAliasType` has no attribute `other_attrib` (unresolved-attribute)
+aliases_typealiastype.py:52:40 - major: invalid-type-form: Function calls are not allowed in type expressions (invalid-type-form)
+aliases_typealiastype.py:53:40 - major: invalid-type-form: List literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_typealiastype.py:54:42 - major: invalid-type-form: Tuple literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_typealiastype.py:54:43 - major: invalid-type-form: Tuple literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_typealiastype.py:55:42 - major: invalid-type-form: List comprehensions are not allowed in type expressions (invalid-type-form)
+aliases_typealiastype.py:56:42 - major: invalid-type-form: Dict literals are not allowed in type expressions (invalid-type-form)
+aliases_typealiastype.py:57:42 - major: invalid-type-form: Function calls are not allowed in type expressions (invalid-type-form)
+aliases_typealiastype.py:58:42 - major: invalid-type-form: Invalid subscript of object of type `list[Unknown | <class 'int'>]` in type expression (invalid-type-form)
+aliases_typealiastype.py:58:48 - major: invalid-type-form: Int literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_typealiastype.py:59:42 - major: invalid-type-form: `if` expressions are not allowed in type expressions (invalid-type-form)
+aliases_typealiastype.py:60:42 - major: invalid-type-form: Variable of type `Literal[3]` is not allowed in a type expression (invalid-type-form)
+aliases_typealiastype.py:61:42 - major: invalid-type-form: Boolean literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_typealiastype.py:62:42 - major: invalid-type-form: Int literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_typealiastype.py:63:42 - major: invalid-type-form: Boolean operations are not allowed in type expressions (invalid-type-form)
+aliases_typealiastype.py:64:42 - major: invalid-type-form: F-strings are not allowed in type expressions (invalid-type-form)
+aliases_typealiastype.py:66:47 - major: unresolved-reference: Name `BadAlias21` used when not defined (unresolved-reference)
+"""

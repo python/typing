@@ -1,0 +1,27 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 46: Expected 1 errors
+Line 51: Expected 1 errors
+Line 58: Expected 1 errors
+Line 63: Expected 1 errors
+Line 65: Expected 1 errors
+Line 101: Expected 1 errors
+Line 102: Expected 1 errors
+Line 111: Expected 1 errors
+Line 122: Expected 1 errors
+Line 24: Unexpected errors ['callables_kwargs.py:24:5 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 32: Unexpected errors ['callables_kwargs.py:32:9 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)']
+Line 35: Unexpected errors ['callables_kwargs.py:35:5 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)']
+Line 41: Unexpected errors ['callables_kwargs.py:41:5 - major: type-assertion-failure: Argument does not have asserted type `TD1` (type-assertion-failure)']
+"""
+output = """
+callables_kwargs.py:24:5 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+callables_kwargs.py:32:9 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)
+callables_kwargs.py:35:5 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)
+callables_kwargs.py:41:5 - major: type-assertion-failure: Argument does not have asserted type `TD1` (type-assertion-failure)
+callables_kwargs.py:52:11 - major: too-many-positional-arguments: Too many positional arguments to function `func1`: expected 0, got 3 (too-many-positional-arguments)
+callables_kwargs.py:64:11 - major: invalid-argument-type: Argument to function `func2` is incorrect (invalid-argument-type)
+callables_kwargs.py:64:14 - major: parameter-already-assigned: Multiple values provided for parameter `v3` of function `func2` (parameter-already-assigned)
+callables_kwargs.py:103:19 - major: invalid-assignment: Object of type `def func1(**kwargs: @Todo) -> None` is not assignable to `TDProtocol5` (invalid-assignment)
+callables_kwargs.py:134:19 - major: invalid-assignment: Object of type `def func7(*, v1: int, v3: str, v2: str = "") -> None` is not assignable to `TDProtocol6` (invalid-assignment)
+"""

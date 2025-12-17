@@ -1,0 +1,25 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 20: Expected 1 errors
+Line 26: Expected 1 errors
+Line 30: Expected 1 errors
+Line 35: Expected 1 errors
+Line 36: Expected 1 errors
+Line 38: Expected 1 errors
+Line 41: Expected 1 errors
+Line 60: Expected 1 errors
+Line 70: Expected 1 errors
+Line 72: Expected 1 errors
+"""
+output = """
+generics_paramspec_components.py:17:25 - major: invalid-type-form: `P.kwargs` is valid only in `**kwargs` annotation (invalid-type-form)
+generics_paramspec_components.py:17:45 - major: invalid-type-form: `P.args` is valid only in `*args` annotation (invalid-type-form)
+generics_paramspec_components.py:23:46 - major: invalid-type-form: `P.args` is valid only in `*args` annotation (invalid-type-form)
+generics_paramspec_components.py:49:11 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+generics_paramspec_components.py:49:20 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+generics_paramspec_components.py:51:11 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+generics_paramspec_components.py:83:18 - major: invalid-argument-type: Argument to function `foo` is incorrect (invalid-argument-type)
+generics_paramspec_components.py:83:18 - major: parameter-already-assigned: Multiple values provided for parameter 1 (`x`) of function `foo` (parameter-already-assigned)
+generics_paramspec_components.py:98:7 - major: invalid-argument-type: Argument to function `twice` is incorrect (invalid-argument-type)
+generics_paramspec_components.py:98:20 - major: invalid-argument-type: Argument to function `twice` is incorrect (invalid-argument-type)
+"""

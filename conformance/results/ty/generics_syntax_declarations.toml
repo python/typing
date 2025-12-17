@@ -1,0 +1,15 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 44: Expected 1 errors
+"""
+output = """
+generics_syntax_declarations.py:17:1 - major: invalid-generic-class: Cannot both inherit from `typing.Generic` and use PEP 695 type variables (invalid-generic-class)
+generics_syntax_declarations.py:25:20 - major: invalid-generic-class: Cannot both inherit from subscripted `Protocol` and use PEP 695 type variables (invalid-generic-class)
+generics_syntax_declarations.py:32:9 - major: unresolved-attribute: Object of type `T@ClassD` has no attribute `is_integer` (unresolved-attribute)
+generics_syntax_declarations.py:48:17 - major: invalid-type-form: List literals are not allowed in this context in a type expression (invalid-type-form)
+generics_syntax_declarations.py:60:17 - major: invalid-type-variable-constraints: TypeVar must have at least two constrained types (invalid-type-variable-constraints)
+generics_syntax_declarations.py:64:17 - major: invalid-type-variable-constraints: TypeVar must have at least two constrained types (invalid-type-variable-constraints)
+generics_syntax_declarations.py:71:17 - major: invalid-type-form: Variable of type `tuple[<class 'bytes'>, <class 'str'>]` is not allowed in a type expression (invalid-type-form)
+generics_syntax_declarations.py:75:18 - major: invalid-type-form: Int literals are not allowed in this context in a type expression (invalid-type-form)
+generics_syntax_declarations.py:79:23 - major: unresolved-reference: Name `S` used when not defined (unresolved-reference)
+"""

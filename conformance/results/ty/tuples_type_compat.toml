@@ -1,0 +1,29 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+tuples_type_compat.py:15:27 - major: invalid-assignment: Object of type `tuple[int | float, int | float | complex]` is not assignable to `tuple[int, int]` (invalid-assignment)
+tuples_type_compat.py:29:10 - major: invalid-assignment: Object of type `tuple[int, ...]` is not assignable to `tuple[int, *tuple[int, ...]]` (invalid-assignment)
+tuples_type_compat.py:32:10 - major: invalid-assignment: Object of type `tuple[int, *tuple[int, ...]]` is not assignable to `tuple[int]` (invalid-assignment)
+tuples_type_compat.py:33:10 - major: invalid-assignment: Object of type `tuple[int, ...]` is not assignable to `tuple[int]` (invalid-assignment)
+tuples_type_compat.py:43:22 - major: invalid-assignment: Object of type `tuple[int, ...]` is not assignable to `tuple[int]` (invalid-assignment)
+tuples_type_compat.py:62:26 - major: invalid-assignment: Object of type `tuple[int, ...]` is not assignable to `tuple[int, int]` (invalid-assignment)
+tuples_type_compat.py:75:9 - major: type-assertion-failure: Argument does not have asserted type `tuple[int]` (type-assertion-failure)
+tuples_type_compat.py:80:9 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, str] | tuple[int, int]` (type-assertion-failure)
+tuples_type_compat.py:85:9 - major: type-assertion-failure: Argument does not have asserted type `tuple[int, str, int]` (type-assertion-failure)
+tuples_type_compat.py:101:13 - major: type-assertion-failure: Argument does not have asserted type `tuple[int]` (type-assertion-failure)
+tuples_type_compat.py:106:13 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, str] | tuple[int, int]` (type-assertion-failure)
+tuples_type_compat.py:111:13 - major: type-assertion-failure: Argument does not have asserted type `tuple[int, str, int]` (type-assertion-failure)
+tuples_type_compat.py:126:13 - major: type-assertion-failure: Argument does not have asserted type `tuple[int | str, str]` (type-assertion-failure)
+tuples_type_compat.py:129:13 - major: type-assertion-failure: Argument does not have asserted type `tuple[int | str, int]` (type-assertion-failure)
+tuples_type_compat.py:157:6 - major: invalid-assignment: Object of type `tuple[Literal[1], Literal[""], Literal[""]]` is not assignable to `tuple[int, str]` (invalid-assignment)
+tuples_type_compat.py:162:6 - major: invalid-assignment: Object of type `tuple[Literal[1], Literal[1], Literal[""]]` is not assignable to `tuple[int, *tuple[str, ...]]` (invalid-assignment)
+tuples_type_compat.py:163:6 - major: invalid-assignment: Object of type `tuple[Literal[1], Literal[""], Literal[1]]` is not assignable to `tuple[int, *tuple[str, ...]]` (invalid-assignment)
+tuples_type_compat.py:169:6 - major: invalid-assignment: Object of type `tuple[Literal[1], Literal[""], Literal[""]]` is not assignable to `tuple[int, *tuple[str, ...], int]` (invalid-assignment)
+tuples_type_compat.py:170:6 - major: invalid-assignment: Object of type `tuple[Literal[1], Literal[""], Literal[""], float]` is not assignable to `tuple[int, *tuple[str, ...], int]` (invalid-assignment)
+tuples_type_compat.py:175:6 - major: invalid-assignment: Object of type `tuple[Literal[1], Literal[""], Literal[1]]` is not assignable to `tuple[*tuple[str, ...], int]` (invalid-assignment)
+tuples_type_compat.py:176:6 - major: invalid-assignment: Object of type `tuple[Literal[""], Literal[""], float]` is not assignable to `tuple[*tuple[str, ...], int]` (invalid-assignment)
+tuples_type_compat.py:181:40 - major: invalid-assignment: Object of type `tuple[str, str]` is not assignable to `tuple[str, str, int]` (invalid-assignment)
+tuples_type_compat.py:184:50 - major: invalid-assignment: Object of type `tuple[str, str]` is not assignable to `tuple[str, str, str, *tuple[str, ...]]` (invalid-assignment)
+tuples_type_compat.py:188:50 - major: invalid-assignment: Object of type `tuple[str, str]` is not assignable to `tuple[*tuple[str, ...], str, str, str]` (invalid-assignment)
+"""

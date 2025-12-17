@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_assert_type.py:27:5 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+directives_assert_type.py:28:5 - major: type-assertion-failure: Argument does not have asserted type `Any` (type-assertion-failure)
+directives_assert_type.py:29:5 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+directives_assert_type.py:30:5 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+directives_assert_type.py:32:5 - major: missing-argument: No arguments provided for required parameters `value`, `type` of function `assert_type` (missing-argument)
+directives_assert_type.py:33:5 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+directives_assert_type.py:34:31 - major: too-many-positional-arguments: Too many positional arguments to function `assert_type`: expected 2, got 3 (too-many-positional-arguments)
+"""

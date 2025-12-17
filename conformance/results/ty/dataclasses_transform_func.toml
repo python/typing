@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_transform_func.py:56:1 - major: invalid-assignment: Object of type `Literal[3]` is not assignable to attribute `name` of type `str` (invalid-assignment)
+dataclasses_transform_func.py:60:6 - major: unsupported-operator: Unsupported `<` operation (unsupported-operator)
+dataclasses_transform_func.py:64:36 - major: unknown-argument: Argument `salary` does not match any known parameter (unknown-argument)
+dataclasses_transform_func.py:70:8 - major: missing-argument: No arguments provided for required parameters `id`, `name` (missing-argument)
+dataclasses_transform_func.py:70:18 - major: too-many-positional-arguments: Too many positional arguments: expected 0, got 2 (too-many-positional-arguments)
+dataclasses_transform_func.py:89:7 - major: invalid-frozen-dataclass-subclass: Non-frozen dataclass cannot inherit from frozen dataclass (invalid-frozen-dataclass-subclass)
+dataclasses_transform_func.py:96:1 - major: invalid-assignment: Property `id` defined in `Customer3` is read-only (invalid-assignment)
+"""

@@ -1,0 +1,19 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 50: Expected 1 errors
+"""
+output = """
+aliases_newtype.py:11:8 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+aliases_newtype.py:12:14 - major: invalid-assignment: Object of type `Literal[42]` is not assignable to `UserId` (invalid-assignment)
+aliases_newtype.py:18:11 - major: invalid-assignment: Object of type `<NewType pseudo-class 'UserId'>` is not assignable to `type` (invalid-assignment)
+aliases_newtype.py:23:16 - major: invalid-argument-type: Argument to function `isinstance` is incorrect (invalid-argument-type)
+aliases_newtype.py:26:21 - major: invalid-base: Cannot subclass an instance of NewType (invalid-base)
+aliases_newtype.py:35:1 - major: invalid-newtype: The name of a `NewType` (`BadName`) must match the name of the variable it is assigned to (`GoodName`) (invalid-newtype)
+aliases_newtype.py:41:6 - major: invalid-type-form: `GoodNewType1` is a `NewType` and cannot be specialized (invalid-type-form)
+aliases_newtype.py:47:38 - major: invalid-newtype: invalid base for `typing.NewType` (invalid-newtype)
+aliases_newtype.py:52:38 - major: invalid-newtype: invalid base for `typing.NewType` (invalid-newtype)
+aliases_newtype.py:54:38 - major: invalid-newtype: invalid base for `typing.NewType` (invalid-newtype)
+aliases_newtype.py:61:38 - major: invalid-newtype: invalid base for `typing.NewType` (invalid-newtype)
+aliases_newtype.py:63:15 - major: invalid-newtype: Wrong number of arguments in `NewType` creation, expected 2, found 3 (invalid-newtype)
+aliases_newtype.py:65:38 - major: invalid-newtype: invalid base for `typing.NewType` (invalid-newtype)
+"""

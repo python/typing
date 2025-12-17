@@ -3,14 +3,14 @@ notes = """
 Does not reject call to super method with no default implementation.
 Does not detect stub methods inherited from protocols as abstract.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 89: Expected 1 errors
 """
 output = """
 ERROR protocols_explicit.py:27:16-28: Method `draw` inherited from class `PColor` has no implementation and cannot be accessed via `super()` [missing-attribute]
 ERROR protocols_explicit.py:56:20-36: `tuple[int, int, str]` is not assignable to attribute `rgb` with type `tuple[int, int, int]` [bad-assignment]
 ERROR protocols_explicit.py:60:10-20: Cannot instantiate `Point` because the following members are abstract: `intensity`, `transparency` [bad-instantiation]
+ERROR protocols_explicit.py:89:15-17: Cannot instantiate `Concrete1` because the following members are abstract: `cm1` [bad-instantiation]
 ERROR protocols_explicit.py:134:15-17: Cannot instantiate `Concrete5` because the following members are abstract: `method1` [bad-instantiation]
 ERROR protocols_explicit.py:164:17-19: Cannot instantiate `Concrete7A` because the following members are abstract: `method1` [bad-instantiation]
 """

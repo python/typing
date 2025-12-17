@@ -1,0 +1,9 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 50: Unexpected errors ['exceptions_context_managers.py:50:5 - major: type-assertion-failure: Argument does not have asserted type `int | str` (type-assertion-failure)']
+Line 57: Unexpected errors ['exceptions_context_managers.py:57:5 - major: type-assertion-failure: Argument does not have asserted type `int | str` (type-assertion-failure)']
+"""
+output = """
+exceptions_context_managers.py:50:5 - major: type-assertion-failure: Argument does not have asserted type `int | str` (type-assertion-failure)
+exceptions_context_managers.py:57:5 - major: type-assertion-failure: Argument does not have asserted type `int | str` (type-assertion-failure)
+"""

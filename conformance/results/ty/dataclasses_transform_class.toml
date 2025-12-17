@@ -1,0 +1,13 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 51: Expected 1 errors
+"""
+output = """
+dataclasses_transform_class.py:63:1 - major: invalid-assignment: Property `id` defined in `Customer1` is read-only (invalid-assignment)
+dataclasses_transform_class.py:66:8 - major: missing-argument: No arguments provided for required parameters `id`, `name` (missing-argument)
+dataclasses_transform_class.py:66:18 - major: too-many-positional-arguments: Too many positional arguments: expected 0, got 2 (too-many-positional-arguments)
+dataclasses_transform_class.py:72:6 - major: unsupported-operator: Unsupported `<` operation (unsupported-operator)
+dataclasses_transform_class.py:82:8 - major: missing-argument: No argument provided for required parameter `id` (missing-argument)
+dataclasses_transform_class.py:82:18 - major: too-many-positional-arguments: Too many positional arguments: expected 0, got 2 (too-many-positional-arguments)
+dataclasses_transform_class.py:122:1 - major: invalid-assignment: Property `id` defined in `Customer3` is read-only (invalid-assignment)
+"""

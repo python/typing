@@ -1,0 +1,9 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Unexpected errors ["generics_self_attributes.py:29:5 - major: invalid-assignment: Object of type `OrdinalLinkedList` is not assignable to attribute `next` of type `<special-form 'typing.Self'> | None` (invalid-assignment)"]
+"""
+output = """
+generics_self_attributes.py:26:33 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+generics_self_attributes.py:29:5 - major: invalid-assignment: Object of type `OrdinalLinkedList` is not assignable to attribute `next` of type `<special-form 'typing.Self'> | None` (invalid-assignment)
+generics_self_attributes.py:32:5 - major: invalid-assignment: Object of type `LinkedList[int]` is not assignable to attribute `next` of type `<special-form 'typing.Self'> | None` (invalid-assignment)
+"""

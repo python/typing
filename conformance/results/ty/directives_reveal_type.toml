@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_reveal_type.py:14:17 - info: revealed-type: Revealed type (revealed-type)
+directives_reveal_type.py:15:17 - info: revealed-type: Revealed type (revealed-type)
+directives_reveal_type.py:16:17 - info: revealed-type: Revealed type (revealed-type)
+directives_reveal_type.py:17:17 - info: revealed-type: Revealed type (revealed-type)
+directives_reveal_type.py:19:5 - major: missing-argument: No argument provided for required parameter `obj` of function `reveal_type` (missing-argument)
+directives_reveal_type.py:20:20 - major: too-many-positional-arguments: Too many positional arguments to function `reveal_type`: expected 1, got 2 (too-many-positional-arguments)
+"""

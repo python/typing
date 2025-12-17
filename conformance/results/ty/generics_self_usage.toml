@@ -1,0 +1,19 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 82: Expected 1 errors
+Line 113: Expected 1 errors
+Line 118: Expected 1 errors
+Line 123: Expected 1 errors
+Line 127: Expected 1 errors
+Line 50: Unexpected errors ["generics_self_usage.py:50:34 - major: invalid-assignment: Object of type `def foo(self) -> int` is not assignable to `(<special-form 'typing.Self'>, /) -> int` (invalid-assignment)"]
+"""
+output = """
+generics_self_usage.py:50:34 - major: invalid-assignment: Object of type `def foo(self) -> int` is not assignable to `(<special-form 'typing.Self'>, /) -> int` (invalid-assignment)
+generics_self_usage.py:73:14 - major: invalid-type-form: Variable of type `<special-form 'typing.Self'>` is not allowed in a type expression (invalid-type-form)
+generics_self_usage.py:73:23 - major: invalid-type-form: Variable of type `<special-form 'typing.Self'>` is not allowed in a type expression (invalid-type-form)
+generics_self_usage.py:76:6 - major: invalid-type-form: Variable of type `<special-form 'typing.Self'>` is not allowed in a type expression (invalid-type-form)
+generics_self_usage.py:87:16 - major: invalid-return-type: Return type does not match returned value (invalid-return-type)
+generics_self_usage.py:103:15 - major: invalid-type-form: Variable of type `<special-form 'typing.Self'>` is not allowed in a type expression (invalid-type-form)
+generics_self_usage.py:105:12 - major: invalid-base: Invalid class base with type `<special-form 'typing.Self'>` (invalid-base)
+generics_self_usage.py:108:30 - major: invalid-type-form: Variable of type `<special-form 'typing.Self'>` is not allowed in a type expression (invalid-type-form)
+"""

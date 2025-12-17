@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_self_basic.py:20:16 - major: invalid-return-type: Return type does not match returned value (invalid-return-type)
+generics_self_basic.py:33:16 - major: invalid-return-type: Return type does not match returned value (invalid-return-type)
+generics_self_basic.py:68:26 - major: invalid-type-form: Special form `typing.Self` expected no type parameter (invalid-type-form)
+"""

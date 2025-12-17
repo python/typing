@@ -1,0 +1,18 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 42: Expected 1 errors
+Line 107: Expected 1 errors
+Line 25: Unexpected errors ['constructors_call_init.py:25:1 - major: type-assertion-failure: Argument does not have asserted type `Class1[int | float]` (type-assertion-failure)']
+Line 75: Unexpected errors ['constructors_call_init.py:75:1 - major: type-assertion-failure: Argument does not have asserted type `Class5[int | float]` (type-assertion-failure)']
+Line 91: Unexpected errors ['constructors_call_init.py:91:1 - major: type-assertion-failure: Argument does not have asserted type `Class6[int, str]` (type-assertion-failure)']
+Line 99: Unexpected errors ['constructors_call_init.py:99:1 - major: type-assertion-failure: Argument does not have asserted type `Class7[str, int]` (type-assertion-failure)']
+"""
+output = """
+constructors_call_init.py:21:13 - major: invalid-argument-type: Argument to bound method `__init__` is incorrect (invalid-argument-type)
+constructors_call_init.py:25:1 - major: type-assertion-failure: Argument does not have asserted type `Class1[int | float]` (type-assertion-failure)
+constructors_call_init.py:56:1 - major: invalid-argument-type: Argument to bound method `__init__` is incorrect (invalid-argument-type)
+constructors_call_init.py:75:1 - major: type-assertion-failure: Argument does not have asserted type `Class5[int | float]` (type-assertion-failure)
+constructors_call_init.py:91:1 - major: type-assertion-failure: Argument does not have asserted type `Class6[int, str]` (type-assertion-failure)
+constructors_call_init.py:99:1 - major: type-assertion-failure: Argument does not have asserted type `Class7[str, int]` (type-assertion-failure)
+constructors_call_init.py:130:9 - major: too-many-positional-arguments: Too many positional arguments to bound method `__init__`: expected 1, got 2 (too-many-positional-arguments)
+"""

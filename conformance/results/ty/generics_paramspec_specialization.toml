@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_paramspec_specialization.py:44:27 - major: invalid-type-arguments: Type argument for `ParamSpec` must be either a list of types, `ParamSpec`, `Concatenate`, or `...` (invalid-type-arguments)
+generics_paramspec_specialization.py:54:9 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+generics_paramspec_specialization.py:55:16 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+generics_paramspec_specialization.py:60:9 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+generics_paramspec_specialization.py:61:16 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+"""

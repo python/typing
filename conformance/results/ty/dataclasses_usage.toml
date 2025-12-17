@@ -1,0 +1,16 @@
+conformance_automated = "Fail"
+errors_diff = """
+Lines 58, 61: Expected error (tag 'DC1')
+Lines 64, 67: Expected error (tag 'DC2')
+Lines 70, 73: Expected error (tag 'DC3')
+"""
+output = """
+dataclasses_usage.py:50:6 - major: missing-argument: No argument provided for required parameter `unit_price` (missing-argument)
+dataclasses_usage.py:51:28 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_usage.py:52:36 - major: too-many-positional-arguments: Too many positional arguments: expected 3, got 4 (too-many-positional-arguments)
+dataclasses_usage.py:83:13 - major: too-many-positional-arguments: Too many positional arguments: expected 1, got 2 (too-many-positional-arguments)
+dataclasses_usage.py:88:14 - major: invalid-assignment: Object of type `dataclasses.Field[str | int]` is not assignable to `int` (invalid-assignment)
+dataclasses_usage.py:127:8 - major: too-many-positional-arguments: Too many positional arguments: expected 1, got 2 (too-many-positional-arguments)
+dataclasses_usage.py:130:1 - major: missing-argument: No argument provided for required parameter `y` of bound method `__init__` (missing-argument)
+dataclasses_usage.py:179:6 - major: too-many-positional-arguments: Too many positional arguments to bound method `__init__`: expected 1, got 2 (too-many-positional-arguments)
+"""

@@ -1,0 +1,10 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 32: Unexpected errors ['specialtypes_never.py:32:12 - major: invalid-return-type: Return type does not match returned value (invalid-return-type)']
+"""
+output = """
+specialtypes_never.py:19:22 - major: invalid-return-type: Function always implicitly returns `None`, which is not assignable to return type `Never` (invalid-return-type)
+specialtypes_never.py:32:12 - major: invalid-return-type: Return type does not match returned value (invalid-return-type)
+specialtypes_never.py:86:21 - major: invalid-assignment: Object of type `list[Never]` is not assignable to `list[int]` (invalid-assignment)
+specialtypes_never.py:105:12 - major: invalid-return-type: Return type does not match returned value (invalid-return-type)
+"""

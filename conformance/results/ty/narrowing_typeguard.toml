@@ -1,0 +1,27 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 102: Expected 1 errors
+Line 107: Expected 1 errors
+Line 128: Expected 1 errors
+Line 148: Expected 1 errors
+Line 17: Unexpected errors ['narrowing_typeguard.py:17:9 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, str]` (type-assertion-failure)']
+Line 32: Unexpected errors ['narrowing_typeguard.py:32:9 - major: type-assertion-failure: Argument does not have asserted type `set[int]` (type-assertion-failure)']
+Line 69: Unexpected errors ['narrowing_typeguard.py:69:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 73: Unexpected errors ['narrowing_typeguard.py:73:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 77: Unexpected errors ['narrowing_typeguard.py:77:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 81: Unexpected errors ['narrowing_typeguard.py:81:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 85: Unexpected errors ['narrowing_typeguard.py:85:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 89: Unexpected errors ['narrowing_typeguard.py:89:9 - major: type-assertion-failure: Argument does not have asserted type `B` (type-assertion-failure)']
+Line 93: Unexpected errors ['narrowing_typeguard.py:93:9 - major: type-assertion-failure: Argument does not have asserted type `B` (type-assertion-failure)']
+"""
+output = """
+narrowing_typeguard.py:17:9 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, str]` (type-assertion-failure)
+narrowing_typeguard.py:32:9 - major: type-assertion-failure: Argument does not have asserted type `set[int]` (type-assertion-failure)
+narrowing_typeguard.py:69:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+narrowing_typeguard.py:73:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+narrowing_typeguard.py:77:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+narrowing_typeguard.py:81:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+narrowing_typeguard.py:85:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+narrowing_typeguard.py:89:9 - major: type-assertion-failure: Argument does not have asserted type `B` (type-assertion-failure)
+narrowing_typeguard.py:93:9 - major: type-assertion-failure: Argument does not have asserted type `B` (type-assertion-failure)
+"""

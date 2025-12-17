@@ -1,0 +1,8 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 49: Unexpected errors ['dataclasses_match_args.py:49:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[()]` (type-assertion-failure)']
+"""
+output = """
+dataclasses_match_args.py:42:1 - major: unresolved-attribute: Class `DC4` has no attribute `__match_args__` (unresolved-attribute)
+dataclasses_match_args.py:49:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[()]` (type-assertion-failure)
+"""

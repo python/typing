@@ -1,0 +1,12 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 15: Expected 1 errors
+Line 27: Expected 1 errors
+Line 31: Expected 1 errors
+Line 35: Expected 1 errors
+Line 39: Expected 1 errors
+"""
+output = """
+generics_paramspec_basic.py:10:1 - major: invalid-paramspec: The name of a `ParamSpec` (`NotIt`) must match the name of the variable it is assigned to (`WrongName`) (invalid-paramspec)
+generics_paramspec_basic.py:23:20 - major: invalid-return-type: Function always implicitly returns `None`, which is not assignable to return type `P@func1` (invalid-return-type)
+"""

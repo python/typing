@@ -1,0 +1,50 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 66: Expected 1 errors
+Line 67: Expected 1 errors
+Line 68: Expected 1 errors
+Line 102: Unexpected errors ['constructors_callable.py:102:5 - major: type-assertion-failure: Argument does not have asserted type `Never` (type-assertion-failure)']
+Line 107: Unexpected errors ['constructors_callable.py:107:5 - major: type-assertion-failure: Argument does not have asserted type `Never` (type-assertion-failure)']
+Line 143: Unexpected errors ['constructors_callable.py:143:27 - major: invalid-argument-type: Argument to function `accepts_callable` is incorrect (invalid-argument-type)']
+Line 145: Unexpected errors ['constructors_callable.py:145:1 - major: type-assertion-failure: Argument does not have asserted type `Any` (type-assertion-failure)']
+Line 166: Unexpected errors ['constructors_callable.py:166:1 - major: type-assertion-failure: Argument does not have asserted type `Class7[int]` (type-assertion-failure)']
+Line 167: Unexpected errors ['constructors_callable.py:167:1 - major: type-assertion-failure: Argument does not have asserted type `Class7[str]` (type-assertion-failure)']
+Line 185: Unexpected errors ['constructors_callable.py:185:1 - major: type-assertion-failure: Argument does not have asserted type `Class8[str]` (type-assertion-failure)', 'constructors_callable.py:185:16 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)', 'constructors_callable.py:185:22 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)']
+Line 196: Unexpected errors ['constructors_callable.py:196:16 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)', 'constructors_callable.py:196:22 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)']
+"""
+output = """
+constructors_callable.py:36:13 - info: revealed-type: Revealed type (revealed-type)
+constructors_callable.py:38:1 - major: missing-argument: No argument provided for required parameter `x` (missing-argument)
+constructors_callable.py:39:1 - major: missing-argument: No argument provided for required parameter `x` (missing-argument)
+constructors_callable.py:39:4 - major: unknown-argument: Argument `y` does not match any known parameter (unknown-argument)
+constructors_callable.py:49:13 - info: revealed-type: Revealed type (revealed-type)
+constructors_callable.py:51:4 - major: too-many-positional-arguments: Too many positional arguments: expected 0, got 1 (too-many-positional-arguments)
+constructors_callable.py:64:13 - info: revealed-type: Revealed type (revealed-type)
+constructors_callable.py:79:13 - info: revealed-type: Revealed type (revealed-type)
+constructors_callable.py:81:1 - major: missing-argument: No argument provided for required parameter `x` (missing-argument)
+constructors_callable.py:82:1 - major: missing-argument: No argument provided for required parameter `x` (missing-argument)
+constructors_callable.py:82:4 - major: unknown-argument: Argument `y` does not match any known parameter (unknown-argument)
+constructors_callable.py:99:13 - info: revealed-type: Revealed type (revealed-type)
+constructors_callable.py:102:5 - major: type-assertion-failure: Argument does not have asserted type `Never` (type-assertion-failure)
+constructors_callable.py:107:5 - major: type-assertion-failure: Argument does not have asserted type `Never` (type-assertion-failure)
+constructors_callable.py:127:13 - info: revealed-type: Revealed type (revealed-type)
+constructors_callable.py:129:4 - major: too-many-positional-arguments: Too many positional arguments: expected 0, got 1 (too-many-positional-arguments)
+constructors_callable.py:143:27 - major: invalid-argument-type: Argument to function `accepts_callable` is incorrect (invalid-argument-type)
+constructors_callable.py:144:13 - info: revealed-type: Revealed type (revealed-type)
+constructors_callable.py:145:1 - major: type-assertion-failure: Argument does not have asserted type `Any` (type-assertion-failure)
+constructors_callable.py:146:8 - major: too-many-positional-arguments: Too many positional arguments: expected 0, got 1 (too-many-positional-arguments)
+constructors_callable.py:164:5 - info: revealed-type: Revealed type (revealed-type)
+constructors_callable.py:166:1 - major: type-assertion-failure: Argument does not have asserted type `Class7[int]` (type-assertion-failure)
+constructors_callable.py:167:1 - major: type-assertion-failure: Argument does not have asserted type `Class7[str]` (type-assertion-failure)
+constructors_callable.py:184:13 - info: revealed-type: Revealed type (revealed-type)
+constructors_callable.py:185:1 - major: type-assertion-failure: Argument does not have asserted type `Class8[str]` (type-assertion-failure)
+constructors_callable.py:185:16 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+constructors_callable.py:185:22 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+constructors_callable.py:186:4 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+constructors_callable.py:186:9 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+constructors_callable.py:195:13 - info: revealed-type: Revealed type (revealed-type)
+constructors_callable.py:196:16 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+constructors_callable.py:196:22 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+constructors_callable.py:197:4 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+constructors_callable.py:197:9 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+"""

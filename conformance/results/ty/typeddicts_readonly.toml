@@ -1,0 +1,11 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 36: Expected 1 errors
+"""
+output = """
+typeddicts_readonly.py:24:4 - major: invalid-assignment: Cannot assign to key "members" on TypedDict `Band` (invalid-assignment)
+typeddicts_readonly.py:50:4 - major: invalid-assignment: Cannot assign to key "title" on TypedDict `Movie1` (invalid-assignment)
+typeddicts_readonly.py:51:4 - major: invalid-assignment: Cannot assign to key "year" on TypedDict `Movie1` (invalid-assignment)
+typeddicts_readonly.py:60:4 - major: invalid-assignment: Cannot assign to key "title" on TypedDict `Movie2` (invalid-assignment)
+typeddicts_readonly.py:61:4 - major: invalid-assignment: Cannot assign to key "year" on TypedDict `Movie2` (invalid-assignment)
+"""

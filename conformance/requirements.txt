@@ -5,3 +5,4 @@ mypy
 pip
 zuban
 pyrefly
+ty

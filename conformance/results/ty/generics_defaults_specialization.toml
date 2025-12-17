@@ -1,0 +1,9 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 55: Expected 1 errors
+Line 45: Unexpected errors ['generics_defaults_specialization.py:45:1 - major: type-assertion-failure: Argument does not have asserted type `type[Bar[str]]` (type-assertion-failure)']
+"""
+output = """
+generics_defaults_specialization.py:30:15 - major: invalid-type-arguments: Too many type arguments: expected between 0 and 1, got 2 (invalid-type-arguments)
+generics_defaults_specialization.py:45:1 - major: type-assertion-failure: Argument does not have asserted type `type[Bar[str]]` (type-assertion-failure)
+"""

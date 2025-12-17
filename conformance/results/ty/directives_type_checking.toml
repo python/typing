@@ -1,0 +1,7 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 11: Unexpected errors ['directives_type_checking.py:11:14 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)']
+"""
+output = """
+directives_type_checking.py:11:14 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)
+"""

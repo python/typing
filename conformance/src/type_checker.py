@@ -200,6 +200,74 @@ class PyrightTypeChecker(TypeChecker):
             line_to_errors.setdefault(int(lineno), []).append(line)
         return line_to_errors
 
+class TyTypeChecker(TypeChecker):
+    @property
+    def name(self) -> str:
+        return "ty"
+
+    def install(self) -> bool:
+        try:
+            # Uninstall any old version if present.
+            run(
+                [sys.executable, "-m", "pip", "uninstall", "ty", "-y"],
+                check=True,
+            )
+
+            # Install the latest version.
+            run(
+                [sys.executable, "-m", "pip", "install", "ty"],
+                check=True,
+            )
+
+            return True
+        except CalledProcessError:
+            print("Unable to install ty")
+            return False
+
+    def get_version(self) -> str:
+        proc = run(
+            [sys.executable, "-m", "ty", "--version"], stdout=PIPE, text=True
+        )
+        return proc.stdout.strip()
+
+    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
+        command = [sys.executable, "-m", "ty", "check", ".", "--output-format", "gitlab"]
+        proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
+        diagnostics = json.loads(proc.stdout)
+
+        # Add results to a dictionary keyed by the file name.
+        results_dict: dict[str, str] = {}
+        for diagnostic in diagnostics:
+            location = diagnostic["location"]
+            positions = location["positions"]
+            file_path = Path(location["path"])
+            file_name = file_path.name
+            line_number = positions["begin"]["line"]
+            col_number = positions["begin"]["column"]
+            severity = diagnostic["severity"]
+            message = diagnostic["description"]
+
+            line_text = f"{file_name}:{line_number}:{col_number} - {severity}: {message} ({diagnostic['check_name']})\n"
+            results_dict[file_name] = results_dict.get(file_name, "") + line_text
+
+        return results_dict
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # narrowing_typeguard.py:102:9 - error: User-defined type guard functions and methods must have at least one input parameter (reportGeneralTypeIssues)
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            if not line or line[0].isspace():
+                continue
+            # Ignore indented notes
+            assert line.count(":") >= 3, f"Failed to parse line: {line!r}"
+            _, lineno, kind, _ = line.split(":", maxsplit=3)
+            kind = kind.split()[-1]
+            if kind not in ("major", "minor"):
+                continue
+            line_to_errors.setdefault(int(lineno), []).append(line)
+
+        return line_to_errors
+
 
 class ZubanLSTypeChecker(MypyTypeChecker):
     @property
@@ -346,4 +414,5 @@ TYPE_CHECKERS: Sequence[TypeChecker] = (
     PyrightTypeChecker(),
     ZubanLSTypeChecker(),
     PyreflyTypeChecker(),
+    TyTypeChecker()
 )

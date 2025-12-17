@@ -1,0 +1,16 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 98: Expected 1 errors
+Line 108: Expected 1 errors
+Line 120: Expected 1 errors
+Line 127: Expected 1 errors
+Line 132: Expected 1 errors
+Line 137: Expected 1 errors
+"""
+output = """
+generics_paramspec_semantics.py:26:4 - major: positional-only-parameter-as-kwarg: Positional-only parameter 1 (`a`) passed as keyword argument (positional-only-parameter-as-kwarg)
+generics_paramspec_semantics.py:26:11 - major: positional-only-parameter-as-kwarg: Positional-only parameter 2 (`b`) passed as keyword argument (positional-only-parameter-as-kwarg)
+generics_paramspec_semantics.py:27:9 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+generics_paramspec_semantics.py:46:17 - major: invalid-argument-type: Argument to function `func1` is incorrect (invalid-argument-type)
+generics_paramspec_semantics.py:61:23 - major: invalid-argument-type: Argument to function `func1` is incorrect (invalid-argument-type)
+"""

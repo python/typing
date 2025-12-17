@@ -1,0 +1,12 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+Line 46: Expected 1 errors
+"""
+output = """
+generics_type_erasure.py:38:16 - major: invalid-argument-type: Argument to bound method `__init__` is incorrect (invalid-argument-type)
+generics_type_erasure.py:40:16 - major: invalid-argument-type: Argument to bound method `__init__` is incorrect (invalid-argument-type)
+"""

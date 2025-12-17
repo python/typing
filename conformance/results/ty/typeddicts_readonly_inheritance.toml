@@ -1,0 +1,16 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 50: Expected 1 errors
+Line 94: Expected 1 errors
+Line 98: Expected 1 errors
+Line 106: Expected 1 errors
+Line 119: Expected 1 errors
+Line 132: Expected 1 errors
+"""
+output = """
+typeddicts_readonly_inheritance.py:36:4 - major: invalid-assignment: Cannot assign to key "name" on TypedDict `Album2` (invalid-assignment)
+typeddicts_readonly_inheritance.py:65:19 - major: missing-typed-dict-key: Missing required key 'name' in TypedDict `RequiredName` constructor (missing-typed-dict-key)
+typeddicts_readonly_inheritance.py:82:14 - major: invalid-assignment: Invalid assignment to key "ident" with declared type `str` on TypedDict `User` (invalid-assignment)
+typeddicts_readonly_inheritance.py:83:15 - major: invalid-argument-type: Invalid argument to key "ident" with declared type `str` on TypedDict `User` (invalid-argument-type)
+typeddicts_readonly_inheritance.py:84:5 - major: missing-typed-dict-key: Missing required key 'ident' in TypedDict `User` constructor (missing-typed-dict-key)
+"""

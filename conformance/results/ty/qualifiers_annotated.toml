@@ -1,0 +1,27 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+qualifiers_annotated.py:38:17 - major: invalid-type-form: List literals are not allowed in this context in a type expression (invalid-type-form)
+qualifiers_annotated.py:39:17 - major: invalid-type-form: Tuple literals are not allowed in this context in a type expression (invalid-type-form)
+qualifiers_annotated.py:39:18 - major: invalid-type-form: Tuple literals are not allowed in this context in a type expression (invalid-type-form)
+qualifiers_annotated.py:40:17 - major: invalid-type-form: List comprehensions are not allowed in type expressions (invalid-type-form)
+qualifiers_annotated.py:41:17 - major: invalid-type-form: Dict literals are not allowed in type expressions (invalid-type-form)
+qualifiers_annotated.py:42:17 - major: invalid-type-form: Function calls are not allowed in type expressions (invalid-type-form)
+qualifiers_annotated.py:43:17 - major: invalid-type-form: Invalid subscript of object of type `list[Unknown | <class 'int'>]` in type expression (invalid-type-form)
+qualifiers_annotated.py:43:23 - major: invalid-type-form: Int literals are not allowed in this context in a type expression (invalid-type-form)
+qualifiers_annotated.py:44:17 - major: invalid-type-form: `if` expressions are not allowed in type expressions (invalid-type-form)
+qualifiers_annotated.py:45:17 - major: unresolved-reference: Name `var1` used when not defined (unresolved-reference)
+qualifiers_annotated.py:46:17 - major: invalid-type-form: Boolean literals are not allowed in this context in a type expression (invalid-type-form)
+qualifiers_annotated.py:47:18 - major: invalid-type-form: Int literals are not allowed in this context in a type expression (invalid-type-form)
+qualifiers_annotated.py:48:18 - major: invalid-type-form: Boolean operations are not allowed in type expressions (invalid-type-form)
+qualifiers_annotated.py:49:18 - major: fstring-type-annotation: Type expressions cannot use f-strings (fstring-type-annotation)
+qualifiers_annotated.py:59:8 - major: invalid-type-form: Special form `typing.Annotated` expected at least 2 arguments (one type and at least one metadata element) (invalid-type-form)
+qualifiers_annotated.py:71:24 - major: invalid-assignment: Object of type `<special-form 'typing.Annotated[int, <metadata>]'>` is not assignable to `type[Any]` (invalid-assignment)
+qualifiers_annotated.py:72:24 - major: invalid-assignment: Object of type `<special-form 'typing.Annotated[int, <metadata>]'>` is not assignable to `type[Any]` (invalid-assignment)
+qualifiers_annotated.py:79:7 - major: invalid-argument-type: Argument to function `func4` is incorrect (invalid-argument-type)
+qualifiers_annotated.py:80:7 - major: invalid-argument-type: Argument to function `func4` is incorrect (invalid-argument-type)
+qualifiers_annotated.py:86:1 - major: call-non-callable: Object of type `<special-form 'typing.Annotated'>` is not callable (call-non-callable)
+qualifiers_annotated.py:87:1 - major: call-non-callable: Object of type `GenericAlias` is not callable (call-non-callable)
+qualifiers_annotated.py:88:1 - major: call-non-callable: Object of type `GenericAlias` is not callable (call-non-callable)
+"""

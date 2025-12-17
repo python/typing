@@ -1,0 +1,29 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 106: Expected 1 errors
+Line 111: Expected 1 errors
+Line 112: Expected 1 errors
+Line 113: Expected 1 errors
+Line 117: Expected 1 errors
+Line 68: Unexpected errors ['aliases_implicit.py:68:5 - major: type-assertion-failure: Argument does not have asserted type `(int, str, str, /) -> None` (type-assertion-failure)']
+"""
+output = """
+aliases_implicit.py:68:5 - major: type-assertion-failure: Argument does not have asserted type `(int, str, str, /) -> None` (type-assertion-failure)
+aliases_implicit.py:76:9 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+aliases_implicit.py:77:9 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+aliases_implicit.py:78:29 - major: invalid-type-arguments: Too many type arguments: expected 1, got 2 (invalid-type-arguments)
+aliases_implicit.py:79:29 - major: invalid-type-arguments: Too many type arguments: expected 1, got 2 (invalid-type-arguments)
+aliases_implicit.py:80:24 - major: invalid-type-arguments: Type argument for `ParamSpec` must be either a list of types, `ParamSpec`, `Concatenate`, or `...` (invalid-type-arguments)
+aliases_implicit.py:81:25 - major: invalid-type-arguments: Type `str` is not assignable to upper bound `int | float` of type variable `TFloat@GoodTypeAlias12` (invalid-type-arguments)
+aliases_implicit.py:107:9 - major: invalid-type-form: Variable of type `list[Unknown | <class 'int'> | <class 'str'>]` is not allowed in a type expression (invalid-type-form)
+aliases_implicit.py:108:9 - major: invalid-type-form: Variable of type `tuple[tuple[<class 'int'>, <class 'str'>]]` is not allowed in a type expression (invalid-type-form)
+aliases_implicit.py:109:9 - major: invalid-type-form: Variable of type `list[<class 'int'> | Unknown]` is not allowed in a type expression (invalid-type-form)
+aliases_implicit.py:110:9 - major: invalid-type-form: Variable of type `dict[Unknown | str, Unknown | str]` is not allowed in a type expression (invalid-type-form)
+aliases_implicit.py:114:9 - major: invalid-type-form: Variable of type `Literal[3]` is not allowed in a type expression (invalid-type-form)
+aliases_implicit.py:115:10 - major: invalid-type-form: Variable of type `Literal[True]` is not allowed in a type expression (invalid-type-form)
+aliases_implicit.py:116:10 - major: invalid-type-form: Variable of type `Literal[1]` is not allowed in a type expression (invalid-type-form)
+aliases_implicit.py:118:10 - major: invalid-type-form: Variable of type `Literal["int"]` is not allowed in a type expression (invalid-type-form)
+aliases_implicit.py:119:10 - major: invalid-type-form: Variable of type `Literal["int | str"]` is not allowed in a type expression (invalid-type-form)
+aliases_implicit.py:133:6 - major: call-non-callable: Object of type `UnionType` is not callable (call-non-callable)
+aliases_implicit.py:135:5 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+"""

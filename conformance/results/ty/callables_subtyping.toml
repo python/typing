@@ -1,0 +1,37 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 125: Expected 1 errors
+"""
+output = """
+callables_subtyping.py:26:36 - major: invalid-assignment: Object of type `(int, /) -> int` is not assignable to `(int | float, /) -> int | float` (invalid-assignment)
+callables_subtyping.py:29:32 - major: invalid-assignment: Object of type `(int | float, /) -> int | float` is not assignable to `(int, /) -> int` (invalid-assignment)
+callables_subtyping.py:51:21 - major: invalid-assignment: Object of type `PosOnly2` is not assignable to `Standard2` (invalid-assignment)
+callables_subtyping.py:52:21 - major: invalid-assignment: Object of type `KwOnly2` is not assignable to `Standard2` (invalid-assignment)
+callables_subtyping.py:55:20 - major: invalid-assignment: Object of type `KwOnly2` is not assignable to `PosOnly2` (invalid-assignment)
+callables_subtyping.py:58:19 - major: invalid-assignment: Object of type `PosOnly2` is not assignable to `KwOnly2` (invalid-assignment)
+callables_subtyping.py:82:20 - major: invalid-assignment: Object of type `NoArgs3` is not assignable to `IntArgs3` (invalid-assignment)
+callables_subtyping.py:85:22 - major: invalid-assignment: Object of type `NoArgs3` is not assignable to `FloatArgs3` (invalid-assignment)
+callables_subtyping.py:86:22 - major: invalid-assignment: Object of type `IntArgs3` is not assignable to `FloatArgs3` (invalid-assignment)
+callables_subtyping.py:116:20 - major: invalid-assignment: Object of type `IntArgs4` is not assignable to `PosOnly4` (invalid-assignment)
+callables_subtyping.py:119:23 - major: invalid-assignment: Object of type `StrArgs4` is not assignable to `IntStrArgs4` (invalid-assignment)
+callables_subtyping.py:120:23 - major: invalid-assignment: Object of type `IntArgs4` is not assignable to `IntStrArgs4` (invalid-assignment)
+callables_subtyping.py:122:20 - major: invalid-assignment: Object of type `IntArgs4` is not assignable to `StrArgs4` (invalid-assignment)
+callables_subtyping.py:124:20 - major: invalid-assignment: Object of type `StrArgs4` is not assignable to `IntArgs4` (invalid-assignment)
+callables_subtyping.py:126:22 - major: invalid-assignment: Object of type `StrArgs4` is not assignable to `Standard4` (invalid-assignment)
+callables_subtyping.py:151:22 - major: invalid-assignment: Object of type `NoKwargs5` is not assignable to `IntKwargs5` (invalid-assignment)
+callables_subtyping.py:154:24 - major: invalid-assignment: Object of type `NoKwargs5` is not assignable to `FloatKwargs5` (invalid-assignment)
+callables_subtyping.py:155:24 - major: invalid-assignment: Object of type `IntKwargs5` is not assignable to `FloatKwargs5` (invalid-assignment)
+callables_subtyping.py:187:19 - major: invalid-assignment: Object of type `IntKwargs6` is not assignable to `KwOnly6` (invalid-assignment)
+callables_subtyping.py:190:25 - major: invalid-assignment: Object of type `StrKwargs6` is not assignable to `IntStrKwargs6` (invalid-assignment)
+callables_subtyping.py:191:25 - major: invalid-assignment: Object of type `IntKwargs6` is not assignable to `IntStrKwargs6` (invalid-assignment)
+callables_subtyping.py:193:22 - major: invalid-assignment: Object of type `IntKwargs6` is not assignable to `StrKwargs6` (invalid-assignment)
+callables_subtyping.py:195:22 - major: invalid-assignment: Object of type `StrKwargs6` is not assignable to `IntKwargs6` (invalid-assignment)
+callables_subtyping.py:196:22 - major: invalid-assignment: Object of type `IntStrKwargs6` is not assignable to `Standard6` (invalid-assignment)
+callables_subtyping.py:197:22 - major: invalid-assignment: Object of type `StrKwargs6` is not assignable to `Standard6` (invalid-assignment)
+callables_subtyping.py:236:23 - major: invalid-assignment: Object of type `NoDefaultArg8` is not assignable to `DefaultArg8` (invalid-assignment)
+callables_subtyping.py:237:23 - major: invalid-assignment: Object of type `NoX8` is not assignable to `DefaultArg8` (invalid-assignment)
+callables_subtyping.py:240:25 - major: invalid-assignment: Object of type `NoX8` is not assignable to `NoDefaultArg8` (invalid-assignment)
+callables_subtyping.py:243:16 - major: invalid-assignment: Object of type `NoDefaultArg8` is not assignable to `NoX8` (invalid-assignment)
+callables_subtyping.py:273:21 - major: invalid-assignment: Object of type `Overloaded9` is not assignable to `FloatArg9` (invalid-assignment)
+callables_subtyping.py:297:24 - major: invalid-assignment: Object of type `StrArg10` is not assignable to `Overloaded10` (invalid-assignment)
+"""

@@ -1,0 +1,31 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 16: Expected 1 errors
+Line 34: Expected 1 errors
+Line 38: Expected 1 errors
+Line 62: Expected 1 errors
+Line 63: Expected 1 errors
+Line 67: Expected 1 errors
+Line 94: Expected 1 errors
+Line 107: Expected 1 errors
+Line 108: Expected 1 errors
+Line 134: Expected 1 errors
+Line 135: Expected 1 errors
+Line 170: Expected 1 errors
+"""
+output = """
+qualifiers_final_annotation.py:18:7 - major: invalid-type-form: Type qualifier `typing.Final` expected exactly 1 argument, got 2 (invalid-type-form)
+qualifiers_final_annotation.py:54:9 - major: invalid-assignment: Cannot assign to final attribute `ID5` in `__init__` because it already has a value at class level (invalid-assignment)
+qualifiers_final_annotation.py:65:9 - major: invalid-assignment: Cannot assign to final attribute `ID7` on type `Self@method1` (invalid-assignment)
+qualifiers_final_annotation.py:71:1 - major: invalid-assignment: Reassignment of `Final` symbol `RATE` is not allowed (invalid-assignment)
+qualifiers_final_annotation.py:81:1 - major: invalid-assignment: Cannot assign to final attribute `DEFAULT_ID` on type `<class 'ClassB'>` (invalid-assignment)
+qualifiers_final_annotation.py:118:9 - major: invalid-type-form: Type qualifier `typing.Final` is not allowed in type expressions (only in annotation expressions) (invalid-type-form)
+qualifiers_final_annotation.py:121:11 - major: invalid-type-form: `Final` is not allowed in function parameter annotations (invalid-type-form)
+qualifiers_final_annotation.py:141:5 - major: invalid-assignment: Reassignment of `Final` symbol `ID1` is not allowed (invalid-assignment)
+qualifiers_final_annotation.py:145:5 - major: invalid-assignment: Reassignment of `Final` symbol `x` is not allowed (invalid-assignment)
+qualifiers_final_annotation.py:147:10 - major: invalid-assignment: Reassignment of `Final` symbol `x` is not allowed (invalid-assignment)
+qualifiers_final_annotation.py:149:9 - major: invalid-assignment: Reassignment of `Final` symbol `x` is not allowed (invalid-assignment)
+qualifiers_final_annotation.py:152:30 - major: invalid-assignment: Reassignment of `Final` symbol `x` is not allowed (invalid-assignment)
+qualifiers_final_annotation.py:155:9 - major: invalid-assignment: Reassignment of `Final` symbol `x` is not allowed (invalid-assignment)
+qualifiers_final_annotation.py:166:1 - major: invalid-assignment: Reassignment of `Final` symbol `TEN` is not allowed (invalid-assignment)
+"""

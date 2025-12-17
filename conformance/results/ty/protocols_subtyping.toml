@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_subtyping.py:16:6 - major: call-non-callable: Cannot instantiate class `Proto1` (call-non-callable)
+protocols_subtyping.py:38:21 - major: invalid-assignment: Object of type `Proto2` is not assignable to `Concrete2` (invalid-assignment)
+protocols_subtyping.py:55:18 - major: invalid-assignment: Object of type `Proto2` is not assignable to `Proto3` (invalid-assignment)
+protocols_subtyping.py:79:30 - major: invalid-assignment: Object of type `Proto5[int]` is not assignable to `Proto4[int, int | float]` (invalid-assignment)
+protocols_subtyping.py:80:25 - major: invalid-assignment: Object of type `Proto4[int, int]` is not assignable to `Proto5[int | float]` (invalid-assignment)
+protocols_subtyping.py:102:30 - major: invalid-assignment: Object of type `Proto6[int | float, int | float]` is not assignable to `Proto7[int, int | float]` (invalid-assignment)
+protocols_subtyping.py:103:33 - major: invalid-assignment: Object of type `Proto6[int | float, int | float]` is not assignable to `Proto7[int | float, object]` (invalid-assignment)
+"""

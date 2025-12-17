@@ -1,0 +1,17 @@
+conformance_automated = "Fail"
+errors_diff = """
+Lines 84, 85, 86: Expected error (tag 'Derived3-2')
+Lines 125, 126: Expected error (tag 'func')
+"""
+output = """
+qualifiers_final_decorator.py:21:16 - major: subclass-of-final-class: Class `Derived1` cannot inherit from final class `Base1` (subclass-of-final-class)
+qualifiers_final_decorator.py:56:9 - major: override-of-final-method: Cannot override `Base2.method1` (override-of-final-method)
+qualifiers_final_decorator.py:60:9 - major: override-of-final-method: Cannot override `Base2.method2` (override-of-final-method)
+qualifiers_final_decorator.py:64:9 - major: override-of-final-method: Cannot override `Base2.method3` (override-of-final-method)
+qualifiers_final_decorator.py:75:9 - major: override-of-final-method: Cannot override `Base2.method4` (override-of-final-method)
+qualifiers_final_decorator.py:89:9 - major: invalid-overload: `@final` decorator should be applied only to the overload implementation (invalid-overload)
+qualifiers_final_decorator.py:89:9 - major: override-of-final-method: Cannot override `Base3.method` (override-of-final-method)
+qualifiers_final_decorator.py:102:9 - major: override-of-final-method: Cannot override `Base4.method` (override-of-final-method)
+qualifiers_final_decorator.py:118:9 - major: invalid-method-override: Invalid override of method `method` (invalid-method-override)
+qualifiers_final_decorator.py:118:9 - major: override-of-final-method: Cannot override `Base5_2.method` (override-of-final-method)
+"""
