@@ -1,0 +1,11 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 27: Expected 1 errors
+Line 60: Expected 1 errors
+Line 89: Expected 1 errors
+Line 134: Expected 1 errors
+Line 164: Expected 1 errors
+"""
+output = """
+protocols_explicit.py:56:9 - major: invalid-assignment: Object of type `tuple[int, int, str]` is not assignable to attribute `rgb` of type `tuple[int, int, int]` (invalid-assignment)
+"""

@@ -80,7 +80,7 @@ Note that some type checkers may not run on some platforms. If a type checker fa
 
 Different type checkers report errors in different ways (with different wording in error messages and different line numbers or character ranges for errors). This variation makes it difficult to fully automate test validation given that tests will want to check for both false positive and false negative type errors. Some level of manual inspection will therefore be needed to determine whether a type checker is fully conformant with all tests in any given test file. This "scoring" process is required only when the output of a test changes — e.g. when a new version of that type checker is released and the tests are rerun. We assume that the output of a type checker will be the same from one run to the next unless/until a new version is released that fixes or introduces a bug. In this case, the output will need to be manually inspected and the conformance results re-scored for those tests whose output has changed.
 
-Conformance results are reported and summarized for each supported type checker. Currently, results are reported for mypy, pyrefly, pyright, and zuban. It is the goal and desire to add additional type checkers over time.
+Conformance results are reported and summarized for each supported type checker. Currently, results are reported for mypy, pyrefly, pyright, zuban and ty. It is the goal and desire to add additional type checkers over time.
 
 ## Adding a New Test Case
 

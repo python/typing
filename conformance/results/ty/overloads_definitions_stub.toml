@@ -1,0 +1,15 @@
+conformance_automated = "Fail"
+errors_diff = """
+Lines 67, 69, 71, 72, 73: Expected error (tag 'invalid_final')
+Line 76: Unexpected errors ['overloads_definitions_stub.pyi:76:9 - major: invalid-overload: `@final` decorator should be applied only to the first overload (invalid-overload)']
+"""
+output = """
+overloads_definitions_stub.pyi:14:5 - major: invalid-overload: Overloaded function `func1` requires at least two overloads (invalid-overload)
+overloads_definitions_stub.pyi:37:9 - major: invalid-overload: Overloaded function `func5` does not use the `@staticmethod` decorator consistently (invalid-overload)
+overloads_definitions_stub.pyi:44:9 - major: invalid-overload: Overloaded function `func6` does not use the `@classmethod` decorator consistently (invalid-overload)
+overloads_definitions_stub.pyi:76:9 - major: invalid-overload: `@final` decorator should be applied only to the first overload (invalid-overload)
+overloads_definitions_stub.pyi:86:9 - major: invalid-overload: `@final` decorator should be applied only to the first overload (invalid-overload)
+overloads_definitions_stub.pyi:111:9 - major: override-of-final-method: Cannot override `Base.final_method` (override-of-final-method)
+overloads_definitions_stub.pyi:122:9 - major: invalid-explicit-override: Method `bad_override` is decorated with `@override` but does not override anything (invalid-explicit-override)
+overloads_definitions_stub.pyi:147:9 - major: invalid-overload: `@override` decorator should be applied only to the first overload (invalid-overload)
+"""

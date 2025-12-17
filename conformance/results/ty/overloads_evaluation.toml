@@ -1,0 +1,11 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 162: Unexpected errors ['overloads_evaluation.py:162:5 - major: type-assertion-failure: Argument does not have asserted type `Literal[0, 1]` (type-assertion-failure)']
+"""
+output = """
+overloads_evaluation.py:38:1 - major: no-matching-overload: No overload of function `example1_1` matches arguments (no-matching-overload)
+overloads_evaluation.py:46:15 - major: invalid-argument-type: Argument to function `example1_1` is incorrect (invalid-argument-type)
+overloads_evaluation.py:51:12 - major: invalid-argument-type: Argument to function `example1_1` is incorrect (invalid-argument-type)
+overloads_evaluation.py:116:5 - major: no-matching-overload: No overload of function `example2` matches arguments (no-matching-overload)
+overloads_evaluation.py:162:5 - major: type-assertion-failure: Argument does not have asserted type `Literal[0, 1]` (type-assertion-failure)
+"""

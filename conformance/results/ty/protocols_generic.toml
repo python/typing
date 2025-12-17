@@ -1,0 +1,14 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 44: Expected 1 errors
+Line 145: Expected 1 errors
+Line 146: Expected 1 errors
+Line 147: Expected 1 errors
+"""
+output = """
+protocols_generic.py:40:24 - major: invalid-assignment: Object of type `Concrete1` is not assignable to `Proto1[int, str]` (invalid-assignment)
+protocols_generic.py:56:20 - major: invalid-assignment: Object of type `Box[int | float]` is not assignable to `Box[int]` (invalid-assignment)
+protocols_generic.py:66:25 - major: invalid-assignment: Object of type `Sender[int]` is not assignable to `Sender[int | float]` (invalid-assignment)
+protocols_generic.py:74:28 - major: invalid-assignment: Object of type `AttrProto[int]` is not assignable to `AttrProto[int | float]` (invalid-assignment)
+protocols_generic.py:75:26 - major: invalid-assignment: Object of type `AttrProto[int | float]` is not assignable to `AttrProto[int]` (invalid-assignment)
+"""

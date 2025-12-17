@@ -1,0 +1,20 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 33: Expected 1 errors
+Line 34: Expected 1 errors
+Line 48: Expected 1 errors
+Line 57: Expected 1 errors
+Line 58: Expected 1 errors
+Line 59: Expected 1 errors
+Line 67: Expected 1 errors
+Line 75: Expected 1 errors
+Line 76: Expected 1 errors
+Line 20: Unexpected errors ['generics_typevartuple_args.py:20:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[int, str]` (type-assertion-failure)']
+Line 31: Unexpected errors ['generics_typevartuple_args.py:31:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[()]` (type-assertion-failure)']
+Line 32: Unexpected errors ['generics_typevartuple_args.py:32:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[int, str]` (type-assertion-failure)']
+"""
+output = """
+generics_typevartuple_args.py:20:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[int, str]` (type-assertion-failure)
+generics_typevartuple_args.py:31:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[()]` (type-assertion-failure)
+generics_typevartuple_args.py:32:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[int, str]` (type-assertion-failure)
+"""

@@ -1,0 +1,14 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Expected 1 errors
+Line 37: Unexpected errors ['generics_upper_bound.py:37:1 - major: type-assertion-failure: Argument does not have asserted type `list[int]` (type-assertion-failure)']
+Line 38: Unexpected errors ['generics_upper_bound.py:38:1 - major: type-assertion-failure: Argument does not have asserted type `set[int]` (type-assertion-failure)']
+"""
+output = """
+generics_upper_bound.py:37:1 - major: type-assertion-failure: Argument does not have asserted type `list[int]` (type-assertion-failure)
+generics_upper_bound.py:38:1 - major: type-assertion-failure: Argument does not have asserted type `set[int]` (type-assertion-failure)
+generics_upper_bound.py:43:1 - major: type-assertion-failure: Argument does not have asserted type `list[int] | set[int]` (type-assertion-failure)
+generics_upper_bound.py:51:8 - major: invalid-argument-type: Argument to function `longer` is incorrect (invalid-argument-type)
+generics_upper_bound.py:51:11 - major: invalid-argument-type: Argument to function `longer` is incorrect (invalid-argument-type)
+generics_upper_bound.py:56:10 - major: invalid-legacy-type-variable: A `TypeVar` cannot have both a bound and constraints (invalid-legacy-type-variable)
+"""

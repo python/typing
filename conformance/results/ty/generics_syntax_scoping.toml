@@ -1,0 +1,20 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 14: Expected 1 errors
+Line 18: Expected 1 errors
+Line 92: Expected 1 errors
+Line 95: Expected 1 errors
+Line 98: Expected 1 errors
+Line 113: Unexpected errors ['generics_syntax_scoping.py:113:9 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)']
+Line 116: Unexpected errors ['generics_syntax_scoping.py:116:13 - major: type-assertion-failure: Argument does not have asserted type `TypeVar` (type-assertion-failure)']
+Line 121: Unexpected errors ['generics_syntax_scoping.py:121:9 - major: type-assertion-failure: Argument does not have asserted type `int | float | complex` (type-assertion-failure)']
+Line 124: Unexpected errors ['generics_syntax_scoping.py:124:13 - major: type-assertion-failure: Argument does not have asserted type `int | float | complex` (type-assertion-failure)']
+"""
+output = """
+generics_syntax_scoping.py:35:7 - major: unresolved-reference: Name `T` used when not defined (unresolved-reference)
+generics_syntax_scoping.py:44:17 - major: unresolved-reference: Name `T` used when not defined (unresolved-reference)
+generics_syntax_scoping.py:113:9 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)
+generics_syntax_scoping.py:116:13 - major: type-assertion-failure: Argument does not have asserted type `TypeVar` (type-assertion-failure)
+generics_syntax_scoping.py:121:9 - major: type-assertion-failure: Argument does not have asserted type `int | float | complex` (type-assertion-failure)
+generics_syntax_scoping.py:124:13 - major: type-assertion-failure: Argument does not have asserted type `int | float | complex` (type-assertion-failure)
+"""

@@ -1,0 +1,18 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 53: Expected 1 errors
+Line 60: Expected 1 errors
+Line 68: Expected 1 errors
+Line 74: Expected 1 errors
+Line 78: Expected 1 errors
+Line 23: Unexpected errors ['generics_defaults_referential.py:23:1 - major: type-assertion-failure: Argument does not have asserted type `type[slice[int, int, int | None]]` (type-assertion-failure)']
+Line 94: Unexpected errors ['generics_defaults_referential.py:94:1 - major: type-assertion-failure: Argument does not have asserted type `type[Bar[Any, list[Any]]]` (type-assertion-failure)']
+Line 95: Unexpected errors ['generics_defaults_referential.py:95:1 - major: type-assertion-failure: Argument does not have asserted type `type[Bar[int, list[int]]]` (type-assertion-failure)']
+"""
+output = """
+generics_defaults_referential.py:23:1 - major: type-assertion-failure: Argument does not have asserted type `type[slice[int, int, int | None]]` (type-assertion-failure)
+generics_defaults_referential.py:36:13 - major: invalid-argument-type: Argument to bound method `__init__` is incorrect (invalid-argument-type)
+generics_defaults_referential.py:37:10 - major: invalid-argument-type: Argument to bound method `__init__` is incorrect (invalid-argument-type)
+generics_defaults_referential.py:94:1 - major: type-assertion-failure: Argument does not have asserted type `type[Bar[Any, list[Any]]]` (type-assertion-failure)
+generics_defaults_referential.py:95:1 - major: type-assertion-failure: Argument does not have asserted type `type[Bar[int, list[int]]]` (type-assertion-failure)
+"""

@@ -1,0 +1,51 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 118: Expected 1 errors
+Line 102: Unexpected errors ['dataclasses_transform_converter.py:102:42 - major: invalid-argument-type: Argument to function `model_field` is incorrect (invalid-argument-type)']
+Line 103: Unexpected errors ['dataclasses_transform_converter.py:103:31 - major: invalid-argument-type: Argument to function `model_field` is incorrect (invalid-argument-type)']
+Line 104: Unexpected errors ['dataclasses_transform_converter.py:104:30 - major: invalid-assignment: Object of type `dict[str, str] | dict[bytes, bytes]` is not assignable to `dict[str, str]` (invalid-assignment)', 'dataclasses_transform_converter.py:104:42 - major: invalid-argument-type: Argument to function `model_field` is incorrect (invalid-argument-type)']
+Line 112: Unexpected errors ['dataclasses_transform_converter.py:112:11 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)', 'dataclasses_transform_converter.py:112:17 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)', 'dataclasses_transform_converter.py:112:23 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)', 'dataclasses_transform_converter.py:112:29 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)', 'dataclasses_transform_converter.py:112:36 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)']
+Line 114: Unexpected errors ['dataclasses_transform_converter.py:114:1 - major: invalid-assignment: Object of type `Literal["f1"]` is not assignable to attribute `field0` of type `int` (invalid-assignment)']
+Line 115: Unexpected errors ['dataclasses_transform_converter.py:115:1 - major: invalid-assignment: Object of type `Literal["f6"]` is not assignable to attribute `field3` of type `ConverterClass` (invalid-assignment)']
+Line 116: Unexpected errors ['dataclasses_transform_converter.py:116:1 - major: invalid-assignment: Object of type `Literal[b"f6"]` is not assignable to attribute `field3` of type `ConverterClass` (invalid-assignment)']
+Line 121: Unexpected errors ['dataclasses_transform_converter.py:121:11 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)', 'dataclasses_transform_converter.py:121:17 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)', 'dataclasses_transform_converter.py:121:23 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)', 'dataclasses_transform_converter.py:121:29 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)', 'dataclasses_transform_converter.py:121:35 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)', 'dataclasses_transform_converter.py:121:40 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)']
+"""
+output = """
+dataclasses_transform_converter.py:48:31 - major: invalid-argument-type: Argument to function `model_field` is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:49:31 - major: invalid-argument-type: Argument to function `model_field` is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:102:42 - major: invalid-argument-type: Argument to function `model_field` is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:103:31 - major: invalid-argument-type: Argument to function `model_field` is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:104:30 - major: invalid-assignment: Object of type `dict[str, str] | dict[bytes, bytes]` is not assignable to `dict[str, str]` (invalid-assignment)
+dataclasses_transform_converter.py:104:42 - major: invalid-argument-type: Argument to function `model_field` is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:107:8 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:107:14 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:107:20 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:107:27 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:108:5 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:108:11 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:108:17 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:108:23 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:108:26 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:109:5 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:109:11 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:109:17 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:109:23 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:109:29 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:112:11 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:112:17 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:112:23 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:112:29 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:112:36 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:114:1 - major: invalid-assignment: Object of type `Literal["f1"]` is not assignable to attribute `field0` of type `int` (invalid-assignment)
+dataclasses_transform_converter.py:115:1 - major: invalid-assignment: Object of type `Literal["f6"]` is not assignable to attribute `field3` of type `ConverterClass` (invalid-assignment)
+dataclasses_transform_converter.py:116:1 - major: invalid-assignment: Object of type `Literal[b"f6"]` is not assignable to attribute `field3` of type `ConverterClass` (invalid-assignment)
+dataclasses_transform_converter.py:119:1 - major: invalid-assignment: Object of type `Literal[1]` is not assignable to attribute `field3` of type `ConverterClass` (invalid-assignment)
+dataclasses_transform_converter.py:121:11 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:121:17 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:121:23 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:121:29 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:121:35 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:121:40 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:130:31 - major: invalid-argument-type: Argument to function `model_field` is incorrect (invalid-argument-type)
+dataclasses_transform_converter.py:133:31 - major: invalid-argument-type: Argument to function `model_field` is incorrect (invalid-argument-type)
+"""

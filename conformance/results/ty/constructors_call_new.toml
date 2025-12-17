@@ -1,0 +1,25 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Unexpected errors ['constructors_call_new.py:24:1 - major: type-assertion-failure: Argument does not have asserted type `Class1[int | float]` (type-assertion-failure)']
+Line 49: Unexpected errors ['constructors_call_new.py:49:1 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)', 'constructors_call_new.py:49:13 - major: missing-argument: No argument provided for required parameter `x` of bound method `__init__` (missing-argument)']
+Line 64: Unexpected errors ['constructors_call_new.py:64:1 - major: type-assertion-failure: Argument does not have asserted type `Class4 | Any` (type-assertion-failure)', 'constructors_call_new.py:64:13 - major: missing-argument: No argument provided for required parameter `x` of bound method `__init__` (missing-argument)']
+Line 76: Unexpected errors ['constructors_call_new.py:76:5 - major: type-assertion-failure: Argument does not have asserted type `Never` (type-assertion-failure)', 'constructors_call_new.py:76:17 - major: missing-argument: No argument provided for required parameter `x` of bound method `__init__` (missing-argument)']
+Line 89: Unexpected errors ['constructors_call_new.py:89:1 - major: type-assertion-failure: Argument does not have asserted type `int | Class6` (type-assertion-failure)', 'constructors_call_new.py:89:13 - major: missing-argument: No argument provided for required parameter `x` of bound method `__init__` (missing-argument)']
+Line 117: Unexpected errors ['constructors_call_new.py:117:1 - major: type-assertion-failure: Argument does not have asserted type `Class8[list[int]]` (type-assertion-failure)']
+Line 118: Unexpected errors ['constructors_call_new.py:118:1 - major: type-assertion-failure: Argument does not have asserted type `Class8[list[str]]` (type-assertion-failure)']
+"""
+output = """
+constructors_call_new.py:21:13 - major: invalid-argument-type: Argument to function `__new__` is incorrect (invalid-argument-type)
+constructors_call_new.py:24:1 - major: type-assertion-failure: Argument does not have asserted type `Class1[int | float]` (type-assertion-failure)
+constructors_call_new.py:49:1 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+constructors_call_new.py:49:13 - major: missing-argument: No argument provided for required parameter `x` of bound method `__init__` (missing-argument)
+constructors_call_new.py:64:1 - major: type-assertion-failure: Argument does not have asserted type `Class4 | Any` (type-assertion-failure)
+constructors_call_new.py:64:13 - major: missing-argument: No argument provided for required parameter `x` of bound method `__init__` (missing-argument)
+constructors_call_new.py:76:5 - major: type-assertion-failure: Argument does not have asserted type `Never` (type-assertion-failure)
+constructors_call_new.py:76:17 - major: missing-argument: No argument provided for required parameter `x` of bound method `__init__` (missing-argument)
+constructors_call_new.py:89:1 - major: type-assertion-failure: Argument does not have asserted type `int | Class6` (type-assertion-failure)
+constructors_call_new.py:89:13 - major: missing-argument: No argument provided for required parameter `x` of bound method `__init__` (missing-argument)
+constructors_call_new.py:117:1 - major: type-assertion-failure: Argument does not have asserted type `Class8[list[int]]` (type-assertion-failure)
+constructors_call_new.py:118:1 - major: type-assertion-failure: Argument does not have asserted type `Class8[list[str]]` (type-assertion-failure)
+constructors_call_new.py:148:1 - major: invalid-argument-type: Argument to function `__new__` is incorrect (invalid-argument-type)
+"""

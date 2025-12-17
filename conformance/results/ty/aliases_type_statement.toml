@@ -1,0 +1,37 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 56: Expected 1 errors
+Line 62: Expected 1 errors
+Line 67: Expected 1 errors
+Line 84: Expected 1 errors
+Lines 51, 52: Expected error (tag 'TA14')
+Line 10: Unexpected errors ['aliases_type_statement.py:10:52 - major: invalid-type-arguments: Too many type arguments: expected 2, got 3 (invalid-type-arguments)']
+"""
+output = """
+aliases_type_statement.py:10:52 - major: invalid-type-arguments: Too many type arguments: expected 2, got 3 (invalid-type-arguments)
+aliases_type_statement.py:17:1 - major: unresolved-attribute: Object of type `TypeAliasType` has no attribute `bit_count` (unresolved-attribute)
+aliases_type_statement.py:19:1 - major: call-non-callable: Object of type `TypeAliasType` is not callable (call-non-callable)
+aliases_type_statement.py:23:7 - major: unresolved-attribute: Object of type `TypeAliasType` has no attribute `other_attrib` (unresolved-attribute)
+aliases_type_statement.py:26:18 - major: invalid-base: Invalid class base with type `TypeAliasType` (invalid-base)
+aliases_type_statement.py:31:22 - major: invalid-argument-type: Argument to function `isinstance` is incorrect (invalid-argument-type)
+aliases_type_statement.py:37:22 - major: invalid-type-form: Function calls are not allowed in type expressions (invalid-type-form)
+aliases_type_statement.py:38:22 - major: invalid-type-form: List literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_type_statement.py:39:22 - major: invalid-type-form: Tuple literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_type_statement.py:39:23 - major: invalid-type-form: Tuple literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_type_statement.py:40:22 - major: invalid-type-form: List comprehensions are not allowed in type expressions (invalid-type-form)
+aliases_type_statement.py:41:22 - major: invalid-type-form: Dict literals are not allowed in type expressions (invalid-type-form)
+aliases_type_statement.py:42:22 - major: invalid-type-form: Function calls are not allowed in type expressions (invalid-type-form)
+aliases_type_statement.py:43:22 - major: invalid-type-form: Invalid subscript of object of type `list[Unknown | <class 'int'>]` in type expression (invalid-type-form)
+aliases_type_statement.py:43:28 - major: invalid-type-form: Int literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_type_statement.py:44:22 - major: invalid-type-form: `if` expressions are not allowed in type expressions (invalid-type-form)
+aliases_type_statement.py:45:22 - major: invalid-type-form: Variable of type `Literal[1]` is not allowed in a type expression (invalid-type-form)
+aliases_type_statement.py:46:23 - major: invalid-type-form: Boolean literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_type_statement.py:47:23 - major: invalid-type-form: Int literals are not allowed in this context in a type expression (invalid-type-form)
+aliases_type_statement.py:48:23 - major: invalid-type-form: Boolean operations are not allowed in type expressions (invalid-type-form)
+aliases_type_statement.py:49:23 - major: fstring-type-annotation: Type expressions cannot use f-strings (fstring-type-annotation)
+aliases_type_statement.py:77:27 - major: invalid-type-arguments: Type `str` is not assignable to upper bound `int` of type variable `S@RecursiveTypeAlias2` (invalid-type-arguments)
+aliases_type_statement.py:79:32 - major: invalid-type-arguments: Type `int` is not assignable to upper bound `str` of type variable `T@RecursiveTypeAlias2` (invalid-type-arguments)
+aliases_type_statement.py:82:1 - major: cyclic-type-alias-definition: Cyclic definition of `RecursiveTypeAlias3` (cyclic-type-alias-definition)
+aliases_type_statement.py:88:1 - major: cyclic-type-alias-definition: Cyclic definition of `RecursiveTypeAlias6` (cyclic-type-alias-definition)
+aliases_type_statement.py:89:1 - major: cyclic-type-alias-definition: Cyclic definition of `RecursiveTypeAlias7` (cyclic-type-alias-definition)
+"""

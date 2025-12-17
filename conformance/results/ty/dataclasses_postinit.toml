@@ -1,0 +1,9 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 19: Expected 1 errors
+Line 36: Expected 1 errors
+"""
+output = """
+dataclasses_postinit.py:28:7 - major: unresolved-attribute: Object of type `DC1` has no attribute `x` (unresolved-attribute)
+dataclasses_postinit.py:29:7 - major: unresolved-attribute: Object of type `DC1` has no attribute `y` (unresolved-attribute)
+"""

@@ -1,0 +1,13 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 106: Unexpected errors ['literals_interactions.py:106:35 - major: invalid-argument-type: Argument to function `expects_bad_status` is incorrect (invalid-argument-type)']
+Line 109: Unexpected errors ['literals_interactions.py:109:32 - major: invalid-argument-type: Argument to function `expects_pending_status` is incorrect (invalid-argument-type)']
+"""
+output = """
+literals_interactions.py:15:5 - major: index-out-of-bounds: Index 5 is out of bounds for tuple `tuple[int, str, list[bool]]` with length 3 (index-out-of-bounds)
+literals_interactions.py:16:5 - major: index-out-of-bounds: Index -5 is out of bounds for tuple `tuple[int, str, list[bool]]` with length 3 (index-out-of-bounds)
+literals_interactions.py:17:5 - major: index-out-of-bounds: Index 4 is out of bounds for tuple `tuple[int, str, list[bool]]` with length 3 (index-out-of-bounds)
+literals_interactions.py:18:5 - major: index-out-of-bounds: Index -4 is out of bounds for tuple `tuple[int, str, list[bool]]` with length 3 (index-out-of-bounds)
+literals_interactions.py:106:35 - major: invalid-argument-type: Argument to function `expects_bad_status` is incorrect (invalid-argument-type)
+literals_interactions.py:109:32 - major: invalid-argument-type: Argument to function `expects_pending_status` is incorrect (invalid-argument-type)
+"""

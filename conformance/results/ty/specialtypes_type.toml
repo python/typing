@@ -1,0 +1,36 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 144: Expected 1 errors
+Line 146: Expected 1 errors
+Line 84: Unexpected errors ['specialtypes_type.py:84:5 - major: type-assertion-failure: Argument does not have asserted type `type[Any]` (type-assertion-failure)']
+Line 99: Unexpected errors ['specialtypes_type.py:99:17 - major: unresolved-attribute: Object of type `type` has no attribute `unknown` (unresolved-attribute)']
+Line 100: Unexpected errors ['specialtypes_type.py:100:17 - major: unresolved-attribute: Object of type `type` has no attribute `unknown` (unresolved-attribute)']
+Line 102: Unexpected errors ['specialtypes_type.py:102:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[type, ...]` (type-assertion-failure)']
+Line 107: Unexpected errors ['specialtypes_type.py:107:17 - major: unresolved-attribute: Object of type `type` has no attribute `unknown` (unresolved-attribute)']
+Line 108: Unexpected errors ['specialtypes_type.py:108:17 - major: unresolved-attribute: Object of type `type` has no attribute `unknown` (unresolved-attribute)']
+Line 110: Unexpected errors ['specialtypes_type.py:110:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[type, ...]` (type-assertion-failure)']
+Line 137: Unexpected errors ['specialtypes_type.py:137:5 - major: type-assertion-failure: Argument does not have asserted type `type[Any]` (type-assertion-failure)']
+Line 139: Unexpected errors ['specialtypes_type.py:139:5 - major: type-assertion-failure: Argument does not have asserted type `type[Any]` (type-assertion-failure)']
+Line 169: Unexpected errors ['specialtypes_type.py:169:21 - major: invalid-assignment: Object of type `type` is not assignable to `type[int]` (invalid-assignment)']
+Line 175: Unexpected errors ['specialtypes_type.py:175:16 - major: invalid-return-type: Return type does not match returned value (invalid-return-type)']
+"""
+output = """
+specialtypes_type.py:56:7 - major: invalid-argument-type: Argument to function `func4` is incorrect (invalid-argument-type)
+specialtypes_type.py:70:7 - major: invalid-argument-type: Argument to function `func5` is incorrect (invalid-argument-type)
+specialtypes_type.py:76:17 - major: invalid-type-form: type[...] must have exactly one type argument (invalid-type-form)
+specialtypes_type.py:84:5 - major: type-assertion-failure: Argument does not have asserted type `type[Any]` (type-assertion-failure)
+specialtypes_type.py:99:17 - major: unresolved-attribute: Object of type `type` has no attribute `unknown` (unresolved-attribute)
+specialtypes_type.py:100:17 - major: unresolved-attribute: Object of type `type` has no attribute `unknown` (unresolved-attribute)
+specialtypes_type.py:102:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[type, ...]` (type-assertion-failure)
+specialtypes_type.py:107:17 - major: unresolved-attribute: Object of type `type` has no attribute `unknown` (unresolved-attribute)
+specialtypes_type.py:108:17 - major: unresolved-attribute: Object of type `type` has no attribute `unknown` (unresolved-attribute)
+specialtypes_type.py:110:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[type, ...]` (type-assertion-failure)
+specialtypes_type.py:117:5 - major: unresolved-attribute: Object of type `type` has no attribute `unknown` (unresolved-attribute)
+specialtypes_type.py:120:5 - major: unresolved-attribute: Object of type `type` has no attribute `unknown` (unresolved-attribute)
+specialtypes_type.py:137:5 - major: type-assertion-failure: Argument does not have asserted type `type[Any]` (type-assertion-failure)
+specialtypes_type.py:139:5 - major: type-assertion-failure: Argument does not have asserted type `type[Any]` (type-assertion-failure)
+specialtypes_type.py:143:1 - major: unresolved-attribute: Special form `typing.Type` has no attribute `unknown` (unresolved-attribute)
+specialtypes_type.py:145:1 - major: unresolved-attribute: Class `type` has no attribute `unknown` (unresolved-attribute)
+specialtypes_type.py:169:21 - major: invalid-assignment: Object of type `type` is not assignable to `type[int]` (invalid-assignment)
+specialtypes_type.py:175:16 - major: invalid-return-type: Return type does not match returned value (invalid-return-type)
+"""

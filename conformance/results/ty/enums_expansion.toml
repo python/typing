@@ -1,0 +1,8 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 53: Expected 1 errors
+Line 52: Unexpected errors ['enums_expansion.py:52:9 - major: type-assertion-failure: Argument does not have asserted type `CustomFlags` (type-assertion-failure)']
+"""
+output = """
+enums_expansion.py:52:9 - major: type-assertion-failure: Argument does not have asserted type `CustomFlags` (type-assertion-failure)
+"""

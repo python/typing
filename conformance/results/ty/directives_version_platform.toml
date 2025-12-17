@@ -1,0 +1,17 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 14: Unexpected errors ['directives_version_platform.py:14:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)']
+Line 22: Unexpected errors ['directives_version_platform.py:22:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)']
+Line 31: Unexpected errors ['directives_version_platform.py:31:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)']
+Line 36: Unexpected errors ['directives_version_platform.py:36:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)']
+"""
+output = """
+directives_version_platform.py:14:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)
+directives_version_platform.py:19:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)
+directives_version_platform.py:22:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)
+directives_version_platform.py:27:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)
+directives_version_platform.py:31:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)
+directives_version_platform.py:36:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)
+directives_version_platform.py:40:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)
+directives_version_platform.py:45:17 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)
+"""

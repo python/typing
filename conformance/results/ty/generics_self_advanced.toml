@@ -1,0 +1,13 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 36: Unexpected errors ['generics_self_advanced.py:36:9 - major: type-assertion-failure: Argument does not have asserted type `list[Self@method2]` (type-assertion-failure)']
+Line 37: Unexpected errors ['generics_self_advanced.py:37:9 - major: type-assertion-failure: Argument does not have asserted type `Self@method2` (type-assertion-failure)']
+Line 43: Unexpected errors ['generics_self_advanced.py:43:9 - major: type-assertion-failure: Argument does not have asserted type `list[Self@method3]` (type-assertion-failure)']
+Line 44: Unexpected errors ['generics_self_advanced.py:44:9 - major: type-assertion-failure: Argument does not have asserted type `Self@method3` (type-assertion-failure)']
+"""
+output = """
+generics_self_advanced.py:36:9 - major: type-assertion-failure: Argument does not have asserted type `list[Self@method2]` (type-assertion-failure)
+generics_self_advanced.py:37:9 - major: type-assertion-failure: Argument does not have asserted type `Self@method2` (type-assertion-failure)
+generics_self_advanced.py:43:9 - major: type-assertion-failure: Argument does not have asserted type `list[Self@method3]` (type-assertion-failure)
+generics_self_advanced.py:44:9 - major: type-assertion-failure: Argument does not have asserted type `Self@method3` (type-assertion-failure)
+"""

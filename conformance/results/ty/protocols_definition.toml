@@ -1,0 +1,26 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 67: Expected 1 errors
+Line 117: Expected 1 errors
+Line 157: Expected 1 errors
+Line 158: Expected 1 errors
+Line 218: Expected 1 errors
+Line 339: Expected 1 errors
+Line 340: Expected 1 errors
+Line 341: Expected 1 errors
+"""
+output = """
+protocols_definition.py:30:11 - major: invalid-argument-type: Argument to function `close_all` is incorrect (invalid-argument-type)
+protocols_definition.py:114:22 - major: invalid-assignment: Object of type `Concrete2_Bad1` is not assignable to `Template2` (invalid-assignment)
+protocols_definition.py:115:22 - major: invalid-assignment: Object of type `Concrete2_Bad2` is not assignable to `Template2` (invalid-assignment)
+protocols_definition.py:116:22 - major: invalid-assignment: Object of type `Concrete2_Bad3` is not assignable to `Template2` (invalid-assignment)
+protocols_definition.py:156:22 - major: invalid-assignment: Object of type `Concrete3_Bad1` is not assignable to `Template3` (invalid-assignment)
+protocols_definition.py:159:22 - major: invalid-assignment: Object of type `Concrete3_Bad4` is not assignable to `Template3` (invalid-assignment)
+protocols_definition.py:160:22 - major: invalid-assignment: Object of type `Concrete3_Bad5` is not assignable to `Template3` (invalid-assignment)
+protocols_definition.py:219:22 - major: invalid-assignment: Object of type `Concrete4_Bad2` is not assignable to `Template4` (invalid-assignment)
+protocols_definition.py:285:22 - major: invalid-assignment: Object of type `Concrete5_Bad1` is not assignable to `Template5` (invalid-assignment)
+protocols_definition.py:286:22 - major: invalid-assignment: Object of type `Concrete5_Bad2` is not assignable to `Template5` (invalid-assignment)
+protocols_definition.py:287:22 - major: invalid-assignment: Object of type `Concrete5_Bad3` is not assignable to `Template5` (invalid-assignment)
+protocols_definition.py:288:22 - major: invalid-assignment: Object of type `Concrete5_Bad4` is not assignable to `Template5` (invalid-assignment)
+protocols_definition.py:289:22 - major: invalid-assignment: Object of type `Concrete5_Bad5` is not assignable to `Template5` (invalid-assignment)
+"""

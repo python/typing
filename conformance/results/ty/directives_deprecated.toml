@@ -1,0 +1,18 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 30: Expected 1 errors
+Line 41: Expected 1 errors
+Line 42: Expected 1 errors
+Line 44: Expected 1 errors
+Line 47: Expected 1 errors
+Line 48: Expected 1 errors
+Line 58: Expected 1 errors
+"""
+output = """
+directives_deprecated.py:18:44 - minor: deprecated: The class `Ham` is deprecated (deprecated)
+directives_deprecated.py:24:9 - minor: deprecated: The function `norwegian_blue` is deprecated (deprecated)
+directives_deprecated.py:25:13 - minor: deprecated: The function `norwegian_blue` is deprecated (deprecated)
+directives_deprecated.py:34:7 - minor: deprecated: The class `Ham` is deprecated (deprecated)
+directives_deprecated.py:69:1 - minor: deprecated: The function `lorem` is deprecated (deprecated)
+directives_deprecated.py:98:7 - minor: deprecated: The function `foo` is deprecated (deprecated)
+"""

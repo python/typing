@@ -1,0 +1,10 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 78: Expected 1 errors
+"""
+output = """
+enums_member_values.py:30:5 - major: type-assertion-failure: Argument does not have asserted type `Literal[1, 2, 3]` (type-assertion-failure)
+enums_member_values.py:54:1 - major: type-assertion-failure: Argument does not have asserted type `Literal[1]` (type-assertion-failure)
+enums_member_values.py:85:9 - major: invalid-assignment: Object of type `int` is not assignable to attribute `_value_` of type `str` (invalid-assignment)
+enums_member_values.py:96:1 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+"""

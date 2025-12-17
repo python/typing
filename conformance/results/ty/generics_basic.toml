@@ -1,0 +1,26 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 40: Expected 1 errors
+Line 41: Expected 1 errors
+Line 55: Expected 1 errors
+Line 69: Expected 1 errors
+Line 121: Expected 1 errors
+Line 208: Expected 1 errors
+Line 34: Unexpected errors ['generics_basic.py:34:12 - major: unsupported-operator: Unsupported `+` operation (unsupported-operator)']
+Line 139: Unexpected errors ['generics_basic.py:139:5 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 140: Unexpected errors ['generics_basic.py:140:5 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 199: Unexpected errors ['generics_basic.py:199:5 - major: type-assertion-failure: Argument does not have asserted type `Iterator[Any]` (type-assertion-failure)']
+"""
+output = """
+generics_basic.py:34:12 - major: unsupported-operator: Unsupported `+` operation (unsupported-operator)
+generics_basic.py:49:44 - major: invalid-legacy-type-variable: A `TypeVar` cannot have exactly one constraint (invalid-legacy-type-variable)
+generics_basic.py:139:5 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+generics_basic.py:140:5 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+generics_basic.py:157:5 - major: invalid-argument-type: Method `__getitem__` of type `bound method MyMap1[str, int].__getitem__(key: str, /) -> int` cannot be called with key of type `Literal[0]` on object of type `MyMap1[str, int]` (invalid-argument-type)
+generics_basic.py:158:5 - major: invalid-argument-type: Method `__getitem__` of type `bound method MyMap2[int, str].__getitem__(key: str, /) -> int` cannot be called with key of type `Literal[0]` on object of type `MyMap2[int, str]` (invalid-argument-type)
+generics_basic.py:162:12 - major: invalid-argument-type: `<class 'int'>` is not a valid argument to `Generic` (invalid-argument-type)
+generics_basic.py:163:12 - major: invalid-argument-type: `<class 'int'>` is not a valid argument to `Protocol` (invalid-argument-type)
+generics_basic.py:171:1 - major: invalid-generic-class: `Generic` base class must include all type variables used in other base classes (invalid-generic-class)
+generics_basic.py:172:1 - major: invalid-generic-class: `Generic` base class must include all type variables used in other base classes (invalid-generic-class)
+generics_basic.py:199:5 - major: type-assertion-failure: Argument does not have asserted type `Iterator[Any]` (type-assertion-failure)
+"""

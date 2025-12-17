@@ -1,0 +1,11 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 35: Expected 1 errors
+"""
+output = """
+typeddicts_usage.py:23:7 - major: invalid-key: Unknown key "director" for TypedDict `Movie` (invalid-key)
+typeddicts_usage.py:24:17 - major: invalid-assignment: Invalid assignment to key "year" with declared type `int` on TypedDict `Movie` (invalid-assignment)
+typeddicts_usage.py:28:17 - major: missing-typed-dict-key: Missing required key 'name' in TypedDict `Movie` constructor (missing-typed-dict-key)
+typeddicts_usage.py:28:18 - major: invalid-key: Unknown key "title" for TypedDict `Movie` (invalid-key)
+typeddicts_usage.py:40:24 - major: invalid-type-form: The special form `typing.TypedDict` is not allowed in type expressions (invalid-type-form)
+"""

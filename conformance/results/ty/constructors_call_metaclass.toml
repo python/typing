@@ -1,0 +1,12 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 39: Unexpected errors ['constructors_call_metaclass.py:39:1 - major: type-assertion-failure: Argument does not have asserted type `int | Meta2` (type-assertion-failure)', 'constructors_call_metaclass.py:39:13 - major: missing-argument: No argument provided for required parameter `x` of function `__new__` (missing-argument)']
+Line 46: Unexpected errors ["constructors_call_metaclass.py:46:16 - major: invalid-super-argument: `T@__call__` is not an instance or subclass of `<class 'Meta3'>` in `super(<class 'Meta3'>, T@__call__)` call (invalid-super-argument)"]
+"""
+output = """
+constructors_call_metaclass.py:39:1 - major: type-assertion-failure: Argument does not have asserted type `int | Meta2` (type-assertion-failure)
+constructors_call_metaclass.py:39:13 - major: missing-argument: No argument provided for required parameter `x` of function `__new__` (missing-argument)
+constructors_call_metaclass.py:46:16 - major: invalid-super-argument: `T@__call__` is not an instance or subclass of `<class 'Meta3'>` in `super(<class 'Meta3'>, T@__call__)` call (invalid-super-argument)
+constructors_call_metaclass.py:54:1 - major: missing-argument: No argument provided for required parameter `x` of function `__new__` (missing-argument)
+constructors_call_metaclass.py:68:1 - major: missing-argument: No argument provided for required parameter `x` of function `__new__` (missing-argument)
+"""

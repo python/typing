@@ -1,0 +1,22 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 45: Expected 1 errors
+Line 46: Expected 1 errors
+Line 47: Expected 1 errors
+Line 54: Expected 1 errors
+Line 78: Expected 1 errors
+"""
+output = """
+classes_classvar.py:38:11 - major: invalid-type-form: Type qualifier `typing.ClassVar` expected exactly 1 argument, got 2 (invalid-type-form)
+classes_classvar.py:39:14 - major: invalid-type-form: Int literals are not allowed in this context in a type expression (invalid-type-form)
+classes_classvar.py:40:14 - major: unresolved-reference: Name `var` used when not defined (unresolved-reference)
+classes_classvar.py:52:33 - major: invalid-assignment: Object of type `dict[Unknown, Unknown]` is not assignable to `list[str]` (invalid-assignment)
+classes_classvar.py:55:17 - major: invalid-type-form: Type qualifier `typing.ClassVar` is not allowed in type expressions (only in annotation expressions) (invalid-type-form)
+classes_classvar.py:69:23 - major: invalid-type-form: `ClassVar` is not allowed in function parameter annotations (invalid-type-form)
+classes_classvar.py:70:12 - major: invalid-type-form: `ClassVar` annotations are only allowed in class-body scopes (invalid-type-form)
+classes_classvar.py:71:18 - major: invalid-type-form: `ClassVar` annotations are not allowed for non-name targets (invalid-type-form)
+classes_classvar.py:73:26 - major: invalid-type-form: `ClassVar` is not allowed in function return type annotations (invalid-type-form)
+classes_classvar.py:77:8 - major: invalid-type-form: `ClassVar` annotations are only allowed in class-body scopes (invalid-type-form)
+classes_classvar.py:111:1 - major: invalid-attribute-access: Cannot assign to ClassVar `stats` from an instance of type `Starship` (invalid-attribute-access)
+classes_classvar.py:140:13 - major: invalid-assignment: Object of type `ProtoAImpl` is not assignable to `ProtoA` (invalid-assignment)
+"""

@@ -1,0 +1,35 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Expected 1 errors
+Line 25: Expected 1 errors
+Line 41: Expected 1 errors
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+Line 46: Expected 1 errors
+Line 48: Expected 1 errors
+Line 50: Expected 1 errors
+Line 51: Expected 1 errors
+Line 52: Expected 1 errors
+Line 53: Expected 1 errors
+Line 82: Unexpected errors ['annotations_forward_refs.py:82:11 - major: invalid-type-form: Variable of type `Literal[""]` is not allowed in a type expression (invalid-type-form)']
+Line 87: Unexpected errors ['annotations_forward_refs.py:87:9 - major: invalid-type-form: Variable of type `def int(self) -> None` is not allowed in a type expression (invalid-type-form)']
+Line 95: Unexpected errors ['annotations_forward_refs.py:95:1 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)']
+Line 96: Unexpected errors ['annotations_forward_refs.py:96:1 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+"""
+output = """
+annotations_forward_refs.py:22:7 - major: unresolved-reference: Name `ClassA` used when not defined (unresolved-reference)
+annotations_forward_refs.py:23:12 - major: unresolved-reference: Name `ClassA` used when not defined (unresolved-reference)
+annotations_forward_refs.py:47:10 - major: invalid-type-form: Invalid subscript of object of type `list[Unknown | <class 'int'>]` in type expression (invalid-type-form)
+annotations_forward_refs.py:49:10 - major: invalid-type-form: Variable of type `Literal[1]` is not allowed in a type expression (invalid-type-form)
+annotations_forward_refs.py:54:11 - major: fstring-type-annotation: Type expressions cannot use f-strings (fstring-type-annotation)
+annotations_forward_refs.py:55:11 - major: invalid-type-form: Module `types` is not valid in a type expression (invalid-type-form)
+annotations_forward_refs.py:66:26 - major: unresolved-reference: Name `ClassB` used when not defined (unresolved-reference)
+annotations_forward_refs.py:80:14 - major: unresolved-reference: Name `ClassF` used when not defined (unresolved-reference)
+annotations_forward_refs.py:82:11 - major: invalid-type-form: Variable of type `Literal[""]` is not allowed in a type expression (invalid-type-form)
+annotations_forward_refs.py:87:9 - major: invalid-type-form: Variable of type `def int(self) -> None` is not allowed in a type expression (invalid-type-form)
+annotations_forward_refs.py:89:8 - major: invalid-type-form: Variable of type `def int(self) -> None` is not allowed in a type expression (invalid-type-form)
+annotations_forward_refs.py:95:1 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)
+annotations_forward_refs.py:96:1 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+"""

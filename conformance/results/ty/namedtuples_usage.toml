@@ -1,0 +1,13 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+"""
+output = """
+namedtuples_usage.py:34:7 - major: index-out-of-bounds: Index 3 is out of bounds for tuple `Point` with length 3 (index-out-of-bounds)
+namedtuples_usage.py:35:7 - major: index-out-of-bounds: Index -4 is out of bounds for tuple `Point` with length 3 (index-out-of-bounds)
+namedtuples_usage.py:40:1 - major: invalid-assignment: Cannot assign to read-only property `x` on object of type `Point` (invalid-assignment)
+namedtuples_usage.py:41:1 - major: invalid-assignment: Cannot assign to a subscript on an object of type `Point` (invalid-assignment)
+namedtuples_usage.py:52:1 - major: invalid-assignment: Too many values to unpack (invalid-assignment)
+namedtuples_usage.py:53:1 - major: invalid-assignment: Not enough values to unpack (invalid-assignment)
+"""

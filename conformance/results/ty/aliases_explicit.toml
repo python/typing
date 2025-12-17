@@ -1,0 +1,28 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 79: Expected 1 errors
+Line 80: Expected 1 errors
+Line 81: Expected 1 errors
+Line 82: Expected 1 errors
+Line 83: Expected 1 errors
+Line 84: Expected 1 errors
+Line 85: Expected 1 errors
+Line 86: Expected 1 errors
+Line 87: Expected 1 errors
+Line 88: Expected 1 errors
+Line 89: Expected 1 errors
+Line 90: Expected 1 errors
+Line 91: Expected 1 errors
+Line 100: Expected 1 errors
+Line 57: Unexpected errors ['aliases_explicit.py:57:5 - major: type-assertion-failure: Argument does not have asserted type `(int, str, str, /) -> None` (type-assertion-failure)']
+"""
+output = """
+aliases_explicit.py:57:5 - major: type-assertion-failure: Argument does not have asserted type `(int, str, str, /) -> None` (type-assertion-failure)
+aliases_explicit.py:67:9 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+aliases_explicit.py:68:9 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+aliases_explicit.py:69:29 - major: invalid-type-arguments: Too many type arguments: expected 1, got 2 (invalid-type-arguments)
+aliases_explicit.py:70:29 - major: invalid-type-arguments: Too many type arguments: expected 1, got 2 (invalid-type-arguments)
+aliases_explicit.py:71:24 - major: invalid-type-arguments: Type argument for `ParamSpec` must be either a list of types, `ParamSpec`, `Concatenate`, or `...` (invalid-type-arguments)
+aliases_explicit.py:101:6 - major: call-non-callable: Object of type `UnionType` is not callable (call-non-callable)
+aliases_explicit.py:102:5 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+"""

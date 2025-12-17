@@ -1,0 +1,17 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 50: Expected 1 errors
+"""
+output = """
+enums_members.py:82:20 - major: invalid-type-form: Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member (invalid-type-form)
+enums_members.py:83:20 - major: invalid-type-form: Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member (invalid-type-form)
+enums_members.py:84:18 - major: invalid-type-form: Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member (invalid-type-form)
+enums_members.py:85:16 - major: invalid-type-form: Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member (invalid-type-form)
+enums_members.py:116:1 - major: type-assertion-failure: Argument does not have asserted type `Unknown` (type-assertion-failure)
+enums_members.py:116:32 - major: invalid-type-form: Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member (invalid-type-form)
+enums_members.py:128:21 - info: revealed-type: Revealed type (revealed-type)
+enums_members.py:129:9 - major: type-assertion-failure: Argument does not have asserted type `Unknown` (type-assertion-failure)
+enums_members.py:129:43 - major: invalid-type-form: Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member (invalid-type-form)
+enums_members.py:146:1 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+enums_members.py:147:1 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+"""

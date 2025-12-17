@@ -1,0 +1,28 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 105: Expected 1 errors
+Line 110: Expected 1 errors
+Line 169: Expected 1 errors
+Line 170: Expected 1 errors
+Line 195: Expected 1 errors
+Line 199: Expected 1 errors
+Line 21: Unexpected errors ['narrowing_typeis.py:21:9 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, ...]` (type-assertion-failure)']
+Line 38: Unexpected errors ['narrowing_typeis.py:38:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 72: Unexpected errors ['narrowing_typeis.py:72:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 76: Unexpected errors ['narrowing_typeis.py:76:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 80: Unexpected errors ['narrowing_typeis.py:80:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 92: Unexpected errors ['narrowing_typeis.py:92:9 - major: type-assertion-failure: Argument does not have asserted type `B` (type-assertion-failure)']
+Line 96: Unexpected errors ['narrowing_typeis.py:96:9 - major: type-assertion-failure: Argument does not have asserted type `B` (type-assertion-failure)']
+"""
+output = """
+narrowing_typeis.py:21:9 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, ...]` (type-assertion-failure)
+narrowing_typeis.py:38:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+narrowing_typeis.py:72:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+narrowing_typeis.py:76:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+narrowing_typeis.py:80:9 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+narrowing_typeis.py:92:9 - major: type-assertion-failure: Argument does not have asserted type `B` (type-assertion-failure)
+narrowing_typeis.py:96:9 - major: type-assertion-failure: Argument does not have asserted type `B` (type-assertion-failure)
+narrowing_typeis.py:132:20 - major: invalid-argument-type: Argument to function `takes_callable_str` is incorrect (invalid-argument-type)
+narrowing_typeis.py:152:26 - major: invalid-argument-type: Argument to function `takes_callable_str_proto` is incorrect (invalid-argument-type)
+narrowing_typeis.py:191:18 - major: invalid-argument-type: Argument to function `takes_int_typeis` is incorrect (invalid-argument-type)
+"""

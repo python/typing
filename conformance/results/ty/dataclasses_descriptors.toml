@@ -1,0 +1,9 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 66: Unexpected errors ['dataclasses_descriptors.py:66:1 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)']
+Line 67: Unexpected errors ['dataclasses_descriptors.py:67:1 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)']
+"""
+output = """
+dataclasses_descriptors.py:66:1 - major: type-assertion-failure: Argument does not have asserted type `int` (type-assertion-failure)
+dataclasses_descriptors.py:67:1 - major: type-assertion-failure: Argument does not have asserted type `str` (type-assertion-failure)
+"""

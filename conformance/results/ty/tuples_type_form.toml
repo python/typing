@@ -1,0 +1,16 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 40: Expected 1 errors
+Line 41: Expected 1 errors
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+"""
+output = """
+tuples_type_form.py:12:6 - major: invalid-assignment: Object of type `tuple[Literal[1], Literal[2]]` is not assignable to `tuple[int]` (invalid-assignment)
+tuples_type_form.py:14:6 - major: invalid-assignment: Object of type `tuple[Literal[1]]` is not assignable to `tuple[int, int]` (invalid-assignment)
+tuples_type_form.py:15:6 - major: invalid-assignment: Object of type `tuple[Literal[1], Literal[""]]` is not assignable to `tuple[int, int]` (invalid-assignment)
+tuples_type_form.py:25:7 - major: invalid-assignment: Object of type `tuple[Literal[1]]` is not assignable to `tuple[()]` (invalid-assignment)
+tuples_type_form.py:36:7 - major: invalid-assignment: Object of type `tuple[Literal[1], Literal[2], Literal[3], Literal[""]]` is not assignable to `tuple[int, ...]` (invalid-assignment)
+"""

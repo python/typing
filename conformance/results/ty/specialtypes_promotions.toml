@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+specialtypes_promotions.py:13:5 - minor: possibly-missing-attribute: Attribute `numerator` may be missing on object of type `int | float` (possibly-missing-attribute)
+"""

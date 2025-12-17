@@ -1,0 +1,67 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 109: Expected 1 errors
+Line 110: Expected 1 errors
+Line 121: Expected 1 errors
+Line 122: Expected 1 errors
+Line 45: Unexpected errors ['generics_typevartuple_specialization.py:45:14 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)', 'generics_typevartuple_specialization.py:45:40 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)']
+Line 46: Unexpected errors ['generics_typevartuple_specialization.py:46:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[int, int | float, bool]` (type-assertion-failure)']
+Line 47: Unexpected errors ['generics_typevartuple_specialization.py:47:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, @Todo]` (type-assertion-failure)']
+Line 51: Unexpected errors ['generics_typevartuple_specialization.py:51:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[int]` (type-assertion-failure)']
+Line 52: Unexpected errors ['generics_typevartuple_specialization.py:52:37 - major: invalid-type-form: Tuple literals are not allowed in this context in a type expression (invalid-type-form)']
+Line 92: Unexpected errors ['generics_typevartuple_specialization.py:92:14 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)', 'generics_typevartuple_specialization.py:92:42 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)']
+Line 93: Unexpected errors ['generics_typevartuple_specialization.py:93:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, int]` (type-assertion-failure)']
+Line 94: Unexpected errors ['generics_typevartuple_specialization.py:94:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[int | float]` (type-assertion-failure)']
+Line 95: Unexpected errors ['generics_typevartuple_specialization.py:95:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[Any, *tuple[Any, ...]]` (type-assertion-failure)']
+Line 102: Unexpected errors ['generics_typevartuple_specialization.py:102:20 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)']
+Line 103: Unexpected errors ['generics_typevartuple_specialization.py:103:21 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)']
+Line 130: Unexpected errors ['generics_typevartuple_specialization.py:130:14 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)']
+Line 134: Unexpected errors ['generics_typevartuple_specialization.py:134:14 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)', 'generics_typevartuple_specialization.py:134:33 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)', 'generics_typevartuple_specialization.py:134:59 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)']
+Line 135: Unexpected errors ['generics_typevartuple_specialization.py:135:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[tuple[()], str, bool]` (type-assertion-failure)']
+Line 136: Unexpected errors ['generics_typevartuple_specialization.py:136:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[tuple[str], bool, int | float]` (type-assertion-failure)']
+Line 137: Unexpected errors ['generics_typevartuple_specialization.py:137:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[tuple[str, bool], int | float, int]` (type-assertion-failure)']
+Line 143: Unexpected errors ['generics_typevartuple_specialization.py:143:14 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)']
+Line 147: Unexpected errors ['generics_typevartuple_specialization.py:147:15 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)', 'generics_typevartuple_specialization.py:147:41 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)']
+Line 148: Unexpected errors ['generics_typevartuple_specialization.py:148:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[tuple[()], str, bool, int | float]` (type-assertion-failure)']
+Line 149: Unexpected errors ['generics_typevartuple_specialization.py:149:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[tuple[bool], str, int | float, int]` (type-assertion-failure)']
+Line 153: Unexpected errors ['generics_typevartuple_specialization.py:153:8 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)']
+Line 156: Unexpected errors ['generics_typevartuple_specialization.py:156:24 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)', 'generics_typevartuple_specialization.py:156:55 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)']
+Line 157: Unexpected errors ['generics_typevartuple_specialization.py:157:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[*tuple[int, ...], int]` (type-assertion-failure)']
+Line 158: Unexpected errors ['generics_typevartuple_specialization.py:158:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[*tuple[int, ...], str]` (type-assertion-failure)']
+Line 159: Unexpected errors ['generics_typevartuple_specialization.py:159:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[*tuple[int, ...], str]` (type-assertion-failure)']
+"""
+output = """
+generics_typevartuple_specialization.py:45:14 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:45:40 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:46:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[int, int | float, bool]` (type-assertion-failure)
+generics_typevartuple_specialization.py:47:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, @Todo]` (type-assertion-failure)
+generics_typevartuple_specialization.py:51:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[int]` (type-assertion-failure)
+generics_typevartuple_specialization.py:52:37 - major: invalid-type-form: Tuple literals are not allowed in this context in a type expression (invalid-type-form)
+generics_typevartuple_specialization.py:92:14 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:92:42 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:93:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, int]` (type-assertion-failure)
+generics_typevartuple_specialization.py:94:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[int | float]` (type-assertion-failure)
+generics_typevartuple_specialization.py:95:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[Any, *tuple[Any, ...]]` (type-assertion-failure)
+generics_typevartuple_specialization.py:102:20 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:103:21 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:127:5 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:130:14 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:134:14 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:134:33 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:134:59 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:135:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[tuple[()], str, bool]` (type-assertion-failure)
+generics_typevartuple_specialization.py:136:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[tuple[str], bool, int | float]` (type-assertion-failure)
+generics_typevartuple_specialization.py:137:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[tuple[str, bool], int | float, int]` (type-assertion-failure)
+generics_typevartuple_specialization.py:143:14 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:147:15 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:147:41 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:148:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[tuple[()], str, bool, int | float]` (type-assertion-failure)
+generics_typevartuple_specialization.py:149:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[tuple[bool], str, int | float, int]` (type-assertion-failure)
+generics_typevartuple_specialization.py:153:8 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:156:24 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:156:55 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+generics_typevartuple_specialization.py:157:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[*tuple[int, ...], int]` (type-assertion-failure)
+generics_typevartuple_specialization.py:158:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[*tuple[int, ...], str]` (type-assertion-failure)
+generics_typevartuple_specialization.py:159:5 - major: type-assertion-failure: Argument does not have asserted type `tuple[*tuple[int, ...], str]` (type-assertion-failure)
+generics_typevartuple_specialization.py:163:8 - major: non-subscriptable: Cannot subscript non-generic type (non-subscriptable)
+"""

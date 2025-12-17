@@ -1,0 +1,7 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 52: Unexpected errors ['generics_typevartuple_concat.py:52:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[int, bool, str]` (type-assertion-failure)']
+"""
+output = """
+generics_typevartuple_concat.py:52:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[int, bool, str]` (type-assertion-failure)
+"""

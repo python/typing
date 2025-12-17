@@ -1,0 +1,77 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 22: Expected 1 errors
+Line 49: Expected 1 errors
+Line 67: Expected 1 errors
+Line 73: Expected 1 errors
+Line 109: Expected 1 errors
+Line 114: Expected 1 errors
+Line 117: Expected 1 errors
+Line 128: Expected 1 errors
+Line 143: Expected 1 errors
+Line 174: Expected 1 errors
+Line 215: Expected 1 errors
+Line 222: Expected 1 errors
+Line 242: Expected 1 errors
+Line 256: Expected 1 errors
+Line 257: Expected 1 errors
+Line 268: Expected 1 errors
+Lines 91, 92: Expected error (tag 'MovieC')
+Lines 94, 95: Expected error (tag 'MovieD')
+Lines 184, 185: Expected error (tag 'MovieRequiredYear')
+Lines 187, 188: Expected error (tag 'MovieNotRequiredYear')
+Lines 196, 197: Expected error (tag 'BookWithPublisher')
+Line 14: Unexpected errors ['typeddicts_extra_items.py:14:37 - major: invalid-key: Unknown key "novel_adaptation" for TypedDict `Movie` (invalid-key)']
+Line 29: Unexpected errors ['typeddicts_extra_items.py:29:5 - major: type-assertion-failure: Argument does not have asserted type `bool` (type-assertion-failure)', 'typeddicts_extra_items.py:29:23 - major: invalid-key: Unknown key "novel_adaptation" for TypedDict `Movie` (invalid-key)']
+Line 43: Unexpected errors ['typeddicts_extra_items.py:43:5 - major: invalid-key: Unknown key "other_extra_key" for TypedDict `InheritedMovie` (invalid-key)']
+Line 129: Unexpected errors ['typeddicts_extra_items.py:129:15 - major: invalid-key: Unknown key "year" for TypedDict `MovieEI` (invalid-key)']
+Line 254: Unexpected errors ['typeddicts_extra_items.py:254:63 - major: invalid-key: Unknown key "year" for TypedDict `MovieExtraInt` (invalid-key)']
+Line 255: Unexpected errors ['typeddicts_extra_items.py:255:63 - major: invalid-key: Unknown key "description" for TypedDict `MovieExtraStr` (invalid-key)']
+Line 266: Unexpected errors ['typeddicts_extra_items.py:266:64 - major: invalid-key: Unknown key "year" for TypedDict `MovieExtraInt` (invalid-key)']
+Line 284: Unexpected errors ['typeddicts_extra_items.py:284:43 - major: invalid-key: Unknown key "year" for TypedDict `ExtraMovie` (invalid-key)']
+Line 299: Unexpected errors ['typeddicts_extra_items.py:299:54 - major: invalid-key: Unknown key "summary" for TypedDict `MovieExtraStr` (invalid-key)']
+Line 300: Unexpected errors ['typeddicts_extra_items.py:300:34 - major: invalid-assignment: Object of type `MovieExtraStr` is not assignable to `Mapping[str, str]` (invalid-assignment)']
+Line 302: Unexpected errors ['typeddicts_extra_items.py:302:54 - major: invalid-key: Unknown key "year" for TypedDict `MovieExtraInt` (invalid-key)']
+Line 304: Unexpected errors ['typeddicts_extra_items.py:304:44 - major: invalid-assignment: Object of type `MovieExtraInt` is not assignable to `Mapping[str, int | str]` (invalid-assignment)']
+Line 310: Unexpected errors ['typeddicts_extra_items.py:310:5 - major: type-assertion-failure: Argument does not have asserted type `list[tuple[str, int | str]]` (type-assertion-failure)']
+Line 311: Unexpected errors ['typeddicts_extra_items.py:311:5 - major: type-assertion-failure: Argument does not have asserted type `list[int | str]` (type-assertion-failure)']
+Line 326: Unexpected errors ['typeddicts_extra_items.py:326:25 - major: invalid-assignment: Object of type `IntDict` is not assignable to `dict[str, int]` (invalid-assignment)']
+Line 329: Unexpected errors ['typeddicts_extra_items.py:329:52 - major: invalid-key: Unknown key "bar" for TypedDict `IntDictWithNum` (invalid-key)']
+Line 330: Unexpected errors ['typeddicts_extra_items.py:330:32 - major: invalid-assignment: Object of type `IntDictWithNum` is not assignable to `dict[str, int]` (invalid-assignment)']
+Line 337: Unexpected errors ['typeddicts_extra_items.py:337:1 - major: unresolved-attribute: Object of type `IntDictWithNum` has no attribute `clear` (unresolved-attribute)']
+Line 339: Unexpected errors ['typeddicts_extra_items.py:339:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, int]` (type-assertion-failure)', 'typeddicts_extra_items.py:339:13 - major: unresolved-attribute: Object of type `IntDictWithNum` has no attribute `popitem` (unresolved-attribute)']
+Line 342: Unexpected errors ['typeddicts_extra_items.py:342:27 - major: invalid-key: TypedDict `IntDictWithNum` can only be subscripted with a string literal key, got key of type `str`. (invalid-key)']
+Line 343: Unexpected errors ['typeddicts_extra_items.py:343:31 - major: invalid-key: TypedDict `IntDictWithNum` can only be subscripted with a string literal key, got key of type `str` (invalid-key)']
+"""
+output = """
+typeddicts_extra_items.py:14:37 - major: invalid-key: Unknown key "novel_adaptation" for TypedDict `Movie` (invalid-key)
+typeddicts_extra_items.py:15:37 - major: invalid-key: Unknown key "year" for TypedDict `Movie` (invalid-key)
+typeddicts_extra_items.py:29:5 - major: type-assertion-failure: Argument does not have asserted type `bool` (type-assertion-failure)
+typeddicts_extra_items.py:29:23 - major: invalid-key: Unknown key "novel_adaptation" for TypedDict `Movie` (invalid-key)
+typeddicts_extra_items.py:39:54 - major: invalid-argument-type: Invalid argument to key "year" with declared type `int` on TypedDict `InheritedMovie` (invalid-argument-type)
+typeddicts_extra_items.py:43:5 - major: invalid-key: Unknown key "other_extra_key" for TypedDict `InheritedMovie` (invalid-key)
+typeddicts_extra_items.py:129:15 - major: invalid-key: Unknown key "year" for TypedDict `MovieEI` (invalid-key)
+typeddicts_extra_items.py:254:63 - major: invalid-key: Unknown key "year" for TypedDict `MovieExtraInt` (invalid-key)
+typeddicts_extra_items.py:255:63 - major: invalid-key: Unknown key "description" for TypedDict `MovieExtraStr` (invalid-key)
+typeddicts_extra_items.py:266:64 - major: invalid-key: Unknown key "year" for TypedDict `MovieExtraInt` (invalid-key)
+typeddicts_extra_items.py:278:47 - major: invalid-key: Unknown key "year" for TypedDict `NonClosedMovie` (invalid-key)
+typeddicts_extra_items.py:284:43 - major: invalid-key: Unknown key "year" for TypedDict `ExtraMovie` (invalid-key)
+typeddicts_extra_items.py:285:43 - major: invalid-key: Unknown key "language" for TypedDict `ExtraMovie` (invalid-key)
+typeddicts_extra_items.py:293:44 - major: invalid-key: Unknown key "year" for TypedDict `ClosedMovie` (invalid-key)
+typeddicts_extra_items.py:299:54 - major: invalid-key: Unknown key "summary" for TypedDict `MovieExtraStr` (invalid-key)
+typeddicts_extra_items.py:300:34 - major: invalid-assignment: Object of type `MovieExtraStr` is not assignable to `Mapping[str, str]` (invalid-assignment)
+typeddicts_extra_items.py:302:54 - major: invalid-key: Unknown key "year" for TypedDict `MovieExtraInt` (invalid-key)
+typeddicts_extra_items.py:303:34 - major: invalid-assignment: Object of type `MovieExtraInt` is not assignable to `Mapping[str, int]` (invalid-assignment)
+typeddicts_extra_items.py:304:44 - major: invalid-assignment: Object of type `MovieExtraInt` is not assignable to `Mapping[str, int | str]` (invalid-assignment)
+typeddicts_extra_items.py:310:5 - major: type-assertion-failure: Argument does not have asserted type `list[tuple[str, int | str]]` (type-assertion-failure)
+typeddicts_extra_items.py:311:5 - major: type-assertion-failure: Argument does not have asserted type `list[int | str]` (type-assertion-failure)
+typeddicts_extra_items.py:326:25 - major: invalid-assignment: Object of type `IntDict` is not assignable to `dict[str, int]` (invalid-assignment)
+typeddicts_extra_items.py:329:52 - major: invalid-key: Unknown key "bar" for TypedDict `IntDictWithNum` (invalid-key)
+typeddicts_extra_items.py:330:32 - major: invalid-assignment: Object of type `IntDictWithNum` is not assignable to `dict[str, int]` (invalid-assignment)
+typeddicts_extra_items.py:337:1 - major: unresolved-attribute: Object of type `IntDictWithNum` has no attribute `clear` (unresolved-attribute)
+typeddicts_extra_items.py:339:1 - major: type-assertion-failure: Argument does not have asserted type `tuple[str, int]` (type-assertion-failure)
+typeddicts_extra_items.py:339:13 - major: unresolved-attribute: Object of type `IntDictWithNum` has no attribute `popitem` (unresolved-attribute)
+typeddicts_extra_items.py:342:27 - major: invalid-key: TypedDict `IntDictWithNum` can only be subscripted with a string literal key, got key of type `str`. (invalid-key)
+typeddicts_extra_items.py:343:31 - major: invalid-key: TypedDict `IntDictWithNum` can only be subscripted with a string literal key, got key of type `str` (invalid-key)
+typeddicts_extra_items.py:352:25 - major: invalid-assignment: Object of type `dict[str, int]` is not assignable to `IntDict` (invalid-assignment)
+"""

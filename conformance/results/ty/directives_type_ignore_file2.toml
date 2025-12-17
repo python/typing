@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_type_ignore_file2.py:14:10 - major: invalid-assignment: Object of type `Literal[""]` is not assignable to `int` (invalid-assignment)
+"""

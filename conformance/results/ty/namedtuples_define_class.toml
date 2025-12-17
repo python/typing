@@ -1,0 +1,25 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 106: Expected 1 errors
+Line 121: Unexpected errors ['namedtuples_define_class.py:121:1 - major: type-assertion-failure: Argument does not have asserted type `Property[int | float]` (type-assertion-failure)']
+Line 122: Unexpected errors ['namedtuples_define_class.py:122:1 - major: type-assertion-failure: Argument does not have asserted type `int | float` (type-assertion-failure)']
+Line 123: Unexpected errors ['namedtuples_define_class.py:123:1 - major: type-assertion-failure: Argument does not have asserted type `int | float` (type-assertion-failure)']
+"""
+output = """
+namedtuples_define_class.py:32:7 - major: index-out-of-bounds: Index 3 is out of bounds for tuple `Point` with length 3 (index-out-of-bounds)
+namedtuples_define_class.py:33:7 - major: index-out-of-bounds: Index -4 is out of bounds for tuple `Point` with length 3 (index-out-of-bounds)
+namedtuples_define_class.py:44:6 - major: missing-argument: No argument provided for required parameter `y` (missing-argument)
+namedtuples_define_class.py:45:6 - major: missing-argument: No argument provided for required parameter `y` (missing-argument)
+namedtuples_define_class.py:46:15 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+namedtuples_define_class.py:47:18 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+namedtuples_define_class.py:48:22 - major: too-many-positional-arguments: Too many positional arguments: expected 4, got 5 (too-many-positional-arguments)
+namedtuples_define_class.py:49:23 - major: unknown-argument: Argument `other` does not match any known parameter (unknown-argument)
+namedtuples_define_class.py:69:20 - major: too-many-positional-arguments: Too many positional arguments: expected 3, got 4 (too-many-positional-arguments)
+namedtuples_define_class.py:76:5 - major: invalid-named-tuple: NamedTuple field name cannot start with an underscore (invalid-named-tuple)
+namedtuples_define_class.py:86:5 - major: invalid-named-tuple: NamedTuple field without default value cannot follow field(s) with default value(s) (invalid-named-tuple)
+namedtuples_define_class.py:121:1 - major: type-assertion-failure: Argument does not have asserted type `Property[int | float]` (type-assertion-failure)
+namedtuples_define_class.py:122:1 - major: type-assertion-failure: Argument does not have asserted type `int | float` (type-assertion-failure)
+namedtuples_define_class.py:123:1 - major: type-assertion-failure: Argument does not have asserted type `int | float` (type-assertion-failure)
+namedtuples_define_class.py:125:19 - major: invalid-argument-type: Argument is incorrect (invalid-argument-type)
+namedtuples_define_class.py:132:24 - major: invalid-named-tuple: NamedTuple class `Unit` cannot use multiple inheritance except with `Generic[]` (invalid-named-tuple)
+"""
