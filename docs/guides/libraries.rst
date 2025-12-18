@@ -89,18 +89,8 @@ A typical directory structure would look like:
       py.typed
 
 It's important to ensure that the ``py.typed`` marker file is included in the
-distributed package. If using ``hatchling``, it is included by default:
-
-.. code-block:: toml
-
-   [project]
-   name = "my-great-package"
-   version = "0.1.0"
-   requires-python = ">=3.14"
-
-   [build-system]
-   requires = ["hatchling"]
-   build-backend = "hatchling.build"
+distributed package. Modern build backends such as ``hatchling`` include it
+by default.
 
 
 Type stub files included in the package
