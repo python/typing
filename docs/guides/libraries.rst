@@ -82,25 +82,25 @@ A typical directory structure would look like:
 
 .. code-block:: text
 
-   setup.py
+   pyproject.toml
    my_great_package/
       __init__.py
       stuff.py
       py.typed
 
 It's important to ensure that the ``py.typed`` marker file is included in the
-distributed package. If using ``setuptools``, this can be achieved like so:
+distributed package. If using ``hatchling``, it is included by default:
 
-.. code-block:: python
+.. code-block:: toml
 
-   from setuptools import setup
+   [project]
+   name = "my-great-package"
+   version = "0.1.0"
+   requires-python = ">=3.14"
 
-   setup(
-      name="my_great_distribution",
-      version="0.1",
-      package_data={"my_great_package": ["py.typed"]},
-      packages=["my_great_package"],
-   )
+   [build-system]
+   requires = ["hatchling"]
+   build-backend = "hatchling.build"
 
 
 Type stub files included in the package
@@ -113,26 +113,12 @@ directory structure would look like:
 
 .. code-block:: text
 
-   setup.py
+   pyproject.toml
    my_great_package/
       __init__.py
       stuff.py
       stuff.pyi
       py.typed
-
-If using ``setuptools``, we can ensure the ``.pyi`` and ``py.typed`` files are
-included like so:
-
-.. code-block:: python
-
-   from setuptools import setup
-
-   setup(
-      name="my_great_distribution",
-      version="0.1",
-      package_data={"my_great_package": ["py.typed", "stuff.pyi"]},
-      packages=["my_great_package"],
-   )
 
 The presence of ``.pyi`` files does not affect the Python interpreter at runtime
 in any way. However, static type checkers will only look at the ``.pyi`` file and
@@ -150,40 +136,27 @@ For example:
 
 .. code-block:: text
 
-   setup.py
+   pyproject.toml
    my_great_package-stubs/
       __init__.pyi
       stuff.pyi
 
+.. code-block:: toml
 
-.. code-block:: python
+   [project]
+   name = "my-great-package-stubs"
+   version = "0.1.0"
+   requires-python = ">=3.14"
 
-   from setuptools import setup
+   [build-system]
+   requires = ["hatchling"]
+   build-backend = "hatchling.build"
 
-   setup(
-      name="my_great_package-stubs",
-      version="0.1",
-      package_data={"my_great_package-stubs": ["__init__.pyi", "stuff.pyi"]},
-      packages=["my_great_package-stubs"]
-   )
-
+   [tool.hatch.build.targets.wheel]
+   packages = ["src/my_great_package-stubs"]
 
 Users are then able to install the stubs-only package separately to provide
 types for the original library.
-
-Inclusion in sdist
-^^^^^^^^^^^^^^^^^^
-
-Note that to ensure inclusion of ``.pyi`` and ``py.typed`` files in an sdist
-(.tar.gz archive), you may also need to modify the inclusion rules in your
-``MANIFEST.in`` (see the
-`packaging guide <https://packaging.python.org/en/latest/guides/using-manifest-in/>`__
-for more details on ``MANIFEST.in``). For example:
-
-.. code-block:: text
-
-   global-include *.pyi
-   global-include py.typed
 
 .. _type_completeness:
 
