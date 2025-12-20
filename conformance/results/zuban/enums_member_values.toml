@@ -1,6 +1,4 @@
-conformant = "Partial"
 notes = """
-Does not enforce declared type of `_value_`.
 """
 conformance_automated = "Fail"
 errors_diff = """

@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not reject use of class-scoped TypeVar used in a base class when variance is incompatible.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 113: Expected 1 errors

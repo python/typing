@@ -1,8 +1,4 @@
-conformant = "Partial"
 notes = """
-Does not honor `enum.member` as method decorator.
-Does not properly handle aliased enum members.
-Does not treat somecallables as non-members.
 """
 conformance_automated = "Fail"
 errors_diff = """

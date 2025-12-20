@@ -1,8 +1,3 @@
-conformant = "Partial"
-notes = """
-Wrongly requires a Final dataclass field to be initialized at class level.
-Doesn't support Final nested inside ClassVar.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 27: Expected 1 errors

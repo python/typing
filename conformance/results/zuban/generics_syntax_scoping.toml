@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not following runtime scoping rules for type parameters in all cases.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 31: Unexpected errors ['generics_syntax_scoping.py:31: error: Type variable "generics_syntax_scoping.T" is unbound  [misc]']

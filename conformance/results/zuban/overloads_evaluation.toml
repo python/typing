@@ -1,11 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not expand boolean arguments to Literal[True] and Literal[False].
-Does not expand enum arguments to literal variants.
-Does not expand tuple arguments to possible combinations.
-Does not evaluate Any in some cases where overload is ambiguous.
-Evaluates Any in some cases where overload is not ambiguous.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 135: Unexpected errors ['overloads_evaluation.py:135: error: No overload variant of "expand_bool" matches argument type "bool"  [call-overload]']

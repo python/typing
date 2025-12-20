@@ -1,7 +1,4 @@
 conformance_automated = "Pass"
-notes = """
-Does not support keyword-argument form of alternative syntax (deprecated in 3.11).
-"""
 errors_diff = """
 """
 output = """

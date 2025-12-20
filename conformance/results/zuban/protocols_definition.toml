@@ -1,8 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not detect protocol mismatch if concrete method is missing annotations.
-Does not detect protocol mismatch if concrete method's parameters are position-only.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 285: Expected 1 errors

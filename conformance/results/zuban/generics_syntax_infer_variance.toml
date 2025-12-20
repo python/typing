@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Final is handled a bit different (questionable if this is an issue)
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 89: Unexpected errors ['generics_syntax_infer_variance.py:89: error: Final name declared in class body cannot depend on type variables  [misc]']

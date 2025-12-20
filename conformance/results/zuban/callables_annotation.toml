@@ -1,8 +1,3 @@
-conformant = "Partial"
-notes = """
-Incorrectly treats "*args: T, **kwargs: T" as "..." when T is specialized to Any.
-Does not treat "*args: Any, **kargs: Any" as "..." when separated by keyword parameter.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 159: Expected 1 errors

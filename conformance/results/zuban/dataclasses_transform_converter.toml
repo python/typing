@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Converters are fully supported, failed to match generic overloads against other generics
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 104: Unexpected errors ['dataclasses_transform_converter.py:104: error: Incompatible callable argument with type vars  [arg-type]']

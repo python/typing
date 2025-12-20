@@ -1,6 +1,4 @@
-conformant = "Partial"
 notes = """
-Does not reject override of named tuple attribute in child class.
 """
 conformance_automated = "Fail"
 errors_diff = """

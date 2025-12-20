@@ -1,9 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not reject TypeVars with defaults after a TypeVarTuple
-Type parameter defaults are not bound by attribute access
-ParamSpec after TypeVarTuple is not always handled correctly
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 143: Expected 1 errors

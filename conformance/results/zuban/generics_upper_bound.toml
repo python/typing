@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not reject use of type variable within an upper bound.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 24: Expected 1 errors

@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not reject write to instance variable that is not defined in __slots__.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 25: Expected 1 errors

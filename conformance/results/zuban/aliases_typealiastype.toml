@@ -1,8 +1,3 @@
-conformant = "Partial"
-notes = """
-Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.
-Incorrectly allows type_params= to be an arbitrary tuple.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 45: Expected 1 errors

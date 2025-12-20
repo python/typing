@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not report when dataclass is not compatible with Hashable protocol.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 15: Expected 1 errors

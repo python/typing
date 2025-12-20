@@ -1,8 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.
-Does not allow conditional assignment of Final instance variable in __init__ method.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 134: Expected 1 errors

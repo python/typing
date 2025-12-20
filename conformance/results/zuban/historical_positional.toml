@@ -1,9 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not reject positional-only parameter after non-positional-only parameter.
-Treats keyword-only parameter as positional-only.
-Applies legacy positional-only rules when PEP 570 syntax is used.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 26: Expected 1 errors

@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not narrow type of `x` with `x in Literal` type guard pattern.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 106: Unexpected errors ['literals_interactions.py:106: error: Argument 1 to "expects_bad_status" has incompatible type "str"; expected "Literal[\\'MALFORMED\\', \\'ABORTED\\']"  [arg-type]']
