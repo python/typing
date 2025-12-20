@@ -262,7 +262,8 @@ def check_example4(v1: list[Any], v2: Any) -> None:
     assert_type(ret1, list[int])
 
     ret2 = example4(v2, 1)
-    assert_type(ret2, Any)
+    assert_type(ret2, Any)  # E[example4]
+    assert_type(ret2, list[Any])  # E[example4]
 
 
 @overload
@@ -278,7 +279,8 @@ def example5(obj: Any) -> list[Any]:
 
 
 def check_example5(b: list[Any]) -> None:
-    assert_type(example5(b), Any)
+    assert_type(example5(b), Any)  # E[example5]
+    assert_type(example5(b), list[Any])  # E[example5]
 
 
 @overload
@@ -344,4 +346,5 @@ def check_example7(v1: list[Any], v2: Any) -> None:
     assert_type(ret2, list[str])
 
     ret3 = example7(v1, v2)
-    assert_type(ret3, Any)
+    assert_type(ret3, Any)  # E[example7]
+    assert_type(ret3, list[Any])  # E[example7]
