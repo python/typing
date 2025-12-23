@@ -1,8 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 285: Expected 1 errors
-Line 286: Expected 1 errors
-Line 288: Expected 1 errors
 """
 output = """
 protocols_definition.py:30: error: List item 0 has incompatible type "int"; expected "SupportsClose"  [list-item]
@@ -34,12 +31,30 @@ protocols_definition.py:218: error: Incompatible types in assignment (expression
 protocols_definition.py:218: note: Following member(s) of "Concrete4_Bad1" have conflicts:
 protocols_definition.py:218: note:     val1: expected "Sequence[float]", got "Callable[[], Sequence[int]]"
 protocols_definition.py:219: error: Incompatible types in assignment (expression has type "Concrete4_Bad2", variable has type "Template4")  [assignment]
+protocols_definition.py:285: error: Incompatible types in assignment (expression has type "Concrete5_Bad1", variable has type "Template5")  [assignment]
+protocols_definition.py:285: note: Following member(s) of "Concrete5_Bad1" have conflicts:
+protocols_definition.py:285: note:     Expected:
+protocols_definition.py:285: note:         def method1(self, a: int, b: int) -> float
+protocols_definition.py:285: note:     Got:
+protocols_definition.py:285: note:         def method1(self, a: Any, c: Any) -> int
+protocols_definition.py:286: error: Incompatible types in assignment (expression has type "Concrete5_Bad2", variable has type "Template5")  [assignment]
+protocols_definition.py:286: note: Following member(s) of "Concrete5_Bad2" have conflicts:
+protocols_definition.py:286: note:     Expected:
+protocols_definition.py:286: note:         def method1(self, a: int, b: int) -> float
+protocols_definition.py:286: note:     Got:
+protocols_definition.py:286: note:         def method1(self, a: int, c: int) -> int
 protocols_definition.py:287: error: Incompatible types in assignment (expression has type "Concrete5_Bad3", variable has type "Template5")  [assignment]
 protocols_definition.py:287: note: Following member(s) of "Concrete5_Bad3" have conflicts:
 protocols_definition.py:287: note:     Expected:
 protocols_definition.py:287: note:         def method1(self, a: int, b: int) -> float
 protocols_definition.py:287: note:     Got:
 protocols_definition.py:287: note:         def method1(self, *, a: int, b: int) -> float
+protocols_definition.py:288: error: Incompatible types in assignment (expression has type "Concrete5_Bad4", variable has type "Template5")  [assignment]
+protocols_definition.py:288: note: Following member(s) of "Concrete5_Bad4" have conflicts:
+protocols_definition.py:288: note:     Expected:
+protocols_definition.py:288: note:         def method1(self, a: int, b: int) -> float
+protocols_definition.py:288: note:     Got:
+protocols_definition.py:288: note:         def method1(self, int, int, /) -> float
 protocols_definition.py:289: error: Incompatible types in assignment (expression has type "Concrete5_Bad5", variable has type "Template5")  [assignment]
 protocols_definition.py:289: note: Following member(s) of "Concrete5_Bad5" have conflicts:
 protocols_definition.py:289: note:     Expected:

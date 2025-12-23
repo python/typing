@@ -1,10 +1,11 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 56: Expected 1 errors
-Line 107: Expected 1 errors
 """
 output = """
 constructors_call_init.py:21: error: Argument 1 to "Class1" has incompatible type "float"; expected "int"  [arg-type]
 constructors_call_init.py:42: error: Argument 1 to "Class3" has incompatible type "Class2[Never]"; expected "Self | None"  [arg-type]
+constructors_call_init.py:56: error: Invalid self type in __init__  [call-arg]
+constructors_call_init.py:107: error: The type of self "T1" has type vars in non standard potisions for class "Class8"  [misc]
+constructors_call_init.py:107: error: The type of self "T2" has type vars in non standard potisions for class "Class8"  [misc]
 constructors_call_init.py:130: error: Too many arguments for "Class11"  [call-arg]
 """

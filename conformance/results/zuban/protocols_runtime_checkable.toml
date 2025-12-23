@@ -1,8 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 88: Expected 1 errors
-Line 92: Expected 1 errors
-Line 96: Expected 1 errors
 """
 output = """
 protocols_runtime_checkable.py:23: error: Only @runtime_checkable protocols can be used with instance and class checks  [misc]
@@ -10,4 +7,9 @@ protocols_runtime_checkable.py:55: error: Only protocols that don't have non-met
 protocols_runtime_checkable.py:55: note: Protocol "DataProtocol" has non-method member(s): name
 protocols_runtime_checkable.py:61: error: Only protocols that don't have non-method members can be used with issubclass()  [misc]
 protocols_runtime_checkable.py:61: note: Protocol "DataProtocol" has non-method member(s): name
+protocols_runtime_checkable.py:88: error: Subclass of "Concrete3A" and "Proto3" cannot exist: would have incompatible method signatures  [unreachable]
+protocols_runtime_checkable.py:92: error: Subclass of "Concrete3B" and "Proto3" cannot exist: would have incompatible method signatures  [unreachable]
+protocols_runtime_checkable.py:92: error: Subclass of "Concrete3B" and "NonDataProtocol" cannot exist: would have incompatible method signatures  [unreachable]
+protocols_runtime_checkable.py:96: error: Subclass of "Concrete3A" and "Proto3" cannot exist: would have incompatible method signatures  [unreachable]
+protocols_runtime_checkable.py:96: error: Subclass of "Concrete3A" and "NonDataProtocol" cannot exist: would have incompatible method signatures  [unreachable]
 """

@@ -1,14 +1,12 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 45: Expected 1 errors
-Line 27: Unexpected errors ['aliases_typealiastype.py:27: error: Can\\'t use bound type variable "T" to define generic alias  [misc]']
 """
 output = """
-aliases_typealiastype.py:27: error: Can't use bound type variable "T" to define generic alias  [misc]
 aliases_typealiastype.py:32: error: "TypeAliasType" has no attribute "other_attrib"  [attr-defined]
 aliases_typealiastype.py:40: error: Type argument "int" of "GoodAlias5" must be a subtype of "str"  [type-var]
 aliases_typealiastype.py:43: error: All type parameters should be declared ("S" not declared)  [misc]
 aliases_typealiastype.py:44: error: All type parameters should be declared ("S" not declared)  [misc]
+aliases_typealiastype.py:45: error: Tuple literal expected as the type_params argument to TypeAliasType  [misc]
 aliases_typealiastype.py:46: error: Invalid recursive alias: a union item of itself  [misc]
 aliases_typealiastype.py:47: error: Invalid recursive alias: a union item of itself  [misc]
 aliases_typealiastype.py:48: error: Variable "aliases_typealiastype.BadAlias7" is not valid as a type  [valid-type]

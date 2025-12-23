@@ -1,7 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 15: Expected 1 errors
-Line 32: Expected 1 errors
 """
 output = """
+dataclasses_hash.py:15: error: Incompatible types in assignment (expression has type "DC1", variable has type "Hashable")  [assignment]
+dataclasses_hash.py:32: error: Incompatible types in assignment (expression has type "DC3", variable has type "Hashable")  [assignment]
 """

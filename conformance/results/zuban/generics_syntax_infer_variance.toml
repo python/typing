@@ -1,7 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 89: Unexpected errors ['generics_syntax_infer_variance.py:89: error: Final name declared in class body cannot depend on type variables  [misc]']
-Line 95: Unexpected errors ['generics_syntax_infer_variance.py:95: error: Incompatible types in assignment (expression has type "ShouldBeCovariant6[int]", variable has type "ShouldBeCovariant6[float]")  [assignment]']
 """
 output = """
 generics_syntax_infer_variance.py:15: error: Cannot use covariant with infer_variance  [misc]
@@ -10,8 +8,6 @@ generics_syntax_infer_variance.py:29: error: Incompatible types in assignment (e
 generics_syntax_infer_variance.py:47: error: Incompatible types in assignment (expression has type "ShouldBeCovariant2[float]", variable has type "ShouldBeCovariant2[int]")  [assignment]
 generics_syntax_infer_variance.py:56: error: Incompatible types in assignment (expression has type "ShouldBeCovariant3[float]", variable has type "ShouldBeCovariant3[int]")  [assignment]
 generics_syntax_infer_variance.py:85: error: Incompatible types in assignment (expression has type "ShouldBeCovariant5[float]", variable has type "ShouldBeCovariant5[int]")  [assignment]
-generics_syntax_infer_variance.py:89: error: Final name declared in class body cannot depend on type variables  [misc]
-generics_syntax_infer_variance.py:95: error: Incompatible types in assignment (expression has type "ShouldBeCovariant6[int]", variable has type "ShouldBeCovariant6[float]")  [assignment]
 generics_syntax_infer_variance.py:96: error: Incompatible types in assignment (expression has type "ShouldBeCovariant6[float]", variable has type "ShouldBeCovariant6[int]")  [assignment]
 generics_syntax_infer_variance.py:112: error: Incompatible types in assignment (expression has type "ShouldBeInvariant1[int]", variable has type "ShouldBeInvariant1[float]")  [assignment]
 generics_syntax_infer_variance.py:113: error: Incompatible types in assignment (expression has type "ShouldBeInvariant1[float]", variable has type "ShouldBeInvariant1[int]")  [assignment]

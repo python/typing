@@ -1,6 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 80: Unexpected errors ['generics_scoping.py:80: error: Type variable "T" is bound by an outer class  [misc]']
 """
 output = """
 generics_scoping.py:29: error: Argument 1 to "meth_2" of "MyClass" has incompatible type "str"; expected "int"  [arg-type]

@@ -1,8 +1,8 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 24: Expected 1 errors
 """
 output = """
+generics_upper_bound.py:24: error: TypeVar bound must not contain type variables  [misc]
 generics_upper_bound.py:51: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
 generics_upper_bound.py:51: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
 generics_upper_bound.py:56: error: TypeVar cannot have both values and an upper bound  [misc]
