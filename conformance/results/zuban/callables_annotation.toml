@@ -1,12 +1,5 @@
-conformant = "Partial"
-notes = """
-Incorrectly treats "*args: T, **kwargs: T" as "..." when T is specialized to Any.
-Does not treat "*args: Any, **kargs: Any" as "..." when separated by keyword parameter.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 159: Expected 1 errors
-Line 157: Unexpected errors ['callables_annotation.py:157: error: Incompatible types in assignment (expression has type "Proto7", variable has type "Proto6")  [assignment]']
 """
 output = """
 callables_annotation.py:25: error: Too few arguments  [call-arg]
@@ -24,12 +17,12 @@ callables_annotation.py:58: error: Please use "Callable[[<parameters>], <return 
 callables_annotation.py:59: error: Unexpected "..."  [valid-type]
 callables_annotation.py:91: error: Incompatible types in assignment (expression has type "Callable[[], str]", variable has type "Callable[[int, VarArg(Any), KwArg(Any)], str]")  [assignment]
 callables_annotation.py:93: error: Incompatible types in assignment (expression has type "Callable[[NamedArg(int, 'a')], str]", variable has type "Callable[[int, VarArg(Any), KwArg(Any)], str]")  [assignment]
-callables_annotation.py:157: error: Incompatible types in assignment (expression has type "Proto7", variable has type "Proto6")  [assignment]
-callables_annotation.py:157: note: Following member(s) of "Proto7" have conflicts:
-callables_annotation.py:157: note:     Expected:
-callables_annotation.py:157: note:         def __call__(self, int, /, *args: Any, k: str, **kwargs: Any) -> None
-callables_annotation.py:157: note:     Got:
-callables_annotation.py:157: note:         def __call__(self, float, /, b: int, *, k: str, m: str) -> None
+callables_annotation.py:159: error: Incompatible types in assignment (expression has type "Proto8", variable has type "Proto5[Any]")  [assignment]
+callables_annotation.py:159: note: Following member(s) of "Proto8" have conflicts:
+callables_annotation.py:159: note:     Expected:
+callables_annotation.py:159: note:         def __call__(self, *args: Any, **kwargs: Any) -> None
+callables_annotation.py:159: note:     Got:
+callables_annotation.py:159: note:         def __call__(self) -> None
 callables_annotation.py:172: error: Incompatible types in assignment (expression has type "Callable[[], str]", variable has type "Callable[[int, VarArg(Any), KwArg(Any)], str]")  [assignment]
 callables_annotation.py:187: error: Incompatible types in assignment (expression has type "Callable[[int, str], str]", variable has type "Callable[[str, VarArg(Any), KwArg(Any)], str]")  [assignment]
 callables_annotation.py:189: error: Incompatible types in assignment (expression has type "Callable[[int, str], str]", variable has type "Callable[[str, VarArg(Any), KwArg(Any)], str]")  [assignment]

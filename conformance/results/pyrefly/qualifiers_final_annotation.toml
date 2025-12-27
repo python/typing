@@ -6,8 +6,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 34: Expected 1 errors
 Line 38: Expected 1 errors
-Line 62: Expected 1 errors
-Line 63: Expected 1 errors
 Line 107: Expected 1 errors
 Line 149: Expected 1 errors
 Line 152: Expected 1 errors
@@ -21,6 +19,8 @@ output = """
 ERROR qualifiers_final_annotation.py:16:7-12: Expected a type argument for `Final` [invalid-annotation]
 ERROR qualifiers_final_annotation.py:18:7-22: Expected 1 type argument for `Final`, got 2 [invalid-annotation]
 ERROR qualifiers_final_annotation.py:54:9-17: Cannot set field `ID5` [read-only]
+ERROR qualifiers_final_annotation.py:62:9-17: Cannot set field `id3` [read-only]
+ERROR qualifiers_final_annotation.py:63:9-17: Cannot set field `id4` [read-only]
 ERROR qualifiers_final_annotation.py:65:9-17: Cannot set field `ID7` [read-only]
 ERROR qualifiers_final_annotation.py:67:9-17: Cannot set field `ID7` [read-only]
 ERROR qualifiers_final_annotation.py:71:8-11: `RATE` is marked final [bad-assignment]

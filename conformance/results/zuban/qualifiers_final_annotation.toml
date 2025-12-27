@@ -1,14 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.
-Does not allow conditional assignment of Final instance variable in __init__ method.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 134: Expected 1 errors
-Line 135: Expected 1 errors
-Line 59: Unexpected errors ['qualifiers_final_annotation.py:59: error: Cannot assign to final attribute "ID6"  [misc]']
-Line 131: Unexpected errors ['qualifiers_final_annotation.py:131: error: Invalid "NamedTuple()" field name  [misc]']
 """
 output = """
 qualifiers_final_annotation.py:16: error: Type in Final[...] can only be omitted if there is an initializer  [misc]
@@ -16,7 +7,6 @@ qualifiers_final_annotation.py:18: error: Final[...] takes at most one type argu
 qualifiers_final_annotation.py:34: error: Type in Final[...] can only be omitted if there is an initializer  [misc]
 qualifiers_final_annotation.py:38: error: Final name must be initialized with a value  [misc]
 qualifiers_final_annotation.py:54: error: Cannot assign to final attribute "ID5"  [misc]
-qualifiers_final_annotation.py:59: error: Cannot assign to final attribute "ID6"  [misc]
 qualifiers_final_annotation.py:62: error: Can only declare a final attribute in class body or __init__  [misc]
 qualifiers_final_annotation.py:63: error: Can only declare a final attribute in class body or __init__  [misc]
 qualifiers_final_annotation.py:65: error: Cannot assign to final attribute "ID7"  [misc]
@@ -28,7 +18,9 @@ qualifiers_final_annotation.py:107: error: Final can be only used as an outermos
 qualifiers_final_annotation.py:108: error: Invalid Type: ClassVar nested inside other type  [misc]
 qualifiers_final_annotation.py:118: error: Final can be only used as an outermost qualifier in a variable annotation  [misc]
 qualifiers_final_annotation.py:121: error: Final can be only used as an outermost qualifier in a variable annotation  [misc]
-qualifiers_final_annotation.py:131: error: Invalid "NamedTuple()" field name  [misc]
+qualifiers_final_annotation.py:134: error: Unexpected keyword argument "a" for "N"  [call-arg]
+qualifiers_final_annotation.py:135: error: Argument "x" to "N" has incompatible type "str"; expected "int"  [arg-type]
+qualifiers_final_annotation.py:135: error: Argument "y" to "N" has incompatible type "str"; expected "int"  [arg-type]
 qualifiers_final_annotation.py:141: error: Cannot assign to final name "ID1"  [misc]
 qualifiers_final_annotation.py:145: error: Cannot assign to final name "x"  [misc]
 qualifiers_final_annotation.py:147: error: Cannot assign to final name "x"  [misc]

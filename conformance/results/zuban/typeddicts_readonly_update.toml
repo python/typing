@@ -1,10 +1,6 @@
-conformant = "Partial"
-notes = """
-Incorrectly allows update of ReadOnly item.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 23: Expected 1 errors
 """
 output = """
+typeddicts_readonly_update.py:23: error: TypedDict member "x" is read-only  [misc]
 """

@@ -1,23 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not expand boolean arguments to Literal[True] and Literal[False].
-Does not expand enum arguments to literal variants.
-Does not expand tuple arguments to possible combinations.
-Does not evaluate Any in some cases where overload is ambiguous.
-Evaluates Any in some cases where overload is not ambiguous.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 135: Unexpected errors ['overloads_evaluation.py:135: error: No overload variant of "expand_bool" matches argument type "bool"  [call-overload]']
-Line 136: Unexpected errors ['overloads_evaluation.py:136: error: Expression is of type "Any", not "Literal[0, 1]"  [misc]']
-Line 161: Unexpected errors ['overloads_evaluation.py:161: error: No overload variant of "expand_enum" matches argument type "Color"  [call-overload]']
-Line 162: Unexpected errors ['overloads_evaluation.py:162: error: Expression is of type "Any", not "Literal[0, 1]"  [misc]']
-Line 205: Unexpected errors ['overloads_evaluation.py:205: error: Argument 1 to "expand_tuple" has incompatible type "tuple[int, int | str]"; expected "tuple[int, int]"  [arg-type]']
-Line 206: Unexpected errors ['overloads_evaluation.py:206: error: Expression is of type "int", not "int | str"  [misc]']
-Line 262: Unexpected errors ['overloads_evaluation.py:262: error: Expression is of type "list[Any]", not "list[int]"  [misc]']
-Line 265: Unexpected errors ['overloads_evaluation.py:265: error: Expression is of type "list[Any]", not "Any"  [misc]']
-Line 281: Unexpected errors ['overloads_evaluation.py:281: error: Expression is of type "list[Any]", not "Any"  [misc]']
-Line 347: Unexpected errors ['overloads_evaluation.py:347: error: Expression is of type "list[Any]", not "Any"  [misc]']
 """
 output = """
 overloads_evaluation.py:38: error: All overload variants of "example1_1" require at least one argument  [call-overload]
@@ -34,20 +16,4 @@ overloads_evaluation.py:51: note:     def example1_1(x: int, y: str) -> int
 overloads_evaluation.py:51: note:     def example1_1(x: str) -> str
 overloads_evaluation.py:116: error: Argument 1 to "example2" has incompatible type "int | str"; expected "int"  [arg-type]
 overloads_evaluation.py:116: error: Argument 2 to "example2" has incompatible type "int | str"; expected "str"  [arg-type]
-overloads_evaluation.py:135: error: No overload variant of "expand_bool" matches argument type "bool"  [call-overload]
-overloads_evaluation.py:135: note: Possible overload variants:
-overloads_evaluation.py:135: note:     def expand_bool(x: Literal[False]) -> Literal[0]
-overloads_evaluation.py:135: note:     def expand_bool(x: Literal[True]) -> Literal[1]
-overloads_evaluation.py:136: error: Expression is of type "Any", not "Literal[0, 1]"  [misc]
-overloads_evaluation.py:161: error: No overload variant of "expand_enum" matches argument type "Color"  [call-overload]
-overloads_evaluation.py:161: note: Possible overload variants:
-overloads_evaluation.py:161: note:     def expand_enum(x: Literal[Color.RED]) -> Literal[0]
-overloads_evaluation.py:161: note:     def expand_enum(x: Literal[Color.BLUE]) -> Literal[1]
-overloads_evaluation.py:162: error: Expression is of type "Any", not "Literal[0, 1]"  [misc]
-overloads_evaluation.py:205: error: Argument 1 to "expand_tuple" has incompatible type "tuple[int, int | str]"; expected "tuple[int, int]"  [arg-type]
-overloads_evaluation.py:206: error: Expression is of type "int", not "int | str"  [misc]
-overloads_evaluation.py:262: error: Expression is of type "list[Any]", not "list[int]"  [misc]
-overloads_evaluation.py:265: error: Expression is of type "list[Any]", not "Any"  [misc]
-overloads_evaluation.py:281: error: Expression is of type "list[Any]", not "Any"  [misc]
-overloads_evaluation.py:347: error: Expression is of type "list[Any]", not "Any"  [misc]
 """

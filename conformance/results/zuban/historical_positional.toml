@@ -1,17 +1,9 @@
-conformant = "Partial"
-notes = """
-Does not reject positional-only parameter after non-positional-only parameter.
-Treats keyword-only parameter as positional-only.
-Applies legacy positional-only rules when PEP 570 syntax is used.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 26: Expected 1 errors
-Line 38: Expected 1 errors
-Line 53: Unexpected errors ['historical_positional.py:53: error: Unexpected keyword argument "__y" for "f4"  [call-arg]']
 """
 output = """
 historical_positional.py:18: error: Unexpected keyword argument "__x" for "f1"  [call-arg]
+historical_positional.py:26: error: A positional only param starting with two underscores is not allowed after a positional or keyword param  [misc]
+historical_positional.py:38: error: A positional only param starting with two underscores is not allowed after a positional or keyword param  [misc]
 historical_positional.py:43: error: Unexpected keyword argument "__x" for "m1" of "A"  [call-arg]
-historical_positional.py:53: error: Unexpected keyword argument "__y" for "f4"  [call-arg]
 """

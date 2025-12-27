@@ -1,11 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not enforce that tuples captured by TypeVarTuple are same type.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 75: Expected 1 errors
-Line 76: Expected 1 errors
 """
 output = """
 generics_typevartuple_args.py:33: error: Argument 3 to "exec_le" has incompatible type "str"; expected "Env"  [arg-type]
@@ -16,4 +10,6 @@ generics_typevartuple_args.py:58: error: Too few arguments for "func2"  [call-ar
 generics_typevartuple_args.py:59: error: Too few arguments for "func2"  [call-arg]
 generics_typevartuple_args.py:59: error: Argument 1 to "func2" has incompatible type "str"; expected "int"  [arg-type]
 generics_typevartuple_args.py:67: error: Too few arguments for "func3"  [call-arg]
+generics_typevartuple_args.py:75: error: Argument 2 to "func4" has incompatible type "tuple[Literal[1], int]"; expected "tuple[int]"  [arg-type]
+generics_typevartuple_args.py:76: error: Argument 2 to "func4" has incompatible type "tuple[Literal['1']]"; expected "tuple[int]"  [arg-type]
 """
