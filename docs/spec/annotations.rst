@@ -243,8 +243,7 @@ The string literal should contain a valid Python expression (i.e.,
 ``compile(lit, '', 'eval')`` should be a valid code object) and it
 should evaluate without errors once the module has been fully loaded.
 The local and global namespace in which it is evaluated should be the
-same namespaces in which default arguments to the same function would
-be evaluated.
+same namespaces in which normal non-string types would be evaluated.
 
 Moreover, the expression should be parseable as a valid type hint, i.e.,
 it is constrained by the rules from :ref:`the expression grammar <expression-grammar>`.
