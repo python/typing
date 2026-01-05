@@ -57,10 +57,9 @@ def invalid_annotations(
     pass
 
 
-# > It should evaluate without errors once the module has been fully loaded.
-# > The local and global namespace in which it is evaluated should be the same
-# > namespaces in which normal non-string types would be evaluated.
-
+# > Names within the expression are looked up in the same way as they would be
+# > looked up at runtime in Python 3.14 and higher if the annotation was not
+# > enclosed in a string literal.
 
 class ClassB:
     def method1(self) -> ClassB:  # E?: Runtime error prior to 3.14
