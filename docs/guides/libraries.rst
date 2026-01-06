@@ -88,10 +88,7 @@ A typical directory structure would look like:
       stuff.py
       py.typed
 
-It's important to ensure that the ``py.typed`` marker file is included in the
-distributed package. Modern build backends such as ``hatchling`` include it
-by default.
-
+Note the py.typed should be located inside the package, along with ``__init__.py``.
 
 Type stub files included in the package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
