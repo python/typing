@@ -188,8 +188,9 @@ concrete class object, e.g. in the above example::
 ``type[T]`` where ``T`` is a type variable is allowed when annotating the
 first argument of a class method (see the relevant section).
 
-Any other special constructs like ``tuple`` or ``Callable`` are not allowed
-as an argument to ``type``.
+Any other special constructs like ``Callable`` are not allowed
+as an argument to ``type``,
+but ``tuple`` is allowed as an argument to ``type``.
 
 There are some concerns with this feature: for example when
 ``new_user()`` calls ``user_class()`` this implies that all subclasses
