@@ -136,14 +136,11 @@ For example:
    [project]
    name = "my-great-package-stubs"
    version = "0.1.0"
-   requires-python = ">=3.14"
+   requires-python = ">=3.10"
 
    [build-system]
-   requires = ["hatchling"]
-   build-backend = "hatchling.build"
-
-   [tool.hatch.build.targets.wheel]
-   packages = ["src/my_great_package-stubs"]
+   requires = ["uv_build>=0.9.18,<0.10.0"]
+   build-backend = "uv_build"
 
 Users are then able to install the stubs-only package separately to provide
 types for the original library.
