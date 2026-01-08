@@ -1,15 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not reject use of class-scoped TypeVar used in a base class when variance is incompatible.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 113: Expected 1 errors
-Line 163: Expected 1 errors
-Line 167: Expected 1 errors
-Line 191: Expected 1 errors
-Lines 141, 142: Expected error (tag 'CoContra_Child5')
-Lines 195, 196: Expected error (tag 'ContraToContraToContra_WithTA')
 """
 output = """
 generics_variance.py:14: error: TypeVar cannot be both covariant and contravariant  [misc]
@@ -17,6 +7,12 @@ generics_variance.py:77: error: Variance of TypeVar "T_co" incompatible with var
 generics_variance.py:81: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
 generics_variance.py:93: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
 generics_variance.py:105: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+generics_variance.py:113: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
 generics_variance.py:126: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
 generics_variance.py:132: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
+generics_variance.py:142: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+generics_variance.py:163: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
+generics_variance.py:167: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
+generics_variance.py:191: error: Variance of TypeVar "T_contra" incompatible with variance in parent type  [type-var]
+generics_variance.py:196: error: Variance of TypeVar "T_co" incompatible with variance in parent type  [type-var]
 """

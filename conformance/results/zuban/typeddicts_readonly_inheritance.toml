@@ -1,31 +1,15 @@
-conformant = "Partial"
-notes = """
-Incorrectly rejects non-ReadOnly override of ReadOnly item.
-Incorrectly rejects override of ReadOnly item with another ReadOnly item with narrower type.
-Incorrectly rejects override of NotRequired ReadOnly item with a Required ReadOnly item.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 19: Unexpected errors ['typeddicts_readonly_inheritance.py:19: error: Overwriting TypedDict field "name" while extending  [misc]']
-Line 49: Unexpected errors ['typeddicts_readonly_inheritance.py:49: error: Overwriting TypedDict field "albums" while extending  [misc]']
-Line 62: Unexpected errors ['typeddicts_readonly_inheritance.py:62: error: Overwriting TypedDict field "name" while extending  [misc]']
-Line 76: Unexpected errors ['typeddicts_readonly_inheritance.py:76: error: Overwriting TypedDict field "ident" while extending  [misc]']
-Line 102: Unexpected errors ['typeddicts_readonly_inheritance.py:102: error: Overwriting TypedDict field "b" while extending  [misc]']
 """
 output = """
-typeddicts_readonly_inheritance.py:19: error: Overwriting TypedDict field "name" while extending  [misc]
 typeddicts_readonly_inheritance.py:36: error: ReadOnly TypedDict key "name" TypedDict is mutated  [typeddict-readonly-mutated]
-typeddicts_readonly_inheritance.py:49: error: Overwriting TypedDict field "albums" while extending  [misc]
 typeddicts_readonly_inheritance.py:50: error: Overwriting TypedDict field "alt" while extending  [misc]
-typeddicts_readonly_inheritance.py:62: error: Overwriting TypedDict field "name" while extending  [misc]
 typeddicts_readonly_inheritance.py:65: error: Missing key "name" for TypedDict "RequiredName"  [typeddict-item]
-typeddicts_readonly_inheritance.py:76: error: Overwriting TypedDict field "ident" while extending  [misc]
 typeddicts_readonly_inheritance.py:82: error: Value of "ident" has incompatible type "int"; expected "str"  [typeddict-item]
 typeddicts_readonly_inheritance.py:83: error: Incompatible types (expression has type "int", TypedDict item "ident" has type "str")  [typeddict-item]
 typeddicts_readonly_inheritance.py:84: error: Missing key "ident" for TypedDict "User"  [typeddict-item]
 typeddicts_readonly_inheritance.py:94: error: Overwriting TypedDict field "a" while extending  [misc]
 typeddicts_readonly_inheritance.py:98: error: Overwriting TypedDict field "a" while extending  [misc]
-typeddicts_readonly_inheritance.py:102: error: Overwriting TypedDict field "b" while extending  [misc]
 typeddicts_readonly_inheritance.py:106: error: Overwriting TypedDict field "c" while extending  [misc]
 typeddicts_readonly_inheritance.py:119: error: Overwriting TypedDict field "x" while merging  [misc]
 typeddicts_readonly_inheritance.py:119: error: Overwriting TypedDict field "y" while merging  [misc]
