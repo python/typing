@@ -40,6 +40,8 @@ class ChildB(ParentB):
     @classmethod
     def method3(cls) -> None:
         assert_type(cls, type[Self])
-        assert_type(cls.a, list[Self])
-        assert_type(cls.a[0], Self)
+        cls.a # E: Access to generic instance variables via class is ambiguous
         assert_type(cls.method1(), Self)
+
+ClassB.a # E: Ambigous access
+ClassB.a = ClassB.method1() # E: Ambigous write
