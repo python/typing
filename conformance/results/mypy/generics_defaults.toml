@@ -19,7 +19,6 @@ generics_defaults.py:156: error: Expression is of type "type[Foo6[*tuple[Any, ..
 generics_defaults.py:156: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]
 generics_defaults.py:157: error: Expression is of type "type[Foo6[*tuple[Any, ...], Any]]", not "type[Foo6[int, str, [bytes]]]"  [assert-type]
 generics_defaults.py:157: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]
-generics_defaults.py:171: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"  [assert-type]
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -36,5 +35,4 @@ Line 79: Unexpected errors ['generics_defaults.py:79: error: Expression is of ty
 Line 94: Unexpected errors ['generics_defaults.py:94: error: Expression is of type "type[Class_TypeVarTuple[*DefaultTs]]", not "type[Class_TypeVarTuple[str, int]]"  [assert-type]']
 Line 156: Unexpected errors ['generics_defaults.py:156: error: Expression is of type "type[Foo6[*tuple[Any, ...], Any]]", not "type[Foo6[int, str, [float, bool]]]"  [assert-type]', 'generics_defaults.py:156: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]']
 Line 157: Unexpected errors ['generics_defaults.py:157: error: Expression is of type "type[Foo6[*tuple[Any, ...], Any]]", not "type[Foo6[int, str, [bytes]]]"  [assert-type]', 'generics_defaults.py:157: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [misc]']
-Line 171: Unexpected errors ['generics_defaults.py:171: error: Expression is of type "Callable[[Self], Self]", not "Callable[[Foo7[int]], Foo7[int]]"  [assert-type]']
 """

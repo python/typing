@@ -5,7 +5,7 @@ output = """
 generics_syntax_declarations.py:17: error: Generic[...] base class is redundant  [misc]
 generics_syntax_declarations.py:25: error: No arguments expected for "Protocol" base class  [misc]
 generics_syntax_declarations.py:32: error: "T" has no attribute "is_integer"  [attr-defined]
-generics_syntax_declarations.py:44: error: "V" may not be used, because it's defined in an outer class  [misc]
+generics_syntax_declarations.py:44: error: TypeVar bound must not contain type variables  [misc]
 generics_syntax_declarations.py:48: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
 generics_syntax_declarations.py:48: note: Did you mean "List[...]"?
 generics_syntax_declarations.py:60: error: Type variable must have at least two constrained types  [misc]

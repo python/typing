@@ -1,17 +1,13 @@
-conformant = "Partial"
-notes = """
-Does not validate call to custom metaclass __call__ method through type[T].
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 30: Expected 1 errors
-Line 72: Expected 1 errors
 """
 output = """
+constructors_call_type.py:30: error: Missing positional arguments "x", "y" in call to "Class1"  [call-arg]
 constructors_call_type.py:40: error: Missing positional arguments "x", "y" in call to "Class2"  [call-arg]
 constructors_call_type.py:50: error: Missing positional arguments "x", "y" in call to "Class3"  [call-arg]
 constructors_call_type.py:59: error: Too many arguments for "Class4"  [call-arg]
 constructors_call_type.py:64: error: Too many arguments for "object"  [call-arg]
+constructors_call_type.py:72: error: Missing positional arguments "x", "y" in call to "Class1"  [call-arg]
 constructors_call_type.py:81: error: Missing positional argument "y" in call to "Class2"  [call-arg]
 constructors_call_type.py:82: error: Argument 2 to "Class2" has incompatible type "int"; expected "str"  [arg-type]
 """
