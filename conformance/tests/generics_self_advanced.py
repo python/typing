@@ -43,5 +43,5 @@ class ChildB(ParentB):
         cls.a # E: Access to generic instance variables via class is ambiguous
         assert_type(cls.method1(), Self)
 
-ClassB.a # E: Ambigous access
-ClassB.a = ClassB.method1() # E: Ambigous write
+ChildB.a # E: Ambigous access
+ParentB.a = [ChildB.method1()] # E: Ambigous write
