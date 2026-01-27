@@ -12,8 +12,6 @@ Line 63: Expected 1 errors
 Line 69: Expected 1 errors
 Line 72: Expected 1 errors
 Line 75: Expected 1 errors
-Line 42: Unexpected errors ["Expected a type form, got instance of `Literal['RecursiveMapping']` [not-a-type]"]
 """
 output = """
-ERROR aliases_recursive.py:42:45-63: Expected a type form, got instance of `Literal['RecursiveMapping']` [not-a-type]
 """
