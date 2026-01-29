@@ -224,12 +224,12 @@ definition may be expressed as a string literal, to be resolved later.
 
 The string literal should contain a syntactically valid Python expression
 (i.e., ``compile(lit, '', 'eval')`` should succeed) that evaluates to a valid
-:term:`annotation expression`. Regardless of the Python version used, names within the expression are looked up in the
-same way as they would be looked up at runtime in Python 3.14 and higher if the
-annotation was not enclosed in a string literal. Thus, name lookup follows
-general rules (e.g., the current function, class, or module scope first, and
-the builtin scope last), but names defined later within the same scope can be
-used in an earlier annotation.
+:term:`annotation expression`. Regardless of the Python version used, names
+within the expression are looked up in the same way as they would be looked up
+at runtime in Python 3.14 and higher if the annotation was not enclosed in a
+string literal. Thus, name lookup follows general rules (e.g., the current
+function, class, or module scope first, and the builtin scope last), but names
+defined later within the same scope can be used in an earlier annotation.
 
 If a triple quote is used, the string should be parsed as though it is
 implicitly surrounded by parentheses. This allows newline characters to be
