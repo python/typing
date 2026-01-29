@@ -21,7 +21,7 @@
             background-color: #333;
             color: #fff;
             text-align: center;
-            padding: 8px;
+            padding: 10px 16px 12px;
         }
 
         table {
@@ -148,6 +148,15 @@
         .hover-text {
             position: relative;
         }
+
+        .disclaimer {
+            margin: 6px auto 0;
+            max-width: 720px;
+            font-size: 12px;
+            line-height: 1.4;
+            font-weight: normal;
+            color: #d6d6d6;
+        }
     </style>
 </head>
 
@@ -155,6 +164,11 @@
     <div class="content_container">
         <header>
             <h3>Python Type System Conformance Test Results</h3>
+            <p class="disclaimer">
+                While spec conformance is important for the ecosystem, we don't recommend using it
+                as the primary basis for choosing a type checker. It is not representative
+                of many of the things users typically care about.
+            </p>
         </header>
         {{summary}}
         <!-- <div>

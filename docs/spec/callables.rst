@@ -453,8 +453,8 @@ a function within a type expression. The syntax is
 
 Parameters specified using ``Callable`` are assumed to be positional-only.
 The ``Callable`` form provides no way to specify keyword-only parameters,
-variadic parameters, or default argument values. For these use cases, see
-the section on `Callback protocols`_.
+or default argument values. For these use cases, see the section on 
+`Callback protocols`_.
 
 Meaning of ``...`` in ``Callable``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -534,6 +534,15 @@ to be :term:`consistent` with any input parameters::
         f2: Callable[Concatenate[str, ...], str] = cb # Error
         f3: CallbackWithInt[...] = cb  # OK
         f4: CallbackWithStr[...] = cb  # Error
+
+
+Variadic positional parameter types can be defined with with an unpacked tuple
+of the form ``*tuple[int, ...]`` in the parameter list. The first argument
+specifies the type of the variadic parameters.
+For example, the following defines a callable that accepts any number of integer
+arguments::
+
+    type VarCallback = Callable[[*tuple[int, ...]], None]
 
 .. _`callback-protocols`:
 

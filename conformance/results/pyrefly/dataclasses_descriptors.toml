@@ -1,6 +1,22 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+* Assumes descriptor behavior only when field is assigned in class body
+* Doesn't allow non-data descriptors or data descriptors with differing `__get__` and `__set__` types
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 32: Unexpected errors ['Data descriptor `y` has incompatible default: `__get__` returns `Desc1 | int` which is not assignable to `__set__` value type `int`. The class-level descriptor value cannot be used as a default. [bad-class-definition]']
+Line 58: Unexpected errors ['Non-data descriptor `z` in dataclass is unsound. The dataclass __init__ writes to the instance dict, shadowing the descriptor. Add a __set__ method to make it a data descriptor. [bad-class-definition]']
+Line 61: Unexpected errors ['assert_type(Desc2[int], list[int]) failed [assert-type]']
+Line 62: Unexpected errors ['assert_type(Desc2[str], list[str]) failed [assert-type]']
+Line 66: Unexpected errors ['assert_type(Desc2[int], int) failed [assert-type]']
+Line 67: Unexpected errors ['assert_type(Desc2[str], str) failed [assert-type]']
 """
 output = """
+ERROR dataclasses_descriptors.py:32:5-6: Data descriptor `y` has incompatible default: `__get__` returns `Desc1 | int` which is not assignable to `__set__` value type `int`. The class-level descriptor value cannot be used as a default. [bad-class-definition]
+ERROR dataclasses_descriptors.py:58:5-6: Non-data descriptor `z` in dataclass is unsound. The dataclass __init__ writes to the instance dict, shadowing the descriptor. Add a __set__ method to make it a data descriptor. [bad-class-definition]
+ERROR dataclasses_descriptors.py:61:12-30: assert_type(Desc2[int], list[int]) failed [assert-type]
+ERROR dataclasses_descriptors.py:62:12-30: assert_type(Desc2[str], list[str]) failed [assert-type]
+ERROR dataclasses_descriptors.py:66:12-24: assert_type(Desc2[int], int) failed [assert-type]
+ERROR dataclasses_descriptors.py:67:12-24: assert_type(Desc2[str], str) failed [assert-type]
 """
