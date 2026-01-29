@@ -80,12 +80,14 @@ class ClassD:
 
     str: "str" = ""  # E: circular reference
 
+    z: "int" = 0  # E: Refers to the local int function
+
     def int(self) -> None:  # OK
         ...
 
-    y: int = 0  # E: Refers to local int, which isn't a legal type expression
+    y: int = 0  # E: Refers to the local int function, which isn't a legal type expression
 
-    x: "int" = 0  # # E: Refers to a local int as well
+    x: "int" = 0  # E: Refers to a local int function
 
     def __init__(self) -> None:
         self.ClassC = ClassC()
