@@ -223,7 +223,7 @@ When a type hint cannot be evaluated at runtime, that
 definition may be expressed as a string literal, to be resolved later.
 
 The string literal should contain a syntactically valid Python expression
-(i.e., ``compile(lit, '', 'eval')`` should succeed) that evaluates to a valid
+(i.e., ``compile(lit, '', 'eval')`` should succeed) that is a valid
 :term:`annotation expression`. Regardless of the Python version used, names
 within the expression are looked up in the same way as they would be looked up
 at runtime in Python 3.14 and higher if the annotation was not enclosed in a
