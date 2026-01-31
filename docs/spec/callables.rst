@@ -536,7 +536,7 @@ to be :term:`consistent` with any input parameters::
         f4: CallbackWithStr[...] = cb  # Error
 
 
-Variadic positional parameter types can be defined with with an unpacked tuple
+Variadic positional parameter types can be defined with an unpacked tuple
 of the form ``*tuple[int, ...]`` in the parameter list. The first argument
 specifies the type of the variadic parameters.
 For example, the following defines a callable that accepts any number of integer
