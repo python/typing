@@ -26,7 +26,7 @@ f1(__x=3)  # E
 def f2(x: int, __y: int) -> None: ...  # E
 
 
-def f3(x: int, *args: int, __y: int) -> None: ...  # OK
+def f3(x: int, *args: int, __y: int) -> None: ...  # E?
 
 
 f3(3, __y=3)  # OK
