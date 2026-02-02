@@ -222,32 +222,14 @@ String annotations
 When a type hint cannot be evaluated at runtime, that
 definition may be expressed as a string literal, to be resolved later.
 
-A situation where this occurs commonly is the definition of a
-container class, where the class being defined occurs in the signature
-of some of the methods.  For example, the following code (the start of
-a simple binary tree implementation) does not work::
-
-  class Tree:
-      def __init__(self, left: Tree, right: Tree):
-          self.left = left
-          self.right = right
-
-To address this, we write::
-
-  class Tree:
-      def __init__(self, left: 'Tree', right: 'Tree'):
-          self.left = left
-          self.right = right
-
-The string literal should contain a valid Python expression (i.e.,
-``compile(lit, '', 'eval')`` should be a valid code object) and it
-should evaluate without errors once the module has been fully loaded.
-The local and global namespace in which it is evaluated should be the
-same namespaces in which default arguments to the same function would
-be evaluated.
-
-Moreover, the expression should be parseable as a valid type hint, i.e.,
-it is constrained by the rules from :ref:`the expression grammar <expression-grammar>`.
+The string literal should contain a syntactically valid Python expression
+(i.e., ``compile(lit, '', 'eval')`` should succeed) that is a valid
+:term:`annotation expression`. Regardless of the Python version used, names
+within the expression are looked up in the same way as they would be looked up
+at runtime in Python 3.14 and higher if the annotation was not enclosed in a
+string literal. Thus, name lookup follows general rules (e.g., the current
+function, class, or module scope first, and the builtin scope last), but names
+defined later within the same scope can be used in an earlier annotation.
 
 If a triple quote is used, the string should be parsed as though it is
 implicitly surrounded by parentheses. This allows newline characters to be
