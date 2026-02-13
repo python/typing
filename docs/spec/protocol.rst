@@ -509,8 +509,8 @@ For example::
   class C:
       def meth(self, x: int) -> int: ...
 
-  a: ProtoA = C  # Type check error, signatures don't match!
-  b: ProtoB = C  # OK
+  a: ProtoA = C()  # OK
+  b: ProtoB = C()  # Error: signatures don't match
 
 .. _`protocol-newtype-aliases`:
 
