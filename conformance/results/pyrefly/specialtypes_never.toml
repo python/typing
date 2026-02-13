@@ -1,14 +1,9 @@
-conformant = "Partial"
-notes = """
-Does not detect invalid return is unreachable
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 33: Unexpected errors ["Returned type `Literal['whatever works']` is not assignable to declared return type `int` [bad-return]"]
 """
 output = """
 ERROR specialtypes_never.py:19:22-30: Function declared to return `NoReturn` but is missing an explicit `return` [bad-return]
-ERROR specialtypes_never.py:33:12-28: Returned type `Literal['whatever works']` is not assignable to declared return type `int` [bad-return]
-ERROR specialtypes_never.py:87:21-22: `list[Never]` is not assignable to `list[int]` [bad-assignment]
-ERROR specialtypes_never.py:106:12-27: Returned type `ClassC[Never]` is not assignable to declared return type `ClassC[U]` [bad-return]
+ERROR specialtypes_never.py:85:21-22: `list[Never]` is not assignable to `list[int]` [bad-assignment]
+ERROR specialtypes_never.py:104:12-27: Returned type `ClassC[Never]` is not assignable to declared return type `ClassC[U]` [bad-return]
 """
