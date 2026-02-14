@@ -145,8 +145,13 @@ left undefined by the typing spec at this time.
 Version and platform checking
 -----------------------------
 
-Type checkers are expected to understand simple version and platform
-checks, e.g.::
+
+Type checkers should support narrowing based on ``sys.version_info``, ``sys.platform``, and ``sys.implementation.name`` checks.
+
+sys.version_info checks
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Type checkers should support ``sys.version_info`` comparisons::
 
   import sys
 
@@ -155,12 +160,65 @@ checks, e.g.::
   else:
       # Python 3.11 and lower
 
+**Supported patterns:**
+
+* Equality: ``sys.version_info == (3, 10)``
+* Inequality: ``sys.version_info != (3, 9)``
+* Comparison: ``sys.version_info >= (3, 10)``, ``sys.version_info < (3, 12)``
+* Tuple slicing: ``sys.version_info[:2] >= (3, 10)``
+* Element access: ``sys.version_info[0] >= 3``
+
+sys.platform checks
+^^^^^^^^^^^^^^^^^^^
+
+Type checkers should support ``sys.platform`` comparisons::
+
+  import sys
+
   if sys.platform == 'win32':
       # Windows specific definitions
-  else:
-      # Posix specific definitions
 
-Don't expect a checker to understand obfuscations like
+  if sys.platform in ("linux", "darwin"):
+      # Platform-specific stubs for Linux and macOS
+      ...
+
+**Supported patterns:**
+
+* Equality: ``sys.platform == "linux"``
+* Inequality: ``sys.platform != "win32"``
+* Membership: ``sys.platform in ("linux", "darwin")``
+* Negative membership: ``sys.platform not in ("win32", "cygwin")``
+
+sys.implementation.name checks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Type checkers should support ``sys.implementation.name`` comparisons::
+
+  import sys
+  if sys.implementation.name == "cpython":
+      # CPython-specific stub
+  if sys.implementation.name == "micropython":
+      # MicroPython-specific stub
+
+**Supported patterns:**
+
+* Equality: ``sys.implementation.name == "cpython"``
+* Inequality: ``sys.implementation.name != "cpython"``
+* Membership: ``sys.implementation.name in ("pypy", "graalpy")``
+* Negative membership: ``sys.implementation.name not in ("cpython", "pypy")``
+
+Common values: ``"cpython"``, ``"pypy"``, ``"micropython"``, ``"graalpy"``, ``"jython"``, ``"ironpython"``
+
+Configuration
+^^^^^^^^^^^^^
+
+Type checkers should provide configuration to specify target version, platform, and implementation. The exact mechanism is implementation-defined.
+
+Complex Expressions
+^^^^^^^^^^^^^^^^^^^
+
+Type checkers are not required to evaluate complex expressions involving these variables.
+Therefore do not expect a checker to understand obfuscations like:
 ``"".join(reversed(sys.platform)) == "xunil"``.
 
 .. _`deprecated`:
