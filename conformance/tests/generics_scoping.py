@@ -16,8 +16,8 @@ assert_type(fun_1(1), int)  # E[fun1-int]
 assert_type(fun_1(1), Literal[1])  # E[fun1-int]
 
 # One of these two should pass; either is acceptable:
-assert_type(fun_1("a"), str)  # E[fun1-str]
-assert_type(fun_1("a"), Literal["a"])  # E[fun1-str]
+assert_type(fun_2("a"), str)  # E[fun1-str]
+assert_type(fun_2("a"), Literal["a"])  # E[fun1-str]
 
 # > A type variable used in a method of a generic class that coincides
 # > with one of the variables that parameterize this class is always bound
