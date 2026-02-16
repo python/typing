@@ -91,7 +91,13 @@ class Bar(Generic[Z1, ListDefaultT]):  # OK
     def __init__(self, x: Z1, y: ListDefaultT): ...
 
 
-assert_type(Bar, type[Bar[Any, list[Any]]])
+def requires_bar_or_subclass(x: type[Bar[Any, list[Any]]]) -> None: ...
+
+# Don't use `assert_type(Bar, type[Bar[Any, list[Any]]])` here,
+# since some type checkers infer a more precise type than `type[]` for
+# class objects
+requires_bar_or_subclass(Bar)  # OK
+
 assert_type(Bar[int], type[Bar[int, list[int]]])
 assert_type(Bar[int](0, []), Bar[int, list[int]])
 assert_type(Bar[int, list[str]](0, []), Bar[int, list[str]])

@@ -4,7 +4,7 @@ Tests the scoping rules for type parameter syntax introduced in PEP 695.
 
 # Specification: https://peps.python.org/pep-0695/#type-parameter-scopes
 
-from typing import Callable, Mapping, Sequence, TypeVar, assert_type
+from typing import Callable, Mapping, Literal, Sequence, TypeVar, assert_type
 
 # > A compiler error or runtime exception is generated if the definition
 # > of an earlier type parameter references a later type parameter even
@@ -102,23 +102,24 @@ class ClassE[T](Sequence[T]):
 T = int(0)
 
 
-class Outer2[T]:
-    T = int(1)
+def f(a: int, b: str, c: complex):
+    class Outer2[T]:
+        T = a
 
-    assert_type(T, int)
+        assert_type(T, int)
 
-    class Inner1:
-        T = str("")
+        class Inner1:
+            T = b
 
-        assert_type(T, str)
+            assert_type(T, str)
 
-        def inner_method(self):
-            assert_type(T, TypeVar)
+            def inner_method(self):
+                assert_type(T, TypeVar)
 
-    def outer_method(self):
-        T = 3j
+        def outer_method(self):
+            T = c
 
-        assert_type(T, complex)
-
-        def inner_func():
             assert_type(T, complex)
+
+            def inner_func():
+                assert_type(T, complex)
