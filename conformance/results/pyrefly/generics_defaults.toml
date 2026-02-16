@@ -3,9 +3,9 @@ errors_diff = """
 """
 output = """
 ERROR generics_defaults.py:24:7-31: Type parameter `T` without a default cannot follow type parameter `DefaultStrT` with a default [invalid-type-var]
-ERROR generics_defaults.py:50:1-20: Expected 5 type arguments for `AllTheDefaults`, got 1 [bad-specialization]
-ERROR generics_defaults.py:107:51-54: Expected default `int` of `Invalid1` to be assignable to the upper bound of `str` [invalid-type-var]
-ERROR generics_defaults.py:114:52-55: Expected default `int` of `Invalid2` to be one of the following constraints: `float`, `str` [invalid-type-var]
-ERROR generics_defaults.py:132:12-27: assert_type(int, Any) failed [assert-type]
-ERROR generics_defaults.py:143:7-11: TypeVar `T5` with a default cannot follow TypeVarTuple `Ts` [invalid-type-var]
+ERROR generics_defaults.py:54:1-20: Expected 5 type arguments for `AllTheDefaults`, got 1 [bad-specialization]
+ERROR generics_defaults.py:116:51-54: Expected default `int` of `Invalid1` to be assignable to the upper bound of `str` [invalid-type-var]
+ERROR generics_defaults.py:123:52-55: Expected default `int` of `Invalid2` to be one of the following constraints: `float`, `str` [invalid-type-var]
+ERROR generics_defaults.py:141:12-27: assert_type(int, Any) failed [assert-type]
+ERROR generics_defaults.py:152:7-11: TypeVar `T5` with a default cannot follow TypeVarTuple `Ts` [invalid-type-var]
 """

@@ -1,11 +1,11 @@
 conformant = "Pass"
 output = """
 generics_defaults.py:24:7 - error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type (reportGeneralTypeIssues)
-generics_defaults.py:50:16 - error: Too few type arguments provided for "AllTheDefaults"; expected 2 but received 1 (reportInvalidTypeArguments)
-generics_defaults.py:107:51 - error: TypeVar default type must be a subtype of the bound type (reportGeneralTypeIssues)
-generics_defaults.py:114:52 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)
-generics_defaults.py:132:13 - error: "assert_type" mismatch: expected "Any" but received "int" (reportAssertTypeFailure)
-generics_defaults.py:143:7 - error: TypeVar "T5" has a default value and cannot follow TypeVarTuple "Ts" (reportGeneralTypeIssues)
+generics_defaults.py:54:16 - error: Too few type arguments provided for "AllTheDefaults"; expected 2 but received 1 (reportInvalidTypeArguments)
+generics_defaults.py:116:51 - error: TypeVar default type must be a subtype of the bound type (reportGeneralTypeIssues)
+generics_defaults.py:123:52 - error: TypeVar default type must be one of the constrained types (reportGeneralTypeIssues)
+generics_defaults.py:141:13 - error: "assert_type" mismatch: expected "Any" but received "int" (reportAssertTypeFailure)
+generics_defaults.py:152:7 - error: TypeVar "T5" has a default value and cannot follow TypeVarTuple "Ts" (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """
