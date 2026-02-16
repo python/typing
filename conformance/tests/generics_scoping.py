@@ -12,12 +12,12 @@ def fun_2(x: T) -> T:  # and here could be different
     return x
 
 # One of these two should pass; either is acceptable:
-assert_type(fun_1(1), int)  # E[fun1-int]
-assert_type(fun_1(1), Literal[1])  # E[fun1-int]
+assert_type(fun_1(1), int)  # E[fun1]
+assert_type(fun_1(1), Literal[1])  # E[fun1]
 
 # One of these two should pass; either is acceptable:
-assert_type(fun_2("a"), str)  # E[fun1-str]
-assert_type(fun_2("a"), Literal["a"])  # E[fun1-str]
+assert_type(fun_2("a"), str)  # E[fun2]
+assert_type(fun_2("a"), Literal["a"])  # E[fun2]
 
 # > A type variable used in a method of a generic class that coincides
 # > with one of the variables that parameterize this class is always bound

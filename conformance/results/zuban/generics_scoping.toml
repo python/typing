@@ -1,8 +1,8 @@
 conformance_automated = "Fail"
 conformant = "Partial"
 errors_diff = """
-Lines 15, 16: Expected error (tag 'fun1-int')
-Lines 19, 20: Expected error (tag 'fun1-str')
+Lines 15, 16: Expected error (tag 'fun1')
+Lines 19, 20: Expected error (tag 'fun2')
 Lines 49, 50: Expected error (tag 'method-str')
 Lines 53, 54: Expected error (tag 'method-bytes')
 """
