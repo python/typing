@@ -41,12 +41,8 @@ assert_type(OneDefault[float](), OneDefault[float, bool])
 
 class AllTheDefaults(Generic[T1, T2, DefaultStrT, DefaultIntT, DefaultBoolT]): ...
 
-def needs_allthedefaults_or_subclass(x: type[AllTheDefaults[Any, Any, str, int, bool]]) -> None: ...
 
-# do not use `assert_type` here: some type checkers infer a more precise type
-# than `type[]` for class objects
-needs_allthedefaults_or_subclass(AllTheDefaults)  # OK
-
+assert_type(AllTheDefaults, type[AllTheDefaults[Any, Any, str, int, bool]])
 assert_type(
     AllTheDefaults[int, complex], type[AllTheDefaults[int, complex, str, int, bool]]
 )
@@ -95,12 +91,7 @@ DefaultTs = TypeVarTuple("DefaultTs", default=Unpack[tuple[str, int]])
 class Class_TypeVarTuple(Generic[*DefaultTs]): ...
 
 
-def needs_classtypevartuple_or_subclass(x: type[Class_TypeVarTuple[Any, Any]]) -> None: ...
-
-# do not use `assert_type` here: some type checkers infer a more precise type
-# than `type[]` for class objects
-needs_classtypevartuple_or_subclass(Class_TypeVarTuple)  # OK
-
+assert_type(Class_TypeVarTuple, type[Class_TypeVarTuple[*tuple[str, int]]])
 assert_type(Class_TypeVarTuple(), Class_TypeVarTuple[str, int])
 assert_type(Class_TypeVarTuple[int, bool](), Class_TypeVarTuple[int, bool])
 

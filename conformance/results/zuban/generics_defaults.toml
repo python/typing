@@ -3,9 +3,9 @@ errors_diff = """
 """
 output = """
 generics_defaults.py:24: error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type  [misc]
-generics_defaults.py:54: error: "AllTheDefaults" expects between 2 and 5 type arguments, but 1 given  [type-arg]
-generics_defaults.py:116: error: TypeVar default must be a subtype of the bound type  [misc]
-generics_defaults.py:123: error: TypeVar default must be one of the constraint types  [misc]
-generics_defaults.py:141: error: Expression is of type "int", not "Any"  [misc]
-generics_defaults.py:152: error: TypeVar defaults are ambiguous after a TypeVarTuple  [misc]
+generics_defaults.py:50: error: "AllTheDefaults" expects between 2 and 5 type arguments, but 1 given  [type-arg]
+generics_defaults.py:107: error: TypeVar default must be a subtype of the bound type  [misc]
+generics_defaults.py:114: error: TypeVar default must be one of the constraint types  [misc]
+generics_defaults.py:132: error: Expression is of type "int", not "Any"  [misc]
+generics_defaults.py:143: error: TypeVar defaults are ambiguous after a TypeVarTuple  [misc]
 """
