@@ -1,3 +1,4 @@
+conformance = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
 Line 15: Unexpected errors ['Expected a type form, got instance of `object` [not-a-type]']
@@ -9,8 +10,8 @@ Line 20: Unexpected errors ['Expected a type form, got instance of `object` [not
 Line 21: Unexpected errors ['Expected a type form, got instance of `object` [not-a-type]']
 Line 29: Unexpected errors ['Expected a type form, got instance of `object` [not-a-type]']
 Line 30: Unexpected errors ['Expected a type form, got instance of `object` [not-a-type]']
-Line 34: Unexpected errors ['Expected a type form, got instance of `object` [not-a-type]']
-Line 35: Unexpected errors ['Expected a type form, got instance of `object` [not-a-type]']
+Line 31: Unexpected errors ['Expected a type form, got instance of `object` [not-a-type]']
+Line 32: Unexpected errors ['Expected a type form, got instance of `object` [not-a-type]']
 Line 40: Unexpected errors ['`type[str | None]` is not assignable to `UnionType` [bad-assignment]']
 Line 41: Unexpected errors ['Expected a type form, got instance of `object` [not-a-type]']
 Line 43: Unexpected errors ['`type[list[int]]` is not assignable to `GenericAlias` [bad-assignment]', 'Expected `v2_actual` to be a type alias, got `GenericAlias` [invalid-type-alias]']
@@ -37,8 +38,8 @@ ERROR typeforms_typeform.py:23:7-27: Expected a type form, got instance of `obje
 ERROR typeforms_typeform.py:24:7-27: Expected a type form, got instance of `object` [not-a-type]
 ERROR typeforms_typeform.py:29:8-21: Expected a type form, got instance of `object` [not-a-type]
 ERROR typeforms_typeform.py:30:8-21: Expected a type form, got instance of `object` [not-a-type]
-ERROR typeforms_typeform.py:34:20-33: Expected a type form, got instance of `object` [not-a-type]
-ERROR typeforms_typeform.py:35:20-33: Expected a type form, got instance of `object` [not-a-type]
+ERROR typeforms_typeform.py:31:20-33: Expected a type form, got instance of `object` [not-a-type]
+ERROR typeforms_typeform.py:32:20-33: Expected a type form, got instance of `object` [not-a-type]
 ERROR typeforms_typeform.py:40:30-40: `type[str | None]` is not assignable to `UnionType` [bad-assignment]
 ERROR typeforms_typeform.py:41:15-35: Expected a type form, got instance of `object` [not-a-type]
 ERROR typeforms_typeform.py:43:33-42: `type[list[int]]` is not assignable to `GenericAlias` [bad-assignment]

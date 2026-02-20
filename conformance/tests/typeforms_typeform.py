@@ -28,11 +28,11 @@ err2: TypeForm[str | None] = list[str | None]  # E
 
 v_any: TypeForm[Any] = int | str
 v_str: TypeForm[str] = str
-v_any = v_str  # OK
-v_str = v_any  # OK
-
 assert_type(v_any, TypeForm[Any])
 assert_type(v_str, TypeForm[str])
+
+v_any = v_str  # OK
+v_str = v_any  # OK
 
 
 # > Valid type expressions are assignable to ``TypeForm`` through implicit TypeForm evaluation.

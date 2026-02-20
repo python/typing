@@ -1,13 +1,15 @@
+conformant = "Partial"
+notes = """
+Does not support assigning Union and GenericAlias objects to their runtime types.
+"""
 conformance_automated = "Fail"
 errors_diff = """
-Line 34: Unexpected errors ['typeforms_typeform.py:34: error: Expression is of type "TypeForm[str]", not "TypeForm[Any]"  [assert-type]']
 Line 40: Unexpected errors ['typeforms_typeform.py:40: error: Incompatible types in assignment (expression has type "UnionType | type[str]", variable has type "UnionType")  [assignment]']
 Line 43: Unexpected errors ['typeforms_typeform.py:43: error: Incompatible types in assignment (expression has type "type[list[int]]", variable has type "GenericAlias")  [assignment]']
 """
 output = """
 typeforms_typeform.py:23: error: Incompatible types in assignment (expression has type "TypeForm[str | int]", variable has type "TypeForm[str | None]")  [assignment]
 typeforms_typeform.py:24: error: Incompatible types in assignment (expression has type "TypeForm[list[str | None]]", variable has type "TypeForm[str | None]")  [assignment]
-typeforms_typeform.py:34: error: Expression is of type "TypeForm[str]", not "TypeForm[Any]"  [assert-type]
 typeforms_typeform.py:40: error: Incompatible types in assignment (expression has type "UnionType | type[str]", variable has type "UnionType")  [assignment]
 typeforms_typeform.py:43: error: Incompatible types in assignment (expression has type "type[list[int]]", variable has type "GenericAlias")  [assignment]
 typeforms_typeform.py:55: error: Incompatible types in assignment (expression has type "tuple[Never, ...]", variable has type "TypeForm[Any]")  [assignment]

@@ -1,3 +1,4 @@
+conformance = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
 Line 15: Unexpected errors ['typeforms_typeform.py:15: error: Invalid type comment or annotation  [valid-type]']
@@ -9,8 +10,8 @@ Line 20: Unexpected errors ['typeforms_typeform.py:20: error: Invalid type comme
 Line 21: Unexpected errors ['typeforms_typeform.py:21: error: Invalid type comment or annotation  [valid-type]']
 Line 29: Unexpected errors ['typeforms_typeform.py:29: error: Invalid type comment or annotation  [valid-type]']
 Line 30: Unexpected errors ['typeforms_typeform.py:30: error: Invalid type comment or annotation  [valid-type]']
-Line 34: Unexpected errors ['typeforms_typeform.py:34: error: Cast target is not a type  [misc]']
-Line 35: Unexpected errors ['typeforms_typeform.py:35: error: Cast target is not a type  [misc]']
+Line 31: Unexpected errors ['typeforms_typeform.py:31: error: Cast target is not a type  [misc]']
+Line 32: Unexpected errors ['typeforms_typeform.py:32: error: Cast target is not a type  [misc]']
 Line 41: Unexpected errors ['typeforms_typeform.py:41: error: Invalid type comment or annotation  [valid-type]']
 Line 43: Unexpected errors ['typeforms_typeform.py:43: error: Incompatible types in assignment (expression has type "type[list[int]]", variable has type "GenericAlias")  [assignment]']
 Line 44: Unexpected errors ['typeforms_typeform.py:44: error: Invalid type comment or annotation  [valid-type]']
@@ -36,8 +37,8 @@ typeforms_typeform.py:23: error: Invalid type comment or annotation  [valid-type
 typeforms_typeform.py:24: error: Invalid type comment or annotation  [valid-type]
 typeforms_typeform.py:29: error: Invalid type comment or annotation  [valid-type]
 typeforms_typeform.py:30: error: Invalid type comment or annotation  [valid-type]
-typeforms_typeform.py:34: error: Cast target is not a type  [misc]
-typeforms_typeform.py:35: error: Cast target is not a type  [misc]
+typeforms_typeform.py:31: error: Cast target is not a type  [misc]
+typeforms_typeform.py:32: error: Cast target is not a type  [misc]
 typeforms_typeform.py:41: error: Invalid type comment or annotation  [valid-type]
 typeforms_typeform.py:43: error: Incompatible types in assignment (expression has type "type[list[int]]", variable has type "GenericAlias")  [assignment]
 typeforms_typeform.py:44: error: Invalid type comment or annotation  [valid-type]
