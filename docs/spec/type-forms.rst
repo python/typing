@@ -76,7 +76,7 @@ the type ``TypeForm[str | None]``::
 
 The ``Annotated`` special form is allowed in type expressions, so it can
 also appear in an expression that is assignable to ``TypeForm``. Consistent
-with the typing spec's rules for ``Annotated``, a static type checker may
+with the general rules for ``Annotated``, a static type checker may
 choose to ignore any ``Annotated`` metadata that it does not understand::
 
   from typing import Annotated
@@ -96,10 +96,10 @@ be assignable to ``TypeForm``::
 Valid type expressions
 ----------------------
 
-The typing spec defines syntactic rules for type expressions in the form of a
+This specification defines syntactic rules for type expressions in the form of a
 :ref:`formal grammar <expression-grammar>`. Semantic rules are specified as
 comments along with the grammar definition. Contextual requirements are
-detailed throughout the typing spec in sections that discuss concepts that
+detailed throughout the text in sections that discuss concepts that
 appear within type expressions. For example, the special form ``Self`` can be
 used in a type expression only within a class, and a type variable can be used
 within a type expression only when it is associated with a valid scope.

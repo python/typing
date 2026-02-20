@@ -9,6 +9,7 @@ Specification for the Python type system
    meta
    concepts
    annotations
+   type-forms
    special-types
    generics
    qualifiers
