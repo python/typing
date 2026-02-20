@@ -163,7 +163,7 @@ def func8(x: Any) -> Any:
 
 assert_type(func8("foo"), C)  # First overload
 assert_type(func8("bar"), B)  # Second overload
-assert_type(func8(str(1)), A)  # Third overload
+assert_type(func8(input()), A)  # Third overload
 
 
 def func9(val: list[LiteralString]):
