@@ -20,6 +20,8 @@ qualifiers_final_annotation.py:71: error: Cannot assign to final name "RATE"  [m
 qualifiers_final_annotation.py:81: error: Cannot assign to final attribute "DEFAULT_ID"  [misc]
 qualifiers_final_annotation.py:94: error: Cannot assign to final name "BORDER_WIDTH"  [misc]
 qualifiers_final_annotation.py:96: error: Cannot assign to final name "__private"  [misc]
+qualifiers_final_annotation.py:107: error: Final can be only used as an outermost qualifier in a variable annotation  [valid-type]
+qualifiers_final_annotation.py:108: error: Variable should not be annotated with both ClassVar and Final  [misc]
 qualifiers_final_annotation.py:118: error: Final can be only used as an outermost qualifier in a variable annotation  [valid-type]
 qualifiers_final_annotation.py:121: error: Final can be only used as an outermost qualifier in a variable annotation  [valid-type]
 qualifiers_final_annotation.py:131: error: Invalid "NamedTuple()" field name  [misc]
@@ -38,8 +40,6 @@ qualifiers_final_annotation.py:170: error: Cannot assign to final name "PI"  [mi
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 107: Expected 1 errors
-Line 108: Expected 1 errors
 Line 149: Expected 1 errors
 Line 59: Unexpected errors ['qualifiers_final_annotation.py:59: error: Cannot assign to final attribute "ID6"  [misc]']
 Line 96: Unexpected errors ['qualifiers_final_annotation.py:96: error: Cannot assign to final name "__private"  [misc]']
