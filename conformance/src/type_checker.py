@@ -104,6 +104,7 @@ class MypyTypeChecker(TypeChecker):
             ".",
             "--enable-error-code",
             "deprecated",
+            "--enable-incomplete-feature=TypeForm",
         ]
         proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
         lines = proc.stdout.split("\n")
