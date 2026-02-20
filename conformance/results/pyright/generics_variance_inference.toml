@@ -23,12 +23,10 @@ generics_variance_inference.py:58:35 - error: Type "ShouldBeCovariant3[float]" i
   "ShouldBeCovariant3[float]" is not assignable to "ShouldBeCovariant3[int]"
     Type parameter "T@ShouldBeCovariant3" is covariant, but "float" is not a subtype of "int"
       "float" is not assignable to "int" (reportAssignmentType)
-generics_variance_inference.py:66:36 - error: Type "ShouldBeCovariant4[int]" is not assignable to declared type "ShouldBeCovariant4[float]"
-  "ShouldBeCovariant4[int]" is not assignable to "ShouldBeCovariant4[float]"
-    Type parameter "T@ShouldBeCovariant4" is invariant, but "int" is not the same as "float" (reportAssignmentType)
 generics_variance_inference.py:67:34 - error: Type "ShouldBeCovariant4[float]" is not assignable to declared type "ShouldBeCovariant4[int]"
   "ShouldBeCovariant4[float]" is not assignable to "ShouldBeCovariant4[int]"
-    Type parameter "T@ShouldBeCovariant4" is invariant, but "float" is not the same as "int" (reportAssignmentType)
+    Type parameter "T@ShouldBeCovariant4" is covariant, but "float" is not a subtype of "int"
+      "float" is not assignable to "int" (reportAssignmentType)
 generics_variance_inference.py:80:34 - error: Type "ShouldBeCovariant5[float]" is not assignable to declared type "ShouldBeCovariant5[int]"
   "ShouldBeCovariant5[float]" is not assignable to "ShouldBeCovariant5[int]"
     Type parameter "T@ShouldBeCovariant5" is covariant, but "float" is not a subtype of "int"
@@ -82,7 +80,6 @@ generics_variance_inference.py:194:37 - error: Type "ShouldBeContravariant2[int]
     Type parameter "T@ShouldBeContravariant2" is contravariant, but "int" is not a supertype of "float"
       "float" is not assignable to "int" (reportAssignmentType)
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 66: Unexpected errors ['generics_variance_inference.py:66:36 - error: Type "ShouldBeCovariant4[int]" is not assignable to declared type "ShouldBeCovariant4[float]"']
 """

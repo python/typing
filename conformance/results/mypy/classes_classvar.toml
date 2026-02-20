@@ -10,6 +10,7 @@ classes_classvar.py:38: error: ClassVar[...] must have at most one type argument
 classes_classvar.py:39: error: Invalid type: try using Literal[3] instead?  [valid-type]
 classes_classvar.py:40: error: Name "var" is not defined  [name-defined]
 classes_classvar.py:52: error: Incompatible types in assignment (expression has type "dict[Never, Never]", variable has type "list[str]")  [assignment]
+classes_classvar.py:54: error: Variable should not be annotated with both ClassVar and Final  [misc]
 classes_classvar.py:55: error: Invalid type: ClassVar nested inside other type  [valid-type]
 classes_classvar.py:67: error: Invalid type: ClassVar nested inside other type  [valid-type]
 classes_classvar.py:69: error: ClassVar can only be used for assignments in class body  [misc]
@@ -31,7 +32,6 @@ errors_diff = """
 Line 45: Expected 1 errors
 Line 46: Expected 1 errors
 Line 47: Expected 1 errors
-Line 54: Expected 1 errors
 Line 67: Unexpected errors ['classes_classvar.py:67: error: Invalid type: ClassVar nested inside other type  [valid-type]']
 Line 130: Unexpected errors ['classes_classvar.py:130: error: All protocol members must have explicitly declared types  [misc]']
 """
