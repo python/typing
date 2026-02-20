@@ -12,6 +12,7 @@ This project contains test cases for behaviors defined in the Python typing spec
 
 * [concepts](https://typing.python.org/en/latest/spec/concepts.html)
 * [annotations](https://typing.python.org/en/latest/spec/annotations.html)
+* [typeforms](https://typing.python.org/en/latest/spec/type-forms.html)
 * [specialtypes](https://typing.python.org/en/latest/spec/special-types.html)
 * [generics](https://typing.python.org/en/latest/spec/generics.html)
 * [qualifiers](https://typing.python.org/en/latest/spec/qualifiers.html)
