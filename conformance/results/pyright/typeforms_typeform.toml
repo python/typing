@@ -1,0 +1,79 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 58: Expected 1 errors
+Line 60: Expected 1 errors
+Line 61: Expected 1 errors
+Line 62: Expected 1 errors
+Line 64: Expected 1 errors
+Line 15: Unexpected errors ['typeforms_typeform.py:15:29 - error: Type "UnionType" is not assignable to declared type "TypeForm[str | None]"']
+Line 17: Unexpected errors ['typeforms_typeform.py:17:29 - error: Type "None" is not assignable to declared type "TypeForm[str | None]"']
+Line 19: Unexpected errors ['typeforms_typeform.py:19:29 - error: Type "UnionType" is not assignable to declared type "TypeForm[str | None]"']
+Line 20: Unexpected errors ['typeforms_typeform.py:20:29 - error: Type "Literal[\\'str | None\\']" is not assignable to declared type "TypeForm[str | None]"']
+Line 21: Unexpected errors ['typeforms_typeform.py:21:29 - error: Type "type[Any]" is not assignable to declared type "TypeForm[str | None]"']
+Line 29: Unexpected errors ['typeforms_typeform.py:29:24 - error: Type "UnionType" is not assignable to declared type "TypeForm[Any]"']
+Line 34: Unexpected errors ['typeforms_typeform.py:34:13 - error: "assert_type" mismatch: expected "TypeForm[Any]" but received "type[str]" (reportAssertTypeFailure)']
+Line 35: Unexpected errors ['typeforms_typeform.py:35:13 - error: "assert_type" mismatch: expected "TypeForm[str]" but received "type[str]" (reportAssertTypeFailure)']
+Line 41: Unexpected errors ['typeforms_typeform.py:41:38 - error: Type "UnionType" is not assignable to declared type "TypeForm[str | None]"']
+Line 43: Unexpected errors ['typeforms_typeform.py:43:33 - error: Type "type[list[int]]" is not assignable to declared type "GenericAlias"']
+Line 46: Unexpected errors ['typeforms_typeform.py:46:27 - error: Type "Annotated" is not assignable to declared type "TypeForm[int | str]"']
+Line 47: Unexpected errors ['typeforms_typeform.py:47:26 - error: Type "Literal[\\'set[str]\\']" is not assignable to declared type "TypeForm[set[str]]"']
+Line 71: Unexpected errors ['typeforms_typeform.py:71:13 - error: "assert_type" mismatch: expected "TypeForm[str | None]" but received "UnionType" (reportAssertTypeFailure)']
+Line 74: Unexpected errors ['typeforms_typeform.py:74:13 - error: "assert_type" mismatch: expected "TypeForm[list[int]]" but received "type[list[int]]" (reportAssertTypeFailure)']
+"""
+output = """
+typeforms_typeform.py:15:29 - error: Type "UnionType" is not assignable to declared type "TypeForm[str | None]"
+  "UnionType" is not assignable to "TypeForm[str | None]" (reportAssignmentType)
+typeforms_typeform.py:17:29 - error: Type "None" is not assignable to declared type "TypeForm[str | None]"
+  "None" is not assignable to "TypeForm[str | None]" (reportAssignmentType)
+typeforms_typeform.py:19:29 - error: Type "UnionType" is not assignable to declared type "TypeForm[str | None]"
+  "UnionType" is not assignable to "TypeForm[str | None]" (reportAssignmentType)
+typeforms_typeform.py:20:29 - error: Type "Literal['str | None']" is not assignable to declared type "TypeForm[str | None]"
+  "Literal['str | None']" is not assignable to "TypeForm[str | None]" (reportAssignmentType)
+typeforms_typeform.py:21:29 - error: Type "type[Any]" is not assignable to declared type "TypeForm[str | None]"
+  Type "Any" is not assignable to type "str | None"
+    "Any" is not assignable to "str"
+    "Any" is not assignable to "None" (reportAssignmentType)
+typeforms_typeform.py:23:30 - error: Type "UnionType" is not assignable to declared type "TypeForm[str | None]"
+  "UnionType" is not assignable to "TypeForm[str | None]" (reportAssignmentType)
+typeforms_typeform.py:24:30 - error: Type "type[list[str | None]]" is not assignable to declared type "TypeForm[str | None]"
+  Type "list[str | None]" is not assignable to type "str | None"
+    "list[str | None]" is not assignable to "str"
+    "list[str | None]" is not assignable to "None" (reportAssignmentType)
+typeforms_typeform.py:29:24 - error: Type "UnionType" is not assignable to declared type "TypeForm[Any]"
+  "UnionType" is not assignable to "TypeForm[Any]" (reportAssignmentType)
+typeforms_typeform.py:34:13 - error: "assert_type" mismatch: expected "TypeForm[Any]" but received "type[str]" (reportAssertTypeFailure)
+typeforms_typeform.py:35:13 - error: "assert_type" mismatch: expected "TypeForm[str]" but received "type[str]" (reportAssertTypeFailure)
+typeforms_typeform.py:41:38 - error: Type "UnionType" is not assignable to declared type "TypeForm[str | None]"
+  "UnionType" is not assignable to "TypeForm[str | None]" (reportAssignmentType)
+typeforms_typeform.py:43:33 - error: Type "type[list[int]]" is not assignable to declared type "GenericAlias"
+  Type "type[list[int]]" is not assignable to type "GenericAlias" (reportAssignmentType)
+typeforms_typeform.py:46:27 - error: Type "Annotated" is not assignable to declared type "TypeForm[int | str]"
+  "Annotated" is not assignable to "TypeForm[int | str]" (reportAssignmentType)
+typeforms_typeform.py:47:26 - error: Type "Literal['set[str]']" is not assignable to declared type "TypeForm[set[str]]"
+  "Literal['set[str]']" is not assignable to "TypeForm[set[str]]" (reportAssignmentType)
+typeforms_typeform.py:55:18 - error: Type "tuple[()]" is not assignable to declared type "TypeForm[Unknown]"
+  "tuple[()]" is not assignable to "TypeForm[Unknown]" (reportAssignmentType)
+typeforms_typeform.py:56:18 - error: Type "tuple[Literal[1], Literal[2]]" is not assignable to declared type "TypeForm[Unknown]"
+  "tuple[Literal[1], Literal[2]]" is not assignable to "TypeForm[Unknown]" (reportAssignmentType)
+typeforms_typeform.py:57:18 - error: Type "Literal[1]" is not assignable to declared type "TypeForm[Unknown]"
+  "Literal[1]" is not assignable to "TypeForm[Unknown]" (reportAssignmentType)
+typeforms_typeform.py:59:18 - error: Type "Literal" is not assignable to declared type "TypeForm[Unknown]"
+  "Literal" is not assignable to "TypeForm[Unknown]" (reportAssignmentType)
+typeforms_typeform.py:63:25 - error: Type variable "Ts" has no meaning in this context (reportGeneralTypeIssues)
+typeforms_typeform.py:65:19 - error: Type "Literal['int + str']" is not assignable to declared type "TypeForm[Unknown]"
+  "Literal['int + str']" is not assignable to "TypeForm[Unknown]" (reportAssignmentType)
+typeforms_typeform.py:71:13 - error: "assert_type" mismatch: expected "TypeForm[str | None]" but received "UnionType" (reportAssertTypeFailure)
+typeforms_typeform.py:74:13 - error: "assert_type" mismatch: expected "TypeForm[list[int]]" but received "type[list[int]]" (reportAssertTypeFailure)
+typeforms_typeform.py:76:16 - error: type() call should not be used in type expression
+  Use type[T] instead (reportInvalidTypeForm)
+typeforms_typeform.py:76:16 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
+typeforms_typeform.py:78:15 - error: type() call should not be used in type expression
+  Use type[T] instead (reportInvalidTypeForm)
+typeforms_typeform.py:78:15 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
+typeforms_typeform.py:88:21 - error: Type "TypeForm[int]" is not assignable to declared type "TypeForm[str]"
+  "TypeForm[int]" is not assignable to "TypeForm[str]"
+    Type parameter "T@TypeForm" is covariant, but "int" is not a subtype of "str"
+      "int" is not assignable to "str" (reportAssignmentType)
+typeforms_typeform.py:98:21 - error: Type "type[int]" is not assignable to declared type "TypeForm[str]"
+  "int" is not assignable to "str" (reportAssignmentType)
+"""
