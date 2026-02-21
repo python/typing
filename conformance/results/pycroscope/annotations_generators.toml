@@ -1,9 +1,7 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 51: Expected 1 errors
-Line 96: Unexpected errors ['./annotations_generators.py:96:4: Function may exit without returning a value [missing_return]']
 Line 100: Unexpected errors ['./annotations_generators.py:100:21: Generator function must return an iterable [generator_return]']
-Line 105: Unexpected errors ['./annotations_generators.py:105:4: Function may exit without returning a value [missing_return]']
 Line 109: Unexpected errors ['./annotations_generators.py:109:27: Async generator function must return an async iterable [generator_return]']
 Line 167: Unexpected errors ['./annotations_generators.py:167:4: Must use collections.abc.AsyncGenerator[str, None] (for example, by iterating over it) [must_use]']
 Line 174: Unexpected errors ['./annotations_generators.py:174:4: Must use collections.abc.AsyncGenerator[str, None] (for example, by iterating over it) [must_use]']
@@ -17,9 +15,7 @@ output = """
 ./annotations_generators.py:75:4: Cannot assign value of type .../tests/annotations_generators.py.B to yield expression of type .../tests/annotations_generators.py.A [incompatible_yield]
 ./annotations_generators.py:86:20: Generator function must return an iterable [generator_return]
 ./annotations_generators.py:91:26: Async generator function must return an async iterable [generator_return]
-./annotations_generators.py:96:4: Function may exit without returning a value [missing_return]
 ./annotations_generators.py:100:21: Generator function must return an iterable [generator_return]
-./annotations_generators.py:105:4: Function may exit without returning a value [missing_return]
 ./annotations_generators.py:109:27: Async generator function must return an async iterable [generator_return]
 ./annotations_generators.py:118:4: Cannot yield from collections.abc.Iterator[.../tests/annotations_generators.py.A] (expected .../tests/annotations_generators.py.B) [incompatible_yield]
 ./annotations_generators.py:119:4: Cannot yield from Literal[[1]] (expected .../tests/annotations_generators.py.B) [incompatible_yield]

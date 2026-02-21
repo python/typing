@@ -3,8 +3,6 @@ errors_diff = """
 Line 199: Expected 1 errors
 Line 84: Unexpected errors ['./narrowing_typeis.py:84:20:   object is not equivalent to int']
 Line 88: Unexpected errors ['./narrowing_typeis.py:88:20:   object is not equivalent to int']
-Line 136: Unexpected errors ['./narrowing_typeis.py:136:4: Function may exit without returning a value [missing_return]']
-Line 140: Unexpected errors ['./narrowing_typeis.py:140:4: Function may exit without returning a value [missing_return]']
 """
 output = """
 ./narrowing_typeis.py:84:20:   object is not equivalent to int
@@ -12,8 +10,6 @@ output = """
 ./narrowing_typeis.py:105:4: TypeIs must be used on a function taking at least one positional parameter [invalid_typeguard]
 ./narrowing_typeis.py:110:4: TypeIs must be used on a function taking at least one positional parameter [invalid_typeguard]
 ./narrowing_typeis.py:132:19: Incompatible argument type for f: expected (object, /) -> str but got function '.../tests/narrowing_typeis.py.simple_typeguard' [incompatible_argument]
-./narrowing_typeis.py:136:4: Function may exit without returning a value [missing_return]
-./narrowing_typeis.py:140:4: Function may exit without returning a value [missing_return]
 ./narrowing_typeis.py:152:25: Incompatible argument type for f: expected .../tests/narrowing_typeis.py.CallableStrProto (Protocol with members '__call__') but got function '.../tests/narrowing_typeis.py.simple_typeguard' [incompatible_argument]
 ./narrowing_typeis.py:169:16: Incompatible argument type for f: expected (object, /) -> Annotated[bool, TypeGuardExtension(guarded_type=TypedValue(typ=<class 'int'>, literal_only=False))] but got function '.../tests/narrowing_typeis.py.is_int_typeis' [incompatible_argument]
 ./narrowing_typeis.py:170:13: Incompatible argument type for f: expected (object, /) -> Annotated[bool, TypeIsExtension(guarded_type=TypedValue(typ=<class 'int'>, literal_only=False))] but got function '.../tests/narrowing_typeis.py.is_int_typeguard' [incompatible_argument]

@@ -9,8 +9,9 @@ from type_checker import TYPE_CHECKERS
 
 @dataclass
 class _Options:
-    report_only: bool | None
+    report_only: bool
     only_run: str | None
+    verbose: bool
 
 
 def parse_options(argv: list[str]) -> _Options:
@@ -24,7 +25,12 @@ def parse_options(argv: list[str]) -> _Options:
     reporting_group.add_argument(
         "--only-run",
         help="Only runs the type checker",
-        choices=[tc.name for tc in TYPE_CHECKERS]
+        choices=[tc.name for tc in TYPE_CHECKERS],
+    )
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="print full output from the type checker",
     )
     ret = _Options(**vars(parser.parse_args(argv)))
     return ret

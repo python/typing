@@ -396,6 +396,7 @@ class PycroscopeTypeChecker(TypeChecker):
         ]
         proc = run(command, stdout=PIPE, stderr=PIPE, text=True, encoding="utf-8")
         lines = proc.stderr.splitlines()
+        full_output_lines: list[str] = []
 
         # Collect results per file and sort for deterministic output.
         sortable_results: dict[str, list[tuple[int, str, str]]] = {}
@@ -403,6 +404,7 @@ class PycroscopeTypeChecker(TypeChecker):
             if not line.strip():
                 continue
             line = self._normalize_output_line(line)
+            full_output_lines.append(line)
             # Concise output line format:
             #   file.py:12:3: Message text [error_code]
             match = re.match(r"^(.+?):(\d+)(?::\d+)?:\s(.*)$", line)
@@ -417,6 +419,10 @@ class PycroscopeTypeChecker(TypeChecker):
         for file_name, entries in sortable_results.items():
             entries.sort(key=lambda item: (item[0], item[1]))
             results_dict[file_name] = "".join(f"{line}\n" for _, _, line in entries)
+        if full_output_lines:
+            results_dict["__full_output__"] = "".join(
+                f"{line}\n" for line in full_output_lines
+            )
         return results_dict
 
     def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:

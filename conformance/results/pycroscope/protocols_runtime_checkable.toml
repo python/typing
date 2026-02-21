@@ -6,12 +6,6 @@ Line 61: Expected 1 errors
 Line 88: Expected 1 errors
 Line 92: Expected 1 errors
 Line 96: Expected 1 errors
-Line 38: Unexpected errors ['./protocols_runtime_checkable.py:38:4: Function may exit without returning a value [missing_return]']
-Line 44: Unexpected errors ['./protocols_runtime_checkable.py:44:4: Function may exit without returning a value [missing_return]']
-Line 71: Unexpected errors ['./protocols_runtime_checkable.py:71:4: Function may exit without returning a value [missing_return]']
 """
 output = """
-./protocols_runtime_checkable.py:38:4: Function may exit without returning a value [missing_return]
-./protocols_runtime_checkable.py:44:4: Function may exit without returning a value [missing_return]
-./protocols_runtime_checkable.py:71:4: Function may exit without returning a value [missing_return]
 """

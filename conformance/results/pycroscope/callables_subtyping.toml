@@ -1,11 +1,6 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 273: Expected 1 errors
-Line 259: Unexpected errors ['./callables_subtyping.py:259:4: Function may exit without returning a value [missing_return]']
-Line 263: Unexpected errors ['./callables_subtyping.py:263:4: Function may exit without returning a value [missing_return]']
-Line 267: Unexpected errors ['./callables_subtyping.py:267:4: Function may exit without returning a value [missing_return]']
-Line 288: Unexpected errors ['./callables_subtyping.py:288:4: Function may exit without returning a value [missing_return]']
-Line 292: Unexpected errors ['./callables_subtyping.py:292:4: Function may exit without returning a value [missing_return]']
 Line 296: Unexpected errors ["./callables_subtyping.py:296:4: Incompatible assignment: expected .../tests/callables_subtyping.py.Overloaded10 (Protocol with members '__call__'), got .../tests/callables_subtyping.py.IntStrArg10 (Protocol with members '__call__') [incompatible_assignment]"]
 """
 output = """
@@ -39,11 +34,6 @@ output = """
 ./callables_subtyping.py:237:4: Incompatible assignment: expected .../tests/callables_subtyping.py.DefaultArg8 (Protocol with members '__call__'), got .../tests/callables_subtyping.py.NoX8 (Protocol with members '__call__') [incompatible_assignment]
 ./callables_subtyping.py:240:4: Incompatible assignment: expected .../tests/callables_subtyping.py.NoDefaultArg8 (Protocol with members '__call__'), got .../tests/callables_subtyping.py.NoX8 (Protocol with members '__call__') [incompatible_assignment]
 ./callables_subtyping.py:243:4: Incompatible assignment: expected .../tests/callables_subtyping.py.NoX8 (Protocol with members '__call__'), got .../tests/callables_subtyping.py.NoDefaultArg8 (Protocol with members '__call__') [incompatible_assignment]
-./callables_subtyping.py:259:4: Function may exit without returning a value [missing_return]
-./callables_subtyping.py:263:4: Function may exit without returning a value [missing_return]
-./callables_subtyping.py:267:4: Function may exit without returning a value [missing_return]
-./callables_subtyping.py:288:4: Function may exit without returning a value [missing_return]
-./callables_subtyping.py:292:4: Function may exit without returning a value [missing_return]
 ./callables_subtyping.py:296:4: Incompatible assignment: expected .../tests/callables_subtyping.py.Overloaded10 (Protocol with members '__call__'), got .../tests/callables_subtyping.py.IntStrArg10 (Protocol with members '__call__') [incompatible_assignment]
 ./callables_subtyping.py:297:4: Incompatible assignment: expected .../tests/callables_subtyping.py.Overloaded10 (Protocol with members '__call__'), got .../tests/callables_subtyping.py.StrArg10 (Protocol with members '__call__') [incompatible_assignment]
 """

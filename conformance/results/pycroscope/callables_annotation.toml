@@ -4,15 +4,9 @@ Line 55: Expected 1 errors
 Line 56: Expected 1 errors
 Line 58: Expected 1 errors
 Line 59: Expected 1 errors
-Line 90: Unexpected errors ['./callables_annotation.py:90:0: Traceback (most recent call last):']
-Line 92: Unexpected errors ['./callables_annotation.py:92:0: Traceback (most recent call last):']
-Line 151: Unexpected errors ['./callables_annotation.py:151:4: Traceback (most recent call last):']
 Line 152: Unexpected errors ["./callables_annotation.py:152:4: Incompatible assignment: expected .../tests/callables_annotation.py.Proto2 (Protocol with members '__call__'), got (int, /, **Any[explicit]) -> None [incompatible_assignment]"]
 Line 156: Unexpected errors ["./callables_annotation.py:156:4: Incompatible assignment: expected .../tests/callables_annotation.py.Proto3 (Protocol with members '__call__'), got .../tests/callables_annotation.py.Proto4[Any[explicit]] [incompatible_assignment]"]
 Line 157: Unexpected errors ["./callables_annotation.py:157:4: Incompatible assignment: expected .../tests/callables_annotation.py.Proto6 (Protocol with members '__call__'), got .../tests/callables_annotation.py.Proto7 (Protocol with members '__call__') [incompatible_assignment]"]
-Line 175: Unexpected errors ['./callables_annotation.py:175:4: Traceback (most recent call last):']
-Line 186: Unexpected errors ['./callables_annotation.py:186:4: Traceback (most recent call last):']
-Line 188: Unexpected errors ['./callables_annotation.py:188:4: Traceback (most recent call last):']
 """
 output = """
 ./callables_annotation.py:25:4: Missing required positional argument at position 1 [incompatible_call]
@@ -21,19 +15,13 @@ output = """
 ./callables_annotation.py:29:4: Missing required positional argument at position 0 [incompatible_call]
 ./callables_annotation.py:35:4: Takes 0 positional arguments but 1 were given [incompatible_call]
 ./callables_annotation.py:57:4: Invalid type annotation [<class 'int'>] [invalid_annotation]
-./callables_annotation.py:90:0: Traceback (most recent call last):
 ./callables_annotation.py:91:0: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got function '.../tests/callables_annotation.py.test_cb2' [incompatible_assignment]
-./callables_annotation.py:92:0: Traceback (most recent call last):
 ./callables_annotation.py:93:0: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got function '.../tests/callables_annotation.py.test_cb4' [incompatible_assignment]
-./callables_annotation.py:151:4: Traceback (most recent call last):
 ./callables_annotation.py:152:4: Incompatible assignment: expected .../tests/callables_annotation.py.Proto2 (Protocol with members '__call__'), got (int, /, **Any[explicit]) -> None [incompatible_assignment]
 ./callables_annotation.py:156:4: Incompatible assignment: expected .../tests/callables_annotation.py.Proto3 (Protocol with members '__call__'), got .../tests/callables_annotation.py.Proto4[Any[explicit]] [incompatible_assignment]
 ./callables_annotation.py:157:4: Incompatible assignment: expected .../tests/callables_annotation.py.Proto6 (Protocol with members '__call__'), got .../tests/callables_annotation.py.Proto7 (Protocol with members '__call__') [incompatible_assignment]
 ./callables_annotation.py:159:4: Incompatible assignment: expected .../tests/callables_annotation.py.Proto5[Any[explicit]], got .../tests/callables_annotation.py.Proto8 (Protocol with members '__call__') [incompatible_assignment]
 ./callables_annotation.py:172:4: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got () -> str [incompatible_assignment]
-./callables_annotation.py:175:4: Traceback (most recent call last):
-./callables_annotation.py:186:4: Traceback (most recent call last):
 ./callables_annotation.py:187:4: Incompatible assignment: expected (str, /, **Any[explicit]) -> str, got (int, str, /) -> str [incompatible_assignment]
-./callables_annotation.py:188:4: Traceback (most recent call last):
 ./callables_annotation.py:189:4: Incompatible assignment: expected (str, /, **Any[explicit]) -> str, got (int, str, /) -> str [incompatible_assignment]
 """
