@@ -1,11 +1,11 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 24: Expected 1 errors
-Line 36: Expected 1 errors
-Line 50: Expected 1 errors
-Line 51: Expected 1 errors
-Line 60: Expected 1 errors
-Line 61: Expected 1 errors
 """
 output = """
+./typeddicts_readonly.py:24:3: Cannot set readonly key 'members' in TypedDict TypedDict({"name": str, "members": Readonly[list[str]]}) [readonly_typeddict]
+./typeddicts_readonly.py:36:3: Cannot set readonly key 'members' in TypedDict TypedDict({"name": str, "members": Readonly[list[str]]}) [readonly_typeddict]
+./typeddicts_readonly.py:50:3: Cannot set readonly key 'title' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[Annotated[int, Literal['']]]]}) [readonly_typeddict]
+./typeddicts_readonly.py:51:3: Cannot set readonly key 'year' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[Annotated[int, Literal['']]]]}) [readonly_typeddict]
+./typeddicts_readonly.py:60:3: Cannot set readonly key 'title' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[Annotated[int, Literal['']]]]}) [readonly_typeddict]
+./typeddicts_readonly.py:61:3: Cannot set readonly key 'year' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[Annotated[int, Literal['']]]]}) [readonly_typeddict]
 """

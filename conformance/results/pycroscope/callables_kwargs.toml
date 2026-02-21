@@ -1,18 +1,19 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 46: Expected 1 errors
-Line 51: Expected 1 errors
-Line 52: Expected 1 errors
-Line 58: Expected 1 errors
-Line 63: Expected 1 errors
-Line 64: Expected 1 errors
-Line 65: Expected 1 errors
-Line 101: Expected 1 errors
-Line 102: Expected 1 errors
-Line 103: Expected 1 errors
 Line 111: Expected 1 errors
 Line 122: Expected 1 errors
 Line 134: Expected 1 errors
 """
 output = """
+./callables_kwargs.py:46:4: In call to /Users/jelle/py/typing/conformance/tests/callables_kwargs.py.func1: Missing required argument 'v1' [incompatible_call]
+./callables_kwargs.py:51:4: In call to /Users/jelle/py/typing/conformance/tests/callables_kwargs.py.func1: Got an unexpected keyword argument 'v4' [incompatible_call]
+./callables_kwargs.py:52:4: In call to /Users/jelle/py/typing/conformance/tests/callables_kwargs.py.func1: Missing required argument 'v1' [incompatible_call]
+./callables_kwargs.py:58:4: Incompatible argument type for v1: expected int but got str [incompatible_argument]
+./callables_kwargs.py:61:4: In call to /Users/jelle/py/typing/conformance/tests/callables_kwargs.py.func1: Got an unexpected keyword argument 'v4' [incompatible_call]
+./callables_kwargs.py:63:4: Multiple values provided for argument 'v1' [incompatible_call]
+./callables_kwargs.py:64:4: In call to /Users/jelle/py/typing/conformance/tests/callables_kwargs.py.func2: Parameter 'v3' provided as both a positional and a keyword argument [incompatible_call]
+./callables_kwargs.py:65:4: Multiple values provided for argument 'v1' [incompatible_call]
+./callables_kwargs.py:101:0: Incompatible assignment: expected /Users/jelle/py/typing/conformance/tests/callables_kwargs.py.TDProtocol3 (Protocol with members '__call__'), got function '/Users/jelle/py/typing/conformance/tests/callables_kwargs.py.func1' [incompatible_assignment]
+./callables_kwargs.py:102:0: Incompatible assignment: expected /Users/jelle/py/typing/conformance/tests/callables_kwargs.py.TDProtocol4 (Protocol with members '__call__'), got function '/Users/jelle/py/typing/conformance/tests/callables_kwargs.py.func1' [incompatible_assignment]
+./callables_kwargs.py:103:0: Incompatible assignment: expected /Users/jelle/py/typing/conformance/tests/callables_kwargs.py.TDProtocol5 (Protocol with members '__call__'), got function '/Users/jelle/py/typing/conformance/tests/callables_kwargs.py.func1' [incompatible_assignment]
 """

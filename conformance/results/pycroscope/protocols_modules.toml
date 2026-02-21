@@ -3,6 +3,10 @@ errors_diff = """
 Line 26: Expected 1 errors
 Line 48: Expected 1 errors
 Line 49: Expected 1 errors
+Line 38: Unexpected errors ['./protocols_modules.py:38:4: Function may exit without returning a value [missing_return]']
+Line 43: Unexpected errors ['./protocols_modules.py:43:4: Function may exit without returning a value [missing_return]']
 """
 output = """
+./protocols_modules.py:38:4: Function may exit without returning a value [missing_return]
+./protocols_modules.py:43:4: Function may exit without returning a value [missing_return]
 """

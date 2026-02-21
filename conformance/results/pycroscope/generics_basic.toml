@@ -1,8 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 40: Expected 1 errors
-Line 41: Expected 1 errors
-Line 49: Expected 1 errors
 Line 55: Expected 1 errors
 Line 69: Expected 1 errors
 Line 121: Expected 1 errors
@@ -13,6 +10,31 @@ Line 163: Expected 1 errors
 Line 171: Expected 1 errors
 Line 172: Expected 1 errors
 Line 208: Expected 1 errors
+Line 23: Unexpected errors ['./generics_basic.py:23:16:   int | Any[generic_argument] is not equivalent to int']
+Line 24: Unexpected errors ['./generics_basic.py:24:16:   str | Any[generic_argument] is not equivalent to str']
+Line 34: Unexpected errors ['./generics_basic.py:34:11: Unsupported operands for addition: ~AnyStr: (str, bytes) and ~AnyStr: (str, bytes) | ~AnyStr: (str, bytes) [unsupported_operation]']
+Line 67: Unexpected errors ['./generics_basic.py:67:16:   Any[inference] | Any[generic_argument] is not equivalent to str']
+Line 68: Unexpected errors ['./generics_basic.py:68:16:   str | Any[generic_argument] is not equivalent to str']
+Line 106: Unexpected errors ['./generics_basic.py:106:20:   Any[from_another] is not equivalent to int']
+Line 139: Unexpected errors ['./generics_basic.py:139:16:   Any[generic_argument] is not equivalent to int']
+Line 140: Unexpected errors ['./generics_basic.py:140:16:   Any[generic_argument] is not equivalent to int']
+Line 154: Unexpected errors ['./generics_basic.py:154:16:   Any[from_another] is not equivalent to int']
+Line 155: Unexpected errors ['./generics_basic.py:155:16:   Any[from_another] is not equivalent to int']
+Line 199: Unexpected errors ['./generics_basic.py:199:16:   Any[multiple_overload_matches] is not equivalent to collections.abc.Iterator[Any[explicit]]']
 """
 output = """
+./generics_basic.py:23:16:   int | Any[generic_argument] is not equivalent to int
+./generics_basic.py:24:16:   str | Any[generic_argument] is not equivalent to str
+./generics_basic.py:34:11: Unsupported operands for addition: ~AnyStr: (str, bytes) and ~AnyStr: (str, bytes) | ~AnyStr: (str, bytes) [unsupported_operation]
+./generics_basic.py:40:4: Cannot resolve type variables [incompatible_call]
+./generics_basic.py:41:4: Cannot resolve type variables [incompatible_call]
+./generics_basic.py:49:17: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, contravariant: bool = Literal[False], covariant: bool = Literal[False], infer_variance: bool = Literal[False], default: Any[explicit] = Any[unannotated]) -> typing.TypeVar: A single constraint is not allowed [incompatible_call]
+./generics_basic.py:67:16:   Any[inference] | Any[generic_argument] is not equivalent to str
+./generics_basic.py:68:16:   str | Any[generic_argument] is not equivalent to str
+./generics_basic.py:106:20:   Any[from_another] is not equivalent to int
+./generics_basic.py:139:16:   Any[generic_argument] is not equivalent to int
+./generics_basic.py:140:16:   Any[generic_argument] is not equivalent to int
+./generics_basic.py:154:16:   Any[from_another] is not equivalent to int
+./generics_basic.py:155:16:   Any[from_another] is not equivalent to int
+./generics_basic.py:199:16:   Any[multiple_overload_matches] is not equivalent to collections.abc.Iterator[Any[explicit]]
 """

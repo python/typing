@@ -1,5 +1,7 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 41: Unexpected errors ['./protocols_self.py:41:4: Function may exit without returning a value [missing_return]']
 """
 output = """
+./protocols_self.py:41:4: Function may exit without returning a value [missing_return]
 """

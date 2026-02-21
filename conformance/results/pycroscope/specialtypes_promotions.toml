@@ -1,6 +1,6 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 13: Expected 1 errors
 """
 output = """
+./specialtypes_promotions.py:13:4: float has no attribute 'numerator' [undefined_attribute]
 """

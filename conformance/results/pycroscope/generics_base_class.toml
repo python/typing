@@ -7,6 +7,12 @@ Line 49: Expected 1 errors
 Line 61: Expected 1 errors
 Line 68: Expected 1 errors
 Line 98: Expected 1 errors
+Line 45: Unexpected errors ['./generics_base_class.py:45:16:   Any[multiple_overload_matches] is not equivalent to collections.abc.Iterator[int]']
+Line 46: Unexpected errors ['./generics_base_class.py:46:16:   Any[from_another] is not equivalent to bool']
+Line 58: Unexpected errors ['./generics_base_class.py:58:16:   Any[from_another] is not equivalent to int']
 """
 output = """
+./generics_base_class.py:45:16:   Any[multiple_overload_matches] is not equivalent to collections.abc.Iterator[int]
+./generics_base_class.py:46:16:   Any[from_another] is not equivalent to bool
+./generics_base_class.py:58:16:   Any[from_another] is not equivalent to int
 """

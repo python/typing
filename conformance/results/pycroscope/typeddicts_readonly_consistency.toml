@@ -1,12 +1,12 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 37: Expected 1 errors
-Line 38: Expected 1 errors
-Line 40: Expected 1 errors
-Line 81: Expected 1 errors
-Line 82: Expected 1 errors
-Line 84: Expected 1 errors
-Line 85: Expected 1 errors
 """
 output = """
+./typeddicts_readonly_consistency.py:37:4: Incompatible assignment: expected TypedDict({"x": int, "y": NotRequired[str]}), got TypedDict({"x": int}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:38:4: Incompatible assignment: expected TypedDict({"x": int, "y": NotRequired[str]}), got TypedDict({"x": int, "y": NotRequired[Readonly[str]]}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:40:4: Incompatible assignment: expected TypedDict({"x": int, "y": NotRequired[Readonly[str]]}), got TypedDict({"x": int}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:81:4: Incompatible assignment: expected TypedDict({"x": NotRequired[str]}), got TypedDict({"x": NotRequired[Readonly[str]]}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:82:4: Incompatible assignment: expected TypedDict({"x": NotRequired[str]}), got TypedDict({"x": str}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:84:4: Incompatible assignment: expected TypedDict({"x": str}), got TypedDict({"x": NotRequired[Readonly[str]]}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:85:4: Incompatible assignment: expected TypedDict({"x": str}), got TypedDict({"x": NotRequired[str]}) [incompatible_assignment]
 """

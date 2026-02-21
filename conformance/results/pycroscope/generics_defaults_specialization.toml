@@ -2,6 +2,8 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 30: Expected 1 errors
 Line 55: Expected 1 errors
+Line 53: Unexpected errors ['./generics_defaults_specialization.py:53:12:   Any[from_another] is not equivalent to str']
 """
 output = """
+./generics_defaults_specialization.py:53:12:   Any[from_another] is not equivalent to str
 """

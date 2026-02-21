@@ -2,6 +2,15 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 21: Expected 1 errors
 Line 148: Expected 1 errors
+Line 49: Unexpected errors ['./constructors_call_new.py:49:12:   Any[from_another] is not equivalent to int']
+Line 76: Unexpected errors ['./constructors_call_new.py:76:16:   Any[from_another] is not equivalent to Never']
+Line 113: Unexpected errors ['./constructors_call_new.py:113:41: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]']
+Line 142: Unexpected errors ['./constructors_call_new.py:142:21: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]', './constructors_call_new.py:142:46: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]']
 """
 output = """
+./constructors_call_new.py:49:12:   Any[from_another] is not equivalent to int
+./constructors_call_new.py:76:16:   Any[from_another] is not equivalent to Never
+./constructors_call_new.py:113:41: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
+./constructors_call_new.py:142:21: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
+./constructors_call_new.py:142:46: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
 """

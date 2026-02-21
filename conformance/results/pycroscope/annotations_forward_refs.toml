@@ -3,8 +3,6 @@ errors_diff = """
 Line 24: Expected 1 errors
 Line 25: Expected 1 errors
 Line 41: Expected 1 errors
-Line 42: Expected 1 errors
-Line 43: Expected 1 errors
 Line 44: Expected 1 errors
 Line 45: Expected 1 errors
 Line 46: Expected 1 errors
@@ -17,8 +15,19 @@ Line 52: Expected 1 errors
 Line 53: Expected 1 errors
 Line 54: Expected 1 errors
 Line 55: Expected 1 errors
-Line 80: Expected 1 errors
-Line 89: Expected 1 errors
+Line 1: Unexpected errors ['./annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]']
+Line 40: Unexpected errors ['./annotations_forward_refs.py:40:0: Traceback (most recent call last):']
+Line 103: Unexpected errors ['./annotations_forward_refs.py:103:7: Syntax error in type annotation: ']
+Line 87: Unexpected errors ['./annotations_forward_refs.py:87:7: Invalid type annotation <function ClassD.int at 0x10301e820> [invalid_annotation]']
 """
 output = """
+./annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]
+./annotations_forward_refs.py:42:8: Unrecognized annotation <list containing [type 'int', type 'str']> [invalid_annotation]
+./annotations_forward_refs.py:43:8: Unrecognized annotation tuple[type 'int', type 'str'] [invalid_annotation]
+./annotations_forward_refs.py:40:0: Traceback (most recent call last):
+./annotations_forward_refs.py:103:7: Syntax error in type annotation: 
+./annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]
+./annotations_forward_refs.py:80:12: Undefined name: ClassF [undefined_name]
+./annotations_forward_refs.py:87:7: Invalid type annotation <function ClassD.int at 0x10301e820> [invalid_annotation]
+./annotations_forward_refs.py:89:7: Invalid type annotation <function ClassD.int at 0x10301e820> [invalid_annotation]
 """

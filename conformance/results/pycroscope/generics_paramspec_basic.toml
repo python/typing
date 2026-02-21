@@ -2,11 +2,11 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 10: Expected 1 errors
 Line 15: Expected 1 errors
-Line 23: Expected 1 errors
-Line 27: Expected 1 errors
 Line 31: Expected 1 errors
 Line 35: Expected 1 errors
 Line 39: Expected 1 errors
 """
 output = """
+./generics_paramspec_basic.py:23:0: Traceback (most recent call last):
+./generics_paramspec_basic.py:27:13: Unrecognized annotation typing.Concatenate[<class 'int'>, ~P] [invalid_annotation]
 """

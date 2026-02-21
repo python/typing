@@ -1,6 +1,12 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 39: Expected 1 errors
+Line 37: Unexpected errors ['./overloads_basic.py:37:12:   Literal[0] is not equivalent to int']
+Line 38: Unexpected errors ["./overloads_basic.py:38:12:   Literal[b''] is not equivalent to bytes"]
+Line 59: Unexpected errors ['./overloads_basic.py:59:0: Function may exit without returning a value [missing_return]']
 """
 output = """
+./overloads_basic.py:37:12:   Literal[0] is not equivalent to int
+./overloads_basic.py:38:12:   Literal[b''] is not equivalent to bytes
+./overloads_basic.py:39:0: Cannot call overloaded function [incompatible_argument]
+./overloads_basic.py:59:0: Function may exit without returning a value [missing_return]
 """

@@ -14,9 +14,9 @@ Line 51: Expected 1 errors
 Line 52: Expected 1 errors
 Line 53: Expected 1 errors
 Line 56: Expected 1 errors
-Line 60: Expected 1 errors
 Line 61: Expected 1 errors
-Line 65: Expected 1 errors
 """
 output = """
+./literals_parameterizations.py:60:3: Invalid type annotation typing.Literal [invalid_annotation]
+./literals_parameterizations.py:65:4: Incompatible assignment: expected Literal['Color.RED'], got Literal[<Color.RED: 0>] [incompatible_assignment]
 """

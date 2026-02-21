@@ -1,8 +1,8 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 21: Expected 1 errors
-Line 27: Expected 1 errors
 Line 41: Expected 1 errors
 """
 output = """
+./specialtypes_none.py:21:6: Incompatible argument type for val1: expected None but got type [incompatible_argument]
+./specialtypes_none.py:27:0: Incompatible assignment: expected collections.abc.Iterable (Protocol with members '__iter__'), got None [incompatible_assignment]
 """

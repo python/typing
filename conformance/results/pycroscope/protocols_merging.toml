@@ -6,6 +6,8 @@ Line 54: Expected 1 errors
 Line 67: Expected 1 errors
 Line 82: Expected 1 errors
 Line 83: Expected 1 errors
+Line 18: Unexpected errors ['./protocols_merging.py:18:4: Function may exit without returning a value [missing_return]']
 """
 output = """
+./protocols_merging.py:18:4: Function may exit without returning a value [missing_return]
 """

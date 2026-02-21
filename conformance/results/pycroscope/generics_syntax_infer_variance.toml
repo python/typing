@@ -1,7 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 15: Expected 1 errors
-Line 17: Expected 1 errors
 Line 29: Expected 1 errors
 Line 47: Expected 1 errors
 Line 56: Expected 1 errors
@@ -18,6 +16,14 @@ Line 138: Expected 1 errors
 Line 146: Expected 1 errors
 Line 154: Expected 1 errors
 Line 165: Expected 1 errors
+Line 51: Unexpected errors ['./generics_syntax_infer_variance.py:51:25: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]']
+Line 89: Unexpected errors ['./generics_syntax_infer_variance.py:89:7: Unrecognized annotation object [invalid_annotation]']
+Line 108: Unexpected errors ['./generics_syntax_infer_variance.py:108:4: Name value is already defined [class_variable_redefinition]']
 """
 output = """
+./generics_syntax_infer_variance.py:15:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, contravariant: bool = Literal[False], covariant: bool = Literal[False], infer_variance: bool = Literal[False], default: Any[explicit] = Any[unannotated]) -> typing.TypeVar: Variance cannot be specified with infer_variance. [incompatible_call]
+./generics_syntax_infer_variance.py:17:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, contravariant: bool = Literal[False], covariant: bool = Literal[False], infer_variance: bool = Literal[False], default: Any[explicit] = Any[unannotated]) -> typing.TypeVar: Variance cannot be specified with infer_variance. [incompatible_call]
+./generics_syntax_infer_variance.py:51:25: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
+./generics_syntax_infer_variance.py:89:7: Unrecognized annotation object [invalid_annotation]
+./generics_syntax_infer_variance.py:108:4: Name value is already defined [class_variable_redefinition]
 """

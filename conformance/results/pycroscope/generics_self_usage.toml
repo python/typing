@@ -1,6 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 73: Expected 1 errors
 Line 76: Expected 1 errors
 Line 82: Expected 1 errors
 Line 87: Expected 1 errors
@@ -13,4 +12,5 @@ Line 123: Expected 1 errors
 Line 127: Expected 1 errors
 """
 output = """
+./generics_self_usage.py:73:0: Function may exit without returning a value [missing_return]
 """

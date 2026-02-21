@@ -387,6 +387,7 @@ class PycroscopeTypeChecker(TypeChecker):
         ]
         proc = run(command, stdout=PIPE, stderr=PIPE, text=True, encoding="utf-8")
         lines = proc.stderr.splitlines()
+        print("\n".join(lines))
 
         # Add results to a dictionary keyed by the file name.
         results_dict: dict[str, str] = {}

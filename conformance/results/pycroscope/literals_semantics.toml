@@ -1,9 +1,15 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 10: Expected 1 errors
-Line 24: Expected 1 errors
-Line 25: Expected 1 errors
-Line 33: Expected 1 errors
+Line 32: Unexpected errors ['./literals_semantics.py:32:4: Variable c is never accessed [unused_variable]']
+Line 31: Unexpected errors ['./literals_semantics.py:31:4: Variable b is never accessed [unused_variable]']
+Line 40: Unexpected errors ['./literals_semantics.py:40:4: Assigned value of a is never accessed [unused_assignment]']
 """
 output = """
+./literals_semantics.py:10:0: Incompatible assignment: expected Literal[3], got Literal[4] [incompatible_assignment]
+./literals_semantics.py:24:4: Incompatible assignment: expected Literal[False], got Literal[0] [incompatible_assignment]
+./literals_semantics.py:25:4: Incompatible assignment: expected Literal[0], got Literal[False] [incompatible_assignment]
+./literals_semantics.py:33:4: Assigned value of a is never accessed [unused_assignment]
+./literals_semantics.py:32:4: Variable c is never accessed [unused_variable]
+./literals_semantics.py:31:4: Variable b is never accessed [unused_variable]
+./literals_semantics.py:40:4: Assigned value of a is never accessed [unused_assignment]
 """

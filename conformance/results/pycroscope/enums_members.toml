@@ -7,6 +7,17 @@ Line 84: Expected 1 errors
 Line 85: Expected 1 errors
 Line 116: Expected 1 errors
 Line 129: Expected 1 errors
+Line 27: Unexpected errors ['./enums_members.py:27:12:   Any[from_another] is not equivalent to str']
+Line 28: Unexpected errors ['./enums_members.py:28:12:   Any[from_another] is not equivalent to str']
+Line 35: Unexpected errors ['./enums_members.py:35:12:   Any[from_another] is not equivalent to str']
+Line 36: Unexpected errors ['./enums_members.py:36:12:   Any[from_another] is not equivalent to str']
 """
 output = """
+./enums_members.py:27:12:   Any[from_another] is not equivalent to str
+./enums_members.py:28:12:   Any[from_another] is not equivalent to str
+./enums_members.py:35:12:   Any[from_another] is not equivalent to str
+./enums_members.py:36:12:   Any[from_another] is not equivalent to str
+./enums_members.py:128:20: Revealed type is 'Any[from_another]' [reveal_type]
+./enums_members.py:146:12:   Any[from_another] is not equivalent to int
+./enums_members.py:147:12:   Any[from_another] is not equivalent to int
 """

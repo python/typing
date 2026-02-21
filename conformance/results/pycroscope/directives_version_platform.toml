@@ -2,4 +2,6 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
+./directives_version_platform.py:40:4: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]
+./directives_version_platform.py:45:4: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]
 """

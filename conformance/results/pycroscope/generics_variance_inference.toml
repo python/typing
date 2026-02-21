@@ -1,8 +1,6 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 24: Expected 1 errors
 Line 25: Expected 1 errors
-Line 28: Expected 1 errors
 Line 41: Expected 1 errors
 Line 49: Expected 1 errors
 Line 58: Expected 1 errors
@@ -23,6 +21,10 @@ Line 169: Expected 1 errors
 Line 170: Expected 1 errors
 Line 181: Expected 1 errors
 Line 194: Expected 1 errors
+Line 29: Unexpected errors ['./generics_variance_inference.py:29:4: Incompatible assignment: expected /Users/jelle/py/typing/conformance/tests/generics_variance_inference.py.ClassA[int, int, float | int], got /Users/jelle/py/typing/conformance/tests/generics_variance_inference.py.ClassA[int, float | int, float | int] [incompatible_assignment]']
 """
 output = """
+./generics_variance_inference.py:24:4: Incompatible assignment: expected /Users/jelle/py/typing/conformance/tests/generics_variance_inference.py.ClassA[int, int, int], got /Users/jelle/py/typing/conformance/tests/generics_variance_inference.py.ClassA[float | int, int, int] [incompatible_assignment]
+./generics_variance_inference.py:28:4: Incompatible assignment: expected /Users/jelle/py/typing/conformance/tests/generics_variance_inference.py.ClassA[int, int, int], got /Users/jelle/py/typing/conformance/tests/generics_variance_inference.py.ClassA[int, float | int, float | int] [incompatible_assignment]
+./generics_variance_inference.py:29:4: Incompatible assignment: expected /Users/jelle/py/typing/conformance/tests/generics_variance_inference.py.ClassA[int, int, float | int], got /Users/jelle/py/typing/conformance/tests/generics_variance_inference.py.ClassA[int, float | int, float | int] [incompatible_assignment]
 """

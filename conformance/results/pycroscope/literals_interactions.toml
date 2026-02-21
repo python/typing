@@ -1,9 +1,11 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 15: Expected 1 errors
-Line 16: Expected 1 errors
-Line 17: Expected 1 errors
-Line 18: Expected 1 errors
+Line 45: Unexpected errors ['./literals_interactions.py:45:0: Function may exit without returning a value [missing_return]']
 """
 output = """
+./literals_interactions.py:15:4: Tuple index out of range: Literal[5] [incompatible_call]
+./literals_interactions.py:16:4: Tuple index out of range: Literal[-5] [incompatible_call]
+./literals_interactions.py:17:4: Tuple index out of range: Literal[4] [incompatible_call]
+./literals_interactions.py:18:4: Tuple index out of range: Literal[-4] [incompatible_call]
+./literals_interactions.py:45:0: Function may exit without returning a value [missing_return]
 """

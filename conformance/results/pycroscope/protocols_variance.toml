@@ -6,7 +6,35 @@ Line 56: Expected 1 errors
 Line 66: Expected 1 errors
 Line 104: Expected 1 errors
 Lines 61, 62: Expected error (tag 'covariant_in_input')
-Lines 71, 72: Expected error (tag 'contravariant_in_output')
+Line 22: Unexpected errors ['./protocols_variance.py:22:4: Function may exit without returning a value [missing_return]']
+Line 27: Unexpected errors ['./protocols_variance.py:27:4: Function may exit without returning a value [missing_return]']
+Line 30: Unexpected errors ['./protocols_variance.py:30:4: Function may exit without returning a value [missing_return]']
+Line 33: Unexpected errors ['./protocols_variance.py:33:4: Function may exit without returning a value [missing_return]']
+Line 36: Unexpected errors ['./protocols_variance.py:36:4: Function may exit without returning a value [missing_return]']
+Line 41: Unexpected errors ['./protocols_variance.py:41:4: Function may exit without returning a value [missing_return]']
+Line 44: Unexpected errors ['./protocols_variance.py:44:4: Function may exit without returning a value [missing_return]']
+Line 47: Unexpected errors ['./protocols_variance.py:47:4: Function may exit without returning a value [missing_return]']
+Line 67: Unexpected errors ['./protocols_variance.py:67:4: Function may exit without returning a value [missing_return]']
+Line 77: Unexpected errors ['./protocols_variance.py:77:4: Function may exit without returning a value [missing_return]']
+Line 85: Unexpected errors ['./protocols_variance.py:85:4: Function may exit without returning a value [missing_return]']
+Line 91: Unexpected errors ['./protocols_variance.py:91:4: Function may exit without returning a value [missing_return]']
+Line 96: Unexpected errors ['./protocols_variance.py:96:4: Function may exit without returning a value [missing_return]']
+Line 120: Unexpected errors ['./protocols_variance.py:120:4: Function may exit without returning a value [missing_return]']
 """
 output = """
+./protocols_variance.py:22:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:27:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:30:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:33:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:36:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:41:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:44:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:47:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:67:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:72:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:77:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:85:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:91:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:96:4: Function may exit without returning a value [missing_return]
+./protocols_variance.py:120:4: Function may exit without returning a value [missing_return]
 """

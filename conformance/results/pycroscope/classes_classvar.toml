@@ -1,22 +1,27 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 38: Expected 1 errors
-Line 39: Expected 1 errors
-Line 40: Expected 1 errors
-Line 45: Expected 1 errors
 Line 46: Expected 1 errors
-Line 47: Expected 1 errors
-Line 52: Expected 1 errors
 Line 54: Expected 1 errors
-Line 55: Expected 1 errors
-Line 69: Expected 1 errors
 Line 70: Expected 1 errors
 Line 71: Expected 1 errors
-Line 73: Expected 1 errors
 Line 77: Expected 1 errors
 Line 78: Expected 1 errors
 Line 111: Expected 1 errors
 Line 140: Expected 1 errors
+Line 81: Unexpected errors ['./classes_classvar.py:81:12:   Any[from_another] is not equivalent to int']
+Line 82: Unexpected errors ['./classes_classvar.py:82:12:   Any[from_another] is not equivalent to list[str]']
 """
 output = """
+./classes_classvar.py:38:10: Unrecognized annotation object [invalid_annotation]
+./classes_classvar.py:39:10: Invalid type annotation 3 [invalid_annotation]
+./classes_classvar.py:40:13: Undefined name: var [undefined_name]
+./classes_classvar.py:40:10: Unrecognized annotation object [invalid_annotation]
+./classes_classvar.py:45:10: Unrecognized annotation object [invalid_annotation]
+./classes_classvar.py:47:10: Unrecognized annotation object [invalid_annotation]
+./classes_classvar.py:52:4: Incompatible assignment: expected list[str], got Literal[{}] [incompatible_assignment]
+./classes_classvar.py:55:11: Unrecognized annotation typing.ClassVar[<class 'int'>] [invalid_annotation]
+./classes_classvar.py:69:25: Unexpected ClassVar annotation [invalid_annotation]
+./classes_classvar.py:73:25: Unexpected ClassVar annotation [invalid_annotation]
+./classes_classvar.py:81:12:   Any[from_another] is not equivalent to int
+./classes_classvar.py:82:12:   Any[from_another] is not equivalent to list[str]
 """

@@ -21,6 +21,22 @@ Line 289: Expected 1 errors
 Line 339: Expected 1 errors
 Line 340: Expected 1 errors
 Line 341: Expected 1 errors
+Line 44: Unexpected errors ['./protocols_definition.py:44:4: Function may exit without returning a value [missing_return]']
+Line 48: Unexpected errors ['./protocols_definition.py:48:4: Function may exit without returning a value [missing_return]']
+Line 52: Unexpected errors ['./protocols_definition.py:52:4: Function may exit without returning a value [missing_return]']
+Line 165: Unexpected errors ['./protocols_definition.py:165:4: Function may exit without returning a value [missing_return]']
+Line 223: Unexpected errors ['./protocols_definition.py:223:4: Function may exit without returning a value [missing_return]']
+Line 294: Unexpected errors ['./protocols_definition.py:294:4: Function may exit without returning a value [missing_return]']
+Line 298: Unexpected errors ['./protocols_definition.py:298:4: Name val1 is already defined [class_variable_redefinition]']
+Line 308: Unexpected errors ['./protocols_definition.py:308:4: Name val1 is already defined [class_variable_redefinition]']
 """
 output = """
+./protocols_definition.py:44:4: Function may exit without returning a value [missing_return]
+./protocols_definition.py:48:4: Function may exit without returning a value [missing_return]
+./protocols_definition.py:52:4: Function may exit without returning a value [missing_return]
+./protocols_definition.py:165:4: Function may exit without returning a value [missing_return]
+./protocols_definition.py:223:4: Function may exit without returning a value [missing_return]
+./protocols_definition.py:294:4: Function may exit without returning a value [missing_return]
+./protocols_definition.py:298:4: Name val1 is already defined [class_variable_redefinition]
+./protocols_definition.py:308:4: Name val1 is already defined [class_variable_redefinition]
 """

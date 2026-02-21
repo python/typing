@@ -7,6 +7,18 @@ Line 79: Expected 1 errors
 Line 80: Expected 1 errors
 Line 102: Expected 1 errors
 Line 103: Expected 1 errors
+Line 67: Unexpected errors ['./protocols_subtyping.py:67:4: Function may exit without returning a value [missing_return]']
+Line 72: Unexpected errors ['./protocols_subtyping.py:72:4: Function may exit without returning a value [missing_return]']
+Line 88: Unexpected errors ['./protocols_subtyping.py:88:4: Function may exit without returning a value [missing_return]']
+Line 93: Unexpected errors ['./protocols_subtyping.py:93:4: Function may exit without returning a value [missing_return]']
+Line 110: Unexpected errors ['./protocols_subtyping.py:110:4: Function may exit without returning a value [missing_return]']
+Line 115: Unexpected errors ['./protocols_subtyping.py:115:4: Function may exit without returning a value [missing_return]']
 """
 output = """
+./protocols_subtyping.py:67:4: Function may exit without returning a value [missing_return]
+./protocols_subtyping.py:72:4: Function may exit without returning a value [missing_return]
+./protocols_subtyping.py:88:4: Function may exit without returning a value [missing_return]
+./protocols_subtyping.py:93:4: Function may exit without returning a value [missing_return]
+./protocols_subtyping.py:110:4: Function may exit without returning a value [missing_return]
+./protocols_subtyping.py:115:4: Function may exit without returning a value [missing_return]
 """

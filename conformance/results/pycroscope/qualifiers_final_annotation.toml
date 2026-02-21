@@ -1,7 +1,6 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 16: Expected 1 errors
-Line 18: Expected 1 errors
 Line 34: Expected 1 errors
 Line 38: Expected 1 errors
 Line 54: Expected 1 errors
@@ -9,23 +8,34 @@ Line 62: Expected 1 errors
 Line 63: Expected 1 errors
 Line 65: Expected 1 errors
 Line 67: Expected 1 errors
-Line 71: Expected 1 errors
 Line 81: Expected 1 errors
 Line 94: Expected 1 errors
 Line 107: Expected 1 errors
 Line 108: Expected 1 errors
-Line 118: Expected 1 errors
-Line 121: Expected 1 errors
-Line 134: Expected 1 errors
-Line 135: Expected 1 errors
 Line 141: Expected 1 errors
-Line 145: Expected 1 errors
-Line 147: Expected 1 errors
-Line 149: Expected 1 errors
-Line 152: Expected 1 errors
-Line 155: Expected 1 errors
 Line 166: Expected 1 errors
 Line 170: Expected 1 errors
+Line 168: Unexpected errors ["./qualifiers_final_annotation.py:168:0: Cannot import * from unresolved module '_qualifiers_final_annotation_2' [invalid_import]"]
 """
 output = """
+./qualifiers_final_annotation.py:18:6: Unrecognized annotation object [invalid_annotation]
+./qualifiers_final_annotation.py:118:3: Unrecognized annotation typing.Final[<class 'int'>] [invalid_annotation]
+./qualifiers_final_annotation.py:121:13: Unexpected Final annotation [invalid_annotation]
+./qualifiers_final_annotation.py:71:0: Cannot assign to final name RATE [incompatible_assignment]
+./qualifiers_final_annotation.py:134:0: In call to pycroscope.signature.N: Missing required argument 'x' [incompatible_call]
+./qualifiers_final_annotation.py:135:4: Incompatible argument type for x: expected int but got Literal[''] [incompatible_argument]
+./qualifiers_final_annotation.py:135:10: Incompatible argument type for y: expected int but got Literal[''] [incompatible_argument]
+./qualifiers_final_annotation.py:145:4: Cannot assign to final name x [incompatible_assignment]
+./qualifiers_final_annotation.py:147:9: Cannot assign to final name x [incompatible_assignment]
+./qualifiers_final_annotation.py:149:8: Cannot assign to final name x [incompatible_assignment]
+./qualifiers_final_annotation.py:152:29: Cannot assign to final name x [incompatible_assignment]
+./qualifiers_final_annotation.py:155:8: Cannot assign to final name x [incompatible_assignment]
+./qualifiers_final_annotation.py:152:29: Assigned value of x is never accessed [unused_assignment]
+./qualifiers_final_annotation.py:155:5: Variable a is never accessed [unused_variable]
+./qualifiers_final_annotation.py:145:4: Assigned value of x is never accessed [unused_assignment]
+./qualifiers_final_annotation.py:147:9: Assigned value of x is never accessed [unused_assignment]
+./qualifiers_final_annotation.py:147:4: Variable a is never accessed [unused_variable]
+./qualifiers_final_annotation.py:149:8: Assigned value of x is never accessed [unused_assignment]
+./qualifiers_final_annotation.py:155:8: Assigned value of x is never accessed [unused_assignment]
+./qualifiers_final_annotation.py:168:0: Cannot import * from unresolved module '_qualifiers_final_annotation_2' [invalid_import]
 """

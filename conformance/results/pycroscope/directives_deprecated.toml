@@ -14,4 +14,5 @@ Line 69: Expected 1 errors
 Line 98: Expected 1 errors
 """
 output = """
+./directives_deprecated.py:90:4: @override decorator in invalid location [invalid_override_decorator]
 """

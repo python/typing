@@ -8,6 +8,12 @@ Line 104: Expected 1 errors
 Line 106: Expected 1 errors
 Line 107: Expected 1 errors
 Line 108: Expected 1 errors
+Line 44: Unexpected errors ['./protocols_class_objects.py:44:4: Function may exit without returning a value [missing_return]']
+Line 49: Unexpected errors ['./protocols_class_objects.py:49:4: Function may exit without returning a value [missing_return]']
+Line 64: Unexpected errors ['./protocols_class_objects.py:64:4: Function may exit without returning a value [missing_return]']
 """
 output = """
+./protocols_class_objects.py:44:4: Function may exit without returning a value [missing_return]
+./protocols_class_objects.py:49:4: Function may exit without returning a value [missing_return]
+./protocols_class_objects.py:64:4: Function may exit without returning a value [missing_return]
 """

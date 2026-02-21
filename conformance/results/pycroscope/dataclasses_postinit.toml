@@ -4,6 +4,12 @@ Line 19: Expected 1 errors
 Line 28: Expected 1 errors
 Line 29: Expected 1 errors
 Line 36: Expected 1 errors
+Line 25: Unexpected errors ['./dataclasses_postinit.py:25:12:   Any[from_another] is not equivalent to int']
+Line 26: Unexpected errors ['./dataclasses_postinit.py:26:12:   Any[from_another] is not equivalent to int']
+Line 27: Unexpected errors ['./dataclasses_postinit.py:27:12:   Any[from_another] is not equivalent to int']
 """
 output = """
+./dataclasses_postinit.py:25:12:   Any[from_another] is not equivalent to int
+./dataclasses_postinit.py:26:12:   Any[from_another] is not equivalent to int
+./dataclasses_postinit.py:27:12:   Any[from_another] is not equivalent to int
 """

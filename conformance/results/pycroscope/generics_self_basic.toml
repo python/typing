@@ -2,7 +2,7 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 20: Expected 1 errors
 Line 33: Expected 1 errors
-Line 68: Expected 1 errors
 """
 output = """
+./generics_self_basic.py:68:25: Unrecognized annotation object [invalid_annotation]
 """

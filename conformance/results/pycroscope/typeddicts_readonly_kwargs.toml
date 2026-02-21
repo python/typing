@@ -1,6 +1,6 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 33: Expected 1 errors
 """
 output = """
+./typeddicts_readonly_kwargs.py:33:11: Cannot set readonly key 'key1' in TypedDict TypedDict({"key1": Readonly[int], "key2": Readonly[str]}) [readonly_typeddict]
 """

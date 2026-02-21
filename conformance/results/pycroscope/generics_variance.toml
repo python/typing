@@ -1,6 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 14: Expected 1 errors
 Line 77: Expected 1 errors
 Line 81: Expected 1 errors
 Line 93: Expected 1 errors
@@ -13,6 +12,10 @@ Lines 125, 126: Expected error (tag 'CoContra_Child2')
 Lines 131, 132: Expected error (tag 'CoContra_Child3')
 Lines 141, 142: Expected error (tag 'CoContra_Child5')
 Lines 195, 196: Expected error (tag 'ContraToContraToContra_WithTA')
+Line 45: Unexpected errors ['./generics_variance.py:45:21: Unrecognized annotation typing.TypeVar [invalid_annotation]', './generics_variance.py:45:27: Unrecognized annotation typing.TypeVar [invalid_annotation]']
 """
 output = """
+./generics_variance.py:45:21: Unrecognized annotation typing.TypeVar [invalid_annotation]
+./generics_variance.py:45:27: Unrecognized annotation typing.TypeVar [invalid_annotation]
+./generics_variance.py:14:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, contravariant: bool = Literal[False], covariant: bool = Literal[False], infer_variance: bool = Literal[False], default: Any[explicit] = Any[unannotated]) -> typing.TypeVar: Bivariant types are not supported. [incompatible_call]
 """

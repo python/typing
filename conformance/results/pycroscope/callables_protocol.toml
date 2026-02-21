@@ -17,6 +17,32 @@ Line 238: Expected 1 errors
 Line 260: Expected 1 errors
 Line 284: Expected 1 errors
 Line 311: Expected 1 errors
+Line 14: Unexpected errors ['./callables_protocol.py:14:4: Function may exit without returning a value [missing_return]']
+Line 101: Unexpected errors ['./callables_protocol.py:101:4: Function may exit without returning a value [missing_return]']
+Line 125: Unexpected errors ['./callables_protocol.py:125:4: Function may exit without returning a value [missing_return]']
+Line 156: Unexpected errors ['./callables_protocol.py:156:4: Function may exit without returning a value [missing_return]']
+Line 179: Unexpected errors ['./callables_protocol.py:179:4: Function may exit without returning a value [missing_return]']
+Line 220: Unexpected errors ['./callables_protocol.py:220:4: Function may exit without returning a value [missing_return]']
+Line 224: Unexpected errors ['./callables_protocol.py:224:0: Function may exit without returning a value [missing_return]']
+Line 228: Unexpected errors ['./callables_protocol.py:228:0: Function may exit without returning a value [missing_return]']
+Line 232: Unexpected errors ['./callables_protocol.py:232:0: Function may exit without returning a value [missing_return]']
+Line 265: Unexpected errors ['./callables_protocol.py:265:4: Function may exit without returning a value [missing_return]']
+Line 271: Unexpected errors ['./callables_protocol.py:271:4: Function may exit without returning a value [missing_return]']
+Line 292: Unexpected errors ['./callables_protocol.py:292:4: Function may exit without returning a value [missing_return]']
+Line 298: Unexpected errors ['./callables_protocol.py:298:4: Function may exit without returning a value [missing_return]']
 """
 output = """
+./callables_protocol.py:14:4: Function may exit without returning a value [missing_return]
+./callables_protocol.py:101:4: Function may exit without returning a value [missing_return]
+./callables_protocol.py:125:4: Function may exit without returning a value [missing_return]
+./callables_protocol.py:156:4: Function may exit without returning a value [missing_return]
+./callables_protocol.py:179:4: Function may exit without returning a value [missing_return]
+./callables_protocol.py:220:4: Function may exit without returning a value [missing_return]
+./callables_protocol.py:224:0: Function may exit without returning a value [missing_return]
+./callables_protocol.py:228:0: Function may exit without returning a value [missing_return]
+./callables_protocol.py:232:0: Function may exit without returning a value [missing_return]
+./callables_protocol.py:265:4: Function may exit without returning a value [missing_return]
+./callables_protocol.py:271:4: Function may exit without returning a value [missing_return]
+./callables_protocol.py:292:4: Function may exit without returning a value [missing_return]
+./callables_protocol.py:298:4: Function may exit without returning a value [missing_return]
 """

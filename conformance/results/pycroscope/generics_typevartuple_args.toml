@@ -7,8 +7,24 @@ Line 57: Expected 1 errors
 Line 58: Expected 1 errors
 Line 59: Expected 1 errors
 Line 67: Expected 1 errors
-Line 75: Expected 1 errors
 Line 76: Expected 1 errors
+Line 16: Unexpected errors ["./generics_typevartuple_args.py:16:25: Unrecognized annotation _StarredValue(value=KnownValue(val=Ts), node=Name(id='Ts', ctx=Load())) [invalid_annotation]"]
+Line 27: Unexpected errors ["./generics_typevartuple_args.py:27:30: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[typing.Any]), node=Subscript(value=Name(id='tuple', ctx=Load()), slice=Tuple(elts=[Starred(value=Name(...), ctx=Load(...)), Name(id='Env', ctx=Load(...))], ctx=Load()), ctx=Load())) [invalid_annotation]"]
+Line 42: Unexpected errors ["./generics_typevartuple_args.py:42:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, ...]), node=Subscript(value=Name(id='tuple', ctx=Load()), slice=Tuple(elts=[Name(id='int', ctx=Load(...)), Constant(value=Ellipsis, kind=None)], ctx=Load()), ctx=Load())) [invalid_annotation]"]
+Line 51: Unexpected errors ["./generics_typevartuple_args.py:51:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, *tuple[str, ...], str]), node=Subscript(value=Name(id='tuple', ctx=Load()), slice=Tuple(elts=[Name(id='int', ctx=Load(...)), ..., Name(id='str', ctx=Load(...))], ctx=Load()), ctx=Load())) [invalid_annotation]"]
+Line 62: Unexpected errors ["./generics_typevartuple_args.py:62:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, str]), node=Subscript(value=Name(id='tuple', ctx=Load()), slice=Tuple(elts=[Name(id='int', ctx=Load(...)), Name(id='str', ctx=Load(...))], ctx=Load()), ctx=Load())) [invalid_annotation]"]
+Line 20: Unexpected errors ['./generics_typevartuple_args.py:20:12:   tuple[Any[explicit]] is not equivalent to tuple[int, str]']
+Line 31: Unexpected errors ['./generics_typevartuple_args.py:31:12:   tuple[Any[explicit]] is not equivalent to tuple[]']
+Line 32: Unexpected errors ['./generics_typevartuple_args.py:32:12:   tuple[Any[explicit]] is not equivalent to tuple[int, str]']
 """
 output = """
+./generics_typevartuple_args.py:16:25: Unrecognized annotation _StarredValue(value=KnownValue(val=Ts), node=Name(id='Ts', ctx=Load())) [invalid_annotation]
+./generics_typevartuple_args.py:27:30: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[typing.Any]), node=Subscript(value=Name(id='tuple', ctx=Load()), slice=Tuple(elts=[Starred(value=Name(...), ctx=Load(...)), Name(id='Env', ctx=Load(...))], ctx=Load()), ctx=Load())) [invalid_annotation]
+./generics_typevartuple_args.py:42:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, ...]), node=Subscript(value=Name(id='tuple', ctx=Load()), slice=Tuple(elts=[Name(id='int', ctx=Load(...)), Constant(value=Ellipsis, kind=None)], ctx=Load()), ctx=Load())) [invalid_annotation]
+./generics_typevartuple_args.py:51:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, *tuple[str, ...], str]), node=Subscript(value=Name(id='tuple', ctx=Load()), slice=Tuple(elts=[Name(id='int', ctx=Load(...)), ..., Name(id='str', ctx=Load(...))], ctx=Load()), ctx=Load())) [invalid_annotation]
+./generics_typevartuple_args.py:62:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, str]), node=Subscript(value=Name(id='tuple', ctx=Load()), slice=Tuple(elts=[Name(id='int', ctx=Load(...)), Name(id='str', ctx=Load(...))], ctx=Load()), ctx=Load())) [invalid_annotation]
+./generics_typevartuple_args.py:20:12:   tuple[Any[explicit]] is not equivalent to tuple[int, str]
+./generics_typevartuple_args.py:31:12:   tuple[Any[explicit]] is not equivalent to tuple[]
+./generics_typevartuple_args.py:32:12:   tuple[Any[explicit]] is not equivalent to tuple[int, str]
+./generics_typevartuple_args.py:75:0: Incompatible argument type for args: expected tuple[tuple[Any[explicit]], ...] but got tuple[Literal[(0,)], Literal[(1, 2)]] [incompatible_argument]
 """

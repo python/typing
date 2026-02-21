@@ -1,20 +1,20 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 88: Expected 1 errors
-Line 89: Expected 1 errors
-Line 90: Expected 1 errors
-Line 91: Expected 1 errors
-Line 92: Expected 1 errors
 Line 93: Expected 1 errors
 Line 94: Expected 1 errors
 Line 95: Expected 1 errors
-Line 96: Expected 1 errors
-Line 97: Expected 1 errors
-Line 98: Expected 1 errors
-Line 99: Expected 1 errors
 Line 100: Expected 1 errors
 Line 101: Expected 1 errors
-Line 102: Expected 1 errors
 """
 output = """
+./annotations_typeexpr.py:89:8: Invalid type annotation [<class 'int'>, <class 'str'>] [invalid_annotation]
+./annotations_typeexpr.py:90:8: Invalid type annotation (<class 'int'>, <class 'str'>) [invalid_annotation]
+./annotations_typeexpr.py:91:8: Unrecognized annotation <list containing [type 'int']> [invalid_annotation]
+./annotations_typeexpr.py:92:8: Invalid type annotation {} [invalid_annotation]
+./annotations_typeexpr.py:96:8: Invalid type annotation 3 [invalid_annotation]
+./annotations_typeexpr.py:97:9: Invalid type annotation True [invalid_annotation]
+./annotations_typeexpr.py:98:9: Invalid type annotation 1 [invalid_annotation]
+./annotations_typeexpr.py:99:9: Invalid type annotation -1 [invalid_annotation]
+./annotations_typeexpr.py:102:9: Invalid type annotation <module 'types' from '/Users/jelle/.local/share/uv/python/cpython-3.14.0-macos-aarch64-none/lib/python3.14/types.py'> [invalid_annotation]
 """

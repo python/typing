@@ -5,7 +5,9 @@ Line 50: Expected 1 errors
 Line 107: Expected 1 errors
 Line 114: Expected 1 errors
 Line 143: Expected 1 errors
-Lines 131, 132: Expected error (tag 'optional-default-use')
+Line 173: Unexpected errors ['./generics_defaults.py:173:12:   Any[from_another] is not equivalent to int']
 """
 output = """
+./generics_defaults.py:131:12:   Any[generic_argument] is not equivalent to int
+./generics_defaults.py:173:12:   Any[from_another] is not equivalent to int
 """

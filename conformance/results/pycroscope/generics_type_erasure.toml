@@ -7,6 +7,14 @@ Line 43: Expected 1 errors
 Line 44: Expected 1 errors
 Line 45: Expected 1 errors
 Line 46: Expected 1 errors
+Line 21: Unexpected errors ['./generics_type_erasure.py:21:12:   Any[from_another] is not equivalent to int']
+Line 47: Unexpected errors ['./generics_type_erasure.py:47:12:   Any[from_another] is not equivalent to int']
+Line 48: Unexpected errors ['./generics_type_erasure.py:48:12:   Any[from_another] is not equivalent to int']
+Line 56: Unexpected errors ['./generics_type_erasure.py:56:12:   Any[from_another] is not equivalent to bytes']
 """
 output = """
+./generics_type_erasure.py:21:12:   Any[from_another] is not equivalent to int
+./generics_type_erasure.py:47:12:   Any[from_another] is not equivalent to int
+./generics_type_erasure.py:48:12:   Any[from_another] is not equivalent to int
+./generics_type_erasure.py:56:12:   Any[from_another] is not equivalent to bytes
 """

@@ -3,8 +3,18 @@ errors_diff = """
 Line 21: Expected 1 errors
 Line 42: Expected 1 errors
 Line 56: Expected 1 errors
-Line 107: Expected 1 errors
 Line 130: Expected 1 errors
+Line 51: Unexpected errors ['./constructors_call_init.py:51:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]']
+Line 61: Unexpected errors ['./constructors_call_init.py:61:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]']
+Line 63: Unexpected errors ['./constructors_call_init.py:63:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]']
+Line 88: Unexpected errors ['./constructors_call_init.py:88:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]']
+Line 96: Unexpected errors ['./constructors_call_init.py:96:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]']
 """
 output = """
+./constructors_call_init.py:51:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
+./constructors_call_init.py:61:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
+./constructors_call_init.py:63:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
+./constructors_call_init.py:88:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
+./constructors_call_init.py:96:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
+./constructors_call_init.py:107:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
 """

@@ -2,6 +2,8 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 54: Expected 1 errors
 Line 68: Expected 1 errors
+Line 26: Unexpected errors ['./constructors_call_metaclass.py:26:16:   Any[from_another] is not equivalent to Never']
 """
 output = """
+./constructors_call_metaclass.py:26:16:   Any[from_another] is not equivalent to Never
 """

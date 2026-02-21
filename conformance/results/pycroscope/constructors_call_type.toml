@@ -1,8 +1,6 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 30: Expected 1 errors
-Line 40: Expected 1 errors
-Line 50: Expected 1 errors
 Line 59: Expected 1 errors
 Line 64: Expected 1 errors
 Line 72: Expected 1 errors
@@ -10,4 +8,6 @@ Line 81: Expected 1 errors
 Line 82: Expected 1 errors
 """
 output = """
+./constructors_call_type.py:40:4: In call to /Users/jelle/py/typing/conformance/tests/constructors_call_type.py.Class2: Missing required argument 'x' [incompatible_call]
+./constructors_call_type.py:50:4: In call to /Users/jelle/py/typing/conformance/tests/constructors_call_type.py.Class3: Missing required argument 'x' [incompatible_call]
 """

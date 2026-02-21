@@ -1,5 +1,9 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 72: Unexpected errors ['./specialtypes_any.py:72:16:   (...) -> Any[explicit] is not equivalent to (...) -> Any[explicit]']
+Line 86: Unexpected errors ['./specialtypes_any.py:86:12:   Any[from_another] is not equivalent to int']
 """
 output = """
+./specialtypes_any.py:72:16:   (...) -> Any[explicit] is not equivalent to (...) -> Any[explicit]
+./specialtypes_any.py:86:12:   Any[from_another] is not equivalent to int
 """

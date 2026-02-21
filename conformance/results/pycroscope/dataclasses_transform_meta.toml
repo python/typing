@@ -6,6 +6,8 @@ Line 66: Expected 1 errors
 Line 73: Expected 1 errors
 Line 83: Expected 1 errors
 Line 103: Expected 1 errors
+Line 15: Unexpected errors ['./dataclasses_transform_meta.py:15:0: Function may exit without returning a value [missing_return]']
 """
 output = """
+./dataclasses_transform_meta.py:15:0: Function may exit without returning a value [missing_return]
 """

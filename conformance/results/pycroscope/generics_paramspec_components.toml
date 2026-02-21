@@ -1,21 +1,23 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 17: Expected 1 errors
-Line 20: Expected 1 errors
 Line 23: Expected 1 errors
 Line 26: Expected 1 errors
 Line 30: Expected 1 errors
 Line 35: Expected 1 errors
 Line 36: Expected 1 errors
 Line 38: Expected 1 errors
-Line 41: Expected 1 errors
-Line 49: Expected 1 errors
 Line 51: Expected 1 errors
 Line 60: Expected 1 errors
 Line 70: Expected 1 errors
-Line 72: Expected 1 errors
-Line 83: Expected 1 errors
-Line 98: Expected 1 errors
+Line 82: Unexpected errors ['./generics_paramspec_components.py:82:8: Incompatible argument type for args: expected ~P.args but got tuple[] [incompatible_argument]']
 """
 output = """
+./generics_paramspec_components.py:20:19: ParamSpec.args must be used on *args, not x [invalid_annotation]
+./generics_paramspec_components.py:41:22: ParamSpec.kwargs must be used together with ParamSpec.args [invalid_annotation]
+./generics_paramspec_components.py:49:8: tuple[object, ...] is not a mapping [incompatible_call]
+./generics_paramspec_components.py:72:8: Missing required positional argument at position 0 [incompatible_call]
+./generics_paramspec_components.py:82:8: Incompatible argument type for args: expected ~P.args but got tuple[] [incompatible_argument]
+./generics_paramspec_components.py:83:8: Incompatible argument type for args: expected ~P.args but got tuple[] [incompatible_argument]
+./generics_paramspec_components.py:98:0: In call to /Users/jelle/py/typing/conformance/tests/generics_paramspec_components.py.twice: Cannot resolve type variables [incompatible_call]
 """

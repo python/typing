@@ -1,6 +1,6 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 14: Expected 1 errors
 """
 output = """
+./directives_type_ignore_file2.py:14:0: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]
 """

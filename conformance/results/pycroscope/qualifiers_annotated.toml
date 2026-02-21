@@ -1,25 +1,33 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 38: Expected 1 errors
 Line 39: Expected 1 errors
-Line 40: Expected 1 errors
-Line 41: Expected 1 errors
 Line 42: Expected 1 errors
 Line 43: Expected 1 errors
 Line 44: Expected 1 errors
-Line 45: Expected 1 errors
-Line 46: Expected 1 errors
-Line 47: Expected 1 errors
-Line 48: Expected 1 errors
 Line 49: Expected 1 errors
 Line 59: Expected 1 errors
-Line 71: Expected 1 errors
-Line 72: Expected 1 errors
-Line 79: Expected 1 errors
-Line 80: Expected 1 errors
 Line 86: Expected 1 errors
 Line 87: Expected 1 errors
 Line 88: Expected 1 errors
+Line 105: Unexpected errors ['./qualifiers_annotated.py:105:7: Unexpected Required annotation [invalid_annotation]']
+Line 106: Unexpected errors ['./qualifiers_annotated.py:106:7: Unexpected Required annotation [invalid_annotation]']
+Line 107: Unexpected errors ['./qualifiers_annotated.py:107:7: Unexpected NotRequired annotation [invalid_annotation]']
+Line 108: Unexpected errors ['./qualifiers_annotated.py:108:7: Unexpected NotRequired annotation [invalid_annotation]']
 """
 output = """
+./qualifiers_annotated.py:38:6: Invalid type annotation [<class 'int'>, <class 'str'>] [invalid_annotation]
+./qualifiers_annotated.py:41:6: Invalid type annotation {'a': 'b'} [invalid_annotation]
+./qualifiers_annotated.py:46:6: Invalid type annotation True [invalid_annotation]
+./qualifiers_annotated.py:47:7: Invalid type annotation 1 [invalid_annotation]
+./qualifiers_annotated.py:40:25: Variable i is never accessed [unused_variable]
+./qualifiers_annotated.py:45:16: Undefined name: var1 [undefined_name]
+./qualifiers_annotated.py:48:17: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]
+./qualifiers_annotated.py:71:0: Incompatible assignment: expected type, got Literal[typing.Annotated[int, '']] [incompatible_assignment]
+./qualifiers_annotated.py:72:0: Incompatible assignment: expected type, got Literal[typing.Annotated[int, '']] [incompatible_assignment]
+./qualifiers_annotated.py:79:6: Incompatible argument type for x: expected type[~T] but got Literal[typing.Annotated[str, '']] [incompatible_argument]
+./qualifiers_annotated.py:80:6: Incompatible argument type for x: expected type[~T] but got Literal[typing.Annotated[int, '']] [incompatible_argument]
+./qualifiers_annotated.py:105:7: Unexpected Required annotation [invalid_annotation]
+./qualifiers_annotated.py:106:7: Unexpected Required annotation [invalid_annotation]
+./qualifiers_annotated.py:107:7: Unexpected NotRequired annotation [invalid_annotation]
+./qualifiers_annotated.py:108:7: Unexpected NotRequired annotation [invalid_annotation]
 """

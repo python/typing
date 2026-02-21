@@ -1,6 +1,16 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 42: Expected 1 errors
+Line 15: Unexpected errors ['./dataclasses_match_args.py:15:7: Invalid type annotation <dataclasses._KW_ONLY_TYPE object at 0x10052acf0> [invalid_annotation]']
+Line 18: Unexpected errors ["./dataclasses_match_args.py:18:12:   Any[from_another] is not equivalent to tuple[Literal['x']]"]
+Line 26: Unexpected errors ["./dataclasses_match_args.py:26:12:   Any[from_another] is not equivalent to tuple[Literal['x']]"]
+Line 34: Unexpected errors ["./dataclasses_match_args.py:34:12:   Any[from_another] is not equivalent to tuple[Literal['x']]"]
+Line 49: Unexpected errors ['./dataclasses_match_args.py:49:12:   Any[from_another] is not equivalent to tuple[]']
 """
 output = """
+./dataclasses_match_args.py:15:7: Invalid type annotation <dataclasses._KW_ONLY_TYPE object at 0x10052acf0> [invalid_annotation]
+./dataclasses_match_args.py:18:12:   Any[from_another] is not equivalent to tuple[Literal['x']]
+./dataclasses_match_args.py:26:12:   Any[from_another] is not equivalent to tuple[Literal['x']]
+./dataclasses_match_args.py:34:12:   Any[from_another] is not equivalent to tuple[Literal['x']]
+./dataclasses_match_args.py:49:12:   Any[from_another] is not equivalent to tuple[]
 """

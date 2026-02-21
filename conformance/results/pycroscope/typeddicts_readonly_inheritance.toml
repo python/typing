@@ -1,16 +1,50 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 36: Expected 1 errors
-Line 50: Expected 1 errors
 Line 65: Expected 1 errors
 Line 82: Expected 1 errors
 Line 83: Expected 1 errors
 Line 84: Expected 1 errors
-Line 94: Expected 1 errors
-Line 98: Expected 1 errors
-Line 106: Expected 1 errors
 Line 119: Expected 1 errors
 Line 132: Expected 1 errors
+Line 15: Unexpected errors ['./typeddicts_readonly_inheritance.py:15:10: Unexpected ReadOnly annotation [invalid_annotation]']
+Line 43: Unexpected errors ['./typeddicts_readonly_inheritance.py:43:12: Unrecognized annotation object [invalid_annotation]']
+Line 44: Unexpected errors ['./typeddicts_readonly_inheritance.py:44:9: Unexpected ReadOnly annotation [invalid_annotation]']
+Line 49: Unexpected errors ['./typeddicts_readonly_inheritance.py:49:12: Unexpected ReadOnly annotation [invalid_annotation]']
+Line 58: Unexpected errors ['./typeddicts_readonly_inheritance.py:58:10: Unexpected NotRequired annotation [invalid_annotation]']
+Line 62: Unexpected errors ['./typeddicts_readonly_inheritance.py:62:10: Unexpected Required annotation [invalid_annotation]']
+Line 72: Unexpected errors ['./typeddicts_readonly_inheritance.py:72:11: Unexpected NotRequired annotation [invalid_annotation]']
+Line 88: Unexpected errors ['./typeddicts_readonly_inheritance.py:88:7: Unexpected Required annotation [invalid_annotation]']
+Line 89: Unexpected errors ['./typeddicts_readonly_inheritance.py:89:7: Unexpected NotRequired annotation [invalid_annotation]']
+Line 90: Unexpected errors ['./typeddicts_readonly_inheritance.py:90:7: Unexpected Required annotation [invalid_annotation]']
+Line 102: Unexpected errors ['./typeddicts_readonly_inheritance.py:102:7: Unexpected Required annotation [invalid_annotation]']
+Line 111: Unexpected errors ['./typeddicts_readonly_inheritance.py:111:7: Unexpected ReadOnly annotation [invalid_annotation]']
+Line 116: Unexpected errors ['./typeddicts_readonly_inheritance.py:116:7: Unexpected ReadOnly annotation [invalid_annotation]']
+Line 123: Unexpected errors ['./typeddicts_readonly_inheritance.py:123:7: Unexpected NotRequired annotation [invalid_annotation]']
+Line 124: Unexpected errors ['./typeddicts_readonly_inheritance.py:124:7: Unexpected Required annotation [invalid_annotation]']
+Line 128: Unexpected errors ['./typeddicts_readonly_inheritance.py:128:7: Unexpected Required annotation [invalid_annotation]']
+Line 129: Unexpected errors ['./typeddicts_readonly_inheritance.py:129:7: Unexpected NotRequired annotation [invalid_annotation]']
 """
 output = """
+./typeddicts_readonly_inheritance.py:15:10: Unexpected ReadOnly annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:43:12: Unrecognized annotation object [invalid_annotation]
+./typeddicts_readonly_inheritance.py:44:9: Unexpected ReadOnly annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:49:12: Unexpected ReadOnly annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:50:9: Unexpected ReadOnly annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:58:10: Unexpected NotRequired annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:62:10: Unexpected Required annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:72:11: Unexpected NotRequired annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:88:7: Unexpected Required annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:89:7: Unexpected NotRequired annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:90:7: Unexpected Required annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:94:7: Unexpected ReadOnly annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:98:7: Unexpected NotRequired annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:102:7: Unexpected Required annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:106:7: Unexpected NotRequired annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:111:7: Unexpected ReadOnly annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:116:7: Unexpected ReadOnly annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:123:7: Unexpected NotRequired annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:124:7: Unexpected Required annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:128:7: Unexpected Required annotation [invalid_annotation]
+./typeddicts_readonly_inheritance.py:129:7: Unexpected NotRequired annotation [invalid_annotation]
 """

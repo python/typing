@@ -1,5 +1,13 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 8: Unexpected errors ["./directives_type_ignore.py:8:0: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]"]
+Line 11: Unexpected errors ["./directives_type_ignore.py:11:0: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]"]
+Line 14: Unexpected errors ["./directives_type_ignore.py:14:0: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]"]
+Line 20: Unexpected errors ["./directives_type_ignore.py:20:0: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]"]
 """
 output = """
+./directives_type_ignore.py:8:0: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]
+./directives_type_ignore.py:11:0: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]
+./directives_type_ignore.py:14:0: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]
+./directives_type_ignore.py:20:0: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]
 """

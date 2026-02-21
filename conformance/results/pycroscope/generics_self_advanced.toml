@@ -1,5 +1,11 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 36: Unexpected errors ['./generics_self_advanced.py:36:20:   Any[from_another] is not equivalent to list[~SelfT]']
+Line 42: Unexpected errors ['./generics_self_advanced.py:42:20:   Any[unannotated] is not equivalent to type[~SelfT]']
+Line 43: Unexpected errors ['./generics_self_advanced.py:43:20:   Any[from_another] is not equivalent to list[~SelfT]']
 """
 output = """
+./generics_self_advanced.py:36:20:   Any[from_another] is not equivalent to list[~SelfT]
+./generics_self_advanced.py:42:20:   Any[unannotated] is not equivalent to type[~SelfT]
+./generics_self_advanced.py:43:20:   Any[from_another] is not equivalent to list[~SelfT]
 """

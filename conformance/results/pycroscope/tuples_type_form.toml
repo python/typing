@@ -1,10 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 12: Expected 1 errors
-Line 14: Expected 1 errors
-Line 15: Expected 1 errors
-Line 25: Expected 1 errors
-Line 36: Expected 1 errors
 Line 40: Expected 1 errors
 Line 41: Expected 1 errors
 Line 42: Expected 1 errors
@@ -13,4 +8,9 @@ Line 44: Expected 1 errors
 Line 45: Expected 1 errors
 """
 output = """
+./tuples_type_form.py:12:0: Incompatible assignment: expected tuple[int], got Literal[(1, 2)] [incompatible_assignment]
+./tuples_type_form.py:14:0: Incompatible assignment: expected tuple[int, int], got Literal[(1,)] [incompatible_assignment]
+./tuples_type_form.py:15:0: Incompatible assignment: expected tuple[int, int], got Literal[(1, '')] [incompatible_assignment]
+./tuples_type_form.py:25:0: Incompatible assignment: expected tuple[], got Literal[(1,)] [incompatible_assignment]
+./tuples_type_form.py:36:0: Incompatible assignment: expected tuple[int, ...], got Literal[(1, 2, 3, '')] [incompatible_assignment]
 """
