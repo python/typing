@@ -6,5 +6,5 @@ Line 31: Expected 1 errors
 """
 output = """
 ./typeddicts_alt_syntax.py:35:16: In call to typing.TypedDict: Got an unexpected keyword argument 'other' [incompatible_call]
-./typeddicts_alt_syntax.py:41:9: In call to typing.TypedDict: Got unexpected keyword arguments 'year', 'name' [incompatible_call]
+./typeddicts_alt_syntax.py:41:9: In call to typing.TypedDict: Got unexpected keyword arguments 'name', 'year' [incompatible_call]
 """

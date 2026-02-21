@@ -23,16 +23,12 @@ Line 82: Expected 1 errors
 Line 84: Expected 1 errors
 Lines 51, 52: Expected error (tag 'TA14')
 Lines 88, 89: Expected error (tag 'RTA6')
-Line 9: Unexpected errors ['./aliases_type_statement.py:9:0: Traceback (most recent call last):']
 Line 21: Unexpected errors ["./aliases_type_statement.py:21:6: int has no attribute '__value__' [undefined_attribute]"]
-Line 75: Unexpected errors ['./aliases_type_statement.py:75:0: Traceback (most recent call last):']
 """
 output = """
-./aliases_type_statement.py:9:0: Traceback (most recent call last):
 ./aliases_type_statement.py:19:0: .GoodAlias1 = int is not callable [not_callable]
 ./aliases_type_statement.py:21:6: int has no attribute '__value__' [undefined_attribute]
 ./aliases_type_statement.py:23:6: int has no attribute 'other_attrib' [undefined_attribute]
 ./aliases_type_statement.py:40:30: Variable i is never accessed [unused_variable]
 ./aliases_type_statement.py:48:22: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]
-./aliases_type_statement.py:75:0: Traceback (most recent call last):
 """
