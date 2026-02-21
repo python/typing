@@ -8,6 +8,6 @@ Line 81: Expected 1 errors
 Line 82: Expected 1 errors
 """
 output = """
-./constructors_call_type.py:40:4: In call to /Users/jelle/py/typing/conformance/tests/constructors_call_type.py.Class2: Missing required argument 'x' [incompatible_call]
-./constructors_call_type.py:50:4: In call to /Users/jelle/py/typing/conformance/tests/constructors_call_type.py.Class3: Missing required argument 'x' [incompatible_call]
+./constructors_call_type.py:40:4: In call to .../tests/constructors_call_type.py.Class2: Missing required argument 'x' [incompatible_call]
+./constructors_call_type.py:50:4: In call to .../tests/constructors_call_type.py.Class3: Missing required argument 'x' [incompatible_call]
 """

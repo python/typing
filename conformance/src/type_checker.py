@@ -12,6 +12,8 @@ from subprocess import PIPE, CalledProcessError, run
 import sys
 from typing import Sequence
 
+CONFORMANCE_ROOT = Path(__file__).resolve().parent.parent
+
 
 class TypeChecker(ABC):
     @property
@@ -378,6 +380,7 @@ class PycroscopeTypeChecker(TypeChecker):
 
     @staticmethod
     def _normalize_output_line(line: str) -> str:
+        line = line.replace(str(CONFORMANCE_ROOT), "...")
         # Pycroscope can include object reprs with process-specific addresses
         # (e.g. "... at 0x10abc1234>"). Normalize these for stable snapshots.
         return re.sub(r"0x[0-9a-fA-F]+", "0x...", line)

@@ -10,8 +10,8 @@ output = """
 ./narrowing_typeguard.py:85:20:   object is not equivalent to int
 ./narrowing_typeguard.py:102:4: TypeGuard must be used on a function taking at least one positional parameter [invalid_typeguard]
 ./narrowing_typeguard.py:107:4: TypeGuard must be used on a function taking at least one positional parameter [invalid_typeguard]
-./narrowing_typeguard.py:128:19: Incompatible argument type for f: expected (object, /) -> str but got function '/Users/jelle/py/typing/conformance/tests/narrowing_typeguard.py.simple_typeguard' [incompatible_argument]
+./narrowing_typeguard.py:128:19: Incompatible argument type for f: expected (object, /) -> str but got function '.../tests/narrowing_typeguard.py.simple_typeguard' [incompatible_argument]
 ./narrowing_typeguard.py:132:4: Function may exit without returning a value [missing_return]
 ./narrowing_typeguard.py:136:4: Function may exit without returning a value [missing_return]
-./narrowing_typeguard.py:148:25: Incompatible argument type for f: expected /Users/jelle/py/typing/conformance/tests/narrowing_typeguard.py.CallableStrProto (Protocol with members '__call__') but got function '/Users/jelle/py/typing/conformance/tests/narrowing_typeguard.py.simple_typeguard' [incompatible_argument]
+./narrowing_typeguard.py:148:25: Incompatible argument type for f: expected .../tests/narrowing_typeguard.py.CallableStrProto (Protocol with members '__call__') but got function '.../tests/narrowing_typeguard.py.simple_typeguard' [incompatible_argument]
 """

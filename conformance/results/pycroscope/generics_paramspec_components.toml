@@ -19,5 +19,5 @@ output = """
 ./generics_paramspec_components.py:72:8: Missing required positional argument at position 0 [incompatible_call]
 ./generics_paramspec_components.py:82:8: Incompatible argument type for args: expected ~P.args but got tuple[] [incompatible_argument]
 ./generics_paramspec_components.py:83:8: Incompatible argument type for args: expected ~P.args but got tuple[] [incompatible_argument]
-./generics_paramspec_components.py:98:0: In call to /Users/jelle/py/typing/conformance/tests/generics_paramspec_components.py.twice: Cannot resolve type variables [incompatible_call]
+./generics_paramspec_components.py:98:0: In call to .../tests/generics_paramspec_components.py.twice: Cannot resolve type variables [incompatible_call]
 """

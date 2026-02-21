@@ -14,6 +14,6 @@ Line 78: Unexpected errors ['./overloads_definitions.py:78:4: Traceback (most re
 output = """
 ./overloads_definitions.py:73:4: Traceback (most recent call last):
 ./overloads_definitions.py:78:4: Traceback (most recent call last):
-./overloads_definitions.py:84:5: Incompatible argument type for func: expected (...) -> Any[explicit] but got classmethod[/Users/jelle/py/typing/conformance/tests/overloads_definitions.py.C, (x: int, /) -> Any[unannotated], int] [incompatible_argument]
+./overloads_definitions.py:84:5: Incompatible argument type for func: expected (...) -> Any[explicit] but got classmethod[.../tests/overloads_definitions.py.C, (x: int, /) -> Any[unannotated], int] [incompatible_argument]
 ./overloads_definitions.py:203:4: Method does not override any base method [override_does_not_override]
 """
