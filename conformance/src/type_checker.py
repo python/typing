@@ -339,9 +339,89 @@ class PyreflyTypeChecker(TypeChecker):
         return line_to_errors
 
 
+class PycroscopeTypeChecker(TypeChecker):
+    @property
+    def name(self) -> str:
+        return "pycroscope"
+
+    def install(self) -> bool:
+        source_dir = Path.home() / "py" / "pycroscope"
+        if not source_dir.is_dir():
+            print(
+                f"Unable to install pycroscope: source directory not found at {source_dir}"
+            )
+            return False
+        try:
+            # Uninstall any existing version if present.
+            run(
+                [sys.executable, "-m", "pip", "uninstall", "pycroscope", "-y"],
+                check=True,
+            )
+
+            # Install editable from the local pycroscope repo.
+            run(
+                [sys.executable, "-m", "pip", "install", "-e", str(source_dir)],
+                check=True,
+            )
+
+            # Ensure it is installed and the entrypoint is available.
+            self.get_version()
+
+            return True
+        except CalledProcessError:
+            print("Unable to install pycroscope")
+            return False
+
+    def get_version(self) -> str:
+        proc = run(["pycroscope", "--version"], stdout=PIPE, text=True)
+        return proc.stdout.strip()
+
+    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
+        command = [
+            "pycroscope",
+            ".",
+            "--output-format",
+            "concise",
+            "--disable",
+            "import_failed",
+        ]
+        proc = run(command, stdout=PIPE, stderr=PIPE, text=True, encoding="utf-8")
+        lines = proc.stderr.splitlines()
+
+        # Add results to a dictionary keyed by the file name.
+        results_dict: dict[str, str] = {}
+        for line in lines:
+            if not line.strip():
+                continue
+            # Concise output line format:
+            #   file.py:12:3: Message text [error_code]
+            match = re.match(r"^(.+?):(\d+)(?::\d+)?:\s", line)
+            if not match:
+                continue
+            file_name = Path(match.group(1)).name
+            results_dict[file_name] = results_dict.get(file_name, "") + line + "\n"
+
+        return results_dict
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            if not line.strip():
+                continue
+            # reveal_type diagnostics are informational for conformance purposes.
+            if "[reveal_type]" in line or "Revealed type is " in line:
+                continue
+            match = re.match(r"^.+?:(\d+)(?::\d+)?:\s", line)
+            if not match:
+                continue
+            line_to_errors.setdefault(int(match.group(1)), []).append(line)
+        return line_to_errors
+
+
 TYPE_CHECKERS: Sequence[TypeChecker] = (
     MypyTypeChecker(),
     PyrightTypeChecker(),
     ZubanLSTypeChecker(),
     PyreflyTypeChecker(),
+    PycroscopeTypeChecker(),
 )

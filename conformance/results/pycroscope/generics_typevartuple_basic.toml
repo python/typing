@@ -1,0 +1,20 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+Line 52: Expected 1 errors
+Line 53: Expected 1 errors
+Line 56: Expected 1 errors
+Line 59: Expected 1 errors
+Line 65: Expected 1 errors
+Line 66: Expected 1 errors
+Line 67: Expected 1 errors
+Line 89: Expected 1 errors
+Line 90: Expected 1 errors
+Line 99: Expected 1 errors
+Line 100: Expected 1 errors
+Line 106: Expected 1 errors
+Lines 44, 45: Expected error (tag 'v6')
+"""
+output = """
+"""

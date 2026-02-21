@@ -1,0 +1,10 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 25: Expected 1 errors
+Line 38: Expected 1 errors
+Line 66: Expected 1 errors
+Line 69: Expected 1 errors
+Lines 10, 11: Expected error (tag 'DC1')
+"""
+output = """
+"""

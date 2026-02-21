@@ -1,0 +1,12 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Expected 1 errors
+Line 29: Expected 1 errors
+Line 30: Expected 1 errors
+Line 49: Expected 1 errors
+Line 61: Expected 1 errors
+Line 68: Expected 1 errors
+Line 98: Expected 1 errors
+"""
+output = """
+"""

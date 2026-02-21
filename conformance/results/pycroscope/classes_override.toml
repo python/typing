@@ -1,0 +1,10 @@
+conformance_automated = "Fail"
+errors_diff = """
+Lines 52, 53: Expected error (tag 'method3')
+Lines 56, 57, 64, 65: Expected error (tag 'method4')
+Lines 78, 79: Expected error (tag 'static_method1')
+Lines 83, 84: Expected error (tag 'class_method1')
+Lines 88, 89: Expected error (tag 'property1')
+"""
+output = """
+"""

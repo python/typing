@@ -1,0 +1,8 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 44: Expected 1 errors
+Lines 27, 28: Expected error (tag 'red')
+Lines 31, 32: Expected error (tag 'blue')
+"""
+output = """
+"""

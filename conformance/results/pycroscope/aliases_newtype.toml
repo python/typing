@@ -1,0 +1,21 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 11: Expected 1 errors
+Line 12: Expected 1 errors
+Line 18: Expected 1 errors
+Line 23: Expected 1 errors
+Line 26: Expected 1 errors
+Line 35: Expected 1 errors
+Line 41: Expected 1 errors
+Line 47: Expected 1 errors
+Line 50: Expected 1 errors
+Line 52: Expected 1 errors
+Line 54: Expected 1 errors
+Line 61: Expected 1 errors
+Line 65: Expected 1 errors
+Line 15: Unexpected errors ['./aliases_newtype.py:15:12:   Any[from_another] is not equivalent to int']
+"""
+output = """
+./aliases_newtype.py:15:12:   Any[from_another] is not equivalent to int
+./aliases_newtype.py:63:14: In call to typing.NewType: Takes 2 positional arguments but 3 were given [incompatible_call]
+"""

@@ -1,0 +1,12 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Expected 1 errors
+Line 40: Expected 1 errors
+Line 56: Expected 1 errors
+Line 66: Expected 1 errors
+Line 104: Expected 1 errors
+Lines 61, 62: Expected error (tag 'covariant_in_input')
+Lines 71, 72: Expected error (tag 'contravariant_in_output')
+"""
+output = """
+"""

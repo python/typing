@@ -1,0 +1,15 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Expected 1 errors
+Line 56: Expected 1 errors
+Line 118: Expected 1 errors
+Lines 59, 60: Expected error (tag 'method2')
+Lines 63, 64: Expected error (tag 'method3')
+Lines 67, 68, 75: Expected error (tag 'method4')
+Lines 80, 81, 89: Expected error (tag 'Derived3')
+Lines 84, 85, 86: Expected error (tag 'Derived3-2')
+Lines 94, 95, 102: Expected error (tag 'Derived4')
+Lines 125, 126: Expected error (tag 'func')
+"""
+output = """
+"""

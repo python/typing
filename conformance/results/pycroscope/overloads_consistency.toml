@@ -1,0 +1,7 @@
+conformance_automated = "Fail"
+errors_diff = """
+Lines 25, 28: Expected error (tag 'return_type')
+Lines 41, 44: Expected error (tag 'parameter_type')
+"""
+output = """
+"""

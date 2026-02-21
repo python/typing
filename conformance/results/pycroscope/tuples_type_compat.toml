@@ -1,0 +1,29 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 15: Expected 1 errors
+Line 29: Expected 1 errors
+Line 32: Expected 1 errors
+Line 33: Expected 1 errors
+Line 43: Expected 1 errors
+Line 62: Expected 1 errors
+Line 157: Expected 1 errors
+Line 162: Expected 1 errors
+Line 163: Expected 1 errors
+Line 169: Expected 1 errors
+Line 170: Expected 1 errors
+Line 175: Expected 1 errors
+Line 176: Expected 1 errors
+Line 181: Expected 1 errors
+Line 184: Expected 1 errors
+Line 188: Expected 1 errors
+Lines 75, 76: Expected error (tag 'func5_1')
+Lines 80, 81: Expected error (tag 'func5_2')
+Lines 85, 86: Expected error (tag 'func5_3')
+Lines 101, 102: Expected error (tag 'func6_1')
+Lines 106, 107: Expected error (tag 'func6_2')
+Lines 111, 112: Expected error (tag 'func6_3')
+Lines 126, 127: Expected error (tag 'func7_1')
+Lines 129, 130: Expected error (tag 'func7_2')
+"""
+output = """
+"""

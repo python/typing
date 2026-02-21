@@ -1,0 +1,33 @@
+conformance_automated = "Fail"
+errors_diff = """
+Line 15: Expected 1 errors
+Line 22: Expected 1 errors
+Line 39: Expected 1 errors
+Line 49: Expected 1 errors
+Line 67: Expected 1 errors
+Line 73: Expected 1 errors
+Line 109: Expected 1 errors
+Line 114: Expected 1 errors
+Line 117: Expected 1 errors
+Line 128: Expected 1 errors
+Line 143: Expected 1 errors
+Line 174: Expected 1 errors
+Line 215: Expected 1 errors
+Line 222: Expected 1 errors
+Line 242: Expected 1 errors
+Line 256: Expected 1 errors
+Line 257: Expected 1 errors
+Line 268: Expected 1 errors
+Line 278: Expected 1 errors
+Line 285: Expected 1 errors
+Line 293: Expected 1 errors
+Line 303: Expected 1 errors
+Line 352: Expected 1 errors
+Lines 91, 92: Expected error (tag 'MovieC')
+Lines 94, 95: Expected error (tag 'MovieD')
+Lines 184, 185: Expected error (tag 'MovieRequiredYear')
+Lines 187, 188: Expected error (tag 'MovieNotRequiredYear')
+Lines 196, 197: Expected error (tag 'BookWithPublisher')
+"""
+output = """
+"""
