@@ -1,8 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Lines 75, 76: Expected exactly one error (tag 'func5_1')
-Lines 80, 81: Expected exactly one error (tag 'func5_2')
-Lines 85, 86: Expected exactly one error (tag 'func5_3')
 Lines 101, 102: Expected exactly one error (tag 'func6_1')
 Lines 106, 107: Expected exactly one error (tag 'func6_2')
 Lines 111, 112: Expected exactly one error (tag 'func6_3')
@@ -10,12 +7,6 @@ Line 24: Unexpected errors ['./tuples_type_compat.py:24:4: Variable v1 is never 
 Line 25: Unexpected errors ['./tuples_type_compat.py:25:4: Variable v1 is never accessed [unused_variable]']
 Line 28: Unexpected errors ['./tuples_type_compat.py:28:4: Variable v2 is never accessed [unused_variable]']
 Line 60: Unexpected errors ['./tuples_type_compat.py:60:4: Incompatible assignment: expected tuple[int, int], got tuple[Any[explicit]] [incompatible_assignment]']
-Line 75: Unexpected errors ['./tuples_type_compat.py:75:20:   tuple[int] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1)] is not equivalent to tuple[int]']
-Line 76: Unexpected errors ['./tuples_type_compat.py:76:20:   tuple[int] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1)] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]']
-Line 80: Unexpected errors ['./tuples_type_compat.py:80:20:   tuple[str, str] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=2), MaxLen(value=2)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=2), MaxLen(value=2)] is not equivalent to tuple[str, str] | tuple[int, int]']
-Line 81: Unexpected errors ['./tuples_type_compat.py:81:20:   tuple[str, str] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=2), MaxLen(value=2)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=2), MaxLen(value=2)] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]']
-Line 85: Unexpected errors ['./tuples_type_compat.py:85:20:   Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=2), MaxLen(value=2), MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=2), MaxLen(value=2), MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=3), MaxLen(value=3)] is not equivalent to tuple[int, str, int]']
-Line 86: Unexpected errors ['./tuples_type_compat.py:86:20:   Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=2), MaxLen(value=2), MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=2), MaxLen(value=2), MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=3), MaxLen(value=3)] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]']
 Line 101: Unexpected errors ['./tuples_type_compat.py:101:24:   tuple[int] | tuple[int | str] is not equivalent to tuple[int]']
 Line 102: Unexpected errors ['./tuples_type_compat.py:102:24:   tuple[int] | tuple[int | str] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]']
 Line 106: Unexpected errors ['./tuples_type_compat.py:106:24:   tuple[str, str] | tuple[int | str, int | str] is not equivalent to tuple[str, str] | tuple[int, int]']
@@ -40,12 +31,9 @@ output = """
 ./tuples_type_compat.py:43:4: Incompatible assignment: expected tuple[int], got tuple[int, ...] [incompatible_assignment]
 ./tuples_type_compat.py:60:4: Incompatible assignment: expected tuple[int, int], got tuple[Any[explicit]] [incompatible_assignment]
 ./tuples_type_compat.py:62:4: Incompatible assignment: expected tuple[int, int], got tuple[int, ...] [incompatible_assignment]
-./tuples_type_compat.py:75:20:   tuple[int] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1)] is not equivalent to tuple[int]
-./tuples_type_compat.py:76:20:   tuple[int] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1)] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
-./tuples_type_compat.py:80:20:   tuple[str, str] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=2), MaxLen(value=2)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=2), MaxLen(value=2)] is not equivalent to tuple[str, str] | tuple[int, int]
-./tuples_type_compat.py:81:20:   tuple[str, str] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=2), MaxLen(value=2)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=2), MaxLen(value=2)] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
-./tuples_type_compat.py:85:20:   Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=2), MaxLen(value=2), MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=2), MaxLen(value=2), MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=3), MaxLen(value=3)] is not equivalent to tuple[int, str, int]
-./tuples_type_compat.py:86:20:   Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=2), MaxLen(value=2), MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=2), MaxLen(value=2), MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=3), MaxLen(value=3)] | Annotated[tuple[int, *tuple[str, ...], int], MinLen(value=1), MaxLen(value=1), MinLen(value=3), MaxLen(value=3)] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
+./tuples_type_compat.py:76:20:   tuple[int] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
+./tuples_type_compat.py:81:20:   tuple[str, str] | tuple[int, int] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
+./tuples_type_compat.py:86:20:   tuple[int, str, int] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
 ./tuples_type_compat.py:101:24:   tuple[int] | tuple[int | str] is not equivalent to tuple[int]
 ./tuples_type_compat.py:102:24:   tuple[int] | tuple[int | str] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
 ./tuples_type_compat.py:106:24:   tuple[str, str] | tuple[int | str, int | str] is not equivalent to tuple[str, str] | tuple[int, int]
