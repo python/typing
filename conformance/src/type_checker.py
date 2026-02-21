@@ -376,6 +376,12 @@ class PycroscopeTypeChecker(TypeChecker):
         proc = run(["pycroscope", "--version"], stdout=PIPE, text=True)
         return proc.stdout.strip()
 
+    @staticmethod
+    def _normalize_output_line(line: str) -> str:
+        # Pycroscope can include object reprs with process-specific addresses
+        # (e.g. "... at 0x10abc1234>"). Normalize these for stable snapshots.
+        return re.sub(r"0x[0-9a-fA-F]+", "0x...", line)
+
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         command = [
             "pycroscope",
@@ -387,21 +393,27 @@ class PycroscopeTypeChecker(TypeChecker):
         ]
         proc = run(command, stdout=PIPE, stderr=PIPE, text=True, encoding="utf-8")
         lines = proc.stderr.splitlines()
-        print("\n".join(lines))
 
-        # Add results to a dictionary keyed by the file name.
-        results_dict: dict[str, str] = {}
+        # Collect results per file and sort for deterministic output.
+        sortable_results: dict[str, list[tuple[int, str, str]]] = {}
         for line in lines:
             if not line.strip():
                 continue
+            line = self._normalize_output_line(line)
             # Concise output line format:
             #   file.py:12:3: Message text [error_code]
-            match = re.match(r"^(.+?):(\d+)(?::\d+)?:\s", line)
+            match = re.match(r"^(.+?):(\d+)(?::\d+)?:\s(.*)$", line)
             if not match:
                 continue
             file_name = Path(match.group(1)).name
-            results_dict[file_name] = results_dict.get(file_name, "") + line + "\n"
+            lineno = int(match.group(2))
+            message = match.group(3)
+            sortable_results.setdefault(file_name, []).append((lineno, message, line))
 
+        results_dict: dict[str, str] = {}
+        for file_name, entries in sortable_results.items():
+            entries.sort(key=lambda item: (item[0], item[1]))
+            results_dict[file_name] = "".join(f"{line}\n" for _, _, line in entries)
         return results_dict
 
     def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
@@ -409,6 +421,7 @@ class PycroscopeTypeChecker(TypeChecker):
         for line in output:
             if not line.strip():
                 continue
+            line = self._normalize_output_line(line)
             # reveal_type diagnostics are informational for conformance purposes.
             if "[reveal_type]" in line or "Revealed type is " in line:
                 continue

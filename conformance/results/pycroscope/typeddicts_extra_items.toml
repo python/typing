@@ -27,11 +27,11 @@ Lines 91, 92: Expected error (tag 'MovieC')
 Lines 94, 95: Expected error (tag 'MovieD')
 Lines 184, 185: Expected error (tag 'MovieRequiredYear')
 Lines 196, 197: Expected error (tag 'BookWithPublisher')
-Line 140: Unexpected errors ['./typeddicts_extra_items.py:140:30: Unrecognized annotation object [invalid_annotation]']
-Line 141: Unexpected errors ['./typeddicts_extra_items.py:141:27: Unrecognized annotation object [invalid_annotation]']
 Line 19: Unexpected errors ["./typeddicts_extra_items.py:19:18: In call to typing.TypedDict: Got an unexpected keyword argument 'extra_items' [incompatible_call]"]
 Line 28: Unexpected errors ['./typeddicts_extra_items.py:28:16:   Any[from_another] is not equivalent to str']
 Line 29: Unexpected errors ['./typeddicts_extra_items.py:29:16:   Any[from_another] is not equivalent to bool']
+Line 140: Unexpected errors ['./typeddicts_extra_items.py:140:30: Unrecognized annotation object [invalid_annotation]']
+Line 141: Unexpected errors ['./typeddicts_extra_items.py:141:27: Unrecognized annotation object [invalid_annotation]']
 Line 191: Unexpected errors ['./typeddicts_extra_items.py:191:10: Unexpected NotRequired annotation [invalid_annotation]']
 Line 212: Unexpected errors ['./typeddicts_extra_items.py:212:10: Unexpected NotRequired annotation [invalid_annotation]']
 Line 233: Unexpected errors ['./typeddicts_extra_items.py:233:10: Unexpected NotRequired annotation [invalid_annotation]']
@@ -41,11 +41,11 @@ Line 323: Unexpected errors ['./typeddicts_extra_items.py:323:9: Unexpected NotR
 Line 339: Unexpected errors ['./typeddicts_extra_items.py:339:12:   Any[from_another] is not equivalent to tuple[str, int]']
 """
 output = """
-./typeddicts_extra_items.py:140:30: Unrecognized annotation object [invalid_annotation]
-./typeddicts_extra_items.py:141:27: Unrecognized annotation object [invalid_annotation]
 ./typeddicts_extra_items.py:19:18: In call to typing.TypedDict: Got an unexpected keyword argument 'extra_items' [incompatible_call]
 ./typeddicts_extra_items.py:28:16:   Any[from_another] is not equivalent to str
 ./typeddicts_extra_items.py:29:16:   Any[from_another] is not equivalent to bool
+./typeddicts_extra_items.py:140:30: Unrecognized annotation object [invalid_annotation]
+./typeddicts_extra_items.py:141:27: Unrecognized annotation object [invalid_annotation]
 ./typeddicts_extra_items.py:188:10: Unexpected NotRequired annotation [invalid_annotation]
 ./typeddicts_extra_items.py:191:10: Unexpected NotRequired annotation [invalid_annotation]
 ./typeddicts_extra_items.py:212:10: Unexpected NotRequired annotation [invalid_annotation]

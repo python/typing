@@ -8,6 +8,7 @@ Line 74: Unexpected errors ["./typeforms_typeform.py:74:12:   Literal['list[int]
 """
 output = """
 ./typeforms_typeform.py:1:0: Invalid type annotation [invalid_annotation]
+./typeforms_typeform.py:1:0: Invalid type annotation [invalid_annotation]
 ./typeforms_typeform.py:23:0: Incompatible assignment: expected TypeForm[str | None], got Literal[str | int] [incompatible_assignment]
 ./typeforms_typeform.py:24:0: Incompatible assignment: expected TypeForm[str | None], got Literal[list[str | None]] [incompatible_assignment]
 ./typeforms_typeform.py:55:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[()] [incompatible_assignment]
@@ -18,7 +19,6 @@ output = """
 ./typeforms_typeform.py:62:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[typing.Final[int]] [incompatible_assignment]
 ./typeforms_typeform.py:63:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[typing.Unpack[Ts]] [incompatible_assignment]
 ./typeforms_typeform.py:64:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[typing.Optional] [incompatible_assignment]
-./typeforms_typeform.py:1:0: Invalid type annotation [invalid_annotation]
 ./typeforms_typeform.py:65:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal['int + str'] [incompatible_assignment]
 ./typeforms_typeform.py:71:12:   Literal[str | None] is not equivalent to TypeForm[str | None]
 ./typeforms_typeform.py:74:12:   Literal['list[int]'] is not equivalent to TypeForm[list[int]]

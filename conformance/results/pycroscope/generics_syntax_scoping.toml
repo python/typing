@@ -7,17 +7,17 @@ Line 92: Expected 1 errors
 Line 95: Expected 1 errors
 Line 98: Expected 1 errors
 Line 38: Unexpected errors ['./generics_syntax_scoping.py:38:0: Traceback (most recent call last):']
-Line 81: Unexpected errors ['./generics_syntax_scoping.py:81:0: Traceback (most recent call last):']
 Line 74: Unexpected errors ['./generics_syntax_scoping.py:74:19: Undefined name: Private [undefined_name]']
+Line 81: Unexpected errors ['./generics_syntax_scoping.py:81:0: Traceback (most recent call last):']
 Line 88: Unexpected errors ['./generics_syntax_scoping.py:88:1: Undefined name: decorator2 [undefined_name]']
 Line 121: Unexpected errors ['./generics_syntax_scoping.py:121:20:   Literal[3j] is not equivalent to complex | float | int']
 Line 124: Unexpected errors ['./generics_syntax_scoping.py:124:24:   Literal[3j] is not equivalent to complex | float | int']
 """
 output = """
 ./generics_syntax_scoping.py:38:0: Traceback (most recent call last):
-./generics_syntax_scoping.py:81:0: Traceback (most recent call last):
 ./generics_syntax_scoping.py:44:1: Undefined name: decorator1 [undefined_name]
 ./generics_syntax_scoping.py:74:19: Undefined name: Private [undefined_name]
+./generics_syntax_scoping.py:81:0: Traceback (most recent call last):
 ./generics_syntax_scoping.py:88:1: Undefined name: decorator2 [undefined_name]
 ./generics_syntax_scoping.py:121:20:   Literal[3j] is not equivalent to complex | float | int
 ./generics_syntax_scoping.py:124:24:   Literal[3j] is not equivalent to complex | float | int

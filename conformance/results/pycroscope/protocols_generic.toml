@@ -11,7 +11,7 @@ Line 27: Unexpected errors ['./protocols_generic.py:27:4: Function may exit with
 Line 50: Unexpected errors ['./protocols_generic.py:50:4: Function may exit without returning a value [missing_return]']
 Line 65: Unexpected errors ['./protocols_generic.py:65:4: Incompatible assignment: expected /Users/jelle/py/typing/conformance/tests/protocols_generic.py.Sender[int], got /Users/jelle/py/typing/conformance/tests/protocols_generic.py.Sender[float | int] [incompatible_assignment]']
 Line 79: Unexpected errors ['./protocols_generic.py:79:4: Function may exit without returning a value [missing_return]']
-Line 96: Unexpected errors ['./protocols_generic.py:96:12:   Literal[</Users/jelle/py/typing/conformance/tests/protocols_generic.py.ConcreteHasParent object at 0x103b5be00>] is not equivalent to /Users/jelle/py/typing/conformance/tests/protocols_generic.py.ConcreteHasParent']
+Line 96: Unexpected errors ['./protocols_generic.py:96:12:   Literal[</Users/jelle/py/typing/conformance/tests/protocols_generic.py.ConcreteHasParent object at 0x...>] is not equivalent to /Users/jelle/py/typing/conformance/tests/protocols_generic.py.ConcreteHasParent']
 Line 101: Unexpected errors ['./protocols_generic.py:101:4: Function may exit without returning a value [missing_return]']
 Line 104: Unexpected errors ['./protocols_generic.py:104:4: Function may exit without returning a value [missing_return]']
 """
@@ -23,7 +23,7 @@ output = """
 ./protocols_generic.py:65:4: Incompatible assignment: expected /Users/jelle/py/typing/conformance/tests/protocols_generic.py.Sender[int], got /Users/jelle/py/typing/conformance/tests/protocols_generic.py.Sender[float | int] [incompatible_assignment]
 ./protocols_generic.py:75:4: Incompatible assignment: expected /Users/jelle/py/typing/conformance/tests/protocols_generic.py.AttrProto[int], got /Users/jelle/py/typing/conformance/tests/protocols_generic.py.AttrProto[float | int] [incompatible_assignment]
 ./protocols_generic.py:79:4: Function may exit without returning a value [missing_return]
-./protocols_generic.py:96:12:   Literal[</Users/jelle/py/typing/conformance/tests/protocols_generic.py.ConcreteHasParent object at 0x103b5be00>] is not equivalent to /Users/jelle/py/typing/conformance/tests/protocols_generic.py.ConcreteHasParent
+./protocols_generic.py:96:12:   Literal[</Users/jelle/py/typing/conformance/tests/protocols_generic.py.ConcreteHasParent object at 0x...>] is not equivalent to /Users/jelle/py/typing/conformance/tests/protocols_generic.py.ConcreteHasParent
 ./protocols_generic.py:101:4: Function may exit without returning a value [missing_return]
 ./protocols_generic.py:104:4: Function may exit without returning a value [missing_return]
 ./protocols_generic.py:146:0: Incompatible assignment: expected /Users/jelle/py/typing/conformance/tests/protocols_generic.py.HasPropertyProto (Protocol with members 'm', 'f'), got /Users/jelle/py/typing/conformance/tests/protocols_generic.py.ConcreteHasProperty3 [incompatible_assignment]
