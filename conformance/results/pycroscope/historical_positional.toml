@@ -1,9 +1,9 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 18: Expected 1 errors
-Line 26: Expected 1 errors
-Line 54: Expected 1 errors
 Line 59: Expected 1 errors
 """
 output = """
+./historical_positional.py:18:0: Missing required positional argument '__x' [incompatible_call]
+./historical_positional.py:26:15: Historical positional-only parameter may not follow a positional-or-keyword parameter [invalid_positional_only]
+./historical_positional.py:54:25: Historical positional-only parameter may not follow a positional-or-keyword parameter [invalid_positional_only]
 """

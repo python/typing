@@ -1,8 +1,14 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 20: Expected 1 errors
-Line 33: Expected 1 errors
+Line 22: Unexpected errors ['./generics_self_basic.py:22:25: Undefined name: Shape [undefined_name]']
+Line 27: Unexpected errors ['./generics_self_basic.py:27:20:   Any[unannotated] is not equivalent to type[~SelfT]']
+Line 36: Unexpected errors ['./generics_self_basic.py:36:28: Undefined name: Shape [undefined_name]']
 """
 output = """
+./generics_self_basic.py:20:15: Undefined name: Shape [undefined_name]
+./generics_self_basic.py:22:25: Undefined name: Shape [undefined_name]
+./generics_self_basic.py:27:20:   Any[unannotated] is not equivalent to type[~SelfT]
+./generics_self_basic.py:33:15: Undefined name: Shape [undefined_name]
+./generics_self_basic.py:36:28: Undefined name: Shape [undefined_name]
 ./generics_self_basic.py:68:25: Unrecognized annotation object [invalid_annotation]
 """

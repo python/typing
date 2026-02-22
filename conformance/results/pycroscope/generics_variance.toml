@@ -15,7 +15,7 @@ Lines 195, 196: Expected error (tag 'ContraToContraToContra_WithTA')
 Line 45: Unexpected errors ['./generics_variance.py:45:21: Unrecognized annotation typing.TypeVar [invalid_annotation]', './generics_variance.py:45:27: Unrecognized annotation typing.TypeVar [invalid_annotation]']
 """
 output = """
-./generics_variance.py:14:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, contravariant: bool = Literal[False], covariant: bool = Literal[False], infer_variance: bool = Literal[False], default: Any[explicit] = Any[unannotated]) -> typing.TypeVar: Bivariant types are not supported. [incompatible_call]
+./generics_variance.py:14:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: Bivariant types are not supported. [incompatible_call]
 ./generics_variance.py:45:21: Unrecognized annotation typing.TypeVar [invalid_annotation]
 ./generics_variance.py:45:27: Unrecognized annotation typing.TypeVar [invalid_annotation]
 """

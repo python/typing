@@ -5,6 +5,6 @@ Line 27: Expected 1 errors
 Line 31: Expected 1 errors
 """
 output = """
-./typeddicts_alt_syntax.py:35:16: In call to typing.TypedDict: Got an unexpected keyword argument 'other' [incompatible_call]
-./typeddicts_alt_syntax.py:41:9: In call to typing.TypedDict: Got unexpected keyword arguments 'name', 'year' [incompatible_call]
+./typeddicts_alt_syntax.py:35:16: Error calling (typename, fields=None, /, *, total=Literal[True], **kwargs) -> Any[unannotated]: TypedDict takes either a dict or keyword arguments, but not both [incompatible_call]
+./typeddicts_alt_syntax.py:45:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': 'Blade Runner', 'year': ''}] [incompatible_assignment]
 """

@@ -9,7 +9,17 @@ Line 48: Expected 1 errors
 Line 53: Expected 1 errors
 Line 54: Expected 1 errors
 Line 1: Unexpected errors ['./annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]', './annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]']
-Line 87: Unexpected errors ['./annotations_forward_refs.py:87:7: Invalid type annotation <function ClassD.int at 0x...> [invalid_annotation]']
+Line 14: Unexpected errors ['./annotations_forward_refs.py:14:8: Undefined name: ClassA [undefined_name]', './annotations_forward_refs.py:14:22: Undefined name: ClassA [undefined_name]', './annotations_forward_refs.py:14:42: Undefined name: ClassA [undefined_name]', './annotations_forward_refs.py:14:62: Undefined name: ClassA [undefined_name]']
+Line 16: Unexpected errors ['./annotations_forward_refs.py:16:20: Undefined name: ClassA [undefined_name]']
+Line 17: Unexpected errors ['./annotations_forward_refs.py:17:25: Undefined name: ClassA [undefined_name]']
+Line 18: Unexpected errors ['./annotations_forward_refs.py:18:25: Undefined name: ClassA [undefined_name]']
+Line 19: Unexpected errors ['./annotations_forward_refs.py:19:16:   list[int | Any[error]] is not equivalent to list[Any[explicit]]', './annotations_forward_refs.py:19:25: Undefined name: ClassA [undefined_name]']
+Line 67: Unexpected errors ['./annotations_forward_refs.py:67:15: Undefined name: ClassB [undefined_name]']
+Line 69: Unexpected errors ['./annotations_forward_refs.py:69:25: Undefined name: ClassB [undefined_name]']
+Line 70: Unexpected errors ['./annotations_forward_refs.py:70:15: Undefined name: ClassB [undefined_name]']
+Line 87: Unexpected errors ['./annotations_forward_refs.py:87:7: Unrecognized annotation (self) -> None [invalid_annotation]']
+Line 95: Unexpected errors ['./annotations_forward_refs.py:95:12:   Any[from_another] is not equivalent to str']
+Line 96: Unexpected errors ['./annotations_forward_refs.py:96:12:   Any[from_another] is not equivalent to int']
 Line 103: Unexpected errors ['./annotations_forward_refs.py:103:7: Syntax error in type annotation: ']
 """
 output = """
@@ -25,6 +35,17 @@ output = """
 ./annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]
 ./annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]
 ./annotations_forward_refs.py:1:0: Invalid type annotation [invalid_annotation]
+./annotations_forward_refs.py:14:8: Undefined name: ClassA [undefined_name]
+./annotations_forward_refs.py:14:22: Undefined name: ClassA [undefined_name]
+./annotations_forward_refs.py:14:42: Undefined name: ClassA [undefined_name]
+./annotations_forward_refs.py:14:62: Undefined name: ClassA [undefined_name]
+./annotations_forward_refs.py:16:20: Undefined name: ClassA [undefined_name]
+./annotations_forward_refs.py:17:25: Undefined name: ClassA [undefined_name]
+./annotations_forward_refs.py:18:25: Undefined name: ClassA [undefined_name]
+./annotations_forward_refs.py:19:16:   list[int | Any[error]] is not equivalent to list[Any[explicit]]
+./annotations_forward_refs.py:19:25: Undefined name: ClassA [undefined_name]
+./annotations_forward_refs.py:22:6: Undefined name: ClassA [undefined_name]
+./annotations_forward_refs.py:23:11: Undefined name: ClassA [undefined_name]
 ./annotations_forward_refs.py:42:8: Unrecognized annotation <list containing [type 'int', type 'str']> [invalid_annotation]
 ./annotations_forward_refs.py:43:8: Unrecognized annotation tuple[type 'int', type 'str'] [invalid_annotation]
 ./annotations_forward_refs.py:45:8: Unrecognized annotation <dict containing {}> [invalid_annotation]
@@ -33,9 +54,14 @@ output = """
 ./annotations_forward_refs.py:50:9: Invalid type annotation True [invalid_annotation]
 ./annotations_forward_refs.py:51:9: Invalid type annotation 1 [invalid_annotation]
 ./annotations_forward_refs.py:52:9: Invalid type annotation -1 [invalid_annotation]
-./annotations_forward_refs.py:55:9: Invalid type annotation <module 'types' from '/Users/jelle/.local/share/uv/python/cpython-3.14.0-macos-aarch64-none/lib/python3.14/types.py'> [invalid_annotation]
+./annotations_forward_refs.py:55:9: Invalid type annotation <module 'types' from '/Users/jelle/.pyenv/versions/3.12.3/lib/python3.12/types.py'> [invalid_annotation]
+./annotations_forward_refs.py:67:15: Undefined name: ClassB [undefined_name]
+./annotations_forward_refs.py:69:25: Undefined name: ClassB [undefined_name]
+./annotations_forward_refs.py:70:15: Undefined name: ClassB [undefined_name]
 ./annotations_forward_refs.py:80:12: Undefined name: ClassF [undefined_name]
-./annotations_forward_refs.py:87:7: Invalid type annotation <function ClassD.int at 0x...> [invalid_annotation]
-./annotations_forward_refs.py:89:7: Invalid type annotation <function ClassD.int at 0x...> [invalid_annotation]
+./annotations_forward_refs.py:87:7: Unrecognized annotation (self) -> None [invalid_annotation]
+./annotations_forward_refs.py:89:7: Unrecognized annotation (self) -> None [invalid_annotation]
+./annotations_forward_refs.py:95:12:   Any[from_another] is not equivalent to str
+./annotations_forward_refs.py:96:12:   Any[from_another] is not equivalent to int
 ./annotations_forward_refs.py:103:7: Syntax error in type annotation: 
 """

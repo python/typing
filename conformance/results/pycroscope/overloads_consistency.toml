@@ -1,7 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Lines 25, 28: Expected error (tag 'return_type')
-Lines 41, 44: Expected error (tag 'parameter_type')
 """
 output = """
+./overloads_consistency.py:25:0: Overload for 'return_type' is inconsistent with implementation [inconsistent_overload]
+./overloads_consistency.py:41:0: Overload for 'parameter_type' is inconsistent with implementation [inconsistent_overload]
 """

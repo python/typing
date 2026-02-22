@@ -7,7 +7,6 @@ Line 43: Expected 1 errors
 Line 44: Expected 1 errors
 Line 49: Expected 1 errors
 Line 59: Expected 1 errors
-Line 86: Expected 1 errors
 Line 87: Expected 1 errors
 Line 88: Expected 1 errors
 """
@@ -22,4 +21,5 @@ output = """
 ./qualifiers_annotated.py:72:0: Incompatible assignment: expected type, got Literal[typing.Annotated[int, '']] [incompatible_assignment]
 ./qualifiers_annotated.py:79:6: Incompatible argument type for x: expected type[~T] but got Literal[typing.Annotated[str, '']] [incompatible_argument]
 ./qualifiers_annotated.py:80:6: Incompatible argument type for x: expected type[~T] but got Literal[typing.Annotated[int, '']] [incompatible_argument]
+./qualifiers_annotated.py:86:0: Traceback (most recent call last):
 """

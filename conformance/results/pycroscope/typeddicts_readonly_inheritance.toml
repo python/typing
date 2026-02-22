@@ -1,16 +1,16 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 50: Expected 1 errors
-Line 82: Expected 1 errors
+Line 94: Expected 1 errors
+Line 98: Expected 1 errors
+Line 106: Expected 1 errors
+Line 119: Expected 1 errors
+Line 132: Expected 1 errors
 """
 output = """
 ./typeddicts_readonly_inheritance.py:36:3: Cannot set readonly key 'name' in TypedDict TypedDict({"name": Readonly[str], "year": int}) [readonly_typeddict]
 ./typeddicts_readonly_inheritance.py:65:0: Incompatible assignment: expected TypedDict({"name": Readonly[str]}), got Literal[{}] [incompatible_assignment]
+./typeddicts_readonly_inheritance.py:82:0: Value for key 'ident' must be str, not Literal[3] [incompatible_argument]
 ./typeddicts_readonly_inheritance.py:83:0: Incompatible assignment: expected TypedDict({"ident": str}), got Literal[{'ident': 3}] [incompatible_assignment]
 ./typeddicts_readonly_inheritance.py:84:0: Incompatible assignment: expected TypedDict({"ident": str}), got Literal[{}] [incompatible_assignment]
-./typeddicts_readonly_inheritance.py:94:4: Incompatible TypedDict override for key 'a' [invalid_annotation]
-./typeddicts_readonly_inheritance.py:98:4: Incompatible TypedDict override for key 'a' [invalid_annotation]
-./typeddicts_readonly_inheritance.py:106:4: Incompatible TypedDict override for key 'c' [invalid_annotation]
-./typeddicts_readonly_inheritance.py:119:0: TypedDict base classes define key 'x' with incompatible types [invalid_annotation]
-./typeddicts_readonly_inheritance.py:132:0: TypedDict base classes define key 'x' with incompatible requiredness [invalid_annotation]
 """

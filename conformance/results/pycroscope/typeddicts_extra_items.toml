@@ -1,7 +1,6 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 15: Expected 1 errors
-Line 22: Expected 1 errors
 Line 49: Expected 1 errors
 Line 67: Expected 1 errors
 Line 73: Expected 1 errors
@@ -21,15 +20,11 @@ Lines 94, 95: Expected error (tag 'MovieD')
 Lines 184, 185: Expected error (tag 'MovieRequiredYear')
 Lines 187, 188: Expected error (tag 'MovieNotRequiredYear')
 Lines 196, 197: Expected error (tag 'BookWithPublisher')
-Line 19: Unexpected errors ["./typeddicts_extra_items.py:19:18: In call to typing.TypedDict: Got an unexpected keyword argument 'extra_items' [incompatible_call]"]
 Line 29: Unexpected errors ['./typeddicts_extra_items.py:29:16:   Any[error] is not equivalent to bool', "./typeddicts_extra_items.py:29:22: Unknown TypedDict key 'novel_adaptation' [invalid_typeddict_key]"]
 Line 129: Unexpected errors ["./typeddicts_extra_items.py:129:14: Key Literal['year'] does not exist in TypedDict [invalid_typeddict_key]"]
 Line 140: Unexpected errors ['./typeddicts_extra_items.py:140:30: Unrecognized annotation object [invalid_annotation]']
 Line 141: Unexpected errors ['./typeddicts_extra_items.py:141:27: Unrecognized annotation object [invalid_annotation]']
-Line 277: Unexpected errors ['./typeddicts_extra_items.py:277:0: TypedDict({"name": str}) is not callable [not_callable]']
-Line 283: Unexpected errors ['./typeddicts_extra_items.py:283:0: TypedDict({"name": str}) is not callable [not_callable]']
-Line 284: Unexpected errors ['./typeddicts_extra_items.py:284:0: TypedDict({"name": str}) is not callable [not_callable]']
-Line 292: Unexpected errors ['./typeddicts_extra_items.py:292:0: TypedDict({"name": str}) is not callable [not_callable]']
+Line 284: Unexpected errors ["./typeddicts_extra_items.py:284:0: Got an unexpected keyword argument 'year' [incompatible_call]"]
 Line 310: Unexpected errors ['./typeddicts_extra_items.py:310:16:   list[tuple[str, str]] is not equivalent to list[tuple[str, int | str]]']
 Line 311: Unexpected errors ['./typeddicts_extra_items.py:311:16:   list[str] is not equivalent to list[int | str]']
 Line 339: Unexpected errors ['./typeddicts_extra_items.py:339:12:   Any[from_another] | Any[explicit] is not equivalent to tuple[str, int]']
@@ -37,7 +32,7 @@ Line 342: Unexpected errors ['./typeddicts_extra_items.py:342:26: Cannot set unk
 Line 343: Unexpected errors ['./typeddicts_extra_items.py:343:30: Key str does not exist in TypedDict [invalid_typeddict_key]']
 """
 output = """
-./typeddicts_extra_items.py:19:18: In call to typing.TypedDict: Got an unexpected keyword argument 'extra_items' [incompatible_call]
+./typeddicts_extra_items.py:22:0: Incompatible assignment: expected TypedDict({"name": str, "__extra_items__": bool}, closed=True), got Literal[{'name': 'Blade Runner', 'year': 1982}] [incompatible_assignment]
 ./typeddicts_extra_items.py:29:16:   Any[error] is not equivalent to bool
 ./typeddicts_extra_items.py:29:22: Unknown TypedDict key 'novel_adaptation' [invalid_typeddict_key]
 ./typeddicts_extra_items.py:39:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': 'Blade Runner', 'year': None}] [incompatible_assignment]
@@ -45,13 +40,10 @@ output = """
 ./typeddicts_extra_items.py:129:14: Key Literal['year'] does not exist in TypedDict [invalid_typeddict_key]
 ./typeddicts_extra_items.py:140:30: Unrecognized annotation object [invalid_annotation]
 ./typeddicts_extra_items.py:141:27: Unrecognized annotation object [invalid_annotation]
-./typeddicts_extra_items.py:277:0: TypedDict({"name": str}) is not callable [not_callable]
-./typeddicts_extra_items.py:278:0: TypedDict({"name": str}) is not callable [not_callable]
-./typeddicts_extra_items.py:283:0: TypedDict({"name": str}) is not callable [not_callable]
-./typeddicts_extra_items.py:284:0: TypedDict({"name": str}) is not callable [not_callable]
-./typeddicts_extra_items.py:285:0: TypedDict({"name": str}) is not callable [not_callable]
-./typeddicts_extra_items.py:292:0: TypedDict({"name": str}) is not callable [not_callable]
-./typeddicts_extra_items.py:293:0: TypedDict({"name": str}) is not callable [not_callable]
+./typeddicts_extra_items.py:278:0: Got an unexpected keyword argument 'year' [incompatible_call]
+./typeddicts_extra_items.py:284:0: Got an unexpected keyword argument 'year' [incompatible_call]
+./typeddicts_extra_items.py:285:0: Got an unexpected keyword argument 'language' [incompatible_call]
+./typeddicts_extra_items.py:293:0: Got an unexpected keyword argument 'year' [incompatible_call]
 ./typeddicts_extra_items.py:303:0: Incompatible assignment: expected collections.abc.Mapping[str, int], got Any[error] | TypedDict({"name": str}) [incompatible_assignment]
 ./typeddicts_extra_items.py:310:16:   list[tuple[str, str]] is not equivalent to list[tuple[str, int | str]]
 ./typeddicts_extra_items.py:311:16:   list[str] is not equivalent to list[int | str]

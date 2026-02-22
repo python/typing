@@ -17,7 +17,6 @@ Line 57: Unexpected errors ['./aliases_implicit.py:57:9: Unrecognized annotation
 Line 63: Unexpected errors ['./aliases_implicit.py:63:16:   list[int] | Any[error] is not equivalent to list[int]']
 Line 64: Unexpected errors ['./aliases_implicit.py:64:16:   tuple[str, ...] | list[str] | Any[from_another] is not equivalent to tuple[str, ...] | list[str]']
 Line 65: Unexpected errors ['./aliases_implicit.py:65:16:   tuple[int, int, int, str] | Any[error] is not equivalent to tuple[int, int, int, str]']
-Line 66: Unexpected errors ['./aliases_implicit.py:66:16:   (...) -> int is not equivalent to (...) -> int']
 Line 67: Unexpected errors ['./aliases_implicit.py:67:16:   (int, str, /) -> str | Any[from_another] is not equivalent to (int, str, /) -> str']
 Line 68: Unexpected errors ['./aliases_implicit.py:68:16:   (int, str, str, /) -> None | Any[from_another] is not equivalent to (int, str, str, /) -> None']
 Line 70: Unexpected errors ['./aliases_implicit.py:70:16:   int | str | list[list[int]] | list[Any[explicit]] | None is not equivalent to int | str | list[list[int]] | None']
@@ -33,7 +32,6 @@ output = """
 ./aliases_implicit.py:63:16:   list[int] | Any[error] is not equivalent to list[int]
 ./aliases_implicit.py:64:16:   tuple[str, ...] | list[str] | Any[from_another] is not equivalent to tuple[str, ...] | list[str]
 ./aliases_implicit.py:65:16:   tuple[int, int, int, str] | Any[error] is not equivalent to tuple[int, int, int, str]
-./aliases_implicit.py:66:16:   (...) -> int is not equivalent to (...) -> int
 ./aliases_implicit.py:67:16:   (int, str, /) -> str | Any[from_another] is not equivalent to (int, str, /) -> str
 ./aliases_implicit.py:68:16:   (int, str, str, /) -> None | Any[from_another] is not equivalent to (int, str, str, /) -> None
 ./aliases_implicit.py:70:16:   int | str | list[list[int]] | list[Any[explicit]] | None is not equivalent to int | str | list[list[int]] | None
