@@ -1,16 +1,18 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 16: Unexpected errors ['./protocols_recursive.py:16:4: Function may exit without returning a value [missing_return]']
-Line 29: Unexpected errors ['./protocols_recursive.py:29:24: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]']
-Line 42: Unexpected errors ['./protocols_recursive.py:42:25: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]', './protocols_recursive.py:42:4: Function may exit without returning a value [missing_return]']
+Line 21: Unexpected errors ['./protocols_recursive.py:21:24: Undefined name: SimpleTree [undefined_name]']
+Line 29: Unexpected errors ['./protocols_recursive.py:29:24: Undefined name: Tree [undefined_name]']
+Line 42: Unexpected errors ['./protocols_recursive.py:42:4: Function may exit without returning a value [missing_return]', './protocols_recursive.py:42:25: Undefined name: ProtoA [undefined_name]']
 Line 51: Unexpected errors ['./protocols_recursive.py:51:4: Function may exit without returning a value [missing_return]']
 Line 81: Unexpected errors ['./protocols_recursive.py:81:12:   Any[generic_argument] is not equivalent to list[int]']
 """
 output = """
 ./protocols_recursive.py:16:4: Function may exit without returning a value [missing_return]
-./protocols_recursive.py:29:24: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
-./protocols_recursive.py:42:25: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
+./protocols_recursive.py:21:24: Undefined name: SimpleTree [undefined_name]
+./protocols_recursive.py:29:24: Undefined name: Tree [undefined_name]
 ./protocols_recursive.py:42:4: Function may exit without returning a value [missing_return]
+./protocols_recursive.py:42:25: Undefined name: ProtoA [undefined_name]
 ./protocols_recursive.py:51:4: Function may exit without returning a value [missing_return]
 ./protocols_recursive.py:81:12:   Any[generic_argument] is not equivalent to list[int]
 """

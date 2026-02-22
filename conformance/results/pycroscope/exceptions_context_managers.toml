@@ -1,7 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 85: Unexpected errors ['./exceptions_context_managers.py:85:16:   int | str is not equivalent to str']
 """
 output = """
-./exceptions_context_managers.py:85:16:   int | str is not equivalent to str
 """

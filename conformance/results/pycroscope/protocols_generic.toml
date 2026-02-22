@@ -14,5 +14,5 @@ output = """
 ./protocols_generic.py:65:4: Incompatible assignment: expected .../tests/protocols_generic.py.Sender[int], got .../tests/protocols_generic.py.Sender[float | int] [incompatible_assignment]
 ./protocols_generic.py:75:4: Incompatible assignment: expected .../tests/protocols_generic.py.AttrProto[int], got .../tests/protocols_generic.py.AttrProto[float | int] [incompatible_assignment]
 ./protocols_generic.py:96:12:   Literal[<.../tests/protocols_generic.py.ConcreteHasParent object at 0x...>] is not equivalent to .../tests/protocols_generic.py.ConcreteHasParent
-./protocols_generic.py:146:0: Incompatible assignment: expected .../tests/protocols_generic.py.HasPropertyProto (Protocol with members 'm', 'f'), got .../tests/protocols_generic.py.ConcreteHasProperty3 [incompatible_assignment]
+./protocols_generic.py:146:0: Incompatible assignment: expected .../tests/protocols_generic.py.HasPropertyProto (Protocol with members 'f', 'm'), got .../tests/protocols_generic.py.ConcreteHasProperty3 [incompatible_assignment]
 """

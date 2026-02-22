@@ -15,8 +15,8 @@ Line 197: Expected 1 errors
 Line 80: Unexpected errors ['./constructors_callable.py:80:12:   Any[generic_argument] | Any[from_another] is not equivalent to int']
 Line 102: Unexpected errors ['./constructors_callable.py:102:16:   Any[generic_argument] | Any[from_another] is not equivalent to Never']
 Line 107: Unexpected errors ['./constructors_callable.py:107:16:   Any[generic_argument] | Any[from_another] is not equivalent to Never']
-Line 155: Unexpected errors ['./constructors_callable.py:155:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]']
-Line 157: Unexpected errors ['./constructors_callable.py:157:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]']
+Line 155: Unexpected errors ['./constructors_callable.py:155:23: Undefined name: Class7 [undefined_name]']
+Line 157: Unexpected errors ['./constructors_callable.py:157:23: Undefined name: Class7 [undefined_name]']
 """
 output = """
 ./constructors_callable.py:36:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
@@ -29,8 +29,8 @@ output = """
 ./constructors_callable.py:107:16:   Any[generic_argument] | Any[from_another] is not equivalent to Never
 ./constructors_callable.py:127:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
 ./constructors_callable.py:144:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
-./constructors_callable.py:155:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
-./constructors_callable.py:157:23: Cannot resolve subscripted annotation: Any[inference] [invalid_annotation]
+./constructors_callable.py:155:23: Undefined name: Class7 [undefined_name]
+./constructors_callable.py:157:23: Undefined name: Class7 [undefined_name]
 ./constructors_callable.py:164:4: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
 ./constructors_callable.py:184:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
 ./constructors_callable.py:195:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]

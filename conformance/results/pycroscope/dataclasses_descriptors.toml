@@ -1,5 +1,7 @@
 conformance_automated = "Fail"
 errors_diff = """
+Line 16: Unexpected errors ['./dataclasses_descriptors.py:16:52: Undefined name: Desc1 [undefined_name]']
+Line 23: Unexpected errors ['./dataclasses_descriptors.py:23:61: Undefined name: Desc1 [undefined_name]']
 Line 37: Unexpected errors ['./dataclasses_descriptors.py:37:12:   Any[from_another] is not equivalent to int']
 Line 61: Unexpected errors ['./dataclasses_descriptors.py:61:12:   Any[from_another] is not equivalent to list[int]']
 Line 62: Unexpected errors ['./dataclasses_descriptors.py:62:12:   Any[from_another] is not equivalent to list[str]']
@@ -9,6 +11,8 @@ Line 67: Unexpected errors ['./dataclasses_descriptors.py:67:12:   Any[from_anot
 Line 68: Unexpected errors ['./dataclasses_descriptors.py:68:12:   Any[from_another] is not equivalent to str']
 """
 output = """
+./dataclasses_descriptors.py:16:52: Undefined name: Desc1 [undefined_name]
+./dataclasses_descriptors.py:23:61: Undefined name: Desc1 [undefined_name]
 ./dataclasses_descriptors.py:37:12:   Any[from_another] is not equivalent to int
 ./dataclasses_descriptors.py:61:12:   Any[from_another] is not equivalent to list[int]
 ./dataclasses_descriptors.py:62:12:   Any[from_another] is not equivalent to list[str]

@@ -5,6 +5,8 @@ Line 44: Expected 1 errors
 Line 49: Expected 1 errors
 Lines 33, 34: Expected error (tag 'method2')
 Lines 38, 39: Expected error (tag 'method3')
+Line 15: Unexpected errors ['./typeddicts_class_syntax.py:15:14: Undefined name: Person [undefined_name]']
 """
 output = """
+./typeddicts_class_syntax.py:15:14: Undefined name: Person [undefined_name]
 """

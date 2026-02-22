@@ -1,11 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 81: Unexpected errors ['./narrowing_typeguard.py:81:20:   object is not equivalent to int']
-Line 85: Unexpected errors ['./narrowing_typeguard.py:85:20:   object is not equivalent to int']
 """
 output = """
-./narrowing_typeguard.py:81:20:   object is not equivalent to int
-./narrowing_typeguard.py:85:20:   object is not equivalent to int
 ./narrowing_typeguard.py:102:4: TypeGuard must be used on a function taking at least one positional parameter [invalid_typeguard]
 ./narrowing_typeguard.py:107:4: TypeGuard must be used on a function taking at least one positional parameter [invalid_typeguard]
 ./narrowing_typeguard.py:128:19: Incompatible argument type for f: expected (object, /) -> str but got function '.../tests/narrowing_typeguard.py.simple_typeguard' [incompatible_argument]

@@ -4,15 +4,15 @@ Line 22: Expected 1 errors
 Line 23: Expected 1 errors
 Line 24: Expected 1 errors
 Line 26: Expected 1 errors
-Line 28: Expected 1 errors
-Line 29: Expected 1 errors
 Line 32: Expected 1 errors
 Line 37: Expected 1 errors
 Line 47: Expected 1 errors
 Line 49: Expected 1 errors
 Line 62: Expected 1 errors
-Line 60: Unexpected errors ['./typeddicts_operations.py:60:12:   Any[from_another] is not equivalent to str | None']
+Line 60: Unexpected errors ['./typeddicts_operations.py:60:12:   Any[from_another] | str | None is not equivalent to str | None']
 """
 output = """
-./typeddicts_operations.py:60:12:   Any[from_another] is not equivalent to str | None
+./typeddicts_operations.py:28:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': 'Blade Runner'}] [incompatible_assignment]
+./typeddicts_operations.py:29:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': 'Blade Runner', 'year': 1982.1}] [incompatible_assignment]
+./typeddicts_operations.py:60:12:   Any[from_another] | str | None is not equivalent to str | None
 """

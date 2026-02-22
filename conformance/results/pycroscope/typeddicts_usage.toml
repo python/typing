@@ -1,10 +1,12 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 23: Expected 1 errors
-Line 24: Expected 1 errors
-Line 28: Expected 1 errors
 Line 35: Expected 1 errors
 Line 40: Expected 1 errors
+Line 30: Unexpected errors ['./typeddicts_usage.py:30:4: TypedDict({"name": str, "year": int}) is not callable [not_callable]']
 """
 output = """
+./typeddicts_usage.py:23:6: Key 'director' does not exist in TypedDict({"name": str, "year": int}) [invalid_typeddict_key]
+./typeddicts_usage.py:24:0: Value for key 'year' must be int, not Literal['1982'] [incompatible_argument]
+./typeddicts_usage.py:28:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'title': 'Blade Runner', 'year': 1982}] [incompatible_assignment]
+./typeddicts_usage.py:30:4: TypedDict({"name": str, "year": int}) is not callable [not_callable]
 """

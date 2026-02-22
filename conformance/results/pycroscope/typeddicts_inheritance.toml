@@ -1,8 +1,10 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 44: Expected 1 errors
-Line 65: Expected 1 errors
-Lines 54, 55: Expected error (tag 'Y1')
+Line 36: Unexpected errors ['./typeddicts_inheritance.py:36:5: TypedDict({"x": int, "y": str, "z": bool}) is not callable [not_callable]']
 """
 output = """
+./typeddicts_inheritance.py:36:5: TypedDict({"x": int, "y": str, "z": bool}) is not callable [not_callable]
+./typeddicts_inheritance.py:55:3: Incompatible TypedDict override for key 'x' [invalid_annotation]
+./typeddicts_inheritance.py:65:0: TypedDict base classes define key 'x' with incompatible types [invalid_annotation]
 """
