@@ -2,10 +2,22 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 30: Expected 1 errors
 Line 55: Expected 1 errors
+Line 22: Unexpected errors ['./generics_defaults_specialization.py:22:21: Object SomethingWithNoDefaults does not support subscripting [unsupported_operation]']
+Line 26: Unexpected errors ['./generics_defaults_specialization.py:26:20: Object SomethingWithNoDefaults does not support subscripting [unsupported_operation]']
+Line 27: Unexpected errors ['./generics_defaults_specialization.py:27:20: Object SomethingWithNoDefaults does not support subscripting [unsupported_operation]']
+Line 42: Unexpected errors ['./generics_defaults_specialization.py:42:10: Object SubclassMe does not support subscripting [unsupported_operation]']
 Line 45: Unexpected errors ['./generics_defaults_specialization.py:45:12:   Bar is not equivalent to Any[inference]']
+Line 50: Unexpected errors ['./generics_defaults_specialization.py:50:10: Object SubclassMe does not support subscripting [unsupported_operation]']
 Line 53: Unexpected errors ['./generics_defaults_specialization.py:53:12:   Any[from_another] is not equivalent to str']
+Line 65: Unexpected errors ['./generics_defaults_specialization.py:65:4: Object Baz does not support subscripting [unsupported_operation]']
 """
 output = """
+./generics_defaults_specialization.py:22:21: Object SomethingWithNoDefaults does not support subscripting [unsupported_operation]
+./generics_defaults_specialization.py:26:20: Object SomethingWithNoDefaults does not support subscripting [unsupported_operation]
+./generics_defaults_specialization.py:27:20: Object SomethingWithNoDefaults does not support subscripting [unsupported_operation]
+./generics_defaults_specialization.py:42:10: Object SubclassMe does not support subscripting [unsupported_operation]
 ./generics_defaults_specialization.py:45:12:   Bar is not equivalent to Any[inference]
+./generics_defaults_specialization.py:50:10: Object SubclassMe does not support subscripting [unsupported_operation]
 ./generics_defaults_specialization.py:53:12:   Any[from_another] is not equivalent to str
+./generics_defaults_specialization.py:65:4: Object Baz does not support subscripting [unsupported_operation]
 """

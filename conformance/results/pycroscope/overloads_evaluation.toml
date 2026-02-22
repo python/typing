@@ -14,11 +14,9 @@ Line 235: Unexpected errors ['./overloads_evaluation.py:235:16:   int | str is n
 Line 262: Unexpected errors ['./overloads_evaluation.py:262:16:   list[int] | list[str] is not equivalent to list[int]']
 Line 265: Unexpected errors ['./overloads_evaluation.py:265:16:   list[int] | list[str] is not equivalent to Any[explicit]']
 Line 281: Unexpected errors ['./overloads_evaluation.py:281:16:   list[Any[explicit]] is not equivalent to Any[explicit]']
-Line 303: Unexpected errors ['./overloads_evaluation.py:303:16:   list[Any[explicit]] | Any[generic_argument] is not equivalent to float | int']
-Line 309: Unexpected errors ['./overloads_evaluation.py:309:16:   Any[explicit] | Any[generic_argument] is not equivalent to float | int']
-Line 315: Unexpected errors ['./overloads_evaluation.py:315:16:   list[int] | Any[generic_argument] is not equivalent to float | int']
-Line 318: Unexpected errors ['./overloads_evaluation.py:318:16:   str | Any[generic_argument] is not equivalent to str']
-Line 324: Unexpected errors ['./overloads_evaluation.py:324:16:   list[int] | Any[generic_argument] is not equivalent to list[int]']
+Line 303: Unexpected errors ['./overloads_evaluation.py:303:16:   list[Any[explicit]] is not equivalent to float | int']
+Line 309: Unexpected errors ['./overloads_evaluation.py:309:16:   Any[explicit] is not equivalent to float | int']
+Line 315: Unexpected errors ['./overloads_evaluation.py:315:16:   list[int] is not equivalent to float | int']
 Line 341: Unexpected errors ['./overloads_evaluation.py:341:16:   list[int] | list[str] is not equivalent to list[int]']
 Line 344: Unexpected errors ['./overloads_evaluation.py:344:16:   list[int] | list[str] is not equivalent to list[str]']
 Line 347: Unexpected errors ['./overloads_evaluation.py:347:16:   list[int] | list[str] is not equivalent to Any[explicit]']
@@ -40,11 +38,9 @@ output = """
 ./overloads_evaluation.py:262:16:   list[int] | list[str] is not equivalent to list[int]
 ./overloads_evaluation.py:265:16:   list[int] | list[str] is not equivalent to Any[explicit]
 ./overloads_evaluation.py:281:16:   list[Any[explicit]] is not equivalent to Any[explicit]
-./overloads_evaluation.py:303:16:   list[Any[explicit]] | Any[generic_argument] is not equivalent to float | int
-./overloads_evaluation.py:309:16:   Any[explicit] | Any[generic_argument] is not equivalent to float | int
-./overloads_evaluation.py:315:16:   list[int] | Any[generic_argument] is not equivalent to float | int
-./overloads_evaluation.py:318:16:   str | Any[generic_argument] is not equivalent to str
-./overloads_evaluation.py:324:16:   list[int] | Any[generic_argument] is not equivalent to list[int]
+./overloads_evaluation.py:303:16:   list[Any[explicit]] is not equivalent to float | int
+./overloads_evaluation.py:309:16:   Any[explicit] is not equivalent to float | int
+./overloads_evaluation.py:315:16:   list[int] is not equivalent to float | int
 ./overloads_evaluation.py:341:16:   list[int] | list[str] is not equivalent to list[int]
 ./overloads_evaluation.py:344:16:   list[int] | list[str] is not equivalent to list[str]
 ./overloads_evaluation.py:347:16:   list[int] | list[str] is not equivalent to Any[explicit]

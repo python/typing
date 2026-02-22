@@ -1,13 +1,13 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 24: Expected 1 errors
-Line 37: Unexpected errors ['./generics_upper_bound.py:37:12:   Any[generic_argument] | Literal[[1], [1, 2]] is not equivalent to list[int]']
-Line 38: Unexpected errors ['./generics_upper_bound.py:38:12:   Any[generic_argument] | Literal[{1}, {1, 2}] is not equivalent to set[int]']
+Line 37: Unexpected errors ['./generics_upper_bound.py:37:12:   Literal[[1], [1, 2]] is not equivalent to list[int]']
+Line 38: Unexpected errors ['./generics_upper_bound.py:38:12:   Literal[{1}, {1, 2}] is not equivalent to set[int]']
 """
 output = """
-./generics_upper_bound.py:37:12:   Any[generic_argument] | Literal[[1], [1, 2]] is not equivalent to list[int]
-./generics_upper_bound.py:38:12:   Any[generic_argument] | Literal[{1}, {1, 2}] is not equivalent to set[int]
-./generics_upper_bound.py:43:12:   Any[generic_argument] | Literal[[1], {1, 2}] is not equivalent to list[int] | set[int]
+./generics_upper_bound.py:37:12:   Literal[[1], [1, 2]] is not equivalent to list[int]
+./generics_upper_bound.py:38:12:   Literal[{1}, {1, 2}] is not equivalent to set[int]
+./generics_upper_bound.py:43:12:   Literal[[1], {1, 2}] is not equivalent to list[int] | set[int]
 ./generics_upper_bound.py:51:7: Incompatible argument type for x: expected ~ST: collections.abc.Sized (Protocol with members '__len__') but got Literal[3] [incompatible_argument]
 ./generics_upper_bound.py:56:9: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: Constraints cannot be combined with bound=... [incompatible_call]
 """

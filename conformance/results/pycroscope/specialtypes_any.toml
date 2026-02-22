@@ -1,9 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 86: Unexpected errors ['./specialtypes_any.py:86:12:   Any[from_another] is not equivalent to int']
-Line 88: Unexpected errors ["./specialtypes_any.py:88:12: ClassA has no attribute 'method3' [undefined_attribute]"]
 """
 output = """
-./specialtypes_any.py:86:12:   Any[from_another] is not equivalent to int
-./specialtypes_any.py:88:12: ClassA has no attribute 'method3' [undefined_attribute]
 """

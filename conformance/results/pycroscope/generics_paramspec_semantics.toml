@@ -1,35 +1,17 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 22: Unexpected errors ['./generics_paramspec_semantics.py:22:12:   (a: str, b: bool, /) -> str | Any[unannotated] is not equivalent to (str, bool, /) -> str']
-Line 25: Unexpected errors ['./generics_paramspec_semantics.py:25:12:   str | Any[from_another] is not equivalent to str']
-Line 43: Unexpected errors ['./generics_paramspec_semantics.py:43:12:   bool | Any[from_another] is not equivalent to bool']
-Line 44: Unexpected errors ['./generics_paramspec_semantics.py:44:12:   bool | Any[from_another] is not equivalent to bool']
+Line 82: Unexpected errors ['./generics_paramspec_semantics.py:82:20: Object Y does not support subscripting [unsupported_operation]']
 Line 84: Unexpected errors ['./generics_paramspec_semantics.py:84:16:   Any[from_another] is not equivalent to (int, /) -> str']
-Line 96: Unexpected errors ['./generics_paramspec_semantics.py:96:12:   bool | Any[from_another] is not equivalent to bool']
-Line 97: Unexpected errors ['./generics_paramspec_semantics.py:97:12:   bool | Any[from_another] is not equivalent to bool']
-Line 106: Unexpected errors ['./generics_paramspec_semantics.py:106:12:   bool | Any[from_another] is not equivalent to bool']
-Line 107: Unexpected errors ['./generics_paramspec_semantics.py:107:12:   bool | Any[from_another] is not equivalent to bool']
-Line 118: Unexpected errors ['./generics_paramspec_semantics.py:118:12:   bool | Any[from_another] is not equivalent to bool']
-Line 119: Unexpected errors ['./generics_paramspec_semantics.py:119:12:   bool | Any[from_another] is not equivalent to bool']
 """
 output = """
-./generics_paramspec_semantics.py:22:12:   (a: str, b: bool, /) -> str | Any[unannotated] is not equivalent to (str, bool, /) -> str
-./generics_paramspec_semantics.py:25:12:   str | Any[from_another] is not equivalent to str
 ./generics_paramspec_semantics.py:26:0: Missing required positional argument 'a' [incompatible_call]
 ./generics_paramspec_semantics.py:27:8: Incompatible argument type for b: expected bool but got Literal['A'] [incompatible_argument]
-./generics_paramspec_semantics.py:43:12:   bool | Any[from_another] is not equivalent to bool
-./generics_paramspec_semantics.py:44:12:   bool | Any[from_another] is not equivalent to bool
 ./generics_paramspec_semantics.py:46:5: Cannot resolve type variables [incompatible_call]
 ./generics_paramspec_semantics.py:61:0: Cannot resolve type variables [incompatible_call]
+./generics_paramspec_semantics.py:82:20: Object Y does not support subscripting [unsupported_operation]
 ./generics_paramspec_semantics.py:84:16:   Any[from_another] is not equivalent to (int, /) -> str
-./generics_paramspec_semantics.py:96:12:   bool | Any[from_another] is not equivalent to bool
-./generics_paramspec_semantics.py:97:12:   bool | Any[from_another] is not equivalent to bool
 ./generics_paramspec_semantics.py:98:3: Incompatible argument type for @0: expected str but got Literal[1] [incompatible_argument]
-./generics_paramspec_semantics.py:106:12:   bool | Any[from_another] is not equivalent to bool
-./generics_paramspec_semantics.py:107:12:   bool | Any[from_another] is not equivalent to bool
 ./generics_paramspec_semantics.py:108:0: Incompatible argument type for args: expected tuple[bool, ...] but got tuple[Literal[1]] [incompatible_argument]
-./generics_paramspec_semantics.py:118:12:   bool | Any[from_another] is not equivalent to bool
-./generics_paramspec_semantics.py:119:12:   bool | Any[from_another] is not equivalent to bool
 ./generics_paramspec_semantics.py:120:3: Incompatible argument type for @0: expected str but got Literal[1] [incompatible_argument]
 ./generics_paramspec_semantics.py:127:1: Incompatible argument type for x: expected (int, /, **ParamSpecSig(param_spec=~P, default=None)) -> int but got (x: str) -> int [incompatible_argument]
 ./generics_paramspec_semantics.py:132:1: Incompatible argument type for x: expected (int, /, **ParamSpecSig(param_spec=~P, default=None)) -> int but got (*, x: int) -> int [incompatible_argument]

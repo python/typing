@@ -8,10 +8,7 @@ Line 162: Expected 1 errors
 Line 163: Expected 1 errors
 Line 171: Expected 1 errors
 Line 172: Expected 1 errors
-Line 208: Expected 1 errors
-Line 23: Unexpected errors ['./generics_basic.py:23:16:   int | Any[generic_argument] is not equivalent to int']
-Line 24: Unexpected errors ['./generics_basic.py:24:16:   str | Any[generic_argument] is not equivalent to str']
-Line 34: Unexpected errors ['./generics_basic.py:34:11: Unsupported operands for addition: ~AnyStr: (str, bytes) and ~AnyStr: (str, bytes) | ~AnyStr: (str, bytes) [unsupported_operation]']
+Line 34: Unexpected errors ['./generics_basic.py:34:11: Unsupported operands for addition: ~AnyStr: (str, bytes) and ~AnyStr: (str, bytes) [unsupported_operation]']
 Line 67: Unexpected errors ['./generics_basic.py:67:16:   Any[error] is not equivalent to str', './generics_basic.py:67:23: Incompatible argument type for x: expected ~AnyStr: (str, bytes) but got ./generics_basic.py.MyStr [incompatible_argument]']
 Line 68: Unexpected errors ['./generics_basic.py:68:16:   Any[error] is not equivalent to str', './generics_basic.py:68:23: Incompatible argument type for x: expected ~AnyStr: (str, bytes) but got ./generics_basic.py.MyStr [incompatible_argument]']
 Line 106: Unexpected errors ['./generics_basic.py:106:20:   Any[from_another] is not equivalent to int']
@@ -22,9 +19,7 @@ Line 155: Unexpected errors ['./generics_basic.py:155:16:   Any[from_another] is
 Line 199: Unexpected errors ['./generics_basic.py:199:16:   Any[error] is not equivalent to collections.abc.Iterator[Any[explicit]]', './generics_basic.py:199:16: Cannot call overloaded function [incompatible_argument]']
 """
 output = """
-./generics_basic.py:23:16:   int | Any[generic_argument] is not equivalent to int
-./generics_basic.py:24:16:   str | Any[generic_argument] is not equivalent to str
-./generics_basic.py:34:11: Unsupported operands for addition: ~AnyStr: (str, bytes) and ~AnyStr: (str, bytes) | ~AnyStr: (str, bytes) [unsupported_operation]
+./generics_basic.py:34:11: Unsupported operands for addition: ~AnyStr: (str, bytes) and ~AnyStr: (str, bytes) [unsupported_operation]
 ./generics_basic.py:40:4: Cannot resolve type variables [incompatible_call]
 ./generics_basic.py:41:4: Cannot resolve type variables [incompatible_call]
 ./generics_basic.py:49:17: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: A single constraint is not allowed [incompatible_call]
@@ -40,4 +35,5 @@ output = """
 ./generics_basic.py:155:16:   Any[from_another] is not equivalent to int
 ./generics_basic.py:199:16:   Any[error] is not equivalent to collections.abc.Iterator[Any[explicit]]
 ./generics_basic.py:199:16: Cannot call overloaded function [incompatible_argument]
+./generics_basic.py:208:36: Object GenericMeta does not support subscripting [unsupported_operation]
 """

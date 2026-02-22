@@ -1,12 +1,45 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 21: Expected 1 errors
 Line 42: Expected 1 errors
-Line 56: Expected 1 errors
 Line 107: Expected 1 errors
 Line 130: Expected 1 errors
+Line 19: Unexpected errors ['./constructors_call_init.py:19:12: Object Class1 does not support subscripting [unsupported_operation]', './constructors_call_init.py:19:28: Object Class1 does not support subscripting [unsupported_operation]']
+Line 20: Unexpected errors ['./constructors_call_init.py:20:12: Object Class1 does not support subscripting [unsupported_operation]', './constructors_call_init.py:20:30: Object Class1 does not support subscripting [unsupported_operation]']
+Line 24: Unexpected errors ['./constructors_call_init.py:24:23: Object Class1 does not support subscripting [unsupported_operation]']
+Line 25: Unexpected errors ['./constructors_call_init.py:25:25: Object Class1 does not support subscripting [unsupported_operation]']
+Line 37: Unexpected errors ['./constructors_call_init.py:37:13: Object Class2 does not support subscripting [unsupported_operation]']
+Line 55: Unexpected errors ['./constructors_call_init.py:55:0: Object Class4 does not support subscripting [unsupported_operation]']
+Line 72: Unexpected errors ['./constructors_call_init.py:72:23: Object Class5 does not support subscripting [unsupported_operation]']
+Line 73: Unexpected errors ['./constructors_call_init.py:73:12: Object Class5 does not support subscripting [unsupported_operation]', './constructors_call_init.py:73:28: Object Class5 does not support subscripting [unsupported_operation]']
+Line 74: Unexpected errors ['./constructors_call_init.py:74:24: Object Class5 does not support subscripting [unsupported_operation]']
+Line 75: Unexpected errors ['./constructors_call_init.py:75:25: Object Class5 does not support subscripting [unsupported_operation]']
+Line 91: Unexpected errors ['./constructors_call_init.py:91:27: Object Class6 does not support subscripting [unsupported_operation]']
+Line 92: Unexpected errors ['./constructors_call_init.py:92:12: Object Class6 does not support subscripting [unsupported_operation]', './constructors_call_init.py:92:37: Object Class6 does not support subscripting [unsupported_operation]']
+Line 99: Unexpected errors ['./constructors_call_init.py:99:27: Object Class7 does not support subscripting [unsupported_operation]']
+Line 100: Unexpected errors ['./constructors_call_init.py:100:12: Object Class7 does not support subscripting [unsupported_operation]', './constructors_call_init.py:100:37: Object Class7 does not support subscripting [unsupported_operation]']
 Line 129: Unexpected errors ['./constructors_call_init.py:129:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class11']
 """
 output = """
+./constructors_call_init.py:19:12: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:19:28: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:20:12: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:20:30: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:21:0: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:24:23: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:25:25: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:37:13: Object Class2 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:55:0: Object Class4 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:56:0: Object Class4 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:72:23: Object Class5 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:73:12: Object Class5 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:73:28: Object Class5 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:74:24: Object Class5 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:75:25: Object Class5 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:91:27: Object Class6 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:92:12: Object Class6 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:92:37: Object Class6 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:99:27: Object Class7 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:100:12: Object Class7 does not support subscripting [unsupported_operation]
+./constructors_call_init.py:100:37: Object Class7 does not support subscripting [unsupported_operation]
 ./constructors_call_init.py:129:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class11
 """

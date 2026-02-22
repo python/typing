@@ -19,6 +19,8 @@ Line 106: Unexpected errors ['./dataclasses_usage.py:106:12:   Any[from_another]
 Line 196: Unexpected errors ['./dataclasses_usage.py:196:12:   Any[from_another] is not equivalent to str']
 Line 197: Unexpected errors ['./dataclasses_usage.py:197:12:   Any[from_another] is not equivalent to str']
 Line 198: Unexpected errors ['./dataclasses_usage.py:198:12:   Any[from_another] is not equivalent to str']
+Line 213: Unexpected errors ['./dataclasses_usage.py:213:21: Object DC16 does not support subscripting [unsupported_operation]']
+Line 216: Unexpected errors ['./dataclasses_usage.py:216:11: Object DC16 does not support subscripting [unsupported_operation]']
 Line 220: Unexpected errors ['./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17']
 """
 output = """
@@ -32,5 +34,7 @@ output = """
 ./dataclasses_usage.py:196:12:   Any[from_another] is not equivalent to str
 ./dataclasses_usage.py:197:12:   Any[from_another] is not equivalent to str
 ./dataclasses_usage.py:198:12:   Any[from_another] is not equivalent to str
+./dataclasses_usage.py:213:21: Object DC16 does not support subscripting [unsupported_operation]
+./dataclasses_usage.py:216:11: Object DC16 does not support subscripting [unsupported_operation]
 ./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17
 """

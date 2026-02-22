@@ -5,25 +5,22 @@ Line 76: Expected 1 errors
 Line 143: Expected 1 errors
 Line 144: Expected 1 errors
 Line 38: Unexpected errors ['./specialtypes_type.py:38:34: Unrecognized annotation typing.TypeVar [invalid_annotation]']
-Line 42: Unexpected errors ['./specialtypes_type.py:42:12:   Any[error] | ./specialtypes_type.py.User is not equivalent to ./specialtypes_type.py.User']
-Line 43: Unexpected errors ['./specialtypes_type.py:43:12:   Any[error] | ./specialtypes_type.py.User is not equivalent to ./specialtypes_type.py.User']
+Line 42: Unexpected errors ['./specialtypes_type.py:42:12:   Any[error] is not equivalent to ./specialtypes_type.py.User']
+Line 43: Unexpected errors ['./specialtypes_type.py:43:12:   Any[error] is not equivalent to ./specialtypes_type.py.User']
 Line 44: Unexpected errors ['./specialtypes_type.py:44:12:   Any[error] is not equivalent to ./specialtypes_type.py.TeamUser']
-Line 54: Unexpected errors ['./specialtypes_type.py:54:12:   Any[error] | ./specialtypes_type.py.User is not equivalent to ./specialtypes_type.py.User']
-Line 55: Unexpected errors ['./specialtypes_type.py:55:12:   Any[error] | ./specialtypes_type.py.User is not equivalent to ./specialtypes_type.py.User']
+Line 54: Unexpected errors ['./specialtypes_type.py:54:12:   Any[error] is not equivalent to ./specialtypes_type.py.User']
+Line 55: Unexpected errors ['./specialtypes_type.py:55:12:   Any[error] is not equivalent to ./specialtypes_type.py.User']
 Line 116: Unexpected errors ["./specialtypes_type.py:116:16:   Literal['object'] is not equivalent to str"]
 Line 119: Unexpected errors ["./specialtypes_type.py:119:16:   Literal['object'] is not equivalent to str"]
 Line 127: Unexpected errors ['./specialtypes_type.py:127:16:   Any[error] is not equivalent to ./specialtypes_type.py.ProUser']
-Line 152: Unexpected errors ['./specialtypes_type.py:152:15: Unrecognized annotation types.GenericAlias [invalid_annotation]']
-Line 160: Unexpected errors ['./specialtypes_type.py:160:12:   int | Any[generic_argument] is not equivalent to int']
-Line 161: Unexpected errors ['./specialtypes_type.py:161:12:   int | Any[generic_argument] is not equivalent to int']
 """
 output = """
 ./specialtypes_type.py:38:34: Unrecognized annotation typing.TypeVar [invalid_annotation]
-./specialtypes_type.py:42:12:   Any[error] | ./specialtypes_type.py.User is not equivalent to ./specialtypes_type.py.User
-./specialtypes_type.py:43:12:   Any[error] | ./specialtypes_type.py.User is not equivalent to ./specialtypes_type.py.User
+./specialtypes_type.py:42:12:   Any[error] is not equivalent to ./specialtypes_type.py.User
+./specialtypes_type.py:43:12:   Any[error] is not equivalent to ./specialtypes_type.py.User
 ./specialtypes_type.py:44:12:   Any[error] is not equivalent to ./specialtypes_type.py.TeamUser
-./specialtypes_type.py:54:12:   Any[error] | ./specialtypes_type.py.User is not equivalent to ./specialtypes_type.py.User
-./specialtypes_type.py:55:12:   Any[error] | ./specialtypes_type.py.User is not equivalent to ./specialtypes_type.py.User
+./specialtypes_type.py:54:12:   Any[error] is not equivalent to ./specialtypes_type.py.User
+./specialtypes_type.py:55:12:   Any[error] is not equivalent to ./specialtypes_type.py.User
 ./specialtypes_type.py:70:6: Incompatible argument type for x: expected type[~T] but got Literal[typing.Callable] [incompatible_argument]
 ./specialtypes_type.py:116:16:   Literal['object'] is not equivalent to str
 ./specialtypes_type.py:117:4: type[object] has no attribute 'unknown' [undefined_attribute]
@@ -32,7 +29,4 @@ output = """
 ./specialtypes_type.py:127:16:   Any[error] is not equivalent to ./specialtypes_type.py.ProUser
 ./specialtypes_type.py:145:0: type 'type' has no attribute 'unknown' [undefined_attribute]
 ./specialtypes_type.py:146:0: Literal[type[typing.Any]] has no attribute 'unknown' [undefined_attribute]
-./specialtypes_type.py:152:15: Unrecognized annotation types.GenericAlias [invalid_annotation]
-./specialtypes_type.py:160:12:   int | Any[generic_argument] is not equivalent to int
-./specialtypes_type.py:161:12:   int | Any[generic_argument] is not equivalent to int
 """

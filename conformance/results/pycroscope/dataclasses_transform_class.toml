@@ -7,7 +7,9 @@ Line 72: Expected 1 errors
 Line 82: Expected 1 errors
 Line 122: Expected 1 errors
 Line 17: Unexpected errors ['./dataclasses_transform_class.py:17:0: Function may exit without returning a value [missing_return]']
+Line 102: Unexpected errors ['./dataclasses_transform_class.py:102:22: Object GenericModelBase does not support subscripting [unsupported_operation]']
 """
 output = """
 ./dataclasses_transform_class.py:17:0: Function may exit without returning a value [missing_return]
+./dataclasses_transform_class.py:102:22: Object GenericModelBase does not support subscripting [unsupported_operation]
 """

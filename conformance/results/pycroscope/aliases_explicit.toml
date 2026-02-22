@@ -17,26 +17,10 @@ Line 89: Expected 1 errors
 Line 91: Expected 1 errors
 Line 100: Expected 1 errors
 Line 102: Expected 1 errors
-Line 36: Unexpected errors ['./aliases_explicit.py:36:8: Unrecognized annotation types.GenericAlias [invalid_annotation]']
-Line 38: Unexpected errors ['./aliases_explicit.py:38:8: Unrecognized annotation types.GenericAlias [invalid_annotation]']
-Line 52: Unexpected errors ['./aliases_explicit.py:52:16:   list[int] | Any[error] is not equivalent to list[int]']
-Line 53: Unexpected errors ['./aliases_explicit.py:53:16:   tuple[str, ...] | list[str] | Any[from_another] is not equivalent to tuple[str, ...] | list[str]']
-Line 54: Unexpected errors ['./aliases_explicit.py:54:16:   tuple[int, int, int, str] | Any[error] is not equivalent to tuple[int, int, int, str]']
-Line 56: Unexpected errors ['./aliases_explicit.py:56:16:   (int, str, /) -> str | Any[from_another] is not equivalent to (int, str, /) -> str']
-Line 57: Unexpected errors ['./aliases_explicit.py:57:16:   (int, str, str, /) -> None | Any[from_another] is not equivalent to (int, str, str, /) -> None']
-Line 59: Unexpected errors ['./aliases_explicit.py:59:16:   int | str | list[list[int]] | list[Any[explicit]] | None is not equivalent to int | str | list[list[int]] | None']
-Line 60: Unexpected errors ['./aliases_explicit.py:60:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> None | Any[unannotated] is not equivalent to (...) -> None']
+Line 60: Unexpected errors ['./aliases_explicit.py:60:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> None is not equivalent to (...) -> None']
 """
 output = """
-./aliases_explicit.py:36:8: Unrecognized annotation types.GenericAlias [invalid_annotation]
-./aliases_explicit.py:38:8: Unrecognized annotation types.GenericAlias [invalid_annotation]
-./aliases_explicit.py:52:16:   list[int] | Any[error] is not equivalent to list[int]
-./aliases_explicit.py:53:16:   tuple[str, ...] | list[str] | Any[from_another] is not equivalent to tuple[str, ...] | list[str]
-./aliases_explicit.py:54:16:   tuple[int, int, int, str] | Any[error] is not equivalent to tuple[int, int, int, str]
-./aliases_explicit.py:56:16:   (int, str, /) -> str | Any[from_another] is not equivalent to (int, str, /) -> str
-./aliases_explicit.py:57:16:   (int, str, str, /) -> None | Any[from_another] is not equivalent to (int, str, str, /) -> None
-./aliases_explicit.py:59:16:   int | str | list[list[int]] | list[Any[explicit]] | None is not equivalent to int | str | list[list[int]] | None
-./aliases_explicit.py:60:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> None | Any[unannotated] is not equivalent to (...) -> None
+./aliases_explicit.py:60:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> None is not equivalent to (...) -> None
 ./aliases_explicit.py:68:8: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./aliases_explicit.py:69:8: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./aliases_explicit.py:90:21: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]

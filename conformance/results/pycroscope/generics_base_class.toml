@@ -2,15 +2,14 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 29: Expected 1 errors
 Line 30: Expected 1 errors
-Line 49: Expected 1 errors
-Line 61: Expected 1 errors
 Line 68: Expected 1 errors
-Line 98: Expected 1 errors
 Line 24: Unexpected errors ['./generics_base_class.py:24:15: Incompatible argument type for x: expected dict but got ./generics_base_class.py.SymbolTable [incompatible_argument]']
 Line 25: Unexpected errors ['./generics_base_class.py:25:21: Incompatible argument type for x: expected dict[str, list[Any[explicit]]] but got ./generics_base_class.py.SymbolTable [incompatible_argument]']
 Line 45: Unexpected errors ['./generics_base_class.py:45:16:   Any[multiple_overload_matches] is not equivalent to collections.abc.Iterator[int]']
 Line 46: Unexpected errors ['./generics_base_class.py:46:16:   Any[from_another] is not equivalent to bool']
 Line 58: Unexpected errors ['./generics_base_class.py:58:16:   Any[from_another] is not equivalent to int']
+Line 84: Unexpected errors ['./generics_base_class.py:84:12: Object Parent1 does not support subscripting [unsupported_operation]', './generics_base_class.py:84:29: Object Parent2 does not support subscripting [unsupported_operation]']
+Line 97: Unexpected errors ['./generics_base_class.py:97:13: Object Grandparent does not support subscripting [unsupported_operation]']
 """
 output = """
 ./generics_base_class.py:24:15: Incompatible argument type for x: expected dict but got ./generics_base_class.py.SymbolTable [incompatible_argument]
@@ -18,5 +17,11 @@ output = """
 ./generics_base_class.py:26:25: Incompatible argument type for x: expected dict[str, list[object]] but got ./generics_base_class.py.SymbolTable [incompatible_argument]
 ./generics_base_class.py:45:16:   Any[multiple_overload_matches] is not equivalent to collections.abc.Iterator[int]
 ./generics_base_class.py:46:16:   Any[from_another] is not equivalent to bool
+./generics_base_class.py:49:21: Object LinkedList does not support subscripting [unsupported_operation]
 ./generics_base_class.py:58:16:   Any[from_another] is not equivalent to int
+./generics_base_class.py:61:17: Object MyDict does not support subscripting [unsupported_operation]
+./generics_base_class.py:84:12: Object Parent1 does not support subscripting [unsupported_operation]
+./generics_base_class.py:84:29: Object Parent2 does not support subscripting [unsupported_operation]
+./generics_base_class.py:97:13: Object Grandparent does not support subscripting [unsupported_operation]
+./generics_base_class.py:98:31: Object Grandparent does not support subscripting [unsupported_operation]
 """

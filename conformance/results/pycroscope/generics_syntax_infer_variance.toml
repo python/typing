@@ -1,17 +1,12 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 56: Expected 1 errors
-Line 85: Expected 1 errors
-Line 96: Expected 1 errors
-Line 112: Expected 1 errors
-Line 113: Expected 1 errors
-Line 127: Expected 1 errors
-Line 128: Expected 1 errors
-Line 165: Expected 1 errors
 Line 28: Unexpected errors ["./generics_syntax_infer_variance.py:28:27: Incompatible argument type for index: expected int but got type 'float' [incompatible_argument]", "./generics_syntax_infer_variance.py:28:55: Incompatible argument type for index: expected int but got type 'int' [incompatible_argument]"]
-Line 46: Unexpected errors ["./generics_syntax_infer_variance.py:46:27: Incompatible argument type for index: expected int | slice but got type 'float' [incompatible_argument]", "./generics_syntax_infer_variance.py:46:55: Incompatible argument type for index: expected int | slice but got type 'int' [incompatible_argument]"]
-Line 89: Unexpected errors ['./generics_syntax_infer_variance.py:89:7: Unrecognized annotation object [invalid_annotation]']
+Line 46: Unexpected errors ["./generics_syntax_infer_variance.py:46:27: Incompatible argument type for index: expected int | slice but got type 'float' [incompatible_argument]", "./generics_syntax_infer_variance.py:46:55: Incompatible argument type for index: expected int | slice but got type 'int' [incompatible_argument]", './generics_syntax_infer_variance.py:46:8: Unrecognized annotation collections.abc.Sequence[Any[generic_argument]] [invalid_annotation]', './generics_syntax_infer_variance.py:46:36: collections.abc.Sequence[Any[generic_argument]] is not callable [not_callable]']
+Line 55: Unexpected errors ['./generics_syntax_infer_variance.py:55:8: Object ShouldBeCovariant3 does not support subscripting [unsupported_operation]', './generics_syntax_infer_variance.py:55:36: Object ShouldBeCovariant3 does not support subscripting [unsupported_operation]']
+Line 84: Unexpected errors ['./generics_syntax_infer_variance.py:84:7: Object ShouldBeCovariant5 does not support subscripting [unsupported_operation]', './generics_syntax_infer_variance.py:84:35: Object ShouldBeCovariant5 does not support subscripting [unsupported_operation]']
+Line 95: Unexpected errors ['./generics_syntax_infer_variance.py:95:7: Object ShouldBeCovariant6 does not support subscripting [unsupported_operation]', './generics_syntax_infer_variance.py:95:35: Object ShouldBeCovariant6 does not support subscripting [unsupported_operation]']
 Line 108: Unexpected errors ['./generics_syntax_infer_variance.py:108:4: Name value is already defined [class_variable_redefinition]']
+Line 166: Unexpected errors ['./generics_syntax_infer_variance.py:166:12: Object ShouldBeContravariant1 does not support subscripting [unsupported_operation]', './generics_syntax_infer_variance.py:166:42: Object ShouldBeContravariant1 does not support subscripting [unsupported_operation]']
 """
 output = """
 ./generics_syntax_infer_variance.py:15:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: Variance cannot be specified with infer_variance. [incompatible_call]
@@ -22,10 +17,33 @@ output = """
 ./generics_syntax_infer_variance.py:29:27: Incompatible argument type for index: expected int but got type 'int' [incompatible_argument]
 ./generics_syntax_infer_variance.py:46:27: Incompatible argument type for index: expected int | slice but got type 'float' [incompatible_argument]
 ./generics_syntax_infer_variance.py:46:55: Incompatible argument type for index: expected int | slice but got type 'int' [incompatible_argument]
+./generics_syntax_infer_variance.py:46:8: Unrecognized annotation collections.abc.Sequence[Any[generic_argument]] [invalid_annotation]
+./generics_syntax_infer_variance.py:46:36: collections.abc.Sequence[Any[generic_argument]] is not callable [not_callable]
 ./generics_syntax_infer_variance.py:47:53: Incompatible argument type for index: expected int | slice but got type 'float' [incompatible_argument]
 ./generics_syntax_infer_variance.py:47:27: Incompatible argument type for index: expected int | slice but got type 'int' [incompatible_argument]
-./generics_syntax_infer_variance.py:89:7: Unrecognized annotation object [invalid_annotation]
+./generics_syntax_infer_variance.py:47:8: Unrecognized annotation collections.abc.Sequence[Any[generic_argument]] [invalid_annotation]
+./generics_syntax_infer_variance.py:47:34: collections.abc.Sequence[Any[generic_argument]] is not callable [not_callable]
+./generics_syntax_infer_variance.py:55:8: Object ShouldBeCovariant3 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:55:36: Object ShouldBeCovariant3 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:56:8: Object ShouldBeCovariant3 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:56:34: Object ShouldBeCovariant3 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:84:7: Object ShouldBeCovariant5 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:84:35: Object ShouldBeCovariant5 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:85:7: Object ShouldBeCovariant5 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:85:33: Object ShouldBeCovariant5 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:95:7: Object ShouldBeCovariant6 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:95:35: Object ShouldBeCovariant6 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:96:7: Object ShouldBeCovariant6 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:96:33: Object ShouldBeCovariant6 does not support subscripting [unsupported_operation]
 ./generics_syntax_infer_variance.py:108:4: Name value is already defined [class_variable_redefinition]
+./generics_syntax_infer_variance.py:112:9: Object ShouldBeInvariant1 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:112:37: Object ShouldBeInvariant1 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:113:9: Object ShouldBeInvariant1 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:113:35: Object ShouldBeInvariant1 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:127:9: Object ShouldBeInvariant2 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:127:37: Object ShouldBeInvariant2 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:128:9: Object ShouldBeInvariant2 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:128:35: Object ShouldBeInvariant2 does not support subscripting [unsupported_operation]
 ./generics_syntax_infer_variance.py:135:9: Object ShouldBeInvariant3 does not support subscripting [unsupported_operation]
 ./generics_syntax_infer_variance.py:135:42: Object ShouldBeInvariant3 does not support subscripting [unsupported_operation]
 ./generics_syntax_infer_variance.py:136:9: Object ShouldBeInvariant3 does not support subscripting [unsupported_operation]
@@ -38,4 +56,8 @@ output = """
 ./generics_syntax_infer_variance.py:146:37: Object ShouldBeInvariant4 does not support subscripting [unsupported_operation]
 ./generics_syntax_infer_variance.py:154:9: Object ShouldBeInvariant5 does not support subscripting [unsupported_operation]
 ./generics_syntax_infer_variance.py:154:37: Object ShouldBeInvariant5 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:165:12: Object ShouldBeContravariant1 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:165:44: Object ShouldBeContravariant1 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:166:12: Object ShouldBeContravariant1 does not support subscripting [unsupported_operation]
+./generics_syntax_infer_variance.py:166:42: Object ShouldBeContravariant1 does not support subscripting [unsupported_operation]
 """

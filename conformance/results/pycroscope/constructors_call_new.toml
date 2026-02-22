@@ -1,17 +1,43 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 21: Expected 1 errors
-Line 148: Expected 1 errors
+Line 19: Unexpected errors ['./constructors_call_new.py:19:12: Object Class1 does not support subscripting [unsupported_operation]', './constructors_call_new.py:19:28: Object Class1 does not support subscripting [unsupported_operation]']
+Line 20: Unexpected errors ['./constructors_call_new.py:20:12: Object Class1 does not support subscripting [unsupported_operation]', './constructors_call_new.py:20:30: Object Class1 does not support subscripting [unsupported_operation]']
+Line 23: Unexpected errors ['./constructors_call_new.py:23:23: Object Class1 does not support subscripting [unsupported_operation]']
+Line 24: Unexpected errors ['./constructors_call_new.py:24:25: Object Class1 does not support subscripting [unsupported_operation]']
+Line 35: Unexpected errors ['./constructors_call_new.py:35:23: Object Class2 does not support subscripting [unsupported_operation]']
+Line 36: Unexpected errors ['./constructors_call_new.py:36:24: Object Class2 does not support subscripting [unsupported_operation]']
 Line 49: Unexpected errors ['./constructors_call_new.py:49:12:   Any[from_another] is not equivalent to int']
 Line 64: Unexpected errors ['./constructors_call_new.py:64:0: Unrecognized annotation types.UnionType [invalid_annotation]']
 Line 76: Unexpected errors ['./constructors_call_new.py:76:16:   Any[from_another] is not equivalent to Never']
 Line 89: Unexpected errors ['./constructors_call_new.py:89:0: Unrecognized annotation types.UnionType [invalid_annotation]']
 Line 104: Unexpected errors ['./constructors_call_new.py:104:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class7']
+Line 117: Unexpected errors ['./constructors_call_new.py:117:12: Object Class8 does not support subscripting [unsupported_operation]', './constructors_call_new.py:117:27: Object Class8 does not support subscripting [unsupported_operation]']
+Line 118: Unexpected errors ['./constructors_call_new.py:118:12: Object Class8 does not support subscripting [unsupported_operation]', './constructors_call_new.py:118:27: Object Class8 does not support subscripting [unsupported_operation]']
+Line 130: Unexpected errors ['./constructors_call_new.py:130:14: Object Class9 does not support subscripting [unsupported_operation]']
+Line 134: Unexpected errors ['./constructors_call_new.py:134:5: Object Class9 does not support subscripting [unsupported_operation]']
+Line 147: Unexpected errors ['./constructors_call_new.py:147:0: Object Class11 does not support subscripting [unsupported_operation]']
 """
 output = """
+./constructors_call_new.py:19:12: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:19:28: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:20:12: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:20:30: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:21:0: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:23:23: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:24:25: Object Class1 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:35:23: Object Class2 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:36:24: Object Class2 does not support subscripting [unsupported_operation]
 ./constructors_call_new.py:49:12:   Any[from_another] is not equivalent to int
 ./constructors_call_new.py:64:0: Unrecognized annotation types.UnionType [invalid_annotation]
 ./constructors_call_new.py:76:16:   Any[from_another] is not equivalent to Never
 ./constructors_call_new.py:89:0: Unrecognized annotation types.UnionType [invalid_annotation]
 ./constructors_call_new.py:104:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class7
+./constructors_call_new.py:117:12: Object Class8 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:117:27: Object Class8 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:118:12: Object Class8 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:118:27: Object Class8 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:130:14: Object Class9 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:134:5: Object Class9 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:147:0: Object Class11 does not support subscripting [unsupported_operation]
+./constructors_call_new.py:148:0: Object Class11 does not support subscripting [unsupported_operation]
 """
