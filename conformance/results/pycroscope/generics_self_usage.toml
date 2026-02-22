@@ -2,6 +2,7 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 76: Expected 1 errors
 Line 82: Expected 1 errors
+Line 87: Expected 1 errors
 Line 103: Expected 1 errors
 Line 105: Expected 1 errors
 Line 108: Expected 1 errors
@@ -9,8 +10,9 @@ Line 113: Expected 1 errors
 Line 118: Expected 1 errors
 Line 123: Expected 1 errors
 Line 127: Expected 1 errors
+Line 67: Unexpected errors ['./generics_self_usage.py:67:4: Name Inner is already defined [class_variable_redefinition]']
 """
 output = """
+./generics_self_usage.py:67:4: Name Inner is already defined [class_variable_redefinition]
 ./generics_self_usage.py:73:0: Function may exit without returning a value [missing_return]
-./generics_self_usage.py:87:15: Undefined name: Foo3 [undefined_name]
 """

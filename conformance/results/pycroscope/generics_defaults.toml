@@ -5,9 +5,19 @@ Line 50: Expected 1 errors
 Line 107: Expected 1 errors
 Line 114: Expected 1 errors
 Line 143: Expected 1 errors
+Line 30: Unexpected errors ['./generics_defaults.py:30:12:   NoNonDefaults is not equivalent to Any[inference]']
+Line 45: Unexpected errors ['./generics_defaults.py:45:12:   AllTheDefaults is not equivalent to Any[inference]']
+Line 79: Unexpected errors ['./generics_defaults.py:79:12:   Class_ParamSpec is not equivalent to Any[inference]']
+Line 94: Unexpected errors ['./generics_defaults.py:94:12:   Class_TypeVarTuple is not equivalent to Any[inference]']
+Line 172: Unexpected errors ['./generics_defaults.py:172:12:   ./generics_defaults.py.Foo7 is not equivalent to Any[from_another]']
 Line 173: Unexpected errors ['./generics_defaults.py:173:12:   Any[from_another] is not equivalent to int']
 """
 output = """
+./generics_defaults.py:30:12:   NoNonDefaults is not equivalent to Any[inference]
+./generics_defaults.py:45:12:   AllTheDefaults is not equivalent to Any[inference]
+./generics_defaults.py:79:12:   Class_ParamSpec is not equivalent to Any[inference]
+./generics_defaults.py:94:12:   Class_TypeVarTuple is not equivalent to Any[inference]
 ./generics_defaults.py:131:12:   Any[generic_argument] is not equivalent to int
+./generics_defaults.py:172:12:   ./generics_defaults.py.Foo7 is not equivalent to Any[from_another]
 ./generics_defaults.py:173:12:   Any[from_another] is not equivalent to int
 """

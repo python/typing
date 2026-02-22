@@ -14,12 +14,12 @@ Line 46: Unexpected errors ['./dataclasses_usage.py:46:12:   Any[from_another] i
 Line 47: Unexpected errors ['./dataclasses_usage.py:47:12:   Any[from_another] is not equivalent to float | int']
 Line 48: Unexpected errors ['./dataclasses_usage.py:48:12:   Any[from_another] is not equivalent to int']
 Line 103: Unexpected errors ['./dataclasses_usage.py:103:12:   Any[from_another] is not equivalent to int']
-Line 104: Unexpected errors ['./dataclasses_usage.py:104:12:   Any[from_another] is not equivalent to int']
 Line 105: Unexpected errors ['./dataclasses_usage.py:105:12:   Any[from_another] is not equivalent to str']
 Line 106: Unexpected errors ['./dataclasses_usage.py:106:12:   Any[from_another] is not equivalent to (str, /) -> int']
 Line 196: Unexpected errors ['./dataclasses_usage.py:196:12:   Any[from_another] is not equivalent to str']
 Line 197: Unexpected errors ['./dataclasses_usage.py:197:12:   Any[from_another] is not equivalent to str']
 Line 198: Unexpected errors ['./dataclasses_usage.py:198:12:   Any[from_another] is not equivalent to str']
+Line 220: Unexpected errors ['./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17']
 """
 output = """
 ./dataclasses_usage.py:46:12:   Any[from_another] is not equivalent to str
@@ -27,10 +27,10 @@ output = """
 ./dataclasses_usage.py:48:12:   Any[from_another] is not equivalent to int
 ./dataclasses_usage.py:88:4: Incompatible assignment: expected int, got str [incompatible_assignment]
 ./dataclasses_usage.py:103:12:   Any[from_another] is not equivalent to int
-./dataclasses_usage.py:104:12:   Any[from_another] is not equivalent to int
 ./dataclasses_usage.py:105:12:   Any[from_another] is not equivalent to str
 ./dataclasses_usage.py:106:12:   Any[from_another] is not equivalent to (str, /) -> int
 ./dataclasses_usage.py:196:12:   Any[from_another] is not equivalent to str
 ./dataclasses_usage.py:197:12:   Any[from_another] is not equivalent to str
 ./dataclasses_usage.py:198:12:   Any[from_another] is not equivalent to str
+./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17
 """

@@ -7,7 +7,11 @@ Line 67: Expected 1 errors
 Line 82: Expected 1 errors
 Line 83: Expected 1 errors
 Line 18: Unexpected errors ['./protocols_merging.py:18:4: Function may exit without returning a value [missing_return]']
+Line 59: Unexpected errors ['./protocols_merging.py:59:4: Incompatible assignment: expected ./protocols_merging.py.SizedAndClosable2, got ./protocols_merging.py.SizedAndClosable1 [incompatible_assignment]']
+Line 60: Unexpected errors ['./protocols_merging.py:60:4: Incompatible assignment: expected ./protocols_merging.py.SizedAndClosable1, got ./protocols_merging.py.SizedAndClosable2 [incompatible_assignment]']
 """
 output = """
 ./protocols_merging.py:18:4: Function may exit without returning a value [missing_return]
+./protocols_merging.py:59:4: Incompatible assignment: expected ./protocols_merging.py.SizedAndClosable2, got ./protocols_merging.py.SizedAndClosable1 [incompatible_assignment]
+./protocols_merging.py:60:4: Incompatible assignment: expected ./protocols_merging.py.SizedAndClosable1, got ./protocols_merging.py.SizedAndClosable2 [incompatible_assignment]
 """

@@ -12,26 +12,52 @@ Line 129: Expected 1 errors
 Line 146: Expected 1 errors
 Line 186: Expected 1 errors
 Line 197: Expected 1 errors
-Line 80: Unexpected errors ['./constructors_callable.py:80:12:   Any[generic_argument] | Any[from_another] is not equivalent to int']
-Line 102: Unexpected errors ['./constructors_callable.py:102:16:   Any[generic_argument] | Any[from_another] is not equivalent to Never']
-Line 107: Unexpected errors ['./constructors_callable.py:107:16:   Any[generic_argument] | Any[from_another] is not equivalent to Never']
-Line 155: Unexpected errors ['./constructors_callable.py:155:23: Undefined name: Class7 [undefined_name]']
-Line 157: Unexpected errors ['./constructors_callable.py:157:23: Undefined name: Class7 [undefined_name]']
+Line 35: Unexpected errors ['./constructors_callable.py:35:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class1 [incompatible_argument]']
+Line 37: Unexpected errors ['./constructors_callable.py:37:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to ./constructors_callable.py.Class1']
+Line 48: Unexpected errors ['./constructors_callable.py:48:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class2 [incompatible_argument]']
+Line 50: Unexpected errors ['./constructors_callable.py:50:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to ./constructors_callable.py.Class2']
+Line 63: Unexpected errors ['./constructors_callable.py:63:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class3 [incompatible_argument]']
+Line 65: Unexpected errors ['./constructors_callable.py:65:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to ./constructors_callable.py.Class3']
+Line 78: Unexpected errors ['./constructors_callable.py:78:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class4 [incompatible_argument]']
+Line 80: Unexpected errors ['./constructors_callable.py:80:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to int']
+Line 98: Unexpected errors ['./constructors_callable.py:98:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class5 [incompatible_argument]']
+Line 102: Unexpected errors ['./constructors_callable.py:102:16:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to Never']
+Line 107: Unexpected errors ['./constructors_callable.py:107:16:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to Never']
+Line 126: Unexpected errors ['./constructors_callable.py:126:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class6 [incompatible_argument]']
+Line 128: Unexpected errors ['./constructors_callable.py:128:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to ./constructors_callable.py.Class6Proxy']
+Line 143: Unexpected errors ['./constructors_callable.py:143:26: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class6Any [incompatible_argument]']
+Line 162: Unexpected errors ['./constructors_callable.py:162:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class7 [incompatible_argument]']
+Line 183: Unexpected errors ['./constructors_callable.py:183:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class8 [incompatible_argument]']
+Line 194: Unexpected errors ['./constructors_callable.py:194:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class9 [incompatible_argument]']
+Line 196: Unexpected errors ['./constructors_callable.py:196:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to ./constructors_callable.py.Class9']
 """
 output = """
-./constructors_callable.py:36:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
-./constructors_callable.py:49:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
-./constructors_callable.py:64:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
-./constructors_callable.py:79:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
-./constructors_callable.py:80:12:   Any[generic_argument] | Any[from_another] is not equivalent to int
-./constructors_callable.py:99:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
-./constructors_callable.py:102:16:   Any[generic_argument] | Any[from_another] is not equivalent to Never
-./constructors_callable.py:107:16:   Any[generic_argument] | Any[from_another] is not equivalent to Never
-./constructors_callable.py:127:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
-./constructors_callable.py:144:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
-./constructors_callable.py:155:23: Undefined name: Class7 [undefined_name]
-./constructors_callable.py:157:23: Undefined name: Class7 [undefined_name]
-./constructors_callable.py:164:4: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
-./constructors_callable.py:184:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
-./constructors_callable.py:195:12: Revealed type is '(__P) -> Any[generic_argument] | Any[unannotated]' [reveal_type]
+./constructors_callable.py:35:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class1 [incompatible_argument]
+./constructors_callable.py:36:12: Revealed type is '(__P) -> Any[generic_argument] | (__P) -> Any[error] | Any[unannotated]' [reveal_type]
+./constructors_callable.py:37:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to ./constructors_callable.py.Class1
+./constructors_callable.py:48:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class2 [incompatible_argument]
+./constructors_callable.py:49:12: Revealed type is '(__P) -> Any[generic_argument] | (__P) -> Any[error] | Any[unannotated]' [reveal_type]
+./constructors_callable.py:50:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to ./constructors_callable.py.Class2
+./constructors_callable.py:63:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class3 [incompatible_argument]
+./constructors_callable.py:64:12: Revealed type is '(__P) -> Any[generic_argument] | (__P) -> Any[error] | Any[unannotated]' [reveal_type]
+./constructors_callable.py:65:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to ./constructors_callable.py.Class3
+./constructors_callable.py:78:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class4 [incompatible_argument]
+./constructors_callable.py:79:12: Revealed type is '(__P) -> Any[generic_argument] | (__P) -> Any[error] | Any[unannotated]' [reveal_type]
+./constructors_callable.py:80:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to int
+./constructors_callable.py:98:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class5 [incompatible_argument]
+./constructors_callable.py:99:12: Revealed type is '(__P) -> Any[generic_argument] | (__P) -> Any[error] | Any[unannotated]' [reveal_type]
+./constructors_callable.py:102:16:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to Never
+./constructors_callable.py:107:16:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to Never
+./constructors_callable.py:126:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class6 [incompatible_argument]
+./constructors_callable.py:127:12: Revealed type is '(__P) -> Any[generic_argument] | (__P) -> Any[error] | Any[unannotated]' [reveal_type]
+./constructors_callable.py:128:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to ./constructors_callable.py.Class6Proxy
+./constructors_callable.py:143:26: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class6Any [incompatible_argument]
+./constructors_callable.py:144:12: Revealed type is '(__P) -> Any[generic_argument] | (__P) -> Any[error] | Any[unannotated]' [reveal_type]
+./constructors_callable.py:162:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class7 [incompatible_argument]
+./constructors_callable.py:164:4: Revealed type is '(__P) -> Any[generic_argument] | (__P) -> Any[error] | Any[unannotated]' [reveal_type]
+./constructors_callable.py:183:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class8 [incompatible_argument]
+./constructors_callable.py:184:12: Revealed type is '(__P) -> Any[generic_argument] | (__P) -> Any[error] | Any[unannotated]' [reveal_type]
+./constructors_callable.py:194:22: Incompatible argument type for cb: expected (**__P: ParamSpecSig(param_spec=~P, default=None)) -> ~R but got Class9 [incompatible_argument]
+./constructors_callable.py:195:12: Revealed type is '(__P) -> Any[generic_argument] | (__P) -> Any[error] | Any[unannotated]' [reveal_type]
+./constructors_callable.py:196:12:   Any[generic_argument] | Any[error] | Any[from_another] is not equivalent to ./constructors_callable.py.Class9
 """

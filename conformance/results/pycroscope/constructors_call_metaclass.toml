@@ -3,9 +3,13 @@ errors_diff = """
 Line 54: Expected 1 errors
 Line 68: Expected 1 errors
 Line 26: Unexpected errors ['./constructors_call_metaclass.py:26:16:   Any[from_another] is not equivalent to Never']
-Line 30: Unexpected errors ['./constructors_call_metaclass.py:30:42: Undefined name: Meta2 [undefined_name]']
+Line 39: Unexpected errors ['./constructors_call_metaclass.py:39:0: Unrecognized annotation types.UnionType [invalid_annotation]']
+Line 55: Unexpected errors ['./constructors_call_metaclass.py:55:12:   Any[from_another] is not equivalent to ./constructors_call_metaclass.py.Class3']
+Line 69: Unexpected errors ['./constructors_call_metaclass.py:69:12:   Any[from_another] is not equivalent to ./constructors_call_metaclass.py.Class4']
 """
 output = """
 ./constructors_call_metaclass.py:26:16:   Any[from_another] is not equivalent to Never
-./constructors_call_metaclass.py:30:42: Undefined name: Meta2 [undefined_name]
+./constructors_call_metaclass.py:39:0: Unrecognized annotation types.UnionType [invalid_annotation]
+./constructors_call_metaclass.py:55:12:   Any[from_another] is not equivalent to ./constructors_call_metaclass.py.Class3
+./constructors_call_metaclass.py:69:12:   Any[from_another] is not equivalent to ./constructors_call_metaclass.py.Class4
 """

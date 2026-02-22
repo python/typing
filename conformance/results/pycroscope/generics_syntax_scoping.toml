@@ -6,15 +6,23 @@ Line 35: Expected 1 errors
 Line 92: Expected 1 errors
 Line 95: Expected 1 errors
 Line 98: Expected 1 errors
+Line 31: Unexpected errors ['./generics_syntax_scoping.py:31:16: Object BaseClassC does not support subscripting [unsupported_operation]', './generics_syntax_scoping.py:31:37: Object Foo does not support subscripting [unsupported_operation]']
+Line 71: Unexpected errors ['./generics_syntax_scoping.py:71:4: Name Private is already defined [class_variable_redefinition]']
 Line 74: Unexpected errors ['./generics_syntax_scoping.py:74:19: Undefined name: Private [undefined_name]']
 Line 88: Unexpected errors ['./generics_syntax_scoping.py:88:1: Undefined name: decorator2 [undefined_name]']
+Line 110: Unexpected errors ['./generics_syntax_scoping.py:110:4: Name Inner1 is already defined [class_variable_redefinition]']
 Line 121: Unexpected errors ['./generics_syntax_scoping.py:121:20:   Literal[3j] is not equivalent to complex | float | int']
 Line 124: Unexpected errors ['./generics_syntax_scoping.py:124:24:   Literal[3j] is not equivalent to complex | float | int']
 """
 output = """
+./generics_syntax_scoping.py:31:16: Object BaseClassC does not support subscripting [unsupported_operation]
+./generics_syntax_scoping.py:31:37: Object Foo does not support subscripting [unsupported_operation]
+./generics_syntax_scoping.py:44:12: Object Foo does not support subscripting [unsupported_operation]
 ./generics_syntax_scoping.py:44:1: Undefined name: decorator1 [undefined_name]
+./generics_syntax_scoping.py:71:4: Name Private is already defined [class_variable_redefinition]
 ./generics_syntax_scoping.py:74:19: Undefined name: Private [undefined_name]
 ./generics_syntax_scoping.py:88:1: Undefined name: decorator2 [undefined_name]
+./generics_syntax_scoping.py:110:4: Name Inner1 is already defined [class_variable_redefinition]
 ./generics_syntax_scoping.py:121:20:   Literal[3j] is not equivalent to complex | float | int
 ./generics_syntax_scoping.py:124:24:   Literal[3j] is not equivalent to complex | float | int
 """

@@ -1,10 +1,14 @@
 conformance_automated = "Fail"
 errors_diff = """
+Line 18: Unexpected errors ['./generics_self_advanced.py:18:12:   Any[from_another] is not equivalent to ./generics_self_advanced.py.ParentA']
+Line 19: Unexpected errors ['./generics_self_advanced.py:19:12:   Any[from_another] is not equivalent to ./generics_self_advanced.py.ChildA']
 Line 36: Unexpected errors ['./generics_self_advanced.py:36:20:   Any[from_another] is not equivalent to list[~SelfT]']
 Line 42: Unexpected errors ['./generics_self_advanced.py:42:20:   Any[unannotated] is not equivalent to type[~SelfT]']
 Line 43: Unexpected errors ['./generics_self_advanced.py:43:20:   Any[from_another] is not equivalent to list[~SelfT]']
 """
 output = """
+./generics_self_advanced.py:18:12:   Any[from_another] is not equivalent to ./generics_self_advanced.py.ParentA
+./generics_self_advanced.py:19:12:   Any[from_another] is not equivalent to ./generics_self_advanced.py.ChildA
 ./generics_self_advanced.py:36:20:   Any[from_another] is not equivalent to list[~SelfT]
 ./generics_self_advanced.py:42:20:   Any[unannotated] is not equivalent to type[~SelfT]
 ./generics_self_advanced.py:43:20:   Any[from_another] is not equivalent to list[~SelfT]

@@ -14,6 +14,7 @@ Line 86: Expected 1 errors
 Line 106: Expected 1 errors
 Line 125: Expected 1 errors
 Line 132: Expected 1 errors
+Line 22: Unexpected errors ['./namedtuples_define_class.py:22:12:   Any[from_another] is not equivalent to ./namedtuples_define_class.py.Point']
 Line 23: Unexpected errors ['./namedtuples_define_class.py:23:12:   Any[from_another] is not equivalent to int']
 Line 24: Unexpected errors ['./namedtuples_define_class.py:24:12:   Any[from_another] is not equivalent to int']
 Line 25: Unexpected errors ['./namedtuples_define_class.py:25:12:   Any[from_another] is not equivalent to str']
@@ -22,11 +23,16 @@ Line 27: Unexpected errors ['./namedtuples_define_class.py:27:12:   Any[from_ano
 Line 28: Unexpected errors ['./namedtuples_define_class.py:28:12:   Any[from_another] is not equivalent to int']
 Line 29: Unexpected errors ['./namedtuples_define_class.py:29:12:   Any[from_another] is not equivalent to tuple[int, int]']
 Line 30: Unexpected errors ['./namedtuples_define_class.py:30:12:   Any[from_another] is not equivalent to tuple[int, int, str]']
+Line 36: Unexpected errors ['./namedtuples_define_class.py:36:12:   Any[from_another] is not equivalent to ./namedtuples_define_class.py.Point']
+Line 39: Unexpected errors ['./namedtuples_define_class.py:39:12:   Any[from_another] is not equivalent to ./namedtuples_define_class.py.Point']
+Line 42: Unexpected errors ['./namedtuples_define_class.py:42:12:   Any[from_another] is not equivalent to ./namedtuples_define_class.py.Point']
+Line 66: Unexpected errors ['./namedtuples_define_class.py:66:12:   Any[from_another] is not equivalent to ./namedtuples_define_class.py.Point2']
 Line 101: Unexpected errors ['./namedtuples_define_class.py:101:12:   Any[from_another] is not equivalent to str']
 Line 122: Unexpected errors ['./namedtuples_define_class.py:122:12:   Any[from_another] is not equivalent to float | int']
 Line 123: Unexpected errors ['./namedtuples_define_class.py:123:12:   Any[from_another] is not equivalent to float | int']
 """
 output = """
+./namedtuples_define_class.py:22:12:   Any[from_another] is not equivalent to ./namedtuples_define_class.py.Point
 ./namedtuples_define_class.py:23:12:   Any[from_another] is not equivalent to int
 ./namedtuples_define_class.py:24:12:   Any[from_another] is not equivalent to int
 ./namedtuples_define_class.py:25:12:   Any[from_another] is not equivalent to str
@@ -35,6 +41,10 @@ output = """
 ./namedtuples_define_class.py:28:12:   Any[from_another] is not equivalent to int
 ./namedtuples_define_class.py:29:12:   Any[from_another] is not equivalent to tuple[int, int]
 ./namedtuples_define_class.py:30:12:   Any[from_another] is not equivalent to tuple[int, int, str]
+./namedtuples_define_class.py:36:12:   Any[from_another] is not equivalent to ./namedtuples_define_class.py.Point
+./namedtuples_define_class.py:39:12:   Any[from_another] is not equivalent to ./namedtuples_define_class.py.Point
+./namedtuples_define_class.py:42:12:   Any[from_another] is not equivalent to ./namedtuples_define_class.py.Point
+./namedtuples_define_class.py:66:12:   Any[from_another] is not equivalent to ./namedtuples_define_class.py.Point2
 ./namedtuples_define_class.py:101:12:   Any[from_another] is not equivalent to str
 ./namedtuples_define_class.py:122:12:   Any[from_another] is not equivalent to float | int
 ./namedtuples_define_class.py:123:12:   Any[from_another] is not equivalent to float | int

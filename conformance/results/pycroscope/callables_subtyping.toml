@@ -1,7 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 255: Unexpected errors ["./callables_subtyping.py:255:4: Overload for '__call__' is inconsistent with implementation [inconsistent_overload]"]
-Line 282: Unexpected errors ["./callables_subtyping.py:282:4: Overload for '__call__' is inconsistent with implementation [inconsistent_overload]"]
 """
 output = """
 ./callables_subtyping.py:26:4: Incompatible assignment: expected (float | int, /) -> float | int, got (int, /) -> int [incompatible_assignment]
@@ -34,8 +32,6 @@ output = """
 ./callables_subtyping.py:237:4: Incompatible assignment: expected .../tests/callables_subtyping.py.DefaultArg8 (Protocol with members '__call__'), got .../tests/callables_subtyping.py.NoX8 (Protocol with members '__call__') [incompatible_assignment]
 ./callables_subtyping.py:240:4: Incompatible assignment: expected .../tests/callables_subtyping.py.NoDefaultArg8 (Protocol with members '__call__'), got .../tests/callables_subtyping.py.NoX8 (Protocol with members '__call__') [incompatible_assignment]
 ./callables_subtyping.py:243:4: Incompatible assignment: expected .../tests/callables_subtyping.py.NoX8 (Protocol with members '__call__'), got .../tests/callables_subtyping.py.NoDefaultArg8 (Protocol with members '__call__') [incompatible_assignment]
-./callables_subtyping.py:255:4: Overload for '__call__' is inconsistent with implementation [inconsistent_overload]
 ./callables_subtyping.py:273:4: Incompatible assignment: expected .../tests/callables_subtyping.py.FloatArg9 (Protocol with members '__call__'), got .../tests/callables_subtyping.py.Overloaded9 (Protocol with members '__call__') [incompatible_assignment]
-./callables_subtyping.py:282:4: Overload for '__call__' is inconsistent with implementation [inconsistent_overload]
 ./callables_subtyping.py:297:4: Incompatible assignment: expected .../tests/callables_subtyping.py.Overloaded10 (Protocol with members '__call__'), got .../tests/callables_subtyping.py.StrArg10 (Protocol with members '__call__') [incompatible_assignment]
 """

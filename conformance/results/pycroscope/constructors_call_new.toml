@@ -3,18 +3,15 @@ errors_diff = """
 Line 21: Expected 1 errors
 Line 148: Expected 1 errors
 Line 49: Unexpected errors ['./constructors_call_new.py:49:12:   Any[from_another] is not equivalent to int']
-Line 57: Unexpected errors ['./constructors_call_new.py:57:24: Undefined name: Class4 [undefined_name]']
+Line 64: Unexpected errors ['./constructors_call_new.py:64:0: Unrecognized annotation types.UnionType [invalid_annotation]']
 Line 76: Unexpected errors ['./constructors_call_new.py:76:16:   Any[from_another] is not equivalent to Never']
-Line 82: Unexpected errors ['./constructors_call_new.py:82:24: Undefined name: Class6 [undefined_name]']
-Line 113: Unexpected errors ['./constructors_call_new.py:113:41: Undefined name: Class8 [undefined_name]']
-Line 142: Unexpected errors ['./constructors_call_new.py:142:21: Undefined name: Class11 [undefined_name]', './constructors_call_new.py:142:46: Undefined name: Class11 [undefined_name]']
+Line 89: Unexpected errors ['./constructors_call_new.py:89:0: Unrecognized annotation types.UnionType [invalid_annotation]']
+Line 104: Unexpected errors ['./constructors_call_new.py:104:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class7']
 """
 output = """
 ./constructors_call_new.py:49:12:   Any[from_another] is not equivalent to int
-./constructors_call_new.py:57:24: Undefined name: Class4 [undefined_name]
+./constructors_call_new.py:64:0: Unrecognized annotation types.UnionType [invalid_annotation]
 ./constructors_call_new.py:76:16:   Any[from_another] is not equivalent to Never
-./constructors_call_new.py:82:24: Undefined name: Class6 [undefined_name]
-./constructors_call_new.py:113:41: Undefined name: Class8 [undefined_name]
-./constructors_call_new.py:142:21: Undefined name: Class11 [undefined_name]
-./constructors_call_new.py:142:46: Undefined name: Class11 [undefined_name]
+./constructors_call_new.py:89:0: Unrecognized annotation types.UnionType [invalid_annotation]
+./constructors_call_new.py:104:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class7
 """

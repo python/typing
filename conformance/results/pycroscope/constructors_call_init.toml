@@ -3,18 +3,10 @@ errors_diff = """
 Line 21: Expected 1 errors
 Line 42: Expected 1 errors
 Line 56: Expected 1 errors
+Line 107: Expected 1 errors
 Line 130: Expected 1 errors
-Line 51: Unexpected errors ['./constructors_call_init.py:51:23: Undefined name: Class4 [undefined_name]']
-Line 61: Unexpected errors ['./constructors_call_init.py:61:23: Undefined name: Class5 [undefined_name]']
-Line 63: Unexpected errors ['./constructors_call_init.py:63:23: Undefined name: Class5 [undefined_name]']
-Line 88: Unexpected errors ['./constructors_call_init.py:88:23: Undefined name: Class6 [undefined_name]']
-Line 96: Unexpected errors ['./constructors_call_init.py:96:23: Undefined name: Class7 [undefined_name]']
+Line 129: Unexpected errors ['./constructors_call_init.py:129:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class11']
 """
 output = """
-./constructors_call_init.py:51:23: Undefined name: Class4 [undefined_name]
-./constructors_call_init.py:61:23: Undefined name: Class5 [undefined_name]
-./constructors_call_init.py:63:23: Undefined name: Class5 [undefined_name]
-./constructors_call_init.py:88:23: Undefined name: Class6 [undefined_name]
-./constructors_call_init.py:96:23: Undefined name: Class7 [undefined_name]
-./constructors_call_init.py:107:23: Undefined name: Class8 [undefined_name]
+./constructors_call_init.py:129:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class11
 """

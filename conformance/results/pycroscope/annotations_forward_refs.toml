@@ -14,12 +14,8 @@ Line 16: Unexpected errors ['./annotations_forward_refs.py:16:20: Undefined name
 Line 17: Unexpected errors ['./annotations_forward_refs.py:17:25: Undefined name: ClassA [undefined_name]']
 Line 18: Unexpected errors ['./annotations_forward_refs.py:18:25: Undefined name: ClassA [undefined_name]']
 Line 19: Unexpected errors ['./annotations_forward_refs.py:19:16:   list[int | Any[error]] is not equivalent to list[Any[explicit]]', './annotations_forward_refs.py:19:25: Undefined name: ClassA [undefined_name]']
-Line 67: Unexpected errors ['./annotations_forward_refs.py:67:15: Undefined name: ClassB [undefined_name]']
-Line 69: Unexpected errors ['./annotations_forward_refs.py:69:25: Undefined name: ClassB [undefined_name]']
-Line 70: Unexpected errors ['./annotations_forward_refs.py:70:15: Undefined name: ClassB [undefined_name]']
 Line 87: Unexpected errors ['./annotations_forward_refs.py:87:7: Unrecognized annotation (self) -> None [invalid_annotation]']
-Line 95: Unexpected errors ['./annotations_forward_refs.py:95:12:   Any[from_another] is not equivalent to str']
-Line 96: Unexpected errors ['./annotations_forward_refs.py:96:12:   Any[from_another] is not equivalent to int']
+Line 96: Unexpected errors ['./annotations_forward_refs.py:96:12:   Any[error] is not equivalent to int']
 Line 103: Unexpected errors ['./annotations_forward_refs.py:103:7: Syntax error in type annotation: ']
 """
 output = """
@@ -55,13 +51,9 @@ output = """
 ./annotations_forward_refs.py:51:9: Invalid type annotation 1 [invalid_annotation]
 ./annotations_forward_refs.py:52:9: Invalid type annotation -1 [invalid_annotation]
 ./annotations_forward_refs.py:55:9: Invalid type annotation <module 'types' from '/Users/jelle/.pyenv/versions/3.12.3/lib/python3.12/types.py'> [invalid_annotation]
-./annotations_forward_refs.py:67:15: Undefined name: ClassB [undefined_name]
-./annotations_forward_refs.py:69:25: Undefined name: ClassB [undefined_name]
-./annotations_forward_refs.py:70:15: Undefined name: ClassB [undefined_name]
 ./annotations_forward_refs.py:80:12: Undefined name: ClassF [undefined_name]
 ./annotations_forward_refs.py:87:7: Unrecognized annotation (self) -> None [invalid_annotation]
 ./annotations_forward_refs.py:89:7: Unrecognized annotation (self) -> None [invalid_annotation]
-./annotations_forward_refs.py:95:12:   Any[from_another] is not equivalent to str
-./annotations_forward_refs.py:96:12:   Any[from_another] is not equivalent to int
+./annotations_forward_refs.py:96:12:   Any[error] is not equivalent to int
 ./annotations_forward_refs.py:103:7: Syntax error in type annotation: 
 """

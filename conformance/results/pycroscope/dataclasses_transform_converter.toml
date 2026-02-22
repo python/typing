@@ -5,11 +5,13 @@ Line 108: Expected 1 errors
 Line 109: Expected 1 errors
 Line 118: Expected 1 errors
 Line 119: Expected 1 errors
+Line 102: Unexpected errors ['./dataclasses_transform_converter.py:102:51: Incompatible argument type for converter: expected (~S, /) -> ~T but got ConverterClass [incompatible_argument]']
 Line 103: Unexpected errors ['./dataclasses_transform_converter.py:103:4: Incompatible assignment: expected int, got int | str | Any[generic_argument] [incompatible_assignment]']
 """
 output = """
 ./dataclasses_transform_converter.py:48:40: Incompatible argument type for converter: expected (~S, /) -> ~T but got () -> int [incompatible_argument]
 ./dataclasses_transform_converter.py:49:40: Incompatible argument type for converter: expected (~S, /) -> ~T but got (*, x: int) -> int [incompatible_argument]
+./dataclasses_transform_converter.py:102:51: Incompatible argument type for converter: expected (~S, /) -> ~T but got ConverterClass [incompatible_argument]
 ./dataclasses_transform_converter.py:103:4: Incompatible assignment: expected int, got int | str | Any[generic_argument] [incompatible_assignment]
 ./dataclasses_transform_converter.py:130:18: Cannot resolve type variables [incompatible_call]
 ./dataclasses_transform_converter.py:133:18: Cannot resolve type variables [incompatible_call]

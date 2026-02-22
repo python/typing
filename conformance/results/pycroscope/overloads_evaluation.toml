@@ -6,6 +6,9 @@ Line 49: Unexpected errors ['./overloads_evaluation.py:49:12:   int | str is not
 Line 67: Unexpected errors ['./overloads_evaluation.py:67:16:   float | int is not equivalent to int']
 Line 93: Unexpected errors ['./overloads_evaluation.py:93:12:   int | str is not equivalent to int']
 Line 136: Unexpected errors ['./overloads_evaluation.py:136:16:   int is not equivalent to Literal[0, 1]']
+Line 149: Unexpected errors ["./overloads_evaluation.py:149:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]"]
+Line 153: Unexpected errors ["./overloads_evaluation.py:153:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]"]
+Line 157: Unexpected errors ["./overloads_evaluation.py:157:11: ./overloads_evaluation.py.Color has no attribute 'value' [undefined_attribute]"]
 Line 162: Unexpected errors ['./overloads_evaluation.py:162:16:   int is not equivalent to Literal[0, 1]']
 Line 235: Unexpected errors ['./overloads_evaluation.py:235:16:   int | str is not equivalent to int']
 Line 262: Unexpected errors ['./overloads_evaluation.py:262:16:   list[int] | list[str] is not equivalent to list[int]']
@@ -29,6 +32,9 @@ output = """
 ./overloads_evaluation.py:93:12:   int | str is not equivalent to int
 ./overloads_evaluation.py:116:13: Incompatible argument type for x: expected int but got int | str [incompatible_argument]
 ./overloads_evaluation.py:136:16:   int is not equivalent to Literal[0, 1]
+./overloads_evaluation.py:149:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]
+./overloads_evaluation.py:153:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]
+./overloads_evaluation.py:157:11: ./overloads_evaluation.py.Color has no attribute 'value' [undefined_attribute]
 ./overloads_evaluation.py:162:16:   int is not equivalent to Literal[0, 1]
 ./overloads_evaluation.py:235:16:   int | str is not equivalent to int
 ./overloads_evaluation.py:262:16:   list[int] | list[str] is not equivalent to list[int]
