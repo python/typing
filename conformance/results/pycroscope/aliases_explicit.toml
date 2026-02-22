@@ -6,6 +6,7 @@ Line 71: Expected 1 errors
 Line 79: Expected 1 errors
 Line 80: Expected 1 errors
 Line 81: Expected 1 errors
+Line 82: Expected 1 errors
 Line 83: Expected 1 errors
 Line 84: Expected 1 errors
 Line 85: Expected 1 errors
@@ -40,7 +41,6 @@ output = """
 ./aliases_explicit.py:60:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> None | Any[unannotated] is not equivalent to (...) -> None
 ./aliases_explicit.py:68:8: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./aliases_explicit.py:69:8: Unrecognized annotation types.GenericAlias [invalid_annotation]
-./aliases_explicit.py:82:29: Variable i is never accessed [unused_variable]
 ./aliases_explicit.py:90:21: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]
 ./aliases_explicit.py:101:5: Literal[list | set] is not callable [not_callable]
 """

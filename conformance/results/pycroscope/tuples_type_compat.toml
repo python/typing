@@ -3,9 +3,6 @@ errors_diff = """
 Lines 101, 102: Expected exactly one error (tag 'func6_1')
 Lines 106, 107: Expected exactly one error (tag 'func6_2')
 Lines 111, 112: Expected exactly one error (tag 'func6_3')
-Line 24: Unexpected errors ['./tuples_type_compat.py:24:4: Variable v1 is never accessed [unused_variable]']
-Line 25: Unexpected errors ['./tuples_type_compat.py:25:4: Variable v1 is never accessed [unused_variable]']
-Line 28: Unexpected errors ['./tuples_type_compat.py:28:4: Variable v2 is never accessed [unused_variable]']
 Line 60: Unexpected errors ['./tuples_type_compat.py:60:4: Incompatible assignment: expected tuple[int, int], got tuple[Any[explicit]] [incompatible_assignment]']
 Line 101: Unexpected errors ['./tuples_type_compat.py:101:24:   tuple[int] | tuple[int | str] is not equivalent to tuple[int]']
 Line 102: Unexpected errors ['./tuples_type_compat.py:102:24:   tuple[int] | tuple[int | str] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]']
@@ -19,15 +16,9 @@ Line 153: Unexpected errors ['./tuples_type_compat.py:153:16:   collections.abc.
 """
 output = """
 ./tuples_type_compat.py:15:4: Incompatible assignment: expected tuple[int, int], got tuple[float | int, complex | float | int] [incompatible_assignment]
-./tuples_type_compat.py:24:4: Variable v1 is never accessed [unused_variable]
-./tuples_type_compat.py:25:4: Variable v1 is never accessed [unused_variable]
-./tuples_type_compat.py:28:4: Variable v2 is never accessed [unused_variable]
 ./tuples_type_compat.py:29:4: Incompatible assignment: expected tuple[int, *tuple[int, ...]], got tuple[int, ...] [incompatible_assignment]
-./tuples_type_compat.py:29:4: Variable v2 is never accessed [unused_variable]
 ./tuples_type_compat.py:32:4: Incompatible assignment: expected tuple[int], got tuple[int, *tuple[int, ...]] [incompatible_assignment]
-./tuples_type_compat.py:32:4: Variable v3 is never accessed [unused_variable]
 ./tuples_type_compat.py:33:4: Incompatible assignment: expected tuple[int], got tuple[int, ...] [incompatible_assignment]
-./tuples_type_compat.py:33:4: Variable v3 is never accessed [unused_variable]
 ./tuples_type_compat.py:43:4: Incompatible assignment: expected tuple[int], got tuple[int, ...] [incompatible_assignment]
 ./tuples_type_compat.py:60:4: Incompatible assignment: expected tuple[int, int], got tuple[Any[explicit]] [incompatible_assignment]
 ./tuples_type_compat.py:62:4: Incompatible assignment: expected tuple[int, int], got tuple[int, ...] [incompatible_assignment]

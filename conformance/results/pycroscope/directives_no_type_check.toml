@@ -4,7 +4,6 @@ errors_diff = """
 output = """
 ./directives_no_type_check.py:15:4: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]
 ./directives_no_type_check.py:25:8: Unsupported operands for addition: int and str [unsupported_operation]
-./directives_no_type_check.py:25:4: Variable c is never accessed [unused_variable]
 ./directives_no_type_check.py:26:4: Incompatible return type: expected None, got Literal[1] [incompatible_return_value]
 ./directives_no_type_check.py:29:6: Incompatible argument type for a: expected int but got Literal[b'invalid'] [incompatible_argument]
 ./directives_no_type_check.py:29:18: Incompatible argument type for b: expected str but got Literal[b'arguments'] [incompatible_argument]

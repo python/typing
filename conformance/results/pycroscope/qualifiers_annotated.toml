@@ -1,6 +1,7 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 39: Expected 1 errors
+Line 40: Expected 1 errors
 Line 42: Expected 1 errors
 Line 43: Expected 1 errors
 Line 44: Expected 1 errors
@@ -16,7 +17,6 @@ Line 108: Unexpected errors ['./qualifiers_annotated.py:108:7: Unexpected NotReq
 """
 output = """
 ./qualifiers_annotated.py:38:6: Invalid type annotation [<class 'int'>, <class 'str'>] [invalid_annotation]
-./qualifiers_annotated.py:40:25: Variable i is never accessed [unused_variable]
 ./qualifiers_annotated.py:41:6: Invalid type annotation {'a': 'b'} [invalid_annotation]
 ./qualifiers_annotated.py:45:16: Undefined name: var1 [undefined_name]
 ./qualifiers_annotated.py:46:6: Invalid type annotation True [invalid_annotation]

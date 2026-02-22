@@ -9,6 +9,7 @@ Line 48: Expected 1 errors
 Line 52: Expected 1 errors
 Line 53: Expected 1 errors
 Line 54: Expected 1 errors
+Line 55: Expected 1 errors
 Line 56: Expected 1 errors
 Line 57: Expected 1 errors
 Line 58: Expected 1 errors
@@ -32,6 +33,5 @@ output = """
 ./aliases_typealiastype.py:38:4: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./aliases_typealiastype.py:39:4: Invalid type annotation [<class 'int'>, <class 'str'>] [invalid_annotation]
 ./aliases_typealiastype.py:40:4: Unrecognized annotation types.GenericAlias [invalid_annotation]
-./aliases_typealiastype.py:55:50: Variable i is never accessed [unused_variable]
 ./aliases_typealiastype.py:63:41: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]
 """
