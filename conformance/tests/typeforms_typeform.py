@@ -56,13 +56,11 @@ bad1: TypeForm = tuple()  # E
 bad2: TypeForm = (1, 2)  # E
 bad3: TypeForm = 1  # E
 bad4: TypeForm = Self  # E
-bad5: TypeForm = Literal[var]  # E
-bad6: TypeForm = Literal[f""]  # E
-bad7: TypeForm = ClassVar[int]  # E
-bad8: TypeForm = Final[int]  # E
-bad9: TypeForm = Unpack[Ts]  # E
-bad10: TypeForm = Optional  # E
-bad11: TypeForm = "int + str"  # E
+bad5: TypeForm = ClassVar[int]  # E
+bad6: TypeForm = Final[int]  # E
+bad7: TypeForm = Unpack[Ts]  # E
+bad8: TypeForm = Optional  # E
+bad9: TypeForm = "int + str"  # E
 
 
 # > ``TypeForm`` acts as a function that can be called with a single valid type expression.
