@@ -1,9 +1,9 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 59: Expected 1 errors
-Line 60: Expected 1 errors
 """
 output = """
 ./typeddicts_required.py:12:7: Unexpected Required annotation [invalid_annotation]
 ./typeddicts_required.py:16:7: Unexpected NotRequired annotation [invalid_annotation]
+./typeddicts_required.py:59:7: Required[] cannot be nested [invalid_annotation]
+./typeddicts_required.py:60:7: Required[] and NotRequired[] cannot be nested [invalid_annotation]
 """

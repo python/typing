@@ -2,13 +2,8 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 59: Expected 1 errors
 Line 60: Expected 1 errors
-Line 1: Unexpected errors ['./typeforms_typeform.py:1:0: Invalid type annotation [invalid_annotation]', './typeforms_typeform.py:1:0: Invalid type annotation [invalid_annotation]']
-Line 71: Unexpected errors ['./typeforms_typeform.py:71:12:   Literal[str | None] is not equivalent to TypeForm[str | None]']
-Line 74: Unexpected errors ["./typeforms_typeform.py:74:12:   Literal['list[int]'] is not equivalent to TypeForm[list[int]]"]
 """
 output = """
-./typeforms_typeform.py:1:0: Invalid type annotation [invalid_annotation]
-./typeforms_typeform.py:1:0: Invalid type annotation [invalid_annotation]
 ./typeforms_typeform.py:23:0: Incompatible assignment: expected TypeForm[str | None], got Literal[str | int] [incompatible_assignment]
 ./typeforms_typeform.py:24:0: Incompatible assignment: expected TypeForm[str | None], got Literal[list[str | None]] [incompatible_assignment]
 ./typeforms_typeform.py:55:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[()] [incompatible_assignment]
@@ -20,8 +15,6 @@ output = """
 ./typeforms_typeform.py:63:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[typing.Unpack[Ts]] [incompatible_assignment]
 ./typeforms_typeform.py:64:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[typing.Optional] [incompatible_assignment]
 ./typeforms_typeform.py:65:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal['int + str'] [incompatible_assignment]
-./typeforms_typeform.py:71:12:   Literal[str | None] is not equivalent to TypeForm[str | None]
-./typeforms_typeform.py:74:12:   Literal['list[int]'] is not equivalent to TypeForm[list[int]]
 ./typeforms_typeform.py:76:5: Unrecognized annotation type [invalid_annotation]
 ./typeforms_typeform.py:78:5: Unrecognized annotation type [invalid_annotation]
 ./typeforms_typeform.py:88:0: Incompatible assignment: expected TypeForm[str], got TypeForm[int] [incompatible_assignment]

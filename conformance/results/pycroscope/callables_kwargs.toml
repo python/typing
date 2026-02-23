@@ -13,7 +13,7 @@ output = """
 ./callables_kwargs.py:63:4: Multiple values provided for argument 'v1' [incompatible_call]
 ./callables_kwargs.py:64:4: In call to .../tests/callables_kwargs.py.func2: Parameter 'v3' provided as both a positional and a keyword argument [incompatible_call]
 ./callables_kwargs.py:65:4: Multiple values provided for argument 'v1' [incompatible_call]
-./callables_kwargs.py:101:0: Incompatible assignment: expected .../tests/callables_kwargs.py.TDProtocol3 (Protocol with members '__call__'), got function '.../tests/callables_kwargs.py.func1' [incompatible_assignment]
-./callables_kwargs.py:102:0: Incompatible assignment: expected .../tests/callables_kwargs.py.TDProtocol4 (Protocol with members '__call__'), got function '.../tests/callables_kwargs.py.func1' [incompatible_assignment]
-./callables_kwargs.py:103:0: Incompatible assignment: expected .../tests/callables_kwargs.py.TDProtocol5 (Protocol with members '__call__'), got function '.../tests/callables_kwargs.py.func1' [incompatible_assignment]
+./callables_kwargs.py:101:0: Incompatible assignment: expected .../tests/callables_kwargs.py.TDProtocol3, got function '.../tests/callables_kwargs.py.func1' [incompatible_assignment]
+./callables_kwargs.py:102:0: Incompatible assignment: expected .../tests/callables_kwargs.py.TDProtocol4, got function '.../tests/callables_kwargs.py.func1' [incompatible_assignment]
+./callables_kwargs.py:103:0: Incompatible assignment: expected .../tests/callables_kwargs.py.TDProtocol5, got function '.../tests/callables_kwargs.py.func1' [incompatible_assignment]
 """
