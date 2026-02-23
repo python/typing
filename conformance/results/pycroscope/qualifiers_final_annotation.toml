@@ -10,16 +10,16 @@ Line 65: Expected 1 errors
 Line 67: Expected 1 errors
 Line 81: Expected 1 errors
 Line 94: Expected 1 errors
+Line 107: Expected 1 errors
 Line 141: Expected 1 errors
 Line 166: Expected 1 errors
 Line 170: Expected 1 errors
 Line 168: Unexpected errors ["./qualifiers_final_annotation.py:168:0: Cannot import * from unresolved module '_qualifiers_final_annotation_2' [invalid_import]"]
 """
 output = """
-./qualifiers_final_annotation.py:18:6: Unrecognized annotation object [invalid_annotation]
+./qualifiers_final_annotation.py:18:6: Unrecognized subscripted annotation: typing.Final [invalid_annotation]
 ./qualifiers_final_annotation.py:71:0: Cannot assign to final name RATE [incompatible_assignment]
-./qualifiers_final_annotation.py:107:12: Unrecognized annotation object [invalid_annotation]
-./qualifiers_final_annotation.py:108:12: Unrecognized annotation object [invalid_annotation]
+./qualifiers_final_annotation.py:108:12: Unrecognized subscripted annotation: typing.Final [invalid_annotation]
 ./qualifiers_final_annotation.py:118:3: Unrecognized annotation typing.Final[<class 'int'>] [invalid_annotation]
 ./qualifiers_final_annotation.py:121:13: Unexpected Final annotation [invalid_annotation]
 ./qualifiers_final_annotation.py:134:0: In call to pycroscope.signature.N: Missing required argument 'x' [incompatible_call]

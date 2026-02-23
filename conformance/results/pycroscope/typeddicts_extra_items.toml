@@ -1,56 +1,33 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 15: Expected 1 errors
-Line 22: Expected 1 errors
-Line 49: Expected 1 errors
-Line 67: Expected 1 errors
-Line 73: Expected 1 errors
-Line 109: Expected 1 errors
-Line 114: Expected 1 errors
-Line 117: Expected 1 errors
-Line 143: Expected 1 errors
-Line 174: Expected 1 errors
-Line 215: Expected 1 errors
-Line 222: Expected 1 errors
-Line 242: Expected 1 errors
-Line 256: Expected 1 errors
-Line 257: Expected 1 errors
-Line 268: Expected 1 errors
-Lines 91, 92: Expected error (tag 'MovieC')
-Lines 94, 95: Expected error (tag 'MovieD')
-Lines 184, 185: Expected error (tag 'MovieRequiredYear')
-Lines 187, 188: Expected error (tag 'MovieNotRequiredYear')
-Lines 196, 197: Expected error (tag 'BookWithPublisher')
-Line 19: Unexpected errors ['./typeddicts_extra_items.py:19:18: Error calling (typename, fields=None, /, *, total=Literal[True], **kwargs) -> Any[unannotated]: TypedDict takes either a dict or keyword arguments, but not both [incompatible_call]']
-Line 29: Unexpected errors ['./typeddicts_extra_items.py:29:16:   Any[error] is not equivalent to bool', "./typeddicts_extra_items.py:29:22: Unknown TypedDict key 'novel_adaptation' [invalid_typeddict_key]"]
-Line 129: Unexpected errors ["./typeddicts_extra_items.py:129:14: Key Literal['year'] does not exist in TypedDict [invalid_typeddict_key]"]
-Line 140: Unexpected errors ['./typeddicts_extra_items.py:140:30: Unrecognized annotation object [invalid_annotation]']
-Line 141: Unexpected errors ['./typeddicts_extra_items.py:141:27: Unrecognized annotation object [invalid_annotation]']
-Line 284: Unexpected errors ["./typeddicts_extra_items.py:284:0: Got an unexpected keyword argument 'year' [incompatible_call]"]
-Line 310: Unexpected errors ['./typeddicts_extra_items.py:310:16:   list[tuple[str, str]] is not equivalent to list[tuple[str, int | str]]']
-Line 311: Unexpected errors ['./typeddicts_extra_items.py:311:16:   list[str] is not equivalent to list[int | str]']
-Line 339: Unexpected errors ['./typeddicts_extra_items.py:339:12:   Any[explicit] is not equivalent to tuple[str, int]']
-Line 342: Unexpected errors ['./typeddicts_extra_items.py:342:26: Cannot set unknown key str in TypedDict TypedDict({"num": NotRequired[int]}) [invalid_typeddict_key]']
-Line 343: Unexpected errors ['./typeddicts_extra_items.py:343:30: Key str does not exist in TypedDict [invalid_typeddict_key]']
 """
 output = """
-./typeddicts_extra_items.py:19:18: Error calling (typename, fields=None, /, *, total=Literal[True], **kwargs) -> Any[unannotated]: TypedDict takes either a dict or keyword arguments, but not both [incompatible_call]
-./typeddicts_extra_items.py:29:16:   Any[error] is not equivalent to bool
-./typeddicts_extra_items.py:29:22: Unknown TypedDict key 'novel_adaptation' [invalid_typeddict_key]
-./typeddicts_extra_items.py:39:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': 'Blade Runner', 'year': None}] [incompatible_assignment]
+./typeddicts_extra_items.py:15:0: Incompatible assignment: expected TypedDict({"name": str, "__extra_items__": bool}, closed=True), got Literal[{'name': 'Blade Runner', 'year': 1982}] [incompatible_assignment]
+./typeddicts_extra_items.py:22:0: Incompatible assignment: expected TypedDict({"name": str, "__extra_items__": bool}, closed=True), got Literal[{'name': 'Blade Runner', 'year': 1982}] [incompatible_assignment]
+./typeddicts_extra_items.py:39:0: Incompatible assignment: expected TypedDict({"name": str, "year": int, "__extra_items__": ReadOnly[int | None]}, closed=True), got Literal[{'name': 'Blade Runner', 'year': None}] [incompatible_assignment]
+./typeddicts_extra_items.py:49:34: Argument to "closed" must be a literal True or False [invalid_annotation]
+./typeddicts_extra_items.py:67:0: Cannot set 'closed=False' when superclass is closed or has 'extra_items' [invalid_annotation]
+./typeddicts_extra_items.py:73:0: Cannot set 'closed=False' when superclass is closed or has 'extra_items' [invalid_annotation]
+./typeddicts_extra_items.py:92:4: "MovieC" is a closed TypedDict; extra key 'age' not allowed [invalid_annotation]
+./typeddicts_extra_items.py:95:4: "MovieD" is a closed TypedDict; extra key 'age' not allowed [invalid_annotation]
+./typeddicts_extra_items.py:109:0: Cannot set 'closed=True' when superclass has non-read-only 'extra_items' [invalid_annotation]
+./typeddicts_extra_items.py:114:49: 'extra_items' value cannot be 'Required[...]' [invalid_annotation]
+./typeddicts_extra_items.py:117:56: 'extra_items' value cannot be 'NotRequired[...]' [invalid_annotation]
 ./typeddicts_extra_items.py:128:14: Cannot delete required TypedDict key Literal['name'] [incompatible_argument]
-./typeddicts_extra_items.py:129:14: Key Literal['year'] does not exist in TypedDict [invalid_typeddict_key]
-./typeddicts_extra_items.py:140:30: Unrecognized annotation object [invalid_annotation]
-./typeddicts_extra_items.py:141:27: Unrecognized annotation object [invalid_annotation]
+./typeddicts_extra_items.py:143:0: Got an unexpected keyword argument 'year' [incompatible_call]
+./typeddicts_extra_items.py:174:0: Cannot change 'extra_items' type unless it is 'ReadOnly' in the superclass [invalid_annotation]
+./typeddicts_extra_items.py:185:4: Required key 'year' is not known to base TypedDict [invalid_annotation]
+./typeddicts_extra_items.py:188:4: int is not consistent with 'extra_items' type int | None [invalid_annotation]
+./typeddicts_extra_items.py:197:4: str is not assignable to 'extra_items' type int | None [invalid_annotation]
+./typeddicts_extra_items.py:215:0: Incompatible assignment: expected TypedDict({"name": str, "__extra_items__": int | None}, closed=True), got TypedDict({"name": str, "year": NotRequired[int], "__extra_items__": int | None}, closed=True) [incompatible_assignment]
+./typeddicts_extra_items.py:222:0: Incompatible assignment: expected TypedDict({"name": str, "__extra_items__": int | None}, closed=True), got TypedDict({"name": str, "year": int | None, "__extra_items__": int | None}, closed=True) [incompatible_assignment]
+./typeddicts_extra_items.py:242:0: Incompatible assignment: expected TypedDict({"name": str, "__extra_items__": ReadOnly[str | int]}, closed=True), got TypedDict({"name": str, "actors": list[str], "__extra_items__": int}, closed=True) [incompatible_assignment]
+./typeddicts_extra_items.py:256:0: Incompatible assignment: expected TypedDict({"name": str, "__extra_items__": int}, closed=True), got TypedDict({"name": str, "__extra_items__": str}, closed=True) [incompatible_assignment]
+./typeddicts_extra_items.py:257:0: Incompatible assignment: expected TypedDict({"name": str, "__extra_items__": str}, closed=True), got TypedDict({"name": str, "__extra_items__": int}, closed=True) [incompatible_assignment]
+./typeddicts_extra_items.py:268:0: Incompatible assignment: expected TypedDict({"name": str, "__extra_items__": int}, closed=True), got TypedDict({"name": str}) [incompatible_assignment]
 ./typeddicts_extra_items.py:278:0: Got an unexpected keyword argument 'year' [incompatible_call]
-./typeddicts_extra_items.py:284:0: Got an unexpected keyword argument 'year' [incompatible_call]
-./typeddicts_extra_items.py:285:0: Got an unexpected keyword argument 'language' [incompatible_call]
-./typeddicts_extra_items.py:293:0: Got an unexpected keyword argument 'year' [incompatible_call]
-./typeddicts_extra_items.py:303:0: Incompatible assignment: expected collections.abc.Mapping[str, int], got TypedDict({"name": str}) [incompatible_assignment]
-./typeddicts_extra_items.py:310:16:   list[tuple[str, str]] is not equivalent to list[tuple[str, int | str]]
-./typeddicts_extra_items.py:311:16:   list[str] is not equivalent to list[int | str]
-./typeddicts_extra_items.py:339:12:   Any[explicit] is not equivalent to tuple[str, int]
-./typeddicts_extra_items.py:342:26: Cannot set unknown key str in TypedDict TypedDict({"num": NotRequired[int]}) [invalid_typeddict_key]
-./typeddicts_extra_items.py:343:30: Key str does not exist in TypedDict [invalid_typeddict_key]
-./typeddicts_extra_items.py:352:4: Incompatible assignment: expected TypedDict({}), got dict[str, int] [incompatible_assignment]
+./typeddicts_extra_items.py:285:0: Incompatible argument type for %kwargs: expected dict[str, int] but got TypedDict({"language": Literal['English']}) [incompatible_argument]
+./typeddicts_extra_items.py:293:0: Incompatible argument type for %kwargs: expected dict[str, Never] but got TypedDict({"year": Literal[2007]}) [incompatible_argument]
+./typeddicts_extra_items.py:303:0: Incompatible assignment: expected collections.abc.Mapping[str, int], got TypedDict({"name": str, "__extra_items__": int}, closed=True) [incompatible_assignment]
+./typeddicts_extra_items.py:352:4: Incompatible assignment: expected TypedDict({"__extra_items__": int}, closed=True), got dict[str, int] [incompatible_assignment]
 """

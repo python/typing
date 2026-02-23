@@ -1,16 +1,17 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 22: Expected 1 errors
-Line 23: Expected 1 errors
-Line 24: Expected 1 errors
-Line 26: Expected 1 errors
-Line 32: Expected 1 errors
-Line 37: Expected 1 errors
-Line 47: Expected 1 errors
-Line 49: Expected 1 errors
-Line 62: Expected 1 errors
 """
 output = """
+./typeddicts_operations.py:22:0: Value for key 'name' must be str, not Literal[1982] [incompatible_argument]
+./typeddicts_operations.py:23:0: Value for key 'year' must be int, not Literal[''] [incompatible_argument]
+./typeddicts_operations.py:24:6: Key 'other' does not exist in TypedDict({"name": str, "year": int}) [invalid_typeddict_key]
+./typeddicts_operations.py:26:12: Unknown TypedDict key 'other' [invalid_typeddict_key]
 ./typeddicts_operations.py:28:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': 'Blade Runner'}] [incompatible_assignment]
 ./typeddicts_operations.py:29:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': 'Blade Runner', 'year': 1982.1}] [incompatible_assignment]
+./typeddicts_operations.py:32:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': '', 'year': 1900, 'other': 2}] [incompatible_assignment]
+./typeddicts_operations.py:37:4: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got <dict containing {str: Literal[''], Literal['year']: Literal[1900]}> [incompatible_assignment]
+./typeddicts_operations.py:44:0: Unknown TypedDict key 'other' [invalid_typeddict_key]
+./typeddicts_operations.py:47:0: Cannot call clear() on non-closed TypedDict [incompatible_call]
+./typeddicts_operations.py:49:10: Cannot delete required TypedDict key Literal['name'] [incompatible_argument]
+./typeddicts_operations.py:62:0: Cannot call clear() on non-closed TypedDict [incompatible_call]
 """

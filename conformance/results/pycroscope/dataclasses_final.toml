@@ -5,14 +5,10 @@ Line 35: Expected 1 errors
 Line 36: Expected 1 errors
 Line 37: Expected 1 errors
 Line 38: Expected 1 errors
-Line 18: Unexpected errors ['./dataclasses_final.py:18:20: Unrecognized annotation object [invalid_annotation]']
-Line 24: Unexpected errors ['./dataclasses_final.py:24:12:   Any[error] is not equivalent to int']
 Line 31: Unexpected errors ['./dataclasses_final.py:31:12:   Any[from_another] is not equivalent to int']
 Line 32: Unexpected errors ['./dataclasses_final.py:32:12:   Any[from_another] is not equivalent to str']
 """
 output = """
-./dataclasses_final.py:18:20: Unrecognized annotation object [invalid_annotation]
-./dataclasses_final.py:24:12:   Any[error] is not equivalent to int
 ./dataclasses_final.py:31:12:   Any[from_another] is not equivalent to int
 ./dataclasses_final.py:32:12:   Any[from_another] is not equivalent to str
 """

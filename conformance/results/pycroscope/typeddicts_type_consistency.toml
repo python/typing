@@ -1,6 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 69: Expected 1 errors
 Line 76: Expected 1 errors
 Line 77: Expected 1 errors
 Line 78: Expected 1 errors
@@ -10,5 +9,6 @@ output = """
 ./typeddicts_type_consistency.py:21:0: Incompatible assignment: expected TypedDict({"x": int | None}), got TypedDict({"x": int}) [incompatible_assignment]
 ./typeddicts_type_consistency.py:38:0: Incompatible assignment: expected TypedDict({"x": NotRequired[int]}), got TypedDict({"x": int}) [incompatible_assignment]
 ./typeddicts_type_consistency.py:65:0: Incompatible assignment: expected TypedDict({"x": int, "y": int}), got TypedDict({"x": int}) [incompatible_assignment]
+./typeddicts_type_consistency.py:69:0: Incompatible assignment: expected TypedDict({"x": int}), got Literal[{'x': 0, 'y': 0}] [incompatible_assignment]
 ./typeddicts_type_consistency.py:126:0: Incompatible assignment: expected TypedDict({"outer_key": TypedDict({"inner_key": TypedDict({"inner_key": str})})}), got Literal[{'outer_key': {'inner_key': {'inner_key': 1}}}] [incompatible_assignment]
 """

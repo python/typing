@@ -1,10 +1,10 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 23: Expected 1 errors
-Line 27: Expected 1 errors
-Line 31: Expected 1 errors
 """
 output = """
-./typeddicts_alt_syntax.py:35:16: Error calling (typename, fields=None, /, *, total=Literal[True], **kwargs) -> Any[unannotated]: TypedDict takes either a dict or keyword arguments, but not both [incompatible_call]
+./typeddicts_alt_syntax.py:23:43: TypedDict fields argument must be a dictionary literal [incompatible_call]
+./typeddicts_alt_syntax.py:27:44: TypedDict field names must be string literals [incompatible_call]
+./typeddicts_alt_syntax.py:31:26: TypedDict name argument must match the assignment target name [incompatible_call]
+./typeddicts_alt_syntax.py:35:71: TypedDict takes either a dict or keyword arguments, but not both [incompatible_call]
 ./typeddicts_alt_syntax.py:45:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': 'Blade Runner', 'year': ''}] [incompatible_assignment]
 """

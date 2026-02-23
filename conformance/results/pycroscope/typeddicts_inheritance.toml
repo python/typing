@@ -1,8 +1,8 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 44: Expected 1 errors
 """
 output = """
+./typeddicts_inheritance.py:44:30: TypedDict classes may only inherit from TypedDict types and Generic [invalid_base]
 ./typeddicts_inheritance.py:55:3: Incompatible TypedDict override for key 'x' [invalid_annotation]
 ./typeddicts_inheritance.py:65:0: TypedDict base classes define key 'x' with incompatible types [invalid_annotation]
 """

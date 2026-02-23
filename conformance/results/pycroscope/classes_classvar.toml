@@ -13,12 +13,11 @@ Line 84: Unexpected errors ["./classes_classvar.py:84:12: ClassA has no attribut
 Line 107: Unexpected errors ["./classes_classvar.py:107:33: Starship has no attribute 'stats' [undefined_attribute]", "./classes_classvar.py:107:8: Starship has no attribute 'stats' [undefined_attribute]"]
 """
 output = """
-./classes_classvar.py:38:10: Unrecognized annotation object [invalid_annotation]
+./classes_classvar.py:38:10: Invalid type annotation (<class 'int'>, <class 'str'>) [invalid_annotation]
 ./classes_classvar.py:39:10: Invalid type annotation 3 [invalid_annotation]
 ./classes_classvar.py:40:13: Undefined name: var [undefined_name]
-./classes_classvar.py:40:10: Unrecognized annotation object [invalid_annotation]
 ./classes_classvar.py:52:4: Incompatible assignment: expected list[str], got Literal[{}] [incompatible_assignment]
-./classes_classvar.py:54:10: Unrecognized annotation object [invalid_annotation]
+./classes_classvar.py:54:10: Unrecognized subscripted annotation: typing.Final [invalid_annotation]
 ./classes_classvar.py:55:11: Unrecognized annotation typing.ClassVar[<class 'int'>] [invalid_annotation]
 ./classes_classvar.py:69:25: Unexpected ClassVar annotation [invalid_annotation]
 ./classes_classvar.py:73:25: Unexpected ClassVar annotation [invalid_annotation]
