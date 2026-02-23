@@ -26,8 +26,8 @@ output = """
 ./typeddicts_extra_items.py:257:0: Incompatible assignment: expected TypedDict({"name": str, "__extra_items__": str}, closed=True), got TypedDict({"name": str, "__extra_items__": int}, closed=True) [incompatible_assignment]
 ./typeddicts_extra_items.py:268:0: Incompatible assignment: expected TypedDict({"name": str, "__extra_items__": int}, closed=True), got TypedDict({"name": str}) [incompatible_assignment]
 ./typeddicts_extra_items.py:278:0: Got an unexpected keyword argument 'year' [incompatible_call]
-./typeddicts_extra_items.py:285:0: Incompatible argument type for %kwargs: expected dict[str, int] but got TypedDict({"language": Literal['English']}) [incompatible_argument]
-./typeddicts_extra_items.py:293:0: Incompatible argument type for %kwargs: expected dict[str, Never] but got TypedDict({"year": Literal[2007]}) [incompatible_argument]
+./typeddicts_extra_items.py:285:0: Incompatible argument type for %kwargs: expected dict[str, int] but got <dict containing {Literal['language']: Literal['English']}> [incompatible_argument]
+./typeddicts_extra_items.py:293:0: Incompatible argument type for %kwargs: expected dict[str, Never] but got <dict containing {Literal['year']: Literal[2007]}> [incompatible_argument]
 ./typeddicts_extra_items.py:303:0: Incompatible assignment: expected collections.abc.Mapping[str, int], got TypedDict({"name": str, "__extra_items__": int}, closed=True) [incompatible_assignment]
 ./typeddicts_extra_items.py:352:4: Incompatible assignment: expected TypedDict({"__extra_items__": int}, closed=True), got dict[str, int] [incompatible_assignment]
 """

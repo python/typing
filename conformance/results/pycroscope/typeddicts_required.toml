@@ -4,6 +4,6 @@ errors_diff = """
 output = """
 ./typeddicts_required.py:12:7: Unexpected Required annotation [invalid_annotation]
 ./typeddicts_required.py:16:7: Unexpected NotRequired annotation [invalid_annotation]
-./typeddicts_required.py:59:7: Required[] cannot be nested [invalid_annotation]
+./typeddicts_required.py:59:16: Required[] cannot be nested [invalid_annotation]
 ./typeddicts_required.py:60:7: Required[] and NotRequired[] cannot be nested [invalid_annotation]
 """

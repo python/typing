@@ -1,8 +1,6 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 34: Unexpected errors ['./typeddicts_readonly_update.py:34:4: Cannot set readonly key \\'x\\' in TypedDict TypedDict({"x": Readonly[int], "y": int}) [readonly_typeddict]']
 """
 output = """
 ./typeddicts_readonly_update.py:23:0: Cannot set readonly key 'x' in TypedDict TypedDict({"x": Readonly[int], "y": int}) [readonly_typeddict]
-./typeddicts_readonly_update.py:34:4: Cannot set readonly key 'x' in TypedDict TypedDict({"x": Readonly[int], "y": int}) [readonly_typeddict]
 """

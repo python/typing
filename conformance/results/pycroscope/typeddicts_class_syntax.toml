@@ -1,10 +1,10 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 29: Expected 1 errors
-Line 44: Expected 1 errors
-Line 49: Expected 1 errors
-Lines 33, 34: Expected error (tag 'method2')
-Lines 38, 39: Expected error (tag 'method3')
 """
 output = """
+./typeddicts_class_syntax.py:29:4: Methods are not allowed in TypedDict definitions [invalid_annotation]
+./typeddicts_class_syntax.py:34:4: Methods are not allowed in TypedDict definitions [invalid_annotation]
+./typeddicts_class_syntax.py:39:4: Methods are not allowed in TypedDict definitions [invalid_annotation]
+./typeddicts_class_syntax.py:44:31: TypedDict definitions cannot specify a metaclass [invalid_annotation]
+./typeddicts_class_syntax.py:49:31: Unexpected keyword argument 'other' in TypedDict definition [invalid_annotation]
 """

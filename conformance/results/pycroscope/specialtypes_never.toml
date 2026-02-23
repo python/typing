@@ -1,6 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 85: Expected 1 errors
 Line 104: Expected 1 errors
 Line 51: Unexpected errors ['./specialtypes_never.py:51:4: Incompatible return type: expected list[Never], got Literal[[]] [incompatible_return_value]']
 Line 84: Unexpected errors ['./specialtypes_never.py:84:4: Incompatible assignment: expected Never, got Any[explicit] [incompatible_assignment]']
@@ -9,4 +8,5 @@ output = """
 ./specialtypes_never.py:19:0: Function is annotated as NoReturn but may return [no_return_may_return]
 ./specialtypes_never.py:51:4: Incompatible return type: expected list[Never], got Literal[[]] [incompatible_return_value]
 ./specialtypes_never.py:84:4: Incompatible assignment: expected Never, got Any[explicit] [incompatible_assignment]
+./specialtypes_never.py:85:4: Incompatible assignment: expected list[int], got list[Never] [incompatible_assignment]
 """

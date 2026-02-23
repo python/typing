@@ -1,6 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 199: Expected 1 errors
 """
 output = """
 ./narrowing_typeis.py:105:4: TypeIs must be used on a function taking at least one positional parameter [invalid_typeguard]
@@ -11,4 +10,5 @@ output = """
 ./narrowing_typeis.py:170:13: Incompatible argument type for f: expected (object, /) -> Annotated[bool, TypeIsExtension(guarded_type=TypedValue(typ=<class 'int'>, literal_only=False))] but got function '.../tests/narrowing_typeis.py.is_int_typeguard' [incompatible_argument]
 ./narrowing_typeis.py:191:17: Incompatible argument type for f: expected (object, /) -> Annotated[bool, TypeIsExtension(guarded_type=TypedValue(typ=<class 'int'>, literal_only=False))] but got function '.../tests/narrowing_typeis.py.bool_typeis' [incompatible_argument]
 ./narrowing_typeis.py:195:26: TypeIs narrowed type str is incompatible with parameter x [typeis_must_be_subtype]
+./narrowing_typeis.py:199:44: TypeIs narrowed type list[int] is incompatible with parameter x [typeis_must_be_subtype]
 """
