@@ -1,7 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 25: Unexpected errors ['./generics_typevartuple_overloads.py:25:4: Function may exit without returning a value [missing_return]']
 """
 output = """
-./generics_typevartuple_overloads.py:25:4: Function may exit without returning a value [missing_return]
 """

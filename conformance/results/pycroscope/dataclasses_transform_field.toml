@@ -2,10 +2,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 64: Expected 1 errors
 Line 75: Expected 1 errors
-Line 35: Unexpected errors ['./dataclasses_transform_field.py:35:0: Function may exit without returning a value [missing_return]']
-Line 44: Unexpected errors ['./dataclasses_transform_field.py:44:0: Function may exit without returning a value [missing_return]']
 """
 output = """
-./dataclasses_transform_field.py:35:0: Function may exit without returning a value [missing_return]
-./dataclasses_transform_field.py:44:0: Function may exit without returning a value [missing_return]
 """

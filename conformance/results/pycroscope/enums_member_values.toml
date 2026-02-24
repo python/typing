@@ -4,15 +4,9 @@ Line 78: Expected 1 errors
 Line 85: Expected 1 errors
 """
 output = """
-./enums_member_values.py:21:12:   Any[error] is not equivalent to Literal[1]
-./enums_member_values.py:21:12: Literal[1] has no attribute '_value_' [undefined_attribute]
-./enums_member_values.py:22:12:   Any[error] is not equivalent to Literal[1]
-./enums_member_values.py:22:12: Literal[1] has no attribute 'value' [undefined_attribute]
-./enums_member_values.py:26:16:   Any[error] is not equivalent to Literal[1, 3]
-./enums_member_values.py:26:16: Literal[1] has no attribute 'value' [undefined_attribute]
 ./enums_member_values.py:30:16:   Any[explicit] is not equivalent to Literal[1, 2, 3]
 ./enums_member_values.py:54:12:   Any[error] is not equivalent to Literal[1]
 ./enums_member_values.py:54:12: Literal[(1, 3.303e+23, 2439700.0)] has no attribute 'value' [undefined_attribute]
 ./enums_member_values.py:68:12:   Any[explicit] is not equivalent to Literal[1]
-./enums_member_values.py:96:12:   Any[from_another] is not equivalent to int
+./enums_member_values.py:96:12:   Literal[Ellipsis] is not equivalent to int
 """

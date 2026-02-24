@@ -6,10 +6,6 @@ Line 60: Expected 1 errors
 Line 89: Expected 1 errors
 Line 134: Expected 1 errors
 Line 164: Expected 1 errors
-Line 50: Unexpected errors ['./protocols_explicit.py:50:4: Function may exit without returning a value [missing_return]']
-Line 126: Unexpected errors ['./protocols_explicit.py:126:4: Function may exit without returning a value [missing_return]']
 """
 output = """
-./protocols_explicit.py:50:4: Function may exit without returning a value [missing_return]
-./protocols_explicit.py:126:4: Function may exit without returning a value [missing_return]
 """

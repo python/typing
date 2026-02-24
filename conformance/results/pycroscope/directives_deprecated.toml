@@ -14,7 +14,7 @@ Line 99: Unexpected errors ["./directives_deprecated.py:99:4: ./directives_depre
 """
 output = """
 ./directives_deprecated.py:58:0: Annotated[./directives_deprecated.py.Invocable, HasAttrExtension(attribute_name=KnownValue(val='__call__'), attribute_type=AnyValue(source=<AnySource.from_another: 8>))] is not callable [not_callable]
-./directives_deprecated.py:90:4: @override decorator in invalid location [invalid_override_decorator]
+./directives_deprecated.py:90:4: Method does not override any base method [override_does_not_override]
 ./directives_deprecated.py:98:4: ./directives_deprecated.py.SupportsFoo1 has no attribute 'foo' [undefined_attribute]
 ./directives_deprecated.py:99:4: ./directives_deprecated.py.SupportsFoo1 has no attribute 'bar' [undefined_attribute]
 """

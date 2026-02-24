@@ -17,7 +17,7 @@ output = """
 ./classes_classvar.py:39:10: Invalid type annotation 3 [invalid_annotation]
 ./classes_classvar.py:40:13: Undefined name: var [undefined_name]
 ./classes_classvar.py:52:4: Incompatible assignment: expected list[str], got Literal[{}] [incompatible_assignment]
-./classes_classvar.py:54:10: Unrecognized subscripted annotation: typing.Final [invalid_annotation]
+./classes_classvar.py:54:10: Final cannot be combined with ClassVar [invalid_annotation]
 ./classes_classvar.py:55:11: Unrecognized annotation typing.ClassVar[<class 'int'>] [invalid_annotation]
 ./classes_classvar.py:69:25: Unexpected ClassVar annotation [invalid_annotation]
 ./classes_classvar.py:73:25: Unexpected ClassVar annotation [invalid_annotation]

@@ -6,8 +6,6 @@ Line 64: Expected 1 errors
 Line 70: Expected 1 errors
 Line 96: Expected 1 errors
 Lines 88, 89: Expected error (tag 'Customer3Subclass')
-Line 28: Unexpected errors ['./dataclasses_transform_func.py:28:0: Function may exit without returning a value [missing_return]']
 """
 output = """
-./dataclasses_transform_func.py:28:0: Function may exit without returning a value [missing_return]
 """

@@ -1,8 +1,6 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 56: Unexpected errors ['./overloads_basic.py:56:0: Function may exit without returning a value [missing_return]']
 """
 output = """
 ./overloads_basic.py:36:0: Cannot call overloaded function [incompatible_argument]
-./overloads_basic.py:56:0: Function may exit without returning a value [missing_return]
 """

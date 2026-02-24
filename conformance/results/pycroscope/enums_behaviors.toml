@@ -1,16 +1,8 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 44: Expected 1 errors
-Lines 27, 28: Expected exactly one error (tag 'red')
-Line 20: Unexpected errors ['./enums_behaviors.py:20:16:   Any[generic_argument] is not equivalent to ./enums_behaviors.py.Color']
-Line 27: Unexpected errors ['./enums_behaviors.py:27:12:   Any[error] is not equivalent to ./enums_behaviors.py.Color', './enums_behaviors.py:27:12: In call to enum.EnumType.__getitem__: Takes 2 positional arguments but 3 were given [incompatible_call]']
-Line 28: Unexpected errors ['./enums_behaviors.py:28:12:   Any[error] is not equivalent to Literal[1]', './enums_behaviors.py:28:12: In call to enum.EnumType.__getitem__: Takes 2 positional arguments but 3 were given [incompatible_call]']
 """
 output = """
-./enums_behaviors.py:20:16:   Any[generic_argument] is not equivalent to ./enums_behaviors.py.Color
-./enums_behaviors.py:27:12:   Any[error] is not equivalent to ./enums_behaviors.py.Color
-./enums_behaviors.py:27:12: In call to enum.EnumType.__getitem__: Takes 2 positional arguments but 3 were given [incompatible_call]
-./enums_behaviors.py:28:12:   Any[error] is not equivalent to Literal[1]
-./enums_behaviors.py:28:12: In call to enum.EnumType.__getitem__: Takes 2 positional arguments but 3 were given [incompatible_call]
-./enums_behaviors.py:32:12:   Annotated[./enums_behaviors.py.Color, HasAttrExtension(attribute_name=KnownValue(val='RED'), attribute_type=KnownValue(val=1)), HasAttrExtension(attribute_name=KnownValue(val='GREEN'), attribute_type=KnownValue(val=2)), HasAttrExtension(attribute_name=KnownValue(val='BLUE'), attribute_type=KnownValue(val=3))] is not equivalent to Literal[3]
+./enums_behaviors.py:27:12:   Literal[<Color.RED: 1>] is not equivalent to ./enums_behaviors.py.Color
+./enums_behaviors.py:32:12:   ./enums_behaviors.py.Color is not equivalent to Literal[<Color.BLUE: 3>]
 """
