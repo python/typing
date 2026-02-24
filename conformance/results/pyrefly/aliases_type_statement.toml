@@ -31,5 +31,6 @@ ERROR aliases_type_statement.py:77:7-41: `str` is not assignable to upper bound 
 ERROR aliases_type_statement.py:79:7-41: `int` is not assignable to upper bound `str` of type variable `T` [bad-specialization]
 ERROR aliases_type_statement.py:82:28-47: Found cyclic self-reference in `RecursiveTypeAlias3` [invalid-type-alias]
 ERROR aliases_type_statement.py:84:31-59: Found cyclic self-reference in `RecursiveTypeAlias4` [invalid-type-alias]
+ERROR aliases_type_statement.py:88:28-47: Found cyclic self-reference in `RecursiveTypeAlias6` [invalid-type-alias]
 ERROR aliases_type_statement.py:89:28-47: Found cyclic self-reference in `RecursiveTypeAlias7` [invalid-type-alias]
 """

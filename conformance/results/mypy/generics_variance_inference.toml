@@ -6,6 +6,7 @@ generics_variance_inference.py:28: error: Incompatible types in assignment (expr
 generics_variance_inference.py:41: error: Incompatible types in assignment (expression has type "ShouldBeCovariant1[float]", variable has type "ShouldBeCovariant1[int]")  [assignment]
 generics_variance_inference.py:49: error: Incompatible types in assignment (expression has type "ShouldBeCovariant2[float]", variable has type "ShouldBeCovariant2[int]")  [assignment]
 generics_variance_inference.py:58: error: Incompatible types in assignment (expression has type "ShouldBeCovariant3[float]", variable has type "ShouldBeCovariant3[int]")  [assignment]
+generics_variance_inference.py:66: error: Incompatible types in assignment (expression has type "ShouldBeCovariant4[int]", variable has type "ShouldBeCovariant4[float]")  [assignment]
 generics_variance_inference.py:67: error: Incompatible types in assignment (expression has type "ShouldBeCovariant4[float]", variable has type "ShouldBeCovariant4[int]")  [assignment]
 generics_variance_inference.py:80: error: Incompatible types in assignment (expression has type "ShouldBeCovariant5[float]", variable has type "ShouldBeCovariant5[int]")  [assignment]
 generics_variance_inference.py:96: error: Incompatible types in assignment (expression has type "ShouldBeInvariant1[int]", variable has type "ShouldBeInvariant1[float]")  [assignment]
@@ -24,6 +25,7 @@ generics_variance_inference.py:170: error: Incompatible types in assignment (exp
 generics_variance_inference.py:181: error: Incompatible types in assignment (expression has type "ShouldBeCovariant6[float]", variable has type "ShouldBeCovariant6[int]")  [assignment]
 generics_variance_inference.py:194: error: Incompatible types in assignment (expression has type "ShouldBeContravariant2[int]", variable has type "ShouldBeContravariant2[float]")  [assignment]
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 66: Unexpected errors ['generics_variance_inference.py:66: error: Incompatible types in assignment (expression has type "ShouldBeCovariant4[int]", variable has type "ShouldBeCovariant4[float]")  [assignment]']
 """

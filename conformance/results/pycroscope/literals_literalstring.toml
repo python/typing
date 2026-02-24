@@ -7,10 +7,10 @@ Line 63: Unexpected errors ['./literals_literalstring.py:63:16:   str is not equ
 output = """
 ./literals_literalstring.py:43:4: Incompatible assignment: expected Literal[''], got Literal['two'] [incompatible_assignment]
 ./literals_literalstring.py:63:16:   str is not equivalent to LiteralString
-./literals_literalstring.py:66:4: Incompatible assignment: expected LiteralString, got str [incompatible_assignment]
-./literals_literalstring.py:74:4: Incompatible assignment: expected LiteralString, got Literal[3] [incompatible_assignment]
-./literals_literalstring.py:75:4: Incompatible assignment: expected LiteralString, got Literal[b'test'] [incompatible_assignment]
-./literals_literalstring.py:120:21: Incompatible argument type for s: expected ~TLiteral: LiteralString but got str [incompatible_argument]
-./literals_literalstring.py:134:50: Incompatible argument type for value: expected ~T: LiteralString but got str [incompatible_argument]
+./literals_literalstring.py:65:4: Incompatible assignment: expected LiteralString, got str [incompatible_assignment]
+./literals_literalstring.py:73:4: Incompatible assignment: expected LiteralString, got Literal[3] [incompatible_assignment]
+./literals_literalstring.py:74:4: Incompatible assignment: expected LiteralString, got Literal[b'test'] [incompatible_assignment]
+./literals_literalstring.py:119:21: Incompatible argument type for s: expected ~TLiteral: LiteralString but got str [incompatible_argument]
+./literals_literalstring.py:133:50: Incompatible argument type for value: expected ~T: LiteralString but got str [incompatible_argument]
 ./literals_literalstring.py:171:4: Incompatible assignment: expected list[str], got list[LiteralString] [incompatible_assignment]
 """

@@ -10,7 +10,7 @@ literals_literalstring.py:73: error: Incompatible types in assignment (expressio
 literals_literalstring.py:74: error: Incompatible types in assignment (expression has type "Literal[b'test']", variable has type "LiteralString")  [assignment]
 literals_literalstring.py:119: error: Value of type variable "TLiteral" of "literal_identity" cannot be "str"  [type-var]
 literals_literalstring.py:133: error: Value of type variable "T" of "Container" cannot be "str"  [type-var]
-literals_literalstring.py:170: error: Incompatible types in assignment (expression has type "list[LiteralString]", variable has type "list[str]")  [assignment]
-literals_literalstring.py:170: note: "List" is invariant -- see https://mypy.readthedocs.io/en/stable/common_issues.html#variance
-literals_literalstring.py:170: note: Consider using "Sequence" instead, which is covariant
+literals_literalstring.py:171: error: Incompatible types in assignment (expression has type "list[LiteralString]", variable has type "list[str]")  [assignment]
+literals_literalstring.py:171: note: "List" is invariant -- see https://mypy.readthedocs.io/en/stable/common_issues.html#variance
+literals_literalstring.py:171: note: Consider using "Sequence" instead, which is covariant
 """

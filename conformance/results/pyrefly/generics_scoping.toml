@@ -4,13 +4,9 @@ Does not implement several scoping checks/restrictions for generics
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 61: Expected 1 errors
-Line 65: Expected 1 errors
 Line 86: Expected 1 errors
 Line 89: Expected 1 errors
 Line 98: Expected 1 errors
-Line 105: Expected 1 errors
-Line 106: Expected 1 errors
 Line 107: Expected 1 errors
 """
 output = """
@@ -19,5 +15,9 @@ ERROR generics_scoping.py:20:12-38: assert_type(str, Literal['a']) failed [asser
 ERROR generics_scoping.py:34:10-13: Argument `Literal['a']` is not assignable to parameter `x` with type `int` in function `MyClass.meth_2` [bad-argument-type]
 ERROR generics_scoping.py:50:12-48: assert_type(str, Literal['abc']) failed [assert-type]
 ERROR generics_scoping.py:54:12-50: assert_type(bytes, Literal[b'abc']) failed [assert-type]
+ERROR generics_scoping.py:61:8-15: Type variable `S` is not in scope [invalid-type-var]
+ERROR generics_scoping.py:65:14-21: Type variable `S` is not in scope [invalid-type-var]
 ERROR generics_scoping.py:76:11-20: Redundant type parameter declaration [invalid-type-var]
+ERROR generics_scoping.py:105:14-15: Type variable `T` is not in scope [invalid-type-var]
+ERROR generics_scoping.py:106:14-21: Type variable `T` is not in scope [invalid-type-var]
 """

@@ -2,8 +2,8 @@ conformant = "Pass"
 notes = """
 """
 output = """
-overloads_basic.py:39:1 - error: No overloads for "__getitem__" match the provided arguments (reportCallIssue)
-overloads_basic.py:39:1 - error: Argument of type "Literal['']" cannot be assigned to parameter "__s" of type "slice[Any, Any, Any]" in function "__getitem__"
+overloads_basic.py:36:1 - error: No overloads for "__getitem__" match the provided arguments (reportCallIssue)
+overloads_basic.py:36:1 - error: Argument of type "Literal['']" cannot be assigned to parameter "s" of type "slice[Any, Any, Any]" in function "__getitem__"
   "Literal['']" is not assignable to "slice[Any, Any, Any]" (reportArgumentType)
 """
 conformance_automated = "Pass"

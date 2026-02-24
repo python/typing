@@ -1,23 +1,19 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 50: Expected 1 errors
-Line 54: Expected 1 errors
+Line 61: Expected 1 errors
 Line 65: Expected 1 errors
-Line 75: Expected 1 errors
-Line 78: Expected 1 errors
-Line 87: Expected 1 errors
-Line 94: Expected 1 errors
-Line 95: Expected 1 errors
-Line 96: Expected 1 errors
-Line 14: Unexpected errors ['./generics_scoping.py:14:12:   Literal[1] is not equivalent to int']
-Line 15: Unexpected errors ["./generics_scoping.py:15:12:   Literal['a'] is not equivalent to str"]
-Line 42: Unexpected errors ["./generics_scoping.py:42:12:   Literal['abc'] is not equivalent to str"]
-Line 43: Unexpected errors ["./generics_scoping.py:43:12:   Literal[b'abc'] is not equivalent to bytes"]
+Line 76: Expected 1 errors
+Line 86: Expected 1 errors
+Line 89: Expected 1 errors
+Line 98: Expected 1 errors
+Line 105: Expected 1 errors
+Line 106: Expected 1 errors
+Line 107: Expected 1 errors
 """
 output = """
-./generics_scoping.py:14:12:   Literal[1] is not equivalent to int
-./generics_scoping.py:15:12:   Literal['a'] is not equivalent to str
-./generics_scoping.py:29:9: Incompatible argument type for x: expected int but got Literal['a'] [incompatible_argument]
-./generics_scoping.py:42:12:   Literal['abc'] is not equivalent to str
-./generics_scoping.py:43:12:   Literal[b'abc'] is not equivalent to bytes
+./generics_scoping.py:15:12:   Literal[1] is not equivalent to int
+./generics_scoping.py:19:12:   Literal['a'] is not equivalent to str
+./generics_scoping.py:34:9: Incompatible argument type for x: expected int but got Literal['a'] [incompatible_argument]
+./generics_scoping.py:49:12:   Literal['abc'] is not equivalent to str
+./generics_scoping.py:53:12:   Literal[b'abc'] is not equivalent to bytes
 """
