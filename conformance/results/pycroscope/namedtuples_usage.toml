@@ -1,33 +1,13 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 34: Expected 1 errors
-Line 35: Expected 1 errors
 Line 40: Expected 1 errors
-Line 41: Expected 1 errors
 Line 42: Expected 1 errors
-Line 43: Expected 1 errors
-Line 52: Expected 1 errors
-Line 53: Expected 1 errors
-Line 20: Unexpected errors ['./namedtuples_usage.py:20:12:   Any[from_another] is not equivalent to int']
-Line 21: Unexpected errors ['./namedtuples_usage.py:21:12:   Any[from_another] is not equivalent to str']
-Line 27: Unexpected errors ['./namedtuples_usage.py:27:12:   Any[from_another] is not equivalent to int']
-Line 28: Unexpected errors ['./namedtuples_usage.py:28:12:   Any[from_another] is not equivalent to int']
-Line 29: Unexpected errors ['./namedtuples_usage.py:29:12:   Any[from_another] is not equivalent to str']
-Line 30: Unexpected errors ['./namedtuples_usage.py:30:12:   Any[from_another] is not equivalent to str']
-Line 31: Unexpected errors ['./namedtuples_usage.py:31:12:   Any[from_another] is not equivalent to int']
-Line 32: Unexpected errors ['./namedtuples_usage.py:32:12:   Any[from_another] is not equivalent to int']
-Line 49: Unexpected errors ['./namedtuples_usage.py:49:12:   Any[generic_argument] is not equivalent to int']
-Line 50: Unexpected errors ['./namedtuples_usage.py:50:12:   Any[generic_argument] is not equivalent to str']
 """
 output = """
-./namedtuples_usage.py:20:12:   Any[from_another] is not equivalent to int
-./namedtuples_usage.py:21:12:   Any[from_another] is not equivalent to str
-./namedtuples_usage.py:27:12:   Any[from_another] is not equivalent to int
-./namedtuples_usage.py:28:12:   Any[from_another] is not equivalent to int
-./namedtuples_usage.py:29:12:   Any[from_another] is not equivalent to str
-./namedtuples_usage.py:30:12:   Any[from_another] is not equivalent to str
-./namedtuples_usage.py:31:12:   Any[from_another] is not equivalent to int
-./namedtuples_usage.py:32:12:   Any[from_another] is not equivalent to int
-./namedtuples_usage.py:49:12:   Any[generic_argument] is not equivalent to int
-./namedtuples_usage.py:50:12:   Any[generic_argument] is not equivalent to str
+./namedtuples_usage.py:34:6: Tuple index out of range: Literal[3] [incompatible_call]
+./namedtuples_usage.py:35:6: Tuple index out of range: Literal[-4] [incompatible_call]
+./namedtuples_usage.py:41:0: Object of type ./namedtuples_usage.py.Point does not support '__setitem__' [unsupported_operation]
+./namedtuples_usage.py:43:4: Object of type ./namedtuples_usage.py.Point does not support '__delitem__' [unsupported_operation]
+./namedtuples_usage.py:52:0: Cannot unpack ./namedtuples_usage.py.Point [bad_unpack]
+./namedtuples_usage.py:53:0: Cannot unpack ./namedtuples_usage.py.Point [bad_unpack]
 """

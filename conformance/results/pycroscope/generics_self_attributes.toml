@@ -1,7 +1,7 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Expected 1 errors
 Line 32: Expected 1 errors
 """
 output = """
+./generics_self_attributes.py:26:37: Incompatible argument type for next: expected .../tests/generics_self_attributes.py.OrdinalLinkedList | None but got .../tests/generics_self_attributes.py.LinkedList[int] [incompatible_argument]
 """

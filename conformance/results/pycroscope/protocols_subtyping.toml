@@ -1,8 +1,7 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 16: Expected 1 errors
-Line 37: Unexpected errors ['./protocols_subtyping.py:37:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto2, got ./protocols_subtyping.py.Concrete2 [incompatible_assignment]']
-Line 54: Unexpected errors ['./protocols_subtyping.py:54:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto2, got ./protocols_subtyping.py.Proto3 [incompatible_assignment]']
+Line 55: Expected 1 errors
 Line 67: Unexpected errors ['./protocols_subtyping.py:67:4: Function may exit without returning a value [missing_return]']
 Line 72: Unexpected errors ['./protocols_subtyping.py:72:4: Function may exit without returning a value [missing_return]']
 Line 77: Unexpected errors ['./protocols_subtyping.py:77:8: Object Proto4 does not support subscripting [unsupported_operation]']
@@ -14,13 +13,10 @@ Line 99: Unexpected errors ['./protocols_subtyping.py:99:8: Object Proto7 does n
 Line 100: Unexpected errors ['./protocols_subtyping.py:100:8: Object Proto7 does not support subscripting [unsupported_operation]']
 Line 110: Unexpected errors ['./protocols_subtyping.py:110:4: Function may exit without returning a value [missing_return]']
 Line 115: Unexpected errors ['./protocols_subtyping.py:115:4: Function may exit without returning a value [missing_return]']
-Line 142: Unexpected errors ['./protocols_subtyping.py:142:12: Incompatible argument type for args: expected ./protocols_subtyping.py.HashableFloats but got Literal[(1, 2, 3)] [incompatible_argument]']
+Line 142: Unexpected errors ['./protocols_subtyping.py:142:0: Traceback (most recent call last):']
 """
 output = """
-./protocols_subtyping.py:37:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto2, got ./protocols_subtyping.py.Concrete2 [incompatible_assignment]
-./protocols_subtyping.py:38:4: Incompatible assignment: expected ./protocols_subtyping.py.Concrete2, got ./protocols_subtyping.py.Proto2 [incompatible_assignment]
-./protocols_subtyping.py:54:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto2, got ./protocols_subtyping.py.Proto3 [incompatible_assignment]
-./protocols_subtyping.py:55:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto3, got ./protocols_subtyping.py.Proto2 [incompatible_assignment]
+./protocols_subtyping.py:38:4: Incompatible assignment: expected ./protocols_subtyping.py.Concrete2, got ./protocols_subtyping.py.Proto2 (Protocol with members ) [incompatible_assignment]
 ./protocols_subtyping.py:67:4: Function may exit without returning a value [missing_return]
 ./protocols_subtyping.py:72:4: Function may exit without returning a value [missing_return]
 ./protocols_subtyping.py:77:8: Object Proto4 does not support subscripting [unsupported_operation]
@@ -36,5 +32,5 @@ output = """
 ./protocols_subtyping.py:103:8: Object Proto7 does not support subscripting [unsupported_operation]
 ./protocols_subtyping.py:110:4: Function may exit without returning a value [missing_return]
 ./protocols_subtyping.py:115:4: Function may exit without returning a value [missing_return]
-./protocols_subtyping.py:142:12: Incompatible argument type for args: expected ./protocols_subtyping.py.HashableFloats but got Literal[(1, 2, 3)] [incompatible_argument]
+./protocols_subtyping.py:142:0: Traceback (most recent call last):
 """

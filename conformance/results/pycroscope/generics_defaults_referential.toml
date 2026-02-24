@@ -1,7 +1,6 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 36: Expected 1 errors
-Line 37: Expected 1 errors
 Line 53: Expected 1 errors
 Line 60: Expected 1 errors
 Line 68: Expected 1 errors
@@ -9,24 +8,19 @@ Line 74: Expected 1 errors
 Line 78: Expected 1 errors
 Line 23: Unexpected errors ["./generics_defaults_referential.py:23:12:   type '.../tests/generics_defaults_referential.py.slice' is not equivalent to type[.../tests/generics_defaults_referential.py.slice[int, int, int | None]]"]
 Line 24: Unexpected errors ['./generics_defaults_referential.py:24:12:   .../tests/generics_defaults_referential.py.slice[Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to .../tests/generics_defaults_referential.py.slice[int, int, int | None]']
-Line 25: Unexpected errors ['./generics_defaults_referential.py:25:12:   Any[from_another] is not equivalent to .../tests/generics_defaults_referential.py.slice[str, str, int | None]']
-Line 26: Unexpected errors ['./generics_defaults_referential.py:26:12:   Any[from_another] is not equivalent to .../tests/generics_defaults_referential.py.slice[str, bool, complex | float | int]']
+Line 25: Unexpected errors ['./generics_defaults_referential.py:25:12:   .../tests/generics_defaults_referential.py.slice[str, Any[generic_argument], int | None] is not equivalent to .../tests/generics_defaults_referential.py.slice[str, str, int | None]']
 Line 35: Unexpected errors ["./generics_defaults_referential.py:35:12:   .../tests/generics_defaults_referential.py.Foo[Literal[1], Literal['']] is not equivalent to .../tests/generics_defaults_referential.py.Foo[int, str]"]
 Line 94: Unexpected errors ["./generics_defaults_referential.py:94:12:   type '.../tests/generics_defaults_referential.py.Bar' is not equivalent to type[.../tests/generics_defaults_referential.py.Bar[Any[explicit], list[Any[explicit]]]]"]
 Line 95: Unexpected errors ['./generics_defaults_referential.py:95:12:   Literal[.../tests/generics_defaults_referential.py.Bar[int, list[~Z1]]] is not equivalent to type[.../tests/generics_defaults_referential.py.Bar[int, list[int]]]']
-Line 96: Unexpected errors ['./generics_defaults_referential.py:96:12:   Any[from_another] is not equivalent to .../tests/generics_defaults_referential.py.Bar[int, list[int]]']
-Line 97: Unexpected errors ['./generics_defaults_referential.py:97:12:   Any[from_another] is not equivalent to .../tests/generics_defaults_referential.py.Bar[int, list[str]]']
-Line 98: Unexpected errors ['./generics_defaults_referential.py:98:12:   Any[from_another] is not equivalent to .../tests/generics_defaults_referential.py.Bar[int, str]']
+Line 96: Unexpected errors ['./generics_defaults_referential.py:96:12:   .../tests/generics_defaults_referential.py.Bar[int, list[Any[unreachable]]] is not equivalent to .../tests/generics_defaults_referential.py.Bar[int, list[int]]']
 """
 output = """
 ./generics_defaults_referential.py:23:12:   type '.../tests/generics_defaults_referential.py.slice' is not equivalent to type[.../tests/generics_defaults_referential.py.slice[int, int, int | None]]
 ./generics_defaults_referential.py:24:12:   .../tests/generics_defaults_referential.py.slice[Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to .../tests/generics_defaults_referential.py.slice[int, int, int | None]
-./generics_defaults_referential.py:25:12:   Any[from_another] is not equivalent to .../tests/generics_defaults_referential.py.slice[str, str, int | None]
-./generics_defaults_referential.py:26:12:   Any[from_another] is not equivalent to .../tests/generics_defaults_referential.py.slice[str, bool, complex | float | int]
+./generics_defaults_referential.py:25:12:   .../tests/generics_defaults_referential.py.slice[str, Any[generic_argument], int | None] is not equivalent to .../tests/generics_defaults_referential.py.slice[str, str, int | None]
 ./generics_defaults_referential.py:35:12:   .../tests/generics_defaults_referential.py.Foo[Literal[1], Literal['']] is not equivalent to .../tests/generics_defaults_referential.py.Foo[int, str]
+./generics_defaults_referential.py:37:9: Incompatible argument type for a: expected int but got Literal[''] [incompatible_argument]
 ./generics_defaults_referential.py:94:12:   type '.../tests/generics_defaults_referential.py.Bar' is not equivalent to type[.../tests/generics_defaults_referential.py.Bar[Any[explicit], list[Any[explicit]]]]
 ./generics_defaults_referential.py:95:12:   Literal[.../tests/generics_defaults_referential.py.Bar[int, list[~Z1]]] is not equivalent to type[.../tests/generics_defaults_referential.py.Bar[int, list[int]]]
-./generics_defaults_referential.py:96:12:   Any[from_another] is not equivalent to .../tests/generics_defaults_referential.py.Bar[int, list[int]]
-./generics_defaults_referential.py:97:12:   Any[from_another] is not equivalent to .../tests/generics_defaults_referential.py.Bar[int, list[str]]
-./generics_defaults_referential.py:98:12:   Any[from_another] is not equivalent to .../tests/generics_defaults_referential.py.Bar[int, str]
+./generics_defaults_referential.py:96:12:   .../tests/generics_defaults_referential.py.Bar[int, list[Any[unreachable]]] is not equivalent to .../tests/generics_defaults_referential.py.Bar[int, list[int]]
 """

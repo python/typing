@@ -1,47 +1,29 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 51: Expected 1 errors
-Line 44: Unexpected errors ['./overloads_evaluation.py:44:12:   int | str is not equivalent to int']
-Line 49: Unexpected errors ['./overloads_evaluation.py:49:12:   int | str is not equivalent to str']
-Line 67: Unexpected errors ['./overloads_evaluation.py:67:16:   float | int is not equivalent to int']
-Line 93: Unexpected errors ['./overloads_evaluation.py:93:12:   int | str is not equivalent to int']
-Line 136: Unexpected errors ['./overloads_evaluation.py:136:16:   int is not equivalent to Literal[0, 1]']
 Line 149: Unexpected errors ["./overloads_evaluation.py:149:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]"]
 Line 153: Unexpected errors ["./overloads_evaluation.py:153:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]"]
 Line 157: Unexpected errors ["./overloads_evaluation.py:157:11: ./overloads_evaluation.py.Color has no attribute 'value' [undefined_attribute]"]
-Line 162: Unexpected errors ['./overloads_evaluation.py:162:16:   int is not equivalent to Literal[0, 1]']
-Line 235: Unexpected errors ['./overloads_evaluation.py:235:16:   int | str is not equivalent to int']
-Line 262: Unexpected errors ['./overloads_evaluation.py:262:16:   list[int] | list[str] is not equivalent to list[int]']
-Line 265: Unexpected errors ['./overloads_evaluation.py:265:16:   list[int] | list[str] is not equivalent to Any[explicit]']
-Line 281: Unexpected errors ['./overloads_evaluation.py:281:16:   list[Any[explicit]] is not equivalent to Any[explicit]']
-Line 303: Unexpected errors ['./overloads_evaluation.py:303:16:   list[Any[explicit]] is not equivalent to float | int']
-Line 309: Unexpected errors ['./overloads_evaluation.py:309:16:   Any[explicit] is not equivalent to float | int']
-Line 315: Unexpected errors ['./overloads_evaluation.py:315:16:   list[int] is not equivalent to float | int']
-Line 341: Unexpected errors ['./overloads_evaluation.py:341:16:   list[int] | list[str] is not equivalent to list[int]']
-Line 344: Unexpected errors ['./overloads_evaluation.py:344:16:   list[int] | list[str] is not equivalent to list[str]']
-Line 347: Unexpected errors ['./overloads_evaluation.py:347:16:   list[int] | list[str] is not equivalent to Any[explicit]']
+Line 161: Unexpected errors ['./overloads_evaluation.py:161:11: Cannot call overloaded function [incompatible_argument]']
+Line 162: Unexpected errors ['./overloads_evaluation.py:162:16:   Any[error] is not equivalent to Literal[0, 1]']
+Line 205: Unexpected errors ['./overloads_evaluation.py:205:11: Cannot call overloaded function [incompatible_argument]']
+Line 206: Unexpected errors ['./overloads_evaluation.py:206:16:   Any[error] is not equivalent to int | str']
+Line 235: Unexpected errors ['./overloads_evaluation.py:235:16:   str is not equivalent to int']
+Line 303: Unexpected errors ['./overloads_evaluation.py:303:16:   Any[multiple_overload_matches] is not equivalent to float | int']
+Line 315: Unexpected errors ['./overloads_evaluation.py:315:16:   Any[multiple_overload_matches] is not equivalent to float | int']
 """
 output = """
-./overloads_evaluation.py:38:0: Missing required argument 'x' [incompatible_call]
-./overloads_evaluation.py:44:12:   int | str is not equivalent to int
-./overloads_evaluation.py:46:14: Incompatible argument type for y: expected str but got Literal[1] [incompatible_argument]
-./overloads_evaluation.py:49:12:   int | str is not equivalent to str
-./overloads_evaluation.py:67:16:   float | int is not equivalent to int
-./overloads_evaluation.py:93:12:   int | str is not equivalent to int
-./overloads_evaluation.py:116:13: Incompatible argument type for x: expected int but got int | str [incompatible_argument]
-./overloads_evaluation.py:136:16:   int is not equivalent to Literal[0, 1]
+./overloads_evaluation.py:38:0: Cannot call overloaded function [incompatible_call]
+./overloads_evaluation.py:46:0: Cannot call overloaded function [incompatible_argument]
+./overloads_evaluation.py:51:0: Cannot call overloaded function [incompatible_argument]
+./overloads_evaluation.py:116:4: Cannot call overloaded function [incompatible_argument]
 ./overloads_evaluation.py:149:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]
 ./overloads_evaluation.py:153:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]
 ./overloads_evaluation.py:157:11: ./overloads_evaluation.py.Color has no attribute 'value' [undefined_attribute]
-./overloads_evaluation.py:162:16:   int is not equivalent to Literal[0, 1]
-./overloads_evaluation.py:235:16:   int | str is not equivalent to int
-./overloads_evaluation.py:262:16:   list[int] | list[str] is not equivalent to list[int]
-./overloads_evaluation.py:265:16:   list[int] | list[str] is not equivalent to Any[explicit]
-./overloads_evaluation.py:281:16:   list[Any[explicit]] is not equivalent to Any[explicit]
-./overloads_evaluation.py:303:16:   list[Any[explicit]] is not equivalent to float | int
-./overloads_evaluation.py:309:16:   Any[explicit] is not equivalent to float | int
-./overloads_evaluation.py:315:16:   list[int] is not equivalent to float | int
-./overloads_evaluation.py:341:16:   list[int] | list[str] is not equivalent to list[int]
-./overloads_evaluation.py:344:16:   list[int] | list[str] is not equivalent to list[str]
-./overloads_evaluation.py:347:16:   list[int] | list[str] is not equivalent to Any[explicit]
+./overloads_evaluation.py:161:11: Cannot call overloaded function [incompatible_argument]
+./overloads_evaluation.py:162:16:   Any[error] is not equivalent to Literal[0, 1]
+./overloads_evaluation.py:205:11: Cannot call overloaded function [incompatible_argument]
+./overloads_evaluation.py:206:16:   Any[error] is not equivalent to int | str
+./overloads_evaluation.py:235:16:   str is not equivalent to int
+./overloads_evaluation.py:303:16:   Any[multiple_overload_matches] is not equivalent to float | int
+./overloads_evaluation.py:315:16:   Any[multiple_overload_matches] is not equivalent to float | int
 """

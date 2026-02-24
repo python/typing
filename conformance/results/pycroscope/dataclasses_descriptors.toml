@@ -1,25 +1,25 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 37: Unexpected errors ['./dataclasses_descriptors.py:37:12:   Any[from_another] is not equivalent to int']
+Line 37: Unexpected errors ['./dataclasses_descriptors.py:37:12:   ./dataclasses_descriptors.py.Desc1 is not equivalent to int']
 Line 56: Unexpected errors ['./dataclasses_descriptors.py:56:7: Object Desc2 does not support subscripting [unsupported_operation]']
 Line 57: Unexpected errors ['./dataclasses_descriptors.py:57:7: Object Desc2 does not support subscripting [unsupported_operation]']
 Line 58: Unexpected errors ['./dataclasses_descriptors.py:58:7: Object Desc2 does not support subscripting [unsupported_operation]']
 Line 61: Unexpected errors ['./dataclasses_descriptors.py:61:12:   Any[error] is not equivalent to list[int]']
 Line 62: Unexpected errors ['./dataclasses_descriptors.py:62:12:   Any[error] is not equivalent to list[str]']
 Line 63: Unexpected errors ['./dataclasses_descriptors.py:63:12:   Any[error] is not equivalent to list[str]']
-Line 66: Unexpected errors ['./dataclasses_descriptors.py:66:12:   Any[from_another] is not equivalent to int']
-Line 67: Unexpected errors ['./dataclasses_descriptors.py:67:12:   Any[from_another] is not equivalent to str']
-Line 68: Unexpected errors ['./dataclasses_descriptors.py:68:12:   Any[from_another] is not equivalent to str']
+Line 66: Unexpected errors ['./dataclasses_descriptors.py:66:12:   Any[error] is not equivalent to int']
+Line 67: Unexpected errors ['./dataclasses_descriptors.py:67:12:   Any[error] is not equivalent to str']
+Line 68: Unexpected errors ['./dataclasses_descriptors.py:68:12:   Any[error] is not equivalent to str']
 """
 output = """
-./dataclasses_descriptors.py:37:12:   Any[from_another] is not equivalent to int
+./dataclasses_descriptors.py:37:12:   ./dataclasses_descriptors.py.Desc1 is not equivalent to int
 ./dataclasses_descriptors.py:56:7: Object Desc2 does not support subscripting [unsupported_operation]
 ./dataclasses_descriptors.py:57:7: Object Desc2 does not support subscripting [unsupported_operation]
 ./dataclasses_descriptors.py:58:7: Object Desc2 does not support subscripting [unsupported_operation]
 ./dataclasses_descriptors.py:61:12:   Any[error] is not equivalent to list[int]
 ./dataclasses_descriptors.py:62:12:   Any[error] is not equivalent to list[str]
 ./dataclasses_descriptors.py:63:12:   Any[error] is not equivalent to list[str]
-./dataclasses_descriptors.py:66:12:   Any[from_another] is not equivalent to int
-./dataclasses_descriptors.py:67:12:   Any[from_another] is not equivalent to str
-./dataclasses_descriptors.py:68:12:   Any[from_another] is not equivalent to str
+./dataclasses_descriptors.py:66:12:   Any[error] is not equivalent to int
+./dataclasses_descriptors.py:67:12:   Any[error] is not equivalent to str
+./dataclasses_descriptors.py:68:12:   Any[error] is not equivalent to str
 """

@@ -2,24 +2,18 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 29: Expected 1 errors
 Line 34: Expected 1 errors
+Line 58: Expected 1 errors
+Line 74: Expected 1 errors
+Line 104: Expected 1 errors
+Line 106: Expected 1 errors
+Line 107: Expected 1 errors
+Line 108: Expected 1 errors
 Line 44: Unexpected errors ['./protocols_class_objects.py:44:4: Function may exit without returning a value [missing_return]']
 Line 49: Unexpected errors ['./protocols_class_objects.py:49:4: Function may exit without returning a value [missing_return]']
-Line 59: Unexpected errors ['./protocols_class_objects.py:59:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoA2, got ConcreteA [incompatible_assignment]']
 Line 64: Unexpected errors ['./protocols_class_objects.py:64:4: Function may exit without returning a value [missing_return]']
-Line 105: Unexpected errors ['./protocols_class_objects.py:105:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2, got ConcreteC1 [incompatible_assignment]']
-Line 109: Unexpected errors ['./protocols_class_objects.py:109:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2, got ConcreteC3 [incompatible_assignment]']
 """
 output = """
 ./protocols_class_objects.py:44:4: Function may exit without returning a value [missing_return]
 ./protocols_class_objects.py:49:4: Function may exit without returning a value [missing_return]
-./protocols_class_objects.py:58:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoA1, got ConcreteA [incompatible_assignment]
-./protocols_class_objects.py:59:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoA2, got ConcreteA [incompatible_assignment]
 ./protocols_class_objects.py:64:4: Function may exit without returning a value [missing_return]
-./protocols_class_objects.py:74:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoB1, got ConcreteB [incompatible_assignment]
-./protocols_class_objects.py:104:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1, got ConcreteC1 [incompatible_assignment]
-./protocols_class_objects.py:105:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2, got ConcreteC1 [incompatible_assignment]
-./protocols_class_objects.py:106:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1, got ConcreteC2 [incompatible_assignment]
-./protocols_class_objects.py:107:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2, got ConcreteC2 [incompatible_assignment]
-./protocols_class_objects.py:108:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1, got ConcreteC3 [incompatible_assignment]
-./protocols_class_objects.py:109:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2, got ConcreteC3 [incompatible_assignment]
 """

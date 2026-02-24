@@ -1,15 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Lines 101, 102: Expected exactly one error (tag 'func6_1')
-Lines 106, 107: Expected exactly one error (tag 'func6_2')
-Lines 111, 112: Expected exactly one error (tag 'func6_3')
-Line 60: Unexpected errors ['./tuples_type_compat.py:60:4: Incompatible assignment: expected tuple[int, int], got tuple[Any[explicit]] [incompatible_assignment]']
-Line 101: Unexpected errors ['./tuples_type_compat.py:101:24:   tuple[int] | tuple[int | str] is not equivalent to tuple[int]']
-Line 102: Unexpected errors ['./tuples_type_compat.py:102:24:   tuple[int] | tuple[int | str] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]']
-Line 106: Unexpected errors ['./tuples_type_compat.py:106:24:   tuple[str, str] | tuple[int | str, int | str] is not equivalent to tuple[str, str] | tuple[int, int]']
-Line 107: Unexpected errors ['./tuples_type_compat.py:107:24:   tuple[str, str] | tuple[int | str, int | str] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]']
-Line 111: Unexpected errors ['./tuples_type_compat.py:111:24:   tuple[int | str, int | str, int | str] is not equivalent to tuple[int, str, int]']
-Line 112: Unexpected errors ['./tuples_type_compat.py:112:24:   tuple[int | str, int | str, int | str] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]']
 """
 output = """
 ./tuples_type_compat.py:15:4: Incompatible assignment: expected tuple[int, int], got tuple[float | int, complex | float | int] [incompatible_assignment]
@@ -17,17 +7,13 @@ output = """
 ./tuples_type_compat.py:32:4: Incompatible assignment: expected tuple[int], got tuple[int, *tuple[int, ...]] [incompatible_assignment]
 ./tuples_type_compat.py:33:4: Incompatible assignment: expected tuple[int], got tuple[int, ...] [incompatible_assignment]
 ./tuples_type_compat.py:43:4: Incompatible assignment: expected tuple[int], got tuple[int, ...] [incompatible_assignment]
-./tuples_type_compat.py:60:4: Incompatible assignment: expected tuple[int, int], got tuple[Any[explicit]] [incompatible_assignment]
 ./tuples_type_compat.py:62:4: Incompatible assignment: expected tuple[int, int], got tuple[int, ...] [incompatible_assignment]
 ./tuples_type_compat.py:76:20:   tuple[int] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
 ./tuples_type_compat.py:81:20:   tuple[str, str] | tuple[int, int] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
 ./tuples_type_compat.py:86:20:   tuple[int, str, int] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
-./tuples_type_compat.py:101:24:   tuple[int] | tuple[int | str] is not equivalent to tuple[int]
-./tuples_type_compat.py:102:24:   tuple[int] | tuple[int | str] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
-./tuples_type_compat.py:106:24:   tuple[str, str] | tuple[int | str, int | str] is not equivalent to tuple[str, str] | tuple[int, int]
-./tuples_type_compat.py:107:24:   tuple[str, str] | tuple[int | str, int | str] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
-./tuples_type_compat.py:111:24:   tuple[int | str, int | str, int | str] is not equivalent to tuple[int, str, int]
-./tuples_type_compat.py:112:24:   tuple[int | str, int | str, int | str] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
+./tuples_type_compat.py:102:24:   tuple[int] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
+./tuples_type_compat.py:107:24:   tuple[str, str] | tuple[int, int] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
+./tuples_type_compat.py:112:24:   tuple[int, str, int] is not equivalent to tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]
 ./tuples_type_compat.py:126:24:   tuple[int | str, int | str] is not equivalent to tuple[int | str, str]
 ./tuples_type_compat.py:129:24:   tuple[int | str, int | str] is not equivalent to tuple[int | str, int]
 ./tuples_type_compat.py:157:0: Incompatible assignment: expected tuple[int, str], got Literal[(1, '', '')] [incompatible_assignment]

@@ -1,14 +1,14 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 26: Expected 1 errors
-Line 41: Unexpected errors ['./generics_typevartuple_callable.py:41:12:   tuple[Any[explicit]] is not equivalent to tuple[str, int, complex | float | int]']
-Line 42: Unexpected errors ['./generics_typevartuple_callable.py:42:12:   tuple[Any[explicit]] is not equivalent to tuple[str]']
-Line 45: Unexpected errors ['./generics_typevartuple_callable.py:45:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[typing.Any]), node=<ast.Subscript object at 0x...>) [invalid_annotation]']
-Line 49: Unexpected errors ['./generics_typevartuple_callable.py:49:12:   tuple[Any[explicit]] is not equivalent to tuple[float | int, str, complex | float | int]']
+Line 41: Unexpected errors ['./generics_typevartuple_callable.py:41:12:   tuple[*tuple[Any[generic_argument], ...], Any[generic_argument]] is not equivalent to tuple[str, int, complex | float | int]']
+Line 42: Unexpected errors ['./generics_typevartuple_callable.py:42:12:   tuple[*tuple[Any[generic_argument], ...], Any[generic_argument]] is not equivalent to tuple[str]']
+Line 45: Unexpected errors ['./generics_typevartuple_callable.py:45:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, typing.Unpack[Ts], ~T]), node=<ast.Subscript object at 0x...>) [invalid_annotation]']
+Line 49: Unexpected errors ['./generics_typevartuple_callable.py:49:12:   tuple[Any[generic_argument], *tuple[Any[generic_argument], ...]] is not equivalent to tuple[float | int, str, complex | float | int]']
 """
 output = """
-./generics_typevartuple_callable.py:41:12:   tuple[Any[explicit]] is not equivalent to tuple[str, int, complex | float | int]
-./generics_typevartuple_callable.py:42:12:   tuple[Any[explicit]] is not equivalent to tuple[str]
-./generics_typevartuple_callable.py:45:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[typing.Any]), node=<ast.Subscript object at 0x...>) [invalid_annotation]
-./generics_typevartuple_callable.py:49:12:   tuple[Any[explicit]] is not equivalent to tuple[float | int, str, complex | float | int]
+./generics_typevartuple_callable.py:41:12:   tuple[*tuple[Any[generic_argument], ...], Any[generic_argument]] is not equivalent to tuple[str, int, complex | float | int]
+./generics_typevartuple_callable.py:42:12:   tuple[*tuple[Any[generic_argument], ...], Any[generic_argument]] is not equivalent to tuple[str]
+./generics_typevartuple_callable.py:45:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, typing.Unpack[Ts], ~T]), node=<ast.Subscript object at 0x...>) [invalid_annotation]
+./generics_typevartuple_callable.py:49:12:   tuple[Any[generic_argument], *tuple[Any[generic_argument], ...]] is not equivalent to tuple[float | int, str, complex | float | int]
 """

@@ -1,12 +1,8 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 36: Expected 1 errors
-Line 34: Unexpected errors ['./overloads_basic.py:34:12:   Any[from_another] is not equivalent to int']
-Line 35: Unexpected errors ['./overloads_basic.py:35:12:   Any[from_another] is not equivalent to bytes']
 Line 56: Unexpected errors ['./overloads_basic.py:56:0: Function may exit without returning a value [missing_return]']
 """
 output = """
-./overloads_basic.py:34:12:   Any[from_another] is not equivalent to int
-./overloads_basic.py:35:12:   Any[from_another] is not equivalent to bytes
+./overloads_basic.py:36:0: Cannot call overloaded function [incompatible_argument]
 ./overloads_basic.py:56:0: Function may exit without returning a value [missing_return]
 """

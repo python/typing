@@ -4,7 +4,7 @@ Line 20: Expected 1 errors
 Line 33: Expected 1 errors
 Line 27: Unexpected errors ['./generics_self_basic.py:27:20:   Any[unannotated] is not equivalent to type[~SelfT]']
 Line 51: Unexpected errors ['./generics_self_basic.py:51:12:   Any[from_another] is not equivalent to ./generics_self_basic.py.Shape']
-Line 52: Unexpected errors ['./generics_self_basic.py:52:12:   Any[from_another] is not equivalent to ./generics_self_basic.py.Circle']
+Line 52: Unexpected errors ['./generics_self_basic.py:52:12:   Any[from_another] is not equivalent to ./generics_self_basic.py.Circle', "./generics_self_basic.py:52:12: ./generics_self_basic.py.Circle has no attribute 'set_scale' [undefined_attribute]"]
 Line 54: Unexpected errors ['./generics_self_basic.py:54:12:   Any[error] is not equivalent to ./generics_self_basic.py.Shape', './generics_self_basic.py:54:12: classmethod[Any[generic_argument], (config: dict[str, float | int]) -> Any[unannotated], Any[generic_argument]] is not callable [not_callable]']
 Line 55: Unexpected errors ['./generics_self_basic.py:55:12:   Any[error] is not equivalent to ./generics_self_basic.py.Circle', './generics_self_basic.py:55:12: classmethod[Any[generic_argument], (config: dict[str, float | int]) -> Any[unannotated], Any[generic_argument]] is not callable [not_callable]']
 Line 75: Unexpected errors ['./generics_self_basic.py:75:45: Object Container does not support subscripting [unsupported_operation]']
@@ -15,6 +15,7 @@ output = """
 ./generics_self_basic.py:27:20:   Any[unannotated] is not equivalent to type[~SelfT]
 ./generics_self_basic.py:51:12:   Any[from_another] is not equivalent to ./generics_self_basic.py.Shape
 ./generics_self_basic.py:52:12:   Any[from_another] is not equivalent to ./generics_self_basic.py.Circle
+./generics_self_basic.py:52:12: ./generics_self_basic.py.Circle has no attribute 'set_scale' [undefined_attribute]
 ./generics_self_basic.py:54:12:   Any[error] is not equivalent to ./generics_self_basic.py.Shape
 ./generics_self_basic.py:54:12: classmethod[Any[generic_argument], (config: dict[str, float | int]) -> Any[unannotated], Any[generic_argument]] is not callable [not_callable]
 ./generics_self_basic.py:55:12:   Any[error] is not equivalent to ./generics_self_basic.py.Circle
