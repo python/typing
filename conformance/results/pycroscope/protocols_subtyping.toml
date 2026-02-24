@@ -13,7 +13,6 @@ Line 99: Unexpected errors ['./protocols_subtyping.py:99:8: Object Proto7 does n
 Line 100: Unexpected errors ['./protocols_subtyping.py:100:8: Object Proto7 does not support subscripting [unsupported_operation]']
 Line 110: Unexpected errors ['./protocols_subtyping.py:110:4: Function may exit without returning a value [missing_return]']
 Line 115: Unexpected errors ['./protocols_subtyping.py:115:4: Function may exit without returning a value [missing_return]']
-Line 142: Unexpected errors ['./protocols_subtyping.py:142:0: Traceback (most recent call last):']
 """
 output = """
 ./protocols_subtyping.py:38:4: Incompatible assignment: expected ./protocols_subtyping.py.Concrete2, got ./protocols_subtyping.py.Proto2 (Protocol with members ) [incompatible_assignment]
@@ -32,5 +31,4 @@ output = """
 ./protocols_subtyping.py:103:8: Object Proto7 does not support subscripting [unsupported_operation]
 ./protocols_subtyping.py:110:4: Function may exit without returning a value [missing_return]
 ./protocols_subtyping.py:115:4: Function may exit without returning a value [missing_return]
-./protocols_subtyping.py:142:0: Traceback (most recent call last):
 """

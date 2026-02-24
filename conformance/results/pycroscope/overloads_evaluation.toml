@@ -2,7 +2,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 149: Unexpected errors ["./overloads_evaluation.py:149:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]"]
 Line 153: Unexpected errors ["./overloads_evaluation.py:153:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]"]
-Line 157: Unexpected errors ["./overloads_evaluation.py:157:11: ./overloads_evaluation.py.Color has no attribute 'value' [undefined_attribute]"]
 Line 161: Unexpected errors ['./overloads_evaluation.py:161:11: Cannot call overloaded function [incompatible_argument]']
 Line 162: Unexpected errors ['./overloads_evaluation.py:162:16:   Any[error] is not equivalent to Literal[0, 1]']
 Line 205: Unexpected errors ['./overloads_evaluation.py:205:11: Cannot call overloaded function [incompatible_argument]']
@@ -18,7 +17,6 @@ output = """
 ./overloads_evaluation.py:116:4: Cannot call overloaded function [incompatible_argument]
 ./overloads_evaluation.py:149:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]
 ./overloads_evaluation.py:153:0: Overload for 'expand_enum' is inconsistent with implementation [inconsistent_overload]
-./overloads_evaluation.py:157:11: ./overloads_evaluation.py.Color has no attribute 'value' [undefined_attribute]
 ./overloads_evaluation.py:161:11: Cannot call overloaded function [incompatible_argument]
 ./overloads_evaluation.py:162:16:   Any[error] is not equivalent to Literal[0, 1]
 ./overloads_evaluation.py:205:11: Cannot call overloaded function [incompatible_argument]

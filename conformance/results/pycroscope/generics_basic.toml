@@ -14,7 +14,6 @@ Line 139: Unexpected errors ['./generics_basic.py:139:16:   Any[generic_argument
 Line 140: Unexpected errors ['./generics_basic.py:140:16:   Any[generic_argument] is not equivalent to int']
 Line 154: Unexpected errors ['./generics_basic.py:154:16:   Any[from_another] is not equivalent to int']
 Line 155: Unexpected errors ['./generics_basic.py:155:16:   Any[from_another] is not equivalent to int']
-Line 199: Unexpected errors ['./generics_basic.py:199:16:   Any[error] is not equivalent to collections.abc.Iterator[Any[explicit]]', './generics_basic.py:199:16: Cannot call overloaded function [incompatible_argument]']
 """
 output = """
 ./generics_basic.py:34:11: Unsupported operands for addition: ~AnyStr: (str, bytes) and ~AnyStr: (str, bytes) [unsupported_operation]
@@ -27,7 +26,5 @@ output = """
 ./generics_basic.py:140:16:   Any[generic_argument] is not equivalent to int
 ./generics_basic.py:154:16:   Any[from_another] is not equivalent to int
 ./generics_basic.py:155:16:   Any[from_another] is not equivalent to int
-./generics_basic.py:199:16:   Any[error] is not equivalent to collections.abc.Iterator[Any[explicit]]
-./generics_basic.py:199:16: Cannot call overloaded function [incompatible_argument]
 ./generics_basic.py:208:36: Object GenericMeta does not support subscripting [unsupported_operation]
 """
