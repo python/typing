@@ -73,6 +73,13 @@ other comments and linting markers:
 
   # type: ignore # <comment or other marker>
 
+Any text following ``# type: ignore`` is ignored, provided there is at least one
+whitespace character after ``# type: ignore``. The form of
+``# type: ignore[error_code1, error_code2]`` can be used to filter error codes
+that may vary across type checkers. Type checkers may ignore the bracketed
+codes and treat this form as equivalent to ``# type: ignore``.
+
+
 .. _`cast`:
 
 ``cast()``
