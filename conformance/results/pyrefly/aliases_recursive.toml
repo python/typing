@@ -14,4 +14,5 @@ ERROR aliases_recursive.py:63:30-43: `list[list[float] | str | GenericTypeAlias1
 ERROR aliases_recursive.py:69:35-64: `list[int | list[int | list[int | list[float] | str | GenericTypeAlias2[str, int]] | str | GenericTypeAlias2[str, int]] | str | GenericTypeAlias2[str, int]]` is not assignable to `list[int | str | GenericTypeAlias2[str, int]]` [bad-assignment]
 ERROR aliases_recursive.py:72:29-57: Found cyclic self-reference in `RecursiveUnion` [invalid-type-alias]
 ERROR aliases_recursive.py:75:31-61: Found cyclic self-reference in `MutualReference1` [invalid-type-alias]
+ERROR aliases_recursive.py:75:93-123: Found cyclic self-reference in `MutualReference2` [invalid-type-alias]
 """

@@ -4,4 +4,5 @@ errors_diff = """
 """
 output = """
 ERROR generics_typevartuple_callable.py:26:28-35: Argument `tuple[Literal[''], Literal[0]]` is not assignable to parameter `args` with type `tuple[int, str]` in function `Process.__init__` [bad-argument-type]
+ERROR generics_typevartuple_callable.py:50:12-71: assert_type(tuple[float, str, complex], tuple[float, Literal[''], complex]) failed [assert-type]
 """

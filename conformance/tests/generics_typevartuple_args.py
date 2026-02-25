@@ -7,7 +7,7 @@ Tests for the use of TypeVarTuple with "*args" parameter.
 # > If *args is annotated as a type variable tuple, the types of the individual
 # > arguments become the types in the type variable tuple.
 
-from typing import TypeVarTuple, assert_type
+from typing import TypeVarTuple, assert_type, Literal
 
 
 Ts = TypeVarTuple("Ts")
@@ -17,7 +17,8 @@ def args_to_tuple(*args: *Ts) -> tuple[*Ts]:
     raise NotImplementedError
 
 
-assert_type(args_to_tuple(1, "a"), tuple[int, str])
+assert_type(args_to_tuple(1, "a"), tuple[int, str])  # E[args_to_tuple]
+assert_type(args_to_tuple(1, "a"), tuple[Literal[1], Literal["a"]])  # E[args_to_tuple]
 
 
 class Env:
@@ -29,7 +30,8 @@ def exec_le(path: str, *args: * tuple[*Ts, Env], env: Env | None = None) -> tupl
 
 
 assert_type(exec_le("", Env()), tuple[()])  # OK
-assert_type(exec_le("", 0, "", Env()), tuple[int, str])  # OK
+assert_type(exec_le("", 0, "", Env()), tuple[int, str])  # E[exec_le]
+assert_type(exec_le("", 0, "", Env()), tuple[Literal[0], Literal['']])  # E[exec_le]
 exec_le("", 0, "")  # E
 exec_le("", 0, "", env=Env())  # E
 
