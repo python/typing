@@ -6,6 +6,8 @@ Line 60: Expected 1 errors
 Line 89: Expected 1 errors
 Line 134: Expected 1 errors
 Line 164: Expected 1 errors
+Line 38: Unexpected errors ["./protocols_explicit.py:38:0: Incompatible assignment: expected ./protocols_explicit.py.PColor (Protocol with members 'complex_method', 'draw'), got Annotated[./protocols_explicit.py.NiceColor, HasAttrExtension(attribute_name=KnownValue(val='draw'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={}, return_value=TypedValue(typ=<class 'str'>, literal_only=False), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] [incompatible_assignment]"]
 """
 output = """
+./protocols_explicit.py:38:0: Incompatible assignment: expected ./protocols_explicit.py.PColor (Protocol with members 'complex_method', 'draw'), got Annotated[./protocols_explicit.py.NiceColor, HasAttrExtension(attribute_name=KnownValue(val='draw'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={}, return_value=TypedValue(typ=<class 'str'>, literal_only=False), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] [incompatible_assignment]
 """

@@ -2,17 +2,14 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 30: Expected 1 errors
 Line 67: Expected 1 errors
-Line 114: Expected 1 errors
 Line 115: Expected 1 errors
 Line 116: Expected 1 errors
 Line 117: Expected 1 errors
-Line 156: Expected 1 errors
 Line 157: Expected 1 errors
 Line 158: Expected 1 errors
 Line 159: Expected 1 errors
 Line 160: Expected 1 errors
 Line 218: Expected 1 errors
-Line 219: Expected 1 errors
 Line 285: Expected 1 errors
 Line 286: Expected 1 errors
 Line 287: Expected 1 errors
@@ -21,6 +18,11 @@ Line 289: Expected 1 errors
 Line 339: Expected 1 errors
 Line 340: Expected 1 errors
 Line 341: Expected 1 errors
+Line 79: Unexpected errors ["./protocols_definition.py:79:0: Incompatible assignment: expected ./protocols_definition.py.Template (Protocol with members 'method', 'name', 'value'), got Annotated[./protocols_definition.py.Concrete, HasAttrExtension(attribute_name=KnownValue(val='__init__'), attribute_type=CallableValue(typ=<class 'function'>, literal_only=False, signature=Signature(parameters={'self': SigParameter(name='self', kind=<ParameterKind.POSITIONAL_OR_KEYWORD: 1>, default=None, annotation=TypedValue(typ='./protocols_definition.py.Concrete', literal_only=False)), 'name': SigParameter(name='name', kind=<ParameterKind.POSITIONAL_OR_KEYWORD: 1>, default=None, annotation=TypedValue(typ=<class 'str'>, literal_only=False)), 'value': SigParameter(name='value', kind=<ParameterKind.POSITIONAL_OR_KEYWORD: 1>, default=None, annotation=TypedValue(typ=<class 'int'>, literal_only=False))}, return_value=KnownValue(val=None), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None))), HasAttrExtension(attribute_name=KnownValue(val='method'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={}, return_value=KnownValue(val=None), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] [incompatible_assignment]"]
 """
 output = """
+./protocols_definition.py:79:0: Incompatible assignment: expected ./protocols_definition.py.Template (Protocol with members 'method', 'name', 'value'), got Annotated[./protocols_definition.py.Concrete, HasAttrExtension(attribute_name=KnownValue(val='__init__'), attribute_type=CallableValue(typ=<class 'function'>, literal_only=False, signature=Signature(parameters={'self': SigParameter(name='self', kind=<ParameterKind.POSITIONAL_OR_KEYWORD: 1>, default=None, annotation=TypedValue(typ='./protocols_definition.py.Concrete', literal_only=False)), 'name': SigParameter(name='name', kind=<ParameterKind.POSITIONAL_OR_KEYWORD: 1>, default=None, annotation=TypedValue(typ=<class 'str'>, literal_only=False)), 'value': SigParameter(name='value', kind=<ParameterKind.POSITIONAL_OR_KEYWORD: 1>, default=None, annotation=TypedValue(typ=<class 'int'>, literal_only=False))}, return_value=KnownValue(val=None), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None))), HasAttrExtension(attribute_name=KnownValue(val='method'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={}, return_value=KnownValue(val=None), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] [incompatible_assignment]
+./protocols_definition.py:114:0: Incompatible assignment: expected ./protocols_definition.py.Template2 (Protocol with members 'val1'), got ./protocols_definition.py.Concrete2_Bad1 [incompatible_assignment]
+./protocols_definition.py:156:0: Incompatible assignment: expected ./protocols_definition.py.Template3 (Protocol with members 'val1'), got ./protocols_definition.py.Concrete3_Bad1 [incompatible_assignment]
+./protocols_definition.py:219:0: Incompatible assignment: expected ./protocols_definition.py.Template4 (Protocol with members 'val1'), got ./protocols_definition.py.Concrete4_Bad2 [incompatible_assignment]
 """

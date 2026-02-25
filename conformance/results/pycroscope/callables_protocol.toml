@@ -1,28 +1,68 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 35: Expected 1 errors
-Line 36: Expected 1 errors
-Line 37: Expected 1 errors
-Line 67: Expected 1 errors
-Line 68: Expected 1 errors
-Line 69: Expected 1 errors
-Line 70: Expected 1 errors
-Line 97: Expected 1 errors
-Line 169: Expected 1 errors
 Line 186: Expected 1 errors
 Line 187: Expected 1 errors
 Line 197: Expected 1 errors
-Line 238: Expected 1 errors
-Line 260: Expected 1 errors
-Line 284: Expected 1 errors
-Line 311: Expected 1 errors
+Line 34: Unexpected errors ["./callables_protocol.py:34:0: Incompatible assignment: expected ./callables_protocol.py.Proto1 (Protocol with members '__call__'), got (*vals: tuple[bytes, ...], max_len: int | None = None) -> list[bytes] [incompatible_assignment]"]
+Line 65: Unexpected errors ["./callables_protocol.py:65:0: Incompatible assignment: expected ./callables_protocol.py.Proto2 (Protocol with members '__call__'), got (*a: tuple[bytes, ...], **b: dict[str, str]) -> Any[unannotated] [incompatible_assignment]"]
+Line 78: Unexpected errors ["./callables_protocol.py:78:0: Incompatible assignment: expected ./callables_protocol.py.Proto3 (Protocol with members '__call__'), got (*a: tuple[bytes, ...], **b: dict[str, str]) -> Any[unannotated] [incompatible_assignment]"]
+Line 79: Unexpected errors ["./callables_protocol.py:79:0: Incompatible assignment: expected ./callables_protocol.py.Proto3 (Protocol with members '__call__'), got (*a: tuple[bytes, ...]) -> Any[unannotated] [incompatible_assignment]"]
+Line 80: Unexpected errors ["./callables_protocol.py:80:0: Incompatible assignment: expected ./callables_protocol.py.Proto3 (Protocol with members '__call__'), got (*a: tuple[str, ...], **b: dict[str, str]) -> Any[unannotated] [incompatible_assignment]"]
+Line 81: Unexpected errors ["./callables_protocol.py:81:0: Incompatible assignment: expected ./callables_protocol.py.Proto3 (Protocol with members '__call__'), got (*a: tuple[bytes, ...], **b: dict[str, bytes]) -> Any[unannotated] [incompatible_assignment]"]
+Line 82: Unexpected errors ["./callables_protocol.py:82:0: Incompatible assignment: expected ./callables_protocol.py.Proto3 (Protocol with members '__call__'), got (**b: dict[str, str]) -> Any[unannotated] [incompatible_assignment]"]
+Line 109: Unexpected errors ["./callables_protocol.py:109:0: Incompatible assignment: expected ./callables_protocol.py.Proto5 (Protocol with members '__call__'), got (a: int, b: str) -> int [incompatible_assignment]"]
 Line 135: Unexpected errors ['./callables_protocol.py:135:7: Object Proto7 does not support subscripting [unsupported_operation]']
 Line 144: Unexpected errors ['./callables_protocol.py:144:7: Object Proto7 does not support subscripting [unsupported_operation]']
+Line 168: Unexpected errors ["./callables_protocol.py:168:0: Incompatible assignment: expected ./callables_protocol.py.Proto8 (Protocol with members '__call__'), got (x: Any[explicit]) -> Any[explicit] [incompatible_assignment]"]
 Line 184: Unexpected errors ['./callables_protocol.py:184:21: Object Proto9 does not support subscripting [unsupported_operation]']
+Line 216: Unexpected errors ["./callables_protocol.py:216:0: Incompatible assignment: expected ./callables_protocol.py.Proto10 (Protocol with members '__call__', '__name__', '__qualname__'), got () -> None [incompatible_assignment]"]
+Line 236: Unexpected errors ["./callables_protocol.py:236:0: Incompatible assignment: expected ./callables_protocol.py.Proto11 (Protocol with members '__call__'), got (x: int, /, y: str, z: None = None) -> Any[explicit] [incompatible_assignment]"]
+Line 237: Unexpected errors ["./callables_protocol.py:237:0: Incompatible assignment: expected ./callables_protocol.py.Proto11 (Protocol with members '__call__'), got (x: int, y: str, z: None = None) -> Any[explicit] [incompatible_assignment]"]
+Line 258: Unexpected errors ["./callables_protocol.py:258:0: Incompatible assignment: expected ./callables_protocol.py.Proto12 (Protocol with members '__call__'), got (*args: tuple[Any[explicit], ...], kwarg0: Any[explicit], kwarg1: Any[explicit]) -> None [incompatible_assignment]"]
+Line 259: Unexpected errors ["./callables_protocol.py:259:0: Incompatible assignment: expected ./callables_protocol.py.Proto12 (Protocol with members '__call__'), got (*args: tuple[Any[explicit], ...], **kwargs: dict[str, Any[explicit]]) -> None [incompatible_assignment]"]
+Line 283: Unexpected errors ["./callables_protocol.py:283:0: Incompatible assignment: expected ./callables_protocol.py.Proto13_Default (Protocol with members '__call__'), got (path: str = Literal['']) -> str [incompatible_assignment]"]
+Line 286: Unexpected errors ["./callables_protocol.py:286:0: Incompatible assignment: expected ./callables_protocol.py.Proto13_NoDefault (Protocol with members '__call__'), got (path: str = Literal['']) -> str [incompatible_assignment]"]
+Line 287: Unexpected errors ["./callables_protocol.py:287:0: Incompatible assignment: expected ./callables_protocol.py.Proto13_NoDefault (Protocol with members '__call__'), got (path: str) -> str [incompatible_assignment]"]
+Line 310: Unexpected errors ["./callables_protocol.py:310:0: Incompatible assignment: expected ./callables_protocol.py.Proto14_Default (Protocol with members '__call__'), got (*, path: str = Literal['']) -> str [incompatible_assignment]"]
+Line 312: Unexpected errors ["./callables_protocol.py:312:0: Incompatible assignment: expected ./callables_protocol.py.Proto14_NoDefault (Protocol with members '__call__'), got (*, path: str = Literal['']) -> str [incompatible_assignment]"]
+Line 313: Unexpected errors ["./callables_protocol.py:313:0: Incompatible assignment: expected ./callables_protocol.py.Proto14_NoDefault (Protocol with members '__call__'), got (*, path: str) -> str [incompatible_assignment]"]
 """
 output = """
+./callables_protocol.py:34:0: Incompatible assignment: expected ./callables_protocol.py.Proto1 (Protocol with members '__call__'), got (*vals: tuple[bytes, ...], max_len: int | None = None) -> list[bytes] [incompatible_assignment]
+./callables_protocol.py:35:0: Incompatible assignment: expected ./callables_protocol.py.Proto1 (Protocol with members '__call__'), got (*vals: tuple[bytes, ...], max_items: int | None) -> list[bytes] [incompatible_assignment]
+./callables_protocol.py:36:0: Incompatible assignment: expected ./callables_protocol.py.Proto1 (Protocol with members '__call__'), got (*vals: tuple[bytes, ...]) -> list[bytes] [incompatible_assignment]
+./callables_protocol.py:37:0: Incompatible assignment: expected ./callables_protocol.py.Proto1 (Protocol with members '__call__'), got (*vals: tuple[bytes, ...], max_len: str | None) -> list[bytes] [incompatible_assignment]
+./callables_protocol.py:65:0: Incompatible assignment: expected ./callables_protocol.py.Proto2 (Protocol with members '__call__'), got (*a: tuple[bytes, ...], **b: dict[str, str]) -> Any[unannotated] [incompatible_assignment]
+./callables_protocol.py:67:0: Incompatible assignment: expected ./callables_protocol.py.Proto2 (Protocol with members '__call__'), got (*a: tuple[bytes, ...]) -> Any[unannotated] [incompatible_assignment]
+./callables_protocol.py:68:0: Incompatible assignment: expected ./callables_protocol.py.Proto2 (Protocol with members '__call__'), got (*a: tuple[str, ...], **b: dict[str, str]) -> Any[unannotated] [incompatible_assignment]
+./callables_protocol.py:69:0: Incompatible assignment: expected ./callables_protocol.py.Proto2 (Protocol with members '__call__'), got (*a: tuple[bytes, ...], **b: dict[str, bytes]) -> Any[unannotated] [incompatible_assignment]
+./callables_protocol.py:70:0: Incompatible assignment: expected ./callables_protocol.py.Proto2 (Protocol with members '__call__'), got (**b: dict[str, str]) -> Any[unannotated] [incompatible_assignment]
+./callables_protocol.py:78:0: Incompatible assignment: expected ./callables_protocol.py.Proto3 (Protocol with members '__call__'), got (*a: tuple[bytes, ...], **b: dict[str, str]) -> Any[unannotated] [incompatible_assignment]
+./callables_protocol.py:79:0: Incompatible assignment: expected ./callables_protocol.py.Proto3 (Protocol with members '__call__'), got (*a: tuple[bytes, ...]) -> Any[unannotated] [incompatible_assignment]
+./callables_protocol.py:80:0: Incompatible assignment: expected ./callables_protocol.py.Proto3 (Protocol with members '__call__'), got (*a: tuple[str, ...], **b: dict[str, str]) -> Any[unannotated] [incompatible_assignment]
+./callables_protocol.py:81:0: Incompatible assignment: expected ./callables_protocol.py.Proto3 (Protocol with members '__call__'), got (*a: tuple[bytes, ...], **b: dict[str, bytes]) -> Any[unannotated] [incompatible_assignment]
+./callables_protocol.py:82:0: Incompatible assignment: expected ./callables_protocol.py.Proto3 (Protocol with members '__call__'), got (**b: dict[str, str]) -> Any[unannotated] [incompatible_assignment]
+./callables_protocol.py:97:0: Incompatible assignment: expected ./callables_protocol.py.Proto4 (Protocol with members '__call__', 'other_attribute'), got (x: int) -> None [incompatible_assignment]
+./callables_protocol.py:109:0: Incompatible assignment: expected ./callables_protocol.py.Proto5 (Protocol with members '__call__'), got (a: int, b: str) -> int [incompatible_assignment]
 ./callables_protocol.py:121:0: Incompatible assignment: expected ./callables_protocol.py.NotProto6, got (*vals: tuple[bytes, ...], max_len: int | None = None) -> list[bytes] [incompatible_assignment]
 ./callables_protocol.py:135:7: Object Proto7 does not support subscripting [unsupported_operation]
 ./callables_protocol.py:144:7: Object Proto7 does not support subscripting [unsupported_operation]
+./callables_protocol.py:168:0: Incompatible assignment: expected ./callables_protocol.py.Proto8 (Protocol with members '__call__'), got (x: Any[explicit]) -> Any[explicit] [incompatible_assignment]
+./callables_protocol.py:169:0: Incompatible assignment: expected ./callables_protocol.py.Proto8 (Protocol with members '__call__'), got (x: int) -> Any[explicit] [incompatible_assignment]
 ./callables_protocol.py:184:21: Object Proto9 does not support subscripting [unsupported_operation]
+./callables_protocol.py:216:0: Incompatible assignment: expected ./callables_protocol.py.Proto10 (Protocol with members '__call__', '__name__', '__qualname__'), got () -> None [incompatible_assignment]
+./callables_protocol.py:236:0: Incompatible assignment: expected ./callables_protocol.py.Proto11 (Protocol with members '__call__'), got (x: int, /, y: str, z: None = None) -> Any[explicit] [incompatible_assignment]
+./callables_protocol.py:237:0: Incompatible assignment: expected ./callables_protocol.py.Proto11 (Protocol with members '__call__'), got (x: int, y: str, z: None = None) -> Any[explicit] [incompatible_assignment]
+./callables_protocol.py:238:0: Incompatible assignment: expected ./callables_protocol.py.Proto11 (Protocol with members '__call__'), got (x: int, y: str, /) -> Any[explicit] [incompatible_assignment]
+./callables_protocol.py:258:0: Incompatible assignment: expected ./callables_protocol.py.Proto12 (Protocol with members '__call__'), got (*args: tuple[Any[explicit], ...], kwarg0: Any[explicit], kwarg1: Any[explicit]) -> None [incompatible_assignment]
+./callables_protocol.py:259:0: Incompatible assignment: expected ./callables_protocol.py.Proto12 (Protocol with members '__call__'), got (*args: tuple[Any[explicit], ...], **kwargs: dict[str, Any[explicit]]) -> None [incompatible_assignment]
+./callables_protocol.py:260:0: Incompatible assignment: expected ./callables_protocol.py.Proto12 (Protocol with members '__call__'), got (*args: tuple[Any[explicit], ...], kwarg0: Any[explicit]) -> None [incompatible_assignment]
+./callables_protocol.py:283:0: Incompatible assignment: expected ./callables_protocol.py.Proto13_Default (Protocol with members '__call__'), got (path: str = Literal['']) -> str [incompatible_assignment]
+./callables_protocol.py:284:0: Incompatible assignment: expected ./callables_protocol.py.Proto13_Default (Protocol with members '__call__'), got (path: str) -> str [incompatible_assignment]
+./callables_protocol.py:286:0: Incompatible assignment: expected ./callables_protocol.py.Proto13_NoDefault (Protocol with members '__call__'), got (path: str = Literal['']) -> str [incompatible_assignment]
+./callables_protocol.py:287:0: Incompatible assignment: expected ./callables_protocol.py.Proto13_NoDefault (Protocol with members '__call__'), got (path: str) -> str [incompatible_assignment]
+./callables_protocol.py:310:0: Incompatible assignment: expected ./callables_protocol.py.Proto14_Default (Protocol with members '__call__'), got (*, path: str = Literal['']) -> str [incompatible_assignment]
+./callables_protocol.py:311:0: Incompatible assignment: expected ./callables_protocol.py.Proto14_Default (Protocol with members '__call__'), got (*, path: str) -> str [incompatible_assignment]
+./callables_protocol.py:312:0: Incompatible assignment: expected ./callables_protocol.py.Proto14_NoDefault (Protocol with members '__call__'), got (*, path: str = Literal['']) -> str [incompatible_assignment]
+./callables_protocol.py:313:0: Incompatible assignment: expected ./callables_protocol.py.Proto14_NoDefault (Protocol with members '__call__'), got (*, path: str) -> str [incompatible_assignment]
 """
