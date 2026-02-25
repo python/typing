@@ -19,15 +19,18 @@ class Bytes:
     ...
 
     @overload
-    def __getitem__(self, i: int, /) -> int:
+    def __getitem__(self, __i: int) -> int:
         ...
 
     @overload
-    def __getitem__(self, s: slice, /) -> bytes:
+    def __getitem__(self, __s: slice) -> bytes:
         ...
 
-    def __getitem__(self, i_or_s: int | slice, /) -> int | bytes:
-        raise NotImplementedError
+    def __getitem__(self, __i_or_s: int | slice) -> int | bytes:
+        if isinstance(__i_or_s, int):
+            return 0
+        else:
+            return b""
 
 
 b = Bytes()
