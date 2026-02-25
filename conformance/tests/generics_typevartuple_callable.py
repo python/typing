@@ -46,5 +46,5 @@ def func3(*args: * tuple[int, *Ts, T]) -> tuple[T, *Ts]:
     raise NotImplementedError
 
 
-def has_int_and_str(x: int, y: str):
-    assert_type(func3(x, y, 3j, 3.4), tuple[float, str, complex])
+def has_int_and_str(a: int, b: str, c: float, d: complex):
+    assert_type(func3(a, b, c, d), tuple[float, str, complex])
