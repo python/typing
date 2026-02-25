@@ -16,7 +16,6 @@ Line 88: Expected 1 errors
 Line 89: Expected 1 errors
 Line 91: Expected 1 errors
 Line 100: Expected 1 errors
-Line 101: Expected 1 errors
 Line 102: Expected 1 errors
 Line 60: Unexpected errors ['./aliases_explicit.py:60:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> None is not equivalent to (...) -> None']
 """
@@ -25,4 +24,5 @@ output = """
 ./aliases_explicit.py:68:8: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./aliases_explicit.py:69:8: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./aliases_explicit.py:90:21: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]
+./aliases_explicit.py:101:5: Literal[list | set] is not callable [not_callable]
 """

@@ -10,11 +10,9 @@ Line 113: Expected 1 errors
 Line 118: Expected 1 errors
 Line 123: Expected 1 errors
 Line 127: Expected 1 errors
-Line 67: Unexpected errors ['./generics_self_usage.py:67:4: Name Inner is already defined [class_variable_redefinition]']
 Line 93: Unexpected errors ["./generics_self_usage.py:93:12: ./generics_self_usage.py.Foo3Child has no attribute 'return_concrete_type' [undefined_attribute]"]
 """
 output = """
-./generics_self_usage.py:67:4: Name Inner is already defined [class_variable_redefinition]
 ./generics_self_usage.py:93:12: ./generics_self_usage.py.Foo3Child has no attribute 'return_concrete_type' [undefined_attribute]
 ./generics_self_usage.py:103:10: Object Bar does not support subscripting [unsupported_operation]
 """

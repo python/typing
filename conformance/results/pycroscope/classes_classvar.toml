@@ -10,7 +10,6 @@ Line 78: Expected 1 errors
 Line 111: Expected 1 errors
 Line 140: Expected 1 errors
 Line 84: Unexpected errors ["./classes_classvar.py:84:12: ClassA has no attribute 'good5' [undefined_attribute]"]
-Line 107: Unexpected errors ["./classes_classvar.py:107:33: Starship has no attribute 'stats' [undefined_attribute]", "./classes_classvar.py:107:8: Starship has no attribute 'stats' [undefined_attribute]"]
 """
 output = """
 ./classes_classvar.py:38:10: Invalid type annotation (<class 'int'>, <class 'str'>) [invalid_annotation]
@@ -22,6 +21,4 @@ output = """
 ./classes_classvar.py:69:25: Unexpected ClassVar annotation [invalid_annotation]
 ./classes_classvar.py:73:25: Unexpected ClassVar annotation [invalid_annotation]
 ./classes_classvar.py:84:12: ClassA has no attribute 'good5' [undefined_attribute]
-./classes_classvar.py:107:33: Starship has no attribute 'stats' [undefined_attribute]
-./classes_classvar.py:107:8: Starship has no attribute 'stats' [undefined_attribute]
 """

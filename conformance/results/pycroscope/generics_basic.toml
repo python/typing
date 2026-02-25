@@ -23,7 +23,7 @@ output = """
 ./generics_basic.py:34:11: Unsupported operands for addition: ~AnyStr: (str, bytes) and ~AnyStr: (str, bytes) [unsupported_operation]
 ./generics_basic.py:40:4: Cannot resolve type variables [incompatible_call]
 ./generics_basic.py:41:4: Cannot resolve type variables [incompatible_call]
-./generics_basic.py:49:17: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, contravariant: bool = Literal[False], covariant: bool = Literal[False], infer_variance: bool = Literal[False], default: Any[explicit] = Any[unannotated]) -> typing.TypeVar: A single constraint is not allowed [incompatible_call]
+./generics_basic.py:49:17: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: A single constraint is not allowed [incompatible_call]
 ./generics_basic.py:69:4: Cannot resolve type variables [incompatible_call]
 ./generics_basic.py:92:8: ./generics_basic.py.LoggedVar has no attribute 'log' [undefined_attribute]
 ./generics_basic.py:92:31: ./generics_basic.py.LoggedVar has no attribute 'value' [undefined_attribute]

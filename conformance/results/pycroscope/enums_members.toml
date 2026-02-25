@@ -1,32 +1,13 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 50: Expected 1 errors
 Line 82: Expected 1 errors
 Line 83: Expected 1 errors
 Line 84: Expected 1 errors
 Line 85: Expected 1 errors
-Line 29: Unexpected errors ["./enums_members.py:29:12:   Literal[('felis', 'catus')] is not equivalent to Literal['felis', 'catus']"]
-Line 30: Unexpected errors ["./enums_members.py:30:12:   Literal[('canis', 'lupus')] is not equivalent to Literal['canis', 'lupus']"]
-Line 75: Unexpected errors ["./enums_members.py:75:24: Comparison between objects that do not overlap: ./enums_members.py.Pet4 and Literal[('felis', 'catus')] [unsafe_comparison]"]
-Line 77: Unexpected errors ['./enums_members.py:77:4: Name Nested is already defined [class_variable_redefinition]']
-Line 97: Unexpected errors ['./enums_members.py:97:12: Undefined name: YELLOW [undefined_name]']
-Line 115: Unexpected errors ['./enums_members.py:115:12:   enum.member[Literal[1]] is not equivalent to Any[unannotated]']
-Line 117: Unexpected errors ['./enums_members.py:117:12:   enum.member[(self: ./enums_members.py.Example) -> None] is not equivalent to Any[unannotated]']
-Line 128: Unexpected errors ["./enums_members.py:128:20: Example2 has no attribute '__B' [undefined_attribute]"]
 """
 output = """
-./enums_members.py:29:12:   Literal[('felis', 'catus')] is not equivalent to Literal['felis', 'catus']
-./enums_members.py:30:12:   Literal[('canis', 'lupus')] is not equivalent to Literal['canis', 'lupus']
-./enums_members.py:75:24: Comparison between objects that do not overlap: ./enums_members.py.Pet4 and Literal[('felis', 'catus')] [unsafe_comparison]
-./enums_members.py:77:4: Name Nested is already defined [class_variable_redefinition]
-./enums_members.py:97:12: Undefined name: YELLOW [undefined_name]
-./enums_members.py:115:12:   enum.member[Literal[1]] is not equivalent to Any[unannotated]
+./enums_members.py:50:4: Enum members should not be explicitly annotated [invalid_annotation]
 ./enums_members.py:116:12:   enum.nonmember[Literal[2]] is not equivalent to Any[unannotated]
-./enums_members.py:117:12:   enum.member[(self: ./enums_members.py.Example) -> None] is not equivalent to Any[unannotated]
-./enums_members.py:128:20: Example2 has no attribute '__B' [undefined_attribute]
-./enums_members.py:128:20: Revealed type is 'Any[error]' [reveal_type]
-./enums_members.py:129:20: Example2 has no attribute '__B' [undefined_attribute]
-./enums_members.py:129:42: Example2 has no attribute '__B' [undefined_attribute]
-./enums_members.py:146:12:   Literal[<Pet5.DOG: 2>] is not equivalent to int
-./enums_members.py:147:12:   Literal[<Pet5.FISH: 3>] is not equivalent to int
+./enums_members.py:128:20: Revealed type is 'int' [reveal_type]
+./enums_members.py:129:20:   int is not equivalent to Any[unannotated]
 """

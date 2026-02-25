@@ -21,7 +21,7 @@ Line 171: Unexpected errors ['./generics_variance.py:171:8: Object Co does not s
 Line 172: Unexpected errors ['./generics_variance.py:172:12: Object Contra does not support subscripting [unsupported_operation]']
 """
 output = """
-./generics_variance.py:14:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, contravariant: bool = Literal[False], covariant: bool = Literal[False], infer_variance: bool = Literal[False], default: Any[explicit] = Any[unannotated]) -> typing.TypeVar: Bivariant types are not supported. [incompatible_call]
+./generics_variance.py:14:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: Bivariant types are not supported. [incompatible_call]
 ./generics_variance.py:38:10: Object ImmutableList does not support subscripting [unsupported_operation]
 ./generics_variance.py:39:11: Object ImmutableList does not support subscripting [unsupported_operation]
 ./generics_variance.py:45:21: Unrecognized annotation typing.TypeVar [invalid_annotation]

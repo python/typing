@@ -1,18 +1,14 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 35: Expected 1 errors
-Line 36: Expected 1 errors
 Line 16: Unexpected errors ['./dataclasses_final.py:16:4: Final class attributes without initializers must be assigned in __init__ [invalid_annotation]']
 Line 18: Unexpected errors ['./dataclasses_final.py:18:20: Final cannot be combined with ClassVar [invalid_annotation]']
-Line 31: Unexpected errors ['./dataclasses_final.py:31:12:   Literal[10] is not equivalent to int']
-Line 32: Unexpected errors ["./dataclasses_final.py:32:12:   Literal['baz'] is not equivalent to str"]
 """
 output = """
 ./dataclasses_final.py:16:4: Final class attributes without initializers must be assigned in __init__ [invalid_annotation]
 ./dataclasses_final.py:18:20: Final cannot be combined with ClassVar [invalid_annotation]
 ./dataclasses_final.py:27:0: Cannot assign to final name final_classvar [incompatible_assignment]
-./dataclasses_final.py:31:12:   Literal[10] is not equivalent to int
-./dataclasses_final.py:32:12:   Literal['baz'] is not equivalent to str
+./dataclasses_final.py:35:0: Cannot assign to final name final_no_default [incompatible_assignment]
+./dataclasses_final.py:36:0: Cannot assign to final name final_with_default [incompatible_assignment]
 ./dataclasses_final.py:37:0: Cannot assign to final name final_no_default [incompatible_assignment]
 ./dataclasses_final.py:38:0: Cannot assign to final name final_with_default [incompatible_assignment]
 """

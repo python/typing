@@ -1,10 +1,6 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 53: Expected 1 errors
-Line 52: Unexpected errors ['./enums_expansion.py:52:20:   Literal[<CustomFlags.FLAG3: 4>] is not equivalent to .../tests/enums_expansion.py.CustomFlags']
-Line 63: Unexpected errors ['./enums_expansion.py:63:24:   Never is not equivalent to .../tests/enums_expansion.py.CustomFlags']
 """
 output = """
-./enums_expansion.py:52:20:   Literal[<CustomFlags.FLAG3: 4>] is not equivalent to .../tests/enums_expansion.py.CustomFlags
-./enums_expansion.py:63:24:   Never is not equivalent to .../tests/enums_expansion.py.CustomFlags
+./enums_expansion.py:53:20:   .../tests/enums_expansion.py.CustomFlags is not equivalent to Literal[<CustomFlags.FLAG3: 4>]
 """
