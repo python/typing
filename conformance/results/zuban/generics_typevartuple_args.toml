@@ -2,16 +2,14 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-generics_typevartuple_args.py:20: error: Expression is of type "tuple[Literal[1], Literal['a']]", not "tuple[int, str]"  [misc]
-generics_typevartuple_args.py:33: error: Expression is of type "tuple[Literal[0], Literal['']]", not "tuple[int, str]"  [misc]
-generics_typevartuple_args.py:35: error: Argument 3 to "exec_le" has incompatible type "str"; expected "Env"  [arg-type]
-generics_typevartuple_args.py:36: error: Argument 3 to "exec_le" has incompatible type "str"; expected "Env"  [arg-type]
-generics_typevartuple_args.py:50: error: Argument 2 to "func1" has incompatible type "str"; expected "int"  [arg-type]
-generics_typevartuple_args.py:59: error: Argument 2 to "func2" has incompatible type "int"; expected "str"  [arg-type]
-generics_typevartuple_args.py:60: error: Too few arguments for "func2"  [call-arg]
-generics_typevartuple_args.py:61: error: Too few arguments for "func2"  [call-arg]
-generics_typevartuple_args.py:61: error: Argument 1 to "func2" has incompatible type "str"; expected "int"  [arg-type]
-generics_typevartuple_args.py:69: error: Too few arguments for "func3"  [call-arg]
-generics_typevartuple_args.py:77: error: Argument 2 to "func4" has incompatible type "tuple[Literal[1], int]"; expected "tuple[int]"  [arg-type]
-generics_typevartuple_args.py:78: error: Argument 2 to "func4" has incompatible type "tuple[Literal['1']]"; expected "tuple[int]"  [arg-type]
+generics_typevartuple_args.py:37: error: Argument 3 to "exec_le" has incompatible type "str"; expected "Env"  [arg-type]
+generics_typevartuple_args.py:38: error: Argument 3 to "exec_le" has incompatible type "str"; expected "Env"  [arg-type]
+generics_typevartuple_args.py:52: error: Argument 2 to "func1" has incompatible type "str"; expected "int"  [arg-type]
+generics_typevartuple_args.py:61: error: Argument 2 to "func2" has incompatible type "int"; expected "str"  [arg-type]
+generics_typevartuple_args.py:62: error: Too few arguments for "func2"  [call-arg]
+generics_typevartuple_args.py:63: error: Too few arguments for "func2"  [call-arg]
+generics_typevartuple_args.py:63: error: Argument 1 to "func2" has incompatible type "str"; expected "int"  [arg-type]
+generics_typevartuple_args.py:71: error: Too few arguments for "func3"  [call-arg]
+generics_typevartuple_args.py:79: error: Argument 2 to "func4" has incompatible type "tuple[Literal[1], int]"; expected "tuple[int]"  [arg-type]
+generics_typevartuple_args.py:80: error: Argument 2 to "func4" has incompatible type "tuple[Literal['1']]"; expected "tuple[int]"  [arg-type]
 """

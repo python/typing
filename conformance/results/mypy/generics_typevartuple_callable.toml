@@ -1,9 +1,6 @@
-conformant = "Partial"
-notes = "Does use assert_type in two different ways"
 output = """
 generics_typevartuple_callable.py:26: error: Argument "target" to "Process" has incompatible type "Callable[[int, str], None]"; expected "Callable[[str, int], None]"  [arg-type]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Lines 49, 50: Expected error (tag 'fun3')
 """

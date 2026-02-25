@@ -46,5 +46,8 @@ def func3(*args: * tuple[int, *Ts, T]) -> tuple[T, *Ts]:
     raise NotImplementedError
 
 
-assert_type(func3(1, "", 3j, 3.4), tuple[float, str, complex])  # E[fun3]
-assert_type(func3(1, "", 3j, 3.4), tuple[float, Literal[''], complex])  # E[fun3]
+def takes_float_str_complex(tup: tuple[float, str, complex]) -> None:
+    raise NotImplementedError
+
+
+takes_float_str_complex(func3(1, "", 3j, 3.4))

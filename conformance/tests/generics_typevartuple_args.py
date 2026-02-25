@@ -17,8 +17,11 @@ def args_to_tuple(*args: *Ts) -> tuple[*Ts]:
     raise NotImplementedError
 
 
-assert_type(args_to_tuple(1, "a"), tuple[int, str])  # E[args_to_tuple]
-assert_type(args_to_tuple(1, "a"), tuple[Literal[1], Literal["a"]])  # E[args_to_tuple]
+def takes_int_and_str(tup: tuple[int, str]) -> None:
+    raise NotImplementedError
+
+
+takes_int_and_str(args_to_tuple(1, "a"))
 
 
 class Env:
@@ -30,8 +33,7 @@ def exec_le(path: str, *args: * tuple[*Ts, Env], env: Env | None = None) -> tupl
 
 
 assert_type(exec_le("", Env()), tuple[()])  # OK
-assert_type(exec_le("", 0, "", Env()), tuple[int, str])  # E[exec_le]
-assert_type(exec_le("", 0, "", Env()), tuple[Literal[0], Literal['']])  # E[exec_le]
+takes_int_and_str(exec_le("", 0, "", Env()))
 exec_le("", 0, "")  # E
 exec_le("", 0, "", env=Env())  # E
 

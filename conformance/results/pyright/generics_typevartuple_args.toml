@@ -1,22 +1,20 @@
 conformant = "Pass"
 output = """
-generics_typevartuple_args.py:21:13 - error: "assert_type" mismatch: expected "tuple[Literal[1], Literal['a']]" but received "tuple[int, str]" (reportAssertTypeFailure)
-generics_typevartuple_args.py:34:13 - error: "assert_type" mismatch: expected "tuple[Literal[0], Literal['']]" but received "tuple[int, str]" (reportAssertTypeFailure)
-generics_typevartuple_args.py:35:16 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "Env" in function "exec_le"
+generics_typevartuple_args.py:37:16 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "Env" in function "exec_le"
   "Literal['']" is not assignable to "Env" (reportArgumentType)
-generics_typevartuple_args.py:36:16 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "Env" in function "exec_le"
+generics_typevartuple_args.py:38:16 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "Env" in function "exec_le"
   "Literal['']" is not assignable to "Env" (reportArgumentType)
-generics_typevartuple_args.py:50:10 - error: Argument of type "Literal['2']" cannot be assigned to parameter of type "int" in function "func1"
+generics_typevartuple_args.py:52:10 - error: Argument of type "Literal['2']" cannot be assigned to parameter of type "int" in function "func1"
   "Literal['2']" is not assignable to "int" (reportArgumentType)
-generics_typevartuple_args.py:59:10 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str" in function "func2"
+generics_typevartuple_args.py:61:10 - error: Argument of type "Literal[1]" cannot be assigned to parameter of type "str" in function "func2"
   "Literal[1]" is not assignable to "str" (reportArgumentType)
-generics_typevartuple_args.py:60:1 - error: Argument missing for parameter "args[2]" (reportCallIssue)
-generics_typevartuple_args.py:61:1 - error: Argument missing for parameter "args[2]" (reportCallIssue)
-generics_typevartuple_args.py:69:1 - error: Argument missing for parameter "args[1]" (reportCallIssue)
-generics_typevartuple_args.py:77:13 - error: Argument of type "tuple[Literal[1], Literal[2]]" cannot be assigned to parameter "args" of type "tuple[*Ts@func4]" in function "func4"
+generics_typevartuple_args.py:62:1 - error: Argument missing for parameter "args[2]" (reportCallIssue)
+generics_typevartuple_args.py:63:1 - error: Argument missing for parameter "args[2]" (reportCallIssue)
+generics_typevartuple_args.py:71:1 - error: Argument missing for parameter "args[1]" (reportCallIssue)
+generics_typevartuple_args.py:79:13 - error: Argument of type "tuple[Literal[1], Literal[2]]" cannot be assigned to parameter "args" of type "tuple[*Ts@func4]" in function "func4"
   "tuple[Literal[1], Literal[2]]" is not assignable to "tuple[int]"
     Tuple size mismatch; expected 1 but received 2 (reportArgumentType)
-generics_typevartuple_args.py:78:14 - error: Argument of type "tuple[Literal['1']]" cannot be assigned to parameter "args" of type "tuple[*Ts@func4]" in function "func4"
+generics_typevartuple_args.py:80:14 - error: Argument of type "tuple[Literal['1']]" cannot be assigned to parameter "args" of type "tuple[*Ts@func4]" in function "func4"
   "Literal['1']" is not assignable to "int" (reportArgumentType)
 """
 conformance_automated = "Pass"
