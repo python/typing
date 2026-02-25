@@ -7,7 +7,7 @@ Tests for the use of TypeVarTuple with "*args" parameter.
 # > If *args is annotated as a type variable tuple, the types of the individual
 # > arguments become the types in the type variable tuple.
 
-from typing import TypeVarTuple, assert_type, Literal
+from typing import TypeVarTuple, assert_type
 
 
 Ts = TypeVarTuple("Ts")
@@ -15,13 +15,6 @@ Ts = TypeVarTuple("Ts")
 
 def args_to_tuple(*args: *Ts) -> tuple[*Ts]:
     raise NotImplementedError
-
-
-def takes_int_and_str(tup: tuple[int, str]) -> None:
-    raise NotImplementedError
-
-
-takes_int_and_str(args_to_tuple(1, "a"))
 
 
 class Env:
@@ -32,10 +25,13 @@ def exec_le(path: str, *args: * tuple[*Ts, Env], env: Env | None = None) -> tupl
     raise NotImplementedError
 
 
-assert_type(exec_le("", Env()), tuple[()])  # OK
-takes_int_and_str(exec_le("", 0, "", Env()))
-exec_le("", 0, "")  # E
-exec_le("", 0, "", env=Env())  # E
+def has_int_and_str(x: int, y: str):
+    assert_type(args_to_tuple(x, y), tuple[int, str])
+
+    assert_type(exec_le("", Env()), tuple[()])  # OK
+    assert_type(exec_le(y, x, y, Env()), tuple[int, str])  # OK
+    exec_le("", 0, "")  # E
+    exec_le("", 0, "", env=Env())  # E
 
 
 # > Using an unpacked unbounded tuple is equivalent to the

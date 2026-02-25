@@ -7,7 +7,7 @@ Tests the use of TypeVarTuple within a Callable.
 # > Type variable tuples can also be used in the arguments section of a Callable.
 
 
-from typing import Callable, TypeVar, TypeVarTuple, assert_type, Literal
+from typing import Callable, TypeVar, TypeVarTuple, assert_type
 
 Ts = TypeVarTuple("Ts")
 T = TypeVar("T")
@@ -46,8 +46,5 @@ def func3(*args: * tuple[int, *Ts, T]) -> tuple[T, *Ts]:
     raise NotImplementedError
 
 
-def takes_float_str_complex(tup: tuple[float, str, complex]) -> None:
-    raise NotImplementedError
-
-
-takes_float_str_complex(func3(1, "", 3j, 3.4))
+def has_int_and_str(x: int, y: str):
+    assert_type(func3(x, y, 3j, 3.4), tuple[float, str, complex])
