@@ -21,7 +21,9 @@ Line 65: Unexpected errors ['./generics_defaults.py:65:9: Object AllTheDefaults 
 Line 79: Unexpected errors ['./generics_defaults.py:79:12:   Class_ParamSpec is not equivalent to Any[inference]', './generics_defaults.py:79:34: Object Class_ParamSpec does not support subscripting [unsupported_operation]']
 Line 80: Unexpected errors ['./generics_defaults.py:80:12:   ./generics_defaults.py.Class_ParamSpec is not equivalent to Any[error]', './generics_defaults.py:80:31: Object Class_ParamSpec does not support subscripting [unsupported_operation]']
 Line 81: Unexpected errors ['./generics_defaults.py:81:12: Object Class_ParamSpec does not support subscripting [unsupported_operation]', './generics_defaults.py:81:45: Object Class_ParamSpec does not support subscripting [unsupported_operation]']
-Line 94: Unexpected errors ['./generics_defaults.py:94:12:   Class_TypeVarTuple is not equivalent to Any[inference]']
+Line 94: Unexpected errors ['./generics_defaults.py:94:12:   Class_TypeVarTuple is not equivalent to Any[inference]', './generics_defaults.py:94:37: Object Class_TypeVarTuple does not support subscripting [unsupported_operation]']
+Line 95: Unexpected errors ['./generics_defaults.py:95:12:   ./generics_defaults.py.Class_TypeVarTuple is not equivalent to Any[error]', './generics_defaults.py:95:34: Object Class_TypeVarTuple does not support subscripting [unsupported_operation]']
+Line 96: Unexpected errors ['./generics_defaults.py:96:12: Object Class_TypeVarTuple does not support subscripting [unsupported_operation]', './generics_defaults.py:96:45: Object Class_TypeVarTuple does not support subscripting [unsupported_operation]']
 Line 172: Unexpected errors ['./generics_defaults.py:172:12:   ./generics_defaults.py.Foo7 is not equivalent to Any[error]', './generics_defaults.py:172:29: Object Foo7 does not support subscripting [unsupported_operation]']
 Line 173: Unexpected errors ['./generics_defaults.py:173:12:   Any[generic_argument] is not equivalent to int']
 """
@@ -56,6 +58,11 @@ output = """
 ./generics_defaults.py:81:12: Object Class_ParamSpec does not support subscripting [unsupported_operation]
 ./generics_defaults.py:81:45: Object Class_ParamSpec does not support subscripting [unsupported_operation]
 ./generics_defaults.py:94:12:   Class_TypeVarTuple is not equivalent to Any[inference]
+./generics_defaults.py:94:37: Object Class_TypeVarTuple does not support subscripting [unsupported_operation]
+./generics_defaults.py:95:12:   ./generics_defaults.py.Class_TypeVarTuple is not equivalent to Any[error]
+./generics_defaults.py:95:34: Object Class_TypeVarTuple does not support subscripting [unsupported_operation]
+./generics_defaults.py:96:12: Object Class_TypeVarTuple does not support subscripting [unsupported_operation]
+./generics_defaults.py:96:45: Object Class_TypeVarTuple does not support subscripting [unsupported_operation]
 ./generics_defaults.py:131:12:   Any[generic_argument] is not equivalent to int
 ./generics_defaults.py:172:12:   ./generics_defaults.py.Foo7 is not equivalent to Any[error]
 ./generics_defaults.py:172:29: Object Foo7 does not support subscripting [unsupported_operation]

@@ -15,7 +15,7 @@ Line 27: Unexpected errors ['./generics_typevartuple_args.py:27:30: Unrecognized
 Line 31: Unexpected errors ['./generics_typevartuple_args.py:31:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[]']
 Line 32: Unexpected errors ['./generics_typevartuple_args.py:32:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int, str]']
 Line 42: Unexpected errors ['./generics_typevartuple_args.py:42:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, ...]), node=<ast.Subscript object at 0x...>) [invalid_annotation]']
-Line 51: Unexpected errors ['./generics_typevartuple_args.py:51:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, typing.Unpack[tuple[str, ...]], str]), node=<ast.Subscript object at 0x...>) [invalid_annotation]']
+Line 51: Unexpected errors ['./generics_typevartuple_args.py:51:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, *tuple[str, ...], str]), node=<ast.Subscript object at 0x...>) [invalid_annotation]']
 Line 62: Unexpected errors ['./generics_typevartuple_args.py:62:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, str]), node=<ast.Subscript object at 0x...>) [invalid_annotation]']
 """
 output = """
@@ -25,6 +25,6 @@ output = """
 ./generics_typevartuple_args.py:31:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[]
 ./generics_typevartuple_args.py:32:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int, str]
 ./generics_typevartuple_args.py:42:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, ...]), node=<ast.Subscript object at 0x...>) [invalid_annotation]
-./generics_typevartuple_args.py:51:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, typing.Unpack[tuple[str, ...]], str]), node=<ast.Subscript object at 0x...>) [invalid_annotation]
+./generics_typevartuple_args.py:51:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, *tuple[str, ...], str]), node=<ast.Subscript object at 0x...>) [invalid_annotation]
 ./generics_typevartuple_args.py:62:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, str]), node=<ast.Subscript object at 0x...>) [invalid_annotation]
 """
