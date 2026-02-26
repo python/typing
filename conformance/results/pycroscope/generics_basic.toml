@@ -37,5 +37,5 @@ output = """
 ./generics_basic.py:140:16:   Any[generic_argument] is not equivalent to int
 ./generics_basic.py:154:16:   Any[from_another] is not equivalent to int
 ./generics_basic.py:155:16:   Any[from_another] is not equivalent to int
-./generics_basic.py:208:36: Object GenericMeta does not support subscripting [unsupported_operation]
+./generics_basic.py:208:36: Object <class 'GenericMeta'> does not support subscripting [unsupported_operation]
 """

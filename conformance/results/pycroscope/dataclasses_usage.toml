@@ -22,8 +22,8 @@ Line 44: Unexpected errors ["./dataclasses_usage.py:44:6: ./dataclasses_usage.py
 Line 196: Unexpected errors ['./dataclasses_usage.py:196:12:   Any[error] is not equivalent to str', "./dataclasses_usage.py:196:12: ./dataclasses_usage.py.DC15 has no attribute 'prop_1' [undefined_attribute]"]
 Line 198: Unexpected errors ['./dataclasses_usage.py:198:12:   Any[error] is not equivalent to str', "./dataclasses_usage.py:198:12: ./dataclasses_usage.py.DC15 has no attribute 'prop_3' [undefined_attribute]"]
 Line 205: Unexpected errors ["./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] [incompatible_assignment]"]
-Line 213: Unexpected errors ["./dataclasses_usage.py:213:12:   Annotated[./dataclasses_usage.py.DC16, HasAttrExtension(attribute_name=KnownValue(val='value'), attribute_type=AnyValue(source=<AnySource.generic_argument: 9>))] is not equivalent to Any[error]", './dataclasses_usage.py:213:21: Object DC16 does not support subscripting [unsupported_operation]']
-Line 216: Unexpected errors ['./dataclasses_usage.py:216:11: Object DC16 does not support subscripting [unsupported_operation]']
+Line 213: Unexpected errors ["./dataclasses_usage.py:213:12:   Annotated[./dataclasses_usage.py.DC16, HasAttrExtension(attribute_name=KnownValue(val='value'), attribute_type=AnyValue(source=<AnySource.generic_argument: 9>))] is not equivalent to Any[error]", "./dataclasses_usage.py:213:21: Object <class 'DC16'> does not support subscripting [unsupported_operation]"]
+Line 216: Unexpected errors ["./dataclasses_usage.py:216:11: Object <class 'DC16'> does not support subscripting [unsupported_operation]"]
 Line 220: Unexpected errors ['./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17']
 """
 output = """
@@ -44,7 +44,7 @@ output = """
 ./dataclasses_usage.py:198:12: ./dataclasses_usage.py.DC15 has no attribute 'prop_3' [undefined_attribute]
 ./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] [incompatible_assignment]
 ./dataclasses_usage.py:213:12:   Annotated[./dataclasses_usage.py.DC16, HasAttrExtension(attribute_name=KnownValue(val='value'), attribute_type=AnyValue(source=<AnySource.generic_argument: 9>))] is not equivalent to Any[error]
-./dataclasses_usage.py:213:21: Object DC16 does not support subscripting [unsupported_operation]
-./dataclasses_usage.py:216:11: Object DC16 does not support subscripting [unsupported_operation]
+./dataclasses_usage.py:213:21: Object <class 'DC16'> does not support subscripting [unsupported_operation]
+./dataclasses_usage.py:216:11: Object <class 'DC16'> does not support subscripting [unsupported_operation]
 ./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17
 """

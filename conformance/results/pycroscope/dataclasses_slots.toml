@@ -3,12 +3,12 @@ errors_diff = """
 Line 25: Expected 1 errors
 Line 38: Expected 1 errors
 Lines 10, 11: Expected error (tag 'DC1')
-Line 56: Unexpected errors ["./dataclasses_slots.py:56:0: DC5 has no attribute '__slots__' [undefined_attribute]"]
+Line 56: Unexpected errors ["./dataclasses_slots.py:56:0: <class 'DC5'> has no attribute '__slots__' [undefined_attribute]"]
 Line 57: Unexpected errors ["./dataclasses_slots.py:57:0: ./dataclasses_slots.py.DC5 has no attribute '__slots__' [undefined_attribute]"]
 """
 output = """
-./dataclasses_slots.py:56:0: DC5 has no attribute '__slots__' [undefined_attribute]
+./dataclasses_slots.py:56:0: <class 'DC5'> has no attribute '__slots__' [undefined_attribute]
 ./dataclasses_slots.py:57:0: ./dataclasses_slots.py.DC5 has no attribute '__slots__' [undefined_attribute]
-./dataclasses_slots.py:66:0: DC6 has no attribute '__slots__' [undefined_attribute]
+./dataclasses_slots.py:66:0: <class 'DC6'> has no attribute '__slots__' [undefined_attribute]
 ./dataclasses_slots.py:69:0: ./dataclasses_slots.py.DC6 has no attribute '__slots__' [undefined_attribute]
 """

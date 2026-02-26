@@ -14,5 +14,5 @@ Line 93: Unexpected errors ["./generics_self_usage.py:93:12: ./generics_self_usa
 """
 output = """
 ./generics_self_usage.py:93:12: ./generics_self_usage.py.Foo3Child has no attribute 'return_concrete_type' [undefined_attribute]
-./generics_self_usage.py:103:10: Object Bar does not support subscripting [unsupported_operation]
+./generics_self_usage.py:103:10: Object <class 'Bar'> does not support subscripting [unsupported_operation]
 """

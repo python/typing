@@ -5,10 +5,10 @@ Line 56: Expected 1 errors
 Line 58: Expected 1 errors
 Line 59: Expected 1 errors
 Line 148: Unexpected errors ["./callables_annotation.py:148:4: Incompatible assignment: expected ./callables_annotation.py.Proto1 (Protocol with members '__call__'), got (...) -> None [incompatible_assignment]"]
-Line 150: Unexpected errors ['./callables_annotation.py:150:9: Object Proto5 does not support subscripting [unsupported_operation]']
+Line 150: Unexpected errors ["./callables_annotation.py:150:9: Object <class 'Proto5'> does not support subscripting [unsupported_operation]"]
 Line 152: Unexpected errors ["./callables_annotation.py:152:4: Incompatible assignment: expected ./callables_annotation.py.Proto2 (Protocol with members '__call__'), got (int, /, **Any[explicit]) -> None [incompatible_assignment]"]
 Line 154: Unexpected errors ["./callables_annotation.py:154:4: Incompatible assignment: expected ./callables_annotation.py.Proto3 (Protocol with members '__call__'), got (...) -> None [incompatible_assignment]"]
-Line 155: Unexpected errors ['./callables_annotation.py:155:9: Object Proto4 does not support subscripting [unsupported_operation]']
+Line 155: Unexpected errors ["./callables_annotation.py:155:9: Object <class 'Proto4'> does not support subscripting [unsupported_operation]"]
 Line 157: Unexpected errors ["./callables_annotation.py:157:4: Incompatible assignment: expected ./callables_annotation.py.Proto6 (Protocol with members '__call__'), got ./callables_annotation.py.Proto7 (Protocol with members '__call__') [incompatible_assignment]"]
 """
 output = """
@@ -21,12 +21,12 @@ output = """
 ./callables_annotation.py:91:0: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got () -> str [incompatible_assignment]
 ./callables_annotation.py:93:0: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got (*, a: int) -> str [incompatible_assignment]
 ./callables_annotation.py:148:4: Incompatible assignment: expected ./callables_annotation.py.Proto1 (Protocol with members '__call__'), got (...) -> None [incompatible_assignment]
-./callables_annotation.py:150:9: Object Proto5 does not support subscripting [unsupported_operation]
+./callables_annotation.py:150:9: Object <class 'Proto5'> does not support subscripting [unsupported_operation]
 ./callables_annotation.py:152:4: Incompatible assignment: expected ./callables_annotation.py.Proto2 (Protocol with members '__call__'), got (int, /, **Any[explicit]) -> None [incompatible_assignment]
 ./callables_annotation.py:154:4: Incompatible assignment: expected ./callables_annotation.py.Proto3 (Protocol with members '__call__'), got (...) -> None [incompatible_assignment]
-./callables_annotation.py:155:9: Object Proto4 does not support subscripting [unsupported_operation]
+./callables_annotation.py:155:9: Object <class 'Proto4'> does not support subscripting [unsupported_operation]
 ./callables_annotation.py:157:4: Incompatible assignment: expected ./callables_annotation.py.Proto6 (Protocol with members '__call__'), got ./callables_annotation.py.Proto7 (Protocol with members '__call__') [incompatible_assignment]
-./callables_annotation.py:159:10: Object Proto5 does not support subscripting [unsupported_operation]
+./callables_annotation.py:159:10: Object <class 'Proto5'> does not support subscripting [unsupported_operation]
 ./callables_annotation.py:172:4: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got () -> str [incompatible_assignment]
 ./callables_annotation.py:187:4: Incompatible assignment: expected (str, /, **Any[explicit]) -> str, got (int, str, /) -> str [incompatible_assignment]
 ./callables_annotation.py:189:4: Incompatible assignment: expected (str, /, **Any[explicit]) -> str, got (int, str, /) -> str [incompatible_assignment]
