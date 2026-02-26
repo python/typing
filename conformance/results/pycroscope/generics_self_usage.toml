@@ -4,15 +4,17 @@ Line 73: Expected 1 errors
 Line 76: Expected 1 errors
 Line 82: Expected 1 errors
 Line 87: Expected 1 errors
+Line 103: Expected 1 errors
 Line 105: Expected 1 errors
 Line 108: Expected 1 errors
 Line 113: Expected 1 errors
 Line 118: Expected 1 errors
 Line 123: Expected 1 errors
 Line 127: Expected 1 errors
-Line 93: Unexpected errors ["./generics_self_usage.py:93:12: ./generics_self_usage.py.Foo3Child has no attribute 'return_concrete_type' [undefined_attribute]"]
+Line 78: Unexpected errors ['./generics_self_usage.py:78:31: Undefined name: Foo2 [undefined_name]']
+Line 93: Unexpected errors ["./generics_self_usage.py:93:12: ./generics_self_usage.py.Foo3Child[~SelfT] has no attribute 'return_concrete_type' [undefined_attribute]"]
 """
 output = """
-./generics_self_usage.py:93:12: ./generics_self_usage.py.Foo3Child has no attribute 'return_concrete_type' [undefined_attribute]
-./generics_self_usage.py:103:10: Object <class 'Bar'> does not support subscripting [unsupported_operation]
+./generics_self_usage.py:78:31: Undefined name: Foo2 [undefined_name]
+./generics_self_usage.py:93:12: ./generics_self_usage.py.Foo3Child[~SelfT] has no attribute 'return_concrete_type' [undefined_attribute]
 """

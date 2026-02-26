@@ -2,26 +2,17 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 30: Expected 1 errors
 Line 55: Expected 1 errors
-Line 22: Unexpected errors ["./generics_defaults_specialization.py:22:21: Object <class 'SomethingWithNoDefaults'> does not support subscripting [unsupported_operation]"]
-Line 26: Unexpected errors ["./generics_defaults_specialization.py:26:20: Object <class 'SomethingWithNoDefaults'> does not support subscripting [unsupported_operation]"]
-Line 27: Unexpected errors ["./generics_defaults_specialization.py:27:20: Object <class 'SomethingWithNoDefaults'> does not support subscripting [unsupported_operation]"]
-Line 42: Unexpected errors ["./generics_defaults_specialization.py:42:10: Object <class 'SubclassMe'> does not support subscripting [unsupported_operation]"]
+Line 27: Unexpected errors ['./generics_defaults_specialization.py:27:16:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.SomethingWithNoDefaults[int, bool]']
 Line 45: Unexpected errors ["./generics_defaults_specialization.py:45:12:   <class 'Bar'> is not equivalent to type[./generics_defaults_specialization.py.Bar[str]]"]
 Line 46: Unexpected errors ['./generics_defaults_specialization.py:46:12:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.Bar[str]']
-Line 47: Unexpected errors ['./generics_defaults_specialization.py:47:12:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.Bar[bool]']
-Line 50: Unexpected errors ["./generics_defaults_specialization.py:50:10: Object <class 'SubclassMe'> does not support subscripting [unsupported_operation]"]
+Line 47: Unexpected errors ['./generics_defaults_specialization.py:47:12:   Any[error] is not equivalent to ./generics_defaults_specialization.py.Bar[bool]', "./generics_defaults_specialization.py:47:12: ./generics_defaults_specialization.py.Bar[type 'bool'] (partial from <class 'Bar'>[type 'bool']) is not callable [not_callable]"]
 Line 53: Unexpected errors ['./generics_defaults_specialization.py:53:12:   Any[from_another] is not equivalent to str']
-Line 65: Unexpected errors ["./generics_defaults_specialization.py:65:4: Object <class 'Baz'> does not support subscripting [unsupported_operation]"]
 """
 output = """
-./generics_defaults_specialization.py:22:21: Object <class 'SomethingWithNoDefaults'> does not support subscripting [unsupported_operation]
-./generics_defaults_specialization.py:26:20: Object <class 'SomethingWithNoDefaults'> does not support subscripting [unsupported_operation]
-./generics_defaults_specialization.py:27:20: Object <class 'SomethingWithNoDefaults'> does not support subscripting [unsupported_operation]
-./generics_defaults_specialization.py:42:10: Object <class 'SubclassMe'> does not support subscripting [unsupported_operation]
+./generics_defaults_specialization.py:27:16:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.SomethingWithNoDefaults[int, bool]
 ./generics_defaults_specialization.py:45:12:   <class 'Bar'> is not equivalent to type[./generics_defaults_specialization.py.Bar[str]]
 ./generics_defaults_specialization.py:46:12:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.Bar[str]
-./generics_defaults_specialization.py:47:12:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.Bar[bool]
-./generics_defaults_specialization.py:50:10: Object <class 'SubclassMe'> does not support subscripting [unsupported_operation]
+./generics_defaults_specialization.py:47:12:   Any[error] is not equivalent to ./generics_defaults_specialization.py.Bar[bool]
+./generics_defaults_specialization.py:47:12: ./generics_defaults_specialization.py.Bar[type 'bool'] (partial from <class 'Bar'>[type 'bool']) is not callable [not_callable]
 ./generics_defaults_specialization.py:53:12:   Any[from_another] is not equivalent to str
-./generics_defaults_specialization.py:65:4: Object <class 'Baz'> does not support subscripting [unsupported_operation]
 """

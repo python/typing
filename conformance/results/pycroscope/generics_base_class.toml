@@ -2,26 +2,24 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 29: Expected 1 errors
 Line 30: Expected 1 errors
+Line 49: Expected 1 errors
+Line 61: Expected 1 errors
 Line 68: Expected 1 errors
+Line 98: Expected 1 errors
 Line 24: Unexpected errors ['./generics_base_class.py:24:15: Incompatible argument type for x: expected dict but got ./generics_base_class.py.SymbolTable [incompatible_argument]']
 Line 25: Unexpected errors ['./generics_base_class.py:25:21: Incompatible argument type for x: expected dict[str, list[./generics_base_class.py.Node]] but got ./generics_base_class.py.SymbolTable [incompatible_argument]']
-Line 45: Unexpected errors ['./generics_base_class.py:45:16:   Any[generic_argument] is not equivalent to collections.abc.Iterator[int]']
-Line 46: Unexpected errors ['./generics_base_class.py:46:16:   Any[from_another] is not equivalent to bool']
-Line 58: Unexpected errors ['./generics_base_class.py:58:16:   Any[from_another] is not equivalent to int']
-Line 84: Unexpected errors ["./generics_base_class.py:84:12: Object <class 'Parent1'> does not support subscripting [unsupported_operation]", "./generics_base_class.py:84:29: Object <class 'Parent2'> does not support subscripting [unsupported_operation]"]
-Line 97: Unexpected errors ["./generics_base_class.py:97:13: Object <class 'Grandparent'> does not support subscripting [unsupported_operation]"]
+Line 46: Unexpected errors ['./generics_base_class.py:46:16:   Any[from_another] is not equivalent to bool', "./generics_base_class.py:46:16: collections.abc.Iterable[int] has no attribute '__contains__' [undefined_attribute]"]
+Line 58: Unexpected errors ['./generics_base_class.py:58:16:   Any[generic_argument] is not equivalent to int']
+Line 90: Unexpected errors ['./generics_base_class.py:90:14: Incompatible argument type for x: expected ./generics_base_class.py.Parent1[int, bytes] but got ./generics_base_class.py.Child[int, bytes, str] [incompatible_argument]']
+Line 91: Unexpected errors ['./generics_base_class.py:91:14: Incompatible argument type for x: expected ./generics_base_class.py.Parent2[str, bytes] but got ./generics_base_class.py.Child[int, bytes, str] [incompatible_argument]']
 """
 output = """
 ./generics_base_class.py:24:15: Incompatible argument type for x: expected dict but got ./generics_base_class.py.SymbolTable [incompatible_argument]
 ./generics_base_class.py:25:21: Incompatible argument type for x: expected dict[str, list[./generics_base_class.py.Node]] but got ./generics_base_class.py.SymbolTable [incompatible_argument]
 ./generics_base_class.py:26:25: Incompatible argument type for x: expected dict[str, list[object]] but got ./generics_base_class.py.SymbolTable [incompatible_argument]
-./generics_base_class.py:45:16:   Any[generic_argument] is not equivalent to collections.abc.Iterator[int]
 ./generics_base_class.py:46:16:   Any[from_another] is not equivalent to bool
-./generics_base_class.py:49:21: Object <class 'LinkedList'> does not support subscripting [unsupported_operation]
-./generics_base_class.py:58:16:   Any[from_another] is not equivalent to int
-./generics_base_class.py:61:17: Object <class 'MyDict'> does not support subscripting [unsupported_operation]
-./generics_base_class.py:84:12: Object <class 'Parent1'> does not support subscripting [unsupported_operation]
-./generics_base_class.py:84:29: Object <class 'Parent2'> does not support subscripting [unsupported_operation]
-./generics_base_class.py:97:13: Object <class 'Grandparent'> does not support subscripting [unsupported_operation]
-./generics_base_class.py:98:31: Object <class 'Grandparent'> does not support subscripting [unsupported_operation]
+./generics_base_class.py:46:16: collections.abc.Iterable[int] has no attribute '__contains__' [undefined_attribute]
+./generics_base_class.py:58:16:   Any[generic_argument] is not equivalent to int
+./generics_base_class.py:90:14: Incompatible argument type for x: expected ./generics_base_class.py.Parent1[int, bytes] but got ./generics_base_class.py.Child[int, bytes, str] [incompatible_argument]
+./generics_base_class.py:91:14: Incompatible argument type for x: expected ./generics_base_class.py.Parent2[str, bytes] but got ./generics_base_class.py.Child[int, bytes, str] [incompatible_argument]
 """

@@ -2,18 +2,13 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 18: Unexpected errors ['./generics_self_advanced.py:18:12:   property is not equivalent to ./generics_self_advanced.py.ParentA']
 Line 19: Unexpected errors ['./generics_self_advanced.py:19:12:   Any[error] is not equivalent to ./generics_self_advanced.py.ChildA', "./generics_self_advanced.py:19:12: ./generics_self_advanced.py.ChildA has no attribute 'prop1' [undefined_attribute]"]
-Line 36: Unexpected errors ['./generics_self_advanced.py:36:20:   Any[error] is not equivalent to list[~SelfT]', "./generics_self_advanced.py:36:20: ./generics_self_advanced.py.ChildB has no attribute 'a' [undefined_attribute]"]
-Line 37: Unexpected errors ["./generics_self_advanced.py:37:20: ./generics_self_advanced.py.ChildB has no attribute 'a' [undefined_attribute]"]
-Line 38: Unexpected errors ["./generics_self_advanced.py:38:20: ./generics_self_advanced.py.ChildB has no attribute 'method1' [undefined_attribute]"]
+Line 38: Unexpected errors ["./generics_self_advanced.py:38:20: ./generics_self_advanced.py.ChildB[~SelfT] has no attribute 'method1' [undefined_attribute]"]
 Line 43: Unexpected errors ['./generics_self_advanced.py:43:20:   Any[inference] is not equivalent to list[~SelfT]']
 """
 output = """
 ./generics_self_advanced.py:18:12:   property is not equivalent to ./generics_self_advanced.py.ParentA
 ./generics_self_advanced.py:19:12:   Any[error] is not equivalent to ./generics_self_advanced.py.ChildA
 ./generics_self_advanced.py:19:12: ./generics_self_advanced.py.ChildA has no attribute 'prop1' [undefined_attribute]
-./generics_self_advanced.py:36:20:   Any[error] is not equivalent to list[~SelfT]
-./generics_self_advanced.py:36:20: ./generics_self_advanced.py.ChildB has no attribute 'a' [undefined_attribute]
-./generics_self_advanced.py:37:20: ./generics_self_advanced.py.ChildB has no attribute 'a' [undefined_attribute]
-./generics_self_advanced.py:38:20: ./generics_self_advanced.py.ChildB has no attribute 'method1' [undefined_attribute]
+./generics_self_advanced.py:38:20: ./generics_self_advanced.py.ChildB[~SelfT] has no attribute 'method1' [undefined_attribute]
 ./generics_self_advanced.py:43:20:   Any[inference] is not equivalent to list[~SelfT]
 """

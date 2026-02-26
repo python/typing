@@ -6,9 +6,10 @@ Line 51: Unexpected errors ['./generics_self_basic.py:51:12:   Any[from_another]
 Line 52: Unexpected errors ['./generics_self_basic.py:52:12:   Any[from_another] is not equivalent to ./generics_self_basic.py.Circle', "./generics_self_basic.py:52:12: ./generics_self_basic.py.Circle has no attribute 'set_scale' [undefined_attribute]"]
 Line 54: Unexpected errors ['./generics_self_basic.py:54:12:   Any[error] is not equivalent to ./generics_self_basic.py.Shape', './generics_self_basic.py:54:12: classmethod[./generics_self_basic.py.Shape, (config: dict[str, float | int]) -> Any[unannotated], Any[generic_argument]] is not callable [not_callable]']
 Line 55: Unexpected errors ['./generics_self_basic.py:55:12:   Any[error] is not equivalent to ./generics_self_basic.py.Circle', './generics_self_basic.py:55:12: classmethod[./generics_self_basic.py.Shape, (config: dict[str, float | int]) -> Any[unannotated], Any[generic_argument]] is not callable [not_callable]']
-Line 75: Unexpected errors ["./generics_self_basic.py:75:45: Object <class 'Container'> does not support subscripting [unsupported_operation]"]
-Line 76: Unexpected errors ["./generics_self_basic.py:76:50: Object <class 'Container'> does not support subscripting [unsupported_operation]"]
-Line 84: Unexpected errors ["./generics_self_basic.py:84:21: Object <class 'Container'> does not support subscripting [unsupported_operation]"]
+Line 75: Unexpected errors ['./generics_self_basic.py:75:16:   Any[from_another] is not equivalent to ./generics_self_basic.py.Container[int]', "./generics_self_basic.py:75:16: ./generics_self_basic.py.Container[int] has no attribute 'set_value' [undefined_attribute]"]
+Line 76: Unexpected errors ['./generics_self_basic.py:76:16:   Any[from_another] is not equivalent to ./generics_self_basic.py.Container[str]', "./generics_self_basic.py:76:16: ./generics_self_basic.py.Container[str] has no attribute 'set_value' [undefined_attribute]"]
+Line 83: Unexpected errors ["./generics_self_basic.py:83:10: typing.Generic[~T] has no attribute 'set_value' [undefined_attribute]"]
+Line 84: Unexpected errors ['./generics_self_basic.py:84:16:   Any[from_another] is not equivalent to typing.Generic[~T]']
 """
 output = """
 ./generics_self_basic.py:51:12:   Any[from_another] is not equivalent to ./generics_self_basic.py.Shape
@@ -19,7 +20,10 @@ output = """
 ./generics_self_basic.py:55:12:   Any[error] is not equivalent to ./generics_self_basic.py.Circle
 ./generics_self_basic.py:55:12: classmethod[./generics_self_basic.py.Shape, (config: dict[str, float | int]) -> Any[unannotated], Any[generic_argument]] is not callable [not_callable]
 ./generics_self_basic.py:68:25: Unrecognized subscripted annotation: typing.Self [invalid_annotation]
-./generics_self_basic.py:75:45: Object <class 'Container'> does not support subscripting [unsupported_operation]
-./generics_self_basic.py:76:50: Object <class 'Container'> does not support subscripting [unsupported_operation]
-./generics_self_basic.py:84:21: Object <class 'Container'> does not support subscripting [unsupported_operation]
+./generics_self_basic.py:75:16:   Any[from_another] is not equivalent to ./generics_self_basic.py.Container[int]
+./generics_self_basic.py:75:16: ./generics_self_basic.py.Container[int] has no attribute 'set_value' [undefined_attribute]
+./generics_self_basic.py:76:16:   Any[from_another] is not equivalent to ./generics_self_basic.py.Container[str]
+./generics_self_basic.py:76:16: ./generics_self_basic.py.Container[str] has no attribute 'set_value' [undefined_attribute]
+./generics_self_basic.py:83:10: typing.Generic[~T] has no attribute 'set_value' [undefined_attribute]
+./generics_self_basic.py:84:16:   Any[from_another] is not equivalent to typing.Generic[~T]
 """

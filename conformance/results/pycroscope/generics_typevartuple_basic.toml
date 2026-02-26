@@ -1,5 +1,7 @@
 conformance_automated = "Fail"
 errors_diff = """
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
 Line 52: Expected 1 errors
 Line 53: Expected 1 errors
 Line 56: Expected 1 errors
@@ -9,26 +11,22 @@ Line 90: Expected 1 errors
 Line 99: Expected 1 errors
 Line 100: Expected 1 errors
 Line 106: Expected 1 errors
+Lines 44, 45: Expected error (tag 'v6')
 Line 16: Unexpected errors ['./generics_typevartuple_basic.py:16:17: Unrecognized annotation _StarredValue(value=KnownValue(val=Ts), node=<ast.Name object at 0x...>) [invalid_annotation]']
 Line 28: Unexpected errors ["./generics_typevartuple_basic.py:28:15: ./generics_typevartuple_basic.py.Array has no attribute '_shape' [undefined_attribute]"]
-Line 36: Unexpected errors ["./generics_typevartuple_basic.py:36:4: Object <class 'Array'> does not support subscripting [unsupported_operation]"]
-Line 37: Unexpected errors ["./generics_typevartuple_basic.py:37:4: Object <class 'Array'> does not support subscripting [unsupported_operation]"]
-Line 38: Unexpected errors ["./generics_typevartuple_basic.py:38:4: Object <class 'Array'> does not support subscripting [unsupported_operation]"]
 Line 57: Unexpected errors ["./generics_typevartuple_basic.py:57:15: ./generics_typevartuple_basic.py.ClassA has no attribute '_shape' [undefined_attribute]"]
 Line 84: Unexpected errors ['./generics_typevartuple_basic.py:84:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int]']
+Line 93: Unexpected errors ['./generics_typevartuple_basic.py:93:16: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]', './generics_typevartuple_basic.py:93:34: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]', './generics_typevartuple_basic.py:93:52: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]']
 """
 output = """
 ./generics_typevartuple_basic.py:16:17: Unrecognized annotation _StarredValue(value=KnownValue(val=Ts), node=<ast.Name object at 0x...>) [invalid_annotation]
 ./generics_typevartuple_basic.py:28:15: ./generics_typevartuple_basic.py.Array has no attribute '_shape' [undefined_attribute]
-./generics_typevartuple_basic.py:36:4: Object <class 'Array'> does not support subscripting [unsupported_operation]
-./generics_typevartuple_basic.py:37:4: Object <class 'Array'> does not support subscripting [unsupported_operation]
-./generics_typevartuple_basic.py:38:4: Object <class 'Array'> does not support subscripting [unsupported_operation]
-./generics_typevartuple_basic.py:42:4: Object <class 'Array'> does not support subscripting [unsupported_operation]
-./generics_typevartuple_basic.py:43:4: Object <class 'Array'> does not support subscripting [unsupported_operation]
-./generics_typevartuple_basic.py:44:4: Object <class 'Array'> does not support subscripting [unsupported_operation]
 ./generics_typevartuple_basic.py:57:15: ./generics_typevartuple_basic.py.ClassA has no attribute '_shape' [undefined_attribute]
 ./generics_typevartuple_basic.py:65:6: In call to typing.TypeVarTuple: Got an unexpected keyword argument 'covariant' [incompatible_call]
 ./generics_typevartuple_basic.py:66:6: In call to typing.TypeVarTuple: Takes 1 positional arguments but 3 were given [incompatible_call]
 ./generics_typevartuple_basic.py:67:6: In call to typing.TypeVarTuple: Got an unexpected keyword argument 'bound' [incompatible_call]
 ./generics_typevartuple_basic.py:84:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int]
+./generics_typevartuple_basic.py:93:16: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
+./generics_typevartuple_basic.py:93:34: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
+./generics_typevartuple_basic.py:93:52: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
 """
