@@ -1,10 +1,19 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Cannot find a common supertype of `list[int]` and `set[int]` in order to solve a type variable bound to `Sized`.
+"""
 errors_diff = """
+Lines 43, 44: Expected exactly one error (tag 'mixed-collections')
+Line 43: Unexpected errors ['assert_type(list[int], list[int] | set[int]) failed [assert-type]', 'Argument `set[int]` is not assignable to parameter `y` with type `list[int]` in function `longer` [bad-argument-type]']
+Line 44: Unexpected errors ['assert_type(list[int], Collection[int]) failed [assert-type]', 'Argument `set[int]` is not assignable to parameter `y` with type `list[int]` in function `longer` [bad-argument-type]']
 """
 output = """
 ERROR generics_upper_bound.py:24:38-45: Type variable bounds and constraints must be concrete [invalid-annotation]
-ERROR generics_upper_bound.py:43:12-55: assert_type(list[int], list[int] | set[int]) failed [assert-type]
-ERROR generics_upper_bound.py:43:25-31: Argument `set[int]` is not assignable to parameter `y` with type `list[int]` in function `longer` [bad-argument-type]
-ERROR generics_upper_bound.py:51:7-13: `int` is not assignable to upper bound `Sized` of type variable `ST` [bad-specialization]
-ERROR generics_upper_bound.py:56:38-49: TypeVar cannot have both constraints and bound [invalid-type-var]
+ERROR generics_upper_bound.py:43:16-59: assert_type(list[int], list[int] | set[int]) failed [assert-type]
+ERROR generics_upper_bound.py:43:31-35: Argument `set[int]` is not assignable to parameter `y` with type `list[int]` in function `longer` [bad-argument-type]
+ERROR generics_upper_bound.py:44:16-54: assert_type(list[int], Collection[int]) failed [assert-type]
+ERROR generics_upper_bound.py:44:31-35: Argument `set[int]` is not assignable to parameter `y` with type `list[int]` in function `longer` [bad-argument-type]
+ERROR generics_upper_bound.py:52:7-13: `int` is not assignable to upper bound `Sized` of type variable `ST` [bad-specialization]
+ERROR generics_upper_bound.py:57:38-49: TypeVar cannot have both constraints and bound [invalid-type-var]
 """
