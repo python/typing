@@ -2,21 +2,21 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 41: Expected 1 errors
 Line 42: Expected 1 errors
-Line 43: Expected 1 errors
 Line 44: Expected 1 errors
 Line 45: Expected 1 errors
 Line 46: Expected 1 errors
-Line 47: Expected 1 errors
-Line 48: Expected 1 errors
 Line 49: Expected 1 errors
-Line 50: Expected 1 errors
-Line 51: Expected 1 errors
-Line 52: Expected 1 errors
-Line 53: Expected 1 errors
 Line 56: Expected 1 errors
-Line 61: Expected 1 errors
 """
 output = """
+./literals_parameterizations.py:43:6: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got (4+3j) [invalid_literal]
+./literals_parameterizations.py:47:6: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got {'a': 'b', 'c': 'd'} [invalid_literal]
+./literals_parameterizations.py:48:6: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got <class 'int'> [invalid_literal]
+./literals_parameterizations.py:50:7: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got ~T [invalid_literal]
+./literals_parameterizations.py:51:7: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got 3.14 [invalid_literal]
+./literals_parameterizations.py:52:7: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got typing.Any [invalid_literal]
+./literals_parameterizations.py:53:7: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got Ellipsis [invalid_literal]
 ./literals_parameterizations.py:60:3: Invalid type annotation typing.Literal [invalid_annotation]
+./literals_parameterizations.py:61:3: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got <function my_function at 0x...> [invalid_literal]
 ./literals_parameterizations.py:65:4: Incompatible assignment: expected Literal['Color.RED'], got Literal[<Color.RED: 0>] [incompatible_assignment]
 """

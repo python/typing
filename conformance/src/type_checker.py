@@ -397,6 +397,8 @@ class PycroscopeTypeChecker(TypeChecker):
             "unused_variable",
             "--disable",
             "unused_assignment",
+            "--enable",
+            "invalid_literal",
         ]
         proc = run(command, stdout=PIPE, stderr=PIPE, text=True, encoding="utf-8")
         lines = proc.stderr.splitlines()

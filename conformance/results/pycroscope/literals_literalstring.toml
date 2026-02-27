@@ -1,10 +1,10 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 36: Expected 1 errors
-Line 37: Expected 1 errors
 Line 63: Unexpected errors ['./literals_literalstring.py:63:16:   str is not equivalent to LiteralString']
 """
 output = """
+./literals_literalstring.py:36:11: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got typing.LiteralString [invalid_literal]
+./literals_literalstring.py:37:13: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got typing.LiteralString [invalid_literal]
 ./literals_literalstring.py:43:4: Incompatible assignment: expected Literal[''], got Literal['two'] [incompatible_assignment]
 ./literals_literalstring.py:63:16:   str is not equivalent to LiteralString
 ./literals_literalstring.py:65:4: Incompatible assignment: expected LiteralString, got str [incompatible_assignment]
