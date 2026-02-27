@@ -1,12 +1,12 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 40: Expected 1 errors
-Line 42: Expected 1 errors
 """
 output = """
 ./namedtuples_usage.py:34:6: Tuple index out of range: Literal[3] [incompatible_call]
 ./namedtuples_usage.py:35:6: Tuple index out of range: Literal[-4] [incompatible_call]
+./namedtuples_usage.py:40:0: Cannot mutate NamedTuple field 'x' [incompatible_assignment]
 ./namedtuples_usage.py:41:0: Object of type ./namedtuples_usage.py.Point does not support '__setitem__' [unsupported_operation]
+./namedtuples_usage.py:42:4: Cannot mutate NamedTuple field 'x' [incompatible_assignment]
 ./namedtuples_usage.py:43:4: Object of type ./namedtuples_usage.py.Point does not support '__delitem__' [unsupported_operation]
 ./namedtuples_usage.py:52:0: Cannot unpack ./namedtuples_usage.py.Point [bad_unpack]
 ./namedtuples_usage.py:53:0: Cannot unpack ./namedtuples_usage.py.Point [bad_unpack]

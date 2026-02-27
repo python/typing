@@ -1,6 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 101: Unexpected errors ['./classes_override.py:101:4: Method does not override any base method [override_does_not_override]']
 """
 output = """
 ./classes_override.py:53:4: Method does not override any base method [override_does_not_override]
@@ -8,5 +7,4 @@ output = """
 ./classes_override.py:79:4: Method does not override any base method [override_does_not_override]
 ./classes_override.py:84:4: Method does not override any base method [override_does_not_override]
 ./classes_override.py:89:4: Method does not override any base method [override_does_not_override]
-./classes_override.py:101:4: Method does not override any base method [override_does_not_override]
 """

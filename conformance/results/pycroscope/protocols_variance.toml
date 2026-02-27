@@ -1,12 +1,12 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 21: Expected 1 errors
-Line 40: Expected 1 errors
-Line 56: Expected 1 errors
-Line 66: Expected 1 errors
-Line 104: Expected 1 errors
-Lines 61, 62: Expected error (tag 'covariant_in_input')
-Lines 71, 72: Expected error (tag 'contravariant_in_output')
 """
 output = """
+./protocols_variance.py:21:0: T1 should be covariant [invalid_annotation]
+./protocols_variance.py:40:0: T3 should be contravariant [invalid_annotation]
+./protocols_variance.py:56:0: T1 should be contravariant [invalid_annotation]
+./protocols_variance.py:61:0: T1_co should be contravariant [invalid_annotation]
+./protocols_variance.py:66:0: T1 should be covariant [invalid_annotation]
+./protocols_variance.py:71:0: T1_contra should be covariant [invalid_annotation]
+./protocols_variance.py:104:0: T1 should be covariant [invalid_annotation]
 """

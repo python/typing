@@ -6,7 +6,6 @@ Line 31: Expected 1 errors
 Line 35: Expected 1 errors
 """
 output = """
-./generics_paramspec_basic.py:23:0: Function may exit without returning a value [missing_return]
 ./generics_paramspec_basic.py:23:10: ParamSpec cannot be used in this annotation context [invalid_annotation]
 ./generics_paramspec_basic.py:23:19: ParamSpec cannot be used in this annotation context [invalid_annotation]
 ./generics_paramspec_basic.py:27:13: Unrecognized annotation typing.Concatenate[<class 'int'>, ~P] [invalid_annotation]

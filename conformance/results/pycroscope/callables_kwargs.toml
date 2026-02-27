@@ -1,8 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 111: Expected 1 errors
-Line 122: Expected 1 errors
-Line 134: Expected 1 errors
 """
 output = """
 ./callables_kwargs.py:46:4: In call to .../tests/callables_kwargs.py.func1: Missing required argument 'v1' [incompatible_call]
@@ -16,4 +13,7 @@ output = """
 ./callables_kwargs.py:101:0: Incompatible assignment: expected .../tests/callables_kwargs.py.TDProtocol3, got function '.../tests/callables_kwargs.py.func1' [incompatible_assignment]
 ./callables_kwargs.py:102:0: Incompatible assignment: expected .../tests/callables_kwargs.py.TDProtocol4, got function '.../tests/callables_kwargs.py.func1' [incompatible_assignment]
 ./callables_kwargs.py:103:0: Incompatible assignment: expected .../tests/callables_kwargs.py.TDProtocol5, got function '.../tests/callables_kwargs.py.func1' [incompatible_assignment]
+./callables_kwargs.py:111:21: Parameter v1 overlaps with TypedDict key in **kwargs [invalid_annotation]
+./callables_kwargs.py:122:12: Expected TypedDict type inside Unpack[] for **kwargs [invalid_annotation]
+./callables_kwargs.py:134:0: Incompatible assignment: expected .../tests/callables_kwargs.py.TDProtocol6, got function '.../tests/callables_kwargs.py.func7' [incompatible_assignment]
 """

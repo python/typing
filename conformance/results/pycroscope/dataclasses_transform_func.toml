@@ -1,6 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 56: Expected 1 errors
 Line 60: Expected 1 errors
 Line 64: Expected 1 errors
 Line 70: Expected 1 errors
@@ -8,4 +7,5 @@ Line 96: Expected 1 errors
 Lines 88, 89: Expected error (tag 'Customer3Subclass')
 """
 output = """
+./dataclasses_transform_func.py:56:0: Incompatible assignment: expected str, got Literal[3] [incompatible_assignment]
 """
