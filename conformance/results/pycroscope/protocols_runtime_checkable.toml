@@ -1,6 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 23: Expected 1 errors
 Line 55: Expected 1 errors
 Line 61: Expected 1 errors
 Line 88: Expected 1 errors
@@ -8,4 +7,5 @@ Line 92: Expected 1 errors
 Line 96: Expected 1 errors
 """
 output = """
+./protocols_runtime_checkable.py:23:21: Second argument to "isinstance" cannot be a protocol that is not @runtime_checkable [incompatible_argument]
 """

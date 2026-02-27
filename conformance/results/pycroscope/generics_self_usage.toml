@@ -11,10 +11,8 @@ Line 113: Expected 1 errors
 Line 118: Expected 1 errors
 Line 123: Expected 1 errors
 Line 127: Expected 1 errors
-Line 78: Unexpected errors ['./generics_self_usage.py:78:31: Undefined name: Foo2 [undefined_name]']
 Line 93: Unexpected errors ["./generics_self_usage.py:93:12: ./generics_self_usage.py.Foo3Child[~SelfT] has no attribute 'return_concrete_type' [undefined_attribute]"]
 """
 output = """
-./generics_self_usage.py:78:31: Undefined name: Foo2 [undefined_name]
 ./generics_self_usage.py:93:12: ./generics_self_usage.py.Foo3Child[~SelfT] has no attribute 'return_concrete_type' [undefined_attribute]
 """

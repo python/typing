@@ -1,11 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 16: Unexpected errors ['./dataclasses_final.py:16:4: Final class attributes without initializers must be assigned in __init__ [invalid_annotation]']
-Line 18: Unexpected errors ['./dataclasses_final.py:18:20: Final cannot be combined with ClassVar [invalid_annotation]']
 """
 output = """
-./dataclasses_final.py:16:4: Final class attributes without initializers must be assigned in __init__ [invalid_annotation]
-./dataclasses_final.py:18:20: Final cannot be combined with ClassVar [invalid_annotation]
 ./dataclasses_final.py:27:0: Cannot assign to final name final_classvar [incompatible_assignment]
 ./dataclasses_final.py:35:0: Cannot assign to final name final_no_default [incompatible_assignment]
 ./dataclasses_final.py:36:0: Cannot assign to final name final_with_default [incompatible_assignment]

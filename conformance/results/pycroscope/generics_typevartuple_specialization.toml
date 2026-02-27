@@ -6,7 +6,7 @@ Line 121: Expected 1 errors
 Line 122: Expected 1 errors
 Line 163: Expected 1 errors
 Line 45: Unexpected errors ['./generics_typevartuple_specialization.py:45:39: Unrecognized annotation types.GenericAlias [invalid_annotation]']
-Line 47: Unexpected errors ['./generics_typevartuple_specialization.py:47:16:   Any[error] is not equivalent to tuple[str, ./generics_typevartuple_specialization.py.Array[Any[unannotated]]]']
+Line 47: Unexpected errors ["./generics_typevartuple_specialization.py:47:16:   Any[error] is not equivalent to tuple[str, ./generics_typevartuple_specialization.py.Array[NewType('Height', int)]]"]
 Line 50: Unexpected errors ['./generics_typevartuple_specialization.py:50:30: Unrecognized annotation types.GenericAlias [invalid_annotation]']
 Line 52: Unexpected errors ['./generics_typevartuple_specialization.py:52:16:   Any[error] is not equivalent to tuple[str, ./generics_typevartuple_specialization.py.Array[]]']
 Line 69: Unexpected errors ['./generics_typevartuple_specialization.py:69:16:   Any[from_another] is not equivalent to ./generics_typevartuple_specialization.py.Array2[int, Any[explicit]]']
@@ -20,7 +20,7 @@ Line 149: Unexpected errors ['./generics_typevartuple_specialization.py:149:16: 
 """
 output = """
 ./generics_typevartuple_specialization.py:45:39: Unrecognized annotation types.GenericAlias [invalid_annotation]
-./generics_typevartuple_specialization.py:47:16:   Any[error] is not equivalent to tuple[str, ./generics_typevartuple_specialization.py.Array[Any[unannotated]]]
+./generics_typevartuple_specialization.py:47:16:   Any[error] is not equivalent to tuple[str, ./generics_typevartuple_specialization.py.Array[NewType('Height', int)]]
 ./generics_typevartuple_specialization.py:50:30: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./generics_typevartuple_specialization.py:52:16:   Any[error] is not equivalent to tuple[str, ./generics_typevartuple_specialization.py.Array[]]
 ./generics_typevartuple_specialization.py:69:16:   Any[from_another] is not equivalent to ./generics_typevartuple_specialization.py.Array2[int, Any[explicit]]

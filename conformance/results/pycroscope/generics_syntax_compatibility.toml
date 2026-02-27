@@ -1,7 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 14: Expected 1 errors
-Line 26: Expected 1 errors
 """
 output = """
+./generics_syntax_compatibility.py:14:0: Class definition cannot combine old-style TypeVar declarations with type parameter syntax [invalid_annotation]
+./generics_syntax_compatibility.py:26:4: Function definition cannot combine old-style TypeVar declarations with type parameter syntax [invalid_annotation]
 """

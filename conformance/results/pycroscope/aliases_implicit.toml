@@ -14,7 +14,6 @@ Line 119: Expected 1 errors
 Line 135: Expected 1 errors
 Line 72: Unexpected errors ['./aliases_implicit.py:72:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> None is not equivalent to (...) -> None']
 Line 100: Unexpected errors ["./aliases_implicit.py:100:17: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]"]
-Line 131: Unexpected errors ['./aliases_implicit.py:131:12:   Literal[[]] is not equivalent to list[int]']
 """
 output = """
 ./aliases_implicit.py:72:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> None is not equivalent to (...) -> None
@@ -28,6 +27,5 @@ output = """
 ./aliases_implicit.py:114:8: Invalid type annotation 3 [invalid_annotation]
 ./aliases_implicit.py:115:9: Invalid type annotation True [invalid_annotation]
 ./aliases_implicit.py:116:9: Invalid type annotation 1 [invalid_annotation]
-./aliases_implicit.py:131:12:   Literal[[]] is not equivalent to list[int]
 ./aliases_implicit.py:133:5: Literal[list | set] is not callable [not_callable]
 """

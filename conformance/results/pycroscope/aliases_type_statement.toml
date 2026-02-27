@@ -1,8 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 17: Expected 1 errors
-Line 26: Expected 1 errors
-Line 31: Expected 1 errors
 Line 37: Expected 1 errors
 Line 38: Expected 1 errors
 Line 39: Expected 1 errors
@@ -15,20 +12,22 @@ Line 45: Expected 1 errors
 Line 46: Expected 1 errors
 Line 47: Expected 1 errors
 Line 49: Expected 1 errors
-Line 56: Expected 1 errors
-Line 62: Expected 1 errors
-Line 67: Expected 1 errors
-Line 77: Expected 1 errors
-Line 79: Expected 1 errors
-Line 82: Expected 1 errors
-Line 84: Expected 1 errors
-Lines 51, 52: Expected error (tag 'TA14')
-Lines 88, 89: Expected error (tag 'RTA6')
-Line 21: Unexpected errors ["./aliases_type_statement.py:21:6: int has no attribute '__value__' [undefined_attribute]"]
 """
 output = """
+./aliases_type_statement.py:17:0: int has no attribute 'bit_count' [undefined_attribute]
 ./aliases_type_statement.py:19:0: .GoodAlias1 = int is not callable [not_callable]
-./aliases_type_statement.py:21:6: int has no attribute '__value__' [undefined_attribute]
 ./aliases_type_statement.py:23:6: int has no attribute 'other_attrib' [undefined_attribute]
+./aliases_type_statement.py:26:17: Type aliases cannot be used as base classes [invalid_base]
+./aliases_type_statement.py:31:21: Second argument to "isinstance" cannot be a type alias [incompatible_argument]
 ./aliases_type_statement.py:48:22: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]
+./aliases_type_statement.py:52:0: Type alias BadTypeAlias14 is already defined [invalid_annotation]
+./aliases_type_statement.py:56:4: Type alias statements are not allowed inside functions [invalid_annotation]
+./aliases_type_statement.py:62:0: Type alias cannot combine old-style TypeVar declarations with type statement parameters [invalid_annotation]
+./aliases_type_statement.py:67:0: Type alias must declare type parameters in the type statement [invalid_annotation]
+./aliases_type_statement.py:77:6: Type argument str is not compatible with ~S: int [invalid_annotation]
+./aliases_type_statement.py:79:6: Type argument int is not compatible with ~T: str [invalid_annotation]
+./aliases_type_statement.py:82:0: Type alias RecursiveTypeAlias3 has a circular definition [invalid_annotation]
+./aliases_type_statement.py:84:0: Type alias RecursiveTypeAlias4 has a circular definition [invalid_annotation]
+./aliases_type_statement.py:88:0: Type alias RecursiveTypeAlias6 has a circular definition [invalid_annotation]
+./aliases_type_statement.py:89:0: Type alias RecursiveTypeAlias7 has a circular definition [invalid_annotation]
 """

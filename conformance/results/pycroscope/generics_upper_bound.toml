@@ -1,12 +1,10 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 24: Expected 1 errors
-Line 12: Unexpected errors ['./generics_upper_bound.py:12:35: Undefined name: ForwardRef [undefined_name]']
 Line 37: Unexpected errors ['./generics_upper_bound.py:37:12:   Literal[[1], [1, 2]] is not equivalent to list[int]']
 Line 38: Unexpected errors ['./generics_upper_bound.py:38:12:   Literal[{1}, {1, 2}] is not equivalent to set[int]']
 """
 output = """
-./generics_upper_bound.py:12:35: Undefined name: ForwardRef [undefined_name]
+./generics_upper_bound.py:24:37: TypeVar bound cannot be parameterized by type variables [invalid_annotation]
 ./generics_upper_bound.py:37:12:   Literal[[1], [1, 2]] is not equivalent to list[int]
 ./generics_upper_bound.py:38:12:   Literal[{1}, {1, 2}] is not equivalent to set[int]
 ./generics_upper_bound.py:43:12:   Literal[[1], {1, 2}] is not equivalent to list[int] | set[int]

@@ -1,21 +1,19 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 11: Expected 1 errors
-Line 12: Expected 1 errors
-Line 18: Expected 1 errors
-Line 23: Expected 1 errors
-Line 26: Expected 1 errors
-Line 35: Expected 1 errors
-Line 41: Expected 1 errors
-Line 47: Expected 1 errors
-Line 50: Expected 1 errors
-Line 52: Expected 1 errors
-Line 54: Expected 1 errors
-Line 61: Expected 1 errors
-Line 65: Expected 1 errors
-Line 15: Unexpected errors ['./aliases_newtype.py:15:12:   Any[from_another] is not equivalent to int']
 """
 output = """
-./aliases_newtype.py:15:12:   Any[from_another] is not equivalent to int
+./aliases_newtype.py:11:7: Incompatible argument type for x: expected int but got Literal['user'] [incompatible_argument]
+./aliases_newtype.py:12:0: Incompatible assignment: expected NewType('UserId', int), got Literal[42] [incompatible_assignment]
+./aliases_newtype.py:18:0: Incompatible assignment: expected type, got Literal[pycroscope.implementation.UserId] [incompatible_assignment]
+./aliases_newtype.py:23:15: Second argument to "isinstance" must be a type, union, or tuple of types, not "pycroscope.implementation.UserId" [incompatible_argument]
+./aliases_newtype.py:26:20: NewType types cannot be used as base classes [invalid_base]
+./aliases_newtype.py:35:19: NewType name argument must match the assignment target name [incompatible_call]
+./aliases_newtype.py:41:5: Object Literal[pycroscope.implementation.GoodNewType1] does not support subscripting [unsupported_operation]
+./aliases_newtype.py:47:37: NewType base type cannot be generic [incompatible_call]
+./aliases_newtype.py:50:37: NewType base type cannot be generic [incompatible_call]
+./aliases_newtype.py:52:37: NewType base type cannot be a protocol [incompatible_call]
+./aliases_newtype.py:54:37: NewType base type cannot be a literal type [incompatible_call]
+./aliases_newtype.py:61:37: NewType base type cannot be a TypedDict [incompatible_call]
 ./aliases_newtype.py:63:14: In call to typing.NewType: Takes 2 positional arguments but 3 were given [incompatible_call]
+./aliases_newtype.py:65:37: NewType base type cannot be Any [incompatible_call]
 """
