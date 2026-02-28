@@ -1,7 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 15: Expected 1 errors
-Line 32: Expected 1 errors
 """
 output = """
+./dataclasses_hash.py:15:0: Incompatible assignment: expected pycroscope.relations.HashableProto (Protocol with members '__hash__'), got .../tests/dataclasses_hash.py.DC1 [incompatible_assignment]
+./dataclasses_hash.py:32:0: Incompatible assignment: expected pycroscope.relations.HashableProto (Protocol with members '__hash__'), got .../tests/dataclasses_hash.py.DC3 [incompatible_assignment]
 """

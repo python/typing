@@ -15,7 +15,7 @@ Line 44: Unexpected errors ["./dataclasses_usage.py:44:6: ./dataclasses_usage.py
 Line 191: Unexpected errors ['./dataclasses_usage.py:191:4: Value of prop_2 incompatible with base class ./dataclasses_usage.py.DC14 [incompatible_override]']
 Line 196: Unexpected errors ['./dataclasses_usage.py:196:12:   Any[from_another] is not equivalent to str']
 Line 198: Unexpected errors ["./dataclasses_usage.py:198:12:   Literal['hello'] is not equivalent to str"]
-Line 205: Unexpected errors ["./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] [incompatible_assignment]"]
+Line 205: Unexpected errors ["./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='__hash__'), attribute_type=KnownValue(val=None))] [incompatible_assignment]"]
 Line 220: Unexpected errors ['./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17', './dataclasses_usage.py:220:12: Takes 0 positional arguments but 1 were given [incompatible_call]']
 """
 output = """
@@ -37,7 +37,7 @@ output = """
 ./dataclasses_usage.py:191:4: Value of prop_2 incompatible with base class ./dataclasses_usage.py.DC14 [incompatible_override]
 ./dataclasses_usage.py:196:12:   Any[from_another] is not equivalent to str
 ./dataclasses_usage.py:198:12:   Literal['hello'] is not equivalent to str
-./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] [incompatible_assignment]
+./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='__hash__'), attribute_type=KnownValue(val=None))] [incompatible_assignment]
 ./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17
 ./dataclasses_usage.py:220:12: Takes 0 positional arguments but 1 were given [incompatible_call]
 """
