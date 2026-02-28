@@ -10,10 +10,6 @@ Line 171: Expected 1 errors
 Line 172: Expected 1 errors
 Line 208: Expected 1 errors
 Line 34: Unexpected errors ['./generics_basic.py:34:11: Unsupported operands for addition: ~AnyStr: (str, bytes) and ~AnyStr: (str, bytes) [unsupported_operation]']
-Line 92: Unexpected errors ["./generics_basic.py:92:8: ./generics_basic.py.LoggedVar[~T] has no attribute 'log' [undefined_attribute]", "./generics_basic.py:92:31: ./generics_basic.py.LoggedVar[~T] has no attribute 'value' [undefined_attribute]"]
-Line 96: Unexpected errors ["./generics_basic.py:96:8: ./generics_basic.py.LoggedVar[~T] has no attribute 'log' [undefined_attribute]", "./generics_basic.py:96:31: ./generics_basic.py.LoggedVar[~T] has no attribute 'value' [undefined_attribute]"]
-Line 97: Unexpected errors ["./generics_basic.py:97:15: ./generics_basic.py.LoggedVar[~T] has no attribute 'value' [undefined_attribute]"]
-Line 100: Unexpected errors ["./generics_basic.py:100:8: ./generics_basic.py.LoggedVar[~T] has no attribute 'logger' [undefined_attribute]", "./generics_basic.py:100:41: ./generics_basic.py.LoggedVar[~T] has no attribute 'name' [undefined_attribute]"]
 Line 106: Unexpected errors ['./generics_basic.py:106:20:   Any[from_another] is not equivalent to int']
 Line 139: Unexpected errors ['./generics_basic.py:139:16:   Any[generic_argument] is not equivalent to int']
 Line 140: Unexpected errors ['./generics_basic.py:140:16:   Any[generic_argument] is not equivalent to int']
@@ -26,13 +22,6 @@ output = """
 ./generics_basic.py:41:4: Cannot resolve type variables [incompatible_call]
 ./generics_basic.py:49:17: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: A single constraint is not allowed [incompatible_call]
 ./generics_basic.py:69:4: Cannot resolve type variables [incompatible_call]
-./generics_basic.py:92:8: ./generics_basic.py.LoggedVar[~T] has no attribute 'log' [undefined_attribute]
-./generics_basic.py:92:31: ./generics_basic.py.LoggedVar[~T] has no attribute 'value' [undefined_attribute]
-./generics_basic.py:96:8: ./generics_basic.py.LoggedVar[~T] has no attribute 'log' [undefined_attribute]
-./generics_basic.py:96:31: ./generics_basic.py.LoggedVar[~T] has no attribute 'value' [undefined_attribute]
-./generics_basic.py:97:15: ./generics_basic.py.LoggedVar[~T] has no attribute 'value' [undefined_attribute]
-./generics_basic.py:100:8: ./generics_basic.py.LoggedVar[~T] has no attribute 'logger' [undefined_attribute]
-./generics_basic.py:100:41: ./generics_basic.py.LoggedVar[~T] has no attribute 'name' [undefined_attribute]
 ./generics_basic.py:106:20:   Any[from_another] is not equivalent to int
 ./generics_basic.py:139:16:   Any[generic_argument] is not equivalent to int
 ./generics_basic.py:140:16:   Any[generic_argument] is not equivalent to int

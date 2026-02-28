@@ -15,10 +15,10 @@ Line 289: Expected 1 errors
 Line 339: Expected 1 errors
 Line 340: Expected 1 errors
 Line 341: Expected 1 errors
-Line 79: Unexpected errors ["./protocols_definition.py:79:0: Incompatible assignment: expected ./protocols_definition.py.Template (Protocol with members 'method', 'name', 'value'), got ./protocols_definition.py.Concrete [incompatible_assignment]"]
+Line 79: Unexpected errors ["./protocols_definition.py:79:0: Incompatible assignment: expected ./protocols_definition.py.Template (Protocol with members 'method', 'name', 'temp', 'value'), got ./protocols_definition.py.Concrete [incompatible_assignment]"]
 """
 output = """
-./protocols_definition.py:79:0: Incompatible assignment: expected ./protocols_definition.py.Template (Protocol with members 'method', 'name', 'value'), got ./protocols_definition.py.Concrete [incompatible_assignment]
+./protocols_definition.py:79:0: Incompatible assignment: expected ./protocols_definition.py.Template (Protocol with members 'method', 'name', 'temp', 'value'), got ./protocols_definition.py.Concrete [incompatible_assignment]
 ./protocols_definition.py:114:0: Incompatible assignment: expected ./protocols_definition.py.Template2 (Protocol with members 'val1'), got ./protocols_definition.py.Concrete2_Bad1 [incompatible_assignment]
 ./protocols_definition.py:115:0: Incompatible assignment: expected ./protocols_definition.py.Template2 (Protocol with members 'val1'), got Annotated[./protocols_definition.py.Concrete2_Bad2, HasAttrExtension(attribute_name=KnownValue(val='val1'), attribute_type=GenericValue(typ=<class 'collections.abc.Sequence'>, literal_only=False, args=(MultiValuedValue(vals=(TypedValue(typ=<class 'float'>, literal_only=False), TypedValue(typ=<class 'int'>, literal_only=False))),)))] [incompatible_assignment]
 ./protocols_definition.py:156:0: Incompatible assignment: expected ./protocols_definition.py.Template3 (Protocol with members 'val1'), got ./protocols_definition.py.Concrete3_Bad1 [incompatible_assignment]

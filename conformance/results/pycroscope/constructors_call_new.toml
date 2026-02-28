@@ -1,18 +1,12 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 21: Expected 1 errors
 Line 148: Expected 1 errors
-Line 19: Unexpected errors ['./constructors_call_new.py:19:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class1[int]']
-Line 20: Unexpected errors ['./constructors_call_new.py:20:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class1[float | int]']
 Line 64: Unexpected errors ['./constructors_call_new.py:64:12:   ./constructors_call_new.py.Class4 is not equivalent to Any[error]', "./constructors_call_new.py:64:12: Missing required argument 'x' [incompatible_call]", './constructors_call_new.py:64:0: Unrecognized annotation types.UnionType [invalid_annotation]']
 Line 76: Unexpected errors ['./constructors_call_new.py:76:16:   ./constructors_call_new.py.Class5 is not equivalent to Never', "./constructors_call_new.py:76:16: Missing required argument 'x' [incompatible_call]"]
 Line 89: Unexpected errors ['./constructors_call_new.py:89:12:   int | ./constructors_call_new.py.Class6 is not equivalent to Any[error]', './constructors_call_new.py:89:0: Unrecognized annotation types.UnionType [invalid_annotation]']
-Line 117: Unexpected errors ['./constructors_call_new.py:117:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class8[list[int]]']
-Line 118: Unexpected errors ['./constructors_call_new.py:118:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class8[list[str]]']
 """
 output = """
-./constructors_call_new.py:19:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class1[int]
-./constructors_call_new.py:20:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class1[float | int]
+./constructors_call_new.py:21:12: Incompatible argument type for x: expected int but got Literal[1.0] [incompatible_argument]
 ./constructors_call_new.py:64:12:   ./constructors_call_new.py.Class4 is not equivalent to Any[error]
 ./constructors_call_new.py:64:12: Missing required argument 'x' [incompatible_call]
 ./constructors_call_new.py:64:0: Unrecognized annotation types.UnionType [invalid_annotation]
@@ -20,6 +14,4 @@ output = """
 ./constructors_call_new.py:76:16: Missing required argument 'x' [incompatible_call]
 ./constructors_call_new.py:89:12:   int | ./constructors_call_new.py.Class6 is not equivalent to Any[error]
 ./constructors_call_new.py:89:0: Unrecognized annotation types.UnionType [invalid_annotation]
-./constructors_call_new.py:117:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class8[list[int]]
-./constructors_call_new.py:118:12:   Any[from_another] is not equivalent to ./constructors_call_new.py.Class8[list[str]]
 """

@@ -5,14 +5,13 @@ Line 55: Expected 1 errors
 Line 27: Unexpected errors ['./generics_defaults_specialization.py:27:16:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.SomethingWithNoDefaults[int, bool]']
 Line 45: Unexpected errors ["./generics_defaults_specialization.py:45:12:   <class 'Bar'> is not equivalent to type[./generics_defaults_specialization.py.Bar[str]]"]
 Line 46: Unexpected errors ['./generics_defaults_specialization.py:46:12:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.Bar[str]']
-Line 47: Unexpected errors ['./generics_defaults_specialization.py:47:12:   Any[error] is not equivalent to ./generics_defaults_specialization.py.Bar[bool]', "./generics_defaults_specialization.py:47:12: ./generics_defaults_specialization.py.Bar[type 'bool'] (partial from <class 'Bar'>[type 'bool']) is not callable [not_callable]"]
+Line 47: Unexpected errors ['./generics_defaults_specialization.py:47:12:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.Bar[bool]']
 Line 53: Unexpected errors ['./generics_defaults_specialization.py:53:12:   Any[from_another] is not equivalent to str']
 """
 output = """
 ./generics_defaults_specialization.py:27:16:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.SomethingWithNoDefaults[int, bool]
 ./generics_defaults_specialization.py:45:12:   <class 'Bar'> is not equivalent to type[./generics_defaults_specialization.py.Bar[str]]
 ./generics_defaults_specialization.py:46:12:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.Bar[str]
-./generics_defaults_specialization.py:47:12:   Any[error] is not equivalent to ./generics_defaults_specialization.py.Bar[bool]
-./generics_defaults_specialization.py:47:12: ./generics_defaults_specialization.py.Bar[type 'bool'] (partial from <class 'Bar'>[type 'bool']) is not callable [not_callable]
+./generics_defaults_specialization.py:47:12:   Any[from_another] is not equivalent to ./generics_defaults_specialization.py.Bar[bool]
 ./generics_defaults_specialization.py:53:12:   Any[from_another] is not equivalent to str
 """

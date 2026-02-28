@@ -8,22 +8,16 @@ Line 112: Expected 1 errors
 Line 113: Expected 1 errors
 Line 127: Expected 1 errors
 Line 128: Expected 1 errors
+Line 146: Expected 1 errors
 Line 165: Expected 1 errors
-Line 81: Unexpected errors ["./generics_syntax_infer_variance.py:81:15: ./generics_syntax_infer_variance.py.ShouldBeCovariant5[T] has no attribute '_x' [undefined_attribute]"]
-Line 105: Unexpected errors ["./generics_syntax_infer_variance.py:105:15: ./generics_syntax_infer_variance.py.ShouldBeInvariant1[T] has no attribute '_value' [undefined_attribute]"]
-Line 121: Unexpected errors ["./generics_syntax_infer_variance.py:121:15: ./generics_syntax_infer_variance.py.ShouldBeInvariant2[T] has no attribute '_value' [undefined_attribute]"]
 """
 output = """
 ./generics_syntax_infer_variance.py:15:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: Variance cannot be specified with infer_variance. [incompatible_call]
 ./generics_syntax_infer_variance.py:17:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: Variance cannot be specified with infer_variance. [incompatible_call]
 ./generics_syntax_infer_variance.py:47:0: Incompatible assignment: expected collections.abc.Sequence[int], got collections.abc.Sequence[float | int] [incompatible_assignment]
-./generics_syntax_infer_variance.py:81:15: ./generics_syntax_infer_variance.py.ShouldBeCovariant5[T] has no attribute '_x' [undefined_attribute]
-./generics_syntax_infer_variance.py:105:15: ./generics_syntax_infer_variance.py.ShouldBeInvariant1[T] has no attribute '_value' [undefined_attribute]
-./generics_syntax_infer_variance.py:121:15: ./generics_syntax_infer_variance.py.ShouldBeInvariant2[T] has no attribute '_value' [undefined_attribute]
 ./generics_syntax_infer_variance.py:135:0: Incompatible assignment: expected dict[float | int, str], got dict[int, str] [incompatible_assignment]
 ./generics_syntax_infer_variance.py:136:0: Incompatible assignment: expected dict[int, str], got dict[float | int, str] [incompatible_assignment]
 ./generics_syntax_infer_variance.py:137:0: Incompatible assignment: expected dict[str, float | int], got dict[str, int] [incompatible_assignment]
 ./generics_syntax_infer_variance.py:138:0: Incompatible assignment: expected dict[str, int], got dict[str, float | int] [incompatible_assignment]
-./generics_syntax_infer_variance.py:146:37: ./generics_syntax_infer_variance.py.ShouldBeInvariant4[type 'int'] (partial from <class 'ShouldBeInvariant4'>[type 'int']) is not callable [not_callable]
-./generics_syntax_infer_variance.py:154:37: ./generics_syntax_infer_variance.py.ShouldBeInvariant5[type 'int'] (partial from <class 'ShouldBeInvariant5'>[type 'int']) is not callable [not_callable]
+./generics_syntax_infer_variance.py:154:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant5[float | int], got ./generics_syntax_infer_variance.py.ShouldBeInvariant5[int] [incompatible_assignment]
 """

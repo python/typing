@@ -1,18 +1,12 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 38: Expected 1 errors
-Line 40: Expected 1 errors
 Line 42: Expected 1 errors
 Line 43: Expected 1 errors
 Line 44: Expected 1 errors
 Line 45: Expected 1 errors
 Line 46: Expected 1 errors
-Line 33: Unexpected errors ['./generics_type_erasure.py:33:12:   Any[from_another] is not equivalent to ./generics_type_erasure.py.Node[int]']
-Line 35: Unexpected errors ['./generics_type_erasure.py:35:12:   Any[from_another] is not equivalent to ./generics_type_erasure.py.Node[str]']
-Line 48: Unexpected errors ['./generics_type_erasure.py:48:12:   Any[from_another] is not equivalent to int']
 """
 output = """
-./generics_type_erasure.py:33:12:   Any[from_another] is not equivalent to ./generics_type_erasure.py.Node[int]
-./generics_type_erasure.py:35:12:   Any[from_another] is not equivalent to ./generics_type_erasure.py.Node[str]
-./generics_type_erasure.py:48:12:   Any[from_another] is not equivalent to int
+./generics_type_erasure.py:38:15: Incompatible argument type for label: expected int | None but got Literal[''] [incompatible_argument]
+./generics_type_erasure.py:40:15: Incompatible argument type for label: expected str | None but got Literal[0] [incompatible_argument]
 """
