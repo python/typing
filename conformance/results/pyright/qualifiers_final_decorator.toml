@@ -1,6 +1,5 @@
 conformant = "Pass"
 output = """
-qualifiers_final_decorator.py:8:6 - warning: Import "_qualifiers_final_decorator" could not be resolved from source (reportMissingModuleSource)
 qualifiers_final_decorator.py:21:16 - error: Base class "Base1" is marked final and cannot be subclassed (reportGeneralTypeIssues)
 qualifiers_final_decorator.py:56:9 - error: Method "method1" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)
 qualifiers_final_decorator.py:60:9 - error: Method "method2" cannot override final method defined in class "Base2" (reportIncompatibleMethodOverride)
