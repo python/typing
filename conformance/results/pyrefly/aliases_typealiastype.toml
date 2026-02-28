@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-conformant = "Partial"
-notes = """
-Does not detect circular definitions.
-"""
-=======
->>>>>>> upstream/main
 conformance_automated = "Pass"
 errors_diff = """
 """

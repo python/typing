@@ -1,6 +1,8 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 50: Unexpected errors ['./generics_typevartuple_callable.py:50:16:   tuple[complex | float | int, str, float | int] is not equivalent to tuple[float | int, str, complex | float | int]']
 """
 output = """
 ./generics_typevartuple_callable.py:26:27: Incompatible argument type for args: expected tuple[int, str] but got Literal[('', 0)] [incompatible_argument]
+./generics_typevartuple_callable.py:50:16:   tuple[complex | float | int, str, float | int] is not equivalent to tuple[float | int, str, complex | float | int]
 """

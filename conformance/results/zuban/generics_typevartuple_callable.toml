@@ -1,6 +1,8 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 50: Unexpected errors ['generics_typevartuple_callable.py:50: error: Expression is of type "tuple[complex, str, float]", not "tuple[float, str, complex]"  [misc]']
 """
 output = """
 generics_typevartuple_callable.py:26: error: Argument "args" to "Process" has incompatible type "tuple[str, int]"; expected "tuple[int, str]"  [arg-type]
+generics_typevartuple_callable.py:50: error: Expression is of type "tuple[complex, str, float]", not "tuple[float, str, complex]"  [misc]
 """
