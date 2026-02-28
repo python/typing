@@ -1,9 +1,9 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 24: Expected 1 errors
-Line 28: Expected 1 errors
-Line 32: Expected 1 errors
-Line 44: Expected 1 errors
 """
 output = """
+./aliases_variance.py:24:15: T_co has incompatible variance in base class [invalid_annotation]
+./aliases_variance.py:28:15: T_co has incompatible variance in base class [invalid_annotation]
+./aliases_variance.py:32:15: T_co has incompatible variance in base class [invalid_annotation]
+./aliases_variance.py:44:15: T_contra has incompatible variance in base class [invalid_annotation]
 """
