@@ -1,22 +1,22 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 45: Expected 1 errors
-Line 46: Expected 1 errors
-Line 47: Expected 1 errors
-Line 70: Expected 1 errors
-Line 71: Expected 1 errors
-Line 77: Expected 1 errors
-Line 78: Expected 1 errors
-Line 111: Expected 1 errors
 """
 output = """
 ./classes_classvar.py:38:10: Invalid type annotation (<class 'int'>, <class 'str'>) [invalid_annotation]
 ./classes_classvar.py:39:10: Invalid type annotation 3 [invalid_annotation]
 ./classes_classvar.py:40:13: Undefined name: var [undefined_name]
+./classes_classvar.py:45:10: ClassVar type cannot include type parameters [classvar_type_parameters]
+./classes_classvar.py:46:10: ClassVar type cannot include type parameters [classvar_type_parameters]
+./classes_classvar.py:47:10: ClassVar type cannot include type parameters [classvar_type_parameters]
 ./classes_classvar.py:52:4: Incompatible assignment: expected list[str], got Literal[{}] [incompatible_assignment]
 ./classes_classvar.py:54:10: Final cannot be combined with ClassVar [invalid_annotation]
 ./classes_classvar.py:55:11: Unrecognized annotation typing.ClassVar[<class 'int'>] [invalid_annotation]
 ./classes_classvar.py:69:25: Unexpected ClassVar annotation [invalid_annotation]
+./classes_classvar.py:70:11: ClassVar can only be used for assignments in class body [invalid_annotation]
+./classes_classvar.py:71:17: ClassVar can only be used for assignments in class body [invalid_annotation]
 ./classes_classvar.py:73:25: Unexpected ClassVar annotation [invalid_annotation]
+./classes_classvar.py:77:7: ClassVar can only be used for assignments in class body [invalid_annotation]
+./classes_classvar.py:78:19: ClassVar cannot be used in type aliases [invalid_annotation]
+./classes_classvar.py:111:0: Cannot assign to class variable 'stats' via instance [incompatible_assignment]
 ./classes_classvar.py:140:0: Incompatible assignment: expected ./classes_classvar.py.ProtoA (Protocol with members 'x', 'y', 'z'), got ./classes_classvar.py.ProtoAImpl [incompatible_assignment]
 """

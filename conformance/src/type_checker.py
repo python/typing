@@ -5,6 +5,7 @@ Classes that abstract differences between type checkers.
 from abc import ABC, abstractmethod
 import json
 from pathlib import Path
+import re
 import shutil
 from subprocess import PIPE, CalledProcessError, run
 import sys
@@ -373,6 +374,10 @@ class PycroscopeTypeChecker(TypeChecker):
             "unused_assignment",
             "--enable",
             "invalid_literal",
+            "--enable",
+            "incompatible_override",
+            "--enable",
+            "classvar_type_parameters",
         ]
         proc = run(command, stdout=PIPE, stderr=PIPE, text=True, encoding="utf-8")
         lines = proc.stderr.splitlines()

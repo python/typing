@@ -1,6 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 106: Expected 1 errors
 """
 output = """
 ./namedtuples_define_class.py:32:6: Tuple index out of range: Literal[3] [incompatible_call]
@@ -14,6 +13,7 @@ output = """
 ./namedtuples_define_class.py:69:6: In call to ./namedtuples_define_class.py.Point2: Takes 2 positional arguments but 3 were given [incompatible_call]
 ./namedtuples_define_class.py:76:4: NamedTuple field names cannot start with an underscore [invalid_annotation]
 ./namedtuples_define_class.py:86:4: NamedTuple fields without defaults cannot follow fields with defaults [invalid_annotation]
+./namedtuples_define_class.py:106:4: Field 'x' conflicts with base NamedTuple field [incompatible_override]
 ./namedtuples_define_class.py:125:18: Incompatible argument type for value: expected str but got Literal[3.1] [incompatible_argument]
 ./namedtuples_define_class.py:132:23: NamedTuple classes may only inherit from NamedTuple and Generic [invalid_base]
 """

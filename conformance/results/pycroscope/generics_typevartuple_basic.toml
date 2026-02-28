@@ -14,7 +14,7 @@ Lines 44, 45: Expected error (tag 'v6')
 Line 28: Unexpected errors ["./generics_typevartuple_basic.py:28:15: ./generics_typevartuple_basic.py.Array has no attribute '_shape' [undefined_attribute]"]
 Line 57: Unexpected errors ["./generics_typevartuple_basic.py:57:15: ./generics_typevartuple_basic.py.ClassA has no attribute '_shape' [undefined_attribute]"]
 Line 84: Unexpected errors ['./generics_typevartuple_basic.py:84:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int]']
-Line 93: Unexpected errors ['./generics_typevartuple_basic.py:93:16: Unpack[] used in unsupported context [invalid_annotation]', './generics_typevartuple_basic.py:93:34: Unpack[] used in unsupported context [invalid_annotation]', './generics_typevartuple_basic.py:93:52: Unpack[] used in unsupported context [invalid_annotation]']
+Line 93: Unexpected errors ['./generics_typevartuple_basic.py:93:16: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]', './generics_typevartuple_basic.py:93:34: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]', './generics_typevartuple_basic.py:93:52: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]']
 """
 output = """
 ./generics_typevartuple_basic.py:28:15: ./generics_typevartuple_basic.py.Array has no attribute '_shape' [undefined_attribute]
@@ -24,7 +24,7 @@ output = """
 ./generics_typevartuple_basic.py:66:6: In call to typing.TypeVarTuple: Takes 1 positional arguments but 3 were given [incompatible_call]
 ./generics_typevartuple_basic.py:67:6: In call to typing.TypeVarTuple: Got an unexpected keyword argument 'bound' [incompatible_call]
 ./generics_typevartuple_basic.py:84:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int]
-./generics_typevartuple_basic.py:93:16: Unpack[] used in unsupported context [invalid_annotation]
-./generics_typevartuple_basic.py:93:34: Unpack[] used in unsupported context [invalid_annotation]
-./generics_typevartuple_basic.py:93:52: Unpack[] used in unsupported context [invalid_annotation]
+./generics_typevartuple_basic.py:93:16: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
+./generics_typevartuple_basic.py:93:34: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
+./generics_typevartuple_basic.py:93:52: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
 """

@@ -5,7 +5,6 @@ Line 110: Expected 1 errors
 Line 121: Expected 1 errors
 Line 122: Expected 1 errors
 Line 163: Expected 1 errors
-Line 24: Unexpected errors ['./generics_typevartuple_specialization.py:24:26: Unpack[] used in unsupported context [invalid_annotation]']
 Line 45: Unexpected errors ['./generics_typevartuple_specialization.py:45:39: Unrecognized annotation types.GenericAlias [invalid_annotation]']
 Line 47: Unexpected errors ["./generics_typevartuple_specialization.py:47:16:   Any[error] is not equivalent to tuple[str, ./generics_typevartuple_specialization.py.Array[NewType('Height', int)]]"]
 Line 50: Unexpected errors ['./generics_typevartuple_specialization.py:50:30: Unrecognized annotation types.GenericAlias [invalid_annotation]']
@@ -13,19 +12,13 @@ Line 52: Unexpected errors ['./generics_typevartuple_specialization.py:52:16:   
 Line 69: Unexpected errors ['./generics_typevartuple_specialization.py:69:16:   Any[from_another] is not equivalent to ./generics_typevartuple_specialization.py.Array2[int, Any[explicit]]']
 Line 72: Unexpected errors ['./generics_typevartuple_specialization.py:72:38: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]']
 Line 84: Unexpected errors ['./generics_typevartuple_specialization.py:84:15: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]']
-Line 130: Unexpected errors ['./generics_typevartuple_specialization.py:130:13: Unrecognized annotation types.GenericAlias [invalid_annotation]']
 Line 135: Unexpected errors ['./generics_typevartuple_specialization.py:135:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[], str, bool]']
 Line 136: Unexpected errors ['./generics_typevartuple_specialization.py:136:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[str], bool, float | int]']
 Line 137: Unexpected errors ['./generics_typevartuple_specialization.py:137:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[str, bool], float | int, int]']
-Line 143: Unexpected errors ['./generics_typevartuple_specialization.py:143:13: Unrecognized annotation types.GenericAlias [invalid_annotation]']
 Line 148: Unexpected errors ['./generics_typevartuple_specialization.py:148:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[], str, bool, float | int]']
 Line 149: Unexpected errors ['./generics_typevartuple_specialization.py:149:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[bool], str, float | int, int]']
-Line 156: Unexpected errors ['./generics_typevartuple_specialization.py:156:23: Unrecognized annotation types.GenericAlias [invalid_annotation]', './generics_typevartuple_specialization.py:156:54: Unrecognized annotation types.GenericAlias [invalid_annotation]']
-Line 158: Unexpected errors ['./generics_typevartuple_specialization.py:158:16:   Any[error] is not equivalent to tuple[*tuple[int, ...], str]']
-Line 159: Unexpected errors ['./generics_typevartuple_specialization.py:159:16:   Any[error] is not equivalent to tuple[*tuple[int, ...], str]']
 """
 output = """
-./generics_typevartuple_specialization.py:24:26: Unpack[] used in unsupported context [invalid_annotation]
 ./generics_typevartuple_specialization.py:45:39: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./generics_typevartuple_specialization.py:47:16:   Any[error] is not equivalent to tuple[str, ./generics_typevartuple_specialization.py.Array[NewType('Height', int)]]
 ./generics_typevartuple_specialization.py:50:30: Unrecognized annotation types.GenericAlias [invalid_annotation]
@@ -34,15 +27,9 @@ output = """
 ./generics_typevartuple_specialization.py:72:38: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
 ./generics_typevartuple_specialization.py:84:15: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
 ./generics_typevartuple_specialization.py:127:4: Unrecognized annotation types.GenericAlias [invalid_annotation]
-./generics_typevartuple_specialization.py:130:13: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./generics_typevartuple_specialization.py:135:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[], str, bool]
 ./generics_typevartuple_specialization.py:136:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[str], bool, float | int]
 ./generics_typevartuple_specialization.py:137:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[str, bool], float | int, int]
-./generics_typevartuple_specialization.py:143:13: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./generics_typevartuple_specialization.py:148:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[], str, bool, float | int]
 ./generics_typevartuple_specialization.py:149:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[bool], str, float | int, int]
-./generics_typevartuple_specialization.py:156:23: Unrecognized annotation types.GenericAlias [invalid_annotation]
-./generics_typevartuple_specialization.py:156:54: Unrecognized annotation types.GenericAlias [invalid_annotation]
-./generics_typevartuple_specialization.py:158:16:   Any[error] is not equivalent to tuple[*tuple[int, ...], str]
-./generics_typevartuple_specialization.py:159:16:   Any[error] is not equivalent to tuple[*tuple[int, ...], str]
 """
