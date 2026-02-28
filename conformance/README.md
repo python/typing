@@ -70,9 +70,9 @@ by the scoring system.
 
 To run the conformance test suite:
 * Clone the https://github.com/python/typing repo.
-* Create and activate a Python 3.12 virtual environment.
-* Switch to the `conformance` subdirectory and install all dependencies (`pip install -r requirements.txt`).
-* Switch to the `src` subdirectory and run `python main.py`.
+* Install [uv](https://docs.astral.sh/uv/) and ensure Python 3.12 is available.
+* Switch to the `conformance` subdirectory and install locked dependencies (`uv sync --python 3.12 --frozen`).
+* Run the conformance tool (`uv run --python 3.12 --frozen python src/main.py`).
 
 Note that some type checkers may not run on some platforms. If a type checker fails to install, tests will be skipped for that type checker.
 
@@ -92,7 +92,22 @@ If a test is updated (augmented or fixed), the process is similar to when adding
 
 ## Updating a Type Checker
 
-If a new version of a type checker is released, re-run the test tool with the new version. If the type checker output has changed for any test cases, the tool will supply the old and new outputs. Examine these to determine whether the conformance status has changed. Once the conformance status has been updated, re-run the test tool again to regenerate the summary report.
+Type checker versions are locked in `uv.lock`.
+
+To bump all supported checkers to their latest released versions:
+
+```bash
+python scripts/bump_type_checkers.py
+```
+
+After bumping, install the new lockfile and rerun conformance:
+
+```bash
+uv sync --python 3.12 --frozen
+uv run --python 3.12 --frozen python src/main.py
+```
+
+If checker output changes for any test cases, examine those deltas to determine whether the conformance status has changed. Once the conformance status has been updated, rerun the tool to regenerate the summary report.
 
 ## Automated Conformance Checking
 
