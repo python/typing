@@ -1,23 +1,21 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 51: Expected 1 errors
-Line 63: Expected 1 errors
 Line 72: Expected 1 errors
-Line 122: Expected 1 errors
 Line 60: Unexpected errors ["./dataclasses_transform_class.py:60:7: Missing required argument 'not_a_field' [incompatible_call]"]
 Line 68: Unexpected errors ["./dataclasses_transform_class.py:68:7: Missing required argument 'not_a_field' [incompatible_call]"]
 Line 74: Unexpected errors ["./dataclasses_transform_class.py:74:7: Missing required argument 'not_a_field' [incompatible_call]"]
 Line 76: Unexpected errors ["./dataclasses_transform_class.py:76:7: Missing required argument 'not_a_field' [incompatible_call]"]
 Line 106: Unexpected errors ["./dataclasses_transform_class.py:106:7: Got an unexpected keyword argument 'id' [incompatible_call]"]
-Line 119: Unexpected errors ["./dataclasses_transform_class.py:119:7: Got unexpected keyword arguments 'id', 'name' [incompatible_call]"]
 """
 output = """
+./dataclasses_transform_class.py:51:0: Non-frozen dataclass cannot inherit from a frozen dataclass [invalid_base]
 ./dataclasses_transform_class.py:60:7: Missing required argument 'not_a_field' [incompatible_call]
-./dataclasses_transform_class.py:66:7: Takes 1 positional arguments but 2 were given [incompatible_call]
+./dataclasses_transform_class.py:63:0: Dataclass is frozen [incompatible_assignment]
+./dataclasses_transform_class.py:66:7: Missing required argument 'id' [incompatible_call]
 ./dataclasses_transform_class.py:68:7: Missing required argument 'not_a_field' [incompatible_call]
 ./dataclasses_transform_class.py:74:7: Missing required argument 'not_a_field' [incompatible_call]
 ./dataclasses_transform_class.py:76:7: Missing required argument 'not_a_field' [incompatible_call]
-./dataclasses_transform_class.py:82:7: Takes 1 positional arguments but 2 were given [incompatible_call]
+./dataclasses_transform_class.py:82:7: Missing required argument 'id' [incompatible_call]
 ./dataclasses_transform_class.py:106:7: Got an unexpected keyword argument 'id' [incompatible_call]
-./dataclasses_transform_class.py:119:7: Got unexpected keyword arguments 'id', 'name' [incompatible_call]
+./dataclasses_transform_class.py:122:0: Dataclass is frozen [incompatible_assignment]
 """

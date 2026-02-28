@@ -1,19 +1,11 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 60: Expected 1 errors
-Line 96: Expected 1 errors
-Lines 88, 89: Expected error (tag 'Customer3Subclass')
-Line 49: Unexpected errors ["./dataclasses_transform_func.py:49:7: Got unexpected keyword arguments 'id', 'name' [incompatible_call]"]
-Line 52: Unexpected errors ['./dataclasses_transform_func.py:52:7: Takes 0 positional arguments but 2 were given [incompatible_call]']
-Line 66: Unexpected errors ["./dataclasses_transform_func.py:66:7: Got unexpected keyword arguments 'id', 'name' [incompatible_call]"]
-Line 93: Unexpected errors ["./dataclasses_transform_func.py:93:7: Got unexpected keyword arguments 'id', 'name' [incompatible_call]"]
 """
 output = """
-./dataclasses_transform_func.py:49:7: Got unexpected keyword arguments 'id', 'name' [incompatible_call]
-./dataclasses_transform_func.py:52:7: Takes 0 positional arguments but 2 were given [incompatible_call]
 ./dataclasses_transform_func.py:56:0: Incompatible assignment: expected str, got Literal[3] [incompatible_assignment]
-./dataclasses_transform_func.py:64:7: Got unexpected keyword arguments 'id', 'name', 'salary' [incompatible_call]
-./dataclasses_transform_func.py:66:7: Got unexpected keyword arguments 'id', 'name' [incompatible_call]
-./dataclasses_transform_func.py:70:7: Takes 0 positional arguments but 2 were given [incompatible_call]
-./dataclasses_transform_func.py:93:7: Got unexpected keyword arguments 'id', 'name' [incompatible_call]
+./dataclasses_transform_func.py:64:7: Got an unexpected keyword argument 'salary' [incompatible_call]
+./dataclasses_transform_func.py:70:7: Missing required argument 'id' [incompatible_call]
+./dataclasses_transform_func.py:89:0: Non-frozen dataclass cannot inherit from a frozen dataclass [invalid_base]
+./dataclasses_transform_func.py:96:0: Dataclass is frozen [incompatible_assignment]
 """

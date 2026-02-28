@@ -3,10 +3,12 @@ errors_diff = """
 Line 62: Expected 1 errors
 Line 66: Expected 1 errors
 Line 23: Unexpected errors ["./dataclasses_inheritance.py:23:15: Incompatible argument type for a: expected int but got Literal[''] [incompatible_argument]", './dataclasses_inheritance.py:23:12: Incompatible argument type for b: expected str but got Literal[1] [incompatible_argument]']
-Line 40: Unexpected errors ['./dataclasses_inheritance.py:40:8: Takes 2 positional arguments but 3 were given [incompatible_call]']
+Line 40: Unexpected errors ['./dataclasses_inheritance.py:40:21: Incompatible argument type for x: expected float | int but got Literal[(1,)] [incompatible_argument]', './dataclasses_inheritance.py:40:12: Incompatible argument type for y: expected str but got Literal[0.0] [incompatible_argument]', "./dataclasses_inheritance.py:40:17: Incompatible argument type for z: expected tuple[int] but got Literal[''] [incompatible_argument]"]
 """
 output = """
 ./dataclasses_inheritance.py:23:15: Incompatible argument type for a: expected int but got Literal[''] [incompatible_argument]
 ./dataclasses_inheritance.py:23:12: Incompatible argument type for b: expected str but got Literal[1] [incompatible_argument]
-./dataclasses_inheritance.py:40:8: Takes 2 positional arguments but 3 were given [incompatible_call]
+./dataclasses_inheritance.py:40:21: Incompatible argument type for x: expected float | int but got Literal[(1,)] [incompatible_argument]
+./dataclasses_inheritance.py:40:12: Incompatible argument type for y: expected str but got Literal[0.0] [incompatible_argument]
+./dataclasses_inheritance.py:40:17: Incompatible argument type for z: expected tuple[int] but got Literal[''] [incompatible_argument]
 """
