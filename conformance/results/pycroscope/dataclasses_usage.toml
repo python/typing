@@ -1,12 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 50: Expected 1 errors
-Line 51: Expected 1 errors
-Line 52: Expected 1 errors
-Line 83: Expected 1 errors
-Line 127: Expected 1 errors
-Line 130: Expected 1 errors
-Line 179: Expected 1 errors
 Lines 58, 60, 61: Expected error (tag 'DC1')
 Lines 64, 66, 67: Expected error (tag 'DC2')
 Lines 70, 72, 73: Expected error (tag 'DC3')
@@ -19,7 +12,7 @@ Line 42: Unexpected errors ["./dataclasses_usage.py:42:6: ./dataclasses_usage.py
 Line 43: Unexpected errors ["./dataclasses_usage.py:43:6: ./dataclasses_usage.py.InventoryItem has no attribute '__gt__' [undefined_attribute]"]
 Line 44: Unexpected errors ["./dataclasses_usage.py:44:6: ./dataclasses_usage.py.InventoryItem has no attribute '__ge__' [undefined_attribute]"]
 Line 205: Unexpected errors ["./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] [incompatible_assignment]"]
-Line 220: Unexpected errors ['./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17']
+Line 220: Unexpected errors ['./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17', './dataclasses_usage.py:220:12: Takes 0 positional arguments but 1 were given [incompatible_call]']
 """
 output = """
 ./dataclasses_usage.py:35:29: ./dataclasses_usage.py.InventoryItem has no attribute '__init__' [undefined_attribute]
@@ -30,7 +23,15 @@ output = """
 ./dataclasses_usage.py:42:6: ./dataclasses_usage.py.InventoryItem has no attribute '__le__' [undefined_attribute]
 ./dataclasses_usage.py:43:6: ./dataclasses_usage.py.InventoryItem has no attribute '__gt__' [undefined_attribute]
 ./dataclasses_usage.py:44:6: ./dataclasses_usage.py.InventoryItem has no attribute '__ge__' [undefined_attribute]
+./dataclasses_usage.py:50:5: Missing required argument 'unit_price' [incompatible_call]
+./dataclasses_usage.py:51:27: Incompatible argument type for unit_price: expected float | int but got Literal['price'] [incompatible_argument]
+./dataclasses_usage.py:52:5: Takes 3 positional arguments but 4 were given [incompatible_call]
+./dataclasses_usage.py:83:5: Takes 1 positional arguments but 2 were given [incompatible_call]
 ./dataclasses_usage.py:88:4: Incompatible assignment: expected int, got str [incompatible_assignment]
+./dataclasses_usage.py:127:0: Takes 1 positional arguments but 2 were given [incompatible_call]
+./dataclasses_usage.py:130:0: Missing required argument 'y' [incompatible_call]
+./dataclasses_usage.py:179:0: Missing required argument 'x_squared' [incompatible_call]
 ./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] [incompatible_assignment]
 ./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17
+./dataclasses_usage.py:220:12: Takes 0 positional arguments but 1 were given [incompatible_call]
 """

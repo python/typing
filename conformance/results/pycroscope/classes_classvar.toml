@@ -18,5 +18,5 @@ output = """
 ./classes_classvar.py:55:11: Unrecognized annotation typing.ClassVar[<class 'int'>] [invalid_annotation]
 ./classes_classvar.py:69:25: Unexpected ClassVar annotation [invalid_annotation]
 ./classes_classvar.py:73:25: Unexpected ClassVar annotation [invalid_annotation]
-./classes_classvar.py:140:0: Incompatible assignment: expected ./classes_classvar.py.ProtoA (Protocol with members 'x', 'y', 'z'), got Annotated[./classes_classvar.py.ProtoAImpl, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=KnownValue(val='')), HasAttrExtension(attribute_name=KnownValue(val='__init__'), attribute_type=CallableValue(typ=<class 'function'>, literal_only=False, signature=Signature(parameters={'self': SigParameter(name='self', kind=<ParameterKind.POSITIONAL_OR_KEYWORD: 1>, default=None, annotation=TypedValue(typ='./classes_classvar.py.ProtoAImpl', literal_only=False))}, return_value=KnownValue(val=None), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] [incompatible_assignment]
+./classes_classvar.py:140:0: Incompatible assignment: expected ./classes_classvar.py.ProtoA (Protocol with members 'x', 'y', 'z'), got ./classes_classvar.py.ProtoAImpl [incompatible_assignment]
 """

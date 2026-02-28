@@ -1,11 +1,11 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 55: Expected 1 errors
-Line 61: Expected 1 errors
-Line 88: Expected 1 errors
-Line 92: Expected 1 errors
-Line 96: Expected 1 errors
 """
 output = """
 ./protocols_runtime_checkable.py:23:21: Second argument to "isinstance" cannot be a protocol that is not @runtime_checkable [incompatible_argument]
+./protocols_runtime_checkable.py:55:21: Second argument to "issubclass" cannot be a runtime-checkable protocol with non-method members [incompatible_argument]
+./protocols_runtime_checkable.py:61:21: Second argument to "issubclass" cannot be a runtime-checkable protocol with non-method members [incompatible_argument]
+./protocols_runtime_checkable.py:88:18: First argument to "isinstance" has unsafe overlap between 'Concrete3A' and protocol 'Proto3' [incompatible_argument]
+./protocols_runtime_checkable.py:92:8: First argument to "isinstance" has unsafe overlap between 'Concrete3B' and protocol 'Proto3' [incompatible_argument]
+./protocols_runtime_checkable.py:96:18: First argument to "issubclass" has unsafe overlap between 'Concrete3A' and protocol 'Proto3' [incompatible_argument]
 """

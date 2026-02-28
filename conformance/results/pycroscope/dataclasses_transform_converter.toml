@@ -1,22 +1,24 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 107: Expected 1 errors
-Line 108: Expected 1 errors
-Line 109: Expected 1 errors
 Line 118: Expected 1 errors
-Line 102: Unexpected errors ["./dataclasses_transform_converter.py:102:51: Incompatible argument type for converter: expected (~S, /) -> ~T but got <class 'ConverterClass'> [incompatible_argument]"]
+Line 112: Unexpected errors ['./dataclasses_transform_converter.py:112:6: Takes 0 positional arguments but 5 were given [incompatible_call]']
 Line 114: Unexpected errors ["./dataclasses_transform_converter.py:114:0: Incompatible assignment: expected int, got Literal['f1'] [incompatible_assignment]"]
 Line 115: Unexpected errors ["./dataclasses_transform_converter.py:115:0: Incompatible assignment: expected ./dataclasses_transform_converter.py.ConverterClass, got Literal['f6'] [incompatible_assignment]"]
 Line 116: Unexpected errors ["./dataclasses_transform_converter.py:116:0: Incompatible assignment: expected ./dataclasses_transform_converter.py.ConverterClass, got Literal[b'f6'] [incompatible_assignment]"]
+Line 121: Unexpected errors ['./dataclasses_transform_converter.py:121:6: Takes 0 positional arguments but 6 were given [incompatible_call]']
 """
 output = """
 ./dataclasses_transform_converter.py:48:40: Incompatible argument type for converter: expected (~S, /) -> ~T but got () -> int [incompatible_argument]
 ./dataclasses_transform_converter.py:49:40: Incompatible argument type for converter: expected (~S, /) -> ~T but got (*, x: int) -> int [incompatible_argument]
-./dataclasses_transform_converter.py:102:51: Incompatible argument type for converter: expected (~S, /) -> ~T but got <class 'ConverterClass'> [incompatible_argument]
+./dataclasses_transform_converter.py:107:0: Takes 0 positional arguments but 5 were given [incompatible_call]
+./dataclasses_transform_converter.py:108:0: Takes 0 positional arguments but 5 were given [incompatible_call]
+./dataclasses_transform_converter.py:109:0: Takes 0 positional arguments but 5 were given [incompatible_call]
+./dataclasses_transform_converter.py:112:6: Takes 0 positional arguments but 5 were given [incompatible_call]
 ./dataclasses_transform_converter.py:114:0: Incompatible assignment: expected int, got Literal['f1'] [incompatible_assignment]
 ./dataclasses_transform_converter.py:115:0: Incompatible assignment: expected ./dataclasses_transform_converter.py.ConverterClass, got Literal['f6'] [incompatible_assignment]
 ./dataclasses_transform_converter.py:116:0: Incompatible assignment: expected ./dataclasses_transform_converter.py.ConverterClass, got Literal[b'f6'] [incompatible_assignment]
 ./dataclasses_transform_converter.py:119:0: Incompatible assignment: expected ./dataclasses_transform_converter.py.ConverterClass, got Literal[1] [incompatible_assignment]
+./dataclasses_transform_converter.py:121:6: Takes 0 positional arguments but 6 were given [incompatible_call]
 ./dataclasses_transform_converter.py:130:18: Cannot resolve type variables [incompatible_call]
 ./dataclasses_transform_converter.py:133:18: Cannot resolve type variables [incompatible_call]
 """

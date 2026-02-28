@@ -1,7 +1,11 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 64: Expected 1 errors
-Line 75: Expected 1 errors
+Line 60: Unexpected errors ["./dataclasses_transform_field.py:60:0: Got an unexpected keyword argument 'name' [incompatible_call]"]
+Line 77: Unexpected errors ["./dataclasses_transform_field.py:77:0: Got an unexpected keyword argument 'name' [incompatible_call]"]
 """
 output = """
+./dataclasses_transform_field.py:60:0: Got an unexpected keyword argument 'name' [incompatible_call]
+./dataclasses_transform_field.py:64:0: Got unexpected keyword arguments 'id', 'name' [incompatible_call]
+./dataclasses_transform_field.py:75:0: Takes 0 positional arguments but 1 were given [incompatible_call]
+./dataclasses_transform_field.py:77:0: Got an unexpected keyword argument 'name' [incompatible_call]
 """

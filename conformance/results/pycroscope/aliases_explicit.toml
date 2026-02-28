@@ -3,18 +3,6 @@ errors_diff = """
 Line 67: Expected 1 errors
 Line 70: Expected 1 errors
 Line 71: Expected 1 errors
-Line 79: Expected 1 errors
-Line 80: Expected 1 errors
-Line 81: Expected 1 errors
-Line 82: Expected 1 errors
-Line 83: Expected 1 errors
-Line 84: Expected 1 errors
-Line 85: Expected 1 errors
-Line 86: Expected 1 errors
-Line 87: Expected 1 errors
-Line 88: Expected 1 errors
-Line 89: Expected 1 errors
-Line 91: Expected 1 errors
 Line 100: Expected 1 errors
 Line 102: Expected 1 errors
 Line 60: Unexpected errors ['./aliases_explicit.py:60:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> None is not equivalent to (...) -> None']
@@ -23,6 +11,19 @@ output = """
 ./aliases_explicit.py:60:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> None is not equivalent to (...) -> None
 ./aliases_explicit.py:68:8: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./aliases_explicit.py:69:8: Unrecognized annotation types.GenericAlias [invalid_annotation]
+./aliases_explicit.py:79:20: Invalid type annotation [invalid_annotation]
+./aliases_explicit.py:80:20: Unrecognized annotation <list containing [type 'int', type 'str']> [invalid_annotation]
+./aliases_explicit.py:81:20: Unrecognized annotation tuple[tuple[type 'int', type 'str']] [invalid_annotation]
+./aliases_explicit.py:82:20: Invalid type annotation [invalid_annotation]
+./aliases_explicit.py:83:20: Unrecognized annotation <dict containing {Literal['a']: Literal['b']}> [invalid_annotation]
+./aliases_explicit.py:84:20: Invalid type annotation [invalid_annotation]
+./aliases_explicit.py:85:20: Invalid type annotation 0 [invalid_annotation]
+./aliases_explicit.py:86:20: Invalid type annotation [invalid_annotation]
+./aliases_explicit.py:87:20: Invalid type annotation 3 [invalid_annotation]
+./aliases_explicit.py:88:21: Invalid type annotation True [invalid_annotation]
+./aliases_explicit.py:89:21: Invalid type annotation 1 [invalid_annotation]
 ./aliases_explicit.py:90:21: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]
+./aliases_explicit.py:90:21: Invalid type annotation [invalid_annotation]
+./aliases_explicit.py:91:21: Invalid type annotation [invalid_annotation]
 ./aliases_explicit.py:101:5: Literal[list | set] is not callable [not_callable]
 """

@@ -1,12 +1,11 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 21: Expected 1 errors
-Line 42: Expected 1 errors
 Line 56: Expected 1 errors
 Line 107: Expected 1 errors
-Line 130: Expected 1 errors
 Line 19: Unexpected errors ['./constructors_call_init.py:19:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class1[int]']
 Line 20: Unexpected errors ['./constructors_call_init.py:20:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class1[float | int]']
+Line 41: Unexpected errors ['./constructors_call_init.py:41:7: Takes 0 positional arguments but 1 were given [incompatible_call]', './constructors_call_init.py:41:0: Takes 0 positional arguments but 1 were given [incompatible_call]']
 Line 73: Unexpected errors ['./constructors_call_init.py:73:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class5[int]']
 Line 92: Unexpected errors ['./constructors_call_init.py:92:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class6[int, str]']
 Line 100: Unexpected errors ['./constructors_call_init.py:100:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class7[str, int]']
@@ -14,7 +13,11 @@ Line 100: Unexpected errors ['./constructors_call_init.py:100:12:   Any[from_ano
 output = """
 ./constructors_call_init.py:19:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class1[int]
 ./constructors_call_init.py:20:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class1[float | int]
+./constructors_call_init.py:41:7: Takes 0 positional arguments but 1 were given [incompatible_call]
+./constructors_call_init.py:41:0: Takes 0 positional arguments but 1 were given [incompatible_call]
+./constructors_call_init.py:42:0: Takes 0 positional arguments but 1 were given [incompatible_call]
 ./constructors_call_init.py:73:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class5[int]
 ./constructors_call_init.py:92:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class6[int, str]
 ./constructors_call_init.py:100:12:   Any[from_another] is not equivalent to ./constructors_call_init.py.Class7[str, int]
+./constructors_call_init.py:130:0: Takes 0 positional arguments but 1 were given [incompatible_call]
 """

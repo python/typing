@@ -1,7 +1,7 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Expected 1 errors
 Line 17: Unexpected errors ['./generics_typevartuple_callable.py:17:31: Unrecognized annotation typing.Unpack[Ts] [invalid_annotation]']
+Line 25: Unexpected errors ['./generics_typevartuple_callable.py:25:15: Incompatible argument type for target: expected (Any[error], /) -> None but got (arg1: int, arg2: str) -> None [incompatible_argument]']
 Line 29: Unexpected errors ['./generics_typevartuple_callable.py:29:13: Unrecognized annotation typing.Unpack[Ts] [invalid_annotation]']
 Line 41: Unexpected errors ['./generics_typevartuple_callable.py:41:12:   tuple[*tuple[Any[error], ...], Any[error]] is not equivalent to tuple[str, int, complex | float | int]', './generics_typevartuple_callable.py:41:18: Incompatible argument type for f: expected (int, Any[error], ~T, /) -> tuple[~T, *tuple[Ts, ...]] but got (a: int, b: str, c: int, d: complex | float | int) -> tuple[complex | float | int, str, int] [incompatible_argument]']
 Line 42: Unexpected errors ['./generics_typevartuple_callable.py:42:12:   tuple[*tuple[Any[error], ...], Any[error]] is not equivalent to tuple[str]', './generics_typevartuple_callable.py:42:18: Incompatible argument type for f: expected (int, Any[error], ~T, /) -> tuple[~T, *tuple[Ts, ...]] but got (a: int, d: str) -> tuple[str] [incompatible_argument]']
@@ -10,6 +10,8 @@ Line 49: Unexpected errors ['./generics_typevartuple_callable.py:49:12:   tuple[
 """
 output = """
 ./generics_typevartuple_callable.py:17:31: Unrecognized annotation typing.Unpack[Ts] [invalid_annotation]
+./generics_typevartuple_callable.py:25:15: Incompatible argument type for target: expected (Any[error], /) -> None but got (arg1: int, arg2: str) -> None [incompatible_argument]
+./generics_typevartuple_callable.py:26:15: Incompatible argument type for target: expected (Any[error], /) -> None but got (arg1: int, arg2: str) -> None [incompatible_argument]
 ./generics_typevartuple_callable.py:29:13: Unrecognized annotation typing.Unpack[Ts] [invalid_annotation]
 ./generics_typevartuple_callable.py:41:12:   tuple[*tuple[Any[error], ...], Any[error]] is not equivalent to tuple[str, int, complex | float | int]
 ./generics_typevartuple_callable.py:41:18: Incompatible argument type for f: expected (int, Any[error], ~T, /) -> tuple[~T, *tuple[Ts, ...]] but got (a: int, b: str, c: int, d: complex | float | int) -> tuple[complex | float | int, str, int] [incompatible_argument]
