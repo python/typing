@@ -1,7 +1,9 @@
 conformant = "Pass"
 output = """
 generics_typevartuple_callable.py:26: error: Argument "target" to "Process" has incompatible type "Callable[[int, str], None]"; expected "Callable[[str, int], None]"  [arg-type]
+generics_typevartuple_callable.py:50: error: Expression is of type "tuple[complex, str, float]", not "tuple[float, str, complex]"  [assert-type]
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 50: Unexpected errors ['generics_typevartuple_callable.py:50: error: Expression is of type "tuple[complex, str, float]", not "tuple[float, str, complex]"  [assert-type]']
 """
