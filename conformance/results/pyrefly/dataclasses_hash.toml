@@ -5,11 +5,6 @@ errors_diff = """
 output = """
 ERROR dataclasses_hash.py:17:1-16: Expected a callable, got `None` [not-callable]
 ERROR dataclasses_hash.py:18:16-22: `DC1` is not assignable to `Hashable` [bad-assignment]
-ERROR dataclasses_hash.py:29:12-32: assert_type((self: DC2) -> int, None) failed [assert-type]
-ERROR dataclasses_hash.py:43:1-16: Expected a callable, got `None` [not-callable]
-ERROR dataclasses_hash.py:44:16-22: `DC3` is not assignable to `Hashable` [bad-assignment]
-ERROR dataclasses_hash.py:55:12-32: assert_type((self: DC4) -> int, None) failed [assert-type]
-ERROR dataclasses_hash.py:69:12-32: assert_type((self: DC5) -> int, None) failed [assert-type]
-ERROR dataclasses_hash.py:85:12-32: assert_type((self: DC6) -> int, None) failed [assert-type]
-ERROR dataclasses_hash.py:102:12-32: assert_type((self: DC7) -> int, None) failed [assert-type]
+ERROR dataclasses_hash.py:39:1-16: Expected a callable, got `None` [not-callable]
+ERROR dataclasses_hash.py:40:16-22: `DC3` is not assignable to `Hashable` [bad-assignment]
 """

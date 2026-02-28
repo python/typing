@@ -3,7 +3,7 @@ Tests the synthesis of the __hash__ method in a dataclass.
 """
 
 from dataclasses import dataclass
-from typing import Hashable, assert_type
+from typing import Callable, Hashable, assert_type
 
 
 @dataclass
@@ -23,11 +23,7 @@ class DC2:
     a: int
 
 
-# Because `DC2` is frozen, type checkers should synthesize
-# a callable `__hash__` method for it, and therefore should
-# emit a diagnostic here:
-assert_type(DC2.__hash__, None)  # E
-
+dc2_hash: Callable[..., int] = DC2.__hash__  # OK
 DC2(0).__hash__()  # OK
 v2: Hashable = DC2(0)  # OK
 
@@ -49,11 +45,7 @@ class DC4:
     a: int
 
 
-# Because `DC4` is frozen, type checkers should synthesize
-# a callable `__hash__` method for it, and therefore should
-# emit a diagnostic here:
-assert_type(DC4.__hash__, None)  # E
-
+dc4_hash: Callable[..., int] = DC4.__hash__  # OK
 DC4(0).__hash__()  # OK
 v4: Hashable = DC4(0)  # OK
 
@@ -63,11 +55,7 @@ class DC5:
     a: int
 
 
-# Type checkers should synthesize a callable `__hash__`
-# method for `DC5` due to `unsafe_hash=True`, and therefore
-# should emit a diagnostic here:
-assert_type(DC5.__hash__, None)  # E
-
+dc5_hash: Callable[..., int] = DC5.__hash__  # OK
 DC5(0).__hash__()  # OK
 v5: Hashable = DC5(0)  # OK
 
@@ -80,10 +68,7 @@ class DC6:
         return 0
 
 
-# Type checkers should respect the manually defined `__hash__`
-# method for `DC6`, and therefore should emit a diagnostic here:
-assert_type(DC6.__hash__, None)  # E
-
+dc6_hash: Callable[..., int] = DC6.__hash__  # OK
 DC6(0).__hash__()  # OK
 v6: Hashable = DC6(0)  # OK
 
@@ -96,10 +81,6 @@ class DC7:
         return self.a == other.a
 
 
-# Because `DC7` is frozen, type checkers should synthesize
-# a callable `__hash__` method for it, and therefore should
-# emit a diagnostic here:
-assert_type(DC7.__hash__, None)  # E
-
+dc7_hash: Callable[..., int] = DC7.__hash__  # OK
 DC7(0).__hash__()  # OK
 v7: Hashable = DC7(0)  # OK
