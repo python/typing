@@ -47,4 +47,4 @@ def func3(*args: * tuple[int, *Ts, T]) -> tuple[T, *Ts]:
 
 
 def has_int_and_str(a: int, b: str, c: float, d: complex):
-    assert_type(func3(a, b, c, d), tuple[float, str, complex])
+    assert_type(func3(a, b, c, d), tuple[complex, str, float])

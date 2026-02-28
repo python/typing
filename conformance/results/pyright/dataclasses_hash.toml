@@ -1,13 +1,20 @@
 conformant = "Pass"
 output = """
-dataclasses_hash.py:15:16 - error: Type "DC1" is not assignable to declared type "Hashable"
+dataclasses_hash.py:17:1 - error: Object of type "None" cannot be called (reportOptionalCall)
+dataclasses_hash.py:18:16 - error: Type "DC1" is not assignable to declared type "Hashable"
   "DC1" is incompatible with protocol "Hashable"
     "__hash__" is an incompatible type
       Type "None" is not assignable to type "() -> int" (reportAssignmentType)
-dataclasses_hash.py:32:16 - error: Type "DC3" is not assignable to declared type "Hashable"
+dataclasses_hash.py:29:13 - error: "assert_type" mismatch: expected "None" but received "(self: DC2) -> int" (reportAssertTypeFailure)
+dataclasses_hash.py:43:1 - error: Object of type "None" cannot be called (reportOptionalCall)
+dataclasses_hash.py:44:16 - error: Type "DC3" is not assignable to declared type "Hashable"
   "DC3" is incompatible with protocol "Hashable"
     "__hash__" is an incompatible type
       Type "None" is not assignable to type "() -> int" (reportAssignmentType)
+dataclasses_hash.py:55:13 - error: "assert_type" mismatch: expected "None" but received "(self: DC4) -> int" (reportAssertTypeFailure)
+dataclasses_hash.py:69:13 - error: "assert_type" mismatch: expected "None" but received "(self: DC5) -> int" (reportAssertTypeFailure)
+dataclasses_hash.py:85:13 - error: "assert_type" mismatch: expected "None" but received "(self: DC6) -> int" (reportAssertTypeFailure)
+dataclasses_hash.py:102:13 - error: "assert_type" mismatch: expected "None" but received "(self: DC7) -> int" (reportAssertTypeFailure)
 """
 conformance_automated = "Pass"
 errors_diff = """

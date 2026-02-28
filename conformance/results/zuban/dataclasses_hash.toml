@@ -1,7 +1,22 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not synthesize a `__hash__ = None` class attribute for unhashable dataclasses.
+"""
 errors_diff = """
+Line 14: Unexpected errors ['dataclasses_hash.py:14: error: Expression is of type "Callable[[object], int]", not "None"  [misc]']
+Line 40: Unexpected errors ['dataclasses_hash.py:40: error: Expression is of type "Callable[[object], int]", not "None"  [misc]']
 """
 output = """
-dataclasses_hash.py:15: error: Incompatible types in assignment (expression has type "DC1", variable has type "Hashable")  [assignment]
-dataclasses_hash.py:32: error: Incompatible types in assignment (expression has type "DC3", variable has type "Hashable")  [assignment]
+dataclasses_hash.py:14: error: Expression is of type "Callable[[object], int]", not "None"  [misc]
+dataclasses_hash.py:17: error: "DC1" has no attribute "__hash__"  [attr-defined]
+dataclasses_hash.py:18: error: Incompatible types in assignment (expression has type "DC1", variable has type "Hashable")  [assignment]
+dataclasses_hash.py:29: error: Expression is of type "Callable[[object], int]", not "None"  [misc]
+dataclasses_hash.py:40: error: Expression is of type "Callable[[object], int]", not "None"  [misc]
+dataclasses_hash.py:43: error: "DC3" has no attribute "__hash__"  [attr-defined]
+dataclasses_hash.py:44: error: Incompatible types in assignment (expression has type "DC3", variable has type "Hashable")  [assignment]
+dataclasses_hash.py:55: error: Expression is of type "Callable[[object], int]", not "None"  [misc]
+dataclasses_hash.py:69: error: Expression is of type "Callable[[object], int]", not "None"  [misc]
+dataclasses_hash.py:85: error: Expression is of type "Callable[[DC6], int]", not "None"  [misc]
+dataclasses_hash.py:102: error: Expression is of type "Callable[[object], int]", not "None"  [misc]
 """

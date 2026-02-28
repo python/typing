@@ -1,11 +1,24 @@
-conformant = "Partial"
+conformant = "Unsupported"
 notes = """
+Does not synthesize `__hash__ = None` as a class attribute for unhashable dataclasses.
+Does not report when an unhashable dataclass has `__hash__` called directly on an instance.
 Does not report when dataclass is not compatible with Hashable protocol.
 """
 output = """
+dataclasses_hash.py:14: error: Expression is of type "Callable[[object], int]", not "None"  [assert-type]
+dataclasses_hash.py:29: error: Expression is of type "Callable[[object], int]", not "None"  [assert-type]
+dataclasses_hash.py:40: error: Expression is of type "Callable[[object], int]", not "None"  [assert-type]
+dataclasses_hash.py:55: error: Expression is of type "Callable[[object], int]", not "None"  [assert-type]
+dataclasses_hash.py:69: error: Expression is of type "Callable[[object], int]", not "None"  [assert-type]
+dataclasses_hash.py:85: error: Expression is of type "Callable[[DC6], int]", not "None"  [assert-type]
+dataclasses_hash.py:102: error: Expression is of type "Callable[[object], int]", not "None"  [assert-type]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 15: Expected 1 errors
-Line 32: Expected 1 errors
+Line 17: Expected 1 errors
+Line 18: Expected 1 errors
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
+Line 14: Unexpected errors ['dataclasses_hash.py:14: error: Expression is of type "Callable[[object], int]", not "None"  [assert-type]']
+Line 40: Unexpected errors ['dataclasses_hash.py:40: error: Expression is of type "Callable[[object], int]", not "None"  [assert-type]']
 """
