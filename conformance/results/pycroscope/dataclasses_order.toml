@@ -1,6 +1,6 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 50: Expected 1 errors
 """
 output = """
+./dataclasses_order.py:50:3: Unsupported operands for less than: ./dataclasses_order.py.DC1 and ./dataclasses_order.py.DC2 [unsupported_operation]
 """

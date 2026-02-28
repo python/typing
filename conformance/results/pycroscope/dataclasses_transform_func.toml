@@ -1,9 +1,9 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 60: Expected 1 errors
 """
 output = """
 ./dataclasses_transform_func.py:56:0: Incompatible assignment: expected str, got Literal[3] [incompatible_assignment]
+./dataclasses_transform_func.py:60:5: Unsupported operands for less than: ./dataclasses_transform_func.py.Customer1 and ./dataclasses_transform_func.py.Customer1 [unsupported_operation]
 ./dataclasses_transform_func.py:64:7: Got an unexpected keyword argument 'salary' [incompatible_call]
 ./dataclasses_transform_func.py:70:7: Missing required argument 'id' [incompatible_call]
 ./dataclasses_transform_func.py:89:0: Non-frozen dataclass cannot inherit from a frozen dataclass [invalid_base]

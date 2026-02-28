@@ -1,9 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 55: Expected 1 errors
-Line 56: Expected 1 errors
-Line 58: Expected 1 errors
-Line 59: Expected 1 errors
 Line 148: Unexpected errors ["./callables_annotation.py:148:4: Incompatible assignment: expected ./callables_annotation.py.Proto1 (Protocol with members '__call__'), got (...) -> None [incompatible_assignment]"]
 Line 150: Unexpected errors ['./callables_annotation.py:150:4: Incompatible assignment: expected ./callables_annotation.py.Proto5[Any[explicit]], got (...) -> None [incompatible_assignment]']
 Line 152: Unexpected errors ["./callables_annotation.py:152:4: Incompatible assignment: expected ./callables_annotation.py.Proto2 (Protocol with members '__call__'), got (int, /, **Any[explicit]) -> None [incompatible_assignment]"]
@@ -18,7 +14,11 @@ output = """
 ./callables_annotation.py:27:4: Takes 2 positional arguments but 3 were given [incompatible_call]
 ./callables_annotation.py:29:4: Missing required positional argument at position 0 [incompatible_call]
 ./callables_annotation.py:35:4: Takes 0 positional arguments but 1 were given [incompatible_call]
+./callables_annotation.py:55:4: Callable requires exactly two arguments [invalid_annotation]
+./callables_annotation.py:56:4: Invalid arguments to Callable: <class 'int'> [invalid_annotation]
 ./callables_annotation.py:57:4: Invalid type annotation [<class 'int'>] [invalid_annotation]
+./callables_annotation.py:58:4: Callable requires exactly two arguments [invalid_annotation]
+./callables_annotation.py:59:4: Ellipsis must be used directly in Callable[..., T], not in Callable[[...], T] [invalid_annotation]
 ./callables_annotation.py:91:0: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got () -> str [incompatible_assignment]
 ./callables_annotation.py:93:0: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got (*, a: int) -> str [incompatible_assignment]
 ./callables_annotation.py:148:4: Incompatible assignment: expected ./callables_annotation.py.Proto1 (Protocol with members '__call__'), got (...) -> None [incompatible_assignment]

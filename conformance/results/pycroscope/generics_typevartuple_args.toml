@@ -1,30 +1,16 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 33: Expected 1 errors
-Line 34: Expected 1 errors
-Line 48: Expected 1 errors
-Line 57: Expected 1 errors
-Line 58: Expected 1 errors
-Line 59: Expected 1 errors
-Line 67: Expected 1 errors
 Line 75: Expected 1 errors
 Line 76: Expected 1 errors
-Line 16: Unexpected errors ['./generics_typevartuple_args.py:16:25: Unrecognized annotation _StarredValue(value=KnownValue(val=Ts), node=<ast.Name object at 0x...>) [invalid_annotation]']
-Line 20: Unexpected errors ['./generics_typevartuple_args.py:20:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int, str]']
-Line 27: Unexpected errors ["./generics_typevartuple_args.py:27:30: Unrecognized annotation _StarredValue(value=PartialValue(operation=<PartialValueOperation.SUBSCRIPT: 1>, root=KnownValue(val=<class 'tuple'>), node=<ast.Subscript object at 0x...>, members=(KnownValue(val=typing.Unpack[Ts]), SyntheticClassObjectValue(name='Env', class_type=TypedValue(typ='./generics_typevartuple_args.py.Env', literal_only=False))), runtime_value=TypedValue(typ=<class 'types.GenericAlias'>, literal_only=False)), node=<ast.Subscript object at 0x...>) [invalid_annotation]"]
-Line 31: Unexpected errors ['./generics_typevartuple_args.py:31:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[]']
-Line 32: Unexpected errors ['./generics_typevartuple_args.py:32:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int, str]']
-Line 42: Unexpected errors ['./generics_typevartuple_args.py:42:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, ...]), node=<ast.Subscript object at 0x...>) [invalid_annotation]']
-Line 51: Unexpected errors ['./generics_typevartuple_args.py:51:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, *tuple[str, ...], str]), node=<ast.Subscript object at 0x...>) [invalid_annotation]']
-Line 62: Unexpected errors ['./generics_typevartuple_args.py:62:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, str]), node=<ast.Subscript object at 0x...>) [invalid_annotation]']
+Line 20: Unexpected errors ["./generics_typevartuple_args.py:20:12:   tuple[Literal[1], Literal['a']] is not equivalent to tuple[int, str]"]
 """
 output = """
-./generics_typevartuple_args.py:16:25: Unrecognized annotation _StarredValue(value=KnownValue(val=Ts), node=<ast.Name object at 0x...>) [invalid_annotation]
-./generics_typevartuple_args.py:20:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int, str]
-./generics_typevartuple_args.py:27:30: Unrecognized annotation _StarredValue(value=PartialValue(operation=<PartialValueOperation.SUBSCRIPT: 1>, root=KnownValue(val=<class 'tuple'>), node=<ast.Subscript object at 0x...>, members=(KnownValue(val=typing.Unpack[Ts]), SyntheticClassObjectValue(name='Env', class_type=TypedValue(typ='./generics_typevartuple_args.py.Env', literal_only=False))), runtime_value=TypedValue(typ=<class 'types.GenericAlias'>, literal_only=False)), node=<ast.Subscript object at 0x...>) [invalid_annotation]
-./generics_typevartuple_args.py:31:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[]
-./generics_typevartuple_args.py:32:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int, str]
-./generics_typevartuple_args.py:42:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, ...]), node=<ast.Subscript object at 0x...>) [invalid_annotation]
-./generics_typevartuple_args.py:51:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, *tuple[str, ...], str]), node=<ast.Subscript object at 0x...>) [invalid_annotation]
-./generics_typevartuple_args.py:62:17: Unrecognized annotation _StarredValue(value=KnownValue(val=tuple[int, str]), node=<ast.Subscript object at 0x...>) [invalid_annotation]
+./generics_typevartuple_args.py:20:12:   tuple[Literal[1], Literal['a']] is not equivalent to tuple[int, str]
+./generics_typevartuple_args.py:33:0: Incompatible argument type for args: expected tuple[*tuple[Ts, ...], ./generics_typevartuple_args.py.Env] but got tuple[Literal[0], Literal['']] [incompatible_argument]
+./generics_typevartuple_args.py:34:0: Incompatible argument type for args: expected tuple[*tuple[Ts, ...], ./generics_typevartuple_args.py.Env] but got tuple[Literal[0], Literal['']] [incompatible_argument]
+./generics_typevartuple_args.py:48:0: Incompatible argument type for args: expected tuple[int, ...] but got tuple[Literal[1], Literal['2'], Literal[3]] [incompatible_argument]
+./generics_typevartuple_args.py:57:0: Incompatible argument type for args: expected tuple[int, *tuple[str, ...], str] but got tuple[Literal[1], Literal[1], Literal['']] [incompatible_argument]
+./generics_typevartuple_args.py:58:0: Incompatible argument type for args: expected tuple[int, *tuple[str, ...], str] but got tuple[Literal[1]] [incompatible_argument]
+./generics_typevartuple_args.py:59:0: Incompatible argument type for args: expected tuple[int, *tuple[str, ...], str] but got tuple[Literal['']] [incompatible_argument]
+./generics_typevartuple_args.py:67:0: Missing required positional argument at position 1 [incompatible_call]
 """

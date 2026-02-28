@@ -1,18 +1,16 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 26: Unexpected errors ['./generics_typevartuple_concat.py:26:22: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]', './generics_typevartuple_concat.py:26:40: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]']
-Line 30: Unexpected errors ['./generics_typevartuple_concat.py:30:22: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]', './generics_typevartuple_concat.py:30:47: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]']
-Line 34: Unexpected errors ['./generics_typevartuple_concat.py:34:26: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]', './generics_typevartuple_concat.py:34:44: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]']
-Line 42: Unexpected errors ["./generics_typevartuple_concat.py:42:16:   typing.Generic[Any[error]] is not equivalent to ./generics_typevartuple_concat.py.Array[NewType('Height', int), NewType('Width', int)]"]
+Line 26: Unexpected errors ['./generics_typevartuple_concat.py:26:22: Unpack[] used in unsupported context [invalid_annotation]', './generics_typevartuple_concat.py:26:40: Unpack[] used in unsupported context [invalid_annotation]']
+Line 30: Unexpected errors ['./generics_typevartuple_concat.py:30:22: Unpack[] used in unsupported context [invalid_annotation]', './generics_typevartuple_concat.py:30:47: Unpack[] used in unsupported context [invalid_annotation]']
+Line 34: Unexpected errors ['./generics_typevartuple_concat.py:34:26: Unpack[] used in unsupported context [invalid_annotation]', './generics_typevartuple_concat.py:34:44: Unpack[] used in unsupported context [invalid_annotation]']
 Line 52: Unexpected errors ['./generics_typevartuple_concat.py:52:12:   tuple[Literal[0], *tuple[Any[generic_argument], ...]] is not equivalent to tuple[int, bool, str]']
 """
 output = """
-./generics_typevartuple_concat.py:26:22: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
-./generics_typevartuple_concat.py:26:40: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
-./generics_typevartuple_concat.py:30:22: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
-./generics_typevartuple_concat.py:30:47: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
-./generics_typevartuple_concat.py:34:26: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
-./generics_typevartuple_concat.py:34:44: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
-./generics_typevartuple_concat.py:42:16:   typing.Generic[Any[error]] is not equivalent to ./generics_typevartuple_concat.py.Array[NewType('Height', int), NewType('Width', int)]
+./generics_typevartuple_concat.py:26:22: Unpack[] used in unsupported context [invalid_annotation]
+./generics_typevartuple_concat.py:26:40: Unpack[] used in unsupported context [invalid_annotation]
+./generics_typevartuple_concat.py:30:22: Unpack[] used in unsupported context [invalid_annotation]
+./generics_typevartuple_concat.py:30:47: Unpack[] used in unsupported context [invalid_annotation]
+./generics_typevartuple_concat.py:34:26: Unpack[] used in unsupported context [invalid_annotation]
+./generics_typevartuple_concat.py:34:44: Unpack[] used in unsupported context [invalid_annotation]
 ./generics_typevartuple_concat.py:52:12:   tuple[Literal[0], *tuple[Any[generic_argument], ...]] is not equivalent to tuple[int, bool, str]
 """
