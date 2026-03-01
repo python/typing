@@ -1,0 +1,42 @@
+name: Conformance
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  conformance:
+    name: Run conformance suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install uv
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install uv
+
+      - name: Run conformance suite
+        working-directory: conformance
+        run: |
+          uv sync --python 3.12 --frozen
+          uv run --python 3.12 --frozen python src/main.py
+
+      - name: Assert conformance results are up to date
+        run: |
+          if [ -n "$(git status --porcelain -- conformance/results)" ]; then
+            git status --short conformance/results
+            git diff -- conformance/results
+            echo "Conformance results are out of date. Run conformance/src/main.py and commit updated results."
+            exit 1
+          fi

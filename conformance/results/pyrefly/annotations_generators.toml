@@ -22,5 +22,5 @@ ERROR annotations_generators.py:119:5-19: Cannot yield from `Generator[int, None
 ERROR annotations_generators.py:135:5-29: Cannot yield from `Generator[None, int, None]`, which is not assignable to declared return type `Generator[None, str, Unknown]` [invalid-yield]
 ERROR annotations_generators.py:140:5-13: This `yield` expression is unreachable [unreachable]
 ERROR annotations_generators.py:145:5-13: This `yield` expression is unreachable [unreachable]
-ERROR annotations_generators.py:190:5-10: This `yield` expression is unreachable [unreachable]
+ERROR annotations_generators.py:190:5-12: This `yield` expression is unreachable [unreachable]
 """

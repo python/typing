@@ -176,9 +176,9 @@
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.408</div>
 </th>
-<th class='tc-header'><div class='tc-name'>zuban 0.6.0</div>
+<th class='tc-header'><div class='tc-name'>zuban 0.6.1</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyrefly 0.53.0</div>
+<th class='tc-header'><div class='tc-name'>pyrefly 0.54.0</div>
 </th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -220,7 +220,7 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeforms_typeform</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support assigning Union and GenericAlias objects to their runtime types.</p></span></div></th>
 <th class="column col2 not-conformant">Unknown</th>
-<th class="column col2 not-conformant">Unknown</th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant">Unknown</th>
 </tr>
 <tr><th class="column" colspan="5">
@@ -362,7 +362,7 @@
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_syntax_infer_variance</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet support.</p></span></div></th>
+<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Type parameter syntax not yet supported.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
@@ -425,7 +425,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of type variable within an upper bound.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Cannot find a common supertype of `list[int]` and `set[int]` in order to solve a type variable bound to `Sized`.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_variance</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of class-scoped TypeVar used in a base class when variance is incompatible.</p></span></div></th>
@@ -512,7 +512,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects some recursive type aliases using TypeAliasType.</p><p>Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect circular definitions.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_variance</th>
 <th class="column col2 conformant">Pass</th>

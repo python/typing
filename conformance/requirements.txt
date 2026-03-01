@@ -1,7 +1,0 @@
-tomli
-tomlkit
-pyright
-mypy
-pip
-zuban
-pyrefly
