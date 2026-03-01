@@ -8,10 +8,6 @@ Line 104: Expected 1 errors
 Line 106: Expected 1 errors
 Line 107: Expected 1 errors
 Line 108: Expected 1 errors
-Line 30: Unexpected errors ["./protocols_class_objects.py:30:4: Incompatible argument type for cls: expected type[./protocols_class_objects.py.Proto (Protocol with members 'meth')] but got <class 'Concrete'> [incompatible_argument]"]
-Line 35: Unexpected errors ["./protocols_class_objects.py:35:0: Incompatible assignment: expected type[./protocols_class_objects.py.Proto (Protocol with members 'meth')], got <class 'Concrete'> [incompatible_assignment]"]
 """
 output = """
-./protocols_class_objects.py:30:4: Incompatible argument type for cls: expected type[./protocols_class_objects.py.Proto (Protocol with members 'meth')] but got <class 'Concrete'> [incompatible_argument]
-./protocols_class_objects.py:35:0: Incompatible assignment: expected type[./protocols_class_objects.py.Proto (Protocol with members 'meth')], got <class 'Concrete'> [incompatible_assignment]
 """

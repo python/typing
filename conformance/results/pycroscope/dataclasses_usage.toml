@@ -12,11 +12,12 @@ Line 41: Unexpected errors ["./dataclasses_usage.py:41:6: ./dataclasses_usage.py
 Line 42: Unexpected errors ["./dataclasses_usage.py:42:6: ./dataclasses_usage.py.InventoryItem has no attribute '__le__' [undefined_attribute]"]
 Line 43: Unexpected errors ["./dataclasses_usage.py:43:6: ./dataclasses_usage.py.InventoryItem has no attribute '__gt__' [undefined_attribute]"]
 Line 44: Unexpected errors ["./dataclasses_usage.py:44:6: ./dataclasses_usage.py.InventoryItem has no attribute '__ge__' [undefined_attribute]"]
+Line 106: Unexpected errors ['./dataclasses_usage.py:106:12:   () -> int is not equivalent to (str, /) -> int']
 Line 191: Unexpected errors ['./dataclasses_usage.py:191:4: Value of prop_2 incompatible with base class ./dataclasses_usage.py.DC14 [incompatible_override]']
 Line 196: Unexpected errors ['./dataclasses_usage.py:196:12:   Any[from_another] is not equivalent to str']
 Line 198: Unexpected errors ["./dataclasses_usage.py:198:12:   Literal['hello'] is not equivalent to str"]
 Line 205: Unexpected errors ["./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='__hash__'), attribute_type=KnownValue(val=None))] [incompatible_assignment]"]
-Line 220: Unexpected errors ['./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17', './dataclasses_usage.py:220:12: Takes 0 positional arguments but 1 were given [incompatible_call]']
+Line 220: Unexpected errors ['./dataclasses_usage.py:220:12: In call to object.__init__: Takes 0 positional arguments but 1 were given [incompatible_call]']
 """
 output = """
 ./dataclasses_usage.py:35:29: ./dataclasses_usage.py.InventoryItem has no attribute '__init__' [undefined_attribute]
@@ -31,6 +32,7 @@ output = """
 ./dataclasses_usage.py:51:27: Incompatible argument type for unit_price: expected float | int but got Literal['price'] [incompatible_argument]
 ./dataclasses_usage.py:52:5: Takes 3 positional arguments but 4 were given [incompatible_call]
 ./dataclasses_usage.py:83:5: Takes 1 positional arguments but 2 were given [incompatible_call]
+./dataclasses_usage.py:106:12:   () -> int is not equivalent to (str, /) -> int
 ./dataclasses_usage.py:127:0: Takes 1 positional arguments but 2 were given [incompatible_call]
 ./dataclasses_usage.py:130:0: Missing required argument 'y' [incompatible_call]
 ./dataclasses_usage.py:179:0: Missing required argument 'x_squared' [incompatible_call]
@@ -38,6 +40,5 @@ output = """
 ./dataclasses_usage.py:196:12:   Any[from_another] is not equivalent to str
 ./dataclasses_usage.py:198:12:   Literal['hello'] is not equivalent to str
 ./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='__hash__'), attribute_type=KnownValue(val=None))] [incompatible_assignment]
-./dataclasses_usage.py:220:12:   Any[from_another] is not equivalent to ./dataclasses_usage.py.DC17
-./dataclasses_usage.py:220:12: Takes 0 positional arguments but 1 were given [incompatible_call]
+./dataclasses_usage.py:220:12: In call to object.__init__: Takes 0 positional arguments but 1 were given [incompatible_call]
 """

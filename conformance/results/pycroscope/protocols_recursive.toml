@@ -1,9 +1,7 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 38: Unexpected errors ["./protocols_recursive.py:38:5: Incompatible argument type for graph: expected ./protocols_recursive.py.Traversable (Protocol with members 'leaves') but got ./protocols_recursive.py.Tree[float | int] [incompatible_argument]"]
 Line 81: Unexpected errors ['./protocols_recursive.py:81:12:   Any[generic_argument] is not equivalent to list[int]']
 """
 output = """
-./protocols_recursive.py:38:5: Incompatible argument type for graph: expected ./protocols_recursive.py.Traversable (Protocol with members 'leaves') but got ./protocols_recursive.py.Tree[float | int] [incompatible_argument]
 ./protocols_recursive.py:81:12:   Any[generic_argument] is not equivalent to list[int]
 """

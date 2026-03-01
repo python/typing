@@ -1,11 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 43: Expected 1 errors
-Line 44: Expected 1 errors
-Line 45: Expected 1 errors
-Line 46: Expected 1 errors
-Line 47: Expected 1 errors
-Line 48: Expected 1 errors
 Line 52: Expected 1 errors
 Line 53: Expected 1 errors
 Line 54: Expected 1 errors
@@ -17,15 +11,18 @@ Line 59: Expected 1 errors
 Line 60: Expected 1 errors
 Line 61: Expected 1 errors
 Line 62: Expected 1 errors
+Line 63: Expected 1 errors
 Line 64: Expected 1 errors
-Line 66: Expected 1 errors
-Line 37: Unexpected errors ['./aliases_typealiastype.py:37:4: Expected 4 type arguments for type alias, got 5 [invalid_annotation]']
-Line 38: Unexpected errors ['./aliases_typealiastype.py:38:4: Expected 4 type arguments for type alias, got 5 [invalid_annotation]']
 """
 output = """
-./aliases_typealiastype.py:32:6: Literal[GoodAlias1] has no attribute 'other_attrib' [undefined_attribute]
-./aliases_typealiastype.py:37:4: Expected 4 type arguments for type alias, got 5 [invalid_annotation]
-./aliases_typealiastype.py:38:4: Expected 4 type arguments for type alias, got 5 [invalid_annotation]
-./aliases_typealiastype.py:40:4: Expected 4 type arguments for type alias, got 3 [invalid_annotation]
-./aliases_typealiastype.py:63:41: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]
+./aliases_typealiastype.py:32:6: int has no attribute 'other_attrib' [undefined_attribute]
+./aliases_typealiastype.py:40:4: Type argument int is not compatible with ~TStr: str [invalid_annotation]
+./aliases_typealiastype.py:43:0: Type alias cannot combine old-style TypeVar declarations with type statement parameters [invalid_annotation]
+./aliases_typealiastype.py:44:0: Type alias must declare type parameters in the type statement [invalid_annotation]
+./aliases_typealiastype.py:45:56: type_params argument to TypeAliasType must be a literal tuple [invalid_annotation]
+./aliases_typealiastype.py:46:0: Type alias BadAlias4 has a circular definition [invalid_annotation]
+./aliases_typealiastype.py:47:0: Type alias BadAlias5 has a circular definition [invalid_annotation]
+./aliases_typealiastype.py:48:0: Type alias BadAlias6 has a circular definition [invalid_annotation]
+./aliases_typealiastype.py:49:0: Type alias BadAlias7 has a circular definition [invalid_annotation]
+./aliases_typealiastype.py:66:0: Type alias BadAlias21 has a circular definition [invalid_annotation]
 """

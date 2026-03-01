@@ -1,14 +1,12 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 16: Expected 1 errors
-Line 79: Expected 1 errors
-Line 80: Expected 1 errors
-Line 102: Expected 1 errors
-Line 103: Expected 1 errors
-Line 37: Unexpected errors ["./protocols_subtyping.py:37:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto2 (Protocol with members 'method1'), got ./protocols_subtyping.py.Concrete2 [incompatible_assignment]"]
 """
 output = """
-./protocols_subtyping.py:37:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto2 (Protocol with members 'method1'), got ./protocols_subtyping.py.Concrete2 [incompatible_assignment]
+./protocols_subtyping.py:16:5: Cannot instantiate protocol class Proto1 [incompatible_call]
 ./protocols_subtyping.py:38:4: Incompatible assignment: expected ./protocols_subtyping.py.Concrete2, got ./protocols_subtyping.py.Proto2 (Protocol with members 'method1') [incompatible_assignment]
 ./protocols_subtyping.py:55:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto3 (Protocol with members 'method1', 'method2'), got ./protocols_subtyping.py.Proto2 (Protocol with members 'method1') [incompatible_assignment]
+./protocols_subtyping.py:79:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto4[int, float | int], got ./protocols_subtyping.py.Proto5[int] [incompatible_assignment]
+./protocols_subtyping.py:80:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto5[float | int], got ./protocols_subtyping.py.Proto4[int, int] [incompatible_assignment]
+./protocols_subtyping.py:102:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto7[int, float | int], got ./protocols_subtyping.py.Proto6[float | int, float | int] [incompatible_assignment]
+./protocols_subtyping.py:103:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto7[float | int, object], got ./protocols_subtyping.py.Proto6[float | int, float | int] [incompatible_assignment]
 """

@@ -1,13 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 64: Expected 1 errors
-Line 59: Unexpected errors ["./dataclasses_transform_field.py:59:0: Missing required argument 'id' [incompatible_call]"]
-Line 60: Unexpected errors ["./dataclasses_transform_field.py:60:0: Missing required argument 'id' [incompatible_call]"]
-Line 77: Unexpected errors ["./dataclasses_transform_field.py:77:0: Missing required argument 'id' [incompatible_call]"]
 """
 output = """
-./dataclasses_transform_field.py:59:0: Missing required argument 'id' [incompatible_call]
-./dataclasses_transform_field.py:60:0: Missing required argument 'id' [incompatible_call]
-./dataclasses_transform_field.py:75:0: Missing required argument 'id' [incompatible_call]
-./dataclasses_transform_field.py:77:0: Missing required argument 'id' [incompatible_call]
+./dataclasses_transform_field.py:64:0: Got an unexpected keyword argument 'id' [incompatible_call]
+./dataclasses_transform_field.py:75:0: Missing required argument 'name' [incompatible_call]
 """
