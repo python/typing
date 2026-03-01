@@ -1,16 +1,14 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 18: Unexpected errors ["./dataclasses_match_args.py:18:12:   Literal[('x',)] is not equivalent to tuple[Literal['x']]"]
-Line 26: Unexpected errors ["./dataclasses_match_args.py:26:12:   Any[error] is not equivalent to tuple[Literal['x']]", "./dataclasses_match_args.py:26:12: <class 'DC2'> has no attribute '__match_args__' [undefined_attribute]"]
-Line 34: Unexpected errors ["./dataclasses_match_args.py:34:12:   Any[error] is not equivalent to tuple[Literal['x']]", "./dataclasses_match_args.py:34:12: <class 'DC3'> has no attribute '__match_args__' [undefined_attribute]"]
+Line 26: Unexpected errors ["./dataclasses_match_args.py:26:12:   Literal[('x',)] is not equivalent to tuple[Literal['x']]"]
+Line 34: Unexpected errors ["./dataclasses_match_args.py:34:12:   Literal[('x',)] is not equivalent to tuple[Literal['x']]"]
 Line 49: Unexpected errors ['./dataclasses_match_args.py:49:12:   Literal[()] is not equivalent to tuple[]']
 """
 output = """
 ./dataclasses_match_args.py:18:12:   Literal[('x',)] is not equivalent to tuple[Literal['x']]
-./dataclasses_match_args.py:26:12:   Any[error] is not equivalent to tuple[Literal['x']]
-./dataclasses_match_args.py:26:12: <class 'DC2'> has no attribute '__match_args__' [undefined_attribute]
-./dataclasses_match_args.py:34:12:   Any[error] is not equivalent to tuple[Literal['x']]
-./dataclasses_match_args.py:34:12: <class 'DC3'> has no attribute '__match_args__' [undefined_attribute]
+./dataclasses_match_args.py:26:12:   Literal[('x',)] is not equivalent to tuple[Literal['x']]
+./dataclasses_match_args.py:34:12:   Literal[('x',)] is not equivalent to tuple[Literal['x']]
 ./dataclasses_match_args.py:42:0: <class 'DC4'> has no attribute '__match_args__' [undefined_attribute]
 ./dataclasses_match_args.py:49:12:   Literal[()] is not equivalent to tuple[]
 """

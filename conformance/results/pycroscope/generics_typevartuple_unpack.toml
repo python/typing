@@ -1,8 +1,6 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 30: Expected 1 errors
-Line 36: Unexpected errors ['./generics_typevartuple_unpack.py:36:29: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]']
 """
 output = """
-./generics_typevartuple_unpack.py:36:29: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
 """

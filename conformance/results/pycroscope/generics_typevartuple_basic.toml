@@ -1,28 +1,24 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 43: Expected 1 errors
-Line 52: Expected 1 errors
-Line 53: Expected 1 errors
-Line 56: Expected 1 errors
-Line 59: Expected 1 errors
 Line 89: Expected 1 errors
 Line 90: Expected 1 errors
 Line 99: Expected 1 errors
 Line 100: Expected 1 errors
-Line 106: Expected 1 errors
 Lines 44, 45: Expected error (tag 'v6')
-Line 57: Unexpected errors ['./generics_typevartuple_basic.py:57:8: Incompatible return type: expected tuple[Shape], got tuple[*tuple[Shape, ...]] [incompatible_return_value]']
+Line 57: Unexpected errors ['./generics_typevartuple_basic.py:57:8: Incompatible return type: expected tuple[Any[error]], got tuple[*tuple[Shape, ...]] [incompatible_return_value]']
 Line 84: Unexpected errors ['./generics_typevartuple_basic.py:84:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int]']
-Line 93: Unexpected errors ['./generics_typevartuple_basic.py:93:16: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]', './generics_typevartuple_basic.py:93:34: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]', './generics_typevartuple_basic.py:93:52: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]']
 """
 output = """
 ./generics_typevartuple_basic.py:42:33: Incompatible argument type for shape: expected tuple[*tuple[Shape, ...]] but got NewType('Height', int) [incompatible_argument]
-./generics_typevartuple_basic.py:57:8: Incompatible return type: expected tuple[Shape], got tuple[*tuple[Shape, ...]] [incompatible_return_value]
+./generics_typevartuple_basic.py:52:21: TypeVarTuple must be unpacked [invalid_annotation]
+./generics_typevartuple_basic.py:53:30: TypeVarTuple must be unpacked [invalid_annotation]
+./generics_typevartuple_basic.py:56:27: TypeVarTuple must be unpacked [invalid_annotation]
+./generics_typevartuple_basic.py:57:8: Incompatible return type: expected tuple[Any[error]], got tuple[*tuple[Shape, ...]] [incompatible_return_value]
+./generics_typevartuple_basic.py:59:17: TypeVarTuple must be unpacked [invalid_annotation]
 ./generics_typevartuple_basic.py:65:6: In call to typing.TypeVarTuple: Got an unexpected keyword argument 'covariant' [incompatible_call]
 ./generics_typevartuple_basic.py:66:6: In call to typing.TypeVarTuple: Takes 1 positional arguments but 3 were given [incompatible_call]
 ./generics_typevartuple_basic.py:67:6: In call to typing.TypeVarTuple: Got an unexpected keyword argument 'bound' [incompatible_call]
 ./generics_typevartuple_basic.py:84:12:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[int]
-./generics_typevartuple_basic.py:93:16: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
-./generics_typevartuple_basic.py:93:34: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
-./generics_typevartuple_basic.py:93:52: Unrecognized annotation typing.Unpack[Shape] [invalid_annotation]
+./generics_typevartuple_basic.py:106:21: Only one TypeVarTuple can be used in a type parameter list [invalid_annotation]
 """

@@ -12,5 +12,5 @@ output = """
 ./dataclasses_usage.py:88:4: Dataclass default_factory return type is incompatible with field type int [incompatible_assignment]
 ./dataclasses_usage.py:127:0: Takes 1 positional arguments but 2 were given [incompatible_call]
 ./dataclasses_usage.py:130:0: Missing required argument 'y' [incompatible_call]
-./dataclasses_usage.py:179:0: Missing required argument 'x_squared' [incompatible_call]
+./dataclasses_usage.py:179:0: In call to object.__init__: Takes 0 positional arguments but 1 were given [incompatible_call]
 """
