@@ -5,7 +5,6 @@ Line 187: Expected 1 errors
 Line 196: Unexpected errors ["./callables_protocol.py:196:6: typing.Protocol[(x: int) -> Any[unannotated], str] has no attribute 'other_attribute' [undefined_attribute]"]
 Line 199: Unexpected errors ['./callables_protocol.py:199:0: typing.Protocol[(x: int) -> Any[unannotated], str] is not callable [not_callable]']
 Line 204: Unexpected errors ["./callables_protocol.py:204:4: Value of __module__ incompatible with base class <class 'typing.Protocol'> [incompatible_override]"]
-Line 206: Unexpected errors ["./callables_protocol.py:206:4: Value of __annotations__ incompatible with base class <class 'typing.Protocol'> [incompatible_override]"]
 """
 output = """
 ./callables_protocol.py:35:0: Incompatible assignment: expected ./callables_protocol.py.Proto1 (Protocol with members '__call__'), got (*vals: tuple[bytes, ...], max_items: int | None) -> list[bytes] [incompatible_assignment]
@@ -22,7 +21,6 @@ output = """
 ./callables_protocol.py:197:6: typing.Protocol[(x: int) -> Any[unannotated], str] has no attribute 'other_attribute2' [undefined_attribute]
 ./callables_protocol.py:199:0: typing.Protocol[(x: int) -> Any[unannotated], str] is not callable [not_callable]
 ./callables_protocol.py:204:4: Value of __module__ incompatible with base class <class 'typing.Protocol'> [incompatible_override]
-./callables_protocol.py:206:4: Value of __annotations__ incompatible with base class <class 'typing.Protocol'> [incompatible_override]
 ./callables_protocol.py:238:0: Incompatible assignment: expected ./callables_protocol.py.Proto11 (Protocol with members '__call__'), got (x: int, y: str, /) -> Any[explicit] [incompatible_assignment]
 ./callables_protocol.py:260:0: Incompatible assignment: expected ./callables_protocol.py.Proto12 (Protocol with members '__call__'), got (*args: tuple[Any[explicit], ...], kwarg0: Any[explicit]) -> None [incompatible_assignment]
 ./callables_protocol.py:284:0: Incompatible assignment: expected ./callables_protocol.py.Proto13_Default (Protocol with members '__call__'), got (path: str) -> str [incompatible_assignment]
