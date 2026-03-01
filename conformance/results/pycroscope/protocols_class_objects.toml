@@ -5,9 +5,11 @@ Line 34: Expected 1 errors
 Line 58: Expected 1 errors
 Line 74: Expected 1 errors
 Line 104: Expected 1 errors
-Line 106: Expected 1 errors
 Line 107: Expected 1 errors
-Line 108: Expected 1 errors
+Line 105: Unexpected errors ["./protocols_class_objects.py:105:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2 (Protocol with members 'attr1'), got <class 'ConcreteC1'> [incompatible_assignment]"]
 """
 output = """
+./protocols_class_objects.py:105:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2 (Protocol with members 'attr1'), got <class 'ConcreteC1'> [incompatible_assignment]
+./protocols_class_objects.py:106:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1 (Protocol with members 'attr1'), got <class 'ConcreteC2'> [incompatible_assignment]
+./protocols_class_objects.py:108:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1 (Protocol with members 'attr1'), got <class 'ConcreteC3'> [incompatible_assignment]
 """

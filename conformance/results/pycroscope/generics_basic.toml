@@ -10,7 +10,7 @@ Line 171: Expected 1 errors
 Line 172: Expected 1 errors
 Line 208: Expected 1 errors
 Line 34: Unexpected errors ['./generics_basic.py:34:11: Unsupported operands for addition: ~AnyStr: (str, bytes) and ~AnyStr: (str, bytes) [unsupported_operation]']
-Line 106: Unexpected errors ['./generics_basic.py:106:20:   Any[from_another] is not equivalent to int']
+Line 106: Unexpected errors ['./generics_basic.py:106:20:   Any[generic_argument] is not equivalent to int']
 Line 154: Unexpected errors ['./generics_basic.py:154:16:   Any[generic_argument] is not equivalent to int']
 Line 155: Unexpected errors ['./generics_basic.py:155:16:   Any[generic_argument] is not equivalent to int']
 """
@@ -20,7 +20,7 @@ output = """
 ./generics_basic.py:41:4: Cannot resolve type variables [incompatible_call]
 ./generics_basic.py:49:17: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: A single constraint is not allowed [incompatible_call]
 ./generics_basic.py:69:4: Cannot resolve type variables [incompatible_call]
-./generics_basic.py:106:20:   Any[from_another] is not equivalent to int
+./generics_basic.py:106:20:   Any[generic_argument] is not equivalent to int
 ./generics_basic.py:154:16:   Any[generic_argument] is not equivalent to int
 ./generics_basic.py:155:16:   Any[generic_argument] is not equivalent to int
 """

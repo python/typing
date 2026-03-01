@@ -1,10 +1,6 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 24: Expected 1 errors
 Line 50: Expected 1 errors
-Line 107: Expected 1 errors
-Line 114: Expected 1 errors
-Line 143: Expected 1 errors
 Line 30: Unexpected errors ["./generics_defaults.py:30:12:   <class 'NoNonDefaults'> is not equivalent to type[./generics_defaults.py.NoNonDefaults[str, int]]"]
 Line 31: Unexpected errors ["./generics_defaults.py:31:12:   Any[from_another] (partial from <class 'NoNonDefaults'>[type 'str']) is not equivalent to type[./generics_defaults.py.NoNonDefaults[str, int]]"]
 Line 32: Unexpected errors ["./generics_defaults.py:32:12:   Any[from_another] (partial from <class 'NoNonDefaults'>[type 'str', type 'int']) is not equivalent to type[./generics_defaults.py.NoNonDefaults[str, int]]"]
@@ -21,6 +17,7 @@ Line 156: Unexpected errors ["./generics_defaults.py:156:12:   Any[from_another]
 Line 157: Unexpected errors ["./generics_defaults.py:157:12:   Any[from_another] (partial from <class 'Foo6'>[type 'int', type 'str', Literal[[<class 'bytes'>]]]) is not equivalent to type[./generics_defaults.py.Foo6[int, str, Any[error]]]", "./generics_defaults.py:157:0: Invalid type annotation [<class 'bytes'>] [invalid_annotation]"]
 """
 output = """
+./generics_defaults.py:24:0: non-default TypeVars cannot follow ones with defaults [invalid_annotation]
 ./generics_defaults.py:30:12:   <class 'NoNonDefaults'> is not equivalent to type[./generics_defaults.py.NoNonDefaults[str, int]]
 ./generics_defaults.py:31:12:   Any[from_another] (partial from <class 'NoNonDefaults'>[type 'str']) is not equivalent to type[./generics_defaults.py.NoNonDefaults[str, int]]
 ./generics_defaults.py:32:12:   Any[from_another] (partial from <class 'NoNonDefaults'>[type 'str', type 'int']) is not equivalent to type[./generics_defaults.py.NoNonDefaults[str, int]]
@@ -33,7 +30,10 @@ output = """
 ./generics_defaults.py:64:4:   Any[from_another] (partial from <class 'AllTheDefaults'>[type 'int', type 'complex', type 'str', type 'int', type 'bool']) is not equivalent to type[./generics_defaults.py.AllTheDefaults[int, complex | float | int, str, int, bool]]
 ./generics_defaults.py:79:12:   <class 'Class_ParamSpec'> is not equivalent to type[./generics_defaults.py.Class_ParamSpec[str, int]]
 ./generics_defaults.py:94:12:   <class 'Class_TypeVarTuple'> is not equivalent to type[./generics_defaults.py.Class_TypeVarTuple[tuple[str, int]]]
+./generics_defaults.py:107:11: the bound and default are incompatible [invalid_annotation]
+./generics_defaults.py:114:11: TypeVar default must be one of its constraints [invalid_annotation]
 ./generics_defaults.py:131:12:   Any[generic_argument] is not equivalent to int
+./generics_defaults.py:143:0: TypeVars with defaults cannot follow TypeVarTuples [invalid_annotation]
 ./generics_defaults.py:156:12:   Any[from_another] (partial from <class 'Foo6'>[type 'int', type 'str']) is not equivalent to type[./generics_defaults.py.Foo6[int, str, Any[error]]]
 ./generics_defaults.py:156:0: Invalid type annotation [<class 'float'>, <class 'bool'>] [invalid_annotation]
 ./generics_defaults.py:157:12:   Any[from_another] (partial from <class 'Foo6'>[type 'int', type 'str', Literal[[<class 'bytes'>]]]) is not equivalent to type[./generics_defaults.py.Foo6[int, str, Any[error]]]
