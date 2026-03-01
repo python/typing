@@ -6,5 +6,5 @@ output = """
 ./constructors_call_init.py:42:7: Incompatible argument type for x: expected ./constructors_call_init.py.Class3 | None but got ./constructors_call_init.py.Class2[Any[generic_argument]] [incompatible_argument]
 ./constructors_call_init.py:56:0: Missing required positional argument '%self' [incompatible_call]
 ./constructors_call_init.py:107:17: Class-scoped type variables are not allowed in __init__ self annotation [invalid_annotation]
-./constructors_call_init.py:130:0: Takes 0 positional arguments but 1 were given [incompatible_call]
+./constructors_call_init.py:130:0: In call to object.__init__: Takes 0 positional arguments but 1 were given [incompatible_call]
 """

@@ -2,8 +2,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 186: Expected 1 errors
 Line 187: Expected 1 errors
-Line 135: Unexpected errors ['./callables_protocol.py:135:0: Incompatible assignment: expected ./callables_protocol.py.Proto7[int, int], got int [incompatible_assignment]', "./callables_protocol.py:135:26: Missing required argument 'self' [incompatible_call]"]
-Line 144: Unexpected errors ['./callables_protocol.py:144:0: Incompatible assignment: expected ./callables_protocol.py.Proto7[int, int], got int [incompatible_assignment]', "./callables_protocol.py:144:26: Missing required argument 'self' [incompatible_call]"]
 Line 196: Unexpected errors ["./callables_protocol.py:196:6: typing.Protocol[(x: int) -> Any[unannotated], str] has no attribute 'other_attribute' [undefined_attribute]"]
 Line 199: Unexpected errors ['./callables_protocol.py:199:0: typing.Protocol[(x: int) -> Any[unannotated], str] is not callable [not_callable]']
 Line 204: Unexpected errors ["./callables_protocol.py:204:4: Value of __module__ incompatible with base class <class 'typing.Protocol'> [incompatible_override]"]
@@ -19,10 +17,6 @@ output = """
 ./callables_protocol.py:70:0: Incompatible assignment: expected ./callables_protocol.py.Proto2 (Protocol with members '__call__'), got (**b: dict[str, str]) -> Any[unannotated] [incompatible_assignment]
 ./callables_protocol.py:97:0: Incompatible assignment: expected ./callables_protocol.py.Proto4 (Protocol with members '__call__', 'other_attribute'), got (x: int) -> None [incompatible_assignment]
 ./callables_protocol.py:121:0: Incompatible assignment: expected ./callables_protocol.py.NotProto6, got (*vals: tuple[bytes, ...], max_len: int | None = None) -> list[bytes] [incompatible_assignment]
-./callables_protocol.py:135:0: Incompatible assignment: expected ./callables_protocol.py.Proto7[int, int], got int [incompatible_assignment]
-./callables_protocol.py:135:26: Missing required argument 'self' [incompatible_call]
-./callables_protocol.py:144:0: Incompatible assignment: expected ./callables_protocol.py.Proto7[int, int], got int [incompatible_assignment]
-./callables_protocol.py:144:26: Missing required argument 'self' [incompatible_call]
 ./callables_protocol.py:169:0: Incompatible assignment: expected ./callables_protocol.py.Proto8 (Protocol with members '__call__'), got (x: int) -> Any[explicit] [incompatible_assignment]
 ./callables_protocol.py:196:6: typing.Protocol[(x: int) -> Any[unannotated], str] has no attribute 'other_attribute' [undefined_attribute]
 ./callables_protocol.py:197:6: typing.Protocol[(x: int) -> Any[unannotated], str] has no attribute 'other_attribute2' [undefined_attribute]

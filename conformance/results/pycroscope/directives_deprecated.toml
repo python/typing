@@ -9,10 +9,10 @@ Line 42: Expected 1 errors
 Line 44: Expected 1 errors
 Line 47: Expected 1 errors
 Line 48: Expected 1 errors
+Line 58: Expected 1 errors
 Line 69: Expected 1 errors
 Line 98: Expected 1 errors
 """
 output = """
-./directives_deprecated.py:58:0: Annotated[./directives_deprecated.py.Invocable, HasAttrExtension(attribute_name=KnownValue(val='__call__'), attribute_type=AnyValue(source=<AnySource.from_another: 8>))] is not callable [not_callable]
 ./directives_deprecated.py:90:4: Method does not override any base method [override_does_not_override]
 """

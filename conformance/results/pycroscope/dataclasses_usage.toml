@@ -1,44 +1,16 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 88: Expected 1 errors
-Lines 58, 60, 61: Expected error (tag 'DC1')
-Lines 64, 66, 67: Expected error (tag 'DC2')
-Lines 70, 72, 73: Expected error (tag 'DC3')
-Line 35: Unexpected errors ["./dataclasses_usage.py:35:29: ./dataclasses_usage.py.InventoryItem has no attribute '__init__' [undefined_attribute]"]
-Line 38: Unexpected errors ["./dataclasses_usage.py:38:6: ./dataclasses_usage.py.InventoryItem has no attribute '__repr__' [undefined_attribute]"]
-Line 39: Unexpected errors ["./dataclasses_usage.py:39:6: ./dataclasses_usage.py.InventoryItem has no attribute '__eq__' [undefined_attribute]"]
-Line 40: Unexpected errors ["./dataclasses_usage.py:40:6: ./dataclasses_usage.py.InventoryItem has no attribute '__ne__' [undefined_attribute]"]
-Line 41: Unexpected errors ["./dataclasses_usage.py:41:6: ./dataclasses_usage.py.InventoryItem has no attribute '__lt__' [undefined_attribute]"]
-Line 42: Unexpected errors ["./dataclasses_usage.py:42:6: ./dataclasses_usage.py.InventoryItem has no attribute '__le__' [undefined_attribute]"]
-Line 43: Unexpected errors ["./dataclasses_usage.py:43:6: ./dataclasses_usage.py.InventoryItem has no attribute '__gt__' [undefined_attribute]"]
-Line 44: Unexpected errors ["./dataclasses_usage.py:44:6: ./dataclasses_usage.py.InventoryItem has no attribute '__ge__' [undefined_attribute]"]
-Line 106: Unexpected errors ['./dataclasses_usage.py:106:12:   () -> int is not equivalent to (str, /) -> int']
-Line 191: Unexpected errors ['./dataclasses_usage.py:191:4: Value of prop_2 incompatible with base class ./dataclasses_usage.py.DC14 [incompatible_override]']
-Line 196: Unexpected errors ['./dataclasses_usage.py:196:12:   Any[from_another] is not equivalent to str']
-Line 198: Unexpected errors ["./dataclasses_usage.py:198:12:   Literal['hello'] is not equivalent to str"]
-Line 205: Unexpected errors ["./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='__hash__'), attribute_type=KnownValue(val=None))] [incompatible_assignment]"]
-Line 220: Unexpected errors ['./dataclasses_usage.py:220:12: In call to object.__init__: Takes 0 positional arguments but 1 were given [incompatible_call]']
 """
 output = """
-./dataclasses_usage.py:35:29: ./dataclasses_usage.py.InventoryItem has no attribute '__init__' [undefined_attribute]
-./dataclasses_usage.py:38:6: ./dataclasses_usage.py.InventoryItem has no attribute '__repr__' [undefined_attribute]
-./dataclasses_usage.py:39:6: ./dataclasses_usage.py.InventoryItem has no attribute '__eq__' [undefined_attribute]
-./dataclasses_usage.py:40:6: ./dataclasses_usage.py.InventoryItem has no attribute '__ne__' [undefined_attribute]
-./dataclasses_usage.py:41:6: ./dataclasses_usage.py.InventoryItem has no attribute '__lt__' [undefined_attribute]
-./dataclasses_usage.py:42:6: ./dataclasses_usage.py.InventoryItem has no attribute '__le__' [undefined_attribute]
-./dataclasses_usage.py:43:6: ./dataclasses_usage.py.InventoryItem has no attribute '__gt__' [undefined_attribute]
-./dataclasses_usage.py:44:6: ./dataclasses_usage.py.InventoryItem has no attribute '__ge__' [undefined_attribute]
 ./dataclasses_usage.py:50:5: Missing required argument 'unit_price' [incompatible_call]
 ./dataclasses_usage.py:51:27: Incompatible argument type for unit_price: expected float | int but got Literal['price'] [incompatible_argument]
 ./dataclasses_usage.py:52:5: Takes 3 positional arguments but 4 were given [incompatible_call]
+./dataclasses_usage.py:58:1: Dataclass fields without defaults cannot follow fields with defaults [invalid_annotation]
+./dataclasses_usage.py:64:1: Dataclass fields without defaults cannot follow fields with defaults [invalid_annotation]
+./dataclasses_usage.py:70:1: Dataclass fields without defaults cannot follow fields with defaults [invalid_annotation]
 ./dataclasses_usage.py:83:5: Takes 1 positional arguments but 2 were given [incompatible_call]
-./dataclasses_usage.py:106:12:   () -> int is not equivalent to (str, /) -> int
+./dataclasses_usage.py:88:4: Dataclass default_factory return type is incompatible with field type int [incompatible_assignment]
 ./dataclasses_usage.py:127:0: Takes 1 positional arguments but 2 were given [incompatible_call]
 ./dataclasses_usage.py:130:0: Missing required argument 'y' [incompatible_call]
 ./dataclasses_usage.py:179:0: Missing required argument 'x_squared' [incompatible_call]
-./dataclasses_usage.py:191:4: Value of prop_2 incompatible with base class ./dataclasses_usage.py.DC14 [incompatible_override]
-./dataclasses_usage.py:196:12:   Any[from_another] is not equivalent to str
-./dataclasses_usage.py:198:12:   Literal['hello'] is not equivalent to str
-./dataclasses_usage.py:205:0: Incompatible assignment: expected ./dataclasses_usage.py.DataclassProto (Protocol with members '__dataclass_fields__'), got Annotated[./dataclasses_usage.py.DC15, HasAttrExtension(attribute_name=KnownValue(val='prop_2'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='__hash__'), attribute_type=KnownValue(val=None))] [incompatible_assignment]
-./dataclasses_usage.py:220:12: In call to object.__init__: Takes 0 positional arguments but 1 were given [incompatible_call]
 """

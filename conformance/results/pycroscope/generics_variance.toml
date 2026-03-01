@@ -1,34 +1,18 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 191: Expected 1 errors
-Lines 195, 196: Expected error (tag 'ContraToContraToContra_WithTA')
-Line 85: Unexpected errors ['./generics_variance.py:85:16: T_co has incompatible variance in base class [invalid_annotation]']
-Line 97: Unexpected errors ['./generics_variance.py:97:20: T_contra has incompatible variance in base class [invalid_annotation]']
-Line 109: Unexpected errors ['./generics_variance.py:109:20: T_contra has incompatible variance in base class [invalid_annotation]']
-Line 121: Unexpected errors ['./generics_variance.py:121:22: T_co has incompatible variance in base class [invalid_annotation]']
-Line 147: Unexpected errors ['./generics_variance.py:147:17: T_contra has incompatible variance in base class [invalid_annotation]']
-Line 151: Unexpected errors ['./generics_variance.py:151:21: T_co has incompatible variance in base class [invalid_annotation]']
-Line 155: Unexpected errors ['./generics_variance.py:155:13: T_co has incompatible variance in base class [invalid_annotation]']
-Line 159: Unexpected errors ['./generics_variance.py:159:17: T_contra has incompatible variance in base class [invalid_annotation]']
 """
 output = """
 ./generics_variance.py:14:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: Bivariant types are not supported. [incompatible_call]
 ./generics_variance.py:77:13: T_co has incompatible variance in base class [invalid_annotation]
 ./generics_variance.py:81:13: T_contra has incompatible variance in base class [invalid_annotation]
-./generics_variance.py:85:16: T_co has incompatible variance in base class [invalid_annotation]
 ./generics_variance.py:93:16: T_contra has incompatible variance in base class [invalid_annotation]
-./generics_variance.py:97:20: T_contra has incompatible variance in base class [invalid_annotation]
 ./generics_variance.py:105:20: T_co has incompatible variance in base class [invalid_annotation]
-./generics_variance.py:109:20: T_contra has incompatible variance in base class [invalid_annotation]
 ./generics_variance.py:113:20: T_co has incompatible variance in base class [invalid_annotation]
-./generics_variance.py:121:22: T_co has incompatible variance in base class [invalid_annotation]
 ./generics_variance.py:126:4: T_co has incompatible variance in base class [invalid_annotation]
 ./generics_variance.py:132:4: T_contra has incompatible variance in base class [invalid_annotation]
 ./generics_variance.py:142:4: T_co has incompatible variance in base class [invalid_annotation]
-./generics_variance.py:147:17: T_contra has incompatible variance in base class [invalid_annotation]
-./generics_variance.py:151:21: T_co has incompatible variance in base class [invalid_annotation]
-./generics_variance.py:155:13: T_co has incompatible variance in base class [invalid_annotation]
-./generics_variance.py:159:17: T_contra has incompatible variance in base class [invalid_annotation]
 ./generics_variance.py:163:25: T_contra has incompatible variance in base class [invalid_annotation]
 ./generics_variance.py:167:29: T_co has incompatible variance in base class [invalid_annotation]
+./generics_variance.py:191:32: T_contra has incompatible variance in base class [invalid_annotation]
+./generics_variance.py:196:4: T_co has incompatible variance in base class [invalid_annotation]
 """

@@ -5,7 +5,8 @@ Line 112: Unexpected errors ["./dataclasses_transform_converter.py:112:10: Incom
 Line 114: Unexpected errors ["./dataclasses_transform_converter.py:114:0: Incompatible assignment: expected int, got Literal['f1'] [incompatible_assignment]"]
 Line 115: Unexpected errors ["./dataclasses_transform_converter.py:115:0: Incompatible assignment: expected ./dataclasses_transform_converter.py.ConverterClass, got Literal['f6'] [incompatible_assignment]"]
 Line 116: Unexpected errors ["./dataclasses_transform_converter.py:116:0: Incompatible assignment: expected ./dataclasses_transform_converter.py.ConverterClass, got Literal[b'f6'] [incompatible_assignment]"]
-Line 121: Unexpected errors ["./dataclasses_transform_converter.py:121:39: Incompatible argument type for field5: expected dict[~_KT, ~_VT] but got Literal[(('a', '1'), ('b', '2'))] [incompatible_argument]"]
+Line 121: Unexpected errors ["./dataclasses_transform_converter.py:121:10: Incompatible argument type for field0: expected int but got Literal['f0'] [incompatible_argument]", "./dataclasses_transform_converter.py:121:16: Incompatible argument type for field1: expected int but got Literal['f1'] [incompatible_argument]", "./dataclasses_transform_converter.py:121:22: Incompatible argument type for field2: expected int but got Literal['f2'] [incompatible_argument]", "./dataclasses_transform_converter.py:121:28: Incompatible argument type for field3: expected ./dataclasses_transform_converter.py.ConverterClass but got Literal['f6'] [incompatible_argument]", "./dataclasses_transform_converter.py:121:34: Incompatible argument type for field4: expected int but got Literal['1'] [incompatible_argument]", "./dataclasses_transform_converter.py:121:39: Incompatible argument type for field5: expected dict[str, str] but got Literal[(('a', '1'), ('b', '2'))] [incompatible_argument]"]
+Line 132: Unexpected errors ['./dataclasses_transform_converter.py:132:4: Dataclass default_factory return type is incompatible with field type int [incompatible_assignment]']
 """
 output = """
 ./dataclasses_transform_converter.py:48:40: Incompatible argument type for converter: expected (~S, /) -> ~T but got () -> int [incompatible_argument]
@@ -33,7 +34,13 @@ output = """
 ./dataclasses_transform_converter.py:115:0: Incompatible assignment: expected ./dataclasses_transform_converter.py.ConverterClass, got Literal['f6'] [incompatible_assignment]
 ./dataclasses_transform_converter.py:116:0: Incompatible assignment: expected ./dataclasses_transform_converter.py.ConverterClass, got Literal[b'f6'] [incompatible_assignment]
 ./dataclasses_transform_converter.py:119:0: Incompatible assignment: expected ./dataclasses_transform_converter.py.ConverterClass, got Literal[1] [incompatible_assignment]
-./dataclasses_transform_converter.py:121:39: Incompatible argument type for field5: expected dict[~_KT, ~_VT] but got Literal[(('a', '1'), ('b', '2'))] [incompatible_argument]
+./dataclasses_transform_converter.py:121:10: Incompatible argument type for field0: expected int but got Literal['f0'] [incompatible_argument]
+./dataclasses_transform_converter.py:121:16: Incompatible argument type for field1: expected int but got Literal['f1'] [incompatible_argument]
+./dataclasses_transform_converter.py:121:22: Incompatible argument type for field2: expected int but got Literal['f2'] [incompatible_argument]
+./dataclasses_transform_converter.py:121:28: Incompatible argument type for field3: expected ./dataclasses_transform_converter.py.ConverterClass but got Literal['f6'] [incompatible_argument]
+./dataclasses_transform_converter.py:121:34: Incompatible argument type for field4: expected int but got Literal['1'] [incompatible_argument]
+./dataclasses_transform_converter.py:121:39: Incompatible argument type for field5: expected dict[str, str] but got Literal[(('a', '1'), ('b', '2'))] [incompatible_argument]
 ./dataclasses_transform_converter.py:130:18: Cannot resolve type variables [incompatible_call]
+./dataclasses_transform_converter.py:132:4: Dataclass default_factory return type is incompatible with field type int [incompatible_assignment]
 ./dataclasses_transform_converter.py:133:18: Cannot resolve type variables [incompatible_call]
 """

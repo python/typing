@@ -1,9 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 129: Expected 1 errors
-Line 146: Expected 1 errors
-Line 128: Unexpected errors ['./constructors_callable.py:128:12:   ./constructors_callable.py.Class6 is not equivalent to ./constructors_callable.py.Class6Proxy', "./constructors_callable.py:128:12: Missing required argument 'x' [incompatible_call]"]
-Line 145: Unexpected errors ['./constructors_callable.py:145:12:   ./constructors_callable.py.Class6Any is not equivalent to Any[explicit]', "./constructors_callable.py:145:12: Missing required argument 'x' [incompatible_call]"]
 """
 output = """
 ./constructors_callable.py:36:12: Revealed type is '(x: int) -> ./constructors_callable.py.Class1' [reveal_type]
@@ -19,12 +15,10 @@ output = """
 ./constructors_callable.py:81:0: Missing required argument 'x' [incompatible_call]
 ./constructors_callable.py:82:0: Missing required argument 'x' [incompatible_call]
 ./constructors_callable.py:99:12: Revealed type is '(*args: tuple[Any[ellipsis_callable], ...], **kwargs: dict[str, Any[ellipsis_callable]]) -> Never' [reveal_type]
-./constructors_callable.py:127:12: Revealed type is '(x: int) -> ./constructors_callable.py.Class6' [reveal_type]
-./constructors_callable.py:128:12:   ./constructors_callable.py.Class6 is not equivalent to ./constructors_callable.py.Class6Proxy
-./constructors_callable.py:128:12: Missing required argument 'x' [incompatible_call]
-./constructors_callable.py:144:12: Revealed type is '(x: int) -> ./constructors_callable.py.Class6Any' [reveal_type]
-./constructors_callable.py:145:12:   ./constructors_callable.py.Class6Any is not equivalent to Any[explicit]
-./constructors_callable.py:145:12: Missing required argument 'x' [incompatible_call]
+./constructors_callable.py:127:12: Revealed type is '() -> ./constructors_callable.py.Class6Proxy' [reveal_type]
+./constructors_callable.py:129:0: Takes 0 positional arguments but 1 were given [incompatible_call]
+./constructors_callable.py:144:12: Revealed type is '() -> Any[explicit]' [reveal_type]
+./constructors_callable.py:146:0: Takes 0 positional arguments but 1 were given [incompatible_call]
 ./constructors_callable.py:164:4: Revealed type is '(x: ~_Ctor_Class7_T) -> ./constructors_callable.py.Class7[~_Ctor_Class7_T]' [reveal_type]
 ./constructors_callable.py:184:12: Revealed type is '(x: list[~T], y: list[~T]) -> ./constructors_callable.py.Class8[~T]' [reveal_type]
 ./constructors_callable.py:186:0: Cannot resolve type variables [incompatible_call]
