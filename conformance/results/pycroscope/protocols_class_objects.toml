@@ -6,9 +6,13 @@ Line 58: Expected 1 errors
 Line 74: Expected 1 errors
 Line 104: Expected 1 errors
 Line 107: Expected 1 errors
+Line 26: Unexpected errors ['./protocols_class_objects.py:26:11: Cannot instantiate protocol class Proto [incompatible_call]']
+Line 36: Unexpected errors ['./protocols_class_objects.py:36:0: Cannot instantiate protocol class Proto [incompatible_call]']
 Line 105: Unexpected errors ["./protocols_class_objects.py:105:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2 (Protocol with members 'attr1'), got <class 'ConcreteC1'> [incompatible_assignment]"]
 """
 output = """
+./protocols_class_objects.py:26:11: Cannot instantiate protocol class Proto [incompatible_call]
+./protocols_class_objects.py:36:0: Cannot instantiate protocol class Proto [incompatible_call]
 ./protocols_class_objects.py:105:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2 (Protocol with members 'attr1'), got <class 'ConcreteC1'> [incompatible_assignment]
 ./protocols_class_objects.py:106:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1 (Protocol with members 'attr1'), got <class 'ConcreteC2'> [incompatible_assignment]
 ./protocols_class_objects.py:108:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1 (Protocol with members 'attr1'), got <class 'ConcreteC3'> [incompatible_assignment]
