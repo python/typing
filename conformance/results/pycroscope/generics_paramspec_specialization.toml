@@ -1,20 +1,10 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 44: Expected 1 errors
-Line 54: Expected 1 errors
-Line 55: Expected 1 errors
-Line 60: Expected 1 errors
-Line 61: Expected 1 errors
-Line 28: Unexpected errors ["./generics_paramspec_specialization.py:28:14: Unrecognized annotation typing.Concatenate[<class 'int'>, ~P2] [invalid_annotation]"]
-Line 32: Unexpected errors ["./generics_paramspec_specialization.py:32:14: Invalid type annotation (<class 'int'>, <class 'bool'>) [invalid_annotation]"]
-Line 40: Unexpected errors ['./generics_paramspec_specialization.py:40:14: Invalid type annotation () [invalid_annotation]']
-Line 52: Unexpected errors ["./generics_paramspec_specialization.py:52:14: Invalid type annotation (<class 'int'>, <class 'str'>, <class 'bool'>) [invalid_annotation]"]
-Line 58: Unexpected errors ["./generics_paramspec_specialization.py:58:14: Invalid type annotation (<class 'int'>, <class 'str'>, <class 'bool'>) [invalid_annotation]"]
 """
 output = """
-./generics_paramspec_specialization.py:28:14: Unrecognized annotation typing.Concatenate[<class 'int'>, ~P2] [invalid_annotation]
-./generics_paramspec_specialization.py:32:14: Invalid type annotation (<class 'int'>, <class 'bool'>) [invalid_annotation]
-./generics_paramspec_specialization.py:40:14: Invalid type annotation () [invalid_annotation]
-./generics_paramspec_specialization.py:52:14: Invalid type annotation (<class 'int'>, <class 'str'>, <class 'bool'>) [invalid_annotation]
-./generics_paramspec_specialization.py:58:14: Invalid type annotation (<class 'int'>, <class 'str'>, <class 'bool'>) [invalid_annotation]
+./generics_paramspec_specialization.py:54:8: Incompatible argument type for @0: expected int but got Literal[''] [incompatible_argument]
+./generics_paramspec_specialization.py:55:15: Incompatible argument type for @2: expected bool but got Literal[''] [incompatible_argument]
+./generics_paramspec_specialization.py:60:8: Incompatible argument type for @0: expected int but got Literal[''] [incompatible_argument]
+./generics_paramspec_specialization.py:61:15: Incompatible argument type for @2: expected bool but got Literal[''] [incompatible_argument]
 """
