@@ -1,22 +1,28 @@
-conformance = "Unsupported"
-conformance_automated = "Pass"
+conformance = "Partial"
+notes = """
+TypeForm[Any] is not considered equivalent to itself.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 41: Unexpected errors ['typeforms_typeform.py:41: error: Expression is of type "typing.TypeForm(Any)", not "typing.TypeForm(Any)"  [misc]']
 """
 output = """
 typeforms_typeform.py:23: error: Incompatible types in assignment (expression has type "typing.TypeForm(str | int)", variable has type "typing.TypeForm(str | None)")  [assignment]
 typeforms_typeform.py:24: error: Incompatible types in assignment (expression has type "type[list[str | None]]", variable has type "typing.TypeForm(str | None)")  [assignment]
-typeforms_typeform.py:55: error: Invalid type comment or annotation  [valid-type]
-typeforms_typeform.py:56: error: Syntax error in type annotation  [valid-type]
-typeforms_typeform.py:56: note: Suggestion: Use Tuple[T1, ..., Tn] instead of (T1, ..., Tn)
-typeforms_typeform.py:57: error: Invalid type: try using Literal[1] instead?  [valid-type]
-typeforms_typeform.py:58: error: Self type is only allowed in annotations within class definition  [misc]
-typeforms_typeform.py:59: error: ClassVar can only be used for assignments in class body  [misc]
-typeforms_typeform.py:60: error: Final can be only used as an outermost qualifier in a variable annotation  [misc]
-typeforms_typeform.py:61: error: TypeVarTuple "Ts" is unbound  [misc]
-typeforms_typeform.py:62: error: Optional[...] must have exactly one type argument  [misc]
-typeforms_typeform.py:63: error: Invalid type comment or annotation  [valid-type]
-typeforms_typeform.py:74: error: Invalid type comment or annotation  [valid-type]
-typeforms_typeform.py:76: error: Invalid type comment or annotation  [valid-type]
-typeforms_typeform.py:86: error: Incompatible types in assignment (expression has type "typing.TypeForm(int)", variable has type "typing.TypeForm(str)")  [assignment]
-typeforms_typeform.py:96: error: Incompatible types in assignment (expression has type "type[int]", variable has type "typing.TypeForm(str)")  [assignment]
+typeforms_typeform.py:41: error: Expression is of type "typing.TypeForm(Any)", not "typing.TypeForm(Any)"  [misc]
+typeforms_typeform.py:59: error: Invalid syntax  [syntax]
+typeforms_typeform.py:67: error: Invalid type comment or annotation  [valid-type]
+typeforms_typeform.py:68: error: Syntax error in type annotation  [valid-type]
+typeforms_typeform.py:68: note: Suggestion: Use Tuple[T1, ..., Tn] instead of (T1, ..., Tn)
+typeforms_typeform.py:69: error: Invalid type: try using Literal[1] instead?  [valid-type]
+typeforms_typeform.py:70: error: Self type is only allowed in annotations within class definition  [misc]
+typeforms_typeform.py:71: error: ClassVar can only be used for assignments in class body  [misc]
+typeforms_typeform.py:72: error: Final can be only used as an outermost qualifier in a variable annotation  [misc]
+typeforms_typeform.py:73: error: TypeVarTuple "Ts" is unbound  [misc]
+typeforms_typeform.py:74: error: Optional[...] must have exactly one type argument  [misc]
+typeforms_typeform.py:75: error: Invalid type comment or annotation  [valid-type]
+typeforms_typeform.py:86: error: Invalid type comment or annotation  [valid-type]
+typeforms_typeform.py:88: error: Invalid type comment or annotation  [valid-type]
+typeforms_typeform.py:98: error: Incompatible types in assignment (expression has type "typing.TypeForm(int)", variable has type "typing.TypeForm(str)")  [assignment]
+typeforms_typeform.py:108: error: Incompatible types in assignment (expression has type "type[int]", variable has type "typing.TypeForm(str)")  [assignment]
 """
