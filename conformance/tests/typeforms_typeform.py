@@ -34,6 +34,12 @@ assert_type(v_str, TypeForm[str])
 v_any = v_str  # OK
 v_str = v_any  # OK
 
+# > The type expression ``TypeForm``, with no type argument provided, is
+# > equivalent to ``TypeForm[Any]``.
+
+def func1(x: TypeForm) -> None:
+    assert_type(x, TypeForm[Any])
+
 
 # > Valid type expressions are assignable to ``TypeForm`` through implicit TypeForm evaluation.
 
@@ -45,6 +51,12 @@ v2_type_form: TypeForm = list[int]  # OK
 
 v3: TypeForm[int | str] = Annotated[int | str, "metadata"]  # OK
 v4: TypeForm[set[str]] = "set[str]"  # OK
+
+func1(v3)  # OK
+func1(v4)  # OK
+func1(int)  # OK
+func1("int")  # OK
+func1("not a type")  # E
 
 
 # > Expressions that are not valid type expressions should not evaluate to a ``TypeForm`` type.
