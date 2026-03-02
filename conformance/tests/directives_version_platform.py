@@ -66,7 +66,7 @@ def test(a: int, b: str):
     this_raises = val10  # E?: `val10` is undefined, but support for `os.name` is optional
     does_not_raise = val11  # E? should not error if `os.name` control flow is supported, but might be flagged as possibly undefined otherwise
 
-    if os.name != "bogus_platform":
+    if os.name != "bogus_os":
         val12 = ""
     else:
         val13 = ""
