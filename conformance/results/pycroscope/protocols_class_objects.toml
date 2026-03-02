@@ -8,10 +8,10 @@ Line 36: Unexpected errors ['./protocols_class_objects.py:36:0: Cannot instantia
 output = """
 ./protocols_class_objects.py:26:11: Cannot instantiate protocol class Proto [incompatible_call]
 ./protocols_class_objects.py:36:0: Cannot instantiate protocol class Proto [incompatible_call]
-./protocols_class_objects.py:58:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoA1 (Protocol with members 'method1'), got <class 'ConcreteA'> [incompatible_assignment]
-./protocols_class_objects.py:74:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoB1 (Protocol with members 'prop1'), got <class 'ConcreteB'> [incompatible_assignment]
-./protocols_class_objects.py:104:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1 (Protocol with members 'attr1'), got <class 'ConcreteC1'> [incompatible_assignment]
-./protocols_class_objects.py:106:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1 (Protocol with members 'attr1'), got <class 'ConcreteC2'> [incompatible_assignment]
-./protocols_class_objects.py:107:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2 (Protocol with members 'attr1'), got <class 'ConcreteC2'> [incompatible_assignment]
-./protocols_class_objects.py:108:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1 (Protocol with members 'attr1'), got <class 'ConcreteC3'> [incompatible_assignment]
+./protocols_class_objects.py:58:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoA1, got <class 'ConcreteA'> [incompatible_assignment]
+./protocols_class_objects.py:74:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoB1, got <class 'ConcreteB'> [incompatible_assignment]
+./protocols_class_objects.py:104:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1, got <class 'ConcreteC1'> [incompatible_assignment]
+./protocols_class_objects.py:106:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1, got <class 'ConcreteC2'> [incompatible_assignment]
+./protocols_class_objects.py:107:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2, got <class 'ConcreteC2'> [incompatible_assignment]
+./protocols_class_objects.py:108:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1, got <class 'ConcreteC3'> [incompatible_assignment]
 """

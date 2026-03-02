@@ -18,5 +18,5 @@ output = """
 ./classes_classvar.py:77:7: ClassVar can only be used for assignments in class body [invalid_annotation]
 ./classes_classvar.py:78:19: ClassVar cannot be used in type aliases [invalid_annotation]
 ./classes_classvar.py:111:0: Cannot assign to class variable 'stats' via instance [incompatible_assignment]
-./classes_classvar.py:140:0: Incompatible assignment: expected ./classes_classvar.py.ProtoA (Protocol with members 'x', 'y', 'z'), got ./classes_classvar.py.ProtoAImpl [incompatible_assignment]
+./classes_classvar.py:140:0: Incompatible assignment: expected ./classes_classvar.py.ProtoA, got ./classes_classvar.py.ProtoAImpl [incompatible_assignment]
 """

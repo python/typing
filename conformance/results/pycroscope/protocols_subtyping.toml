@@ -3,8 +3,8 @@ errors_diff = """
 """
 output = """
 ./protocols_subtyping.py:16:5: Cannot instantiate protocol class Proto1 [incompatible_call]
-./protocols_subtyping.py:38:4: Incompatible assignment: expected ./protocols_subtyping.py.Concrete2, got ./protocols_subtyping.py.Proto2 (Protocol with members 'method1') [incompatible_assignment]
-./protocols_subtyping.py:55:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto3 (Protocol with members 'method1', 'method2'), got ./protocols_subtyping.py.Proto2 (Protocol with members 'method1') [incompatible_assignment]
+./protocols_subtyping.py:38:4: Incompatible assignment: expected ./protocols_subtyping.py.Concrete2, got ./protocols_subtyping.py.Proto2 [incompatible_assignment]
+./protocols_subtyping.py:55:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto3, got ./protocols_subtyping.py.Proto2 [incompatible_assignment]
 ./protocols_subtyping.py:79:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto4[int, float | int], got ./protocols_subtyping.py.Proto5[int] [incompatible_assignment]
 ./protocols_subtyping.py:80:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto5[float | int], got ./protocols_subtyping.py.Proto4[int, int] [incompatible_assignment]
 ./protocols_subtyping.py:102:4: Incompatible assignment: expected ./protocols_subtyping.py.Proto7[int, float | int], got ./protocols_subtyping.py.Proto6[float | int, float | int] [incompatible_assignment]

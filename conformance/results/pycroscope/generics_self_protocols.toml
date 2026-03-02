@@ -2,6 +2,6 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./generics_self_protocols.py:61:18: Incompatible argument type for shape: expected .../tests/generics_self_protocols.py.ShapeProtocol (Protocol with members 'set_scale') but got .../tests/generics_self_protocols.py.BadReturnType [incompatible_argument]
-./generics_self_protocols.py:64:18: Incompatible argument type for shape: expected .../tests/generics_self_protocols.py.ShapeProtocol (Protocol with members 'set_scale') but got .../tests/generics_self_protocols.py.ReturnDifferentClass [incompatible_argument]
+./generics_self_protocols.py:61:18: Incompatible argument type for shape: expected .../tests/generics_self_protocols.py.ShapeProtocol but got .../tests/generics_self_protocols.py.BadReturnType [incompatible_argument]
+./generics_self_protocols.py:64:18: Incompatible argument type for shape: expected .../tests/generics_self_protocols.py.ShapeProtocol but got .../tests/generics_self_protocols.py.ReturnDifferentClass [incompatible_argument]
 """

@@ -1,15 +1,11 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 82: Unexpected errors ["./generics_paramspec_semantics.py:82:4: Invalid type annotation [<class 'int'>] [invalid_annotation]"]
-Line 84: Unexpected errors ['./generics_paramspec_semantics.py:84:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> str is not equivalent to (int, /) -> str']
 """
 output = """
 ./generics_paramspec_semantics.py:26:0: Missing required positional argument 'a' [incompatible_call]
 ./generics_paramspec_semantics.py:27:8: Incompatible argument type for b: expected bool but got Literal['A'] [incompatible_argument]
 ./generics_paramspec_semantics.py:46:5: Cannot resolve type variables [incompatible_call]
 ./generics_paramspec_semantics.py:61:0: Cannot resolve type variables [incompatible_call]
-./generics_paramspec_semantics.py:82:4: Invalid type annotation [<class 'int'>] [invalid_annotation]
-./generics_paramspec_semantics.py:84:16:   (**__P: ParamSpecSig(param_spec=~P, default=None)) -> str is not equivalent to (int, /) -> str
 ./generics_paramspec_semantics.py:98:3: Incompatible argument type for @0: expected str but got Literal[1] [incompatible_argument]
 ./generics_paramspec_semantics.py:108:0: Incompatible argument type for args: expected tuple[bool, ...] but got tuple[Literal[1]] [incompatible_argument]
 ./generics_paramspec_semantics.py:120:3: Incompatible argument type for @0: expected str but got Literal[1] [incompatible_argument]

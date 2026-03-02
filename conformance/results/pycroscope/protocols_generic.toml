@@ -1,18 +1,16 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 40: Expected 1 errors
-Line 145: Expected 1 errors
-Line 147: Expected 1 errors
-Line 39: Unexpected errors ['./protocols_generic.py:39:0: Incompatible assignment: expected .../tests/protocols_generic.py.Proto1[str, int], got .../tests/protocols_generic.py.Concrete1 [incompatible_assignment]']
 Line 96: Unexpected errors ['./protocols_generic.py:96:12:   Literal[<.../tests/protocols_generic.py.ConcreteHasParent object at 0x...>] is not equivalent to .../tests/protocols_generic.py.ConcreteHasParent']
 """
 output = """
-./protocols_generic.py:39:0: Incompatible assignment: expected .../tests/protocols_generic.py.Proto1[str, int], got .../tests/protocols_generic.py.Concrete1 [incompatible_assignment]
+./protocols_generic.py:40:0: Incompatible assignment: expected .../tests/protocols_generic.py.Proto1[int, str], got .../tests/protocols_generic.py.Concrete1 [incompatible_assignment]
 ./protocols_generic.py:44:0: T_co should be invariant [invalid_annotation]
 ./protocols_generic.py:56:4: Incompatible assignment: expected .../tests/protocols_generic.py.Box[int], got .../tests/protocols_generic.py.Box[float | int] [incompatible_assignment]
 ./protocols_generic.py:66:4: Incompatible assignment: expected .../tests/protocols_generic.py.Sender[float | int], got .../tests/protocols_generic.py.Sender[int] [incompatible_assignment]
 ./protocols_generic.py:74:4: Incompatible assignment: expected .../tests/protocols_generic.py.AttrProto[float | int], got .../tests/protocols_generic.py.AttrProto[int] [incompatible_assignment]
 ./protocols_generic.py:75:4: Incompatible assignment: expected .../tests/protocols_generic.py.AttrProto[int], got .../tests/protocols_generic.py.AttrProto[float | int] [incompatible_assignment]
 ./protocols_generic.py:96:12:   Literal[<.../tests/protocols_generic.py.ConcreteHasParent object at 0x...>] is not equivalent to .../tests/protocols_generic.py.ConcreteHasParent
+./protocols_generic.py:145:0: Incompatible assignment: expected .../tests/protocols_generic.py.HasPropertyProto, got .../tests/protocols_generic.py.ConcreteHasProperty2 [incompatible_assignment]
 ./protocols_generic.py:146:0: Incompatible assignment: expected .../tests/protocols_generic.py.HasPropertyProto, got .../tests/protocols_generic.py.ConcreteHasProperty3 [incompatible_assignment]
+./protocols_generic.py:147:0: Incompatible assignment: expected .../tests/protocols_generic.py.HasPropertyProto, got .../tests/protocols_generic.py.ConcreteHasProperty4 [incompatible_assignment]
 """
