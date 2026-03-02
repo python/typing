@@ -2,11 +2,11 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 20: Expected 1 errors
 Line 33: Expected 1 errors
-Line 83: Unexpected errors ["./generics_self_basic.py:83:10: typing.Generic[~T] has no attribute 'set_value' [undefined_attribute]"]
+Line 80: Unexpected errors ['./generics_self_basic.py:80:4: Generic[...] is valid only as a base class [invalid_annotation]']
 Line 84: Unexpected errors ['./generics_self_basic.py:84:16:   Any[from_another] is not equivalent to typing.Generic[~T]']
 """
 output = """
 ./generics_self_basic.py:68:25: Unrecognized subscripted annotation: typing.Self [invalid_annotation]
-./generics_self_basic.py:83:10: typing.Generic[~T] has no attribute 'set_value' [undefined_attribute]
+./generics_self_basic.py:80:4: Generic[...] is valid only as a base class [invalid_annotation]
 ./generics_self_basic.py:84:16:   Any[from_another] is not equivalent to typing.Generic[~T]
 """

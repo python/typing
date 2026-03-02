@@ -1,6 +1,6 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 26: Expected 1 errors
 """
 output = """
-./generics_typevartuple_callable.py:26:27: Incompatible argument type for args: expected tuple[int, str] but got Literal[('', 0)] [incompatible_argument]
 """

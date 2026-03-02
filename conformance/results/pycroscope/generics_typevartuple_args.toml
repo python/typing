@@ -1,6 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 75: Expected 1 errors
 Line 76: Expected 1 errors
 """
 output = """
@@ -11,4 +10,5 @@ output = """
 ./generics_typevartuple_args.py:58:0: Incompatible argument type for args: expected tuple[int, *tuple[str, ...], str] but got tuple[Literal[1]] [incompatible_argument]
 ./generics_typevartuple_args.py:59:0: Incompatible argument type for args: expected tuple[int, *tuple[str, ...], str] but got tuple[Literal['']] [incompatible_argument]
 ./generics_typevartuple_args.py:67:0: In call to .../tests/generics_typevartuple_args.py.func3: Missing required positional argument at position 1 [incompatible_call]
+./generics_typevartuple_args.py:75:0: In call to .../tests/generics_typevartuple_args.py.func4: Cannot resolve type variables [incompatible_call]
 """

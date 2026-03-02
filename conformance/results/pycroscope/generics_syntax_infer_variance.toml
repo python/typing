@@ -1,6 +1,7 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 29: Expected 1 errors
+Line 47: Expected 1 errors
 Line 56: Expected 1 errors
 Line 85: Expected 1 errors
 Line 96: Expected 1 errors
@@ -8,16 +9,15 @@ Line 112: Expected 1 errors
 Line 113: Expected 1 errors
 Line 127: Expected 1 errors
 Line 128: Expected 1 errors
+Line 135: Expected 1 errors
+Line 136: Expected 1 errors
+Line 137: Expected 1 errors
+Line 138: Expected 1 errors
 Line 146: Expected 1 errors
 Line 165: Expected 1 errors
 """
 output = """
 ./generics_syntax_infer_variance.py:15:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: Variance cannot be specified with infer_variance. [incompatible_call]
 ./generics_syntax_infer_variance.py:17:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: Variance cannot be specified with infer_variance. [incompatible_call]
-./generics_syntax_infer_variance.py:47:0: Incompatible assignment: expected collections.abc.Sequence[int], got collections.abc.Sequence[float | int] [incompatible_assignment]
-./generics_syntax_infer_variance.py:135:0: Incompatible assignment: expected dict[float | int, str], got dict[int, str] [incompatible_assignment]
-./generics_syntax_infer_variance.py:136:0: Incompatible assignment: expected dict[int, str], got dict[float | int, str] [incompatible_assignment]
-./generics_syntax_infer_variance.py:137:0: Incompatible assignment: expected dict[str, float | int], got dict[str, int] [incompatible_assignment]
-./generics_syntax_infer_variance.py:138:0: Incompatible assignment: expected dict[str, int], got dict[str, float | int] [incompatible_assignment]
 ./generics_syntax_infer_variance.py:154:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant5[float | int], got ./generics_syntax_infer_variance.py.ShouldBeInvariant5[int] [incompatible_assignment]
 """

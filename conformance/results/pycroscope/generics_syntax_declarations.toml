@@ -1,7 +1,6 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 17: Expected 1 errors
-Line 25: Expected 1 errors
 Line 44: Expected 1 errors
 Line 60: Expected 1 errors
 Line 64: Expected 1 errors
@@ -11,6 +10,7 @@ Line 56: Unexpected errors ['./generics_syntax_declarations.py:56:17: Undefined 
 """
 output = """
 ./generics_syntax_declarations.py:21:0: S should be covariant [invalid_annotation]
+./generics_syntax_declarations.py:25:0: S should be covariant [invalid_annotation]
 ./generics_syntax_declarations.py:32:8: str has no attribute 'is_integer' [undefined_attribute]
 ./generics_syntax_declarations.py:39:16: Undefined name: ForwardReference [undefined_name]
 ./generics_syntax_declarations.py:39:39: Undefined name: ForwardReference [undefined_name]
