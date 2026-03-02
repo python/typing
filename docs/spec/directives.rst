@@ -73,8 +73,8 @@ other comments and linting markers:
 
   # type: ignore # <comment or other marker>
 
-Text following ``# type: ignore`` must be ignored, provided there is at
-least one whitespace character after it::
+Text following ``# type: ignore - some text`` is equivalent to
+``type: ignore``, provided there is at least one whitespace character after it::
 
     # Not valid because of the "d" after ignore; does not supress the type error
     s: str = 1  # type: ignored
