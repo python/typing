@@ -1,8 +1,8 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 44: Expected 1 errors
 """
 output = """
+./generics_paramspec_specialization.py:44:14: ParamSpec specialization must use list form, Concatenate[..., P], P, or ... [invalid_annotation]
 ./generics_paramspec_specialization.py:54:8: Incompatible argument type for @0: expected int but got Literal[''] [incompatible_argument]
 ./generics_paramspec_specialization.py:55:15: Incompatible argument type for @2: expected bool but got Literal[''] [incompatible_argument]
 ./generics_paramspec_specialization.py:60:8: Incompatible argument type for @0: expected int but got Literal[''] [incompatible_argument]

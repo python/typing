@@ -1,21 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 35: Unexpected errors ['./dataclasses_descriptors.py:35:10: Incompatible argument type for y: expected ./dataclasses_descriptors.py.Desc1 but got Literal[3] [incompatible_argument]']
-Line 37: Unexpected errors ['./dataclasses_descriptors.py:37:12:   ./dataclasses_descriptors.py.Desc1 is not equivalent to int']
-Line 61: Unexpected errors ['./dataclasses_descriptors.py:61:12:   ./dataclasses_descriptors.py.Desc2[int] is not equivalent to list[int]']
-Line 62: Unexpected errors ['./dataclasses_descriptors.py:62:12:   ./dataclasses_descriptors.py.Desc2[str] is not equivalent to list[str]']
-Line 63: Unexpected errors ['./dataclasses_descriptors.py:63:12:   ./dataclasses_descriptors.py.Desc2[str] is not equivalent to list[str]']
-Line 66: Unexpected errors ['./dataclasses_descriptors.py:66:12:   ./dataclasses_descriptors.py.Desc2[int] is not equivalent to int']
-Line 67: Unexpected errors ['./dataclasses_descriptors.py:67:12:   ./dataclasses_descriptors.py.Desc2[str] is not equivalent to str']
-Line 68: Unexpected errors ['./dataclasses_descriptors.py:68:12:   ./dataclasses_descriptors.py.Desc2[str] is not equivalent to str']
 """
 output = """
-./dataclasses_descriptors.py:35:10: Incompatible argument type for y: expected ./dataclasses_descriptors.py.Desc1 but got Literal[3] [incompatible_argument]
-./dataclasses_descriptors.py:37:12:   ./dataclasses_descriptors.py.Desc1 is not equivalent to int
-./dataclasses_descriptors.py:61:12:   ./dataclasses_descriptors.py.Desc2[int] is not equivalent to list[int]
-./dataclasses_descriptors.py:62:12:   ./dataclasses_descriptors.py.Desc2[str] is not equivalent to list[str]
-./dataclasses_descriptors.py:63:12:   ./dataclasses_descriptors.py.Desc2[str] is not equivalent to list[str]
-./dataclasses_descriptors.py:66:12:   ./dataclasses_descriptors.py.Desc2[int] is not equivalent to int
-./dataclasses_descriptors.py:67:12:   ./dataclasses_descriptors.py.Desc2[str] is not equivalent to str
-./dataclasses_descriptors.py:68:12:   ./dataclasses_descriptors.py.Desc2[str] is not equivalent to str
 """
