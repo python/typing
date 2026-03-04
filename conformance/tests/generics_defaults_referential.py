@@ -88,11 +88,18 @@ ListDefaultT = TypeVar("ListDefaultT", default=list[Z1])  # OK
 
 
 class Bar(Generic[Z1, ListDefaultT]):  # OK
+    x: Z1
+    y: ListDefaultT
     def __init__(self, x: Z1, y: ListDefaultT): ...
 
 
-assert_type(Bar, type[Bar[Any, list[Any]]])
-assert_type(Bar[int], type[Bar[int, list[int]]])
+def f(b1: Bar, b2: Bar[int]):
+    assert_type(b1.x, Any)
+    assert_type(b1.y, list[Any])
+    assert_type(b2.x, int)
+    assert_type(b2.y, list[int])
+
+
 assert_type(Bar[int](0, []), Bar[int, list[int]])
 assert_type(Bar[int, list[str]](0, []), Bar[int, list[str]])
 assert_type(Bar[int, str](0, ""), Bar[int, str])
