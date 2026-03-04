@@ -2,6 +2,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./dataclasses_hash.py:15:0: Incompatible assignment: expected pycroscope.relations.HashableProto, got .../tests/dataclasses_hash.py.DC1 [incompatible_assignment]
-./dataclasses_hash.py:32:0: Incompatible assignment: expected pycroscope.relations.HashableProto, got .../tests/dataclasses_hash.py.DC3 [incompatible_assignment]
+./dataclasses_hash.py:17:0: None is not callable [not_callable]
+./dataclasses_hash.py:18:0: Incompatible assignment: expected pycroscope.relations.HashableProto, got Annotated[./dataclasses_hash.py.DC1, HasAttrExtension(attribute_name=KnownValue(val='a'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='__hash__'), attribute_type=KnownValue(val=None))] [incompatible_assignment]
+./dataclasses_hash.py:39:0: None is not callable [not_callable]
+./dataclasses_hash.py:40:0: Incompatible assignment: expected pycroscope.relations.HashableProto, got Annotated[./dataclasses_hash.py.DC3, HasAttrExtension(attribute_name=KnownValue(val='a'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='__hash__'), attribute_type=KnownValue(val=None))] [incompatible_assignment]
 """

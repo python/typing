@@ -7,8 +7,7 @@ Line 23: Unexpected errors ["./generics_defaults_referential.py:23:12:   type '.
 Line 24: Unexpected errors ['./generics_defaults_referential.py:24:12:   .../tests/generics_defaults_referential.py.slice[Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to .../tests/generics_defaults_referential.py.slice[int, int, int | None]']
 Line 35: Unexpected errors ["./generics_defaults_referential.py:35:12:   .../tests/generics_defaults_referential.py.Foo[Literal[1], Literal['']] is not equivalent to .../tests/generics_defaults_referential.py.Foo[int, str]"]
 Line 77: Unexpected errors ['./generics_defaults_referential.py:77:10: TypeVar default must be one of its constraints [invalid_annotation]']
-Line 94: Unexpected errors ["./generics_defaults_referential.py:94:12:   type '.../tests/generics_defaults_referential.py.Bar' is not equivalent to type[.../tests/generics_defaults_referential.py.Bar[Any[explicit], list[Any[explicit]]]]"]
-Line 95: Unexpected errors ['./generics_defaults_referential.py:95:12:   Literal[.../tests/generics_defaults_referential.py.Bar[int, list[~Z1]]] is not equivalent to type[.../tests/generics_defaults_referential.py.Bar[int, list[int]]]']
+Line 98: Unexpected errors ['./generics_defaults_referential.py:98:16:   Any[generic_argument] is not equivalent to list[Any[explicit]]']
 """
 output = """
 ./generics_defaults_referential.py:23:12:   type '.../tests/generics_defaults_referential.py.slice' is not equivalent to type[.../tests/generics_defaults_referential.py.slice[int, int, int | None]]
@@ -19,6 +18,5 @@ output = """
 ./generics_defaults_referential.py:74:11: TypeVar default must be one of its constraints [invalid_annotation]
 ./generics_defaults_referential.py:77:10: TypeVar default must be one of its constraints [invalid_annotation]
 ./generics_defaults_referential.py:78:15: TypeVar default must be one of its constraints [invalid_annotation]
-./generics_defaults_referential.py:94:12:   type '.../tests/generics_defaults_referential.py.Bar' is not equivalent to type[.../tests/generics_defaults_referential.py.Bar[Any[explicit], list[Any[explicit]]]]
-./generics_defaults_referential.py:95:12:   Literal[.../tests/generics_defaults_referential.py.Bar[int, list[~Z1]]] is not equivalent to type[.../tests/generics_defaults_referential.py.Bar[int, list[int]]]
+./generics_defaults_referential.py:98:16:   Any[generic_argument] is not equivalent to list[Any[explicit]]
 """
