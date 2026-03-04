@@ -372,6 +372,8 @@ class PycroscopeTypeChecker(TypeChecker):
             "unused_variable",
             "--disable",
             "unused_assignment",
+            "--disable",
+            "must_use",
             "--enable",
             "invalid_literal",
             "--enable",
