@@ -1,14 +1,7 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 40: Unexpected errors ['./generics_typevartuple_concat.py:40:19: Expected 1 type arguments for ./generics_typevartuple_concat.py.Array [invalid_annotation]']
-Line 42: Unexpected errors ['./generics_typevartuple_concat.py:42:16:   ./generics_typevartuple_concat.py.Array[Any[generic_argument]] is not equivalent to Any[error]', './generics_typevartuple_concat.py:42:19: Expected 1 type arguments for ./generics_typevartuple_concat.py.Array [invalid_annotation]']
-Line 44: Unexpected errors ['./generics_typevartuple_concat.py:44:19: Expected 1 type arguments for ./generics_typevartuple_concat.py.Array [invalid_annotation]']
 Line 52: Unexpected errors ['./generics_typevartuple_concat.py:52:12:   tuple[Literal[0], bool, str] is not equivalent to tuple[int, bool, str]']
 """
 output = """
-./generics_typevartuple_concat.py:40:19: Expected 1 type arguments for ./generics_typevartuple_concat.py.Array [invalid_annotation]
-./generics_typevartuple_concat.py:42:16:   ./generics_typevartuple_concat.py.Array[Any[generic_argument]] is not equivalent to Any[error]
-./generics_typevartuple_concat.py:42:19: Expected 1 type arguments for ./generics_typevartuple_concat.py.Array [invalid_annotation]
-./generics_typevartuple_concat.py:44:19: Expected 1 type arguments for ./generics_typevartuple_concat.py.Array [invalid_annotation]
 ./generics_typevartuple_concat.py:52:12:   tuple[Literal[0], bool, str] is not equivalent to tuple[int, bool, str]
 """

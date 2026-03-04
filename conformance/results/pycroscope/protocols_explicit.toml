@@ -1,11 +1,11 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 27: Expected 1 errors
-Line 56: Expected 1 errors
-Line 60: Expected 1 errors
-Line 89: Expected 1 errors
-Line 134: Expected 1 errors
-Line 164: Expected 1 errors
 """
 output = """
+./protocols_explicit.py:27:15: Call to abstract protocol member via super() has no default implementation [bad_super_call]
+./protocols_explicit.py:56:8: Incompatible assignment: expected tuple[int, int, int], got tuple[int, int, str] [incompatible_assignment]
+./protocols_explicit.py:60:4: Cannot instantiate abstract class Point [incompatible_call]
+./protocols_explicit.py:89:5: Cannot instantiate abstract class Concrete1 [incompatible_call]
+./protocols_explicit.py:134:5: Cannot instantiate abstract class Concrete5 [incompatible_call]
+./protocols_explicit.py:164:6: Cannot instantiate abstract class Concrete7A [incompatible_call]
 """

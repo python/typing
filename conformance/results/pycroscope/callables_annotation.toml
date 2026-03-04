@@ -15,7 +15,7 @@ output = """
 ./callables_annotation.py:91:0: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got () -> str [incompatible_assignment]
 ./callables_annotation.py:93:0: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got (*, a: int) -> str [incompatible_assignment]
 ./callables_annotation.py:159:4: Incompatible assignment: expected ./callables_annotation.py.Proto5[Any[explicit]], got ./callables_annotation.py.Proto8 [incompatible_assignment]
-./callables_annotation.py:172:4: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got () -> str [incompatible_assignment]
+./callables_annotation.py:172:4: Incompatible assignment: expected (int, /, *tuple[Any[ellipsis_callable], ...], **dict[str, Any[ellipsis_callable]]) -> str, got () -> str [incompatible_assignment]
 ./callables_annotation.py:187:4: Incompatible assignment: expected (str, /, **Any[explicit]) -> str, got (int, str, /) -> str [incompatible_assignment]
-./callables_annotation.py:189:4: Incompatible assignment: expected (str, /, **Any[explicit]) -> str, got (int, str, /) -> str [incompatible_assignment]
+./callables_annotation.py:189:4: Incompatible assignment: expected (str, /, *tuple[Any[ellipsis_callable], ...], **dict[str, Any[ellipsis_callable]]) -> str, got (int, str, /) -> str [incompatible_assignment]
 """

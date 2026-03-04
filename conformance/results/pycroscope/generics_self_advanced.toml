@@ -2,10 +2,13 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 18: Unexpected errors ['./generics_self_advanced.py:18:12:   property is not equivalent to ./generics_self_advanced.py.ParentA']
 Line 19: Unexpected errors ['./generics_self_advanced.py:19:12:   property is not equivalent to ./generics_self_advanced.py.ChildA']
-Line 43: Unexpected errors ['./generics_self_advanced.py:43:20:   Any[inference] is not equivalent to list[~SelfT]']
+Line 43: Unexpected errors ['./generics_self_advanced.py:43:20:   Any[error] is not equivalent to list[~SelfT]', "./generics_self_advanced.py:43:20: type[./generics_self_advanced.py.ChildB[~SelfT]] has no attribute 'a' [undefined_attribute]"]
+Line 44: Unexpected errors ["./generics_self_advanced.py:44:20: type[./generics_self_advanced.py.ChildB[~SelfT]] has no attribute 'a' [undefined_attribute]"]
 """
 output = """
 ./generics_self_advanced.py:18:12:   property is not equivalent to ./generics_self_advanced.py.ParentA
 ./generics_self_advanced.py:19:12:   property is not equivalent to ./generics_self_advanced.py.ChildA
-./generics_self_advanced.py:43:20:   Any[inference] is not equivalent to list[~SelfT]
+./generics_self_advanced.py:43:20:   Any[error] is not equivalent to list[~SelfT]
+./generics_self_advanced.py:43:20: type[./generics_self_advanced.py.ChildB[~SelfT]] has no attribute 'a' [undefined_attribute]
+./generics_self_advanced.py:44:20: type[./generics_self_advanced.py.ChildB[~SelfT]] has no attribute 'a' [undefined_attribute]
 """

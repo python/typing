@@ -1,19 +1,12 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 89: Expected 1 errors
-Line 100: Expected 1 errors
-Line 36: Unexpected errors ['./generics_typevartuple_basic.py:36:4: Expected 1 type arguments for ./generics_typevartuple_basic.py.Array [invalid_annotation]']
-Line 37: Unexpected errors ['./generics_typevartuple_basic.py:37:4: Expected 1 type arguments for ./generics_typevartuple_basic.py.Array [invalid_annotation]']
-Line 38: Unexpected errors ['./generics_typevartuple_basic.py:38:4: Expected 1 type arguments for ./generics_typevartuple_basic.py.Array [invalid_annotation]']
 """
 output = """
-./generics_typevartuple_basic.py:36:4: Expected 1 type arguments for ./generics_typevartuple_basic.py.Array [invalid_annotation]
-./generics_typevartuple_basic.py:37:4: Expected 1 type arguments for ./generics_typevartuple_basic.py.Array [invalid_annotation]
-./generics_typevartuple_basic.py:38:4: Expected 1 type arguments for ./generics_typevartuple_basic.py.Array [invalid_annotation]
-./generics_typevartuple_basic.py:42:4: Expected 1 type arguments for ./generics_typevartuple_basic.py.Array [invalid_annotation]
 ./generics_typevartuple_basic.py:42:33: Incompatible argument type for shape: expected tuple[*tuple[Shape, ...]] but got NewType('Height', int) [incompatible_argument]
-./generics_typevartuple_basic.py:43:4: Expected 1 type arguments for ./generics_typevartuple_basic.py.Array [invalid_annotation]
-./generics_typevartuple_basic.py:44:4: Expected 1 type arguments for ./generics_typevartuple_basic.py.Array [invalid_annotation]
+./generics_typevartuple_basic.py:42:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array[Any[error]] [incompatible_assignment]
+./generics_typevartuple_basic.py:43:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Batch', int), NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array[NewType('Batch', int), NewType('Width', int)] [incompatible_assignment]
+./generics_typevartuple_basic.py:44:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Time', int), NewType('Batch', int), NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array[NewType('Time', int), NewType('Batch', int), NewType('Width', int), NewType('Height', int)] [incompatible_assignment]
 ./generics_typevartuple_basic.py:52:21: TypeVarTuple must be unpacked [invalid_annotation]
 ./generics_typevartuple_basic.py:53:30: TypeVarTuple must be unpacked [invalid_annotation]
 ./generics_typevartuple_basic.py:56:27: TypeVarTuple must be unpacked [invalid_annotation]
@@ -23,5 +16,6 @@ output = """
 ./generics_typevartuple_basic.py:67:6: In call to typing.TypeVarTuple: Got an unexpected keyword argument 'bound' [incompatible_call]
 ./generics_typevartuple_basic.py:90:0: Cannot resolve type variables [incompatible_call]
 ./generics_typevartuple_basic.py:99:4: Cannot resolve type variables [incompatible_call]
+./generics_typevartuple_basic.py:100:4: Cannot resolve type variables [incompatible_call]
 ./generics_typevartuple_basic.py:106:21: Only one TypeVarTuple can be used in a type parameter list [invalid_annotation]
 """

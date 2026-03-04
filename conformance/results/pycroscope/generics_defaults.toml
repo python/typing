@@ -15,10 +15,10 @@ Line 79: Unexpected errors ["./generics_defaults.py:79:12:   <class 'Class_Param
 Line 80: Unexpected errors ['./generics_defaults.py:80:12:   ./generics_defaults.py.Class_ParamSpec is not equivalent to Any[error]', './generics_defaults.py:80:31: Expected 1 type arguments for ./generics_defaults.py.Class_ParamSpec [invalid_annotation]']
 Line 81: Unexpected errors ['./generics_defaults.py:81:12:   ./generics_defaults.py.Class_ParamSpec is not equivalent to Any[error]', './generics_defaults.py:81:45: Expected 1 type arguments for ./generics_defaults.py.Class_ParamSpec [invalid_annotation]']
 Line 94: Unexpected errors ["./generics_defaults.py:94:12:   <class 'Class_TypeVarTuple'> is not equivalent to type[./generics_defaults.py.Class_TypeVarTuple[tuple[str, int]]]"]
-Line 95: Unexpected errors ['./generics_defaults.py:95:12:   ./generics_defaults.py.Class_TypeVarTuple is not equivalent to Any[error]', './generics_defaults.py:95:34: Expected 1 type arguments for ./generics_defaults.py.Class_TypeVarTuple [invalid_annotation]']
-Line 96: Unexpected errors ['./generics_defaults.py:96:12: Expected 1 type arguments for ./generics_defaults.py.Class_TypeVarTuple [invalid_annotation]', './generics_defaults.py:96:45: Expected 1 type arguments for ./generics_defaults.py.Class_TypeVarTuple [invalid_annotation]']
-Line 156: Unexpected errors ["./generics_defaults.py:156:12:   ./generics_defaults.py.Foo6[int, str] (partial from <class 'Foo6'>[type 'int', type 'str']) is not equivalent to type", './generics_defaults.py:156:33: Expected 2 type arguments for ./generics_defaults.py.Foo6 [invalid_annotation]']
-Line 157: Unexpected errors ['./generics_defaults.py:157:12:   Any[error] is not equivalent to type', './generics_defaults.py:157:12: Expected 2 type arguments for ./generics_defaults.py.Foo6 [invalid_annotation]', './generics_defaults.py:157:42: Expected 2 type arguments for ./generics_defaults.py.Foo6 [invalid_annotation]']
+Line 95: Unexpected errors ['./generics_defaults.py:95:12:   ./generics_defaults.py.Class_TypeVarTuple is not equivalent to ./generics_defaults.py.Class_TypeVarTuple[str, int]']
+Line 96: Unexpected errors ['./generics_defaults.py:96:12:   ./generics_defaults.py.Class_TypeVarTuple is not equivalent to ./generics_defaults.py.Class_TypeVarTuple[int, bool]']
+Line 156: Unexpected errors ["./generics_defaults.py:156:12:   ./generics_defaults.py.Foo6[int, str] (partial from <class 'Foo6'>[type 'int', type 'str']) is not equivalent to type[./generics_defaults.py.Foo6[int, str, Any[error]]]", "./generics_defaults.py:156:0: Invalid type annotation [<class 'float'>, <class 'bool'>] [invalid_annotation]"]
+Line 157: Unexpected errors ["./generics_defaults.py:157:12:   ./generics_defaults.py.Foo6[int, str, <list containing [type 'bytes']>] (partial from <class 'Foo6'>[type 'int', type 'str', Literal[[<class 'bytes'>]]]) is not equivalent to type[./generics_defaults.py.Foo6[int, str, Any[error]]]", "./generics_defaults.py:157:0: Invalid type annotation [<class 'bytes'>] [invalid_annotation]"]
 Line 172: Unexpected errors ['./generics_defaults.py:172:12:   ./generics_defaults.py.Foo7 is not equivalent to ./generics_defaults.py.Foo7[int]']
 Line 173: Unexpected errors ['./generics_defaults.py:173:12:   Any[generic_argument] is not equivalent to int']
 """
@@ -50,19 +50,16 @@ output = """
 ./generics_defaults.py:81:12:   ./generics_defaults.py.Class_ParamSpec is not equivalent to Any[error]
 ./generics_defaults.py:81:45: Expected 1 type arguments for ./generics_defaults.py.Class_ParamSpec [invalid_annotation]
 ./generics_defaults.py:94:12:   <class 'Class_TypeVarTuple'> is not equivalent to type[./generics_defaults.py.Class_TypeVarTuple[tuple[str, int]]]
-./generics_defaults.py:95:12:   ./generics_defaults.py.Class_TypeVarTuple is not equivalent to Any[error]
-./generics_defaults.py:95:34: Expected 1 type arguments for ./generics_defaults.py.Class_TypeVarTuple [invalid_annotation]
-./generics_defaults.py:96:12: Expected 1 type arguments for ./generics_defaults.py.Class_TypeVarTuple [invalid_annotation]
-./generics_defaults.py:96:45: Expected 1 type arguments for ./generics_defaults.py.Class_TypeVarTuple [invalid_annotation]
+./generics_defaults.py:95:12:   ./generics_defaults.py.Class_TypeVarTuple is not equivalent to ./generics_defaults.py.Class_TypeVarTuple[str, int]
+./generics_defaults.py:96:12:   ./generics_defaults.py.Class_TypeVarTuple is not equivalent to ./generics_defaults.py.Class_TypeVarTuple[int, bool]
 ./generics_defaults.py:107:11: the bound and default are incompatible [invalid_annotation]
 ./generics_defaults.py:114:11: TypeVar default must be one of its constraints [invalid_annotation]
 ./generics_defaults.py:131:12:   Any[generic_argument] is not equivalent to int
 ./generics_defaults.py:143:0: TypeVars with defaults cannot follow TypeVarTuples [invalid_annotation]
-./generics_defaults.py:156:12:   ./generics_defaults.py.Foo6[int, str] (partial from <class 'Foo6'>[type 'int', type 'str']) is not equivalent to type
-./generics_defaults.py:156:33: Expected 2 type arguments for ./generics_defaults.py.Foo6 [invalid_annotation]
-./generics_defaults.py:157:12:   Any[error] is not equivalent to type
-./generics_defaults.py:157:12: Expected 2 type arguments for ./generics_defaults.py.Foo6 [invalid_annotation]
-./generics_defaults.py:157:42: Expected 2 type arguments for ./generics_defaults.py.Foo6 [invalid_annotation]
+./generics_defaults.py:156:12:   ./generics_defaults.py.Foo6[int, str] (partial from <class 'Foo6'>[type 'int', type 'str']) is not equivalent to type[./generics_defaults.py.Foo6[int, str, Any[error]]]
+./generics_defaults.py:156:0: Invalid type annotation [<class 'float'>, <class 'bool'>] [invalid_annotation]
+./generics_defaults.py:157:12:   ./generics_defaults.py.Foo6[int, str, <list containing [type 'bytes']>] (partial from <class 'Foo6'>[type 'int', type 'str', Literal[[<class 'bytes'>]]]) is not equivalent to type[./generics_defaults.py.Foo6[int, str, Any[error]]]
+./generics_defaults.py:157:0: Invalid type annotation [<class 'bytes'>] [invalid_annotation]
 ./generics_defaults.py:172:12:   ./generics_defaults.py.Foo7 is not equivalent to ./generics_defaults.py.Foo7[int]
 ./generics_defaults.py:173:12:   Any[generic_argument] is not equivalent to int
 """

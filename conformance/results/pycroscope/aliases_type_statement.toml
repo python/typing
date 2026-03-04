@@ -14,9 +14,9 @@ Line 47: Expected 1 errors
 Line 49: Expected 1 errors
 """
 output = """
-./aliases_type_statement.py:17:0: int has no attribute 'bit_count' [undefined_attribute]
+./aliases_type_statement.py:17:0: .GoodAlias1 = int has no attribute 'bit_count' [undefined_attribute]
 ./aliases_type_statement.py:19:0: .GoodAlias1 = int is not callable [not_callable]
-./aliases_type_statement.py:23:6: int has no attribute 'other_attrib' [undefined_attribute]
+./aliases_type_statement.py:23:6: .GoodAlias1 = int has no attribute 'other_attrib' [undefined_attribute]
 ./aliases_type_statement.py:26:17: Type aliases cannot be used as base classes [invalid_base]
 ./aliases_type_statement.py:31:21: Second argument to "isinstance" cannot be a type alias [incompatible_argument]
 ./aliases_type_statement.py:48:22: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]

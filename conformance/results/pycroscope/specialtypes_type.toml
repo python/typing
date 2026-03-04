@@ -7,8 +7,8 @@ output = """
 ./specialtypes_type.py:76:11: Type[] requires a single argument [invalid_annotation]
 ./specialtypes_type.py:117:4: type[object] has no attribute 'unknown' [undefined_attribute]
 ./specialtypes_type.py:120:4: type[object] has no attribute 'unknown' [undefined_attribute]
-./specialtypes_type.py:143:0: Literal[typing.Type] has no attribute 'unknown' [undefined_attribute]
-./specialtypes_type.py:144:0: Literal[typing.Type[typing.Any]] has no attribute 'unknown' [undefined_attribute]
-./specialtypes_type.py:145:0: type 'type' has no attribute 'unknown' [undefined_attribute]
-./specialtypes_type.py:146:0: Literal[type[typing.Any]] has no attribute 'unknown' [undefined_attribute]
+./specialtypes_type.py:143:0: .TA1 = type has no attribute 'unknown' [undefined_attribute]
+./specialtypes_type.py:144:0: .TA2 = type has no attribute 'unknown' [undefined_attribute]
+./specialtypes_type.py:145:0: .TA3 = type has no attribute 'unknown' [undefined_attribute]
+./specialtypes_type.py:146:0: .TA4 = type has no attribute 'unknown' [undefined_attribute]
 """

@@ -1,12 +1,12 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 42: Expected 1 errors
-Line 43: Expected 1 errors
-Line 44: Expected 1 errors
-Line 45: Expected 1 errors
-Line 46: Expected 1 errors
 """
 output = """
 ./generics_type_erasure.py:38:15: Incompatible argument type for label: expected int | None but got Literal[''] [incompatible_argument]
 ./generics_type_erasure.py:40:15: Incompatible argument type for label: expected str | None but got Literal[0] [incompatible_argument]
+./generics_type_erasure.py:42:0: Cannot assign to instance attribute 'label' via class object [incompatible_assignment]
+./generics_type_erasure.py:43:0: Any[from_another] (partial from <class 'Node'>[type 'int']) has no attribute 'label' [undefined_attribute]
+./generics_type_erasure.py:44:0: Cannot assign to instance attribute 'label' via class object [incompatible_assignment]
+./generics_type_erasure.py:45:0: <class 'Node'> has no attribute 'label' [undefined_attribute]
+./generics_type_erasure.py:46:0: type has no attribute 'label' [undefined_attribute]
 """

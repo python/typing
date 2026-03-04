@@ -16,10 +16,10 @@ output = """
 ./qualifiers_annotated.py:48:17: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]
 ./qualifiers_annotated.py:59:7: Annotated[] requires at least two arguments [invalid_annotation]
 ./qualifiers_annotated.py:71:0: Incompatible assignment: expected type, got Literal[typing.Annotated[int, '']] [incompatible_assignment]
-./qualifiers_annotated.py:72:0: Incompatible assignment: expected type, got Literal[typing.Annotated[int, '']] [incompatible_assignment]
+./qualifiers_annotated.py:72:0: Incompatible assignment: expected type, got .SmallInt = Annotated[int, Literal['']] [incompatible_assignment]
 ./qualifiers_annotated.py:79:6: Incompatible argument type for x: expected type[~T] but got Literal[typing.Annotated[str, '']] [incompatible_argument]
-./qualifiers_annotated.py:80:6: Incompatible argument type for x: expected type[~T] but got Literal[typing.Annotated[int, '']] [incompatible_argument]
+./qualifiers_annotated.py:80:6: Incompatible argument type for x: expected type[~T] but got .SmallInt = Annotated[int, Literal['']] [incompatible_argument]
 ./qualifiers_annotated.py:86:0: Annotated cannot be called [invalid_annotation]
 ./qualifiers_annotated.py:87:0: Annotated cannot be called [invalid_annotation]
-./qualifiers_annotated.py:88:0: Annotated cannot be called [invalid_annotation]
+./qualifiers_annotated.py:88:0: .SmallInt = Annotated[int, Literal['']] is not callable [not_callable]
 """

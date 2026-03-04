@@ -1,7 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 62: Expected 1 errors
-Line 66: Expected 1 errors
 """
 output = """
+./dataclasses_inheritance.py:62:4: Class variable x cannot override instance variable from base class ./dataclasses_inheritance.py.DC6 [incompatible_override]
+./dataclasses_inheritance.py:66:4: Instance variable y cannot override class variable from base class ./dataclasses_inheritance.py.DC6 [incompatible_override]
 """
