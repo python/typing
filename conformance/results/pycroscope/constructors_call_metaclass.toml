@@ -1,10 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 54: Expected 1 errors
-Line 39: Unexpected errors ['./constructors_call_metaclass.py:39:12:   int | ./constructors_call_metaclass.py.Meta2 is not equivalent to Any[error] | int', './constructors_call_metaclass.py:39:0: Unrecognized annotation types.UnionType [invalid_annotation]']
 """
 output = """
-./constructors_call_metaclass.py:39:12:   int | ./constructors_call_metaclass.py.Meta2 is not equivalent to Any[error] | int
-./constructors_call_metaclass.py:39:0: Unrecognized annotation types.UnionType [invalid_annotation]
+./constructors_call_metaclass.py:54:0: Missing required argument 'x' [incompatible_call]
 ./constructors_call_metaclass.py:68:0: Missing required argument 'x' [incompatible_call]
 """

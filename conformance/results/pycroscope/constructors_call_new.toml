@@ -1,17 +1,13 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 148: Expected 1 errors
-Line 64: Unexpected errors ['./constructors_call_new.py:64:12:   ./constructors_call_new.py.Class4 is not equivalent to Any[error] | Any[explicit]', "./constructors_call_new.py:64:12: Missing required argument 'x' [incompatible_call]", './constructors_call_new.py:64:0: Unrecognized annotation types.UnionType [invalid_annotation]']
+Line 64: Unexpected errors ['./constructors_call_new.py:64:12:   ./constructors_call_new.py.Class4 is not equivalent to ./constructors_call_new.py.Class4 | Any[explicit]', "./constructors_call_new.py:64:12: Missing required argument 'x' [incompatible_call]"]
 Line 76: Unexpected errors ['./constructors_call_new.py:76:16:   ./constructors_call_new.py.Class5 is not equivalent to Never', "./constructors_call_new.py:76:16: Missing required argument 'x' [incompatible_call]"]
-Line 89: Unexpected errors ['./constructors_call_new.py:89:12:   int | ./constructors_call_new.py.Class6 is not equivalent to Any[error] | int', './constructors_call_new.py:89:0: Unrecognized annotation types.UnionType [invalid_annotation]']
 """
 output = """
 ./constructors_call_new.py:21:12: Incompatible argument type for x: expected int but got Literal[1.0] [incompatible_argument]
-./constructors_call_new.py:64:12:   ./constructors_call_new.py.Class4 is not equivalent to Any[error] | Any[explicit]
+./constructors_call_new.py:64:12:   ./constructors_call_new.py.Class4 is not equivalent to ./constructors_call_new.py.Class4 | Any[explicit]
 ./constructors_call_new.py:64:12: Missing required argument 'x' [incompatible_call]
-./constructors_call_new.py:64:0: Unrecognized annotation types.UnionType [invalid_annotation]
 ./constructors_call_new.py:76:16:   ./constructors_call_new.py.Class5 is not equivalent to Never
 ./constructors_call_new.py:76:16: Missing required argument 'x' [incompatible_call]
-./constructors_call_new.py:89:12:   int | ./constructors_call_new.py.Class6 is not equivalent to Any[error] | int
-./constructors_call_new.py:89:0: Unrecognized annotation types.UnionType [invalid_annotation]
 """
