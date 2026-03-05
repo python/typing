@@ -1,7 +1,6 @@
 conformant = "Partial"
 notes = """
 Does not enforce that tuples captured by TypeVarTuple are same length.
-Does not enforce that tuples captured by TypeVarTuple are same type.
 """
 output = """
 generics_typevartuple_basic.py:42: error: Argument 1 to "Array" has incompatible type "Height"; expected "tuple[Height, Width]"  [arg-type]

@@ -73,6 +73,7 @@ def func4(*args: tuple[*Ts]):
 
 func4((0,), (1,))  # OK
 func4((0,), (1, 2))  # E (length mismatch)
+func4((0,), ("1",))  # OK
 
 
 # This is a syntax error, so leave it commented out.
