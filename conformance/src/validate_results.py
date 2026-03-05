@@ -7,6 +7,17 @@ import sys
 import tomllib
 from typing import Any
 
+ALLOWED_RESULT_KEYS = frozenset(
+    {
+        "conformance_automated",
+        "conformant",
+        "errors_diff",
+        "ignore_errors",
+        "notes",
+        "output",
+    }
+)
+
 
 def main() -> int:
     results_dir = Path(__file__).resolve().parent.parent / "results"
@@ -42,6 +53,12 @@ def main() -> int:
 def _validate_result(file: Path, results_dir: Path, info: dict[str, Any]) -> list[str]:
     issues: list[str] = []
     rel_path = file.relative_to(results_dir)
+
+    unknown_keys = sorted(set(info) - ALLOWED_RESULT_KEYS)
+    if unknown_keys:
+        issues.append(
+            f"{rel_path}: unrecognized key(s): {', '.join(repr(key) for key in unknown_keys)}"
+        )
 
     automated = info.get("conformance_automated")
     if automated not in {"Pass", "Fail"}:
