@@ -737,9 +737,9 @@
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_hash</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report when dataclass is not compatible with Hashable protocol.</p></span></div></th>
+<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not synthesize `__hash__ = None` as a class attribute for unhashable dataclasses.</p><p>Does not report when an unhashable dataclass has `__hash__` called directly on an instance.</p><p>Does not report when dataclass is not compatible with Hashable protocol.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not synthesize a `__hash__ = None` class attribute for unhashable dataclasses.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_inheritance</th>
