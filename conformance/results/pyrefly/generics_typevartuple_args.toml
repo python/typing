@@ -1,6 +1,10 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+conformance_automated = "Fail"
+notes = """
+Does not correctly solve TypeVarTuple with heterogeneous bounds.
+"""
 errors_diff = """
+Line 76: Unexpected errors ["Argument `tuple[Literal['1']]` is not assignable to parameter `*args` with type `tuple[int]` in function `func4` [bad-argument-type]"]
 """
 output = """
 ERROR generics_typevartuple_args.py:33:12-23: Unpacked argument `tuple[Literal[0], Literal['']]` is not assignable to parameter `*args` with type `tuple[*@_, Env]` in function `exec_le` [bad-argument-type]

@@ -1,10 +1,11 @@
 conformant = "Partial"
 notes = """
-TypeVarTuple is pinned too early when calling generic function
+TypeVarTuple is pinned too early when calling generic function.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 85: Unexpected errors ['Argument `tuple[float]` is not assignable to parameter `arg2` with type `tuple[int]` in function `func2` [bad-argument-type]']
+Line 89: Unexpected errors ["Argument `tuple[Literal['0']]` is not assignable to parameter `arg2` with type `tuple[int]` in function `func2` [bad-argument-type]"]
 """
 output = """
 ERROR generics_typevartuple_basic.py:42:34-43: Argument `Height` is not assignable to parameter `shape` with type `tuple[Height, Width]` in function `Array.__init__` [bad-argument-type]

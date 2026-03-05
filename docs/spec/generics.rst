@@ -1189,51 +1189,34 @@ for two reasons:
 * To improve readability: the star also functions as an explicit visual
   indicator that the type variable tuple is not a normal type variable.
 
-Variance, Type Constraints and Type Bounds: Not (Yet) Supported
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Variance, Type Constraints and Type Bounds: Not Supported
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-``TypeVarTuple`` does not yet support specification of:
+``TypeVarTuple`` does not currently support specification of:
 
 * Variance (e.g. ``TypeVar('T', covariant=True)``)
 * Type constraints (``TypeVar('T', int, float)``)
 * Type bounds (``TypeVar('T', bound=ParentClass)``)
 
-We leave the decision of how these arguments should behave to a future PEP, when variadic generics have been tested in the field. As of PEP 646, type variable tuples are
-invariant.
-
 Type Variable Tuple Equality
 """"""""""""""""""""""""""""
 
 If the same ``TypeVarTuple`` instance is used in multiple places in a signature
-or class, a valid type inference might be to bind the ``TypeVarTuple`` to
-a ``tuple`` of a union of types:
+or class, type checkers may use the same rules for solving the variables as they
+would for normal ``TypeVar``\ s. The exact inference behavior is not specified.
 
 ::
 
-  def foo(arg1: tuple[*Ts], arg2: tuple[*Ts]): ...
+  def foo(arg1: tuple[*Ts], arg2: tuple[*Ts]) -> tuple[*Ts]: ...
 
   a = (0,)
   b = ('0',)
-  foo(a, b)  # Can Ts be bound to tuple[int | str]?
+  reveal_type(foo(a, b))  # May be e.g. tuple[object], tuple[int | str], tuple[Literal[0, "0"]]
 
-We do *not* allow this; type unions may *not* appear within the ``tuple``.
-If a type variable tuple appears in multiple places in a signature,
-the types must match exactly (the list of type parameters must be the same
-length, and the type parameters themselves must be identical):
+All usages of the ``TypeVarTuple`` must match in length, however::
 
-::
+  foo((1,), (2, 3))  # Error: Expected a tuple of length 1 for arg2, but got a tuple of length 2.
 
-  def pointwise_multiply(
-      x: Array[*Shape],
-      y: Array[*Shape]
-  ) -> Array[*Shape]: ...
-
-  x: Array[Height]
-  y: Array[Width]
-  z: Array[Height, Width]
-  pointwise_multiply(x, x)  # Valid
-  pointwise_multiply(x, y)  # Error
-  pointwise_multiply(x, z)  # Error
 
 Multiple Type Variable Tuples: Not Allowed
 """"""""""""""""""""""""""""""""""""""""""
