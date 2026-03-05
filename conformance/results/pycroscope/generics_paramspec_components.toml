@@ -19,5 +19,5 @@ output = """
 ./generics_paramspec_components.py:70:17: Arguments cannot follow ParamSpec.args [incompatible_call]
 ./generics_paramspec_components.py:72:8: Missing required positional argument at position 0 [incompatible_call]
 ./generics_paramspec_components.py:83:14: Arguments cannot follow ParamSpec.args [incompatible_call]
-./generics_paramspec_components.py:98:0: In call to .../tests/generics_paramspec_components.py.twice: Cannot resolve type variables [incompatible_call]
+./generics_paramspec_components.py:98:0: In call to generics_paramspec_components.twice: Cannot resolve type variables [incompatible_call]
 """

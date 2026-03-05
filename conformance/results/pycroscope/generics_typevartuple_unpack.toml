@@ -2,5 +2,5 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./generics_typevartuple_unpack.py:30:27: Incompatible argument type for x: expected .../tests/generics_typevartuple_unpack.py.Array[tuple[NewType('Batch', int), *tuple[Any[explicit], ...], NewType('Channels', int)]] but got .../tests/generics_typevartuple_unpack.py.Array[NewType('Batch', int)] [incompatible_argument]
+./generics_typevartuple_unpack.py:30:27: Incompatible argument type for x: expected generics_typevartuple_unpack.Array[tuple[NewType('Batch', int), *tuple[Any[explicit], ...], NewType('Channels', int)]] but got generics_typevartuple_unpack.Array[NewType('Batch', int)] [incompatible_argument]
 """

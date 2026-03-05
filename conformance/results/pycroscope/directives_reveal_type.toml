@@ -5,7 +5,7 @@ output = """
 ./directives_reveal_type.py:14:16: Revealed type is 'int | str' [reveal_type]
 ./directives_reveal_type.py:15:16: Revealed type is 'list[int]' [reveal_type]
 ./directives_reveal_type.py:16:16: Revealed type is 'Any[explicit]' [reveal_type]
-./directives_reveal_type.py:17:16: Revealed type is '.../tests/directives_reveal_type.py.ForwardReference' [reveal_type]
+./directives_reveal_type.py:17:16: Revealed type is 'directives_reveal_type.ForwardReference' [reveal_type]
 ./directives_reveal_type.py:19:4: In call to typing.reveal_type: Missing required positional argument 'value' [incompatible_call]
 ./directives_reveal_type.py:20:4: In call to typing.reveal_type: Takes 1 positional arguments but 2 were given [incompatible_call]
 """

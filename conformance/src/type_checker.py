@@ -4,6 +4,7 @@ Classes that abstract differences between type checkers.
 
 from abc import ABC, abstractmethod
 import json
+import os
 from pathlib import Path
 import re
 import shutil
@@ -381,7 +382,14 @@ class PycroscopeTypeChecker(TypeChecker):
             "--enable",
             "classvar_type_parameters",
         ]
-        proc = run(command, stdout=PIPE, stderr=PIPE, text=True, encoding="utf-8")
+        proc = run(
+            command,
+            stdout=PIPE,
+            stderr=PIPE,
+            text=True,
+            encoding="utf-8",
+            env={**os.environ, "PYTHONPATH": "."},
+        )
         lines = proc.stderr.splitlines()
         full_output_lines: list[str] = []
 

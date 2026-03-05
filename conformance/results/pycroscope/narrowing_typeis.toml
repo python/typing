@@ -4,11 +4,11 @@ errors_diff = """
 output = """
 ./narrowing_typeis.py:105:4: TypeIs must be used on a function taking at least one positional parameter [invalid_typeguard]
 ./narrowing_typeis.py:110:4: TypeIs must be used on a function taking at least one positional parameter [invalid_typeguard]
-./narrowing_typeis.py:132:19: Incompatible argument type for f: expected (object, /) -> str but got function '.../tests/narrowing_typeis.py.simple_typeguard' [incompatible_argument]
-./narrowing_typeis.py:152:25: Incompatible argument type for f: expected .../tests/narrowing_typeis.py.CallableStrProto but got function '.../tests/narrowing_typeis.py.simple_typeguard' [incompatible_argument]
-./narrowing_typeis.py:169:16: Incompatible argument type for f: expected (object, /) -> Annotated[bool, TypeGuardExtension(guarded_type=TypedValue(typ=<class 'int'>, literal_only=False))] but got function '.../tests/narrowing_typeis.py.is_int_typeis' [incompatible_argument]
-./narrowing_typeis.py:170:13: Incompatible argument type for f: expected (object, /) -> Annotated[bool, TypeIsExtension(guarded_type=TypedValue(typ=<class 'int'>, literal_only=False))] but got function '.../tests/narrowing_typeis.py.is_int_typeguard' [incompatible_argument]
-./narrowing_typeis.py:191:17: Incompatible argument type for f: expected (object, /) -> Annotated[bool, TypeIsExtension(guarded_type=TypedValue(typ=<class 'int'>, literal_only=False))] but got function '.../tests/narrowing_typeis.py.bool_typeis' [incompatible_argument]
+./narrowing_typeis.py:132:19: Incompatible argument type for f: expected (object, /) -> str but got function 'narrowing_typeis.simple_typeguard' [incompatible_argument]
+./narrowing_typeis.py:152:25: Incompatible argument type for f: expected narrowing_typeis.CallableStrProto but got function 'narrowing_typeis.simple_typeguard' [incompatible_argument]
+./narrowing_typeis.py:169:16: Incompatible argument type for f: expected (object, /) -> Annotated[bool, TypeGuardExtension(guarded_type=TypedValue(typ=<class 'int'>, literal_only=False))] but got function 'narrowing_typeis.is_int_typeis' [incompatible_argument]
+./narrowing_typeis.py:170:13: Incompatible argument type for f: expected (object, /) -> Annotated[bool, TypeIsExtension(guarded_type=TypedValue(typ=<class 'int'>, literal_only=False))] but got function 'narrowing_typeis.is_int_typeguard' [incompatible_argument]
+./narrowing_typeis.py:191:17: Incompatible argument type for f: expected (object, /) -> Annotated[bool, TypeIsExtension(guarded_type=TypedValue(typ=<class 'int'>, literal_only=False))] but got function 'narrowing_typeis.bool_typeis' [incompatible_argument]
 ./narrowing_typeis.py:195:26: TypeIs narrowed type str is incompatible with parameter x [typeis_must_be_subtype]
 ./narrowing_typeis.py:199:44: TypeIs narrowed type list[int] is incompatible with parameter x [typeis_must_be_subtype]
 """

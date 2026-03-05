@@ -2,6 +2,6 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./generics_self_attributes.py:26:37: Incompatible argument type for next: expected .../tests/generics_self_attributes.py.OrdinalLinkedList | None but got .../tests/generics_self_attributes.py.LinkedList[int] [incompatible_argument]
-./generics_self_attributes.py:32:4: Incompatible assignment: expected .../tests/generics_self_attributes.py.OrdinalLinkedList | NoneType, got .../tests/generics_self_attributes.py.LinkedList[int] [incompatible_assignment]
+./generics_self_attributes.py:26:37: Incompatible argument type for next: expected generics_self_attributes.OrdinalLinkedList | None but got generics_self_attributes.LinkedList[int] [incompatible_argument]
+./generics_self_attributes.py:32:4: Incompatible assignment: expected generics_self_attributes.OrdinalLinkedList | NoneType, got generics_self_attributes.LinkedList[int] [incompatible_assignment]
 """

@@ -8,5 +8,5 @@ output = """
 ./specialtypes_never.py:51:4: Incompatible return type: expected list[Never], got Literal[[]] [incompatible_return_value]
 ./specialtypes_never.py:84:4: Incompatible assignment: expected Never, got Any[explicit] [incompatible_assignment]
 ./specialtypes_never.py:85:4: Incompatible assignment: expected list[int], got list[Never] [incompatible_assignment]
-./specialtypes_never.py:104:4: Incompatible return type: expected .../tests/specialtypes_never.py.ClassC[~U], got .../tests/specialtypes_never.py.ClassC[Never] [incompatible_return_value]
+./specialtypes_never.py:104:4: Incompatible return type: expected specialtypes_never.ClassC[~U], got specialtypes_never.ClassC[Never] [incompatible_return_value]
 """

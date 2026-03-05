@@ -1,9 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 18: Expected 1 errors
-Line 24: Expected 1 errors
-Line 25: Expected 1 errors
-Line 30: Expected 1 errors
 Line 41: Expected 1 errors
 Line 42: Expected 1 errors
 Line 44: Expected 1 errors
@@ -12,7 +8,13 @@ Line 48: Expected 1 errors
 Line 58: Expected 1 errors
 Line 69: Expected 1 errors
 Line 98: Expected 1 errors
+Line 31: Unexpected errors ['./directives_deprecated.py:31:0: Use of deprecated overload (*args: Any[inference], **kwargs: Any[inference]) -> Any[unannotated]: Only str will be allowed [deprecated]']
 """
 output = """
+./directives_deprecated.py:18:43: type '_directives_deprecated_library.Ham' is deprecated: Use Spam instead [deprecated]
+./directives_deprecated.py:24:0: function '_directives_deprecated_library.norwegian_blue' is deprecated: It is pining for the fjords [deprecated]
+./directives_deprecated.py:25:4: function '_directives_deprecated_library.norwegian_blue' is deprecated: It is pining for the fjords [deprecated]
+./directives_deprecated.py:30:0: Use of deprecated overload (*args: Any[inference], **kwargs: Any[inference]) -> Any[unannotated]: Only str will be allowed [deprecated]
+./directives_deprecated.py:31:0: Use of deprecated overload (*args: Any[inference], **kwargs: Any[inference]) -> Any[unannotated]: Only str will be allowed [deprecated]
 ./directives_deprecated.py:90:4: Method does not override any base method [override_does_not_override]
 """

@@ -1,8 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 166: Expected 1 errors
-Line 170: Expected 1 errors
-Line 168: Unexpected errors ["./qualifiers_final_annotation.py:168:0: Cannot import * from unresolved module '_qualifiers_final_annotation_2' [invalid_import]"]
 """
 output = """
 ./qualifiers_final_annotation.py:16:6: Final annotation without assignment requires an explicit type [invalid_annotation]
@@ -31,5 +28,6 @@ output = """
 ./qualifiers_final_annotation.py:149:8: Cannot assign to final name x [incompatible_assignment]
 ./qualifiers_final_annotation.py:152:29: Cannot assign to final name x [incompatible_assignment]
 ./qualifiers_final_annotation.py:155:8: Cannot assign to final name x [incompatible_assignment]
-./qualifiers_final_annotation.py:168:0: Cannot import * from unresolved module '_qualifiers_final_annotation_2' [invalid_import]
+./qualifiers_final_annotation.py:166:0: Cannot assign to final name TEN [incompatible_assignment]
+./qualifiers_final_annotation.py:170:0: Cannot assign to final name PI [incompatible_assignment]
 """
