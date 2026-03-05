@@ -1,5 +1,9 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
+notes = """
+Does not correctly solve TypeVarTuple with heterogeneous bounds.
+"""
 errors_diff = """
+Line 89: Unexpected errors ['generics_typevartuple_basic.py:89: error: Argument 2 to "func2" has incompatible type "tuple[Literal[\\'0\\']]"; expected "tuple[int]"  [arg-type]']
 """
 output = """
 generics_typevartuple_basic.py:42: error: Argument 1 to "Array" has incompatible type "Height"; expected "tuple[Height, Width]"  [arg-type]

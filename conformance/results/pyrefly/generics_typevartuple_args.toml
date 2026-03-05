@@ -1,6 +1,10 @@
 conformant = "Pass"
-conformance_automated = "Pass"
+conformance_automated = "Fail"
+notes = """
+Does not correctly solve TypeVarTuple with heterogeneous bounds.
+"""
 errors_diff = """
+Line 76: Unexpected errors ["Argument `tuple[Literal['1']]` is not assignable to parameter `*args` with type `tuple[int]` in function `func4` [bad-argument-type]"]
 """
 output = """
 ERROR generics_typevartuple_args.py:33:12-23: Unpacked argument `tuple[Literal[0], Literal['']]` is not assignable to parameter `*args` with type `tuple[*@_, Env]` in function `exec_le` [bad-argument-type]
@@ -11,4 +15,5 @@ ERROR generics_typevartuple_args.py:58:6-9: Unpacked argument `tuple[Literal[1]]
 ERROR generics_typevartuple_args.py:59:6-10: Unpacked argument `tuple[Literal['']]` is not assignable to parameter `*args` with type `tuple[int, *tuple[str, ...], str]` in function `func2` [bad-argument-type]
 ERROR generics_typevartuple_args.py:67:6-9: Unpacked argument `tuple[Literal[1]]` is not assignable to parameter `*args` with type `tuple[int, str]` in function `func3` [bad-argument-type]
 ERROR generics_typevartuple_args.py:75:13-19: Argument `tuple[Literal[1], Literal[2]]` is not assignable to parameter `*args` with type `tuple[int]` in function `func4` [bad-argument-type]
+ERROR generics_typevartuple_args.py:76:13-19: Argument `tuple[Literal['1']]` is not assignable to parameter `*args` with type `tuple[int]` in function `func4` [bad-argument-type]
 """
