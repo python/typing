@@ -1,4 +1,4 @@
-conformant = "Pass"
+conformant = "Partial"
 conformance_automated = "Fail"
 notes = """
 Does not correctly solve TypeVarTuple with heterogeneous bounds.

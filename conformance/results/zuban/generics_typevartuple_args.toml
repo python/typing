@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not correctly solve TypeVarTuple with heterogeneous bounds.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 76: Unexpected errors ['generics_typevartuple_args.py:76: error: Argument 2 to "func4" has incompatible type "tuple[Literal[\\'1\\']]"; expected "tuple[int]"  [arg-type]']

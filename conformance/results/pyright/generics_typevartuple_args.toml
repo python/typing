@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not correctly solve TypeVarTuple with heterogeneous bounds.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 76: Unexpected errors ['generics_typevartuple_args.py:76:14 - error: Argument of type "tuple[Literal[\\'1\\']]" cannot be assigned to parameter "args" of type "tuple[*Ts@func4]" in function "func4"']
