@@ -61,6 +61,8 @@ def _validate_result(file: Path, results_dir: Path, info: dict[str, Any]) -> lis
             )
             return issues
     elif isinstance(conformant, str):
+        if conformant not in ("Pass", "Partial", "Unsupported"):
+            issues.append(f"{rel_path}: invalid conformance status {conformant!r}")
         conformant_is_pass = conformant == "Pass"
     else:
         issues.append(f"{rel_path}: conformant must be a string when present")
