@@ -263,19 +263,19 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrect rejects + between two AnyStr</p><p>Constrained type var resolves to subtype instead of explcitly listed constraint</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults</th>
-<th class="column col2 partially-conformant">Partial</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect a TypeVar with a default used after a TypeVarTuple.</p><p>Does not fully support defaults on TypeVarTuple and ParamSpec.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults_referential</th>
-<th class="column col2 partially-conformant">Partial</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly handle defaults referencing other TypeVars.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_defaults_specialization</th>
-<th class="column col2 partially-conformant">Partial</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly resolve defaults when classes are used directly.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
@@ -644,7 +644,7 @@
 <th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_call_metaclass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unupported<span class="tooltip-text" id="bottom"><p>Does not honor metaclass __call__ method when evaluating constructor call.</p><p>Does not skip evaluation of __new__ and __init__ if custom metaclass call returns non-class.</p></span></div></th>
+<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not honor metaclass __call__ method when evaluating constructor call.</p><p>Does not skip evaluation of __new__ and __init__ if custom metaclass call returns non-class.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
