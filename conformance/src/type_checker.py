@@ -24,8 +24,8 @@ class TypeChecker(ABC):
     @abstractmethod
     def install(self) -> bool:
         """
-        Ensures that the latest version of the type checker is installed.
-        Returns False if installation fails.
+        Ensures that the type checker is available in the current environment.
+        Returns False if it cannot be executed.
         """
         raise NotImplementedError
 
@@ -66,29 +66,24 @@ class MypyTypeChecker(TypeChecker):
             pass
 
         try:
-            # Uninstall any existing version if present.
-            run(
-                [sys.executable, "-m", "pip", "uninstall", "mypy", "-y"],
-                check=True,
-            )
-
-            # Install the latest version.
-            run(
-                [sys.executable, "-m", "pip", "install", "mypy"],
-                check=True,
-            )
-
-            # Run "mypy --version" to ensure that it's installed and to work
+            # Run "mypy --version" to ensure that it's available and to work
             # around timing issues caused by malware scanners on some systems.
             self.get_version()
-
             return True
-        except CalledProcessError:
-            print("Unable to install mypy")
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run mypy. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
             return False
 
     def get_version(self) -> str:
-        proc = run([sys.executable, "-m", "mypy", "--version"], stdout=PIPE, text=True)
+        proc = run(
+            [sys.executable, "-m", "mypy", "--version"],
+            check=True,
+            stdout=PIPE,
+            text=True,
+        )
         version = proc.stdout.strip()
 
         # Remove the " (compiled)" if it's present.
@@ -136,29 +131,23 @@ class PyrightTypeChecker(TypeChecker):
 
     def install(self) -> bool:
         try:
-            # Uninstall any old version if present.
-            run(
-                [sys.executable, "-m", "pip", "uninstall", "pyright", "-y"],
-                check=True,
-            )
-
-            # Install the latest version.
-            run(
-                [sys.executable, "-m", "pip", "install", "pyright"],
-                check=True,
-            )
-
             # Force the Python wrapper to install node if needed
-            # and download the latest version of pyright.
+            # and use the locked version of pyright.
             self.get_version()
             return True
-        except CalledProcessError:
-            print("Unable to install pyright")
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run pyright. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
             return False
 
     def get_version(self) -> str:
         proc = run(
-            [sys.executable, "-m", "pyright", "--version"], stdout=PIPE, text=True
+            [sys.executable, "-m", "pyright", "--version"],
+            check=True,
+            stdout=PIPE,
+            text=True,
         )
         return proc.stdout.strip()
 
@@ -273,24 +262,17 @@ class ZubanLSTypeChecker(MypyTypeChecker):
 
     def install(self) -> bool:
         try:
-            # Uninstall any existing version if present.
-            run(
-                [sys.executable, "-m", "pip", "uninstall", "zuban", "-y"],
-                check=True,
-            )
-
-            # Install the latest version.
-            run(
-                [sys.executable, "-m", "pip", "install", "zuban"],
-                check=True,
-            )
+            self.get_version()
             return True
-        except CalledProcessError:
-            print("Unable to install zuban")
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run zuban. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
             return False
 
     def get_version(self) -> str:
-        proc = run(["zuban", "--version"], stdout=PIPE, text=True)
+        proc = run(["zuban", "--version"], check=True, stdout=PIPE, text=True)
         return proc.stdout.strip()
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
@@ -333,23 +315,17 @@ class PyreflyTypeChecker(TypeChecker):
 
     def install(self) -> bool:
         try:
-            # Uninstall any existing version if present.
-            run(
-                [sys.executable, "-m", "pip", "uninstall", "pyrefly", "-y"],
-                check=True,
-            )
-            # Install the latest version.
-            run(
-                [sys.executable, "-m", "pip", "install", "pyrefly"],
-                check=True,
-            )
+            self.get_version()
             return True
-        except CalledProcessError:
-            print("Unable to install pyrefly")
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run pyrefly. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
             return False
 
     def get_version(self) -> str:
-        proc = run(["pyrefly", "--version"], stdout=PIPE, text=True)
+        proc = run(["pyrefly", "--version"], check=True, stdout=PIPE, text=True)
         version = proc.stdout.strip()
         return version
 

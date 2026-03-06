@@ -1,11 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not detect circular definitions.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 48: Expected 1 errors
-Line 66: Expected 1 errors
 """
 output = """
 ERROR aliases_typealiastype.py:32:7-30: Object of class `TypeAliasType` has no attribute `other_attrib` [missing-attribute]
@@ -13,9 +7,10 @@ ERROR aliases_typealiastype.py:40:5-30: `int` is not assignable to upper bound `
 ERROR aliases_typealiastype.py:43:13-66: Type variable `S` is out of scope for this `TypeAliasType` [invalid-type-alias]
 ERROR aliases_typealiastype.py:44:13-48: Type variable `S` is out of scope for this `TypeAliasType` [invalid-type-alias]
 ERROR aliases_typealiastype.py:45:45-65: Value for argument `type_params` must be a tuple literal [invalid-type-alias]
-ERROR aliases_typealiastype.py:46:41-50: Found cyclic self-reference in `BadAlias4` [invalid-type-alias]
-ERROR aliases_typealiastype.py:47:40-60: Found cyclic self-reference in `BadAlias5` [invalid-type-alias]
-ERROR aliases_typealiastype.py:49:40-49: Found cyclic self-reference in `BadAlias7` [invalid-type-alias]
+ERROR aliases_typealiastype.py:46:13-52: Found cyclic self-reference in `BadAlias4` [invalid-type-alias]
+ERROR aliases_typealiastype.py:47:13-79: Found cyclic self-reference in `BadAlias5` [invalid-type-alias]
+ERROR aliases_typealiastype.py:48:13-52: Found cyclic self-reference in `BadAlias6` [invalid-type-alias]
+ERROR aliases_typealiastype.py:49:13-50: Found cyclic self-reference in `BadAlias7` [invalid-type-alias]
 ERROR aliases_typealiastype.py:52:40-80: Function call cannot be used in annotations [invalid-annotation]
 ERROR aliases_typealiastype.py:53:40-50: List literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_typealiastype.py:54:42-55: Tuple literal cannot be used in annotations [invalid-annotation]
@@ -31,4 +26,5 @@ ERROR aliases_typealiastype.py:61:42-46: Bool literal cannot be used in annotati
 ERROR aliases_typealiastype.py:62:42-43: Number literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_typealiastype.py:63:42-53: Boolean operation cannot be used in annotations [invalid-annotation]
 ERROR aliases_typealiastype.py:64:42-52: F-string cannot be used in annotations [invalid-annotation]
+ERROR aliases_typealiastype.py:66:14-59: Found cyclic self-reference in `BadAlias21` [invalid-type-alias]
 """

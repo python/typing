@@ -3,8 +3,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR generics_typevartuple_args.py:33:8-19: Unpacked argument `tuple[Literal[0], Literal['']]` is not assignable to parameter `*args` with type `tuple[*@_, Env]` in function `exec_le` [bad-argument-type]
-ERROR generics_typevartuple_args.py:34:8-30: Unpacked argument `tuple[Literal[0], Literal['']]` is not assignable to parameter `*args` with type `tuple[*@_, Env]` in function `exec_le` [bad-argument-type]
+ERROR generics_typevartuple_args.py:33:12-23: Unpacked argument `tuple[Literal[0], Literal['']]` is not assignable to parameter `*args` with type `tuple[*@_, Env]` in function `exec_le` [bad-argument-type]
+ERROR generics_typevartuple_args.py:34:12-34: Unpacked argument `tuple[Literal[0], Literal['']]` is not assignable to parameter `*args` with type `tuple[*@_, Env]` in function `exec_le` [bad-argument-type]
 ERROR generics_typevartuple_args.py:48:6-17: Unpacked argument `tuple[Literal[1], Literal['2'], Literal[3]]` is not assignable to parameter `*args` with type `tuple[int, ...]` in function `func1` [bad-argument-type]
 ERROR generics_typevartuple_args.py:57:6-16: Unpacked argument `tuple[Literal[1], Literal[1], Literal['']]` is not assignable to parameter `*args` with type `tuple[int, *tuple[str, ...], str]` in function `func2` [bad-argument-type]
 ERROR generics_typevartuple_args.py:58:6-9: Unpacked argument `tuple[Literal[1]]` is not assignable to parameter `*args` with type `tuple[int, *tuple[str, ...], str]` in function `func2` [bad-argument-type]

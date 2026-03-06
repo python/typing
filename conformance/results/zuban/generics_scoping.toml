@@ -1,13 +1,12 @@
-conformance_automated = "Fail"
-conformant = "Partial"
+conformance_automated = "Pass"
 errors_diff = """
-Lines 15, 16: Expected error (tag 'fun1')
-Lines 19, 20: Expected error (tag 'fun2')
-Lines 49, 50: Expected error (tag 'method-str')
-Lines 53, 54: Expected error (tag 'method-bytes')
 """
 output = """
+generics_scoping.py:15: error: Expression is of type "Literal[1]", not "int"  [misc]
+generics_scoping.py:19: error: Expression is of type "Literal['a']", not "str"  [misc]
 generics_scoping.py:34: error: Argument 1 to "meth_2" of "MyClass" has incompatible type "str"; expected "int"  [arg-type]
+generics_scoping.py:49: error: Expression is of type "Literal['abc']", not "str"  [misc]
+generics_scoping.py:53: error: Expression is of type "Literal[b'abc']", not "bytes"  [misc]
 generics_scoping.py:61: error: Type variable "generics_scoping.S" is unbound  [misc]
 generics_scoping.py:61: note: (Hint: Use "Generic[S]" or "Protocol[S]" base class to bind "S" inside a class)
 generics_scoping.py:61: note: (Hint: Use "S" in function signature to bind "S" inside a function)
