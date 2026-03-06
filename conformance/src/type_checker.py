@@ -196,19 +196,13 @@ class TyTypeChecker(TypeChecker):
 
     def install(self) -> bool:
         try:
-            # Uninstall any old version if present.
-            run(
-                [sys.executable, "-m", "pip", "uninstall", "ty", "-y"],
-                check=True,
-            )
-            # Install the latest version.
-            run(
-                [sys.executable, "-m", "pip", "install", "ty"],
-                check=True,
-            )
+            self.get_version()
             return True
-        except CalledProcessError:
-            print("Unable to install ty")
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run pyrefly. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
             return False
 
     def get_version(self) -> str:

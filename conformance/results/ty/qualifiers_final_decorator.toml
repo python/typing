@@ -1,10 +1,5 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Does not reject using `@final` on a non-method function.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Lines 125, 126: Expected error (tag 'func')
 """
 output = """
 qualifiers_final_decorator.py:21:16: error[subclass-of-final-class] Class `Derived1` cannot inherit from final class `Base1`
@@ -17,4 +12,5 @@ qualifiers_final_decorator.py:89:9: error[override-of-final-method] Cannot overr
 qualifiers_final_decorator.py:102:9: error[override-of-final-method] Cannot override final member `method` from superclass `Base4`
 qualifiers_final_decorator.py:118:9: error[invalid-method-override] Invalid override of method `method`: Definition is incompatible with `Base5_2.method`
 qualifiers_final_decorator.py:118:9: error[override-of-final-method] Cannot override final member `method` from superclass `Base5_2`
+qualifiers_final_decorator.py:125:1: error[final-on-non-method] `@final` cannot be applied to non-method function `func1`
 """

@@ -1,20 +1,12 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Does not reject class definitions where a type variable `T2` that has `T1` as its default comes before `T1`.
-Does not reject using a type parameter from an outer scope as a default for a type parameter in an inner scope.
-Infers a more precise type than `type[]` for class objects.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 53: Expected 1 errors
-Line 60: Expected 1 errors
-Line 94: Unexpected errors ["generics_defaults_referential.py:94:1: error[type-assertion-failure] Type `<class 'Bar'>` does not match asserted type `type[Bar[Any, list[Any]]]`"]
 """
 output = """
 generics_defaults_referential.py:36:13: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `int`, found `Literal[""]`
 generics_defaults_referential.py:37:10: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `int`, found `Literal[""]`
+generics_defaults_referential.py:53:7: error[invalid-generic-class] Default of `Start2T` cannot reference out-of-scope type variable `StopT`
+generics_defaults_referential.py:60:11: error[invalid-generic-class] Default of `S2` cannot reference out-of-scope type variable `S1`
 generics_defaults_referential.py:68:40: error[invalid-type-variable-default] Default `X1` of TypeVar `Invalid1` is not assignable to upper bound `str` of `Invalid1` because its upper bound `int` is not assignable to `str`
 generics_defaults_referential.py:74:52: error[invalid-type-variable-default] TypeVar default is inconsistent with the TypeVar's constraints: Bounded TypeVar cannot be used as the default for a constrained TypeVar
 generics_defaults_referential.py:78:63: error[invalid-type-variable-default] Default `Y2` of TypeVar `AlsoInvalid2` is inconsistent with its constraints `AlsoInvalid2` because constraint `int` of `Y2` is not one of the constraints of `AlsoInvalid2`
-generics_defaults_referential.py:94:1: error[type-assertion-failure] Type `<class 'Bar'>` does not match asserted type `type[Bar[Any, list[Any]]]`
 """

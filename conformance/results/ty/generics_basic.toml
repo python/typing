@@ -2,13 +2,11 @@ conformance_automated = "Fail"
 conformant = "Partial"
 notes = """
 Incorrectly allows constrained type variables to be solved to a union of their constraints.
-Permits generic metaclasses.
 """
 errors_diff = """
 Line 40: Expected 1 errors
 Line 41: Expected 1 errors
 Line 69: Expected 1 errors
-Line 208: Expected 1 errors
 """
 output = """
 generics_basic.py:49:44: error[invalid-legacy-type-variable] A `TypeVar` cannot have exactly one constraint
@@ -20,4 +18,5 @@ generics_basic.py:162:12: error[invalid-argument-type] `<class 'int'>` is not a 
 generics_basic.py:163:12: error[invalid-argument-type] `<class 'int'>` is not a valid argument to `Protocol`
 generics_basic.py:171:1: error[invalid-generic-class] `Generic` base class must include all type variables used in other base classes
 generics_basic.py:172:1: error[invalid-generic-class] `Generic` base class must include all type variables used in other base classes
+generics_basic.py:208:1: error[invalid-metaclass] Generic metaclasses are not supported
 """

@@ -13,12 +13,12 @@ Line 59: Expected 1 errors
 Line 67: Expected 1 errors
 Line 75: Expected 1 errors
 Line 76: Expected 1 errors
-Line 20: Unexpected errors ['generics_typevartuple_args.py:20:1: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`']
-Line 31: Unexpected errors ['generics_typevartuple_args.py:31:1: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[()]`']
-Line 32: Unexpected errors ['generics_typevartuple_args.py:32:1: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`']
+Line 29: Unexpected errors ['generics_typevartuple_args.py:29:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`']
+Line 31: Unexpected errors ['generics_typevartuple_args.py:31:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[()]`']
+Line 32: Unexpected errors ['generics_typevartuple_args.py:32:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`']
 """
 output = """
-generics_typevartuple_args.py:20:1: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`
-generics_typevartuple_args.py:31:1: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[()]`
-generics_typevartuple_args.py:32:1: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`
+generics_typevartuple_args.py:29:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`
+generics_typevartuple_args.py:31:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[()]`
+generics_typevartuple_args.py:32:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`
 """

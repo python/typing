@@ -1,12 +1,8 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Does not detect non-frozen `dataclass_transform` dataclasses invalidly inheriting from frozen ones.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 51: Expected 1 errors
 """
 output = """
+dataclasses_transform_meta.py:51:7: error[invalid-frozen-dataclass-subclass] Non-frozen dataclass `Customer1Subclass` cannot inherit from frozen dataclass `Customer1`
 dataclasses_transform_meta.py:63:1: error[invalid-assignment] Property `id` defined in `Customer1` is read-only
 dataclasses_transform_meta.py:66:8: error[missing-argument] No arguments provided for required parameters `id`, `name`
 dataclasses_transform_meta.py:66:18: error[too-many-positional-arguments] Too many positional arguments: expected 0, got 2

@@ -2,21 +2,19 @@ conformance_automated = "Fail"
 conformant = "Partial"
 notes = """
 Does not reject use of the `type` statement inside functions.
-Does not reject attempts to use legacy type variables in new-tyle type aliases.
 Does not reject circular definitions of type aliases.
 Does not reject redeclarations of type aliases.
 Does not support `type` statements generic over `TypeVarTuple`s.
 """
 errors_diff = """
 Line 56: Expected 1 errors
-Line 62: Expected 1 errors
-Line 67: Expected 1 errors
 Line 84: Expected 1 errors
 Lines 51, 52: Expected error (tag 'TA14')
-Line 10: Unexpected errors ['aliases_type_statement.py:10:52: error[invalid-type-arguments] Too many type arguments: expected 2, got 3']
+Line 10: Unexpected errors ['aliases_type_statement.py:10:52: error[invalid-type-arguments] Too many type arguments: expected 2, got 3', 'aliases_type_statement.py:10:52: error[invalid-type-form] `...` is not allowed in this context in a type expression']
 """
 output = """
 aliases_type_statement.py:10:52: error[invalid-type-arguments] Too many type arguments: expected 2, got 3
+aliases_type_statement.py:10:52: error[invalid-type-form] `...` is not allowed in this context in a type expression
 aliases_type_statement.py:17:1: error[unresolved-attribute] Object of type `TypeAliasType` has no attribute `bit_count`
 aliases_type_statement.py:19:1: error[call-non-callable] Object of type `TypeAliasType` is not callable
 aliases_type_statement.py:23:7: error[unresolved-attribute] Object of type `TypeAliasType` has no attribute `other_attrib`
@@ -29,7 +27,7 @@ aliases_type_statement.py:39:23: error[invalid-type-form] Tuple literals are not
 aliases_type_statement.py:40:22: error[invalid-type-form] List comprehensions are not allowed in type expressions
 aliases_type_statement.py:41:22: error[invalid-type-form] Dict literals are not allowed in type expressions
 aliases_type_statement.py:42:22: error[invalid-type-form] Function calls are not allowed in type expressions
-aliases_type_statement.py:43:22: error[invalid-type-form] Invalid subscript of object of type `list[Unknown | <class 'int'>]` in type expression
+aliases_type_statement.py:43:22: error[invalid-type-form] Invalid subscript of object of type `list[<class 'int'>]` in type expression
 aliases_type_statement.py:43:28: error[invalid-type-form] Int literals are not allowed in this context in a type expression
 aliases_type_statement.py:44:22: error[invalid-type-form] `if` expressions are not allowed in type expressions
 aliases_type_statement.py:45:22: error[invalid-type-form] Variable of type `Literal[1]` is not allowed in a type expression
@@ -37,6 +35,8 @@ aliases_type_statement.py:46:23: error[invalid-type-form] Boolean literals are n
 aliases_type_statement.py:47:23: error[invalid-type-form] Int literals are not allowed in this context in a type expression
 aliases_type_statement.py:48:23: error[invalid-type-form] Boolean operations are not allowed in type expressions
 aliases_type_statement.py:49:23: error[fstring-type-annotation] Type expressions cannot use f-strings
+aliases_type_statement.py:62:23: error[unbound-type-variable] Type variable `V` is not bound to any outer generic context
+aliases_type_statement.py:67:17: error[unbound-type-variable] Type variable `T1` is not bound to any outer generic context
 aliases_type_statement.py:77:27: error[invalid-type-arguments] Type `str` is not assignable to upper bound `int` of type variable `S@RecursiveTypeAlias2`
 aliases_type_statement.py:79:32: error[invalid-type-arguments] Type `int` is not assignable to upper bound `str` of type variable `T@RecursiveTypeAlias2`
 aliases_type_statement.py:82:1: error[cyclic-type-alias-definition] Cyclic definition of `RecursiveTypeAlias3`

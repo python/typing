@@ -1,14 +1,9 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Does not reject use of `Required` and `NotRequired` in non-`TypedDict` classes.
-Does not reject nested use such as `Required[Required[int]]`.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 12: Expected 1 errors
-Line 59: Expected 1 errors
-Line 60: Expected 1 errors
 """
 output = """
+typeddicts_required.py:12:8: error[invalid-type-form] `Required` is only allowed in TypedDict fields
 typeddicts_required.py:16:5: error[invalid-type-form] `NotRequired` is not allowed in function parameter annotations
+typeddicts_required.py:59:8: error[invalid-type-form] `typing.Required` cannot be nested inside `Required` or `NotRequired`
+typeddicts_required.py:60:8: error[invalid-type-form] `typing.Required` cannot be nested inside `Required` or `NotRequired`
 """

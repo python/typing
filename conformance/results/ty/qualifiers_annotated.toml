@@ -8,7 +8,7 @@ qualifiers_annotated.py:39:18: error[invalid-type-form] Tuple literals are not a
 qualifiers_annotated.py:40:17: error[invalid-type-form] List comprehensions are not allowed in type expressions
 qualifiers_annotated.py:41:17: error[invalid-type-form] Dict literals are not allowed in type expressions
 qualifiers_annotated.py:42:17: error[invalid-type-form] Function calls are not allowed in type expressions
-qualifiers_annotated.py:43:17: error[invalid-type-form] Invalid subscript of object of type `list[Unknown | <class 'int'>]` in type expression
+qualifiers_annotated.py:43:17: error[invalid-type-form] Invalid subscript of object of type `list[<class 'int'>]` in type expression
 qualifiers_annotated.py:43:23: error[invalid-type-form] Int literals are not allowed in this context in a type expression
 qualifiers_annotated.py:44:17: error[invalid-type-form] `if` expressions are not allowed in type expressions
 qualifiers_annotated.py:45:17: error[unresolved-reference] Name `var1` used when not defined

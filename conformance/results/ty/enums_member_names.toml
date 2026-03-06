@@ -2,5 +2,4 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-enums_member_names.py:30:5: error[type-assertion-failure] Type `Any` does not match asserted type `Literal["RED", "BLUE", "GREEN"]`
 """

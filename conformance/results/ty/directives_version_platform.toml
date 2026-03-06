@@ -1,21 +1,10 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Attempts to detect basic errors even in blocks it determines to be unreachable.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 14: Unexpected errors ['directives_version_platform.py:14:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`']
-Line 22: Unexpected errors ['directives_version_platform.py:22:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`']
-Line 31: Unexpected errors ['directives_version_platform.py:31:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`']
-Line 36: Unexpected errors ['directives_version_platform.py:36:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`']
 """
 output = """
-directives_version_platform.py:14:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
-directives_version_platform.py:19:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
-directives_version_platform.py:22:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
-directives_version_platform.py:27:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
-directives_version_platform.py:31:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
-directives_version_platform.py:36:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
-directives_version_platform.py:40:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
-directives_version_platform.py:45:17: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
+directives_version_platform.py:33:19: error[unresolved-reference] Name `val3` used when not defined
+directives_version_platform.py:50:19: error[unresolved-reference] Name `val6` used when not defined
+directives_version_platform.py:59:19: error[unresolved-reference] Name `val9` used when not defined
+directives_version_platform.py:66:19: error[unresolved-reference] Name `val10` used when not defined
+directives_version_platform.py:75:19: error[unresolved-reference] Name `val13` used when not defined
 """

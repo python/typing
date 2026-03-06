@@ -1,10 +1,5 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Does not reject assigning a callable with a single variadic positional parameter to a variable declared with a `Callable` type that accepts certain specific keyword arguments.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 125: Expected 1 errors
 """
 output = """
 callables_subtyping.py:26:36: error[invalid-assignment] Object of type `(int, /) -> int` is not assignable to `(int | float, /) -> int | float`
@@ -21,6 +16,7 @@ callables_subtyping.py:119:23: error[invalid-assignment] Object of type `StrArgs
 callables_subtyping.py:120:23: error[invalid-assignment] Object of type `IntArgs4` is not assignable to `IntStrArgs4`
 callables_subtyping.py:122:20: error[invalid-assignment] Object of type `IntArgs4` is not assignable to `StrArgs4`
 callables_subtyping.py:124:20: error[invalid-assignment] Object of type `StrArgs4` is not assignable to `IntArgs4`
+callables_subtyping.py:125:22: error[invalid-assignment] Object of type `IntStrArgs4` is not assignable to `Standard4`
 callables_subtyping.py:126:22: error[invalid-assignment] Object of type `StrArgs4` is not assignable to `Standard4`
 callables_subtyping.py:151:22: error[invalid-assignment] Object of type `NoKwargs5` is not assignable to `IntKwargs5`
 callables_subtyping.py:154:24: error[invalid-assignment] Object of type `NoKwargs5` is not assignable to `FloatKwargs5`

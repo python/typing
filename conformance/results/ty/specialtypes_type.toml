@@ -3,7 +3,6 @@ conformant = "Partial"
 notes = """
 Allows arbitrary attributes to be accessed on `TA` where `TA = typing.Type[typing.Any]` or `TA = type[typing.Any]`.
 Treats `type` equivalently to `type[object]` rather than `type[typing.Any]`.
-Incorrectly infers `b.__mro__` as having type `typing.Any` rather than `tuple[type, ...]` if `b` has type `type[typing.Any]` or `typing.Type[typing.Any]`.
 """
 errors_diff = """
 Line 144: Expected 1 errors
@@ -11,10 +10,8 @@ Line 146: Expected 1 errors
 Line 84: Unexpected errors ['specialtypes_type.py:84:5: error[type-assertion-failure] Type `type` does not match asserted type `type[Any]`']
 Line 99: Unexpected errors ['specialtypes_type.py:99:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`']
 Line 100: Unexpected errors ['specialtypes_type.py:100:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`']
-Line 102: Unexpected errors ['specialtypes_type.py:102:5: error[type-assertion-failure] Type `Any` does not match asserted type `tuple[type, ...]`']
 Line 107: Unexpected errors ['specialtypes_type.py:107:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`']
 Line 108: Unexpected errors ['specialtypes_type.py:108:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`']
-Line 110: Unexpected errors ['specialtypes_type.py:110:5: error[type-assertion-failure] Type `Any` does not match asserted type `tuple[type, ...]`']
 Line 137: Unexpected errors ['specialtypes_type.py:137:5: error[type-assertion-failure] Type `type` does not match asserted type `type[Any]`']
 Line 139: Unexpected errors ['specialtypes_type.py:139:5: error[type-assertion-failure] Type `type` does not match asserted type `type[Any]`']
 Line 169: Unexpected errors ['specialtypes_type.py:169:21: error[invalid-assignment] Object of type `type` is not assignable to `type[int]`']
@@ -27,10 +24,8 @@ specialtypes_type.py:76:17: error[invalid-type-form] type[...] must have exactly
 specialtypes_type.py:84:5: error[type-assertion-failure] Type `type` does not match asserted type `type[Any]`
 specialtypes_type.py:99:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
 specialtypes_type.py:100:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
-specialtypes_type.py:102:5: error[type-assertion-failure] Type `Any` does not match asserted type `tuple[type, ...]`
 specialtypes_type.py:107:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
 specialtypes_type.py:108:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
-specialtypes_type.py:110:5: error[type-assertion-failure] Type `Any` does not match asserted type `tuple[type, ...]`
 specialtypes_type.py:117:5: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
 specialtypes_type.py:120:5: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
 specialtypes_type.py:137:5: error[type-assertion-failure] Type `type` does not match asserted type `type[Any]`

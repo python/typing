@@ -1,18 +1,10 @@
-conformance_automated = "Fail"
-conformant = "Pass"
-notes = """
-Infers list[set | Unknown]` for `[1, 2]` and `set[Unknown | int]` for `{1, 2}`, leading to type-assertion failures for spurious reasons despite the type variables being accurately solved.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 37: Unexpected errors ['generics_upper_bound.py:37:1: error[type-assertion-failure] Type `list[Unknown | int]` does not match asserted type `list[int]`']
-Line 38: Unexpected errors ['generics_upper_bound.py:38:1: error[type-assertion-failure] Type `set[Unknown | int]` does not match asserted type `set[int]`']
 """
 output = """
 generics_upper_bound.py:24:32: error[invalid-type-variable-bound] TypeVar upper bound cannot be generic
-generics_upper_bound.py:37:1: error[type-assertion-failure] Type `list[Unknown | int]` does not match asserted type `list[int]`
-generics_upper_bound.py:38:1: error[type-assertion-failure] Type `set[Unknown | int]` does not match asserted type `set[int]`
-generics_upper_bound.py:43:1: error[type-assertion-failure] Type `list[Unknown | int] | set[Unknown | int]` does not match asserted type `list[int] | set[int]`
-generics_upper_bound.py:51:8: error[invalid-argument-type] Argument to function `longer` is incorrect: Argument type `Literal[3]` does not satisfy upper bound `Sized` of type variable `ST`
-generics_upper_bound.py:51:11: error[invalid-argument-type] Argument to function `longer` is incorrect: Argument type `Literal[3]` does not satisfy upper bound `Sized` of type variable `ST`
-generics_upper_bound.py:56:10: error[invalid-legacy-type-variable] A `TypeVar` cannot have both a bound and constraints
+generics_upper_bound.py:44:5: error[type-assertion-failure] Type `list[int] | set[int]` does not match asserted type `Collection[int]`
+generics_upper_bound.py:52:8: error[invalid-argument-type] Argument to function `longer` is incorrect: Argument type `Literal[3]` does not satisfy upper bound `Sized` of type variable `ST`
+generics_upper_bound.py:52:11: error[invalid-argument-type] Argument to function `longer` is incorrect: Argument type `Literal[3]` does not satisfy upper bound `Sized` of type variable `ST`
+generics_upper_bound.py:57:10: error[invalid-legacy-type-variable] A `TypeVar` cannot have both a bound and constraints
 """
