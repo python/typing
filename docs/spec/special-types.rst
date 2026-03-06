@@ -188,7 +188,7 @@ concrete class object, e.g. in the above example::
 ``type[T]`` where ``T`` is a type variable is allowed when annotating the
 first argument of a class method (see the relevant section).
 
-Any other :term:`special forms <special form>` like ``Callable`` are not
+Any other :term:`special forms <special form>` like ``Literal`` are not
 allowed as an argument to ``type``.
 
 There are some concerns with this feature: for example when
