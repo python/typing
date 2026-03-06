@@ -200,7 +200,7 @@ class TyTypeChecker(TypeChecker):
             return True
         except (CalledProcessError, FileNotFoundError):
             print(
-                "Unable to run pyrefly. Install conformance dependencies with "
+                "Unable to run ty. Install conformance dependencies with "
                 "'uv sync --frozen' from the conformance directory."
             )
             return False
