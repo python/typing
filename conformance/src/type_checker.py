@@ -207,7 +207,7 @@ class TyTypeChecker(TypeChecker):
 
     def get_version(self) -> str:
         proc = run([sys.executable, "-m", "ty", "--version"], stdout=PIPE, text=True)
-        return proc.stdout.strip()
+        return proc.stdout.split("(")[0].strip()
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         command = [
