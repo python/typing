@@ -1,0 +1,10 @@
+conformance_automated = "Fail"
+conformant = "Unsupported"
+errors_diff = """
+Line 23: Expected 1 errors
+Line 27: Expected 1 errors
+Line 31: Expected 1 errors
+Line 35: Expected 1 errors
+"""
+output = """
+"""

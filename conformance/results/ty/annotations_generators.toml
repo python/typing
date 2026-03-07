@@ -1,0 +1,16 @@
+conformance_automated = "Fail"
+conformant = "Unsupported"
+errors_diff = """
+Line 51: Expected 1 errors
+Line 54: Expected 1 errors
+Line 57: Expected 1 errors
+Line 66: Expected 1 errors
+Line 75: Expected 1 errors
+Line 118: Expected 1 errors
+Line 119: Expected 1 errors
+Line 135: Expected 1 errors
+"""
+output = """
+annotations_generators.py:86:21: error[invalid-return-type] Return type does not match returned value: expected `int`, found `types.GeneratorType`
+annotations_generators.py:91:27: error[invalid-return-type] Return type does not match returned value: expected `int`, found `types.AsyncGeneratorType`
+"""

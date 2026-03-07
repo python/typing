@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_order.py:50:4: error[unsupported-operator] Operator `<` is not supported between objects of type `DC1` and `DC2`
+"""

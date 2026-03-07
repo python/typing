@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_reveal_type.py:14:17: info[revealed-type] Revealed type: `int | str`
+directives_reveal_type.py:15:17: info[revealed-type] Revealed type: `list[int]`
+directives_reveal_type.py:16:17: info[revealed-type] Revealed type: `Any`
+directives_reveal_type.py:17:17: info[revealed-type] Revealed type: `ForwardReference`
+directives_reveal_type.py:19:5: error[missing-argument] No argument provided for required parameter `obj` of function `reveal_type`
+directives_reveal_type.py:20:20: error[too-many-positional-arguments] Too many positional arguments to function `reveal_type`: expected 1, got 2
+"""

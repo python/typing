@@ -9,6 +9,7 @@ dependencies = [
     "tomli",
     "tomlkit",
     "zuban",
+    "ty",
 ]
 
 [tool.uv]

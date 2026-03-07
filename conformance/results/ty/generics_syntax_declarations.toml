@@ -1,0 +1,15 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_syntax_declarations.py:17:1: error[invalid-generic-class] Cannot both inherit from `typing.Generic` and use PEP 695 type variables
+generics_syntax_declarations.py:25:20: error[invalid-generic-class] Cannot both inherit from subscripted `Protocol` and use PEP 695 type variables
+generics_syntax_declarations.py:32:9: error[unresolved-attribute] Object of type `T@ClassD` has no attribute `is_integer`
+generics_syntax_declarations.py:44:21: error[invalid-type-variable-bound] TypeVar upper bound cannot be generic
+generics_syntax_declarations.py:48:17: error[invalid-type-form] List literals are not allowed in this context in a type expression: Did you mean `tuple[str, int]`?
+generics_syntax_declarations.py:60:17: error[invalid-type-variable-constraints] TypeVar must have at least two constrained types
+generics_syntax_declarations.py:64:17: error[invalid-type-variable-constraints] TypeVar must have at least two constrained types
+generics_syntax_declarations.py:71:17: error[invalid-type-form] Variable of type `tuple[<class 'bytes'>, <class 'str'>]` is not allowed in a type expression
+generics_syntax_declarations.py:75:18: error[invalid-type-form] Int literals are not allowed in this context in a type expression
+generics_syntax_declarations.py:79:23: error[unresolved-reference] Name `S` used when not defined
+"""
