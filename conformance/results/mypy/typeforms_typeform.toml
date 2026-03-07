@@ -1,0 +1,29 @@
+conformant = "Partial"
+notes = """
+Does not support assigning Union and GenericAlias objects to their runtime types.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 46: Unexpected errors ['typeforms_typeform.py:46: error: Incompatible types in assignment (expression has type "UnionType | type[str]", variable has type "UnionType")  [assignment]']
+Line 49: Unexpected errors ['typeforms_typeform.py:49: error: Incompatible types in assignment (expression has type "type[list[int]]", variable has type "GenericAlias")  [assignment]']
+"""
+output = """
+typeforms_typeform.py:23: error: Incompatible types in assignment (expression has type "TypeForm[str | int]", variable has type "TypeForm[str | None]")  [assignment]
+typeforms_typeform.py:24: error: Incompatible types in assignment (expression has type "TypeForm[list[str | None]]", variable has type "TypeForm[str | None]")  [assignment]
+typeforms_typeform.py:46: error: Incompatible types in assignment (expression has type "UnionType | type[str]", variable has type "UnionType")  [assignment]
+typeforms_typeform.py:49: error: Incompatible types in assignment (expression has type "type[list[int]]", variable has type "GenericAlias")  [assignment]
+typeforms_typeform.py:59: error: Argument 1 to "func1" has incompatible type "str"; expected "TypeForm[Any]"  [arg-type]
+typeforms_typeform.py:67: error: Incompatible types in assignment (expression has type "tuple[Never, ...]", variable has type "TypeForm[Any]")  [assignment]
+typeforms_typeform.py:68: error: Incompatible types in assignment (expression has type "tuple[int, int]", variable has type "TypeForm[Any]")  [assignment]
+typeforms_typeform.py:69: error: Incompatible types in assignment (expression has type "int", variable has type "TypeForm[Any]")  [assignment]
+typeforms_typeform.py:70: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "TypeForm[Any]")  [assignment]
+typeforms_typeform.py:71: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "TypeForm[Any]")  [assignment]
+typeforms_typeform.py:72: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "TypeForm[Any]")  [assignment]
+typeforms_typeform.py:73: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "TypeForm[Any]")  [assignment]
+typeforms_typeform.py:74: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "TypeForm[Any]")  [assignment]
+typeforms_typeform.py:75: error: Incompatible types in assignment (expression has type "str", variable has type "TypeForm[Any]")  [assignment]
+typeforms_typeform.py:86: error: Invalid type comment or annotation  [valid-type]
+typeforms_typeform.py:88: error: TypeForm argument is not a type  [misc]
+typeforms_typeform.py:98: error: Incompatible types in assignment (expression has type "TypeForm[int]", variable has type "TypeForm[str]")  [assignment]
+typeforms_typeform.py:108: error: Incompatible types in assignment (expression has type "type[int]", variable has type "TypeForm[str]")  [assignment]
+"""
