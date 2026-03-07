@@ -73,6 +73,25 @@ other comments and linting markers:
 
   # type: ignore # <comment or other marker>
 
+Text following ``# type: ignore - some text`` is equivalent to
+``type: ignore``, provided there is at least one whitespace character after it::
+
+    # Not valid because of the "d" after ignore; does not supress the type error
+    s: str = 1  # type: ignored
+    # Not valid because of the comma; does not supress the type error
+    s: str = 1  # type: ignore, because I feel like it
+    # This is valid because of the whitespace and must suppress the type error
+    s: str = 1  # type: ignore because why not
+
+The form of ``# type: ignore[...]`` may be used to filter errors depending on
+the type checker:
+
+- In ``# type: ignore[my_code1]``, a type checker may ignore the error code
+  ``my_code1`` and choose to treat this form as equivalent to ``# type: ignore``.
+- Alternatively in ``# type: ignore[my_code1]`` a type checker may suppress the
+  error only if the error cause matches the error code ``my_code1``.
+- ``# type: ignore`` must always suppress all errors.
+
 .. _`cast`:
 
 ``cast()``

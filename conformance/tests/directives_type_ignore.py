@@ -10,8 +10,12 @@ x: int = ""  # type: ignore
 # The following type violation should be suppressed.
 y: int = ""  # type: ignore - additional stuff
 
+# The following type violations should not be suppressed.
+y: int = ""  # type: ignored  # E: Unexpected word "ignored"
+y: int = ""  # type: ignored, foo  # E: Unexpected comma
+
 # The following type violation should be suppressed.
-z: int = ""  # type: ignore[additional_stuff]
+z: int = ""  # type: ignore[assignment]
 
 # > In some cases, linting tools or other comments may be needed on the same
 # > line as a type comment. In these cases, the type comment should be before
