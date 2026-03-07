@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+conformant = "Pass"
+ignore_errors = ["Type `Unknown | tuple[()]` does not match asserted type `tuple[()]`"]
+errors_diff = """
+"""
+output = """
+dataclasses_match_args.py:42:1: error[unresolved-attribute] Class `DC4` has no attribute `__match_args__`
+dataclasses_match_args.py:49:1: error[type-assertion-failure] Type `Unknown | tuple[()]` does not match asserted type `tuple[()]`
+"""

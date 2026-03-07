@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly_consistency.py:37:14: error[invalid-assignment] Object of type `A1` is not assignable to `B1`
+typeddicts_readonly_consistency.py:38:14: error[invalid-assignment] Object of type `C1` is not assignable to `B1`
+typeddicts_readonly_consistency.py:40:14: error[invalid-assignment] Object of type `A1` is not assignable to `C1`
+typeddicts_readonly_consistency.py:81:14: error[invalid-assignment] Object of type `A2` is not assignable to `B2`
+typeddicts_readonly_consistency.py:82:14: error[invalid-assignment] Object of type `C2` is not assignable to `B2`
+typeddicts_readonly_consistency.py:84:14: error[invalid-assignment] Object of type `A2` is not assignable to `C2`
+typeddicts_readonly_consistency.py:85:14: error[invalid-assignment] Object of type `B2` is not assignable to `C2`
+"""

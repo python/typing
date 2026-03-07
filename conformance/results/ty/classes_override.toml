@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+classes_override.py:53:9: error[invalid-explicit-override] Method `method3` is decorated with `@override` but does not override anything
+classes_override.py:65:9: error[invalid-explicit-override] Method `method4` is decorated with `@override` but does not override anything
+classes_override.py:79:9: error[invalid-explicit-override] Method `static_method1` is decorated with `@override` but does not override anything
+classes_override.py:84:9: error[invalid-explicit-override] Method `class_method1` is decorated with `@override` but does not override anything
+classes_override.py:89:9: error[invalid-explicit-override] Method `property1` is decorated with `@override` but does not override anything
+"""

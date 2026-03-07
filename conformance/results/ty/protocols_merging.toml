@@ -1,0 +1,15 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not reject attempted instantiation of abstract subclasses of protocols.
+"""
+errors_diff = """
+Line 82: Expected 1 errors
+"""
+output = """
+protocols_merging.py:52:25: error[invalid-assignment] Object of type `SCConcrete2` is not assignable to `SizedAndClosable1`
+protocols_merging.py:53:25: error[invalid-assignment] Object of type `SCConcrete2` is not assignable to `SizedAndClosable2`
+protocols_merging.py:54:25: error[invalid-assignment] Object of type `SCConcrete2` is not assignable to `SizedAndClosable3`
+protocols_merging.py:67:16: error[invalid-protocol] Protocol class `BadProto` cannot inherit from non-protocol class `SizedAndClosable3`
+protocols_merging.py:83:24: error[invalid-assignment] Object of type `SCConcrete1` is not assignable to `SizedAndClosable4`
+"""

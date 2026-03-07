@@ -1,0 +1,13 @@
+conformance_automated = "Fail"
+conformant = "Unsupported"
+errors_diff = """
+Line 39: Unexpected errors ['constructors_call_metaclass.py:39:1: error[type-assertion-failure] Type `Class2` does not match asserted type `int | Meta2`', 'constructors_call_metaclass.py:39:13: error[missing-argument] No argument provided for required parameter `x` of function `__new__`']
+Line 46: Unexpected errors ["constructors_call_metaclass.py:46:16: error[invalid-super-argument] `type[T@__call__]` is not an instance or subclass of `<class 'Meta3'>` in `super(<class 'Meta3'>, type[T@__call__])` call"]
+"""
+output = """
+constructors_call_metaclass.py:39:1: error[type-assertion-failure] Type `Class2` does not match asserted type `int | Meta2`
+constructors_call_metaclass.py:39:13: error[missing-argument] No argument provided for required parameter `x` of function `__new__`
+constructors_call_metaclass.py:46:16: error[invalid-super-argument] `type[T@__call__]` is not an instance or subclass of `<class 'Meta3'>` in `super(<class 'Meta3'>, type[T@__call__])` call
+constructors_call_metaclass.py:54:1: error[missing-argument] No argument provided for required parameter `x` of function `__new__`
+constructors_call_metaclass.py:68:1: error[missing-argument] No argument provided for required parameter `x` of function `__new__`
+"""

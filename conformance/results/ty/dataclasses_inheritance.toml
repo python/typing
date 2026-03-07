@@ -1,0 +1,9 @@
+conformance_automated = "Fail"
+conformant = "Unsupported"
+notes = """Currently only enforces the Liskov Substitution Principle for methods."""
+errors_diff = """
+Line 62: Expected 1 errors
+Line 66: Expected 1 errors
+"""
+output = """
+"""

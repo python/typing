@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+tuples_unpacked.py:40:5: error[invalid-type-form] Multiple unpacked variadic tuples are not allowed in a `tuple` specialization
+tuples_unpacked.py:41:5: error[invalid-type-form] Multiple unpacked variadic tuples are not allowed in a `tuple` specialization
+tuples_unpacked.py:51:9: error[invalid-type-form] Multiple unpacked variadic tuples are not allowed in a `tuple` specialization
+tuples_unpacked.py:59:6: error[invalid-type-form] Multiple unpacked variadic tuples are not allowed in a `tuple` specialization
+tuples_unpacked.py:60:6: error[invalid-type-form] Multiple unpacked variadic tuples are not allowed in a `tuple` specialization
+"""

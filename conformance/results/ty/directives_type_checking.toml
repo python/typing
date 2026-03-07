@@ -1,0 +1,11 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Attempts to detect some errors even in blocks it determines to be unreachable, including in `if not TYPE_CHECKING` blocks.
+"""
+errors_diff = """
+Line 11: Unexpected errors ['directives_type_checking.py:11:14: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`']
+"""
+output = """
+directives_type_checking.py:11:14: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
+"""

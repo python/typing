@@ -1,0 +1,13 @@
+conformance_automated = "Fail"
+conformant = "Unsupported"
+errors_diff = """
+Line 26: Expected 1 errors
+Line 41: Unexpected errors ['generics_typevartuple_callable.py:41:1: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int, int | float | complex]`']
+Line 42: Unexpected errors ['generics_typevartuple_callable.py:42:1: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str]`']
+Line 50: Unexpected errors ['generics_typevartuple_callable.py:50:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int | float | complex, str, int | float]`']
+"""
+output = """
+generics_typevartuple_callable.py:41:1: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int, int | float | complex]`
+generics_typevartuple_callable.py:42:1: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str]`
+generics_typevartuple_callable.py:50:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int | float | complex, str, int | float]`
+"""

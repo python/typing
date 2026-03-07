@@ -1,0 +1,17 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_members.py:50:10: error[invalid-enum-member-annotation] Type annotation on enum member `DOG` is not allowed
+enums_members.py:82:20: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
+enums_members.py:83:20: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
+enums_members.py:84:18: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
+enums_members.py:85:16: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
+enums_members.py:116:1: error[type-assertion-failure] Type `int` does not match asserted type `Unknown`
+enums_members.py:116:32: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
+enums_members.py:128:21: info[revealed-type] Revealed type: `Unknown | Literal[2]`
+enums_members.py:129:9: error[type-assertion-failure] Type `Unknown | Literal[2]` does not match asserted type `Unknown`
+enums_members.py:129:43: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
+enums_members.py:146:1: error[type-assertion-failure] Type `Unknown | Literal[2]` does not match asserted type `int`
+enums_members.py:147:1: error[type-assertion-failure] Type `Unknown | Literal[3]` does not match asserted type `int`
+"""

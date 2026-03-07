@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_version_platform.py:33:19: error[unresolved-reference] Name `val3` used when not defined
+directives_version_platform.py:50:19: error[unresolved-reference] Name `val6` used when not defined
+directives_version_platform.py:59:19: error[unresolved-reference] Name `val9` used when not defined
+directives_version_platform.py:66:19: error[unresolved-reference] Name `val10` used when not defined
+directives_version_platform.py:75:19: error[unresolved-reference] Name `val13` used when not defined
+"""

@@ -4,10 +4,11 @@ Does not understand three-element form of sys.version checks.
 Does not understand os.name checks.
 """
 output = """
-directives_version_platform.py:19: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
-directives_version_platform.py:27: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
-directives_version_platform.py:40: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
-directives_version_platform.py:45: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform.py:26: error: Expression is of type "int | str", not "int"  [assert-type]
+directives_version_platform.py:33: error: Name "val3" is not defined  [name-defined]
+directives_version_platform.py:42: error: Expression is of type "int | str", not "int"  [assert-type]
+directives_version_platform.py:50: error: Name "val6" is not defined  [name-defined]
+directives_version_platform.py:59: error: Name "val9" is not defined  [name-defined]
 """
 conformance_automated = "Pass"
 errors_diff = """

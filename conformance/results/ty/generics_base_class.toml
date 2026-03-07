@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_base_class.py:26:26: error[invalid-argument-type] Argument to function `takes_dict_incorrect` is incorrect: Expected `dict[str, list[object]]`, found `SymbolTable`
+generics_base_class.py:29:14: error[invalid-type-form] `typing.Generic` is not allowed in type expressions
+generics_base_class.py:30:8: error[invalid-type-form] `typing.Generic` is not allowed in type expressions
+generics_base_class.py:49:38: error[invalid-type-arguments] Too many type arguments to class `LinkedList`: expected 1, got 2
+generics_base_class.py:61:30: error[invalid-type-arguments] Too many type arguments to class `MyDict`: expected 1, got 2
+generics_base_class.py:68:17: error[invalid-generic-class] Type parameter `T` cannot appear multiple times in `Generic` subscription
+generics_base_class.py:98:7: error[invalid-generic-class] Inconsistent type arguments: class cannot inherit from both `Grandparent[T2@BadChild, T1@BadChild]` and `Grandparent[T1@BadChild, T2@BadChild]`
+"""

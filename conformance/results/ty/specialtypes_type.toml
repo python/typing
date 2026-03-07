@@ -1,0 +1,37 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Allows arbitrary attributes to be accessed on `TA` where `TA = typing.Type[typing.Any]` or `TA = type[typing.Any]`.
+Treats `type` equivalently to `type[object]` rather than `type[typing.Any]`.
+"""
+errors_diff = """
+Line 144: Expected 1 errors
+Line 146: Expected 1 errors
+Line 84: Unexpected errors ['specialtypes_type.py:84:5: error[type-assertion-failure] Type `type` does not match asserted type `type[Any]`']
+Line 99: Unexpected errors ['specialtypes_type.py:99:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`']
+Line 100: Unexpected errors ['specialtypes_type.py:100:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`']
+Line 107: Unexpected errors ['specialtypes_type.py:107:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`']
+Line 108: Unexpected errors ['specialtypes_type.py:108:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`']
+Line 137: Unexpected errors ['specialtypes_type.py:137:5: error[type-assertion-failure] Type `type` does not match asserted type `type[Any]`']
+Line 139: Unexpected errors ['specialtypes_type.py:139:5: error[type-assertion-failure] Type `type` does not match asserted type `type[Any]`']
+Line 169: Unexpected errors ['specialtypes_type.py:169:21: error[invalid-assignment] Object of type `type` is not assignable to `type[int]`']
+Line 175: Unexpected errors ['specialtypes_type.py:175:16: error[invalid-return-type] Return type does not match returned value: expected `type[T@ClassA]`, found `type`']
+"""
+output = """
+specialtypes_type.py:56:7: error[invalid-argument-type] Argument to function `func4` is incorrect: Expected `type[BasicUser | ProUser]`, found `<class 'TeamUser'>`
+specialtypes_type.py:70:7: error[invalid-argument-type] Argument to function `func5` is incorrect: Expected `type[Unknown]`, found `<special-form 'typing.Callable'>`
+specialtypes_type.py:76:17: error[invalid-type-form] type[...] must have exactly one type argument
+specialtypes_type.py:84:5: error[type-assertion-failure] Type `type` does not match asserted type `type[Any]`
+specialtypes_type.py:99:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
+specialtypes_type.py:100:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
+specialtypes_type.py:107:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
+specialtypes_type.py:108:17: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
+specialtypes_type.py:117:5: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
+specialtypes_type.py:120:5: error[unresolved-attribute] Object of type `type` has no attribute `unknown`
+specialtypes_type.py:137:5: error[type-assertion-failure] Type `type` does not match asserted type `type[Any]`
+specialtypes_type.py:139:5: error[type-assertion-failure] Type `type` does not match asserted type `type[Any]`
+specialtypes_type.py:143:1: error[unresolved-attribute] Special form `typing.Type` has no attribute `unknown`
+specialtypes_type.py:145:1: error[unresolved-attribute] Class `type` has no attribute `unknown`
+specialtypes_type.py:169:21: error[invalid-assignment] Object of type `type` is not assignable to `type[int]`
+specialtypes_type.py:175:16: error[invalid-return-type] Return type does not match returned value: expected `type[T@ClassA]`, found `type`
+"""

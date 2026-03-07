@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_postinit.py:19:9: error[invalid-dataclass] Invalid `__post_init__` signature for dataclass `DC1`
+dataclasses_postinit.py:28:7: error[unresolved-attribute] Object of type `DC1` has no attribute `x`
+dataclasses_postinit.py:29:7: error[unresolved-attribute] Object of type `DC1` has no attribute `y`
+dataclasses_postinit.py:36:9: error[invalid-dataclass] Invalid `__post_init__` signature for dataclass `DC2`
+"""

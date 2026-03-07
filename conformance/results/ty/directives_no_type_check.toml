@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_no_type_check.py:15:14: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
+directives_no_type_check.py:29:7: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `int`, found `Literal[b"invalid"]`
+directives_no_type_check.py:29:19: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `str`, found `Literal[b"arguments"]`
+directives_no_type_check.py:32:1: error[missing-argument] No arguments provided for required parameters `a`, `b` of function `func1`
+"""

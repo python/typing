@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+specialtypes_never.py:19:22: error[invalid-return-type] Function always implicitly returns `None`, which is not assignable to return type `Never`
+specialtypes_never.py:85:21: error[invalid-assignment] Object of type `list[Never]` is not assignable to `list[int]`
+specialtypes_never.py:104:12: error[invalid-return-type] Return type does not match returned value: expected `ClassC[U@func10]`, found `ClassC[Never]`
+"""

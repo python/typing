@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+specialtypes_none.py:21:7: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `None`, found `<class 'NoneType'>`
+specialtypes_none.py:27:19: error[invalid-assignment] Object of type `None` is not assignable to `Iterable[Unknown]`
+specialtypes_none.py:41:7: error[invalid-argument-type] Argument to function `func2` is incorrect: Expected `<class 'NoneType'>`, found `None`
+"""

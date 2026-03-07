@@ -1,0 +1,19 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+aliases_newtype.py:11:8: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["user"]`
+aliases_newtype.py:12:14: error[invalid-assignment] Object of type `Literal[42]` is not assignable to `UserId`
+aliases_newtype.py:18:11: error[invalid-assignment] Object of type `<NewType pseudo-class 'UserId'>` is not assignable to `type`
+aliases_newtype.py:23:16: error[invalid-argument-type] Argument to function `isinstance` is incorrect: Expected `type | UnionType | tuple[Divergent, ...]`, found `<NewType pseudo-class 'UserId'>`
+aliases_newtype.py:26:21: error[invalid-base] Cannot subclass an instance of NewType
+aliases_newtype.py:35:1: error[invalid-newtype] The name of a `NewType` (`BadName`) must match the name of the variable it is assigned to (`GoodName`)
+aliases_newtype.py:41:6: error[invalid-type-form] `GoodNewType1` is a `NewType` and cannot be specialized
+aliases_newtype.py:47:38: error[invalid-newtype] invalid base for `typing.NewType`: type `int | str`
+aliases_newtype.py:50:38: error[invalid-newtype] invalid base for `typing.NewType`: A `NewType` base cannot be generic
+aliases_newtype.py:52:38: error[invalid-newtype] invalid base for `typing.NewType`: type `Hashable`
+aliases_newtype.py:54:38: error[invalid-newtype] invalid base for `typing.NewType`: type `Literal[7]`
+aliases_newtype.py:61:38: error[invalid-newtype] invalid base for `typing.NewType`: type `TD1`
+aliases_newtype.py:63:15: error[invalid-newtype] Wrong number of arguments in `NewType` creation: expected 2, found 3
+aliases_newtype.py:65:38: error[invalid-newtype] invalid base for `typing.NewType`: type `Any`
+"""

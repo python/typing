@@ -1,0 +1,16 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+tuples_type_form.py:12:6: error[invalid-assignment] Object of type `tuple[Literal[1], Literal[2]]` is not assignable to `tuple[int]`
+tuples_type_form.py:14:6: error[invalid-assignment] Object of type `tuple[Literal[1]]` is not assignable to `tuple[int, int]`
+tuples_type_form.py:15:6: error[invalid-assignment] Object of type `tuple[Literal[1], Literal[""]]` is not assignable to `tuple[int, int]`
+tuples_type_form.py:25:7: error[invalid-assignment] Object of type `tuple[Literal[1]]` is not assignable to `tuple[()]`
+tuples_type_form.py:36:7: error[invalid-assignment] Object of type `tuple[Literal[1], Literal[2], Literal[3], Literal[""]]` is not assignable to `tuple[int, ...]`
+tuples_type_form.py:40:6: error[invalid-type-form] Invalid `tuple` specialization: `...` can only be used as the second element in a two-element `tuple` specialization
+tuples_type_form.py:41:6: error[invalid-type-form] Invalid `tuple` specialization: `...` can only be used as the second element in a two-element `tuple` specialization
+tuples_type_form.py:42:6: error[invalid-type-form] Invalid `tuple` specialization: `...` can only be used as the second element in a two-element `tuple` specialization
+tuples_type_form.py:43:6: error[invalid-type-form] Invalid `tuple` specialization: `...` can only be used as the second element in a two-element `tuple` specialization
+tuples_type_form.py:44:6: error[invalid-type-form] Invalid `tuple` specialization: `...` cannot be used after an unpacked element
+tuples_type_form.py:45:6: error[invalid-type-form] Invalid `tuple` specialization: `...` cannot be used after an unpacked element
+"""

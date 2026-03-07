@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_cast.py:15:8: error[missing-argument] No arguments provided for required parameters `typ`, `val` of function `cast`
+directives_cast.py:16:13: error[invalid-type-form] Int literals are not allowed in this context in a type expression
+directives_cast.py:17:22: error[too-many-positional-arguments] Too many positional arguments to function `cast`: expected 2, got 3
+"""

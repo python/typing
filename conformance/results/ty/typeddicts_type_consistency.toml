@@ -1,0 +1,15 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_type_consistency.py:21:10: error[invalid-assignment] Object of type `B1` is not assignable to `A1`
+typeddicts_type_consistency.py:38:10: error[invalid-assignment] Object of type `B2` is not assignable to `A2`
+typeddicts_type_consistency.py:65:6: error[invalid-assignment] Object of type `A3` is not assignable to `B3`
+typeddicts_type_consistency.py:69:21: error[invalid-key] Unknown key "y" for TypedDict `A3`: Unknown key "y"
+typeddicts_type_consistency.py:76:22: error[invalid-assignment] Object of type `B3` is not assignable to `dict[str, int]`
+typeddicts_type_consistency.py:77:25: error[invalid-assignment] Object of type `B3` is not assignable to `dict[str, object]`
+typeddicts_type_consistency.py:78:22: error[invalid-assignment] Object of type `B3` is not assignable to `dict[Any, Any]`
+typeddicts_type_consistency.py:82:25: error[invalid-assignment] Object of type `B3` is not assignable to `Mapping[str, int]`
+typeddicts_type_consistency.py:101:14: error[invalid-assignment] Object of type `Unknown | None` is not assignable to `str`
+typeddicts_type_consistency.py:126:56: error[invalid-argument-type] Invalid argument to key "inner_key" with declared type `str` on TypedDict `Inner1`: value of type `Literal[1]`
+"""

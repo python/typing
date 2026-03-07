@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+historical_positional.py:18:4: error[positional-only-parameter-as-kwarg] Positional-only parameter 1 (`__x`) passed as keyword argument of function `f1`
+historical_positional.py:26:16: error[invalid-legacy-positional-parameter] Invalid use of the legacy convention for positional-only parameters: Parameter name begins with `__` but will not be treated as positional-only
+historical_positional.py:45:28: error[invalid-legacy-positional-parameter] Invalid use of the legacy convention for positional-only parameters: Parameter name begins with `__` but will not be treated as positional-only
+historical_positional.py:54:26: error[invalid-legacy-positional-parameter] Invalid use of the legacy convention for positional-only parameters: Parameter name begins with `__` but will not be treated as positional-only
+historical_positional.py:59:6: error[positional-only-parameter-as-kwarg] Positional-only parameter 2 (`__x`) passed as keyword argument of bound method `m1`
+"""

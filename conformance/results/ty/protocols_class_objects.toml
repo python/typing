@@ -1,0 +1,22 @@
+conformance_automated = "Fail"
+conformant = "Unsupported"
+notes = """
+`type[Proto]` is not yet supported.
+`ClassVar` protocol members are not yet supported.
+`@property` protocol members are only partially supported.
+A class object `C` is only considered to inhabit a protocol type with a method member `f` if `f` exists as an attribute on the metaclass of `C`.
+"""
+errors_diff = """
+Line 29: Expected 1 errors
+Line 34: Expected 1 errors
+Line 74: Expected 1 errors
+Line 104: Expected 1 errors
+Line 106: Expected 1 errors
+Line 107: Expected 1 errors
+Line 108: Expected 1 errors
+Line 59: Unexpected errors ["protocols_class_objects.py:59:16: error[invalid-assignment] Object of type `<class 'ConcreteA'>` is not assignable to `ProtoA2`"]
+"""
+output = """
+protocols_class_objects.py:58:16: error[invalid-assignment] Object of type `<class 'ConcreteA'>` is not assignable to `ProtoA1`
+protocols_class_objects.py:59:16: error[invalid-assignment] Object of type `<class 'ConcreteA'>` is not assignable to `ProtoA2`
+"""

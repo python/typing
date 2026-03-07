@@ -1,0 +1,16 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_operations.py:22:17: error[invalid-assignment] Invalid assignment to key "name" with declared type `str` on TypedDict `Movie`: value of type `Literal[1982]`
+typeddicts_operations.py:23:17: error[invalid-assignment] Invalid assignment to key "year" with declared type `int` on TypedDict `Movie`: value of type `Literal[""]`
+typeddicts_operations.py:24:7: error[invalid-key] Unknown key "other" for TypedDict `Movie`: Unknown key "other"
+typeddicts_operations.py:26:13: error[invalid-key] Unknown key "other" for TypedDict `Movie`: Unknown key "other"
+typeddicts_operations.py:28:9: error[missing-typed-dict-key] Missing required key 'year' in TypedDict `Movie` constructor
+typeddicts_operations.py:29:42: error[invalid-argument-type] Invalid argument to key "year" with declared type `int` on TypedDict `Movie`: value of type `float`
+typeddicts_operations.py:32:36: error[invalid-key] Unknown key "other" for TypedDict `Movie`: Unknown key "other"
+typeddicts_operations.py:37:20: error[missing-typed-dict-key] Missing required key 'name' in TypedDict `Movie` constructor
+typeddicts_operations.py:47:1: error[unresolved-attribute] Object of type `Movie` has no attribute `clear`
+typeddicts_operations.py:49:11: error[invalid-argument-type] Cannot delete required key "name" from TypedDict `Movie`
+typeddicts_operations.py:62:1: error[unresolved-attribute] Object of type `MovieOptional` has no attribute `clear`
+"""

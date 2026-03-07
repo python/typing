@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_paramspec_specialization.py:44:27: error[invalid-type-arguments] Type argument for `ParamSpec` must be either a list of types, `ParamSpec`, `Concatenate`, or `...`
+generics_paramspec_specialization.py:54:9: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
+generics_paramspec_specialization.py:55:16: error[invalid-argument-type] Argument is incorrect: Expected `bool`, found `Literal[""]`
+generics_paramspec_specialization.py:60:9: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
+generics_paramspec_specialization.py:61:16: error[invalid-argument-type] Argument is incorrect: Expected `bool`, found `Literal[""]`
+"""

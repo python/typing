@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_frozen.py:16:1: error[invalid-assignment] Property `a` defined in `DC1` is read-only
+dataclasses_frozen.py:17:1: error[invalid-assignment] Property `b` defined in `DC1` is read-only
+dataclasses_frozen.py:23:7: error[invalid-frozen-dataclass-subclass] Non-frozen dataclass `DC2` cannot inherit from frozen dataclass `DC1`
+dataclasses_frozen.py:33:7: error[invalid-frozen-dataclass-subclass] Frozen dataclass `DC4` cannot inherit from non-frozen dataclass `DC3`
+"""

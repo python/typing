@@ -1,0 +1,12 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not validate overrides of `TypedDict` fields in subclasses.
+"""
+errors_diff = """
+Line 65: Expected 1 errors
+Lines 54, 55: Expected error (tag 'Y1')
+"""
+output = """
+typeddicts_inheritance.py:44:31: error[invalid-typed-dict-header] TypedDict class `BadTypedDict` can only inherit from TypedDict classes: `NonTypedDict` is not a `TypedDict` class
+"""

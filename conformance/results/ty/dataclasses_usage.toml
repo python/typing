@@ -1,0 +1,16 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_usage.py:50:6: error[missing-argument] No argument provided for required parameter `unit_price`
+dataclasses_usage.py:51:28: error[invalid-argument-type] Argument is incorrect: Expected `int | float`, found `Literal["price"]`
+dataclasses_usage.py:52:36: error[too-many-positional-arguments] Too many positional arguments: expected 3, got 4
+dataclasses_usage.py:61:5: error[dataclass-field-order] Required field `b` cannot be defined after fields with default values
+dataclasses_usage.py:67:5: error[dataclass-field-order] Required field `b` cannot be defined after fields with default values
+dataclasses_usage.py:73:5: error[dataclass-field-order] Required field `b` cannot be defined after fields with default values
+dataclasses_usage.py:83:13: error[too-many-positional-arguments] Too many positional arguments: expected 1, got 2
+dataclasses_usage.py:88:14: error[invalid-assignment] Object of type `dataclasses.Field[str]` is not assignable to `int`
+dataclasses_usage.py:127:8: error[too-many-positional-arguments] Too many positional arguments: expected 1, got 2
+dataclasses_usage.py:130:1: error[missing-argument] No argument provided for required parameter `y` of bound method `__init__`
+dataclasses_usage.py:179:6: error[too-many-positional-arguments] Too many positional arguments to bound method `__init__`: expected 1, got 2
+"""

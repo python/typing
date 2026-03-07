@@ -1,0 +1,16 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not reject access of generic instance variable from the class object.
+"""
+errors_diff = """
+Line 42: Expected 1 errors
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+Line 46: Expected 1 errors
+"""
+output = """
+generics_type_erasure.py:38:16: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `int | None`, found `Literal[""]`
+generics_type_erasure.py:40:16: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `str | None`, found `Literal[0]`
+"""

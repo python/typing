@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_behaviors.py:28:1: error[type-assertion-failure] Type `Color` does not match asserted type `Literal[Color.RED]`
+enums_behaviors.py:32:1: error[type-assertion-failure] Type `Color` does not match asserted type `Literal[Color.BLUE]`
+enums_behaviors.py:44:21: error[subclass-of-final-class] Class `ExtendedShape` cannot inherit from final class `Shape`
+"""
