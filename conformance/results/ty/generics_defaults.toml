@@ -10,6 +10,7 @@ Line 188: Expected 1 errors
 Line 122: Unexpected errors ['generics_defaults.py:122:5: error[type-assertion-failure] Type `(**DefaultP@Class_ParamSpec) -> None` does not match asserted type `(str, int, /) -> None`']
 Line 139: Unexpected errors ['generics_defaults.py:139:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int]`']
 Line 140: Unexpected errors ['generics_defaults.py:140:5: error[type-assertion-failure] Type `Class_TypeVarTuple` does not match asserted type `@Todo`']
+Line 200: Unexpected errors ['generics_defaults.py:200:17: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`']
 Line 203: Unexpected errors ['generics_defaults.py:203:52: error[invalid-type-form] List literals are not allowed in this context in a type expression: Did you mean `list[bytes]`?']
 Line 204: Unexpected errors ['generics_defaults.py:204:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`']
 Line 205: Unexpected errors ['generics_defaults.py:205:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(int | float, bool, /) -> None`']
@@ -25,6 +26,7 @@ generics_defaults.py:140:5: error[type-assertion-failure] Type `Class_TypeVarTup
 generics_defaults.py:152:51: error[invalid-type-variable-default] TypeVar default is not assignable to the TypeVar's upper bound
 generics_defaults.py:159:52: error[invalid-type-variable-default] TypeVar default is inconsistent with the TypeVar's constraints: `int` is not one of the constraints of `Invalid2`
 generics_defaults.py:177:1: error[type-assertion-failure] Type `int` does not match asserted type `Any`
+generics_defaults.py:200:17: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`
 generics_defaults.py:203:52: error[invalid-type-form] List literals are not allowed in this context in a type expression: Did you mean `list[bytes]`?
 generics_defaults.py:204:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`
 generics_defaults.py:205:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(int | float, bool, /) -> None`

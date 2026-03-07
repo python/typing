@@ -6,12 +6,14 @@ Does not support `Concatenate`.
 """
 errors_diff = """
 Line 15: Expected 1 errors
-Line 23: Expected 1 errors
 Line 27: Expected 1 errors
-Line 31: Expected 1 errors
-Line 35: Expected 1 errors
-Line 39: Expected 1 errors
 """
 output = """
 generics_paramspec_basic.py:10:1: error[invalid-paramspec] The name of a `ParamSpec` (`NotIt`) must match the name of the variable it is assigned to (`WrongName`)
+generics_paramspec_basic.py:23:14: error[invalid-type-form] Bare ParamSpec `P` is not valid in this context in a type expression
+generics_paramspec_basic.py:23:20: error[invalid-type-form] Bare ParamSpec `P` is not valid in this context in a type expression
+generics_paramspec_basic.py:31:19: error[invalid-type-arguments] ParamSpec `P` cannot be used to specialize type variable `_T`
+generics_paramspec_basic.py:35:35: error[invalid-type-form] Bare ParamSpec `P` is not valid in this context in a type expression
+generics_paramspec_basic.py:39:18: error[invalid-type-form] Bare ParamSpec `P` is not valid in this context in a type expression
+generics_paramspec_basic.py:39:31: error[invalid-type-form] Bare ParamSpec `P` is not valid in this context in a type expression
 """

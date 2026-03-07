@@ -21,7 +21,7 @@ annotations_forward_refs.py:43:10: error[invalid-type-form] Tuple literals are n
 annotations_forward_refs.py:44:10: error[invalid-type-form] List comprehensions are not allowed in type expressions
 annotations_forward_refs.py:45:10: error[invalid-type-form] Dict literals are not allowed in type expressions
 annotations_forward_refs.py:46:10: error[invalid-type-form] Function calls are not allowed in type expressions
-annotations_forward_refs.py:47:10: error[invalid-type-form] Invalid subscript of object of type `list[Unknown | <class 'int'>]` in type expression
+annotations_forward_refs.py:47:10: error[invalid-type-form] Invalid subscript of object of type `list[<class 'int'>]` in type expression
 annotations_forward_refs.py:47:16: error[invalid-type-form] Int literals are not allowed in this context in a type expression
 annotations_forward_refs.py:48:10: error[invalid-type-form] `if` expressions are not allowed in type expressions
 annotations_forward_refs.py:49:10: error[invalid-type-form] Variable of type `Literal[1]` is not allowed in a type expression

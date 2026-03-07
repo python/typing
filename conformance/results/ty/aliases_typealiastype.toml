@@ -24,7 +24,7 @@ aliases_typealiastype.py:54:43: error[invalid-type-form] Tuple literals are not 
 aliases_typealiastype.py:55:42: error[invalid-type-form] List comprehensions are not allowed in type expressions
 aliases_typealiastype.py:56:42: error[invalid-type-form] Dict literals are not allowed in type expressions
 aliases_typealiastype.py:57:42: error[invalid-type-form] Function calls are not allowed in type expressions
-aliases_typealiastype.py:58:42: error[invalid-type-form] Invalid subscript of object of type `list[Unknown | <class 'int'>]` in type expression
+aliases_typealiastype.py:58:42: error[invalid-type-form] Invalid subscript of object of type `list[<class 'int'>]` in type expression
 aliases_typealiastype.py:58:48: error[invalid-type-form] Int literals are not allowed in this context in a type expression
 aliases_typealiastype.py:59:42: error[invalid-type-form] `if` expressions are not allowed in type expressions
 aliases_typealiastype.py:60:42: error[invalid-type-form] Variable of type `Literal[3]` is not allowed in a type expression
