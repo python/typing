@@ -1,0 +1,50 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not include `__init__` when `__new__` returns `Self`.
+Does not respect `NoReturn` return type on metaclass `__call__`.
+Does not ignore `__init__` when `__new__` returns `Any`.
+Unions overload return types.
+"""
+errors_diff = """
+Line 66: Expected 1 errors
+Line 67: Expected 1 errors
+Line 68: Expected 1 errors
+Line 102: Unexpected errors ['constructors_callable.py:102:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `Never`']
+Line 107: Unexpected errors ['constructors_callable.py:107:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `Never`']
+Line 143: Unexpected errors ["constructors_callable.py:143:27: error[invalid-argument-type] Argument to function `accepts_callable` is incorrect: Expected `() -> Any | Class6Any`, found `<class 'Class6Any'>`"]
+Line 145: Unexpected errors ['constructors_callable.py:145:1: error[type-assertion-failure] Type `Any | Class6Any` does not match asserted type `Any`']
+Line 166: Unexpected errors ['constructors_callable.py:166:1: error[type-assertion-failure] Type `Class7[int] | Class7[str]` does not match asserted type `Class7[int]`']
+Line 167: Unexpected errors ['constructors_callable.py:167:1: error[type-assertion-failure] Type `Class7[int] | Class7[str]` does not match asserted type `Class7[str]`']
+"""
+output = """
+constructors_callable.py:36:13: info[revealed-type] Revealed type: `(x: int) -> Class1`
+constructors_callable.py:38:1: error[missing-argument] No argument provided for required parameter `x`
+constructors_callable.py:39:1: error[missing-argument] No argument provided for required parameter `x`
+constructors_callable.py:39:4: error[unknown-argument] Argument `y` does not match any known parameter
+constructors_callable.py:49:13: info[revealed-type] Revealed type: `() -> Class2`
+constructors_callable.py:51:4: error[too-many-positional-arguments] Too many positional arguments: expected 0, got 1
+constructors_callable.py:64:13: info[revealed-type] Revealed type: `(...) -> Class3`
+constructors_callable.py:79:13: info[revealed-type] Revealed type: `(x: int) -> int`
+constructors_callable.py:81:1: error[missing-argument] No argument provided for required parameter `x`
+constructors_callable.py:82:1: error[missing-argument] No argument provided for required parameter `x`
+constructors_callable.py:82:4: error[unknown-argument] Argument `y` does not match any known parameter
+constructors_callable.py:99:13: info[revealed-type] Revealed type: `(...) -> Unknown`
+constructors_callable.py:102:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `Never`
+constructors_callable.py:107:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `Never`
+constructors_callable.py:127:13: info[revealed-type] Revealed type: `() -> Class6Proxy`
+constructors_callable.py:129:4: error[too-many-positional-arguments] Too many positional arguments: expected 0, got 1
+constructors_callable.py:143:27: error[invalid-argument-type] Argument to function `accepts_callable` is incorrect: Expected `() -> Any | Class6Any`, found `<class 'Class6Any'>`
+constructors_callable.py:144:13: info[revealed-type] Revealed type: `() -> Any | Class6Any`
+constructors_callable.py:145:1: error[type-assertion-failure] Type `Any | Class6Any` does not match asserted type `Any`
+constructors_callable.py:146:8: error[too-many-positional-arguments] Too many positional arguments: expected 0, got 1
+constructors_callable.py:164:5: info[revealed-type] Revealed type: `Overload[[T](x: int) -> Class7[int] | Class7[str], [T](x: str) -> Class7[int] | Class7[str]]`
+constructors_callable.py:166:1: error[type-assertion-failure] Type `Class7[int] | Class7[str]` does not match asserted type `Class7[int]`
+constructors_callable.py:167:1: error[type-assertion-failure] Type `Class7[int] | Class7[str]` does not match asserted type `Class7[str]`
+constructors_callable.py:184:13: info[revealed-type] Revealed type: `[T](x: list[T], y: list[T]) -> Class8[T]`
+constructors_callable.py:186:4: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[int]`
+constructors_callable.py:186:9: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[str]`
+constructors_callable.py:195:13: info[revealed-type] Revealed type: `[T](x: list[T], y: list[T]) -> Class9`
+constructors_callable.py:197:4: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[int]`
+constructors_callable.py:197:9: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[str]`
+"""

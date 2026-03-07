@@ -1,0 +1,22 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+classes_classvar.py:38:11: error[invalid-type-form] Type qualifier `typing.ClassVar` expected exactly 1 argument, got 2
+classes_classvar.py:39:14: error[invalid-type-form] Int literals are not allowed in this context in a type expression
+classes_classvar.py:40:14: error[unresolved-reference] Name `var` used when not defined
+classes_classvar.py:45:11: error[invalid-type-form] `ClassVar` cannot contain type variables
+classes_classvar.py:46:11: error[invalid-type-form] `ClassVar` cannot contain type variables
+classes_classvar.py:47:11: error[invalid-type-form] `ClassVar` cannot contain type variables
+classes_classvar.py:52:33: error[invalid-assignment] Object of type `dict[Unknown, Unknown]` is not assignable to `list[str]`
+classes_classvar.py:54:11: error[redundant-final-classvar] `Combining `ClassVar` and `Final` is redundant
+classes_classvar.py:55:17: error[invalid-type-form] Type qualifier `typing.ClassVar` is not allowed in type expressions (only in annotation expressions)
+classes_classvar.py:69:23: error[invalid-type-form] `ClassVar` is not allowed in function parameter annotations
+classes_classvar.py:70:12: error[invalid-type-form] `ClassVar` annotations are only allowed in class-body scopes
+classes_classvar.py:71:18: error[invalid-type-form] `ClassVar` annotations are not allowed for non-name targets
+classes_classvar.py:73:26: error[invalid-type-form] `ClassVar` is not allowed in function return type annotations
+classes_classvar.py:77:8: error[invalid-type-form] `ClassVar` annotations are only allowed in class-body scopes
+classes_classvar.py:78:20: error[invalid-type-form] Type qualifiers are not allowed in type alias definitions
+classes_classvar.py:111:1: error[invalid-attribute-access] Cannot assign to ClassVar `stats` from an instance of type `Starship`
+classes_classvar.py:140:13: error[invalid-assignment] Object of type `ProtoAImpl` is not assignable to `ProtoA`
+"""

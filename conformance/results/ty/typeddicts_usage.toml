@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_usage.py:23:7: error[invalid-key] Unknown key "director" for TypedDict `Movie`: Unknown key "director"
+typeddicts_usage.py:24:17: error[invalid-assignment] Invalid assignment to key "year" with declared type `int` on TypedDict `Movie`: value of type `Literal["1982"]`
+typeddicts_usage.py:28:17: error[missing-typed-dict-key] Missing required key 'name' in TypedDict `Movie` constructor
+typeddicts_usage.py:28:18: error[invalid-key] Unknown key "title" for TypedDict `Movie`: Unknown key "title"
+typeddicts_usage.py:35:4: error[isinstance-against-typed-dict] `TypedDict` class `Movie` cannot be used as the second argument to `isinstance`: This call will raise `TypeError` at runtime
+typeddicts_usage.py:40:24: error[invalid-type-form] The special form `typing.TypedDict` is not allowed in type expressions
+"""
