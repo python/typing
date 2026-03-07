@@ -1,11 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 11: Unexpected errors ["./directives_type_checking.py:11:4: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]"]
-Line 16: Unexpected errors ['./directives_type_checking.py:16:4: b already declared [already_declared]']
-Line 18: Unexpected errors ['./directives_type_checking.py:18:12:   list[str] is not equivalent to list[int]']
 """
 output = """
-./directives_type_checking.py:11:4: Incompatible assignment: expected int, got Literal[''] [incompatible_assignment]
-./directives_type_checking.py:16:4: b already declared [already_declared]
-./directives_type_checking.py:18:12:   list[str] is not equivalent to list[int]
 """

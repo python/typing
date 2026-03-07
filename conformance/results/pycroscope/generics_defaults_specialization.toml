@@ -1,24 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 30: Expected 1 errors
-Line 55: Expected 1 errors
-Line 26: Unexpected errors ['./generics_defaults_specialization.py:26:16:   .MyAlias = ./generics_defaults_specialization.py.SomethingWithNoDefaults[int, ~DefaultStrT] is not equivalent to ./generics_defaults_specialization.py.SomethingWithNoDefaults[int, str]']
-Line 42: Unexpected errors ['./generics_defaults_specialization.py:42:0: non-default TypeVars cannot follow ones with defaults [invalid_annotation]']
-Line 45: Unexpected errors ["./generics_defaults_specialization.py:45:12:   <class 'Bar'> is not equivalent to type", './generics_defaults_specialization.py:45:22: Expected 2 type arguments for ./generics_defaults_specialization.py.Bar [invalid_annotation]']
-Line 46: Unexpected errors ['./generics_defaults_specialization.py:46:12:   ./generics_defaults_specialization.py.Bar is not equivalent to Any[error]', './generics_defaults_specialization.py:46:19: Expected 2 type arguments for ./generics_defaults_specialization.py.Bar [invalid_annotation]']
-Line 47: Unexpected errors ['./generics_defaults_specialization.py:47:12: Expected 2 type arguments for ./generics_defaults_specialization.py.Bar [invalid_annotation]', './generics_defaults_specialization.py:47:25: Expected 2 type arguments for ./generics_defaults_specialization.py.Bar [invalid_annotation]']
-Line 50: Unexpected errors ['./generics_defaults_specialization.py:50:10: Expected 2 type arguments for ./generics_defaults_specialization.py.SubclassMe [invalid_annotation]']
-Line 53: Unexpected errors ['./generics_defaults_specialization.py:53:12:   Any[generic_argument] is not equivalent to str']
 """
 output = """
-./generics_defaults_specialization.py:26:16:   .MyAlias = ./generics_defaults_specialization.py.SomethingWithNoDefaults[int, ~DefaultStrT] is not equivalent to ./generics_defaults_specialization.py.SomethingWithNoDefaults[int, str]
-./generics_defaults_specialization.py:42:0: non-default TypeVars cannot follow ones with defaults [invalid_annotation]
-./generics_defaults_specialization.py:45:12:   <class 'Bar'> is not equivalent to type
-./generics_defaults_specialization.py:45:22: Expected 2 type arguments for ./generics_defaults_specialization.py.Bar [invalid_annotation]
-./generics_defaults_specialization.py:46:12:   ./generics_defaults_specialization.py.Bar is not equivalent to Any[error]
-./generics_defaults_specialization.py:46:19: Expected 2 type arguments for ./generics_defaults_specialization.py.Bar [invalid_annotation]
-./generics_defaults_specialization.py:47:12: Expected 2 type arguments for ./generics_defaults_specialization.py.Bar [invalid_annotation]
-./generics_defaults_specialization.py:47:25: Expected 2 type arguments for ./generics_defaults_specialization.py.Bar [invalid_annotation]
-./generics_defaults_specialization.py:50:10: Expected 2 type arguments for ./generics_defaults_specialization.py.SubclassMe [invalid_annotation]
-./generics_defaults_specialization.py:53:12:   Any[generic_argument] is not equivalent to str
+./generics_defaults_specialization.py:30:0: Expected 1 type arguments for type alias, got 2 [invalid_annotation]
+./generics_defaults_specialization.py:55:0: ./generics_defaults_specialization.py.Foo cannot be further subscripted [invalid_annotation]
 """

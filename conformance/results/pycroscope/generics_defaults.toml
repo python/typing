@@ -1,75 +1,21 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 66: Expected 1 errors
-Line 33: Unexpected errors ['./generics_defaults.py:33:16:   Any[generic_argument] is not equivalent to str']
-Line 34: Unexpected errors ['./generics_defaults.py:34:16:   Any[generic_argument] is not equivalent to int']
-Line 36: Unexpected errors ['./generics_defaults.py:36:16:   Any[from_another] is not equivalent to str']
-Line 37: Unexpected errors ['./generics_defaults.py:37:16:   Any[from_another] is not equivalent to int']
-Line 49: Unexpected errors ['./generics_defaults.py:49:16:   Any[from_another] is not equivalent to float | int']
-Line 50: Unexpected errors ['./generics_defaults.py:50:16:   Any[from_another] is not equivalent to bool']
-Line 75: Unexpected errors ['./generics_defaults.py:75:16:   Any[generic_argument] is not equivalent to str']
-Line 76: Unexpected errors ['./generics_defaults.py:76:16:   Any[generic_argument] is not equivalent to int']
-Line 77: Unexpected errors ['./generics_defaults.py:77:16:   Any[generic_argument] is not equivalent to bool']
-Line 79: Unexpected errors ['./generics_defaults.py:79:16:   Any[from_another] is not equivalent to int']
-Line 80: Unexpected errors ['./generics_defaults.py:80:16:   Any[from_another] is not equivalent to complex | float | int']
-Line 81: Unexpected errors ['./generics_defaults.py:81:16:   Any[from_another] is not equivalent to str']
-Line 82: Unexpected errors ['./generics_defaults.py:82:16:   Any[from_another] is not equivalent to int']
-Line 83: Unexpected errors ['./generics_defaults.py:83:16:   Any[from_another] is not equivalent to bool']
-Line 91: Unexpected errors ['./generics_defaults.py:91:16:   Any[from_another] is not equivalent to int']
-Line 92: Unexpected errors ['./generics_defaults.py:92:16:   Any[from_another] is not equivalent to complex | float | int']
-Line 93: Unexpected errors ['./generics_defaults.py:93:16:   Any[from_another] is not equivalent to str']
-Line 94: Unexpected errors ['./generics_defaults.py:94:16:   Any[from_another] is not equivalent to int']
-Line 95: Unexpected errors ['./generics_defaults.py:95:16:   Any[from_another] is not equivalent to bool']
-Line 97: Unexpected errors ['./generics_defaults.py:97:16:   Any[from_another] is not equivalent to int']
-Line 98: Unexpected errors ['./generics_defaults.py:98:16:   Any[from_another] is not equivalent to complex | float | int']
-Line 99: Unexpected errors ['./generics_defaults.py:99:16:   Any[from_another] is not equivalent to str']
-Line 100: Unexpected errors ['./generics_defaults.py:100:16:   Any[from_another] is not equivalent to int']
-Line 101: Unexpected errors ['./generics_defaults.py:101:16:   Any[from_another] is not equivalent to bool']
 Line 122: Unexpected errors ['./generics_defaults.py:122:16:   (...) -> None is not equivalent to (str, int, /) -> None']
-Line 123: Unexpected errors ["./generics_defaults.py:123:16:   Annotated[./generics_defaults.py.Class_ParamSpec, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={'...': SigParameter(name='...', kind=<ParameterKind.ELLIPSIS: 6>, default=None, annotation=AnyValue(source=<AnySource.unannotated: 6>))}, return_value=KnownValue(val=None), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] is not equivalent to Any[error]", './generics_defaults.py:123:35: Expected 1 type arguments for ./generics_defaults.py.Class_ParamSpec [invalid_annotation]']
-Line 124: Unexpected errors ["./generics_defaults.py:124:16:   Annotated[./generics_defaults.py.Class_ParamSpec[Any[error]], HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={'...': SigParameter(name='...', kind=<ParameterKind.ELLIPSIS: 6>, default=None, annotation=AnyValue(source=<AnySource.unannotated: 6>))}, return_value=KnownValue(val=None), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] is not equivalent to Any[error]", './generics_defaults.py:124:49: Expected 1 type arguments for ./generics_defaults.py.Class_ParamSpec [invalid_annotation]']
-Line 139: Unexpected errors ['./generics_defaults.py:139:16:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[str, int]']
-Line 140: Unexpected errors ["./generics_defaults.py:140:16:   Annotated[./generics_defaults.py.Class_TypeVarTuple, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=SequenceValue(typ=<class 'tuple'>, literal_only=False, args=(AnyValue(source=<AnySource.generic_argument: 9>),), members=((True, AnyValue(source=<AnySource.generic_argument: 9>)),)))] is not equivalent to ./generics_defaults.py.Class_TypeVarTuple[str, int]"]
+Line 123: Unexpected errors ["./generics_defaults.py:123:16:   Annotated[./generics_defaults.py.Class_ParamSpec, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={'...': SigParameter(name='...', kind=<ParameterKind.ELLIPSIS: 6>, default=None, annotation=AnyValue(source=<AnySource.unannotated: 6>))}, return_value=KnownValue(val=None), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] is not equivalent to Any[error]", './generics_defaults.py:123:35: Expected at most 1 type arguments for ./generics_defaults.py.Class_ParamSpec [invalid_annotation]']
+Line 124: Unexpected errors ["./generics_defaults.py:124:16:   Annotated[./generics_defaults.py.Class_ParamSpec[Any[error]], HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={'...': SigParameter(name='...', kind=<ParameterKind.ELLIPSIS: 6>, default=None, annotation=AnyValue(source=<AnySource.unannotated: 6>))}, return_value=KnownValue(val=None), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] is not equivalent to Any[error]", './generics_defaults.py:124:49: Expected at most 1 type arguments for ./generics_defaults.py.Class_ParamSpec [invalid_annotation]']
 Line 203: Unexpected errors ["./generics_defaults.py:203:36: Invalid type annotation [<class 'bytes'>] [invalid_annotation]", './generics_defaults.py:203:17: ParamSpec specialization must use list form, Concatenate[..., P], P, or ... [invalid_annotation]']
 Line 204: Unexpected errors ['./generics_defaults.py:204:16:   tuple[int] is not equivalent to tuple[int, str]']
 Line 205: Unexpected errors ['./generics_defaults.py:205:16:   (...) -> None is not equivalent to (float | int, bool, /) -> None']
 Line 208: Unexpected errors ['./generics_defaults.py:208:16:   (...) -> None is not equivalent to (bytes, /) -> None']
-Line 223: Unexpected errors ['./generics_defaults.py:223:12:   ./generics_defaults.py.Foo7 is not equivalent to ./generics_defaults.py.Foo7[int]']
-Line 224: Unexpected errors ['./generics_defaults.py:224:12:   Any[generic_argument] is not equivalent to int']
 """
 output = """
 ./generics_defaults.py:24:0: non-default TypeVars cannot follow ones with defaults [invalid_annotation]
-./generics_defaults.py:33:16:   Any[generic_argument] is not equivalent to str
-./generics_defaults.py:34:16:   Any[generic_argument] is not equivalent to int
-./generics_defaults.py:36:16:   Any[from_another] is not equivalent to str
-./generics_defaults.py:37:16:   Any[from_another] is not equivalent to int
-./generics_defaults.py:49:16:   Any[from_another] is not equivalent to float | int
-./generics_defaults.py:50:16:   Any[from_another] is not equivalent to bool
-./generics_defaults.py:75:16:   Any[generic_argument] is not equivalent to str
-./generics_defaults.py:76:16:   Any[generic_argument] is not equivalent to int
-./generics_defaults.py:77:16:   Any[generic_argument] is not equivalent to bool
-./generics_defaults.py:79:16:   Any[from_another] is not equivalent to int
-./generics_defaults.py:80:16:   Any[from_another] is not equivalent to complex | float | int
-./generics_defaults.py:81:16:   Any[from_another] is not equivalent to str
-./generics_defaults.py:82:16:   Any[from_another] is not equivalent to int
-./generics_defaults.py:83:16:   Any[from_another] is not equivalent to bool
-./generics_defaults.py:91:16:   Any[from_another] is not equivalent to int
-./generics_defaults.py:92:16:   Any[from_another] is not equivalent to complex | float | int
-./generics_defaults.py:93:16:   Any[from_another] is not equivalent to str
-./generics_defaults.py:94:16:   Any[from_another] is not equivalent to int
-./generics_defaults.py:95:16:   Any[from_another] is not equivalent to bool
-./generics_defaults.py:97:16:   Any[from_another] is not equivalent to int
-./generics_defaults.py:98:16:   Any[from_another] is not equivalent to complex | float | int
-./generics_defaults.py:99:16:   Any[from_another] is not equivalent to str
-./generics_defaults.py:100:16:   Any[from_another] is not equivalent to int
-./generics_defaults.py:101:16:   Any[from_another] is not equivalent to bool
 ./generics_defaults.py:122:16:   (...) -> None is not equivalent to (str, int, /) -> None
 ./generics_defaults.py:123:16:   Annotated[./generics_defaults.py.Class_ParamSpec, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={'...': SigParameter(name='...', kind=<ParameterKind.ELLIPSIS: 6>, default=None, annotation=AnyValue(source=<AnySource.unannotated: 6>))}, return_value=KnownValue(val=None), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] is not equivalent to Any[error]
-./generics_defaults.py:123:35: Expected 1 type arguments for ./generics_defaults.py.Class_ParamSpec [invalid_annotation]
+./generics_defaults.py:123:35: Expected at most 1 type arguments for ./generics_defaults.py.Class_ParamSpec [invalid_annotation]
 ./generics_defaults.py:124:16:   Annotated[./generics_defaults.py.Class_ParamSpec[Any[error]], HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={'...': SigParameter(name='...', kind=<ParameterKind.ELLIPSIS: 6>, default=None, annotation=AnyValue(source=<AnySource.unannotated: 6>))}, return_value=KnownValue(val=None), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] is not equivalent to Any[error]
-./generics_defaults.py:124:49: Expected 1 type arguments for ./generics_defaults.py.Class_ParamSpec [invalid_annotation]
-./generics_defaults.py:139:16:   tuple[*tuple[Any[generic_argument], ...]] is not equivalent to tuple[str, int]
-./generics_defaults.py:140:16:   Annotated[./generics_defaults.py.Class_TypeVarTuple, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=SequenceValue(typ=<class 'tuple'>, literal_only=False, args=(AnyValue(source=<AnySource.generic_argument: 9>),), members=((True, AnyValue(source=<AnySource.generic_argument: 9>)),)))] is not equivalent to ./generics_defaults.py.Class_TypeVarTuple[str, int]
+./generics_defaults.py:124:49: Expected at most 1 type arguments for ./generics_defaults.py.Class_ParamSpec [invalid_annotation]
 ./generics_defaults.py:152:11: the bound and default are incompatible [invalid_annotation]
 ./generics_defaults.py:159:11: TypeVar default must be one of its constraints [invalid_annotation]
 ./generics_defaults.py:176:12:   Any[generic_argument] is not equivalent to int
@@ -79,6 +25,4 @@ output = """
 ./generics_defaults.py:204:16:   tuple[int] is not equivalent to tuple[int, str]
 ./generics_defaults.py:205:16:   (...) -> None is not equivalent to (float | int, bool, /) -> None
 ./generics_defaults.py:208:16:   (...) -> None is not equivalent to (bytes, /) -> None
-./generics_defaults.py:223:12:   ./generics_defaults.py.Foo7 is not equivalent to ./generics_defaults.py.Foo7[int]
-./generics_defaults.py:224:12:   Any[generic_argument] is not equivalent to int
 """
