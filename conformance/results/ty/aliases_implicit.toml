@@ -20,10 +20,10 @@ aliases_implicit.py:78:29: error[invalid-type-arguments] Too many type arguments
 aliases_implicit.py:79:29: error[invalid-type-arguments] Too many type arguments: expected 1, got 2
 aliases_implicit.py:80:24: error[invalid-type-arguments] Type argument for `ParamSpec` must be either a list of types, `ParamSpec`, `Concatenate`, or `...`
 aliases_implicit.py:81:25: error[invalid-type-arguments] Type `str` is not assignable to upper bound `int | float` of type variable `TFloat@GoodTypeAlias12`
-aliases_implicit.py:107:9: error[invalid-type-form] Variable of type `list[<class 'int'> | <class 'str'>]` is not allowed in a type expression
+aliases_implicit.py:107:9: error[invalid-type-form] Variable of type `list[Unknown | <class 'int'> | <class 'str'>]` is not allowed in a type expression
 aliases_implicit.py:108:9: error[invalid-type-form] Variable of type `tuple[tuple[<class 'int'>, <class 'str'>]]` is not allowed in a type expression
-aliases_implicit.py:109:9: error[invalid-type-form] Variable of type `list[<class 'int'>]` is not allowed in a type expression
-aliases_implicit.py:110:9: error[invalid-type-form] Variable of type `dict[str, str]` is not allowed in a type expression
+aliases_implicit.py:109:9: error[invalid-type-form] Variable of type `list[Unknown | <class 'int'>]` is not allowed in a type expression
+aliases_implicit.py:110:9: error[invalid-type-form] Variable of type `dict[Unknown | str, Unknown | str]` is not allowed in a type expression
 aliases_implicit.py:114:9: error[invalid-type-form] Variable of type `Literal[3]` is not allowed in a type expression
 aliases_implicit.py:115:10: error[invalid-type-form] Variable of type `Literal[True]` is not allowed in a type expression
 aliases_implicit.py:116:10: error[invalid-type-form] Variable of type `Literal[1]` is not allowed in a type expression

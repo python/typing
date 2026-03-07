@@ -5,7 +5,12 @@ Does not reject `list[T]()` in the global scope, where `T` is an unbound type va
 Does nto reject `alias: TypeAlias = list[T]` in the body scope of a class generic over a type variable `T`.
 """
 errors_diff = """
+Line 61: Expected 1 errors
+Line 65: Expected 1 errors
+Line 89: Expected 1 errors
 Line 98: Expected 1 errors
+Line 105: Expected 1 errors
+Line 106: Expected 1 errors
 Line 107: Expected 1 errors
 """
 output = """
@@ -14,12 +19,7 @@ generics_scoping.py:19:1: error[type-assertion-failure] Type `Literal["a"]` does
 generics_scoping.py:34:10: error[invalid-argument-type] Argument to bound method `meth_2` is incorrect: Expected `int`, found `Literal["a"]`
 generics_scoping.py:49:1: error[type-assertion-failure] Type `Literal["abc"]` does not match asserted type `str`
 generics_scoping.py:53:1: error[type-assertion-failure] Type `Literal[b"abc"]` does not match asserted type `bytes`
-generics_scoping.py:61:13: error[unbound-type-variable] Type variable `S` is not bound to any outer generic context
-generics_scoping.py:65:19: error[unbound-type-variable] Type variable `S` is not bound to any outer generic context
 generics_scoping.py:76:11: error[shadowed-type-variable] Generic class `MyGeneric` uses type variable `T` already bound by an enclosing scope
 generics_scoping.py:76:11: error[shadowed-type-variable] Generic class `MyGeneric` uses type variable `T` already bound by an enclosing scope
 generics_scoping.py:86:11: error[shadowed-type-variable] Generic class `Bad` uses type variable `T` already bound by an enclosing scope
-generics_scoping.py:89:17: error[unbound-type-variable] Type variable `T` is not bound to any outer generic context
-generics_scoping.py:105:14: error[unbound-type-variable] Type variable `T` is not bound to any outer generic context
-generics_scoping.py:106:19: error[unbound-type-variable] Type variable `T` is not bound to any outer generic context
 """

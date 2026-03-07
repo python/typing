@@ -1,8 +1,8 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 50: Expected 1 errors
 """
 output = """
-enums_members.py:50:10: error[invalid-enum-member-annotation] Type annotation on enum member `DOG` is not allowed
 enums_members.py:82:20: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
 enums_members.py:83:20: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
 enums_members.py:84:18: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member

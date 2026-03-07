@@ -2,6 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
+enums_member_values.py:30:5: error[type-assertion-failure] Type `Any` does not match asserted type `Literal[1, 2, 3]`
 enums_member_values.py:50:5: error[invalid-assignment] Enum member `MARS` is incompatible with `__init__`
 enums_member_values.py:51:5: error[invalid-assignment] Enum member `JUPITER` is incompatible with `__init__`
 enums_member_values.py:54:1: error[type-assertion-failure] Type `Any` does not match asserted type `Literal[1]`
