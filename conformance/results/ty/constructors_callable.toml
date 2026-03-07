@@ -1,5 +1,11 @@
 conformance_automated = "Fail"
-conformant = "Unsupported"
+conformant = "Partial"
+notes = """
+Does not include `__init__` when `__new__` returns `Self`.
+Does not respect `NoReturn` return type on metaclass `__call__`.
+Does not ignore `__init__` when `__new__` returns `Any`.
+Unions overload return types.
+"""
 errors_diff = """
 Line 66: Expected 1 errors
 Line 67: Expected 1 errors
