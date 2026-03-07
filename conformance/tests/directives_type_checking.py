@@ -7,12 +7,12 @@ Tests the typing.TYPE_CHECKING constant.
 from typing import TYPE_CHECKING, assert_type
 
 
-if not TYPE_CHECKING:
-    a: int = "" # This should not generate an error
+def foo(x: list[int], y: list[str]) -> None:
+    z: list[int] | list[str]
 
-if TYPE_CHECKING:
-    b: list[int] = [1, 2, 3]
-else:
-    b: list[str] = ["a", "b", "c"]
+    if TYPE_CHECKING:
+        z = x
+    else:
+        z = y
 
-assert_type(b, list[int])
+    assert_type(z, list[int])
