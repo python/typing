@@ -368,10 +368,16 @@ can likewise be materialized to ``T1 | T2``. Thus, the gradual types ``S1`` and
 
 If ``B`` is a subtype of ``A``, ``B | A`` is equivalent to ``A``.
 
-This rule applies only to subtypes, not assignable-to. The union ``T | Any`` is
+This rule applies only to subtypes, not assignable-to. For any type ``T``
+(other than the top and bottom types ``object`` and ``Never``), the union ``T | Any`` is
 not reducible to a simpler form. It represents an unknown static type with
 lower bound ``T``. That is, it represents an unknown set of objects which may
 be as large as ``object``, or as small as ``T``, but no smaller.
+The exceptions are ``object`` and ``Never``. The union ``object | Any`` is equivalent to
+``object``, because ``object`` is a type containing all values and therefore the ``Any``
+cannot add any values. Similarly, ``Never | Any`` is equivalent to ``Any``, because
+``Never`` is a type containing no values, so that including it in a union cannot add any
+values to the type.
 
 Equivalent gradual types can, however, be simplified from unions; e.g.
 ``list[Any] | list[Any]`` is equivalent to ``list[Any]``. Similarly, the union
