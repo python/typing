@@ -11,5 +11,5 @@ literals_literalstring.py:74:25: error[invalid-assignment] Object of type `Liter
 literals_literalstring.py:119:22: error[invalid-argument-type] Argument to function `literal_identity` is incorrect: Argument type `str` does not satisfy upper bound `LiteralString` of type variable `TLiteral`
 literals_literalstring.py:133:51: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Argument type `str` does not satisfy upper bound `LiteralString` of type variable `T`
 literals_literalstring.py:133:51: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `LiteralString`, found `str`
-literals_literalstring.py:170:21: error[invalid-assignment] Object of type `list[LiteralString]` is not assignable to `list[str]`
+literals_literalstring.py:171:21: error[invalid-assignment] Object of type `list[LiteralString]` is not assignable to `list[str]`
 """
