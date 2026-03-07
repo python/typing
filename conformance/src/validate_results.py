@@ -91,7 +91,7 @@ def _validate_result(file: Path, results_dir: Path, info: dict[str, Any]) -> lis
             f"conformance_automated={automated!r}"
         )
 
-    if not conformant_is_pass:
+    if conformant == "Partial":
         notes = info.get("notes", "")
         if not isinstance(notes, str) or not notes.strip():
             issues.append(
