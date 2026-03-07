@@ -1,4 +1,7 @@
 conformant = "Partial"
+notes = """
+Does not correctly handle defaults referencing other TypeVars.
+"""
 output = """
 generics_defaults_referential.py:23: error: Expression is of type "type[slice[StartT, StopT, StepT]]", not "type[slice[int, int, int | None]]"  [assert-type]
 generics_defaults_referential.py:38: error: Argument 1 to "Foo" has incompatible type "str"; expected "int"  [arg-type]
