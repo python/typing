@@ -1,4 +1,4 @@
-conformance = "Unsupported"
+conformant = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
 Line 70: Expected 1 errors

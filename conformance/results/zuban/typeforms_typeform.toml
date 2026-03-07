@@ -1,4 +1,4 @@
-conformance = "Partial"
+conformant = "Partial"
 notes = """
 TypeForm[Any] is not considered equivalent to itself.
 """
