@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_type_ignore_file2.py:7:1: warning[unused-type-ignore-comment] Unused blanket `type: ignore` directive
+directives_type_ignore_file2.py:9:7: warning[unused-type-ignore-comment] Unused blanket `type: ignore` directive
+directives_type_ignore_file2.py:12:17: warning[unused-type-ignore-comment] Unused blanket `type: ignore` directive
+directives_type_ignore_file2.py:14:10: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
+"""

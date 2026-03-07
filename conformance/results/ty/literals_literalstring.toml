@@ -1,0 +1,15 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+literals_literalstring.py:36:29: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
+literals_literalstring.py:37:22: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
+literals_literalstring.py:43:23: error[invalid-assignment] Object of type `Literal["two"]` is not assignable to `Literal[""]`
+literals_literalstring.py:65:25: error[invalid-assignment] Object of type `str` is not assignable to `LiteralString`
+literals_literalstring.py:73:25: error[invalid-assignment] Object of type `Literal[3]` is not assignable to `LiteralString`
+literals_literalstring.py:74:25: error[invalid-assignment] Object of type `Literal[b"test"]` is not assignable to `LiteralString`
+literals_literalstring.py:119:22: error[invalid-argument-type] Argument to function `literal_identity` is incorrect: Argument type `str` does not satisfy upper bound `LiteralString` of type variable `TLiteral`
+literals_literalstring.py:133:51: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Argument type `str` does not satisfy upper bound `LiteralString` of type variable `T`
+literals_literalstring.py:133:51: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `LiteralString`, found `str`
+literals_literalstring.py:170:21: error[invalid-assignment] Object of type `list[LiteralString]` is not assignable to `list[str]`
+"""

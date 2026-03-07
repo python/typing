@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_kwonly.py:23:11: error[too-many-positional-arguments] Too many positional arguments: expected 1, got 2
+dataclasses_kwonly.py:38:11: error[too-many-positional-arguments] Too many positional arguments: expected 1, got 2
+dataclasses_kwonly.py:53:11: error[too-many-positional-arguments] Too many positional arguments: expected 1, got 2
+"""

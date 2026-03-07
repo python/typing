@@ -1,0 +1,17 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not detect runtime errors from attempting to delete namedtuple attributes.
+"""
+errors_diff = """
+Line 42: Expected 1 errors
+"""
+output = """
+namedtuples_usage.py:34:7: error[index-out-of-bounds] Index 3 is out of bounds for tuple `Point` with length 3
+namedtuples_usage.py:35:7: error[index-out-of-bounds] Index -4 is out of bounds for tuple `Point` with length 3
+namedtuples_usage.py:40:1: error[invalid-assignment] Cannot assign to read-only property `x` on object of type `Point`
+namedtuples_usage.py:41:1: error[invalid-assignment] Cannot assign to a subscript on an object of type `Point`
+namedtuples_usage.py:43:5: error[not-subscriptable] Cannot delete subscript on object of type `Point` with no `__delitem__` method
+namedtuples_usage.py:52:1: error[invalid-assignment] Too many values to unpack: Expected 2
+namedtuples_usage.py:53:1: error[invalid-assignment] Not enough values to unpack: Expected 4
+"""

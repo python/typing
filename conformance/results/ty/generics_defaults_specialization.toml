@@ -1,0 +1,11 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not reject subscription of an already-specialized generic class.
+"""
+errors_diff = """
+Line 55: Expected 1 errors
+"""
+output = """
+generics_defaults_specialization.py:30:15: error[invalid-type-arguments] Too many type arguments: expected between 0 and 1, got 2
+"""
