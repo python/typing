@@ -1,4 +1,7 @@
 conformant = "Partial"
+notes = """
+Does not correctly resolve defaults when classes are used directly.
+"""
 output = """
 generics_defaults_specialization.py:30: error: Bad number of arguments for type alias, expected between 0 and 1, given 2  [type-arg]
 generics_defaults_specialization.py:45: error: Expression is of type "type[Bar[DefaultStrT]]", not "type[Bar[str]]"  [assert-type]

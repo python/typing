@@ -32,9 +32,10 @@ class Foo(Generic[DefaultStrT, T2]):
     def __init__(self, a: DefaultStrT, b: T2) -> None: ...
 
 
-assert_type(Foo(1, ""), Foo[int, str])
-Foo[int](1, "")  # E: Foo[int, str] cannot be assigned to self: Foo[int, int] in Foo.__init__
-Foo[int]("", 1)  # E: Foo[str, int] cannot be assigned to self: Foo[int, int] in Foo.__init__
+def func1(i: int, s: str) -> None:
+    assert_type(Foo(i, s), Foo[int, str])
+    Foo[int](i, s)  # E: Foo[int, str] cannot be assigned to self: Foo[int, int] in Foo.__init__
+    Foo[int](s, i)  # E: Foo[str, int] cannot be assigned to self: Foo[int, int] in Foo.__init__
 
 
 # > ``T1`` must be used before ``T2`` in the parameter list of the generic.

@@ -3,11 +3,11 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR generics_defaults_referential.py:36:13-15: Argument `Literal['']` is not assignable to parameter `b` with type `int` in function `Foo.__init__` [bad-argument-type]
-ERROR generics_defaults_referential.py:37:10-12: Argument `Literal['']` is not assignable to parameter `a` with type `int` in function `Foo.__init__` [bad-argument-type]
-ERROR generics_defaults_referential.py:53:7-13: Default of type parameter `Start2T` refers to out-of-scope type parameter `StopT` [invalid-type-var]
-ERROR generics_defaults_referential.py:60:11-15: Default of type parameter `S2` refers to out-of-scope type parameter `S1` [invalid-type-var]
-ERROR generics_defaults_referential.py:68:40-42: Expected default `TypeVar[X1]` of `Invalid1` to be assignable to the upper bound of `str` [invalid-type-var]
-ERROR generics_defaults_referential.py:74:52-54: Expected default `TypeVar[Y1]` of `Invalid2` to be one of the following constraints: `float`, `str` [invalid-type-var]
-ERROR generics_defaults_referential.py:78:63-65: Expected default `TypeVar[Y2]` of `AlsoInvalid2` to be one of the following constraints: `bool`, `complex` [invalid-type-var]
+ERROR generics_defaults_referential.py:37:17-18: Argument `str` is not assignable to parameter `b` with type `int` in function `Foo.__init__` [bad-argument-type]
+ERROR generics_defaults_referential.py:38:14-15: Argument `str` is not assignable to parameter `a` with type `int` in function `Foo.__init__` [bad-argument-type]
+ERROR generics_defaults_referential.py:54:7-13: Default of type parameter `Start2T` refers to out-of-scope type parameter `StopT` [invalid-type-var]
+ERROR generics_defaults_referential.py:61:11-15: Default of type parameter `S2` refers to out-of-scope type parameter `S1` [invalid-type-var]
+ERROR generics_defaults_referential.py:69:40-42: Expected default `TypeVar[X1]` of `Invalid1` to be assignable to the upper bound of `str` [invalid-type-var]
+ERROR generics_defaults_referential.py:75:52-54: Expected default `TypeVar[Y1]` of `Invalid2` to be one of the following constraints: `float`, `str` [invalid-type-var]
+ERROR generics_defaults_referential.py:79:63-65: Expected default `TypeVar[Y2]` of `AlsoInvalid2` to be one of the following constraints: `bool`, `complex` [invalid-type-var]
 """

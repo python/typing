@@ -32,6 +32,11 @@ jobs:
           uv sync --python 3.12 --frozen
           uv run --python 3.12 --frozen python src/main.py
 
+      - name: Validate conformance invariants
+        working-directory: conformance
+        run: |
+          uv run --python 3.12 --frozen python src/validate_results.py
+
       - name: Assert conformance results are up to date
         run: |
           if [ -n "$(git status --porcelain -- conformance/results)" ]; then

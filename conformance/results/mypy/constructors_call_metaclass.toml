@@ -1,4 +1,4 @@
-conformant = "Unupported"
+conformant = "Unsupported"
 notes = """
 Does not honor metaclass __call__ method when evaluating constructor call.
 Does not skip evaluation of __new__ and __init__ if custom metaclass call returns non-class.
