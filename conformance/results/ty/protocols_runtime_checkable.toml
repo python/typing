@@ -1,0 +1,15 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not reject `isinstance()` or `issubclass()` calls against runtime-checkable protocols where there is an unsafe overlap between the type of the first argument and the protocol.
+"""
+errors_diff = """
+Line 88: Expected 1 errors
+Line 92: Expected 1 errors
+Line 96: Expected 1 errors
+"""
+output = """
+protocols_runtime_checkable.py:23:8: error[isinstance-against-protocol] Class `Proto1` cannot be used as the second argument to `isinstance`: This call will raise `TypeError` at runtime
+protocols_runtime_checkable.py:55:8: error[isinstance-against-protocol] `DataProtocol` cannot be used as the second argument to `issubclass` as it is a protocol with non-method members
+protocols_runtime_checkable.py:61:8: error[isinstance-against-protocol] `DataProtocol` cannot be used as the second argument to `issubclass` as it is a protocol with non-method members
+"""

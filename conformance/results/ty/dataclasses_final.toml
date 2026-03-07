@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_final.py:27:1: error[invalid-assignment] Cannot assign to final attribute `final_classvar` on type `<class 'D'>`
+dataclasses_final.py:35:1: error[invalid-assignment] Cannot assign to final attribute `final_no_default` on type `D`
+dataclasses_final.py:36:1: error[invalid-assignment] Cannot assign to final attribute `final_with_default` on type `D`
+dataclasses_final.py:37:1: error[invalid-assignment] Cannot assign to final attribute `final_no_default` on type `<class 'D'>`
+dataclasses_final.py:38:1: error[invalid-assignment] Cannot assign to final attribute `final_with_default` on type `<class 'D'>`
+"""

@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_evaluation.py:38:1: error[no-matching-overload] No overload of function `example1_1` matches arguments
+overloads_evaluation.py:46:15: error[invalid-argument-type] Argument to function `example1_1` is incorrect: Expected `str`, found `Literal[1]`
+overloads_evaluation.py:51:12: error[invalid-argument-type] Argument to function `example1_1` is incorrect: Expected `str`, found `Literal[1]`
+overloads_evaluation.py:116:5: error[no-matching-overload] No overload of function `example2` matches arguments
+"""

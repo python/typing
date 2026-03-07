@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+narrowing_typeguard.py:102:23: error[invalid-type-guard-definition] `TypeGuard` function must have a parameter to narrow
+narrowing_typeguard.py:107:22: error[invalid-type-guard-definition] `TypeGuard` function must have a parameter to narrow
+narrowing_typeguard.py:128:20: error[invalid-argument-type] Argument to function `takes_callable_str` is incorrect: Expected `(object, /) -> str`, found `def simple_typeguard(val: object) -> TypeGuard[int]`
+narrowing_typeguard.py:148:26: error[invalid-argument-type] Argument to function `takes_callable_str_proto` is incorrect: Expected `CallableStrProto`, found `def simple_typeguard(val: object) -> TypeGuard[int]`
+"""
