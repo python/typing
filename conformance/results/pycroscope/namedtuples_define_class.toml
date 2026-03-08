@@ -1,25 +1,51 @@
 conformance_automated = "Fail"
 errors_diff = """
+Line 32: Expected 1 errors
+Line 33: Expected 1 errors
+Line 22: Unexpected errors ["./namedtuples_define_class.py:22:12:   Annotated[./namedtuples_define_class.py.Point, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='y'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='units'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] is not equivalent to ./namedtuples_define_class.py.Point"]
+Line 23: Unexpected errors ['./namedtuples_define_class.py:23:12:   Any[from_another] is not equivalent to int']
+Line 24: Unexpected errors ['./namedtuples_define_class.py:24:12:   Any[from_another] is not equivalent to int']
+Line 25: Unexpected errors ['./namedtuples_define_class.py:25:12:   Any[from_another] is not equivalent to str']
+Line 26: Unexpected errors ['./namedtuples_define_class.py:26:12:   Any[from_another] is not equivalent to str']
+Line 27: Unexpected errors ['./namedtuples_define_class.py:27:12:   Any[from_another] is not equivalent to int']
+Line 28: Unexpected errors ['./namedtuples_define_class.py:28:12:   Any[from_another] is not equivalent to int']
+Line 29: Unexpected errors ['./namedtuples_define_class.py:29:12:   Any[from_another] is not equivalent to tuple[int, int]']
+Line 30: Unexpected errors ['./namedtuples_define_class.py:30:12:   Any[from_another] is not equivalent to tuple[int, int, str]']
+Line 35: Unexpected errors ['./namedtuples_define_class.py:35:5: Takes 2 positional arguments but 3 were given [incompatible_call]']
+Line 36: Unexpected errors ["./namedtuples_define_class.py:36:12:   Annotated[./namedtuples_define_class.py.Point, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='y'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='units'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] is not equivalent to ./namedtuples_define_class.py.Point"]
+Line 39: Unexpected errors ["./namedtuples_define_class.py:39:12:   Annotated[./namedtuples_define_class.py.Point, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='y'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='units'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] is not equivalent to ./namedtuples_define_class.py.Point"]
+Line 41: Unexpected errors ["./namedtuples_define_class.py:41:5: Got an unexpected keyword argument 'units' [incompatible_call]"]
+Line 42: Unexpected errors ["./namedtuples_define_class.py:42:12:   Annotated[./namedtuples_define_class.py.Point, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='y'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='units'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] is not equivalent to ./namedtuples_define_class.py.Point"]
 Line 121: Unexpected errors ['./namedtuples_define_class.py:121:12:   ./namedtuples_define_class.py.Property[Literal[3.4]] is not equivalent to ./namedtuples_define_class.py.Property[float | int]']
 Line 122: Unexpected errors ['./namedtuples_define_class.py:122:12:   Literal[3.4] is not equivalent to float | int']
-Line 123: Unexpected errors ['./namedtuples_define_class.py:123:12:   Literal[3.4] is not equivalent to float | int']
 """
 output = """
-./namedtuples_define_class.py:32:6: Tuple index out of range: Literal[3] [incompatible_call]
-./namedtuples_define_class.py:33:6: Tuple index out of range: Literal[-4] [incompatible_call]
-./namedtuples_define_class.py:44:5: In call to ./namedtuples_define_class.py.Point: Missing required argument 'y' [incompatible_call]
-./namedtuples_define_class.py:45:5: In call to ./namedtuples_define_class.py.Point: Missing required argument 'y' [incompatible_call]
+./namedtuples_define_class.py:22:12:   Annotated[./namedtuples_define_class.py.Point, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='y'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='units'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] is not equivalent to ./namedtuples_define_class.py.Point
+./namedtuples_define_class.py:23:12:   Any[from_another] is not equivalent to int
+./namedtuples_define_class.py:24:12:   Any[from_another] is not equivalent to int
+./namedtuples_define_class.py:25:12:   Any[from_another] is not equivalent to str
+./namedtuples_define_class.py:26:12:   Any[from_another] is not equivalent to str
+./namedtuples_define_class.py:27:12:   Any[from_another] is not equivalent to int
+./namedtuples_define_class.py:28:12:   Any[from_another] is not equivalent to int
+./namedtuples_define_class.py:29:12:   Any[from_another] is not equivalent to tuple[int, int]
+./namedtuples_define_class.py:30:12:   Any[from_another] is not equivalent to tuple[int, int, str]
+./namedtuples_define_class.py:35:5: Takes 2 positional arguments but 3 were given [incompatible_call]
+./namedtuples_define_class.py:36:12:   Annotated[./namedtuples_define_class.py.Point, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='y'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='units'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] is not equivalent to ./namedtuples_define_class.py.Point
+./namedtuples_define_class.py:39:12:   Annotated[./namedtuples_define_class.py.Point, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='y'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='units'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] is not equivalent to ./namedtuples_define_class.py.Point
+./namedtuples_define_class.py:41:5: Got an unexpected keyword argument 'units' [incompatible_call]
+./namedtuples_define_class.py:42:12:   Annotated[./namedtuples_define_class.py.Point, HasAttrExtension(attribute_name=KnownValue(val='x'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='y'), attribute_type=TypedValue(typ=<class 'int'>, literal_only=False)), HasAttrExtension(attribute_name=KnownValue(val='units'), attribute_type=TypedValue(typ=<class 'str'>, literal_only=False))] is not equivalent to ./namedtuples_define_class.py.Point
+./namedtuples_define_class.py:44:5: Missing required argument 'y' [incompatible_call]
+./namedtuples_define_class.py:45:5: Missing required argument 'y' [incompatible_call]
 ./namedtuples_define_class.py:46:14: Incompatible argument type for y: expected int but got Literal[''] [incompatible_argument]
-./namedtuples_define_class.py:47:23: Incompatible argument type for units: expected str but got Literal[3] [incompatible_argument]
-./namedtuples_define_class.py:48:5: In call to ./namedtuples_define_class.py.Point: Takes 3 positional arguments but 4 were given [incompatible_call]
-./namedtuples_define_class.py:49:6: In call to ./namedtuples_define_class.py.Point: Got an unexpected keyword argument 'other' [incompatible_call]
-./namedtuples_define_class.py:69:6: In call to ./namedtuples_define_class.py.Point2: Takes 2 positional arguments but 3 were given [incompatible_call]
+./namedtuples_define_class.py:47:5: Got an unexpected keyword argument 'units' [incompatible_call]
+./namedtuples_define_class.py:48:5: Takes 2 positional arguments but 4 were given [incompatible_call]
+./namedtuples_define_class.py:49:6: Takes 2 positional arguments but 3 were given [incompatible_call]
+./namedtuples_define_class.py:69:6: Takes 2 positional arguments but 3 were given [incompatible_call]
 ./namedtuples_define_class.py:76:4: NamedTuple field names cannot start with an underscore [invalid_annotation]
 ./namedtuples_define_class.py:86:4: NamedTuple fields without defaults cannot follow fields with defaults [invalid_annotation]
 ./namedtuples_define_class.py:106:4: Field 'x' conflicts with base NamedTuple field [incompatible_override]
 ./namedtuples_define_class.py:121:12:   ./namedtuples_define_class.py.Property[Literal[3.4]] is not equivalent to ./namedtuples_define_class.py.Property[float | int]
 ./namedtuples_define_class.py:122:12:   Literal[3.4] is not equivalent to float | int
-./namedtuples_define_class.py:123:12:   Literal[3.4] is not equivalent to float | int
 ./namedtuples_define_class.py:125:18: Incompatible argument type for value: expected str but got Literal[3.1] [incompatible_argument]
 ./namedtuples_define_class.py:132:23: NamedTuple classes may only inherit from NamedTuple and Generic [invalid_base]
 """

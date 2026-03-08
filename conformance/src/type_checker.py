@@ -391,18 +391,6 @@ class PycroscopeTypeChecker(TypeChecker):
             )
             return False
         try:
-            # Uninstall any existing version if present.
-            run(
-                [sys.executable, "-m", "pip", "uninstall", "pycroscope", "-y"],
-                check=True,
-            )
-
-            # Install editable from the local pycroscope repo.
-            run(
-                [sys.executable, "-m", "pip", "install", "-e", str(source_dir)],
-                check=True,
-            )
-
             # Ensure it is installed and the entrypoint is available.
             self.get_version()
 

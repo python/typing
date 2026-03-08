@@ -9,10 +9,8 @@ Line 113: Expected 1 errors
 Line 118: Expected 1 errors
 Line 123: Expected 1 errors
 Line 127: Expected 1 errors
-Line 63: Unexpected errors ['./generics_self_usage.py:63:19: Incompatible argument type for inner_self: expected ~SelfT but got ./generics_self_usage.py.HasNestedFunction [incompatible_argument]']
 """
 output = """
-./generics_self_usage.py:63:19: Incompatible argument type for inner_self: expected ~SelfT but got ./generics_self_usage.py.HasNestedFunction [incompatible_argument]
 ./generics_self_usage.py:73:0: Function may exit without returning a value [missing_return]
 ./generics_self_usage.py:87:8: Incompatible return type: expected ~SelfT, got Annotated[./generics_self_usage.py.Foo3, HasAttrExtension(attribute_name=KnownValue(val='return_concrete_type'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={}, return_value=TypedValue(typ='./generics_self_usage.py.Foo3', literal_only=False), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] [incompatible_return_value]
 """

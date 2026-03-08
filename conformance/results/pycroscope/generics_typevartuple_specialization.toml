@@ -1,10 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 135: Unexpected errors ['./generics_typevartuple_specialization.py:135:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[], str, bool]']
-Line 136: Unexpected errors ['./generics_typevartuple_specialization.py:136:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[str], bool, float | int]']
-Line 137: Unexpected errors ['./generics_typevartuple_specialization.py:137:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[str, bool], float | int, int]']
-Line 148: Unexpected errors ['./generics_typevartuple_specialization.py:148:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[], str, bool, float | int]']
-Line 149: Unexpected errors ['./generics_typevartuple_specialization.py:149:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[bool], str, float | int, int]']
 """
 output = """
 ./generics_typevartuple_specialization.py:109:0: Unpacked TypeVarTuple cannot specialize this type alias [invalid_annotation]
@@ -12,10 +7,5 @@ output = """
 ./generics_typevartuple_specialization.py:121:6: Only one unbounded tuple can be used inside a tuple type [invalid_annotation]
 ./generics_typevartuple_specialization.py:122:6: Only one unbounded tuple can be used inside a tuple type [invalid_annotation]
 ./generics_typevartuple_specialization.py:127:4: Expected 3 type arguments for type alias, got 1 [invalid_annotation]
-./generics_typevartuple_specialization.py:135:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[], str, bool]
-./generics_typevartuple_specialization.py:136:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[str], bool, float | int]
-./generics_typevartuple_specialization.py:137:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[str, bool], float | int, int]
-./generics_typevartuple_specialization.py:148:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[], str, bool, float | int]
-./generics_typevartuple_specialization.py:149:16:   tuple[tuple[*tuple[Any[generic_argument], ...]], Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to tuple[tuple[bool], str, float | int, int]
 ./generics_typevartuple_specialization.py:163:7: Unpacked TypeVarTuple cannot specialize this type alias [invalid_annotation]
 """

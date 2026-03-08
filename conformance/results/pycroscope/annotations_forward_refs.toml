@@ -7,7 +7,7 @@ Line 16: Unexpected errors ['./annotations_forward_refs.py:16:20: Undefined name
 Line 17: Unexpected errors ['./annotations_forward_refs.py:17:25: Undefined name: ClassA [undefined_name]']
 Line 18: Unexpected errors ['./annotations_forward_refs.py:18:25: Undefined name: ClassA [undefined_name]']
 Line 19: Unexpected errors ['./annotations_forward_refs.py:19:16:   list[int | Any[error]] is not equivalent to list[Any[from_another]]', './annotations_forward_refs.py:19:25: Undefined name: ClassA [undefined_name]']
-Line 87: Unexpected errors ['./annotations_forward_refs.py:87:7: Unrecognized annotation (self: ./annotations_forward_refs.py.ClassD) -> None [invalid_annotation]']
+Line 87: Unexpected errors ['./annotations_forward_refs.py:87:7: Unrecognized annotation (self: ~SelfT: ./annotations_forward_refs.py.ClassD) -> None [invalid_annotation]']
 Line 96: Unexpected errors ['./annotations_forward_refs.py:96:12:   Any[error] is not equivalent to int']
 """
 output = """
@@ -38,7 +38,7 @@ output = """
 ./annotations_forward_refs.py:54:0: Invalid type annotation [invalid_annotation]
 ./annotations_forward_refs.py:55:9: Invalid type annotation <module 'types' from '/Users/jelle/.pyenv/versions/3.12.3/lib/python3.12/types.py'> [invalid_annotation]
 ./annotations_forward_refs.py:80:12: Undefined name: ClassF [undefined_name]
-./annotations_forward_refs.py:87:7: Unrecognized annotation (self: ./annotations_forward_refs.py.ClassD) -> None [invalid_annotation]
-./annotations_forward_refs.py:89:7: Unrecognized annotation (self: ./annotations_forward_refs.py.ClassD) -> None [invalid_annotation]
+./annotations_forward_refs.py:87:7: Unrecognized annotation (self: ~SelfT: ./annotations_forward_refs.py.ClassD) -> None [invalid_annotation]
+./annotations_forward_refs.py:89:7: Unrecognized annotation (self: ~SelfT: ./annotations_forward_refs.py.ClassD) -> None [invalid_annotation]
 ./annotations_forward_refs.py:96:12:   Any[error] is not equivalent to int
 """
