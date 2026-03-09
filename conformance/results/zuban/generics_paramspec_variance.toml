@@ -1,0 +1,20 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 22: Expected 1 errors
+Line 32: Expected 1 errors
+Line 43: Expected 1 errors
+Line 49: Expected 1 errors
+Line 23: Unexpected errors ['generics_paramspec_variance.py:23: error: Incompatible types in assignment (expression has type "CovariantParamSpec[[int]]", variable has type "CovariantParamSpec[[object]]")  [assignment]']
+Line 25: Unexpected errors ['generics_paramspec_variance.py:25: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]']
+Line 39: Unexpected errors ['generics_paramspec_variance.py:39: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]']
+Line 50: Unexpected errors ['generics_paramspec_variance.py:50: error: Incompatible types in assignment (expression has type "CovariantParamSpecOld[[int]]", variable has type "CovariantParamSpecOld[[object]]")  [assignment]']
+"""
+output = """
+generics_paramspec_variance.py:13: error: Incompatible types in assignment (expression has type "ContravariantParamSpec[[int]]", variable has type "ContravariantParamSpec[[object]]")  [assignment]
+generics_paramspec_variance.py:23: error: Incompatible types in assignment (expression has type "CovariantParamSpec[[int]]", variable has type "CovariantParamSpec[[object]]")  [assignment]
+generics_paramspec_variance.py:25: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
+generics_paramspec_variance.py:36: error: Incompatible types in assignment (expression has type "ContravariantParamSpecOld[[int]]", variable has type "ContravariantParamSpecOld[[object]]")  [assignment]
+generics_paramspec_variance.py:39: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
+generics_paramspec_variance.py:50: error: Incompatible types in assignment (expression has type "CovariantParamSpecOld[[int]]", variable has type "CovariantParamSpecOld[[object]]")  [assignment]
+"""
