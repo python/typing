@@ -1,5 +1,15 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 151: Expected 1 errors
+Line 159: Expected 1 errors
+Line 168: Expected 1 errors
+Line 173: Expected 1 errors
+Line 177: Expected 1 errors
+Line 155: Unexpected errors ['generics_paramspec_semantics.py:155: error: Missing return statement  [empty-body]']
+Line 158: Unexpected errors ['generics_paramspec_semantics.py:158: error: Incompatible types in assignment (expression has type "CovariantParamSpec[[int]]", variable has type "CovariantParamSpec[[object]]")  [assignment]']
+Line 161: Unexpected errors ['generics_paramspec_semantics.py:161: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]']
+Line 170: Unexpected errors ['generics_paramspec_semantics.py:170: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]']
+Line 176: Unexpected errors ['generics_paramspec_semantics.py:176: error: Incompatible types in assignment (expression has type "ContravariantParamSpecOld[[int]]", variable has type "ContravariantParamSpecOld[[object]]")  [assignment]']
 """
 output = """
 generics_paramspec_semantics.py:26: error: Unexpected keyword argument "a"  [call-arg]
@@ -12,4 +22,10 @@ generics_paramspec_semantics.py:120: error: Argument 1 has incompatible type "in
 generics_paramspec_semantics.py:127: error: Argument 1 to "expects_int_first" has incompatible type "Callable[[str], int]"; expected "Callable[[int], int]"  [arg-type]
 generics_paramspec_semantics.py:132: error: Argument 1 to "expects_int_first" has incompatible type "Callable[[NamedArg(int, 'x')], int]"; expected "Callable[[int, Never], int]"  [arg-type]
 generics_paramspec_semantics.py:137: error: Argument 1 to "expects_int_first" has incompatible type "Callable[[KwArg(int)], int]"; expected "Callable[[int, Never], int]"  [arg-type]
+generics_paramspec_semantics.py:155: error: Missing return statement  [empty-body]
+generics_paramspec_semantics.py:158: error: Incompatible types in assignment (expression has type "CovariantParamSpec[[int]]", variable has type "CovariantParamSpec[[object]]")  [assignment]
+generics_paramspec_semantics.py:161: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
+generics_paramspec_semantics.py:164: error: Missing return statement  [empty-body]
+generics_paramspec_semantics.py:170: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
+generics_paramspec_semantics.py:176: error: Incompatible types in assignment (expression has type "ContravariantParamSpecOld[[int]]", variable has type "ContravariantParamSpecOld[[object]]")  [assignment]
 """
