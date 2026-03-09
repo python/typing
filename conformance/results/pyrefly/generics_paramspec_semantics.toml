@@ -1,6 +1,9 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+conformance_automated = "Fail"
 errors_diff = """
+Line 151: Expected 1 errors
+Line 159: Expected 1 errors
+Line 150: Unexpected errors ['`ContravariantParamSpec[[object]]` is not assignable to `ContravariantParamSpec[[int]]` [bad-assignment]']
 """
 output = """
 ERROR generics_paramspec_semantics.py:26:4-5: Expected argument `a` to be positional [unexpected-keyword]
@@ -14,4 +17,5 @@ ERROR generics_paramspec_semantics.py:120:4-5: Argument `Literal[1]` is not assi
 ERROR generics_paramspec_semantics.py:127:1-19: Argument `(x: str) -> int` is not assignable to parameter `x` with type `(int, ParamSpec(@_)) -> int` in function `expects_int_first` [bad-argument-type]
 ERROR generics_paramspec_semantics.py:132:1-19: Argument `(*, x: int) -> int` is not assignable to parameter `x` with type `(int, ParamSpec(@_)) -> int` in function `expects_int_first` [bad-argument-type]
 ERROR generics_paramspec_semantics.py:137:1-19: Argument `(**kwargs: int) -> int` is not assignable to parameter `x` with type `(int, ParamSpec(@_)) -> int` in function `expects_int_first` [bad-argument-type]
+ERROR generics_paramspec_semantics.py:150:39-45: `ContravariantParamSpec[[object]]` is not assignable to `ContravariantParamSpec[[int]]` [bad-assignment]
 """

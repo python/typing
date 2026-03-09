@@ -142,3 +142,18 @@ def three(**kwargs: int) -> int:
 @expects_int_first  # OK
 def four(*args: int) -> int:
     raise NotImplementedError
+
+class ContravariantParamSpec[**InP]:
+    def f(self, *args: InP.args, **kwargs: InP.kwargs): ...
+
+in_obj = ContravariantParamSpec[object]()
+in_int: ContravariantParamSpec[int] = in_obj  # OK
+in_obj = in_int  # E
+
+
+class CovariantParamSpec[**OutP]:
+    def f(self) -> Callable[OutP, None]: ...
+
+out_int = CovariantParamSpec[int]()
+out_obj: CovariantParamSpec[object] = out_int  # OK
+out_int = out_obj  # E
