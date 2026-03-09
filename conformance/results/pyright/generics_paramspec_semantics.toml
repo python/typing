@@ -1,4 +1,4 @@
-conformant = "Pass"
+conformant = "Partial"
 notes = """
 Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).
 """
@@ -30,7 +30,17 @@ generics_paramspec_semantics.py:132:2 - error: Argument of type "(*, x: int) -> 
 generics_paramspec_semantics.py:137:2 - error: Argument of type "(**kwargs: int) -> int" cannot be assigned to parameter "x" of type "(int, **P@expects_int_first) -> int" in function "expects_int_first"
   Type "(**kwargs: int) -> int" is not assignable to type "(int, **P@expects_int_first) -> int"
     Function accepts too many positional parameters; expected 0 but received 1 (reportArgumentType)
+generics_paramspec_semantics.py:150:39 - error: Type "ContravariantParamSpec[(object)]" is not assignable to declared type "ContravariantParamSpec[(int)]"
+  "ContravariantParamSpec[(object)]" is not assignable to "ContravariantParamSpec[(int)]"
+    Type parameter "InP@ContravariantParamSpec" is invariant, but "(object)" is not the same as "(int)" (reportAssignmentType)
+generics_paramspec_semantics.py:158:39 - error: Type "CovariantParamSpec[(int)]" is not assignable to declared type "CovariantParamSpec[(object)]"
+  "CovariantParamSpec[(int)]" is not assignable to "CovariantParamSpec[(object)]"
+    Type parameter "OutP@CovariantParamSpec" is invariant, but "(int)" is not the same as "(object)" (reportAssignmentType)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 151: Expected 1 errors
+Line 159: Expected 1 errors
+Line 150: Unexpected errors ['generics_paramspec_semantics.py:150:39 - error: Type "ContravariantParamSpec[(object)]" is not assignable to declared type "ContravariantParamSpec[(int)]"']
+Line 158: Unexpected errors ['generics_paramspec_semantics.py:158:39 - error: Type "CovariantParamSpec[(int)]" is not assignable to declared type "CovariantParamSpec[(object)]"']
 """

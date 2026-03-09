@@ -1,5 +1,9 @@
-conformance_automated = "Pass"
+conformance_automated = "Partial"
 errors_diff = """
+Line 151: Expected 1 errors
+Line 159: Expected 1 errors
+Line 155: Unexpected errors ['generics_paramspec_semantics.py:155: error: Missing return statement  [empty-body]']
+Line 158: Unexpected errors ['generics_paramspec_semantics.py:158: error: Incompatible types in assignment (expression has type "CovariantParamSpec[[int]]", variable has type "CovariantParamSpec[[object]]")  [assignment]']
 """
 output = """
 generics_paramspec_semantics.py:26: error: Unexpected keyword argument "a"  [call-arg]
@@ -12,4 +16,6 @@ generics_paramspec_semantics.py:120: error: Argument 1 has incompatible type "in
 generics_paramspec_semantics.py:127: error: Argument 1 to "expects_int_first" has incompatible type "Callable[[str], int]"; expected "Callable[[int], int]"  [arg-type]
 generics_paramspec_semantics.py:132: error: Argument 1 to "expects_int_first" has incompatible type "Callable[[NamedArg(int, 'x')], int]"; expected "Callable[[int, Never], int]"  [arg-type]
 generics_paramspec_semantics.py:137: error: Argument 1 to "expects_int_first" has incompatible type "Callable[[KwArg(int)], int]"; expected "Callable[[int, Never], int]"  [arg-type]
+generics_paramspec_semantics.py:155: error: Missing return statement  [empty-body]
+generics_paramspec_semantics.py:158: error: Incompatible types in assignment (expression has type "CovariantParamSpec[[int]]", variable has type "CovariantParamSpec[[object]]")  [assignment]
 """
