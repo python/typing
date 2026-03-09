@@ -1,0 +1,34 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 16: Expected 1 errors
+Line 35: Expected 1 errors
+Line 60: Expected 1 errors
+Line 71: Expected 1 errors
+Line 24: Unexpected errors ['generics_typevartuple_variance.py:24:1: error: Type `ContravariantTypeVarTuple[object]` is not assignable to `ContravariantTypeVarTuple[int]` (type parameter is contravariant) [generics_variance_inference]']
+Line 33: Unexpected errors ['generics_typevartuple_variance.py:33:1: error: Type `CovariantTypeVarTuple[int]` is not assignable to `CovariantTypeVarTuple[object]` (type parameter is covariant) [generics_variance_inference]']
+Line 54: Unexpected errors ['generics_typevartuple_variance.py:54:8: error: `TypeVarTuple` `InTs` does not support `covariant` or `contravariant` arguments [generics_typevartuple_basic]', 'generics_typevartuple_variance.py:54:8: error: Invalid `TypeVarTuple` parameters: `TypeVarTuple` does not support variance specification [generics_typevartuple_basic_3]']
+Line 65: Unexpected errors ['generics_typevartuple_variance.py:65:1: error: Type `ContravariantTypeVarTupleOld[object]` is not assignable to `ContravariantTypeVarTupleOld[int]` (type parameter is contravariant) [generics_variance_inference]']
+Line 68: Unexpected errors ['generics_typevartuple_variance.py:68:9: error: `TypeVarTuple` `OutTs` does not support `covariant` or `contravariant` arguments [generics_typevartuple_basic]', 'generics_typevartuple_variance.py:68:9: error: Invalid `TypeVarTuple` parameters: `TypeVarTuple` does not support variance specification [generics_typevartuple_basic_3]']
+Line 79: Unexpected errors ['generics_typevartuple_variance.py:79:1: error: Type `CovariantTypeVarTupleOld[int]` is not assignable to `CovariantTypeVarTupleOld[object]` (type parameter is covariant) [generics_variance_inference]']
+"""
+output = """
+generics_typevartuple_variance.py:14:1: error: Type `InvariantTypeVarTuple[int]` is not assignable to `InvariantTypeVarTuple[object]` (type parameter is invariant) [generics_variance_inference]
+generics_typevartuple_variance.py:15:1: error: Type `InvariantTypeVarTuple[object]` is not assignable to `InvariantTypeVarTuple[int]` (type parameter is invariant) [generics_variance_inference]
+generics_typevartuple_variance.py:23:1: error: Type `ContravariantTypeVarTuple[int]` is not assignable to `ContravariantTypeVarTuple[object]` (type parameter is contravariant) [generics_variance_inference]
+generics_typevartuple_variance.py:24:1: error: Type `ContravariantTypeVarTuple[object]` is not assignable to `ContravariantTypeVarTuple[int]` (type parameter is contravariant) [generics_variance_inference]
+generics_typevartuple_variance.py:32:1: error: Type `CovariantTypeVarTuple[object]` is not assignable to `CovariantTypeVarTuple[int]` (type parameter is covariant) [generics_variance_inference]
+generics_typevartuple_variance.py:33:1: error: Type `CovariantTypeVarTuple[int]` is not assignable to `CovariantTypeVarTuple[object]` (type parameter is covariant) [generics_variance_inference]
+generics_typevartuple_variance.py:36:1: error: Type `CovariantTypeVarTuple[object]` is not assignable to `CovariantTypeVarTuple[float]` (type parameter is covariant) [generics_variance_inference]
+generics_typevartuple_variance.py:37:1: error: Type `CovariantTypeVarTuple[object]` is not assignable to `CovariantTypeVarTuple[float]` (type parameter is covariant) [generics_variance_inference]
+generics_typevartuple_variance.py:50:1: error: Type `InvariantTypeVarTupleOld[int]` is not assignable to `InvariantTypeVarTupleOld[object]` (type parameter is invariant) [generics_variance_inference]
+generics_typevartuple_variance.py:51:1: error: Type `InvariantTypeVarTupleOld[object]` is not assignable to `InvariantTypeVarTupleOld[int]` (type parameter is invariant) [generics_variance_inference]
+generics_typevartuple_variance.py:54:8: error: `TypeVarTuple` `InTs` does not support `covariant` or `contravariant` arguments [generics_typevartuple_basic]
+generics_typevartuple_variance.py:54:8: error: Invalid `TypeVarTuple` parameters: `TypeVarTuple` does not support variance specification [generics_typevartuple_basic_3]
+generics_typevartuple_variance.py:64:1: error: Type `ContravariantTypeVarTupleOld[int]` is not assignable to `ContravariantTypeVarTupleOld[object]` (type parameter is contravariant) [generics_variance_inference]
+generics_typevartuple_variance.py:65:1: error: Type `ContravariantTypeVarTupleOld[object]` is not assignable to `ContravariantTypeVarTupleOld[int]` (type parameter is contravariant) [generics_variance_inference]
+generics_typevartuple_variance.py:68:9: error: `TypeVarTuple` `OutTs` does not support `covariant` or `contravariant` arguments [generics_typevartuple_basic]
+generics_typevartuple_variance.py:68:9: error: Invalid `TypeVarTuple` parameters: `TypeVarTuple` does not support variance specification [generics_typevartuple_basic_3]
+generics_typevartuple_variance.py:78:1: error: Type `CovariantTypeVarTupleOld[object]` is not assignable to `CovariantTypeVarTupleOld[int]` (type parameter is covariant) [generics_variance_inference]
+generics_typevartuple_variance.py:79:1: error: Type `CovariantTypeVarTupleOld[int]` is not assignable to `CovariantTypeVarTupleOld[object]` (type parameter is covariant) [generics_variance_inference]
+"""

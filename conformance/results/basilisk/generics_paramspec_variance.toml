@@ -1,0 +1,26 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 40: Expected 1 errors
+Line 51: Expected 1 errors
+Line 22: Unexpected errors ['generics_paramspec_variance.py:22:1: error: Type `ContravariantParamSpec[object]` is not assignable to `ContravariantParamSpec[int]` (type parameter is invariant) [generics_variance_inference]']
+Line 31: Unexpected errors ['generics_paramspec_variance.py:31:1: error: Type `CovariantParamSpec[int]` is not assignable to `CovariantParamSpec[object]` (type parameter is invariant) [generics_variance_inference]']
+Line 33: Unexpected errors ['generics_paramspec_variance.py:33:7: error: `ParamSpec` `InP` does not support `covariant` or `contravariant` arguments [generics_typevartuple_basic]']
+Line 45: Unexpected errors ['generics_paramspec_variance.py:45:1: error: Type `ContravariantParamSpecOld[object]` is not assignable to `ContravariantParamSpecOld[int]` (type parameter is contravariant) [generics_variance_inference]']
+Line 47: Unexpected errors ['generics_paramspec_variance.py:47:8: error: `ParamSpec` `OutP` does not support `covariant` or `contravariant` arguments [generics_typevartuple_basic]']
+Line 58: Unexpected errors ['generics_paramspec_variance.py:58:1: error: Type `CovariantParamSpecOld[int]` is not assignable to `CovariantParamSpecOld[object]` (type parameter is covariant) [generics_variance_inference]']
+"""
+output = """
+generics_paramspec_variance.py:14:1: error: Type `InvariantParamSpec[int]` is not assignable to `InvariantParamSpec[object]` (type parameter is invariant) [generics_variance_inference]
+generics_paramspec_variance.py:15:1: error: Type `InvariantParamSpec[object]` is not assignable to `InvariantParamSpec[int]` (type parameter is invariant) [generics_variance_inference]
+generics_paramspec_variance.py:21:1: error: Type `ContravariantParamSpec[int]` is not assignable to `ContravariantParamSpec[object]` (type parameter is invariant) [generics_variance_inference]
+generics_paramspec_variance.py:22:1: error: Type `ContravariantParamSpec[object]` is not assignable to `ContravariantParamSpec[int]` (type parameter is invariant) [generics_variance_inference]
+generics_paramspec_variance.py:30:1: error: Type `CovariantParamSpec[object]` is not assignable to `CovariantParamSpec[int]` (type parameter is invariant) [generics_variance_inference]
+generics_paramspec_variance.py:31:1: error: Type `CovariantParamSpec[int]` is not assignable to `CovariantParamSpec[object]` (type parameter is invariant) [generics_variance_inference]
+generics_paramspec_variance.py:33:7: error: `ParamSpec` `InP` does not support `covariant` or `contravariant` arguments [generics_typevartuple_basic]
+generics_paramspec_variance.py:44:1: error: Type `ContravariantParamSpecOld[int]` is not assignable to `ContravariantParamSpecOld[object]` (type parameter is contravariant) [generics_variance_inference]
+generics_paramspec_variance.py:45:1: error: Type `ContravariantParamSpecOld[object]` is not assignable to `ContravariantParamSpecOld[int]` (type parameter is contravariant) [generics_variance_inference]
+generics_paramspec_variance.py:47:8: error: `ParamSpec` `OutP` does not support `covariant` or `contravariant` arguments [generics_typevartuple_basic]
+generics_paramspec_variance.py:57:1: error: Type `CovariantParamSpecOld[object]` is not assignable to `CovariantParamSpecOld[int]` (type parameter is covariant) [generics_variance_inference]
+generics_paramspec_variance.py:58:1: error: Type `CovariantParamSpecOld[int]` is not assignable to `CovariantParamSpecOld[object]` (type parameter is covariant) [generics_variance_inference]
+"""
