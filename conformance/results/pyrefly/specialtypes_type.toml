@@ -1,6 +1,7 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+conformance_automated = "Fail"
 errors_diff = """
+Line 180: Expected 1 errors
 """
 output = """
 ERROR specialtypes_type.py:56:7-15: Argument `type[TeamUser]` is not assignable to parameter `user_class` with type `type[BasicUser | ProUser]` in function `func4` [bad-argument-type]
@@ -12,4 +13,5 @@ ERROR specialtypes_type.py:143:1-12: Class `type` has no class attribute `unknow
 ERROR specialtypes_type.py:144:1-12: Class `type` has no class attribute `unknown` [missing-attribute]
 ERROR specialtypes_type.py:145:1-12: Class `type` has no class attribute `unknown` [missing-attribute]
 ERROR specialtypes_type.py:146:1-12: Class `type` has no class attribute `unknown` [missing-attribute]
+ERROR specialtypes_type.py:179:9-18: `TypedDict` is not allowed in this context [invalid-annotation]
 """

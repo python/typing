@@ -5,7 +5,7 @@ Tests the handling of builtins.type[T].
 # Specification: https://typing.readthedocs.io/en/latest/spec/special-types.html#type
 
 
-from typing import Any, Callable, Generic, Type, TypeAlias, TypeVar, assert_type
+from typing import Any, Callable, Generic, Type, TypeAlias, TypeVar, assert_type, Literal, TypedDict
 
 
 class User:
@@ -173,3 +173,8 @@ def func13(v: type):
 class ClassA(Generic[T]):
     def method1(self, v: type) -> type[T]:
         return v  # OK
+
+# > Some other special forms like Literal and TypedDict are not allowed as an argument to type.
+c: type[Callable]  # OK
+t: type[TypedDict]  # E
+l: type[Literal[1]]  # E

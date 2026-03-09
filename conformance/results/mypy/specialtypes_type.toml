@@ -17,6 +17,9 @@ specialtypes_type.py:143: error: "<typing special form>" has no attribute "unkno
 specialtypes_type.py:144: error: "<typing special form>" has no attribute "unknown"  [attr-defined]
 specialtypes_type.py:145: error: "type[type]" has no attribute "unknown"  [attr-defined]
 specialtypes_type.py:146: error: "<typing special form>" has no attribute "unknown"  [attr-defined]
+specialtypes_type.py:179: error: Variable "typing.TypedDict" is not valid as a type  [valid-type]
+specialtypes_type.py:179: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+specialtypes_type.py:180: error: type[...] can't contain "Literal[...]"  [valid-type]
 """
 conformance_automated = "Fail"
 errors_diff = """

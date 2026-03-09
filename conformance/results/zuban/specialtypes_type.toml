@@ -11,4 +11,6 @@ specialtypes_type.py:143: error: "_SpecialForm" has no attribute "unknown"  [att
 specialtypes_type.py:144: error: "_SpecialForm" has no attribute "unknown"  [attr-defined]
 specialtypes_type.py:145: error: "_SpecialForm" has no attribute "unknown"  [attr-defined]
 specialtypes_type.py:146: error: "_SpecialForm" has no attribute "unknown"  [attr-defined]
+specialtypes_type.py:179: error: Invalid type  [valid-type]
+specialtypes_type.py:180: error: type[...] can't contain "Literal[...]"  [misc]
 """

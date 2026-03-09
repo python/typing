@@ -264,7 +264,7 @@
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;specialtypes_type</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not treat `type` same as `type[Any]` for assert_type.</p><p>Does not allow access to unknown attributes from object of type `type[Any]`.</p></span></div></th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 not-conformant">Fail</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Allows arbitrary attributes to be accessed on `TA` where `TA = typing.Type[typing.Any]` or `TA = type[typing.Any]`.</p><p>Treats `type` equivalently to `type[object]` rather than `type[typing.Any]`.</p></span></div></th>
