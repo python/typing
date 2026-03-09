@@ -1,0 +1,20 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 8: Unexpected errors ['./generics_mixed_variance_inference.py:8:32: Traceback (most recent call last):', './generics_mixed_variance_inference.py:8:4: Traceback (most recent call last):']
+Line 12: Unexpected errors ['./generics_mixed_variance_inference.py:12:0: Incompatible assignment: expected generics_mixed_variance_inference.Mixed[int, Any[error]], got generics_mixed_variance_inference.Mixed[object, AnySig()] [incompatible_assignment]', './generics_mixed_variance_inference.py:12:4: Invalid type annotation [] [invalid_annotation]']
+Line 17: Unexpected errors ['./generics_mixed_variance_inference.py:17:0: Incompatible assignment: expected generics_mixed_variance_inference.Mixed[int, int, <list containing []>], got generics_mixed_variance_inference.Mixed[int, bool, AnySig()] [incompatible_assignment]']
+Line 20: Unexpected errors ["./generics_mixed_variance_inference.py:20:4: Invalid type annotation [<class 'int'>] [invalid_annotation]"]
+"""
+output = """
+./generics_mixed_variance_inference.py:8:32: Traceback (most recent call last):
+./generics_mixed_variance_inference.py:8:4: Traceback (most recent call last):
+./generics_mixed_variance_inference.py:12:0: Incompatible assignment: expected generics_mixed_variance_inference.Mixed[int, Any[error]], got generics_mixed_variance_inference.Mixed[object, AnySig()] [incompatible_assignment]
+./generics_mixed_variance_inference.py:12:4: Invalid type annotation [] [invalid_annotation]
+./generics_mixed_variance_inference.py:13:0: Incompatible assignment: expected generics_mixed_variance_inference.Mixed[int, Any[error]], got generics_mixed_variance_inference.Mixed[bool, AnySig()] [incompatible_assignment]
+./generics_mixed_variance_inference.py:13:4: Invalid type annotation [] [invalid_annotation]
+./generics_mixed_variance_inference.py:16:0: Incompatible assignment: expected generics_mixed_variance_inference.Mixed[int, int, <list containing []>], got generics_mixed_variance_inference.Mixed[int, object, AnySig()] [incompatible_assignment]
+./generics_mixed_variance_inference.py:17:0: Incompatible assignment: expected generics_mixed_variance_inference.Mixed[int, int, <list containing []>], got generics_mixed_variance_inference.Mixed[int, bool, AnySig()] [incompatible_assignment]
+./generics_mixed_variance_inference.py:20:4: Invalid type annotation [<class 'int'>] [invalid_annotation]
+./generics_mixed_variance_inference.py:21:4: Invalid type annotation [<class 'int'>] [invalid_annotation]
+"""
