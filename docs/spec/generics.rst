@@ -2712,23 +2712,27 @@ The algorithm for computing the variance of a type parameter is as follows.
 
 For each type parameter in a generic class:
 
-1. If the type parameter is variadic (``TypeVarTuple``) or a parameter
-specification (``ParamSpec``), it is always considered invariant. No further
-inference is needed.
+1. If the type parameter is variadic (``TypeVarTuple``) it is always
+considered invariant. No further inference is needed.
 
-2. If the type parameter comes from a traditional ``TypeVar`` declaration and
-is not specified as ``infer_variance`` (see below), its variance is specified
-by the ``TypeVar`` constructor call. No further inference is needed.
+2. If the type parameter comes from a traditional ``TypeVar``/``ParamSpec``
+declaration and is not specified as ``infer_variance`` (see below), its
+variance is specified by the constructor call. No further inference is needed.
 
 3. Create two specialized versions of the class. We'll refer to these as
 ``upper`` and ``lower`` specializations. In both of these specializations,
 replace all type parameters other than the one being inferred by a dummy type
 instance (a concrete anonymous class that is assumed to meet the bounds or
 constraints of the type parameter). In the ``upper`` specialized class,
-specialize the target type parameter with an ``object`` instance. This
-specialization ignores the type parameter's upper bound or constraints. In the
-``lower`` specialized class, specialize the target type parameter with itself
-(i.e. the corresponding type argument is the type parameter itself).
+specialize the target type parameter with:
+
+ an ``object`` instance for a type variable.
+ a ``*tuple[object, ...]`` value for a type variable tuple.
+ a ``...`` value for a parameter specification.
+
+This specialization ignores the type parameter's upper bound or constraints.
+In the ``lower`` specialized class, specialize the target type parameter with
+itself (i.e. the corresponding type argument is the type parameter itself).
 
 4. Determine whether ``lower`` can be assigned to ``upper`` using normal
 assignability rules. If so, the target type parameter is covariant. If not,
