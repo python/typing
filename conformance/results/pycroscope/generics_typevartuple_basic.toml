@@ -7,7 +7,7 @@ output = """
 ./generics_typevartuple_basic.py:42:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array[Any[error]] [incompatible_assignment]
 ./generics_typevartuple_basic.py:43:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Batch', int), NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array[NewType('Batch', int), NewType('Width', int)] [incompatible_assignment]
 ./generics_typevartuple_basic.py:44:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Time', int), NewType('Batch', int), NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array[NewType('Time', int), NewType('Batch', int), NewType('Width', int), NewType('Height', int)] [incompatible_assignment]
-./generics_typevartuple_basic.py:52:21: TypeVarTuple must be unpacked [invalid_annotation]
+./generics_typevartuple_basic.py:52:21: TypeVarTuple must be unpacked [invalid_base]
 ./generics_typevartuple_basic.py:53:30: TypeVarTuple must be unpacked [invalid_annotation]
 ./generics_typevartuple_basic.py:56:27: TypeVarTuple must be unpacked [invalid_annotation]
 ./generics_typevartuple_basic.py:59:17: TypeVarTuple must be unpacked [invalid_annotation]
@@ -17,5 +17,5 @@ output = """
 ./generics_typevartuple_basic.py:90:0: Cannot resolve type variables [incompatible_call]
 ./generics_typevartuple_basic.py:99:4: Cannot resolve type variables [incompatible_call]
 ./generics_typevartuple_basic.py:100:4: Cannot resolve type variables [incompatible_call]
-./generics_typevartuple_basic.py:106:21: Only one TypeVarTuple can be used in a type parameter list [invalid_annotation]
+./generics_typevartuple_basic.py:106:21: Only one TypeVarTuple can be used in a type parameter list [invalid_base]
 """

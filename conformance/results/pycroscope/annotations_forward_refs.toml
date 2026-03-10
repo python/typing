@@ -28,7 +28,7 @@ output = """
 ./annotations_forward_refs.py:44:0: Invalid type annotation [invalid_annotation]
 ./annotations_forward_refs.py:45:8: Unrecognized annotation <dict containing {}> [invalid_annotation]
 ./annotations_forward_refs.py:46:0: Invalid type annotation [invalid_annotation]
-./annotations_forward_refs.py:47:8: Invalid type annotation 0 [invalid_annotation]
+./annotations_forward_refs.py:47:8: Cannot resolve subscripted annotation: <list containing [type 'int']> [invalid_annotation]
 ./annotations_forward_refs.py:48:0: Invalid type annotation [invalid_annotation]
 ./annotations_forward_refs.py:49:8: Invalid type annotation 1 [invalid_annotation]
 ./annotations_forward_refs.py:50:9: Invalid type annotation True [invalid_annotation]

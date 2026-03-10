@@ -11,6 +11,6 @@ output = """
 ./typeddicts_readonly_inheritance.py:94:4: Incompatible TypedDict override for key 'a' [invalid_annotation]
 ./typeddicts_readonly_inheritance.py:98:4: Incompatible TypedDict override for key 'a' [invalid_annotation]
 ./typeddicts_readonly_inheritance.py:106:4: Incompatible TypedDict override for key 'c' [invalid_annotation]
-./typeddicts_readonly_inheritance.py:119:0: TypedDict base classes define key 'x' with incompatible types [invalid_annotation]
-./typeddicts_readonly_inheritance.py:132:0: TypedDict base classes define key 'x' with incompatible requiredness [invalid_annotation]
+./typeddicts_readonly_inheritance.py:119:0: TypedDict base classes define key 'x' with incompatible types [invalid_base]
+./typeddicts_readonly_inheritance.py:132:0: TypedDict base classes define key 'x' with incompatible requiredness [invalid_base]
 """

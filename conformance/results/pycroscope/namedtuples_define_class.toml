@@ -2,6 +2,7 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 121: Unexpected errors ['./namedtuples_define_class.py:121:12:   ./namedtuples_define_class.py.Property[Literal[3.4]] is not equivalent to ./namedtuples_define_class.py.Property[float | int]']
 Line 122: Unexpected errors ['./namedtuples_define_class.py:122:12:   Literal[3.4] is not equivalent to float | int']
+Line 123: Unexpected errors ['./namedtuples_define_class.py:123:12:   Literal[3.4] is not equivalent to float | int']
 """
 output = """
 ./namedtuples_define_class.py:32:6: Tuple index out of range: Literal[3] [incompatible_call]
@@ -18,6 +19,7 @@ output = """
 ./namedtuples_define_class.py:106:4: Field 'x' conflicts with base NamedTuple field [incompatible_override]
 ./namedtuples_define_class.py:121:12:   ./namedtuples_define_class.py.Property[Literal[3.4]] is not equivalent to ./namedtuples_define_class.py.Property[float | int]
 ./namedtuples_define_class.py:122:12:   Literal[3.4] is not equivalent to float | int
+./namedtuples_define_class.py:123:12:   Literal[3.4] is not equivalent to float | int
 ./namedtuples_define_class.py:125:18: Incompatible argument type for value: expected str but got Literal[3.1] [incompatible_argument]
 ./namedtuples_define_class.py:132:23: NamedTuple classes may only inherit from NamedTuple and Generic [invalid_base]
 """

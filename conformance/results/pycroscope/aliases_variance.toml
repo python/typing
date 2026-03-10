@@ -2,8 +2,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./aliases_variance.py:24:15: T_co has incompatible variance in base class [invalid_annotation]
-./aliases_variance.py:28:15: T_co has incompatible variance in base class [invalid_annotation]
-./aliases_variance.py:32:15: T_co has incompatible variance in base class [invalid_annotation]
-./aliases_variance.py:44:15: T_contra has incompatible variance in base class [invalid_annotation]
+./aliases_variance.py:24:15: T_co has incompatible variance in base class [invalid_base]
+./aliases_variance.py:28:15: T_co has incompatible variance in base class [invalid_base]
+./aliases_variance.py:32:15: T_co has incompatible variance in base class [invalid_base]
+./aliases_variance.py:44:15: T_contra has incompatible variance in base class [invalid_base]
 """

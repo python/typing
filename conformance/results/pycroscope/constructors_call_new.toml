@@ -1,11 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 20: Unexpected errors ['./constructors_call_new.py:20:12:   ./constructors_call_new.py.Class1[float] is not equivalent to ./constructors_call_new.py.Class1[float | int]']
-Line 24: Unexpected errors ['./constructors_call_new.py:24:12:   ./constructors_call_new.py.Class1[float] is not equivalent to ./constructors_call_new.py.Class1[float | int]']
 """
 output = """
-./constructors_call_new.py:20:12:   ./constructors_call_new.py.Class1[float] is not equivalent to ./constructors_call_new.py.Class1[float | int]
 ./constructors_call_new.py:21:12: Incompatible argument type for x: expected int but got Literal[1.0] [incompatible_argument]
-./constructors_call_new.py:24:12:   ./constructors_call_new.py.Class1[float] is not equivalent to ./constructors_call_new.py.Class1[float | int]
 ./constructors_call_new.py:148:0: Missing required positional argument '%self' [incompatible_call]
 """

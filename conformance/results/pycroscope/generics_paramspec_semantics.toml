@@ -9,7 +9,7 @@ output = """
 ./generics_paramspec_semantics.py:98:3: Incompatible argument type for @0: expected str but got Literal[1] [incompatible_argument]
 ./generics_paramspec_semantics.py:108:0: Incompatible argument type for args: expected tuple[bool, ...] but got tuple[Literal[1]] [incompatible_argument]
 ./generics_paramspec_semantics.py:120:3: Incompatible argument type for @0: expected str but got Literal[1] [incompatible_argument]
-./generics_paramspec_semantics.py:127:1: Incompatible argument type for x: expected (int, /, **ParamSpecSig(param_spec=~P, default=None)) -> int but got (x: str) -> int [incompatible_argument]
-./generics_paramspec_semantics.py:132:1: Incompatible argument type for x: expected (int, /, **ParamSpecSig(param_spec=~P, default=None)) -> int but got (*, x: int) -> int [incompatible_argument]
-./generics_paramspec_semantics.py:137:1: Incompatible argument type for x: expected (int, /, **ParamSpecSig(param_spec=~P, default=None)) -> int but got (**kwargs: dict[str, int]) -> int [incompatible_argument]
+./generics_paramspec_semantics.py:127:1: Incompatible argument type for x: expected (int, /, **ParamSpecParam(param_spec=~P, default=None, variance=<Variance.INVARIANT: 3>, bound=None, constraints=())) -> int but got (x: str) -> int [incompatible_argument]
+./generics_paramspec_semantics.py:132:1: Incompatible argument type for x: expected (int, /, **ParamSpecParam(param_spec=~P, default=None, variance=<Variance.INVARIANT: 3>, bound=None, constraints=())) -> int but got (*, x: int) -> int [incompatible_argument]
+./generics_paramspec_semantics.py:137:1: Incompatible argument type for x: expected (int, /, **ParamSpecParam(param_spec=~P, default=None, variance=<Variance.INVARIANT: 3>, bound=None, constraints=())) -> int but got (**kwargs: dict[str, int]) -> int [incompatible_argument]
 """

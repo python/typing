@@ -1,24 +1,11 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 52: Expected 1 errors
-Line 53: Expected 1 errors
-Line 54: Expected 1 errors
-Line 55: Expected 1 errors
-Line 56: Expected 1 errors
-Line 57: Expected 1 errors
-Line 58: Expected 1 errors
-Line 59: Expected 1 errors
-Line 60: Expected 1 errors
-Line 61: Expected 1 errors
-Line 62: Expected 1 errors
-Line 63: Expected 1 errors
-Line 64: Expected 1 errors
 Line 39: Unexpected errors ["./aliases_typealiastype.py:39:4: Unrecognized annotation <list containing [type 'int', type 'str']> [invalid_annotation]"]
 """
 output = """
 ./aliases_typealiastype.py:32:6: .GoodAlias1 = int has no attribute 'other_attrib' [undefined_attribute]
 ./aliases_typealiastype.py:39:4: Unrecognized annotation <list containing [type 'int', type 'str']> [invalid_annotation]
-./aliases_typealiastype.py:40:4: Type argument int is not compatible with ~TStr: str [invalid_annotation]
+./aliases_typealiastype.py:40:4: Type argument int is not compatible with TypeVarParam(typevar=~TStr, bound=TypedValue(typ=<class 'str'>, literal_only=False), default=None, constraints=(), variance=<Variance.INVARIANT: 3>) [invalid_annotation]
 ./aliases_typealiastype.py:43:0: Type alias cannot combine old-style TypeVar declarations with type statement parameters [invalid_annotation]
 ./aliases_typealiastype.py:44:0: Type alias must declare type parameters in the type statement [invalid_annotation]
 ./aliases_typealiastype.py:45:56: type_params argument to TypeAliasType must be a literal tuple [invalid_annotation]
@@ -26,5 +13,18 @@ output = """
 ./aliases_typealiastype.py:47:0: Type alias BadAlias5 has a circular definition [invalid_annotation]
 ./aliases_typealiastype.py:48:0: Type alias BadAlias6 has a circular definition [invalid_annotation]
 ./aliases_typealiastype.py:49:0: Type alias BadAlias7 has a circular definition [invalid_annotation]
+./aliases_typealiastype.py:52:39: Invalid type annotation [invalid_annotation]
+./aliases_typealiastype.py:53:39: Unrecognized annotation <list containing [type 'int', type 'str']> [invalid_annotation]
+./aliases_typealiastype.py:54:41: Unrecognized annotation tuple[tuple[type 'int', type 'str']] [invalid_annotation]
+./aliases_typealiastype.py:55:41: Invalid type annotation [invalid_annotation]
+./aliases_typealiastype.py:56:41: Unrecognized annotation <dict containing {Literal['a']: Literal['b']}> [invalid_annotation]
+./aliases_typealiastype.py:57:41: Invalid type annotation [invalid_annotation]
+./aliases_typealiastype.py:58:41: Cannot resolve subscripted annotation: <list containing [type 'int']> [invalid_annotation]
+./aliases_typealiastype.py:59:41: Invalid type annotation [invalid_annotation]
+./aliases_typealiastype.py:60:41: Invalid type annotation 3 [invalid_annotation]
+./aliases_typealiastype.py:61:41: Invalid type annotation True [invalid_annotation]
+./aliases_typealiastype.py:62:41: Invalid type annotation 1 [invalid_annotation]
+./aliases_typealiastype.py:63:41: Invalid type annotation [invalid_annotation]
+./aliases_typealiastype.py:64:41: Invalid type annotation [invalid_annotation]
 ./aliases_typealiastype.py:66:0: Type alias BadAlias21 has a circular definition [invalid_annotation]
 """

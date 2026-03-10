@@ -13,6 +13,7 @@ output = """
 ./literals_parameterizations.py:47:6: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got {'a': 'b', 'c': 'd'} [invalid_literal]
 ./literals_parameterizations.py:48:6: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got <class 'int'> [invalid_literal]
 ./literals_parameterizations.py:50:7: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got ~T [invalid_literal]
+./literals_parameterizations.py:50:15: Type parameter is not valid in this annotation context [invalid_annotation]
 ./literals_parameterizations.py:51:7: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got 3.14 [invalid_literal]
 ./literals_parameterizations.py:52:7: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got typing.Any [invalid_literal]
 ./literals_parameterizations.py:53:7: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got Ellipsis [invalid_literal]

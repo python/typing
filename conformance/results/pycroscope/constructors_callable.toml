@@ -19,9 +19,9 @@ output = """
 ./constructors_callable.py:129:0: Takes 0 positional arguments but 1 were given [incompatible_call]
 ./constructors_callable.py:144:12: Revealed type is '() -> Any[explicit]' [reveal_type]
 ./constructors_callable.py:146:0: Takes 0 positional arguments but 1 were given [incompatible_call]
-./constructors_callable.py:164:4: Revealed type is '(x: ~_Ctor_Class7_T) -> ./constructors_callable.py.Class7[~_Ctor_Class7_T]' [reveal_type]
+./constructors_callable.py:164:4: Revealed type is '(x: ~_Ctor_Class7_T: (int, str)) -> ./constructors_callable.py.Class7[~_Ctor_Class7_T: (int, str)]' [reveal_type]
 ./constructors_callable.py:184:12: Revealed type is '(x: list[~T], y: list[~T]) -> ./constructors_callable.py.Class8[~T]' [reveal_type]
 ./constructors_callable.py:186:0: Cannot resolve type variables [incompatible_call]
-./constructors_callable.py:195:12: Revealed type is '(x: list[~T], y: list[~T]) -> ./constructors_callable.py.Class9' [reveal_type]
+./constructors_callable.py:195:12: Revealed type is '(x: list[~T], y: list[~T]) -> ./constructors_callable.py.Class9[~T]' [reveal_type]
 ./constructors_callable.py:197:0: Cannot resolve type variables [incompatible_call]
 """

@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./qualifiers_final_decorator.py:21:0: Cannot inherit from final class [invalid_annotation]
+./qualifiers_final_decorator.py:21:0: Cannot inherit from final class [invalid_base]
 ./qualifiers_final_decorator.py:56:4: Cannot override final attribute method1 [invalid_annotation]
 ./qualifiers_final_decorator.py:60:4: Cannot override final attribute method2 [invalid_annotation]
 ./qualifiers_final_decorator.py:64:4: Cannot override final attribute method3 [invalid_annotation]

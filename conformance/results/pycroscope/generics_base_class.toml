@@ -7,6 +7,6 @@ output = """
 ./generics_base_class.py:30:7: Generic[...] is valid only as a base class [invalid_annotation]
 ./generics_base_class.py:49:21: Expected 1 type arguments for ./generics_base_class.py.LinkedList [invalid_annotation]
 ./generics_base_class.py:61:17: Expected 1 type arguments for ./generics_base_class.py.MyDict [invalid_annotation]
-./generics_base_class.py:68:24: Type parameter list cannot contain duplicate type variables [invalid_annotation]
-./generics_base_class.py:98:31: Inconsistent type variable order in base classes [invalid_annotation]
+./generics_base_class.py:68:24: Type parameter list cannot contain duplicate type variables [invalid_base]
+./generics_base_class.py:98:31: Inconsistent type variable order in base classes [invalid_base]
 """

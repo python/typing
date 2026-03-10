@@ -1,14 +1,10 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 25: Unexpected errors ['./constructors_call_init.py:25:12:   ./constructors_call_init.py.Class1[float] is not equivalent to ./constructors_call_init.py.Class1[float | int]']
-Line 75: Unexpected errors ['./constructors_call_init.py:75:12:   ./constructors_call_init.py.Class5 is not equivalent to ./constructors_call_init.py.Class5[float | int]']
 """
 output = """
 ./constructors_call_init.py:21:12: Incompatible argument type for x: expected int but got Literal[1.0] [incompatible_argument]
-./constructors_call_init.py:25:12:   ./constructors_call_init.py.Class1[float] is not equivalent to ./constructors_call_init.py.Class1[float | int]
 ./constructors_call_init.py:42:7: Incompatible argument type for x: expected ./constructors_call_init.py.Class3 | None but got ./constructors_call_init.py.Class2[Any[generic_argument]] [incompatible_argument]
 ./constructors_call_init.py:56:0: Missing required positional argument '%self' [incompatible_call]
-./constructors_call_init.py:75:12:   ./constructors_call_init.py.Class5 is not equivalent to ./constructors_call_init.py.Class5[float | int]
 ./constructors_call_init.py:107:17: Class-scoped type variables are not allowed in __init__ self annotation [invalid_annotation]
 ./constructors_call_init.py:130:0: In call to object.__init__: Takes 0 positional arguments but 1 were given [incompatible_call]
 """

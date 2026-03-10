@@ -2,8 +2,10 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 29: Expected 1 errors
 Line 34: Expected 1 errors
+Line 35: Unexpected errors ["./protocols_class_objects.py:35:0: Incompatible assignment: expected .var = ./protocols_class_objects.py.Proto, got <class 'Concrete'> [incompatible_assignment]"]
 """
 output = """
+./protocols_class_objects.py:35:0: Incompatible assignment: expected .var = ./protocols_class_objects.py.Proto, got <class 'Concrete'> [incompatible_assignment]
 ./protocols_class_objects.py:58:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoA1, got <class 'ConcreteA'> [incompatible_assignment]
 ./protocols_class_objects.py:74:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoB1, got <class 'ConcreteB'> [incompatible_assignment]
 ./protocols_class_objects.py:104:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1, got <class 'ConcreteC1'> [incompatible_assignment]

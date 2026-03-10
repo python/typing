@@ -13,7 +13,7 @@ output = """
 ./aliases_explicit.py:82:20: Invalid type annotation [invalid_annotation]
 ./aliases_explicit.py:83:20: Unrecognized annotation <dict containing {Literal['a']: Literal['b']}> [invalid_annotation]
 ./aliases_explicit.py:84:20: Invalid type annotation [invalid_annotation]
-./aliases_explicit.py:85:20: Invalid type annotation 0 [invalid_annotation]
+./aliases_explicit.py:85:20: Cannot resolve subscripted annotation: <list containing [type 'int']> [invalid_annotation]
 ./aliases_explicit.py:86:20: Invalid type annotation [invalid_annotation]
 ./aliases_explicit.py:87:20: Invalid type annotation 3 [invalid_annotation]
 ./aliases_explicit.py:88:21: Invalid type annotation True [invalid_annotation]

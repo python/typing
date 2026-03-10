@@ -2,8 +2,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./generics_syntax_declarations.py:17:16: Class definition cannot specialize Generic or Protocol bases when using type parameter syntax [invalid_annotation]
-./generics_syntax_declarations.py:25:19: Class definition cannot specialize Generic or Protocol bases when using type parameter syntax [invalid_annotation]
+./generics_syntax_declarations.py:17:16: Class definition cannot specialize Generic or Protocol bases when using type parameter syntax [invalid_base]
+./generics_syntax_declarations.py:25:19: Class definition cannot specialize Generic or Protocol bases when using type parameter syntax [invalid_base]
 ./generics_syntax_declarations.py:32:8: str has no attribute 'is_integer' [undefined_attribute]
 ./generics_syntax_declarations.py:44:20: TypeVar bound cannot be parameterized by type variables [invalid_annotation]
 ./generics_syntax_declarations.py:48:16: Invalid type annotation [<class 'str'>, <class 'int'>] [invalid_annotation]
