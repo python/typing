@@ -6,8 +6,6 @@ output = """
 ERROR directives_version_platform.py:33:19-23: Could not find name `val3` [unknown-name]
 ERROR directives_version_platform.py:50:19-23: Could not find name `val6` [unknown-name]
 ERROR directives_version_platform.py:59:19-23: Could not find name `val9` [unknown-name]
-ERROR directives_version_platform.py:66:19-24: `val10` may be uninitialized [unbound-name]
-ERROR directives_version_platform.py:67:22-27: `val11` may be uninitialized [unbound-name]
-ERROR directives_version_platform.py:74:22-27: `val12` may be uninitialized [unbound-name]
-ERROR directives_version_platform.py:75:19-24: `val13` may be uninitialized [unbound-name]
+ERROR directives_version_platform.py:66:19-24: Could not find name `val10` [unknown-name]
+ERROR directives_version_platform.py:75:19-24: Could not find name `val13` [unknown-name]
 """
