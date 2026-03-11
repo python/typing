@@ -1,15 +1,6 @@
-conformant = "Partial"
-notes = """
-Allows Annotated in some contexts where it should not be allowed
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 71: Expected 1 errors
-Line 72: Expected 1 errors
-Line 79: Expected 1 errors
-Line 80: Expected 1 errors
-Line 87: Expected 1 errors
-Line 88: Expected 1 errors
 """
 output = """
 ERROR qualifiers_annotated.py:38:17-27: List literal cannot be used in annotations [invalid-annotation]
@@ -27,5 +18,11 @@ ERROR qualifiers_annotated.py:47:18-19: Number literal cannot be used in annotat
 ERROR qualifiers_annotated.py:48:18-29: Boolean operation cannot be used in annotations [invalid-annotation]
 ERROR qualifiers_annotated.py:49:18-28: F-string cannot be used in annotations [invalid-annotation]
 ERROR qualifiers_annotated.py:59:8-22: `Annotated` needs at least one piece of metadata in addition to the type [invalid-annotation]
+ERROR qualifiers_annotated.py:71:24-42: `Annotated[int]` is not assignable to `type[Any]` [bad-assignment]
+ERROR qualifiers_annotated.py:72:24-32: `TypeAlias[SmallInt, Annotated[int]]` is not assignable to `type[Any]` [bad-assignment]
+ERROR qualifiers_annotated.py:79:7-25: Argument `Annotated[str]` is not assignable to parameter `x` with type `type[@_]` in function `func4` [bad-argument-type]
+ERROR qualifiers_annotated.py:80:7-15: Argument `TypeAlias[SmallInt, Annotated[int]]` is not assignable to parameter `x` with type `type[@_]` in function `func4` [bad-argument-type]
 ERROR qualifiers_annotated.py:86:1-10: Expected a callable, got `type[Annotated]` [not-callable]
+ERROR qualifiers_annotated.py:87:1-19: Expected a callable, got `Annotated[int]` [not-callable]
+ERROR qualifiers_annotated.py:88:1-9: Expected a callable, got `TypeAlias[SmallInt, Annotated[int]]` [not-callable]
 """
