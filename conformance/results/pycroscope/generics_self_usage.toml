@@ -5,7 +5,7 @@ output = """
 ./generics_self_usage.py:73:0: Self can only be used in annotations within a class body [invalid_annotation]
 ./generics_self_usage.py:76:5: Self can only be used in class attribute annotations [invalid_annotation]
 ./generics_self_usage.py:82:4: Self methods using Self must annotate the receiver with Self or leave it unannotated [invalid_annotation]
-./generics_self_usage.py:87:8: Incompatible return type: expected ~SelfT, got Annotated[./generics_self_usage.py.Foo3, HasAttrExtension(attribute_name=KnownValue(val='return_concrete_type'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={}, return_value=TypedValue(typ='./generics_self_usage.py.Foo3', literal_only=False), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] [incompatible_return_value]
+./generics_self_usage.py:87:8: Incompatible return type: expected ~SelfT: ./generics_self_usage.py.Foo3, got Annotated[./generics_self_usage.py.Foo3, HasAttrExtension(attribute_name=KnownValue(val='return_concrete_type'), attribute_type=CallableValue(typ=<class 'collections.abc.Callable'>, literal_only=False, signature=Signature(parameters={}, return_value=TypedValue(typ='./generics_self_usage.py.Foo3', literal_only=False), impl=None, callable=None, is_asynq=False, has_return_annotation=True, allow_call=False, evaluator=None, deprecated=None)))] [incompatible_return_value]
 ./generics_self_usage.py:103:10: Self cannot be used in base class expressions [invalid_base]
 ./generics_self_usage.py:105:11: Self cannot be used in base class expressions [invalid_base]
 ./generics_self_usage.py:108:23: Self cannot be used in type aliases [invalid_annotation]

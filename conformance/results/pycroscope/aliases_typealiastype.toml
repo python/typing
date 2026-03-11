@@ -5,7 +5,7 @@ Line 39: Unexpected errors ["./aliases_typealiastype.py:39:4: Unrecognized annot
 output = """
 ./aliases_typealiastype.py:32:6: .GoodAlias1 = int has no attribute 'other_attrib' [undefined_attribute]
 ./aliases_typealiastype.py:39:4: Unrecognized annotation <list containing [type 'int', type 'str']> [invalid_annotation]
-./aliases_typealiastype.py:40:4: Type argument int is not compatible with TypeVarParam(typevar=~TStr, bound=TypedValue(typ=<class 'str'>, literal_only=False), default=None, constraints=(), variance=<Variance.INVARIANT: 3>) [invalid_annotation]
+./aliases_typealiastype.py:40:4: Type argument int is not compatible with ~TStr: str [invalid_annotation]
 ./aliases_typealiastype.py:43:0: Type alias cannot combine old-style TypeVar declarations with type statement parameters [invalid_annotation]
 ./aliases_typealiastype.py:44:0: Type alias must declare type parameters in the type statement [invalid_annotation]
 ./aliases_typealiastype.py:45:56: type_params argument to TypeAliasType must be a literal tuple [invalid_annotation]

@@ -19,7 +19,7 @@ output = """
 ./qualifiers_final_annotation.py:108:12: Final cannot be combined with ClassVar [invalid_annotation]
 ./qualifiers_final_annotation.py:118:3: Unrecognized annotation typing.Final[<class 'int'>] [invalid_annotation]
 ./qualifiers_final_annotation.py:121:13: Unexpected Final annotation [invalid_annotation]
-./qualifiers_final_annotation.py:134:0: In call to pycroscope.signature.N: Missing required argument 'x' [incompatible_call]
+./qualifiers_final_annotation.py:134:0: In call to namedtuple_N.N.__new__: Missing required argument 'x' [incompatible_call]
 ./qualifiers_final_annotation.py:135:4: Incompatible argument type for x: expected int but got Literal[''] [incompatible_argument]
 ./qualifiers_final_annotation.py:135:10: Incompatible argument type for y: expected int but got Literal[''] [incompatible_argument]
 ./qualifiers_final_annotation.py:141:4: Cannot assign to final name ID1 [incompatible_assignment]

@@ -3,8 +3,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR literals_interactions.py:15:7-8: Index 5 out of range for tuple with 3 elements [bad-index]
-ERROR literals_interactions.py:16:7-8: Index -5 out of range for tuple with 3 elements [bad-index]
-ERROR literals_interactions.py:17:7-8: Index 4 out of range for tuple with 3 elements [bad-index]
-ERROR literals_interactions.py:18:7-9: Index -4 out of range for tuple with 3 elements [bad-index]
+ERROR literals_interactions.py:14:7-8: Index 5 out of range for tuple with 3 elements [bad-index]
+ERROR literals_interactions.py:15:7-8: Index -5 out of range for tuple with 3 elements [bad-index]
+ERROR literals_interactions.py:16:7-8: Index 4 out of range for tuple with 3 elements [bad-index]
+ERROR literals_interactions.py:17:7-9: Index -4 out of range for tuple with 3 elements [bad-index]
 """

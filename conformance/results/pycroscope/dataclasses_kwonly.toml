@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./dataclasses_kwonly.py:23:0: In call to ./dataclasses_kwonly.py.DC1: Takes 1 positional arguments but 2 were given [incompatible_call]
-./dataclasses_kwonly.py:38:0: In call to ./dataclasses_kwonly.py.DC2: Takes 1 positional arguments but 2 were given [incompatible_call]
-./dataclasses_kwonly.py:53:0: In call to ./dataclasses_kwonly.py.DC3: Takes 1 positional arguments but 2 were given [incompatible_call]
+./dataclasses_kwonly.py:23:0: In call to None.DC1.__init__: Takes 1 positional arguments but 2 were given [incompatible_call]
+./dataclasses_kwonly.py:38:0: In call to None.DC2.__init__: Takes 1 positional arguments but 2 were given [incompatible_call]
+./dataclasses_kwonly.py:53:0: In call to None.DC3.__init__: Takes 1 positional arguments but 2 were given [incompatible_call]
 """
