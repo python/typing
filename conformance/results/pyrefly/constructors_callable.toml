@@ -9,7 +9,7 @@ errors_diff = """
 Line 186: Expected 1 errors
 Line 197: Expected 1 errors
 Line 167: Unexpected errors ['assert_type(Class7[int], Class7[str]) failed [assert-type]', "Argument `Literal['']` is not assignable to parameter `x` with type `int` [bad-argument-type]"]
-Line 185: Unexpected errors ['assert_type(Class8[Any], Class8[str]) failed [assert-type]']
+Line 185: Unexpected errors ['assert_type(Class8[Unknown], Class8[str]) failed [assert-type]']
 """
 output = """
 ERROR constructors_callable.py:38:3-5: Missing argument `x` [missing-argument]
@@ -27,5 +27,5 @@ ERROR constructors_callable.py:129:4-5: Expected 0 positional arguments, got 1 [
 ERROR constructors_callable.py:146:8-9: Expected 0 positional arguments, got 1 [bad-argument-count]
 ERROR constructors_callable.py:167:12-33: assert_type(Class7[int], Class7[str]) failed [assert-type]
 ERROR constructors_callable.py:167:16-18: Argument `Literal['']` is not assignable to parameter `x` with type `int` [bad-argument-type]
-ERROR constructors_callable.py:185:12-41: assert_type(Class8[Any], Class8[str]) failed [assert-type]
+ERROR constructors_callable.py:185:12-41: assert_type(Class8[Unknown], Class8[str]) failed [assert-type]
 """

@@ -1,11 +1,10 @@
 conformant = "Partial"
 notes = """
-Final attributes not initialized on the class can be assigned to
+Does not reject Final inside ClassVar.
+Issues with NamedTuple interaction.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 34: Expected 1 errors
-Line 38: Expected 1 errors
 Line 107: Expected 1 errors
 Line 131: Unexpected errors ['Expected first item to be a string literal [invalid-argument]', 'Expected first item to be a string literal [invalid-argument]']
 Line 133: Unexpected errors ['Unexpected keyword argument `x` in function `N.__new__` [unexpected-keyword]', 'Unexpected keyword argument `y` in function `N.__new__` [unexpected-keyword]']
@@ -13,6 +12,8 @@ Line 133: Unexpected errors ['Unexpected keyword argument `x` in function `N.__n
 output = """
 ERROR qualifiers_final_annotation.py:16:7-12: Expected a type argument for `Final` [invalid-annotation]
 ERROR qualifiers_final_annotation.py:18:7-22: Expected 1 type argument for `Final`, got 2 [invalid-annotation]
+ERROR qualifiers_final_annotation.py:34:5-8: Final attribute declared in class body must be initialized with a value or in `__init__` [invalid-annotation]
+ERROR qualifiers_final_annotation.py:38:5-8: Final attribute declared in class body must be initialized with a value or in `__init__` [invalid-annotation]
 ERROR qualifiers_final_annotation.py:54:9-17: Cannot set field `ID5` [read-only]
 ERROR qualifiers_final_annotation.py:62:9-17: Cannot set field `id3` [read-only]
 ERROR qualifiers_final_annotation.py:63:9-17: Cannot set field `id4` [read-only]
