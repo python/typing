@@ -180,7 +180,7 @@
 </th>
 <th class='tc-header'><div class='tc-name'>pyrefly 0.56.0</div>
 </th>
-<th class='tc-header'><div class='tc-name'>ty 0.0.21</div>
+<th class='tc-header'><div class='tc-name'>ty 0.0.22</div>
 </th>
 </tr>
 <tr><th class="column" colspan="6">
@@ -198,7 +198,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly generates error for quoted type defined in class scope.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Types in quotes incorrectly refer to shadowing class member.</p><p>Does not reject some type forms that require quotes.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect runtime errors from partially stringified PEP-604 unions.</p><p>Resolves references in type annotations as referring to end-of-scope types (https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439, https://github.com/python/typing/pull/2144)</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Resolves references in type annotations as referring to end-of-scope types (https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439, https://github.com/python/typing/pull/2144)</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;annotations_generators</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not report incompatible Generator type in `yield from` statement.</p></span></div></th>
@@ -583,7 +583,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Deliberately does not allow `str` to be narrowed to literal string types through equality or containment checks due to the possibility of `str` subclasses that could have unexpected equality semantics.</p><p>Incorrectly fails to narrow the type `LiteralString & ~Literal["MALFORMED"]` to `Literal["ABORTED"]` after an `== "ABORTED"` check.</p></span></div></th>
+<th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Deliberately does not allow `str` to be narrowed to literal string types through equality or containment checks due to the possibility of `str` subclasses that could have unexpected equality semantics.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;literals_literalstring</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Support for `LiteralString` is not implemented.</p></span></div></th>
