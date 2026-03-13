@@ -5,8 +5,8 @@ Does not reject `isinstance()` or `issubclass()` calls against runtime-checkable
 """
 errors_diff = """
 Line 88: Expected 1 errors
-Line 92: Expected 1 errors
-Line 96: Expected 1 errors
+Line 91: Expected 1 errors
+Line 94: Expected 1 errors
 """
 output = """
 protocols_runtime_checkable.py:23:8: error[isinstance-against-protocol] Class `Proto1` cannot be used as the second argument to `isinstance`: This call will raise `TypeError` at runtime

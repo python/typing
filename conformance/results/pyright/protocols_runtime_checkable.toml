@@ -6,13 +6,13 @@ protocols_runtime_checkable.py:55:22 - error: Data protocols (which include non-
 protocols_runtime_checkable.py:61:22 - error: Data protocols (which include non-method attributes) are not allowed in issubclass calls (reportGeneralTypeIssues)
 protocols_runtime_checkable.py:88:19 - error: Class overlaps "Proto3" unsafely and could produce a match at runtime
   Attributes of "Concrete3A" have the same names as the protocol (reportGeneralTypeIssues)
-protocols_runtime_checkable.py:92:9 - error: Class overlaps "Proto3" unsafely and could produce a match at runtime
+protocols_runtime_checkable.py:91:19 - error: Class overlaps "Proto3" unsafely and could produce a match at runtime
   Attributes of "Concrete3B" have the same names as the protocol (reportGeneralTypeIssues)
-protocols_runtime_checkable.py:92:9 - error: Class overlaps "NonDataProtocol" unsafely and could produce a match at runtime
+protocols_runtime_checkable.py:91:19 - error: Class overlaps "NonDataProtocol" unsafely and could produce a match at runtime
   Attributes of "Concrete3B" have the same names as the protocol (reportGeneralTypeIssues)
-protocols_runtime_checkable.py:96:19 - error: Class overlaps "Proto3" unsafely and could produce a match at runtime
+protocols_runtime_checkable.py:94:19 - error: Class overlaps "Proto3" unsafely and could produce a match at runtime
   Attributes of "Concrete3A" have the same names as the protocol (reportGeneralTypeIssues)
-protocols_runtime_checkable.py:96:19 - error: Class overlaps "NonDataProtocol" unsafely and could produce a match at runtime
+protocols_runtime_checkable.py:94:19 - error: Class overlaps "NonDataProtocol" unsafely and could produce a match at runtime
   Attributes of "Concrete3A" have the same names as the protocol (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
