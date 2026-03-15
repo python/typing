@@ -1,7 +1,5 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 54: Expected 1 errors
-Line 75: Expected 1 errors
 Line 23: Unexpected errors ["./generics_defaults_referential.py:23:12:   type 'generics_defaults_referential.slice' is not equivalent to type[generics_defaults_referential.slice[int, int, int | None]]"]
 Line 36: Unexpected errors ['./generics_defaults_referential.py:36:16:   generics_defaults_referential.Foo[str, str] is not equivalent to generics_defaults_referential.Foo[int, str]', './generics_defaults_referential.py:36:20: Incompatible argument type for a: expected str but got int [incompatible_argument]']
 """
@@ -11,7 +9,9 @@ output = """
 ./generics_defaults_referential.py:36:20: Incompatible argument type for a: expected str but got int [incompatible_argument]
 ./generics_defaults_referential.py:37:16: Incompatible argument type for b: expected int but got str [incompatible_argument]
 ./generics_defaults_referential.py:38:13: Incompatible argument type for a: expected int but got str [incompatible_argument]
+./generics_defaults_referential.py:54:0: Type parameter defaults can reference only earlier type parameters from the same class [invalid_annotation]
 ./generics_defaults_referential.py:61:4: Type parameter defaults can reference only earlier type parameters from the same class [invalid_annotation]
-./generics_defaults_referential.py:69:11: the bound and default are incompatible [invalid_annotation]
-./generics_defaults_referential.py:79:15: TypeVar default must be one of its constraints [invalid_annotation]
+./generics_defaults_referential.py:69:39: TypeVar default must be assignable to its bound [incompatible_call]
+./generics_defaults_referential.py:75:51: TypeVar default must be one of its constraints [incompatible_call]
+./generics_defaults_referential.py:79:62: TypeVar default must be one of its constraints [incompatible_call]
 """

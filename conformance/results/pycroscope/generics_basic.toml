@@ -4,7 +4,7 @@ errors_diff = """
 output = """
 ./generics_basic.py:40:4: Cannot resolve type variables [incompatible_call]
 ./generics_basic.py:41:4: Cannot resolve type variables [incompatible_call]
-./generics_basic.py:49:17: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: A single constraint is not allowed [incompatible_call]
+./generics_basic.py:49:17: Error calling (name: str, /, *constraints: tuple[TypeForm[object], ...], bound: TypeForm[object] = Literal[Sentinel(name='no argument given')], covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False], default: TypeForm[object] = Literal[Sentinel(name='no argument given')]) -> typing.TypeVar (with impl): A single constraint is not allowed [incompatible_call]
 ./generics_basic.py:55:52: TypeVar constraint cannot be parameterized by type variables [invalid_annotation]
 ./generics_basic.py:69:4: Cannot resolve type variables [incompatible_call]
 ./generics_basic.py:121:20: Type parameter list cannot contain duplicate type variables [invalid_base]

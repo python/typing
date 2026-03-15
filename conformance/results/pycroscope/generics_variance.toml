@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./generics_variance.py:14:5: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: Bivariant types are not supported. [incompatible_call]
+./generics_variance.py:14:5: Error calling (name: str, /, *constraints: tuple[TypeForm[object], ...], bound: TypeForm[object] = Literal[Sentinel(name='no argument given')], covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False], default: TypeForm[object] = Literal[Sentinel(name='no argument given')]) -> typing.TypeVar (with impl): Bivariant types are not supported. [incompatible_call]
 ./generics_variance.py:77:13: T_co has incompatible variance in base class [invalid_base]
 ./generics_variance.py:81:13: T_contra has incompatible variance in base class [invalid_base]
 ./generics_variance.py:93:16: T_contra has incompatible variance in base class [invalid_base]

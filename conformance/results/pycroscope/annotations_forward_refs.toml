@@ -3,10 +3,10 @@ errors_diff = """
 Line 24: Expected 1 errors
 Line 25: Expected 1 errors
 Line 14: Unexpected errors ['./annotations_forward_refs.py:14:8: Undefined name: ClassA [undefined_name]', './annotations_forward_refs.py:14:22: Undefined name: ClassA [undefined_name]', './annotations_forward_refs.py:14:42: Undefined name: ClassA [undefined_name]', './annotations_forward_refs.py:14:62: Undefined name: ClassA [undefined_name]']
-Line 16: Unexpected errors ['./annotations_forward_refs.py:16:20: Undefined name: ClassA [undefined_name]']
-Line 17: Unexpected errors ['./annotations_forward_refs.py:17:25: Undefined name: ClassA [undefined_name]']
-Line 18: Unexpected errors ['./annotations_forward_refs.py:18:25: Undefined name: ClassA [undefined_name]']
-Line 19: Unexpected errors ['./annotations_forward_refs.py:19:16:   list[int | Any[error]] is not equivalent to list[Any[from_another]]', './annotations_forward_refs.py:19:25: Undefined name: ClassA [undefined_name]']
+Line 16: Unexpected errors ['./annotations_forward_refs.py:16:16:   Any[error] is not equivalent to ./annotations_forward_refs.py.ClassA']
+Line 17: Unexpected errors ['./annotations_forward_refs.py:17:16:   list[Any[error]] is not equivalent to list[./annotations_forward_refs.py.ClassA]']
+Line 18: Unexpected errors ['./annotations_forward_refs.py:18:16:   list[Any[error]] is not equivalent to list[./annotations_forward_refs.py.ClassA]']
+Line 19: Unexpected errors ['./annotations_forward_refs.py:19:16:   list[int | Any[error]] is not equivalent to list[./annotations_forward_refs.py.ClassA | int]']
 Line 87: Unexpected errors ['./annotations_forward_refs.py:87:7: Unrecognized annotation (self: ./annotations_forward_refs.py.ClassD) -> None [invalid_annotation]']
 Line 96: Unexpected errors ['./annotations_forward_refs.py:96:12:   Any[error] is not equivalent to int']
 """
@@ -15,11 +15,10 @@ output = """
 ./annotations_forward_refs.py:14:22: Undefined name: ClassA [undefined_name]
 ./annotations_forward_refs.py:14:42: Undefined name: ClassA [undefined_name]
 ./annotations_forward_refs.py:14:62: Undefined name: ClassA [undefined_name]
-./annotations_forward_refs.py:16:20: Undefined name: ClassA [undefined_name]
-./annotations_forward_refs.py:17:25: Undefined name: ClassA [undefined_name]
-./annotations_forward_refs.py:18:25: Undefined name: ClassA [undefined_name]
-./annotations_forward_refs.py:19:16:   list[int | Any[error]] is not equivalent to list[Any[from_another]]
-./annotations_forward_refs.py:19:25: Undefined name: ClassA [undefined_name]
+./annotations_forward_refs.py:16:16:   Any[error] is not equivalent to ./annotations_forward_refs.py.ClassA
+./annotations_forward_refs.py:17:16:   list[Any[error]] is not equivalent to list[./annotations_forward_refs.py.ClassA]
+./annotations_forward_refs.py:18:16:   list[Any[error]] is not equivalent to list[./annotations_forward_refs.py.ClassA]
+./annotations_forward_refs.py:19:16:   list[int | Any[error]] is not equivalent to list[./annotations_forward_refs.py.ClassA | int]
 ./annotations_forward_refs.py:22:6: Undefined name: ClassA [undefined_name]
 ./annotations_forward_refs.py:23:11: Undefined name: ClassA [undefined_name]
 ./annotations_forward_refs.py:41:0: Invalid type annotation [invalid_annotation]

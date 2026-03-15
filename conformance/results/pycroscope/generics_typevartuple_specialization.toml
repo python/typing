@@ -3,7 +3,7 @@ errors_diff = """
 """
 output = """
 ./generics_typevartuple_specialization.py:109:0: Unpacked TypeVarTuple cannot specialize this type alias [invalid_annotation]
-./generics_typevartuple_specialization.py:110:0: Unrecognized annotation float [invalid_annotation]
+./generics_typevartuple_specialization.py:110:0: Unpacked TypeVarTuple cannot specialize this type alias [invalid_annotation]
 ./generics_typevartuple_specialization.py:121:6: Only one unbounded tuple can be used inside a tuple type [invalid_annotation]
 ./generics_typevartuple_specialization.py:122:6: Only one unbounded tuple can be used inside a tuple type [invalid_annotation]
 ./generics_typevartuple_specialization.py:127:4: Expected 3 type arguments for type alias, got 1 [invalid_annotation]

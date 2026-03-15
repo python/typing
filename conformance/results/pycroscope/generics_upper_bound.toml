@@ -5,5 +5,5 @@ output = """
 ./generics_upper_bound.py:24:37: TypeVar bound cannot be parameterized by type variables [invalid_annotation]
 ./generics_upper_bound.py:44:16:   list[int] | set[int] is not equivalent to collections.abc.Collection[int]
 ./generics_upper_bound.py:52:7: Incompatible argument type for x: expected ~ST: collections.abc.Sized but got Literal[3] [incompatible_argument]
-./generics_upper_bound.py:57:9: Error calling (name: str, *constraints: tuple[Any[explicit], ...], bound: Any[explicit] | None = None, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False]) -> typing.TypeVar: Constraints cannot be combined with bound=... [incompatible_call]
+./generics_upper_bound.py:57:9: TypeVar cannot have both bound and constraints [incompatible_call]
 """
