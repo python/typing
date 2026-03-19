@@ -4,6 +4,7 @@ Line 42: Expected 1 errors
 Line 43: Expected 1 errors
 Line 44: Expected 1 errors
 Line 49: Expected 1 errors
+Line 55: Unexpected errors ['./qualifiers_annotated.py:55:46: Type parameter is not valid in this annotation context [invalid_annotation]']
 """
 output = """
 ./qualifiers_annotated.py:38:6: Invalid type annotation [<class 'int'>, <class 'str'>] [invalid_annotation]
@@ -14,6 +15,7 @@ output = """
 ./qualifiers_annotated.py:46:6: Invalid type annotation True [invalid_annotation]
 ./qualifiers_annotated.py:47:7: Invalid type annotation 1 [invalid_annotation]
 ./qualifiers_annotated.py:48:17: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]
+./qualifiers_annotated.py:55:46: Type parameter is not valid in this annotation context [invalid_annotation]
 ./qualifiers_annotated.py:59:7: Annotated[] requires at least two arguments [invalid_annotation]
 ./qualifiers_annotated.py:71:0: Incompatible assignment: expected type, got Literal[typing.Annotated[int, '']] [incompatible_assignment]
 ./qualifiers_annotated.py:72:0: Incompatible assignment: expected type, got .SmallInt = Annotated[int, Literal['']] [incompatible_assignment]

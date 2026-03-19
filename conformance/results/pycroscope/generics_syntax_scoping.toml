@@ -6,7 +6,7 @@ Line 95: Expected 1 errors
 Line 98: Expected 1 errors
 Line 74: Unexpected errors ['./generics_syntax_scoping.py:74:19: Undefined name: Private [undefined_name]']
 Line 88: Unexpected errors ['./generics_syntax_scoping.py:88:1: Undefined name: decorator2 [undefined_name]']
-Line 117: Unexpected errors ['./generics_syntax_scoping.py:117:28:   ~T is not equivalent to typing.TypeVar']
+Line 117: Unexpected errors ['./generics_syntax_scoping.py:117:28:   ~T is not equivalent to typing.TypeVar', './generics_syntax_scoping.py:117:28: Type parameter is not valid in this annotation context [invalid_annotation]']
 """
 output = """
 ./generics_syntax_scoping.py:14:19: TypeVar bound cannot be parameterized by type variables [invalid_annotation]
@@ -16,4 +16,5 @@ output = """
 ./generics_syntax_scoping.py:74:19: Undefined name: Private [undefined_name]
 ./generics_syntax_scoping.py:88:1: Undefined name: decorator2 [undefined_name]
 ./generics_syntax_scoping.py:117:28:   ~T is not equivalent to typing.TypeVar
+./generics_syntax_scoping.py:117:28: Type parameter is not valid in this annotation context [invalid_annotation]
 """

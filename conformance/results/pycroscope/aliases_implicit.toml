@@ -8,6 +8,7 @@ Line 117: Expected 1 errors
 Line 118: Expected 1 errors
 Line 119: Expected 1 errors
 Line 70: Unexpected errors ['./aliases_implicit.py:70:16:   Any[unannotated] is not equivalent to int | str | list[list[int]] | None']
+Line 95: Unexpected errors ["./aliases_implicit.py:95:16: Cannot resolve subscripted annotation: <list containing [type 'int']> [invalid_annotation]"]
 Line 100: Unexpected errors ["./aliases_implicit.py:100:17: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]"]
 """
 output = """
@@ -18,6 +19,7 @@ output = """
 ./aliases_implicit.py:79:8: Expected 1 type arguments for type alias, got 2 [invalid_annotation]
 ./aliases_implicit.py:80:8: ParamSpec specialization must use list form, Concatenate[..., P], P, or ... [invalid_annotation]
 ./aliases_implicit.py:81:8: Type argument str is not compatible with ~TFloat: float | int [invalid_annotation]
+./aliases_implicit.py:95:16: Cannot resolve subscripted annotation: <list containing [type 'int']> [invalid_annotation]
 ./aliases_implicit.py:100:17: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]
 ./aliases_implicit.py:107:8: Invalid type annotation [<class 'int'>, <class 'str'>] [invalid_annotation]
 ./aliases_implicit.py:108:8: Invalid type annotation ((<class 'int'>, <class 'str'>),) [invalid_annotation]

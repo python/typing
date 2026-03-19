@@ -1,14 +1,14 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 29: Unexpected errors ['./namedtuples_define_class.py:29:12:   Any[from_another] is not equivalent to tuple[int, int]']
-Line 30: Unexpected errors ['./namedtuples_define_class.py:30:12:   Any[from_another] is not equivalent to tuple[int, int, str]']
+Line 29: Unexpected errors ['./namedtuples_define_class.py:29:12:   types.GenericAlias (partial from ./namedtuples_define_class.py.Point[Literal[slice(0, 2, None)]]) is not equivalent to tuple[int, int]']
+Line 30: Unexpected errors ['./namedtuples_define_class.py:30:12:   types.GenericAlias (partial from ./namedtuples_define_class.py.Point[Literal[slice(0, None, None)]]) is not equivalent to tuple[int, int, str]']
 Line 121: Unexpected errors ['./namedtuples_define_class.py:121:12:   ./namedtuples_define_class.py.Property[Literal[3.4]] is not equivalent to ./namedtuples_define_class.py.Property[float | int]']
 Line 122: Unexpected errors ['./namedtuples_define_class.py:122:12:   Literal[3.4] is not equivalent to float | int']
 Line 123: Unexpected errors ['./namedtuples_define_class.py:123:12:   Literal[3.4] is not equivalent to float | int']
 """
 output = """
-./namedtuples_define_class.py:29:12:   Any[from_another] is not equivalent to tuple[int, int]
-./namedtuples_define_class.py:30:12:   Any[from_another] is not equivalent to tuple[int, int, str]
+./namedtuples_define_class.py:29:12:   types.GenericAlias (partial from ./namedtuples_define_class.py.Point[Literal[slice(0, 2, None)]]) is not equivalent to tuple[int, int]
+./namedtuples_define_class.py:30:12:   types.GenericAlias (partial from ./namedtuples_define_class.py.Point[Literal[slice(0, None, None)]]) is not equivalent to tuple[int, int, str]
 ./namedtuples_define_class.py:32:6: Tuple index out of range: Literal[3] [incompatible_call]
 ./namedtuples_define_class.py:33:6: Tuple index out of range: Literal[-4] [incompatible_call]
 ./namedtuples_define_class.py:44:5: Missing required argument 'y' [incompatible_call]
