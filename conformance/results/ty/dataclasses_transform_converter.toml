@@ -1,17 +1,14 @@
-conformance_automated = "Pass"
-conformant = "Pass"
+conformance_automated = "Fail"
+conformant = "Partial"
 notes = """
 Does not pass all assertions in the test file, due to limitations in ty's generics solver.
 
 Incorrectly rejects a converter of `dict` combined with a default of `()`.
 Incorrectly rejects passing a sequence of two-element string tuples to the `dict` constructor.
 """
-ignore_errors = [
-    "Object of type `dict[str, str] | dict[bytes, bytes]` is not assignable to `dict[str, str]`",
-    "Argument to function `model_field` is incorrect: Expected `(Iterable[list[str]] | Iterable[list[bytes]], /) -> dict[str, str] | dict[bytes, bytes]`, found `<class 'dict'>`",
-    "Argument is incorrect: Expected `dict[str, str]`, found `tuple[tuple[Literal[\"a\"], Literal[\"1\"]], tuple[Literal[\"b\"], Literal[\"2\"]]]`",
-]
 errors_diff = """
+Line 104: Unexpected errors ['dataclasses_transform_converter.py:104:30: error[invalid-assignment] Object of type `dict[str, str] | dict[bytes, bytes]` is not assignable to `dict[str, str]`', "dataclasses_transform_converter.py:104:42: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(Iterable[list[str]] | Iterable[list[bytes]], /) -> dict[str, str] | dict[bytes, bytes]`, found `<class 'dict'>`"]
+Line 121: Unexpected errors ['dataclasses_transform_converter.py:121:40: error[invalid-argument-type] Argument is incorrect: Expected `dict[str, str]`, found `tuple[tuple[Literal["a"], Literal["1"]], tuple[Literal["b"], Literal["2"]]]`']
 """
 output = """
 dataclasses_transform_converter.py:48:31: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(Unknown, /) -> Unknown`, found `def bad_converter1() -> int`
