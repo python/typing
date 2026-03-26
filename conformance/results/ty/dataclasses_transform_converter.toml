@@ -1,47 +1,25 @@
 conformance_automated = "Fail"
-conformant = "Unsupported"
+conformant = "Partial"
+notes = """
+Does not pass all assertions in the test file, due to limitations in ty's generics solver.
+
+Incorrectly rejects a converter of `dict` combined with a default of `()`.
+Incorrectly rejects passing a sequence of two-element string tuples to the `dict` constructor.
+"""
 errors_diff = """
-Line 118: Expected 1 errors
 Line 104: Unexpected errors ['dataclasses_transform_converter.py:104:30: error[invalid-assignment] Object of type `dict[str, str] | dict[bytes, bytes]` is not assignable to `dict[str, str]`', "dataclasses_transform_converter.py:104:42: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(Iterable[list[str]] | Iterable[list[bytes]], /) -> dict[str, str] | dict[bytes, bytes]`, found `<class 'dict'>`"]
-Line 112: Unexpected errors ['dataclasses_transform_converter.py:112:11: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f0"]`', 'dataclasses_transform_converter.py:112:17: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f1"]`', 'dataclasses_transform_converter.py:112:23: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f2"]`', 'dataclasses_transform_converter.py:112:29: error[invalid-argument-type] Argument is incorrect: Expected `ConverterClass`, found `Literal[b"f6"]`', 'dataclasses_transform_converter.py:112:36: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `list[Unknown]`']
-Line 114: Unexpected errors ['dataclasses_transform_converter.py:114:1: error[invalid-assignment] Object of type `Literal["f1"]` is not assignable to attribute `field0` of type `int`']
-Line 115: Unexpected errors ['dataclasses_transform_converter.py:115:1: error[invalid-assignment] Object of type `Literal["f6"]` is not assignable to attribute `field3` of type `ConverterClass`']
-Line 116: Unexpected errors ['dataclasses_transform_converter.py:116:1: error[invalid-assignment] Object of type `Literal[b"f6"]` is not assignable to attribute `field3` of type `ConverterClass`']
-Line 121: Unexpected errors ['dataclasses_transform_converter.py:121:11: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f0"]`', 'dataclasses_transform_converter.py:121:17: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f1"]`', 'dataclasses_transform_converter.py:121:23: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f2"]`', 'dataclasses_transform_converter.py:121:29: error[invalid-argument-type] Argument is incorrect: Expected `ConverterClass`, found `Literal["f6"]`', 'dataclasses_transform_converter.py:121:35: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["1"]`', 'dataclasses_transform_converter.py:121:40: error[invalid-argument-type] Argument is incorrect: Expected `dict[str, str]`, found `tuple[tuple[Literal["a"], Literal["1"]], tuple[Literal["b"], Literal["2"]]]`']
+Line 121: Unexpected errors ['dataclasses_transform_converter.py:121:40: error[invalid-argument-type] Argument is incorrect: Expected `dict[str, str]`, found `tuple[tuple[Literal["a"], Literal["1"]], tuple[Literal["b"], Literal["2"]]]`']
 """
 output = """
 dataclasses_transform_converter.py:48:31: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(Unknown, /) -> Unknown`, found `def bad_converter1() -> int`
 dataclasses_transform_converter.py:49:31: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(Unknown, /) -> Unknown`, found `def bad_converter2(*, x: int) -> int`
 dataclasses_transform_converter.py:104:30: error[invalid-assignment] Object of type `dict[str, str] | dict[bytes, bytes]` is not assignable to `dict[str, str]`
 dataclasses_transform_converter.py:104:42: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(Iterable[list[str]] | Iterable[list[bytes]], /) -> dict[str, str] | dict[bytes, bytes]`, found `<class 'dict'>`
-dataclasses_transform_converter.py:107:8: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f1"]`
-dataclasses_transform_converter.py:107:14: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f2"]`
-dataclasses_transform_converter.py:107:20: error[invalid-argument-type] Argument is incorrect: Expected `ConverterClass`, found `Literal[b"f3"]`
-dataclasses_transform_converter.py:107:27: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `list[Unknown]`
-dataclasses_transform_converter.py:108:5: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f0"]`
-dataclasses_transform_converter.py:108:11: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f1"]`
-dataclasses_transform_converter.py:108:17: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f2"]`
-dataclasses_transform_converter.py:108:23: error[invalid-argument-type] Argument is incorrect: Expected `ConverterClass`, found `Literal[1]`
-dataclasses_transform_converter.py:108:26: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `list[Unknown]`
-dataclasses_transform_converter.py:109:5: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f0"]`
-dataclasses_transform_converter.py:109:11: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f1"]`
-dataclasses_transform_converter.py:109:17: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f2"]`
-dataclasses_transform_converter.py:109:23: error[invalid-argument-type] Argument is incorrect: Expected `ConverterClass`, found `Literal["f3"]`
-dataclasses_transform_converter.py:109:29: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `complex`
-dataclasses_transform_converter.py:112:11: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f0"]`
-dataclasses_transform_converter.py:112:17: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f1"]`
-dataclasses_transform_converter.py:112:23: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f2"]`
-dataclasses_transform_converter.py:112:29: error[invalid-argument-type] Argument is incorrect: Expected `ConverterClass`, found `Literal[b"f6"]`
-dataclasses_transform_converter.py:112:36: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `list[Unknown]`
-dataclasses_transform_converter.py:114:1: error[invalid-assignment] Object of type `Literal["f1"]` is not assignable to attribute `field0` of type `int`
-dataclasses_transform_converter.py:115:1: error[invalid-assignment] Object of type `Literal["f6"]` is not assignable to attribute `field3` of type `ConverterClass`
-dataclasses_transform_converter.py:116:1: error[invalid-assignment] Object of type `Literal[b"f6"]` is not assignable to attribute `field3` of type `ConverterClass`
-dataclasses_transform_converter.py:119:1: error[invalid-assignment] Object of type `Literal[1]` is not assignable to attribute `field3` of type `ConverterClass`
-dataclasses_transform_converter.py:121:11: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f0"]`
-dataclasses_transform_converter.py:121:17: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f1"]`
-dataclasses_transform_converter.py:121:23: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["f2"]`
-dataclasses_transform_converter.py:121:29: error[invalid-argument-type] Argument is incorrect: Expected `ConverterClass`, found `Literal["f6"]`
-dataclasses_transform_converter.py:121:35: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["1"]`
+dataclasses_transform_converter.py:107:5: error[invalid-argument-type] Argument is incorrect: Expected `str`, found `Literal[1]`
+dataclasses_transform_converter.py:108:23: error[invalid-argument-type] Argument is incorrect: Expected `str | bytes`, found `Literal[1]`
+dataclasses_transform_converter.py:109:29: error[invalid-argument-type] Argument is incorrect: Expected `str | list[str]`, found `complex`
+dataclasses_transform_converter.py:118:1: error[invalid-assignment] Object of type `Literal[1]` is not assignable to attribute `field0` of type `str`
+dataclasses_transform_converter.py:119:1: error[invalid-assignment] Object of type `Literal[1]` is not assignable to attribute `field3` of type `str | bytes`
 dataclasses_transform_converter.py:121:40: error[invalid-argument-type] Argument is incorrect: Expected `dict[str, str]`, found `tuple[tuple[Literal["a"], Literal["1"]], tuple[Literal["b"], Literal["2"]]]`
 dataclasses_transform_converter.py:130:31: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(str | Literal[1], /) -> int`, found `def converter_simple(s: str) -> int`
 dataclasses_transform_converter.py:133:31: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(str | int, /) -> int`, found `def converter_simple(s: str) -> int`
