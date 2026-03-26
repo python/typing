@@ -180,7 +180,7 @@
 </th>
 <th class='tc-header'><div class='tc-name'>pyrefly 0.56.0</div>
 </th>
-<th class='tc-header'><div class='tc-name'>ty 0.0.22</div>
+<th class='tc-header'><div class='tc-name'>ty 0.0.26</div>
 </th>
 </tr>
 <tr><th class="column" colspan="6">
@@ -205,7 +205,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;annotations_methods</th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Type evaluation differs from other type checkers because of ambiguity in the spec related to method bindings.</p></span></div></th>
@@ -312,21 +312,21 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject using a bare `ParamSpec` as a type alias value.</p><p>Does not support `Concatenate`.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject using a bare `ParamSpec` as a type alias value.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_paramspec_components</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject usage of args/kwargs for out-of-scope ParamSpec</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly allows using `*args: P.args` and `**kwargs: P.kwargs` when `P` has not been put into scope by any other parameter annotation or enclosing scope.</p><p>Does not support `Concatenate`.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly allows using `*args: P.args` and `**kwargs: P.kwargs` when `P` has not been put into scope by any other parameter annotation or enclosing scope.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_paramspec_semantics</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support `Concatenate`.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_paramspec_specialization</th>
 <th class="column col2 conformant">Pass</th>
@@ -375,7 +375,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not implement some restrictions on where Self can be used</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject `Self` used in a return annotation when `self` is annotated using another type variable.</p><p>Does not reject `Self` used in staticmethods or metaclasses.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject `Self` used in a return annotation when `self` is annotated using another type variable.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_syntax_compatibility</th>
 <th class="column col2 conformant">Pass</th>
@@ -531,14 +531,14 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>`Concatenate` in type aliases is currently unsupported</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not emit a diagnostic on an invalid use of a variable as the right-hand side of a type alias.</p><p>Does not emit a diagnostic if a type alias to a union, in which every element of the union is implicitly specialized with `Unknown`, is invalidly specialized again.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_implicit</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject invalid syntax in implicit type aliases.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject variables with `Any` or `Unknown` types when used as implicit type aliases.</p><p>Does not support `Concatenate` in type aliases.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject variables with `Any` or `Unknown` types when used as implicit type aliases.</p><p>Falls short on full syntactic validation of type aliases.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_newtype</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>`NewType`s are incorrectly considered to be classes.</p></span></div></th>
@@ -694,7 +694,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Parameter names are lost when resolving ParamSpec</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support `Concatenate`.</p><p>Infers a callback protocol as being a gradual type if the callback has signature `__call__[T](self, *args: T, **kwargs: T)` and `T` has been explicitly specialized to `Any`.</p><p>Does not infer a callback protocol as being a gradual type  if the callback has signature `__call__(self, a: int, /, *args: Any, **kwargs: Any)`.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Infers a callback protocol as being a gradual type if the callback has signature `__call__[T](self, *args: T, **kwargs: T)` and `T` has been explicitly specialized to `Any`.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callables_kwargs</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Allows callable without kwargs to be assigned to callable with unpacked kwargs</p></span></div></th>
@@ -895,7 +895,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not pass all assertions in the test file, due to limitations in ty's generics solver.</p><p></p><p>Incorrectly rejects a converter of `dict` combined with a default of `()`.</p><p>Incorrectly rejects passing a sequence of two-element string tuples to the `dict` constructor.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_transform_field</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not properly handle field constructor that has default value for `kw_only` or `init` parameter.</p></span></div></th>
@@ -1003,7 +1003,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_required</th>
 <th class="column col2 conformant">Pass</th>
@@ -1186,14 +1186,14 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Attempts to detect some errors even in blocks it determines to be unreachable, including in `if not TYPE_CHECKING` blocks.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_type_ignore</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not honor "# type: ignore" comment if comment includes additional text.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not honor "# type: ignore" comment if comment includes additional text.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Treats `# type: ignore[error-code]` as only ignoring errors that match the error code `error-code`.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_type_ignore_file1</th>
 <th class="column col2 conformant">Pass</th>
