@@ -5,7 +5,7 @@ output = """
 typeddicts_type_consistency.py:21:10: error[invalid-assignment] Object of type `B1` is not assignable to `A1`
 typeddicts_type_consistency.py:38:10: error[invalid-assignment] Object of type `B2` is not assignable to `A2`
 typeddicts_type_consistency.py:65:6: error[invalid-assignment] Object of type `A3` is not assignable to `B3`
-typeddicts_type_consistency.py:69:21: error[invalid-key] Unknown key "y" for TypedDict `A3`: Unknown key "y"
+typeddicts_type_consistency.py:69:21: error[invalid-key] Unknown key "y" for TypedDict `A3`
 typeddicts_type_consistency.py:76:22: error[invalid-assignment] Object of type `B3` is not assignable to `dict[str, int]`
 typeddicts_type_consistency.py:77:25: error[invalid-assignment] Object of type `B3` is not assignable to `dict[str, object]`
 typeddicts_type_consistency.py:78:22: error[invalid-assignment] Object of type `B3` is not assignable to `dict[Any, Any]`

@@ -1,13 +1,14 @@
 conformance_automated = "Fail"
 conformant = "Partial"
-notes = "`Concatenate` in type aliases is currently unsupported"
+notes = """
+Does not emit a diagnostic on an invalid use of a variable as the right-hand side of a type alias.
+Does not emit a diagnostic if a type alias to a union, in which every element of the union is implicitly specialized with `Unknown`, is invalidly specialized again.
+"""
 errors_diff = """
 Line 87: Expected 1 errors
 Line 100: Expected 1 errors
-Line 57: Unexpected errors ['aliases_explicit.py:57:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `(int, str, str, /) -> None`']
 """
 output = """
-aliases_explicit.py:57:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `(int, str, str, /) -> None`
 aliases_explicit.py:67:9: error[not-subscriptable] Cannot subscript non-generic type `<types.UnionType special-form 'int | None'>`
 aliases_explicit.py:68:9: error[not-subscriptable] Cannot subscript non-generic type `<class 'list[int | None]'>`
 aliases_explicit.py:69:29: error[invalid-type-arguments] Too many type arguments: expected 1, got 2

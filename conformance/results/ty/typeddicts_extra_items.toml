@@ -21,22 +21,22 @@ Lines 94, 95: Expected error (tag 'MovieD')
 Lines 184, 185: Expected error (tag 'MovieRequiredYear')
 Lines 187, 188: Expected error (tag 'MovieNotRequiredYear')
 Lines 196, 197: Expected error (tag 'BookWithPublisher')
-Line 14: Unexpected errors ['typeddicts_extra_items.py:14:37: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`: Unknown key "novel_adaptation"']
-Line 29: Unexpected errors ['typeddicts_extra_items.py:29:5: error[type-assertion-failure] Type `str` does not match asserted type `bool`', 'typeddicts_extra_items.py:29:23: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`: Unknown key "novel_adaptation"']
-Line 43: Unexpected errors ['typeddicts_extra_items.py:43:5: error[invalid-key] Unknown key "other_extra_key" for TypedDict `InheritedMovie`: Unknown key "other_extra_key"']
+Line 14: Unexpected errors ['typeddicts_extra_items.py:14:37: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`']
+Line 29: Unexpected errors ['typeddicts_extra_items.py:29:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `bool`', 'typeddicts_extra_items.py:29:23: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`']
+Line 43: Unexpected errors ['typeddicts_extra_items.py:43:5: error[invalid-key] Unknown key "other_extra_key" for TypedDict `InheritedMovie`']
 Line 129: Unexpected errors ['typeddicts_extra_items.py:129:15: error[invalid-argument-type] Cannot delete unknown key "year" from TypedDict `MovieEI`']
-Line 254: Unexpected errors ['typeddicts_extra_items.py:254:63: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`: Unknown key "year"']
-Line 255: Unexpected errors ['typeddicts_extra_items.py:255:63: error[invalid-key] Unknown key "description" for TypedDict `MovieExtraStr`: Unknown key "description"']
-Line 266: Unexpected errors ['typeddicts_extra_items.py:266:64: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`: Unknown key "year"']
-Line 284: Unexpected errors ['typeddicts_extra_items.py:284:43: error[invalid-key] Unknown key "year" for TypedDict `ExtraMovie`: Unknown key "year"']
-Line 299: Unexpected errors ['typeddicts_extra_items.py:299:54: error[invalid-key] Unknown key "summary" for TypedDict `MovieExtraStr`: Unknown key "summary"']
+Line 254: Unexpected errors ['typeddicts_extra_items.py:254:63: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`']
+Line 255: Unexpected errors ['typeddicts_extra_items.py:255:63: error[invalid-key] Unknown key "description" for TypedDict `MovieExtraStr`']
+Line 266: Unexpected errors ['typeddicts_extra_items.py:266:64: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`']
+Line 284: Unexpected errors ['typeddicts_extra_items.py:284:43: error[invalid-key] Unknown key "year" for TypedDict `ExtraMovie`']
+Line 299: Unexpected errors ['typeddicts_extra_items.py:299:54: error[invalid-key] Unknown key "summary" for TypedDict `MovieExtraStr`']
 Line 300: Unexpected errors ['typeddicts_extra_items.py:300:34: error[invalid-assignment] Object of type `MovieExtraStr` is not assignable to `Mapping[str, str]`']
-Line 302: Unexpected errors ['typeddicts_extra_items.py:302:54: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`: Unknown key "year"']
+Line 302: Unexpected errors ['typeddicts_extra_items.py:302:54: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`']
 Line 304: Unexpected errors ['typeddicts_extra_items.py:304:44: error[invalid-assignment] Object of type `MovieExtraInt` is not assignable to `Mapping[str, int | str]`']
 Line 310: Unexpected errors ['typeddicts_extra_items.py:310:5: error[type-assertion-failure] Type `list[tuple[str, object]]` does not match asserted type `list[tuple[str, int | str]]`']
 Line 311: Unexpected errors ['typeddicts_extra_items.py:311:5: error[type-assertion-failure] Type `list[object]` does not match asserted type `list[int | str]`']
 Line 326: Unexpected errors ['typeddicts_extra_items.py:326:25: error[invalid-assignment] Object of type `IntDict` is not assignable to `dict[str, int]`']
-Line 329: Unexpected errors ['typeddicts_extra_items.py:329:52: error[invalid-key] Unknown key "bar" for TypedDict `IntDictWithNum`: Unknown key "bar"']
+Line 329: Unexpected errors ['typeddicts_extra_items.py:329:52: error[invalid-key] Unknown key "bar" for TypedDict `IntDictWithNum`']
 Line 330: Unexpected errors ['typeddicts_extra_items.py:330:32: error[invalid-assignment] Object of type `IntDictWithNum` is not assignable to `dict[str, int]`']
 Line 337: Unexpected errors ['typeddicts_extra_items.py:337:1: error[unresolved-attribute] Object of type `IntDictWithNum` has no attribute `clear`']
 Line 339: Unexpected errors ['typeddicts_extra_items.py:339:1: error[type-assertion-failure] Type `Unknown` does not match asserted type `tuple[str, int]`', 'typeddicts_extra_items.py:339:13: error[unresolved-attribute] Object of type `IntDictWithNum` has no attribute `popitem`']
@@ -44,30 +44,30 @@ Line 342: Unexpected errors ['typeddicts_extra_items.py:342:27: error[invalid-ke
 Line 343: Unexpected errors ['typeddicts_extra_items.py:343:9: error[invalid-argument-type] Method `__delitem__` of type `(key: Literal["num"], /) -> None` cannot be called with key of type `str` on object of type `IntDictWithNum`']
 """
 output = """
-typeddicts_extra_items.py:14:37: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`: Unknown key "novel_adaptation"
-typeddicts_extra_items.py:15:37: error[invalid-key] Unknown key "year" for TypedDict `Movie`: Unknown key "year"
-typeddicts_extra_items.py:29:5: error[type-assertion-failure] Type `str` does not match asserted type `bool`
-typeddicts_extra_items.py:29:23: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`: Unknown key "novel_adaptation"
+typeddicts_extra_items.py:14:37: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`
+typeddicts_extra_items.py:15:37: error[invalid-key] Unknown key "year" for TypedDict `Movie`
+typeddicts_extra_items.py:29:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `bool`
+typeddicts_extra_items.py:29:23: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`
 typeddicts_extra_items.py:39:54: error[invalid-argument-type] Invalid argument to key "year" with declared type `int` on TypedDict `InheritedMovie`: value of type `None`
-typeddicts_extra_items.py:43:5: error[invalid-key] Unknown key "other_extra_key" for TypedDict `InheritedMovie`: Unknown key "other_extra_key"
+typeddicts_extra_items.py:43:5: error[invalid-key] Unknown key "other_extra_key" for TypedDict `InheritedMovie`
 typeddicts_extra_items.py:128:15: error[invalid-argument-type] Cannot delete required key "name" from TypedDict `MovieEI`
 typeddicts_extra_items.py:129:15: error[invalid-argument-type] Cannot delete unknown key "year" from TypedDict `MovieEI`
-typeddicts_extra_items.py:254:63: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`: Unknown key "year"
-typeddicts_extra_items.py:255:63: error[invalid-key] Unknown key "description" for TypedDict `MovieExtraStr`: Unknown key "description"
-typeddicts_extra_items.py:266:64: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`: Unknown key "year"
-typeddicts_extra_items.py:278:47: error[invalid-key] Unknown key "year" for TypedDict `NonClosedMovie`: Unknown key "year"
-typeddicts_extra_items.py:284:43: error[invalid-key] Unknown key "year" for TypedDict `ExtraMovie`: Unknown key "year"
-typeddicts_extra_items.py:285:43: error[invalid-key] Unknown key "language" for TypedDict `ExtraMovie`: Unknown key "language"
-typeddicts_extra_items.py:293:44: error[invalid-key] Unknown key "year" for TypedDict `ClosedMovie`: Unknown key "year"
-typeddicts_extra_items.py:299:54: error[invalid-key] Unknown key "summary" for TypedDict `MovieExtraStr`: Unknown key "summary"
+typeddicts_extra_items.py:254:63: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`
+typeddicts_extra_items.py:255:63: error[invalid-key] Unknown key "description" for TypedDict `MovieExtraStr`
+typeddicts_extra_items.py:266:64: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`
+typeddicts_extra_items.py:278:47: error[invalid-key] Unknown key "year" for TypedDict `NonClosedMovie`
+typeddicts_extra_items.py:284:43: error[invalid-key] Unknown key "year" for TypedDict `ExtraMovie`
+typeddicts_extra_items.py:285:43: error[invalid-key] Unknown key "language" for TypedDict `ExtraMovie`
+typeddicts_extra_items.py:293:44: error[invalid-key] Unknown key "year" for TypedDict `ClosedMovie`
+typeddicts_extra_items.py:299:54: error[invalid-key] Unknown key "summary" for TypedDict `MovieExtraStr`
 typeddicts_extra_items.py:300:34: error[invalid-assignment] Object of type `MovieExtraStr` is not assignable to `Mapping[str, str]`
-typeddicts_extra_items.py:302:54: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`: Unknown key "year"
+typeddicts_extra_items.py:302:54: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`
 typeddicts_extra_items.py:303:34: error[invalid-assignment] Object of type `MovieExtraInt` is not assignable to `Mapping[str, int]`
 typeddicts_extra_items.py:304:44: error[invalid-assignment] Object of type `MovieExtraInt` is not assignable to `Mapping[str, int | str]`
 typeddicts_extra_items.py:310:5: error[type-assertion-failure] Type `list[tuple[str, object]]` does not match asserted type `list[tuple[str, int | str]]`
 typeddicts_extra_items.py:311:5: error[type-assertion-failure] Type `list[object]` does not match asserted type `list[int | str]`
 typeddicts_extra_items.py:326:25: error[invalid-assignment] Object of type `IntDict` is not assignable to `dict[str, int]`
-typeddicts_extra_items.py:329:52: error[invalid-key] Unknown key "bar" for TypedDict `IntDictWithNum`: Unknown key "bar"
+typeddicts_extra_items.py:329:52: error[invalid-key] Unknown key "bar" for TypedDict `IntDictWithNum`
 typeddicts_extra_items.py:330:32: error[invalid-assignment] Object of type `IntDictWithNum` is not assignable to `dict[str, int]`
 typeddicts_extra_items.py:337:1: error[unresolved-attribute] Object of type `IntDictWithNum` has no attribute `clear`
 typeddicts_extra_items.py:339:1: error[type-assertion-failure] Type `Unknown` does not match asserted type `tuple[str, int]`
