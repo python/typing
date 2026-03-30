@@ -1,8 +1,5 @@
 conformance_automated = "Pass"
-conformant = "Partial"
-notes = """
-Cannot find a common supertype of `list[int]` and `set[int]` in order to solve a type variable bound to `Sized`.
-"""
+conformant = "Pass"
 errors_diff = """
 """
 output = """
