@@ -2,5 +2,5 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-generics_self_advanced.py:45: error: Access to generic instance variables via class is ambiguous  [misc]
+generics_self_advanced.py:48: error: Access to generic instance variables via class is ambiguous  [misc]
 """
