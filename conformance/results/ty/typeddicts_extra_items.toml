@@ -1,7 +1,6 @@
 conformance_automated = "Fail"
 conformant = "Unsupported"
 errors_diff = """
-Line 22: Expected 1 errors
 Line 49: Expected 1 errors
 Line 67: Expected 1 errors
 Line 73: Expected 1 errors
@@ -22,6 +21,7 @@ Lines 184, 185: Expected error (tag 'MovieRequiredYear')
 Lines 187, 188: Expected error (tag 'MovieNotRequiredYear')
 Lines 196, 197: Expected error (tag 'BookWithPublisher')
 Line 14: Unexpected errors ['typeddicts_extra_items.py:14:37: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`']
+Line 21: Unexpected errors ['typeddicts_extra_items.py:21:47: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `MovieFunctional`']
 Line 29: Unexpected errors ['typeddicts_extra_items.py:29:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `bool`', 'typeddicts_extra_items.py:29:23: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`']
 Line 43: Unexpected errors ['typeddicts_extra_items.py:43:5: error[invalid-key] Unknown key "other_extra_key" for TypedDict `InheritedMovie`']
 Line 129: Unexpected errors ['typeddicts_extra_items.py:129:15: error[invalid-argument-type] Cannot delete unknown key "year" from TypedDict `MovieEI`']
@@ -46,6 +46,8 @@ Line 343: Unexpected errors ['typeddicts_extra_items.py:343:9: error[invalid-arg
 output = """
 typeddicts_extra_items.py:14:37: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`
 typeddicts_extra_items.py:15:37: error[invalid-key] Unknown key "year" for TypedDict `Movie`
+typeddicts_extra_items.py:21:47: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `MovieFunctional`
+typeddicts_extra_items.py:22:47: error[invalid-key] Unknown key "year" for TypedDict `MovieFunctional`
 typeddicts_extra_items.py:29:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `bool`
 typeddicts_extra_items.py:29:23: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`
 typeddicts_extra_items.py:39:54: error[invalid-argument-type] Invalid argument to key "year" with declared type `int` on TypedDict `InheritedMovie`: value of type `None`
