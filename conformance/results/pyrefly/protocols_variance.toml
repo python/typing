@@ -1,16 +1,13 @@
-conformant = "Partial"
-notes = """
-Does not detect Protocol type parameters with wrong variance.
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 21: Expected 1 errors
-Line 40: Expected 1 errors
-Line 56: Expected 1 errors
-Line 66: Expected 1 errors
-Line 104: Expected 1 errors
 """
 output = """
+ WARN protocols_variance.py:21:7-17: Type variable `T1` in class `AnotherBox` is declared as invariant, but could be covariant based on its usage [variance-mismatch]
+ WARN protocols_variance.py:40:7-16: Type variable `T3` in class `Protocol2` is declared as invariant, but could be contravariant based on its usage [variance-mismatch]
+ WARN protocols_variance.py:56:7-16: Type variable `T1` in class `Protocol4` is declared as invariant, but could be contravariant based on its usage [variance-mismatch]
 ERROR protocols_variance.py:62:9-11: Type variable `T1_co` is Covariant but is used in contravariant position [invalid-variance]
+ WARN protocols_variance.py:66:7-16: Type variable `T1` in class `Protocol6` is declared as invariant, but could be covariant based on its usage [variance-mismatch]
 ERROR protocols_variance.py:72:9-11: Type variable `T1_contra` is Contravariant but is used in covariant position [invalid-variance]
+ WARN protocols_variance.py:104:7-17: Type variable `T1` in class `Protocol12` is declared as invariant, but could be covariant based on its usage [variance-mismatch]
 """
