@@ -2393,6 +2393,22 @@ containing a ``Self`` type as a ``property`` that returns that type:
         def ordinal_value(self) -> str:
             return str(self.value)
 
+
+Accessing a variable through the class object that has a type annotation where
+the annotation contains an occurrence of Self is not allowed, because Self can
+be different depending on the class in the inheritance hierarchy:
+
+::
+
+    class C:
+        others: list[Self]
+
+    class D(C): ...
+
+    C.others = [C()]
+    print(D.others)  # This is not list[Self], but list[C]
+
+
 Use in Generic Classes
 ^^^^^^^^^^^^^^^^^^^^^^
 
