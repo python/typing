@@ -1,9 +1,15 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+TypeForm[Any] is not considered equivalent to itself.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 41: Unexpected errors ['typeforms_typeform.py:41: error: Expression is of type "typing.TypeForm(Any)", not "typing.TypeForm(Any)"  [misc]']
 """
 output = """
 typeforms_typeform.py:23: error: Incompatible types in assignment (expression has type "typing.TypeForm(str | int)", variable has type "typing.TypeForm(str | None)")  [assignment]
 typeforms_typeform.py:24: error: Incompatible types in assignment (expression has type "type[list[str | None]]", variable has type "typing.TypeForm(str | None)")  [assignment]
+typeforms_typeform.py:41: error: Expression is of type "typing.TypeForm(Any)", not "typing.TypeForm(Any)"  [misc]
 typeforms_typeform.py:59: error: Invalid syntax  [syntax]
 typeforms_typeform.py:67: error: Invalid type comment or annotation  [valid-type]
 typeforms_typeform.py:68: error: Syntax error in type annotation  [valid-type]
