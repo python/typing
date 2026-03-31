@@ -191,7 +191,7 @@ Type checkers should support the following comparison patterns:
 
     Common values: ``"linux"``, ``"darwin"``, ``"win32"``, ``"emscripten"``, ``"wasi"``
 
-The membership checks ``in``  and ``not in``, only support simple containment testing to a tuple of literal strings.
+The membership checks ``in`` and ``not in`` only support simple containment testing with a tuple of literal strings.
 
 .. code-block:: python
    :caption: Example `sys.platform`
