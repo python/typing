@@ -17,7 +17,7 @@ qualifiers_final_annotation.py:94:5: error[override-of-final-variable] Cannot ov
 qualifiers_final_annotation.py:107:13: error[redundant-final-classvar] `Combining `ClassVar` and `Final` is redundant
 qualifiers_final_annotation.py:108:13: error[redundant-final-classvar] `Combining `ClassVar` and `Final` is redundant
 qualifiers_final_annotation.py:118:9: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in type expressions (only in annotation expressions)
-qualifiers_final_annotation.py:121:11: error[invalid-type-form] `Final` is not allowed in function parameter annotations
+qualifiers_final_annotation.py:121:14: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in parameter annotations
 qualifiers_final_annotation.py:134:1: error[missing-argument] No arguments provided for required parameters `x`, `y`
 qualifiers_final_annotation.py:134:3: error[unknown-argument] Argument `a` does not match any known parameter
 qualifiers_final_annotation.py:135:3: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`

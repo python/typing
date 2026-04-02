@@ -5,8 +5,6 @@ Line 49: Expected 1 errors
 Line 67: Expected 1 errors
 Line 73: Expected 1 errors
 Line 109: Expected 1 errors
-Line 114: Expected 1 errors
-Line 117: Expected 1 errors
 Line 143: Expected 1 errors
 Line 174: Expected 1 errors
 Line 215: Expected 1 errors
@@ -52,6 +50,8 @@ typeddicts_extra_items.py:29:5: error[type-assertion-failure] Type `Unknown` doe
 typeddicts_extra_items.py:29:23: error[invalid-key] Unknown key "novel_adaptation" for TypedDict `Movie`
 typeddicts_extra_items.py:39:54: error[invalid-argument-type] Invalid argument to key "year" with declared type `int` on TypedDict `InheritedMovie`: value of type `None`
 typeddicts_extra_items.py:43:5: error[invalid-key] Unknown key "other_extra_key" for TypedDict `InheritedMovie`
+typeddicts_extra_items.py:114:50: error[invalid-type-form] Type qualifier `typing.Required` is not valid in a TypedDict `extra_items` argument
+typeddicts_extra_items.py:117:57: error[invalid-type-form] Type qualifier `typing.NotRequired` is not valid in a TypedDict `extra_items` argument
 typeddicts_extra_items.py:128:15: error[invalid-argument-type] Cannot delete required key "name" from TypedDict `MovieEI`
 typeddicts_extra_items.py:129:15: error[invalid-argument-type] Cannot delete unknown key "year" from TypedDict `MovieEI`
 typeddicts_extra_items.py:254:63: error[invalid-key] Unknown key "year" for TypedDict `MovieExtraInt`
