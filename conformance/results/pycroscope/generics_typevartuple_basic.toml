@@ -1,10 +1,8 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 89: Expected 1 errors
 """
 output = """
 ./generics_typevartuple_basic.py:42:33: Incompatible argument type for shape: expected tuple[*tuple[Shape, ...]] but got NewType('Height', int) [incompatible_argument]
-./generics_typevartuple_basic.py:42:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array[Any[error]] [incompatible_assignment]
 ./generics_typevartuple_basic.py:43:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Batch', int), NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array[NewType('Batch', int), NewType('Width', int)] [incompatible_assignment]
 ./generics_typevartuple_basic.py:44:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Time', int), NewType('Batch', int), NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array[NewType('Time', int), NewType('Batch', int), NewType('Width', int), NewType('Height', int)] [incompatible_assignment]
 ./generics_typevartuple_basic.py:52:21: TypeVarTuple must be unpacked [invalid_base]

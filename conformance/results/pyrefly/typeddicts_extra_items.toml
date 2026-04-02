@@ -27,7 +27,7 @@ ERROR typeddicts_extra_items.py:256:13-22: `MovieExtraStr` is not assignable to 
 ERROR typeddicts_extra_items.py:257:13-22: `MovieExtraInt` is not assignable to variable `extra_str` with type `MovieExtraStr` [bad-assignment]
 ERROR typeddicts_extra_items.py:268:14-24: `MovieNotClosed` is not assignable to variable `extra_int2` with type `MovieExtraInt` [bad-assignment]
 ERROR typeddicts_extra_items.py:278:15-57: No matching overload found for function `NonClosedMovie.__init__` called with arguments: (name=Literal['No Country for Old Men'], year=Literal[2007]) [no-matching-overload]
-ERROR typeddicts_extra_items.py:285:11-62: No matching overload found for function `ExtraMovie.__init__` called with arguments: (name=Literal['No Country for Old Men'], language=Literal['English']) [no-matching-overload]
+ERROR typeddicts_extra_items.py:285:52-61: Keyword argument `language` with type `Literal['English']` is not assignable to kwargs type `int` in function `ExtraMovie.__init__` [bad-argument-type]
 ERROR typeddicts_extra_items.py:293:12-54: No matching overload found for function `ClosedMovie.__init__` called with arguments: (name=Literal['No Country for Old Men'], year=Literal[2007]) [no-matching-overload]
 ERROR typeddicts_extra_items.py:303:34-44: `MovieExtraInt` is not assignable to `Mapping[str, int]` [bad-assignment]
 ERROR typeddicts_extra_items.py:352:25-52: `dict[str, int]` is not assignable to `IntDict` [bad-assignment]

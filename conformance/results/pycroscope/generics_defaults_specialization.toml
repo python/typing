@@ -2,6 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./generics_defaults_specialization.py:30:0: Expected 1 type arguments for type alias, got 2 [invalid_annotation]
-./generics_defaults_specialization.py:55:0: ./generics_defaults_specialization.py.Foo cannot be further subscripted [invalid_annotation]
+./generics_defaults_specialization.py:30:0: Expected 1 type arguments for type alias, got 2 [invalid_specialization]
+./generics_defaults_specialization.py:46:0: Incompatible assignment: expected type[./generics_defaults_specialization.py.Bar[int]], got <class 'Bar'> [incompatible_assignment]
+./generics_defaults_specialization.py:56:0: ./generics_defaults_specialization.py.Foo cannot be further subscripted [invalid_specialization]
 """

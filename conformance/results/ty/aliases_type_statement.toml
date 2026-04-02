@@ -34,7 +34,7 @@ aliases_type_statement.py:45:22: error[invalid-type-form] Variable of type `Lite
 aliases_type_statement.py:46:23: error[invalid-type-form] Boolean literals are not allowed in this context in a type expression
 aliases_type_statement.py:47:23: error[invalid-type-form] Int literals are not allowed in this context in a type expression
 aliases_type_statement.py:48:23: error[invalid-type-form] Boolean operations are not allowed in type expressions
-aliases_type_statement.py:49:23: error[fstring-type-annotation] Type expressions cannot use f-strings
+aliases_type_statement.py:49:23: error[invalid-type-form] F-strings are not allowed in type expressions
 aliases_type_statement.py:62:23: error[unbound-type-variable] Type variable `V` is not bound to any outer generic context
 aliases_type_statement.py:67:17: error[unbound-type-variable] Type variable `T1` is not bound to any outer generic context
 aliases_type_statement.py:77:27: error[invalid-type-arguments] Type `str` is not assignable to upper bound `int` of type variable `S@RecursiveTypeAlias2`

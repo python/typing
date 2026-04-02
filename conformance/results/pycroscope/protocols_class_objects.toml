@@ -2,7 +2,6 @@ conformance_automated = "Fail"
 errors_diff = """
 Line 29: Expected 1 errors
 Line 34: Expected 1 errors
-Line 109: Unexpected errors ["./protocols_class_objects.py:109:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2, got <class 'ConcreteC3'> [incompatible_assignment]"]
 """
 output = """
 ./protocols_class_objects.py:58:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoA1, got <class 'ConcreteA'> [incompatible_assignment]
@@ -11,5 +10,4 @@ output = """
 ./protocols_class_objects.py:106:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1, got <class 'ConcreteC2'> [incompatible_assignment]
 ./protocols_class_objects.py:107:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2, got <class 'ConcreteC2'> [incompatible_assignment]
 ./protocols_class_objects.py:108:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC1, got <class 'ConcreteC3'> [incompatible_assignment]
-./protocols_class_objects.py:109:0: Incompatible assignment: expected ./protocols_class_objects.py.ProtoC2, got <class 'ConcreteC3'> [incompatible_assignment]
 """

@@ -2,9 +2,9 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./dataclasses_slots.py:11:0: Class cannot define __slots__ when dataclass slots=True [invalid_annotation]
-./dataclasses_slots.py:25:8: Cannot assign to attribute 'y'; it is not in __slots__ [incompatible_assignment]
-./dataclasses_slots.py:38:8: Cannot assign to attribute 'y'; it is not in __slots__ [incompatible_assignment]
+./dataclasses_slots.py:11:0: Class cannot define __slots__ when dataclass slots=True [invalid_dataclass]
+./dataclasses_slots.py:25:8: Cannot assign to attribute 'y'; it is not in __slots__ for ./dataclasses_slots.py.DC2 [incompatible_assignment]
+./dataclasses_slots.py:38:8: Cannot assign to attribute 'y'; it is not in __slots__ for ./dataclasses_slots.py.DC3 [incompatible_assignment]
 ./dataclasses_slots.py:66:0: <class 'DC6'> has no attribute '__slots__' [undefined_attribute]
 ./dataclasses_slots.py:69:0: ./dataclasses_slots.py.DC6 has no attribute '__slots__' [undefined_attribute]
 """

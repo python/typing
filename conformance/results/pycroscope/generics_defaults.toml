@@ -1,21 +1,31 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 66: Expected 1 errors
+Line 73: Unexpected errors ['./generics_defaults.py:73:16:   ~T1 is not equivalent to Any[explicit]']
+Line 74: Unexpected errors ['./generics_defaults.py:74:16:   ~T2 is not equivalent to Any[explicit]']
+Line 75: Unexpected errors ['./generics_defaults.py:75:16:   ~DefaultStrT is not equivalent to str']
+Line 76: Unexpected errors ['./generics_defaults.py:76:16:   ~DefaultIntT is not equivalent to int']
+Line 77: Unexpected errors ['./generics_defaults.py:77:16:   ~DefaultBoolT is not equivalent to bool']
 Line 124: Unexpected errors ['./generics_defaults.py:124:16:   ./generics_defaults.py.Class_ParamSpec[AnySig()] is not equivalent to ./generics_defaults.py.Class_ParamSpec[tuple[bool, bool]]']
-Line 139: Unexpected errors ['./generics_defaults.py:139:16:   tuple[] is not equivalent to tuple[str, int]']
+Line 139: Unexpected errors ['./generics_defaults.py:139:16:   tuple[()] is not equivalent to tuple[str, int]']
 Line 203: Unexpected errors ["./generics_defaults.py:203:36: Invalid type annotation [<class 'bytes'>] [invalid_annotation]", './generics_defaults.py:203:17: ParamSpec specialization must use list form, Concatenate[..., P], P, or ... [invalid_annotation]']
 Line 204: Unexpected errors ['./generics_defaults.py:204:16:   tuple[int] is not equivalent to tuple[int, str]']
 Line 205: Unexpected errors ['./generics_defaults.py:205:16:   (...) -> None is not equivalent to (float | int, bool, /) -> None']
 Line 208: Unexpected errors ['./generics_defaults.py:208:16:   (...) -> None is not equivalent to (bytes, /) -> None']
 """
 output = """
-./generics_defaults.py:24:0: non-default TypeVars cannot follow ones with defaults [invalid_annotation]
+./generics_defaults.py:24:0: non-default TypeVars cannot follow ones with defaults [invalid_type_parameter]
+./generics_defaults.py:73:16:   ~T1 is not equivalent to Any[explicit]
+./generics_defaults.py:74:16:   ~T2 is not equivalent to Any[explicit]
+./generics_defaults.py:75:16:   ~DefaultStrT is not equivalent to str
+./generics_defaults.py:76:16:   ~DefaultIntT is not equivalent to int
+./generics_defaults.py:77:16:   ~DefaultBoolT is not equivalent to bool
 ./generics_defaults.py:124:16:   ./generics_defaults.py.Class_ParamSpec[AnySig()] is not equivalent to ./generics_defaults.py.Class_ParamSpec[tuple[bool, bool]]
-./generics_defaults.py:139:16:   tuple[] is not equivalent to tuple[str, int]
+./generics_defaults.py:139:16:   tuple[()] is not equivalent to tuple[str, int]
 ./generics_defaults.py:152:50: TypeVar default must be assignable to its bound [incompatible_call]
 ./generics_defaults.py:159:51: TypeVar default must be one of its constraints [incompatible_call]
 ./generics_defaults.py:176:12:   Any[generic_argument] is not equivalent to int
-./generics_defaults.py:188:0: TypeVars with defaults cannot follow TypeVarTuples [invalid_annotation]
+./generics_defaults.py:188:0: TypeVars with defaults cannot follow TypeVarTuples [invalid_type_parameter]
 ./generics_defaults.py:203:36: Invalid type annotation [<class 'bytes'>] [invalid_annotation]
 ./generics_defaults.py:203:17: ParamSpec specialization must use list form, Concatenate[..., P], P, or ... [invalid_annotation]
 ./generics_defaults.py:204:16:   tuple[int] is not equivalent to tuple[int, str]

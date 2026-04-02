@@ -35,7 +35,7 @@ output = """
 ./annotations_forward_refs.py:52:9: Invalid type annotation -1 [invalid_annotation]
 ./annotations_forward_refs.py:53:0: Invalid type annotation [invalid_annotation]
 ./annotations_forward_refs.py:54:0: Invalid type annotation [invalid_annotation]
-./annotations_forward_refs.py:55:9: Invalid type annotation <module 'types' from '/Users/jelle/.pyenv/versions/3.12.3/lib/python3.12/types.py'> [invalid_annotation]
+./annotations_forward_refs.py:55:9: Invalid type annotation <module 'types' from '/opt/homebrew/Cellar/python@3.12/3.12.10/Frameworks/Python.framework/Versions/3.12/lib/python3.12/types.py'> [invalid_annotation]
 ./annotations_forward_refs.py:80:12: Undefined name: ClassF [undefined_name]
 ./annotations_forward_refs.py:87:7: Unrecognized annotation (self: ./annotations_forward_refs.py.ClassD) -> None [invalid_annotation]
 ./annotations_forward_refs.py:89:7: Unrecognized annotation (self: ./annotations_forward_refs.py.ClassD) -> None [invalid_annotation]

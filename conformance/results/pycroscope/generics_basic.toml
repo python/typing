@@ -14,5 +14,5 @@ output = """
 ./generics_basic.py:163:20: All arguments to Generic or Protocol must be type variables [invalid_base]
 ./generics_basic.py:171:27: All type parameters for the class must appear within Generic or Protocol [invalid_base]
 ./generics_basic.py:172:27: All type parameters for the class must appear within Generic or Protocol [invalid_base]
-./generics_basic.py:208:36: Generic metaclasses are not supported [invalid_annotation]
+./generics_basic.py:208:36: Cannot determine metaclass [invalid_metaclass]
 """

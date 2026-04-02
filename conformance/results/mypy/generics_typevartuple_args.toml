@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not enforce that tuples captured by TypeVarTuple are same type.
+Does not enforce that tuples captured by TypeVarTuple are of the same length.
 """
 output = """
 generics_typevartuple_args.py:33: error: Argument 3 to "exec_le" has incompatible type "str"; expected "Env"  [arg-type]
@@ -15,5 +15,4 @@ generics_typevartuple_args.py:67: error: Too few arguments for "func3"  [call-ar
 conformance_automated = "Fail"
 errors_diff = """
 Line 75: Expected 1 errors
-Line 76: Expected 1 errors
 """

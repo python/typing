@@ -5,12 +5,9 @@ Spurious error for constrained type var call.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 34: Unexpected errors ['`+` is not supported between `AnyStr` and `AnyStr` [unsupported-operation]', '`+` is not supported between `AnyStr` and `AnyStr` [unsupported-operation]']
 Line 44: Unexpected errors ['Argument `bytes` is not assignable to parameter `y` with type `str` in function `concat` [bad-argument-type]']
 """
 output = """
-ERROR generics_basic.py:34:12-17: `+` is not supported between `AnyStr` and `AnyStr` [unsupported-operation]
-ERROR generics_basic.py:34:12-17: `+` is not supported between `AnyStr` and `AnyStr` [unsupported-operation]
 ERROR generics_basic.py:40:15-16: Argument `bytes` is not assignable to parameter `y` with type `str` in function `concat` [bad-argument-type]
 ERROR generics_basic.py:41:15-16: Argument `str` is not assignable to parameter `y` with type `bytes` in function `concat` [bad-argument-type]
 ERROR generics_basic.py:44:15-16: Argument `bytes` is not assignable to parameter `y` with type `str` in function `concat` [bad-argument-type]

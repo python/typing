@@ -5,6 +5,6 @@ output = """
 ./dataclasses_final.py:27:0: Cannot assign to final name final_classvar [incompatible_assignment]
 ./dataclasses_final.py:35:0: Cannot assign to final name final_no_default [incompatible_assignment]
 ./dataclasses_final.py:36:0: Cannot assign to final name final_with_default [incompatible_assignment]
-./dataclasses_final.py:37:0: Cannot assign to final name final_no_default [incompatible_assignment]
-./dataclasses_final.py:38:0: Cannot assign to final name final_with_default [incompatible_assignment]
+./dataclasses_final.py:37:0: Cannot assign to instance attribute 'final_no_default' via class object [incompatible_assignment]
+./dataclasses_final.py:38:0: Cannot assign to instance attribute 'final_with_default' via class object [incompatible_assignment]
 """

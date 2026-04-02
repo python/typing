@@ -2,8 +2,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./dataclasses_frozen.py:16:0: Dataclass is frozen [incompatible_assignment]
-./dataclasses_frozen.py:17:0: Dataclass is frozen [incompatible_assignment]
+./dataclasses_frozen.py:16:0: Cannot assign to attribute a of frozen dataclass ./dataclasses_frozen.py.DC1 [incompatible_assignment]
+./dataclasses_frozen.py:17:0: Cannot assign to attribute b of frozen dataclass ./dataclasses_frozen.py.DC1 [incompatible_assignment]
 ./dataclasses_frozen.py:23:0: Non-frozen dataclass cannot inherit from a frozen dataclass [invalid_base]
 ./dataclasses_frozen.py:33:0: Frozen dataclass cannot inherit from a non-frozen dataclass [invalid_base]
 """

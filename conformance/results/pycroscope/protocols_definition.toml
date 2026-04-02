@@ -3,7 +3,7 @@ errors_diff = """
 """
 output = """
 ./protocols_definition.py:30:10: Incompatible argument type for things: expected collections.abc.Iterable[./protocols_definition.py.SupportsClose] but got Literal[[1]] [incompatible_argument]
-./protocols_definition.py:67:8: Protocol members cannot be defined via assignment to self [invalid_annotation]
+./protocols_definition.py:67:8: Protocol members cannot be defined via assignment to self [invalid_protocol]
 ./protocols_definition.py:114:0: Incompatible assignment: expected ./protocols_definition.py.Template2, got ./protocols_definition.py.Concrete2_Bad1 [incompatible_assignment]
 ./protocols_definition.py:115:0: Incompatible assignment: expected ./protocols_definition.py.Template2, got ./protocols_definition.py.Concrete2_Bad2 [incompatible_assignment]
 ./protocols_definition.py:116:0: Incompatible assignment: expected ./protocols_definition.py.Template2, got ./protocols_definition.py.Concrete2_Bad3 [incompatible_assignment]

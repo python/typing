@@ -54,7 +54,7 @@ class ClassA(Generic[Shape]):  # E: not unpacked
         self._shape: tuple[*Shape] = shape
 
     def get_shape(self) -> tuple[Shape]:  # E: not unpacked
-        return self._shape
+        raise NotImplementedError
 
     def method1(*args: Shape) -> None:  # E: not unpacked
         ...
@@ -86,7 +86,7 @@ func2((0,), (0.0,))  # OK
 func2((0.0,), (0,))  # OK
 func2((0,), (1,))  # OK
 
-func2((0,), ("0",))  # E
+func2((0,), ("0",))  # OK
 func2((0, 0), (0,))  # E
 
 

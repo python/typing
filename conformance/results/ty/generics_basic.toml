@@ -18,5 +18,5 @@ generics_basic.py:162:12: error[invalid-argument-type] `<class 'int'>` is not a 
 generics_basic.py:163:12: error[invalid-argument-type] `<class 'int'>` is not a valid argument to `Protocol`
 generics_basic.py:171:1: error[invalid-generic-class] `Generic` base class must include all type variables used in other base classes
 generics_basic.py:172:1: error[invalid-generic-class] `Generic` base class must include all type variables used in other base classes
-generics_basic.py:208:1: error[invalid-metaclass] Generic metaclasses are not supported
+generics_basic.py:208:27: error[invalid-metaclass] Generic metaclasses are not supported
 """

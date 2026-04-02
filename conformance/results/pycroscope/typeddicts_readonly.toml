@@ -4,8 +4,8 @@ errors_diff = """
 output = """
 ./typeddicts_readonly.py:24:3: Cannot set readonly key 'members' in TypedDict TypedDict({"name": str, "members": Readonly[list[str]]}) [readonly_typeddict]
 ./typeddicts_readonly.py:36:3: Cannot set readonly key 'members' in TypedDict TypedDict({"name": str, "members": Readonly[list[str]]}) [readonly_typeddict]
-./typeddicts_readonly.py:50:3: Cannot set readonly key 'title' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[Annotated[int, Literal['']]]]}) [readonly_typeddict]
-./typeddicts_readonly.py:51:3: Cannot set readonly key 'year' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[Annotated[int, Literal['']]]]}) [readonly_typeddict]
-./typeddicts_readonly.py:60:3: Cannot set readonly key 'title' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[Annotated[int, Literal['']]]]}) [readonly_typeddict]
-./typeddicts_readonly.py:61:3: Cannot set readonly key 'year' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[Annotated[int, Literal['']]]]}) [readonly_typeddict]
+./typeddicts_readonly.py:50:3: Cannot set readonly key 'title' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[int]]}) [readonly_typeddict]
+./typeddicts_readonly.py:51:3: Cannot set readonly key 'year' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[int]]}) [readonly_typeddict]
+./typeddicts_readonly.py:60:3: Cannot set readonly key 'title' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[int]]}) [readonly_typeddict]
+./typeddicts_readonly.py:61:3: Cannot set readonly key 'year' in TypedDict TypedDict({"title": Readonly[str], "year": NotRequired[Readonly[int]]}) [readonly_typeddict]
 """

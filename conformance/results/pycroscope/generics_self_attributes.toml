@@ -3,5 +3,5 @@ errors_diff = """
 """
 output = """
 ./generics_self_attributes.py:26:37: Incompatible argument type for next: expected generics_self_attributes.OrdinalLinkedList | None but got generics_self_attributes.LinkedList[int] [incompatible_argument]
-./generics_self_attributes.py:32:4: Incompatible assignment: expected generics_self_attributes.OrdinalLinkedList | NoneType, got generics_self_attributes.LinkedList[int] [incompatible_assignment]
+./generics_self_attributes.py:32:4: Incompatible types in assignment to attribute 'next': expected generics_self_attributes.OrdinalLinkedList | None, got generics_self_attributes.LinkedList[int] [incompatible_assignment]
 """

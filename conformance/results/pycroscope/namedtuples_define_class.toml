@@ -1,14 +1,11 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 29: Unexpected errors ['./namedtuples_define_class.py:29:12:   types.GenericAlias (partial from ./namedtuples_define_class.py.Point[Literal[slice(0, 2, None)]]) is not equivalent to tuple[int, int]']
-Line 30: Unexpected errors ['./namedtuples_define_class.py:30:12:   types.GenericAlias (partial from ./namedtuples_define_class.py.Point[Literal[slice(0, None, None)]]) is not equivalent to tuple[int, int, str]']
-Line 121: Unexpected errors ['./namedtuples_define_class.py:121:12:   ./namedtuples_define_class.py.Property[Literal[3.4]] is not equivalent to ./namedtuples_define_class.py.Property[float | int]']
-Line 122: Unexpected errors ['./namedtuples_define_class.py:122:12:   Literal[3.4] is not equivalent to float | int']
-Line 123: Unexpected errors ['./namedtuples_define_class.py:123:12:   Literal[3.4] is not equivalent to float | int']
+Line 29: Unexpected errors ['./namedtuples_define_class.py:29:12:   tuple is not equivalent to tuple[int, int]']
+Line 30: Unexpected errors ['./namedtuples_define_class.py:30:12:   tuple is not equivalent to tuple[int, int, str]']
 """
 output = """
-./namedtuples_define_class.py:29:12:   types.GenericAlias (partial from ./namedtuples_define_class.py.Point[Literal[slice(0, 2, None)]]) is not equivalent to tuple[int, int]
-./namedtuples_define_class.py:30:12:   types.GenericAlias (partial from ./namedtuples_define_class.py.Point[Literal[slice(0, None, None)]]) is not equivalent to tuple[int, int, str]
+./namedtuples_define_class.py:29:12:   tuple is not equivalent to tuple[int, int]
+./namedtuples_define_class.py:30:12:   tuple is not equivalent to tuple[int, int, str]
 ./namedtuples_define_class.py:32:6: Tuple index out of range: Literal[3] [incompatible_call]
 ./namedtuples_define_class.py:33:6: Tuple index out of range: Literal[-4] [incompatible_call]
 ./namedtuples_define_class.py:44:5: Missing required argument 'y' [incompatible_call]
@@ -18,12 +15,9 @@ output = """
 ./namedtuples_define_class.py:48:5: Takes 3 positional arguments but 4 were given [incompatible_call]
 ./namedtuples_define_class.py:49:6: Got an unexpected keyword argument 'other' [incompatible_call]
 ./namedtuples_define_class.py:69:6: Takes 2 positional arguments but 3 were given [incompatible_call]
-./namedtuples_define_class.py:76:4: NamedTuple field names cannot start with an underscore [invalid_annotation]
-./namedtuples_define_class.py:86:4: NamedTuple fields without defaults cannot follow fields with defaults [invalid_annotation]
+./namedtuples_define_class.py:76:4: NamedTuple field names cannot start with an underscore [invalid_namedtuple]
+./namedtuples_define_class.py:86:4: NamedTuple fields without defaults cannot follow fields with defaults [invalid_namedtuple]
 ./namedtuples_define_class.py:106:4: Field 'x' conflicts with base NamedTuple field [incompatible_override]
-./namedtuples_define_class.py:121:12:   ./namedtuples_define_class.py.Property[Literal[3.4]] is not equivalent to ./namedtuples_define_class.py.Property[float | int]
-./namedtuples_define_class.py:122:12:   Literal[3.4] is not equivalent to float | int
-./namedtuples_define_class.py:123:12:   Literal[3.4] is not equivalent to float | int
 ./namedtuples_define_class.py:125:18: Incompatible argument type for value: expected str but got Literal[3.1] [incompatible_argument]
 ./namedtuples_define_class.py:132:23: NamedTuple classes may only inherit from NamedTuple and Generic [invalid_base]
 """

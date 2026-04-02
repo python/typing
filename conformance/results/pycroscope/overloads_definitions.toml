@@ -2,15 +2,15 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./overloads_definitions.py:16:0: At least two overload signatures are required [invalid_annotation]
-./overloads_definitions.py:28:0: Overloaded function is missing an implementation [invalid_annotation]
-./overloads_definitions.py:59:4: Overloaded function is missing an implementation [invalid_annotation]
-./overloads_definitions.py:81:4: Overload implementation has incompatible @staticmethod/@classmethod decorator [invalid_annotation]
-./overloads_definitions.py:86:4: @staticmethod/@classmethod usage must be consistent across overloads [invalid_annotation]
-./overloads_definitions.py:124:4: @final should be applied only to the overload implementation [invalid_annotation]
-./overloads_definitions.py:139:4: @final should be applied only to the overload implementation [invalid_annotation]
-./overloads_definitions.py:144:4: @final should be applied only to the overload implementation [invalid_annotation]
-./overloads_definitions.py:186:4: Cannot override a final method [invalid_annotation]
+./overloads_definitions.py:16:0: At least two overload signatures are required [invalid_overload]
+./overloads_definitions.py:28:0: Overloaded function is missing an implementation [invalid_overload]
+./overloads_definitions.py:59:4: Overloaded function is missing an implementation [invalid_overload]
+./overloads_definitions.py:81:4: Overload implementation has incompatible @staticmethod/@classmethod decorator [invalid_overload]
+./overloads_definitions.py:86:4: @staticmethod/@classmethod usage must be consistent across overloads [invalid_overload]
+./overloads_definitions.py:124:4: @final should be applied only to the overload implementation [invalid_final]
+./overloads_definitions.py:139:4: @final should be applied only to the overload implementation [invalid_final]
+./overloads_definitions.py:144:4: @final should be applied only to the overload implementation [invalid_final]
+./overloads_definitions.py:186:4: Cannot override final attribute final_method [incompatible_override]
 ./overloads_definitions.py:203:4: Method does not override any base method [override_does_not_override]
 ./overloads_definitions.py:228:4: @override decorator in invalid location [invalid_override_decorator]
 """

@@ -16,5 +16,5 @@ output = """
 ./annotations_typeexpr.py:97:9: Invalid type annotation True [invalid_annotation]
 ./annotations_typeexpr.py:98:9: Invalid type annotation 1 [invalid_annotation]
 ./annotations_typeexpr.py:99:9: Invalid type annotation -1 [invalid_annotation]
-./annotations_typeexpr.py:102:9: Invalid type annotation <module 'types' from '/Users/jelle/.pyenv/versions/3.12.3/lib/python3.12/types.py'> [invalid_annotation]
+./annotations_typeexpr.py:102:9: Invalid type annotation <module 'types' from '/opt/homebrew/Cellar/python@3.12/3.12.10/Frameworks/Python.framework/Versions/3.12/lib/python3.12/types.py'> [invalid_annotation]
 """
