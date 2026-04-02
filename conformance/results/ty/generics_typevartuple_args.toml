@@ -1,0 +1,23 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Supports PEP-646 unpacked tuples but not TypeVarTuple.
+"""
+errors_diff = """
+Line 33: Expected 1 errors
+Line 34: Expected 1 errors
+Line 48: Expected 1 errors
+Line 57: Expected 1 errors
+Line 58: Expected 1 errors
+Line 59: Expected 1 errors
+Line 67: Expected 1 errors
+Line 75: Expected 1 errors
+Line 29: Unexpected errors ['generics_typevartuple_args.py:29:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`']
+Line 31: Unexpected errors ['generics_typevartuple_args.py:31:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[()]`']
+Line 32: Unexpected errors ['generics_typevartuple_args.py:32:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`']
+"""
+output = """
+generics_typevartuple_args.py:29:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`
+generics_typevartuple_args.py:31:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[()]`
+generics_typevartuple_args.py:32:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, str]`
+"""

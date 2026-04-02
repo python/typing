@@ -1,0 +1,36 @@
+conformance_automated = "Fail"
+conformant = "Unsupported"
+errors_diff = """
+Line 15: Expected 1 errors
+Line 17: Expected 1 errors
+Line 28: Unexpected errors ['generics_syntax_infer_variance.py:28:37: error[invalid-assignment] Object of type `ShouldBeCovariant1[int]` is not assignable to `ShouldBeCovariant1[int | float]`']
+Line 46: Unexpected errors ['generics_syntax_infer_variance.py:46:37: error[invalid-assignment] Object of type `ShouldBeCovariant2[int]` is not assignable to `ShouldBeCovariant2[int | float]`']
+Line 55: Unexpected errors ['generics_syntax_infer_variance.py:55:37: error[invalid-assignment] Object of type `ShouldBeCovariant3[int]` is not assignable to `ShouldBeCovariant3[int | float]`']
+Line 84: Unexpected errors ['generics_syntax_infer_variance.py:84:36: error[invalid-assignment] Object of type `ShouldBeCovariant5[int]` is not assignable to `ShouldBeCovariant5[int | float]`']
+Line 95: Unexpected errors ['generics_syntax_infer_variance.py:95:36: error[invalid-assignment] Object of type `ShouldBeCovariant6[int]` is not assignable to `ShouldBeCovariant6[int | float]`']
+Line 166: Unexpected errors ['generics_syntax_infer_variance.py:166:43: error[invalid-assignment] Object of type `ShouldBeContravariant1[int | float]` is not assignable to `ShouldBeContravariant1[int]`']
+"""
+output = """
+generics_syntax_infer_variance.py:28:37: error[invalid-assignment] Object of type `ShouldBeCovariant1[int]` is not assignable to `ShouldBeCovariant1[int | float]`
+generics_syntax_infer_variance.py:29:35: error[invalid-assignment] Object of type `ShouldBeCovariant1[int | float]` is not assignable to `ShouldBeCovariant1[int]`
+generics_syntax_infer_variance.py:46:37: error[invalid-assignment] Object of type `ShouldBeCovariant2[int]` is not assignable to `ShouldBeCovariant2[int | float]`
+generics_syntax_infer_variance.py:47:35: error[invalid-assignment] Object of type `ShouldBeCovariant2[int | float]` is not assignable to `ShouldBeCovariant2[int]`
+generics_syntax_infer_variance.py:55:37: error[invalid-assignment] Object of type `ShouldBeCovariant3[int]` is not assignable to `ShouldBeCovariant3[int | float]`
+generics_syntax_infer_variance.py:56:35: error[invalid-assignment] Object of type `ShouldBeCovariant3[int | float]` is not assignable to `ShouldBeCovariant3[int]`
+generics_syntax_infer_variance.py:84:36: error[invalid-assignment] Object of type `ShouldBeCovariant5[int]` is not assignable to `ShouldBeCovariant5[int | float]`
+generics_syntax_infer_variance.py:85:34: error[invalid-assignment] Object of type `ShouldBeCovariant5[int | float]` is not assignable to `ShouldBeCovariant5[int]`
+generics_syntax_infer_variance.py:95:36: error[invalid-assignment] Object of type `ShouldBeCovariant6[int]` is not assignable to `ShouldBeCovariant6[int | float]`
+generics_syntax_infer_variance.py:96:34: error[invalid-assignment] Object of type `ShouldBeCovariant6[int | float]` is not assignable to `ShouldBeCovariant6[int]`
+generics_syntax_infer_variance.py:112:38: error[invalid-assignment] Object of type `ShouldBeInvariant1[int]` is not assignable to `ShouldBeInvariant1[int | float]`
+generics_syntax_infer_variance.py:113:36: error[invalid-assignment] Object of type `ShouldBeInvariant1[int | float]` is not assignable to `ShouldBeInvariant1[int]`
+generics_syntax_infer_variance.py:127:38: error[invalid-assignment] Object of type `ShouldBeInvariant2[int]` is not assignable to `ShouldBeInvariant2[int | float]`
+generics_syntax_infer_variance.py:128:36: error[invalid-assignment] Object of type `ShouldBeInvariant2[int | float]` is not assignable to `ShouldBeInvariant2[int]`
+generics_syntax_infer_variance.py:135:43: error[invalid-assignment] Object of type `ShouldBeInvariant3[int, str]` is not assignable to `ShouldBeInvariant3[int | float, str]`
+generics_syntax_infer_variance.py:136:41: error[invalid-assignment] Object of type `ShouldBeInvariant3[int | float, str]` is not assignable to `ShouldBeInvariant3[int, str]`
+generics_syntax_infer_variance.py:137:43: error[invalid-assignment] Object of type `ShouldBeInvariant3[str, int]` is not assignable to `ShouldBeInvariant3[str, int | float]`
+generics_syntax_infer_variance.py:138:41: error[invalid-assignment] Object of type `ShouldBeInvariant3[str, int | float]` is not assignable to `ShouldBeInvariant3[str, int]`
+generics_syntax_infer_variance.py:146:38: error[invalid-assignment] Object of type `ShouldBeInvariant4[int]` is not assignable to `ShouldBeInvariant4[int | float]`
+generics_syntax_infer_variance.py:154:38: error[invalid-assignment] Object of type `ShouldBeInvariant5[int]` is not assignable to `ShouldBeInvariant5[int | float]`
+generics_syntax_infer_variance.py:165:45: error[invalid-assignment] Object of type `ShouldBeContravariant1[int]` is not assignable to `ShouldBeContravariant1[int | float]`
+generics_syntax_infer_variance.py:166:43: error[invalid-assignment] Object of type `ShouldBeContravariant1[int | float]` is not assignable to `ShouldBeContravariant1[int]`
+"""

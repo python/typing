@@ -2,12 +2,13 @@
 Classes that abstract differences between type checkers.
 """
 
-from abc import ABC, abstractmethod
 import json
-from pathlib import Path
+import re
 import shutil
-from subprocess import PIPE, CalledProcessError, run
 import sys
+from abc import ABC, abstractmethod
+from pathlib import Path
+from subprocess import PIPE, CalledProcessError, run
 from typing import Sequence
 
 
@@ -97,6 +98,7 @@ class MypyTypeChecker(TypeChecker):
             ".",
             "--enable-error-code",
             "deprecated",
+            "--enable-incomplete-feature=TypeForm",
         ]
         proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
         lines = proc.stdout.split("\n")
@@ -188,6 +190,66 @@ class PyrightTypeChecker(TypeChecker):
         return line_to_errors
 
 
+class TyTypeChecker(TypeChecker):
+    @property
+    def name(self) -> str:
+        return "ty"
+
+    def install(self) -> bool:
+        try:
+            self.get_version()
+            return True
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run ty. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
+            return False
+
+    def get_version(self) -> str:
+        proc = run([sys.executable, "-m", "ty", "--version"], stdout=PIPE, text=True)
+        return proc.stdout.split("(")[0].strip()
+
+    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
+        command = [
+            sys.executable,
+            "-m",
+            "ty",
+            "check",
+            ".",
+            "--output-format=concise",
+            "--color=never",
+            "--config-file=./ty.toml",
+        ]
+        proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
+        results_dict = {}
+        for line in proc.stdout.splitlines():
+            if not line.strip():
+                continue
+            file_name = line.split(":")[0].strip()
+            results_dict[file_name] = results_dict.get(file_name, "") + line + "\n"
+        return results_dict
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # narrowing_typeguard.py:102:23: error[invalid-type-guard-definition] `TypeGuard` function must have a parameter to narrow
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            line = line.strip()
+            if (
+                not line
+                or line == "All checks passed!"
+                or re.fullmatch(r"Found \d+ diagnostics?", line)
+            ):
+                continue
+            assert line.count(":") >= 3, f"Failed to parse line: {line!r}"
+            _, lineno, _, rest = line.split(":", maxsplit=3)
+            kind = rest.split("[")[0].strip()
+            if kind != "error":
+                continue
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
+
+
 class ZubanLSTypeChecker(MypyTypeChecker):
     @property
     def name(self) -> str:
@@ -264,7 +326,7 @@ class PyreflyTypeChecker(TypeChecker):
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         proc = run(
-            ["pyrefly", "check", "--output-format", "min-text", "--summary=none"],
+            ["pyrefly", "check", "--output-format", "min-text", "--summary=none", "--min-severity=warn"],
             stdout=PIPE,
             text=True,
             encoding="utf-8",
@@ -317,4 +379,5 @@ TYPE_CHECKERS: Sequence[TypeChecker] = (
     PyrightTypeChecker(),
     ZubanLSTypeChecker(),
     PyreflyTypeChecker(),
+    TyTypeChecker(),
 )

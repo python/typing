@@ -1,0 +1,16 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Never considers a module as satisfying a protocol with a method member due to the fact that the method will never exist on the class `types.ModuleType`, only on a given specific module instance.
+"""
+errors_diff = """
+Line 25: Unexpected errors ["protocols_modules.py:25:17: error[invalid-assignment] Object of type `<module '_protocols_modules1'>` is not assignable to `Options1`"]
+Line 47: Unexpected errors ["protocols_modules.py:47:18: error[invalid-assignment] Object of type `<module '_protocols_modules2'>` is not assignable to `Reporter1`"]
+"""
+output = """
+protocols_modules.py:25:17: error[invalid-assignment] Object of type `<module '_protocols_modules1'>` is not assignable to `Options1`
+protocols_modules.py:26:17: error[invalid-assignment] Object of type `<module '_protocols_modules1'>` is not assignable to `Options2`
+protocols_modules.py:47:18: error[invalid-assignment] Object of type `<module '_protocols_modules2'>` is not assignable to `Reporter1`
+protocols_modules.py:48:18: error[invalid-assignment] Object of type `<module '_protocols_modules2'>` is not assignable to `Reporter2`
+protocols_modules.py:49:18: error[invalid-assignment] Object of type `<module '_protocols_modules2'>` is not assignable to `Reporter3`
+"""

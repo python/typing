@@ -3,15 +3,15 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR enums_members.py:50:5-8: Enum member `DOG` may not be annotated directly. Instead, annotate the `_value_` attribute. [invalid-annotation]
-ERROR enums_members.py:82:20-34: `Pet4.converter` is not a valid enum member [invalid-literal]
-ERROR enums_members.py:83:20-34: `Pet4.transform` is not a valid enum member [invalid-literal]
-ERROR enums_members.py:84:18-30: `Pet4.species` is not a valid enum member [invalid-literal]
-ERROR enums_members.py:85:16-26: `Pet4.speak` is not a valid enum member [invalid-literal]
-ERROR enums_members.py:116:12-43: assert_type(int, Any) failed [assert-type]
-ERROR enums_members.py:116:32-41: `Example.b` is not a valid enum member [invalid-literal]
-ERROR enums_members.py:129:20-57: assert_type(int, Any) failed [assert-type]
-ERROR enums_members.py:129:43-55: `Example2.__B` is not a valid enum member [invalid-literal]
-ERROR enums_members.py:146:12-27: assert_type(Literal[Pet5.DOG], int) failed [assert-type]
-ERROR enums_members.py:147:12-28: assert_type(Literal[Pet5.FISH], int) failed [assert-type]
+ERROR enums_members.py:54:5-8: Enum member `DOG` may not be annotated directly. Instead, annotate the `_value_` attribute. [invalid-annotation]
+ERROR enums_members.py:86:20-34: `Pet4.converter` is not a valid enum member [invalid-literal]
+ERROR enums_members.py:87:20-34: `Pet4.transform` is not a valid enum member [invalid-literal]
+ERROR enums_members.py:88:18-30: `Pet4.species` is not a valid enum member [invalid-literal]
+ERROR enums_members.py:89:16-26: `Pet4.speak` is not a valid enum member [invalid-literal]
+ERROR enums_members.py:120:12-43: assert_type(int, Unknown) failed [assert-type]
+ERROR enums_members.py:120:32-41: `Example.b` is not a valid enum member [invalid-literal]
+ERROR enums_members.py:133:20-57: assert_type(int, Unknown) failed [assert-type]
+ERROR enums_members.py:133:43-55: `Example2.__B` is not a valid enum member [invalid-literal]
+ERROR enums_members.py:150:12-27: assert_type(Literal[Pet5.DOG], int) failed [assert-type]
+ERROR enums_members.py:151:12-28: assert_type(Literal[Pet5.FISH], int) failed [assert-type]
 """

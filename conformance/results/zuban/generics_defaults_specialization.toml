@@ -3,5 +3,6 @@ errors_diff = """
 """
 output = """
 generics_defaults_specialization.py:30: error: Bad number of arguments for type alias, expected between 0 and 1, given 2  [misc]
-generics_defaults_specialization.py:55: error: "Foo" expects no type arguments, but 1 given  [type-arg]
+generics_defaults_specialization.py:46: error: Incompatible types in assignment (expression has type "type[Bar]", variable has type "type[Bar[int]]")  [assignment]
+generics_defaults_specialization.py:56: error: "Foo" expects no type arguments, but 1 given  [type-arg]
 """
