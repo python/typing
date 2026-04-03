@@ -2,55 +2,55 @@ conformant = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
 Line 59: Expected 1 errors
-Line 15: Unexpected errors ['typeforms_typeform.py:15:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 16: Unexpected errors ['typeforms_typeform.py:16:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 17: Unexpected errors ['typeforms_typeform.py:17:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 18: Unexpected errors ['typeforms_typeform.py:18:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 19: Unexpected errors ['typeforms_typeform.py:19:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 20: Unexpected errors ['typeforms_typeform.py:20:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 21: Unexpected errors ['typeforms_typeform.py:21:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 29: Unexpected errors ['typeforms_typeform.py:29:8: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 30: Unexpected errors ['typeforms_typeform.py:30:8: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 31: Unexpected errors ["typeforms_typeform.py:31:1: error[type-assertion-failure] Type `<types.UnionType special-form 'int | str'>` does not match asserted type `Unknown`", 'typeforms_typeform.py:31:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 32: Unexpected errors ["typeforms_typeform.py:32:1: error[type-assertion-failure] Type `<class 'str'>` does not match asserted type `Unknown`", 'typeforms_typeform.py:32:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 40: Unexpected errors ['typeforms_typeform.py:40:14: error[invalid-type-form] Variable of type `_SpecialForm` is not allowed in a type expression']
-Line 41: Unexpected errors ['typeforms_typeform.py:41:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 47: Unexpected errors ['typeforms_typeform.py:47:15: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
+Line 15: Unexpected errors ['typeforms_typeform.py:15:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 16: Unexpected errors ['typeforms_typeform.py:16:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 17: Unexpected errors ['typeforms_typeform.py:17:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 18: Unexpected errors ['typeforms_typeform.py:18:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 19: Unexpected errors ['typeforms_typeform.py:19:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 20: Unexpected errors ['typeforms_typeform.py:20:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 21: Unexpected errors ['typeforms_typeform.py:21:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 29: Unexpected errors ['typeforms_typeform.py:29:8: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 30: Unexpected errors ['typeforms_typeform.py:30:8: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 31: Unexpected errors ["typeforms_typeform.py:31:1: error[type-assertion-failure] Type `<types.UnionType special-form 'int | str'>` does not match asserted type `Unknown`", 'typeforms_typeform.py:31:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 32: Unexpected errors ["typeforms_typeform.py:32:1: error[type-assertion-failure] Type `<class 'str'>` does not match asserted type `Unknown`", 'typeforms_typeform.py:32:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 40: Unexpected errors ['typeforms_typeform.py:40:14: error[invalid-type-form] Variable of type `_SpecialForm` is not allowed in a parameter annotation']
+Line 41: Unexpected errors ['typeforms_typeform.py:41:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 47: Unexpected errors ['typeforms_typeform.py:47:15: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
 Line 49: Unexpected errors ["typeforms_typeform.py:49:33: error[invalid-assignment] Object of type `<class 'list[int]'>` is not assignable to `GenericAlias`"]
 Line 50: Unexpected errors ['typeforms_typeform.py:50:15: error[invalid-type-form] Variable of type `_SpecialForm` is not allowed in a type expression']
-Line 52: Unexpected errors ['typeforms_typeform.py:52:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 53: Unexpected errors ['typeforms_typeform.py:53:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
+Line 52: Unexpected errors ['typeforms_typeform.py:52:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 53: Unexpected errors ['typeforms_typeform.py:53:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
 Line 80: Unexpected errors ['typeforms_typeform.py:80:6: error[call-non-callable] Object of type `_SpecialForm` is not callable']
-Line 81: Unexpected errors ['typeforms_typeform.py:81:17: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
+Line 81: Unexpected errors ['typeforms_typeform.py:81:17: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
 Line 83: Unexpected errors ['typeforms_typeform.py:83:6: error[call-non-callable] Object of type `_SpecialForm` is not callable']
-Line 84: Unexpected errors ['typeforms_typeform.py:84:17: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 93: Unexpected errors ['typeforms_typeform.py:93:24: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 97: Unexpected errors ['typeforms_typeform.py:97:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
-Line 107: Unexpected errors ['typeforms_typeform.py:107:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression']
+Line 84: Unexpected errors ['typeforms_typeform.py:84:17: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 93: Unexpected errors ['typeforms_typeform.py:93:24: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a return type annotation']
+Line 97: Unexpected errors ['typeforms_typeform.py:97:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
+Line 107: Unexpected errors ['typeforms_typeform.py:107:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression']
 """
 output = """
-typeforms_typeform.py:15:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:16:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:17:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:18:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:19:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:20:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:21:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:23:7: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:24:7: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:29:8: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:30:8: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
+typeforms_typeform.py:15:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:16:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:17:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:18:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:19:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:20:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:21:6: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:23:7: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:24:7: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:29:8: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:30:8: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
 typeforms_typeform.py:31:1: error[type-assertion-failure] Type `<types.UnionType special-form 'int | str'>` does not match asserted type `Unknown`
-typeforms_typeform.py:31:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
+typeforms_typeform.py:31:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
 typeforms_typeform.py:32:1: error[type-assertion-failure] Type `<class 'str'>` does not match asserted type `Unknown`
-typeforms_typeform.py:32:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:40:14: error[invalid-type-form] Variable of type `_SpecialForm` is not allowed in a type expression
-typeforms_typeform.py:41:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:47:15: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
+typeforms_typeform.py:32:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:40:14: error[invalid-type-form] Variable of type `_SpecialForm` is not allowed in a parameter annotation
+typeforms_typeform.py:41:20: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:47:15: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
 typeforms_typeform.py:49:33: error[invalid-assignment] Object of type `<class 'list[int]'>` is not assignable to `GenericAlias`
 typeforms_typeform.py:50:15: error[invalid-type-form] Variable of type `_SpecialForm` is not allowed in a type expression
-typeforms_typeform.py:52:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:53:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
+typeforms_typeform.py:52:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:53:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
 typeforms_typeform.py:67:7: error[invalid-type-form] Variable of type `_SpecialForm` is not allowed in a type expression
 typeforms_typeform.py:68:7: error[invalid-type-form] Variable of type `_SpecialForm` is not allowed in a type expression
 typeforms_typeform.py:69:7: error[invalid-type-form] Variable of type `_SpecialForm` is not allowed in a type expression
@@ -61,14 +61,14 @@ typeforms_typeform.py:73:7: error[invalid-type-form] Variable of type `_SpecialF
 typeforms_typeform.py:74:7: error[invalid-type-form] Variable of type `_SpecialForm` is not allowed in a type expression
 typeforms_typeform.py:75:7: error[invalid-type-form] Variable of type `_SpecialForm` is not allowed in a type expression
 typeforms_typeform.py:80:6: error[call-non-callable] Object of type `_SpecialForm` is not callable
-typeforms_typeform.py:81:17: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
+typeforms_typeform.py:81:17: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
 typeforms_typeform.py:83:6: error[call-non-callable] Object of type `_SpecialForm` is not callable
-typeforms_typeform.py:84:17: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
+typeforms_typeform.py:84:17: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
 typeforms_typeform.py:86:6: error[call-non-callable] Object of type `_SpecialForm` is not callable
 typeforms_typeform.py:88:6: error[call-non-callable] Object of type `_SpecialForm` is not callable
-typeforms_typeform.py:93:24: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:97:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:98:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:107:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
-typeforms_typeform.py:108:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in type expression
+typeforms_typeform.py:93:24: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a return type annotation
+typeforms_typeform.py:97:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:98:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:107:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
+typeforms_typeform.py:108:5: error[invalid-type-form] Invalid subscript of object of type `_SpecialForm` in a type expression
 """

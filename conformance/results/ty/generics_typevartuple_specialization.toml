@@ -9,7 +9,6 @@ Line 45: Unexpected errors ["generics_typevartuple_specialization.py:45:40: erro
 Line 46: Unexpected errors ['generics_typevartuple_specialization.py:46:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, int | float, bool]`']
 Line 47: Unexpected errors ['generics_typevartuple_specialization.py:47:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `tuple[str, @Todo]`']
 Line 51: Unexpected errors ['generics_typevartuple_specialization.py:51:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int]`']
-Line 52: Unexpected errors ['generics_typevartuple_specialization.py:52:37: error[invalid-type-form] Tuple literals are not allowed in this context in a type expression: Did you mean `tuple[()]`?']
 Line 93: Unexpected errors ['generics_typevartuple_specialization.py:93:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int]`']
 Line 94: Unexpected errors ['generics_typevartuple_specialization.py:94:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int | float]`']
 Line 95: Unexpected errors ['generics_typevartuple_specialization.py:95:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[Any, *tuple[Any, ...]]`']
@@ -27,7 +26,6 @@ generics_typevartuple_specialization.py:45:40: error[not-subscriptable] Cannot s
 generics_typevartuple_specialization.py:46:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, int | float, bool]`
 generics_typevartuple_specialization.py:47:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `tuple[str, @Todo]`
 generics_typevartuple_specialization.py:51:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int]`
-generics_typevartuple_specialization.py:52:37: error[invalid-type-form] Tuple literals are not allowed in this context in a type expression: Did you mean `tuple[()]`?
 generics_typevartuple_specialization.py:93:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int]`
 generics_typevartuple_specialization.py:94:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int | float]`
 generics_typevartuple_specialization.py:95:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[Any, *tuple[Any, ...]]`

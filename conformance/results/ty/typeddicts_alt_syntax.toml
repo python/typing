@@ -9,8 +9,4 @@ typeddicts_alt_syntax.py:35:72: error[unknown-argument] Argument `other` does no
 typeddicts_alt_syntax.py:41:10: error[missing-argument] No argument provided for required parameter `fields` of function `TypedDict`
 typeddicts_alt_syntax.py:41:30: error[unknown-argument] Argument `name` does not match any known parameter of function `TypedDict`
 typeddicts_alt_syntax.py:41:40: error[unknown-argument] Argument `year` does not match any known parameter of function `TypedDict`
-typeddicts_alt_syntax.py:44:11: error[invalid-key] Unknown key "name" for TypedDict `Movie2`
-typeddicts_alt_syntax.py:44:35: error[invalid-key] Unknown key "year" for TypedDict `Movie2`
-typeddicts_alt_syntax.py:45:11: error[invalid-key] Unknown key "name" for TypedDict `Movie2`
-typeddicts_alt_syntax.py:45:35: error[invalid-key] Unknown key "year" for TypedDict `Movie2`
 """

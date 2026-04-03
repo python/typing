@@ -1,5 +1,6 @@
 conformance_automated = "Fail"
 errors_diff = """
+Line 76: Expected 1 errors
 Line 106: Expected 1 errors
 Line 111: Expected 1 errors
 Line 112: Expected 1 errors
@@ -7,13 +8,13 @@ Line 113: Expected 1 errors
 Line 117: Expected 1 errors
 Line 118: Expected 1 errors
 Line 119: Expected 1 errors
-Line 70: Unexpected errors ['./aliases_implicit.py:70:16:   Any[unannotated] is not equivalent to int | str | list[list[int]] | None']
+Line 135: Expected 1 errors
+Line 70: Unexpected errors ['./aliases_implicit.py:70:16:   Any[from_another] is not equivalent to int | str | list[list[int]] | None']
 Line 95: Unexpected errors ["./aliases_implicit.py:95:16: Cannot resolve subscripted annotation: <list containing [type 'int']> [invalid_annotation]"]
 Line 100: Unexpected errors ["./aliases_implicit.py:100:17: Annotated[type 'list', (<+list is_truthy None> == NullConstraint())] is always True because it does not provide __bool__ [type_always_true]"]
 """
 output = """
-./aliases_implicit.py:70:16:   Any[unannotated] is not equivalent to int | str | list[list[int]] | None
-./aliases_implicit.py:76:8: Unrecognized annotation object [invalid_annotation]
+./aliases_implicit.py:70:16:   Any[from_another] is not equivalent to int | str | list[list[int]] | None
 ./aliases_implicit.py:77:8: Unrecognized annotation types.GenericAlias [invalid_annotation]
 ./aliases_implicit.py:78:8: Expected 1 type arguments for type alias, got 2 [invalid_specialization]
 ./aliases_implicit.py:79:8: Expected 1 type arguments for type alias, got 2 [invalid_specialization]
@@ -29,5 +30,4 @@ output = """
 ./aliases_implicit.py:115:9: Invalid type annotation True [invalid_annotation]
 ./aliases_implicit.py:116:9: Invalid type annotation 1 [invalid_annotation]
 ./aliases_implicit.py:133:5: Cannot instantiate union [incompatible_call]
-./aliases_implicit.py:135:4: Unrecognized annotation object [invalid_annotation]
 """

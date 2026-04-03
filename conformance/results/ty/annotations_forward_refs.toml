@@ -14,22 +14,21 @@ annotations_forward_refs.py:22:7: error[unresolved-reference] Name `ClassA` used
 annotations_forward_refs.py:23:12: error[unresolved-reference] Name `ClassA` used when not defined
 annotations_forward_refs.py:24:7: error[unsupported-operator] Operator `|` is unsupported between objects of type `Literal["ClassA"]` and `<class 'int'>`
 annotations_forward_refs.py:25:7: error[unsupported-operator] Operator `|` is unsupported between objects of type `<class 'int'>` and `Literal["ClassA"]`
-annotations_forward_refs.py:41:10: error[invalid-type-form] Function calls are not allowed in type expressions
-annotations_forward_refs.py:42:10: error[invalid-type-form] List literals are not allowed in this context in a type expression: Did you mean `tuple[int, str]`?
-annotations_forward_refs.py:43:10: error[invalid-type-form] Tuple literals are not allowed in this context in a type expression: Did you mean `tuple[int, str]`?
-annotations_forward_refs.py:44:10: error[invalid-type-form] List comprehensions are not allowed in type expressions
-annotations_forward_refs.py:45:10: error[invalid-type-form] Dict literals are not allowed in type expressions
-annotations_forward_refs.py:46:10: error[invalid-type-form] Function calls are not allowed in type expressions
-annotations_forward_refs.py:47:10: error[invalid-type-form] Invalid subscript of object of type `list[<class 'int'>]` in type expression
-annotations_forward_refs.py:47:16: error[invalid-type-form] Int literals are not allowed in this context in a type expression
-annotations_forward_refs.py:48:10: error[invalid-type-form] `if` expressions are not allowed in type expressions
-annotations_forward_refs.py:49:10: error[invalid-type-form] Variable of type `Literal[1]` is not allowed in a type expression
-annotations_forward_refs.py:50:11: error[invalid-type-form] Boolean literals are not allowed in this context in a type expression
-annotations_forward_refs.py:51:11: error[invalid-type-form] Int literals are not allowed in this context in a type expression
-annotations_forward_refs.py:52:11: error[invalid-type-form] Unary operations are not allowed in type expressions
-annotations_forward_refs.py:53:11: error[invalid-type-form] Boolean operations are not allowed in type expressions
-annotations_forward_refs.py:54:11: error[fstring-type-annotation] Type expressions cannot use f-strings
-annotations_forward_refs.py:55:11: error[invalid-type-form] Module `types` is not valid in a type expression
+annotations_forward_refs.py:41:10: error[invalid-type-form] Function calls are not allowed in parameter annotations
+annotations_forward_refs.py:42:10: error[invalid-type-form] List literals are not allowed in this context in a parameter annotation
+annotations_forward_refs.py:43:10: error[invalid-type-form] Tuple literals are not allowed in this context in a parameter annotation: Did you mean `tuple[int, str]`?
+annotations_forward_refs.py:44:10: error[invalid-type-form] List comprehensions are not allowed in parameter annotations
+annotations_forward_refs.py:45:10: error[invalid-type-form] Dict literals are not allowed in parameter annotations
+annotations_forward_refs.py:46:10: error[invalid-type-form] Function calls are not allowed in parameter annotations
+annotations_forward_refs.py:47:10: error[invalid-type-form] Only simple names and dotted names can be subscripted in parameter annotations
+annotations_forward_refs.py:48:10: error[invalid-type-form] `if` expressions are not allowed in parameter annotations
+annotations_forward_refs.py:49:10: error[invalid-type-form] Variable of type `Literal[1]` is not allowed in a parameter annotation
+annotations_forward_refs.py:50:11: error[invalid-type-form] Boolean literals are not allowed in this context in a parameter annotation: Did you mean `typing.Literal[True]`?
+annotations_forward_refs.py:51:11: error[invalid-type-form] Int literals are not allowed in this context in a parameter annotation: Did you mean `typing.Literal[1]`?
+annotations_forward_refs.py:52:11: error[invalid-type-form] Unary operations are not allowed in parameter annotations
+annotations_forward_refs.py:53:11: error[invalid-type-form] Boolean operations are not allowed in parameter annotations
+annotations_forward_refs.py:54:11: error[invalid-type-form] F-strings are not allowed in parameter annotations
+annotations_forward_refs.py:55:11: error[invalid-type-form] Module `types` is not valid in a parameter annotation
 annotations_forward_refs.py:66:26: error[unresolved-reference] Name `ClassB` used when not defined
 annotations_forward_refs.py:80:14: error[unresolved-reference] Name `ClassF` used when not defined
 annotations_forward_refs.py:82:11: error[invalid-type-form] Variable of type `Literal[""]` is not allowed in a type expression

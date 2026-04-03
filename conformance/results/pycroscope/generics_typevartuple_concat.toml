@@ -1,7 +1,5 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 52: Unexpected errors ['./generics_typevartuple_concat.py:52:12:   tuple[Literal[0], bool, str] is not equivalent to tuple[int, bool, str]']
 """
 output = """
-./generics_typevartuple_concat.py:52:12:   tuple[Literal[0], bool, str] is not equivalent to tuple[int, bool, str]
 """

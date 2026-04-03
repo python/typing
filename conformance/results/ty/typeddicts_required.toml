@@ -3,7 +3,7 @@ errors_diff = """
 """
 output = """
 typeddicts_required.py:12:8: error[invalid-type-form] `Required` is only allowed in TypedDict fields
-typeddicts_required.py:16:5: error[invalid-type-form] `NotRequired` is not allowed in function parameter annotations
+typeddicts_required.py:16:8: error[invalid-type-form] Type qualifier `typing.NotRequired` is not allowed in parameter annotations
 typeddicts_required.py:59:8: error[invalid-type-form] `typing.Required` cannot be nested inside `Required` or `NotRequired`
 typeddicts_required.py:60:8: error[invalid-type-form] `typing.Required` cannot be nested inside `Required` or `NotRequired`
 """

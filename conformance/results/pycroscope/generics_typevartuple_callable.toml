@@ -1,12 +1,6 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 25: Unexpected errors ['./generics_typevartuple_callable.py:25:15: Incompatible argument type for target: expected (*tuple[int, str]) -> None but got (arg1: int, arg2: str) -> None [incompatible_argument]']
-Line 41: Unexpected errors ['./generics_typevartuple_callable.py:41:18: Incompatible argument type for f: expected (*tuple[int, str, int, complex | float | int]) -> tuple[complex | float | int, str, int] but got (a: int, b: str, c: int, d: complex | float | int) -> tuple[complex | float | int, str, int] [incompatible_argument]']
-Line 42: Unexpected errors ['./generics_typevartuple_callable.py:42:18: Incompatible argument type for f: expected (*tuple[int, str]) -> tuple[str] but got (a: int, d: str) -> tuple[str] [incompatible_argument]']
 """
 output = """
-./generics_typevartuple_callable.py:25:15: Incompatible argument type for target: expected (*tuple[int, str]) -> None but got (arg1: int, arg2: str) -> None [incompatible_argument]
-./generics_typevartuple_callable.py:26:15: Incompatible argument type for target: expected (*tuple[int | str, str | int]) -> None but got (arg1: int, arg2: str) -> None [incompatible_argument]
-./generics_typevartuple_callable.py:41:18: Incompatible argument type for f: expected (*tuple[int, str, int, complex | float | int]) -> tuple[complex | float | int, str, int] but got (a: int, b: str, c: int, d: complex | float | int) -> tuple[complex | float | int, str, int] [incompatible_argument]
-./generics_typevartuple_callable.py:42:18: Incompatible argument type for f: expected (*tuple[int, str]) -> tuple[str] but got (a: int, d: str) -> tuple[str] [incompatible_argument]
+./generics_typevartuple_callable.py:26:0: Cannot resolve type variables [incompatible_call]
 """

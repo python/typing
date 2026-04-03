@@ -1,5 +1,6 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 88: Expected 1 errors
 """
 output = """
 ./typeforms_typeform.py:23:0: Incompatible assignment: expected TypeForm[str | None], got Literal[str | int] [incompatible_assignment]
@@ -15,7 +16,6 @@ output = """
 ./typeforms_typeform.py:74:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[typing.Optional] [incompatible_assignment]
 ./typeforms_typeform.py:75:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal['int + str'] [incompatible_assignment]
 ./typeforms_typeform.py:86:5: Unrecognized annotation type [invalid_annotation]
-./typeforms_typeform.py:88:5: Unrecognized annotation type [invalid_annotation]
 ./typeforms_typeform.py:98:0: Incompatible assignment: expected TypeForm[str], got TypeForm[int] [incompatible_assignment]
 ./typeforms_typeform.py:108:0: Incompatible assignment: expected TypeForm[str], got type[int] [incompatible_assignment]
 """
