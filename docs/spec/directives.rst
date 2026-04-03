@@ -168,7 +168,7 @@ Type checkers should support the following comparison patterns:
     * ``sys.version_info < <2-tuple>``
 
 Comparisons checks are only supported against the first two elements of the version tuple. 
-Use of named attributes is not supported.
+Use of named attributes is not mandated.
 
 .. code-block:: python
    :caption: Example `sys.version_info`
@@ -235,7 +235,7 @@ Type checkers should support the following comparison patterns:
     * ``sys.implementation.version < <2-tuple>``
 
 Comparisons checks are only supported against the first two elements of the implementation version tuple.
-Use of named attributes is not supported.
+Use of named attributes is not mandated.
 
 .. code-block:: python
    :caption: Example `sys.implementation.version`
@@ -257,7 +257,7 @@ No support for complex expressions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Type checkers are only required to support the above patterns, and are not required to evaluate complex expressions involving these variables.
-For example, the pattern ``sys.platform == "linux"`` is supported but other syntax variants such as ``platform == "linux"`` and ``"win" not in sys.platform`` are not supported.
+For example, the pattern ``sys.platform == "linux"`` is supported but other syntax variants such as ``platform == "linux"`` and ``"win" not in sys.platform`` are not mandated.
 
 Therefore checkers are **not required** to understand obfuscations such as:
 
