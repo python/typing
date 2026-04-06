@@ -9,6 +9,7 @@ literals_literalstring.py:65:25: error[invalid-assignment] Object of type `str` 
 literals_literalstring.py:73:25: error[invalid-assignment] Object of type `Literal[3]` is not assignable to `LiteralString`
 literals_literalstring.py:74:25: error[invalid-assignment] Object of type `Literal[b"test"]` is not assignable to `LiteralString`
 literals_literalstring.py:119:22: error[invalid-argument-type] Argument to function `literal_identity` is incorrect: Argument type `str` does not satisfy upper bound `LiteralString` of type variable `TLiteral`
+literals_literalstring.py:133:41: error[invalid-assignment] Object of type `Container[T@Container]` is not assignable to `Container[LiteralString]`
 literals_literalstring.py:133:51: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Argument type `str` does not satisfy upper bound `LiteralString` of type variable `T`
 literals_literalstring.py:133:51: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `LiteralString`, found `str`
 literals_literalstring.py:171:21: error[invalid-assignment] Object of type `list[LiteralString]` is not assignable to `list[str]`

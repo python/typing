@@ -3,18 +3,13 @@ conformant = "Partial"
 notes = """
 Does not reject invalid argument types to an inherited constructor in a specialized subclass of a generic superclass.
 Does not reject class-scoped type variables used in the `self` annotation.
-Does not support inferring type variables for generic classes where the `__init__` method uses method-scoped type variables.
 """
 errors_diff = """
 Line 42: Expected 1 errors
 Line 107: Expected 1 errors
-Line 91: Unexpected errors ['constructors_call_init.py:91:1: error[type-assertion-failure] Type `Class6[Unknown, Unknown]` does not match asserted type `Class6[int, str]`']
-Line 99: Unexpected errors ['constructors_call_init.py:99:1: error[type-assertion-failure] Type `Class7[Unknown, Unknown]` does not match asserted type `Class7[str, int]`']
 """
 output = """
 constructors_call_init.py:21:13: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `int`, found `float`
 constructors_call_init.py:56:1: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `Class4[int]`, found `Class4[str]`
-constructors_call_init.py:91:1: error[type-assertion-failure] Type `Class6[Unknown, Unknown]` does not match asserted type `Class6[int, str]`
-constructors_call_init.py:99:1: error[type-assertion-failure] Type `Class7[Unknown, Unknown]` does not match asserted type `Class7[str, int]`
 constructors_call_init.py:130:9: error[too-many-positional-arguments] Too many positional arguments to bound method `__init__`: expected 1, got 2
 """
