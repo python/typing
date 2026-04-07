@@ -85,6 +85,10 @@ Type Checkers
 * `ty <https://docs.astral.sh/ty/>`_
 * `Zuban <https://docs.zubanls.com/en/latest/>`_
 
+The extent to which these adhere to the specification is monitored by a
+`conformance test suite <https://github.com/python/typing/tree/main/conformance>`_
+(`results <https://htmlpreview.github.io/?https://github.com/python/typing/blob/main/conformance/results/results.html>`_).
+
 Development Environments
 ------------------------
 
