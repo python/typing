@@ -1,0 +1,24 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 34: Expected 1 errors
+Line 45: Expected 1 errors
+Line 15: Unexpected errors ['generics_typevartuple_variance.py:15: error: Incompatible types in assignment (expression has type "ContravariantTypeVarTuple[object]", variable has type "ContravariantTypeVarTuple[int]")  [assignment]']
+Line 24: Unexpected errors ['generics_typevartuple_variance.py:24: error: Incompatible types in assignment (expression has type "CovariantTypeVarTuple[int]", variable has type "CovariantTypeVarTuple[object]")  [assignment]']
+Line 27: Unexpected errors ['generics_typevartuple_variance.py:27: error: Unexpected keyword argument "contravariant" for "TypeVarTuple"  [call-arg]']
+Line 39: Unexpected errors ['generics_typevartuple_variance.py:39: error: Incompatible types in assignment (expression has type "ContravariantTypeVarTupleOld[object]", variable has type "ContravariantTypeVarTupleOld[int]")  [assignment]']
+Line 41: Unexpected errors ['generics_typevartuple_variance.py:41: error: Unexpected keyword argument "covariant" for "TypeVarTuple"  [call-arg]']
+Line 53: Unexpected errors ['generics_typevartuple_variance.py:53: error: Incompatible types in assignment (expression has type "CovariantTypeVarTupleOld[int]", variable has type "CovariantTypeVarTupleOld[object]")  [assignment]']
+"""
+output = """
+generics_typevartuple_variance.py:14: error: Incompatible types in assignment (expression has type "ContravariantTypeVarTuple[int]", variable has type "ContravariantTypeVarTuple[object]")  [assignment]
+generics_typevartuple_variance.py:15: error: Incompatible types in assignment (expression has type "ContravariantTypeVarTuple[object]", variable has type "ContravariantTypeVarTuple[int]")  [assignment]
+generics_typevartuple_variance.py:23: error: Incompatible types in assignment (expression has type "CovariantTypeVarTuple[object]", variable has type "CovariantTypeVarTuple[int]")  [assignment]
+generics_typevartuple_variance.py:24: error: Incompatible types in assignment (expression has type "CovariantTypeVarTuple[int]", variable has type "CovariantTypeVarTuple[object]")  [assignment]
+generics_typevartuple_variance.py:27: error: Unexpected keyword argument "contravariant" for "TypeVarTuple"  [call-arg]
+generics_typevartuple_variance.py:38: error: Incompatible types in assignment (expression has type "ContravariantTypeVarTupleOld[int]", variable has type "ContravariantTypeVarTupleOld[object]")  [assignment]
+generics_typevartuple_variance.py:39: error: Incompatible types in assignment (expression has type "ContravariantTypeVarTupleOld[object]", variable has type "ContravariantTypeVarTupleOld[int]")  [assignment]
+generics_typevartuple_variance.py:41: error: Unexpected keyword argument "covariant" for "TypeVarTuple"  [call-arg]
+generics_typevartuple_variance.py:52: error: Incompatible types in assignment (expression has type "CovariantTypeVarTupleOld[object]", variable has type "CovariantTypeVarTupleOld[int]")  [assignment]
+generics_typevartuple_variance.py:53: error: Incompatible types in assignment (expression has type "CovariantTypeVarTupleOld[int]", variable has type "CovariantTypeVarTupleOld[object]")  [assignment]
+"""

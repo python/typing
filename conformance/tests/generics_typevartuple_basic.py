@@ -60,9 +60,8 @@ class ClassA(Generic[Shape]):  # E: not unpacked
         ...
 
 
-# > TypeVarTuple does not yet support specification of variance, bounds, constraints.
+# > TypeVarTuple does not yet support specification of bounds, constraints.
 
-Ts1 = TypeVarTuple("Ts1", covariant=True)  # E
 Ts2 = TypeVarTuple("Ts2", int, float)  # E
 Ts3 = TypeVarTuple("Ts3", bound=int)  # E
 
