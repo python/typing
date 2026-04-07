@@ -114,9 +114,11 @@ The two main rules for defining a final name are:
   a given attribute. There can't be separate class-level and instance-level
   constants with the same name.
 
-* There must be *exactly one* assignment to a final name.
+* A final name must never be *reassigned*. There may be multiple
+  assignments to a final name, as long as only one can
+  be reached at runtime (e.g. in an ``if``/``else``` branch)
 
-This means a type checker should prevent further assignments to final
+This means a type checker should prevent reassignments to final
 names in type-checked code::
 
    from typing import Final
@@ -128,6 +130,15 @@ names in type-checked code::
 
    RATE = 300  # Error: can't assign to final attribute
    Base.DEFAULT_ID = 1  # Error: can't override a final attribute
+
+A single assignment in exhaustive branches is not a reassignment::
+
+    x: Final[int | str]
+
+    if random_bool():
+        x = 1
+    else:
+        x = 2  # Okay: assignment is exhaustive and is not reassigned
 
 Note that a type checker need not allow ``Final`` declarations inside loops
 since the runtime will see multiple assignments to the same variable in
