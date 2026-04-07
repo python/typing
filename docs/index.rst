@@ -57,6 +57,15 @@ Specification
 
    spec/index
 
+
+Typing PEPs
+-----------
+
+Significant changes to the Python Type System Specification are proposed and
+discussed in Python Enhancement Proposals (PEPs). See
+https://peps.python.org/topic/typing for a list of all current and historical
+typing-related PEPs.
+
 Indices and tables
 ==================
 
@@ -120,8 +129,3 @@ Type-Hint and Stub Integration
   a thin wrapper around ``ApplyTypeAnnotationsVisitor`` from
   `libCST <https://libcst.readthedocs.io/en/latest/>`_ that integrates .pyi
   signatures as inline type-hints in Python source code.
-
-Typing PEPs
-===========
-
-See https://peps.python.org/topic/typing for a list of all typing-related PEPs.
