@@ -1,0 +1,40 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 34: Expected 1 errors
+Line 45: Expected 1 errors
+Line 15: Unexpected errors ['generics_typevartuple_variance.py:15:42 - error: Type "ContravariantTypeVarTuple[object]" is not assignable to declared type "ContravariantTypeVarTuple[int]"']
+Line 24: Unexpected errors ['generics_typevartuple_variance.py:24:42 - error: Type "CovariantTypeVarTuple[int]" is not assignable to declared type "CovariantTypeVarTuple[object]"']
+Line 27: Unexpected errors ['generics_typevartuple_variance.py:27:29 - error: "contravariant" is unknown parameter to TypeVarTuple (reportGeneralTypeIssues)']
+Line 39: Unexpected errors ['generics_typevartuple_variance.py:39:49 - error: Type "ContravariantTypeVarTupleOld[object]" is not assignable to declared type "ContravariantTypeVarTupleOld[int]"']
+Line 41: Unexpected errors ['generics_typevartuple_variance.py:41:31 - error: "covariant" is unknown parameter to TypeVarTuple (reportGeneralTypeIssues)']
+Line 53: Unexpected errors ['generics_typevartuple_variance.py:53:49 - error: Type "CovariantTypeVarTupleOld[int]" is not assignable to declared type "CovariantTypeVarTupleOld[object]"']
+"""
+output = """
+generics_typevartuple_variance.py:14:45 - error: Type "ContravariantTypeVarTuple[int]" is not assignable to declared type "ContravariantTypeVarTuple[object]"
+  "ContravariantTypeVarTuple[int]" is not assignable to "ContravariantTypeVarTuple[object]"
+    Type parameter "InTs@ContravariantTypeVarTuple" is invariant, but "*tuple[int]" is not the same as "*tuple[object]" (reportAssignmentType)
+generics_typevartuple_variance.py:15:42 - error: Type "ContravariantTypeVarTuple[object]" is not assignable to declared type "ContravariantTypeVarTuple[int]"
+  "ContravariantTypeVarTuple[object]" is not assignable to "ContravariantTypeVarTuple[int]"
+    Type parameter "InTs@ContravariantTypeVarTuple" is invariant, but "*tuple[object]" is not the same as "*tuple[int]" (reportAssignmentType)
+generics_typevartuple_variance.py:23:39 - error: Type "CovariantTypeVarTuple[object]" is not assignable to declared type "CovariantTypeVarTuple[int]"
+  "CovariantTypeVarTuple[object]" is not assignable to "CovariantTypeVarTuple[int]"
+    Type parameter "OutTs@CovariantTypeVarTuple" is invariant, but "*tuple[object]" is not the same as "*tuple[int]" (reportAssignmentType)
+generics_typevartuple_variance.py:24:42 - error: Type "CovariantTypeVarTuple[int]" is not assignable to declared type "CovariantTypeVarTuple[object]"
+  "CovariantTypeVarTuple[int]" is not assignable to "CovariantTypeVarTuple[object]"
+    Type parameter "OutTs@CovariantTypeVarTuple" is invariant, but "*tuple[int]" is not the same as "*tuple[object]" (reportAssignmentType)
+generics_typevartuple_variance.py:27:29 - error: "contravariant" is unknown parameter to TypeVarTuple (reportGeneralTypeIssues)
+generics_typevartuple_variance.py:38:52 - error: Type "ContravariantTypeVarTupleOld[int]" is not assignable to declared type "ContravariantTypeVarTupleOld[object]"
+  "ContravariantTypeVarTupleOld[int]" is not assignable to "ContravariantTypeVarTupleOld[object]"
+    Type parameter "InTs@ContravariantTypeVarTupleOld" is invariant, but "*tuple[int]" is not the same as "*tuple[object]" (reportAssignmentType)
+generics_typevartuple_variance.py:39:49 - error: Type "ContravariantTypeVarTupleOld[object]" is not assignable to declared type "ContravariantTypeVarTupleOld[int]"
+  "ContravariantTypeVarTupleOld[object]" is not assignable to "ContravariantTypeVarTupleOld[int]"
+    Type parameter "InTs@ContravariantTypeVarTupleOld" is invariant, but "*tuple[object]" is not the same as "*tuple[int]" (reportAssignmentType)
+generics_typevartuple_variance.py:41:31 - error: "covariant" is unknown parameter to TypeVarTuple (reportGeneralTypeIssues)
+generics_typevartuple_variance.py:52:46 - error: Type "CovariantTypeVarTupleOld[object]" is not assignable to declared type "CovariantTypeVarTupleOld[int]"
+  "CovariantTypeVarTupleOld[object]" is not assignable to "CovariantTypeVarTupleOld[int]"
+    Type parameter "OutTs@CovariantTypeVarTupleOld" is invariant, but "*tuple[object]" is not the same as "*tuple[int]" (reportAssignmentType)
+generics_typevartuple_variance.py:53:49 - error: Type "CovariantTypeVarTupleOld[int]" is not assignable to declared type "CovariantTypeVarTupleOld[object]"
+  "CovariantTypeVarTupleOld[int]" is not assignable to "CovariantTypeVarTupleOld[object]"
+    Type parameter "OutTs@CovariantTypeVarTupleOld" is invariant, but "*tuple[int]" is not the same as "*tuple[object]" (reportAssignmentType)
+"""
