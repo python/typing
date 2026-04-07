@@ -453,7 +453,7 @@ a function within a type expression. The syntax is
 
 Parameters specified using ``Callable`` are assumed to be positional-only.
 The ``Callable`` form provides no way to specify keyword-only parameters,
-or default argument values. For these use cases, see the section on 
+or default argument values. For these use cases, see the section on
 `Callback protocols`_.
 
 Meaning of ``...`` in ``Callable``
@@ -581,6 +581,24 @@ signature of ``B`` accepts all possible combinations of arguments that the
 input signature of ``A`` accepts. All of the specific assignability rules
 described below derive from this general rule.
 
+Parameter Mapping Consistency
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For a callable type ``B`` to be :term:`assignable` to a callable type ``A``,
+the mapping between parameters in ``A`` and ``B`` should be
+consistent across all valid call signatures.
+
+In particular, each argument accepted by ``A`` should correspond
+to a single, well-defined parameter in ``B``, regardless of whether
+arguments are passed positionally or by keyword.
+
+If the correspondence between parameters in ``A`` and ``B`` varies depending
+on how arguments are provided, then the callable types are not considered
+assignable.
+
+For example, if different valid call patterns for ``A`` result in arguments
+being mapped to different parameters in ``B``, this constitutes a
+non-constant parameter mapping and is not assignable.
 
 Parameter types
 ^^^^^^^^^^^^^^^
