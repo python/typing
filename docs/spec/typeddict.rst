@@ -266,7 +266,15 @@ The TypedDict constructor
 
 TypedDict types are callable at runtime and can be used as a constructor
 to create values that conform to the TypedDict type. The constructor
-takes only keyword arguments, corresponding to the items of the TypedDict.
+primarily takes keyword arguments, corresponding to the items of the TypedDict.
+
+Additionally, type checkers may allow a call with a single positional argument
+whose type is a TypedDict. In this case, the resulting value is initialized from
+that argument.
+
+Other forms of positional arguments (such as arbitrary mappings or sequences)
+should not be accepted by type checkers.
+
 Example::
 
     m = Movie(name='Blade Runner', year=1982)
