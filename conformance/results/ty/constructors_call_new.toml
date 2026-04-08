@@ -1,24 +1,7 @@
-conformance_automated = "Fail"
-conformant = "Unsupported"
+conformance_automated = "Pass"
 errors_diff = """
-Line 49: Unexpected errors ['constructors_call_new.py:49:1: error[type-assertion-failure] Type `Class3` does not match asserted type `int`', 'constructors_call_new.py:49:13: error[missing-argument] No argument provided for required parameter `x` of bound method `__init__`']
-Line 64: Unexpected errors ['constructors_call_new.py:64:1: error[type-assertion-failure] Type `Class4` does not match asserted type `Class4 | Any`', 'constructors_call_new.py:64:13: error[missing-argument] No argument provided for required parameter `x` of bound method `__init__`']
-Line 76: Unexpected errors ['constructors_call_new.py:76:5: error[type-assertion-failure] Type `Class5` does not match asserted type `Never`', 'constructors_call_new.py:76:17: error[missing-argument] No argument provided for required parameter `x` of bound method `__init__`']
-Line 89: Unexpected errors ['constructors_call_new.py:89:1: error[type-assertion-failure] Type `Class6` does not match asserted type `int | Class6`', 'constructors_call_new.py:89:13: error[missing-argument] No argument provided for required parameter `x` of bound method `__init__`']
-Line 117: Unexpected errors ['constructors_call_new.py:117:1: error[type-assertion-failure] Type `Class8[int]` does not match asserted type `Class8[list[int]]`']
-Line 118: Unexpected errors ['constructors_call_new.py:118:1: error[type-assertion-failure] Type `Class8[str]` does not match asserted type `Class8[list[str]]`']
 """
 output = """
 constructors_call_new.py:21:13: error[invalid-argument-type] Argument to function `__new__` is incorrect: Expected `int`, found `float`
-constructors_call_new.py:49:1: error[type-assertion-failure] Type `Class3` does not match asserted type `int`
-constructors_call_new.py:49:13: error[missing-argument] No argument provided for required parameter `x` of bound method `__init__`
-constructors_call_new.py:64:1: error[type-assertion-failure] Type `Class4` does not match asserted type `Class4 | Any`
-constructors_call_new.py:64:13: error[missing-argument] No argument provided for required parameter `x` of bound method `__init__`
-constructors_call_new.py:76:5: error[type-assertion-failure] Type `Class5` does not match asserted type `Never`
-constructors_call_new.py:76:17: error[missing-argument] No argument provided for required parameter `x` of bound method `__init__`
-constructors_call_new.py:89:1: error[type-assertion-failure] Type `Class6` does not match asserted type `int | Class6`
-constructors_call_new.py:89:13: error[missing-argument] No argument provided for required parameter `x` of bound method `__init__`
-constructors_call_new.py:117:1: error[type-assertion-failure] Type `Class8[int]` does not match asserted type `Class8[list[int]]`
-constructors_call_new.py:118:1: error[type-assertion-failure] Type `Class8[str]` does not match asserted type `Class8[list[str]]`
 constructors_call_new.py:148:1: error[invalid-argument-type] Argument to function `__new__` is incorrect: Expected `type[Class11[int]]`, found `<class 'Class11[str]'>`
 """

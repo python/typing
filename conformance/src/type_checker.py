@@ -98,6 +98,7 @@ class MypyTypeChecker(TypeChecker):
             ".",
             "--enable-error-code",
             "deprecated",
+            "--enable-incomplete-feature=TypeForm",
         ]
         proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
         lines = proc.stdout.split("\n")
@@ -325,7 +326,7 @@ class PyreflyTypeChecker(TypeChecker):
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         proc = run(
-            ["pyrefly", "check", "--output-format", "min-text", "--summary=none"],
+            ["pyrefly", "check", "--output-format", "min-text", "--summary=none", "--min-severity=warn"],
             stdout=PIPE,
             text=True,
             encoding="utf-8",

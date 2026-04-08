@@ -1,30 +1,30 @@
 conformance_automated = "Fail"
 conformant = "Partial"
-notes = "`Concatenate` in type aliases is currently unsupported"
+notes = """
+Does not emit a diagnostic if a type alias to a union, in which every element of the union is implicitly specialized with `Unknown`, is invalidly specialized again.
+"""
 errors_diff = """
-Line 87: Expected 1 errors
 Line 100: Expected 1 errors
-Line 57: Unexpected errors ['aliases_explicit.py:57:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `(int, str, str, /) -> None`']
 """
 output = """
-aliases_explicit.py:57:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `(int, str, str, /) -> None`
 aliases_explicit.py:67:9: error[not-subscriptable] Cannot subscript non-generic type `<types.UnionType special-form 'int | None'>`
 aliases_explicit.py:68:9: error[not-subscriptable] Cannot subscript non-generic type `<class 'list[int | None]'>`
 aliases_explicit.py:69:29: error[invalid-type-arguments] Too many type arguments: expected 1, got 2
 aliases_explicit.py:70:29: error[invalid-type-arguments] Too many type arguments: expected 1, got 2
 aliases_explicit.py:71:24: error[invalid-type-arguments] Type argument for `ParamSpec` must be either a list of types, `ParamSpec`, `Concatenate`, or `...`
-aliases_explicit.py:79:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
-aliases_explicit.py:80:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
-aliases_explicit.py:81:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
-aliases_explicit.py:82:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
-aliases_explicit.py:83:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
-aliases_explicit.py:84:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
-aliases_explicit.py:85:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
-aliases_explicit.py:86:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
-aliases_explicit.py:88:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
-aliases_explicit.py:89:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
-aliases_explicit.py:90:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
-aliases_explicit.py:91:1: error[invalid-type-form] Invalid right-hand side for `typing.TypeAlias` assignment
+aliases_explicit.py:79:21: error[invalid-type-form] Function calls are not allowed in type alias values
+aliases_explicit.py:80:21: error[invalid-type-form] List literals are not allowed in this context in a type alias value
+aliases_explicit.py:81:21: error[invalid-type-form] Tuple literals are not allowed in this context in a type alias value
+aliases_explicit.py:82:21: error[invalid-type-form] List comprehensions are not allowed in type alias values
+aliases_explicit.py:83:21: error[invalid-type-form] Dict literals are not allowed in type alias values
+aliases_explicit.py:84:21: error[invalid-type-form] Function calls are not allowed in type alias values
+aliases_explicit.py:85:21: error[invalid-type-form] Only simple names and dotted names can be subscripted in type alias values
+aliases_explicit.py:86:21: error[invalid-type-form] `if` expressions are not allowed in type alias values
+aliases_explicit.py:87:21: error[invalid-type-form] Variable of type `Literal[3]` is not allowed in a type alias value
+aliases_explicit.py:88:22: error[invalid-type-form] Boolean literals are not allowed in this context in a type alias value: Did you mean `typing.Literal[True]`?
+aliases_explicit.py:89:22: error[invalid-type-form] Int literals are not allowed in this context in a type alias value: Did you mean `typing.Literal[1]`?
+aliases_explicit.py:90:22: error[invalid-type-form] Boolean operations are not allowed in type alias values
+aliases_explicit.py:91:22: error[invalid-type-form] F-strings are not allowed in type alias values
 aliases_explicit.py:101:6: error[call-non-callable] Object of type `UnionType` is not callable
 aliases_explicit.py:102:5: error[not-subscriptable] Cannot subscript non-generic type `<types.UnionType special-form 'list[Unknown] | set[Unknown]'>`
 """

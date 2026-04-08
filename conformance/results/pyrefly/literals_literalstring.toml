@@ -1,3 +1,4 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
@@ -10,5 +11,5 @@ ERROR literals_literalstring.py:73:25-26: `Literal[3]` is not assignable to `Lit
 ERROR literals_literalstring.py:74:25-32: `Literal[b'test']` is not assignable to `LiteralString` [bad-assignment]
 ERROR literals_literalstring.py:119:21-24: `str` is not assignable to upper bound `LiteralString` of type variable `TLiteral` [bad-specialization]
 ERROR literals_literalstring.py:133:51-52: Argument `str` is not assignable to parameter `value` with type `LiteralString` in function `Container.__init__` [bad-argument-type]
-ERROR literals_literalstring.py:170:21-24: `list[LiteralString]` is not assignable to `list[str]` [bad-assignment]
+ERROR literals_literalstring.py:171:21-24: `list[LiteralString]` is not assignable to `list[str]` [bad-assignment]
 """
