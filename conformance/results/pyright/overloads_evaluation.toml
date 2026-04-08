@@ -1,10 +1,12 @@
 conformant = "Partial"
 notes = """
 Does not evaluate Any in some cases where overload is ambiguous.
+Picks first overload instead of most general return type in some cases where overload is ambiguous.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 281: Unexpected errors ['overloads_evaluation.py:281:17 - error: "assert_type" mismatch: expected "Any" but received "list[int]" (reportAssertTypeFailure)']
+Line 284: Unexpected errors ['overloads_evaluation.py:284:17 - error: "assert_type" mismatch: expected "Any" but received "list[int]" (reportAssertTypeFailure)']
+Line 398: Unexpected errors ['overloads_evaluation.py:398:17 - error: "assert_type" mismatch: expected "A[Any]" but received "A[None]" (reportAssertTypeFailure)']
 """
 output = """
 overloads_evaluation.py:38:1 - error: No overloads for "example1_1" match the provided arguments
@@ -20,5 +22,7 @@ overloads_evaluation.py:116:14 - error: Argument of type "int | str" cannot be a
 overloads_evaluation.py:116:17 - error: Argument of type "int | str" cannot be assigned to parameter "y" of type "int" in function "example2"
   Type "int | str" is not assignable to type "int"
     "str" is not assignable to "int" (reportArgumentType)
-overloads_evaluation.py:281:17 - error: "assert_type" mismatch: expected "Any" but received "list[int]" (reportAssertTypeFailure)
+overloads_evaluation.py:284:17 - error: "assert_type" mismatch: expected "Any" but received "list[int]" (reportAssertTypeFailure)
+overloads_evaluation.py:354:5 - error: Overload 1 for "example8" overlaps overload 2 and returns an incompatible type (reportOverlappingOverload)
+overloads_evaluation.py:398:17 - error: "assert_type" mismatch: expected "A[Any]" but received "A[None]" (reportAssertTypeFailure)
 """

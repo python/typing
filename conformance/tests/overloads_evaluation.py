@@ -235,10 +235,13 @@ def check_variadic(v: list[int]) -> None:
     assert_type(ret1, int)
 
 
-# > Step 5: For all arguments, determine whether all possible
-# > :term:`materializations <materialize>` of the argument's type are assignable to
-# > the corresponding parameter type for each of the remaining overloads. If so,
-# > eliminate all of the subsequent remaining overloads.
+# > Step 5: For each of the remaining overloads, determine whether all
+# > arguments satisfy at least one of the following conditions:
+# > - All possible :term:`materializations <materialize>` of the argument's type are
+# >   assignable to the corresponding parameter type, or
+# > - The parameter types corresponding to this argument in all of the remaining overloads
+# >   are :term:`equivalent`.
+# > If so, eliminate all of the subsequent remaining overloads.
 
 
 @overload
@@ -345,3 +348,51 @@ def check_example7(v1: list[Any], v2: Any) -> None:
 
     ret3 = example7(v1, v2)
     assert_type(ret3, Any)
+
+
+@overload
+def example8(x: str, y: Literal['o1']) -> str: ...  # E? some type checkers report unsafe overlap between example8's overloads
+
+
+@overload
+def example8(x: str, y: str) -> int: ...
+
+
+def example8(x: str, y: str) -> str | int:
+    return x if y == 'o1' else 0
+
+
+def check_example8(x: Any):
+    # The parameter type corresponding to argument `x` is `str` in both
+    # overloads, and all materializations of argument `y`'s type of
+    # `Literal['o1']` match the first overload, so the second overload can be
+    # eliminated.
+    ret = example8(x, 'o1')
+    assert_type(ret, str)
+
+
+class A[T]:
+    x: T
+
+    def f(self) -> T:
+        return self.x
+
+
+@overload
+def example9(x: A[None]) -> A[None]: ...
+
+
+@overload
+def example9(x: A[Any]) -> A[Any]: ...
+
+
+def example9(x: A[Any]) -> A[Any]:
+    return x
+
+
+def check_example9(x: Any):
+    # Steps 5 eliminates the first overload because there exists a
+    # materialization of `A[Any]` that is not assignable to `A[None]`. Step 6
+    # picks the second overload.
+    ret = example9(x)
+    assert_type(ret, A[Any])

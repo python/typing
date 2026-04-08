@@ -14,10 +14,10 @@ Line 161: Unexpected errors ['overloads_evaluation.py:161: error: No overload va
 Line 162: Unexpected errors ['overloads_evaluation.py:162: error: Expression is of type "Any", not "Literal[0, 1]"  [assert-type]']
 Line 205: Unexpected errors ['overloads_evaluation.py:205: error: Argument 1 to "expand_tuple" has incompatible type "tuple[int, int | str]"; expected "tuple[int, int]"  [arg-type]']
 Line 206: Unexpected errors ['overloads_evaluation.py:206: error: Expression is of type "int", not "int | str"  [assert-type]']
-Line 265: Unexpected errors ['overloads_evaluation.py:265: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
-Line 281: Unexpected errors ['overloads_evaluation.py:281: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
-Line 303: Unexpected errors ['overloads_evaluation.py:303: error: Expression is of type "Any", not "float"  [assert-type]']
-Line 347: Unexpected errors ['overloads_evaluation.py:347: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
+Line 268: Unexpected errors ['overloads_evaluation.py:268: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
+Line 284: Unexpected errors ['overloads_evaluation.py:284: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
+Line 306: Unexpected errors ['overloads_evaluation.py:306: error: Expression is of type "Any", not "float"  [assert-type]']
+Line 350: Unexpected errors ['overloads_evaluation.py:350: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
 """
 output = """
 overloads_evaluation.py:38: error: All overload variants of "example1_1" require at least one argument  [call-overload]
@@ -46,8 +46,8 @@ overloads_evaluation.py:161: note:     def expand_enum(x: Literal[Color.BLUE]) -
 overloads_evaluation.py:162: error: Expression is of type "Any", not "Literal[0, 1]"  [assert-type]
 overloads_evaluation.py:205: error: Argument 1 to "expand_tuple" has incompatible type "tuple[int, int | str]"; expected "tuple[int, int]"  [arg-type]
 overloads_evaluation.py:206: error: Expression is of type "int", not "int | str"  [assert-type]
-overloads_evaluation.py:265: error: Expression is of type "list[Any]", not "Any"  [assert-type]
-overloads_evaluation.py:281: error: Expression is of type "list[Any]", not "Any"  [assert-type]
-overloads_evaluation.py:303: error: Expression is of type "Any", not "float"  [assert-type]
-overloads_evaluation.py:347: error: Expression is of type "list[Any]", not "Any"  [assert-type]
+overloads_evaluation.py:268: error: Expression is of type "list[Any]", not "Any"  [assert-type]
+overloads_evaluation.py:284: error: Expression is of type "list[Any]", not "Any"  [assert-type]
+overloads_evaluation.py:306: error: Expression is of type "Any", not "float"  [assert-type]
+overloads_evaluation.py:350: error: Expression is of type "list[Any]", not "Any"  [assert-type]
 """

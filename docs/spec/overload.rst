@@ -268,39 +268,61 @@ If so, eliminate overloads that do not have a variadic parameter.
 Step 5
 ~~~~~~
 
-For all arguments, determine whether all possible
-:term:`materializations <materialize>` of the argument's type are assignable to
-the corresponding parameter type for each of the remaining overloads. If so,
-eliminate all of the subsequent remaining overloads.
+For each of the remaining overloads, determine whether all arguments satisfy at
+least one of the following conditions:
 
-Consider the following example::
+- All possible :term:`materializations <materialize>` of the argument's type are
+  assignable to the corresponding parameter type, or
+- The parameter types corresponding to this argument in all of the remaining overloads
+  are :term:`equivalent`.
+
+If so, eliminate all of the subsequent remaining overloads.
+
+Consider the following examples::
 
   @overload
-  def example(x: list[int]) -> int: ...
+  def example1(x: list[int]) -> int: ...
   @overload
-  def example(x: list[Any]) -> str: ...
+  def example1(x: list[Any]) -> str: ...
   @overload
-  def example(x: Any) -> Any: ...
+  def example1(x: Any) -> Any: ...
 
   def test(a: list[Any]):
       # All materializations of list[Any] will match either the first or
       # second overload, so the third overload can be eliminated.
-      example(a)
+      example1(a)
+
+and::
+
+  @overload
+  def example2(x: str, y: Literal['o1']) -> str: ...
+  @overload
+  def example2(x: str, y: str) -> int: ...
+
+  def test(x: Any):
+      # The parameter type corresponding to argument `x` is `str` in both
+      # overloads, and all materializations of argument `y`'s type of
+      # `Literal['o1']` match the first overload, so the second overload can be
+      # eliminated.
+      example2(x, 'o1')
 
 This rule eliminates overloads that will never be chosen even if the
 caller eliminates types that include ``Any``.
 
-If the call involves more than one argument, all possible materializations of
-every argument type must be assignable to its corresponding parameter type.
-If this condition exists, all subsequent remaining overloads should be eliminated.
+If the call involves more than one argument, every argument must satisfy one of
+the above conditions.
 
 Once this filtering process is applied for all arguments, examine the return
 types of the remaining overloads. If these return types include type variables,
-they should be replaced with their solved types. If the resulting return types
-for all remaining overloads are :term:`equivalent`, proceed to step 6.
+they should be replaced with their solved types. Eliminate every overload for
+which there exists a :term:`materialization <materialize>` of another
+overload's return type that is not assignable to this overload's return type.
 
-If the return types are not equivalent, overload matching is ambiguous. In
-this case, assume a return type of ``Any`` and stop.
+This rule picks the most general return type, if one exists.
+
+- If no candidate overloads remain, overload matching is ambiguous. In this
+  case, assume a return type of ``Any`` and stop.
+- If one or more candidate overloads remain, proceed to step 6.
 
 Step 6
 ~~~~~~
@@ -396,6 +418,24 @@ Example 4::
       # the return types are inconsistent.
       r2 = example4(v2, 1)
       reveal_type(r2)  # Should reveal Any
+
+Example 5::
+
+  class A[T]:
+      x: T
+      def f(self) -> T:
+          return self.x
+
+  @overload
+  def example5(x: A[None]) -> A[None]: ...
+  @overload
+  def example5(x: A[Any]) -> A[Any]: ...
+
+  def test(x: Any):
+      # Steps 5 eliminates the first overload because there exists a
+      # materialization of `A[Any]` that is not assignable to `A[None]`. Step 6
+      # picks the second overload.
+      reveal_type(example5(x))  # Should reveal `A[Any]`
 
 
 .. _argument-type-expansion:
