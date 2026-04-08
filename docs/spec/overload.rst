@@ -268,15 +268,15 @@ If so, eliminate overloads that do not have a variadic parameter.
 Step 5
 ~~~~~~
 
-For each of the remaining overloads, determine whether all arguments satisfy at
+For each of the candidate overloads, determine whether all arguments satisfy at
 least one of the following conditions:
 
 - All possible :term:`materializations <materialize>` of the argument's type are
   assignable to the corresponding parameter type, or
-- The parameter types corresponding to this argument in all of the remaining overloads
+- The parameter types corresponding to this argument in all of the candidate overloads
   are :term:`equivalent`.
 
-If so, eliminate all of the subsequent remaining overloads.
+If so, eliminate all of the subsequent candidate overloads.
 
 Consider the following examples::
 

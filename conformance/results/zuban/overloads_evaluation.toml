@@ -4,7 +4,8 @@ Returns Any instead of most general return type for ambiguous calls.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 398: Unexpected errors ['overloads_evaluation.py:398: error: Expression is of type "Any", not "A[Any]"  [misc]']
+Line 395: Unexpected errors ['overloads_evaluation.py:395: error: Expression is of type "Any", not "int"  [misc]']
+Line 464: Unexpected errors ['overloads_evaluation.py:464: error: Expression is of type "Any", not "A[Any]"  [misc]']
 """
 output = """
 overloads_evaluation.py:38: error: All overload variants of "example1_1" require at least one argument  [call-overload]
@@ -21,5 +22,6 @@ overloads_evaluation.py:51: note:     def example1_1(x: int, y: str) -> int
 overloads_evaluation.py:51: note:     def example1_1(x: str) -> str
 overloads_evaluation.py:116: error: Argument 1 to "example2" has incompatible type "int | str"; expected "int"  [arg-type]
 overloads_evaluation.py:116: error: Argument 2 to "example2" has incompatible type "int | str"; expected "str"  [arg-type]
-overloads_evaluation.py:398: error: Expression is of type "Any", not "A[Any]"  [misc]
+overloads_evaluation.py:395: error: Expression is of type "Any", not "int"  [misc]
+overloads_evaluation.py:464: error: Expression is of type "Any", not "A[Any]"  [misc]
 """

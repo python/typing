@@ -18,6 +18,7 @@ Line 268: Unexpected errors ['overloads_evaluation.py:268: error: Expression is 
 Line 284: Unexpected errors ['overloads_evaluation.py:284: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
 Line 306: Unexpected errors ['overloads_evaluation.py:306: error: Expression is of type "Any", not "float"  [assert-type]']
 Line 350: Unexpected errors ['overloads_evaluation.py:350: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
+Line 395: Unexpected errors ['overloads_evaluation.py:395: error: Expression is of type "Any", not "int"  [assert-type]']
 """
 output = """
 overloads_evaluation.py:38: error: All overload variants of "example1_1" require at least one argument  [call-overload]
@@ -50,4 +51,5 @@ overloads_evaluation.py:268: error: Expression is of type "list[Any]", not "Any"
 overloads_evaluation.py:284: error: Expression is of type "list[Any]", not "Any"  [assert-type]
 overloads_evaluation.py:306: error: Expression is of type "Any", not "float"  [assert-type]
 overloads_evaluation.py:350: error: Expression is of type "list[Any]", not "Any"  [assert-type]
+overloads_evaluation.py:395: error: Expression is of type "Any", not "int"  [assert-type]
 """

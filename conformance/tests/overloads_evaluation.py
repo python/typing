@@ -371,6 +371,72 @@ def check_example8(x: Any):
     assert_type(ret, bool)
 
 
+@overload
+def example9(x: str, y: Literal['o1']) -> bool: ...
+
+
+@overload
+def example9(x: bytes, y: Literal['o1', 'o2']) -> bool: ...
+
+
+@overload
+def example9(x: bytes, y: str) -> int: ...
+
+
+def example9(x: str | bytes, y: str) -> bool | int:
+    return True
+
+
+def check_example9(x: Any):
+    # All three overloads are candidates. The parameter types corresponding to
+    # argument `x` are `str` and `bytes`, which are not equivalent, so none of
+    # the overloads can be eliminated. We pick the most general return type.
+    ret1 = example9(x, 'o1')
+    assert_type(ret1, int)
+    # The second and third overload are candidates. The parameter type
+    # corresponding to argument `x` is `bytes` in both candidates, so we can
+    # eliminate the third overload.
+    ret2 = example9(x, 'o2')
+    assert_type(ret2, bool)
+
+
+@overload
+def example10(x: int) -> bool: ...
+
+
+@overload
+def example10(*args: int) -> int: ...
+
+
+def example10(*args: int, **kwargs: int) -> int:
+    return 0
+
+
+def check_example10(x: Any):
+    # The parameters corresponding to argument `x` (`x` in the first overload
+    # and `*args` in the second) both have type `int`, so the second overload
+    # can be eliminated.
+    assert_type(example10(x), bool)
+
+
+@overload
+def example11(x: int) -> bool: ...
+
+
+@overload
+def example11(**kwargs: int) -> int: ...
+
+
+def example11(*args: int, **kwargs: int) -> int:
+    return 0
+
+def check_example11(x: Any):
+    # The parameters corresponding to argument `x` (`x` in the first overload
+    # and `**kwargs` in the second) both have type `int`, so the second
+    # overload can be eliminated.
+    assert_type(example11(x=x), bool)
+
+
 class A[T]:
     x: T
 
@@ -379,20 +445,20 @@ class A[T]:
 
 
 @overload
-def example9(x: A[None]) -> A[None]: ...
+def example12(x: A[None]) -> A[None]: ...
 
 
 @overload
-def example9(x: A[Any]) -> A[Any]: ...
+def example12(x: A[Any]) -> A[Any]: ...
 
 
-def example9(x: A[Any]) -> A[Any]:
+def example12(x: A[Any]) -> A[Any]:
     return x
 
 
-def check_example9(x: Any):
+def check_example12(x: Any):
     # Step 5 eliminates the first overload because there exists a
     # materialization of `A[Any]` that is not assignable to `A[None]`. Step 6
     # picks the second overload.
-    ret = example9(x)
+    ret = example12(x)
     assert_type(ret, A[Any])
