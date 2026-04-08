@@ -1,5 +1,6 @@
 conformant = "Partial"
 notes = """
+Assumes descriptor behavior only when field is assigned in class body.
 Does not correctly evaluate type of descriptor access.
 """
 output = """

@@ -1,6 +1,7 @@
 conformant = "Partial"
 notes = """
 Does not support tuple narrowing based on `len()` type guard (optional).
+Incorrectly marks a match case as unreachable.
 """
 output = """
 tuples_type_compat.py:15: error: Incompatible types in assignment (expression has type "tuple[float, complex]", variable has type "tuple[int, int]")  [assignment]
