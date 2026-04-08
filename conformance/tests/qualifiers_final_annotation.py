@@ -24,6 +24,26 @@ BAD2: Final[str, int] = ""  # E: only one type argument allowed
 # > This is allowed only in __init__ methods, so that the final instance
 # > attribute is assigned only once when an instance is created.
 
+# > A final name must never be *reassigned*. There may be multiple
+# > assignments to a final name, as long as at most one assignment can
+# > be reached at runtime
+def random() -> bool:
+    raise NotImplementedError
+
+ID3: Final[int]
+
+if random():
+    ID3 = 1
+else:
+    ID3 = 2  # OK
+
+ID4: Final[int]  # E: not exhaustive assignment
+
+if random():
+    ID4 = 1
+
+ID5: Final[int]  # E: no assignments
+
 
 class ClassA:
     ID1: Final = 1
