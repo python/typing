@@ -1,13 +1,10 @@
-conformance_automated = "Fail"
-conformant = "Partial"
+conformance_automated = "Pass"
+conformant = "Pass"
 notes = """
-Emits a diagnostic if `super().__call__()` is called in an overridden `__call__` method on a subclass of `type` and the first argument of the overridden `__call__` method is annotated with `type[T]` where `T` is a type variable with no upper bound.
 """
 errors_diff = """
-Line 46: Unexpected errors ["constructors_call_metaclass.py:46:16: error[invalid-super-argument] `type[T@__call__]` is not an instance or subclass of `<class 'Meta3'>` in `super(<class 'Meta3'>, type[T@__call__])` call"]
 """
 output = """
-constructors_call_metaclass.py:46:16: error[invalid-super-argument] `type[T@__call__]` is not an instance or subclass of `<class 'Meta3'>` in `super(<class 'Meta3'>, type[T@__call__])` call
 constructors_call_metaclass.py:54:1: error[missing-argument] No argument provided for required parameter `x` of function `__new__`
 constructors_call_metaclass.py:68:1: error[missing-argument] No argument provided for required parameter `x` of function `__new__`
 """
