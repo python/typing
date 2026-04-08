@@ -271,10 +271,13 @@ Step 5
 For each of the candidate overloads, determine whether all arguments satisfy at
 least one of the following conditions:
 
-- All possible :term:`materializations <materialize>` of the argument's type are
-  assignable to the corresponding parameter type, or
-- The parameter types corresponding to this argument in all of the candidate overloads
-  are :term:`equivalent`.
+- All possible :term:`materializations <materialize>` of the argument's type
+  are assignable to the corresponding parameter type, or
+- The parameter types corresponding to this argument in all of the candidate
+  overloads are :term:`equivalent`. For an unpacked argument, this condition is
+  satisfied if the argument maps to the same number of parameters in all
+  candidate overloads, and for each parameter, the types in all candidate
+  overloads are equivalent.
 
 If so, eliminate all of the subsequent candidate overloads.
 

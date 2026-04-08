@@ -3,6 +3,7 @@ notes = """
 Does not expand boolean arguments to Literal[True] and Literal[False].
 Does not expand enum arguments to literal variants.
 Does not expand tuple arguments to possible combinations.
+Does not handle unpacked arguments when checking for parameter type equivalence.
 Does not evaluate Any in some cases where overload is ambiguous.
 Evaluates Any in some cases where overload is not ambiguous.
 """
@@ -19,6 +20,7 @@ Line 284: Unexpected errors ['overloads_evaluation.py:284: error: Expression is 
 Line 306: Unexpected errors ['overloads_evaluation.py:306: error: Expression is of type "Any", not "float"  [assert-type]']
 Line 350: Unexpected errors ['overloads_evaluation.py:350: error: Expression is of type "list[Any]", not "Any"  [assert-type]']
 Line 395: Unexpected errors ['overloads_evaluation.py:395: error: Expression is of type "Any", not "int"  [assert-type]']
+Line 437: Unexpected errors ['overloads_evaluation.py:437: error: Expression is of type "Any", not "bool"  [assert-type]']
 """
 output = """
 overloads_evaluation.py:38: error: All overload variants of "example1_1" require at least one argument  [call-overload]
@@ -52,4 +54,5 @@ overloads_evaluation.py:284: error: Expression is of type "list[Any]", not "Any"
 overloads_evaluation.py:306: error: Expression is of type "Any", not "float"  [assert-type]
 overloads_evaluation.py:350: error: Expression is of type "list[Any]", not "Any"  [assert-type]
 overloads_evaluation.py:395: error: Expression is of type "Any", not "int"  [assert-type]
+overloads_evaluation.py:437: error: Expression is of type "Any", not "bool"  [assert-type]
 """

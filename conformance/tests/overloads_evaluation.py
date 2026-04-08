@@ -420,21 +420,21 @@ def check_example10(x: Any):
 
 
 @overload
-def example11(x: int) -> bool: ...
+def example11(x: Literal['o1'], y: int, z: str) -> bool: ...
 
 
 @overload
-def example11(**kwargs: int) -> int: ...
+def example11(x: str, y: int, z: str) -> int: ...
 
 
-def example11(*args: int, **kwargs: int) -> int:
-    return 0
+def example11(x: str, y: int, z: str) -> bool | int:
+    return True
+
 
 def check_example11(x: Any):
-    # The parameters corresponding to argument `x` (`x` in the first overload
-    # and `**kwargs` in the second) both have type `int`, so the second
-    # overload can be eliminated.
-    assert_type(example11(x=x), bool)
+    # `*x` maps to `(y: int, z: str)` in both overloads, so the second overload
+    # can be eliminated.
+    assert_type(example11('o1', *x), bool)
 
 
 class A[T]:
