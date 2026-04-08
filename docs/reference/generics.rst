@@ -111,7 +111,7 @@ can be used as a base class for another class (generic or non-generic). For exam
     data2: StrDict  # OK
 
     # This is a user-defined generic class
-    class Receiver(Generic[T]):
+    class Receiver[T]:
         def accept(self, value: T) -> None: ...
 
     # This is a generic subclass of Receiver
