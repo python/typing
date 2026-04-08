@@ -35,7 +35,7 @@ Here is a very simple generic class that represents a stack:
 
 .. note::
 
-   The type parameter syntax (e.g., ``class Foo[T]:``) was introduced in Python 3.12.
+   The type parameter syntax (e.g., ``class Foo[T]:``) is available in Python 3.12 and newer.
    For earlier Python versions, generic classes need to be defined using
    ``TypeVar`` and ``Generic``, as shown below.
 
@@ -83,17 +83,14 @@ Defining subclasses of generic classes
 **************************************
 
 User-defined generic classes and generic classes defined in :py:mod:`typing`
-can be used as a base class for another class (generic or non-generic). For example:
+can be used as base classes for other classes (generic or non-generic). For example:
 
 .. code-block:: python
 
-    from typing import Generic, TypeVar, Mapping, Iterator
-
-    KT = TypeVar('KT')
-    VT = TypeVar('VT')
+    from typing import Mapping, Iterator
 
     # This is a generic subclass of Mapping
-    class MyMap(Mapping[KT, VT]):
+    class MyMap[KT, VT](Mapping[KT, VT]):
         def __getitem__(self, k: KT) -> VT: ...
         def __iter__(self) -> Iterator[KT]: ...
         def __len__(self) -> int: ...
@@ -124,33 +121,16 @@ can be used as a base class for another class (generic or non-generic). For exam
     protocols like :py:class:`~typing.Iterable`, which use
     :ref:`structural subtyping <protocol-types>`.
 
-:py:class:`Generic <typing.Generic>` can be omitted from bases if there are
-other base classes that include type variables, such as ``Mapping[KT, VT]``
-in the above example. If you include ``Generic[...]`` in bases, then
-it should list all type variables present in other bases (or more,
-if needed). The order of type variables is defined by the following
-rules:
-
-* If ``Generic[...]`` is present, then the order of variables is
-  always determined by their order in ``Generic[...]``.
-* If there are no ``Generic[...]`` in bases, then all type variables
-  are collected in the lexicographic order (i.e. by first appearance).
-
 For example:
 
 .. code-block:: python
 
-   from typing import Generic, TypeVar, Any
+   from typing import Any
+   class One[T]: ...
+   class Another[T]: ...
 
-   T = TypeVar('T')
-   S = TypeVar('S')
-   U = TypeVar('U')
-
-   class One(Generic[T]): ...
-   class Another(Generic[T]): ...
-
-   class First(One[T], Another[S]): ...
-   class Second(One[T], Another[S], Generic[S, U, T]): ...
+   class First[T, S](One[T], Another[S]): ...
+   class Second[S, U, T](One[T], Another[S]): ...
 
    x: First[int, str]        # Here T is bound to int, S is bound to str
    y: Second[int, str, Any]  # Here T is Any, S is int, and U is str
@@ -218,8 +198,12 @@ the class definition.
 
 .. code-block:: python
 
-    # T is the type variable bound by this class
-    class PairedBox(Generic[T]):
+    from typing import TypeVar
+
+    S = TypeVar('S')
+
+    # T is the type parameter bound by this class
+    class PairedBox[T]:
         def __init__(self, content: T) -> None:
             self.content = content
 
