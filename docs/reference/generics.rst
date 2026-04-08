@@ -6,13 +6,6 @@ code. These types are interesting in that they are parametrised by other types!
 A ``list[str]`` isn't just a list, it's a list of strings. Types with type
 parameters like this are called *generic types*.
 
-.. note::
-
-   Python 3.12 introduced :pep:`695`, which allows defining generics using
-   type parameter syntax (e.g., ``class Foo[T]:`` and ``def func[T](x: T) -> T:``).
-   The older ``TypeVar`` and ``Generic``-based syntax remains supported
-   for compatibility with earlier Python versions.
-
 You can define your own generic classes that take type parameters, similar to
 built-in types such as ``list[X]``. Note that such user-defined generics are a
 moderately advanced feature and you can get far without ever using them.
@@ -39,6 +32,12 @@ Here is a very simple generic class that represents a stack:
 
        def empty(self) -> bool:
            return not self.items
+
+.. note::
+
+   The type parameter syntax (e.g., ``class Foo[T]:``) was introduced in Python 3.12.
+   For earlier Python versions, generic classes need to be defined using
+   ``TypeVar`` and ``Generic``, as shown below.
 
 For compatibility with older Python versions, the same class may be written as:
 
