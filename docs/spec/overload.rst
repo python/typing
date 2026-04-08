@@ -432,7 +432,7 @@ Example 5::
   def example5(x: A[Any]) -> A[Any]: ...
 
   def test(x: Any):
-      # Steps 5 eliminates the first overload because there exists a
+      # Step 5 eliminates the first overload because there exists a
       # materialization of `A[Any]` that is not assignable to `A[None]`. Step 6
       # picks the second overload.
       reveal_type(example5(x))  # Should reveal `A[Any]`

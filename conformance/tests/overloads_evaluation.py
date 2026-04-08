@@ -391,7 +391,7 @@ def example9(x: A[Any]) -> A[Any]:
 
 
 def check_example9(x: Any):
-    # Steps 5 eliminates the first overload because there exists a
+    # Step 5 eliminates the first overload because there exists a
     # materialization of `A[Any]` that is not assignable to `A[None]`. Step 6
     # picks the second overload.
     ret = example9(x)
