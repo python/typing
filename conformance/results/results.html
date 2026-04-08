@@ -172,11 +172,11 @@
         </header>
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
-<th class='tc-header'><div class='tc-name'>mypy 1.19.1</div>
+<th class='tc-header'><div class='tc-name'>mypy 1.20.0</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyright 1.1.408</div>
 </th>
-<th class='tc-header'><div class='tc-name'>zuban 0.6.2</div>
+<th class='tc-header'><div class='tc-name'>zuban 0.7.0</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyrefly 0.60.0</div>
 </th>
@@ -415,14 +415,14 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_typevartuple_args</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce that tuples captured by TypeVarTuple are of the same length.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly solve TypeVarTuple with heterogeneous bounds.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly solve TypeVarTuple with heterogeneous bounds.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly solve TypeVarTuple with heterogeneous bounds.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Supports PEP-646 unpacked tuples but not TypeVarTuple.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_typevartuple_basic</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not enforce that tuples captured by TypeVarTuple are same length.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly solve TypeVarTuple with heterogeneous bounds.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not correctly solve TypeVarTuple with heterogeneous bounds.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>TypeVarTuple is pinned too early when calling generic function.</p></span></div></th>
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
@@ -732,7 +732,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Emits a diagnostic if `super().__call__()` is called in an overridden `__call__` method on a subclass of `type` and the first argument of the overridden `__call__` method is annotated with `type[T]` where `T` is a type variable with no upper bound.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_call_new</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support __new__ return type that is not a subclass of the class being constructed.</p><p>Does not skip evaluation of __init__ based on __new__ return type.</p><p>Does not report errors during binding to cls parameter of __new__ method.</p></span></div></th>

@@ -3,11 +3,15 @@ notes = """
 Does not correctly evaluate type of descriptor access.
 """
 output = """
+dataclasses_descriptors.py:61: error: Cannot access instance-only attribute "x" on class object  [misc]
+dataclasses_descriptors.py:62: error: Cannot access instance-only attribute "y" on class object  [misc]
 dataclasses_descriptors.py:66: error: Expression is of type "Desc2[int]", not "int"  [assert-type]
 dataclasses_descriptors.py:67: error: Expression is of type "Desc2[str]", not "str"  [assert-type]
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 61: Unexpected errors ['dataclasses_descriptors.py:61: error: Cannot access instance-only attribute "x" on class object  [misc]']
+Line 62: Unexpected errors ['dataclasses_descriptors.py:62: error: Cannot access instance-only attribute "y" on class object  [misc]']
 Line 66: Unexpected errors ['dataclasses_descriptors.py:66: error: Expression is of type "Desc2[int]", not "int"  [assert-type]']
 Line 67: Unexpected errors ['dataclasses_descriptors.py:67: error: Expression is of type "Desc2[str]", not "str"  [assert-type]']
 """
