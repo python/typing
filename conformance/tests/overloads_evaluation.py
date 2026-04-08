@@ -416,7 +416,8 @@ def check_example10(x: Any):
     # The parameters corresponding to argument `x` (`x` in the first overload
     # and `*args` in the second) both have type `int`, so the second overload
     # can be eliminated.
-    assert_type(example10(x), bool)
+    ret = example10(x)
+    assert_type(ret, bool)
 
 
 @overload
@@ -434,7 +435,8 @@ def example11(x: str, y: int, z: str) -> bool | int:
 def check_example11(x: Any):
     # `*x` maps to `(y: int, z: str)` in both overloads, so the second overload
     # can be eliminated.
-    assert_type(example11('o1', *x), bool)
+    ret = example11('o1', *x)
+    assert_type(ret, bool)
 
 
 class A[T]:
