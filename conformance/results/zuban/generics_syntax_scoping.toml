@@ -2,13 +2,13 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-generics_syntax_scoping.py:14: error: Variable "generics_syntax_scoping.S" is not valid as a type  [valid-type]
+generics_syntax_scoping.py:14: error: Variable "tests.generics_syntax_scoping.S" is not valid as a type  [valid-type]
 generics_syntax_scoping.py:14: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
-generics_syntax_scoping.py:18: error: Variable "generics_syntax_scoping.T" is not valid as a type  [valid-type]
+generics_syntax_scoping.py:18: error: Variable "tests.generics_syntax_scoping.T" is not valid as a type  [valid-type]
 generics_syntax_scoping.py:18: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
 generics_syntax_scoping.py:35: error: Name "T" is used before definition  [used-before-def]
 generics_syntax_scoping.py:44: error: Name "T" is used before definition  [used-before-def]
-generics_syntax_scoping.py:44: error: Variable "generics_syntax_scoping.T" is not valid as a type  [valid-type]
+generics_syntax_scoping.py:44: error: Variable "tests.generics_syntax_scoping.T" is not valid as a type  [valid-type]
 generics_syntax_scoping.py:44: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
 generics_syntax_scoping.py:92: error: "T" already defined as a type parameter  [misc]
 generics_syntax_scoping.py:95: error: "T" already defined as a type parameter  [misc]
