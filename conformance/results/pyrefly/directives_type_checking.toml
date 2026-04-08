@@ -3,4 +3,5 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
+ERROR directives_type_checking.py:22:14-16: `Literal['']` is not assignable to `int` [bad-assignment]
 """
