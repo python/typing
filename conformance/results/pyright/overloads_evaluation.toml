@@ -23,6 +23,5 @@ overloads_evaluation.py:116:17 - error: Argument of type "int | str" cannot be a
   Type "int | str" is not assignable to type "int"
     "str" is not assignable to "int" (reportArgumentType)
 overloads_evaluation.py:284:17 - error: "assert_type" mismatch: expected "Any" but received "list[int]" (reportAssertTypeFailure)
-overloads_evaluation.py:354:5 - error: Overload 1 for "example8" overlaps overload 2 and returns an incompatible type (reportOverlappingOverload)
 overloads_evaluation.py:398:17 - error: "assert_type" mismatch: expected "A[Any]" but received "A[None]" (reportAssertTypeFailure)
 """

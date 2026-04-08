@@ -351,15 +351,15 @@ def check_example7(v1: list[Any], v2: Any) -> None:
 
 
 @overload
-def example8(x: str, y: Literal['o1']) -> str: ...  # E? some type checkers report unsafe overlap between example8's overloads
+def example8(x: str, y: Literal['o1']) -> bool: ...
 
 
 @overload
 def example8(x: str, y: str) -> int: ...
 
 
-def example8(x: str, y: str) -> str | int:
-    return x if y == 'o1' else 0
+def example8(x: str, y: str) -> bool | int:
+    return True
 
 
 def check_example8(x: Any):
@@ -368,7 +368,7 @@ def check_example8(x: Any):
     # `Literal['o1']` match the first overload, so the second overload can be
     # eliminated.
     ret = example8(x, 'o1')
-    assert_type(ret, str)
+    assert_type(ret, bool)
 
 
 class A[T]:
