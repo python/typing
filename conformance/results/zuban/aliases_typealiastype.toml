@@ -9,8 +9,7 @@ aliases_typealiastype.py:44: error: All type parameters should be declared ("S" 
 aliases_typealiastype.py:45: error: Tuple literal expected as the type_params argument to TypeAliasType  [misc]
 aliases_typealiastype.py:46: error: Invalid recursive alias: a union item of itself  [misc]
 aliases_typealiastype.py:47: error: Invalid recursive alias: a union item of itself  [misc]
-aliases_typealiastype.py:48: error: Variable "aliases_typealiastype.BadAlias7" is not valid as a type  [valid-type]
-aliases_typealiastype.py:48: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+aliases_typealiastype.py:48: error: Invalid recursive alias: a union item of itself  [misc]
 aliases_typealiastype.py:52: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_typealiastype.py:53: error: Bracketed expression "[...]" is not valid as a type  [valid-type]
 aliases_typealiastype.py:53: note: Did you mean "List[...]"?
@@ -21,7 +20,7 @@ aliases_typealiastype.py:56: error: Invalid type alias: expression is not a vali
 aliases_typealiastype.py:57: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_typealiastype.py:58: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_typealiastype.py:59: error: Invalid type alias: expression is not a valid type  [valid-type]
-aliases_typealiastype.py:60: error: Variable "aliases_typealiastype.var1" is not valid as a type  [valid-type]
+aliases_typealiastype.py:60: error: Variable "tests.aliases_typealiastype.var1" is not valid as a type  [valid-type]
 aliases_typealiastype.py:60: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
 aliases_typealiastype.py:61: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_typealiastype.py:62: error: Invalid type: try using Literal[1] instead?  [valid-type]
