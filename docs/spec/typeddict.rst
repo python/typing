@@ -272,8 +272,8 @@ Additionally, type checkers may allow a call with a single positional argument
 whose type is a TypedDict. In this case, the resulting value is initialized from
 that argument.
 
-Other forms of positional arguments (such as arbitrary mappings or sequences)
-should not be accepted by type checkers.
+Type checkers may choose to accept additional forms of positional arguments,
+but such behavior is not required by the specification.
 
 Example::
 
