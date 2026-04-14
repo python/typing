@@ -4,17 +4,19 @@ Does not implement some restrictions on where Self can be used
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 73: Expected 1 errors
-Line 76: Expected 1 errors
-Line 82: Expected 1 errors
 Line 87: Expected 1 errors
-Line 103: Expected 1 errors
-Line 108: Expected 1 errors
-Line 113: Expected 1 errors
-Line 118: Expected 1 errors
-Line 123: Expected 1 errors
-Line 127: Expected 1 errors
 """
 output = """
+ERROR generics_self_usage.py:73:14-18: `Self` must appear within a class [invalid-annotation]
+ERROR generics_self_usage.py:73:23-27: `Self` must appear within a class [invalid-annotation]
+ERROR generics_self_usage.py:76:6-10: `Self` must appear within a class [invalid-annotation]
+ERROR generics_self_usage.py:82:9-37: `Self` cannot be used when `self` has an explicit TypeVar annotation [invalid-annotation]
+ERROR generics_self_usage.py:103:15-19: `Self` must appear within a class [invalid-annotation]
+ERROR generics_self_usage.py:105:12-16: `Self` must appear within a class [invalid-annotation]
 ERROR generics_self_usage.py:105:12-16: Invalid base class: `Self` [invalid-inheritance]
+ERROR generics_self_usage.py:108:30-34: `Self` must appear within a class [invalid-annotation]
+ERROR generics_self_usage.py:113:9-13: `Self` cannot be used in a static method [invalid-annotation]
+ERROR generics_self_usage.py:118:9-25: `Self` cannot be used in a static method [invalid-annotation]
+ERROR generics_self_usage.py:123:37-41: `Self` cannot be used in a metaclass [invalid-annotation]
+ERROR generics_self_usage.py:127:42-46: `Self` cannot be used in a metaclass [invalid-annotation]
 """

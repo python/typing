@@ -1,8 +1,15 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Does not correctly solve TypeVarTuple with heterogeneous bounds.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 76: Unexpected errors ['generics_typevartuple_args.py:76:14 - error: Argument of type "tuple[Literal[\\'1\\']]" cannot be assigned to parameter "args" of type "tuple[*Ts@func4]" in function "func4"']
+"""
 output = """
-generics_typevartuple_args.py:33:16 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "Env" in function "exec_le"
+generics_typevartuple_args.py:33:20 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "Env" in function "exec_le"
   "Literal['']" is not assignable to "Env" (reportArgumentType)
-generics_typevartuple_args.py:34:16 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "Env" in function "exec_le"
+generics_typevartuple_args.py:34:20 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "Env" in function "exec_le"
   "Literal['']" is not assignable to "Env" (reportArgumentType)
 generics_typevartuple_args.py:48:10 - error: Argument of type "Literal['2']" cannot be assigned to parameter of type "int" in function "func1"
   "Literal['2']" is not assignable to "int" (reportArgumentType)
@@ -16,7 +23,4 @@ generics_typevartuple_args.py:75:13 - error: Argument of type "tuple[Literal[1],
     Tuple size mismatch; expected 1 but received 2 (reportArgumentType)
 generics_typevartuple_args.py:76:14 - error: Argument of type "tuple[Literal['1']]" cannot be assigned to parameter "args" of type "tuple[*Ts@func4]" in function "func4"
   "Literal['1']" is not assignable to "int" (reportArgumentType)
-"""
-conformance_automated = "Pass"
-errors_diff = """
 """

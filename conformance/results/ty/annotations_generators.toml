@@ -1,0 +1,15 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+annotations_generators.py:51:21: error[invalid-return-type] Function can implicitly return `None`, which is not assignable to return type `C`
+annotations_generators.py:54:16: error[invalid-return-type] Return type does not match returned value: expected `C`, found `Literal[False]`
+annotations_generators.py:57:15: error[invalid-yield] Yield type `Literal[3]` does not match annotated yield type `A`
+annotations_generators.py:66:15: error[invalid-yield] Yield type `Literal[3]` does not match annotated yield type `A`
+annotations_generators.py:75:11: error[invalid-yield] Yield type `B` does not match annotated yield type `A`
+annotations_generators.py:86:21: error[invalid-return-type] Return type does not match returned value: expected `int`, found `types.GeneratorType`
+annotations_generators.py:91:27: error[invalid-return-type] Return type does not match returned value: expected `int`, found `types.AsyncGeneratorType`
+annotations_generators.py:118:16: error[invalid-yield] Yield type `A` does not match annotated yield type `B`
+annotations_generators.py:119:16: error[invalid-yield] Yield type `int` does not match annotated yield type `B`
+annotations_generators.py:135:16: error[invalid-yield] Send type `int` does not match annotated send type `str`
+"""

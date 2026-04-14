@@ -4,7 +4,7 @@ errors_diff = """
 """
 output = """
 ERROR classes_classvar.py:38:11-29: Expected 1 type argument for `ClassVar`, got 2 [invalid-annotation]
-ERROR classes_classvar.py:39:14-15: number literal cannot be used in annotations [invalid-annotation]
+ERROR classes_classvar.py:39:14-15: Number literal cannot be used in annotations [invalid-annotation]
 ERROR classes_classvar.py:40:14-17: Could not find name `var` [unknown-name]
 ERROR classes_classvar.py:45:20-21: `ClassVar` arguments may not contain any type variables [invalid-annotation]
 ERROR classes_classvar.py:46:20-27: `ClassVar` arguments may not contain any type variables [invalid-annotation]

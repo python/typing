@@ -1,0 +1,23 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not reject `Self` used in a return annotation when `self` is annotated using another type variable.
+"""
+errors_diff = """
+Line 82: Expected 1 errors
+"""
+output = """
+generics_self_usage.py:73:14: error[invalid-type-form] Variable of type `<special-form 'typing.Self'>` is not allowed in a parameter annotation
+generics_self_usage.py:73:23: error[invalid-type-form] Variable of type `<special-form 'typing.Self'>` is not allowed in a return type annotation
+generics_self_usage.py:76:6: error[invalid-type-form] Variable of type `<special-form 'typing.Self'>` is not allowed in a type expression
+generics_self_usage.py:87:16: error[invalid-return-type] Return type does not match returned value: expected `Self@return_concrete_type`, found `Foo3`
+generics_self_usage.py:103:15: error[invalid-type-form] Variable of type `<special-form 'typing.Self'>` is not allowed in a type expression
+generics_self_usage.py:105:12: error[invalid-base] Invalid class base with type `<special-form 'typing.Self'>`
+generics_self_usage.py:108:30: error[invalid-type-form] Variable of type `<special-form 'typing.Self'>` is not allowed in a type expression
+generics_self_usage.py:108:30: error[invalid-type-form] Variable of type `<special-form 'typing.Self'>` is not allowed in a type alias value
+generics_self_usage.py:113:19: error[invalid-type-form] `Self` cannot be used in a static method
+generics_self_usage.py:118:31: error[invalid-type-form] `Self` cannot be used in a static method
+generics_self_usage.py:118:40: error[invalid-type-form] `Self` cannot be used in a static method
+generics_self_usage.py:123:37: error[invalid-type-form] `Self` cannot be used in a metaclass
+generics_self_usage.py:127:42: error[invalid-type-form] `Self` cannot be used in a metaclass
+"""

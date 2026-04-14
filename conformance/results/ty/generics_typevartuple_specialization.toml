@@ -1,0 +1,42 @@
+conformance_automated = "Fail"
+conformant = "Unsupported"
+errors_diff = """
+Line 109: Expected 1 errors
+Line 110: Expected 1 errors
+Line 127: Expected 1 errors
+Line 163: Expected 1 errors
+Line 45: Unexpected errors ["generics_typevartuple_specialization.py:45:40: error[not-subscriptable] Cannot subscript non-generic type `<class 'tuple[str, @Todo]'>`"]
+Line 46: Unexpected errors ['generics_typevartuple_specialization.py:46:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, int | float, bool]`']
+Line 47: Unexpected errors ['generics_typevartuple_specialization.py:47:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `tuple[str, @Todo]`']
+Line 51: Unexpected errors ['generics_typevartuple_specialization.py:51:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int]`']
+Line 93: Unexpected errors ['generics_typevartuple_specialization.py:93:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int]`']
+Line 94: Unexpected errors ['generics_typevartuple_specialization.py:94:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int | float]`']
+Line 95: Unexpected errors ['generics_typevartuple_specialization.py:95:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[Any, *tuple[Any, ...]]`']
+Line 135: Unexpected errors ['generics_typevartuple_specialization.py:135:5: error[type-assertion-failure] Type `tuple[tuple[@Todo(TypeVarTuple), ...], Unknown, Unknown]` does not match asserted type `tuple[tuple[()], str, bool]`']
+Line 136: Unexpected errors ['generics_typevartuple_specialization.py:136:5: error[type-assertion-failure] Type `tuple[tuple[@Todo(TypeVarTuple), ...], Unknown, Unknown]` does not match asserted type `tuple[tuple[str], bool, int | float]`']
+Line 137: Unexpected errors ['generics_typevartuple_specialization.py:137:5: error[type-assertion-failure] Type `tuple[tuple[@Todo(TypeVarTuple), ...], Unknown, Unknown]` does not match asserted type `tuple[tuple[str, bool], int | float, int]`']
+Line 148: Unexpected errors ['generics_typevartuple_specialization.py:148:5: error[type-assertion-failure] Type `tuple[tuple[@Todo(TypeVarTuple), ...], Unknown, Unknown, Unknown]` does not match asserted type `tuple[tuple[()], str, bool, int | float]`']
+Line 149: Unexpected errors ['generics_typevartuple_specialization.py:149:5: error[type-assertion-failure] Type `tuple[tuple[@Todo(TypeVarTuple), ...], Unknown, Unknown, Unknown]` does not match asserted type `tuple[tuple[bool], str, int | float, int]`']
+Line 157: Unexpected errors ['generics_typevartuple_specialization.py:157:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[*tuple[int, ...], int]`']
+Line 158: Unexpected errors ['generics_typevartuple_specialization.py:158:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[*tuple[int, ...], str]`']
+Line 159: Unexpected errors ['generics_typevartuple_specialization.py:159:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[*tuple[int, ...], str]`']
+"""
+output = """
+generics_typevartuple_specialization.py:45:40: error[not-subscriptable] Cannot subscript non-generic type `<class 'tuple[str, @Todo]'>`
+generics_typevartuple_specialization.py:46:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int, int | float, bool]`
+generics_typevartuple_specialization.py:47:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `tuple[str, @Todo]`
+generics_typevartuple_specialization.py:51:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int]`
+generics_typevartuple_specialization.py:93:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int]`
+generics_typevartuple_specialization.py:94:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int | float]`
+generics_typevartuple_specialization.py:95:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[Any, *tuple[Any, ...]]`
+generics_typevartuple_specialization.py:121:7: error[invalid-type-form] Multiple unpacked variadic tuples are not allowed in a `tuple` specialization
+generics_typevartuple_specialization.py:122:7: error[invalid-type-form] Multiple unpacked variadic tuples are not allowed in a `tuple` specialization
+generics_typevartuple_specialization.py:135:5: error[type-assertion-failure] Type `tuple[tuple[@Todo(TypeVarTuple), ...], Unknown, Unknown]` does not match asserted type `tuple[tuple[()], str, bool]`
+generics_typevartuple_specialization.py:136:5: error[type-assertion-failure] Type `tuple[tuple[@Todo(TypeVarTuple), ...], Unknown, Unknown]` does not match asserted type `tuple[tuple[str], bool, int | float]`
+generics_typevartuple_specialization.py:137:5: error[type-assertion-failure] Type `tuple[tuple[@Todo(TypeVarTuple), ...], Unknown, Unknown]` does not match asserted type `tuple[tuple[str, bool], int | float, int]`
+generics_typevartuple_specialization.py:148:5: error[type-assertion-failure] Type `tuple[tuple[@Todo(TypeVarTuple), ...], Unknown, Unknown, Unknown]` does not match asserted type `tuple[tuple[()], str, bool, int | float]`
+generics_typevartuple_specialization.py:149:5: error[type-assertion-failure] Type `tuple[tuple[@Todo(TypeVarTuple), ...], Unknown, Unknown, Unknown]` does not match asserted type `tuple[tuple[bool], str, int | float, int]`
+generics_typevartuple_specialization.py:157:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[*tuple[int, ...], int]`
+generics_typevartuple_specialization.py:158:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[*tuple[int, ...], str]`
+generics_typevartuple_specialization.py:159:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[*tuple[int, ...], str]`
+"""

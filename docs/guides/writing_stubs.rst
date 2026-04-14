@@ -192,7 +192,7 @@ No::
 
 Sometimes, it is desirable to make a stub-only class available
 to a stub's users — for example, to allow them to type the return value of a
-public method for which a library does not provided a usable runtime type. Use
+public method for which a library does not provide a usable runtime type. Use
 the ``typing.type_check_only`` decorator to mark such objects::
 
   from typing import Protocol, type_check_only

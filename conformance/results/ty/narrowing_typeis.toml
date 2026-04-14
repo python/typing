@@ -1,0 +1,20 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Intersects the pre-existing type with the top materialization of the bracketed type rather than the bracketed type itself.
+"""
+errors_diff = """
+Line 35: Unexpected errors ['narrowing_typeis.py:35:18: error[invalid-assignment] Object of type `object` is not assignable to `int`']
+"""
+output = """
+narrowing_typeis.py:35:18: error[invalid-assignment] Object of type `object` is not assignable to `int`
+narrowing_typeis.py:110:23: error[invalid-type-guard-definition] `TypeIs` function must have a parameter to narrow
+narrowing_typeis.py:115:22: error[invalid-type-guard-definition] `TypeIs` function must have a parameter to narrow
+narrowing_typeis.py:137:20: error[invalid-argument-type] Argument to function `takes_callable_str` is incorrect: Expected `(object, /) -> str`, found `def simple_typeguard(val: object) -> TypeIs[int]`
+narrowing_typeis.py:157:26: error[invalid-argument-type] Argument to function `takes_callable_str_proto` is incorrect: Expected `CallableStrProto`, found `def simple_typeguard(val: object) -> TypeIs[int]`
+narrowing_typeis.py:174:17: error[invalid-argument-type] Argument to function `takes_typeguard` is incorrect: Expected `(object, /) -> TypeGuard[int]`, found `def is_int_typeis(val: object) -> TypeIs[int]`
+narrowing_typeis.py:175:14: error[invalid-argument-type] Argument to function `takes_typeis` is incorrect: Expected `(object, /) -> TypeIs[int]`, found `def is_int_typeguard(val: object) -> TypeGuard[int]`
+narrowing_typeis.py:196:18: error[invalid-argument-type] Argument to function `takes_int_typeis` is incorrect: Expected `(object, /) -> TypeIs[int]`, found `def bool_typeis(val: object) -> TypeIs[bool]`
+narrowing_typeis.py:200:27: error[invalid-type-guard-definition] Narrowed type `str` is not assignable to the declared parameter type `int`
+narrowing_typeis.py:204:45: error[invalid-type-guard-definition] Narrowed type `list[int]` is not assignable to the declared parameter type `list[object]`
+"""

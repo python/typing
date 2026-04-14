@@ -4,6 +4,6 @@ errors_diff = """
 output = """
 historical_positional.py:18: error: Unexpected keyword argument "__x" for "f1"  [call-arg]
 historical_positional.py:26: error: A positional only param starting with two underscores is not allowed after a positional or keyword param  [misc]
-historical_positional.py:38: error: A positional only param starting with two underscores is not allowed after a positional or keyword param  [misc]
-historical_positional.py:43: error: Unexpected keyword argument "__x" for "m1" of "A"  [call-arg]
+historical_positional.py:54: error: A positional only param starting with two underscores is not allowed after a positional or keyword param  [misc]
+historical_positional.py:59: error: Unexpected keyword argument "__x" for "m1" of "A"  [call-arg]
 """

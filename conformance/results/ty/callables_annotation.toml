@@ -1,0 +1,29 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Infers a callback protocol as being a gradual type if the callback has signature `__call__[T](self, *args: T, **kwargs: T)` and `T` has been explicitly specialized to `Any`.
+"""
+errors_diff = """
+Line 159: Expected 1 errors
+"""
+output = """
+callables_annotation.py:25:5: error[missing-argument] No argument provided for required parameter 2
+callables_annotation.py:26:11: error[invalid-argument-type] Argument is incorrect: Expected `str`, found `Literal[2]`
+callables_annotation.py:27:15: error[too-many-positional-arguments] Too many positional arguments: expected 2, got 3
+callables_annotation.py:29:5: error[missing-argument] No arguments provided for required parameters 1, 2
+callables_annotation.py:29:8: error[unknown-argument] Argument `a` does not match any known parameter
+callables_annotation.py:29:13: error[unknown-argument] Argument `b` does not match any known parameter
+callables_annotation.py:35:8: error[too-many-positional-arguments] Too many positional arguments: expected 0, got 1
+callables_annotation.py:55:5: error[invalid-type-form] Special form `typing.Callable` expected exactly two arguments (parameter types and return type)
+callables_annotation.py:55:14: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`
+callables_annotation.py:56:14: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`
+callables_annotation.py:57:18: error[invalid-type-form] List literals are not allowed in this context in a type expression: Did you mean `list[int]`?
+callables_annotation.py:58:5: error[invalid-type-form] Special form `typing.Callable` expected exactly two arguments (parameter types and return type)
+callables_annotation.py:58:14: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`
+callables_annotation.py:59:14: error[invalid-type-form] `[...]` is not a valid parameter list for `Callable`: Did you mean `Callable[..., int]`?
+callables_annotation.py:91:7: error[invalid-assignment] Object of type `def test_cb2() -> str` is not assignable to `(int, /, *args: Any, **kwargs: Any) -> str`
+callables_annotation.py:93:7: error[invalid-assignment] Object of type `def test_cb4(*, a: int) -> str` is not assignable to `(int, /, *args: Any, **kwargs: Any) -> str`
+callables_annotation.py:172:26: error[invalid-assignment] Object of type `() -> str` is not assignable to `(int, /, *args: Any, **kwargs: Any) -> str`
+callables_annotation.py:187:48: error[invalid-assignment] Object of type `(int, str, /) -> str` is not assignable to `(str, /, *args: Any, **kwargs: Any) -> str`
+callables_annotation.py:189:32: error[invalid-assignment] Object of type `(int, str, /) -> str` is not assignable to `(str, /, *args: Any, **kwargs: Any) -> str`
+"""

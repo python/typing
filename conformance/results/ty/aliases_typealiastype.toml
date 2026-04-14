@@ -1,0 +1,34 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not reject specializing a type parameter in a generic type alias with a type inconsistent with the parameter's upper bound.
+Does not reject declaring a type alias with a type variable that is not in scope.
+Does not reject declaring a type alias with a non-literal tuple passed to the `type_params` parameter.
+Does not reject cyclically defined type aliases.
+"""
+errors_diff = """
+Line 40: Expected 1 errors
+Line 43: Expected 1 errors
+Line 44: Expected 1 errors
+Line 45: Expected 1 errors
+Line 46: Expected 1 errors
+Line 47: Expected 1 errors
+Line 48: Expected 1 errors
+"""
+output = """
+aliases_typealiastype.py:32:7: error[unresolved-attribute] Object of type `TypeAliasType` has no attribute `other_attrib`
+aliases_typealiastype.py:52:40: error[invalid-type-form] Function calls are not allowed in type expressions
+aliases_typealiastype.py:53:40: error[invalid-type-form] List literals are not allowed in this context in a type expression
+aliases_typealiastype.py:54:42: error[invalid-type-form] Tuple literals are not allowed in this context in a type expression
+aliases_typealiastype.py:55:42: error[invalid-type-form] List comprehensions are not allowed in type expressions
+aliases_typealiastype.py:56:42: error[invalid-type-form] Dict literals are not allowed in type expressions
+aliases_typealiastype.py:57:42: error[invalid-type-form] Function calls are not allowed in type expressions
+aliases_typealiastype.py:58:42: error[invalid-type-form] Only simple names and dotted names can be subscripted in type expressions
+aliases_typealiastype.py:59:42: error[invalid-type-form] `if` expressions are not allowed in type expressions
+aliases_typealiastype.py:60:42: error[invalid-type-form] Variable of type `Literal[3]` is not allowed in a type expression
+aliases_typealiastype.py:61:42: error[invalid-type-form] Boolean literals are not allowed in this context in a type expression: Did you mean `typing.Literal[True]`?
+aliases_typealiastype.py:62:42: error[invalid-type-form] Int literals are not allowed in this context in a type expression: Did you mean `typing.Literal[1]`?
+aliases_typealiastype.py:63:42: error[invalid-type-form] Boolean operations are not allowed in type expressions
+aliases_typealiastype.py:64:42: error[invalid-type-form] F-strings are not allowed in type expressions
+aliases_typealiastype.py:66:47: error[unresolved-reference] Name `BadAlias21` used when not defined
+"""

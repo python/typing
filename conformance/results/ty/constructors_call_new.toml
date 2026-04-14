@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_new.py:21:13: error[invalid-argument-type] Argument to function `__new__` is incorrect: Expected `int`, found `float`
+constructors_call_new.py:148:1: error[invalid-argument-type] Argument to function `__new__` is incorrect: Expected `type[Class11[int]]`, found `<class 'Class11[str]'>`
+"""

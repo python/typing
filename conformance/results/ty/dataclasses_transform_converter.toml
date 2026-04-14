@@ -1,0 +1,26 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not pass all assertions in the test file, due to limitations in ty's generics solver.
+
+Incorrectly rejects a converter of `dict` combined with a default of `()`.
+Incorrectly rejects passing a sequence of two-element string tuples to the `dict` constructor.
+"""
+errors_diff = """
+Line 104: Unexpected errors ['dataclasses_transform_converter.py:104:30: error[invalid-assignment] Object of type `dict[str, str] | dict[bytes, bytes]` is not assignable to `dict[str, str]`', "dataclasses_transform_converter.py:104:42: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(Iterable[list[str]] | Iterable[list[bytes]], /) -> dict[str, str] | dict[bytes, bytes]`, found `<class 'dict'>`"]
+Line 121: Unexpected errors ['dataclasses_transform_converter.py:121:40: error[invalid-argument-type] Argument is incorrect: Expected `dict[str, str]`, found `tuple[tuple[Literal["a"], Literal["1"]], tuple[Literal["b"], Literal["2"]]]`']
+"""
+output = """
+dataclasses_transform_converter.py:48:31: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(Unknown, /) -> Unknown`, found `def bad_converter1() -> int`
+dataclasses_transform_converter.py:49:31: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(Unknown, /) -> Unknown`, found `def bad_converter2(*, x: int) -> int`
+dataclasses_transform_converter.py:104:30: error[invalid-assignment] Object of type `dict[str, str] | dict[bytes, bytes]` is not assignable to `dict[str, str]`
+dataclasses_transform_converter.py:104:42: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(Iterable[list[str]] | Iterable[list[bytes]], /) -> dict[str, str] | dict[bytes, bytes]`, found `<class 'dict'>`
+dataclasses_transform_converter.py:107:5: error[invalid-argument-type] Argument is incorrect: Expected `str`, found `Literal[1]`
+dataclasses_transform_converter.py:108:23: error[invalid-argument-type] Argument is incorrect: Expected `str | bytes`, found `Literal[1]`
+dataclasses_transform_converter.py:109:29: error[invalid-argument-type] Argument is incorrect: Expected `str | list[str]`, found `complex`
+dataclasses_transform_converter.py:118:1: error[invalid-assignment] Object of type `Literal[1]` is not assignable to attribute `field0` of type `str`
+dataclasses_transform_converter.py:119:1: error[invalid-assignment] Object of type `Literal[1]` is not assignable to attribute `field3` of type `str | bytes`
+dataclasses_transform_converter.py:121:40: error[invalid-argument-type] Argument is incorrect: Expected `dict[str, str]`, found `tuple[tuple[Literal["a"], Literal["1"]], tuple[Literal["b"], Literal["2"]]]`
+dataclasses_transform_converter.py:130:31: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(str | Literal[1], /) -> int`, found `def converter_simple(s: str) -> int`
+dataclasses_transform_converter.py:133:31: error[invalid-argument-type] Argument to function `model_field` is incorrect: Expected `(str | int, /) -> int`, found `def converter_simple(s: str) -> int`
+"""

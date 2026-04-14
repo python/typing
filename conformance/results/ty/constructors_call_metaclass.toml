@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+conformant = "Pass"
+notes = """
+"""
+errors_diff = """
+"""
+output = """
+constructors_call_metaclass.py:54:1: error[missing-argument] No argument provided for required parameter `x` of function `__new__`
+constructors_call_metaclass.py:68:1: error[missing-argument] No argument provided for required parameter `x` of function `__new__`
+"""

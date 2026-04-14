@@ -1,19 +1,19 @@
-conformant = "Unsupported"
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 77: Expected 1 errors
-Line 81: Expected 1 errors
-Line 93: Expected 1 errors
-Line 105: Expected 1 errors
-Line 113: Expected 1 errors
-Line 163: Expected 1 errors
-Line 167: Expected 1 errors
-Line 191: Expected 1 errors
-Lines 125, 126: Expected error (tag 'CoContra_Child2')
-Lines 131, 132: Expected error (tag 'CoContra_Child3')
-Lines 141, 142: Expected error (tag 'CoContra_Child5')
-Lines 195, 196: Expected error (tag 'ContraToContraToContra_WithTA')
 """
 output = """
 ERROR generics_variance.py:14:36-54: Contradictory variance specifications [invalid-type-var]
+ERROR generics_variance.py:77:14-23: Type variable `T_co` is Covariant but is used in invariant position [invalid-variance]
+ERROR generics_variance.py:81:14-27: Type variable `T_contra` is Contravariant but is used in invariant position [invalid-variance]
+ERROR generics_variance.py:93:17-29: Type variable `T_contra` is Contravariant but is used in covariant position [invalid-variance]
+ERROR generics_variance.py:105:21-33: Type variable `T_co` is Covariant but is used in contravariant position [invalid-variance]
+ERROR generics_variance.py:113:21-37: Type variable `T_co` is Covariant but is used in contravariant position [invalid-variance]
+ERROR generics_variance.py:126:5-25: Type variable `T_co` is Covariant but is used in contravariant position [invalid-variance]
+ERROR generics_variance.py:132:5-33: Type variable `T_contra` is Contravariant but is used in covariant position [invalid-variance]
+ERROR generics_variance.py:142:5-33: Type variable `T_co` is Covariant but is used in contravariant position [invalid-variance]
+ERROR generics_variance.py:163:26-54: Type variable `T_contra` is Contravariant but is used in covariant position [invalid-variance]
+ERROR generics_variance.py:167:30-58: Type variable `T_co` is Covariant but is used in contravariant position [invalid-variance]
+ERROR generics_variance.py:191:33-70: Type variable `T_contra` is Contravariant but is used in covariant position [invalid-variance]
+ERROR generics_variance.py:196:5-42: Type variable `T_co` is Covariant but is used in contravariant position [invalid-variance]
 """

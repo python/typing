@@ -1,10 +1,6 @@
-conformant = "Partial"
-notes = """
-Does not reject inconsistent ordering of type variables in different base classes.
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 98: Expected 1 errors
 """
 output = """
 ERROR generics_base_class.py:26:26-27: Argument `SymbolTable` is not assignable to parameter `x` with type `dict[str, list[object]]` in function `takes_dict_incorrect` [bad-argument-type]
@@ -13,4 +9,5 @@ ERROR generics_base_class.py:30:8-15: Expected a type argument for `Generic` [in
 ERROR generics_base_class.py:49:22-42: Expected 1 type argument for `LinkedList`, got 2 [bad-specialization]
 ERROR generics_base_class.py:61:18-34: Expected 1 type argument for `MyDict`, got 2 [bad-specialization]
 ERROR generics_base_class.py:68:28-29: Duplicated type parameter declaration `T` [invalid-inheritance]
+ERROR generics_base_class.py:98:7-15: Class `BadChild` has inconsistent type arguments for base class `Grandparent`: `Grandparent[T1, T2]` and `Grandparent[T2, T1]` [invalid-inheritance]
 """

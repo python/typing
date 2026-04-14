@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_class_syntax.py:29:5: error[invalid-typed-dict-statement] TypedDict class cannot have methods
+typeddicts_class_syntax.py:33:5: error[invalid-typed-dict-statement] TypedDict class cannot have methods
+typeddicts_class_syntax.py:38:5: error[invalid-typed-dict-statement] TypedDict class cannot have methods
+typeddicts_class_syntax.py:44:32: error[invalid-typed-dict-header] Custom metaclasses are not supported in `TypedDict` definitions
+typeddicts_class_syntax.py:49:32: error[unknown-argument] Unknown keyword argument `other` in `TypedDict` definition
+"""

@@ -5,7 +5,7 @@ errors_diff = """
 output = """
 ERROR aliases_newtype.py:11:8-14: Argument `Literal['user']` is not assignable to parameter `_x` with type `int` in function `UserId.__new__` [bad-argument-type]
 ERROR aliases_newtype.py:12:14-16: `Literal[42]` is not assignable to `UserId` [bad-assignment]
-ERROR aliases_newtype.py:18:11-17: `type[UserId]` is not assignable to `type` [bad-assignment]
+ERROR aliases_newtype.py:18:11-17: `type[UserId]` is not assignable to `type[Any]` [bad-assignment]
 ERROR aliases_newtype.py:23:16-22: NewType `UserId` not allowed in isinstance() [invalid-argument]
 ERROR aliases_newtype.py:26:21-27: Subclassing a NewType not allowed [invalid-inheritance]
 ERROR aliases_newtype.py:35:20-29: Expected string literal "GoodName" [invalid-argument]

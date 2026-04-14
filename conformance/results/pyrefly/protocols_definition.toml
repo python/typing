@@ -1,19 +1,14 @@
-conformant = "Partial"
-notes = """
-Incorrectly handles some ClassVar examples in Protocol subtyping
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 116: Expected 1 errors
-Line 117: Expected 1 errors
-Line 79: Unexpected errors ['`Concrete` is not assignable to `Template` [bad-assignment]']
 """
 output = """
 ERROR protocols_definition.py:30:11-14: Argument `list[int]` is not assignable to parameter `things` with type `Iterable[SupportsClose]` in function `close_all` [bad-argument-type]
-ERROR protocols_definition.py:67:14-18: Instance or class variables within a Protocol class must be explicitly declared within the class body [protocol-implicitly-defined-attribute]
-ERROR protocols_definition.py:79:17-38: `Concrete` is not assignable to `Template` [bad-assignment]
+ERROR protocols_definition.py:67:14-18: Protocol variables must be explicitly declared in the class body [protocol-implicitly-defined-attribute]
 ERROR protocols_definition.py:114:22-38: `Concrete2_Bad1` is not assignable to `Template2` [bad-assignment]
 ERROR protocols_definition.py:115:22-38: `Concrete2_Bad2` is not assignable to `Template2` [bad-assignment]
+ERROR protocols_definition.py:116:22-38: `Concrete2_Bad3` is not assignable to `Template2` [bad-assignment]
+ERROR protocols_definition.py:117:22-38: `Concrete2_Bad4` is not assignable to `Template2` [bad-assignment]
 ERROR protocols_definition.py:156:22-38: `Concrete3_Bad1` is not assignable to `Template3` [bad-assignment]
 ERROR protocols_definition.py:157:22-38: `Concrete3_Bad2` is not assignable to `Template3` [bad-assignment]
 ERROR protocols_definition.py:158:22-38: `Concrete3_Bad3` is not assignable to `Template3` [bad-assignment]

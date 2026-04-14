@@ -1,7 +1,14 @@
 conformance_automated = "Pass"
+conformant = "Pass"
 errors_diff = """
 """
 output = """
-dataclasses_hash.py:15: error: Incompatible types in assignment (expression has type "DC1", variable has type "Hashable")  [assignment]
-dataclasses_hash.py:32: error: Incompatible types in assignment (expression has type "DC3", variable has type "Hashable")  [assignment]
+dataclasses_hash.py:17: error: "None" not callable  [operator]
+dataclasses_hash.py:18: error: Incompatible types in assignment (expression has type "DC1", variable has type "Hashable")  [assignment]
+dataclasses_hash.py:18: note: Following member(s) of "DC1" have conflicts:
+dataclasses_hash.py:18: note:     __hash__: expected "Callable[[], int]", got "None"
+dataclasses_hash.py:39: error: "None" not callable  [operator]
+dataclasses_hash.py:40: error: Incompatible types in assignment (expression has type "DC3", variable has type "Hashable")  [assignment]
+dataclasses_hash.py:40: note: Following member(s) of "DC3" have conflicts:
+dataclasses_hash.py:40: note:     __hash__: expected "Callable[[], int]", got "None"
 """

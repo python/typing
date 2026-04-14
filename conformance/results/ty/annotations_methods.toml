@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+annotations_methods.py:42:1: error[type-assertion-failure] Type `B` does not match asserted type `A`
+"""

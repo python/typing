@@ -1,0 +1,31 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Incorrectly allows using `*args: P.args` and `**kwargs: P.kwargs` when `P` has not been put into scope by any other parameter annotation or enclosing scope.
+"""
+errors_diff = """
+Line 30: Expected 1 errors
+"""
+output = """
+generics_paramspec_components.py:17:25: error[invalid-type-form] `P.kwargs` is valid only in `**kwargs` annotation: Did you mean `P.args`?
+generics_paramspec_components.py:17:45: error[invalid-type-form] `P.args` is valid only in `*args` annotation: Did you mean `P.kwargs`?
+generics_paramspec_components.py:20:23: error[invalid-paramspec] `P.args` is only valid for annotating `*args`
+generics_paramspec_components.py:23:46: error[invalid-paramspec] `*args: P.args` must be accompanied by `**kwargs: P.kwargs`
+generics_paramspec_components.py:23:46: error[invalid-type-form] `P.args` is valid only in `*args` annotation: Did you mean `P.kwargs`?
+generics_paramspec_components.py:26:46: error[invalid-paramspec] `*args: P.args` must be accompanied by `**kwargs: P.kwargs`
+generics_paramspec_components.py:35:18: error[invalid-paramspec] `P.args` is only valid for annotating `*args` function parameters
+generics_paramspec_components.py:36:20: error[invalid-paramspec] `P.kwargs` is only valid for annotating `**kwargs` function parameters
+generics_paramspec_components.py:38:26: error[invalid-paramspec] `*args: P.args` must be accompanied by `**kwargs: P.kwargs`
+generics_paramspec_components.py:41:31: error[invalid-paramspec] `**kwargs: P.kwargs` must be accompanied by `*args: P.args`
+generics_paramspec_components.py:49:11: error[invalid-argument-type] Argument is incorrect: Expected `P@decorator.args`, found `P@decorator.kwargs`
+generics_paramspec_components.py:49:20: error[invalid-argument-type] Argument is incorrect: Expected `P@decorator.kwargs`, found `P@decorator.args`
+generics_paramspec_components.py:51:11: error[invalid-argument-type] Argument is incorrect: Expected `P@decorator.args`, found `Literal[1]`
+generics_paramspec_components.py:60:28: error[invalid-paramspec] No parameters may appear between `*args: P.args` and `**kwargs: P.kwargs`
+generics_paramspec_components.py:70:11: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `P@remove.args`
+generics_paramspec_components.py:70:18: error[invalid-argument-type] Argument is incorrect: Expected `P@remove.args`, found `Literal[1]`
+generics_paramspec_components.py:72:11: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `P@remove.args`
+generics_paramspec_components.py:83:18: error[invalid-argument-type] Argument to function `foo` is incorrect: Expected `int`, found `(...)`
+generics_paramspec_components.py:83:18: error[parameter-already-assigned] Multiple values provided for parameter 1 (`x`) of function `foo`
+generics_paramspec_components.py:98:20: error[invalid-argument-type] Argument to function `twice` is incorrect: Expected `int`, found `Literal["A"]`
+generics_paramspec_components.py:98:25: error[invalid-argument-type] Argument to function `twice` is incorrect: Expected `str`, found `Literal[1]`
+"""

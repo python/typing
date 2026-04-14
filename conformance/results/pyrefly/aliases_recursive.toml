@@ -1,19 +1,18 @@
-conformant = "Unsupported"
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 19: Expected 1 errors
-Line 20: Expected 1 errors
-Line 38: Expected 1 errors
-Line 39: Expected 1 errors
-Line 50: Expected 1 errors
-Line 51: Expected 1 errors
-Line 52: Expected 1 errors
-Line 63: Expected 1 errors
-Line 69: Expected 1 errors
-Line 72: Expected 1 errors
-Line 75: Expected 1 errors
-Line 42: Unexpected errors ["Expected a type form, got instance of `Literal['RecursiveMapping']` [not-a-type]"]
 """
 output = """
-ERROR aliases_recursive.py:42:45-63: Expected a type form, got instance of `Literal['RecursiveMapping']` [not-a-type]
+ERROR aliases_recursive.py:19:12-29: `dict[str, complex | Json]` is not assignable to `dict[str, Json] | float | int | list[Json] | str | None` [bad-assignment]
+ERROR aliases_recursive.py:20:12-19: `list[complex | Json]` is not assignable to `dict[str, Json] | float | int | list[Json] | str | None` [bad-assignment]
+ERROR aliases_recursive.py:38:22-50: `tuple[Literal[1], tuple[Literal['1'], Literal[1]], tuple[Literal[1], tuple[Literal[1], list[int]]]]` is not assignable to `int | str | tuple[RecursiveTuple, ...]` [bad-assignment]
+ERROR aliases_recursive.py:39:22-30: `tuple[Literal[1], list[int]]` is not assignable to `int | str | tuple[RecursiveTuple, ...]` [bad-assignment]
+ERROR aliases_recursive.py:50:24-34: `dict[str, list[int]]` is not assignable to `Mapping[str, RecursiveMapping] | int | str` [bad-assignment]
+ERROR aliases_recursive.py:51:24-55: `dict[str, list[int] | RecursiveMapping]` is not assignable to `Mapping[str, RecursiveMapping] | int | str` [bad-assignment]
+ERROR aliases_recursive.py:52:24-83: `dict[str, dict[str, list[int] | RecursiveMapping] | RecursiveMapping]` is not assignable to `Mapping[str, RecursiveMapping] | int | str` [bad-assignment]
+ERROR aliases_recursive.py:63:30-43: `list[list[float] | str | GenericTypeAlias1[str]]` is not assignable to `list[str | GenericTypeAlias1[str]]` [bad-assignment]
+ERROR aliases_recursive.py:69:35-64: `list[int | list[int | list[int | list[float] | str | GenericTypeAlias2[str, int]] | str | GenericTypeAlias2[str, int]] | str | GenericTypeAlias2[str, int]]` is not assignable to `list[int | str | GenericTypeAlias2[str, int]]` [bad-assignment]
+ERROR aliases_recursive.py:72:29-57: Found cyclic self-reference in `RecursiveUnion` [invalid-type-alias]
+ERROR aliases_recursive.py:75:31-61: Found cyclic self-reference in `MutualReference1` [invalid-type-alias]
+ERROR aliases_recursive.py:75:93-123: Found cyclic self-reference in `MutualReference2` [invalid-type-alias]
 """

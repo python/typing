@@ -12,6 +12,7 @@ This project contains test cases for behaviors defined in the Python typing spec
 
 * [concepts](https://typing.python.org/en/latest/spec/concepts.html)
 * [annotations](https://typing.python.org/en/latest/spec/annotations.html)
+* [typeforms](https://typing.python.org/en/latest/spec/type-forms.html)
 * [specialtypes](https://typing.python.org/en/latest/spec/special-types.html)
 * [generics](https://typing.python.org/en/latest/spec/generics.html)
 * [qualifiers](https://typing.python.org/en/latest/spec/qualifiers.html)
@@ -70,9 +71,9 @@ by the scoring system.
 
 To run the conformance test suite:
 * Clone the https://github.com/python/typing repo.
-* Create and activate a Python 3.12 virtual environment.
-* Switch to the `conformance` subdirectory and install all dependencies (`pip install -r requirements.txt`).
-* Switch to the `src` subdirectory and run `python main.py`.
+* Install [uv](https://docs.astral.sh/uv/) and ensure Python 3.12 is available.
+* Switch to the `conformance` subdirectory and install locked dependencies (`uv sync --python 3.12 --frozen`).
+* Run the conformance tool (`uv run --python 3.12 --frozen python src/main.py`).
 
 Note that some type checkers may not run on some platforms. If a type checker fails to install, tests will be skipped for that type checker.
 
@@ -80,7 +81,7 @@ Note that some type checkers may not run on some platforms. If a type checker fa
 
 Different type checkers report errors in different ways (with different wording in error messages and different line numbers or character ranges for errors). This variation makes it difficult to fully automate test validation given that tests will want to check for both false positive and false negative type errors. Some level of manual inspection will therefore be needed to determine whether a type checker is fully conformant with all tests in any given test file. This "scoring" process is required only when the output of a test changes — e.g. when a new version of that type checker is released and the tests are rerun. We assume that the output of a type checker will be the same from one run to the next unless/until a new version is released that fixes or introduces a bug. In this case, the output will need to be manually inspected and the conformance results re-scored for those tests whose output has changed.
 
-Conformance results are reported and summarized for each supported type checker. Currently, results are reported for mypy, pyrefly, pyright, and zuban. It is the goal and desire to add additional type checkers over time.
+[Conformance results](https://htmlpreview.github.io/?https://github.com/python/typing/blob/main/conformance/results/results.html) are reported and summarized for each supported type checker. Currently, results are reported for mypy, pyrefly, pyright, zuban and ty. It is the goal and desire to add additional type checkers over time.
 
 ## Adding a New Test Case
 
@@ -92,7 +93,22 @@ If a test is updated (augmented or fixed), the process is similar to when adding
 
 ## Updating a Type Checker
 
-If a new version of a type checker is released, re-run the test tool with the new version. If the type checker output has changed for any test cases, the tool will supply the old and new outputs. Examine these to determine whether the conformance status has changed. Once the conformance status has been updated, re-run the test tool again to regenerate the summary report.
+Type checker versions are locked in `uv.lock`.
+
+To bump all supported checkers to their latest released versions:
+
+```bash
+python scripts/bump_type_checkers.py
+```
+
+After bumping, install the new lockfile and rerun conformance:
+
+```bash
+uv sync --python 3.12 --frozen
+uv run --python 3.12 --frozen python src/main.py
+```
+
+If checker output changes for any test cases, examine those deltas to determine whether the conformance status has changed. Once the conformance status has been updated, rerun the tool to regenerate the summary report.
 
 ## Automated Conformance Checking
 

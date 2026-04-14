@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly_update.py:23:11: error[invalid-argument-type] Argument is incorrect: Expected `<TypedDict with items 'x', 'y'> | Iterable[tuple[str, object]]`, found `A`
+"""

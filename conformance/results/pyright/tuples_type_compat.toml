@@ -1,4 +1,7 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Incorrectly marks a match case as unreachable.
+"""
 output = """
 tuples_type_compat.py:15:27 - error: Type "tuple[float, complex]" is not assignable to declared type "tuple[int, int]"
   "tuple[float, complex]" is not assignable to "tuple[int, int]"
@@ -24,7 +27,6 @@ tuples_type_compat.py:81:21 - error: "assert_type" mismatch: expected "tuple[int
 tuples_type_compat.py:86:21 - error: "assert_type" mismatch: expected "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]" but received "tuple[int, str, int]" (reportAssertTypeFailure)
 tuples_type_compat.py:102:25 - error: "assert_type" mismatch: expected "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]" but received "tuple[int]" (reportAssertTypeFailure)
 tuples_type_compat.py:107:25 - error: "assert_type" mismatch: expected "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]" but received "tuple[str, str] | tuple[int, int]" (reportAssertTypeFailure)
-tuples_type_compat.py:112:25 - error: "assert_type" mismatch: expected "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]" but received "tuple[int, str, int]" (reportAssertTypeFailure)
 tuples_type_compat.py:127:25 - error: "assert_type" mismatch: expected "tuple[int | str, int | str]" but received "tuple[int | str, str]" (reportAssertTypeFailure)
 tuples_type_compat.py:130:25 - error: "assert_type" mismatch: expected "tuple[int | str, int | str]" but received "tuple[int | str, int]" (reportAssertTypeFailure)
 tuples_type_compat.py:157:6 - error: Type "tuple[Literal[1], Literal[''], Literal['']]" is not assignable to declared type "tuple[int, str]"
@@ -52,6 +54,7 @@ tuples_type_compat.py:188:50 - error: Type "tuple[str, str]" is not assignable t
   "tuple[str, str]" is not assignable to "tuple[*tuple[str, ...], str, str, str]"
     Tuple size mismatch; expected 3 or more but received 2 (reportAssignmentType)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Lines 111, 112: Expected error (tag 'func6_3')
 """

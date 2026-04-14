@@ -1,0 +1,32 @@
+conformant = "Partial"
+notes = """
+Does not allow assigning a TypeForm to types.GenericAlias.
+Does not allow passing a forward reference to a function accepting a TypeForm.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 49: Unexpected errors ['`type[list[int]]` is not assignable to `GenericAlias` [bad-assignment]', 'Expected `v2_actual` to be a type alias, got `GenericAlias` [invalid-type-alias]']
+Line 58: Unexpected errors ["Argument `Literal['int']` is not assignable to parameter `x` with type `TypeForm[Any]` in function `func1` [bad-argument-type]"]
+"""
+output = """
+ERROR typeforms_typeform.py:23:30-39: `type[int | str]` is not assignable to `TypeForm[str | None]` [bad-assignment]
+ERROR typeforms_typeform.py:24:30-46: `type[list[str | None]]` is not assignable to `TypeForm[str | None]` [bad-assignment]
+ERROR typeforms_typeform.py:49:33-42: `type[list[int]]` is not assignable to `GenericAlias` [bad-assignment]
+ERROR typeforms_typeform.py:49:33-42: Expected `v2_actual` to be a type alias, got `GenericAlias` [invalid-type-alias]
+ERROR typeforms_typeform.py:58:7-12: Argument `Literal['int']` is not assignable to parameter `x` with type `TypeForm[Any]` in function `func1` [bad-argument-type]
+ERROR typeforms_typeform.py:59:7-19: Argument `Literal['not a type']` is not assignable to parameter `x` with type `TypeForm[Any]` in function `func1` [bad-argument-type]
+ERROR typeforms_typeform.py:67:18-25: `tuple[@_, ...]` is not assignable to `TypeForm[Any]` [bad-assignment]
+ERROR typeforms_typeform.py:68:18-24: `tuple[Literal[1], Literal[2]]` is not assignable to `TypeForm[Any]` [bad-assignment]
+ERROR typeforms_typeform.py:69:18-19: `Literal[1]` is not assignable to `TypeForm[Any]` [bad-assignment]
+ERROR typeforms_typeform.py:70:18-22: `Self` must appear within a class [invalid-annotation]
+ERROR typeforms_typeform.py:70:18-22: `type[Self]` is not assignable to `TypeForm[Any]` [bad-assignment]
+ERROR typeforms_typeform.py:71:18-31: `ClassVar` is not allowed in this context [invalid-annotation]
+ERROR typeforms_typeform.py:72:18-28: `Final` is not allowed in this context [invalid-annotation]
+ERROR typeforms_typeform.py:73:18-28: `type[*TypeVarTuple[Ts]]` is not assignable to `TypeForm[Any]` [bad-assignment]
+ERROR typeforms_typeform.py:74:18-26: `type[Optional]` is not assignable to `TypeForm[Any]` [bad-assignment]
+ERROR typeforms_typeform.py:75:19-28: `+` is not supported between `type[int]` and `type[str]` [unsupported-operation]
+ERROR typeforms_typeform.py:86:16-23: Function call cannot be used in annotations [invalid-annotation]
+ERROR typeforms_typeform.py:88:15-22: Function call cannot be used in annotations [invalid-annotation]
+ERROR typeforms_typeform.py:98:21-36: `TypeForm[int]` is not assignable to `TypeForm[str]` [bad-assignment]
+ERROR typeforms_typeform.py:108:21-31: `type[int]` is not assignable to `TypeForm[str]` [bad-assignment]
+"""

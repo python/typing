@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+specialtypes_promotions.py:13:5: error[unresolved-attribute] Attribute `numerator` is not defined on `float` in union `int | float`
+"""

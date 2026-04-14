@@ -1,10 +1,10 @@
-conformant = "Unsupported"
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 24: Expected 1 errors
-Line 28: Expected 1 errors
-Line 32: Expected 1 errors
-Line 44: Expected 1 errors
 """
 output = """
+ERROR aliases_variance.py:24:16-28: Type variable `T_co` is Covariant but is used in invariant position [invalid-variance]
+ERROR aliases_variance.py:28:16-31: Type variable `T_co` is Covariant but is used in invariant position [invalid-variance]
+ERROR aliases_variance.py:32:16-31: Type variable `T_co` is Covariant but is used in invariant position [invalid-variance]
+ERROR aliases_variance.py:44:16-41: Type variable `T_contra` is Contravariant but is used in invariant position [invalid-variance]
 """

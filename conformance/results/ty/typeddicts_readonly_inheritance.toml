@@ -1,0 +1,14 @@
+conformance_automated = "Pass"
+output = """
+typeddicts_readonly_inheritance.py:36:4: error[invalid-assignment] Cannot assign to key "name" on TypedDict `Album2`: key is marked read-only
+typeddicts_readonly_inheritance.py:50:5: error[invalid-typed-dict-field] Cannot overwrite TypedDict field `alt`: Inherited read-only field type `list[str | int]` is not assignable from `list[str]`
+typeddicts_readonly_inheritance.py:65:19: error[missing-typed-dict-key] Missing required key 'name' in TypedDict `RequiredName` constructor
+typeddicts_readonly_inheritance.py:82:14: error[invalid-assignment] Invalid assignment to key "ident" with declared type `str` on TypedDict `User`: value of type `Literal[3]`
+typeddicts_readonly_inheritance.py:83:15: error[invalid-argument-type] Invalid argument to key "ident" with declared type `str` on TypedDict `User`: value of type `Literal[3]`
+typeddicts_readonly_inheritance.py:84:5: error[missing-typed-dict-key] Missing required key 'ident' in TypedDict `User` constructor
+typeddicts_readonly_inheritance.py:94:5: error[invalid-typed-dict-field] Cannot overwrite TypedDict field `a`: Mutable inherited fields cannot be redeclared as read-only
+typeddicts_readonly_inheritance.py:98:5: error[invalid-typed-dict-field] Cannot overwrite TypedDict field `a`: Required inherited fields cannot be redeclared as `NotRequired`
+typeddicts_readonly_inheritance.py:106:5: error[invalid-typed-dict-field] Cannot overwrite TypedDict field `c`: Required inherited fields cannot be redeclared as `NotRequired`
+typeddicts_readonly_inheritance.py:119:7: error[invalid-typed-dict-field] Cannot overwrite TypedDict field `x` while merging base classes: Inherited mutable field type `int | float` is incompatible with `int`
+typeddicts_readonly_inheritance.py:132:7: error[invalid-typed-dict-field] Cannot overwrite TypedDict field `x` while merging base classes: Required inherited fields cannot be redeclared as `NotRequired`
+"""

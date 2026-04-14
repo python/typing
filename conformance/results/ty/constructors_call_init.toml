@@ -1,0 +1,15 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not reject invalid argument types to an inherited constructor in a specialized subclass of a generic superclass.
+Does not reject class-scoped type variables used in the `self` annotation.
+"""
+errors_diff = """
+Line 42: Expected 1 errors
+Line 107: Expected 1 errors
+"""
+output = """
+constructors_call_init.py:21:13: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `int`, found `float`
+constructors_call_init.py:56:1: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `Class4[int]`, found `Class4[str]`
+constructors_call_init.py:130:9: error[too-many-positional-arguments] Too many positional arguments to bound method `__init__`: expected 1, got 2
+"""

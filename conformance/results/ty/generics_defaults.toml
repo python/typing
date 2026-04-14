@@ -1,0 +1,33 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not forbid a `TypeVar` immediately following a `TypeVarTuple` in a parameter list from having a default.
+Does not support `TypeVarTuple`.
+Does not fully support defaults for `ParamSpec`s.
+"""
+errors_diff = """
+Line 188: Expected 1 errors
+Line 122: Unexpected errors ['generics_defaults.py:122:5: error[type-assertion-failure] Type `(**DefaultP@Class_ParamSpec) -> None` does not match asserted type `(str, int, /) -> None`']
+Line 139: Unexpected errors ['generics_defaults.py:139:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int]`']
+Line 140: Unexpected errors ['generics_defaults.py:140:5: error[type-assertion-failure] Type `Class_TypeVarTuple` does not match asserted type `@Todo`']
+Line 200: Unexpected errors ['generics_defaults.py:200:17: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`']
+Line 204: Unexpected errors ['generics_defaults.py:204:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`']
+Line 205: Unexpected errors ['generics_defaults.py:205:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(int | float, bool, /) -> None`']
+Line 207: Unexpected errors ['generics_defaults.py:207:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`']
+Line 208: Unexpected errors ['generics_defaults.py:208:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(bytes, /) -> None`']
+"""
+output = """
+generics_defaults.py:24:40: error[invalid-generic-class] Type parameter `T` without a default cannot follow earlier parameter `DefaultStrT` with a default
+generics_defaults.py:66:8: error[invalid-type-arguments] No type argument provided for required type variable `T2` of class `AllTheDefaults`
+generics_defaults.py:122:5: error[type-assertion-failure] Type `(**DefaultP@Class_ParamSpec) -> None` does not match asserted type `(str, int, /) -> None`
+generics_defaults.py:139:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int]`
+generics_defaults.py:140:5: error[type-assertion-failure] Type `Class_TypeVarTuple` does not match asserted type `@Todo`
+generics_defaults.py:152:51: error[invalid-type-variable-default] TypeVar default is not assignable to the TypeVar's upper bound
+generics_defaults.py:159:52: error[invalid-type-variable-default] TypeVar default is inconsistent with the TypeVar's constraints: `int` is not one of the constraints of `Invalid2`
+generics_defaults.py:177:1: error[type-assertion-failure] Type `int` does not match asserted type `Any`
+generics_defaults.py:200:17: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`
+generics_defaults.py:204:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`
+generics_defaults.py:205:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(int | float, bool, /) -> None`
+generics_defaults.py:207:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`
+generics_defaults.py:208:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(bytes, /) -> None`
+"""
