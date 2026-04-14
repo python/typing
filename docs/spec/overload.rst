@@ -312,9 +312,6 @@ and::
 This rule eliminates overloads that will never be chosen even if the
 caller eliminates types that include ``Any``.
 
-If the call involves more than one argument, every argument must satisfy one of
-the above conditions.
-
 Once this filtering process is applied for all arguments, examine the return
 types of the remaining overloads. If these return types include type variables,
 they should be replaced with their solved types. Eliminate every overload for
