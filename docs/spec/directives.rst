@@ -73,16 +73,6 @@ other comments and linting markers:
 
   # type: ignore # <comment or other marker>
 
-Text following ``# type: ignore - some text`` is equivalent to
-``type: ignore``, provided there is at least one whitespace character after it::
-
-    # Not valid because of the "d" after ignore; does not supress the type error
-    s: str = 1  # type: ignored
-    # Not valid because of the comma; does not supress the type error
-    s: str = 1  # type: ignore, because I feel like it
-    # This is valid because of the whitespace and must suppress the type error
-    s: str = 1  # type: ignore because why not
-
 The form of ``# type: ignore[...]`` may be used to filter errors depending on
 the type checker:
 

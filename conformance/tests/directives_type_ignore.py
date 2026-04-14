@@ -10,10 +10,6 @@ x: int = ""  # type: ignore
 # The following type violation should be suppressed.
 y: int = ""  # type: ignore - additional stuff
 
-# The following type violations should not be suppressed.
-y: int = ""  # type: ignored  # E: Unexpected word "ignored"
-y: int = ""  # type: ignored, foo  # E: Unexpected comma
-
 # The following type violation should be suppressed.
 z: int = ""  # type: ignore[assignment]
 
