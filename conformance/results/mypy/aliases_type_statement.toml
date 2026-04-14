@@ -1,7 +1,4 @@
-conformant = "Partial"
-notes = """
-Does not reject type alias defined in function scope.
-"""
+conformant = "Pass"
 output = """
 aliases_type_statement.py:17: error: "TypeAliasType" has no attribute "bit_count"  [attr-defined]
 aliases_type_statement.py:19: error: "TypeAliasType" not callable  [operator]
@@ -24,18 +21,16 @@ aliases_type_statement.py:46: error: Invalid type: try using Literal[True] inste
 aliases_type_statement.py:47: error: Invalid type: try using Literal[1] instead?  [valid-type]
 aliases_type_statement.py:48: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_type_statement.py:49: error: Invalid type alias: expression is not a valid type  [valid-type]
-aliases_type_statement.py:52: error: Name "BadTypeAlias14" already defined on line 51  [no-redef]
-aliases_type_statement.py:62: error: All type parameters should be declared ("V" not declared)  [valid-type]
-aliases_type_statement.py:67: error: All type parameters should be declared ("T1" not declared)  [valid-type]
-aliases_type_statement.py:77: error: Type argument "str" of "RecursiveTypeAlias2" must be a subtype of "int"  [type-var]
-aliases_type_statement.py:79: error: Type argument "int" of "RecursiveTypeAlias2" must be a subtype of "str"  [type-var]
-aliases_type_statement.py:82: error: Cannot resolve name "RecursiveTypeAlias3" (possible cyclic definition)  [misc]
-aliases_type_statement.py:84: error: Invalid recursive alias: a union item of itself  [misc]
-aliases_type_statement.py:88: error: Cannot resolve name "RecursiveTypeAlias6" (possible cyclic definition)  [misc]
-aliases_type_statement.py:88: error: Cannot resolve name "RecursiveTypeAlias7" (possible cyclic definition)  [misc]
-aliases_type_statement.py:89: error: Cannot resolve name "RecursiveTypeAlias7" (possible cyclic definition)  [misc]
+aliases_type_statement.py:53: error: All type parameters should be declared ("V" not declared)  [valid-type]
+aliases_type_statement.py:58: error: All type parameters should be declared ("T1" not declared)  [valid-type]
+aliases_type_statement.py:68: error: Type argument "str" of "RecursiveTypeAlias2" must be a subtype of "int"  [type-var]
+aliases_type_statement.py:70: error: Type argument "int" of "RecursiveTypeAlias2" must be a subtype of "str"  [type-var]
+aliases_type_statement.py:73: error: Cannot resolve name "RecursiveTypeAlias3" (possible cyclic definition)  [misc]
+aliases_type_statement.py:75: error: Invalid recursive alias: a union item of itself  [misc]
+aliases_type_statement.py:79: error: Cannot resolve name "RecursiveTypeAlias6" (possible cyclic definition)  [misc]
+aliases_type_statement.py:79: error: Cannot resolve name "RecursiveTypeAlias7" (possible cyclic definition)  [misc]
+aliases_type_statement.py:80: error: Cannot resolve name "RecursiveTypeAlias7" (possible cyclic definition)  [misc]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 56: Expected 1 errors
 """
