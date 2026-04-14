@@ -435,8 +435,10 @@ def example11(x: str, y: int, z: str) -> bool | int:
 def check_example11(x: Any):
     # `*x` maps to `(y: int, z: str)` in both overloads, so the second overload
     # can be eliminated.
-    ret = example11('o1', *x)
-    assert_type(ret, bool)
+    ret1 = example11('o1', *x)
+    assert_type(ret1, bool)
+    ret2 = example11('o1', x, x)
+    assert_type(ret2, bool)
 
 
 class A[T]:
