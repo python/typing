@@ -73,14 +73,14 @@ other comments and linting markers:
 
   # type: ignore # <comment or other marker>
 
-The form of ``# type: ignore[...]`` may be used to filter errors depending on
-the type checker:
+The form ``# type: ignore[...]`` may be used to suppress only type errors with a
+given error code, though support for this is optional and may vary by type checker:
 
-- In ``# type: ignore[my_code1]``, a type checker may ignore the error code
+- Given ``# type: ignore[my_code1]``, a type checker may ignore the error code
   ``my_code1`` and choose to treat this form as equivalent to ``# type: ignore``.
-- Alternatively in ``# type: ignore[my_code1]`` a type checker may suppress the
+- Alternatively, given ``# type: ignore[my_code1]`` a type checker may suppress the
   error only if the error cause matches the error code ``my_code1``.
-- ``# type: ignore`` must always suppress all errors.
+- A bare ``# type: ignore`` must always suppress all type errors.
 
 .. _`cast`:
 
