@@ -10,7 +10,9 @@ x: int = ""  # type: ignore
 # The following type violation should be suppressed.
 y: int = ""  # type: ignore - additional stuff
 
-# The following type violation should be suppressed.
+# The following type violation may be suppressed, depending whether the
+# type checker uses the error code `assignment` for invalid assignments,
+# and/or how it treats unknown error codes.
 z: int = ""  # type: ignore[assignment]
 
 # > In some cases, linting tools or other comments may be needed on the same
