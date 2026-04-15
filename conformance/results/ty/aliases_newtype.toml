@@ -7,7 +7,7 @@ aliases_newtype.py:12:14: error[invalid-assignment] Object of type `Literal[42]`
 aliases_newtype.py:18:11: error[invalid-assignment] Object of type `<NewType pseudo-class 'UserId'>` is not assignable to `type`
 aliases_newtype.py:23:16: error[invalid-argument-type] Argument to function `isinstance` is incorrect: Expected `type | UnionType | tuple[Divergent, ...]`, found `<NewType pseudo-class 'UserId'>`
 aliases_newtype.py:26:21: error[invalid-base] Cannot subclass an instance of NewType
-aliases_newtype.py:35:1: error[invalid-newtype] The name of a `NewType` (`BadName`) must match the name of the variable it is assigned to (`GoodName`)
+aliases_newtype.py:35:20: error[mismatched-type-name] The name passed to `NewType` must match the variable it is assigned to: Expected "GoodName", got "BadName"
 aliases_newtype.py:41:6: error[invalid-type-form] `GoodNewType1` is a `NewType` and cannot be specialized
 aliases_newtype.py:47:38: error[invalid-newtype] invalid base for `typing.NewType`: type `int | str`
 aliases_newtype.py:50:38: error[invalid-newtype] invalid base for `typing.NewType`: A `NewType` base cannot be generic
