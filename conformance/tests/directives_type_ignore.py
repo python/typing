@@ -10,9 +10,9 @@ x: int = ""  # type: ignore
 # The following type violation should be suppressed.
 y: int = ""  # type: ignore - additional stuff
 
-# The following type violation may be suppressed, depending whether the
-# type checker uses the error code `assignment` for invalid assignments,
-# and/or how it treats unknown error codes.
+# The following type violation may be suppressed, if the type checker
+# actually uses the code `an-empty-str-is-not-an-int` (unlikely!), or if
+# it treats unknown codes as blanket ignores.
 z: int = ""  # type: ignore[an-empty-str-is-not-an-int]  # E?
 
 # > In some cases, linting tools or other comments may be needed on the same
