@@ -1,10 +1,5 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Treats `# type: ignore[error-code]` as only ignoring errors that match the error code `error-code`.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 16: Unexpected errors ['directives_type_ignore.py:16:10: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`']
 """
 output = """
 directives_type_ignore.py:16:10: error[invalid-assignment] Object of type `Literal[""]` is not assignable to `int`
