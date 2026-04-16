@@ -1167,6 +1167,13 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect calls to deprecated overloads.</p><p>Does not detect implicit calls to deprecated dunder methods, for example via operators.</p><p>Does not detect accesses of, or attempts to set, deprecated properties.</p></span></div></th>
 </tr>
+<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_disjoint_base</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support PEP 800 disjoint-base semantics.</p></span></div></th>
+<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support PEP 800 disjoint-base semantics.</p></span></div></th>
+<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support PEP 800 disjoint-base semantics.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject @disjoint_base on TypedDict or Protocol definitions.</p></span></div></th>
+</tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_no_type_check</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not honor `@no_type_check` class decorator (allowed).</p><p>Does not reject invalid call of `@no_type_check` function.</p></span></div></th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not honor `@no_type_check` class decorator (allowed).</p></span></div></th>
