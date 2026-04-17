@@ -1,0 +1,17 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not reject @disjoint_base on TypedDict or Protocol definitions.
+"""
+errors_diff = """
+Line 118: Expected 1 errors
+Line 123: Expected 1 errors
+"""
+output = """
+directives_disjoint_base.py:69:7: error[instance-layout-conflict] Class will raise `TypeError` at runtime due to incompatible bases: Bases `Left` and `Right` cannot be combined in multiple inheritance
+directives_disjoint_base.py:73:7: error[instance-layout-conflict] Class will raise `TypeError` at runtime due to incompatible bases: Bases `LeftChild` and `Right` cannot be combined in multiple inheritance
+directives_disjoint_base.py:77:7: error[instance-layout-conflict] Class will raise `TypeError` at runtime due to incompatible bases: Bases `LeftAndPlain` and `Right` cannot be combined in multiple inheritance
+directives_disjoint_base.py:81:7: error[instance-layout-conflict] Class will raise `TypeError` at runtime due to incompatible bases: Bases `Left` and `Record` cannot be combined in multiple inheritance
+directives_disjoint_base.py:105:7: error[instance-layout-conflict] Class will raise `TypeError` at runtime due to incompatible bases: Bases `SlotBase1` and `SlotBase2` cannot be combined in multiple inheritance
+directives_disjoint_base.py:113:1: error[invalid-argument-type] Argument to function `disjoint_base` is incorrect: Argument type `def func() -> None` does not satisfy upper bound `type` of type variable `_TC`
+"""
