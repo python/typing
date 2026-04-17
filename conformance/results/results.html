@@ -180,7 +180,7 @@
 </th>
 <th class='tc-header'><div class='tc-name'>pyrefly 0.60.0</div>
 </th>
-<th class='tc-header'><div class='tc-name'>ty 0.0.29</div>
+<th class='tc-header'><div class='tc-name'>ty 0.0.31</div>
 </th>
 </tr>
 <tr><th class="column" colspan="6">
@@ -555,11 +555,11 @@
 <th class="column col2 not-conformant">Unsupported</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_type_statement</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject type alias defined in function scope.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject use of the `type` statement inside functions.</p><p>Does not reject circular definitions of type aliases.</p><p>Does not reject redeclarations of type aliases.</p><p>Does not support `type` statements generic over `TypeVarTuple`s.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject circular definitions of type aliases.</p><p>Does not support `type` statements generic over `TypeVarTuple`s.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aliases_typealiastype</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly rejects some recursive type aliases using TypeAliasType.</p><p>Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.</p></span></div></th>
@@ -1058,7 +1058,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Permits subclasses of `NamedTuple` classes to override read-only attributes in the class body of the subclass.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namedtuples_define_functional</th>
 <th class="column col2 conformant">Pass</th>
@@ -1079,7 +1079,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect runtime errors from attempting to delete namedtuple attributes.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column" colspan="6">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/enums.html">Enumerations</a>
@@ -1166,6 +1166,13 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not detect calls to deprecated overloads.</p><p>Does not detect implicit calls to deprecated dunder methods, for example via operators.</p><p>Does not detect accesses of, or attempts to set, deprecated properties.</p></span></div></th>
+</tr>
+<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_disjoint_base</th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support PEP 800 disjoint-base semantics.</p></span></div></th>
+<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support PEP 800 disjoint-base semantics.</p></span></div></th>
+<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support PEP 800 disjoint-base semantics.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject @disjoint_base on TypedDict or Protocol definitions.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_no_type_check</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not honor `@no_type_check` class decorator (allowed).</p><p>Does not reject invalid call of `@no_type_check` function.</p></span></div></th>
