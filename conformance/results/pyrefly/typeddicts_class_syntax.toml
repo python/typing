@@ -3,9 +3,9 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR typeddicts_class_syntax.py:29:9-16: TypedDict members must be declared in the form `field: Annotation` with no assignment [bad-class-definition]
-ERROR typeddicts_class_syntax.py:34:9-16: TypedDict members must be declared in the form `field: Annotation` with no assignment [bad-class-definition]
-ERROR typeddicts_class_syntax.py:39:9-16: TypedDict members must be declared in the form `field: Annotation` with no assignment [bad-class-definition]
-ERROR typeddicts_class_syntax.py:44:7-20: Metaclass of `BadTypedDict2` has type `type[Any]` that is not a simple class type [invalid-inheritance]
-ERROR typeddicts_class_syntax.py:49:7-20: TypedDict does not support keyword argument `other` [bad-typed-dict]
+ERROR typeddicts_class_syntax.py:30:9-16: TypedDict members must be declared in the form `field: Annotation` with no assignment [bad-class-definition]
+ERROR typeddicts_class_syntax.py:35:9-16: TypedDict members must be declared in the form `field: Annotation` with no assignment [bad-class-definition]
+ERROR typeddicts_class_syntax.py:40:9-16: TypedDict members must be declared in the form `field: Annotation` with no assignment [bad-class-definition]
+ERROR typeddicts_class_syntax.py:45:7-20: Metaclass of `BadTypedDict2` has type `type[Any]` that is not a simple class type [invalid-inheritance]
+ERROR typeddicts_class_syntax.py:50:7-20: TypedDict does not support keyword argument `other` [bad-typed-dict]
 """

@@ -1,11 +1,18 @@
-conformant = "Pass"
-output = """
-typeddicts_class_syntax.py:29: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
-typeddicts_class_syntax.py:33: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
-typeddicts_class_syntax.py:38: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
-typeddicts_class_syntax.py:44: error: Unexpected keyword argument "metaclass" for "__init_subclass__" of "TypedDict"  [call-arg]
-typeddicts_class_syntax.py:49: error: Unexpected keyword argument "other" for "__init_subclass__" of "TypedDict"  [call-arg]
+conformant = "Partial"
+notes = """
+Does not support version-conditional items in TypedDict definitions.
 """
-conformance_automated = "Pass"
+output = """
+typeddicts_class_syntax.py:30: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
+typeddicts_class_syntax.py:34: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
+typeddicts_class_syntax.py:39: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
+typeddicts_class_syntax.py:45: error: Unexpected keyword argument "metaclass" for "__init_subclass__" of "TypedDict"  [call-arg]
+typeddicts_class_syntax.py:50: error: Unexpected keyword argument "other" for "__init_subclass__" of "TypedDict"  [call-arg]
+typeddicts_class_syntax.py:58: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
+typeddicts_class_syntax.py:62: error: Extra key "y" for TypedDict "ConditionalField"  [typeddict-unknown-key]
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 58: Unexpected errors ['typeddicts_class_syntax.py:58: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]']
+Line 62: Unexpected errors ['typeddicts_class_syntax.py:62: error: Extra key "y" for TypedDict "ConditionalField"  [typeddict-unknown-key]']
 """

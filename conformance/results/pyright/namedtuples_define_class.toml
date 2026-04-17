@@ -1,22 +1,22 @@
 conformant = "Pass"
 output = """
-namedtuples_define_class.py:32:7 - error: Index 3 is out of range for type Point (reportGeneralTypeIssues)
-namedtuples_define_class.py:33:7 - error: Index -4 is out of range for type Point (reportGeneralTypeIssues)
-namedtuples_define_class.py:44:6 - error: Argument missing for parameter "y" (reportCallIssue)
+namedtuples_define_class.py:33:7 - error: Index 3 is out of range for type Point (reportGeneralTypeIssues)
+namedtuples_define_class.py:34:7 - error: Index -4 is out of range for type Point (reportGeneralTypeIssues)
 namedtuples_define_class.py:45:6 - error: Argument missing for parameter "y" (reportCallIssue)
-namedtuples_define_class.py:46:15 - error: Argument of type "Literal['']" cannot be assigned to parameter "y" of type "int" in function "__new__"
+namedtuples_define_class.py:46:6 - error: Argument missing for parameter "y" (reportCallIssue)
+namedtuples_define_class.py:47:15 - error: Argument of type "Literal['']" cannot be assigned to parameter "y" of type "int" in function "__new__"
   "Literal['']" is not assignable to "int" (reportArgumentType)
-namedtuples_define_class.py:47:24 - error: Argument of type "Literal[3]" cannot be assigned to parameter "units" of type "str" in function "__new__"
+namedtuples_define_class.py:48:24 - error: Argument of type "Literal[3]" cannot be assigned to parameter "units" of type "str" in function "__new__"
   "Literal[3]" is not assignable to "str" (reportArgumentType)
-namedtuples_define_class.py:48:22 - error: Expected 3 positional arguments (reportCallIssue)
-namedtuples_define_class.py:49:23 - error: No parameter named "other" (reportCallIssue)
-namedtuples_define_class.py:69:20 - error: Expected 2 positional arguments (reportCallIssue)
-namedtuples_define_class.py:76:5 - error: Named tuple field names cannot start with an underscore (reportGeneralTypeIssues)
-namedtuples_define_class.py:86:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
-namedtuples_define_class.py:106:5 - error: Cannot override "x" because parent class "Point" is a named tuple (reportIncompatibleVariableOverride)
-namedtuples_define_class.py:125:19 - error: Argument of type "float" cannot be assigned to parameter "value" of type "str" in function "__new__"
+namedtuples_define_class.py:49:22 - error: Expected 3 positional arguments (reportCallIssue)
+namedtuples_define_class.py:50:23 - error: No parameter named "other" (reportCallIssue)
+namedtuples_define_class.py:70:20 - error: Expected 2 positional arguments (reportCallIssue)
+namedtuples_define_class.py:77:5 - error: Named tuple field names cannot start with an underscore (reportGeneralTypeIssues)
+namedtuples_define_class.py:87:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
+namedtuples_define_class.py:107:5 - error: Cannot override "x" because parent class "Point" is a named tuple (reportIncompatibleVariableOverride)
+namedtuples_define_class.py:137:19 - error: Argument of type "float" cannot be assigned to parameter "value" of type "str" in function "__new__"
   "float" is not assignable to "str" (reportArgumentType)
-namedtuples_define_class.py:132:7 - error: Multiple inheritance with NamedTuple is not supported (reportGeneralTypeIssues)
+namedtuples_define_class.py:144:7 - error: Multiple inheritance with NamedTuple is not supported (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """
