@@ -1,0 +1,18 @@
+conformance_automated = "Fail"
+conformant = "Unsupported"
+notes = """
+Does not support PEP 800 disjoint-base semantics.
+"""
+errors_diff = """
+Line 69: Expected 1 errors
+Line 73: Expected 1 errors
+Line 77: Expected 1 errors
+Line 81: Expected 1 errors
+Line 105: Expected 1 errors
+Line 118: Expected 1 errors
+Line 123: Expected 1 errors
+"""
+output = """
+directives_disjoint_base.py:113: error: Value of type variable "_TC" of "disjoint_base" cannot be "Callable[[], None]"  [type-var]
+directives_disjoint_base.py:135: error: Argument 1 to "assert_never" has incompatible type "<subclass of "tests.directives_disjoint_base.Left" and "tests.directives_disjoint_base.Right">"; expected "Never"  [arg-type]
+"""
