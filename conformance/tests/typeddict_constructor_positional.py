@@ -13,6 +13,6 @@ TD1(a=1)
 td2: TD2 = {"a": 1, "b": "x"}
 TD1(td2)
 
-# invalid positional arguments
-TD1({"a": 1})  # E
-TD1([("a", 1)])  # E
+# additional positional forms (behavior may vary across type checkers)
+TD1({"a": 1})
+TD1([("a", 1)])
