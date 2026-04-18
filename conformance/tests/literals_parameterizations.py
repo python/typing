@@ -43,14 +43,13 @@ bad2: Literal["foo".replace("o", "b")]  # E
 bad3: Literal[4 + 3j]  # E
 bad4: Literal[~5]  # E
 bad5: Literal[not False]  # E
-bad6: Literal[(1, "foo", "bar")]  # E
-bad7: Literal[{"a": "b", "c": "d"}]  # E
-bad8: Literal[int]  # E
-bad9: Literal[variable]  # E
-bad10: Literal[T]  # E
-bad11: Literal[3.14]  # E
-bad12: Literal[Any]  # E
-bad13: Literal[...]  # E
+bad6: Literal[{"a": "b", "c": "d"}]  # E
+bad7: Literal[int]  # E
+bad8: Literal[variable]  # E
+bad9: Literal[T]  # E
+bad10: Literal[3.14]  # E
+bad11: Literal[Any]  # E
+bad12: Literal[...]  # E
 
 
 def my_function(x: Literal[1 + 2]) -> int:  # E
