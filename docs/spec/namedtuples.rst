@@ -54,8 +54,9 @@ in the base class::
         name: str  # OK
         x: int  # Type error (invalid override of named tuple field)
 
-Namedtuple fields may be conditional, via checks of the same statically-known
-conditions that a type-checker understands elsewhere, such as Python version::
+Namedtuple fields may be conditional, via checks of the same
+:ref:`statically-known conditions<version-and-platform-checks>`
+that a type-checker understands elsewhere, such as Python version::
 
     class ConditionalField(NamedTuple):
         x: int
