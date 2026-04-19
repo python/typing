@@ -1849,7 +1849,7 @@ and a type checker should flag this as an error.
        AllTheDefaults[int, complex, str, int, bool]
    )  # All valid
 
-With the new Python 3.13 syntax for generics (introduced by :pep:`695`), this can
+With the new Python 3.13 syntax for generics (introduced by :pep:`696`), this can
 be enforced at compile time::
 
    type Alias[DefaultT = int, T] = tuple[DefaultT, T]  # SyntaxError: non-default TypeVars cannot follow ones with defaults
