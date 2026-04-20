@@ -9,7 +9,7 @@ Line 42: Expected 1 errors
 Line 107: Expected 1 errors
 """
 output = """
-constructors_call_init.py:21:13: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `int`, found `float`
-constructors_call_init.py:56:1: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `Class4[int]`, found `Class4[str]`
-constructors_call_init.py:130:9: error[too-many-positional-arguments] Too many positional arguments to bound method `__init__`: expected 1, got 2
+constructors_call_init.py:21:13: error[invalid-argument-type] Argument to `Class1.__init__` is incorrect: Expected `int`, found `float`
+constructors_call_init.py:56:1: error[invalid-argument-type] Argument to `Class4.__init__` is incorrect: Expected `Class4[int]`, found `Class4[str]`
+constructors_call_init.py:130:9: error[too-many-positional-arguments] Too many positional arguments to `object.__init__`: expected 1, got 2
 """
