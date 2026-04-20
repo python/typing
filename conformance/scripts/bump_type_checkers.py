@@ -7,7 +7,7 @@ from pathlib import Path
 from subprocess import CalledProcessError, run
 
 
-TYPE_CHECKERS = ("mypy", "pyright", "zuban", "pyrefly")
+TYPE_CHECKERS = ("mypy", "pyright", "zuban", "pyrefly", "ty")
 
 
 def main() -> int:
