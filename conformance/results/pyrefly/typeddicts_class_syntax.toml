@@ -8,4 +8,5 @@ ERROR typeddicts_class_syntax.py:35:9-16: TypedDict members must be declared in 
 ERROR typeddicts_class_syntax.py:40:9-16: TypedDict members must be declared in the form `field: Annotation` with no assignment [bad-class-definition]
 ERROR typeddicts_class_syntax.py:45:7-20: Metaclass of `BadTypedDict2` has type `type[Any]` that is not a simple class type [invalid-inheritance]
 ERROR typeddicts_class_syntax.py:50:7-20: TypedDict does not support keyword argument `other` [bad-typed-dict]
+ERROR typeddicts_class_syntax.py:65:17-32: No matching overload found for function `ConditionalField.__init__` called with arguments: (x=Literal[1], y=Literal[2], z=Literal[3]) [no-matching-overload]
 """

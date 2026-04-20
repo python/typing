@@ -15,6 +15,7 @@ ERROR namedtuples_define_class.py:70:20-22: Expected 2 positional arguments, got
 ERROR namedtuples_define_class.py:77:5-7: NamedTuple field name may not start with an underscore: `_y` [bad-class-definition]
 ERROR namedtuples_define_class.py:87:5-13: NamedTuple field 'latitude' without a default may not follow NamedTuple field with a default [bad-class-definition]
 ERROR namedtuples_define_class.py:107:5-6: Cannot override named tuple element `x` [bad-override]
-ERROR namedtuples_define_class.py:137:19-22: Argument `float` is not assignable to parameter `value` with type `str` in function `Property.__new__` [bad-argument-type]
-ERROR namedtuples_define_class.py:144:7-11: Named tuples do not support multiple inheritance [invalid-inheritance]
+ERROR namedtuples_define_class.py:121:24-25: Expected 2 positional arguments, got 3 in function `ConditionalField.__new__` [bad-argument-count]
+ERROR namedtuples_define_class.py:140:19-22: Argument `float` is not assignable to parameter `value` with type `str` in function `Property.__new__` [bad-argument-type]
+ERROR namedtuples_define_class.py:147:7-11: Named tuples do not support multiple inheritance [invalid-inheritance]
 """

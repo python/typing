@@ -1,10 +1,8 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
-Errors on version-conditional items in TypedDict definitions.
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 58: Unexpected errors ['typeddicts_class_syntax.py:58:5: error[invalid-typed-dict-statement] invalid statement in TypedDict class body']
 """
 output = """
 typeddicts_class_syntax.py:30:5: error[invalid-typed-dict-statement] TypedDict class cannot have methods
@@ -12,5 +10,5 @@ typeddicts_class_syntax.py:34:5: error[invalid-typed-dict-statement] TypedDict c
 typeddicts_class_syntax.py:39:5: error[invalid-typed-dict-statement] TypedDict class cannot have methods
 typeddicts_class_syntax.py:45:32: error[invalid-typed-dict-header] Custom metaclasses are not supported in `TypedDict` definitions
 typeddicts_class_syntax.py:50:32: error[unknown-argument] Unknown keyword argument `other` in `TypedDict` definition
-typeddicts_class_syntax.py:58:5: error[invalid-typed-dict-statement] invalid statement in TypedDict class body
+typeddicts_class_syntax.py:65:28: error[invalid-key] Unknown key "z" for TypedDict `ConditionalField`
 """

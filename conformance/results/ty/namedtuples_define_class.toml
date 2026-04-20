@@ -14,6 +14,7 @@ namedtuples_define_class.py:70:20: error[too-many-positional-arguments] Too many
 namedtuples_define_class.py:77:5: error[invalid-named-tuple] NamedTuple field `_y` cannot start with an underscore
 namedtuples_define_class.py:87:5: error[invalid-named-tuple] NamedTuple field without default value cannot follow field(s) with default value(s): Field `latitude` defined here without a default value
 namedtuples_define_class.py:107:5: error[invalid-named-tuple-override] Cannot override NamedTuple field `x` inherited from `Point`
-namedtuples_define_class.py:137:19: error[invalid-argument-type] Argument is incorrect: Expected `str`, found `float`
-namedtuples_define_class.py:144:24: error[invalid-named-tuple] NamedTuple class `Unit` cannot use multiple inheritance except with `Generic[]`
+namedtuples_define_class.py:121:24: error[too-many-positional-arguments] Too many positional arguments: expected 3, got 4
+namedtuples_define_class.py:140:19: error[invalid-argument-type] Argument is incorrect: Expected `str`, found `float`
+namedtuples_define_class.py:147:24: error[invalid-named-tuple] NamedTuple class `Unit` cannot use multiple inheritance except with `Generic[]`
 """

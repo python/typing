@@ -2,5 +2,6 @@ conformant = "Pass"
 errors_diff = """
 """
 output = """
+enums_definition.py:92: error: "type[Color12]" has no attribute "BLUE"  [attr-defined]
 """
 conformance_automated = "Pass"

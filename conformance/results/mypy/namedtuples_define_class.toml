@@ -18,9 +18,11 @@ namedtuples_define_class.py:68: error: Too many values to unpack (2 expected, 3 
 namedtuples_define_class.py:77: error: NamedTuple field name cannot start with an underscore: _y  [misc]
 namedtuples_define_class.py:87: error: Non-default NamedTuple fields cannot follow default fields  [misc]
 namedtuples_define_class.py:114: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"  [misc]
-namedtuples_define_class.py:118: error: Too many arguments for "ConditionalField"  [call-arg]
-namedtuples_define_class.py:137: error: Argument 2 to "Property" has incompatible type "float"; expected "str"  [arg-type]
-namedtuples_define_class.py:144: error: NamedTuple should be a single base  [misc]
+namedtuples_define_class.py:116: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"  [misc]
+namedtuples_define_class.py:120: error: Too many arguments for "ConditionalField"  [call-arg]
+namedtuples_define_class.py:121: error: Too many arguments for "ConditionalField"  [call-arg]
+namedtuples_define_class.py:140: error: Argument 2 to "Property" has incompatible type "float"; expected "str"  [arg-type]
+namedtuples_define_class.py:147: error: NamedTuple should be a single base  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -30,5 +32,6 @@ Line 60: Unexpected errors ['namedtuples_define_class.py:60: error: Invalid stat
 Line 66: Unexpected errors ['namedtuples_define_class.py:66: error: Missing positional argument "units" in call to "Point2"  [call-arg]']
 Line 68: Unexpected errors ['namedtuples_define_class.py:68: error: Too many values to unpack (2 expected, 3 provided)  [misc]']
 Line 114: Unexpected errors ['namedtuples_define_class.py:114: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"  [misc]']
-Line 118: Unexpected errors ['namedtuples_define_class.py:118: error: Too many arguments for "ConditionalField"  [call-arg]']
+Line 116: Unexpected errors ['namedtuples_define_class.py:116: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"  [misc]']
+Line 120: Unexpected errors ['namedtuples_define_class.py:120: error: Too many arguments for "ConditionalField"  [call-arg]']
 """

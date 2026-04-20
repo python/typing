@@ -14,9 +14,10 @@ namedtuples_define_class.py:70:20 - error: Expected 2 positional arguments (repo
 namedtuples_define_class.py:77:5 - error: Named tuple field names cannot start with an underscore (reportGeneralTypeIssues)
 namedtuples_define_class.py:87:5 - error: Fields without default values cannot appear after fields with default values (reportGeneralTypeIssues)
 namedtuples_define_class.py:107:5 - error: Cannot override "x" because parent class "Point" is a named tuple (reportIncompatibleVariableOverride)
-namedtuples_define_class.py:137:19 - error: Argument of type "float" cannot be assigned to parameter "value" of type "str" in function "__new__"
+namedtuples_define_class.py:121:24 - error: Expected 2 positional arguments (reportCallIssue)
+namedtuples_define_class.py:140:19 - error: Argument of type "float" cannot be assigned to parameter "value" of type "str" in function "__new__"
   "float" is not assignable to "str" (reportArgumentType)
-namedtuples_define_class.py:144:7 - error: Multiple inheritance with NamedTuple is not supported (reportGeneralTypeIssues)
+namedtuples_define_class.py:147:7 - error: Multiple inheritance with NamedTuple is not supported (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """

@@ -5,7 +5,8 @@ Does not support version-conditional fields in NamedTuple definitions.
 conformance_automated = "Fail"
 errors_diff = """
 Line 114: Unexpected errors ['namedtuples_define_class.py:114: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"  [misc]']
-Line 118: Unexpected errors ['namedtuples_define_class.py:118: error: Too many arguments for "ConditionalField"  [call-arg]']
+Line 116: Unexpected errors ['namedtuples_define_class.py:116: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"  [misc]']
+Line 120: Unexpected errors ['namedtuples_define_class.py:120: error: Too many arguments for "ConditionalField"  [call-arg]']
 """
 output = """
 namedtuples_define_class.py:33: error: Tuple index out of range  [misc]
@@ -21,7 +22,9 @@ namedtuples_define_class.py:77: error: NamedTuple field name cannot start with a
 namedtuples_define_class.py:87: error: Non-default NamedTuple fields cannot follow default fields  [misc]
 namedtuples_define_class.py:107: error: NamedTuple attributes cannot be overridden in subclasses  [misc]
 namedtuples_define_class.py:114: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"  [misc]
-namedtuples_define_class.py:118: error: Too many arguments for "ConditionalField"  [call-arg]
-namedtuples_define_class.py:137: error: Argument 2 to "Property" has incompatible type "float"; expected "str"  [arg-type]
-namedtuples_define_class.py:144: error: NamedTuple should be a single base  [misc]
+namedtuples_define_class.py:116: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"  [misc]
+namedtuples_define_class.py:120: error: Too many arguments for "ConditionalField"  [call-arg]
+namedtuples_define_class.py:121: error: Too many arguments for "ConditionalField"  [call-arg]
+namedtuples_define_class.py:140: error: Argument 2 to "Property" has incompatible type "float"; expected "str"  [arg-type]
+namedtuples_define_class.py:147: error: NamedTuple should be a single base  [misc]
 """

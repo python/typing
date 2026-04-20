@@ -56,10 +56,13 @@ class BadTypedDict3(TypedDict, other=True):  # E
 class ConditionalField(TypedDict):
     x: int
     if sys.version_info >= (3, 12):
-        y: str
+        y: int
+    if sys.version_info >= (4, 0):
+        z: int
 
 # The conformance suite runs type checkers configured to Python 3.12 or later:
-ConditionalField(x=1, y="hello")
+ConditionalField(x=1, y=2)
+ConditionalField(x=1, y=2, z=3)  # E
 
 
 # > TypedDicts may be made generic by adding Generic[T] among the bases.

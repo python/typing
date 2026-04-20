@@ -112,10 +112,13 @@ class BadPointWithName(Point):
 class ConditionalField(NamedTuple):
     x: int
     if sys.version_info >= (3, 12):
-        y: str
+        y: int
+    if sys.version_info >= (4, 0):
+        z: int
 
 # The conformance suite runs type checkers configured to Python 3.12 or later:
-ConditionalField(1, "hello")
+ConditionalField(1, 2)
+ConditionalField(1, 2, 3)  # E
 
 
 # > In Python 3.11 and newer, the class syntax supports generic named tuple classes.
