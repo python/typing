@@ -2,8 +2,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-generics_defaults_referential.py:37:17: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `int`, found `str`
-generics_defaults_referential.py:38:14: error[invalid-argument-type] Argument to bound method `__init__` is incorrect: Expected `int`, found `str`
+generics_defaults_referential.py:37:17: error[invalid-argument-type] Argument to `Foo.__init__` is incorrect: Expected `int`, found `str`
+generics_defaults_referential.py:38:14: error[invalid-argument-type] Argument to `Foo.__init__` is incorrect: Expected `int`, found `str`
 generics_defaults_referential.py:54:7: error[invalid-generic-class] Default of `Start2T` cannot reference out-of-scope type variable `StopT`
 generics_defaults_referential.py:61:11: error[invalid-generic-class] Default of `S2` cannot reference out-of-scope type variable `S1`
 generics_defaults_referential.py:69:40: error[invalid-type-variable-default] Default `X1` of TypeVar `Invalid1` is not assignable to upper bound `str` of `Invalid1` because its upper bound `int` is not assignable to `str`
