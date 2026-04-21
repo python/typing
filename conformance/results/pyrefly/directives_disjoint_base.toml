@@ -7,7 +7,6 @@ errors_diff = """
 Line 69: Expected 1 errors
 Line 73: Expected 1 errors
 Line 77: Expected 1 errors
-Line 105: Expected 1 errors
 Line 118: Expected 1 errors
 Line 123: Expected 1 errors
 Line 60: Unexpected errors ['Named tuples do not support multiple inheritance [invalid-inheritance]']
@@ -15,5 +14,6 @@ Line 60: Unexpected errors ['Named tuples do not support multiple inheritance [i
 output = """
 ERROR directives_disjoint_base.py:60:7-18: Named tuples do not support multiple inheritance [invalid-inheritance]
 ERROR directives_disjoint_base.py:81:7-17: Named tuples do not support multiple inheritance [invalid-inheritance]
+ERROR directives_disjoint_base.py:105:7-24: Class `IncompatibleSlots` has multiple base classes with non-empty `__slots__` (`SlotBase1`, `SlotBase2`), which causes a TypeError at runtime [invalid-inheritance]
 ERROR directives_disjoint_base.py:113:1-15: `() -> None` is not assignable to upper bound `type[object]` of type variable `_TC` [bad-specialization]
 """
