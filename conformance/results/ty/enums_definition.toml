@@ -2,4 +2,6 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
+enums_definition.py:24:32: error[too-many-positional-arguments] Too many positional arguments to function `Enum`: expected 2, got 4
+enums_definition.py:33:33: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
 """

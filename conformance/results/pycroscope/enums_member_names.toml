@@ -2,5 +2,6 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
+./enums_member_names.py:21:12:   str is not equivalent to Literal['RED']
 ./enums_member_names.py:30:16:   Annotated[str, EnumName(enum_cls=<enum 'Color'>)] is not equivalent to Literal['RED', 'BLUE', 'GREEN']
 """

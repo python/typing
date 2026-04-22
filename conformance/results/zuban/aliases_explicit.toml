@@ -17,7 +17,7 @@ aliases_explicit.py:83: error: Invalid type alias: expression is not a valid typ
 aliases_explicit.py:84: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_explicit.py:85: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_explicit.py:86: error: Invalid type alias: expression is not a valid type  [valid-type]
-aliases_explicit.py:87: error: Variable "aliases_explicit.var1" is not valid as a type  [valid-type]
+aliases_explicit.py:87: error: Variable "tests.aliases_explicit.var1" is not valid as a type  [valid-type]
 aliases_explicit.py:87: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
 aliases_explicit.py:88: error: Invalid type alias: expression is not a valid type  [valid-type]
 aliases_explicit.py:89: error: Invalid type: try using Literal[1] instead?  [valid-type]

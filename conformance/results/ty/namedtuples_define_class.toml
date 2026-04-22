@@ -1,10 +1,5 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Permits subclasses of `NamedTuple` classes to override read-only attributes in the class body of the subclass.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 106: Expected 1 errors
 """
 output = """
 namedtuples_define_class.py:32:7: error[index-out-of-bounds] Index 3 is out of bounds for tuple `Point` with length 3
@@ -18,6 +13,7 @@ namedtuples_define_class.py:49:23: error[unknown-argument] Argument `other` does
 namedtuples_define_class.py:69:20: error[too-many-positional-arguments] Too many positional arguments: expected 3, got 4
 namedtuples_define_class.py:76:5: error[invalid-named-tuple] NamedTuple field `_y` cannot start with an underscore
 namedtuples_define_class.py:86:5: error[invalid-named-tuple] NamedTuple field without default value cannot follow field(s) with default value(s): Field `latitude` defined here without a default value
+namedtuples_define_class.py:106:5: error[invalid-named-tuple-override] Cannot override NamedTuple field `x` inherited from `Point`
 namedtuples_define_class.py:125:19: error[invalid-argument-type] Argument is incorrect: Expected `str`, found `float`
 namedtuples_define_class.py:132:24: error[invalid-named-tuple] NamedTuple class `Unit` cannot use multiple inheritance except with `Generic[]`
 """

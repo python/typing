@@ -9,9 +9,7 @@ enums_members.py:88:18: error[invalid-type-form] Type arguments for `Literal` mu
 enums_members.py:89:16: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
 enums_members.py:120:1: error[type-assertion-failure] Type `int` does not match asserted type `Unknown`
 enums_members.py:120:32: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
-enums_members.py:132:21: info[revealed-type] Revealed type: `Unknown | Literal[2]`
-enums_members.py:133:9: error[type-assertion-failure] Type `Unknown | Literal[2]` does not match asserted type `Unknown`
+enums_members.py:132:21: info[revealed-type] Revealed type: `int`
+enums_members.py:133:9: error[type-assertion-failure] Type `int` does not match asserted type `Unknown`
 enums_members.py:133:43: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
-enums_members.py:150:1: error[type-assertion-failure] Type `Unknown | Literal[2]` does not match asserted type `int`
-enums_members.py:151:1: error[type-assertion-failure] Type `Unknown | Literal[3]` does not match asserted type `int`
 """

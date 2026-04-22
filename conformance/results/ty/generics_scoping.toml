@@ -11,7 +11,7 @@ Line 107: Expected 1 errors
 output = """
 generics_scoping.py:15:1: error[type-assertion-failure] Type `Literal[1]` does not match asserted type `int`
 generics_scoping.py:19:1: error[type-assertion-failure] Type `Literal["a"]` does not match asserted type `str`
-generics_scoping.py:34:10: error[invalid-argument-type] Argument to bound method `meth_2` is incorrect: Expected `int`, found `Literal["a"]`
+generics_scoping.py:34:10: error[invalid-argument-type] Argument to bound method `MyClass.meth_2` is incorrect: Expected `int`, found `Literal["a"]`
 generics_scoping.py:49:1: error[type-assertion-failure] Type `Literal["abc"]` does not match asserted type `str`
 generics_scoping.py:53:1: error[type-assertion-failure] Type `Literal[b"abc"]` does not match asserted type `bytes`
 generics_scoping.py:61:13: error[unbound-type-variable] Type variable `S` is not bound to any outer generic context

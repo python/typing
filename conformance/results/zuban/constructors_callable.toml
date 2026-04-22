@@ -2,12 +2,12 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-constructors_callable.py:36: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class1"
+constructors_callable.py:36: note: Revealed type is "def (x: builtins.int) -> tests.constructors_callable.Class1"
 constructors_callable.py:38: error: Missing positional argument "x" in call  [call-arg]
 constructors_callable.py:39: error: Unexpected keyword argument "y"  [call-arg]
-constructors_callable.py:49: note: Revealed type is "def () -> constructors_callable.Class2"
+constructors_callable.py:49: note: Revealed type is "def () -> tests.constructors_callable.Class2"
 constructors_callable.py:51: error: Too many arguments  [call-arg]
-constructors_callable.py:64: note: Revealed type is "def (x: builtins.int) -> constructors_callable.Class3"
+constructors_callable.py:64: note: Revealed type is "def (x: builtins.int) -> tests.constructors_callable.Class3"
 constructors_callable.py:66: error: Missing positional argument "x" in call  [call-arg]
 constructors_callable.py:67: error: Unexpected keyword argument "y"  [call-arg]
 constructors_callable.py:68: error: Too many arguments  [call-arg]
@@ -15,13 +15,13 @@ constructors_callable.py:79: note: Revealed type is "def (x: builtins.int) -> bu
 constructors_callable.py:81: error: Missing positional argument "x" in call  [call-arg]
 constructors_callable.py:82: error: Unexpected keyword argument "y"  [call-arg]
 constructors_callable.py:99: note: Revealed type is "def (*args: Any, **kwargs: Any) -> Never"
-constructors_callable.py:127: note: Revealed type is "def () -> constructors_callable.Class6Proxy"
+constructors_callable.py:127: note: Revealed type is "def () -> tests.constructors_callable.Class6Proxy"
 constructors_callable.py:129: error: Too many arguments  [call-arg]
 constructors_callable.py:144: note: Revealed type is "def () -> Any"
 constructors_callable.py:146: error: Too many arguments  [call-arg]
-constructors_callable.py:164: note: Revealed type is "Overload(def (x: builtins.int) -> constructors_callable.Class7[builtins.int], def (x: builtins.str) -> constructors_callable.Class7[builtins.str])"
-constructors_callable.py:184: note: Revealed type is "def [T] (x: builtins.list[T], y: builtins.list[T]) -> constructors_callable.Class8[T]"
+constructors_callable.py:164: note: Revealed type is "Overload(def (x: builtins.int) -> tests.constructors_callable.Class7[builtins.int], def (x: builtins.str) -> tests.constructors_callable.Class7[builtins.str])"
+constructors_callable.py:184: note: Revealed type is "def [T] (x: builtins.list[T], y: builtins.list[T]) -> tests.constructors_callable.Class8[T]"
 constructors_callable.py:186: error: List item 0 has incompatible type "str"; expected "int"  [list-item]
-constructors_callable.py:195: note: Revealed type is "def [T] (x: builtins.list[T], y: builtins.list[T]) -> constructors_callable.Class9"
+constructors_callable.py:195: note: Revealed type is "def [T] (x: builtins.list[T], y: builtins.list[T]) -> tests.constructors_callable.Class9"
 constructors_callable.py:197: error: List item 0 has incompatible type "str"; expected "int"  [list-item]
 """

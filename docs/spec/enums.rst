@@ -78,7 +78,7 @@ behaviors::
     reveal_type(Color["RED"])  # Revealed type is 'Literal[Color.RED]' (or 'Color')
     reveal_type(Color(3))  # Revealed type is 'Literal[Color.BLUE]' (or 'Color')
 
-Unlike most Python classes, Calling an enum class does not invoke its constructor.
+Unlike most Python classes, calling an enum class does not invoke its constructor.
 Instead, the call performs a value-based lookup of an enum member.
 
 An Enum class with one or more defined members cannot be subclassed. They are
@@ -266,10 +266,10 @@ tuple values and the constructor signature::
             self.mass = mass
             self.radius = radius
 
-        MERCURY = (1, 3.303e+23, 2.4397e6)
-        VENUS = (2, 4.869e+24, 6.0518e6)
-        EARTH = (3, 5.976e+24, 6.37814e6)
-        MARS = (6.421e+23, 3.3972e6)  # Type checker error (optional)
+        MERCURY = (1, 3.301e+23, 2.4397e6)
+        VENUS = (2, 4.867e+24, 6.0518e6)
+        EARTH = (3, 5.972e+24, 6.37814e6)
+        MARS = (6.417e+23, 3.3962e6)  # Type checker error (optional)
         JUPITER = 5  # Type checker error (optional)
 
     reveal_type(Planet.MERCURY.value)  # Revealed type is Literal[1] (or int or object or Any)
@@ -302,7 +302,7 @@ checkers should enforce this declared type when values are assigned to
         def __init__(self, value: int, mass: float, radius: float):
             self._value_ = value # Type error
 
-        MERCURY = (1, 3.303e+23, 2.4397e6)
+        MERCURY = (1, 3.301e+23, 2.4397e6)
 
 If the literal values for enum members are not supplied, as they sometimes
 are not within a type stub file, a type checker can use the type of the

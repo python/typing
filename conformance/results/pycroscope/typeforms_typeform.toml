@@ -4,7 +4,7 @@ Line 88: Expected 1 errors
 """
 output = """
 ./typeforms_typeform.py:23:0: Incompatible assignment: expected TypeForm[str | None], got Literal[str | int] [incompatible_assignment]
-./typeforms_typeform.py:24:0: Incompatible assignment: expected TypeForm[str | None], got Literal[list[str | None]] [incompatible_assignment]
+./typeforms_typeform.py:24:0: Incompatible assignment: expected TypeForm[str | None], got types.GenericAlias (partial from type 'list'[Any[inference] (partial from type 'str' | None)]) [incompatible_assignment]
 ./typeforms_typeform.py:59:6: Incompatible argument type for x: expected TypeForm[Any[explicit]] but got Literal['not a type'] [incompatible_argument]
 ./typeforms_typeform.py:67:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[()] [incompatible_assignment]
 ./typeforms_typeform.py:68:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[(1, 2)] [incompatible_assignment]

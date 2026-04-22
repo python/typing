@@ -57,6 +57,15 @@ Specification
 
    spec/index
 
+
+Typing PEPs
+-----------
+
+Significant changes to the Python Type System Specification are proposed and
+discussed in Python Enhancement Proposals (PEPs). See
+https://peps.python.org/topic/typing for a list of all current and historical
+typing-related PEPs.
+
 Indices and tables
 ==================
 
@@ -84,6 +93,10 @@ Type Checkers
 * `pyright <https://github.com/microsoft/pyright>`_
 * `ty <https://docs.astral.sh/ty/>`_
 * `Zuban <https://docs.zubanls.com/en/latest/>`_
+
+The extent to which these adhere to the specification is monitored by a
+`conformance test suite <https://github.com/python/typing/tree/main/conformance>`_
+(`results <https://htmlpreview.github.io/?https://github.com/python/typing/blob/main/conformance/results/results.html>`_).
 
 Development Environments
 ------------------------
@@ -116,8 +129,3 @@ Type-Hint and Stub Integration
   a thin wrapper around ``ApplyTypeAnnotationsVisitor`` from
   `libCST <https://libcst.readthedocs.io/en/latest/>`_ that integrates .pyi
   signatures as inline type-hints in Python source code.
-
-Typing PEPs
-===========
-
-See https://peps.python.org/topic/typing for a list of all typing-related PEPs.

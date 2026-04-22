@@ -5,7 +5,7 @@ errors_diff = """
 output = """
 ERROR typeddicts_alt_syntax.py:23:1-14: Expected valid functional typed dictionary definition [invalid-argument]
 ERROR typeddicts_alt_syntax.py:27:45-46: Expected first item to be a string literal [invalid-argument]
-ERROR typeddicts_alt_syntax.py:31:27-38: Expected string literal "BadTypedDict3" [invalid-argument]
+ WARN typeddicts_alt_syntax.py:31:27-38: Expected string literal "BadTypedDict3" [name-mismatch]
 ERROR typeddicts_alt_syntax.py:35:72-83: Unrecognized keyword argument `other` in typed dictionary definition [invalid-argument]
 ERROR typeddicts_alt_syntax.py:41:1-7: Expected valid functional typed dictionary definition [invalid-argument]
 ERROR typeddicts_alt_syntax.py:41:30-38: Unrecognized keyword argument `name` in typed dictionary definition [invalid-argument]

@@ -8,5 +8,5 @@ output = """
 ./generics_type_erasure.py:43:0: types.GenericAlias (partial from <class 'Node'>[type 'int']) has no attribute 'label' [undefined_attribute]
 ./generics_type_erasure.py:44:0: Cannot assign to instance attribute 'label' via class object [incompatible_assignment]
 ./generics_type_erasure.py:45:0: <class 'Node'> has no attribute 'label' [undefined_attribute]
-./generics_type_erasure.py:46:0: Any[inference] has no attribute 'label' [undefined_attribute]
+./generics_type_erasure.py:46:0: type[./generics_type_erasure.py.Node[int]] has no attribute 'label' [undefined_attribute]
 """

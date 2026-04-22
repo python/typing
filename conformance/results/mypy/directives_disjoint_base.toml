@@ -1,0 +1,14 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_disjoint_base.py:69: error: Class "LeftAndRight" has incompatible disjoint bases  [misc]
+directives_disjoint_base.py:73: error: Class "LeftChildAndRight" has incompatible disjoint bases  [misc]
+directives_disjoint_base.py:77: error: Class "LeftAndRightViaChild" has incompatible disjoint bases  [misc]
+directives_disjoint_base.py:81: error: Class "LeftRecord" has incompatible disjoint bases  [misc]
+directives_disjoint_base.py:105: error: Class "IncompatibleSlots" has incompatible disjoint bases  [misc]
+directives_disjoint_base.py:113: error: Value of type variable "_TC" of "disjoint_base" cannot be "Callable[[], None]"  [type-var]
+directives_disjoint_base.py:118: error: @disjoint_base cannot be used with TypedDict  [misc]
+directives_disjoint_base.py:123: error: @disjoint_base cannot be used with protocol class  [misc]
+"""

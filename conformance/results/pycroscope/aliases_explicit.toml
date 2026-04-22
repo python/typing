@@ -21,6 +21,6 @@ output = """
 ./aliases_explicit.py:90:21: Invalid type annotation [invalid_annotation]
 ./aliases_explicit.py:91:21: Invalid type annotation [invalid_annotation]
 ./aliases_explicit.py:100:4: Expected 0 type arguments for type alias, got 1 [invalid_specialization]
-./aliases_explicit.py:101:5: .ListOrSetAlias = list | set is not callable [not_callable]
+./aliases_explicit.py:101:5: Literal[list | set] (PEP 613 alias for .ListOrSetAlias = list | set) is not callable [not_callable]
 ./aliases_explicit.py:102:4: Expected 0 type arguments for type alias, got 1 [invalid_specialization]
 """

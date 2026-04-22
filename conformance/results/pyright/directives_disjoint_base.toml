@@ -1,0 +1,21 @@
+conformance_automated = "Fail"
+conformant = "Unsupported"
+notes = """
+Does not support PEP 800 disjoint-base semantics.
+"""
+errors_diff = """
+Line 69: Expected 1 errors
+Line 73: Expected 1 errors
+Line 77: Expected 1 errors
+Line 81: Expected 1 errors
+Line 105: Expected 1 errors
+Line 118: Expected 1 errors
+Line 123: Expected 1 errors
+"""
+output = """
+directives_disjoint_base.py:113:2 - error: Argument of type "() -> None" cannot be assigned to parameter "cls" of type "_TC@disjoint_base" in function "disjoint_base"
+  Type "() -> None" is not assignable to type "type"
+    "FunctionType" is not assignable to "type" (reportArgumentType)
+directives_disjoint_base.py:135:22 - error: Argument of type "<subclass of Left and Right>" cannot be assigned to parameter "arg" of type "Never" in function "assert_never"
+  Type "<subclass of Left and Right>" is not assignable to type "Never" (reportArgumentType)
+"""

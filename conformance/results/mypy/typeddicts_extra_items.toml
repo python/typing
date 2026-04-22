@@ -99,8 +99,6 @@ typeddicts_extra_items.py:124: error: Unexpected keyword argument "extra_items" 
 typeddicts_extra_items.py:128: error: Key "name" of TypedDict "MovieEI" cannot be deleted  [misc]
 typeddicts_extra_items.py:129: error: TypedDict "MovieEI" has no key "year"  [typeddict-item]
 typeddicts_extra_items.py:137: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
-typeddicts_extra_items.py:140: note: "unpack_no_extra" defined here
-typeddicts_extra_items.py:141: note: "unpack_extra" defined here
 typeddicts_extra_items.py:143: error: Unexpected keyword argument "year" for "unpack_no_extra"  [call-arg]
 typeddicts_extra_items.py:144: error: Unexpected keyword argument "year" for "unpack_extra"  [call-arg]
 typeddicts_extra_items.py:149: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
