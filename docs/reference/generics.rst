@@ -145,12 +145,10 @@ where the types of the arguments or return value have some relationship:
 
 .. code-block:: python
 
-   from typing import TypeVar, Sequence
-
-   T = TypeVar('T')
+   from typing import Sequence
 
    # A generic function!
-   def first(seq: Sequence[T]) -> T:
+   def first[T](seq: Sequence[T]) -> T:
        return seq[0]
 
 As with generic classes, the type variable can be replaced with any
@@ -174,14 +172,12 @@ functions do not share any typing relationship to each other:
 
 .. code-block:: python
 
-   from typing import TypeVar, Sequence
+   from typing import Sequence
 
-   T = TypeVar('T')
-
-   def first(seq: Sequence[T]) -> T:
+   def first[T](seq: Sequence[T]) -> T:
        return seq[0]
 
-   def last(seq: Sequence[T]) -> T:
+   def last[T](seq: Sequence[T]) -> T:
        return seq[-1]
 
 Variables should not have a type variable in their type unless the type variable
@@ -198,20 +194,16 @@ the class definition.
 
 .. code-block:: python
 
-    from typing import TypeVar
-
-    S = TypeVar('S')
-
     # T is the type parameter bound by this class
     class PairedBox[T]:
         def __init__(self, content: T) -> None:
             self.content = content
 
-        # S is a type variable bound only in this method
-        def first(self, x: list[S]) -> S:
+        # S is a type parameter bound only in this method
+        def first[S](self, x: list[S]) -> S:
             return x[0]
 
-        def pair_with_first(self, x: list[S]) -> tuple[S, T]:
+        def pair_with_first[S](self, x: list[S]) -> tuple[S, T]:
             return (x[0], self.content)
 
     box = PairedBox("asdf")
@@ -225,12 +217,8 @@ methods:
 
 .. code-block:: python
 
-   from typing import TypeVar
-
-   T = TypeVar('T', bound='Shape')
-
    class Shape:
-       def set_scale(self: T, scale: float) -> T:
+       def set_scale[T: Shape](self: T, scale: float) -> T:
            self.scale = scale
            return self
 
@@ -256,15 +244,13 @@ For class methods, you can also define generic ``cls``, using :py:class:`type`:
 
 .. code-block:: python
 
-   from typing import Optional, TypeVar, Type
-
-   T = TypeVar('T', bound='Friend')
+   from typing import Optional
 
    class Friend:
        other: Optional["Friend"] = None
 
        @classmethod
-       def make_pair(cls: type[T]) -> tuple[T, T]:
+       def make_pair[T: Friend](cls: type[T]) -> tuple[T, T]:
            a, b = cls(), cls()
            a.other = b
            b.other = a
@@ -455,24 +441,21 @@ It's therefore often useful to be able to limit the types that a type
 variable can take on, for instance, by restricting it to values that are
 subtypes of a specific type.
 
-Such a type is called the upper bound of the type variable, and is specified
-with the ``bound=...`` keyword argument to :py:class:`~typing.TypeVar`.
+Such a type is called the upper bound of the type parameter. In modern Python
+(3.12+), this can be expressed directly in the type parameter list using
+``[T: Bound]`` syntax.
 
 .. code-block:: python
 
-    from typing import TypeVar, SupportsAbs
+    from typing import SupportsAbs
 
-    T = TypeVar('T', bound=SupportsAbs[float])
+    def largest_in_absolute_value[T: SupportsAbs[float]](*xs: T) -> T:
+        return max(xs, key=abs)
 
 In the definition of a generic function that uses such a type variable
 ``T``, the type represented by ``T`` is assumed to be a subtype of
 its upper bound, so the function can use methods of the upper bound on
 values of type ``T``.
-
-.. code-block:: python
-
-    def largest_in_absolute_value(*xs: T) -> T:
-        return max(xs, key=abs)  # Okay, because T is a subtype of SupportsAbs[float].
 
 In a call to such a function, the type ``T`` must be replaced by a
 type that is a subtype of its upper bound. Continuing the example
