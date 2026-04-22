@@ -8,11 +8,11 @@ Line 64: Expected 1 errors
 """
 output = """
 constructors_call_type.py:19:55: warning[unused-type-ignore-comment] Unused blanket `type: ignore` directive
-constructors_call_type.py:30:5: error[missing-argument] No arguments provided for required parameters `x`, `y` of bound method `__call__`
-constructors_call_type.py:40:5: error[missing-argument] No arguments provided for required parameters `x`, `y` of function `__new__`
-constructors_call_type.py:50:5: error[missing-argument] No arguments provided for required parameters `x`, `y` of bound method `__init__`
-constructors_call_type.py:59:9: error[too-many-positional-arguments] Too many positional arguments to bound method `__init__`: expected 1, got 2
-constructors_call_type.py:72:5: error[missing-argument] No arguments provided for required parameters `x`, `y` of bound method `__call__`
-constructors_call_type.py:81:5: error[missing-argument] No argument provided for required parameter `y` of function `__new__`
-constructors_call_type.py:82:12: error[invalid-argument-type] Argument to function `__new__` is incorrect: Expected `str`, found `Literal[2]`
+constructors_call_type.py:30:5: error[missing-argument] No arguments provided for required parameters `x`, `y` of bound method `Meta1.__call__`
+constructors_call_type.py:40:5: error[missing-argument] No arguments provided for required parameters `x`, `y` of constructor `Class2.__new__`
+constructors_call_type.py:50:5: error[missing-argument] No arguments provided for required parameters `x`, `y` of `Class3.__init__`
+constructors_call_type.py:59:9: error[too-many-positional-arguments] Too many positional arguments to `object.__init__`: expected 1, got 2
+constructors_call_type.py:72:5: error[missing-argument] No arguments provided for required parameters `x`, `y` of bound method `Meta1.__call__`
+constructors_call_type.py:81:5: error[missing-argument] No argument provided for required parameter `y` of constructor `Class2.__new__`
+constructors_call_type.py:82:12: error[invalid-argument-type] Argument to constructor `Class2.__new__` is incorrect: Expected `str`, found `Literal[2]`
 """

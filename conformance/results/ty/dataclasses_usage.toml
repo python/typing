@@ -11,6 +11,6 @@ dataclasses_usage.py:73:5: error[dataclass-field-order] Required field `b` canno
 dataclasses_usage.py:83:13: error[too-many-positional-arguments] Too many positional arguments: expected 1, got 2
 dataclasses_usage.py:88:14: error[invalid-assignment] Object of type `dataclasses.Field[str]` is not assignable to `int`
 dataclasses_usage.py:127:8: error[too-many-positional-arguments] Too many positional arguments: expected 1, got 2
-dataclasses_usage.py:130:1: error[missing-argument] No argument provided for required parameter `y` of bound method `__init__`
-dataclasses_usage.py:179:6: error[too-many-positional-arguments] Too many positional arguments to bound method `__init__`: expected 1, got 2
+dataclasses_usage.py:130:1: error[missing-argument] No argument provided for required parameter `y` of `DC8.__init__`
+dataclasses_usage.py:179:6: error[too-many-positional-arguments] Too many positional arguments to `object.__init__`: expected 1, got 2
 """
