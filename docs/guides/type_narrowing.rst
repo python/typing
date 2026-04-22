@@ -12,11 +12,10 @@ runtime. For example, here the variable *name* can be either a ``str`` or
             print("Hello, " + name)
 
 This technique is called *type narrowing*.
-To avoid false positives on such code, type checkers understand
-various kinds of conditional checks that are used to narrow types in Python code.
-The exact set of type narrowing constructs that a type checker understands
-is not specified and varies across type checkers. Commonly understood
-patterns include:
+To avoid false positives, type checkers recognize various kinds of
+conditional checks that narrow types in Python code. The exact set of
+supported constructs is not specified and varies across type checkers.
+Commonly understood patterns include:
 
 * ``if x is not None``
 * ``if x``
@@ -31,13 +30,13 @@ conditions for this behavior differ between type checkers.
 Consult your type checker's documentation for more information on the type
 narrowing constructs it supports.
 
-The type system also includes two ways to create *user-defined* type narrowing
-functions: :py:data:`typing.TypeIs` and :py:data:`typing.TypeGuard`. These
-are useful if you want to reuse a more complicated check in multiple places, or
-you use a check that the type checker doesn't understand. In these cases, you
-can define a ``TypeIs`` or ``TypeGuard`` function to perform the check and allow type checkers
-to use it to narrow the type of a variable. Between the two, ``TypeIs`` usually
-has the more intuitive behavior, so we'll talk about it more; see
+The type system also provides two ways to define *user-defined* type narrowing
+functions: :py:data:`typing.TypeIs` and :py:data:`typing.TypeGuard`. These are
+useful when you want to reuse a more complex check in multiple places or when
+the type checker does not understand a particular check. In such cases, you can
+define a ``TypeIs`` or ``TypeGuard`` function to perform the check and allow
+type checkers to use it to narrow the type of a variable. Between the two,
+``TypeIs`` usually has more intuitive behavior, so we focus on it here; see
 :ref:`below <guide-type-narrowing-typeis-typeguard>` for a comparison.
 
 How to use ``TypeIs`` and ``TypeGuard``
@@ -63,7 +62,7 @@ For example::
             print(f"{x} is not a cardinal direction")
 
 A ``TypeGuard`` function looks similar and is used in the same way, but the
-type narrowing behavior is different, as dicussed in :ref:`the section below <guide-type-narrowing-typeis-typeguard>`.
+type narrowing behavior is different, as discussed in :ref:`the section below <guide-type-narrowing-typeis-typeguard>`.
 
 Depending on the version of Python you are running, you will be able to
 import ``TypeIs`` and ``TypeGuard`` either from the standard library :py:mod:`typing`
@@ -143,7 +142,7 @@ Here is an example of a correct ``TypeIs`` function for a more complicated type:
 :py:data:`typing.TypeIs` and :py:data:`typing.TypeGuard` are both tools for narrowing the type of a variable
 based on a user-defined function. Both can be used to annotate functions that take an
 argument and return a boolean depending on whether the input argument is compatible with
-the narrowed type. These function can then be used in ``if`` checks to narrow the type
+the narrowed type. These functions can then be used in ``if`` checks to narrow the type
 of a variable.
 
 ``TypeIs`` usually has the more intuitive behavior, but it
