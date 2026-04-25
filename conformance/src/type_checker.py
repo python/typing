@@ -150,7 +150,16 @@ class PyrightTypeChecker(TypeChecker):
             stdout=PIPE,
             text=True,
         )
-        return proc.stdout.strip()
+        return self._parse_version(proc.stdout)
+
+    @staticmethod
+    def _parse_version(output: str) -> str:
+        # pyright --version can print an update message ("there is a new pyright version available"),
+        # make sure we extract only the actual version
+        for line in output.splitlines():
+            if line.startswith("pyright "):
+                return line
+        return output.strip()
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         command = [sys.executable, "-m", "pyright", ".", "--outputjson"]
