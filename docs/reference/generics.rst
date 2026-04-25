@@ -335,10 +335,12 @@ Let us illustrate this by few simple examples:
 
 .. code-block:: python
 
-    # We'll use these classes in the examples below
-    class Shape: ...
-    class Triangle(Shape): ...
-    class Square(Shape): ...
+   from typing import Sequence, Union, Callable
+
+   # We'll use these classes in the examples below
+   class Shape: ...
+   class Triangle(Shape): ...
+   class Square(Shape): ...
 
 * Most immutable containers, such as :py:class:`~typing.Sequence` and
   :py:class:`~typing.FrozenSet` are covariant. :py:data:`~typing.Union` is
@@ -405,7 +407,9 @@ Let us illustrate this by few simple examples:
   Another example of an invariant type is :py:class:`~typing.Dict`. Most mutable containers
   are invariant.
 
-By default, all user-defined generics are invariant.
+The variance of user-defined generics depends on how type parameters
+are used. Explicit variance annotations are only required when using
+TypeVar.
 To declare a given generic class as covariant or contravariant use
 type variables defined with special keyword arguments ``covariant`` or
 ``contravariant``. For example:
