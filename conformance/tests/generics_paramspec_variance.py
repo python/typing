@@ -7,6 +7,14 @@ Tests variance of ParamSpec.
 
 from typing import Callable, Generic, ParamSpec
 
+
+class InvariantParamSpec[**InOutP]:
+    a: Callable[InOutP, None]
+
+in_out_obj: InvariantParamSpec[object] = InvariantParamSpec[int]()  # E
+in_out_int: InvariantParamSpec[int] = InvariantParamSpec[object]()  # E
+
+
 class ContravariantParamSpec[**InP]:
     def f(self, *args: InP.args, **kwargs: InP.kwargs): ...
 

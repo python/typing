@@ -7,11 +7,19 @@ Tests variance of TypeVarTuple.
 
 from typing import Generic, TypeVarTuple
 
+class InvariantTypeVarTuple[*InOutTs]:
+    a: tuple[*InOutTs]
+
+in_out_obj: InvariantTypeVarTuple[object] = InvariantTypeVarTuple[int]()  # E
+in_out_int: InvariantTypeVarTuple[int] = InvariantTypeVarTuple[object]()  # E
+in_out_int = InvariantTypeVarTuple[int]()  # E
+
+
 class ContravariantTypeVarTuple[*InTs]:
     def f(self, t: tuple[*InTs]):
         raise NotImplementedError
 
-in_obj: ContravariantTypeVarTuple[object] = ContravariantTypeVarTuple[int]()  # E
+in_obj: ContravariantTypeVarTuple[object, object] = ContravariantTypeVarTuple[int]()  # E
 in_int: ContravariantTypeVarTuple[int] = ContravariantTypeVarTuple[object]()  # OK
 
 
@@ -22,6 +30,10 @@ class CovariantTypeVarTuple[*OutTs]:
 
 out_int: CovariantTypeVarTuple[int] = CovariantTypeVarTuple[object]()  # E
 out_obj: CovariantTypeVarTuple[object] = CovariantTypeVarTuple[int]()  # OK
+out_multiple: CovariantTypeVarTuple[float, float] = CovariantTypeVarTuple[
+    int,  # OK
+    object,  # E
+]()
 
 
 InTs = TypeVarTuple("InTs", contravariant=True)
