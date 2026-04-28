@@ -3,4 +3,5 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
+ERROR directives_type_checking.py:14:20-27: `list[str]` is not assignable to `list[int]` [bad-assignment]
 """
