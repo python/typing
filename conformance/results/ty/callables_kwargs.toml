@@ -1,27 +1,21 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 conformant = "Unsupported"
 errors_diff = """
-Line 46: Expected 1 errors
-Line 58: Expected 1 errors
-Line 63: Expected 1 errors
-Line 65: Expected 1 errors
-Line 101: Expected 1 errors
-Line 102: Expected 1 errors
-Line 111: Expected 1 errors
-Line 122: Expected 1 errors
-Line 24: Unexpected errors ['callables_kwargs.py:24:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `int`']
-Line 32: Unexpected errors ['callables_kwargs.py:32:9: error[type-assertion-failure] Type `@Todo` does not match asserted type `str`']
-Line 35: Unexpected errors ['callables_kwargs.py:35:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `str`']
-Line 41: Unexpected errors ['callables_kwargs.py:41:5: error[type-assertion-failure] Type `dict[str, @Todo]` does not match asserted type `TD1`']
 """
 output = """
-callables_kwargs.py:24:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `int`
-callables_kwargs.py:32:9: error[type-assertion-failure] Type `@Todo` does not match asserted type `str`
-callables_kwargs.py:35:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `str`
-callables_kwargs.py:41:5: error[type-assertion-failure] Type `dict[str, @Todo]` does not match asserted type `TD1`
+callables_kwargs.py:46:5: error[missing-argument] No arguments provided for required parameters `v1`, `v3` of function `func1`
+callables_kwargs.py:52:5: error[missing-argument] No arguments provided for required parameters `v1`, `v3` of function `func1`
 callables_kwargs.py:52:11: error[too-many-positional-arguments] Too many positional arguments to function `func1`: expected 0, got 3
+callables_kwargs.py:58:11: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `int`, found `str`
+callables_kwargs.py:61:11: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `str`, found `int | str`
+callables_kwargs.py:63:17: error[parameter-already-assigned] Multiple values provided for parameter `v1` of function `func1`
 callables_kwargs.py:64:11: error[invalid-argument-type] Argument to function `func2` is incorrect: Expected `str`, found `Literal[1]`
 callables_kwargs.py:64:14: error[parameter-already-assigned] Multiple values provided for parameter `v3` of function `func2`
-callables_kwargs.py:103:19: error[invalid-assignment] Object of type `def func1(**kwargs: @Todo) -> None` is not assignable to `TDProtocol5`
+callables_kwargs.py:65:17: error[parameter-already-assigned] Multiple values provided for parameter `v1` of function `func2`
+callables_kwargs.py:101:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol3`
+callables_kwargs.py:102:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol4`
+callables_kwargs.py:103:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol5`
+callables_kwargs.py:111:20: error[invalid-type-form] Parameter `v1` overlaps with unpacked TypedDict key in `**kwargs` annotation
+callables_kwargs.py:122:21: error[invalid-type-form] Unpacked value for `**kwargs` must be a TypedDict, not `T@func6`
 callables_kwargs.py:134:19: error[invalid-assignment] Object of type `def func7(*, v1: int, v3: str, v2: str = "") -> None` is not assignable to `TDProtocol6`
 """
