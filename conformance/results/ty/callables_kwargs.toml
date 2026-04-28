@@ -1,5 +1,4 @@
 conformance_automated = "Pass"
-conformant = "Unsupported"
 errors_diff = """
 """
 output = """

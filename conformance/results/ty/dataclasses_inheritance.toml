@@ -1,7 +1,4 @@
 conformance_automated = "Pass"
-conformant = "Unsupported"
-notes = """
-Currently only enforces the Liskov Substitution Principle for methods."""
 errors_diff = """
 """
 output = """
