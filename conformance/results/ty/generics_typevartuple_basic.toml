@@ -8,6 +8,7 @@ Line 59: Expected 1 errors
 Line 90: Expected 1 errors
 Line 99: Expected 1 errors
 Line 100: Expected 1 errors
+Line 106: Expected 1 errors
 Lines 44, 45: Expected error (tag 'v6')
 Line 84: Unexpected errors ['generics_typevartuple_basic.py:84:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int]`']
 """
@@ -17,5 +18,4 @@ generics_typevartuple_basic.py:52:14: error[invalid-generic-class] `TypeVarTuple
 generics_typevartuple_basic.py:65:27: error[too-many-positional-arguments] Too many positional arguments to constructor `TypeVarTuple.__new__`: expected 2, got 4
 generics_typevartuple_basic.py:66:27: error[unknown-argument] Argument `bound` does not match any known parameter of constructor `TypeVarTuple.__new__`
 generics_typevartuple_basic.py:84:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[int]`
-generics_typevartuple_basic.py:106:23: error[unresolved-reference] Name `Ts1` used when not defined
 """
