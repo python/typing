@@ -1,0 +1,33 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 35: Expected 1 errors
+Line 46: Expected 1 errors
+Line 50: Expected 1 errors
+Line 57: Expected 1 errors
+Line 64: Expected 1 errors
+Line 23: Unexpected errors ["generics_typevartuple_variance.py:23:9: error[not-subscriptable] Cannot subscript non-generic type `<class 'ContravariantTypeVarTuple'>`", "generics_typevartuple_variance.py:23:42: error[not-subscriptable] Cannot subscript non-generic type `<class 'ContravariantTypeVarTuple'>`"]
+Line 32: Unexpected errors ["generics_typevartuple_variance.py:32:10: error[not-subscriptable] Cannot subscript non-generic type `<class 'CovariantTypeVarTuple'>`", "generics_typevartuple_variance.py:32:42: error[not-subscriptable] Cannot subscript non-generic type `<class 'CovariantTypeVarTuple'>`"]
+Line 33: Unexpected errors ["generics_typevartuple_variance.py:33:15: error[not-subscriptable] Cannot subscript non-generic type `<class 'CovariantTypeVarTuple'>`", "generics_typevartuple_variance.py:33:53: error[not-subscriptable] Cannot subscript non-generic type `<class 'CovariantTypeVarTuple'>`"]
+Line 39: Unexpected errors ['generics_typevartuple_variance.py:39:29: error[unknown-argument] Argument `contravariant` does not match any known parameter of constructor `TypeVarTuple.__new__`']
+Line 53: Unexpected errors ['generics_typevartuple_variance.py:53:31: error[unknown-argument] Argument `covariant` does not match any known parameter of constructor `TypeVarTuple.__new__`']
+"""
+output = """
+generics_typevartuple_variance.py:13:13: error[not-subscriptable] Cannot subscript non-generic type `<class 'InvariantTypeVarTuple'>`
+generics_typevartuple_variance.py:13:45: error[not-subscriptable] Cannot subscript non-generic type `<class 'InvariantTypeVarTuple'>`
+generics_typevartuple_variance.py:14:13: error[not-subscriptable] Cannot subscript non-generic type `<class 'InvariantTypeVarTuple'>`
+generics_typevartuple_variance.py:14:42: error[not-subscriptable] Cannot subscript non-generic type `<class 'InvariantTypeVarTuple'>`
+generics_typevartuple_variance.py:15:14: error[not-subscriptable] Cannot subscript non-generic type `<class 'InvariantTypeVarTuple'>`
+generics_typevartuple_variance.py:22:9: error[not-subscriptable] Cannot subscript non-generic type `<class 'ContravariantTypeVarTuple'>`
+generics_typevartuple_variance.py:22:53: error[not-subscriptable] Cannot subscript non-generic type `<class 'ContravariantTypeVarTuple'>`
+generics_typevartuple_variance.py:23:9: error[not-subscriptable] Cannot subscript non-generic type `<class 'ContravariantTypeVarTuple'>`
+generics_typevartuple_variance.py:23:42: error[not-subscriptable] Cannot subscript non-generic type `<class 'ContravariantTypeVarTuple'>`
+generics_typevartuple_variance.py:31:10: error[not-subscriptable] Cannot subscript non-generic type `<class 'CovariantTypeVarTuple'>`
+generics_typevartuple_variance.py:31:39: error[not-subscriptable] Cannot subscript non-generic type `<class 'CovariantTypeVarTuple'>`
+generics_typevartuple_variance.py:32:10: error[not-subscriptable] Cannot subscript non-generic type `<class 'CovariantTypeVarTuple'>`
+generics_typevartuple_variance.py:32:42: error[not-subscriptable] Cannot subscript non-generic type `<class 'CovariantTypeVarTuple'>`
+generics_typevartuple_variance.py:33:15: error[not-subscriptable] Cannot subscript non-generic type `<class 'CovariantTypeVarTuple'>`
+generics_typevartuple_variance.py:33:53: error[not-subscriptable] Cannot subscript non-generic type `<class 'CovariantTypeVarTuple'>`
+generics_typevartuple_variance.py:39:29: error[unknown-argument] Argument `contravariant` does not match any known parameter of constructor `TypeVarTuple.__new__`
+generics_typevartuple_variance.py:53:31: error[unknown-argument] Argument `covariant` does not match any known parameter of constructor `TypeVarTuple.__new__`
+"""
