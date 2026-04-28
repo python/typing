@@ -1,9 +1,17 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Returns Any instead of most general return type for ambiguous calls.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 395: Unexpected errors ['overloads_evaluation.py:395:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `int`']
+Line 468: Unexpected errors ['overloads_evaluation.py:468:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `A[Any]`']
 """
 output = """
 overloads_evaluation.py:38:1: error[no-matching-overload] No overload of function `example1_1` matches arguments
 overloads_evaluation.py:46:15: error[invalid-argument-type] Argument to function `example1_1` is incorrect: Expected `str`, found `Literal[1]`
 overloads_evaluation.py:51:12: error[invalid-argument-type] Argument to function `example1_1` is incorrect: Expected `str`, found `Literal[1]`
 overloads_evaluation.py:116:5: error[no-matching-overload] No overload of function `example2` matches arguments
+overloads_evaluation.py:395:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `int`
+overloads_evaluation.py:468:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `A[Any]`
 """

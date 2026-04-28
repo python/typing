@@ -235,10 +235,13 @@ def check_variadic(v: list[int]) -> None:
     assert_type(ret1, int)
 
 
-# > Step 5: For all arguments, determine whether all possible
-# > :term:`materializations <materialize>` of the argument's type are assignable to
-# > the corresponding parameter type for each of the remaining overloads. If so,
-# > eliminate all of the subsequent remaining overloads.
+# > Step 5: For each of the remaining overloads, determine whether all
+# > arguments satisfy at least one of the following conditions:
+# > - All possible :term:`materializations <materialize>` of the argument's type are
+# >   assignable to the corresponding parameter type, or
+# > - The parameter types corresponding to this argument in all of the remaining overloads
+# >   are :term:`equivalent`.
+# > If so, eliminate all of the subsequent remaining overloads.
 
 
 @overload
@@ -345,3 +348,121 @@ def check_example7(v1: list[Any], v2: Any) -> None:
 
     ret3 = example7(v1, v2)
     assert_type(ret3, Any)
+
+
+@overload
+def example8(x: str, y: Literal['o1']) -> bool: ...
+
+
+@overload
+def example8(x: str, y: str) -> int: ...
+
+
+def example8(x: str, y: str) -> bool | int:
+    return True
+
+
+def check_example8(x: Any):
+    # The parameter type corresponding to argument `x` is `str` in both
+    # overloads, and all materializations of argument `y`'s type of
+    # `Literal['o1']` match the first overload, so the second overload can be
+    # eliminated.
+    ret = example8(x, 'o1')
+    assert_type(ret, bool)
+
+
+@overload
+def example9(x: str, y: Literal['o1']) -> bool: ...
+
+
+@overload
+def example9(x: bytes, y: Literal['o1', 'o2']) -> bool: ...
+
+
+@overload
+def example9(x: bytes, y: str) -> int: ...
+
+
+def example9(x: str | bytes, y: str) -> bool | int:
+    return True
+
+
+def check_example9(x: Any):
+    # All three overloads are candidates. The parameter types corresponding to
+    # argument `x` are `str` and `bytes`, which are not equivalent, so none of
+    # the overloads can be eliminated. We pick the most general return type.
+    ret1 = example9(x, 'o1')
+    assert_type(ret1, int)
+    # The second and third overload are candidates. The parameter type
+    # corresponding to argument `x` is `bytes` in both candidates, so we can
+    # eliminate the third overload.
+    ret2 = example9(x, 'o2')
+    assert_type(ret2, bool)
+
+
+@overload
+def example10(x: int) -> bool: ...
+
+
+@overload
+def example10(*args: int) -> int: ...
+
+
+def example10(*args: int, **kwargs: int) -> int:
+    return 0
+
+
+def check_example10(x: Any):
+    # The parameters corresponding to argument `x` (`x` in the first overload
+    # and `*args` in the second) both have type `int`, so the second overload
+    # can be eliminated.
+    ret = example10(x)
+    assert_type(ret, bool)
+
+
+@overload
+def example11(x: Literal['o1'], y: int, z: str) -> bool: ...
+
+
+@overload
+def example11(x: str, y: int, z: str) -> int: ...
+
+
+def example11(x: str, y: int, z: str) -> bool | int:
+    return True
+
+
+def check_example11(x: Any):
+    # `*x` maps to `(y: int, z: str)` in both overloads, so the second overload
+    # can be eliminated.
+    ret1 = example11('o1', *x)
+    assert_type(ret1, bool)
+    ret2 = example11('o1', x, x)
+    assert_type(ret2, bool)
+
+
+class A[T]:
+    x: T
+
+    def f(self) -> T:
+        return self.x
+
+
+@overload
+def example12(x: A[None]) -> A[None]: ...
+
+
+@overload
+def example12(x: A[Any]) -> A[Any]: ...
+
+
+def example12(x: A[Any]) -> A[Any]:
+    return x
+
+
+def check_example12(x: Any):
+    # Step 5 eliminates the first overload because there exists a
+    # materialization of `A[Any]` that is not assignable to `A[None]`. Step 6
+    # picks the second overload.
+    ret = example12(x)
+    assert_type(ret, A[Any])

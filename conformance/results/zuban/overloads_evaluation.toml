@@ -1,5 +1,13 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not handle unpacked arguments when checking for parameter type equivalence.
+Returns Any instead of most general return type for ambiguous calls.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 395: Unexpected errors ['overloads_evaluation.py:395: error: Expression is of type "Any", not "int"  [misc]']
+Line 439: Unexpected errors ['overloads_evaluation.py:439: error: Expression is of type "Any", not "bool"  [misc]']
+Line 468: Unexpected errors ['overloads_evaluation.py:468: error: Expression is of type "Any", not "A[Any]"  [misc]']
 """
 output = """
 overloads_evaluation.py:38: error: All overload variants of "example1_1" require at least one argument  [call-overload]
@@ -16,4 +24,7 @@ overloads_evaluation.py:51: note:     def example1_1(x: int, y: str) -> int
 overloads_evaluation.py:51: note:     def example1_1(x: str) -> str
 overloads_evaluation.py:116: error: Argument 1 to "example2" has incompatible type "int | str"; expected "int"  [arg-type]
 overloads_evaluation.py:116: error: Argument 2 to "example2" has incompatible type "int | str"; expected "str"  [arg-type]
+overloads_evaluation.py:395: error: Expression is of type "Any", not "int"  [misc]
+overloads_evaluation.py:439: error: Expression is of type "Any", not "bool"  [misc]
+overloads_evaluation.py:468: error: Expression is of type "Any", not "A[Any]"  [misc]
 """
