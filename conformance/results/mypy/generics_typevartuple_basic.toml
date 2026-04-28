@@ -14,8 +14,7 @@ generics_typevartuple_basic.py:65: error: Too many positional arguments for "Typ
 generics_typevartuple_basic.py:66: error: Unexpected keyword argument "bound" for "TypeVarTuple"  [misc]
 generics_typevartuple_basic.py:99: error: Cannot infer value of type parameter "Shape" of "multiply"  [misc]
 generics_typevartuple_basic.py:100: error: Cannot infer value of type parameter "Shape" of "multiply"  [misc]
-generics_typevartuple_basic.py:106: error: Free type variable expected in Generic[...]  [misc]
-generics_typevartuple_basic.py:106: error: Name "Ts1" is not defined  [name-defined]
+generics_typevartuple_basic.py:106: error: Can only use one type var tuple in a class def  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """

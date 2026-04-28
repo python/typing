@@ -103,5 +103,5 @@ def func3(x: Array[Height], y: Array[Width], z: Array[Height, Width]):
 # > Only a single type variable tuple may appear in a type parameter list.
 
 
-class Array3(Generic[*Ts1, *Ts2]):  # E
+class Array3[*Ts1, *Ts2]:  # E
     ...

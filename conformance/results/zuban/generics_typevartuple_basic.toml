@@ -14,7 +14,5 @@ generics_typevartuple_basic.py:66: error: Unexpected keyword argument "bound" fo
 generics_typevartuple_basic.py:90: error: Argument 2 to "func2" has incompatible type "tuple[int]"; expected "tuple[int, int]"  [arg-type]
 generics_typevartuple_basic.py:99: error: Argument 2 to "multiply" has incompatible type "Array[Width]"; expected "Array[Height]"  [arg-type]
 generics_typevartuple_basic.py:100: error: Argument 2 to "multiply" has incompatible type "Array[Height, Width]"; expected "Array[Height]"  [arg-type]
-generics_typevartuple_basic.py:106: error: Free type variable expected in Generic[...]  [misc]
-generics_typevartuple_basic.py:106: error: Name "Ts1" is not defined  [name-defined]
-generics_typevartuple_basic.py:106: error: Duplicate type variables in Generic[...] or Protocol[...]  [misc]
+generics_typevartuple_basic.py:106: error: Can only use one TypeVarTuple in type params  [misc]
 """
