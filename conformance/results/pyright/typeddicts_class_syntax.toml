@@ -1,11 +1,20 @@
-conformant = "Pass"
-output = """
-typeddicts_class_syntax.py:29:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)
-typeddicts_class_syntax.py:33:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)
-typeddicts_class_syntax.py:38:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)
-typeddicts_class_syntax.py:44:32 - error: TypedDict does not support __init_subclass__ parameter "metaclass" (reportGeneralTypeIssues)
-typeddicts_class_syntax.py:49:32 - error: TypedDict does not support __init_subclass__ parameter "other" (reportGeneralTypeIssues)
+conformant = "Partial"
+notes = """
+Does not support version-conditional items in TypedDict definitions.
 """
-conformance_automated = "Pass"
+output = """
+typeddicts_class_syntax.py:30:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)
+typeddicts_class_syntax.py:34:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)
+typeddicts_class_syntax.py:39:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)
+typeddicts_class_syntax.py:45:32 - error: TypedDict does not support __init_subclass__ parameter "metaclass" (reportGeneralTypeIssues)
+typeddicts_class_syntax.py:50:32 - error: TypedDict does not support __init_subclass__ parameter "other" (reportGeneralTypeIssues)
+typeddicts_class_syntax.py:58:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)
+typeddicts_class_syntax.py:60:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)
+typeddicts_class_syntax.py:65:1 - error: No overloads for "__init__" match the provided arguments
+  Argument types: (Literal[1], Literal[2], Literal[3]) (reportCallIssue)
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 58: Unexpected errors ['typeddicts_class_syntax.py:58:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)']
+Line 60: Unexpected errors ['typeddicts_class_syntax.py:60:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)']
 """
