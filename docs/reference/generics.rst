@@ -19,11 +19,7 @@ Here is a very simple generic class that represents a stack:
 
 .. code-block:: python
 
-   from typing import TypeVar, Generic
-
-   T = TypeVar('T')
-
-   class Stack(Generic[T]):
+   class Stack[T]:
        def __init__(self) -> None:
            # Create an empty list with items of type T
            self.items: list[T] = []
@@ -36,6 +32,23 @@ Here is a very simple generic class that represents a stack:
 
        def empty(self) -> bool:
            return not self.items
+
+.. note::
+
+   The type parameter syntax (e.g., ``class Foo[T]:``) is available in Python 3.12 and newer.
+   For earlier Python versions, generic classes need to be defined using
+   ``TypeVar`` and ``Generic``, as shown below.
+
+For compatibility with older Python versions, the same class may be written as:
+
+.. code-block:: python
+
+   from typing import TypeVar, Generic
+
+   T = TypeVar('T')
+
+   class Stack(Generic[T]):
+       ...
 
 The ``Stack`` class can be used to represent a stack of any type:
 ``Stack[int]``, ``Stack[tuple[int, str]]``, etc.
@@ -56,7 +69,7 @@ construction of the instance will be type checked correspondingly.
 
 .. code-block:: python
 
-   class Box(Generic[T]):
+   class Box[T]:
        def __init__(self, content: T) -> None:
            self.content = content
 
@@ -70,17 +83,14 @@ Defining subclasses of generic classes
 **************************************
 
 User-defined generic classes and generic classes defined in :py:mod:`typing`
-can be used as a base class for another class (generic or non-generic). For example:
+can be used as base classes for other classes (generic or non-generic). For example:
 
 .. code-block:: python
 
-    from typing import Generic, TypeVar, Mapping, Iterator
-
-    KT = TypeVar('KT')
-    VT = TypeVar('VT')
+    from typing import Mapping, Iterator
 
     # This is a generic subclass of Mapping
-    class MyMap(Mapping[KT, VT]):
+    class MyMap[KT, VT](Mapping[KT, VT]):
         def __getitem__(self, k: KT) -> VT: ...
         def __iter__(self) -> Iterator[KT]: ...
         def __len__(self) -> int: ...
@@ -96,12 +106,12 @@ can be used as a base class for another class (generic or non-generic). For exam
     data: StrDict[int, int]  # error: "StrDict" expects no type arguments, but 2 given
     data2: StrDict  # OK
 
-   # This is a user-defined generic class
-   class Receiver(Generic[T]):
-       def accept(self, value: T) -> None: ...
+    # This is a user-defined generic class
+    class Receiver[T]:
+        def accept(self, value: T) -> None: ...
 
-   # This is a generic subclass of Receiver
-   class AdvancedReceiver(Receiver[T]): ...
+    # This is a generic subclass of Receiver
+    class AdvancedReceiver[T](Receiver[T]): ...
 
 .. note::
 
@@ -111,33 +121,16 @@ can be used as a base class for another class (generic or non-generic). For exam
     protocols like :py:class:`~typing.Iterable`, which use
     :ref:`structural subtyping <protocol-types>`.
 
-:py:class:`Generic <typing.Generic>` can be omitted from bases if there are
-other base classes that include type variables, such as ``Mapping[KT, VT]``
-in the above example. If you include ``Generic[...]`` in bases, then
-it should list all type variables present in other bases (or more,
-if needed). The order of type variables is defined by the following
-rules:
-
-* If ``Generic[...]`` is present, then the order of variables is
-  always determined by their order in ``Generic[...]``.
-* If there are no ``Generic[...]`` in bases, then all type variables
-  are collected in the lexicographic order (i.e. by first appearance).
-
 For example:
 
 .. code-block:: python
 
-   from typing import Generic, TypeVar, Any
+   from typing import Any
+   class One[T]: ...
+   class Another[T]: ...
 
-   T = TypeVar('T')
-   S = TypeVar('S')
-   U = TypeVar('U')
-
-   class One(Generic[T]): ...
-   class Another(Generic[T]): ...
-
-   class First(One[T], Another[S]): ...
-   class Second(One[T], Another[S], Generic[S, U, T]): ...
+   class First[T, S](One[T], Another[S]): ...
+   class Second[S, U, T](One[T], Another[S]): ...
 
    x: First[int, str]        # Here T is bound to int, S is bound to str
    y: Second[int, str, Any]  # Here T is Any, S is int, and U is str
@@ -152,12 +145,10 @@ where the types of the arguments or return value have some relationship:
 
 .. code-block:: python
 
-   from typing import TypeVar, Sequence
-
-   T = TypeVar('T')
+   from typing import Sequence
 
    # A generic function!
-   def first(seq: Sequence[T]) -> T:
+   def first[T](seq: Sequence[T]) -> T:
        return seq[0]
 
 As with generic classes, the type variable can be replaced with any
@@ -181,14 +172,12 @@ functions do not share any typing relationship to each other:
 
 .. code-block:: python
 
-   from typing import TypeVar, Sequence
+   from typing import Sequence
 
-   T = TypeVar('T')
-
-   def first(seq: Sequence[T]) -> T:
+   def first[T](seq: Sequence[T]) -> T:
        return seq[0]
 
-   def last(seq: Sequence[T]) -> T:
+   def last[T](seq: Sequence[T]) -> T:
        return seq[-1]
 
 Variables should not have a type variable in their type unless the type variable
@@ -205,16 +194,16 @@ the class definition.
 
 .. code-block:: python
 
-    # T is the type variable bound by this class
-    class PairedBox(Generic[T]):
+    # T is the type parameter bound by this class
+    class PairedBox[T]:
         def __init__(self, content: T) -> None:
             self.content = content
 
-        # S is a type variable bound only in this method
-        def first(self, x: list[S]) -> S:
+        # S is a type parameter bound only in this method
+        def first[S](self, x: list[S]) -> S:
             return x[0]
 
-        def pair_with_first(self, x: list[S]) -> tuple[S, T]:
+        def pair_with_first[S](self, x: list[S]) -> tuple[S, T]:
             return (x[0], self.content)
 
     box = PairedBox("asdf")
@@ -228,12 +217,8 @@ methods:
 
 .. code-block:: python
 
-   from typing import TypeVar
-
-   T = TypeVar('T', bound='Shape')
-
    class Shape:
-       def set_scale(self: T, scale: float) -> T:
+       def set_scale[T: Shape](self: T, scale: float) -> T:
            self.scale = scale
            return self
 
@@ -259,15 +244,13 @@ For class methods, you can also define generic ``cls``, using :py:class:`type`:
 
 .. code-block:: python
 
-   from typing import Optional, TypeVar, Type
-
-   T = TypeVar('T', bound='Friend')
+   from typing import Optional
 
    class Friend:
        other: Optional["Friend"] = None
 
        @classmethod
-       def make_pair(cls: type[T]) -> tuple[T, T]:
+       def make_pair[T: Friend](cls: type[T]) -> tuple[T, T]:
            a, b = cls(), cls()
            a.other = b
            b.other = a
@@ -352,10 +335,12 @@ Let us illustrate this by few simple examples:
 
 .. code-block:: python
 
-    # We'll use these classes in the examples below
-    class Shape: ...
-    class Triangle(Shape): ...
-    class Square(Shape): ...
+   from typing import Sequence, Union, Callable
+
+   # We'll use these classes in the examples below
+   class Shape: ...
+   class Triangle(Shape): ...
+   class Square(Shape): ...
 
 * Most immutable containers, such as :py:class:`~typing.Sequence` and
   :py:class:`~typing.FrozenSet` are covariant. :py:data:`~typing.Union` is
@@ -422,7 +407,9 @@ Let us illustrate this by few simple examples:
   Another example of an invariant type is :py:class:`~typing.Dict`. Most mutable containers
   are invariant.
 
-By default, all user-defined generics are invariant.
+The variance of user-defined generics depends on how type parameters
+are used. Explicit variance annotations are only required when using
+TypeVar.
 To declare a given generic class as covariant or contravariant use
 type variables defined with special keyword arguments ``covariant`` or
 ``contravariant``. For example:
@@ -458,24 +445,21 @@ It's therefore often useful to be able to limit the types that a type
 variable can take on, for instance, by restricting it to values that are
 subtypes of a specific type.
 
-Such a type is called the upper bound of the type variable, and is specified
-with the ``bound=...`` keyword argument to :py:class:`~typing.TypeVar`.
+Such a type is called the upper bound of the type parameter. In modern Python
+(3.12+), this can be expressed directly in the type parameter list using
+``[T: Bound]`` syntax.
 
 .. code-block:: python
 
-    from typing import TypeVar, SupportsAbs
+    from typing import SupportsAbs
 
-    T = TypeVar('T', bound=SupportsAbs[float])
+    def largest_in_absolute_value[T: SupportsAbs[float]](*xs: T) -> T:
+        return max(xs, key=abs)
 
 In the definition of a generic function that uses such a type variable
 ``T``, the type represented by ``T`` is assumed to be a subtype of
 its upper bound, so the function can use methods of the upper bound on
 values of type ``T``.
-
-.. code-block:: python
-
-    def largest_in_absolute_value(*xs: T) -> T:
-        return max(xs, key=abs)  # Okay, because T is a subtype of SupportsAbs[float].
 
 In a call to such a function, the type ``T`` must be replaced by a
 type that is a subtype of its upper bound. Continuing the example
