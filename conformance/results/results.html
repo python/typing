@@ -172,15 +172,15 @@
         </header>
         <div class="table_container"><table><tbody>
 <tr><th class="col1">&nbsp;</th>
-<th class='tc-header'><div class='tc-name'>mypy 1.20.0</div>
+<th class='tc-header'><div class='tc-name'>mypy 1.20.2</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.408</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.409</div>
 </th>
 <th class='tc-header'><div class='tc-name'>zuban 0.7.0</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pyrefly 0.62.0</div>
 </th>
-<th class='tc-header'><div class='tc-name'>ty 0.0.32</div>
+<th class='tc-header'><div class='tc-name'>ty 0.0.33</div>
 </th>
 </tr>
 <tr><th class="column" colspan="6">
@@ -701,7 +701,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callables_protocol</th>
 <th class="column col2 conformant">Pass</th>
@@ -846,7 +846,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Currently only enforces the Liskov Substitution Principle for methods.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_kwonly</th>
 <th class="column col2 conformant">Pass</th>
@@ -996,7 +996,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_readonly_update</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly allows update of ReadOnly item.</p><p>Incorrectly rejects update involving an item with Never type.</p></span></div></th>
@@ -1031,7 +1031,7 @@
 </th></tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tuples_type_compat</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support tuple narrowing based on `len()` type guard (optional).</p><p>Incorrectly marks a match case as unreachable.</p></span></div></th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Incorrectly marks a match case as unreachable.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
@@ -1198,9 +1198,9 @@
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_type_ignore</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not honor "# type: ignore" comment if comment includes additional text.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not honor "# type: ignore" comment if comment includes additional text.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Treats `# type: ignore[error-code]` as only ignoring errors that match the error code `error-code`.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directives_type_ignore_file1</th>
 <th class="column col2 conformant">Pass</th>
