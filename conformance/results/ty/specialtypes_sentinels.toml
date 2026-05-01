@@ -1,21 +1,21 @@
 conformant = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
-Line 33: Expected 1 errors
 Line 36: Expected 1 errors
-Line 18: Unexpected errors ['specialtypes_sentinels.py:18:20: error[invalid-type-form] Variable of type `Sentinel` is not allowed in a parameter annotation']
-Line 20: Unexpected errors ['specialtypes_sentinels.py:20:9: error[type-assertion-failure] Type `(int & Sentinel) | (Unknown & Sentinel)` does not match asserted type `@Todo`']
-Line 22: Unexpected errors ['specialtypes_sentinels.py:22:9: error[type-assertion-failure] Type `int | Unknown` does not match asserted type `int`']
-Line 24: Unexpected errors ['specialtypes_sentinels.py:24:20: error[invalid-type-form] Variable of type `Sentinel` is not allowed in a parameter annotation']
-Line 26: Unexpected errors ['specialtypes_sentinels.py:26:9: error[type-assertion-failure] Type `(int & Sentinel) | (Unknown & Sentinel)` does not match asserted type `@Todo`']
-Line 28: Unexpected errors ['specialtypes_sentinels.py:28:9: error[type-assertion-failure] Type `int | Unknown` does not match asserted type `int`']
+Line 39: Expected 1 errors
+Line 21: Unexpected errors ['specialtypes_sentinels.py:21:20: error[invalid-type-form] Variable of type `Sentinel` is not allowed in a parameter annotation']
+Line 23: Unexpected errors ['specialtypes_sentinels.py:23:9: error[type-assertion-failure] Type `(int & Sentinel) | (Unknown & Sentinel)` does not match asserted type `@Todo`']
+Line 25: Unexpected errors ['specialtypes_sentinels.py:25:9: error[type-assertion-failure] Type `int | Unknown` does not match asserted type `int`']
+Line 27: Unexpected errors ['specialtypes_sentinels.py:27:20: error[invalid-type-form] Variable of type `Sentinel` is not allowed in a parameter annotation']
+Line 29: Unexpected errors ['specialtypes_sentinels.py:29:9: error[type-assertion-failure] Type `(int & Sentinel) | (Unknown & Sentinel)` does not match asserted type `@Todo`']
+Line 31: Unexpected errors ['specialtypes_sentinels.py:31:9: error[type-assertion-failure] Type `int | Unknown` does not match asserted type `int`']
 """
 output = """
 specialtypes_sentinels.py:15:11: error[invalid-parameter-default] Default value of type `Sentinel` is not assignable to annotated parameter type `int`
-specialtypes_sentinels.py:18:20: error[invalid-type-form] Variable of type `Sentinel` is not allowed in a parameter annotation
-specialtypes_sentinels.py:20:9: error[type-assertion-failure] Type `(int & Sentinel) | (Unknown & Sentinel)` does not match asserted type `@Todo`
-specialtypes_sentinels.py:22:9: error[type-assertion-failure] Type `int | Unknown` does not match asserted type `int`
-specialtypes_sentinels.py:24:20: error[invalid-type-form] Variable of type `Sentinel` is not allowed in a parameter annotation
-specialtypes_sentinels.py:26:9: error[type-assertion-failure] Type `(int & Sentinel) | (Unknown & Sentinel)` does not match asserted type `@Todo`
-specialtypes_sentinels.py:28:9: error[type-assertion-failure] Type `int | Unknown` does not match asserted type `int`
+specialtypes_sentinels.py:21:20: error[invalid-type-form] Variable of type `Sentinel` is not allowed in a parameter annotation
+specialtypes_sentinels.py:23:9: error[type-assertion-failure] Type `(int & Sentinel) | (Unknown & Sentinel)` does not match asserted type `@Todo`
+specialtypes_sentinels.py:25:9: error[type-assertion-failure] Type `int | Unknown` does not match asserted type `int`
+specialtypes_sentinels.py:27:20: error[invalid-type-form] Variable of type `Sentinel` is not allowed in a parameter annotation
+specialtypes_sentinels.py:29:9: error[type-assertion-failure] Type `(int & Sentinel) | (Unknown & Sentinel)` does not match asserted type `@Todo`
+specialtypes_sentinels.py:31:9: error[type-assertion-failure] Type `int | Unknown` does not match asserted type `int`
 """

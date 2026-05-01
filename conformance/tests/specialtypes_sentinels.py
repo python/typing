@@ -6,7 +6,7 @@ from typing_extensions import Sentinel, assert_type
 # > a simple assignment of the form ``NAME = sentinel('NAME')`` in the
 # > global scope or in a class body that is not within a function.
 
-MISSING = Sentinel("MISSING")
+MISSING = Sentinel("<MISSING>")  # name is not required to match the variable name
 
 class Cls:
     IN_CLASS = Sentinel("Cls.IN_CLASS")
@@ -14,6 +14,9 @@ class Cls:
 
 def func1(x: int = MISSING) -> None:  # E: incompatible default
     pass
+
+# > Type checkers must support narrowing union types involving sentinels using the
+# > ``is`` and ``is not`` operators
 
 def func2(x: int | MISSING = MISSING) -> None:
     if x is MISSING:

@@ -84,7 +84,7 @@ variable need not match the string argument passed to ``sentinel()`` but it is
 conventional to do so for names in the global scope.
 
 Type checkers must support narrowing union types involving sentinels using the
-``is`` or ``is not`` operators::
+``is`` and ``is not`` operators::
 
   def g(x: int | MISSING) -> None:
       if x is MISSING:

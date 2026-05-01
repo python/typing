@@ -1,24 +1,24 @@
 conformant = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
-Line 33: Expected 1 errors
 Line 36: Expected 1 errors
-Line 18: Unexpected errors ['specialtypes_sentinels.py:18:20 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 20: Unexpected errors ['specialtypes_sentinels.py:20:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)', 'specialtypes_sentinels.py:20:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 22: Unexpected errors ['specialtypes_sentinels.py:22:21 - error: "assert_type" mismatch: expected "int" but received "int | Unknown" (reportAssertTypeFailure)']
-Line 24: Unexpected errors ['specialtypes_sentinels.py:24:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 26: Unexpected errors ['specialtypes_sentinels.py:26:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)', 'specialtypes_sentinels.py:26:28 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 28: Unexpected errors ['specialtypes_sentinels.py:28:21 - error: "assert_type" mismatch: expected "int" but received "int | Unknown" (reportAssertTypeFailure)']
+Line 39: Expected 1 errors
+Line 21: Unexpected errors ['specialtypes_sentinels.py:21:20 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
+Line 23: Unexpected errors ['specialtypes_sentinels.py:23:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)', 'specialtypes_sentinels.py:23:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
+Line 25: Unexpected errors ['specialtypes_sentinels.py:25:21 - error: "assert_type" mismatch: expected "int" but received "int | Unknown" (reportAssertTypeFailure)']
+Line 27: Unexpected errors ['specialtypes_sentinels.py:27:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
+Line 29: Unexpected errors ['specialtypes_sentinels.py:29:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)', 'specialtypes_sentinels.py:29:28 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
+Line 31: Unexpected errors ['specialtypes_sentinels.py:31:21 - error: "assert_type" mismatch: expected "int" but received "int | Unknown" (reportAssertTypeFailure)']
 """
 output = """
 specialtypes_sentinels.py:15:20 - error: Expression of type "Sentinel" cannot be assigned to parameter of type "int"
   "Sentinel" is not assignable to "int" (reportArgumentType)
-specialtypes_sentinels.py:18:20 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-specialtypes_sentinels.py:20:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)
-specialtypes_sentinels.py:20:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-specialtypes_sentinels.py:22:21 - error: "assert_type" mismatch: expected "int" but received "int | Unknown" (reportAssertTypeFailure)
-specialtypes_sentinels.py:24:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-specialtypes_sentinels.py:26:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)
-specialtypes_sentinels.py:26:28 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-specialtypes_sentinels.py:28:21 - error: "assert_type" mismatch: expected "int" but received "int | Unknown" (reportAssertTypeFailure)
+specialtypes_sentinels.py:21:20 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+specialtypes_sentinels.py:23:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)
+specialtypes_sentinels.py:23:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+specialtypes_sentinels.py:25:21 - error: "assert_type" mismatch: expected "int" but received "int | Unknown" (reportAssertTypeFailure)
+specialtypes_sentinels.py:27:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+specialtypes_sentinels.py:29:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)
+specialtypes_sentinels.py:29:28 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+specialtypes_sentinels.py:31:21 - error: "assert_type" mismatch: expected "int" but received "int | Unknown" (reportAssertTypeFailure)
 """

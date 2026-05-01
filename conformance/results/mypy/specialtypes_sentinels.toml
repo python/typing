@@ -1,23 +1,23 @@
 conformant = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
-Line 33: Expected 1 errors
 Line 36: Expected 1 errors
-Line 18: Unexpected errors ['specialtypes_sentinels.py:18: error: Variable "specialtypes_sentinels.MISSING" is not valid as a type  [valid-type]']
-Line 20: Unexpected errors ['specialtypes_sentinels.py:20: error: Expression is of type "Any", not MISSING?  [assert-type]', 'specialtypes_sentinels.py:20: error: Variable "specialtypes_sentinels.MISSING" is not valid as a type  [valid-type]']
-Line 24: Unexpected errors ['specialtypes_sentinels.py:24: error: Variable "specialtypes_sentinels.Cls.IN_CLASS" is not valid as a type  [valid-type]']
-Line 26: Unexpected errors ['specialtypes_sentinels.py:26: error: Expression is of type "Any", not Cls.IN_CLASS?  [assert-type]', 'specialtypes_sentinels.py:26: error: Variable "specialtypes_sentinels.Cls.IN_CLASS" is not valid as a type  [valid-type]']
+Line 39: Expected 1 errors
+Line 21: Unexpected errors ['specialtypes_sentinels.py:21: error: Variable "specialtypes_sentinels.MISSING" is not valid as a type  [valid-type]']
+Line 23: Unexpected errors ['specialtypes_sentinels.py:23: error: Expression is of type "Any", not MISSING?  [assert-type]', 'specialtypes_sentinels.py:23: error: Variable "specialtypes_sentinels.MISSING" is not valid as a type  [valid-type]']
+Line 27: Unexpected errors ['specialtypes_sentinels.py:27: error: Variable "specialtypes_sentinels.Cls.IN_CLASS" is not valid as a type  [valid-type]']
+Line 29: Unexpected errors ['specialtypes_sentinels.py:29: error: Expression is of type "Any", not Cls.IN_CLASS?  [assert-type]', 'specialtypes_sentinels.py:29: error: Variable "specialtypes_sentinels.Cls.IN_CLASS" is not valid as a type  [valid-type]']
 """
 output = """
 specialtypes_sentinels.py:15: error: Incompatible default for parameter "x" (default has type "Sentinel", parameter has type "int")  [assignment]
-specialtypes_sentinels.py:18: error: Variable "specialtypes_sentinels.MISSING" is not valid as a type  [valid-type]
-specialtypes_sentinels.py:18: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
-specialtypes_sentinels.py:20: error: Expression is of type "Any", not MISSING?  [assert-type]
-specialtypes_sentinels.py:20: error: Variable "specialtypes_sentinels.MISSING" is not valid as a type  [valid-type]
-specialtypes_sentinels.py:20: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
-specialtypes_sentinels.py:24: error: Variable "specialtypes_sentinels.Cls.IN_CLASS" is not valid as a type  [valid-type]
-specialtypes_sentinels.py:24: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
-specialtypes_sentinels.py:26: error: Expression is of type "Any", not Cls.IN_CLASS?  [assert-type]
-specialtypes_sentinels.py:26: error: Variable "specialtypes_sentinels.Cls.IN_CLASS" is not valid as a type  [valid-type]
-specialtypes_sentinels.py:26: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+specialtypes_sentinels.py:21: error: Variable "specialtypes_sentinels.MISSING" is not valid as a type  [valid-type]
+specialtypes_sentinels.py:21: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+specialtypes_sentinels.py:23: error: Expression is of type "Any", not MISSING?  [assert-type]
+specialtypes_sentinels.py:23: error: Variable "specialtypes_sentinels.MISSING" is not valid as a type  [valid-type]
+specialtypes_sentinels.py:23: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+specialtypes_sentinels.py:27: error: Variable "specialtypes_sentinels.Cls.IN_CLASS" is not valid as a type  [valid-type]
+specialtypes_sentinels.py:27: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+specialtypes_sentinels.py:29: error: Expression is of type "Any", not Cls.IN_CLASS?  [assert-type]
+specialtypes_sentinels.py:29: error: Variable "specialtypes_sentinels.Cls.IN_CLASS" is not valid as a type  [valid-type]
+specialtypes_sentinels.py:29: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
 """
