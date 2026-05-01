@@ -139,7 +139,7 @@ The following grammar describes the allowed elements of type and annotation expr
                    : | <None>
                    : | name
                    :       (where name must refer to a valid in-scope class,
-                   :        type alias, or TypeVar)
+                   :        type alias, TypeVar, or sentinel object)
                    : | name '[' (`maybe_unpacked` | `type_expression_list`)
                    :        (',' (`maybe_unpacked` | `type_expression_list`))* ']'
                    :       (the `type_expression_list` form is valid only when

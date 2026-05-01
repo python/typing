@@ -53,6 +53,46 @@ are highly dynamic.
 When used in a type hint, the expression ``None`` is considered
 equivalent to ``type(None)``.
 
+.. _ `sentinels`:
+
+Sentinels
+---------
+
+Sentinel objects may be used in type annotations to represent themselves::
+
+  MISSING = sentinel('MISSING')
+  OTHER = sentinel('OTHER')
+
+  def f(x: int | MISSING = MISSING) -> int:
+      if x is MISSING:
+          return 0
+      return x
+
+  f(OTHER)  # Error, OTHER is not an int or MISSING
+  f(MISSING)  # OK, MISSING is a valid argument
+
+Sentinels may be created using the ``sentinel()`` built-in in Python 3.15
+and higher. ``typing_extensions`` provides a backport of this function. For
+historical reasons the object was first introduced under the name
+``typing_extensions.Sentinel``, and later ``typing_extensions.sentinel`` was
+added as an alias; type checkers should support both.
+
+Sentinel objects may be used in type annotations if they are defined using
+a simple assignment of the form ``NAME = sentinel('NAME')`` in the
+global scope or in a class body that is not within a function. The name of the
+variable need not match the string argument passed to ``sentinel()`` but it is
+conventional to do so for names in the global scope.
+
+Type checkers must support narrowing union types involving sentinels using the
+``is`` or ``is not`` operators::
+
+  def g(x: int | MISSING) -> None:
+      if x is MISSING:
+          assert_type(x, MISSING)
+      else:
+          assert_type(x, int)
+
+
 .. _`noreturn`:
 
 ``NoReturn``

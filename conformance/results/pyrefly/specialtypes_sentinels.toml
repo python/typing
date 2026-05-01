@@ -1,0 +1,23 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 33: Expected 1 errors
+Line 36: Expected 1 errors
+Line 18: Unexpected errors ['Expected a type form, got instance of `type[int] | UnionType` [not-a-type]']
+Line 20: Unexpected errors ['assert_type(Sentinel, Unknown) failed [assert-type]', 'Expected a type form, got instance of `Sentinel` [not-a-type]']
+Line 22: Unexpected errors ['assert_type(Unknown, int) failed [assert-type]']
+Line 24: Unexpected errors ['Expected a type form, got instance of `type[int] | UnionType` [not-a-type]']
+Line 26: Unexpected errors ['assert_type(Sentinel, Unknown) failed [assert-type]', 'Expected a type form, got instance of `Sentinel` [not-a-type]']
+Line 28: Unexpected errors ['assert_type(Unknown, int) failed [assert-type]']
+"""
+output = """
+ERROR specialtypes_sentinels.py:15:20-27: Default `Sentinel` is not assignable to parameter `x` with type `int` [bad-function-definition]
+ERROR specialtypes_sentinels.py:18:14-27: Expected a type form, got instance of `type[int] | UnionType` [not-a-type]
+ERROR specialtypes_sentinels.py:20:20-32: assert_type(Sentinel, Unknown) failed [assert-type]
+ERROR specialtypes_sentinels.py:20:24-31: Expected a type form, got instance of `Sentinel` [not-a-type]
+ERROR specialtypes_sentinels.py:22:20-28: assert_type(Unknown, int) failed [assert-type]
+ERROR specialtypes_sentinels.py:24:14-32: Expected a type form, got instance of `type[int] | UnionType` [not-a-type]
+ERROR specialtypes_sentinels.py:26:20-37: assert_type(Sentinel, Unknown) failed [assert-type]
+ERROR specialtypes_sentinels.py:26:24-36: Expected a type form, got instance of `Sentinel` [not-a-type]
+ERROR specialtypes_sentinels.py:28:20-28: assert_type(Unknown, int) failed [assert-type]
+"""
