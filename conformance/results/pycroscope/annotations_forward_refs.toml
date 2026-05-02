@@ -1,3 +1,8 @@
+conformant = "Partial"
+notes = """
+Fails to reject "x" | int annotations that fail at runtime
+Does not correctly pick up forward refs in unimportable module
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 24: Expected 1 errors

@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Fails to reject various invalid literal parameterizations.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 41: Expected 1 errors

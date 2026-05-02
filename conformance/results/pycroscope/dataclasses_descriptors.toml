@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Conformance suite is questionable; see https://github.com/python/typing/issues/2259
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 61: Unexpected errors ['./dataclasses_descriptors.py:61:12:   Any[error] is not equivalent to list[int]', "./dataclasses_descriptors.py:61:12: <class 'DC2'> has no attribute 'x' [undefined_attribute]"]

@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Rejects valid ParamSpec specialization.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 39: Unexpected errors ["./aliases_typealiastype.py:39:4: Unrecognized annotation <list containing [type 'int', type 'str']> [invalid_annotation]"]

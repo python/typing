@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not reject invalid class definitions due to disjoint bases, but uses disjoint base information in type narrowing.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 69: Expected 1 errors

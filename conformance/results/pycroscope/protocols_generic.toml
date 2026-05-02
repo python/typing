@@ -1,3 +1,8 @@
+conformant = "Partial"
+notes = """
+Fails to reject duplicate generic/protocol bases.
+Treats global object as a literal.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 44: Expected 1 errors

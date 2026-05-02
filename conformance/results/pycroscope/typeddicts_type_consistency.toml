@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Considers TypedDicts to be assignable to plain dict types.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 76: Expected 1 errors

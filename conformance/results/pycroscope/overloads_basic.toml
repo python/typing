@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does less literal promotion than the test asks for.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 37: Unexpected errors ['./overloads_basic.py:37:12:   Literal[0] is not equivalent to int']

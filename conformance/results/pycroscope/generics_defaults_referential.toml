@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Fails to apply default specializations in some cases.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 23: Unexpected errors ["./generics_defaults_referential.py:23:12:   type 'generics_defaults_referential.slice' is not equivalent to type[generics_defaults_referential.slice[int, int, int | None]]"]

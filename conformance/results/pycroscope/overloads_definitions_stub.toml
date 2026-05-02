@@ -1,3 +1,7 @@
+conformant = "Unsupported"
+notes = """
+Does not support checking stubs.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Lines 13, 14: Expected error (tag 'func1')

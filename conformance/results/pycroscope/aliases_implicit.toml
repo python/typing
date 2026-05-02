@@ -1,3 +1,8 @@
+conformant = "Partial"
+notes = """
+Fails to handle various weird annotations.
+Various bugs with resolving generic aliases.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 76: Expected 1 errors

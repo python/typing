@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Fails to reject various weird annotations
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 88: Expected 1 errors

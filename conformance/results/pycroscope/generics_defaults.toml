@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Numerous issues; does not support TypeVarTuple and ParamSpec defaults.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 33: Unexpected errors ['./generics_defaults.py:33:16:   ~DefaultStrT@./generics_defaults.py.NoNonDefaults is not equivalent to str']

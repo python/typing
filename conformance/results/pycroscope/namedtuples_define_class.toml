@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not support precise type inference for slices over namedtuples.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 29: Unexpected errors ['./namedtuples_define_class.py:29:12:   tuple is not equivalent to tuple[int, int]']
