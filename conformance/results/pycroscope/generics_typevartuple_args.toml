@@ -1,0 +1,13 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./generics_typevartuple_args.py:33:4: Incompatible argument type for args: expected tuple[*tuple[Ts, ...], generics_typevartuple_args.Env] but got tuple[Literal[0], Literal['']] [incompatible_argument]
+./generics_typevartuple_args.py:34:4: Incompatible argument type for args: expected tuple[*tuple[Ts, ...], generics_typevartuple_args.Env] but got tuple[Literal[0], Literal['']] [incompatible_argument]
+./generics_typevartuple_args.py:48:0: Incompatible argument type for args: expected tuple[int, ...] but got tuple[Literal[1], Literal['2'], Literal[3]] [incompatible_argument]
+./generics_typevartuple_args.py:57:0: Incompatible argument type for args: expected tuple[int, *tuple[str, ...], str] but got tuple[Literal[1], Literal[1], Literal['']] [incompatible_argument]
+./generics_typevartuple_args.py:58:0: Incompatible argument type for args: expected tuple[int, *tuple[str, ...], str] but got tuple[Literal[1]] [incompatible_argument]
+./generics_typevartuple_args.py:59:0: Incompatible argument type for args: expected tuple[int, *tuple[str, ...], str] but got tuple[Literal['']] [incompatible_argument]
+./generics_typevartuple_args.py:67:0: In call to generics_typevartuple_args.func3: Missing required positional argument at position 1 [incompatible_call]
+./generics_typevartuple_args.py:75:0: In call to generics_typevartuple_args.func4: Cannot resolve type variables [incompatible_call]
+"""

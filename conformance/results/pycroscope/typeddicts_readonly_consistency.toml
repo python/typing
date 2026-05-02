@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./typeddicts_readonly_consistency.py:37:4: Incompatible assignment: expected TypedDict({"x": int, "y": NotRequired[str]}), got TypedDict({"x": int}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:38:4: Incompatible assignment: expected TypedDict({"x": int, "y": NotRequired[str]}), got TypedDict({"x": int, "y": NotRequired[Readonly[str]]}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:40:4: Incompatible assignment: expected TypedDict({"x": int, "y": NotRequired[Readonly[str]]}), got TypedDict({"x": int}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:81:4: Incompatible assignment: expected TypedDict({"x": NotRequired[str]}), got TypedDict({"x": NotRequired[Readonly[str]]}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:82:4: Incompatible assignment: expected TypedDict({"x": NotRequired[str]}), got TypedDict({"x": str}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:84:4: Incompatible assignment: expected TypedDict({"x": str}), got TypedDict({"x": NotRequired[Readonly[str]]}) [incompatible_assignment]
+./typeddicts_readonly_consistency.py:85:4: Incompatible assignment: expected TypedDict({"x": str}), got TypedDict({"x": NotRequired[str]}) [incompatible_assignment]
+"""

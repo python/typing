@@ -1,0 +1,14 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./generics_paramspec_basic.py:10:22: ParamSpec named 'NotIt' must be assigned to a variable with the same name [must_have_same_name]
+./generics_paramspec_basic.py:15:17: ParamSpec cannot be used in this annotation context [invalid_paramspec_usage]
+./generics_paramspec_basic.py:23:10: ParamSpec cannot be used in this annotation context [invalid_paramspec_usage]
+./generics_paramspec_basic.py:23:19: ParamSpec cannot be used in this annotation context [invalid_paramspec_usage]
+./generics_paramspec_basic.py:27:13: Unrecognized annotation typing.Concatenate[<class 'int'>, ~P] [invalid_annotation]
+./generics_paramspec_basic.py:31:10: ParamSpec cannot be used in this annotation context [invalid_paramspec_usage]
+./generics_paramspec_basic.py:35:10: ParamSpec cannot be used in this annotation context [invalid_paramspec_usage]
+./generics_paramspec_basic.py:39:11: ParamSpec cannot be used in this annotation context [invalid_paramspec_usage]
+./generics_paramspec_basic.py:39:22: ParamSpec cannot be used in this annotation context [invalid_paramspec_usage]
+"""

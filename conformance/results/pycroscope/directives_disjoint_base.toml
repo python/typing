@@ -1,0 +1,17 @@
+conformant = "Partial"
+notes = """
+Does not reject invalid class definitions due to disjoint bases, but uses disjoint base information in type narrowing.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 69: Expected 1 errors
+Line 73: Expected 1 errors
+Line 77: Expected 1 errors
+Line 81: Expected 1 errors
+Line 105: Expected 1 errors
+Line 118: Expected 1 errors
+Line 123: Expected 1 errors
+"""
+output = """
+./directives_disjoint_base.py:113:1: Incompatible argument type for cls: expected ~_TC but got () -> None [incompatible_argument]
+"""

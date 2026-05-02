@@ -1,0 +1,14 @@
+conformant = "Partial"
+notes = """
+Does less literal promotion than the test asks for.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 37: Unexpected errors ['./overloads_basic.py:37:12:   Literal[0] is not equivalent to int']
+Line 38: Unexpected errors ["./overloads_basic.py:38:12:   Literal[b''] is not equivalent to bytes"]
+"""
+output = """
+./overloads_basic.py:37:12:   Literal[0] is not equivalent to int
+./overloads_basic.py:38:12:   Literal[b''] is not equivalent to bytes
+./overloads_basic.py:39:0: Cannot call overloaded function [incompatible_argument]
+"""

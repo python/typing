@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./overloads_consistency.py:25:0: Overload for 'return_type' is inconsistent with implementation [inconsistent_overload]
+./overloads_consistency.py:41:0: Overload for 'parameter_type' is inconsistent with implementation [inconsistent_overload]
+"""

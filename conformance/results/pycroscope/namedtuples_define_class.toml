@@ -1,0 +1,27 @@
+conformant = "Partial"
+notes = """
+Does not support precise type inference for slices over namedtuples.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Unexpected errors ['./namedtuples_define_class.py:29:12:   tuple is not equivalent to tuple[int, int]']
+Line 30: Unexpected errors ['./namedtuples_define_class.py:30:12:   tuple is not equivalent to tuple[int, int, str]']
+"""
+output = """
+./namedtuples_define_class.py:29:12:   tuple is not equivalent to tuple[int, int]
+./namedtuples_define_class.py:30:12:   tuple is not equivalent to tuple[int, int, str]
+./namedtuples_define_class.py:32:6: Tuple index out of range: Literal[3] [incompatible_call]
+./namedtuples_define_class.py:33:6: Tuple index out of range: Literal[-4] [incompatible_call]
+./namedtuples_define_class.py:44:5: Missing required argument 'y' [incompatible_call]
+./namedtuples_define_class.py:45:5: Missing required argument 'y' [incompatible_call]
+./namedtuples_define_class.py:46:14: Incompatible argument type for y: expected int but got Literal[''] [incompatible_argument]
+./namedtuples_define_class.py:47:23: Incompatible argument type for units: expected str but got Literal[3] [incompatible_argument]
+./namedtuples_define_class.py:48:5: Takes 3 positional arguments but 4 were given [incompatible_call]
+./namedtuples_define_class.py:49:6: Got an unexpected keyword argument 'other' [incompatible_call]
+./namedtuples_define_class.py:69:6: Takes 2 positional arguments but 3 were given [incompatible_call]
+./namedtuples_define_class.py:76:4: NamedTuple field names cannot start with an underscore [invalid_namedtuple]
+./namedtuples_define_class.py:86:4: NamedTuple fields without defaults cannot follow fields with defaults [invalid_namedtuple]
+./namedtuples_define_class.py:106:4: Field 'x' conflicts with base NamedTuple field [incompatible_override]
+./namedtuples_define_class.py:125:18: Incompatible argument type for value: expected str but got Literal[3.1] [incompatible_argument]
+./namedtuples_define_class.py:132:23: NamedTuple classes may only inherit from NamedTuple and Generic [invalid_base]
+"""

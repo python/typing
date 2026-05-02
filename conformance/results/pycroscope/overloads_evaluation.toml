@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./overloads_evaluation.py:38:0: Cannot call overloaded function [incompatible_call]
+./overloads_evaluation.py:46:0: Cannot call overloaded function [incompatible_argument]
+./overloads_evaluation.py:51:0: Cannot call overloaded function [incompatible_argument]
+./overloads_evaluation.py:116:4: Cannot call overloaded function [incompatible_argument]
+"""

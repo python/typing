@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./classes_override.py:53:4: Method does not override any base method [override_does_not_override]
+./classes_override.py:65:4: Method does not override any base method [override_does_not_override]
+./classes_override.py:79:4: Method does not override any base method [override_does_not_override]
+./classes_override.py:84:4: Method does not override any base method [override_does_not_override]
+./classes_override.py:89:4: Method does not override any base method [override_does_not_override]
+"""

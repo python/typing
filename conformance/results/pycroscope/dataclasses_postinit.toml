@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./dataclasses_postinit.py:19:4: Dataclass __post_init__ is incompatible with InitVar fields [incompatible_override]
+./dataclasses_postinit.py:28:6: ./dataclasses_postinit.py.DC1 has no attribute 'x' [undefined_attribute]
+./dataclasses_postinit.py:29:6: ./dataclasses_postinit.py.DC1 has no attribute 'y' [undefined_attribute]
+./dataclasses_postinit.py:36:4: Dataclass __post_init__ is incompatible with InitVar fields [incompatible_override]
+"""

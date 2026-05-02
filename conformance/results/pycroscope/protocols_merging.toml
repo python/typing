@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./protocols_merging.py:52:0: Incompatible assignment: expected ./protocols_merging.py.SizedAndClosable1, got ./protocols_merging.py.SCConcrete2 [incompatible_assignment]
+./protocols_merging.py:53:0: Incompatible assignment: expected ./protocols_merging.py.SizedAndClosable2, got ./protocols_merging.py.SCConcrete2 [incompatible_assignment]
+./protocols_merging.py:54:0: Incompatible assignment: expected ./protocols_merging.py.SizedAndClosable3, got ./protocols_merging.py.SCConcrete2 [incompatible_assignment]
+./protocols_merging.py:67:15: Protocols can only inherit from protocol bases [invalid_base]
+./protocols_merging.py:82:4: Cannot instantiate abstract class SizedAndClosable4 [incompatible_call]
+./protocols_merging.py:83:0: Incompatible assignment: expected ./protocols_merging.py.SizedAndClosable4, got ./protocols_merging.py.SCConcrete1 [incompatible_assignment]
+"""
