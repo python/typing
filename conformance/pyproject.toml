@@ -4,6 +4,7 @@ version = "0.1.0"
 requires-python = "==3.12.*"
 dependencies = [
     "mypy",
+    "pycroscope==0.4.0",
     "pyrefly",
     "pyright",
     "tomli",

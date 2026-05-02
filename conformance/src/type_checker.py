@@ -393,35 +393,36 @@ class PycroscopeTypeChecker(TypeChecker):
         return "pycroscope"
 
     def install(self) -> bool:
-        source_dir = Path.home() / "py" / "pycroscope"
-        if not source_dir.is_dir():
-            print(
-                f"Unable to install pycroscope: source directory not found at {source_dir}"
-            )
-            return False
         try:
-            # Ensure it is installed and the entrypoint is available.
             self.get_version()
-
             return True
-        except CalledProcessError:
-            print("Unable to install pycroscope")
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run pycroscope. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
             return False
 
     def get_version(self) -> str:
-        proc = run(["pycroscope", "--version"], stdout=PIPE, text=True)
+        proc = run([*self._command(), "--version"], stdout=PIPE, text=True)
         return proc.stdout.strip()
+
+    @staticmethod
+    def _command() -> list[str]:
+        executable = "pycroscope.exe" if sys.platform == "win32" else "pycroscope"
+        return [sys.executable, "-m", "pycroscope"]
 
     @staticmethod
     def _normalize_output_line(line: str) -> str:
         line = line.replace(str(CONFORMANCE_ROOT), "...")
+        line = re.sub(r"<module '([^']+)' from '[^']+'>", r"<module '\1'>", line)
         # Pycroscope can include object reprs with process-specific addresses
         # (e.g. "... at 0x10abc1234>"). Normalize these for stable snapshots.
         return re.sub(r"0x[0-9a-fA-F]+", "0x...", line)
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         command = [
-            "pycroscope",
+            *self._command(),
             ".",
             "--output-format",
             "concise",
