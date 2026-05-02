@@ -4,7 +4,7 @@ errors_diff = """
 output = """
 ./typeddicts_alt_syntax.py:23:43: TypedDict fields argument must be a dictionary literal [incompatible_call]
 ./typeddicts_alt_syntax.py:27:44: TypedDict field names must be string literals [incompatible_call]
-./typeddicts_alt_syntax.py:31:26: TypedDict name argument must match the assignment target name [incompatible_call]
+./typeddicts_alt_syntax.py:31:26: TypedDict named 'WrongName' must be assigned to a variable with the same name [must_have_same_name]
 ./typeddicts_alt_syntax.py:35:71: TypedDict takes either a dict or keyword arguments, but not both [incompatible_call]
 ./typeddicts_alt_syntax.py:45:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': 'Blade Runner', 'year': ''}] [incompatible_assignment]
 """

@@ -1,8 +1,8 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 23: Unexpected errors ["./generics_defaults_referential.py:23:12:   type 'generics_defaults_referential.slice' is not equivalent to type[generics_defaults_referential.slice[int, int, int | None]]"]
-Line 98: Unexpected errors ['./generics_defaults_referential.py:98:16:   ~Z1 is not equivalent to Any[explicit]']
-Line 99: Unexpected errors ['./generics_defaults_referential.py:99:16:   ~ListDefaultT is not equivalent to list[Any[explicit]]']
+Line 98: Unexpected errors ['./generics_defaults_referential.py:98:16:   ~Z1@generics_defaults_referential.Bar is not equivalent to Any[explicit]']
+Line 99: Unexpected errors ['./generics_defaults_referential.py:99:16:   ~ListDefaultT@generics_defaults_referential.Bar is not equivalent to list[Any[explicit]]']
 """
 output = """
 ./generics_defaults_referential.py:23:12:   type 'generics_defaults_referential.slice' is not equivalent to type[generics_defaults_referential.slice[int, int, int | None]]
@@ -13,6 +13,6 @@ output = """
 ./generics_defaults_referential.py:69:39: TypeVar default must be assignable to its bound [incompatible_call]
 ./generics_defaults_referential.py:75:51: TypeVar default must be one of its constraints [incompatible_call]
 ./generics_defaults_referential.py:79:62: TypeVar default must be one of its constraints [incompatible_call]
-./generics_defaults_referential.py:98:16:   ~Z1 is not equivalent to Any[explicit]
-./generics_defaults_referential.py:99:16:   ~ListDefaultT is not equivalent to list[Any[explicit]]
+./generics_defaults_referential.py:98:16:   ~Z1@generics_defaults_referential.Bar is not equivalent to Any[explicit]
+./generics_defaults_referential.py:99:16:   ~ListDefaultT@generics_defaults_referential.Bar is not equivalent to list[Any[explicit]]
 """

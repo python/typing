@@ -3,9 +3,9 @@ errors_diff = """
 Line 39: Unexpected errors ["./aliases_typealiastype.py:39:4: Unrecognized annotation <list containing [type 'int', type 'str']> [invalid_annotation]"]
 """
 output = """
-./aliases_typealiastype.py:32:6: typing.TypeAliasType (PEP 695 alias for .GoodAlias1) has no attribute 'other_attrib' [undefined_attribute]
+./aliases_typealiastype.py:32:6: typing.TypeAliasType has no attribute 'other_attrib' [undefined_attribute]
 ./aliases_typealiastype.py:39:4: Unrecognized annotation <list containing [type 'int', type 'str']> [invalid_annotation]
-./aliases_typealiastype.py:40:4: Type argument int is not compatible with ~TStr [invalid_specialization]
+./aliases_typealiastype.py:40:4: Type argument int is not compatible with ~TStr@./aliases_typealiastype.py.GoodAlias5 [invalid_specialization]
 ./aliases_typealiastype.py:43:44: Type alias cannot combine old-style TypeVar declarations with type statement parameters [invalid_type_alias]
 ./aliases_typealiastype.py:44:44: Type alias must declare type parameters in the type statement [invalid_type_alias]
 ./aliases_typealiastype.py:45:56: type_params argument to TypeAliasType must be a literal tuple [invalid_type_alias]

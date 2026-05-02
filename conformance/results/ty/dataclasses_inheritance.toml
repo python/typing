@@ -1,9 +1,7 @@
-conformance_automated = "Fail"
-conformant = "Unsupported"
-notes = """Currently only enforces the Liskov Substitution Principle for methods."""
+conformance_automated = "Pass"
 errors_diff = """
-Line 62: Expected 1 errors
-Line 66: Expected 1 errors
 """
 output = """
+dataclasses_inheritance.py:62:5: error[invalid-attribute-override] Invalid override of attribute `x`: class variable cannot override instance variable `DC6.x`
+dataclasses_inheritance.py:66:5: error[invalid-attribute-override] Invalid override of attribute `y`: instance variable cannot override class variable `DC6.y`
 """

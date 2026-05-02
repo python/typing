@@ -4,5 +4,5 @@ errors_diff = """
 output = """
 ./enums_behaviors.py:28:12:   ./enums_behaviors.py.Color is not equivalent to Literal[<Color.RED: 1>]
 ./enums_behaviors.py:32:12:   ./enums_behaviors.py.Color is not equivalent to Literal[<Color.BLUE: 3>]
-./enums_behaviors.py:44:0: Cannot inherit from final class [invalid_base]
+./enums_behaviors.py:44:20: Cannot inherit from final class [invalid_base]
 """

@@ -15,6 +15,7 @@ tuples_type_compat.py:81: error: Expression is of type "tuple[str, str] | tuple[
 tuples_type_compat.py:86: error: Expression is of type "tuple[int, str, int]", not "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]"  [assert-type]
 tuples_type_compat.py:102: error: Expression is of type "tuple[int]", not "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]"  [assert-type]
 tuples_type_compat.py:107: error: Expression is of type "tuple[str, str] | tuple[int, int]", not "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]"  [assert-type]
+tuples_type_compat.py:112: error: Expression is of type "tuple[int, str, int]", not "tuple[int] | tuple[str, str] | tuple[int, *tuple[str, ...], int]"  [assert-type]
 tuples_type_compat.py:127: error: Expression is of type "tuple[int | str, str]", not "tuple[int | str, int | str]"  [assert-type]
 tuples_type_compat.py:130: error: Expression is of type "tuple[int | str, int]", not "tuple[int | str, int | str]"  [assert-type]
 tuples_type_compat.py:149: error: Expression is of type "Sequence[object]", not "Sequence[complex | list[int]]"  [assert-type]
@@ -32,7 +33,6 @@ tuples_type_compat.py:188: error: Incompatible types in assignment (expression h
 """
 conformance_automated = "Fail"
 errors_diff = """
-Lines 111, 112: Expected error (tag 'func6_3')
 Line 149: Unexpected errors ['tuples_type_compat.py:149: error: Expression is of type "Sequence[object]", not "Sequence[complex | list[int]]"  [assert-type]']
 Line 152: Unexpected errors ['tuples_type_compat.py:152: error: Expression is of type "Sequence[object]", not "Sequence[int | str]"  [assert-type]']
 """

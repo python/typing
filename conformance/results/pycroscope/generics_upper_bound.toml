@@ -2,8 +2,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./generics_upper_bound.py:24:37: TypeVar bound cannot be parameterized by type variables [invalid_annotation]
+./generics_upper_bound.py:24:37: TypeVar bounds and constraints cannot contain type parameters [invalid_annotation]
 ./generics_upper_bound.py:44:16:   list[int] | set[int] is not equivalent to collections.abc.Collection[int]
-./generics_upper_bound.py:52:7: Incompatible argument type for x: expected ~ST but got Literal[3] [incompatible_argument]
+./generics_upper_bound.py:52:7: Incompatible argument type for x: expected ~ST@./generics_upper_bound.py.longer.<locals>.longer but got Literal[3] [incompatible_argument]
 ./generics_upper_bound.py:57:9: TypeVar cannot have both bound and constraints [incompatible_call]
 """

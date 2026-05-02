@@ -5,9 +5,9 @@ Line 73: Expected 1 errors
 Line 77: Expected 1 errors
 Line 81: Expected 1 errors
 Line 105: Expected 1 errors
-Line 113: Expected 1 errors
 Line 118: Expected 1 errors
 Line 123: Expected 1 errors
 """
 output = """
+./directives_disjoint_base.py:113:1: Incompatible argument type for cls: expected ~_TC but got () -> None [incompatible_argument]
 """

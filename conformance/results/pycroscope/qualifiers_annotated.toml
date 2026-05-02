@@ -19,9 +19,9 @@ output = """
 ./qualifiers_annotated.py:55:46: Type parameter is not valid in this annotation context [invalid_annotation]
 ./qualifiers_annotated.py:59:7: Annotated[] requires at least two arguments [invalid_annotation]
 ./qualifiers_annotated.py:71:0: Incompatible assignment: expected type, got Literal[typing.Annotated[int, '']] [incompatible_assignment]
-./qualifiers_annotated.py:72:0: Incompatible assignment: expected type, got Literal[typing.Annotated[int, '']] (PEP 613 alias for .SmallInt = int) [incompatible_assignment]
-./qualifiers_annotated.py:79:6: Incompatible argument type for x: expected type[~T] but got Literal[typing.Annotated[str, '']] [incompatible_argument]
-./qualifiers_annotated.py:80:6: Incompatible argument type for x: expected type[~T] but got Literal[typing.Annotated[int, '']] (PEP 613 alias for .SmallInt = int) [incompatible_argument]
+./qualifiers_annotated.py:72:0: Incompatible assignment: expected type, got TypeForm[.SmallInt] (synthetic from Literal[typing.Annotated[int, '']]) [incompatible_assignment]
+./qualifiers_annotated.py:79:6: Incompatible argument type for x: expected type[~T@./qualifiers_annotated.py.func4.<locals>.func4] but got Literal[typing.Annotated[str, '']] [incompatible_argument]
+./qualifiers_annotated.py:80:6: Incompatible argument type for x: expected type[~T@./qualifiers_annotated.py.func4.<locals>.func4] but got TypeForm[.SmallInt] (synthetic from Literal[typing.Annotated[int, '']]) [incompatible_argument]
 ./qualifiers_annotated.py:86:0: Annotated cannot be called [not_callable]
 ./qualifiers_annotated.py:87:0: Annotated cannot be called [not_callable]
 """

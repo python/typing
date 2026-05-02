@@ -13,7 +13,7 @@ output = """
 ./callables_protocol.py:121:0: Incompatible assignment: expected ./callables_protocol.py.NotProto6, got (*vals: tuple[bytes, ...], max_len: int | None = None) -> list[bytes] [incompatible_assignment]
 ./callables_protocol.py:169:0: Incompatible assignment: expected ./callables_protocol.py.Proto8, got (x: int) -> Any[explicit] [incompatible_assignment]
 ./callables_protocol.py:186:4: Incompatible types in assignment to attribute 'other_attribute': expected int, got Literal['str'] [incompatible_assignment]
-./callables_protocol.py:187:4: ./callables_protocol.py.Proto9[**P, +R] has no attribute 'xxx' [undefined_attribute]
+./callables_protocol.py:187:4: ./callables_protocol.py.Proto9[**P@./callables_protocol.py.decorator1.<locals>.decorator1, +R@./callables_protocol.py.decorator1.<locals>.decorator1] has no attribute 'xxx' [undefined_attribute]
 ./callables_protocol.py:197:6: ./callables_protocol.py.Proto9[(x: int) -> Any[unannotated], str] has no attribute 'other_attribute2' [undefined_attribute]
 ./callables_protocol.py:238:0: Incompatible assignment: expected ./callables_protocol.py.Proto11, got (x: int, y: str, /) -> Any[explicit] [incompatible_assignment]
 ./callables_protocol.py:260:0: Incompatible assignment: expected ./callables_protocol.py.Proto12, got (*args: tuple[Any[explicit], ...], kwarg0: Any[explicit]) -> None [incompatible_assignment]
