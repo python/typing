@@ -1,16 +1,9 @@
-conformant = "Partial"
-notes = """
-Incorrectly rejects + between two AnyStr.
-Spurious error for constrained type var call.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 44: Unexpected errors ['Argument `bytes` is not assignable to parameter `y` with type `str` in function `concat` [bad-argument-type]']
 """
 output = """
 ERROR generics_basic.py:40:15-16: Argument `bytes` is not assignable to parameter `y` with type `str` in function `concat` [bad-argument-type]
 ERROR generics_basic.py:41:15-16: Argument `str` is not assignable to parameter `y` with type `bytes` in function `concat` [bad-argument-type]
-ERROR generics_basic.py:44:15-16: Argument `bytes` is not assignable to parameter `y` with type `str` in function `concat` [bad-argument-type]
 ERROR generics_basic.py:49:18-48: Expected at least 2 constraints in TypeVar `BadConstraint1`, got 1 [invalid-type-var]
 ERROR generics_basic.py:55:53-60: Type variable bounds and constraints must be concrete [invalid-annotation]
 ERROR generics_basic.py:69:15-16: Argument `bytes` is not assignable to parameter `y` with type `str` in function `concat` [bad-argument-type]

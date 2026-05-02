@@ -7,7 +7,6 @@ Does not fully support defaults for `ParamSpec`s.
 """
 errors_diff = """
 Line 188: Expected 1 errors
-Line 122: Unexpected errors ['generics_defaults.py:122:5: error[type-assertion-failure] Type `(**DefaultP@Class_ParamSpec) -> None` does not match asserted type `(str, int, /) -> None`']
 Line 139: Unexpected errors ['generics_defaults.py:139:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int]`']
 Line 140: Unexpected errors ['generics_defaults.py:140:5: error[type-assertion-failure] Type `Class_TypeVarTuple` does not match asserted type `@Todo`']
 Line 200: Unexpected errors ['generics_defaults.py:200:17: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`']
@@ -19,7 +18,6 @@ Line 208: Unexpected errors ['generics_defaults.py:208:5: error[type-assertion-f
 output = """
 generics_defaults.py:24:40: error[invalid-generic-class] Type parameter `T` without a default cannot follow earlier parameter `DefaultStrT` with a default
 generics_defaults.py:66:8: error[invalid-type-arguments] No type argument provided for required type variable `T2` of class `AllTheDefaults`
-generics_defaults.py:122:5: error[type-assertion-failure] Type `(**DefaultP@Class_ParamSpec) -> None` does not match asserted type `(str, int, /) -> None`
 generics_defaults.py:139:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int]`
 generics_defaults.py:140:5: error[type-assertion-failure] Type `Class_TypeVarTuple` does not match asserted type `@Todo`
 generics_defaults.py:152:51: error[invalid-type-variable-default] TypeVar default is not assignable to the TypeVar's upper bound
