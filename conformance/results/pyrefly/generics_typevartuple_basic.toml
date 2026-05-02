@@ -3,9 +3,9 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR generics_typevartuple_basic.py:42:34-43: Argument `Height` is not assignable to parameter `shape` with type `tuple[Height, Width]` in function `Array.__init__` [bad-argument-type]
-ERROR generics_typevartuple_basic.py:43:41-61: Argument `tuple[Batch, Width]` is not assignable to parameter `shape` with type `tuple[Batch, Height, Width]` in function `Array.__init__` [bad-argument-type]
-ERROR generics_typevartuple_basic.py:45:5-45: Argument `tuple[Time, Batch, Width, Height]` is not assignable to parameter `shape` with type `tuple[Time, Batch, Height, Width]` in function `Array.__init__` [bad-argument-type]
+ERROR generics_typevartuple_basic.py:42:34-43: Argument `Height` is not assignable to parameter `shape` with type `tuple[*@_]` in function `Array.__init__` [bad-argument-type]
+ERROR generics_typevartuple_basic.py:43:35-62: `Array[Batch, Width]` is not assignable to `Array[Batch, Height, Width]` [bad-assignment]
+ERROR generics_typevartuple_basic.py:44:41-46:2: `Array[Time, Batch, Width, Height]` is not assignable to `Array[Time, Batch, Height, Width]` [bad-assignment]
 ERROR generics_typevartuple_basic.py:52:22-27: `TypeVarTuple` must be unpacked [invalid-annotation]
 ERROR generics_typevartuple_basic.py:53:37-42: `TypeVarTuple` must be unpacked [invalid-type-var-tuple]
 ERROR generics_typevartuple_basic.py:56:34-39: `TypeVarTuple` must be unpacked [invalid-type-var-tuple]
