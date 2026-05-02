@@ -8,8 +8,8 @@ from pathlib import Path
 import re
 import shutil
 import sys
+import sysconfig
 from abc import ABC, abstractmethod
-from pathlib import Path
 from subprocess import PIPE, CalledProcessError, run
 from typing import Sequence
 
@@ -404,13 +404,13 @@ class PycroscopeTypeChecker(TypeChecker):
             return False
 
     def get_version(self) -> str:
-        proc = run([*self._command(), "--version"], stdout=PIPE, text=True)
+        proc = run([self._command(), "--version"], stdout=PIPE, text=True, check=True)
         return proc.stdout.strip()
 
     @staticmethod
-    def _command() -> list[str]:
+    def _command() -> str:
         executable = "pycroscope.exe" if sys.platform == "win32" else "pycroscope"
-        return [sys.executable, "-m", "pycroscope"]
+        return str(Path(sysconfig.get_path("scripts")) / executable)
 
     @staticmethod
     def _normalize_output_line(line: str) -> str:
@@ -422,7 +422,7 @@ class PycroscopeTypeChecker(TypeChecker):
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         command = [
-            *self._command(),
+            self._command(),
             ".",
             "--output-format",
             "concise",
