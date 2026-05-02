@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./specialtypes_sentinels.py:15:10: Default value for argument x incompatible with declared type int [incompatible_default]
-./specialtypes_sentinels.py:36:6: Incompatible argument type for x: expected int | Literal[<<MISSING>>] but got <Cls.IN_CLASS> [incompatible_argument]
+./specialtypes_sentinels.py:14:10: Default value for argument x incompatible with declared type int [incompatible_default]
+./specialtypes_sentinels.py:36:6: Incompatible argument type for x: expected int | Literal[<<MISSING>>, <SPECIAL>] but got <Cls.IN_CLASS> [incompatible_argument]
 ./specialtypes_sentinels.py:39:6: Incompatible argument type for x: expected int | Literal[<Cls.IN_CLASS>] but got <<MISSING>> [incompatible_argument]
 """
