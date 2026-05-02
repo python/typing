@@ -3,7 +3,6 @@ conformant = "Partial"
 notes = """
 Does not forbid a `TypeVar` immediately following a `TypeVarTuple` in a parameter list from having a default.
 Does not support `TypeVarTuple`.
-Does not fully support defaults for `ParamSpec`s.
 """
 errors_diff = """
 Line 188: Expected 1 errors
