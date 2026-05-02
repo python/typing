@@ -3,8 +3,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-typeforms_typeform.py:23: error: Incompatible types in assignment (expression has type "typing.TypeForm(str | int)", variable has type "typing.TypeForm(str | None)")  [assignment]
-typeforms_typeform.py:24: error: Incompatible types in assignment (expression has type "type[list[str | None]]", variable has type "typing.TypeForm(str | None)")  [assignment]
+typeforms_typeform.py:23: error: Incompatible types in assignment (expression has type "TypeForm[str | int]", variable has type "TypeForm[str | None]")  [assignment]
+typeforms_typeform.py:24: error: Incompatible types in assignment (expression has type "type[list[str | None]]", variable has type "TypeForm[str | None]")  [assignment]
 typeforms_typeform.py:59: error: Invalid syntax  [syntax]
 typeforms_typeform.py:67: error: Invalid type comment or annotation  [valid-type]
 typeforms_typeform.py:68: error: Syntax error in type annotation  [valid-type]
@@ -18,6 +18,6 @@ typeforms_typeform.py:74: error: Optional[...] must have exactly one type argume
 typeforms_typeform.py:75: error: Invalid type comment or annotation  [valid-type]
 typeforms_typeform.py:86: error: Invalid type comment or annotation  [valid-type]
 typeforms_typeform.py:88: error: Invalid type comment or annotation  [valid-type]
-typeforms_typeform.py:98: error: Incompatible types in assignment (expression has type "typing.TypeForm(int)", variable has type "typing.TypeForm(str)")  [assignment]
-typeforms_typeform.py:108: error: Incompatible types in assignment (expression has type "type[int]", variable has type "typing.TypeForm(str)")  [assignment]
+typeforms_typeform.py:98: error: Incompatible types in assignment (expression has type "TypeForm[int]", variable has type "TypeForm[str]")  [assignment]
+typeforms_typeform.py:108: error: Incompatible types in assignment (expression has type "type[int]", variable has type "TypeForm[str]")  [assignment]
 """

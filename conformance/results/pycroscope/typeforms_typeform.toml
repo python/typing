@@ -1,0 +1,25 @@
+conformant = "Partial"
+notes = """
+Fails to reject various weird annotations
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 88: Expected 1 errors
+"""
+output = """
+./typeforms_typeform.py:23:0: Incompatible assignment: expected TypeForm[str | None], got Literal[str | int] [incompatible_assignment]
+./typeforms_typeform.py:24:0: Incompatible assignment: expected TypeForm[str | None], got types.GenericAlias (partial from type 'list'[Any[inference] (partial from type 'str' | None)]) [incompatible_assignment]
+./typeforms_typeform.py:59:6: Incompatible argument type for x: expected TypeForm[Any[explicit]] but got Literal['not a type'] [incompatible_argument]
+./typeforms_typeform.py:67:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[()] [incompatible_assignment]
+./typeforms_typeform.py:68:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[(1, 2)] [incompatible_assignment]
+./typeforms_typeform.py:69:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[1] [incompatible_assignment]
+./typeforms_typeform.py:70:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[typing.Self] [incompatible_assignment]
+./typeforms_typeform.py:71:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[typing.ClassVar[int]] [incompatible_assignment]
+./typeforms_typeform.py:72:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[typing.Final[int]] [incompatible_assignment]
+./typeforms_typeform.py:73:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[typing.Unpack[Ts]] [incompatible_assignment]
+./typeforms_typeform.py:74:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal[typing.Optional] [incompatible_assignment]
+./typeforms_typeform.py:75:0: Incompatible assignment: expected TypeForm[Any[explicit]], got Literal['int + str'] [incompatible_assignment]
+./typeforms_typeform.py:86:5: Unrecognized annotation type [invalid_annotation]
+./typeforms_typeform.py:98:0: Incompatible assignment: expected TypeForm[str], got TypeForm[int] [incompatible_assignment]
+./typeforms_typeform.py:108:0: Incompatible assignment: expected TypeForm[str], got type[int] [incompatible_assignment]
+"""

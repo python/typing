@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./protocols_modules.py:26:0: Incompatible assignment: expected protocols_modules.Options2, got module '_protocols_modules1' [incompatible_assignment]
+./protocols_modules.py:48:0: Incompatible assignment: expected protocols_modules.Reporter2, got module '_protocols_modules2' [incompatible_assignment]
+./protocols_modules.py:49:0: Incompatible assignment: expected protocols_modules.Reporter3, got module '_protocols_modules2' [incompatible_assignment]
+"""

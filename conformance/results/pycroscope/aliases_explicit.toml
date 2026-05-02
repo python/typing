@@ -1,0 +1,26 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./aliases_explicit.py:67:8: Expected 0 type arguments for type alias, got 1 [invalid_specialization]
+./aliases_explicit.py:68:8: Expected 0 type arguments for type alias, got 1 [invalid_specialization]
+./aliases_explicit.py:69:8: Expected 1 type arguments for type alias, got 2 [invalid_specialization]
+./aliases_explicit.py:70:8: Expected 1 type arguments for type alias, got 2 [invalid_specialization]
+./aliases_explicit.py:71:8: ParamSpec specialization must use list form, Concatenate[..., P], P, or ... [invalid_annotation]
+./aliases_explicit.py:79:20: Invalid type annotation [invalid_annotation]
+./aliases_explicit.py:80:20: Unrecognized annotation <list containing [type 'int', type 'str']> [invalid_annotation]
+./aliases_explicit.py:81:20: Unrecognized annotation tuple[tuple[type 'int', type 'str']] [invalid_annotation]
+./aliases_explicit.py:82:20: Invalid type annotation [invalid_annotation]
+./aliases_explicit.py:83:20: Unrecognized annotation <dict containing {Literal['a']: Literal['b']}> [invalid_annotation]
+./aliases_explicit.py:84:20: Invalid type annotation [invalid_annotation]
+./aliases_explicit.py:85:20: Cannot resolve subscripted annotation: <list containing [type 'int']> [invalid_annotation]
+./aliases_explicit.py:86:20: Invalid type annotation [invalid_annotation]
+./aliases_explicit.py:87:20: Invalid type annotation 3 [invalid_annotation]
+./aliases_explicit.py:88:21: Invalid type annotation True [invalid_annotation]
+./aliases_explicit.py:89:21: Invalid type annotation 1 [invalid_annotation]
+./aliases_explicit.py:90:21: Invalid type annotation [invalid_annotation]
+./aliases_explicit.py:91:21: Invalid type annotation [invalid_annotation]
+./aliases_explicit.py:100:4: Expected 0 type arguments for type alias, got 1 [invalid_specialization]
+./aliases_explicit.py:101:5: TypeForm[.ListOrSetAlias] (synthetic from Literal[list | set]) is not callable [not_callable]
+./aliases_explicit.py:102:4: Expected 0 type arguments for type alias, got 1 [invalid_specialization]
+"""

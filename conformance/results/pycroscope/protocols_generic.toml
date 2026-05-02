@@ -1,0 +1,21 @@
+conformant = "Partial"
+notes = """
+Fails to reject duplicate generic/protocol bases.
+Treats global object as a literal.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 44: Expected 1 errors
+Line 96: Unexpected errors ['./protocols_generic.py:96:12:   Literal[<protocols_generic.ConcreteHasParent object at 0x...>] is not equivalent to protocols_generic.ConcreteHasParent']
+"""
+output = """
+./protocols_generic.py:40:0: Incompatible assignment: expected protocols_generic.Proto1[int, str], got protocols_generic.Concrete1 [incompatible_assignment]
+./protocols_generic.py:56:4: Incompatible assignment: expected protocols_generic.Box[int], got protocols_generic.Box[float | int] [incompatible_assignment]
+./protocols_generic.py:66:4: Incompatible assignment: expected protocols_generic.Sender[float | int], got protocols_generic.Sender[int] [incompatible_assignment]
+./protocols_generic.py:74:4: Incompatible assignment: expected protocols_generic.AttrProto[float | int], got protocols_generic.AttrProto[int] [incompatible_assignment]
+./protocols_generic.py:75:4: Incompatible assignment: expected protocols_generic.AttrProto[int], got protocols_generic.AttrProto[float | int] [incompatible_assignment]
+./protocols_generic.py:96:12:   Literal[<protocols_generic.ConcreteHasParent object at 0x...>] is not equivalent to protocols_generic.ConcreteHasParent
+./protocols_generic.py:145:0: Incompatible assignment: expected protocols_generic.HasPropertyProto, got protocols_generic.ConcreteHasProperty2 [incompatible_assignment]
+./protocols_generic.py:146:0: Incompatible assignment: expected protocols_generic.HasPropertyProto, got protocols_generic.ConcreteHasProperty3 [incompatible_assignment]
+./protocols_generic.py:147:0: Incompatible assignment: expected protocols_generic.HasPropertyProto, got protocols_generic.ConcreteHasProperty4 [incompatible_assignment]
+"""

@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./directives_cast.py:15:7: In call to typing.cast: Missing required positional argument 'typ' [incompatible_call]
+./directives_cast.py:16:7: Invalid type annotation 1 [invalid_annotation]
+./directives_cast.py:17:7: In call to typing.cast: Takes 2 positional arguments but 3 were given [incompatible_call]
+"""

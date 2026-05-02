@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./dataclasses_order.py:50:3: Unsupported operands for less than: ./dataclasses_order.py.DC1 and ./dataclasses_order.py.DC2 [unsupported_operation]
+"""

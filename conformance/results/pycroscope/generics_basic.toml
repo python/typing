@@ -1,0 +1,18 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./generics_basic.py:40:4: Cannot resolve type variables [incompatible_call]
+./generics_basic.py:41:4: Cannot resolve type variables [incompatible_call]
+./generics_basic.py:49:17: TypeVar must have at least two constraints [incompatible_call]
+./generics_basic.py:55:52: TypeVar bounds and constraints cannot contain type parameters [invalid_annotation]
+./generics_basic.py:69:4: Cannot resolve type variables [incompatible_call]
+./generics_basic.py:121:20: Type parameter list cannot contain duplicate type variables [invalid_base]
+./generics_basic.py:157:7: Incompatible argument type for key: expected str but got Literal[0] [incompatible_argument]
+./generics_basic.py:158:7: Incompatible argument type for key: expected str but got Literal[0] [incompatible_argument]
+./generics_basic.py:162:19: All arguments to Generic or Protocol must be type variables [invalid_base]
+./generics_basic.py:163:20: All arguments to Generic or Protocol must be type variables [invalid_base]
+./generics_basic.py:171:27: All type parameters for the class must appear within Generic or Protocol [invalid_base]
+./generics_basic.py:172:27: All type parameters for the class must appear within Generic or Protocol [invalid_base]
+./generics_basic.py:208:36: Cannot determine metaclass [invalid_metaclass]
+"""
