@@ -1,8 +1,7 @@
-conformance_automated = "Fail"
-conformant = "Unsupported"
+conformance_automated = "Pass"
 errors_diff = """
-Lines 25, 28: Expected error (tag 'return_type')
-Lines 41, 44: Expected error (tag 'parameter_type')
 """
 output = """
+overloads_consistency.py:25:5: error[invalid-overload] Overload return type is not assignable to implementation return type
+overloads_consistency.py:41:5: error[invalid-overload] Implementation does not accept all arguments of this overload
 """
