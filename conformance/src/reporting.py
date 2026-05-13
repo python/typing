@@ -30,8 +30,7 @@ def generate_summary_html(root_dir: Path) -> str:
     test_groups = get_test_groups(root_dir)
     test_cases = get_test_cases(test_groups, root_dir / "tests")
 
-    summary_html = ["<thead>"]
-    summary_html.append('<tr><th class="col1">&nbsp;</th>')
+    summary_html = ["<thead>", "<tr>", "<th></th>"]
 
     for type_checker in type_checkers:
         # Load the version file for the type checker.
@@ -48,10 +47,9 @@ def generate_summary_html(root_dir: Path) -> str:
 
         version = existing_info["version"] or "Unknown version"
 
-        summary_html.append(f"<th class='tc-header'><div class='tc-name'>{version}</div>")
-        summary_html.append("</th>")
+        summary_html.append(f"<th>{version}</th>")
 
-    summary_html.append("</tr></thead><tbody>")
+    summary_html.extend(["</tr>", "</thead>", "<tbody>"])
 
     for test_group_name, test_group in test_groups.items():
         tests_in_group = [
