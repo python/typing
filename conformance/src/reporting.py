@@ -112,7 +112,7 @@ def generate_summary_html(root_dir: Path) -> str:
 
                     conformance_cell = f"{conformance}"
                     if raw_notes != "":
-                        conformance_cell = f'<div class="hover-text">{conformance_cell}<span class="tooltip-text" id="bottom">{notes}</span></div>'
+                        conformance_cell = f'<div class="hover-text">{conformance_cell}<div class="tooltip-text">{notes}</div></div>'
 
                     summary_html.append(f'<th class="column col2 {conformance_class}">{conformance_cell}</th>')
 
