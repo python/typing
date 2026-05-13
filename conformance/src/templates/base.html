@@ -38,22 +38,22 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th></th>
+                        <th scope="col"></th>
                         {%- for version in versions %}
-                        <th>{{ version }}</th>
+                        <th scope="col">{{ version }}</th>
                         {%- endfor %}
                     </tr>
                 </thead>
+                {%- for group in groups %}
                 <tbody>
-                    {%- for group in groups %}
                     <tr>
-                        <th colspan="{{ columns + 1 }}">
+                        <th colspan="{{ columns + 1 }}" scope="colgroup">
                             <a href="{{ group.href }}">{{ group.name }}</a>
                         </th>
                     </tr>
                     {%- for case in group.cases %}
                     <tr>
-                        <th>{{ case.name }}</th>
+                        <th scope="row">{{ case.name }}</th>
                         {%- for result in case.results %}
                         {%- if result.notes %}
                         <td class="{{ result.conformance|conformance_class }} tooltip">
@@ -70,8 +70,8 @@
                         {%- endfor %}
                     </tr>
                     {%- endfor %}
-                    {%- endfor %}
                 </tbody>
+                {%- endfor %}
             </table>
         </main>
         <script>
