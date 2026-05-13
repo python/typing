@@ -69,6 +69,15 @@ wheels = [
 ]
 
 [[package]]
+name = "markdown"
+version = "3.10.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/2b/f4/69fa6ed85ae003c2378ffa8f6d2e3234662abd02c10d216c0ba96081a238/markdown-3.10.2.tar.gz", hash = "sha256:994d51325d25ad8aa7ce4ebaec003febcce822c3f8c911e3b17c52f7f589f950", size = 368805, upload-time = "2026-02-09T14:57:26.942Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/de/1f/77fa3081e4f66ca3576c896ae5d31c3002ac6607f9747d2e3aa49227e464/markdown-3.10.2-py3-none-any.whl", hash = "sha256:e91464b71ae3ee7afd3017d9f358ef0baf158fd9a298db92f1d4761133824c36", size = 108180, upload-time = "2026-02-09T14:57:25.787Z" },
+]
+
+[[package]]
 name = "markupsafe"
 version = "3.0.3"
 source = { registry = "https://pypi.org/simple" }
@@ -217,6 +226,15 @@ wheels = [
 ]
 
 [[package]]
+name = "types-markdown"
+version = "3.10.2.20260508"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/24/62/4ca11db82799590117d9b6ef8fcd6515039cff80838304face5440f7d95c/types_markdown-3.10.2.20260508.tar.gz", hash = "sha256:64c405a30decd46cf78443bbcde8331f561f83752cc6d962ff3f5ccaabe26a8e", size = 19818, upload-time = "2026-05-08T04:49:45.095Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cf/9d/eae7125bcf063ff5f79aadad58f3d37675263941f84e025bf53de1735fe1/types_markdown-3.10.2.20260508-py3-none-any.whl", hash = "sha256:2ee5e462c7b821c27c3d8f75f4da873d3e3c87d24d7f2d741f8f4261e4024a99", size = 25811, upload-time = "2026-05-08T04:49:43.962Z" },
+]
+
+[[package]]
 name = "typeshed-client"
 version = "2.11.0"
 source = { registry = "https://pypi.org/simple" }
@@ -235,24 +253,28 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "jinja2" },
+    { name = "markdown" },
     { name = "mypy" },
     { name = "pycroscope" },
     { name = "pyrefly" },
     { name = "pyright" },
     { name = "tomlkit" },
     { name = "ty" },
+    { name = "types-markdown" },
     { name = "zuban" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "jinja2" },
+    { name = "markdown" },
     { name = "mypy" },
     { name = "pycroscope" },
     { name = "pyrefly" },
     { name = "pyright" },
     { name = "tomlkit" },
     { name = "ty" },
+    { name = "types-markdown" },
     { name = "zuban" },
 ]
 

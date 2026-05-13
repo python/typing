@@ -9,6 +9,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 import jinja2
+import markdown
+import markupsafe
 
 from test_groups import get_test_cases, get_test_groups
 from type_checker import TYPE_CHECKERS, TypeChecker
@@ -18,7 +20,7 @@ from type_checker import TYPE_CHECKERS, TypeChecker
 class TestResult:
     type_checker: str
     conformance: str
-    notes: list[str] = field(default_factory=list)
+    notes: list[markupsafe.Markup] = field(default_factory=list)
 
 
 @dataclass(frozen=True, kw_only=True, slots=True)
@@ -116,10 +118,19 @@ def _get_groups(
                     automated = data.get("conformance_automated")
                     conformance = "Pass" if automated == "Pass" else "Unknown"
 
+                notes = [
+                    markupsafe.Markup(
+                        markdown.markdown(note, output_format="html")
+                        .removeprefix("<p>")
+                        .removesuffix("</p>")
+                    )
+                    for note in data.get("notes", "").strip().splitlines()
+                ]
+
                 result = TestResult(
                     type_checker=type_checker.name,
                     conformance=conformance,
-                    notes=data.get("notes", "").strip().splitlines(),
+                    notes=notes,
                 )
                 case.results.append(result)
 

@@ -60,6 +60,13 @@ a {
     text-underline-offset: 2px;
 }
 
+code {
+    background: light-dark(#eee, #666);
+    border: 1px solid light-dark(#ddd, #888);
+    border-radius: 3px;
+    padding: 0 2px;
+}
+
 table {
     border-collapse: collapse;
     inline-size: 100%;
@@ -166,6 +173,7 @@ tbody > tr:hover {
         visibility: hidden;
         z-index: 2;
         & > li {
+            padding: 3px 0;
             text-indent: 1.3em hanging;
         }
     }
