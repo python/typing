@@ -77,7 +77,7 @@ def generate_summary_html(root_dir: Path) -> str:
             for test_case in tests_in_group:
                 test_case_name = test_case.stem
 
-                summary_html.append(f'<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{test_case_name}</th>')
+                summary_html.append(f"<tr><th>{test_case_name}</th>")
 
                 for type_checker in type_checkers:
                     try:
