@@ -28,7 +28,7 @@ def generate_summary_html(root_dir: Path) -> str:
     test_groups = get_test_groups(root_dir)
     test_cases = get_test_cases(test_groups, root_dir / "tests")
 
-    summary_html = ['<div class="table_container"><table><tbody>']
+    summary_html = ["<tbody>"]
     summary_html.append('<tr><th class="col1">&nbsp;</th>')
 
     for type_checker in TYPE_CHECKERS:
@@ -116,6 +116,6 @@ def generate_summary_html(root_dir: Path) -> str:
 
                 summary_html.append("</tr>")
 
-    summary_html.append("</tbody></table></div>")
+    summary_html.append("</tbody>")
 
     return "\n".join(summary_html)
