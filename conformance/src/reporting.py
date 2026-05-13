@@ -30,7 +30,15 @@ def generate_summary_html(root_dir: Path) -> str:
     test_groups = get_test_groups(root_dir)
     test_cases = get_test_cases(test_groups, root_dir / "tests")
 
-    summary_html = ["<thead>", "<tr>", "<th></th>"]
+    summary_html = [
+        "<colgroup>",
+        '<col class="col1" span="1">',
+        f'<col class="col2" span="{column_count - 1}">',
+        "</colgroup>",
+        "<thead>",
+        "<tr>",
+        "<th></th>",
+    ]
 
     for type_checker in type_checkers:
         # Load the version file for the type checker.
@@ -69,7 +77,7 @@ def generate_summary_html(root_dir: Path) -> str:
             for test_case in tests_in_group:
                 test_case_name = test_case.stem
 
-                summary_html.append(f'<tr><th class="col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{test_case_name}</th>')
+                summary_html.append(f'<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{test_case_name}</th>')
 
                 for type_checker in type_checkers:
                     try:
@@ -112,7 +120,7 @@ def generate_summary_html(root_dir: Path) -> str:
                     if raw_notes != "":
                         conformance_cell = f'<div class="hover-text">{conformance_cell}<div class="tooltip-text">{notes}</div></div>'
 
-                    summary_html.append(f'<td class="col2 {conformance_class}">{conformance_cell}</td>')
+                    summary_html.append(f'<td class="{conformance_class}">{conformance_cell}</td>')
 
                 summary_html.append("</tr>")
 

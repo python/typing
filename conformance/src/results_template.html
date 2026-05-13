@@ -44,6 +44,16 @@
             font-weight: normal;
         }
 
+        th:first-child,
+        td:first-child {
+            vertical-align: top;
+        }
+
+        th:not(:first-child),
+        td:not(:first-child){
+            text-align: center;
+        }
+
         .content_container {
             margin: 20px;
         }
@@ -74,12 +84,10 @@
 
         .col1 {
             width: 28%;
-            vertical-align: top;
         }
 
         .col2 {
             width: 14%;
-            text-align: center;
         }
 
         thead > tr > th {
