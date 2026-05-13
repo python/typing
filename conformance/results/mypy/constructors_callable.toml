@@ -1,8 +1,8 @@
 conformant = "Partial"
 notes = """
-Does not generate a union type for __new__ and __init__ when converting class to callable.
-Does not ignore __init__ based on __new__ return type when converting class to callable.
-Does not support __new__ return type that is different from class being constructed.
+Does not generate a union type for `__new__` and `__init__` when converting class to callable.
+Does not ignore `__init__` based on `__new__` return type when converting class to callable.
+Does not support `__new__` return type that is different from class being constructed.
 """
 conformance_automated = "Fail"
 errors_diff = """

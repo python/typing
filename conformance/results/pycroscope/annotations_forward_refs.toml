@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Fails to reject "x" | int annotations that fail at runtime.
+Fails to reject `"x" | int` annotations that fail at runtime.
 Rejects some valid quoted annotations.
 """
 conformance_automated = "Fail"

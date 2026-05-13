@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Conformance suite is questionable; see https://github.com/python/typing/issues/2259
+Conformance suite is questionable; see <https://github.com/python/typing/issues/2259>
 """
 conformance_automated = "Fail"
 errors_diff = """

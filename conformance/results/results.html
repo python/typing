@@ -281,14 +281,14 @@
                             Partial
                             <ul class="notes">
                                 <li>Does not report error for a forward reference that is not enclosed in quotes.</li>
-                                <li>Does not report error for use of quoted type with "|" operator (runtime error).</li>
+                                <li>Does not report error for use of quoted type with <code>|</code> operator (runtime error).</li>
                                 <li>Incorrectly generates error for quoted type defined in class scope.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Fails to reject "x" | int annotations that fail at runtime.</li>
+                                <li>Fails to reject <code>"x" | int</code> annotations that fail at runtime.</li>
                                 <li>Rejects some valid quoted annotations.</li>
                             </ul>
                         </td>
@@ -303,7 +303,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Resolves references in type annotations as referring to end-of-scope types (https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439, https://github.com/python/typing/pull/2144)</li>
+                                <li>Resolves references in type annotations as referring to end-of-scope types (<a href="https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439">https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439</a>, <a href="https://github.com/python/typing/pull/2144">https://github.com/python/typing/pull/2144</a>)</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
@@ -318,7 +318,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not report incompatible Generator type in <code>yield from</code> statement.</li>
+                                <li>Does not report incompatible <code>Generator</code> type in <code>yield from</code> statement.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -370,7 +370,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not support assigning Union and GenericAlias objects to their runtime types.</li>
+                                <li>Does not support assigning <code>Union</code> and <code>GenericAlias</code> objects to their runtime types.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
@@ -405,7 +405,7 @@
                             Partial
                             <ul class="notes">
                                 <li>Does not enforce invariance in some contexts</li>
-                                <li>Does not allow Any to be assigned to Never</li>
+                                <li>Does not allow <code>Any</code> to be assigned to <code>Never</code></li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -436,7 +436,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not treat <code>type</code> same as <code>type[Any]</code> for assert_type.</li>
+                                <li>Does not treat <code>type</code> same as <code>type[Any]</code> for <code>assert_type</code>.</li>
                                 <li>Does not allow access to unknown attributes from object of type <code>type[Any]</code>.</li>
                             </ul>
                         </td>
@@ -490,14 +490,14 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not detect a TypeVar with a default used after a TypeVarTuple.</li>
-                                <li>Does not fully support defaults on TypeVarTuple and ParamSpec.</li>
+                                <li>Does not detect a <code>TypeVar</code> with a default used after a <code>TypeVarTuple</code>.</li>
+                                <li>Does not fully support defaults on <code>TypeVarTuple</code> and <code>ParamSpec</code>.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Numerous issues; does not support TypeVarTuple and ParamSpec defaults.</li>
+                                <li>Numerous issues; does not support <code>TypeVarTuple</code> and <code>ParamSpec</code> defaults.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -516,7 +516,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not correctly handle defaults referencing other TypeVars.</li>
+                                <li>Does not correctly handle defaults referencing other <code>TypeVar</code>s.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
@@ -543,7 +543,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Allows incorrect assignment to type[].</li>
+                                <li>Allows incorrect assignment to <code>type[]</code>.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
@@ -585,7 +585,7 @@
                         <td class="conformant tooltip">
                             Pass
                             <ul class="notes">
-                                <li>Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).</li>
+                                <li>Constraint solver doesn't find common type for two signatures captured by a single <code>ParamSpec</code> (allowed).</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -607,7 +607,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not implement several scoping checks/restrictions for generics</li>
+                                <li>Does not implement several scoping checks/restrictions for generics.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -615,7 +615,7 @@
                             Partial
                             <ul class="notes">
                                 <li>Does not reject <code>list[T]()</code> in the global scope, where <code>T</code> is an unbound type variable.</li>
-                                <li>Does nto reject <code>alias: TypeAlias = list[T]</code> in the body scope of a class generic over a type variable <code>T</code>.</li>
+                                <li>Does not reject <code>alias: TypeAlias = list[T]</code> in the body scope of a class generic over a type variable <code>T</code>.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -635,7 +635,7 @@
                         <td class="conformant tooltip">
                             Pass
                             <ul class="notes">
-                                <li>Treats attributes not initialized on the class as instance-only</li>
+                                <li>Treats attributes not initialized on the class as instance-only.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -739,8 +739,8 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Infers Node[Never] instead of Node[Any] when argument is not provided.</li>
-                                <li>False negative on instance attribute access on type(node).</li>
+                                <li>Infers <code>Node[Never]</code> instead of <code>Node[Any]</code> when argument is not provided.</li>
+                                <li>False negative on instance attribute access on <code>type(node)</code>.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -759,7 +759,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not enforce that tuples captured by TypeVarTuple are of the same length.</li>
+                                <li>Does not enforce that tuples captured by <code>TypeVarTuple</code> are of the same length.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -767,13 +767,13 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not correctly solve TypeVarTuple with heterogeneous bounds.</li>
+                                <li>Does not correctly solve <code>TypeVarTuple</code> with heterogeneous bounds.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Supports PEP-646 unpacked tuples but not TypeVarTuple.</li>
+                                <li>Supports PEP-646 unpacked tuples but not <code>TypeVarTuple</code>.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -783,7 +783,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not enforce that tuples captured by TypeVarTuple are same length.</li>
+                                <li>Does not enforce that tuples captured by <code>TypeVarTuple</code> are same length.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -791,7 +791,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not correctly solve TypeVarTuple with heterogeneous bounds.</li>
+                                <li>Does not correctly solve <code>TypeVarTuple</code> with heterogeneous bounds.</li>
                             </ul>
                         </td>
                         <td class="not-conformant">Unsupported</td>
@@ -829,8 +829,8 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Incorrectly specializes generic alias that includes a TypeVar and TypeVarTuple if no type arguments are provided.</li>
-                                <li>Rejects specialization of generic type alias defined as a tuple containing a TypeVar.</li>
+                                <li>Incorrectly specializes generic alias that includes a <code>TypeVar</code> and <code>TypeVarTuple</code> if no type arguments are provided.</li>
+                                <li>Rejects specialization of generic type alias defined as a tuple containing a <code>TypeVar</code>.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -867,7 +867,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not reject use of class-scoped TypeVar used in a base class when variance is incompatible.</li>
+                                <li>Does not reject use of class-scoped <code>TypeVar</code> used in a base class when variance is incompatible.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -895,18 +895,18 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not allow ClassVar to be nested within Annotated.</li>
-                                <li>Does not allow Final to be nested within Annotated.</li>
-                                <li>Does not allow Required and NotRequired to be nested within Annotated.</li>
-                                <li>Does not reject type[T] compatibility for type alias defined with Annotated.</li>
-                                <li>Does not reject call of type alias defined with Annotated.</li>
+                                <li>Does not allow <code>ClassVar</code> to be nested within <code>Annotated</code>.</li>
+                                <li>Does not allow <code>Final</code> to be nested within <code>Annotated</code>.</li>
+                                <li>Does not allow <code>Required</code> and <code>NotRequired</code> to be nested within <code>Annotated</code>.</li>
+                                <li>Does not reject <code>type[T]</code> compatibility for type alias defined with <code>Annotated</code>.</li>
+                                <li>Does not reject call of type alias defined with <code>Annotated</code>.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
                                 <li>Fails to reject various weird annotations.</li>
-                                <li>False positive on lambda in Annotated.</li>
+                                <li>False positive on lambda in <code>Annotated</code>.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -919,10 +919,10 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.</li>
-                                <li>Does not allow conditional assignment of Final instance variable in <strong>init</strong> method.</li>
-                                <li>Does not allow redefinition of private class variable that is marked Final in parent class.</li>
-                                <li>Does not report modification of local Final variable via "for" statement.</li>
+                                <li>Does not treat use of <code>Final</code> name as if it was replaced by the literal in <code>NamedTuple</code> definition.</li>
+                                <li>Does not allow conditional assignment of <code>Final</code> instance variable in <code>__init__</code> method.</li>
+                                <li>Does not allow redefinition of private class variable that is marked <code>Final</code> in parent class.</li>
+                                <li>Does not report modification of local <code>Final</code> variable via <code>for</code> statement.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -950,10 +950,10 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Internal error if TypeVarTuple is used in ClassVar.</li>
-                                <li>Does not reject use of ParamSpec in ClassVar.</li>
-                                <li>Rejects ClassVar nested in Annotated.</li>
-                                <li>Does not reject use of ClassVar in TypeAlias definition.</li>
+                                <li>Internal error if <code>TypeVarTuple</code> is used in <code>ClassVar</code>.</li>
+                                <li>Does not reject use of <code>ParamSpec</code> in <code>ClassVar</code>.</li>
+                                <li>Rejects <code>ClassVar</code> nested in <code>Annotated</code>.</li>
+                                <li>Does not reject use of <code>ClassVar</code> in <code>TypeAlias</code> definition.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1064,14 +1064,14 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Incorrectly rejects some recursive type aliases using TypeAliasType.</li>
-                                <li>Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.</li>
+                                <li>Incorrectly rejects some recursive type aliases using <code>TypeAliasType</code>.</li>
+                                <li>Incorrectly rejects the use of a class-scoped <code>TypeVar</code> in a <code>TypeAliasType</code> definition.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Rejects valid ParamSpec specialization.</li>
+                                <li>Rejects valid <code>ParamSpec</code> specialization.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1139,7 +1139,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not reject tuple within Literal.</li>
+                                <li>Does not reject tuple within <code>Literal</code>.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
@@ -1173,7 +1173,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Abstract type[Proto] still allows protocol class objects in some paths.</li>
+                                <li>Abstract <code>type[Proto]</code> still allows protocol class objects in some paths.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1299,7 +1299,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not report unsafe overlap for runtime_checkable protocol.</li>
+                                <li>Does not report unsafe overlap for <code>runtime_checkable</code> protocol.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1350,15 +1350,15 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Incorrectly treats "<em>args: T, </em>*kwargs: T" as "..." when T is specialized to Any.</li>
-                                <li>Does not treat "<em>args: Any, </em>*kargs: Any" as "..." when separated by keyword parameter.</li>
+                                <li>Incorrectly treats <code>*args: T, **kwargs: T</code> as <code>...</code> when <code>T</code> is specialized to <code>Any</code>.</li>
+                                <li>Does not treat <code>*args: Any, **kargs: Any</code> as <code>...</code> when separated by keyword parameter.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Parameter names are lost when resolving ParamSpec</li>
+                                <li>Parameter names are lost when resolving <code>ParamSpec</code>.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1375,7 +1375,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Allows callable without kwargs to be assigned to callable with unpacked kwargs</li>
+                                <li>Allows callable without kwargs to be assigned to callable with unpacked kwargs.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1412,8 +1412,8 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not report errors during binding to self parameter of <strong>init</strong> method.</li>
-                                <li>Does not reject use of class-scoped type variables in annotation of self parameter in <strong>init</strong> method.</li>
+                                <li>Does not report errors during binding to self parameter of <code>__init__</code> method.</li>
+                                <li>Does not reject use of class-scoped type variables in annotation of self parameter in <code>__init__</code> method.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1433,8 +1433,8 @@
                         <td class="not-conformant tooltip">
                             Unsupported
                             <ul class="notes">
-                                <li>Does not honor metaclass <strong>call</strong> method when evaluating constructor call.</li>
-                                <li>Does not skip evaluation of <strong>new</strong> and <strong>init</strong> if custom metaclass call returns non-class.</li>
+                                <li>Does not honor metaclass <code>__call__</code> method when evaluating constructor call.</li>
+                                <li>Does not skip evaluation of <code>__new__</code> and <code>__init__</code> if custom metaclass call returns non-class.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1448,9 +1448,9 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not support <strong>new</strong> return type that is not a subclass of the class being constructed.</li>
-                                <li>Does not skip evaluation of <strong>init</strong> based on <strong>new</strong> return type.</li>
-                                <li>Does not report errors during binding to cls parameter of <strong>new</strong> method.</li>
+                                <li>Does not support <code>__new__</code> return type that is not a subclass of the class being constructed.</li>
+                                <li>Does not skip evaluation of <code>__init__</code> based on <code>__new__</code> return type.</li>
+                                <li>Does not report errors during binding to <code>cls</code> parameter of <code>__new__</code> method.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1464,7 +1464,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not validate call to custom metaclass <strong>call</strong> method through type[T].</li>
+                                <li>Does not validate call to custom metaclass <code>__call__</code> method through <code>type[T]</code>.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1483,9 +1483,9 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not generate a union type for <strong>new</strong> and <strong>init</strong> when converting class to callable.</li>
-                                <li>Does not ignore <strong>init</strong> based on <strong>new</strong> return type when converting class to callable.</li>
-                                <li>Does not support <strong>new</strong> return type that is different from class being constructed.</li>
+                                <li>Does not generate a union type for <code>__new__</code> and <code>__init__</code> when converting class to callable.</li>
+                                <li>Does not ignore <code>__init__</code> based on <code>__new__</code> return type when converting class to callable.</li>
+                                <li>Does not support <code>__new__</code> return type that is different from class being constructed.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1511,7 +1511,7 @@
                         <td class="conformant tooltip">
                             Pass
                             <ul class="notes">
-                                <li>Does not report inconsistency between <strong>new</strong> and <strong>init</strong> (optional).</li>
+                                <li>Does not report inconsistency between <code>__new__</code> and <code>__init__</code> (optional).</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1553,7 +1553,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Allows @override to be on all overloads and implementation, instead of just implementation.</li>
+                                <li>Allows <code>@override</code> to be on all overloads and implementation, instead of just implementation.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1567,7 +1567,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Allows @override to appear in a stub file not on the first overload.</li>
+                                <li>Allows <code>@override</code> to appear in a stub file not on the first overload.</li>
                             </ul>
                         </td>
                         <td class="not-conformant tooltip">
@@ -1586,11 +1586,11 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not expand boolean arguments to Literal[True] and Literal[False].</li>
+                                <li>Does not expand boolean arguments to <code>Literal[True]</code> and <code>Literal[False]</code>.</li>
                                 <li>Does not expand enum arguments to literal variants.</li>
                                 <li>Does not expand tuple arguments to possible combinations.</li>
-                                <li>Does not evaluate Any in some cases where overload is ambiguous.</li>
-                                <li>Evaluates Any in some cases where overload is not ambiguous.</li>
+                                <li>Does not evaluate <code>Any</code> in some cases where overload is ambiguous.</li>
+                                <li>Evaluates <code>Any</code> in some cases where overload is not ambiguous.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1598,7 +1598,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not evaluate Any in some cases where overload is ambiguous.</li>
+                                <li>Does not evaluate <code>Any</code> in some cases where overload is ambiguous.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1616,7 +1616,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Some error suppressing context managers are not detected</li>
+                                <li>Some error suppressing context managers are not detected.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1640,18 +1640,14 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Conformance suite is questionable; see https://github.com/python/typing/issues/2259</li>
+                                <li>Conformance suite is questionable; see <a href="https://github.com/python/typing/issues/2259">https://github.com/python/typing/issues/2259</a></li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li><ul>
-<li>Assumes descriptor behavior only when field is assigned in class body</li>
-</ul></li>
-                                <li><ul>
-<li>Doesn't allow non-data descriptors or data descriptors with differing <code>__get__</code> and <code>__set__</code> types</li>
-</ul></li>
+                                <li>Assumes descriptor behavior only when field is assigned in class body</li>
+                                <li>Doesn't allow non-data descriptors or data descriptors with differing <code>__get__</code> and <code>__set__</code> types</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1668,8 +1664,8 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Wrongly requires a Final dataclass field to be initialized at class level.</li>
-                                <li>Doesn't support Final nested inside ClassVar.</li>
+                                <li>Wrongly requires a <code>Final</code> dataclass field to be initialized at class level.</li>
+                                <li>Doesn't support <code>Final</code> nested inside <code>ClassVar</code>.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1694,7 +1690,7 @@
                             <ul class="notes">
                                 <li>Does not synthesize <code>__hash__ = None</code> as a class attribute for unhashable dataclasses.</li>
                                 <li>Does not report when an unhashable dataclass has <code>__hash__</code> called directly on an instance.</li>
-                                <li>Does not report when dataclass is not compatible with Hashable protocol.</li>
+                                <li>Does not report when dataclass is not compatible with <code>Hashable</code> protocol.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1758,7 +1754,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not reject write to instance variable that is not defined in <strong>slots</strong>.</li>
+                                <li>Does not reject write to instance variable that is not defined in <code>__slots__</code>.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1871,7 +1867,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not support version-conditional items in TypedDict definitions.</li>
+                                <li>Does not support version-conditional items in <code>TypedDict</code> definitions.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1879,7 +1875,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not support version-conditional items in TypedDict definitions.</li>
+                                <li>Does not support version-conditional items in <code>TypedDict</code> definitions.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1887,12 +1883,7 @@
                     </tr>
                     <tr>
                         <th>typeddicts_extra_items</th>
-                        <td class="not-conformant tooltip">
-                            Unsupported
-                            <ul class="notes">
-                                <li>Not supported.</li>
-                            </ul>
-                        </td>
+                        <td class="not-conformant">Unsupported</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -1949,9 +1940,9 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Incorrectly rejects non-ReadOnly override of ReadOnly item.</li>
-                                <li>Incorrectly rejects override of ReadOnly item with another ReadOnly item with narrower type.</li>
-                                <li>Incorrectly rejects override of NotRequired ReadOnly item with a Required ReadOnly item.</li>
+                                <li>Incorrectly rejects non-<code>ReadOnly</code> override of <code>ReadOnly</code> item.</li>
+                                <li>Incorrectly rejects override of <code>ReadOnly</code> item with another <code>ReadOnly</code> item with narrower type.</li>
+                                <li>Incorrectly rejects override of <code>NotRequired ReadOnly</code> item with a <code>Required ReadOnly</code> item.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1974,8 +1965,8 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Incorrectly allows update of ReadOnly item.</li>
-                                <li>Incorrectly rejects update involving an item with Never type.</li>
+                                <li>Incorrectly allows update of <code>ReadOnly</code> item.</li>
+                                <li>Incorrectly rejects update involving an item with <code>Never</code> type.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1999,7 +1990,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Considers TypedDicts to be assignable to plain dict types.</li>
+                                <li>Considers <code>TypedDict</code>s to be assignable to plain <code>dict</code> types.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -2149,7 +2140,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Improperly applies narrowing to Flag subclass.</li>
+                                <li>Improperly applies narrowing to <code>Flag</code> subclass.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -2345,7 +2336,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not honor "# type: ignore" comment if comment includes additional text.</li>
+                                <li>Does not honor <code># type: ignore</code> comment if comment includes additional text.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -2377,8 +2368,8 @@
                         <td class="conformant tooltip">
                             Pass
                             <ul class="notes">
-                                <li>Does not understand three-element form of sys.version checks.</li>
-                                <li>Does not understand os.name checks.</li>
+                                <li>Does not understand three-element form of <code>sys.version</code> checks.</li>
+                                <li>Does not understand <code>os.name</code> checks.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
