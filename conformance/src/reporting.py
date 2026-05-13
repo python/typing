@@ -2,6 +2,7 @@
 Generates a summary of the type checker conformant tests.
 """
 
+import operator
 import tomllib
 from pathlib import Path
 
@@ -24,14 +25,15 @@ def generate_summary(root_dir: Path):
 
 
 def generate_summary_html(root_dir: Path) -> str:
-    column_count = len(TYPE_CHECKERS) + 1
+    type_checkers = sorted(TYPE_CHECKERS, key=operator.attrgetter("name"))
+    column_count = len(type_checkers) + 1
     test_groups = get_test_groups(root_dir)
     test_cases = get_test_cases(test_groups, root_dir / "tests")
 
     summary_html = ["<tbody>"]
     summary_html.append('<tr><th class="col1">&nbsp;</th>')
 
-    for type_checker in TYPE_CHECKERS:
+    for type_checker in type_checkers:
         # Load the version file for the type checker.
         version_file = root_dir / "results" / type_checker.name / "version.toml"
 
@@ -71,7 +73,7 @@ def generate_summary_html(root_dir: Path) -> str:
 
                 summary_html.append(f'<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{test_case_name}</th>')
 
-                for type_checker in TYPE_CHECKERS:
+                for type_checker in type_checkers:
                     try:
                         results_file = (
                             root_dir
