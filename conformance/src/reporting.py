@@ -12,7 +12,7 @@ from type_checker import TYPE_CHECKERS
 
 def generate_summary(root_dir: Path):
     print("Generating summary report")
-    template_file = root_dir / "src" / "results_template.html"
+    template_file = root_dir / "src" / "templates" / "base.html"
     with open(template_file, "r") as f:
         template = f.read()
 
