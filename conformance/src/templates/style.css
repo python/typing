@@ -1,162 +1,210 @@
-body,
-h1,
-h2,
-h3,
-p,
-table {
+:root {
+    --dark-main-bg: #333;
+    --dark-main-fg: #fff;
+    --dark-muted-fg: #ddd;
+    --dark-selection-bg: #ec6e4a;
+    --dark-shadow: #999;
+    --light-main-bg: #fff;
+    --light-main-fg: #000;
+    --light-muted-fg: #666;
+    --light-selection-bg: #ec6e4a;
+    --light-shadow: #ccc;
+
+    --conformant: rgb(203, 255, 203);
+    --partially-conformant: rgb(251, 244, 166);
+    --not-conformant: rgb(242, 171, 171);
+
+    color-scheme: light dark;
+    &:has(#color-scheme option[value="light"]:checked) {
+        color-scheme: light;
+    }
+    &:has(#color-scheme option[value="dark"]:checked) {
+        color-scheme: dark;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+::selection {
+    background: light-dark(var(--light-selection-bg), var(--dark-selection-bg));
+    color: light-dark(var(--dark-main-fg), var(--light-main-fg));
+}
+
+html {
+    background: light-dark(var(--light-main-bg), var(--dark-main-bg));
+    color: light-dark(var(--light-main-fg), var(--dark-main-fg));
     font-family: "system-ui", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+}
+
+body {
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #333;
+    background-color: #2b5b84;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.03), inset 0 0 20px rgba(0, 0, 0, 0.03);
     color: #fff;
+    padding: 1em;
     text-align: center;
-    padding: 10px 16px 12px;
+}
+
+main {
+    padding: 2em;
+}
+
+a {
+    text-underline-offset: 2px;
 }
 
 table {
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
     border-collapse: collapse;
-    font-family: "system-ui", "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: 10pt;
-    font-weight: normal;
-    font-style: normal;
+    inline-size: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 th,
 td {
-    margin: 0px;
-    padding: 0px;
-    text-align: left;
-    border-bottom: 0px solid #000;
-    font-weight: normal;
-}
-
-th:first-child,
-td:first-child {
-    vertical-align: top;
-}
-
-th:not(:first-child),
-td:not(:first-child){
-    text-align: center;
-}
-
-.content_container {
-    margin: 20px;
-}
-
-main {
-    margin-left: 20px;
-}
-
-tbody > tr > th,
-tbody > tr > td {
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-
-    margin-left: 8px;
-    margin-right: 8px;
-    margin-top: 4px;
-    margin-bottom: 4px;
-
+    border-color: transparent;
     border-style: solid;
-    border-color: white;
-    border-left-width: 8px;
-    border-right-width: 8px;
-    border-top-width: 0;
-    border-bottom-width: 0;
+    border-width: 0 10px;
+    margin: 0;
+    padding: 3px;
+    position: relative;
+    text-align: start;
+
+    &:not(:first-child) {
+        text-align: center;
+    }
+}
+
+thead {
+    background: light-dark(var(--light-main-bg), var(--dark-main-bg));
+    inset-block-start: 0;
+    position: sticky;
+    z-index: 3;
+    & > tr > th {
+        padding-block: 1em;
+    }
 }
 
 tbody > tr > th:not([colspan]) {
-    padding-left: 2em;
-}
-
-tbody > tr > th[colspan] > a {
-    font-size: 10pt;
-    font-weight: bold;
+    font-weight: normal;
+    padding-inline-start: 2em;
 }
 
 .col1 {
-    width: 30%;
+    inline-size: 30%;
 }
 
 .col2 {
-    width: calc(70% / {{ columns }});
-}
-
-thead > tr > th {
-    font-size: 16px;
-    padding-bottom: 8px;
-    padding-top: 12px;
-    text-align: center;
+    inline-size: calc(70% / {{ columns }});
 }
 
 .conformant {
-    background-color: rgb(203, 255, 203);
+    background-color: var(--conformant);
+    color: var(--light-main-fg);
 }
 
 .partially-conformant {
-    background-color: rgb(251, 244, 166);
+    background-color: var(--partially-conformant);
+    color: var(--light-main-fg);
 }
 
 .not-conformant {
-    background-color: rgb(242, 171, 171);
+    background-color: var(--not-conformant);
+    color: var(--light-main-fg);
 }
 
-.notes {
-    visibility: hidden;
-    position: absolute;
-    z-index: 2;
-    width: 400px;
-    color: black;
-    font-size: 12px;
-    background-color: white;
-    border: 1px solid black;
-    padding: 10px 15px 10px 15px;
-    text-align: left;
-}
-
-.tooltip:hover .notes {
-    visibility: visible;
-}
-
-.tooltip .notes p {
-    margin: 4px;
-}
-
-.tooltip .notes {
-    top: 25px;
-    left: -80%;
-}
-
-.tooltip .notes::before {
-    top: -5%;
-    left: 94%;
+tbody > tr:hover {
+    th:not([colspan]) {
+        background-color: light-dark(#eee, #444);
+        border-color: light-dark(#eee, #444);
+    }
+    th:not([colspan]) ~ td {
+        border-color: light-dark(#eee, #444);
+    }
+    .conformant {
+        background-color: hsl(from var(--conformant) h s calc(l - 5));
+    }
+    .partially-conformant {
+        background-color: hsl(from var(--partially-conformant) h s calc(l - 5));
+    }
+    .not-conformant {
+        background-color: hsl(from var(--not-conformant) h s calc(l - 5));
+    }
 }
 
 .tooltip {
     cursor: help;
-    position: relative;
-}
 
-{# Add an asterisk if there are notes to display for a "Pass". -#}
-.tooltip.conformant::after {
-    position: absolute;
-    content: "*";
+    /* Add an asterisk if there are notes to display for a "Pass". */
+    &.conformant::after {
+        content: "*";
+        position: absolute;
+    }
+
+    .notes {
+        background-color: light-dark(var(--light-main-bg), var(--dark-main-bg));
+        border-radius: 5px;
+        box-shadow: 0 0 3px light-dark(var(--light-shadow), var(--dark-shadow));
+        color: light-dark(var(--light-main-fg), var(--dark-main-fg));
+        cursor: default;
+        font-size: .8em;
+        inset-block-start: calc(50% - 5px);
+        inset-inline-end: 50%;
+        line-height: 1.6;
+        list-style-position: inside;
+        min-inline-size: 500px;
+        padding: 10px 15px;
+        position: absolute;
+        text-align: start;
+        visibility: hidden;
+        z-index: 2;
+        & > li {
+            text-indent: 1.3em hanging;
+        }
+    }
+
+    &:hover .notes {
+        visibility: visible;
+    }
 }
 
 .disclaimer {
-    margin: 6px auto 0;
-    max-width: 720px;
-    font-size: 12px;
-    line-height: 1.4;
+    color: var(--dark-muted-fg);
+    font-size: 0.9rem;
     font-weight: normal;
-    color: #d6d6d6;
+    line-height: 1.4;
+    margin: 1rem auto;
+    max-inline-size: 720px;
+}
+
+form:has(#color-scheme) {
+    background: inherit;
+    inset-block-start: 1rem;
+    inset-inline-end: 1rem;
+    position: absolute;
+}
+
+#color-scheme {
+    appearance: none;
+    background: inherit;
+    border-color: var(--dark-muted-fg);
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    color: inherit;
+    padding: 0.5rem;
+    &:focus {
+        border-color: inherit;
+        outline: none;
+    }
+    &:hover {
+        border-color: inherit;
+    }
 }

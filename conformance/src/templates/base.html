@@ -3,8 +3,9 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Type System Test Results</title>
+        <meta name="description" content="Type system conformance test results for Python.">
+        <meta name="viewport" content="initial-scale=1.0, width=device-width">
+        <title>Python Type System Conformance Test Results</title>
         <style>
             {% filter indent(width=12) -%}
             {% include "style.css" %}
@@ -12,59 +13,74 @@
         </style>
     </head>
     <body>
-        <div class="content_container">
-            <header>
-                <h3>Python Type System Conformance Test Results</h3>
-                <p class="disclaimer">
-                    While spec conformance is important for the ecosystem, we don't recommend using
-                    it as the primary basis for choosing a type checker. It is not representative
-                    of many of the things users typically care about.
-                </p>
-            </header>
-            <main>
-                <table>
-                    <colgroup>
-                        <col class="col1" span="1">
-                        <col class="col2" span="{{ columns }}">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            {%- for version in versions %}
-                            <th>{{ version }}</th>
-                            {%- endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {%- for group in groups %}
-                        <tr>
-                            <th colspan="{{ columns + 1 }}">
-                                <a href="{{ group.href }}">{{ group.name }}</a>
-                            </th>
-                        </tr>
-                        {%- for case in group.cases %}
-                        <tr>
-                            <th>{{ case.name }}</th>
-                            {%- for result in case.results %}
-                            {%- if result.notes %}
-                            <td class="{{ result.conformance|conformance_class }} tooltip">
-                                {{ result.conformance }}
-                                <div class="notes">
-                                    {%- for note in result.notes %}
-                                    <p>{{ note }}</p>
-                                    {%- endfor %}
-                                </div>
-                            </td>
-                            {%- else %}
-                            <td class="{{ result.conformance|conformance_class }}">{{ result.conformance }}</td>
-                            {%- endif %}
-                            {%- endfor %}
-                        </tr>
+        <header>
+            <h1>Python Type System Conformance Test Results</h1>
+            <p class="disclaimer">
+                While specification conformance is important for the ecosystem, we don't recommend
+                using it as the primary basis for choosing a type checker. It is not representative
+                of many of the things users typically care about.
+            </p>
+            <form>
+                <label for="color-scheme">Theme:</label>
+                <select id="color-scheme">
+                    <option value="auto">🌗 Auto</option>
+                    <option value="dark">🌑 Dark</option>
+                    <option value="light">🌕 Light</option>
+                </select>
+            </form>
+        </header>
+        <main>
+            <table>
+                <colgroup>
+                    <col class="col1" span="1">
+                    <col class="col2" span="{{ columns }}">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th></th>
+                        {%- for version in versions %}
+                        <th>{{ version }}</th>
                         {%- endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {%- for group in groups %}
+                    <tr>
+                        <th colspan="{{ columns + 1 }}">
+                            <a href="{{ group.href }}">{{ group.name }}</a>
+                        </th>
+                    </tr>
+                    {%- for case in group.cases %}
+                    <tr>
+                        <th>{{ case.name }}</th>
+                        {%- for result in case.results %}
+                        {%- if result.notes %}
+                        <td class="{{ result.conformance|conformance_class }} tooltip">
+                            {{ result.conformance }}
+                            <ul class="notes">
+                                {%- for note in result.notes %}
+                                <li>{{ note }}</li>
+                                {%- endfor %}
+                            </ul>
+                        </td>
+                        {%- else %}
+                        <td class="{{ result.conformance|conformance_class }}">{{ result.conformance }}</td>
+                        {%- endif %}
                         {%- endfor %}
-                    </tbody>
-                </table>
-            </main>
-        </div>
+                    </tr>
+                    {%- endfor %}
+                    {%- endfor %}
+                </tbody>
+            </table>
+        </main>
+        <script>
+            const selector = document.querySelector("#color-scheme");
+
+            selector.addEventListener("change", (event) => {
+                localStorage.setItem("color-scheme", event.target.value);
+            });
+
+            selector.value = localStorage.getItem("color-scheme") ?? "auto";
+        </script>
     </body>
 </html>
