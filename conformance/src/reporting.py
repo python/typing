@@ -60,7 +60,7 @@ def generate_summary_html(root_dir: Path) -> str:
 
         # Are there any test cases in this group?
         if len(tests_in_group) > 0:
-            summary_html.append(f'<tr><th class="column" colspan="{column_count}">')
+            summary_html.append(f'<tr><th colspan="{column_count}">')
             summary_html.append(
                 f'<a class="test_group" href="{test_group.href}">{test_group.name}</a>'
             )
@@ -69,7 +69,7 @@ def generate_summary_html(root_dir: Path) -> str:
             for test_case in tests_in_group:
                 test_case_name = test_case.stem
 
-                summary_html.append(f'<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{test_case_name}</th>')
+                summary_html.append(f'<tr><th class="col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{test_case_name}</th>')
 
                 for type_checker in type_checkers:
                     try:
@@ -112,7 +112,7 @@ def generate_summary_html(root_dir: Path) -> str:
                     if raw_notes != "":
                         conformance_cell = f'<div class="hover-text">{conformance_cell}<div class="tooltip-text">{notes}</div></div>'
 
-                    summary_html.append(f'<td class="column col2 {conformance_class}">{conformance_cell}</td>')
+                    summary_html.append(f'<td class="col2 {conformance_class}">{conformance_cell}</td>')
 
                 summary_html.append("</tr>")
 
