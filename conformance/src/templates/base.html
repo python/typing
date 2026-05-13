@@ -70,8 +70,22 @@
                         {%- endfor %}
                     </tr>
                     {%- endfor %}
+                    <tr class="summary">
+                        <td></td>
+                        {%- for stats in group.stats %}
+                        <td>{{ stats.passed }} / {{ stats.total }} • {{ stats.percentage }}</td>
+                        {%- endfor %}
+                    </tr>
                 </tbody>
                 {%- endfor %}
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        {%- for stats in totals %}
+                        <td>{{ stats.passed }} / {{ stats.total }} • {{ stats.percentage }}</td>
+                        {%- endfor %}
+                    </tr>
+                </tfoot>
             </table>
         </main>
         <script>

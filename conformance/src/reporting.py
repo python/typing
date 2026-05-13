@@ -2,10 +2,12 @@
 Generates a summary of the type checker conformant tests.
 """
 
+import itertools
 import operator
 import tomllib
 from collections.abc import Sequence
 from dataclasses import dataclass, field
+from decimal import Decimal
 from pathlib import Path
 
 import jinja2
@@ -30,12 +32,24 @@ class TestCase:
 
 
 @dataclass(frozen=True, kw_only=True, slots=True)
+class TestStat:
+    type_checker: str
+    total: int
+    passed: Decimal
+
+    @property
+    def percentage(self) -> str:
+        return f"{self.passed / self.total:.1%}"
+
+
+@dataclass(frozen=True, kw_only=True, slots=True)
 class TestGroup:
     slug: str
     name: str
     href: str
     paths: list[Path] = field(default_factory=list)
     cases: list[TestCase] = field(default_factory=list)
+    stats: list[TestStat] = field(default_factory=list)
 
 
 def generate_summary(root_dir: Path):
@@ -51,10 +65,11 @@ def generate_summary(root_dir: Path):
 
     type_checkers = sorted(TYPE_CHECKERS, key=operator.attrgetter("name"))
 
-    results = template.render(
-        groups=_get_groups(root_dir, type_checkers),
-        versions=_get_versions(root_dir, type_checkers),
-    )
+    groups = _get_groups(root_dir, type_checkers)
+    totals = _get_totals(groups)
+    versions = _get_versions(root_dir, type_checkers)
+
+    results = template.render(groups=groups, totals=totals, versions=versions)
 
     root_dir.joinpath("results", "results.html").write_text(results)
 
@@ -134,7 +149,51 @@ def _get_groups(
                 )
                 case.results.append(result)
 
+        for n, type_checker in enumerate(type_checkers):
+            passed = Decimal("0.0")
+
+            for case in group.cases:
+                match case.results[n].conformance:
+                    case "Pass":
+                        passed += Decimal("1.0")
+                    case "Partial":
+                        # For partial support, give half a mark :)
+                        passed += Decimal("0.5")
+
+            stat = TestStat(
+                type_checker=type_checker.name,
+                total=len(group.paths),
+                passed=_remove_exponent(passed),
+            )
+            group.stats.append(stat)
+
     return groups
+
+
+def _get_totals(groups: list[TestGroup]) -> list[TestStat]:
+    totals = []
+
+    # As we already sort by type checker above, we can sort and group by here and maintain the
+    # correct order for the totals output.
+    ordered = sorted(
+        [stat for group in groups for stat in group.stats],
+        key=operator.attrgetter("type_checker"),
+    )
+
+    for type_checker, stats_it in itertools.groupby(
+        ordered, operator.attrgetter("type_checker")
+    ):
+        stats = list(stats_it)
+        total = TestStat(
+            type_checker=type_checker,
+            total=sum([stat.total for stat in stats]),
+            passed=_remove_exponent(
+                sum([stat.passed for stat in stats], start=Decimal("0"))
+            ),
+        )
+        totals.append(total)
+
+    return totals
 
 
 def _get_versions(
@@ -161,3 +220,8 @@ def _get_versions(
         versions.append(version)
 
     return versions
+
+
+def _remove_exponent(d: Decimal) -> Decimal:
+    # See https://docs.python.org/3/library/decimal.html#decimal-faq
+    return d.quantize(Decimal(1)) if d == d.to_integral() else d.normalize()

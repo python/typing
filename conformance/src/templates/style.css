@@ -104,6 +104,15 @@ tbody > tr > th:not([colspan]) {
     padding-inline-start: 2em;
 }
 
+tbody > tr.summary {
+    color: light-dark(var(--light-muted-fg), var(--dark-muted-fg));
+}
+
+tfoot td {
+    font-weight: bold;
+    padding-block-start: 1em;
+}
+
 .col1 {
     inline-size: 30%;
 }
