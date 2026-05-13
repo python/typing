@@ -5,11 +5,11 @@ Type system conformance test for static type checkers.
 import os
 import re
 import sys
+import tomllib
 from pathlib import Path
 from time import time
 from typing import Sequence
 
-import tomli
 import tomlkit
 
 from options import parse_options
@@ -182,11 +182,11 @@ def update_output_for_test(
     # Read the existing results file if present.
     try:
         with open(results_file, "rb") as f:
-            existing_results = tomli.load(f)
+            existing_results = tomllib.load(f)
     except FileNotFoundError:
         should_write = True
         existing_results = {}
-    except tomli.TOMLDecodeError:
+    except tomllib.TOMLDecodeError:
         print(f"Error decoding {results_file}")
         existing_results = {}
 
@@ -244,10 +244,10 @@ def update_type_checker_info(type_checker: TypeChecker, root_dir: Path):
     # Read the existing version file if present.
     try:
         with open(version_file, "rb") as f:
-            existing_info = tomli.load(f)
+            existing_info = tomllib.load(f)
     except FileNotFoundError:
         existing_info = {}
-    except tomli.TOMLDecodeError:
+    except tomllib.TOMLDecodeError:
         print(f"Error decoding {version_file}")
         existing_info = {}
 

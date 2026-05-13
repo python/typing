@@ -2,9 +2,8 @@
 Generates a summary of the type checker conformant tests.
 """
 
+import tomllib
 from pathlib import Path
-
-import tomli
 
 from test_groups import get_test_cases, get_test_groups
 from type_checker import TYPE_CHECKERS
@@ -38,10 +37,10 @@ def generate_summary_html(root_dir: Path) -> str:
 
         try:
             with open(version_file, "rb") as f:
-                existing_info = tomli.load(f)
+                existing_info = tomllib.load(f)
         except FileNotFoundError:
             existing_info = {}
-        except tomli.TOMLDecodeError:
+        except tomllib.TOMLDecodeError:
             print(f"Error decoding {version_file}")
             existing_info = {}
 
@@ -81,7 +80,7 @@ def generate_summary_html(root_dir: Path) -> str:
                             / f"{test_case_name}.toml"
                         )
                         with open(results_file, "rb") as f:
-                            results = tomli.load(f)
+                            results = tomllib.load(f)
                     except FileNotFoundError:
                         results = {}
 

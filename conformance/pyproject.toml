@@ -7,7 +7,6 @@ dependencies = [
     "pycroscope",
     "pyrefly",
     "pyright",
-    "tomli",
     "tomlkit",
     "zuban",
     "ty",
