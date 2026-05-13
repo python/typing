@@ -114,7 +114,7 @@
             background-color: rgb(242, 171, 171);
         }
 
-        .tooltip-text {
+        .notes {
             visibility: hidden;
             position: absolute;
             z-index: 2;
@@ -127,25 +127,25 @@
             text-align: left;
         }
 
-        .hover-text:hover .tooltip-text {
+        .tooltip:hover .notes {
             visibility: visible;
         }
 
-        .hover-text .tooltip-text p {
+        .tooltip .notes p {
             margin: 4px;
         }
 
-        .hover-text .tooltip-text {
+        .tooltip .notes {
             top: 25px;
             left: -80%;
         }
 
-        .hover-text .tooltip-text::before {
+        .tooltip .notes::before {
             top: -5%;
             left: 94%;
         }
 
-        .hover-text {
+        .tooltip {
             cursor: help;
             position: relative;
         }

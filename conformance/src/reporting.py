@@ -104,7 +104,7 @@ def generate_summary_html(root_dir: Path) -> str:
                         [f"<p>{note}</p>" for note in raw_notes.split("\n")]
                     )
 
-                    conformance_class = (
+                    conformance_classes = (
                         "conformant"
                         if conformance == "Pass"
                         else "partially-conformant"
@@ -118,9 +118,10 @@ def generate_summary_html(root_dir: Path) -> str:
 
                     conformance_cell = f"{conformance}"
                     if raw_notes != "":
-                        conformance_cell = f'<div class="hover-text">{conformance_cell}<div class="tooltip-text">{notes}</div></div>'
+                        conformance_classes = f"{conformance_classes} tooltip"
+                        conformance_cell = f'{conformance_cell}<div class="notes">{notes}</div>'
 
-                    summary_html.append(f'<td class="{conformance_class}">{conformance_cell}</td>')
+                    summary_html.append(f'<td class="{conformance_classes}">{conformance_cell}</td>')
 
                 summary_html.append("</tr>")
 
