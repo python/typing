@@ -4,125 +4,149 @@ Generates a summary of the type checker conformant tests.
 
 import operator
 import tomllib
+from collections.abc import Sequence
+from dataclasses import dataclass, field
 from pathlib import Path
 
+import jinja2
+
 from test_groups import get_test_cases, get_test_groups
-from type_checker import TYPE_CHECKERS
+from type_checker import TYPE_CHECKERS, TypeChecker
+
+
+@dataclass(frozen=True, kw_only=True, slots=True)
+class TestResult:
+    type_checker: str
+    conformance: str
+    notes: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True, kw_only=True, slots=True)
+class TestCase:
+    name: str
+    results: list[TestResult] = field(default_factory=list)
+
+
+@dataclass(frozen=True, kw_only=True, slots=True)
+class TestGroup:
+    slug: str
+    name: str
+    href: str
+    paths: list[Path] = field(default_factory=list)
+    cases: list[TestCase] = field(default_factory=list)
 
 
 def generate_summary(root_dir: Path):
     print("Generating summary report")
-    template_file = root_dir / "src" / "templates" / "base.html"
-    with open(template_file, "r") as f:
-        template = f.read()
 
-    summary = template.replace("{{summary}}", generate_summary_html(root_dir))
+    env = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(root_dir.joinpath("src/templates")),
+        autoescape=jinja2.select_autoescape(),
+    )
+    env.filters["conformance_class"] = _conformance_class
 
-    results_file = root_dir / "results" / "results.html"
+    template = env.get_template("base.html")
 
-    with open(results_file, "w") as f:
-        f.write(summary)
-
-
-def generate_summary_html(root_dir: Path) -> str:
     type_checkers = sorted(TYPE_CHECKERS, key=operator.attrgetter("name"))
-    column_count = len(type_checkers) + 1
+
+    results = template.render(
+        groups=_get_groups(root_dir, type_checkers),
+        versions=_get_versions(root_dir, type_checkers),
+    )
+
+    root_dir.joinpath("results", "results.html").write_text(results)
+
+
+def _conformance_class(value: str) -> str:
+    if value == "Pass":
+        return "conformant"
+    if value == "Partial":
+        return "partially-conformant"
+    return "not-conformant"
+
+
+def _get_groups(
+    root_dir: Path,
+    type_checkers: Sequence[TypeChecker],
+) -> list[TestGroup]:
     test_groups = get_test_groups(root_dir)
     test_cases = get_test_cases(test_groups, root_dir / "tests")
 
-    summary_html = [
-        "<colgroup>",
-        '<col class="col1" span="1">',
-        f'<col class="col2" span="{column_count - 1}">',
-        "</colgroup>",
-        "<thead>",
-        "<tr>",
-        "<th></th>",
-    ]
+    groups = []
+
+    for test_group_slug, test_group in test_groups.items():
+        paths = sorted(
+            [
+                case
+                for case in test_cases
+                if case.name.startswith(f"{test_group_slug}_")
+            ],
+            key=operator.attrgetter("name"),
+        )
+
+        # Skip if there are no test cases in the group.
+        if not paths:
+            continue
+
+        group = TestGroup(
+            slug=test_group_slug,
+            name=test_group.name,
+            href=test_group.href,
+            paths=paths,
+        )
+        groups.append(group)
+
+        for path in group.paths:
+            case = TestCase(name=path.stem)
+            group.cases.append(case)
+
+            for type_checker in type_checkers:
+                result_path = (
+                    root_dir / "results" / type_checker.name / f"{case.name}.toml"
+                )
+                try:
+                    with result_path.open("rb") as f:
+                        data = tomllib.load(f)
+                except FileNotFoundError:
+                    data = {}
+
+                conformance = data.get("conformant")
+                if not conformance:
+                    # Try to look up the automated test results and use that if the test passes.
+                    automated = data.get("conformance_automated")
+                    conformance = "Pass" if automated == "Pass" else "Unknown"
+
+                result = TestResult(
+                    type_checker=type_checker.name,
+                    conformance=conformance,
+                    notes=data.get("notes", "").strip().splitlines(),
+                )
+                case.results.append(result)
+
+    return groups
+
+
+def _get_versions(
+    root_dir: Path,
+    type_checkers: Sequence[TypeChecker],
+) -> list[str]:
+    versions = []
 
     for type_checker in type_checkers:
-        # Load the version file for the type checker.
-        version_file = root_dir / "results" / type_checker.name / "version.toml"
+        name = type_checker.name
 
         try:
-            with open(version_file, "rb") as f:
-                existing_info = tomllib.load(f)
-        except FileNotFoundError:
-            existing_info = {}
-        except tomllib.TOMLDecodeError:
-            print(f"Error decoding {version_file}")
-            existing_info = {}
+            with root_dir.joinpath("results", name, "version.toml").open("rb") as f:
+                data = tomllib.load(f)
+        except (FileNotFoundError, tomllib.TOMLDecodeError):
+            version = None
+        else:
+            version = data.get("version") or None
 
-        version = existing_info["version"] or "Unknown version"
+        # If version file cannot be found or has missing/invalid content, fall back to name.
+        if version is None:
+            version = f"{type_checker.name} ?.?.?"
 
-        summary_html.append(f"<th>{version}</th>")
+        versions.append(version)
 
-    summary_html.extend(["</tr>", "</thead>", "<tbody>"])
-
-    for test_group_name, test_group in test_groups.items():
-        tests_in_group = [
-            case for case in test_cases if case.name.startswith(f"{test_group_name}_")
-        ]
-
-        tests_in_group.sort(key=lambda x: x.name)
-
-        # Are there any test cases in this group?
-        if len(tests_in_group) > 0:
-            summary_html.append(f'<tr><th colspan="{column_count}">')
-            summary_html.append(f'<a href="{test_group.href}">{test_group.name}</a>')
-            summary_html.append("</th></tr>")
-
-            for test_case in tests_in_group:
-                test_case_name = test_case.stem
-
-                summary_html.append(f"<tr><th>{test_case_name}</th>")
-
-                for type_checker in type_checkers:
-                    try:
-                        results_file = (
-                            root_dir
-                            / "results"
-                            / type_checker.name
-                            / f"{test_case_name}.toml"
-                        )
-                        with open(results_file, "rb") as f:
-                            results = tomllib.load(f)
-                    except FileNotFoundError:
-                        results = {}
-
-                    raw_notes = results.get("notes", "").strip()
-                    conformance = results.get("conformant", "Unknown")
-                    if conformance == "Unknown":
-                        # Try to look up the automated test results and use
-                        # that if the test passes
-                        automated = results.get("conformance_automated")
-                        if automated == "Pass":
-                            conformance = "Pass"
-                    notes = "".join(
-                        [f"<p>{note}</p>" for note in raw_notes.split("\n")]
-                    )
-
-                    conformance_classes = (
-                        "conformant"
-                        if conformance == "Pass"
-                        else "partially-conformant"
-                        if conformance == "Partial"
-                        else "not-conformant"
-                    )
-
-                    # Add an asterisk if there are notes to display for a "Pass".
-                    if raw_notes != "" and conformance == "Pass":
-                        conformance = "Pass*"
-
-                    conformance_cell = f"{conformance}"
-                    if raw_notes != "":
-                        conformance_classes = f"{conformance_classes} tooltip"
-                        conformance_cell = f'{conformance_cell}<div class="notes">{notes}</div>'
-
-                    summary_html.append(f'<td class="{conformance_classes}">{conformance_cell}</td>')
-
-                summary_html.append("</tr>")
-
-    summary_html.append("</tbody>")
-
-    return "\n".join(summary_html)
+    return versions

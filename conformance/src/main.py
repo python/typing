@@ -2,7 +2,7 @@
 Type system conformance test for static type checkers.
 """
 
-import os
+import contextlib
 import re
 import sys
 import tomllib
@@ -275,16 +275,16 @@ def main():
         test_cases = get_test_cases(test_groups, tests_dir)
 
         # Switch to the tests directory.
-        os.chdir(tests_dir)
+        with contextlib.chdir(tests_dir):
 
-        # Run each test case with each type checker.
-        for type_checker in TYPE_CHECKERS:
-            if options.only_run and options.only_run != type_checker.name:
-                continue
-            if not type_checker.install():
-                print(f"Skipping tests for {type_checker.name}")
-            else:
-                run_tests(root_dir, type_checker, test_cases, verbose=options.verbose)
+            # Run each test case with each type checker.
+            for type_checker in TYPE_CHECKERS:
+                if options.only_run and options.only_run != type_checker.name:
+                    continue
+                if not type_checker.install():
+                    print(f"Skipping tests for {type_checker.name}")
+                else:
+                    run_tests(root_dir, type_checker, test_cases, verbose=options.verbose)
 
     # Generate a summary report.
     generate_summary(root_dir)
