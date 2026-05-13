@@ -86,6 +86,11 @@
             padding-left: 2em;
         }
 
+        tbody > tr > th[colspan] > a {
+            font-size: 10pt;
+            font-weight: bold;
+        }
+
         .col1 {
             width: 28%;
         }
@@ -99,11 +104,6 @@
             padding-bottom: 8px;
             padding-top: 12px;
             text-align: center;
-        }
-
-        .test_group {
-            font-size: 10pt;
-            font-weight: bold;
         }
 
         .conformant {
@@ -194,7 +194,7 @@
 </thead>
 <tbody>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/annotations.html">Type annotations</a>
 </th></tr>
 <tr><th>annotations_coroutines</th>
 <td class="conformant">Pass</td>
@@ -237,7 +237,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/type-forms.html">Type forms</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/type-forms.html">Type forms</a>
 </th></tr>
 <tr><th>typeforms_typeform</th>
 <td class="partially-conformant tooltip">Partial<div class="notes"><p>Does not support assigning Union and GenericAlias objects to their runtime types.</p></div></td>
@@ -248,7 +248,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/special-types.html">Special types in annotations</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/special-types.html">Special types in annotations</a>
 </th></tr>
 <tr><th>specialtypes_any</th>
 <td class="conformant">Pass</td>
@@ -291,7 +291,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/generics.html">Generics</a>
 </th></tr>
 <tr><th>generics_base_class</th>
 <td class="partially-conformant tooltip">Partial<div class="notes"><p>Does not detect inconsistent type variable ordering.</p></div></td>
@@ -534,7 +534,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/qualifiers.html">Type qualifiers</a>
 </th></tr>
 <tr><th>qualifiers_annotated</th>
 <td class="partially-conformant tooltip">Partial<div class="notes"><p>Does not allow ClassVar to be nested within Annotated.</p><p>Does not allow Final to be nested within Annotated.</p><p>Does not allow Required and NotRequired to be nested within Annotated.</p><p>Does not reject type[T] compatibility for type alias defined with Annotated.</p><p>Does not reject call of type alias defined with Annotated.</p></div></td>
@@ -561,7 +561,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/class-compat.html">Class type compatibility</a>
 </th></tr>
 <tr><th>classes_classvar</th>
 <td class="partially-conformant tooltip">Partial<div class="notes"><p>Internal error if TypeVarTuple is used in ClassVar.</p><p>Does not reject use of ParamSpec in ClassVar.</p><p>Rejects ClassVar nested in Annotated.</p><p>Does not reject use of ClassVar in TypeAlias definition.</p></div></td>
@@ -580,7 +580,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/aliases.html">Type aliases</a>
 </th></tr>
 <tr><th>aliases_explicit</th>
 <td class="partially-conformant tooltip">Partial<div class="notes"><p>Does not reject specialization of type alias that has already been implicitly specialized.</p></div></td>
@@ -639,7 +639,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/literal.html">Literals</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/literal.html">Literals</a>
 </th></tr>
 <tr><th>literals_interactions</th>
 <td class="conformant tooltip">Pass*<div class="notes"><p>Does not narrow `str` or `LiteralString` types to `Literal` string types via equality or containment checks.</p></div></td>
@@ -674,7 +674,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/protocol.html">Protocols</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/protocol.html">Protocols</a>
 </th></tr>
 <tr><th>protocols_class_objects</th>
 <td class="conformant">Pass</td>
@@ -765,7 +765,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/callables.html">Callables</a>
 </th></tr>
 <tr><th>callables_annotation</th>
 <td class="partially-conformant tooltip">Partial<div class="notes"><p>Incorrectly treats "*args: T, **kwargs: T" as "..." when T is specialized to Any.</p><p>Does not treat "*args: Any, **kargs: Any" as "..." when separated by keyword parameter.</p></div></td>
@@ -800,7 +800,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/constructors.html">Constructors</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/constructors.html">Constructors</a>
 </th></tr>
 <tr><th>constructors_call_init</th>
 <td class="partially-conformant tooltip">Partial<div class="notes"><p>Does not report errors during binding to self parameter of __init__ method.</p><p>Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.</p></div></td>
@@ -851,7 +851,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/overload.html">Overloads</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/overload.html">Overloads</a>
 </th></tr>
 <tr><th>overloads_basic</th>
 <td class="conformant">Pass</td>
@@ -894,7 +894,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/exceptions.html">Exceptions</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/exceptions.html">Exceptions</a>
 </th></tr>
 <tr><th>exceptions_context_managers</th>
 <td class="conformant">Pass</td>
@@ -905,7 +905,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/dataclasses.html">Dataclasses</a>
 </th></tr>
 <tr><th>dataclasses_descriptors</th>
 <td class="partially-conformant tooltip">Partial<div class="notes"><p>Assumes descriptor behavior only when field is assigned in class body.</p><p>Does not correctly evaluate type of descriptor access.</p></div></td>
@@ -1036,7 +1036,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/typeddict.html">Typed dictionaries</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/typeddict.html">Typed dictionaries</a>
 </th></tr>
 <tr><th>typeddicts_alt_syntax</th>
 <td class="conformant tooltip">Pass*<div class="notes"><p>Does not support keyword-argument form of alternative syntax (deprecated in 3.11).</p></div></td>
@@ -1151,7 +1151,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/tuples.html">Tuples</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/tuples.html">Tuples</a>
 </th></tr>
 <tr><th>tuples_type_compat</th>
 <td class="partially-conformant tooltip">Partial<div class="notes"><p>Does not support tuple narrowing based on `len()` type guard (optional).</p><p>Incorrectly marks a match case as unreachable.</p></div></td>
@@ -1178,7 +1178,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/namedtuples.html">Named tuples</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/namedtuples.html">Named tuples</a>
 </th></tr>
 <tr><th>namedtuples_define_class</th>
 <td class="partially-conformant tooltip">Partial<div class="notes"><p>Does not reject override of named tuple attribute in child class.</p><p>Does not support version-conditional fields.</p></div></td>
@@ -1213,7 +1213,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/enums.html">Enumerations</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/enums.html">Enumerations</a>
 </th></tr>
 <tr><th>enums_behaviors</th>
 <td class="conformant">Pass</td>
@@ -1264,7 +1264,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/narrowing.html">Type narrowing</a>
 </th></tr>
 <tr><th>narrowing_typeguard</th>
 <td class="conformant">Pass</td>
@@ -1283,7 +1283,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/directives.html">Type checker directives</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/directives.html">Type checker directives</a>
 </th></tr>
 <tr><th>directives_assert_type</th>
 <td class="conformant">Pass</td>
@@ -1374,7 +1374,7 @@
 <td class="conformant">Pass</td>
 </tr>
 <tr><th colspan="7">
-<a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/historical.html">Historical and deprecated features</a>
+<a href="https://typing.readthedocs.io/en/latest/spec/historical.html">Historical and deprecated features</a>
 </th></tr>
 <tr><th>historical_positional</th>
 <td class="partially-conformant tooltip">Partial<div class="notes"><p>Does not reject positional-only parameter after non-positional-only parameter.</p><p>Treats keyword-only parameter as positional-only.</p><p>Applies legacy positional-only rules when PEP 570 syntax is used.</p></div></td>

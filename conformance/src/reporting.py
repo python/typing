@@ -69,9 +69,7 @@ def generate_summary_html(root_dir: Path) -> str:
         # Are there any test cases in this group?
         if len(tests_in_group) > 0:
             summary_html.append(f'<tr><th colspan="{column_count}">')
-            summary_html.append(
-                f'<a class="test_group" href="{test_group.href}">{test_group.name}</a>'
-            )
+            summary_html.append(f'<a href="{test_group.href}">{test_group.name}</a>')
             summary_html.append("</th></tr>")
 
             for test_case in tests_in_group:
