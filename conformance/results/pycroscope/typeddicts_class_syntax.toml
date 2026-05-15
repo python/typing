@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./typeddicts_class_syntax.py:29:4: Methods are not allowed in TypedDict definitions [invalid_typeddict]
+./typeddicts_class_syntax.py:34:4: Methods are not allowed in TypedDict definitions [invalid_typeddict]
+./typeddicts_class_syntax.py:39:4: Methods are not allowed in TypedDict definitions [invalid_typeddict]
+./typeddicts_class_syntax.py:44:31: TypedDict definitions cannot specify a metaclass [invalid_typeddict]
+./typeddicts_class_syntax.py:49:31: Unexpected keyword argument 'other' in TypedDict definition [invalid_typeddict]
+"""

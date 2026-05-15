@@ -5,7 +5,7 @@ output = """
 generics_self_usage.py:73: error: Self type is only allowed in annotations within class definition  [misc]
 generics_self_usage.py:73: error: Self type is only allowed in annotations within class definition  [misc]
 generics_self_usage.py:76: error: Self type is only allowed in annotations within class definition  [misc]
-generics_self_usage.py:82: error: Self argument missing for a non-static method (or an invalid type for self)  [misc]
+generics_self_usage.py:82: error: "self" parameter missing for a non-static method (or an invalid type for self)  [misc]
 generics_self_usage.py:87: error: Incompatible return value type (got "Foo3", expected "Self")  [return-value]
 generics_self_usage.py:103: error: Self type is only allowed in annotations within class definition  [misc]
 generics_self_usage.py:105: error: Self type is only allowed in annotations within class definition  [misc]

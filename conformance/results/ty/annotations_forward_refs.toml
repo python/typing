@@ -4,9 +4,8 @@ notes = """
 Resolves references in type annotations as referring to end-of-scope types (https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439, https://github.com/python/typing/pull/2144)
 """
 errors_diff = """
-Line 82: Unexpected errors ['annotations_forward_refs.py:82:11: error[invalid-type-form] Variable of type `Literal[""]` is not allowed in a type expression']
 Line 87: Unexpected errors ['annotations_forward_refs.py:87:9: error[invalid-type-form] Function `int` is not valid in a type expression']
-Line 95: Unexpected errors ['annotations_forward_refs.py:95:1: error[type-assertion-failure] Type `Unknown` does not match asserted type `str`']
+Line 95: Unexpected errors ['annotations_forward_refs.py:95:1: error[type-assertion-failure] Type `Divergent` does not match asserted type `str`']
 Line 96: Unexpected errors ['annotations_forward_refs.py:96:1: error[type-assertion-failure] Type `Unknown` does not match asserted type `int`']
 """
 output = """
@@ -31,9 +30,8 @@ annotations_forward_refs.py:54:11: error[invalid-type-form] F-strings are not al
 annotations_forward_refs.py:55:11: error[invalid-type-form] Module `types` is not valid in a parameter annotation
 annotations_forward_refs.py:66:26: error[unresolved-reference] Name `ClassB` used when not defined
 annotations_forward_refs.py:80:14: error[unresolved-reference] Name `ClassF` used when not defined
-annotations_forward_refs.py:82:11: error[invalid-type-form] Variable of type `Literal[""]` is not allowed in a type expression
 annotations_forward_refs.py:87:9: error[invalid-type-form] Function `int` is not valid in a type expression
 annotations_forward_refs.py:89:8: error[invalid-type-form] Function `int` is not valid in a type expression
-annotations_forward_refs.py:95:1: error[type-assertion-failure] Type `Unknown` does not match asserted type `str`
+annotations_forward_refs.py:95:1: error[type-assertion-failure] Type `Divergent` does not match asserted type `str`
 annotations_forward_refs.py:96:1: error[type-assertion-failure] Type `Unknown` does not match asserted type `int`
 """
