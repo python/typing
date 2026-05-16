@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./typeddicts_readonly_update.py:23:0: Cannot set readonly key 'x' in TypedDict TypedDict({"x": Readonly[int], "y": int}) [readonly_typeddict]
+"""

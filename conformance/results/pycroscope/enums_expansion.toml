@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./enums_expansion.py:53:20:   enums_expansion.CustomFlags is not equivalent to Literal[<CustomFlags.FLAG3: 4>]
+"""

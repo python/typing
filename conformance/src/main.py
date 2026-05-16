@@ -17,11 +17,15 @@ from reporting import generate_summary
 from test_groups import get_test_cases, get_test_groups
 from type_checker import TYPE_CHECKERS, TypeChecker
 
+FULL_OUTPUT_KEY = "__full_output__"
+
 
 def run_tests(
     root_dir: Path,
     type_checker: TypeChecker,
     test_cases: Sequence[Path],
+    *,
+    verbose: bool = False,
 ):
     print(f"Running tests for {type_checker.name}")
 
@@ -30,8 +34,23 @@ def run_tests(
     test_duration = time() - test_start_time
 
     print(f"Completed tests for {type_checker.name} in {test_duration:.2f} seconds")
+    if verbose:
+        print(f"Verbose output for {type_checker.name}:")
+        full_output = tests_output.get(FULL_OUTPUT_KEY)
+        if full_output:
+            print("===== raw =====")
+            print(full_output, end="" if full_output.endswith("\n") else "\n")
+        else:
+            for test_name in sorted(tests_output):
+                print(f"===== {test_name} =====")
+                output = tests_output[test_name]
+                if output:
+                    print(output, end="" if output.endswith("\n") else "\n")
+        print("")
 
-    for _, output in tests_output.items():
+    for test_name, output in tests_output.items():
+        if test_name.startswith("__"):
+            continue
         type_checker.parse_errors(output.splitlines())
 
     results_dir = root_dir / "results" / type_checker.name
@@ -265,7 +284,7 @@ def main():
             if not type_checker.install():
                 print(f"Skipping tests for {type_checker.name}")
             else:
-                run_tests(root_dir, type_checker, test_cases)
+                run_tests(root_dir, type_checker, test_cases, verbose=options.verbose)
 
     # Generate a summary report.
     generate_summary(root_dir)

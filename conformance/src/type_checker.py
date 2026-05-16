@@ -3,13 +3,17 @@ Classes that abstract differences between type checkers.
 """
 
 import json
+import os
+from pathlib import Path
 import re
 import shutil
 import sys
+import sysconfig
 from abc import ABC, abstractmethod
-from pathlib import Path
 from subprocess import PIPE, CalledProcessError, run
 from typing import Sequence
+
+CONFORMANCE_ROOT = Path(__file__).resolve().parent.parent
 
 
 class TypeChecker(ABC):
@@ -150,7 +154,16 @@ class PyrightTypeChecker(TypeChecker):
             stdout=PIPE,
             text=True,
         )
-        return proc.stdout.strip()
+        return self._parse_version(proc.stdout)
+
+    @staticmethod
+    def _parse_version(output: str) -> str:
+        # pyright --version can print an update message ("there is a new pyright version available"),
+        # make sure we extract only the actual version
+        for line in output.splitlines():
+            if line.startswith("pyright "):
+                return line
+        return output.strip()
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         command = [sys.executable, "-m", "pyright", ".", "--outputjson"]
@@ -374,10 +387,119 @@ class PyreflyTypeChecker(TypeChecker):
         return line_to_errors
 
 
+class PycroscopeTypeChecker(TypeChecker):
+    @property
+    def name(self) -> str:
+        return "pycroscope"
+
+    def install(self) -> bool:
+        try:
+            self.get_version()
+            return True
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run pycroscope. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
+            return False
+
+    def get_version(self) -> str:
+        proc = run([self._command(), "--version"], stdout=PIPE, text=True, check=True)
+        return proc.stdout.strip()
+
+    @staticmethod
+    def _command() -> str:
+        executable = "pycroscope.exe" if sys.platform == "win32" else "pycroscope"
+        return str(Path(sysconfig.get_path("scripts")) / executable)
+
+    @staticmethod
+    def _normalize_output_line(line: str) -> str:
+        line = line.replace(str(CONFORMANCE_ROOT), "...")
+        line = re.sub(r"<module '([^']+)' from '[^']+'>", r"<module '\1'>", line)
+        # Pycroscope can include object reprs with process-specific addresses
+        # (e.g. "... at 0x10abc1234>"). Normalize these for stable snapshots.
+        return re.sub(r"0x[0-9a-fA-F]+", "0x...", line)
+
+    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
+        command = [
+            self._command(),
+            ".",
+            "--output-format",
+            "concise",
+            "--disable",
+            "import_failed",
+            "--disable",
+            "unused_variable",
+            "--disable",
+            "unused_assignment",
+            "--disable",
+            "must_use",
+            "--enable",
+            "invalid_literal",
+            "--enable",
+            "incompatible_override",
+            "--enable",
+            "classvar_type_parameters",
+        ]
+        proc = run(
+            command,
+            stdout=PIPE,
+            stderr=PIPE,
+            text=True,
+            encoding="utf-8",
+            env={**os.environ, "PYTHONPATH": "."},
+        )
+        lines = proc.stderr.splitlines()
+        full_output_lines: list[str] = []
+
+        # Collect results per file and sort for deterministic output.
+        sortable_results: dict[str, list[tuple[int, str, str]]] = {}
+        for line in lines:
+            if not line.strip():
+                continue
+            line = self._normalize_output_line(line)
+            full_output_lines.append(line)
+            # Concise output line format:
+            #   file.py:12:3: Message text [error_code]
+            match = re.match(r"^(.+?):(\d+)(?::\d+)?:\s(.*)$", line)
+            if not match:
+                continue
+            file_name = Path(match.group(1)).name
+            lineno = int(match.group(2))
+            message = match.group(3)
+            sortable_results.setdefault(file_name, []).append((lineno, message, line))
+
+        results_dict: dict[str, str] = {}
+        for file_name, entries in sortable_results.items():
+            entries.sort(key=lambda item: (item[0], item[1]))
+            results_dict[file_name] = "".join(f"{line}\n" for _, _, line in entries)
+        if full_output_lines:
+            results_dict["__full_output__"] = "".join(
+                f"{line}\n" for line in full_output_lines
+            )
+        return results_dict
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            if not line.strip():
+                continue
+            line = self._normalize_output_line(line)
+            # reveal_type diagnostics are informational for conformance purposes.
+            if "[reveal_type]" in line or "Revealed type is " in line:
+                continue
+            match = re.match(r"^.+?:(\d+)(?::\d+)?:\s", line)
+            if not match:
+                continue
+            line_to_errors.setdefault(int(match.group(1)), []).append(line)
+        return line_to_errors
+
+
 TYPE_CHECKERS: Sequence[TypeChecker] = (
     MypyTypeChecker(),
     PyrightTypeChecker(),
     ZubanLSTypeChecker(),
     PyreflyTypeChecker(),
+    PycroscopeTypeChecker(),
     TyTypeChecker(),
 )

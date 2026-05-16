@@ -8,7 +8,6 @@ ERROR overloads_definitions.py:28:5-10: Overloaded function must have an impleme
 ERROR overloads_definitions.py:59:9-21: Overloaded function must have an implementation [invalid-overload]
 ERROR overloads_definitions.py:81:9-14: If `@staticmethod` is present on any overload or the implementation, it should be on every overload and the implementation. [invalid-overload]
 ERROR overloads_definitions.py:90:9-14: If `@classmethod` is present on any overload or the implementation, it should be on every overload and the implementation. [invalid-overload]
-ERROR overloads_definitions.py:90:9-14: Implementation signature `(cls: type[Self@C], *args: int | str) -> int | str` does not accept all arguments that overload signature `(self: Self@C, x: str, /) -> str` accepts [inconsistent-overload]
 ERROR overloads_definitions.py:124:9-22: `@final` should only be applied to the implementation of an overloaded function. [invalid-overload]
 ERROR overloads_definitions.py:139:9-24: `@final` should only be applied to the implementation of an overloaded function. [invalid-overload]
 ERROR overloads_definitions.py:144:9-24: `@final` should only be applied to the implementation of an overloaded function. [invalid-overload]

@@ -1,7 +1,6 @@
-conformance_automated = "Fail"
-conformant = "Unsupported"
+conformance_automated = "Pass"
 errors_diff = """
-Line 33: Expected 1 errors
 """
 output = """
+typeddicts_readonly_kwargs.py:33:12: error[invalid-assignment] Cannot assign to key "key1" on TypedDict `ReadOnlyArgs`: key is marked read-only
 """

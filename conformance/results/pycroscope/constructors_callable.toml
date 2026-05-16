@@ -1,0 +1,27 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./constructors_callable.py:36:12: Revealed type is '(x: int) -> ./constructors_callable.py.Class1' [reveal_type]
+./constructors_callable.py:38:0: Missing required argument 'x' [incompatible_call]
+./constructors_callable.py:39:0: Missing required argument 'x' [incompatible_call]
+./constructors_callable.py:49:12: Revealed type is '() -> ./constructors_callable.py.Class2' [reveal_type]
+./constructors_callable.py:51:0: Takes 0 positional arguments but 1 were given [incompatible_call]
+./constructors_callable.py:64:12: Revealed type is '(x: int) -> ./constructors_callable.py.Class3' [reveal_type]
+./constructors_callable.py:66:0: Missing required argument 'x' [incompatible_call]
+./constructors_callable.py:67:0: Missing required argument 'x' [incompatible_call]
+./constructors_callable.py:68:0: Takes 1 positional arguments but 2 were given [incompatible_call]
+./constructors_callable.py:79:12: Revealed type is '(x: int) -> int' [reveal_type]
+./constructors_callable.py:81:0: Missing required argument 'x' [incompatible_call]
+./constructors_callable.py:82:0: Missing required argument 'x' [incompatible_call]
+./constructors_callable.py:99:12: Revealed type is '(*args: tuple[Any[ellipsis_callable], ...], **kwargs: dict[str, Any[ellipsis_callable]]) -> Never' [reveal_type]
+./constructors_callable.py:127:12: Revealed type is '() -> ./constructors_callable.py.Class6Proxy' [reveal_type]
+./constructors_callable.py:129:0: Takes 0 positional arguments but 1 were given [incompatible_call]
+./constructors_callable.py:144:12: Revealed type is '() -> Any[explicit]' [reveal_type]
+./constructors_callable.py:146:0: Takes 0 positional arguments but 1 were given [incompatible_call]
+./constructors_callable.py:164:4: Revealed type is '(x: ~_Ctor_Class7_T) -> ./constructors_callable.py.Class7[~_Ctor_Class7_T]' [reveal_type]
+./constructors_callable.py:184:12: Revealed type is '(x: list[~T@./constructors_callable.py.Class8], y: list[~T@./constructors_callable.py.Class8]) -> ./constructors_callable.py.Class8[~T@./constructors_callable.py.Class8]' [reveal_type]
+./constructors_callable.py:186:0: Cannot resolve type variables [incompatible_call]
+./constructors_callable.py:195:12: Revealed type is '(x: list[~T@./constructors_callable.py.Class9.__init__.<locals>.__init__], y: list[~T@./constructors_callable.py.Class9.__init__.<locals>.__init__]) -> ./constructors_callable.py.Class9' [reveal_type]
+./constructors_callable.py:197:0: Cannot resolve type variables [incompatible_call]
+"""

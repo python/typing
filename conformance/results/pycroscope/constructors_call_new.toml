@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./constructors_call_new.py:21:12: Incompatible argument type for x: expected int but got Literal[1.0] [incompatible_argument]
+./constructors_call_new.py:148:0: Missing required positional argument '%self' [incompatible_call]
+"""

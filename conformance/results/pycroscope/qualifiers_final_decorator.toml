@@ -1,0 +1,15 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./qualifiers_final_decorator.py:21:15: Cannot inherit from final class [invalid_base]
+./qualifiers_final_decorator.py:56:4: Cannot override final attribute method1 [incompatible_override]
+./qualifiers_final_decorator.py:60:4: Cannot override final attribute method2 [incompatible_override]
+./qualifiers_final_decorator.py:64:4: Cannot override final attribute method3 [incompatible_override]
+./qualifiers_final_decorator.py:75:4: Cannot override final attribute method4 [incompatible_override]
+./qualifiers_final_decorator.py:86:4: @final should be applied only to the overload implementation [invalid_final]
+./qualifiers_final_decorator.py:89:4: Cannot override final attribute method [incompatible_override]
+./qualifiers_final_decorator.py:102:4: Cannot override final attribute method [incompatible_override]
+./qualifiers_final_decorator.py:118:4: Cannot override final attribute method [incompatible_override]
+./qualifiers_final_decorator.py:126:0: @final is not allowed on non-method functions [invalid_final]
+"""

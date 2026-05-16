@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./protocols_variance.py:21:0: T1 should be covariant [invalid_protocol]
+./protocols_variance.py:40:0: T3 should be contravariant [invalid_protocol]
+./protocols_variance.py:56:0: T1 should be contravariant [invalid_protocol]
+./protocols_variance.py:61:0: T1_co should be contravariant [invalid_protocol]
+./protocols_variance.py:66:0: T1 should be covariant [invalid_protocol]
+./protocols_variance.py:71:0: T1_contra should be covariant [invalid_protocol]
+./protocols_variance.py:104:0: T1 should be covariant [invalid_protocol]
+"""

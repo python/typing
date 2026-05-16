@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./narrowing_typeguard.py:102:4: TypeGuard must be used on a function taking at least one positional parameter [invalid_typeguard]
+./narrowing_typeguard.py:107:4: TypeGuard must be used on a function taking at least one positional parameter [invalid_typeguard]
+./narrowing_typeguard.py:128:19: Incompatible argument type for f: expected (object, /) -> str but got function 'narrowing_typeguard.simple_typeguard' [incompatible_argument]
+./narrowing_typeguard.py:148:25: Incompatible argument type for f: expected narrowing_typeguard.CallableStrProto but got function 'narrowing_typeguard.simple_typeguard' [incompatible_argument]
+"""
