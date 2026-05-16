@@ -25,4 +25,5 @@ output = """
 ./generics_variance_inference.py:170:0: Incompatible assignment: expected generics_variance_inference.ShouldBeInvariant6[float | int], got generics_variance_inference.ShouldBeInvariant6[int] [incompatible_assignment]
 ./generics_variance_inference.py:181:0: Incompatible assignment: expected generics_variance_inference.ShouldBeCovariant6[int], got generics_variance_inference.ShouldBeCovariant6[float | int] [incompatible_assignment]
 ./generics_variance_inference.py:194:0: Incompatible assignment: expected generics_variance_inference.ShouldBeContravariant2[float | int], got generics_variance_inference.ShouldBeContravariant2[int] [incompatible_assignment]
+./generics_variance_inference.py:205:0: Incompatible assignment: expected generics_variance_inference.ShouldBeCovariant7[int], got generics_variance_inference.ShouldBeCovariant7[object] [incompatible_assignment]
 """
