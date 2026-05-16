@@ -210,7 +210,7 @@ Some basic usages which make ``mypy`` error on untyped data are::
 ``pyright`` type verification
 -----------------------------
 
-pyright has a special command line flag, ``--verifytypes``, for verifying
+``pyright`` has a special command-line flag, ``--verifytypes``, for verifying
 type completeness. You can learn more about it from
 `the pyright documentation on verifying type completeness
 <https://github.com/microsoft/pyright/blob/main/docs/typed-libraries.md#verifying-type-completeness>`_.
@@ -218,6 +218,6 @@ type completeness. You can learn more about it from
 ``mypy`` reports
 ----------------
 
-``mypy`` offers several options options for generating reports on its analysis.
+``mypy`` offers several options for generating reports on its analysis.
 See `the mypy documentation on report generation
 <https://mypy.readthedocs.io/en/stable/command_line.html#report-generation>`_ for details.
