@@ -1,5 +1,6 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 204: Unexpected errors ['generics_variance_inference.py:204:34: error[invalid-assignment] Object of type `ShouldBeCovariant7[int]` is not assignable to `ShouldBeCovariant7[object]`']
 """
 output = """
 generics_variance_inference.py:24:33: error[invalid-assignment] Object of type `ClassA[int | float, int, int]` is not assignable to `ClassA[int, int, int]`
@@ -25,4 +26,6 @@ generics_variance_inference.py:169:31: error[invalid-assignment] Object of type 
 generics_variance_inference.py:170:33: error[invalid-assignment] Object of type `ShouldBeInvariant6[int]` is not assignable to `ShouldBeInvariant6[int | float]`
 generics_variance_inference.py:181:31: error[invalid-assignment] Object of type `ShouldBeCovariant6[int | float]` is not assignable to `ShouldBeCovariant6[int]`
 generics_variance_inference.py:194:37: error[invalid-assignment] Object of type `ShouldBeContravariant2[int]` is not assignable to `ShouldBeContravariant2[int | float]`
+generics_variance_inference.py:204:34: error[invalid-assignment] Object of type `ShouldBeCovariant7[int]` is not assignable to `ShouldBeCovariant7[object]`
+generics_variance_inference.py:205:31: error[invalid-assignment] Object of type `ShouldBeCovariant7[object]` is not assignable to `ShouldBeCovariant7[int]`
 """
