@@ -1,7 +1,3 @@
-conformant = "Partial"
-notes = """
-Does not support version-conditional items in TypedDict definitions.
-"""
 conformance_automated = "Pass"
 errors_diff = """
 """
