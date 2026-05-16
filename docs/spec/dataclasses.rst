@@ -122,6 +122,19 @@ Metaclass example
       id: int
       name: str
 
+Conditional fields
+""""""""""""""""""
+
+Dataclass fields may be conditional, via checks of the same
+:ref:`statically-known conditions<version-and-platform-checks>`
+that a type-checker understands elsewhere, such as Python version::
+
+    @dataclass
+    class Person:
+        name: str
+        if sys.version_info >= (3, 14):
+            age: int
+
 Decorator function and class/metaclass parameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

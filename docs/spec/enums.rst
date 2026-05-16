@@ -59,6 +59,15 @@ checkers should treat such classes as enums::
         GREEN = 2
         BLUE = 3
 
+Enum members may be conditional, via checks of the same
+:ref:`statically-known conditions<version-and-platform-checks>`
+that a type-checker understands elsewhere, such as Python version::
+
+    class Color(Enum):
+        RED = 1
+        if sys.version_info >= (3, 14):
+            BLUE = 2
+
 
 Enum Behaviors
 --------------

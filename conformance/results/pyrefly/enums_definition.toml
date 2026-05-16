@@ -3,4 +3,5 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
+ERROR enums_definition.py:92:1-13: Class `Color12` has no class attribute `BLUE` [missing-attribute]
 """
