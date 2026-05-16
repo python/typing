@@ -122,10 +122,15 @@ in the class definition:
   :term:`read-only`. Other type qualifiers are not allowed. If the extra items type
   is ``Never``, no extra items are allowed, so this is equivalent to ``closed=True``.
 
-The body of the class definition defines the :term:`items <item>` of the TypedDict type.
-It may also contain a docstring or ``pass`` statements (primarily to allow the creation of
-an empty TypedDict). No other statements are allowed, and type checkers should report an
-error if any are present. Type comments are not supported for creating TypedDict items.
+The body of the class definition defines the :term:`items <item>` of the
+TypedDict type. It may also contain a docstring or ``pass`` statements
+(primarily to allow the creation of an empty TypedDict). `if` conditions that
+the type checker is able to
+:ref:`statically evaluate<version-and-platform-checks>` are also permitted (e.g.
+`if sys.version_info > (3, 14)`), in order to specify items that exist only under
+the given conditions. No other statements are allowed, and type checkers should
+report an error if any are present. Type comments are not supported for
+creating TypedDict items.
 
 .. _`required-notrequired`:
 .. _`required`:

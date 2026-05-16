@@ -2,15 +2,16 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-./dataclasses_usage.py:50:5: Missing required argument 'unit_price' [incompatible_call]
-./dataclasses_usage.py:51:27: Incompatible argument type for unit_price: expected float | int but got Literal['price'] [incompatible_argument]
-./dataclasses_usage.py:52:5: Takes 3 positional arguments but 4 were given [incompatible_call]
-./dataclasses_usage.py:58:1: Dataclass fields without defaults cannot follow fields with defaults [invalid_dataclass]
-./dataclasses_usage.py:64:1: Dataclass fields without defaults cannot follow fields with defaults [invalid_dataclass]
-./dataclasses_usage.py:70:1: Dataclass fields without defaults cannot follow fields with defaults [invalid_dataclass]
-./dataclasses_usage.py:83:5: Takes 1 positional arguments but 2 were given [incompatible_call]
-./dataclasses_usage.py:88:4: Dataclass default_factory return type is incompatible with field type int [incompatible_assignment]
-./dataclasses_usage.py:127:0: Takes 1 positional arguments but 2 were given [incompatible_call]
-./dataclasses_usage.py:130:0: Missing required argument 'y' [incompatible_call]
-./dataclasses_usage.py:179:0: Takes 0 positional arguments but 1 were given [incompatible_call]
+./dataclasses_usage.py:51:5: Missing required argument 'unit_price' [incompatible_call]
+./dataclasses_usage.py:52:27: Incompatible argument type for unit_price: expected float | int but got Literal['price'] [incompatible_argument]
+./dataclasses_usage.py:53:5: Takes 3 positional arguments but 4 were given [incompatible_call]
+./dataclasses_usage.py:59:1: Dataclass fields without defaults cannot follow fields with defaults [invalid_dataclass]
+./dataclasses_usage.py:65:1: Dataclass fields without defaults cannot follow fields with defaults [invalid_dataclass]
+./dataclasses_usage.py:71:1: Dataclass fields without defaults cannot follow fields with defaults [invalid_dataclass]
+./dataclasses_usage.py:84:5: Takes 1 positional arguments but 2 were given [incompatible_call]
+./dataclasses_usage.py:89:4: Dataclass default_factory return type is incompatible with field type int [incompatible_assignment]
+./dataclasses_usage.py:128:0: Takes 1 positional arguments but 2 were given [incompatible_call]
+./dataclasses_usage.py:131:0: Missing required argument 'y' [incompatible_call]
+./dataclasses_usage.py:180:0: Takes 0 positional arguments but 1 were given [incompatible_call]
+./dataclasses_usage.py:246:0: Takes 2 positional arguments but 3 were given [incompatible_call]
 """
