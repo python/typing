@@ -195,10 +195,10 @@ library:
     better type coverage may differ. Some of the above recommendations may or
     may not be helpful to you, depending on which type checking tools you use.
 
-``mypy`` disallow options
+Mypy disallow options
 -------------------------
 
-``mypy`` offers several options which can detect untyped code.
+Mypy offers several options which can detect untyped code.
 More details can be found in `the mypy documentation on these options
 <https://mypy.readthedocs.io/en/latest/command_line.html#untyped-definitions-and-calls>`_.
 
@@ -207,17 +207,17 @@ Some basic usages which make ``mypy`` error on untyped data are::
     mypy --disallow-untyped-defs
     mypy --disallow-incomplete-defs
 
-``pyright`` type verification
+Pyright type verification
 -----------------------------
 
-``pyright`` has a special command-line flag, ``--verifytypes``, for verifying
+Pyright has a special command-line flag, ``--verifytypes``, for verifying
 type completeness. You can learn more about it from
 `the pyright documentation on verifying type completeness
 <https://github.com/microsoft/pyright/blob/main/docs/typed-libraries.md#verifying-type-completeness>`_.
 
-``mypy`` reports
+Mypy reports
 ----------------
 
-``mypy`` offers several options for generating reports on its analysis.
+Mypy offers several options for generating reports on its analysis.
 See `the mypy documentation on report generation
 <https://mypy.readthedocs.io/en/stable/command_line.html#report-generation>`_ for details.
