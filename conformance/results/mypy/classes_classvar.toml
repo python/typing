@@ -8,7 +8,7 @@ Does not reject use of ClassVar in TypeAlias definition.
 output = """
 classes_classvar.py:38: error: ClassVar[...] must have at most one type argument  [valid-type]
 classes_classvar.py:39: error: Invalid type: try using Literal[3] instead?  [valid-type]
-classes_classvar.py:40: error: Name "var" is not defined  [name-defined]
+classes_classvar.py:40: error: Name "var" is not defined; did you mean "var1" or "vars"?  [name-defined]
 classes_classvar.py:52: error: Incompatible types in assignment (expression has type "dict[Never, Never]", variable has type "list[str]")  [assignment]
 classes_classvar.py:54: error: Variable should not be annotated with both ClassVar and Final  [misc]
 classes_classvar.py:55: error: Invalid type: ClassVar nested inside other type  [valid-type]
