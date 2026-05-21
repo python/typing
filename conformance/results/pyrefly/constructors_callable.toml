@@ -1,8 +1,6 @@
 conformant = "Partial"
 notes = """
 Converting constructor to callable does not preserve class-scoped type params.
-Converting constructor to callable does not substitute Self in __new__
-Converting constructor to callable uses __new__ signature instead of __init__
 """
 conformance_automated = "Fail"
 errors_diff = """
