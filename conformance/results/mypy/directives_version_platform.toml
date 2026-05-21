@@ -5,7 +5,7 @@ Does not understand os.name checks.
 """
 output = """
 directives_version_platform.py:26: error: Expression is of type "int | str", not "int"  [assert-type]
-directives_version_platform.py:33: error: Name "val3" is not defined  [name-defined]
+directives_version_platform.py:33: error: Name "val3" is not defined; did you mean "val13"?  [name-defined]
 directives_version_platform.py:42: error: Expression is of type "int | str", not "int"  [assert-type]
 directives_version_platform.py:50: error: Name "val6" is not defined  [name-defined]
 directives_version_platform.py:59: error: Name "val9" is not defined  [name-defined]
