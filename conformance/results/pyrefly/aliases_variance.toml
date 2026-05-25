@@ -3,8 +3,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR aliases_variance.py:24:16-28: Type variable `T_co` is Covariant but is used in invariant position [invalid-variance]
-ERROR aliases_variance.py:28:16-31: Type variable `T_co` is Covariant but is used in invariant position [invalid-variance]
-ERROR aliases_variance.py:32:16-31: Type variable `T_co` is Covariant but is used in invariant position [invalid-variance]
-ERROR aliases_variance.py:44:16-41: Type variable `T_contra` is Contravariant but is used in invariant position [invalid-variance]
+ERROR aliases_variance.py:24:16-28: Type variable `T_co` is covariant but is used in invariant position [invalid-variance]
+ERROR aliases_variance.py:28:16-31: Type variable `T_co` is covariant but is used in invariant position [invalid-variance]
+ERROR aliases_variance.py:32:16-31: Type variable `T_co` is covariant but is used in invariant position [invalid-variance]
+ERROR aliases_variance.py:44:16-41: Type variable `T_contra` is contravariant but is used in invariant position [invalid-variance]
 """

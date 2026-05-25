@@ -6,7 +6,7 @@ output = """
 directives_type_ignore.py:11: error: Invalid "type: ignore" comment  [syntax]
 directives_type_ignore.py:11: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
 directives_type_ignore.py:16: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
-directives_type_ignore.py:16: note: Error code "assignment" not covered by "type: ignore" comment
+directives_type_ignore.py:16: note: Error code "assignment" not covered by "type: ignore[an-empty-str-is-not-an-int]" comment
 """
 conformance_automated = "Fail"
 errors_diff = """

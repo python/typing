@@ -18,7 +18,6 @@ ERROR typeforms_typeform.py:59:7-19: Argument `Literal['not a type']` is not ass
 ERROR typeforms_typeform.py:67:18-25: `tuple[@_, ...]` is not assignable to `TypeForm[Any]` [bad-assignment]
 ERROR typeforms_typeform.py:68:18-24: `tuple[Literal[1], Literal[2]]` is not assignable to `TypeForm[Any]` [bad-assignment]
 ERROR typeforms_typeform.py:69:18-19: `Literal[1]` is not assignable to `TypeForm[Any]` [bad-assignment]
-ERROR typeforms_typeform.py:70:18-22: `Self` must appear within a class [invalid-annotation]
 ERROR typeforms_typeform.py:70:18-22: `type[Self]` is not assignable to `TypeForm[Any]` [bad-assignment]
 ERROR typeforms_typeform.py:71:18-31: `ClassVar` is not allowed in this context [invalid-annotation]
 ERROR typeforms_typeform.py:72:18-28: `Final` is not allowed in this context [invalid-annotation]
