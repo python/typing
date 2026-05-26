@@ -1,3 +1,9 @@
+conformant = "Partial"
+notes = """
+polymorphic functions with bound self type influence variance inference,
+which is not part of the variance inference algorithm as described in the spec.
+See gh-2281 for details.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 200: Unexpected errors ['generics_variance_inference.py:200: error: Name "S" is not defined  [name-defined]', 'generics_variance_inference.py:200: error: Name "S" is not defined  [name-defined]']

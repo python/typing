@@ -1,4 +1,9 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+polymorphic functions with bound self type influence variance inference,
+which is not part of the variance inference algorithm as described in the spec.
+See gh-2281 for details.
+"""
 output = """
 generics_variance_inference.py:24: error: Incompatible types in assignment (expression has type "ClassA[float, int, int]", variable has type "ClassA[int, int, int]")  [assignment]
 generics_variance_inference.py:25: error: Incompatible types in assignment (expression has type "ClassA[float, int, int]", variable has type "ClassA[float, float, int]")  [assignment]
