@@ -1,10 +1,9 @@
-conformance_automated = "Fail"
-conformant = "Unsupported"
+conformance_automated = "Pass"
 errors_diff = """
-Line 24: Expected 1 errors
-Line 28: Expected 1 errors
-Line 32: Expected 1 errors
-Line 44: Expected 1 errors
 """
 output = """
+aliases_variance.py:24:16: error[invalid-generic-class] Variance of type variable `T_co` is incompatible with base class `ClassA`
+aliases_variance.py:28:16: error[invalid-generic-class] Variance of type variable `T_co` is incompatible with base class `ClassA`
+aliases_variance.py:32:16: error[invalid-generic-class] Variance of type variable `T_co` is incompatible with base class `ClassA`
+aliases_variance.py:44:16: error[invalid-generic-class] Variance of type variable `T_contra` is incompatible with base class `ClassB`
 """

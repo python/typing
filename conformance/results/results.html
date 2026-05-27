@@ -182,7 +182,7 @@
 </th>
 <th class='tc-header'><div class='tc-name'>pycroscope 0.4.0</div>
 </th>
-<th class='tc-header'><div class='tc-name'>ty 0.0.38</div>
+<th class='tc-header'><div class='tc-name'>ty 0.0.40</div>
 </th>
 </tr>
 <tr><th class="column" colspan="7">
@@ -237,7 +237,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not allow assigning a TypeForm to types.GenericAlias.</p><p>Does not allow passing a forward reference to a function accepting a TypeForm.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Fails to reject various weird annotations</p></span></div></th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column" colspan="7">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/special-types.html">Special types in annotations</a>
@@ -515,7 +515,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_variance_inference</th>
 <th class="column col2 conformant">Pass</th>
@@ -628,7 +628,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column" colspan="7">
 <a class="test_group" href="https://typing.readthedocs.io/en/latest/spec/literal.html">Literals</a>
@@ -993,7 +993,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not pass all assertions in the test file, due to limitations in ty's generics solver.</p><p></p><p>Incorrectly rejects a converter of `dict` combined with a default of `()`.</p><p>Incorrectly rejects passing a sequence of two-element string tuples to the `dict` constructor.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dataclasses_transform_field</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not properly handle field constructor that has default value for `kw_only` or `init` parameter.</p></span></div></th>
