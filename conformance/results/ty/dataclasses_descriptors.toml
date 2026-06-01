@@ -1,13 +1,17 @@
 conformance_automated = "Fail"
 conformant = "Partial"
 notes = """
-Only infers a descriptor `__get__` method as being called when a descriptor attribute is accessed on an instance if the descriptor attribute is present in the class namespace.
+Does not preserve non-data descriptor objects stored in dataclass instances.
 """
 errors_diff = """
-Line 66: Unexpected errors ['dataclasses_descriptors.py:66:1: error[type-assertion-failure] Type `int | Desc2[int]` does not match asserted type `int`']
-Line 67: Unexpected errors ['dataclasses_descriptors.py:67:1: error[type-assertion-failure] Type `str | Desc2[str]` does not match asserted type `str`']
+Line 83: Unexpected errors ['dataclasses_descriptors.py:83:1: error[type-assertion-failure] Type `int | Desc2[int]` does not match asserted type `Desc2[int]`']
+Line 84: Unexpected errors ['dataclasses_descriptors.py:84:1: error[type-assertion-failure] Type `str | Desc2[str]` does not match asserted type `Desc2[str]`']
+Line 85: Unexpected errors ['dataclasses_descriptors.py:85:1: error[type-assertion-failure] Type `str` does not match asserted type `Desc2[str]`']
 """
 output = """
-dataclasses_descriptors.py:66:1: error[type-assertion-failure] Type `int | Desc2[int]` does not match asserted type `int`
-dataclasses_descriptors.py:67:1: error[type-assertion-failure] Type `str | Desc2[str]` does not match asserted type `str`
+dataclasses_descriptors.py:74:1: error[type-assertion-failure] Type `list[int]` does not match asserted type `Desc2[int]`
+dataclasses_descriptors.py:75:1: error[type-assertion-failure] Type `list[str]` does not match asserted type `Desc2[str]`
+dataclasses_descriptors.py:83:1: error[type-assertion-failure] Type `int | Desc2[int]` does not match asserted type `Desc2[int]`
+dataclasses_descriptors.py:84:1: error[type-assertion-failure] Type `str | Desc2[str]` does not match asserted type `Desc2[str]`
+dataclasses_descriptors.py:85:1: error[type-assertion-failure] Type `str` does not match asserted type `Desc2[str]`
 """
