@@ -4,8 +4,13 @@ Converting constructor to callable does not preserve class-scoped type params.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 186: Expected 1 errors
-Line 185: Unexpected errors ['assert_type(Class8[Unknown], Class8[str]) failed [assert-type]']
+Line 212: Expected 1 errors
+Line 186: Unexpected errors ['assert_type(Class8[Unknown], Class8[str]) failed [assert-type]']
+Line 187: Unexpected errors ['assert_type(Class8[Unknown], Class8[int | str]) failed [assert-type]']
+Line 199: Unexpected errors ['Argument `list[str]` is not assignable to parameter `y` with type `list[int]` [bad-argument-type]']
+Line 213: Unexpected errors ['assert_type(Class10[Unknown], Class10[int]) failed [assert-type]']
+Line 214: Unexpected errors ['assert_type(Class10[Unknown], Class10[bool]) failed [assert-type]']
+Line 215: Unexpected errors ['assert_type(Class10[Unknown], Class10[int]) failed [assert-type]']
 """
 output = """
 ERROR constructors_callable.py:38:3-5: Missing argument `x` [missing-argument]
@@ -21,6 +26,16 @@ ERROR constructors_callable.py:82:3-8: Missing argument `x` [missing-argument]
 ERROR constructors_callable.py:82:4-5: Unexpected keyword argument `y` [unexpected-keyword]
 ERROR constructors_callable.py:129:4-5: Expected 0 positional arguments, got 1 [bad-argument-count]
 ERROR constructors_callable.py:146:8-9: Expected 0 positional arguments, got 1 [bad-argument-count]
-ERROR constructors_callable.py:185:12-41: assert_type(Class8[Unknown], Class8[str]) failed [assert-type]
-ERROR constructors_callable.py:197:9-13: Argument `list[str]` is not assignable to parameter `y` with type `list[int]` [bad-argument-type]
+ERROR constructors_callable.py:185:10-22: Argument `Literal['not a list']` is not assignable to parameter `y` with type `list[Unknown]` [bad-argument-type]
+ERROR constructors_callable.py:186:12-41: assert_type(Class8[Unknown], Class8[str]) failed [assert-type]
+ERROR constructors_callable.py:187:12-46: assert_type(Class8[Unknown], Class8[int | str]) failed [assert-type]
+ERROR constructors_callable.py:197:10-22: Argument `Literal['not a list']` is not assignable to parameter `y` with type `list[str]` [bad-argument-type]
+ERROR constructors_callable.py:199:21-25: Argument `list[str]` is not assignable to parameter `y` with type `list[int]` [bad-argument-type]
+ERROR constructors_callable.py:211:10-22: Argument `Literal['not a list']` is not assignable to parameter `y` with type `list[Unknown]` [bad-argument-type]
+ERROR constructors_callable.py:213:12-41: assert_type(Class10[Unknown], Class10[int]) failed [assert-type]
+ERROR constructors_callable.py:214:12-48: assert_type(Class10[Unknown], Class10[bool]) failed [assert-type]
+ERROR constructors_callable.py:215:12-44: assert_type(Class10[Unknown], Class10[int]) failed [assert-type]
+ERROR constructors_callable.py:225:10-22: Argument `Literal['not a list']` is not assignable to parameter `y` with type `list[int]` [bad-argument-type]
+ERROR constructors_callable.py:226:4-15: `str` is not assignable to upper bound `int` of type variable `T_int` [bad-specialization]
+ERROR constructors_callable.py:226:10-14: Argument `list[str]` is not assignable to parameter `y` with type `list[int]` [bad-argument-type]
 """

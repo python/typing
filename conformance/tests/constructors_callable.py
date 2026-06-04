@@ -182,8 +182,9 @@ class Class8(Generic[T]):
 
 r8 = accepts_callable(Class8)
 reveal_type(r8)  # `def [T] (x: list[T], y: list[T]) -> Class8[T]`
-assert_type(r8([""], [""]), Class8[str])
-r8([1], [""])  # E
+r8([""], "not a list")  # E: no assignment of T makes the second argument valid
+assert_type(r8([""], [""]), Class8[str])  # T = str
+assert_type(r8([1], [""]), Class8[int | str])  # T = int | str
 
 
 class Class9:
@@ -193,5 +194,36 @@ class Class9:
 
 r9 = accepts_callable(Class9)
 reveal_type(r9)  # `def [T] (x: list[T], y: list[T]) -> Class9`
+r9([""], "not a list")  # E: no assignment of T makes the second argument valid
 assert_type(r9([""], [""]), Class9)
-r9([1], [""])  # E
+assert_type(r9([1], [""]), Class9)
+
+
+T_int = TypeVar("T_int", bound=int)
+
+class Class10(Generic[T_int]):
+    def __new__(cls, x: list[T_int], y: list[T_int]) -> Self:
+        return super().__new__(cls)
+
+
+r10 = accepts_callable(Class10)
+reveal_type(r10)  # `def [T_int] (x: list[T_int], y: list[T_int]) -> Class10[T_int]`
+r10([1], "not a list")  # E: no assignment of T_int makes the second argument valid
+r10([1], [""])  # E: no assignment of T_int makes the second argument valid
+assert_type(r10([1], [1]), Class10[int])  # T = int
+assert_type(r10([True], [True]), Class10[bool])  # T = bool
+assert_type(r10([1], [True]), Class10[int])  # T = int | bool = int
+
+
+class Class11:
+    def __init__(self, x: list[T_int], y: list[T_int]) -> None:
+        pass
+
+
+r11 = accepts_callable(Class11)
+reveal_type(r11)  # `def [T_int] (x: list[T_int], y: list[T_int]) -> Class11`
+r11([1], "not a list")  # E: no assignment of T_int makes the second argument valid
+r11([1], [""])  # E: no assignment of T_int makes the second argument valid
+assert_type(r11([1], [1]), Class11)  # T = int
+assert_type(r11([True], [True]), Class11)  # T = bool
+assert_type(r11([1], [True]), Class11)  # T = int | bool = int
