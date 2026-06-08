@@ -15,4 +15,12 @@ generics_basic.py:163: error: Free type variable expected in Protocol[...]  [mis
 generics_basic.py:171: error: If Generic[...] or Protocol[...] is present it should list all type variables  [misc]
 generics_basic.py:172: error: If Generic[...] or Protocol[...] is present it should list all type variables  [misc]
 generics_basic.py:208: error: Invalid metaclass "GenericMeta[T]"  [metaclass]
+generics_basic.py:223: error: Argument 2 to "takes_two_lists" has incompatible type "str"; expected "list[int]"  [arg-type]
+generics_basic.py:225: error: List item 0 has incompatible type "str"; expected "int"  [list-item]
+generics_basic.py:232: error: Argument 2 to "takes_two_lists" has incompatible type "list[str]"; expected "list[int]"  [arg-type]
+generics_basic.py:240: error: Argument 2 to "takes_two_int_lists" has incompatible type "str"; expected "list[int]"  [arg-type]
+generics_basic.py:241: error: List item 0 has incompatible type "str"; expected "int"  [list-item]
+generics_basic.py:251: error: Argument 2 to "takes_two_int_lists" has incompatible type "list[bool]"; expected "list[int]"  [arg-type]
+generics_basic.py:251: note: "List" is invariant -- see https://mypy.readthedocs.io/en/stable/common_issues.html#variance
+generics_basic.py:251: note: Consider using "Sequence" instead, which is covariant
 """

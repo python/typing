@@ -42,9 +42,11 @@ constructors_callable.py:164:5: info[revealed-type] Revealed type: `Overload[[T]
 constructors_callable.py:166:1: error[type-assertion-failure] Type `Class7[int] | Class7[str]` does not match asserted type `Class7[int]`
 constructors_callable.py:167:1: error[type-assertion-failure] Type `Class7[int] | Class7[str]` does not match asserted type `Class7[str]`
 constructors_callable.py:184:13: info[revealed-type] Revealed type: `[T](x: list[T], y: list[T]) -> Class8[T]`
-constructors_callable.py:186:4: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[int]`
-constructors_callable.py:186:9: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[str]`
-constructors_callable.py:195:13: info[revealed-type] Revealed type: `[T](x: list[T], y: list[T]) -> Class9`
-constructors_callable.py:197:4: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[int]`
-constructors_callable.py:197:9: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[str]`
+constructors_callable.py:185:10: error[invalid-argument-type] Argument is incorrect: Expected `list[str]`, found `Literal["not a list"]`
+constructors_callable.py:187:4: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[int]`
+constructors_callable.py:187:9: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[str]`
+constructors_callable.py:196:13: info[revealed-type] Revealed type: `[T](x: list[T], y: list[T]) -> Class9`
+constructors_callable.py:197:10: error[invalid-argument-type] Argument is incorrect: Expected `list[str]`, found `Literal["not a list"]`
+constructors_callable.py:199:4: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[int]`
+constructors_callable.py:199:9: error[invalid-argument-type] Argument is incorrect: Expected `list[int | str]`, found `list[str]`
 """
