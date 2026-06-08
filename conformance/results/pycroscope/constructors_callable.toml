@@ -1,11 +1,5 @@
-conformant = "Partial"
-notes = """
-List literal arguments are inferred in isolation before specialization inference
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 187: Unexpected errors ['./constructors_callable.py:187:12:   ./constructors_callable.py.Class8[Any[error]] is not equivalent to ./constructors_callable.py.Class8[int | str]', './constructors_callable.py:187:12: Cannot resolve type variables [incompatible_call]']
-Line 199: Unexpected errors ['./constructors_callable.py:199:12: Cannot resolve type variables [incompatible_call]']
 """
 output = """
 ./constructors_callable.py:36:12: Revealed type is '(x: int) -> ./constructors_callable.py.Class1' [reveal_type]
@@ -28,15 +22,8 @@ output = """
 ./constructors_callable.py:164:4: Revealed type is '(x: ~_Ctor_Class7_T) -> ./constructors_callable.py.Class7[~_Ctor_Class7_T]' [reveal_type]
 ./constructors_callable.py:184:12: Revealed type is '(x: list[~T@./constructors_callable.py.Class8], y: list[~T@./constructors_callable.py.Class8]) -> ./constructors_callable.py.Class8[~T@./constructors_callable.py.Class8]' [reveal_type]
 ./constructors_callable.py:185:9: Incompatible argument type for y: expected list[~T@./constructors_callable.py.Class8] but got Literal['not a list'] [incompatible_argument]
-./constructors_callable.py:187:12:   ./constructors_callable.py.Class8[Any[error]] is not equivalent to ./constructors_callable.py.Class8[int | str]
-./constructors_callable.py:187:12: Cannot resolve type variables [incompatible_call]
+./constructors_callable.py:187:0: Cannot resolve type variables [incompatible_call]
 ./constructors_callable.py:196:12: Revealed type is '(x: list[~T@./constructors_callable.py.Class9.__init__.<locals>.__init__], y: list[~T@./constructors_callable.py.Class9.__init__.<locals>.__init__]) -> ./constructors_callable.py.Class9' [reveal_type]
 ./constructors_callable.py:197:9: Incompatible argument type for y: expected list[~T@./constructors_callable.py.Class9.__init__.<locals>.__init__] but got Literal['not a list'] [incompatible_argument]
-./constructors_callable.py:199:12: Cannot resolve type variables [incompatible_call]
-./constructors_callable.py:210:12: Revealed type is '(x: list[~T_int@./constructors_callable.py.Class10], y: list[~T_int@./constructors_callable.py.Class10]) -> ./constructors_callable.py.Class10[~T_int@./constructors_callable.py.Class10]' [reveal_type]
-./constructors_callable.py:211:9: Incompatible argument type for y: expected list[~T_int@./constructors_callable.py.Class10] but got Literal['not a list'] [incompatible_argument]
-./constructors_callable.py:212:9: Incompatible argument type for y: expected list[~T_int@./constructors_callable.py.Class10] but got Literal[['']] [incompatible_argument]
-./constructors_callable.py:224:12: Revealed type is '(x: list[~T_int@./constructors_callable.py.Class11.__init__.<locals>.__init__], y: list[~T_int@./constructors_callable.py.Class11.__init__.<locals>.__init__]) -> ./constructors_callable.py.Class11' [reveal_type]
-./constructors_callable.py:225:9: Incompatible argument type for y: expected list[~T_int@./constructors_callable.py.Class11.__init__.<locals>.__init__] but got Literal['not a list'] [incompatible_argument]
-./constructors_callable.py:226:9: Incompatible argument type for y: expected list[~T_int@./constructors_callable.py.Class11.__init__.<locals>.__init__] but got Literal[['']] [incompatible_argument]
+./constructors_callable.py:199:0: Cannot resolve type variables [incompatible_call]
 """

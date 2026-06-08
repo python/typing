@@ -1,11 +1,5 @@
-conformant = "Partial"
-notes = """
-List literal arguments are inferred in isolation before specialization inference
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 187: Unexpected errors ['constructors_callable.py:187:13 - error: "assert_type" mismatch: expected "Class8[int | str]" but received "Class8[int]" (reportAssertTypeFailure)', 'constructors_callable.py:187:22 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@Class8]"']
-Line 199: Unexpected errors ['constructors_callable.py:199:22 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@__init__]"']
 """
 output = """
 constructors_callable.py:36:13 - information: Type of "r1" is "(x: int) -> Class1"
@@ -32,22 +26,11 @@ constructors_callable.py:164:5 - information: Type of "r7" is "Overload[(x: int)
 constructors_callable.py:184:13 - information: Type of "r8" is "(x: list[T@Class8], y: list[T@Class8]) -> Class8[T@Class8]"
 constructors_callable.py:185:10 - error: Argument of type "Literal['not a list']" cannot be assigned to parameter "y" of type "list[T@Class8]"
   "Literal['not a list']" is not assignable to "list[str]" (reportArgumentType)
-constructors_callable.py:187:13 - error: "assert_type" mismatch: expected "Class8[int | str]" but received "Class8[int]" (reportAssertTypeFailure)
-constructors_callable.py:187:22 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@Class8]"
+constructors_callable.py:187:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@Class8]"
   "Literal['']" is not assignable to "int" (reportArgumentType)
 constructors_callable.py:196:13 - information: Type of "r9" is "(x: list[T@__init__], y: list[T@__init__]) -> Class9"
 constructors_callable.py:197:10 - error: Argument of type "Literal['not a list']" cannot be assigned to parameter "y" of type "list[T@__init__]"
   "Literal['not a list']" is not assignable to "list[str]" (reportArgumentType)
-constructors_callable.py:199:22 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@__init__]"
-  "Literal['']" is not assignable to "int" (reportArgumentType)
-constructors_callable.py:210:13 - information: Type of "r10" is "(x: list[T_int@Class10], y: list[T_int@Class10]) -> Class10[T_int@Class10]"
-constructors_callable.py:211:10 - error: Argument of type "Literal['not a list']" cannot be assigned to parameter "y" of type "list[T_int@Class10]"
-  "Literal['not a list']" is not assignable to "list[int]" (reportArgumentType)
-constructors_callable.py:212:11 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T_int@Class10]"
-  "Literal['']" is not assignable to "int" (reportArgumentType)
-constructors_callable.py:224:13 - information: Type of "r11" is "(x: list[T_int@__init__], y: list[T_int@__init__]) -> Class11"
-constructors_callable.py:225:10 - error: Argument of type "Literal['not a list']" cannot be assigned to parameter "y" of type "list[T_int@__init__]"
-  "Literal['not a list']" is not assignable to "list[int]" (reportArgumentType)
-constructors_callable.py:226:11 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T_int@__init__]"
+constructors_callable.py:199:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@__init__]"
   "Literal['']" is not assignable to "int" (reportArgumentType)
 """

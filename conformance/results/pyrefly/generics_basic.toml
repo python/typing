@@ -15,4 +15,11 @@ ERROR generics_basic.py:163:7-11: Expected a type variable, got `int` [invalid-t
 ERROR generics_basic.py:171:7-11: Class `Bad3` uses type variables not specified in `Generic` or `Protocol` base [invalid-type-var]
 ERROR generics_basic.py:172:7-11: Class `Bad4` uses type variables not specified in `Generic` or `Protocol` base [invalid-type-var]
 ERROR generics_basic.py:208:7-26: Metaclass may not be an unbound generic [invalid-inheritance]
+ERROR generics_basic.py:223:22-34: Argument `Literal['not a list']` is not assignable to parameter `y` with type `list[int]` in function `takes_two_lists` [bad-argument-type]
+ERROR generics_basic.py:225:22-26: Argument `list[str]` is not assignable to parameter `y` with type `list[int]` in function `takes_two_lists` [bad-argument-type]
+ERROR generics_basic.py:232:24-25: Argument `list[str]` is not assignable to parameter `y` with type `list[int]` in function `takes_two_lists` [bad-argument-type]
+ERROR generics_basic.py:240:26-38: Argument `Literal['not a list']` is not assignable to parameter `y` with type `list[int]` in function `takes_two_int_lists` [bad-argument-type]
+ERROR generics_basic.py:241:20-31: `str` is not assignable to upper bound `int` of type variable `T_int` [bad-specialization]
+ERROR generics_basic.py:241:26-30: Argument `list[str]` is not assignable to parameter `y` with type `list[int]` in function `takes_two_int_lists` [bad-argument-type]
+ERROR generics_basic.py:251:28-29: Argument `list[bool]` is not assignable to parameter `y` with type `list[int]` in function `takes_two_int_lists` [bad-argument-type]
 """
