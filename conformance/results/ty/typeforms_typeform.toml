@@ -4,7 +4,7 @@ errors_diff = """
 output = """
 typeforms_typeform.py:23:30: error[invalid-assignment] Object of type `TypeForm[str | int]` is not assignable to `TypeForm[str | None]`
 typeforms_typeform.py:24:30: error[invalid-assignment] Object of type `TypeForm[list[str | None]]` is not assignable to `TypeForm[str | None]`
-typeforms_typeform.py:59:7: error[invalid-syntax-in-forward-annotation] Syntax error in forward annotation: Unexpected token at the end of an expression: Did you mean `typing.Literal["not a type"]`?
+typeforms_typeform.py:59:14: error[invalid-syntax-in-forward-annotation] Syntax error in forward annotation: Unexpected token at the end of an expression
 typeforms_typeform.py:67:18: error[invalid-type-form] Function calls are not allowed in type expressions
 typeforms_typeform.py:68:18: error[invalid-type-form] Tuple literals are not allowed in this context in a type expression
 typeforms_typeform.py:69:18: error[invalid-type-form] Int literals are not allowed in this context in a type expression: Did you mean `typing.Literal[1]`?
