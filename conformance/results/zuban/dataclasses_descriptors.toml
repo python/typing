@@ -1,5 +1,17 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not preserve non-data descriptor objects stored in dataclass instances.
+"""
 errors_diff = """
+Line 83: Unexpected errors ['dataclasses_descriptors.py:83: error: Expression is of type "int", not "Desc2[int]"  [misc]']
+Line 84: Unexpected errors ['dataclasses_descriptors.py:84: error: Expression is of type "str", not "Desc2[str]"  [misc]']
+Line 85: Unexpected errors ['dataclasses_descriptors.py:85: error: Expression is of type "str", not "Desc2[str]"  [misc]']
 """
 output = """
+dataclasses_descriptors.py:74: error: Expression is of type "list[int]", not "Desc2[int]"  [misc]
+dataclasses_descriptors.py:75: error: Expression is of type "list[str]", not "Desc2[str]"  [misc]
+dataclasses_descriptors.py:83: error: Expression is of type "int", not "Desc2[int]"  [misc]
+dataclasses_descriptors.py:84: error: Expression is of type "str", not "Desc2[str]"  [misc]
+dataclasses_descriptors.py:85: error: Expression is of type "str", not "Desc2[str]"  [misc]
 """

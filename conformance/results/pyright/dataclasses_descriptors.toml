@@ -1,6 +1,17 @@
-conformant = "Pass"
-output = """
+conformant = "Partial"
+notes = """
+Does not preserve non-data descriptor objects stored in dataclass instances.
 """
-conformance_automated = "Pass"
+output = """
+dataclasses_descriptors.py:74:13 - error: "assert_type" mismatch: expected "Desc2[int]" but received "list[int]" (reportAssertTypeFailure)
+dataclasses_descriptors.py:75:13 - error: "assert_type" mismatch: expected "Desc2[str]" but received "list[str]" (reportAssertTypeFailure)
+dataclasses_descriptors.py:83:13 - error: "assert_type" mismatch: expected "Desc2[int]" but received "int" (reportAssertTypeFailure)
+dataclasses_descriptors.py:84:13 - error: "assert_type" mismatch: expected "Desc2[str]" but received "str" (reportAssertTypeFailure)
+dataclasses_descriptors.py:85:13 - error: "assert_type" mismatch: expected "Desc2[str]" but received "str" (reportAssertTypeFailure)
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 83: Unexpected errors ['dataclasses_descriptors.py:83:13 - error: "assert_type" mismatch: expected "Desc2[int]" but received "int" (reportAssertTypeFailure)']
+Line 84: Unexpected errors ['dataclasses_descriptors.py:84:13 - error: "assert_type" mismatch: expected "Desc2[str]" but received "str" (reportAssertTypeFailure)']
+Line 85: Unexpected errors ['dataclasses_descriptors.py:85:13 - error: "assert_type" mismatch: expected "Desc2[str]" but received "str" (reportAssertTypeFailure)']
 """
