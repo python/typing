@@ -3,7 +3,7 @@
 # Sphinx version is pinned so that new versions that introduce new warnings
 # won't suddenly cause build failures. Updating the version is fine as long
 # as no warnings are raised by doing so.
-sphinx==7.2.6
+sphinx==9.1.0
 
 # The theme used by the documentation is stored separately, so we need
 # to install that as well.
