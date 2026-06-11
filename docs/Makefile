@@ -3,9 +3,9 @@
 
 # You can set these variables from the command line, and also
 # from the environment for the first two.
-ROOTDIR       = ..
 SOURCEDIR     = .
 SOURCES       =
+ROOTDIR       = ..
 BUILDDIR      = _build
 PYTHON       = python3
 VENVDIR      = ./venv
