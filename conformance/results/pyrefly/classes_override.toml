@@ -8,4 +8,6 @@ ERROR classes_override.py:57:9-16: Class member `ChildA.method4` is marked as an
 ERROR classes_override.py:79:9-23: Class member `ChildA.static_method1` is marked as an override, but no parent class has a matching attribute [bad-override]
 ERROR classes_override.py:84:9-22: Class member `ChildA.class_method1` is marked as an override, but no parent class has a matching attribute [bad-override]
 ERROR classes_override.py:89:9-18: Class member `ChildA.property1` is marked as an override, but no parent class has a matching attribute [bad-override]
+ERROR classes_override.py:135:9-17: Class member `ChildC2.__init__` overrides parent class `ParentC` in an inconsistent manner [bad-override]
+ERROR classes_override.py:138:9-16: Class member `ChildC2.__new__` overrides parent class `ParentC` in an inconsistent manner [bad-override]
 """
