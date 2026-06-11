@@ -21,6 +21,6 @@ jobs:
     - name: Install dependencies
       run: |
         pip install --upgrade pip
-        pip install -r docs/requirements.txt
+        pip install --group docs
     - name: Build the documentation
       run: make -C docs html
