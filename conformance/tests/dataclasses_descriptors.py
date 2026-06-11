@@ -58,11 +58,17 @@ class DC2:
     z: Desc2[str] = Desc2()
 
 
-assert_type(DC2.x, list[int])
-assert_type(DC2.y, list[str])
-assert_type(DC2.z, list[str])
-
-dc2 = DC2(Desc2(), Desc2(), Desc2())
-assert_type(dc2.x, int)
-assert_type(dc2.y, str)
-assert_type(dc2.z, str)
+# Runtime behavior involving non-data descriptors in dataclasses is
+# currently under-specified and differs across type checkers and runtime
+# implementations.
+#
+# In particular:
+# - DC2.x and DC2.y raise AttributeError at runtime because no descriptor
+#   instance is stored in the class dictionary for those fields.
+# - dc2.x and dc2.y evaluate to the stored Desc2 instances because
+#   non-data descriptors are shadowed by instance attributes.
+# - The behavior for z is also subtle because dataclasses access the
+#   descriptor during default extraction.
+#
+# These cases are therefore omitted from the conformance suite until the
+# expected behavior is specified more clearly.
