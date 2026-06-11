@@ -7,7 +7,7 @@ Tests the handling of forward references in type annotations.
 
 
 import types
-from typing import assert_type
+from typing import assert_type, Any
 
 
 def func1(
@@ -57,10 +57,9 @@ def invalid_annotations(
     pass
 
 
-# > It should evaluate without errors once the module has been fully loaded.
-# > The local and global namespace in which it is evaluated should be the same
-# > namespaces in which default arguments to the same function would be evaluated.
-
+# > Names within the expression are looked up in the same way as they would be
+# > looked up at runtime in Python 3.14 and higher if the annotation was not
+# > enclosed in a string literal.
 
 class ClassB:
     def method1(self) -> ClassB:  # E?: Runtime error prior to 3.14
@@ -79,21 +78,19 @@ class ClassD:
 
     ClassF: "ClassF"  # E: circular reference
 
-    str: "str" = ""  # OK
+    str: "str" = ""  # E: circular reference
+
+    z: "int" = 0  # E: Refers to the local int function
 
     def int(self) -> None:  # OK
         ...
 
-    x: "int" = 0  # OK
+    y: int = 0  # E: Refers to the local int function, which isn't a legal type expression
 
-    y: int = 0  # E: Refers to local int, which isn't a legal type expression
+    x: "int" = 0  # E: Refers to a local int function
 
     def __init__(self) -> None:
         self.ClassC = ClassC()
-
-
-assert_type(ClassD.str, str)
-assert_type(ClassD.x, int)
 
 
 # > If a triple quote is used, the string should be parsed as though it is implicitly
