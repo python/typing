@@ -5,7 +5,8 @@ Tests variance of TypeVarTuple.
 # Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#semantics
 
 
-from typing import Generic, TypeVarTuple
+from typing import Generic
+from typing_extensions import TypeVarTuple
 
 class InvariantTypeVarTuple[*InOutTs]:
     a: tuple[*InOutTs]
