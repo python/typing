@@ -60,9 +60,8 @@ class ClassA(Generic[Shape]):  # E: not unpacked
         ...
 
 
-# > TypeVarTuple does not yet support specification of variance, bounds, constraints.
+# > TypeVarTuple does not yet support specification of bounds, constraints.
 
-Ts1 = TypeVarTuple("Ts1", covariant=True)  # E
 Ts2 = TypeVarTuple("Ts2", int, float)  # E
 Ts3 = TypeVarTuple("Ts3", bound=int)  # E
 
@@ -104,5 +103,5 @@ def func3(x: Array[Height], y: Array[Width], z: Array[Height, Width]):
 # > Only a single type variable tuple may appear in a type parameter list.
 
 
-class Array3(Generic[*Ts1, *Ts2]):  # E
+class Array3[*Ts1, *Ts2]:  # E
     ...

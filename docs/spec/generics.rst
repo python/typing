@@ -678,8 +678,9 @@ Prior to 3.12, the ``ParamSpec`` constructor can be used.
    P = ParamSpec("WrongName") # Rejected because P =/= WrongName
 
 The runtime should accept ``bound``\ s and ``covariant`` and ``contravariant``
-arguments in the declaration just as ``typing.TypeVar`` does, but for now we
-will defer the standardization of the semantics of those options to a later PEP.
+arguments in the declaration just as ``typing.TypeVar`` does.
+
+We defer the standardization of the semantics of the ``bound`` option to a later PEP.
 
 .. _`paramspec_valid_use_locations`:
 
@@ -1189,12 +1190,11 @@ for two reasons:
 * To improve readability: the star also functions as an explicit visual
   indicator that the type variable tuple is not a normal type variable.
 
-Variance, Type Constraints and Type Bounds: Not Supported
+Type Constraints and Type Bounds: Not Supported
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 ``TypeVarTuple`` does not currently support specification of:
 
-* Variance (e.g. ``TypeVar('T', covariant=True)``)
 * Type constraints (``TypeVar('T', int, float)``)
 * Type bounds (``TypeVar('T', bound=ParentClass)``)
 
@@ -2712,25 +2712,28 @@ The algorithm for computing the variance of a type parameter is as follows.
 
 For each type parameter in a generic class:
 
-1. If the type parameter is variadic (``TypeVarTuple``) or a parameter
-specification (``ParamSpec``), it is always considered invariant. No further
-inference is needed.
+1. If the type parameter comes from a traditional
+``TypeVar``/``TypeVarTuple``/``ParamSpec`` declaration and is not constructed
+with ``infer_variance=True`` (see below), its variance is specified by the
+constructor call. No further inference is needed.
 
-2. If the type parameter comes from a traditional ``TypeVar`` declaration and
-is not specified as ``infer_variance`` (see below), its variance is specified
-by the ``TypeVar`` constructor call. No further inference is needed.
-
-3. Create two specialized versions of the class. We'll refer to these as
+2. Create two specialized versions of the class. We'll refer to these as
 ``upper`` and ``lower`` specializations. In both of these specializations,
 replace all type parameters other than the one being inferred by a dummy type
 instance (a concrete anonymous class that is assumed to meet the bounds or
 constraints of the type parameter). In the ``upper`` specialized class,
-specialize the target type parameter with an ``object`` instance. This
-specialization ignores the type parameter's upper bound or constraints. In the
-``lower`` specialized class, specialize the target type parameter with itself
-(i.e. the corresponding type argument is the type parameter itself).
+specialize the target type parameter with:
 
-4. Determine whether ``lower`` can be assigned to ``upper`` using normal
+ an ``object`` instance for a type variable.
+ a ``*tuple[object, ...]`` value for a type variable tuple.
+ a for a parameter specification, a 'top signature' value, i.e. a type
+ that represents the super type of every possible signature.
+
+This specialization ignores the type parameter's upper bound or constraints.
+In the ``lower`` specialized class, specialize the target type parameter with
+itself (i.e. the corresponding type argument is the type parameter itself).
+
+3. Determine whether ``lower`` can be assigned to ``upper`` using normal
 assignability rules. If so, the target type parameter is covariant. If not,
 determine whether ``upper`` can be assigned to ``lower``. If so, the target
 type parameter is contravariant. If neither of these combinations are
