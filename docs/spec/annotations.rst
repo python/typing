@@ -155,14 +155,6 @@ The following grammar describes the allowed elements of type and annotation expr
                    : | <type> '[' name ']'
                    :       (where name must refer to a valid in-scope class
                    :        or TypeVar)
-                   : | <Callable> '[' '...' ',' `type_expression` ']'
-                   : | <Callable> '[' name ',' `type_expression` ']'
-                   :       (where name must be a valid in-scope ParamSpec)
-                   : | <Callable> '[' <Concatenate> '[' (`type_expression` ',')+
-                   :              (name | '...') ']' ',' `type_expression` ']'
-                   :       (where name must be a valid in-scope ParamSpec)
-                   : | <Callable> '[' '[' `maybe_unpacked` (',' `maybe_unpacked`)*
-                   :              ']' ',' `type_expression` ']'
                    : | `tuple_type_expression`
                    : | <Annotated> '[' `type_expression` ','
                    :               expression (',' expression)* ']'
@@ -200,7 +192,6 @@ Notes:
   from :py:mod:`typing` or ``typing_extensions``, except for ``None``,  ``InitVar``,
   ``type``, and ``tuple``. The latter two have aliases in :py:mod:`typing`: :py:class:`typing.Type`
   and :py:class:`typing.Tuple`.  ``InitVar`` must be imported from :py:mod:`dataclasses`.
-  ``Callable`` may be imported from either :py:mod:`typing` or :py:mod:`collections.abc`.
   Special forms may be aliased
   (e.g., ``from typing import Literal as L``), and they may be referred to by a
   qualified name (e.g., ``typing.Literal``). There are other special forms that are not
