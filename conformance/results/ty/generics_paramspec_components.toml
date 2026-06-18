@@ -24,7 +24,7 @@ generics_paramspec_components.py:60:28: error[invalid-paramspec] No parameters m
 generics_paramspec_components.py:70:11: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `P@remove.args`
 generics_paramspec_components.py:70:18: error[invalid-argument-type] Argument is incorrect: Expected `P@remove.args`, found `Literal[1]`
 generics_paramspec_components.py:72:11: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `P@remove.args`
-generics_paramspec_components.py:83:18: error[invalid-argument-type] Argument to function `foo` is incorrect: Expected `int`, found `(...)`
+generics_paramspec_components.py:83:18: error[invalid-argument-type] Argument to function `foo` is incorrect: Expected `int`, found `P@outer.args`
 generics_paramspec_components.py:83:18: error[parameter-already-assigned] Multiple values provided for parameter 1 (`x`) of function `foo`
 generics_paramspec_components.py:98:20: error[invalid-argument-type] Argument to function `twice` is incorrect: Expected `int`, found `Literal["A"]`
 generics_paramspec_components.py:98:25: error[invalid-argument-type] Argument to function `twice` is incorrect: Expected `str`, found `Literal[1]`

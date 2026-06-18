@@ -14,5 +14,6 @@ ERROR dataclasses_usage.py:89:14-40: `str` is not assignable to `int` [bad-assig
 ERROR dataclasses_usage.py:128:8-9: Expected 1 positional argument, got 2 in function `DC7.__init__` [bad-argument-count]
 ERROR dataclasses_usage.py:131:4-7: Missing argument `y` in function `DC8.__init__` [missing-argument]
 ERROR dataclasses_usage.py:180:6-7: Expected 0 positional arguments, got 1 in function `object.__init__` [bad-argument-count]
+ERROR dataclasses_usage.py:229:5-6: `y` is a dataclass field but has no type annotation [bad-class-definition]
 ERROR dataclasses_usage.py:246:12-13: Expected 2 positional arguments, got 3 in function `DC19.__init__` [bad-argument-count]
 """
