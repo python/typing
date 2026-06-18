@@ -2,6 +2,7 @@
 Generates a summary of the type checker conformant tests.
 """
 
+import datetime
 import itertools
 import operator
 import tomllib
@@ -65,11 +66,17 @@ def generate_summary(root_dir: Path):
 
     type_checkers = sorted(TYPE_CHECKERS, key=operator.attrgetter("name"))
 
+    timestamp = datetime.datetime.now(tz=datetime.UTC)
     groups = _get_groups(root_dir, type_checkers)
     totals = _get_totals(groups)
     versions = _get_versions(root_dir, type_checkers)
 
-    results = template.render(groups=groups, totals=totals, versions=versions)
+    results = template.render(
+        timestamp=timestamp,
+        groups=groups,
+        totals=totals,
+        versions=versions,
+    )
 
     root_dir.joinpath("results", "results.html").write_text(results)
 
