@@ -1,7 +1,7 @@
 conformance_automated = "Fail"
 conformant = "Partial"
 notes = """
-Resolves references in type annotations as referring to end-of-scope types (https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439, https://github.com/python/typing/pull/2144)
+Resolves references in type annotations as referring to end-of-scope types (<https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439>, <https://github.com/python/typing/pull/2144>)
 """
 errors_diff = """
 Line 87: Unexpected errors ['annotations_forward_refs.py:87:9: error[invalid-type-form] Function `int` is not valid in a type expression']

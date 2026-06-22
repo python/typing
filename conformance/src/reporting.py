@@ -2,121 +2,226 @@
 Generates a summary of the type checker conformant tests.
 """
 
+import itertools
+import operator
+import tomllib
+from collections.abc import Sequence
+from dataclasses import dataclass, field
+from decimal import Decimal
 from pathlib import Path
 
-import tomli
+import jinja2
+import markdown
+import markupsafe
 
 from test_groups import get_test_cases, get_test_groups
-from type_checker import TYPE_CHECKERS
+from type_checker import TYPE_CHECKERS, TypeChecker
+
+
+@dataclass(frozen=True, kw_only=True, slots=True)
+class TestResult:
+    type_checker: str
+    conformance: str
+    notes: list[markupsafe.Markup] = field(default_factory=list)
+
+
+@dataclass(frozen=True, kw_only=True, slots=True)
+class TestCase:
+    name: str
+    results: list[TestResult] = field(default_factory=list)
+
+
+@dataclass(frozen=True, kw_only=True, slots=True)
+class TestStat:
+    type_checker: str
+    total: int
+    passed: Decimal
+
+    @property
+    def percentage(self) -> str:
+        return f"{self.passed / self.total:.1%}"
+
+
+@dataclass(frozen=True, kw_only=True, slots=True)
+class TestGroup:
+    slug: str
+    name: str
+    href: str
+    paths: list[Path] = field(default_factory=list)
+    cases: list[TestCase] = field(default_factory=list)
+    stats: list[TestStat] = field(default_factory=list)
 
 
 def generate_summary(root_dir: Path):
     print("Generating summary report")
-    template_file = root_dir / "src" / "results_template.html"
-    with open(template_file, "r") as f:
-        template = f.read()
 
-    summary = template.replace("{{summary}}", generate_summary_html(root_dir))
+    env = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(root_dir.joinpath("src/templates")),
+        autoescape=jinja2.select_autoescape(),
+    )
+    env.filters["conformance_class"] = _conformance_class
 
-    results_file = root_dir / "results" / "results.html"
+    template = env.get_template("base.html")
 
-    with open(results_file, "w") as f:
-        f.write(summary)
+    type_checkers = sorted(TYPE_CHECKERS, key=operator.attrgetter("name"))
+
+    groups = _get_groups(root_dir, type_checkers)
+    totals = _get_totals(groups)
+    versions = _get_versions(root_dir, type_checkers)
+
+    results = template.render(groups=groups, totals=totals, versions=versions)
+
+    root_dir.joinpath("results", "results.html").write_text(results)
 
 
-def generate_summary_html(root_dir: Path) -> str:
-    column_count = len(TYPE_CHECKERS) + 1
+def _conformance_class(value: str) -> str:
+    if value == "Pass":
+        return "conformant"
+    if value == "Partial":
+        return "partially-conformant"
+    return "not-conformant"
+
+
+def _get_groups(
+    root_dir: Path,
+    type_checkers: Sequence[TypeChecker],
+) -> list[TestGroup]:
     test_groups = get_test_groups(root_dir)
     test_cases = get_test_cases(test_groups, root_dir / "tests")
 
-    summary_html = ['<div class="table_container"><table><tbody>']
-    summary_html.append('<tr><th class="col1">&nbsp;</th>')
+    groups = []
 
-    for type_checker in TYPE_CHECKERS:
-        # Load the version file for the type checker.
-        version_file = root_dir / "results" / type_checker.name / "version.toml"
+    for test_group_slug, test_group in test_groups.items():
+        paths = sorted(
+            [
+                case
+                for case in test_cases
+                if case.name.startswith(f"{test_group_slug}_")
+            ],
+            key=operator.attrgetter("name"),
+        )
+
+        # Skip if there are no test cases in the group.
+        if not paths:
+            continue
+
+        group = TestGroup(
+            slug=test_group_slug,
+            name=test_group.name,
+            href=test_group.href,
+            paths=paths,
+        )
+        groups.append(group)
+
+        for path in group.paths:
+            case = TestCase(name=path.stem)
+            group.cases.append(case)
+
+            for type_checker in type_checkers:
+                result_path = (
+                    root_dir / "results" / type_checker.name / f"{case.name}.toml"
+                )
+                try:
+                    with result_path.open("rb") as f:
+                        data = tomllib.load(f)
+                except FileNotFoundError:
+                    data = {}
+
+                conformance = data.get("conformant")
+                if not conformance:
+                    # Try to look up the automated test results and use that if the test passes.
+                    automated = data.get("conformance_automated")
+                    conformance = "Pass" if automated == "Pass" else "Unknown"
+
+                notes = [
+                    markupsafe.Markup(
+                        markdown.markdown(note, output_format="html")
+                        .removeprefix("<p>")
+                        .removesuffix("</p>")
+                    )
+                    for note in data.get("notes", "").strip().splitlines()
+                ]
+
+                result = TestResult(
+                    type_checker=type_checker.name,
+                    conformance=conformance,
+                    notes=notes,
+                )
+                case.results.append(result)
+
+        for n, type_checker in enumerate(type_checkers):
+            passed = Decimal("0.0")
+
+            for case in group.cases:
+                match case.results[n].conformance:
+                    case "Pass":
+                        passed += Decimal("1.0")
+                    case "Partial":
+                        # For partial support, give half a mark :)
+                        passed += Decimal("0.5")
+
+            stat = TestStat(
+                type_checker=type_checker.name,
+                total=len(group.paths),
+                passed=_remove_exponent(passed),
+            )
+            group.stats.append(stat)
+
+    return groups
+
+
+def _get_totals(groups: list[TestGroup]) -> list[TestStat]:
+    totals = []
+
+    # As we already sort by type checker above, we can sort and group by here and maintain the
+    # correct order for the totals output.
+    ordered = sorted(
+        [stat for group in groups for stat in group.stats],
+        key=operator.attrgetter("type_checker"),
+    )
+
+    for type_checker, stats_it in itertools.groupby(
+        ordered, operator.attrgetter("type_checker")
+    ):
+        stats = list(stats_it)
+        total = TestStat(
+            type_checker=type_checker,
+            total=sum([stat.total for stat in stats]),
+            passed=_remove_exponent(
+                sum([stat.passed for stat in stats], start=Decimal("0"))
+            ),
+        )
+        totals.append(total)
+
+    return totals
+
+
+def _get_versions(
+    root_dir: Path,
+    type_checkers: Sequence[TypeChecker],
+) -> list[str]:
+    versions = []
+
+    for type_checker in type_checkers:
+        name = type_checker.name
 
         try:
-            with open(version_file, "rb") as f:
-                existing_info = tomli.load(f)
-        except FileNotFoundError:
-            existing_info = {}
-        except tomli.TOMLDecodeError:
-            print(f"Error decoding {version_file}")
-            existing_info = {}
+            with root_dir.joinpath("results", name, "version.toml").open("rb") as f:
+                data = tomllib.load(f)
+        except (FileNotFoundError, tomllib.TOMLDecodeError):
+            version = None
+        else:
+            version = data.get("version") or None
 
-        version = existing_info["version"] or "Unknown version"
+        # If version file cannot be found or has missing/invalid content, fall back to name.
+        if version is None:
+            version = f"{type_checker.name} ?.?.?"
 
-        summary_html.append(f"<th class='tc-header'><div class='tc-name'>{version}</div>")
-        summary_html.append("</th>")
+        versions.append(version)
 
-    summary_html.append("</tr>")
+    return versions
 
-    for test_group_name, test_group in test_groups.items():
-        tests_in_group = [
-            case for case in test_cases if case.name.startswith(f"{test_group_name}_")
-        ]
 
-        tests_in_group.sort(key=lambda x: x.name)
-
-        # Are there any test cases in this group?
-        if len(tests_in_group) > 0:
-            summary_html.append(f'<tr><th class="column" colspan="{column_count}">')
-            summary_html.append(
-                f'<a class="test_group" href="{test_group.href}">{test_group.name}</a>'
-            )
-            summary_html.append("</th></tr>")
-
-            for test_case in tests_in_group:
-                test_case_name = test_case.stem
-
-                summary_html.append(f'<tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{test_case_name}</th>')
-
-                for type_checker in TYPE_CHECKERS:
-                    try:
-                        results_file = (
-                            root_dir
-                            / "results"
-                            / type_checker.name
-                            / f"{test_case_name}.toml"
-                        )
-                        with open(results_file, "rb") as f:
-                            results = tomli.load(f)
-                    except FileNotFoundError:
-                        results = {}
-
-                    raw_notes = results.get("notes", "").strip()
-                    conformance = results.get("conformant", "Unknown")
-                    if conformance == "Unknown":
-                        # Try to look up the automated test results and use
-                        # that if the test passes
-                        automated = results.get("conformance_automated")
-                        if automated == "Pass":
-                            conformance = "Pass"
-                    notes = "".join(
-                        [f"<p>{note}</p>" for note in raw_notes.split("\n")]
-                    )
-
-                    conformance_class = (
-                        "conformant"
-                        if conformance == "Pass"
-                        else "partially-conformant"
-                        if conformance == "Partial"
-                        else "not-conformant"
-                    )
-
-                    # Add an asterisk if there are notes to display for a "Pass".
-                    if raw_notes != "" and conformance == "Pass":
-                        conformance = "Pass*"
-
-                    conformance_cell = f"{conformance}"
-                    if raw_notes != "":
-                        conformance_cell = f'<div class="hover-text">{conformance_cell}<span class="tooltip-text" id="bottom">{notes}</span></div>'
-
-                    summary_html.append(f'<th class="column col2 {conformance_class}">{conformance_cell}</th>')
-
-                summary_html.append("</tr>")
-
-    summary_html.append("</tbody></table></div>\n")
-
-    return "\n".join(summary_html)
+def _remove_exponent(d: Decimal) -> Decimal:
+    # See https://docs.python.org/3/library/decimal.html#decimal-faq
+    return d.quantize(Decimal(1)) if d == d.to_integral() else d.normalize()

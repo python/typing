@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
-Incorrectly rejects some recursive type aliases using TypeAliasType.
-Incorrectly rejects the use of a class-scoped TypeVar in a TypeAliasType definition.
+Incorrectly rejects some recursive type aliases using `TypeAliasType`.
+Incorrectly rejects the use of a class-scoped `TypeVar` in a `TypeAliasType` definition.
 """
 output = """
 aliases_typealiastype.py:20: error: Cannot resolve name "GoodAlias5" (possible cyclic definition)  [misc]
