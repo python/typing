@@ -43,7 +43,9 @@ constructors_callable.py:145: error: Expression is of type "Class6Any", not "Any
 constructors_callable.py:145: error: Too few arguments  [call-arg]
 constructors_callable.py:164: note: Revealed type is "Overload(def (x: int) -> constructors_callable.Class7[int], def (x: str) -> constructors_callable.Class7[str])"
 constructors_callable.py:184: note: Revealed type is "def [T] (x: list[T], y: list[T]) -> constructors_callable.Class8[T]"
-constructors_callable.py:186: error: Cannot infer function type argument  [misc]
-constructors_callable.py:195: note: Revealed type is "def [T] (x: list[T], y: list[T]) -> constructors_callable.Class9"
-constructors_callable.py:197: error: Cannot infer function type argument  [misc]
+constructors_callable.py:185: error: Argument 2 has incompatible type "str"; expected "list[str]"  [arg-type]
+constructors_callable.py:187: error: Cannot infer function type argument  [misc]
+constructors_callable.py:196: note: Revealed type is "def [T] (x: list[T], y: list[T]) -> constructors_callable.Class9"
+constructors_callable.py:197: error: Argument 2 has incompatible type "str"; expected "list[str]"  [arg-type]
+constructors_callable.py:199: error: Cannot infer function type argument  [misc]
 """

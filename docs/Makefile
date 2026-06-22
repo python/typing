@@ -5,6 +5,7 @@
 # from the environment for the first two.
 SOURCEDIR     = .
 SOURCES       =
+ROOTDIR       = ..
 BUILDDIR      = _build
 PYTHON       = python3
 VENVDIR      = ./venv
@@ -38,8 +39,8 @@ text: build
 
 venv:
 	$(PYTHON) -m venv $(VENVDIR)
-	$(VENVDIR)/bin/python3 -m pip install -U pip setuptools
-	$(VENVDIR)/bin/python3 -m pip install -r requirements.txt
+	$(VENVDIR)/bin/python3 -m pip install -U pip
+	$(VENVDIR)/bin/python3 -m pip install --group $(ROOTDIR)/pyproject.toml:docs
 	@echo "The venv has been created in the $(VENVDIR) directory"
 
 # Catch-all target: route all unknown targets to Sphinx using the new

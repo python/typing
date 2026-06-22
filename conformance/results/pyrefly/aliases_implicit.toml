@@ -1,14 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not reject invalid syntax in implicit type aliases.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 106: Expected 1 errors
-Line 111: Expected 1 errors
-Line 112: Expected 1 errors
-Line 113: Expected 1 errors
-Line 117: Expected 1 errors
 """
 output = """
 ERROR aliases_implicit.py:76:9-28: `type[int | None]` is not subscriptable [unsupported-operation]
@@ -17,14 +8,26 @@ ERROR aliases_implicit.py:78:9-33: Expected 1 type argument for `GoodTypeAlias4`
 ERROR aliases_implicit.py:79:9-33: Expected 1 type argument for `GoodTypeAlias8`, got 2 [bad-specialization]
 ERROR aliases_implicit.py:80:9-33: Expected a valid ParamSpec expression, got `int` [invalid-param-spec]
 ERROR aliases_implicit.py:81:9-29: `str` is not assignable to upper bound `float` of type variable `TFloat` [bad-specialization]
+ERROR aliases_implicit.py:106:9-22: `BadTypeAlias1` is not a valid type alias: Function call cannot be used in annotations [invalid-annotation]
 ERROR aliases_implicit.py:107:9-22: Expected a type form, got instance of `list[type[int] | type[str]]` [not-a-type]
+ERROR aliases_implicit.py:107:9-22: `BadTypeAlias2` is not a valid type alias: List literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_implicit.py:108:9-22: Expected a type form, got instance of `tuple[tuple[type[int], type[str]]]` [not-a-type]
+ERROR aliases_implicit.py:108:9-22: `BadTypeAlias3` is not a valid type alias: Tuple literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_implicit.py:109:9-22: Expected a type form, got instance of `list[type[int]]` [not-a-type]
+ERROR aliases_implicit.py:109:9-22: `BadTypeAlias4` is not a valid type alias: List comprehension cannot be used in annotations [invalid-annotation]
 ERROR aliases_implicit.py:110:9-22: Expected a type form, got instance of `dict[str, str]` [not-a-type]
+ERROR aliases_implicit.py:110:9-22: `BadTypeAlias5` is not a valid type alias: Dict literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_implicit.py:111:9-22: `BadTypeAlias6` is not a valid type alias: Function call cannot be used in annotations [invalid-annotation]
+ERROR aliases_implicit.py:112:9-22: `BadTypeAlias7` is not a valid type alias: Invalid subscript expression cannot be used in annotations [invalid-annotation]
+ERROR aliases_implicit.py:113:9-22: `BadTypeAlias8` is not a valid type alias: If expression cannot be used in annotations [invalid-annotation]
 ERROR aliases_implicit.py:114:9-22: Expected a type form, got instance of `Literal[3]` [not-a-type]
 ERROR aliases_implicit.py:115:10-24: Expected a type form, got instance of `Literal[True]` [not-a-type]
+ERROR aliases_implicit.py:115:10-24: `BadTypeAlias10` is not a valid type alias: Bool literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_implicit.py:116:10-24: Expected a type form, got instance of `Literal[1]` [not-a-type]
+ERROR aliases_implicit.py:116:10-24: `BadTypeAlias11` is not a valid type alias: Number literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_implicit.py:117:10-24: `BadTypeAlias12` is not a valid type alias: Boolean operation cannot be used in annotations [invalid-annotation]
 ERROR aliases_implicit.py:118:10-24: Expected a type form, got instance of `Literal['int']` [not-a-type]
+ERROR aliases_implicit.py:118:10-24: `BadTypeAlias13` is not a valid type alias: F-string cannot be used in annotations [invalid-annotation]
 ERROR aliases_implicit.py:119:10-24: Expected a type form, got instance of `Literal['int | str']` [not-a-type]
 ERROR aliases_implicit.py:133:6-20: Expected a callable, got `type[list[Unknown] | set[Unknown]]` [not-callable]
 ERROR aliases_implicit.py:135:5-24: `type[list[Unknown] | set[Unknown]]` is not subscriptable [unsupported-operation]

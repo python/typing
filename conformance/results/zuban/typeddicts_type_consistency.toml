@@ -7,11 +7,11 @@ typeddicts_type_consistency.py:38: error: Incompatible types in assignment (expr
 typeddicts_type_consistency.py:65: error: Incompatible types in assignment (expression has type "A3", variable has type "B3")  [assignment]
 typeddicts_type_consistency.py:69: error: Extra key "y" for TypedDict "A3"  [typeddict-unknown-key]
 typeddicts_type_consistency.py:76: error: Incompatible types in assignment (expression has type "B3", variable has type "dict[str, int]")  [assignment]
-typeddicts_type_consistency.py:76: note: TypedDicts can only be assigned to a dict if the types match, there's extra_items with the same type and all keys are NotRequired
+typeddicts_type_consistency.py:76: note: TypedDicts cannot be assigned to dict, callers could delete or change keys to violate their type contract. Use Mapping[...] for read-only access or make all TypedDict keys NotRequired, with identical types, combined with a compatible `extra_items` class parameter.
 typeddicts_type_consistency.py:77: error: Incompatible types in assignment (expression has type "B3", variable has type "dict[str, object]")  [assignment]
-typeddicts_type_consistency.py:77: note: TypedDicts can only be assigned to a dict if the types match, there's extra_items with the same type and all keys are NotRequired
+typeddicts_type_consistency.py:77: note: TypedDicts cannot be assigned to dict, callers could delete or change keys to violate their type contract. Use Mapping[...] for read-only access or make all TypedDict keys NotRequired, with identical types, combined with a compatible `extra_items` class parameter.
 typeddicts_type_consistency.py:78: error: Incompatible types in assignment (expression has type "B3", variable has type "dict[Any, Any]")  [assignment]
-typeddicts_type_consistency.py:78: note: TypedDicts can only be assigned to a dict if the types match, there's extra_items with the same type and all keys are NotRequired
+typeddicts_type_consistency.py:78: note: TypedDicts cannot be assigned to dict, callers could delete or change keys to violate their type contract. Use Mapping[...] for read-only access or make all TypedDict keys NotRequired, with identical types, combined with a compatible `extra_items` class parameter.
 typeddicts_type_consistency.py:82: error: Incompatible types in assignment (expression has type "B3", variable has type "Mapping[str, int]")  [assignment]
 typeddicts_type_consistency.py:126: error: Incompatible types (expression has type "int", TypedDict item "inner_key" has type "str")  [typeddict-item]
 """

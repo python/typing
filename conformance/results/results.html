@@ -174,15 +174,15 @@
 <tr><th class="col1">&nbsp;</th>
 <th class='tc-header'><div class='tc-name'>mypy 2.1.0</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyright 1.1.409</div>
+<th class='tc-header'><div class='tc-name'>pyright 1.1.410</div>
 </th>
-<th class='tc-header'><div class='tc-name'>zuban 0.7.2</div>
+<th class='tc-header'><div class='tc-name'>zuban 0.8.2</div>
 </th>
-<th class='tc-header'><div class='tc-name'>pyrefly 1.0.0</div>
+<th class='tc-header'><div class='tc-name'>pyrefly 1.1.0</div>
 </th>
 <th class='tc-header'><div class='tc-name'>pycroscope 0.4.0</div>
 </th>
-<th class='tc-header'><div class='tc-name'>ty 0.0.40</div>
+<th class='tc-header'><div class='tc-name'>ty 0.0.50</div>
 </th>
 </tr>
 <tr><th class="column" colspan="7">
@@ -235,7 +235,7 @@
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not support assigning Union and GenericAlias objects to their runtime types.</p></span></div></th>
 <th class="column col2 not-conformant">Unsupported</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not allow assigning a TypeForm to types.GenericAlias.</p><p>Does not allow passing a forward reference to a function accepting a TypeForm.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Fails to reject various weird annotations</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 </tr>
@@ -385,7 +385,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Return annotation of Self allows returning the concrete instance of the current class.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 </tr>
@@ -401,7 +401,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not implement some restrictions on where Self can be used</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject `Self` used in a return annotation when `self` is annotated using another type variable.</p></span></div></th>
 </tr>
@@ -411,7 +411,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generics_syntax_declarations</th>
 <th class="column col2 conformant">Pass</th>
@@ -586,7 +586,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject invalid syntax in implicit type aliases.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Fails to handle various weird annotations.</p><p>Various bugs with resolving generic aliases.</p></span></div></th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject variables with `Any` or `Unknown` types when used as implicit type aliases.</p><p>Falls short on full syntactic validation of type aliases.</p></span></div></th>
 </tr>
@@ -832,7 +832,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Converting constructor to callable does not preserve class-scoped type params.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not include `__init__` when `__new__` returns `Self`.</p><p>Does not respect `NoReturn` return type on metaclass `__call__`.</p><p>Does not ignore `__init__` when `__new__` returns `Any`.</p><p>Unions overload return types.</p></span></div></th>
+<th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not include `__init__` when `__new__` returns `Self`.</p><p>Does not ignore `__init__` when `__new__` returns `Any`.</p><p>Unions overload return types.</p></span></div></th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructors_consistency</th>
 <th class="column col2 conformant"><div class="hover-text">Pass*<span class="tooltip-text" id="bottom"><p>Does not report inconsistency between __new__ and __init__ (optional).</p></span></div></th>
@@ -1052,7 +1052,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant">Unsupported</th>
+<th class="column col2 conformant">Pass</th>
 </tr>
 <tr><th class="column col1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeddicts_final</th>
 <th class="column col2 conformant">Pass</th>
@@ -1305,7 +1305,7 @@
 <th class="column col2 conformant">Pass</th>
 <th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support PEP 800 disjoint-base semantics.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
-<th class="column col2 not-conformant"><div class="hover-text">Unsupported<span class="tooltip-text" id="bottom"><p>Does not support PEP 800 disjoint-base semantics.</p></span></div></th>
+<th class="column col2 conformant">Pass</th>
 <th class="column col2 partially-conformant"><div class="hover-text">Partial<span class="tooltip-text" id="bottom"><p>Does not reject invalid class definitions due to disjoint bases, but uses disjoint base information in type narrowing.</p></span></div></th>
 <th class="column col2 conformant">Pass</th>
 </tr>
