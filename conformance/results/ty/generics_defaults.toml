@@ -5,14 +5,16 @@ Does not forbid a `TypeVar` immediately following a `TypeVarTuple` in a paramete
 Does not support `TypeVarTuple`.
 """
 errors_diff = """
-Line 188: Expected 1 errors
+Line 189: Expected 1 errors
+Line 201: Expected 1 errors
 Line 139: Unexpected errors ['generics_defaults.py:139:5: error[type-assertion-failure] Type `tuple[@Todo(TypeVarTuple), ...]` does not match asserted type `tuple[str, int]`']
 Line 140: Unexpected errors ['generics_defaults.py:140:5: error[type-assertion-failure] Type `Class_TypeVarTuple` does not match asserted type `@Todo`']
-Line 200: Unexpected errors ['generics_defaults.py:200:17: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`']
-Line 204: Unexpected errors ['generics_defaults.py:204:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`']
-Line 205: Unexpected errors ['generics_defaults.py:205:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(int | float, bool, /) -> None`']
-Line 207: Unexpected errors ['generics_defaults.py:207:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`']
-Line 208: Unexpected errors ['generics_defaults.py:208:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(bytes, /) -> None`']
+Line 203: Unexpected errors ['generics_defaults.py:203:17: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`']
+Line 208: Unexpected errors ['generics_defaults.py:208:17: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`']
+Line 212: Unexpected errors ['generics_defaults.py:212:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`']
+Line 213: Unexpected errors ['generics_defaults.py:213:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(int | float, bool, /) -> None`']
+Line 215: Unexpected errors ['generics_defaults.py:215:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`']
+Line 216: Unexpected errors ['generics_defaults.py:216:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(bytes, /) -> None`']
 """
 output = """
 generics_defaults.py:24:40: error[invalid-generic-class] Type parameter `T` without a default cannot follow earlier parameter `DefaultStrT` with a default
@@ -22,9 +24,10 @@ generics_defaults.py:140:5: error[type-assertion-failure] Type `Class_TypeVarTup
 generics_defaults.py:152:51: error[invalid-type-variable-default] TypeVar default is not assignable to the TypeVar's upper bound
 generics_defaults.py:159:52: error[invalid-type-variable-default] TypeVar default is inconsistent with the TypeVar's constraints: `int` is not one of the constraints of `Invalid2`
 generics_defaults.py:177:1: error[type-assertion-failure] Type `int` does not match asserted type `Any`
-generics_defaults.py:200:17: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`
-generics_defaults.py:204:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`
-generics_defaults.py:205:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(int | float, bool, /) -> None`
-generics_defaults.py:207:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`
-generics_defaults.py:208:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(bytes, /) -> None`
+generics_defaults.py:203:17: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`
+generics_defaults.py:208:17: error[invalid-type-form] The first argument to `Callable` must be either a list of types, ParamSpec, Concatenate, or `...`
+generics_defaults.py:212:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`
+generics_defaults.py:213:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(int | float, bool, /) -> None`
+generics_defaults.py:215:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`
+generics_defaults.py:216:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(bytes, /) -> None`
 """

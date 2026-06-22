@@ -10,15 +10,16 @@ generics_defaults.py:139: error: Expression is of type "tuple[*tuple[str, int], 
 generics_defaults.py:152: error: TypeVar default must be a subtype of the bound type  [misc]
 generics_defaults.py:159: error: TypeVar default must be one of the constraint types  [misc]
 generics_defaults.py:177: error: Expression is of type "int", not "Any"  [assert-type]
-generics_defaults.py:203: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [valid-type]
-generics_defaults.py:204: error: Expression is of type "tuple[Any, ...]", not "tuple[int, str]"  [assert-type]
-generics_defaults.py:205: error: Expression is of type "def (*Any, **Any) -> None", not "Callable[[float, bool], None]"  [assert-type]
+generics_defaults.py:211: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [valid-type]
+generics_defaults.py:212: error: Expression is of type "tuple[Any, ...]", not "tuple[int, str]"  [assert-type]
+generics_defaults.py:213: error: Expression is of type "def (*Any, **Any) -> None", not "Callable[[float, bool], None]"  [assert-type]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 188: Expected 1 errors
+Line 189: Expected 1 errors
+Line 201: Expected 1 errors
 Line 139: Unexpected errors ['generics_defaults.py:139: error: Expression is of type "tuple[*tuple[str, int], ...]", not "tuple[str, int]"  [assert-type]']
-Line 203: Unexpected errors ['generics_defaults.py:203: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [valid-type]']
-Line 204: Unexpected errors ['generics_defaults.py:204: error: Expression is of type "tuple[Any, ...]", not "tuple[int, str]"  [assert-type]']
-Line 205: Unexpected errors ['generics_defaults.py:205: error: Expression is of type "def (*Any, **Any) -> None", not "Callable[[float, bool], None]"  [assert-type]']
+Line 211: Unexpected errors ['generics_defaults.py:211: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [valid-type]']
+Line 212: Unexpected errors ['generics_defaults.py:212: error: Expression is of type "tuple[Any, ...]", not "tuple[int, str]"  [assert-type]']
+Line 213: Unexpected errors ['generics_defaults.py:213: error: Expression is of type "def (*Any, **Any) -> None", not "Callable[[float, bool], None]"  [assert-type]']
 """

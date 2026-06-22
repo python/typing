@@ -183,24 +183,32 @@ assert_type(func1(0), Any)  # E[optional-default-use]
 
 Ts = TypeVarTuple("Ts")
 T5 = TypeVar("T5", default=bool)
+TsD = TypeVarTuple("TsD", default=Unpack[tuple[int, str]])
 
 
 class Foo5(Generic[*Ts, T5]): ...  # E
 
 
 # > It is allowed to have a ``ParamSpec`` with a default following a
-# > ``TypeVarTuple`` with a default, as there can be no ambiguity between a
+# > ``TypeVarTuple`` **with a default**, as there can be no ambiguity between a
 # > type argument for the ``ParamSpec`` and one for the ``TypeVarTuple``.
+# > When the ``TypeVarTuple`` has no default, a ``ParamSpec`` with a default
+# > following it is not allowed (same rule as for ``TypeVar``).
 
 P = ParamSpec("P", default=[float, bool])
 
 
-class Foo6(Generic[*Ts, P]):
+class Foo6(Generic[*Ts, P]):  # E: Ts has no default
     x: tuple[*Ts]
     y: Callable[P, None]
 
 
-def test_foo6(a: Foo6[int, str], b: Foo6[int, str, [bytes]]):
+class Foo6b(Generic[*TsD, P]):  # OK: TsD has a default
+    x: tuple[*TsD]
+    y: Callable[P, None]
+
+
+def test_foo6b(a: Foo6b[int, str], b: Foo6b[int, str, [bytes]]):
     assert_type(a.x, tuple[int, str])
     assert_type(a.y, Callable[[float, bool], None])
 

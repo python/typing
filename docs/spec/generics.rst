@@ -2098,8 +2098,10 @@ should be bound to the ``TypeVarTuple`` or the defaulted ``TypeVar``.
    Foo[int, str, float]
 
 It is allowed to have a ``ParamSpec`` with a default following a
-``TypeVarTuple`` with a default, as there can be no ambiguity between a type argument
-for the ``ParamSpec`` and one for the ``TypeVarTuple``.
+``TypeVarTuple`` **with a default**, as there can be no ambiguity between a
+type argument for the ``ParamSpec`` and one for the ``TypeVarTuple``.
+When the ``TypeVarTuple`` has no default, a ``ParamSpec`` with a default
+following it is not allowed (same rule as for ``TypeVar``).
 
 ::
 
@@ -2107,6 +2109,8 @@ for the ``ParamSpec`` and one for the ``TypeVarTuple``.
 
    Foo[int, str]            # Ts = (int, str), P = [float, bool]
    Foo[int, str, [bytes]]   # Ts = (int, str), P = [bytes]
+
+   class Bar[*Ts, **P = [float, bool]]: ...  # Type checker error: Ts has no default
 
 Binding rules
 """""""""""""
