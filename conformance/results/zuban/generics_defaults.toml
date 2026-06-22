@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Does not flag a ``ParamSpec`` with a default following a ``TypeVarTuple`` without a default.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 201: Expected 1 errors

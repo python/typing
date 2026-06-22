@@ -1,4 +1,7 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Does not flag a ``ParamSpec`` with a default following a ``TypeVarTuple`` without a default.
+"""
 output = """
 generics_defaults.py:24:7 - error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type (reportGeneralTypeIssues)
 generics_defaults.py:66:23 - error: Too few type arguments provided for "AllTheDefaults"; expected 2 but received 1 (reportInvalidTypeArguments)
