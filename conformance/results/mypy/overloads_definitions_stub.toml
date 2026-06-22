@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Allows @override to appear in a stub file not on the first overload.
+Allows `@override` to appear in a stub file not on the first overload.
 """
 conformance_automated = "Fail"
 errors_diff = """

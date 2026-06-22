@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not evaluate Any in some cases where overload is ambiguous.
+Does not evaluate `Any` in some cases where overload is ambiguous.
 """
 conformance_automated = "Fail"
 errors_diff = """

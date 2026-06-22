@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Parameter names are lost when resolving ParamSpec
+Parameter names are lost when resolving `ParamSpec`.
 """
 conformance_automated = "Fail"
 errors_diff = """

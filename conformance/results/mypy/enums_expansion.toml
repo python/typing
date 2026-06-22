@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Improperly applies narrowing to Flag subclass.
+Improperly applies narrowing to `Flag` subclass.
 """
 conformance_automated = "Fail"
 errors_diff = """

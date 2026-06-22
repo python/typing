@@ -1,10 +1,10 @@
 conformant = "Partial"
 notes = """
-Does not allow ClassVar to be nested within Annotated.
-Does not allow Final to be nested within Annotated.
-Does not allow Required and NotRequired to be nested within Annotated.
-Does not reject type[T] compatibility for type alias defined with Annotated.
-Does not reject call of type alias defined with Annotated.
+Does not allow `ClassVar` to be nested within `Annotated`.
+Does not allow `Final` to be nested within `Annotated`.
+Does not allow `Required` and `NotRequired` to be nested within `Annotated`.
+Does not reject `type[T]` compatibility for type alias defined with `Annotated`.
+Does not reject call of type alias defined with `Annotated`.
 """
 output = """
 qualifiers_annotated.py:38: error: Bracketed expression "[...]" is not valid as a type  [valid-type]

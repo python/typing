@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
 Does not enforce invariance in some contexts
-Does not allow Any to be assigned to Never
+Does not allow `Any` to be assigned to `Never`
 """
 conformance_automated = "Fail"
 errors_diff = """

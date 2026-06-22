@@ -1,9 +1,9 @@
 conformant = "Partial"
 notes = """
-Internal error if TypeVarTuple is used in ClassVar.
-Does not reject use of ParamSpec in ClassVar.
-Rejects ClassVar nested in Annotated.
-Does not reject use of ClassVar in TypeAlias definition.
+Internal error if `TypeVarTuple` is used in `ClassVar`.
+Does not reject use of `ParamSpec` in `ClassVar`.
+Rejects `ClassVar` nested in `Annotated`.
+Does not reject use of `ClassVar` in `TypeAlias` definition.
 """
 output = """
 classes_classvar.py:38: error: ClassVar[...] must have at most one type argument  [valid-type]

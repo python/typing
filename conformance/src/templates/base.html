@@ -1,0 +1,102 @@
+{%- set columns = versions|length -%}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Type system conformance test results for Python.">
+        <meta name="viewport" content="initial-scale=1.0, width=device-width">
+        <base target="_blank">
+        <title>Python Type System Conformance Test Results</title>
+        <style>
+            {% filter indent(width=12) -%}
+            {% include "style.css" %}
+            {%- endfilter %}
+        </style>
+        <link rel="icon" href="data:image/svg+xml,%3csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3e%3ctext%20y=%22.9em%22%20font-size=%2290%22%3e📘%3c/text%3e%3c/svg%3e">
+    </head>
+    <body>
+        <header>
+            <h1>Python Type System Conformance Test Results</h1>
+            <p class="disclaimer">
+                While specification conformance is important for the ecosystem, we don't recommend
+                using it as the primary basis for choosing a type checker. It is not representative
+                of many of the things users typically care about.
+            </p>
+            <form>
+                <label for="color-scheme">Theme:</label>
+                <select id="color-scheme">
+                    <option value="auto">🌗 Auto</option>
+                    <option value="dark">🌑 Dark</option>
+                    <option value="light">🌕 Light</option>
+                </select>
+            </form>
+        </header>
+        <main>
+            <table>
+                <colgroup>
+                    <col class="col1" span="1">
+                    <col class="col2" span="{{ columns }}">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        {%- for version in versions %}
+                        <th scope="col">{{ version }}</th>
+                        {%- endfor %}
+                    </tr>
+                </thead>
+                {%- for group in groups %}
+                <tbody>
+                    <tr>
+                        <th colspan="{{ columns + 1 }}" scope="colgroup">
+                            <a href="{{ group.href }}">{{ group.name }}</a>
+                        </th>
+                    </tr>
+                    {%- for case in group.cases %}
+                    <tr>
+                        <th scope="row">{{ case.name }}</th>
+                        {%- for result in case.results %}
+                        {%- if result.notes %}
+                        <td class="{{ result.conformance|conformance_class }} tooltip">
+                            {{ result.conformance }}
+                            <ul class="notes">
+                                {%- for note in result.notes %}
+                                <li>{{ note }}</li>
+                                {%- endfor %}
+                            </ul>
+                        </td>
+                        {%- else %}
+                        <td class="{{ result.conformance|conformance_class }}">{{ result.conformance }}</td>
+                        {%- endif %}
+                        {%- endfor %}
+                    </tr>
+                    {%- endfor %}
+                    <tr class="summary">
+                        <td></td>
+                        {%- for stats in group.stats %}
+                        <td>{{ stats.passed }} / {{ stats.total }} • {{ stats.percentage }}</td>
+                        {%- endfor %}
+                    </tr>
+                </tbody>
+                {%- endfor %}
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        {%- for stats in totals %}
+                        <td>{{ stats.passed }} / {{ stats.total }} • {{ stats.percentage }}</td>
+                        {%- endfor %}
+                    </tr>
+                </tfoot>
+            </table>
+        </main>
+        <script>
+            const selector = document.querySelector("#color-scheme");
+
+            selector.addEventListener("change", (event) => {
+                localStorage.setItem("color-scheme", event.target.value);
+            });
+
+            selector.value = localStorage.getItem("color-scheme") ?? "auto";
+        </script>
+    </body>
+</html>

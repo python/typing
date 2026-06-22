@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Allows callable without kwargs to be assigned to callable with unpacked kwargs
+Allows callable without kwargs to be assigned to callable with unpacked kwargs.
 """
 output = """
 callables_kwargs.py:46: error: Missing named argument "v1" for "func1"  [call-arg]

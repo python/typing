@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not validate call to custom metaclass __call__ method through type[T].
+Does not validate call to custom metaclass `__call__` method through `type[T]`.
 """
 conformance_automated = "Fail"
 errors_diff = """

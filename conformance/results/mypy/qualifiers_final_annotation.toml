@@ -1,9 +1,9 @@
 conformant = "Partial"
 notes = """
-Does not treat use of Final name as if it was replaced by the literal in NamedTuple definition.
-Does not allow conditional assignment of Final instance variable in __init__ method.
-Does not allow redefinition of private class variable that is marked Final in parent class.
-Does not report modification of local Final variable via "for" statement.
+Does not treat use of `Final` name as if it was replaced by the literal in `NamedTuple` definition.
+Does not allow conditional assignment of `Final` instance variable in `__init__` method.
+Does not allow redefinition of private class variable that is marked `Final` in parent class.
+Does not report modification of local `Final` variable via `for` statement.
 """
 output = """
 qualifiers_final_annotation.py:16: error: Type in Final[...] can only be omitted if there is an initializer  [misc]
