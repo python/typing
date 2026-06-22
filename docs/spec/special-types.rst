@@ -117,8 +117,8 @@ to a variable of any type ``T``::
       v1: int = x   # OK — Never is a subtype of int
       v2: str = x   # OK — Never is a subtype of str
 
-No type other than ``Never`` itself (and :ref:`Any <any>`) is a subtype of
-``Never``.  In particular, ``object`` is *not* a subtype of ``Never``::
+No type other than ``Never`` itself is a subtype of ``Never``.  In
+particular, ``object`` is *not* a subtype of ``Never``::
 
   def g(x: object) -> Never:
       return x  # Error — object is not assignable to Never
@@ -162,9 +162,10 @@ apply: ``Container[Never]`` is only assignable to ``Container[Never]``::
 ``type[Never]``
 ^^^^^^^^^^^^^^^^^
 
-``type[Never]`` represents the class object for a type that has no instances.
-In practice this type is rarely useful directly, but it is the correct result
-of narrowing a ``type[T]`` variable to an impossible branch.
+``type[Never]`` is a subtype of ``type[T]`` for every type ``T``, just as
+``Never`` is a subtype of every type ``T``.  In practice a variable receives
+this type only in provably unreachable code — for example, when narrowing a
+``type[int] | type[str]`` through all possible branches.
 
 .. _`numeric-promotions`:
 
