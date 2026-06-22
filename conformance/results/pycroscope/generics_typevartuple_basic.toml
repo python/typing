@@ -1,15 +1,15 @@
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 111: Expected 1 errors
 """
 output = """
-./generics_typevartuple_basic.py:42:33: Incompatible argument type for shape: expected tuple[*tuple[Shape, ...]] but got NewType('Height', int) [incompatible_argument]
-./generics_typevartuple_basic.py:43:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Batch', int), NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array~[NewType('Batch', int), NewType('Width', int)] [incompatible_assignment]
-./generics_typevartuple_basic.py:44:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Time', int), NewType('Batch', int), NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array~[NewType('Time', int), NewType('Batch', int), NewType('Width', int), NewType('Height', int)] [incompatible_assignment]
-./generics_typevartuple_basic.py:52:21: TypeVarTuple must be unpacked [invalid_base]
-./generics_typevartuple_basic.py:53:30: TypeVarTuple must be unpacked [invalid_annotation]
-./generics_typevartuple_basic.py:56:27: TypeVarTuple must be unpacked [invalid_annotation]
-./generics_typevartuple_basic.py:59:17: TypeVarTuple must be unpacked [invalid_annotation]
-./generics_typevartuple_basic.py:65:6: In call to typing.TypeVarTuple: Got an unexpected keyword argument 'covariant' [incompatible_call]
+./generics_typevartuple_basic.py:43:33: Incompatible argument type for shape: expected tuple[*tuple[Shape, ...]] but got NewType('Height', int) [incompatible_argument]
+./generics_typevartuple_basic.py:44:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Batch', int), NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array~[NewType('Batch', int), NewType('Width', int)] [incompatible_assignment]
+./generics_typevartuple_basic.py:45:0: Incompatible assignment: expected ./generics_typevartuple_basic.py.Array[NewType('Time', int), NewType('Batch', int), NewType('Height', int), NewType('Width', int)], got ./generics_typevartuple_basic.py.Array~[NewType('Time', int), NewType('Batch', int), NewType('Width', int), NewType('Height', int)] [incompatible_assignment]
+./generics_typevartuple_basic.py:53:21: TypeVarTuple must be unpacked [invalid_base]
+./generics_typevartuple_basic.py:54:30: TypeVarTuple must be unpacked [invalid_annotation]
+./generics_typevartuple_basic.py:57:27: TypeVarTuple must be unpacked [invalid_annotation]
+./generics_typevartuple_basic.py:60:17: TypeVarTuple must be unpacked [invalid_annotation]
 ./generics_typevartuple_basic.py:66:6: In call to typing.TypeVarTuple: Takes 1 positional arguments but 3 were given [incompatible_call]
 ./generics_typevartuple_basic.py:67:6: In call to typing.TypeVarTuple: Got an unexpected keyword argument 'bound' [incompatible_call]
 ./generics_typevartuple_basic.py:91:0: Cannot resolve type variables [incompatible_call]

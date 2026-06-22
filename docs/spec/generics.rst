@@ -2724,10 +2724,10 @@ instance (a concrete anonymous class that is assumed to meet the bounds or
 constraints of the type parameter). In the ``upper`` specialized class,
 specialize the target type parameter with:
 
- an ``object`` instance for a type variable.
- a ``*tuple[object, ...]`` value for a type variable tuple.
- a for a parameter specification, a 'top signature' value, i.e. a type
- that represents the super type of every possible signature.
+ an ``object`` instance for a type variable. a ``*tuple[object, ...]``
+ value for a type variable tuple. For a parameter specification,
+ a 'top signature' value, i.e. a type that represents the super type of
+ every possible signature.
 
 This specialization ignores the type parameter's upper bound or constraints.
 In the ``lower`` specialized class, specialize the target type parameter with

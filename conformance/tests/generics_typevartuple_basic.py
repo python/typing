@@ -7,6 +7,7 @@ Tests basic usage of TypeVarTuple.
 from typing import Generic, NewType, TypeVarTuple, assert_type
 
 Ts = TypeVarTuple("Ts")
+Ts1 = TypeVarTuple("Ts1")
 
 
 class Array1(Generic[*Ts]):
@@ -103,5 +104,9 @@ def func3(x: Array[Height], y: Array[Width], z: Array[Height, Width]):
 # > Only a single type variable tuple may appear in a type parameter list.
 
 
-class Array3[*Ts1, *Ts2]:  # E
+class Array3(Generic[*Ts, *Ts1]):  # E
+    ...
+
+
+class Array4[*Ts1, *Ts2]:  # E
     ...
