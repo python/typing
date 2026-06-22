@@ -2071,16 +2071,39 @@ Function Defaults
 
 In generic functions, type checkers may use a type parameter's default when the
 type parameter cannot be solved to anything. We leave the semantics of this
-usage unspecified, as ensuring the ``default`` is returned in every code path
-where the type parameter can go unsolved may be too hard to implement. Type
-checkers are free to either disallow this case or experiment with implementing
-support.
+usage unspecified for the general case, as ensuring the ``default`` is returned
+in every code path where the type parameter can go unsolved may be too hard to
+implement. Type checkers are free to either disallow this case or experiment
+with implementing support.
 
 ::
 
    T = TypeVar('T', default=int)
    def func(x: int | set[T]) -> T: ...
    reveal_type(func(0))  # a type checker may reveal T's default of int here
+
+However, a specific and important case **is** specified: when a type parameter
+``S`` with default ``D`` is used as the declared type of exactly one parameter
+``p`` and that parameter also has a default argument value whose type is
+assignable to ``D``, the following rules apply:
+
+1. **Function validity**: the function definition is valid.  The default
+   argument value is checked for assignability against ``D`` (the TypeVar's
+   default), not against the free TypeVar ``S`` itself.
+
+2. **Call-site inference**: a call that omits ``p`` should be type-checked as
+   if ``p`` were passed its default value.  Type checkers must infer ``S = D``
+   in this case.
+
+::
+
+   class Getter[T]:
+       def get[S = None](self, default: S = None) -> T | S: ...  # Valid
+
+   getter: Getter[str]
+   assert_type(getter.get(), str | None)      # S = None (omitted → default value)
+   assert_type(getter.get(None), str | None)  # S = None (explicit)
+   assert_type(getter.get(42), str | int)     # S = int
 
 Defaults following ``TypeVarTuple``
 """""""""""""""""""""""""""""""""""

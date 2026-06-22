@@ -222,3 +222,27 @@ class Foo7(Generic[DefaultIntT]):
 foo7 = Foo7()
 assert_type(Foo7.meth(foo7), Foo7[int])
 assert_type(Foo7().attr, int)
+
+
+# > When a type parameter ``S`` with default ``D`` is used as the declared type
+# > of exactly one parameter ``p`` and that parameter also has a default
+# > argument value whose type is assignable to ``D``:
+# > 1. The function definition is valid.
+# > 2. A call that omits ``p`` should be type-checked as if ``p`` were passed
+# >    its default value.  Type checkers must infer ``S = D`` in this case.
+
+T8 = TypeVar("T8")
+S8 = TypeVar("S8", default=None)
+
+
+class Getter(Generic[T8]):
+    def get(self, default: S8 = None) -> T8 | S8:  # OK
+        raise NotImplementedError
+
+
+class GetterStr(Getter[str]): ...
+
+
+getter = GetterStr()
+assert_type(getter.get(), str | None)      # S8 = None (omitted → default value)
+assert_type(getter.get(None), str | None)  # S8 = None (explicit)
