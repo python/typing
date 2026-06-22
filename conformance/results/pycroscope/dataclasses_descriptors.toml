@@ -5,14 +5,14 @@ Does not preserve type parameters when accessing a non-data descriptor through t
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 76: Unexpected errors ['.\\\\dataclasses_descriptors.py:76:12:   list[Any[generic_argument]] is not equivalent to list[str]']
-Line 85: Unexpected errors ['.\\\\dataclasses_descriptors.py:85:12:   Any[generic_argument] is not equivalent to .\\\\dataclasses_descriptors.py.Desc2[str]']
+Line 76: Unexpected errors ['./dataclasses_descriptors.py:76:12:   list[Any[generic_argument]] is not equivalent to list[str]']
+Line 85: Unexpected errors ['./dataclasses_descriptors.py:85:12:   Any[generic_argument] is not equivalent to ./dataclasses_descriptors.py.Desc2[str]']
 """
 output = """
-.\\dataclasses_descriptors.py:74:12:   Any[error] is not equivalent to .\\dataclasses_descriptors.py.Desc2[int]
-.\\dataclasses_descriptors.py:74:12: <class 'DC2'> has no attribute 'x' [undefined_attribute]
-.\\dataclasses_descriptors.py:75:12:   Any[error] is not equivalent to .\\dataclasses_descriptors.py.Desc2[str]
-.\\dataclasses_descriptors.py:75:12: <class 'DC2'> has no attribute 'y' [undefined_attribute]
-.\\dataclasses_descriptors.py:76:12:   list[Any[generic_argument]] is not equivalent to list[str]
-.\\dataclasses_descriptors.py:85:12:   Any[generic_argument] is not equivalent to .\\dataclasses_descriptors.py.Desc2[str]
+./dataclasses_descriptors.py:74:12:   Any[error] is not equivalent to ./dataclasses_descriptors.py.Desc2[int]
+./dataclasses_descriptors.py:74:12: <class 'DC2'> has no attribute 'x' [undefined_attribute]
+./dataclasses_descriptors.py:75:12:   Any[error] is not equivalent to ./dataclasses_descriptors.py.Desc2[str]
+./dataclasses_descriptors.py:75:12: <class 'DC2'> has no attribute 'y' [undefined_attribute]
+./dataclasses_descriptors.py:76:12:   list[Any[generic_argument]] is not equivalent to list[str]
+./dataclasses_descriptors.py:85:12:   Any[generic_argument] is not equivalent to ./dataclasses_descriptors.py.Desc2[str]
 """
