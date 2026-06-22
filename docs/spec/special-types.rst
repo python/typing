@@ -136,7 +136,7 @@ Type checkers may suppress errors in unreachable blocks.
 Using ``Never`` as a type argument
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``Never`` may appear as a type argument.  When used with a :term:`covariant`
+``Never`` may appear as a type argument.  When used with a covariant
 type parameter, ``Container[Never]`` is a subtype of ``Container[T]`` for
 every type ``T``, because ``Never`` is a subtype of every type.  This is
 useful to type an empty container whose element type is not yet known::
@@ -146,7 +146,7 @@ useful to type an empty container whose element type is not yet known::
   def empty_list() -> list[Never]:
       return []
 
-When used with an :term:`invariant` type parameter, the normal invariance rules
+When used with an invariant type parameter, the normal invariance rules
 apply: ``Container[Never]`` is only assignable to ``Container[Never]``::
 
   from typing import Generic, Never, TypeVar
