@@ -1,7 +1,4 @@
 conformant = "Unsupported"
-notes = """
-Not supported.
-"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 215: Expected 1 errors

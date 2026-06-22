@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not support version-conditional items in TypedDict definitions.
+Does not support version-conditional items in `TypedDict` definitions.
 """
 output = """
 typeddicts_class_syntax.py:30:5 - error: TypedDict classes can contain only type annotations (reportGeneralTypeIssues)

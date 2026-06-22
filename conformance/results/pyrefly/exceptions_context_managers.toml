@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Some error suppressing context managers are not detected
+Some error suppressing context managers are not detected.
 """
 conformance_automated = "Fail"
 errors_diff = """

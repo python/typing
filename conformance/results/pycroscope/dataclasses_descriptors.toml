@@ -2,6 +2,7 @@ conformant = "Partial"
 notes = """
 Does not preserve a non-data descriptor object stored in a dataclass instance when a class attribute of the same name is also present.
 Does not preserve type parameters when accessing a non-data descriptor through the dataclass.
+See also: <https://github.com/python/typing/issues/2259>
 """
 conformance_automated = "Fail"
 errors_diff = """

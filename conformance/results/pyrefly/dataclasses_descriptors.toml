@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
 Rejects a data descriptor field whose `__get__` and `__set__` have differing types.
-Does not preserve a non-data descriptor object stored in a dataclass instance when a class attribute of the same name is also present.
+Does not allow non-data descriptors as dataclass fields.
 """
 conformance_automated = "Fail"
 errors_diff = """
