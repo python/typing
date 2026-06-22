@@ -117,14 +117,14 @@ to a variable of any type ``T``::
       v1: int = x   # OK — Never is a subtype of int
       v2: str = x   # OK — Never is a subtype of str
 
-No type other than ``Never`` itself is a subtype of ``Never``.  In
-particular, ``object`` is *not* a subtype of ``Never``::
+For ordinary inhabited types such as ``int`` or ``str``, no value is
+assignable to ``Never``::
 
-  def g(x: object) -> Never:
-      return x  # Error — object is not assignable to Never
+  def g(x: int) -> Never:
+      return x  # Error — int is not assignable to Never
 
-Because ``Never`` is a subtype of every type ``T``, the union ``Never | T`` is
-equivalent to ``T``::
+Because ``Never`` is a subtype of every fully static type ``T``, the union
+``Never | T`` is equivalent to ``T``::
 
   from typing import Never, Union
 
@@ -138,12 +138,14 @@ Using ``Never`` as a type argument
 
 ``Never`` may appear as a type argument.  When used with a covariant
 type parameter, ``Container[Never]`` is a subtype of ``Container[T]`` for
-every type ``T``, because ``Never`` is a subtype of every type.  This is
-useful to type an empty container whose element type is not yet known::
+every fully static type ``T``, because ``Never`` is a subtype of every fully
+static type.  This is useful to type an empty container whose element type is
+not yet known::
 
+  from collections.abc import Sequence
   from typing import Never
 
-  def empty_list() -> list[Never]:
+  def empty_sequence() -> Sequence[Never]:
       return []
 
 When used with an invariant type parameter, the normal invariance rules
@@ -162,10 +164,10 @@ apply: ``Container[Never]`` is only assignable to ``Container[Never]``::
 ``type[Never]``
 ^^^^^^^^^^^^^^^^^
 
-``type[Never]`` is a subtype of ``type[T]`` for every type ``T``, just as
-``Never`` is a subtype of every type ``T``.  In practice a variable receives
-this type only in provably unreachable code — for example, when narrowing a
-``type[int] | type[str]`` through all possible branches.
+``type[Never]`` is a subtype of ``type[T]`` for every fully static type ``T``,
+just as ``Never`` is a subtype of every fully static type ``T``.  In practice
+a variable receives this type only in provably unreachable code — for example,
+when narrowing a ``type[int] | type[str]`` through all possible branches.
 
 .. _`numeric-promotions`:
 
