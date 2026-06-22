@@ -1,5 +1,12 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not honor `@override` compatibility checks for `__init__` and `__new__`:
+the incompatible constructor overrides in `ChildC2` are not flagged.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Lines 134, 135: Expected error (tag 'init')
+Lines 137, 138: Expected error (tag 'new')
 """
 output = """
 classes_override.py:53:9: error[invalid-explicit-override] Method `method3` is decorated with `@override` but does not override anything
