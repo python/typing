@@ -2,12 +2,11 @@ conformant = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
 Line 16: Expected 1 errors
-Line 36: Expected 1 errors
 Line 60: Expected 1 errors
 Line 71: Expected 1 errors
 Line 24: Unexpected errors ['generics_typevartuple_variance.py:24:42 - error: Type "ContravariantTypeVarTuple[object]" is not assignable to declared type "ContravariantTypeVarTuple[int]"']
 Line 33: Unexpected errors ['generics_typevartuple_variance.py:33:42 - error: Type "CovariantTypeVarTuple[int]" is not assignable to declared type "CovariantTypeVarTuple[object]"']
-Line 34: Unexpected errors ['generics_typevartuple_variance.py:34:53 - error: Type "CovariantTypeVarTuple[int, object]" is not assignable to declared type "CovariantTypeVarTuple[float, float]"']
+Line 34: Unexpected errors ['generics_typevartuple_variance.py:34:54 - error: Type "CovariantTypeVarTuple[int, int]" is not assignable to declared type "CovariantTypeVarTuple[float, float]"']
 Line 43: Unexpected errors ['generics_typevartuple_variance.py:43:27 - error: Unpack operator not allowed in type expression (reportInvalidTypeForm)', 'generics_typevartuple_variance.py:43:28 - error: "InTs" is not defined (reportUndefinedVariable)']
 Line 46: Unexpected errors ['generics_typevartuple_variance.py:46:31 - error: "InTs" is not defined (reportUndefinedVariable)', 'generics_typevartuple_variance.py:46:31 - error: Unpack is not allowed in this context (reportInvalidTypeForm)']
 Line 54: Unexpected errors ['generics_typevartuple_variance.py:54:29 - error: "contravariant" is unknown parameter to TypeVarTuple (reportGeneralTypeIssues)']
@@ -34,9 +33,18 @@ generics_typevartuple_variance.py:32:39 - error: Type "CovariantTypeVarTuple[obj
 generics_typevartuple_variance.py:33:42 - error: Type "CovariantTypeVarTuple[int]" is not assignable to declared type "CovariantTypeVarTuple[object]"
   "CovariantTypeVarTuple[int]" is not assignable to "CovariantTypeVarTuple[object]"
     Type parameter "OutTs@CovariantTypeVarTuple" is invariant, but "*tuple[int]" is not the same as "*tuple[object]" (reportAssignmentType)
-generics_typevartuple_variance.py:34:53 - error: Type "CovariantTypeVarTuple[int, object]" is not assignable to declared type "CovariantTypeVarTuple[float, float]"
+generics_typevartuple_variance.py:34:54 - error: Type "CovariantTypeVarTuple[int, int]" is not assignable to declared type "CovariantTypeVarTuple[float, float]"
+  "CovariantTypeVarTuple[int, int]" is not assignable to "CovariantTypeVarTuple[float, float]"
+    Type parameter "OutTs@CovariantTypeVarTuple" is invariant, but "*tuple[int, int]" is not the same as "*tuple[float, float]" (reportAssignmentType)
+generics_typevartuple_variance.py:35:54 - error: Type "CovariantTypeVarTuple[int, object]" is not assignable to declared type "CovariantTypeVarTuple[float, float]"
   "CovariantTypeVarTuple[int, object]" is not assignable to "CovariantTypeVarTuple[float, float]"
     Type parameter "OutTs@CovariantTypeVarTuple" is invariant, but "*tuple[int, object]" is not the same as "*tuple[float, float]" (reportAssignmentType)
+generics_typevartuple_variance.py:36:54 - error: Type "CovariantTypeVarTuple[object, int]" is not assignable to declared type "CovariantTypeVarTuple[float, float]"
+  "CovariantTypeVarTuple[object, int]" is not assignable to "CovariantTypeVarTuple[float, float]"
+    Type parameter "OutTs@CovariantTypeVarTuple" is invariant, but "*tuple[object, int]" is not the same as "*tuple[float, float]" (reportAssignmentType)
+generics_typevartuple_variance.py:37:54 - error: Type "CovariantTypeVarTuple[object, object]" is not assignable to declared type "CovariantTypeVarTuple[float, float]"
+  "CovariantTypeVarTuple[object, object]" is not assignable to "CovariantTypeVarTuple[float, float]"
+    Type parameter "OutTs@CovariantTypeVarTuple" is invariant, but "*tuple[object, object]" is not the same as "*tuple[float, float]" (reportAssignmentType)
 generics_typevartuple_variance.py:43:27 - error: Unpack operator not allowed in type expression (reportInvalidTypeForm)
 generics_typevartuple_variance.py:43:28 - error: "InTs" is not defined (reportUndefinedVariable)
 generics_typevartuple_variance.py:46:31 - error: "InTs" is not defined (reportUndefinedVariable)

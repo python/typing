@@ -2,12 +2,11 @@ conformant = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
 Line 16: Expected 1 errors
-Line 36: Expected 1 errors
 Line 60: Expected 1 errors
 Line 71: Expected 1 errors
 Line 24: Unexpected errors ['`ContravariantTypeVarTuple[object]` is not assignable to `ContravariantTypeVarTuple[int]` [bad-assignment]']
 Line 33: Unexpected errors ['`CovariantTypeVarTuple[int]` is not assignable to `CovariantTypeVarTuple[object]` [bad-assignment]']
-Line 34: Unexpected errors ['4: `CovariantTypeVarTuple[int, object]` is not assignable to `CovariantTypeVarTuple[float, float]` [bad-assignment]']
+Line 34: Unexpected errors ['`CovariantTypeVarTuple[int, int]` is not assignable to `CovariantTypeVarTuple[float, float]` [bad-assignment]']
 Line 54: Unexpected errors ['Unexpected keyword argument `contravariant` to TypeVarTuple [invalid-type-var-tuple]']
 Line 65: Unexpected errors ['`ContravariantTypeVarTupleOld[object]` is not assignable to `ContravariantTypeVarTupleOld[int]` [bad-assignment]']
 Line 68: Unexpected errors ['Unexpected keyword argument `covariant` to TypeVarTuple [invalid-type-var-tuple]']
@@ -20,7 +19,10 @@ ERROR generics_typevartuple_variance.py:23:53-85: `ContravariantTypeVarTuple[int
 ERROR generics_typevartuple_variance.py:24:42-77: `ContravariantTypeVarTuple[object]` is not assignable to `ContravariantTypeVarTuple[int]` [bad-assignment]
 ERROR generics_typevartuple_variance.py:32:39-70: `CovariantTypeVarTuple[object]` is not assignable to `CovariantTypeVarTuple[int]` [bad-assignment]
 ERROR generics_typevartuple_variance.py:33:42-70: `CovariantTypeVarTuple[int]` is not assignable to `CovariantTypeVarTuple[object]` [bad-assignment]
-ERROR generics_typevartuple_variance.py:34:53-37:4: `CovariantTypeVarTuple[int, object]` is not assignable to `CovariantTypeVarTuple[float, float]` [bad-assignment]
+ERROR generics_typevartuple_variance.py:34:54-88: `CovariantTypeVarTuple[int, int]` is not assignable to `CovariantTypeVarTuple[float, float]` [bad-assignment]
+ERROR generics_typevartuple_variance.py:35:54-91: `CovariantTypeVarTuple[int, object]` is not assignable to `CovariantTypeVarTuple[float, float]` [bad-assignment]
+ERROR generics_typevartuple_variance.py:36:54-91: `CovariantTypeVarTuple[object, int]` is not assignable to `CovariantTypeVarTuple[float, float]` [bad-assignment]
+ERROR generics_typevartuple_variance.py:37:54-94: `CovariantTypeVarTuple[object, object]` is not assignable to `CovariantTypeVarTuple[float, float]` [bad-assignment]
 ERROR generics_typevartuple_variance.py:50:45-76: `InvariantTypeVarTupleOld[int]` is not assignable to `InvariantTypeVarTupleOld[object]` [bad-assignment]
 ERROR generics_typevartuple_variance.py:51:42-76: `InvariantTypeVarTupleOld[object]` is not assignable to `InvariantTypeVarTupleOld[int]` [bad-assignment]
 ERROR generics_typevartuple_variance.py:54:29-47: Unexpected keyword argument `contravariant` to TypeVarTuple [invalid-type-var-tuple]

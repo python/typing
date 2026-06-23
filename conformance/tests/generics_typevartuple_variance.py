@@ -31,10 +31,10 @@ class CovariantTypeVarTuple[*OutTs]:
 
 out_int: CovariantTypeVarTuple[int] = CovariantTypeVarTuple[object]()  # E
 out_obj: CovariantTypeVarTuple[object] = CovariantTypeVarTuple[int]()  # OK
-out_multiple: CovariantTypeVarTuple[float, float] = CovariantTypeVarTuple[
-    int,  # OK
-    object,  # E
-]()
+out_multiple1: CovariantTypeVarTuple[float, float] = CovariantTypeVarTuple[int,  int]()  # OK
+out_multiple2: CovariantTypeVarTuple[float, float] = CovariantTypeVarTuple[int,  object]()  # E
+out_multiple3: CovariantTypeVarTuple[float, float] = CovariantTypeVarTuple[object,  int]()  # E
+out_multiple4: CovariantTypeVarTuple[float, float] = CovariantTypeVarTuple[object,  object]()  # E
 
 
 Ts = TypeVarTuple("Ts")
