@@ -1,4 +1,3 @@
-conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
@@ -25,9 +24,13 @@ constructors_callable.py:144:13 - information: Type of "r6_any" is "() -> Any"
 constructors_callable.py:146:8 - error: Expected 0 positional arguments (reportCallIssue)
 constructors_callable.py:164:5 - information: Type of "r7" is "Overload[(x: int) -> Class7[int], (x: str) -> Class7[str]]"
 constructors_callable.py:184:13 - information: Type of "r8" is "(x: list[T@Class8], y: list[T@Class8]) -> Class8[T@Class8]"
-constructors_callable.py:186:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@Class8]"
+constructors_callable.py:185:10 - error: Argument of type "Literal['not a list']" cannot be assigned to parameter "y" of type "list[T@Class8]"
+  "Literal['not a list']" is not assignable to "list[str]" (reportArgumentType)
+constructors_callable.py:187:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@Class8]"
   "Literal['']" is not assignable to "int" (reportArgumentType)
-constructors_callable.py:195:13 - information: Type of "r9" is "(x: list[T@__init__], y: list[T@__init__]) -> Class9"
-constructors_callable.py:197:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@__init__]"
+constructors_callable.py:196:13 - information: Type of "r9" is "(x: list[T@__init__], y: list[T@__init__]) -> Class9"
+constructors_callable.py:197:10 - error: Argument of type "Literal['not a list']" cannot be assigned to parameter "y" of type "list[T@__init__]"
+  "Literal['not a list']" is not assignable to "list[str]" (reportArgumentType)
+constructors_callable.py:199:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@__init__]"
   "Literal['']" is not assignable to "int" (reportArgumentType)
 """

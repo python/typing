@@ -3,14 +3,16 @@ name = "typing-conformance"
 version = "0.1.0"
 requires-python = "==3.12.*"
 dependencies = [
+    "jinja2",
+    "markdown",
     "mypy",
     "pycroscope",
     "pyrefly",
     "pyright",
-    "tomli",
     "tomlkit",
-    "zuban",
     "ty",
+    "types-markdown",
+    "zuban",
 ]
 
 [tool.uv]

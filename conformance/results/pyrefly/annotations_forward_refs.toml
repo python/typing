@@ -9,6 +9,7 @@ Line 87: Unexpected errors ['Expected a type form, got instance of `(self: Self@
 Line 96: Unexpected errors ['assert_type(Unknown, int) failed [assert-type]']
 """
 output = """
+ERROR annotations_forward_refs.py:23:12-18: `ClassA` is uninitialized [unbound-name]
 ERROR annotations_forward_refs.py:24:7-21: `|` union syntax does not work with string literals [invalid-annotation]
 ERROR annotations_forward_refs.py:25:7-21: `|` union syntax does not work with string literals [invalid-annotation]
 ERROR annotations_forward_refs.py:41:10-50: Function call cannot be used in annotations [invalid-annotation]
@@ -20,6 +21,7 @@ ERROR annotations_forward_refs.py:46:10-26: Function call cannot be used in anno
 ERROR annotations_forward_refs.py:47:10-18: Invalid subscript expression cannot be used in annotations [invalid-annotation]
 ERROR annotations_forward_refs.py:48:10-31: If expression cannot be used in annotations [invalid-annotation]
 ERROR annotations_forward_refs.py:49:10-14: Expected a type form, got instance of `Literal[1]` [not-a-type]
+ERROR annotations_forward_refs.py:49:10-14: `var1` is not a valid type alias: Number literal cannot be used in annotations [invalid-annotation]
 ERROR annotations_forward_refs.py:50:11-15: Bool literal cannot be used in annotations [invalid-annotation]
 ERROR annotations_forward_refs.py:51:11-12: Number literal cannot be used in annotations [invalid-annotation]
 ERROR annotations_forward_refs.py:52:11-13: Unary operation cannot be used in annotations [invalid-annotation]

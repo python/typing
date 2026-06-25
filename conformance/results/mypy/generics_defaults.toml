@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
-Does not detect a TypeVar with a default used after a TypeVarTuple.
-Does not fully support defaults on TypeVarTuple and ParamSpec.
+Does not detect a `TypeVar` with a default used after a `TypeVarTuple`.
+Does not fully support defaults on `TypeVarTuple` and `ParamSpec`.
 """
 output = """
 generics_defaults.py:24: error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type  [misc]

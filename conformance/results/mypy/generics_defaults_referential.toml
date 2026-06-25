@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not correctly handle defaults referencing other TypeVars.
+Does not correctly handle defaults referencing other `TypeVar`s.
 """
 output = """
 generics_defaults_referential.py:23: error: Expression is of type "type[slice[StartT, StopT, StepT]]", not "type[slice[int, int, int | None]]"  [assert-type]

@@ -19,4 +19,14 @@ generics_basic.py:163:12: error[invalid-argument-type] `<class 'int'>` is not a 
 generics_basic.py:171:1: error[invalid-generic-class] `Generic` base class must include all type variables used in other base classes
 generics_basic.py:172:1: error[invalid-generic-class] `Generic` base class must include all type variables used in other base classes
 generics_basic.py:208:27: error[invalid-metaclass] Generic metaclasses are not supported
+generics_basic.py:223:22: error[invalid-argument-type] Argument to function `takes_two_lists` is incorrect: Expected `list[int]`, found `Literal["not a list"]`
+generics_basic.py:225:17: error[invalid-argument-type] Argument to function `takes_two_lists` is incorrect: Expected `list[int | str]`, found `list[int]`
+generics_basic.py:225:22: error[invalid-argument-type] Argument to function `takes_two_lists` is incorrect: Expected `list[int | str]`, found `list[str]`
+generics_basic.py:232:21: error[invalid-argument-type] Argument to function `takes_two_lists` is incorrect: Expected `list[int | str]`, found `list[int]`
+generics_basic.py:232:24: error[invalid-argument-type] Argument to function `takes_two_lists` is incorrect: Expected `list[int | str]`, found `list[str]`
+generics_basic.py:240:26: error[invalid-argument-type] Argument to function `takes_two_int_lists` is incorrect: Expected `list[int]`, found `Literal["not a list"]`
+generics_basic.py:241:26: error[invalid-argument-type] Argument to function `takes_two_int_lists` is incorrect: Argument type `str` does not satisfy upper bound `int` of type variable `T_int`
+generics_basic.py:241:26: error[invalid-argument-type] Argument to function `takes_two_int_lists` is incorrect: Expected `list[int]`, found `list[str]`
+generics_basic.py:244:26: error[invalid-argument-type] Argument to function `takes_two_int_lists` is incorrect: Expected `list[int]`, found `list[bool]`
+generics_basic.py:251:28: error[invalid-argument-type] Argument to function `takes_two_int_lists` is incorrect: Expected `list[int]`, found `list[bool]`
 """

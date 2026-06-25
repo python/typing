@@ -1,8 +1,7 @@
 conformant = "Partial"
 notes = """
-* Assumes descriptor behavior only when field is assigned in class body
-* Doesn't allow non-data descriptors or data descriptors with differing `__get__` and `__set__` types
-* Assertions related to under-specified non-data descriptor behavior were removed from the conformance test
+Assumes descriptor behavior only when field is assigned in class body
+Doesn't allow non-data descriptors or data descriptors with differing `__get__` and `__set__` types
 """
 conformance_automated = "Fail"
 errors_diff = """

@@ -1,16 +1,12 @@
-conformant = "Partial"
-notes = """
-Does not implement some restrictions on where Self can be used
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 87: Expected 1 errors
 """
 output = """
 ERROR generics_self_usage.py:73:14-18: `Self` must appear within a class [invalid-annotation]
 ERROR generics_self_usage.py:73:23-27: `Self` must appear within a class [invalid-annotation]
 ERROR generics_self_usage.py:76:6-10: `Self` must appear within a class [invalid-annotation]
 ERROR generics_self_usage.py:82:9-37: `Self` cannot be used when `self` has an explicit TypeVar annotation [invalid-annotation]
+ERROR generics_self_usage.py:87:16-22: Returned type `Foo3` is not assignable to declared return type `Self@Foo3` [bad-return]
 ERROR generics_self_usage.py:103:15-19: `Self` must appear within a class [invalid-annotation]
 ERROR generics_self_usage.py:105:12-16: `Self` must appear within a class [invalid-annotation]
 ERROR generics_self_usage.py:105:12-16: Invalid base class: `Self` [invalid-inheritance]

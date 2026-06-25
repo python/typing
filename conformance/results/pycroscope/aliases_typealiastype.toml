@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Rejects valid ParamSpec specialization.
+Rejects valid `ParamSpec` specialization.
 """
 conformance_automated = "Fail"
 errors_diff = """

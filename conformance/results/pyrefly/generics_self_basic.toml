@@ -1,12 +1,8 @@
-conformant = "Partial"
-notes = """
-Return annotation of Self allows returning the concrete instance of the current class.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 20: Expected 1 errors
-Line 33: Expected 1 errors
 """
 output = """
+ERROR generics_self_basic.py:20:16-23: Returned type `Shape` is not assignable to declared return type `Self@Shape` [bad-return]
+ERROR generics_self_basic.py:33:16-23: Returned type `Shape` is not assignable to declared return type `Self@Shape` [bad-return]
 ERROR generics_self_basic.py:68:26-35: `Self` may not be subscripted [invalid-annotation]
 """

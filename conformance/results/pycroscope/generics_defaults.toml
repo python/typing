@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Numerous issues; does not support TypeVarTuple and ParamSpec defaults.
+Numerous issues; does not support `TypeVarTuple` and `ParamSpec` defaults.
 """
 conformance_automated = "Fail"
 errors_diff = """

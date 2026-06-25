@@ -1,7 +1,24 @@
 conformant = "Pass"
 notes = """
-Previously failed due to assumptions about non-data descriptor behavior in
-dataclasses that were removed from the conformance test because the behavior
-is currently under-specified.
+Conformance suite is questionable; see <https://github.com/python/typing/issues/2259>
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 61: Unexpected errors ['./dataclasses_descriptors.py:61:12:   Any[error] is not equivalent to list[int]', "./dataclasses_descriptors.py:61:12: <class 'DC2'> has no attribute 'x' [undefined_attribute]"]
+Line 62: Unexpected errors ['./dataclasses_descriptors.py:62:12:   Any[error] is not equivalent to list[str]', "./dataclasses_descriptors.py:62:12: <class 'DC2'> has no attribute 'y' [undefined_attribute]"]
+Line 63: Unexpected errors ['./dataclasses_descriptors.py:63:12:   list[Any[generic_argument]] is not equivalent to list[str]']
+Line 66: Unexpected errors ['./dataclasses_descriptors.py:66:12:   ./dataclasses_descriptors.py.Desc2[int] is not equivalent to int']
+Line 67: Unexpected errors ['./dataclasses_descriptors.py:67:12:   ./dataclasses_descriptors.py.Desc2[str] is not equivalent to str']
+Line 68: Unexpected errors ['./dataclasses_descriptors.py:68:12:   Any[generic_argument] is not equivalent to str']
+"""
+output = """
+./dataclasses_descriptors.py:61:12:   Any[error] is not equivalent to list[int]
+./dataclasses_descriptors.py:61:12: <class 'DC2'> has no attribute 'x' [undefined_attribute]
+./dataclasses_descriptors.py:62:12:   Any[error] is not equivalent to list[str]
+./dataclasses_descriptors.py:62:12: <class 'DC2'> has no attribute 'y' [undefined_attribute]
+./dataclasses_descriptors.py:63:12:   list[Any[generic_argument]] is not equivalent to list[str]
+./dataclasses_descriptors.py:66:12:   ./dataclasses_descriptors.py.Desc2[int] is not equivalent to int
+./dataclasses_descriptors.py:67:12:   ./dataclasses_descriptors.py.Desc2[str] is not equivalent to str
+./dataclasses_descriptors.py:68:12:   Any[generic_argument] is not equivalent to str
 """
 conformance_automated = "Pass"

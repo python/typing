@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Abstract type[Proto] still allows protocol class objects in some paths.
+Abstract `type[Proto]` still allows protocol class objects in some paths.
 """
 conformance_automated = "Fail"
 errors_diff = """

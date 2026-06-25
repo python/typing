@@ -1,6 +1,6 @@
 conformant = "Pass"
 notes = """
-Treats attributes not initialized on the class as instance-only
+Treats attributes not initialized on the class as instance-only.
 """
 conformance_automated = "Pass"
 errors_diff = """

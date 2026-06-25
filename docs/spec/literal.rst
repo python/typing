@@ -309,7 +309,7 @@ Literal types. For example::
 
 **Note:** If the user wants their API to support accepting both literals
 *and* the original type -- perhaps for legacy purposes -- they should
-implement a fallback overload. See :ref:`literalstring-overloads`.
+implement a fallback overload.
 
 Interactions with other types and features
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -777,28 +777,3 @@ Standard containers like ``List`` work as expected:
 ::
 
     xs: List[LiteralString] = ["foo", "bar", "baz"]
-
-
-.. _literalstring-overloads:
-
-Interactions with Overloads
-"""""""""""""""""""""""""""
-
-Literal strings and overloads do not need to interact in a special
-way: the existing rules work fine. ``LiteralString`` can be used as a
-fallback overload where a specific ``Literal["foo"]`` type does not
-match:
-
-::
-
-    @overload
-    def foo(x: Literal["foo"]) -> int: ...
-    @overload
-    def foo(x: LiteralString) -> bool: ...
-    @overload
-    def foo(x: str) -> str: ...
-
-    x1: int = foo("foo")  # First overload.
-    x2: bool = foo("bar")  # Second overload.
-    s: str
-    x3: str = foo(s)  # Third overload.

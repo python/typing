@@ -1,7 +1,7 @@
 conformant = "Partial"
 conformance_automated = "Fail"
 notes = """
-Allows @override to be on all overloads and implementation, instead of just implementation.
+Allows `@override` to be on all overloads and implementation, instead of just implementation.
 """
 errors_diff = """
 Lines 226, 227, 228, 231, 232: Expected error (tag 'override_impl')

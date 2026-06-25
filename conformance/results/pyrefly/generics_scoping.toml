@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not implement several scoping checks/restrictions for generics
+Does not implement several scoping checks/restrictions for generics.
 """
 conformance_automated = "Fail"
 errors_diff = """
