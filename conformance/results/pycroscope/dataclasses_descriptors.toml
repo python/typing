@@ -1,4 +1,4 @@
-conformant = "Partial"
+conformant = "Pass"
 notes = """
 Conformance suite is questionable; see <https://github.com/python/typing/issues/2259>
 """
@@ -21,3 +21,4 @@ output = """
 ./dataclasses_descriptors.py:67:12:   ./dataclasses_descriptors.py.Desc2[str] is not equivalent to str
 ./dataclasses_descriptors.py:68:12:   Any[generic_argument] is not equivalent to str
 """
+conformance_automated = "Pass"
