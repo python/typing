@@ -35,11 +35,9 @@ Here is a very simple generic class that represents a stack:
 
 .. note::
 
-   The type parameter syntax (e.g., ``class Foo[T]:``) is available in Python 3.12 and newer.
-   For earlier Python versions, generic classes need to be defined using
-   ``TypeVar`` and ``Generic``, as shown below.
-
-For compatibility with older Python versions, the same class may be written as:
+   The type parameter syntax (for example, ``class Foo[T]:``) is available in
+   Python 3.12 and newer. For earlier Python versions, use the legacy
+   ``TypeVar`` and ``Generic`` syntax shown below.
 
 .. code-block:: python
 
@@ -183,7 +181,7 @@ functions do not share any typing relationship to each other:
        return seq[-1]
 
 Variables should not have a type parameter in their type unless the type parameter
-is bound by a containing generic class, generic function or generic alias.
+is bound by a containing generic class, generic function, or generic alias.
 
 .. _generic-methods-and-generic-self:
 
