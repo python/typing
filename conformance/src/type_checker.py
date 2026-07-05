@@ -511,22 +511,6 @@ TYPE_CHECKERS: Sequence[TypeChecker] = (
     TyTypeChecker(),
 )
 
-# Basilisk adapter for the REAL python/typing conformance harness.
-# ruff: noqa: F821
-#
-# This is the SAME per-checker adapter shape upstream ships for pyright, mypy,
-# ty, pyrefly, zuban and pycroscope. The wheel-conformance CI/release gate
-# ([CHKARCH-CONFORMANCE]) clones `python/typing@main`, appends this file to the
-# suite's `conformance/src/type_checker.py`, then runs the suite's unmodified
-# `src/main.py --only-run basilisk` against the pip-installed `basilisk-python`
-# wheel. Every name used below (os, shutil, json, Path, Sequence, run, PIPE,
-# CalledProcessError, TypeChecker) is already imported at the top of upstream's
-# type_checker.py, so this file appends cleanly with no extra imports.
-#
-# It mirrors the release gate's fail-closed install path and sorts diagnostics so
-# repeated conformance runs do not dirty committed results when Basilisk reports
-# independent diagnostics in a different order.
-
 
 class BasiliskTypeChecker(TypeChecker):
     @property
