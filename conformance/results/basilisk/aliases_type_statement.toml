@@ -1,0 +1,32 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+aliases_type_statement.py:17:1: error: Cannot access attribute `bit_count` on type alias `GoodAlias1` [generics_syntax_scoping]
+aliases_type_statement.py:19:1: error: Cannot call type alias `GoodAlias1`: type aliases are not callable [generics_syntax_scoping]
+aliases_type_statement.py:23:7: error: Cannot access attribute `other_attrib` on type alias `GoodAlias1` [generics_syntax_scoping]
+aliases_type_statement.py:26:7: error: Cannot use type alias `GoodAlias1` as a base class [generics_syntax_scoping]
+aliases_type_statement.py:31:22: error: Cannot use type alias `GoodAlias1` in `isinstance` [generics_syntax_scoping]
+aliases_type_statement.py:37:6: error: Invalid type expression in `type BadTypeAlias1` alias [aliases_type_statement]
+aliases_type_statement.py:38:6: error: Invalid type expression in `type BadTypeAlias2` alias [aliases_type_statement]
+aliases_type_statement.py:39:6: error: Invalid type expression in `type BadTypeAlias3` alias [aliases_type_statement]
+aliases_type_statement.py:40:6: error: Invalid type expression in `type BadTypeAlias4` alias [aliases_type_statement]
+aliases_type_statement.py:41:6: error: Invalid type expression in `type BadTypeAlias5` alias [aliases_type_statement]
+aliases_type_statement.py:42:6: error: Invalid type expression in `type BadTypeAlias6` alias [aliases_type_statement]
+aliases_type_statement.py:43:6: error: Invalid type expression in `type BadTypeAlias7` alias [aliases_type_statement]
+aliases_type_statement.py:44:6: error: Invalid type expression in `type BadTypeAlias8` alias [aliases_type_statement]
+aliases_type_statement.py:45:6: error: Invalid type expression in `type BadTypeAlias9` alias [aliases_type_statement]
+aliases_type_statement.py:46:6: error: Invalid type expression in `type BadTypeAlias10` alias [aliases_type_statement]
+aliases_type_statement.py:47:6: error: Invalid type expression in `type BadTypeAlias11` alias [aliases_type_statement]
+aliases_type_statement.py:48:6: error: Invalid type expression in `type BadTypeAlias12` alias [aliases_type_statement]
+aliases_type_statement.py:49:6: error: Invalid type expression in `type BadTypeAlias13` alias [aliases_type_statement]
+aliases_type_statement.py:53:6: error: PEP 695 `type` statement uses old-style TypeVar `V` [generics_syntax_scoping]
+aliases_type_statement.py:58:6: error: PEP 695 `type` statement uses old-style TypeVar `T1` [generics_syntax_scoping]
+aliases_type_statement.py:68:1: error: Type argument `str` is not compatible with type parameter `S` bound `int` in type alias `RecursiveTypeAlias2` [generics_syntax_scoping]
+aliases_type_statement.py:70:1: error: Type argument `int` is not compatible with type parameter `T` bound `str` in type alias `RecursiveTypeAlias2` [generics_syntax_scoping]
+aliases_type_statement.py:73:6: error: Circular type alias definition: `RecursiveTypeAlias3` references itself [generics_syntax_scoping]
+aliases_type_statement.py:75:6: error: Circular type alias definition: `RecursiveTypeAlias4` references itself with different type arguments [generics_syntax_scoping]
+aliases_type_statement.py:79:6: error: Circular type alias definition: `RecursiveTypeAlias6` is part of a circular alias chain [generics_syntax_scoping]
+aliases_type_statement.py:80:6: error: Circular type alias definition: `RecursiveTypeAlias7` is part of a circular alias chain [generics_syntax_scoping]
+"""

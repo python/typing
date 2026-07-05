@@ -1,0 +1,14 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_disjoint_base.py:69:7: error: Class has incompatible disjoint bases (Left, Right): no single base is a subclass of all the others [directives_disjoint_base]
+directives_disjoint_base.py:73:7: error: Class has incompatible disjoint bases (LeftChild, Right): no single base is a subclass of all the others [directives_disjoint_base]
+directives_disjoint_base.py:77:7: error: Class has incompatible disjoint bases (Left, Right): no single base is a subclass of all the others [directives_disjoint_base]
+directives_disjoint_base.py:81:7: error: Class has incompatible disjoint bases (Left, Record): no single base is a subclass of all the others [directives_disjoint_base]
+directives_disjoint_base.py:105:7: error: Class has incompatible disjoint bases (SlotBase1, SlotBase2): no single base is a subclass of all the others [directives_disjoint_base]
+directives_disjoint_base.py:113:2: error: `@disjoint_base` cannot be applied to a function [directives_disjoint_base]
+directives_disjoint_base.py:118:2: error: `@disjoint_base` cannot be applied to a TypedDict [directives_disjoint_base]
+directives_disjoint_base.py:123:2: error: `@disjoint_base` cannot be applied to a Protocol [directives_disjoint_base]
+"""

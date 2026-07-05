@@ -1,0 +1,16 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_paramspec_semantics.py:26:1: error: Invalid call to `f1`: parameter `a` is positional-only and cannot be passed by keyword [callables_protocol]
+generics_paramspec_semantics.py:27:1: error: Invalid call to `f1`: argument 2 has type `str`, expected `bool` [callables_protocol]
+generics_paramspec_semantics.py:46:6: error: Incompatible ParamSpec argument(s) to `func1`: arguments x_y, y_x must have identical signatures to bind `P` [callables_protocol]
+generics_paramspec_semantics.py:61:1: error: Incompatible ParamSpec argument(s) to `func1`: arguments keyword_only_x, keyword_only_y must have identical signatures to bind `P` [callables_protocol]
+generics_paramspec_semantics.py:98:1: error: Invalid call to `a1`: argument 1 has type `int`, expected `str` [callables_protocol]
+generics_paramspec_semantics.py:108:1: error: Invalid call to `r1`: argument 1 has type `int`, expected `bool` [callables_protocol]
+generics_paramspec_semantics.py:120:1: error: Invalid call to `t1`: argument 1 has type `int`, expected `str` [callables_protocol]
+generics_paramspec_semantics.py:127:1: error: `one` is not compatible with the `Callable[Concatenate[...], ...]` parameter of decorator `expects_int_first`: leading parameter is `str`, but the Concatenate prefix supplies `int` [callables_protocol]
+generics_paramspec_semantics.py:132:1: error: `two` is not compatible with the `Callable[Concatenate[...], ...]` parameter of decorator `expects_int_first`: expected at least 1 leading positional parameter, found 0 [callables_protocol]
+generics_paramspec_semantics.py:137:1: error: `three` is not compatible with the `Callable[Concatenate[...], ...]` parameter of decorator `expects_int_first`: expected at least 1 leading positional parameter, found 0 [callables_protocol]
+"""

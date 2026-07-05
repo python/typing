@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_inheritance.py:44:7: error: TypedDict `BadTypedDict` cannot inherit from non-TypedDict class `NonTypedDict` [typeddicts_inheritance]
+typeddicts_inheritance.py:55:4: error: TypedDict `Y1` illegally redeclares field `x` from `X1`: the value type is not compatible with the inherited declaration [typeddicts_inheritance]
+typeddicts_inheritance.py:65:7: error: TypedDict `XYZ2` inherits incompatible declarations of field `x` from `X2` and `Y2` [typeddicts_inheritance]
+"""

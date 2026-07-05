@@ -1,0 +1,11 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_final.py:27:1: error: Cannot assign to `D.final_classvar` — it is declared `Final` in `D` [qualifiers_final_annotation_2]
+dataclasses_final.py:35:1: error: Cannot assign to `d.final_no_default` — it is declared `Final` in `d` [qualifiers_final_annotation_2]
+dataclasses_final.py:36:1: error: Cannot assign to `d.final_with_default` — it is declared `Final` in `d` [qualifiers_final_annotation_2]
+dataclasses_final.py:37:1: error: Cannot assign to `D.final_no_default` — it is declared `Final` in `D` [qualifiers_final_annotation_2]
+dataclasses_final.py:38:1: error: Cannot assign to `D.final_with_default` — it is declared `Final` in `D` [qualifiers_final_annotation_2]
+"""

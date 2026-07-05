@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+historical_positional.py:18:4: error: `__x` is a positional-only parameter and cannot be passed as a keyword argument [historical_positional]
+historical_positional.py:26:16: error: Positional-only parameter `__y` appears after a positional-or-keyword parameter [historical_positional]
+historical_positional.py:54:26: error: Positional-only parameter `__y` appears after a positional-or-keyword parameter [historical_positional]
+historical_positional.py:59:6: error: `__x` is a positional-only parameter and cannot be passed as a keyword argument [historical_positional]
+"""

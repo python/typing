@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_member_values.py:78:13: error: Enum member value has type `str` but `_value_` is declared as `int` in `Color3` [enums_member_values]
+enums_member_values.py:85:9: error: `self._value_` is assigned from a parameter of type `int` but `_value_` is declared as `str` in `Planet2` [enums_member_values]
+"""

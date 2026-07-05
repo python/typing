@@ -1,0 +1,18 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_variance.py:21:1: error: TypeVar `T1` in protocol `AnotherBox` is only used in output positions and should be covariant [protocols_variance]
+protocols_variance.py:21:7: error: TypeVar `T1` in protocol `AnotherBox` should be covariant [protocols_variance_2]
+protocols_variance.py:40:1: error: TypeVar `T3` in protocol `Protocol2` is only used in input positions and should be contravariant [protocols_variance]
+protocols_variance.py:40:7: error: TypeVar `T3` in protocol `Protocol2` should be contravariant [protocols_variance_2]
+protocols_variance.py:56:1: error: TypeVar `T1` in protocol `Protocol4` is only used in input positions and should be contravariant [protocols_variance]
+protocols_variance.py:56:7: error: TypeVar `T1` in protocol `Protocol4` should be contravariant [protocols_variance_2]
+protocols_variance.py:61:1: error: Covariant TypeVar `T1_co` is used in input position in protocol `Protocol5` [protocols_variance]
+protocols_variance.py:66:1: error: TypeVar `T1` in protocol `Protocol6` is only used in output positions and should be covariant [protocols_variance]
+protocols_variance.py:66:7: error: TypeVar `T1` in protocol `Protocol6` should be covariant [protocols_variance_2]
+protocols_variance.py:71:1: error: Contravariant TypeVar `T1_contra` is used in output position in protocol `Protocol7` [protocols_variance]
+protocols_variance.py:104:1: error: TypeVar `T1` in protocol `Protocol12` is only used in output positions and should be covariant [protocols_variance]
+protocols_variance.py:104:7: error: TypeVar `T1` in protocol `Protocol12` should be covariant [protocols_variance_2]
+"""

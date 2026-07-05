@@ -1,0 +1,20 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_callable.py:38:1: error: Call to the constructor-derived callable for `Class1` is missing required argument `x` (expected 1, got 0) [constructors_callable]
+constructors_callable.py:39:1: error: Unexpected keyword argument `y` in call to the constructor-derived callable for `Class1` [constructors_callable]
+constructors_callable.py:51:1: error: Call to the constructor-derived callable for `Class2` has 1 too many positional argument (expected at most 0, got 1) [constructors_callable]
+constructors_callable.py:66:1: error: Call to the constructor-derived callable for `Class3` is missing required argument `x` (expected 1, got 0) [constructors_callable]
+constructors_callable.py:67:1: error: Unexpected keyword argument `y` in call to the constructor-derived callable for `Class3` [constructors_callable]
+constructors_callable.py:68:1: error: Call to the constructor-derived callable for `Class3` has 1 too many positional argument (expected at most 1, got 2) [constructors_callable]
+constructors_callable.py:81:1: error: Call to the constructor-derived callable for `Class4` is missing required argument `x` (expected 1, got 0) [constructors_callable]
+constructors_callable.py:82:1: error: Unexpected keyword argument `y` in call to the constructor-derived callable for `Class4` [constructors_callable]
+constructors_callable.py:129:1: error: Call to the constructor-derived callable for `Class6` has 1 too many positional argument (expected at most 0, got 1) [constructors_callable]
+constructors_callable.py:146:1: error: Call to the constructor-derived callable for `Class6Any` has 1 too many positional argument (expected at most 0, got 1) [constructors_callable]
+constructors_callable.py:185:10: error: Argument for the `list[T]` parameter of the constructor-derived callable for `Class8` is a `str` literal — no assignment of type variable `T` makes it valid [constructors_callable]
+constructors_callable.py:187:1: error: Inconsistent binding for type variable `T` in call to the constructor-derived callable for `Class8`: `list[int]` vs `list[str]` [constructors_callable]
+constructors_callable.py:197:10: error: Argument for the `list[T]` parameter of the constructor-derived callable for `Class9` is a `str` literal — no assignment of type variable `T` makes it valid [constructors_callable]
+constructors_callable.py:199:1: error: Inconsistent binding for type variable `T` in call to the constructor-derived callable for `Class9`: `list[int]` vs `list[str]` [constructors_callable]
+"""

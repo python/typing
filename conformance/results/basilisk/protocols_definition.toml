@@ -1,0 +1,27 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_definition.py:30:1: error: Argument is incompatible with parameter `things` of type `Iterable[SupportsClose]`: `int` does not satisfy protocol `SupportsClose` [protocols_definition_2]
+protocols_definition.py:67:9: error: Protocol member `temp` is not declared in the Protocol body [protocols_definition]
+protocols_definition.py:114:1: error: Class `Concrete2_Bad1` is not compatible with protocol `Template2`: attribute `val1` is required to be a class variable (`ClassVar`) but is not defined at class level [classes_classvar]
+protocols_definition.py:115:1: error: Class `Concrete2_Bad2` is not compatible with protocol `Template2`: attribute `val1` is required to be a class variable (`ClassVar`) but is declared as an instance variable [classes_classvar]
+protocols_definition.py:116:1: error: Class `Concrete2_Bad3` is not compatible with protocol `Template2`: attribute `val1` is required to be a class variable (`ClassVar`) but is declared as an instance variable [classes_classvar]
+protocols_definition.py:117:1: error: Class `Concrete2_Bad4` is not compatible with protocol `Template2`: attribute `val1` is required to be a class variable (`ClassVar`) but is declared as an instance variable [classes_classvar]
+protocols_definition.py:156:1: error: Class `Concrete3_Bad1` is incompatible with protocol `Template3`: missing instance variable `val1` [protocols_definition_2]
+protocols_definition.py:157:1: error: Class `Concrete3_Bad2` is incompatible with protocol `Template3`: `val1` is required to be a writable instance variable but is declared as a class variable (`ClassVar`) [protocols_definition_2]
+protocols_definition.py:158:1: error: Class `Concrete3_Bad3` is incompatible with protocol `Template3`: `val1` is required to be a writable instance variable but is a read-only property [protocols_definition_2]
+protocols_definition.py:159:1: error: Class `Concrete3_Bad4` is incompatible with protocol `Template3`: `val1` has type `Sequence[float]` but the protocol requires the writable instance variable to be `Sequence[int]` [protocols_definition_2]
+protocols_definition.py:160:1: error: Class `Concrete3_Bad5` is incompatible with protocol `Template3`: `val1` has type `list[int]` but the protocol requires the writable instance variable to be `Sequence[int]` [protocols_definition_2]
+protocols_definition.py:218:1: error: Class `Concrete4_Bad1` is incompatible with protocol `Template4`: `val1` is a property in the protocol but a plain method in the implementation [protocols_definition_2]
+protocols_definition.py:219:1: error: Class `Concrete4_Bad2` is incompatible with protocol `Template4`: missing method `val1` [protocols_definition_2]
+protocols_definition.py:285:1: error: Class `Concrete5_Bad1` is incompatible with protocol `Template5`: method `method1` signature is incompatible — parameter names ["a", "c"] do not match the protocol's ["a", "b"] [protocols_definition_2]
+protocols_definition.py:286:1: error: Class `Concrete5_Bad2` is incompatible with protocol `Template5`: method `method1` signature is incompatible — parameter names ["a", "c"] do not match the protocol's ["a", "b"] [protocols_definition_2]
+protocols_definition.py:287:1: error: Class `Concrete5_Bad3` is incompatible with protocol `Template5`: method `method1` signature is incompatible — parameter `a` is positional in the protocol but keyword-only in the implementation [protocols_definition_2]
+protocols_definition.py:288:1: error: Class `Concrete5_Bad4` is incompatible with protocol `Template5`: method `method1` signature is incompatible — parameter `a` is keyword-accessible in the protocol but positional-only in the implementation [protocols_definition_2]
+protocols_definition.py:289:1: error: Class `Concrete5_Bad5` is incompatible with protocol `Template5`: method `method1` signature is incompatible — a static method with a `self` parameter cannot satisfy an instance method [protocols_definition_2]
+protocols_definition.py:339:1: error: Class `Concrete6_Bad1` is incompatible with protocol `Template6`: `val1` must be writable but a read-only property cannot satisfy a writable protocol member [protocols_definition_2]
+protocols_definition.py:340:1: error: Class `Concrete6_Bad2` is incompatible with protocol `Template6`: `val1` must be writable but named tuple fields are immutable [protocols_definition_2]
+protocols_definition.py:341:1: error: Class `Concrete6_Bad3` is incompatible with protocol `Template6`: `val1` must be writable but frozen dataclass fields are immutable [protocols_definition_2]
+"""

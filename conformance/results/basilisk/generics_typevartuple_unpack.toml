@@ -1,0 +1,7 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_typevartuple_unpack.py:30:5: error: `Array[Batch]` has 1 type argument, but `process_batch_channels` requires at least 2 for the `TypeVarTuple` unpack pattern [generics_typevartuple_unpack]
+"""

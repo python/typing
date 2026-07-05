@@ -1,0 +1,11 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_slots.py:11:7: error: `__slots__` is already defined in `DC1`: cannot also use `@dataclass(slots=True)` [dataclasses_slots]
+dataclasses_slots.py:25:9: error: Cannot assign to attribute `y` on `DC2`: `y` is not defined in `__slots__` [dataclasses_slots]
+dataclasses_slots.py:38:9: error: Cannot assign to attribute `y` on `DC3`: `y` is not defined in `__slots__` [dataclasses_slots]
+dataclasses_slots.py:66:1: error: Cannot access `__slots__` on `DC6`: class does not define `__slots__` [dataclasses_slots]
+dataclasses_slots.py:69:1: error: Cannot access `__slots__` on `DC6` instance: class does not define `__slots__` [dataclasses_slots]
+"""

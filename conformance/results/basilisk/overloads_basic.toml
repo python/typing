@@ -1,0 +1,7 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_basic.py:39:1: error: No matching overload for `b[...]`: argument type `str` does not match any `@overload` signature of `Bytes.__getitem__` [overloads_basic]
+"""

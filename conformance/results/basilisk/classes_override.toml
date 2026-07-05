@@ -1,0 +1,11 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+classes_override.py:53:9: error: Method `method3` in `ChildA` is decorated with `@override` but no matching method exists in any base class [classes_override_3]
+classes_override.py:65:9: error: Method `method4` in `ChildA` is decorated with `@override` but no matching method exists in any base class [classes_override_3]
+classes_override.py:79:9: error: Method `static_method1` in `ChildA` is decorated with `@override` but no matching method exists in any base class [classes_override_3]
+classes_override.py:84:9: error: Method `class_method1` in `ChildA` is decorated with `@override` but no matching method exists in any base class [classes_override_3]
+classes_override.py:89:9: error: Method `property1` in `ChildA` is decorated with `@override` but no matching method exists in any base class [classes_override_3]
+"""

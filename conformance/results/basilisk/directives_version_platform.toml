@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_version_platform.py:33:19: error: Variable `val3` is only defined in a dead version/platform branch [directives_version_platform]
+directives_version_platform.py:50:19: error: Variable `val6` is only defined in a dead version/platform branch [directives_version_platform]
+directives_version_platform.py:59:19: error: Variable `val9` is only defined in a dead version/platform branch [directives_version_platform]
+"""

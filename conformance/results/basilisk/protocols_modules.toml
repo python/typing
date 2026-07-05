@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_modules.py:26:1: error: Module `_protocols_modules1` is not compatible with protocol `Options2`: attribute `timeout` has type `int` but protocol expects `str` [protocols_modules]
+protocols_modules.py:48:1: error: Module `_protocols_modules2` is not compatible with protocol `Reporter2`: method `on_error` returns `None` but protocol expects `int` [protocols_modules]
+protocols_modules.py:49:1: error: Module `_protocols_modules2` is not compatible with protocol `Reporter3`: missing method `not_implemented` required by protocol [protocols_modules]
+"""

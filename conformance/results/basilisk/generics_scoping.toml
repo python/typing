@@ -1,0 +1,24 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_scoping.py:16:1: error: Type mismatch in `assert_type()`: expression has type `int` but expected `Literal[1]` [directives_assert_type_2]
+generics_scoping.py:20:1: error: Type mismatch in `assert_type()`: expression has type `str` but expected `Literal["a"]` [directives_assert_type_2]
+generics_scoping.py:34:1: error: Argument `'a'` of type `str` is not compatible with parameter `x: int` (TypeVar `T` is bound to `int` for instance `a: MyClass[T=int]`) [generics_variance_inference]
+generics_scoping.py:50:1: error: Type mismatch in `assert_type()`: expression has type `str` but expected `Literal["abc"]` [directives_assert_type_2]
+generics_scoping.py:54:1: error: Type mismatch in `assert_type()`: expression has type `bytes` but expected `Literal[b"abc"]` [directives_assert_type_2]
+generics_scoping.py:61:5: error: TypeVar `S` is not bound in this scope [generics_variance_inference]
+generics_scoping.py:61:8: error: Type variable `S` is not bound in function `fun_3` [generics_scoping]
+generics_scoping.py:65:5: error: TypeVar `S` is not bound in this scope [generics_variance_inference]
+generics_scoping.py:65:14: error: Type variable `S` is not bound in class `Bar` [generics_scoping]
+generics_scoping.py:76:5: error: TypeVar `T` from outer scope cannot be used in nested class definition [generics_variance_inference]
+generics_scoping.py:86:5: error: TypeVar `T` from outer scope cannot be used in nested class definition [generics_variance_inference]
+generics_scoping.py:89:9: error: TypeVar `T` from outer class cannot be used in nested class body [generics_variance_inference]
+generics_scoping.py:98:5: error: TypeVar `T` from enclosing class is not accessible in a TypeAlias definition [generics_variance_inference]
+generics_scoping.py:98:24: error: Type variable `T` from class `Outer` cannot be used in a TypeAlias definition [generics_scoping]
+generics_scoping.py:105:1: error: TypeVar `T` is not bound in this scope [generics_variance_inference]
+generics_scoping.py:105:14: error: Type variable `T` is not bound in the current scope [generics_scoping]
+generics_scoping.py:106:14: error: Type variable `T` is not bound in the current scope [generics_scoping]
+generics_scoping.py:107:1: error: TypeVar `T` is not bound in this scope [generics_variance_inference]
+"""

@@ -1,0 +1,13 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_base_class.py:26:5: error: Argument `x` of `takes_dict_incorrect` expects `dict[str, list[object]]` but received `SymbolTable` (subclass of `dict[str,  list[Node]]`) -- ` list[Node]` is not assignable to ` list[object]` because `list` is invariant [generics_base_class_3]
+generics_base_class.py:29:11: error: Invalid type expression in annotation for parameter `y` [annotations_forward_refs]
+generics_base_class.py:30:5: error: Invalid type expression in annotation for local variable `x` [annotations_forward_refs]
+generics_base_class.py:49:22: error: Too many type arguments for `LinkedList`; expected at most 1, got 2 [generics_defaults_specialization]
+generics_base_class.py:61:18: error: Too many type arguments for `MyDict`; expected at most 1, got 2 [generics_defaults_specialization]
+generics_base_class.py:68:28: error: TypeVar `T` appears more than once in `Generic[...]` for `BadClass1` [generics_base_class]
+generics_base_class.py:98:7: error: Inconsistent TypeVar ordering for `Grandparent` in base classes of `BadChild` [generics_base_class_2]
+"""

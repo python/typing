@@ -1,0 +1,15 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_runtime_checkable.py:23:8: error: Protocol `Proto1` cannot be used with `isinstance()` because it is not decorated with `@runtime_checkable` [protocols_runtime_checkable]
+protocols_runtime_checkable.py:23:22: error: Protocol `Proto1` cannot be used with `isinstance()` because it is not decorated with `@runtime_checkable` [protocols_runtime_checkable_2]
+protocols_runtime_checkable.py:55:8: error: `issubclass()` cannot be used with data protocol `DataProtocol` [protocols_runtime_checkable]
+protocols_runtime_checkable.py:55:22: error: `issubclass()` cannot be used with data protocol `DataProtocol` [protocols_runtime_checkable_2]
+protocols_runtime_checkable.py:61:8: error: `issubclass()` cannot be used with data protocol `DataProtocol` [protocols_runtime_checkable]
+protocols_runtime_checkable.py:61:22: error: `issubclass()` cannot be used with data protocol `DataProtocol` [protocols_runtime_checkable_2]
+protocols_runtime_checkable.py:88:33: error: Unsafe overlap: `Concrete3A` has members incompatible with protocol `Proto3` in `isinstance()` call [protocols_runtime_checkable_2]
+protocols_runtime_checkable.py:91:33: error: Unsafe overlap: `Concrete3B` has members incompatible with protocol `Proto3` in `isinstance()` call [protocols_runtime_checkable_2]
+protocols_runtime_checkable.py:94:31: error: Unsafe overlap: `Concrete3A` has members incompatible with protocol `Proto3` in `issubclass()` call [protocols_runtime_checkable_2]
+"""

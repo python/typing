@@ -1,0 +1,12 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+literals_semantics.py:10:1: error: Type mismatch: `v2` is annotated `Literal[3]` (Literal[3]) but assigned Literal[4] [assignment_compatibility]
+literals_semantics.py:24:1: error: Type mismatch: `x1` is annotated `Literal[False]` but assigned parameter `a` with type `Literal[0]` [literals_semantics_2]
+literals_semantics.py:24:5: error: Type mismatch: `x1` is annotated `Literal[False]` (Literal[false]) but assigned Literal[0] [assignment_compatibility]
+literals_semantics.py:25:1: error: Type mismatch: `x2` is annotated `Literal[0]` but assigned parameter `b` with type `Literal[False]` [literals_semantics_2]
+literals_semantics.py:25:5: error: Type mismatch: `x2` is annotated `Literal[0]` (Literal[0]) but assigned Literal[false] [assignment_compatibility]
+literals_semantics.py:33:1: error: Augmented assignment `a += ...` is incompatible with declared type `L[3, 4, 5]` [literals_semantics_2]
+"""

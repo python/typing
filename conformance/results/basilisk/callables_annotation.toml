@@ -1,0 +1,22 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+callables_annotation.py:25:5: error: Too few arguments for `cb`: expected 2 but got 1 [callables_protocol]
+callables_annotation.py:26:11: error: Argument 2 to `cb` has incompatible type `int`; expected `str` [callables_protocol]
+callables_annotation.py:27:5: error: Too many arguments for `cb`: expected 2 but got 3 [callables_protocol]
+callables_annotation.py:29:5: error: `Callable` parameter `cb` does not accept keyword arguments [callables_protocol]
+callables_annotation.py:35:5: error: Too many arguments for `cb`: expected 0 but got 1 [callables_protocol]
+callables_annotation.py:55:1: error: Invalid type argument count in annotation `Callable[int]` on `v1`: `callable` takes 2 type arguments but 1 was provided [callables_annotation]
+callables_annotation.py:56:1: error: Invalid `Callable` annotation on `v2`: first argument `int` is not a valid parameter specification; expected `[arg_types]`, `...`, a `ParamSpec`, or `Concatenate[...]` [callables_annotation]
+callables_annotation.py:57:1: error: Invalid `Callable` annotation on `v3`: return type `[int]` is a list literal; use a plain type instead [callables_annotation]
+callables_annotation.py:58:1: error: Invalid type argument count in annotation `Callable[int, int, int]` on `v4`: `callable` takes 2 type arguments but 3 were provided [callables_annotation]
+callables_annotation.py:59:1: error: Invalid `Callable` annotation on `v5`: `[...]` is not valid; use bare `...` for an arbitrary parameter list [callables_annotation]
+callables_annotation.py:91:1: error: Function `test_cb2` incompatible with `Callable[Concatenate[int, ...], str]`: needs at least 1 positional param(s) but has 0 [callables_protocol_2]
+callables_annotation.py:93:1: error: Function `test_cb4` incompatible with `Callable[Concatenate[int, ...], str]`: Concatenate requires positional params [callables_protocol_2]
+callables_annotation.py:159:5: error: Type mismatch: `err1` is annotated `Proto5[Any]` (proto5[any]) but assigned proto8 [assignment_compatibility]
+callables_annotation.py:172:5: error: Type mismatch: `f2` is annotated `Callback2[...]` (callback2[...]) but assigned Callable[[], str] [assignment_compatibility]
+callables_annotation.py:187:5: error: Type mismatch: `f2` is annotated `Callable[Concatenate[str, ...], str]` (Callable[[concatenate[str, ...]], str]) but assigned Callable[[int, str], str] [assignment_compatibility]
+callables_annotation.py:189:5: error: Type mismatch: `f4` is annotated `CallbackWithStr[...]` (callbackwithstr[...]) but assigned Callable[[int, str], str] [assignment_compatibility]
+"""

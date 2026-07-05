@@ -1,0 +1,36 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+qualifiers_final_annotation.py:16:1: error: Bare `Final` annotation for `BAD1` requires an explicit type argument or initializer [qualifiers_final_annotation]
+qualifiers_final_annotation.py:18:1: error: Type mismatch: `BAD2` is annotated `Final[str, int]` (str, int) but assigned str [assignment_compatibility]
+qualifiers_final_annotation.py:18:1: error: `Final` accepts at most one type argument for `BAD2` [qualifiers_final_annotation]
+qualifiers_final_annotation.py:34:5: error: `ID2` is annotated `Final` in the class body but has no initializer and is not unconditionally assigned in `__init__` [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:38:5: error: `ID3` is annotated `Final` in the class body but has no initializer and is not unconditionally assigned in `__init__` [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:54:9: error: Cannot assign to `self.ID5` — it is already initialized as `Final` in the class body [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:62:9: error: `self.id3: Final` annotation is only allowed inside `__init__` [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:63:9: error: `self.id4: Final` annotation is only allowed inside `__init__` [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:65:9: error: Cannot assign to `self.ID7` — it is declared `Final` in the class body [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:67:9: error: Cannot assign to `self.ID7` — it is declared `Final` in the class body [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:71:1: error: Cannot assign to global `RATE` — it is declared `Final` at module level [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:71:1: error: Cannot re-assign `RATE` — it is declared `Final` at module level [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:81:1: error: Cannot assign to `ClassB.DEFAULT_ID` — it is declared `Final` in `ClassB` [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:94:5: error: Cannot override `BORDER_WIDTH` — it is declared `Final` in a base class [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:107:5: error: `Final` cannot be used inside `ClassVar` for attribute `VALUE2` [qualifiers_final_annotation]
+qualifiers_final_annotation.py:108:5: error: `ClassVar` cannot be used inside `Final` for attribute `VALUE3` [qualifiers_final_annotation]
+qualifiers_final_annotation.py:118:1: error: `Final` cannot be nested inside another type constructor for `x` [qualifiers_final_annotation]
+qualifiers_final_annotation.py:121:11: error: `Final` is not allowed in parameter annotation for `x` [qualifiers_final_annotation]
+qualifiers_final_annotation.py:134:1: error: Call to `N()` is missing 2 required arguments (expected at least 2, got 0) [calls_argument_count]
+qualifiers_final_annotation.py:134:1: error: Argument `a` is not a field of `N`; valid fields are: x, y [namedtuples_define_functional]
+qualifiers_final_annotation.py:135:1: error: Field `x` of `N` expects `int` but received a `str` literal [namedtuples_define_functional]
+qualifiers_final_annotation.py:135:1: error: Field `y` of `N` expects `int` but received a `str` literal [namedtuples_define_functional]
+qualifiers_final_annotation.py:141:5: error: Cannot assign to global `ID1` — it is declared `Final` at module level [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:145:5: error: Cannot modify `x` — it is declared `Final` [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:147:10: error: Cannot modify `x` — it is declared `Final` [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:149:9: error: Cannot modify `x` — it is declared `Final` [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:152:30: error: Cannot modify `x` — it is declared `Final` [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:155:9: error: Cannot modify `x` — it is declared `Final` [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:166:1: error: Cannot re-assign `TEN` — it is declared `Final` in an imported module [qualifiers_final_annotation_2]
+qualifiers_final_annotation.py:170:1: error: Cannot re-assign `PI` — it is declared `Final` in an imported module [qualifiers_final_annotation_2]
+"""

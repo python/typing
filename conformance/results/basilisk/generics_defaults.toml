@@ -1,0 +1,12 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_defaults.py:24:53: error: Non-default `TypeVar` `T` follows a default `TypeVar` in `Generic[...]` for `NonDefaultFollowsDefault` [generics_defaults]
+generics_defaults.py:66:8: error: Too few type arguments for `AllTheDefaults`; expected at least 2, got 1 [generics_defaults_specialization]
+generics_defaults.py:152:12: error: `TypeVar` `Invalid1` has `default=int` which is not a subtype of `bound=str` [generics_defaults_2]
+generics_defaults.py:159:12: error: `TypeVar` `Invalid2` has `default=int` which is not one of the constraints (`float`, `str`) [generics_defaults_2]
+generics_defaults.py:177:1: error: Type mismatch in `assert_type()`: expression has type `int` but expected `Any` [directives_assert_type_2]
+generics_defaults.py:188:25: error: `TypeVar` `T5` with `default=` cannot follow a `TypeVarTuple` in `Generic[...]` for `Foo5` [generics_defaults]
+"""

@@ -1,0 +1,7 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_type_ignore_file2.py:14:1: error: Type mismatch: `x` is annotated `int` (int) but assigned str [assignment_compatibility]
+"""

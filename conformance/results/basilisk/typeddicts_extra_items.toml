@@ -1,0 +1,34 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_extra_items.py:15:45: error: `int` is not assignable to extra item type `bool` of `Movie` [typeddicts_extra_items]
+typeddicts_extra_items.py:22:55: error: `int` is not assignable to extra item type `bool` of `MovieFunctional` [typeddicts_extra_items]
+typeddicts_extra_items.py:39:1: error: Value assigned to `TypedDict` `InheritedMovie` field `year` has the wrong type; expected `int` [typeddicts_operations]
+typeddicts_extra_items.py:49:1: error: Argument to `closed` must be a literal `True` or `False` [typeddicts_extra_items]
+typeddicts_extra_items.py:67:1: error: Cannot set `closed=False` on `IllegalChild1` when a superclass is `closed=True` [typeddicts_extra_items]
+typeddicts_extra_items.py:73:1: error: Cannot set `closed=False` on `IllegalChild2` when a superclass sets `extra_items` [typeddicts_extra_items]
+typeddicts_extra_items.py:91:1: error: `MovieC` is a closed TypedDict; extra key `age` is not allowed [typeddicts_extra_items]
+typeddicts_extra_items.py:94:1: error: `MovieD` is a closed TypedDict; extra key `age` is not allowed [typeddicts_extra_items]
+typeddicts_extra_items.py:109:1: error: Cannot set `closed=True` on `IllegalCloseNonReadOnly` when a superclass has non-read-only `extra_items` [typeddicts_extra_items]
+typeddicts_extra_items.py:114:1: error: `extra_items` value cannot be `Required[...]` [typeddicts_extra_items]
+typeddicts_extra_items.py:117:1: error: `extra_items` value cannot be `NotRequired[...]` [typeddicts_extra_items]
+typeddicts_extra_items.py:128:5: error: Cannot delete a key from `TypedDict` `MovieEI` — TypedDicts have a fixed schema [typeddicts_operations]
+typeddicts_extra_items.py:143:1: error: Keyword `year` in call to `unpack_no_extra` is not a key of TypedDict `MovieNoExtra` [callables_kwargs]
+typeddicts_extra_items.py:174:1: error: Cannot change `extra_items` on `Child` unless it is `ReadOnly` in the superclass [typeddicts_extra_items]
+typeddicts_extra_items.py:184:1: error: Required key `year` is not allowed under the inherited `extra_items` of `MovieRequiredYear` [typeddicts_extra_items]
+typeddicts_extra_items.py:187:1: error: `int | None` is not consistent with `int` [typeddicts_extra_items]
+typeddicts_extra_items.py:196:1: error: `str` is not assignable to `int | None` [typeddicts_extra_items]
+typeddicts_extra_items.py:215:22: error: `int` is not consistent with `int | None` [typeddicts_extra_items]
+typeddicts_extra_items.py:222:22: error: `year` is required in `MovieWithYear2` but is an extra item in `MovieBase2` [typeddicts_extra_items]
+typeddicts_extra_items.py:242:19: error: `list[str]` is not assignable to `str | int` [typeddicts_extra_items]
+typeddicts_extra_items.py:256:13: error: `str` is not assignable to extra items type `int` [typeddicts_extra_items]
+typeddicts_extra_items.py:257:13: error: `int` is not assignable to extra items type `str` [typeddicts_extra_items]
+typeddicts_extra_items.py:268:14: error: `object` is not assignable to extra items type `int` [typeddicts_extra_items]
+typeddicts_extra_items.py:278:1: error: Unrecognized item `year` for `NonClosedMovie`: extra items are not allowed [typeddicts_extra_items]
+typeddicts_extra_items.py:285:1: error: Wrong type for extra item `language`: `str` is not assignable to `int` [typeddicts_extra_items]
+typeddicts_extra_items.py:293:1: error: Unrecognized item `year` for `ClosedMovie`: extra items are not allowed [typeddicts_extra_items]
+typeddicts_extra_items.py:303:1: error: TypedDict `MovieExtraInt` is not assignable to `Mapping[str, int]` [typeddicts_operations]
+typeddicts_extra_items.py:352:5: error: Type mismatch: `int_dict` is annotated `IntDict` (intdict) but assigned dict[str, int] [assignment_compatibility]
+"""

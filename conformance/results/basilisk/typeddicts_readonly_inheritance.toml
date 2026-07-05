@@ -1,0 +1,19 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly_inheritance.py:36:1: error: Cannot assign to read-only field `name` of `TypedDict` `a2` [typeddicts_readonly]
+typeddicts_readonly_inheritance.py:50:5: error: TypedDict `RecordShop` illegally redeclares field `alt` from `AlbumCollection`: the value type is not compatible with the inherited declaration [typeddicts_inheritance]
+typeddicts_readonly_inheritance.py:65:1: error: missing required key `name` [typeddicts_operations]
+typeddicts_readonly_inheritance.py:82:1: error: Value assigned to `TypedDict` `User` field `ident` has the wrong type; expected `str` [typeddicts_operations]
+typeddicts_readonly_inheritance.py:83:1: error: Value assigned to `TypedDict` `User` field `ident` has the wrong type; expected `str` [typeddicts_operations]
+typeddicts_readonly_inheritance.py:84:1: error: missing required key `ident` [typeddicts_operations]
+typeddicts_readonly_inheritance.py:94:5: error: TypedDict `F3` illegally redeclares field `a` from `F1`: a writable item may not be redeclared as `ReadOnly` [typeddicts_inheritance]
+typeddicts_readonly_inheritance.py:98:5: error: TypedDict `F4` illegally redeclares field `a` from `F1`: a required item may not be redeclared as not-required [typeddicts_inheritance]
+typeddicts_readonly_inheritance.py:106:5: error: TypedDict `F6` illegally redeclares field `c` from `F1`: a required item may not be redeclared as not-required [typeddicts_inheritance]
+typeddicts_readonly_inheritance.py:119:7: error: TypedDict `TD_A` inherits incompatible declarations of field `x` from `TD_A1` and `TD_A2` [typeddicts_inheritance]
+typeddicts_readonly_inheritance.py:119:7: error: TypedDict `TD_A` inherits incompatible declarations of field `y` from `TD_A1` and `TD_A2` [typeddicts_inheritance]
+typeddicts_readonly_inheritance.py:132:7: error: TypedDict `TD_B` inherits incompatible declarations of field `x` from `TD_B1` and `TD_B2` [typeddicts_inheritance]
+typeddicts_readonly_inheritance.py:132:7: error: TypedDict `TD_B` inherits incompatible declarations of field `y` from `TD_B1` and `TD_B2` [typeddicts_inheritance]
+"""

@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_consistency.py:25:5: error: Overload of `return_type` returns `str`, which is not assignable to the implementation's return type `int` [overloads_consistency_3]
+overloads_consistency.py:41:5: error: An overload of `parameter_type` has a parameter type the implementation cannot accept [overloads_consistency_3]
+"""

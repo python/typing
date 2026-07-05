@@ -1,0 +1,18 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_definitions.py:16:5: error: Function `func1` has only 1 `@overload` signature — at least two are required [overloads_definitions]
+overloads_definitions.py:28:5: error: Function `func2` has 2 `@overload` signatures but no implementation [overloads_definitions]
+overloads_definitions.py:59:9: error: Function `not_abstract` has 2 `@overload` signatures but no implementation [overloads_definitions]
+overloads_definitions.py:81:9: error: Inconsistent `@staticmethod` across overloads of `func5`: it must be on every overload and the implementation, or none [overloads_consistency_2]
+overloads_definitions.py:94:9: error: Inconsistent `@classmethod` across overloads of `func6`: it must be on every overload and the implementation, or none [overloads_consistency_2]
+overloads_definitions.py:123:6: error: `@final` on an `@overload` signature of `invalid_final`: it should be applied only to the implementation [overloads_consistency_2]
+overloads_definitions.py:138:6: error: `@final` on an `@overload` signature of `invalid_final_2`: it should be applied only to the implementation [overloads_consistency_2]
+overloads_definitions.py:143:6: error: `@final` on an `@overload` signature of `invalid_final_2`: it should be applied only to the implementation [overloads_consistency_2]
+overloads_definitions.py:186:9: error: Method `final_method` in `Child` overrides a `@final` method [qualifiers_final_decorator]
+overloads_definitions.py:203:9: error: Method `bad_override` in `Child` is decorated with `@override` but no matching method exists in any base class [classes_override_3]
+overloads_definitions.py:227:6: error: `@override` on an `@overload` signature of `to_override`: it should be applied only to the implementation [overloads_consistency_2]
+overloads_definitions.py:231:6: error: `@override` on an `@overload` signature of `to_override`: it should be applied only to the implementation [overloads_consistency_2]
+"""

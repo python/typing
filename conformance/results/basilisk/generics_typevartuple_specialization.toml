@@ -1,0 +1,13 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_typevartuple_specialization.py:109:1: error: Cannot use unpacked `TypeVarTuple` `*Ts` as a type argument to `IntTupleGeneric`, which has no `TypeVarTuple` parameter [generics_typevartuple_specialization_2]
+generics_typevartuple_specialization.py:109:1: error: TypeVar `Ts` is not bound in this scope [generics_variance_inference]
+generics_typevartuple_specialization.py:110:1: error: Cannot use unpacked tuple `*tuple[...]` as a type argument to `IntTupleGeneric`, which has no `TypeVarTuple` parameter [generics_typevartuple_specialization_2]
+generics_typevartuple_specialization.py:121:1: error: Tuple type alias `TA5` has 2 unpack operators; at most one `*` unpack is allowed in a `tuple[...]` type [generics_typevartuple_specialization]
+generics_typevartuple_specialization.py:122:1: error: Tuple type alias `TA6` has 2 unpack operators; at most one `*` unpack is allowed in a `tuple[...]` type [generics_typevartuple_specialization]
+generics_typevartuple_specialization.py:127:5: error: `TA7` requires at least 2 plain type arguments (one per regular `TypeVar`), but 1 was provided (out of 1 total) [generics_typevartuple_specialization_2]
+generics_typevartuple_specialization.py:163:8: error: `TA11` requires at least 1 plain type argument (one per regular `TypeVar`), but 0 were provided (out of 1 total) [generics_typevartuple_specialization_2]
+"""

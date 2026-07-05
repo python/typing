@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_alt_syntax.py:23:17: error: Second argument to `TypedDict("BadTypedDict1", ...)` must be a dict literal [typeddicts_alt_syntax]
+typeddicts_alt_syntax.py:27:17: error: All keys in `TypedDict("BadTypedDict2", {...})` must be string literals [typeddicts_alt_syntax]
+typeddicts_alt_syntax.py:31:17: error: TypedDict declared name `WrongName` does not match the variable name `BadTypedDict3` [typeddicts_alt_syntax]
+typeddicts_alt_syntax.py:35:17: error: Unrecognised keyword `other=` in `TypedDict("BadTypedDict4", ...)` call [typeddicts_alt_syntax]
+"""

@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_transform_field.py:64:1: error: Unexpected keyword argument `id` for `CustomerModel1`: field `id` is not included in `__init__` [dataclasses_kwonly]
+dataclasses_transform_field.py:75:16: error: Too many positional arguments to `CustomerModel2`: 1 argument(s) must be passed as keyword arguments [dataclasses_kwonly]
+"""

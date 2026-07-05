@@ -1,0 +1,24 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_basic.py:40:5: error: Constraint mismatch for TypeVar `AnyStr` in call to `concat`: argument types belong to different constraint groups [generics_basic_3]
+generics_basic.py:41:5: error: Constraint mismatch for TypeVar `AnyStr` in call to `concat`: argument types belong to different constraint groups [generics_basic_3]
+generics_basic.py:49:18: error: `BadConstraint1` has a single constraint; TypeVar requires 0 or 2+ constraints [generics_basic]
+generics_basic.py:55:22: error: `BadConstraint2` has a constraint that is parameterized by a type variable [generics_basic]
+generics_basic.py:69:5: error: Constraint mismatch for TypeVar `AnyStr` in call to `concat`: argument types belong to different constraint groups [generics_basic_3]
+generics_basic.py:121:24: error: TypeVar `T` appears more than once in `Generic[...]` for `Pair2` [generics_base_class]
+generics_basic.py:157:5: error: Invalid subscript key type `int` for `m1` which expects key type `str` [generics_basic_3]
+generics_basic.py:158:5: error: Invalid subscript key type `int` for `m2` which expects key type `str` [generics_basic_3]
+generics_basic.py:162:20: error: Non-TypeVar argument in `Generic[...]` or `Protocol[...]` for `Bad1` [generics_basic_2]
+generics_basic.py:163:21: error: Non-TypeVar argument in `Generic[...]` or `Protocol[...]` for `Bad2` [generics_basic_2]
+generics_basic.py:171:7: error: Type parameter`T_co` used in a base class of `Bad3` but not listed in `Generic[...]` or `Protocol[...]` [generics_basic_2]
+generics_basic.py:172:7: error: Type parameter`T_co` used in a base class of `Bad4` but not listed in `Generic[...]` or `Protocol[...]` [generics_basic_2]
+generics_basic.py:208:1: error: Class `GenericMetaInstance` uses a parameterized generic type as its metaclass [generics_basic_3]
+generics_basic.py:223:22: error: Argument `y` of `takes_two_lists` expects `list[T]` but received a scalar literal where `list[T]` is required — no type-variable assignment makes it valid [calls_argument_type]
+generics_basic.py:232:5: error: TypeVar `T` is not bound in this scope [generics_variance_inference]
+generics_basic.py:240:26: error: Argument `y` of `takes_two_int_lists` expects `list[T_int]` but received a scalar literal where `list[T_int]` is required — no type-variable assignment makes it valid [calls_argument_type]
+generics_basic.py:241:26: error: Argument `y` of `takes_two_int_lists` expects `list[T_int]` but received `list[str]` where `list[T_int]` is required — `str` does not satisfy type variable `T_int` [calls_argument_type]
+generics_basic.py:251:5: error: TypeVar `T` is not bound in this scope [generics_variance_inference]
+"""

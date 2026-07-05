@@ -1,0 +1,14 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_type.py:30:5: error: `Class1` constructor requires at least 2 argument(s) but 0 were provided via `type[Class1]` [constructors_call_type]
+constructors_call_type.py:40:5: error: `Class2` constructor requires at least 2 argument(s) but 0 were provided via `type[Class2]` [constructors_call_type]
+constructors_call_type.py:50:5: error: `Class3` constructor requires at least 2 argument(s) but 0 were provided via `type[Class3]` [constructors_call_type]
+constructors_call_type.py:59:5: error: `Class4` constructor takes no arguments but 1 argument(s) were provided via `type[Class4]` [constructors_call_type]
+constructors_call_type.py:64:5: error: Cannot pass arguments to constructor of unbound type variable `T`; its constructor signature is unknown [constructors_call_type]
+constructors_call_type.py:72:5: error: `Class1` constructor requires at least 2 argument(s) but 0 were provided via `type[Class1]` [constructors_call_type]
+constructors_call_type.py:81:5: error: `Class2` constructor requires at least 2 argument(s) but 1 were provided via `type[Class2]` [constructors_call_type]
+constructors_call_type.py:82:12: error: Argument 2 has type `int` but parameter `y` of `Class2` constructor expects `str` [constructors_call_type]
+"""

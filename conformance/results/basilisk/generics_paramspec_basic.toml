@@ -1,0 +1,14 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_paramspec_basic.py:10:13: error: Variable name `WrongName` does not match the name string `NotIt` passed to `ParamSpec` [generics_basic]
+generics_paramspec_basic.py:15:1: error: `TypeAlias` `TA1` has a `ParamSpec` as its type, which is invalid; `ParamSpec` can only be used in `Callable[P, ReturnType]` [annotations_forward_refs]
+generics_paramspec_basic.py:23:11: error: Invalid type expression in annotation for parameter `x` [annotations_forward_refs]
+generics_paramspec_basic.py:27:11: error: Invalid type expression in annotation for parameter `x` [annotations_forward_refs]
+generics_paramspec_basic.py:31:11: error: Invalid type expression in annotation for parameter `x` [annotations_forward_refs]
+generics_paramspec_basic.py:35:11: error: Invalid type expression in annotation for parameter `x` [annotations_forward_refs]
+generics_paramspec_basic.py:39:12: error: Invalid type expression in annotation for parameter `args` [annotations_forward_refs]
+generics_paramspec_basic.py:39:23: error: Invalid type expression in annotation for parameter `kwargs` [annotations_forward_refs]
+"""

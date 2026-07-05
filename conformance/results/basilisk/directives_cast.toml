@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_cast.py:15:8: error: `cast()` requires exactly 2 arguments (type, value), got 0 [directives_cast]
+directives_cast.py:16:13: error: First argument of `cast()` must be a type, not a value literal [directives_cast]
+directives_cast.py:17:8: error: `cast()` requires exactly 2 arguments (type, value), got 3 [directives_cast]
+"""

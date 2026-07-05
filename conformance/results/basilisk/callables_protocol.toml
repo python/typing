@@ -1,0 +1,25 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+callables_protocol.py:35:1: error: Function `cb1_bad1` incompatible with `Proto1`: missing keyword param `max_len` [callables_protocol_2]
+callables_protocol.py:35:1: error: Function `cb1_bad1` incompatible with `Proto1`: requires keyword `max_items` not in protocol [callables_protocol_2]
+callables_protocol.py:36:1: error: Function `cb1_bad2` incompatible with `Proto1`: missing keyword param `max_len` [callables_protocol_2]
+callables_protocol.py:37:1: error: Function `cb1_bad3` incompatible with `Proto1`: keyword param `max_len` needs default [callables_protocol_2]
+callables_protocol.py:37:1: error: Function `cb1_bad3` incompatible with `Proto1`: keyword param `max_len` type `str | None` vs `int | None` [callables_protocol_2]
+callables_protocol.py:67:1: error: Function `cb2_bad1` incompatible with `Proto2`: missing `**kwargs` [callables_protocol_2]
+callables_protocol.py:68:1: error: Function `cb2_bad2` incompatible with `Proto2`: *args type `str` vs `bytes` [callables_protocol_2]
+callables_protocol.py:69:1: error: Function `cb2_bad3` incompatible with `Proto2`: **kwargs type `bytes` vs `str` [callables_protocol_2]
+callables_protocol.py:70:1: error: Function `cb2_bad4` incompatible with `Proto2`: missing `*args` [callables_protocol_2]
+callables_protocol.py:97:1: error: Function `cb4_bad1` cannot satisfy protocol `Proto4`: protocol has extra attributes [callables_protocol_2]
+callables_protocol.py:121:1: error: Cannot assign function `cb6_bad1` to non-protocol type `NotProto6` [callables_protocol_2]
+callables_protocol.py:169:1: error: Function `cb8_bad1` incompatible with `Proto8`: overload param `x` type `str` not accepted by `int` [callables_protocol_2]
+callables_protocol.py:186:5: error: Cannot assign `str` to `Proto9.other_attribute` of type `int` [callables_protocol_2]
+callables_protocol.py:187:5: error: Protocol `Proto9` has no attribute `xxx` [callables_protocol_2]
+callables_protocol.py:197:7: error: Protocol `Proto9` has no attribute `other_attribute2` [callables_protocol_2]
+callables_protocol.py:238:1: error: Function `cb11_bad1` incompatible with `Proto11`: param `y` is pos-only but must accept keyword [callables_protocol_2]
+callables_protocol.py:260:1: error: Function `cb12_bad1` incompatible with `Proto12`: missing keyword param `kwarg1` [callables_protocol_2]
+callables_protocol.py:284:1: error: Function `cb13_no_default` incompatible with `Proto13_Default`: param `path` needs default [callables_protocol_2]
+callables_protocol.py:311:1: error: Function `cb14_no_default` incompatible with `Proto14_Default`: keyword param `path` needs default [callables_protocol_2]
+"""

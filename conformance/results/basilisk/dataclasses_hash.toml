@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_hash.py:17:1: error: Cannot call `.__hash__()` on `DC1` instance: `DC1.__hash__` is `None` [dataclasses_hash]
+dataclasses_hash.py:18:1: error: Cannot assign `DC1` instance to `Hashable`-annotated variable `v1`: `DC1` is not hashable [dataclasses_hash]
+dataclasses_hash.py:39:1: error: Cannot call `.__hash__()` on `DC3` instance: `DC3.__hash__` is `None` [dataclasses_hash]
+dataclasses_hash.py:40:1: error: Cannot assign `DC3` instance to `Hashable`-annotated variable `v3`: `DC3` is not hashable [dataclasses_hash]
+"""

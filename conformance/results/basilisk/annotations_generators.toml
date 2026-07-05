@@ -1,0 +1,23 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+annotations_generators.py:51:1: error: Generator function `generator2` is missing a return statement; declared return type is `c` [annotations_generators]
+annotations_generators.py:51:1: error: Generator `generator2` is annotated to return `C` but has no valid return path [annotations_generators_2]
+annotations_generators.py:54:9: error: Incompatible return type in generator `generator2`: `bool` is not assignable to `c` [annotations_generators]
+annotations_generators.py:57:9: error: Incompatible yield type in `generator2`: `int` is not assignable to `a` [annotations_generators]
+annotations_generators.py:57:9: error: Incompatible yield type in `generator2`: expected `A`, got `3` [annotations_generators_2]
+annotations_generators.py:66:9: error: Incompatible yield type in `generator3`: `int` is not assignable to `a` [annotations_generators]
+annotations_generators.py:66:9: error: Incompatible yield type in `generator3`: expected `A`, got `3` [annotations_generators_2]
+annotations_generators.py:75:5: error: Incompatible yield type in `generator5`: `b` is not assignable to `a` [annotations_generators]
+annotations_generators.py:75:5: error: Incompatible yield type in `generator5`: expected `A`, got `B()` [annotations_generators_2]
+annotations_generators.py:86:21: error: Generator function `generator8` has incompatible return type `int` [annotations_generators]
+annotations_generators.py:91:27: error: Generator function `generator9` has incompatible return type `int` [annotations_generators]
+annotations_generators.py:118:5: error: Incompatible `yield from` in `generator18`: sub-generator yields `a` but `b` is expected [annotations_generators]
+annotations_generators.py:118:5: error: Incompatible `yield from` in `generator18`: `generator17` yields `A` but `B` expected [annotations_generators_2]
+annotations_generators.py:119:5: error: Incompatible `yield from` in `generator18`: list element type `int` is not assignable to yield type `b` [annotations_generators]
+annotations_generators.py:119:5: error: Incompatible `yield from` in `generator18`: list elements are `int` but `B` expected [annotations_generators_2]
+annotations_generators.py:135:5: error: Incompatible `yield from` send type in `generator22`: outer sends `str` but sub-generator accepts `int` [annotations_generators]
+annotations_generators.py:135:5: error: Incompatible send type in `yield from` in `generator22`: `generator21` expects send type `int` but outer generator sends `str` [annotations_generators_2]
+"""

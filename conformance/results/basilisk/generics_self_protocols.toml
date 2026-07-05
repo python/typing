@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_self_protocols.py:61:19: error: Class `BadReturnType` is not compatible with protocol `ShapeProtocol`: method `set_scale` returns `int` instead of `Self` [generics_self_protocols]
+generics_self_protocols.py:64:19: error: Class `ReturnDifferentClass` is not compatible with protocol `ShapeProtocol`: method `set_scale` returns `ReturnConcreteShape` instead of `Self` [generics_self_protocols]
+"""

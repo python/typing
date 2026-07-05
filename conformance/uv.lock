@@ -27,6 +27,18 @@ wheels = [
 ]
 
 [[package]]
+name = "basilisk-python"
+version = "0.27.0"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e4/b3/f1acc0c0d3400c32aa3d0927d87f8bd4f88ea2742505a4494dd5d664c4ae/basilisk_python-0.27.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:b0723eaf5bcd9a4df926486b128aef7e945cbd26e008966fef5baa83b6d14659", size = 6042835, upload-time = "2026-07-05T11:49:03.691Z" },
+    { url = "https://files.pythonhosted.org/packages/0f/e5/fb3900f0c4f533a4e8f92f7aab293514ed14d82c5748c373db5b3f0b3020/basilisk_python-0.27.0-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:ae79412a9eb8f7e5cf0b4ea9bc639b8529f996103a417f6440f05ba5e6777eb1", size = 6051090, upload-time = "2026-07-05T11:49:05.877Z" },
+    { url = "https://files.pythonhosted.org/packages/bc/75/ed45daa20c0981a04f2f7ee5e8591c90dc51d90d3037c1c3f494f3ec44cd/basilisk_python-0.27.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6e250b028cca805a441a44ff89b135fce773d442926401d7f88a31858fcb5bf4", size = 6475075, upload-time = "2026-07-05T11:49:07.656Z" },
+    { url = "https://files.pythonhosted.org/packages/e5/2b/3efab5e598502d2fcd4017c452e9aa30a7777e52133bdcc66c7d9cee5ebc/basilisk_python-0.27.0-py3-none-win_amd64.whl", hash = "sha256:2e6eb13a25863a574a2866dcf75a9101cce5c86cf8d538d86cf85b3fae80f916", size = 6404281, upload-time = "2026-07-05T11:49:09.69Z" },
+    { url = "https://files.pythonhosted.org/packages/79/2e/17d798481ecd413bcf2bd5d01bc80c7d63dac8dee93cfc486cf381096e2d/basilisk_python-0.27.0-py3-none-win_arm64.whl", hash = "sha256:9b5e731933f231947e6d46845721ec399c8ce5d0f239a91b44c16d5933ac8662", size = 6009719, upload-time = "2026-07-05T11:49:11.333Z" },
+]
+
+[[package]]
 name = "importlib-resources"
 version = "7.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -252,6 +264,7 @@ name = "typing-conformance"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "basilisk-python" },
     { name = "jinja2" },
     { name = "markdown" },
     { name = "mypy" },
@@ -266,6 +279,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "basilisk-python" },
     { name = "jinja2" },
     { name = "markdown" },
     { name = "mypy" },

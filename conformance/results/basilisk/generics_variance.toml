@@ -1,0 +1,19 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_variance.py:14:6: error: `TypeVar` `X1` cannot be both covariant and contravariant [generics_typevartuple_basic]
+generics_variance.py:77:14: error: Variance incompatibility in base class `Inv`: `T_co` is covariant but the corresponding type parameter is invariant [generics_variance]
+generics_variance.py:81:14: error: Variance incompatibility in base class `Inv`: `T_contra` is contravariant but the corresponding type parameter is invariant [generics_variance]
+generics_variance.py:93:17: error: Variance incompatibility in base class `Co`: `T_contra` is contravariant but the corresponding type parameter is covariant [generics_variance]
+generics_variance.py:105:21: error: Variance incompatibility in base class `Contra`: `T_co` is covariant but the corresponding type parameter is contravariant [generics_variance]
+generics_variance.py:113:21: error: Variance incompatibility in base class `Contra`: `T_co` is covariant but the corresponding type parameter is contravariant [generics_variance]
+generics_variance.py:126:5: error: Variance incompatibility in base class `CoContra`: `T_co` is covariant but the corresponding type parameter is contravariant [generics_variance]
+generics_variance.py:132:5: error: Variance incompatibility in base class `CoContra`: `T_contra` is contravariant but the corresponding type parameter is covariant [generics_variance]
+generics_variance.py:142:5: error: Variance incompatibility in base class `CoContra`: `T_co` is covariant but the corresponding type parameter is contravariant [generics_variance]
+generics_variance.py:163:26: error: Variance incompatibility in base class `Contra`: `T_contra` is covariant but the corresponding type parameter is contravariant [generics_variance]
+generics_variance.py:167:30: error: Variance incompatibility in base class `Contra`: `T_co` is covariant but the corresponding type parameter is contravariant [generics_variance]
+generics_variance.py:191:33: error: Variance incompatibility in base class `Contra_TA`: `T_contra` is covariant but the corresponding type parameter is contravariant [generics_variance]
+generics_variance.py:196:5: error: Variance incompatibility in base class `Contra_TA`: `T_co` is covariant but the corresponding type parameter is contravariant [generics_variance]
+"""

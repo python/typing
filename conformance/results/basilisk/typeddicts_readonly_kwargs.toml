@@ -1,0 +1,7 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly_kwargs.py:33:5: error: Cannot assign to read-only field `key1` of `TypedDict` `kwargs` [typeddicts_readonly]
+"""

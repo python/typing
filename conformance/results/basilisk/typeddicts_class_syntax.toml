@@ -1,0 +1,12 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_class_syntax.py:30:9: error: Method `method1` is not allowed in TypedDict class `BadTypedDict1` [typeddicts_class_syntax]
+typeddicts_class_syntax.py:35:9: error: Method `method2` is not allowed in TypedDict class `BadTypedDict1` [typeddicts_class_syntax]
+typeddicts_class_syntax.py:40:9: error: Method `method3` is not allowed in TypedDict class `BadTypedDict1` [typeddicts_class_syntax]
+typeddicts_class_syntax.py:45:7: error: TypedDict class `BadTypedDict2` uses unrecognised keyword `metaclass` [typeddicts_class_syntax_2]
+typeddicts_class_syntax.py:50:7: error: TypedDict class `BadTypedDict3` uses unrecognised keyword `other` [typeddicts_class_syntax_2]
+typeddicts_class_syntax.py:65:1: error: Unrecognized item `z` for `ConditionalField`: extra items are not allowed [typeddicts_extra_items]
+"""

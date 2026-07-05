@@ -1,0 +1,19 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+callables_kwargs.py:46:5: error: Call to `func1` missing required keyword arguments from `TD2` [callables_kwargs]
+callables_kwargs.py:51:5: error: Keyword `v4` in call to `func1` is not a key of TypedDict `TD2` [callables_kwargs]
+callables_kwargs.py:52:5: error: Cannot pass positional arguments to `func1` for Unpack[TD2] kwargs [callables_kwargs]
+callables_kwargs.py:58:5: error: Cannot spread `my_dict: dict[str, str]` into `func1` with Unpack[TD2] kwargs [callables_kwargs]
+callables_kwargs.py:63:5: error: Keyword `v1` in call to `func1` conflicts with `**td2` [callables_kwargs]
+callables_kwargs.py:64:11: error: Argument `v3` of `func2` expects `str` but received an `int` literal [calls_argument_type]
+callables_kwargs.py:65:5: error: Keyword `v1` in call to `func2` conflicts with `**td2` [callables_kwargs]
+callables_kwargs.py:101:1: error: Function `func1` incompatible with `TDProtocol3`: keyword param `v2` type `str` vs `int` [callables_protocol_2]
+callables_kwargs.py:102:1: error: Function `func1` incompatible with `TDProtocol4`: requires keyword `v3` not in protocol [callables_protocol_2]
+callables_kwargs.py:103:1: error: Function `func1` incompatible with `TDProtocol5`: missing required params [callables_protocol_2]
+callables_kwargs.py:111:1: error: Parameter `v1` overlaps with TypedDict `TD2` key `v1` [callables_kwargs]
+callables_kwargs.py:122:1: error: Invalid `**kwargs: Unpack[T]`: `T` is a TypeVar, not a TypedDict [callables_kwargs]
+callables_kwargs.py:134:1: error: Function `func7` incompatible with `TDProtocol6`: missing `**kwargs` [callables_protocol_2]
+"""

@@ -1,0 +1,16 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+qualifiers_final_decorator.py:21:7: error: Cannot inherit from final class `Base1` [qualifiers_final_decorator]
+qualifiers_final_decorator.py:56:9: error: Method `method1` in `Derived2` overrides a `@final` method [qualifiers_final_decorator]
+qualifiers_final_decorator.py:60:9: error: Method `method2` in `Derived2` overrides a `@final` method [qualifiers_final_decorator]
+qualifiers_final_decorator.py:64:9: error: Method `method3` in `Derived2` overrides a `@final` method [qualifiers_final_decorator]
+qualifiers_final_decorator.py:75:9: error: Method `method4` in `Derived2` overrides a `@final` method [qualifiers_final_decorator]
+qualifiers_final_decorator.py:85:6: error: `@final` on an `@overload` signature of `method`: it should be applied only to the implementation [overloads_consistency_2]
+qualifiers_final_decorator.py:89:9: error: Method `method` in `Derived3` overrides a `@final` method [qualifiers_final_decorator]
+qualifiers_final_decorator.py:102:9: error: Method `method` in `Derived4` overrides a `@final` method [qualifiers_final_decorator]
+qualifiers_final_decorator.py:118:9: error: Method `method` in `Derived5` overrides a `@final` method [qualifiers_final_decorator]
+qualifiers_final_decorator.py:126:5: error: `@final` is not allowed on non-method function `func1` [qualifiers_final_decorator]
+"""

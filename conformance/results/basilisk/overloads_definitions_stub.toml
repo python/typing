@@ -1,0 +1,14 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_definitions_stub.pyi:14:5: error: Function `func1` has only 1 `@overload` signature — at least two are required [overloads_definitions]
+overloads_definitions_stub.pyi:33:9: error: Inconsistent `@staticmethod` across overloads of `func5`: it must be on every overload and the implementation, or none [overloads_consistency_2]
+overloads_definitions_stub.pyi:41:9: error: Inconsistent `@classmethod` across overloads of `func6`: it must be on every overload and the implementation, or none [overloads_consistency_2]
+overloads_definitions_stub.pyi:72:6: error: `@final` on a later overload of `invalid_final`: in a stub it must appear only on the first overload [overloads_consistency_2]
+overloads_definitions_stub.pyi:85:6: error: `@final` on a later overload of `invalid_final_2`: in a stub it must appear only on the first overload [overloads_consistency_2]
+overloads_definitions_stub.pyi:111:9: error: Method `final_method` in `Child` overrides a `@final` method [qualifiers_final_decorator]
+overloads_definitions_stub.pyi:122:9: error: Method `bad_override` in `Child` is decorated with `@override` but no matching method exists in any base class [classes_override_3]
+overloads_definitions_stub.pyi:146:6: error: `@override` on a later overload of `to_override`: in a stub it must appear only on the first overload [overloads_consistency_2]
+"""

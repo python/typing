@@ -1,0 +1,17 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_syntax_declarations.py:17:25: error: Non-TypeVar argument in `Generic[...]` or `Protocol[...]` for `ClassA` [generics_basic_2]
+generics_syntax_declarations.py:25:29: error: Non-TypeVar argument in `Generic[...]` or `Protocol[...]` for `ClassC` [generics_basic_2]
+generics_syntax_declarations.py:25:32: error: Non-TypeVar argument in `Generic[...]` or `Protocol[...]` for `ClassC` [generics_basic_2]
+generics_syntax_declarations.py:32:9: error: Attribute `is_integer` is not defined on `str`; parameter `x` is typed as `T` (bound to `str`) [generics_syntax_declarations_2]
+generics_syntax_declarations.py:44:21: error: Type parameter `T` in class `ClassD` references a type variable from an outer scope in its bound; this is not allowed [generics_syntax_declarations]
+generics_syntax_declarations.py:48:17: error: Type parameter `T` in class `ClassH` has a list literal as its bound; use a tuple for constraints or a single type for an upper bound [generics_syntax_declarations]
+generics_syntax_declarations.py:60:17: error: Type parameter `T` in class `ClassK` has an empty constraint tuple; constraint tuples must contain two or more types [generics_syntax_declarations]
+generics_syntax_declarations.py:64:17: error: Type parameter `T` in class `ClassL` has a single-element constraint tuple; constraint tuples must contain two or more types [generics_syntax_declarations]
+generics_syntax_declarations.py:71:17: error: Type parameter `T` in class `ClassM` uses a non-literal constraint; the constraint must be a literal tuple expression, not a variable [generics_syntax_declarations]
+generics_syntax_declarations.py:75:18: error: Type parameter `T` in class `ClassN` has an invalid constraint element; constraint tuple elements must be types, not literal values [generics_syntax_declarations]
+generics_syntax_declarations.py:79:18: error: Type parameter `T` in class `ClassO` references a type variable from an outer scope in its bound; this is not allowed [generics_syntax_declarations]
+"""

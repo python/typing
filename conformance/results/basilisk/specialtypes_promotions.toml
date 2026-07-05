@@ -1,0 +1,7 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+specialtypes_promotions.py:13:5: error: Attribute `numerator` is not defined on `float`; parameter `f` is typed as `float`, not `int` [specialtypes_promotions]
+"""

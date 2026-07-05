@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+specialtypes_none.py:21:7: error: Argument `val1` of `func1` expects `None` but received `type(None)` (a class object, not the value `None`) [calls_argument_type]
+specialtypes_none.py:27:1: error: Type mismatch: `none2` is annotated `Iterable` (iterable) but assigned None [assignment_compatibility]
+specialtypes_none.py:41:7: error: Argument `val1` of `func2` expects `type[None]` but received `None` (a value, not a class object — use `type(None)` or `NoneType`) [calls_argument_type]
+"""

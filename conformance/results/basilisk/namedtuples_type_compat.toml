@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+namedtuples_type_compat.py:22:1: error: Incompatible tuple assignment: `p` is a `Point` with 3 field(s), but `tuple[int, int]` expects 2 element(s) [namedtuples_type_compat]
+namedtuples_type_compat.py:23:1: error: Incompatible tuple element type at index 1: `Point` field type is `int`, but `tuple[int, str, str]` expects `str` [namedtuples_type_compat]
+"""
