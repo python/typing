@@ -502,16 +502,6 @@ class PycroscopeTypeChecker(TypeChecker):
         return line_to_errors
 
 
-TYPE_CHECKERS: Sequence[TypeChecker] = (
-    MypyTypeChecker(),
-    PyrightTypeChecker(),
-    ZubanLSTypeChecker(),
-    PyreflyTypeChecker(),
-    PycroscopeTypeChecker(),
-    TyTypeChecker(),
-)
-
-
 class BasiliskTypeChecker(TypeChecker):
     @property
     def name(self) -> str:
@@ -547,7 +537,7 @@ class BasiliskTypeChecker(TypeChecker):
         )
         return proc.stdout.strip()
 
-    def run_tests(self, test_files: "Sequence[str]") -> dict[str, str]:
+    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         # Basilisk emits a machine-readable JSON array of diagnostics. Each test
         # file is a self-contained module, so we check them individually and key
         # the flattened text output by file name for the scoring pass.
@@ -605,7 +595,7 @@ class BasiliskTypeChecker(TypeChecker):
                 results_dict[file_name] = results_dict.get(file_name, "") + line_text
         return results_dict
 
-    def parse_errors(self, output: "Sequence[str]") -> dict[int, list[str]]:
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
         # aliases_implicit.py:115:5: error: Invalid type expression ... [annotations_forward_refs]
         line_to_errors: dict[int, list[str]] = {}
         for line in output:
@@ -620,6 +610,12 @@ class BasiliskTypeChecker(TypeChecker):
         return line_to_errors
 
 
-# Register Basilisk without depending on upstream's tuple contents: extend
-# whatever `TYPE_CHECKERS` the suite defined. `--only-run basilisk` selects it.
-TYPE_CHECKERS = tuple(TYPE_CHECKERS) + (BasiliskTypeChecker(),)
+TYPE_CHECKERS: Sequence[TypeChecker] = (
+    MypyTypeChecker(),
+    PyrightTypeChecker(),
+    ZubanLSTypeChecker(),
+    PyreflyTypeChecker(),
+    PycroscopeTypeChecker(),
+    TyTypeChecker(),
+    BasiliskTypeChecker(),
+)
