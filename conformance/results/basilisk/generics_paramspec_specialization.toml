@@ -1,0 +1,11 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_paramspec_specialization.py:44:15: error: Type argument `int` is not valid for `ParamSpec` parameter `P1` of `ClassA` [generics_defaults_specialization]
+generics_paramspec_specialization.py:54:9: error: Argument 1 to `x.f` has incompatible type `str`; expected `int` [callables_protocol]
+generics_paramspec_specialization.py:55:16: error: Argument 3 to `x.f` has incompatible type `str`; expected `bool` [callables_protocol]
+generics_paramspec_specialization.py:60:9: error: Argument 1 to `x.f` has incompatible type `str`; expected `int` [callables_protocol]
+generics_paramspec_specialization.py:61:16: error: Argument 3 to `x.f` has incompatible type `str`; expected `bool` [callables_protocol]
+"""

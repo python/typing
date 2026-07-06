@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+aliases_variance.py:24:16: error: Variance incompatibility in base class `ClassA`: `T_co` is covariant but the corresponding type parameter is invariant [generics_variance]
+aliases_variance.py:28:16: error: Variance incompatibility in base class `A_Alias_1`: `T_co` is covariant but the corresponding type parameter is invariant [generics_variance]
+aliases_variance.py:32:16: error: Variance incompatibility in base class `A_Alias_2`: `T_co` is covariant but the corresponding type parameter is invariant [generics_variance]
+aliases_variance.py:44:16: error: Variance incompatibility in base class `B_Alias_1`: `T_contra` is contravariant but the corresponding type parameter is invariant [generics_variance]
+"""

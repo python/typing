@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_kwonly.py:23:11: error: Too many positional arguments to `DC1`: 1 argument(s) must be passed as keyword arguments [dataclasses_kwonly]
+dataclasses_kwonly.py:38:11: error: Too many positional arguments to `DC2`: 1 argument(s) must be passed as keyword arguments [dataclasses_kwonly]
+dataclasses_kwonly.py:53:11: error: Too many positional arguments to `DC3`: 1 argument(s) must be passed as keyword arguments [dataclasses_kwonly]
+"""

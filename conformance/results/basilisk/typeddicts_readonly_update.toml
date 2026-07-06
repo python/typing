@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly_update.py:23:1: error: `TypedDict` `A` does not support `.update()` — TypedDicts have a fixed schema [typeddicts_operations]
+typeddicts_readonly_update.py:23:1: error: Cannot call `.update()` on `TypedDict` `a1`: it has `ReadOnly` fields [typeddicts_readonly]
+"""

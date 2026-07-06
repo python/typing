@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_defaults_specialization.py:30:1: error: Too many type arguments for `MyAlias`; expected at most 1, got 2 [generics_defaults_specialization]
+generics_defaults_specialization.py:46:1: error: Type mismatch: `x2` is annotated `type[Bar[int]]` but assigned bare `Bar`, whose type parameter `DefaultStrT` defaults to `str` [assignment_compatibility]
+generics_defaults_specialization.py:56:1: error: `Foo` cannot be subscripted; it has no free type parameters [generics_defaults_specialization]
+"""

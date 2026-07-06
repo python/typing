@@ -1,0 +1,22 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_paramspec_components.py:17:17: error: Invalid ParamSpec usage: `*args` must be annotated `P.args` and `**kwargs` must be annotated `P.kwargs` [callables_protocol]
+generics_paramspec_components.py:20:20: error: Invalid ParamSpec usage: ParamSpec components are only valid on `*args` and `**kwargs` [callables_protocol]
+generics_paramspec_components.py:23:20: error: Invalid ParamSpec usage: `*args` must be annotated `P.args` and `**kwargs` must be annotated `P.kwargs` [callables_protocol]
+generics_paramspec_components.py:26:20: error: Invalid ParamSpec usage: `*args: P.args` requires a matching `**kwargs: P.kwargs` [callables_protocol]
+generics_paramspec_components.py:30:17: error: Invalid ParamSpec usage: ParamSpec components used out of scope: no enclosing binding of the ParamSpec through a `Callable` parameter [callables_protocol]
+generics_paramspec_components.py:35:5: error: Invalid ParamSpec usage: ParamSpec components are only valid as `*args: P.args` and `**kwargs: P.kwargs` annotations [callables_protocol]
+generics_paramspec_components.py:36:5: error: Invalid ParamSpec usage: ParamSpec components are only valid as `*args: P.args` and `**kwargs: P.kwargs` annotations [callables_protocol]
+generics_paramspec_components.py:38:18: error: Invalid ParamSpec usage: `*args: P.args` requires a matching `**kwargs: P.kwargs` [callables_protocol]
+generics_paramspec_components.py:41:20: error: Invalid ParamSpec usage: `**kwargs: P.kwargs` requires a matching `*args: P.args` [callables_protocol]
+generics_paramspec_components.py:49:9: error: Invalid ParamSpec usage: `*` must forward the `P.args` parameter, not `P.kwargs` [callables_protocol]
+generics_paramspec_components.py:51:9: error: Invalid ParamSpec usage: expected 0 positional prefix arguments before the forwarded `*args`, found 1 [callables_protocol]
+generics_paramspec_components.py:60:12: error: Invalid ParamSpec usage: no keyword-only parameters may appear between `*args: P.args` and `**kwargs: P.kwargs` [callables_protocol]
+generics_paramspec_components.py:70:9: error: Invalid ParamSpec usage: expected 1 positional prefix argument before the forwarded `*args`, found 0 [callables_protocol]
+generics_paramspec_components.py:72:9: error: Invalid ParamSpec usage: expected 1 positional prefix argument before the forwarded `*args`, found 0 [callables_protocol]
+generics_paramspec_components.py:83:9: error: Invalid ParamSpec usage: prefix parameter `x` must be passed positionally before the forwarded `*args` [callables_protocol]
+generics_paramspec_components.py:98:1: error: Invalid ParamSpec usage: forwarded argument 1 has type `str`, but `a_int_b_str` expects `int` [callables_protocol]
+"""

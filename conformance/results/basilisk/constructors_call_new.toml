@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_new.py:21:13: error: Argument type `float` is incompatible with parameter `x` of type `int` in `Class1.__new__` [constructors_call_new]
+constructors_call_new.py:148:1: error: `Class11[str]()` is incompatible: `__new__` expects `cls: type[Class11[int]]` but received `type[Class11[str]]` [constructors_call_new]
+"""

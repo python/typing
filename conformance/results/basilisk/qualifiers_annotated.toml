@@ -1,0 +1,27 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+qualifiers_annotated.py:38:1: error: Invalid type expression as first argument to `Annotated` for `Bad1` [qualifiers_annotated]
+qualifiers_annotated.py:39:1: error: Invalid type expression as first argument to `Annotated` for `Bad2` [qualifiers_annotated]
+qualifiers_annotated.py:40:1: error: Invalid type expression as first argument to `Annotated` for `Bad3` [qualifiers_annotated]
+qualifiers_annotated.py:41:1: error: Invalid type expression as first argument to `Annotated` for `Bad4` [qualifiers_annotated]
+qualifiers_annotated.py:42:1: error: Invalid type expression as first argument to `Annotated` for `Bad5` [qualifiers_annotated]
+qualifiers_annotated.py:43:1: error: Invalid type expression as first argument to `Annotated` for `Bad6` [qualifiers_annotated]
+qualifiers_annotated.py:44:1: error: Invalid type expression as first argument to `Annotated` for `Bad7` [qualifiers_annotated]
+qualifiers_annotated.py:45:1: error: Invalid type expression as first argument to `Annotated` for `Bad8` [qualifiers_annotated]
+qualifiers_annotated.py:46:1: error: Invalid type expression as first argument to `Annotated` for `Bad9` [qualifiers_annotated]
+qualifiers_annotated.py:47:1: error: Invalid type expression as first argument to `Annotated` for `Bad10` [qualifiers_annotated]
+qualifiers_annotated.py:48:1: error: Invalid type expression as first argument to `Annotated` for `Bad11` [qualifiers_annotated]
+qualifiers_annotated.py:49:1: error: Invalid type expression as first argument to `Annotated` for `Bad12` [qualifiers_annotated]
+qualifiers_annotated.py:59:1: error: `Annotated` requires at least two arguments for `Bad13` [qualifiers_annotated]
+qualifiers_annotated.py:59:1: error: `Annotated` requires at least two arguments: a type and metadata [qualifiers_annotated_2]
+qualifiers_annotated.py:71:1: error: `Annotated[...]` is not compatible with `type[...]` for `not_type1` [qualifiers_annotated]
+qualifiers_annotated.py:72:1: error: Type alias `SmallInt` (an `Annotated[...]` alias) is not compatible with `type[...]` for `not_type2` [qualifiers_annotated]
+qualifiers_annotated.py:79:1: error: `Annotated[...]` is not compatible with `type[T]` — `Annotated[str, ""]` cannot be used where a type constructor is expected [qualifiers_annotated]
+qualifiers_annotated.py:80:1: error: Type alias `SmallInt` (an `Annotated[...]` alias) is not compatible with `type[T]` [qualifiers_annotated]
+qualifiers_annotated.py:86:1: error: `Annotated` is not callable — `Annotated()` must not be called as a function [qualifiers_annotated]
+qualifiers_annotated.py:87:1: error: `Annotated` is not callable — `Annotated[int, ""]()` must not be called as a function [qualifiers_annotated]
+qualifiers_annotated.py:88:1: error: `SmallInt` is a type alias and cannot be called as a function [qualifiers_annotated]
+"""

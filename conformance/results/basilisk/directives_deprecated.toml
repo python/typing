@@ -1,0 +1,19 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_deprecated.py:18:1: error: Use of deprecated class `Ham` [directives_deprecated]
+directives_deprecated.py:24:1: error: Use of deprecated function `norwegian_blue` [directives_deprecated]
+directives_deprecated.py:25:5: error: Use of deprecated function `norwegian_blue` [directives_deprecated]
+directives_deprecated.py:30:1: error: Use of deprecated overload `foo` [directives_deprecated]
+directives_deprecated.py:34:7: error: Use of deprecated class `Ham` [directives_deprecated]
+directives_deprecated.py:41:5: error: Use of deprecated method `Spam.__add__` [directives_deprecated]
+directives_deprecated.py:42:1: error: Use of deprecated method `Spam.__add__` [directives_deprecated]
+directives_deprecated.py:44:1: error: Use of deprecated property `Spam.greasy` [directives_deprecated]
+directives_deprecated.py:47:1: error: Use of deprecated property setter `Spam.shape` [directives_deprecated]
+directives_deprecated.py:48:1: error: Use of deprecated property setter `Spam.shape` [directives_deprecated]
+directives_deprecated.py:58:1: error: Use of deprecated method `Invocable.__call__` [directives_deprecated]
+directives_deprecated.py:69:1: error: Use of deprecated function `lorem` [directives_deprecated]
+directives_deprecated.py:98:5: error: Use of deprecated method `foo` [directives_deprecated]
+"""

@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_postinit.py:19:37: error: `__post_init__` parameter `y` has type `int` but `InitVar` field `y` declares inner type `str` [dataclasses_postinit]
+dataclasses_postinit.py:28:7: error: Cannot access `InitVar` field `x` on `dc1`: `InitVar` fields are not stored as instance attributes [dataclasses_postinit]
+dataclasses_postinit.py:29:7: error: Cannot access `InitVar` field `y` on `dc1`: `InitVar` fields are not stored as instance attributes [dataclasses_postinit]
+dataclasses_postinit.py:36:9: error: `__post_init__` in `DC2` has 1 parameter after `self`, but 2 `InitVar` fields declared [dataclasses_postinit]
+"""

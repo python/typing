@@ -1,0 +1,17 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+literals_literalstring.py:36:1: error: Invalid parameterization of `Literal` in annotation for `bad_union` [literals_parameterizations]
+literals_literalstring.py:37:1: error: Invalid parameterization of `Literal` in annotation for `bad_nesting` [literals_parameterizations]
+literals_literalstring.py:43:1: error: Type mismatch: `x2` is annotated `Literal[""]` but assigned parameter `b` with type `Literal["two"]` [literals_semantics_2]
+literals_literalstring.py:43:5: error: Type mismatch: `x2` is annotated `Literal[""]` (Literal[""]) but assigned Literal["two"] [assignment_compatibility]
+literals_literalstring.py:43:5: error: Cannot assign `Literal["two"]` to `Literal[""]` — literal values are incompatible [literals_literalstring]
+literals_literalstring.py:65:5: error: Cannot assign f-string to `LiteralString` — interpolated variable `non_literal` has type `str`, which is not `LiteralString` [literals_literalstring]
+literals_literalstring.py:73:5: error: Type mismatch: `x3` is annotated `LiteralString` (LiteralString) but assigned int [assignment_compatibility]
+literals_literalstring.py:74:5: error: Type mismatch: `x4` is annotated `LiteralString` (LiteralString) but assigned bytes [assignment_compatibility]
+literals_literalstring.py:119:22: error: Argument `s` has type `str` which is not compatible with TypeVar bound `LiteralString` [generics_upper_bound_2]
+literals_literalstring.py:133:5: error: Cannot assign `Container(s)` to `Container[LiteralString]` — argument `s` has type `str`, not `LiteralString` [literals_literalstring]
+literals_literalstring.py:171:5: error: Cannot assign `list[LiteralString]` to `list[str]` — `list` is invariant in its type parameter [literals_literalstring]
+"""

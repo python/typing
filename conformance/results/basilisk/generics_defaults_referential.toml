@@ -1,0 +1,15 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_defaults_referential.py:37:5: error: Argument `s` of type `str` is not compatible with parameter `b: int` in `Foo.__init__` (`TypeVar` default propagation) [generics_variance_inference]
+generics_defaults_referential.py:38:5: error: Argument `s` of type `str` is not compatible with parameter `a: int` in `Foo.__init__` (`TypeVar` default propagation) [generics_variance_inference]
+generics_defaults_referential.py:54:7: error: TypeVar `Start2T` has default `StopT` which is not properly ordered in `Generic[...]` for `slice2` [generics_defaults_referential_2]
+generics_defaults_referential.py:61:1: error: TypeVar `S2` has default `S1` which references an outer-scope TypeVar [generics_defaults_referential_2]
+generics_defaults_referential.py:69:12: error: `TypeVar` `Invalid1` has `default=X1` but `X1`'s bound `int` is not a subtype of `Invalid1`'s bound `str` [generics_defaults_referential]
+generics_defaults_referential.py:69:12: error: TypeVar `Invalid1` has default `X1` with bound `int` which is not a subtype of `Invalid1`'s bound `str` [generics_defaults_referential_2]
+generics_defaults_referential.py:75:12: error: TypeVar `Invalid2` has default `Y1` with upper bound `int` which is incompatible with constraints `float, str` [generics_defaults_referential_2]
+generics_defaults_referential.py:79:16: error: `TypeVar` `AlsoInvalid2` has `default=Y2` but `Y2`'s constraints {`int`, `str`} are not a subset of `AlsoInvalid2`'s constraints {`bool`, `complex`} [generics_defaults_referential]
+generics_defaults_referential.py:79:16: error: TypeVar `AlsoInvalid2`'s constraints `{bool, complex}` are not a superset of default TypeVar `Y2`'s constraints `{int, str}` [generics_defaults_referential_2]
+"""

@@ -1,0 +1,18 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+aliases_recursive.py:19:1: error: Type mismatch: `j4` is annotated `Json` (json) but assigned dict[str, int | Unknown] [assignment_compatibility]
+aliases_recursive.py:20:1: error: Type mismatch: `j5` is annotated `Json` (json) but assigned list[int | Unknown] [assignment_compatibility]
+aliases_recursive.py:38:1: error: Type mismatch: `t6` is annotated `RecursiveTuple` (recursivetuple) but assigned tuple[int, tuple[str, int], tuple[int, tuple[int, list[int]]]] [assignment_compatibility]
+aliases_recursive.py:39:1: error: Type mismatch: `t7` is annotated `RecursiveTuple` (recursivetuple) but assigned tuple[int, list[int]] [assignment_compatibility]
+aliases_recursive.py:50:1: error: Type mismatch: `m7` is annotated `RecursiveMapping` (recursivemapping) but assigned dict[str, list[int]] [assignment_compatibility]
+aliases_recursive.py:51:1: error: Type mismatch: `m8` is annotated `RecursiveMapping` (recursivemapping) but assigned dict[str, str | int | list[int]] [assignment_compatibility]
+aliases_recursive.py:52:1: error: Type mismatch: `m9` is annotated `RecursiveMapping` (recursivemapping) but assigned dict[str, str | int | dict[str, str | int | list[int]]] [assignment_compatibility]
+aliases_recursive.py:63:1: error: Type mismatch: `g3` is annotated `GenericTypeAlias1[str]` (generictypealias1[str]) but assigned list[str | list[float]] [assignment_compatibility]
+aliases_recursive.py:69:1: error: Type mismatch: `g6` is annotated `GenericTypeAlias2[str, int]` (generictypealias2[str, int]) but assigned list[list[int | list[str | int | list[float]]] | str] [assignment_compatibility]
+aliases_recursive.py:72:1: error: Type alias `RecursiveUnion` creates a cyclical reference [aliases_recursive]
+aliases_recursive.py:75:1: error: Type alias `MutualReference1` creates a cyclical reference [aliases_recursive]
+aliases_recursive.py:75:63: error: Type alias `MutualReference2` creates a cyclical reference [aliases_recursive]
+"""

@@ -1,0 +1,12 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_merging.py:52:1: error: Class `SCConcrete2` is incompatible with protocol `SizedAndClosable1`: missing method `__len__` [protocols_definition_2]
+protocols_merging.py:53:1: error: Class `SCConcrete2` is incompatible with protocol `SizedAndClosable2`: missing method `__len__` [protocols_definition_2]
+protocols_merging.py:54:1: error: Cannot assign `SCConcrete2()` to type `SizedAndClosable3`: `SizedAndClosable3` is not a protocol and does not support structural subtyping [protocols_definition_2]
+protocols_merging.py:67:1: error: Non-protocol class `SizedAndClosable3` cannot be a base of protocol `BadProto` [protocols_merging]
+protocols_merging.py:82:5: error: Cannot instantiate `SizedAndClosable4`; it does not implement all required protocol members [protocols_explicit]
+protocols_merging.py:83:1: error: Cannot assign `SCConcrete1()` to type `SizedAndClosable4`: `SizedAndClosable4` is not a protocol and does not support structural subtyping [protocols_definition_2]
+"""

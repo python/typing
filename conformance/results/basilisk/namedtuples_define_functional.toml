@@ -1,0 +1,16 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+namedtuples_define_functional.py:16:8: error: Call to `Point1()` is missing 1 required argument (expected at least 2, got 1) [calls_argument_count]
+namedtuples_define_functional.py:21:8: error: Call to `Point2()` is missing 2 required arguments (expected at least 2, got 0) [calls_argument_count]
+namedtuples_define_functional.py:26:8: error: Call to `Point3()` has 1 too many positional argument (expected at most 2, got 3) [calls_argument_count]
+namedtuples_define_functional.py:31:8: error: Call to `Point4()` is missing 1 required argument (expected at least 2, got 1) [calls_argument_count]
+namedtuples_define_functional.py:31:8: error: Argument `z` is not a field of `Point4`; valid fields are: x, y [namedtuples_define_functional]
+namedtuples_define_functional.py:36:8: error: Argument 2 to `Point5()` has type `str` but field `y` expects `int` [namedtuples_define_functional]
+namedtuples_define_functional.py:37:8: error: Call to `Point5()` has 1 too many positional argument (expected at most 2, got 3) [calls_argument_count]
+namedtuples_define_functional.py:42:8: error: Argument 2 to `Point6()` has type `str` but field `y` expects `int` [namedtuples_define_functional]
+namedtuples_define_functional.py:43:8: error: Field `x` of `Point6` expects `int` but received a `float` literal [namedtuples_define_functional]
+namedtuples_define_functional.py:69:1: error: Call to `NT7()` is missing 1 required argument (expected at least 1, got 0) [calls_argument_count]
+"""

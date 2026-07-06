@@ -1,0 +1,13 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_subtyping.py:16:6: error: Cannot instantiate Protocol class `Proto1`; Protocols define interfaces, not concrete implementations [protocols_explicit]
+protocols_subtyping.py:38:5: error: Type mismatch: `v2` is annotated `Concrete2` (concrete2) but assigned proto2 [assignment_compatibility]
+protocols_subtyping.py:55:5: error: Type mismatch: `v2` is annotated `Proto3` (proto3) but assigned proto2 [assignment_compatibility]
+protocols_subtyping.py:79:5: error: Type mismatch: `v3` is annotated `Proto4[int, float]` (proto4[int, float]) but assigned proto5[int] [assignment_compatibility]
+protocols_subtyping.py:80:5: error: Type mismatch: `v4` is annotated `Proto5[float]` (proto5[float]) but assigned proto4[int, int] [assignment_compatibility]
+protocols_subtyping.py:102:5: error: Type mismatch: `v4` is annotated `Proto7[int, float]` (proto7[int, float]) but assigned proto6[float, float] [assignment_compatibility]
+protocols_subtyping.py:103:5: error: Type mismatch: `v5` is annotated `Proto7[float, object]` (proto7[float, object]) but assigned proto6[float, float] [assignment_compatibility]
+"""

@@ -1,0 +1,15 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_transform_converter.py:48:31: error: Converter `bad_converter1` must accept at least one positional argument [dataclasses_transform_class]
+dataclasses_transform_converter.py:49:31: error: Converter `bad_converter2` must accept at least one positional argument [dataclasses_transform_class]
+dataclasses_transform_converter.py:107:5: error: Argument for field `field0` of `DC2` has type `int`, but its converter accepts `str` [dataclasses_transform_class]
+dataclasses_transform_converter.py:108:23: error: Argument for field `field3` of `DC2` has type `int`, but its converter accepts `str | bytes` [dataclasses_transform_class]
+dataclasses_transform_converter.py:109:29: error: Argument for field `field4` of `DC2` has type `complex`, but its converter accepts `str | list[str]` [dataclasses_transform_class]
+dataclasses_transform_converter.py:118:1: error: Cannot assign `int` to field `field0` of `DC2`: its converter accepts `str` [dataclasses_transform_class]
+dataclasses_transform_converter.py:119:1: error: Cannot assign `int` to field `field3` of `DC2`: its converter accepts `str | bytes` [dataclasses_transform_class]
+dataclasses_transform_converter.py:130:59: error: `default` of type `int` is not assignable to the converter's input type `str` [dataclasses_transform_class]
+dataclasses_transform_converter.py:133:59: error: `default_factory` of type `int` is not assignable to the converter's input type `str` [dataclasses_transform_class]
+"""

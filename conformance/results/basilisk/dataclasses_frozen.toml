@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_frozen.py:16:1: error: Cannot assign to attribute `a` of frozen dataclass `DC1` instance `dc1` [dataclasses_frozen]
+dataclasses_frozen.py:17:1: error: Cannot assign to attribute `b` of frozen dataclass `DC1` instance `dc1` [dataclasses_frozen]
+dataclasses_frozen.py:22:1: error: Non-frozen dataclass `DC2` cannot inherit from frozen dataclass `DC1` [dataclasses_frozen]
+dataclasses_frozen.py:32:1: error: Frozen dataclass `DC4` cannot inherit from non-frozen dataclass `DC3` [dataclasses_frozen]
+"""

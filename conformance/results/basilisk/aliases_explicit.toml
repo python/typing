@@ -1,0 +1,27 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+aliases_explicit.py:67:9: error: Type alias `GoodTypeAlias2` is not generic and cannot be parameterized [aliases_implicit]
+aliases_explicit.py:68:9: error: Type alias `GoodTypeAlias3` is not generic and cannot be parameterized [aliases_implicit]
+aliases_explicit.py:69:9: error: Too many type arguments for `GoodTypeAlias4`: expected 1, got 2 [aliases_implicit]
+aliases_explicit.py:70:9: error: Too many type arguments for `GoodTypeAlias8`: expected 1, got 2 [aliases_implicit]
+aliases_explicit.py:71:9: error: Invalid type argument for `ParamSpec` parameter in `GoodTypeAlias9` [aliases_implicit]
+aliases_explicit.py:79:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias1` [aliases_implicit]
+aliases_explicit.py:80:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias2` [aliases_implicit]
+aliases_explicit.py:81:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias3` [aliases_implicit]
+aliases_explicit.py:82:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias4` [aliases_implicit]
+aliases_explicit.py:83:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias5` [aliases_implicit]
+aliases_explicit.py:84:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias6` [aliases_implicit]
+aliases_explicit.py:85:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias7` [aliases_implicit]
+aliases_explicit.py:86:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias8` [aliases_implicit]
+aliases_explicit.py:87:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias9` [aliases_implicit]
+aliases_explicit.py:88:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias10` [aliases_implicit]
+aliases_explicit.py:89:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias11` [aliases_implicit]
+aliases_explicit.py:90:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias12` [aliases_implicit]
+aliases_explicit.py:91:1: error: Invalid type expression as right-hand side of `TypeAlias` for `BadTypeAlias13` [aliases_implicit]
+aliases_explicit.py:100:5: error: Type alias `ListAlias` is not generic and cannot be parameterized [aliases_implicit]
+aliases_explicit.py:101:6: error: Cannot instantiate union type alias `ListOrSetAlias` [aliases_implicit]
+aliases_explicit.py:102:5: error: Type alias `ListOrSetAlias` is not generic and cannot be parameterized [aliases_implicit]
+"""

@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_no_type_check.py:26:5: error: Function `func1` is annotated `-> None` but has a `return` statement with a value [returns_compatibility_2]
+directives_no_type_check.py:29:7: error: Argument `a` of `func1` expects `int` but received a `bytes` literal [calls_argument_type]
+directives_no_type_check.py:29:19: error: Argument `b` of `func1` expects `str` but received a `bytes` literal [calls_argument_type]
+directives_no_type_check.py:32:1: error: Call to `func1` is missing 2 required arguments (expected 2, got 0) [calls_argument_count]
+"""

@@ -1,0 +1,23 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeforms_typeform.py:23:1: error: Type mismatch: `err1` is annotated `TypeForm[str | None]` (TypeForm[str | None]) but assigned Unknown [assignment_compatibility]
+typeforms_typeform.py:24:1: error: Type mismatch: `err2` is annotated `TypeForm[str | None]` (TypeForm[str | None]) but assigned Unknown [assignment_compatibility]
+typeforms_typeform.py:59:7: error: Argument `"not a type"` is not a valid type expression for parameter `x` of type `TypeForm` [assignment_compatibility]
+typeforms_typeform.py:67:1: error: Type mismatch: `bad1` is annotated `TypeForm` (TypeForm) but assigned Unknown [assignment_compatibility]
+typeforms_typeform.py:68:1: error: Type mismatch: `bad2` is annotated `TypeForm` (TypeForm) but assigned tuple[int, int] [assignment_compatibility]
+typeforms_typeform.py:69:1: error: Type mismatch: `bad3` is annotated `TypeForm` (TypeForm) but assigned int [assignment_compatibility]
+typeforms_typeform.py:70:1: error: Type mismatch: `bad4` is annotated `TypeForm` (TypeForm) but assigned Unknown [assignment_compatibility]
+typeforms_typeform.py:71:1: error: Type mismatch: `bad5` is annotated `TypeForm` (TypeForm) but assigned Unknown [assignment_compatibility]
+typeforms_typeform.py:71:1: error: `ClassVar` is not allowed in right-hand side of module-level assignment for `bad5` [classes_classvar]
+typeforms_typeform.py:72:1: error: Type mismatch: `bad6` is annotated `TypeForm` (TypeForm) but assigned Unknown [assignment_compatibility]
+typeforms_typeform.py:73:1: error: Type mismatch: `bad7` is annotated `TypeForm` (TypeForm) but assigned Unknown [assignment_compatibility]
+typeforms_typeform.py:74:1: error: Type mismatch: `bad8` is annotated `TypeForm` (TypeForm) but assigned Unknown [assignment_compatibility]
+typeforms_typeform.py:75:1: error: Type mismatch: `bad9` is annotated `TypeForm` (TypeForm) but assigned str [assignment_compatibility]
+typeforms_typeform.py:86:6: error: Invalid TypeForm argument: `"type(1)"` is not a valid type expression [assignment_compatibility]
+typeforms_typeform.py:88:6: error: Invalid TypeForm argument: `type(1)` is not a valid type expression [assignment_compatibility]
+typeforms_typeform.py:98:1: error: Type mismatch: `t2` is annotated `TypeForm[str]` (TypeForm[str]) but assigned Unknown [assignment_compatibility]
+typeforms_typeform.py:108:1: error: Type mismatch: `t4` is annotated `TypeForm[str]` (TypeForm[str]) but assigned Unknown [assignment_compatibility]
+"""

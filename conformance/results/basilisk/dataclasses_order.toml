@@ -1,0 +1,7 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_order.py:50:4: error: Cannot compare `DC1` and `DC2` with ordering operator: `@dataclass(order=True)` comparison methods only accept the same type [dataclasses_order]
+"""

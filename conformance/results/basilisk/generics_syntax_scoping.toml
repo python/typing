@@ -1,0 +1,13 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_syntax_scoping.py:14:7: error: PEP 695 type parameter `T` bound references `S` from the same type parameter list [generics_syntax_scoping]
+generics_syntax_scoping.py:18:7: error: PEP 695 type parameter `S` bound references `T` from the same type parameter list [generics_syntax_scoping]
+generics_syntax_scoping.py:35:7: error: PEP 695 type parameter `T` is not defined at module scope; it is only accessible inside the generic class or function where it is declared [generics_syntax_scoping]
+generics_syntax_scoping.py:44:1: error: PEP 695 type parameter `T` is not defined at this point: it belongs to the decorated definition, not the decorator call [generics_syntax_scoping]
+generics_syntax_scoping.py:92:9: error: Method type parameter `T` shadows the enclosing class's type parameter of the same name [generics_syntax_scoping]
+generics_syntax_scoping.py:95:9: error: Method type parameter `T` shadows the enclosing class's type parameter of the same name [generics_syntax_scoping]
+generics_syntax_scoping.py:98:9: error: Method type parameter `T` shadows the enclosing class's type parameter of the same name [generics_syntax_scoping]
+"""

@@ -1,0 +1,19 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_self_usage.py:73:5: error: `Self` is not valid in a module-level function; return type of `foo` uses `Self` [generics_self_usage]
+generics_self_usage.py:73:9: error: `Self` is not valid in a module-level function; parameter `bar` of `foo` uses `Self` [generics_self_usage]
+generics_self_usage.py:76:1: error: `Self` is not valid outside a class body; annotation of `bar` uses `Self` [generics_self_usage]
+generics_self_usage.py:82:9: error: Return type `Self` is invalid in `has_existing_self_annotation`: the `self` parameter is annotated with TypeVar `TFoo2`, so `Self` has no defined class binding [generics_self_usage]
+generics_self_usage.py:87:9: error: Return type `Self` requires returning the current class instance, but `Foo3()` is not `Self` — it would be wrong in a subclass [generics_self_basic]
+generics_self_usage.py:103:7: error: `Self` cannot be used as a base class or in base class type arguments for `Baz` [generics_self_usage]
+generics_self_usage.py:105:7: error: `Self` cannot be used as a base class or in base class type arguments for `Baz2` [generics_self_usage]
+generics_self_usage.py:108:1: error: `Self` cannot appear in a `TypeAlias` definition at module scope; `TupleSelf` uses `Self` [generics_self_usage]
+generics_self_usage.py:113:9: error: `Self` is not valid in a static method; return type of `make` uses `Self` [generics_self_usage]
+generics_self_usage.py:118:9: error: `Self` is not valid in a static method; return type of `return_parameter` uses `Self` [generics_self_usage]
+generics_self_usage.py:118:26: error: `Self` is not valid in a static method; parameter `foo` of `return_parameter` uses `Self` [generics_self_usage]
+generics_self_usage.py:123:9: error: `Self` is not valid in a metaclass method; return type of `__new__` uses `Self` [generics_self_usage]
+generics_self_usage.py:127:9: error: `Self` is not valid in a metaclass method; return type of `__mul__` uses `Self` [generics_self_usage]
+"""

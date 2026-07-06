@@ -1,0 +1,12 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_transform_func.py:56:1: error: Type mismatch: `c1_2.name` is typed `str` but assigned an `int` literal [assignment_compatibility]
+dataclasses_transform_func.py:60:1: error: Cannot use ordering operator on `Customer1`: comparison methods are not synthesized (order is not enabled) [dataclasses_order]
+dataclasses_transform_func.py:64:36: error: Unknown field `salary` in constructor of dataclass `Customer1` [constructors_call_init]
+dataclasses_transform_func.py:70:18: error: Too many positional arguments to `Customer2`: 2 argument(s) must be passed as keyword arguments [dataclasses_kwonly]
+dataclasses_transform_func.py:88:1: error: Non-frozen dataclass `Customer3Subclass` cannot inherit from frozen dataclass `Customer3` [dataclasses_frozen]
+dataclasses_transform_func.py:96:1: error: Cannot assign to attribute `id` of frozen dataclass `Customer3` instance `c3_1` [dataclasses_frozen]
+"""

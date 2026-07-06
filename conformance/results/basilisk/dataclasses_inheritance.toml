@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_inheritance.py:62:5: error: Attribute `x` in `DC7` has type `ClassVar[int]` but base class `DC6` declares it as `int` [classes_override_2]
+dataclasses_inheritance.py:66:5: error: Attribute `y` in `DC7` has type `int` but base class `DC6` declares it as `ClassVar[int]` [classes_override_2]
+"""

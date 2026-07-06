@@ -1,0 +1,13 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_members.py:54:5: error: Enum member `DOG` in `Pet3` should not have an explicit type annotation [enums_members]
+enums_members.py:86:12: error: `Pet4.converter` is not an enum member and cannot be used in `Literal[Pet4.converter]` [enums_members_2]
+enums_members.py:87:12: error: `Pet4.transform` is not an enum member and cannot be used in `Literal[Pet4.transform]` [enums_members_2]
+enums_members.py:88:10: error: `Pet4.species` is not an enum member and cannot be used in `Literal[Pet4.species]` [enums_members_2]
+enums_members.py:89:8: error: `Pet4.speak` is not an enum member and cannot be used in `Literal[Pet4.speak]` [enums_members_2]
+enums_members.py:120:1: error: `Example.b` is not an enum member and cannot be used in `Literal[Example.b]` [enums_members_2]
+enums_members.py:133:9: error: `Example2.__B` is not an enum member and cannot be used in `Literal[Example2.__B]` [enums_members_2]
+"""

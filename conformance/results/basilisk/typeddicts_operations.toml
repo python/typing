@@ -1,0 +1,17 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_operations.py:22:1: error: Value assigned to `TypedDict` `Movie` field `name` has the wrong type; expected `str` [typeddicts_operations]
+typeddicts_operations.py:23:1: error: Value assigned to `TypedDict` `Movie` field `year` has the wrong type; expected `int` [typeddicts_operations]
+typeddicts_operations.py:24:1: error: `other` is not a valid key for `TypedDict` `Movie` [typeddicts_operations]
+typeddicts_operations.py:26:7: error: Key `other` is not a valid key for `TypedDict` `Movie` [typeddicts_operations]
+typeddicts_operations.py:28:1: error: missing required key `year` [typeddicts_operations]
+typeddicts_operations.py:29:1: error: Value assigned to `TypedDict` `Movie` field `year` has the wrong type; expected `int` [typeddicts_operations]
+typeddicts_operations.py:32:1: error: invalid key `other` for `TypedDict` `Movie` [typeddicts_operations]
+typeddicts_operations.py:37:5: error: Dict literal for `TypedDict` `Movie` contains a non-literal key; all keys must be string literals [typeddicts_operations]
+typeddicts_operations.py:47:1: error: `TypedDict` `Movie` does not support `.clear()` — TypedDicts have a fixed schema [typeddicts_operations]
+typeddicts_operations.py:49:1: error: Cannot delete a key from `TypedDict` `Movie` — TypedDicts have a fixed schema [typeddicts_operations]
+typeddicts_operations.py:62:1: error: `TypedDict` `MovieOptional` does not support `.clear()` — TypedDicts have a fixed schema [typeddicts_operations]
+"""

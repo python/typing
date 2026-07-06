@@ -1,0 +1,14 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+namedtuples_usage.py:34:7: error: NamedTuple index 3 out of range for `p` with 3 field(s) (valid range: -3..2) [namedtuples_usage]
+namedtuples_usage.py:35:7: error: NamedTuple index -4 out of range for `p` with 3 field(s) (valid range: -3..2) [namedtuples_usage]
+namedtuples_usage.py:40:1: error: Cannot assign to attribute `x` on NamedTuple instance `p`: NamedTuple fields are read-only [namedtuples_usage]
+namedtuples_usage.py:41:1: error: Cannot assign to element of NamedTuple instance `p`: NamedTuple elements are read-only [namedtuples_usage]
+namedtuples_usage.py:42:5: error: Cannot delete attribute `x` on NamedTuple instance `p`: NamedTuple fields are read-only [namedtuples_usage]
+namedtuples_usage.py:43:5: error: Cannot delete element of NamedTuple instance `p`: NamedTuple elements are read-only [namedtuples_usage]
+namedtuples_usage.py:52:1: error: NamedTuple unpack mismatch: too few values to unpack: `p` has 3 field(s) but only 2 variable(s) provided [namedtuples_usage]
+namedtuples_usage.py:53:1: error: NamedTuple unpack mismatch: too many values to unpack: `p` has 3 field(s) but 4 variable(s) provided [namedtuples_usage]
+"""

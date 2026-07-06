@@ -1,0 +1,27 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+literals_parameterizations.py:41:1: error: Invalid parameterization of `Literal` in annotation for `bad1` [literals_parameterizations]
+literals_parameterizations.py:42:1: error: Invalid parameterization of `Literal` in annotation for `bad2` [literals_parameterizations]
+literals_parameterizations.py:43:1: error: Invalid parameterization of `Literal` in annotation for `bad3` [literals_parameterizations]
+literals_parameterizations.py:44:1: error: Invalid parameterization of `Literal` in annotation for `bad4` [literals_parameterizations]
+literals_parameterizations.py:45:1: error: Invalid parameterization of `Literal` in annotation for `bad5` [literals_parameterizations]
+literals_parameterizations.py:46:1: error: Invalid parameterization of `Literal` in annotation for `bad6` [literals_parameterizations]
+literals_parameterizations.py:47:1: error: Invalid parameterization of `Literal` in annotation for `bad7` [literals_parameterizations]
+literals_parameterizations.py:48:1: error: Invalid parameterization of `Literal` in annotation for `bad8` [literals_parameterizations]
+literals_parameterizations.py:49:1: error: Invalid parameterization of `Literal` in annotation for `bad9` [literals_parameterizations]
+literals_parameterizations.py:50:1: error: TypeVar `T` is not bound in this scope [generics_variance_inference]
+literals_parameterizations.py:50:1: error: Invalid parameterization of `Literal` in annotation for `bad10` [literals_parameterizations]
+literals_parameterizations.py:50:8: error: Type variable `T` is not bound in the current scope [generics_scoping]
+literals_parameterizations.py:51:1: error: Invalid parameterization of `Literal` in annotation for `bad11` [literals_parameterizations]
+literals_parameterizations.py:52:1: error: Invalid parameterization of `Literal` in annotation for `bad12` [literals_parameterizations]
+literals_parameterizations.py:53:1: error: Invalid parameterization of `Literal` in annotation for `bad13` [literals_parameterizations]
+literals_parameterizations.py:56:17: error: Invalid parameterization of `Literal` for parameter `x` [literals_parameterizations]
+literals_parameterizations.py:60:1: error: `Literal` must be parameterized (variable `x` has no arguments) [literals_parameterizations]
+literals_parameterizations.py:61:1: error: Invalid parameterization of `Literal` in annotation for `y` [literals_parameterizations]
+literals_parameterizations.py:65:1: error: Type mismatch: `x1` is annotated `Literal["Color.RED"]` but assigned parameter `a` with type `Literal[Color.RED]` [literals_semantics_2]
+literals_parameterizations.py:65:5: error: Type mismatch: `x1` is annotated `Literal["Color.RED"]` (Literal["color.red"]) but assigned color.red [assignment_compatibility]
+literals_parameterizations.py:65:5: error: Variable `x1` is annotated as `Literal["Color.RED"]` (a string literal), but `Color.RED` is an enum member reference, not a string [literals_parameterizations_2]
+"""

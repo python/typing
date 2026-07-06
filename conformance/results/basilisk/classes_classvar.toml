@@ -1,0 +1,29 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+classes_classvar.py:38:5: error: `ClassVar` accepts at most one type argument, but `bad1` has 2 [classes_classvar]
+classes_classvar.py:39:5: error: Invalid `ClassVar` argument for `bad2`: `3` is not a valid type [classes_classvar]
+classes_classvar.py:40:5: error: Invalid `ClassVar` argument for `bad3`: `var` is a runtime variable, not a type [classes_classvar]
+classes_classvar.py:45:5: error: `ClassVar` parameter for `bad4` cannot contain TypeVar [classes_classvar]
+classes_classvar.py:46:5: error: `ClassVar` parameter for `bad5` cannot contain TypeVar [classes_classvar]
+classes_classvar.py:47:5: error: `ClassVar` parameter for `bad6` cannot contain ParamSpec [classes_classvar]
+classes_classvar.py:52:5: error: Type mismatch in `ClassVar` attribute `bad8`: annotated as `list[str]` but initialized with a dict literal [classes_classvar]
+classes_classvar.py:54:5: error: `ClassVar` cannot be nested inside another type in attribute `bad9` [classes_classvar]
+classes_classvar.py:54:5: error: `ClassVar` cannot be used inside `Final` for attribute `bad9` [qualifiers_final_annotation]
+classes_classvar.py:55:5: error: `ClassVar` cannot be nested inside another type in attribute `bad10` [classes_classvar]
+classes_classvar.py:69:23: error: `ClassVar` is not allowed in parameter annotation for `a` [classes_classvar]
+classes_classvar.py:70:9: error: Type mismatch: `x` is annotated `ClassVar[str]` (classvar[str]) but assigned str [assignment_compatibility]
+classes_classvar.py:70:9: error: `ClassVar` is not allowed in local variable annotation for `x` [classes_classvar]
+classes_classvar.py:71:9: error: `ClassVar` is not allowed in self-attribute annotation for `xx` [classes_classvar]
+classes_classvar.py:73:9: error: `ClassVar` is not allowed in the return annotation of `method2` [classes_classvar]
+classes_classvar.py:77:1: error: Type mismatch: `bad11` is annotated `ClassVar[int]` (classvar[int]) but assigned int [assignment_compatibility]
+classes_classvar.py:77:1: error: `ClassVar` is not allowed in module-level annotation for `bad11` [classes_classvar]
+classes_classvar.py:78:1: error: `ClassVar` is not allowed in right-hand side of module-level assignment for `bad12` [classes_classvar]
+classes_classvar.py:111:1: error: Cannot assign to `ClassVar` attribute `stats` through an instance of `Starship` [classes_classvar]
+classes_classvar.py:140:1: error: Class `ProtoAImpl` is not compatible with protocol `ProtoA`: attribute `x` is required to be a class variable (`ClassVar`) but is declared as an instance variable [classes_classvar]
+classes_classvar.py:140:1: error: Class `ProtoAImpl` is not compatible with protocol `ProtoA`: attribute `y` is required to be a class variable (`ClassVar`) but is not defined at class level [classes_classvar]
+classes_classvar.py:140:1: error: Class `ProtoAImpl` is not compatible with protocol `ProtoA`: attribute `z` is required to be a class variable (`ClassVar`) but is not defined at class level [classes_classvar]
+classes_classvar.py:140:1: error: Class `ProtoAImpl` is incompatible with protocol `ProtoA`: missing instance variable `z` [protocols_definition_2]
+"""

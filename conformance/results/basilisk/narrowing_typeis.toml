@@ -1,0 +1,15 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+narrowing_typeis.py:110:23: error: Method `tg_1` returns `TypeIs` but has no parameter to narrow [narrowing_typeguard]
+narrowing_typeis.py:115:22: error: Method `tg_2` returns `TypeIs` but has no parameter to narrow [narrowing_typeguard]
+narrowing_typeis.py:137:20: error: Function `simple_typeguard` returns `TypeIs[int]` (subtype of `bool`), but `takes_callable_str` expects return type `str` [narrowing_typeis]
+narrowing_typeis.py:157:26: error: Function `simple_typeguard` returns `TypeIs[int]` (subtype of `bool`), but `takes_callable_str_proto` expects return type `str` [narrowing_typeis]
+narrowing_typeis.py:174:17: error: Function `is_int_typeis` returns `TypeIs[int]`, but `takes_typeguard` expects `TypeGuard[int]` [narrowing_typeis]
+narrowing_typeis.py:175:14: error: Function `is_int_typeguard` returns `TypeGuard[int]`, but `takes_typeis` expects `TypeIs[int]` [narrowing_typeis]
+narrowing_typeis.py:196:18: error: Function `bool_typeis` returns `TypeIs[bool]`, but `takes_int_typeis` expects `TypeIs[int]` [narrowing_typeis]
+narrowing_typeis.py:200:27: error: `TypeIs[str]` narrows to a type inconsistent with parameter type `int` [narrowing_typeis_2]
+narrowing_typeis.py:204:45: error: `TypeIs[list[int]]` narrows to a type inconsistent with parameter type `list[object]` [narrowing_typeis_2]
+"""

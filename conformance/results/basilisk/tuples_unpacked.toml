@@ -1,0 +1,11 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+tuples_unpacked.py:40:5: error: tuple type contains more than one unbounded component [tuples_type_form]
+tuples_unpacked.py:41:5: error: tuple type contains more than one unbounded component [tuples_type_form]
+tuples_unpacked.py:51:9: error: tuple type contains more than one unbounded component [tuples_type_form]
+tuples_unpacked.py:59:6: error: tuple type contains more than one unbounded component [tuples_type_form]
+tuples_unpacked.py:60:6: error: tuple type contains more than one unbounded component [tuples_type_form]
+"""

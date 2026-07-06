@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_evaluation.py:38:1: error: Call to `example1_1` is missing 1 required argument (no overload matches — expected at least 1, got 0) [calls_argument_count]
+overloads_evaluation.py:46:15: error: Argument `y` of `example1_1` expects `str` but received an `int` literal [calls_argument_type]
+overloads_evaluation.py:51:12: error: Argument `x` of `example1_1` expects `str` but received an `int` literal [calls_argument_type]
+overloads_evaluation.py:116:5: error: No overload of `example2` matches when argument is `str` [overloads_evaluation]
+"""

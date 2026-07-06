@@ -1,0 +1,21 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+tuples_type_form.py:12:1: error: Type mismatch: `t1` is annotated `tuple[int]` but assigned a 2-element tuple (expected 1 element(s)) [assignment_compatibility]
+tuples_type_form.py:14:1: error: Type mismatch: `t2` is annotated `tuple[int, int]` but assigned a 1-element tuple (expected 2 element(s)) [assignment_compatibility]
+tuples_type_form.py:15:1: error: Type mismatch: `t2` is annotated `tuple[int, int]` but assigned a tuple with element 1 `""` (expected type `int`) [assignment_compatibility]
+tuples_type_form.py:25:1: error: Type mismatch: `t10` is annotated `tuple[()]` but assigned a tuple with 1 element(s) (expected empty tuple) [assignment_compatibility]
+tuples_type_form.py:36:1: error: Type mismatch: `t20` is annotated `tuple[int, ...]` but assigned a tuple containing `""` (incompatible with `int`) [assignment_compatibility]
+tuples_type_form.py:40:6: error: tuple type contains more than one unbounded component [tuples_type_form]
+tuples_type_form.py:40:6: error: Invalid tuple type syntax: tuple[T, U, ...] is invalid — can only have one type before the ellipsis [tuples_type_form_2]
+tuples_type_form.py:41:6: error: tuple type contains more than one unbounded component [tuples_type_form]
+tuples_type_form.py:41:6: error: Invalid tuple type syntax: tuple[...] is invalid — must specify a type before the ellipsis [tuples_type_form_2]
+tuples_type_form.py:42:6: error: tuple type contains more than one unbounded component [tuples_type_form]
+tuples_type_form.py:42:6: error: Invalid tuple type syntax: ellipsis (...) must appear at the end of the tuple type [tuples_type_form_2]
+tuples_type_form.py:43:6: error: tuple type contains more than one unbounded component [tuples_type_form]
+tuples_type_form.py:43:6: error: Invalid tuple type syntax: ellipsis (...) must appear at the end of the tuple type [tuples_type_form_2]
+tuples_type_form.py:44:6: error: tuple type contains more than one unbounded component [tuples_type_form]
+tuples_type_form.py:45:6: error: tuple type contains more than one unbounded component [tuples_type_form]
+"""

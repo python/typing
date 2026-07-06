@@ -1,0 +1,21 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+namedtuples_define_class.py:33:7: error: NamedTuple index 3 out of range for `p1` with 3 field(s) (valid range: -3..2) [namedtuples_usage]
+namedtuples_define_class.py:34:7: error: NamedTuple index -4 out of range for `p1` with 3 field(s) (valid range: -3..2) [namedtuples_usage]
+namedtuples_define_class.py:45:6: error: `Point` requires at least 2 arguments, but 1 was given [constructors_call_init]
+namedtuples_define_class.py:46:6: error: `Point` requires at least 2 arguments, but 1 was given [constructors_call_init]
+namedtuples_define_class.py:47:15: error: Argument 1 to `Point()` has type `str`, expected `int` for field `y` [constructors_call_init]
+namedtuples_define_class.py:48:18: error: Keyword argument `units` to `Point()` has type `int`, expected `str` [constructors_call_init]
+namedtuples_define_class.py:49:6: error: `Point` accepts at most 3 positional arguments, but 4 were given [constructors_call_init]
+namedtuples_define_class.py:50:7: error: `Point` has no field `other` [constructors_call_init]
+namedtuples_define_class.py:70:7: error: `Point2` accepts at most 2 positional arguments, but 3 were given [constructors_call_init]
+namedtuples_define_class.py:77:5: error: `NamedTuple` field name `_y` must not start with an underscore [namedtuples_define_class]
+namedtuples_define_class.py:87:5: error: `NamedTuple` field `latitude` without a default value follows a field with a default value [namedtuples_define_class]
+namedtuples_define_class.py:107:5: error: `NamedTuple` subclass `BadPointWithName` redefines field `x` from base class [namedtuples_define_class]
+namedtuples_define_class.py:121:1: error: `ConditionalField` accepts at most 2 positional arguments, but 3 were given [constructors_call_init]
+namedtuples_define_class.py:140:19: error: Argument 1 to `Property[...]()` has type `float`, expected `str` for field `value` [constructors_call_init]
+namedtuples_define_class.py:147:7: error: `NamedTuple` class `Unit` cannot inherit from multiple bases: `object` [namedtuples_define_class]
+"""

@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+narrowing_typeguard.py:102:23: error: Method `tg_1` returns `TypeGuard` but has no parameter to narrow [narrowing_typeguard]
+narrowing_typeguard.py:107:22: error: Method `tg_2` returns `TypeGuard` but has no parameter to narrow [narrowing_typeguard]
+narrowing_typeguard.py:128:20: error: Function `simple_typeguard` returns `TypeGuard[int]` (subtype of `bool`), but `takes_callable_str` expects return type `str` [narrowing_typeis]
+narrowing_typeguard.py:148:26: error: Function `simple_typeguard` returns `TypeGuard[int]` (subtype of `bool`), but `takes_callable_str_proto` expects return type `str` [narrowing_typeis]
+"""

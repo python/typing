@@ -1,0 +1,12 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly.py:24:1: error: Cannot assign to read-only field `members` of `TypedDict` `b1` [typeddicts_readonly]
+typeddicts_readonly.py:36:1: error: Cannot assign to read-only field `members` of `TypedDict` `b2` [typeddicts_readonly]
+typeddicts_readonly.py:50:1: error: Cannot assign to read-only field `title` of `TypedDict` `m1` [typeddicts_readonly]
+typeddicts_readonly.py:51:1: error: Cannot assign to read-only field `year` of `TypedDict` `m1` [typeddicts_readonly]
+typeddicts_readonly.py:60:1: error: Cannot assign to read-only field `title` of `TypedDict` `m2` [typeddicts_readonly]
+typeddicts_readonly.py:61:1: error: Cannot assign to read-only field `year` of `TypedDict` `m2` [typeddicts_readonly]
+"""

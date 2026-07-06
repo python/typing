@@ -1,0 +1,30 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+tuples_type_compat.py:15:5: error: Type mismatch: `v2` is annotated `tuple[int, int]` (tuple[int, int]) but assigned tuple[float, float] [assignment_compatibility]
+tuples_type_compat.py:29:1: error: Tuple type compatibility violation: homogeneous unbounded tuple is not assignable to mixed starred-unpack form [tuples_type_compat]
+tuples_type_compat.py:32:1: error: Tuple type compatibility violation: source tuple type may have more elements than the fixed-length target allows [tuples_type_compat]
+tuples_type_compat.py:33:1: error: Tuple type compatibility violation: source tuple type may have more elements than the fixed-length target allows [tuples_type_compat]
+tuples_type_compat.py:43:5: error: Type mismatch: `v3` is annotated `tuple[int]` (tuple[int]) but assigned tuple[int, ...] [assignment_compatibility]
+tuples_type_compat.py:62:5: error: Type mismatch: `d` is annotated `tuple[int, int]` (tuple[int, int]) but assigned tuple[int, ...] [assignment_compatibility]
+tuples_type_compat.py:76:9: error: Type alias `Func5Input` (an `Annotated[...]` alias) is not compatible with `type[T]` [qualifiers_annotated]
+tuples_type_compat.py:81:9: error: Type alias `Func5Input` (an `Annotated[...]` alias) is not compatible with `type[T]` [qualifiers_annotated]
+tuples_type_compat.py:86:9: error: Type alias `Func5Input` (an `Annotated[...]` alias) is not compatible with `type[T]` [qualifiers_annotated]
+tuples_type_compat.py:102:13: error: Type alias `Func6Input` (an `Annotated[...]` alias) is not compatible with `type[T]` [qualifiers_annotated]
+tuples_type_compat.py:107:13: error: Type alias `Func6Input` (an `Annotated[...]` alias) is not compatible with `type[T]` [qualifiers_annotated]
+tuples_type_compat.py:112:13: error: Type alias `Func6Input` (an `Annotated[...]` alias) is not compatible with `type[T]` [qualifiers_annotated]
+tuples_type_compat.py:127:13: error: Type alias `Func7Input` (an `Annotated[...]` alias) is not compatible with `type[T]` [qualifiers_annotated]
+tuples_type_compat.py:130:13: error: Type alias `Func7Input` (an `Annotated[...]` alias) is not compatible with `type[T]` [qualifiers_annotated]
+tuples_type_compat.py:157:1: error: Tuple type compatibility violation: tuple literal length does not match fixed starred-unpack annotation [tuples_type_compat]
+tuples_type_compat.py:162:1: error: Tuple type compatibility violation: tuple literal middle element type incompatible with starred-unpack annotation [tuples_type_compat]
+tuples_type_compat.py:163:1: error: Tuple type compatibility violation: tuple literal middle element type incompatible with starred-unpack annotation [tuples_type_compat]
+tuples_type_compat.py:169:1: error: Tuple type compatibility violation: tuple literal element type incompatible with annotation suffix [tuples_type_compat]
+tuples_type_compat.py:170:1: error: Tuple type compatibility violation: tuple literal element type incompatible with annotation suffix [tuples_type_compat]
+tuples_type_compat.py:175:1: error: Tuple type compatibility violation: tuple literal middle element type incompatible with starred-unpack annotation [tuples_type_compat]
+tuples_type_compat.py:176:1: error: Tuple type compatibility violation: tuple literal element type incompatible with annotation suffix [tuples_type_compat]
+tuples_type_compat.py:181:5: error: Type mismatch: `t2` is annotated `tuple[str, str, *tuple[int]]` (tuple[str, str, *tuple[int]]) but assigned tuple[str, str] [assignment_compatibility]
+tuples_type_compat.py:184:5: error: Type mismatch: `t5` is annotated `tuple[str, str, str, *tuple[str, ...]]` (tuple[str, str, str, *tuple[str, ...]]) but assigned tuple[str, str] [assignment_compatibility]
+tuples_type_compat.py:188:5: error: Type mismatch: `t9` is annotated `tuple[*tuple[str, ...], str, str, str]` (tuple[*tuple[str, ...], str, str, str]) but assigned tuple[str, str] [assignment_compatibility]
+"""

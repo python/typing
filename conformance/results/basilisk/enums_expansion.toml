@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_expansion.py:25:9: error: Redundant `assert_type` with `Literal[Color.GREEN]` on enum-typed parameter [enums_expansion]
+enums_expansion.py:53:9: error: Redundant `assert_type` with `Literal[CustomFlags.FLAG3]` on enum-typed parameter [enums_expansion]
+"""

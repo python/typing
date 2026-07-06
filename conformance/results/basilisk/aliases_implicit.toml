@@ -1,0 +1,35 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+aliases_implicit.py:76:9: error: Type alias `GoodTypeAlias2` is not generic and cannot be parameterized [aliases_implicit]
+aliases_implicit.py:77:9: error: Type alias `GoodTypeAlias3` is not generic and cannot be parameterized [aliases_implicit]
+aliases_implicit.py:77:9: error: `GoodTypeAlias3` cannot be subscripted; it has no free type parameters [generics_defaults_specialization]
+aliases_implicit.py:78:9: error: Too many type arguments for `GoodTypeAlias4`: expected 1, got 2 [aliases_implicit]
+aliases_implicit.py:78:9: error: Too many type arguments for `GoodTypeAlias4`; expected at most 1, got 2 [generics_defaults_specialization]
+aliases_implicit.py:79:9: error: Too many type arguments for `GoodTypeAlias8`: expected 1, got 2 [aliases_implicit]
+aliases_implicit.py:79:9: error: Too many type arguments for `GoodTypeAlias8`; expected at most 1, got 2 [generics_defaults_specialization]
+aliases_implicit.py:80:9: error: Invalid type argument for `ParamSpec` parameter in `GoodTypeAlias9` [aliases_implicit]
+aliases_implicit.py:81:9: error: Type argument `str` does not satisfy bound `float` of TypeVar `TFloat` in `GoodTypeAlias12` [aliases_implicit]
+aliases_implicit.py:106:9: error: Variable `BadTypeAlias1` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:107:9: error: Variable `BadTypeAlias2` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:108:9: error: Variable `BadTypeAlias3` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:109:9: error: Variable `BadTypeAlias4` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:110:9: error: Variable `BadTypeAlias5` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:111:9: error: Variable `BadTypeAlias6` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:112:9: error: Variable `BadTypeAlias7` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:113:9: error: Variable `BadTypeAlias8` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:114:9: error: Variable `BadTypeAlias9` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:115:5: error: Invalid type expression in annotation for parameter `p10` [annotations_forward_refs]
+aliases_implicit.py:115:10: error: Variable `BadTypeAlias10` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:116:5: error: Invalid type expression in annotation for parameter `p11` [annotations_forward_refs]
+aliases_implicit.py:116:10: error: Variable `BadTypeAlias11` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:117:10: error: Variable `BadTypeAlias12` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:118:5: error: Invalid type expression in annotation for parameter `p13` [annotations_forward_refs]
+aliases_implicit.py:118:10: error: Variable `BadTypeAlias13` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:119:5: error: Invalid type expression in annotation for parameter `p14` [annotations_forward_refs]
+aliases_implicit.py:119:10: error: Variable `BadTypeAlias14` is not a valid type and cannot be used as an annotation [aliases_implicit]
+aliases_implicit.py:133:6: error: Cannot instantiate union type alias `ListOrSetAlias` [aliases_implicit]
+aliases_implicit.py:135:5: error: Type alias `ListOrSetAlias` is not generic and cannot be parameterized [aliases_implicit]
+"""

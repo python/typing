@@ -1,0 +1,13 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly_consistency.py:37:5: error: Type mismatch: `v3` is annotated `B1` (b1) but assigned a1 [assignment_compatibility]
+typeddicts_readonly_consistency.py:38:5: error: Type mismatch: `v4` is annotated `B1` (b1) but assigned c1 [assignment_compatibility]
+typeddicts_readonly_consistency.py:40:5: error: Type mismatch: `v5` is annotated `C1` (c1) but assigned a1 [assignment_compatibility]
+typeddicts_readonly_consistency.py:81:5: error: Type mismatch: `v3` is annotated `B2` (b2) but assigned a2 [assignment_compatibility]
+typeddicts_readonly_consistency.py:82:5: error: Type mismatch: `v4` is annotated `B2` (b2) but assigned c2 [assignment_compatibility]
+typeddicts_readonly_consistency.py:84:5: error: Type mismatch: `v5` is annotated `C2` (c2) but assigned a2 [assignment_compatibility]
+typeddicts_readonly_consistency.py:85:5: error: Type mismatch: `v6` is annotated `C2` (c2) but assigned b2 [assignment_compatibility]
+"""

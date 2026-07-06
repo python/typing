@@ -1,0 +1,25 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+annotations_forward_refs.py:24:1: error: Invalid type expression in annotation for `bad3` [annotations_forward_refs]
+annotations_forward_refs.py:25:1: error: Invalid type expression in annotation for `bad4` [annotations_forward_refs]
+annotations_forward_refs.py:41:5: error: Invalid type expression in annotation for parameter `p1` [annotations_forward_refs]
+annotations_forward_refs.py:42:5: error: Invalid type expression in annotation for parameter `p2` [annotations_forward_refs]
+annotations_forward_refs.py:43:5: error: Invalid type expression in annotation for parameter `p3` [annotations_forward_refs]
+annotations_forward_refs.py:44:5: error: Invalid type expression in annotation for parameter `p4` [annotations_forward_refs]
+annotations_forward_refs.py:45:5: error: Invalid type expression in annotation for parameter `p5` [annotations_forward_refs]
+annotations_forward_refs.py:46:5: error: Invalid type expression in annotation for parameter `p6` [annotations_forward_refs]
+annotations_forward_refs.py:47:5: error: Invalid type expression in annotation for parameter `p7` [annotations_forward_refs]
+annotations_forward_refs.py:48:5: error: Invalid type expression in annotation for parameter `p8` [annotations_forward_refs]
+annotations_forward_refs.py:49:5: error: Invalid type expression in annotation for parameter `p9` [annotations_forward_refs]
+annotations_forward_refs.py:50:5: error: Invalid type expression in annotation for parameter `p10` [annotations_forward_refs]
+annotations_forward_refs.py:51:5: error: Invalid type expression in annotation for parameter `p11` [annotations_forward_refs]
+annotations_forward_refs.py:52:5: error: Invalid type expression in annotation for parameter `p12` [annotations_forward_refs]
+annotations_forward_refs.py:53:5: error: Invalid type expression in annotation for parameter `p13` [annotations_forward_refs]
+annotations_forward_refs.py:54:5: error: Invalid type expression in annotation for parameter `p14` [annotations_forward_refs]
+annotations_forward_refs.py:55:5: error: Invalid type expression in annotation for parameter `p15` [annotations_forward_refs]
+annotations_forward_refs.py:80:5: error: Invalid type expression in annotation for attribute `ClassF` [annotations_forward_refs]
+annotations_forward_refs.py:89:5: error: Invalid type expression in annotation for attribute `y` [annotations_forward_refs]
+"""

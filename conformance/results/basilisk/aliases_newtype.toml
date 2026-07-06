@@ -1,0 +1,21 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+aliases_newtype.py:11:1: error: Argument to `UserId` ("user") is not compatible with its base type `int` [aliases_newtype]
+aliases_newtype.py:12:1: error: Cannot assign a literal value directly to `UserId`; use `UserId(value)` to create a `UserId` instance [aliases_newtype]
+aliases_newtype.py:12:1: error: Type mismatch: `u1` is annotated `UserId` (userid) but assigned int [assignment_compatibility]
+aliases_newtype.py:18:1: error: `UserId` is a `NewType`, not an instance of `type`; `NewType()` does not return a class object [aliases_newtype]
+aliases_newtype.py:23:1: error: `UserId` is a `NewType` and cannot be used as the second argument to `isinstance`; `NewType` types are not runtime classes [aliases_newtype]
+aliases_newtype.py:26:1: error: Class `UserIdDerived` cannot subclass `UserId` which is a `NewType` [aliases_newtype]
+aliases_newtype.py:35:12: error: `NewType` name `BadName` does not match the variable name `GoodName` [aliases_newtype]
+aliases_newtype.py:41:1: error: Variable `nt1`: `NewType` cannot be used as a generic type [aliases_newtype]
+aliases_newtype.py:47:15: error: Invalid base type for `NewType` `BadNewType1`: cannot use a union type as a `NewType` base [aliases_newtype]
+aliases_newtype.py:50:15: error: Invalid base type for `NewType` `BadNewType2`: cannot use a TypeVar-parameterized generic as a `NewType` base [aliases_newtype]
+aliases_newtype.py:52:15: error: Invalid base type for `NewType` `BadNewType3`: cannot use a Protocol class as a `NewType` base [aliases_newtype]
+aliases_newtype.py:54:15: error: Invalid base type for `NewType` `BadNewType4`: cannot use `Literal` as a `NewType` base [aliases_newtype]
+aliases_newtype.py:61:15: error: Invalid base type for `NewType` `BadNewType5`: cannot use a `TypedDict` class as a `NewType` base [aliases_newtype]
+aliases_newtype.py:63:15: error: `NewType` takes exactly 2 arguments (3 given) for `BadNewType6` [aliases_newtype]
+aliases_newtype.py:65:15: error: Invalid base type for `NewType` `BadNewType7`: cannot use `Any` as a `NewType` base [aliases_newtype]
+"""

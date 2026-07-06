@@ -1,0 +1,15 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_class_objects.py:29:1: error: Protocol class `Proto` cannot be used where `type[Proto]` is expected; only concrete (non-protocol) subtypes are accepted [protocols_class_objects_2]
+protocols_class_objects.py:29:1: error: Cannot instantiate Protocol class `Proto`; Protocols define interfaces, not concrete implementations [protocols_explicit]
+protocols_class_objects.py:34:1: error: Protocol class `Proto` cannot be used where `type[Proto]` is expected; only concrete (non-protocol) subtypes are accepted [protocols_class_objects_2]
+protocols_class_objects.py:58:1: error: Class `ConcreteA` cannot be used as an instance of protocol `ProtoA1`: class-level access to protocol members is incompatible [protocols_class_objects_2]
+protocols_class_objects.py:74:1: error: Class `ConcreteB` cannot be used as an instance of protocol `ProtoB1`: class-level access to protocol members is incompatible [protocols_class_objects_2]
+protocols_class_objects.py:104:1: error: Class `ConcreteC1` cannot be used as an instance of protocol `ProtoC1`: class-level access to protocol members is incompatible [protocols_class_objects_2]
+protocols_class_objects.py:106:1: error: Class `ConcreteC2` cannot be used as an instance of protocol `ProtoC1`: class-level access to protocol members is incompatible [protocols_class_objects_2]
+protocols_class_objects.py:107:1: error: Class `ConcreteC2` cannot be used as an instance of protocol `ProtoC2`: class-level access to protocol members is incompatible [protocols_class_objects_2]
+protocols_class_objects.py:108:1: error: Class `ConcreteC3` cannot be used as an instance of protocol `ProtoC1`: class-level access to protocol members is incompatible [protocols_class_objects_2]
+"""

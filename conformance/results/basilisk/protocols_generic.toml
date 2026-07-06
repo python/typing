@@ -1,0 +1,15 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_generic.py:40:1: error: Class `Concrete1` is incompatible with `Proto1[int, str]`: method `method1` return type: expected `int`, found `str` [protocols_generic]
+protocols_generic.py:44:7: error: Protocol class `Proto2` combines `Protocol[T]` shorthand with explicit `Generic[T]` base [protocols_generic]
+protocols_generic.py:56:5: error: Type `Box[float]` is not assignable to `Box[int]` (type parameter is covariant) [generics_variance_inference]
+protocols_generic.py:66:5: error: Type `Sender[int]` is not assignable to `Sender[float]` (type parameter is contravariant) [generics_variance_inference]
+protocols_generic.py:74:5: error: Type `AttrProto[int]` is not assignable to `AttrProto[float]` (type parameter is invariant) [generics_variance_inference]
+protocols_generic.py:75:5: error: Type `AttrProto[float]` is not assignable to `AttrProto[int]` (type parameter is invariant) [generics_variance_inference]
+protocols_generic.py:145:1: error: Class `ConcreteHasProperty2` is incompatible with protocol `HasPropertyProto`: method `m` uses concrete type `int` for TypeVar `T` which is bound to `Self` via protocol's `self: T` annotation [protocols_generic]
+protocols_generic.py:146:1: error: Class `ConcreteHasProperty3` is incompatible with protocol `HasPropertyProto`: method `f` must return a self-typed value (TypeVar `T` or `Self`), but returns `int` [protocols_generic]
+protocols_generic.py:147:1: error: Class `ConcreteHasProperty4` is incompatible with protocol `HasPropertyProto`: method `m` uses concrete type `str` for TypeVar `T` which is bound to `Self` via protocol's `self: T` annotation [protocols_generic]
+"""

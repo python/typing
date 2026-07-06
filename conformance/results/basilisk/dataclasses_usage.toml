@@ -1,0 +1,18 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_usage.py:51:6: error: Call to `InventoryItem()` is missing 1 required field argument (expected at least 2, got 1) [calls_argument_count]
+dataclasses_usage.py:52:28: error: Argument 2 to `InventoryItem()` has type `str` but field `unit_price` expects `float` [calls_argument_count]
+dataclasses_usage.py:53:36: error: Too many positional arguments to `InventoryItem`: 1 argument(s) must be passed as keyword arguments [dataclasses_kwonly]
+dataclasses_usage.py:62:5: error: Dataclass field `b` without a default cannot follow a field with a default in `DC1` [dataclasses_inheritance]
+dataclasses_usage.py:68:5: error: Dataclass field `b` without a default cannot follow a field with a default in `DC2` [dataclasses_inheritance]
+dataclasses_usage.py:74:5: error: Dataclass field `b` without a default cannot follow a field with a default in `DC3` [dataclasses_inheritance]
+dataclasses_usage.py:84:13: error: Too many positional arguments to `DC4`: 1 argument(s) must be passed as keyword arguments [dataclasses_kwonly]
+dataclasses_usage.py:89:5: error: Field `a` is annotated as `int` but `default_factory=str` produces `str` values [dataclasses_usage]
+dataclasses_usage.py:128:8: error: Too many positional arguments to `DC7`: 1 argument(s) must be passed as keyword arguments [dataclasses_kwonly]
+dataclasses_usage.py:131:1: error: Call to `DC8()` is missing 1 required argument for `__init__` (expected 2, got 1) [calls_argument_count]
+dataclasses_usage.py:180:1: error: Cannot pass arguments to `DC13()`: `@dataclass(init=False)` is set with no explicit `__init__` method defined [calls_argument_count]
+dataclasses_usage.py:246:12: error: Too many positional arguments to `DC19`: 1 argument(s) must be passed as keyword arguments [dataclasses_kwonly]
+"""

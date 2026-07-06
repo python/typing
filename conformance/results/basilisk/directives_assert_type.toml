@@ -1,0 +1,14 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_assert_type.py:27:5: error: Type mismatch in `assert_type()`: expression has type `int | str` but expected `int` [directives_assert_type_2]
+directives_assert_type.py:28:5: error: Type mismatch in `assert_type()`: expression has type `int | str` but expected `Any` [directives_assert_type_2]
+directives_assert_type.py:29:5: error: Type mismatch in `assert_type()`: expression has type `Any` but expected `int` [directives_assert_type_2]
+directives_assert_type.py:30:5: error: Type mismatch in `assert_type()`: expression has type `Literal[4]` but expected `int` [directives_assert_type_2]
+directives_assert_type.py:32:5: error: `assert_type()` requires exactly 2 arguments (value, type), got 0 [directives_assert_type]
+directives_assert_type.py:33:5: error: Type mismatch in `assert_type()`: expression has type `str` but expected `int` [directives_assert_type_2]
+directives_assert_type.py:34:5: error: `assert_type()` requires exactly 2 arguments (value, type), got 3 [directives_assert_type]
+directives_assert_type.py:41:5: error: Type mismatch in `assert_type()`: expression has type `str` but expected `str | Literal["spam"]` [directives_assert_type_2]
+"""

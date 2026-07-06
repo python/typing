@@ -1,0 +1,7 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_typevartuple_callable.py:26:1: error: Tuple element at index 0 has type `str` but `target` expects `int` (inferred via `TypeVarTuple`) [generics_typevartuple_callable]
+"""

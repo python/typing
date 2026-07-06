@@ -1,0 +1,16 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+specialtypes_type.py:56:7: error: Argument `TeamUser` is not assignable to `type[BasicUser | ProUser]`; `TeamUser` is not one of `BasicUser | ProUser` [specialtypes_type]
+specialtypes_type.py:70:7: error: Argument `Callable` is a special typing form, not a class object; `type[T]` requires a real class [specialtypes_type]
+specialtypes_type.py:76:1: error: Invalid type argument count in annotation `type[int, str]` on `bad_type1`: `type` takes 1 type argument but 2 were provided [callables_annotation]
+specialtypes_type.py:76:12: error: `type` accepts exactly 1 type argument, but 2 were provided [generics_defaults_specialization]
+specialtypes_type.py:117:5: error: Attribute `unknown` is not defined on `type[object]`; `type[object]` only exposes attributes of its type argument [specialtypes_type]
+specialtypes_type.py:120:5: error: Attribute `unknown` is not defined on `Type[object]`; `Type[object]` only exposes attributes of its type argument [specialtypes_type]
+specialtypes_type.py:143:1: error: Attribute `unknown` is not defined on `TA1` (a `TypeAlias` of `type`/`Type`) [specialtypes_type]
+specialtypes_type.py:144:1: error: Attribute `unknown` is not defined on `TA2` (a `TypeAlias` of `type`/`Type`) [specialtypes_type]
+specialtypes_type.py:145:1: error: Attribute `unknown` is not defined on `TA3` (a `TypeAlias` of `type`/`Type`) [specialtypes_type]
+specialtypes_type.py:146:1: error: Attribute `unknown` is not defined on `TA4` (a `TypeAlias` of `type`/`Type`) [specialtypes_type]
+"""

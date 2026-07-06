@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_self_basic.py:20:9: error: Return type `Self` requires returning the current class instance, but `Shape()` is not `Self` — it would be wrong in a subclass [generics_self_basic]
+generics_self_basic.py:33:9: error: Return type `Self` requires returning the current class instance, but `Shape()` is not `Self` — it would be wrong in a subclass [generics_self_basic]
+generics_self_basic.py:68:26: error: `Self` is not subscriptable — it already captures the full type of the enclosing class [generics_self_basic]
+"""

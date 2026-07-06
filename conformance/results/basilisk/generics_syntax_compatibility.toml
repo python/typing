@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_syntax_compatibility.py:14:7: error: Class `ClassA` uses PEP 695 type parameter syntax but references traditional TypeVar `K` from outer scope [generics_syntax_compatibility]
+generics_syntax_compatibility.py:26:9: error: Function `method2` uses PEP 695 type parameter syntax but references traditional TypeVar `K` from outer scope [generics_syntax_compatibility]
+"""

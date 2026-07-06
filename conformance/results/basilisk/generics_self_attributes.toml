@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_self_attributes.py:26:6: error: Argument `next` is typed as `Self` in `LinkedList`, which resolves to `OrdinalLinkedList` here, but got `LinkedList` instance [generics_self_attributes]
+generics_self_attributes.py:32:15: error: Cannot assign `LinkedList` to attribute `next`: `Self` resolves to `OrdinalLinkedList` here, not `LinkedList` [generics_self_attributes]
+"""

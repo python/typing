@@ -1,0 +1,14 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_typevartuple_args.py:33:5: error: Invalid arguments for `*args` of `exec_le`: `str` is not assignable to `Env` [generics_typevartuple_args]
+generics_typevartuple_args.py:34:5: error: Invalid arguments for `*args` of `exec_le`: `str` is not assignable to `Env` [generics_typevartuple_args]
+generics_typevartuple_args.py:48:1: error: Invalid arguments for `*args` of `func1`: `str` is not assignable to `int` [generics_typevartuple_args]
+generics_typevartuple_args.py:57:1: error: Invalid arguments for `*args` of `func2`: `int` is not assignable to `str` [generics_typevartuple_args]
+generics_typevartuple_args.py:58:1: error: Invalid arguments for `*args` of `func2`: expected at least 2 arguments, got 1 [generics_typevartuple_args]
+generics_typevartuple_args.py:59:1: error: Invalid arguments for `*args` of `func2`: expected at least 2 arguments, got 1 [generics_typevartuple_args]
+generics_typevartuple_args.py:67:1: error: Invalid arguments for `*args` of `func3`: expected exactly 2 arguments, got 1 [generics_typevartuple_args]
+generics_typevartuple_args.py:75:1: error: Invalid arguments for `*args` of `func4`: every argument must be a tuple of the same length, but found lengths [1, 2] [generics_typevartuple_args]
+"""

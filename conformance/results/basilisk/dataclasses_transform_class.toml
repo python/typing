@@ -1,0 +1,12 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_transform_class.py:51:7: error: Non-frozen class `Customer1Subclass` cannot inherit from frozen dataclass-transform class `Customer1` [dataclasses_transform_class]
+dataclasses_transform_class.py:63:1: error: Cannot assign to attribute `id` of frozen dataclass-transform class `Customer1` instance `c1_1` [dataclasses_transform_class]
+dataclasses_transform_class.py:66:8: error: Constructor of `Customer1` only accepts keyword arguments (kw_only=True) [dataclasses_transform_class]
+dataclasses_transform_class.py:72:1: error: Comparison operator not supported: `Customer1` does not synthesise ordering methods (order=False by default) [dataclasses_transform_class]
+dataclasses_transform_class.py:82:8: error: Constructor of `Customer2` only accepts keyword arguments (kw_only=True) [dataclasses_transform_class]
+dataclasses_transform_class.py:122:1: error: Cannot assign to attribute `id` of frozen dataclass-transform class `Customer3` instance `c3_1` [dataclasses_transform_class]
+"""

@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_metaclass.py:54:1: error: Call to `Class3()` is missing 1 required argument for `__new__` (expected 1, got 0) [calls_argument_count]
+constructors_call_metaclass.py:68:1: error: Call to `Class4()` is missing 1 required argument for `__new__` (expected 1, got 0) [calls_argument_count]
+"""

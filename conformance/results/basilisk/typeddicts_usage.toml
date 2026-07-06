@@ -1,0 +1,11 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_usage.py:23:1: error: `director` is not a valid key for `TypedDict` `Movie` [typeddicts_operations]
+typeddicts_usage.py:24:1: error: Value assigned to `TypedDict` `Movie` field `year` has the wrong type; expected `int` [typeddicts_operations]
+typeddicts_usage.py:28:1: error: invalid key `title` for `TypedDict` `Movie`; missing required key `name` [typeddicts_operations]
+typeddicts_usage.py:35:4: error: TypedDict type objects cannot be used in `isinstance()` tests [typeddicts_usage]
+typeddicts_usage.py:40:5: error: TypedDict type objects cannot be used in `isinstance()` tests [typeddicts_usage]
+"""

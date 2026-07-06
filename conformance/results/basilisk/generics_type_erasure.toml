@@ -1,0 +1,13 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_type_erasure.py:38:16: error: Argument type `str` is incompatible with parameter `label` of type `int | None` in `Node.__init__` [constructors_call_init]
+generics_type_erasure.py:40:16: error: Argument type `int` is incompatible with parameter `label` of type `str | None` in `Node.__init__` [constructors_call_init]
+generics_type_erasure.py:42:1: error: Cannot access instance attribute `label` on class object `Node` [generics_type_erasure]
+generics_type_erasure.py:43:1: error: Cannot access instance attribute `label` on class object `Node` [generics_type_erasure]
+generics_type_erasure.py:44:1: error: Cannot access instance attribute `label` on class object `Node` [generics_type_erasure]
+generics_type_erasure.py:45:1: error: Cannot access instance attribute `label` on class object `Node` [generics_type_erasure]
+generics_type_erasure.py:46:1: error: Cannot access instance attribute `label` on class object `type(n1)` [generics_type_erasure]
+"""

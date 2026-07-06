@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_behaviors.py:28:1: error: Redundant `assert_type` with `Literal[Color.RED]` on enum-typed parameter [enums_expansion]
+enums_behaviors.py:32:1: error: Redundant `assert_type` with `Literal[Color.BLUE]` on enum-typed parameter [enums_expansion]
+enums_behaviors.py:44:7: error: Cannot subclass `Shape` because it has members and is implicitly final [enums_behaviors]
+"""

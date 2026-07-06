@@ -1,0 +1,11 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_upper_bound.py:24:14: error: `T_Bad1` has a `bound=` that is parameterized by a type variable [generics_basic]
+generics_upper_bound.py:44:5: error: Type mismatch in `assert_type()`: expression has type `list[int] | set[int]` but expected `Collection[int]` [directives_assert_type_2]
+generics_upper_bound.py:52:1: error: Argument of type `int` does not satisfy `TypeVar` bound `Sized` for `longer` [generics_upper_bound]
+generics_upper_bound.py:57:10: error: `T_Bad2` specifies both constraints and `bound=`; these are mutually exclusive [generics_basic]
+generics_upper_bound.py:57:10: error: `TypeVar` `T_Bad2` cannot have both type constraints and an upper bound [generics_typevartuple_basic]
+"""

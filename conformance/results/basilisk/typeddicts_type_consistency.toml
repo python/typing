@@ -1,0 +1,15 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_type_consistency.py:21:1: error: TypedDict `B1` is not assignable to `A1`: value type for key `x` is `int`, expected `int | None` [typeddicts_operations]
+typeddicts_type_consistency.py:38:1: error: TypedDict `B2` is not assignable to `A2`: key `x` is required in source but non-required in target [typeddicts_operations]
+typeddicts_type_consistency.py:65:1: error: TypedDict `A3` is not assignable to `B3`: missing key `y` [typeddicts_operations]
+typeddicts_type_consistency.py:69:1: error: invalid key `y` for `TypedDict` `A3` [typeddicts_operations]
+typeddicts_type_consistency.py:76:1: error: TypedDict `B3` is not assignable to `dict[str, int]` [typeddicts_operations]
+typeddicts_type_consistency.py:77:1: error: TypedDict `B3` is not assignable to `dict[str, object]` [typeddicts_operations]
+typeddicts_type_consistency.py:78:1: error: TypedDict `B3` is not assignable to `dict[Any, Any]` [typeddicts_operations]
+typeddicts_type_consistency.py:82:1: error: TypedDict `B3` is not assignable to `Mapping[str, int]` [typeddicts_operations]
+typeddicts_type_consistency.py:126:42: error: Value assigned to `TypedDict` `Inner1` field `inner_key` has the wrong type; expected `str` [typeddicts_operations]
+"""

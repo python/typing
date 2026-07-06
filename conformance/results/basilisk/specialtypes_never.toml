@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+specialtypes_never.py:19:5: error: Function `func1` is declared `-> NoReturn` / `-> Never` but may return implicitly [specialtypes_never]
+specialtypes_never.py:85:5: error: Cannot assign `list[Never]` to `v3` annotated `list[int]`: `Never` is only compatible with `Never` and `Any` in invariant contexts [specialtypes_never_2]
+specialtypes_never.py:104:5: error: Cannot return `ClassC[Never]` from `func10` annotated `-> ClassC[U]`: `Never` is only compatible with `Never` and `Any` in invariant contexts [specialtypes_never_2]
+"""

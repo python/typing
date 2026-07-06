@@ -1,0 +1,10 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_required.py:12:5: error: `Required`/`NotRequired` is not allowed on attribute `x` outside a `TypedDict` [typeddicts_required]
+typeddicts_required.py:16:5: error: `Required`/`NotRequired` is not allowed on parameter `x` [typeddicts_required]
+typeddicts_required.py:59:5: error: `Required` and `NotRequired` cannot be nested in `a` [typeddicts_required]
+typeddicts_required.py:60:5: error: `Required` and `NotRequired` cannot be nested in `b` [typeddicts_required]
+"""

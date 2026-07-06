@@ -1,0 +1,13 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_explicit.py:27:9: error: Method `draw` in `BadColor` calls `super().draw()` but `PColor` declares it as abstract with no default implementation [protocols_explicit_3]
+protocols_explicit.py:27:16: error: Cannot call `super().draw()`: the method is abstract with no default implementation [protocols_explicit_2]
+protocols_explicit.py:56:1: error: Parameter `blue` has type `str` but element 2 of `rgb` in protocol `RGB` expects `int` [protocols_subtyping]
+protocols_explicit.py:60:5: error: Cannot instantiate `Point`; it does not implement all required protocol members [protocols_explicit]
+protocols_explicit.py:89:6: error: Cannot instantiate `Concrete1`; it does not implement all required protocol members [protocols_explicit]
+protocols_explicit.py:134:6: error: Cannot instantiate `Concrete5`; it does not implement all required protocol members [protocols_explicit]
+protocols_explicit.py:164:7: error: Cannot instantiate `Concrete7A`; it does not implement all required protocol members [protocols_explicit]
+"""

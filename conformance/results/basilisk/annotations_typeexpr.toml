@@ -1,0 +1,22 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+annotations_typeexpr.py:88:5: error: Invalid type expression in annotation for parameter `p1` [annotations_forward_refs]
+annotations_typeexpr.py:89:5: error: Invalid type expression in annotation for parameter `p2` [annotations_forward_refs]
+annotations_typeexpr.py:90:5: error: Invalid type expression in annotation for parameter `p3` [annotations_forward_refs]
+annotations_typeexpr.py:91:5: error: Invalid type expression in annotation for parameter `p4` [annotations_forward_refs]
+annotations_typeexpr.py:92:5: error: Invalid type expression in annotation for parameter `p5` [annotations_forward_refs]
+annotations_typeexpr.py:93:5: error: Invalid type expression in annotation for parameter `p6` [annotations_forward_refs]
+annotations_typeexpr.py:94:5: error: Invalid type expression in annotation for parameter `p7` [annotations_forward_refs]
+annotations_typeexpr.py:95:5: error: Invalid type expression in annotation for parameter `p8` [annotations_forward_refs]
+annotations_typeexpr.py:96:5: error: Invalid type expression in annotation for parameter `p9` [annotations_forward_refs]
+annotations_typeexpr.py:96:9: error: Variable `var1` is not a valid type and cannot be used as an annotation [aliases_implicit]
+annotations_typeexpr.py:97:5: error: Invalid type annotation on `p10` — numeric literals are not valid types [annotations_typeexpr]
+annotations_typeexpr.py:98:5: error: Invalid type annotation on `p11` — numeric literals are not valid types [annotations_typeexpr]
+annotations_typeexpr.py:99:5: error: Invalid type expression in annotation for parameter `p12` [annotations_forward_refs]
+annotations_typeexpr.py:100:5: error: Invalid type expression in annotation for parameter `p13` [annotations_forward_refs]
+annotations_typeexpr.py:101:5: error: Invalid type expression in annotation for parameter `p14` [annotations_forward_refs]
+annotations_typeexpr.py:102:5: error: Invalid type expression in annotation for parameter `p15` [annotations_forward_refs]
+"""

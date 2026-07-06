@@ -1,0 +1,29 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+aliases_typealiastype.py:32:7: error: `TypeAliasType` object `GoodAlias1` has no attribute `other_attrib` [aliases_typealiastype]
+aliases_typealiastype.py:40:5: error: Incorrect type arguments for `GoodAlias5`: expected 4, got 3 [aliases_typealiastype]
+aliases_typealiastype.py:43:13: error: Type variable `S` used in `BadAlias1` is not declared in `type_params` [aliases_typealiastype]
+aliases_typealiastype.py:44:13: error: Type variable `S` used in `BadAlias2` is not declared in `type_params` [aliases_typealiastype]
+aliases_typealiastype.py:45:57: error: `type_params` for `BadAlias3` must be a literal tuple expression [aliases_typealiastype]
+aliases_typealiastype.py:46:13: error: Type alias `BadAlias4` references itself, creating a circular dependency [aliases_typealiastype]
+aliases_typealiastype.py:47:13: error: Type alias `BadAlias5` references itself, creating a circular dependency [aliases_typealiastype]
+aliases_typealiastype.py:48:13: error: Type alias `BadAlias6` references itself, creating a circular dependency [aliases_typealiastype]
+aliases_typealiastype.py:49:13: error: Type alias `BadAlias7` references itself, creating a circular dependency [aliases_typealiastype]
+aliases_typealiastype.py:52:40: error: Invalid type expression in `TypeAliasType` for `BadAlias8` [aliases_typealiastype]
+aliases_typealiastype.py:53:40: error: Invalid type expression in `TypeAliasType` for `BadAlias9` [aliases_typealiastype]
+aliases_typealiastype.py:54:42: error: Invalid type expression in `TypeAliasType` for `BadAlias10` [aliases_typealiastype]
+aliases_typealiastype.py:55:42: error: Invalid type expression in `TypeAliasType` for `BadAlias11` [aliases_typealiastype]
+aliases_typealiastype.py:56:42: error: Invalid type expression in `TypeAliasType` for `BadAlias12` [aliases_typealiastype]
+aliases_typealiastype.py:57:42: error: Invalid type expression in `TypeAliasType` for `BadAlias13` [aliases_typealiastype]
+aliases_typealiastype.py:58:42: error: Invalid type expression in `TypeAliasType` for `BadAlias14` [aliases_typealiastype]
+aliases_typealiastype.py:59:42: error: Invalid type expression in `TypeAliasType` for `BadAlias15` [aliases_typealiastype]
+aliases_typealiastype.py:60:42: error: Invalid type expression in `TypeAliasType` for `BadAlias16` [aliases_typealiastype]
+aliases_typealiastype.py:61:42: error: Invalid type expression in `TypeAliasType` for `BadAlias17` [aliases_typealiastype]
+aliases_typealiastype.py:62:42: error: Invalid type expression in `TypeAliasType` for `BadAlias18` [aliases_typealiastype]
+aliases_typealiastype.py:63:42: error: Invalid type expression in `TypeAliasType` for `BadAlias19` [aliases_typealiastype]
+aliases_typealiastype.py:64:42: error: Invalid type expression in `TypeAliasType` for `BadAlias20` [aliases_typealiastype]
+aliases_typealiastype.py:66:14: error: Type alias `BadAlias21` references itself, creating a circular dependency [aliases_typealiastype]
+"""

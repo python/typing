@@ -1,0 +1,12 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_init.py:21:1: error: Class1[int].__init__ parameter `x` expects `int` but received a `float` literal [generics_defaults_referential_2]
+constructors_call_init.py:21:13: error: Argument type `float` is incompatible with parameter `x` of type `int` in `Class1.__init__` [constructors_call_init]
+constructors_call_init.py:42:1: error: `Class2` instance is not compatible with `Self` type of `Class3` in `__init__` [constructors_call_init]
+constructors_call_init.py:56:1: error: `Class4[str]()` is incompatible: `__init__` expects `self: Class4[int]` but received `Class4[str]` [constructors_call_init]
+constructors_call_init.py:107:5: error: Class-scoped type variables should not be used in the `self` annotation of `__init__` in class `Class8` [constructors_call_init]
+constructors_call_init.py:130:1: error: Class `Class11` does not define `__init__` or `__new__` and inherits only from `object`; constructor does not accept arguments [constructors_call_init]
+"""
