@@ -1,6 +1,7 @@
 conformant = "Pass"
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 204: Unexpected errors ['generics_variance_inference.py:204:1: error: Type `ShouldBeCovariant7[int]` is not assignable to `ShouldBeCovariant7[object]` (type parameter is covariant) [generics_variance_inference]']
 """
 output = """
 generics_variance_inference.py:24:5: error: Type `ClassA[float]` is not assignable to `ClassA[int]` (type parameter is invariant) [generics_variance_inference]
@@ -26,4 +27,6 @@ generics_variance_inference.py:169:1: error: Type `ShouldBeInvariant6[float]` is
 generics_variance_inference.py:170:1: error: Type `ShouldBeInvariant6[int]` is not assignable to `ShouldBeInvariant6[float]` (type parameter is invariant) [generics_variance_inference]
 generics_variance_inference.py:181:1: error: Type `ShouldBeCovariant6[float]` is not assignable to `ShouldBeCovariant6[int]` (type parameter is covariant) [generics_variance_inference]
 generics_variance_inference.py:194:1: error: Type `ShouldBeContravariant2[int]` is not assignable to `ShouldBeContravariant2[float]` (type parameter is contravariant) [generics_variance_inference]
+generics_variance_inference.py:204:1: error: Type `ShouldBeCovariant7[int]` is not assignable to `ShouldBeCovariant7[object]` (type parameter is covariant) [generics_variance_inference]
+generics_variance_inference.py:205:1: error: Type `ShouldBeCovariant7[object]` is not assignable to `ShouldBeCovariant7[int]` (type parameter is covariant) [generics_variance_inference]
 """
