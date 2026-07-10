@@ -6,9 +6,7 @@ Tests the handling of descriptors within a dataclass.
 # but its behavior can be determined from the runtime implementation.
 
 from dataclasses import dataclass
-from typing import Any, Generic, TypeVar, assert_type, overload
-
-T = TypeVar("T")
+from typing import Any, assert_type, overload
 
 
 class Desc1:
@@ -37,32 +35,8 @@ dc1 = DC1(3)
 assert_type(dc1.y, int)
 assert_type(DC1.y, Desc1)
 
-
-class Desc2(Generic[T]):
-    @overload
-    def __get__(self, instance: None, owner: Any) -> list[T]:
-        ...
-
-    @overload
-    def __get__(self, instance: object, owner: Any) -> T:
-        ...
-
-    def __get__(self, instance: object | None, owner: Any) -> list[T] | T:
-        raise NotImplementedError
-
-
-@dataclass
-class DC2:
-    x: Desc2[int]
-    y: Desc2[str]
-    z: Desc2[str] = Desc2()
-
-
-assert_type(DC2.x, list[int])
-assert_type(DC2.y, list[str])
-assert_type(DC2.z, list[str])
-
-dc2 = DC2(Desc2(), Desc2(), Desc2())
-assert_type(dc2.x, int)
-assert_type(dc2.y, str)
-assert_type(dc2.z, str)
+# Note: a previous version of this test also covered non-data descriptors
+# (objects implementing only __get__, no __set__) used as dataclass fields.
+# That case was removed because the assertions did not match actual runtime
+# behavior; see https://github.com/python/typing/issues/2259. The correct
+# behavior for non-data descriptors in dataclasses is not yet specified.
