@@ -966,7 +966,14 @@
                     </tr>
                     <tr>
                         <th scope="row">generics_variance_inference</th>
-                        <td class="conformant">Pass</td>
+                        <td class="conformant tooltip">
+                            Pass
+                            <ul class="notes">
+                                <li>polymorphic functions with bound self type influence variance inference,</li>
+                                <li>which is not part of the variance inference algorithm as described in the spec.</li>
+                                <li>See gh-2281 for details.</li>
+                            </ul>
+                        </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">

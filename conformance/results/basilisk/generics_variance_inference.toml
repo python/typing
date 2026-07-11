@@ -1,5 +1,5 @@
-conformant = "Pass"
-conformance_automated = "Partial"
+conformant = "Partial"
+conformance_automated = "Fail"
 notes = """
 polymorphic functions with bound self type influence variance inference,
 which is not part of the variance inference algorithm as described in the spec.
