@@ -58,6 +58,7 @@ def generate_summary(root_dir: Path):
     env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(root_dir.joinpath("src/templates")),
         autoescape=jinja2.select_autoescape(),
+        keep_trailing_newline=True,
     )
     env.filters["conformance_class"] = _conformance_class
 
