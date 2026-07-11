@@ -1,5 +1,10 @@
 conformant = "Pass"
-conformance_automated = "Fail"
+conformance_automated = "Partial"
+notes = """
+polymorphic functions with bound self type influence variance inference,
+which is not part of the variance inference algorithm as described in the spec.
+See gh-2281 for details.
+"""
 errors_diff = """
 Line 204: Unexpected errors ['generics_variance_inference.py:204:1: error: Type `ShouldBeCovariant7[int]` is not assignable to `ShouldBeCovariant7[object]` (type parameter is covariant) [generics_variance_inference]']
 """
