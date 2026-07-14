@@ -1,17 +1,19 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+no error when multiple tvt in a 695 style class definition
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 111: Expected 1 errors
 """
 output = """
-generics_typevartuple_basic.py:42:28: error: TypeVarTuple shape mismatch: `Array` is declared with 2 type arguments, but the constructor argument is not a tuple expression [generics_typevartuple_args]
-generics_typevartuple_basic.py:43:35: error: TypeVarTuple shape mismatch: `Array` is declared with 3 type arguments, but the constructor argument is a tuple of length 2 [generics_typevartuple_args]
-generics_typevartuple_basic.py:44:41: error: TypeVarTuple element order mismatch: `Array` is declared `[Time, Batch, Height, Width]` but the constructor provides `[Time, Batch, Width, Height]` [generics_typevartuple_args]
-generics_typevartuple_basic.py:52:22: error: `TypeVarTuple` `Shape` must be unpacked with `*` in generic parameter list [generics_typevartuple_basic_2]
-generics_typevartuple_basic.py:53:24: error: `TypeVarTuple` `Shape` must be unpacked with `*` inside `tuple[...]` [generics_typevartuple_basic_2]
-generics_typevartuple_basic.py:56:28: error: `TypeVarTuple` `Shape` must be unpacked with `*` inside `tuple[...]` [generics_typevartuple_basic_2]
-generics_typevartuple_basic.py:59:18: error: `TypeVarTuple` `Shape` must be unpacked with `*` in annotation for `args` [generics_typevartuple_basic_2]
-generics_typevartuple_basic.py:65:7: error: `TypeVarTuple` `Ts1` does not support `covariant` or `contravariant` arguments [generics_typevartuple_basic]
-generics_typevartuple_basic.py:65:7: error: Invalid `TypeVarTuple` parameters: `TypeVarTuple` does not support variance specification [generics_typevartuple_basic_3]
+generics_typevartuple_basic.py:43:28: error: TypeVarTuple shape mismatch: `Array` is declared with 2 type arguments, but the constructor argument is not a tuple expression [generics_typevartuple_args]
+generics_typevartuple_basic.py:44:35: error: TypeVarTuple shape mismatch: `Array` is declared with 3 type arguments, but the constructor argument is a tuple of length 2 [generics_typevartuple_args]
+generics_typevartuple_basic.py:45:41: error: TypeVarTuple element order mismatch: `Array` is declared `[Time, Batch, Height, Width]` but the constructor provides `[Time, Batch, Width, Height]` [generics_typevartuple_args]
+generics_typevartuple_basic.py:53:22: error: `TypeVarTuple` `Shape` must be unpacked with `*` in generic parameter list [generics_typevartuple_basic_2]
+generics_typevartuple_basic.py:54:24: error: `TypeVarTuple` `Shape` must be unpacked with `*` inside `tuple[...]` [generics_typevartuple_basic_2]
+generics_typevartuple_basic.py:57:28: error: `TypeVarTuple` `Shape` must be unpacked with `*` inside `tuple[...]` [generics_typevartuple_basic_2]
+generics_typevartuple_basic.py:60:18: error: `TypeVarTuple` `Shape` must be unpacked with `*` in annotation for `args` [generics_typevartuple_basic_2]
 generics_typevartuple_basic.py:66:7: error: `TypeVarTuple` `Ts2` does not accept type constraint arguments [generics_typevartuple_basic]
 generics_typevartuple_basic.py:66:7: error: Invalid `TypeVarTuple` parameters: `TypeVarTuple` does not support type constraints [generics_typevartuple_basic_3]
 generics_typevartuple_basic.py:67:7: error: `TypeVarTuple` `Ts3` does not support a `bound=` argument [generics_typevartuple_basic]

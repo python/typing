@@ -1,4 +1,7 @@
-conformant = "Unsupported"
+conformant = "Partial"
+notes = """
+Does not error when a ParamSpec is used in a position that violates its explicit variance.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 40: Expected 1 errors
