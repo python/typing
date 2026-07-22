@@ -95,13 +95,79 @@ is unreachable and will behave accordingly::
 ---------
 
 Since Python 3.11, the ``typing`` module contains a :term:`special form`
-``Never``. It represents the bottom type, a type that represents the empty set
-of Python objects.
+``Never``. It represents the **bottom type**: the type that denotes the empty
+set of Python objects.  No Python object can be a runtime instance of
+``Never``.
 
 The ``Never`` type is equivalent to ``NoReturn``, which is discussed above.
 The ``NoReturn`` type is conventionally used in return annotations of
 functions, and ``Never`` is typically used in other locations, but the two
 types are completely interchangeable.
+
+Subtyping rules for ``Never``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Because ``Never`` is the bottom type, it is a :term:`subtype` of every fully
+static type.  This means that a value of type ``Never`` is :term:`assignable`
+to a variable of any type ``T``::
+
+  from typing import Never
+
+  def f(x: Never) -> None:
+      v1: int = x   # OK — Never is a subtype of int
+      v2: str = x   # OK — Never is a subtype of str
+
+For ordinary inhabited types such as ``int`` or ``str``, no value is
+assignable to ``Never``::
+
+  def g(x: int) -> Never:
+      return x  # Error — int is not assignable to Never
+
+Because ``Never`` is a subtype of every fully static type ``T``, the union
+``Never | T`` is equivalent to ``T``::
+
+  from typing import Never, Union
+
+  type Alias = Never | int  # Equivalent to int
+
+Code following a call to a function that returns ``Never`` is unreachable.
+Type checkers may suppress errors in unreachable blocks.
+
+Using ``Never`` as a type argument
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``Never`` may appear as a type argument.  When used with a covariant
+type parameter, ``Container[Never]`` is a subtype of ``Container[T]`` for
+every fully static type ``T``, because ``Never`` is a subtype of every fully
+static type.  This is useful to type an empty container whose element type is
+not yet known::
+
+  from collections.abc import Sequence
+  from typing import Never
+
+  def empty_sequence() -> Sequence[Never]:
+      return []
+
+When used with an invariant type parameter, the normal invariance rules
+apply: ``Container[Never]`` is only assignable to ``Container[Never]``::
+
+  from typing import Generic, Never, TypeVar
+
+  T = TypeVar("T")
+
+  class Box(Generic[T]):
+      pass
+
+  def f() -> Box[int]:
+      return Box[Never]()  # Error — Box is invariant in T
+
+``type[Never]``
+^^^^^^^^^^^^^^^^^
+
+``type[Never]`` is a subtype of ``type[T]`` for every fully static type ``T``,
+just as ``Never`` is a subtype of every fully static type ``T``.  In practice
+a variable receives this type only in provably unreachable code — for example,
+when narrowing a ``type[int] | type[str]`` through all possible branches.
 
 .. _`numeric-promotions`:
 
