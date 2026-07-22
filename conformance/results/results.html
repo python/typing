@@ -1887,31 +1887,42 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Assumes descriptor behavior only when field is assigned in class body.</li>
-                                <li>Does not correctly evaluate type of descriptor access.</li>
+                                <li>Does not preserve a non-data descriptor object stored in a dataclass instance when a class attribute of the same name is also present.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Conformance suite is questionable; see <a href="https://github.com/python/typing/issues/2259">https://github.com/python/typing/issues/2259</a></li>
+                                <li>Does not preserve a non-data descriptor object stored in a dataclass instance when a class attribute of the same name is also present.</li>
+                                <li>Does not preserve type parameters when accessing a non-data descriptor through the dataclass.</li>
+                                <li>See also: <a href="https://github.com/python/typing/issues/2259">https://github.com/python/typing/issues/2259</a></li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Assumes descriptor behavior only when field is assigned in class body</li>
-                                <li>Doesn't allow non-data descriptors or data descriptors with differing <code>__get__</code> and <code>__set__</code> types</li>
+                                <li>Rejects a data descriptor field whose <code>__get__</code> and <code>__set__</code> have differing types.</li>
+                                <li>Does not allow non-data descriptors as dataclass fields.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Only infers a descriptor <code>__get__</code> method as being called when a descriptor attribute is accessed on an instance if the descriptor attribute is present in the class namespace.</li>
+                                <li>Does not preserve non-data descriptor objects stored in dataclass instances.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not preserve non-data descriptor objects stored in dataclass instances.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not preserve non-data descriptor objects stored in dataclass instances.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">dataclasses_final</th>
@@ -2118,9 +2129,9 @@
                         <td>11.5 / 16 • 71.9%</td>
                         <td>15.5 / 16 • 96.9%</td>
                         <td>15.5 / 16 • 96.9%</td>
-                        <td>16 / 16 • 100.0%</td>
+                        <td>15.5 / 16 • 96.9%</td>
                         <td>14.5 / 16 • 90.6%</td>
-                        <td>16 / 16 • 100.0%</td>
+                        <td>15.5 / 16 • 96.9%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2811,9 +2822,9 @@
                         <td>109 / 141 • 77.3%</td>
                         <td>130 / 141 • 92.2%</td>
                         <td>138 / 141 • 97.9%</td>
-                        <td>136.5 / 141 • 96.8%</td>
+                        <td>136 / 141 • 96.5%</td>
                         <td>116 / 141 • 82.3%</td>
-                        <td>140.5 / 141 • 99.6%</td>
+                        <td>140 / 141 • 99.3%</td>
                     </tr>
                 </tfoot>
             </table>
