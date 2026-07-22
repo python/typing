@@ -555,6 +555,8 @@
                             <ul class="notes">
                                 <li>Does not detect a <code>TypeVar</code> with a default used after a <code>TypeVarTuple</code>.</li>
                                 <li>Does not fully support defaults on <code>TypeVarTuple</code> and <code>ParamSpec</code>.</li>
+                                <li>Incorrectly rejects a valid generic function definition where a TypeVar's</li>
+                                <li>default matches the default value of the corresponding parameter.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
@@ -570,9 +572,17 @@
                             <ul class="notes">
                                 <li>Does not forbid a <code>TypeVar</code> immediately following a <code>TypeVarTuple</code> in a parameter list from having a default.</li>
                                 <li>Does not support <code>TypeVarTuple</code>.</li>
+                                <li>Incorrectly rejects a valid generic function definition where a TypeVar's</li>
+                                <li>default matches the default value of the corresponding parameter.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Incorrectly rejects a valid generic function definition where a TypeVar's</li>
+                                <li>default matches the default value of the corresponding parameter.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">generics_defaults_referential</th>
@@ -983,7 +993,7 @@
                         <td>29.5 / 30 • 98.3%</td>
                         <td>28.5 / 30 • 95.0%</td>
                         <td>21 / 30 • 70.0%</td>
-                        <td>30 / 30 • 100.0%</td>
+                        <td>29.5 / 30 • 98.3%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2813,7 +2823,7 @@
                         <td>138 / 141 • 97.9%</td>
                         <td>136.5 / 141 • 96.8%</td>
                         <td>116 / 141 • 82.3%</td>
-                        <td>140.5 / 141 • 99.6%</td>
+                        <td>140 / 141 • 99.3%</td>
                     </tr>
                 </tfoot>
             </table>

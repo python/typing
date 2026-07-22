@@ -3,6 +3,8 @@ conformant = "Partial"
 notes = """
 Does not forbid a `TypeVar` immediately following a `TypeVarTuple` in a parameter list from having a default.
 Does not support `TypeVarTuple`.
+Incorrectly rejects a valid generic function definition where a TypeVar's
+default matches the default value of the corresponding parameter.
 """
 errors_diff = """
 Line 188: Expected 1 errors
@@ -13,6 +15,7 @@ Line 204: Unexpected errors ['generics_defaults.py:204:5: error[type-assertion-f
 Line 205: Unexpected errors ['generics_defaults.py:205:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(int | float, bool, /) -> None`']
 Line 207: Unexpected errors ['generics_defaults.py:207:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`']
 Line 208: Unexpected errors ['generics_defaults.py:208:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(bytes, /) -> None`']
+Line 239: Unexpected errors ['generics_defaults.py:239:19: error[invalid-parameter-default] Default value of type `None` is not assignable to annotated parameter type `S8@get`']
 """
 output = """
 generics_defaults.py:24:40: error[invalid-generic-class] Type parameter `T` without a default cannot follow earlier parameter `DefaultStrT` with a default
@@ -27,4 +30,5 @@ generics_defaults.py:204:5: error[type-assertion-failure] Type `@Todo` does not 
 generics_defaults.py:205:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(int | float, bool, /) -> None`
 generics_defaults.py:207:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `tuple[int, str]`
 generics_defaults.py:208:5: error[type-assertion-failure] Type `@Todo` does not match asserted type `(bytes, /) -> None`
+generics_defaults.py:239:19: error[invalid-parameter-default] Default value of type `None` is not assignable to annotated parameter type `S8@get`
 """

@@ -2,6 +2,8 @@ conformant = "Partial"
 notes = """
 Does not detect a `TypeVar` with a default used after a `TypeVarTuple`.
 Does not fully support defaults on `TypeVarTuple` and `ParamSpec`.
+Incorrectly rejects a valid generic function definition where a TypeVar's
+default matches the default value of the corresponding parameter.
 """
 output = """
 generics_defaults.py:24: error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type  [misc]
@@ -13,6 +15,9 @@ generics_defaults.py:177: error: Expression is of type "int", not "Any"  [assert
 generics_defaults.py:203: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [valid-type]
 generics_defaults.py:204: error: Expression is of type "tuple[Any, ...]", not "tuple[int, str]"  [assert-type]
 generics_defaults.py:205: error: Expression is of type "def (*Any, **Any) -> None", not "Callable[[float, bool], None]"  [assert-type]
+generics_defaults.py:239: error: Incompatible default for parameter "default" (default has type "None", parameter has type "S8")  [assignment]
+generics_defaults.py:239: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
+generics_defaults.py:239: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -21,4 +26,5 @@ Line 139: Unexpected errors ['generics_defaults.py:139: error: Expression is of 
 Line 203: Unexpected errors ['generics_defaults.py:203: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [valid-type]']
 Line 204: Unexpected errors ['generics_defaults.py:204: error: Expression is of type "tuple[Any, ...]", not "tuple[int, str]"  [assert-type]']
 Line 205: Unexpected errors ['generics_defaults.py:205: error: Expression is of type "def (*Any, **Any) -> None", not "Callable[[float, bool], None]"  [assert-type]']
+Line 239: Unexpected errors ['generics_defaults.py:239: error: Incompatible default for parameter "default" (default has type "None", parameter has type "S8")  [assignment]']
 """

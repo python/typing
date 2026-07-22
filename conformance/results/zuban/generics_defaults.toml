@@ -1,5 +1,11 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Incorrectly rejects a valid generic function definition where a TypeVar's
+default matches the default value of the corresponding parameter.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 239: Unexpected errors ['generics_defaults.py:239: error: Incompatible default for parameter "default" (default has type "None", parameter has type "S8 = None")  [assignment]']
 """
 output = """
 generics_defaults.py:24: error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type  [misc]
@@ -8,4 +14,7 @@ generics_defaults.py:152: error: TypeVar default must be a subtype of the bound 
 generics_defaults.py:159: error: TypeVar default must be one of the constraint types  [misc]
 generics_defaults.py:177: error: Expression is of type "int", not "Any"  [misc]
 generics_defaults.py:188: error: TypeVar defaults are ambiguous after a TypeVarTuple  [misc]
+generics_defaults.py:239: error: Incompatible default for parameter "default" (default has type "None", parameter has type "S8 = None")  [assignment]
+generics_defaults.py:239: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
+generics_defaults.py:239: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
 """
