@@ -2197,7 +2197,13 @@
                     <tr>
                         <th scope="row">typeddicts_operations</th>
                         <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Incorrectly flags <code>TypedDict.get()</code> with an unknown literal string key as an</li>
+                                <li>error; the spec requires this to be allowed.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -2306,7 +2312,7 @@
                         <td></td>
                         <td>14 / 14 • 100.0%</td>
                         <td>11.5 / 14 • 82.1%</td>
-                        <td>13.5 / 14 • 96.4%</td>
+                        <td>13 / 14 • 92.9%</td>
                         <td>14 / 14 • 100.0%</td>
                         <td>13.5 / 14 • 96.4%</td>
                         <td>14 / 14 • 100.0%</td>
@@ -2809,7 +2815,7 @@
                         <td></td>
                         <td>141 / 141 • 100.0%</td>
                         <td>109 / 141 • 77.3%</td>
-                        <td>130 / 141 • 92.2%</td>
+                        <td>129.5 / 141 • 91.8%</td>
                         <td>138 / 141 • 97.9%</td>
                         <td>136.5 / 141 • 96.8%</td>
                         <td>116 / 141 • 82.3%</td>

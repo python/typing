@@ -12,7 +12,7 @@ ERROR typeddicts_operations.py:29:42-48: `float` is not assignable to TypedDict 
 ERROR typeddicts_operations.py:32:36-43: Key `other` is not defined in TypedDict `Movie` [bad-typed-dict-key]
 ERROR typeddicts_operations.py:37:20-52: Missing required key `name` for TypedDict `Movie` [bad-typed-dict-key]
 ERROR typeddicts_operations.py:37:21-33: Expected string literal key, got `str` [bad-typed-dict-key]
-ERROR typeddicts_operations.py:47:1-12: Object of class `Movie` has no attribute `clear` [missing-attribute]
-ERROR typeddicts_operations.py:49:11-17: Key `name` in TypedDict `Movie` may not be deleted [unsupported-delete]
-ERROR typeddicts_operations.py:62:1-21: Object of class `MovieOptional` has no attribute `clear` [missing-attribute]
+ERROR typeddicts_operations.py:49:1-12: Object of class `Movie` has no attribute `clear` [missing-attribute]
+ERROR typeddicts_operations.py:51:11-17: Key `name` in TypedDict `Movie` may not be deleted [unsupported-delete]
+ERROR typeddicts_operations.py:64:1-21: Object of class `MovieOptional` has no attribute `clear` [missing-attribute]
 """
