@@ -1,5 +1,12 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+polymorphic functions with bound self type influence variance inference,
+which is not part of the variance inference algorithm as described in the spec.
+See gh-2281 for details.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 200: Unexpected errors ['generics_variance_inference.py:200: error: Name "S" is not defined  [name-defined]', 'generics_variance_inference.py:200: error: Name "S" is not defined  [name-defined]']
 """
 output = """
 generics_variance_inference.py:24: error: Incompatible types in assignment (expression has type "ClassA[float, int, int]", variable has type "ClassA[int, int, int]")  [assignment]
@@ -25,4 +32,7 @@ generics_variance_inference.py:169: error: Incompatible types in assignment (exp
 generics_variance_inference.py:170: error: Incompatible types in assignment (expression has type "ShouldBeInvariant6[int]", variable has type "ShouldBeInvariant6[float]")  [assignment]
 generics_variance_inference.py:181: error: Incompatible types in assignment (expression has type "ShouldBeCovariant6[float]", variable has type "ShouldBeCovariant6[int]")  [assignment]
 generics_variance_inference.py:194: error: Incompatible types in assignment (expression has type "ShouldBeContravariant2[int]", variable has type "ShouldBeContravariant2[float]")  [assignment]
+generics_variance_inference.py:200: error: Name "S" is not defined  [name-defined]
+generics_variance_inference.py:200: error: Name "S" is not defined  [name-defined]
+generics_variance_inference.py:205: error: Incompatible types in assignment (expression has type "ShouldBeCovariant7[object]", variable has type "ShouldBeCovariant7[int]")  [assignment]
 """
