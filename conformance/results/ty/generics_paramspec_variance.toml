@@ -1,0 +1,17 @@
+conformant = "Partial"
+notes = """
+Does not error when a ParamSpec is used in a position that violates its explicit variance.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 40: Expected 1 errors
+Line 51: Expected 1 errors
+"""
+output = """
+generics_paramspec_variance.py:14:42: error[invalid-assignment] Object of type `InvariantParamSpec[(int, /)]` is not assignable to `InvariantParamSpec[(object, /)]`
+generics_paramspec_variance.py:15:39: error[invalid-assignment] Object of type `InvariantParamSpec[(object, /)]` is not assignable to `InvariantParamSpec[(int, /)]`
+generics_paramspec_variance.py:21:42: error[invalid-assignment] Object of type `ContravariantParamSpec[(int, /)]` is not assignable to `ContravariantParamSpec[(object, /)]`
+generics_paramspec_variance.py:30:36: error[invalid-assignment] Object of type `CovariantParamSpec[(object, /)]` is not assignable to `CovariantParamSpec[(int, /)]`
+generics_paramspec_variance.py:44:49: error[invalid-assignment] Object of type `ContravariantParamSpecOld[(int, /)]` is not assignable to `ContravariantParamSpecOld[(object, /)]`
+generics_paramspec_variance.py:57:43: error[invalid-assignment] Object of type `CovariantParamSpecOld[(object, /)]` is not assignable to `CovariantParamSpecOld[(int, /)]`
+"""
