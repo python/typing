@@ -484,6 +484,16 @@ Also consider the following example::
 
 In this case ``MyDict`` has a single type parameter, ``T``.
 
+Type parameter ordering
+-----------------------
+
+For classes using the Python 3.12 generic class syntax, the type
+parameter order is determined by the order of parameters in the type
+parameter list::
+
+  class NewStyle[T1, T2]:
+      ...
+
 Type variables are applied to the defined class in the order in which
 they first appear in any generic base classes::
 
@@ -504,6 +514,44 @@ That ``Child`` definition is equivalent to::
 
   class Child(Parent1[T1, T3], Parent2[T2, T3], Generic[T1, T3, T2]):
       ...
+
+When ``Generic[...]`` is present in the base class list, the order of
+type parameters is determined by the order of type arguments to
+``Generic``::
+
+  from typing import Generic, TypeVar
+
+  T1 = TypeVar('T1')
+  T2 = TypeVar('T2')
+
+  class Base(Generic[T1, T2]):
+      ...
+
+  class Child(Base[T2, T1], Generic[T1, T2]):
+      ...
+
+In this example, ``Child`` has type parameter order ``T1``, ``T2``.
+
+Similarly, when a parameterized ``Protocol[...]`` base class is present,
+the order of type parameters is determined by the order of type
+arguments to ``Protocol``. A bare ``Protocol`` base class does not
+affect type parameter ordering::
+
+  from typing import Protocol, TypeVar
+
+  T1 = TypeVar('T1')
+  T2 = TypeVar('T2')
+
+  class ProtoBase(Protocol[T1, T2]):
+      ...
+
+  class ProtoChild(ProtoBase[T2, T1], Protocol[T1, T2]):
+      ...
+
+  class BareProtoChild(ProtoBase[T1, T2], Protocol):
+      ...
+
+In all of the examples above, the type parameter order is ``T1``, ``T2``.
 
 A type checker should report an error when the type variable order is
 inconsistent::
