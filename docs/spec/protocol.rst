@@ -385,8 +385,8 @@ Protocols cannot be instantiated, so there are no values whose
 runtime type is a protocol. For variables and parameters with protocol types,
 assignability relationships are subject to the following rules:
 
-* A protocol is never assignable to a concrete type.
-* A concrete type ``X`` is assignable to a protocol ``P`` if and only if ``X``
+* A protocol is never assignable to a :ref:`concrete-type`.
+* A :ref:`concrete-type` ``X`` is assignable to a protocol ``P`` if and only if ``X``
   implements all protocol members of ``P`` with assignable types. In other
   words, :term:`assignability <assignable>` with respect to a protocol is
   always :term:`structural`.
@@ -465,7 +465,7 @@ Example::
 ``type[]`` and class objects vs protocols
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Variables and parameters annotated with ``type[Proto]`` accept only concrete
+Variables and parameters annotated with ``type[Proto]`` accept only :ref:`concrete-types <concrete-type>`
 (non-protocol) :term:`consistent subtypes <consistent subtype>` of ``Proto``.
 The main reason for this is to allow instantiation of parameters with such
 types. For example::
