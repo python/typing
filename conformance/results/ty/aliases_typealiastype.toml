@@ -1,22 +1,19 @@
 conformance_automated = "Fail"
 conformant = "Partial"
 notes = """
-Does not reject specializing a type parameter in a generic type alias with a type inconsistent with the parameter's upper bound.
-Does not reject declaring a type alias with a type variable that is not in scope.
-Does not reject declaring a type alias with a non-literal tuple passed to the `type_params` parameter.
-Does not reject cyclically defined type aliases.
+Does not reject cyclically defined `TypeAliasType` aliases.
 """
 errors_diff = """
-Line 40: Expected 1 errors
-Line 43: Expected 1 errors
-Line 44: Expected 1 errors
-Line 45: Expected 1 errors
 Line 46: Expected 1 errors
 Line 47: Expected 1 errors
 Line 48: Expected 1 errors
 """
 output = """
 aliases_typealiastype.py:32:7: error[unresolved-attribute] Object of type `TypeAliasType` has no attribute `other_attrib`
+aliases_typealiastype.py:40:21: error[invalid-type-arguments] Type `int` is not assignable to upper bound `str` of type variable `TStr@GoodAlias5`
+aliases_typealiastype.py:43:40: error[invalid-type-alias-type] Type parameter `S` used in the alias value must be included in `type_params`
+aliases_typealiastype.py:44:40: error[invalid-type-alias-type] Type parameter `S` used in the alias value must be included in `type_params`
+aliases_typealiastype.py:45:57: error[invalid-type-alias-type] The `type_params` argument to `TypeAliasType` must be a tuple literal
 aliases_typealiastype.py:52:40: error[invalid-type-form] Function calls are not allowed in type expressions
 aliases_typealiastype.py:53:40: error[invalid-type-form] List literals are not allowed in this context in a type expression
 aliases_typealiastype.py:54:42: error[invalid-type-form] Tuple literals are not allowed in this context in a type expression

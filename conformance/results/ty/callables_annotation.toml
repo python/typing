@@ -1,10 +1,5 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Infers a callback protocol as being a gradual type if the callback has signature `__call__[T](self, *args: T, **kwargs: T)` and `T` has been explicitly specialized to `Any`.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 159: Expected 1 errors
 """
 output = """
 callables_annotation.py:25:5: error[missing-argument] No argument provided for required parameter 2
@@ -23,6 +18,7 @@ callables_annotation.py:58:14: error[invalid-type-form] The first argument to `C
 callables_annotation.py:59:14: error[invalid-type-form] `[...]` is not a valid parameter list for `Callable`: Did you mean `Callable[..., int]`?
 callables_annotation.py:91:7: error[invalid-assignment] Object of type `def test_cb2() -> str` is not assignable to `(int, /, *args: Any, **kwargs: Any) -> str`
 callables_annotation.py:93:7: error[invalid-assignment] Object of type `def test_cb4(*, a: int) -> str` is not assignable to `(int, /, *args: Any, **kwargs: Any) -> str`
+callables_annotation.py:159:25: error[invalid-assignment] Object of type `Proto8` is not assignable to `Proto5[Any]`
 callables_annotation.py:172:26: error[invalid-assignment] Object of type `() -> str` is not assignable to `(int, /, *args: Any, **kwargs: Any) -> str`
 callables_annotation.py:187:48: error[invalid-assignment] Object of type `(int, str, /) -> str` is not assignable to `(str, /, *args: Any, **kwargs: Any) -> str`
 callables_annotation.py:189:32: error[invalid-assignment] Object of type `(int, str, /) -> str` is not assignable to `(str, /, *args: Any, **kwargs: Any) -> str`
