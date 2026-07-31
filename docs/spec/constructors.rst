@@ -3,6 +3,8 @@ Constructors
 
 Calls to constructors require special handling within type checkers.
 
+.. _`constructor-calls`:
+
 Constructor Calls
 -----------------
 
@@ -488,3 +490,289 @@ callable.
         def __init__[V](self, x: T, y: list[V], z: V) -> None: ...
 
     reveal_type(accepts_callable(MyClass))  # ``def [T, V] (x: T, y: list[V], z: V) -> MyClass[T]``
+
+
+Metaclass Constructors
+----------------------
+
+A class object is itself an instance of its :term:`python:metaclass`, so the
+creation of a class is also a constructor call, one made on the metaclass. While
+the sections above describe how a metaclass participates in the construction of
+*instances* of a class, the following sections describe the construction of class objects
+themselves.
+
+A metaclass constructor is invoked in one of two ways:
+
+1. Directly, by calling the metaclass with a class name, a tuple of base
+   classes, and a namespace dictionary (for example,
+   ``Meta(name, bases, namespace)``), optionally along with additional keyword
+   arguments.
+2. Implicitly, by a :keyword:`python:class` statement, which assembles these
+   three arguments from the statement and the class body and then calls the metaclass.
+
+In both cases, the metaclass call should be evaluated using the same rules
+described in the sections above: the :meth:`!__call__` method of the metaclass's
+own metaclass (typically :meth:`!type.__call__`) is invoked, which in turn calls
+the :meth:`!__new__` and :meth:`!__init__` methods of the metaclass. These methods are
+typically inherited from :class:`type`, whose type definitions require special
+handling by type checkers, as described below.
+
+The following example illustrates these rules applied to metaclass calls:
+
+  ::
+
+    class MetaMeta(type):
+        def __call__(cls, *args, **kwargs) -> Never:
+            raise TypeError("Classes cannot be created with this metaclass")
+
+    class Meta1(type, metaclass=MetaMeta):
+        pass
+
+    # The __call__() method of the metaclass's own metaclass is evaluated first:
+    assert_type(Meta1("A", (), {}), Never)
+
+    class Meta2(type):
+        def __new__(
+            mcls,
+            name: str,
+            bases: tuple[type, ...],
+            namespace: dict[str, Any],
+            *,
+            key: int,
+        ):
+            return super().__new__(mcls, name, bases, namespace)
+
+    # Then, the __new__ and __init__ methods of the metaclass are evaluated:
+    Meta2("B", (), {}, key=1)  # OK, evaluates to an instance of Meta2
+    Meta2("B", (), {})  # Type error: missing argument "key"
+
+    class Meta3(type):
+        def __new__(
+            mcls, name: str, bases: tuple[type, ...], namespace: dict[str, Any]
+        ) -> int:
+            return 0
+
+        # Not evaluated, as __new__ does not return an instance of Meta3:
+        def __init__(cls, x: str) -> None:
+            pass
+
+    assert_type(Meta3("C", (), {}), int)
+
+
+The ``type`` Constructor
+------------------------
+
+In addition to being the default metaclass, :class:`type` serves a second purpose:
+when called with a single argument, it returns the type of that argument rather than
+creating a new class. :class:`type` therefore supports two distinct call forms,
+which are distinguished by the number of positional arguments:
+
+* ``type(obj, /)`` returns the class of ``obj``.
+* ``type(name, bases, dict, /, **kwds)`` creates and returns a new class.
+
+These two forms are typically declared as overloads of the :meth:`!__new__` and
+:meth:`!__init__` methods in the type definition of :class:`type`. Both forms require
+special-case handling by type checkers.
+
+Although the single-argument form is typically declared with a return type of
+``type``, type checkers should special-case this form and evaluate its result
+as ``type[T]``, where ``T`` is the type of the argument.
+
+  ::
+
+    def func(x: int, y: int | str) -> None:
+        assert_type(type(x), type[int])
+        assert_type(type(y), type[int] | type[str])
+
+At runtime, the single-argument form applies only when the class being called
+is :class:`type` itself, and is not inherited by metaclasses: a single-argument call
+to a subclass of :class:`type` raises a :exc:`TypeError`.
+
+  ::
+
+    class Meta(type):
+        pass
+
+    assert_type(type(1), type[int])  # OK, uses the single-argument form
+    Meta(1)  # Type error: single-argument form does not apply to subclasses
+
+    Meta("A", (), {})  # OK, uses the three-argument form
+
+This special-casing applies only to the :meth:`!__new__` and :meth:`!__init__`
+methods inherited from :class:`type`. If a metaclass defines its own :meth:`!__new__`
+method that accepts a single argument, calls to it should be evaluated
+using the rules for regular constructor calls described earlier in this
+chapter.
+
+The evaluated return type of the three-argument form is an instance of the
+metaclass being called, consistent with the return type definition of
+:meth:`!type.__new__`. Type checkers may infer a more precise type for the returned
+class object, for example, one equivalent to a class defined by a :keyword:`class`
+statement with the given name, base classes, and namespace.
+
+
+Class Statements
+----------------
+
+When a :keyword:`class` statement is executed, the runtime performs the following
+steps to create the new class object (see :ref:`python:metaclasses`):
+
+1. The metaclass is determined. If a ``metaclass`` keyword argument is present
+   in the class statement's argument list, it is used as a candidate;
+   otherwise, :class:`type` is. The most derived metaclass among the candidate and
+   the metaclasses of all base classes is selected. If no candidate is a
+   (non-strict) subclass of all of the others, a :exc:`TypeError` is raised
+   (see :ref:`py315:metaclass-determination`).
+2. The class namespace is prepared. If the metaclass has a :attr:`!__prepare__`
+   attribute, it is called as ``Meta.__prepare__(name, bases, **kwds)``, and
+   its result is used as the namespace object.
+3. The class body is executed within this namespace.
+4. The metaclass is called as ``Meta(name, bases, namespace, **kwds)``, where
+   ``kwds`` consists of the keyword arguments that appear in the class
+   statement's argument list, excluding ``metaclass`` itself.
+
+Type checkers may report an error for a class statement whose base classes
+have incompatible metaclasses.
+
+Type checkers should validate keyword arguments in a class statement's
+argument list (other than ``metaclass``) by evaluating the implied metaclass
+call using the constructor call rules described in :ref:`constructor-calls`.
+
+  ::
+
+    class Meta(type):
+        def __new__(
+            mcls,
+            name: str,
+            bases: tuple[type, ...],
+            namespace: dict[str, Any],
+            *,
+            key: int,
+        ):
+            return super().__new__(mcls, name, bases, namespace)
+
+    class MyClass1(metaclass=Meta, key=3):  # OK
+        pass
+
+    class MyClass2(metaclass=Meta, key=""):  # Type error: wrong type for "key"
+        pass
+
+    class MyClass3(metaclass=Meta):  # Type error: missing argument "key"
+        pass
+
+    Meta("MyClass4", (), {}, key=3)  # OK
+    Meta("MyClass5", (), {}, key="")  # Type error: wrong type for "key"
+
+Keyword arguments in a direct metaclass call (such as the last two calls in the
+example above) require no special handling: they are validated as part of
+evaluating the call using the standard constructor call rules.
+
+Regardless of the evaluated return type of the implied metaclass call, a
+:keyword:`class` statement defines a class, and type checkers should evaluate the
+type of the bound name accordingly (``type[MyClass1]`` in the example above).
+The implied metaclass call is evaluated only for the purpose of validating
+its arguments.
+
+Type checkers may validate the implied call to :attr:`!__prepare__`:
+
+  ::
+
+    class Meta(type):
+        @classmethod
+        def __prepare__(mcls, name: str, bases: tuple[type, ...]):  # No **kwds
+            return {}
+
+        def __new__(
+            mcls,
+            name: str,
+            bases: tuple[type, ...],
+            namespace: dict[str, Any],
+            *,
+            key: int,
+        ):
+            return super().__new__(mcls, name, bases, namespace)
+
+    # The 'key' argument may result in a type checker error:
+    class MyClass6(metaclass=Meta, key=3):
+        pass
+
+The ``metaclass`` argument can also be an arbitrary callable that is not a subclass
+of :class:`type`. Support for this pattern is currently unspecified.
+
+
+The ``__init_subclass__()`` Method
+----------------------------------
+
+:meth:`!type.__new__` invokes the :meth:`~object.__init_subclass__`
+method of the parent class (the class that follows the newly created class in
+its :term:`python:method resolution order`) passing the newly created class as
+``cls`` along with the keyword arguments supplied to the metaclass constructor
+(see :ref:`python:class-customization`).
+
+:meth:`~object.__init_subclass__` is implicitly a class method: it is converted to
+a :class:`classmethod` even when it is not explicitly decorated as one, and it is
+not called for the class that defines it, only for its subclasses. Type checkers
+should treat it as a classmethod if it isn't explicitly defined as one.
+
+If the metaclass of the class being defined does not define its own
+:meth:`!__new__` method (including when no explicit metaclass
+is specified), type checkers should validate the keyword arguments in a
+class statement's argument list against the :meth:`~object.__init_subclass__` method of
+the parent class.
+
+  ::
+
+    class Base:
+        def __init_subclass__(cls, *, flag: bool = False) -> None:
+            super().__init_subclass__()
+
+    class MyClass1(Base, flag=True):  # OK
+        pass
+
+    class MyClass2(Base, flag=""):  # Type error: wrong type for "flag"
+        pass
+
+    class MyClass3(Base, other=1):  # Type error: Base.__init_subclass__() got an unexpected keyword argument 'other'
+        pass
+
+    class MyClass4(other=1):  # Type error: MyClass4.__init_subclass__() takes no keyword arguments
+        pass
+
+A metaclass :meth:`!__init__` method has no effect on this rule: when the
+metaclass does not define its own :meth:`!__new__` method, :meth:`!type.__new__`
+still forwards the keyword arguments to :meth:`~object.__init_subclass__`, so
+the keyword arguments should satisfy both the metaclass :meth:`!__init__`
+method (as part of validating the implied metaclass call) and the
+:meth:`~object.__init_subclass__` method of the parent class.
+
+  ::
+
+    class MetaInit(type):
+        def __init__(
+            cls,
+            name: str,
+            bases: tuple[type, ...],
+            namespace: dict[str, Any],
+            *,
+            key: int,
+        ) -> None:
+            super().__init__(name, bases, namespace)
+
+    # Type error: "key" is accepted by MetaInit.__init__(), but type.__new__()
+    # forwards it to Base.__init_subclass__(), which does not accept it:
+    class MyClass5(Base, metaclass=MetaInit, key=1):
+        pass
+
+The same forwarding occurs when the metaclass is called directly:
+``type("D", (Base,), {}, flag=True)`` passes ``flag`` to
+:meth:`!Base.__init_subclass__`. Type checkers may validate keyword
+arguments in such calls against the :meth:`~object.__init_subclass__` method of
+the parent class when the base classes can be statically determined.
+
+If the metaclass defines its own :meth:`!__new__` method that accepts keyword
+arguments only through a ``**kwargs`` parameter, whether these arguments are
+forwarded to :meth:`!type.__new__` (and from there to
+:meth:`~object.__init_subclass__`) cannot generally be determined statically.
+In this situation, type checkers may additionally validate the keyword
+arguments against the :meth:`~object.__init_subclass__` method of the parent
+class.
