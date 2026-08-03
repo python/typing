@@ -5,7 +5,7 @@ output = """
 ./typeddicts_class_syntax.py:30:4: Methods are not allowed in TypedDict definitions [invalid_typeddict]
 ./typeddicts_class_syntax.py:35:4: Methods are not allowed in TypedDict definitions [invalid_typeddict]
 ./typeddicts_class_syntax.py:40:4: Methods are not allowed in TypedDict definitions [invalid_typeddict]
-./typeddicts_class_syntax.py:45:31: TypedDict definitions cannot specify a metaclass [invalid_typeddict]
-./typeddicts_class_syntax.py:50:31: Unexpected keyword argument 'other' in TypedDict definition [invalid_typeddict]
-./typeddicts_class_syntax.py:65:0: Got an unexpected keyword argument 'z' [incompatible_call]
+./typeddicts_class_syntax.py:49:31: TypedDict definitions cannot specify a metaclass [invalid_typeddict]
+./typeddicts_class_syntax.py:54:31: Unexpected keyword argument 'other' in TypedDict definition [invalid_typeddict]
+./typeddicts_class_syntax.py:69:0: Got an unexpected keyword argument 'z' [incompatible_call]
 """

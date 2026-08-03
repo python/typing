@@ -5,7 +5,7 @@ output = """
 typeddicts_class_syntax.py:30: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
 typeddicts_class_syntax.py:34: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
 typeddicts_class_syntax.py:39: error: Invalid statement in TypedDict definition; expected "field_name: field_type"  [misc]
-typeddicts_class_syntax.py:45: error: Unexpected keyword argument "metaclass" for "TypedDict"  [call-arg]
-typeddicts_class_syntax.py:50: error: Unexpected keyword argument "other" for "TypedDict"  [call-arg]
-typeddicts_class_syntax.py:65: error: Extra key "z" for TypedDict "ConditionalField"  [typeddict-unknown-key]
+typeddicts_class_syntax.py:49: error: Unexpected keyword argument "metaclass" for "TypedDict"  [call-arg]
+typeddicts_class_syntax.py:54: error: Unexpected keyword argument "other" for "TypedDict"  [call-arg]
+typeddicts_class_syntax.py:69: error: Extra key "z" for TypedDict "ConditionalField"  [typeddict-unknown-key]
 """
