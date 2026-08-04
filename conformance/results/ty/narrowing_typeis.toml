@@ -1,13 +1,13 @@
 conformance_automated = "Fail"
 conformant = "Partial"
 notes = """
-Intersects the pre-existing type with the top materialization of the bracketed type rather than the bracketed type itself.
+Does not fully simplify the negative branch of `TypeIs` narrowing for a union of fixed-length tuple types.
 """
 errors_diff = """
-Line 35: Unexpected errors ['narrowing_typeis.py:35:18: error[invalid-assignment] Object of type `object` is not assignable to `int`']
+Line 21: Unexpected errors ['narrowing_typeis.py:21:9: error[type-assertion-failure] Type `(tuple[str, str] & ~tuple[Unknown, Unknown]) | tuple[str, str, str]` does not match asserted type `tuple[str, str, str]`']
 """
 output = """
-narrowing_typeis.py:35:18: error[invalid-assignment] Object of type `object` is not assignable to `int`
+narrowing_typeis.py:21:9: error[type-assertion-failure] Type `(tuple[str, str] & ~tuple[Unknown, Unknown]) | tuple[str, str, str]` does not match asserted type `tuple[str, str, str]`
 narrowing_typeis.py:110:23: error[invalid-type-guard-definition] `TypeIs` function must have a parameter to narrow
 narrowing_typeis.py:115:22: error[invalid-type-guard-definition] `TypeIs` function must have a parameter to narrow
 narrowing_typeis.py:137:20: error[invalid-argument-type] Argument to function `takes_callable_str` is incorrect: Expected `(object, /) -> str`, found `def simple_typeguard(val: object) -> TypeIs[int]`

@@ -1,10 +1,5 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Incorrectly reports an unbound `TypeVarTuple` for a correctly unpacked annotation within an otherwise invalid generic class.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 54: Unexpected errors ['generics_typevartuple_basic.py:54:29: error[unbound-type-variable] Type variable `Shape` is not bound to any outer generic context']
 """
 output = """
 generics_typevartuple_basic.py:42:28: error[invalid-assignment] Object of type `Array[Shape@Array]` is not assignable to `Array[Height, Width]`
@@ -14,7 +9,6 @@ generics_typevartuple_basic.py:43:41: error[invalid-argument-type] Argument to `
 generics_typevartuple_basic.py:44:41: error[invalid-assignment] Object of type `Array[Time, Batch, Width, Height]` is not assignable to `Array[Time, Batch, Height, Width]`
 generics_typevartuple_basic.py:52:14: error[invalid-generic-class] `TypeVarTuple` must be unpacked with `*` or `Unpack[]` when used as an argument to `Generic`
 generics_typevartuple_basic.py:53:37: error[invalid-type-form] Bare TypeVarTuple `Shape` is not valid in this context in a parameter annotation
-generics_typevartuple_basic.py:54:29: error[unbound-type-variable] Type variable `Shape` is not bound to any outer generic context
 generics_typevartuple_basic.py:56:34: error[invalid-type-form] Bare TypeVarTuple `Shape` is not valid in this context in a return type annotation
 generics_typevartuple_basic.py:59:24: error[invalid-type-form] Bare TypeVarTuple `Shape` is not valid in this context in a parameter annotation
 generics_typevartuple_basic.py:65:27: error[invalid-legacy-type-variable] The `covariant` parameter of `typing.TypeVarTuple` was added in Python 3.15
