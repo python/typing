@@ -1,7 +1,17 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not treat a complete union of all literal members as equivalent to the enum type.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 85: Unexpected errors ['enums_expansion.py:85:41 - error: Type "Answer" is not assignable to declared type "Literal[Answer.Yes, Answer.No]"']
+Line 86: Unexpected errors ['enums_expansion.py:86:17 - error: "assert_type" mismatch: expected "Literal[Answer.Yes, Answer.No]" but received "Answer" (reportAssertTypeFailure)']
 """
 output = """
-enums_expansion.py:53:21 - error: "assert_type" mismatch: expected "Literal[CustomFlags.FLAG3]" but received "CustomFlags" (reportAssertTypeFailure)
+enums_expansion.py:56:21 - error: "assert_type" mismatch: expected "Literal[CustomFlags.FLAG3]" but received "CustomFlags" (reportAssertTypeFailure)
+enums_expansion.py:85:41 - error: Type "Answer" is not assignable to declared type "Literal[Answer.Yes, Answer.No]"
+  Type "Answer" is not assignable to type "Literal[Answer.Yes, Answer.No]"
+    "Answer" is not assignable to type "Literal[Answer.Yes]"
+    "Answer" is not assignable to type "Literal[Answer.No]" (reportAssignmentType)
+enums_expansion.py:86:17 - error: "assert_type" mismatch: expected "Literal[Answer.Yes, Answer.No]" but received "Answer" (reportAssertTypeFailure)
 """
