@@ -269,7 +269,7 @@
                         <th scope="col">pycroscope 0.4.0</th>
                         <th scope="col">pyrefly 1.1.0</th>
                         <th scope="col">pyright 1.1.410</th>
-                        <th scope="col">ty 0.0.65</th>
+                        <th scope="col">ty 0.0.66</th>
                         <th scope="col">zuban 0.8.2</th>
                     </tr>
                 </thead>
@@ -612,12 +612,7 @@
                                 <li>Allows incorrect assignment to <code>type[]</code>.</li>
                             </ul>
                         </td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not reject subscription of an already-specialized generic class.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -637,12 +632,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Incorrectly allows using <code>*args: P.args</code> and <code>**kwargs: P.kwargs</code> when <code>P</code> has not been put into scope by any other parameter annotation or enclosing scope.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -877,12 +867,7 @@
                                 <li>Does not correctly solve <code>TypeVarTuple</code> with heterogeneous bounds.</li>
                             </ul>
                         </td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Incorrectly reports an unbound <code>TypeVarTuple</code> for a correctly unpacked annotation within an otherwise invalid generic class.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -993,7 +978,7 @@
                         <td>28.5 / 30 • 95.0%</td>
                         <td>29.5 / 30 • 98.3%</td>
                         <td>28.5 / 30 • 95.0%</td>
-                        <td>25 / 30 • 83.3%</td>
+                        <td>26.5 / 30 • 88.3%</td>
                         <td>30 / 30 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -2572,7 +2557,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Intersects the pre-existing type with the top materialization of the bracketed type rather than the bracketed type itself.</li>
+                                <li>Does not fully simplify the negative branch of <code>TypeIs</code> narrowing for a union of fixed-length tuple types.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -2796,7 +2781,7 @@
                         <td>130 / 141 • 92.2%</td>
                         <td>138 / 141 • 97.9%</td>
                         <td>136.5 / 141 • 96.8%</td>
-                        <td>122 / 141 • 86.5%</td>
+                        <td>123.5 / 141 • 87.6%</td>
                         <td>140.5 / 141 • 99.6%</td>
                     </tr>
                 </tfoot>
