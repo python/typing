@@ -268,7 +268,7 @@
                         <th scope="col">pycroscope 0.4.0</th>
                         <th scope="col">pyrefly 1.1.0</th>
                         <th scope="col">pyright 1.1.410</th>
-                        <th scope="col">ty 0.0.66</th>
+                        <th scope="col">ty 0.0.67</th>
                         <th scope="col">zuban 0.8.2</th>
                     </tr>
                 </thead>
@@ -711,12 +711,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not reject <code>Self</code> used in a return annotation when <code>self</code> is annotated using another type variable.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -932,7 +927,7 @@
                         <td>28.5 / 30 • 95.0%</td>
                         <td>29.5 / 30 • 98.3%</td>
                         <td>28.5 / 30 • 95.0%</td>
-                        <td>26.5 / 30 • 88.3%</td>
+                        <td>27 / 30 • 90.0%</td>
                         <td>30 / 30 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -1269,7 +1264,6 @@
                             Partial
                             <ul class="notes">
                                 <li><code>type[Proto]</code> is not yet supported.</li>
-                                <li>Class objects are not correctly matched against <code>@property</code> protocol members.</li>
                                 <li><code>ClassVar</code> protocol members are only partially supported.</li>
                             </ul>
                         </td>
@@ -1566,12 +1560,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Has overly lenient handling of calls to <code>type[T]</code> if <code>T</code> is a type variable without an upper bound.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1622,7 +1611,7 @@
                         <td>6 / 6 • 100.0%</td>
                         <td>5.5 / 6 • 91.7%</td>
                         <td>6 / 6 • 100.0%</td>
-                        <td>4.5 / 6 • 75.0%</td>
+                        <td>5 / 6 • 83.3%</td>
                         <td>6 / 6 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -1825,12 +1814,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Understands the <code>Hashable</code> protocol as equivalent to <code>object</code>.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1978,7 +1962,7 @@
                         <td>15.5 / 16 • 96.9%</td>
                         <td>15.5 / 16 • 96.9%</td>
                         <td>16 / 16 • 100.0%</td>
-                        <td>14.5 / 16 • 90.6%</td>
+                        <td>15 / 16 • 93.8%</td>
                         <td>16 / 16 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -2627,7 +2611,7 @@
                         <td>130 / 141 • 92.2%</td>
                         <td>138 / 141 • 97.9%</td>
                         <td>136 / 141 • 96.5%</td>
-                        <td>123.5 / 141 • 87.6%</td>
+                        <td>125 / 141 • 88.7%</td>
                         <td>140 / 141 • 99.3%</td>
                     </tr>
                 </tfoot>
