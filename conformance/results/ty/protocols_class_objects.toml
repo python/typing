@@ -1,8 +1,8 @@
 conformance_automated = "Fail"
 conformant = "Partial"
 notes = """
-`type[Proto]` is not yet supported.
-`ClassVar` protocol members are only partially supported.
+Does not reject protocol classes where `type[Proto]` requires a concrete class.
+Incorrectly considers instance attributes as satisfying protocol members on class objects.
 """
 errors_diff = """
 Line 29: Expected 1 errors

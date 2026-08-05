@@ -1263,8 +1263,8 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li><code>type[Proto]</code> is not yet supported.</li>
-                                <li><code>ClassVar</code> protocol members are only partially supported.</li>
+                                <li>Does not reject protocol classes where <code>type[Proto]</code> requires a concrete class.</li>
+                                <li>Incorrectly considers instance attributes as satisfying protocol members on class objects.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
