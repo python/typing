@@ -2,9 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-generics_typevartuple_basic.py:42:28: error[invalid-assignment] Object of type `Array[Shape@Array]` is not assignable to `Array[Height, Width]`
 generics_typevartuple_basic.py:42:34: error[invalid-argument-type] Argument to `Array.__init__` is incorrect: Expected `tuple[Height, Width]`, found `Height`
-generics_typevartuple_basic.py:43:35: error[invalid-assignment] Object of type `Array[Shape@Array]` is not assignable to `Array[Batch, Height, Width]`
 generics_typevartuple_basic.py:43:41: error[invalid-argument-type] Argument to `Array.__init__` is incorrect: Expected `tuple[Batch, Height, Width]`, found `tuple[Batch, Width]`
 generics_typevartuple_basic.py:44:41: error[invalid-assignment] Object of type `Array[Time, Batch, Width, Height]` is not assignable to `Array[Time, Batch, Height, Width]`
 generics_typevartuple_basic.py:52:14: error[invalid-generic-class] `TypeVarTuple` must be unpacked with `*` or `Unpack[]` when used as an argument to `Generic`
