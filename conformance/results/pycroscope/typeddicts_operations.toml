@@ -1,5 +1,11 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Incorrectly flags ``TypedDict.get()`` with an unknown literal string key as an
+error; the spec requires this to be allowed.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 46: Unexpected errors ["./typeddicts_operations.py:46:0: Unknown TypedDict key 'other' [invalid_typeddict_key]"]
 """
 output = """
 ./typeddicts_operations.py:22:0: Value for key 'name' must be str, not Literal[1982] [incompatible_argument]
@@ -10,8 +16,8 @@ output = """
 ./typeddicts_operations.py:29:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': 'Blade Runner', 'year': 1982.1}] [incompatible_assignment]
 ./typeddicts_operations.py:32:0: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got Literal[{'name': '', 'year': 1900, 'other': 2}] [incompatible_assignment]
 ./typeddicts_operations.py:37:4: Incompatible assignment: expected TypedDict({"name": str, "year": int}), got <dict containing {str: Literal[''], Literal['year']: Literal[1900]}> [incompatible_assignment]
-./typeddicts_operations.py:44:0: Unknown TypedDict key 'other' [invalid_typeddict_key]
-./typeddicts_operations.py:47:0: Cannot call clear() on non-closed TypedDict [incompatible_call]
-./typeddicts_operations.py:49:10: Cannot delete required TypedDict key Literal['name'] [incompatible_argument]
-./typeddicts_operations.py:62:0: Cannot call clear() on non-closed TypedDict [incompatible_call]
+./typeddicts_operations.py:46:0: Unknown TypedDict key 'other' [invalid_typeddict_key]
+./typeddicts_operations.py:49:0: Cannot call clear() on non-closed TypedDict [incompatible_call]
+./typeddicts_operations.py:51:10: Cannot delete required TypedDict key Literal['name'] [incompatible_argument]
+./typeddicts_operations.py:64:0: Cannot call clear() on non-closed TypedDict [incompatible_call]
 """

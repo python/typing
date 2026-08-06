@@ -757,9 +757,19 @@ This section discusses some specific operations in more detail.
   should be allowed for TypedDict objects, for an arbitrary expression
   ``e`` with type ``str``.  The motivation is that these are safe and
   can be useful for introspecting TypedDict objects.  The static type
-  of ``d.get(e)`` should be the union of all possible item types in ``d``
-  if the string value of ``e`` cannot be determined statically.
-  (This simplifies to ``object`` if ``d`` is :term:`open`.)
+  of ``d.get(e)`` depends on what is known about the value of ``e``:
+
+  - If ``e`` is a string literal equal to a defined key of ``d``, the
+    return type is the declared type of that key combined with ``None``
+    for non-required keys.  For required keys, type checkers may return
+    either the declared type ``T`` or ``T | None``.
+  - If ``e`` is a string literal that is **not** a defined key of ``d``,
+    no error should be reported.  The return type is the union of all
+    possible value types in ``d`` combined with ``None``.
+  - If the string value of ``e`` cannot be determined statically, the
+    return type is the union of all possible value types in ``d``
+    combined with ``None``.  (This simplifies to ``object | None`` if
+    ``d`` is :term:`open`.)
 
 * ``clear()`` is not safe on :term:`open` TypedDicts since it could remove required items, some of which
   may not be directly visible because of :term:`structural`

@@ -37,11 +37,13 @@ def func1(variable_key: str):
     movie: Movie = {variable_key: "", "year": 1900}  # E: variable key
 
 
-# It's not clear from the spec what type this should be.
+# > For required keys, type checkers may return either the declared type T
+# > or T | None.
 movie.get("name")
 
-# It's not clear from the spec what type this should be.
-movie.get("other")  # E?
+# > If ``e`` is a string literal that is not a defined key of ``d``,
+# > no error should be reported.
+movie.get("other")
 
 
 movie.clear()  # E: clear not allowed
