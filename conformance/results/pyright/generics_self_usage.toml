@@ -6,16 +6,16 @@ generics_self_usage.py:76:6 - error: "Self" is not valid in this context (report
 generics_self_usage.py:82:44 - warning: TypeVar "TFoo2" appears only once in generic function signature
   Use "Foo2" instead (reportInvalidTypeVarUse)
 generics_self_usage.py:82:54 - error: "Self" cannot be used in a function with a `self` or `cls` parameter that has a type annotation other than "Self" (reportGeneralTypeIssues)
-generics_self_usage.py:86:16 - error: Type "Foo3" is not assignable to return type "Self@Foo3"
+generics_self_usage.py:87:16 - error: Type "Foo3" is not assignable to return type "Self@Foo3"
   Type "Foo3" is not assignable to type "Self@Foo3" (reportReturnType)
-generics_self_usage.py:101:15 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
-generics_self_usage.py:103:12 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
-generics_self_usage.py:106:30 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
-generics_self_usage.py:111:19 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
-generics_self_usage.py:116:31 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
-generics_self_usage.py:116:40 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
-generics_self_usage.py:121:37 - error: "Self" cannot be used within a metaclass (a subclass of "type") (reportGeneralTypeIssues)
-generics_self_usage.py:125:42 - error: "Self" cannot be used within a metaclass (a subclass of "type") (reportGeneralTypeIssues)
+generics_self_usage.py:103:15 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
+generics_self_usage.py:105:12 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
+generics_self_usage.py:108:30 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
+generics_self_usage.py:113:19 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
+generics_self_usage.py:118:31 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
+generics_self_usage.py:118:40 - error: "Self" is not valid in this context (reportGeneralTypeIssues)
+generics_self_usage.py:123:37 - error: "Self" cannot be used within a metaclass (a subclass of "type") (reportGeneralTypeIssues)
+generics_self_usage.py:127:42 - error: "Self" cannot be used within a metaclass (a subclass of "type") (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """

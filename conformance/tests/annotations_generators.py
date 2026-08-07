@@ -84,12 +84,12 @@ def generator7() -> Iterator[dict[str, int]]:
 
 
 def generator8() -> int:  # E: incompatible return type
-    yield None  # E
+    yield None  # E?
     return 0
 
 
 async def generator9() -> int:  # E: incompatible return type
-    yield None  # E
+    yield None  # E?
 
 
 class IntIterator(Protocol):
@@ -187,7 +187,9 @@ v1: Callable[[], Coroutine[Any, Any, AsyncIterator[int]]] = generator29
 
 async def generator30() -> AsyncIterator[int]:
     raise NotImplementedError
-    yield
+    yield 1
 
 
-assert_type(generator30, Callable[[], AsyncIterator[int]])
+async def uses_generator30() -> None:
+    async for x in generator30():
+        assert_type(x, int)

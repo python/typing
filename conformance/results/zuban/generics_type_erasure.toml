@@ -1,0 +1,13 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_type_erasure.py:38: error: Argument 1 to "Node" has incompatible type "str"; expected "int | None"  [arg-type]
+generics_type_erasure.py:40: error: Argument 1 to "Node" has incompatible type "int"; expected "str | None"  [arg-type]
+generics_type_erasure.py:42: error: Access to generic instance variables via class is ambiguous  [misc]
+generics_type_erasure.py:43: error: Access to generic instance variables via class is ambiguous  [misc]
+generics_type_erasure.py:44: error: Access to generic instance variables via class is ambiguous  [misc]
+generics_type_erasure.py:45: error: Access to generic instance variables via class is ambiguous  [misc]
+generics_type_erasure.py:46: error: Access to generic instance variables via class is ambiguous  [misc]
+"""

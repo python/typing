@@ -1,9 +1,0 @@
-conformant = "Pass"
-notes = """
-"""
-conformance_automated = "Pass"
-errors_diff = """
-"""
-output = """
-enums_behaviors.py:39:0 Invalid inheritance [39]: Cannot inherit from final enum `Shape`. Enums with defined members cannot be extended.
-"""

@@ -2,22 +2,18 @@
 Classes that abstract differences between type checkers.
 """
 
-from abc import ABC, abstractmethod
-from curses.ascii import isspace
 import json
-from pathlib import Path
 import os
+from pathlib import Path
 import re
-from pytype import config as pytype_config
-from pytype import io as pytype_io
-from pytype import analyze as pytype_analyze
-from pytype.errors import errors as pytype_errors
-from pytype import load_pytd as pytype_loader
 import shutil
-from subprocess import PIPE, CalledProcessError, run
 import sys
-from tqdm import tqdm
+import sysconfig
+from abc import ABC, abstractmethod
+from subprocess import PIPE, CalledProcessError, run
 from typing import Sequence
+
+CONFORMANCE_ROOT = Path(__file__).resolve().parent.parent
 
 
 class TypeChecker(ABC):
@@ -32,8 +28,8 @@ class TypeChecker(ABC):
     @abstractmethod
     def install(self) -> bool:
         """
-        Ensures that the latest version of the type checker is installed.
-        Returns False if installation fails.
+        Ensures that the type checker is available in the current environment.
+        Returns False if it cannot be executed.
         """
         raise NotImplementedError
 
@@ -74,29 +70,24 @@ class MypyTypeChecker(TypeChecker):
             pass
 
         try:
-            # Uninstall any existing version if present.
-            run(
-                [sys.executable, "-m", "pip", "uninstall", "mypy", "-y"],
-                check=True,
-            )
-
-            # Install the latest version.
-            run(
-                [sys.executable, "-m", "pip", "install", "mypy"],
-                check=True,
-            )
-
-            # Run "mypy --version" to ensure that it's installed and to work
+            # Run "mypy --version" to ensure that it's available and to work
             # around timing issues caused by malware scanners on some systems.
             self.get_version()
-
             return True
-        except CalledProcessError:
-            print("Unable to install mypy")
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run mypy. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
             return False
 
     def get_version(self) -> str:
-        proc = run([sys.executable, "-m", "mypy", "--version"], stdout=PIPE, text=True)
+        proc = run(
+            [sys.executable, "-m", "mypy", "--version"],
+            check=True,
+            stdout=PIPE,
+            text=True,
+        )
         version = proc.stdout.strip()
 
         # Remove the " (compiled)" if it's present.
@@ -109,12 +100,11 @@ class MypyTypeChecker(TypeChecker):
             "-m",
             "mypy",
             ".",
-            "--disable-error-code",
-            "empty-body",
             "--enable-error-code",
             "deprecated",
+            "--enable-incomplete-feature=TypeForm",
         ]
-        proc = run(command, stdout=PIPE, text=True)
+        proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
         lines = proc.stdout.split("\n")
 
         # Add results to a dictionary keyed by the file name.
@@ -146,35 +136,38 @@ class PyrightTypeChecker(TypeChecker):
 
     def install(self) -> bool:
         try:
-            # Uninstall any old version if present.
-            run(
-                [sys.executable, "-m", "pip", "uninstall", "pyright", "-y"],
-                check=True,
-            )
-
-            # Install the latest version.
-            run(
-                [sys.executable, "-m", "pip", "install", "pyright"],
-                check=True,
-            )
-
             # Force the Python wrapper to install node if needed
-            # and download the latest version of pyright.
+            # and use the locked version of pyright.
             self.get_version()
             return True
-        except CalledProcessError:
-            print("Unable to install pyright")
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run pyright. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
             return False
 
     def get_version(self) -> str:
         proc = run(
-            [sys.executable, "-m", "pyright", "--version"], stdout=PIPE, text=True
+            [sys.executable, "-m", "pyright", "--version"],
+            check=True,
+            stdout=PIPE,
+            text=True,
         )
-        return proc.stdout.strip()
+        return self._parse_version(proc.stdout)
+
+    @staticmethod
+    def _parse_version(output: str) -> str:
+        # pyright --version can print an update message ("there is a new pyright version available"),
+        # make sure we extract only the actual version
+        for line in output.splitlines():
+            if line.startswith("pyright "):
+                return line
+        return output.strip()
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         command = [sys.executable, "-m", "pyright", ".", "--outputjson"]
-        proc = run(command, stdout=PIPE, text=True)
+        proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
         output_json = json.loads(proc.stdout)
         diagnostics = output_json["generalDiagnostics"]
 
@@ -210,50 +203,95 @@ class PyrightTypeChecker(TypeChecker):
         return line_to_errors
 
 
-class PyreTypeChecker(TypeChecker):
+class TyTypeChecker(TypeChecker):
     @property
     def name(self) -> str:
-        return "pyre"
+        return "ty"
 
     def install(self) -> bool:
         try:
-            # Delete the cache for consistent timings.
-            shutil.rmtree(".pyre")
-        except (shutil.Error, OSError):
-            # Ignore any errors here.
-            pass
-
-        try:
-            # Uninstall any existing version if present.
-            run(
-                [sys.executable, "-m", "pip", "uninstall", "pyre-check", "-y"],
-                check=True,
-            )
-
-            # Install the latest version.
-            run(
-                [sys.executable, "-m", "pip", "install", "pyre-check"],
-                check=True,
-            )
-
-            # Generate a default config file.
-            pyre_config = '{"site_package_search_strategy": "pep561", "source_directories": ["."]}\n'
-            with open(".pyre_configuration", "w") as f:
-                f.write(pyre_config)
-
+            self.get_version()
             return True
-        except CalledProcessError:
-            print("Unable to install pyre")
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run ty. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
             return False
 
     def get_version(self) -> str:
-        proc = run(["pyre", "--version"], stdout=PIPE, text=True)
-        version = proc.stdout.strip()
-        version = version.replace("Client version:", "pyre")
-        return version
+        proc = run([sys.executable, "-m", "ty", "--version"], stdout=PIPE, text=True)
+        return proc.stdout.split("(")[0].strip()
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        proc = run(["pyre", "check"], stdout=PIPE, text=True)
+        command = [
+            sys.executable,
+            "-m",
+            "ty",
+            "check",
+            ".",
+            "--output-format=concise",
+            "--color=never",
+            "--config-file=./ty.toml",
+        ]
+        proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
+        results_dict: dict[str, str] = {}
+        for line in proc.stdout.splitlines():
+            if not line.strip():
+                continue
+            file_name = line.split(":")[0].strip()
+            results_dict[file_name] = results_dict.get(file_name, "") + line + "\n"
+        return results_dict
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
+        # narrowing_typeguard.py:102:23: error[invalid-type-guard-definition] `TypeGuard` function must have a parameter to narrow
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            line = line.strip()
+            if (
+                not line
+                or line == "All checks passed!"
+                or re.fullmatch(r"Found \d+ diagnostics?", line)
+            ):
+                continue
+            assert line.count(":") >= 3, f"Failed to parse line: {line!r}"
+            _, lineno, _, rest = line.split(":", maxsplit=3)
+            kind = rest.split("[")[0].strip()
+            if kind != "error":
+                continue
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
+
+
+class ZubanLSTypeChecker(MypyTypeChecker):
+    @property
+    def name(self) -> str:
+        return "zuban"
+
+    def install(self) -> bool:
+        try:
+            self.get_version()
+            return True
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run zuban. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
+            return False
+
+    def get_version(self) -> str:
+        proc = run(["zuban", "--version"], check=True, stdout=PIPE, text=True)
+        return proc.stdout.strip()
+
+    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
+        command = [
+            "zuban",
+            "check",
+            ".",
+            "--enable-error-code",
+            "deprecated",
+        ]
+        proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
         lines = proc.stdout.split("\n")
 
         # Add results to a dictionary keyed by the file name.
@@ -265,129 +303,210 @@ class PyreTypeChecker(TypeChecker):
         return results_dict
 
     def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
-        # narrowing_typeguard.py:17:33 Incompatible parameter type [6]: In call `typing.GenericMeta.__getitem__`, for 1st positional argument, expected `Type[Variable[_T_co](covariant)]` but got `Tuple[Type[str], Type[str]]`.
+        # narrowing_typeguard.py:102: error: TypeGuard functions must have a positional argument  [valid-type]
+        line_to_errors: dict[int, list[str]] = {}
+        for line in output:
+            if line.count(":") < 3:
+                continue
+            _, lineno, kind, _ = line.split(":", maxsplit=3)
+            kind = kind.strip()
+            if kind != "error":
+                continue
+            line_to_errors.setdefault(int(lineno), []).append(line)
+        return line_to_errors
+
+
+class PyreflyTypeChecker(TypeChecker):
+    @property
+    def name(self) -> str:
+        return "pyrefly"
+
+    def install(self) -> bool:
+        try:
+            self.get_version()
+            return True
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run pyrefly. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
+            return False
+
+    def get_version(self) -> str:
+        proc = run(["pyrefly", "--version"], check=True, stdout=PIPE, text=True)
+        version = proc.stdout.strip()
+        return version
+
+    def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
+        proc = run(
+            [
+                "pyrefly",
+                "check",
+                "--output-format",
+                "min-text",
+                "--summary=none",
+                "--min-severity=warn",
+            ],
+            stdout=PIPE,
+            text=True,
+            encoding="utf-8",
+        )
+        lines = proc.stdout.split("\n")
+
+        # Add results to a dictionary keyed by the file name.
+        results_dict: dict[str, str] = {}
+        for line in lines:
+            if not line.strip():
+                continue
+            if line.startswith(" INFO "):
+                continue
+            # Extract the absolute path reported by pyrefly and convert it to a
+            # stable relative path (filename only) so results are consistent.
+            # Example input line:
+            #   "ERROR /abs/.../conformance/tests/foo.py:12:3-5: message [code]"
+            # We replace the absolute path with just "foo.py".
+            try:
+                abs_path = line.split(":", 1)[0].strip().split(" ", 1)[1].strip()
+            except IndexError:
+                # If parsing fails, fall back to original line and grouping.
+                abs_path = ""
+            file_name = Path(abs_path).name if abs_path else line.split(":")[0]
+
+            # Replace only the first occurrence to avoid touching the message text.
+            display_line = line.replace(abs_path, file_name, 1) if abs_path else line
+            results_dict[file_name] = (
+                results_dict.get(file_name, "") + display_line + "\n"
+            )
+        return results_dict
+
+    def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
         line_to_errors: dict[int, list[str]] = {}
         for line in output:
             # Ignore multi-line errors
             if ".py:" not in line and ".pyi:" not in line:
                 continue
             # Ignore reveal_type errors
-            if "Revealed type [-1]" in line:
+            if "revealed type: " in line:
                 continue
-            assert line.count(":") >= 2, f"Failed to parse line: {line!r}"
-            _, lineno, _ = line.split(":", maxsplit=2)
-            line_to_errors.setdefault(int(lineno), []).append(line)
+            assert line.count(":") >= 3, f"Failed to parse line: {line!r}"
+            _, lineno, _, error_msg = line.split(":", maxsplit=3)
+            line_to_errors.setdefault(int(lineno), []).append(error_msg.strip())
         return line_to_errors
 
 
-class PytypeTypeChecker(TypeChecker):
+class PycroscopeTypeChecker(TypeChecker):
     @property
     def name(self) -> str:
-        return "pytype"
+        return "pycroscope"
 
     def install(self) -> bool:
         try:
-            # Uninstall any existing version if present.
-            run(
-                [sys.executable, "-m", "pip", "uninstall", "pytype", "-y"],
-                check=True,
-            )
-
-            # Install the latest version.
-            run(
-                [sys.executable, "-m", "pip", "install", "pytype"],
-                check=True,
-            )
-
+            self.get_version()
             return True
-        except CalledProcessError:
-            print("Unable to install pytype on this platform")
+        except (CalledProcessError, FileNotFoundError):
+            print(
+                "Unable to run pycroscope. Install conformance dependencies with "
+                "'uv sync --frozen' from the conformance directory."
+            )
             return False
 
     def get_version(self) -> str:
-        proc = run(
-            [sys.executable, "-m", "pytype", "--version"], stdout=PIPE, text=True
-        )
-        version = proc.stdout.strip()
-        return f"pytype {version}"
+        proc = run([self._command(), "--version"], stdout=PIPE, text=True, check=True)
+        return proc.stdout.strip()
+
+    @staticmethod
+    def _command() -> str:
+        executable = "pycroscope.exe" if sys.platform == "win32" else "pycroscope"
+        return str(Path(sysconfig.get_path("scripts")) / executable)
+
+    @staticmethod
+    def _normalize_output_line(line: str) -> str:
+        line = line.replace(str(CONFORMANCE_ROOT), "...")
+        line = re.sub(r"<module '([^']+)' from '[^']+'>", r"<module '\1'>", line)
+        # Pycroscope can include object reprs with process-specific addresses
+        # (e.g. "... at 0x10abc1234>"). Normalize these for stable snapshots.
+        return re.sub(r"0x[0-9a-fA-F]+", "0x...", line)
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
-        # Specify 3.11 for now to work around the fact that pytype
-        # currently doesn't support 3.12 and emits an error when
-        # running on 3.12.
-        options = pytype_config.Options.create(python_version=(3, 11), quick=True)
-        loader = pytype_loader.create_loader(options)
+        command = [
+            self._command(),
+            ".",
+            "--output-format",
+            "concise",
+            "--disable",
+            "import_failed",
+            "--disable",
+            "unused_variable",
+            "--disable",
+            "unused_assignment",
+            "--disable",
+            "must_use",
+            "--enable",
+            "invalid_literal",
+            "--enable",
+            "incompatible_override",
+            "--enable",
+            "classvar_type_parameters",
+        ]
+        proc = run(
+            command,
+            stdout=PIPE,
+            stderr=PIPE,
+            text=True,
+            encoding="utf-8",
+            env={**os.environ, "PYTHONPATH": "."},
+        )
+        lines = proc.stderr.splitlines()
+        full_output_lines: list[str] = []
 
-        # Add results to a dictionary keyed by the file name.
-        results_dict: dict[str, str] = {}
-
-        for fi in tqdm(os.listdir(".")):
-            if not fi.endswith(".py"):
+        # Collect results per file and sort for deterministic output.
+        sortable_results: dict[str, list[tuple[int, str, str]]] = {}
+        for line in lines:
+            if not line.strip():
                 continue
-            options.tweak(input=fi)
-            with open(fi, "r") as test_file:
-                src = test_file.read()
-            try:
-                analysis: pytype_analyze.Analysis = pytype_io.check_py(
-                    src, options=options, loader=loader
-                )
-            except Exception as e:
-                results_dict[fi] = f"{e.__class__.__name__}: {e}\n"
-            else:
-                results_dict[fi] = self.enforce_consistent_order(
-                    analysis.context.errorlog
-                )
+            line = self._normalize_output_line(line)
+            full_output_lines.append(line)
+            # Concise output line format:
+            #   file.py:12:3: Message text [error_code]
+            match = re.match(r"^(.+?):(\d+)(?::\d+)?:\s(.*)$", line)
+            if not match:
+                continue
+            file_name = Path(match.group(1)).name
+            lineno = int(match.group(2))
+            message = match.group(3)
+            sortable_results.setdefault(file_name, []).append((lineno, message, line))
+
+        results_dict: dict[str, str] = {}
+        for file_name, entries in sortable_results.items():
+            entries.sort(key=lambda item: (item[0], item[1]))
+            results_dict[file_name] = "".join(f"{line}\n" for _, _, line in entries)
+        if full_output_lines:
+            results_dict["__full_output__"] = "".join(
+                f"{line}\n" for line in full_output_lines
+            )
         return results_dict
 
-    def enforce_consistent_order(self, log: pytype_errors.ErrorLog) -> str:
-        """Pytype does not guarantee deterministic output across runs.
-        It does order diagnostics by line number, but if multiple errors
-        occur on the same line, the ordering appears to change from one
-        run to the next. We require deterministic and consistent output,
-        so this method sorts the pytype output by line number and then
-        alphabetically within a line.
-        """
-
-        class ErrorSorter:
-            def __init__(self, err: pytype_errors.Error) -> None:
-                # Overwrite the details in the error because these can be
-                # nondeterministic (differ from run to run) in some cases.
-                err._details = ""
-                self._err = err
-
-            def __lt__(self, other: "ErrorSorter", /) -> bool:
-                lineno_diff = self._err.line - other._err.line
-                if lineno_diff != 0:
-                    return lineno_diff < 0
-                return other._err.message < self._err.message
-
-            def __eq__(self, other: object, /) -> bool:
-                return (
-                    isinstance(other, ErrorSorter)
-                    and self._err.line == other._err.line
-                    and other._err.message == self._err.message
-                )
-
-        errors: list[pytype_errors.Error] = [
-            error for error in log.unique_sorted_errors()
-        ]
-        errors.sort(key=ErrorSorter)
-        return "\n".join(map(str, errors)) + "\n"
-
     def parse_errors(self, output: Sequence[str]) -> dict[int, list[str]]:
-        # annotations_forward_refs.py:103:1: unexpected indent [python-compiler-error]
         line_to_errors: dict[int, list[str]] = {}
         for line in output:
-            match = re.search(r"^[a-zA-Z0-9_]+.pyi?:(\d+):(\d+): ", line)
-            if match is not None:
-                lineno = int(match.group(1))
-                line_to_errors.setdefault(int(lineno), []).append(line)
+            if not line.strip():
+                continue
+            line = self._normalize_output_line(line)
+            # reveal_type diagnostics are informational for conformance purposes.
+            if "[reveal_type]" in line or "Revealed type is " in line:
+                continue
+            match = re.match(r"^.+?:(\d+)(?::\d+)?:\s", line)
+            if not match:
+                continue
+            line_to_errors.setdefault(int(match.group(1)), []).append(line)
         return line_to_errors
 
 
 TYPE_CHECKERS: Sequence[TypeChecker] = (
     MypyTypeChecker(),
     PyrightTypeChecker(),
-    PyreTypeChecker(),
-    PytypeTypeChecker(),
+    ZubanLSTypeChecker(),
+    PyreflyTypeChecker(),
+    PycroscopeTypeChecker(),
+    TyTypeChecker(),
 )

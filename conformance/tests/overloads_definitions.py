@@ -70,28 +70,28 @@ class MyAbstractBase(ABC):
 class C:
     @overload  # E[func5]
     @staticmethod
-    def func5(x: int) -> int:  # E[func5]
+    def func5(x: int, /) -> int:  # E[func5]
         ...
 
     @overload
     @staticmethod
-    def func5(x: str) -> str:  # E[func5]
+    def func5(x: str, /) -> str:  # E[func5]
         ...
 
-    def func5(self, x: int | str) -> int | str:  # E[func5]
+    def func5(*args: object) -> int | str:  # E[func5]
         return 1
 
-    @overload  # E[func6]
+    @overload  # E[func6+]
     @classmethod
-    def func6(cls, x: int) -> int:  # E[func6]
+    def func6(cls, x: int, /) -> int:  # E[func6+]
         ...
 
     @overload
-    def func6(cls, x: str) -> str:  # E[func6]
+    def func6(self, x: str, /) -> str:  # E[func6+]
         ...
 
-    @classmethod
-    def func6(cls, x: int | str) -> int | str:  # E[func6]
+    @classmethod  # E[func6+]
+    def func6(cls, *args: int | str) -> int | str:  # E[func6+]
         return 1
 
 
@@ -114,12 +114,13 @@ class Base:
     def final_method(self, x: str) -> str: ...
 
     @final
-    def final_method(self, x: int | str) -> int | str: ...
+    def final_method(self, x: int | str) -> int | str:
+        raise NotImplementedError
 
     # The @final decorator should not be on one of the overloads:
 
     @overload  # E[invalid_final] @final should be on implementation only
-    @final
+    @final  # E[invalid_final]
     def invalid_final(self, x: int) -> int:  # E[invalid_final]
         ...
 
@@ -127,23 +128,25 @@ class Base:
     def invalid_final(self, x: str) -> str:  # E[invalid_final]
         ...
 
-    def invalid_final(self, x: int | str) -> int | str: ...
+    def invalid_final(self, x: int | str) -> int | str:
+        raise NotImplementedError
 
     # The @final decorator should not be on multiple overloads and
     # implementation:
 
-    @overload  # E[invalid_final_2] @final should be on implementation only
-    @final
-    def invalid_final_2(self, x: int) -> int:  # E[invalid_final_2]
+    @overload  # E[invalid_final_2+]: @final should be on implementation only
+    @final  # E[invalid_final_2+]
+    def invalid_final_2(self, x: int) -> int:  # E[invalid_final_2+]
         ...
 
     @overload
-    @final
-    def invalid_final_2(self, x: str) -> str:  # E[invalid_final_2]
+    @final  # E[invalid_final_2+]
+    def invalid_final_2(self, x: str) -> str:  # E[invalid_final_2+]
         ...
 
     @final
-    def invalid_final_2(self, x: int | str) -> int | str: ...
+    def invalid_final_2(self, x: int | str) -> int | str:
+        raise NotImplementedError
 
     # These methods are just here for the @override test below. We use an
     # overload because mypy doesn't like overriding a non-overloaded method
@@ -156,7 +159,8 @@ class Base:
     @overload
     def good_override(self, x: str) -> str: ...
 
-    def good_override(self, x: int | str) -> int | str: ...
+    def good_override(self, x: int | str) -> int | str:
+        raise NotImplementedError
 
     @overload
     def to_override(self, x: int) -> int: ...
@@ -164,7 +168,8 @@ class Base:
     @overload
     def to_override(self, x: str) -> str: ...
 
-    def to_override(self, x: int | str) -> int | str: ...
+    def to_override(self, x: int | str) -> int | str:
+        raise NotImplementedError
 
 
 class Child(Base):  # E[override-final]
@@ -173,7 +178,7 @@ class Child(Base):  # E[override-final]
     # questions of override LSP compatibility and focus only on the override):
 
     @overload  # E[override-final]
-    def final_method(self, x: int) -> int: ...
+    def final_method(self, x: int) -> int: ...  # E[override-final]
 
     @overload
     def final_method(self, x: str) -> str: ...
@@ -181,7 +186,7 @@ class Child(Base):  # E[override-final]
     def final_method(  # E[override-final] can't override final method
         self, x: int | str
     ) -> int | str:  # E[override-final] can't override final method
-        ...
+        raise NotImplementedError
 
     # This is the right way to mark an overload as @override (decorate
     # implementation only), so the use of @override should cause an error
@@ -194,9 +199,9 @@ class Child(Base):  # E[override-final]
     @overload
     def bad_override(self, x: str) -> str: ...
 
-    @override
+    @override  # E[bad_override]
     def bad_override(self, x: int | str) -> int | str:  # E[bad_override]
-        ...
+        raise NotImplementedError
 
     # This is also a correctly-decorated overloaded @override, which is
     # overriding a method that does exist in the base, so there should be no
@@ -212,18 +217,20 @@ class Child(Base):  # E[override-final]
     def good_override(self, x: str) -> str: ...
 
     @override
-    def good_override(self, x: int | str) -> int | str: ...
+    def good_override(self, x: int | str) -> int | str:
+        raise NotImplementedError
 
     # This is the wrong way to use @override with an overloaded method, and
     # should emit an error:
 
-    @overload  # E[override_impl]: @override should appear only on implementation
-    @override
-    def to_override(self, x: int) -> int: ...  # E[override_impl]
+    @overload  # E[override_impl+]: @override should appear only on implementation
+    @override  # E[override_impl+]
+    def to_override(self, x: int) -> int: ...  # E[override_impl+]
 
     @overload
-    @override
-    def to_override(self, x: str) -> str: ...  # E[override_impl]
+    @override  # E[override_impl+]
+    def to_override(self, x: str) -> str: ...  # E[override_impl+]
 
     @override
-    def to_override(self, x: int | str) -> int | str: ...
+    def to_override(self, x: int | str) -> int | str:
+        raise NotImplementedError

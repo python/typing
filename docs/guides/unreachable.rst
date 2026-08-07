@@ -54,7 +54,7 @@ As an example, consider this simple calculator:
 .. code:: python
 
    import enum
-   from typing_extensions import Never
+   from typing import Never
 
    def assert_never(arg: Never) -> Never:
        raise AssertionError("Expected code to be unreachable")
@@ -72,6 +72,11 @@ As an example, consider this simple calculator:
            case _:
                assert_never(op)
 
+.. note::
+
+   To use this feature on Python versions earlier than 3.11, you will need to
+   import ``Never`` from ``typing_extensions`` (version 4.1 or newer).
+
 The ``match`` statement covers all members of the ``Op`` enum,
 so the ``assert_never()`` call is unreachable and the type checker
 will accept this code. However, if you add another member to the
@@ -85,6 +90,14 @@ starting in Python 3.11,
 and is also present in ``typing_extensions`` starting at version 4.1.
 However, it is also possible to define a similar function in your own
 code, for example if you want to customize the runtime error message.
+
+This use of match statements for comprehensive matching is common
+enough that some typecheckers have direct support for checking all match
+statements for exhaustiveness, regardless of whether or not they have an
+``assert_never``-style function in their default arm. For instance, in pyright
+this can be enabled by enabling the diagnostic code ``reportMatchNotExhaustive``
+(on by default in strict mode), and in mypy it can be enabled by enabling
+the error code ``exhaustive-match``.
 
 You can also use ``assert_never()`` with a sequence of ``if`` statements:
 

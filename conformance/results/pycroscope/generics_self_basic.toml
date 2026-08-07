@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./generics_self_basic.py:20:8: Incompatible return type: expected ~SelfT@./generics_self_basic.py.Shape, got ./generics_self_basic.py.Shape [incompatible_return_value]
+./generics_self_basic.py:33:8: Incompatible return type: expected ~SelfT@./generics_self_basic.py.Shape, got ./generics_self_basic.py.Shape [incompatible_return_value]
+./generics_self_basic.py:68:25: Self cannot be further subscripted [invalid_specialization]
+"""

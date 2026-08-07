@@ -1,0 +1,18 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./namedtuples_define_functional.py:16:7: In call to pycroscope.signature.Point1: Missing required argument 'y' [incompatible_call]
+./namedtuples_define_functional.py:21:7: In call to pycroscope.signature.Point2: Missing required argument 'x' [incompatible_call]
+./namedtuples_define_functional.py:26:7: In call to pycroscope.signature.Point3: Takes 2 positional arguments but 3 were given [incompatible_call]
+./namedtuples_define_functional.py:31:7: In call to pycroscope.signature.Point4: Missing required argument 'y' [incompatible_call]
+./namedtuples_define_functional.py:36:17: Incompatible argument type for y: expected int but got Literal['1'] [incompatible_argument]
+./namedtuples_define_functional.py:37:7: In call to pycroscope.signature.Point5: Takes 2 positional arguments but 3 were given [incompatible_call]
+./namedtuples_define_functional.py:42:17: Incompatible argument type for y: expected int but got Literal['1'] [incompatible_argument]
+./namedtuples_define_functional.py:43:16: Incompatible argument type for x: expected int but got Literal[1.1] [incompatible_argument]
+./namedtuples_define_functional.py:52:6: Error calling (typename: str, field_names: str | collections.abc.Iterable[str], *, rename: bool = Literal[False], module: str | None = None, defaults: collections.abc.Iterable[Any[explicit]] | None = None) -> type[tuple[Any[explicit], ...]]: Encountered duplicate field name: 'a' [incompatible_call]
+./namedtuples_define_functional.py:53:6: Error calling (typename: str, field_names: str | collections.abc.Iterable[str], *, rename: bool = Literal[False], module: str | None = None, defaults: collections.abc.Iterable[Any[explicit]] | None = None) -> type[tuple[Any[explicit], ...]]: Type names and field names cannot be a keyword: 'def' [incompatible_call]
+./namedtuples_define_functional.py:54:6: Error calling (typename: str, field_names: str | collections.abc.Iterable[str], *, rename: bool = Literal[False], module: str | None = None, defaults: collections.abc.Iterable[Any[explicit]] | None = None) -> type[tuple[Any[explicit], ...]]: Type names and field names cannot be a keyword: 'def' [incompatible_call]
+./namedtuples_define_functional.py:55:6: Error calling (typename: str, field_names: str | collections.abc.Iterable[str], *, rename: bool = Literal[False], module: str | None = None, defaults: collections.abc.Iterable[Any[explicit]] | None = None) -> type[tuple[Any[explicit], ...]]: Field names cannot start with an underscore: '_d' [incompatible_call]
+./namedtuples_define_functional.py:69:0: In call to pycroscope.signature.NT7: Missing required argument 'a' [incompatible_call]
+"""

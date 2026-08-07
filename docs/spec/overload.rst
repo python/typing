@@ -40,28 +40,29 @@ Another example where ``@overload`` comes in handy is the type of the
 builtin ``map()`` function, which takes a different number of
 arguments depending on the type of the callable::
 
-  from typing import TypeVar, overload
+  from typing import overload
   from collections.abc import Callable, Iterable, Iterator
 
-  T1 = TypeVar('T1')
-  T2 = TypeVar('T2')
-  S = TypeVar('S')
-
   @overload
-  def map(func: Callable[[T1], S], iter1: Iterable[T1]) -> Iterator[S]: ...
+  def map[T1, S](func: Callable[[T1], S], iter1: Iterable[T1]) -> Iterator[S]: ...
   @overload
-  def map(func: Callable[[T1, T2], S],
-          iter1: Iterable[T1], iter2: Iterable[T2]) -> Iterator[S]: ...
+  def map[T1, T2, S](
+      func: Callable[[T1, T2], S],
+      iter1: Iterable[T1],
+      iter2: Iterable[T2],
+  ) -> Iterator[S]: ...
   # ... and we could add more items to support more than two iterables
 
 Note that we could also easily add items to support ``map(None, ...)``::
 
   @overload
-  def map(func: None, iter1: Iterable[T1]) -> Iterable[T1]: ...
+  def map[T1](func: None, iter1: Iterable[T1]) -> Iterable[T1]: ...
   @overload
-  def map(func: None,
-          iter1: Iterable[T1],
-          iter2: Iterable[T2]) -> Iterable[tuple[T1, T2]]: ...
+  def map[T1, T2](
+      func: None,
+      iter1: Iterable[T1],
+      iter2: Iterable[T2],
+  ) -> Iterable[tuple[T1, T2]]: ...
 
 Uses of the ``@overload`` decorator as shown above are suitable for
 stub files. In regular modules, a series of ``@overload``-decorated
@@ -91,11 +92,7 @@ A constrained ``TypeVar`` type can sometimes be used instead of
 using the ``@overload`` decorator. For example, the definitions
 of ``concat1`` and ``concat2`` in this stub file are equivalent::
 
-  from typing import TypeVar
-
-  AnyStr = TypeVar('AnyStr', str, bytes)
-
-  def concat1(x: AnyStr, y: AnyStr) -> AnyStr: ...
+  def concat1[S: (str, bytes)](x: S, y: S) -> S: ...
 
   @overload
   def concat2(x: str, y: str) -> str: ...
@@ -107,13 +104,13 @@ be represented precisely using type variables. We
 recommend that ``@overload`` is only used in cases where a type
 variable is not sufficient.
 
-Another important difference between type variables such as ``AnyStr``
-and using ``@overload`` is that the prior can also be used to define
-constraints for generic class type parameters. For example, the type
-parameter of the generic class ``typing.IO`` is constrained (only
-``IO[str]``, ``IO[bytes]`` and ``IO[Any]`` are valid)::
+Another important difference between type variables and an ``@overload``
+is that the former can also be used to define constraints for generic
+class type parameters. For example, the type parameter of the generic
+class ``typing.IO`` is constrained (only ``IO[str]``, ``IO[bytes]``
+and ``IO[Any]`` are valid)::
 
-  class IO(Generic[AnyStr]): ...
+  class IO[S: (str, bytes)]: ...
 
 
 Invalid overload definitions
@@ -196,8 +193,10 @@ Only the overloads (the ``@overload``-decorated signatures) should be
 considered for matching purposes. The implementation, if provided,
 should be ignored for purposes of overload matching.
 
+Step 1
+~~~~~~
 
-Step 1: Examine the argument list to determine the number of
+Examine the argument list to determine the number of
 positional and keyword arguments. Use this information to eliminate any
 overload candidates that are not plausible based on their
 input signatures.
@@ -207,8 +206,10 @@ input signatures.
   it as if it were a non-overloaded function call and stop.
 - If two or more candidate overloads remain, proceed to step 2.
 
+Step 2
+~~~~~~
 
-Step 2: Evaluate each remaining overload as a regular (non-overloaded)
+Evaluate each remaining overload as a regular (non-overloaded)
 call to determine whether it is compatible with the supplied
 argument list. Unlike step 1, this step considers the types of the parameters
 and arguments. During this step, do not generate any user-visible errors.
@@ -219,8 +220,10 @@ Simply record which of the overloads result in evaluation errors.
   Evaluate it as if it were a non-overloaded function call and stop.
 - If two or more candidate overloads remain, proceed to step 4.
 
+Step 3
+~~~~~~
 
-Step 3: If step 2 produces errors for all overloads, perform
+If step 2 produces errors for all overloads, perform
 "argument type expansion". Union types can be expanded
 into their constituent subtypes. For example, the type ``int | str`` can
 be expanded into ``int`` and ``str``.
@@ -248,8 +251,10 @@ expanded argument lists.
 For additional details about argument type expansion, see
 `argument-type-expansion`_ below.
 
+Step 4
+~~~~~~
 
-Step 4: If the argument list is compatible with two or more overloads,
+If the argument list is compatible with two or more overloads,
 determine whether one or more of the overloads has a variadic parameter
 (either ``*args`` or ``**kwargs``) that maps to a corresponding argument
 that supplies an indeterminate number of positional or keyword arguments.
@@ -260,8 +265,10 @@ If so, eliminate overloads that do not have a variadic parameter.
   call and stop.
 - If two or more candidate overloads remain, proceed to step 5.
 
+Step 5
+~~~~~~
 
-Step 5: For all arguments, determine whether all possible
+For all arguments, determine whether all possible
 :term:`materializations <materialize>` of the argument's type are assignable to
 the corresponding parameter type for each of the remaining overloads. If so,
 eliminate all of the subsequent remaining overloads.
@@ -295,9 +302,14 @@ for all remaining overloads are :term:`equivalent`, proceed to step 6.
 If the return types are not equivalent, overload matching is ambiguous. In
 this case, assume a return type of ``Any`` and stop.
 
+Step 6
+~~~~~~
 
-Step 6: Choose the first remaining candidate overload as the winning
+Choose the first remaining candidate overload as the winning
 match. Evaluate it as if it were a non-overloaded function call and stop.
+
+Examples
+~~~~~~~~
 
 Example 1::
 

@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not report incompatible Generator type in `yield from` statement.
+Does not report incompatible `Generator` type in `yield from` statement.
 """
 output = """
 annotations_generators.py:51: error: Missing return statement  [return]
@@ -16,7 +16,5 @@ annotations_generators.py:119: error: Incompatible types in "yield from" (actual
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 87: Expected 1 errors
-Line 92: Expected 1 errors
 Line 135: Expected 1 errors
 """

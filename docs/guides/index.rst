@@ -1,9 +1,14 @@
+:orphan:
+
 ******************
 Type System Guides
 ******************
 
+..
+   Keep in sync with docs/index.rst.
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    libraries

@@ -1,0 +1,14 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR protocols_class_objects.py:29:5-10: Argument `type[Proto]` is not assignable to parameter `cls` with type `type[Proto]` in function `fun` [bad-argument-type]
+ERROR protocols_class_objects.py:34:7-12: `type[Proto]` is not assignable to variable `var` with type `type[Proto]` [bad-assignment]
+ERROR protocols_class_objects.py:58:16-25: `type[ConcreteA]` is not assignable to `ProtoA1` [bad-assignment]
+ERROR protocols_class_objects.py:74:16-25: `type[ConcreteB]` is not assignable to `ProtoB1` [bad-assignment]
+ERROR protocols_class_objects.py:104:16-26: `type[ConcreteC1]` is not assignable to `ProtoC1` [bad-assignment]
+ERROR protocols_class_objects.py:106:16-26: `type[ConcreteC2]` is not assignable to `ProtoC1` [bad-assignment]
+ERROR protocols_class_objects.py:107:16-26: `type[ConcreteC2]` is not assignable to `ProtoC2` [bad-assignment]
+ERROR protocols_class_objects.py:108:16-26: `type[ConcreteC3]` is not assignable to `ProtoC1` [bad-assignment]
+"""

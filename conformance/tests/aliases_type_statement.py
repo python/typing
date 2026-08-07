@@ -48,15 +48,6 @@ type BadTypeAlias11 = 1  # E
 type BadTypeAlias12 = list or set  # E
 type BadTypeAlias13 = f"{'int'}"  # E
 
-type BadTypeAlias14 = int  # E[TA14]: redeclared
-type BadTypeAlias14 = int  # E[TA14]: redeclared
-
-
-def func3():
-    type BadTypeAlias15 = int  # E: alias not allowed in function
-
-
-
 V = TypeVar("V")
 
 type TA1[K] = dict[K, V] # E: combines old and new TypeVars
@@ -85,5 +76,5 @@ type RecursiveTypeAlias4[T] = T | RecursiveTypeAlias4[str] # E: circular definit
 
 type RecursiveTypeAlias5[T] = T | list[RecursiveTypeAlias5[T]]
 
-type RecursiveTypeAlias6 = RecursiveTypeAlias7  # E[RTA6]: circular definition
-type RecursiveTypeAlias7 = RecursiveTypeAlias6  # E[RTA6]: circular definition
+type RecursiveTypeAlias6 = RecursiveTypeAlias7  # E[RTA6+]: circular definition
+type RecursiveTypeAlias7 = RecursiveTypeAlias6  # E[RTA6+]: circular definition

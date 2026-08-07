@@ -1,6 +1,11 @@
+:orphan:
+
 *********************
 Type System Reference
 *********************
+
+..
+   Keep in sync with docs/index.rst.
 
 .. toctree::
    :maxdepth: 2

@@ -1,0 +1,14 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR dataclasses_transform_class.py:51:7-24: Cannot inherit non-frozen dataclass `Customer1Subclass` from frozen dataclass `Customer1` [invalid-inheritance]
+ERROR dataclasses_transform_class.py:63:1-8: Cannot set field `id` [read-only]
+ERROR dataclasses_transform_class.py:66:18-19: Expected argument `id` to be passed by name in function `Customer1.__init__` [unexpected-positional-argument]
+ERROR dataclasses_transform_class.py:66:21-26: Expected argument `name` to be passed by name in function `Customer1.__init__` [unexpected-positional-argument]
+ERROR dataclasses_transform_class.py:72:6-17: `<` is not supported between `Customer1` and `Customer1` [unsupported-operation]
+ERROR dataclasses_transform_class.py:82:18-19: Expected argument `id` to be passed by name in function `Customer2.__init__` [unexpected-positional-argument]
+ERROR dataclasses_transform_class.py:82:18-19: Expected 0 positional arguments, got 2 in function `Customer2.__init__` [bad-argument-count]
+ERROR dataclasses_transform_class.py:122:1-8: Cannot set field `id` [read-only]
+"""

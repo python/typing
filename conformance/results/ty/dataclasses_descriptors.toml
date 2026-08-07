@@ -1,0 +1,13 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Only infers a descriptor `__get__` method as being called when a descriptor attribute is accessed on an instance if the descriptor attribute is present in the class namespace.
+"""
+errors_diff = """
+Line 66: Unexpected errors ['dataclasses_descriptors.py:66:1: error[type-assertion-failure] Type `int | Desc2[int]` does not match asserted type `int`']
+Line 67: Unexpected errors ['dataclasses_descriptors.py:67:1: error[type-assertion-failure] Type `str | Desc2[str]` does not match asserted type `str`']
+"""
+output = """
+dataclasses_descriptors.py:66:1: error[type-assertion-failure] Type `int | Desc2[int]` does not match asserted type `int`
+dataclasses_descriptors.py:67:1: error[type-assertion-failure] Type `str | Desc2[str]` does not match asserted type `str`
+"""

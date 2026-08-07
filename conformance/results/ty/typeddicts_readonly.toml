@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly.py:24:4: error[invalid-assignment] Cannot assign to key "members" on TypedDict `Band`: key is marked read-only
+typeddicts_readonly.py:36:4: error[invalid-assignment] Cannot assign to key "members" on TypedDict `Band2`: key is marked read-only
+typeddicts_readonly.py:50:4: error[invalid-assignment] Cannot assign to key "title" on TypedDict `Movie1`: key is marked read-only
+typeddicts_readonly.py:51:4: error[invalid-assignment] Cannot assign to key "year" on TypedDict `Movie1`: key is marked read-only
+typeddicts_readonly.py:60:4: error[invalid-assignment] Cannot assign to key "title" on TypedDict `Movie2`: key is marked read-only
+typeddicts_readonly.py:61:4: error[invalid-assignment] Cannot assign to key "year" on TypedDict `Movie2`: key is marked read-only
+"""

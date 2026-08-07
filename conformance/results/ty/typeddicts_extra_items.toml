@@ -1,0 +1,32 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_extra_items.py:15:45: error[invalid-argument-type] Invalid argument to key "year" with declared type `bool` on TypedDict `Movie`: value of type `Literal[1982]`
+typeddicts_extra_items.py:22:55: error[invalid-argument-type] Invalid argument to key "year" with declared type `bool` on TypedDict `MovieFunctional`: value of type `Literal[1982]`
+typeddicts_extra_items.py:39:54: error[invalid-argument-type] Invalid argument to key "year" with declared type `int` on TypedDict `InheritedMovie`: value of type `None`
+typeddicts_extra_items.py:49:28: error[invalid-argument-type] Invalid argument to parameter `closed` in `TypedDict` definition: Expected either `True` or `False`, got object of type `Literal[True]`
+typeddicts_extra_items.py:67:7: error[invalid-typed-dict-header] TypedDict `IllegalChild1` must remain closed because base `ClosedBase` is closed
+typeddicts_extra_items.py:73:7: error[invalid-typed-dict-header] TypedDict `IllegalChild2` must preserve mutable extra items from base `ExtraItemsBase`
+typeddicts_extra_items.py:91:7: error[invalid-typed-dict-header] Cannot add item `age` to closed TypedDict base `MovieA`
+typeddicts_extra_items.py:94:7: error[invalid-typed-dict-header] Cannot add item `age` to closed TypedDict base `MovieB`
+typeddicts_extra_items.py:109:7: error[invalid-typed-dict-header] TypedDict `IllegalCloseNonReadOnly` must preserve mutable extra items from base `ExtraItemsBase`
+typeddicts_extra_items.py:114:50: error[invalid-type-form] Type qualifier `typing.Required` is not valid in a TypedDict `extra_items` argument
+typeddicts_extra_items.py:117:57: error[invalid-type-form] Type qualifier `typing.NotRequired` is not valid in a TypedDict `extra_items` argument
+typeddicts_extra_items.py:128:15: error[invalid-argument-type] Cannot delete required key "name" from TypedDict `MovieEI`
+typeddicts_extra_items.py:174:7: error[invalid-typed-dict-header] TypedDict `Child` must preserve mutable extra items type `int | None` from base `Parent`
+typeddicts_extra_items.py:184:7: error[invalid-typed-dict-header] Item `year` must be mutable, not required, and consistent with extra items type `int | None` from base `MovieBase2`
+typeddicts_extra_items.py:187:7: error[invalid-typed-dict-header] Item `year` must be mutable, not required, and consistent with extra items type `int | None` from base `MovieBase2`
+typeddicts_extra_items.py:196:7: error[invalid-typed-dict-header] Item `publisher` of type `str` is not assignable to extra items type `int | None` from base `BookBase`
+typeddicts_extra_items.py:215:22: error[invalid-assignment] Object of type `MovieDetails` is not assignable to `MovieBase2`
+typeddicts_extra_items.py:222:22: error[invalid-assignment] Object of type `MovieWithYear2` is not assignable to `MovieBase2`
+typeddicts_extra_items.py:242:19: error[invalid-assignment] Object of type `MovieDetails5` is not assignable to `MovieSI`
+typeddicts_extra_items.py:256:13: error[invalid-assignment] Object of type `MovieExtraStr` is not assignable to `MovieExtraInt`
+typeddicts_extra_items.py:257:13: error[invalid-assignment] Object of type `MovieExtraInt` is not assignable to `MovieExtraStr`
+typeddicts_extra_items.py:268:14: error[invalid-assignment] Object of type `MovieNotClosed` is not assignable to `MovieExtraInt`
+typeddicts_extra_items.py:278:47: error[invalid-key] Unknown key "year" for TypedDict `NonClosedMovie`
+typeddicts_extra_items.py:285:52: error[invalid-argument-type] Invalid argument to key "language" with declared type `int` on TypedDict `ExtraMovie`: value of type `Literal["English"]`
+typeddicts_extra_items.py:293:44: error[invalid-key] Unknown key "year" for TypedDict `ClosedMovie`
+typeddicts_extra_items.py:303:34: error[invalid-assignment] Object of type `MovieExtraInt` is not assignable to `Mapping[str, int]`
+typeddicts_extra_items.py:352:25: error[invalid-assignment] Object of type `dict[str, int]` is not assignable to `IntDict`
+"""

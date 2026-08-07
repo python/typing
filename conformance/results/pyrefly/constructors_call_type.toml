@@ -1,0 +1,18 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR constructors_call_type.py:30:8-10: Missing argument `x` in function `Meta1.__call__` [missing-argument]
+ERROR constructors_call_type.py:30:8-10: Missing argument `y` in function `Meta1.__call__` [missing-argument]
+ERROR constructors_call_type.py:40:8-10: Missing argument `x` in function `Class2.__new__` [missing-argument]
+ERROR constructors_call_type.py:40:8-10: Missing argument `y` in function `Class2.__new__` [missing-argument]
+ERROR constructors_call_type.py:50:8-10: Missing argument `x` in function `Class3.__init__` [missing-argument]
+ERROR constructors_call_type.py:50:8-10: Missing argument `y` in function `Class3.__init__` [missing-argument]
+ERROR constructors_call_type.py:59:9-10: Expected 0 positional arguments, got 1 in function `object.__init__` [bad-argument-count]
+ERROR constructors_call_type.py:64:9-10: Expected 0 positional arguments, got 1 [bad-argument-count]
+ERROR constructors_call_type.py:72:8-10: Missing argument `x` in function `Meta1.__call__` [missing-argument]
+ERROR constructors_call_type.py:72:8-10: Missing argument `y` in function `Meta1.__call__` [missing-argument]
+ERROR constructors_call_type.py:81:8-11: Missing argument `y` in function `Class2.__new__` [missing-argument]
+ERROR constructors_call_type.py:82:12-13: Argument `Literal[2]` is not assignable to parameter `y` with type `str` in function `Class2.__new__` [bad-argument-type]
+"""

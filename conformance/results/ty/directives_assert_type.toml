@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_assert_type.py:27:5: error[type-assertion-failure] Type `int | str` does not match asserted type `int`
+directives_assert_type.py:28:5: error[type-assertion-failure] Type `int | str` does not match asserted type `Any`
+directives_assert_type.py:29:5: error[type-assertion-failure] Type `Any` does not match asserted type `int`
+directives_assert_type.py:30:5: error[type-assertion-failure] Type `Literal[4]` does not match asserted type `int`
+directives_assert_type.py:32:5: error[missing-argument] No arguments provided for required parameters `value`, `type` of function `assert_type`
+directives_assert_type.py:33:5: error[type-assertion-failure] Type `Literal[""]` does not match asserted type `int`
+directives_assert_type.py:34:31: error[too-many-positional-arguments] Too many positional arguments to function `assert_type`: expected 2, got 3
+"""

@@ -1,0 +1,20 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+annotations_typeexpr.py:88:9: error[invalid-type-form] Function calls are not allowed in parameter annotations
+annotations_typeexpr.py:89:9: error[invalid-type-form] List literals are not allowed in this context in a parameter annotation
+annotations_typeexpr.py:90:9: error[invalid-type-form] Tuple literals are not allowed in this context in a parameter annotation: Did you mean `tuple[int, str]`?
+annotations_typeexpr.py:91:9: error[invalid-type-form] List comprehensions are not allowed in parameter annotations
+annotations_typeexpr.py:92:9: error[invalid-type-form] Dict literals are not allowed in parameter annotations
+annotations_typeexpr.py:93:9: error[invalid-type-form] Function calls are not allowed in parameter annotations
+annotations_typeexpr.py:94:9: error[invalid-type-form] Only simple names and dotted names can be subscripted in parameter annotations
+annotations_typeexpr.py:95:9: error[invalid-type-form] `if` expressions are not allowed in parameter annotations
+annotations_typeexpr.py:96:9: error[invalid-type-form] Variable of type `Literal[3]` is not allowed in a parameter annotation
+annotations_typeexpr.py:97:10: error[invalid-type-form] Boolean literals are not allowed in this context in a parameter annotation: Did you mean `typing.Literal[True]`?
+annotations_typeexpr.py:98:10: error[invalid-type-form] Int literals are not allowed in this context in a parameter annotation: Did you mean `typing.Literal[1]`?
+annotations_typeexpr.py:99:10: error[invalid-type-form] Unary operations are not allowed in parameter annotations
+annotations_typeexpr.py:100:10: error[invalid-type-form] Boolean operations are not allowed in parameter annotations
+annotations_typeexpr.py:101:10: error[invalid-type-form] F-strings are not allowed in parameter annotations
+annotations_typeexpr.py:102:10: error[invalid-type-form] Module `types` is not valid in a parameter annotation
+"""

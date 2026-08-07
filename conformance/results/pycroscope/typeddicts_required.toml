@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./typeddicts_required.py:12:7: Unexpected Required annotation [invalid_qualifier]
+./typeddicts_required.py:16:7: Unexpected NotRequired annotation [invalid_qualifier]
+./typeddicts_required.py:59:16: Required[] cannot be nested [invalid_qualifier]
+./typeddicts_required.py:60:7: Required[] and NotRequired[] cannot be nested [invalid_qualifier]
+"""

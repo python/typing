@@ -1,0 +1,14 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Synthesizes a `__slots__` attribute but does not validate attribute assignments against `__slots__`.
+"""
+errors_diff = """
+Line 25: Expected 1 errors
+Line 38: Expected 1 errors
+Lines 10, 11: Expected error (tag 'DC1')
+"""
+output = """
+dataclasses_slots.py:66:1: error[unresolved-attribute] Class `DC6` has no attribute `__slots__`
+dataclasses_slots.py:69:1: error[unresolved-attribute] Object of type `DC6` has no attribute `__slots__`
+"""

@@ -1,0 +1,23 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./generics_syntax_infer_variance.py:15:5: TypeVar cannot combine infer_variance with explicit variance [incompatible_call]
+./generics_syntax_infer_variance.py:17:5: TypeVar cannot combine infer_variance with explicit variance [incompatible_call]
+./generics_syntax_infer_variance.py:29:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeCovariant1[int], got ./generics_syntax_infer_variance.py.ShouldBeCovariant1[float | int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:47:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeCovariant2[int], got ./generics_syntax_infer_variance.py.ShouldBeCovariant2[float | int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:56:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeCovariant3[int], got ./generics_syntax_infer_variance.py.ShouldBeCovariant3[float | int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:85:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeCovariant5[int], got ./generics_syntax_infer_variance.py.ShouldBeCovariant5[float | int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:96:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeCovariant6[int], got ./generics_syntax_infer_variance.py.ShouldBeCovariant6[float | int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:112:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant1[float | int], got ./generics_syntax_infer_variance.py.ShouldBeInvariant1[int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:113:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant1[int], got ./generics_syntax_infer_variance.py.ShouldBeInvariant1[float | int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:127:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant2[float | int], got ./generics_syntax_infer_variance.py.ShouldBeInvariant2[int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:128:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant2[int], got ./generics_syntax_infer_variance.py.ShouldBeInvariant2[float | int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:135:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant3[float | int, str], got ./generics_syntax_infer_variance.py.ShouldBeInvariant3[int, str] [incompatible_assignment]
+./generics_syntax_infer_variance.py:136:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant3[int, str], got ./generics_syntax_infer_variance.py.ShouldBeInvariant3[float | int, str] [incompatible_assignment]
+./generics_syntax_infer_variance.py:137:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant3[str, float | int], got ./generics_syntax_infer_variance.py.ShouldBeInvariant3[str, int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:138:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant3[str, int], got ./generics_syntax_infer_variance.py.ShouldBeInvariant3[str, float | int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:146:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant4[float | int], got ./generics_syntax_infer_variance.py.ShouldBeInvariant4[int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:154:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeInvariant5[float | int], got ./generics_syntax_infer_variance.py.ShouldBeInvariant5[int] [incompatible_assignment]
+./generics_syntax_infer_variance.py:165:0: Incompatible assignment: expected ./generics_syntax_infer_variance.py.ShouldBeContravariant1[float | int], got ./generics_syntax_infer_variance.py.ShouldBeContravariant1[int] [incompatible_assignment]
+"""

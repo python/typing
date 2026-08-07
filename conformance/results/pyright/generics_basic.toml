@@ -20,6 +20,22 @@ generics_basic.py:171:7 - error: Generic[] or Protocol[] must include all type v
 generics_basic.py:172:7 - error: Generic[] or Protocol[] must include all type variables
   Missing type variables: "T_co" (reportGeneralTypeIssues)
 generics_basic.py:208:37 - error: Metaclass cannot be generic (reportGeneralTypeIssues)
+generics_basic.py:223:22 - error: Argument of type "Literal['not a list']" cannot be assigned to parameter "y" of type "list[T@takes_two_lists]" in function "takes_two_lists"
+  "Literal['not a list']" is not assignable to "list[int]" (reportArgumentType)
+generics_basic.py:225:23 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@takes_two_lists]" in function "takes_two_lists"
+  "Literal['']" is not assignable to "int" (reportArgumentType)
+generics_basic.py:232:24 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@takes_two_lists]" in function "takes_two_lists"
+  "list[str]" is not assignable to "list[int]"
+    Type parameter "_T@list" is invariant, but "str" is not the same as "int"
+    Consider switching from "list" to "Sequence" which is covariant (reportArgumentType)
+generics_basic.py:240:26 - error: Argument of type "Literal['not a list']" cannot be assigned to parameter "y" of type "list[T_int@takes_two_int_lists]" in function "takes_two_int_lists"
+  "Literal['not a list']" is not assignable to "list[int]" (reportArgumentType)
+generics_basic.py:241:27 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T_int@takes_two_int_lists]" in function "takes_two_int_lists"
+  "Literal['']" is not assignable to "int" (reportArgumentType)
+generics_basic.py:251:28 - error: Argument of type "list[bool]" cannot be assigned to parameter "y" of type "list[T_int@takes_two_int_lists]" in function "takes_two_int_lists"
+  "list[bool]" is not assignable to "list[int]"
+    Type parameter "_T@list" is invariant, but "bool" is not the same as "int"
+    Consider switching from "list" to "Sequence" which is covariant (reportArgumentType)
 """
 conformance_automated = "Pass"
 errors_diff = """

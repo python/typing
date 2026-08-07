@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
-Does not report errors during binding to self parameter of __init__ method.
-Does not reject use of class-scoped type variables in annotation of self parameter in __init__ method.
+Does not report errors during binding to self parameter of `__init__` method.
+Does not reject use of class-scoped type variables in annotation of self parameter in `__init__` method.
 """
 conformance_automated = "Fail"
 errors_diff = """

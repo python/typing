@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_inheritance.py:44:31: error[invalid-typed-dict-header] TypedDict class `BadTypedDict` can only inherit from TypedDict classes: `NonTypedDict` is not a `TypedDict` class
+typeddicts_inheritance.py:55:4: error[invalid-typed-dict-field] Cannot overwrite TypedDict field `x`: Inherited mutable field type `str` is incompatible with `int`
+typeddicts_inheritance.py:65:7: error[invalid-typed-dict-field] Cannot overwrite TypedDict field `x` while merging base classes: Inherited mutable field type `str` is incompatible with `int`
+"""

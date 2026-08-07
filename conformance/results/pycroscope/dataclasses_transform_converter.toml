@@ -1,0 +1,14 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./dataclasses_transform_converter.py:48:40: Incompatible argument type for converter: expected (~S, /) -> ~T but got () -> int [incompatible_argument]
+./dataclasses_transform_converter.py:49:40: Incompatible argument type for converter: expected (~S, /) -> ~T but got (*, x: int) -> int [incompatible_argument]
+./dataclasses_transform_converter.py:107:4: Incompatible argument type for field0: expected str but got Literal[1] [incompatible_argument]
+./dataclasses_transform_converter.py:108:22: Incompatible argument type for field3: expected str | bytes but got Literal[1] [incompatible_argument]
+./dataclasses_transform_converter.py:109:28: Incompatible argument type for field4: expected str | list[str] but got Literal[3j] [incompatible_argument]
+./dataclasses_transform_converter.py:118:0: Incompatible types in assignment to attribute 'field0': expected str, got Literal[1] [incompatible_assignment]
+./dataclasses_transform_converter.py:119:0: Incompatible types in assignment to attribute 'field3': expected str | bytes, got Literal[1] [incompatible_assignment]
+./dataclasses_transform_converter.py:130:18: Cannot resolve type variables [incompatible_call]
+./dataclasses_transform_converter.py:133:18: Cannot resolve type variables [incompatible_call]
+"""

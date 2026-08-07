@@ -1,0 +1,22 @@
+conformant = "Partial"
+notes = """
+Fails to apply default specializations in some cases.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 23: Unexpected errors ["./generics_defaults_referential.py:23:12:   type 'generics_defaults_referential.slice' is not equivalent to type[generics_defaults_referential.slice[int, int, int | None]]"]
+Line 98: Unexpected errors ['./generics_defaults_referential.py:98:16:   ~Z1@generics_defaults_referential.Bar is not equivalent to Any[explicit]']
+Line 99: Unexpected errors ['./generics_defaults_referential.py:99:16:   ~ListDefaultT@generics_defaults_referential.Bar is not equivalent to list[Any[explicit]]']
+"""
+output = """
+./generics_defaults_referential.py:23:12:   type 'generics_defaults_referential.slice' is not equivalent to type[generics_defaults_referential.slice[int, int, int | None]]
+./generics_defaults_referential.py:37:16: Incompatible argument type for b: expected int but got str [incompatible_argument]
+./generics_defaults_referential.py:38:13: Incompatible argument type for a: expected int but got str [incompatible_argument]
+./generics_defaults_referential.py:54:0: Type parameter defaults can reference only earlier type parameters from the same class [invalid_type_parameter]
+./generics_defaults_referential.py:61:4: Type parameter defaults can reference only earlier type parameters from the same class [invalid_type_parameter]
+./generics_defaults_referential.py:69:39: TypeVar default must be assignable to its bound [incompatible_call]
+./generics_defaults_referential.py:75:51: TypeVar default must be one of its constraints [incompatible_call]
+./generics_defaults_referential.py:79:62: TypeVar default must be one of its constraints [incompatible_call]
+./generics_defaults_referential.py:98:16:   ~Z1@generics_defaults_referential.Bar is not equivalent to Any[explicit]
+./generics_defaults_referential.py:99:16:   ~ListDefaultT@generics_defaults_referential.Bar is not equivalent to list[Any[explicit]]
+"""

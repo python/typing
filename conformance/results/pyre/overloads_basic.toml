@@ -1,7 +1,0 @@
-conformant = "Pass"
-output = """
-overloads_basic.py:39:2 Incompatible parameter type [6]: In call `Bytes.__getitem__`, for 1st positional argument, expected `int` but got `str`.
-"""
-conformance_automated = "Pass"
-errors_diff = """
-"""

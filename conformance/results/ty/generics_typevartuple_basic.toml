@@ -1,0 +1,20 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_typevartuple_basic.py:42:34: error[invalid-argument-type] Argument to `Array.__init__` is incorrect: Expected `tuple[Height, Width]`, found `Height`
+generics_typevartuple_basic.py:43:41: error[invalid-argument-type] Argument to `Array.__init__` is incorrect: Expected `tuple[Batch, Height, Width]`, found `tuple[Batch, Width]`
+generics_typevartuple_basic.py:44:41: error[invalid-assignment] Object of type `Array[Time, Batch, Width, Height]` is not assignable to `Array[Time, Batch, Height, Width]`
+generics_typevartuple_basic.py:52:14: error[invalid-generic-class] `TypeVarTuple` must be unpacked with `*` or `Unpack[]` when used as an argument to `Generic`
+generics_typevartuple_basic.py:53:37: error[invalid-type-form] Bare TypeVarTuple `Shape` is not valid in this context in a parameter annotation
+generics_typevartuple_basic.py:56:34: error[invalid-type-form] Bare TypeVarTuple `Shape` is not valid in this context in a return type annotation
+generics_typevartuple_basic.py:59:24: error[invalid-type-form] Bare TypeVarTuple `Shape` is not valid in this context in a parameter annotation
+generics_typevartuple_basic.py:65:27: error[invalid-legacy-type-variable] The `covariant` parameter of `typing.TypeVarTuple` was added in Python 3.15
+generics_typevartuple_basic.py:66:7: error[invalid-legacy-type-variable] `TypeVarTuple` can only have one positional argument
+generics_typevartuple_basic.py:67:27: error[invalid-legacy-type-variable] The `bound` parameter of `typing.TypeVarTuple` was added in Python 3.15
+generics_typevartuple_basic.py:91:15: error[invalid-argument-type] Argument to function `func2` is incorrect: Expected `tuple[Literal[0], Literal[0]]`, found `tuple[Literal[0]]`
+generics_typevartuple_basic.py:100:14: error[invalid-argument-type] Argument to function `multiply` is incorrect: Expected `Array[Height | Width]`, found `Array[Height]`
+generics_typevartuple_basic.py:100:17: error[invalid-argument-type] Argument to function `multiply` is incorrect: Expected `Array[Height | Width]`, found `Array[Width]`
+generics_typevartuple_basic.py:101:17: error[invalid-argument-type] Argument to function `multiply` is incorrect: Expected `Array[Height]`, found `Array[Height, Width]`
+generics_typevartuple_basic.py:107:14: error[invalid-generic-class] Only one `TypeVarTuple` parameter is allowed in a `Generic` subscription
+"""

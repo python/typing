@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_final.py:27: error: Cannot assign to final attribute "final_classvar"  [misc]
+dataclasses_final.py:35: error: Cannot assign to final attribute "final_no_default"  [misc]
+dataclasses_final.py:36: error: Cannot assign to final attribute "final_with_default"  [misc]
+dataclasses_final.py:37: error: Cannot assign to final attribute "final_no_default"  [misc]
+dataclasses_final.py:38: error: Cannot assign to final attribute "final_with_default"  [misc]
+"""

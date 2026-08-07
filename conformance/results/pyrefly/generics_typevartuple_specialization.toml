@@ -1,0 +1,12 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR generics_typevartuple_specialization.py:109:1-21: Unpacked argument cannot be used for type parameter T [bad-unpacking]
+ERROR generics_typevartuple_specialization.py:110:1-36: Unpacked argument cannot be used for type parameter T [bad-unpacking]
+ERROR generics_typevartuple_specialization.py:121:26-29: Only one unbounded type is allowed to be unpacked [bad-unpacking]
+ERROR generics_typevartuple_specialization.py:122:26-42: Only one unbounded type is allowed to be unpacked [bad-unpacking]
+ERROR generics_typevartuple_specialization.py:127:5-13: Expected 3 type arguments for `TA7`, got 1 [bad-specialization]
+ERROR generics_typevartuple_specialization.py:163:8-18: Unpacked argument cannot be used for type parameter T [bad-unpacking]
+"""

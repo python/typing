@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./dataclasses_transform_class.py:51:0: Non-frozen dataclass cannot inherit from a frozen dataclass [invalid_base]
+./dataclasses_transform_class.py:63:0: Cannot assign to attribute id of frozen dataclass ./dataclasses_transform_class.py.Customer1 [incompatible_assignment]
+./dataclasses_transform_class.py:66:7: Missing required argument 'id' [incompatible_call]
+./dataclasses_transform_class.py:72:5: Unsupported operands for less than: ./dataclasses_transform_class.py.Customer1 and ./dataclasses_transform_class.py.Customer1 [unsupported_operation]
+./dataclasses_transform_class.py:82:7: Missing required argument 'id' [incompatible_call]
+./dataclasses_transform_class.py:122:0: Cannot assign to attribute id of frozen dataclass ./dataclasses_transform_class.py.Customer3 [incompatible_assignment]
+"""

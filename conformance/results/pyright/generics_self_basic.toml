@@ -4,7 +4,7 @@ generics_self_basic.py:20:16 - error: Type "Shape" is not assignable to return t
   Type "Shape" is not assignable to type "Self@Shape" (reportReturnType)
 generics_self_basic.py:33:16 - error: Type "Shape" is not assignable to return type "Self@Shape"
   Type "Shape" is not assignable to type "Self@Shape" (reportReturnType)
-generics_self_basic.py:67:31 - error: Expected no type arguments for class "Self" (reportInvalidTypeArguments)
+generics_self_basic.py:68:31 - error: Expected no type arguments for class "Self" (reportInvalidTypeArguments)
 """
 conformance_automated = "Pass"
 errors_diff = """
